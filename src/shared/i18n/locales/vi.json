@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Quay lại", "cancel": "Hủy", "continue": "Tiếp tục", "retry": "Thử lại", "startOver": "Bắt đầu lại"},
+	"common": {"back": "Quay lại", "cancel": "Hủy", "continue": "Tiếp tục", "loading": "Đang tải…", "retry": "Thử lại", "startOver": "Bắt đầu lại"},
 	"app": {"feedback": "Phản hồi", "logs": "Nhật ký", "feedbackNudge": "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬", "zoomIn": "Phóng to", "zoomOut": "Thu nhỏ"},
 	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
 	"titleBar": {"close": "Đóng", "minimize": "Thu nhỏ", "maximize": "Phóng to", "restore": "Khôi phục"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "Thêm ít nhất một URL được hỗ trợ để tiếp tục.",
 			"reject": {"duplicate": "Trùng lặp"}
 		},
+		"tabsNavAria": "Điều hướng hồ sơ tải xuống",
+		"profileSwitchRow": {"helpAria": "Trợ giúp {{label}}"},
 		"mixedPrompt": {
 			"title": "Liên kết này có Playlist",
 			"body": "Bạn chỉ muốn video đã chọn, hay muốn chọn từ Playlist? Bạn sẽ chọn các video cụ thể hoặc một đoạn ở bước tiếp theo.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "Thả một liên kết và để Arroxy kéo về ✨",
 			"mascotBusy": "Đang tải xuống trong nền… Tôi có thể làm nhiều việc cùng lúc 😎",
 			"advanced": "Nâng cao",
+			"settings": {"inputHeading": "Đầu vào", "behaviorHeading": "Hành vi tải xuống", "behaviorDescription": "Hành vi toàn cục cũng ảnh hưởng đến các tải xuống do hồ sơ điều khiển."},
 			"clearAria": "Xóa URL",
 			"clipboard": {
 				"toggle": "Theo dõi bộ nhớ tạm",
@@ -302,6 +305,7 @@
 			"noMatches": "Không tìm thấy ngôn ngữ nào",
 			"clearAll": "Xóa tất cả",
 			"noSelected": "Chưa chọn phụ đề nào",
+			"removeLanguage": "Xóa {{name}}",
 			"selectedNote_one": "{{count}} phụ đề sẽ được tải xuống",
 			"selectedNote_other": "{{count}} phụ đề sẽ được tải xuống",
 			"sectionManual": "Thủ công",
@@ -456,7 +460,18 @@
 				"delivery": "Cách lưu",
 				"overridePath": "Đường dẫn ghi đè hồ sơ"
 			},
-			"action": {"chooseIcon": "Chọn biểu tượng hồ sơ", "setOverride": "Đặt ghi đè hồ sơ", "chooseFolder": "Chọn thư mục đích", "addLanguage": "Thêm", "changeGlobalShort": "Đổi mặc định chung", "setOverrideShort": "Đặt ghi đè", "useGlobalDefault": "Dùng mặc định chung", "reset": "Đặt lại hồ sơ", "save": "Lưu hồ sơ"},
+			"action": {
+				"chooseIcon": "Chọn biểu tượng hồ sơ",
+				"setOverride": "Đặt ghi đè hồ sơ",
+				"chooseFolder": "Chọn thư mục đích",
+				"addLanguage": "Thêm",
+				"removeLanguage": "Xóa {{code}}",
+				"changeGlobalShort": "Đổi mặc định chung",
+				"setOverrideShort": "Đặt ghi đè",
+				"useGlobalDefault": "Dùng mặc định chung",
+				"reset": "Đặt lại hồ sơ",
+				"save": "Lưu hồ sơ"
+			},
 			"placeholder": {"folder": "Chọn một thư mục cho hồ sơ này"},
 			"destination": {"global": "Đích chung", "override": "Ghi đè hồ sơ", "resolved": "Đích cuối cùng"},
 			"note": {

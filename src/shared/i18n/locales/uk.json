@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Назад", "cancel": "Скасувати", "continue": "Продовжити", "retry": "Повторити", "startOver": "Почати спочатку"},
+	"common": {"back": "Назад", "cancel": "Скасувати", "continue": "Продовжити", "loading": "Завантаження…", "retry": "Повторити", "startOver": "Почати спочатку"},
 	"app": {"feedback": "Зворотний зв'язок", "logs": "Журнали", "feedbackNudge": "Подобається Arroxy? Я б залюбки почув твою думку! 💬", "zoomIn": "Збільшити", "zoomOut": "Зменшити"},
 	"about": {
 		"button": "Про програму",
@@ -132,6 +132,8 @@
 			"needsAtLeastOne": "Додайте щонайменше один підтримуваний URL, щоб продовжити.",
 			"reject": {"duplicate": "Дублікат"}
 		},
+		"tabsNavAria": "Навігація профілями завантаження",
+		"profileSwitchRow": {"helpAria": "Довідка: {{label}}"},
 		"mixedPrompt": {
 			"title": "Це посилання з Playlist",
 			"body": "Хочеш завантажити лише те відео, на яке натиснув, чи вибрати з Playlist? Далі зможеш вказати конкретні відео або діапазон.",
@@ -195,6 +197,7 @@
 			"mascotIdle": "Кинь посилання, а Arroxy його забере ✨",
 			"mascotBusy": "Завантажую у фоні… можу робити кілька справ одночасно 😎",
 			"advanced": "Додатково",
+			"settings": {"inputHeading": "Введення", "behaviorHeading": "Поведінка завантаження", "behaviorDescription": "Глобальна поведінка, що впливає також на завантаження, керовані профілями."},
 			"clearAria": "Очистити URL",
 			"clipboard": {
 				"toggle": "Стежити за буфером обміну",
@@ -310,6 +313,7 @@
 			"noMatches": "Мови не знайдено",
 			"clearAll": "Очистити все",
 			"noSelected": "Субтитри не вибрані",
+			"removeLanguage": "Видалити {{name}}",
 			"selectedNote_one": "Буде завантажено {{count}} субтитр",
 			"selectedNote_other": "Буде завантажено субтитрів: {{count}}",
 			"sectionManual": "Ручні",
@@ -469,6 +473,7 @@
 				"setOverride": "Задати перевизначення профілю",
 				"chooseFolder": "Вибрати теку призначення",
 				"addLanguage": "Додати",
+				"removeLanguage": "Видалити {{code}}",
 				"changeGlobalShort": "Змінити загальний",
 				"setOverrideShort": "Задати перевизначення",
 				"useGlobalDefault": "Використовувати загальне значення",

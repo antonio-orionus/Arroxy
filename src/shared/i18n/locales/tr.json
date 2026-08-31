@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "retry": "Tekrar dene", "startOver": "Baştan başla"},
+	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "loading": "Yükleniyor…", "retry": "Tekrar dene", "startOver": "Baştan başla"},
 	"app": {"feedback": "Geri bildirim", "logs": "Günlükler", "feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬", "zoomIn": "Yakınlaştır", "zoomOut": "Uzaklaştır"},
 	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "MIT Lisansı · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
 	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "Devam etmek için en az bir desteklenen URL ekle.",
 			"reject": {"duplicate": "Yinelenen"}
 		},
+		"tabsNavAria": "İndirme profili gezinmesi",
+		"profileSwitchRow": {"helpAria": "{{label}} yardımı"},
 		"mixedPrompt": {
 			"title": "Bu bağlantıda bir oynatma listesi var",
 			"body": "Yalnızca tıkladığın videoyu mu, yoksa oynatma listesinden seçim yapmayı mı istersin? Sonraki adımda belirli videoları veya bir aralığı seçeceksin.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "Bir bağlantı bırak, Arroxy onu çeksin ✨",
 			"mascotBusy": "Arka planda indiriliyor… Aynı anda birkaç işi halledebilirim 😎",
 			"advanced": "Gelişmiş",
+			"settings": {"inputHeading": "Giriş", "behaviorHeading": "İndirme davranışı", "behaviorDescription": "Profil kaynaklı indirmeleri de etkileyen genel davranış."},
 			"clearAria": "URL’yi temizle",
 			"clipboard": {
 				"toggle": "Panoyu izle",
@@ -302,6 +305,7 @@
 			"noMatches": "Eşleşen dil yok",
 			"clearAll": "Tümünü temizle",
 			"noSelected": "Altyazı seçilmedi",
+			"removeLanguage": "{{name}} kaldır",
 			"selectedNote_one": "{{count}} altyazı indirilecek",
 			"selectedNote_other": "{{count}} altyazı indirilecek",
 			"sectionManual": "Manuel",
@@ -461,6 +465,7 @@
 				"setOverride": "Profil geçersiz kılmasını ayarla",
 				"chooseFolder": "Hedef klasörü seç",
 				"addLanguage": "Ekle",
+				"removeLanguage": "{{code}} kaldır",
 				"changeGlobalShort": "Geneli değiştir",
 				"setOverrideShort": "Geçersiz kılmayı ayarla",
 				"useGlobalDefault": "Genel varsayılanı kullan",

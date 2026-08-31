@@ -66,6 +66,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr ""
 
+msgctxt "common.loading"
+msgid "Loading"
+msgstr ""
+
 msgctxt "common.retry"
 msgid "Retry"
 msgstr ""
@@ -1879,6 +1883,10 @@ msgctxt "wizard.profileEditor.action.chooseIcon"
 msgid "Choose profile icon"
 msgstr ""
 
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr ""
+
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr ""
@@ -2179,6 +2187,10 @@ msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
 msgid "M4A / AAC"
 msgstr ""
 
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr ""
+
 msgctxt "wizard.quickProgress.cancel"
 msgid "Cancel preparation"
 msgstr ""
@@ -2355,6 +2367,10 @@ msgctxt "wizard.subtitles.noSelected"
 msgid "No subtitles selected"
 msgstr ""
 
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr ""
+
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"
 msgstr ""
@@ -2397,6 +2413,10 @@ msgstr ""
 
 msgctxt "wizard.subtitles.skipSubs"
 msgid "Skip for this video"
+msgstr ""
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
 msgstr ""
 
 msgctxt "wizard.url.advanced"
@@ -3005,6 +3025,18 @@ msgstr ""
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr ""
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr ""
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr ""
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
 msgstr ""
 
 msgctxt "wizard.url.tabs.profiles"

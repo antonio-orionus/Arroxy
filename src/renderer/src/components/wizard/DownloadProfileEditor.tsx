@@ -530,7 +530,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 														subtitleLanguages.map(code => (
 															<Badge key={code} variant="secondary" className="h-6 gap-1 px-2 text-[11px] font-semibold">
 																<span>{code}</span>
-																<Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSubtitleLanguage(code)} className="-me-1 size-4 rounded-full p-0" aria-label={`Remove ${code}`}>
+																<Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSubtitleLanguage(code)} className="-me-1 size-4 rounded-full p-0" aria-label={t('wizard.profileEditor.action.removeLanguage', {code})}>
 																	<X data-icon="inline-start" aria-hidden />
 																</Button>
 															</Badge>

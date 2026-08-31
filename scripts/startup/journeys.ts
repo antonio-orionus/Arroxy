@@ -24,6 +24,8 @@ export interface StartupJourney {
 	pathContamination?: boolean
 	expect: ExpectedOutcome
 	logPolicy: LogPolicy
+	/** Per-tier override of `logPolicy`, resolved by `journeysForTier`. Use when a waiver is environmental to one tier (e.g. the release gate's draft-release updater 404) and would hide a real defect elsewhere. */
+	tierLogPolicies?: Partial<Record<StartupTier, LogPolicy>>
 	tiers: readonly StartupTier[]
 }
 
@@ -34,13 +36,18 @@ const CLEAN: LogPolicy = {allowedWarnings: [], allowedErrors: []}
  * release under construction; its latest-*.yml is not uploaded yet, so the soft
  * launch-time update check 404s. Environmental, not a startup defect — a
  * different updater failure still fails the journey.
+ *
+ * Release tier only. On `pr` and `nightly` no GH_TOKEN/draft release exists,
+ * so the same 404 there means the updater genuinely cannot resolve the repo —
+ * waiving it would hide a real startup defect. Journeys running on multiple
+ * tiers declare the waiver via `tierLogPolicies`.
  */
 const UPDATER_META_404 = /Cannot find latest-\w+\.yml/i
 const WITH_UPDATER_META_404: LogPolicy = {allowedWarnings: [], allowedErrors: [UPDATER_META_404]}
 
 export const JOURNEYS: readonly StartupJourney[] = [
-	{id: 'fresh-cold', description: 'First launch ever: no profile, no runtime cache, managed yt-dlp downloaded from scratch.', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['pr', 'release', 'nightly']},
-	{id: 'warm-restart', description: 'Second launch against a populated runtime cache — the path most users hit daily.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['pr', 'release']},
+	{id: 'fresh-cold', description: 'First launch ever: no profile, no runtime cache, managed yt-dlp downloaded from scratch.', profile: {kind: 'empty'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tierLogPolicies: {release: WITH_UPDATER_META_404}, tiers: ['pr', 'release', 'nightly']},
+	{id: 'warm-restart', description: 'Second launch against a populated runtime cache — the path most users hit daily.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {}, expect: 'main-screen', logPolicy: CLEAN, tierLogPolicies: {release: WITH_UPDATER_META_404}, tiers: ['pr', 'release']},
 	{id: 'inherited-update', description: 'This build launched against a profile written by the previous release.', profile: {kind: 'inherited'}, env: {}, expect: 'main-screen', logPolicy: WITH_UPDATER_META_404, tiers: ['release']},
 	{id: 'index-off', description: 'Remote runtime index unreachable; must fall back to last-known-good or bundled index.', profile: {kind: 'warm', from: 'fresh-cold'}, env: {ARROXY_RUNTIME_INDEX_URL: 'off'}, expect: 'main-screen', logPolicy: CLEAN, tiers: ['nightly']},
 	{
@@ -57,7 +64,10 @@ export const JOURNEYS: readonly StartupJourney[] = [
 ]
 
 export function journeysForTier(tier: StartupTier): StartupJourney[] {
-	return JOURNEYS.filter(journey => journey.tiers.includes(tier))
+	return JOURNEYS.filter(journey => journey.tiers.includes(tier)).map(journey => {
+		const override = journey.tierLogPolicies?.[tier]
+		return override ? {...journey, logPolicy: override} : journey
+	})
 }
 
 /**

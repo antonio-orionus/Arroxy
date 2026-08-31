@@ -1,5 +1,5 @@
 {
-	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "retry": "بیا هڅه وکړه", "startOver": "له سره پیل کړه"},
+	"common": {"back": "شاته", "cancel": "لغوه کړئ", "continue": "دوام ورکړه", "loading": "بارول…", "retry": "بیا هڅه وکړه", "startOver": "له سره پیل کړه"},
 	"app": {"feedback": "نظر", "logs": "لاګونه", "feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬", "zoomIn": "لویول", "zoomOut": "کوچنیول"},
 	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "د دوام لپاره لږ تر لږه یو ملاتړ شوی URL زیات کړئ.",
 			"reject": {"duplicate": "تکراري"}
 		},
+		"tabsNavAria": "د ښکته کولو پروفایل ناوېګیشن",
+		"profileSwitchRow": {"helpAria": "{{label}} مرسته"},
 		"mixedPrompt": {
 			"title": "دا لینک یو Playlist لري",
 			"body": "یوازې هغه ویډیو چې کلیک مو کاوه، که د Playlist نه غوره کول غواړئ؟ بعد به ځانګړي ویډیوګانې یا سلسله غوره کړئ.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "لینک واچوئ او Arroxy پرېږدئ چې یې راکښته کړي ✨",
 			"mascotBusy": "شاتهپرده ډاونلوډ کیږي… زه کولی شم له ډیرو کارونو سره معامله وکړم 😎",
 			"advanced": "پرمختللي",
+			"settings": {"inputHeading": "ورودی", "behaviorHeading": "د ښوتنې (ډاونلوډ) چلند", "behaviorDescription": "عمومی سلوک چې د پروفایل له لارې رابېشتلي ډاونلوډ هم اغېزمن کوي."},
 			"clearAria": "URL پاکول",
 			"clipboard": {
 				"toggle": "کلیپبورډ وګورئ",
@@ -302,6 +305,7 @@
 			"noMatches": "هیڅ ژبه سره برابره نه ده",
 			"clearAll": "ټول پاکول",
 			"noSelected": "هیڅ ژباړلیک غوره نه دی شوی",
+			"removeLanguage": "{{name}} لرې کړئ",
 			"selectedNote_one": "{{count}} ژباړلیک به ډاونلوډ شي",
 			"selectedNote_other": "{{count}} ژباړلیکونه به ډاونلوډ شي",
 			"sectionManual": "لاسي",
@@ -461,6 +465,7 @@
 				"setOverride": "د پروفایل بدیل وټاکئ",
 				"chooseFolder": "د موخې پوښۍ وټاکئ",
 				"addLanguage": "زیاتول",
+				"removeLanguage": "{{code}} لرې کړئ",
 				"changeGlobalShort": "ټولیز بدلول",
 				"setOverrideShort": "بدیل وټاکئ",
 				"useGlobalDefault": "ټولیزه اصلي ارزښت وکاروئ",

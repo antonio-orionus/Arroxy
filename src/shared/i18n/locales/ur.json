@@ -1,5 +1,5 @@
 {
-	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "retry": "دوبارہ کوشش کریں", "startOver": "دوبارہ شروع کریں"},
+	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "loading": "لوڈ ہو رہا ہے…", "retry": "دوبارہ کوشش کریں", "startOver": "دوبارہ شروع کریں"},
 	"app": {"feedback": "فیڈبیک", "logs": "لاگز", "feedbackNudge": "Arroxy پسند آ رہا ہے؟ آپ سے سن کر خوشی ہو گی! 💬", "zoomIn": "زوم اِن", "zoomOut": "زوم آؤٹ"},
 	"about": {"button": "کے بارے میں", "openTitle": "Arroxy کے بارے میں", "tagline": "YouTube اور 2000+ دیگر سائٹس کے لیے تیز اور آسان ڈاؤنلوڈر۔", "websiteLink": "ویب سائٹ", "githubLink": "GitHub", "licenseLine": "MIT لائسنس · از Antonio Orionus", "thirdPartyNotices": "فریق ثالث کے نوٹس دیکھیں"},
 	"titleBar": {"close": "بند کریں", "minimize": "چھوٹا کریں", "maximize": "بڑا کریں", "restore": "بحال کریں"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "جاری رکھنے کے لیے کم از کم ایک supported URL شامل کریں۔",
 			"reject": {"duplicate": "نقل"}
 		},
+		"tabsNavAria": "ڈاؤن لوڈ پروفائل نیویگیشن",
+		"profileSwitchRow": {"helpAria": "{{label}} مدد"},
 		"mixedPrompt": {
 			"title": "اس لنک میں Playlist ہے",
 			"body": "کیا آپ صرف وہی ویڈیو چاہتے ہیں جس پر کلک کیا، یا Playlist سے انتخاب کرنا چاہتے ہیں؟ اگلے مرحلے میں آپ مخصوص ویڈیوز یا رینج منتخب کریں گے۔",
@@ -187,6 +189,7 @@
 			"mascotIdle": "ایک لنک ڈالیں اور Arroxy کو اسے کھینچ لانے دیں ✨",
 			"mascotBusy": "بیک گراؤنڈ میں ڈاؤن لوڈ ہو رہا ہے… میں ملٹی ٹاسک کر سکتا ہوں 😎",
 			"advanced": "ایڈوانسڈ",
+			"settings": {"inputHeading": "اندراج", "behaviorHeading": "ڈاؤن لوڈ کا رویہ", "behaviorDescription": "یہ عمومی ترتیب پروفائل کے ذریعے ہونے والی ڈاؤن لوڈ پر بھی اثر ڈالتی ہے۔"},
 			"clearAria": "URL صاف کریں",
 			"clipboard": {
 				"toggle": "کلپ بورڈ پر نظر رکھیں",
@@ -302,6 +305,7 @@
 			"noMatches": "کوئی زبان میچ نہیں ہوئی",
 			"clearAll": "سب صاف کریں",
 			"noSelected": "کوئی سب ٹائٹل منتخب نہیں",
+			"removeLanguage": "{{name}} ہٹائیں",
 			"selectedNote_one": "{{count}} سب ٹائٹل ڈاؤن لوڈ کیا جائے گا",
 			"selectedNote_other": "{{count}} سب ٹائٹلز ڈاؤن لوڈ کیے جائیں گے",
 			"sectionManual": "دستی",
@@ -461,6 +465,7 @@
 				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
 				"chooseFolder": "منزل فولڈر منتخب کریں",
 				"addLanguage": "شامل کریں",
+				"removeLanguage": "{{code}} ہٹائیں",
 				"changeGlobalShort": "عالمی تبدیل کریں",
 				"setOverrideShort": "اووررائیڈ مقرر کریں",
 				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",

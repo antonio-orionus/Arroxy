@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Πίσω", "cancel": "Ακύρωση", "continue": "Συνέχεια", "retry": "Επανάληψη", "startOver": "Επανεκκίνηση"},
+	"common": {"back": "Πίσω", "cancel": "Ακύρωση", "continue": "Συνέχεια", "loading": "Φόρτωση…", "retry": "Επανάληψη", "startOver": "Επανεκκίνηση"},
 	"app": {"feedback": "Σχόλια", "logs": "Αρχεία καταγραφής", "feedbackNudge": "Σου αρέσει το Arroxy; Θα χαρώ να ακούσω τη γνώμη σου! 💬", "zoomIn": "Μεγέθυνση", "zoomOut": "Σμίκρυνση"},
 	"about": {"button": "Σχετικά", "openTitle": "Σχετικά με το Arroxy", "tagline": "Γρήγορο και φιλικό πρόγραμμα λήψης για το YouTube και 2000+ άλλους ιστότοπους.", "websiteLink": "Ιστότοπος", "githubLink": "GitHub", "licenseLine": "Άδεια MIT · από Antonio Orionus", "thirdPartyNotices": "Προβολή ανακοινώσεων τρίτων"},
 	"titleBar": {"close": "Κλείσιμο", "minimize": "Ελαχιστοποίηση", "maximize": "Μεγιστοποίηση", "restore": "Επαναφορά"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "Προσθέστε τουλάχιστον ένα υποστηριζόμενο URL για συνέχεια.",
 			"reject": {"duplicate": "Διπλότυπο"}
 		},
+		"tabsNavAria": "Πλοήγηση προφίλ λήψης",
+		"profileSwitchRow": {"helpAria": "Βοήθεια για {{label}}"},
 		"mixedPrompt": {
 			"title": "Αυτός ο σύνδεσμος έχει playlist",
 			"body": "Θέλεις μόνο το βίντεο που έκανες κλικ, ή να επιλέξεις από την playlist; Θα διαλέξεις συγκεκριμένα βίντεο ή εύρος στη συνέχεια.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "Ρίξε έναν σύνδεσμο και άσε το Arroxy να το κατεβάσει ✨",
 			"mascotBusy": "Λήψη στο παρασκήνιο… Ξέρω να κάνω πολλά μαζί 😎",
 			"advanced": "Για προχωρημένους",
+			"settings": {"inputHeading": "Είσοδος", "behaviorHeading": "Συμπεριφορά λήψης", "behaviorDescription": "Γενική συμπεριφορά που επηρεάζει και τις λήψεις που ελέγχονται από προφίλ."},
 			"clearAria": "Εκκαθάριση URL",
 			"clipboard": {
 				"toggle": "Παρακολούθηση πρόχειρου",
@@ -302,6 +305,7 @@
 			"noMatches": "Δεν βρέθηκαν γλώσσες",
 			"clearAll": "Εκκαθάριση όλων",
 			"noSelected": "Δεν έχουν επιλεγεί υπότιτλοι",
+			"removeLanguage": "Αφαίρεση {{name}}",
 			"selectedNote_one": "Θα ληφθεί {{count}} υπότιτλος",
 			"selectedNote_other": "Θα ληφθούν {{count}} υπότιτλοι",
 			"sectionManual": "Χειροκίνητο",
@@ -461,6 +465,7 @@
 				"setOverride": "Ορισμός παράκαμψης προφίλ",
 				"chooseFolder": "Επιλογή φακέλου προορισμού",
 				"addLanguage": "Προσθήκη",
+				"removeLanguage": "Αφαίρεση {{code}}",
 				"changeGlobalShort": "Αλλαγή γενικού",
 				"setOverrideShort": "Ορισμός παράκαμψης",
 				"useGlobalDefault": "Χρήση γενικής προεπιλογής",

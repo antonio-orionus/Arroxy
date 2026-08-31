@@ -904,6 +904,12 @@ describe('QueueService — completion + lane cascade', () => {
 })
 
 describe('QueueService — scheduler state events (renderer feedback)', () => {
+	function collectSchedulerTransitions(qs: QueueService): boolean[] {
+		const transitions: boolean[] = []
+		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		return transitions
+	}
+
 	it('pauseAll() emits scheduler {paused: true} once — re-pause emits nothing', async () => {
 		const {qs, ds} = makeService()
 		ds.start.mockResolvedValue(jobResult('job-1'))
@@ -912,8 +918,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.pauseAll()
 		await qs.pauseAll()
@@ -931,8 +936,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 		await qs.pauseAll()
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.resumeAll()
 		await qs.resumeAll()
@@ -950,8 +954,7 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 		await qs.pauseAll()
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.cancel(null)
 
@@ -966,11 +969,44 @@ describe('QueueService — scheduler state events (renderer feedback)', () => {
 		qs.add([makeItem({id: 'a', status: 'pending'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
 
-		const transitions: boolean[] = []
-		qs.on('scheduler', ({paused}: {paused: boolean}) => transitions.push(paused))
+		const transitions = collectSchedulerTransitions(qs)
 
 		await qs.cancel(null)
 
 		expect(transitions).toEqual([])
+	})
+
+	it('cancel(null) overlapping a concurrent pauseAll() emits both scheduler events — no stuck paused UI', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/x'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))
+
+		// Hold downloadService.cancel() open so the sweep suspends mid-flight.
+		let releaseCancel!: () => void
+		ds.cancel.mockImplementation(
+			() =>
+				new Promise(resolve => {
+					releaseCancel = () => resolve(ok({cancelled: true}))
+				})
+		)
+
+		const transitions = collectSchedulerTransitions(qs)
+		const sweepPromise = qs.cancel(null)
+		await flushMicrotasks()
+
+		// pauseAll lands while the sweep is suspended inside downloadService.cancel().
+		await qs.pauseAll()
+		expect(transitions).toEqual([true])
+
+		releaseCancel()
+		await sweepPromise
+
+		// The sweep's unpause must still reach the renderer: the stale pre-await
+		// snapshot would suppress it and leave the banner stuck on "paused".
+		expect(transitions).toEqual([true, false])
+		expect(qs.snapshotPayload().schedulerPaused).toBe(false)
 	})
 })

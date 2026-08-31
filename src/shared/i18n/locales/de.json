@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "retry": "Erneut versuchen", "startOver": "Von vorn beginnen"},
+	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "loading": "Wird geladen…", "retry": "Erneut versuchen", "startOver": "Von vorn beginnen"},
 	"app": {"feedback": "Feedback", "logs": "Protokolle", "feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬", "zoomIn": "Vergrößern", "zoomOut": "Verkleinern"},
 	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT-Lizenz · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
 	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "Füge mindestens eine unterstützte URL hinzu, um fortzufahren.",
 			"reject": {"duplicate": "Duplikat"}
 		},
+		"tabsNavAria": "Download-Profil-Navigation",
+		"profileSwitchRow": {"helpAria": "Hilfe zu {{label}}"},
 		"mixedPrompt": {
 			"title": "Dieser Link enthält eine Playlist",
 			"body": "Nur das angeklickte Video oder aus der Playlist auswählen? Im nächsten Schritt kannst du einzelne Videos oder einen Bereich festlegen.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "Wirf einen Link rein und lass Arroxy ihn holen ✨",
 			"mascotBusy": "Lade im Hintergrund… ich kann mehrere Dinge gleichzeitig 😎",
 			"advanced": "Erweitert",
+			"settings": {"inputHeading": "Eingabe", "behaviorHeading": "Downloadverhalten", "behaviorDescription": "Globales Verhalten, das auch profilgesteuerte Downloads betrifft."},
 			"clearAria": "URL löschen",
 			"clipboard": {
 				"toggle": "Zwischenablage beobachten",
@@ -302,6 +305,7 @@
 			"noMatches": "Keine Sprachen gefunden",
 			"clearAll": "Alle entfernen",
 			"noSelected": "Keine Untertitel ausgewählt",
+			"removeLanguage": "{{name}} entfernen",
 			"selectedNote_one": "{{count}} Untertitel wird heruntergeladen",
 			"selectedNote_other": "{{count}} Untertitel werden heruntergeladen",
 			"sectionManual": "Manuell",
@@ -461,6 +465,7 @@
 				"setOverride": "Profil-Überschreibung festlegen",
 				"chooseFolder": "Zielordner wählen",
 				"addLanguage": "Hinzufügen",
+				"removeLanguage": "{{code}} entfernen",
 				"changeGlobalShort": "Global ändern",
 				"setOverrideShort": "Überschreibung festlegen",
 				"useGlobalDefault": "Globalen Standard verwenden",

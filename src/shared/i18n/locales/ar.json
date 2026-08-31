@@ -1,5 +1,5 @@
 {
-	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "retry": "إعادة المحاولة", "startOver": "البدء من جديد"},
+	"common": {"back": "رجوع", "cancel": "إلغاء", "continue": "متابعة", "loading": "جارٍ التحميل…", "retry": "إعادة المحاولة", "startOver": "البدء من جديد"},
 	"app": {"feedback": "ملاحظات", "logs": "السجلات", "feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬", "zoomIn": "تكبير", "zoomOut": "تصغير"},
 	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "أضف رابطًا مدعومًا واحدًا على الأقل للمتابعة.",
 			"reject": {"duplicate": "مكرر"}
 		},
+		"tabsNavAria": "التنقل في ملفات التنزيل",
+		"profileSwitchRow": {"helpAria": "مساعدة {{label}}"},
 		"mixedPrompt": {
 			"title": "هذا الرابط يحتوي على Playlist",
 			"body": "هل تريد الفيديو الذي اخترته فقط، أم تفضّل الاختيار من الـ Playlist؟ ستختار فيديوهات بعينها أو نطاقاً في الخطوة التالية.",
@@ -187,6 +189,7 @@
 			"mascotIdle": "أرسل رابطًا ودع Arroxy يسحبه ✨",
 			"mascotBusy": "جارٍ التنزيل في الخلفية… أستطيع تعدد المهام 😎",
 			"advanced": "متقدم",
+			"settings": {"inputHeading": "إدخال", "behaviorHeading": "سلوك التنزيل", "behaviorDescription": "سلوك عام يؤثر أيضًا على التنزيلات المُدارة بواسطة الملفات الشخصية."},
 			"clearAria": "مسح الرابط",
 			"clipboard": {
 				"toggle": "مراقبة الحافظة",
@@ -302,6 +305,7 @@
 			"noMatches": "لا توجد لغات مطابقة",
 			"clearAll": "مسح الكل",
 			"noSelected": "لم يتم اختيار أي ترجمة",
+			"removeLanguage": "إزالة {{name}}",
 			"selectedNote_one": "سيتم تنزيل {{count}} ترجمة",
 			"selectedNote_other": "سيتم تنزيل {{count}} ترجمات",
 			"sectionManual": "يدوي",
@@ -456,7 +460,18 @@
 				"delivery": "طريقة الحفظ",
 				"overridePath": "مسار تجاوز الملف"
 			},
-			"action": {"chooseIcon": "اختيار أيقونة الملف", "setOverride": "تعيين تجاوز الملف", "chooseFolder": "اختيار مجلد الوجهة", "addLanguage": "إضافة", "changeGlobalShort": "تغيير العام", "setOverrideShort": "تعيين تجاوز", "useGlobalDefault": "استخدام الإعداد العام", "reset": "إعادة تعيين الملف", "save": "حفظ الملف"},
+			"action": {
+				"chooseIcon": "اختيار أيقونة الملف",
+				"setOverride": "تعيين تجاوز الملف",
+				"chooseFolder": "اختيار مجلد الوجهة",
+				"addLanguage": "إضافة",
+				"removeLanguage": "إزالة {{code}}",
+				"changeGlobalShort": "تغيير العام",
+				"setOverrideShort": "تعيين تجاوز",
+				"useGlobalDefault": "استخدام الإعداد العام",
+				"reset": "إعادة تعيين الملف",
+				"save": "حفظ الملف"
+			},
 			"placeholder": {"folder": "اختر مجلدًا لهذا الملف"},
 			"destination": {"global": "الوجهة العامة", "override": "تجاوز الملف", "resolved": "الوجهة النهائية"},
 			"note": {

@@ -8,6 +8,9 @@
 
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
+import {readdirSync, readFileSync, statSync} from 'node:fs'
+import {join, relative} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 interface LeafEntry {
 	path: string
@@ -99,3 +102,189 @@ if (hadMissing) {
 if (hadPlaceholders) {
 	console.warn(`\nPlaceholders: non-en values byte-equal to en (≥${PLACEHOLDER_MIN_WORDS} words). Likely untranslated copies — run translate skill.`)
 }
+
+// JSX literal scan: hardcoded English in user-facing JSX attributes bypasses the
+// i18n pipeline entirely, so locale drift checks above can never see it. Any
+// literal found here fails the run regardless of --strict.
+const RENDERER_ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '../src/renderer/src')
+const SKIP_DIRS = new Set(['dev']) // ScenarioGallery is dev-only, not shipped UI
+// Token-aware attribute scan:
+// - `(?<![\w-])` requires the prop name to start at an attribute boundary, so
+//   prefixed/longer names (`data-label`, `x-title`, `subtitle`, `mylabel`) are
+//   NOT user-facing props and are not matched. `aria-label` matches via its own
+//   explicit alternation branch, and a bare `label`/`title` still matches — no
+//   more accidental coupling through `\b` treating `-` as a boundary.
+// - Values may be double-quoted, single-quoted, or a JSX expression holding a
+//   plain string/template literal (`{'...'}`, `{"..."}`, `` {`...${x}`} ``).
+//   Function calls (`t('...')`, `i18next.t('...')`) and bare identifiers are
+//   i18n keys / state references, not copy — they are skipped.
+// - The file is scanned as a whole (not per line), so multiline values are seen.
+// - Comments and plain JS string literals are never JSX; they are blanked out
+//   before matching (see maskNonJsxText), so `// label="..."` in a comment or
+//   `const s = 'label="..."'` cannot produce a false positive.
+// The prop alternation lives in BOTH the literal regex below (oxlint forbids
+// non-literal RegExp construction) and this list, which drives the JSX-context
+// masker — keep the two in sync.
+const USER_FACING_PROPS = ['aria-label', 'title', 'description', 'label', 'placeholder', 'heading', 'tooltip', 'message', 'text']
+const propPattern = /(?<![\w-])(aria-label|title|description|label|placeholder|heading|tooltip|message|text)\s*=\s*(?:"([^"]*)"|'([^']*)'|\{((?:[^{}]|\$\{[^}]*\})*)\})/g
+// A JSX expression that is exactly one plain literal (template, single-, or
+// double-quoted). Anything else (t() calls, identifiers, ternary chains) is
+// not copy and is skipped by the caller.
+const literalExprPattern = /^\s*(?:`((?:[^`\\]|\\.)*)`|'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*$/s
+const INTERPOLATION = /\$\{[^}]*\}/g
+// True when the quote at quoteIdx is the quoted value of a tracked user-facing
+// prop — either `prop="…"`/`prop='…'` or inside a `prop={…}` expression. Such
+// quotes are the copy this scan exists to catch and stay unmasked.
+function isTrackedPropValue(src: string, quoteIdx: number): boolean {
+	let j = quoteIdx - 1
+	while (j >= 0 && /\s/.test(src[j])) j--
+	if (j >= 0 && src[j] === '{') {
+		j--
+		while (j >= 0 && /\s/.test(src[j])) j--
+	}
+	if (j < 0 || src[j] !== '=') return false
+	j--
+	while (j >= 0 && /\s/.test(src[j])) j--
+	let k = j
+	while (k >= 0 && /[\w-]/.test(src[k])) k--
+	if (k >= 0 && /[\w-]/.test(src[k])) return false
+	const name = src.slice(k + 1, j + 1)
+	if (!USER_FACING_PROPS.includes(name)) return false
+	// `const label = 'x'` is a JS declaration, not a JSX attribute — the token
+	// before the name disambiguates. JSX props sit inside a tag (`<div title=`),
+	// so the preceding token is a tag name or tag start, never a keyword.
+	let p = k
+	while (p >= 0 && /\s/.test(src[p])) p--
+	let q = p
+	while (q >= 0 && /[\w$]/.test(src[q])) q--
+	const prevToken = src.slice(q + 1, p + 1)
+	return !['const', 'let', 'var', 'return'].includes(prevToken)
+}
+// Blank out JS comments and non-JSX string literals (preserving length and
+// newlines so match.index stays aligned with the original source), leaving
+// real JSX attribute values readable. Guards against the `out[i+1]` write at
+// the final index extending the array.
+function maskNonJsxText(src: string): string {
+	const out = src.split('')
+	let i = 0
+	while (i < out.length) {
+		const c = out[i]
+		const d = out[i + 1]
+		if (c === '/' && d === '/') {
+			while (i < out.length && out[i] !== '\n') {
+				out[i] = ' '
+				i++
+			}
+		} else if (c === '/' && d === '*') {
+			out[i] = ' '
+			out[i + 1] = ' '
+			i += 2
+			while (i < out.length && !(out[i] === '*' && out[i + 1] === '/')) {
+				if (out[i] !== '\n') out[i] = ' '
+				i++
+			}
+			if (i < out.length) {
+				out[i] = ' '
+				if (out[i + 1] !== undefined) out[i + 1] = ' '
+				i += 2
+			}
+		} else if (c === '"' || c === "'" || c === '`') {
+			const quote = c
+			if (isTrackedPropValue(src, i)) {
+				// JSX attribute value — copy through untouched.
+				i++
+				while (i < out.length) {
+					if (out[i] === '\\') {
+						i += 2
+						continue
+					}
+					if (out[i] === quote) {
+						i++
+						break
+					}
+					i++
+				}
+			} else {
+				out[i] = ' '
+				i++
+				while (i < out.length) {
+					if (out[i] === '\\') {
+						out[i] = ' '
+						if (out[i + 1] !== undefined) out[i + 1] = ' '
+						i += 2
+						continue
+					}
+					if (out[i] === quote) {
+						out[i] = ' '
+						i++
+						break
+					}
+					if (out[i] !== '\n') out[i] = ' '
+					i++
+				}
+			}
+		} else {
+			i++
+		}
+	}
+	return out.join('')
+}
+// Literals exempt from the scan: brand/product names, locale-neutral format examples
+// ("en, uk, pt-br" placeholder shows locale-code syntax, not prose), and dev/test-only
+// surfaces (the ?backdrop isolation stage renders in browser-mock/test builds only).
+const LITERAL_ALLOWLIST = new Set(['Arroxy', 'GitHub', 'Discord', 'YouTube', 'Firefox', 'Chromium', 'Chrome', 'Brave', 'Edge', 'Safari', 'Vivaldi', 'FFmpeg', 'FFprobe', 'yt-dlp', 'SponsorBlock', 'SRT', 'VTT', 'ASS', 'WAV', 'MP3', 'M4A', 'Opus', 'AAC', 'Backdrop render path', 'en, uk, pt-br'])
+
+function collectTsxFiles(dir: string): string[] {
+	const out: string[] = []
+	for (const entry of readdirSync(dir)) {
+		if (SKIP_DIRS.has(entry)) continue
+		const full = join(dir, entry)
+		const stat = statSync(full)
+		if (stat.isDirectory()) out.push(...collectTsxFiles(full))
+		else if (entry.endsWith('.tsx')) out.push(full)
+	}
+	return out
+}
+
+interface LiteralHit {
+	file: string
+	line: number
+	prop: string
+	value: string
+}
+
+const literalHits: LiteralHit[] = []
+
+for (const file of collectTsxFiles(RENDERER_ROOT)) {
+	const content = readFileSync(file, 'utf8')
+	const scanned = maskNonJsxText(content)
+	for (const match of scanned.matchAll(propPattern)) {
+		const prop = match[1]
+		let value: string | undefined
+		if (match[2] !== undefined) {
+			value = match[2] // "…"
+		} else if (match[3] !== undefined) {
+			value = match[3] // '…'
+		} else if (match[4] !== undefined) {
+			// {…} expression: only a plain literal is copy; t() calls, bare
+			// identifiers, and ternaries are skipped.
+			const lit = literalExprPattern.exec(match[4])
+			if (!lit) continue
+			value = (lit[1] ?? lit[2] ?? lit[3] ?? '').replace(INTERPOLATION, '').trim()
+		}
+		if (value === undefined) continue
+		if (LITERAL_ALLOWLIST.has(value)) continue
+		if (!/\p{L}{2,}/u.test(value)) continue // digits-only, symbols, single letters
+		const line = content.slice(0, match.index).split('\n').length
+		literalHits.push({file: relative(RENDERER_ROOT, file), line, prop, value})
+	}
+}
+
+if (literalHits.length) {
+	for (const hit of literalHits) {
+		console.error(`  ✗ ${hit.file}:${hit.line} — ${hit.prop}="${hit.value}"`)
+	}
+	console.error(`\nFAIL: ${literalHits.length} hardcoded JSX literal(s) on user-facing props (aria-label/title/description/label/placeholder/...).\n` + 'Move the copy into en.json and render it via t(). Brand/product names pass if added to LITERAL_ALLOWLIST.')
+	process.exit(1)
+}
+console.log('  ✓ no hardcoded JSX literals on user-facing props')

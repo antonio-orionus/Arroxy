@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Назад", "cancel": "Откажи", "continue": "Настави", "retry": "Покушај поново", "startOver": "Почни испочетка"},
+	"common": {"back": "Назад", "cancel": "Откажи", "continue": "Настави", "loading": "Учитавање…", "retry": "Покушај поново", "startOver": "Почни испочетка"},
 	"app": {"feedback": "Повратна информација", "logs": "Дневници", "feedbackNudge": "Свиђа ти се Arroxy? Радо бих чуо твоје мишљење! 💬", "zoomIn": "Увећај", "zoomOut": "Умањи"},
 	"about": {
 		"button": "О апликацији",
@@ -132,6 +132,8 @@
 			"needsAtLeastOne": "Додај најмање један подржан URL за наставак.",
 			"reject": {"duplicate": "Дупликат"}
 		},
+		"tabsNavAria": "Навигација кроз профиле преузимања",
+		"profileSwitchRow": {"helpAria": "Pomoć za {{label}}"},
 		"mixedPrompt": {
 			"title": "Овај линк је из плејлисте",
 			"body": "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.",
@@ -195,6 +197,7 @@
 			"mascotIdle": "Убаци линк и пусти Arroxy да га преузме ✨",
 			"mascotBusy": "Преузимање у позадини… Умем да радим више ствари одједном 😎",
 			"advanced": "Напредно",
+			"settings": {"inputHeading": "Улаз", "behaviorHeading": "Понашање преузимања", "behaviorDescription": "Глобално понашање које утиче и на преузимања вођена профилима."},
 			"clearAria": "Обриши URL",
 			"clipboard": {
 				"toggle": "Прати клипборд",
@@ -310,6 +313,7 @@
 			"noMatches": "Нема пронађених језика",
 			"clearAll": "Обриши све",
 			"noSelected": "Нема изабраних титлова",
+			"removeLanguage": "Ukloni {{name}}",
 			"selectedNote_one": "{{count}} титл ће бити преузет",
 			"selectedNote_other": "{{count}} титлова ће бити преузето",
 			"sectionManual": "Ручно",
@@ -469,6 +473,7 @@
 				"setOverride": "Постави замену профила",
 				"chooseFolder": "Изабери одредишну фасциклу",
 				"addLanguage": "Додај",
+				"removeLanguage": "Ukloni {{code}}",
 				"changeGlobalShort": "Промени опште",
 				"setOverrideShort": "Постави замену",
 				"useGlobalDefault": "Користи општу подразумевану вредност",

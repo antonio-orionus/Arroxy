@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "retry": "Irra deebi'i", "startOver": "Jalqabbii irra deebi'i"},
+	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "startOver": "Jalqabbii irra deebi'i"},
 	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
 	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
@@ -136,6 +136,8 @@
 			"needsAtLeastOne": "Itti fufuuf URL deeggaraman yoo xiqqaate tokko dabali.",
 			"reject": {"duplicate": "Irra-deebi"}
 		},
+		"tabsNavAria": "Qajeelfama piroofaayilii buufataa",
+		"profileSwitchRow": {"helpAria": "Gargaarsa {{label}}"},
 		"mixedPrompt": {
 			"title": "Liinkin kun Playlist qaba",
 			"body": "Viidiyoo tokko kana filadda, moo Playlist keessaa barbaadda? Viidiyoowwan addaddaa yookaan kutaa filattu itti aanu.",
@@ -199,6 +201,7 @@
 			"mascotIdle": "Liinkii galchi; Arroxy haa buusu ✨",
 			"mascotBusy": "Duubaan buusaa jira… rakkoo guguddaa hojjechuuf dandeessa 😎",
 			"advanced": "Ammayyaa",
+			"settings": {"inputHeading": "Seensa", "behaviorHeading": "Amala ga’umsa", "behaviorDescription": "Amala waliigalaa piroofaayilii mataan ga’umsa iyyuu."},
 			"clearAria": "URL qulqulleessi",
 			"clipboard": {
 				"toggle": "Kliipboordii hordofi",
@@ -314,6 +317,7 @@
 			"noMatches": "Afaan hin argatamne",
 			"clearAll": "Hunda qulqulleessi",
 			"noSelected": "Axxiinni hin filamine",
+			"removeLanguage": "{{name}} balleessi",
 			"selectedNote_one": "Axxiinni {{count}} ni buufama",
 			"selectedNote_other": "Axxiinnota {{count}} ni buufamu",
 			"sectionManual": "Harkaan",
@@ -473,6 +477,7 @@
 				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
 				"chooseFolder": "Galee ga'umsaa filadhu",
 				"addLanguage": "Dabali",
+				"removeLanguage": "{{code}} balleessi",
 				"changeGlobalShort": "Waliigalaa jijjiiri",
 				"setOverrideShort": "Bakka bu'iinsa qindeessi",
 				"useGlobalDefault": "Durtii waliigalaa fayyadami",

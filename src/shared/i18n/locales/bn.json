@@ -1,5 +1,5 @@
 {
-	"common": {"back": "পেছনে", "cancel": "বাতিল", "continue": "চালিয়ে যান", "retry": "আবার চেষ্টা করুন", "startOver": "নতুন করে শুরু করুন"},
+	"common": {"back": "পেছনে", "cancel": "বাতিল", "continue": "চালিয়ে যান", "loading": "লোড হচ্ছে…", "retry": "আবার চেষ্টা করুন", "startOver": "নতুন করে শুরু করুন"},
 	"app": {"feedback": "মতামত", "logs": "লগ", "feedbackNudge": "Arroxy পছন্দ হচ্ছে? আপনার মতামত জানাতে চাই! 💬", "zoomIn": "জুম ইন", "zoomOut": "জুম আউট"},
 	"about": {"button": "সম্পর্কে", "openTitle": "Arroxy সম্পর্কে", "tagline": "YouTube ও 2000+ অন্যান্য সাইটের জন্য দ্রুত ও সহজ ডাউনলোডার।", "websiteLink": "ওয়েবসাইট", "githubLink": "GitHub", "licenseLine": "MIT লাইসেন্স · Antonio Orionus দ্বারা", "thirdPartyNotices": "তৃতীয়-পক্ষ নোটিশ দেখুন"},
 	"titleBar": {"close": "বন্ধ করুন", "minimize": "ছোট করুন", "maximize": "বড় করুন", "restore": "পুনরুদ্ধার করুন"},
@@ -124,6 +124,8 @@
 			"needsAtLeastOne": "চালিয়ে যেতে অন্তত একটি সমর্থিত URL যোগ করুন।",
 			"reject": {"duplicate": "ডুপ্লিকেট"}
 		},
+		"tabsNavAria": "ডাউনলোড প্রোফাইল নেভিগেশন",
+		"profileSwitchRow": {"helpAria": "{{label}} সাহায্য"},
 		"mixedPrompt": {
 			"title": "এই লিংকে একটি Playlist আছে",
 			"body": "শুধু যে ভিডিওতে ক্লিক করেছিলেন সেটি চান, নাকি Playlist থেকে বেছে নিতে চান? পরে নির্দিষ্ট ভিডিও বা রেঞ্জ বেছে নেবেন।",
@@ -187,6 +189,7 @@
 			"mascotIdle": "একটি লিংক দিন, বাকিটা Arroxy টেনে আনুক ✨",
 			"mascotBusy": "ব্যাকগ্রাউন্ডে ডাউনলোড হচ্ছে… আমি একসাথে অনেক কাজ করতে পারি 😎",
 			"advanced": "উন্নত",
+			"settings": {"inputHeading": "ইনপুট", "behaviorHeading": "ডাউনলোড আচরণ", "behaviorDescription": "গ্লোবাল আচরণ যা প্রোফাইল-চালিত ডাউনলোডকেও প্রভাবিত করে।"},
 			"clearAria": "URL মুছুন",
 			"clipboard": {
 				"toggle": "ক্লিপবোর্ড দেখুন",
@@ -297,6 +300,7 @@
 			"noMatches": "কোনো ভাষা মেলেনি",
 			"clearAll": "সব মুছুন",
 			"noSelected": "কোনো সাবটাইটেল নির্বাচিত হয়নি",
+			"removeLanguage": "{{name}} সরান",
 			"selectedNote_one": "{{count}}টি সাবটাইটেল ডাউনলোড হবে",
 			"selectedNote_other": "{{count}}টি সাবটাইটেল ডাউনলোড হবে",
 			"sectionManual": "ম্যানুয়াল",
@@ -445,6 +449,7 @@
 				"setOverride": "প্রোফাইল ওভাররাইড সেট করুন",
 				"chooseFolder": "গন্তব্য ফোল্ডার বাছুন",
 				"addLanguage": "যোগ করুন",
+				"removeLanguage": "{{code}} সরান",
 				"changeGlobalShort": "গ্লোবাল পরিবর্তন",
 				"setOverrideShort": "ওভাররাইড সেট করুন",
 				"useGlobalDefault": "গ্লোবাল ডিফল্ট ব্যবহার করুন",

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "နောက်သို့", "cancel": "ပယ်ဖျက်မည်", "continue": "ဆက်လက်သွားမည်", "retry": "ထပ်မံကြိုးစားမည်", "startOver": "အစကနေပြန်စမည်"},
+	"common": {"back": "နောက်သို့", "cancel": "ပယ်ဖျက်မည်", "continue": "ဆက်လက်သွားမည်", "loading": "ဖွင့်နေသည်…", "retry": "ထပ်မံကြိုးစားမည်", "startOver": "အစကနေပြန်စမည်"},
 	"app": {"feedback": "အကြံပြုချက်", "logs": "မှတ်တမ်းများ", "feedbackNudge": "Arroxy ကိုနှစ်သက်ပါသလား? သင့်ထံမှကြားချင်ပါသည်! 💬", "zoomIn": "ချဲ့မည်", "zoomOut": "ချုံ့မည်"},
 	"about": {"button": "အကြောင်း", "openTitle": "Arroxy အကြောင်း", "tagline": "YouTube နှင့် အခြား site 2000+ အတွက် မြန်ဆန်ပြီး အသုံးရလွယ်သော downloader။", "websiteLink": "ဝက်ဘ်ဆိုက်", "githubLink": "GitHub", "licenseLine": "MIT လိုင်စင် · Antonio Orionus မှ", "thirdPartyNotices": "တတိယပါတီ သတိပေးချက်များ ကြည့်မည်"},
 	"titleBar": {"close": "ပိတ်မည်", "minimize": "သေးငယ်အောင်လုပ်မည်", "maximize": "အများဆုံးချဲ့မည်", "restore": "ပြန်ရောက်မည်"},
@@ -115,6 +115,8 @@
 			"needsAtLeastOne": "ဆက်လက်လုပ်ဆောင်ရန် supported URL အနည်းဆုံးတစ်ခု ထည့်ပါ။",
 			"reject": {"duplicate": "ထပ်နေသည်"}
 		},
+		"tabsNavAria": "ဒေါင်းလုဒ် ပရိုဖိုင် လမ်းညွှန်",
+		"profileSwitchRow": {"helpAria": "{{label}} အကူအညီ"},
 		"mixedPrompt": {
 			"title": "ဤလင့်ခ်တွင် Playlist ပါဝင်သည်",
 			"body": "သင်နှိပ်ခဲ့သော ဗီဒီယိုကိုသာ လိုချင်သလော၊ Playlist မှ ရွေးချင်သလော? နောက်တွင် သီးခြားဗီဒီယိုများ သို့မဟုတ် အပိုင်းအခြား ရွေးနိုင်မည်။",
@@ -178,6 +180,7 @@
 			"mascotIdle": "လင့်ခ်တစ်ခုထည့်ပြီး Arroxy ကို ဆွဲယူခိုင်းလိုက်ပါ ✨",
 			"mascotBusy": "နောက်ခံတွင် ဒေါင်းလုဒ်လုပ်နေသည်… ကျွန်ုပ် တစ်ချိန်တည်းလုပ်နိုင်သည် 😎",
 			"advanced": "အဆင့်မြင့်",
+			"settings": {"inputHeading": "ထည့်သွင်းမှု", "behaviorHeading": "ဒေါင်းလုတ် အပြုအမူ", "behaviorDescription": "ကမ္ဘာလုံးဆိုင်ရာ အပြုအမူ။ ပရိုဖိုင်မှ ကျန်းနေသော ဒေါင်းလင်များကလဲ သဘက်စားတတ်နားရပ်။"},
 			"clearAria": "URL ရှင်းလင်းမည်",
 			"clipboard": {
 				"toggle": "ကလစ်ဘုတ်ကြည့်မည်",
@@ -293,6 +296,7 @@
 			"noMatches": "ကိုက်ညီသောဘာသာစကားမရှိပါ",
 			"clearAll": "အားလုံးဖျက်မည်",
 			"noSelected": "စာတန်းထိုးမရွေးရသေးပါ",
+			"removeLanguage": "{{name}} ဖယ်ရှားပါ",
 			"selectedNote_one": "{{count}} ခု စာတန်းထိုးကို ဒေါင်းလုဒ်လုပ်မည်",
 			"selectedNote_other": "{{count}} ခု စာတန်းထိုးများကို ဒေါင်းလုဒ်လုပ်မည်",
 			"sectionManual": "လက်ဖြင့်",
@@ -447,7 +451,18 @@
 				"delivery": "သိမ်းဆည်းပုံ",
 				"overridePath": "ပရိုဖိုင် အစားထိုးမှု လမ်းကြောင်း"
 			},
-			"action": {"chooseIcon": "ပရိုဖိုင်အိုင်ကွန် ရွေးပါ", "setOverride": "ပရိုဖိုင် အစားထိုးမှု သတ်မှတ်ရန်", "chooseFolder": "ဦးတည်ရာ ဖိုင်တွဲ ရွေးပါ", "addLanguage": "ထည့်ရန်", "changeGlobalShort": "အထွေထွေကို ပြောင်းရန်", "setOverrideShort": "အစားထိုးမှု သတ်မှတ်ရန်", "useGlobalDefault": "အထွေထွေ မူလတန်ဖိုးကို သုံးရန်", "reset": "ပရိုဖိုင်ကို ပြန်လည်သတ်မှတ်ရန်", "save": "ပရိုဖိုင် သိမ်းရန်"},
+			"action": {
+				"chooseIcon": "ပရိုဖိုင်အိုင်ကွန် ရွေးပါ",
+				"setOverride": "ပရိုဖိုင် အစားထိုးမှု သတ်မှတ်ရန်",
+				"chooseFolder": "ဦးတည်ရာ ဖိုင်တွဲ ရွေးပါ",
+				"addLanguage": "ထည့်ရန်",
+				"removeLanguage": "{{code}} ဖယ်ရှားပါ",
+				"changeGlobalShort": "အထွေထွေကို ပြောင်းရန်",
+				"setOverrideShort": "အစားထိုးမှု သတ်မှတ်ရန်",
+				"useGlobalDefault": "အထွေထွေ မူလတန်ဖိုးကို သုံးရန်",
+				"reset": "ပရိုဖိုင်ကို ပြန်လည်သတ်မှတ်ရန်",
+				"save": "ပရိုဖိုင် သိမ်းရန်"
+			},
 			"placeholder": {"folder": "ဤပရိုဖိုင်အတွက် ဖိုင်တွဲတစ်ခု ရွေးပါ"},
 			"destination": {"global": "အထွေထွေ ဦးတည်ရာ", "override": "ပရိုဖိုင် အစားထိုးမှု", "resolved": "နောက်ဆုံး ဦးတည်ရာ"},
 			"note": {
