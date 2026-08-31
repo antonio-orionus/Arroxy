@@ -117,9 +117,12 @@ export function smuggledRefererOf(url: string | undefined): string | null {
 	}
 }
 
-/** True when the host must not be fetched: loopback, private, or link-local ranges (name-level check only). */
+/** True when the host must not be fetched: loopback, private, or link-local ranges (name-level check only, terminal-dot aliases canonicalized). */
 export function isPrivateHostname(hostname: string): boolean {
-	const host = hostname.toLowerCase().replace(/^\[|\]$/g, '')
+	const host = hostname
+		.toLowerCase()
+		.replace(/^\[|\]$/g, '')
+		.replace(/\.+$/, '')
 	if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.internal')) return true
 	if (IPV4_RE.test(host)) {
 		const parts = host.split('.').map(Number)
@@ -219,9 +222,10 @@ export function patchInfoJsonTitle(raw: unknown, title: string): unknown {
 // Redirects are followed manually so every hop's host can be checked against
 // isPrivateHostname before requesting it (make-fetch-happen's 'follow' would
 // chase cross-origin redirects into loopback/private addresses unchecked).
-// Name-level check only: a public hostname resolving to a private IP
-// (DNS rebinding) is NOT caught — acceptable residual risk here, because the
-// fetch is a blind GET whose body is parsed locally for og:title only.
+// Name-level check only, by design: a public hostname resolving to a private
+// IP (DNS rebinding) is NOT caught. Accepted residual risk — this is a blind
+// GET whose body is parsed locally for og:title, and yt-dlp itself applies no
+// such restriction when fetching the same user-supplied URL during the probe.
 async function fetchFollowingSafeRedirects(url: string, signal: AbortSignal): Promise<string | null> {
 	let current = url
 	for (let hop = 0; hop <= FETCH_MAX_REDIRECTS; hop++) {

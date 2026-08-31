@@ -101,6 +101,10 @@ describe('isPrivateHostname', () => {
 	it.each([
 		['localhost', true],
 		['sub.localhost', true],
+		['localhost.', true],
+		['LOCALHOST.', true],
+		['127.0.0.1.', true],
+		['sub.localhost.', true],
 		['api.internal', true],
 		['127.0.0.1', true],
 		['10.1.2.3', true],
