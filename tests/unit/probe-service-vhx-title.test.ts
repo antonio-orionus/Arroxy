@@ -3,7 +3,7 @@ import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
-import {patchInfoJsonTitle, smuggledRefererOf} from '@main/services/vhxTitleRecovery.js'
+import {isPrivateHostname, patchInfoJsonTitle, smuggledRefererOf} from '@main/services/vhxTitleRecovery.js'
 import type {VhxTitleFetcher} from '@main/services/vhxTitleRecovery.js'
 import type {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 
@@ -94,6 +94,36 @@ describe('patchInfoJsonTitle', () => {
 	it('leaves a missing or empty title alone', () => {
 		expect(patchInfoJsonTitle({id: 'x'}, 'New')).toEqual({id: 'x'})
 		expect(patchInfoJsonTitle({id: 'x', title: ''}, 'New')).toEqual({id: 'x', title: ''})
+	})
+})
+
+describe('isPrivateHostname', () => {
+	it.each([
+		['localhost', true],
+		['sub.localhost', true],
+		['api.internal', true],
+		['127.0.0.1', true],
+		['10.1.2.3', true],
+		['192.168.0.15', true],
+		['169.254.10.10', true],
+		['172.16.0.1', true],
+		['172.31.255.255', true],
+		['0.0.0.0', true],
+		['172.15.0.1', false],
+		['172.32.0.1', false],
+		['::1', true],
+		['[::1]', true],
+		['fe80::1', true],
+		['fc00::abcd', true],
+		['fd12::1', true],
+		['::ffff:127.0.0.1', true],
+		['::ffff:10.0.0.1', true],
+		['example.com', false],
+		['embed.vhx.tv', false],
+		['trilogyplus.com', false],
+		['8.8.8.8', false]
+	])('%s → %s', (host, expected) => {
+		expect(isPrivateHostname(host)).toBe(expected)
 	})
 })
 
@@ -189,6 +219,16 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 
 		expect(fetcher).toHaveBeenCalledWith(PARENT_URL, expect.anything())
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe(REAL_TITLE)
+	})
+
+	it('does not treat the terminal path slug as a removable collection segment', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson({webpage_url: `${EMBED_URL}#__youtubedl_smuggle=${encodeURIComponent(JSON.stringify({referer: 'https://www.trilogyplus.com/watch/episode-2'}))}`})) as never)
+		const episodicHtml = '<html><head><meta property="og:title" content="Interviews - Episode 2 - Trilogy Plus"><meta property="og:site_name" content="Trilogy Plus"></head><body></body></html>'
+
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: okFetcher(episodicHtml)}).probe('https://www.trilogyplus.com/watch/episode-2', 'off', 'video')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Interviews - Episode 2')
 	})
 
 	it('keeps the sentinel when the probe is aborted during the parent fetch', async () => {

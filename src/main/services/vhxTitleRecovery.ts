@@ -26,7 +26,9 @@ const VHX_UNTITLED_SENTINEL = 'Untitled'
 const VHX_EXTRACTOR_KEYS = new Set(['VHXEmbed'])
 const VHX_EXTRACTOR_IDS = ['vhx:']
 const VHX_EMBED_HOST_RE = /(^|\.)embed\.vhx\.tv$/i
+const IPV4_RE = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/
 const FETCH_TIMEOUT_MS = 10_000
+const FETCH_MAX_REDIRECTS = 5
 const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
 
 /** Returns the page HTML, or null when the fetch fails or the response is not usable. Never throws. */
@@ -115,6 +117,27 @@ export function smuggledRefererOf(url: string | undefined): string | null {
 	}
 }
 
+/** True when the host must not be fetched: loopback, private, or link-local ranges (name-level check only). */
+export function isPrivateHostname(hostname: string): boolean {
+	const host = hostname.toLowerCase().replace(/^\[|\]$/g, '')
+	if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.internal')) return true
+	if (IPV4_RE.test(host)) {
+		const parts = host.split('.').map(Number)
+		const [a, b] = [parts[0], parts[1]]
+		if (a === 0 || a === 10 || a === 127) return true
+		if (a === 169 && b === 254) return true
+		if (a === 192 && b === 168) return true
+		if (a === 172 && b >= 16 && b <= 31) return true
+		return false
+	}
+	if (host === '::' || host === '::1') return true
+	if (host.startsWith('fc') || host.startsWith('fd')) return true // fc00::/7 unique-local
+	if (host.startsWith('fe8') || host.startsWith('fe9') || host.startsWith('fea') || host.startsWith('feb')) return true // fe80::/10 link-local
+	const v4mapped = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/i.exec(host)
+	if (v4mapped) return isPrivateHostname(v4mapped[1])
+	return false
+}
+
 /** True when the URL is a page (not the VHX embed itself) worth consulting for a title. */
 export function isLikelyParentPage(url: string | undefined): boolean {
 	if (!url || !/^https?:\/\//i.test(url)) return false
@@ -158,11 +181,14 @@ function normalizeName(input: string): string {
 		.trim()
 }
 
-/** Path slugs of a page URL, e.g. /free-videos/videos/x → ["free videos", "videos", "x"]. */
+/** Path slugs of a page URL, e.g. /free-videos/videos/x → ["free videos", "videos"]. The terminal segment is the video's own slug, never a collection name, so it is excluded from removable segments. */
 function parentPathSlugs(url: string): string[] {
 	try {
 		const segments = new URL(url).pathname.split('/').filter(Boolean)
-		return segments.map(segment => normalizeName(decodeURIComponent(segment))).filter(name => name.length > 0)
+		return segments
+			.slice(0, -1)
+			.map(segment => normalizeName(decodeURIComponent(segment)))
+			.filter(name => name.length > 0)
 	} catch {
 		return []
 	}
@@ -190,12 +216,38 @@ export function patchInfoJsonTitle(raw: unknown, title: string): unknown {
 	return {...record, title}
 }
 
+// Redirects are followed manually so every hop's host can be checked against
+// isPrivateHostname before requesting it (make-fetch-happen's 'follow' would
+// chase cross-origin redirects into loopback/private addresses unchecked).
+// Name-level check only: a public hostname resolving to a private IP
+// (DNS rebinding) is NOT caught — acceptable residual risk here, because the
+// fetch is a blind GET whose body is parsed locally for og:title only.
+async function fetchFollowingSafeRedirects(url: string, signal: AbortSignal): Promise<string | null> {
+	let current = url
+	for (let hop = 0; hop <= FETCH_MAX_REDIRECTS; hop++) {
+		const res = await fetch(current, {headers: {'user-agent': BROWSER_UA, accept: 'text/html'}, timeout: FETCH_TIMEOUT_MS, redirect: 'manual', retry: 0, signal} as fetch.FetchOptions)
+		if (res.status >= 300 && res.status < 400) {
+			const location = res.headers.get('location')
+			if (!location) return null
+			try {
+				current = new URL(location, current).toString()
+			} catch {
+				return null
+			}
+			if (!/^https?:\/\//i.test(current) || isPrivateHostname(new URL(current).hostname)) return null
+			continue
+		}
+		if (!res.ok) return null
+		return await res.text()
+	}
+	return null
+}
+
 /** Production fetcher: browser-ish UA (VHX serves og:* meta to logged-out crawlers), short timeout, no retry fan-out. */
 export const defaultVhxTitleFetcher: VhxTitleFetcher = async (url, signal) => {
 	try {
-		const res = await fetch(url, {headers: {'user-agent': BROWSER_UA, accept: 'text/html'}, timeout: FETCH_TIMEOUT_MS, redirect: 'follow', retry: 1, signal} as fetch.FetchOptions)
-		if (!res.ok) return null
-		return await res.text()
+		if (!/^https?:\/\//i.test(url) || isPrivateHostname(new URL(url).hostname)) return null
+		return await fetchFollowingSafeRedirects(url, signal)
 	} catch {
 		return null
 	}
