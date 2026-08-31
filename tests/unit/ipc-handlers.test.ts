@@ -56,6 +56,7 @@ function makeDeps() {
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}), update: vi.fn()}
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
+	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
 	return {
 		mainWindow: mainWindow as never,
 		downloadService: downloadService as never,
@@ -66,6 +67,7 @@ function makeDeps() {
 		tokenService: {warmUp: vi.fn()} as never,
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
+		hotkeyService: hotkeyService as never,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}

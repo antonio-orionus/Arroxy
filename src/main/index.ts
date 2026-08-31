@@ -26,6 +26,7 @@ import {QueueStore} from '@main/stores/QueueStore.js'
 import {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {writePlaylistM3u} from '@main/services/playlistM3u.js'
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
+import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
@@ -422,7 +423,10 @@ if (hasSingleInstanceLock) {
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, playlistManifestStore, graphicsPolicyProvider})
+		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
+		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D')
+
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, graphicsPolicyProvider})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
@@ -465,6 +469,7 @@ if (hasSingleInstanceLock) {
 			tray?.destroy()
 			tray = null
 			clipboardWatcher.dispose()
+			hotkeyService.dispose()
 			if (downloadService.runningJobCount === 0) {
 				tokenService.dispose()
 				log.info('App shutting down')

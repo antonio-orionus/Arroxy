@@ -4,11 +4,13 @@ import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeD
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
 import type {GetState, SetState, ShareTrigger, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
+import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {notify} from '../lib/notify.js'
 import {track} from '../lib/analytics.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
+let unbindHotkeyTrigger: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
@@ -125,6 +127,13 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindWarmupProgress?.()
 			unbindWarmupProgress = window.appApi.events.onWarmupProgress(event => {
 				set(state => ({warmupProgress: {...(state.warmupProgress ?? {}), [event.binary]: event}}))
+			})
+
+			// Hotkey trigger listener: lifetime-bound like warmup progress. Main
+			// presses the bell; the outcome flows back through reportOutcome.
+			unbindHotkeyTrigger?.()
+			unbindHotkeyTrigger = window.appApi.events.onHotkeyTrigger(trigger => {
+				void handleHotkeyTrigger(trigger, set, get)
 			})
 
 			unbindProbeProgress?.()

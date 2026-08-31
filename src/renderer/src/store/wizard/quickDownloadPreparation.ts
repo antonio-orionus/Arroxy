@@ -59,7 +59,7 @@ function openPlaylistReviewFromQuickProbe(probe: Extract<ProbeResult, {kind: 'pl
 	set({...resetQuickDownloadFeedback(), quickPlaylistCapDialogOpen: false})
 }
 
-async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState, retryContext: {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} = {}): Promise<string[] | null> {
+export async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState, retryContext: {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} = {}): Promise<string[] | null> {
 	let probeForQueue = probe
 	if (probe.kind === 'playlist') {
 		applyQuickPlaylistProbeData(probe, set, get)

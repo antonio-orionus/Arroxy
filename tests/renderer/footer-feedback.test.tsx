@@ -31,10 +31,19 @@ const mockAppApi = {
 		resume: vi.fn().mockResolvedValue(ok({resumed: false}))
 	},
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
+	hotkey: {reportOutcome: vi.fn().mockResolvedValue(undefined)},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
-	events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onProbeProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+	events: {
+		onStatus: vi.fn().mockReturnValue(() => undefined),
+		onProgress: vi.fn().mockReturnValue(() => undefined),
+		onProbeProgress: vi.fn().mockReturnValue(() => undefined),
+		onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+		onHotkeyTrigger: vi.fn().mockReturnValue(() => undefined),
+		onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
+		onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
+	},
 	queue: {
 		cmd: {
 			add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
