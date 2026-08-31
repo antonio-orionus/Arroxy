@@ -126,16 +126,6 @@ export function isLikelyParentPage(url: string | undefined): boolean {
 }
 
 /**
- * Pages suffix their preview titles with branding ("Video Title - Free Videos
- * - Trilogy Plus", "Video Title (Site)"). Trim a trailing site-name segment so
- * the recovered title stays filename-friendly. No-op when the site name is not
- * a suffix.
- */
-export function trimSiteSuffix(title: string, siteName: string): string {
-	return trimTrailingKnownSegments(title, [siteName])
-}
-
-/**
  * VHX preview titles follow "{video} - {collection} - {site}". The site name
  * comes from og:site_name and the collection is identifiable from the parent
  * URL path (e.g. /free-videos/videos/slug → "free videos"). Trim trailing
@@ -187,6 +177,17 @@ export function deriveRecoveredTitle(meta: VhxPageTitleMeta | null, parentUrl: s
 	if (!raw || raw.length === 0) return null
 	const trimmed = trimTrailingKnownSegments(raw, [meta?.siteName ?? '', ...parentPathSlugs(parentUrl)])
 	return trimmed.length > 0 ? trimmed : null
+}
+
+// The download phase feeds the cached probe info JSON back to yt-dlp via
+// --load-info-json, so the filename template's %(title)s resolves from here —
+// patching the raw dict (not just the ProbeResult) is what actually fixes the
+// output filename. Returns the input unchanged on any shape mismatch.
+export function patchInfoJsonTitle(raw: unknown, title: string): unknown {
+	if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return raw
+	const record = raw as Record<string, unknown>
+	if (typeof record.title !== 'string' || record.title.length === 0) return raw
+	return {...record, title}
 }
 
 /** Production fetcher: browser-ish UA (VHX serves og:* meta to logged-out crawlers), short timeout, no retry fan-out. */

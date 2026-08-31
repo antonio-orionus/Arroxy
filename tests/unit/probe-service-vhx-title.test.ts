@@ -3,7 +3,7 @@ import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
-import {smuggledRefererOf, trimSiteSuffix} from '@main/services/vhxTitleRecovery.js'
+import {patchInfoJsonTitle, smuggledRefererOf} from '@main/services/vhxTitleRecovery.js'
 import type {VhxTitleFetcher} from '@main/services/vhxTitleRecovery.js'
 import type {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 
@@ -76,21 +76,24 @@ describe('smuggledRefererOf', () => {
 	})
 })
 
-describe('trimSiteSuffix', () => {
-	it('strips a trailing "- Site Name" segment', () => {
-		expect(trimSiteSuffix(`${REAL_TITLE} - Free Videos - Trilogy Plus`, 'Trilogy Plus')).toBe(`${REAL_TITLE} - Free Videos`)
+describe('patchInfoJsonTitle', () => {
+	it('overwrites a non-empty string title, keeping the rest of the dict', () => {
+		expect(patchInfoJsonTitle({id: 'x', title: 'Untitled', formats: []}, 'New')).toEqual({id: 'x', title: 'New', formats: []})
 	})
 
-	it('strips a trailing "(Site Name)" segment', () => {
-		expect(trimSiteSuffix(`${REAL_TITLE} (Trilogy Plus)`, 'Trilogy Plus')).toBe(REAL_TITLE)
+	it('returns arrays unchanged', () => {
+		const arr = [{title: 'Untitled'}]
+		expect(patchInfoJsonTitle(arr, 'New')).toBe(arr)
 	})
 
-	it('leaves the title alone when the site name is not a suffix', () => {
-		expect(trimSiteSuffix(REAL_TITLE, 'Other Site')).toBe(REAL_TITLE)
+	it('returns non-object payloads unchanged', () => {
+		expect(patchInfoJsonTitle(null, 'New')).toBeNull()
+		expect(patchInfoJsonTitle('raw', 'New')).toBe('raw')
 	})
 
-	it('is case-insensitive on the site name match', () => {
-		expect(trimSiteSuffix(`${REAL_TITLE} - trilogy plus`, 'Trilogy Plus')).toBe(REAL_TITLE)
+	it('leaves a missing or empty title alone', () => {
+		expect(patchInfoJsonTitle({id: 'x'}, 'New')).toEqual({id: 'x'})
+		expect(patchInfoJsonTitle({id: 'x', title: ''}, 'New')).toEqual({id: 'x', title: ''})
 	})
 })
 
@@ -186,5 +189,20 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 
 		expect(fetcher).toHaveBeenCalledWith(PARENT_URL, expect.anything())
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe(REAL_TITLE)
+	})
+
+	it('keeps the sentinel when the probe is aborted during the parent fetch', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson()) as never)
+		const service = new ProbeService(makeYtDlp(), false, undefined, {
+			vhxTitleFetcher: async () => {
+				service.cancelInFlight() // aborts this probe's own controller, as the renderer would
+				return PARENT_HTML
+			}
+		})
+
+		const r = await service.probe(PARENT_URL, 'off', 'video')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Untitled')
 	})
 })

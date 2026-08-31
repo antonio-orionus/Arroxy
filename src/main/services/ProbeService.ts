@@ -16,7 +16,7 @@ import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {YtDlp} from './YtDlp.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
-import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
+import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
 const logger = log.scope('probe')
 
@@ -513,7 +513,7 @@ export class ProbeService extends EventEmitter {
 						let recovered: string | null = null
 						try {
 							const html = await this.vhxTitleFetcher(parentUrl, controller.signal)
-							recovered = html === null ? null : deriveRecoveredTitle(extractPageTitleMeta(html), parentUrl)
+							if (!controller.signal.aborted) recovered = html === null ? null : deriveRecoveredTitle(extractPageTitleMeta(html), parentUrl)
 						} catch {
 							// Fetcher failure is non-fatal — the sentinel title stays.
 						}
@@ -667,17 +667,6 @@ function formatCount(info: InfoDict): number {
 	if (isPlaylistLike(info)) return info.entries.length
 	const v = info as VideoInfo
 	return v.formats?.length ?? 0
-}
-
-// The download phase feeds this cached JSON back to yt-dlp via
-// --load-info-json, so the filename template's %(title)s resolves from here —
-// patching the raw dict (not just the ProbeResult) is what actually fixes the
-// output filename. Returns the input unchanged on any shape mismatch.
-function patchInfoJsonTitle(raw: unknown, title: string): unknown {
-	if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return raw
-	const record = raw as Record<string, unknown>
-	if (typeof record.title !== 'string' || record.title.length === 0) return raw
-	return {...record, title}
 }
 
 function playlistScopeRequestForLog(scope: PlaylistScope | undefined): PlaylistScopeRequestLog {
