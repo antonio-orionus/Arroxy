@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUN_VERSION: '1.2.23'
+  BUN_VERSION: '1.4.0'
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
   PACKAGE_DIR: packages/yt-dlp-bridge
 

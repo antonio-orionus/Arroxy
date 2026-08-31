@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  BUN_VERSION: '1.2.23'
+  BUN_VERSION: '1.4.0'
 
 jobs:
   audit:
