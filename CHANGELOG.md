@@ -8,6 +8,23 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8-beta.5
+
+A small beta fixing how pausing the queue behaves when it collides with other queue actions, plus a guard that keeps untranslated text from slipping into the app.
+
+## Highlights
+
+### Paused Stays Honest
+
+- Cancelling everything at the same moment you paused the queue could leave the paused banner stuck on screen while downloads quietly carried on. The queue now remembers the pause state you actually asked for and restores it correctly once the cancel sweep finishes.
+- Pausing and resuming the whole queue is handled through a single code path now, so edge cases where pause states overlap behave the same way every time.
+
+### Under The Hood
+
+- The release checks now scan the app's source for hardcoded labels and titles that bypass the translation system — including text written in non-Latin scripts — so every screen stays fully translated across all 24 languages. A few labels that had slipped through were moved to proper translation keys.
+
+---
+
 ## 0.4.8-beta.4
 
 No user-facing changes — again a re-cut after fixing the release pipeline's own startup gate, this time on how the gate launches the previous release to build an inherited profile: the Linux AppImage now extracts itself instead of requiring FUSE (missing on CI runners), and the Windows portable exe is unpacked with 7-Zip so the inner app is launched directly instead of through its NSIS wrapper.
