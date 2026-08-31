@@ -64,6 +64,7 @@ import type {
 	AudioSelection,
 	AudioTrackQuality,
 	CloseBehavior,
+	HotkeyAccelerator,
 	Preset,
 	PlaylistScope,
 	SubtitleMode,
@@ -139,6 +140,9 @@ export interface CommonSettings {
 	concurrentDownloads?: number
 	autoRetryAttempts?: number
 	clipboardWatchEnabled: boolean
+	hotkeyEnabled: boolean
+	hotkeyAccelerator?: HotkeyAccelerator
+	hotkeyPreset?: Preset
 	filenameTemplate?: string
 	closeBehavior?: CloseBehavior
 	embedChapters?: boolean

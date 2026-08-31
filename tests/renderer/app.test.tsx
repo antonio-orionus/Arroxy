@@ -345,7 +345,7 @@ describe('App renderer', () => {
 	})
 
 	it('shows the welcome-back greeting while warmup is still running', async () => {
-		const pendingWarmupApi = buildMockAppApi({settings: {common: {defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, launchCount: 4}}})
+		const pendingWarmupApi = buildMockAppApi({settings: {common: {defaultOutputDir: '/tmp', rememberLastOutputDir: false, clipboardWatchEnabled: false, hotkeyEnabled: false, launchCount: 4}}})
 		vi.mocked(pendingWarmupApi.app.warmUp).mockReturnValue(new Promise(() => undefined))
 		window.appApi = pendingWarmupApi
 

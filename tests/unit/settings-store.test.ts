@@ -59,6 +59,27 @@ describe('settings and recent stores', () => {
 		expect((await store.get()).common.lastReleaseNotesVersionShown).toBe('1.2.0')
 	})
 
+	it('defaults, validates, and persists global hotkey settings', async () => {
+		expect(baseDefaults.common.hotkeyEnabled).toBe(false)
+		expect(baseDefaults.common.hotkeyAccelerator).toBe('CommandOrControl+Shift+D')
+		expect(baseDefaults.common.hotkeyPreset).toBe('best-quality')
+		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'CommandOrControl+Alt+H'}}).success).toBe(true)
+		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'Not A Chord'}}).success).toBe(false)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-hotkey-'))
+		const store = new SettingsStore(userData, baseDefaults)
+
+		const updated = await store.update({common: {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Alt+H', hotkeyPreset: 'audio-only'}})
+		expect(updated.common.hotkeyEnabled).toBe(true)
+		expect(updated.common.hotkeyAccelerator).toBe('CommandOrControl+Alt+H')
+		expect(updated.common.hotkeyPreset).toBe('audio-only')
+
+		const readBack = await store.get()
+		expect(readBack.common.hotkeyEnabled).toBe(true)
+		expect(readBack.common.hotkeyAccelerator).toBe('CommandOrControl+Alt+H')
+		expect(readBack.common.hotkeyPreset).toBe('audio-only')
+	})
+
 	it('persists subtitle language preferences', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-subs-'))
 		const store = new SettingsStore(userData, baseDefaults)

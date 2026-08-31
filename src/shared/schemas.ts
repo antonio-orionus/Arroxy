@@ -176,6 +176,14 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
 export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
 
+// Electron accelerator chord for the global clipboard-download hotkey. The
+// shape is validated, not enumerated: modifiers + one key. Registered via
+// Electron's globalShortcut, which rejects malformed chords at register time.
+export const hotkeyAcceleratorSchema = z
+	.string()
+	.regex(/^(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta)(\+(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta))*\+([0-9A-Z]|F([1-9]|1[0-9])|Space|Tab|Capslock|Numlock|Scrolllock|Backquote)$/, 'Use modifiers plus one key, e.g. CommandOrControl+Shift+D')
+export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
+
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
 
@@ -454,6 +462,9 @@ const commonSettingsPatchSchema = z.object({
 	proxyUrl: z.string().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	clipboardWatchEnabled: z.boolean().optional(),
+	hotkeyEnabled: z.boolean().optional(),
+	hotkeyAccelerator: hotkeyAcceleratorSchema.optional(),
+	hotkeyPreset: presetSchema.optional(),
 	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
 	closeBehavior: closeBehaviorSchema.optional(),
 	embedChapters: z.boolean().optional(),

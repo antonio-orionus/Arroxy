@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference, HotkeyAccelerator, Preset} from './schemas.js'
 import type {AppSettings} from './types.js'
 import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
@@ -16,6 +16,8 @@ export const DEFAULTS: {
 	uiTheme: UiTheme
 	backdropRenderMode: BackdropRenderMode
 	nativeAudioPreference: NativeAudioPreference
+	hotkeyAccelerator: HotkeyAccelerator
+	hotkeyPreset: Preset
 	embedChapters: boolean
 	embedMetadata: boolean
 	embedThumbnail: boolean
@@ -38,7 +40,9 @@ export const DEFAULTS: {
 	writeDescription: false,
 	writeThumbnail: false,
 	writeM3u: true,
-	filenameTemplate: DEFAULT_FILENAME_TEMPLATE
+	filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
+	hotkeyAccelerator: 'CommandOrControl+Shift+D',
+	hotkeyPreset: 'best-quality'
 }
 
 // Single factory for the AppSettings shape — main process, tests, and
@@ -51,7 +55,19 @@ export const DEFAULTS: {
 // import the defaults helper.
 export function defaultAppSettings(downloadsDir: string): AppSettings {
 	return {
-		common: {defaultOutputDir: downloadsDir, rememberLastOutputDir: true, networkPacingPreset: 'balanced', clipboardWatchEnabled: true, analyticsEnabled: true, filenameTemplate: DEFAULTS.filenameTemplate, backdropRenderMode: DEFAULTS.backdropRenderMode, nativeAudioPreference: DEFAULTS.nativeAudioPreference},
+		common: {
+			defaultOutputDir: downloadsDir,
+			rememberLastOutputDir: true,
+			networkPacingPreset: 'balanced',
+			clipboardWatchEnabled: true,
+			hotkeyEnabled: false,
+			hotkeyAccelerator: DEFAULTS.hotkeyAccelerator,
+			hotkeyPreset: DEFAULTS.hotkeyPreset,
+			analyticsEnabled: true,
+			filenameTemplate: DEFAULTS.filenameTemplate,
+			backdropRenderMode: DEFAULTS.backdropRenderMode,
+			nativeAudioPreference: DEFAULTS.nativeAudioPreference
+		},
 		single: {},
 		playlist: {},
 		profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []}
