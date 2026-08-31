@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference, HotkeyAccelerator, Preset} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference, HotkeyAccelerator} from './schemas.js'
 import type {AppSettings} from './types.js'
 import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
@@ -17,7 +17,6 @@ export const DEFAULTS: {
 	backdropRenderMode: BackdropRenderMode
 	nativeAudioPreference: NativeAudioPreference
 	hotkeyAccelerator: HotkeyAccelerator
-	hotkeyPreset: Preset
 	embedChapters: boolean
 	embedMetadata: boolean
 	embedThumbnail: boolean
@@ -41,8 +40,7 @@ export const DEFAULTS: {
 	writeThumbnail: false,
 	writeM3u: true,
 	filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
-	hotkeyAccelerator: 'CommandOrControl+Shift+D',
-	hotkeyPreset: 'best-quality'
+	hotkeyAccelerator: 'CommandOrControl+Shift+D'
 }
 
 // Single factory for the AppSettings shape — main process, tests, and
@@ -62,7 +60,6 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
 			clipboardWatchEnabled: true,
 			hotkeyEnabled: false,
 			hotkeyAccelerator: DEFAULTS.hotkeyAccelerator,
-			hotkeyPreset: DEFAULTS.hotkeyPreset,
 			analyticsEnabled: true,
 			filenameTemplate: DEFAULTS.filenameTemplate,
 			backdropRenderMode: DEFAULTS.backdropRenderMode,

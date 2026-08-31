@@ -184,6 +184,25 @@ export const hotkeyAcceleratorSchema = z
 	.regex(/^(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta)(\+(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta))*\+([0-9A-Z]|F([1-9]|1[0-9])|Space|Tab|Capslock|Numlock|Scrolllock|Backquote)$/, 'Use modifiers plus one key, e.g. CommandOrControl+Shift+D')
 export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
 
+// Every hotkey trigger attempt ends in exactly one of these outcomes — no
+// silent paths (the OmniGet #198 lesson). The renderer derives the outcome
+// and reports it back so main can notify on hidden windows.
+export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'busy'])
+export type HotkeyOutcome = z.infer<typeof hotkeyOutcomeSchema>
+
+export const hotkeyOutcomePayloadSchema = z.object({outcome: hotkeyOutcomeSchema, url: z.string().optional()})
+export type HotkeyOutcomePayload = z.infer<typeof hotkeyOutcomePayloadSchema>
+
+// Main reads the clipboard (the renderer cannot while hidden) and sends the
+// pre-classified trigger. Renderer never touches the clipboard for the hotkey.
+export const hotkeyTriggerSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('single'), url: z.string()}), z.object({kind: z.literal('multiple')}), z.object({kind: z.literal('empty')})])
+export type HotkeyTriggerPayload = z.infer<typeof hotkeyTriggerSchema>
+
+// Registration state, pulled by the settings UI (register() returns false when
+// another app owns the chord).
+export const hotkeyStateSchema = z.object({accelerator: z.string().nullable(), registered: z.boolean()})
+export type HotkeyState = z.infer<typeof hotkeyStateSchema>
+
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
 
@@ -464,7 +483,6 @@ const commonSettingsPatchSchema = z.object({
 	clipboardWatchEnabled: z.boolean().optional(),
 	hotkeyEnabled: z.boolean().optional(),
 	hotkeyAccelerator: hotkeyAcceleratorSchema.optional(),
-	hotkeyPreset: presetSchema.optional(),
 	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
 	closeBehavior: closeBehaviorSchema.optional(),
 	embedChapters: z.boolean().optional(),

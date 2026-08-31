@@ -58,6 +58,7 @@ export type {
 } from './schemas.js'
 
 export type {StatusKey} from './schemas.js'
+export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomePayload, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
 import type {
@@ -142,7 +143,6 @@ export interface CommonSettings {
 	clipboardWatchEnabled: boolean
 	hotkeyEnabled: boolean
 	hotkeyAccelerator?: HotkeyAccelerator
-	hotkeyPreset?: Preset
 	filenameTemplate?: string
 	closeBehavior?: CloseBehavior
 	embedChapters?: boolean

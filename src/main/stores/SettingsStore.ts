@@ -31,7 +31,6 @@ const COMMON_FLAT_KEYS = [
 	'clipboardWatchEnabled',
 	'hotkeyEnabled',
 	'hotkeyAccelerator',
-	'hotkeyPreset',
 	'filenameTemplate',
 	'closeBehavior',
 	'embedChapters',
