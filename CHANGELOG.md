@@ -8,6 +8,19 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8-beta.6
+
+No user-facing changes — this beta re-cuts 0.4.8-beta.5 after fixing the release pipeline's own startup gate, which failed on Windows for two environmental reasons rather than any app defect: the update check against the not-yet-published draft reports a Windows-shaped file name (`latest.yml`, no platform suffix) that the existing waiver did not cover, and a transient Chromium sandbox-bundle bootstrap retry on a loaded runner was being logged as a renderer startup error.
+
+## Highlights
+
+### Under The Hood
+
+- The release-tier startup gate now waives the draft-release metadata 404 on Windows too, where the updater's channel file carries no platform suffix (`latest.yml` instead of `latest-mac.yml`). A different updater failure still fails the gate.
+- Renderer console messages coming from Chromium's own sandbox-bundle bootstrap retry are logged as info instead of errors — the window is recreated and startup completes normally, so they no longer trip the startup log oracle.
+
+---
+
 ## 0.4.8-beta.5
 
 A small beta fixing how pausing the queue behaves when it collides with other queue actions, plus a guard that keeps untranslated text from slipping into the app.
