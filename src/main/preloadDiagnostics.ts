@@ -44,6 +44,15 @@ export function resolveMainWindowPreloadPath(mainDir: string): string {
 	return path.join(mainDir, '../preload/index.cjs')
 }
 
+// Chromium occasionally reports its own sandbox-bundle bootstrap failure at
+// error level during a renderer-process retry — the webContents is recreated,
+// the bridge still verifies, and startup completes (observed on loaded
+// Windows runners in CI). It carries no signal about Arroxy's own preload or
+// renderer, so keep it out of the error stream the startup gate reads.
+function isSandboxBootstrapRetry(message: string, sourceId: string): boolean {
+	return sourceId === 'node:electron/js2c/sandbox_bundle' && (message.includes('sandboxed_renderer.bundle.js') || message.includes('startupData'))
+}
+
 export function registerPreloadDiagnostics(window: BrowserWindow, preloadPath: string, logger: Logger = log, options: Options = {}): void {
 	const fileExists = options.fileExists ?? fs.existsSync
 	const exists = fileExists(preloadPath)
@@ -61,7 +70,9 @@ export function registerPreloadDiagnostics(window: BrowserWindow, preloadPath: s
 	})
 
 	const onConsoleMessage = (_event: unknown, level: number, message: string, line: number, sourceId: string): void => {
-		if (level === 2) {
+		if (isSandboxBootstrapRetry(message, sourceId)) {
+			logger.info('Renderer sandbox bootstrap retry', {level, message, line, sourceId})
+		} else if (level === 2) {
 			logger.warn('Renderer startup console warning', {level, message, line, sourceId})
 		} else if (level >= 3) {
 			logger.error('Renderer startup console error', {level, message, line, sourceId})

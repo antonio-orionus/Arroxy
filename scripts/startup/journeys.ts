@@ -42,7 +42,12 @@ const CLEAN: LogPolicy = {allowedWarnings: [], allowedErrors: []}
  * waiving it would hide a real startup defect. Journeys running on multiple
  * tiers declare the waiver via `tierLogPolicies`.
  */
-const UPDATER_META_404 = /Cannot find latest-\w+\.yml/i
+// Windows channel files carry no platform suffix (`latest.yml`), unlike
+// `latest-mac.yml` / `latest-linux.yml`. electron-updater also reports this
+// message for the default-channel fallback on prerelease builds, so the file
+// name in the message is `latest*.yml` even when the configured channel is
+// `beta`.
+const UPDATER_META_404 = /Cannot find latest(?:-\w+)?\.yml/i
 const WITH_UPDATER_META_404: LogPolicy = {allowedWarnings: [], allowedErrors: [UPDATER_META_404]}
 
 export const JOURNEYS: readonly StartupJourney[] = [

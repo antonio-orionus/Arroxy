@@ -54,6 +54,19 @@ describe('journey catalog', () => {
 		}
 	})
 
+	it('waives the Windows updater metadata 404 too — its channel file has no platform suffix', () => {
+		// Windows publishes `latest.yml` (no `-mac`/`-linux`), and electron-updater
+		// reports that default-channel file name even on beta builds after the
+		// beta.yml fetch 404s and it falls back.
+		const cleanLog = cleanStartupLog()
+		const updater404 =
+			'[2026-08-31 04:58:47.392] [error] (updater) Cannot find latest.yml in the latest release artifacts (https://github.com/antonio-orionus/Arroxy/releases/download/v0.4.8-beta.5/latest.yml): HttpError: 404\n[2026-08-31 04:58:47.393] [error] (updater) checkForUpdates failed Cannot find latest.yml in the latest release artifacts (https://github.com/antonio-orionus/Arroxy/releases/download/v0.4.8-beta.5/latest.yml): HttpError: 404'
+		for (const journey of journeysForTier('release')) {
+			const violations = inspectStartupLog(`${cleanLog}\n${updater404}`, journey.logPolicy)
+			expect(violations.filter(violation => violation.kind === 'error-line')).toEqual([])
+		}
+	})
+
 	it('does NOT waive the updater metadata 404 outside the release tier — no draft release exists there', () => {
 		const cleanLog = cleanStartupLog()
 		const updater404 = '[2026-08-30 05:22:31.753] [error] (updater) Cannot find latest-mac.yml in the latest release artifacts: HttpError: 404'

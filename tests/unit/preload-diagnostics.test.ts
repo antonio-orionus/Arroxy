@@ -53,6 +53,30 @@ describe('preload diagnostics', () => {
 		expect(logger.error).toHaveBeenCalledWith('Renderer startup console error', {level: 3, message: 'renderer error', line: 11, sourceId: 'file:///renderer.js'})
 	})
 
+	it('downgrades the Chromium sandbox-bundle bootstrap retry to info', () => {
+		const webContents = new FakeWebContents()
+		const logger = makeLogger()
+		const preloadPath = '/app/out/preload/index.cjs'
+
+		registerPreloadDiagnostics({webContents} as never, preloadPath, logger, {fileExists: () => true})
+		webContents.emit('console-message', {}, 3, 'Electron sandboxed_renderer.bundle.js script failed to run', 2, 'node:electron/js2c/sandbox_bundle')
+		webContents.emit('console-message', {}, 3, "TypeError: Cannot destructure property 'preloadScripts' of 'binding.startupData' as it is null.", 2, 'node:electron/js2c/sandbox_bundle')
+
+		expect(logger.error).not.toHaveBeenCalled()
+		expect(logger.info).toHaveBeenCalledWith('Renderer sandbox bootstrap retry', {level: 3, message: 'Electron sandboxed_renderer.bundle.js script failed to run', line: 2, sourceId: 'node:electron/js2c/sandbox_bundle'})
+	})
+
+	it('still logs a renderer error from an app source', () => {
+		const webContents = new FakeWebContents()
+		const logger = makeLogger()
+		const preloadPath = '/app/out/preload/index.cjs'
+
+		registerPreloadDiagnostics({webContents} as never, preloadPath, logger, {fileExists: () => true})
+		webContents.emit('console-message', {}, 3, 'TypeError: preloadScripts is null', 42, 'file:///app/out/renderer/index.js')
+
+		expect(logger.error).toHaveBeenCalledWith('Renderer startup console error', {level: 3, message: 'TypeError: preloadScripts is null', line: 42, sourceId: 'file:///app/out/renderer/index.js'})
+	})
+
 	it('logs successful bridge probe details', async () => {
 		const webContents = new FakeWebContents()
 		webContents.executeJavaScript.mockResolvedValue({hasAppApi: true, hasPlatform: true, appVersion: '0.3.2', appApiKeys: ['settings', 'window']})
