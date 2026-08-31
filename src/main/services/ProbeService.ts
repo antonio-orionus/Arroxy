@@ -16,6 +16,7 @@ import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {YtDlp} from './YtDlp.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
+import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
 const logger = log.scope('probe')
 
@@ -54,6 +55,12 @@ interface ProbeAttemptSuccess {
 }
 
 type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 'failure'; error: ProbeError; errorCategory: ProbeFailureCategory}
+
+// Options bag so unit tests can inject a deterministic parent-page fetcher;
+// production leaves it undefined and gets the real HTTP fetcher.
+export interface ProbeServiceOptions {
+	vhxTitleFetcher?: VhxTitleFetcher
+}
 
 function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefined, opts: {isAutomaticCaptions: boolean; site: Site}): SubtitleMap {
 	if (!raw) return {}
@@ -414,12 +421,16 @@ export class ProbeService extends EventEmitter {
 	// them all at once. probe() registers + deregisters its controller.
 	private inFlight = new Set<AbortController>()
 
+	private readonly vhxTitleFetcher: VhxTitleFetcher
+
 	constructor(
 		private readonly ytDlp: YtDlp,
 		private readonly mockMode = false,
-		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
+		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
+		options?: ProbeServiceOptions
 	) {
 		super()
+		this.vhxTitleFetcher = options?.vhxTitleFetcher ?? defaultVhxTitleFetcher
 	}
 
 	// Abort every in-flight probe. Renderer calls this when the user changes the
@@ -490,7 +501,30 @@ export class ProbeService extends EventEmitter {
 					emitFailure('content_unavailable')
 					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'no_formats', message: 'Probe returned no formats'})
 				}
-				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(final.raw, {videoId: typeof video.id === 'string' ? video.id : null}) : undefined
+				// VHX (Vimeo OTT) embeds surface the literal 'Untitled' sentinel and
+				// yt-dlp's GenericIE merge keeps the embed's fields over the parent
+				// page's, so the real page title is lost. Recover it from the parent
+				// page's curated preview title (og:title / twitter:title). Any miss
+				// keeps the sentinel — the download proceeds exactly as before.
+				let rawForCache = final.raw
+				if (mapped.kind === 'video' && isVhxSentinelTitle(mapped.title) && isVhxEmbedExtractor(mapped.extractor, mapped.extractorKey)) {
+					const parentUrl = smuggledRefererOf(video.webpage_url) ?? (isLikelyParentPage(url) ? url : null)
+					if (parentUrl) {
+						let recovered: string | null = null
+						try {
+							const html = await this.vhxTitleFetcher(parentUrl, controller.signal)
+							recovered = html === null ? null : deriveRecoveredTitle(extractPageTitleMeta(html), parentUrl)
+						} catch {
+							// Fetcher failure is non-fatal — the sentinel title stays.
+						}
+						if (recovered && recovered !== mapped.title) {
+							mapped = {...mapped, title: recovered}
+							rawForCache = patchInfoJsonTitle(final.raw, recovered)
+							logger.info('Recovered VHX title from parent page', {url, parentUrl, title: recovered})
+						}
+					}
+				}
+				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null}) : undefined
 				if (probeInfoJsonRef) {
 					const probeInfoJsonPath = await this.probeInfoJsonCache?.resolve(probeInfoJsonRef)
 					logger.info('Probe info-json cached', {url, videoId: probeInfoJsonRef.videoId ?? null, probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
@@ -633,6 +667,17 @@ function formatCount(info: InfoDict): number {
 	if (isPlaylistLike(info)) return info.entries.length
 	const v = info as VideoInfo
 	return v.formats?.length ?? 0
+}
+
+// The download phase feeds this cached JSON back to yt-dlp via
+// --load-info-json, so the filename template's %(title)s resolves from here —
+// patching the raw dict (not just the ProbeResult) is what actually fixes the
+// output filename. Returns the input unchanged on any shape mismatch.
+function patchInfoJsonTitle(raw: unknown, title: string): unknown {
+	if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return raw
+	const record = raw as Record<string, unknown>
+	if (typeof record.title !== 'string' || record.title.length === 0) return raw
+	return {...record, title}
 }
 
 function playlistScopeRequestForLog(scope: PlaylistScope | undefined): PlaylistScopeRequestLog {
