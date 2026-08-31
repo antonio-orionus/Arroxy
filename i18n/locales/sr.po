@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Линк је додат из клипборда"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "{{count}} линк отворен из клипборда"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "{{count}} линкова отворено из клипборда"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Копирано је више линкова — додајте их преко «Групни URL-ови»"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Сакриј копирани линк"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Отвори {{count}} копирани линк"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Отвори {{count}} копираних линкова"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Копирани линк је спреман"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} копирани линк је спреман"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} копираних линкова је спремно"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

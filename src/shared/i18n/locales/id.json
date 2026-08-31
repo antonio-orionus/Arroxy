@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Tonton papan klip",
 				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
-				"autofilledLinks_one": "Tautan {{count}} dibuka dari clipboard",
-				"autofilledLinks_other": "Tautan {{count}} dibuka dari clipboard",
 				"autofilledLink": "Tautan ditambahkan dari clipboard",
-				"pendingLinksReady_one": "{{count}} menyalin tautan siap",
-				"pendingLinksReady_other": "{{count}} tautan yang disalin sudah siap",
+				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
 				"pendingLinkReady": "Tautan yang disalin sudah siap",
-				"openCopiedLinks_one": "Buka tautan yang disalin {{count}}",
-				"openCopiedLinks_other": "Buka tautan yang disalin {{count}}",
 				"useCopiedLink": "Gunakan tautan yang disalin",
 				"dismissCopiedLink": "Tolak tautan yang disalin",
 				"dialog": {"cancelButton": "Membatalkan"}

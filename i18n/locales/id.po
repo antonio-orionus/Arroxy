@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Tautan ditambahkan dari clipboard"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Tautan {{count}} dibuka dari clipboard"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Tautan {{count}} dibuka dari clipboard"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Beberapa tautan disalin — tambahkan lewat “URL massal”"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Tolak tautan yang disalin"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Buka tautan yang disalin {{count}}"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Buka tautan yang disalin {{count}}"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Tautan yang disalin sudah siap"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} menyalin tautan siap"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} tautan yang disalin sudah siap"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

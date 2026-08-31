@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Посилання додано з буфера обміну"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "{{count}} посилання відкрито з буфера обміну"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "{{count}} посилань відкрито з буфера обміну"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Скопійовано кілька посилань — додайте їх через «Масові URL»"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Приховати скопійоване посилання"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Відкрити {{count}} скопійоване посилання"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Відкрити {{count}} скопійованих посилань"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Скопійоване посилання готове"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} скопійоване посилання готове"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} скопійованих посилань готові"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Liinki gabatee waraabbii irraa dabalame"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Liinki {{count}} gabatee waraabbii irraa baname"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Liinkota {{count}} gabatee waraabbii irraa banaman"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Liinki waraabbame cufi"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Liinki waraabbame {{count}} bani"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Liinkota waraabbaman {{count}} bani"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Liinki waraabbame qophaaʼeera"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "Liinki waraabbame {{count}} qophaaʼeera"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "Liinkotni waraabbaman {{count}} qophaaʼaniiru"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

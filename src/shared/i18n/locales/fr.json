@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Surveiller le presse-papiers",
 				"toggleDescription": "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.",
-				"autofilledLinks_one": "{{count}} lien ouvert depuis le presse-papiers",
-				"autofilledLinks_other": "{{count}} liens ouverts depuis le presse-papiers",
 				"autofilledLink": "Lien ajouté depuis le presse-papiers",
-				"pendingLinksReady_one": "{{count}} lien copié prêt",
-				"pendingLinksReady_other": "{{count}} liens copiés prêts",
+				"bulkHint": "Plusieurs liens copiés — ajoutez-les via « URLs en lot »",
 				"pendingLinkReady": "Lien copié prêt",
-				"openCopiedLinks_one": "Ouvrir {{count}} lien copié",
-				"openCopiedLinks_other": "Ouvrir {{count}} liens copiés",
 				"useCopiedLink": "Utiliser le lien copié",
 				"dismissCopiedLink": "Ignorer le lien copié",
 				"dialog": {"cancelButton": "Annuler"}

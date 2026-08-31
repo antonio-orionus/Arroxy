@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "کلیپبورډ وګورئ",
 				"toggleDescription": "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.",
-				"autofilledLinks_one": "{{count}} لینک له کلېپبورډه پرانیستل شو",
-				"autofilledLinks_other": "{{count}} لینکونه له کلېپبورډه پرانیستل شول",
 				"autofilledLink": "لینک له کلېپبورډه زیات شو",
-				"pendingLinksReady_one": "{{count}} کاپي شوی لینک چمتو دی",
-				"pendingLinksReady_other": "{{count}} کاپي شوي لینکونه چمتو دي",
+				"bulkHint": "ډېر لینکونه کاپي شوي دي — د اضافه کولو لپاره «ډېر URLونه» وکاروئ",
 				"pendingLinkReady": "کاپي شوی لینک چمتو دی",
-				"openCopiedLinks_one": "{{count}} کاپي شوی لینک پرانیزه",
-				"openCopiedLinks_other": "{{count}} کاپي شوي لینکونه پرانیزه",
 				"useCopiedLink": "کاپي شوی لینک وکاروه",
 				"dismissCopiedLink": "کاپي شوی لینک بند کړه",
 				"dialog": {"cancelButton": "لغوه کړه"}

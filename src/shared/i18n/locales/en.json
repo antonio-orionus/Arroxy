@@ -185,14 +185,9 @@
 			"clipboard": {
 				"toggle": "Watch clipboard",
 				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
-				"autofilledLinks_one": "{{count}} link opened from clipboard",
-				"autofilledLinks_other": "{{count}} links opened from clipboard",
 				"autofilledLink": "Link added from clipboard",
-				"pendingLinksReady_one": "{{count}} copied link ready",
-				"pendingLinksReady_other": "{{count}} copied links ready",
+				"bulkHint": "Multiple links copied — use Bulk URLs to add them",
 				"pendingLinkReady": "Copied link ready",
-				"openCopiedLinks_one": "Open {{count}} copied link",
-				"openCopiedLinks_other": "Open {{count}} copied links",
 				"useCopiedLink": "Use copied link",
 				"dismissCopiedLink": "Dismiss copied link",
 				"dialog": {"cancelButton": "Cancel"}

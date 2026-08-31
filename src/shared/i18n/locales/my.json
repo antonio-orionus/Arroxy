@@ -185,14 +185,9 @@
 			"clipboard": {
 				"toggle": "ကလစ်ဘုတ်ကြည့်မည်",
 				"toggleDescription": "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။",
-				"autofilledLinks_one": "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်",
-				"autofilledLinks_other": "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်",
 				"autofilledLink": "ကလစ်ဘုတ်မှ လင့်ခ် ထည့်ခဲ့သည်",
-				"pendingLinksReady_one": "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်",
-				"pendingLinksReady_other": "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်",
+				"bulkHint": "လင့်ခ်များစွာ ကော်ပီကူးထားပါသည် — ထည့်ရန် “URL အများအပြား” ကို သုံးပါ",
 				"pendingLinkReady": "ကူးယူထားသော လင့်ခ် အသင့်ဖြစ်သည်",
-				"openCopiedLinks_one": "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်",
-				"openCopiedLinks_other": "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်",
 				"useCopiedLink": "ကူးယူထားသော လင့်ခ် သုံးရန်",
 				"dismissCopiedLink": "ကူးယူထားသော လင့်ခ် ပိတ်ရန်",
 				"dialog": {"cancelButton": "မလုပ်တော့ပါ"}

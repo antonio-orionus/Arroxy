@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "مراقبة الحافظة",
 				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
-				"autofilledLinks_one": "تم فتح رابط واحد من الحافظة",
-				"autofilledLinks_other": "تم فتح {{count}} روابط من الحافظة",
 				"autofilledLink": "تمت إضافة الرابط من الحافظة",
-				"pendingLinksReady_one": "رابط منسوخ جاهز",
-				"pendingLinksReady_other": "{{count}} روابط منسوخة جاهزة",
+				"bulkHint": "تم نسخ روابط متعددة — استخدم «روابط متعددة» لإضافتها",
 				"pendingLinkReady": "الرابط المنسوخ جاهز",
-				"openCopiedLinks_one": "فتح الرابط المنسوخ",
-				"openCopiedLinks_other": "فتح {{count}} روابط منسوخة",
 				"useCopiedLink": "استخدام الرابط المنسوخ",
 				"dismissCopiedLink": "إخفاء الرابط المنسوخ",
 				"dialog": {"cancelButton": "إلغاء"}

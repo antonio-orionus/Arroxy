@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "کلپ بورڈ پر نظر رکھیں",
 				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
-				"autofilledLinks_one": "{{count}} لنک کلپ بورڈ سے کھولا گیا",
-				"autofilledLinks_other": "{{count}} لنکس کلپ بورڈ سے کھولے گئے",
 				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
-				"pendingLinksReady_one": "{{count}} کاپی شدہ لنک تیار ہے",
-				"pendingLinksReady_other": "{{count}} کاپی شدہ لنکس تیار ہیں",
+				"bulkHint": "متعدد لنکس کاپی ہو گئے — شامل کرنے کے لیے “متعدد URLs” استعمال کریں",
 				"pendingLinkReady": "کاپی شدہ لنک تیار ہے",
-				"openCopiedLinks_one": "{{count}} کاپی شدہ لنک کھولیں",
-				"openCopiedLinks_other": "{{count}} کاپی شدہ لنکس کھولیں",
 				"useCopiedLink": "کاپی شدہ لنک استعمال کریں",
 				"dismissCopiedLink": "کاپی شدہ لنک بند کریں",
 				"dialog": {"cancelButton": "منسوخ کریں"}

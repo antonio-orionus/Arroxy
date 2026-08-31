@@ -177,14 +177,9 @@
 			"clipboard": {
 				"toggle": "监听剪贴板",
 				"toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。",
-				"autofilledLinks_one": "已从剪贴板打开 {{count}} 个链接",
-				"autofilledLinks_other": "已从剪贴板打开 {{count}} 个链接",
 				"autofilledLink": "已从剪贴板添加链接",
-				"pendingLinksReady_one": "{{count}} 个复制的链接已准备好",
-				"pendingLinksReady_other": "{{count}} 个复制的链接已准备好",
+				"bulkHint": "已复制多个链接 — 使用「批量 URL」添加",
 				"pendingLinkReady": "复制的链接已准备好",
-				"openCopiedLinks_one": "打开 {{count}} 个复制的链接",
-				"openCopiedLinks_other": "打开 {{count}} 个复制的链接",
 				"useCopiedLink": "使用复制的链接",
 				"dismissCopiedLink": "关闭复制的链接",
 				"dialog": {"cancelButton": "取消"}

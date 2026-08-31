@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Theo dõi bộ nhớ tạm",
 				"toggleDescription": "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.",
-				"autofilledLinks_one": "Đã mở {{count}} liên kết từ bảng nhớ tạm",
-				"autofilledLinks_other": "Đã mở {{count}} liên kết từ bảng nhớ tạm",
 				"autofilledLink": "Đã thêm liên kết từ bảng nhớ tạm",
-				"pendingLinksReady_one": "{{count}} liên kết đã sao chép sẵn sàng",
-				"pendingLinksReady_other": "{{count}} liên kết đã sao chép sẵn sàng",
+				"bulkHint": "Đã sao chép nhiều liên kết — thêm chúng qua “URL hàng loạt”",
 				"pendingLinkReady": "Liên kết đã sao chép sẵn sàng",
-				"openCopiedLinks_one": "Mở {{count}} liên kết đã sao chép",
-				"openCopiedLinks_other": "Mở {{count}} liên kết đã sao chép",
 				"useCopiedLink": "Dùng liên kết đã sao chép",
 				"dismissCopiedLink": "Bỏ qua liên kết đã sao chép",
 				"dialog": {"cancelButton": "Hủy"}

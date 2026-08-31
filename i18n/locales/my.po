@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "ကလစ်ဘုတ်မှ လင့်ခ် ထည့်ခဲ့သည်"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "လင့်ခ်များစွာ ကော်ပီကူးထားပါသည် — ထည့်ရန် “URL အများအပြား” ကို သုံးပါ"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "ကူးယူထားသော လင့်ခ် ပိတ်ရန်"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "ကူးယူထားသော လင့်ခ် အသင့်ဖြစ်သည်"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

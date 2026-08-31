@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "クリップボードを監視",
 				"toggleDescription": "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。",
-				"autofilledLinks_one": "クリップボードから {{count}} 件のリンクを開きました",
-				"autofilledLinks_other": "クリップボードから {{count}} 件のリンクを開きました",
 				"autofilledLink": "クリップボードからリンクを追加しました",
-				"pendingLinksReady_one": "コピーしたリンク {{count}} 件の準備ができました",
-				"pendingLinksReady_other": "コピーしたリンク {{count}} 件の準備ができました",
+				"bulkHint": "複数のリンクがコピーされました —「一括 URL」で追加できます",
 				"pendingLinkReady": "コピーしたリンクの準備ができました",
-				"openCopiedLinks_one": "コピーしたリンク {{count}} 件を開く",
-				"openCopiedLinks_other": "コピーしたリンク {{count}} 件を開く",
 				"useCopiedLink": "コピーしたリンクを使う",
 				"dismissCopiedLink": "コピーしたリンクを閉じる",
 				"dialog": {"cancelButton": "キャンセル"}

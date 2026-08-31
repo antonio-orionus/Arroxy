@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Παρακολούθηση πρόχειρου",
 				"toggleDescription": "Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.",
-				"autofilledLinks_one": "Άνοιξε {{count}} σύνδεσμος από το πρόχειρο",
-				"autofilledLinks_other": "Άνοιξαν {{count}} σύνδεσμοι από το πρόχειρο",
 				"autofilledLink": "Προστέθηκε σύνδεσμος από το πρόχειρο",
-				"pendingLinksReady_one": "{{count}} αντιγραμμένος σύνδεσμος έτοιμος",
-				"pendingLinksReady_other": "{{count}} αντιγραμμένοι σύνδεσμοι έτοιμοι",
+				"bulkHint": "Αντιγράφηκαν πολλαπλοί σύνδεσμοι — προσθέστε τους μέσω «Μαζικά URL»",
 				"pendingLinkReady": "Ο αντιγραμμένος σύνδεσμος είναι έτοιμος",
-				"openCopiedLinks_one": "Άνοιγμα {{count}} αντιγραμμένου συνδέσμου",
-				"openCopiedLinks_other": "Άνοιγμα {{count}} αντιγραμμένων συνδέσμων",
 				"useCopiedLink": "Χρήση αντιγραμμένου συνδέσμου",
 				"dismissCopiedLink": "Απόρριψη αντιγραμμένου συνδέσμου",
 				"dialog": {"cancelButton": "Ακύρωση"}

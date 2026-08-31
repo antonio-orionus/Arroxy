@@ -185,14 +185,9 @@
 			"clipboard": {
 				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
 				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
-				"autofilledLinks_one": "{{count}} አገናኝ ከቅንጥብ ሰሌዳ ተከፍቷል",
-				"autofilledLinks_other": "{{count}} አገናኞች ከቅንጥብ ሰሌዳ ተከፍተዋል",
 				"autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል",
-				"pendingLinksReady_one": "{{count}} የተቀዳ አገናኝ ዝግጁ ነው",
-				"pendingLinksReady_other": "{{count}} የተቀዱ አገናኞች ዝግጁ ናቸው",
+				"bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ",
 				"pendingLinkReady": "የተቀዳ አገናኝ ዝግጁ ነው",
-				"openCopiedLinks_one": "{{count}} የተቀዳ አገናኝ ክፈት",
-				"openCopiedLinks_other": "{{count}} የተቀዱ አገናኞች ክፈት",
 				"useCopiedLink": "የተቀዳውን አገናኝ ተጠቀም",
 				"dismissCopiedLink": "የተቀዳውን አገናኝ ዝጋ",
 				"dialog": {"cancelButton": "ሰርዝ"}

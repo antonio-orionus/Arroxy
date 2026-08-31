@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Angalia ubao wa kunakili",
 				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
-				"autofilledLinks_one": "Kiungo {{count}} kimefunguliwa kutoka ubao wa kunakili",
-				"autofilledLinks_other": "Viungo {{count}} vimefunguliwa kutoka ubao wa kunakili",
 				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
-				"pendingLinksReady_one": "Kiungo {{count}} kilichonakiliwa kiko tayari",
-				"pendingLinksReady_other": "Viungo {{count}} vilivyonakiliwa viko tayari",
+				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
 				"pendingLinkReady": "Kiungo kilichonakiliwa kiko tayari",
-				"openCopiedLinks_one": "Fungua kiungo {{count}} kilichonakiliwa",
-				"openCopiedLinks_other": "Fungua viungo {{count}} vilivyonakiliwa",
 				"useCopiedLink": "Tumia kiungo kilichonakiliwa",
 				"dismissCopiedLink": "Ondoa kiungo kilichonakiliwa",
 				"dialog": {"cancelButton": "Ghairi"}

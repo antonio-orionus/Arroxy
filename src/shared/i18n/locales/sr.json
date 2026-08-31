@@ -202,14 +202,9 @@
 			"clipboard": {
 				"toggle": "Прати клипборд",
 				"toggleDescription": "Аутоматски попуни поље URL-а када копираш YouTube линк.",
-				"autofilledLinks_one": "{{count}} линк отворен из клипборда",
-				"autofilledLinks_other": "{{count}} линкова отворено из клипборда",
 				"autofilledLink": "Линк је додат из клипборда",
-				"pendingLinksReady_one": "{{count}} копирани линк је спреман",
-				"pendingLinksReady_other": "{{count}} копираних линкова је спремно",
+				"bulkHint": "Копирано је више линкова — додајте их преко «Групни URL-ови»",
 				"pendingLinkReady": "Копирани линк је спреман",
-				"openCopiedLinks_one": "Отвори {{count}} копирани линк",
-				"openCopiedLinks_other": "Отвори {{count}} копираних линкова",
 				"useCopiedLink": "Користи копирани линк",
 				"dismissCopiedLink": "Сакриј копирани линк",
 				"dialog": {"cancelButton": "Откажи"}

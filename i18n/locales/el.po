@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Προστέθηκε σύνδεσμος από το πρόχειρο"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Άνοιξε {{count}} σύνδεσμος από το πρόχειρο"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Άνοιξαν {{count}} σύνδεσμοι από το πρόχειρο"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Αντιγράφηκαν πολλαπλοί σύνδεσμοι — προσθέστε τους μέσω «Μαζικά URL»"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Απόρριψη αντιγραμμένου συνδέσμου"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Άνοιγμα {{count}} αντιγραμμένου συνδέσμου"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Άνοιγμα {{count}} αντιγραμμένων συνδέσμων"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Ο αντιγραμμένος σύνδεσμος είναι έτοιμος"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} αντιγραμμένος σύνδεσμος έτοιμος"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} αντιγραμμένοι σύνδεσμοι έτοιμοι"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

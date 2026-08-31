@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "ক্লিপবোর্ড থেকে লিংক যোগ করা হয়েছে"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "একাধিক লিংক কপি হয়েছে — যোগ করতে “বাল্ক URL” ব্যবহার করুন"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "কপি করা লিংক বন্ধ করুন"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "{{count}}টি কপি করা লিংক খুলুন"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "{{count}}টি কপি করা লিংক খুলুন"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "কপি করা লিংক প্রস্তুত"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}}টি কপি করা লিংক প্রস্তুত"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}}টি কপি করা লিংক প্রস্তুত"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Vigilar portapapeles",
 				"toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.",
-				"autofilledLinks_one": "{{count}} enlace abierto desde el portapapeles",
-				"autofilledLinks_other": "{{count}} enlaces abiertos desde el portapapeles",
 				"autofilledLink": "Enlace añadido desde el portapapeles",
-				"pendingLinksReady_one": "{{count}} enlace copiado listo",
-				"pendingLinksReady_other": "{{count}} enlaces copiados listos",
+				"bulkHint": "Se copiaron varios enlaces — añádelos con «URLs en lote»",
 				"pendingLinkReady": "Enlace copiado listo",
-				"openCopiedLinks_one": "Abrir {{count}} enlace copiado",
-				"openCopiedLinks_other": "Abrir {{count}} enlaces copiados",
 				"useCopiedLink": "Usar enlace copiado",
 				"dismissCopiedLink": "Descartar enlace copiado",
 				"dialog": {"cancelButton": "Cancelar"}

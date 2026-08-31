@@ -2501,13 +2501,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Kiungo kimeongezwa kutoka ubao wa kunakili"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Kiungo {{count}} kimefunguliwa kutoka ubao wa kunakili"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Viungo {{count}} vimefunguliwa kutoka ubao wa kunakili"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2513,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Ondoa kiungo kilichonakiliwa"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Fungua kiungo {{count}} kilichonakiliwa"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Fungua viungo {{count}} vilivyonakiliwa"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Kiungo kilichonakiliwa kiko tayari"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "Kiungo {{count}} kilichonakiliwa kiko tayari"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "Viungo {{count}} vilivyonakiliwa viko tayari"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"

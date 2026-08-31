@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Следить за буфером обмена",
 				"toggleDescription": "Автоматически подставляет ссылку YouTube в поле URL при копировании.",
-				"autofilledLinks_one": "{{count}} ссылка открыта из буфера обмена",
-				"autofilledLinks_other": "{{count}} ссылки открыты из буфера обмена",
 				"autofilledLink": "Ссылка добавлена из буфера обмена",
-				"pendingLinksReady_one": "{{count}} скопированная ссылка готова",
-				"pendingLinksReady_other": "{{count}} скопированные ссылки готовы",
+				"bulkHint": "Скопировано несколько ссылок — добавьте их через «Массовые URL»",
 				"pendingLinkReady": "Скопированная ссылка готова",
-				"openCopiedLinks_one": "Открыть {{count}} скопированную ссылку",
-				"openCopiedLinks_other": "Открыть {{count}} скопированные ссылки",
 				"useCopiedLink": "Использовать скопированную ссылку",
 				"dismissCopiedLink": "Скрыть скопированную ссылку",
 				"dialog": {"cancelButton": "Отмена"}

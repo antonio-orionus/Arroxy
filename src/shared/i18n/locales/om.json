@@ -206,14 +206,9 @@
 			"clipboard": {
 				"toggle": "Kliipboordii hordofi",
 				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
-				"autofilledLinks_one": "Liinki {{count}} gabatee waraabbii irraa baname",
-				"autofilledLinks_other": "Liinkota {{count}} gabatee waraabbii irraa banaman",
 				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
-				"pendingLinksReady_one": "Liinki waraabbame {{count}} qophaaʼeera",
-				"pendingLinksReady_other": "Liinkotni waraabbaman {{count}} qophaaʼaniiru",
+				"bulkHint": "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami",
 				"pendingLinkReady": "Liinki waraabbame qophaaʼeera",
-				"openCopiedLinks_one": "Liinki waraabbame {{count}} bani",
-				"openCopiedLinks_other": "Liinkota waraabbaman {{count}} bani",
 				"useCopiedLink": "Liinki waraabbame fayyadami",
 				"dismissCopiedLink": "Liinki waraabbame cufi",
 				"dialog": {"cancelButton": "Haqi"}

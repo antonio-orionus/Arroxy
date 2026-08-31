@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Monitorar área de transferência",
 				"toggleDescription": "Preenche automaticamente o campo de URL ao copiar um link de vídeo.",
-				"autofilledLinks_one": "{{count}} link aberto da área de transferência",
-				"autofilledLinks_other": "{{count}} links abertos da área de transferência",
 				"autofilledLink": "Link adicionado da área de transferência",
-				"pendingLinksReady_one": "{{count}} link copiado pronto",
-				"pendingLinksReady_other": "{{count}} links copiados prontos",
+				"bulkHint": "Vários links copiados — adicione-os com “URLs em lote”",
 				"pendingLinkReady": "Link copiado pronto",
-				"openCopiedLinks_one": "Abrir {{count}} link copiado",
-				"openCopiedLinks_other": "Abrir {{count}} links copiados",
 				"useCopiedLink": "Usar link copiado",
 				"dismissCopiedLink": "Descartar link copiado",
 				"dialog": {"cancelButton": "Cancelar"}

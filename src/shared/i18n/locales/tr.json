@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Panoyu izle",
 				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
-				"autofilledLinks_one": "{{count}} bağlantı panodan açıldı",
-				"autofilledLinks_other": "{{count}} bağlantı panodan açıldı",
 				"autofilledLink": "Bağlantı panodan eklendi",
-				"pendingLinksReady_one": "{{count}} kopyalanmış bağlantı hazır",
-				"pendingLinksReady_other": "{{count}} kopyalanmış bağlantı hazır",
+				"bulkHint": "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın",
 				"pendingLinkReady": "Kopyalanmış bağlantı hazır",
-				"openCopiedLinks_one": "{{count}} kopyalanmış bağlantıyı aç",
-				"openCopiedLinks_other": "{{count}} kopyalanmış bağlantıyı aç",
 				"useCopiedLink": "Kopyalanan bağlantıyı kullan",
 				"dismissCopiedLink": "Kopyalanan bağlantıyı kapat",
 				"dialog": {"cancelButton": "İptal"}

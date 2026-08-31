@@ -104,8 +104,8 @@ describe('wizard clipboard auto-fill', () => {
 		expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument()
 	})
 
-	it('opens the bulk URL dialog when clipboard text contains several accepted URLs', () => {
-		const toastSpy = vi.spyOn(notify, 'clipboardAutofilled').mockImplementation(() => undefined)
+	it('hints at the bulk entry when clipboard text contains several accepted URLs', () => {
+		const hintSpy = vi.spyOn(notify, 'clipboardBulkHint').mockImplementation(() => undefined)
 		const raw = 'Grab https://example.com/one, https://example.com/two'
 		render(<StepUrlInput />)
 
@@ -114,10 +114,9 @@ describe('wizard clipboard auto-fill', () => {
 		})
 
 		expect(useAppStore.getState().wizardUrl).toBe('')
-		expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument()
-		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(raw)
-		expect(screen.getByTestId('bulk-url-valid-count')).toHaveTextContent('2')
-		expect(toastSpy).toHaveBeenCalledWith('2 links opened from clipboard')
+		expect(screen.queryByTestId('bulk-url-dialog')).not.toBeInTheDocument()
+		expect(hintSpy).toHaveBeenCalledTimes(1)
+		hintSpy.mockRestore()
 	})
 
 	it('unsubscribes from clipboard events when StepUrlInput unmounts', () => {
@@ -156,7 +155,8 @@ describe('wizard clipboard auto-fill', () => {
 		expect(screen.queryByTestId('clipboard-pending-action')).not.toBeInTheDocument()
 	})
 
-	it('opens pending copied links when clearing an occupied URL field', () => {
+	it('does not park a pending candidate when several URLs are copied', () => {
+		const hintSpy = vi.spyOn(notify, 'clipboardBulkHint').mockImplementation(() => undefined)
 		const raw = 'Grab https://example.com/one, https://example.com/two'
 		useAppStore.setState({wizardUrl: 'already-here'})
 		render(<StepUrlInput />)
@@ -164,12 +164,11 @@ describe('wizard clipboard auto-fill', () => {
 		act(() => {
 			clipboardListener!(raw)
 		})
-		fireEvent.click(screen.getByTestId('url-clear'))
 
-		expect(useAppStore.getState().wizardUrl).toBe('')
-		expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument()
-		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(raw)
+		expect(useAppStore.getState().wizardUrl).toBe('already-here')
 		expect(screen.queryByTestId('clipboard-pending-action')).not.toBeInTheDocument()
+		expect(hintSpy).toHaveBeenCalledTimes(1)
+		hintSpy.mockRestore()
 	})
 
 	it('dismisses a pending clipboard candidate', () => {

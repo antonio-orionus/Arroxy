@@ -202,14 +202,9 @@
 			"clipboard": {
 				"toggle": "Стежити за буфером обміну",
 				"toggleDescription": "Автоматично підставляє посилання YouTube у поле URL при копіюванні.",
-				"autofilledLinks_one": "{{count}} посилання відкрито з буфера обміну",
-				"autofilledLinks_other": "{{count}} посилань відкрито з буфера обміну",
 				"autofilledLink": "Посилання додано з буфера обміну",
-				"pendingLinksReady_one": "{{count}} скопійоване посилання готове",
-				"pendingLinksReady_other": "{{count}} скопійованих посилань готові",
+				"bulkHint": "Скопійовано кілька посилань — додайте їх через «Масові URL»",
 				"pendingLinkReady": "Скопійоване посилання готове",
-				"openCopiedLinks_one": "Відкрити {{count}} скопійоване посилання",
-				"openCopiedLinks_other": "Відкрити {{count}} скопійованих посилань",
 				"useCopiedLink": "Використати скопійоване посилання",
 				"dismissCopiedLink": "Приховати скопійоване посилання",
 				"dialog": {"cancelButton": "Скасувати"}

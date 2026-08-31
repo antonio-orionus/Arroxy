@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "Zwischenablage beobachten",
 				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
-				"autofilledLinks_one": "{{count}} Link aus der Zwischenablage geöffnet",
-				"autofilledLinks_other": "{{count}} Links aus der Zwischenablage geöffnet",
 				"autofilledLink": "Link aus der Zwischenablage hinzugefügt",
-				"pendingLinksReady_one": "{{count}} kopierter Link bereit",
-				"pendingLinksReady_other": "{{count}} kopierte Links bereit",
+				"bulkHint": "Mehrere Links kopiert — über „Bulk-URLs“ hinzufügen",
 				"pendingLinkReady": "Kopierter Link bereit",
-				"openCopiedLinks_one": "{{count}} kopierten Link öffnen",
-				"openCopiedLinks_other": "{{count}} kopierte Links öffnen",
 				"useCopiedLink": "Kopierten Link verwenden",
 				"dismissCopiedLink": "Kopierten Link ausblenden",
 				"dialog": {"cancelButton": "Abbrechen"}

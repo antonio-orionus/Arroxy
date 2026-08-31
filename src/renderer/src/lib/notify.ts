@@ -55,6 +55,12 @@ export const notify = {
 		console.info('[clipboard]', message)
 		emit('info', message, 'clipboard')
 	},
+	clipboardBulkHint(message: string): void {
+		// Same surface and dedupe window as the autofill toast: a multi-URL
+		// clipboard only ever produces a pointer to the manual bulk entry.
+		console.info('[clipboard]', message)
+		emit('info', message, 'clipboard')
+	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and
 		// happens on a large share of downloads; surfacing it every time would

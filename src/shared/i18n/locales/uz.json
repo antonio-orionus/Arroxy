@@ -202,14 +202,9 @@
 			"clipboard": {
 				"toggle": "Buferga nazar solish",
 				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
-				"autofilledLinks_one": "{{count}} ta havola buferdan ochildi",
-				"autofilledLinks_other": "{{count}} ta havola buferdan ochildi",
 				"autofilledLink": "Havola buferdan qo‘shildi",
-				"pendingLinksReady_one": "{{count}} ta nusxalangan havola tayyor",
-				"pendingLinksReady_other": "{{count}} ta nusxalangan havola tayyor",
+				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
 				"pendingLinkReady": "Nusxalangan havola tayyor",
-				"openCopiedLinks_one": "{{count}} ta nusxalangan havolani ochish",
-				"openCopiedLinks_other": "{{count}} ta nusxalangan havolani ochish",
 				"useCopiedLink": "Nusxalangan havoladan foydalanish",
 				"dismissCopiedLink": "Nusxalangan havolani yopish",
 				"dialog": {"cancelButton": "Bekor qilish"}

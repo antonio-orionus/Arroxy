@@ -194,14 +194,9 @@
 			"clipboard": {
 				"toggle": "ক্লিপবোর্ড দেখুন",
 				"toggleDescription": "YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।",
-				"autofilledLinks_one": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
-				"autofilledLinks_other": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
 				"autofilledLink": "ক্লিপবোর্ড থেকে লিংক যোগ করা হয়েছে",
-				"pendingLinksReady_one": "{{count}}টি কপি করা লিংক প্রস্তুত",
-				"pendingLinksReady_other": "{{count}}টি কপি করা লিংক প্রস্তুত",
+				"bulkHint": "একাধিক লিংক কপি হয়েছে — যোগ করতে “বাল্ক URL” ব্যবহার করুন",
 				"pendingLinkReady": "কপি করা লিংক প্রস্তুত",
-				"openCopiedLinks_one": "{{count}}টি কপি করা লিংক খুলুন",
-				"openCopiedLinks_other": "{{count}}টি কপি করা লিংক খুলুন",
 				"useCopiedLink": "কপি করা লিংক ব্যবহার করুন",
 				"dismissCopiedLink": "কপি করা লিংক বন্ধ করুন",
 				"dialog": {"cancelButton": "বাতিল"}
