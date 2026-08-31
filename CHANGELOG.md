@@ -8,6 +8,43 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.8
+
+Arroxy speaks Brazilian Portuguese now, starts noticeably faster, stops downloading yt-dlp three times over on a fresh install, and pausing the queue finally looks like what it is.
+
+## Highlights
+
+### Português (Brasil)
+
+- Arroxy is now translated into Brazilian Portuguese, bringing it to 24 languages. Pick it under Settings, or let it follow your system language. Translation contributed by [@tiagofreire-ia](https://github.com/tiagofreire-ia).
+
+### A Quicker, Quieter Start
+
+- The splash screen used to sit there for a full three seconds no matter how ready Arroxy actually was. It now clears as soon as the work is genuinely done, so a normal launch feels close to instant.
+- Fetching the YouTube token no longer holds up the launch. It happens quietly in the background instead, which matters most when YouTube is slow or unreachable — that case was measured holding the splash for eleven seconds, and it no longer holds it at all. If the token isn't ready in time, the first download simply fetches one then, exactly as it always could.
+- Startup now records what it spent its time on. If Arroxy ever feels slow to start, the log says which step was responsible, which makes a report something we can actually act on.
+- Setting up a newly released yt-dlp involves a check your operating system runs over the download, and it is genuinely slow — around fifteen seconds on the Mac this was measured on. Faster hardware barely helps, because almost none of that time is Arroxy working. Arroxy no longer interrupts that with a warning five seconds in, and no longer offers to cancel a setup that is working perfectly. If a check does run far longer than it should, Arroxy says so then.
+- The button that appears when setup is struggling used to read "Cancel setup", which rather undersold it — it leads to a panel that can install yt-dlp for you or point Arroxy at a copy you already have. It now says what it does.
+
+### One yt-dlp Download, Not Three
+
+- On a first launch Arroxy could fetch yt-dlp, stall, fetch a different build of it, stall, and fetch a third, before anything downloaded. Nothing was actually wrong with the first one. yt-dlp unpacks around a hundred files every time it runs, and the security scanner that inspects them — Gatekeeper on macOS, Defender on Windows — took longer than the 30 seconds Arroxy allowed before it gave up and assumed the component was broken. Each assumed failure bought another download that met the same scanner.
+- Arroxy now separates a component that is genuinely unusable from one that is merely slow to clear your machine's security check, and stops paying for a new download in the second case. First launch on a clean install is quicker and a lot quieter.
+
+### Pausing The Queue
+
+- Pausing all downloads used to change nothing on screen — pending items kept their normal look, so a paused queue was indistinguishable from an idle one. The queue now shows a paused banner with a "Resume queue" button, and pausing or resuming the whole queue (Cancel all included) is reflected immediately.
+- The paused state survives a restart: quit with the queue paused and it comes back paused.
+- Cancelling everything at the same moment you paused the queue could leave the paused banner stuck on screen while downloads quietly carried on. The queue now remembers the pause state you actually asked for and restores it correctly once the cancel sweep finishes.
+- Pausing and resuming the whole queue is handled through a single code path now, so edge cases where pause states overlap behave the same way every time.
+
+### Under The Hood
+
+- The checks that confirm Arroxy launches cleanly were rebuilt: a journey-based startup harness now runs real cold and warm starts against a previous release's profile on every pull request and nightly, replacing a cold-start test that had stopped working. No user-visible behavior change — this is what catches regressions before they reach you.
+- The release checks now scan the app's source for hardcoded labels and titles that bypass the translation system — including text written in non-Latin scripts — so every screen stays fully translated across all 24 languages. A few labels that had slipped through were moved to proper translation keys.
+
+---
+
 ## 0.4.8-beta.6
 
 No user-facing changes — this beta re-cuts 0.4.8-beta.5 after fixing the release pipeline's own startup gate, which failed on Windows for two environmental reasons rather than any app defect: the update check against the not-yet-published draft reports a Windows-shaped file name (`latest.yml`, no platform suffix) that the existing waiver did not cover, and a transient Chromium sandbox-bundle bootstrap retry on a loaded runner was being logged as a renderer startup error.
