@@ -189,6 +189,10 @@ describe('settings and recent stores', () => {
 		const settings = await store.get()
 
 		expect(settings.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
+
+		const reloadedStore = new SettingsStore(userData, baseDefaults)
+		const reloaded = await reloadedStore.get()
+		expect(reloaded.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
 	})
 
 	it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {
