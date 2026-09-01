@@ -2,8 +2,11 @@ import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Check, ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine, Plus, Users} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
+import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {cn} from '@renderer/lib/utils.js'
+import {useHotkeyRegistration} from '../../store/useHotkeyRegistration.js'
 import {Button} from '../ui/button.js'
+import {Kbd, KbdGroup} from '../ui/kbd.js'
 import {Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
 import {Spinner} from '../ui/spinner.js'
@@ -47,6 +50,9 @@ export function QuickProfileControl({
 	const model = buildDownloadProfileActionModel(profilesPrefs)
 	const {activeProfile} = model
 	const compact = size === 'compact'
+	const {enabled: hotkeyEnabled, accelerator, registered} = useHotkeyRegistration({observe: !compact})
+	const showHotkeyHint = !compact && hotkeyEnabled && registered === true
+	const chordKeys = showHotkeyHint ? formatHotkeyChord(accelerator) : []
 	const hasDestination = !compact && Boolean(destination?.trim())
 	const clusterTestId = testIdPrefix === 'profiles' ? 'profiles-quick-preview' : 'bulk-quick-profile-preview'
 	return (
@@ -55,6 +61,7 @@ export function QuickProfileControl({
 				type="button"
 				disabled={disabled}
 				aria-busy={preparing}
+				aria-keyshortcuts={showHotkeyHint ? accelerator : undefined}
 				onClick={onDownload}
 				className={cn(
 					'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
@@ -71,6 +78,28 @@ export function QuickProfileControl({
 				<span className="relative flex min-w-0 flex-col">
 					<span className={compact ? 'text-title' : 'text-headline'}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
 					<span className={cn('mt-1 block truncate font-medium leading-snug text-[var(--quick-card-muted)]', compact ? 'text-xs' : 'text-sm md:whitespace-nowrap')}>{t('wizard.url.quickDownloadTooltip', {profileName: activeProfile.name})}</span>
+					{showHotkeyHint ? (
+						<Tooltip>
+							<TooltipTrigger
+								render={props => (
+									<span {...props} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-[var(--quick-card-muted)]">
+										<span>{t('wizard.url.hotkey.hintLabel')}</span>
+										<KbdGroup className="gap-1.5">
+											{chordKeys.map(key => (
+												<Kbd key={key} className="border-[1.5px] border-[var(--border-strong)] bg-black/20 px-1.5 py-0.5 font-mono text-[10px] leading-none text-[var(--quick-card-ink)]">
+													{key}
+												</Kbd>
+											))}
+										</KbdGroup>
+									</span>
+								)}
+							/>
+							<TooltipContent side="bottom" className="max-w-xs flex-col items-start gap-1 text-left">
+								<span>{t('wizard.url.hotkey.hintTooltip')}</span>
+								<span className="opacity-80">{t('wizard.url.hotkey.hintTooltipSettings')}</span>
+							</TooltipContent>
+						</Tooltip>
+					) : null}
 				</span>
 				<ChevronRight className={cn('relative ms-auto shrink-0 text-[var(--quick-card-ink)] opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5', compact ? 'size-5' : 'size-5 md:size-6')} aria-hidden />
 			</button>

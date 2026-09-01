@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "ဤရှော့တကတ်ကို အခြားအက်ပ်က အသုံးပြုနေပါသည် — အခြားတစ်ခု ရွေးပါ။"
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "သို့မဟုတ် နှိပ်ပါ"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "ဗီဒီယိုလင့်ခ်ကို မည်သည့်နေရာတွင်မဆို ကူးယူပြီး ဤဖြတ်လမ်းခလုတ်ကို နှိပ်ပါ။ Arroxy က သင့်အသုံးပြုနေသော ပရိုဖိုင်ဖြင့် တန်းစီပေးမည် — ဝင်းဒိုးပြောင်းရန် မလိုပါ။"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "ဆက်တင်များတွင် ပြောင်းလဲပါ သို့မဟုတ် ပိတ်ပါ။"
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "ခလုတ်များ နှိပ်ပါ…"

@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Veya basın"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Bir video bağlantısını istediğin yerde kopyala, bu kısayola bas; Arroxy onu etkin profilinle sıraya ekler — pencereler arasında geçiş yapman gerekmez."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Ayarlar'dan değiştirin veya kapatın."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Tuşlara basın…"

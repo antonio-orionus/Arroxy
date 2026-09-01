@@ -16,6 +16,7 @@ export const DEFAULTS: {
 	uiTheme: UiTheme
 	backdropRenderMode: BackdropRenderMode
 	nativeAudioPreference: NativeAudioPreference
+	hotkeyEnabled: boolean
 	hotkeyAccelerator: HotkeyAccelerator
 	embedChapters: boolean
 	embedMetadata: boolean
@@ -39,6 +40,7 @@ export const DEFAULTS: {
 	writeDescription: false,
 	writeThumbnail: false,
 	writeM3u: true,
+	hotkeyEnabled: true,
 	filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
 	hotkeyAccelerator: 'CommandOrControl+Shift+D'
 }
@@ -58,7 +60,7 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
 			rememberLastOutputDir: true,
 			networkPacingPreset: 'balanced',
 			clipboardWatchEnabled: true,
-			hotkeyEnabled: false,
+			hotkeyEnabled: DEFAULTS.hotkeyEnabled,
 			hotkeyAccelerator: DEFAULTS.hotkeyAccelerator,
 			analyticsEnabled: true,
 			filenameTemplate: DEFAULTS.filenameTemplate,

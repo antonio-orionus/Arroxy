@@ -200,7 +200,10 @@
 				"changeShortcut": "Change shortcut",
 				"recording": "Press keys…",
 				"test": "Test",
-				"conflict": "This shortcut is taken by another app — pick another one."
+				"conflict": "This shortcut is taken by another app — pick another one.",
+				"hintLabel": "Or press",
+				"hintTooltip": "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows.",
+				"hintTooltipSettings": "Change or turn it off in Settings."
 			},
 			"cookies": {
 				"sourceLabel": "Cookies source",

@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Ову пречицу већ користи друга апликација — изаберите другу."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Ili pritisni"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Kopiraj video-link bilo gde, pritisni ovu prečicu i Arroxy će ga staviti u red koristeći tvoj aktivni profil — nema potrebe da menjaš prozore."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Promeni ga ili ga isključi u Podešavanjima."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Притисните тастере…"

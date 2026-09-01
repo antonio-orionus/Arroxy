@@ -26,6 +26,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'playlist-nested',
 	'bulk-stress',
 	'profiles-home-empty',
+	'hotkey-hint',
 	'profiles-home-clipboard-single',
 	'profiles-home-clipboard-bulk',
 	'profiles-split-menu',
@@ -150,6 +151,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-nested', group: 'Playlist', title: 'Nested playlists', description: 'Rows that are themselves playlists/albums/channels: badged, disabled, and explained.', kind: 'probe'},
 	{id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk'},
 	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
+	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home with one clipboard-detected link prefilled.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after several clipboard links were detected; the first link is prefilled.', kind: 'profile'},
 	{id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download profile picker opened.', kind: 'profile'},
@@ -403,6 +405,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			embedThumbnail: false,
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
 			commonPaths,
+			...(scenario.id === 'hotkey-hint' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
 			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {})

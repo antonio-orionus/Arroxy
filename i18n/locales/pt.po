@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Este atalho já está em uso por outro app — escolha outro."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Ou pressione"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Copie um link de vídeo em qualquer lugar, prima este atalho e o Arroxy irá colocá-lo na fila com o seu perfil ativo — não precisa de mudar de janela."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Altere-o ou desative-o nas Definições."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Pressione as teclas…"

@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "یہ شارٹ کٹ کسی اور ایپ کے پاس ہے — دوسری منتخب کریں۔"
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "یا دبائیں"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "کہیں بھی ویڈیو لنک کاپی کریں، یہ شارٹ کٹ دبائیں، اور Arroxy اسے آپ کے فعال پروفائل کے ساتھ قطار میں شامل کر دے گا — ونڈوز بدلنے کی ضرورت نہیں۔"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "سیٹنگز میں اسے تبدیل کریں یا بند کریں۔"
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "کلیدیں دبائیں…"

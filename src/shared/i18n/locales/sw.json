@@ -209,7 +209,10 @@
 				"changeShortcut": "Badilisha njia ya mkato",
 				"recording": "Bonyeza vitufe…",
 				"test": "Jaribu",
-				"conflict": "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine."
+				"conflict": "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine.",
+				"hintLabel": "Au bonyeza",
+				"hintTooltip": "Nakili kiungo cha video popote, bonyeza njia hii ya mkato, na Arroxy itakiweka kwenye foleni kwa kutumia wasifu wako unaotumika — huhitaji kubadilisha madirisha.",
+				"hintTooltipSettings": "Badilisha au izime katika Mipangilio."
 			},
 			"cookies": {
 				"sourceLabel": "Chanzo cha vidakuzi",

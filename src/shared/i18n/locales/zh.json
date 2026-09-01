@@ -192,7 +192,10 @@
 				"changeShortcut": "更改快捷键",
 				"recording": "请按键…",
 				"test": "测试",
-				"conflict": "此快捷键已被其他应用占用 — 请另选一个。"
+				"conflict": "此快捷键已被其他应用占用 — 请另选一个。",
+				"hintLabel": "或按",
+				"hintTooltip": "在任意位置复制视频链接，按下此快捷键，Arroxy 就会使用当前配置将其加入队列 — 无需切换窗口。",
+				"hintTooltipSettings": "在设置中更改或关闭它。"
 			},
 			"cookies": {
 				"sourceLabel": "Cookies 来源",

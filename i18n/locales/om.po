@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Hotkeyn kun appii biraa qabameera — kan bira filu."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Yookaan dhiibi"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Bakka kamittiyyuu keessatti hidhaa viidiyoo kooppii godhi, gabaabbata kana dhiibi, Arroxy immoo piroofaayila kee sochii irra jiru fayyadamuun tarree keessa galcha — foddaa jijjiiruun hin barbaachisu."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Qindaa'ina keessatti jijjiiri ykn cufi."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Qabduulee cuqaasi…"

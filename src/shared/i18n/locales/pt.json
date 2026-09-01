@@ -209,7 +209,10 @@
 				"changeShortcut": "Alterar atalho",
 				"recording": "Pressione as teclas…",
 				"test": "Testar",
-				"conflict": "Este atalho já está em uso por outro app — escolha outro."
+				"conflict": "Este atalho já está em uso por outro app — escolha outro.",
+				"hintLabel": "Ou pressione",
+				"hintTooltip": "Copie um link de vídeo em qualquer lugar, prima este atalho e o Arroxy irá colocá-lo na fila com o seu perfil ativo — não precisa de mudar de janela.",
+				"hintTooltipSettings": "Altere-o ou desative-o nas Definições."
 			},
 			"cookies": {
 				"sourceLabel": "Origem dos cookies",

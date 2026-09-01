@@ -209,7 +209,10 @@
 				"changeShortcut": "Kürzel ändern",
 				"recording": "Tasten drücken…",
 				"test": "Testen",
-				"conflict": "Dieses Kürzel wird bereits von einer anderen App verwendet — wähle ein anderes."
+				"conflict": "Dieses Kürzel wird bereits von einer anderen App verwendet — wähle ein anderes.",
+				"hintLabel": "Oder drücke",
+				"hintTooltip": "Kopiere irgendwo einen Videolink, drücke dieses Kürzel, und Arroxy reiht ihn mit deinem aktiven Profil ein — du musst nicht zwischen Fenstern wechseln.",
+				"hintTooltipSettings": "Ändere es in den Einstellungen oder schalte es dort aus."
 			},
 			"cookies": {
 				"sourceLabel": "Cookies-Quelle",

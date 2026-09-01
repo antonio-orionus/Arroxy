@@ -7,6 +7,7 @@ import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import type {AdvancedSettingsTarget} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
@@ -158,7 +159,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 	useEffect(() => {
 		if (!advancedAutoOpen) return
-		const targetTestId = advancedAutoTarget === 'network' ? 'network-pacing-section' : 'cookies-source'
+		const targetTestIds: Record<AdvancedSettingsTarget, string> = {cookies: 'cookies-source', network: 'network-pacing-section', hotkey: 'hotkey-section'}
+		const targetTestId = targetTestIds[advancedAutoTarget]
 		const target = document.querySelector(`[data-testid="${targetTestId}"]`)
 		if (target instanceof HTMLElement) {
 			target.scrollIntoView?.({block: 'center', behavior: 'smooth'})
@@ -297,9 +299,11 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</SettingsPanel>
 
-			<SettingsPanel title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
-				<HotkeySettingsSection />
-			</SettingsPanel>
+			<div data-testid="hotkey-section">
+				<SettingsPanel title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
+					<HotkeySettingsSection />
+				</SettingsPanel>
+			</div>
 
 			<SettingsPanel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
 				<FieldGroup className="gap-4">

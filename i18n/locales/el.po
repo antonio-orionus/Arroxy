@@ -2745,6 +2745,18 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Αυτή η συντόμευση χρησιμοποιείται από άλλη εφαρμογή — επιλέξτε άλλη."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Ή πάτησε"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Αντέγραψε έναν σύνδεσμο βίντεο οπουδήποτε, πάτησε αυτή τη συντόμευση και το Arroxy θα τον βάλει στην ουρά με το ενεργό προφίλ σου — δεν χρειάζεται να αλλάξεις παράθυρο."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Άλλαξέ το ή απενεργοποίησέ το στις Ρυθμίσεις."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Πατήστε πλήκτρα…"

@@ -209,7 +209,10 @@
 				"changeShortcut": "Đổi tổ hợp phím",
 				"recording": "Nhấn phím…",
 				"test": "Kiểm tra",
-				"conflict": "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác."
+				"conflict": "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác.",
+				"hintLabel": "Hoặc nhấn",
+				"hintTooltip": "Sao chép liên kết video ở bất cứ đâu, nhấn phím tắt này và Arroxy sẽ xếp liên kết vào hàng đợi bằng hồ sơ đang hoạt động — không cần chuyển cửa sổ.",
+				"hintTooltipSettings": "Thay đổi hoặc tắt tính năng này trong Cài đặt."
 			},
 			"cookies": {
 				"sourceLabel": "Nguồn cookies",
