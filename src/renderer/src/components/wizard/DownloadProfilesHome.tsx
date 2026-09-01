@@ -320,7 +320,7 @@ export function DownloadProfilesHome(): ReactNode {
 			const url = candidate.acceptedUrls[0]
 			if (!url) return
 			setWizardUrl(url)
-			notify.clipboardAutofilled(t('wizard.url.clipboard.autofilledLink'))
+			notify.clipboard(t('wizard.url.clipboard.autofilledLink'))
 		},
 		[setWizardUrl, t]
 	)
@@ -348,7 +348,7 @@ export function DownloadProfilesHome(): ReactNode {
 				return
 			}
 			if (action.kind === 'hint-bulk') {
-				notify.clipboardBulkHint(t('wizard.url.clipboard.bulkHint'))
+				notify.clipboard(t('wizard.url.clipboard.bulkHint'))
 				return
 			}
 			consumeClipboardCandidate(action.candidate)

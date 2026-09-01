@@ -20,6 +20,7 @@ import {registerWindowHandlers} from './windowHandlers.js'
 import {registerDownloadHandlers} from './downloadHandlers.js'
 import {registerSettingsHandlers} from './settingsHandlers.js'
 import {registerFileHandlers} from './fileHandlers.js'
+import {registerHotkeyHandlers} from './hotkeyHandlers.js'
 import {registerQueueHandlers} from './queueHandlers.js'
 import {registerAnalyticsHandlers} from './analyticsHandlers.js'
 import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
@@ -52,8 +53,9 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService})
 	registerFileHandlers(mainWindow, binaryManager)
+	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)
 	registerAnalyticsHandlers()
 	registerDiagnosticsHandlers()

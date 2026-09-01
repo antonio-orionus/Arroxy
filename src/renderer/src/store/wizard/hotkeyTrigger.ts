@@ -35,6 +35,10 @@ import {enqueueActiveProfileProbeResult} from './quickDownloadPreparation.js'
 
 const LIVE_STATUSES: ReadonlySet<QueueItem['status']> = new Set(['probing', 'pending', 'running', 'paused-held', 'paused-active'])
 
+// Which playlist mode the background probe runs in, per URL intent. Keyed on
+// the intent kind union so a new intent cannot silently fall through to 'auto'.
+const PLAYLIST_MODE_BY_INTENT: Record<Exclude<UrlIntent['kind'], 'mixed'>, ProbePlaylistMode> = {'obvious-single': 'video', 'obvious-collection': 'playlist', unknown: 'auto'}
+
 export type HotkeyIntake = {kind: 'run'; url: string; intent: UrlIntent; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
 
 // Pure: trigger + the two store fields that gate it → run or outcome.
@@ -62,7 +66,7 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quick
 	// non-YouTube site — the wizard probes those happily, so the hotkey does
 	// too; only an unparseable URL is invalid.
 	if (intent.kind === 'mixed') return {kind: 'outcome', outcome: 'needs-review'}
-	const playlistMode = intent.kind === 'obvious-single' ? ('video' as const) : intent.kind === 'obvious-collection' ? ('playlist' as const) : ('auto' as const)
+	const playlistMode = PLAYLIST_MODE_BY_INTENT[intent.kind]
 	return {kind: 'run', url, intent, playlistMode}
 }
 
@@ -158,8 +162,10 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 		const review = outcomeForProbe(result.data, intake.intent)
 		if (review) {
 			// Needs-review never opens a dialog from the blind path: turn the
-			// placeholder into the acknowledged error row and report.
-			await window.appApi.queue.cmd.probeFailed({itemId, error: {kind: 'unknown', raw: 'needs-review'}})
+			// placeholder into the acknowledged error row and report. The sentence
+			// rides `raw` verbatim (same as the catch arm below) — the queue row
+			// prints it as-is, and no new i18n template is involved.
+			await window.appApi.queue.cmd.probeFailed({itemId, error: {kind: 'unknown', raw: 'This link needs the review step — open Arroxy to continue.'}})
 			report(review, intake.url)
 			return
 		}

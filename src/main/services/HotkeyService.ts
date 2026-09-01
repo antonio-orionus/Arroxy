@@ -70,30 +70,31 @@ export class HotkeyService {
 		this.stateChangeHook?.()
 	}
 
-	// Applies the desired state from settings. A chord swap unregisters the
-	// previous one first; register() returning false means another app owns
-	// the chord — surfaced via getState(), never fatal.
+	// Applies the desired state from settings: the chord that should be
+	// registered, if any. Diff-and-reconcile — unregister whatever is stale,
+	// register what is wanted (retrying heals a chord another app released or
+	// the OS dropped), then notify once if the externally visible state moved.
+	// register() returning false means another app owns the chord — surfaced
+	// via getState(), never fatal.
 	apply(enabled: boolean, accelerator: string): void {
-		if (this.current && this.current !== accelerator) {
-			this.registry.unregister(this.current)
-			this.current = null
-		}
+		const before = this.getState()
 		if (!enabled) {
-			if (this.current) {
+			if (this.current !== null) {
 				this.registry.unregister(this.current)
 				this.current = null
 			}
-			this.notifyStateChange()
-			return
+		} else {
+			if (this.current !== null && this.current !== accelerator) {
+				this.registry.unregister(this.current)
+				this.current = null
+			}
+			if (this.current === null || !this.registry.isRegistered(accelerator)) {
+				this.registry.register(accelerator, () => this.handleTrigger())
+				this.current = accelerator
+			}
 		}
-		if (this.current === accelerator && this.registry.isRegistered(accelerator)) return
-		if (this.registry.register(accelerator, () => this.handleTrigger())) {
-			this.current = accelerator
-			this.notifyStateChange()
-			return
-		}
-		this.current = accelerator
-		this.notifyStateChange()
+		const after = this.getState()
+		if (after.accelerator !== before.accelerator || after.registered !== before.registered) this.notifyStateChange()
 	}
 
 	getWindow(): HotkeyWindow {

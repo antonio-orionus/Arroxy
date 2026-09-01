@@ -10,6 +10,7 @@ import type {
 	DownloadProfilesPrefs,
 	FeedbackDiagnosticUpload,
 	GraphicsPolicy,
+	HotkeyOutcomeEvent,
 	HotkeyOutcomePayload,
 	HotkeyState,
 	HotkeyTriggerPayload,
@@ -85,7 +86,7 @@ export interface AppApi {
 		onProbeProgress(listener: (event: ProbeProgressEvent) => void): () => void
 		onClipboardUrl(listener: (url: string) => void): () => void
 		onHotkeyTrigger(listener: (trigger: HotkeyTriggerPayload) => void): () => void
-		onHotkeyOutcome(listener: (event: HotkeyOutcomePayload) => void): () => void
+		onHotkeyOutcome(listener: (event: HotkeyOutcomeEvent) => void): () => void
 		onWarmupProgress(listener: (event: WarmupProgressEvent) => void): () => void
 	}
 	queue: {

@@ -7,6 +7,7 @@
 
 import i18next from 'i18next'
 import type {HotkeyOutcome} from '@shared/types.js'
+import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
 
 export type NotificationLevel = 'error' | 'warning' | 'info'
 
@@ -50,32 +51,19 @@ export const notify = {
 		console.warn('[playlist] picked folder is not usable as base + subfolder', dir)
 		emit('warning', i18next.t('notifications.playlistFolderRejected'), 'playlist-folder')
 	},
-	clipboardAutofilled(message: string): void {
-		// Already localized by the caller, so it is passed through rather than
-		// looked up again.
-		console.info('[clipboard]', message)
-		emit('info', message, 'clipboard')
-	},
-	clipboardBulkHint(message: string): void {
-		// Same surface and dedupe window as the autofill toast: a multi-URL
-		// clipboard only ever produces a pointer to the manual bulk entry.
+	// One method for every clipboard-intake toast: the callers pass their own
+	// localized message and the distinction lives in their t() keys, not here.
+	// Same surface and dedupe id as the autofill toast.
+	clipboard(message: string): void {
 		console.info('[clipboard]', message)
 		emit('info', message, 'clipboard')
 	},
 	hotkeyOutcome(outcome: HotkeyOutcome): void {
 		// Localized here (not by the caller) because main routes the same
-		// outcome through mainT for OS notifications.
-		const key = {
-			queued: 'notifications.hotkey.queued',
-			'already-queued': 'notifications.hotkey.alreadyQueued',
-			'invalid-clipboard': 'notifications.hotkey.invalidClipboard',
-			'multiple-urls': 'notifications.hotkey.multipleUrls',
-			'needs-review': 'notifications.hotkey.needsReview',
-			busy: 'notifications.hotkey.busy',
-			'submission-failed': 'notifications.hotkey.submissionFailed'
-		} as const
-		const kind: NotificationLevel = outcome === 'submission-failed' || outcome === 'invalid-clipboard' ? 'error' : outcome === 'queued' || outcome === 'already-queued' ? 'info' : 'info'
-		emit(kind, i18next.t(key[outcome]), 'hotkey')
+		// outcome through mainT for OS notifications; the key table is shared
+		// so both processes can never drift apart.
+		const {key, level} = HOTKEY_OUTCOME_COPY[outcome]
+		emit(level, i18next.t(key), 'hotkey')
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and

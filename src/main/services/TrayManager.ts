@@ -112,14 +112,9 @@ export class TrayManager {
 			statusLabel = mainT(lang, `tray.menu.${pluralKey('statusActive', activeCount)}`, {count: activeCount, percent: avg})
 		}
 
-		const menu = Menu.buildFromTemplate([
-			{label: statusLabel, enabled: false},
-			{type: 'separator'},
-			...(this.hotkeyUsable && this.hotkeyTrigger ? [{label: mainT(lang, 'tray.menu.downloadFromClipboard'), click: () => this.hotkeyTrigger?.handleTrigger()}] : []),
-			{label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow()},
-			{type: 'separator'},
-			{label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit()}
-		])
+		const {hotkeyTrigger} = this
+		const hotkeyItem = hotkeyTrigger && this.hotkeyUsable ? {label: mainT(lang, 'tray.menu.downloadFromClipboard'), click: () => hotkeyTrigger.handleTrigger()} : null
+		const menu = Menu.buildFromTemplate([{label: statusLabel, enabled: false}, {type: 'separator'}, ...(hotkeyItem ? [hotkeyItem] : []), {label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow()}, {type: 'separator'}, {label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit()}])
 		this.tray.setContextMenu(menu)
 	}
 }

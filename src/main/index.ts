@@ -30,7 +30,7 @@ import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} 
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
-import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
+import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
@@ -425,7 +425,7 @@ if (hasSingleInstanceLock) {
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
 
 		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
-		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D')
+		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		if (e2eMode.enabled) {
 			// Lets the hotkey spec drive the registered-chord path directly —
 			// the OS owns real chords and contested-chord coverage stays manual.

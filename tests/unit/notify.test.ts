@@ -64,7 +64,7 @@ describe('which failures reach the user', () => {
 		vi.spyOn(console, 'info').mockImplementation(() => {})
 		const sink = vi.fn()
 		setNotificationSink(sink)
-		notify.clipboardAutofilled('Filled 3 links from your clipboard')
+		notify.clipboard('Filled 3 links from your clipboard')
 		expect(sink).toHaveBeenCalledWith('info', 'Filled 3 links from your clipboard', expect.any(String))
 	})
 

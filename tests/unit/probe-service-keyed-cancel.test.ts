@@ -44,11 +44,11 @@ describe('ProbeService — keyed probe cancellation', () => {
 		const svc = new ProbeService(makeYtDlp())
 
 		let firstSettled = false
-		const first = svc.probe('https://a.example/1', 'off', 'video', undefined, 'item-1').then(r => {
+		const first = svc.probe('https://a.example/1', {cookiesMode: 'off', playlistMode: 'video', ownerKey: 'item-1'}).then(r => {
 			firstSettled = true
 			return r
 		})
-		const second = svc.probe('https://b.example/2', 'off', 'video', undefined, 'item-2')
+		const second = svc.probe('https://b.example/2', {cookiesMode: 'off', playlistMode: 'video', ownerKey: 'item-2'})
 		await new Promise(resolve => setTimeout(resolve, 10))
 		expect(firstSettled).toBe(false)
 

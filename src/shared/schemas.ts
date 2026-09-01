@@ -190,11 +190,14 @@ export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
 export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'busy'])
 export type HotkeyOutcome = z.infer<typeof hotkeyOutcomeSchema>
 
-// The schema validates the renderer→main payload; main decorates the event it
-// forwards with its own `toast` verdict — focused + on-screen (see
-// hotkeyFeedback) — so the renderer knows whether to surface the toast.
+// The schema validates the renderer→main report payload; main decorates the
+// event it forwards with its own `toast` verdict — focused + on-screen (see
+// hotkeyFeedback) — so the renderer knows whether to surface the toast. Two
+// shapes, explicitly: the report (renderer→main) and the event (main→renderer).
 export const hotkeyOutcomePayloadSchema = z.object({outcome: hotkeyOutcomeSchema, url: z.string().optional()})
-export type HotkeyOutcomePayload = z.infer<typeof hotkeyOutcomePayloadSchema> & {toast?: boolean}
+export type HotkeyOutcomePayload = z.infer<typeof hotkeyOutcomePayloadSchema>
+export const hotkeyOutcomeEventSchema = hotkeyOutcomePayloadSchema.extend({toast: z.boolean()})
+export type HotkeyOutcomeEvent = z.infer<typeof hotkeyOutcomeEventSchema>
 
 // Main reads the clipboard (the renderer cannot while hidden) and sends the
 // pre-classified trigger. Renderer never touches the clipboard for the hotkey.

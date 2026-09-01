@@ -1,14 +1,11 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {hotkeyOutcomePayloadSchema, updateSettingsSchema} from '@shared/schemas.js'
-import type {SupportedLang} from '@shared/schemas.js'
+import {updateSettingsSchema} from '@shared/schemas.js'
 import {ok} from '@shared/result.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
-import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
-import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
 import type {QueueService} from '@main/services/QueueService.js'
-import {NORMAL_LANE_CAP} from '@shared/constants.js'
+import {DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
 import {setAnalyticsEnabled} from '@main/services/analytics.js'
 import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
 
@@ -16,30 +13,13 @@ interface SettingsHandlerDeps {
 	settingsStore: SettingsStore
 	clipboardWatcher: ClipboardWatcher
 	queueService: QueueService
+	// Not for hotkey IPC (see hotkeyHandlers.ts) — only the settingsUpdate hook
+	// that re-applies the chord whenever the enabled flag or accelerator lands.
 	hotkeyService: HotkeyService
-	osNotifier: HotkeyOsNotifier | null
-	languageRef: {current: SupportedLang}
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService, osNotifier, languageRef} = deps
-
-	handleRaw(IPC_CHANNELS.hotkeyReportOutcome, async (_payload: unknown, raw: unknown) => {
-		const parsed = hotkeyOutcomePayloadSchema.safeParse(raw)
-		if (!parsed.success) return Promise.resolve(toUnknownFailure(new Error('hotkey:reportOutcome payload failed validation')))
-		routeHotkeyOutcome(parsed.data, {lang: languageRef.current, window: hotkeyService.getWindow(), osNotifier: osNotifier})
-		return Promise.resolve(ok(undefined))
-	})
-
-	handleRaw(IPC_CHANNELS.hotkeyGetState, async () => Promise.resolve(ok(hotkeyService.getState())))
-
-	// Settings "Test" button: fires the exact trigger pipeline the real chord
-	// runs (clipboard read → pre-classify → renderer ack), so the button proves
-	// the registered chord works end to end.
-	handleRaw(IPC_CHANNELS.hotkeyTestPress, async () => {
-		hotkeyService.handleTrigger()
-		return Promise.resolve(ok(undefined))
-	})
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService} = deps
 
 	handleRaw(IPC_CHANNELS.settingsGet, async () => {
 		try {
@@ -54,7 +34,7 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		const updated = await settingsStore.update(data)
 		clipboardWatcher.setEnabled(updated.common.clipboardWatchEnabled)
 		if (data.common?.hotkeyEnabled !== undefined || data.common?.hotkeyAccelerator !== undefined) {
-			hotkeyService.apply(updated.common.hotkeyEnabled, updated.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D')
+			hotkeyService.apply(updated.common.hotkeyEnabled, updated.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		}
 		if (data.common?.analyticsEnabled !== undefined) {
 			setAnalyticsEnabled(updated.common.analyticsEnabled ?? true)

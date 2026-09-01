@@ -29,7 +29,7 @@ export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
 		const settings = await settingsStore.get()
 		const issue = getIncompleteCookiesConfigIssue(settings.common)
 		if (issue) return fail<ProbeResult, ProbeError>({kind: 'other', code: 'cookies_config', message: cookiesConfigIssueMessage(issue)})
-		return probeService.probe(url, settings.common.cookiesMode ?? 'off', playlistMode ?? 'auto', playlistScope, ownerKey)
+		return probeService.probe(url, {cookiesMode: settings.common.cookiesMode ?? 'off', playlistMode, playlistScope, ownerKey})
 	})
 
 	// Renderer fires this when the user changes URL or navigates away from a

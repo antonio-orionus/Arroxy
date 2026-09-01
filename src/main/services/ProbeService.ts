@@ -441,7 +441,8 @@ export class ProbeService extends EventEmitter {
 		this.inFlight.clear()
 	}
 
-	async probe(url: string, cookiesMode: 'off' | 'file' | 'browser' = 'off', playlistMode: ProbePlaylistMode = 'auto', playlistScope?: PlaylistScope, ownerKey?: string): Promise<Result<ProbeResult, ProbeError>> {
+	async probe(url: string, opts: {cookiesMode?: 'off' | 'file' | 'browser'; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string} = {}): Promise<Result<ProbeResult, ProbeError>> {
+		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey} = opts
 		const startMs = Date.now()
 		const emitSuccess = (result: ProbeResult): void => {
 			trackMain('format_probed', {duration_bucket: probeDurationBucket(Date.now() - startMs), bot_wall: result.kind === 'video' && result.degraded?.reasons.includes('botWall') === true, cookies_mode: cookiesMode, result_kind: result.kind})

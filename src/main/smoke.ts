@@ -214,7 +214,7 @@ export async function runSmokeMode(deps: SmokeDeps): Promise<number> {
 	// 3. Probe — real ProbeService invocation, real yt-dlp spawn, real network.
 	if (ytDlpPath) {
 		const probeStart = Date.now()
-		const probe = await probeService.probe(url, 'off', 'video')
+		const probe = await probeService.probe(url, {cookiesMode: 'off', playlistMode: 'video'})
 		const durationMs = Date.now() - probeStart
 		if (probe.ok) {
 			if (probe.data.kind === 'video') {
