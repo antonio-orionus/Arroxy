@@ -116,6 +116,19 @@ describe('QueueService — probing items', () => {
 		expect(ds.start).not.toHaveBeenCalled()
 	})
 
+	it('replaceProbing keeps the placeholder when its canonical URL is already live', async () => {
+		const {qs, ds} = makeService()
+		const canonicalUrl = 'https://youtube.com/watch?v=canonical'
+		qs.add([probingItem('p1', 'https://youtu.be/canonical'), makeItem({id: 'live', status: 'pending', url: canonicalUrl, job: REAL_JOB})])
+
+		const result = await qs.replaceProbing('p1', [makeItem({id: 'resolved', status: 'pending', url: canonicalUrl, job: REAL_JOB})])
+
+		expect(result.ok).toBe(false)
+		if (!result.ok) expect(result.error.code).toBe('conflict')
+		expect(qs.snapshot().map(item => item.id)).toEqual(['p1', 'live'])
+		expect(ds.start).toHaveBeenCalledOnce()
+	})
+
 	it('remove aborts the probe through the abort hook', async () => {
 		const {qs} = makeService()
 		const onProbeAbort = vi.fn()

@@ -100,7 +100,7 @@ export class QueueService extends EventEmitter {
 	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
 	private probeAbortHook: (itemId: string) => void = () => undefined
 	private readonly probeLifecycle = new QueueProbeLifecycle({
-		findItem: itemId => this.findItem(itemId),
+		items: () => this.items,
 		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
 		commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt}),
 		commitRemove: itemId => this.commit({kind: 'remove', itemId}),

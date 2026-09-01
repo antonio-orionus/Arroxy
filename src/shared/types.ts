@@ -44,6 +44,7 @@ export type {
 	QuickDownloadStatus,
 	QuickDownloadProgressPhase,
 	ProbeOtherErrorCode,
+	AppErrorCode,
 	WizardMode,
 	BulkMetadataStatus,
 	BulkMetadataItemStatus,
@@ -86,12 +87,11 @@ import type {
 	QueueActionSkippedItem as SchemaQueueActionSkippedItem,
 	DownloadProfilesPrefs,
 	ProbeOtherErrorCode,
+	AppErrorCode,
 	RuntimeBinaryChannel,
 	RuntimeBinaryProvider,
 	WizardStepName
 } from './schemas.js'
-
-export type AppErrorCode = 'validation' | 'conflict' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
 
 export interface AppError {
 	code: AppErrorCode

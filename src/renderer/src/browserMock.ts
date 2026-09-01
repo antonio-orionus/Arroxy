@@ -1,5 +1,21 @@
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
+import type {
+	AppSettings,
+	DependencyDiagnostic,
+	DependencyId,
+	HotkeyTriggerPayload,
+	ProbeProgressEvent,
+	ProgressEvent,
+	QueueActionSkippedItem,
+	QueueItem,
+	QueueOutputTargetChangeItemResult,
+	QueueSchedulerEventPayload,
+	QueueSnapshotPayload,
+	StatusEvent,
+	UpdateAvailablePayload,
+	WarmUpOutput,
+	WarmupProgressEvent
+} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {canApplyQueueActionToItem, findLiveQueueDuplicate} from '@shared/queueActions.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
@@ -106,6 +122,7 @@ export function installBrowserMock(): void {
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
+	const hotkeyTriggerListeners = new Set<(trigger: HotkeyTriggerPayload) => void>()
 	const queueSnapshotListeners = new Set<(event: QueueSnapshotPayload) => void>()
 	const queueAddedListeners = new Set<(event: {items: QueueItem[]; atIdx: number}) => void>()
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
@@ -387,7 +404,10 @@ export function installBrowserMock(): void {
 		hotkey: {
 			reportOutcome: () => Promise.resolve({ok: true, data: undefined} as const),
 			getState: () => Promise.resolve({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: false}} as const),
-			testPress: () => Promise.resolve({ok: true, data: undefined} as const),
+			testPress: () => {
+				hotkeyTriggerListeners.forEach(listener => listener({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}))
+				return Promise.resolve({ok: true, data: undefined} as const)
+			},
 			rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)
 		},
 
@@ -451,7 +471,10 @@ export function installBrowserMock(): void {
 				clipboardUrlListeners.add(listener)
 				return () => clipboardUrlListeners.delete(listener)
 			},
-			onHotkeyTrigger: () => () => undefined,
+			onHotkeyTrigger: listener => {
+				hotkeyTriggerListeners.add(listener)
+				return () => hotkeyTriggerListeners.delete(listener)
+			},
 			onHotkeyOutcome: () => () => undefined,
 			onWarmupProgress: listener => {
 				warmupProgressListeners.add(listener)

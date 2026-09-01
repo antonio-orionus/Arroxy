@@ -11,13 +11,13 @@ import log from 'electron-log/main.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
-import {findInadmissibleQueueItem} from './queueAdmission.js'
+import {findInadmissibleQueueItem, findLiveDuplicate} from './queueAdmission.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')
 
 export interface QueueProbeLifecycleDeps {
-	findItem: (itemId: string) => QueueItem | undefined
+	items: () => readonly QueueItem[]
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
 	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError} | {kind: 'cancelled'}) => void
 	// Raw commit seams for the atomic swap: remove + add run back-to-back with
@@ -33,7 +33,7 @@ export class QueueProbeLifecycle {
 	// renderer reports it after its hotkey probe fails; only a probing item
 	// accepts the transition (illegalTransition rejects it elsewhere).
 	probeFailed(itemId: string, error: LocalizedError): boolean {
-		const item = this.deps.findItem(itemId)
+		const item = this.deps.items().find(candidate => candidate.id === itemId)
 		if (!item || item.status !== QUEUE_STATUS.probing) return false
 		this.deps.commitEvent(itemId, {kind: 'probe-failed', error})
 		return true
@@ -57,12 +57,17 @@ export class QueueProbeLifecycle {
 	// orphaned prepared items downloading after the user cancelled the
 	// submission.
 	replaceProbing(itemId: string, items: QueueItem[]): Result<{ids: string[]}> {
-		const placeholder = this.deps.findItem(itemId)
+		const placeholder = this.deps.items().find(candidate => candidate.id === itemId)
 		if (!placeholder || placeholder.status !== QUEUE_STATUS.probing) {
 			return fail(createAppError('validation', `probing placeholder ${itemId} is no longer active`))
 		}
 		const rejected = findInadmissibleQueueItem(items)
 		if (rejected) return fail(createAppError('validation', rejected.message))
+		const duplicate = findLiveDuplicate(
+			items,
+			this.deps.items().filter(item => item.id !== itemId)
+		)
+		if (duplicate) return fail(createAppError('conflict', duplicate.message))
 		if (items.length === 0) {
 			this.deps.commitRemove(itemId)
 			return ok({ids: []})
