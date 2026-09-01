@@ -17,7 +17,7 @@ async function withClipboardWatchEnabled(run: () => Promise<void>): Promise<void
 	}
 }
 
-test('Electron clipboard watcher fills single links, opens bulk links, and preserves pending candidates', async () => {
+test('Electron clipboard watcher fills single links, hints at bulk links, and preserves pending candidates', async () => {
 	test.setTimeout(90_000)
 	// ClipboardWatcher only polls while the window is focused AND visible, so the
 	// behavior under test cannot exist in a hidden window. This is a real product
@@ -50,10 +50,11 @@ test('Electron clipboard watcher fills single links, opens bulk links, and prese
 
 					const bulkRaw = [FIXTURE_VIDEO_IDS[1], FIXTURE_VIDEO_IDS[2]].map(urls.video).join('\n')
 					await writeClipboard(app, bulkRaw)
-					await expect(page.locator('[data-testid="bulk-url-dialog"]')).toBeVisible({timeout: 5_000})
-					await expect(page.locator('[data-testid="bulk-url-textarea"]')).toHaveValue(bulkRaw)
-					await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('2')
-					await page.getByRole('button', {name: /^cancel$/i}).click()
+					// ca33d7d: multi-URL clipboards only produce a hint toast —
+					// automation never opens dialogs, so the watcher must not
+					// auto-open the Bulk dialog on the watcher's behalf.
+					await expect(page.locator('[data-sonner-toast]', {hasText: 'Multiple links copied — use Bulk URLs'})).toBeVisible({timeout: 5_000})
+					await expect(page.locator('[data-testid="bulk-url-dialog"]')).toHaveCount(0)
 
 					await input.fill('https://example.com/already-here')
 					const pendingUrl = urls.video(FIXTURE_VIDEO_IDS[3])

@@ -23,6 +23,11 @@ test.describe.configure({mode: 'serial'})
 
 const PROBE_DELAY_MS = 4_000
 const PROBING_TIMEOUT_MS = 2_500
+// Hidden windows render on an occlusion/throttle timer; a loaded CI runner can
+// push the row's visibility past the focused-path window. Ordering is already
+// proven — the 'queued' sink line only lands after queue add succeeded — so
+// these asserts poll longer instead of proving immediacy they cannot own.
+const HIDDEN_PROBING_TIMEOUT_MS = 10_000
 
 const sinkPath = (userDataDir: string): string => path.join(userDataDir, 'hotkey-os-notifications.log')
 
@@ -131,7 +136,7 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 			await writeClipboard(app, secondUrl)
 			await pressHotkey(app)
 			await expectSinkLine(sink, 'Download queued from clipboard')
-			await expectProbingRow(page, secondUrl)
+			await expectProbingRow(page, secondUrl, HIDDEN_PROBING_TIMEOUT_MS)
 			expect(probeEnds(fixtureServer, FIXTURE_VIDEO_IDS[1])).toBe(0)
 			await expect(page.locator('[data-sonner-toast]')).toHaveCount(0, {timeout: 2_000})
 
@@ -189,7 +194,7 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 			await writeClipboard(app, url)
 			await pressHotkey(app)
 			await expectSinkLine(sink, 'Download queued from clipboard')
-			await expectProbingRow(page, url)
+			await expectProbingRow(page, url, HIDDEN_PROBING_TIMEOUT_MS)
 			expect(probeEnds(fixtureServer, FIXTURE_VIDEO_IDS[0])).toBe(0)
 			await expect(page.locator('[data-sonner-toast]')).toHaveCount(0)
 
