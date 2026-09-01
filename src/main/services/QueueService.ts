@@ -36,7 +36,7 @@ import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from 
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
-import {findInadmissibleQueueItem} from './download/queueAdmission.js'
+import {findInadmissibleQueueItem, findLiveDuplicate} from './download/queueAdmission.js'
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {describeMutation, statusSummary, type Mutation} from './download/queueMutation.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
@@ -98,8 +98,6 @@ export class QueueService extends EventEmitter {
 	private readonly finalArtifactTargets = new FinalArtifactTargets()
 	// Owns the automatic-retry budget and timers. Writes only through commit().
 	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
-	// Probe-stage lifecycle (placeholder rows created by the global hotkey).
-	// IPC wiring replaces the abort hook with ProbeService.cancelProbe: a removed/cancelled probing row aborts exactly its own probe.
 	private probeAbortHook: (itemId: string) => void = () => undefined
 	private readonly probeLifecycle = new QueueProbeLifecycle({
 		findItem: itemId => this.findItem(itemId),
@@ -180,11 +178,13 @@ export class QueueService extends EventEmitter {
 		if (toAdd.length === 0) return ok({ids: []})
 		const rejected = findInadmissibleQueueItem(toAdd)
 		if (rejected) return fail(createAppError('validation', rejected.message))
+		const duplicate = findLiveDuplicate(toAdd, this.items)
+		if (duplicate) return fail(createAppError('validation', duplicate.message))
 		this.commit({kind: 'add', items: toAdd})
 		return ok({ids: toAdd.map(i => i.id)})
 	}
 
-	// Atomic probe-stage swap — see QueueProbeLifecycle.replaceProbing; Promise.resolve because the Result API is sync (async only at the IPC boundary).
+	// Atomic probe-stage swap; Promise.resolve keeps the IPC contract async.
 	replaceProbing(itemId: string, items: QueueItem[]): Promise<Result<{ids: string[]}>> {
 		return Promise.resolve(this.probeLifecycle.replaceProbing(itemId, items))
 	}

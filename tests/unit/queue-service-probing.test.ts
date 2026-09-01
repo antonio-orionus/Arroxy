@@ -41,6 +41,17 @@ describe('QueueService — probing items', () => {
 		expect(ds.start).not.toHaveBeenCalled()
 	})
 
+	it('atomically rejects a duplicate live URL', () => {
+		const {qs} = makeService()
+		const first = probingItem('p1', 'https://youtube.com/watch?v=same')
+		const second = probingItem('p2', 'https://youtube.com/watch?v=same')
+		expect(qs.add([first]).ok).toBe(true)
+		const duplicate = qs.add([second])
+		expect(duplicate.ok).toBe(false)
+		if (!duplicate.ok) expect(duplicate.error.message).toContain('already-queued:')
+		expect(qs.snapshot().map(item => item.id)).toEqual(['p1'])
+	})
+
 	it('probeFailed moves probing → error with the probe error', () => {
 		const {qs} = makeService()
 		qs.add([probingItem('p1')])

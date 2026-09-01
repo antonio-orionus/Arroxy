@@ -1,4 +1,4 @@
-import type {StartDownloadInput} from '@shared/types.js'
+import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import {VideoPhase} from './VideoPhase.js'
 import {SubtitleOnlyPhase} from './SubtitleOnlyPhase.js'
@@ -30,7 +30,7 @@ export function strategyFor(job: PreparedJob): StrategyKind {
 	}
 }
 
-export function phasesFor(input: StartDownloadInput): Phase[] {
+export function phasesFor(input: ResolvedStartDownloadInput): Phase[] {
 	const {job} = input
 	// expectedBytes only known for single-format probes. Other kinds (audio-convert,
 	// ranged-format, subtitle-only) still run preflight against the floor in

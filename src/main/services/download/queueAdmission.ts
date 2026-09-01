@@ -34,3 +34,12 @@ export function findInadmissibleQueueItem(items: readonly QueueItem[]): QueueAdm
 	logger.error('Queue add rejected', {itemId: item.id, url: item.url, batchSize: items.length, reason: message})
 	return {item, message}
 }
+
+export function findLiveDuplicate(items: readonly QueueItem[], existing: readonly QueueItem[]): QueueAdmissionRejection | null {
+	const liveUrls = new Set(existing.filter(item => item.status !== 'error' && item.status !== 'done' && item.status !== 'cancelled').map(item => item.url))
+	const item = items.find(candidate => liveUrls.has(candidate.url))
+	if (!item) return null
+	const message = `already-queued: queue item URL is already active: ${item.url}`
+	logger.info('Queue add rejected as duplicate', {itemId: item.id, url: item.url})
+	return {item, message}
+}

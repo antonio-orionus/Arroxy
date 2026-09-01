@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {phasesFor} from '@main/services/phases/index.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
-import type {StartDownloadInput} from '@shared/types.js'
+import type {ResolvedStartDownloadInput} from '@shared/types.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const FORMAT_ID = 'bv+ba'
@@ -9,7 +9,7 @@ const LANGS = ['en', 'ja']
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 
-function input(job: PreparedJob): StartDownloadInput {
+function input(job: Exclude<PreparedJob, {kind: 'unresolved'}>): ResolvedStartDownloadInput {
 	return {url: URL, outputDir: '/tmp', job}
 }
 

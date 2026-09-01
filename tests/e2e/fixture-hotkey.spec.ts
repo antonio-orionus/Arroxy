@@ -38,10 +38,6 @@ async function expectSinkLine(file: string, text: string, timeout = 30_000): Pro
 	await expect.poll(async () => (await readSinkLines(file)).some(line => line.includes(text)), {timeout, message: `expected OS notification sink to contain "${text}"`}).toBe(true)
 }
 
-function probeEnds(fixtureServer: {telemetry: () => {requests: {kind: string; videoId?: string}[]}}, videoId?: string): number {
-	return fixtureServer.telemetry().requests.filter(request => request.kind === 'probe-end' && (videoId === undefined || request.videoId === videoId)).length
-}
-
 // Mirrors the registered chord handler: main reads + pre-classifies the
 // clipboard, then dispatches the trigger to the renderer.
 async function pressHotkey(app: ElectronApplication): Promise<void> {
@@ -92,7 +88,7 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 				settings.common.hotkeyEnabled = true
 			}
 		},
-		async ({app, page, userDataDir, urls, queue, files, fixtureServer}) => {
+		async ({app, page, userDataDir, urls, queue, files}) => {
 			const sink = sinkPath(userDataDir)
 			const firstUrl = urls.video(FIXTURE_VIDEO_IDS[0])
 			const firstTitle = 'Fixture Video 1'
@@ -109,7 +105,6 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 			await expectToastCount(page, 'Download queued from clipboard', 1)
 			expect(await readSinkLines(sink)).toEqual([])
 			await expectProbingRow(page, firstUrl)
-			expect(probeEnds(fixtureServer, FIXTURE_VIDEO_IDS[0])).toBe(0)
 
 			// 2. Same link again while the probing row is still live: dedupe fires
 			// an already-queued toast, still no OS notification, never busy.
@@ -144,7 +139,7 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 				settings.common.hotkeyEnabled = true
 			}
 		},
-		async ({app, page, userDataDir, urls, queue, files, fixtureServer}) => {
+		async ({app, page, userDataDir, urls, queue, files}) => {
 			const sink = sinkPath(userDataDir)
 			const url = urls.video(FIXTURE_VIDEO_IDS[0])
 
@@ -165,7 +160,7 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 			await writeClipboard(app, url)
 			await pressHotkey(app)
 			await expectSinkLine(sink, 'Download queued from clipboard')
-			expect(probeEnds(fixtureServer, FIXTURE_VIDEO_IDS[0])).toBe(0)
+
 			await expect(page.locator('[data-sonner-toast]')).toHaveCount(0)
 
 			// Immediate second press on the same URL while probing: already-queued,

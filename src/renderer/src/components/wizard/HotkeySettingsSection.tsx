@@ -26,7 +26,9 @@ export function HotkeySettingsSection(): ReactNode {
 
 	const [recording, setRecording] = useState(false)
 	const [registered, setRegistered] = useState<boolean | null>(null)
-	const buttonRef = useRef<HTMLButtonElement>(null)
+	const restoreFocusPending = useRef(false)
+	const recordingButtonRef = useRef<HTMLButtonElement>(null)
+	const changeButtonRef = useRef<HTMLButtonElement>(null)
 
 	// Registration verdict is derived from main's actual state; the renderer
 	// never assumes. Fetched in the background and after every commit.
@@ -56,12 +58,19 @@ export function HotkeySettingsSection(): ReactNode {
 	// Move focus into the recorder button once it mounts (jsx-a11y bans the
 	// autoFocus attribute; focusing from an effect is the sanctioned path).
 	useEffect(() => {
-		if (recording) buttonRef.current?.focus()
+		if (recording) recordingButtonRef.current?.focus()
+	}, [recording])
+
+	useEffect(() => {
+		if (!recording && restoreFocusPending.current) {
+			changeButtonRef.current?.focus()
+			restoreFocusPending.current = false
+		}
 	}, [recording])
 
 	const stopRecording = useCallback((restoreFocus: boolean) => {
+		if (restoreFocus) restoreFocusPending.current = true
 		setRecording(false)
-		if (restoreFocus) buttonRef.current?.focus()
 	}, [])
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
@@ -97,7 +106,7 @@ export function HotkeySettingsSection(): ReactNode {
 				</FieldContent>
 				<div className="flex items-center gap-2" data-testid="profiles-settings-hotkey-recorder">
 					{recording ? (
-						<Button type="button" variant="outline" size="sm" ref={buttonRef} onKeyDown={handleKeyDown} onBlur={() => stopRecording(false)} data-testid="profiles-settings-hotkey-recording">
+						<Button type="button" variant="outline" size="sm" ref={recordingButtonRef} onKeyDown={handleKeyDown} onBlur={() => stopRecording(false)} data-testid="profiles-settings-hotkey-recording">
 							{t('wizard.url.hotkey.recording')}
 						</Button>
 					) : (
@@ -105,6 +114,7 @@ export function HotkeySettingsSection(): ReactNode {
 							type="button"
 							variant="outline"
 							size="sm"
+							ref={changeButtonRef}
 							onClick={() => {
 								setRecording(true)
 							}}

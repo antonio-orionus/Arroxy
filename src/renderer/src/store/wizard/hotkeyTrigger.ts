@@ -137,7 +137,7 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 	const placeholder = hotkeyProbingItem(intake.url, get)
 	const addResult = await window.appApi.queue.cmd.add([placeholder])
 	if (!addResult.ok) {
-		report('submission-failed', intake.url)
+		report(addResult.error.message.startsWith('already-queued:') ? 'already-queued' : 'submission-failed', intake.url)
 		return
 	}
 	// Immediate acknowledgment — the press is now visible in Downloads.
@@ -160,13 +160,16 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 			return
 		}
 		const review = outcomeForProbe(result.data, intake.intent)
-		if (review) {
+		// Background hotkeys never open or mutate wizard review state. Playlist
+		// preparation can require cap/selection UI, so leave it as a terminal
+		// needs-review row instead of calling the interactive quick-download path.
+		if (review || result.data.kind === 'playlist') {
 			// Needs-review never opens a dialog from the blind path: turn the
 			// placeholder into the acknowledged error row and report. The sentence
 			// rides `raw` verbatim (same as the catch arm below) — the queue row
 			// prints it as-is, and no new i18n template is involved.
 			await window.appApi.queue.cmd.probeFailed({itemId, error: {kind: 'unknown', raw: 'This link needs the review step — open Arroxy to continue.'}})
-			report(review, intake.url)
+			report('needs-review', intake.url)
 			return
 		}
 		// The swap is the commit point: with `replaceItemId` the prepared items
