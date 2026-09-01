@@ -159,7 +159,10 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 	// An unshown window still loads, renders, and accepts CDP input, so Playwright
 	// drives it exactly the same; it just never appears or activates.
 	// Background throttling has to be off or a hidden window's timers stall and
-	// progress-driven waits time out.
+	// progress-driven waits time out. This covers the whole fixture harness,
+	// not just headless: CI runs the suite visible (xvfb) and the hidden-window
+	// specs hide() mid-run — with throttling on, the starved runner stalls the
+	// renderer pipeline past any sane assertion window.
 	const headless = isHeadlessWindowRequested(process.env)
 
 	const mainWindow = new BrowserWindow({
@@ -175,7 +178,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		autoHideMenuBar: true,
 		backgroundColor,
 		show: !headless,
-		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !headless}
+		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless)}
 	})
 
 	registerPreloadDiagnostics(mainWindow, preloadPath)
