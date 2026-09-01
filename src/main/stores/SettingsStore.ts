@@ -29,6 +29,8 @@ const COMMON_FLAT_KEYS = [
 	'concurrentDownloads',
 	'autoRetryAttempts',
 	'clipboardWatchEnabled',
+	'hotkeyEnabled',
+	'hotkeyAccelerator',
 	'filenameTemplate',
 	'closeBehavior',
 	'embedChapters',

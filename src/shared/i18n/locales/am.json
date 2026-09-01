@@ -185,17 +185,22 @@
 			"clipboard": {
 				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
 				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
-				"autofilledLinks_one": "{{count}} አገናኝ ከቅንጥብ ሰሌዳ ተከፍቷል",
-				"autofilledLinks_other": "{{count}} አገናኞች ከቅንጥብ ሰሌዳ ተከፍተዋል",
 				"autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል",
-				"pendingLinksReady_one": "{{count}} የተቀዳ አገናኝ ዝግጁ ነው",
-				"pendingLinksReady_other": "{{count}} የተቀዱ አገናኞች ዝግጁ ናቸው",
+				"bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ",
 				"pendingLinkReady": "የተቀዳ አገናኝ ዝግጁ ነው",
-				"openCopiedLinks_one": "{{count}} የተቀዳ አገናኝ ክፈት",
-				"openCopiedLinks_other": "{{count}} የተቀዱ አገናኞች ክፈት",
 				"useCopiedLink": "የተቀዳውን አገናኝ ተጠቀም",
 				"dismissCopiedLink": "የተቀዳውን አገናኝ ዝጋ",
 				"dialog": {"cancelButton": "ሰርዝ"}
+			},
+			"hotkey": {
+				"sectionTitle": "አለም አቀፍ ፈጣን ቁልፍ",
+				"sectionDescription": "የተቀዱትን አገናኞች ከማንኛውም መተግበሪያ ያለ Arroxy መክፈት ያውርዱ።",
+				"toggle": "አለም አቀፍ ፈጣን ቁልፍ አንቃ",
+				"toggleDescription": "በቅጂ ሰሌዳው ላይ የቪዲዮ አገናኝ ሲኖር አቋራጩን ይታጠፉ።",
+				"changeShortcut": "አቋራጩን ቀይር",
+				"recording": "ቁልፎችን ይታጠፉ…",
+				"test": "ፈትሽ",
+				"conflict": "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።"
 			},
 			"cookies": {
 				"sourceLabel": "የ Cookies ምንጭ",
@@ -505,6 +510,7 @@
 			"openDestinationFolder": "የመድረሻ አቃፊን ክፈት",
 			"remove": "አስወግድ",
 			"pullNow": "አሁን አውርድ — ወረፋን ዝለል",
+			"statusProbing": "ዝርዝሮች በመ 가져오는 ላይ",
 			"statusPending": "በመጠበቅ ላይ",
 			"statusRunning": "በማውረድ ላይ",
 			"statusHeld": "ተይዟል",
@@ -562,7 +568,16 @@
 		"folderSelectFailed": "የአቃፊ መምረጫን መክፈት አልተቻለም።",
 		"playlistFolderRejected": "ያ አቃፊ ለዚህ የአጫዋች ዝርዝር መጠቀም አይቻልም።",
 		"filenameFolderTooDeep": "ይህ አቃፊ ለስርዓትዎ በጣም ጥልቅ ነው። ማውረዱ አሁንም ሊሳካ ይችላል — አጭር አቃፊ ይምረጡ።",
-		"filenameTemplateCannotFit": "የዚህ ቪዲዮ ስም የአብነትዎን እያንዳንዱን ክፍል አይይዝም፣ ስለዚህ ነባሪው ስም ጥቅም ላይ ውሏል።"
+		"filenameTemplateCannotFit": "የዚህ ቪዲዮ ስም የአብነትዎን እያንዳንዱን ክፍል አይይዝም፣ ስለዚህ ነባሪው ስም ጥቅም ላይ ውሏል።",
+		"hotkey": {
+			"queued": "ከቅጂ ሰሌዳ ማውረጃ ተጨምሯል",
+			"alreadyQueued": "ቀድሞ በወረፋ ውስጥ ነው — ቅጂ አልተጨመረም",
+			"invalidClipboard": "በቅጂ ሰሌዳ ላይ አገናኝ የለም — መጀመሪያ አንዱን ይቅዱ",
+			"multipleUrls": "ብዙ አገናኞች ተቀድተዋል — በArroxy ውስጥ «ብዙ URLዎች»ን ይጠቀሙ",
+			"needsReview": "ይህ አገናኝ አጭር ማረጋገጫ ያስፈልገዋል — Arroxyን ክፈተው እንደገና ይላኩ",
+			"busy": "አሁንም በቀድሞው አገናኝ ላይ እየሰራን ነው",
+			"submissionFailed": "ያ አገናኝ ማከል አልተቻለም — በArroxy ውስጥ እንደገና ይሞክሩ"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -603,7 +618,7 @@
 		"mp4Cap": "H.264 ከ1080p በላይ በYouTube ላይ አይገኝም — በራስ-ሰር ወደ 1080p ይገደባል"
 	},
 	"formatLabel": {"audioFallback": "ድምጽ", "audioOnlyDot": "ድምጽ ብቻ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ሥራ አልባ", "statusActive_one": "1 እያወረደ · {{percent}}%", "statusActive_other": "{{count}} እያወረዱ · {{percent}}%", "open": "Arroxy ክፈት", "quit": "Arroxy ዝጋ"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ሥራ አልባ", "statusActive_one": "1 እያወረደ · {{percent}}%", "statusActive_other": "{{count}} እያወረዱ · {{percent}}%", "downloadFromClipboard": "ከቅጂ ሰሌዳ ይውረዱ", "open": "Arroxy ክፈት", "quit": "Arroxy ዝጋ"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} ዳውንሎድ እየሄደ ነው", "message_other": "{{count}} ዳውንሎዶች እየሄዱ ናቸው", "detail": "በኋላ ለመቀጠል ለአፍታ አቁም፣ ወይም እድገቱን ለመጣል ሰርዝ።", "confirm": "ዳውንሎዶችን ሰርዝ እና ዝጋ", "pause": "ማውረዶችን አቁም እና ውጣ", "keep": "ዳውንሎዱን ቀጥል"},
 		"closeToTray": {"message": "Arroxy ሲዘጋ ወደ ትሬ ደብቅ?", "detail": "Arroxy ይሰራ ይቆያል ዳውንሎዶቹንም ያጠናቅቃል። ይህን ወደ ኋላ በከፍተኛ ቅንብሮች ይቀይሩ።", "hide": "ወደ ትሬ ደብቅ", "quit": "ዝጋ", "remember": "እንደገና አትጠይቅ"},

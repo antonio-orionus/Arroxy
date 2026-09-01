@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "ဖိုင်တွဲရွေးချယ်စနစ်ကို ဖွင့်၍မရပါ။"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "အလျှံတွင် ရှိပြီးသား — မိတ္တူ ထပ်ထည့်ထားခြင်း မရှိပါ"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "ယခင်လင့်ခ်ကို အလုပ်လုပ်ဆောင်နေဆဲဖြစ်သည်"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "ကလစ်ဘုတ်တွင် လင့်ခ် မရှိပါ — ဦးစွာ တစ်ခု ကော်ပီကူးပါ"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "လင့်ခ်များစွာ ကော်ပီကူးထားပါသည် — Arroxy ရှိ “URL အများအပြား” ကို သုံးပါ"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "ဤလင့်ခ်သည် စစ်ဆေးမှု တစ်ခု လိုအပ်သည် — Arroxy ကို ဖွင့်ပြီး ပြန်ကပ်ပါ"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "ကလစ်ဘုတ်မှ ဒေါင်းလုဒ် ထည့်ပြီးပါပြီ"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "ထိုလင့်ခ်ကို ထည့်သွင်း၍ မရပါ — Arroxy တွင် ပြန်ကြိုးစားပါ"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "ထိုဖိုင်တွဲကို ဤဖွင့်စာရင်းအတွက် အသုံးမပြုနိုင်ပါ။"
@@ -602,6 +630,10 @@ msgstr "ရပ်နားထားသည်"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "စောင့်နေသည်"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "အသေးစိတ် ရယူနေသည်"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "သေးငယ်အောင်လုပ်မည်"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "ပြန်ရောက်မည်"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "ကလစ်ဘုတ်မှ ဒေါင်းလုဒ်"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "ကလစ်ဘုတ်မှ လင့်ခ် ထည့်ခဲ့သည်"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "ကလစ်ဘုတ်မှ လင့်ခ် {{count}} ခု ဖွင့်ခဲ့သည်"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "လင့်ခ်များစွာ ကော်ပီကူးထားပါသည် — ထည့်ရန် “URL အများအပြား” ကို သုံးပါ"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "ကူးယူထားသော လင့်ခ် ပိတ်ရန်"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု ဖွင့်ရန်"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "ကူးယူထားသော လင့်ခ် အသင့်ဖြစ်သည်"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "ကူးယူထားသော လင့်ခ် {{count}} ခု အသင့်ဖြစ်သည်"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "အဆင့်လိုက် wizard။ ဖော်မတ်၊ အရ
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL မှ ဒေါင်းလုဒ်လုပ်ရန်"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "ရှော့တကတ် ပြောင်းမည်"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "ဤရှော့တကတ်ကို အခြားအက်ပ်က အသုံးပြုနေပါသည် — အခြားတစ်ခု ရွေးပါ။"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "ခလုတ်များ နှိပ်ပါ…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "မည်သည့်အက်ပ်မှမဆို ကူးယူထားသော လင့်ခ်ကို Arroxy မဖွင့်ဘဲ ဒေါင်းလုဒ် လုပ်ပါ။"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "ဟော့ကီး အလုံးစုံ"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "စမ်းသပ်မည်"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "ဟော့ကီး အလုံးစုံ ဖွင့်မည်"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "ကလစ်ဘုတ်တွင် ဗီဒီယို လင့်ခ် ရှိစဉ် ရှော့တကတ် နှိပ်ပါ။"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

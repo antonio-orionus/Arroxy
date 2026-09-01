@@ -97,7 +97,7 @@ describe('ProbeService — video probe', () => {
 		})
 		vi.mocked(spawnYtDlp).mockImplementationOnce(() => makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=yt1', 'off', 'video')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=yt1', {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
 		const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
@@ -123,7 +123,7 @@ describe('ProbeService — video probe', () => {
 		const cache = {write: vi.fn().mockResolvedValue(ref), resolve: vi.fn().mockResolvedValue('/cache/probe-info-cache-v1/00000000-0000-4000-8000-000000000001.info.json')} as unknown as ProbeInfoJsonCache
 		vi.mocked(log.info).mockClear()
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt1', 'off', 'video')
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt1', {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: 'yt1', title: 'Ref Title'}), {videoId: 'yt1'})
 		expect(cache.resolve).toHaveBeenCalledWith(ref)
@@ -139,7 +139,7 @@ describe('ProbeService — video probe', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=auto-video', 'off', 'auto')
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=auto-video', {cookiesMode: 'off', playlistMode: 'auto'})
 
 		expect(cache.write).not.toHaveBeenCalled()
 		expect(r.ok).toBe(true)
@@ -151,7 +151,7 @@ describe('ProbeService — video probe', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=empty-video', 'off', 'video')
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=empty-video', {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(cache.write).not.toHaveBeenCalled()
 		expect(r.ok).toBe(false)
@@ -181,7 +181,7 @@ describe('ProbeService — playlist probe', () => {
 		const events: ProbeProgressEvent[] = []
 		svc.on('progress', event => events.push(event as ProbeProgressEvent))
 
-		await svc.probe('https://www.youtube.com/playlist?list=PL1', 'off', 'playlist')
+		await svc.probe('https://www.youtube.com/playlist?list=PL1', {cookiesMode: 'off', playlistMode: 'playlist'})
 
 		expect(events).toMatchObject([
 			{url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 1, total: 3},
@@ -196,7 +196,7 @@ describe('ProbeService — playlist probe', () => {
 		const events: ProbeProgressEvent[] = []
 		svc.on('progress', event => events.push(event as ProbeProgressEvent))
 
-		await svc.probe('https://www.youtube.com/@sunnyboy66/videos', 'off', 'playlist')
+		await svc.probe('https://www.youtube.com/@sunnyboy66/videos', {cookiesMode: 'off', playlistMode: 'playlist'})
 
 		expect(events).toMatchObject([
 			{url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 23},
@@ -400,7 +400,7 @@ describe('ProbeService — playlistMode arg threading', () => {
 		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'generic', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', resolution: '720p'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		await makeProbeService().probe('https://www.youtube.com/watch?v=x&list=PLabc', 'off', mode)
+		await makeProbeService().probe('https://www.youtube.com/watch?v=x&list=PLabc', {cookiesMode: 'off', playlistMode: mode})
 
 		const args = vi.mocked(spawnYtDlp).mock.calls[0][1]
 		expect(args).toContain(expectedFlag)

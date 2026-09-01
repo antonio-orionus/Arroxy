@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "ফোল্ডার নির্বাচক খোলা যায়নি।"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "ইতিমধ্যে সারিতে আছে — কপি যোগ করা হয়নি"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "আগের লিংকটি এখনও প্রক্রিয়া করা হচ্ছে"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "ক্লিপবোর্ডে কোনো লিংক নেই — আগে একটি কপি করুন"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "একাধিক লিংক কপি হয়েছে — Arroxy-তে “বাল্ক URL” ব্যবহার করুন"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "এই লিংকটির একটি দ্রুত পর্যালোচনা প্রয়োজন — Arroxy খুলে আবার পেস্ট করুন"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "ক্লিপবোর্ড থেকে ডাউনলোড যোগ হয়েছে"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "লিংকটি যোগ করা যায়নি — Arroxy-তে আবার চেষ্টা করুন"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "এই ফোল্ডারটি এই প্লেলিস্টের জন্য ব্যবহার করা যাবে না।"
@@ -602,6 +630,10 @@ msgstr "বিরত"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "অপেক্ষায়"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "বিস্তারিত আনা হচ্ছে"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "ছোট করুন"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "পুনরুদ্ধার করুন"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "ক্লিপবোর্ড থেকে ডাউনলোড"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "ক্লিপবোর্ড থেকে লিংক যোগ করা হয়েছে"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "একাধিক লিংক কপি হয়েছে — যোগ করতে “বাল্ক URL” ব্যবহার করুন"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "কপি করা লিংক বন্ধ করুন"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "{{count}}টি কপি করা লিংক খুলুন"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "{{count}}টি কপি করা লিংক খুলুন"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "কপি করা লিংক প্রস্তুত"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}}টি কপি করা লিংক প্রস্তুত"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}}টি কপি করা লিংক প্রস্তুত"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "ধাপে ধাপে উইজার্ড। ফরম্যাট
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL থেকে ডাউনলোড করুন"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "শর্টকাট বদলান"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "এই শর্টকাট অন্য অ্যাপ ব্যবহার করছে — অন্যটি বেছে নিন।"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "কী চাপুন…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "যেকোনো অ্যাপ থেকে কপি করা লিংক ডাউনলোড করুন, Arroxy খুলে না।"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "গ্লোবাল হটকি"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "পরীক্ষা করুন"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "গ্লোবাল হটকি চালু করুন"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "ক্লিপবোর্ডে ভিডিও লিংক থাকলে শর্টকাট চাপুন।"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

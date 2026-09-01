@@ -206,17 +206,22 @@
 			"clipboard": {
 				"toggle": "Kliipboordii hordofi",
 				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
-				"autofilledLinks_one": "Liinki {{count}} gabatee waraabbii irraa baname",
-				"autofilledLinks_other": "Liinkota {{count}} gabatee waraabbii irraa banaman",
 				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
-				"pendingLinksReady_one": "Liinki waraabbame {{count}} qophaaʼeera",
-				"pendingLinksReady_other": "Liinkotni waraabbaman {{count}} qophaaʼaniiru",
+				"bulkHint": "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami",
 				"pendingLinkReady": "Liinki waraabbame qophaaʼeera",
-				"openCopiedLinks_one": "Liinki waraabbame {{count}} bani",
-				"openCopiedLinks_other": "Liinkota waraabbaman {{count}} bani",
 				"useCopiedLink": "Liinki waraabbame fayyadami",
 				"dismissCopiedLink": "Liinki waraabbame cufi",
 				"dialog": {"cancelButton": "Haqi"}
+			},
+			"hotkey": {
+				"sectionTitle": "Hotkey addunyaa",
+				"sectionDescription": "Hidha kam iyyuu yoo wallakkeessite, appii kamirraa iyyuu, Arroxy banaa malee daawniloodii godhi.",
+				"toggle": "Hotkey addunyaa bani",
+				"toggleDescription": "Buufamaa keessa hidha viidiyoo yoo jiru, hotkey cuqaasi.",
+				"changeShortcut": "Hotkey jijjiiri",
+				"recording": "Qabduulee cuqaasi…",
+				"test": "Qormeessi",
+				"conflict": "Hotkeyn kun appii biraa qabameera — kan bira filu."
 			},
 			"cookies": {
 				"sourceLabel": "Madda Cookies",
@@ -555,6 +560,7 @@
 			"openDestinationFolder": "Galmee itti galu bani",
 			"remove": "Balleessi",
 			"pullNow": "Amma buusi — tarree darbii",
+			"statusProbing": "Ibsa fidaa jira",
 			"statusPending": "Eegaa jira",
 			"statusRunning": "Buusaa jira",
 			"statusHeld": "Qabame",
@@ -612,7 +618,16 @@
 		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
 		"playlistFolderRejected": "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu.",
 		"filenameFolderTooDeep": "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu.",
-		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera."
+		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera.",
+		"hotkey": {
+			"queued": "Haaromsa buufamaa irraa dabalameera",
+			"alreadyQueued": "Kan dura baay'ina keessa jira — kopii hin dabalame",
+			"invalidClipboard": "Buufama keessa hidhanni hin jiru — duratti tokko galchee",
+			"multipleUrls": "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami",
+			"needsReview": "Hidhanni kun ilaalchi gahaabaa barbaada — Arroxy baneetti irra deebi'aa maxxansi",
+			"busy": "Hidha duraan yeroo ammaa hojjechaa jirra",
+			"submissionFailed": "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -661,7 +676,7 @@
 		"mp4Cap": "H.264 1080p olii YouTube irratti hin jiru — ofumaan 1080p irratti daangeffama"
 	},
 	"formatLabel": {"audioFallback": "Sagalee", "audioOnlyDot": "Sagalee qofa · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boqachaa", "statusActive_one": "1 buufamaa jira · {{percent}}%", "statusActive_other": "{{count}} buufamaa jiru · {{percent}}%", "open": "Arroxy bani", "quit": "Arroxy cufii"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boqachaa", "statusActive_one": "1 buufamaa jira · {{percent}}%", "statusActive_other": "{{count}} buufamaa jiru · {{percent}}%", "downloadFromClipboard": "Buufamaa irraa basii", "open": "Arroxy bani", "quit": "Arroxy cufii"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "Daawniloodii {{count}} adeemaa jira",

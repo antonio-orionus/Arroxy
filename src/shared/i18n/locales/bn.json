@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "ক্লিপবোর্ড দেখুন",
 				"toggleDescription": "YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।",
-				"autofilledLinks_one": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
-				"autofilledLinks_other": "ক্লিপবোর্ড থেকে {{count}}টি লিংক খোলা হয়েছে",
 				"autofilledLink": "ক্লিপবোর্ড থেকে লিংক যোগ করা হয়েছে",
-				"pendingLinksReady_one": "{{count}}টি কপি করা লিংক প্রস্তুত",
-				"pendingLinksReady_other": "{{count}}টি কপি করা লিংক প্রস্তুত",
+				"bulkHint": "একাধিক লিংক কপি হয়েছে — যোগ করতে “বাল্ক URL” ব্যবহার করুন",
 				"pendingLinkReady": "কপি করা লিংক প্রস্তুত",
-				"openCopiedLinks_one": "{{count}}টি কপি করা লিংক খুলুন",
-				"openCopiedLinks_other": "{{count}}টি কপি করা লিংক খুলুন",
 				"useCopiedLink": "কপি করা লিংক ব্যবহার করুন",
 				"dismissCopiedLink": "কপি করা লিংক বন্ধ করুন",
 				"dialog": {"cancelButton": "বাতিল"}
+			},
+			"hotkey": {
+				"sectionTitle": "গ্লোবাল হটকি",
+				"sectionDescription": "যেকোনো অ্যাপ থেকে কপি করা লিংক ডাউনলোড করুন, Arroxy খুলে না।",
+				"toggle": "গ্লোবাল হটকি চালু করুন",
+				"toggleDescription": "ক্লিপবোর্ডে ভিডিও লিংক থাকলে শর্টকাট চাপুন।",
+				"changeShortcut": "শর্টকাট বদলান",
+				"recording": "কী চাপুন…",
+				"test": "পরীক্ষা করুন",
+				"conflict": "এই শর্টকাট অন্য অ্যাপ ব্যবহার করছে — অন্যটি বেছে নিন।"
 			},
 			"cookies": {
 				"sourceLabel": "কুকিজের উৎস",
@@ -522,6 +527,7 @@
 			"openDestinationFolder": "গন্তব্য ফোল্ডার খুলুন",
 			"remove": "সরান",
 			"pullNow": "এখন ডাউনলোড — কিউ এড়িয়ে যান",
+			"statusProbing": "বিস্তারিত আনা হচ্ছে",
 			"statusPending": "অপেক্ষায়",
 			"statusRunning": "ডাউনলোড হচ্ছে",
 			"statusHeld": "ধরে রাখা",
@@ -579,7 +585,16 @@
 		"folderSelectFailed": "ফোল্ডার নির্বাচক খোলা যায়নি।",
 		"playlistFolderRejected": "এই ফোল্ডারটি এই প্লেলিস্টের জন্য ব্যবহার করা যাবে না।",
 		"filenameFolderTooDeep": "এই ফোল্ডারটি আপনার সিস্টেমের জন্য অনেক গভীরে। ডাউনলোড তবুও ব্যর্থ হতে পারে — একটি ছোট ফোল্ডার বেছে নিন।",
-		"filenameTemplateCannotFit": "এই ভিডিওর নাম আপনার টেমপ্লেটের প্রতিটি অংশে আঁটে না, তাই ডিফল্ট নাম ব্যবহার করা হয়েছে।"
+		"filenameTemplateCannotFit": "এই ভিডিওর নাম আপনার টেমপ্লেটের প্রতিটি অংশে আঁটে না, তাই ডিফল্ট নাম ব্যবহার করা হয়েছে।",
+		"hotkey": {
+			"queued": "ক্লিপবোর্ড থেকে ডাউনলোড যোগ হয়েছে",
+			"alreadyQueued": "ইতিমধ্যে সারিতে আছে — কপি যোগ করা হয়নি",
+			"invalidClipboard": "ক্লিপবোর্ডে কোনো লিংক নেই — আগে একটি কপি করুন",
+			"multipleUrls": "একাধিক লিংক কপি হয়েছে — Arroxy-তে “বাল্ক URL” ব্যবহার করুন",
+			"needsReview": "এই লিংকটির একটি দ্রুত পর্যালোচনা প্রয়োজন — Arroxy খুলে আবার পেস্ট করুন",
+			"busy": "আগের লিংকটি এখনও প্রক্রিয়া করা হচ্ছে",
+			"submissionFailed": "লিংকটি যোগ করা যায়নি — Arroxy-তে আবার চেষ্টা করুন"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -620,7 +635,7 @@
 		"mp4Cap": "YouTube-এ ১০৮০p-এর ওপরে H.264 নেই — স্বয়ংক্রিয়ভাবে ১০৮০p-তে সীমিত"
 	},
 	"formatLabel": {"audioFallback": "অডিও", "audioOnlyDot": "শুধু অডিও · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "নিষ্ক্রিয়", "statusActive_one": "১টি ডাউনলোড হচ্ছে · {{percent}}%", "statusActive_other": "{{count}}টি ডাউনলোড হচ্ছে · {{percent}}%", "open": "Arroxy খুলুন", "quit": "Arroxy বন্ধ করুন"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "নিষ্ক্রিয়", "statusActive_one": "১টি ডাউনলোড হচ্ছে · {{percent}}%", "statusActive_other": "{{count}}টি ডাউনলোড হচ্ছে · {{percent}}%", "downloadFromClipboard": "ক্লিপবোর্ড থেকে ডাউনলোড", "open": "Arroxy খুলুন", "quit": "Arroxy বন্ধ করুন"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}}টি ডাউনলোড চলছে", "message_other": "{{count}}টি ডাউনলোড চলছে", "detail": "পরে আবার শুরু করতে বিরতি দিন, অথবা অগ্রগতি বাতিল করতে বাতিল করুন।", "confirm": "ডাউনলোড বাতিল করুন ও বন্ধ করুন", "pause": "ডাউনলোড বিরতি দিয়ে বের হন", "keep": "ডাউনলোড চালিয়ে যান"},
 		"closeToTray": {"message": "বন্ধ করার সময় Arroxy সিস্টেম ট্রেতে লুকাবে?", "detail": "Arroxy চলতে থাকে এবং সক্রিয় ডাউনলোড শেষ করে। পরে উন্নত সেটিংসে পরিবর্তন করুন।", "hide": "ট্রেতে লুকান", "quit": "বন্ধ করুন", "remember": "আর জিজ্ঞেস করবেন না"},

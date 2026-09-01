@@ -316,18 +316,11 @@ export function DownloadProfilesHome(): ReactNode {
 	const consumeClipboardCandidate = useCallback(
 		(candidate: ClipboardCandidate): void => {
 			setPendingClipboard(null)
-			if (candidate.kind === 'bulk') {
-				setBulkInitialRaw(candidate.raw)
-				setBulkOpen(true)
-				bulkLogger.info('Bulk URLs detected from clipboard', {accepted: candidate.count})
-				notify.clipboardAutofilled(t('wizard.url.clipboard.autofilledLinks', {count: candidate.count}))
-				return
-			}
 
 			const url = candidate.acceptedUrls[0]
 			if (!url) return
 			setWizardUrl(url)
-			notify.clipboardAutofilled(t('wizard.url.clipboard.autofilledLink'))
+			notify.clipboard(t('wizard.url.clipboard.autofilledLink'))
 		},
 		[setWizardUrl, t]
 	)
@@ -354,9 +347,13 @@ export function DownloadProfilesHome(): ReactNode {
 				if (bulkOpenRef.current) bulkLogger.info('Clipboard URL held while bulk dialog is open', {accepted: action.candidate.count})
 				return
 			}
+			if (action.kind === 'hint-bulk') {
+				notify.clipboard(t('wizard.url.clipboard.bulkHint'))
+				return
+			}
 			consumeClipboardCandidate(action.candidate)
 		})
-	}, [consumeClipboardCandidate])
+	}, [consumeClipboardCandidate, t])
 
 	function openEditor(profile: DownloadProfile | null): void {
 		setEditingProfile(profile)
@@ -468,7 +465,7 @@ export function DownloadProfilesHome(): ReactNode {
 										</InputGroupAddon>
 									) : null}
 								</InputGroup>
-								{pendingClipboard ? <ClipboardPendingAction candidate={pendingClipboard} onApply={() => consumeClipboardCandidate(pendingClipboard)} onDismiss={() => setPendingClipboard(null)} /> : null}
+								{pendingClipboard ? <ClipboardPendingAction onApply={() => consumeClipboardCandidate(pendingClipboard)} onDismiss={() => setPendingClipboard(null)} /> : null}
 							</div>
 						</CardHeader>
 						<CardContent className="px-5 pb-4 md:px-6">
@@ -541,12 +538,11 @@ export function DownloadProfilesHome(): ReactNode {
 	)
 }
 
-function ClipboardPendingAction({candidate, onApply, onDismiss}: {candidate: ClipboardCandidate; onApply: () => void; onDismiss: () => void}): ReactNode {
+function ClipboardPendingAction({onApply, onDismiss}: {onApply: () => void; onDismiss: () => void}): ReactNode {
 	const {t} = useTranslation()
-	const isBulk = candidate.kind === 'bulk'
-	const Icon = isBulk ? ListPlus : Link2
-	const statusLabel = isBulk ? t('wizard.url.clipboard.pendingLinksReady', {count: candidate.count}) : t('wizard.url.clipboard.pendingLinkReady')
-	const actionLabel = isBulk ? t('wizard.url.clipboard.openCopiedLinks', {count: candidate.count}) : t('wizard.url.clipboard.useCopiedLink')
+	const Icon = Link2
+	const statusLabel = t('wizard.url.clipboard.pendingLinkReady')
+	const actionLabel = t('wizard.url.clipboard.useCopiedLink')
 	return (
 		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-foreground" data-testid="clipboard-pending">
 			<span className="flex min-w-0 flex-1 items-center gap-2">

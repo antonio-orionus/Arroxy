@@ -58,14 +58,24 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			resume: vi.fn().mockResolvedValue(ok({resumed: false}))
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok(settings)), update: vi.fn().mockResolvedValue(ok(settings))},
+		hotkey: {reportOutcome: vi.fn().mockResolvedValue(ok(undefined)), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(ok(undefined)), rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: vi.fn().mockResolvedValue(ok({opened: true})), openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true})), uploadFeedbackDiagnostic: vi.fn(({reportId}: {reportId: string}) => Promise.resolve(ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)})))},
 		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
-		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onProbeProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		events: {
+			onStatus: vi.fn().mockReturnValue(() => undefined),
+			onProgress: vi.fn().mockReturnValue(() => undefined),
+			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
+			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+			onHotkeyTrigger: vi.fn().mockReturnValue(() => undefined),
+			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
+			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
+		},
 		queue: {
 			cmd: {
 				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id)}))),
 				getSnapshot: vi.fn().mockResolvedValue(ok({items: [] as import('@shared/types.js').QueueItem[], schedulerPaused: false})),
+				probeFailed: vi.fn().mockResolvedValue(ok(undefined)),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),
@@ -73,6 +83,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				retry: vi.fn().mockResolvedValue(ok(undefined)),
 				clearCompleted: vi.fn().mockResolvedValue(ok(undefined)),
 				remove: vi.fn().mockResolvedValue(ok(undefined)),
+				replaceProbing: vi.fn((input: {itemId: string; items: QueueItem[]}) => Promise.resolve(ok({ids: input.items.map(item => item.id)}))),
 				setLane: vi.fn().mockResolvedValue(ok(undefined)),
 				applySelectionAction: vi.fn().mockResolvedValue(ok({action: 'pause', appliedIds: [], skipped: []})),
 				changeOutputTarget: vi.fn().mockResolvedValue(ok({outputDir: '/tmp', items: [], skipped: []})),

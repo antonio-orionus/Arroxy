@@ -42,6 +42,9 @@ function makeDeps() {
 	const mainWindow = {isDestroyed: vi.fn().mockReturnValue(false), webContents: {send: vi.fn()}, minimize: vi.fn(), maximize: vi.fn(), unmaximize: vi.fn(), close: vi.fn(), isMaximized: vi.fn().mockReturnValue(false)}
 	const queueService = Object.assign(new EventEmitter(), {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),
+		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
+		replaceProbing: vi.fn((input: {items: {id: string}[]}) => ({ok: true, data: {ids: input.items.map(item => item.id)}})),
+		onProbeAbort: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -56,6 +59,7 @@ function makeDeps() {
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}), update: vi.fn()}
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
+	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
 	return {
 		mainWindow: mainWindow as never,
 		downloadService: downloadService as never,
@@ -66,6 +70,8 @@ function makeDeps() {
 		tokenService: {warmUp: vi.fn()} as never,
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
+		hotkeyService: hotkeyService as never,
+		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}

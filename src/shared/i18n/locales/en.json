@@ -185,17 +185,22 @@
 			"clipboard": {
 				"toggle": "Watch clipboard",
 				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
-				"autofilledLinks_one": "{{count}} link opened from clipboard",
-				"autofilledLinks_other": "{{count}} links opened from clipboard",
 				"autofilledLink": "Link added from clipboard",
-				"pendingLinksReady_one": "{{count}} copied link ready",
-				"pendingLinksReady_other": "{{count}} copied links ready",
+				"bulkHint": "Multiple links copied — use Bulk URLs to add them",
 				"pendingLinkReady": "Copied link ready",
-				"openCopiedLinks_one": "Open {{count}} copied link",
-				"openCopiedLinks_other": "Open {{count}} copied links",
 				"useCopiedLink": "Use copied link",
 				"dismissCopiedLink": "Dismiss copied link",
 				"dialog": {"cancelButton": "Cancel"}
+			},
+			"hotkey": {
+				"sectionTitle": "Global hotkey",
+				"sectionDescription": "Download whatever link you copy, from any app, without opening Arroxy.",
+				"toggle": "Enable global hotkey",
+				"toggleDescription": "Press the shortcut with a video link on your clipboard.",
+				"changeShortcut": "Change shortcut",
+				"recording": "Press keys…",
+				"test": "Test",
+				"conflict": "This shortcut is taken by another app — pick another one."
 			},
 			"cookies": {
 				"sourceLabel": "Cookies source",
@@ -534,6 +539,7 @@
 			"openDestinationFolder": "Open destination folder",
 			"remove": "Remove",
 			"pullNow": "Pull now — skip the queue",
+			"statusProbing": "Fetching details",
 			"statusPending": "Waiting",
 			"statusRunning": "Downloading",
 			"statusHeld": "Held",
@@ -591,7 +597,16 @@
 		"folderSelectFailed": "Could not open the folder picker.",
 		"playlistFolderRejected": "That folder can't be used for this playlist.",
 		"filenameFolderTooDeep": "This folder is too deep for your system. The download may still fail — pick a shorter folder.",
-		"filenameTemplateCannotFit": "This video's name can't fit every part of your template, so the default name was used."
+		"filenameTemplateCannotFit": "This video's name can't fit every part of your template, so the default name was used.",
+		"hotkey": {
+			"queued": "Download queued from clipboard",
+			"alreadyQueued": "Already in the queue — no copy added",
+			"invalidClipboard": "No link on your clipboard — copy one first",
+			"multipleUrls": "Multiple links copied — use Bulk URLs in Arroxy",
+			"needsReview": "That link needs a quick review — open Arroxy and paste it again",
+			"busy": "Still working on the previous link",
+			"submissionFailed": "Could not add that link — try again in Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -640,7 +655,7 @@
 		"mp4Cap": "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 	},
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Audio only · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Idle", "statusActive_one": "1 downloading · {{percent}}%", "statusActive_other": "{{count}} downloading · {{percent}}%", "open": "Open Arroxy", "quit": "Quit Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Idle", "statusActive_one": "1 downloading · {{percent}}%", "statusActive_other": "{{count}} downloading · {{percent}}%", "downloadFromClipboard": "Download from clipboard", "open": "Open Arroxy", "quit": "Quit Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} download in progress", "message_other": "{{count}} downloads in progress", "detail": "Pause to resume later, or cancel to discard progress.", "confirm": "Cancel Downloads & Quit", "pause": "Pause Downloads & Quit", "keep": "Keep Downloading"},
 		"closeToTray": {"message": "Hide Arroxy to the system tray when closing?", "detail": "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings.", "hide": "Hide to tray", "quit": "Quit", "remember": "Don't ask again"},

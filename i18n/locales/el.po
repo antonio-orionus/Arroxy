@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Δεν ήταν δυνατό το άνοιγμα του επιλογέα φακέλων."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Είναι ήδη στην ουρά — δεν προστέθηκε αντίγραφο"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Επεξεργάζεται ακόμα ο προηγούμενος σύνδεσμος"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Δεν υπάρχει σύνδεσμος στο πρόχειρο — αντιγράψτε έναν πρώτα"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Αντιγράφηκαν πολλαπλοί σύνδεσμοι — χρησιμοποιήστε τα «Μαζικά URL» στο Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Αυτός ο σύνδεσμος χρειάζεται έναν γρήγορο έλεγχο — ανοίξτε το Arroxy και επικολλήστε τον ξανά"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Η λήψη προστέθηκε από το πρόχειρο"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Δεν ήταν δυνατή η προσθήκη αυτού του συνδέσμου — δοκιμάστε ξανά στο Arroxy"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Αυτός ο φάκελος δεν μπορεί να χρησιμοποιηθεί για αυτήν τη λίστα αναπαραγωγής."
@@ -602,6 +630,10 @@ msgstr "Σε παύση"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Αναμονή"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Ανάκτηση λεπτομερειών"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Ελαχιστοποίηση"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Επαναφορά"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Λήψη από το πρόχειρο"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Προστέθηκε σύνδεσμος από το πρόχειρο"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Άνοιξε {{count}} σύνδεσμος από το πρόχειρο"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Άνοιξαν {{count}} σύνδεσμοι από το πρόχειρο"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Αντιγράφηκαν πολλαπλοί σύνδεσμοι — προσθέστε τους μέσω «Μαζικά URL»"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Απόρριψη αντιγραμμένου συνδέσμου"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Άνοιγμα {{count}} αντιγραμμένου συνδέσμου"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Άνοιγμα {{count}} αντιγραμμένων συνδέσμων"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Ο αντιγραμμένος σύνδεσμος είναι έτοιμος"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} αντιγραμμένος σύνδεσμος έτοιμος"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} αντιγραμμένοι σύνδεσμοι έτοιμοι"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "Οδηγός βήμα προς βήμα. Επίλεξε μορφή, πο
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "Λήψη από URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Αλλαγή συντόμευσης"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Αυτή η συντόμευση χρησιμοποιείται από άλλη εφαρμογή — επιλέξτε άλλη."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Πατήστε πλήκτρα…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Κατεβάστε οποιονδήποτε σύνδεσμο αντιγράψατε, από οποιαδήποτε εφαρμογή, χωρίς να ανοίξετε το Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Καθολική συντόμευση"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Δοκιμή"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Ενεργοποίηση καθολικής συντόμευσης"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Πατήστε τη συντόμευση με σύνδεσμο βίντεο στο πρόχειρο."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

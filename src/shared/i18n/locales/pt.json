@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "Monitorar área de transferência",
 				"toggleDescription": "Preenche automaticamente o campo de URL ao copiar um link de vídeo.",
-				"autofilledLinks_one": "{{count}} link aberto da área de transferência",
-				"autofilledLinks_other": "{{count}} links abertos da área de transferência",
 				"autofilledLink": "Link adicionado da área de transferência",
-				"pendingLinksReady_one": "{{count}} link copiado pronto",
-				"pendingLinksReady_other": "{{count}} links copiados prontos",
+				"bulkHint": "Vários links copiados — adicione-os com “URLs em lote”",
 				"pendingLinkReady": "Link copiado pronto",
-				"openCopiedLinks_one": "Abrir {{count}} link copiado",
-				"openCopiedLinks_other": "Abrir {{count}} links copiados",
 				"useCopiedLink": "Usar link copiado",
 				"dismissCopiedLink": "Descartar link copiado",
 				"dialog": {"cancelButton": "Cancelar"}
+			},
+			"hotkey": {
+				"sectionTitle": "Atalho global",
+				"sectionDescription": "Baixe qualquer link que copiar, de qualquer app, sem abrir o Arroxy.",
+				"toggle": "Ativar atalho global",
+				"toggleDescription": "Pressione o atalho com um link de vídeo na área de transferência.",
+				"changeShortcut": "Alterar atalho",
+				"recording": "Pressione as teclas…",
+				"test": "Testar",
+				"conflict": "Este atalho já está em uso por outro app — escolha outro."
 			},
 			"cookies": {
 				"sourceLabel": "Origem dos cookies",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "Abrir pasta de destino",
 			"remove": "Remover",
 			"pullNow": "Baixar agora — pular a fila",
+			"statusProbing": "Buscando detalhes",
 			"statusPending": "Aguardando",
 			"statusRunning": "Baixando",
 			"statusHeld": "Em espera",
@@ -600,7 +606,16 @@
 		"folderSelectFailed": "Não foi possível abrir o seletor de pastas.",
 		"playlistFolderRejected": "Essa pasta não pode ser usada para esta playlist.",
 		"filenameFolderTooDeep": "Essa pasta tem um caminho longo demais para o seu sistema. O download pode falhar — escolha uma pasta com caminho mais curto.",
-		"filenameTemplateCannotFit": "O nome deste vídeo é longo demais para todas as partes do seu modelo, então o nome padrão foi usado."
+		"filenameTemplateCannotFit": "O nome deste vídeo é longo demais para todas as partes do seu modelo, então o nome padrão foi usado.",
+		"hotkey": {
+			"queued": "Download adicionado da área de transferência",
+			"alreadyQueued": "Já está na fila — nenhuma cópia adicionada",
+			"invalidClipboard": "Não há link na área de transferência — copie um primeiro",
+			"multipleUrls": "Vários links copiados — use “URLs em lote” no Arroxy",
+			"needsReview": "Esse link precisa de uma verificação rápida — abra o Arroxy e cole-o novamente",
+			"busy": "Ainda processando o link anterior",
+			"submissionFailed": "Não foi possível adicionar esse link — tente novamente no Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -649,7 +664,7 @@
 		"mp4Cap": "H.264 acima de 1080p não está disponível no YouTube — limitado a 1080p automaticamente"
 	},
 	"formatLabel": {"audioFallback": "Áudio", "audioOnlyDot": "Apenas áudio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ocioso", "statusActive_one": "1 baixando · {{percent}}%", "statusActive_other": "{{count}} baixando · {{percent}}%", "open": "Abrir Arroxy", "quit": "Sair do Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ocioso", "statusActive_one": "1 baixando · {{percent}}%", "statusActive_other": "{{count}} baixando · {{percent}}%", "downloadFromClipboard": "Baixar da área de transferência", "open": "Abrir Arroxy", "quit": "Sair do Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} download em andamento",

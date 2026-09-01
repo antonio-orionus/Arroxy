@@ -26,9 +26,11 @@ import {QueueStore} from '@main/stores/QueueStore.js'
 import {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {writePlaylistM3u} from '@main/services/playlistM3u.js'
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
+import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
+import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
-import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
+import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
@@ -157,7 +159,10 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 	// An unshown window still loads, renders, and accepts CDP input, so Playwright
 	// drives it exactly the same; it just never appears or activates.
 	// Background throttling has to be off or a hidden window's timers stall and
-	// progress-driven waits time out.
+	// progress-driven waits time out. This covers the whole fixture harness,
+	// not just headless: CI runs the suite visible (xvfb) and the hidden-window
+	// specs hide() mid-run — with throttling on, the starved runner stalls the
+	// renderer pipeline past any sane assertion window.
 	const headless = isHeadlessWindowRequested(process.env)
 
 	const mainWindow = new BrowserWindow({
@@ -173,7 +178,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		autoHideMenuBar: true,
 		backgroundColor,
 		show: !headless,
-		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !headless}
+		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless)}
 	})
 
 	registerPreloadDiagnostics(mainWindow, preloadPath)
@@ -422,7 +427,26 @@ if (hasSingleInstanceLock) {
 		const clipboardWatcher = new ClipboardWatcher(watcherWindowFromBrowserWindow(mainWindow))
 		clipboardWatcher.setEnabled(initialSettings.common.clipboardWatchEnabled)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, playlistManifestStore, graphicsPolicyProvider})
+		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
+		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
+		// A future main-frame navigation/reload destroys the renderer listener.
+		// This event precedes loading, so attaching during the initial load cannot
+		// consume a late initial event and revoke a completed ready handshake.
+		mainWindow.webContents.on('did-start-navigation', (_event, _url, isInPlace, isMainFrame) => {
+			if (isMainFrame && !isInPlace) hotkeyService.setRendererReady(false)
+		})
+		if (e2eMode.enabled) {
+			// Lets the hotkey spec drive the registered-chord path directly —
+			// the OS owns real chords and contested-chord coverage stays manual.
+			;(globalThis as Record<string, unknown>).__arroxyHotkeyService = hotkeyService
+		}
+		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow)
+		// Keeps the tray item in sync with the chord's registration state; the
+		// tray may not exist yet (it is created later), hence the lazy read.
+		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
+		hotkeyService.onStateChange(syncHotkeyTrayItem)
+
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, graphicsPolicyProvider})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
@@ -432,6 +456,7 @@ if (hasSingleInstanceLock) {
 			log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`)
 			if (details.reason === 'clean-exit') return
 			const isMainWindow = webContents === mainWindow.webContents
+			if (isMainWindow) hotkeyService.setRendererReady(false)
 			trackCrashDetectedOncePerSession({kind: 'renderer', windowRole: isMainWindow ? 'main-window' : 'auxiliary-window', reason: details.reason})
 			if (!isMainWindow) return
 			const lang = languageRef.current
@@ -451,10 +476,19 @@ if (hasSingleInstanceLock) {
 
 		if (process.platform !== 'darwin') {
 			try {
-				tray = new TrayManager(mainWindow, queueService, languageRef, () => {
-					void warnActiveDownloadsThenQuit()
-				})
+				tray = new TrayManager(
+					mainWindow,
+					queueService,
+					languageRef,
+					() => {
+						void warnActiveDownloadsThenQuit()
+					},
+					hotkeyService
+				)
 				tray.start()
+				// Keep the tray item honest: it must appear/disappear with the
+				// chord's actual registration state.
+				syncHotkeyTrayItem()
 			} catch (e) {
 				log.warn(`Tray init failed — running without tray: ${String(e)}`)
 				tray = null
@@ -465,6 +499,7 @@ if (hasSingleInstanceLock) {
 			tray?.destroy()
 			tray = null
 			clipboardWatcher.dispose()
+			hotkeyService.dispose()
 			if (downloadService.runningJobCount === 0) {
 				tokenService.dispose()
 				log.info('App shutting down')

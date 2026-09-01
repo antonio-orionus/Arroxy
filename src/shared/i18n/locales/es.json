@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "Vigilar portapapeles",
 				"toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.",
-				"autofilledLinks_one": "{{count}} enlace abierto desde el portapapeles",
-				"autofilledLinks_other": "{{count}} enlaces abiertos desde el portapapeles",
 				"autofilledLink": "Enlace añadido desde el portapapeles",
-				"pendingLinksReady_one": "{{count}} enlace copiado listo",
-				"pendingLinksReady_other": "{{count}} enlaces copiados listos",
+				"bulkHint": "Se copiaron varios enlaces — añádelos con «URLs en lote»",
 				"pendingLinkReady": "Enlace copiado listo",
-				"openCopiedLinks_one": "Abrir {{count}} enlace copiado",
-				"openCopiedLinks_other": "Abrir {{count}} enlaces copiados",
 				"useCopiedLink": "Usar enlace copiado",
 				"dismissCopiedLink": "Descartar enlace copiado",
 				"dialog": {"cancelButton": "Cancelar"}
+			},
+			"hotkey": {
+				"sectionTitle": "Atajo global",
+				"sectionDescription": "Descarga el enlace que copies, desde cualquier app, sin abrir Arroxy.",
+				"toggle": "Activar atajo global",
+				"toggleDescription": "Pulsa el atajo con un enlace de vídeo en el portapapeles.",
+				"changeShortcut": "Cambiar atajo",
+				"recording": "Pulsa las teclas…",
+				"test": "Probar",
+				"conflict": "Ese atajo ya lo usa otra aplicación — elige otro."
 			},
 			"cookies": {
 				"sourceLabel": "Fuente de cookies",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "Abrir carpeta de destino",
 			"remove": "Quitar",
 			"pullNow": "Descargar ahora — saltar la cola",
+			"statusProbing": "Obteniendo detalles",
 			"statusPending": "Esperando",
 			"statusRunning": "Descargando",
 			"statusHeld": "Retenido",
@@ -605,7 +611,16 @@
 		"folderSelectFailed": "No se pudo abrir el selector de carpetas.",
 		"playlistFolderRejected": "Esa carpeta no se puede usar para esta lista de reproducción.",
 		"filenameFolderTooDeep": "Esta carpeta es demasiado profunda para tu sistema. La descarga aún podría fallar — elige una carpeta más corta.",
-		"filenameTemplateCannotFit": "El nombre de este vídeo no cabe en todas las partes de tu plantilla, así que se usó el nombre predeterminado."
+		"filenameTemplateCannotFit": "El nombre de este vídeo no cabe en todas las partes de tu plantilla, así que se usó el nombre predeterminado.",
+		"hotkey": {
+			"queued": "Descarga añadida desde el portapapeles",
+			"alreadyQueued": "Ya está en la cola — no se añadió otra copia",
+			"invalidClipboard": "No hay ningún enlace en el portapapeles — copia uno primero",
+			"multipleUrls": "Se copiaron varios enlaces — usa «URLs en lote» en Arroxy",
+			"needsReview": "Ese enlace necesita una revisión rápida — abre Arroxy y pégalo de nuevo",
+			"busy": "Aún se está procesando el enlace anterior",
+			"submissionFailed": "No se pudo añadir ese enlace — inténtalo de nuevo en Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -654,7 +669,7 @@
 		"mp4Cap": "H.264 por encima de 1080p no está disponible en YouTube — se limita automáticamente a 1080p"
 	},
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Solo audio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inactivo", "statusActive_one": "1 descargando · {{percent}}%", "statusActive_other": "{{count}} descargando · {{percent}}%", "open": "Abrir Arroxy", "quit": "Salir de Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Inactivo", "statusActive_one": "1 descargando · {{percent}}%", "statusActive_other": "{{count}} descargando · {{percent}}%", "downloadFromClipboard": "Descargar del portapapeles", "open": "Abrir Arroxy", "quit": "Salir de Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} descarga en curso", "message_other": "{{count}} descargas en curso", "detail": "Pausa para reanudar más tarde, o cancela para descartar el progreso.", "confirm": "Cancelar descargas y salir", "pause": "Pausar descargas y salir", "keep": "Seguir descargando"},
 		"closeToTray": {"message": "¿Ocultar Arroxy en la bandeja del sistema al cerrar?", "detail": "Arroxy sigue ejecutándose y termina las descargas activas. Cámbialo en Ajustes avanzados.", "hide": "Ocultar en bandeja", "quit": "Salir", "remember": "No volver a preguntar"},

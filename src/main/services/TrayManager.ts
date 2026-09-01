@@ -16,6 +16,7 @@ function resolveTrayIconPath(): string {
 export class TrayManager {
 	private tray: Tray | null = null
 	private throttleTimer: ReturnType<typeof setTimeout> | null = null
+	private hotkeyUsable = false
 
 	private readonly onQueueUpdated: (event: {item: QueueItem}) => void
 	private readonly onQueueAdded: () => void
@@ -25,7 +26,8 @@ export class TrayManager {
 		private readonly mainWindow: BrowserWindow,
 		private readonly queueService: QueueService,
 		private readonly languageRef: {current: SupportedLang},
-		private readonly onQuit: () => void = () => {}
+		private readonly onQuit: () => void = () => {},
+		private readonly hotkeyTrigger: {handleTrigger(): void} | null = null
 	) {
 		this.onQueueUpdated = ({item}) => {
 			if (item.status === QUEUE_STATUS.running) {
@@ -65,6 +67,15 @@ export class TrayManager {
 		}
 	}
 
+	// The "Download from clipboard" tray item only appears while the global
+	// hotkey chord is actually registered — a menu item that no-ops would
+	// break the no-silent-paths feedback contract.
+	setHotkeyUsable(usable: boolean): void {
+		if (this.hotkeyUsable === usable) return
+		this.hotkeyUsable = usable
+		this.rebuildMenu()
+	}
+
 	destroy(): void {
 		if (this.throttleTimer !== null) {
 			clearTimeout(this.throttleTimer)
@@ -101,7 +112,9 @@ export class TrayManager {
 			statusLabel = mainT(lang, `tray.menu.${pluralKey('statusActive', activeCount)}`, {count: activeCount, percent: avg})
 		}
 
-		const menu = Menu.buildFromTemplate([{label: statusLabel, enabled: false}, {type: 'separator'}, {label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow()}, {type: 'separator'}, {label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit()}])
+		const {hotkeyTrigger} = this
+		const hotkeyItem = hotkeyTrigger && this.hotkeyUsable ? {label: mainT(lang, 'tray.menu.downloadFromClipboard'), click: () => hotkeyTrigger.handleTrigger()} : null
+		const menu = Menu.buildFromTemplate([{label: statusLabel, enabled: false}, {type: 'separator'}, ...(hotkeyItem ? [hotkeyItem] : []), {label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow()}, {type: 'separator'}, {label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit()}])
 		this.tray.setContextMenu(menu)
 	}
 }

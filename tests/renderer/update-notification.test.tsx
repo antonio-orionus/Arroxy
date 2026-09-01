@@ -19,10 +19,19 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			pause: vi.fn().mockResolvedValue(ok({paused: true}))
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
+		hotkey: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: overrides.openExternal ?? vi.fn().mockResolvedValue(ok({opened: true}))},
 		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'}))},
-		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onProbeProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined), onWarmupProgress: vi.fn().mockReturnValue(() => undefined)},
+		events: {
+			onStatus: vi.fn().mockReturnValue(() => undefined),
+			onProgress: vi.fn().mockReturnValue(() => undefined),
+			onProbeProgress: vi.fn().mockReturnValue(() => undefined),
+			onClipboardUrl: vi.fn().mockReturnValue(() => undefined),
+			onHotkeyTrigger: vi.fn().mockReturnValue(() => undefined),
+			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
+			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
+		},
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),

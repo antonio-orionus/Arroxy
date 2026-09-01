@@ -34,6 +34,13 @@ describe('planQueueAction', () => {
 		expect(result.skipped).toEqual([{itemId: 'done', status: 'done', reason: 'invalid-status'}])
 	})
 
+	it('does not offer retry for terminal probe errors with no runnable job', () => {
+		const probeError = makeItem({id: 'probe-error', status: 'error', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, error: {kind: 'unknown', raw: 'probe failed'}})
+
+		expect(canApplyQueueActionToItem('retry', probeError)).toBe(false)
+		expect(planQueueAction('retry', [probeError]).applicableIds).toEqual([])
+	})
+
 	it('removes non-running items only', () => {
 		const result = planQueueAction('remove', [makeItem({id: 'pending', status: 'pending'}), makeItem({id: 'running', status: 'running'}), makeItem({id: 'done', status: 'done'})])
 

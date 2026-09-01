@@ -56,16 +56,20 @@ const FRESH_URL = 'https://www.youtube.com/watch?v=fromClipboard'
 
 describe('wizard clipboard auto-fill', () => {
 	it('fills the URL field when the watcher fires and the field is empty', () => {
-		const toastSpy = vi.spyOn(notify, 'clipboardAutofilled').mockImplementation(() => undefined)
-		render(<StepUrlInput />)
+		const toastSpy = vi.spyOn(notify, 'clipboard').mockImplementation(() => undefined)
+		try {
+			render(<StepUrlInput />)
 
-		act(() => {
-			clipboardListener!(FRESH_URL)
-		})
+			act(() => {
+				clipboardListener!(FRESH_URL)
+			})
 
-		expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument()
-		expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
-		expect(toastSpy).toHaveBeenCalledWith('Link added from clipboard')
+			expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument()
+			expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
+			expect(toastSpy).toHaveBeenCalledWith('Link added from clipboard')
+		} finally {
+			toastSpy.mockRestore()
+		}
 	})
 
 	it('stores a copied link as pending instead of replacing an existing manual URL', () => {
@@ -104,20 +108,22 @@ describe('wizard clipboard auto-fill', () => {
 		expect(screen.queryByTestId('clipboard-confirm-dialog')).not.toBeInTheDocument()
 	})
 
-	it('opens the bulk URL dialog when clipboard text contains several accepted URLs', () => {
-		const toastSpy = vi.spyOn(notify, 'clipboardAutofilled').mockImplementation(() => undefined)
-		const raw = 'Grab https://example.com/one, https://example.com/two'
-		render(<StepUrlInput />)
+	it('hints at the bulk entry when clipboard text contains several accepted URLs', () => {
+		const hintSpy = vi.spyOn(notify, 'clipboard').mockImplementation(() => undefined)
+		try {
+			const raw = 'Grab https://example.com/one, https://example.com/two'
+			render(<StepUrlInput />)
 
-		act(() => {
-			clipboardListener!(raw)
-		})
+			act(() => {
+				clipboardListener!(raw)
+			})
 
-		expect(useAppStore.getState().wizardUrl).toBe('')
-		expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument()
-		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(raw)
-		expect(screen.getByTestId('bulk-url-valid-count')).toHaveTextContent('2')
-		expect(toastSpy).toHaveBeenCalledWith('2 links opened from clipboard')
+			expect(useAppStore.getState().wizardUrl).toBe('')
+			expect(screen.queryByTestId('bulk-url-dialog')).not.toBeInTheDocument()
+			expect(hintSpy).toHaveBeenCalledTimes(1)
+		} finally {
+			hintSpy.mockRestore()
+		}
 	})
 
 	it('unsubscribes from clipboard events when StepUrlInput unmounts', () => {
@@ -156,20 +162,23 @@ describe('wizard clipboard auto-fill', () => {
 		expect(screen.queryByTestId('clipboard-pending-action')).not.toBeInTheDocument()
 	})
 
-	it('opens pending copied links when clearing an occupied URL field', () => {
-		const raw = 'Grab https://example.com/one, https://example.com/two'
-		useAppStore.setState({wizardUrl: 'already-here'})
-		render(<StepUrlInput />)
+	it('does not park a pending candidate when several URLs are copied', () => {
+		const hintSpy = vi.spyOn(notify, 'clipboard').mockImplementation(() => undefined)
+		try {
+			const raw = 'Grab https://example.com/one, https://example.com/two'
+			useAppStore.setState({wizardUrl: 'already-here'})
+			render(<StepUrlInput />)
 
-		act(() => {
-			clipboardListener!(raw)
-		})
-		fireEvent.click(screen.getByTestId('url-clear'))
+			act(() => {
+				clipboardListener!(raw)
+			})
 
-		expect(useAppStore.getState().wizardUrl).toBe('')
-		expect(screen.getByTestId('bulk-url-dialog')).toBeInTheDocument()
-		expect(screen.getByTestId('bulk-url-textarea')).toHaveValue(raw)
-		expect(screen.queryByTestId('clipboard-pending-action')).not.toBeInTheDocument()
+			expect(useAppStore.getState().wizardUrl).toBe('already-here')
+			expect(screen.queryByTestId('clipboard-pending-action')).not.toBeInTheDocument()
+			expect(hintSpy).toHaveBeenCalledTimes(1)
+		} finally {
+			hintSpy.mockRestore()
+		}
 	})
 
 	it('dismisses a pending clipboard candidate', () => {

@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "クリップボードを監視",
 				"toggleDescription": "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。",
-				"autofilledLinks_one": "クリップボードから {{count}} 件のリンクを開きました",
-				"autofilledLinks_other": "クリップボードから {{count}} 件のリンクを開きました",
 				"autofilledLink": "クリップボードからリンクを追加しました",
-				"pendingLinksReady_one": "コピーしたリンク {{count}} 件の準備ができました",
-				"pendingLinksReady_other": "コピーしたリンク {{count}} 件の準備ができました",
+				"bulkHint": "複数のリンクがコピーされました —「一括 URL」で追加できます",
 				"pendingLinkReady": "コピーしたリンクの準備ができました",
-				"openCopiedLinks_one": "コピーしたリンク {{count}} 件を開く",
-				"openCopiedLinks_other": "コピーしたリンク {{count}} 件を開く",
 				"useCopiedLink": "コピーしたリンクを使う",
 				"dismissCopiedLink": "コピーしたリンクを閉じる",
 				"dialog": {"cancelButton": "キャンセル"}
+			},
+			"hotkey": {
+				"sectionTitle": "グローバルホットキー",
+				"sectionDescription": "コピーしたリンクを、Arroxy を開かずにどのアプリからでもダウンロードします。",
+				"toggle": "グローバルホットキーを有効にする",
+				"toggleDescription": "クリップボードに動画リンクがある状態でショートカットを押してください。",
+				"changeShortcut": "ショートカットを変更",
+				"recording": "キーを押してください…",
+				"test": "テスト",
+				"conflict": "このショートカットは別のアプリで使用中です — 別のものを選んでください。"
 			},
 			"cookies": {
 				"sourceLabel": "Cookieのソース",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "保存先フォルダーを開く",
 			"remove": "削除",
 			"pullNow": "今すぐ開始 — キューをスキップ",
+			"statusProbing": "詳細を取得中",
 			"statusPending": "待機中",
 			"statusRunning": "ダウンロード中",
 			"statusHeld": "保留中",
@@ -605,7 +611,16 @@
 		"folderSelectFailed": "フォルダー選択を開けませんでした。",
 		"playlistFolderRejected": "このフォルダーはこのプレイリストには使用できません。",
 		"filenameFolderTooDeep": "このフォルダーはシステムに対して階層が深すぎます。ダウンロードは失敗する可能性があります — もっと短いフォルダーを選んでください。",
-		"filenameTemplateCannotFit": "この動画の名前はテンプレートのすべての部分に収まらないため、既定の名前を使用しました。"
+		"filenameTemplateCannotFit": "この動画の名前はテンプレートのすべての部分に収まらないため、既定の名前を使用しました。",
+		"hotkey": {
+			"queued": "クリップボードからダウンロードを追加しました",
+			"alreadyQueued": "すでにキューにあります — 追加されていません",
+			"invalidClipboard": "クリップボードにリンクがありません — 先にコピーしてください",
+			"multipleUrls": "複数のリンクがコピーされました — Arroxyの「一括 URL」を使ってください",
+			"needsReview": "このリンクには簡単な確認が必要です — Arroxyを開いて再度貼り付けてください",
+			"busy": "前のリンクをまだ処理中です",
+			"submissionFailed": "そのリンクを追加できませんでした — Arroxyでもう一度お試しください"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -654,7 +669,7 @@
 		"mp4Cap": "YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます"
 	},
 	"formatLabel": {"audioFallback": "音声", "audioOnlyDot": "音声のみ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "アイドル", "statusActive_one": "1件ダウンロード中 · {{percent}}%", "statusActive_other": "{{count}}件ダウンロード中 · {{percent}}%", "open": "Arroxyを開く", "quit": "Arroxyを終了"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "アイドル", "statusActive_one": "1件ダウンロード中 · {{percent}}%", "statusActive_other": "{{count}}件ダウンロード中 · {{percent}}%", "downloadFromClipboard": "クリップボードからダウンロード", "open": "Arroxyを開く", "quit": "Arroxyを終了"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "ダウンロード{{count}}件を実行中",

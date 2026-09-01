@@ -420,6 +420,9 @@ export class ProbeService extends EventEmitter {
 	// Tracks every in-flight probe's controller so cancelInFlight() can abort
 	// them all at once. probe() registers + deregisters its controller.
 	private inFlight = new Set<AbortController>()
+	// Keyed views for owners that cancel only their own probe (hotkey probing
+	// items key on the queue item id). At most one probe per key.
+	private inFlightByKey = new Map<string, AbortController>()
 
 	private readonly vhxTitleFetcher: VhxTitleFetcher
 
@@ -449,7 +452,8 @@ export class ProbeService extends EventEmitter {
 		this.inFlight.clear()
 	}
 
-	async probe(url: string, cookiesMode: 'off' | 'file' | 'browser' = 'off', playlistMode: ProbePlaylistMode = 'auto', playlistScope?: PlaylistScope): Promise<Result<ProbeResult, ProbeError>> {
+	async probe(url: string, opts: {cookiesMode?: 'off' | 'file' | 'browser'; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string} = {}): Promise<Result<ProbeResult, ProbeError>> {
+		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey} = opts
 		const startMs = Date.now()
 		const emitSuccess = (result: ProbeResult): void => {
 			trackMain('format_probed', {duration_bucket: probeDurationBucket(Date.now() - startMs), bot_wall: result.kind === 'video' && result.degraded?.reasons.includes('botWall') === true, cookies_mode: cookiesMode, result_kind: result.kind})
@@ -460,6 +464,13 @@ export class ProbeService extends EventEmitter {
 
 		const controller = new AbortController()
 		this.inFlight.add(controller)
+		if (ownerKey) {
+			// At most one live probe per owner: a duplicate probe supersedes the
+			// in-flight one. Without this, the old controller becomes unreachable
+			// through cancelProbe(ownerKey) and keeps running untracked.
+			this.inFlightByKey.get(ownerKey)?.abort()
+			this.inFlightByKey.set(ownerKey, controller)
+		}
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
 
@@ -542,6 +553,21 @@ export class ProbeService extends EventEmitter {
 			return fail<ProbeResult, ProbeError>({kind: 'other', code: controller.signal.aborted ? 'cancelled' : 'unknown', message})
 		} finally {
 			this.inFlight.delete(controller)
+			if (ownerKey && this.inFlightByKey.get(ownerKey) === controller) this.inFlightByKey.delete(ownerKey)
+		}
+	}
+
+	// Abort one keyed probe without touching any other in-flight probe. Used by
+	// the probing-queue-item path: cancelling a Downloads row must not kill the
+	// wizard's probe (and vice versa). Unknown keys are a no-op.
+	cancelProbe(ownerKey: string): void {
+		const controller = this.inFlightByKey.get(ownerKey)
+		if (!controller) return
+		this.inFlightByKey.delete(ownerKey)
+		try {
+			controller.abort()
+		} catch {
+			/* already aborted */
 		}
 	}
 

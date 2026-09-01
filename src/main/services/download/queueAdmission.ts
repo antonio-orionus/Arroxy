@@ -12,6 +12,7 @@
 import log from 'electron-log/main.js'
 import type {QueueItem} from '@shared/types.js'
 import {isCollectionUrl} from '@shared/urlIntent.js'
+import {findLiveQueueDuplicate} from '@shared/queueActions.js'
 
 const logger = log.scope('queue')
 
@@ -32,5 +33,13 @@ export function findInadmissibleQueueItem(items: readonly QueueItem[]): QueueAdm
 	if (!item) return null
 	const message = `queue item ${item.id} URL addresses a collection, not a single video: ${item.url}`
 	logger.error('Queue add rejected', {itemId: item.id, url: item.url, batchSize: items.length, reason: message})
+	return {item, message}
+}
+
+export function findLiveDuplicate(items: readonly QueueItem[], existing: readonly QueueItem[]): QueueAdmissionRejection | null {
+	const item = findLiveQueueDuplicate(items, existing)
+	if (!item) return null
+	const message = `queue item URL is already active: ${item.url}`
+	logger.info('Queue add rejected as duplicate', {itemId: item.id, url: item.url})
 	return {item, message}
 }

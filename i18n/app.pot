@@ -298,6 +298,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr ""
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr ""
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr ""
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr ""
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr ""
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr ""
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr ""
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr ""
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr ""
@@ -600,6 +628,10 @@ msgstr ""
 
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
+msgstr ""
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
 msgstr ""
 
 msgctxt "queue.item.statusRunning"
@@ -974,6 +1006,10 @@ msgstr ""
 
 msgctxt "titleBar.restore"
 msgid "Restore"
+msgstr ""
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
 msgstr ""
 
 msgctxt "tray.menu.open"
@@ -2495,12 +2531,8 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr ""
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
 msgstr ""
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
@@ -2511,24 +2543,8 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr ""
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr ""
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
 msgstr ""
 
 msgctxt "wizard.url.clipboard.toggle"
@@ -2713,6 +2729,38 @@ msgstr ""
 
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr ""
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr ""
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr ""
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
 msgstr ""
 
 msgctxt "wizard.url.interactiveDownload"

@@ -176,6 +176,39 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
 export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
 
+// Electron accelerator chord for the global clipboard-download hotkey. The
+// shape is validated, not enumerated: modifiers + one key. Registered via
+// Electron's globalShortcut, which rejects malformed chords at register time.
+export const hotkeyAcceleratorSchema = z
+	.string()
+	.regex(/^(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta)(\+(CommandOrControl|Cmd|Ctrl|Alt|Option|AltGr|Shift|Super|Meta))*\+([0-9A-Z]|F([1-9]|1[0-9])|Space|Tab|Capslock|Numlock|Scrolllock|Backquote)$/, 'Use modifiers plus one key, e.g. CommandOrControl+Shift+D')
+export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
+
+// Every hotkey trigger attempt ends in exactly one of these outcomes — no
+// silent paths (the OmniGet #198 lesson). The renderer derives the outcome
+// and reports it back so main can notify on hidden windows.
+export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'busy'])
+export type HotkeyOutcome = z.infer<typeof hotkeyOutcomeSchema>
+
+// The schema validates the renderer→main report payload; main decorates the
+// event it forwards with its own `toast` verdict — focused + on-screen (see
+// hotkeyFeedback) — so the renderer knows whether to surface the toast. Two
+// shapes, explicitly: the report (renderer→main) and the event (main→renderer).
+export const hotkeyOutcomePayloadSchema = z.object({outcome: hotkeyOutcomeSchema, url: z.string().optional()})
+export type HotkeyOutcomePayload = z.infer<typeof hotkeyOutcomePayloadSchema>
+export const hotkeyOutcomeEventSchema = hotkeyOutcomePayloadSchema.extend({toast: z.boolean()})
+export type HotkeyOutcomeEvent = z.infer<typeof hotkeyOutcomeEventSchema>
+
+// Main reads the clipboard (the renderer cannot while hidden) and sends the
+// pre-classified trigger. Renderer never touches the clipboard for the hotkey.
+export const hotkeyTriggerSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('single'), url: z.string()}), z.object({kind: z.literal('multiple')}), z.object({kind: z.literal('empty')})])
+export type HotkeyTriggerPayload = z.infer<typeof hotkeyTriggerSchema>
+
+// Registration state, pulled by the settings UI (register() returns false when
+// another app owns the chord).
+export const hotkeyStateSchema = z.object({accelerator: z.string().nullable(), registered: z.boolean()})
+export type HotkeyState = z.infer<typeof hotkeyStateSchema>
+
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
 
@@ -203,6 +236,9 @@ export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSc
 
 export const probeOtherErrorCodeSchema = z.enum(['cancelled', 'cookies_config', 'invalid_url', 'no_formats', 'parse', 'playlist_empty', 'redirect_loop', 'schema', 'unknown'])
 export type ProbeOtherErrorCode = z.infer<typeof probeOtherErrorCodeSchema>
+
+export const appErrorCodeSchema = z.enum(['validation', 'conflict', 'token', 'binary', 'download', 'ipc', 'unknown'])
+export type AppErrorCode = z.infer<typeof appErrorCodeSchema>
 
 export const bulkUrlKindSchema = z.enum(['single', 'playlist', 'channel', 'search', 'mixed', 'unknown'])
 export type BulkUrlKind = z.infer<typeof bulkUrlKindSchema>
@@ -284,7 +320,7 @@ export type RuntimeBinaryIndex = z.infer<typeof runtimeBinaryIndexSchema>
 // "queued + waiting + never spawned a job" (resume = transition to pending).
 // paused-active is "had a running job, user paused it" (resume = re-spawn,
 // possibly across an app restart via persisted tempDir + lastJobId).
-export const queueItemStatusSchema = z.enum(['pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
+export const queueItemStatusSchema = z.enum(['probing', 'pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
 export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>
 
 // Lane controls how the scheduler treats an item. `normal` items respect the
@@ -313,7 +349,7 @@ export const QUEUE_TABLE_COLUMN_IDS = queueTableColumnIdSchema.options
 const ytDlpErrorKindSchema = z.enum(YT_DLP_ERROR_KINDS)
 
 // Reified queue-status names for use in equality checks. Exact mirror of the schema.
-export const QUEUE_STATUS = {pending: 'pending', running: 'running', pausedHeld: 'paused-held', pausedActive: 'paused-active', done: 'done', error: 'error', cancelled: 'cancelled'} as const satisfies Record<string, QueueItemStatus>
+export const QUEUE_STATUS = {probing: 'probing', pending: 'pending', running: 'running', pausedHeld: 'paused-held', pausedActive: 'paused-active', done: 'done', error: 'error', cancelled: 'cancelled'} as const satisfies Record<string, QueueItemStatus>
 
 // Status keys emitted by DownloadService and consumed by the renderer for i18n.
 // Defined as a const object so call-sites can reference STATUS_KEY.X — typos
@@ -366,7 +402,7 @@ const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
 export const playlistScopeSchema = z.object({items: playlistScopeItemsSchema})
 export type PlaylistScope = z.infer<typeof playlistScopeSchema>
 
-export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['auto', 'video', 'playlist']).optional(), playlistScope: playlistScopeSchema.optional()})
+export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['auto', 'video', 'playlist']).optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional()})
 
 // PreparedJob discriminated-union schema. Type aliases live in
 // `./preparedJob`; the runtime validator lives here so callers that already
@@ -412,7 +448,8 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		sponsorBlock: sponsorBlockOptionsSchema,
 		embed: embedOptionsSchema
 	}),
-	z.object({kind: z.literal('subtitle-only'), ...extractorIdentitySchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema})
+	z.object({kind: z.literal('subtitle-only'), ...extractorIdentitySchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema}),
+	z.object({kind: z.literal('unresolved'), extractor: z.literal(''), extractorKey: z.literal('')})
 ])
 
 export const startDownloadSchema = z.object({url: webUrlSchema, outputDir: z.string().min(1).optional(), cookiesMode: cookiesModeSchema.optional(), job: preparedJobSchema})
@@ -454,6 +491,8 @@ const commonSettingsPatchSchema = z.object({
 	proxyUrl: z.string().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	clipboardWatchEnabled: z.boolean().optional(),
+	hotkeyEnabled: z.boolean().optional(),
+	hotkeyAccelerator: hotkeyAcceleratorSchema.optional(),
 	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
 	closeBehavior: closeBehaviorSchema.optional(),
 	embedChapters: z.boolean().optional(),
@@ -509,7 +548,9 @@ export const updateSettingsSchema = z.object({common: commonSettingsPatchSchema.
 
 // Queue item schema — used by both queueSave IPC handler and queueStore.load
 // to reject corrupted persistence (manual edits, partial writes).
-const localizedErrorSchema = z.object({kind: ytDlpErrorKindSchema, raw: z.string()})
+// Exported for IPC input validation (queue:cmd:probeFailed) — same shape the
+// queue persistence schema uses below.
+export const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string()})
 
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
@@ -530,7 +571,7 @@ export const queueItemSchema = z
 		progressPercent: z.number(),
 		progressDetail: z.string().nullable(),
 		lastStatus: statusSnapshotSchema.nullable(),
-		error: localizedErrorSchema.nullable(),
+		error: localizedErrorSchemaShape.nullable(),
 		addedAt: z.string().nullable().default(null),
 		finishedAt: z.string().nullable(),
 		playlistGroupId: z.string().min(1).optional(),
@@ -558,6 +599,15 @@ export const queueItemSchema = z
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {
+		// An unresolved job is the probe stage's signature. It is legal only on
+		// a live `probing` row or on a terminal probe-error row (probe-failed
+		// finalizes the error but never mints a real job). Everywhere else the
+		// pair is a half-built row that must not persist.
+		const unresolved = item.job.kind === 'unresolved'
+		const legalUnresolved = item.status === QUEUE_STATUS.probing || (item.status === QUEUE_STATUS.error && unresolved)
+		if (unresolved !== legalUnresolved) {
+			ctx.addIssue({code: 'custom', path: ['job'], message: 'probing status and unresolved job must appear together'})
+		}
 		if (!item.resumeContext) return
 
 		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.pending) {

@@ -10,6 +10,11 @@ import type {
 	DownloadProfilesPrefs,
 	FeedbackDiagnosticUpload,
 	GraphicsPolicy,
+	HotkeyOutcomeEvent,
+	HotkeyOutcomePayload,
+	HotkeyState,
+	HotkeyTriggerPayload,
+	LocalizedError,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -71,6 +76,7 @@ export interface AppApi {
 		resume(input: {jobId: string}): Promise<Result<{resumed: boolean; job?: DownloadJob}>>
 	}
 	settings: {get(): Promise<Result<AppSettings>>; update(input: SettingsPatch): Promise<Result<AppSettings>>}
+	hotkey: {reportOutcome(input: HotkeyOutcomePayload): Promise<Result<void>>; getState(): Promise<Result<HotkeyState>>; testPress(): Promise<Result<void>>; rendererReady(): Promise<Result<void>>}
 	shell: {openFolder(path?: string): Promise<Result<{opened: boolean}>>; openExternal(url: string): Promise<Result<{opened: boolean}>>; openBinariesDir(): Promise<Result<{opened: boolean}>>}
 	logs: {openDir(): Promise<Result<{opened: boolean}>>; uploadFeedbackDiagnostic(input: {reportId: string}): Promise<Result<FeedbackDiagnosticUpload>>}
 	dialog: {chooseFolder(defaultPath?: string): Promise<Result<{path: string | null}>>; chooseFile(): Promise<Result<{path: string | null}>>; chooseExecutable(binary: DependencyId): Promise<Result<{path: string | null}>>}
@@ -79,12 +85,15 @@ export interface AppApi {
 		onProgress(listener: (event: ProgressEvent) => void): () => void
 		onProbeProgress(listener: (event: ProbeProgressEvent) => void): () => void
 		onClipboardUrl(listener: (url: string) => void): () => void
+		onHotkeyTrigger(listener: (trigger: HotkeyTriggerPayload) => void): () => void
+		onHotkeyOutcome(listener: (event: HotkeyOutcomeEvent) => void): () => void
 		onWarmupProgress(listener: (event: WarmupProgressEvent) => void): () => void
 	}
 	queue: {
 		cmd: {
 			add(items: QueueItem[]): Promise<Result<{ids: string[]}>>
 			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
+			probeFailed(input: {itemId: string; error: LocalizedError}): Promise<Result<void>>
 			start(input: {itemId: string}): Promise<Result<void>>
 			pause(input: {itemId: string}): Promise<Result<void>>
 			resume(input: {itemId: string}): Promise<Result<void>>
@@ -92,6 +101,10 @@ export interface AppApi {
 			retry(input: {itemId: string}): Promise<Result<void>>
 			clearCompleted(): Promise<Result<void>>
 			remove(input: {itemId: string}): Promise<Result<void>>
+			// Atomic probe-stage swap: replaces a still-probing hotkey placeholder
+			// with the prepared items, or refuses (enqueueing nothing) when the
+			// placeholder is no longer probing. See QueueProbeLifecycle.
+			replaceProbing(input: {itemId: string; items: QueueItem[]}): Promise<Result<{ids: string[]}>>
 			setLane(input: {itemId: string; lane: QueueLane}): Promise<Result<void>>
 			applySelectionAction(input: {action: QueueSelectionAction; itemIds: string[]}): Promise<Result<QueueSelectionCommandResult>>
 			changeOutputTarget(input: {itemIds: string[]; outputDir: string}): Promise<Result<QueueOutputTargetChangeResult>>

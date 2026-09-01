@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "مراقبة الحافظة",
 				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
-				"autofilledLinks_one": "تم فتح رابط واحد من الحافظة",
-				"autofilledLinks_other": "تم فتح {{count}} روابط من الحافظة",
 				"autofilledLink": "تمت إضافة الرابط من الحافظة",
-				"pendingLinksReady_one": "رابط منسوخ جاهز",
-				"pendingLinksReady_other": "{{count}} روابط منسوخة جاهزة",
+				"bulkHint": "تم نسخ روابط متعددة — استخدم «روابط متعددة» لإضافتها",
 				"pendingLinkReady": "الرابط المنسوخ جاهز",
-				"openCopiedLinks_one": "فتح الرابط المنسوخ",
-				"openCopiedLinks_other": "فتح {{count}} روابط منسوخة",
 				"useCopiedLink": "استخدام الرابط المنسوخ",
 				"dismissCopiedLink": "إخفاء الرابط المنسوخ",
 				"dialog": {"cancelButton": "إلغاء"}
+			},
+			"hotkey": {
+				"sectionTitle": "اختصار عام",
+				"sectionDescription": "نزّل أي رابط تنسخه من أي تطبيق دون فتح Arroxy.",
+				"toggle": "تفعيل الاختصار العام",
+				"toggleDescription": "اضغط الاختصار مع وجود رابط فيديو في الحافظة.",
+				"changeShortcut": "تغيير الاختصار",
+				"recording": "اضغط المفاتيح…",
+				"test": "اختبار",
+				"conflict": "هذا الاختصار مستخدم من تطبيق آخر — اختر غيره."
 			},
 			"cookies": {
 				"sourceLabel": "مصدر الكوكيز",
@@ -538,6 +543,7 @@
 			"openDestinationFolder": "فتح مجلد الوجهة",
 			"remove": "إزالة",
 			"pullNow": "تنزيل الآن — تجاوز القائمة",
+			"statusProbing": "جارٍ جلب التفاصيل",
 			"statusPending": "بانتظار",
 			"statusRunning": "جارٍ التنزيل",
 			"statusHeld": "معلّق",
@@ -595,7 +601,16 @@
 		"folderSelectFailed": "تعذّر فتح مُحدِّد المجلدات.",
 		"playlistFolderRejected": "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه.",
 		"filenameFolderTooDeep": "هذا المجلد عميق جدًا بالنسبة لنظامك. قد يفشل التنزيل رغم ذلك — اختر مجلدًا أقصر.",
-		"filenameTemplateCannotFit": "اسم هذا الفيديو لا يتّسع لكل أجزاء القالب، لذلك استُخدم الاسم الافتراضي."
+		"filenameTemplateCannotFit": "اسم هذا الفيديو لا يتّسع لكل أجزاء القالب، لذلك استُخدم الاسم الافتراضي.",
+		"hotkey": {
+			"queued": "تمت إضافة التنزيل من الحافظة",
+			"alreadyQueued": "في قائمة الانتظار بالفعل — لم تُضف نسخة",
+			"invalidClipboard": "لا يوجد رابط في الحافظة — انسخ رابطًا أولاً",
+			"multipleUrls": "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy",
+			"needsReview": "هذا الرابط يحتاج إلى مراجعة سريعة — افتح Arroxy وأعد لصقه",
+			"busy": "ما زلنا نعالج الرابط السابق",
+			"submissionFailed": "تعذّر إضافة هذا الرابط — حاول مجددًا في Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -636,7 +651,7 @@
 		"mp4Cap": "H.264 أعلى من 1080p غير متاح على YouTube — يحد تلقائيًا إلى 1080p"
 	},
 	"formatLabel": {"audioFallback": "صوت", "audioOnlyDot": "صوت فقط · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "خامل", "statusActive_one": "1 جارٍ التنزيل · {{percent}}%", "statusActive_other": "{{count}} جارٍ التنزيل · {{percent}}%", "open": "فتح Arroxy", "quit": "الخروج من Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "خامل", "statusActive_one": "1 جارٍ التنزيل · {{percent}}%", "statusActive_other": "{{count}} جارٍ التنزيل · {{percent}}%", "downloadFromClipboard": "تنزيل من الحافظة", "open": "فتح Arroxy", "quit": "الخروج من Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} تنزيل قيد التقدم", "message_other": "{{count}} تنزيلات قيد التقدم", "detail": "يمكنك الإيقاف مؤقتًا للاستئناف لاحقًا، أو الإلغاء للتخلي عن التقدم.", "confirm": "إلغاء التنزيلات والخروج", "pause": "إيقاف التنزيلات مؤقتًا والخروج", "keep": "الاستمرار في التنزيل"},
 		"closeToTray": {"message": "هل تريد إخفاء Arroxy في علبة النظام عند الإغلاق؟", "detail": "يستمر Arroxy في العمل وينهي التنزيلات النشطة. يمكنك تغيير ذلك لاحقاً في الإعدادات المتقدمة.", "hide": "الإخفاء في علبة النظام", "quit": "الخروج", "remember": "لا تسألني مجدداً"},

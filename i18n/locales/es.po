@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "No se pudo abrir el selector de carpetas."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Ya está en la cola — no se añadió otra copia"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Aún se está procesando el enlace anterior"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "No hay ningún enlace en el portapapeles — copia uno primero"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Se copiaron varios enlaces — usa «URLs en lote» en Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Ese enlace necesita una revisión rápida — abre Arroxy y pégalo de nuevo"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Descarga añadida desde el portapapeles"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "No se pudo añadir ese enlace — inténtalo de nuevo en Arroxy"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Esa carpeta no se puede usar para esta lista de reproducción."
@@ -602,6 +630,10 @@ msgstr "Pausado"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Esperando"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Obteniendo detalles"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Minimizar"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Restaurar"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Descargar del portapapeles"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Enlace añadido desde el portapapeles"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "{{count}} enlace abierto desde el portapapeles"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "{{count}} enlaces abiertos desde el portapapeles"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Se copiaron varios enlaces — añádelos con «URLs en lote»"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Descartar enlace copiado"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Abrir {{count}} enlace copiado"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Abrir {{count}} enlaces copiados"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Enlace copiado listo"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} enlace copiado listo"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} enlaces copiados listos"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "Asistente paso a paso. Elige formato, calidad y más."
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "Descargar desde URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Cambiar atajo"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Ese atajo ya lo usa otra aplicación — elige otro."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Pulsa las teclas…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Descarga el enlace que copies, desde cualquier app, sin abrir Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Atajo global"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Probar"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Activar atajo global"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Pulsa el atajo con un enlace de vídeo en el portapapeles."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

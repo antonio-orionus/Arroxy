@@ -9,7 +9,7 @@ export interface ClipboardCandidate {
 	kind: ClipboardCandidateKind
 }
 
-export type ClipboardIntakeAction = {kind: 'ignore'} | {kind: 'fill-single'; candidate: ClipboardCandidate; url: string} | {kind: 'open-bulk'; candidate: ClipboardCandidate} | {kind: 'store-pending'; candidate: ClipboardCandidate}
+export type ClipboardIntakeAction = {kind: 'ignore'} | {kind: 'fill-single'; candidate: ClipboardCandidate; url: string} | {kind: 'hint-bulk'; candidate: ClipboardCandidate} | {kind: 'store-pending'; candidate: ClipboardCandidate}
 
 export interface ClipboardIntakeContext {
 	candidate: ClipboardCandidate | null
@@ -30,10 +30,14 @@ export function buildClipboardCandidate(raw: string): ClipboardCandidate | null 
 	return {raw: trimmed, acceptedUrls, count: acceptedUrls.length, kind: acceptedUrls.length > 1 ? 'bulk' : 'single'}
 }
 
+// Intake contract: automation never opens dialogs. One link autofills the omnibox;
+// many links only produce a hint pointing at the manual Bulk paste button; single
+// links park as pending while the home surface is busy. Multi-URL candidates never
+// pend — nothing may later fall through to filling the first URL silently.
 export function resolveClipboardIntake({bulkOpen, candidate, formatsLoading, hasInput, quickPreparing}: ClipboardIntakeContext): ClipboardIntakeAction {
 	if (!candidate) return {kind: 'ignore'}
+	if (candidate.kind === 'bulk') return {kind: 'hint-bulk', candidate}
 	if (bulkOpen || hasInput || formatsLoading || quickPreparing) return {kind: 'store-pending', candidate}
-	if (candidate.kind === 'bulk') return {kind: 'open-bulk', candidate}
 
 	const url = candidate.acceptedUrls[0]
 	return url ? {kind: 'fill-single', candidate, url} : {kind: 'ignore'}

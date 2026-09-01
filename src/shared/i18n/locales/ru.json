@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "Следить за буфером обмена",
 				"toggleDescription": "Автоматически подставляет ссылку YouTube в поле URL при копировании.",
-				"autofilledLinks_one": "{{count}} ссылка открыта из буфера обмена",
-				"autofilledLinks_other": "{{count}} ссылки открыты из буфера обмена",
 				"autofilledLink": "Ссылка добавлена из буфера обмена",
-				"pendingLinksReady_one": "{{count}} скопированная ссылка готова",
-				"pendingLinksReady_other": "{{count}} скопированные ссылки готовы",
+				"bulkHint": "Скопировано несколько ссылок — добавьте их через «Массовые URL»",
 				"pendingLinkReady": "Скопированная ссылка готова",
-				"openCopiedLinks_one": "Открыть {{count}} скопированную ссылку",
-				"openCopiedLinks_other": "Открыть {{count}} скопированные ссылки",
 				"useCopiedLink": "Использовать скопированную ссылку",
 				"dismissCopiedLink": "Скрыть скопированную ссылку",
 				"dialog": {"cancelButton": "Отмена"}
+			},
+			"hotkey": {
+				"sectionTitle": "Глобальная горячая клавиша",
+				"sectionDescription": "Скачивайте любую скопированную ссылку из любого приложения, не открывая Arroxy.",
+				"toggle": "Включить горячую клавишу",
+				"toggleDescription": "Нажмите сочетание клавиш, когда в буфере обмена находится ссылка на видео.",
+				"changeShortcut": "Изменить сочетание",
+				"recording": "Нажимайте клавиши…",
+				"test": "Проверить",
+				"conflict": "Это сочетание уже занято другим приложением — выберите другое."
 			},
 			"cookies": {
 				"sourceLabel": "Источник cookies",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "Открыть папку назначения",
 			"remove": "Удалить",
 			"pullNow": "Загрузить сейчас — пропустить очередь",
+			"statusProbing": "Получение сведений",
 			"statusPending": "Ожидание",
 			"statusRunning": "Загрузка",
 			"statusHeld": "Удержано",
@@ -600,7 +606,16 @@
 		"folderSelectFailed": "Не удалось открыть выбор папки.",
 		"playlistFolderRejected": "Эту папку нельзя использовать для этого плейлиста.",
 		"filenameFolderTooDeep": "Эта папка вложена слишком глубоко для вашей системы. Загрузка всё равно может не удаться — выберите папку короче.",
-		"filenameTemplateCannotFit": "Название этого видео не помещается во все части шаблона, поэтому использовано имя по умолчанию."
+		"filenameTemplateCannotFit": "Название этого видео не помещается во все части шаблона, поэтому использовано имя по умолчанию.",
+		"hotkey": {
+			"queued": "Загрузка добавлена из буфера обмена",
+			"alreadyQueued": "Уже в очереди — копия не добавлена",
+			"invalidClipboard": "В буфере обмена нет ссылки — скопируйте её сначала",
+			"multipleUrls": "Скопировано несколько ссылок — используйте «Массовые URL» в Arroxy",
+			"needsReview": "Эта ссылка требует быстрой проверки — откройте Arroxy и вставьте её снова",
+			"busy": "Обрабатывается предыдущая ссылка",
+			"submissionFailed": "Не удалось добавить эту ссылку — попробуйте снова в Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -649,7 +664,7 @@
 		"mp4Cap": "H.264 выше 1080p недоступен на YouTube — автоматически ограничивается 1080p"
 	},
 	"formatLabel": {"audioFallback": "Аудио", "audioOnlyDot": "Только аудио · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ожидание", "statusActive_one": "1 загружается · {{percent}}%", "statusActive_other": "{{count}} загружаются · {{percent}}%", "open": "Открыть Arroxy", "quit": "Выйти из Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ожидание", "statusActive_one": "1 загружается · {{percent}}%", "statusActive_other": "{{count}} загружаются · {{percent}}%", "downloadFromClipboard": "Скачать из буфера обмена", "open": "Открыть Arroxy", "quit": "Выйти из Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} загрузка идёт",

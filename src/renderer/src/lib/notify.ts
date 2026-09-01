@@ -6,6 +6,8 @@
 // exercise without a DOM. Importing a toast library here would drag one in.
 
 import i18next from 'i18next'
+import type {HotkeyOutcome} from '@shared/types.js'
+import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
 
 export type NotificationLevel = 'error' | 'warning' | 'info'
 
@@ -49,11 +51,19 @@ export const notify = {
 		console.warn('[playlist] picked folder is not usable as base + subfolder', dir)
 		emit('warning', i18next.t('notifications.playlistFolderRejected'), 'playlist-folder')
 	},
-	clipboardAutofilled(message: string): void {
-		// Already localized by the caller, so it is passed through rather than
-		// looked up again.
+	// One method for every clipboard-intake toast: the callers pass their own
+	// localized message and the distinction lives in their t() keys, not here.
+	// Same surface and dedupe id as the autofill toast.
+	clipboard(message: string): void {
 		console.info('[clipboard]', message)
 		emit('info', message, 'clipboard')
+	},
+	hotkeyOutcome(outcome: HotkeyOutcome): void {
+		// Localized here (not by the caller) because main routes the same
+		// outcome through mainT for OS notifications; the key table is shared
+		// so both processes can never drift apart.
+		const {key, level} = HOTKEY_OUTCOME_COPY[outcome]
+		emit(level, i18next.t(key), 'hotkey')
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and

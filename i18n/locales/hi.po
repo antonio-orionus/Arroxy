@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "फ़ोल्डर चयनकर्ता नहीं खोला जा सका।"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "पहले से कतार में है — कोई कॉपी नहीं जोड़ी गई"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "पिछला लिंक अभी भी प्रोसेस हो रहा है"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "क्लिपबोर्ड में कोई लिंक नहीं है — पहले एक कॉपी करें"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "कई लिंक कॉपी हो गए हैं — Arroxy में “बल्क URLs” का उपयोग करें"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "इस लिंक को एक त्वरित समीक्षा चाहिए — Arroxy खोलें और इसे फिर से पेस्ट करें"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "क्लिपबोर्ड से डाउनलोड जोड़ा गया"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "वह लिंक जोड़ा नहीं जा सका — Arroxy में फिर से कोशिश करें"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "यह फ़ोल्डर इस प्लेलिस्ट के लिए उपयोग नहीं किया जा सकता।"
@@ -602,6 +630,10 @@ msgstr "रुका हुआ"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "प्रतीक्षा में"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "विवरण लाए जा रहे हैं"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "छोटा करें"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "पुनर्स्थापित करें"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "क्लिपबोर्ड से डाउनलोड करें"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "क्लिपबोर्ड से लिंक जोड़ा गया"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "क्लिपबोर्ड से {{count}} लिंक खोला गया"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "क्लिपबोर्ड से {{count}} लिंक खोले गए"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "कई लिंक कॉपी हो गए हैं — जोड़ने के लिए “बल्क URLs” का उपयोग करें"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "कॉपी किया गया लिंक हटाएँ"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "{{count}} कॉपी किया गया लिंक खोलें"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "{{count}} कॉपी किए गए लिंक खोलें"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "कॉपी किया गया लिंक तैयार है"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} कॉपी किया गया लिंक तैयार है"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} कॉपी किए गए लिंक तैयार हैं"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "चरण-दर-चरण विज़ार्ड। फ़ॉर्�
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL से डाउनलोड करें"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "शॉर्टकट बदलें"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "यह शॉर्टकट किसी दूसरे ऐप के पास है — दूसरा चुनें।"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "कुंजियाँ दबाएँ…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "जो भी लिंक कॉपी करें, उसे किसी भी ऐप से डाउनलोड करें — Arroxy खोले बिना।"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "ग्लोबल हॉटकी"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "जाँचें"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "ग्लोबल हॉटकी चालू करें"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "क्लिपबोर्ड में वीडियो लिंक होने पर शॉर्टकट दबाएँ।"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

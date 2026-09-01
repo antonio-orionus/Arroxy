@@ -1,4 +1,4 @@
-import type {StartDownloadInput} from '@shared/types.js'
+import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import {VideoPhase} from './VideoPhase.js'
 import {SubtitleOnlyPhase} from './SubtitleOnlyPhase.js'
@@ -23,10 +23,14 @@ export function strategyFor(job: PreparedJob): StrategyKind {
 			if (subs.mode === 'embed') return 'video+embed'
 			return 'video+sidecar'
 		}
+		// The probe-stage placeholder never reaches phase planning —
+		// DownloadService.start() refuses it before runJob.
+		case 'unresolved':
+			throw new Error('invariant: unresolved (probe-stage) job has no download strategy')
 	}
 }
 
-export function phasesFor(input: StartDownloadInput): Phase[] {
+export function phasesFor(input: ResolvedStartDownloadInput): Phase[] {
 	const {job} = input
 	// expectedBytes only known for single-format probes. Other kinds (audio-convert,
 	// ranged-format, subtitle-only) still run preflight against the floor in

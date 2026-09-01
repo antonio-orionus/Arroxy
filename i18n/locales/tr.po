@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Klasör seçici açılamadı."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Zaten kuyrukta — kopya eklenmedi"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Önceki bağlantı hâlâ işleniyor"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Panoda bağlantı yok — önce bir tane kopyalayın"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Bu bağlantı hızlı bir inceleme gerektiriyor — Arroxy'yi açıp yeniden yapıştırın"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "İndirme panodan eklendi"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Bu klasör bu oynatma listesi için kullanılamaz."
@@ -602,6 +630,10 @@ msgstr "Duraklatıldı"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Bekliyor"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Ayrıntılar alınıyor"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Simge durumuna küçült"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Geri yükle"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Panodan indir"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Bağlantı panodan eklendi"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "{{count}} bağlantı panodan açıldı"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "{{count}} bağlantı panodan açıldı"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Kopyalanan bağlantıyı kapat"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "{{count}} kopyalanmış bağlantıyı aç"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "{{count}} kopyalanmış bağlantıyı aç"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Kopyalanmış bağlantı hazır"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "{{count}} kopyalanmış bağlantı hazır"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "{{count}} kopyalanmış bağlantı hazır"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "Adım adım sihirbaz. Biçimi, kaliteyi ve daha fazlasını seç."
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL’den indir"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Kısayolu değiştir"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Tuşlara basın…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Kopyaladığınız bağlantıyı, Arroxy’yi açmadan herhangi bir uygulamadan indirin."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Genel kısayol"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Test et"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Genel kısayolu etkinleştir"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Panoda video bağlantısı varken kısayola basın."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

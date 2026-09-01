@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Filannoo galee banuun hin danda'amne."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Kan dura baay'ina keessa jira — kopii hin dabalame"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Hidha duraan yeroo ammaa hojjechaa jirra"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Buufama keessa hidhanni hin jiru — duratti tokko galchee"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Hidhanni kun ilaalchi gahaabaa barbaada — Arroxy baneetti irra deebi'aa maxxansi"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Haaromsa buufamaa irraa dabalameera"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu."
@@ -602,6 +630,10 @@ msgstr "Dhaabbate"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Eegaa jira"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Ibsa fidaa jira"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Xiqqeessi"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Deebi'si"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Buufamaa irraa basii"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2501,13 +2537,9 @@ msgctxt "wizard.url.clipboard.autofilledLink"
 msgid "Link added from clipboard"
 msgstr "Liinki gabatee waraabbii irraa dabalame"
 
-msgctxt "wizard.url.clipboard.autofilledLinks_one"
-msgid "{{count}} link opened from clipboard"
-msgstr "Liinki {{count}} gabatee waraabbii irraa baname"
-
-msgctxt "wizard.url.clipboard.autofilledLinks_other"
-msgid "{{count}} links opened from clipboard"
-msgstr "Liinkota {{count}} gabatee waraabbii irraa banaman"
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami"
 
 msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
@@ -2517,25 +2549,9 @@ msgctxt "wizard.url.clipboard.dismissCopiedLink"
 msgid "Dismiss copied link"
 msgstr "Liinki waraabbame cufi"
 
-msgctxt "wizard.url.clipboard.openCopiedLinks_one"
-msgid "Open {{count}} copied link"
-msgstr "Liinki waraabbame {{count}} bani"
-
-msgctxt "wizard.url.clipboard.openCopiedLinks_other"
-msgid "Open {{count}} copied links"
-msgstr "Liinkota waraabbaman {{count}} bani"
-
 msgctxt "wizard.url.clipboard.pendingLinkReady"
 msgid "Copied link ready"
 msgstr "Liinki waraabbame qophaaʼeera"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_one"
-msgid "{{count}} copied link ready"
-msgstr "Liinki waraabbame {{count}} qophaaʼeera"
-
-msgctxt "wizard.url.clipboard.pendingLinksReady_other"
-msgid "{{count}} copied links ready"
-msgstr "Liinkotni waraabbaman {{count}} qophaaʼaniiru"
 
 msgctxt "wizard.url.clipboard.toggle"
 msgid "Watch clipboard"
@@ -2720,6 +2736,38 @@ msgstr "Wizard tarkaanfii-tarkaanfiin. Foormaatii, qulqullina fi kan biroo fili.
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL irraa buusi"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Hotkey jijjiiri"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Hotkeyn kun appii biraa qabameera — kan bira filu."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Qabduulee cuqaasi…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Hidha kam iyyuu yoo wallakkeessite, appii kamirraa iyyuu, Arroxy banaa malee daawniloodii godhi."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Hotkey addunyaa"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Qormeessi"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Hotkey addunyaa bani"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Buufamaa keessa hidha viidiyoo yoo jiru, hotkey cuqaasi."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

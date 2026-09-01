@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "کلپ بورڈ پر نظر رکھیں",
 				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
-				"autofilledLinks_one": "{{count}} لنک کلپ بورڈ سے کھولا گیا",
-				"autofilledLinks_other": "{{count}} لنکس کلپ بورڈ سے کھولے گئے",
 				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
-				"pendingLinksReady_one": "{{count}} کاپی شدہ لنک تیار ہے",
-				"pendingLinksReady_other": "{{count}} کاپی شدہ لنکس تیار ہیں",
+				"bulkHint": "متعدد لنکس کاپی ہو گئے — شامل کرنے کے لیے “متعدد URLs” استعمال کریں",
 				"pendingLinkReady": "کاپی شدہ لنک تیار ہے",
-				"openCopiedLinks_one": "{{count}} کاپی شدہ لنک کھولیں",
-				"openCopiedLinks_other": "{{count}} کاپی شدہ لنکس کھولیں",
 				"useCopiedLink": "کاپی شدہ لنک استعمال کریں",
 				"dismissCopiedLink": "کاپی شدہ لنک بند کریں",
 				"dialog": {"cancelButton": "منسوخ کریں"}
+			},
+			"hotkey": {
+				"sectionTitle": "گلوبل ہاٹ کی",
+				"sectionDescription": "جو بھی لنک کاپی کریں، کسی بھی ایپ سے ڈاؤن لوڈ کریں — Arroxy کھلے بغیر۔",
+				"toggle": "گلوبل ہاٹ کی چالو کریں",
+				"toggleDescription": "کلپ بورڈ میں ویڈیو لنک ہونے پر شارٹ کٹ دبائیں۔",
+				"changeShortcut": "شارٹ کٹ تبدیل کریں",
+				"recording": "کلیدیں دبائیں…",
+				"test": "جانچیں",
+				"conflict": "یہ شارٹ کٹ کسی اور ایپ کے پاس ہے — دوسری منتخب کریں۔"
 			},
 			"cookies": {
 				"sourceLabel": "Cookies کا ذریعہ",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "منزل فولڈر کھولیں",
 			"remove": "ہٹائیں",
 			"pullNow": "اب ڈاؤن لوڈ — قطار چھوڑیں",
+			"statusProbing": "تفصیلات لی جا رہی ہیں",
 			"statusPending": "منتظر",
 			"statusRunning": "ڈاؤن لوڈ ہو رہا ہے",
 			"statusHeld": "روکا گیا",
@@ -600,7 +606,16 @@
 		"folderSelectFailed": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔",
 		"playlistFolderRejected": "یہ فولڈر اس پلے لسٹ کے لیے استعمال نہیں ہو سکتا۔",
 		"filenameFolderTooDeep": "یہ فولڈر آپ کے سسٹم کے لیے بہت گہرا ہے۔ ڈاؤن لوڈ پھر بھی ناکام ہو سکتا ہے — چھوٹا فولڈر منتخب کریں۔",
-		"filenameTemplateCannotFit": "اس ویڈیو کا نام آپ کے ٹیمپلیٹ کے ہر حصے میں نہیں سماتا، اس لیے پہلے سے طے شدہ نام استعمال کیا گیا۔"
+		"filenameTemplateCannotFit": "اس ویڈیو کا نام آپ کے ٹیمپلیٹ کے ہر حصے میں نہیں سماتا، اس لیے پہلے سے طے شدہ نام استعمال کیا گیا۔",
+		"hotkey": {
+			"queued": "کلپ بورڈ سے ڈاؤن لوڈ شامل کر دیا گیا",
+			"alreadyQueued": "پہلے سے قطار میں ہے — کوئی کاپی شامل نہیں ہوئی",
+			"invalidClipboard": "کلپ بورڈ میں کوئی لنک نہیں — پہلے ایک کاپی کریں",
+			"multipleUrls": "متعدد لنکس کاپی ہو گئے — Arroxy میں “متعدد URLs” استعمال کریں",
+			"needsReview": "اس لنک کو فوری جانچ کی ضرورت ہے — Arroxy کھولیں اور دوبارہ پیسٹ کریں",
+			"busy": "پچھلا لنک ابھی پروسیس ہو رہا ہے",
+			"submissionFailed": "یہ لنک شامل نہیں ہو سکا — Arroxy میں دوبارہ کوشش کریں"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -641,7 +656,7 @@
 		"mp4Cap": "YouTube پر 1080p سے اوپر H.264 دستیاب نہیں — خودکار طور پر 1080p تک محدود"
 	},
 	"formatLabel": {"audioFallback": "آڈیو", "audioOnlyDot": "صرف آڈیو · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "فارغ", "statusActive_one": "1 ڈاؤن لوڈ ہو رہا ہے · {{percent}}%", "statusActive_other": "{{count}} ڈاؤن لوڈ ہو رہے ہیں · {{percent}}%", "open": "Arroxy کھولیں", "quit": "Arroxy بند کریں"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "فارغ", "statusActive_one": "1 ڈاؤن لوڈ ہو رہا ہے · {{percent}}%", "statusActive_other": "{{count}} ڈاؤن لوڈ ہو رہے ہیں · {{percent}}%", "downloadFromClipboard": "کلپ بورڈ سے ڈاؤن لوڈ کریں", "open": "Arroxy کھولیں", "quit": "Arroxy بند کریں"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} ڈاؤن لوڈ جاری ہے",

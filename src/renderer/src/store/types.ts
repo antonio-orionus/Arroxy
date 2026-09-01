@@ -14,6 +14,7 @@ import type {
 	DownloadProfileRef,
 	FormatOption,
 	GraphicsPolicy,
+	HotkeyAccelerator,
 	NativeAudioPreference,
 	PlaylistEntry,
 	PlaylistScope,
@@ -347,6 +348,8 @@ export interface SystemSlice {
 	setConcurrentDownloads: (value: number) => Promise<void>
 	setAutoRetryAttempts: (value: number) => Promise<void>
 	setClipboardWatchEnabled: (enabled: boolean) => Promise<void>
+	setHotkeyEnabled: (enabled: boolean) => Promise<void>
+	setHotkeyAccelerator: (accelerator: HotkeyAccelerator) => Promise<void>
 	setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>
 	setAnalyticsEnabled: (enabled: boolean) => Promise<void>
 	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<void>

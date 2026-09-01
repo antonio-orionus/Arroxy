@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "Angalia ubao wa kunakili",
 				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
-				"autofilledLinks_one": "Kiungo {{count}} kimefunguliwa kutoka ubao wa kunakili",
-				"autofilledLinks_other": "Viungo {{count}} vimefunguliwa kutoka ubao wa kunakili",
 				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
-				"pendingLinksReady_one": "Kiungo {{count}} kilichonakiliwa kiko tayari",
-				"pendingLinksReady_other": "Viungo {{count}} vilivyonakiliwa viko tayari",
+				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
 				"pendingLinkReady": "Kiungo kilichonakiliwa kiko tayari",
-				"openCopiedLinks_one": "Fungua kiungo {{count}} kilichonakiliwa",
-				"openCopiedLinks_other": "Fungua viungo {{count}} vilivyonakiliwa",
 				"useCopiedLink": "Tumia kiungo kilichonakiliwa",
 				"dismissCopiedLink": "Ondoa kiungo kilichonakiliwa",
 				"dialog": {"cancelButton": "Ghairi"}
+			},
+			"hotkey": {
+				"sectionTitle": "Njia ya mkato ya kimataifa",
+				"sectionDescription": "Pakua kiungo chochote unachonakili, kutoka programu yoyote, bila kufungua Arroxy.",
+				"toggle": "Washa njia ya mkato ya kimataifa",
+				"toggleDescription": "Bonyeza njia ya mkato ukiwa na kiungo cha video kwenye ubao wa kunakili.",
+				"changeShortcut": "Badilisha njia ya mkato",
+				"recording": "Bonyeza vitufe…",
+				"test": "Jaribu",
+				"conflict": "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine."
 			},
 			"cookies": {
 				"sourceLabel": "Chanzo cha vidakuzi",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "Fungua folda lengwa",
 			"remove": "Ondoa",
 			"pullNow": "Pakua sasa — ruka foleni",
+			"statusProbing": "Inaleta maelezo",
 			"statusPending": "Inasubiri",
 			"statusRunning": "Inapakua",
 			"statusHeld": "Imeshikiliwa",
@@ -600,7 +606,16 @@
 		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
 		"playlistFolderRejected": "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza.",
 		"filenameFolderTooDeep": "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi.",
-		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika."
+		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika.",
+		"hotkey": {
+			"queued": "Pakio limeongezwa kutoka kwenye ubao wa kunakili",
+			"alreadyQueued": "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa",
+			"invalidClipboard": "Hakuna kiungo kwenye ubao wa kunakili — nakili moja kwanza",
+			"multipleUrls": "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy",
+			"needsReview": "Kiungo hiki kinahitaji ukaguzi mfupi — fungua Arroxy ukiweke tena",
+			"busy": "Bado tunashughulikia kiungo kilichopita",
+			"submissionFailed": "Kiungo hicho hakiweza kuongezwa — jaribu tena katika Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -649,7 +664,7 @@
 		"mp4Cap": "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p"
 	},
 	"formatLabel": {"audioFallback": "Sauti", "audioOnlyDot": "Sauti peke yake · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Tulivu", "statusActive_one": "1 inapakua · {{percent}}%", "statusActive_other": "{{count}} zinapakua · {{percent}}%", "open": "Fungua Arroxy", "quit": "Funga Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Tulivu", "statusActive_one": "1 inapakua · {{percent}}%", "statusActive_other": "{{count}} zinapakua · {{percent}}%", "downloadFromClipboard": "Pakia kutoka kwenye ubao wa kunakili", "open": "Fungua Arroxy", "quit": "Funga Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "Upakuaji {{count}} unaendelea", "message_other": "Vipakuzi {{count}} vinavyoendelea", "detail": "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo.", "confirm": "Ghairi Vipakuzi na Toka", "pause": "Sitisha vipakuliwa na uondoke", "keep": "Endelea Kupakua"},
 		"closeToTray": {"message": "Ficha Arroxy kwenye tray ya mfumo ukifunga?", "detail": "Arroxy inaendelea kufanya kazi na kukamilisha vipakuzi vinavyofanya kazi. Badilisha hii baadaye katika mipangilio ya Hali ya juu.", "hide": "Ficha kwenye tray", "quit": "Toka", "remember": "Usiulize tena"},

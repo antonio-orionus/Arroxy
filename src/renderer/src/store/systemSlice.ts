@@ -4,11 +4,14 @@ import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeD
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
 import type {GetState, SetState, ShareTrigger, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
+import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {notify} from '../lib/notify.js'
 import {track} from '../lib/analytics.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
+let unbindHotkeyTrigger: (() => void) | null = null
+let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
@@ -127,6 +130,26 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				set(state => ({warmupProgress: {...(state.warmupProgress ?? {}), [event.binary]: event}}))
 			})
 
+			// Hotkey trigger listener: lifetime-bound like warmup progress. Main
+			// presses the bell; the outcome flows back through reportOutcome.
+			unbindHotkeyTrigger?.()
+			unbindHotkeyTrigger = window.appApi.events.onHotkeyTrigger(trigger => {
+				void handleHotkeyTrigger(trigger, get)
+			})
+
+			// Outcome feedback: the renderer shows a toast only when focused —
+			// main fires the OS notification for hidden/unfocused windows, so
+			// each attempt is acknowledged exactly once through exactly one
+			// channel.
+			unbindHotkeyOutcome?.()
+			unbindHotkeyOutcome = window.appApi.events.onHotkeyOutcome(event => {
+				if (!event.toast) return
+				notify.hotkeyOutcome(event.outcome)
+			})
+			// Both halves of feedback are now bound. Main may register the chord;
+			// presses during the remaining startup work are acknowledged as busy.
+			void window.appApi.hotkey.rendererReady()
+
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
 				const state = get()
@@ -170,7 +193,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			if (snapshotResult.ok) {
 				set(state => projectQueueSnapshot(state, snapshotResult.data))
 			}
-
 			// warmUp() itself turns its own failures into a `fail` Result rather than
 			// rejecting, but the IPC transport in front of it is not this store's to
 			// trust blindly. A rejection here has nowhere else to land: `initialized`
@@ -398,6 +420,14 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		setClipboardWatchEnabled: async enabled => {
 			await applyCommonPatchAsync(get, set, 'clipboardWatchEnabled', {clipboardWatchEnabled: enabled})
+		},
+
+		setHotkeyEnabled: async enabled => {
+			await applyCommonPatchAsync(get, set, 'hotkeyEnabled', {hotkeyEnabled: enabled})
+		},
+
+		setHotkeyAccelerator: async accelerator => {
+			await applyCommonPatchAsync(get, set, 'hotkeyAccelerator', {hotkeyAccelerator: accelerator})
 		},
 
 		setCloseBehavior: async value => {

@@ -194,17 +194,22 @@
 			"clipboard": {
 				"toggle": "Tonton papan klip",
 				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
-				"autofilledLinks_one": "Tautan {{count}} dibuka dari clipboard",
-				"autofilledLinks_other": "Tautan {{count}} dibuka dari clipboard",
 				"autofilledLink": "Tautan ditambahkan dari clipboard",
-				"pendingLinksReady_one": "{{count}} menyalin tautan siap",
-				"pendingLinksReady_other": "{{count}} tautan yang disalin sudah siap",
+				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
 				"pendingLinkReady": "Tautan yang disalin sudah siap",
-				"openCopiedLinks_one": "Buka tautan yang disalin {{count}}",
-				"openCopiedLinks_other": "Buka tautan yang disalin {{count}}",
 				"useCopiedLink": "Gunakan tautan yang disalin",
 				"dismissCopiedLink": "Tolak tautan yang disalin",
 				"dialog": {"cancelButton": "Membatalkan"}
+			},
+			"hotkey": {
+				"sectionTitle": "Pintasan global",
+				"sectionDescription": "Unduh tautan apa pun yang Anda salin, dari aplikasi mana pun, tanpa membuka Arroxy.",
+				"toggle": "Aktifkan pintasan global",
+				"toggleDescription": "Tekan pintasan dengan tautan video di papan klip.",
+				"changeShortcut": "Ubah pintasan",
+				"recording": "Tekan tombol…",
+				"test": "Uji",
+				"conflict": "Pintasan ini dipakai aplikasi lain — pilih yang lain."
 			},
 			"cookies": {
 				"sourceLabel": "Sumber cookie",
@@ -543,6 +548,7 @@
 			"openDestinationFolder": "Buka folder tujuan",
 			"remove": "Menghapus",
 			"pullNow": "Tarik sekarang — lewati antrian",
+			"statusProbing": "Mengambil detail",
 			"statusPending": "Menunggu",
 			"statusRunning": "Mengunduh",
 			"statusHeld": "Dipegang",
@@ -600,7 +606,16 @@
 		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
 		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
 		"filenameFolderTooDeep": "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek.",
-		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan."
+		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan.",
+		"hotkey": {
+			"queued": "Unduhan ditambahkan dari papan klip",
+			"alreadyQueued": "Sudah ada di antrean — tidak ada salinan ditambahkan",
+			"invalidClipboard": "Tidak ada tautan di papan klip — salin satu dulu",
+			"multipleUrls": "Beberapa tautan disalin — gunakan “URL massal” di Arroxy",
+			"needsReview": "Tautan ini perlu pemeriksaan singkat — buka Arroxy dan tempel lagi",
+			"busy": "Masih memproses tautan sebelumnya",
+			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -649,7 +664,7 @@
 		"mp4Cap": "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis"
 	},
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Audio saja · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Menganggur", "statusActive_one": "1 pengunduhan · {{percent}}%", "statusActive_other": "Pengunduhan {{count}} · {{percent}}%", "open": "Buka Arroxy", "quit": "Keluar dari Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Menganggur", "statusActive_one": "1 pengunduhan · {{percent}}%", "statusActive_other": "Pengunduhan {{count}} · {{percent}}%", "downloadFromClipboard": "Unduh dari papan klip", "open": "Buka Arroxy", "quit": "Keluar dari Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "Pengunduhan {{count}} sedang berlangsung",

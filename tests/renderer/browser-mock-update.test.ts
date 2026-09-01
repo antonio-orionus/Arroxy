@@ -23,4 +23,15 @@ describe('browser mock updater events', () => {
 
 		expect(listener).not.toHaveBeenCalled()
 	})
+
+	it('emits a valid hotkey trigger when Test is pressed', async () => {
+		installBrowserMock()
+		const listener = vi.fn()
+		window.appApi.events.onHotkeyTrigger(listener)
+
+		await window.appApi.hotkey.testPress()
+
+		expect(listener).toHaveBeenCalledOnce()
+		expect(listener).toHaveBeenCalledWith({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+	})
 })

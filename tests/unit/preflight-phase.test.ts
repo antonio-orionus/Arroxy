@@ -2,7 +2,7 @@ import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {PreflightPhase} from '@main/services/phases/PreflightPhase.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
@@ -18,7 +18,7 @@ beforeEach(() => {
 })
 
 function makeCtx(outputDir = '/output'): PhaseContext {
-	const input: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir, job: DEFAULT_JOB}
+	const input: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir, job: DEFAULT_JOB as Extract<PreparedJob, {kind: 'single-format'}>}
 	const job: DownloadJob = {id: 'test-job-id', url: 'https://www.youtube.com/watch?v=test', outputDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 	const controller = new AbortController()
 	const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack()}

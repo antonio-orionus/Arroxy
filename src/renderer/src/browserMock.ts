@@ -1,7 +1,23 @@
 import type {AppApi} from '@shared/api.js'
-import type {AppSettings, DependencyDiagnostic, DependencyId, ProbeProgressEvent, ProgressEvent, QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
+import type {
+	AppSettings,
+	DependencyDiagnostic,
+	DependencyId,
+	HotkeyTriggerPayload,
+	ProbeProgressEvent,
+	ProgressEvent,
+	QueueActionSkippedItem,
+	QueueItem,
+	QueueOutputTargetChangeItemResult,
+	QueueSchedulerEventPayload,
+	QueueSnapshotPayload,
+	StatusEvent,
+	UpdateAvailablePayload,
+	WarmUpOutput,
+	WarmupProgressEvent
+} from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
-import {canApplyQueueAction, canApplyQueueActionToItem} from '@shared/queueActions.js'
+import {canApplyQueueActionToItem, findLiveQueueDuplicate} from '@shared/queueActions.js'
 import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
@@ -106,6 +122,7 @@ export function installBrowserMock(): void {
 	const updateListeners = new Set<(info: UpdateAvailablePayload) => void>()
 	const warmupProgressListeners = new Set<(e: WarmupProgressEvent) => void>()
 	const clipboardUrlListeners = new Set<(url: string) => void>()
+	const hotkeyTriggerListeners = new Set<(trigger: HotkeyTriggerPayload) => void>()
 	const queueSnapshotListeners = new Set<(event: QueueSnapshotPayload) => void>()
 	const queueAddedListeners = new Set<(event: {items: QueueItem[]; atIdx: number}) => void>()
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
@@ -384,6 +401,16 @@ export function installBrowserMock(): void {
 			}
 		},
 
+		hotkey: {
+			reportOutcome: () => Promise.resolve({ok: true, data: undefined} as const),
+			getState: () => Promise.resolve({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: false}} as const),
+			testPress: () => {
+				hotkeyTriggerListeners.forEach(listener => listener({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}))
+				return Promise.resolve({ok: true, data: undefined} as const)
+			},
+			rendererReady: () => Promise.resolve({ok: true, data: undefined} as const)
+		},
+
 		shell: {
 			openFolder: path => {
 				console.log('[mock] openFolder', path)
@@ -444,6 +471,11 @@ export function installBrowserMock(): void {
 				clipboardUrlListeners.add(listener)
 				return () => clipboardUrlListeners.delete(listener)
 			},
+			onHotkeyTrigger: listener => {
+				hotkeyTriggerListeners.add(listener)
+				return () => hotkeyTriggerListeners.delete(listener)
+			},
+			onHotkeyOutcome: () => () => undefined,
 			onWarmupProgress: listener => {
 				warmupProgressListeners.add(listener)
 				return () => warmupProgressListeners.delete(listener)
@@ -453,6 +485,8 @@ export function installBrowserMock(): void {
 		queue: {
 			cmd: {
 				add: items => {
+					const duplicate = findLiveQueueDuplicate(items, queueItems)
+					if (duplicate) return Promise.resolve({ok: false, error: {code: 'conflict', message: `queue item URL is already active: ${duplicate.url}`}} as const)
 					const atIdx = queueItems.length
 					queueItems.push(...items)
 					for (const item of items) queueItemById.set(item.id, item)
@@ -461,6 +495,12 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
 				},
 				getSnapshot: () => Promise.resolve({ok: true, data: {items: [...queueItems], schedulerPaused: mockSchedulerPaused}} as const),
+				probeFailed: ({itemId, error}) => {
+					const item = queueItemById.get(itemId)
+					if (!item || item.status !== QUEUE_STATUS.probing) return Promise.resolve({ok: false, error: {code: 'validation', message: 'probeFailed is a stale signal'}} as const)
+					setQueueItem({...item, status: QUEUE_STATUS.error, error, progressPercent: 0, progressDetail: null})
+					return Promise.resolve({ok: true, data: undefined} as const)
+				},
 				start: ({itemId}) => {
 					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {
@@ -505,6 +545,21 @@ export function installBrowserMock(): void {
 					removeQueueItem(itemId)
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
+				// Mirror QueueProbeLifecycle.replaceProbing: atomic swap that
+				// refuses (enqueueing nothing) unless the placeholder is still probing.
+				replaceProbing: ({itemId, items}) => {
+					const placeholder = queueItemById.get(itemId)
+					if (!placeholder || placeholder.status !== QUEUE_STATUS.probing) {
+						return Promise.resolve({ok: false, error: {code: 'validation', message: 'probing placeholder is no longer active'}} as const)
+					}
+					const atIdx = queueItems.findIndex(item => item.id === itemId)
+					removeQueueItem(itemId)
+					queueItems.splice(atIdx, 0, ...items)
+					for (const item of items) queueItemById.set(item.id, item)
+					queueAddedListeners.forEach(listener => listener({items, atIdx}))
+					maybeStartNextQueueItem()
+					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
+				},
 				setLane: ({itemId, lane}) => {
 					const item = queueItemById.get(itemId)
 					if (item) setQueueItem({...item, lane})
@@ -519,7 +574,7 @@ export function installBrowserMock(): void {
 							skipped.push({itemId, reason: 'not-found'})
 							continue
 						}
-						if (!canApplyQueueAction(action, item.status)) {
+						if (!canApplyQueueActionToItem(action, item)) {
 							skipped.push({itemId, status: item.status, reason: 'invalid-status'})
 							continue
 						}

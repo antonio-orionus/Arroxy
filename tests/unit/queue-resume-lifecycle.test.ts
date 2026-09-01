@@ -15,7 +15,17 @@ function makeDownloadJob(): DownloadJob {
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 	const controller = new AbortController()
-	return {job: makeDownloadJob(), input: {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: PREPARED_JOB}, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack(), ...overrides}
+	return {
+		job: makeDownloadJob(),
+		input: {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: PREPARED_JOB as Extract<PreparedJob, {kind: 'single-format'}>},
+		controller,
+		signal: controller.signal,
+		cancelRequested: false,
+		pauseRequested: false,
+		subtitlePaths: [],
+		disposables: new AsyncStack(),
+		...overrides
+	}
 }
 
 function makeItem(overrides: Partial<QueueItem> = {}): QueueItem {

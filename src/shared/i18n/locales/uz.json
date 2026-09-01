@@ -202,17 +202,22 @@
 			"clipboard": {
 				"toggle": "Buferga nazar solish",
 				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
-				"autofilledLinks_one": "{{count}} ta havola buferdan ochildi",
-				"autofilledLinks_other": "{{count}} ta havola buferdan ochildi",
 				"autofilledLink": "Havola buferdan qo‘shildi",
-				"pendingLinksReady_one": "{{count}} ta nusxalangan havola tayyor",
-				"pendingLinksReady_other": "{{count}} ta nusxalangan havola tayyor",
+				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
 				"pendingLinkReady": "Nusxalangan havola tayyor",
-				"openCopiedLinks_one": "{{count}} ta nusxalangan havolani ochish",
-				"openCopiedLinks_other": "{{count}} ta nusxalangan havolani ochish",
 				"useCopiedLink": "Nusxalangan havoladan foydalanish",
 				"dismissCopiedLink": "Nusxalangan havolani yopish",
 				"dialog": {"cancelButton": "Bekor qilish"}
+			},
+			"hotkey": {
+				"sectionTitle": "Global tez tugma",
+				"sectionDescription": "Nusxa olingan havolani, Arroxy ochmasdan, istalgan ilovadan yuklab oling.",
+				"toggle": "Global tez tugmani yoqish",
+				"toggleDescription": "Buferda video havolasi bo‘lganda tez tugmani bosing.",
+				"changeShortcut": "Tez tugmani o‘zgartirish",
+				"recording": "Tugmalarni bosing…",
+				"test": "Sinash",
+				"conflict": "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang."
 			},
 			"cookies": {
 				"sourceLabel": "Cookies manbai",
@@ -551,6 +556,7 @@
 			"openDestinationFolder": "Manzil papkasini ochish",
 			"remove": "O'chirish",
 			"pullNow": "Hozir yuklab olish — navbatni o‘tkazish",
+			"statusProbing": "Tafsilotlar olinmoqda",
 			"statusPending": "Kutilmoqda",
 			"statusRunning": "Yuklanmoqda",
 			"statusHeld": "Ushlab turilgan",
@@ -608,7 +614,16 @@
 		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
 		"playlistFolderRejected": "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi.",
 		"filenameFolderTooDeep": "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang.",
-		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi."
+		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi.",
+		"hotkey": {
+			"queued": "Yuklab olish navbatga qo'shildi",
+			"alreadyQueued": "Allaqachon navbatda — nusxa qo'shilmadi",
+			"invalidClipboard": "Vaqtinchalik buferda havola yo'q — avval birini nusxalang",
+			"multipleUrls": "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning",
+			"needsReview": "Bu havola tezkor tekshiruvni talab qiladi — Arroxy'ni ochib qayta joylang",
+			"busy": "Oldingi havola hali ishlanmoqda",
+			"submissionFailed": "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -657,7 +672,7 @@
 		"mp4Cap": "YouTube’da 1080p dan yuqori H.264 mavjud emas — avtomatik 1080p bilan cheklanadi"
 	},
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Faqat audio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Faoliyatsiz", "statusActive_one": "1 ta yuklanmoqda · {{percent}}%", "statusActive_other": "{{count}} ta yuklanmoqda · {{percent}}%", "open": "Arroxy ni ochish", "quit": "Arroxy dan chiqish"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Faoliyatsiz", "statusActive_one": "1 ta yuklanmoqda · {{percent}}%", "statusActive_other": "{{count}} ta yuklanmoqda · {{percent}}%", "downloadFromClipboard": "Vaqtinchalik buferdan yuklab olish", "open": "Arroxy ni ochish", "quit": "Arroxy dan chiqish"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} ta yuklama jarayonda",
