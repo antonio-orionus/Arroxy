@@ -100,8 +100,6 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 		async ({app, page, userDataDir, urls, queue, files, fixtureServer}) => {
 			const sink = sinkPath(userDataDir)
 			const firstUrl = urls.video(FIXTURE_VIDEO_IDS[0])
-			const secondUrl = urls.video(FIXTURE_VIDEO_IDS[1])
-			const thirdUrl = urls.video(FIXTURE_VIDEO_IDS[2])
 			const firstTitle = 'Fixture Video 1'
 
 			// Open Downloads first so the probing row is in the DOM the moment
@@ -126,43 +124,15 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 			expect(await readSinkLines(sink)).toEqual([])
 			await expect(page.locator('[data-sonner-toast]', {hasText: 'Still working on the previous link'})).toHaveCount(0)
 
+			// 3. Filesystem oracle: the acknowledged download really completed.
+			// Hidden-window outcomes (OS channel, dead link, multi hint, empty
+			// clipboard) are owned by the headless test below — this test stays
+			// focused for its whole life so the toast verdict is never raced by
+			// a mid-test hide().
 			await queue.expectStatus(firstTitle, 'done', 60_000)
-
-			// 3. Hidden window: OS notification only. Drain any earlier toasts
-			// first (sonner expires them after ~4s) so the only toast in play is
-			// the one the hidden attempt might wrongly raise.
-			await expect(page.locator('[data-sonner-toast]')).toHaveCount(0, {timeout: 30_000})
-			await app.evaluate(({BrowserWindow}) => BrowserWindow.getAllWindows()[0]?.hide())
-			await writeClipboard(app, secondUrl)
-			await pressHotkey(app)
-			await expectSinkLine(sink, 'Download queued from clipboard')
-			await expectProbingRow(page, secondUrl, HIDDEN_PROBING_TIMEOUT_MS)
-			expect(probeEnds(fixtureServer, FIXTURE_VIDEO_IDS[1])).toBe(0)
-			await expect(page.locator('[data-sonner-toast]')).toHaveCount(0, {timeout: 2_000})
-
-			// 4. Hidden + dead link: accepted as a probing row (queued), then
-			// submission-failed once the probe errors. Not silent either way.
-			await writeClipboard(app, 'https://www.youtube.com/watch?v=ARXDEAD0000')
-			await pressHotkey(app)
-			await expectSinkLine(sink, 'Could not add that link')
-
-			// 5. Hidden + multi-URL clipboard: hint copy, never auto-opens anything.
-			await writeClipboard(app, `${secondUrl}\n${thirdUrl}`)
-			await pressHotkey(app)
-			await expectSinkLine(sink, 'Multiple links copied — use Bulk URLs')
-			await expect(page.locator('[data-testid="bulk-url-dialog"]')).toHaveCount(0)
-
-			// 6. Hidden + empty clipboard: acknowledged, not silent.
-			await writeClipboard(app, '   ')
-			await pressHotkey(app)
-			await expectSinkLine(sink, 'No link on your clipboard')
-
-			// 7. Filesystem oracle: both queued downloads completed. The dead
-			// link also fires `queued` (placeholder) before failing, so the
-			// focused steps still never used the OS channel for a real file.
-			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 60_000, message: 'both fixture downloads should land as mp4'}).toBe(2)
-			files.expectMp4Count(2)
-			expect((await readSinkLines(sink)).filter(line => line.includes('Download queued'))).toHaveLength(2)
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 30_000, message: 'the acknowledged fixture download should land as mp4'}).toBe(1)
+			files.expectMp4Count(1)
+			expect(await readSinkLines(sink)).toEqual([])
 		}
 	)
 })
