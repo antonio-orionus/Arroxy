@@ -29,12 +29,13 @@ function electronNotifier(win: BrowserWindow): HotkeyOsNotifier {
 // every post and no entry ever appears in Notification Center. terminal-notifier
 // is a properly signed helper built for exactly this; its one-time permission
 // prompt actually appears and sticks. Clicking its banner raises the dev app.
-function terminalNotifier(): HotkeyOsNotifier {
+function terminalNotifier(fallback: HotkeyOsNotifier): HotkeyOsNotifier {
 	return {
 		show: body => {
 			const child = spawn('terminal-notifier', ['-title', 'Arroxy', '-message', body, '-group', 'arroxy-hotkey', '-execute', 'open -a Electron'], {stdio: 'ignore', detached: true})
 			child.on('error', err => {
-				log.warn('[hotkey] terminal-notifier unavailable — notification silently dropped (install: brew install terminal-notifier)', err)
+				log.warn('[hotkey] terminal-notifier unavailable — falling back to Electron Notification (install: brew install terminal-notifier)', err)
+				fallback.show(body)
 			})
 			child.unref()
 		}
@@ -65,7 +66,7 @@ export function createHotkeyOsNotifier(win: BrowserWindow): HotkeyOsNotifier {
 	// Electron's Notification, which works fine there.
 	if (!app.isPackaged && process.platform === 'darwin') {
 		log.info('[hotkey] dev build — OS notifications routed through terminal-notifier')
-		return terminalNotifier()
+		return terminalNotifier(electronNotifier(win))
 	}
 	return electronNotifier(win)
 }

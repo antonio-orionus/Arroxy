@@ -91,7 +91,7 @@ import type {
 	WizardStepName
 } from './schemas.js'
 
-export type AppErrorCode = 'validation' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
+export type AppErrorCode = 'validation' | 'conflict' | 'token' | 'binary' | 'download' | 'ipc' | 'unknown'
 
 export interface AppError {
 	code: AppErrorCode

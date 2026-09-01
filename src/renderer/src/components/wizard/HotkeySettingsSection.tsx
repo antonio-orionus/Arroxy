@@ -75,7 +75,9 @@ export function HotkeySettingsSection(): ReactNode {
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
 		if (STOP_KEYS.has(event.key)) {
-			stopRecording(true)
+			// Escape returns to the control that opened the recorder. Tab keeps its
+			// native focus-navigation behavior instead of trapping focus here.
+			stopRecording(event.key === 'Escape')
 			return
 		}
 		event.preventDefault()
@@ -123,7 +125,7 @@ export function HotkeySettingsSection(): ReactNode {
 							{t('wizard.url.hotkey.changeShortcut')}
 						</Button>
 					)}
-					<Button type="button" variant="ghost" size="sm" disabled={!enabled || registered === false} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
+					<Button type="button" variant="ghost" size="sm" disabled={!enabled || registered !== true} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
 						{t('wizard.url.hotkey.test')}
 					</Button>
 				</div>

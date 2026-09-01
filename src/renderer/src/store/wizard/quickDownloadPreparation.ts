@@ -8,7 +8,7 @@ import {configuredCookiesRetryMode, selectProbeErrorForGuidance} from './probeEr
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {projectPlaylistProbeResult} from './probeResultProjection.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
-import {submitPreparedQueueSubmission, submitProbeStageQueueSubmission} from './queueSubmissionAdapter.js'
+import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
 import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback, type QuickDownloadRetryPlaylistMode} from './quickDownloadFeedback.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from './urlIntentPolicy.js'
@@ -59,7 +59,7 @@ function openPlaylistReviewFromQuickProbe(probe: Extract<ProbeResult, {kind: 'pl
 	set({...resetQuickDownloadFeedback(), quickPlaylistCapDialogOpen: false})
 }
 
-export async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState, retryContext: {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} = {}, probeStage?: {replaceItemId: string}): Promise<string[] | null> {
+async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState, retryContext: {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} = {}): Promise<string[] | null> {
 	let probeForQueue = probe
 	if (probe.kind === 'playlist') {
 		applyQuickPlaylistProbeData(probe, set, get)
@@ -79,9 +79,7 @@ export async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: S
 		set(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', ...retryContext}))
 		return null
 	}
-	// Probe-stage callers (hotkey placeholder) swap through replaceProbing:
-	// atomic commit that enqueues nothing when the placeholder is gone.
-	const result = probeStage ? await submitProbeStageQueueSubmission(probeStage.replaceItemId, prepared) : await submitPreparedQueueSubmission(prepared)
+	const result = await submitPreparedQueueSubmission(prepared)
 	if (!result.ok) {
 		set(failedQuickDownloadFeedback({kind: 'queue', message: result.error, ...retryContext}))
 		return null

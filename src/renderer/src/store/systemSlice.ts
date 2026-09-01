@@ -134,7 +134,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// presses the bell; the outcome flows back through reportOutcome.
 			unbindHotkeyTrigger?.()
 			unbindHotkeyTrigger = window.appApi.events.onHotkeyTrigger(trigger => {
-				void handleHotkeyTrigger(trigger, set, get)
+				void handleHotkeyTrigger(trigger, get)
 			})
 
 			// Outcome feedback: the renderer shows a toast only when focused —
@@ -207,6 +207,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('warm-up threw', err)
 			}
 
+			// Registration is the final startup step: the listener, settings, queue
+			// projection, and binary warmup are all ready to process a press. Await it
+			// so the settings panel cannot briefly misreport a registration conflict.
+			if (settingsResult.ok) {
+				try {
+					const ready = await window.appApi.hotkey.rendererReady()
+					if (!ready.ok) console.error('[hotkey] renderer-ready handshake refused', ready.error)
+				} catch (error) {
+					console.error('[hotkey] renderer-ready handshake failed', error)
+				}
+			}
 			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
 		},
 

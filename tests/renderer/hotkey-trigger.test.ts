@@ -1,6 +1,10 @@
-import {describe, expect, it} from 'vitest'
-import {intakeHotkeyTrigger, outcomeForProbe, outcomeForProbeError} from '@renderer/store/wizard/hotkeyTrigger.js'
+import {describe, expect, it, vi} from 'vitest'
+import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbe, outcomeForProbeError} from '@renderer/store/wizard/hotkeyTrigger.js'
 import type {ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
+import {useAppStore} from '@renderer/store/useAppStore.js'
+import {defaultAppSettings} from '@shared/constants.js'
+import {fail, ok} from '@shared/result.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const URL = 'https://www.youtube.com/watch?v=one'
 
@@ -105,11 +109,29 @@ describe('probe outcome mapping', () => {
 
 	it('sends non-obvious playlist probes to review instead of silently queueing', () => {
 		const playlist = {kind: 'playlist', entries: []} as unknown as ProbeResult
-		expect(outcomeForProbe(playlist, {kind: 'unknown', url: URL})).toBe('needs-review')
+		expect(outcomeForProbe(playlist)).toBe('needs-review')
 	})
 
-	it('lets obvious collections queue directly', () => {
+	it('keeps obvious collections out of the noninteractive queue path too', () => {
 		const playlist = {kind: 'playlist', entries: []} as unknown as ProbeResult
-		expect(outcomeForProbe(playlist, {kind: 'obvious-collection', url: URL, collection: 'playlist'})).toBeNull()
+		expect(outcomeForProbe(playlist)).toBe('needs-review')
+	})
+})
+
+describe('handleHotkeyTrigger', () => {
+	it('does not write quick-download or wizard state when the probe-stage swap fails', async () => {
+		const api = buildMockAppApi()
+		api.queue.cmd.add = vi.fn(async (items: QueueItem[]) => {
+			useAppStore.setState({queue: items})
+			return ok({ids: items.map(item => item.id)})
+		})
+		api.queue.cmd.replaceProbing = vi.fn().mockResolvedValue(fail({code: 'validation', message: 'placeholder cancelled', recoverable: true}))
+		Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
+		useAppStore.setState({settings: defaultAppSettings('/tmp'), queue: [], quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardOutputDir: '/tmp'})
+
+		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
+
+		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false})
+		expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce()
 	})
 })

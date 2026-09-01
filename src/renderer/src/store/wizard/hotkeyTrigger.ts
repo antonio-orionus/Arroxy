@@ -1,13 +1,16 @@
 import {parseBulkUrls} from '@shared/bulkUrls.js'
+import i18next from 'i18next'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {UrlIntent} from '@shared/urlIntent.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
+import {isLiveQueueItem} from '@shared/queueActions.js'
+import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
 import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import type {HotkeyOutcome, HotkeyTriggerPayload, LocalizedError, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem, QuickDownloadStatus} from '@shared/types.js'
-import type {GetState, SetState} from '../types.js'
+import type {GetState} from '../types.js'
 import {generateId} from '../helpers.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {enqueueActiveProfileProbeResult} from './quickDownloadPreparation.js'
+import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 
 // Renderer-side hotkey orchestration. Main presses the bell (a pre-classified
 // trigger); this module runs the same active-profile quick-download pipeline
@@ -33,13 +36,11 @@ import {enqueueActiveProfileProbeResult} from './quickDownloadPreparation.js'
 // reports `busy`. A second press on the SAME URL hits the live-dedupe
 // (`probing` counts as live) and reports `already-queued`.
 
-const LIVE_STATUSES: ReadonlySet<QueueItem['status']> = new Set(['probing', 'pending', 'running', 'paused-held', 'paused-active'])
-
 // Which playlist mode the background probe runs in, per URL intent. Keyed on
 // the intent kind union so a new intent cannot silently fall through to 'auto'.
 const PLAYLIST_MODE_BY_INTENT: Record<Exclude<UrlIntent['kind'], 'mixed'>, ProbePlaylistMode> = {'obvious-single': 'video', 'obvious-collection': 'playlist', unknown: 'auto'}
 
-export type HotkeyIntake = {kind: 'run'; url: string; intent: UrlIntent; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
+export type HotkeyIntake = {kind: 'run'; url: string; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
 
 // Pure: trigger + the two store fields that gate it → run or outcome.
 export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quickDownloadStatus: QuickDownloadStatus; queue: QueueItem[]}): HotkeyIntake {
@@ -58,7 +59,7 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quick
 	// Dedupe against live queue items only — completed/failed/cancelled
 	// downloads never block a fresh hotkey request. Probing placeholders are
 	// live: a second press on the same URL is already-queued, not busy.
-	const live = state.queue.some(item => LIVE_STATUSES.has(item.status) && item.url === url)
+	const live = state.queue.some(item => isLiveQueueItem(item) && item.url === url)
 	if (live) return {kind: 'outcome', outcome: 'already-queued'}
 
 	const intent = classifyUrlIntent(url)
@@ -67,7 +68,7 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quick
 	// too; only an unparseable URL is invalid.
 	if (intent.kind === 'mixed') return {kind: 'outcome', outcome: 'needs-review'}
 	const playlistMode = PLAYLIST_MODE_BY_INTENT[intent.kind]
-	return {kind: 'run', url, intent, playlistMode}
+	return {kind: 'run', url, playlistMode}
 }
 
 // Outcome for a failed probe. Cookies-config failures need the settings
@@ -77,19 +78,20 @@ export function outcomeForProbeError(error: ProbeError): HotkeyOutcome {
 	return 'submission-failed'
 }
 
-export function outcomeForProbe(probe: ProbeResult, intent: UrlIntent): HotkeyOutcome | null {
-	// Playlists only auto-queue when the URL obviously is one; anything else
-	// goes to the wizard's review step instead.
-	if (probe.kind === 'playlist' && intent.kind !== 'obvious-collection') return 'needs-review'
-	return null
+export function outcomeForProbe(probe: ProbeResult): HotkeyOutcome | null {
+	return probe.kind === 'playlist' ? 'needs-review' : null
 }
 
 // LocalizedError for a failed probe, reported onto the probing row. Prefers
 // the ytdlp classifier's verbatim stderr; falls back to the generic probe
 // failure message. The kind always maps to the probe-stage error template.
-function probeErrorForQueueItem(error: ProbeError): LocalizedError {
+function errorForOutcome(outcome: HotkeyOutcome): LocalizedError {
+	return {kind: 'unknown', raw: i18next.t(HOTKEY_OUTCOME_COPY[outcome].key)}
+}
+
+function probeErrorForQueueItem(error: ProbeError, outcome: HotkeyOutcome): LocalizedError {
 	if (error.kind === 'ytdlp') return error.error
-	return {kind: 'unknown', raw: error.message}
+	return errorForOutcome(outcome)
 }
 
 // The probing placeholder. Title is the URL until the probe resolves the real
@@ -121,7 +123,7 @@ function hotkeyProbingItem(url: string, get: GetState): QueueItem {
 	}
 }
 
-export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: SetState, get: GetState): Promise<void> {
+export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: GetState): Promise<void> {
 	const report = (outcome: HotkeyOutcome, url?: string): void => {
 		void window.appApi.hotkey.reportOutcome({outcome, ...(url ? {url} : {})})
 	}
@@ -137,7 +139,7 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 	const placeholder = hotkeyProbingItem(intake.url, get)
 	const addResult = await window.appApi.queue.cmd.add([placeholder])
 	if (!addResult.ok) {
-		report(addResult.error.message.startsWith('already-queued:') ? 'already-queued' : 'submission-failed', intake.url)
+		report(addResult.error.code === 'conflict' ? 'already-queued' : 'submission-failed', intake.url)
 		return
 	}
 	// Immediate acknowledgment — the press is now visible in Downloads.
@@ -149,45 +151,39 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 	const itemId = placeholder.id
 	try {
 		const result = await window.appApi.downloads.probe({url: intake.url, playlistMode: intake.playlistMode, ownerKey: itemId})
-		const item = get().queue.find(candidate => candidate.id === itemId)
-		// The row vanished (user cancelled/removed): drop the result silently —
-		// its probe was already aborted by the queue-side hook.
-		if (!item || item.status !== QUEUE_STATUS.probing) return
 		if (!result.ok) {
 			const outcome = outcomeForProbeError(result.error)
-			await window.appApi.queue.cmd.probeFailed({itemId, error: probeErrorForQueueItem(result.error)})
-			report(outcome, intake.url)
+			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: probeErrorForQueueItem(result.error, outcome)})
+			if (failed.ok) report(outcome, intake.url)
 			return
 		}
-		const review = outcomeForProbe(result.data, intake.intent)
+		const review = outcomeForProbe(result.data)
 		// Background hotkeys never open or mutate wizard review state. Playlist
 		// preparation can require cap/selection UI, so leave it as a terminal
 		// needs-review row instead of calling the interactive quick-download path.
-		if (review || result.data.kind === 'playlist') {
-			// Needs-review never opens a dialog from the blind path: turn the
-			// placeholder into the acknowledged error row and report. The sentence
-			// rides `raw` verbatim (same as the catch arm below) — the queue row
-			// prints it as-is, and no new i18n template is involved.
-			await window.appApi.queue.cmd.probeFailed({itemId, error: {kind: 'unknown', raw: 'This link needs the review step — open Arroxy to continue.'}})
-			report('needs-review', intake.url)
+		if (review) {
+			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('needs-review')})
+			if (failed.ok) report('needs-review', intake.url)
 			return
 		}
-		// The swap is the commit point: with `replaceItemId` the prepared items
-		// are enqueued ONLY if the placeholder is still probing, so a
-		// cancel/remove during the probe cannot orphan runnable downloads
-		// behind a cancelled submission. null/empty → nothing was enqueued.
-		const ids = await enqueueActiveProfileProbeResult(result.data, set, get, {}, {replaceItemId: itemId})
-		if (!ids || ids.length === 0) {
-			report('submission-failed', intake.url)
+		// Prepare directly from the active profile. Reusing the interactive quick-
+		// download orchestrator here would leak failures into wizard state.
+		const prepared = prepareActiveProfileQueueSubmission(result.data, get(), 'normal')
+		if (!prepared || prepared.items.length === 0) {
+			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
+			if (failed.ok) report('submission-failed', intake.url)
 			return
 		}
-	} catch {
-		// The row may already be gone (cancel race); only report a failure we
-		// can still attach to a visible row.
-		const item = get().queue.find(candidate => candidate.id === itemId)
-		if (item?.status === QUEUE_STATUS.probing) {
-			await window.appApi.queue.cmd.probeFailed({itemId, error: {kind: 'unknown', raw: 'Unexpected error while fetching video details'}})
+		// The main-process swap is the commit point. A stale placeholder means the
+		// user already cancelled/removed the attempt, so do not emit a late error.
+		const replaced = await window.appApi.queue.cmd.replaceProbing({itemId, items: prepared.items})
+		if (!replaced.ok) {
+			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
+			if (failed.ok) report('submission-failed', intake.url)
 		}
-		report('submission-failed', intake.url)
+	} catch (error) {
+		console.error('[hotkey] submission failed', error)
+		const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
+		if (failed.ok) report('submission-failed', intake.url)
 	}
 }

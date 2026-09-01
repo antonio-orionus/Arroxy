@@ -36,9 +36,23 @@ function makeWindow(): HotkeyWindow & {sent: Array<{channel: string; payload: un
 }
 
 describe('HotkeyService.apply', () => {
-	it('registers the accelerator when enabled and reports registered state', () => {
+	it('keeps the desired chord inactive until the renderer is ready and unregisters it during reload', () => {
 		const registry = makeRegistry()
 		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+
+		service.apply(true, 'CommandOrControl+Shift+D')
+		expect(service.getState()).toEqual({accelerator: null, registered: false})
+
+		service.setRendererReady(true)
+		expect(service.getState()).toEqual({accelerator: 'CommandOrControl+Shift+D', registered: true})
+
+		service.setRendererReady(false)
+		expect(service.getState()).toEqual({accelerator: null, registered: false})
+	})
+
+	it('registers the accelerator when enabled and reports registered state', () => {
+		const registry = makeRegistry()
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 
@@ -48,7 +62,7 @@ describe('HotkeyService.apply', () => {
 
 	it('does not register when disabled', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(false, 'CommandOrControl+Shift+D')
 
@@ -58,7 +72,7 @@ describe('HotkeyService.apply', () => {
 
 	it('unregisters the previous chord when the accelerator changes', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(true, 'CommandOrControl+Alt+H')
@@ -69,7 +83,7 @@ describe('HotkeyService.apply', () => {
 
 	it('unregisters everything on disable', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(false, 'CommandOrControl+Shift+D')
@@ -80,7 +94,7 @@ describe('HotkeyService.apply', () => {
 	it('surfaces a conflict instead of throwing when another app owns the chord', () => {
 		const registry = makeRegistry()
 		registry.foreign.add('CommandOrControl+Shift+D')
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		expect(() => service.apply(true, 'CommandOrControl+Shift+D')).not.toThrow()
 		expect(service.getState()).toEqual({accelerator: 'CommandOrControl+Shift+D', registered: false})
@@ -88,7 +102,7 @@ describe('HotkeyService.apply', () => {
 
 	it('keeps working when the wanted chord is already registered by us', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.apply(true, 'CommandOrControl+Shift+D')
@@ -98,7 +112,7 @@ describe('HotkeyService.apply', () => {
 
 	it('dispose unregisters the chord', () => {
 		const registry = makeRegistry()
-		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''})
+		const service = new HotkeyService(makeWindow(), registry, {readText: () => ''}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		service.dispose()
@@ -111,7 +125,7 @@ describe('HotkeyService.handleTrigger', () => {
 	it('sends a single-URL trigger from clipboard text', () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
-		const service = new HotkeyService(window, registry, {readText: () => '  https://youtu.be/watch?v=one  '})
+		const service = new HotkeyService(window, registry, {readText: () => '  https://youtu.be/watch?v=one  '}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		registry.handlers.get('CommandOrControl+Shift+D')!()
@@ -124,7 +138,7 @@ describe('HotkeyService.handleTrigger', () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
 		let clipboard = 'https://a.example/1, https://b.example/2'
-		const service = new HotkeyService(window, registry, {readText: () => clipboard})
+		const service = new HotkeyService(window, registry, {readText: () => clipboard}, {rendererReady: true})
 
 		service.apply(true, 'CommandOrControl+Shift+D')
 		registry.handlers.get('CommandOrControl+Shift+D')!()
@@ -137,7 +151,7 @@ describe('HotkeyService.handleTrigger', () => {
 	it('does nothing when not registered', () => {
 		const registry = makeRegistry()
 		const window = makeWindow()
-		const service = new HotkeyService(window, registry, {readText: () => 'https://a.example/1'})
+		const service = new HotkeyService(window, registry, {readText: () => 'https://a.example/1'}, {rendererReady: true})
 
 		service.handleTrigger()
 

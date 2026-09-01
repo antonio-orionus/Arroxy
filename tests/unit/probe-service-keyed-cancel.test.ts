@@ -81,7 +81,6 @@ describe('ProbeService — keyed probe cancellation', () => {
 		secondProc.stdout.emit('data', Buffer.from(VIDEO_JSON))
 		secondProc.emit('close', 0)
 		const secondResult = await second
-		if (!secondResult.ok) console.log('SECOND FAILED:', JSON.stringify(secondResult.error))
 		expect(secondResult.ok).toBe(true)
 	})
 

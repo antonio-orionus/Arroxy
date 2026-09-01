@@ -13,6 +13,21 @@ const VALID_STATUSES: Record<QueueSelectionAction, ReadonlySet<QueueItemStatus>>
 	'pull-now': new Set(['pending'])
 }
 
+const TERMINAL_STATUSES: ReadonlySet<QueueItemStatus> = new Set(['done', 'error', 'cancelled'])
+
+export function isLiveQueueItem(item: QueueItem): boolean {
+	return !TERMINAL_STATUSES.has(item.status)
+}
+
+export function findLiveQueueDuplicate(items: readonly QueueItem[], existing: readonly QueueItem[]): QueueItem | undefined {
+	const liveUrls = new Set(existing.filter(isLiveQueueItem).map(item => item.url))
+	for (const item of items) {
+		if (liveUrls.has(item.url)) return item
+		if (isLiveQueueItem(item)) liveUrls.add(item.url)
+	}
+	return undefined
+}
+
 export interface QueueActionPlan {
 	action: QueuePlannableAction
 	applicableIds: string[]
@@ -29,6 +44,7 @@ export function isNeverStartedPendingItem(item: QueueItem): boolean {
 
 export function canApplyQueueActionToItem(action: QueuePlannableAction, item: QueueItem): boolean {
 	if (action === 'change-output-target') return isNeverStartedPendingItem(item)
+	if (action === 'retry' && item.job.kind === 'unresolved') return false
 	return canApplyQueueAction(action, item.status)
 }
 

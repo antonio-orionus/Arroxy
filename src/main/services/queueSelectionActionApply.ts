@@ -1,5 +1,5 @@
 import {fail, ok, type Result} from '@shared/result.js'
-import {canApplyQueueAction} from '@shared/queueActions.js'
+import {canApplyQueueActionToItem} from '@shared/queueActions.js'
 import type {QueueActionSkippedItem, QueueItem, QueueSelectionAction, QueueSelectionCommandResult} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 
@@ -25,7 +25,7 @@ export async function applyQueueSelectionAction(host: QueueSelectionActionHost, 
 			skipped.push({itemId, reason: 'not-found'})
 			continue
 		}
-		if (!canApplyQueueAction(action, item.status)) {
+		if (!canApplyQueueActionToItem(action, item)) {
 			skipped.push({itemId, status: item.status, reason: 'invalid-status'})
 			continue
 		}

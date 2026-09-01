@@ -23,14 +23,14 @@ function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings
 	return {...base, common: {...base.common, ...common}}
 }
 
-function mount(common: Partial<AppSettings['common']> = {}, hotkeyOverrides: {registered?: boolean} = {}): void {
+function mount(common: Partial<AppSettings['common']> = {}, hotkeyOverrides: {registered?: boolean; getState?: HotkeyMockApi['hotkey']['getState']} = {}): void {
 	const settings = buildSettings(common)
 	mockApi = buildMockAppApi()
 	// Merge like the real main-process handler: applyCommonPatchAsync's final
 	// set() takes the resolved value, so echoing the pre-patch snapshot would
 	// silently revert every optimistic update.
 	mockApi.settings.update = vi.fn(async patch => ok({...settings, common: {...settings.common, ...(patch.common ?? {})}, ...(patch.profiles ? {profiles: {...settings.profiles, ...patch.profiles}} : {})}))
-	mockApi.hotkey.getState = vi.fn().mockResolvedValue(ok({accelerator: settings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator, registered: hotkeyOverrides.registered ?? true}))
+	mockApi.hotkey.getState = hotkeyOverrides.getState ?? vi.fn().mockResolvedValue(ok({accelerator: settings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator, registered: hotkeyOverrides.registered ?? true}))
 	mockApi.hotkey.testPress = vi.fn().mockResolvedValue(undefined)
 	Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
 	useAppStore.setState({initialized: true, initializing: false, settings})
@@ -92,6 +92,23 @@ describe('HotkeySettingsSection', () => {
 		expect(screen.getByTestId('profiles-settings-hotkey-change')).toBeInTheDocument()
 	})
 
+	it('Tab cancels recording without moving focus back to the change button', async () => {
+		const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus')
+		try {
+			mount()
+			fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
+			await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-recording')).toHaveFocus())
+			focusSpy.mockClear()
+
+			fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'Tab'})
+
+			await screen.findByTestId('profiles-settings-hotkey-change')
+			expect(focusSpy).not.toHaveBeenCalled()
+		} finally {
+			focusSpy.mockRestore()
+		}
+	})
+
 	it('saved chord always satisfies the shared schema (recorder output)', () => {
 		// Recorder builds chords like Ctrl+Alt+Shift+J; anything it emits must
 		// pass hotkeyAcceleratorSchema, otherwise settings.update would reject.
@@ -117,5 +134,16 @@ describe('HotkeySettingsSection', () => {
 		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeEnabled())
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-test'))
 		await waitFor(() => expect(mockApi.hotkey.testPress).toHaveBeenCalledOnce())
+	})
+
+	it('keeps Test disabled until main confirms the chord is registered', async () => {
+		type HotkeyStateResult = Awaited<ReturnType<HotkeyMockApi['hotkey']['getState']>>
+		let resolveState: ((value: HotkeyStateResult) => void) | undefined
+		const getState = vi.fn(() => new Promise<HotkeyStateResult>(resolve => (resolveState = resolve)))
+		mount({hotkeyEnabled: true}, {getState})
+
+		expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeDisabled()
+		resolveState?.(ok({accelerator: DEFAULTS.hotkeyAccelerator, registered: true}))
+		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeEnabled())
 	})
 })

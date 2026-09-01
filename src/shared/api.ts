@@ -76,7 +76,7 @@ export interface AppApi {
 		resume(input: {jobId: string}): Promise<Result<{resumed: boolean; job?: DownloadJob}>>
 	}
 	settings: {get(): Promise<Result<AppSettings>>; update(input: SettingsPatch): Promise<Result<AppSettings>>}
-	hotkey: {reportOutcome(input: HotkeyOutcomePayload): Promise<void>; getState(): Promise<Result<HotkeyState>>; testPress(): Promise<void>}
+	hotkey: {reportOutcome(input: HotkeyOutcomePayload): Promise<Result<void>>; getState(): Promise<Result<HotkeyState>>; testPress(): Promise<Result<void>>; rendererReady(): Promise<Result<void>>}
 	shell: {openFolder(path?: string): Promise<Result<{opened: boolean}>>; openExternal(url: string): Promise<Result<{opened: boolean}>>; openBinariesDir(): Promise<Result<{opened: boolean}>>}
 	logs: {openDir(): Promise<Result<{opened: boolean}>>; uploadFeedbackDiagnostic(input: {reportId: string}): Promise<Result<FeedbackDiagnosticUpload>>}
 	dialog: {chooseFolder(defaultPath?: string): Promise<Result<{path: string | null}>>; chooseFile(): Promise<Result<{path: string | null}>>; chooseExecutable(binary: DependencyId): Promise<Result<{path: string | null}>>}

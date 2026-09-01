@@ -429,6 +429,7 @@ if (hasSingleInstanceLock) {
 
 		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
+		mainWindow.webContents.on('did-start-loading', () => hotkeyService.setRendererReady(false))
 		if (e2eMode.enabled) {
 			// Lets the hotkey spec drive the registered-chord path directly —
 			// the OS owns real chords and contested-chord coverage stays manual.
@@ -450,6 +451,7 @@ if (hasSingleInstanceLock) {
 			log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`)
 			if (details.reason === 'clean-exit') return
 			const isMainWindow = webContents === mainWindow.webContents
+			if (isMainWindow) hotkeyService.setRendererReady(false)
 			trackCrashDetectedOncePerSession({kind: 'renderer', windowRole: isMainWindow ? 'main-window' : 'auxiliary-window', reason: details.reason})
 			if (!isMainWindow) return
 			const lang = languageRef.current

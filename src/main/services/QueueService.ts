@@ -179,7 +179,7 @@ export class QueueService extends EventEmitter {
 		const rejected = findInadmissibleQueueItem(toAdd)
 		if (rejected) return fail(createAppError('validation', rejected.message))
 		const duplicate = findLiveDuplicate(toAdd, this.items)
-		if (duplicate) return fail(createAppError('validation', duplicate.message))
+		if (duplicate) return fail(createAppError('conflict', duplicate.message))
 		this.commit({kind: 'add', items: toAdd})
 		return ok({ids: toAdd.map(i => i.id)})
 	}

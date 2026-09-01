@@ -12,6 +12,7 @@
 import log from 'electron-log/main.js'
 import type {QueueItem} from '@shared/types.js'
 import {isCollectionUrl} from '@shared/urlIntent.js'
+import {findLiveQueueDuplicate} from '@shared/queueActions.js'
 
 const logger = log.scope('queue')
 
@@ -36,10 +37,9 @@ export function findInadmissibleQueueItem(items: readonly QueueItem[]): QueueAdm
 }
 
 export function findLiveDuplicate(items: readonly QueueItem[], existing: readonly QueueItem[]): QueueAdmissionRejection | null {
-	const liveUrls = new Set(existing.filter(item => item.status !== 'error' && item.status !== 'done' && item.status !== 'cancelled').map(item => item.url))
-	const item = items.find(candidate => liveUrls.has(candidate.url))
+	const item = findLiveQueueDuplicate(items, existing)
 	if (!item) return null
-	const message = `already-queued: queue item URL is already active: ${item.url}`
+	const message = `queue item URL is already active: ${item.url}`
 	logger.info('Queue add rejected as duplicate', {itemId: item.id, url: item.url})
 	return {item, message}
 }

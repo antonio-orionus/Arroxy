@@ -25,6 +25,10 @@ export function registerHotkeyHandlers(deps: HotkeyHandlerDeps): void {
 	})
 
 	handleRaw(IPC_CHANNELS.hotkeyGetState, async () => Promise.resolve(ok(hotkeyService.getState())))
+	handleRaw(IPC_CHANNELS.hotkeyRendererReady, async () => {
+		hotkeyService.setRendererReady(true)
+		return Promise.resolve(ok(undefined))
+	})
 
 	// Settings "Test" button: fires the exact trigger pipeline the real chord
 	// runs (clipboard read → pre-classify → renderer ack), so the button proves

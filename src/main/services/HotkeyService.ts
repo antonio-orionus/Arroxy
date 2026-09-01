@@ -53,12 +53,18 @@ export function classifyHotkeyClipboard(text: string): HotkeyTriggerPayload {
 export class HotkeyService {
 	private current: string | null = null
 	private stateChangeHook: (() => void) | null = null
+	private desiredEnabled = false
+	private desiredAccelerator = ''
+	private rendererReady: boolean
 
 	constructor(
 		private readonly window: HotkeyWindow,
 		private readonly registry: ShortcutRegistry = electronShortcutRegistry(),
-		private readonly reader: HotkeyClipboardReader = electronClipboard
-	) {}
+		private readonly reader: HotkeyClipboardReader = electronClipboard,
+		options: {rendererReady?: boolean} = {}
+	) {
+		this.rendererReady = options.rendererReady ?? false
+	}
 
 	// Notified after any registration-state change (enable, disable, chord
 	// swap, conflict) so UI surfaces like the tray stay honest.
@@ -70,14 +76,24 @@ export class HotkeyService {
 		this.stateChangeHook?.()
 	}
 
-	// Applies the desired state from settings: the chord that should be
-	// registered, if any. Diff-and-reconcile — unregister whatever is stale,
-	// register what is wanted (retrying heals a chord another app released or
-	// the OS dropped), then notify once if the externally visible state moved.
-	// register() returning false means another app owns the chord — surfaced
-	// via getState(), never fatal.
 	apply(enabled: boolean, accelerator: string): void {
+		this.desiredEnabled = enabled
+		this.desiredAccelerator = accelerator
+		this.reconcile()
+	}
+
+	// Keep the shortcut inactive until the renderer installs its trigger
+	// listener. Startup and reload can otherwise drop a valid press silently.
+	setRendererReady(ready: boolean): void {
+		if (this.rendererReady === ready) return
+		this.rendererReady = ready
+		this.reconcile()
+	}
+
+	private reconcile(): void {
 		const before = this.getState()
+		const enabled = this.desiredEnabled && this.rendererReady
+		const accelerator = this.desiredAccelerator
 		if (!enabled) {
 			if (this.current !== null) {
 				this.registry.unregister(this.current)
