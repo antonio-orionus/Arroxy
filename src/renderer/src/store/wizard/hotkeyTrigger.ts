@@ -127,6 +127,10 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: Ge
 	const report = (outcome: HotkeyOutcome, url?: string): void => {
 		void window.appApi.hotkey.reportOutcome({outcome, ...(url ? {url} : {})})
 	}
+	if (!get().settings) {
+		report('busy', trigger.kind === 'single' ? trigger.url : undefined)
+		return
+	}
 
 	const intake = intakeHotkeyTrigger(trigger, {quickDownloadStatus: get().quickDownloadStatus, queue: get().queue})
 	if (intake.kind === 'outcome') {

@@ -42,10 +42,25 @@ async function expectSinkLine(file: string, text: string, timeout = 30_000): Pro
 // clipboard, then dispatches the trigger to the renderer.
 async function pressHotkey(app: ElectronApplication): Promise<void> {
 	await app.evaluate(() => {
-		const service = (globalThis as Record<string, unknown>).__arroxyHotkeyService as {handleTrigger(): void} | undefined
+		const service = (globalThis as Record<string, unknown>).__arroxyHotkeyService as {getState(): {accelerator: string | null; registered: boolean}; handleTrigger(): void} | undefined
 		if (!service) throw new Error('__arroxyHotkeyService is not exposed on globalThis')
+		const state = service.getState()
+		if (!state.registered) throw new Error(`hotkey service is not registered: ${JSON.stringify(state)}`)
 		service.handleTrigger()
 	})
+}
+
+async function expectHotkeyRegistered(app: ElectronApplication): Promise<void> {
+	await expect
+		.poll(
+			() =>
+				app.evaluate(() => {
+					const service = (globalThis as Record<string, unknown>).__arroxyHotkeyService as {getState(): {registered: boolean}} | undefined
+					return service?.getState().registered ?? false
+				}),
+			{timeout: 30_000, message: 'hotkey service never became renderer-ready'}
+		)
+		.toBe(true)
 }
 
 // Focus is part of the toast verdict, so it is established explicitly and
@@ -96,6 +111,7 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 			// Open Downloads first so the probing row is in the DOM the moment
 			// the placeholder lands (the queue tab is not keepMounted).
 			await queue.open()
+			await expectHotkeyRegistered(app)
 
 			// 1. Focused window: outcome lands as a sonner toast, never as an OS
 			// notification, and the queue gains a probing row before yt-dlp returns.
@@ -144,6 +160,7 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 			const url = urls.video(FIXTURE_VIDEO_IDS[0])
 
 			await queue.open()
+			await expectHotkeyRegistered(app)
 			// Hidden from the start (headless launches show:false; hide anyway so
 			// visible CI runs exercise the same path).
 			await app.evaluate(({BrowserWindow}) => BrowserWindow.getAllWindows()[0]?.hide())

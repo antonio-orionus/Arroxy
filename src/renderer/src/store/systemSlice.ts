@@ -146,6 +146,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				if (!event.toast) return
 				notify.hotkeyOutcome(event.outcome)
 			})
+			// Both halves of feedback are now bound. Main may register the chord;
+			// presses during the remaining startup work are acknowledged as busy.
+			void window.appApi.hotkey.rendererReady()
 
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
@@ -190,7 +193,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			if (snapshotResult.ok) {
 				set(state => projectQueueSnapshot(state, snapshotResult.data))
 			}
-
 			// warmUp() itself turns its own failures into a `fail` Result rather than
 			// rejecting, but the IPC transport in front of it is not this store's to
 			// trust blindly. A rejection here has nowhere else to land: `initialized`
@@ -207,17 +209,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('warm-up threw', err)
 			}
 
-			// Registration is the final startup step: the listener, settings, queue
-			// projection, and binary warmup are all ready to process a press. Await it
-			// so the settings panel cannot briefly misreport a registration conflict.
-			if (settingsResult.ok) {
-				try {
-					const ready = await window.appApi.hotkey.rendererReady()
-					if (!ready.ok) console.error('[hotkey] renderer-ready handshake refused', ready.error)
-				} catch (error) {
-					console.error('[hotkey] renderer-ready handshake failed', error)
-				}
-			}
 			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
 		},
 

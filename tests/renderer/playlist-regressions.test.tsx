@@ -24,6 +24,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 			resume: vi.fn().mockResolvedValue(ok({resumed: true}))
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok(buildAppSettings(settingsOverrides))), update: vi.fn().mockImplementation(async patch => ok({...buildAppSettings(settingsOverrides), ...patch}))},
+		hotkey: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 		shell: {openFolder: vi.fn(), openExternal: vi.fn()},
 		logs: {openDir: vi.fn()},
 		dialog: {chooseFolder: vi.fn()},

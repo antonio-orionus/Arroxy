@@ -429,7 +429,12 @@ if (hasSingleInstanceLock) {
 
 		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
-		mainWindow.webContents.on('did-start-loading', () => hotkeyService.setRendererReady(false))
+		// A future main-frame navigation/reload destroys the renderer listener.
+		// This event precedes loading, so attaching during the initial load cannot
+		// consume a late initial event and revoke a completed ready handshake.
+		mainWindow.webContents.on('did-start-navigation', (_event, _url, isInPlace, isMainFrame) => {
+			if (isMainFrame && !isInPlace) hotkeyService.setRendererReady(false)
+		})
 		if (e2eMode.enabled) {
 			// Lets the hotkey spec drive the registered-chord path directly —
 			// the OS owns real chords and contested-chord coverage stays manual.
