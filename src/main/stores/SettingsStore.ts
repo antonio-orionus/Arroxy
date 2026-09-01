@@ -2,6 +2,7 @@ import {randomUUID} from 'node:crypto'
 import Store from 'electron-store'
 import type {AppSettings, CommonSettings, SinglePrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
+import {downloadProfilesPrefsSchema} from '@shared/schemas.js'
 
 export type {SettingsPatch}
 
@@ -140,10 +141,12 @@ export class SettingsStore {
 		const isLegacy = isLegacyShape(raw)
 		const baseline: AppSettings = isLegacy ? migrateFlatToNested(raw, this.defaults) : this.store.store
 		const profileSource = baseline.profiles ?? this.defaults.profiles
-		const profiles = profileSource.overrides === undefined ? {...profileSource, overrides: []} : profileSource
+		const parsedProfiles = downloadProfilesPrefsSchema.safeParse(profileSource)
+		const profiles = parsedProfiles.success ? parsedProfiles.data : this.defaults.profiles
+		const profilesMigrated = JSON.stringify(profiles) !== JSON.stringify(profileSource)
 		const withDefaults: AppSettings = {...baseline, profiles}
 		const cookiesMigrated: AppSettings = {...withDefaults, common: migrateCookiesMode(withDefaults.common)}
-		if (!isLegacy && cookiesMigrated.common === withDefaults.common && withDefaults.profiles === baseline.profiles) return
+		if (!isLegacy && !profilesMigrated && cookiesMigrated.common === withDefaults.common) return
 		// Replace the entire on-disk shape with the migrated one. Wiping any
 		// legacy flat keys first prevents both shapes from coexisting on disk.
 		this.store.clear()

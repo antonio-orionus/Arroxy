@@ -5,6 +5,7 @@ import {describe, expect, it} from 'vitest'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {updateSettingsSchema} from '@shared/schemas.js'
 
 describe('settings and recent stores', () => {
@@ -175,6 +176,19 @@ describe('settings and recent stores', () => {
 
 		const readBack = await store.get()
 		expect(readBack.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
+	})
+
+	it('migrates profile overrides saved before filename templates existed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-filename-migrate-'))
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		expect(balanced).toBeDefined()
+		const {filename: _filename, ...legacyOverride} = balanced!
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [legacyOverride]}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
 	})
 
 	it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {
