@@ -2767,7 +2767,7 @@ msgstr "Включить горячую клавишу"
 
 msgctxt "wizard.url.hotkey.toggleDescription"
 msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Нажмите сочетание клавиш, когда ссылка на видео в буфере обмена."
+msgstr "Нажмите сочетание клавиш, когда в буфере обмена находится ссылка на видео."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

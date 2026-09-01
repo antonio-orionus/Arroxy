@@ -12,6 +12,7 @@ const setLaneInputSchema = z.object({itemId: z.string(), lane: queueLaneSchema})
 const applySelectionActionInputSchema = z.object({action: queueSelectionActionSchema, itemIds: z.array(z.string())})
 const changeOutputTargetInputSchema = z.object({itemIds: z.array(z.string()), outputDir: z.string().trim().min(1)})
 const probeFailedInputSchema = z.object({itemId: z.string().min(1), error: localizedErrorSchemaShape})
+const replaceProbingInputSchema = z.object({itemId: z.string().min(1), items: queueArraySchema})
 
 export function registerQueueHandlers(queueService: QueueService, probeService: ProbeService): void {
 	// A probing item's cancellation aborts exactly its own probe — never the
@@ -29,6 +30,16 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 	handle(IPC_CHANNELS.queueCmdProbeFailed, probeFailedInputSchema, ({itemId, error}) => {
 		try {
 			return Promise.resolve(queueService.probeFailed(itemId, error))
+		} catch (err) {
+			return Promise.resolve(toUnknownFailure(err))
+		}
+	})
+
+	// Atomic probe-stage swap for the hotkey placeholder — refuses (enqueueing
+	// nothing) unless the placeholder is still probing.
+	handle(IPC_CHANNELS.queueCmdReplaceProbing, replaceProbingInputSchema, ({itemId, items}) => {
+		try {
+			return Promise.resolve(queueService.replaceProbing(itemId, items))
 		} catch (err) {
 			return Promise.resolve(toUnknownFailure(err))
 		}

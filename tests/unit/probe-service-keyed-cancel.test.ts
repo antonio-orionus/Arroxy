@@ -18,8 +18,22 @@ import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 
-function hangingProcess(): EventEmitter & {stdout: EventEmitter; stderr: EventEmitter; kill: ReturnType<typeof vi.fn>} {
-	const proc = Object.assign(new EventEmitter(), {stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()})
+type HangingProcess = EventEmitter & {stdout: EventEmitter; stderr: EventEmitter; kill: ReturnType<typeof vi.fn>; spawned: Promise<void>}
+
+function hangingProcess(): HangingProcess {
+	const proc = Object.assign(new EventEmitter(), {stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()}) as HangingProcess
+	// Resolved when the probe pipeline attaches its stdout consumer (the point
+	// where the probe is fully wired and cancellable) — replaces a fixed sleep
+	// that could race cancelProbe ahead of setup under slow scheduling.
+	let signalSpawned: () => void = () => {}
+	proc.spawned = new Promise<void>(resolve => {
+		signalSpawned = resolve
+	})
+	// YtDlp.run wires `proc.stdout.on('data', …)` after registering its abort
+	// listener, so this fires strictly after cancellation becomes observable.
+	proc.stdout.once('newListener', (event: string) => {
+		if (event === 'data') signalSpawned()
+	})
 	return proc
 }
 
@@ -49,7 +63,11 @@ describe('ProbeService — keyed probe cancellation', () => {
 			return r
 		})
 		const second = svc.probe('https://b.example/2', {cookiesMode: 'off', playlistMode: 'video', ownerKey: 'item-2'})
-		await new Promise(resolve => setTimeout(resolve, 10))
+		// Synchronize on both probes reaching the cancellable state (yt-dlp
+		// spawned + stdout attached) before cancelling — a fixed delay could
+		// race cancelProbe ahead of registration under slow scheduling.
+		await firstProc.spawned
+		await secondProc.spawned
 		expect(firstSettled).toBe(false)
 
 		svc.cancelProbe('item-1')
@@ -70,5 +88,30 @@ describe('ProbeService — keyed probe cancellation', () => {
 	it('cancelProbe is safe to call for an unknown owner', () => {
 		const svc = new ProbeService(makeYtDlp())
 		expect(() => svc.cancelProbe('nope')).not.toThrow()
+	})
+
+	it('a duplicate ownerKey supersedes the in-flight probe', async () => {
+		const firstProc = hangingProcess()
+		const secondProc = hangingProcess()
+		vi.mocked(spawnYtDlp)
+			.mockReturnValueOnce(firstProc as never)
+			.mockReturnValueOnce(secondProc as never)
+		const svc = new ProbeService(makeYtDlp())
+
+		const first = svc.probe('https://a.example/1', {cookiesMode: 'off', playlistMode: 'video', ownerKey: 'item-1'})
+		await firstProc.spawned
+		const second = svc.probe('https://b.example/2', {cookiesMode: 'off', playlistMode: 'video', ownerKey: 'item-1'})
+		await secondProc.spawned
+
+		// Only the newest probe is reachable through the key: cancelling the
+		// owner aborts the replacement, and the superseded probe was already
+		// aborted at supersede time — never left running untracked.
+		svc.cancelProbe('item-1')
+		const secondResult = await second
+		expect(secondResult.ok).toBe(false)
+		if (!secondResult.ok && secondResult.error.kind === 'other') expect(secondResult.error.code).toBe('cancelled')
+		const firstResult = await first
+		expect(firstResult.ok).toBe(false)
+		if (!firstResult.ok && firstResult.error.kind === 'other') expect(firstResult.error.code).toBe('cancelled')
 	})
 })

@@ -49,6 +49,7 @@ const mockAppApi = {
 			add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
 			getSnapshot: vi.fn().mockResolvedValue({ok: true, data: {items: [], schedulerPaused: false}}),
 			probeFailed: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+			replaceProbing: vi.fn((input: {items: {id: string}[]}) => Promise.resolve({ok: true, data: {ids: input.items.map(item => item.id)}} as const)),
 			start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),

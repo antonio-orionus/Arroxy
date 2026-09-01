@@ -39,6 +39,7 @@ export const IPC_CHANNELS = {
 	queueCmdRetry: 'queue:cmd:retry',
 	queueCmdClearCompleted: 'queue:cmd:clearCompleted',
 	queueCmdRemove: 'queue:cmd:remove',
+	queueCmdReplaceProbing: 'queue:cmd:replaceProbing',
 	queueCmdSetLane: 'queue:cmd:setLane',
 	queueCmdApplySelectionAction: 'queue:cmd:applySelectionAction',
 	queueCmdChangeOutputTarget: 'queue:cmd:changeOutputTarget',

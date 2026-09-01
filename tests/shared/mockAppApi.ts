@@ -83,6 +83,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				retry: vi.fn().mockResolvedValue(ok(undefined)),
 				clearCompleted: vi.fn().mockResolvedValue(ok(undefined)),
 				remove: vi.fn().mockResolvedValue(ok(undefined)),
+				replaceProbing: vi.fn((input: {itemId: string; items: QueueItem[]}) => Promise.resolve(ok({ids: input.items.map(item => item.id)}))),
 				setLane: vi.fn().mockResolvedValue(ok(undefined)),
 				applySelectionAction: vi.fn().mockResolvedValue(ok({action: 'pause', appliedIds: [], skipped: []})),
 				changeOutputTarget: vi.fn().mockResolvedValue(ok({outputDir: '/tmp', items: [], skipped: []})),

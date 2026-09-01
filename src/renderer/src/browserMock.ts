@@ -516,6 +516,21 @@ export function installBrowserMock(): void {
 					removeQueueItem(itemId)
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
+				// Mirror QueueProbeLifecycle.replaceProbing: atomic swap that
+				// refuses (enqueueing nothing) unless the placeholder is still probing.
+				replaceProbing: ({itemId, items}) => {
+					const placeholder = queueItemById.get(itemId)
+					if (!placeholder || placeholder.status !== QUEUE_STATUS.probing) {
+						return Promise.resolve({ok: false, error: {code: 'validation', message: 'probing placeholder is no longer active'}} as const)
+					}
+					const atIdx = queueItems.findIndex(item => item.id === itemId)
+					removeQueueItem(itemId)
+					queueItems.splice(atIdx, 0, ...items)
+					for (const item of items) queueItemById.set(item.id, item)
+					queueAddedListeners.forEach(listener => listener({items, atIdx}))
+					maybeStartNextQueueItem()
+					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
+				},
 				setLane: ({itemId, lane}) => {
 					const item = queueItemById.get(itemId)
 					if (item) setQueueItem({...item, lane})

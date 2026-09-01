@@ -596,10 +596,13 @@ export const queueItemSchema = z
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {
-		// A probing item carries the unresolved placeholder job; the moment a
-		// real job exists the item has left the probe stage. Keeps a half-built
-		// row (real job + probing, or unresolved + pending) out of persistence.
-		if ((item.status === QUEUE_STATUS.probing) !== (item.job.kind === 'unresolved')) {
+		// An unresolved job is the probe stage's signature. It is legal only on
+		// a live `probing` row or on a terminal probe-error row (probe-failed
+		// finalizes the error but never mints a real job). Everywhere else the
+		// pair is a half-built row that must not persist.
+		const unresolved = item.job.kind === 'unresolved'
+		const legalUnresolved = item.status === QUEUE_STATUS.probing || (item.status === QUEUE_STATUS.error && unresolved)
+		if (unresolved !== legalUnresolved) {
 			ctx.addIssue({code: 'custom', path: ['job'], message: 'probing status and unresolved job must appear together'})
 		}
 		if (!item.resumeContext) return

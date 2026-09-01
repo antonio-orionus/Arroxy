@@ -60,7 +60,10 @@ export function createHotkeyOsNotifier(win: BrowserWindow): HotkeyOsNotifier {
 		log.info('[hotkey] E2E build — OS notifications routed to sink file', {sinkPath})
 		return createSinkNotifier(sinkPath)
 	}
-	if (!app.isPackaged) {
+	// darwin-only: terminal-notifier is a macOS helper and `-execute 'open -a
+	// Electron'` is a macOS command. Non-macOS dev builds fall through to
+	// Electron's Notification, which works fine there.
+	if (!app.isPackaged && process.platform === 'darwin') {
 		log.info('[hotkey] dev build — OS notifications routed through terminal-notifier')
 		return terminalNotifier()
 	}

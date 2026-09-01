@@ -169,16 +169,15 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, set: Se
 			report(review, intake.url)
 			return
 		}
-		const ids = await enqueueActiveProfileProbeResult(result.data, set, get)
-		// Probe succeeded but the row was cancelled mid-flight (or the queue
-		// add failed): the submission would orphan — bail out.
-		const itemAfter = get().queue.find(candidate => candidate.id === itemId)
-		if (!ids || ids.length === 0 || !itemAfter || itemAfter.status !== QUEUE_STATUS.probing) {
-			if (!ids || ids.length === 0) report('submission-failed', intake.url)
+		// The swap is the commit point: with `replaceItemId` the prepared items
+		// are enqueued ONLY if the placeholder is still probing, so a
+		// cancel/remove during the probe cannot orphan runnable downloads
+		// behind a cancelled submission. null/empty → nothing was enqueued.
+		const ids = await enqueueActiveProfileProbeResult(result.data, set, get, {}, {replaceItemId: itemId})
+		if (!ids || ids.length === 0) {
+			report('submission-failed', intake.url)
 			return
 		}
-		// Swap: remove the placeholder, real items land in its place.
-		await window.appApi.queue.cmd.remove({itemId})
 	} catch {
 		// The row may already be gone (cancel race); only report a failure we
 		// can still attach to a visible row.

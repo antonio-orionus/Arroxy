@@ -59,6 +59,44 @@ describe('QueueService — probing items', () => {
 		expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('pending')
 	})
 
+	it('retry refuses an unresolved probe-error row', async () => {
+		// The row has no job to run — resetting it to pending would make the
+		// scheduler hand an unresolved job to DownloadService.start, which
+		// rejects. It stays a terminal error row the user can remove.
+		const {qs} = makeService()
+		qs.add([probingItem('p1')])
+		expect(qs.probeFailed('p1', {kind: 'unknown', raw: 'yt-dlp exploded'}).ok).toBe(true)
+		const result = await qs.retry('p1')
+		expect(result.ok).toBe(false)
+		expect(qs.snapshot().find(i => i.id === 'p1')?.status).toBe('error')
+	})
+
+	it('replaceProbing swaps a probing row for prepared items atomically', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockResolvedValue(ok({job: {id: 'j1', url: 'https://youtube.com/watch?v=r1'}}))
+		qs.add([probingItem('p1')])
+		const prepared = makeItem({id: 'r1', status: 'pending', job: REAL_JOB})
+		const result = await qs.replaceProbing('p1', [prepared])
+		expect(result.ok).toBe(true)
+		const ids = result.ok ? result.data.ids : []
+		expect(ids).toEqual(['r1'])
+		expect(qs.snapshot().find(i => i.id === 'p1')).toBeUndefined()
+		expect(qs.snapshot().find(i => i.id === 'r1')).toBeDefined()
+		// The prepared item enters the ordinary pipeline: the scheduler spawns it.
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalled())
+	})
+
+	it('replaceProbing refuses and enqueues nothing when the placeholder is gone', async () => {
+		const {qs, ds} = makeService()
+		qs.add([probingItem('p1')])
+		await qs.cancel('p1')
+		const prepared = makeItem({id: 'r1', status: 'pending', job: REAL_JOB})
+		const result = await qs.replaceProbing('p1', [prepared])
+		expect(result.ok).toBe(false)
+		expect(qs.snapshot().find(i => i.id === 'r1')).toBeUndefined()
+		expect(ds.start).not.toHaveBeenCalled()
+	})
+
 	it('remove aborts the probe through the abort hook', async () => {
 		const {qs} = makeService()
 		const onProbeAbort = vi.fn()

@@ -36,6 +36,15 @@ describe('probing queue-item contract', () => {
 		expect(queueItemSchema.safeParse(rawCandidate({status: 'pending', job: UNRESOLVED})).success).toBe(false)
 		expect(queueItemSchema.safeParse(rawCandidate({status: 'running', lastJobId: 'j', job: UNRESOLVED})).success).toBe(false)
 		expect(queueItemSchema.safeParse(rawCandidate({status: 'done', finishedAt: '2026-01-01T00:00:00.000Z', job: UNRESOLVED})).success).toBe(false)
+		expect(queueItemSchema.safeParse(rawCandidate({status: 'cancelled', job: UNRESOLVED})).success).toBe(false)
+	})
+
+	it('schema accepts a terminal probe-error row that keeps its unresolved job', () => {
+		// probe-failed finalizes the row as an error the user can remove; the
+		// unresolved job stays because a probe never produced a real job.
+		const failed = {...probingItem(), status: 'error', error: {kind: 'unknown', raw: 'probe failed'}} as const
+		const parsed = queueItemSchema.safeParse(failed)
+		expect(parsed.success).toBe(true)
 	})
 })
 

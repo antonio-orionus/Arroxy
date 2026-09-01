@@ -43,6 +43,7 @@ function makeDeps() {
 	const queueService = Object.assign(new EventEmitter(), {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),
 		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
+		replaceProbing: vi.fn((input: {items: {id: string}[]}) => ({ok: true, data: {ids: input.items.map(item => item.id)}})),
 		onProbeAbort: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),

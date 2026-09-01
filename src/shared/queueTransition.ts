@@ -49,7 +49,8 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 			return {...item, status: QUEUE_STATUS.error, error: evt.error, lastJobId: undefined, tempDir: undefined, resumeContext: evt.resumeContext, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'probe-failed':
 			// The probe never produced a job, so there is no retry machinery —
-			// just an error row the user can cancel or remove.
+			// just an error row the user can cancel or remove. The unresolved
+			// job stays: the row remains schema-valid as a terminal probe-error.
 			return {...item, status: QUEUE_STATUS.error, error: evt.error, progressPercent: 0, progressDetail: null}
 		case 'completed':
 			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}

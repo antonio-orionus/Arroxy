@@ -7,13 +7,23 @@
 // scheduler keeps its single responsibility. Holds no queue state — every
 // mutation goes back through the injected commit callbacks.
 
+import log from 'electron-log/main.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
+import {fail, ok, type Result} from '@shared/result.js'
+import {createAppError} from '@main/utils/errorFactory.js'
+import {findInadmissibleQueueItem} from './queueAdmission.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
+
+const logger = log.scope('queue')
 
 export interface QueueProbeLifecycleDeps {
 	findItem: (itemId: string) => QueueItem | undefined
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
 	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError} | {kind: 'cancelled'}) => void
+	// Raw commit seams for the atomic swap: remove + add run back-to-back with
+	// no await between them, so no other command can interleave.
+	commitRemove: (itemId: string) => void
+	commitAdd: (items: QueueItem[]) => void
 }
 
 export class QueueProbeLifecycle {
@@ -37,5 +47,29 @@ export class QueueProbeLifecycle {
 			if (item.status !== QUEUE_STATUS.probing) continue
 			this.deps.patch(item.id, 'boot:stale-probe', prev => ({...prev, status: QUEUE_STATUS.error, error: {kind: 'unknown', raw: 'App restarted while fetching video details'}}))
 		}
+	}
+
+	// Atomic probe-stage swap: a hotkey placeholder's probe resolved real items.
+	// Either the placeholder is still `probing` and the swap commits as one
+	// synchronous mutation pair (validate → remove → add, no awaits between
+	// them, so no renderer command can interleave), or the placeholder is
+	// gone/failed and NOTHING is enqueued — the caller gets an error instead of
+	// orphaned prepared items downloading after the user cancelled the
+	// submission.
+	replaceProbing(itemId: string, items: QueueItem[]): Result<{ids: string[]}> {
+		const placeholder = this.deps.findItem(itemId)
+		if (!placeholder || placeholder.status !== QUEUE_STATUS.probing) {
+			return fail(createAppError('validation', `probing placeholder ${itemId} is no longer active`))
+		}
+		const rejected = findInadmissibleQueueItem(items)
+		if (rejected) return fail(createAppError('validation', rejected.message))
+		if (items.length === 0) {
+			this.deps.commitRemove(itemId)
+			return ok({ids: []})
+		}
+		this.deps.commitRemove(itemId)
+		this.deps.commitAdd(items)
+		logger.info('replaceProbing', {itemId, replacedBy: items.map(i => i.id)})
+		return ok({ids: items.map(i => i.id)})
 	}
 }

@@ -49,6 +49,7 @@ import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {FinalArtifactTargets} from './finalArtifactTargets.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {changeQueueOutputTarget} from './queueOutputTargetMove.js'
+import {QueueArtifactCleanup} from './download/queueArtifactCleanup.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
 const logger = log.scope('queue')
@@ -98,10 +99,15 @@ export class QueueService extends EventEmitter {
 	// Owns the automatic-retry budget and timers. Writes only through commit().
 	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
 	// Probe-stage lifecycle (placeholder rows created by the global hotkey).
-	// IPC wiring replaces the abort hook with ProbeService.cancelProbe so a
-	// removed/cancelled probing row aborts exactly its own in-flight probe.
+	// IPC wiring replaces the abort hook with ProbeService.cancelProbe: a removed/cancelled probing row aborts exactly its own probe.
 	private probeAbortHook: (itemId: string) => void = () => undefined
-	private readonly probeLifecycle = new QueueProbeLifecycle({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt})})
+	private readonly probeLifecycle = new QueueProbeLifecycle({
+		findItem: itemId => this.findItem(itemId),
+		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
+		commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt}),
+		commitRemove: itemId => this.commit({kind: 'remove', itemId}),
+		commitAdd: items => this.commit({kind: 'add', items})
+	})
 	onProbeAbort(hook: (itemId: string) => void): void {
 		this.probeAbortHook = hook
 	}
@@ -120,6 +126,7 @@ export class QueueService extends EventEmitter {
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
 	) {
 		super()
+		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
 		this.downloadService.on('progress', (event: ProgressEvent) => this.consumeProgressEvent(event))
@@ -175,6 +182,11 @@ export class QueueService extends EventEmitter {
 		if (rejected) return fail(createAppError('validation', rejected.message))
 		this.commit({kind: 'add', items: toAdd})
 		return ok({ids: toAdd.map(i => i.id)})
+	}
+
+	// Atomic probe-stage swap — see QueueProbeLifecycle.replaceProbing; Promise.resolve because the Result API is sync (async only at the IPC boundary).
+	replaceProbing(itemId: string, items: QueueItem[]): Promise<Result<{ids: string[]}>> {
+		return Promise.resolve(this.probeLifecycle.replaceProbing(itemId, items))
 	}
 
 	// Explicit-start IPC entry point. The scheduler auto-spawns pending items
@@ -286,27 +298,8 @@ export class QueueService extends EventEmitter {
 		this.autoRetry.setAttempts(value, this.items)
 	}
 
-	private async cleanupResumeContextBestEffort(item: QueueItem): Promise<void> {
-		try {
-			await QueueResumeLifecycle.cleanupResumeContext(item)
-		} catch (err) {
-			logger.warn('resume-context cleanup failed', {itemId: item.id, error: err instanceof Error ? err.message : String(err)})
-		}
-	}
-
-	private async cleanupProbeInfoJsonBestEffort(item: QueueItem): Promise<void> {
-		if (!item.probeInfoJsonRef) return
-		try {
-			await this.probeInfoJsonCache?.delete(item.probeInfoJsonRef)
-		} catch (err) {
-			logger.warn('probe info-json cleanup failed', {itemId: item.id, error: err instanceof Error ? err.message : String(err)})
-		}
-	}
-
-	private async cleanupQueueArtifactsBestEffort(item: QueueItem): Promise<void> {
-		await this.cleanupResumeContextBestEffort(item)
-		await this.cleanupProbeInfoJsonBestEffort(item)
-	}
+	// Best-effort artifact cleanup — see ./download/queueArtifactCleanup.
+	private readonly artifactCleanup: QueueArtifactCleanup
 
 	async resume(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
@@ -352,7 +345,7 @@ export class QueueService extends EventEmitter {
 			try {
 				for (const id of ids) {
 					const item = this.findItem(id)
-					if (item) await this.cleanupQueueArtifactsBestEffort(item)
+					if (item) await this.artifactCleanup.cleanup(item)
 					if (this.findItem(id)?.status === QUEUE_STATUS.probing) this.probeAbortHook(id)
 					const jobId = item?.lastJobId
 					if (jobId) this.forgetProgressState(jobId)
@@ -377,7 +370,7 @@ export class QueueService extends EventEmitter {
 		this.autoRetry.clear(itemId)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
-			await this.cleanupQueueArtifactsBestEffort(item)
+			await this.artifactCleanup.cleanup(item)
 			this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 			return ok(undefined)
 		}
@@ -386,7 +379,7 @@ export class QueueService extends EventEmitter {
 			await this.downloadService.cancel(item.lastJobId)
 			this.forgetProgressState(item.lastJobId)
 		}
-		await this.cleanupQueueArtifactsBestEffort(item)
+		await this.artifactCleanup.cleanup(item)
 		this.commit({kind: 'event', itemId, evt: {kind: 'cancelled'}})
 		return ok(undefined)
 	}
@@ -396,6 +389,13 @@ export class QueueService extends EventEmitter {
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
 		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.cancelled) {
 			return fail(createAppError('validation', `cannot retry item in status ${item.status}`))
+		}
+		// An unresolved probe-error row has no job to run — resetting it to
+		// pending would make the scheduler hand an unresolved job to
+		// DownloadService.start, which rejects. It stays terminal; the user can
+		// remove it and hotkey-press the link again.
+		if (item.job.kind === 'unresolved') {
+			return fail(createAppError('validation', 'cannot retry a probe-stage item — the link must be submitted again'))
 		}
 		// A manual retry supersedes any scheduled automatic one and resets the
 		// budget: the user intervened, so the item gets a fresh set of attempts
@@ -427,7 +427,7 @@ export class QueueService extends EventEmitter {
 		const idsToRemove = this.items.flatMap(i => (i.status === QUEUE_STATUS.done || i.status === QUEUE_STATUS.cancelled || i.status === QUEUE_STATUS.error ? [i.id] : []))
 		for (const id of idsToRemove) {
 			const item = this.findItem(id)
-			if (item) await this.cleanupQueueArtifactsBestEffort(item)
+			if (item) await this.artifactCleanup.cleanup(item)
 		}
 		this.inBulk = true
 		try {
@@ -484,7 +484,7 @@ export class QueueService extends EventEmitter {
 			this.forgetProgressState(item.lastJobId)
 		}
 		this.autoRetry.clear(itemId)
-		await this.cleanupQueueArtifactsBestEffort(item)
+		await this.artifactCleanup.cleanup(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
 	}
@@ -497,7 +497,7 @@ export class QueueService extends EventEmitter {
 		if (event.stage === 'done') {
 			this.finalArtifactTargets.remember(event.jobId, item.id)
 			this.forgetProgressState(event.jobId)
-			void this.cleanupProbeInfoJsonBestEffort(item)
+			void this.artifactCleanup.cleanupProbeInfoJson(item)
 			// Inter-job cooldown applies only when a normal-lane job finishes —
 			// priority jobs are user-driven bursts, no need to throttle the queue
 			// after they wrap.

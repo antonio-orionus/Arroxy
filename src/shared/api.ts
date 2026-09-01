@@ -101,6 +101,10 @@ export interface AppApi {
 			retry(input: {itemId: string}): Promise<Result<void>>
 			clearCompleted(): Promise<Result<void>>
 			remove(input: {itemId: string}): Promise<Result<void>>
+			// Atomic probe-stage swap: replaces a still-probing hotkey placeholder
+			// with the prepared items, or refuses (enqueueing nothing) when the
+			// placeholder is no longer probing. See QueueProbeLifecycle.
+			replaceProbing(input: {itemId: string; items: QueueItem[]}): Promise<Result<{ids: string[]}>>
 			setLane(input: {itemId: string; lane: QueueLane}): Promise<Result<void>>
 			applySelectionAction(input: {action: QueueSelectionAction; itemIds: string[]}): Promise<Result<QueueSelectionCommandResult>>
 			changeOutputTarget(input: {itemIds: string[]; outputDir: string}): Promise<Result<QueueOutputTargetChangeResult>>

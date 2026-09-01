@@ -112,6 +112,7 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				retry: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdRetry, input),
 				clearCompleted: () => ipcRenderer.invoke(IPC_CHANNELS.queueCmdClearCompleted),
 				remove: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdRemove, input),
+				replaceProbing: (input: {itemId: string; items: QueueItem[]}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdReplaceProbing, input),
 				setLane: (input: {itemId: string; lane: QueueLane}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdSetLane, input),
 				applySelectionAction: (input: {action: QueueSelectionAction; itemIds: string[]}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdApplySelectionAction, input),
 				changeOutputTarget: (input: {itemIds: string[]; outputDir: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdChangeOutputTarget, input),

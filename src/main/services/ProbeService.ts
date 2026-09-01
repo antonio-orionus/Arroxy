@@ -464,7 +464,13 @@ export class ProbeService extends EventEmitter {
 
 		const controller = new AbortController()
 		this.inFlight.add(controller)
-		if (ownerKey) this.inFlightByKey.set(ownerKey, controller)
+		if (ownerKey) {
+			// At most one live probe per owner: a duplicate probe supersedes the
+			// in-flight one. Without this, the old controller becomes unreachable
+			// through cancelProbe(ownerKey) and keeps running untracked.
+			this.inFlightByKey.get(ownerKey)?.abort()
+			this.inFlightByKey.set(ownerKey, controller)
+		}
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
 
