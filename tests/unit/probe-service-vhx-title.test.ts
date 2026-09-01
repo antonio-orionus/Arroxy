@@ -136,7 +136,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson()) as never)
 		const fetcher = okFetcher(PARENT_HTML)
 
-		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, 'off', 'video')
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(fetcher).toHaveBeenCalledWith(PARENT_URL, expect.anything())
 		expect(r.ok).toBe(true)
@@ -148,7 +148,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		const ref = {id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-08-31T00:00:00.000Z', videoId: '3851601'}
 		const cache = {write: vi.fn().mockResolvedValue(ref), resolve: vi.fn().mockResolvedValue('/cache/00000000-0000-4000-8000-000000000001.info.json')} as unknown as ProbeInfoJsonCache
 
-		const r = await new ProbeService(makeYtDlp(), false, cache, {vhxTitleFetcher: okFetcher(PARENT_HTML)}).probe(PARENT_URL, 'off', 'video')
+		const r = await new ProbeService(makeYtDlp(), false, cache, {vhxTitleFetcher: okFetcher(PARENT_HTML)}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: '3851601', title: REAL_TITLE}), {videoId: '3851601'})
 		if (r.ok && r.data.kind === 'video') expect(r.data.probeInfoJsonRef).toEqual(ref)
@@ -158,7 +158,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson()) as never)
 		const cache = {write: vi.fn().mockResolvedValue({id: '00000000-0000-4000-8000-000000000002', createdAt: 'x'})} as unknown as ProbeInfoJsonCache
 
-		await new ProbeService(makeYtDlp(), false, cache, {vhxTitleFetcher: okFetcher(PARENT_HTML)}).probe(PARENT_URL, 'off', 'video')
+		await new ProbeService(makeYtDlp(), false, cache, {vhxTitleFetcher: okFetcher(PARENT_HTML)}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		const raw = vi.mocked(cache.write).mock.calls[0]?.[0] as {formats?: Array<{format_id?: string}>; extractor_key?: string}
 		expect(raw.formats?.[0]?.format_id).toBe('http-1080p')
@@ -169,7 +169,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson()) as never)
 		const fetcher = okFetcher('<html><head><title>Vimeo OTT</title></head></html>')
 
-		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, 'off', 'video')
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Untitled')
@@ -181,7 +181,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 			throw new Error('network down')
 		})
 
-		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, 'off', 'video')
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Untitled')
@@ -191,7 +191,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson({title: 'Real VHX Title'})) as never)
 		const fetcher = okFetcher(PARENT_HTML)
 
-		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, 'off', 'video')
+		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(fetcher).not.toHaveBeenCalled()
 	})
@@ -201,7 +201,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 		const fetcher = okFetcher(PARENT_HTML)
 
-		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe('https://example.com/watch/v1', 'off', 'video')
+		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe('https://example.com/watch/v1', {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(fetcher).not.toHaveBeenCalled()
 	})
@@ -210,7 +210,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson({webpage_url: EMBED_URL})) as never)
 		const fetcher = okFetcher(PARENT_HTML)
 
-		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(EMBED_URL, 'off', 'video')
+		await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(EMBED_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(fetcher).not.toHaveBeenCalled()
 	})
@@ -219,7 +219,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson()) as never)
 		const fetcher = okFetcher(PARENT_HTML)
 
-		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, 'off', 'auto')
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: fetcher}).probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'auto'})
 
 		expect(fetcher).toHaveBeenCalledWith(PARENT_URL, expect.anything())
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe(REAL_TITLE)
@@ -229,7 +229,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(vhxInfoJson({webpage_url: `${EMBED_URL}#__youtubedl_smuggle=${encodeURIComponent(JSON.stringify({referer: 'https://www.trilogyplus.com/watch/episode-2'}))}`})) as never)
 		const episodicHtml = '<html><head><meta property="og:title" content="Interviews - Episode 2 - Trilogy Plus"><meta property="og:site_name" content="Trilogy Plus"></head><body></body></html>'
 
-		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: okFetcher(episodicHtml)}).probe('https://www.trilogyplus.com/watch/episode-2', 'off', 'video')
+		const r = await new ProbeService(makeYtDlp(), false, undefined, {vhxTitleFetcher: okFetcher(episodicHtml)}).probe('https://www.trilogyplus.com/watch/episode-2', {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Interviews - Episode 2')
@@ -244,7 +244,7 @@ describe('ProbeService — VHX Untitled title recovery', () => {
 			}
 		})
 
-		const r = await service.probe(PARENT_URL, 'off', 'video')
+		const r = await service.probe(PARENT_URL, {cookiesMode: 'off', playlistMode: 'video'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.title).toBe('Untitled')
