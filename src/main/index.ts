@@ -27,6 +27,7 @@ import {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {writePlaylistM3u} from '@main/services/playlistM3u.js'
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
+import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
@@ -425,8 +426,18 @@ if (hasSingleInstanceLock) {
 
 		const hotkeyService = new HotkeyService(hotkeyWindowFromBrowserWindow(mainWindow), electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D')
+		if (e2eMode.enabled) {
+			// Lets the hotkey spec drive the registered-chord path directly —
+			// the OS owns real chords and contested-chord coverage stays manual.
+			;(globalThis as Record<string, unknown>).__arroxyHotkeyService = hotkeyService
+		}
+		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow)
+		// Keeps the tray item in sync with the chord's registration state; the
+		// tray may not exist yet (it is created later), hence the lazy read.
+		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
+		hotkeyService.onStateChange(syncHotkeyTrayItem)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, graphicsPolicyProvider})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, graphicsPolicyProvider})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
@@ -455,10 +466,19 @@ if (hasSingleInstanceLock) {
 
 		if (process.platform !== 'darwin') {
 			try {
-				tray = new TrayManager(mainWindow, queueService, languageRef, () => {
-					void warnActiveDownloadsThenQuit()
-				})
+				tray = new TrayManager(
+					mainWindow,
+					queueService,
+					languageRef,
+					() => {
+						void warnActiveDownloadsThenQuit()
+					},
+					hotkeyService
+				)
 				tray.start()
+				// Keep the tray item honest: it must appear/disappear with the
+				// chord's actual registration state.
+				syncHotkeyTrayItem()
 			} catch (e) {
 				log.warn(`Tray init failed — running without tray: ${String(e)}`)
 				tray = null

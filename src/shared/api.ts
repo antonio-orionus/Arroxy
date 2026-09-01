@@ -11,7 +11,9 @@ import type {
 	FeedbackDiagnosticUpload,
 	GraphicsPolicy,
 	HotkeyOutcomePayload,
+	HotkeyState,
 	HotkeyTriggerPayload,
+	LocalizedError,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -73,7 +75,7 @@ export interface AppApi {
 		resume(input: {jobId: string}): Promise<Result<{resumed: boolean; job?: DownloadJob}>>
 	}
 	settings: {get(): Promise<Result<AppSettings>>; update(input: SettingsPatch): Promise<Result<AppSettings>>}
-	hotkey: {reportOutcome(input: HotkeyOutcomePayload): Promise<void>}
+	hotkey: {reportOutcome(input: HotkeyOutcomePayload): Promise<void>; getState(): Promise<Result<HotkeyState>>; testPress(): Promise<void>}
 	shell: {openFolder(path?: string): Promise<Result<{opened: boolean}>>; openExternal(url: string): Promise<Result<{opened: boolean}>>; openBinariesDir(): Promise<Result<{opened: boolean}>>}
 	logs: {openDir(): Promise<Result<{opened: boolean}>>; uploadFeedbackDiagnostic(input: {reportId: string}): Promise<Result<FeedbackDiagnosticUpload>>}
 	dialog: {chooseFolder(defaultPath?: string): Promise<Result<{path: string | null}>>; chooseFile(): Promise<Result<{path: string | null}>>; chooseExecutable(binary: DependencyId): Promise<Result<{path: string | null}>>}
@@ -90,6 +92,7 @@ export interface AppApi {
 		cmd: {
 			add(items: QueueItem[]): Promise<Result<{ids: string[]}>>
 			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
+			probeFailed(input: {itemId: string; error: LocalizedError}): Promise<Result<void>>
 			start(input: {itemId: string}): Promise<Result<void>>
 			pause(input: {itemId: string}): Promise<Result<void>>
 			resume(input: {itemId: string}): Promise<Result<void>>

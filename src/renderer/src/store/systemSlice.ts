@@ -11,6 +11,7 @@ import {track} from '../lib/analytics.js'
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
 let unbindHotkeyTrigger: (() => void) | null = null
+let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
@@ -134,6 +135,16 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindHotkeyTrigger?.()
 			unbindHotkeyTrigger = window.appApi.events.onHotkeyTrigger(trigger => {
 				void handleHotkeyTrigger(trigger, set, get)
+			})
+
+			// Outcome feedback: the renderer shows a toast only when focused —
+			// main fires the OS notification for hidden/unfocused windows, so
+			// each attempt is acknowledged exactly once through exactly one
+			// channel.
+			unbindHotkeyOutcome?.()
+			unbindHotkeyOutcome = window.appApi.events.onHotkeyOutcome(event => {
+				if (!event.toast) return
+				notify.hotkeyOutcome(event.outcome)
 			})
 
 			unbindProbeProgress?.()
@@ -407,6 +418,14 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		setClipboardWatchEnabled: async enabled => {
 			await applyCommonPatchAsync(get, set, 'clipboardWatchEnabled', {clipboardWatchEnabled: enabled})
+		},
+
+		setHotkeyEnabled: async enabled => {
+			await applyCommonPatchAsync(get, set, 'hotkeyEnabled', {hotkeyEnabled: enabled})
+		},
+
+		setHotkeyAccelerator: async accelerator => {
+			await applyCommonPatchAsync(get, set, 'hotkeyAccelerator', {hotkeyAccelerator: accelerator})
 		},
 
 		setCloseBehavior: async value => {

@@ -14,11 +14,12 @@ import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitl
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText} from '../ui/input-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
-import {Switch} from '../ui/switch.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {LimitRatePicker} from '../shared/LimitRatePicker.js'
 import {formatLimitRateLabel} from '../shared/limitRateFormat.js'
 import {NetworkPacingSettings} from './NetworkPacingSettings.js'
+import {SettingSwitch} from './SettingSwitch.js'
+import {HotkeySettingsSection} from './HotkeySettingsSection.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 
@@ -52,20 +53,6 @@ function SettingsPanel({title, description, children}: {title: string; descripti
 			</CardHeader>
 			<CardContent className="px-3">{children}</CardContent>
 		</Card>
-	)
-}
-
-function SettingSwitch({id, label, description, checked, onCheckedChange, testId}: {id: string; label: string; description: string; checked: boolean; onCheckedChange: (checked: boolean) => void; testId?: string}): ReactNode {
-	return (
-		<Field orientation="horizontal" className="items-center justify-between gap-3">
-			<FieldContent className="gap-0.5">
-				<FieldTitle id={id} className="text-[13px] font-medium text-foreground">
-					{label}
-				</FieldTitle>
-				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{description}</FieldDescription>
-			</FieldContent>
-			<Switch checked={checked} onCheckedChange={onCheckedChange} aria-labelledby={id} data-testid={testId} />
-		</Field>
 	)
 }
 
@@ -308,6 +295,10 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 						<PlaylistProbeLimitSelector testId="profiles-settings-playlist-probe-limit" className="w-40" showCurrent={false} />
 					</Field>
 				</FieldGroup>
+			</SettingsPanel>
+
+			<SettingsPanel title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
+				<HotkeySettingsSection />
 			</SettingsPanel>
 
 			<SettingsPanel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>

@@ -201,6 +201,16 @@
 				"dismissCopiedLink": "Kopyalanan bağlantıyı kapat",
 				"dialog": {"cancelButton": "İptal"}
 			},
+			"hotkey": {
+				"sectionTitle": "Genel kısayol",
+				"sectionDescription": "Kopyaladığınız bağlantıyı, Arroxy’yi açmadan herhangi bir uygulamadan indirin.",
+				"toggle": "Genel kısayolu etkinleştir",
+				"toggleDescription": "Panoda video bağlantısı varken kısayola basın.",
+				"changeShortcut": "Kısayolu değiştir",
+				"recording": "Tuşlara basın…",
+				"test": "Test et",
+				"conflict": "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin."
+			},
 			"cookies": {
 				"sourceLabel": "Çerez kaynağı",
 				"sourceOff": "Kapalı",
@@ -538,6 +548,7 @@
 			"openDestinationFolder": "Hedef klasörü aç",
 			"remove": "Kaldır",
 			"pullNow": "Şimdi çek — kuyruğu atla",
+			"statusProbing": "Ayrıntılar alınıyor",
 			"statusPending": "Bekliyor",
 			"statusRunning": "İndiriliyor",
 			"statusHeld": "Bekletildi",
@@ -595,7 +606,16 @@
 		"folderSelectFailed": "Klasör seçici açılamadı.",
 		"playlistFolderRejected": "Bu klasör bu oynatma listesi için kullanılamaz.",
 		"filenameFolderTooDeep": "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin.",
-		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı."
+		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı.",
+		"hotkey": {
+			"queued": "İndirme panodan eklendi",
+			"alreadyQueued": "Zaten kuyrukta — kopya eklenmedi",
+			"invalidClipboard": "Panoda bağlantı yok — önce bir tane kopyalayın",
+			"multipleUrls": "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın",
+			"needsReview": "Bu bağlantı hızlı bir inceleme gerektiriyor — Arroxy'yi açıp yeniden yapıştırın",
+			"busy": "Önceki bağlantı hâlâ işleniyor",
+			"submissionFailed": "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -644,7 +664,7 @@
 		"mp4Cap": "YouTube’da 1080p üzeri H.264 kullanılamaz — otomatik olarak 1080p ile sınırlanır"
 	},
 	"formatLabel": {"audioFallback": "Ses", "audioOnlyDot": "Yalnızca ses · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boşta", "statusActive_one": "1 indiriliyor · {{percent}}%", "statusActive_other": "{{count}} indiriliyor · {{percent}}%", "open": "Arroxy’yi aç", "quit": "Arroxy’den çık"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Boşta", "statusActive_one": "1 indiriliyor · {{percent}}%", "statusActive_other": "{{count}} indiriliyor · {{percent}}%", "downloadFromClipboard": "Panodan indir", "open": "Arroxy’yi aç", "quit": "Arroxy’den çık"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} indirme sürüyor", "message_other": "{{count}} indirme sürüyor", "detail": "Daha sonra sürdürmek için duraklat veya ilerlemeyi silmek için iptal et.", "confirm": "İndirmeleri İptal Et ve Çık", "pause": "İndirmeleri Duraklat ve Çık", "keep": "İndirmeye Devam Et"},
 		"closeToTray": {"message": "Kapatırken Arroxy sistem tepsisine gizlensin mi?", "detail": "Arroxy çalışmaya devam eder ve etkin indirmeleri bitirir. Bunu daha sonra Gelişmiş ayarlardan değiştirebilirsin.", "hide": "Tepsiye gizle", "quit": "Çık", "remember": "Bir daha sorma"},

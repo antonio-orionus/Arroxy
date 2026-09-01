@@ -209,6 +209,16 @@
 				"dismissCopiedLink": "Приховати скопійоване посилання",
 				"dialog": {"cancelButton": "Скасувати"}
 			},
+			"hotkey": {
+				"sectionTitle": "Глобальна гаряча клавіша",
+				"sectionDescription": "Завантажуйте будь-яке скопійоване посилання з будь-якої програми, не відкриваючи Arroxy.",
+				"toggle": "Увімкнути гарячу клавішу",
+				"toggleDescription": "Натисніть сполучення клавіш, коли посилання на відео в буфері обміну.",
+				"changeShortcut": "Змінити сполучення",
+				"recording": "Натискайте клавіші…",
+				"test": "Перевірити",
+				"conflict": "Це сполучення вже зайняте іншою програмою — виберіть інше."
+			},
 			"cookies": {
 				"sourceLabel": "Джерело cookies",
 				"sourceOff": "Вимк",
@@ -546,6 +556,7 @@
 			"openDestinationFolder": "Відкрити папку призначення",
 			"remove": "Видалити",
 			"pullNow": "Завантажити зараз — пропустити чергу",
+			"statusProbing": "Отримання відомостей",
 			"statusPending": "Очікує",
 			"statusRunning": "Завантажується",
 			"statusHeld": "Утримано",
@@ -603,7 +614,16 @@
 		"folderSelectFailed": "Не вдалося відкрити вибір теки.",
 		"playlistFolderRejected": "Цю теку не можна використати для цього плейлиста.",
 		"filenameFolderTooDeep": "Ця тека вкладена надто глибоко для вашої системи. Завантаження все одно може не вдатися — виберіть коротшу теку.",
-		"filenameTemplateCannotFit": "Назва цього відео не вміщується в усі частини шаблону, тому використано типову назву."
+		"filenameTemplateCannotFit": "Назва цього відео не вміщується в усі частини шаблону, тому використано типову назву.",
+		"hotkey": {
+			"queued": "Завантаження додано з буфера обміну",
+			"alreadyQueued": "Вже в черзі — копію не додано",
+			"invalidClipboard": "У буфері обміну немає посилання — скопіюйте його спочатку",
+			"multipleUrls": "Скопійовано кілька посилань — скористайтеся «Масові URL» в Arroxy",
+			"needsReview": "Це посилання потребує швидкої перевірки — відкрийте Arroxy і вставте його знову",
+			"busy": "Ще обробляється попереднє посилання",
+			"submissionFailed": "Не вдалося додати це посилання — спробуйте ще раз у Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -652,7 +672,7 @@
 		"mp4Cap": "H.264 вище 1080p недоступний на YouTube — автоматично обмежується 1080p"
 	},
 	"formatLabel": {"audioFallback": "Аудіо", "audioOnlyDot": "Тільки аудіо · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Очікування", "statusActive_one": "1 завантажується · {{percent}}%", "statusActive_other": "{{count}} завантажуються · {{percent}}%", "open": "Відкрити Arroxy", "quit": "Вийти з Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Очікування", "statusActive_one": "1 завантажується · {{percent}}%", "statusActive_other": "{{count}} завантажуються · {{percent}}%", "downloadFromClipboard": "Завантажити з буфера обміну", "open": "Відкрити Arroxy", "quit": "Вийти з Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "Триває {{count}} завантаження",

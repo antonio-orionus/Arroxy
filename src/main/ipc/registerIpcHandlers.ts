@@ -9,6 +9,7 @@ import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
+import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
@@ -35,6 +36,7 @@ export interface IpcDependencies {
 	languageRef: {current: SupportedLang}
 	clipboardWatcher: ClipboardWatcher
 	hotkeyService: HotkeyService
+	hotkeyOsNotifier: HotkeyOsNotifier | null
 	playlistManifestStore: PlaylistManifestStore
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 }
@@ -44,15 +46,15 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, graphicsPolicyProvider} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, graphicsPolicyProvider} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerFileHandlers(mainWindow, binaryManager)
-	registerQueueHandlers(queueService)
+	registerQueueHandlers(queueService, probeService)
 	registerAnalyticsHandlers()
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)

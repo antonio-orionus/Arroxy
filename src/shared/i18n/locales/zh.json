@@ -184,6 +184,16 @@
 				"dismissCopiedLink": "关闭复制的链接",
 				"dialog": {"cancelButton": "取消"}
 			},
+			"hotkey": {
+				"sectionTitle": "全局快捷键",
+				"sectionDescription": "在任意应用复制链接即可下载，无需打开 Arroxy。",
+				"toggle": "启用全局快捷键",
+				"toggleDescription": "剪贴板中有视频链接时按下快捷键。",
+				"changeShortcut": "更改快捷键",
+				"recording": "请按键…",
+				"test": "测试",
+				"conflict": "此快捷键已被其他应用占用 — 请另选一个。"
+			},
 			"cookies": {
 				"sourceLabel": "Cookies 来源",
 				"sourceOff": "关闭",
@@ -475,6 +485,7 @@
 			"openDestinationFolder": "打开目标文件夹",
 			"remove": "移除",
 			"pullNow": "立即下载 — 跳过队列",
+			"statusProbing": "正在获取详情",
 			"statusPending": "等待中",
 			"statusRunning": "下载中",
 			"statusHeld": "已挂起",
@@ -532,7 +543,16 @@
 		"folderSelectFailed": "无法打开文件夹选择器。",
 		"playlistFolderRejected": "该文件夹无法用于此播放列表。",
 		"filenameFolderTooDeep": "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。",
-		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。"
+		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。",
+		"hotkey": {
+			"queued": "已从剪贴板添加下载",
+			"alreadyQueued": "已在队列中 — 未重复添加",
+			"invalidClipboard": "剪贴板中没有链接 — 请先复制一个",
+			"multipleUrls": "已复制多个链接 — 请在 Arroxy 中使用「批量 URL」",
+			"needsReview": "该链接需要快速确认 — 打开 Arroxy 并重新粘贴",
+			"busy": "正在处理上一个链接",
+			"submissionFailed": "无法添加该链接 — 请在 Arroxy 中重试"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -573,7 +593,7 @@
 		"mp4Cap": "YouTube 不提供 1080p 以上的 H.264 — 自动限制为 1080p"
 	},
 	"formatLabel": {"audioFallback": "音频", "audioOnlyDot": "仅音频 · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "空闲", "statusActive_one": "1个下载中 · {{percent}}%", "statusActive_other": "{{count}}个下载中 · {{percent}}%", "open": "打开 Arroxy", "quit": "退出 Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "空闲", "statusActive_one": "1个下载中 · {{percent}}%", "statusActive_other": "{{count}}个下载中 · {{percent}}%", "downloadFromClipboard": "从剪贴板下载", "open": "打开 Arroxy", "quit": "退出 Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "正在进行 {{count}} 个下载", "message_other": "正在进行 {{count}} 个下载", "detail": "暂停以便稍后继续，或取消以丢弃进度。", "confirm": "取消下载并退出", "pause": "暂停下载并退出", "keep": "继续下载"},
 		"closeToTray": {"message": "关闭时将 Arroxy 最小化到系统托盘？", "detail": "Arroxy 将继续运行并完成活动下载。可在高级设置中更改。", "hide": "最小化到托盘", "quit": "退出", "remember": "不再询问"},

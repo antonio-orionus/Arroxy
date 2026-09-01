@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "フォルダー選択を開けませんでした。"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "すでにキューにあります — 追加されていません"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "前のリンクをまだ処理中です"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "クリップボードにリンクがありません — 先にコピーしてください"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "複数のリンクがコピーされました — Arroxyの「一括 URL」を使ってください"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "このリンクには簡単な確認が必要です — Arroxyを開いて再度貼り付けてください"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "クリップボードからダウンロードを追加しました"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "そのリンクを追加できませんでした — Arroxyでもう一度お試しください"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "このフォルダーはこのプレイリストには使用できません。"
@@ -602,6 +630,10 @@ msgstr "一時停止"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "待機中"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "詳細を取得中"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "最小化"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "元に戻す"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "クリップボードからダウンロード"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "ステップごとのウィザード。形式、品質などを選択し
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL からダウンロード"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "ショートカットを変更"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "このショートカットは別のアプリで使用中です — 別のものを選んでください。"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "キーを押してください…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "コピーしたリンクを、Arroxy を開かずにどのアプリからでもダウンロードします。"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "グローバルホットキー"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "テスト"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "グローバルホットキーを有効にする"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "クリップボードに動画リンクがある状態でショートカットを押してください。"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

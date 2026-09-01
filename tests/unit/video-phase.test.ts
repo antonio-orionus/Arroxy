@@ -7,7 +7,7 @@ import {VideoPhase} from '@main/services/phases/VideoPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, QueueResumeContext, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, QueueResumeContext, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
@@ -20,7 +20,7 @@ function makeJob(): DownloadJob {
 
 const BASE_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en', 'ja'], mode: 'embed', format: 'vtt', writeAuto: false}}
 
-const BASE_INPUT: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
+const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 	return {
@@ -373,7 +373,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 	function makeRealCtx(activeOverrides: Partial<ActiveDownload>, runResult: YtDlpResult = SUCCESS): PhaseContext & {runMock: ReturnType<typeof vi.fn>} {
 		const job = makeJob()
 		job.outputDir = outputDir
-		const input: StartDownloadInput = {...BASE_INPUT, outputDir, job: BASE_JOB}
+		const input: ResolvedStartDownloadInput = {...BASE_INPUT, outputDir, job: BASE_JOB as Extract<PreparedJob, {kind: 'single-format'}>}
 		const runMock = vi.fn().mockResolvedValue(runResult)
 		const realController = new AbortController()
 		const active: ActiveDownload = {job, input, controller: realController, signal: realController.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack(), ...activeOverrides}

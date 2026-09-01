@@ -23,6 +23,10 @@ export function strategyFor(job: PreparedJob): StrategyKind {
 			if (subs.mode === 'embed') return 'video+embed'
 			return 'video+sidecar'
 		}
+		// The probe-stage placeholder never reaches phase planning —
+		// DownloadService.start() refuses it before runJob.
+		case 'unresolved':
+			throw new Error('invariant: unresolved (probe-stage) job has no download strategy')
 	}
 }
 

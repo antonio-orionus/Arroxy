@@ -6,6 +6,7 @@
 // exercise without a DOM. Importing a toast library here would drag one in.
 
 import i18next from 'i18next'
+import type {HotkeyOutcome} from '@shared/types.js'
 
 export type NotificationLevel = 'error' | 'warning' | 'info'
 
@@ -60,6 +61,21 @@ export const notify = {
 		// clipboard only ever produces a pointer to the manual bulk entry.
 		console.info('[clipboard]', message)
 		emit('info', message, 'clipboard')
+	},
+	hotkeyOutcome(outcome: HotkeyOutcome): void {
+		// Localized here (not by the caller) because main routes the same
+		// outcome through mainT for OS notifications.
+		const key = {
+			queued: 'notifications.hotkey.queued',
+			'already-queued': 'notifications.hotkey.alreadyQueued',
+			'invalid-clipboard': 'notifications.hotkey.invalidClipboard',
+			'multiple-urls': 'notifications.hotkey.multipleUrls',
+			'needs-review': 'notifications.hotkey.needsReview',
+			busy: 'notifications.hotkey.busy',
+			'submission-failed': 'notifications.hotkey.submissionFailed'
+		} as const
+		const kind: NotificationLevel = outcome === 'submission-failed' || outcome === 'invalid-clipboard' ? 'error' : outcome === 'queued' || outcome === 'already-queued' ? 'info' : 'info'
+		emit(kind, i18next.t(key[outcome]), 'hotkey')
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and

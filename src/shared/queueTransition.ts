@@ -22,6 +22,7 @@ export type QueueEvent =
 	| {kind: 'paused-held'}
 	| {kind: 'resumed'}
 	| {kind: 'failed'; error: LocalizedError; resumeContext?: QueueResumeContext; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>}
+	| {kind: 'probe-failed'; error: LocalizedError}
 	| {kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string}
 	| {kind: 'cancelled'}
 	| {kind: 'retry-reset'}
@@ -46,6 +47,10 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 			return {...item, status: QUEUE_STATUS.running, error: null, resumeContext: undefined}
 		case 'failed':
 			return {...item, status: QUEUE_STATUS.error, error: evt.error, lastJobId: undefined, tempDir: undefined, resumeContext: evt.resumeContext, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
+		case 'probe-failed':
+			// The probe never produced a job, so there is no retry machinery —
+			// just an error row the user can cancel or remove.
+			return {...item, status: QUEUE_STATUS.error, error: evt.error, progressPercent: 0, progressDetail: null}
 		case 'completed':
 			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'cancelled':
@@ -58,6 +63,19 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 // Predicate: is this event illegal in the current state? Returns null when
 // the transition is allowed; otherwise returns a short reason string.
 export function illegalTransition(item: QueueItem, evt: QueueEvent): string | null {
+	// probe-failed belongs to the probe stage only — a download-side error is a
+	// `failed` event, never this one.
+	if (evt.kind === 'probe-failed' && item.status !== QUEUE_STATUS.probing) {
+		return `event probe-failed on ${item.status} item is a stale signal`
+	}
+	// A probing item has no job yet: only its own failure or a cancellation
+	// may touch it. Everything else (started/progress/…) is a stale download
+	// signal that must never resurrect the placeholder.
+	if (item.status === QUEUE_STATUS.probing) {
+		if (evt.kind !== 'probe-failed' && evt.kind !== 'cancelled') {
+			return `event ${evt.kind} on probing item is a stale signal`
+		}
+	}
 	if (item.status === QUEUE_STATUS.cancelled) {
 		if (evt.kind !== 'cancelled' && evt.kind !== 'retry-reset') {
 			return `event ${evt.kind} on cancelled item is a stale signal`

@@ -201,6 +201,16 @@
 				"dismissCopiedLink": "Bỏ qua liên kết đã sao chép",
 				"dialog": {"cancelButton": "Hủy"}
 			},
+			"hotkey": {
+				"sectionTitle": "Phím tắt toàn cục",
+				"sectionDescription": "Tải xuống bất kỳ liên kết bạn sao chép, từ bất kỳ ứng dụng nào, không cần mở Arroxy.",
+				"toggle": "Bật phím tắt toàn cục",
+				"toggleDescription": "Nhấn tổ hợp phím khi có liên kết video trong bộ nhớ tạm.",
+				"changeShortcut": "Đổi tổ hợp phím",
+				"recording": "Nhấn phím…",
+				"test": "Kiểm tra",
+				"conflict": "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác."
+			},
 			"cookies": {
 				"sourceLabel": "Nguồn cookies",
 				"sourceOff": "Tắt",
@@ -538,6 +548,7 @@
 			"openDestinationFolder": "Mở thư mục đích",
 			"remove": "Xóa",
 			"pullNow": "Tải ngay — bỏ qua hàng đợi",
+			"statusProbing": "Đang lấy chi tiết",
 			"statusPending": "Đang chờ",
 			"statusRunning": "Đang tải",
 			"statusHeld": "Đang giữ",
@@ -595,7 +606,16 @@
 		"folderSelectFailed": "Không thể mở trình chọn thư mục.",
 		"playlistFolderRejected": "Không thể dùng thư mục đó cho danh sách phát này.",
 		"filenameFolderTooDeep": "Thư mục này quá sâu đối với hệ thống của bạn. Việc tải xuống vẫn có thể thất bại — hãy chọn thư mục ngắn hơn.",
-		"filenameTemplateCannotFit": "Tên video này không vừa với mọi phần trong mẫu của bạn, nên tên mặc định đã được dùng."
+		"filenameTemplateCannotFit": "Tên video này không vừa với mọi phần trong mẫu của bạn, nên tên mặc định đã được dùng.",
+		"hotkey": {
+			"queued": "Đã thêm tải xuống từ bảng nhớ tạm",
+			"alreadyQueued": "Đã có trong hàng đợi — không thêm bản sao",
+			"invalidClipboard": "Không có liên kết nào trong bảng nhớ tạm — hãy sao chép một liên kết trước",
+			"multipleUrls": "Đã sao chép nhiều liên kết — dùng “URL hàng loạt” trong Arroxy",
+			"needsReview": "Liên kết này cần xem xét nhanh — mở Arroxy và dán lại",
+			"busy": "Vẫn đang xử lý liên kết trước",
+			"submissionFailed": "Không thể thêm liên kết đó — thử lại trong Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -644,7 +664,7 @@
 		"mp4Cap": "H.264 trên 1080p không có trên YouTube — tự động giới hạn ở 1080p"
 	},
 	"formatLabel": {"audioFallback": "Âm thanh", "audioOnlyDot": "Chỉ âm thanh · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Đang chờ", "statusActive_one": "1 đang tải · {{percent}}%", "statusActive_other": "{{count}} đang tải · {{percent}}%", "open": "Mở Arroxy", "quit": "Thoát Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Đang chờ", "statusActive_one": "1 đang tải · {{percent}}%", "statusActive_other": "{{count}} đang tải · {{percent}}%", "downloadFromClipboard": "Tải từ bảng nhớ tạm", "open": "Mở Arroxy", "quit": "Thoát Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} tải xuống đang tiến hành", "message_other": "{{count}} tải xuống đang tiến hành", "detail": "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình.", "confirm": "Hủy tải xuống & Thoát", "pause": "Tạm dừng tải và thoát", "keep": "Tiếp tục tải xuống"},
 		"closeToTray": {"message": "Ẩn Arroxy xuống khay hệ thống khi đóng?", "detail": "Arroxy vẫn tiếp tục chạy và hoàn thành các tải xuống đang hoạt động. Thay đổi điều này sau trong cài đặt Nâng cao.", "hide": "Ẩn xuống khay", "quit": "Thoát", "remember": "Không hỏi lại"},

@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "تعذّر فتح مُحدِّد المجلدات."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "في قائمة الانتظار بالفعل — لم تُضف نسخة"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "ما زلنا نعالج الرابط السابق"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "لا يوجد رابط في الحافظة — انسخ رابطًا أولاً"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "هذا الرابط يحتاج إلى مراجعة سريعة — افتح Arroxy وأعد لصقه"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "تمت إضافة التنزيل من الحافظة"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "تعذّر إضافة هذا الرابط — حاول مجددًا في Arroxy"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه."
@@ -602,6 +630,10 @@ msgstr "متوقف مؤقتًا"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "بانتظار"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "جارٍ جلب التفاصيل"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "تصغير"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "استعادة"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "تنزيل من الحافظة"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "معالج خطوة بخطوة. اختر الصيغة والجودة و�
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "تنزيل من رابط"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "تغيير الاختصار"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "هذا الاختصار مستخدم من تطبيق آخر — اختر غيره."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "اضغط المفاتيح…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "نزّل أي رابط تنسخه من أي تطبيق دون فتح Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "اختصار عام"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "اختبار"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "تفعيل الاختصار العام"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "اضغط الاختصار مع وجود رابط فيديو في الحافظة."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

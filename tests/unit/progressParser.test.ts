@@ -3,14 +3,14 @@ import {ProgressParser} from '@main/services/download/progressParser.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 
 vi.mock('@main/utils/clock', () => ({nowIso: () => '2024-01-01T00:00:00.000Z'}))
 
-const BASE_INPUT_SUBTITLE_ONLY: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-orig'], mode: 'sidecar', format: 'srt', writeAuto: false}} satisfies PreparedJob}
+const BASE_INPUT_SUBTITLE_ONLY: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: {languages: ['en-orig'], mode: 'sidecar', format: 'srt', writeAuto: false}} satisfies PreparedJob}
 
-const BASE_INPUT_SINGLE_FORMAT: StartDownloadInput = {
+const BASE_INPUT_SINGLE_FORMAT: ResolvedStartDownloadInput = {
 	url: 'https://www.youtube.com/watch?v=test',
 	outputDir: '/tmp',
 	job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '248+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}} satisfies PreparedJob
@@ -20,7 +20,7 @@ function makeJob(): DownloadJob {
 	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: '2024-01-01T00:00:00.000Z', updatedAt: '2024-01-01T00:00:00.000Z'}
 }
 
-function makeActive(input: StartDownloadInput): ActiveDownload {
+function makeActive(input: ResolvedStartDownloadInput): ActiveDownload {
 	return {
 		job: makeJob(),
 		input,

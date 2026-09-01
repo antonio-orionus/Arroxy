@@ -1,5 +1,5 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
-import type {DownloadJob, LocalizedError, QueueResumeContext, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
+import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
 
 export type Disposable = () => Promise<void> | void
@@ -24,7 +24,9 @@ export class AsyncStack {
 	}
 }
 
-export interface ActiveJob {
+// DownloadService.runJob() narrows input.job to a real (startable) job before
+// any phase runs — start() refuses the unresolved probe-stage placeholder.
+export interface ActiveJobInput {
 	job: DownloadJob
 	input: StartDownloadInput
 	// AbortController.abort() drops the signal. Process spawns register
@@ -55,14 +57,14 @@ export interface ActiveJob {
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
 }
 
-// Back-compat name for tests / call sites that still spell it ActiveDownload.
-// The intent is to migrate every spelling — kept here only so this commit can
-// land without rewriting every test fixture in the same diff.
+// The runtime shape after start() narrowed the job: phases can safely read
+// subtitles / sponsorBlock / filenameTemplate off the input job.
+export type ActiveJob = Omit<ActiveJobInput, 'input'> & {input: ResolvedStartDownloadInput}
 export type ActiveDownload = ActiveJob
 
 export interface PausedDownload {
 	job: DownloadJob
-	input: StartDownloadInput
+	input: ResolvedStartDownloadInput
 	tempDir?: string
 }
 

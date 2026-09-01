@@ -10,7 +10,8 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Progress} from '../ui/progress.js'
 
-const STATUS_META: Record<QueueItemStatus, {className: string; icon: ReactNode; labelKey: 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'}> = {
+const STATUS_META: Record<QueueItemStatus, {className: string; icon: ReactNode; labelKey: 'queue.item.statusProbing' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'}> = {
+	probing: {className: 'text-muted-foreground', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusProbing'},
 	pending: {className: 'text-muted-foreground', icon: <Clock size={12} aria-hidden />, labelKey: 'queue.item.statusPending'},
 	running: {className: 'text-[var(--brand)]', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusRunning'},
 	'paused-held': {className: 'text-[var(--color-status-paused)]', icon: <PauseCircle size={12} aria-hidden />, labelKey: 'queue.item.statusHeld'},

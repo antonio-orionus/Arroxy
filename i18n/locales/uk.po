@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Не вдалося відкрити вибір теки."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Вже в черзі — копію не додано"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Ще обробляється попереднє посилання"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "У буфері обміну немає посилання — скопіюйте його спочатку"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Скопійовано кілька посилань — скористайтеся «Масові URL» в Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Це посилання потребує швидкої перевірки — відкрийте Arroxy і вставте його знову"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Завантаження додано з буфера обміну"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Не вдалося додати це посилання — спробуйте ще раз у Arroxy"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Цю теку не можна використати для цього плейлиста."
@@ -602,6 +630,10 @@ msgstr "На паузі"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Очікує"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Отримання відомостей"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Згорнути"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Відновити"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Завантажити з буфера обміну"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "Покроковий майстер. Виберіть формат, як
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "Завантажити з URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Змінити сполучення"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Це сполучення вже зайняте іншою програмою — виберіть інше."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Натискайте клавіші…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Завантажуйте будь-яке скопійоване посилання з будь-якої програми, не відкриваючи Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Глобальна гаряча клавіша"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Перевірити"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Увімкнути гарячу клавішу"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Натисніть сполучення клавіш, коли посилання на відео в буфері обміну."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

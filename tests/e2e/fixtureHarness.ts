@@ -594,6 +594,9 @@ export function buildFixtureEnv(input: {userDataDir: string; fixtureServer: Fixt
 	env.all_proxy = input.denyProxy.proxyUrl
 	env.NO_PROXY = '127.0.0.1,localhost,::1'
 	env.no_proxy = env.NO_PROXY
+	// Hotkey OS notifications post into a sink file instead of the OS so the
+	// hotkey spec can assert them deterministically (see fixture-hotkey.spec).
+	env.ARROXY_E2E_OS_NOTIFIER_SINK_PATH = path.join(input.userDataDir, 'hotkey-os-notifications.log')
 	delete env.MOCK_BACKEND
 	delete env.ELECTRON_RUN_AS_NODE
 	return env

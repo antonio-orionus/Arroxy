@@ -192,6 +192,16 @@
 				"dismissCopiedLink": "कॉपी किया गया लिंक हटाएँ",
 				"dialog": {"cancelButton": "रद्द करें"}
 			},
+			"hotkey": {
+				"sectionTitle": "ग्लोबल हॉटकी",
+				"sectionDescription": "जो भी लिंक कॉपी करें, उसे किसी भी ऐप से डाउनलोड करें — Arroxy खोले बिना।",
+				"toggle": "ग्लोबल हॉटकी चालू करें",
+				"toggleDescription": "क्लिपबोर्ड में वीडियो लिंक होने पर शॉर्टकट दबाएँ।",
+				"changeShortcut": "शॉर्टकट बदलें",
+				"recording": "कुंजियाँ दबाएँ…",
+				"test": "जाँचें",
+				"conflict": "यह शॉर्टकट किसी दूसरे ऐप के पास है — दूसरा चुनें।"
+			},
 			"cookies": {
 				"sourceLabel": "कुकी स्रोत",
 				"sourceOff": "बंद",
@@ -513,6 +523,7 @@
 			"openDestinationFolder": "गंतव्य फ़ोल्डर खोलें",
 			"remove": "हटाएँ",
 			"pullNow": "अभी डाउनलोड — क्यू छोड़ें",
+			"statusProbing": "विवरण लाए जा रहे हैं",
 			"statusPending": "प्रतीक्षा में",
 			"statusRunning": "डाउनलोड हो रहा है",
 			"statusHeld": "रोका गया",
@@ -570,7 +581,16 @@
 		"folderSelectFailed": "फ़ोल्डर चयनकर्ता नहीं खोला जा सका।",
 		"playlistFolderRejected": "यह फ़ोल्डर इस प्लेलिस्ट के लिए उपयोग नहीं किया जा सकता।",
 		"filenameFolderTooDeep": "यह फ़ोल्डर आपके सिस्टम के लिए बहुत गहरा है। डाउनलोड फिर भी विफल हो सकता है — छोटा फ़ोल्डर चुनें।",
-		"filenameTemplateCannotFit": "इस वीडियो का नाम आपके टेम्पलेट के हर हिस्से में नहीं समाता, इसलिए डिफ़ॉल्ट नाम उपयोग किया गया।"
+		"filenameTemplateCannotFit": "इस वीडियो का नाम आपके टेम्पलेट के हर हिस्से में नहीं समाता, इसलिए डिफ़ॉल्ट नाम उपयोग किया गया।",
+		"hotkey": {
+			"queued": "क्लिपबोर्ड से डाउनलोड जोड़ा गया",
+			"alreadyQueued": "पहले से कतार में है — कोई कॉपी नहीं जोड़ी गई",
+			"invalidClipboard": "क्लिपबोर्ड में कोई लिंक नहीं है — पहले एक कॉपी करें",
+			"multipleUrls": "कई लिंक कॉपी हो गए हैं — Arroxy में “बल्क URLs” का उपयोग करें",
+			"needsReview": "इस लिंक को एक त्वरित समीक्षा चाहिए — Arroxy खोलें और इसे फिर से पेस्ट करें",
+			"busy": "पिछला लिंक अभी भी प्रोसेस हो रहा है",
+			"submissionFailed": "वह लिंक जोड़ा नहीं जा सका — Arroxy में फिर से कोशिश करें"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -611,7 +631,7 @@
 		"mp4Cap": "YouTube पर 1080p से ऊपर H.264 उपलब्ध नहीं है — अपने-आप 1080p तक सीमित"
 	},
 	"formatLabel": {"audioFallback": "ऑडियो", "audioOnlyDot": "सिर्फ़ ऑडियो · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "निष्क्रिय", "statusActive_one": "1 डाउनलोड हो रहा है · {{percent}}%", "statusActive_other": "{{count}} डाउनलोड हो रहे हैं · {{percent}}%", "open": "Arroxy खोलें", "quit": "Arroxy बंद करें"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "निष्क्रिय", "statusActive_one": "1 डाउनलोड हो रहा है · {{percent}}%", "statusActive_other": "{{count}} डाउनलोड हो रहे हैं · {{percent}}%", "downloadFromClipboard": "क्लिपबोर्ड से डाउनलोड करें", "open": "Arroxy खोलें", "quit": "Arroxy बंद करें"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {"message_one": "{{count}} डाउनलोड चल रही है", "message_other": "{{count}} डाउनलोड चल रही हैं", "detail": "बाद में फिर शुरू करने के लिए रोकें, या प्रगति छोड़ने के लिए रद्द करें।", "confirm": "डाउनलोड रद्द करके बंद करें", "pause": "डाउनलोड रोकें और बाहर निकलें", "keep": "डाउनलोड जारी रखें"},
 		"closeToTray": {"message": "बंद करने पर Arroxy को सिस्टम ट्रे में छिपाएं?", "detail": "Arroxy चलता रहेगा और सक्रिय डाउनलोड पूरे करेगा। उन्नत सेटिंग में बदलें।", "hide": "ट्रे में छिपाएं", "quit": "बाहर निकलें", "remember": "दोबारा न पूछें"},

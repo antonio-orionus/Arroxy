@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "无法打开文件夹选择器。"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "已在队列中 — 未重复添加"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "正在处理上一个链接"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "剪贴板中没有链接 — 请先复制一个"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "已复制多个链接 — 请在 Arroxy 中使用「批量 URL」"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "该链接需要快速确认 — 打开 Arroxy 并重新粘贴"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "已从剪贴板添加下载"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "无法添加该链接 — 请在 Arroxy 中重试"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "该文件夹无法用于此播放列表。"
@@ -602,6 +630,10 @@ msgstr "已暂停"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "等待中"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "正在获取详情"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "最小化"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "还原"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "从剪贴板下载"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "分步向导。选择格式、质量等选项。"
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "从 URL 下载"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "更改快捷键"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "此快捷键已被其他应用占用 — 请另选一个。"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "请按键…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "在任意应用复制链接即可下载，无需打开 Arroxy。"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "全局快捷键"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "测试"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "启用全局快捷键"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "剪贴板中有视频链接时按下快捷键。"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

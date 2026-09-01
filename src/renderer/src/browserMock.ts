@@ -384,7 +384,7 @@ export function installBrowserMock(): void {
 			}
 		},
 
-		hotkey: {reportOutcome: () => Promise.resolve()},
+		hotkey: {reportOutcome: () => Promise.resolve(), getState: () => Promise.resolve({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: false}} as const), testPress: () => Promise.resolve()},
 
 		shell: {
 			openFolder: path => {
@@ -465,6 +465,13 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
 				},
 				getSnapshot: () => Promise.resolve({ok: true, data: {items: [...queueItems], schedulerPaused: mockSchedulerPaused}} as const),
+				probeFailed: ({itemId, error}) => {
+					const item = queueItemById.get(itemId)
+					if (item && item.status === QUEUE_STATUS.probing) {
+						setQueueItem({...item, status: QUEUE_STATUS.error, error, progressPercent: 0, progressDetail: null})
+					}
+					return Promise.resolve({ok: true, data: undefined} as const)
+				},
 				start: ({itemId}) => {
 					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {

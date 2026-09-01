@@ -209,6 +209,16 @@
 				"dismissCopiedLink": "Сакриј копирани линк",
 				"dialog": {"cancelButton": "Откажи"}
 			},
+			"hotkey": {
+				"sectionTitle": "Глобална пречица",
+				"sectionDescription": "Преузимајте било који копирани линк из било које апликације, без отварања Arroxy-ја.",
+				"toggle": "Омогући глобалну пречицу",
+				"toggleDescription": "Притисните пречицу са линком видеа у остави.",
+				"changeShortcut": "Промени пречицу",
+				"recording": "Притисните тастере…",
+				"test": "Тестирај",
+				"conflict": "Ову пречицу већ користи друга апликација — изаберите другу."
+			},
 			"cookies": {
 				"sourceLabel": "Извор cookies",
 				"sourceOff": "Искључено",
@@ -546,6 +556,7 @@
 			"openDestinationFolder": "Отвори фасциклу одредишта",
 			"remove": "Уклони",
 			"pullNow": "Загрузить сейчас — пропустить очередь",
+			"statusProbing": "Преузимање детаља",
 			"statusPending": "Ожидание",
 			"statusRunning": "Загрузка",
 			"statusHeld": "Удержано",
@@ -603,7 +614,16 @@
 		"folderSelectFailed": "Није могуће отворити бирач фасцикли.",
 		"playlistFolderRejected": "Та фасцикла не може да се користи за ову плејлисту.",
 		"filenameFolderTooDeep": "Ова фасцикла је предубока за ваш систем. Преузимање и даље може да не успе — изаберите краћу фасциклу.",
-		"filenameTemplateCannotFit": "Име овог видеа не стаје у сваки део вашег шаблона, па је коришћено подразумевано име."
+		"filenameTemplateCannotFit": "Име овог видеа не стаје у сваки део вашег шаблона, па је коришћено подразумевано име.",
+		"hotkey": {
+			"queued": "Преузимање је додато из оставе",
+			"alreadyQueued": "Већ је у реду — копија није додата",
+			"invalidClipboard": "Нема везе у остави — прво копирајте једну",
+			"multipleUrls": "Копирано је више линкова — користите «Групни URL-ови» у Arroxy",
+			"needsReview": "Ова веза захтева брзу проверу — отворите Arroxy и налепите је поново",
+			"busy": "Још обрађујемо претходну везу",
+			"submissionFailed": "Та веза није могла бити додата — покушајте поново у Arroxy"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -644,7 +664,7 @@
 		"mp4Cap": "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
 	},
 	"formatLabel": {"audioFallback": "Звук", "audioOnlyDot": "Само звук · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Неактивно", "statusActive_one": "1 преузима · {{percent}}%", "statusActive_other": "{{count}} преузима · {{percent}}%", "open": "Отвори Arroxy", "quit": "Затвори Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Неактивно", "statusActive_one": "1 преузима · {{percent}}%", "statusActive_other": "{{count}} преузима · {{percent}}%", "downloadFromClipboard": "Преузми из оставе", "open": "Отвори Arroxy", "quit": "Затвори Arroxy"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} преузимање у току",

@@ -1,6 +1,7 @@
 import {clipboard as electronClipboard, globalShortcut, type BrowserWindow} from 'electron'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {parseBulkUrls} from '@shared/bulkUrls.js'
+import log from 'electron-log/main.js'
 import type {HotkeyState, HotkeyTriggerPayload} from '@shared/schemas.js'
 
 // Main-side global hotkey. Owns chord registration and clipboard
@@ -24,6 +25,7 @@ export interface HotkeyClipboardReader {
 export interface HotkeyWindow {
 	isVisible(): boolean
 	isFocused(): boolean
+	isMinimized(): boolean
 	isDestroyed(): boolean
 	send(channel: string, payload: unknown): void
 }
@@ -33,7 +35,7 @@ export function electronShortcutRegistry(): ShortcutRegistry {
 }
 
 export function hotkeyWindowFromBrowserWindow(win: BrowserWindow): HotkeyWindow {
-	return {isVisible: () => win.isVisible(), isFocused: () => win.isFocused(), isDestroyed: () => win.isDestroyed(), send: (channel, payload) => win.webContents.send(channel, payload)}
+	return {isVisible: () => win.isVisible(), isFocused: () => win.isFocused(), isMinimized: () => win.isMinimized(), isDestroyed: () => win.isDestroyed(), send: (channel, payload) => win.webContents.send(channel, payload)}
 }
 
 // Pre-classification shared with the settings Test button: what the clipboard
@@ -50,12 +52,23 @@ export function classifyHotkeyClipboard(text: string): HotkeyTriggerPayload {
 
 export class HotkeyService {
 	private current: string | null = null
+	private stateChangeHook: (() => void) | null = null
 
 	constructor(
 		private readonly window: HotkeyWindow,
 		private readonly registry: ShortcutRegistry = electronShortcutRegistry(),
 		private readonly reader: HotkeyClipboardReader = electronClipboard
 	) {}
+
+	// Notified after any registration-state change (enable, disable, chord
+	// swap, conflict) so UI surfaces like the tray stay honest.
+	onStateChange(hook: (() => void) | null): void {
+		this.stateChangeHook = hook
+	}
+
+	private notifyStateChange(): void {
+		this.stateChangeHook?.()
+	}
 
 	// Applies the desired state from settings. A chord swap unregisters the
 	// previous one first; register() returning false means another app owns
@@ -70,14 +83,21 @@ export class HotkeyService {
 				this.registry.unregister(this.current)
 				this.current = null
 			}
+			this.notifyStateChange()
 			return
 		}
 		if (this.current === accelerator && this.registry.isRegistered(accelerator)) return
 		if (this.registry.register(accelerator, () => this.handleTrigger())) {
 			this.current = accelerator
+			this.notifyStateChange()
 			return
 		}
 		this.current = accelerator
+		this.notifyStateChange()
+	}
+
+	getWindow(): HotkeyWindow {
+		return this.window
 	}
 
 	getState(): HotkeyState {
@@ -85,16 +105,22 @@ export class HotkeyService {
 	}
 
 	handleTrigger(): void {
-		if (!this.current || !this.registry.isRegistered(this.current)) return
+		if (!this.current || !this.registry.isRegistered(this.current)) {
+			log.warn('[hotkey] trigger ignored — chord not registered', {current: this.current})
+			return
+		}
 		let text = ''
 		try {
 			text = this.reader.readText()
-		} catch {
+		} catch (err) {
+			log.warn('[hotkey] clipboard read failed', err)
 			text = ''
 		}
+		const trigger = classifyHotkeyClipboard(text)
+		log.info('[hotkey] trigger dispatched to renderer', {kind: trigger.kind, chars: text.length})
 		// The renderer stays alive while hidden (only occluded/blur throttling
 		// applies), so the trigger flows identically in both cases.
-		this.window.send(IPC_CHANNELS.eventsHotkeyTrigger, classifyHotkeyClipboard(text))
+		this.window.send(IPC_CHANNELS.eventsHotkeyTrigger, trigger)
 	}
 
 	dispose(): void {

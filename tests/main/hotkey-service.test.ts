@@ -27,6 +27,7 @@ function makeWindow(): HotkeyWindow & {sent: Array<{channel: string; payload: un
 		sent,
 		isVisible: () => true,
 		isFocused: () => true,
+		isMinimized: () => false,
 		isDestroyed: () => false,
 		send: (channel, payload) => {
 			sent.push({channel, payload})

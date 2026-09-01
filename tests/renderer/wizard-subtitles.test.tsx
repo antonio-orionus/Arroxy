@@ -196,8 +196,8 @@ describe('Wizard subtitle step — store behavior', () => {
 
 		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
 		expect(queue).toHaveLength(1)
-		expect(queue[0].job.subtitles?.languages).toEqual(['en', 'es'])
-		expect(queue[0].job.subtitles?.writeAuto).toBe(false)
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.languages).toEqual(['en', 'es'])
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.writeAuto).toBe(false)
 	})
 
 	it('buildQueueItem derives writeAutoSubs: true when a selected lang is auto-only', async () => {
@@ -223,7 +223,7 @@ describe('Wizard subtitle step — store behavior', () => {
 		await useAppStore.getState().addToQueue()
 
 		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
-		expect(queue[0].job.subtitles?.writeAuto).toBe(true)
+		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.writeAuto).toBe(true)
 	})
 
 	it('persistFormatPrefs saves subtitle language prefs to settings', async () => {
@@ -299,8 +299,8 @@ describe('Wizard subtitle step — store behavior', () => {
 		await useAppStore.getState().addToQueue()
 
 		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
-		expect(item.job.subtitles?.mode).toBe('subfolder')
-		expect(item.job.subtitles?.format).toBe('vtt')
+		expect((item.job as Extract<typeof item.job, {kind: 'single-format'}>).subtitles?.mode).toBe('subfolder')
+		expect((item.job as Extract<typeof item.job, {kind: 'single-format'}>).subtitles?.format).toBe('vtt')
 	})
 
 	it('persistFormatPrefs saves lastSubtitleMode and lastSubtitleFormat', async () => {

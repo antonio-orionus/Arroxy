@@ -42,6 +42,8 @@ function makeDeps() {
 	const mainWindow = {isDestroyed: vi.fn().mockReturnValue(false), webContents: {send: vi.fn()}, minimize: vi.fn(), maximize: vi.fn(), unmaximize: vi.fn(), close: vi.fn(), isMaximized: vi.fn().mockReturnValue(false)}
 	const queueService = Object.assign(new EventEmitter(), {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),
+		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
+		onProbeAbort: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -68,6 +70,7 @@ function makeDeps() {
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
 		hotkeyService: hotkeyService as never,
+		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}

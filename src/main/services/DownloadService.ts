@@ -9,7 +9,7 @@ import {createAppError} from '@main/utils/errorFactory.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {STATUS_KEY, type QueueArtifactKind} from '@shared/schemas.js'
 import {MAX_CONCURRENT_DOWNLOADS} from '@shared/constants.js'
-import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, QueueArtifactEvent, QueueResumeContext, RecentJob, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
+import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, QueueArtifactEvent, QueueResumeContext, RecentJob, ResolvedStartDownloadInput, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {YtDlp} from './YtDlp.js'
 import {AsyncStack} from './phases/index.js'
@@ -75,6 +75,11 @@ export class DownloadService extends EventEmitter {
 	}
 
 	async start(input: StartDownloadInput): Promise<Result<StartDownloadOutput>> {
+		// A probe-stage placeholder never describes a runnable download; the
+		// scheduler never hands one over, so reaching this is a wiring bug.
+		if (input.job.kind === 'unresolved') {
+			return fail(createAppError('validation', 'cannot start a download with an unresolved (probe-stage) job'))
+		}
 		if (!input.outputDir) {
 			return fail(createAppError('validation', 'outputDir is required'))
 		}
@@ -88,7 +93,7 @@ export class DownloadService extends EventEmitter {
 		const expectedBytes = preparedJob.kind === 'single-format' ? preparedJob.expectedBytes : undefined
 		const job: DownloadJob = {id: randomUUID(), url: input.url, outputDir: input.outputDir, expectedBytes, status: 'running', createdAt: now, updatedAt: now}
 		const controller = new AbortController()
-		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: input.tempDir, disposables: new AsyncStack()}
+		const active: ActiveDownload = {job, input: input as ResolvedStartDownloadInput, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: input.tempDir, disposables: new AsyncStack()}
 		this.registerInputTempDirCleanup(active)
 		this.activeJobs.set(job.id, active)
 		logger.info('Download job created', {jobId: job.id, url: job.url, outputDir: job.outputDir, kind: preparedJob.kind})

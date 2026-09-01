@@ -69,6 +69,16 @@ describe('intakeHotkeyTrigger', () => {
 		expect(run({kind: 'single', url: URL}, {queue})).toEqual({kind: 'outcome', outcome: 'already-queued'})
 	})
 
+	it('treats a probing placeholder as live: same URL is already-queued, not busy', () => {
+		const queue = [queueItem({status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]
+		expect(run({kind: 'single', url: URL}, {queue})).toEqual({kind: 'outcome', outcome: 'already-queued'})
+	})
+
+	it('lets a different URL run while another hotkey probe is in flight', () => {
+		const queue = [queueItem({status: 'probing', url: 'https://other.example/in-flight', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]
+		expect(run({kind: 'single', url: URL}, {queue})).toMatchObject({kind: 'run', url: URL})
+	})
+
 	it('ignores youtu.be/watch URL-shape differences only via cleanUrl, not canonical IDs (known v1 limitation)', () => {
 		const queue = [queueItem({status: 'paused-active', url: 'https://youtu.be/one'})]
 		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one'}, {queue})).toMatchObject({kind: 'run'})

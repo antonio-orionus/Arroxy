@@ -58,7 +58,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			resume: vi.fn().mockResolvedValue(ok({resumed: false}))
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok(settings)), update: vi.fn().mockResolvedValue(ok(settings))},
-		hotkey: {reportOutcome: vi.fn().mockResolvedValue(undefined)},
+		hotkey: {reportOutcome: vi.fn().mockResolvedValue(undefined), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(undefined)},
 		shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: vi.fn().mockResolvedValue(ok({opened: true})), openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 		logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true})), uploadFeedbackDiagnostic: vi.fn(({reportId}: {reportId: string}) => Promise.resolve(ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)})))},
 		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
@@ -75,6 +75,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			cmd: {
 				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id)}))),
 				getSnapshot: vi.fn().mockResolvedValue(ok({items: [] as import('@shared/types.js').QueueItem[], schedulerPaused: false})),
+				probeFailed: vi.fn().mockResolvedValue(ok(undefined)),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),

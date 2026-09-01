@@ -58,7 +58,7 @@ export type {
 } from './schemas.js'
 
 export type {StatusKey} from './schemas.js'
-export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomePayload, HotkeyTriggerPayload} from './schemas.js'
+export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomePayload, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
 import type {
@@ -373,6 +373,10 @@ export interface ProbeInput {
 	// Probe-time scope for playlist/channel/search enumeration. Downloads still
 	// split into Arroxy queue items after this filtered flat probe.
 	playlistScope?: PlaylistScope
+	// Optional cancellation key: lets the caller abort exactly this probe
+	// later (probeCancel(key)) without touching other in-flight probes —
+	// hotkey probing rows key on their queue item id.
+	ownerKey?: string
 }
 
 export type ProbeDegradationReason = 'botWall' | 'extractor'
@@ -556,6 +560,10 @@ export interface StartDownloadInput {
 	// The IPC start schema intentionally does not accept this from the renderer.
 	probeInfoJsonPath?: string
 }
+
+// The narrowed shape once DownloadService.start() has refused the unresolved
+// probe-stage placeholder — the only shape phases ever observe.
+export type ResolvedStartDownloadInput = StartDownloadInput & {job: Exclude<PreparedJob, {kind: 'unresolved'}>}
 
 export interface StartDownloadOutput {
 	job: DownloadJob

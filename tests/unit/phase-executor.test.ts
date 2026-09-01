@@ -3,7 +3,7 @@ import {PhaseExecutor} from '@main/services/phases/PhaseExecutor.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {Phase, PhaseContext, PhaseOutcome, ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, LocalizedError, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, LocalizedError, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
@@ -15,7 +15,7 @@ function makeJob(id = 'job-1'): DownloadJob {
 }
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
-	const input: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: DEFAULT_JOB}
+	const input: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: DEFAULT_JOB as Extract<PreparedJob, {kind: 'single-format'}>}
 	return {
 		job: makeJob(),
 		input,

@@ -3,7 +3,7 @@ import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
-import type {DownloadJob, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
@@ -20,7 +20,7 @@ function makeJob(): DownloadJob {
 const BASE_SUBS = {languages: ['en'], mode: 'sidecar' as const, format: 'srt' as const, writeAuto: false}
 const BASE_JOB: PreparedJob = {kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', subtitles: BASE_SUBS}
 
-const BASE_INPUT: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
+const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
 
 function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 	return {

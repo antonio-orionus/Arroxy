@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "የአቃፊ መምረጫን መክፈት አልተቻለም።"
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "ቀድሞ በወረፋ ውስጥ ነው — ቅጂ አልተጨመረም"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "አሁንም በቀድሞው አገናኝ ላይ እየሰራን ነው"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "በቅጂ ሰሌዳ ላይ አገናኝ የለም — መጀመሪያ አንዱን ይቅዱ"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "ብዙ አገናኞች ተቀድተዋል — በArroxy ውስጥ «ብዙ URLዎች»ን ይጠቀሙ"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "ይህ አገናኝ አጭር ማረጋገጫ ያስፈልገዋል — Arroxyን ክፈተው እንደገና ይላኩ"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "ከቅጂ ሰሌዳ ማውረጃ ተጨምሯል"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "ያ አገናኝ ማከል አልተቻለም — በArroxy ውስጥ እንደገና ይሞክሩ"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "ያ አቃፊ ለዚህ የአጫዋች ዝርዝር መጠቀም አይቻልም።"
@@ -602,6 +630,10 @@ msgstr "ቆሟል"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "በመጠበቅ ላይ"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "ዝርዝሮች በመ 가져오는 ላይ"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "አሳንስ"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "መልስ"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "ከቅጂ ሰሌዳ ይውረዱ"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "ደረጃ-በደረጃ አጋዥ። ቅርጸት፣ ጥራት እና ሌ
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "ከURL አውርድ"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "አቋራጩን ቀይር"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "ቁልፎችን ይታጠፉ…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "የተቀዱትን አገናኞች ከማንኛውም መተግበሪያ ያለ Arroxy መክፈት ያውርዱ።"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "አለም አቀፍ ፈጣን ቁልፍ"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "ፈትሽ"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "አለም አቀፍ ፈጣን ቁልፍ አንቃ"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "በቅጂ ሰሌዳው ላይ የቪዲዮ አገናኝ ሲኖር አቋራጩን ይታጠፉ።"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

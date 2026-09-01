@@ -1,9 +1,12 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {hotkeyOutcomePayloadSchema, updateSettingsSchema} from '@shared/schemas.js'
+import type {SupportedLang} from '@shared/schemas.js'
 import {ok} from '@shared/result.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
+import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
+import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import {NORMAL_LANE_CAP} from '@shared/constants.js'
 import {setAnalyticsEnabled} from '@main/services/analytics.js'
@@ -14,16 +17,27 @@ interface SettingsHandlerDeps {
 	clipboardWatcher: ClipboardWatcher
 	queueService: QueueService
 	hotkeyService: HotkeyService
+	osNotifier: HotkeyOsNotifier | null
+	languageRef: {current: SupportedLang}
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService} = deps
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService, osNotifier, languageRef} = deps
 
 	handleRaw(IPC_CHANNELS.hotkeyReportOutcome, async (_payload: unknown, raw: unknown) => {
 		const parsed = hotkeyOutcomePayloadSchema.safeParse(raw)
-		if (!parsed.success) return toUnknownFailure(new Error('hotkey:reportOutcome payload failed validation'))
-		// Feedback routing (toast vs OS notification) happens in Phase 3; the
-		// service already logged nothing and must stay silent here.
+		if (!parsed.success) return Promise.resolve(toUnknownFailure(new Error('hotkey:reportOutcome payload failed validation')))
+		routeHotkeyOutcome(parsed.data, {lang: languageRef.current, window: hotkeyService.getWindow(), osNotifier: osNotifier})
+		return Promise.resolve(ok(undefined))
+	})
+
+	handleRaw(IPC_CHANNELS.hotkeyGetState, async () => Promise.resolve(ok(hotkeyService.getState())))
+
+	// Settings "Test" button: fires the exact trigger pipeline the real chord
+	// runs (clipboard read → pre-classify → renderer ack), so the button proves
+	// the registered chord works end to end.
+	handleRaw(IPC_CHANNELS.hotkeyTestPress, async () => {
+		hotkeyService.handleTrigger()
 		return Promise.resolve(ok(undefined))
 	})
 

@@ -52,7 +52,8 @@
 		"taskkill",
 		"ditto",
 		"robocopy",
-		"hdiutil"
+		"hdiutil",
+		"terminal-notifier"
 	],
   "ignoreUnresolved": [
     "~icons/.*"

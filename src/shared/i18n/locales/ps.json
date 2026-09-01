@@ -201,6 +201,16 @@
 				"dismissCopiedLink": "کاپي شوی لینک بند کړه",
 				"dialog": {"cancelButton": "لغوه کړه"}
 			},
+			"hotkey": {
+				"sectionTitle": "نړیوال هاټ کی",
+				"sectionDescription": "هر کاپي شوی لینک له هرې اپلیکیشن څخه ډاونلوډ کړئ، پرته له دې چې Arroxy پرانیزئ.",
+				"toggle": "نړیوال هاټ کي فعاله کړئ",
+				"toggleDescription": "کله چې په کاپي بورد کې د ویډیو لینک وي، شارټکټ کېکاږئ.",
+				"changeShortcut": "شارټکټ بدل کړئ",
+				"recording": "کیليونه کېکاږئ…",
+				"test": "ازمویل",
+				"conflict": "دا شارټکټ بلې اپلیکیشن نیولی — بل یې وټاکه."
+			},
 			"cookies": {
 				"sourceLabel": "د کوکیزو سرچینه",
 				"sourceOff": "بند",
@@ -538,6 +548,7 @@
 			"openDestinationFolder": "د مقصد پوښۍ پرانیزئ",
 			"remove": "لیرې کول",
 			"pullNow": "اوس ډاونلوډ — قطار پرېږدئ",
+			"statusProbing": "جزییات راوړل کېږي",
 			"statusPending": "په تمه",
 			"statusRunning": "ډاونلوډ کېږي",
 			"statusHeld": "ساتل شوی",
@@ -595,7 +606,16 @@
 		"folderSelectFailed": "د پوښۍ ټاکونکی نه شو پرانیستل کېدی.",
 		"playlistFolderRejected": "هغه پوښۍ د دې غږیز لړ لپاره نه شي کارېدی.",
 		"filenameFolderTooDeep": "دا پوښۍ ستاسو د سیسټم لپاره ډېره ژوره ده. ښکته کول بیا هم ناکام کېدی شي — لنډه پوښۍ وټاکئ.",
-		"filenameTemplateCannotFit": "د دې ویډیو نوم ستاسو د بېلګې په هره برخه کې نه ځایېږي، نو ځکه اصلي نوم وکارول شو."
+		"filenameTemplateCannotFit": "د دې ویډیو نوم ستاسو د بېلګې په هره برخه کې نه ځایېږي، نو ځکه اصلي نوم وکارول شو.",
+		"hotkey": {
+			"queued": "له کاپي بورد څخه ډاونلوډ اضافه شو",
+			"alreadyQueued": "لا دمخې کې شته — کاپي نه ده اضافه شوې",
+			"invalidClipboard": "په کاپي بورد کې لینک نشته — لومړی یو کاپي کړئ",
+			"multipleUrls": "ډېر لینکونه کاپي شوي دي — په Arroxy کې «ډېر URLونه» وکاروئ",
+			"needsReview": "دا لینک چټکې بیاکتنې ته اړتیا لري — Arroxy خلاص کړئ او بیا یې پیسټ کړئ",
+			"busy": "پخوانی لینک لا تراوسه پروسس کیږي",
+			"submissionFailed": "دا لینک اضافه نشو کیدی — په Arroxy کې بیا هڅه وکړئ"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -636,7 +656,7 @@
 		"mp4Cap": "په YouTube کې له 1080p پورته H.264 نشته — په اتومات ډول 1080p ته محدودېږي"
 	},
 	"formatLabel": {"audioFallback": "غږ", "audioOnlyDot": "یوازې غږ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "بیکار", "statusActive_one": "1 ډاونلوډیږي · {{percent}}%", "statusActive_other": "{{count}} ډاونلوډیږي · {{percent}}%", "open": "Arroxy پرانیستل", "quit": "Arroxy پریښودل"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "بیکار", "statusActive_one": "1 ډاونلوډیږي · {{percent}}%", "statusActive_other": "{{count}} ډاونلوډیږي · {{percent}}%", "downloadFromClipboard": "له کاپي بورد څخه ډاونلوډ", "open": "Arroxy پرانیستل", "quit": "Arroxy پریښودل"}},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} ډاونلوډ روان دی",

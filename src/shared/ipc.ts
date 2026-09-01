@@ -31,6 +31,7 @@ export const IPC_CHANNELS = {
 	// queue-of-record; renderer mutations are forbidden.
 	queueCmdAdd: 'queue:cmd:add',
 	queueCmdGetSnapshot: 'queue:cmd:getSnapshot',
+	queueCmdProbeFailed: 'queue:cmd:probeFailed',
 	queueCmdStart: 'queue:cmd:start',
 	queueCmdPause: 'queue:cmd:pause',
 	queueCmdResume: 'queue:cmd:resume',
@@ -58,6 +59,8 @@ export const IPC_CHANNELS = {
 	eventsHotkeyTrigger: 'events:hotkeyTrigger',
 	eventsHotkeyOutcome: 'events:hotkeyOutcome',
 	hotkeyReportOutcome: 'cmd:hotkeyReportOutcome',
+	hotkeyGetState: 'cmd:hotkeyGetState',
+	hotkeyTestPress: 'cmd:hotkeyTestPress',
 	analyticsTrack: 'analytics:track',
 	diagnosticsLogWizardStep: 'diagnostics:logWizardStep',
 	warmupProgress: 'warmup:progress',

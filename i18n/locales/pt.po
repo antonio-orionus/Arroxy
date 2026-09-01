@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Não foi possível abrir o seletor de pastas."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Já está na fila — nenhuma cópia adicionada"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Ainda processando o link anterior"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Não há link na área de transferência — copie um primeiro"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Vários links copiados — use “URLs em lote” no Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Esse link precisa de uma verificação rápida — abra o Arroxy e cole-o novamente"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Download adicionado da área de transferência"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Não foi possível adicionar esse link — tente novamente no Arroxy"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Essa pasta não pode ser usada para esta playlist."
@@ -602,6 +630,10 @@ msgstr "Pausado"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Aguardando"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Buscando detalhes"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Minimizar"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Restaurar"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Baixar da área de transferência"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "Assistente passo a passo. Escolha formato, qualidade e mais."
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "Baixar por URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Alterar atalho"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Este atalho já está em uso por outro app — escolha outro."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Pressione as teclas…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Baixe qualquer link que copiar, de qualquer app, sem abrir o Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Atalho global"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testar"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Ativar atalho global"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Pressione o atalho com um link de vídeo na área de transferência."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

@@ -299,6 +299,34 @@ msgctxt "notifications.folderSelectFailed"
 msgid "Could not open the folder picker."
 msgstr "Jild tanlagichni ochib bo'lmadi."
 
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Allaqachon navbatda — nusxa qo'shilmadi"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Oldingi havola hali ishlanmoqda"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Vaqtinchalik buferda havola yo'q — avval birini nusxalang"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Bu havola tezkor tekshiruvni talab qiladi — Arroxy'ni ochib qayta joylang"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Yuklab olish navbatga qo'shildi"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
+
 msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi."
@@ -602,6 +630,10 @@ msgstr "Pauzada"
 msgctxt "queue.item.statusPending"
 msgid "Waiting"
 msgstr "Kutilmoqda"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Tafsilotlar olinmoqda"
 
 msgctxt "queue.item.statusRunning"
 msgid "Downloading"
@@ -978,6 +1010,10 @@ msgstr "Kichraytirish"
 msgctxt "titleBar.restore"
 msgid "Restore"
 msgstr "Tiklash"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Vaqtinchalik buferdan yuklab olish"
 
 msgctxt "tray.menu.open"
 msgid "Open Arroxy"
@@ -2700,6 +2736,38 @@ msgstr "Bosqichma-bosqich yordamchi. Format, sifat va boshqalarni tanlang."
 msgctxt "wizard.url.heading"
 msgid "Download from URL"
 msgstr "URL orqali yuklab olish"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Tez tugmani o‘zgartirish"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Tugmalarni bosing…"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Nusxa olingan havolani, Arroxy ochmasdan, istalgan ilovadan yuklab oling."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Global tez tugma"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Sinash"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Global tez tugmani yoqish"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Buferda video havolasi bo‘lganda tez tugmani bosing."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"

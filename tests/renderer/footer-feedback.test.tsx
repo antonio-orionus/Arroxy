@@ -31,7 +31,7 @@ const mockAppApi = {
 		resume: vi.fn().mockResolvedValue(ok({resumed: false}))
 	},
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
-	hotkey: {reportOutcome: vi.fn().mockResolvedValue(undefined)},
+	hotkey: {reportOutcome: vi.fn().mockResolvedValue(undefined), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(undefined)},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
@@ -48,6 +48,7 @@ const mockAppApi = {
 		cmd: {
 			add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
 			getSnapshot: vi.fn().mockResolvedValue({ok: true, data: {items: [], schedulerPaused: false}}),
+			probeFailed: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),

@@ -2,7 +2,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {JobLifecycle} from '@main/services/JobLifecycle.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {ActiveJob} from '@main/services/phases/types.js'
-import type {DownloadJob, StartDownloadInput} from '@shared/types.js'
+import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 
@@ -16,7 +16,7 @@ function makeJob(): DownloadJob {
 
 function makeActive(disposableFns: (() => Promise<void> | void)[] = []): ActiveJob {
 	const controller = new AbortController()
-	const input: StartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: PREPARED}
+	const input: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: PREPARED as Extract<PreparedJob, {kind: 'single-format'}>}
 	const stack = new AsyncStack()
 	for (const fn of disposableFns) {
 		stack.defer(async () => {
