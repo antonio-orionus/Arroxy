@@ -102,4 +102,13 @@ describe('DownloadProfileDraft', () => {
 		expect(profile).toMatchObject({id: 'profile-id', name: 'Study Captions', media: {kind: 'subtitles-only'}, subtitles: {enabled: true, languages: ['en', 'uk']}, output: {kind: 'fixed', dir: '/courses'}, subfolder: {enabled: true, name: 'Study Captions'}, createdAt: NOW, updatedAt: NOW})
 		expect('playlistProbeCap' in profile).toBe(false)
 	})
+
+	it('opens the editor for a profile saved before filename templates existed', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const {filename: _filename, ...legacy} = balanced
+
+		const draft = createDownloadProfileDraft(legacy as DownloadProfile)
+
+		expect(draft.filenameTemplate).toBe('')
+	})
 })

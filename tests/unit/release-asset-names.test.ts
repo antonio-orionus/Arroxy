@@ -1,6 +1,7 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vitest'
+import {WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 
 const root = process.cwd()
 
@@ -15,6 +16,7 @@ interface ElectronBuilderDmgConfig {
 }
 
 interface ElectronBuilderConfig {
+	appId?: string
 	dmg?: ElectronBuilderDmgConfig
 }
 
@@ -67,6 +69,53 @@ describe('release asset names', () => {
 		expect(afterPack).toContain('context.packager.config.electronFuses = null')
 		expect(afterPack.indexOf('context.packager.addElectronFuses(context, fuseConfig)')).toBeLessThan(afterPack.indexOf('fs.renameSync(execPath, realBin)'))
 		expect(afterPack).toContain('--no-sandbox')
+	})
+
+	it('ad-hoc signs the macOS bundle under the app id so OS notifications are attributed', () => {
+		const afterPack = read('build/afterPack.mjs')
+
+		// Prebuilt Electron arrives linker-signed under the identifier "Electron".
+		// Without a re-sign, macOS attributes notifications to that identity —
+		// permanently unauthorized — so UNUserNotificationCenter silently drops
+		// every post and never shows the one-time permission prompt.
+		expect(afterPack).toContain('codesign')
+		expect(afterPack).toContain('--identifier')
+		expect(afterPack).toContain('context.packager.appInfo.id')
+		// @electron/fuses rewrites the Mach-O and resets the ad-hoc signature, so
+		// the re-sign must come after the fuse flip, not before.
+		expect(afterPack.indexOf('addElectronFuses')).toBeLessThan(afterPack.indexOf('codesign'))
+	})
+
+	it('sets the Windows AppUserModelID to the same appId the NSIS shortcut registers', () => {
+		const config = JSON.parse(read('electron-builder.json5')) as ElectronBuilderConfig
+		const main = read('src/main/index.ts')
+
+		// electron-builder's NSIS installer stamps the Start Menu shortcut with
+		// `WinShell::SetLnkAUMI "$newStartMenuLink" "${APP_ID}"`. Windows matches a
+		// toast against the AUMID the *process* declares, so if main never calls
+		// setAppUserModelId the implicit exe-derived id will not match that
+		// shortcut and every toast is dropped without an error.
+		expect(WINDOWS_APP_USER_MODEL_ID).toBe(config.appId)
+		expect(main).toContain('app.setAppUserModelId(WINDOWS_APP_USER_MODEL_ID)')
+	})
+
+	it('gates the Defender scan before release day rather than during it', () => {
+		const installer = read('.github/workflows/installer-smoke.yml')
+
+		// The scan protects against a flagged third-party binary reaching users.
+		// But the pinned ffmpeg is already scanned, so the only way it fires on a
+		// tag is Microsoft's classifier changing its mind about a binary that
+		// passed last week — nothing in the repo changed. Failing there strands a
+		// draft release that already holds the macOS and Linux assets, so on tags
+		// it warns and on every other ref it blocks.
+		expect(installer).toContain('scan-windows-defender.ps1')
+		expect(installer).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}")
+		// A schedule is what actually catches definition drift, early and cheaply.
+		expect(installer).toContain('schedule:')
+		// Rebuilding against a different ffmpeg must not need a source edit and a
+		// re-tag — that was the only recovery path a blocking release-day gate left.
+		expect(installer).toContain('btbn_release_tag')
+		expect(installer).toContain('BTBN_RELEASE_TAG: ${{ inputs.btbn_release_tag }}')
 	})
 
 	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {

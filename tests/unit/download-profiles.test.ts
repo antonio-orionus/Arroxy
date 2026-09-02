@@ -13,6 +13,7 @@ import {
 	resolveDownloadProfileBaseDir,
 	resolveDownloadProfile,
 	resolveDownloadProfileOutputDir,
+	resolveFilenameTemplate,
 	saveDownloadProfileToPrefs
 } from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
@@ -214,5 +215,17 @@ describe('download profiles', () => {
 
 		expect(resolved.spec?.audioConvert).toEqual({target: 'wav'})
 		expect(downloadProfileLabel(profile)).toBe('Audio only · WAV')
+	})
+
+	// A profile persisted before filename templates existed has no `filename`
+	// at all. Startup normalization fills it in, but this must not be the only
+	// line of defence — the deref used to throw and take Quick Download with it.
+	it('falls back to the global template when a profile carries no filename field', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const {filename: _filename, ...legacy} = balanced
+		const profile = legacy as DownloadProfile
+
+		expect(resolveFilenameTemplate(profile, '{title}')).toBe('{title}')
+		expect(() => resolveFilenameTemplate(profile, undefined)).not.toThrow()
 	})
 })

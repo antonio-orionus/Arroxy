@@ -183,7 +183,11 @@ export function resolveDownloadProfileOutputDir(profile: DownloadProfile, contex
  * compilation happens at queue-submission time.
  */
 export function resolveFilenameTemplate(profile: DownloadProfile | undefined, globalTemplate: string | undefined): string {
-	if (profile?.filename.kind === 'custom') return profile.filename.template
+	// `filename` is optional at runtime even though the type says otherwise: a
+	// profile persisted before templates existed has no such field until startup
+	// normalization fills it in. Degrade to the global template rather than
+	// throwing — this deref used to take Quick Download down with it.
+	if (profile?.filename?.kind === 'custom') return profile.filename.template
 	// An empty or whitespace-only stored value must fall through to the default,
 	// which `??` would not do — hence the explicit length check.
 	const trimmed = globalTemplate?.trim() ?? ''

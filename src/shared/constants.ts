@@ -4,6 +4,13 @@ import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
 export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 
+// Windows AppUserModelID. Must stay identical to `appId` in electron-builder.json5:
+// the NSIS installer stamps that value onto the Start Menu shortcut, and Windows
+// only renders a toast whose declared AUMID matches a registered shortcut. A
+// mismatch drops every notification silently. Pinned by a test in
+// tests/unit/release-asset-names.test.ts.
+export const WINDOWS_APP_USER_MODEL_ID = 'com.arroxy.app'
+
 // Defaults — single source. Anywhere that needs a fallback for a missing field
 // (initial state, persistence migration, test fixtures, IPC fallback) must
 // import from here so changes propagate everywhere.

@@ -1,10 +1,15 @@
 import {randomUUID} from 'node:crypto'
 import Store from 'electron-store'
-import type {AppSettings, CommonSettings, SinglePrefs} from '@shared/types.js'
+import log from 'electron-log/main.js'
+import type {ZodError} from 'zod'
+import type {AppSettings, CommonSettings, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, SinglePrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
-import {downloadProfilesPrefsSchema} from '@shared/schemas.js'
+import {DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {downloadProfileRefSchema, downloadProfileSchema} from '@shared/schemas.js'
 
 export type {SettingsPatch}
+
+const logger = log.scope('settings')
 
 const COMMON_FLAT_KEYS = [
 	'defaultOutputDir',
@@ -114,6 +119,59 @@ function deepMerge(base: AppSettings, patch: SettingsPatch, defaults: AppSetting
 	return {common: mergeCommon(base.common, patch.common), single: {...base.single, ...(patch.single ?? {})}, playlist: {...base.playlist, ...(patch.playlist ?? {})}, profiles: {...baseProfiles, ...(patch.profiles ?? {})}}
 }
 
+function profileIdOf(value: unknown): string | null {
+	if (typeof value !== 'object' || value === null) return null
+	const id = (value as {id?: unknown}).id
+	return typeof id === 'string' ? id : null
+}
+
+function issuePaths(error: ZodError): string[] {
+	return error.issues.map(issue => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
+}
+
+function parseProfileList(value: unknown, bucket: 'custom' | 'overrides'): DownloadProfile[] {
+	if (!Array.isArray(value)) {
+		if (value !== undefined) logger.warn('Discarded download profile bucket that is not an array', {bucket, type: typeof value})
+		return []
+	}
+	return value.flatMap((item, index) => {
+		const parsed = downloadProfileSchema.safeParse(item)
+		if (parsed.success) return [parsed.data]
+		logger.warn('Dropped invalid download profile', {bucket, index, id: profileIdOf(item), issues: issuePaths(parsed.error)})
+		return []
+	})
+}
+
+/**
+ * Validate persisted download profiles one entry at a time.
+ *
+ * A whole-object parse is all-or-nothing: a single unparseable profile — one
+ * written by a newer build, or hand-edited — would silently discard every other
+ * profile plus the active selection. Dropping only the offending entry keeps the
+ * rest, and the warn lines name what was lost and why.
+ *
+ * Schema defaults are what repair a profile persisted before a field existed
+ * (`filename` on any profile saved before 0.4.5), so parsing here is also the
+ * migration.
+ */
+function normalizePersistedProfiles(source: DownloadProfilesPrefs | undefined): DownloadProfilesPrefs {
+	const custom = parseProfileList(source?.custom, 'custom')
+	const overrides = parseProfileList(source?.overrides, 'overrides')
+	const parsedActive = downloadProfileRefSchema.safeParse(source?.active)
+	if (!parsedActive.success) {
+		if (source?.active !== undefined) logger.warn('Reset unreadable active download profile reference', {issues: issuePaths(parsedActive.error)})
+		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides}
+	}
+	const active: DownloadProfileRef = parsedActive.data
+	// A dangling custom reference resolves to the default profile at read time
+	// anyway; resetting it here keeps disk and UI telling the same story.
+	if (active.kind === 'custom' && !custom.some(profile => profile.id === active.id)) {
+		logger.warn('Active download profile no longer exists — falling back to the default', {id: active.id})
+		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides}
+	}
+	return {active, custom, overrides}
+}
+
 export class SettingsStore {
 	// electron-store types are pinned to AppSettings, but the on-disk file may
 	// hold the legacy flat shape until the first read. Cast at the boundary.
@@ -125,6 +183,7 @@ export class SettingsStore {
 		this.defaults = defaults
 		this.maybeMigrate()
 		this.ensureInstallId()
+		this.logProfileSummary()
 	}
 
 	// Guarantee a per-install UUID for telemetry (OpenPanel `profileId`).
@@ -143,16 +202,34 @@ export class SettingsStore {
 		const isLegacy = isLegacyShape(raw)
 		const baseline: AppSettings = isLegacy ? migrateFlatToNested(raw, this.defaults) : this.store.store
 		const profileSource = baseline.profiles ?? this.defaults.profiles
-		const parsedProfiles = downloadProfilesPrefsSchema.safeParse(profileSource)
-		const profiles = parsedProfiles.success ? parsedProfiles.data : this.defaults.profiles
+		const profiles = normalizePersistedProfiles(profileSource)
 		const profilesMigrated = JSON.stringify(profiles) !== JSON.stringify(profileSource)
 		const withDefaults: AppSettings = {...baseline, profiles}
 		const cookiesMigrated: AppSettings = {...withDefaults, common: migrateCookiesMode(withDefaults.common)}
-		if (!isLegacy && !profilesMigrated && cookiesMigrated.common === withDefaults.common) return
+		const cookiesMigratedShape = cookiesMigrated.common !== withDefaults.common
+		if (!isLegacy && !profilesMigrated && !cookiesMigratedShape) return
+		logger.info('Settings migrated', {legacyFlatShape: isLegacy, profilesNormalized: profilesMigrated, cookiesModeMigrated: cookiesMigratedShape})
 		// Replace the entire on-disk shape with the migrated one. Wiping any
 		// legacy flat keys first prevents both shapes from coexisting on disk.
 		this.store.clear()
 		this.store.set(cookiesMigrated)
+	}
+
+	// Startup snapshot of the settings that shape a download but never appear in
+	// any later log line. A profile override is invisible in the job logs, so a
+	// bug that only reproduces under a customized profile is otherwise
+	// undiagnosable from a user's main.log. Ids and counts only — no paths,
+	// templates, or install identifiers.
+	private logProfileSummary(): void {
+		const {common} = this.store.store
+		const profiles = this.store.store.profiles ?? this.defaults.profiles
+		logger.info('Settings loaded', {
+			activeProfile: profiles.active,
+			customProfiles: profiles.custom.map(profile => profile.id),
+			overriddenBuiltins: profiles.overrides.map(profile => profile.id),
+			profilesWithCustomFilename: [...profiles.custom, ...profiles.overrides].filter(profile => profile.filename?.kind === 'custom').map(profile => profile.id),
+			hasGlobalFilenameTemplate: (common.filenameTemplate ?? '').trim().length > 0
+		})
 	}
 
 	async get(): Promise<AppSettings> {

@@ -1,6 +1,6 @@
 import {afterEach, describe, expect, it, vi} from 'vitest'
 
-import {btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, resolveBtbnAsset, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
+import {BTBN_PINNED_RELEASE_TAG, btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, resolveBtbnAsset, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
 
 function release(tagName: string, assetNames: string[], draft = false): BtbnRelease {
 	return {tagName, draft, assets: assetNames.map(name => ({name, browserDownloadUrl: `https://example.invalid/${tagName}/${name}`}))}
@@ -92,6 +92,31 @@ describe('BtbN release resolver', () => {
 		expect(() => windowsPathToFileUrl('relative\\path.ts')).toThrow('Invalid Windows path')
 	})
 
+	// Floating to "whatever BtbN published this morning" made releases
+	// irreproducible and shipped an unreviewed binary straight to users: the
+	// 2026-09-01 autobuild's ffprobe.exe trips Defender's ML classifier
+	// (Trojan:Win32/Wacatac.B!ml, BtbN/FFmpeg-Builds#646) and is quarantined on
+	// install, which breaks probing. The embedded ffmpeg is now a reviewed pin.
+	it('resolves the pinned release by tag rather than whatever is newest', async () => {
+		const fetchMock = vi.fn<typeof fetch>(
+			async () =>
+				new Response(
+					JSON.stringify({
+						tag_name: BTBN_PINNED_RELEASE_TAG,
+						assets: [
+							{name: 'checksums.sha256', browser_download_url: 'https://example.invalid/checksums.sha256'},
+							{name: 'ffmpeg-N-124941-g54749da98a-linux64-gpl-shared.tar.xz', browser_download_url: 'https://example.invalid/archive.tar.xz'}
+						]
+					})
+				)
+		)
+		vi.stubGlobal('fetch', fetchMock)
+
+		await expect(resolveBtbnAsset('linux64', 'tar.xz', {})).resolves.toMatchObject({tagName: BTBN_PINNED_RELEASE_TAG})
+
+		expect(fetchMock.mock.calls[0]?.[0]).toBe(`https://api.github.com/repos/BtbN/FFmpeg-Builds/releases/tags/${BTBN_PINNED_RELEASE_TAG}`)
+	})
+
 	it('authenticates BtbN API calls only with the dedicated token env var', () => {
 		expect(githubHeaders({BTBN_GITHUB_TOKEN: 'btbn-token'})).toMatchObject({Authorization: 'Bearer btbn-token'})
 		expect(githubHeaders({GITHUB_TOKEN: 'generic-token'})).not.toHaveProperty('Authorization')
@@ -114,7 +139,7 @@ describe('BtbN release resolver', () => {
 		)
 		vi.stubGlobal('fetch', fetchMock)
 
-		await expect(resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: '   '})).resolves.toMatchObject({tagName: 'autobuild-2026-06-10-14-29'})
+		await expect(resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: '   ', BTBN_RELEASE_TAG: 'floating'})).resolves.toMatchObject({tagName: 'autobuild-2026-06-10-14-29'})
 
 		expect(fetchMock.mock.calls[0]?.[0]).toBe('https://api.github.com/repos/BtbN/FFmpeg-Builds/releases?per_page=20')
 	})
@@ -136,7 +161,7 @@ describe('BtbN release resolver', () => {
 		)
 		vi.stubGlobal('fetch', fetchMock)
 
-		await resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: 'https://api.example.invalid/repos/BtbN/FFmpeg-Builds'})
+		await resolveBtbnAsset('linux64', 'tar.xz', {BTBN_API_BASE: 'https://api.example.invalid/repos/BtbN/FFmpeg-Builds', BTBN_RELEASE_TAG: 'floating'})
 
 		expect(fetchMock.mock.calls[0]?.[1]).toMatchObject({signal: expect.any(AbortSignal)})
 	})

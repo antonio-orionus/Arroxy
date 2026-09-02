@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vitest'
-import {createSinkNotifier} from '@main/services/hotkeyOsNotifier.js'
+import {createBalloonNotifier, createSinkNotifier} from '@main/services/hotkeyOsNotifier.js'
 
 // The sink notifier is the E2E assertion point for hotkey OS notifications:
 // instead of posting to the OS (undetectable in tests), every notification
@@ -35,5 +35,30 @@ describe('createSinkNotifier', () => {
 		notifier.show('line one\nline two')
 
 		expect(fs.readFileSync(sinkPath, 'utf8').split('\n')).toEqual(['line one line two', ''])
+	})
+})
+
+// Windows portable builds ship without a Start Menu shortcut, so Windows has no
+// registered AppUserModelID to match a toast against and drops every one of
+// them. A tray balloon hangs off the tray icon instead, which needs no AUMID.
+describe('createBalloonNotifier', () => {
+	it('routes the body to the tray and leaves the fallback untouched', () => {
+		const balloons: string[] = []
+		const fallbacks: string[] = []
+		const notifier = createBalloonNotifier({displayBalloon: body => (balloons.push(body), true)}, {show: body => void fallbacks.push(body)})
+
+		notifier.show('queued')
+
+		expect(balloons).toEqual(['queued'])
+		expect(fallbacks).toEqual([])
+	})
+
+	it('falls back when there is no tray to hang the balloon off', () => {
+		const fallbacks: string[] = []
+		const notifier = createBalloonNotifier({displayBalloon: () => false}, {show: body => void fallbacks.push(body)})
+
+		notifier.show('queued')
+
+		expect(fallbacks).toEqual(['queued'])
 	})
 })
