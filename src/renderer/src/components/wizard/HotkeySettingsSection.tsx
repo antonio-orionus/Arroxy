@@ -1,6 +1,8 @@
 import {useCallback, useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {RotateCcw} from 'lucide-react'
 import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
+import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useHotkeyRegistration} from '../../store/useHotkeyRegistration.js'
 import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
@@ -44,6 +46,11 @@ export function HotkeySettingsSection(): ReactNode {
 		if (restoreFocus) restoreFocusPending.current = true
 		setRecording(false)
 	}, [])
+
+	const resetToDefault = useCallback(async () => {
+		await setHotkeyAccelerator(DEFAULTS.hotkeyAccelerator)
+		await refresh()
+	}, [refresh, setHotkeyAccelerator])
 
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
 		if (STOP_KEYS.has(event.key)) {
@@ -97,6 +104,10 @@ export function HotkeySettingsSection(): ReactNode {
 							{t('wizard.url.hotkey.changeShortcut')}
 						</Button>
 					)}
+					<Button type="button" variant="ghost" size="sm" disabled={accelerator === DEFAULTS.hotkeyAccelerator} onClick={() => void resetToDefault()} data-testid="profiles-settings-hotkey-reset">
+						<RotateCcw data-icon="inline-start" aria-hidden />
+						{t('repair.actions.resetToDefault')}
+					</Button>
 					<Button type="button" variant="ghost" size="sm" disabled={!enabled || registered !== true} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
 						{t('wizard.url.hotkey.test')}
 					</Button>
@@ -118,8 +129,8 @@ function buildAccelerator(event: ReactKeyboardEvent<HTMLButtonElement>): string 
 	const modifiers: string[] = []
 	if (event.ctrlKey) modifiers.push('Ctrl')
 	if (event.altKey) modifiers.push('Alt')
-	if (event.shiftKey) modifiers.push('Shift')
 	if (event.metaKey) modifiers.push('Super')
+	if (event.shiftKey) modifiers.push('Shift')
 	if (modifiers.length === 0) return null
 	const key = normalizeKey(event.key)
 	if (!key) return null

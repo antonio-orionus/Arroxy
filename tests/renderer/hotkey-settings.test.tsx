@@ -55,6 +55,16 @@ describe('HotkeySettingsSection', () => {
 		expect(toggle()).toHaveAttribute('aria-checked', 'true')
 		expect(screen.getByTestId('profiles-settings-hotkey-chord-value')).toHaveTextContent(formatHotkeyChord(DEFAULTS.hotkeyAccelerator).join(' + '))
 		expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeDisabled()
+		expect(screen.getByTestId('profiles-settings-hotkey-reset')).toBeDisabled()
+	})
+
+	it('reset restores the default accelerator', async () => {
+		mount({hotkeyAccelerator: 'Super+Shift+S'})
+
+		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-reset'))
+
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: DEFAULTS.hotkeyAccelerator}}))
+		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-chord-value')).toHaveTextContent(formatHotkeyChord(DEFAULTS.hotkeyAccelerator).join(' + ')))
 	})
 
 	it('toggling on persists hotkeyEnabled and pulls registration state', async () => {
@@ -78,6 +88,15 @@ describe('HotkeySettingsSection', () => {
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: 'Ctrl+Alt+Shift+J'}}))
 		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-change')).toBeInTheDocument())
 		expect(screen.getByTestId('profiles-settings-hotkey-chord-value')).toHaveTextContent(formatHotkeyChord('Ctrl+Alt+Shift+J').join(' + '))
+	})
+
+	it('records Command before Shift when both modifiers are pressed', async () => {
+		mount()
+
+		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
+		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'S', metaKey: true, shiftKey: true})
+
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: 'Super+Shift+S'}}))
 	})
 
 	it('recorder ignores modifierless keypresses and keeps recording; Escape cancels', () => {
