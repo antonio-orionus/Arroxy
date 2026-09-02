@@ -64,8 +64,15 @@ describe('intakeHotkeyTrigger', () => {
 		expect(run({kind: 'single', url: 'not a url at all'})).toEqual({kind: 'outcome', outcome: 'invalid-clipboard'})
 	})
 
-	it('reports needs-review for mixed intent', () => {
-		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=PL1'})).toEqual({kind: 'outcome', outcome: 'needs-review'})
+	// The hotkey has no way to ask. `v=` is guaranteed present and correct on a
+	// mixed URL, and one unwanted video is a far cheaper mistake than one
+	// unwanted 200-item playlist — so the press downloads the video it names.
+	it('downloads the video for mixed intent instead of bouncing to review', () => {
+		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=PL1'})).toMatchObject({kind: 'run', playlistMode: 'video'})
+	})
+
+	it('runs a radio URL as a plain video', () => {
+		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=RDone&start_radio=1'})).toMatchObject({kind: 'run', playlistMode: 'video'})
 	})
 
 	it('dedupes against live queue items by cleaned URL', () => {

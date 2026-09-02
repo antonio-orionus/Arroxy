@@ -1,7 +1,7 @@
 import type {ProbePlaylistMode} from '@shared/types.js'
 import {urlIntentHomeLabel, type UrlIntent, type UrlIntentHomeLabel} from '@shared/urlIntent.js'
 
-export type UrlIntentEntryPoint = 'interactive-submit' | 'quick-download' | 'bulk-quick-download' | 'home-label'
+export type UrlIntentEntryPoint = 'interactive-submit' | 'quick-download' | 'bulk-quick-download' | 'hotkey' | 'home-label'
 
 export type UrlIntentPolicyAction =
 	| {kind: 'probe-video'; playlistMode: Extract<ProbePlaylistMode, 'video'>}
@@ -21,6 +21,11 @@ function probeActionForIntent(intent: UrlIntent): Extract<UrlIntentPolicyAction,
 export function policyForUrlIntent(intent: UrlIntent, entryPoint: UrlIntentEntryPoint): UrlIntentPolicyAction {
 	if (entryPoint === 'home-label') return {kind: 'show-label', label: urlIntentHomeLabel(intent)}
 	if (entryPoint === 'bulk-quick-download' && intent.kind === 'mixed') return {kind: 'open-bulk-review'}
+	// The hotkey fires against a hidden window, so there is nobody to prompt and
+	// every review path costs the user a trip back into the app. A mixed URL
+	// always names a concrete video, and queueing one unwanted video is far
+	// cheaper to undo than queueing an unwanted playlist, so the video wins.
+	if (entryPoint === 'hotkey' && intent.kind === 'mixed') return {kind: 'probe-video', playlistMode: 'video'}
 	return probeActionForIntent(intent)
 }
 
