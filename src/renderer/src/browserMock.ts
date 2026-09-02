@@ -404,9 +404,10 @@ export function installBrowserMock(): void {
 		hotkey: {
 			reportOutcome: () => Promise.resolve({ok: true, data: undefined} as const),
 			// Registration mirrors the mock setting so the URL screen's hotkey hint
-			// is reviewable in dev:mock; hotkey-conflict overrides it for the
-			// unavailable-chord settings state.
-			getState: () => Promise.resolve({ok: true, data: scenarioState.hotkeyState ?? {accelerator: settings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D', registered: settings.common.hotkeyEnabled === true}} as const),
+			// is reviewable in dev:mock; hotkey-conflict overrides only whether the
+			// chord is taken, so recording a new one in that scenario still shows
+			// the chord the user just picked.
+			getState: () => Promise.resolve({ok: true, data: {accelerator: settings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D', registered: scenarioState.hotkeyRegistered ?? settings.common.hotkeyEnabled === true}} as const),
 			testPress: () => {
 				hotkeyTriggerListeners.forEach(listener => listener({kind: 'single', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}))
 				return Promise.resolve({ok: true, data: undefined} as const)

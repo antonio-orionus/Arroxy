@@ -5,6 +5,16 @@ import {WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 
 const root = process.cwd()
 
+// The block of one workflow step: from its `- name:` up to the next one. Enough
+// to prove a key is attached to the step that needs it, which is the whole
+// point — `continue-on-error` anywhere in the file proves nothing.
+function workflowStep(workflow: string, name: string): string {
+	const start = workflow.indexOf(`- name: ${name}`)
+	if (start < 0) return ''
+	const next = workflow.indexOf('\n      - ', start + 1)
+	return workflow.slice(start, next < 0 ? undefined : next)
+}
+
 interface ElectronBuilderDmgConfig {
 	background?: string
 	icon?: null
@@ -101,7 +111,10 @@ describe('release asset names', () => {
 
 	it('gates the Defender scan before release day rather than during it', () => {
 		const installer = read('.github/workflows/installer-smoke.yml')
+		const scan = workflowStep(installer, 'Scan packed output with Windows Defender')
+		const advisory = workflowStep(installer, 'Surface an advisory Defender failure on tags')
 
+		expect(scan).toContain('scan-windows-defender.ps1')
 		// The scan protects against a flagged third-party binary reaching users.
 		// But the pinned ffmpeg is already scanned, so the only way it fires on a
 		// tag is Microsoft's classifier changing its mind about a binary that
@@ -109,8 +122,10 @@ describe('release asset names', () => {
 		// draft release that already holds the macOS and Linux assets, so on tags
 		// it warns and on every other ref it blocks. An explicit override changes
 		// the payload, so that recovery run must block even when dispatched at a tag.
-		expect(installer).toContain('scan-windows-defender.ps1')
-		expect(installer).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}")
+		expect(scan).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}")
+		// The advisory notice must be gated on exactly the refs the scan lets pass,
+		// or a run that actually blocked still claims it was only advisory.
+		expect(advisory).toContain("if: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' && steps.defender.outcome == 'failure' }}")
 		// A schedule is what actually catches definition drift, early and cheaply.
 		expect(installer).toContain('schedule:')
 		// Rebuilding against a different ffmpeg must not need a source edit and a

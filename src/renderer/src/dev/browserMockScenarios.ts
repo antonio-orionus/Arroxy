@@ -1,6 +1,6 @@
 import {defaultAppSettings, DEFAULT_PLAYLIST_PROBE_LIMIT} from '@shared/constants.js'
 import {YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
-import type {AppSettings, DownloadProfileRef, HotkeyState, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState, SetState} from '../store/types.js'
@@ -93,7 +93,8 @@ export interface BrowserMockScenario {
 export interface BrowserMockState {
 	scenario: BrowserMockScenario
 	settings: AppSettings
-	hotkeyState: HotkeyState | null
+	// null = derive registration from the settings; false = the chord is taken.
+	hotkeyRegistered: boolean | null
 	probeResult: ProbeResult | null
 	queueItems: QueueItem[]
 	schedulerPaused: boolean
@@ -237,8 +238,8 @@ export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>):
 
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
 	const settings = buildSettings(scenario, knobs)
-	const hotkeyState = scenario.id === 'hotkey-conflict' ? {accelerator: settings.common.hotkeyAccelerator ?? 'CommandOrControl+Shift+D', registered: false} : null
-	return {scenario, settings, hotkeyState, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), schedulerPaused: scenario.id === 'queue-scheduler-paused', update: buildUpdate(scenario), warmUp: buildWarmUp(scenario), appVersion: buildAppVersion(scenario)}
+	const hotkeyRegistered = scenario.id === 'hotkey-conflict' ? false : null
+	return {scenario, settings, hotkeyRegistered, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), schedulerPaused: scenario.id === 'queue-scheduler-paused', update: buildUpdate(scenario), warmUp: buildWarmUp(scenario), appVersion: buildAppVersion(scenario)}
 }
 
 function buildAppVersion(scenario: BrowserMockScenario): string {

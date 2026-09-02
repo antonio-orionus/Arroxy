@@ -28,7 +28,7 @@ describe('browser mock scenarios', () => {
 
 		expect(conflict.scenario.id).toBe('hotkey-conflict')
 		expect(conflict.settings.common.hotkeyEnabled).toBe(true)
-		expect(conflict).toMatchObject({hotkeyState: {accelerator: 'CommandOrControl+Shift+D', registered: false}})
+		expect(conflict.hotkeyRegistered).toBe(false)
 
 		await applyScenarioWorkbenchState({scenario, params: readUrlParams(new URL('http://localhost:5173/?scenario=hotkey-conflict')), store})
 		expect(store.setState).toHaveBeenCalledWith(expect.objectContaining({advancedAutoOpen: true, advancedAutoTarget: 'hotkey'}))
