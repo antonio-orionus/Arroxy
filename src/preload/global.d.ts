@@ -5,7 +5,6 @@ declare global {
 		appApi: AppApi
 		platform: NodeJS.Platform
 		appVersion: string
-		__arroxyBrowserMockShowStartupSplash?: boolean
 	}
 }
 
