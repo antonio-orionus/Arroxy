@@ -89,13 +89,16 @@ fetch_btbn() {
 
   note "fetching BtbN $asset from $release_tag"
   fetch "$checksums_url" "$sums" || exit 1
-  fetch "$asset_url" "$out/$asset" || exit 1
   local expected
   expected=$(sha_for_asset "$sums" "$asset")
   if [[ -z "$expected" ]]; then
     fail "no SHA for $asset in BtbN checksums.sha256 ($release_tag)"
     exit 1
   fi
+  require_sha "$expected" "$sums" "$asset" || exit 1
+  # Pass the hash so a truncated cache from an interrupted run is discarded
+  # rather than reused, which used to wedge the checkout permanently.
+  fetch "$asset_url" "$out/$asset" "$expected" || exit 1
   verify_sha "$out/$asset" "$expected" "$asset" || exit 1
 
   if [[ "$ext" == "zip" ]]; then
@@ -119,7 +122,9 @@ fetch_btbn() {
   if [[ "$platform" == "win32" ]]; then
     # Win: bin/*.dll siblings ship next to the executables. Native DLL
     # search picks them up from the executable's own dir.
-    find "$bin_dir" -maxdepth 1 -type f -name '*.dll' -exec cp -t "$out" {} +
+    # `cp -t` is GNU-only; BSD cp (macOS) has no target-directory flag, so use
+    # the portable one-file-per-exec form. The DLL count is small.
+    find "$bin_dir" -maxdepth 1 -type f -name '*.dll' -exec cp {} "$out" \;
   else
     # Linux: BtbN shared build keeps libav*.so* in <prefix>/lib/. Copy them
     # next to the binaries (preserve symlinks via cp -P) so we can resolve
@@ -127,7 +132,7 @@ fetch_btbn() {
     local lib_src_dir
     lib_src_dir=$(dirname "$bin_dir")/lib
     if [[ -d "$lib_src_dir" ]]; then
-      find "$lib_src_dir" -maxdepth 1 -name 'lib*.so*' -exec cp -P -t "$out" {} +
+      find "$lib_src_dir" -maxdepth 1 -name 'lib*.so*' -exec cp -P {} "$out" \;
     fi
   fi
 
@@ -163,10 +168,11 @@ fetch_martin_riedl() {
 
   for bin in ffmpeg ffprobe; do
     note "fetching Martin-Riedl ${bin}.zip"
-    fetch "${base}${bin}.zip" "$out/${bin}.zip" || exit 1
     fetch "${base}${bin}.zip.sha256" "$out/${bin}.zip.sha256" || exit 1
     local expected
     expected=$(awk '{print $1; exit}' "$out/${bin}.zip.sha256")
+    require_sha "$expected" "$out/${bin}.zip.sha256" "${bin}.zip" || exit 1
+    fetch "${base}${bin}.zip" "$out/${bin}.zip" "$expected" || exit 1
     verify_sha "$out/${bin}.zip" "$expected" "${bin}.zip" || exit 1
 
     extract_zip "$out/${bin}.zip" "$out/_ext_${bin}" || { fail "extract ${bin}.zip"; exit 1; }

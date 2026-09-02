@@ -15,6 +15,7 @@ import type {
 	FormatOption,
 	GraphicsPolicy,
 	HotkeyAccelerator,
+	HotkeyRegistrationStatus,
 	NativeAudioPreference,
 	PlaylistEntry,
 	PlaylistScope,
@@ -51,7 +52,7 @@ export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatu
 // single source of truth for the step list) — kept under its own name here
 // since every renderer file already imports it as WizardStep.
 export type WizardStep = WizardStepName
-export type AdvancedSettingsTarget = 'cookies' | 'network'
+export type AdvancedSettingsTarget = 'cookies' | 'network' | 'hotkey'
 export type MixedUrlPromptSource = 'wizard' | 'quick-download'
 
 // Explicit mode tag so consumers don't re-derive intent from
@@ -313,6 +314,7 @@ export interface SystemSlice {
 	warmupCancellable: boolean
 	warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null
 	settings: AppSettings | null
+	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null
 	language: SupportedLang
 	commonPaths: AppSettings['common']['commonPaths']

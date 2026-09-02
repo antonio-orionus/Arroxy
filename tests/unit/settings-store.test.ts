@@ -10,6 +10,7 @@ import {updateSettingsSchema} from '@shared/schemas.js'
 
 describe('settings and recent stores', () => {
 	const baseDefaults = defaultAppSettings('/tmp')
+	const NOW = '2026-06-10T12:00:00.000Z'
 
 	it('persists settings updates', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-'))
@@ -211,6 +212,37 @@ describe('settings and recent stores', () => {
 		const reloadedStore = new SettingsStore(userData, baseDefaults)
 		const reloaded = await reloadedStore.get()
 		expect(reloaded.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
+	})
+
+	// One unparseable profile must not cost the user every other profile they
+	// built. Whole-object validation would reset the entire bucket, including
+	// the active selection, with nothing on disk or in the log to explain it.
+	it('drops only the invalid profile and keeps the rest of the bucket', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-partial-'))
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const good = {...balanced, id: 'keep-me', name: 'Keep me', createdAt: NOW, updatedAt: NOW}
+		const broken = {...balanced, id: 'drop-me', media: {kind: 'nonsense'}}
+		const override = {...balanced, subfolder: {enabled: false, name: 'Balanced 720p'}}
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'keep-me'}, custom: [good, broken], overrides: [override]}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+
+		expect(settings.profiles.custom.map(profile => profile.id)).toEqual(['keep-me'])
+		expect(settings.profiles.overrides).toHaveLength(1)
+		expect(settings.profiles.overrides[0]?.subfolder.enabled).toBe(false)
+		expect(settings.profiles.active).toEqual({kind: 'custom', id: 'keep-me'})
+	})
+
+	it('falls back to the default profile when the active custom profile is dropped', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-dangling-'))
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const broken = {...balanced, id: 'gone', name: ''}
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'gone'}, custom: [broken], overrides: []}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+
+		expect(settings.profiles.custom).toEqual([])
+		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'balanced'})
 	})
 
 	it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {

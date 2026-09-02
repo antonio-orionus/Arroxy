@@ -209,7 +209,11 @@
 				"changeShortcut": "Kısayolu değiştir",
 				"recording": "Tuşlara basın…",
 				"test": "Test et",
-				"conflict": "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin."
+				"conflict": "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin.",
+				"hintLabel": "Veya basın",
+				"hintTooltip": "Bir video bağlantısını istediğiniz yerde kopyalayın, bu kısayola basın; Arroxy onu etkin profilinizle sıraya ekler — pencereler arasında geçiş yapmanız gerekmez.",
+				"hintTooltipSettings": "Ayarlar'dan değiştirin veya kapatın.",
+				"reset": "Varsayılana sıfırla"
 			},
 			"cookies": {
 				"sourceLabel": "Çerez kaynağı",

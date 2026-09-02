@@ -2745,9 +2745,27 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።"
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "ወይም ይጫኑ"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "የቪዲዮ አገናኝ በማንኛውም ቦታ ይቅዱ፣ ይህን አቋራጭ ይጫኑ፣ እና Arroxy ከነቃው መገለጫዎ ጋር ያስገባዋል — መስኮቶችን መቀየር አያስፈልግም።"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "በቅንብሮች ውስጥ ይቀይሩት ወይም ያጥፉት።"
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "ቁልፎችን ይታጠፉ…"
+
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "ወደ ነባሪ መልስ"
 
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."

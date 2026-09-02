@@ -1,4 +1,4 @@
-import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef} from '@shared/types.js'
+import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef, HotkeyRegistrationStatus, HotkeyState} from '@shared/types.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
@@ -13,6 +13,7 @@ let unbindQueueProjection: (() => void) | null = null
 let unbindHotkeyTrigger: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
+let hotkeyStatusRequest = 0
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
 const SHARE_MILESTONE_SET = new Set(SHARE_MILESTONES)
@@ -60,6 +61,63 @@ async function applyCommonPatchAsync(get: GetState, set: SetState, label: string
 	set({settings: result.data})
 }
 
+function hotkeyStatusFor(settings: AppSettings | null, state: HotkeyState): HotkeyRegistrationStatus {
+	const common = settings?.common
+	if (!common?.hotkeyEnabled) return 'off'
+	const accelerator = common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator
+	return state.registered && state.accelerator === accelerator ? 'registered' : 'conflict'
+}
+
+async function refreshHotkeyRegistration(get: GetState, set: SetState): Promise<void> {
+	const request = ++hotkeyStatusRequest
+	if (!get().settings?.common.hotkeyEnabled) {
+		set({hotkeyRegistration: 'off'})
+		return
+	}
+	set({hotkeyRegistration: 'pending'})
+	try {
+		const result = await window.appApi.hotkey.getState()
+		if (request !== hotkeyStatusRequest) return
+		set({hotkeyRegistration: result.ok ? hotkeyStatusFor(get().settings, result.data) : 'conflict'})
+	} catch {
+		if (request === hotkeyStatusRequest) set({hotkeyRegistration: 'conflict'})
+	}
+}
+
+// Hotkey writes run one at a time. Rollback restores the settings captured
+// before the patch, which is only canonical while nothing else is in flight —
+// with overlapping writes an older patch rolls back to a newer patch's
+// optimistic value, or finds itself superseded and leaves registration stuck
+// on 'pending'. Queueing removes the class instead of guarding each symptom.
+let hotkeyWriteQueue: Promise<void> = Promise.resolve()
+
+function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+	const run = hotkeyWriteQueue.then(() => applyHotkeyPatch(get, set, label, patch))
+	hotkeyWriteQueue = run.catch(() => undefined)
+	return run
+}
+
+async function applyHotkeyPatch(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+	const previous = get().settings
+	const previousRegistration = get().hotkeyRegistration
+	const nextEnabled = patch.hotkeyEnabled ?? previous?.common.hotkeyEnabled ?? false
+	// Invalidate any refresh started before this patch: its answer describes the
+	// chord we are about to replace.
+	++hotkeyStatusRequest
+	if (previous) set({settings: {...previous, common: {...previous.common, ...patch}}})
+	set({hotkeyRegistration: nextEnabled ? 'pending' : 'off'})
+	const result = await window.appApi.settings.update({common: patch})
+	if (!result.ok) {
+		++hotkeyStatusRequest
+		if (previous) set({settings: previous})
+		set({hotkeyRegistration: previousRegistration})
+		notify.settingsSaveFailed(label, result.error)
+		return
+	}
+	set({settings: result.data})
+	await refreshHotkeyRegistration(get, set)
+}
+
 async function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
 	const previous = get().settings
 	if (previous) set({settings: {...previous, profiles}})
@@ -98,6 +156,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		warmupCancellable: false,
 		warmupProgress: null,
 		settings: null,
+		hotkeyRegistration: 'off',
 		graphicsPolicy: null,
 		// Guard `navigator` so vitest's node-env tests (e.g. format-selection-view)
 		// can construct the store at module-load time without DOM globals.
@@ -182,7 +241,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage})
+				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage})
+				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
+				else ++hotkeyStatusRequest
 			}
 
 			if (graphicsPolicyResult.ok) {
@@ -423,11 +484,11 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setHotkeyEnabled: async enabled => {
-			await applyCommonPatchAsync(get, set, 'hotkeyEnabled', {hotkeyEnabled: enabled})
+			await applyHotkeyPatchAsync(get, set, 'hotkeyEnabled', {hotkeyEnabled: enabled})
 		},
 
 		setHotkeyAccelerator: async accelerator => {
-			await applyCommonPatchAsync(get, set, 'hotkeyAccelerator', {hotkeyAccelerator: accelerator})
+			await applyHotkeyPatchAsync(get, set, 'hotkeyAccelerator', {hotkeyAccelerator: accelerator})
 		},
 
 		setCloseBehavior: async value => {

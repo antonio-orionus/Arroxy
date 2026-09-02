@@ -200,7 +200,11 @@
 				"changeShortcut": "አቋራጩን ቀይር",
 				"recording": "ቁልፎችን ይታጠፉ…",
 				"test": "ፈትሽ",
-				"conflict": "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።"
+				"conflict": "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።",
+				"hintLabel": "ወይም ይጫኑ",
+				"hintTooltip": "የቪዲዮ አገናኝ በማንኛውም ቦታ ይቅዱ፣ ይህን አቋራጭ ይጫኑ፣ እና Arroxy ከነቃው መገለጫዎ ጋር ያስገባዋል — መስኮቶችን መቀየር አያስፈልግም።",
+				"hintTooltipSettings": "በቅንብሮች ውስጥ ይቀይሩት ወይም ያጥፉት።",
+				"reset": "ወደ ነባሪ መልስ"
 			},
 			"cookies": {
 				"sourceLabel": "የ Cookies ምንጭ",

@@ -7,6 +7,7 @@ import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import type {AdvancedSettingsTarget} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
@@ -44,9 +45,9 @@ const BACKDROP_RENDER_OPTIONS = [
 
 const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
 
-function SettingsPanel({title, description, children}: {title: string; description?: string; children: ReactNode}): ReactNode {
+function SettingsPanel({title, description, testId, children}: {title: string; description?: string; testId?: string; children: ReactNode}): ReactNode {
 	return (
-		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3">
+		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3" data-testid={testId}>
 			<CardHeader className="gap-1 px-3">
 				<CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
 				{description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
@@ -158,7 +159,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 	useEffect(() => {
 		if (!advancedAutoOpen) return
-		const targetTestId = advancedAutoTarget === 'network' ? 'network-pacing-section' : 'cookies-source'
+		const targetTestIds: Record<AdvancedSettingsTarget, string> = {cookies: 'cookies-source', network: 'network-pacing-section', hotkey: 'hotkey-section'}
+		const targetTestId = targetTestIds[advancedAutoTarget]
 		const target = document.querySelector(`[data-testid="${targetTestId}"]`)
 		if (target instanceof HTMLElement) {
 			target.scrollIntoView?.({block: 'center', behavior: 'smooth'})
@@ -297,7 +299,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</SettingsPanel>
 
-			<SettingsPanel title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
+			<SettingsPanel testId="hotkey-section" title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
 				<HotkeySettingsSection />
 			</SettingsPanel>
 

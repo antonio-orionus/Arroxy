@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {downloadProfileSchema} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {createDownloadProfileDraft, downloadProfileFromDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
@@ -101,5 +102,15 @@ describe('DownloadProfileDraft', () => {
 
 		expect(profile).toMatchObject({id: 'profile-id', name: 'Study Captions', media: {kind: 'subtitles-only'}, subtitles: {enabled: true, languages: ['en', 'uk']}, output: {kind: 'fixed', dir: '/courses'}, subfolder: {enabled: true, name: 'Study Captions'}, createdAt: NOW, updatedAt: NOW})
 		expect('playlistProbeCap' in profile).toBe(false)
+	})
+
+	it('opens the editor for a profile saved before filename templates existed', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const {filename: _filename, ...legacy} = balanced
+
+		const normalized = downloadProfileSchema.parse(legacy)
+		const draft = createDownloadProfileDraft(normalized)
+
+		expect(draft.filenameTemplate).toBe('')
 	})
 })

@@ -21,6 +21,19 @@ describe('browser mock scenarios', () => {
 		expect(getScenario('not-real').id).toBe('default')
 	})
 
+	it('builds a reviewable global hotkey conflict scenario', async () => {
+		const scenario = getScenario('hotkey-conflict')
+		const conflict = buildScenarioAppApiState(scenario)
+		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), setState: vi.fn()}
+
+		expect(conflict.scenario.id).toBe('hotkey-conflict')
+		expect(conflict.settings.common.hotkeyEnabled).toBe(true)
+		expect(conflict.hotkeyRegistered).toBe(false)
+
+		await applyScenarioWorkbenchState({scenario, params: readUrlParams(new URL('http://localhost:5173/?scenario=hotkey-conflict')), store})
+		expect(store.setState).toHaveBeenCalledWith(expect.objectContaining({advancedAutoOpen: true, advancedAutoTarget: 'hotkey'}))
+	})
+
 	it('parses mock step params and rejects invalid step/scenario combinations', () => {
 		expect(readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=confirm')).mockStep).toBe('confirm')
 		expect(readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=nope')).mockStep).toBeNull()

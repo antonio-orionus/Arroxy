@@ -1,6 +1,7 @@
 import {act, fireEvent, render, screen} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {DownloadProfilesHome} from '@renderer/components/wizard/DownloadProfilesHome.js'
+import {DownloadProfilesSettingsTab} from '@renderer/components/wizard/DownloadProfilesSettingsTab.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {i18next} from '@shared/i18n/index.js'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
@@ -92,5 +93,26 @@ describe('DownloadProfilesHome downloads tab', () => {
 		act(() => useAppStore.setState({queue: [makeItem({id: 'first-queued-video', title: 'First queued video', status: 'pending'})]}))
 
 		expect(screen.queryByTestId('queue-tab-first-run-cue')).not.toBeInTheDocument()
+	})
+
+	it('scrolls the hotkey panel into view when settings open with the hotkey target', () => {
+		const scrolledTargets: HTMLElement[] = []
+		const originalDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollIntoView')
+		Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+			configurable: true,
+			value: function (this: HTMLElement): void {
+				scrolledTargets.push(this)
+			}
+		})
+		try {
+			useAppStore.setState({advancedAutoOpen: true, advancedAutoTarget: 'hotkey'})
+			render(<DownloadProfilesSettingsTab />)
+
+			const panel = screen.getByTestId('hotkey-section')
+			expect(scrolledTargets).toContain(panel)
+		} finally {
+			if (originalDescriptor) Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', originalDescriptor)
+			else Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {configurable: true, value: undefined})
+		}
 	})
 })

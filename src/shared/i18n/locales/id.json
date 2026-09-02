@@ -209,7 +209,11 @@
 				"changeShortcut": "Ubah pintasan",
 				"recording": "Tekan tombol…",
 				"test": "Uji",
-				"conflict": "Pintasan ini dipakai aplikasi lain — pilih yang lain."
+				"conflict": "Pintasan ini dipakai aplikasi lain — pilih yang lain.",
+				"hintLabel": "Atau tekan",
+				"hintTooltip": "Salin tautan video di mana saja, tekan pintasan ini, dan Arroxy akan memasukkannya ke antrean dengan profil aktif Anda — tidak perlu berpindah jendela.",
+				"hintTooltipSettings": "Ubah atau nonaktifkan di Pengaturan.",
+				"reset": "Atur ulang ke default"
 			},
 			"cookies": {
 				"sourceLabel": "Sumber cookie",
