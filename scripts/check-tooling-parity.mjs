@@ -1,6 +1,6 @@
 import {existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
-import {dirname, join} from 'node:path'
+import {dirname, join, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {createRequire} from 'node:module'
 import {spawnSync} from 'node:child_process'
@@ -24,7 +24,13 @@ const requiredRules = [
 	'react-hooks-js/static-components',
 	'security/detect-non-literal-regexp',
 	'security/detect-child-process',
-	'react-js/no-deprecated'
+	'react-js/no-deprecated',
+	'anti-slop/no-chained-type-assertions',
+	'anti-slop/no-object-parameters',
+	'anti-slop/no-reflect-apply',
+	'anti-slop/no-reflect-get',
+	'anti-slop/no-unknown-type-aliases',
+	'anti-slop/no-widen-then-assert'
 ]
 
 function fail(message, detail) {
@@ -87,6 +93,53 @@ try {
 
 	const tsconfigPath = join(tempDir, 'tsconfig.json')
 	writeFileSync(tsconfigPath, JSON.stringify({compilerOptions: {target: 'ES2022', module: 'NodeNext', moduleResolution: 'NodeNext', strict: true, jsx: 'react-jsx', noEmit: true}, include: ['*.ts', '*.tsx']}, null, 2))
+
+	const antiSlopRules = {'anti-slop/no-chained-type-assertions': 'error', 'anti-slop/no-object-parameters': 'error', 'anti-slop/no-reflect-apply': 'error', 'anti-slop/no-reflect-get': 'error', 'anti-slop/no-unknown-type-aliases': 'error', 'anti-slop/no-widen-then-assert': 'error'}
+	const antiSlopConfigPath = join(tempDir, 'anti-slop.oxlintrc.json')
+	const antiSlopSpecifier = resolve(repoRoot, 'tools/oxlint/anti-slop/index.ts')
+	writeFileSync(antiSlopConfigPath, JSON.stringify({$schema: join(repoRoot, 'node_modules/oxlint/configuration_schema.json'), options: {typeAware: true}, jsPlugins: [{name: 'anti-slop', specifier: antiSlopSpecifier}], rules: antiSlopRules}, null, 2))
+
+	const antiSlopFixturePath = join(tempDir, 'anti-slop-fixture.ts')
+	writeFileSync(
+		antiSlopFixturePath,
+		[
+			'type HiddenValue = unknown;',
+			'function acceptsObject(value: object): void { void value; }',
+			'declare const source: { readonly id: string };',
+			'const widened: unknown = source;',
+			'const parsed = widened as { readonly id: string };',
+			"const reflectedValue = Reflect.get({value: 1}, 'value');",
+			'const reflectedApply = Reflect.apply(() => 1, null, []);',
+			'const chained = (source as unknown) as string;',
+			'void HiddenValue; void acceptsObject; void parsed; void reflectedValue; void reflectedApply; void chained;'
+		].join('\n')
+	)
+	const antiSlopRuleIds = Object.keys(antiSlopRules).map(rule => rule.slice('anti-slop/'.length))
+	assertFailsWith(runPackage('Oxlint anti-slop parity', 'oxlint', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
+	assertFailsWith(runPackage('Oxlint root production scope parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
+
+	const antiSlopAcceptedPath = join(tempDir, 'anti-slop-accepted.ts')
+	writeFileSync(
+		antiSlopAcceptedPath,
+		[
+			'type Owner = { readonly id: string };',
+			'function acceptsOwner(value: Owner): string { return value.id; }',
+			"const precise = {kind: 'ok'} as const;",
+			'const directObject = {value: 1};',
+			'const directValue = directObject.value;',
+			"const directCall = acceptsOwner({id: 'id'});",
+			'void precise; void directValue; void directCall;'
+		].join('\n')
+	)
+	const acceptedResult = runPackage('Oxlint anti-slop accepted parity', 'oxlint', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopAcceptedPath])
+	if (acceptedResult.status !== 0) fail('Oxlint anti-slop accepted fixture unexpectedly failed', acceptedResult.output)
+
+	const antiSlopTestScopePath = join(tempDir, 'selected.test.ts')
+	writeFileSync(antiSlopTestScopePath, ['function acceptsObject(value: object): void { void value; }', "const source = {id: 'id'};", 'const chained = (source as unknown) as string;', 'void acceptsObject; void chained;'].join('\n'))
+	const testScopeResult = runPackage('Oxlint root test scope parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopTestScopePath])
+	if (testScopeResult.status === 0) fail('Oxlint anti-slop test-scope fixture unexpectedly passed', testScopeResult.output)
+	if (testScopeResult.output.includes('no-chained-type-assertions')) fail('Test scope unexpectedly enabled anti-slop/no-chained-type-assertions', testScopeResult.output)
+	if (!testScopeResult.output.includes('no-object-parameters')) fail('Test scope disabled more than anti-slop/no-chained-type-assertions', testScopeResult.output)
 
 	const biomeSyntaxPath = join(tempDir, 'biome-syntax.js')
 	const biomeConfigPath = join(tempDir, 'biome.jsonc')

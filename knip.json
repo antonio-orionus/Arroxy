@@ -42,6 +42,7 @@
     "@fontsource/poppins",
     "@iconify-json/logos",
     "@iconify-json/simple-icons",
+    "@oxlint/plugins",
     "shadcn",
 		"tw-animate-css",
 		"tailwindcss",

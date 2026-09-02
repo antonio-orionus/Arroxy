@@ -168,6 +168,7 @@
 		"@biomejs/biome": "2.5.8",
 		"@iconify-json/logos": "1.2.13",
 		"@iconify-json/simple-icons": "1.2.93",
+		"@oxlint/plugins": "1.78.0",
 		"@playwright/test": "1.62.1",
 		"@svgr/core": "8.1.0",
 		"@svgr/plugin-jsx": "8.1.0",
