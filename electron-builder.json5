@@ -3,6 +3,12 @@
   "productName": "Arroxy",
   "afterPack": "./build/afterPack.mjs",
   "beforeBuild": "./build/beforeBuild.mjs",
+  "toolsets": {
+    "appimage": "1.0.3"
+  },
+  "appImage": {
+    "artifactName": "${productName}-linux-x64.${ext}"
+  },
   "electronFuses": {
     "runAsNode": true
   },
