@@ -153,7 +153,7 @@
 		"electron-builder-squirrel-windows": "26.15.2",
 		"electron-publish": "26.15.1",
 		"esbuild": "0.28.1",
-		"fast-uri": "3.1.5",
+		"fast-uri": "3.1.6",
 		"form-data": "4.0.6",
 		"hono": "4.13.1",
 		"ip-address": "10.5.0",
