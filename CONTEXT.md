@@ -114,6 +114,14 @@ _Avoid_: URL type, URL kind
 A source URL that expands into multiple videos queued together — including a channel or a search, which Arroxy treats as playlists. The URL classifier may still tag the source as playlist, channel, or search for routing.
 _Avoid_: collection, batch
 
+**Mixed URL**:
+A URL that names one video and a playlist at once, so the user's intent is genuinely ambiguous.
+_Avoid_: combo URL, dual URL, video+playlist URL
+
+**Radio**:
+A playlist YouTube generates on the fly around a video — personalised, endless, and different every session. Not a mixed URL: its membership is not stable, so it addresses no fixed set of videos.
+_Avoid_: mix, autoplay queue, station
+
 ### Profiles and quick download
 
 **Download profile**:

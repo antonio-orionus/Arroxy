@@ -47,11 +47,17 @@ describe('rewriteYouTubeChannelRoot — appends /videos to bare channel-root URL
 })
 
 describe('isMixedYouTubeUrl — delegates to UrlIntent mixed classification', () => {
-	it.each(['https://www.youtube.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?list=PLxyz&v=abc', 'https://m.youtube.com/watch?v=abc&list=PLxyz', 'https://youtu.be/abc?list=PLxyz'])('returns true for mixed URL: %s', url => {
+	it.each(['https://www.youtube.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/watch?list=PLxyz&v=abc', 'https://m.youtube.com/watch?v=abc&list=PLxyz', 'https://youtu.be/abc?list=PLxyz'])('returns true for mixed URL: %s', url => {
 		expect(isMixedYouTubeUrl(url)).toBe(true)
 	})
 
 	it.each(['https://www.youtube.com/watch?v=abc', 'https://www.youtube.com/playlist?list=PLxyz', 'https://www.youtube.com/@handle', 'https://www.youtube.com/results?search_query=x'])('returns false for single-param YT URL: %s', url => {
+		expect(isMixedYouTubeUrl(url)).toBe(false)
+	})
+
+	// A radio list carries a video and a list but is not ambiguous: the list is
+	// generated per session, so the video is the only thing worth resolving.
+	it.each(['https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?v=abc&list=RDabc&start_radio=1'])('returns false for radio URL: %s', url => {
 		expect(isMixedYouTubeUrl(url)).toBe(false)
 	})
 

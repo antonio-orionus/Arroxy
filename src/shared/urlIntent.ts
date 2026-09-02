@@ -55,6 +55,18 @@ function isYouTubeBrowseCollectionPath(segments: string[]): boolean {
 	return segments.length === 2 && segments[0] === 'browse' && isYouTubeContainerId(segments[1] ?? '')
 }
 
+// A radio/mix list (`RD…`, or any list reached via `start_radio`) is generated
+// on the fly, is personalised, and has different membership every session — so
+// "download the playlist" names nothing stable and yt-dlp would expand it to an
+// arbitrary slice. The `v=` is the only thing such a URL actually addresses.
+// Nothing on YouTube's page or in the copied link tells a human that they are
+// on a radio rather than a plain video, so the ambiguity is ours to resolve,
+// not theirs to be asked about.
+function isYouTubeRadioList(searchParams: URLSearchParams): boolean {
+	if (searchParams.has('start_radio')) return true
+	return searchParams.get('list')?.startsWith('RD') === true
+}
+
 export function classifyUrlIntent(url: string): UrlIntent {
 	const parsed = parseUrl(url)
 	if (!parsed || !isYouTubeHost(parsed.hostname)) return {kind: 'unknown', url}
@@ -64,7 +76,7 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	const hasList = parsed.searchParams.has('list')
 	const hasConcreteVideo = isYouTubeVideoPath(host, segments, parsed.searchParams)
 
-	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
+	if (hasConcreteVideo && hasList) return isYouTubeRadioList(parsed.searchParams) ? {kind: 'obvious-single', url, site: 'youtube'} : {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
 	if (isYouTubeBrowseCollectionPath(segments)) return {kind: 'obvious-collection', url, collection: 'playlist'}

@@ -1,7 +1,6 @@
 import {parseBulkUrls} from '@shared/bulkUrls.js'
 import i18next from 'i18next'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
-import type {UrlIntent} from '@shared/urlIntent.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
@@ -11,6 +10,7 @@ import type {GetState} from '../types.js'
 import {generateId} from '../helpers.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
+import {policyForUrlIntent} from './urlIntentPolicy.js'
 
 // Renderer-side hotkey orchestration. Main presses the bell (a pre-classified
 // trigger); this module runs the same active-profile quick-download pipeline
@@ -27,18 +27,14 @@ import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 // Hidden-window constraints shape the flow: the renderer cannot read the
 // clipboard (main already did), must not open dialogs or pop the window, and
 // must never touch the omnibox or wizard state. Anything needing user review —
-// mixed intent, playlists that want the review step, incomplete cookies setup —
-// ends as `needs-review` instead of navigating the UI.
+// playlists that want the review step, incomplete cookies setup — ends as
+// `needs-review` instead of navigating the UI.
 //
 // Parallel presses: probes are keyed per queue item, so a second hotkey on a
 // DIFFERENT URL starts its own probing row (no `busy`). Only a collision with
 // the in-app quick-download pipeline (`quickDownloadStatus === 'preparing'`)
 // reports `busy`. A second press on the SAME URL hits the live-dedupe
 // (`probing` counts as live) and reports `already-queued`.
-
-// Which playlist mode the background probe runs in, per URL intent. Keyed on
-// the intent kind union so a new intent cannot silently fall through to 'auto'.
-const PLAYLIST_MODE_BY_INTENT: Record<Exclude<UrlIntent['kind'], 'mixed'>, ProbePlaylistMode> = {'obvious-single': 'video', 'obvious-collection': 'playlist', unknown: 'auto'}
 
 export type HotkeyIntake = {kind: 'run'; url: string; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
 
@@ -62,13 +58,13 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quick
 	const live = state.queue.some(item => isLiveQueueItem(item) && item.url === url)
 	if (live) return {kind: 'outcome', outcome: 'already-queued'}
 
-	const intent = classifyUrlIntent(url)
-	// Mixed intent genuinely needs a human choice. "Unknown" is every
-	// non-YouTube site — the wizard probes those happily, so the hotkey does
-	// too; only an unparseable URL is invalid.
-	if (intent.kind === 'mixed') return {kind: 'outcome', outcome: 'needs-review'}
-	const playlistMode = PLAYLIST_MODE_BY_INTENT[intent.kind]
-	return {kind: 'run', url, playlistMode}
+	// One shared rule with the omnibox, read at the `hotkey` entry point: it
+	// resolves a mixed URL to its video rather than bouncing the press back to
+	// the app. "Unknown" is every non-YouTube site — the wizard probes those
+	// happily, so the hotkey does too; only an unparseable URL is invalid.
+	const action = policyForUrlIntent(classifyUrlIntent(url), 'hotkey')
+	if (!('playlistMode' in action)) return {kind: 'outcome', outcome: 'needs-review'}
+	return {kind: 'run', url, playlistMode: action.playlistMode}
 }
 
 // Outcome for a failed probe. Cookies-config failures need the settings
