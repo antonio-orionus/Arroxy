@@ -8,6 +8,18 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.9-beta.2
+
+The global Quick Download shortcut is now on from the first launch instead of waiting to be switched on.
+
+## Highlights
+
+### Quick Download Works Out Of The Box
+
+- `Ctrl/Cmd + Shift + D` is live on a fresh install — copy a link anywhere and press it, no trip through Settings first. The previous beta shipped the shortcut turned off, so most people never found it.
+- Existing installs keep whatever their settings already say. If you ran an earlier beta, the shortcut stays off until you switch it on under Settings → Global hotkey — the new default only applies to a profile that has never stored the setting.
+- You can still switch it off, record a different combination, or reset to the default under Settings → Global hotkey. If another app already owns the chord, Arroxy tells you there instead of failing quietly.
+
 ## 0.4.9-beta.1
 
 A global shortcut that downloads whatever link you have copied — from any app, without opening Arroxy — plus real titles for Vimeo OTT videos and a settings store that no longer loses preferences when two writes land at once.
