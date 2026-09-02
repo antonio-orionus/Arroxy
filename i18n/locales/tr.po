@@ -2751,7 +2751,7 @@ msgstr "Veya basın"
 
 msgctxt "wizard.url.hotkey.hintTooltip"
 msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Bir video bağlantısını istediğin yerde kopyala, bu kısayola bas; Arroxy onu etkin profilinle sıraya ekler — pencereler arasında geçiş yapman gerekmez."
+msgstr "Bir video bağlantısını istediğiniz yerde kopyalayın, bu kısayola basın; Arroxy onu etkin profilinizle sıraya ekler — pencereler arasında geçiş yapmanız gerekmez."
 
 msgctxt "wizard.url.hotkey.hintTooltipSettings"
 msgid "Change or turn it off in Settings."
