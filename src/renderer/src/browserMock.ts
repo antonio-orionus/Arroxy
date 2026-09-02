@@ -97,19 +97,24 @@ function mockProbeErrorKind(url: string): YtDlpErrorKind | null {
 }
 
 export function installBrowserMock(): void {
-	if ('appApi' in window) return
+	// `Object.hasOwn`, not `'appApi' in window`: `appApi` is a required property
+	// on the `Window` declaration, so `in` narrows the negative branch to `never`
+	// and every assignment below stops typechecking. Own-property presence is
+	// also the precise question — both the preload bridge and this mock install
+	// `appApi` directly on `window`.
+	if (Object.hasOwn(window, 'appApi')) return
 
 	const knobs = readKnobs(location)
 	const launchMode = readBrowserMockLaunchMode()
 	const scenarioState = buildScenarioAppApiState(readBrowserMockScenario(), readUrlParams(location), knobs)
-	;(window as Window & {__arroxyBrowserMockShowStartupSplash?: boolean}).__arroxyBrowserMockShowStartupSplash = shouldShowBrowserMockStartupSplash({launchMode, warmUp: scenarioState.warmUp})
+	window.__arroxyBrowserMockShowStartupSplash = shouldShowBrowserMockStartupSplash({launchMode, warmUp: scenarioState.warmUp})
 
 	// Apply theme immediately so the first render uses the right colour scheme.
 	applyThemeLive(knobs.theme)
 
 	// Expose mock platform so UpdateBanner, TitleBar, etc. behave as if running
 	// on the selected OS. Falls back to 'linux' so browser-mock always has a value.
-	;(window as Window & {platform: string}).platform = knobs.platform ?? 'linux'
+	window.platform = knobs.platform ?? 'linux'
 
 	// RTL direction for locale knob.
 	if (knobs.locale !== null) {
@@ -139,7 +144,7 @@ export function installBrowserMock(): void {
 
 	let settings: AppSettings = scenarioState.settings
 
-	;(window as Window & {__arroxyMockEmitClipboardUrl?: (url: string) => void}).__arroxyMockEmitClipboardUrl = url => {
+	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))
 	}
 
@@ -695,6 +700,6 @@ export function installBrowserMock(): void {
 		}
 	}
 
-	;(window as unknown as {appApi: AppApi}).appApi = mock
-	;(window as unknown as {appVersion: string}).appVersion = scenarioState.appVersion
+	window.appApi = mock
+	window.appVersion = scenarioState.appVersion
 }

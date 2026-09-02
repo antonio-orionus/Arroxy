@@ -38,6 +38,7 @@ const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 t
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
 type BackdropPreviewMode = 'gpu' | 'css'
+const DEFAULT_FEEDBACK_NUDGE_DELAY_MS = 45_000
 
 const BACKDROP_PREVIEW_MODES = [
 	{description: 'WebGL shader preview: hardware when available, software allowed in this stage.', icon: Cpu, id: 'gpu', label: 'WebGL shader'},
@@ -84,6 +85,10 @@ function shouldRenderStartupSplash(): boolean {
 function effectiveBackdropRenderMode(preferredMode: BackdropRenderMode | null, graphicsPolicy: GraphicsPolicy | null): BackdropRenderMode {
 	if (!preferredMode || !graphicsPolicy) return 'css-only'
 	return graphicsPolicy.backdrop.forceRenderMode ?? preferredMode
+}
+
+function resolveFeedbackNudgeDelay(injectedDelay: number | undefined): number {
+	return typeof injectedDelay === 'number' && Number.isFinite(injectedDelay) && injectedDelay >= 0 ? injectedDelay : DEFAULT_FEEDBACK_NUDGE_DELAY_MS
 }
 
 export function App(): ReactNode {
@@ -141,7 +146,7 @@ export function App(): ReactNode {
 	}, [uiTheme])
 
 	useEffect(() => {
-		const delay = ((window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS as number) ?? 45_000
+		const delay = resolveFeedbackNudgeDelay(window.__NUDGE_DELAY_MS)
 		const t = setTimeout(() => setShowNudge(true), delay)
 		return () => clearTimeout(t)
 	}, [])

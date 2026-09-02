@@ -217,6 +217,9 @@ function findNpmFamilyCommands() {
 const failures = []
 const rootPackage = readJson('package.json')
 const rootScripts = stringMap(rootPackage.scripts)
+const rootDevDependencies = stringMap(rootPackage.devDependencies)
+const oxlintVersion = rootDevDependencies.oxlint
+const oxlintPluginsVersion = rootDevDependencies['@oxlint/plugins']
 const workspaces = Array.isArray(rootPackage.workspaces) ? rootPackage.workspaces : []
 const packageDirs = packageDirsFromWorkspaces(workspaces)
 const packageRecords = packageDirs.map(dir => ({dir, packageJson: readJson(`${dir}/package.json`)}))
@@ -238,6 +241,9 @@ const knipWorkspaces = knip.workspaces ?? {}
 const madgeScript = posix(rootScripts.madge ?? '')
 
 assert(rootPackage.private === true, 'Root package must stay private so workspace-only dependencies are never published from the app package.')
+assert(typeof oxlintVersion === 'string' && oxlintVersion.length > 0, 'Root devDependencies must pin oxlint.')
+assert(typeof oxlintPluginsVersion === 'string' && oxlintPluginsVersion.length > 0, 'Root devDependencies must pin @oxlint/plugins.')
+assert(oxlintPluginsVersion === oxlintVersion, `oxlint and @oxlint/plugins must use the same exact version (oxlint ${oxlintVersion}, @oxlint/plugins ${oxlintPluginsVersion}).`)
 assert(miseConfigExists, 'mise.toml must define shared Node and Bun tool versions.')
 assert(miseTools.node === nodeVersion, `mise.toml node must match .node-version (${nodeVersion}).`)
 assert(bunVersion !== null, 'Root packageManager must pin Bun as bun@<version>.')

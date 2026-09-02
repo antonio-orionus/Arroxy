@@ -11,13 +11,13 @@ import {WizardFooter} from './WizardFooter.js'
 import {VideoSummaryCard} from '../shared/VideoSummaryCard.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import loveImg from '../../assets/Love.png'
+import {createTranslationPort} from '../../lib/translation.js'
 
 export function StepConfirm(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const state = useAppStore()
 	const {addToQueue, addAndDownloadImmediately, back, isSubmittingToQueue} = state
-	const translateReview = (key: string, params?: Record<string, unknown>): string => (t as unknown as (key: string, params?: Record<string, unknown>) => string)(key, params)
-	const review = buildDownloadReview(state, {t: translateReview, language: i18n.language, commonPaths: state.commonPaths})
+	const review = buildDownloadReview(state, {t: createTranslationPort(t), language: i18n.language, commonPaths: state.commonPaths})
 	// A single preset row can't represent a batch where every item may carry a
 	// different DownloadProfile — this replaces it with a per-profile grouping.
 	const profileBreakdown = review.inMultiProfile ? multiProfileBreakdown(state) : []

@@ -22,12 +22,13 @@ async function writeFixtureFile(root: string, filePath: string, contents: string
 	await fs.writeFile(fullPath, contents)
 }
 
-function packageJson(options: {lintStaged?: Record<string, string>} = {}): string {
+function packageJson(options: {lintStaged?: Record<string, string>; devDependencies?: Record<string, string>} = {}): string {
 	return `${JSON.stringify(
 		{
 			private: true,
 			packageManager: 'bun@1.2.23',
 			workspaces: [],
+			devDependencies: options.devDependencies ?? {oxlint: '1.78.0', '@oxlint/plugins': '1.78.0'},
 			scripts: {
 				'lint:prepare': 'bun run errors:build',
 				lint: 'bun run lint:prepare && oxlint --type-aware .',
@@ -48,10 +49,10 @@ function publishWorkflow(command: string): string {
 	return `permissions:\n  id-token: write\nsteps:\n  - uses: actions/setup-node@v6\n    with:\n      node-version: 24\n      registry-url: https://registry.npmjs.org\n      package-manager-cache: false\n  - run: ${command}\n  - run: bun pm view\n  - run: bun pm pack --destination npm-artifacts\n  run: npm publish ./npm-artifacts/*.tgz --access public\n`
 }
 
-async function createContractFixture(overrides: {gitignore?: string; mise?: string; lintStaged?: Record<string, string>} = {}): Promise<string> {
+async function createContractFixture(overrides: {gitignore?: string; mise?: string; lintStaged?: Record<string, string>; devDependencies?: Record<string, string>} = {}): Promise<string> {
 	const root = await tempRoot()
 	await Promise.all([
-		writeFixtureFile(root, 'package.json', packageJson({lintStaged: overrides.lintStaged})),
+		writeFixtureFile(root, 'package.json', packageJson({lintStaged: overrides.lintStaged, devDependencies: overrides.devDependencies})),
 		writeFixtureFile(root, 'biome.jsonc', '{"formatter":{"enabled":true},"linter":{"enabled":false},"assist":{"enabled":false},"files":{"includes":[]}}\n'),
 		writeFixtureFile(root, 'knip.json', '{"workspaces":{}}\n'),
 		writeFixtureFile(root, '.node-version', '24.16.0\n'),
@@ -77,6 +78,15 @@ describe('tooling contract', () => {
 		const result = runToolingContract(root)
 
 		expect(result.status).toBe(0)
+	})
+
+	it('fails when oxlint and its plugin bridge are not version-aligned', async () => {
+		const root = await createContractFixture({devDependencies: {oxlint: '1.78.0', '@oxlint/plugins': '1.77.0'}})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('oxlint and @oxlint/plugins must use the same exact version')
 	})
 
 	it('only accepts Node and Bun pins from the mise tools table', async () => {

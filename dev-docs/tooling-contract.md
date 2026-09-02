@@ -48,3 +48,22 @@ Package release workflows use `bun pm pack` to build tarballs, then publish thos
 `eslint-plugin-react-hooks`, `eslint-plugin-security`, and `eslint-plugin-react` remain dev dependencies because Oxlint loads them through its JS-plugin bridge for parity-critical rules. Removing them requires native Oxlint parity or a documented replacement scanner.
 
 `scripts/check-tooling-parity.mjs` protects this bridge by proving representative React hooks/compiler, security, React, and type-aware TypeScript diagnostics still fire.
+
+## Vendored anti-slop plugin
+
+`tools/oxlint/anti-slop/` is root-owned lint infrastructure, not a workspace package or a package-local lint configuration. It is vendored because upstream publishes no official registry package and explicitly documents vendoring as its distribution model. `PROVENANCE.md` records the upstream repository, commit, version, license, and local modification policy; `LICENSE` preserves the upstream MIT text.
+
+The root config adopts exactly these six rules as errors:
+
+- `anti-slop/no-widen-then-assert`
+- `anti-slop/no-unknown-type-aliases`
+- `anti-slop/no-reflect-apply`
+- `anti-slop/no-reflect-get`
+- `anti-slop/no-object-parameters`
+- `anti-slop/no-chained-type-assertions` (off only for test globs)
+
+`no-unknown-parameters` and `no-runtime-typeof` are intentionally rejected because they conflict with Arroxy's trust-transition parsing and valid typed-union/capability narrowing. `no-unsafe-dictionary-type`, `no-known-value-widening`, and `no-unknown-returns` are audit-only. The remaining upstream rules are rejected or deferred; none is hidden behind a broad directory override.
+
+`oxlint` and `@oxlint/plugins` must remain exact-version aligned in `package.json`. `check:tooling-contract` enforces the alignment, while `check:tooling-parity` runs single-file fixtures that prove all six rules execute, accepted syntax remains accepted, and the test override disables only chained assertions. When an Oxlint upgrade is incompatible, remove the anti-slop registration and dependency rather than pinning Oxlint back solely for the plugin.
+
+Audit-only rules may be run manually during a focused refactor, but they are not CI policies or numeric ratchets. New broad rule overrides require architectural justification; file-path membership alone is not a trust-boundary justification.

@@ -1,12 +1,18 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it, vi} from 'vitest'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {updateSettingsSchema} from '@shared/schemas.js'
+import {appSettingsSchema, updateSettingsSchema} from '@shared/schemas.js'
+import type {AppSettings} from '@shared/types.js'
+import {z} from 'zod'
+
+type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false
+type Assert<T extends true> = T
+const appSettingsSchemaMatchesType: Assert<Equal<z.infer<typeof appSettingsSchema>, AppSettings>> = true
 
 describe('settings and recent stores', () => {
 	const baseDefaults = defaultAppSettings('/tmp')
@@ -152,6 +158,132 @@ describe('settings and recent stores', () => {
 		const settings = await store.get()
 		expect(settings.common.defaultOutputDir).toBe('/tmp')
 		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'balanced'})
+	})
+
+	it('loads and validates a current nested settings shape', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-current-shape-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads'}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+
+		expect((await store.get()).common.defaultOutputDir).toBe('/persisted/downloads')
+	})
+
+	it('keeps valid settings sections when the common section is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-invalid-section-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: 42, language: 'fr'}, single: {lastPreset: 'best-quality'}, profiles: {...baseDefaults.profiles, active: {kind: 'builtin', id: 'audio-only'}}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/tmp')
+		expect(settings.common.language).toBeUndefined()
+		expect(settings.single.lastPreset).toBe('best-quality')
+		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
+	})
+
+	it('preserves current cookies mode and preferences when the legacy flag is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-'))
+		const settingsPath = path.join(userData, 'settings.json')
+		await fs.writeFile(settingsPath, JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesMode: 'file', cookiesEnabled: 'true', installId: 'cookies-mode-test'}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(settings.common.language).toBe('fr')
+		expect(settings.common.cookiesMode).toBe('file')
+		expect((settings.common as unknown as {cookiesEnabled?: string}).cookiesEnabled).toBeUndefined()
+
+		const persisted = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+		expect(persisted.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(persisted.common.language).toBe('fr')
+		expect(persisted.common.cookiesMode).toBe('file')
+		expect(persisted.common).not.toHaveProperty('cookiesEnabled')
+
+		const marker = new Date('2000-01-01T00:00:00.000Z')
+		await fs.utimes(settingsPath, marker, marker)
+		new SettingsStore(userData, baseDefaults)
+		expect((await fs.stat(settingsPath)).mtimeMs).toBe(marker.getTime())
+	})
+
+	it('defaults cookies mode to off while preserving preferences when the legacy flag is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-legacy-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesEnabled: 'true', installId: 'cookies-mode-legacy-test'}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(settings.common.language).toBe('fr')
+		expect(settings.common.cookiesMode).toBe('off')
+
+		const persisted = JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8'))
+		expect(persisted.common.cookiesMode).toBe('off')
+		expect(persisted.common).not.toHaveProperty('cookiesEnabled')
+	})
+
+	it('does not rewrite a stable settings file on the next boot', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-no-rewrite-'))
+		const firstStore = new SettingsStore(userData, baseDefaults)
+		await firstStore.get()
+		const settingsPath = path.join(userData, 'settings.json')
+		const marker = new Date('2000-01-01T00:00:00.000Z')
+		await fs.utimes(settingsPath, marker, marker)
+
+		new SettingsStore(userData, baseDefaults)
+
+		expect((await fs.stat(settingsPath)).mtimeMs).toBe(marker.getTime())
+	})
+
+	it('keeps previous settings when post-merge validation rejects an update or launch', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-post-merge-validation-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		const before = await store.get()
+		const rejected = {success: false, error: {issues: [{message: 'forced schema failure'}]}}
+		const safeParseSpy = vi
+			.spyOn(appSettingsSchema, 'safeParse')
+			.mockReturnValueOnce(rejected as never)
+			.mockReturnValueOnce(rejected as never)
+
+		await expect(store.update({common: {defaultOutputDir: '/should-not-persist'}})).resolves.toEqual(before)
+		await expect(store.recordLaunch()).resolves.toEqual({settings: before, isFirstRun: true, launchCount: 0})
+
+		safeParseSpy.mockRestore()
+	})
+
+	it('keeps the persisted AppSettings interface in exact schema parity', () => {
+		expect(appSettingsSchemaMatchesType).toBe(true)
+	})
+
+	it('falls back to defaults when a recognized legacy setting has the wrong primitive type', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-invalid-legacy-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({defaultOutputDir: 42, rememberLastOutputDir: true, clipboardWatchEnabled: true, hotkeyEnabled: false}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+
+		expect((await store.get()).common.defaultOutputDir).toBe('/tmp')
+	})
+
+	it('falls back to defaults when a nested current setting is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-invalid-nested-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: 42}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+
+		expect((await store.get()).common.defaultOutputDir).toBe('/tmp')
+	})
+
+	it('backfills newly introduced defaults when the persisted common object is partial', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-partial-common-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {defaultOutputDir: '/persisted/downloads', rememberLastOutputDir: true, clipboardWatchEnabled: true, hotkeyEnabled: false}, single: {}, playlist: {}, profiles: baseDefaults.profiles}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(settings.common.backdropRenderMode).toBe('gpu')
+		expect(settings.common.nativeAudioPreference).toBe('compatible')
 	})
 
 	it('migrates legacy flat shape to nested on first read', async () => {

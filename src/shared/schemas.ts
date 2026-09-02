@@ -470,8 +470,26 @@ export const analyticsTrackSchema = z.object({name: z.string().min(1).max(64), p
 // applies `nonEmpty(value.trim())` so empty / whitespace yields no flag.
 export const limitRateSchema = z.string().regex(/^(|\s*|\d+(\.\d+)?[KM])$/i, 'Use a number followed by K or M (e.g. 500K, 1.5M)')
 
-const commonSettingsPatchSchema = z.object({
-	defaultOutputDir: z.string().min(1).optional(),
+const commonPathsSchema = z.object({downloads: z.string().nullable(), videos: z.string().nullable(), desktop: z.string().nullable(), music: z.string().nullable(), documents: z.string().nullable(), pictures: z.string().nullable(), home: z.string().nullable()})
+
+const binaryOverridesSchema = z.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional()}).partial()
+
+const commonSettingsSchema = z.object({
+	defaultOutputDir: z.string().min(1),
+	rememberLastOutputDir: z.boolean(),
+	lastSubfolderEnabled: z.boolean().optional(),
+	lastSubfolder: subfolderNameSchema.optional(),
+	installId: z.string().min(1).optional(),
+	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
+	uiTheme: uiThemeSchema.optional(),
+	backdropRenderMode: backdropRenderModeSchema.optional(),
+	language: supportedLangSchema.optional(),
+	commonPaths: commonPathsSchema.optional(),
+	cookiesPath: z.string().optional(),
+	cookiesMode: cookiesModeSchema.optional(),
+	cookiesBrowser: cookiesBrowserSchema.optional(),
+	proxyUrl: z.string().optional(),
+	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	limitRate: limitRateSchema.optional(),
 	playlistProbeLimit: playlistProbeLimitSchema.optional(),
 	networkPacingPreset: networkPacingPresetSchema.optional(),
@@ -482,18 +500,8 @@ const commonSettingsPatchSchema = z.object({
 	downloadConnections: downloadConnectionsSchema.optional(),
 	concurrentDownloads: concurrentDownloadsSchema.optional(),
 	autoRetryAttempts: autoRetryAttemptsSchema.optional(),
-	rememberLastOutputDir: z.boolean().optional(),
-	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
-	uiTheme: uiThemeSchema.optional(),
-	backdropRenderMode: backdropRenderModeSchema.optional(),
-	language: supportedLangSchema.optional(),
-	cookiesPath: z.string().optional(),
-	cookiesMode: cookiesModeSchema.optional(),
-	cookiesBrowser: cookiesBrowserSchema.optional(),
-	proxyUrl: z.string().optional(),
-	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
-	clipboardWatchEnabled: z.boolean().optional(),
-	hotkeyEnabled: z.boolean().optional(),
+	clipboardWatchEnabled: z.boolean(),
+	hotkeyEnabled: z.boolean(),
 	hotkeyAccelerator: hotkeyAcceleratorSchema.optional(),
 	filenameTemplate: z.string().trim().min(1).max(FILENAME_TEMPLATE_MAX).optional(),
 	closeBehavior: closeBehaviorSchema.optional(),
@@ -509,17 +517,30 @@ const commonSettingsPatchSchema = z.object({
 	firstRunCompleted: z.boolean().optional(),
 	launchCount: z.number().int().nonnegative().optional(),
 	lastReleaseNotesVersionShown: z.string().trim().min(1).optional(),
+	binaryOverrides: binaryOverridesSchema.optional(),
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
-	multiProfileHintDismissed: z.boolean().optional(),
-	binaryOverrides: z
-		.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional()})
-		.partial()
-		.optional(),
-	lastSubfolderEnabled: z.boolean().optional(),
-	lastSubfolder: subfolderNameSchema.optional()
+	multiProfileHintDismissed: z.boolean().optional()
 })
+
+const singlePrefsSchema = z.object({
+	lastPreset: presetSchema.optional(),
+	lastVideoResolution: z.string().optional(),
+	lastAudioSelection: audioSelectionSchema.optional(),
+	lastSubtitleLanguages: z.array(z.string()).optional(),
+	lastSubtitleMode: subtitleModeSchema.optional(),
+	lastSubtitleFormat: subtitleFormatSchema.optional()
+})
+
+const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})
+
+export const appSettingsSchema = z.object({common: commonSettingsSchema, single: singlePrefsSchema, playlist: playlistPrefsSchema, profiles: downloadProfilesPrefsSchema})
+
+// Common paths are derived from the OS and installId is internal; neither is
+// accepted from renderer settings updates. Deriving the rest keeps the patch
+// contract in lockstep with the persisted settings contract.
+const commonSettingsPatchSchema = commonSettingsSchema.partial().omit({commonPaths: true, installId: true})
 
 // Convention for *patch* schemas: every field is `.optional()` only — never
 // `.nullable()`. A patch is "fields the caller wants to change"; "absent" is

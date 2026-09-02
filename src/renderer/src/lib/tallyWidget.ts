@@ -75,6 +75,6 @@ function appendTallyScript(): Promise<TallyWidget> {
 }
 
 function getTallyWidget(): TallyWidget | null {
-	const maybeWindow = window as unknown as {Tally?: Partial<TallyWidget>}
-	return typeof maybeWindow.Tally?.openPopup === 'function' ? (maybeWindow.Tally as TallyWidget) : null
+	const tally = window.Tally
+	return tally && typeof tally.openPopup === 'function' ? {openPopup: tally.openPopup.bind(tally)} : null
 }

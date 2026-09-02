@@ -4,8 +4,25 @@
 	"plugins": ["eslint", "typescript", "react", "jsx-a11y"],
 	"options": {"typeAware": true, "respectEslintDisableDirectives": true, "reportUnusedDisableDirectives": "warn"},
 	"settings": {"react": {"version": "19.2.6"}},
-	"ignorePatterns": ["dist/**", "out/**", "node_modules/**", "dist-electron/**", "playwright-report/**", "test-results/**", "refs/**", ".ref/**", "readme-src/**", ".electron-user-data/**", ".agents/**", ".claude/**", "build/embedded/**", "workers/**/.wrangler/**", "workers/**/src/worker-configuration.d.ts"],
-	"jsPlugins": [{"name": "react-hooks-js", "specifier": "eslint-plugin-react-hooks"}, {"name": "security", "specifier": "eslint-plugin-security"}, {"name": "react-js", "specifier": "eslint-plugin-react"}],
+	"ignorePatterns": [
+		"dist/**",
+		"out/**",
+		"node_modules/**",
+		"dist-electron/**",
+		"playwright-report/**",
+		"test-results/**",
+		"refs/**",
+		".ref/**",
+		"readme-src/**",
+		".electron-user-data/**",
+		".agents/**",
+		".claude/**",
+		"build/embedded/**",
+		"tools/oxlint/anti-slop/**",
+		"workers/**/.wrangler/**",
+		"workers/**/src/worker-configuration.d.ts"
+	],
+	"jsPlugins": [{"name": "react-hooks-js", "specifier": "eslint-plugin-react-hooks"}, {"name": "security", "specifier": "eslint-plugin-security"}, {"name": "react-js", "specifier": "eslint-plugin-react"}, {"name": "anti-slop", "specifier": "./tools/oxlint/anti-slop/index.ts"}],
 	"rules": {
 		"no-debugger": "error",
 		"no-empty": ["error", {"allowEmptyCatch": true}],
@@ -53,7 +70,13 @@
 		"typescript/require-await": "error",
 		"typescript/restrict-plus-operands": "error",
 		"typescript/restrict-template-expressions": "error",
-		"typescript/unbound-method": "error"
+		"typescript/unbound-method": "error",
+		"anti-slop/no-chained-type-assertions": "error",
+		"anti-slop/no-object-parameters": "error",
+		"anti-slop/no-reflect-apply": "error",
+		"anti-slop/no-reflect-get": "error",
+		"anti-slop/no-unknown-type-aliases": "error",
+		"anti-slop/no-widen-then-assert": "error"
 	},
 	"overrides": [
 		{
@@ -184,7 +207,8 @@
 				"typescript/no-unsafe-return": "off",
 				"typescript/unbound-method": "off",
 				"typescript/require-await": "off",
-				"typescript/no-misused-promises": "off"
+				"typescript/no-misused-promises": "off",
+				"anti-slop/no-chained-type-assertions": "off"
 			}
 		},
 		{"files": ["playwright.*.config.ts", "playwright.config.ts"], "rules": {"typescript/no-unsafe-assignment": "off", "typescript/no-unsafe-member-access": "off", "typescript/no-unsafe-call": "off"}}

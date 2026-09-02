@@ -125,6 +125,22 @@ describe('Feedback nudge', () => {
 		expect(mockTallyOpenPopup).not.toHaveBeenCalled()
 	})
 
+	it.each([-1, Number.NaN, Number.POSITIVE_INFINITY])('uses the default delay for invalid injected values (%s)', async invalidDelay => {
+		;(window as unknown as Record<string, unknown>).__NUDGE_DELAY_MS = invalidDelay
+		render(<App />)
+		await act(async () => {})
+
+		act(() => {
+			vi.advanceTimersByTime(1)
+		})
+		expect(screen.queryByTestId('feedback-nudge')).not.toBeInTheDocument()
+
+		act(() => {
+			vi.advanceTimersByTime(44_999)
+		})
+		expect(screen.getByTestId('feedback-nudge')).toBeInTheDocument()
+	})
+
 	it('nudge auto-dismisses after 8 seconds', async () => {
 		render(<App />)
 		await act(async () => {})
