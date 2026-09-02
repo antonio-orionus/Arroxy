@@ -41,11 +41,19 @@ if (-not (Test-Path $mpCmdRun)) { throw "MpCmdRun.exe not found - cannot scan $P
 
 Write-Output "Defender: $mpCmdRun"
 & $mpCmdRun -SignatureUpdate 2>&1 | Out-Null
-try {
-  $status = Get-MpComputerStatus
-  Write-Output "signatures: $($status.AntivirusSignatureVersion) ($($status.AntivirusSignatureLastUpdated))"
-} catch {
-  Write-Output "signatures: version unavailable"
+$signatureUpdateExit = $LASTEXITCODE
+Write-Output "signature update exit: $signatureUpdateExit"
+
+$status = Get-MpComputerStatus
+$signatureLastUpdated = $status.AntivirusSignatureLastUpdated
+Write-Output "signatures: $($status.AntivirusSignatureVersion) ($signatureLastUpdated)"
+if ($null -eq $signatureLastUpdated) {
+  throw "Windows Defender did not report when its signatures were last updated"
+}
+$maxSignatureAge = [TimeSpan]::FromHours(48)
+$signatureAge = (Get-Date) - $signatureLastUpdated
+if ($signatureAge -gt $maxSignatureAge) {
+  throw "Windows Defender signatures are stale ($([Math]::Floor($signatureAge.TotalHours)) hours old; maximum 48 hours)"
 }
 
 Write-Output "scanning: $scanPath"

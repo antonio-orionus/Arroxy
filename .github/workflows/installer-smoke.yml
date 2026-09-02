@@ -76,22 +76,21 @@ jobs:
       # real-time protection on Defender removes a flagged file as it is written
       # and the scan would otherwise report a clean bill over a broken payload.
       #
-      # Blocking on every ref except a tag. On a tag it only warns: the binary is
-      # pinned and was already scanned when the pin landed, so a failure there
-      # means Microsoft reclassified something that has not changed — and failing
-      # would strand a draft release that already holds the macOS and Linux
-      # assets, with no recovery but a re-tag. The PR and weekly runs are where
-      # this is meant to catch things.
+      # Blocking on every ref except a tag using the source-pinned binary. On that
+      # tag it only warns: the binary was already scanned when the pin landed, so
+      # a failure means Microsoft reclassified something that has not changed.
+      # An explicit btbn_release_tag changes the payload and therefore blocks even
+      # on a tag; that recovery run must prove the replacement is clean.
       - name: Scan packed output with Windows Defender
         id: defender
         shell: pwsh
-        continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}
         run: >-
           ./scripts/test-binaries/scan-windows-defender.ps1
           -Path dist/win-unpacked
           -Require Arroxy.exe,resources/ffmpeg.exe,resources/ffprobe.exe
       - name: Surface an advisory Defender failure on tags
-        if: ${{ startsWith(github.ref, 'refs/tags/v') && steps.defender.outcome == 'failure' }}
+        if: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' && steps.defender.outcome == 'failure' }}
         shell: bash
         run: |
           echo "::warning::Windows Defender flagged the packed output for ${GITHUB_REF_NAME}. The release was NOT blocked. Verify the binary, then re-run this workflow via workflow_dispatch with btbn_release_tag set to a clean BtbN build and re-publish the Windows assets."

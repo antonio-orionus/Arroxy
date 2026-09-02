@@ -107,9 +107,10 @@ describe('release asset names', () => {
 		// tag is Microsoft's classifier changing its mind about a binary that
 		// passed last week — nothing in the repo changed. Failing there strands a
 		// draft release that already holds the macOS and Linux assets, so on tags
-		// it warns and on every other ref it blocks.
+		// it warns and on every other ref it blocks. An explicit override changes
+		// the payload, so that recovery run must block even when dispatched at a tag.
 		expect(installer).toContain('scan-windows-defender.ps1')
-		expect(installer).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}")
+		expect(installer).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}")
 		// A schedule is what actually catches definition drift, early and cheaply.
 		expect(installer).toContain('schedule:')
 		// Rebuilding against a different ffmpeg must not need a source edit and a
@@ -123,6 +124,15 @@ describe('release asset names', () => {
 
 		expect(defender).toContain('$scanPath = (Resolve-Path -LiteralPath $Path).Path')
 		expect(defender).toContain('-File $scanPath')
+	})
+
+	it('fails the Defender gate when antivirus signatures are stale', () => {
+		const defender = read('scripts/test-binaries/scan-windows-defender.ps1')
+
+		expect(defender).toContain('$signatureUpdateExit = $LASTEXITCODE')
+		expect(defender).toContain('[TimeSpan]::FromHours(48)')
+		expect(defender).toContain('$status.AntivirusSignatureLastUpdated')
+		expect(defender).toContain('throw "Windows Defender signatures are stale')
 	})
 
 	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {
