@@ -68,7 +68,7 @@ describe('settings and recent stores', () => {
 	})
 
 	it('defaults, validates, and persists global hotkey settings', async () => {
-		expect(baseDefaults.common.hotkeyEnabled).toBe(false)
+		expect(baseDefaults.common.hotkeyEnabled).toBe(true)
 		expect(baseDefaults.common.hotkeyAccelerator).toBe('CommandOrControl+Shift+D')
 		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'CommandOrControl+Alt+H'}}).success).toBe(true)
 		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'Not A Chord'}}).success).toBe(false)
@@ -76,12 +76,12 @@ describe('settings and recent stores', () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-hotkey-'))
 		const store = new SettingsStore(userData, baseDefaults)
 
-		const updated = await store.update({common: {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Alt+H'}})
-		expect(updated.common.hotkeyEnabled).toBe(true)
+		const updated = await store.update({common: {hotkeyEnabled: false, hotkeyAccelerator: 'CommandOrControl+Alt+H'}})
+		expect(updated.common.hotkeyEnabled).toBe(false)
 		expect(updated.common.hotkeyAccelerator).toBe('CommandOrControl+Alt+H')
 
 		const readBack = await store.get()
-		expect(readBack.common.hotkeyEnabled).toBe(true)
+		expect(readBack.common.hotkeyEnabled).toBe(false)
 		expect(readBack.common.hotkeyAccelerator).toBe('CommandOrControl+Alt+H')
 	})
 

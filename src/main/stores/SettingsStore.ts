@@ -287,7 +287,8 @@ export class SettingsStore {
 			customProfiles: profiles.custom.map(profile => profile.id),
 			overriddenBuiltins: profiles.overrides.map(profile => profile.id),
 			profilesWithCustomFilename: [...profiles.custom, ...profiles.overrides].filter(profile => profile.filename.kind === 'custom').map(profile => profile.id),
-			hasGlobalFilenameTemplate: (common.filenameTemplate ?? '').trim().length > 0
+			hasGlobalFilenameTemplate: (common.filenameTemplate ?? '').trim().length > 0,
+			hotkeyEnabled: common.hotkeyEnabled
 		})
 	}
 
