@@ -96,25 +96,25 @@ function mockProbeErrorKind(url: string): YtDlpErrorKind | null {
 	}
 }
 
-function currentBrowserWindow(): Window {
-	return window
-}
-
 export function installBrowserMock(): void {
-	if ('appApi' in window) return
-	const browserWindow = currentBrowserWindow()
+	// `Object.hasOwn`, not `'appApi' in window`: `appApi` is a required property
+	// on the `Window` declaration, so `in` narrows the negative branch to `never`
+	// and every assignment below stops typechecking. Own-property presence is
+	// also the precise question — both the preload bridge and this mock install
+	// `appApi` directly on `window`.
+	if (Object.hasOwn(window, 'appApi')) return
 
 	const knobs = readKnobs(location)
 	const launchMode = readBrowserMockLaunchMode()
 	const scenarioState = buildScenarioAppApiState(readBrowserMockScenario(), readUrlParams(location), knobs)
-	browserWindow.__arroxyBrowserMockShowStartupSplash = shouldShowBrowserMockStartupSplash({launchMode, warmUp: scenarioState.warmUp})
+	window.__arroxyBrowserMockShowStartupSplash = shouldShowBrowserMockStartupSplash({launchMode, warmUp: scenarioState.warmUp})
 
 	// Apply theme immediately so the first render uses the right colour scheme.
 	applyThemeLive(knobs.theme)
 
 	// Expose mock platform so UpdateBanner, TitleBar, etc. behave as if running
 	// on the selected OS. Falls back to 'linux' so browser-mock always has a value.
-	browserWindow.platform = knobs.platform ?? 'linux'
+	window.platform = knobs.platform ?? 'linux'
 
 	// RTL direction for locale knob.
 	if (knobs.locale !== null) {
@@ -144,7 +144,7 @@ export function installBrowserMock(): void {
 
 	let settings: AppSettings = scenarioState.settings
 
-	browserWindow.__arroxyMockEmitClipboardUrl = url => {
+	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))
 	}
 
@@ -696,6 +696,6 @@ export function installBrowserMock(): void {
 		}
 	}
 
-	browserWindow.appApi = mock
-	browserWindow.appVersion = scenarioState.appVersion
+	window.appApi = mock
+	window.appVersion = scenarioState.appVersion
 }
