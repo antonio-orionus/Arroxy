@@ -88,10 +88,11 @@ async function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string
 	const previous = get().settings
 	const previousRegistration = get().hotkeyRegistration
 	const nextEnabled = patch.hotkeyEnabled ?? previous?.common.hotkeyEnabled ?? false
-	++hotkeyStatusRequest
+	const request = ++hotkeyStatusRequest
 	if (previous) set({settings: {...previous, common: {...previous.common, ...patch}}})
 	set({hotkeyRegistration: nextEnabled ? 'pending' : 'off'})
 	const result = await window.appApi.settings.update({common: patch})
+	if (request !== hotkeyStatusRequest) return
 	if (!result.ok) {
 		++hotkeyStatusRequest
 		if (previous) set({settings: previous})

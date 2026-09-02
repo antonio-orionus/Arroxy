@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {HotkeySettingsSection} from '@renderer/components/wizard/HotkeySettingsSection.js'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
@@ -181,6 +181,33 @@ describe('HotkeySettingsSection', () => {
 
 		expect(getState).toHaveBeenCalledOnce()
 		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
+	})
+
+	it('ignores a stale settings response after a newer hotkey patch completes', async () => {
+		type SettingsUpdateResult = Awaited<ReturnType<HotkeyMockApi['settings']['update']>>
+		let resolveFirst: ((value: SettingsUpdateResult) => void) | undefined
+		let resolveSecond: ((value: SettingsUpdateResult) => void) | undefined
+		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'Ctrl+Shift+L', registered: true}))
+		mount({hotkeyEnabled: true}, {getState})
+		mockApi.settings.update = vi
+			.fn()
+			.mockImplementationOnce(() => new Promise<SettingsUpdateResult>(resolve => (resolveFirst = resolve)))
+			.mockImplementationOnce(() => new Promise<SettingsUpdateResult>(resolve => (resolveSecond = resolve)))
+
+		let firstPatch: Promise<void>
+		let secondPatch: Promise<void>
+		await act(async () => {
+			firstPatch = useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K')
+			secondPatch = useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+L')
+			resolveSecond?.(ok(buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+L'})))
+			await secondPatch
+			resolveFirst?.(ok(buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+K'})))
+			await firstPatch
+		})
+
+		expect(useAppStore.getState().settings?.common.hotkeyAccelerator).toBe('Ctrl+Shift+L')
+		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
+		expect(getState).toHaveBeenCalledOnce()
 	})
 
 	it('keeps registration off without querying main while the hotkey is disabled', () => {
