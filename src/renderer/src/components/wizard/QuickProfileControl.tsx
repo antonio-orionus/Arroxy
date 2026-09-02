@@ -84,11 +84,9 @@ export function QuickProfileControl({
 								render={props => (
 									<span {...props} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-[var(--quick-card-muted)]">
 										<span>{t('wizard.url.hotkey.hintLabel')}</span>
-										<KbdGroup className="gap-1.5">
+										<KbdGroup>
 											{chordKeys.map(key => (
-												<Kbd key={key} className="border-[1.5px] border-[var(--border-strong)] bg-black/20 px-1.5 py-0.5 font-mono text-[10px] leading-none text-[var(--quick-card-ink)]">
-													{key}
-												</Kbd>
+												<Kbd key={key}>{key}</Kbd>
 											))}
 										</KbdGroup>
 									</span>
