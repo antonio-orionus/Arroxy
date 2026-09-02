@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next'
 import {Check, ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine, Plus, Users} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
-import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
+import {formatHotkeyChord, formatHotkeyChordSpoken} from '@renderer/lib/hotkeyLabel.js'
 import {cn} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
@@ -56,6 +56,7 @@ export function QuickProfileControl({
 	const openAdvancedSettings = useAppStore(state => state.openAdvancedSettings)
 	const showHotkeyHint = !compact && hotkeyRegistration === 'registered'
 	const chordKeys = showHotkeyHint ? formatHotkeyChord(accelerator) : []
+	const spokenChord = showHotkeyHint ? formatHotkeyChordSpoken(accelerator) : []
 	const hasDestination = !compact && Boolean(destination?.trim())
 	const clusterTestId = testIdPrefix === 'profiles' ? 'profiles-quick-preview' : 'bulk-quick-profile-preview'
 	return (
@@ -64,7 +65,6 @@ export function QuickProfileControl({
 				type="button"
 				disabled={disabled}
 				aria-busy={preparing}
-				aria-keyshortcuts={showHotkeyHint ? accelerator : undefined}
 				onClick={onDownload}
 				className={cn(
 					'quick-profile-action group/quick relative flex min-w-0 flex-1 items-center gap-4 overflow-hidden text-left transition-[filter,transform] duration-200',
@@ -85,9 +85,9 @@ export function QuickProfileControl({
 						<Tooltip>
 							<TooltipTrigger
 								render={props => (
-									<span {...props} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-[var(--quick-card-muted)]">
+									<span {...props} aria-label={`${t('wizard.url.hotkey.hintLabel')} ${spokenChord.join(' ')}`} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-[var(--quick-card-muted)]">
 										<span>{t('wizard.url.hotkey.hintLabel')}</span>
-										<KbdGroup>
+										<KbdGroup aria-hidden="true">
 											{chordKeys.map(key => (
 												<Kbd key={key}>{key}</Kbd>
 											))}

@@ -89,10 +89,12 @@ describe('quick download hotkey hint', () => {
 		expect(screen.getByTestId('quick-download-hotkey-hint')).toBeInTheDocument()
 	})
 
-	it('advertises the shortcut to assistive tech on the download button itself', async () => {
+	it('names the hint with spoken keys without claiming the shortcut activates the button', async () => {
 		mount({hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'})
-		await screen.findByTestId('quick-download-hotkey-hint')
+		const hint = await screen.findByTestId('quick-download-hotkey-hint')
 		const button = screen.getByRole('button', {name: /quick/i})
-		expect(button.getAttribute('aria-keyshortcuts')).toBe('CommandOrControl+Shift+D')
+		expect(hint).toHaveAccessibleName(/Or press (Command|Control) Shift D/)
+		expect(hint.querySelector('[data-slot="kbd-group"]')).toHaveAttribute('aria-hidden', 'true')
+		expect(button).not.toHaveAttribute('aria-keyshortcuts')
 	})
 })
