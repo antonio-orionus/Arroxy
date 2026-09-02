@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto'
 import {mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
+import {pathToFileURL} from 'node:url'
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
 
 const LIB = join(process.cwd(), 'scripts/test-binaries/_lib.sh')
@@ -17,10 +18,6 @@ function bashPath(filePath: string): string {
 	if (process.platform !== 'win32') return filePath
 	const normalized = filePath.replaceAll(String.fromCharCode(92), '/')
 	return /^[A-Za-z]:/.test(normalized) ? `/${normalized[0].toLowerCase()}${normalized.slice(2)}` : normalized
-}
-
-function fileUrl(filePath: string): string {
-	return `file://${filePath}`
 }
 
 // Drive the real bash helper: curl reads file:// URLs, so a local file stands in
@@ -51,7 +48,7 @@ describe('_lib.sh fetch cache', () => {
 		const destination = join(dir, 'cached.bin')
 		writeFileSync(destination, payload.subarray(0, 128))
 
-		runFetch(fileUrl(source), destination, expected)
+		runFetch(pathToFileURL(source).href, destination, expected)
 
 		expect(sha256(readFileSync(destination))).toBe(expected)
 	})
