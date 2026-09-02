@@ -8,6 +8,41 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.9-beta.1
+
+A global shortcut that downloads whatever link you have copied — from any app, without opening Arroxy — plus real titles for Vimeo OTT videos and a settings store that no longer loses preferences when two writes land at once.
+
+## Highlights
+
+### Quick Download From Anywhere
+
+- Copy a video link in your browser, press one shortcut, and Arroxy queues it with your active download profile. No window switching, no pasting. Turn it on under Settings → Global hotkey; the default chord is `Ctrl/Cmd + Shift + D`, and you can record any other combination or reset back to the default.
+- If the shortcut is already claimed by another app, Arroxy says so while you are picking it instead of failing silently later.
+- Every press answers you where you are looking — a native notification when Arroxy is in the background, an in-app message when it is in front. It tells you what actually happened: queued, already in the queue, nothing on the clipboard, or a link that needs a quick look first.
+- Copy several links at once and the shortcut points you at Bulk URLs rather than guessing which one you meant.
+- The queue shows the item the moment you press the shortcut, so you get an immediate acknowledgment rather than waiting for the site to answer.
+- The main screen shows a small hint for the shortcut once it is enabled, so it stays discoverable instead of being a setting you turn on and forget.
+
+### Copying Several Links At Once
+
+- Copying a list of links no longer pops the bulk sheet open on its own. Arroxy hints that a multi-link clipboard is waiting and lets you decide when to open Bulk URLs — the same clipboard watch, without a window taking over the screen while you are working elsewhere.
+
+### Vimeo OTT Titles
+
+- Videos hosted on Vimeo OTT (VHX) storefronts used to arrive in the queue as "Untitled". Arroxy now recovers the real title from the page, so those downloads are named like everything else.
+
+### Settings That Stay Put
+
+- Two settings changes arriving at the same moment could interleave and leave part of your preferences behind. Every write is now serialized and, if one fails, rolled back to the last known-good state — so a failed save can no longer strand settings halfway.
+- Older profiles that predate the current filename defaults are migrated properly instead of quietly reverting to the built-in template, and a single unreadable profile no longer takes the rest of your profiles down with it.
+
+### Under The Hood
+
+- Six additional lint rules now run over the source and the findings they surfaced in production code are cleared. The codebase's rules on validating data at trust boundaries are written down as policy rather than convention, and the remaining type assertions in production paths are gone.
+- Toolchain bumped to Bun 1.4.0 across the repo, CI, and the version pins.
+
+---
+
 ## 0.4.8
 
 Arroxy speaks Brazilian Portuguese now, starts noticeably faster, stops downloading yt-dlp three times over on a fresh install, and pausing the queue finally looks like what it is.
