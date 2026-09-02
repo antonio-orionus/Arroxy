@@ -123,9 +123,8 @@ function currentShape(raw: Record<string, unknown>, defaults: AppSettings): Reco
 	return {...defaults, ...raw, common: mergeNested(raw, 'common', defaults.common), single: mergeNested(raw, 'single', defaults.single), playlist: mergeNested(raw, 'playlist', defaults.playlist), profiles: mergeNested(raw, 'profiles', defaults.profiles)}
 }
 
-function migrateCookiesMode(common: Record<string, unknown>): Record<string, unknown> | null {
+function migrateCookiesMode(common: Record<string, unknown>): Record<string, unknown> {
 	const cookiesEnabled = common.cookiesEnabled
-	if (cookiesEnabled !== undefined && typeof cookiesEnabled !== 'boolean') return null
 	if (common.cookiesMode !== undefined) {
 		if (cookiesEnabled === undefined) return common
 		const {cookiesEnabled: _drop, ...rest} = common

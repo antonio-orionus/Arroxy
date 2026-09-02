@@ -181,6 +181,43 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
 	})
 
+	it('preserves current cookies mode and preferences when the legacy flag is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-'))
+		const settingsPath = path.join(userData, 'settings.json')
+		await fs.writeFile(settingsPath, JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesMode: 'file', cookiesEnabled: 'true', installId: 'cookies-mode-test'}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(settings.common.language).toBe('fr')
+		expect(settings.common.cookiesMode).toBe('file')
+		expect((settings.common as unknown as {cookiesEnabled?: string}).cookiesEnabled).toBeUndefined()
+
+		const persisted = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+		expect(persisted.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(persisted.common.language).toBe('fr')
+		expect(persisted.common.cookiesMode).toBe('file')
+		expect(persisted.common).not.toHaveProperty('cookiesEnabled')
+
+		const marker = new Date('2000-01-01T00:00:00.000Z')
+		await fs.utimes(settingsPath, marker, marker)
+		new SettingsStore(userData, baseDefaults)
+		expect((await fs.stat(settingsPath)).mtimeMs).toBe(marker.getTime())
+	})
+
+	it('defaults cookies mode to off while preserving preferences when the legacy flag is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-legacy-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesEnabled: 'true', installId: 'cookies-mode-legacy-test'}}), 'utf-8')
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const settings = await store.get()
+
+		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
+		expect(settings.common.language).toBe('fr')
+		expect(settings.common.cookiesMode).toBe('off')
+	})
+
 	it('does not rewrite a stable settings file on the next boot', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-no-rewrite-'))
 		const firstStore = new SettingsStore(userData, baseDefaults)
