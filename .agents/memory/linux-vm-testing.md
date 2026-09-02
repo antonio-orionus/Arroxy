@@ -14,6 +14,15 @@ The local Ubuntu VMware guest is a private Linux target for Arroxy validation. K
 - Electron/Chromium behavior that is specific to Linux.
 - VMware graphics and backdrop iteration, including SwiftShader fallback when native WebGL is unavailable.
 
+## The guest is ARM64
+
+Arroxy publishes **x86_64 Linux artifacts only**, so nothing from the releases page runs
+on this VM: the AppImage fails with `Exec format error`, and the Flatpak installs cleanly
+and then dies at launch with `bwrap: execvp ldconfig: Exec format error`. Build arm64
+locally (`bun run dist:linux:arm64`) to test here; for a Flatpak the manifest's
+`only-arches: [x86_64]` must be flipped to `aarch64` as a local-only edit that is never
+committed.
+
 ## Operating rules
 
 - Confirm that the guest is running and verify SSH reachability before use; its VMware NAT address may change.

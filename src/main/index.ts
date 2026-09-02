@@ -35,7 +35,7 @@ import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
-import {resolveMainWindowBackgroundColor} from '@main/windowPresentation.js'
+import {resolveMainWindowBackgroundColor, watchSystemThemeBackground} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
@@ -319,6 +319,22 @@ if (hasSingleInstanceLock) {
 		}
 
 		const mainWindow = createMainWindow(resolveMainWindowBackgroundColor(initialSettings.common.uiTheme, nativeTheme.shouldUseDarkColors))
+
+		// Linux resolves the desktop colour scheme through xdg-desktop-portal over
+		// D-Bus, which is activated on demand, so a cold start can create the window
+		// before the answer arrives. Recording the value sampled at creation and any
+		// later correction (with its delay) is what makes a "wrong theme on first
+		// launch" report diagnosable from a user's log instead of guesswork.
+		log.info('theme:startup', {uiTheme: initialSettings.common.uiTheme ?? null, systemPrefersDark: nativeTheme.shouldUseDarkColors, themeSource: nativeTheme.themeSource, msSinceProcessStart: Math.round(process.uptime() * 1000)})
+		const stopThemeWatch = watchSystemThemeBackground(
+			mainWindow,
+			nativeTheme,
+			() => settingsStore.getSync().common.uiTheme,
+			systemPrefersDark => {
+				log.info('theme:systemChanged', {systemPrefersDark, uiTheme: settingsStore.getSync().common.uiTheme ?? null, msSinceProcessStart: Math.round(process.uptime() * 1000)})
+			}
+		)
+		mainWindow.on('closed', stopThemeWatch)
 
 		contextMenu({window: mainWindow.webContents, showSaveImageAs: true, showCopyImageAddress: true, showInspectElement: !app.isPackaged})
 
