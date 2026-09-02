@@ -15,6 +15,7 @@ import type {
 	FormatOption,
 	GraphicsPolicy,
 	HotkeyAccelerator,
+	HotkeyRegistrationStatus,
 	NativeAudioPreference,
 	PlaylistEntry,
 	PlaylistScope,
@@ -313,6 +314,7 @@ export interface SystemSlice {
 	warmupCancellable: boolean
 	warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null
 	settings: AppSettings | null
+	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null
 	language: SupportedLang
 	commonPaths: AppSettings['common']['commonPaths']

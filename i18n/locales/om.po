@@ -2761,6 +2761,12 @@ msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Qabduulee cuqaasi…"
 
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Durtii irra deebi'i"
+
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."
 msgstr "Hidha kam iyyuu yoo wallakkeessite, appii kamirraa iyyuu, Arroxy banaa malee daawniloodii godhi."

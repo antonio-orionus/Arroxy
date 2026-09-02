@@ -62,7 +62,7 @@ describe('settings and recent stores', () => {
 	})
 
 	it('defaults, validates, and persists global hotkey settings', async () => {
-		expect(baseDefaults.common.hotkeyEnabled).toBe(true)
+		expect(baseDefaults.common.hotkeyEnabled).toBe(false)
 		expect(baseDefaults.common.hotkeyAccelerator).toBe('CommandOrControl+Shift+D')
 		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'CommandOrControl+Alt+H'}}).success).toBe(true)
 		expect(updateSettingsSchema.safeParse({common: {hotkeyAccelerator: 'Not A Chord'}}).success).toBe(false)

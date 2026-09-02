@@ -2755,6 +2755,10 @@ msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr ""
 
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr ""
+
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."
 msgstr ""

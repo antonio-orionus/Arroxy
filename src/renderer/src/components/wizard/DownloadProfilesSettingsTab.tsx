@@ -45,9 +45,9 @@ const BACKDROP_RENDER_OPTIONS = [
 
 const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
 
-function SettingsPanel({title, description, children}: {title: string; description?: string; children: ReactNode}): ReactNode {
+function SettingsPanel({title, description, testId, children}: {title: string; description?: string; testId?: string; children: ReactNode}): ReactNode {
 	return (
-		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3">
+		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3" data-testid={testId}>
 			<CardHeader className="gap-1 px-3">
 				<CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
 				{description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
@@ -299,11 +299,9 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</SettingsPanel>
 
-			<div data-testid="hotkey-section">
-				<SettingsPanel title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
-					<HotkeySettingsSection />
-				</SettingsPanel>
-			</div>
+			<SettingsPanel testId="hotkey-section" title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
+				<HotkeySettingsSection />
+			</SettingsPanel>
 
 			<SettingsPanel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
 				<FieldGroup className="gap-4">

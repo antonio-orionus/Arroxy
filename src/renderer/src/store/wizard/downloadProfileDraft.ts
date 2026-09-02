@@ -132,9 +132,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		subtitleDelivery: initialProfile?.subtitles.mode ?? 'sidecar',
 		subtitleFormat: initialProfile?.subtitles.format ?? 'srt',
 		destination: initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '',
-		// Optional at runtime for profiles persisted before templates existed —
-		// see resolveFilenameTemplate.
-		filenameTemplate: initialProfile?.filename?.kind === 'custom' ? initialProfile.filename.template : '',
+		filenameTemplate: initialProfile?.filename.kind === 'custom' ? initialProfile.filename.template : '',
 		saveInsideSubfolder: initialProfile?.subfolder.enabled ?? true,
 		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName),
 		embedMetadata: initialProfile?.embed.metadata ?? true,

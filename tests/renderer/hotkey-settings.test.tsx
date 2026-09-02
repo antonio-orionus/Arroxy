@@ -1,15 +1,13 @@
-import {fireEvent, render, renderHook, screen, waitFor} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {HotkeySettingsSection} from '@renderer/components/wizard/HotkeySettingsSection.js'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
-import {DEFAULTS} from '@shared/constants.js'
+import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
-import type {AppSettings} from '@shared/types.js'
-import {defaultAppSettings} from '@shared/constants.js'
+import type {AppSettings, HotkeyRegistrationStatus} from '@shared/types.js'
 import {ok} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
-import {useHotkeyRegistration} from '@renderer/store/useHotkeyRegistration.js'
 
 // Renderer contract for the hotkey settings section: toggle persists through
 // the store action, the recorder captures a valid chord + saves it + reports
@@ -25,17 +23,17 @@ function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings
 	return {...base, common: {...base.common, ...common}}
 }
 
-function mount(common: Partial<AppSettings['common']> = {}, hotkeyOverrides: {registered?: boolean; getState?: HotkeyMockApi['hotkey']['getState']} = {}): void {
-	const settings = buildSettings(common)
+function mount(common: Partial<AppSettings['common']> = {}, hotkeyOverrides: {registered?: boolean; getState?: HotkeyMockApi['hotkey']['getState']} = {}, hotkeyRegistration?: HotkeyRegistrationStatus): void {
+	let settings = buildSettings(common)
 	mockApi = buildMockAppApi()
-	// Merge like the real main-process handler: applyCommonPatchAsync's final
-	// set() takes the resolved value, so echoing the pre-patch snapshot would
-	// silently revert every optimistic update.
-	mockApi.settings.update = vi.fn(async patch => ok({...settings, common: {...settings.common, ...(patch.common ?? {})}, ...(patch.profiles ? {profiles: {...settings.profiles, ...patch.profiles}} : {})}))
-	mockApi.hotkey.getState = hotkeyOverrides.getState ?? vi.fn().mockResolvedValue(ok({accelerator: settings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator, registered: hotkeyOverrides.registered ?? true}))
-	mockApi.hotkey.testPress = vi.fn().mockResolvedValue(undefined)
+	mockApi.settings.update = vi.fn(patch => {
+		settings = {...settings, common: {...settings.common, ...(patch.common ?? {})}, single: {...settings.single, ...(patch.single ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
+		return Promise.resolve(ok(settings))
+	})
+	mockApi.hotkey.getState = hotkeyOverrides.getState ?? vi.fn(() => Promise.resolve(ok({accelerator: settings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator, registered: hotkeyOverrides.registered ?? true})))
+	mockApi.hotkey.testPress = vi.fn().mockResolvedValue(ok(undefined))
 	Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
-	useAppStore.setState({initialized: true, initializing: false, settings})
+	useAppStore.setState({initialized: true, initializing: false, settings, hotkeyRegistration: hotkeyRegistration ?? (settings.common.hotkeyEnabled ? 'registered' : 'off')})
 	render(<HotkeySettingsSection />)
 }
 
@@ -46,10 +44,11 @@ function toggle(): HTMLElement {
 describe('HotkeySettingsSection', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
+		useAppStore.setState({settings: null, hotkeyRegistration: 'off'})
 	})
 
 	it('renders the toggle, current chord, and Test button', () => {
-		mount()
+		mount({hotkeyEnabled: true}, {}, 'pending')
 
 		expect(screen.getByText('Enable global hotkey')).toBeInTheDocument()
 		expect(toggle()).toHaveAttribute('aria-checked', 'true')
@@ -59,12 +58,13 @@ describe('HotkeySettingsSection', () => {
 	})
 
 	it('reset restores the default accelerator', async () => {
-		mount({hotkeyAccelerator: 'Super+Shift+S'})
+		mount({hotkeyEnabled: true, hotkeyAccelerator: 'Super+Shift+S'})
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-reset'))
 
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: DEFAULTS.hotkeyAccelerator}}))
 		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-chord-value')).toHaveTextContent(formatHotkeyChord(DEFAULTS.hotkeyAccelerator).join(' + ')))
+		await waitFor(() => expect(useAppStore.getState().hotkeyRegistration).toBe('registered'))
 	})
 
 	it('toggling on persists hotkeyEnabled and pulls registration state', async () => {
@@ -73,11 +73,12 @@ describe('HotkeySettingsSection', () => {
 		fireEvent.click(toggle())
 
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyEnabled: true}}))
-		await waitFor(() => expect(mockApi.hotkey.getState).toHaveBeenCalled())
+		await waitFor(() => expect(useAppStore.getState().hotkeyRegistration).toBe('registered'))
+		expect(mockApi.hotkey.getState).toHaveBeenCalledOnce()
 	})
 
 	it('recorder captures a valid chord, saves it, and stops recording', async () => {
-		mount()
+		mount({hotkeyEnabled: true})
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
 		expect(screen.getByTestId('profiles-settings-hotkey-recording')).toBeInTheDocument()
@@ -91,7 +92,7 @@ describe('HotkeySettingsSection', () => {
 	})
 
 	it('records Command before Shift when both modifiers are pressed', async () => {
-		mount()
+		mount({hotkeyEnabled: true})
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
 		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'S', metaKey: true, shiftKey: true})
@@ -100,7 +101,7 @@ describe('HotkeySettingsSection', () => {
 	})
 
 	it('recorder ignores modifierless keypresses and keeps recording; Escape cancels', () => {
-		mount()
+		mount({hotkeyEnabled: true})
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
 		const recording = screen.getByTestId('profiles-settings-hotkey-recording')
@@ -117,7 +118,7 @@ describe('HotkeySettingsSection', () => {
 	it('Tab cancels recording without moving focus back to the change button', async () => {
 		const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus')
 		try {
-			mount()
+			mount({hotkeyEnabled: true})
 			fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
 			await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-recording')).toHaveFocus())
 			focusSpy.mockClear()
@@ -162,56 +163,31 @@ describe('HotkeySettingsSection', () => {
 		type HotkeyStateResult = Awaited<ReturnType<HotkeyMockApi['hotkey']['getState']>>
 		let resolveState: ((value: HotkeyStateResult) => void) | undefined
 		const getState = vi.fn(() => new Promise<HotkeyStateResult>(resolve => (resolveState = resolve)))
-		mount({hotkeyEnabled: true}, {getState})
+		mount({hotkeyEnabled: true}, {getState}, 'registered')
 
+		const updatePromise = useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K')
+		await waitFor(() => expect(mockApi.hotkey.getState).toHaveBeenCalledOnce())
 		expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeDisabled()
-		resolveState?.(ok({accelerator: DEFAULTS.hotkeyAccelerator, registered: true}))
+		resolveState?.(ok({accelerator: 'Ctrl+Shift+K', registered: true}))
+		await updatePromise
 		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-test')).toBeEnabled())
 	})
 
-	it('reports registration once main answers, and re-asks when the chord changes', async () => {
-		const settings = buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'})
-		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'CommandOrControl+Shift+D', registered: true}))
-		mockApi = buildMockAppApi()
-		mockApi.hotkey.getState = getState
-		Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
-		useAppStore.setState({initialized: true, initializing: false, settings})
+	it('stores one shared registration status after a hotkey setting changes', async () => {
+		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'Ctrl+Shift+K', registered: true}))
+		mount({hotkeyEnabled: true}, {getState}, 'pending')
 
-		const {result} = renderHook(() => useHotkeyRegistration())
-		await waitFor(() => expect(result.current.registered).toBe(true))
-		expect(result.current.enabled).toBe(true)
-		expect(result.current.accelerator).toBe('CommandOrControl+Shift+D')
-		expect(getState).toHaveBeenCalledTimes(1)
+		await useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K')
 
-		useAppStore.setState({settings: buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+K'})})
-		await waitFor(() => expect(getState).toHaveBeenCalledTimes(2))
+		expect(getState).toHaveBeenCalledOnce()
+		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
 	})
 
-	it('leaves registration unknown while the hotkey is disabled', async () => {
-		const settings = buildSettings({hotkeyEnabled: false})
+	it('keeps registration off without querying main while the hotkey is disabled', () => {
 		const getState = vi.fn().mockResolvedValue(ok({accelerator: null, registered: false}))
-		mockApi = buildMockAppApi()
-		mockApi.hotkey.getState = getState
-		Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
-		useAppStore.setState({initialized: true, initializing: false, settings})
+		mount({hotkeyEnabled: false}, {getState})
 
-		const {result} = renderHook(() => useHotkeyRegistration())
-		await waitFor(() => expect(result.current.enabled).toBe(false))
-		expect(result.current.registered).toBeNull()
-		expect(getState).not.toHaveBeenCalled()
-	})
-
-	it('does not query registration when a surface does not display the hint', async () => {
-		const settings = buildSettings({hotkeyEnabled: true})
-		const getState = vi.fn().mockResolvedValue(ok({accelerator: DEFAULTS.hotkeyAccelerator, registered: true}))
-		mockApi = buildMockAppApi()
-		mockApi.hotkey.getState = getState
-		Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
-		useAppStore.setState({initialized: true, initializing: false, settings})
-
-		const {result} = renderHook(() => useHotkeyRegistration({observe: false}))
-		await waitFor(() => expect(result.current.enabled).toBe(true))
-		expect(result.current.registered).toBeNull()
+		expect(useAppStore.getState().hotkeyRegistration).toBe('off')
 		expect(getState).not.toHaveBeenCalled()
 	})
 })

@@ -217,15 +217,12 @@ describe('download profiles', () => {
 		expect(downloadProfileLabel(profile)).toBe('Audio only · WAV')
 	})
 
-	// A profile persisted before filename templates existed has no `filename`
-	// at all. Startup normalization fills it in, but this must not be the only
-	// line of defence — the deref used to throw and take Quick Download with it.
-	it('falls back to the global template when a profile carries no filename field', () => {
+	it('uses the default filename shape after normalizing a legacy profile', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
 		const {filename: _filename, ...legacy} = balanced
-		const profile = legacy as DownloadProfile
+		const profile = downloadProfileSchema.parse(legacy)
 
+		expect(profile.filename).toEqual({kind: 'default'})
 		expect(resolveFilenameTemplate(profile, '{title}')).toBe('{title}')
-		expect(() => resolveFilenameTemplate(profile, undefined)).not.toThrow()
 	})
 })

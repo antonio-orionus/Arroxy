@@ -2761,6 +2761,12 @@ msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Πατήστε πλήκτρα…"
 
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Επαναφορά στις προεπιλογές"
+
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."
 msgstr "Κατεβάστε οποιονδήποτε σύνδεσμο αντιγράψατε, από οποιαδήποτε εφαρμογή, χωρίς να ανοίξετε το Arroxy."

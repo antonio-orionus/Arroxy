@@ -47,7 +47,7 @@ export const DEFAULTS: {
 	writeDescription: false,
 	writeThumbnail: false,
 	writeM3u: true,
-	hotkeyEnabled: true,
+	hotkeyEnabled: false,
 	filenameTemplate: DEFAULT_FILENAME_TEMPLATE,
 	hotkeyAccelerator: 'CommandOrControl+Shift+D'
 }

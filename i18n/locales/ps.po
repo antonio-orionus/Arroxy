@@ -2761,6 +2761,12 @@ msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "کیليونه کېکاږئ…"
 
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "ډیفالټ ته بیرته شئ"
+
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."
 msgstr "هر کاپي شوی لینک له هرې اپلیکیشن څخه ډاونلوډ کړئ، پرته له دې چې Arroxy پرانیزئ."

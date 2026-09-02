@@ -224,7 +224,8 @@
 				"conflict": "Hotkeyn kun appii biraa qabameera — kan bira filu.",
 				"hintLabel": "Yookaan dhiibi",
 				"hintTooltip": "Bakka kamittiyyuu keessatti hidhaa viidiyoo kooppii godhi, gabaabbata kana dhiibi, Arroxy immoo piroofaayila kee sochii irra jiru fayyadamuun tarree keessa galcha — foddaa jijjiiruun hin barbaachisu.",
-				"hintTooltipSettings": "Qindaa'ina keessatti jijjiiri ykn cufi."
+				"hintTooltipSettings": "Qindaa'ina keessatti jijjiiri ykn cufi.",
+				"reset": "Durtii irra deebi'i"
 			},
 			"cookies": {
 				"sourceLabel": "Madda Cookies",

@@ -212,7 +212,8 @@
 				"conflict": "Ce raccourci est déjà utilisé par une autre application — choisissez-en un autre.",
 				"hintLabel": "Ou appuyez sur",
 				"hintTooltip": "Copiez un lien vidéo n’importe où, appuyez sur ce raccourci et Arroxy le mettra en file d’attente avec votre profil actif — inutile de changer de fenêtre.",
-				"hintTooltipSettings": "Modifiez-le ou désactivez-le dans les réglages."
+				"hintTooltipSettings": "Modifiez-le ou désactivez-le dans les réglages.",
+				"reset": "Réinitialiser par défaut"
 			},
 			"cookies": {
 				"sourceLabel": "Source des cookies",

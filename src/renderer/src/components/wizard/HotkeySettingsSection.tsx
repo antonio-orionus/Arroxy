@@ -4,7 +4,6 @@ import {RotateCcw} from 'lucide-react'
 import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useHotkeyRegistration} from '../../store/useHotkeyRegistration.js'
 import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldTitle} from '../ui/field.js'
@@ -22,7 +21,9 @@ export function HotkeySettingsSection(): ReactNode {
 	const {t} = useTranslation()
 	const setHotkeyEnabled = useAppStore(state => state.setHotkeyEnabled)
 	const setHotkeyAccelerator = useAppStore(state => state.setHotkeyAccelerator)
-	const {enabled, accelerator, registered, refresh} = useHotkeyRegistration()
+	const enabled = useAppStore(state => state.settings?.common?.hotkeyEnabled ?? false)
+	const accelerator = useAppStore(state => state.settings?.common?.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
+	const hotkeyRegistration = useAppStore(state => state.hotkeyRegistration)
 
 	const [recording, setRecording] = useState(false)
 	const restoreFocusPending = useRef(false)
@@ -47,11 +48,6 @@ export function HotkeySettingsSection(): ReactNode {
 		setRecording(false)
 	}, [])
 
-	const resetToDefault = useCallback(async () => {
-		await setHotkeyAccelerator(DEFAULTS.hotkeyAccelerator)
-		await refresh()
-	}, [refresh, setHotkeyAccelerator])
-
 	const handleKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>): void => {
 		if (STOP_KEYS.has(event.key)) {
 			// Escape returns to the control that opened the recorder. Tab keeps its
@@ -67,7 +63,6 @@ export function HotkeySettingsSection(): ReactNode {
 		if (!parsed.success) return
 		void (async () => {
 			await setHotkeyAccelerator(parsed.data)
-			await refresh()
 			stopRecording(true)
 		})()
 	}
@@ -104,15 +99,15 @@ export function HotkeySettingsSection(): ReactNode {
 							{t('wizard.url.hotkey.changeShortcut')}
 						</Button>
 					)}
-					<Button type="button" variant="ghost" size="sm" disabled={accelerator === DEFAULTS.hotkeyAccelerator} onClick={() => void resetToDefault()} data-testid="profiles-settings-hotkey-reset">
+					<Button type="button" variant="ghost" size="sm" disabled={accelerator === DEFAULTS.hotkeyAccelerator} onClick={() => void setHotkeyAccelerator(DEFAULTS.hotkeyAccelerator)} data-testid="profiles-settings-hotkey-reset">
 						<RotateCcw data-icon="inline-start" aria-hidden />
-						{t('repair.actions.resetToDefault')}
+						{t('wizard.url.hotkey.reset')}
 					</Button>
-					<Button type="button" variant="ghost" size="sm" disabled={!enabled || registered !== true} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
+					<Button type="button" variant="ghost" size="sm" disabled={hotkeyRegistration !== 'registered'} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
 						{t('wizard.url.hotkey.test')}
 					</Button>
 				</div>
-				{enabled && registered === false ? (
+				{hotkeyRegistration === 'conflict' ? (
 					<FieldDescription className="text-[11px] text-destructive" data-testid="profiles-settings-hotkey-conflict">
 						{t('wizard.url.hotkey.conflict')}
 					</FieldDescription>

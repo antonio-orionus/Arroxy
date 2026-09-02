@@ -1,10 +1,11 @@
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Check, ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine, Plus, Users} from 'lucide-react'
+import {DEFAULTS} from '@shared/constants.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {cn} from '@renderer/lib/utils.js'
-import {useHotkeyRegistration} from '../../store/useHotkeyRegistration.js'
+import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Kbd, KbdGroup} from '../ui/kbd.js'
 import {Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger} from '../ui/popover.js'
@@ -50,8 +51,10 @@ export function QuickProfileControl({
 	const model = buildDownloadProfileActionModel(profilesPrefs)
 	const {activeProfile} = model
 	const compact = size === 'compact'
-	const {enabled: hotkeyEnabled, accelerator, registered} = useHotkeyRegistration({observe: !compact})
-	const showHotkeyHint = !compact && hotkeyEnabled && registered === true
+	const accelerator = useAppStore(state => state.settings?.common?.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
+	const hotkeyRegistration = useAppStore(state => state.hotkeyRegistration)
+	const openAdvancedSettings = useAppStore(state => state.openAdvancedSettings)
+	const showHotkeyHint = !compact && hotkeyRegistration === 'registered'
 	const chordKeys = showHotkeyHint ? formatHotkeyChord(accelerator) : []
 	const hasDestination = !compact && Boolean(destination?.trim())
 	const clusterTestId = testIdPrefix === 'profiles' ? 'profiles-quick-preview' : 'bulk-quick-profile-preview'
@@ -94,7 +97,9 @@ export function QuickProfileControl({
 							/>
 							<TooltipContent side="bottom" className="max-w-xs flex-col items-start gap-1 text-left">
 								<span>{t('wizard.url.hotkey.hintTooltip')}</span>
-								<span className="opacity-80">{t('wizard.url.hotkey.hintTooltipSettings')}</span>
+								<Button type="button" variant="link" size="xs" className="h-auto p-0 text-left text-background opacity-80 hover:text-background" onClick={() => openAdvancedSettings('hotkey')}>
+									{t('wizard.url.hotkey.hintTooltipSettings')}
+								</Button>
 							</TooltipContent>
 						</Tooltip>
 					) : null}

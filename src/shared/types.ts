@@ -59,7 +59,7 @@ export type {
 } from './schemas.js'
 
 export type {StatusKey} from './schemas.js'
-export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
+export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
 import type {

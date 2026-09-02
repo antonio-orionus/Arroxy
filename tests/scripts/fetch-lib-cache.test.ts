@@ -13,11 +13,21 @@ function sha256(buffer: Buffer): string {
 	return createHash('sha256').update(buffer).digest('hex')
 }
 
+function bashPath(filePath: string): string {
+	if (process.platform !== 'win32') return filePath
+	const normalized = filePath.replaceAll(String.fromCharCode(92), '/')
+	return /^[A-Za-z]:/.test(normalized) ? `/${normalized[0].toLowerCase()}${normalized.slice(2)}` : normalized
+}
+
+function fileUrl(filePath: string): string {
+	return `file://${bashPath(filePath)}`
+}
+
 // Drive the real bash helper: curl reads file:// URLs, so a local file stands in
-// for the upstream asset without touching the network.
+// for the upstream asset without touching the network. Git Bash needs Windows
+// paths converted to its POSIX form before the sourced helper can read them.
 function runFetch(url: string, destination: string, expected?: string): void {
-	const args = expected === undefined ? '' : ` '${expected}'`
-	execFileSync('bash', ['-c', `source '${LIB}'; fetch '${url}' '${destination}'${args}`], {stdio: 'pipe'})
+	execFileSync('bash', ['-c', 'source "$LIB"; fetch "$URL" "$DEST" "$EXPECTED"'], {stdio: 'pipe', env: {...process.env, LIB: bashPath(LIB), URL: url, DEST: bashPath(destination), EXPECTED: expected ?? ''}})
 }
 
 beforeEach(() => {
@@ -41,7 +51,7 @@ describe('_lib.sh fetch cache', () => {
 		const destination = join(dir, 'cached.bin')
 		writeFileSync(destination, payload.subarray(0, 128))
 
-		runFetch(`file://${source}`, destination, expected)
+		runFetch(fileUrl(source), destination, expected)
 
 		expect(sha256(readFileSync(destination))).toBe(expected)
 	})

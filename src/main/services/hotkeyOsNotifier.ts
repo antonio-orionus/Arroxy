@@ -57,7 +57,7 @@ function terminalNotifier(fallback: HotkeyOsNotifier): HotkeyOsNotifier {
 // Tray balloons go through Shell_NotifyIcon and hang off the tray icon itself,
 // needing no AUMID registration — the only OS notification surface a portable
 // build can reach.
-function balloonNotifier(host: HotkeyBalloonHost, fallback: HotkeyOsNotifier): HotkeyOsNotifier {
+export function balloonNotifier(host: HotkeyBalloonHost, fallback: HotkeyOsNotifier): HotkeyOsNotifier {
 	return {
 		show: body => {
 			if (host.displayBalloon(body)) return
@@ -65,10 +65,6 @@ function balloonNotifier(host: HotkeyBalloonHost, fallback: HotkeyOsNotifier): H
 			fallback.show(body)
 		}
 	}
-}
-
-export function createBalloonNotifier(host: HotkeyBalloonHost, fallback: HotkeyOsNotifier): HotkeyOsNotifier {
-	return balloonNotifier(host, fallback)
 }
 
 // E2E assertion point: under the fixture harness there is no OS to observe,

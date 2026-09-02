@@ -212,7 +212,8 @@
 				"conflict": "このショートカットは別のアプリで使用中です — 別のものを選んでください。",
 				"hintLabel": "または押す",
 				"hintTooltip": "どこででも動画リンクをコピーしてこのショートカットを押すと、Arroxyがアクティブなプロフィールでキューに追加します — ウィンドウを切り替える必要はありません。",
-				"hintTooltipSettings": "設定で変更または無効にできます。"
+				"hintTooltipSettings": "設定で変更または無効にできます。",
+				"reset": "デフォルトにリセット"
 			},
 			"cookies": {
 				"sourceLabel": "Cookieのソース",

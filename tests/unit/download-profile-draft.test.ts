@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {downloadProfileSchema} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {createDownloadProfileDraft, downloadProfileFromDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
@@ -107,7 +108,8 @@ describe('DownloadProfileDraft', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
 		const {filename: _filename, ...legacy} = balanced
 
-		const draft = createDownloadProfileDraft(legacy as DownloadProfile)
+		const normalized = downloadProfileSchema.parse(legacy)
+		const draft = createDownloadProfileDraft(normalized)
 
 		expect(draft.filenameTemplate).toBe('')
 	})

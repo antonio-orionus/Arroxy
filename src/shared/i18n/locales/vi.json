@@ -212,7 +212,8 @@
 				"conflict": "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác.",
 				"hintLabel": "Hoặc nhấn",
 				"hintTooltip": "Sao chép liên kết video ở bất cứ đâu, nhấn phím tắt này và Arroxy sẽ xếp liên kết vào hàng đợi bằng hồ sơ đang hoạt động — không cần chuyển cửa sổ.",
-				"hintTooltipSettings": "Thay đổi hoặc tắt tính năng này trong Cài đặt."
+				"hintTooltipSettings": "Thay đổi hoặc tắt tính năng này trong Cài đặt.",
+				"reset": "Đặt lại về mặc định"
 			},
 			"cookies": {
 				"sourceLabel": "Nguồn cookies",
