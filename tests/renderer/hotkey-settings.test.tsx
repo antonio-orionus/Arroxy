@@ -213,11 +213,10 @@ describe('HotkeySettingsSection', () => {
 	})
 
 	it('serializes overlapping hotkey writes so a failed one cannot strand the optimistic value', async () => {
-		// Rollback captures the settings seen before the patch, which is only
-		// canonical if no other patch is in flight. Overlapping writes must
-		// therefore run one at a time: a failure then rolls back to what main
-		// actually holds, and registration resolves instead of sticking at
-		// 'pending' because the older patch found itself superseded.
+		// Overlapping writes run one at a time, and a failure rolls back to what
+		// main actually holds rather than to a snapshot that predates the write
+		// before it. Registration resolves too, instead of sticking at 'pending'
+		// because the older patch found itself superseded.
 		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'Ctrl+Shift+K', registered: true}))
 		mount({hotkeyEnabled: true}, {getState})
 		const persisted = buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+K'})
@@ -226,6 +225,8 @@ describe('HotkeySettingsSection', () => {
 			.mockResolvedValueOnce(ok(persisted))
 			.mockResolvedValueOnce(fail({kind: 'other', code: 'settings_write_failed', message: 'nope'}))
 		mockApi.settings.update = update
+		// Main kept the first write, so that is what the rollback re-reads.
+		mockApi.settings.get = vi.fn().mockResolvedValue(ok(persisted))
 
 		await act(async () => {
 			await Promise.all([useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K'), useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+L')])

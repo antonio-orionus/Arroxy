@@ -1,4 +1,5 @@
 import type {AppSettings, DependencyDiagnostic, DependencyId, DownloadProfile, DownloadProfileRef, HotkeyRegistrationStatus, HotkeyState} from '@shared/types.js'
+import type {SettingsPatch} from '@shared/api.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
@@ -29,36 +30,66 @@ function handleCompletedDownloadMilestones(doneIncrements: number, prevMilestone
 	}
 }
 
-function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['common']>): void {
-	const previous = get().settings
-	if (previous) {
-		set({settings: {...previous, common: {...previous.common, ...patch}}})
-	}
-	void window.appApi.settings.update({common: patch}).then(result => {
-		if (!result.ok) {
-			// Revert optimistic update — UI was showing patched value, but the
-			// canonical state on disk never changed. Without rollback, renderer
-			// and main process diverge until next initialize().
-			if (previous) set({settings: previous})
-			notify.settingsSaveFailed('share', result.error)
-			return
-		}
-		set({settings: result.data})
-	})
+// Every settings write goes through one queue. Writes used to run concurrently
+// and roll back on failure to a snapshot taken before the patch — which is only
+// canonical while nothing else is in flight. Overlapping, a failure rolled back
+// over a sibling's persisted value or over a newer patch to the same field, and
+// the renderer disagreed with disk until the next initialize(). Serializing
+// removes the class rather than guarding each symptom.
+let settingsWriteQueue: Promise<void> = Promise.resolve()
+
+function queueSettingsWrite(run: () => Promise<void>): Promise<void> {
+	const next = settingsWriteQueue.then(run)
+	settingsWriteQueue = next.catch(() => undefined)
+	return next
 }
 
-// Shared pattern for setCookiesPath/setProxyUrl/...: optimistic update, IPC
-// patch, on failure revert to the value captured before the patch.
-async function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
-	const previous = get().settings
-	if (previous) set({settings: {...previous, common: {...previous.common, ...patch}}})
-	const result = await window.appApi.settings.update({common: patch})
+// Mirrors main's deepMerge one level down: each section named by the patch
+// merges field by field over the current one, the rest are left alone.
+function optimisticSettings(previous: AppSettings, patch: SettingsPatch): AppSettings {
+	return {
+		...previous,
+		common: patch.common ? {...previous.common, ...patch.common} : previous.common,
+		single: patch.single ? {...previous.single, ...patch.single} : previous.single,
+		playlist: patch.playlist ? {...previous.playlist, ...patch.playlist} : previous.playlist,
+		profiles: patch.profiles ? {...previous.profiles, ...patch.profiles} : previous.profiles
+	}
+}
+
+// Rollback target after a failed write. Restoring a snapshot taken before the
+// patch is what made overlapping writes unsound; main is the only thing that
+// knows what actually landed. Optimistic patches still queued behind this one
+// re-assert themselves when their own write returns.
+async function restoreCanonicalSettings(set: SetState): Promise<void> {
+	const canonical = await window.appApi.settings.get()
+	if (canonical.ok) set({settings: canonical.data})
+}
+
+// The optimistic patch is applied by the caller, synchronously: the UI has to
+// see it in the tick it acted, before this ever reaches the queue.
+async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<void> {
+	const result = await window.appApi.settings.update(patch)
 	if (!result.ok) {
-		if (previous) set({settings: previous})
+		await restoreCanonicalSettings(set)
 		notify.settingsSaveFailed(label, result.error)
 		return
 	}
 	set({settings: result.data})
+}
+
+function applyOptimistic(get: GetState, set: SetState, patch: SettingsPatch): void {
+	const previous = get().settings
+	if (previous) set({settings: optimisticSettings(previous, patch)})
+}
+
+function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['common']>): void {
+	void applyCommonPatchAsync(get, set, 'share', patch)
+}
+
+// Shared pattern for setCookiesPath/setProxyUrl/...
+function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+	applyOptimistic(get, set, {common: patch})
+	return queueSettingsWrite(() => writeSettings(set, label, {common: patch}))
 }
 
 function hotkeyStatusFor(settings: AppSettings | null, state: HotkeyState): HotkeyRegistrationStatus {
@@ -84,50 +115,26 @@ async function refreshHotkeyRegistration(get: GetState, set: SetState): Promise<
 	}
 }
 
-// Hotkey writes run one at a time. Rollback restores the settings captured
-// before the patch, which is only canonical while nothing else is in flight —
-// with overlapping writes an older patch rolls back to a newer patch's
-// optimistic value, or finds itself superseded and leaves registration stuck
-// on 'pending'. Queueing removes the class instead of guarding each symptom.
-let hotkeyWriteQueue: Promise<void> = Promise.resolve()
-
 function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
-	const run = hotkeyWriteQueue.then(() => applyHotkeyPatch(get, set, label, patch))
-	hotkeyWriteQueue = run.catch(() => undefined)
-	return run
-}
-
-async function applyHotkeyPatch(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
-	const previous = get().settings
-	const previousRegistration = get().hotkeyRegistration
-	const nextEnabled = patch.hotkeyEnabled ?? previous?.common.hotkeyEnabled ?? false
+	const nextEnabled = patch.hotkeyEnabled ?? get().settings?.common.hotkeyEnabled ?? false
 	// Invalidate any refresh started before this patch: its answer describes the
 	// chord we are about to replace.
 	++hotkeyStatusRequest
-	if (previous) set({settings: {...previous, common: {...previous.common, ...patch}}})
+	applyOptimistic(get, set, {common: patch})
 	set({hotkeyRegistration: nextEnabled ? 'pending' : 'off'})
-	const result = await window.appApi.settings.update({common: patch})
-	if (!result.ok) {
-		++hotkeyStatusRequest
-		if (previous) set({settings: previous})
-		set({hotkeyRegistration: previousRegistration})
-		notify.settingsSaveFailed(label, result.error)
-		return
-	}
-	set({settings: result.data})
-	await refreshHotkeyRegistration(get, set)
+	// Both outcomes end by re-deriving registration from whatever settings the
+	// store ends up holding — canonical on success, re-read from main on
+	// failure. A pre-patch snapshot would be stale for the same reason the
+	// settings one was.
+	return queueSettingsWrite(async () => {
+		await writeSettings(set, label, {common: patch})
+		await refreshHotkeyRegistration(get, set)
+	})
 }
 
-async function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
-	const previous = get().settings
-	if (previous) set({settings: {...previous, profiles}})
-	const result = await window.appApi.settings.update({profiles})
-	if (!result.ok) {
-		if (previous) set({settings: previous})
-		notify.settingsSaveFailed(label, result.error)
-		return
-	}
-	set({settings: result.data})
+function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
+	applyOptimistic(get, set, {profiles})
+	return queueSettingsWrite(() => writeSettings(set, label, {profiles}))
 }
 
 function currentProfiles(settings: AppSettings | null): AppSettings['profiles'] {
