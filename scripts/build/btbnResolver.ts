@@ -1,6 +1,19 @@
 import {pathToFileURL} from 'node:url'
 
 const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
+
+// The embedded ffmpeg/ffprobe version is a reviewed decision, not "whatever
+// BtbN published this morning". Floating made release builds irreproducible and
+// gave an unvetted daily autobuild a direct path to users: the 2026-09-01
+// autobuild's ffprobe.exe trips Windows Defender's ML classifier as
+// Trojan:Win32/Wacatac.B!ml (a known upstream false positive — see
+// BtbN/FFmpeg-Builds#646) and is quarantined on install, which breaks probing.
+//
+// To bump: pick a newer autobuild tag, run scripts/test-binaries/smoke-all.sh,
+// and let the Defender scan in .github/workflows/installer-smoke.yml gate it.
+// Set BTBN_RELEASE_TAG to override — a tag name, 'latest' for BtbN's floating
+// release, or 'floating' to resolve the newest complete release as before.
+export const BTBN_PINNED_RELEASE_TAG = 'autobuild-2026-08-31-13-27'
 const BTBN_FETCH_TIMEOUT_MS = 30_000
 
 type BtbnArchiveExtension = 'tar.xz' | 'zip'
@@ -253,7 +266,8 @@ export function formatShellEnv(resolution: BtbnAssetResolution, target?: BtbnTar
 
 export async function resolveBtbnAsset(btbnArch: string, ext: BtbnArchiveExtension, env: Record<string, string | undefined> = process.env): Promise<BtbnAssetResolution> {
 	const apiBase = nonBlank(env.BTBN_API_BASE) ?? BTBN_API_BASE
-	const pinnedTag = env.BTBN_RELEASE_TAG?.trim()
+	const requestedTag = nonBlank(env.BTBN_RELEASE_TAG) ?? BTBN_PINNED_RELEASE_TAG
+	const pinnedTag = requestedTag === 'floating' ? undefined : requestedTag
 	const releases = pinnedTag ? [await fetchReleaseByTag(apiBase, pinnedTag, env)] : await fetchReleaseList(apiBase, env)
 	const resolution = selectBtbnAsset(releases, btbnArch, ext, {includeFloatingLatest: pinnedTag === 'latest'})
 

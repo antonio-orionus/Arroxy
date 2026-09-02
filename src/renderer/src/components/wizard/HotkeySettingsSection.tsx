@@ -1,8 +1,10 @@
 import {useCallback, useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {RotateCcw} from 'lucide-react'
 import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldTitle} from '../ui/field.js'
 import {SettingSwitch} from './SettingSwitch.js'
@@ -17,43 +19,16 @@ const STOP_KEYS = new Set(['Escape', 'Tab'])
 // from main's registration state below the recorder.
 export function HotkeySettingsSection(): ReactNode {
 	const {t} = useTranslation()
-	const settings = useAppStore(state => state.settings)
 	const setHotkeyEnabled = useAppStore(state => state.setHotkeyEnabled)
 	const setHotkeyAccelerator = useAppStore(state => state.setHotkeyAccelerator)
-	const common = settings?.common
-	const enabled = common?.hotkeyEnabled ?? false
-	const accelerator = common?.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator
+	const enabled = useAppStore(state => state.settings?.common?.hotkeyEnabled ?? false)
+	const accelerator = useAppStore(state => state.settings?.common?.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
+	const hotkeyRegistration = useAppStore(state => state.hotkeyRegistration)
 
 	const [recording, setRecording] = useState(false)
-	const [registered, setRegistered] = useState<boolean | null>(null)
 	const restoreFocusPending = useRef(false)
 	const recordingButtonRef = useRef<HTMLButtonElement>(null)
 	const changeButtonRef = useRef<HTMLButtonElement>(null)
-
-	// Registration verdict is derived from main's actual state; the renderer
-	// never assumes. Fetched in the background and after every commit.
-	const fetchRegistration = useCallback(async (): Promise<boolean | null> => {
-		const result = await window.appApi.hotkey.getState()
-		return result.ok ? result.data.registered : null
-	}, [])
-
-	const refreshState = useCallback(async () => {
-		setRegistered(await fetchRegistration())
-	}, [fetchRegistration])
-
-	// Registration state changes whenever the chord or enable flag changes —
-	// including from a settings.json hand-edit or another surface — so the
-	// conflict verdict refreshes on every toggle and recorder commit.
-	useEffect(() => {
-		if (!enabled) return
-		let cancelled = false
-		void fetchRegistration().then(state => {
-			if (!cancelled) setRegistered(state)
-		})
-		return () => {
-			cancelled = true
-		}
-	}, [enabled, accelerator, fetchRegistration])
 
 	// Move focus into the recorder button once it mounts (jsx-a11y bans the
 	// autoFocus attribute; focusing from an effect is the sanctioned path).
@@ -88,7 +63,6 @@ export function HotkeySettingsSection(): ReactNode {
 		if (!parsed.success) return
 		void (async () => {
 			await setHotkeyAccelerator(parsed.data)
-			await refreshState()
 			stopRecording(true)
 		})()
 	}
@@ -103,7 +77,7 @@ export function HotkeySettingsSection(): ReactNode {
 						{t('wizard.url.hotkey.changeShortcut')}
 					</FieldTitle>
 					<FieldDescription className="text-[11px] text-[var(--text-subtle)]" data-testid="profiles-settings-hotkey-chord-value">
-						{accelerator}
+						{formatHotkeyChord(accelerator).join(' + ')}
 					</FieldDescription>
 				</FieldContent>
 				<div className="flex items-center gap-2" data-testid="profiles-settings-hotkey-recorder">
@@ -125,11 +99,15 @@ export function HotkeySettingsSection(): ReactNode {
 							{t('wizard.url.hotkey.changeShortcut')}
 						</Button>
 					)}
-					<Button type="button" variant="ghost" size="sm" disabled={!enabled || registered !== true} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
+					<Button type="button" variant="ghost" size="sm" disabled={accelerator === DEFAULTS.hotkeyAccelerator} onClick={() => void setHotkeyAccelerator(DEFAULTS.hotkeyAccelerator)} data-testid="profiles-settings-hotkey-reset">
+						<RotateCcw data-icon="inline-start" aria-hidden />
+						{t('wizard.url.hotkey.reset')}
+					</Button>
+					<Button type="button" variant="ghost" size="sm" disabled={hotkeyRegistration !== 'registered'} onClick={() => void window.appApi.hotkey.testPress()} data-testid="profiles-settings-hotkey-test">
 						{t('wizard.url.hotkey.test')}
 					</Button>
 				</div>
-				{enabled && registered === false ? (
+				{hotkeyRegistration === 'conflict' ? (
 					<FieldDescription className="text-[11px] text-destructive" data-testid="profiles-settings-hotkey-conflict">
 						{t('wizard.url.hotkey.conflict')}
 					</FieldDescription>
@@ -146,8 +124,8 @@ function buildAccelerator(event: ReactKeyboardEvent<HTMLButtonElement>): string 
 	const modifiers: string[] = []
 	if (event.ctrlKey) modifiers.push('Ctrl')
 	if (event.altKey) modifiers.push('Alt')
-	if (event.shiftKey) modifiers.push('Shift')
 	if (event.metaKey) modifiers.push('Super')
+	if (event.shiftKey) modifiers.push('Shift')
 	if (modifiers.length === 0) return null
 	const key = normalizeKey(event.key)
 	if (!key) return null

@@ -217,7 +217,11 @@
 				"changeShortcut": "Tez tugmani o‘zgartirish",
 				"recording": "Tugmalarni bosing…",
 				"test": "Sinash",
-				"conflict": "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang."
+				"conflict": "Bu tez tugma boshqa ilova tomonidan band — boshqasini tanlang.",
+				"hintLabel": "Yoki bosing",
+				"hintTooltip": "Video havolasini istalgan joyda nusxalang, shu yorliqni bosing, Arroxy esa uni faol profilingiz bilan navbatga qo‘shadi — oynalarni almashtirish shart emas.",
+				"hintTooltipSettings": "Uni Sozlamalarda o‘zgartiring yoki o‘chirib qo‘ying.",
+				"reset": "Standartga qaytarish"
 			},
 			"cookies": {
 				"sourceLabel": "Cookies manbai",

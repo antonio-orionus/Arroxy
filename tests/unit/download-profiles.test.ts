@@ -13,6 +13,7 @@ import {
 	resolveDownloadProfileBaseDir,
 	resolveDownloadProfile,
 	resolveDownloadProfileOutputDir,
+	resolveFilenameTemplate,
 	saveDownloadProfileToPrefs
 } from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
@@ -214,5 +215,14 @@ describe('download profiles', () => {
 
 		expect(resolved.spec?.audioConvert).toEqual({target: 'wav'})
 		expect(downloadProfileLabel(profile)).toBe('Audio only · WAV')
+	})
+
+	it('uses the default filename shape after normalizing a legacy profile', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const {filename: _filename, ...legacy} = balanced
+		const profile = downloadProfileSchema.parse(legacy)
+
+		expect(profile.filename).toEqual({kind: 'default'})
+		expect(resolveFilenameTemplate(profile, '{title}')).toBe('{title}')
 	})
 })

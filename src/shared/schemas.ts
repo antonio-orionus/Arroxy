@@ -208,6 +208,8 @@ export type HotkeyTriggerPayload = z.infer<typeof hotkeyTriggerSchema>
 // another app owns the chord).
 export const hotkeyStateSchema = z.object({accelerator: z.string().nullable(), registered: z.boolean()})
 export type HotkeyState = z.infer<typeof hotkeyStateSchema>
+export const hotkeyRegistrationStatusSchema = z.enum(['off', 'pending', 'registered', 'conflict'])
+export type HotkeyRegistrationStatus = z.infer<typeof hotkeyRegistrationStatusSchema>
 
 export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
 export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>

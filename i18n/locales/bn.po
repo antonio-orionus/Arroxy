@@ -2745,9 +2745,27 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "এই শর্টকাট অন্য অ্যাপ ব্যবহার করছে — অন্যটি বেছে নিন।"
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "অথবা চাপুন"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "যেকোনো জায়গা থেকে একটি ভিডিও লিংক কপি করুন, এই শর্টকাট চাপুন, আর Arroxy আপনার সক্রিয় প্রোফাইল দিয়ে সেটি কিউতে যোগ করবে — উইন্ডো বদলানোর দরকার নেই।"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "সেটিংসে এটি পরিবর্তন করুন বা বন্ধ করুন।"
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "কী চাপুন…"
+
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "ডিফল্টে ফিরুন"
 
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."

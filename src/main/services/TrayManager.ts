@@ -90,6 +90,16 @@ export class TrayManager {
 		this.tray = null
 	}
 
+	// Tray balloons are the only OS notification surface the Windows portable
+	// build can reach — it registers no AppUserModelID, so Windows drops its
+	// toasts (see hotkeyOsNotifier). Returns false when there is no tray, so the
+	// caller can fall back to a normal Notification.
+	displayBalloon(body: string): boolean {
+		if (!this.tray || this.tray.isDestroyed()) return false
+		this.tray.displayBalloon({title: 'Arroxy', content: body})
+		return true
+	}
+
 	private scheduleMenuRebuild(): void {
 		if (this.throttleTimer !== null) return
 		this.throttleTimer = setTimeout(() => {

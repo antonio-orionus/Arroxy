@@ -209,7 +209,11 @@
 				"changeShortcut": "Cambiar atajo",
 				"recording": "Pulsa las teclas…",
 				"test": "Probar",
-				"conflict": "Ese atajo ya lo usa otra aplicación — elige otro."
+				"conflict": "Ese atajo ya lo usa otra aplicación — elige otro.",
+				"hintLabel": "O pulsa",
+				"hintTooltip": "Copia un enlace de vídeo en cualquier lugar, pulsa este atajo y Arroxy lo añadirá a la cola con tu perfil activo — no necesitas cambiar de ventana.",
+				"hintTooltipSettings": "Cámbialo o desactívalo en Ajustes.",
+				"reset": "Restablecer predeterminado"
 			},
 			"cookies": {
 				"sourceLabel": "Fuente de cookies",

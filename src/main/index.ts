@@ -30,7 +30,7 @@ import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} 
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
-import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT} from '@shared/constants.js'
+import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
@@ -128,6 +128,16 @@ try {
 	}
 } catch (err) {
 	log.warn('argv.json read failed', err)
+}
+
+// Windows toast notifications are matched against the AUMID the process
+// declares, not the bundle metadata. Without this, Electron runs under the
+// implicit executable-derived id while the NSIS installer registered the Start
+// Menu shortcut under `com.arroxy.app`, so the ids never match and the OS drops
+// every toast without raising an error. Must run before the first Notification;
+// safe pre-`whenReady`, and a no-op off Windows.
+if (process.platform === 'win32') {
+	app.setAppUserModelId(WINDOWS_APP_USER_MODEL_ID)
 }
 
 // Sandbox every BrowserWindow without per-window opt-in. Matches vscode +
@@ -440,7 +450,9 @@ if (hasSingleInstanceLock) {
 			// the OS owns real chords and contested-chord coverage stays manual.
 			;(globalThis as Record<string, unknown>).__arroxyHotkeyService = hotkeyService
 		}
-		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow)
+		// `tray` is assigned further down, so read it lazily rather than capturing
+		// the null it holds right now.
+		const hotkeyOsNotifier = createHotkeyOsNotifier(mainWindow, {balloonHost: {displayBalloon: body => tray?.displayBalloon(body) ?? false}, installChannel: detectInstallChannel(app.getName())})
 		// Keeps the tray item in sync with the chord's registration state; the
 		// tray may not exist yet (it is created later), hence the lazy read.
 		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)

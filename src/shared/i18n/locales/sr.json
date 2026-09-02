@@ -217,7 +217,11 @@
 				"changeShortcut": "Промени пречицу",
 				"recording": "Притисните тастере…",
 				"test": "Тестирај",
-				"conflict": "Ову пречицу већ користи друга апликација — изаберите другу."
+				"conflict": "Ову пречицу већ користи друга апликација — изаберите другу.",
+				"hintLabel": "Ili pritisni",
+				"hintTooltip": "Kopiraj video-link bilo gde, pritisni ovu prečicu i Arroxy će ga staviti u red koristeći tvoj aktivni profil — nema potrebe da menjaš prozore.",
+				"hintTooltipSettings": "Promeni ga ili ga isključi u Podešavanjima.",
+				"reset": "Врати на подразумевано"
 			},
 			"cookies": {
 				"sourceLabel": "Извор cookies",

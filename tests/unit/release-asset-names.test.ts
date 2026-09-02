@@ -1,8 +1,19 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vitest'
+import {WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 
 const root = process.cwd()
+
+// The block of one workflow step: from its `- name:` up to the next one. Enough
+// to prove a key is attached to the step that needs it, which is the whole
+// point — `continue-on-error` anywhere in the file proves nothing.
+function workflowStep(workflow: string, name: string): string {
+	const start = workflow.indexOf(`- name: ${name}`)
+	if (start < 0) return ''
+	const next = workflow.indexOf('\n      - ', start + 1)
+	return workflow.slice(start, next < 0 ? undefined : next)
+}
 
 interface ElectronBuilderDmgConfig {
 	background?: string
@@ -15,6 +26,7 @@ interface ElectronBuilderDmgConfig {
 }
 
 interface ElectronBuilderConfig {
+	appId?: string
 	dmg?: ElectronBuilderDmgConfig
 }
 
@@ -67,6 +79,75 @@ describe('release asset names', () => {
 		expect(afterPack).toContain('context.packager.config.electronFuses = null')
 		expect(afterPack.indexOf('context.packager.addElectronFuses(context, fuseConfig)')).toBeLessThan(afterPack.indexOf('fs.renameSync(execPath, realBin)'))
 		expect(afterPack).toContain('--no-sandbox')
+	})
+
+	it('ad-hoc signs the macOS bundle under the app id so OS notifications are attributed', () => {
+		const afterPack = read('build/afterPack.mjs')
+
+		// Prebuilt Electron arrives linker-signed under the identifier "Electron".
+		// Without a re-sign, macOS attributes notifications to that identity —
+		// permanently unauthorized — so UNUserNotificationCenter silently drops
+		// every post and never shows the one-time permission prompt.
+		expect(afterPack).toContain('codesign')
+		expect(afterPack).toContain('--identifier')
+		expect(afterPack).toContain('context.packager.appInfo.id')
+		// @electron/fuses rewrites the Mach-O and resets the ad-hoc signature, so
+		// the re-sign must come after the fuse flip, not before.
+		expect(afterPack.indexOf('addElectronFuses')).toBeLessThan(afterPack.indexOf('codesign'))
+	})
+
+	it('sets the Windows AppUserModelID to the same appId the NSIS shortcut registers', () => {
+		const config = JSON.parse(read('electron-builder.json5')) as ElectronBuilderConfig
+		const main = read('src/main/index.ts')
+
+		// electron-builder's NSIS installer stamps the Start Menu shortcut with
+		// `WinShell::SetLnkAUMI "$newStartMenuLink" "${APP_ID}"`. Windows matches a
+		// toast against the AUMID the *process* declares, so if main never calls
+		// setAppUserModelId the implicit exe-derived id will not match that
+		// shortcut and every toast is dropped without an error.
+		expect(WINDOWS_APP_USER_MODEL_ID).toBe(config.appId)
+		expect(main).toContain('app.setAppUserModelId(WINDOWS_APP_USER_MODEL_ID)')
+	})
+
+	it('gates the Defender scan before release day rather than during it', () => {
+		const installer = read('.github/workflows/installer-smoke.yml')
+		const scan = workflowStep(installer, 'Scan packed output with Windows Defender')
+		const advisory = workflowStep(installer, 'Surface an advisory Defender failure on tags')
+
+		expect(scan).toContain('scan-windows-defender.ps1')
+		// The scan protects against a flagged third-party binary reaching users.
+		// But the pinned ffmpeg is already scanned, so the only way it fires on a
+		// tag is Microsoft's classifier changing its mind about a binary that
+		// passed last week — nothing in the repo changed. Failing there strands a
+		// draft release that already holds the macOS and Linux assets, so on tags
+		// it warns and on every other ref it blocks. An explicit override changes
+		// the payload, so that recovery run must block even when dispatched at a tag.
+		expect(scan).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}")
+		// The advisory notice must be gated on exactly the refs the scan lets pass,
+		// or a run that actually blocked still claims it was only advisory.
+		expect(advisory).toContain("if: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' && steps.defender.outcome == 'failure' }}")
+		// A schedule is what actually catches definition drift, early and cheaply.
+		expect(installer).toContain('schedule:')
+		// Rebuilding against a different ffmpeg must not need a source edit and a
+		// re-tag — that was the only recovery path a blocking release-day gate left.
+		expect(installer).toContain('btbn_release_tag')
+		expect(installer).toContain('BTBN_RELEASE_TAG: ${{ inputs.btbn_release_tag }}')
+	})
+
+	it('passes Defender an absolute scan path so custom scans can resolve the target', () => {
+		const defender = read('scripts/test-binaries/scan-windows-defender.ps1')
+
+		expect(defender).toContain('$scanPath = (Resolve-Path -LiteralPath $Path).Path')
+		expect(defender).toContain('-File $scanPath')
+	})
+
+	it('fails the Defender gate when antivirus signatures are stale', () => {
+		const defender = read('scripts/test-binaries/scan-windows-defender.ps1')
+
+		expect(defender).toContain('$signatureUpdateExit = $LASTEXITCODE')
+		expect(defender).toContain('[TimeSpan]::FromHours(48)')
+		expect(defender).toContain('$status.AntivirusSignatureLastUpdated')
+		expect(defender).toContain('throw "Windows Defender signatures are stale')
 	})
 
 	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {

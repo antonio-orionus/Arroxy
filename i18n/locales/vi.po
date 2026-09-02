@@ -2745,9 +2745,27 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác."
 
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Hoặc nhấn"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Sao chép liên kết video ở bất cứ đâu, nhấn phím tắt này và Arroxy sẽ xếp liên kết vào hàng đợi bằng hồ sơ đang hoạt động — không cần chuyển cửa sổ."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Thay đổi hoặc tắt tính năng này trong Cài đặt."
+
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
 msgstr "Nhấn phím…"
+
+#| msgctxt "repair.actions.resetToDefault"
+#| msgid "Reset to default"
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Đặt lại về mặc định"
 
 msgctxt "wizard.url.hotkey.sectionDescription"
 msgid "Download whatever link you copy, from any app, without opening Arroxy."
