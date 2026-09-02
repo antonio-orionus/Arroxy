@@ -25,7 +25,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 > 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。
 
@@ -135,27 +135,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-それでも起動しない場合、FUSE が不足している可能性があります：
+それでも起動しない場合は、マウントせずに実行してください。FUSE パッケージは不要です：
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **省略可能なデスクトップ統合：** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) を一度インストールしておくと、ダブルクリックした AppImage が自動的にランチャーメニューに登録されます — `.desktop` ファイルの手動作成は不要です。
 
-**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。
+**通常のアーカイブ（FUSE 不要、インストール不要）：**
+
+`.tar.gz` 版は AppImage のラッパーを外した同じアプリです。好きな場所に展開して実行するだけで、インストーラーも FUSE パッケージも不要です。
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。
+
+Ubuntu には Flatpak ではなく Snap が同梱されているため、まず Flatpak をインストールして Flathub を追加してください。バンドルはそこからランタイムを取得します：
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。
 
 <details>
 <summary><strong><a id="verify"></a>ダウンロードの検証（SHA256）</strong></summary>

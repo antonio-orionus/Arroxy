@@ -245,7 +245,11 @@ export const tr = {
   dl_linux_m1_text:
     "**Dosya yöneticisi:** `.AppImage` üzerine sağ tık → **Özellikler** → **İzinler** → **Dosyayı program olarak çalıştırmaya izin ver** seçeneğini aç, sonra çift tıkla.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Açılış hâlâ başarısızsa FUSE eksik olabilir:",
+  dl_linux_fuse_text: "Açılış hâlâ başarısızsa bağlamadan çalıştırın — FUSE paketi gerekmez:",
+  dl_linux_targz_h4: "Düz arşiv (FUSE yok, kurulum yok):",
+  dl_linux_targz_text: "`.tar.gz` sürümü, AppImage sarmalayıcısı olmayan aynı uygulamadır — istediğiniz yere çıkarın ve çalıştırın. Kurulum programı ve FUSE paketi gerekmez.",
+  dl_linux_flatpak_prereq: "Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun ve Flathub'ı ekleyin — paket çalışma zamanını oradan indirir:",
+  dl_linux_arch_note: "**Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.",
   dl_linux_flatpak_intro:
     "**Flatpak (sandbox'lı alternatif):** aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` indir.",
 

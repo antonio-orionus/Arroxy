@@ -25,7 +25,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 ---
 
@@ -133,27 +133,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-አስጀምሩ አሁንም ሳይሠራ ቢቀር፣ FUSE ጎደለ ሊሆን ይችላሉ:
+አስጀምሩ አሁንም ካልሆነ ሳይጫን አስሂዱት — የFUSE ጥቅል አያስፈልግም፦
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **አማራጭ የዴስክቶፕ ውህደት:** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) ን አንድ ጊዜ ጫኑ፣ ሁለቴ ጠቅ ያደርጉበት ማንኛውም AppImage በጀምር ምናሌዎ ውስጥ ራስ-ሰር ይመዘገባሉ — ምንም እጅ `.desktop` ፋይል አያስፈልጋቸውም።
 
-**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።
+**ተራ ታርቦል (FUSE የለም፣ ጫና የለም)፦**
+
+የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።
+
+ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።
 
 <details>
 <summary><strong><a id="verify"></a>ማውረዱን ያረጋግጡ (SHA256)</strong></summary>

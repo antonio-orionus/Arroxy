@@ -12,3 +12,4 @@
 - [TypeScript & oxlint boundary gates](typescript-and-oxlint-boundary-gates.md) — `"types": []` does not block explicit electron imports; oxlint restricted-import globs need `**`.
 - [Windows VM testing](windows-vm-testing.md) — ssh into the local Win11 ARM64 VM to run `dist:win:dir` + `verify:startup` directly; gotchas: bash on PATH, x64-only inherited asset, node-not-bun for `_electron.launch`.
 - [Linux VM testing](linux-vm-testing.md) — use the private Ubuntu VMware guest for Linux/Electron/runtime and GPU-specific checks; keep connection details outside the repository.
+- [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read the `theme:startup` log lines and never repro it by stopping xdg-desktop-portal.

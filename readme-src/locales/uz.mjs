@@ -245,8 +245,11 @@ export const uz = {
   dl_linux_m1_text:
     "**Fayl menejeri:** `.AppImage` ga sichqonchaning o'ng tugmasi bilan bosing → **Xususiyatlar** → **Ruxsatlar** → **Faylni dastur sifatida bajarishga ruxsat** ni yoqing, so'ng ikki marta bosing.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text:
-    "Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, FUSE etishmayotgan bo'lishi mumkin:",
+  dl_linux_fuse_text: "Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, uni mount qilmasdan ishga tushiring — FUSE paketi kerak emas:",
+  dl_linux_targz_h4: "Oddiy tarball (FUSE ham, o'rnatish ham kerak emas):",
+  dl_linux_targz_text: "`.tar.gz` to'plami — AppImage qobig'isiz o'sha ilovaning o'zi: istalgan joyga chiqaring va ishga tushiring. Na o'rnatuvchi, na FUSE paketi kerak.",
+  dl_linux_flatpak_prereq: "Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:",
+  dl_linux_arch_note: "**Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.",
   dl_linux_flatpak_intro:
     "**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.",
 

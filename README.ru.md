@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 > 🌐 Это перевод с помощью ИИ. [README на английском](README.md) — основной источник истины. Заметили ошибку? [Pull request приветствуется](../../pulls).
 
@@ -135,27 +135,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Если запуск всё равно не удаётся — возможно, отсутствует FUSE:
+Если запуск всё равно не удаётся — запустите без монтирования, пакет FUSE не нужен:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **Необязательная интеграция с рабочим столом:** установите [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) один раз, и любой AppImage, по которому вы дважды кликнете, автоматически регистрируется в меню запуска — без ручного создания `.desktop`-файлов.
 
-**Flatpak (изолированная альтернатива):** скачайте `Arroxy-*.flatpak` с той же страницы релиза.
+**Обычный архив (без FUSE, без установки):**
+
+Сборка `.tar.gz` — то же приложение без обёртки AppImage: распакуйте куда угодно и запустите. Ни установщика, ни пакета FUSE.
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (изолированная альтернатива):** скачайте `Arroxy-*.flatpak` с той же страницы релиза.
+
+В Ubuntu вместо Flatpak поставляется Snap, поэтому сначала установите Flatpak и добавьте Flathub — оттуда пакет загружает свой рантайм:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**Загрузки для Linux на странице релизов только x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak установится, но не запустится: `bwrap: execvp ldconfig: Exec format error`.
 
 <details>
 <summary><strong><a id="verify"></a>Проверьте вашу загрузку (SHA256)</strong></summary>

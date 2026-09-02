@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 > 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。
 
@@ -135,27 +135,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-如果仍无法启动，可能缺少 FUSE：
+如果仍无法启动，可以不挂载直接运行 — 无需 FUSE 软件包：
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **可选桌面集成：** 安装一次 [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher)，此后双击任意 AppImage 即可自动注册到启动器菜单 — 无需手动创建 `.desktop` 文件。
 
-**Flatpak（沙箱版）：** 从同一发布页下载 `Arroxy-*.flatpak`。
+**普通压缩包（无需 FUSE，无需安装）：**
+
+`.tar.gz` 版本就是去掉 AppImage 外壳的同一个应用 — 解压到任意位置直接运行。无需安装程序，也无需 FUSE 软件包。
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak（沙箱版）：** 从同一发布页下载 `Arroxy-*.flatpak`。
+
+Ubuntu 自带的是 Snap 而非 Flatpak，因此请先安装 Flatpak 并添加 Flathub — 安装包会从那里获取运行时：
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**发布页面上的 Linux 下载仅提供 x86_64。** 在 ARM64 设备（树莓派、Asahi Linux）上 Flatpak 可以安装，但启动时会失败并报 `bwrap: execvp ldconfig: Exec format error`。
 
 <details>
 <summary><strong><a id="verify"></a>验证你的下载（SHA256）</strong></summary>

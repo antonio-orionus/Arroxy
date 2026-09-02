@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 ---
 
@@ -133,27 +133,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-که پیل لاهم ناکام شي، ممکن تاسو ته FUSE کمه وي:
+که بیا هم پیل نه شي، هغه پرته له ماونټ کولو چل کړئ — د FUSE کڅوړې ته اړتیا نشته:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **د ډیسکټاپ اختیاري یوځای کول:** یو ځل [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) نصب کړئ، او هر AppImage چې تاسو دوه ځله کلیک کوئ اتوماتیک ستاسو د لانچر مینو کې ثبتیږي — هیڅ لاسي `.desktop` فایل ته اړتیا نشته.
 
-**Flatpak (sandboxed بدیل):** د ورته خپرونې پاڼې څخه `Arroxy-*.flatpak` ډاونلوډ کړئ.
+**ساده تاربال (نه FUSE، نه انسټال):**
+
+د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. نه انسټالر پکار دی او نه د FUSE کڅوړه.
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (sandboxed بدیل):** د ورته خپرونې پاڼې څخه `Arroxy-*.flatpak` ډاونلوډ کړئ.
+
+اوبنټو د Flatpak پرځای Snap لري، نو لومړی Flatpak انسټال کړئ او Flathub ورزیات کړئ — بنډل خپل رن‌ټایم له همدې ځایه اخلي:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.
 
 <details>
 <summary><strong><a id="verify"></a>خپل ډاونلوډ تصدیق کړئ (SHA256)</strong></summary>

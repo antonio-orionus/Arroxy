@@ -25,7 +25,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 ---
 
@@ -133,27 +133,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, FUSE etishmayotgan bo'lishi mumkin:
+Agar ishga tushirish hali ham muvaffaqiyatsiz bo'lsa, uni mount qilmasdan ishga tushiring — FUSE paketi kerak emas:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **Ixtiyoriy ish stoli integratsiyasi:** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) ni bir marta o'rnating va siz ikki marta bosgandagi har qanday AppImage avtomatik ravishda ishga tushiruvchi menyungizga ro'yxatdan o'tkaziladi — qo'lda `.desktop` fayli talab qilinmaydi.
 
-**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.
+**Oddiy tarball (FUSE ham, o'rnatish ham kerak emas):**
+
+`.tar.gz` to'plami — AppImage qobig'isiz o'sha ilovaning o'zi: istalgan joyga chiqaring va ishga tushiring. Na o'rnatuvchi, na FUSE paketi kerak.
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.
+
+Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.
 
 <details>
 <summary><strong><a id="verify"></a>Yuklab olishingizni tekshiring (SHA256)</strong></summary>

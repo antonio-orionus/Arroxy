@@ -25,7 +25,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -135,27 +135,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Jika peluncuran masih gagal, Anda mungkin kehilangan FUSE:
+Jika peluncuran masih gagal, jalankan tanpa mount — tidak perlu paket FUSE:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **Integrasi desktop opsional:** instal [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) satu kali, dan AppImage apa pun yang Anda klik dua kali akan terdaftar ke menu peluncur secara otomatis — tidak diperlukan file `.desktop` manual.
 
-**Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.
+**Tarball biasa (tanpa FUSE, tanpa instalasi):**
+
+Build `.tar.gz` adalah aplikasi yang sama tanpa pembungkus AppImage — ekstrak di mana saja lalu jalankan. Tanpa pemasang dan tanpa paket FUSE.
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.
+
+Ubuntu menyertakan Snap alih-alih Flatpak, jadi instal Flatpak dan tambahkan Flathub terlebih dahulu — bundel mengambil runtime-nya dari sana:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**Unduhan Linux di halaman rilis hanya untuk x86_64.** Di mesin ARM64 (Raspberry Pi, Asahi Linux) Flatpak tetap terinstal tetapi gagal saat diluncurkan dengan `bwrap: execvp ldconfig: Exec format error`.
 
 <details>
 <summary><strong><a id="verify"></a>Verifikasi unduhan Anda (SHA256)</strong></summary>

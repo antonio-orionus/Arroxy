@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 ---
 
@@ -133,27 +133,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Ако покретање и даље не успе, можда недостаје FUSE:
+Ако покретање и даље не успе, покрените без монтирања — FUSE пакет није потребан:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **Опционална интеграција са десктопом:** инсталирајте [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) једном, и свака AppImage коју двокликнете аутоматски се региструје у менију покретача — без ручног креирања `.desktop` фајлова.
 
-**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.
+**Обична архива (без FUSE, без инсталације):**
+
+`.tar.gz` издање је иста апликација без AppImage омотача — распакујте било где и покрените. Без инсталатера и без FUSE пакета.
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.
+
+Ubuntu долази са Snap-ом уместо Flatpak-а, па прво инсталирајте Flatpak и додајте Flathub — одатле пакет преузима свој runtime:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**Linux преузимања на страници издања су само x86_64.** На ARM64 машинама (Raspberry Pi, Asahi Linux) Flatpak се инсталира, али не успева при покретању уз `bwrap: execvp ldconfig: Exec format error`.
 
 <details>
 <summary><strong><a id="verify"></a>Верификујте преузимање (SHA256)</strong></summary>

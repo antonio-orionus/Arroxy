@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 > 🌐 यह AI-सहायता प्राप्त अनुवाद है। [अंग्रेज़ी README](README.md) सत्य का स्रोत है। कोई गलती दिखी? [PR का स्वागत है](../../pulls)।
 
@@ -135,27 +135,45 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-अगर फिर भी नहीं चलता, शायद FUSE नहीं है:
+अगर फिर भी नहीं चलता, तो इसे माउंट किए बिना चलाएँ — FUSE पैकेज की ज़रूरत नहीं:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **वैकल्पिक डेस्कटॉप इंटिग्रेशन:** [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) एक बार इंस्टॉल करें, और जो भी AppImage डबल-क्लिक करें वह अपने-आप आपके launcher menu में दर्ज हो जाएगा — कोई मैन्युअल `.desktop` फ़ाइल नहीं बनानी।
 
-**Flatpak (सैंडबॉक्स विकल्प):** उसी रिलीज़ पेज से `Arroxy-*.flatpak` डाउनलोड करें।
+**सादा टारबॉल (FUSE नहीं, इंस्टॉल नहीं):**
+
+`.tar.gz` बिल्ड वही ऐप है, बस AppImage रैपर के बिना — कहीं भी एक्सट्रैक्ट करें और चलाएँ। न इंस्टॉलर चाहिए, न FUSE पैकेज।
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (सैंडबॉक्स विकल्प):** उसी रिलीज़ पेज से `Arroxy-*.flatpak` डाउनलोड करें।
+
+Ubuntu में Flatpak की जगह Snap आता है, इसलिए पहले Flatpak इंस्टॉल करें और Flathub जोड़ें — बंडल अपना रनटाइम वहीं से लेता है:
+
+```bash
+# Ubuntu / Debian
+sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**रिलीज़ पेज पर Linux डाउनलोड सिर्फ़ x86_64 के लिए हैं।** ARM64 मशीनों (Raspberry Pi, Asahi Linux) पर Flatpak इंस्टॉल तो हो जाता है, पर लॉन्च पर `bwrap: execvp ldconfig: Exec format error` के साथ विफल होता है।
 
 <details>
 <summary><strong><a id="verify"></a>अपना डाउनलोड वेरीफ़ाई करें (SHA256)</strong></summary>
