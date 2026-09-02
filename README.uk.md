@@ -135,7 +135,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Якщо запуск все одно не вдається — запустіть без монтування, додаткові системні пакунки не потрібні:
+Якщо запуск все одно не вдається — запустіть без монтування, пакунок FUSE не потрібен:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -145,7 +145,7 @@ chmod +x Arroxy-linux-x64.AppImage
 
 **Звичайний архів (без FUSE, без встановлення):**
 
-Збірка `.tar.gz` — той самий застосунок без оболонки AppImage: розпакуйте будь-куди й запустіть. Нічого встановлювати не треба, системні пакунки не потрібні.
+Збірка `.tar.gz` — той самий застосунок без оболонки AppImage: розпакуйте будь-куди й запустіть. Ані інсталятора, ані пакунка FUSE.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -157,7 +157,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 В Ubuntu замість Flatpak постачається Snap, тож спершу встановіть Flatpak і додайте Flathub — звідти пакунок завантажує свій runtime:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

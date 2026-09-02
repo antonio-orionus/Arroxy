@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-አሁንም ካልተጀመረ ሳይጫን አስሂዱት — ተጨማሪ የሲስተም ጥቅሎች አያስፈልጉም፦
+አስጀምሩ አሁንም ካልሆነ ሳይጫን አስሂዱት — የFUSE ጥቅል አያስፈልግም፦
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ chmod +x Arroxy-linux-x64.AppImage
 
 **ተራ ታርቦል (FUSE የለም፣ ጫና የለም)፦**
 
-የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። የሚጫን ነገር የለም፣ የሲስተም ጥቅሎችም አያስፈልጉም።
+የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

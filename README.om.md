@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — meeshaaleen sirnaa dabalataa hin barbaachisan:
+Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — paakejiin FUSE hin barbaachisu:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — meeshaaleen sirnaa d
 
 **Taarboolii salphaa (FUSE hin barbaachisu, ijaarsi hin barbaachisu):**
 
-Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Wanti ijaaramu hin jiru, meeshaaleen sirnaas hin barbaachisan.
+Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Ijaarsis ta'e paakejiin FUSE hin barbaachisu.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

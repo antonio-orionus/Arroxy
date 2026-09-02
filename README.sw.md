@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna vifurushi vya ziada vya mfumo vinavyohitajika:
+Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna kifurushi cha FUSE kinachohitajika:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna vifurushi vya
 
 **Tarball ya kawaida (hakuna FUSE, hakuna usakinishaji):**
 
-Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna cha kusakinisha, hakuna vifurushi vya mfumo vinavyohitajika.
+Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna kisakinishi wala kifurushi cha FUSE.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

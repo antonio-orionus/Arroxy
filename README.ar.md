@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-إذا فشل التشغيل بعد ذلك، شغّله دون تركيب — لا حاجة إلى أي حزم نظام إضافية:
+إذا فشل التشغيل بعد ذلك، شغّله دون تركيب — لا حاجة إلى حزمة FUSE:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ chmod +x Arroxy-linux-x64.AppImage
 
 **أرشيف عادي (بدون FUSE، بدون تثبيت):**
 
-إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. لا شيء لتثبيته، ولا حاجة إلى حزم نظام.
+إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. بلا مثبِّت وبلا حزمة FUSE.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 يأتي أوبونتو مع Snap بدلاً من Flatpak، لذا ثبّت Flatpak وأضف Flathub أولاً — فالحزمة تجلب بيئة التشغيل من هناك:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

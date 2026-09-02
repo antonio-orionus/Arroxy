@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Nếu vẫn không khởi động được, hãy chạy mà không cần gắn kết — không cần gói hệ thống nào thêm:
+Nếu vẫn không khởi động được, hãy chạy mà không cần gắn kết — không cần gói FUSE:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ Nếu vẫn không khởi động được, hãy chạy mà không cần gắn k
 
 **Tarball thuần (không FUSE, không cài đặt):**
 
-Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppImage — giải nén ở đâu cũng được rồi chạy. Không phải cài gì, không cần gói hệ thống nào.
+Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppImage — giải nén ở đâu cũng được rồi chạy. Không cần trình cài đặt, không cần gói FUSE.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 Ubuntu đi kèm Snap chứ không phải Flatpak, nên hãy cài Flatpak và thêm Flathub trước — gói sẽ tải runtime từ đó:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

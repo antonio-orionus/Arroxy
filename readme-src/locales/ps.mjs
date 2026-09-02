@@ -241,9 +241,9 @@ export const ps = {
   dl_linux_m1_text:
     "**د فایل مدیر:** د `.AppImage` ښي کلیک وکړئ → **Properties** → **Permissions** → **Allow executing file as program** فعال کړئ، بیا دوه ځله کلیک وکړئ.",
   dl_linux_m2_h4: "ټرمینل:",
-  dl_linux_fuse_text: "که بیا هم پیل نه شي، هغه پرته له ماونټ کولو چل کړئ — هیڅ اضافي سیسټم کڅوړې ته اړتیا نشته:",
+  dl_linux_fuse_text: "که بیا هم پیل نه شي، هغه پرته له ماونټ کولو چل کړئ — د FUSE کڅوړې ته اړتیا نشته:",
   dl_linux_targz_h4: "ساده تاربال (نه FUSE، نه انسټال):",
-  dl_linux_targz_text: "د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. هیڅ د انسټال کولو شی نشته، هیڅ سیسټم کڅوړه پکار نه ده.",
+  dl_linux_targz_text: "د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. نه انسټالر پکار دی او نه د FUSE کڅوړه.",
   dl_linux_flatpak_prereq: "اوبنټو د Flatpak پرځای Snap لري، نو لومړی Flatpak انسټال کړئ او Flathub ورزیات کړئ — بنډل خپل رن‌ټایم له همدې ځایه اخلي:",
   dl_linux_arch_note: "**د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.",
   dl_linux_flatpak_intro:

@@ -135,7 +135,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-अगर फिर भी नहीं चलता, तो इसे माउंट किए बिना चलाएँ — किसी अतिरिक्त सिस्टम पैकेज की ज़रूरत नहीं:
+अगर फिर भी नहीं चलता, तो इसे माउंट किए बिना चलाएँ — FUSE पैकेज की ज़रूरत नहीं:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -145,7 +145,7 @@ chmod +x Arroxy-linux-x64.AppImage
 
 **सादा टारबॉल (FUSE नहीं, इंस्टॉल नहीं):**
 
-`.tar.gz` बिल्ड वही ऐप है, बस AppImage रैपर के बिना — कहीं भी एक्सट्रैक्ट करें और चलाएँ। कुछ इंस्टॉल नहीं करना, कोई सिस्टम पैकेज नहीं चाहिए।
+`.tar.gz` बिल्ड वही ऐप है, बस AppImage रैपर के बिना — कहीं भी एक्सट्रैक्ट करें और चलाएँ। न इंस्टॉलर चाहिए, न FUSE पैकेज।
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -157,7 +157,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 Ubuntu में Flatpak की जगह Snap आता है, इसलिए पहले Flatpak इंस्टॉल करें और Flathub जोड़ें — बंडल अपना रनटाइम वहीं से लेता है:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy

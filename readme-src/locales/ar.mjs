@@ -242,9 +242,9 @@ export const ar = {
   dl_linux_m1_text:
     "**مدير الملفات:** انقر بزر الأيمن على `.AppImage` ← **خصائص** ← **أذونات** ← مكِّن **السماح بتنفيذ الملف كبرنامج**، ثم انقر نقراً مزدوجاً.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "إذا فشل التشغيل بعد ذلك، شغّله دون تركيب — لا حاجة إلى أي حزم نظام إضافية:",
+  dl_linux_fuse_text: "إذا فشل التشغيل بعد ذلك، شغّله دون تركيب — لا حاجة إلى حزمة FUSE:",
   dl_linux_targz_h4: "أرشيف عادي (بدون FUSE، بدون تثبيت):",
-  dl_linux_targz_text: "إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. لا شيء لتثبيته، ولا حاجة إلى حزم نظام.",
+  dl_linux_targz_text: "إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. بلا مثبِّت وبلا حزمة FUSE.",
   dl_linux_flatpak_prereq: "يأتي أوبونتو مع Snap بدلاً من Flatpak، لذا ثبّت Flatpak وأضف Flathub أولاً — فالحزمة تجلب بيئة التشغيل من هناك:",
   dl_linux_arch_note: "**تنزيلات لينكس في صفحة الإصدارات متاحة لمعمارية x86_64 فقط.** على أجهزة ARM64 (Raspberry Pi، Asahi Linux) يُثبَّت Flatpak لكنه يفشل عند التشغيل برسالة `bwrap: execvp ldconfig: Exec format error`.",
   dl_linux_flatpak_intro:

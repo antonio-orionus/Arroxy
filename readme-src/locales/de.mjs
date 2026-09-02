@@ -245,9 +245,9 @@ export const de = {
   dl_linux_m1_text:
     "**Dateimanager:** Rechtsklick auf die `.AppImage` → **Eigenschaften** → **Berechtigungen** → **Datei als Programm ausführen erlauben** aktivieren, dann doppelklicken.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Falls der Start trotzdem fehlschlägt, starte es ohne Mounten — dafür sind keine zusätzlichen Systempakete nötig:",
+  dl_linux_fuse_text: "Falls der Start trotzdem fehlschlägt, starte es ohne Mounten — dafür ist kein FUSE-Paket nötig:",
   dl_linux_targz_h4: "Einfaches Tarball (kein FUSE, keine Installation):",
-  dl_linux_targz_text: "Der `.tar.gz`-Build ist dieselbe App ohne AppImage-Hülle — entpacke sie irgendwohin und starte sie. Nichts zu installieren, keine Systempakete nötig.",
+  dl_linux_targz_text: "Der `.tar.gz`-Build ist dieselbe App ohne AppImage-Hülle — entpacke sie irgendwohin und starte sie. Kein Installer und kein FUSE-Paket nötig.",
   dl_linux_flatpak_prereq: "Ubuntu liefert Snap statt Flatpak, installiere daher zuerst Flatpak und füge Flathub hinzu — das Bundle lädt seine Runtime von dort:",
   dl_linux_arch_note: "**Die Linux-Downloads auf der Release-Seite gibt es nur für x86_64.** Auf ARM64-Geräten (Raspberry Pi, Asahi Linux) lässt sich das Flatpak zwar installieren, scheitert aber beim Start mit `bwrap: execvp ldconfig: Exec format error`.",
   dl_linux_flatpak_intro:

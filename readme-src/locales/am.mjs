@@ -232,9 +232,9 @@ export const am = {
   dl_linux_m1_text:
     "**ፋይል አስተዳዳሪ:** `.AppImage` ላይ ቀኝ ጠቅ ያድርጉ → **Properties** → **Permissions** → **Allow executing file as program** ያብሩ፣ ከዛ ሁለቴ ጠቅ ያድርጉ።",
   dl_linux_m2_h4: "ቴርሚናል:",
-  dl_linux_fuse_text: "አሁንም ካልተጀመረ ሳይጫን አስሂዱት — ተጨማሪ የሲስተም ጥቅሎች አያስፈልጉም፦",
+  dl_linux_fuse_text: "አስጀምሩ አሁንም ካልሆነ ሳይጫን አስሂዱት — የFUSE ጥቅል አያስፈልግም፦",
   dl_linux_targz_h4: "ተራ ታርቦል (FUSE የለም፣ ጫና የለም)፦",
-  dl_linux_targz_text: "የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። የሚጫን ነገር የለም፣ የሲስተም ጥቅሎችም አያስፈልጉም።",
+  dl_linux_targz_text: "የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።",
   dl_linux_flatpak_prereq: "ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦",
   dl_linux_arch_note: "**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።",
   dl_linux_flatpak_intro:

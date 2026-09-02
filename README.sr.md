@@ -133,7 +133,7 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-Ако покретање и даље не успе, покрените без монтирања — додатни системски пакети нису потребни:
+Ако покретање и даље не успе, покрените без монтирања — FUSE пакет није потребан:
 
 ```bash
 ./Arroxy-linux-x64.AppImage --appimage-extract-and-run
@@ -143,7 +143,7 @@ chmod +x Arroxy-linux-x64.AppImage
 
 **Обична архива (без FUSE, без инсталације):**
 
-`.tar.gz` издање је иста апликација без AppImage омотача — распакујте било где и покрените. Нема шта да се инсталира, системски пакети нису потребни.
+`.tar.gz` издање је иста апликација без AppImage омотача — распакујте било где и покрените. Без инсталатера и без FUSE пакета.
 
 ```bash
 tar xzf Arroxy-linux-x64.tar.gz
@@ -155,7 +155,17 @@ tar xzf Arroxy-linux-x64.tar.gz
 Ubuntu долази са Snap-ом уместо Flatpak-а, па прво инсталирајте Flatpak и додајте Flathub — одатле пакет преузима свој runtime:
 
 ```bash
+# Ubuntu / Debian
 sudo apt install -y flatpak
+
+# Fedora
+sudo dnf install -y flatpak
+
+# Arch
+sudo pacman -S flatpak
+```
+
+```bash
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
