@@ -216,6 +216,10 @@ describe('settings and recent stores', () => {
 		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
 		expect(settings.common.language).toBe('fr')
 		expect(settings.common.cookiesMode).toBe('off')
+
+		const persisted = JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8'))
+		expect(persisted.common.cookiesMode).toBe('off')
+		expect(persisted.common).not.toHaveProperty('cookiesEnabled')
 	})
 
 	it('does not rewrite a stable settings file on the next boot', async () => {
