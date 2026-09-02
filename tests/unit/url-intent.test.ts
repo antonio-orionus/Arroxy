@@ -27,8 +27,31 @@ describe('classifyUrlIntent', () => {
 		expect(classifyUrlIntent(url)).toMatchObject({kind: 'obvious-collection', collection, url})
 	})
 
-	it.each(['https://www.youtube.com/watch?v=abc123&list=PLtest', 'https://www.youtube.com/watch?v=abc123&list=RDabc', 'https://m.youtube.com/watch?list=PLtest&v=abc123', 'https://www.youtube.com/live/ScsahA7OzVo?list=PLtest', 'https://www.youtube.com/clip/Ugkx_123?list=PLtest'])('%s -> mixed', url => {
+	it.each(['https://www.youtube.com/watch?v=abc123&list=PLtest', 'https://m.youtube.com/watch?list=PLtest&v=abc123', 'https://www.youtube.com/live/ScsahA7OzVo?list=PLtest', 'https://www.youtube.com/clip/Ugkx_123?list=PLtest'])('%s -> mixed', url => {
 		expect(classifyUrlIntent(url)).toEqual({kind: 'mixed', reason: 'youtube-video-with-list', url})
+	})
+
+	// A radio/mix list is generated per session and has no stable membership, so
+	// "download the playlist" is not a real option — the `v=` is the only thing
+	// the URL actually addresses. These must never reach the mixed prompt.
+	it.each([
+		'https://www.youtube.com/watch?v=abc123&list=RDabc123',
+		'https://www.youtube.com/watch?v=abc123&list=RDMMabc123',
+		'https://www.youtube.com/watch?v=abc123&list=RDAMVMabc123',
+		'https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc',
+		'https://www.youtube.com/watch?v=abc123&list=RDabc123&start_radio=1',
+		'https://youtu.be/abc123?list=RDabc123',
+		'https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1'
+	])('%s -> obvious single (radio)', url => {
+		expect(classifyUrlIntent(url)).toEqual({kind: 'obvious-single', site: 'youtube', url})
+	})
+
+	it('still treats a radio list with no video behind it as a collection', () => {
+		expect(classifyUrlIntent('https://www.youtube.com/playlist?list=RDabc123')).toMatchObject({kind: 'obvious-collection', collection: 'playlist'})
+	})
+
+	it('extracts the video id from a radio URL so filenames and dedupe see it', () => {
+		expect(extractUrlIntentYouTubeVideoId(classifyUrlIntent('https://www.youtube.com/watch?v=ScsahA7OzVo&list=RDScsahA7OzVo&start_radio=1'))).toBe('ScsahA7OzVo')
 	})
 
 	it.each(['https://vimeo.com/123', 'https://example.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/live', 'https://www.youtube.com/clip', 'https://www.youtube.com/embed/videoseries', 'not a url', ''])('%s -> unknown', url => {
