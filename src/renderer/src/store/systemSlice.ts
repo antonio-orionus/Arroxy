@@ -84,15 +84,29 @@ async function refreshHotkeyRegistration(get: GetState, set: SetState): Promise<
 	}
 }
 
-async function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+// Hotkey writes run one at a time. Rollback restores the settings captured
+// before the patch, which is only canonical while nothing else is in flight —
+// with overlapping writes an older patch rolls back to a newer patch's
+// optimistic value, or finds itself superseded and leaves registration stuck
+// on 'pending'. Queueing removes the class instead of guarding each symptom.
+let hotkeyWriteQueue: Promise<void> = Promise.resolve()
+
+function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+	const run = hotkeyWriteQueue.then(() => applyHotkeyPatch(get, set, label, patch))
+	hotkeyWriteQueue = run.catch(() => undefined)
+	return run
+}
+
+async function applyHotkeyPatch(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
 	const previous = get().settings
 	const previousRegistration = get().hotkeyRegistration
 	const nextEnabled = patch.hotkeyEnabled ?? previous?.common.hotkeyEnabled ?? false
-	const request = ++hotkeyStatusRequest
+	// Invalidate any refresh started before this patch: its answer describes the
+	// chord we are about to replace.
+	++hotkeyStatusRequest
 	if (previous) set({settings: {...previous, common: {...previous.common, ...patch}}})
 	set({hotkeyRegistration: nextEnabled ? 'pending' : 'off'})
 	const result = await window.appApi.settings.update({common: patch})
-	if (request !== hotkeyStatusRequest) return
 	if (!result.ok) {
 		++hotkeyStatusRequest
 		if (previous) set({settings: previous})

@@ -6,7 +6,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
 import type {AppSettings, HotkeyRegistrationStatus} from '@shared/types.js'
-import {ok} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 // Renderer contract for the hotkey settings section: toggle persists through
@@ -183,31 +183,56 @@ describe('HotkeySettingsSection', () => {
 		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
 	})
 
-	it('ignores a stale settings response after a newer hotkey patch completes', async () => {
+	it('lets the newest accelerator win when two hotkey patches overlap', async () => {
+		// The queue holds the second write until the first resolves, so main sees
+		// the same order the user pressed and the store never rewinds to an older
+		// response. Each queued write resolves its own registration, so the final
+		// state describes the chord that actually stuck.
 		type SettingsUpdateResult = Awaited<ReturnType<HotkeyMockApi['settings']['update']>>
 		let resolveFirst: ((value: SettingsUpdateResult) => void) | undefined
-		let resolveSecond: ((value: SettingsUpdateResult) => void) | undefined
 		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'Ctrl+Shift+L', registered: true}))
 		mount({hotkeyEnabled: true}, {getState})
-		mockApi.settings.update = vi
+		const update = vi
 			.fn()
 			.mockImplementationOnce(() => new Promise<SettingsUpdateResult>(resolve => (resolveFirst = resolve)))
-			.mockImplementationOnce(() => new Promise<SettingsUpdateResult>(resolve => (resolveSecond = resolve)))
+			.mockImplementationOnce(() => Promise.resolve(ok(buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+L'}))))
+		mockApi.settings.update = update
 
-		let firstPatch: Promise<void>
-		let secondPatch: Promise<void>
 		await act(async () => {
-			firstPatch = useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K')
-			secondPatch = useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+L')
-			resolveSecond?.(ok(buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+L'})))
-			await secondPatch
+			const patches = Promise.all([useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K'), useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+L')])
+			await Promise.resolve()
+			expect(update).toHaveBeenCalledOnce()
 			resolveFirst?.(ok(buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+K'})))
-			await firstPatch
+			await patches
 		})
 
+		expect(update).toHaveBeenCalledTimes(2)
 		expect(useAppStore.getState().settings?.common.hotkeyAccelerator).toBe('Ctrl+Shift+L')
 		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
-		expect(getState).toHaveBeenCalledOnce()
+		expect(getState).toHaveBeenCalledTimes(2)
+	})
+
+	it('serializes overlapping hotkey writes so a failed one cannot strand the optimistic value', async () => {
+		// Rollback captures the settings seen before the patch, which is only
+		// canonical if no other patch is in flight. Overlapping writes must
+		// therefore run one at a time: a failure then rolls back to what main
+		// actually holds, and registration resolves instead of sticking at
+		// 'pending' because the older patch found itself superseded.
+		const getState = vi.fn().mockResolvedValue(ok({accelerator: 'Ctrl+Shift+K', registered: true}))
+		mount({hotkeyEnabled: true}, {getState})
+		const persisted = buildSettings({hotkeyEnabled: true, hotkeyAccelerator: 'Ctrl+Shift+K'})
+		const update = vi
+			.fn()
+			.mockResolvedValueOnce(ok(persisted))
+			.mockResolvedValueOnce(fail({kind: 'other', code: 'settings_write_failed', message: 'nope'}))
+		mockApi.settings.update = update
+
+		await act(async () => {
+			await Promise.all([useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+K'), useAppStore.getState().setHotkeyAccelerator('Ctrl+Shift+L')])
+		})
+
+		expect(useAppStore.getState().settings?.common.hotkeyAccelerator).toBe('Ctrl+Shift+K')
+		expect(useAppStore.getState().hotkeyRegistration).toBe('registered')
 	})
 
 	it('keeps registration off without querying main while the hotkey is disabled', () => {
