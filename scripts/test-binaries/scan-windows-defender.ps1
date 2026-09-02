@@ -28,7 +28,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-if (-not (Test-Path $Path)) { throw "scan target does not exist: $Path" }
+if (-not (Test-Path -LiteralPath $Path)) { throw "scan target does not exist: $Path" }
+$scanPath = (Resolve-Path -LiteralPath $Path).Path
 
 $mpCmdRun = Join-Path $env:ProgramFiles 'Windows Defender\MpCmdRun.exe'
 if (-not (Test-Path $mpCmdRun)) {
@@ -47,15 +48,15 @@ try {
   Write-Output "signatures: version unavailable"
 }
 
-Write-Output "scanning: $Path"
-$output = & $mpCmdRun -Scan -ScanType 3 -File $Path 2>&1
+Write-Output "scanning: $scanPath"
+$output = & $mpCmdRun -Scan -ScanType 3 -File $scanPath 2>&1
 $exit = $LASTEXITCODE
 $text = ($output | Out-String)
 Write-Output $text
 
-$missing = @($Require | Where-Object { -not (Test-Path (Join-Path $Path $_)) })
+$missing = @($Require | Where-Object { -not (Test-Path -LiteralPath (Join-Path $scanPath $_)) })
 if ($missing.Count -gt 0) {
-  throw "required binaries missing from $Path (quarantined during build?): $($missing -join ', ')"
+  throw "required binaries missing from $scanPath (quarantined during build?): $($missing -join ', ')"
 }
 
 if ($exit -eq 0 -and $text -match 'found no threats') {

@@ -20,7 +20,7 @@ function bashPath(filePath: string): string {
 }
 
 function fileUrl(filePath: string): string {
-	return `file://${bashPath(filePath)}`
+	return `file://${filePath}`
 }
 
 // Drive the real bash helper: curl reads file:// URLs, so a local file stands in

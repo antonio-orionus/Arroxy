@@ -118,6 +118,13 @@ describe('release asset names', () => {
 		expect(installer).toContain('BTBN_RELEASE_TAG: ${{ inputs.btbn_release_tag }}')
 	})
 
+	it('passes Defender an absolute scan path so custom scans can resolve the target', () => {
+		const defender = read('scripts/test-binaries/scan-windows-defender.ps1')
+
+		expect(defender).toContain('$scanPath = (Resolve-Path -LiteralPath $Path).Path')
+		expect(defender).toContain('-File $scanPath')
+	})
+
 	it('runs packaged runtime smoke before UI cold-start on every PR platform', () => {
 		const coldStart = read('.github/workflows/e2e-cold-start.yml')
 
