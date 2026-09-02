@@ -134,24 +134,32 @@ chmod +x Arroxy-linux-x64.AppImage
 {{dl_linux_fuse_text}}
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 {{dl_linux_appimagelauncher}}
 
-{{dl_linux_flatpak_intro}}
+**{{dl_linux_targz_h4}}**
+
+{{dl_linux_targz_text}}
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+{{dl_linux_flatpak_intro}}
+
+{{dl_linux_flatpak_prereq}}
+
+```bash
+sudo apt install -y flatpak
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+{{dl_linux_arch_note}}
 
 <details>
 <summary><strong><a id="verify"></a>{{dl_verify_h3}}</strong></summary>

@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-08-29._
+> _Last updated: 2026-09-02._
 
 ---
 
@@ -133,27 +133,35 @@ chmod +x Arroxy-linux-x64.AppImage
 ./Arroxy-linux-x64.AppImage
 ```
 
-চালু না হলে, FUSE অনুপস্থিত থাকতে পারে:
+তারপরও চালু না হলে, মাউন্ট ছাড়াই চালান — কোনো বাড়তি সিস্টেম প্যাকেজ লাগবে না:
 
 ```bash
-# Ubuntu / Debian
-sudo apt install -y libfuse2
-
-# Fedora
-sudo dnf install -y fuse-libs
-
-# Arch
-sudo pacman -S fuse2
+./Arroxy-linux-x64.AppImage --appimage-extract-and-run
 ```
 
 **ঐচ্ছিক ডেস্কটপ ইন্টিগ্রেশন:** একবার [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) ইনস্টল করুন, এবং আপনি যেকোনো AppImage ডাবল-ক্লিক করলে স্বয়ংক্রিয়ভাবে আপনার লঞ্চার মেনুতে নিবন্ধিত হবে — কোনো ম্যানুয়াল `.desktop` ফাইল দরকার নেই।
 
-**Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।
+**সাধারণ টারবল (FUSE নেই, ইনস্টল নেই):**
+
+`.tar.gz` বিল্ডটি একই অ্যাপ, শুধু AppImage মোড়ক ছাড়া — যেকোনো জায়গায় এক্সট্র্যাক্ট করে চালান। কিছু ইনস্টল করার নেই, কোনো সিস্টেম প্যাকেজও লাগে না।
 
 ```bash
+tar xzf Arroxy-linux-x64.tar.gz
+./Arroxy-linux-x64/arroxy
+```
+
+**Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।
+
+Ubuntu-তে Flatpak-এর বদলে Snap থাকে, তাই আগে Flatpak ইনস্টল করে Flathub যোগ করুন — বান্ডলটি সেখান থেকেই রানটাইম নেয়:
+
+```bash
+sudo apt install -y flatpak
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**রিলিজ পেজের Linux ডাউনলোড শুধু x86_64-এর জন্য।** ARM64 মেশিনে (Raspberry Pi, Asahi Linux) Flatpak ইনস্টল হয় ঠিকই, কিন্তু চালু করার সময় `bwrap: execvp ldconfig: Exec format error` দিয়ে ব্যর্থ হয়।
 
 <details>
 <summary><strong><a id="verify"></a>আপনার ডাউনলোড যাচাই করুন (SHA256)</strong></summary>

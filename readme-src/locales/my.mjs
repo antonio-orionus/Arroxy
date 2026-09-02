@@ -246,7 +246,11 @@ export const my = {
   dl_linux_m1_text:
     "**File manager:** `.AppImage` ကို right-click → **Properties** → **Permissions** → **Allow executing file as program** ကိုဖွင့်ပြီး double-click နှိပ်ပါ။",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Launch မအောင်မြင်သေးလျှင် FUSE ပျောက်ဆုံးနေနိုင်သည်:",
+  dl_linux_fuse_text: "စတင်၍ မရသေးလျှင် mount မလုပ်ဘဲ ဖွင့်ပါ — အပို system package မလိုပါ:",
+  dl_linux_targz_h4: "ရိုးရိုး tarball (FUSE မလို၊ install မလို):",
+  dl_linux_targz_text: "`.tar.gz` ဗားရှင်းသည် AppImage အခွံမပါသော အက်ပ်တူပင်ဖြစ်သည် — ကြိုက်ရာနေရာတွင် ဖြေပြီး ဖွင့်လိုက်ပါ။ install စရာမလို၊ system package လည်း မလိုပါ။",
+  dl_linux_flatpak_prereq: "Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ install ပြီး Flathub ကို ထည့်ပါ — bundle သည် runtime ကို ထိုမှ ရယူသည်:",
+  dl_linux_arch_note: "**ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။",
   dl_linux_flatpak_intro:
     "**Flatpak (sandboxed alternative):** တူညီသော release page မှ `Arroxy-*.flatpak` ကို download ဆင်းပါ။",
 

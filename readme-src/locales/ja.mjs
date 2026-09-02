@@ -244,8 +244,11 @@ export const ja = {
   dl_linux_m1_text:
     "**ファイルマネージャー：** `.AppImage` を右クリック → **プロパティ** → **権限** → **プログラムとして実行を許可** を有効化、ダブルクリックで起動。",
   dl_linux_m2_h4: "ターミナル：",
-  dl_linux_fuse_text:
-    "それでも起動しない場合、FUSE が不足している可能性があります：",
+  dl_linux_fuse_text: "それでも起動しない場合は、マウントせずに実行してください。追加のシステムパッケージは不要です：",
+  dl_linux_targz_h4: "通常のアーカイブ（FUSE 不要、インストール不要）：",
+  dl_linux_targz_text: "`.tar.gz` 版は AppImage のラッパーを外した同じアプリです。好きな場所に展開して実行するだけで、インストールもシステムパッケージも不要です。",
+  dl_linux_flatpak_prereq: "Ubuntu には Flatpak ではなく Snap が同梱されているため、まず Flatpak をインストールして Flathub を追加してください。バンドルはそこからランタイムを取得します：",
+  dl_linux_arch_note: "**リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。",
   dl_linux_flatpak_intro:
     "**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。",
 

@@ -247,8 +247,11 @@ export const pt = {
   dl_linux_m1_text:
     "**Gerenciador de arquivos:** clique com o botão direito no `.AppImage` → **Propriedades** → **Permissões** → ative **Permitir execução do arquivo como programa** e depois dê dois cliques.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text:
-    "Se mesmo assim não abrir, talvez esteja faltando o FUSE:",
+  dl_linux_fuse_text: "Se mesmo assim não abrir, execute sem montagem — não precisa de nenhum pacote extra do sistema:",
+  dl_linux_targz_h4: "Tarball simples (sem FUSE, sem instalação):",
+  dl_linux_targz_text: "A versão `.tar.gz` é o mesmo app sem o invólucro AppImage — extraia em qualquer lugar e execute. Nada para instalar, nenhum pacote do sistema.",
+  dl_linux_flatpak_prereq: "O Ubuntu vem com Snap em vez de Flatpak, então instale o Flatpak e adicione o Flathub primeiro — o pacote baixa o runtime de lá:",
+  dl_linux_arch_note: "**Os downloads de Linux na página de versões são apenas x86_64.** Em máquinas ARM64 (Raspberry Pi, Asahi Linux) o Flatpak instala, mas falha ao iniciar com `bwrap: execvp ldconfig: Exec format error`.",
   dl_linux_flatpak_intro:
     "**Flatpak (alternativa em sandbox):** baixe o `Arroxy-linux-x64.flatpak` na mesma página de release.",
 

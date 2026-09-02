@@ -246,7 +246,11 @@ export const om = {
   dl_linux_m1_text:
     "**Bulchiinsa faayilaa:** `.AppImage` mirga-cuqaasi → **Properties** → **Permissions** → **Allow executing file as program** dandeessisi, erga lama-cuqaasi.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Eegaluun yoo ammallee fashale, FUSE dhabu danda'a:",
+  dl_linux_fuse_text: "Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — meeshaaleen sirnaa dabalataa hin barbaachisan:",
+  dl_linux_targz_h4: "Taarboolii salphaa (FUSE hin barbaachisu, ijaarsi hin barbaachisu):",
+  dl_linux_targz_text: "Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Wanti ijaaramu hin jiru, meeshaaleen sirnaas hin barbaachisan.",
+  dl_linux_flatpak_prereq: "Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:",
+  dl_linux_arch_note: "**Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.",
   dl_linux_flatpak_intro:
     "**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.",
 

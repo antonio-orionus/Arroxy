@@ -228,7 +228,11 @@ export const zh = {
   dl_linux_m1_text:
     "**文件管理器：** 右键 `.AppImage` → **属性** → **权限** → 启用 **允许作为程序执行**，然后双击运行。",
   dl_linux_m2_h4: "终端：",
-  dl_linux_fuse_text: "如果仍无法启动，可能缺少 FUSE：",
+  dl_linux_fuse_text: "如果仍无法启动，可以不挂载直接运行 — 无需额外的系统软件包：",
+  dl_linux_targz_h4: "普通压缩包（无需 FUSE，无需安装）：",
+  dl_linux_targz_text: "`.tar.gz` 版本就是去掉 AppImage 外壳的同一个应用 — 解压到任意位置直接运行。无需安装，也不需要任何系统软件包。",
+  dl_linux_flatpak_prereq: "Ubuntu 自带的是 Snap 而非 Flatpak，因此请先安装 Flatpak 并添加 Flathub — 安装包会从那里获取运行时：",
+  dl_linux_arch_note: "**发布页面上的 Linux 下载仅提供 x86_64。** 在 ARM64 设备（树莓派、Asahi Linux）上 Flatpak 可以安装，但启动时会失败并报 `bwrap: execvp ldconfig: Exec format error`。",
   dl_linux_flatpak_intro:
     "**Flatpak（沙箱版）：** 从同一发布页下载 `Arroxy-*.flatpak`。",
 

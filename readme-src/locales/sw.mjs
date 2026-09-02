@@ -244,7 +244,11 @@ export const sw = {
   dl_linux_m1_text:
     "**Kidhibiti cha faili:** bonyeza kulia `.AppImage` → **Properties** → **Permissions** → wezesha **Allow executing file as program**, kisha bonyeza mara mbili.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Ikiwa uzinduzi bado unashindwa, huenda FUSE haipo:",
+  dl_linux_fuse_text: "Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna vifurushi vya ziada vya mfumo vinavyohitajika:",
+  dl_linux_targz_h4: "Tarball ya kawaida (hakuna FUSE, hakuna usakinishaji):",
+  dl_linux_targz_text: "Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna cha kusakinisha, hakuna vifurushi vya mfumo vinavyohitajika.",
+  dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:",
+  dl_linux_arch_note: "**Vipakuliwa vya Linux kwenye ukurasa wa matoleo ni vya x86_64 pekee.** Kwenye mashine za ARM64 (Raspberry Pi, Asahi Linux) Flatpak husakinishwa lakini hushindwa kuanza ikitoa `bwrap: execvp ldconfig: Exec format error`.",
   dl_linux_flatpak_intro:
     "**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.",
 

@@ -244,7 +244,11 @@ export const bn = {
   dl_linux_m1_text:
     "**ফাইল ম্যানেজার:** `.AppImage`-এ রাইট-ক্লিক → **Properties** → **Permissions** → **Allow executing file as program** সক্রিয় করুন, তারপর ডাবল-ক্লিক করুন।",
   dl_linux_m2_h4: "টার্মিনাল:",
-  dl_linux_fuse_text: "চালু না হলে, FUSE অনুপস্থিত থাকতে পারে:",
+  dl_linux_fuse_text: "তারপরও চালু না হলে, মাউন্ট ছাড়াই চালান — কোনো বাড়তি সিস্টেম প্যাকেজ লাগবে না:",
+  dl_linux_targz_h4: "সাধারণ টারবল (FUSE নেই, ইনস্টল নেই):",
+  dl_linux_targz_text: "`.tar.gz` বিল্ডটি একই অ্যাপ, শুধু AppImage মোড়ক ছাড়া — যেকোনো জায়গায় এক্সট্র্যাক্ট করে চালান। কিছু ইনস্টল করার নেই, কোনো সিস্টেম প্যাকেজও লাগে না।",
+  dl_linux_flatpak_prereq: "Ubuntu-তে Flatpak-এর বদলে Snap থাকে, তাই আগে Flatpak ইনস্টল করে Flathub যোগ করুন — বান্ডলটি সেখান থেকেই রানটাইম নেয়:",
+  dl_linux_arch_note: "**রিলিজ পেজের Linux ডাউনলোড শুধু x86_64-এর জন্য।** ARM64 মেশিনে (Raspberry Pi, Asahi Linux) Flatpak ইনস্টল হয় ঠিকই, কিন্তু চালু করার সময় `bwrap: execvp ldconfig: Exec format error` দিয়ে ব্যর্থ হয়।",
   dl_linux_flatpak_intro:
     "**Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।",
 

@@ -246,8 +246,11 @@ export const ur = {
   dl_linux_m1_text:
     "**فائل مینیجر:** `.AppImage` پر دائیں کلک کریں → **Properties** → **Permissions** → **Allow executing file as program** کو فعال کریں، پھر ڈبل کلک کریں۔",
   dl_linux_m2_h4: "ٹرمینل:",
-  dl_linux_fuse_text:
-    "اگر لانچ پھر بھی ناکام ہو جائے، تو شاید آپ کے پاس FUSE نہیں ہے:",
+  dl_linux_fuse_text: "اگر پھر بھی نہ چلے تو اسے ماؤنٹ کیے بغیر چلائیں — کسی اضافی سسٹم پیکیج کی ضرورت نہیں:",
+  dl_linux_targz_h4: "سادہ ٹاربال (نہ FUSE، نہ انسٹال):",
+  dl_linux_targz_text: "`.tar.gz` بلڈ وہی ایپ ہے، بس AppImage ریپر کے بغیر — کہیں بھی ایکسٹریکٹ کریں اور چلائیں۔ کچھ انسٹال نہیں کرنا، کوئی سسٹم پیکیج درکار نہیں۔",
+  dl_linux_flatpak_prereq: "Ubuntu میں Flatpak کے بجائے Snap آتا ہے، اس لیے پہلے Flatpak انسٹال کریں اور Flathub شامل کریں — بنڈل اپنا رن ٹائم وہیں سے لیتا ہے:",
+  dl_linux_arch_note: "**ریلیز پیج پر Linux ڈاؤن لوڈز صرف x86_64 کے لیے ہیں۔** ARM64 مشینوں (Raspberry Pi، Asahi Linux) پر Flatpak انسٹال تو ہو جاتا ہے مگر لانچ پر `bwrap: execvp ldconfig: Exec format error` کے ساتھ ناکام ہو جاتا ہے۔",
   dl_linux_flatpak_intro:
     "**Flatpak (سینڈ باکسڈ متبادل):** اسی ریلیز پیج سے `Arroxy-*.flatpak` ڈاؤن لوڈ کریں۔",
 

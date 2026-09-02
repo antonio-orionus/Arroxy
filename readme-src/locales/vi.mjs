@@ -247,7 +247,11 @@ export const vi = {
   dl_linux_m1_text:
     "**Trình quản lý file:** nhấp chuột phải vào `.AppImage` → **Properties** → **Permissions** → bật **Allow executing file as program**, rồi nhấp đúp.",
   dl_linux_m2_h4: "Terminal:",
-  dl_linux_fuse_text: "Nếu vẫn không khởi động được, bạn có thể thiếu FUSE:",
+  dl_linux_fuse_text: "Nếu vẫn không khởi động được, hãy chạy mà không cần gắn kết — không cần gói hệ thống nào thêm:",
+  dl_linux_targz_h4: "Tarball thuần (không FUSE, không cài đặt):",
+  dl_linux_targz_text: "Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppImage — giải nén ở đâu cũng được rồi chạy. Không phải cài gì, không cần gói hệ thống nào.",
+  dl_linux_flatpak_prereq: "Ubuntu đi kèm Snap chứ không phải Flatpak, nên hãy cài Flatpak và thêm Flathub trước — gói sẽ tải runtime từ đó:",
+  dl_linux_arch_note: "**Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.",
   dl_linux_flatpak_intro:
     "**Flatpak (lựa chọn thay thế sandbox):** tải `Arroxy-*.flatpak` từ cùng trang phát hành.",
 
