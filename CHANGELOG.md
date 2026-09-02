@@ -8,6 +8,31 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.9-beta.3
+
+Arroxy's Linux builds now start on a clean modern system without installing anything first, and the install instructions finally match what each distro actually needs.
+
+## Highlights
+
+### The Linux App Starts On A Clean System
+
+- The AppImage no longer needs FUSE. It previously refused to start on Ubuntu 24.04 and newer with `dlopen(): error loading libfuse.so.2`, and the fix everyone was told to run — `apt install libfuse2` — no longer exists on those releases, so there was no obvious way out. The AppImage now carries everything it needs and runs as downloaded.
+- Nothing about how you use it changes, and the download is the same file name as before.
+
+### Install Instructions That Work
+
+- Added instructions for the `.tar.gz` build, which had none at all despite being offered on the release page. It needs no installer and no FUSE — extract it anywhere and run it, which makes it the reliable option on an unusual setup.
+- The Flatpak steps now install Flatpak and add Flathub first. Ubuntu ships Snap instead, so the old instructions assumed a command that was not there.
+- Package-manager commands are listed for Ubuntu/Debian, Fedora and Arch rather than assuming `apt`.
+- Noted that the Linux downloads are x86_64 only. On ARM64 machines the Flatpak installs without complaint and only fails when you try to launch it, after a long download — worth knowing before you spend the bandwidth.
+- All of the above is translated across every supported language.
+
+### Under The Hood
+
+- The window now follows your desktop's light/dark setting when you change it while Arroxy is open, instead of keeping the shade it started with.
+- Startup now records how the theme was resolved, so a report of the wrong theme on first launch can be diagnosed from the log rather than guessed at.
+- Packaging toolchain updated and its components realigned to matching versions, and a dependency carrying four security advisories was patched.
+
 ## 0.4.9-beta.2
 
 The global Quick Download shortcut is now on from the first launch instead of waiting to be switched on.
