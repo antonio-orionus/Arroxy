@@ -132,6 +132,8 @@ export const en = {
   feat_privacy_2: "**Open source** — every line auditable, MIT licensed",
   feat_privacy_3: "Files saved straight to the folder you choose",
   feat_workflow_h3: "Workflow",
+  feat_workflow_12:
+    "**Global download hotkey** — copy a link in any app and press `Ctrl+Shift+D` (`Cmd+Shift+D` on macOS); Arroxy queues it with your active profile without opening the window, and a notification confirms it. On by default, rebindable",
   feat_workflow_1:
     "**Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, or Quick Download with saved defaults",
   feat_workflow_2:
@@ -184,6 +186,10 @@ export const en = {
     "<b>Bulk URL mode</b><br/>Paste a list, auto-dedupe, queue them all at once",
   shot6_cap:
     "<b>Parallel download queue</b><br/>Several downloads at once with live progress",
+  hotkey_fig_alt:
+    "Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue",
+  hotkey_fig_cap:
+    "<b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading",
   shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",

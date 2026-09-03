@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک �
 
 ### کاري جریان
 
+- **عمومي د ډاونلوډ هاټکي** — په هره اپلیکیشن کې یو لینک کاپي کړئ او `Ctrl+Shift+D` (په macOS کې `Cmd+Shift+D`) کېکاږئ؛ Arroxy یې پرته له دې چې کړکۍ پرانیزي ستاسو فعال پروفایل سره په کتار کې ورزیاتوي او یوه خبرتیا یې تاییدوي. په ډیفالټ ډول فعال، بیا ټاکل کېدونکی
 - **انعطاف منونکي د پیل حالتونه** — لارښود شوی واحد ډاونلوډ، د playlist/channel ټاکونکی، د bulk URL پیسټ، یا د خوندي شوو defaultونو سره Quick Download وټاکئ
 - **مرکزي ډاونلوډ قطار** — هر single، playlist، bulk، یا quick کار د پرمختګ، pause، resume، cancel، retry، او priority کنټرول لپاره یوه ځای ته راځي
 - **د کلپبورډ لیدل** — یو YouTube لینک کاپي کړئ او Arroxy د اپ بیا تمرکز کولو پر مهال URL پخپله ډکوي (د پرمختللو تنظیماتو کې بدل کړئ)
@@ -279,6 +280,9 @@ Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک �
 - که یو سایټ بدل شي، yt-dlp اونیزه فکسونه لیږدوي او Arroxy د پیلولو پر مهال بائنري اوتومات تازه کوي
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
   </tr>

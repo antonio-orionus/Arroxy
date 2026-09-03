@@ -25,7 +25,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 
 ### Hojii hordoffii
 
+- **Qabduu ariifachiisaa buufannaa waliigalaa** — appii kamiyyuu keessatti hidhaa waraabii `Ctrl+Shift+D` (macOS irratti `Cmd+Shift+D`) tuqi; Arroxy foddaa utuu hin banin piroofaayilii kee kan hojiirra jiruun tarree keessa galcha, beeksisnis ni mirkaneessa. Durtiidhaan banaa, irra deebi'anii qindeessuun ni danda'ama
 - **Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, ykn Quick Download filannoowwan duraan kuufamaniin filadhu
 - **Tarree buusuu giddugaleessaa** — hojii tokko, playlist, bulk, ykn quick hundi bakka tokkotti walitti dhufa: adeemsa, dhaabuu, itti fufsiisuu, haquu, irra deebi’uu, fi dursa to’achuuf
 - **Eegaa clipboard** — link YouTube koppiisi Arroxy URL of-hordofaa guutu yeroo app deebi'itu (Advanced settings keessatti jijjiiri)
@@ -279,6 +280,9 @@ Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argad
 - Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Qabduu ariifachiisaa buufannaa waliigalaa Arroxy — Windows fi Linux irratti Ctrl+Shift+D, macOS irratti Cmd+Shift+D, hidhaa waraabame kallattiin tarree buufannaatti erga" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Qabduu ariifachiisaa buufannaa waliigalaa</b><br/>Bakka kamiyyuu hidhaa waraabi, altokko tuqi — tarree seenee buufamuu jalqaba</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu</sub></td>
   </tr>

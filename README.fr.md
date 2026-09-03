@@ -25,7 +25,7 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Traduction assistée par IA. Le [README en anglais](README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 
 ### Flux de travail
 
+- **Raccourci de téléchargement global** — copie un lien dans n'importe quelle app et appuie sur `Ctrl+Shift+D` (`Cmd+Shift+D` sur macOS) ; Arroxy le met en file d'attente avec ton profil actif sans ouvrir la fenêtre, et une notification le confirme. Actif par défaut, réassignable
 - **Modes de démarrage flexibles** — choisis un téléchargement unique guidé, un sélecteur de playlist/chaîne, un collage d’URL en lot ou Quick Download avec tes valeurs par défaut enregistrées
 - **File de téléchargement centrale** — chaque tâche unique, playlist, lot ou rapide arrive au même endroit pour suivre, mettre en pause, reprendre, annuler, réessayer et gérer la priorité
 - **Surveillance du presse-papiers** — copie un lien YouTube et Arroxy remplit automatiquement l'URL quand tu reviens sur l'app (désactivable dans les Paramètres avancés)
@@ -281,6 +282,9 @@ Arroxy est conçu pour une seule chose : coller une URL et obtenir un fichier lo
 - Si un site change, yt-dlp publie des correctifs chaque semaine et Arroxy met à jour le binaire automatiquement au lancement
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Raccourci de téléchargement global d'Arroxy — Ctrl+Shift+D sur Windows et Linux, Cmd+Shift+D sur macOS, qui envoie le lien copié directement dans la file de téléchargement" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Raccourci de téléchargement global</b><br/>Copie un lien n'importe où, appuie une fois — il rejoint la file et le téléchargement démarre</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profils par élément de playlist</b><br/>Donnez à chaque vidéo son propre profil — certaines en 4K, le reste en MP3</sub></td>
   </tr>

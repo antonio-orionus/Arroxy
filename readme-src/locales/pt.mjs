@@ -137,6 +137,7 @@ export const pt = {
     "**Código aberto** — cada linha pode ser auditada, sob licença MIT",
   feat_privacy_3: "Arquivos salvos direto na pasta que você escolher",
   feat_workflow_h3: "Fluxo de trabalho",
+  feat_workflow_12: "**Atalho global de download** — copie um link em qualquer app e pressione `Ctrl+Shift+D` (`Cmd+Shift+D` no macOS); o Arroxy o coloca na fila com o seu perfil ativo sem abrir a janela, e uma notificação confirma. Ativo por padrão e reconfigurável",
   feat_workflow_1:
     "**Modos de início flexíveis** — escolha um download individual guiado, o seletor de playlist/canal, a colagem de URLs em massa ou o Quick Download com os seus padrões salvos",
   feat_workflow_2:
@@ -189,6 +190,8 @@ export const pt = {
     "<b>Modo de URLs em massa</b><br/>Cole uma lista, remova duplicatas automaticamente e enfileire tudo de uma vez",
   shot6_cap:
     "<b>Fila de downloads paralelos</b><br/>Vários downloads ao mesmo tempo com progresso ao vivo",
+  hotkey_fig_alt: "Atalho global de download do Arroxy — Ctrl+Shift+D no Windows e Linux, Cmd+Shift+D no macOS, enviando o link copiado direto para a fila de downloads",
+  hotkey_fig_cap: "<b>Atalho global de download</b><br/>Copie um link em qualquer lugar, pressione uma vez — ele entra na fila e começa a baixar",
   shot7_cap:
     "<b>Perfis por item da playlist</b><br/>Dê a cada vídeo o seu próprio perfil — arquive alguns em 4K e pegue o restante como MP3",
   dl_platform_col: "Plataforma",

@@ -25,7 +25,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 
 ### Quy trình làm việc
 
+- **Phím tắt tải xuống toàn cục** — sao chép một liên kết trong bất kỳ ứng dụng nào rồi nhấn `Ctrl+Shift+D` (`Cmd+Shift+D` trên macOS); Arroxy đưa nó vào hàng đợi với hồ sơ đang dùng mà không mở cửa sổ, và một thông báo xác nhận. Bật sẵn, có thể đổi phím
 - **Chế độ bắt đầu linh hoạt** — chọn tải một video có hướng dẫn, bộ chọn playlist/kênh, dán URL hàng loạt, hoặc Quick Download với mặc định đã lưu
 - **Hàng đợi tải xuống trung tâm** — mọi tác vụ đơn lẻ, playlist, hàng loạt hoặc nhanh đều vào một nơi để theo dõi tiến độ, tạm dừng, tiếp tục, hủy, thử lại và điều chỉnh ưu tiên
 - **Theo dõi clipboard** — sao chép liên kết YouTube và Arroxy tự điền URL khi bạn chuyển lại ứng dụng (bật/tắt trong Cài đặt nâng cao)
@@ -279,6 +280,9 @@ Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận 
 - Nếu một trang thay đổi, yt-dlp phát hành bản sửa lỗi hàng tuần và Arroxy tự động cập nhật nhị phân khi khởi động
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Phím tắt tải xuống toàn cục của Arroxy — Ctrl+Shift+D trên Windows và Linux, Cmd+Shift+D trên macOS, đưa liên kết đã sao chép thẳng vào hàng đợi tải xuống" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Phím tắt tải xuống toàn cục</b><br/>Sao chép liên kết ở bất cứ đâu, nhấn một lần — nó vào hàng đợi và bắt đầu tải</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3</sub></td>
   </tr>

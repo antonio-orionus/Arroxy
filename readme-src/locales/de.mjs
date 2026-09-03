@@ -135,6 +135,7 @@ export const de = {
   feat_privacy_2: "Kein Login, keine Cookies, kein verknüpftes Google-Konto",
   feat_privacy_3: "Dateien direkt in den von dir gewählten Ordner gespeichert",
   feat_workflow_h3: "Workflow",
+  feat_workflow_12: "**Globaler Download-Hotkey** — kopiere einen Link in einer beliebigen App und drücke `Ctrl+Shift+D` (`Cmd+Shift+D` unter macOS); Arroxy stellt ihn mit deinem aktiven Profil in die Warteschlange, ohne das Fenster zu öffnen, und eine Benachrichtigung bestätigt es. Standardmäßig aktiv, frei belegbar",
   feat_workflow_1:
     "**Flexible Startmodi** — wähle einen geführten Einzel-Download, eine Playlist-/Kanal-Auswahl, Bulk-URL-Eingabe oder Quick Download mit gespeicherten Standardwerten",
   feat_workflow_2:
@@ -187,6 +188,8 @@ export const de = {
     "<b>Massen-URL-Modus</b><br/>Liste einfügen, automatisch entdoppeln, alle auf einmal einreihen",
   shot6_cap:
     "<b>Paralleler Download-Verlauf</b><br/>Mehrere Downloads gleichzeitig mit Live-Fortschritt",
+  hotkey_fig_alt: "Globaler Download-Hotkey von Arroxy — Ctrl+Shift+D unter Windows und Linux, Cmd+Shift+D unter macOS, schickt den kopierten Link direkt in die Download-Warteschlange",
+  hotkey_fig_cap: "<b>Globaler Download-Hotkey</b><br/>Link irgendwo kopieren, einmal drücken — er landet in der Warteschlange und der Download startet",
   shot7_cap: "<b>Profile pro Playlist-Eintrag</b><br/>Jedem Video ein eigenes Profil geben – manche in 4K archivieren, den Rest als MP3 holen",
   dl_platform_col: "Plattform",
   dl_format_col: "Format",

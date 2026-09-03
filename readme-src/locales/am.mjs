@@ -132,6 +132,7 @@ export const am = {
   feat_privacy_2: "ምንም ግባ፣ ምንም ኩኪ፣ ምንም Google ሒሳብ አልተያያዘም",
   feat_privacy_3: "ፋይሎች ወደ መረጡት አቃፊ ቀጥታ ተቀምጠዋል",
   feat_workflow_h3: "የሥራ ፍሰት",
+  feat_workflow_12: "**አጠቃላይ የማውረድ አቋራጭ** — በማንኛውም መተግበሪያ ውስጥ አገናኝ ይቅዱና `Ctrl+Shift+D` (በmacOS ላይ `Cmd+Shift+D`) ይጫኑ፤ Arroxy መስኮቱን ሳይከፍት በንቁ መገለጫዎ ወደ ወረፋ ያስገባዋል፣ ማሳወቂያም ያረጋግጣል። በነባሪ የነቃ፣ እንደገና ሊመደብ የሚችል",
   feat_workflow_1:
     "**ተለዋዋጭ የመጀመሪያ ሁነታዎች** — የተመራ ነጠላ ማውረድ፣ የplaylist/channel መምረጫ፣ ብዙ URL መለጠፍ፣ ወይም በተቀመጡ ነባሪዎች Quick Download ይምረጡ",
   feat_workflow_2:
@@ -177,6 +178,8 @@ export const am = {
   shot5_cap:
     "<b>የጅምላ URL ሁነታ</b><br/>ዝርዝር ይለጥፉ፣ ድግግሞሾችን በራስ-ሰር ያስወግዱ፣ ሁሉንም በአንድ ጊዜ ያሰልፉ",
   shot6_cap: "<b>ትይዩ የማውረድ ሰልፍ</b><br/>በቀጥታ እድገት ብዙ ማውረዶች በአንድ ጊዜ",
+  hotkey_fig_alt: "የArroxy አጠቃላይ የማውረድ አቋራጭ — በWindows እና Linux ላይ Ctrl+Shift+D፣ በmacOS ላይ Cmd+Shift+D፣ የተቀዳውን አገናኝ በቀጥታ ወደ ማውረጃ ወረፋ ይልካል",
+  hotkey_fig_cap: "<b>አጠቃላይ የማውረድ አቋራጭ</b><br/>የትም ቦታ አገናኝ ይቅዱ፣ አንድ ጊዜ ይጫኑ — ወደ ወረፋ ገብቶ ማውረድ ይጀምራል",
   shot7_cap: "<b>ለእያንዳንዱ ንጥል የአጫዋች ዝርዝር መገለጫዎች</b><br/>ለእያንዳንዱ ቪዲዮ የራሱን መገለጫ ይስጡ — አንዳንዶቹን በ4K ያከማቹ፣ ቀሪዎቹን እንደ MP3 ይያዙ",
   dl_platform_col: "ሥርዓተ ክወና",
   dl_format_col: "ቅርጸት",

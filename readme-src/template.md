@@ -250,6 +250,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ### {{feat_workflow_h3}}
 
+- {{feat_workflow_12}}
 - {{feat_workflow_1}}
 - {{feat_workflow_2}}
 - {{feat_workflow_3}}
@@ -277,6 +278,9 @@ sha256sum Arroxy-linux-x64.AppImage
 - {{feat_sites_4}}
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="{{hotkey_fig_alt}}" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{hotkey_fig_cap}}</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{shot7_cap}}</sub></td>
   </tr>

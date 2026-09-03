@@ -132,6 +132,7 @@ export const zh = {
   feat_privacy_2: "无登录、无 Cookie、无 Google 账号绑定",
   feat_privacy_3: "文件直接保存到你选择的文件夹",
   feat_workflow_h3: "工作流",
+  feat_workflow_12: "**全局下载快捷键** — 在任意应用中复制链接后按 `Ctrl+Shift+D`（macOS 为 `Cmd+Shift+D`），Arroxy 会用当前配置直接加入队列，无需打开窗口，并以通知确认。默认开启，可重新绑定",
   feat_workflow_1:
     "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download",
   feat_workflow_2:
@@ -175,6 +176,8 @@ export const zh = {
   shot4_cap: "<b>环绕声 / Dolby 音频</b><br/>识别并保留 5.1 和 Dolby 音轨",
   shot5_cap: "<b>批量网址模式</b><br/>粘贴列表，自动去重，一次性全部入队",
   shot6_cap: "<b>并行下载队列</b><br/>多个下载同时进行，实时显示进度",
+  hotkey_fig_alt: "Arroxy 全局下载快捷键 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把复制的链接直接送入下载队列",
+  hotkey_fig_cap: "<b>全局下载快捷键</b><br/>随处复制链接，按一次——即刻进入队列并开始下载",
   shot7_cap: "<b>播放列表逐条配置</b><br/>为每个视频指定各自的配置——部分存为 4K，其余转成 MP3",
   dl_platform_col: "平台",
   dl_format_col: "格式",

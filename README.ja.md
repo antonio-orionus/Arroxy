@@ -25,7 +25,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。
 
@@ -254,6 +254,7 @@ Arroxy はひとつのことのために作られています：URL を貼って
 
 ### ワークフロー
 
+- **グローバルダウンロードホットキー** — どのアプリでもリンクをコピーして `Ctrl+Shift+D`（macOS では `Cmd+Shift+D`）を押すだけ。Arroxy はウィンドウを開かずにアクティブなプロファイルでキューに追加し、通知で結果を知らせます。既定で有効、キー割り当ては変更可能
 - **柔軟な開始モード** — ガイド付き単体ダウンロード、プレイリスト/チャンネル選択、URL一括貼り付け、保存済み既定値での Quick Download を選べます
 - **中央ダウンロードキュー** — 単体、プレイリスト、一括、クイックの各ジョブが一か所に入り、進行状況、一時停止、再開、キャンセル、再試行、優先度を管理できます
 - **クリップボード監視** — YouTube リンクをコピーすると、アプリにフォーカスを戻したときに Arroxy が URL を自動入力（詳細設定でトグル切替可能）
@@ -281,6 +282,9 @@ Arroxy はひとつのことのために作られています：URL を貼って
 - サイトが変更されても、yt-dlp は毎週修正をリリースし、Arroxy は起動時にバイナリを自動更新します
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy のグローバルダウンロードホットキー — Windows と Linux では Ctrl+Shift+D、macOS では Cmd+Shift+D で、コピーしたリンクをそのままダウンロードキューへ送ります" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>グローバルダウンロードホットキー</b><br/>どこでもリンクをコピーして一度押すだけ——キューに入りダウンロードが始まります</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>プレイリストの動画ごとのプロファイル</b><br/>各動画に個別のプロファイルを指定——一部は4Kで保存し、残りはMP3で取得</sub></td>
   </tr>

@@ -136,6 +136,7 @@ export const ja = {
   feat_privacy_2: "ログインなし、Cookie なし、Google アカウント連携なし",
   feat_privacy_3: "選択したフォルダに直接ファイルを保存",
   feat_workflow_h3: "ワークフロー",
+  feat_workflow_12: "**グローバルダウンロードホットキー** — どのアプリでもリンクをコピーして `Ctrl+Shift+D`（macOS では `Cmd+Shift+D`）を押すだけ。Arroxy はウィンドウを開かずにアクティブなプロファイルでキューに追加し、通知で結果を知らせます。既定で有効、キー割り当ては変更可能",
   feat_workflow_1:
     "**柔軟な開始モード** — ガイド付き単体ダウンロード、プレイリスト/チャンネル選択、URL一括貼り付け、保存済み既定値での Quick Download を選べます",
   feat_workflow_2:
@@ -187,6 +188,8 @@ export const ja = {
     "<b>一括URLモード</b><br/>リストを貼り付け、自動で重複を除去し、まとめてキューに追加",
   shot6_cap:
     "<b>並列ダウンロードキュー</b><br/>複数のダウンロードを同時に、進捗をリアルタイム表示",
+  hotkey_fig_alt: "Arroxy のグローバルダウンロードホットキー — Windows と Linux では Ctrl+Shift+D、macOS では Cmd+Shift+D で、コピーしたリンクをそのままダウンロードキューへ送ります",
+  hotkey_fig_cap: "<b>グローバルダウンロードホットキー</b><br/>どこでもリンクをコピーして一度押すだけ——キューに入りダウンロードが始まります",
   shot7_cap: "<b>プレイリストの動画ごとのプロファイル</b><br/>各動画に個別のプロファイルを指定——一部は4Kで保存し、残りはMP3で取得",
   dl_platform_col: "プラットフォーム",
   dl_format_col: "フォーマット",

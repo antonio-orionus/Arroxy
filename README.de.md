@@ -25,7 +25,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 
 ### Workflow
 
+- **Globaler Download-Hotkey** — kopiere einen Link in einer beliebigen App und drücke `Ctrl+Shift+D` (`Cmd+Shift+D` unter macOS); Arroxy stellt ihn mit deinem aktiven Profil in die Warteschlange, ohne das Fenster zu öffnen, und eine Benachrichtigung bestätigt es. Standardmäßig aktiv, frei belegbar
 - **Flexible Startmodi** — wähle einen geführten Einzel-Download, eine Playlist-/Kanal-Auswahl, Bulk-URL-Eingabe oder Quick Download mit gespeicherten Standardwerten
 - **Zentrale Download-Warteschlange** — jeder Einzel-, Playlist-, Bulk- oder Quick-Job landet an einem Ort für Fortschritt, Pausieren, Fortsetzen, Abbrechen, Wiederholen und Priorität
 - **Zwischenablage-Überwachung** — kopiere einen YouTube-Link und Arroxy füllt die URL automatisch aus, wenn du die App wieder fokussierst (in den erweiterten Einstellungen umschaltbar)
@@ -281,6 +282,9 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 - Ändert sich eine Seite, liefert yt-dlp wöchentlich Fixes und Arroxy aktualisiert das Binary beim Start automatisch
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Globaler Download-Hotkey von Arroxy — Ctrl+Shift+D unter Windows und Linux, Cmd+Shift+D unter macOS, schickt den kopierten Link direkt in die Download-Warteschlange" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Globaler Download-Hotkey</b><br/>Link irgendwo kopieren, einmal drücken — er landet in der Warteschlange und der Download startet</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profile pro Playlist-Eintrag</b><br/>Jedem Video ein eigenes Profil geben – manche in 4K archivieren, den Rest als MP3 holen</sub></td>
   </tr>

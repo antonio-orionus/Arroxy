@@ -137,6 +137,7 @@ export const vi = {
     "Không đăng nhập, không cookie, không liên kết tài khoản Google",
   feat_privacy_3: "File được lưu thẳng vào thư mục bạn chọn",
   feat_workflow_h3: "Quy trình làm việc",
+  feat_workflow_12: "**Phím tắt tải xuống toàn cục** — sao chép một liên kết trong bất kỳ ứng dụng nào rồi nhấn `Ctrl+Shift+D` (`Cmd+Shift+D` trên macOS); Arroxy đưa nó vào hàng đợi với hồ sơ đang dùng mà không mở cửa sổ, và một thông báo xác nhận. Bật sẵn, có thể đổi phím",
   feat_workflow_1:
     "**Chế độ bắt đầu linh hoạt** — chọn tải một video có hướng dẫn, bộ chọn playlist/kênh, dán URL hàng loạt, hoặc Quick Download với mặc định đã lưu",
   feat_workflow_2:
@@ -189,6 +190,8 @@ export const vi = {
     "<b>Chế độ URL hàng loạt</b><br/>Dán danh sách, tự loại trùng, xếp hàng tất cả cùng lúc",
   shot6_cap:
     "<b>Hàng đợi tải song song</b><br/>Nhiều lượt tải cùng lúc với tiến trình trực tiếp",
+  hotkey_fig_alt: "Phím tắt tải xuống toàn cục của Arroxy — Ctrl+Shift+D trên Windows và Linux, Cmd+Shift+D trên macOS, đưa liên kết đã sao chép thẳng vào hàng đợi tải xuống",
+  hotkey_fig_cap: "<b>Phím tắt tải xuống toàn cục</b><br/>Sao chép liên kết ở bất cứ đâu, nhấn một lần — nó vào hàng đợi và bắt đầu tải",
   shot7_cap: "<b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",

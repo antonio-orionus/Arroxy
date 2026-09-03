@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 
 ### سير العمل
 
+- **اختصار تنزيل عام** — انسخ رابطاً في أي تطبيق واضغط `Ctrl+Shift+D` (`Cmd+Shift+D` على macOS)؛ يضيفه Arroxy إلى الطابور بملف التعريف النشط دون فتح النافذة، ويؤكد ذلك إشعار. مُفعَّل افتراضياً وقابل لإعادة التعيين
 - **أوضاع بدء مرنة** — اختر تنزيلًا فرديًا موجّهًا، أو منتقي قائمة تشغيل/قناة، أو لصق روابط دفعة واحدة، أو Quick Download بالإعدادات الافتراضية المحفوظة
 - **طابور تنزيل مركزي** — كل مهمة فردية أو قائمة تشغيل أو دفعة روابط أو تنزيل سريع تصل إلى مكان واحد لمتابعة التقدم والإيقاف المؤقت والاستئناف والإلغاء وإعادة المحاولة والتحكم في الأولوية
 - **مراقبة الحافظة** — انسخ رابط يوتيوب ويملأ Arroxy الحقل تلقائياً عند العودة للتطبيق (قابل للتفعيل في الإعدادات المتقدمة)
@@ -279,6 +280,9 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 - إذا تغيَّر موقع ما، يُصدر yt-dlp إصلاحات أسبوعياً ويحدِّث Arroxy الملف التنفيذي تلقائياً عند التشغيل
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ملفات تعريف لكل عنصر في قائمة التشغيل</b><br/>امنح كل فيديو ملف تعريف خاصًا به — احفظ بعضها بدقة 4K وخذ الباقي بصيغة MP3</sub></td>
   </tr>

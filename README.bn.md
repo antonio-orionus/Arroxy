@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy একটি কাজের জন্য তৈরি: URL পেস্�
 
 ### ওয়ার্কফ্লো
 
+- **গ্লোবাল ডাউনলোড হটকি** — যেকোনো অ্যাপে একটি লিংক কপি করে `Ctrl+Shift+D` (macOS-এ `Cmd+Shift+D`) চাপুন; Arroxy উইন্ডো না খুলেই আপনার সক্রিয় প্রোফাইল দিয়ে সেটি সারিতে যোগ করে এবং একটি নোটিফিকেশন তা নিশ্চিত করে। ডিফল্টে চালু, কি বদলানো যায়
 - **নমনীয় শুরু মোড** — গাইডেড একক ডাউনলোড, playlist/channel picker, bulk URL paste, অথবা সংরক্ষিত ডিফল্টসহ Quick Download বেছে নিন
 - **কেন্দ্রীয় ডাউনলোড queue** — একক, playlist, bulk, বা quick কাজ সবই progress, pause, resume, cancel, retry, এবং priority control-এর জন্য এক জায়গায় আসে
 - **ক্লিপবোর্ড ওয়াচ** — একটি YouTube লিঙ্ক কপি করুন এবং অ্যাপে ফিরলে Arroxy স্বয়ংক্রিয়ভাবে URL পূরণ করে (অ্যাডভান্সড সেটিংসে টগল করুন)
@@ -279,6 +280,9 @@ Arroxy একটি কাজের জন্য তৈরি: URL পেস্�
 - কোনো সাইট পরিবর্তিত হলে, yt-dlp সাপ্তাহিক ফিক্স পাঠায় এবং Arroxy লঞ্চে বাইনারি অটো-আপডেট করে
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
   </tr>

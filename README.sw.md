@@ -25,7 +25,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 ### Mtiririko wa kazi
 
+- **Njia ya mkato ya kupakua kwa mfumo mzima** — nakili kiungo katika programu yoyote kisha bonyeza `Ctrl+Shift+D` (`Cmd+Shift+D` kwenye macOS); Arroxy huikiweka kwenye foleni kwa wasifu wako unaotumika bila kufungua dirisha, na arifa huthibitisha. Imewashwa kwa chaguo-msingi, inaweza kubadilishwa
 - **Njia rahisi za kuanza** — chagua upakuaji mmoja unaoongozwa, kichagua playlist/channel, kubandika URL nyingi, au Quick Download kwa mipangilio chaguomsingi iliyohifadhiwa
 - **Foleni kuu ya upakuaji** — kazi ya single, playlist, bulk, au quick yote huingia sehemu moja kwa maendeleo, kusitisha, kuendelea, kughairi, kujaribu tena, na udhibiti wa kipaumbele
 - **Ufuatiliaji wa ubao wa kunakili** — nakili kiungo cha YouTube na Arroxy itajaza URL kiotomatiki ukirejesha umakini kwenye programu (washa/zima katika mipangilio ya Kina)
@@ -279,6 +280,9 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 - Tovuti ikibadilika, yt-dlp hutoa marekebisho kila wiki na Arroxy husasisha binary kiotomatiki wakati wa uzinduzi
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Njia ya mkato ya kupakua kwa mfumo mzima ya Arroxy — Ctrl+Shift+D kwenye Windows na Linux, Cmd+Shift+D kwenye macOS, hupeleka kiungo kilichonakiliwa moja kwa moja kwenye foleni ya upakuaji" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Njia ya mkato ya kupakua kwa mfumo mzima</b><br/>Nakili kiungo popote, bonyeza mara moja — huingia kwenye foleni na upakuaji huanza</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3</sub></td>
   </tr>

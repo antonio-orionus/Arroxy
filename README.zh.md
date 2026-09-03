@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。
 
@@ -254,6 +254,7 @@ Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号�
 
 ### 工作流
 
+- **全局下载快捷键** — 在任意应用中复制链接后按 `Ctrl+Shift+D`（macOS 为 `Cmd+Shift+D`），Arroxy 会用当前配置直接加入队列，无需打开窗口，并以通知确认。默认开启，可重新绑定
 - **灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download
 - **中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级
 - **剪贴板监控** — 复制 YouTube 链接后切回应用，Arroxy 自动填入 URL（可在高级设置中切换）
@@ -281,6 +282,9 @@ Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号�
 - 若某个网站发生变化，yt-dlp 每周发布修复，Arroxy 在启动时自动更新二进制文件
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 全局下载快捷键 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把复制的链接直接送入下载队列" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>全局下载快捷键</b><br/>随处复制链接，按一次——即刻进入队列并开始下载</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>播放列表逐条配置</b><br/>为每个视频指定各自的配置——部分存为 4K，其余转成 MP3</sub></td>
   </tr>

@@ -134,6 +134,7 @@ export const sw = {
     "Hakuna kuingia, hakuna vidakuzi, hakuna akaunti ya Google iliyounganishwa",
   feat_privacy_3: "Faili zimehifadhiwa moja kwa moja kwenye folda unayochagua",
   feat_workflow_h3: "Mtiririko wa kazi",
+  feat_workflow_12: "**Njia ya mkato ya kupakua kwa mfumo mzima** — nakili kiungo katika programu yoyote kisha bonyeza `Ctrl+Shift+D` (`Cmd+Shift+D` kwenye macOS); Arroxy huikiweka kwenye foleni kwa wasifu wako unaotumika bila kufungua dirisha, na arifa huthibitisha. Imewashwa kwa chaguo-msingi, inaweza kubadilishwa",
   feat_workflow_1:
     "**Njia rahisi za kuanza** — chagua upakuaji mmoja unaoongozwa, kichagua playlist/channel, kubandika URL nyingi, au Quick Download kwa mipangilio chaguomsingi iliyohifadhiwa",
   feat_workflow_2:
@@ -186,6 +187,8 @@ export const sw = {
     "<b>Hali ya URL nyingi</b><br/>Bandika orodha, ondoa nakala kiotomatiki, panga zote kwa pamoja",
   shot6_cap:
     "<b>Foleni ya upakuaji sambamba</b><br/>Upakuaji kadhaa kwa wakati mmoja na maendeleo ya moja kwa moja",
+  hotkey_fig_alt: "Njia ya mkato ya kupakua kwa mfumo mzima ya Arroxy — Ctrl+Shift+D kwenye Windows na Linux, Cmd+Shift+D kwenye macOS, hupeleka kiungo kilichonakiliwa moja kwa moja kwenye foleni ya upakuaji",
+  hotkey_fig_cap: "<b>Njia ya mkato ya kupakua kwa mfumo mzima</b><br/>Nakili kiungo popote, bonyeza mara moja — huingia kwenye foleni na upakuaji huanza",
   shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",

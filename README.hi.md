@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 यह AI-सहायता प्राप्त अनुवाद है। [अंग्रेज़ी README](README.md) सत्य का स्रोत है। कोई गलती दिखी? [PR का स्वागत है](../../pulls)।
 
@@ -254,6 +254,7 @@ Arroxy एक काम के लिए बना है: URL पेस्ट �
 
 ### वर्कफ़्लो
 
+- **ग्लोबल डाउनलोड हॉटकी** — किसी भी ऐप में लिंक कॉपी करें और `Ctrl+Shift+D` (macOS पर `Cmd+Shift+D`) दबाएँ; Arroxy विंडो खोले बिना आपकी सक्रिय प्रोफ़ाइल के साथ उसे कतार में डाल देता है, और एक सूचना इसकी पुष्टि करती है। डिफ़ॉल्ट रूप से चालू, फिर से सेट किया जा सकता है
 - **लचीले स्टार्ट मोड** — गाइडेड single download, playlist/channel picker, bulk URL paste, या saved defaults के साथ Quick Download चुनें
 - **केंद्रीय download queue** — हर single, playlist, bulk, या quick job progress, pause, resume, cancel, retry, और priority control के लिए एक जगह आता है
 - **क्लिपबोर्ड वॉच** — YouTube लिंक कॉपी करें और ऐप पर वापस आते ही Arroxy URL अपने आप भर देता है (एडवांस्ड सेटिंग्स में टॉगल करें)
@@ -281,6 +282,9 @@ Arroxy एक काम के लिए बना है: URL पेस्ट �
 - अगर कोई साइट बदलती है, तो yt-dlp हर हफ़्ते फ़िक्स जारी करता है और Arroxy लॉन्च पर बाइनरी ऑटो-अपडेट करता है
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें</sub></td>
   </tr>

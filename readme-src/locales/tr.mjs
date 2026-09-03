@@ -136,6 +136,7 @@ export const tr = {
   feat_privacy_2: "**Açık kaynak** — her satır denetlenebilir, MIT lisanslı",
   feat_privacy_3: "Dosyalar doğrudan seçtiğin klasöre kaydedilir",
   feat_workflow_h3: "İş akışı",
+  feat_workflow_12: "**Genel indirme kısayolu** — herhangi bir uygulamada bir bağlantı kopyala ve `Ctrl+Shift+D` (macOS'ta `Cmd+Shift+D`) tuşlarına bas; Arroxy pencereyi açmadan aktif profilinle kuyruğa ekler ve bir bildirim bunu doğrular. Varsayılan olarak açık, yeniden atanabilir",
   feat_workflow_1:
     "**Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma veya kayıtlı varsayılanlarla Hızlı İndirme seç",
   feat_workflow_2:
@@ -188,6 +189,8 @@ export const tr = {
     "<b>Toplu URL modu</b><br/>Bir liste yapıştır, otomatik tekilleştir, hepsini tek seferde kuyruğa al",
   shot6_cap:
     "<b>Paralel indirme kuyruğu</b><br/>Canlı ilerlemeyle aynı anda birden fazla indirme",
+  hotkey_fig_alt: "Arroxy genel indirme kısayolu — Windows ve Linux'ta Ctrl+Shift+D, macOS'ta Cmd+Shift+D, kopyalanan bağlantıyı doğrudan indirme kuyruğuna gönderir",
+  hotkey_fig_cap: "<b>Genel indirme kısayolu</b><br/>Bağlantıyı nerede olursan ol kopyala, bir kez bas — kuyruğa girer ve inmeye başlar",
   shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al",
   dl_platform_col: "Platform",
   dl_format_col: "Doğrudan indirme",

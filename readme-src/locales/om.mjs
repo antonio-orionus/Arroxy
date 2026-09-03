@@ -137,6 +137,7 @@ export const om = {
     "Seensuu hin jiru, kuukkii hin jiru, akkaawuntii Google waliin hin hidhu",
   feat_privacy_3: "Faayiloonni kallattiin foldera filatteen seenu",
   feat_workflow_h3: "Hojii hordoffii",
+  feat_workflow_12: "**Qabduu ariifachiisaa buufannaa waliigalaa** — appii kamiyyuu keessatti hidhaa waraabii `Ctrl+Shift+D` (macOS irratti `Cmd+Shift+D`) tuqi; Arroxy foddaa utuu hin banin piroofaayilii kee kan hojiirra jiruun tarree keessa galcha, beeksisnis ni mirkaneessa. Durtiidhaan banaa, irra deebi'anii qindeessuun ni danda'ama",
   feat_workflow_1:
     "**Haalawwan jalqabaa jijjiiramaa** — buusuu tokko qajeelfamaan, filannoo playlist/channel, URL hedduu maxxansuu, ykn Quick Download filannoowwan duraan kuufamaniin filadhu",
   feat_workflow_2:
@@ -189,6 +190,8 @@ export const om = {
     "<b>Haala URL baay'ee</b><br/>Tarree maxxansi, irra deebii ofumaan haqi, hunda yeroo tokkotti tarreessi",
   shot6_cap:
     "<b>Tarree buufannaa walqixaa</b><br/>Buufannaa hedduu yeroo tokkotti, guddina kallattiidhaan",
+  hotkey_fig_alt: "Qabduu ariifachiisaa buufannaa waliigalaa Arroxy — Windows fi Linux irratti Ctrl+Shift+D, macOS irratti Cmd+Shift+D, hidhaa waraabame kallattiin tarree buufannaatti erga",
+  hotkey_fig_cap: "<b>Qabduu ariifachiisaa buufannaa waliigalaa</b><br/>Bakka kamiyyuu hidhaa waraabi, altokko tuqi — tarree seenee buufamuu jalqaba",
   shot7_cap: "<b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu",
   dl_platform_col: "Platform",
   dl_format_col: "Format",

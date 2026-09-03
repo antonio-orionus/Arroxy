@@ -137,6 +137,7 @@ export const es = {
     "Sin inicio de sesión, sin cookies, sin cuenta de Google vinculada",
   feat_privacy_3: "Archivos guardados directamente en la carpeta que elijas",
   feat_workflow_h3: "Flujo de trabajo",
+  feat_workflow_12: "**Atajo de descarga global** — copia un enlace en cualquier app y pulsa `Ctrl+Shift+D` (`Cmd+Shift+D` en macOS); Arroxy lo pone en cola con tu perfil activo sin abrir la ventana, y una notificación lo confirma. Activo por defecto y reasignable",
   feat_workflow_1:
     "**Modos de inicio flexibles** — elige una descarga individual guiada, selector de playlist/canal, pegado masivo de URLs o Quick Download con tus valores guardados",
   feat_workflow_2:
@@ -189,6 +190,8 @@ export const es = {
     "<b>Modo de URLs en lote</b><br/>Pega una lista, elimina duplicados y encólalas todas a la vez",
   shot6_cap:
     "<b>Cola de descargas en paralelo</b><br/>Varias descargas a la vez con progreso en vivo",
+  hotkey_fig_alt: "Atajo de descarga global de Arroxy — Ctrl+Shift+D en Windows y Linux, Cmd+Shift+D en macOS, que envía el enlace copiado directamente a la cola de descargas",
+  hotkey_fig_cap: "<b>Atajo de descarga global</b><br/>Copia un enlace donde sea y pulsa una vez — entra en la cola y empieza a descargarse",
   shot7_cap: "<b>Perfiles por elemento de playlist</b><br/>Da a cada vídeo su propio perfil — archiva algunos en 4K y saca el resto como MP3",
   dl_platform_col: "Plataforma",
   dl_format_col: "Formato",

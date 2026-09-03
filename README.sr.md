@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy је направљен за једну ствар: налепите URL,
 
 ### Радни ток
 
+- **Глобална пречица за преузимање** — копирајте линк у било којој апликацији и притисните `Ctrl+Shift+D` (`Cmd+Shift+D` на macOS); Arroxy га ставља у ред са вашим активним профилом без отварања прозора, а обавештење то потврђује. Подразумевано укључено, пречица се може променити
 - **Флексибилни начини покретања** — изабери вођено једно преузимање, бирач playlist/channel, bulk URL paste или Quick Download са сачуваним подразумеваним опцијама
 - **Централни ред за преузимања** — сваки single, playlist, bulk или quick посао стиже на једно место за напредак, паузу, наставак, отказивање, поновни покушај и контролу приоритета
 - **Праћење клипборда** — копирајте YouTube линк и Arroxy аутоматски попуњава URL кад се вратите у апликацију (укључиво у напредним подешавањима)
@@ -279,6 +280,9 @@ Arroxy је направљен за једну ствар: налепите URL,
 - Ако сajт промени нешто, yt-dlp испоручује исправке недељно, а Arroxy аутоматски ажурира бинарни фajл при покретању
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобална пречица за преузимање у Arroxy — Ctrl+Shift+D на Windows и Linux, Cmd+Shift+D на macOS, шаље копирани линк право у ред за преузимање" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Глобална пречица за преузимање</b><br/>Копирајте линк било где, притисните једном — улази у ред и преузимање почиње</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Профили по ставци плејлисте</b><br/>Дајте сваком видеу сопствени профил — неке у 4K, остале као MP3</sub></td>
   </tr>

@@ -25,7 +25,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 
 ### Alur kerja
 
+- **Pintasan unduh global** — salin tautan di aplikasi mana pun lalu tekan `Ctrl+Shift+D` (`Cmd+Shift+D` di macOS); Arroxy memasukkannya ke antrean dengan profil aktif tanpa membuka jendela, dan notifikasi mengonfirmasinya. Aktif secara bawaan, bisa diubah
 - **Mode mulai yang fleksibel** — pilih unduhan tunggal yang dipandu, pemilih daftar putar/saluran, tempel URL massal, atau Unduhan Cepat dengan default tersimpan
 - **Antrian unduhan terpusat** — setiap tugas tunggal, daftar putar, massal, atau cepat berada di satu tempat untuk kemajuan, jeda, melanjutkan, membatalkan, mencoba lagi, dan kontrol prioritas
 - **Pantau clipboard** — salin tautan YouTube dan Arroxy otomatis mengisi URL saat Anda kembali fokus ke aplikasi (aktifkan di Pengaturan lanjutan)
@@ -281,6 +282,9 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 - Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Pintasan unduh global Arroxy — Ctrl+Shift+D di Windows dan Linux, Cmd+Shift+D di macOS, mengirim tautan yang disalin langsung ke antrean unduhan" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pintasan unduh global</b><br/>Salin tautan di mana saja, tekan sekali — langsung masuk antrean dan mulai diunduh</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil per item playlist</b><br/>Beri tiap video profilnya sendiri — simpan sebagian dalam 4K, ambil sisanya sebagai MP3</sub></td>
   </tr>

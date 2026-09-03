@@ -135,6 +135,7 @@ export const uz = {
   feat_privacy_2: "Kirish yo'q, kukilar yo'q, Google hisob bog'liq emas",
   feat_privacy_3: "Fayllar siz tanlagan papkaga to'g'ridan-to'g'ri saqlanadi",
   feat_workflow_h3: "Ish oqimi",
+  feat_workflow_12: "**Global yuklab olish tezkor tugmasi** — istalgan ilovada havolani nusxalang va `Ctrl+Shift+D` (macOS'da `Cmd+Shift+D`) tugmalarini bosing; Arroxy oynani ochmasdan faol profilingiz bilan uni navbatga qo'shadi va bildirishnoma buni tasdiqlaydi. Sukut bo'yicha yoqilgan, qayta tayinlash mumkin",
   feat_workflow_1:
     "**Moslashuvchan boshlash rejimlari** — boshqariladigan bitta yuklab olish, playlist/kanal tanlagichi, URLlarni ommaviy joylash yoki saqlangan standartlar bilan Quick Downloadni tanlang",
   feat_workflow_2:
@@ -187,6 +188,8 @@ export const uz = {
     "<b>Ommaviy URL rejimi</b><br/>Ro'yxat joylang, nusxalarni avtomatik olib tashlang, hammasini birato'la navbatga qo'ying",
   shot6_cap:
     "<b>Parallel yuklash navbati</b><br/>Bir vaqtning o'zida bir nechta yuklash, jonli jarayon bilan",
+  hotkey_fig_alt: "Arroxy global yuklab olish tezkor tugmasi — Windows va Linux'da Ctrl+Shift+D, macOS'da Cmd+Shift+D, nusxalangan havolani to'g'ridan-to'g'ri yuklab olish navbatiga yuboradi",
+  hotkey_fig_cap: "<b>Global yuklab olish tezkor tugmasi</b><br/>Istalgan joyda havolani nusxalang, bir marta bosing — u navbatga tushadi va yuklab olina boshlaydi",
   shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",

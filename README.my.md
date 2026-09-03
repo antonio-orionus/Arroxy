@@ -25,7 +25,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 
 ### Workflow
 
+- **စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်** — မည်သည့်အက်ပ်တွင်မဆို လင့်ခ်ကို ကူးယူပြီး `Ctrl+Shift+D` (macOS တွင် `Cmd+Shift+D`) ကိုနှိပ်ပါ။ Arroxy သည် ဝင်းဒိုးမဖွင့်ဘဲ သင့်လက်ရှိပရိုဖိုင်ဖြင့် စာရင်းထဲထည့်ပေးပြီး အသိပေးချက်ဖြင့် အတည်ပြုပါသည်။ မူရင်းအတိုင်း ဖွင့်ထားပြီး ပြန်သတ်မှတ်နိုင်သည်
 - **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သို့မဟုတ် သိမ်းထားသော defaults ဖြင့် Quick Download ကိုရွေးပါ
 - **ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်
 - **Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)
@@ -279,6 +280,9 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 - ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy ၏ စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ် — Windows နှင့် Linux တွင် Ctrl+Shift+D၊ macOS တွင် Cmd+Shift+D ဖြင့် ကူးယူထားသောလင့်ခ်ကို ဒေါင်းလုဒ်စာရင်းသို့ တိုက်ရိုက်ပို့သည်" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်</b><br/>ဘယ်နေရာမှာမဆို လင့်ခ်ကူးပြီး တစ်ချက်နှိပ်လိုက်ရုံ — စာရင်းထဲရောက်ပြီး ဒေါင်းလုဒ်စတင်</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို MP3 အဖြစ် ရယူပါ</sub></td>
   </tr>

@@ -25,7 +25,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 
 ### İş akışı
 
+- **Genel indirme kısayolu** — herhangi bir uygulamada bir bağlantı kopyala ve `Ctrl+Shift+D` (macOS'ta `Cmd+Shift+D`) tuşlarına bas; Arroxy pencereyi açmadan aktif profilinle kuyruğa ekler ve bir bildirim bunu doğrular. Varsayılan olarak açık, yeniden atanabilir
 - **Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma veya kayıtlı varsayılanlarla Hızlı İndirme seç
 - **Merkezi indirme kuyruğu** — her tekil, oynatma listesi, toplu veya hızlı iş; ilerleme, duraklatma, sürdürme, iptal, yeniden deneme ve öncelik kontrolü için tek yere gelir
 - **Pano izleme** — bir YouTube bağlantısı kopyala; uygulamaya tekrar odaklandığında Arroxy URL'yi otomatik doldurur (Gelişmiş ayarlardan aç)
@@ -281,6 +282,9 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 - Bir site değişirse yt-dlp haftalık düzeltmeler yayınlar ve Arroxy açılışta ikili dosyayı otomatik günceller
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy genel indirme kısayolu — Windows ve Linux'ta Ctrl+Shift+D, macOS'ta Cmd+Shift+D, kopyalanan bağlantıyı doğrudan indirme kuyruğuna gönderir" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Genel indirme kısayolu</b><br/>Bağlantıyı nerede olursan ol kopyala, bir kez bas — kuyruğa girer ve inmeye başlar</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al</sub></td>
   </tr>

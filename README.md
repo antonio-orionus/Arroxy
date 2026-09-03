@@ -25,7 +25,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 
 ### Workflow
 
+- **Global download hotkey** — copy a link in any app and press `Ctrl+Shift+D` (`Cmd+Shift+D` on macOS); Arroxy queues it with your active profile without opening the window, and a notification confirms it. On by default, rebindable
 - **Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, or Quick Download with saved defaults
 - **Central download queue** — every single, playlist, bulk, or quick job lands in one place for progress, pause, resume, cancel, retry, and priority control
 - **Clipboard watch** — copy a YouTube link and Arroxy auto-fills the URL when you refocus the app (toggle in Advanced settings)
@@ -279,6 +280,9 @@ Arroxy is built for one thing: paste a URL, get a clean local file. No accounts,
 - If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3</sub></td>
   </tr>

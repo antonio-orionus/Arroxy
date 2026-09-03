@@ -25,7 +25,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 
 ### Ish oqimi
 
+- **Global yuklab olish tezkor tugmasi** — istalgan ilovada havolani nusxalang va `Ctrl+Shift+D` (macOS'da `Cmd+Shift+D`) tugmalarini bosing; Arroxy oynani ochmasdan faol profilingiz bilan uni navbatga qo'shadi va bildirishnoma buni tasdiqlaydi. Sukut bo'yicha yoqilgan, qayta tayinlash mumkin
 - **Moslashuvchan boshlash rejimlari** — boshqariladigan bitta yuklab olish, playlist/kanal tanlagichi, URLlarni ommaviy joylash yoki saqlangan standartlar bilan Quick Downloadni tanlang
 - **Markaziy yuklab olish navbati** — bitta, playlist, bulk yoki quick ishlarning barchasi jarayon, pauza, davom ettirish, bekor qilish, qayta urinish va ustuvorlik boshqaruvi uchun bir joyga tushadi
 - **Bufer kuzatish** — YouTube havolasini nusxalang va Arroxy ilovaga qaytganingizda URL'ni avtomatik to'ldiradi (Kengaytirilgan sozlamalarda o'chirish/yoqish mumkin)
@@ -279,6 +280,9 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 - Sayt o'zgarsa, yt-dlp har hafta tuzatishlar chiqaradi va Arroxy ishga tushganda binarni avtomatik yangilaydi
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global yuklab olish tezkor tugmasi — Windows va Linux'da Ctrl+Shift+D, macOS'da Cmd+Shift+D, nusxalangan havolani to'g'ridan-to'g'ri yuklab olish navbatiga yuboradi" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Global yuklab olish tezkor tugmasi</b><br/>Istalgan joyda havolani nusxalang, bir marta bosing — u navbatga tushadi va yuklab olina boshlaydi</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling</sub></td>
   </tr>

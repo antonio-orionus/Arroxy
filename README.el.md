@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 ---
 
@@ -252,6 +252,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ### Ροή εργασίας
 
+- **Καθολική συντόμευση λήψης** — αντίγραψε έναν σύνδεσμο σε οποιαδήποτε εφαρμογή και πάτησε `Ctrl+Shift+D` (`Cmd+Shift+D` σε macOS)· το Arroxy τον βάζει στην ουρά με το ενεργό σου προφίλ χωρίς να ανοίξει το παράθυρο, και μια ειδοποίηση το επιβεβαιώνει. Ενεργή από προεπιλογή, με δυνατότητα αλλαγής
 - **Ευέλικτοι τρόποι εκκίνησης** — διάλεξε καθοδηγούμενη μεμονωμένη λήψη, επιλογέα playlist/καναλιού, μαζική επικόλληση URL ή Quick Download με αποθηκευμένες προεπιλογές
 - **Κεντρική ουρά λήψεων** — κάθε μεμονωμένη, playlist, μαζική ή γρήγορη εργασία καταλήγει σε ένα σημείο για πρόοδο, παύση, συνέχιση, ακύρωση, επανάληψη και έλεγχο προτεραιότητας
 - **Παρακολούθηση πρόχειρου** — αντιγράψτε έναν σύνδεσμο YouTube και το Arroxy συμπληρώνει αυτόματα το URL όταν εστιάζετε ξανά στην εφαρμογή (εναλλαγή στις Σύνθετες ρυθμίσεις)
@@ -279,6 +280,9 @@ sha256sum Arroxy-linux-x64.AppImage
 - Αν ένας ιστοτόπος αλλάξει, το yt-dlp παρέχει διορθώσεις εβδομαδιαία και το Arroxy ενημερώνει αυτόματα το εκτελέσιμο κατά την εκκίνηση
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Καθολική συντόμευση λήψης του Arroxy — Ctrl+Shift+D σε Windows και Linux, Cmd+Shift+D σε macOS, στέλνει τον αντιγραμμένο σύνδεσμο απευθείας στην ουρά λήψεων" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Καθολική συντόμευση λήψης</b><br/>Αντίγραψε έναν σύνδεσμο οπουδήποτε, πάτα μία φορά — μπαίνει στην ουρά και ξεκινά η λήψη</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Προφίλ ανά βίντεο σε playlist</b><br/>Δώστε σε κάθε βίντεο το δικό του προφίλ — άλλα σε 4K, τα υπόλοιπα ως MP3</sub></td>
   </tr>

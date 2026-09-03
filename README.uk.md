@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Це переклад за допомогою ШІ. [README англійською](README.md) — основне джерело істини. Помітили помилку? [PR вітаються](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy створений для однієї задачі: вставте URL �
 
 ### Робочий процес
 
+- **Глобальна гаряча клавіша завантаження** — скопіюйте посилання в будь-якому застосунку й натисніть `Ctrl+Shift+D` (`Cmd+Shift+D` на macOS); Arroxy додасть його до черги з вашим активним профілем, не відкриваючи вікно, а сповіщення це підтвердить. Увімкнено за замовчуванням, комбінацію можна змінити
 - **Гнучкі режими старту** — оберіть покрокове одиночне завантаження, вибір playlist/channel, масове вставлення URL або Quick Download зі збереженими стандартами
 - **Центральна черга завантажень** — кожне single, playlist, bulk або quick завдання потрапляє в одне місце для прогресу, паузи, відновлення, скасування, повтору та керування пріоритетом
 - **Моніторинг буфера обміну** — скопіюйте посилання YouTube, і Arroxy автоматично заповнить поле URL при наступному переключенні на застосунок (вимикається в розширених налаштуваннях)
@@ -281,6 +282,9 @@ Arroxy створений для однієї задачі: вставте URL �
 - Якщо сайт змінюється, yt-dlp щотижня випускає виправлення, а Arroxy оновлює бінарний файл при запуску
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальна гаряча клавіша завантаження Arroxy — Ctrl+Shift+D у Windows і Linux, Cmd+Shift+D у macOS, надсилає скопійоване посилання просто до черги завантажень" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Глобальна гаряча клавіша завантаження</b><br/>Скопіюйте посилання будь-де, натисніть один раз — воно потрапляє в чергу й починає завантажуватися</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Профілі для кожного відео плейлиста</b><br/>Власний профіль для кожного відео — частину в 4K, решту як MP3</sub></td>
   </tr>

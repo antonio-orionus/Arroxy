@@ -25,7 +25,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-02._
+> _Last updated: 2026-09-03._
 
 > 🌐 Esta es una traducción asistida por IA. El [README en inglés](README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../pulls).
 
@@ -254,6 +254,7 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 
 ### Flujo de trabajo
 
+- **Atajo de descarga global** — copia un enlace en cualquier app y pulsa `Ctrl+Shift+D` (`Cmd+Shift+D` en macOS); Arroxy lo pone en cola con tu perfil activo sin abrir la ventana, y una notificación lo confirma. Activo por defecto y reasignable
 - **Modos de inicio flexibles** — elige una descarga individual guiada, selector de playlist/canal, pegado masivo de URLs o Quick Download con tus valores guardados
 - **Cola central de descargas** — cada trabajo individual, de playlist, masivo o rápido llega a un solo lugar para ver progreso, pausar, reanudar, cancelar, reintentar y controlar prioridad
 - **Monitoreo del portapapeles** — copia un enlace de YouTube y Arroxy rellena automáticamente la URL al volver a enfocar la app (actívalo en la Configuración avanzada)
@@ -281,6 +282,9 @@ Arroxy está diseñado para una sola cosa: pega una URL y obtén un archivo loca
 - Si un sitio cambia, yt-dlp publica correcciones semanalmente y Arroxy actualiza el binario automáticamente al iniciar
 
 <table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Atajo de descarga global de Arroxy — Ctrl+Shift+D en Windows y Linux, Cmd+Shift+D en macOS, que envía el enlace copiado directamente a la cola de descargas" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Atajo de descarga global</b><br/>Copia un enlace donde sea y pulsa una vez — entra en la cola y empieza a descargarse</sub></td>
+  </tr>
   <tr>
     <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Perfiles por elemento de playlist</b><br/>Da a cada vídeo su propio perfil — archiva algunos en 4K y saca el resto como MP3</sub></td>
   </tr>
