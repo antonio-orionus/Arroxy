@@ -25,6 +25,7 @@ Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-o
 - [custom-quick-presets-spec.md](custom-quick-presets-spec.md) — Quick presets design spec.
 - [release-runbook.md](release-runbook.md) — Manual maintainer checklist for beta validation and stable tagging, both cut from `main`.
 - [runtime-binaries.md](runtime-binaries.md) — Signed runtime-binary manifest model for yt-dlp nightly/stable selection, immutable artifact validation, local dev commands, and runtime fallback order.
+- [section-download.md](section-download.md) — **Deferred** trim/section-download feature. Preserves the omniget + yt-dlp research (mechanism, validation gaps, scope rules, bridge `downloadSections` integration, v1 slice) so it can be built without re-deriving it.
 - [share-feature.md](share-feature.md) — Share button + periodic prompts + telemetry. Covers the dialog, all 5 manual entry points, the time/milestone triggers, persisted settings, and i18n.
 - [startup-performance.md](startup-performance.md) — Why startup takes as long as it does. Warm vs cold measurements, the ~15s PyInstaller/security-scan probe and why it recurs on every yt-dlp bump, what 0.4.8 changed, how to read the warmup log lines, and how to reproduce any of it.
 - [startup-verification.md](startup-verification.md) — Startup-verification program: current tier status, the nine design decisions and their rationale, open defects, and incidents.
