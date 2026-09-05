@@ -18,7 +18,7 @@ describe('mediaIntentSpec', () => {
 			expect(spec.producesVideo).toBe(true)
 		})
 
-		it.each(['2160', '1440', '1080', '720', '480', '360'] as const)('tier=%s uses yt-dlp resolution sort instead of a hard height filter', tier => {
+		it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s uses yt-dlp resolution sort instead of a hard height filter', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'best'})
 			expect(spec.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
 			expect(spec.formatSelector).not.toContain('height<=')

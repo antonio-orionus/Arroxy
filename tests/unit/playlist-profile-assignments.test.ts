@@ -7,6 +7,7 @@ function profile(id: string, name: string): DownloadProfile {
 		id,
 		name,
 		icon: 'video',
+		enabled: true,
 		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'default'},

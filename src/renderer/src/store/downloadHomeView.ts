@@ -39,6 +39,7 @@ export interface DownloadHomeView {
 	retryQuickDownloadWithCookies: ReturnType<typeof useAppStore.getState>['retryQuickDownloadWithCookies']
 	saveDownloadProfile: ReturnType<typeof useAppStore.getState>['saveDownloadProfile']
 	setActiveDownloadProfile: ReturnType<typeof useAppStore.getState>['setActiveDownloadProfile']
+	setDownloadProfileEnabled: ReturnType<typeof useAppStore.getState>['setDownloadProfileEnabled']
 	setWizardUrl: ReturnType<typeof useAppStore.getState>['setWizardUrl']
 	submitUrl: ReturnType<typeof useAppStore.getState>['submitUrl']
 	urlReady: boolean
@@ -95,6 +96,7 @@ export function useDownloadHomeView(): DownloadHomeView {
 			retryQuickDownloadWithCookies: s.retryQuickDownloadWithCookies,
 			saveDownloadProfile: s.saveDownloadProfile,
 			setActiveDownloadProfile: s.setActiveDownloadProfile,
+			setDownloadProfileEnabled: s.setDownloadProfileEnabled,
 			setWizardUrl: s.setWizardUrl,
 			submitUrl: s.submitUrl,
 			wizardOutputDir: s.wizardOutputDir,

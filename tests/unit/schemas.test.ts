@@ -34,7 +34,7 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 
 describe('playlist video tiers', () => {
 	it('preserves highest-to-lowest presentation order', () => {
-		expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360'])
+		expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360', '240', '144'])
 	})
 })
 

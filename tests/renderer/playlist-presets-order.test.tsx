@@ -20,7 +20,7 @@ describe('StepPlaylistPresets', () => {
 	it('renders video quality tiers from highest to lowest', () => {
 		render(<StepPlaylistPresets />)
 
-		const expectedTierTitles = ['Best quality', 'Up to 4K', 'Up to 1440p', 'Up to 1080p', 'Up to 720p', 'Up to 480p', 'Up to 360p']
+		const expectedTierTitles = ['Best quality', 'Up to 4K', 'Up to 1440p', 'Up to 1080p', 'Up to 720p', 'Up to 480p', 'Up to 360p', 'Up to 240p', 'Up to 144p']
 		const tierButtons = within(screen.getByTestId('tier-list')).getAllByRole('button')
 
 		expect(tierButtons.map(button => expectedTierTitles.find(title => within(button).queryByText(title) !== null))).toEqual(expectedTierTitles)

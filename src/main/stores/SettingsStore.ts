@@ -4,7 +4,7 @@ import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
 import type {AppSettings, CommonSettings, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
-import {DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
 import {appSettingsSchema, downloadProfileRefSchema, downloadProfileSchema} from '@shared/schemas.js'
 
 export type {SettingsPatch}
@@ -185,7 +185,7 @@ function mergeCommon(base: CommonSettings, patch: Partial<CommonSettings> | unde
 
 function deepMerge(base: AppSettings, patch: SettingsPatch, defaults: AppSettings): AppSettings {
 	const profileSource = base.profiles ?? defaults.profiles
-	const baseProfiles = {...profileSource, overrides: profileSource.overrides ?? []}
+	const baseProfiles = {...profileSource, overrides: profileSource.overrides ?? [], enabledOverrides: profileSource.enabledOverrides ?? {}}
 	return {common: mergeCommon(base.common, patch.common), single: {...base.single, ...(patch.single ?? {})}, playlist: {...base.playlist, ...(patch.playlist ?? {})}, profiles: {...baseProfiles, ...(patch.profiles ?? {})}}
 }
 
@@ -224,23 +224,43 @@ function parseProfileList(value: unknown, bucket: 'custom' | 'overrides'): Downl
  * (`filename` on any profile saved before 0.4.5), so parsing here is also the
  * migration.
  */
+function parseEnabledOverrides(value: unknown): Record<string, boolean> {
+	const record = asRecord(value)
+	if (!record) {
+		if (value !== undefined) logger.warn('Discarded enabledOverrides that is not an object', {type: typeof value})
+		return {}
+	}
+	const builtinIds = new Set(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id))
+	const out: Record<string, boolean> = {}
+	for (const [id, enabled] of Object.entries(record)) {
+		if (typeof enabled !== 'boolean') {
+			logger.warn('Dropped invalid enabled override', {id})
+			continue
+		}
+		if (!builtinIds.has(id)) continue
+		out[id] = enabled
+	}
+	return out
+}
+
 function normalizePersistedProfiles(source: unknown): DownloadProfilesPrefs {
 	const record = asRecord(source)
 	const custom = parseProfileList(record?.custom, 'custom')
 	const overrides = parseProfileList(record?.overrides, 'overrides')
+	const enabledOverrides = parseEnabledOverrides(record?.enabledOverrides)
 	const parsedActive = downloadProfileRefSchema.safeParse(record?.active)
 	if (!parsedActive.success) {
 		if (record?.active !== undefined) logger.warn('Reset unreadable active download profile reference', {issues: issuePaths(parsedActive.error)})
-		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides}
+		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides, enabledOverrides}
 	}
 	const active: DownloadProfileRef = parsedActive.data
 	// A dangling custom reference resolves to the default profile at read time
 	// anyway; resetting it here keeps disk and UI telling the same story.
 	if (active.kind === 'custom' && !custom.some(profile => profile.id === active.id)) {
 		logger.warn('Active download profile no longer exists — falling back to the default', {id: active.id})
-		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides}
+		return {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom, overrides, enabledOverrides}
 	}
-	return {active, custom, overrides}
+	return {active, custom, overrides, enabledOverrides}
 }
 
 export class SettingsStore {

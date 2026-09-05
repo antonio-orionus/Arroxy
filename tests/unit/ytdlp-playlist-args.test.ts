@@ -46,7 +46,7 @@ describe('Video · Best codec', () => {
 		expect(args).not.toContain('--merge-output-format')
 	})
 
-	it.each(['2160', '1440', '1080', '720', '480', '360'] as const)('tier=%s → stable -f selector + resolution sort', tier => {
+	it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s → stable -f selector + resolution sort', tier => {
 		const args = argsFor({kind: 'video', tier, codec: 'best'})
 		const fIdx = args.indexOf('-f')
 		expect(args[fIdx + 1]).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)

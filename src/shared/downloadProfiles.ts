@@ -14,11 +14,12 @@ function videoAudio(codec: 'best' | 'mp4', tiers: PlaylistVideoTier[]): VideoAud
 	return {kind: 'video-audio', codec, tiers, audio: {format: codec === 'mp4' ? 'm4a' : 'best'}}
 }
 
-function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon']): DownloadProfile {
+function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon'], enabled = true): DownloadProfile {
 	return {
 		id,
 		name,
 		icon,
+		enabled,
 		media,
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: DEFAULTS.subtitleMode, format: DEFAULTS.subtitleFormat},
 		sponsorBlock: {mode: DEFAULTS.sponsorBlockMode, categories: [...DEFAULTS.sponsorBlockCategories]},
@@ -54,12 +55,14 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('mp4-1080', 'Smart TV MP4 Full HD 1080p', videoAudio('mp4', ['1080']), 'video'),
 	baseProfile('mp4-720', 'Smart TV MP4 HD 720p', videoAudio('mp4', ['720']), 'video'),
 	baseProfile('mp4-480', 'Smart TV MP4 SD 480p', videoAudio('mp4', ['480']), 'video'),
-	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio')
+	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio'),
+	baseProfile('low-240', 'Low data 240p', videoAudio('best', ['240']), 'clip', false),
+	baseProfile('low-144', 'Lowest 144p', videoAudio('best', ['144']), 'clip', false)
 ] as const
 
 export const DEFAULT_DOWNLOAD_PROFILE_REF: DownloadProfileRef = {kind: 'builtin', id: 'balanced'}
 
-export const DEFAULT_DOWNLOAD_PROFILES_PREFS: DownloadProfilesPrefs = {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom: [], overrides: []}
+export const DEFAULT_DOWNLOAD_PROFILES_PREFS: DownloadProfilesPrefs = {active: DEFAULT_DOWNLOAD_PROFILE_REF, custom: [], overrides: [], enabledOverrides: {}}
 
 export type DownloadProfileOrigin = {kind: 'builtin'; overridden: boolean} | {kind: 'custom'}
 
@@ -85,17 +88,32 @@ function isBuiltinDownloadProfileId(id: string): boolean {
 
 export function normalizeDownloadProfilesPrefs(prefs: DownloadProfilesPrefs | undefined): DownloadProfilesPrefs {
 	const source = prefs ?? DEFAULT_DOWNLOAD_PROFILES_PREFS
-	return {active: source.active ?? DEFAULT_DOWNLOAD_PROFILE_REF, custom: (source.custom ?? []).filter(profile => !isBuiltinDownloadProfileId(profile.id)), overrides: (source.overrides ?? []).filter(profile => isBuiltinDownloadProfileId(profile.id))}
+	const rawOverrides = source.enabledOverrides ?? {}
+	const enabledOverrides = Object.fromEntries(Object.entries(rawOverrides).filter(([id, value]) => typeof value === 'boolean' && isBuiltinDownloadProfileId(id)))
+	return {active: source.active ?? DEFAULT_DOWNLOAD_PROFILE_REF, custom: (source.custom ?? []).filter(profile => !isBuiltinDownloadProfileId(profile.id)), overrides: (source.overrides ?? []).filter(profile => isBuiltinDownloadProfileId(profile.id)), enabledOverrides}
+}
+
+function builtinEnabled(id: string, prefs: DownloadProfilesPrefs): boolean {
+	const forced = prefs.enabledOverrides[id]
+	if (forced !== undefined) return forced
+	return BUILTIN_DOWNLOAD_PROFILES.find(builtin => builtin.id === id)?.enabled ?? true
 }
 
 function overriddenBuiltinProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
 	const normalized = normalizeDownloadProfilesPrefs(prefs)
-	return BUILTIN_DOWNLOAD_PROFILES.map(builtin => normalized.overrides.find(profile => profile.id === builtin.id) ?? builtin)
+	return BUILTIN_DOWNLOAD_PROFILES.map(builtin => {
+		const base = normalized.overrides.find(profile => profile.id === builtin.id) ?? builtin
+		return {...base, enabled: builtinEnabled(builtin.id, normalized)}
+	})
 }
 
 export function allDownloadProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
 	const normalized = normalizeDownloadProfilesPrefs(prefs)
 	return [...overriddenBuiltinProfiles(normalized), ...normalized.custom]
+}
+
+export function enabledDownloadProfiles(prefs: DownloadProfilesPrefs | undefined): DownloadProfile[] {
+	return allDownloadProfiles(prefs).filter(profile => profile.enabled)
 }
 
 function findDownloadProfile(ref: DownloadProfileRef, prefs: DownloadProfilesPrefs | undefined): DownloadProfile | null {
@@ -106,11 +124,15 @@ function findDownloadProfile(ref: DownloadProfileRef, prefs: DownloadProfilesPre
 
 export function resolveActiveDownloadProfile(prefs: DownloadProfilesPrefs | undefined): {profile: DownloadProfile; ref: DownloadProfileRef} {
 	const normalized = normalizeDownloadProfilesPrefs(prefs)
-	const found = findDownloadProfile(normalized.active, normalized)
-	if (found) return {profile: found, ref: normalized.active}
-	const fallback = findDownloadProfile(DEFAULT_DOWNLOAD_PROFILE_REF, normalized) ?? BUILTIN_DOWNLOAD_PROFILES[0]
+	const active = findDownloadProfile(normalized.active, normalized)
+	if (active?.enabled) return {profile: active, ref: normalized.active}
+	const fallbackDefault = findDownloadProfile(DEFAULT_DOWNLOAD_PROFILE_REF, normalized)
+	if (fallbackDefault?.enabled) return {profile: fallbackDefault, ref: DEFAULT_DOWNLOAD_PROFILE_REF}
+	const firstEnabled = allDownloadProfiles(normalized).find(profile => profile.enabled)
+	if (firstEnabled) return {profile: firstEnabled, ref: downloadProfileRefFor(firstEnabled, normalized)}
+	const fallback = BUILTIN_DOWNLOAD_PROFILES[0]
 	if (!fallback) throw new Error('No built-in download profiles available')
-	return {profile: fallback, ref: DEFAULT_DOWNLOAD_PROFILE_REF}
+	return {profile: fallback, ref: {kind: 'builtin', id: fallback.id}}
 }
 
 export function downloadProfileOrigin(profile: DownloadProfile, prefs: DownloadProfilesPrefs | undefined): DownloadProfileOrigin {
@@ -126,12 +148,18 @@ export function downloadProfileRefFor(profile: DownloadProfile, _prefs: Download
 export function saveDownloadProfileToPrefs(prefs: DownloadProfilesPrefs, profile: DownloadProfile, activate = true): DownloadProfilesPrefs {
 	const normalized = normalizeDownloadProfilesPrefs(prefs)
 	const ref = downloadProfileRefFor(profile, normalized)
+	// For a built-in, prefs.enabledOverrides is authoritative over any `enabled` carried
+	// on the incoming snapshot (same ownership rule as builtinEnabled/allDownloadProfiles).
+	// A custom profile owns its own `enabled`. Never activate a profile that will not be
+	// enabled after this save — that would silently strand prefs.active on a hidden profile.
+	const willBeEnabled = ref.kind === 'builtin' ? builtinEnabled(profile.id, normalized) : profile.enabled
+	const shouldActivate = activate && willBeEnabled
 	if (ref.kind === 'builtin') {
 		const overrides = normalized.overrides.filter(item => item.id !== profile.id)
-		return {...normalized, active: activate ? ref : normalized.active, custom: normalized.custom.filter(item => item.id !== profile.id), overrides: [...overrides, profile]}
+		return {...normalized, active: shouldActivate ? ref : normalized.active, custom: normalized.custom.filter(item => item.id !== profile.id), overrides: [...overrides, profile]}
 	}
 	const custom = normalized.custom.filter(item => item.id !== profile.id)
-	return {...normalized, active: activate ? ref : normalized.active, custom: [...custom, profile]}
+	return {...normalized, active: shouldActivate ? ref : normalized.active, custom: [...custom, profile]}
 }
 
 export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id: string): DownloadProfilesPrefs {
@@ -142,6 +170,29 @@ export function removeDownloadProfileFromPrefs(prefs: DownloadProfilesPrefs, id:
 	const custom = normalized.custom.filter(profile => profile.id !== id)
 	const activeRemoved = normalized.active.kind === 'custom' && normalized.active.id === id
 	return {...normalized, active: activeRemoved ? DEFAULT_DOWNLOAD_PROFILE_REF : normalized.active, custom}
+}
+
+export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: string, enabled: boolean): DownloadProfilesPrefs {
+	const normalized = normalizeDownloadProfilesPrefs(prefs)
+	const all = allDownloadProfiles(normalized)
+	const target = all.find(profile => profile.id === id)
+	if (!target || target.enabled === enabled) return normalized
+	if (!enabled && all.filter(profile => profile.enabled).length <= 1) return normalized
+	let next: DownloadProfilesPrefs
+	if (isBuiltinDownloadProfileId(id)) {
+		const builtinDefault = BUILTIN_DOWNLOAD_PROFILES.find(builtin => builtin.id === id)?.enabled ?? true
+		const enabledOverrides = {...normalized.enabledOverrides}
+		if (enabled === builtinDefault) delete enabledOverrides[id]
+		else enabledOverrides[id] = enabled
+		next = {...normalized, enabledOverrides}
+	} else {
+		const custom = normalized.custom.map(profile => (profile.id === id ? {...profile, enabled} : profile))
+		next = {...normalized, custom}
+	}
+	const resolved = resolveActiveDownloadProfile(next)
+	const activeStillValid = resolved.ref.kind === next.active.kind && resolved.ref.id === next.active.id
+	if (activeStillValid) return next
+	return {...next, active: resolved.ref}
 }
 
 export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference): ResolvedDownloadProfile {

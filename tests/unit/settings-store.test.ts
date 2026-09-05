@@ -377,6 +377,18 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'balanced'})
 	})
 
+	it('persists built-in visibility overrides and prunes invalid keys', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-enabled-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [], enabledOverrides: {'low-240': true, 'not-a-profile': true, balanced: 'yes'}}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		expect(settings.profiles.enabledOverrides).toEqual({'low-240': true})
+
+		const store = new SettingsStore(userData, baseDefaults)
+		const updated = await store.update({profiles: {enabledOverrides: {'low-144': true}}})
+		expect(updated.profiles.enabledOverrides).toEqual({'low-144': true})
+	})
+
 	it('merges binaryOverrides patches by key — partial patch leaves siblings intact', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-binary-overrides-'))
 		const store = new SettingsStore(userData, baseDefaults)

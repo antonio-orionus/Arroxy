@@ -16,7 +16,9 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
+import {Switch} from '../ui/switch.js'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from '../ui/tabs.js'
+import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {Spinner} from '../ui/spinner.js'
 import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
@@ -265,6 +267,7 @@ export function DownloadProfilesHome(): ReactNode {
 		retryQuickDownloadWithCookies,
 		saveDownloadProfile,
 		setActiveDownloadProfile,
+		setDownloadProfileEnabled,
 		setWizardUrl,
 		submitUrl,
 		urlReady,
@@ -504,7 +507,7 @@ export function DownloadProfilesHome(): ReactNode {
 				</TabsContent>
 
 				<TabsContent value="profiles">
-					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} profiles={profiles} profilesPrefs={profilesPrefs} />
+					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} onToggleEnabled={(id, enabled) => void setDownloadProfileEnabled(id, enabled)} profiles={profiles} profilesPrefs={profilesPrefs} />
 				</TabsContent>
 				<TabsContent value="settings">
 					<DownloadProfilesSettingsTab />
@@ -586,6 +589,7 @@ function ProfilesTab({
 	onEdit,
 	onPick,
 	onRemove,
+	onToggleEnabled,
 	profiles,
 	profilesPrefs
 }: {
@@ -593,16 +597,19 @@ function ProfilesTab({
 	onEdit: (profile: DownloadProfile | null) => void
 	onPick: (profile: DownloadProfile) => void
 	onRemove: (profile: DownloadProfile) => void
+	onToggleEnabled: (id: string, enabled: boolean) => void
 	profiles: DownloadProfile[]
 	profilesPrefs: DownloadProfilesPrefs | undefined
 }): ReactNode {
 	const {t} = useTranslation()
+	const enabledCount = profiles.filter(profile => profile.enabled).length
 	return (
 		<Card className="glow-panel rounded-2xl border-transparent" data-testid="profiles-manage-tab">
 			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
 				<div>
 					<CardTitle className="text-xl font-semibold leading-tight">{t('wizard.url.profile.panelTitle')}</CardTitle>
 					<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">{t('wizard.url.profile.panelDescription')}</CardDescription>
+					<p className="mt-1 text-[11px] text-[var(--text-subtle)]">{t('wizard.url.profile.enableHint')}</p>
 				</div>
 				<Button type="button" onClick={() => onEdit(null)} className="shadow-[0_4px_14px_var(--brand-glow)]">
 					<Plus data-icon="inline-start" />
@@ -616,9 +623,20 @@ function ProfilesTab({
 					const origin = downloadProfileOrigin(profile, profilesPrefs)
 					const isCustom = origin.kind === 'custom'
 					const canRemove = isCustom || origin.overridden
+					const canToggleOff = profile.enabled ? enabledCount > 1 : true
 					return (
-						<article key={profile.id} data-active={active ? 'true' : undefined} className="profile-card rounded-lg p-3" data-testid={`profiles-manage-card-${profile.id}`}>
-							<button type="button" className="flex w-full items-start gap-3 text-left" aria-pressed={active} onClick={() => onPick(profile)} data-testid={`profiles-manage-card-${profile.id}-picker`}>
+						<article key={profile.id} data-active={active ? 'true' : undefined} data-disabled-profile={!profile.enabled ? 'true' : undefined} className={cn('profile-card rounded-lg p-3', !profile.enabled && 'opacity-60 saturate-[0.7]')} data-testid={`profiles-manage-card-${profile.id}`}>
+							<button
+								type="button"
+								className="flex w-full items-start gap-3 text-left"
+								aria-pressed={active}
+								aria-disabled={!profile.enabled}
+								onClick={() => {
+									if (!profile.enabled) return
+									onPick(profile)
+								}}
+								data-testid={`profiles-manage-card-${profile.id}-picker`}
+							>
 								<span className="grid size-10 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/35 bg-[var(--brand-dim)] text-[var(--brand)]">
 									<Icon aria-hidden />
 								</span>
@@ -628,6 +646,7 @@ function ProfilesTab({
 											{profile.name}
 										</span>
 										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
+										{!profile.enabled ? <Badge variant="outline">{t('wizard.url.profile.badgeDisabled')}</Badge> : null}
 										<Check className={cn('ml-auto size-4 shrink-0 text-[var(--brand)] transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
 									</span>
 									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-description`}>
@@ -638,15 +657,36 @@ function ProfilesTab({
 									</span>
 								</span>
 							</button>
-							<div className="mt-3 grid grid-cols-2 gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
-								<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
-									<PenLine data-icon="inline-start" />
-									{t('wizard.url.profile.edit')}
-								</Button>
-								<Button type="button" variant="outline" size="sm" disabled={!canRemove} onClick={() => onRemove(profile)}>
-									<X data-icon="inline-start" />
-									{isCustom ? t('wizard.url.profile.remove') : t('wizard.url.profile.reset')}
-								</Button>
+							<div className="mt-3 flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
+								<div className="grid flex-1 grid-cols-2 gap-2">
+									<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
+										<PenLine data-icon="inline-start" />
+										{t('wizard.url.profile.edit')}
+									</Button>
+									<Button type="button" variant="outline" size="sm" disabled={!canRemove} onClick={() => onRemove(profile)}>
+										<X data-icon="inline-start" />
+										{isCustom ? t('wizard.url.profile.remove') : t('wizard.url.profile.reset')}
+									</Button>
+								</div>
+								<Tooltip>
+									<TooltipTrigger
+										render={props => (
+											<span {...props} className="inline-flex">
+												<Switch
+													checked={profile.enabled}
+													disabled={!canToggleOff}
+													onCheckedChange={next => {
+														if (!canToggleOff && profile.enabled) return
+														onToggleEnabled(profile.id, next)
+													}}
+													aria-label={t('wizard.url.profile.enableToggleAria', {profileName: profile.name})}
+													data-testid={`profiles-manage-card-${profile.id}-enabled-toggle`}
+												/>
+											</span>
+										)}
+									/>
+									{!canToggleOff ? <TooltipContent>{t('wizard.url.profile.lastEnabledHint')}</TooltipContent> : null}
+								</Tooltip>
 							</div>
 						</article>
 					)
