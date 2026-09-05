@@ -8,6 +8,35 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.10
+
+Arroxy adds genuinely tiny downloads for slow or metered connections, lets you hide the download profiles you never use, and finally documents the global hotkey in the README.
+
+## Highlights
+
+### Tiny Downloads For Slow Connections
+
+- The resolution floor was 360p, which is still a big file on a metered or very slow connection. 240p and 144p now join the profile editor's Resolution list and the playlist tier grid, so you can ask for the smallest possible file.
+- Two new built-ins ship for exactly that: Low data 240p and Lowest 144p. They stay hidden until you opt in, so they cost nothing if you never need them.
+- Both tiers serve H.264, so they work everywhere other tiers do.
+
+### A Profile List That Stays Out Of Your Way
+
+- Every download profile can now be hidden. Hidden profiles disappear from every picker but stay in the Profiles tab, muted with a Hidden badge, so the catalog shows only what you actually use.
+- Hiding a built-in no longer freezes its definition or marks it Modified, and Reset no longer silently brings it back.
+- Safeguards keep you from stranding yourself: hiding the active profile moves you back to the default, the switch locks when one visible profile is left, and neither picking nor saving a hidden profile can leave it active.
+- Profiles already on disk keep working and land visible — nothing is hidden without you asking.
+
+### README Finally Mentions The Hotkey
+
+- The global download hotkey shipped on by default in 0.4.9 but the README never said so. It is now the leading Workflow bullet, with a light/dark screenshot showing the flow — copy a link anywhere, press `Ctrl+Shift+D` (`Cmd+Shift+D` on macOS), watch it land in the queue — translated across every supported language.
+
+### Under The Hood
+
+- The three hand-maintained copies of the Smart TV MP4 blocked-tier set and the resolution list now derive from the shared tier enum, so future tiers cannot drift apart again.
+
+---
+
 ## 0.4.9
 
 Arroxy gains a global shortcut that downloads whatever link you have copied without opening the app, the Linux builds start on a clean modern system without installing anything first, Vimeo OTT videos arrive with real titles, and settings no longer go missing when two changes land at once.
