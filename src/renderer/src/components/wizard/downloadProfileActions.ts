@@ -1,4 +1,4 @@
-import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import {downloadProfileLabel, downloadProfileRefFor, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {LucideIcon} from 'lucide-react'
@@ -42,7 +42,7 @@ export function quickProfileSummary(profile: DownloadProfile): string {
 }
 
 export function buildDownloadProfileActionModel(profilesPrefs: DownloadProfilesPrefs | undefined): DownloadProfileActionModel {
-	const profiles = allDownloadProfiles(profilesPrefs)
+	const profiles = enabledDownloadProfiles(profilesPrefs)
 	const resolved = resolveActiveDownloadProfile(profilesPrefs)
 	const activeRef = downloadProfileRefFor(resolved.profile, profilesPrefs)
 	return {

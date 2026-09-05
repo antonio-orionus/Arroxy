@@ -2,12 +2,22 @@ import {useId, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys, TFunction} from 'i18next'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
-import {DOWNLOAD_PROFILE_ICONS} from '@shared/schemas.js'
+import {DOWNLOAD_PROFILE_ICONS, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
-import {createDownloadProfileDraft, defaultProfileSubfolderName, downloadProfileFromDraft, type DownloadProfileAudioQuality, type DownloadProfileDraftAction, type DownloadProfileMediaMode, updateDownloadProfileDraft, validateDownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
+import {
+	createDownloadProfileDraft,
+	defaultProfileSubfolderName,
+	downloadProfileFromDraft,
+	SMART_TV_MP4_BLOCKED_TIERS,
+	type DownloadProfileAudioQuality,
+	type DownloadProfileDraftAction,
+	type DownloadProfileMediaMode,
+	updateDownloadProfileDraft,
+	validateDownloadProfileDraft
+} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -88,18 +98,9 @@ const VIDEO_COMPATIBILITY_OPTIONS = [
 	{value: 'mp4', labelKey: 'playlistPresets.videoFormat.mp4'}
 ] as const satisfies readonly SelectOption<PlaylistVideoCodec>[]
 
-const RESOLUTION_OPTIONS = [
-	{value: 'best', labelKey: 'playlistPresets.tier.best'},
-	{value: '2160', labelKey: 'playlistPresets.tier.2160'},
-	{value: '1440', labelKey: 'playlistPresets.tier.1440'},
-	{value: '1080', labelKey: 'playlistPresets.tier.1080'},
-	{value: '720', labelKey: 'playlistPresets.tier.720'},
-	{value: '480', labelKey: 'playlistPresets.tier.480'},
-	{value: '360', labelKey: 'playlistPresets.tier.360'}
-] as const satisfies readonly SelectOption<PlaylistVideoTier>[]
+const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
 
-const SMART_TV_MP4_BLOCKED_RESOLUTIONS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
-const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_RESOLUTIONS.has(option.value))
+const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_TIERS.has(option.value))
 
 const AUDIO_FORMAT_OPTIONS = [
 	{value: 'best', labelKey: 'wizard.profileEditor.audioFormat.best'},

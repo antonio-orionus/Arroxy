@@ -25,7 +25,7 @@ import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInpu
 const DEFAULT_URL = 'https://www.youtube.com/watch?v=WO2b03Zdu4Q&pp=ygUCNGvSBwkJIwsBhyohjO8%3D'
 const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari'
 const OUTPUT_TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
-const UI_REACHABLE_MP4_TIERS = ['1080', '720', '480', '360'] as const
+const UI_REACHABLE_MP4_TIERS = ['1080', '720', '480', '360', '240', '144'] as const
 const RUN_TIMEOUT_MS = 120_000
 
 type ExtractorStrategy = 'auto' | 'vanilla' | 'fallback'

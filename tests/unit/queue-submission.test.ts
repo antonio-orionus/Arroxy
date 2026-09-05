@@ -85,6 +85,7 @@ function subtitleProfile(): DownloadProfile {
 		id: 'subs',
 		name: 'Subs',
 		icon: 'captions',
+		enabled: true,
 		media: {kind: 'subtitles-only'},
 		subtitles: {enabled: true, languages: ['en'], source: 'manual-only', mode: 'embed', format: 'vtt'},
 		output: {kind: 'default'},
@@ -102,6 +103,7 @@ function multiProfileVideoProfile(): DownloadProfile {
 		id: 'video-first',
 		name: 'Video first',
 		icon: 'video',
+		enabled: true,
 		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'fixed', dir: '/multi/video'},
@@ -119,6 +121,7 @@ function multiProfilePodcastProfile(): DownloadProfile {
 		id: 'podcast',
 		name: 'Podcast',
 		icon: 'audio',
+		enabled: true,
 		media: {kind: 'audio-only', audio: {format: 'best'}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'fixed', dir: '/multi/podcast'},
@@ -135,7 +138,7 @@ function multiProfileState(overrides: Partial<AppState> = {}): AppState {
 	const settings = defaultAppSettings('/downloads')
 	const first = multiProfileVideoProfile()
 	const podcast = multiProfilePodcastProfile()
-	settings.profiles = {active: {kind: 'custom', id: first.id}, custom: [first, podcast], overrides: []}
+	settings.profiles = {active: {kind: 'custom', id: first.id}, custom: [first, podcast], overrides: [], enabledOverrides: {}}
 	return state({wizardMode: 'playlist', settings, multiProfileMode: true, playlistProfileAssignments: {}, removedPlaylistItemIds: [], ...overrides})
 }
 
@@ -255,7 +258,7 @@ describe('QueueSubmission', () => {
 	it('prepares subtitles-only active profile jobs', () => {
 		const settings = defaultAppSettings('/downloads')
 		const profile = subtitleProfile()
-		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [profile], overrides: []}
+		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [profile], overrides: [], enabledOverrides: {}}
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
 
 		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})

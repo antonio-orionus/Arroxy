@@ -113,4 +113,15 @@ describe('DownloadProfileDraft', () => {
 
 		expect(draft.filenameTemplate).toBe('')
 	})
+
+	it('carries the visibility flag through the draft round-trip', () => {
+		expect(createDownloadProfileDraft(null).enabled).toBe(true)
+
+		const disabledCustom: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'hidden-custom', name: 'Hidden', enabled: false}
+		const draft = createDownloadProfileDraft(disabledCustom)
+		expect(draft.enabled).toBe(false)
+
+		const profile = downloadProfileFromDraft(draft, NOW, () => 'hidden-custom')
+		expect(profile.enabled).toBe(false)
+	})
 })

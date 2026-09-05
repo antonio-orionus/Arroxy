@@ -8,13 +8,15 @@ import {
 	downloadProfileLabel,
 	downloadProfileOrigin,
 	downloadProfileRefFor,
+	enabledDownloadProfiles,
 	removeDownloadProfileFromPrefs,
 	resolveActiveDownloadProfile,
 	resolveDownloadProfileBaseDir,
 	resolveDownloadProfile,
 	resolveDownloadProfileOutputDir,
 	resolveFilenameTemplate,
-	saveDownloadProfileToPrefs
+	saveDownloadProfileToPrefs,
+	setDownloadProfileEnabled
 } from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
@@ -39,7 +41,7 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 
 describe('download profiles', () => {
 	it('built-ins are immutable profile-shaped defaults', () => {
-		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only'])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only', 'low-240', 'low-144'])
 		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, profile.name])).toEqual([
 			['best-quality', 'Best available'],
 			['best-2160', '4K UHD 2160p'],
@@ -50,8 +52,11 @@ describe('download profiles', () => {
 			['mp4-1080', 'Smart TV MP4 Full HD 1080p'],
 			['mp4-720', 'Smart TV MP4 HD 720p'],
 			['mp4-480', 'Smart TV MP4 SD 480p'],
-			['audio-only', 'Audio only']
+			['audio-only', 'Audio only'],
+			['low-240', 'Low data 240p'],
+			['low-144', 'Lowest 144p']
 		])
+		expect(BUILTIN_DOWNLOAD_PROFILES.filter(profile => !profile.enabled).map(profile => profile.id)).toEqual(['low-240', 'low-144'])
 		for (const profile of BUILTIN_DOWNLOAD_PROFILES) {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
@@ -176,6 +181,39 @@ describe('download profiles', () => {
 		expect(resolveActiveDownloadProfile(reset).profile.name).toBe('Balanced 720p')
 	})
 
+	it('saving an edit to a disabled built-in leaves prefs.active unchanged', () => {
+		const lowRes = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'low-240')!
+		// enabled:true on the incoming snapshot must be ignored for a builtin — prefs.enabledOverrides
+		// (absent here, so the catalog default of false applies) is the only source of truth.
+		const edit = {...lowRes, name: 'Edited low data', enabled: true}
+
+		const next = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, edit)
+
+		expect(next.active).toEqual(DEFAULT_DOWNLOAD_PROFILE_REF)
+		expect(next.enabledOverrides).toEqual({})
+		expect(next.overrides.find(item => item.id === 'low-240')?.name).toBe('Edited low data')
+		expect(resolveActiveDownloadProfile(next).ref).toEqual(next.active)
+	})
+
+	it('saving an edit to a disabled custom profile leaves prefs.active unchanged', () => {
+		const disabledCustom = customProfile({enabled: false})
+
+		const next = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, disabledCustom)
+
+		expect(next.active).toEqual(DEFAULT_DOWNLOAD_PROFILE_REF)
+		expect(next.custom.find(item => item.id === disabledCustom.id)).toEqual(disabledCustom)
+		expect(resolveActiveDownloadProfile(next).ref).toEqual(next.active)
+	})
+
+	it('still activates an enabled profile on save', () => {
+		const enabledCustom = customProfile({id: 'enabled-custom'})
+
+		const next = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, enabledCustom)
+
+		expect(next.active).toEqual({kind: 'custom', id: 'enabled-custom'})
+		expect(resolveActiveDownloadProfile(next).ref).toEqual(next.active)
+	})
+
 	it('resolves media, subtitles, output artifacts, and SponsorBlock into queue-ready options', () => {
 		const profile = customProfile()
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
@@ -224,5 +262,85 @@ describe('download profiles', () => {
 
 		expect(profile.filename).toEqual({kind: 'default'})
 		expect(resolveFilenameTemplate(profile, '{title}')).toBe('{title}')
+	})
+
+	it('defaults enabled to true for profiles persisted before the visibility switch', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const {enabled: _enabled, ...legacy} = balanced
+		const profile = downloadProfileSchema.parse(legacy)
+
+		expect(profile.enabled).toBe(true)
+	})
+
+	it('hides opt-in low-data built-ins from enabled profiles by default', () => {
+		const enabled = enabledDownloadProfiles(DEFAULT_DOWNLOAD_PROFILES_PREFS)
+		expect(enabled.some(profile => profile.id === 'low-240')).toBe(false)
+		expect(enabled.some(profile => profile.id === 'low-144')).toBe(false)
+		expect(allDownloadProfiles(DEFAULT_DOWNLOAD_PROFILES_PREFS).some(profile => profile.id === 'low-240')).toBe(true)
+
+		const withLow = setDownloadProfileEnabled(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'low-240', true)
+		expect(enabledDownloadProfiles(withLow).some(profile => profile.id === 'low-240')).toBe(true)
+		expect(enabledDownloadProfiles(withLow).some(profile => profile.id === 'low-144')).toBe(false)
+	})
+
+	it('falls through a disabled active profile to the default builtin', () => {
+		const disabledActive = setDownloadProfileEnabled({...DEFAULT_DOWNLOAD_PROFILES_PREFS, active: {kind: 'builtin', id: 'low-240'}}, 'low-240', true)
+		const toggledOff = setDownloadProfileEnabled(disabledActive, 'low-240', false)
+		// active pointed at low-240 which is now disabled → must fall through, not return it
+		const prefs = {...toggledOff, active: {kind: 'builtin' as const, id: 'low-240'}}
+		const resolved = resolveActiveDownloadProfile(prefs)
+		expect(resolved.profile.id).toBe('balanced')
+		expect(resolved.profile.enabled).toBe(true)
+	})
+
+	it('moves active to the default builtin, not catalog order, when the active profile is disabled', () => {
+		const prefsWithAudioActive = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, active: {kind: 'builtin' as const, id: 'audio-only'}}
+		const next = setDownloadProfileEnabled(prefsWithAudioActive, 'audio-only', false)
+		// resolveActiveDownloadProfile prefers DEFAULT_DOWNLOAD_PROFILE_REF ('balanced') over
+		// catalog order ('best-quality' would be enabledDownloadProfiles(next)[0])
+		expect(next.active).toEqual({kind: 'builtin', id: 'balanced'})
+	})
+
+	it('moves active off a toggled-off profile and leaves updatedAt alone', () => {
+		const custom = customProfile({updatedAt: '2026-06-07T00:00:00.000Z'})
+		const withCustom = saveDownloadProfileToPrefs(DEFAULT_DOWNLOAD_PROFILES_PREFS, custom)
+		const activeCustom = {...withCustom, active: {kind: 'custom' as const, id: custom.id}}
+		const next = setDownloadProfileEnabled(activeCustom, custom.id, false)
+		expect(next.active).not.toEqual({kind: 'custom', id: custom.id})
+		expect(resolveActiveDownloadProfile(next).profile.enabled).toBe(true)
+		const toggled = next.custom.find(profile => profile.id === custom.id)
+		expect(toggled?.enabled).toBe(false)
+		expect(toggled?.updatedAt).toBe('2026-06-07T00:00:00.000Z')
+	})
+
+	it('ignores toggling off the last enabled profile', () => {
+		const onlyOne = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [], overrides: [], enabledOverrides: Object.fromEntries(BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.id !== 'balanced').map(profile => [profile.id, false]))}
+		expect(enabledDownloadProfiles(onlyOne)).toHaveLength(1)
+		const next = setDownloadProfileEnabled(onlyOne, 'balanced', false)
+		expect(enabledDownloadProfiles(next)).toHaveLength(1)
+		expect(next.enabledOverrides.balanced).toBeUndefined()
+	})
+
+	it('enabling a built-in does not create an overrides snapshot', () => {
+		const next = setDownloadProfileEnabled(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'low-240', true)
+		expect(next.overrides).toHaveLength(0)
+		expect(next.enabledOverrides).toEqual({'low-240': true})
+		const profile = allDownloadProfiles(next).find(item => item.id === 'low-240')!
+		expect(downloadProfileOrigin(profile, next)).toEqual({kind: 'builtin', overridden: false})
+	})
+
+	it('clearing a built-in back to its default deletes the enabledOverrides key', () => {
+		const enabled = setDownloadProfileEnabled(DEFAULT_DOWNLOAD_PROFILES_PREFS, 'low-240', true)
+		expect(enabled.enabledOverrides).toEqual({'low-240': true})
+		const cleared = setDownloadProfileEnabled(enabled, 'low-240', false)
+		expect(cleared.enabledOverrides).toEqual({})
+		expect('low-240' in cleared.enabledOverrides).toBe(false)
+	})
+
+	it('returns no enabled profiles without throwing the active resolver on hand-edited prefs', () => {
+		const prefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [], overrides: [], enabledOverrides: Object.fromEntries(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, false])), active: {kind: 'builtin' as const, id: 'balanced'}}
+		expect(enabledDownloadProfiles(prefs)).toEqual([])
+		expect(() => resolveActiveDownloadProfile(prefs)).not.toThrow()
+		expect(resolveActiveDownloadProfile(prefs).profile).toBeDefined()
 	})
 })

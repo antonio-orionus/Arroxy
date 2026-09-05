@@ -14,7 +14,7 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
-import {allDownloadProfiles} from '@shared/downloadProfiles.js'
+import {enabledDownloadProfiles} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
 import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
@@ -236,7 +236,7 @@ export function StepPlaylistItems(): ReactNode {
 	// The mode is meaningless with a single profile — nothing to route items
 	// between. Builtins alone already clear this bar, so in practice the
 	// button is offered whenever any playlist item is selected.
-	const canOfferMultiProfile = allDownloadProfiles(settings?.profiles).length >= 2
+	const canOfferMultiProfile = enabledDownloadProfiles(settings?.profiles).length >= 2
 
 	function applyRange(): void {
 		const from = parseInt(rangeFrom, 10)

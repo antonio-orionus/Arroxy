@@ -10,6 +10,7 @@ export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
 export interface DownloadProfileDraft {
 	profileId: string | null
 	createdAt: string | null
+	enabled: boolean
 	profileName: string
 	profileIcon: DownloadProfileIcon
 	mediaMode: DownloadProfileMediaMode
@@ -66,8 +67,8 @@ export interface DownloadProfileDraftValidation {
 	filenameTemplateError: FilenameTemplateFailure | null
 }
 
-const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
-const SMART_TV_MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
+export const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
+export const SMART_TV_MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
 
 export function defaultProfileSubfolderName(name: string): string {
 	return safeFolderName(name.trim() || 'Download Profile')
@@ -118,6 +119,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 	return {
 		profileId: initialProfile?.id ?? null,
 		createdAt: initialProfile?.createdAt ?? null,
+		enabled: initialProfile?.enabled ?? true,
 		profileName,
 		profileIcon: initialProfile?.icon ?? 'captions',
 		mediaMode: initialProfile?.media.kind ?? 'video-audio',
@@ -229,6 +231,7 @@ export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: strin
 		id: draft.profileId ?? idFactory(),
 		name: draft.profileName.trim() || 'Download Profile',
 		icon: draft.profileIcon,
+		enabled: draft.enabled,
 		media:
 			draft.mediaMode === 'audio-only'
 				? {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}

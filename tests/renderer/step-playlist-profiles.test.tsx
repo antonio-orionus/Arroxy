@@ -13,15 +13,15 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
-// Entry-button gating uses the real `allDownloadProfiles` in production, but
-// that helper always prepends the 10 real builtins — so the catalog it
-// returns can never actually drop below 2. Wrapping it in a passthrough spy
-// lets the gating-boundary test below control exactly what the component
+// Entry-button gating uses the real `enabledDownloadProfiles` in production,
+// but that helper always prepends the enabled real builtins — so the catalog
+// it returns can never actually drop below 2. Wrapping it in a passthrough
+// spy lets the gating-boundary test below control exactly what the component
 // sees (1 vs 2 profiles) without touching how `StepPlaylistProfiles`'s tests
 // further down exercise the real, unmodified catalog.
 vi.mock('@shared/downloadProfiles.js', async importOriginal => {
 	const actual = await importOriginal<typeof import('@shared/downloadProfiles.js')>()
-	return {...actual, allDownloadProfiles: vi.fn(actual.allDownloadProfiles)}
+	return {...actual, enabledDownloadProfiles: vi.fn(actual.enabledDownloadProfiles)}
 })
 
 function profile(id: string, name: string, icon: DownloadProfile['icon']): DownloadProfile {
@@ -29,6 +29,7 @@ function profile(id: string, name: string, icon: DownloadProfile['icon']): Downl
 		id,
 		name,
 		icon,
+		enabled: true,
 		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'default'},
@@ -168,14 +169,14 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 
-		// `allDownloadProfiles` (and so the unordered catalog model) returns all
-		// 10 builtins before either custom profile — under that order "archive"
-		// and "podcast" would sit at slots 10-11, after every builtin. This
+		// `enabledDownloadProfiles` (and so the unordered catalog model) returns
+		// the enabled builtins before either custom profile — under that order
+		// "archive" and "podcast" would sit after every builtin. This
 		// asserts the screen re-sorts to baseline-then-custom-then-builtin
 		// instead of using catalog order as-is: both customs sort to the front
 		// (slots 1-2) and a builtin — 'audio-only', the likeliest pick this
 		// reordering exists to surface — sorts behind every other builtin, last
-		// of all.
+		// of all (the opt-in low-data built-ins are filtered out of pickers).
 		const rowIds = screen.getAllByTestId(/^assign-profile-/).map(button => button.dataset.testid?.replace('assign-profile-', ''))
 		expect(rowIds.slice(0, 2)).toEqual(['archive', 'podcast'])
 		expect(rowIds.at(-1)).toBe('audio-only')
@@ -440,7 +441,7 @@ function renderItemsStep({profiles, wizardMode = 'playlist'}: {profiles: Downloa
 		...RESET_WIZARD_STATE,
 		initialized: true,
 		initializing: false,
-		settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: profiles.filter(p => p.id !== 'balanced'), overrides: []}},
+		settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: profiles.filter(p => p.id !== 'balanced'), overrides: [], enabledOverrides: {}}},
 		wizardOutputDir: '/downloads',
 		wizardStep: 'playlistItems',
 		wizardMode,
@@ -460,7 +461,7 @@ function renderItemsStep({profiles, wizardMode = 'playlist'}: {profiles: Downloa
 	// test in the file (proven by running the suite: multiProfileBreakdown's
 	// "resolves each row destination..." test starts failing once this is a
 	// standing mockReturnValue, since it relies on the real, unmocked catalog).
-	vi.mocked(downloadProfilesModule.allDownloadProfiles).mockReturnValueOnce(profiles)
+	vi.mocked(downloadProfilesModule.enabledDownloadProfiles).mockReturnValueOnce(profiles)
 	return render(<StepPlaylistItems />)
 }
 
@@ -478,6 +479,30 @@ describe('StepPlaylistItems multi-profile entry', () => {
 
 		renderItemsStep({profiles: [ARCHIVE, PODCAST]})
 		expect(screen.getByTestId('enter-multi-profile')).toBeInTheDocument()
+	})
+
+	it('hides the entry button when only one profile is enabled', () => {
+		const disabledPodcast = {...PODCAST, enabled: false}
+		// Production filters disabled profiles before counting; simulate that
+		// by returning only the enabled entry from the mocked helper.
+		vi.mocked(downloadProfilesModule.enabledDownloadProfiles).mockReturnValueOnce([ARCHIVE])
+		useAppStore.setState({
+			...RESET_WIZARD_STATE,
+			initialized: true,
+			initializing: false,
+			settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, disabledPodcast], overrides: [], enabledOverrides: {}}},
+			wizardOutputDir: '/downloads',
+			wizardStep: 'playlistItems',
+			wizardMode: 'playlist',
+			wizardExtractor: 'youtube:playlist',
+			playlistItems: ITEMS_PLAYLIST_ENTRIES,
+			selectedPlaylistItemIds: ITEMS_PLAYLIST_ENTRIES.map(entry => entry.id),
+			playlistTitle: 'Playlist',
+			playlistSelection: {kind: 'video', tier: 'best', codec: 'best'},
+			queue: []
+		} satisfies Partial<AppState>)
+		render(<StepPlaylistItems />)
+		expect(screen.queryByTestId('enter-multi-profile')).not.toBeInTheDocument()
 	})
 
 	it('enters multi-profile mode when clicked', () => {
@@ -618,7 +643,15 @@ describe('StepPlaylistItems remove and restore', () => {
 })
 
 function multiProfileState(overrides: Partial<AppState> = {}): AppState {
-	return {wizardOutputDir: '/downloads', playlistItems: [], selectedPlaylistItemIds: [], removedPlaylistItemIds: [], playlistProfileAssignments: {}, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}}, ...overrides} as AppState
+	return {
+		wizardOutputDir: '/downloads',
+		playlistItems: [],
+		selectedPlaylistItemIds: [],
+		removedPlaylistItemIds: [],
+		playlistProfileAssignments: {},
+		settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: [], enabledOverrides: {}}},
+		...overrides
+	} as AppState
 }
 
 describe('multiProfileBreakdown', () => {
@@ -656,7 +689,9 @@ describe('multiProfileBreakdown', () => {
 		// per-profile resolution rather than both rows echoing wizardOutputDir.
 		const archiveFixed: DownloadProfile = {...ARCHIVE, output: {kind: 'fixed', dir: '/downloads/archive'}}
 		const podcastFixed: DownloadProfile = {...PODCAST, output: {kind: 'fixed', dir: '/downloads/podcast'}}
-		const rows = multiProfileBreakdown(multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [archiveFixed, podcastFixed], overrides: []}}}))
+		const rows = multiProfileBreakdown(
+			multiProfileState({playlistItems: ITEMS_PLAYLIST_ENTRIES, selectedPlaylistItemIds: ['x', 'y'], playlistProfileAssignments: {y: PODCAST_REF}, settings: {...defaultAppSettings('/downloads'), profiles: {active: ARCHIVE_REF, custom: [archiveFixed, podcastFixed], overrides: [], enabledOverrides: {}}}})
+		)
 
 		const archiveRow = rows.find(row => row.profileId === 'archive')
 		const podcastRow = rows.find(row => row.profileId === 'podcast')

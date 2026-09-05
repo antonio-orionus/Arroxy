@@ -40,7 +40,7 @@ describe('download profile store actions', () => {
 
 		await useAppStore.getState().setActiveDownloadProfile({kind: 'builtin', id: 'audio-only'})
 
-		expect(api.settings.update).toHaveBeenCalledWith({profiles: {active: {kind: 'builtin', id: 'audio-only'}, custom: [], overrides: []}})
+		expect(api.settings.update).toHaveBeenCalledWith({profiles: {active: {kind: 'builtin', id: 'audio-only'}, custom: [], overrides: [], enabledOverrides: {}}})
 		expect(useAppStore.getState().settings?.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
 	})
 
@@ -73,12 +73,12 @@ describe('download profile store actions', () => {
 
 	it('removes an active custom profile and falls back to the default built-in', async () => {
 		const profile = customProfile()
-		const settings = {...defaultAppSettings('/tmp'), profiles: {active: {kind: 'custom' as const, id: profile.id}, custom: [profile], overrides: []}}
+		const settings = {...defaultAppSettings('/tmp'), profiles: {active: {kind: 'custom' as const, id: profile.id}, custom: [profile], overrides: [], enabledOverrides: {}}}
 		installSettingsApi(settings)
 		useAppStore.setState({settings})
 
 		await useAppStore.getState().removeDownloadProfile(profile.id)
 
-		expect(useAppStore.getState().settings?.profiles).toEqual({active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: []})
+		expect(useAppStore.getState().settings?.profiles).toEqual({active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [], enabledOverrides: {}})
 	})
 })

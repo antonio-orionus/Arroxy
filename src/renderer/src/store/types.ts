@@ -357,6 +357,7 @@ export interface SystemSlice {
 	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<void>
 	saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<void>
 	removeDownloadProfile: (id: string) => Promise<void>
+	setDownloadProfileEnabled: (id: string, enabled: boolean) => Promise<void>
 	openShareDialog: (trigger: ShareTrigger) => void
 	closeShareDialog: () => void
 	setShareInlineCardDismissed: () => Promise<void>

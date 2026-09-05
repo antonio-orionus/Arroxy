@@ -1,6 +1,7 @@
 import {useEffect, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
+import {SMART_TV_MP4_BLOCKED_TIERS, SMART_TV_MP4_MAX_TIER} from '../../store/wizard/downloadProfileDraft.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Item, ItemContent, ItemDescription, ItemGroup, ItemTitle} from '../ui/item.js'
@@ -10,8 +11,6 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {cn} from '@renderer/lib/utils.js'
 
 const VIDEO_TIERS = PLAYLIST_VIDEO_TIERS
-// YouTube only serves H.264 ≤1080p — block higher tiers for MP4 codec
-const MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
 const AUDIO_FORMATS: PlaylistAudioFormat[] = ['best', 'mp3', 'm4a', 'opus']
 const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
 
@@ -40,7 +39,7 @@ export function StepPlaylistPresets(): ReactNode {
 	function setVideoCodec(codec: 'best' | 'mp4'): void {
 		if (sel.kind !== 'video') return
 		if (codec === 'mp4') {
-			const tier = MP4_BLOCKED_TIERS.has(sel.tier) ? ('1080' as const) : sel.tier
+			const tier = SMART_TV_MP4_BLOCKED_TIERS.has(sel.tier) ? SMART_TV_MP4_MAX_TIER : sel.tier
 			setPlaylistSelection({kind: 'video', tier, codec: 'mp4'})
 		} else {
 			setPlaylistSelection({kind: 'video', tier: sel.tier, codec: 'best'})
@@ -49,7 +48,7 @@ export function StepPlaylistPresets(): ReactNode {
 
 	function setTier(tier: PlaylistVideoTier): void {
 		if (sel.kind !== 'video') return
-		const blocked = sel.codec === 'mp4' && MP4_BLOCKED_TIERS.has(tier)
+		const blocked = sel.codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)
 		if (blocked) return
 		setPlaylistSelection({kind: 'video', tier, codec: sel.codec})
 	}
@@ -145,7 +144,7 @@ export function StepPlaylistPresets(): ReactNode {
 								<p className={SECTION_LABEL}>{t('playlistPresets.tier.best')}</p>
 								<ItemGroup className="grid grid-cols-2 gap-2 md:grid-cols-3 md:grid-rows-auto" data-testid="tier-list">
 									{VIDEO_TIERS.map(tier => {
-										const blocked = currentCodec === 'mp4' && MP4_BLOCKED_TIERS.has(tier)
+										const blocked = currentCodec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)
 										const selected = currentTier === tier
 										return (
 											<Item

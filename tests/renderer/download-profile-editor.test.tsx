@@ -57,9 +57,25 @@ describe('DownloadProfileEditor', () => {
 
 		expect(await screen.findByTestId('profiles-editor-video-resolution-option-1080')).toBeInTheDocument()
 		expect(screen.getByTestId('profiles-editor-video-resolution-option-720')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-video-resolution-option-480')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-video-resolution-option-360')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-video-resolution-option-240')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-video-resolution-option-144')).toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-video-resolution-option-best')).not.toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-video-resolution-option-1440')).not.toBeInTheDocument()
 		expect(screen.queryByTestId('profiles-editor-video-resolution-option-2160')).not.toBeInTheDocument()
+	})
+
+	it('offers low-data resolutions for best native video profiles', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-resolution'))
+
+		expect(await screen.findByTestId('profiles-editor-video-resolution-option-240')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-video-resolution-option-144')).toBeInTheDocument()
 	})
 
 	it('pairs video compatibility with the matching native audio default', async () => {

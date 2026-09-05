@@ -20,7 +20,7 @@ export const PRESETS = presetSchema.options
 export const wizardStepNameSchema = z.enum(['url', 'playlistItems', 'playlistPresets', 'playlistProfiles', 'formats', 'subtitles', 'sponsorblock', 'output', 'folder', 'confirm', 'error'])
 export type WizardStepName = z.infer<typeof wizardStepNameSchema>
 
-const PLAYLIST_VIDEO_TIER_VALUES = ['best', '2160', '1440', '1080', '720', '480', '360'] as const
+const PLAYLIST_VIDEO_TIER_VALUES = ['best', '2160', '1440', '1080', '720', '480', '360', '240', '144'] as const
 export const playlistVideoTierSchema = z.enum(PLAYLIST_VIDEO_TIER_VALUES)
 export type PlaylistVideoTier = z.infer<typeof playlistVideoTierSchema>
 // Zod v4 stores enum entries in an object, so numeric-like string keys are
@@ -135,6 +135,9 @@ export const downloadProfileSchema = z.object({
 	id: z.string().min(1),
 	name: z.string().trim().min(1).max(80),
 	icon: downloadProfileIconSchema,
+	// `.default` so every profile persisted before the visibility switch existed
+	// keeps parsing and lands enabled — same migration lever as `filename` below.
+	enabled: z.boolean().default(true),
 	media: downloadProfileMediaSchema,
 	subtitles: downloadProfileSubtitlesSchema,
 	output: downloadProfileOutputSchema,
@@ -152,7 +155,15 @@ export type DownloadProfile = z.infer<typeof downloadProfileSchema>
 export const downloadProfileRefSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('builtin'), id: z.string().min(1)}), z.object({kind: z.literal('custom'), id: z.string().min(1)})])
 export type DownloadProfileRef = z.infer<typeof downloadProfileRefSchema>
 
-export const downloadProfilesPrefsSchema = z.object({active: downloadProfileRefSchema, custom: z.array(downloadProfileSchema), overrides: z.array(downloadProfileSchema)})
+export const downloadProfilesPrefsSchema = z.object({
+	active: downloadProfileRefSchema,
+	custom: z.array(downloadProfileSchema),
+	overrides: z.array(downloadProfileSchema),
+	// Built-in visibility only. Keyed by built-in id; absent = use the built-in's
+	// own `enabled` default, so a later change to that default still reaches users.
+	// Custom profiles carry their own `enabled` — they are fully persisted.
+	enabledOverrides: z.record(z.string(), z.boolean()).default({})
+})
 export type DownloadProfilesPrefs = z.infer<typeof downloadProfilesPrefsSchema>
 
 // Renderer's audio-column selection. Three convert kinds + native + none.
@@ -559,7 +570,7 @@ const singlePrefsPatchSchema = z.object({
 
 const playlistPrefsPatchSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})
 
-const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(downloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional()})
+const downloadProfilesPrefsPatchSchema = z.object({active: downloadProfileRefSchema.optional(), custom: z.array(downloadProfileSchema).optional(), overrides: z.array(downloadProfileSchema).optional(), enabledOverrides: z.record(z.string(), z.boolean()).optional()})
 
 export const updateSettingsSchema = z.object({common: commonSettingsPatchSchema.optional(), single: singlePrefsPatchSchema.optional(), playlist: playlistPrefsPatchSchema.optional(), profiles: downloadProfilesPrefsPatchSchema.optional()}).refine(
 	patch => {
