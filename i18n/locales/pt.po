@@ -425,7 +425,7 @@ msgstr "Limitado a 1080p, recorre a resoluções menores se indisponível"
 
 msgctxt "playlistPresets.tierDesc.144"
 msgid "Smallest possible files"
-msgstr "Arquivos os menores possíveis"
+msgstr "Os menores arquivos possíveis"
 
 msgctxt "playlistPresets.tierDesc.1440"
 msgid "Capped at 2K, falls back to lower per item"

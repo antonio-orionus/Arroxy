@@ -658,7 +658,7 @@
 		"videoFormatDesc": {"best": "Melhor formato e codecs disponíveis por item", "mp4": "Preferir vídeo H.264 + áudio AAC em MP4 quando possível"},
 		"tier": {"144": "Até 144p", "240": "Até 240p", "360": "Até 360p", "480": "Até 480p", "720": "Até 720p", "1080": "Até 1080p", "1440": "Até 1440p", "2160": "Até 4K", "best": "Melhor qualidade"},
 		"tierDesc": {
-			"144": "Arquivos os menores possíveis",
+			"144": "Os menores arquivos possíveis",
 			"240": "Arquivos muito pequenos, baixa qualidade",
 			"360": "Arquivos pequenos para banda limitada",
 			"480": "Baixo consumo de banda",
