@@ -163,7 +163,13 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		render(<DownloadProfilesHome />)
 
 		fireEvent.click(within(screen.getByTestId('profiles-manage-card-low-240')).getByRole('button', {name: 'Edit'}))
-		fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}))
+		// DownloadProfilesHome renders the editor behind React.lazy + Suspense, and
+		// the first open in a worker measures ~500ms end to end against findBy*'s 1s
+		// default — too little headroom on a loaded Windows CI runner, where this
+		// timed out. Neither preloading the module (28ms) nor pre-rendering the
+		// editor (107ms) accounts for it, so widen the window rather than pretend a
+		// warmup fixes it. Subsequent opens in the same worker cost ~100ms.
+		fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}, {timeout: 15_000}))
 
 		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledTimes(1))
 		const profiles = useAppStore.getState().settings!.profiles
