@@ -15,6 +15,27 @@ The defaults below apply to every change in this codebase.
 
 ---
 
+## Repo Layout — this is a monorepo
+
+Arroxy is a Bun workspace (`workspaces: ["packages/*"]`), not a single app:
+
+- `src/` — the Electron app (`main` / `preload` / `renderer` / `shared`).
+- `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published to npm as `yt-dlp-bridge`; the app consumes it via `workspace:*`.
+- `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published to npm as `ytdlp-errors`; `yt-dlp-bridge` depends on it.
+
+**Both packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
+
+Gates after touching either package:
+
+```bash
+bun run errors:check   # ytdlp-errors: typecheck + test + build + pack:dry-run
+bun run bridge:check   # yt-dlp-bridge: builds ytdlp-errors first, then the same chain
+```
+
+Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*` and `ytdlp-errors-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
+
+---
+
 ## Domain Glossary
 
 Use the canonical glossary in [`CONTEXT.md`](./CONTEXT.md).
