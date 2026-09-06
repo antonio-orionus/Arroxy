@@ -25,6 +25,7 @@ vi.mock('electron', () => ({
 }))
 
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
+import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {shell} from 'electron'
 import log from 'electron-log/main.js'
@@ -45,6 +46,7 @@ function makeDeps() {
 		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		replaceProbing: vi.fn((input: {items: {id: string}[]}) => ({ok: true, data: {ids: input.items.map(item => item.id)}})),
 		onProbeAbort: vi.fn(),
+		setTitleBackfillProbe: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 		resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -130,6 +132,22 @@ describe('registerIpcHandlers', () => {
 			ds.emit('status', {jobId: 'j1', stage: 'done', statusKey: 'complete', at: new Date().toISOString()})
 
 			expect(received).toContain('survivor')
+		})
+	})
+
+	describe('title backfill wiring', () => {
+		it('probes placeholder rows with the pinned 180s budget, not the default', async () => {
+			expect(PROBE_TIMEOUT_MS).toBe(180_000)
+			const deps = makeDeps()
+			deps._raw.probeService.probe.mockResolvedValue({ok: true, data: {kind: 'video', title: '  Real Title  '}})
+			registerIpcHandlers(deps)
+
+			const setProbe = deps._raw.queueService.setTitleBackfillProbe
+			expect(setProbe).toHaveBeenCalledTimes(1)
+			const probeTitle = setProbe.mock.calls[0]?.[0] as (url: string) => Promise<string | null>
+
+			await expect(probeTitle('https://example.com/a')).resolves.toBe('Real Title')
+			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://example.com/a', {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS})
 		})
 	})
 

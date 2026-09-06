@@ -10,6 +10,7 @@ import {nonEmpty} from '@shared/format.js'
 import {siteForUrl} from '@shared/sites/index.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
+import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import type {E2eHarnessMode} from '@main/e2eHarness.js'
 import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
@@ -53,6 +54,9 @@ export interface YtDlpSignal {
 	// Caller-driven cancellation. When aborted, in-flight yt-dlp processes are
 	// SIGKILLed and the run resolves with an exit-error (rawError: 'Cancelled').
 	abortSignal?: AbortSignal
+	// Per-call timeout override (ms) for probes. Background hydration passes a
+	// longer budget; undefined keeps the default policy below.
+	timeoutMs?: number
 }
 
 export type YtDlpResult =
@@ -90,10 +94,9 @@ function buildPotExtractorArgs(token: string, visitorData: string): string {
 
 type RetryStrategy = {kind: 'pot'; reMint: boolean} | {kind: 'fallback'} | {kind: 'noExtractorArgs'; usedExtractorFallback?: boolean}
 
-// Probes (--dump-json) should never legitimately take this long. Without a
-// timeout, a stalled yt-dlp run (e.g. extractor giving up but not exiting)
-// would freeze the wizard's "Fetching format" spinner indefinitely.
-const PROBE_TIMEOUT_MS = 60_000
+// Marker for timer-killed probes. ProbeService matches on it to grant exactly
+// one retry — keep the literal in sync if this ever changes.
+export const PROBE_TIMEOUT_MESSAGE = 'Probe timed out'
 
 interface InvokeOptions {
 	url: string
@@ -186,7 +189,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 					// captures stdout/stderr buffers we no longer need.
 					proc.stdout.removeAllListeners('data')
 					proc.stderr.removeAllListeners('data')
-					finish({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Probe timed out', stdout, stderr})
+					finish({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout, stderr})
 				}, opts.timeoutMs)
 			: null
 
@@ -370,6 +373,11 @@ export class YtDlp {
 		// for snappy "Fetch formats" UX, sidecar subs are tiny so throttling
 		// wouldn't change YouTube's anti-bot signal.
 		const limitRate = plan.facts.isMediaDownload ? nonEmpty(settings.common?.limitRate?.trim()) : undefined
+		// A caller-supplied budget wins over the interactive default. Anything
+		// non-positive/non-integer falls back to default policy rather than
+		// arming a nonsense timer.
+		const timeoutOverride = signal?.timeoutMs
+		const validOverride = timeoutOverride !== undefined && Number.isInteger(timeoutOverride) && timeoutOverride > 0 ? timeoutOverride : undefined
 		const result = await invokeWithRetry({
 			url: req.url,
 			ytDlpPath: this._ytDlpPath!,
@@ -381,7 +389,7 @@ export class YtDlp {
 			cookies,
 			proxyUrl,
 			limitRate,
-			timeoutMs: isProbe ? PROBE_TIMEOUT_MS : undefined,
+			timeoutMs: validOverride ?? (isProbe ? PROBE_TIMEOUT_MS : undefined),
 			isProbe,
 			probePlaylistMode,
 			hasExplicitYoutubePlayerClient,

@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} رابط",
 			"itemCountBulk_other": "{{count}} روابط",
 			"bulkMetadataResolving": "جارٍ جلب تفاصيل الفيديو… {{done}}/{{total}}",
+			"bulkMetadataOptional": "لا داعي للانتظار — الملفات التي تضعها في قائمة الانتظار الآن ستحصل على أسمائها الحقيقية عند التنزيل.",
 			"bulkRowWaiting": "بانتظار",
 			"bulkRowResolving": "جارٍ جلب التفاصيل",
 			"bulkRowFailed": "التفاصيل غير متاحة",

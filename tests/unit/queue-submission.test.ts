@@ -273,6 +273,20 @@ describe('QueueSubmission', () => {
 		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a'])
 	})
 
+	// Quick Download / hotkey queue a probe result with no picker in front of it,
+	// so playlistSortMode is whatever the user last set on some earlier list. A
+	// list they never saw must not be reordered by that leftover.
+	it('ignores a leftover playlistSortMode when there was no picker', () => {
+		const entries: PlaylistEntry[] = [
+			{id: '1::a', title: 'A', url: 'https://example.com/a', thumbnail: '', playlistIndex: 1, videoId: 'a', timestamp: 300},
+			{id: '2::b', title: 'B', url: 'https://example.com/b', thumbnail: '', playlistIndex: 2, videoId: 'b', timestamp: 100}
+		]
+
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries}, state({playlistSortMode: 'upload-asc'}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(['https://example.com/a', 'https://example.com/b'])
+	})
+
 	it('numbers playlist_index contiguously in sorted order over selected rows only', () => {
 		const items: PlaylistEntry[] = [
 			{id: '1::a', title: 'A', url: 'https://example.com/a', thumbnail: '', playlistIndex: 1, videoId: 'a', timestamp: 300},
@@ -365,5 +379,56 @@ describe('container rows are never queued', () => {
 
 	it('prepareActiveProfileQueueSubmission returns null when every entry is a container', () => {
 		expect(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [CONTAINER_ITEM]}, state(), 'normal')).toBeNull()
+	})
+})
+
+// A flat-playlist probe row whose extractor yielded no title carries the
+// fabricated `Untitled · #N` label plus the placeholder flag. Both playlist
+// submission seams must carry the flag onto the QueueItem so the backfill
+// layers can find rows that still need a real title.
+const PLACEHOLDER_ITEM: PlaylistEntry = {...PLAYLIST_ITEMS[0], id: 'u1', title: 'Untitled · #1', titleIsPlaceholder: true}
+
+describe('placeholder titles ride onto queue items', () => {
+	it('prepareManualQueueSubmission carries the flag', () => {
+		const prepared = prepareManualQueueSubmission(manualPlaylistState({playlistItems: [PLACEHOLDER_ITEM, PLAYLIST_ITEMS[1]], selectedPlaylistItemIds: ['u1', 'b']}), 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items[0]?.titleIsPlaceholder).toBe(true)
+		expect(prepared?.items[1]?.titleIsPlaceholder).toBeUndefined()
+	})
+
+	it('prepareMultiProfileQueueSubmission carries the flag', () => {
+		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: [PLACEHOLDER_ITEM, PLAYLIST_ITEMS[1]], selectedPlaylistItemIds: ['u1', 'b']}), 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items[0]?.titleIsPlaceholder).toBe(true)
+		expect(prepared?.items[1]?.titleIsPlaceholder).toBeUndefined()
+	})
+
+	it('prepareActiveProfileQueueSubmission carries the flag', () => {
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [PLACEHOLDER_ITEM, PLAYLIST_ITEMS[1]]}, state(), 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items[0]?.titleIsPlaceholder).toBe(true)
+		expect(prepared?.items[1]?.titleIsPlaceholder).toBeUndefined()
+	})
+})
+
+describe('bulk submissions keep intake order', () => {
+	const items: PlaylistEntry[] = [
+		{id: 'bulk-1', title: 'First', url: 'https://example.com/1', thumbnail: '', playlistIndex: 1, videoId: 'a', timestamp: 300},
+		{id: 'bulk-2', title: 'Second', url: 'https://example.com/2', thumbnail: '', playlistIndex: 2, videoId: 'b', timestamp: 100}
+	]
+
+	it('prepareManualQueueSubmission ignores a retained upload sort in bulk mode', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk', playlistItems: items, selectedPlaylistItemIds: ['bulk-1', 'bulk-2'], playlistSortMode: 'upload-asc', playlistSelection: {kind: 'video', tier: 'best', codec: 'best'}}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(['https://example.com/1', 'https://example.com/2'])
+	})
+
+	it('prepareMultiProfileQueueSubmission ignores a retained upload sort in bulk mode', () => {
+		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({wizardMode: 'bulk', playlistItems: items, selectedPlaylistItemIds: ['bulk-1', 'bulk-2'], playlistSortMode: 'upload-desc'}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(['https://example.com/1', 'https://example.com/2'])
 	})
 })

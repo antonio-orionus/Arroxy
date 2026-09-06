@@ -4,6 +4,7 @@ import {queueArraySchema, queueLaneSchema, queueSelectionActionSchema, localized
 import {ok} from '@shared/result.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
+import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import {handle, handleRaw, toUnknownFailure} from './utils.js'
 
 const itemIdSchema = z.object({itemId: z.string()})
@@ -18,6 +19,15 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 	// A probing item's cancellation aborts exactly its own probe — never the
 	// wizard's in-flight probe (keyed owners in ProbeService).
 	queueService.onProbeAbort(itemId => probeService.cancelProbe(itemId))
+	// Deferred title backfill: placeholder rows resolve their real title via a
+	// full video probe on the pinned 180s budget (slow-link probes need it).
+	// Non-video results and blank titles resolve nothing — the row keeps its flag.
+	queueService.setTitleBackfillProbe(async url => {
+		const result = await probeService.probe(url, {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS})
+		if (!result.ok || result.data.kind !== 'video') return null
+		const title = result.data.title.trim()
+		return title === '' ? null : title
+	})
 
 	handle(IPC_CHANNELS.queueCmdAdd, queueArraySchema, items => {
 		try {

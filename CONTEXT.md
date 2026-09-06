@@ -118,6 +118,22 @@ _Avoid_: collection, batch
 A URL that names one video and a playlist at once, so the user's intent is genuinely ambiguous.
 _Avoid_: combo URL, dual URL, video+playlist URL
 
+**Placeholder title**:
+A fabricated row title (`Untitled · #N`) the probe emits when a flat listing gives no real title. It is a stand-in, never shown to the user as final, and is replaced the moment a real title is known.
+_Avoid_: fake title, stub title, temp title
+
+**Hydration**:
+Filling placeholder rows in with real per-row metadata through follow-up probes, while the user keeps working. Bounded concurrency, cancellable, and always optional — the user may proceed without waiting for it.
+_Avoid_: enrichment, backfilling rows, resolving
+
+**Title backfill**:
+Replacing a placeholder title on a queue item after it has already been queued, either from a late probe or from the name of the landed artifact. Distinct from hydration, which happens before queueing.
+_Avoid_: late naming, title repair
+
+**Playlist sort mode**:
+The order the playlist picker displays rows in — probe order as given, or by upload date ascending or descending. A view concern: it never rewrites row identity, and rows with no known upload date sort last.
+_Avoid_: ordering, row order, sort key
+
 **Radio**:
 A playlist YouTube generates on the fly around a video — personalised, endless, and different every session. Not a mixed URL: its membership is not stable, so it addresses no fixed set of videos.
 _Avoid_: mix, autoplay queue, station

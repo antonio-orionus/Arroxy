@@ -30,6 +30,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return playlistProbe(100, {longTitles: true})
 		case 'playlist-nested':
 			return nestedPlaylistProbe()
+		case 'playlist-hydration':
+			return bilibiliHydrationProbe()
 		case 'probe-audio-only':
 			return audioOnlyProbe()
 		case 'probe-audio-multilingual':
@@ -303,4 +305,68 @@ export function playlistProbe(count: number, options: {thumbnails?: boolean; ful
 	})
 
 	return {kind: 'playlist', extractor: 'youtube:tab', extractorKey: 'YoutubeTab', webpageUrl: options.webpageUrl ?? 'https://example.com/mock-playlist', isAudioOnlySource: false, isMultiVideo: false, playlistId: 'PLmock_browser', playlistTitle: 'Mock Browser Playlist', entries}
+}
+
+// Bilibili-style series for the playlist-hydration scenario. Flat entries
+// carry no title/id/dates — exactly what yt-dlp --flat-playlist yields for
+// Bilibili series — so the picker hydrates every row in the background.
+// Upload instants are deliberately shuffled against API order (p1 and p4 even
+// share a calendar day) so the upload-date sort visibly reorders rows.
+const BILIBILI_HYDRATION_BVID = 'BV1mockhydration'
+
+const epochSeconds = (month: number, day: number, hour: number, minute: number): number => Math.floor(Date.UTC(2026, month - 1, day, hour, minute) / 1000)
+
+const BILIBILI_HYDRATION_PARTS: Record<number, {title: string; uploadDate: string; timestamp: number; duration: number}> = {
+	1: {title: 'Mock合集 p01 春物语 OP', uploadDate: '20260803', timestamp: epochSeconds(8, 3, 10, 0), duration: 91},
+	2: {title: 'Mock合集 p02 夏夜祭典', uploadDate: '20260801', timestamp: epochSeconds(8, 1, 22, 15), duration: 98},
+	3: {title: 'Mock合集 p03 秋风物语', uploadDate: '20260730', timestamp: epochSeconds(7, 30, 8, 0), duration: 134},
+	4: {title: 'Mock合集 p04 冬之终章', uploadDate: '20260803', timestamp: epochSeconds(8, 3, 14, 30), duration: 187},
+	6: {title: 'Mock合集 p06 番外篇', uploadDate: '20260802', timestamp: epochSeconds(8, 2, 9, 45), duration: 246},
+	8: {title: 'Mock合集 p08 完结纪念', uploadDate: '20260804', timestamp: epochSeconds(8, 4, 0, 5), duration: 305}
+}
+
+function bilibiliHydrationProbe(): ProbeResult {
+	const entries: PlaylistEntry[] = Array.from({length: 8}, (_, i) => {
+		const part = i + 1
+		const url = `https://www.bilibili.com/video/${BILIBILI_HYDRATION_BVID}?p=${part}`
+		return {id: `${part}::${url}`, url, title: `Untitled · #${part}`, thumbnail: '', playlistIndex: part, videoId: null, titleIsPlaceholder: true as const}
+	})
+	return {kind: 'playlist', extractor: 'bilibili', extractorKey: 'BiliBili', webpageUrl: `https://www.bilibili.com/video/${BILIBILI_HYDRATION_BVID}`, isAudioOnlySource: false, isMultiVideo: false, playlistId: BILIBILI_HYDRATION_BVID, playlistTitle: 'Mock UP主的系列合集', entries}
+}
+
+// Per-item hydration data for the scenario above. Returns null for p5 to
+// simulate a hydration failure, and dateless data for p7 so the sort-last
+// path renders. Returns null for foreign URLs so the mock only answers its own.
+export function bilibiliHydrationVideo(url: string): VideoProbeResult | null {
+	let part: number | null = null
+	try {
+		const parsed = new URL(url)
+		if (parsed.hostname.replace(/^www\./, '') !== 'bilibili.com') return null
+		const bvid = parsed.pathname.split('/').filter(Boolean).pop() ?? ''
+		if (bvid !== BILIBILI_HYDRATION_BVID) return null
+		const raw = Number(parsed.searchParams.get('p'))
+		part = Number.isInteger(raw) && raw >= 1 && raw <= 8 ? raw : null
+	} catch {
+		return null
+	}
+	if (part === null || part === 5) return null
+	if (part === 7) {
+		return {...normalVideoProbe({webpageUrl: url}), extractor: 'bilibili', extractorKey: 'BiliBili', title: 'Mock合集 p07 未知日期特辑', thumbnail: `https://picsum.photos/seed/bilihydration-p7/160/90`, duration: 172, videoId: `${BILIBILI_HYDRATION_BVID}_p7`, uploader: 'Mock UP主', subtitles: {}, automaticCaptions: {}}
+	}
+	const datum = BILIBILI_HYDRATION_PARTS[part]
+	if (!datum) return null
+	return {
+		...normalVideoProbe({webpageUrl: url}),
+		extractor: 'bilibili',
+		extractorKey: 'BiliBili',
+		title: datum.title,
+		thumbnail: `https://picsum.photos/seed/bilihydration-p${part}/160/90`,
+		duration: datum.duration,
+		videoId: `${BILIBILI_HYDRATION_BVID}_p${part}`,
+		uploader: 'Mock UP主',
+		uploadDate: datum.uploadDate,
+		timestamp: datum.timestamp,
+		subtitles: {},
+		automaticCaptions: {}
+	}
 }

@@ -4,6 +4,7 @@ import type {DownloadProfile, DownloadProfileRef, NativeAudioPreference, Playlis
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
+import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
@@ -137,6 +138,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		retryCount: 0,
 		url: entry.url,
 		title: entry.title || entry.url,
+		...placeholderTitleFlag(entry.titleIsPlaceholder),
 		thumbnail: entry.thumbnail,
 		outputDir: baseDir,
 		formatLabel,
@@ -172,6 +174,14 @@ function selectedPlaylistEntries(state: AppState): PlaylistEntry[] {
 	return state.playlistItems.filter(entry => selected.has(entry.id) && !removed.has(entry.id)).filter(isQueueableEntry)
 }
 
+// The order rows are numbered and queued in. Playlist mode follows the picker's
+// visible sort so 001..N matches what the user saw; bulk mode has no sort
+// control, so intake order is the order.
+function submissionOrderEntries(state: AppState): PlaylistEntry[] {
+	const selected = selectedPlaylistEntries(state)
+	return state.wizardMode === 'bulk' ? selected : sortPlaylistEntries(selected, state.playlistSortMode)
+}
+
 /**
  * A container row addresses a channel/playlist/album, not a video. The probe
  * keeps those rows so an all-container result still renders a picker, and they
@@ -192,7 +202,10 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	}
 
 	const playlistGroupId = generateId()
-	const selected = sortPlaylistEntries(selectedPlaylistEntries(state), state.playlistSortMode)
+	// Bulk rows render in intake order (the sort control is playlist-only), so
+	// submission keeps intake order even if playlistSortMode retains a stale
+	// upload mode from an earlier playlist. Playlist mode submits view order.
+	const selected = submissionOrderEntries(state)
 	if (selected.length === 0) return null
 	// Contiguous 001..N over the sorted selected rows — no gaps from unselected
 	// or removed entries. Display-only: entry.playlistIndex is untouched.
@@ -204,7 +217,8 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 }
 
 export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
-	const selected = sortPlaylistEntries(selectedPlaylistEntries(state), state.playlistSortMode)
+	// Same intake-order rule as prepareManualQueueSubmission above.
+	const selected = submissionOrderEntries(state)
 	if (selected.length === 0) return null
 
 	const profiles = allDownloadProfiles(state.settings?.profiles)
@@ -220,7 +234,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId, index + 1)
 		const outputDir = templateOutputDir(resolveDownloadProfileOutputDir(profile, outputContext), template, templateMeta)
 		return buildProfileEntryQueueItem({
-			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail},
+			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail, ...placeholderTitleFlag(entry.titleIsPlaceholder)},
 			...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
 			outputDir,
 			extractor: state.wizardExtractor,
@@ -264,7 +278,7 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 }
 
 function buildProfileEntryQueueItem(params: {
-	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail'>
+	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail' | 'titleIsPlaceholder'>
 	probeInfoJsonRef?: PlaylistEntry['probeInfoJsonRef']
 	outputDir: string
 	extractor: string
@@ -281,6 +295,7 @@ function buildProfileEntryQueueItem(params: {
 		id: generateId(),
 		url: params.entry.url,
 		title: params.entry.title || params.entry.url,
+		...placeholderTitleFlag(params.entry.titleIsPlaceholder),
 		thumbnail: params.entry.thumbnail,
 		outputDir: params.outputDir,
 		formatLabel: downloadProfileLabel(params.profile),
@@ -336,9 +351,11 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	const playlistRoot = ownsDirs ? resolveDownloadProfileOutputDir(profile, outputContext) : playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
 	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, state.settings?.common?.filenameTemplate)
 	// Quick Download queues a probe result directly, with no picker in between,
-	// so this is the seam where container entries have to be dropped. Numbering
-	// is contiguous over the queued entries in the current view sort.
-	const entries = sortPlaylistEntries(probe.entries.filter(isQueueableEntry), state.playlistSortMode)
+	// so this is the seam where container entries have to be dropped. Probe
+	// order is kept verbatim: with no picker the user never chose a sort for
+	// this list, and playlistSortMode here is leftover from an earlier one.
+	// Numbering is contiguous over the queued entries.
+	const entries = probe.entries.filter(isQueueableEntry)
 	const items = entries.map((entry, index) => {
 		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId, index + 1)
 		return buildProfileEntryQueueItem({

@@ -44,3 +44,26 @@ describe('mapPlaylistEntries — placeholder titles', () => {
 		expect(out[0].titleIsPlaceholder).toBeUndefined()
 	})
 })
+
+describe('thumbnail scheme normalization', () => {
+	// The renderer CSP is `img-src 'self' data: https:`. Bilibili hands back
+	// http://i0.hdslb.com/... which the renderer then refuses to load, so the
+	// picker showed a broken image. Upgrading here beats widening the CSP.
+	it('upgrades http thumbnails to https on playlist entries', () => {
+		const entries = mapPlaylistEntries([{_type: 'url', url: 'https://www.bilibili.com/video/BV1?p=1', thumbnail: 'http://i0.hdslb.com/bfs/archive/abc.png'}], 'https://www.bilibili.com/video/BV1', 'BiliBili')
+		expect(entries[0]?.thumbnail).toBe('https://i0.hdslb.com/bfs/archive/abc.png')
+	})
+
+	it('leaves https and data thumbnails untouched', () => {
+		const entries = mapPlaylistEntries(
+			[
+				{_type: 'url', url: 'https://youtu.be/a', thumbnail: 'https://i.ytimg.com/vi/a/hq.jpg'},
+				{_type: 'url', url: 'https://youtu.be/b', thumbnail: 'data:image/png;base64,iVBOR'}
+			],
+			'https://youtube.com/playlist?list=PL1',
+			'youtube:tab'
+		)
+		expect(entries[0]?.thumbnail).toBe('https://i.ytimg.com/vi/a/hq.jpg')
+		expect(entries[1]?.thumbnail).toBe('data:image/png;base64,iVBOR')
+	})
+})

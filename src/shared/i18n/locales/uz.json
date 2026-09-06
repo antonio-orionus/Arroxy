@@ -76,6 +76,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Video tafsilotlari olinmoqda… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Kutish shart emas — hozir navbatga qo‘yilgan fayllar yuklab olinganda baribir haqiqiy nomlarini oladi.",
 			"bulkRowWaiting": "Kutilmoqda",
 			"bulkRowResolving": "Tafsilotlar olinmoqda",
 			"bulkRowFailed": "Tafsilotlar mavjud emas",

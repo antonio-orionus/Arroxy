@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLونه",
 			"bulkMetadataResolving": "د ویډیو جزییات راوړل کېږي… {{done}}/{{total}}",
+			"bulkMetadataOptional": "انتظار ته اړتیا نشته — هغه فایلونه چې اوس کتار ته اچوئ، د ښکته کولو پر مهال به خپل اصلي نومونه ترلاسه کړي.",
 			"bulkRowWaiting": "انتظار",
 			"bulkRowResolving": "جزییات راوړل کېږي",
 			"bulkRowFailed": "جزییات نشته",

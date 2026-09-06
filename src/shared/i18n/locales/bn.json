@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "ভিডিওর বিস্তারিত আনা হচ্ছে… {{done}}/{{total}}",
+			"bulkMetadataOptional": "অপেক্ষা করার দরকার নেই — এখন সারিতে যোগ করা ফাইলগুলো ডাউনলোডের সময় তাদের আসল নামই পাবে।",
 			"bulkRowWaiting": "অপেক্ষা করছে",
 			"bulkRowResolving": "বিস্তারিত আনা হচ্ছে",
 			"bulkRowFailed": "বিস্তারিত নেই",

@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Μαζικά URL"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Δεν χρειάζεται να περιμένετε — τα αρχεία που μπαίνουν στην ουρά τώρα θα πάρουν τα πραγματικά τους ονόματα κατά τη λήψη."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Ανάκτηση λεπτομερειών βίντεο… {{done}}/{{total}}"

@@ -76,6 +76,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Отримання відомостей про відео… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Чекати не потрібно — файли, додані до черги зараз, однаково отримають справжні імена під час завантаження.",
 			"bulkRowWaiting": "Очікування",
 			"bulkRowResolving": "Отримання відомостей",
 			"bulkRowFailed": "Відомості недоступні",

@@ -56,7 +56,7 @@ describe('playlist hydration', () => {
 		const runId = nextBulkMetadataRunId()
 		await hydrateBulkMetadata([{id: '1::https://www.bilibili.com/video/BV1bK411W797?p=1', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', index: 0}], useAppStore.setState, runId)
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', playlistMode: 'video'})
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', playlistMode: 'video', timeoutMs: 180_000})
 		const state = useAppStore.getState()
 		expect(state.playlistItems[0]?.title).toBe('Real Part Title')
 		expect(state.playlistItems[0]?.uploader).toBe('Some Uploader')
@@ -87,7 +87,30 @@ describe('playlist hydration', () => {
 		await hydrateBulkMetadata([{id: '2::https://example.com/p2', url: 'https://example.com/p2', index: 1}], useAppStore.setState, runId)
 
 		expect(api.downloads.probe).toHaveBeenCalledTimes(1)
-		expect(vi.mocked(api.downloads.probe).mock.calls[0]?.[0]).toEqual({url: 'https://example.com/p2', playlistMode: 'video'})
+		expect(vi.mocked(api.downloads.probe).mock.calls[0]?.[0]).toEqual({url: 'https://example.com/p2', playlistMode: 'video', timeoutMs: 180_000})
+	})
+
+	it('passes the extended hydration budget to per-item probes', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE()))
+		window.appApi = api
+
+		useAppStore.setState({
+			wizardMode: 'playlist',
+			playlistItems: [{id: '1::https://www.bilibili.com/video/BV1bK411W797?p=1', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', title: 'Untitled · #1', thumbnail: '', playlistIndex: 1, videoId: null, titleIsPlaceholder: true}],
+			selectedPlaylistItemIds: ['1::https://www.bilibili.com/video/BV1bK411W797?p=1'],
+			bulkMetadataStatus: 'resolving',
+			bulkMetadataCompleted: 0,
+			bulkMetadataTotal: 1,
+			bulkMetadataById: {}
+		})
+
+		const runId = nextBulkMetadataRunId()
+		await hydrateBulkMetadata([{id: '1::https://www.bilibili.com/video/BV1bK411W797?p=1', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', index: 0}], useAppStore.setState, runId)
+
+		// 180s: solo Bilibili probes measured ~110s on slow links, and paired
+		// probes need headroom past the old 60s wizard budget.
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', playlistMode: 'video', timeoutMs: 180_000})
 	})
 
 	it('aborts write-back when the run is superseded', async () => {
@@ -144,7 +167,13 @@ describe('playlist placeholder trigger', () => {
 
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', playlistScope: {items: {kind: 'app-limit'}}})
 		await useAppStore.getState().submitUrl()
-		await new Promise(resolve => setTimeout(resolve, 50))
+		await vi.waitFor(() => {
+			const videoProbes = vi
+				.mocked(api.downloads.probe)
+				.mock.calls.map(call => call[0])
+				.filter(call => call.playlistMode === 'video')
+			expect(videoProbes).toHaveLength(1)
+		})
 
 		const calls = vi.mocked(api.downloads.probe).mock.calls.map(call => call[0])
 		const videoProbes = calls.filter(call => call.playlistMode === 'video')
@@ -152,5 +181,40 @@ describe('playlist placeholder trigger', () => {
 		expect(videoProbes[0]?.url).toBe('https://www.bilibili.com/video/BV1bK411W797?p=1')
 		const state = useAppStore.getState()
 		expect(state.playlistItems[1]?.title).toBe('Real Title')
+	})
+
+	it('cancels playlist-mode hydration on queue submit so probes stop racing the downloads', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async () => {
+			await new Promise(resolve => setTimeout(resolve, 20))
+			return ok(VIDEO_PROBE())
+		})
+		window.appApi = api
+
+		const targets = [
+			{id: '1::https://example.com/p1', url: 'https://example.com/p1', index: 0},
+			{id: '2::https://example.com/p2', url: 'https://example.com/p2', index: 1},
+			{id: '3::https://example.com/p3', url: 'https://example.com/p3', index: 2}
+		]
+		useAppStore.setState({
+			wizardMode: 'playlist',
+			playlistItems: targets.map((target, i) => ({id: target.id, url: target.url, title: `Untitled \u00b7 #${i + 1}`, thumbnail: '', playlistIndex: i + 1, videoId: null, titleIsPlaceholder: true as const})),
+			selectedPlaylistItemIds: targets.map(target => target.id),
+			bulkMetadataStatus: 'resolving',
+			bulkMetadataCompleted: 0,
+			bulkMetadataTotal: targets.length,
+			bulkMetadataById: {}
+		})
+
+		const runId = nextBulkMetadataRunId()
+		const pending = hydrateBulkMetadata(targets, useAppStore.setState, runId)
+		// What queueSlice does on submit. Before the fix this returned early in
+		// playlist mode, leaving every remaining probe to spawn behind the
+		// downloads and compete for the same site rate limiter.
+		useAppStore.getState().cancelBulkMetadata('queue-submit')
+		await pending
+
+		expect(vi.mocked(api.downloads.probe).mock.calls.length).toBeLessThan(targets.length)
+		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
 	})
 })

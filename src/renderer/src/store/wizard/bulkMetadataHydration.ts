@@ -1,4 +1,5 @@
 import type {BulkMetadataCancelReason, BulkMetadataItemStatus} from '@shared/types.js'
+import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import {bulkLogger, redactUrlForLog} from '@renderer/lib/bulkLogger.js'
 import type {AppState, SetState} from '../types.js'
 
@@ -24,7 +25,7 @@ function errorMessage(error: unknown): string {
 // Single mode has no playlistItems, so the per-row identity check below already
 // no-ops there — the allowlist exists to keep a stale run from writing bulk
 // rows into a playlist picker (or vice versa) after a mode switch.
-function isHydrationMode(mode: AppState['wizardMode']): boolean {
+export function isHydrationMode(mode: AppState['wizardMode']): boolean {
 	return mode === 'bulk' || mode === 'playlist'
 }
 
@@ -69,7 +70,7 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 
 		try {
 			bulkLogger.debug('Bulk metadata probe started', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})
-			const result = await window.appApi.downloads.probe({url, playlistMode: 'video'})
+			const result = await window.appApi.downloads.probe({url, playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS})
 			if (!result.ok) {
 				if (result.error.kind === 'other' && result.error.message === 'Probe cancelled') {
 					bulkLogger.info('Bulk metadata probe cancelled', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url)})

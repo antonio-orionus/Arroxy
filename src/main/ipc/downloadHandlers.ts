@@ -25,16 +25,16 @@ function getCookiesValidationFailure(settings: Awaited<ReturnType<SettingsStore[
 export function registerDownloadHandlers(deps: DownloadHandlerDeps): void {
 	const {downloadService, probeService, settingsStore} = deps
 
-	handle<z.infer<typeof probeSchema>, ProbeResult, ProbeError>(IPC_CHANNELS.downloadsProbe, probeSchema, async ({url, playlistMode, playlistScope, ownerKey}) => {
+	handle<z.infer<typeof probeSchema>, ProbeResult, ProbeError>(IPC_CHANNELS.downloadsProbe, probeSchema, async ({url, playlistMode, playlistScope, ownerKey, timeoutMs}) => {
 		const settings = await settingsStore.get()
 		const issue = getIncompleteCookiesConfigIssue(settings.common)
 		if (issue) return fail<ProbeResult, ProbeError>({kind: 'other', code: 'cookies_config', message: cookiesConfigIssueMessage(issue)})
-		return probeService.probe(url, {cookiesMode: settings.common.cookiesMode ?? 'off', playlistMode, playlistScope, ownerKey})
+		return probeService.probe(url, {cookiesMode: settings.common.cookiesMode ?? 'off', playlistMode, playlistScope, ownerKey, timeoutMs})
 	})
 
 	// Renderer fires this when the user changes URL or navigates away from a
 	// probe in progress. Cancels every in-flight probe so the spinner never
-	// blocks behind a stale 60s YouTube fallback chain.
+	// blocks behind a stale 180s YouTube fallback chain.
 	handleRaw(IPC_CHANNELS.downloadsProbeCancel, () => {
 		probeService.cancelInFlight()
 	})

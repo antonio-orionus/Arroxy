@@ -851,6 +851,66 @@ describe('submitUrl — playlist probe', () => {
 			})
 		)
 	})
+
+	it('clears a stuck resolving status when a scope reload returns no placeholders', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		useAppStore.setState({
+			wizardStep: 'playlistItems',
+			wizardMode: 'playlist',
+			wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+			playlistItems: PLAYLIST_PROBE.entries,
+			selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id),
+			playlistScope: {items: {kind: 'app-limit'}},
+			bulkMetadataStatus: 'resolving',
+			bulkMetadataCompleted: 1,
+			bulkMetadataTotal: 2,
+			bulkMetadataById: {e1: 'resolving', e2: 'pending'}
+		})
+
+		await useAppStore.getState().reloadPlaylistWithScope({items: {kind: 'first' as const, count: 50}})
+
+		const state = useAppStore.getState()
+		expect(state.bulkMetadataStatus).toBe('done')
+		expect(state.bulkMetadataById).toEqual({})
+	})
+
+	it('restarts placeholder hydration for the restored list after a failed scope reload', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockImplementation(async (input: {url: string; playlistMode?: string}) => {
+			if (input.playlistMode === 'playlist') return fail({kind: 'other', code: 'unknown', message: 'Reload failed'})
+			return ok({...VIDEO_PROBE, webpageUrl: input.url, title: 'Recovered Title'})
+		})
+		window.appApi = api
+
+		const placeholder = {id: '1::https://example.com/p1', url: 'https://example.com/p1', title: 'Untitled · #1', thumbnail: '', playlistIndex: 1, videoId: null, titleIsPlaceholder: true as const}
+		useAppStore.setState({
+			wizardStep: 'playlistItems',
+			wizardMode: 'playlist',
+			wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
+			playlistItems: [placeholder],
+			selectedPlaylistItemIds: [placeholder.id],
+			playlistScope: {items: {kind: 'app-limit'}},
+			bulkMetadataStatus: 'resolving',
+			bulkMetadataCompleted: 0,
+			bulkMetadataTotal: 1,
+			bulkMetadataById: {[placeholder.id]: 'resolving'}
+		})
+
+		await useAppStore.getState().reloadPlaylistWithScope({items: {kind: 'first' as const, count: 50}})
+
+		// Failure restores the previous list and resumes its hydration on a new run.
+		expect(useAppStore.getState().playlistItems).toHaveLength(1)
+		await vi.waitFor(() => {
+			expect(vi.mocked(api.downloads.probe).mock.calls.some(call => call[0].playlistMode === 'video')).toBe(true)
+		})
+		await vi.waitFor(() => {
+			expect(useAppStore.getState().playlistItems[0]?.title).toBe('Recovered Title')
+		})
+		expect(useAppStore.getState().playlistItems[0]?.titleIsPlaceholder).toBeUndefined()
+	})
 })
 
 describe('bulk URL mode', () => {
@@ -900,8 +960,8 @@ describe('bulk URL mode', () => {
 		expect(useAppStore.getState().bulkMetadataStatus).toBe('done')
 		expect(useAppStore.getState().bulkMetadataCompleted).toBe(2)
 		expect(useAppStore.getState().bulkMetadataById).toEqual({'bulk-1': 'done', 'bulk-2': 'done'})
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://vimeo.com/1', playlistMode: 'video'})
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://example.com/video/2', playlistMode: 'video'})
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://vimeo.com/1', playlistMode: 'video', timeoutMs: 180_000})
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://example.com/video/2', playlistMode: 'video', timeoutMs: 180_000})
 	})
 
 	it('keeps synthetic bulk metadata when a probe fails or returns a playlist', async () => {

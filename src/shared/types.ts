@@ -289,6 +289,11 @@ export interface QueueItem {
 	id: string
 	url: string
 	title: string
+	// Set only when the row title was fabricated by the flat-playlist probe
+	// fallback (`Untitled · #N`). Cleared the moment a real title lands from
+	// any source (background backfill, artifact derivation), so backfill
+	// layers never fight and reruns stay idempotent.
+	titleIsPlaceholder?: true
 	thumbnail: string
 	outputDir: string
 	formatLabel: string
@@ -387,6 +392,9 @@ export interface ProbeInput {
 	// later (probeCancel(key)) without touching other in-flight probes —
 	// hotkey probing rows key on their queue item id.
 	ownerKey?: string
+	// Per-call budget override (ms). Background hydration pins 180s; absent
+	// keeps the 180s interactive default. Mirrors probeSchema's timeoutMs.
+	timeoutMs?: number
 }
 
 export type ProbeDegradationReason = 'botWall' | 'extractor'

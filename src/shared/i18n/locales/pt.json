@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Obtendo detalhes dos vídeos… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Não precisa esperar — os arquivos enfileirados agora ainda terão seus nomes reais ao baixar.",
 			"bulkRowWaiting": "Aguardando",
 			"bulkRowResolving": "Buscando detalhes",
 			"bulkRowFailed": "Detalhes indisponíveis",

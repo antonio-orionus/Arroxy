@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Ανάκτηση λεπτομερειών βίντεο… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Δεν χρειάζεται να περιμένετε — τα αρχεία που μπαίνουν στην ουρά τώρα θα πάρουν τα πραγματικά τους ονόματα κατά τη λήψη.",
 			"bulkRowWaiting": "Σε αναμονή",
 			"bulkRowResolving": "Ανάκτηση λεπτομερειών",
 			"bulkRowFailed": "Οι λεπτομέρειες δεν είναι διαθέσιμες",

@@ -7,18 +7,22 @@ import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 interface PlaylistSortControlProps {
 	value: PlaylistSortMode
 	onChange: (mode: PlaylistSortMode) => void
-	/** True once at least one row carries a timestamp. Upload-time options stay disabled until then. */
-	hasTimestamps: boolean
+	/** True once hydration has settled and at least one sortable row carries a timestamp. */
+	canSortByUpload: boolean
 	/** True while placeholder hydration is still filling timestamps in. */
 	isFetching: boolean
 	disabled?: boolean
 }
 
+// Exhaustive by type, so a fourth sort mode is a compile error here rather than
+// silently falling through to the "newest first" label.
+const SORT_MODE_LABEL_KEYS = {api: 'wizard.playlist.sortApi', 'upload-asc': 'wizard.playlist.sortUploadAsc', 'upload-desc': 'wizard.playlist.sortUploadDesc'} as const satisfies Record<PlaylistSortMode, string>
+
 function isSortMode(value: string | undefined): value is PlaylistSortMode {
 	return playlistSortModeSchema.safeParse(value).success
 }
 
-export function PlaylistSortControl({value, onChange, hasTimestamps, isFetching, disabled = false}: PlaylistSortControlProps): ReactNode {
+export function PlaylistSortControl({value, onChange, canSortByUpload, isFetching, disabled = false}: PlaylistSortControlProps): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<div className="flex flex-wrap items-center gap-2">
@@ -36,15 +40,15 @@ export function PlaylistSortControl({value, onChange, hasTimestamps, isFetching,
 			>
 				{PLAYLIST_SORT_MODES.map(mode => {
 					const uploadMode = mode !== 'api'
-					const key = mode === 'api' ? 'wizard.playlist.sortApi' : mode === 'upload-asc' ? 'wizard.playlist.sortUploadAsc' : 'wizard.playlist.sortUploadDesc'
+					const key = SORT_MODE_LABEL_KEYS[mode]
 					return (
-						<ToggleGroupItem key={mode} value={mode} disabled={disabled || (uploadMode && !hasTimestamps)} className="px-3 text-[12px]" data-testid={`playlist-sort-${mode}`}>
+						<ToggleGroupItem key={mode} value={mode} disabled={disabled || (uploadMode && !canSortByUpload)} className="px-3 text-[12px]" data-testid={`playlist-sort-${mode}`}>
 							{t(key)}
 						</ToggleGroupItem>
 					)
 				})}
 			</ToggleGroup>
-			{!hasTimestamps && isFetching ? <span className="text-xs text-muted-foreground">{t('wizard.playlist.sortFetchingDates')}</span> : null}
+			{isFetching ? <span className="text-xs text-muted-foreground">{t('wizard.playlist.sortFetchingDates')}</span> : null}
 		</div>
 	)
 }

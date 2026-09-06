@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "बल्क URLs"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "इंतज़ार करने की ज़रूरत नहीं — अभी कतार में लगाई गई फ़ाइलों को डाउनलोड के समय उनके असली नाम मिलेंगे।"
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "वीडियो विवरण लाए जा रहे हैं… {{done}}/{{total}}"

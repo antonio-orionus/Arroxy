@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Video ayrıntıları alınıyor… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Beklemenize gerek yok — şimdi kuyruğa eklenen dosyalar indirilirken yine de gerçek adlarını alır.",
 			"bulkRowWaiting": "Bekliyor",
 			"bulkRowResolving": "Ayrıntılar alınıyor",
 			"bulkRowFailed": "Ayrıntılar kullanılamıyor",

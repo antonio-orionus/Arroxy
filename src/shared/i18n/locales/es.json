@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Obteniendo detalles del vídeo… {{done}}/{{total}}",
+			"bulkMetadataOptional": "No hace falta esperar — los archivos que pongas en cola ahora conservarán sus nombres reales al descargarse.",
 			"bulkRowWaiting": "Esperando",
 			"bulkRowResolving": "Obteniendo detalles",
 			"bulkRowFailed": "Detalles no disponibles",

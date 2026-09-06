@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Videodetails werden geladen… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Kein Warten nötig — Dateien, die jetzt in die Warteschlange gestellt werden, erhalten beim Herunterladen trotzdem ihre echten Namen.",
 			"bulkRowWaiting": "Wartet",
 			"bulkRowResolving": "Details werden geladen",
 			"bulkRowFailed": "Details nicht verfügbar",

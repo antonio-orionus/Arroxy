@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "動画の詳細を取得中… {{done}}/{{total}}",
+			"bulkMetadataOptional": "待つ必要はありません — 今キューに追加したファイルも、ダウンロード時には正式な名前になります。",
 			"bulkRowWaiting": "待機中",
 			"bulkRowResolving": "詳細を取得中",
 			"bulkRowFailed": "詳細を取得できません",

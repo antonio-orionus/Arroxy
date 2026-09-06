@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Récupération des détails vidéo… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Pas besoin d'attendre — les fichiers mis en file d'attente recevront quand même leurs vrais noms au téléchargement.",
 			"bulkRowWaiting": "En attente",
 			"bulkRowResolving": "Récupération des détails",
 			"bulkRowFailed": "Détails indisponibles",

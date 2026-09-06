@@ -59,6 +59,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Fetching video details… {{done}}/{{total}}",
+			"bulkMetadataOptional": "No need to wait — files queued now still get their real names when they download.",
 			"bulkRowWaiting": "Waiting",
 			"bulkRowResolving": "Fetching details",
 			"bulkRowFailed": "Details unavailable",

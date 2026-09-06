@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "ویڈیو کی تفصیلات لی جا رہی ہیں… {{done}}/{{total}}",
+			"bulkMetadataOptional": "انتظار کی ضرورت نہیں — ابھی قطار میں لگائی گئی فائلوں کو ڈاؤن لوڈ کے وقت ان کے اصل نام ملیں گے۔",
 			"bulkRowWaiting": "انتظار میں",
 			"bulkRowResolving": "تفصیلات لی جا رہی ہیں",
 			"bulkRowFailed": "تفصیلات دستیاب نہیں",

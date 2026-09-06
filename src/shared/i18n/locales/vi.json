@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Đang lấy chi tiết video… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Không cần chờ — các tệp cho vào hàng đợi bây giờ vẫn sẽ có tên thật khi tải xuống.",
 			"bulkRowWaiting": "Đang chờ",
 			"bulkRowResolving": "Đang lấy chi tiết",
 			"bulkRowFailed": "Không có chi tiết",

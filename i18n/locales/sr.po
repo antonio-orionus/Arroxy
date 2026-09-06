@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Групни URL-ови"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Преузимање детаља видеа… {{done}}/{{total}}"

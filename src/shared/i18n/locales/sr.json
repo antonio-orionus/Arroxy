@@ -76,6 +76,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL-ова",
 			"bulkMetadataResolving": "Преузимање детаља видеа… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena.",
 			"bulkRowWaiting": "Чека",
 			"bulkRowResolving": "Преузимање детаља",
 			"bulkRowFailed": "Детаљи нису доступни",

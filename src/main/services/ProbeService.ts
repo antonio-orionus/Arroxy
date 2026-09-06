@@ -4,6 +4,7 @@ import {trackMain, probeDurationBucket} from '@main/services/analytics.js'
 import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
+import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
 import {audioTrackLabel, audioTrackQuality, isDefaultAudio, isOriginalAudio} from '@shared/audioTrackMeta.js'
@@ -14,7 +15,7 @@ import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
-import {YtDlp} from './YtDlp.js'
+import {PROBE_TIMEOUT_MESSAGE, YtDlp} from './YtDlp.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
@@ -170,6 +171,12 @@ function classifyProbeFailure(rawError: string): YtDlpErrorKind {
 	return classifyYtDlpStderr(rawError).kind
 }
 
+// Timer-killed probes surface as exit-errors carrying PROBE_TIMEOUT_MESSAGE.
+// Matched by literal because the taxonomy has no timeout kind — see YtDlp.ts.
+function isProbeTimeoutFailure(result: ProbeAttemptResult): boolean {
+	return result.kind === 'failure' && result.error.kind === 'ytdlp' && result.error.error.raw === PROBE_TIMEOUT_MESSAGE
+}
+
 function detectProbeDegradationSignals(stderr: string): ProbeSignal[] {
 	return PROBE_DEGRADATION_SIGNALS.flatMap(({pattern, label, category}) => (pattern.test(stderr) ? [{label, category}] : []))
 }
@@ -236,15 +243,25 @@ function deriveDegraded(signals: ProbeSignal[]): {reasons: ProbeDegradationReaso
 	return {reasons}
 }
 
+// The renderer CSP allows `img-src 'self' data: https:` — no plaintext http.
+// Several extractors (Bilibili's i0.hdslb.com among them) hand back http URLs,
+// which the renderer then refuses to load, leaving a broken thumbnail. The CDNs
+// serve the identical bytes over https, so upgrade the scheme here rather than
+// widening the CSP: allowing http images would let a network attacker inject
+// arbitrary picture content into the picker.
+function upgradeThumbnailScheme(url: string): string {
+	return url.startsWith('http://') ? `https://${url.slice('http://'.length)}` : url
+}
+
 function pickEntryThumbnail(entry: InfoDict): string {
 	const v = entry as VideoInfo
-	if (typeof v.thumbnail === 'string' && v.thumbnail.length > 0) return v.thumbnail
+	if (typeof v.thumbnail === 'string' && v.thumbnail.length > 0) return upgradeThumbnailScheme(v.thumbnail)
 	const list = v.thumbnails
 	if (!list || list.length === 0) return ''
 	// Some extractors (NicoVideo) emit thumbnail entries with `url: null` as
 	// placeholders — find the first entry with a usable URL.
 	for (const t of list) {
-		if (typeof t.url === 'string' && t.url.length > 0) return t.url
+		if (typeof t.url === 'string' && t.url.length > 0) return upgradeThumbnailScheme(t.url)
 	}
 	return ''
 }
@@ -351,7 +368,7 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 			uploadDate: resolveUploadDate(v),
 			...(entryTimestamp !== undefined ? {timestamp: entryTimestamp} : {}),
 			...(isContainer ? {isContainer: true as const} : {}),
-			...(isPlaceholderTitle ? {titleIsPlaceholder: true as const} : {})
+			...placeholderTitleFlag(isPlaceholderTitle)
 		})
 		fallbackIndex++
 	}
@@ -400,7 +417,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		isAudioOnlySource: isAudioOnlySource(extractor),
 		formats: mapFormats(info.formats ?? []),
 		title: info.title ?? '',
-		thumbnail: info.thumbnail ?? '',
+		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,
 		subtitles: sanitizeSubtitleMap(info.subtitles, {isAutomaticCaptions: false, site}),
 		automaticCaptions: sanitizeSubtitleMap(info.automatic_captions, {isAutomaticCaptions: true, site}),
@@ -453,7 +470,7 @@ export class ProbeService extends EventEmitter {
 
 	// Abort every in-flight probe. Renderer calls this when the user changes the
 	// wizard URL, navigates away, or otherwise abandons a slow fetch — without
-	// it, a stalled YouTube fallback chain (~60s) keeps the UI spinner blocked.
+	// it, a stalled YouTube fallback chain (~180s) keeps the UI spinner blocked.
 	cancelInFlight(): void {
 		if (this.inFlight.size === 0) return
 		logger.info('Cancelling in-flight probes', {count: this.inFlight.size})
@@ -467,8 +484,8 @@ export class ProbeService extends EventEmitter {
 		this.inFlight.clear()
 	}
 
-	async probe(url: string, opts: {cookiesMode?: 'off' | 'file' | 'browser'; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string} = {}): Promise<Result<ProbeResult, ProbeError>> {
-		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey} = opts
+	async probe(url: string, opts: {cookiesMode?: 'off' | 'file' | 'browser'; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number} = {}): Promise<Result<ProbeResult, ProbeError>> {
+		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey, timeoutMs} = opts
 		const startMs = Date.now()
 		const emitSuccess = (result: ProbeResult): void => {
 			trackMain('format_probed', {duration_bucket: probeDurationBucket(Date.now() - startMs), bot_wall: result.kind === 'video' && result.degraded?.reasons.includes('botWall') === true, cookies_mode: cookiesMode, result_kind: result.kind})
@@ -491,7 +508,7 @@ export class ProbeService extends EventEmitter {
 
 			logger.info('Probe started', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 
-			const probeResult = await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal)
+			const probeResult = await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal, timeoutMs)
 			if (probeResult.kind === 'failure') {
 				emitFailure(probeResult.errorCategory)
 				return fail(probeResult.error)
@@ -589,11 +606,11 @@ export class ProbeService extends EventEmitter {
 	// Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
 	// follow extractor redirects (e.g. Bandcamp track → resolved video). Anything
 	// deeper is a misbehaving extractor — bail rather than loop.
-	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
+	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		let currentUrl = url
 		for (let depth = 0; depth <= 1; depth++) {
 			if (signal.aborted) return {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
-			const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal)
+			const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, timeoutMs)
 			if (attempt.kind === 'failure') return attempt
 			const info = attempt.data.info
 			if (!isUrlRedirect(info)) return attempt
@@ -604,11 +621,23 @@ export class ProbeService extends EventEmitter {
 		}
 		// Fell through both attempts; return whatever we got — caller surfaces as
 		// 'redirected too many times' if still a url_redirect.
-		return this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal)
+		return this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, timeoutMs)
 	}
 
-	private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
-		const initial = await this.runProbeAttempt(url, 'initial', playlistMode, playlistScope, signal)
+	private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
+		let initial = await this.runProbeAttempt(url, 'initial', playlistMode, playlistScope, signal, timeoutMs)
+		// A timed-out probe usually means a slow link, not a dead one: the very
+		// next attempt often succeeds (observed repeatedly on throttled routes).
+		// Exactly one retry — a second timeout is reported as the failure.
+		if (initial.kind === 'failure' && isProbeTimeoutFailure(initial) && !signal.aborted) {
+			logger.info('Probe timed out — retrying once', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
+			const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal, timeoutMs)
+			if (retry.kind === 'failure') {
+				logger.info('Probe timeout retry failed; reporting failure', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
+				return retry
+			}
+			initial = retry
+		}
 		if (initial.kind === 'failure') return initial
 		if (initial.data.degradationSignals.length === 0) return initial
 		if (signal.aborted) return initial
@@ -628,7 +657,7 @@ export class ProbeService extends EventEmitter {
 		return retryFormatCount > initialFormatCount ? retry : initial
 	}
 
-	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal): Promise<ProbeAttemptResult> {
+	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe'
 		const youtubePlayerClient = playlistMode === 'video' && siteForUrl(url).id === 'youtube' ? [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS] : undefined
 		const extractor = youtubePlayerClient ? {youtube: {playerClient: youtubePlayerClient}} : undefined
@@ -647,6 +676,7 @@ export class ProbeService extends EventEmitter {
 			{kind: 'probe', url, selection: {playlistMode, ...(playlistScope ? {playlistScope} : {})}, ...(extractor ? {extractor} : {})},
 			{
 				abortSignal: signal,
+				timeoutMs,
 				onStdout: consumeStdout,
 				onStderr: chunk => {
 					for (const line of splitStderrLines(chunk)) {

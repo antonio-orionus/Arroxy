@@ -1,6 +1,7 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
@@ -239,7 +240,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
 			...(seed?.timestamp === undefined ? {} : {timestamp: seed.timestamp}),
 			...(seed?.isContainer === true ? {isContainer: true as const} : {}),
-			...(seed?.titleIsPlaceholder === true ? {titleIsPlaceholder: true as const} : {})
+			...placeholderTitleFlag(seed?.titleIsPlaceholder)
 		}
 	})
 	const seededCount = playlistItems.length - metadataTargets.length

@@ -68,6 +68,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Inaleta maelezo ya video… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Hakuna haja ya kungoja — faili zinazowekwa kwenye foleni sasa bado zitapata majina yao halisi zinapopakuliwa.",
 			"bulkRowWaiting": "Inasubiri",
 			"bulkRowResolving": "Inaleta maelezo",
 			"bulkRowFailed": "Maelezo hayapatikani",

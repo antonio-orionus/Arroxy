@@ -424,7 +424,11 @@ const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
 export const playlistScopeSchema = z.object({items: playlistScopeItemsSchema})
 export type PlaylistScope = z.infer<typeof playlistScopeSchema>
 
-export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['auto', 'video', 'playlist']).optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional()})
+// Per-call probe budget override. 1s floors nonsense values, 5min caps a
+// hung-overridden probe; background hydration pins 180s. The interactive
+// default (180s) applies when the field is absent.
+const probeTimeoutMsSchema = z.number().int().min(1000).max(300_000)
+export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['auto', 'video', 'playlist']).optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
 
 // PreparedJob discriminated-union schema. Type aliases live in
 // `./preparedJob`; the runtime validator lives here so callers that already
@@ -606,6 +610,8 @@ export const queueItemSchema = z
 		id: z.string(),
 		url: z.string(),
 		title: z.string(),
+		// Fabricated flat-playlist row title (`Untitled · #N`) — see QueueItem.
+		titleIsPlaceholder: z.literal(true).optional(),
 		thumbnail: z.string(),
 		outputDir: z.string(),
 		formatLabel: z.string(),

@@ -80,6 +80,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Ibsa viidiyoo fidaa… {{done}}/{{total}}",
+			"bulkMetadataOptional": "Eeguu hin barbaachisu — faayilonni amma tarree galchan iyyuu buufamanis maqaa isaanii dhugaa argatu.",
 			"bulkRowWaiting": "Eegaa jira",
 			"bulkRowResolving": "Ibsa fidaa jira",
 			"bulkRowFailed": "Ibsi hin argamne",

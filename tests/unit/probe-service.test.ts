@@ -527,7 +527,10 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
 
 		expect(r.ok).toBe(true)
-		if (r.ok && r.data.kind === 'video') expect(r.data.timestamp).toBe(1754000000)
+		if (!r.ok) throw new Error('expected ok probe result')
+		expect(r.data.kind).toBe('video')
+		if (r.data.kind !== 'video') throw new Error('expected video probe result')
+		expect(r.data.timestamp).toBe(1754000000)
 	})
 
 	it('leaves timestamp undefined when yt-dlp omits it', async () => {
@@ -537,6 +540,9 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const r = await makeProbeService().probe('https://example.com/v1')
 
 		expect(r.ok).toBe(true)
-		if (r.ok && r.data.kind === 'video') expect(r.data.timestamp).toBeUndefined()
+		if (!r.ok) throw new Error('expected ok probe result')
+		expect(r.data.kind).toBe('video')
+		if (r.data.kind !== 'video') throw new Error('expected video probe result')
+		expect(r.data.timestamp).toBeUndefined()
 	})
 })

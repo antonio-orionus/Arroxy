@@ -59,6 +59,7 @@
 			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "ဗီဒီယိုအသေးစိတ် ရယူနေသည်… {{done}}/{{total}}",
+			"bulkMetadataOptional": "စောင့်စရာမလိုပါ — ယခု တန်းစီထားသော ဖိုင်များသည် ဒေါင်းလုဒ်လုပ်သည့်အခါ အမည်ရင်းများ ရရှိပါမည်။",
 			"bulkRowWaiting": "စောင့်နေသည်",
 			"bulkRowResolving": "အသေးစိတ် ရယူနေသည်",
 			"bulkRowFailed": "အသေးစိတ် မရနိုင်ပါ",
