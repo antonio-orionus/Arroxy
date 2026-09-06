@@ -8,6 +8,34 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.11
+
+Arroxy can order a playlist by upload date instead of whatever order the site hands over, rows that arrive nameless now fill in their real titles by themselves, and slow sites get long enough to answer before Arroxy gives up on them.
+
+## Highlights
+
+### Sort A Playlist By Upload Date
+
+- The playlist picker gains a sort control: keep the site's own order, or reorder by upload date oldest-first or newest-first. Useful when a channel or a search hands back something closer to random than chronological.
+- Sorting only changes what you see. Your ticked rows stay ticked, and nothing about a row's identity moves under it, so you can flip between orders while you pick without losing your place.
+- The numbering follows what you chose. If your filename template uses the playlist index, files come out 001, 002, 003 in the order shown, counting only the rows you kept.
+- Videos with no known upload date sort to the end rather than being scattered through the list.
+- The upload-date options stay switched off until the dates have actually finished loading. Otherwise the first few rows to arrive would unlock a sort that quietly buried everything still waiting at the bottom of the list.
+
+### Rows That Name Themselves
+
+- Some sites return a playlist as a bare list of links with no titles, so the picker had to show `Untitled · #3` and leave you guessing. Arroxy now fetches the real titles in the background and swaps them in as they arrive, with a per-row note and an overall count so you can see it working.
+- You never have to wait for it. Queue whatever you like straight away — a row whose title is still on the way is remembered as unnamed, and the real title is filled in later, so the finished file gets its proper name rather than the placeholder.
+- If a title is still missing by the time the file lands, Arroxy reads it back from the downloaded file's own name.
+- Leaving the picker or starting over stops the background lookups instead of letting them run on.
+
+### Slow Sites Get Time To Answer
+
+- Loading a video's details gave up after a minute. On throttled links some sites genuinely need longer than that, so a perfectly good link failed for no visible reason. The wait is now three minutes, and a run that still times out is retried once in a simpler mode that tends to get through.
+- Thumbnails served over plain HTTP were silently dropped and left a blank space. They are now requested over HTTPS and show up.
+
+---
+
 ## 0.4.10
 
 Arroxy adds genuinely tiny downloads for slow or metered connections, lets you hide the download profiles you never use, and finally documents the global hotkey in the README.
