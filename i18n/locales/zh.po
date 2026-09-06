@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "批量 URL"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "无需等待 — 现在加入队列的文件在下载时仍会使用真实文件名。"
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "正在获取视频详情… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "已选 {{count}} 个"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "取消全选"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "播放列表顺序"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "正在获取上传日期…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "排序"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "最旧优先"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "最新优先"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

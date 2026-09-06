@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Toplu URL’ler"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Beklemenize gerek yok — şimdi kuyruğa eklenen dosyalar indirilirken yine de gerçek adlarını alır."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Video ayrıntıları alınıyor… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} seçildi"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Hiçbirini seçme"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Oynatma listesi sırası"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Yükleme tarihleri alınıyor…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sıralama"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Önce en eskiler"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Önce en yeniler"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

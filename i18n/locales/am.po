@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "ብዙ URLዎች"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "መጠበቅ አያስፈልግም — አሁን ወደ ሰልፍ የገቡ ፋይሎች ሲወርዱ ትክክለኛ ስሞቻቸውን ያገኛሉ።"
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "የቪዲዮ ዝርዝሮች በመ 가져오는 ላይ… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} ተመርጠዋል"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "ምንም አትምረጥ"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "የቪዲዮ ዝርዝር ቅደም"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "የአፕሎድ ቀናት እየጫኑ…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "ደርድር"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "የቆዩት መጀመሪያ"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "አዳዲሶቹ መጀመሪያ"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

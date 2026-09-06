@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Групни URL-ови"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Преузимање детаља видеа… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} изабрано"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Поништи избор"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Редослед плејлисте"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Преузимање датума објављивања…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Сортирање"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Прво најстарије"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Прво најновије"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

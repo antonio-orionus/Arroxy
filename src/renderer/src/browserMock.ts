@@ -18,7 +18,20 @@ import type {
 } from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import {canApplyQueueActionToItem, findLiveQueueDuplicate} from '@shared/queueActions.js'
-import {BROWSER_MOCK_LAUNCH_MODES, buildScenarioAppApiState, getScenario, normalVideoProbe, playlistProbe, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type BrowserMockLaunchMode, type BrowserMockScenario} from './dev/browserMockScenarios.js'
+import {
+	BROWSER_MOCK_LAUNCH_MODES,
+	bilibiliHydrationVideo,
+	buildScenarioAppApiState,
+	getScenario,
+	normalVideoProbe,
+	playlistProbe,
+	readScenarioIdFromUrl,
+	readUrlParams,
+	shouldMockEmptyPlaylistScopeReload,
+	shouldShowBrowserMockStartupSplash,
+	type BrowserMockLaunchMode,
+	type BrowserMockScenario
+} from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 
@@ -347,6 +360,17 @@ export function installBrowserMock(): void {
 					const itemCount = mockPlaylistItemCount(input.url)
 					await delay(1400)
 					return {ok: true, data: playlistProbe(itemCount, {webpageUrl: input.url})}
+				}
+
+				// Hydration theater for the playlist-hydration scenario: per-item
+				// video probes resolve mock Bilibili parts after the standard
+				// delay so the picker's resolving/progress states stay visible.
+				// p5 fails and p7 resolves dateless by builder contract.
+				if (scenarioState.scenario.id === 'playlist-hydration' && input.playlistMode === 'video') {
+					await delay(1400)
+					const video = bilibiliHydrationVideo(input.url)
+					if (video === null) return {ok: false, error: {kind: 'other', code: 'unknown', message: 'Mock hydration failure'}}
+					return {ok: true, data: {...video, webpageUrl: input.url}}
 				}
 
 				if (scenarioState.probeResult) {

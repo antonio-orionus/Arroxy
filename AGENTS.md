@@ -20,8 +20,8 @@ The defaults below apply to every change in this codebase.
 Arroxy is a Bun workspace (`workspaces: ["packages/*"]`), not a single app:
 
 - `src/` — the Electron app (`main` / `preload` / `renderer` / `shared`).
-- `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published to npm as `yt-dlp-bridge`; the app consumes it via `workspace:*`.
-- `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published to npm as `ytdlp-errors`; `yt-dlp-bridge` depends on it.
+- `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published as `yt-dlp-bridge` on npm; the app consumes it via `workspace:*`.
+- `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published as `ytdlp-errors` on npm; `yt-dlp-bridge` depends on it.
 
 **Both packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
 

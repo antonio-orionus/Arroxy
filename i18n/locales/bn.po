@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "বাল্ক URL"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "অপেক্ষা করার দরকার নেই — এখন সারিতে যোগ করা ফাইলগুলো ডাউনলোডের সময় তাদের আসল নামই পাবে।"
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "ভিডিওর বিস্তারিত আনা হচ্ছে… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}}টি নির্বাচিত"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "কোনোটি নির্বাচন করবেন না"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "প্লেলিস্টের ক্রম"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "আপলোডের তারিখ আনা হচ্ছে…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "সাজান"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "পুরোনো আগে"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "নতুন আগে"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

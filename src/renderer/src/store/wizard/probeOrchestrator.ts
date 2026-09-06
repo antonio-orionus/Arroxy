@@ -18,7 +18,7 @@ import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
 import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
-import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
+import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, isHydrationMode, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
@@ -84,7 +84,29 @@ function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}
 	set(projectPlaylistProbeResult(probe, get(), firstProbe))
 }
 
+// Hydrate only placeholder rows in the playlist picker — fully-populated
+// extractors (YouTube, etc.) carry real titles and incur zero extra probes.
+// Bounded concurrency, run-seq cancellation, and write-back reuse the bulk
+// hydration worker, and the picker renders its counters too: the progress
+// banner and per-row status are shared surfaces, not bulk-only.
+function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
+	const state = get()
+	if (state.wizardMode !== 'playlist') return
+	const targets = state.playlistItems.flatMap((entry, index) => (entry.titleIsPlaceholder === true && entry.isContainer !== true ? [{id: entry.id, url: entry.url, index}] : []))
+	if (targets.length === 0) {
+		// A completed reload with nothing to hydrate must not leave the previous
+		// run's `resolving` status behind — the workers were invalidated at
+		// reload start and will never complete the counter.
+		if (state.bulkMetadataStatus === 'resolving') set({bulkMetadataStatus: 'done', bulkMetadataCompleted: 0, bulkMetadataTotal: 0, bulkMetadataById: {}})
+		return
+	}
+	const runId = nextBulkMetadataRunId()
+	set({bulkMetadataStatus: 'resolving', bulkMetadataCompleted: 0, bulkMetadataTotal: targets.length, bulkMetadataById: Object.fromEntries(targets.map(target => [target.id, 'pending' as const]))})
+	void hydrateBulkMetadata(targets, set, runId)
+}
+
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
+	nextBulkMetadataRunId()
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode)
 	set(startProjection.patch)
@@ -102,6 +124,7 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 		// Background-scan the destination folder so the sync alert is ready by the
 		// time the user looks at the list — no manual "Sync with folder" click.
 		void get().scanDownloadedInFolder()
+		startPlaylistPlaceholderHydration(set, get)
 	} else {
 		applyVideoProbeResult(result.data, set, get, firstProbe)
 	}
@@ -118,6 +141,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 	const previousItemsCount = state.playlistItems.length
 	const previousLikelyCapped = state.playlistLikelyCapped
 
+	nextBulkMetadataRunId()
 	void window.appApi.downloads.probeCancel()
 	logStep('playlistScopeReloadStart', state.wizardStep, state.wizardStep, {...pickWizardSnapshot(state), requestedScope: scope, previousScope, previousItemsCount})
 	set({playlistScope: scope, playlistScopeReloading: true, playlistScopeError: null, playlistLikelyCapped: false, playlistProbeProgress: null})
@@ -129,6 +153,9 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 		const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`
 		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: 'exception', message})
+		// The run was invalidated at reload start, so resume hydration for the
+		// restored list (or clear a stuck `resolving` status when it needs none).
+		startPlaylistPlaceholderHydration(set, get)
 		return
 	}
 
@@ -136,6 +163,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 		const message = playlistScopeReloadErrorMessage(result.error)
 		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, errorKind: result.error.kind, message})
+		startPlaylistPlaceholderHydration(set, get)
 		return
 	}
 
@@ -143,6 +171,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 		const message = 'No videos matched that playlist scope. Your previous list is still shown.'
 		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
 		logStep('playlistScopeReloadFailure', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, restoredScope: previousScope, previousItemsCount, resultKind: result.data.kind, message})
+		startPlaylistPlaceholderHydration(set, get)
 		return
 	}
 
@@ -151,6 +180,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 	set({playlistScopeReloading: false, playlistScopeError: null, playlistProbeProgress: null})
 	logStep('playlistScopeReloadSuccess', get().wizardStep, get().wizardStep, {...pickWizardSnapshot(get()), requestedScope: scope, previousScope, previousItemsCount, returnedEntryCount, visibleItemsCount: get().playlistItems.length})
 	void get().scanDownloadedInFolder()
+	startPlaylistPlaceholderHydration(set, get)
 }
 
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
@@ -193,6 +223,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		playlistScopeError: RESET_WIZARD_STATE.playlistScopeError,
 		playlistScope: RESET_WIZARD_STATE.playlistScope,
 		playlistSelection: RESET_WIZARD_STATE.playlistSelection,
+		playlistSortMode: RESET_WIZARD_STATE.playlistSortMode,
 		multiProfileMode: RESET_WIZARD_STATE.multiProfileMode,
 		playlistProfileAssignments: RESET_WIZARD_STATE.playlistProfileAssignments,
 		removedPlaylistItemIds: RESET_WIZARD_STATE.removedPlaylistItemIds,
@@ -313,7 +344,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		cancelBulkMetadata: (reason = 'queue-submit') => {
 			const state = get()
-			if (state.wizardMode !== 'bulk' || state.bulkMetadataStatus !== 'resolving') return
+			// Playlist-picker hydration counts too: after submit its probes would
+			// otherwise keep racing the queue's own downloads for the same site
+			// rate limiter, which on guarded sites times out both.
+			if (!isHydrationMode(state.wizardMode) || state.bulkMetadataStatus !== 'resolving') return
 			cancelBulkMetadataProbes(reason, state)
 			set({bulkMetadataStatus: 'done'})
 		},
@@ -381,6 +415,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		setPlaylistSelection: s => set({playlistSelection: s, wizardSubtitleSkipped: false}),
+
+		setPlaylistSortMode: mode => set({playlistSortMode: mode}),
 
 		// Logged here (not inside WizardCommands) so every other transition in
 		// this file keeps calling logStep the same way, right after the set() —
@@ -457,7 +493,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const state = get()
 			const target = nextWizardStep(buildWizardStepGraph(state), 'backward')
 			if (!target) return
-			if (state.wizardMode === 'bulk' && target === 'url' && state.bulkMetadataStatus === 'resolving') {
+			if (isHydrationMode(state.wizardMode) && target === 'url' && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('back-to-url', state)
 				// cancelBulkMetadataProbes only bumps the run id and aborts the
 				// in-flight probe — it owns no state. The expansion pass sets these
@@ -491,7 +527,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		reset: () => {
 			const state = get()
 			const fromStep = state.wizardStep
-			if (state.wizardMode === 'bulk' && state.bulkMetadataStatus === 'resolving') {
+			if (isHydrationMode(state.wizardMode) && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('reset', state)
 			}
 			WizardCommands.resetAll(set)

@@ -22,6 +22,8 @@ import {notify} from '@renderer/lib/notify.js'
 import {hasOpenOverlay, isTypingTarget} from '../shared/isTypingTarget.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
+import {PlaylistSortControl} from './PlaylistSortControl.js'
+import {sortPlaylistEntries} from '../../store/wizard/playlistSort.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 
 const PLAYLIST_PROBE_SKELETON_ROWS = [
@@ -101,6 +103,8 @@ export function StepPlaylistItems(): ReactNode {
 		bulkMetadataCompleted,
 		bulkMetadataTotal,
 		bulkMetadataById,
+		playlistSortMode,
+		setPlaylistSortMode,
 		syncedDownloadedIds,
 		syncScanState,
 		setPlaylistItemSelected,
@@ -158,7 +162,20 @@ export function StepPlaylistItems(): ReactNode {
 	// Removed rows (Task 11) drop out of the rendered list entirely — unlike an
 	// unchecked row, which stays visible but excluded from the download.
 	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
-	const visibleItems = useMemo(() => playlistItems.filter(entry => !removedSet.has(entry.id)), [playlistItems, removedSet])
+	// Sort is a view concern: ids and playlistIndex stay immutable probe-order
+	// identity so selection survives sort changes. Bulk mode keeps intake order.
+	const visibleItems = useMemo(() => {
+		const kept = playlistItems.filter(entry => !removedSet.has(entry.id))
+		return isBulk ? kept : sortPlaylistEntries(kept, playlistSortMode)
+	}, [playlistItems, removedSet, isBulk, playlistSortMode])
+	const sortFetching = bulkMetadataStatus === 'resolving'
+	// Upload-date sort must not unlock mid-hydration. "Some row has a timestamp"
+	// would open it as soon as the first probe lands, and the rows still waiting
+	// sort last — so the user sees a list labelled "Oldest first" that is mostly
+	// intake order. Wait for hydration to settle, then require at least one
+	// timestamp among the sortable (non-container) rows; rows whose probe failed
+	// still sort last, which is the documented fallback rather than a lie.
+	const canSortByUpload = useMemo(() => !sortFetching && playlistItems.some(entry => entry.isContainer !== true && entry.timestamp !== undefined), [playlistItems, sortFetching])
 	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
 	// Rows that are themselves playlists: visible but not downloadable, so the
 	// list needs to say why rather than leaving three dead checkboxes unexplained.
@@ -309,6 +326,8 @@ export function StepPlaylistItems(): ReactNode {
 					</div>
 				</div>
 
+				{!isBulk ? <PlaylistSortControl value={playlistSortMode} onChange={setPlaylistSortMode} canSortByUpload={canSortByUpload} isFetching={sortFetching} disabled={playlistBusy} /> : null}
+
 				{playlistBusy ? (
 					<PlaylistProbeSkeletonRows showThumbnail={playlistItems.length === 0 || hasAnyThumbnail} />
 				) : (
@@ -320,11 +339,16 @@ export function StepPlaylistItems(): ReactNode {
 							</p>
 						)}
 
-						{isBulk && bulkMetadataStatus === 'resolving' && (
-							<p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="bulk-metadata-status">
-								<span className="h-3 w-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
-								{t('wizard.playlist.bulkMetadataResolving', {done: bulkMetadataCompleted, total: bulkMetadataTotal})}
-							</p>
+						{bulkMetadataStatus === 'resolving' && (
+							<>
+								<p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="bulk-metadata-status">
+									<span className="h-3 w-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
+									{t('wizard.playlist.bulkMetadataResolving', {done: bulkMetadataCompleted, total: bulkMetadataTotal})}
+								</p>
+								<p className="text-xs text-muted-foreground" data-testid="bulk-metadata-optional">
+									{t('wizard.playlist.bulkMetadataOptional')}
+								</p>
+							</>
 						)}
 
 						{!isBulk && syncScanState === 'done' && !syncDismissed && foundCount > 0 && (
@@ -398,7 +422,7 @@ export function StepPlaylistItems(): ReactNode {
 											// isn't empty, but not downloadable — its URL addresses a whole set.
 											const isPlaylistRow = entry.isContainer === true
 											const isAlreadyDownloaded = !!(entry.videoId && syncedIdSet.has(entry.videoId))
-											const bulkRowStatus = isBulk ? bulkMetadataById[entry.id] : undefined
+											const bulkRowStatus = bulkMetadataById[entry.id]
 											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
 											// Bound once per row instead of calling removalTargets(entry.id) twice
 											// below — both the click handler and the count label must agree on
@@ -435,6 +459,11 @@ export function StepPlaylistItems(): ReactNode {
 																		<span className="block truncate font-mono text-[11px] text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
 																			{bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
 																			{entry.url}
+																		</span>
+																	) : bulkRowStatusKey ? (
+																		<span className="flex items-center gap-1.5 truncate text-[11px] text-muted-foreground" data-testid={`playlist-row-status-${entry.id}`}>
+																			{bulkRowStatus === 'resolving' ? <span className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : null}
+																			{t(bulkRowStatusKey)}
 																		</span>
 																	) : null}
 																</span>

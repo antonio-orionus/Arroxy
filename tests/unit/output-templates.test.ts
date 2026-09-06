@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vitest'
+import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
 import {canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
 import type {PlaylistEntry} from '@shared/types.js'
 
@@ -65,6 +66,30 @@ describe('playlistEntryTemplateMeta', () => {
 
 	it('uses the entry playlist index so folders and filenames agree on numbering', () => {
 		expect(playlistEntryTemplateMeta(ENTRY, 'Nature Docs', 'PL1').playlistIndex).toBe(7)
+	})
+
+	it('leaves title undefined for a placeholder entry so {title} late-binds to yt-dlp', () => {
+		const placeholder: PlaylistEntry = {...ENTRY, title: 'Untitled · #1', titleIsPlaceholder: true}
+		const meta = playlistEntryTemplateMeta(placeholder, 'Nature Docs', 'PL1')
+		expect(meta.title).toBeUndefined()
+	})
+
+	it('keeps a real title even when it looks untitled-adjacent', () => {
+		const meta = playlistEntryTemplateMeta(ENTRY, 'Nature Docs', 'PL1')
+		expect(meta.title).toBe('First')
+	})
+
+	it('late-binds {title} through bind + compile for a placeholder entry', () => {
+		// Mirrors the real Bilibili flat entry: no id, so both {title} and {id}
+		// stay late-bound for yt-dlp to resolve at download time.
+		const placeholder: PlaylistEntry = {...ENTRY, title: 'Untitled · #1', titleIsPlaceholder: true, videoId: null}
+		const meta = playlistEntryTemplateMeta(placeholder, 'Nature Docs', 'PL1')
+		const bound = bindFilenameTemplate('{title} [{id}]', meta, {outputDir: '/tmp', platform: 'linux'})
+		expect(bound.ok).toBe(true)
+		if (!bound.ok) return
+		expect(bound.template).toContain('{title}')
+		const compiled = compileFilenameTemplate(bound.template)
+		expect(compiled).toEqual({ok: true, template: '%(title).120B [%(id)s].%(ext)s'})
 	})
 })
 

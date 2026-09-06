@@ -45,6 +45,7 @@ export const RESET_WIZARD_STATE = {
 	playlistScopeError: null as string | null,
 	playlistScope: {items: {kind: 'app-limit'}} as PlaylistScope,
 	playlistSelection: null as PlaylistSelection | null,
+	playlistSortMode: 'api' as const,
 	multiProfileMode: false,
 	playlistProfileAssignments: {} as Record<string, DownloadProfileRef>,
 	removedPlaylistItemIds: [] as string[],

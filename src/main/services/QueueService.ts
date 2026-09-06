@@ -31,13 +31,14 @@ import {QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey} from '@shared/
 import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {ProgressFormatter} from '@shared/progressFormat.js'
 import {ProgressNormalizer} from '@shared/progressNormalizer.js'
-import {moveQueueArtifactPath, queueArtifactFromPath, upsertQueueArtifact} from '@shared/queueArtifacts.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {findInadmissibleQueueItem, findLiveDuplicate} from './download/queueAdmission.js'
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
+import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
+import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
 import {describeMutation, statusSummary, type Mutation} from './download/queueMutation.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
 
@@ -108,6 +109,15 @@ export class QueueService extends EventEmitter {
 	})
 	onProbeAbort(hook: (itemId: string) => void): void {
 		this.probeAbortHook = hook
+	}
+
+	// Deferred title-backfill probe, wired at the composition root
+	// (registerQueueHandlers). Unset it resolves nothing — rows keep their
+	// flag for the artifact backstop. Same setter pattern as onProbeAbort.
+	private titleProbe: (url: string) => Promise<string | null> = () => Promise.resolve(null)
+	private readonly titleBackfill = new QueueTitleBackfill({items: () => this.items, patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), probeTitle: url => this.titleProbe(url)})
+	setTitleBackfillProbe(probe: (url: string) => Promise<string | null>): void {
+		this.titleProbe = probe
 	}
 
 	// Assigned in the constructor, not here: a field initializer cannot safely
@@ -564,22 +574,7 @@ export class QueueService extends EventEmitter {
 	}
 
 	consumeArtifactEvent(event: QueueArtifactEvent): void {
-		const item = this.findArtifactTargetByJobId(event.jobId)
-		if (!item) return
-		const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal})
-		const patcher = (prev: QueueItem): QueueItem => {
-			if (!event.fromPath) return {...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)}
-			if (!prev.artifacts.some(existing => existing.path === event.fromPath)) return {...prev, artifacts: upsertQueueArtifact(prev.artifacts, artifact)}
-			return {...prev, artifacts: upsertQueueArtifact(moveQueueArtifactPath(prev.artifacts, event.fromPath, event.path), artifact)}
-		}
-		this.commit({kind: 'patch', itemId: item.id, reason: `artifact:${event.kind}`, patcher})
-	}
-
-	private findArtifactTargetByJobId(jobId: string): QueueItem | undefined {
-		const activeItem = this.findByJobId(jobId)
-		if (activeItem) return activeItem
-		const itemId = this.finalArtifactTargets.get(jobId)
-		return itemId ? this.findItem(itemId) : undefined
+		ingestQueueArtifactEvent({items: () => this.items, finalTargets: this.finalArtifactTargets, commitPatch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, event)
 	}
 
 	// commit pipeline --------------------------------------------------------
@@ -628,6 +623,7 @@ export class QueueService extends EventEmitter {
 				this.items.push(...mutation.items)
 				this.persist()
 				this.emit('added', {items: mutation.items, atIdx})
+				this.titleBackfill.enqueueForItems(mutation.items)
 				break
 			}
 			case 'event': {

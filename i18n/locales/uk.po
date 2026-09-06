@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Масові URL"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Чекати не потрібно — файли, додані до черги зараз, однаково отримають справжні імена під час завантаження."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Отримання відомостей про відео… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} вибрано"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Зняти вибір"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Порядок плейлиста"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Завантаження дат публікації…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Сортування"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Спочатку старі"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Спочатку нові"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

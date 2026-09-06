@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "URL nyingi"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Hakuna haja ya kungoja — faili zinazowekwa kwenye foleni sasa bado zitapata majina yao halisi zinapopakuliwa."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Inaleta maelezo ya video… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} zimechaguliwa"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Futa uchaguzi wote"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Mpangilio wa orodha"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Inapata tarehe za kupakia…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Panga"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Za zamani kwanza"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Mpya kwanza"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

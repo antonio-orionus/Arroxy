@@ -105,6 +105,15 @@ export const INTER_JOB_SLEEP_MS = 500
 // the priority lane out.
 export const PRIORITY_LANE_HEADROOM = MAX_CONCURRENT_DOWNLOADS - NORMAL_LANE_CAP
 
+// Per-probe wall-clock budget for metadata probes (--dump-json), shared by the
+// interactive wizard probe, renderer-side bulk/playlist hydration, and the
+// main-process queue title backfill. Probes should never legitimately take this
+// long; without a cap a stalled yt-dlp run (extractor giving up but not
+// exiting) freezes the caller indefinitely. 180s because throttled links
+// measured ~110s per item and ~50s for flat probes, so a tighter budget would
+// kill exactly the probes these layers exist for.
+export const PROBE_TIMEOUT_MS = 180_000
+
 export const DEFAULT_PLAYLIST_PROBE_LIMIT = 100
 export const PLAYLIST_PROBE_LIMIT_PRESETS = [50, 100, 250, 500, 1000] as const
 

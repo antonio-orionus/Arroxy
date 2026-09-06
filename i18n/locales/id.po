@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "URL massal"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Tidak perlu menunggu — file yang antre sekarang tetap mendapatkan nama aslinya saat diunduh."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Mengambil detail video… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} dipilih"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Pilih tidak ada"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Urutan daftar putar"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Mengambil tanggal unggah…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Urutkan"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Terlama dulu"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Terbaru dulu"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

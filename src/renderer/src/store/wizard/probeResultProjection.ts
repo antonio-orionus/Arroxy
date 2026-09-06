@@ -1,6 +1,7 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
@@ -29,7 +30,7 @@ export interface BulkStartProjection {
  * it. Rows expanded out of a collection URL arrive with real values, so they
  * skip hydration entirely instead of re-probing every entry one at a time.
  */
-export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'isContainer'>
+export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'timestamp' | 'isContainer' | 'titleIsPlaceholder'>
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatch {
 	return {
@@ -82,6 +83,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardWebpageUrl: '',
 			wizardProbeInfoJsonRef: undefined,
 			multiProfileMode: false,
+			playlistSortMode: 'api' as const,
 			playlistProfileAssignments: {},
 			removedPlaylistItemIds: [],
 			removedSelectionIds: []
@@ -192,6 +194,10 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		wizardFormatsDegraded: null,
 		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
 		playlistSelection,
+		// A first probe is a new list: reset the view sort to api order. Scope
+		// reloads reuse this projection with firstProbe=false and keep the
+		// user's current sort.
+		...(firstProbe ? {playlistSortMode: 'api' as const} : {}),
 		// This projection also lands `reloadPlaylistWithScope`'s result, which
 		// does not go through projectProbeStart's reset. Without resetting these
 		// here too, restoreRemovedPlaylistItems after a scope reload can re-add
@@ -232,7 +238,9 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			...(seed?.duration === undefined ? {} : {duration: seed.duration}),
 			...(seed?.uploader === undefined ? {} : {uploader: seed.uploader}),
 			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
-			...(seed?.isContainer === true ? {isContainer: true as const} : {})
+			...(seed?.timestamp === undefined ? {} : {timestamp: seed.timestamp}),
+			...(seed?.isContainer === true ? {isContainer: true as const} : {}),
+			...placeholderTitleFlag(seed?.titleIsPlaceholder)
 		}
 	})
 	const seededCount = playlistItems.length - metadataTargets.length

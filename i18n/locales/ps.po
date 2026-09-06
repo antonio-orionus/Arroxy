@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "ډېر URLونه"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "انتظار ته اړتیا نشته — هغه فایلونه چې اوس کتار ته اچوئ، د ښکته کولو پر مهال به خپل اصلي نومونه ترلاسه کړي."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "د ویډیو جزییات راوړل کېږي… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} غوره شوي"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "هیڅ غوره مه کوئ"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "د غږولو لړليک ترتیب"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "د اپلوډ نېټې ترلاسه کیږي…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "ترتیب"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "تر ټولو زاړه لومړی"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "تر ټولو نوي لومړی"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

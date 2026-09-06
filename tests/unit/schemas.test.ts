@@ -54,6 +54,14 @@ describe('probeSchema — playlist scope', () => {
 	it.each([{items: {kind: 'first', count: 0}}, {items: {kind: 'first', count: 1.5}}, {items: {kind: 'range', from: 0, to: 10}}, {items: {kind: 'range', from: 20, to: 10}}])('rejects %j', playlistScope => {
 		expect(probeSchema.safeParse({url, playlistMode: 'playlist', playlistScope}).success).toBe(false)
 	})
+
+	it.each([1000, 60_000, 120_000, 300_000])('accepts timeoutMs %j', timeoutMs => {
+		expect(probeSchema.safeParse({url, timeoutMs}).success).toBe(true)
+	})
+
+	it.each([-1, 0, 999, 1.5, 300_001, '120000', null])('rejects timeoutMs %j', timeoutMs => {
+		expect(probeSchema.safeParse({url, timeoutMs}).success).toBe(false)
+	})
 })
 
 describe('infoDictSchema — null normalization + _type discrimination', () => {

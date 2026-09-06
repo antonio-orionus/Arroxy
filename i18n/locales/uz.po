@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Ommaviy URLlar"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Kutish shart emas — hozir navbatga qo‘yilgan fayllar yuklab olinganda baribir haqiqiy nomlarini oladi."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Video tafsilotlari olinmoqda… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} ta tanlangan"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Hammasini bekor qilish"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Ijro roʻyxati tartibi"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Yuklash sanalari olinmoqda…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Saralash"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Avval eskilari"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Avval yangilari"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

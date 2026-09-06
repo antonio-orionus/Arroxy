@@ -5,7 +5,7 @@ import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState, SetState} from '../store/types.js'
 import {bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
-import {buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
+import {bilibiliHydrationVideo, buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
 import {buildQueueItems} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
 import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
@@ -24,6 +24,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'playlist-no-thumbnails',
 	'playlist-long-titles',
 	'playlist-nested',
+	'playlist-hydration',
 	'bulk-stress',
 	'profiles-home-empty',
 	'hotkey-hint',
@@ -118,7 +119,7 @@ export interface ScenarioWorkbenchStore {
 	setState: SetState
 }
 
-export {bulkStressFixture, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload}
+export {bilibiliHydrationVideo, bulkStressFixture, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload}
 
 export function readUrlParams(location: Pick<Location, 'search'> | URL): BrowserMockUrlParams {
 	const params = new URLSearchParams(location.search.replace(/^\?/, ''))
@@ -152,6 +153,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe'},
 	{id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe'},
 	{id: 'playlist-nested', group: 'Playlist', title: 'Nested playlists', description: 'Rows that are themselves playlists/albums/channels: badged, disabled, and explained.', kind: 'probe'},
+	{id: 'playlist-hydration', group: 'Playlist', title: 'Hydrating series', description: 'Bilibili-style series: placeholder rows resolve titles, thumbnails, and upload dates in the background (p5 fails, p7 stays dateless, dates are shuffled so the upload sort visibly reorders).', kind: 'probe'},
 	{id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk'},
 	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
 	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered.', kind: 'profile'},

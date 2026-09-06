@@ -14,6 +14,7 @@
 
 import type {PlaylistEntry, PlaylistScope, ProbeError, ProbeResult} from '@shared/types.js'
 import type {Result} from '@shared/result.js'
+import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isCollectionUrl} from '@shared/urlIntent.js'
 import {bulkLogger, redactUrlForLog} from '@renderer/lib/bulkLogger.js'
 import type {BulkEntrySeed} from './probeResultProjection.js'
@@ -33,7 +34,7 @@ export interface BulkExpansion {
 type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, ProbeError>>
 
 function seedFor(entry: PlaylistEntry): BulkEntrySeed {
-	return {title: entry.title, thumbnail: entry.thumbnail, duration: entry.duration, videoId: entry.videoId, uploader: entry.uploader, uploadDate: entry.uploadDate}
+	return {title: entry.title, thumbnail: entry.thumbnail, duration: entry.duration, videoId: entry.videoId, uploader: entry.uploader, uploadDate: entry.uploadDate, timestamp: entry.timestamp, ...(entry.isContainer === true ? {isContainer: true as const} : {}), ...placeholderTitleFlag(entry.titleIsPlaceholder)}
 }
 
 export function hasCollectionUrl(urls: readonly string[]): boolean {

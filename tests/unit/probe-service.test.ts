@@ -519,4 +519,30 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.uploader).toBeUndefined()
 	})
+
+	it('carries timestamp on a video probe', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', timestamp: 1754000000, extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+
+		expect(r.ok).toBe(true)
+		if (!r.ok) throw new Error('expected ok probe result')
+		expect(r.data.kind).toBe('video')
+		if (r.data.kind !== 'video') throw new Error('expected video probe result')
+		expect(r.data.timestamp).toBe(1754000000)
+	})
+
+	it('leaves timestamp undefined when yt-dlp omits it', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v1', formats: [{format_id: 'f1', ext: 'mp4'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://example.com/v1')
+
+		expect(r.ok).toBe(true)
+		if (!r.ok) throw new Error('expected ok probe result')
+		expect(r.data.kind).toBe('video')
+		if (r.data.kind !== 'video') throw new Error('expected video probe result')
+		expect(r.data.timestamp).toBeUndefined()
+	})
 })

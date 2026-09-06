@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "URL hàng loạt"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Không cần chờ — các tệp cho vào hàng đợi bây giờ vẫn sẽ có tên thật khi tải xuống."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Đang lấy chi tiết video… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} đã chọn"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Bỏ chọn tất cả"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Thứ tự danh sách phát"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Đang tải ngày tải lên…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sắp xếp"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Cũ nhất trước"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Mới nhất trước"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

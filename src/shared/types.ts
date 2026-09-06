@@ -12,6 +12,7 @@ export type {
 	PlaylistScope,
 	PlaylistVideoCodec,
 	PlaylistVideoTier,
+	PlaylistSortMode,
 	DownloadProfile,
 	DownloadProfileAudioFormat,
 	DownloadProfileIcon,
@@ -288,6 +289,11 @@ export interface QueueItem {
 	id: string
 	url: string
 	title: string
+	// Set only when the row title was fabricated by the flat-playlist probe
+	// fallback (`Untitled · #N`). Cleared the moment a real title lands from
+	// any source (background backfill, artifact derivation), so backfill
+	// layers never fight and reruns stay idempotent.
+	titleIsPlaceholder?: true
 	thumbnail: string
 	outputDir: string
 	formatLabel: string
@@ -352,6 +358,7 @@ export interface PlaylistEntry {
 	// Sparse on flat playlist probes — an absent value collapses the folder.
 	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
 	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
+	timestamp?: number // epoch seconds from yt-dlp `timestamp`; too coarse-grained uploadDate cannot order same-day uploads
 	// This row is a channel/playlist/album, not a video. Set only on the rows
 	// mapPlaylistEntries keeps when a result holds nothing else (its all-nested
 	// fallback) — they stay visible so the picker isn't empty, but they must
@@ -360,6 +367,14 @@ export interface PlaylistEntry {
 	// shape is not always tellable — `music.youtube.com/browse/MPRE…` is an album
 	// that classifyUrlIntent reads as `unknown`.
 	isContainer?: true
+	// The display title was fabricated by the flat-playlist probe fallback
+	// (`Untitled · #N`) because the extractor supplied no title. A fabricated
+	// title must never bind into a filename — playlistEntryTemplateMeta maps it
+	// to `title: undefined` so bindFilenameTemplate leaves `{title}` as a
+	// late-binding placeholder for yt-dlp to resolve at download time. The
+	// site-provided id hint (YouTube browse-id prefixes) is a real hint, not a
+	// placeholder, and does not set this flag.
+	titleIsPlaceholder?: true
 }
 
 export type ProbePlaylistMode = 'auto' | 'video' | 'playlist'
@@ -377,6 +392,9 @@ export interface ProbeInput {
 	// later (probeCancel(key)) without touching other in-flight probes —
 	// hotkey probing rows key on their queue item id.
 	ownerKey?: string
+	// Per-call budget override (ms). Background hydration pins 180s; absent
+	// keeps the 180s interactive default. Mirrors probeSchema's timeoutMs.
+	timeoutMs?: number
 }
 
 export type ProbeDegradationReason = 'botWall' | 'extractor'
@@ -410,6 +428,7 @@ export interface VideoProbeResult extends ProbeCommon {
 	// See PlaylistEntry for why these exist and how absence is handled.
 	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
 	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
+	timestamp?: number // epoch seconds from yt-dlp `timestamp`
 }
 
 export interface PlaylistProbeResult extends ProbeCommon {

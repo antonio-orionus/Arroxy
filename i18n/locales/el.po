@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "Μαζικά URL"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Δεν χρειάζεται να περιμένετε — τα αρχεία που μπαίνουν στην ουρά τώρα θα πάρουν τα πραγματικά τους ονόματα κατά τη λήψη."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Ανάκτηση λεπτομερειών βίντεο… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} επιλεγμένα"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Αποεπιλογή όλων"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Σειρά αναπαραγωγής"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Φόρτωση ημερομηνιών μεταφόρτωσης…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Ταξινόμηση"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Παλαιότερα πρώτα"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Νεότερα πρώτα"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"

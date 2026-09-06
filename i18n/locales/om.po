@@ -1661,6 +1661,10 @@ msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
 msgstr "URL hedduu"
 
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Eeguu hin barbaachisu — faayilonni amma tarree galchan iyyuu buufamanis maqaa isaanii dhugaa argatu."
+
 msgctxt "wizard.playlist.bulkMetadataResolving"
 msgid "Fetching video details… {{done}}/{{total}}"
 msgstr "Ibsa viidiyoo fidaa… {{done}}/{{total}}"
@@ -1824,6 +1828,26 @@ msgstr "{{count}} filataman"
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Tokkollee hin filin"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Tartiiba tarree"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Guyyaa fe'umsaa fidaa jira…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Tartiibessi"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Moofaa jalqaba"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Haaraa jalqaba"
 
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
