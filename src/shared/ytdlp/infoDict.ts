@@ -106,7 +106,10 @@ const videoFieldsSchema = z.object({
 	channel: optStr,
 	creator: optStr,
 	uploader_id: optStr,
-	upload_date: optStr
+	upload_date: optStr,
+	// Epoch seconds. Sparse on flat playlist probes — rows without it sort last
+	// until hydration fills it in. Validated by resolveTimestamp in ProbeService.
+	timestamp: optNum
 })
 
 const playlistFieldsSchema = z.object({id: optStr, title: optStr, thumbnail: optStr, thumbnails: z.preprocess(nullToUndef, z.array(thumbnailObjectSchema).optional()), webpage_url: optStr, extractor: optStr, extractor_key: optStr, playlist_id: optStr, playlist_title: optStr, playlist_count: optNum})

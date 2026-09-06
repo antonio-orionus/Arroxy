@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Hammasini bekor qilish"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Ijro roʻyxati tartibi"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Yuklash sanalari olinmoqda…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Saralash"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Avval eskilari"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Avval yangilari"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "Sinxronlashni qo‘llash"

@@ -91,6 +91,15 @@ export const playlistSelectionSchema = z.discriminatedUnion('kind', [z.object({k
 export type PlaylistSelection = z.infer<typeof playlistSelectionSchema>
 export const DEFAULT_PLAYLIST_SELECTION: PlaylistSelection = {kind: 'video', tier: 'best', codec: 'best'}
 
+// Playlist picker sort order. View-only: `id` and `playlistIndex` are immutable
+// probe-order identity (mixes repeat videos, so ids are per-row), and sorting
+// never recomputes them. Upload-time modes need per-row `timestamp`; rows
+// without one sort last, stable in api order. No update-time option — no
+// extractor Arroxy supports provides a modified timestamp.
+export const playlistSortModeSchema = z.enum(['api', 'upload-asc', 'upload-desc'])
+export type PlaylistSortMode = z.infer<typeof playlistSortModeSchema>
+export const PLAYLIST_SORT_MODES = playlistSortModeSchema.options
+
 const downloadProfileAudioSchema = z.object({format: downloadProfileAudioFormatSchema, bitrateKbps: audioBitrateSchema.optional()})
 
 const downloadProfileVideoAudioSchema = z.object({format: z.enum(['best', 'm4a'])})

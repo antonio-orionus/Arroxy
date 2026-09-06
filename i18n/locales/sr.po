@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Поништи избор"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Редослед плејлисте"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Преузимање датума објављивања…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Сортирање"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Прво најстарије"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Прво најновије"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "Примени синхронизацију"

@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "すべて解除"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "プレイリスト順"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "アップロード日を取得中…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "並べ替え"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "古い順"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "新しい順"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "同期を適用"

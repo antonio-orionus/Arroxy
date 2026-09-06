@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Deseleccionar todo"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Orden de la lista"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Obteniendo fechas de subida…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Ordenar"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Más antiguos primero"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Más recientes primero"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "Aplicar sincronización"

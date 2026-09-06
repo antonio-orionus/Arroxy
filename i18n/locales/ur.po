@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "کوئی نہیں منتخب کریں"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "پلے لسٹ کی ترتیب"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "اپ لوڈ کی تاریخیں لائی جا رہی ہیں…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "ترتیب"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "سب سے پرانا پہلے"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "سب سے نیا پہلے"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "سنک لاگو کریں"

@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "Pilih tidak ada"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Urutan daftar putar"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Mengambil tanggal unggah…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Urutkan"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Terlama dulu"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Terbaru dulu"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "Terapkan sinkronisasi"

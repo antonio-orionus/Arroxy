@@ -272,6 +272,31 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a'])
 	})
+
+	it('numbers playlist_index contiguously in sorted order over selected rows only', () => {
+		const items: PlaylistEntry[] = [
+			{id: '1::a', title: 'A', url: 'https://example.com/a', thumbnail: '', playlistIndex: 1, videoId: 'a', timestamp: 300},
+			{id: '2::b', title: 'B', url: 'https://example.com/b', thumbnail: '', playlistIndex: 2, videoId: 'b', timestamp: 100},
+			{id: '3::c', title: 'C', url: 'https://example.com/c', thumbnail: '', playlistIndex: 3, videoId: 'c', timestamp: 200}
+		]
+		const settings = defaultAppSettings('/downloads')
+		settings.common.filenameTemplate = '{playlist_index} - {title} [{id}]'
+		// Select only b + a: sorted by upload-asc that's b(100) then a(300),
+		// so b gets 001 and a gets 002 with no gap.
+		const state = manualPlaylistState({settings, playlistItems: items, selectedPlaylistItemIds: ['1::a', '2::b'], playlistSortMode: 'upload-asc'})
+
+		const prepared = prepareManualQueueSubmission(state, 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items[0]?.url).toBe('https://example.com/b')
+		expect(prepared?.items[1]?.url).toBe('https://example.com/a')
+		const templates = prepared?.items.map(item => (item.job.kind === 'ranged-format' ? item.job.filenameTemplate : null))
+		expect(templates?.[0]).toContain('001 - B [b]')
+		expect(templates?.[1]).toContain('002 - A [a]')
+		// Never written back onto the entries themselves.
+		expect(items[0]?.playlistIndex).toBe(1)
+		expect(items[1]?.playlistIndex).toBe(2)
+	})
 })
 
 describe('prepareMultiProfileQueueSubmission', () => {

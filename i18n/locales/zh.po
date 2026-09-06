@@ -1825,6 +1825,26 @@ msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
 msgstr "取消全选"
 
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "播放列表顺序"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "正在获取上传日期…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "排序"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "最旧优先"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "最新优先"
+
 msgctxt "wizard.playlist.syncApply"
 msgid "Apply sync"
 msgstr "应用同步"

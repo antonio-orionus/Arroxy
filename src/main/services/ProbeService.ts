@@ -318,9 +318,12 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 		}
 		// Fallback chain: explicit title → site-specific id hint → neutral
 		// placeholder. The id hint is YouTube-only today (browse-id prefixes);
-		// generic sites return null and fall through to the placeholder.
+		// generic sites return null and fall through to the placeholder. Only the
+		// final placeholder branch marks titleIsPlaceholder — the id hint is a
+		// real site-provided hint, not a fabrication.
 		const rawTitle = typeof v.title === 'string' ? v.title.trim() : ''
 		const idHint = idStr ? siteHintForId(site, idStr) : null
+		const isPlaceholderTitle = rawTitle.length === 0 && idHint == null
 		const title = rawTitle.length > 0 ? rawTitle : (idHint ?? untitledLabel(playlistIndex))
 		// PlaylistEntry.id must be unique per row, not per video. YouTube mix /
 		// radio feeds frequently repeat the same video at multiple positions;
@@ -335,6 +338,7 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 		// than dropping keeps the picker populated; downstream refuses to queue
 		// them, which is what the flag exists for.
 		const isContainer = idStr.length > 0 && siteIsNestedContainer(site, idStr)
+		const entryTimestamp = resolveTimestamp(v)
 		out.push({
 			id: `${playlistIndex}::${videoIdPart}`,
 			url,
@@ -345,7 +349,9 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 			videoId: idStr.length > 0 ? idStr : null,
 			uploader: resolveUploader(v),
 			uploadDate: resolveUploadDate(v),
-			...(isContainer ? {isContainer: true as const} : {})
+			...(entryTimestamp !== undefined ? {timestamp: entryTimestamp} : {}),
+			...(isContainer ? {isContainer: true as const} : {}),
+			...(isPlaceholderTitle ? {titleIsPlaceholder: true as const} : {})
 		})
 		fallbackIndex++
 	}
@@ -373,6 +379,14 @@ function resolveUploadDate(source: {upload_date?: string}): string | undefined {
 	return source.upload_date !== undefined && /^\d{8}$/.test(source.upload_date) ? source.upload_date : undefined
 }
 
+function resolveTimestamp(source: {timestamp?: number}): number | undefined {
+	// Epoch seconds from yt-dlp. uploadDate is YYYYMMDD — too coarse to order
+	// same-day uploads within a series — so the sort control needs this finer
+	// value. Anything non-finite, non-integer, or non-positive is not a real
+	// timestamp, so drop it the same way resolveUploadDate drops malformed dates.
+	return typeof source.timestamp === 'number' && Number.isFinite(source.timestamp) && Number.isInteger(source.timestamp) && source.timestamp > 0 ? source.timestamp : undefined
+}
+
 function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): ProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
@@ -396,6 +410,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		ageLimit: typeof info.age_limit === 'number' && info.age_limit > 0 ? info.age_limit : undefined,
 		uploader: resolveUploader(info),
 		uploadDate: resolveUploadDate(info),
+		timestamp: resolveTimestamp(info),
 		...(degraded ? {degraded} : {})
 	}
 }

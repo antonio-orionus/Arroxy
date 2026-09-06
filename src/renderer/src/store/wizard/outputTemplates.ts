@@ -101,7 +101,18 @@ export function singleTemplateMeta(state: SingleTemplateState): TemplateMetadata
 /**
  * Metadata for one playlist entry. Per-entry fields win; the playlist-level
  * fields come from the probe that produced the entry.
+ *
+ * A placeholder title (`titleIsPlaceholder`, fabricated as `Untitled · #N` by
+ * the flat-playlist probe) maps to `title: undefined` so bindFilenameTemplate
+ * leaves `{title}` as a late-binding placeholder for yt-dlp to resolve at
+ * download time — the same deferral path `{uploader}` and `{id}` already use.
+ *
+ * `playlistIndexOverride` carries the display number (position within the
+ * sorted selected set, 1-based). It is passed only as TemplateMetadata —
+ * never written back onto the entry, whose `playlistIndex` stays immutable
+ * probe-order identity so selection survives sort changes.
  */
-export function playlistEntryTemplateMeta(entry: PlaylistEntry, playlistTitle: string, playlistId: string): TemplateMetadata {
-	return {title: omitBlank(entry.title), id: omitBlank(entry.videoId), uploader: omitBlank(entry.uploader), uploadDate: omitBlank(entry.uploadDate), playlistTitle: omitBlank(playlistTitle), playlistId: omitBlank(playlistId), playlistIndex: entry.playlistIndex}
+export function playlistEntryTemplateMeta(entry: PlaylistEntry, playlistTitle: string, playlistId: string, playlistIndexOverride?: number): TemplateMetadata {
+	const title = entry.titleIsPlaceholder === true ? undefined : omitBlank(entry.title)
+	return {title, id: omitBlank(entry.videoId), uploader: omitBlank(entry.uploader), uploadDate: omitBlank(entry.uploadDate), playlistTitle: omitBlank(playlistTitle), playlistId: omitBlank(playlistId), playlistIndex: playlistIndexOverride ?? entry.playlistIndex}
 }

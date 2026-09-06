@@ -20,6 +20,14 @@ function errorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error)
 }
 
+// Hydration runs for bulk rows and for playlist-picker placeholder rows alike.
+// Single mode has no playlistItems, so the per-row identity check below already
+// no-ops there — the allowlist exists to keep a stale run from writing bulk
+// rows into a playlist picker (or vice versa) after a mode switch.
+function isHydrationMode(mode: AppState['wizardMode']): boolean {
+	return mode === 'bulk' || mode === 'playlist'
+}
+
 export function cancelBulkMetadataProbes(reason: BulkMetadataCancelReason, state?: Pick<AppState, 'bulkMetadataStatus' | 'bulkMetadataCompleted' | 'bulkMetadataTotal'>): void {
 	const previousRunId = bulkMetadataRunSeq
 	const nextRunId = nextBulkMetadataRunId()
@@ -53,7 +61,7 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 		let finalStatus: BulkMetadataItemStatus = 'failed'
 
 		set(state => {
-			if (state.wizardMode !== 'bulk') return {}
+			if (!isHydrationMode(state.wizardMode)) return {}
 			const current = state.playlistItems[index]
 			if (current?.id !== id || current.url !== url) return {}
 			return {bulkMetadataById: {...state.bulkMetadataById, [id]: 'resolving'}}
@@ -80,7 +88,7 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 				bulkLogger.warn('Bulk metadata probe returned non-video result', {runId, itemId: id, index: index + 1, url: redactUrlForLog(url), kind: result.data.kind})
 				if (bulkMetadataRunSeq === runId) {
 					set(state => {
-						if (state.wizardMode !== 'bulk') return {}
+						if (!isHydrationMode(state.wizardMode)) return {}
 						const current = state.playlistItems[index]
 						if (current?.id !== id || current.url !== url) return {}
 						return {playlistItems: state.playlistItems.map(entry => (entry.id === id ? {...entry, isContainer: true as const} : entry)), selectedPlaylistItemIds: state.selectedPlaylistItemIds.filter(selectedId => selectedId !== id)}
@@ -94,13 +102,30 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 			finalStatus = 'done'
 			bulkLogger.info('Bulk metadata resolved', {runId, itemId: id, index: index + 1, title: probe.title, videoId: probe.videoId, extractor: probe.extractor, duration: probe.duration})
 			set(state => {
-				if (state.wizardMode !== 'bulk') return {}
+				if (!isHydrationMode(state.wizardMode)) return {}
 				const current = state.playlistItems[index]
 				if (current?.id !== id || current.url !== url) return {}
 				return {
-					playlistItems: state.playlistItems.map(entry =>
-						entry.id === id ? {...entry, title: probe.title.trim() || entry.title, thumbnail: probe.thumbnail || entry.thumbnail, duration: probe.duration ?? entry.duration, videoId: probe.videoId ?? entry.videoId, ...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {})} : entry
-					)
+					playlistItems: state.playlistItems.map(entry => {
+						if (entry.id !== id) return entry
+						const realTitle = probe.title.trim()
+						const next = {
+							...entry,
+							title: realTitle || entry.title,
+							thumbnail: probe.thumbnail || entry.thumbnail,
+							duration: probe.duration ?? entry.duration,
+							videoId: probe.videoId ?? entry.videoId,
+							uploader: probe.uploader ?? entry.uploader,
+							uploadDate: probe.uploadDate ?? entry.uploadDate,
+							timestamp: probe.timestamp ?? entry.timestamp,
+							...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {})
+						}
+						// A real title retires the placeholder flag so {title}
+						// binds literally from here on; an empty probe title keeps
+						// the old label and the flag so it stays late-bound.
+						if (realTitle) delete next.titleIsPlaceholder
+						return next
+					})
 				}
 			})
 		} catch (error) {
@@ -109,7 +134,7 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 		} finally {
 			if (bulkMetadataRunSeq === runId) {
 				set(state => {
-					if (state.wizardMode !== 'bulk') return {}
+					if (!isHydrationMode(state.wizardMode)) return {}
 					const current = state.playlistItems[index]
 					if (current?.id !== id || current.url !== url) return {}
 					const completed = Math.min(state.bulkMetadataCompleted + 1, state.bulkMetadataTotal)

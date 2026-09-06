@@ -22,6 +22,8 @@ import {notify} from '@renderer/lib/notify.js'
 import {hasOpenOverlay, isTypingTarget} from '../shared/isTypingTarget.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
+import {PlaylistSortControl} from './PlaylistSortControl.js'
+import {sortPlaylistEntries} from '../../store/wizard/playlistSort.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 
 const PLAYLIST_PROBE_SKELETON_ROWS = [
@@ -101,6 +103,8 @@ export function StepPlaylistItems(): ReactNode {
 		bulkMetadataCompleted,
 		bulkMetadataTotal,
 		bulkMetadataById,
+		playlistSortMode,
+		setPlaylistSortMode,
 		syncedDownloadedIds,
 		syncScanState,
 		setPlaylistItemSelected,
@@ -158,7 +162,14 @@ export function StepPlaylistItems(): ReactNode {
 	// Removed rows (Task 11) drop out of the rendered list entirely — unlike an
 	// unchecked row, which stays visible but excluded from the download.
 	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
-	const visibleItems = useMemo(() => playlistItems.filter(entry => !removedSet.has(entry.id)), [playlistItems, removedSet])
+	// Sort is a view concern: ids and playlistIndex stay immutable probe-order
+	// identity so selection survives sort changes. Bulk mode keeps intake order.
+	const visibleItems = useMemo(() => {
+		const kept = playlistItems.filter(entry => !removedSet.has(entry.id))
+		return isBulk ? kept : sortPlaylistEntries(kept, playlistSortMode)
+	}, [playlistItems, removedSet, isBulk, playlistSortMode])
+	const hasSortTimestamps = useMemo(() => playlistItems.some(entry => entry.timestamp !== undefined), [playlistItems])
+	const sortFetching = bulkMetadataStatus === 'resolving'
 	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
 	// Rows that are themselves playlists: visible but not downloadable, so the
 	// list needs to say why rather than leaving three dead checkboxes unexplained.
@@ -308,6 +319,8 @@ export function StepPlaylistItems(): ReactNode {
 						</Button>
 					</div>
 				</div>
+
+				{!isBulk ? <PlaylistSortControl value={playlistSortMode} onChange={setPlaylistSortMode} hasTimestamps={hasSortTimestamps} isFetching={sortFetching} disabled={playlistBusy} /> : null}
 
 				{playlistBusy ? (
 					<PlaylistProbeSkeletonRows showThumbnail={playlistItems.length === 0 || hasAnyThumbnail} />

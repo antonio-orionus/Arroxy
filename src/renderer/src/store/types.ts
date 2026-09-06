@@ -20,6 +20,7 @@ import type {
 	PlaylistEntry,
 	PlaylistScope,
 	PlaylistSelection,
+	PlaylistSortMode,
 	Preset,
 	ProbeError,
 	ProbeProgressEvent,
@@ -109,6 +110,10 @@ export interface ProbeOrchestratorSlice {
 	playlistScopeError: string | null
 	playlistScope: PlaylistScope
 	playlistSelection: PlaylistSelection | null
+	// View-only sort for the playlist picker. Never recomputed onto entries:
+	// `id` and `playlistIndex` stay probe-order identity so selection survives
+	// sort changes. Submission numbers 001..N over the sorted selected set.
+	playlistSortMode: PlaylistSortMode
 	multiProfileMode: boolean
 	playlistProfileAssignments: Record<string, DownloadProfileRef>
 	removedPlaylistItemIds: string[]
@@ -159,6 +164,7 @@ export interface ProbeOrchestratorSlice {
 	selectPlaylistRange: (from: number, to: number) => void
 	confirmPlaylistSelection: () => void
 	setPlaylistSelection: (s: PlaylistSelection) => void
+	setPlaylistSortMode: (mode: PlaylistSortMode) => void
 	enterMultiProfileMode: () => void
 	exitMultiProfileMode: () => void
 	assignPlaylistProfile: (itemIds: string[], ref: DownloadProfileRef) => void

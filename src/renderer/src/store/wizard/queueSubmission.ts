@@ -15,6 +15,7 @@ import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, r
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
+import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
@@ -111,13 +112,16 @@ function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
 	return tierLabel
 }
 
-function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistGroupId: string, lane: QueueLane): QueueItem {
+function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistGroupId: string, lane: QueueLane, displayIndex?: number): QueueItem {
 	const {playlistSelection} = state
 	if (!playlistSelection) throw new Error('playlist selection missing')
 
 	const formatLabel = resolvePlaylistFormatLabel(playlistSelection)
 	const template = resolveJobFilenameTemplate(undefined, state.settings?.common?.filenameTemplate)
-	const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId)
+	// Display number within the sorted selected set (001..N contiguous). Passed
+	// only as template metadata — never written back onto the entry, whose
+	// playlistIndex stays immutable probe-order identity.
+	const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId, displayIndex)
 	// Per entry, not per playlist: a nesting template may sort entries into
 	// different folders (by uploader, by date) within the same playlist.
 	const baseDir = templateOwnsDirs(undefined, state.settings?.common?.filenameTemplate) ? templateOutputDir(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), template, templateMeta) : resolvePlaylistDir(state)
@@ -188,9 +192,11 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 	}
 
 	const playlistGroupId = generateId()
-	const selected = selectedPlaylistEntries(state)
+	const selected = sortPlaylistEntries(selectedPlaylistEntries(state), state.playlistSortMode)
 	if (selected.length === 0) return null
-	const items = selected.map(e => buildPlaylistQueueItem(e, state, playlistGroupId, lane))
+	// Contiguous 001..N over the sorted selected rows — no gaps from unselected
+	// or removed entries. Display-only: entry.playlistIndex is untouched.
+	const items = selected.map((e, index) => buildPlaylistQueueItem(e, state, playlistGroupId, lane, index + 1))
 	// The playlist root, not the first item's folder — a nesting template can put
 	// item 0 in an uploader-specific subfolder that does not represent the set.
 	const baseDir = resolvePlaylistDir(state)
@@ -198,7 +204,7 @@ export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): 
 }
 
 export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
-	const selected = selectedPlaylistEntries(state)
+	const selected = sortPlaylistEntries(selectedPlaylistEntries(state), state.playlistSortMode)
 	if (selected.length === 0) return null
 
 	const profiles = allDownloadProfiles(state.settings?.profiles)
@@ -206,12 +212,12 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
-	const items = selected.map(entry => {
+	const items = selected.map((entry, index) => {
 		const profile = resolveAssignedProfile(entry.id, state.playlistProfileAssignments, profiles, baseline)
 		const ref = downloadProfileRefFor(profile, state.settings?.profiles)
 		const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
 		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
-		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId)
+		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId, index + 1)
 		const outputDir = templateOutputDir(resolveDownloadProfileOutputDir(profile, outputContext), template, templateMeta)
 		return buildProfileEntryQueueItem({
 			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail},
@@ -330,10 +336,11 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	const playlistRoot = ownsDirs ? resolveDownloadProfileOutputDir(profile, outputContext) : playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
 	const writeM3u = (state.settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, state.settings?.common?.filenameTemplate)
 	// Quick Download queues a probe result directly, with no picker in between,
-	// so this is the seam where container entries have to be dropped.
-	const entries = probe.entries.filter(isQueueableEntry)
-	const items = entries.map(entry => {
-		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId)
+	// so this is the seam where container entries have to be dropped. Numbering
+	// is contiguous over the queued entries in the current view sort.
+	const entries = sortPlaylistEntries(probe.entries.filter(isQueueableEntry), state.playlistSortMode)
+	const items = entries.map((entry, index) => {
+		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId, index + 1)
 		return buildProfileEntryQueueItem({
 			entry,
 			probeInfoJsonRef: entry.probeInfoJsonRef,
