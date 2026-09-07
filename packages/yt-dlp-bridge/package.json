@@ -36,7 +36,7 @@
 		"pack:dry-run": "bun pm pack --dry-run"
 	},
 	"keywords": ["yt-dlp", "yt-dlp-node", "youtube-dl", "media-downloader", "video-downloader", "ffmpeg", "metadata-extraction", "command-builder", "argv", "no-shell", "subprocess", "redaction", "structured-errors", "typescript", "esm", "zod", "mcp"],
-	"dependencies": {"ytdlp-errors": "workspace:*", "zod": "4.4.3"},
+	"dependencies": {"ytdlp-errors": "workspace:*", "zod": "4.5.4"},
 	"devDependencies": {"@types/node": "26.2.0", "typescript": "6.0.3", "vitest": "4.1.10"},
 	"engines": {"node": ">=22.13"},
 	"publishConfig": {"access": "public"}
