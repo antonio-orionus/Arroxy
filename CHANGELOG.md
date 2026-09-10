@@ -8,6 +8,25 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.12
+
+Subtitles no longer stack two lines on top of each other, and installing on macOS is a single command that no longer ends at a Gatekeeper dialog.
+
+## Highlights
+
+### Subtitles Stop Doubling Up
+
+- Automatic captions arrive from the site with each line still on screen when the next one begins, so players showed two subtitles at once for a second or two, over and over, for the whole video. Each line now ends exactly where the next one starts, and only one is ever on screen.
+- Nothing about the wording changes. The pass moves timings and leaves every character of the text, along with any styling and positioning the file carries, exactly as it was.
+- This used to work only for YouTube, and only when Arroxy was certain the video came from there — a mixed batch of links could leave it unsure and quietly skip the fix. It now runs for automatic captions from every site Arroxy supports, whatever else is in the batch.
+
+### One Command To Install On macOS
+
+- `brew install --cask antonio-orionus/arroxy/arroxy` is now a genuine one-liner. Homebrew stopped stripping the quarantine flag on unsigned apps in 4.7, which left every install ending at a "cannot be opened" dialog; the cask now clears it itself.
+- Every platform's README shows a single copy-paste command, and there is a scripted installer for Linux and macOS that checks the download against the published checksums before installing.
+
+---
+
 ## 0.4.11
 
 Arroxy can order a playlist by upload date instead of whatever order the site hands over, rows that arrive nameless now fill in their real titles by themselves, and slow sites get long enough to answer before Arroxy gives up on them.
