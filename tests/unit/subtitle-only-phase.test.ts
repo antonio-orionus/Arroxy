@@ -7,9 +7,9 @@ import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
-import {dedupeSubtitleFiles} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles} from '@main/services/subtitlePostProcess.js'
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -82,25 +82,25 @@ describe('SubtitleOnlyPhase', () => {
 		expect(ctx.active.usedExtractorFallback).toBe(true)
 	})
 
-	it('writeAutoSubs=false → dedupeSubtitleFiles not called', async () => {
+	it('writeAutoSubs=false → postProcessSubtitleFiles not called', async () => {
 		await SubtitleOnlyPhase.run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: false}}}}))
-		expect(dedupeSubtitleFiles).not.toHaveBeenCalled()
+		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
-	it('writeAutoSubs=true → dedupeSubtitleFiles called after success', async () => {
+	it('writeAutoSubs=true → postProcessSubtitleFiles called after success', async () => {
 		const paths = ['/tmp/video.en.srt']
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}, subtitlePaths: paths})
 		await SubtitleOnlyPhase.run(ctx)
-		expect(dedupeSubtitleFiles).toHaveBeenCalledOnce()
-		const [calledPaths] = vi.mocked(dedupeSubtitleFiles).mock.calls[0]
+		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
+		const [calledPaths] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
 		expect(calledPaths).toEqual(paths)
 	})
 
-	it('dedupeSubtitleFiles shouldAbort reflects cancelRequested', async () => {
+	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}})
 		await SubtitleOnlyPhase.run(ctx)
 
-		const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][3]
+		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0][1].shouldAbort
 		expect(shouldAbort?.()).toBe(false)
 		ctx.active.cancelRequested = true
 		expect(shouldAbort?.()).toBe(true)

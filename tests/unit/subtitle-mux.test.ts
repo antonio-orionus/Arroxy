@@ -10,9 +10,10 @@ vi.mock('@main/utils/process.js', async importOriginal => {
 
 import {readFile, writeFile, rename, unlink} from 'node:fs/promises'
 import {spawnFFmpeg} from '@main/utils/process.js'
-import {dedupeSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
 
 const JOB_ID = 'job-1'
+const YT_URL = 'https://www.youtube.com/watch?v=k1qBgIw8fAQ'
 
 function makeFakeFFmpeg(exitCode: number) {
 	return createTranscriptProcess([{close: exitCode}])
@@ -175,15 +176,15 @@ describe('muxSubtitlesIntoVideo — outcomes', () => {
 	})
 })
 
-// ─── dedupeSubtitleFiles ─────────────────────────────────────────────────────
+// ─── postProcessSubtitleFiles ────────────────────────────────────────────────
 
-describe('dedupeSubtitleFiles', () => {
+describe('postProcessSubtitleFiles', () => {
 	it('.srt: reads, dedupes, writes back if content changed', async () => {
 		const original = '1\n00:00:00,000 --> 00:00:01,000\nhello\n\n2\n00:00:00,500 --> 00:00:01,500\nhello\nworld\n'
 		const parsed = '1\n00:00:00,000 --> 00:00:01,500\nhello\nworld'
 		vi.mocked(readFile).mockResolvedValue(original)
 
-		await dedupeSubtitleFiles(['/tmp/video.en.srt'], 'youtube', JOB_ID, () => false)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
 
 		expect(readFile).toHaveBeenCalledWith('/tmp/video.en.srt', 'utf8')
 		// dedupeSrt will produce different content → writeFile should be called
@@ -195,14 +196,14 @@ describe('dedupeSubtitleFiles', () => {
 		const original = 'WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nhello\n\n00:00:00.500 --> 00:00:01.500\nhello world\n'
 		vi.mocked(readFile).mockResolvedValue(original)
 
-		await dedupeSubtitleFiles(['/tmp/video.en.vtt'], 'youtube', JOB_ID, () => false)
+		await postProcessSubtitleFiles(['/tmp/video.en.vtt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
 
 		expect(readFile).toHaveBeenCalledWith('/tmp/video.en.vtt', 'utf8')
 		expect(writeFile).toHaveBeenCalled()
 	})
 
 	it('unknown extension → skipped silently, no read/write', async () => {
-		await dedupeSubtitleFiles(['/tmp/video.en.ass'], 'youtube', JOB_ID, () => false)
+		await postProcessSubtitleFiles(['/tmp/video.en.ass'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
 
 		expect(readFile).not.toHaveBeenCalled()
 		expect(writeFile).not.toHaveBeenCalled()
@@ -213,7 +214,7 @@ describe('dedupeSubtitleFiles', () => {
 		const content = '1\n00:00:00,000 --> 00:00:01,000\nhello'
 		vi.mocked(readFile).mockResolvedValue(content)
 
-		await dedupeSubtitleFiles(['/tmp/video.en.srt'], 'youtube', JOB_ID, () => false)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
 
 		expect(writeFile).not.toHaveBeenCalled()
 	})
@@ -221,21 +222,53 @@ describe('dedupeSubtitleFiles', () => {
 	it('read error → logged and swallowed, never throws', async () => {
 		vi.mocked(readFile).mockRejectedValue(new Error('ENOENT'))
 
-		await expect(dedupeSubtitleFiles(['/tmp/missing.srt'], 'youtube', JOB_ID, () => false)).resolves.toBeUndefined()
+		await expect(postProcessSubtitleFiles(['/tmp/missing.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})).resolves.toBeUndefined()
 	})
 
 	it('shouldAbort() true before file → that file is skipped', async () => {
 		vi.mocked(readFile).mockResolvedValue('content')
 
-		await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], 'youtube', JOB_ID, () => true)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => true})
 
 		expect(readFile).not.toHaveBeenCalled()
+	})
+
+	// Rolling-cue dedupe is YouTube-only (it rewrites text and would corrupt
+	// legitimate phrase repeats elsewhere), but the timing-only overlap pass is
+	// safe everywhere and must still run.
+	it('non-YouTube source → no rolling dedupe, overlaps still clamped', async () => {
+		const overlapping = '1\n00:00:00,000 --> 00:00:03,000\nalpha\n\n2\n00:00:01,000 --> 00:00:04,000\nbeta\n'
+		vi.mocked(readFile).mockResolvedValue(overlapping)
+
+		await postProcessSubtitleFiles(['/tmp/video.en.srt'], {extractor: 'vimeo', url: 'https://vimeo.com/12345', jobId: JOB_ID, shouldAbort: () => false})
+
+		const [, written] = vi.mocked(writeFile).mock.calls[0]
+		// Both cues survive with their text intact — only the first end moved.
+		expect(written).toContain('alpha')
+		expect(written).toContain('beta')
+		expect(written).toContain('00:00:00,000 --> 00:00:01,000')
+	})
+
+	// A job does not always carry a usable extractor (a mixed bulk batch
+	// resolves to an empty one), so the URL is the fallback fingerprint.
+	it('empty extractor + YouTube URL → still treated as YouTube', async () => {
+		const rolling = '1\n00:00:00,000 --> 00:00:01,000\nhello\n\n2\n00:00:00,500 --> 00:00:01,500\nhello world\n'
+		vi.mocked(readFile).mockResolvedValue(rolling)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
+		const [, viaExtractor] = vi.mocked(writeFile).mock.calls[0]
+
+		vi.clearAllMocks()
+		vi.mocked(readFile).mockResolvedValue(rolling)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt'], {extractor: '', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
+		const [, viaUrl] = vi.mocked(writeFile).mock.calls[0]
+
+		expect(viaUrl).toBe(viaExtractor)
 	})
 
 	it('processes multiple files', async () => {
 		vi.mocked(readFile).mockResolvedValue('1\n00:00:00,000 --> 00:00:01,000\nhello')
 
-		await dedupeSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], 'youtube', JOB_ID, () => false)
+		await postProcessSubtitleFiles(['/tmp/video.en.srt', '/tmp/video.ja.srt'], {extractor: 'youtube', url: YT_URL, jobId: JOB_ID, shouldAbort: () => false})
 
 		expect(readFile).toHaveBeenCalledTimes(2)
 	})
