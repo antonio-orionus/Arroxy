@@ -10,9 +10,10 @@ import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import log from 'electron-log/main.js'
 import {dedupeSrt} from './srtDedupe.js'
 import {dedupeVtt} from './vttDedupe.js'
+import {normalizeCueOverlaps} from './cueOverlap.js'
 import {spawnFFmpeg} from '@main/utils/process.js'
 import {detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
-import {siteForExtractor} from '@shared/sites/index.js'
+import {siteForJob} from '@shared/sites/index.js'
 
 export const logger = log.scope('subs')
 
@@ -70,28 +71,46 @@ function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: {path:
 	return args
 }
 
-// Auto-caption rolling-cue dedupe — only YouTube emits captions where each
-// cue duplicates the previous + 1 word. Other extractors emit conventional
-// cues; running the dedupe on them would corrupt content with legitimate
-// phrase repeats. The Site adapter owns the gating.
+// Post-process the auto-caption files phase 2 wrote. Two passes, in order:
 //
-// Failures are logged and swallowed: dedupe glitches must never lose a video.
-export async function dedupeSubtitleFiles(paths: readonly string[], extractor: string, jobId: string, shouldAbort: () => boolean): Promise<void> {
-	if (!siteForExtractor(extractor).needsAutoCaptionDedupe) return
+//   1. Rolling-cue dedupe — only YouTube emits captions where each cue
+//      duplicates the previous + 1 word. Other extractors emit conventional
+//      cues; running it on them would corrupt content with legitimate phrase
+//      repeats, so the Site adapter gates it.
+//   2. Overlap normalization — timing-only, no text touched, safe everywhere.
+//      Auto-captions arrive with each cue still on screen as the next begins,
+//      which players render as two stacked subtitles.
+//
+// Pass 2 is a no-op after pass 1 (the dedupe already emits strictly ordered
+// cues), so YouTube pays for it once and every other site gets the fix it was
+// missing.
+//
+// Failures are logged and swallowed: a post-process glitch must never lose a
+// video. The per-file outcome is logged either way — a silent skip here used to
+// be indistinguishable from a pass that ran and found nothing to do.
+export async function postProcessSubtitleFiles(paths: readonly string[], opts: {extractor: string; url: string; jobId: string; shouldAbort: () => boolean}): Promise<void> {
+	const site = siteForJob(opts.extractor, opts.url)
+	const {jobId} = opts
 	await Promise.all(
 		paths.map(async path => {
-			if (shouldAbort()) return
+			if (opts.shouldAbort()) return
 			const ext = extname(path).toLowerCase()
 			const dedupe = ext === '.srt' ? dedupeSrt : ext === '.vtt' ? dedupeVtt : null
-			if (!dedupe) return
+			if (!dedupe) {
+				logger.info('subtitle post-process skipped — unsupported format', {jobId, path})
+				return
+			}
 			try {
 				const original = await readFile(path, 'utf8')
-				const cleaned = dedupe(original)
-				if (cleaned !== original && !shouldAbort()) {
-					await writeFile(path, cleaned, 'utf8')
+				const deduped = site.needsAutoCaptionDedupe ? dedupe(original) : original
+				const {content, clamped} = normalizeCueOverlaps(deduped)
+				const changed = content !== original
+				if (changed && !opts.shouldAbort()) {
+					await writeFile(path, content, 'utf8')
 				}
+				logger.info('subtitle post-process', {jobId, path, site: site.id, rollingDedupe: site.needsAutoCaptionDedupe, overlapsClamped: clamped, changed})
 			} catch (err) {
-				logger.warn('auto-caption dedupe skipped', {jobId, path, message: err instanceof Error ? err.message : String(err)})
+				logger.warn('subtitle post-process failed', {jobId, path, site: site.id, message: err instanceof Error ? err.message : String(err)})
 			}
 		})
 	)

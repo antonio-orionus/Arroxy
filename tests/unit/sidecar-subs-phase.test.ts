@@ -10,9 +10,9 @@ const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: fa
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({dedupeSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
-import {dedupeSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -99,25 +99,28 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		expect(ctx.active.usedExtractorFallback).toBe(true)
 	})
 
-	it('writeAutoSubs=false → dedupeSubtitleFiles not called', async () => {
+	it('writeAutoSubs=false → postProcessSubtitleFiles not called', async () => {
 		await SidecarSubsPhase(false).run(makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, writeAuto: false}}}}))
-		expect(dedupeSubtitleFiles).not.toHaveBeenCalled()
+		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
-	it('writeAutoSubs=true → dedupeSubtitleFiles called with subtitlePaths', async () => {
+	it('writeAutoSubs=true → postProcessSubtitleFiles called with subtitlePaths', async () => {
 		const paths = ['/tmp/video.en.srt']
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, writeAuto: true}}}, subtitlePaths: paths})
 		await SidecarSubsPhase(false).run(ctx)
-		expect(dedupeSubtitleFiles).toHaveBeenCalledOnce()
-		const [calledPaths] = vi.mocked(dedupeSubtitleFiles).mock.calls[0]
+		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
+		const [calledPaths, calledOpts] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
 		expect(calledPaths).toEqual(paths)
+		// The site gate reads these — forwarding the wrong ones silently disables
+		// the rolling dedupe or the URL fallback.
+		expect(calledOpts).toMatchObject({extractor: BASE_JOB.extractor, url: BASE_INPUT.url, jobId: expect.any(String)})
 	})
 
-	it('dedupeSubtitleFiles shouldAbort reflects cancelRequested', async () => {
+	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, writeAuto: true}}}, subtitlePaths: ['/tmp/video.en.srt']})
 		await SidecarSubsPhase(false).run(ctx)
 
-		const shouldAbort = vi.mocked(dedupeSubtitleFiles).mock.calls[0][3]
+		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0][1].shouldAbort
 		expect(shouldAbort?.()).toBe(false)
 		ctx.active.cancelRequested = true
 		expect(shouldAbort?.()).toBe(true)

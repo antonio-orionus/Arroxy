@@ -34,3 +34,17 @@ export function siteForUrl(url: string): Site {
 export function siteForExtractor(extractor: string | undefined | null): Site {
 	return isYouTubeExtractor(extractor) ? youtubeSite : genericSite
 }
+
+// Resolve a Site adapter for a running job, with the job's URL as the fallback.
+// A job does not always carry a usable extractor — a mixed bulk batch resolves
+// to an empty one, and it is renderer-supplied either way — while the URL is
+// always present.
+//
+// A present extractor stays authoritative, including when it names another
+// site: it is yt-dlp's own verdict on what produced the media, so it must not
+// be second-guessed by a hostname that a redirect or stale metadata made
+// disagree. The URL is consulted only when there is no extractor to trust,
+// where the alternative is degrading silently to the generic adapter.
+export function siteForJob(extractor: string | undefined | null, url: string): Site {
+	return extractor?.trim() ? siteForExtractor(extractor) : siteForUrl(url)
+}

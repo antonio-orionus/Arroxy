@@ -1,6 +1,6 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
-import {dedupeSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
@@ -90,7 +90,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			if (subResult.usedExtractorFallback) active.usedExtractorFallback = true
 
 			if (subs.writeAuto) {
-				await dedupeSubtitleFiles(active.subtitlePaths, preparedJob.extractor, job.id, () => active.cancelRequested)
+				await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
 			}
 
 			if (embedAfter) {
