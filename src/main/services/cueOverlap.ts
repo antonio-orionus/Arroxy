@@ -18,12 +18,16 @@
 const TIMESTAMP = String.raw`(?:\d+:)?\d{1,3}:\d{2}[.,]\d{1,3}`
 const TIMESTAMP_PARTS = /^(?:(\d+):)?(\d{1,3}):(\d{2})([.,])(\d{1,3})$/
 
-// Anchored per line so only a real cue timing line matches — a timestamp
-// mentioned inside cue text never does. The four groups split the line into
+// Anchored to the start of a single line. The four groups split it into
 // indent / start / arrow / end, which gives the end token's exact offset
 // without a second scan.
 // eslint-disable-next-line security/detect-non-literal-regexp -- TIMESTAMP is a module-local literal, not user input
-const CUE_TIMING_RE = new RegExp(String.raw`^([^\S\r\n]*)(${TIMESTAMP})([^\S\r\n]*-->[^\S\r\n]*)(${TIMESTAMP})`, 'gm')
+const CUE_TIMING_RE = new RegExp(String.raw`^([^\S\r\n]*)(${TIMESTAMP})([^\S\r\n]*-->[^\S\r\n]*)(${TIMESTAMP})`)
+
+// WebVTT blocks that are not cues. Their content is free text and may well
+// contain a timing-shaped line (`NOTE\n00:00:00.000 --> 00:00:10.000 chapter`),
+// which must never be treated as a cue.
+const METADATA_BLOCK_RE = /^(?:NOTE|STYLE|REGION)(?:[ \t]|$)/
 
 export interface CueOverlapResult {
 	// The rewritten file. Identical to the input when `clamped` is 0.
@@ -67,15 +71,47 @@ function formatLike(ms: number, template: string): string | null {
 	return `${pad(Math.floor(totalSeconds / 3_600), hours.length)}:${pad(Math.floor(totalSeconds / 60) % 60, minutes.length)}:${seconds}${separator}${fraction}`
 }
 
+// Walk the file as blank-line-separated blocks rather than scanning every line,
+// because "looks like a timing line" is not enough to identify a cue. Both
+// formats put the timing on the first such line of a cue block; anything after
+// it is payload, and a NOTE/STYLE/REGION block is not a cue at all. Scanning
+// line-wise would rewrite a timestamp printed inside subtitle text or a comment.
 function collectTimings(content: string): CueTiming[] {
 	const timings: CueTiming[] = []
-	CUE_TIMING_RE.lastIndex = 0
-	for (let match = CUE_TIMING_RE.exec(content); match !== null; match = CUE_TIMING_RE.exec(content)) {
-		const [, indent, start, arrow, end] = match
-		const startMs = parseTimestamp(start)
-		const endMs = parseTimestamp(end)
-		if (startMs === null || endMs === null) continue
-		timings.push({startMs, endMs, endOffset: match.index + indent.length + start.length + arrow.length, endLength: end.length, endText: end})
+	let inBlock = false
+	let blockIsMetadata = false
+	let blockHasTiming = false
+
+	for (let offset = 0; offset <= content.length; ) {
+		const newline = content.indexOf('\n', offset)
+		const lineEnd = newline === -1 ? content.length : newline
+		const line = content.slice(offset, lineEnd)
+		const nextOffset = newline === -1 ? content.length + 1 : newline + 1
+
+		if (line.trim() === '') {
+			inBlock = false
+		} else {
+			if (!inBlock) {
+				inBlock = true
+				blockIsMetadata = METADATA_BLOCK_RE.test(line)
+				blockHasTiming = false
+			}
+			if (!blockIsMetadata && !blockHasTiming) {
+				const match = CUE_TIMING_RE.exec(line)
+				if (match) {
+					const [, indent, start, arrow, end] = match
+					const startMs = parseTimestamp(start)
+					const endMs = parseTimestamp(end)
+					// A cue block has exactly one timing line even if this one is
+					// unparseable — do not fall through to its payload.
+					blockHasTiming = true
+					if (startMs !== null && endMs !== null) {
+						timings.push({startMs, endMs, endOffset: offset + indent.length + start.length + arrow.length, endLength: end.length, endText: end})
+					}
+				}
+			}
+		}
+		offset = nextOffset
 	}
 	return timings
 }

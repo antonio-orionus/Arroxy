@@ -16,6 +16,13 @@ describe('siteForJob', () => {
 		expect(siteForExtractor(extractor).id).toBe('generic')
 	})
 
+	// yt-dlp's verdict on what produced the media outranks a hostname that a
+	// redirect or stale metadata made disagree.
+	it('keeps a present non-YouTube extractor authoritative over the URL', () => {
+		expect(siteForJob('vimeo', YT_URL).id).toBe('generic')
+		expect(siteForJob('   ', YT_URL).id).toBe('youtube')
+	})
+
 	it('stays generic when neither extractor nor URL is YouTube', () => {
 		expect(siteForJob('vimeo', 'https://vimeo.com/12345').id).toBe('generic')
 		expect(siteForJob('', 'not a url').id).toBe('generic')

@@ -92,8 +92,11 @@ describe('SubtitleOnlyPhase', () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}, subtitlePaths: paths})
 		await SubtitleOnlyPhase.run(ctx)
 		expect(postProcessSubtitleFiles).toHaveBeenCalledOnce()
-		const [calledPaths] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
+		const [calledPaths, calledOpts] = vi.mocked(postProcessSubtitleFiles).mock.calls[0]
 		expect(calledPaths).toEqual(paths)
+		// The site gate reads these — forwarding the wrong ones silently disables
+		// the rolling dedupe or the URL fallback.
+		expect(calledOpts).toMatchObject({extractor: BASE_JOB.extractor, url: BASE_INPUT.url, jobId: expect.any(String)})
 	})
 
 	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {
