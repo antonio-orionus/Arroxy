@@ -190,6 +190,10 @@ export const ps = {
   shot7_cap: "<b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ",
   dl_platform_col: "پلیټفارم",
   dl_format_col: "بڼه",
+  dl_oneline_note:
+    "د لینکس سکریپټ ډاونلوډ د خپاره شوي `SHA256SUMS` پر وړاندې تاییدوي او Arroxy ستاسو د اپلیکیشنونو مینو ته ورزیاتوي. جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.",
+  dl_win_scoop:
+    "Scoop غوره ګڼئ؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "نصب کوونکی (NSIS) یا پورټیبل `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` یا `.flatpak` (sandboxed)",

@@ -191,6 +191,10 @@ export const ar = {
   shot7_cap: "<b>ملفات تعريف لكل عنصر في قائمة التشغيل</b><br/>امنح كل فيديو ملف تعريف خاصًا به — احفظ بعضها بدقة 4K وخذ الباقي بصيغة MP3",
   dl_platform_col: "النظام",
   dl_format_col: "الصيغة",
+  dl_oneline_note:
+    "يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.",
+  dl_win_scoop:
+    "تفضّل Scoop؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "المثبِّت (NSIS) أو محمول `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` أو `.flatpak` (معزول)",

@@ -193,6 +193,10 @@ export const uz = {
   shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",
+  dl_oneline_note:
+    "Linux skripti yuklamani e'lon qilingan `SHA256SUMS` bilan tekshiradi va Arroxy'ni dasturlar menyusiga qo'shadi. To'plamlar faqat x86_64 uchun. `curl` yo'qmi? `curl -fsSL` o'rniga `wget -qO-` ishlating.",
+  dl_win_scoop:
+    "Scoop'ni afzal ko'rasizmi? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "O'rnatuvchi (NSIS) yoki Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` yoki `.flatpak` (qumloq muhitda)",

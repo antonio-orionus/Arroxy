@@ -75,6 +75,8 @@ export const id = {
   "shot7_cap": "<b>Profil per item playlist</b><br/>Beri tiap video profilnya sendiri — simpan sebagian dalam 4K, ambil sisanya sebagai MP3",
   "dl_platform_col": "Platform",
   "dl_format_col": "Unduh langsung",
+  "dl_oneline_note": "Skrip Linux memverifikasi unduhan terhadap `SHA256SUMS` yang dipublikasikan dan menambahkan Arroxy ke menu aplikasi Anda. Build hanya tersedia untuk x86_64. Tidak ada `curl`? Ganti `curl -fsSL` dengan `wget -qO-`.",
+  "dl_win_scoop": "Lebih suka Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   "dl_win_format": "Pemasang (NSIS) atau `.exe` Portabel",
   "dl_mac_format": "`.dmg` (Intel + Apple Silicon)",
   "dl_linux_format": "`.AppImage` atau `.flatpak` (sandbox)",

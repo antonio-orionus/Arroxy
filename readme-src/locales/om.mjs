@@ -195,6 +195,10 @@ export const om = {
   shot7_cap: "<b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
+  dl_oneline_note:
+    "Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.",
+  dl_win_scoop:
+    "Scoop filattaa? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Fayyadu (NSIS) ykn Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` ykn `.flatpak` (sandboxed)",

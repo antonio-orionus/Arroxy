@@ -195,6 +195,10 @@ export const hi = {
   shot7_cap: "<b>प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल</b><br/>हर वीडियो को उसकी अपनी प्रोफ़ाइल दें — कुछ को 4K में सहेजें, बाकी को MP3 के रूप में लें",
   dl_platform_col: "प्लेटफ़ॉर्म",
   dl_format_col: "फ़ॉर्मैट",
+  dl_oneline_note:
+    "Linux स्क्रिप्ट डाउनलोड को प्रकाशित `SHA256SUMS` से सत्यापित करती है और Arroxy को आपके एप्लिकेशन मेनू में जोड़ती है। बिल्ड केवल x86_64 के लिए हैं। `curl` नहीं है? `curl -fsSL` की जगह `wget -qO-` उपयोग करें।",
+  dl_win_scoop:
+    "Scoop पसंद करते हैं? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "इंस्टॉलर (NSIS) या पोर्टेबल `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` या `.flatpak` (sandboxed)",

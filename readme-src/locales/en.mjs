@@ -193,6 +193,10 @@ export const en = {
   shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
+  dl_oneline_note:
+    "The Linux script verifies the download against the published `SHA256SUMS` and adds Arroxy to your applications menu. Builds are x86_64 only. No `curl`? Swap `curl -fsSL` for `wget -qO-`.",
+  dl_win_scoop:
+    "Prefer Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Installer (NSIS) or Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` or `.flatpak` (sandboxed)",
@@ -273,7 +277,7 @@ export const en = {
 
   dl_macos_first_h3: "macOS first launch",
   dl_macos_intro:
-    "Arroxy is not yet code-signed for macOS, so Gatekeeper can show the scary *\"Arroxy.app is damaged and can't be opened\"* dialog after you install it from the DMG. That message means macOS quarantined an unsigned app; it does not mean the app files are actually damaged. On current macOS, the reliable fix is Terminal:",
+    "Arroxy's macOS builds are ad-hoc signed but not notarized by Apple, so Gatekeeper blocks the first launch with *\"Arroxy.app\" Not Opened — Apple could not verify \"Arroxy.app\" is free of malware*. That means macOS cannot check the app with Apple, not that anything is wrong with the files. Installing with Homebrew avoids this dialog entirely. If you used the DMG, one Terminal command clears it:",
   dl_macos_sequoia_h4: "Terminal fix for current macOS",
   dl_macos_sequoia_intro:
     "Use Terminal after copying Arroxy to Applications:",
@@ -295,7 +299,7 @@ export const en = {
   dl_macos_damaged_h4:
     "Gatekeeper quarantine fix",
   dl_macos_damaged_p:
-    "The first command removes the quarantine attribute from your installed copy of Arroxy. The second launches the app. `sudo` may ask for your Mac password; Terminal will not show characters while you type it.",
+    "The first command removes the quarantine attribute macOS attached when the file was downloaded; the second launches the app. You normally do not need `sudo`, because the copy in `/Applications` belongs to you — add it only if you get a permissions error.",
   dl_macos_arch_note:
     "**Apple Silicon vs Intel:** on an M-series Mac (M1 / M2 / M3 / M4), download the `arm64` DMG. On Intel Macs, download the `x64` DMG. Running the wrong build still works via Rosetta but is noticeably slower.",
 
@@ -313,7 +317,7 @@ export const en = {
     "Want a third-party malware scan? Upload the file at [VirusTotal](https://www.virustotal.com). A handful of generic-heuristic flags from minor engines is normal for unsigned Electron apps; widespread detections from major engines would be a real concern.",
 
   dl_pm_intro:
-    "Already use a package manager? You can skip the manual download path.",
+    "Prefer a different channel? These work too, and they stay in step with every release.",
 
   privacy_p1:
     "Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.",

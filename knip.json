@@ -54,7 +54,8 @@
 		"ditto",
 		"robocopy",
 		"hdiutil",
-		"terminal-notifier"
+		"terminal-notifier",
+		"shellcheck"
 	],
   "ignoreUnresolved": [
     "~icons/.*"

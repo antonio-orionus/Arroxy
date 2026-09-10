@@ -195,6 +195,10 @@ export const vi = {
   shot7_cap: "<b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
+  dl_oneline_note:
+    "Script Linux đối chiếu tệp tải về với `SHA256SUMS` đã công bố và thêm Arroxy vào menu ứng dụng. Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.",
+  dl_win_scoop:
+    "Bạn thích Scoop hơn? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Trình cài đặt (NSIS) hoặc Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` hoặc `.flatpak` (sandbox)",

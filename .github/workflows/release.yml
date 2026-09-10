@@ -650,6 +650,18 @@ jobs:
 
             app "Arroxy.app"
 
+            # The macOS builds are ad-hoc signed, not notarized, so Homebrew's
+            # unconditional quarantine would make first launch fail with
+            # "Apple could not verify Arroxy.app is free of malware". Homebrew
+            # removed --no-quarantine in 4.7, so a tap that ships unsigned apps
+            # has to strip the attribute itself; upstream tells tap maintainers
+            # this post-processing is theirs to do. Drop this stanza once the
+            # app is notarized.
+            postflight_steps do
+              run "/usr/bin/xattr",
+                  args: ["-dr", "com.apple.quarantine", "{{appdir}}/Arroxy.app"]
+            end
+
             zap trash: [
               "~/Library/Application Support/Arroxy",
               "~/Library/Preferences/com.arroxy.app.plist",
@@ -657,6 +669,18 @@ jobs:
             ]
           end
           EOF
+      - name: Validate the generated cask
+        # Nothing downstream parses this file before users do, so a malformed
+        # heredoc would push a broken cask to the tap with a green job. Syntax
+        # first, then confirm the quarantine strip actually survived rendering
+        # — losing it silently would put the Gatekeeper dialog back.
+        run: |
+          set -euo pipefail
+          ruby -c Casks/arroxy.rb
+          grep -q 'postflight_steps do' Casks/arroxy.rb
+          grep -q 'com.apple.quarantine' Casks/arroxy.rb
+          grep -q "version \"${GITHUB_REF_NAME#v}\"" Casks/arroxy.rb
+          echo "cask OK"
       - name: Commit & push
         run: |
           git config user.name "arroxy-release-bot"
