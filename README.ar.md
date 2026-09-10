@@ -25,14 +25,13 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-03._
+> _Last updated: 2026-09-10._
 
 ---
 
 ## المحتويات
 
 - [التثبيت والتشغيل الأول](#install)
-  - [التثبيت عبر مدير الحزم](#package-manager)
   - [التشغيل الأول على Windows](#windows-first-launch)
   - [التشغيل الأول على macOS](#macos-first-launch)
   - [لماذا قد تظهر لك تحذيرات](#why-warning)
@@ -50,25 +49,34 @@
 
 ## <a id="install"></a>التثبيت والتشغيل الأول
 
-| النظام | الصيغة                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Windows             | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe)                                                                                                                                                                                                        |
-| macOS               | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg)                                                                                                                                                                                                                     |
-| Linux               | [![Linux AppImage](https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) [![Linux Flatpak](https://img.shields.io/badge/Linux-Flatpak-4A90D9?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) [![Linux tar.gz](https://img.shields.io/badge/Linux-tar.gz-6B7280?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
-| Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+**Windows**
+
+```bash
+winget install AntonioOrionus.Arroxy
+```
+
+**macOS**
+
+```bash
+brew install --cask antonio-orionus/arroxy/arroxy
+```
+
+**Linux**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
+```
+
+يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.
+
+| النظام | الصيغة |
+| --- | --- |
+| Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| macOS | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| Linux | [![Linux AppImage](https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) [![Linux Flatpak](https://img.shields.io/badge/Linux-Flatpak-4A90D9?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) [![Linux tar.gz](https://img.shields.io/badge/Linux-tar.gz-6B7280?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| Verify | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
 
 [**احصل على أحدث إصدار →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="package-manager"></a>التثبيت عبر مدير الحزم
-
-تستخدم مدير حزم بالفعل؟ يمكنك تجاوز مسار التنزيل اليدوي.
-
-| القناة | الأمر                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>التشغيل الأول على Windows
 
@@ -88,6 +96,8 @@
 
 > حمِّل Arroxy من صفحة GitHub Releases الرسمية فقط. إذا حصلت على الملف من موقع آخر أو أرسله إليك أحد، احذفه وحمِّل نسخة جديدة من المصدر الرسمي. الكود المصدري عام ويمكنك مراجعته أو بناء Arroxy بنفسك إن أردت.
 
+تفضّل Scoop؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
+
 ### <a id="macos-first-launch"></a>التشغيل الأول على macOS
 
 Arroxy غير موقَّع رمزياً لـ macOS بعد، لذلك قد يعرض Gatekeeper الرسالة المخيفة *"Arroxy.app is damaged and can't be opened"* بعد تثبيته من DMG. تعني هذه الرسالة أن macOS وضع تطبيقاً غير موقَّع في quarantine؛ ولا تعني أن ملفات التطبيق تالفة فعلاً. على macOS الحالي، الإصلاح الموثوق هو Terminal:
@@ -100,7 +110,7 @@ Arroxy غير موقَّع رمزياً لـ macOS بعد، لذلك قد يعر
 2. افتح Terminal وشغّل هذين الأمرين:
 
 ```bash
-sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
 open /Applications/Arroxy.app
 ```
 

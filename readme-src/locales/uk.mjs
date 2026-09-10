@@ -194,6 +194,10 @@ export const uk = {
   shot7_cap: "<b>Профілі для кожного відео плейлиста</b><br/>Власний профіль для кожного відео — частину в 4K, решту як MP3",
   dl_platform_col: "Платформа",
   dl_format_col: "Формат",
+  dl_oneline_note:
+    "Скрипт для Linux звіряє завантаження з опублікованими `SHA256SUMS` і додає Arroxy до меню програм. Збірки лише x86_64. Немає `curl`? Замініть `curl -fsSL` на `wget -qO-`.",
+  dl_win_scoop:
+    "Віддаєте перевагу Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Інсталятор (NSIS) або портативний `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` або `.flatpak` (ізольований)",

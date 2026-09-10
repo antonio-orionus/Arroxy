@@ -195,6 +195,10 @@ export const my = {
   shot7_cap: "<b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို MP3 အဖြစ် ရယူပါ",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
+  dl_oneline_note:
+    "Linux script သည် ဒေါင်းလုဒ်ကို ထုတ်ပြန်ထားသော `SHA256SUMS` ဖြင့် စစ်ဆေးပြီး Arroxy ကို သင့်အက်ပ်မီနူးထဲ ထည့်ပေးသည်။ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။",
+  dl_win_scoop:
+    "Scoop ကို ပိုနှစ်သက်ပါသလား။ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Installer (NSIS) သို့မဟုတ် Portable `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` သို့မဟုတ် `.flatpak` (sandboxed)",

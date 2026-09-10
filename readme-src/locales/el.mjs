@@ -195,6 +195,10 @@ export const el = {
   shot7_cap: "<b>Προφίλ ανά βίντεο σε playlist</b><br/>Δώστε σε κάθε βίντεο το δικό του προφίλ — άλλα σε 4K, τα υπόλοιπα ως MP3",
   dl_platform_col: "Πλατφόρμα",
   dl_format_col: "Μορφή",
+  dl_oneline_note:
+    "Το script για Linux ελέγχει τη λήψη με τα δημοσιευμένα `SHA256SUMS` και προσθέτει το Arroxy στο μενού εφαρμογών σας. Οι εκδόσεις είναι μόνο x86_64. Χωρίς `curl`; Αντικαταστήστε το `curl -fsSL` με `wget -qO-`.",
+  dl_win_scoop:
+    "Προτιμάτε το Scoop; `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Πρόγραμμα εγκατάστασης (NSIS) ή Φορητό `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` ή `.flatpak` (σε sandbox)",

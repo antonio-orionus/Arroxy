@@ -25,14 +25,13 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-03._
+> _Last updated: 2026-09-10._
 
 ---
 
 ## Yaliyomo
 
 - [Sakinisha na uzinduzi wa kwanza](#install)
-  - [Sanidi kupitia meneja wa pakiti](#package-manager)
   - [Uzinduzi wa kwanza wa Windows](#windows-first-launch)
   - [Uzinduzi wa kwanza wa macOS](#macos-first-launch)
   - [Kwa nini unaweza kuona onyo](#why-warning)
@@ -50,25 +49,34 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 ## <a id="install"></a>Sakinisha na uzinduzi wa kwanza
 
-| Jukwaa | Fomati                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Windows             | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe)                                                                                                                                                                                                        |
-| macOS               | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg)                                                                                                                                                                                                                     |
-| Linux               | [![Linux AppImage](https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) [![Linux Flatpak](https://img.shields.io/badge/Linux-Flatpak-4A90D9?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) [![Linux tar.gz](https://img.shields.io/badge/Linux-tar.gz-6B7280?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
-| Verify              | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS)                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+**Windows**
+
+```bash
+winget install AntonioOrionus.Arroxy
+```
+
+**macOS**
+
+```bash
+brew install --cask antonio-orionus/arroxy/arroxy
+```
+
+**Linux**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
+```
+
+Hati ya Linux huthibitisha upakuaji dhidi ya `SHA256SUMS` zilizochapishwa na kuongeza Arroxy kwenye menyu yako ya programu. Matoleo ni ya x86_64 pekee. Huna `curl`? Badilisha `curl -fsSL` kuwa `wget -qO-`.
+
+| Jukwaa | Fomati |
+| --- | --- |
+| Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |
+| macOS | [![macOS Apple Silicon](https://img.shields.io/badge/macOS-Apple%20Silicon-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-arm64.dmg) [![macOS Intel](https://img.shields.io/badge/macOS-Intel-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-mac-x64.dmg) |
+| Linux | [![Linux AppImage](https://img.shields.io/badge/Linux-AppImage-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.AppImage) [![Linux Flatpak](https://img.shields.io/badge/Linux-Flatpak-4A90D9?style=for-the-badge&logo=flathub&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.flatpak) [![Linux tar.gz](https://img.shields.io/badge/Linux-tar.gz-6B7280?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-linux-x64.tar.gz) |
+| Verify | [![SHA256 Checksums](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/SHA256SUMS) |
 
 [**Pata toleo la hivi karibuni →**](https://github.com/antonio-orionus/Arroxy/releases/latest)
-
-### <a id="package-manager"></a>Sanidi kupitia meneja wa pakiti
-
-Tayari unatumia meneja wa pakiti? Unaweza kuruka njia ya upakuaji wa mkono.
-
-| Njia | Amri                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------- |
-| Winget             | `winget install AntonioOrionus.Arroxy`                                                            |
-| Scoop              | `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy` |
-| Homebrew           | `brew tap antonio-orionus/arroxy && brew install --cask arroxy`                                   |
-| Flatpak (local file) | `flatpak install --user ./Arroxy-linux-x64.flatpak`                                            |
 
 ### <a id="windows-first-launch"></a>Uzinduzi wa kwanza wa Windows
 
@@ -88,6 +96,8 @@ Heuristics za Defender wakati mwingine huweka bendera kwenye visanidi visivyosai
 
 > Pakua Arroxy tu kutoka ukurasa rasmi wa GitHub Releases. Ukipata faili kutoka tovuti nyingine au mtu akikutumia, ifute na upakue nakala mpya kutoka chanzo rasmi. Msimbo wa chanzo ni wa umma, hivyo unaweza kuukagua au kuijenga Arroxy mwenyewe ukitaka.
 
+Unapendelea Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`
+
 ### <a id="macos-first-launch"></a>Uzinduzi wa kwanza wa macOS
 
 Arroxy bado haijasainiwa kwa macOS, kwa hivyo Gatekeeper inaweza kuonyesha ujumbe wa kutisha *"Arroxy.app is damaged and can't be opened"* baada ya kuisakinisha kutoka DMG. Ujumbe huo unamaanisha macOS imeweka programu isiyosainiwa kwenye quarantine; haumaanishi faili za programu zimeharibika kweli. Kwenye macOS za sasa, suluhisho la kuaminika ni Terminal:
@@ -100,7 +110,7 @@ Arroxy bado haijasainiwa kwa macOS, kwa hivyo Gatekeeper inaweza kuonyesha ujumb
 2. Fungua Terminal na uendeshe amri hizi mbili:
 
 ```bash
-sudo xattr -dr com.apple.quarantine /Applications/Arroxy.app
+xattr -dr com.apple.quarantine /Applications/Arroxy.app
 open /Applications/Arroxy.app
 ```
 

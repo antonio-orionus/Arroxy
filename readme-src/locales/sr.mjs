@@ -193,6 +193,10 @@ export const sr = {
   shot7_cap: "<b>Профили по ставци плејлисте</b><br/>Дајте сваком видеу сопствени профил — неке у 4K, остале као MP3",
   dl_platform_col: "Платформа",
   dl_format_col: "Формат",
+  dl_oneline_note:
+    "Linux скрипта проверава преузимање помоћу објављених `SHA256SUMS` и додаје Arroxy у мени апликација. Верзије су само x86_64. Немате `curl`? Замените `curl -fsSL` са `wget -qO-`.",
+  dl_win_scoop:
+    "Више волите Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Инсталатер (NSIS) или преносиви `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` или `.flatpak` (у песковнику)",

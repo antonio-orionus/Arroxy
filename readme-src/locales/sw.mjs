@@ -192,6 +192,10 @@ export const sw = {
   shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",
+  dl_oneline_note:
+    "Hati ya Linux huthibitisha upakuaji dhidi ya `SHA256SUMS` zilizochapishwa na kuongeza Arroxy kwenye menyu yako ya programu. Matoleo ni ya x86_64 pekee. Huna `curl`? Badilisha `curl -fsSL` kuwa `wget -qO-`.",
+  dl_win_scoop:
+    "Unapendelea Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Kisanidi (NSIS) au Inayobebeka `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` au `.flatpak` (imewekwa sanduku)",

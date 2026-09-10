@@ -181,6 +181,10 @@ export const zh = {
   shot7_cap: "<b>播放列表逐条配置</b><br/>为每个视频指定各自的配置——部分存为 4K，其余转成 MP3",
   dl_platform_col: "平台",
   dl_format_col: "格式",
+  dl_oneline_note:
+    "Linux 脚本会根据已发布的 `SHA256SUMS` 校验下载文件，并将 Arroxy 添加到应用程序菜单。仅提供 x86_64 版本。没有 `curl`？请将 `curl -fsSL` 换成 `wget -qO-`。",
+  dl_win_scoop:
+    "更喜欢 Scoop？ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "安装版（NSIS）或便携版 `.exe`",
   dl_mac_format: "`.dmg`（Intel + Apple Silicon）",
   dl_linux_format: "`.AppImage` 或 `.flatpak`（沙箱）",

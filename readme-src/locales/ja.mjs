@@ -193,6 +193,10 @@ export const ja = {
   shot7_cap: "<b>プレイリストの動画ごとのプロファイル</b><br/>各動画に個別のプロファイルを指定——一部は4Kで保存し、残りはMP3で取得",
   dl_platform_col: "プラットフォーム",
   dl_format_col: "フォーマット",
+  dl_oneline_note:
+    "Linux 用スクリプトは、公開されている `SHA256SUMS` とダウンロードを照合し、Arroxy をアプリケーションメニューに追加します。ビルドは x86_64 のみです。`curl` がない場合は `curl -fsSL` を `wget -qO-` に置き換えてください。",
+  dl_win_scoop:
+    "Scoop をお使いですか？ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "インストーラ（NSIS）またはポータブル `.exe`",
   dl_mac_format: "`.dmg`（Intel + Apple Silicon）",
   dl_linux_format: "`.AppImage` または `.flatpak`（サンドボックス）",

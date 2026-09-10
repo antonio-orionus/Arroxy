@@ -193,6 +193,10 @@ export const bn = {
   shot7_cap: "<b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন",
   dl_platform_col: "প্ল্যাটফর্ম",
   dl_format_col: "ফরম্যাট",
+  dl_oneline_note:
+    "Linux স্ক্রিপ্টটি ডাউনলোডটি প্রকাশিত `SHA256SUMS` এর সাথে যাচাই করে এবং Arroxy আপনার অ্যাপ্লিকেশন মেনুতে যোগ করে। বিল্ড শুধুমাত্র x86_64 এর জন্য। `curl` নেই? `curl -fsSL` এর বদলে `wget -qO-` ব্যবহার করুন।",
+  dl_win_scoop:
+    "Scoop পছন্দ করেন? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "ইনস্টলার (NSIS) বা পোর্টেবল `.exe`",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` বা `.flatpak` (sandboxed)",

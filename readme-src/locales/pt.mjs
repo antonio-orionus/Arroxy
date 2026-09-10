@@ -196,6 +196,10 @@ export const pt = {
     "<b>Perfis por item da playlist</b><br/>Dê a cada vídeo o seu próprio perfil — arquive alguns em 4K e pegue o restante como MP3",
   dl_platform_col: "Plataforma",
   dl_format_col: "Download direto",
+  dl_oneline_note:
+    "O script de Linux verifica o download com os `SHA256SUMS` publicados e adiciona o Arroxy ao seu menu de aplicações. As versões são apenas x86_64. Sem `curl`? Troque `curl -fsSL` por `wget -qO-`.",
+  dl_win_scoop:
+    "Prefere o Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Instalador (NSIS) ou `.exe` portátil",
   dl_mac_format: "`.dmg` (Intel + Apple Silicon)",
   dl_linux_format: "`.AppImage` ou `.flatpak` (em sandbox)",
