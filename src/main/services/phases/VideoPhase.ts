@@ -3,7 +3,7 @@ import {join} from 'node:path'
 import type {AudioConvert as BridgeAudioConvert} from 'yt-dlp-bridge'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import {siteForExtractor} from '@shared/sites/index.js'
+import {siteForJob} from '@shared/sites/index.js'
 import type {AudioConvert} from '@shared/types.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
@@ -80,7 +80,13 @@ export function VideoPhase(embed: boolean): Phase {
 			// YouTube-only. Passing the flag for non-YouTube extractors is harmless
 			// but wasted; the wizard hides the SponsorBlock step on non-supporting
 			// sites and this is the defense-in-depth gate.
-			const site = siteForExtractor(preparedJob.extractor)
+			//
+			// Resolved against the job URL as well as the extractor, because the
+			// extractor is a per-batch value the renderer cannot always fill in — a
+			// bulk list of mixed sources leaves it empty for every row, which would
+			// strand the YouTube rows on the generic adapter. The URL belongs to
+			// this one job, so it decides correctly per item.
+			const site = siteForJob(preparedJob.extractor, input.url)
 			const sbConfig = site.supportsSponsorBlock && preparedJob.sponsorBlock.mode !== 'off' ? {mode: preparedJob.sponsorBlock.mode, categories: preparedJob.sponsorBlock.categories} : undefined
 
 			const formatId = preparedJob.kind === 'single-format' ? preparedJob.formatId : undefined

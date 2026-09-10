@@ -243,6 +243,30 @@ describe('VideoPhase(embed=false)', () => {
 		expect(ctx.emitStatus).toHaveBeenCalledWith('error', expect.any(String), expect.any(Object), expect.any(Object))
 	})
 
+	// A mixed bulk batch resolves the renderer-side extractor to '' for every row
+	// in it, which used to strand the YouTube rows on the generic adapter: no
+	// SponsorBlock, no YouTube player clients. The job URL is per-row and always
+	// present, so it decides the site when the extractor cannot.
+	it('empty extractor + YouTube URL → SponsorBlock and player clients still apply', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, extractor: '', extractorKey: '', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
+
+		await VideoPhase(false).run(ctx)
+
+		const req = ctx.runMock.mock.calls[0][0]
+		expect(req.sponsorBlock).toEqual({mode: 'mark', categories: ['sponsor']})
+		expect(req.extractor).toEqual({youtube: {playerClient: ['default', 'web_embedded']}})
+	})
+
+	it('empty extractor + non-YouTube URL → stays generic', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, url: 'https://vimeo.com/12345', job: {...BASE_JOB, extractor: '', extractorKey: '', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
+
+		await VideoPhase(false).run(ctx)
+
+		const req = ctx.runMock.mock.calls[0][0]
+		expect(req.sponsorBlock).toBeUndefined()
+		expect(req.extractor).toBeUndefined()
+	})
+
 	it('SponsorBlock API failure on a site without SponsorBlock support → hard-fails', async () => {
 		const ctx = makeCtx(SPONSORBLOCK_API_ERROR, {input: {...BASE_INPUT, job: {...BASE_JOB, extractor: 'Vimeo', extractorKey: 'Vimeo', sponsorBlock: {mode: 'mark', categories: ['sponsor']}}}})
 
