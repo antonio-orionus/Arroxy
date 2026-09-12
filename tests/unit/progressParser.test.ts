@@ -35,6 +35,32 @@ function makeActive(input: ResolvedStartDownloadInput): ActiveDownload {
 	}
 }
 
+describe('ProgressParser — stream framing', () => {
+	// yt-dlp redraws progress with a bare '\r' and only terminates real lines with
+	// '\n'. When a Destination line is flushed behind a burst of redraws, splitting
+	// on /\r?\n/ glued them into one unparseable blob: the sidecar path was never
+	// recorded, so post-processing had nothing to fix and auto-captions kept their
+	// overlaps. Reported as "playlists break subtitles" — really just a busy pipe.
+	it('records a subtitle destination flushed behind progress redraws', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download]  50.0% of 10.00MiB at 1.00MiB/s ETA 00:05\r[download]  99.9% of 10.00MiB at 1.00MiB/s ETA 00:00\r[download] Destination: /tmp/video.en.srt\n')
+
+		expect(active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
+	})
+
+	it('keeps every character of a non-ASCII destination path', () => {
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+		const path = '/tmp/NzGuL - ین بازی‌ها رابطه‌مونو 😂.en.srt'
+
+		parser.consume(active, `[download] Destination: ${path}\n`)
+
+		expect(active.subtitlePaths).toEqual([path])
+	})
+})
+
 describe('ProgressParser — subtitle-only progress', () => {
 	it('records destination kind and emits matching status while switching files', () => {
 		const emitStatus = vi.fn()

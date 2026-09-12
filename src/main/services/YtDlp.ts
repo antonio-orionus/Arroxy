@@ -1,6 +1,6 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import log from 'electron-log/main.js'
-import {spawnYtDlp} from '@main/utils/process.js'
+import {createStreamTextReader, spawnYtDlp} from '@main/utils/process.js'
 import {classifyYtDlpStderr, extractLastError} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {planWorkflow, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
@@ -148,8 +148,18 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	// yt-dlp's frozen-Python `shutil.which('ffmpeg')` reads the original `Path`
 	// (without ffmpegDir) → "Preprocessing/Postprocessing: ffmpeg not found".
 	const ffmpegLocationArgs = opts.ffmpegPath ? ['--ffmpeg-location', opts.ffmpegPath] : []
+	// Force UTF-8 on everything yt-dlp prints. Its write_string() encodes with the
+	// console codepage and *drops* what doesn't fit (`s.encode(enc, 'ignore')`), so on
+	// a non-UTF-8 Windows console a Persian or CJK title silently vanishes from the
+	// `Destination:` / `Writing video subtitles to:` lines — leaving only the ASCII
+	// that survived. ProgressParser reads those lines to learn the media and sidecar
+	// paths, so it ends up holding a filename that was never written: subtitle
+	// post-processing then ENOENTs and the cue-overlap normalization never runs.
+	// `--encoding` only reaches yt-dlp's output paths (params['encoding']); filenames
+	// on disk and file writes are unaffected.
+	const encodingArgs = ['--encoding', 'utf-8']
 	const e2eArgs = opts.e2eMode?.ytDlpArgs({isProbe: opts.isProbe === true}) ?? []
-	const args = [...e2eArgs, ...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args]
+	const args = [...e2eArgs, ...encodingArgs, ...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args]
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
@@ -165,6 +175,21 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 		let stdout = ''
 		let stderr = ''
 		let settled = false
+
+		// Decode + reframe both pipes before anyone parses them. Raw chunks split
+		// multi-byte characters and cut lines in half; `drainStreams` releases what
+		// the readers are still holding so the accumulated text handed to error
+		// classification and JSON parsing is complete.
+		const stdoutReader = createStreamTextReader()
+		const stderrReader = createStreamTextReader()
+		const drainStreams = (): void => {
+			const out = stdoutReader.flush()
+			stdout += out.text
+			if (out.lines) opts.signal?.onStdout?.(out.lines)
+			const err = stderrReader.flush()
+			stderr += err.text
+			if (err.lines) opts.signal?.onStderr?.(err.lines)
+		}
 
 		const finish = (result: YtDlpResult): void => {
 			if (settled) return
@@ -184,6 +209,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 					} catch {
 						/* already exited */
 					}
+					drainStreams()
 					// Detach buffered listeners — the dead proc will eventually fire
 					// 'close' (the settled guard absorbs it), but until GC the closure
 					// captures stdout/stderr buffers we no longer need.
@@ -203,6 +229,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 					} catch {
 						/* already exited */
 					}
+					drainStreams()
 					proc.stdout.removeAllListeners('data')
 					proc.stderr.removeAllListeners('data')
 					finish({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout, stderr})
@@ -213,20 +240,24 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 		opts.signal?.onSpawn?.(proc)
 
 		proc.stdout.on('data', (chunk: Buffer) => {
-			const text = chunk.toString()
+			const {text, lines} = stdoutReader.push(chunk)
 			stdout += text
-			opts.signal?.onStdout?.(text)
+			if (lines) opts.signal?.onStdout?.(lines)
 		})
 
 		proc.stderr.on('data', (chunk: Buffer) => {
-			const text = chunk.toString()
+			const {text, lines} = stderrReader.push(chunk)
 			stderr += text
-			opts.signal?.onStderr?.(text)
+			if (lines) opts.signal?.onStderr?.(lines)
 		})
 
-		proc.on('error', error => finish({kind: 'spawn-error', error, stdout, stderr}))
+		proc.on('error', error => {
+			drainStreams()
+			finish({kind: 'spawn-error', error, stdout, stderr})
+		})
 
 		proc.on('close', code => {
+			drainStreams()
 			if (code === 0) {
 				finish({
 					kind: 'success',

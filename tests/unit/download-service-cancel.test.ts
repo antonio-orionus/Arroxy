@@ -1,7 +1,10 @@
 import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, afterEach} from 'vitest'
 
-vi.mock('@main/utils/process')
+vi.mock('@main/utils/process', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
+	return {...actual, spawnYtDlp: vi.fn()}
+})
 
 import {spawnYtDlp} from '@main/utils/process.js'
 import {DownloadService} from '@main/services/DownloadService.js'

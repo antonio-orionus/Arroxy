@@ -13,3 +13,5 @@
 - [Windows VM testing](windows-vm-testing.md) — ssh into the local Win11 ARM64 VM to run `dist:win:dir` + `verify:startup` directly; gotchas: bash on PATH, x64-only inherited asset, node-not-bun for `_electron.launch`.
 - [Linux VM testing](linux-vm-testing.md) — use the private Ubuntu VMware guest for Linux/Electron/runtime and GPU-specific checks; keep connection details outside the repository.
 - [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read the `theme:startup` log lines and never repro it by stopping xdg-desktop-portal.
+- [YouTube auto-caption -orig tracks](youtube-auto-caption-orig-tracks.md) — automatic_captions mixes byte-identical bare+-orig ASR twins with flaky tlang translations; subtitle 429 ≠ IP block.
+- [yt-dlp stdout corrupts scraped paths](ytdlp-stdout-drops-non-ascii.md) — four ways the stdout we scrape media/subtitle paths from mangles them, all failing silently as ENOENT; fixed with `--encoding utf-8` + a decoding line reader.
