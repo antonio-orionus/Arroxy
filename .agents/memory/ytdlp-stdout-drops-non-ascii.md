@@ -85,6 +85,42 @@ and any non-ASCII title could mojibake.
   mock; without `vi.clearAllMocks()` it resolves on the *previous* test's spawn and
   the next test emits into a process with no listeners attached yet.
 
+## Verified on real Windows (2026-09-12)
+
+The fix shipped verified on macOS only, where V1 cannot reproduce. Re-checked
+against a Windows 11 ARM64 VM (build 26200, console codepage **437**) driving
+`yt-dlp.exe` through a pipe, exactly as Arroxy does.
+
+V1 reproduces and the flag is what fixes it — note the characters are *deleted*,
+not replaced, and the byte counts show it:
+
+```
+expected : NzGuL & MmdReza - این بازی‌ها … 😂 _ Couple Games.mp4
+no flag  : NzGuL & MmdReza -   ?  _ Couple Games.mp4        (42 bytes)
+--enc u8 : NzGuL & MmdReza - این بازی‌ها … 😂 _ Couple Games.mp4  (69 bytes)
+```
+
+The decisive question is not what yt-dlp *prints* but whether that matches what
+it *writes* — `params['encoding']` cannot rename a file, so if the two disagreed
+the ENOENT would survive the fix. Driving a real download off a local HTTP server
+(no external network) they agree byte-for-byte, and the scraped path opens:
+
+```
+printed path : ...\NzGuL & MmdReza - این بازی‌ها … 😂 _ Couple Games.mp4
+on disk      : NzGuL & MmdReza - این بازی‌ها … 😂 _ Couple Games.mp4
+scraped path opens (no ENOENT): true
+progress used bare \r framing : true
+```
+
+That last line is worth keeping: a real Windows download **does** use bare `\r`
+framing, so V4 is live in production there. It is the vector the E2E harness hides
+by passing `--newline`.
+
+Reproduce with the probes in this repo's history or rebuild them in three steps:
+craft an info.json with a non-ASCII title → `--print filename` with and without
+`--encoding utf-8` → then a real transfer from `http://127.0.0.1` and compare the
+scraped `[download] Destination:` against `readdir`.
+
 ## When this bites again
 
 Any new code that trusts a path, title, or ID scraped from yt-dlp stdout. The
