@@ -5,7 +5,10 @@ import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {createHangingProcess, createTranscriptProcess} from '../helpers/processTranscript.js'
 
 // Must be top-level (Vitest hoists vi.mock calls)
-vi.mock('@main/utils/process')
+vi.mock('@main/utils/process', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
+	return {...actual, spawnYtDlp: vi.fn()}
+})
 
 import {spawnYtDlp} from '@main/utils/process.js'
 import {DownloadService} from '@main/services/DownloadService.js'
@@ -36,6 +39,10 @@ async function cancelAndWaitForFinalize(svc: DownloadService, recentJobsStore: R
 }
 
 afterEach(() => {
+	// spawnYtDlp is a module-level mock: without clearing its call history,
+	// waitForSpawn() resolves on the *previous* test's spawn and the next test
+	// emits into a process whose listeners are not attached yet.
+	vi.clearAllMocks()
 	vi.restoreAllMocks()
 })
 
@@ -46,7 +53,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
 		const fakeProc = createHangingProcess()
 		vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never)
-		vi.spyOn(svc as any, 'consumeProgress').mockImplementation(() => {
+		const consumeProgress = vi.spyOn(svc as any, 'consumeProgress').mockImplementation(() => {
 			throw new Error('disk full')
 		})
 
@@ -55,8 +62,9 @@ describe('DownloadService stdout/stderr crash safety', () => {
 		await waitForSpawn()
 
 		expect(() => {
-			fakeProc.stdout.emit('data', Buffer.from('[download] 50% of 10MiB'))
+			fakeProc.stdout.emit('data', Buffer.from('[download] 50% of 10MiB\n'))
 		}).not.toThrow()
+		expect(consumeProgress).toHaveBeenCalled()
 		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
 
@@ -66,7 +74,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 
 		const fakeProc = createHangingProcess()
 		vi.mocked(spawnYtDlp).mockReturnValue(fakeProc as never)
-		vi.spyOn(svc as any, 'consumeProgress').mockImplementation(() => {
+		const consumeProgress = vi.spyOn(svc as any, 'consumeProgress').mockImplementation(() => {
 			throw new Error('disk full')
 		})
 
@@ -74,8 +82,9 @@ describe('DownloadService stdout/stderr crash safety', () => {
 		await waitForSpawn()
 
 		expect(() => {
-			fakeProc.stderr.emit('data', Buffer.from('ERROR: some yt-dlp error line'))
+			fakeProc.stderr.emit('data', Buffer.from('ERROR: some yt-dlp error line\n'))
 		}).not.toThrow()
+		expect(consumeProgress).toHaveBeenCalled()
 		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
 
@@ -95,7 +104,7 @@ describe('DownloadService stdout/stderr crash safety', () => {
 		expect(svc.activeCount).toBe(1)
 
 		// Crash in handler — job should still be tracked
-		fakeProc.stdout.emit('data', Buffer.from('some line'))
+		fakeProc.stdout.emit('data', Buffer.from('some line\n'))
 		expect(svc.activeCount).toBe(1)
 		await cancelAndWaitForFinalize(svc, stubs.recentJobsStore)
 	})
