@@ -159,7 +159,15 @@ export function VideoPhase(embed: boolean): Phase {
 				// the session first when the failure was transport-related, which is
 				// what makes this fallback able to recover at all. Bounded and
 				// best-effort: a failed reset still gets the plain re-extraction.
-				if (canRecoverWithNewSession(result, site)) await ctx.ytDlp.invalidateTokenSession()
+				//
+				// The reset is the one await here long enough for the user to give up
+				// inside it, so it takes the job's signal and the flags are re-read
+				// after it. Otherwise a cancel landing mid-reset would spawn the
+				// fallback anyway, only to kill it on the next line.
+				if (canRecoverWithNewSession(result, site)) await ctx.ytDlp.invalidateTokenSession(active.signal)
+				if (active.pauseRequested) return {kind: 'paused'}
+				if (active.cancelRequested) return {kind: 'cancelled'}
+
 				const retry = await runMedia(undefined)
 				req = retry.req
 				result = retry.result

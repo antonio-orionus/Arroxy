@@ -105,18 +105,25 @@ export class TokenService {
 	// Returns whether a new identity was actually obtained. On failure or timeout
 	// the previous one is put back: retrying with a stale token is strictly better
 	// than blocking the caller on a mint that may never settle.
-	async resetSession(timeoutMs: number = RESET_TIMEOUT_MS): Promise<boolean> {
+	//
+	// `signal` is the caller's own cancellation, folded in alongside the deadline.
+	// Without it a job cancelled while this is in flight would keep its user
+	// waiting out the full budget for an identity nobody is going to use.
+	async resetSession(timeoutMs: number = RESET_TIMEOUT_MS, signal?: AbortSignal): Promise<boolean> {
 		const previous = this.cache
 		this.cache = null
 		const controller = new AbortController()
 		const timer = setTimeout(() => controller.abort(), timeoutMs)
 		try {
-			const {ready, reason} = await this.warmUp(controller.signal)
+			const {ready, reason} = await this.warmUp(signal ? AbortSignal.any([controller.signal, signal]) : controller.signal)
 			if (ready) {
 				logger.info('Token session reset')
 				return true
 			}
-			logger.warn('Token session reset failed — keeping the previous identity', {reason})
+			// A caller that cancelled did not hit a failure; saying so at warn level
+			// would put a routine cancel in the log as something to investigate.
+			if (reason === 'cancelled') logger.info('Token session reset abandoned — keeping the previous identity')
+			else logger.warn('Token session reset failed — keeping the previous identity', {reason})
 			// Downloads run concurrently, so another item can have minted a fresh
 			// identity into the empty cache during the window above. Restoring the
 			// stashed one unconditionally would demote that newer identity back to

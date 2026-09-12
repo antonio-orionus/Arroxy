@@ -54,6 +54,7 @@ const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtra
 const SUCCESS_FALLBACK: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: true}
 const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'botBlock', rawError: 'bot', stdout: '', stderr: ''}
 const NETWORK_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'network', rawError: 'read reset', stdout: '', stderr: ''}
+const CHUNK_TRANSFER_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'chunkTransferFailure', rawError: 'Giving up after 3 retries', stdout: '', stderr: ''}
 const RATE_LIMIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'rateLimit', rawError: 'rate limited', stdout: '', stderr: ''}
 const POSTPROCESS_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'postprocessFailure', rawError: 'Postprocessing: Conversion failed!', stdout: '', stderr: ''}
 const DISK_FULL_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'outOfDiskSpace', rawError: 'No space left on device', stdout: '', stderr: ''}
@@ -147,6 +148,53 @@ describe('VideoPhase(embed=false)', () => {
 
 		expect(invalidateTokenSession).toHaveBeenCalledOnce()
 		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
+	})
+
+	// The other half of `canRecoverWithNewSession`. Without this the branch is
+	// load-bearing in production and free to delete in tests: 'network' alone
+	// covers the guard, so removing `chunkTransferFailure` stays green.
+	it('resets the token session after a chunk transfer failure too', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(CHUNK_TRANSFER_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledOnce()
+		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
+	})
+
+	// Minting is the one await here long enough for a user to give up inside it.
+	// Spawning the fallback anyway only to SIGKILL it on the next line wastes a
+	// process and reports the cancellation late.
+	it('abandons the fallback when the job is cancelled during the session reset', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const invalidateTokenSession = vi.fn().mockImplementation(async () => {
+			active.cancelRequested = true
+			active.controller.abort()
+			return false
+		})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		expect(outcome).toEqual({kind: 'cancelled'})
+		expect(runMock).toHaveBeenCalledTimes(1)
+	})
+
+	// The job's own signal reaches the mint, so the reset abandons the hidden
+	// window instead of holding the cancel until its full budget expires.
+	it('hands the job signal to the session reset', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledWith(active.signal)
 	})
 
 	// A bot wall already has its own re-mint ladder inside YtDlp, and a stale or

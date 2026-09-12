@@ -276,6 +276,24 @@ describe('TokenService.resetSession', () => {
 	// page that connects but never settles would otherwise hang the download that
 	// asked for the reset. Degrade to the previous identity instead of blocking:
 	// retrying with a stale token is strictly better than never retrying.
+	// A cancelled job must not wait out the mint budget for an identity nobody is
+	// going to use, so the caller's signal is folded in alongside the deadline.
+	it('abandons the mint as soon as the caller aborts', async () => {
+		const ensureReady = vi.fn().mockResolvedValue(undefined)
+		const service = new TokenService(makeProvider({ensureReady}))
+		await service.warmUp()
+
+		ensureReady.mockImplementation(() => new Promise<void>(() => undefined))
+		const controller = new AbortController()
+		setTimeout(() => controller.abort(), 5)
+
+		// A budget far beyond the test's patience: only the abort can settle this.
+		const reset = await service.resetSession(60_000, controller.signal)
+
+		expect(reset).toBe(false)
+		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
+	})
+
 	// Downloads run concurrently, so the empty window a reset opens is one any
 	// other item can mint into. Restoring the stashed identity unconditionally
 	// would demote that fresh one back to exactly what the reset was rejecting.

@@ -380,8 +380,8 @@ export class YtDlp {
 	// invokeWithRetry re-mints on its own; this is the seam for callers that know
 	// the *transport* is wedged (see VideoPhase's re-extraction fallback), which
 	// the ladder cannot detect because the run exits cleanly on a network error.
-	async invalidateTokenSession(): Promise<boolean> {
-		return this.tokenService.resetSession()
+	async invalidateTokenSession(signal?: AbortSignal): Promise<boolean> {
+		return this.tokenService.resetSession(undefined, signal)
 	}
 
 	getLastInvocationSummary(): YtDlpInvocationSummary | null {
