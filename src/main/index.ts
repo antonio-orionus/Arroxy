@@ -25,6 +25,7 @@ import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
 import {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {writePlaylistM3u} from '@main/services/playlistM3u.js'
+import {collectLiveTempDirs, sweepStaleTempDirs} from '@main/services/download/startupTempSweep.js'
 import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/ClipboardWatcher.js'
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
@@ -297,6 +298,15 @@ if (hasSingleInstanceLock) {
 		// restart, and does nothing unless auto-retry is already configured.
 		queueService.setAutoRetryAttempts(initialSettings.common.autoRetryAttempts ?? 0)
 		await queueService.init()
+
+		// Reclaim scratch directories a crashed or force-quit session left behind.
+		// Deliberately not awaited: nothing downstream depends on it, and an
+		// output folder on a slow network mount must not hold up the window. The
+		// keep set is read from the queue that init() just restored, so it is
+		// complete before the sweep starts, and init()'s own boot-time spawn pass
+		// can only create directories that are seconds old — far inside the age
+		// gate that already protects a second running instance.
+		void sweepStaleTempDirs({outputDirs: [...queueService.snapshot().map(item => item.outputDir), initialSettings.common.defaultOutputDir], keep: collectLiveTempDirs(queueService.snapshot())})
 
 		// Headless smoke mode — exercises PoT scrape + retry ladder against real
 		// YouTube using production services, then exits. No window created.
