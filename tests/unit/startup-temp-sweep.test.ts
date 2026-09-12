@@ -47,15 +47,20 @@ async function entries(dir: string): Promise<string[]> {
 	}
 }
 
+// Verbatim pass-through by design: it hands back exactly what the queue
+// persisted, and `sweepStaleTempDirs` is what resolves those paths before
+// comparing them (covered separately below). So these assert the stored string
+// itself — normalizing here with `join` would make the expectation
+// platform-dependent while the input stayed a POSIX literal.
 describe('collectLiveTempDirs', () => {
 	it('keeps the tempDir of a paused-active item', () => {
 		const keep = collectLiveTempDirs([makeItem({status: 'paused-active', tempDir: '/out/.arroxy-temp/aaaaaaaa'})])
-		expect([...keep]).toEqual([join('/out', '.arroxy-temp', 'aaaaaaaa')])
+		expect([...keep]).toEqual(['/out/.arroxy-temp/aaaaaaaa'])
 	})
 
 	it('keeps the tempDir of a resumable failure', () => {
 		const keep = collectLiveTempDirs([makeItem({status: 'error', resumeContext: {kind: 'media-retry', tempDir: '/out/.arroxy-temp/bbbbbbbb', reason: 'media-transfer', failureKind: 'network'}})])
-		expect([...keep]).toEqual([join('/out', '.arroxy-temp', 'bbbbbbbb')])
+		expect([...keep]).toEqual(['/out/.arroxy-temp/bbbbbbbb'])
 	})
 
 	it('keeps nothing for an item that has neither', () => {
