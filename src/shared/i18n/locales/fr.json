@@ -616,7 +616,8 @@
 		"unknownStartupFailure": "Échec inconnu au démarrage du téléchargement",
 		"diskSpaceInsufficient": "Espace disque insuffisant — {{required}} nécessaires, seulement {{free}} disponibles",
 		"fetchingSponsorBlock": "Contacter SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock indisponible, nouvelle tentative ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock indisponible, nouvelle tentative ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Connexion bloquée, nouvelle tentative ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Impossible d'enregistrer vos paramètres.",

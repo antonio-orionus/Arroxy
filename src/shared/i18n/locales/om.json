@@ -623,7 +623,8 @@
 		"unknownStartupFailure": "Daawniloodii jalqabbii hin beekamne kufee",
 		"diskSpaceInsufficient": "Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira",
 		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
-		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Qindaa'ina kee olkaa'uun hin danda'amne.",

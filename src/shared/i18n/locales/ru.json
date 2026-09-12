@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Неизвестная ошибка при запуске загрузки",
 		"diskSpaceInsufficient": "Недостаточно места на диске — нужно {{required}}, доступно только {{free}}",
 		"fetchingSponsorBlock": "Подключение к SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock недоступен, повтор попытки ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock недоступен, повтор попытки ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Соединение зависло, повтор ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Не удалось сохранить настройки.",

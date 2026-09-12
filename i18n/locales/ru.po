@@ -971,6 +971,10 @@ msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
 msgstr "SponsorBlock недоступен, повтор попытки ({{attempt}}/{{total}})…"
 
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Соединение зависло, повтор ({{attempt}}/{{total}})…"
+
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
 msgstr "Ожидание {{seconds}}с во избежание лимитов…"

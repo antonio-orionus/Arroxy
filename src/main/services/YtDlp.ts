@@ -375,6 +375,15 @@ export class YtDlp {
 		return this._ffmpegPath
 	}
 
+	// Drop the cached PO token / visitor_data and mint a new one, so the next run
+	// is issued under a new session identity. The bot-wall ladder in
+	// invokeWithRetry re-mints on its own; this is the seam for callers that know
+	// the *transport* is wedged (see VideoPhase's re-extraction fallback), which
+	// the ladder cannot detect because the run exits cleanly on a network error.
+	async invalidateTokenSession(signal?: AbortSignal): Promise<boolean> {
+		return this.tokenService.resetSession(undefined, signal)
+	}
+
 	getLastInvocationSummary(): YtDlpInvocationSummary | null {
 		if (!this._lastInvocation) return null
 		return {...this._lastInvocation, args: [...this._lastInvocation.args]}

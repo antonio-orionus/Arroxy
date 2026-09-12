@@ -616,7 +616,8 @@
 		"unknownStartupFailure": "Unbekannter Fehler beim Starten des Downloads",
 		"diskSpaceInsufficient": "Nicht genug Speicherplatz — {{required}} benötigt, nur {{free}} verfügbar",
 		"fetchingSponsorBlock": "SponsorBlock wird kontaktiert…",
-		"retryingSponsorBlock": "SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock nicht verfügbar, erneuter Versuch ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Verbindung hängt, erneuter Versuch ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Deine Einstellungen konnten nicht gespeichert werden.",

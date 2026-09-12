@@ -3,7 +3,7 @@ import {join} from 'node:path'
 import type {AudioConvert as BridgeAudioConvert} from 'yt-dlp-bridge'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import {siteForJob} from '@shared/sites/index.js'
+import {siteForJob, type Site} from '@shared/sites/index.js'
 import type {AudioConvert} from '@shared/types.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
@@ -46,6 +46,22 @@ function bridgeAudioConvert(input: AudioConvert): BridgeAudioConvert {
 
 function hasMediaTransferStarted(active: PhaseContext['active']): boolean {
 	return active.mediaDownloadStarted === true || (active.mediaComponentPaths?.length ?? 0) > 0 || active.mediaPath !== undefined
+}
+
+// Transport failures are the ones a new session identity can fix: the bytes
+// never started moving because the CDN host would not answer. Everything else
+// (bot walls, unavailable media, a malformed plan) is either handled by the
+// re-mint ladder inside YtDlp or is not a session problem at all, and minting
+// costs a hidden-window page load — so the trigger stays narrow.
+//
+// The site gate is what keeps that cost honest. Pinning the edge host to the
+// session identity is a YouTube behaviour, and only YouTube reads the token the
+// mint produces; on every other site the scrape would buy nothing and still
+// spend a hidden-window page load, which is the same reason YtDlp skips the PoT
+// ladder there.
+function canRecoverWithNewSession(result: YtDlpResult, site: Site): boolean {
+	if (!site.needsPotToken) return false
+	return result.kind === 'exit-error' && (result.errorKind === 'network' || result.errorKind === 'chunkTransferFailure')
 }
 
 export function VideoPhase(embed: boolean): Phase {
@@ -137,6 +153,21 @@ export function VideoPhase(embed: boolean): Phase {
 			if (active.cancelRequested) return {kind: 'cancelled'}
 
 			if (loadInfoJsonPath && result.kind !== 'success' && !hasMediaTransferStarted(active) && !isSkippableSponsorBlockApiFailure(result, req)) {
+				// Dropping the info-json re-extracts, but extraction runs under the
+				// same session identity — and YouTube keys the googlevideo edge host
+				// to that identity, so a wedged host is handed straight back. Reset
+				// the session first when the failure was transport-related, which is
+				// what makes this fallback able to recover at all. Bounded and
+				// best-effort: a failed reset still gets the plain re-extraction.
+				//
+				// The reset is the one await here long enough for the user to give up
+				// inside it, so it takes the job's signal and the flags are re-read
+				// after it. Otherwise a cancel landing mid-reset would spawn the
+				// fallback anyway, only to kill it on the next line.
+				if (canRecoverWithNewSession(result, site)) await ctx.ytDlp.invalidateTokenSession(active.signal)
+				if (active.pauseRequested) return {kind: 'paused'}
+				if (active.cancelRequested) return {kind: 'cancelled'}
+
 				const retry = await runMedia(undefined)
 				req = retry.req
 				result = retry.result

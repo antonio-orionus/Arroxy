@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "نامعلوم ڈاؤن لوڈ اسٹارٹ اپ ناکامی",
 		"diskSpaceInsufficient": "ڈسک میں کافی جگہ نہیں — {{required}} درکار ہے، صرف {{free}} دستیاب ہے",
 		"fetchingSponsorBlock": "SponsorBlock سے رابطہ ہو رہا ہے…",
-		"retryingSponsorBlock": "SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…",
+		"retryingTransfer": "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "آپ کی ترتیبات محفوظ نہیں ہو سکیں۔",

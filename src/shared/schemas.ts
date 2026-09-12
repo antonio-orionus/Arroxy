@@ -399,7 +399,8 @@ export const STATUS_KEY = {
 	unknownStartupFailure: 'unknownStartupFailure',
 	diskSpaceInsufficient: 'diskSpaceInsufficient',
 	fetchingSponsorBlock: 'fetchingSponsorBlock',
-	retryingSponsorBlock: 'retryingSponsorBlock'
+	retryingSponsorBlock: 'retryingSponsorBlock',
+	retryingTransfer: 'retryingTransfer'
 } as const
 export type StatusKey = (typeof STATUS_KEY)[keyof typeof STATUS_KEY]
 

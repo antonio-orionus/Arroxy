@@ -238,3 +238,21 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(emitArtifact).toHaveBeenCalledWith({jobId: 'job-1', path: '/tmp/.arroxy/probe.info.json', kind: 'companion', at: '2024-01-01T00:00:00.000Z', internal: true})
 	})
 })
+
+describe('ProgressParser — transfer retries', () => {
+	// The reported "works once, then needs a restart" stall: yt-dlp retried a
+	// dead CDN host 16 times over ~8 minutes while the row showed "Downloading"
+	// at 0%, because the retry line reached the progress channel (where the
+	// formatter drops it) instead of the status channel.
+	it('reports a media transfer retry as status rather than progress', () => {
+		const emitStatus = vi.fn()
+		const emitProgress = vi.fn()
+		const parser = new ProgressParser(emitStatus, emitProgress)
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, "[download] Got error: (<HTTPSConnection(host='rr3---sn-txhxooxu-n5il.googlevideo.com', port=443) at 0x2b1>, 'Connection to rr3---sn-txhxooxu-n5il.googlevideo.com timed out. (connect timeout=20.0)'). Retrying (1/20)...\n")
+
+		expect(emitStatus).toHaveBeenCalledWith('job-1', 'download', STATUS_KEY.retryingTransfer, {attempt: 1, total: 20})
+		expect(emitProgress).not.toHaveBeenCalled()
+	})
+})

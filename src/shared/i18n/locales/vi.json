@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Lỗi khởi động tải xuống không xác định",
 		"diskSpaceInsufficient": "Không đủ dung lượng đĩa — cần {{required}}, chỉ còn {{free}}",
 		"fetchingSponsorBlock": "Đang kết nối SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Kết nối bị treo, đang thử lại ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Không thể lưu cài đặt của bạn.",

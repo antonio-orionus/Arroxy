@@ -602,7 +602,8 @@
 		"unknownStartupFailure": "Unknown download startup failure",
 		"diskSpaceInsufficient": "Not enough disk space — need {{required}}, only {{free}} available",
 		"fetchingSponsorBlock": "Contacting SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Could not save your settings.",

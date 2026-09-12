@@ -616,7 +616,8 @@
 		"unknownStartupFailure": "Άγνωστη αποτυχία εκκίνησης λήψης",
 		"diskSpaceInsufficient": "Ανεπαρκής χώρος δίσκου — απαιτούνται {{required}}, διαθέσιμα μόνο {{free}}",
 		"fetchingSponsorBlock": "Σύνδεση με το SponsorBlock…",
-		"retryingSponsorBlock": "Το SponsorBlock δεν είναι διαθέσιμο, επανάληψη ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "Το SponsorBlock δεν είναι διαθέσιμο, επανάληψη ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Η σύνδεση κόλλησε, νέα προσπάθεια ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Δεν ήταν δυνατή η αποθήκευση των ρυθμίσεών σας.",

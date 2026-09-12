@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Kegagalan startup pengunduhan yang tidak diketahui",
 		"diskSpaceInsufficient": "Ruang disk tidak cukup — memerlukan {{required}}, hanya tersedia {{free}}",
 		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Tidak dapat menyimpan pengaturan Anda.",

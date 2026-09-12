@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "نامعلومه د پیل ناکامي",
 		"diskSpaceInsufficient": "د ډیسک ځای کافي نه دی — {{required}} ته اړتیا ده، یوازې {{free}} شتون لري",
 		"fetchingSponsorBlock": "SponsorBlock سره اړیکه نیول کیږي…",
-		"retryingSponsorBlock": "SponsorBlock شتون نلري، بیا هڅه کیږي ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock شتون نلري، بیا هڅه کیږي ({{attempt}}/{{total}})…",
+		"retryingTransfer": "اړیکه بنده شوه، بیا هڅه کیږي ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "ستاسو تنظیمات نه شول خوندي کېدی.",

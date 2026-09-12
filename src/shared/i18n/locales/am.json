@@ -573,7 +573,8 @@
 		"unknownStartupFailure": "ያልታወቀ ዳውንሎድ መጀመሪያ ወደቀ",
 		"diskSpaceInsufficient": "በቂ የዲስክ ቦታ የለም — {{required}} ያስፈልጋል፣ {{free}} ብቻ አለ",
 		"fetchingSponsorBlock": "SponsorBlock እያነጋገሩ…",
-		"retryingSponsorBlock": "SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…",
+		"retryingTransfer": "ግንኙነት ተቋርጧል፣ እንደገና በመሞከር ላይ ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "ቅንብሮችዎን ማስቀመጥ አልተቻለም።",

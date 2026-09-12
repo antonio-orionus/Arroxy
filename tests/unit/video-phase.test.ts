@@ -54,6 +54,7 @@ const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtra
 const SUCCESS_FALLBACK: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: true}
 const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'botBlock', rawError: 'bot', stdout: '', stderr: ''}
 const NETWORK_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'network', rawError: 'read reset', stdout: '', stderr: ''}
+const CHUNK_TRANSFER_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'chunkTransferFailure', rawError: 'Giving up after 3 retries', stdout: '', stderr: ''}
 const RATE_LIMIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'rateLimit', rawError: 'rate limited', stdout: '', stderr: ''}
 const POSTPROCESS_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'postprocessFailure', rawError: 'Postprocessing: Conversion failed!', stdout: '', stderr: ''}
 const DISK_FULL_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'outOfDiskSpace', rawError: 'No space left on device', stdout: '', stderr: ''}
@@ -121,7 +122,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('pre-media info-json failure retries once without loadInfoJsonPath', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
 
 		const outcome = await VideoPhase(false).run(ctx)
 
@@ -129,6 +130,102 @@ describe('VideoPhase(embed=false)', () => {
 		expect(runMock).toHaveBeenCalledTimes(2)
 		expect(runMock.mock.calls[0][0].resume?.loadInfoJsonPath).toBe('/cache/stale.info.json')
 		expect(runMock.mock.calls[1][0].resume?.loadInfoJsonPath).toBeUndefined()
+	})
+
+	// Root cause of the reported "works once, then needs a restart": the session's
+	// PO token / visitor_data pins every download to one googlevideo edge host for
+	// 5h. When that host dies, dropping the info-json is not enough — re-extraction
+	// under the same session identity is handed the same dead host (observed in a
+	// user log: a genuinely fresh probe returned the identical host). Only a new
+	// visitor_data recovers, which until now meant restarting the app.
+	it('resets the token session before re-extracting after a network failure', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledOnce()
+		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
+	})
+
+	// The other half of `canRecoverWithNewSession`. Without this the branch is
+	// load-bearing in production and free to delete in tests: 'network' alone
+	// covers the guard, so removing `chunkTransferFailure` stays green.
+	it('resets the token session after a chunk transfer failure too', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(CHUNK_TRANSFER_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledOnce()
+		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
+	})
+
+	// Minting is the one await here long enough for a user to give up inside it.
+	// Spawning the fallback anyway only to SIGKILL it on the next line wastes a
+	// process and reports the cancellation late.
+	it('abandons the fallback when the job is cancelled during the session reset', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const invalidateTokenSession = vi.fn().mockImplementation(async () => {
+			active.cancelRequested = true
+			active.controller.abort()
+			return false
+		})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		const outcome = await VideoPhase(false).run(ctx)
+
+		expect(outcome).toEqual({kind: 'cancelled'})
+		expect(runMock).toHaveBeenCalledTimes(1)
+	})
+
+	// The job's own signal reaches the mint, so the reset abandons the hidden
+	// window instead of holding the cancel until its full budget expires.
+	it('hands the job signal to the session reset', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledWith(active.signal)
+	})
+
+	// A bot wall already has its own re-mint ladder inside YtDlp, and a stale or
+	// malformed info-json is a plan problem rather than a session problem. Minting
+	// costs a hidden-window page load, so it stays scoped to transport failures.
+	it('does not reset the token session when the failure is not transport-related', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(EXIT_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(runMock).toHaveBeenCalledTimes(2)
+		expect(invalidateTokenSession).not.toHaveBeenCalled()
+	})
+
+	// Pinning the edge host to the session identity is a YouTube behaviour, and
+	// only YouTube reads the token the mint produces. Elsewhere the hidden-window
+	// scrape is pure cost — the same reason YtDlp skips the PoT ladder off-site.
+	it('does not reset the token session for a site that does not use PoT', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const input: ResolvedStartDownloadInput = {url: 'https://vimeo.com/123456', outputDir: '/tmp', job: {...BASE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}, probeInfoJsonPath: '/cache/stale.info.json'}
+		const active = makeActive({input, job: {...makeJob(), url: input.url}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(runMock).toHaveBeenCalledTimes(2)
+		expect(invalidateTokenSession).not.toHaveBeenCalled()
 	})
 
 	it('post-media info-json failure does not retry and preserves resume behavior', async () => {

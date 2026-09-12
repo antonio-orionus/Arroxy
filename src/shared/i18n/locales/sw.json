@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Kushindwa kwa kuanzisha pasijulikane",
 		"diskSpaceInsufficient": "Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana",
 		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Haikuweza kuhifadhi mipangilio yako.",

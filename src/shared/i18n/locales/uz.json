@@ -619,7 +619,8 @@
 		"unknownStartupFailure": "Noma'lum yuklama ishga tushirish xatosi",
 		"diskSpaceInsufficient": "Disk xotirasi yetarli emas — {{required}} kerak, faqat {{free}} mavjud",
 		"fetchingSponsorBlock": "SponsorBlock bilan bog'lanilmoqda…",
-		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Sozlamalaringizni saqlab bo'lmadi.",

@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Falha desconhecida ao iniciar o download",
 		"diskSpaceInsufficient": "Espaço em disco insuficiente — necessário {{required}}, apenas {{free}} disponível",
 		"fetchingSponsorBlock": "Contatando SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock indisponível, tentando novamente ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock indisponível, tentando novamente ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Ligação parada, a tentar novamente ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Não foi possível salvar suas configurações.",
