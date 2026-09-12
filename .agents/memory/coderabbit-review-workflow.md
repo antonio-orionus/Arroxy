@@ -1,25 +1,40 @@
 ---
 name: coderabbit-review-workflow
-description: Trigger a CodeRabbit review once per PR at open; poll issues/<N>/comments for all three outcomes (findings, clean, refusal) because pulls/<N>/reviews stays 0 on a clean review; never merge on green CI alone.
+description: Automatic reviews are OFF in this repo, so every CodeRabbit review needs an explicit trigger — once at open and once after pushing review fixes; poll issues/<N>/comments for all three outcomes because pulls/<N>/reviews stays 0 on a clean review; never merge on green CI alone.
 metadata:
   type: feedback
 ---
 
-Trigger `@coderabbitai review` **exactly once per PR, right after opening it**.
-Wait for that review, then verify each finding and fix what is valid. Do not
-merge on a green CI alone.
+**Automatic reviews are disabled in this repository.** Nothing reviews itself —
+not the PR at open, and not the commits pushed onto it afterwards. Every review
+happens because someone typed `@coderabbitai review`.
 
-**Never re-trigger after pushing fixes.** One manual trigger per PR, full stop.
-CodeRabbit reviews incrementally and picks up later commits on its own, so a
-second trigger buys nothing and burns a review from a limited quota that is
-shared across every PR in the repo. The walkthrough comment states the budget
-outright — "Your plan provides up to 2 included reviews per hour; 1 remains
-after this review."
+Trigger it **right after opening the PR**, then verify each finding and fix what
+is valid. Do not merge on a green CI alone.
 
-**Why:** CodeRabbit's status check can report `pass` while it has posted zero
-comments — a passing check is not evidence a review happened. On PR #164 the
-check was green with no review at all, so merging on CI status would have
-skipped review entirely.
+**Trigger again after pushing review fixes — once.** This reverses the earlier
+rule in this file, which said a second trigger buys nothing because CodeRabbit
+picks up later commits on its own. It does not, because that behaviour belongs
+to automatic reviews and this repo has them off. On PR #220 the review covered
+only the two commits present at open (`final_review_risk_coverage` named the
+head commit twice); the commit that fixed its own findings sat unreviewed and
+would have merged that way. The trigger reply states the mechanic outright:
+
+> CodeRabbit is an incremental review system and does not re-review already
+> reviewed commits. This command is applicable only when automatic reviews are
+> paused.
+
+So the second trigger is cheap in scope — it reads only the new commits — but
+still spends one unit of a limited quota shared across every PR in the repo. Two
+triggers per PR is the budget: open, and after fixes. Anything beyond that needs
+a reason. The walkthrough comment states the allowance outright — "Your plan
+provides up to 2 included reviews per hour; 1 remains after this review."
+
+**A green CodeRabbit check is never evidence a review happened.** With auto
+reviews off the check reports `pass` with the text "Review skipped: automatic
+reviews are disabled" — a pass that means the exact opposite of reviewed. On
+PR #164 the check was green with no review at all, so merging on CI status would
+have skipped review entirely.
 
 ## Every outcome lands on `issues/<N>/comments`
 
@@ -59,13 +74,39 @@ gh api repos/antonio-orionus/Arroxy/issues/<N>/comments \
 gh api repos/antonio-orionus/Arroxy/pulls/<N>/comments --jq 'length'   # findings
 ```
 
+Count findings as **top-level bot comments only** — your own replies land in
+`pulls/<N>/comments` too, so a bare `length` grows every time you answer a
+thread and a re-review looks like it found something when it did not:
+
+```bash
+gh api repos/antonio-orionus/Arroxy/pulls/<N>/comments \
+  --jq '[.[] | select(.user.login=="coderabbitai[bot]") | select(.in_reply_to_id == null)] | length'
+```
+
+Run the same trigger a second time once the fixes are pushed, and read the
+coverage marker to confirm the new commits were the ones reviewed.
+
 ## Confirm coverage before trusting a clean result
 
-"No actionable comments" is only meaningful if it reviewed the right files. The
-walkthrough comment carries both lists — expand **Files selected for
-processing** and **Files ignored due to path filters** and check the commit
-range it names (`Reviewing files that changed ... between <base> and <head>`)
-covers every commit you pushed.
+"No actionable comments" is only meaningful if it reviewed the right files and
+the right commits.
+
+**Commits.** The walkthrough body carries an HTML comment naming exactly what
+was covered — grep it rather than trusting the prose:
+
+```bash
+gh api repos/antonio-orionus/Arroxy/issues/<N>/comments \
+  --jq '.[].body' | grep -o 'final_review_risk_coverage:{[^}]*}'
+```
+
+`coveredCommitId` must equal your pushed head. On PR #220 it named the commit
+from PR-open time while two later commits sat unreviewed.
+
+**Files.** The walkthrough also carries **Files selected for processing** and
+**Files ignored due to path filters**. Read the file lists, not the summary
+prose next to them — on PR #220 that prose claimed five locales carried the new
+status string when the diff changed all 24. The summary is a paraphrase and is
+routinely wrong about counts; the diff is the truth.
 
 `.coderabbit.yaml` excludes `.agents/**`, so memory files are *never* reviewed.
 That is configuration, not a miss — do not read it as incomplete coverage.
