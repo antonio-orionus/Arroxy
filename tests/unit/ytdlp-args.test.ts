@@ -174,6 +174,27 @@ describe('YtDlp — E2E harness args', () => {
 	})
 })
 
+describe('YtDlp — stdout encoding', () => {
+	// yt-dlp encodes everything it prints with the console codepage and *drops*
+	// what doesn't fit (`s.encode(enc, 'ignore')` in its write_string). On a
+	// non-UTF-8 Windows console that silently deletes non-Latin characters from
+	// the `Destination:` / `Writing video subtitles to:` lines — and those lines
+	// are where ProgressParser learns the media and sidecar paths. The result is
+	// a path that never existed on disk, so subtitle post-processing ENOENTs and
+	// the cue-overlap fix never runs. Forcing utf-8 keeps the paths intact.
+	it('forces utf-8 on download runs', async () => {
+		await makeYtDlp().run(mediaRequest())
+		const args = getArgs()
+		expect(args[args.indexOf('--encoding') + 1]).toBe('utf-8')
+	})
+
+	it('forces utf-8 on probe runs', async () => {
+		await makeYtDlp().run({kind: 'probe', url: URL})
+		const args = getArgs()
+		expect(args[args.indexOf('--encoding') + 1]).toBe('utf-8')
+	})
+})
+
 describe('YtDlp — probe args', () => {
 	it('default (auto): --dump-single-json --flat-playlist + cap, no playlist flag', async () => {
 		await makeYtDlp().run({kind: 'probe', url: URL})
