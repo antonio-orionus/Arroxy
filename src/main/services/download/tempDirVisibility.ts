@@ -36,6 +36,15 @@ export function createTempDirHider(deps: TempDirHiderDeps): (tempDirRoot: string
 	}
 }
 
+// Node reports a recursive `mkdir`'s first created directory in Windows'
+// `\\?\` extended-length namespace, while the path handed to it is plain — so
+// the two never compare equal on Windows unless the prefix is stripped. Getting
+// this wrong is silent: the comparison simply never matches and the caller
+// quietly stops hiding anything.
+export function normalizeCreatedPath(created: string): string {
+	return created.startsWith('\\\\?\\') ? created.slice(4) : created
+}
+
 export const hideTempDirRoot = createTempDirHider({
 	platform: process.platform,
 	// `windowsHide` keeps the console window from flashing over the app.

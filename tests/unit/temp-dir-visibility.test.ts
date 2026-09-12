@@ -1,6 +1,6 @@
 import {join} from 'node:path'
 import {describe, expect, it, vi} from 'vitest'
-import {createTempDirHider} from '@main/services/download/tempDirVisibility.js'
+import {createTempDirHider, normalizeCreatedPath} from '@main/services/download/tempDirVisibility.js'
 
 const WIN_ROOT = 'C:\\Users\\Admin\\Downloads\\.arroxy-temp'
 
@@ -36,5 +36,28 @@ describe('createTempDirHider', () => {
 		await hide(WIN_ROOT)
 
 		expect(run).toHaveBeenCalledTimes(2)
+	})
+})
+
+// Measured on a real Windows 11 host: `mkdir(p, {recursive: true})` resolves to
+// `\\?\C:\...` while `p` itself is plain, so an unstripped comparison never
+// matches and the caller silently stops hiding anything.
+describe('normalizeCreatedPath', () => {
+	it('strips the Windows extended-length prefix', () => {
+		expect(normalizeCreatedPath('\\\\?\\C:\\Users\\Admin\\Downloads\\.arroxy-temp')).toBe('C:\\Users\\Admin\\Downloads\\.arroxy-temp')
+	})
+
+	it('leaves a plain Windows path alone', () => {
+		expect(normalizeCreatedPath('C:\\Users\\Admin\\Downloads\\.arroxy-temp')).toBe('C:\\Users\\Admin\\Downloads\\.arroxy-temp')
+	})
+
+	it('leaves a POSIX path alone', () => {
+		expect(normalizeCreatedPath('/out/.arroxy-temp')).toBe('/out/.arroxy-temp')
+	})
+
+	// A UNC share is reported as `\\?\UNC\server\share`; stripping the prefix
+	// must not turn it into something that accidentally equals another path.
+	it('does not corrupt a UNC path into a local-looking one', () => {
+		expect(normalizeCreatedPath('\\\\?\\UNC\\server\\share\\.arroxy-temp')).toBe('UNC\\server\\share\\.arroxy-temp')
 	})
 })

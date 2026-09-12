@@ -10,7 +10,7 @@ import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
-import {hideTempDirRoot} from '../download/tempDirVisibility.js'
+import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
@@ -18,23 +18,20 @@ async function setupTempDir(outputDir: string, jobId: string, preserve: boolean,
 	const tempDir = overridePath ?? join(outputDir, TEMP_DIR_NAME, jobId.slice(0, 8))
 	try {
 		if (!preserve) await rm(tempDir, {recursive: true, force: true})
-		// Create the root on its own so its return value answers one question
-		// exactly: recursive `mkdir` resolves to undefined iff the directory was
-		// already there, so a defined result means we just brought `.arroxy-temp`
-		// into existence. That is the only moment it needs hiding — cleanup removes
-		// the root again when a job finalizes, so hiding once per session would
-		// leave every later download's folder visible on Windows.
+		// One recursive `mkdir` builds the root and the job directory together, and
+		// its result says which of them was new: it resolves to the first path it
+		// created, or undefined when everything already existed. So a result that
+		// is not the job directory itself means `.arroxy-temp` was just brought
+		// into existence, which is the only moment it needs hiding — cleanup
+		// removes the root again when a job finalizes, so hiding once per session
+		// would leave every later download's folder visible on Windows.
 		//
-		// Deliberately not derived from `mkdir(tempDir)`'s returned path: on
-		// Windows that comes back in the `\\?\` extended-length namespace, so
-		// comparing it against a plain path silently never matches.
-		const root = dirname(tempDir)
-		const createdRoot = await mkdir(root, {recursive: true})
+		// Deliberately a single call. Creating the root separately leaves a window
+		// in which the startup sweep can `rmdir` an empty root between the two,
+		// after which the second call silently recreates it unhidden.
+		const created = await mkdir(tempDir, {recursive: true})
 		// Cosmetic and Windows-only, so it neither blocks nor can fail the setup.
-		// Hiding before the job directory lands inside is fine: Windows still
-		// allows create, read and delete through a hidden parent.
-		if (createdRoot !== undefined) await hideTempDirRoot(root)
-		await mkdir(tempDir, {recursive: true})
+		if (created !== undefined && normalizeCreatedPath(created) !== tempDir) await hideTempDirRoot(dirname(tempDir))
 		return tempDir
 	} catch {
 		return undefined
