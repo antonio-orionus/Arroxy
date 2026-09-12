@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import type {DownloadRetryPolicy} from 'yt-dlp-bridge'
 import type {AppSettings} from '@shared/types.js'
 
 interface HarnessGate {
@@ -8,12 +9,6 @@ interface HarnessGate {
 
 interface YtDlpHarnessArgsOptions {
 	isProbe: boolean
-}
-
-export interface DownloadRetryPolicy {
-	retries: number
-	fragmentRetries: number
-	retrySleep: string
 }
 
 export interface E2eHarnessMode {
@@ -96,6 +91,6 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 			if (!isProbe) args.push('--newline')
 			return args
 		},
-		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0'}
+		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0', socketTimeout: 5}
 	}
 }

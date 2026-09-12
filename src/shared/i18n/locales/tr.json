@@ -611,7 +611,8 @@
 		"unknownStartupFailure": "Bilinmeyen indirme başlatma hatası",
 		"diskSpaceInsufficient": "Yeterli disk alanı yok — {{required}} gerekiyor, yalnızca {{free}} kullanılabilir",
 		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
-		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Ayarların kaydedilemedi.",

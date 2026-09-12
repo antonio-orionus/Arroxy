@@ -108,6 +108,16 @@ export class ProgressParser {
 				continue
 			}
 
+			if (event.kind === 'transfer-retry') {
+				// Status, not progress: the progress formatter has no shape for this
+				// line and drops it, which is what made a multi-minute retry loop
+				// look like a download frozen at 0%. The host is logged above but
+				// deliberately kept out of the status params — the user can act on
+				// "we are retrying", not on a CDN hostname.
+				this.emitStatus(jobId, 'download', STATUS_KEY.retryingTransfer, {attempt: event.attempt, total: event.total})
+				continue
+			}
+
 			if (event.kind === 'postprocess') {
 				if (event.path) active.mediaPath = event.path
 				this.emitPostProcStatus(active, event.phase)

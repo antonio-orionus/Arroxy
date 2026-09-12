@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {EMBED_SUBTITLE_CONTAINER_EXT, planWorkflow, type WorkflowInput} from '../src/index.js'
+import {DEFAULT_DOWNLOAD_RETRY_POLICY, DEFAULT_SOCKET_TIMEOUT_SECONDS, EMBED_SUBTITLE_CONTAINER_EXT, INFO_JSON_DOWNLOAD_RETRY_POLICY, planWorkflow, type WorkflowInput} from '../src/index.js'
 import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'
 import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../../../tests/shared/nativeAudioSelectors.js'
@@ -59,6 +59,43 @@ describe('planWorkflow — media', () => {
 
 		expect(adjacent(plan.args, '--load-info-json', '/out/.tmp/job/_arroxy.info.json')).toBe(true)
 		expect(plan.args).not.toContain(URL)
+	})
+
+	// A --load-info-json attempt replays format URLs minted at probe time. When
+	// those URLs are dead, every retry hits the same dead host, so the retry
+	// budget buys nothing — the caller's re-extraction fallback is the only real
+	// recovery. Fail fast into it instead of burning ~7 minutes first.
+	it('plans a fast-fail retry budget for the load-info-json attempt', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp/job'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/out/.tmp/job/_arroxy.info.json'}})
+
+		expect(adjacent(plan.args, '--retries', String(INFO_JSON_DOWNLOAD_RETRY_POLICY.retries))).toBe(true)
+		expect(adjacent(plan.args, '--socket-timeout', String(INFO_JSON_DOWNLOAD_RETRY_POLICY.socketTimeout))).toBe(true)
+	})
+
+	// Only the connect-level levers are cut. The caller gates its re-extraction
+	// fallback on the transfer not having started, so a run that is already
+	// moving bytes has nothing to fail fast into and keeps the full fragment
+	// budget it had before.
+	it('keeps the default fragment budget on the load-info-json attempt', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp/job'}, selection: {formatId: 'hls-3217'}, resume: {loadInfoJsonPath: '/out/.tmp/job/_arroxy.info.json'}})
+
+		expect(adjacent(plan.args, '--fragment-retries', String(DEFAULT_DOWNLOAD_RETRY_POLICY.fragmentRetries))).toBe(true)
+		expect(adjacent(plan.args, '--retry-sleep', DEFAULT_DOWNLOAD_RETRY_POLICY.retrySleep)).toBe(true)
+	})
+
+	// `socketTimeout` is optional on the published interface, so a policy that
+	// predates it must still plan a concrete flag rather than 'undefined'.
+	it('falls back to the default socket timeout when a caller policy omits it', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatId: 'hls-3217'}}, {downloadRetryPolicy: {retries: 2, fragmentRetries: 2, retrySleep: 'fragment:0'}})
+
+		expect(adjacent(plan.args, '--socket-timeout', String(DEFAULT_SOCKET_TIMEOUT_SECONDS))).toBe(true)
+	})
+
+	it('plans the full retry budget when no info-json is replayed', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.tmp/job'}, selection: {formatId: 'hls-3217'}})
+
+		expect(adjacent(plan.args, '--retries', String(DEFAULT_DOWNLOAD_RETRY_POLICY.retries))).toBe(true)
+		expect(adjacent(plan.args, '--socket-timeout', String(DEFAULT_DOWNLOAD_RETRY_POLICY.socketTimeout))).toBe(true)
 	})
 
 	it('plans format selector, sort, and merge output', () => {
@@ -160,6 +197,8 @@ describe('parseYtDlpOutputLine', () => {
 		expect(parseYtDlpOutputLine('[SponsorBlock] Fetching SponsorBlock segments')).toEqual({kind: 'sponsorblock-fetch'})
 		expect(parseYtDlpOutputLine('Unable to communicate with SponsorBlock API: down. Retrying (2/5)')).toEqual({kind: 'sponsorblock-retry', attempt: 2, total: 5})
 		expect(parseYtDlpOutputLine('[ExtractAudio] Destination: /tmp/audio.mp3')).toEqual({kind: 'postprocess', phase: 'extractingAudio', path: '/tmp/audio.mp3'})
+		expect(parseYtDlpOutputLine("[download] Got error: (<HTTPSConnection(host='rr3---sn-txhxooxu-n5il.googlevideo.com', port=443) at 0x2b188eaab90>, 'Connection to rr3---sn-txhxooxu-n5il.googlevideo.com timed out. (connect timeout=20.0)'). Retrying (1/20)...")).toEqual({kind: 'transfer-retry', attempt: 1, total: 20})
+		expect(parseYtDlpOutputLine('[download] Got error: read timed out. Retrying (3/20)...')).toEqual({kind: 'transfer-retry', attempt: 3, total: 20})
 		expect(parseYtDlpOutputLine('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toEqual({kind: 'progress', percent: 42, raw: '[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05'})
 	})
 })

@@ -548,7 +548,8 @@
 		"unknownStartupFailure": "启动下载时出现未知错误",
 		"diskSpaceInsufficient": "磁盘空间不足 — 需要 {{required}}，当前仅剩 {{free}}",
 		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…",
+		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "无法保存你的设置。",

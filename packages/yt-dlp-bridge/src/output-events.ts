@@ -11,6 +11,7 @@ export type YtDlpOutputEvent =
 	| {kind: Extract<YtDlpOutputEventKind, 'sleep'>; seconds: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-fetch'>}
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-retry'>; attempt: number; total: number}
+	| {kind: Extract<YtDlpOutputEventKind, 'transfer-retry'>; attempt: number; total: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'postprocess'>; phase: YtDlpPostprocessPhase; path?: string}
 	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; percent?: number; raw: string}
 
@@ -43,6 +44,15 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 
 	const sponsorBlockRetry = /Unable to communicate with SponsorBlock API:.+Retrying \((\d+)\/(\d+)\)/.exec(clean)
 	if (sponsorBlockRetry?.[1] && sponsorBlockRetry[2]) return {kind: 'sponsorblock-retry', attempt: Number(sponsorBlockRetry[1]), total: Number(sponsorBlockRetry[2])}
+
+	// yt-dlp retries a failed media transfer in-process and reports it only on
+	// this line. Without a dedicated event it falls through to `progress`, where
+	// the formatter drops it — the row then sits at "Downloading, 0%" for the
+	// whole retry budget with no sign anything is wrong. The offending host is
+	// left in the raw line, which callers already log verbatim; lifting it into
+	// the event would add a field nothing reads.
+	const transferRetry = /Got error:.*?Retrying \((\d+)\/(\d+)\)/s.exec(clean)
+	if (transferRetry?.[1] && transferRetry[2]) return {kind: 'transfer-retry', attempt: Number(transferRetry[1]), total: Number(transferRetry[2])}
 
 	const postprocess = postprocessPhase(clean)
 	if (postprocess) {

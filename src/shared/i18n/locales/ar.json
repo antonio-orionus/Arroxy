@@ -606,7 +606,8 @@
 		"unknownStartupFailure": "فشل غير معروف في بدء التنزيل",
 		"diskSpaceInsufficient": "مساحة القرص غير كافية — تحتاج {{required}}، والمتاح فقط {{free}}",
 		"fetchingSponsorBlock": "جارٍ الاتصال بـ SponsorBlock…",
-		"retryingSponsorBlock": "SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…",
+		"retryingTransfer": "تعذّر الاتصال، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "تعذّر حفظ إعداداتك.",

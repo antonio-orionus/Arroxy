@@ -121,7 +121,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('pre-media info-json failure retries once without loadInfoJsonPath', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
 
 		const outcome = await VideoPhase(false).run(ctx)
 
@@ -129,6 +129,55 @@ describe('VideoPhase(embed=false)', () => {
 		expect(runMock).toHaveBeenCalledTimes(2)
 		expect(runMock.mock.calls[0][0].resume?.loadInfoJsonPath).toBe('/cache/stale.info.json')
 		expect(runMock.mock.calls[1][0].resume?.loadInfoJsonPath).toBeUndefined()
+	})
+
+	// Root cause of the reported "works once, then needs a restart": the session's
+	// PO token / visitor_data pins every download to one googlevideo edge host for
+	// 5h. When that host dies, dropping the info-json is not enough — re-extraction
+	// under the same session identity is handed the same dead host (observed in a
+	// user log: a genuinely fresh probe returned the identical host). Only a new
+	// visitor_data recovers, which until now meant restarting the app.
+	it('resets the token session before re-extracting after a network failure', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(invalidateTokenSession).toHaveBeenCalledOnce()
+		expect(invalidateTokenSession.mock.invocationCallOrder[0]).toBeLessThan(runMock.mock.invocationCallOrder[1])
+	})
+
+	// A bot wall already has its own re-mint ladder inside YtDlp, and a stale or
+	// malformed info-json is a plan problem rather than a session problem. Minting
+	// costs a hidden-window page load, so it stays scoped to transport failures.
+	it('does not reset the token session when the failure is not transport-related', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(EXIT_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(runMock).toHaveBeenCalledTimes(2)
+		expect(invalidateTokenSession).not.toHaveBeenCalled()
+	})
+
+	// Pinning the edge host to the session identity is a YouTube behaviour, and
+	// only YouTube reads the token the mint produces. Elsewhere the hidden-window
+	// scrape is pure cost — the same reason YtDlp skips the PoT ladder off-site.
+	it('does not reset the token session for a site that does not use PoT', async () => {
+		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
+		const invalidateTokenSession = vi.fn()
+		const input: ResolvedStartDownloadInput = {url: 'https://vimeo.com/123456', outputDir: '/tmp', job: {...BASE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}, probeInfoJsonPath: '/cache/stale.info.json'}
+		const active = makeActive({input, job: {...makeJob(), url: input.url}})
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+
+		await VideoPhase(false).run(ctx)
+
+		expect(runMock).toHaveBeenCalledTimes(2)
+		expect(invalidateTokenSession).not.toHaveBeenCalled()
 	})
 
 	it('post-media info-json failure does not retry and preserves resume behavior', async () => {

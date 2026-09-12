@@ -619,7 +619,8 @@
 		"unknownStartupFailure": "Непозната грешка при покретању преузимања",
 		"diskSpaceInsufficient": "Нема довољно простора на диску — потребно {{required}}, доступно само {{free}}",
 		"fetchingSponsorBlock": "Успостављање везе са SponsorBlock-ом…",
-		"retryingSponsorBlock": "SponsorBlock недоступан, поновни покушај ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock недоступан, поновни покушај ({{attempt}}/{{total}})…",
+		"retryingTransfer": "Веза је запела, поновни покушај ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Није могуће сачувати ваша подешавања.",

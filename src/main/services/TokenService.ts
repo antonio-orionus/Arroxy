@@ -21,6 +21,10 @@ function parseYouTubeVideoId(url: string): string | null {
 }
 
 const TTL_MS = 5 * 60 * 60 * 1_000 // 5 hours — within ~6 h token lifetime
+// Budget for a forced re-mint. The provider loads youtube.com in a hidden window
+// and awaits `did-finish-load` with no timer of its own, so without a deadline
+// here a page that connects but never settles hangs whoever asked for the reset.
+const RESET_TIMEOUT_MS = 30_000
 
 // Distinguishes "the caller gave up" from a provider failure, so an abort is not
 // reported as an error the user could act on.
@@ -88,6 +92,40 @@ export class TokenService {
 
 	invalidateCache(): void {
 		this.cache = null
+	}
+
+	// Mint a new session identity, replacing the cached one.
+	//
+	// YouTube derives the googlevideo edge host a download is sent to from the
+	// session's visitor_data, and the cache pins that for TTL_MS. If the assigned
+	// host stops answering, every download in the session is stuck behind it and
+	// re-extraction alone does not help — the fresh probe is handed the same host.
+	// A new identity is the recovery; before this existed, so was restarting.
+	//
+	// Returns whether a new identity was actually obtained. On failure or timeout
+	// the previous one is put back: retrying with a stale token is strictly better
+	// than blocking the caller on a mint that may never settle.
+	async resetSession(timeoutMs: number = RESET_TIMEOUT_MS): Promise<boolean> {
+		const previous = this.cache
+		this.cache = null
+		const controller = new AbortController()
+		const timer = setTimeout(() => controller.abort(), timeoutMs)
+		try {
+			const {ready, reason} = await this.warmUp(controller.signal)
+			if (ready) {
+				logger.info('Token session reset')
+				return true
+			}
+			logger.warn('Token session reset failed — keeping the previous identity', {reason})
+			// Downloads run concurrently, so another item can have minted a fresh
+			// identity into the empty cache during the window above. Restoring the
+			// stashed one unconditionally would demote that newer identity back to
+			// the very one this reset was called to get rid of.
+			this.cache ??= previous
+			return false
+		} finally {
+			clearTimeout(timer)
+		}
 	}
 
 	async mintTokenForUrl(url: string): Promise<{token: string; visitorData: string; fromCache: boolean}> {

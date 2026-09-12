@@ -590,7 +590,8 @@
 		"unknownStartupFailure": "অজানা ডাউনলোড স্টার্টআপ ব্যর্থতা",
 		"diskSpaceInsufficient": "পর্যাপ্ত ডিস্ক স্থান নেই — {{required}} প্রয়োজন, মাত্র {{free}} পাওয়া যাচ্ছে",
 		"fetchingSponsorBlock": "SponsorBlock-এর সাথে যোগাযোগ করা হচ্ছে…",
-		"retryingSponsorBlock": "SponsorBlock অনুপলব্ধ, আবার চেষ্টা হচ্ছে ({{attempt}}/{{total}})…"
+		"retryingSponsorBlock": "SponsorBlock অনুপলব্ধ, আবার চেষ্টা হচ্ছে ({{attempt}}/{{total}})…",
+		"retryingTransfer": "সংযোগ আটকে গেছে, আবার চেষ্টা করা হচ্ছে ({{attempt}}/{{total}})…"
 	},
 	"notifications": {
 		"settingsSaveFailed": "আপনার সেটিংস সংরক্ষণ করা যায়নি।",

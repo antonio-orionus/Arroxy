@@ -252,3 +252,63 @@ describe('TokenService window leases', () => {
 		expect(provider.releaseWindow).toHaveBeenCalledOnce()
 	})
 })
+
+describe('TokenService.resetSession', () => {
+	// YouTube pins the googlevideo edge host to the session's visitor_data, and
+	// the cache holds that identity for 5h. When the assigned host goes dark,
+	// a new identity is the only recovery that does not involve restarting.
+	it('replaces the cached session identity with a freshly minted one', async () => {
+		const getVisitorData = vi.fn().mockResolvedValue('visitor-abc')
+		const mintToken = vi.fn().mockResolvedValue('token-xyz')
+		const service = new TokenService(makeProvider({getVisitorData, mintToken}))
+		await service.warmUp()
+
+		getVisitorData.mockResolvedValue('visitor-second')
+		mintToken.mockResolvedValue('token-second')
+
+		const reset = await service.resetSession()
+
+		expect(reset).toBe(true)
+		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-second', visitorData: 'visitor-second', fromCache: true})
+	})
+
+	// The hidden window awaits `did-finish-load` with no timer of its own, so a
+	// page that connects but never settles would otherwise hang the download that
+	// asked for the reset. Degrade to the previous identity instead of blocking:
+	// retrying with a stale token is strictly better than never retrying.
+	// Downloads run concurrently, so the empty window a reset opens is one any
+	// other item can mint into. Restoring the stashed identity unconditionally
+	// would demote that fresh one back to exactly what the reset was rejecting.
+	it('does not restore the stale identity over one another caller minted meanwhile', async () => {
+		const getVisitorData = vi.fn().mockResolvedValue('visitor-abc')
+		const mintToken = vi.fn().mockResolvedValue('token-xyz')
+		const service = new TokenService(makeProvider({getVisitorData, mintToken}))
+		await service.warmUp()
+
+		// The reset's own mint never settles; a concurrent caller mints while it hangs.
+		getVisitorData.mockImplementation(async () => {
+			getVisitorData.mockResolvedValue('visitor-concurrent')
+			mintToken.mockResolvedValue('token-concurrent')
+			await service.mintTokenForUrl('https://youtube.com/watch?v=other')
+			return new Promise<string>(() => undefined)
+		})
+
+		const reset = await service.resetSession(20)
+
+		expect(reset).toBe(false)
+		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-concurrent', visitorData: 'visitor-concurrent', fromCache: true})
+	})
+
+	it('keeps the previous identity and gives up when minting outlives its budget', async () => {
+		const ensureReady = vi.fn().mockResolvedValue(undefined)
+		const service = new TokenService(makeProvider({ensureReady}))
+		await service.warmUp()
+
+		ensureReady.mockImplementation(() => new Promise<void>(() => undefined))
+
+		const reset = await service.resetSession(20)
+
+		expect(reset).toBe(false)
+		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
+	})
+})

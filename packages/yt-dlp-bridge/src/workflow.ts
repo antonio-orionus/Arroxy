@@ -19,6 +19,11 @@ export interface DownloadRetryPolicy {
 	retries: number
 	fragmentRetries: number
 	retrySleep: string
+	// Seconds. yt-dlp's own default is 20s per connect, which is what makes an
+	// unreachable host expensive; setting it explicitly keeps the worst-case
+	// stall a property of this policy rather than of the yt-dlp version.
+	// Optional so an existing policy literal stays valid without it.
+	socketTimeout?: number
 }
 
 export interface AudioConvert {
@@ -132,7 +137,24 @@ export interface WorkflowPlan {
 }
 
 export const DEFAULT_PLAYLIST_PROBE_LIMIT = 100
-export const DEFAULT_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 20, fragmentRetries: 20, retrySleep: 'fragment:exp=1:20'}
+// yt-dlp's own default when `--socket-timeout` is not passed. Named so the
+// planner never has to encode a bare number for a policy that omits it.
+export const DEFAULT_SOCKET_TIMEOUT_SECONDS = 20
+export const DEFAULT_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 20, fragmentRetries: 20, retrySleep: 'fragment:exp=1:20', socketTimeout: DEFAULT_SOCKET_TIMEOUT_SECONDS}
+// Budget for an attempt that replays a `--load-info-json` plan. Those format
+// URLs were minted at probe time and are pinned to one CDN edge host, so if the
+// host is unreachable every retry fails identically — the retries buy nothing
+// and the caller's re-extraction fallback is the only recovery that can work.
+// Fail fast into it: 4 connect attempts x 15s = ~60s, against 21 x 20s = ~7min.
+//
+// Only the connect-level levers are cut. Fragment retries keep the default
+// budget because they are what carries a run that is already moving bytes: the
+// caller gates its re-extraction fallback on the transfer not having started,
+// so a mid-download stall has no fallback to fail fast into and must stay as
+// resilient as before. A progressive (non-fragmented) transfer that dies mid-
+// stream still spends the reduced `retries`, and recovers through `--continue`
+// on the next attempt rather than through this budget.
+export const INFO_JSON_DOWNLOAD_RETRY_POLICY: DownloadRetryPolicy = {retries: 3, fragmentRetries: DEFAULT_DOWNLOAD_RETRY_POLICY.fragmentRetries, retrySleep: DEFAULT_DOWNLOAD_RETRY_POLICY.retrySleep, socketTimeout: 15}
 export const DEFAULT_SLEEP_SUBTITLES_SECONDS = 3
 export const EMBED_SUBTITLE_CONTAINER_EXT = 'mkv'
 
@@ -244,13 +266,28 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 }
 
 function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
-	const retryPolicy = options.downloadRetryPolicy ?? DEFAULT_DOWNLOAD_RETRY_POLICY
 	const skipDownload = input.selection?.skipDownload === true
 	const args: string[] = [...baseArgs(options), '--progress', '--no-playlist']
 	const loadInfoJsonPath = input.resume?.loadInfoJsonPath
 	if (loadInfoJsonPath) args.push('--load-info-json', loadInfoJsonPath)
+	// An explicit caller policy always wins; otherwise the budget follows whether
+	// this attempt replays a pinned info-json plan (see the two policies above).
+	const retryPolicy = options.downloadRetryPolicy ?? (loadInfoJsonPath ? INFO_JSON_DOWNLOAD_RETRY_POLICY : DEFAULT_DOWNLOAD_RETRY_POLICY)
 	if (!skipDownload) {
-		args.push('--continue', '--http-chunk-size', '10M', '--retries', String(retryPolicy.retries), '--fragment-retries', String(retryPolicy.fragmentRetries), '--retry-sleep', retryPolicy.retrySleep, '--abort-on-unavailable-fragments')
+		args.push(
+			'--continue',
+			'--http-chunk-size',
+			'10M',
+			'--retries',
+			String(retryPolicy.retries),
+			'--fragment-retries',
+			String(retryPolicy.fragmentRetries),
+			'--retry-sleep',
+			retryPolicy.retrySleep,
+			'--socket-timeout',
+			String(retryPolicy.socketTimeout ?? DEFAULT_SOCKET_TIMEOUT_SECONDS),
+			'--abort-on-unavailable-fragments'
+		)
 	}
 
 	const embedSubs = input.subtitles?.embed === true && input.subtitles.languages.length > 0
