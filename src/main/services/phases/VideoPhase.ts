@@ -1,5 +1,5 @@
 import {mkdir, rm, stat} from 'node:fs/promises'
-import {join} from 'node:path'
+import {dirname, join} from 'node:path'
 import type {AudioConvert as BridgeAudioConvert} from 'yt-dlp-bridge'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -9,14 +9,29 @@ import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
+import {TEMP_DIR_NAME} from '../download/cleanup.js'
+import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
 async function setupTempDir(outputDir: string, jobId: string, preserve: boolean, overridePath?: string): Promise<string | undefined> {
-	const tempDir = overridePath ?? join(outputDir, '.arroxy-temp', jobId.slice(0, 8))
+	const tempDir = overridePath ?? join(outputDir, TEMP_DIR_NAME, jobId.slice(0, 8))
 	try {
 		if (!preserve) await rm(tempDir, {recursive: true, force: true})
-		await mkdir(tempDir, {recursive: true})
+		// One recursive `mkdir` builds the root and the job directory together, and
+		// its result says which of them was new: it resolves to the first path it
+		// created, or undefined when everything already existed. So a result that
+		// is not the job directory itself means `.arroxy-temp` was just brought
+		// into existence, which is the only moment it needs hiding — cleanup
+		// removes the root again when a job finalizes, so hiding once per session
+		// would leave every later download's folder visible on Windows.
+		//
+		// Deliberately a single call. Creating the root separately leaves a window
+		// in which the startup sweep can `rmdir` an empty root between the two,
+		// after which the second call silently recreates it unhidden.
+		const created = await mkdir(tempDir, {recursive: true})
+		// Cosmetic and Windows-only, so it neither blocks nor can fail the setup.
+		if (created !== undefined && normalizeCreatedPath(created) !== tempDir) await hideTempDirRoot(dirname(tempDir))
 		return tempDir
 	} catch {
 		return undefined

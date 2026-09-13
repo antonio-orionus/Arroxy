@@ -4,12 +4,20 @@ import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {VideoPhase} from '@main/services/phases/VideoPhase.js'
+import {hideTempDirRoot} from '@main/services/download/tempDirVisibility.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, QueueResumeContext, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
+
+// Only the visibility helper is stubbed: it shells out to `attrib`, which does
+// not exist off Windows, and these tests are about when it is called.
+vi.mock('@main/services/download/tempDirVisibility.js', async importOriginal => {
+	const actual = await importOriginal<typeof import('@main/services/download/tempDirVisibility.js')>()
+	return {...actual, hideTempDirRoot: vi.fn()}
+})
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -485,6 +493,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 
 	beforeEach(async () => {
 		outputDir = await mkdtemp(join(tmpdir(), 'arroxy-vp-'))
+		vi.mocked(hideTempDirRoot).mockClear()
 	})
 
 	afterEach(async () => {
@@ -501,6 +510,33 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		const ctx: PhaseContext = {active, signal: realController.signal, register: disposable => active.disposables.defer(disposable), ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
 		return Object.assign(ctx, {runMock})
 	}
+
+	// Windows-only in effect, but the trigger is platform-independent and worth
+	// pinning here: the hide must fire exactly when `.arroxy-temp` is created.
+	// Verified on a real Windows 11 host that a recreated root loses the Hidden
+	// attribute, so "once per session" would leave later downloads visible.
+	it('hides .arroxy-temp at the moment it creates the root', async () => {
+		await VideoPhase(false).run(makeRealCtx({}))
+
+		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledWith(join(outputDir, '.arroxy-temp'))
+	})
+
+	it('does not re-hide a .arroxy-temp that already exists', async () => {
+		await mkdir(join(outputDir, '.arroxy-temp'), {recursive: true})
+
+		await VideoPhase(false).run(makeRealCtx({}))
+
+		expect(vi.mocked(hideTempDirRoot)).not.toHaveBeenCalled()
+	})
+
+	it('hides again once cleanup has removed the root and a later job recreates it', async () => {
+		await VideoPhase(false).run(makeRealCtx({}))
+		await rm(join(outputDir, '.arroxy-temp'), {recursive: true, force: true})
+
+		await VideoPhase(false).run(makeRealCtx({}))
+
+		expect(vi.mocked(hideTempDirRoot)).toHaveBeenCalledTimes(2)
+	})
 
 	it('fresh start (active.tempDir undefined) → wipes existing temp dir contents', async () => {
 		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))

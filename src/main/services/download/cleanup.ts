@@ -8,6 +8,10 @@ import log from 'electron-log/main.js'
 
 const logger = log.scope('downloads')
 
+// The per-output-directory folder that holds one scratch directory per job.
+// Owned here because both the writer (VideoPhase) and the sweepers key off it.
+export const TEMP_DIR_NAME = '.arroxy-temp'
+
 // Delete leftover .part / .ytdl files in `outputDir`. Tolerant: if the dir is
 // missing or unreadable, log and continue — partial-file cleanup never blocks
 // a finalize() path.
