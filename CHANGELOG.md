@@ -8,6 +8,33 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.13
+
+Subtitles survive titles in any language, a download stuck at 0% now recovers by itself instead of needing an app restart, SponsorBlock keeps working in mixed batches, and crashed sessions stop leaving empty folders behind.
+
+## Highlights
+
+### Subtitles For Titles In Any Language
+
+- Videos with non-Latin titles, such as Persian, Arabic or emoji, could download their subtitles but skip the cleanup pass, so the doubled-up captions fixed in 0.4.12 came back for exactly those videos. The subtitle file was there all along; Arroxy was looking for it under a mangled name.
+- File names now come through intact on every platform, including Windows consoles that could not show the characters, and on busy playlists where progress updates arrive in quick bursts.
+
+### Stuck Downloads Recover On Their Own
+
+- A download could sit at "Downloading, 0%" for several minutes and then fail, and the only reliable cure was restarting Arroxy. It now notices the stalled server much sooner, tells you it is retrying instead of leaving the row frozen, and starts over with a fresh connection that actually reaches a working server.
+- Downloads that are already moving keep their full retry budget, so a brief hiccup mid-transfer is not treated as a dead connection.
+
+### SponsorBlock In Mixed Batches
+
+- Pasting a list that mixed YouTube links with links from another site quietly turned off SponsorBlock for the YouTube videos too. Each video now decides for itself, so the YouTube ones get their segments removed whatever else is in the batch.
+
+### No More Leftover Temp Folders
+
+- If Arroxy was force-quit or the computer lost power mid-download, an empty `.arroxy-temp` folder could stay in your download folder forever. These are now cleaned up on the next launch, while anything a paused or resumable download still needs is left alone.
+- On Windows the temp folder is now hidden while a download runs, instead of sitting in plain sight beside your finished videos.
+
+---
+
 ## 0.4.12
 
 Subtitles no longer stack two lines on top of each other, and installing on macOS is a single command that no longer ends at a Gatekeeper dialog.
