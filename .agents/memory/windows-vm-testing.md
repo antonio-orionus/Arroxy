@@ -13,6 +13,8 @@ The local Windows 11 ARM64 test VM is the fast loop for Windows-only verificatio
 - winget-installed: Git 2.55 (`C:\Program Files\Git\cmd\git.exe`), Bun 1.4 (`~/.bun/bin/bun.exe`), Node 24 (`C:\Program Files\nodejs`), 7-Zip 26 (`C:\Program Files\7-Zip\7z.exe`, arm64 build).
 - Repo checkout at `C:\Arroxy` (no remote; `git init` + local tags `v0.4.7`, `v0.4.8-beta.5` for the inherited-update journey). Resync by tar'ing `git ls-files` + uncommitted files (25MB) and scp'ing — NOT the whole workdir (890MB of build artifacts).
 - `bun install` with `$env:CI='true'` (skips husky, no .git hooks there).
+- (2026-09-13) Standalone `yt-dlp.exe` at `C:\Users\admin\yt-dlp.exe` (official release, not Arroxy's managed copy). Lets yt-dlp's Windows stdout behaviour be checked without building the app — drive it from `node` through a pipe, with a crafted info.json or a local `http://127.0.0.1` file server so no external network is needed. Recipe and results in [[ytdlp-stdout-drops-non-ascii]].
+- The console codepage is **437**, a legacy OEM page. That makes the VM a faithful repro host for anything that depends on a non-UTF-8 codepage.
 
 ## Gotchas
 
