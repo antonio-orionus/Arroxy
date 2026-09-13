@@ -1,4 +1,4 @@
-import {join} from 'node:path'
+import {join, win32} from 'node:path'
 import {describe, expect, it, vi} from 'vitest'
 import {createTempDirHider, normalizeCreatedPath} from '@main/services/download/tempDirVisibility.js'
 
@@ -55,9 +55,21 @@ describe('normalizeCreatedPath', () => {
 		expect(normalizeCreatedPath('/out/.arroxy-temp')).toBe('/out/.arroxy-temp')
 	})
 
-	// A UNC share is reported as `\\?\UNC\server\share`; stripping the prefix
-	// must not turn it into something that accidentally equals another path.
-	it('does not corrupt a UNC path into a local-looking one', () => {
-		expect(normalizeCreatedPath('\\\\?\\UNC\\server\\share\\.arroxy-temp')).toBe('UNC\\server\\share\\.arroxy-temp')
+	// A UNC share is reported as `\\?\UNC\server\share`. Stripping only the `\\?\`
+	// prefix leaves `UNC\server\share`, which never equals the share path, so on a
+	// network output folder every job would look like it created the root.
+	it('turns an extended UNC path back into an ordinary UNC path', () => {
+		expect(normalizeCreatedPath('\\\\?\\UNC\\server\\share\\.arroxy-temp')).toBe('\\\\server\\share\\.arroxy-temp')
+	})
+
+	// Pinned to Node's own mapping rather than hand-written prefixes: whatever
+	// `toNamespacedPath` does to a path, normalizing must undo it exactly, or the
+	// created-path comparison in `setupTempDir` silently stops matching.
+	it.each([
+		['drive path', 'C:\\Users\\Admin\\Downloads\\.arroxy-temp\\aaaaaaaa'],
+		['UNC share', '\\\\server\\share\\Videos\\.arroxy-temp\\aaaaaaaa'],
+		['UNC admin share', '\\\\localhost\\C$\\Temp\\.arroxy-temp\\aaaaaaaa']
+	])('round-trips a %s through Windows namespacing', (_label, path) => {
+		expect(normalizeCreatedPath(win32.toNamespacedPath(path))).toBe(path)
 	})
 })

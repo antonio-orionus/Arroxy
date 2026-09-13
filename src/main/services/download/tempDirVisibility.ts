@@ -37,12 +37,23 @@ export function createTempDirHider(deps: TempDirHiderDeps): (tempDirRoot: string
 }
 
 // Node reports a recursive `mkdir`'s first created directory in Windows'
-// `\\?\` extended-length namespace, while the path handed to it is plain — so
-// the two never compare equal on Windows unless the prefix is stripped. Getting
-// this wrong is silent: the comparison simply never matches and the caller
-// quietly stops hiding anything.
+// extended-length namespace (it is `path.toNamespacedPath` of what was passed
+// in), while the path handed to it is plain — so the two never compare equal on
+// Windows unless the namespace is undone. Getting this wrong is silent: the
+// comparison simply never matches.
+//
+// The namespace has two spellings. A drive path gains a bare `\\?\` prefix; a
+// UNC share `\\server\share` becomes `\\?\UNC\server\share`, so stripping only
+// the prefix leaves `UNC\server\share`, which never equals the share path. On a
+// network output folder that would make every job look like it created the root
+// and spawn `attrib` for each one.
+const EXTENDED_UNC_PREFIX = '\\\\?\\UNC\\'
+const EXTENDED_PREFIX = '\\\\?\\'
+
 export function normalizeCreatedPath(created: string): string {
-	return created.startsWith('\\\\?\\') ? created.slice(4) : created
+	if (created.startsWith(EXTENDED_UNC_PREFIX)) return `\\\\${created.slice(EXTENDED_UNC_PREFIX.length)}`
+	if (created.startsWith(EXTENDED_PREFIX)) return created.slice(EXTENDED_PREFIX.length)
+	return created
 }
 
 export const hideTempDirRoot = createTempDirHider({
