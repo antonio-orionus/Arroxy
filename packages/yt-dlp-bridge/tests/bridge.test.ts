@@ -200,8 +200,12 @@ describe('redaction', () => {
 		}
 	})
 
-	it('treats a falsy YTDLP_MCP_UNREDACTED as redaction on', () => {
-		expect(redactText('po_token=SECRET', '[REDACTED]', {YTDLP_MCP_UNREDACTED: 'false'})).toBe('po_token=[REDACTED]')
+	it.each(['1', 'true', 'yes', 'on', ' TRUE ', 'Yes', '\tOn\n'])('treats YTDLP_MCP_UNREDACTED=%j as redaction off', value => {
+		expect(redactText('po_token=SECRET', '[REDACTED]', {YTDLP_MCP_UNREDACTED: value})).toBe('po_token=SECRET')
+	})
+
+	it.each(['', '0', 'false', 'no', 'off', 'development'])('treats YTDLP_MCP_UNREDACTED=%j as redaction on', value => {
+		expect(redactText('po_token=SECRET', '[REDACTED]', {YTDLP_MCP_UNREDACTED: value})).toBe('po_token=[REDACTED]')
 	})
 })
 
