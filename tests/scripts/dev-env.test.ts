@@ -204,6 +204,11 @@ describe('dev-env pure helpers', () => {
 		expect(env.ARROXY_CHROMIUM_SWITCHES).toBe('disable-features=AudioServiceOutOfProcess,AutoplayIgnoreWebAudio')
 	})
 
+	it('electron launcher opts dev runs out of yt-dlp arg redaction unless the caller already chose', () => {
+		expect(applyElectronLauncherEnv({}, {}).YTDLP_MCP_UNREDACTED).toBe('1')
+		expect(applyElectronLauncherEnv({YTDLP_MCP_UNREDACTED: '0'}, {}).YTDLP_MCP_UNREDACTED).toBe('0')
+	})
+
 	it('doctor does not accept an Electron payload from a parent checkout', async () => {
 		const parent = await tempDir()
 		const parentElectron = path.join(parent, 'node_modules', 'electron')

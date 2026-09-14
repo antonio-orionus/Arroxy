@@ -596,6 +596,10 @@ export function applyElectronLauncherEnv(env: NodeJS.ProcessEnv, options: Launch
 	if (options.sandbox) delete childEnv.ELECTRON_DISABLE_SANDBOX
 	else childEnv.ELECTRON_DISABLE_SANDBOX = '1'
 
+	// Local dev logs show full yt-dlp argv (tokens, proxy credentials) for
+	// debugging. Packaged builds never pass through this launcher.
+	childEnv.YTDLP_MCP_UNREDACTED ??= '1'
+
 	if (options.gpu === 'force') childEnv.ARROXY_GPU_MODE = 'force'
 	if (options.gpu === 'swiftshader') {
 		childEnv.ARROXY_GPU_MODE = 'swiftshader'
