@@ -40,7 +40,13 @@ export function parseProxySetting(raw: string | undefined): ProxySetting {
 	const scheme = CHROMIUM_SCHEME[url.protocol]
 	if (!scheme || !url.hostname) return {kind: 'invalid'}
 
-	const credentials = url.username ? {username: decodeURIComponent(url.username), password: decodeURIComponent(url.password)} : null
+	// URL keeps a stray `%` in userinfo as-is, which decodeURIComponent rejects.
+	let credentials: {username: string; password: string} | null = null
+	try {
+		if (url.username) credentials = {username: decodeURIComponent(url.username), password: decodeURIComponent(url.password)}
+	} catch {
+		return {kind: 'invalid'}
+	}
 	const redactedUrl = new URL(url.href)
 	if (redactedUrl.username) redactedUrl.username = '***'
 	if (redactedUrl.password) redactedUrl.password = '***'

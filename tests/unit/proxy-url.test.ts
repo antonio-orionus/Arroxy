@@ -30,6 +30,13 @@ describe('parseProxySetting', () => {
 		expect(parseProxySetting('socks5h://127.0.0.1:1080')).toMatchObject({kind: 'proxy', url: 'socks5h://127.0.0.1:1080', chromiumRules: 'socks5://127.0.0.1:1080'})
 	})
 
+	// URL keeps a stray `%` in userinfo as-is, but decoding it throws. That has to
+	// read as an unusable setting, not escape into the token window or yt-dlp run.
+	it('rejects credentials with malformed percent escapes instead of throwing', () => {
+		expect(parseProxySetting('http://user%:secret@127.0.0.1:8080')).toEqual({kind: 'invalid'})
+		expect(parseProxySetting('http://user:pass%zz@127.0.0.1:8080')).toEqual({kind: 'invalid'})
+	})
+
 	it('rejects values that are not a usable proxy', () => {
 		expect(parseProxySetting('ftp://proxy.example:21')).toEqual({kind: 'invalid'})
 		expect(parseProxySetting('http://')).toEqual({kind: 'invalid'})
