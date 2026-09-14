@@ -284,7 +284,7 @@ if (hasSingleInstanceLock) {
 			return
 		}
 
-		const tokenProvider = isMockBackend || e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider()
+		const tokenProvider = isMockBackend || e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider(() => settingsStore.getSync().common.proxyUrl)
 		const tokenService = new TokenService(tokenProvider)
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode})
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend)

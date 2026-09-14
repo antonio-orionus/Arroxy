@@ -1,4 +1,5 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
+import log from 'electron-log/main.js'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'
 
@@ -170,6 +171,9 @@ describe('YtDlp — retry ladder', () => {
 
 		const fallbackArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
 		expect(fallbackArgs[fallbackArgs.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,-web,-web_safari')
+		// The only record that this run went out without a token; without it a
+		// user log shows the fallback attempt and nothing about why (issue #222).
+		expect(log.warn).toHaveBeenCalledWith('PoT unavailable — running without a token', {error: 'provider offline', reMint: false})
 	})
 
 	it('re-mint throws → falls back to player_client fallback', async () => {
@@ -185,6 +189,7 @@ describe('YtDlp — retry ladder', () => {
 		expect(result.kind).toBe('success')
 		if (result.kind === 'success') expect(result.usedExtractorFallback).toBe(true)
 		expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2)
+		expect(log.warn).toHaveBeenCalledWith('PoT unavailable — running without a token', {error: 're-mint failed', reMint: true})
 	})
 
 	it('non-botBlock exit-error returns immediately without retry', async () => {

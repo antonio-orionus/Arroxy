@@ -1,11 +1,23 @@
 import {BrowserWindow, session} from 'electron'
 import log from 'electron-log/main.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
+import {parseProxySetting, type ProxySetting} from '@main/utils/proxyUrl.js'
 
 const logger = log.scope('token')
 
 const CHROME_UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' + '(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
 const YOUTUBE_URL = 'https://www.youtube.com?themeRefresh=1'
+const PARTITION = 'persist:youtube-hidden'
+
+// Identity of a proxy setting for change detection. The normalized URL keeps
+// credentials, so a changed password counts as a change.
+function proxyKey(proxy: ProxySetting): string {
+	return proxy.kind === 'proxy' ? proxy.url : proxy.kind
+}
+
+function describeProxy(proxy: ProxySetting): string {
+	return proxy.kind === 'proxy' ? proxy.redacted : proxy.kind
+}
 
 function delay(ms: number): Promise<void> {
 	return new Promise(resolve => {
@@ -29,12 +41,31 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 	// the first, which then rejects or hangs. One load, both awaiters.
 	private readying: Promise<void> | null = null
 
+	// The proxy last written to the partition. The session outlives any one
+	// window, so this is tracked here rather than per window.
+	private proxy: ProxySetting = {kind: 'none'}
+	private appliedProxyKey: string | null = null
+
+	// The page load is what reaches YouTube, so it must follow the user's proxy
+	// setting just as yt-dlp does. Read on every readiness check: the setting can
+	// change while the app runs.
+	constructor(private readonly readProxySetting: () => string | undefined = () => undefined) {}
+
 	private getWindow(): BrowserWindow {
 		if (this.hiddenWindow && !this.hiddenWindow.isDestroyed()) {
 			return this.hiddenWindow
 		}
 
-		this.hiddenWindow = new BrowserWindow({show: false, width: 1280, height: 720, webPreferences: {nodeIntegration: false, contextIsolation: true, session: session.fromPartition('persist:youtube-hidden')}})
+		this.hiddenWindow = new BrowserWindow({show: false, width: 1280, height: 720, webPreferences: {nodeIntegration: false, contextIsolation: true, session: session.fromPartition(PARTITION)}})
+
+		// Chromium's proxy rules cannot carry credentials, so an authenticated proxy
+		// challenges the page instead. Only proxy challenges are answered — a site
+		// asking for a login is not ours to satisfy.
+		this.hiddenWindow.webContents.on('login', (event, _details, authInfo, callback) => {
+			if (!authInfo.isProxy || this.proxy.kind !== 'proxy' || !this.proxy.credentials) return
+			event.preventDefault()
+			callback(this.proxy.credentials.username, this.proxy.credentials.password)
+		})
 
 		this.hiddenWindow.setSkipTaskbar(true)
 		this.hiddenWindow.on('closed', () => {
@@ -50,8 +81,11 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 	}
 
 	async ensureReady(): Promise<void> {
-		if (this.ready) return
+		if (this.ready && proxyKey(parseProxySetting(this.readProxySetting())) === this.appliedProxyKey) return
 		if (this.readying) return this.readying
+		// A page loaded through a proxy the user has since changed is not ready:
+		// load it again through the current one.
+		this.ready = false
 
 		const readying = this.loadUntilReady()
 		this.readying = readying
@@ -70,10 +104,14 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 
 	private async loadUntilReady(): Promise<void> {
 		const win = this.getWindow()
+		await this.applyProxy()
 
 		await new Promise<void>((resolve, reject) => {
 			win.webContents.once('did-finish-load', () => resolve())
 			win.webContents.once('did-fail-load', (_, code, description) => {
+				// Logged here, not only by the caller: the failure is swallowed into a
+				// no-token fallback further up, and this is where the cause is known.
+				logger.warn('PoT scrape: YouTube failed to load', {code, description, proxy: describeProxy(this.proxy)})
 				reject(new Error(`YouTube failed to load: ${description} (${code})`))
 			})
 			void win.loadURL(YOUTUBE_URL, {userAgent: CHROME_UA})
@@ -89,6 +127,21 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		}
 
 		this.ready = true
+	}
+
+	private async applyProxy(): Promise<void> {
+		const proxy = parseProxySetting(this.readProxySetting())
+		const key = proxyKey(proxy)
+		if (key === this.appliedProxyKey) return
+
+		const partition = session.fromPartition(PARTITION)
+		if (proxy.kind === 'invalid') logger.warn('PoT scrape: proxy setting is not a usable proxy URL — using the system proxy')
+		await partition.setProxy(proxy.kind === 'proxy' ? {proxyRules: proxy.chromiumRules} : {mode: 'system'})
+		// Pooled connections were opened through the previous route and would
+		// otherwise keep serving the reload.
+		if (this.appliedProxyKey !== null) await partition.closeAllConnections()
+		this.proxy = proxy
+		this.appliedProxyKey = key
 	}
 
 	async getVisitorData(): Promise<string> {
