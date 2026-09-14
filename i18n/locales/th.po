@@ -1,0 +1,3186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "เกี่ยวกับ"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "สัญญาอนุญาต MIT · โดย Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "เกี่ยวกับ Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "เครื่องมือดาวน์โหลดที่รวดเร็วและใช้งานง่ายสำหรับ YouTube และเว็บไซต์อื่นกว่า 2000 แห่ง"
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "ดูประกาศของบุคคลที่สาม"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "เว็บไซต์"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "ข้อเสนอแนะ"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "ชอบ Arroxy ไหม? ฉันอยากฟังความคิดเห็นของคุณ! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "บันทึก"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "บันทึกไฟล์การวินิจฉัย"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "รวมบันทึกและรายละเอียดแอปไว้ในไฟล์เดียวในโฟลเดอร์ดาวน์โหลด พร้อมแนบกับ issue บน GitHub ชื่อโฟลเดอร์ผู้ใช้ของคุณจะถูกลบออก แต่ลิงก์และชื่อวิดีโอจะยังคงอยู่"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "ซูมเข้า"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "ซูมออก"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "ย้อนกลับ"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "ดำเนินการต่อ"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "กำลังโหลด"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "ลองอีกครั้ง"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "เริ่มใหม่"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy จะทำงานต่อและดาวน์โหลดที่กำลังดำเนินการให้เสร็จ คุณเปลี่ยนค่านี้ภายหลังได้ในการตั้งค่าขั้นสูง"
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "ซ่อนไว้ในถาดระบบ"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "ซ่อน Arroxy ไว้ในถาดระบบเมื่อปิดหรือไม่?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "ออก"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "ไม่ต้องถามอีก"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "ยกเลิกการดาวน์โหลดและออก"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "หยุดชั่วคราวเพื่อทำต่อภายหลัง หรือยกเลิกเพื่อละทิ้งความคืบหน้า"
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "ดาวน์โหลดต่อ"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "กำลังดาวน์โหลด {{count}} รายการ"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "กำลังดาวน์โหลด {{count}} รายการ"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "หยุดการดาวน์โหลดชั่วคราวและออก"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "กระบวนการเรนเดอร์ขัดข้อง ({{reason}}) โหลดใหม่เพื่อลองอีกครั้ง"
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy พบปัญหา"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "ออก"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "โหลดใหม่"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "วิดีโอนี้จำกัดอายุและไม่สามารถดาวน์โหลดได้หากไม่ได้ลงชื่อเข้าใช้บัญชี"
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "ระบบป้องกันบอตทำงาน IP ที่คุณใช้น่าจะถูกทำเครื่องหมายไว้ (ช่วงที่อยู่ของศูนย์ข้อมูลหรือจุดออก VPN ที่มีผู้ใช้หนาแน่น) เปลี่ยน IP หรือเลือกปลายทาง VPN อื่นแล้วลองใหม่ หากยังล้มเหลว อาจเป็นการเปลี่ยนแปลงชั่วคราวจากฝั่งเว็บไซต์ — Arroxy อัปเดต yt-dlp อัตโนมัติเมื่อเปิด ดังนั้นการแก้ไขจะมาถึงโดยอัตโนมัติทันทีที่ต้นทางเผยแพร่"
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "เซิร์ฟเวอร์ตัดการดาวน์โหลดกลางคันซ้ำ ๆ และ yt-dlp ยอมแพ้หลังลองใหม่หลายครั้ง มักเกิดกับรูปแบบวิดีโอขนาดใหญ่ที่สุด (4K HDR / VP9 บิตเรตสูง) ลองใหม่ เปลี่ยนเครือข่าย/VPN หรือเลือกรูปแบบที่มีความละเอียดต่ำลง"
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "วิดีโอนี้ป้องกันด้วย DRM และ yt-dlp ไม่สามารถลบ DRM ได้ จึงดาวน์โหลดไฟล์ไม่ได้"
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "วิดีโอนี้ไม่พร้อมให้บริการในภูมิภาคของคุณ"
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "ดูเหมือนว่าที่อยู่ IP ของคุณถูกบล็อก ลองใหม่ภายหลังหรือใช้ VPN"
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "วิดีโอนี้ต้องใช้บัญชีที่ลงชื่อเข้าใช้ ตั้งค่า cookies.txt (การตั้งค่า → คุกกี้) แล้วลองใหม่"
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp หา ffmpeg หรือ ffprobe ไม่พบ ให้ซ่อมแซมไบนารีที่รวมมา หรือตั้งค่าตำแหน่ง FFmpeg แล้วลองใหม่"
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "ข้อผิดพลาดของเครือข่าย ตรวจสอบการเชื่อมต่อแล้วลองใหม่"
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "พื้นที่ดิสก์ไม่เพียงพอ เพิ่มพื้นที่ว่างแล้วลองใหม่"
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "แยกวิเคราะห์การตอบกลับจากเว็บไซต์ไม่ได้ ตัวแยกข้อมูลของ yt-dlp อาจตามการเปลี่ยนแปลงไม่ทัน Arroxy อัปเดต yt-dlp อัตโนมัติเมื่อเปิด — ลองอีกครั้งในอีกไม่กี่นาทีหลังมีการเผยแพร่การแก้ไข"
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp ดาวน์โหลดเสร็จแล้ว แต่การประมวลผลภายหลัง (รวม/mux/แปลง) ล้มเหลว มักเป็นปัญหาชั่วคราวของ ffmpeg — ลองใหม่ และหากยังเกิดขึ้นให้ลองใช้รูปแบบชุดอื่น"
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "เว็บไซต์กำลังจำกัดอัตราคำขอ รอสักครู่แล้วลองใหม่"
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "วิดีโอนี้ไม่พร้อมใช้งาน — อาจเป็นวิดีโอส่วนตัว ถูกลบ หรือถูกจำกัดภูมิภาค"
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "ดาวน์โหลดไม่สำเร็จ ดูผลลัพธ์ดิบด้านล่าง"
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "URL นี้ไม่รองรับโดย yt-dlp ลองใช้ลิงก์อื่นจากเว็บไซต์ใดก็ได้ที่ yt-dlp รองรับ"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "เลือกวิธีตั้งชื่อไฟล์ที่ดาวน์โหลด คลิกโทเค็นเพื่อแทรก และใช้ / เพื่อจัดเรียงไฟล์ลงในโฟลเดอร์"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "ป้อนแม่แบบชื่อไฟล์"
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "ลบ / ที่เกินมา — ทุกโฟลเดอร์ต้องมีชื่อ"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "ลบอักขระที่ใช้ในชื่อไฟล์ไม่ได้: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "ใช้ชื่อโฟลเดอร์นี้ไม่ได้ หลีกเลี่ยง . และ .. รวมถึงชื่อสงวนอย่าง CON"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "เพิ่ม {title} หรือ {id} ในชื่อไฟล์เพื่อให้การดาวน์โหลดแต่ละรายการมีชื่อของตัวเอง"
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "ใช้ {resolution} ตั้งชื่อโฟลเดอร์ไม่ได้ — ยังไม่ทราบคุณภาพจนกว่าจะเริ่มดาวน์โหลด"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ หรือ } ไม่เข้าคู่ — ครอบโทเค็นแบบ {title}"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "แม่แบบยาวเกินไป"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "โทเค็น {{token}} ที่ไม่รู้จัก"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "หากไม่มี {id} Arroxy จะตรวจหารายการในเพลย์ลิสต์ที่ดาวน์โหลดไว้แล้วหรือสร้างเพลย์ลิสต์ .m3u ไม่ได้"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "แม่แบบชื่อไฟล์"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "ใช้ไม่ได้เนื่องจากแม่แบบชื่อไฟล์ไม่มี {id} หรือจัดเรียงไฟล์ดาวน์โหลดลงในโฟลเดอร์"
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "ในเพลย์ลิสต์"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "วิดีโอเดียว"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "เว้นว่างเพื่อใช้แม่แบบส่วนกลาง"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "แม่แบบชื่อไฟล์"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "เสียง"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "เฉพาะเสียง · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "ภาษา"
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "เส้นทางโฟลเดอร์นี้ลึกเกินไปสำหรับระบบของคุณ การดาวน์โหลดอาจยังล้มเหลว — เลือกโฟลเดอร์ที่มีเส้นทางสั้นกว่า"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "ชื่อวิดีโอนี้ยาวเกินกว่าจะใส่ในทุกส่วนของแม่แบบ จึงใช้ชื่อเริ่มต้นแทน"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "เปิดตัวเลือกโฟลเดอร์ไม่ได้"
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "อยู่ในคิวแล้ว — ไม่ได้เพิ่มสำเนา"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "ยังคงประมวลผลลิงก์ก่อนหน้า"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "ไม่มีลิงก์ในคลิปบอร์ด — คัดลอกลิงก์ก่อน"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มใน Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "ลิงก์นี้ต้องตรวจสอบเล็กน้อย — เปิด Arroxy แล้ววางอีกครั้ง"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "เพิ่มการดาวน์โหลดจากคลิปบอร์ดลงในคิวแล้ว"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "เพิ่มลิงก์นั้นไม่ได้ — ลองอีกครั้งใน Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "ใช้โฟลเดอร์นี้กับเพลย์ลิสต์นี้ไม่ได้"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "บันทึกการตั้งค่าไม่ได้"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "เปิดไม่ได้"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "การตั้งค่ายังไม่เสร็จ การดาวน์โหลดบางรายการอาจล้มเหลวจนกว่าจะตั้งค่าเสร็จ"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "เสียง (ดีที่สุด)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "เสียง ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "เสียงต้นฉบับที่ดีที่สุด ไม่เข้ารหัสใหม่"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "แปลงเป็น M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "แปลงเป็น MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "แปลงเป็น Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 ที่สูงกว่า 1080p ไม่มีใน YouTube — จำกัดไว้ที่ 1080p โดยอัตโนมัติ"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "สูงสุด 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "สูงสุด 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "สูงสุด 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "สูงสุด 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "สูงสุด 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "สูงสุด 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "สูงสุด 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "สูงสุด 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "คุณภาพดีที่สุด"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "จำกัดที่ 1080p และใช้ความละเอียดต่ำกว่าสำหรับแต่ละรายการเมื่อจำเป็น"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "ไฟล์เล็กที่สุดเท่าที่ทำได้"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "จำกัดที่ 2K และใช้ความละเอียดต่ำกว่าสำหรับแต่ละรายการเมื่อจำเป็น"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "จำกัดที่ 2160p และใช้ความละเอียดต่ำกว่าสำหรับแต่ละรายการเมื่อจำเป็น"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "ไฟล์เล็กมาก คุณภาพต่ำ"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "ไฟล์เล็กสำหรับแบนด์วิดท์จำกัด"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "แบนด์วิดท์ต่ำ"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "ไฟล์เล็กลง รองรับอุปกรณ์ได้กว้าง"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "วิดีโอและเสียงคุณภาพสูงสุดที่มีสำหรับแต่ละรายการ"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "เสียง"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "วิดีโอ"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "ต้นฉบับดีที่สุด"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "H.264 MP4 สำหรับสมาร์ททีวี"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "คอนเทนเนอร์และโคเดกที่ดีที่สุดสำหรับแต่ละรายการ"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "เลือกวิดีโอ H.264 + เสียง AAC ใน MP4 เมื่อเป็นไปได้"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "ไม่มีวิดีโอ ใช้เสียงดีที่สุด"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "สูงสุด 720p + เสียงคุณภาพดี"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "สมดุล"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "ความละเอียดสูงสุด + เสียงดีที่สุด"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "คุณภาพดีที่สุด"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "ความละเอียดต่ำสุด + เสียงคุณภาพต่ำ"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "ไฟล์ขนาดเล็ก"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "ไม่มีวิดีโอหรือเสียง มีเฉพาะคำบรรยาย"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "เฉพาะคำบรรยาย"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "ไฟล์ประกอบ"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "คำอธิบาย"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "สื่อ"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "ไม่มี"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "คำบรรยาย"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "ภาพขนาดย่อ"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "ไฟล์ผลลัพธ์"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "ยกเลิกการดาวน์โหลดที่กำลังทำงานและรออยู่ทั้งหมด"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "ล้างรายการดาวน์โหลดที่เสร็จแล้ว"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "รายการดาวน์โหลดในคิวจะแสดงที่นี่"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "ทั้งหมด"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "ตัวกรองสถานะคิว"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "ทุกรายการ"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "ดาวน์โหลด"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "ดาวน์โหลดไม่สำเร็จ"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "เปิดโฟลเดอร์ปลายทาง"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "หยุดชั่วคราว"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "เฉพาะที่รออยู่"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "ดาวน์โหลดตอนนี้ — ข้ามคิว"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "นำออก"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "ทำต่อ"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "ลองอีกครั้ง"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "กำลังลองใหม่อัตโนมัติ (ครั้งที่ {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "ตั้งค่าตำแหน่ง"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "เลือกรายการที่รออยู่เพื่อตั้งค่าตำแหน่ง"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "ยกเลิกแล้ว"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "เสร็จแล้ว"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "พักไว้"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "หยุดชั่วคราว"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "กำลังรอ"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "กำลังดึงรายละเอียด"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "กำลังดาวน์โหลด"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "หยุดการดาวน์โหลดที่ทำงานอยู่ทั้งหมดและไม่ให้รายการใหม่เริ่ม"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "คิวหยุดชั่วคราว — รายการที่รอจะไม่เริ่มจนกว่าคุณจะทำคิวต่อ"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "ทำรายการดาวน์โหลดที่หยุดไว้ต่อและให้คิวดำเนินต่อไป"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "ทำคิวต่อ"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "รายการที่เลือก"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "เลือก {{selected}} · ทั้งหมด {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "ดาวน์โหลด"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "เพิ่มเมื่อ"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "ไฟล์ผลลัพธ์"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "คอลัมน์"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "เสร็จเมื่อ"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "รูปแบบ"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "ซ่อนไฟล์ผลลัพธ์ของ {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "ปลายทางผลลัพธ์"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "ความคืบหน้า"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "แสดงไฟล์ผลลัพธ์ของ {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "เรียงตาม {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "สถานะ"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "ชื่อเรื่อง"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "ตอนนี้รายการดาวน์โหลดอยู่ในแท็บดาวน์โหลด — เปิดดูความคืบหน้าได้ทุกเมื่อ"
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "ดำเนินการต่อ"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "คุณกำลังใช้เวอร์ชันที่เพิ่งอัปเดต นี่คือไฮไลต์สำคัญ"
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "บันทึกประจำรุ่นฉบับเต็ม ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "มีอะไรใหม่ใน Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "เลือกไฟล์ปฏิบัติการ"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "ติดตั้งด้วย Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "ติดตั้งด้วย WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "เปิดโฟลเดอร์ส่วนประกอบที่ต้องใช้"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "รีเซ็ตเป็นค่าเริ่มต้น"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "ลองตั้งค่าอีกครั้ง"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "ดูบันทึกการตั้งค่า"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "ไบนารีไม่ตอบสนองต่อ --version ไฟล์อาจเสียหายหรือเป็นบิลด์ที่ไม่ถูกต้อง"
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows บล็อกไฟล์ (SmartScreen / Defender) เลือกไฟล์ที่ติดตั้งไว้หรือเพิ่มโฟลเดอร์รันไทม์ในรายการที่อนุญาต"
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "ดาวน์โหลดไม่สำเร็จ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่"
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "แตกไฟล์เก็บถาวรไม่สำเร็จ ไฟล์ที่ดาวน์โหลดอาจเสียหาย — ลองใหม่"
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "ค่า checksum ของไฟล์ที่ดาวน์โหลดไม่ตรงกัน ลองดาวน์โหลดใหม่"
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ต้องตั้งค่า ffmpeg และ ffprobe ร่วมกันเป็นคู่ที่ตรงกัน"
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "ระบบปฏิเสธการเรียกใช้ไฟล์ เลือกไฟล์ที่คุณเชื่อถือหรือลองใหม่ในฐานะผู้ดูแลระบบ"
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "ไฟล์หายไปหรือเปิดใช้งานไม่ได้ เลือกไฟล์ที่ใช้งานได้"
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "การตรวจสอบเวอร์ชันหมดเวลา ไฟล์อาจค้าง — ลองใหม่"
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "ตรวจสอบไม่ได้"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "การตั้งค่าต้องการความช่วยเหลือจากคุณ"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "คัดลอกแล้ว!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "คัดลอกลิงก์"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — เครื่องมือดาวน์โหลดวิดีโอฟรีและโอเพนซอร์สสำหรับ Windows, macOS และ Linux ใช้ได้กับ YouTube, Vimeo, Twitch และเว็บไซต์กว่า 2000 แห่ง\n"
+"4K · HDR · MP3 · Shorts · คำบรรยาย · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy ฟรีและเป็นโอเพนซอร์ส การแชร์ช่วยให้ผู้คนค้นพบแอปมากขึ้น"
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "แชร์"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "แชร์ Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "แชร์ Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "แชร์ Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "พบปัญหา? ตั้งค่าด้วยตนเอง"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "กำลังดาวน์โหลด {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "ยินดีต้อนรับกลับมา!"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "เป็นการตรวจสอบครั้งแรกของเวอร์ชันนี้ จึงค่อนข้างช้า ปกติใช้เวลาประมาณหนึ่งนาที"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "กำลังตรวจสอบ {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "กำลังเตรียมการดาวน์โหลด…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "ตั้งค่าไม่สำเร็จ เปิดบันทึกการตั้งค่าเพื่อดูรายละเอียด"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "ยกเลิกการดาวน์โหลดแล้ว"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "ดาวน์โหลดเสร็จแล้ว"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "กำลังแปลงวิดีโอ…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "พื้นที่ดิสก์ไม่พอ — ต้องใช้ {{required}} แต่มีเพียง {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "กำลังดาวน์โหลดไบนารี {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "กำลังดาวน์โหลดวิดีโอและเสียง…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "กำลังฝังข้อมูลเมตา…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "กำลังแปลงเสียง…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "กำลังติดต่อ SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "กำลังดึงคำบรรยาย…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "กำลังรวมเสียงและวิดีโอ…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "กำลังสร้างโทเค็น YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "กำลังย้ายไฟล์…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "กำลังเตรียมไบนารี…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "กำลังสร้างโทเค็นใหม่…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock ใช้งานไม่ได้ กำลังลองใหม่ ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "การเชื่อมต่อค้าง กำลังลองใหม่ ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "กำลังรอ {{seconds}} วินาทีเพื่อหลีกเลี่ยงการจำกัดอัตรา…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "กำลังเริ่มกระบวนการ yt-dlp…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "บันทึกวิดีโอแล้ว — ดาวน์โหลดคำบรรยายบางรายการไม่ได้"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "ข้อผิดพลาดที่ไม่ทราบสาเหตุขณะเริ่มดาวน์โหลด"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "ดาวน์โหลดด้วยตัวแยกข้อมูลแบบผ่อนปรน — ตั้งค่า cookies.txt เพื่อให้ดาวน์โหลดได้เสถียรขึ้น"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp จบการทำงานด้วยรหัส {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "ข้อผิดพลาดของกระบวนการ yt-dlp: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "โหมดมืด"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "โหมดสว่าง"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "ค่าเริ่มต้นของระบบ"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "ปิด"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "ขยายใหญ่สุด"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "ย่อเล็กสุด"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "คืนค่า"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "ดาวน์โหลดจากคลิปบอร์ด"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "เปิด Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "ออกจาก Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "กำลังดาวน์โหลด 1 รายการ · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "กำลังดาวน์โหลด {{count}} รายการ · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "ไม่ได้ใช้งาน"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "คัดลอกคำสั่งไปยังคลิปบอร์ดแล้ว"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "คัดลอกคำสั่งไปยังคลิปบอร์ด"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "ปิดแบนเนอร์อัปเดต"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "ดาวน์โหลด ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "ดาวน์โหลด DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "กำลังดาวน์โหลด…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "ติดตั้งและเริ่มใหม่"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "อัปเดตไม่สำเร็จ"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "พร้อมใช้งานแล้ว"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — คุณมีเวอร์ชัน {{currentVersion}}"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — อัปเดตด้วย Homebrew"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลด DMG ใหม่"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลดบิลด์ใหม่"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "ลองอีกครั้ง"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— คุณมีเวอร์ชัน {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "กำลังโหลด…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "พร้อม"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "วาง URL ของวิดีโอ เพลย์ลิสต์ ช่อง การค้นหา หรือเสียง Arroxy จะลบรายการซ้ำก่อนเพิ่มลงคิว"
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "วาง URL อย่างน้อยหนึ่งรายการเพื่อดูตัวอย่างชุดงาน"
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "ละเว้น"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "เพิ่ม URL ที่รองรับอย่างน้อยหนึ่งรายการเพื่อดำเนินการต่อ"
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "ซ้ำ"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "รายการ URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL แบบกลุ่ม"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ คิว"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "เพิ่มลงคิว — เริ่มเมื่อการดาวน์โหลดที่ทำงานอยู่เสร็จ"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "วิดีโอ {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "วิดีโอ {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "แทร็ก {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "แทร็ก {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "URL {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "URL {{count}} จาก {{total}}"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "เสียง"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "ชุดงาน"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "รายการ"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "เพลย์ลิสต์"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "ค่าที่ตั้งไว้"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "บันทึกไปยัง"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "ขนาด"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "คำบรรยาย"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "ไฟล์ของคุณจะอยู่ใน"
+
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "ไฟล์จะอยู่ในปลายทางด้านล่าง"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "ไฟล์จะอยู่ในปลายทาง {{count}} แห่งด้านล่าง"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "ค่าที่ตั้งไว้เฉพาะคำบรรยายทำงานอยู่ แต่ไม่ได้เลือกภาษาคำบรรยาย — จะไม่มีการดาวน์โหลดใด ๆ"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} รายการ"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} รายการ"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "โปรไฟล์ในชุดงานนี้"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "ดาวน์โหลดเลย! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "ข้ามคิว — เริ่มตอนนี้และทำงานพร้อมการดาวน์โหลดอื่นที่กำลังทำงาน"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "พร้อมดาวน์โหลดแล้ว!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "ไม่ทราบ"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "เปลี่ยนการฝังคำบรรยายเป็นไฟล์แยก — แทร็กเสียงไม่รองรับสตรีมคำบรรยายแบบฝัง"
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "ข้ามการฝังภาพขนาดย่อ — คอนเทนเนอร์ผลลัพธ์ไม่รองรับ"
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "กำหนดเอง…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "เดสก์ท็อป"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "เอกสาร"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "ดาวน์โหลด"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "บันทึกไปยัง"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "โฮม"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "เพลง"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "รูปภาพ"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "ชื่อโฟลเดอร์มีอักขระที่ใช้ไม่ได้"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "เช่น lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "บันทึกในโฟลเดอร์ย่อย"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "ภาพยนตร์"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "เสียง"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "เฉพาะเสียง (ไม่มีวิดีโอ)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "ตั้งค่าคุกกี้ไว้แต่ปิดอยู่ เปิดใช้แล้วลองใหม่เพื่อรับรายการทั้งหมด หรือเปลี่ยนเครือข่ายแล้วลองใหม่"
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "แม้ใช้คุกกี้ YouTube ก็จำกัดการตรวจสอบนี้ ลองใหม่ภายหลังหรือเปลี่ยนเครือข่าย"
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "รายการรูปแบบอาจไม่ครบ ตั้งค่าคุกกี้ในการตั้งค่าขั้นสูง หรือเปลี่ยนเครือข่ายแล้วลองใหม่"
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "เปิดใช้คุกกี้แล้วลองใหม่"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "การตรวจสอบถูกจำกัด"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "ลองอีกครั้ง"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "บิตเรต"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "แปลง"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "การแปลงเสียงต้องใช้โหมดเฉพาะเสียง (ยกเลิกการเลือกวิดีโอ)"
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "เลือกสตรีมต้นฉบับอยู่ — บิตเรตใช้เฉพาะเมื่อแปลงเป็น mp3, m4a หรือ opus"
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "แปลง · ไม่บีบอัด"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (ไม่บีบอัด)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "เบราว์เซอร์"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "ไฟล์"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "แหล่งคุกกี้"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "เอกสาร yt-dlp (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 ขึ้นไปเข้ารหัสคุกกี้ในแบบที่แอปอื่นอ่านไม่ได้บน Windows ลองใช้วิธีแก้ด้านล่าง"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "ส่งออกคุกกี้จาก Chrome ด้วยส่วนขยายเบราว์เซอร์ จากนั้นเปลี่ยนแอปเป็นโหมดไฟล์และเลือกไฟล์ที่ส่งออก"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "ส่งออก cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox ไม่ใช้ App-Bound Encryption เปิดการตั้งค่าคุกกี้แล้วเลือก Firefox จากรายการเบราว์เซอร์"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "เปลี่ยนเป็น Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "เพิ่ม --disable-features=LockProfileCookieDatabase ในทางลัดเปิด Chrome คำเตือน: การทำเช่นนี้จะทำให้คุกกี้ที่เข้ารหัสไว้ก่อนหน้านี้ใช้ไม่ได้ คุณจึงจะออกจากระบบทุกเว็บไซต์และต้องลงชื่อเข้าใช้อีกครั้ง"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "เปิด Chrome โดยปิด App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "คุกกี้ Chrome ถูกบล็อกโดยการเข้ารหัสของ Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "ระบบอ่านคุกกี้จากเบราว์เซอร์โดยตรง หากเบราว์เซอร์กำลังทำงาน ฐานข้อมูลคุกกี้อาจถูกล็อก (ตระกูล Chromium) และเบราว์เซอร์ต้องลงชื่อเข้าใช้ YouTube อยู่ด้วย ลองปิดเบราว์เซอร์ เปลี่ยนเบราว์เซอร์ เปลี่ยนเป็นโหมดไฟล์ หรือปิดคุกกี้"
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "ไฟล์คุกกี้อาจว่างเปล่า หมดอายุ หรืออยู่ในรูปแบบที่ไม่ถูกต้อง (yt-dlp ต้องใช้ Netscape cookies.txt) ลองส่งออกคุกกี้ใหม่ เลือกไฟล์อื่น เปลี่ยนเป็นโหมดเบราว์เซอร์ หรือปิดคุกกี้"
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "คุกกี้อาจเป็นสาเหตุ"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp เข้าถึงวิดีโอนี้ไม่ได้หากไม่มีการยืนยันตัวตน ตั้งค่าคุกกี้ในการตั้งค่าขั้นสูง — ชี้ไปยังเบราว์เซอร์ที่ลงชื่อเข้าใช้อยู่แล้ว หรือนำเข้าไฟล์ cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "เว็บไซต์นี้ต้องลงชื่อเข้าใช้"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "เปิดการตั้งค่าคุกกี้"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "คงไว้ตามเดิม"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "เสียงในตัว"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "กำลังโหลดรูปแบบ"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "โปรดรอให้การตรวจสอบเสร็จ — เพลย์ลิสต์และการค้นหาอาจใช้เวลาสักครู่"
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "ดีที่สุด + ดีที่สุด = คุณภาพสูงสุด ฉันแนะนำตัวเลือกนี้!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "ไม่มีเสียง"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "คุณภาพสูง"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "คุณภาพต่ำ"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "คุณภาพปานกลาง"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "ค่าที่ตั้งไว้ด่วน"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "ไม่ทราบขนาด"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "ข้ามไปยืนยัน"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "ใช้การตั้งค่าที่บันทึกไว้กับขั้นตอนที่เหลือทั้งหมด หากต้องการเปลี่ยนค่า ให้ทำต่อทีละขั้น — ตัวเลือกของคุณจะถูกบันทึกไว้ใช้ครั้งหน้า"
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "กำลังค้นหารูปแบบที่ดีที่สุดให้คุณ…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "ทั้งหมด"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "เฉพาะวิดีโอ"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "ต้องการเฉพาะวิดีโอที่คลิก หรือเลือกจากเพลย์ลิสต์? ขั้นตอนถัดไปคุณจะเลือกวิดีโอหรือช่วงที่ต้องการได้"
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "เลือกจากเพลย์ลิสต์"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "ขีดจำกัดการตรวจสอบเพลย์ลิสต์: {{count}} รายการ"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "ใช้โหมดเพลย์ลิสต์ของ yt-dlp และดึงข้อมูลจนถึงขีดจำกัดก่อนแสดงตัวเลือก"
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "ดาวน์โหลดเฉพาะวิดีโอนี้ หรือเพิ่มทั้งเพลย์ลิสต์ลงคิวด้วยโปรไฟล์ดาวน์โหลดด่วนที่ใช้อยู่"
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "จำนวนรายการสูงสุดที่ Arroxy ตรวจสอบก่อนเพิ่มเพลย์ลิสต์ ช่อง หรือผลการค้นหาลงคิว"
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "เพิ่มทุกรายการในเพลย์ลิสต์ที่โหลดแล้วลงคิวด้วยโปรไฟล์ดาวน์โหลดด่วน หากการตรวจสอบถึงขีดจำกัด Arroxy จะถามก่อนเพิ่ม"
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "เพิ่มการดาวน์โหลดหนึ่งรายการและละเว้นเพลย์ลิสต์ที่แนบกับ URL นี้"
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "ดาวน์โหลดวิดีโอนี้"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "ดาวน์โหลดทั้งเพลย์ลิสต์"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "ใช้โหมดวิดีโอเดียวของ yt-dlp จึงละเว้นเพลย์ลิสต์ที่แนบกับ URL นี้"
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "เฉพาะรายการนี้"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "ลิงก์นี้มีเพลย์ลิสต์"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "เครื่องหมายบทที่เลื่อนไปมาได้ในโปรแกรมเล่นสมัยใหม่ทุกตัว"
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "ฝังบท"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "เขียนชื่อ ศิลปิน คำอธิบาย และวันที่อัปโหลดลงในไฟล์"
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "ฝังข้อมูลเมตา"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "ใส่ภาพปกในไฟล์ วิดีโอ WebM จะถูก remux เป็น MKV และจะข้ามเมื่อฝังคำบรรยาย"
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "ฝังภาพขนาดย่อ"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "บันทึกคำอธิบายวิดีโอเป็นไฟล์ข้อความ .description ไว้ข้างไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "บันทึกคำอธิบาย"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "บันทึกเพลย์ลิสต์ .m3u ไว้ข้างวิดีโอเพื่อให้โปรแกรมเล่นเปิดตามลำดับ"
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "สร้างไฟล์เพลย์ลิสต์ .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "บันทึกภาพขนาดย่อเป็นไฟล์ภาพ .jpg ไว้ข้างไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "บันทึกภาพขนาดย่อ"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "คืนค่ารายการเพื่อดำเนินการต่อ"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "นำทุกรายการออกแล้ว"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "ดาวน์โหลดแล้ว"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL แบบกลุ่ม"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "ไม่ต้องรอ — ไฟล์ที่เพิ่มลงคิวตอนนี้จะได้ชื่อจริงเมื่อดาวน์โหลด"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "กำลังดึงรายละเอียดวิดีโอ… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "ไม่มีรายละเอียด"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "กำลังดึงรายละเอียด"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "กำลังรอ"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "สด"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "รายการในเพลย์ลิสต์"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "วิดีโอที่จะดาวน์โหลด"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "วิดีโอ {{count}} รายการ"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "วิดีโอ {{count}} รายการ"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "แทร็ก {{count}} รายการ"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "แทร็ก {{count}} รายการ"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "URL {{count}} รายการ"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "URL {{count}} รายการ"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "กำลังดึงเพลย์ลิสต์…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "กำลังดึงวิดีโอ…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "จำกัดที่ {{count}} รายการแรก"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "พบ {{count}} หน้า"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "พบ {{count}} หน้า"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "กำลังรวบรวมวิดีโอ"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "กำลังตรวจสอบหน้าช่อง"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "กำหนดโปรไฟล์ให้แต่ละรายการ"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "ข้ามคุณภาพ SponsorBlock ผลลัพธ์ และการบันทึก — กำหนดโปรไฟล์ดาวน์โหลดให้แต่ละรายการแทน"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "เพลย์ลิสต์"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "มี {{count}} รายการเป็นเพลย์ลิสต์ ไม่ใช่วิดีโอ — วางลิงก์แยกต่างหากเพื่อดาวน์โหลด"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "มี {{count}} รายการเป็นเพลย์ลิสต์ ไม่ใช่วิดีโอ — วางลิงก์ทีละรายการเพื่อดาวน์โหลด"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "เลือกวิดีโออย่างน้อยหนึ่งรายการเพื่อดำเนินการต่อ"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "แสดง {{count}} รายการแรก เพิ่มขีดจำกัดการโหลดเพื่อดูเพิ่มเติม"
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "การตรวจสอบเพลย์ลิสต์มีขีดจำกัด"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "การตรวจสอบมีขีดจำกัด"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "ใช้ช่วง"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "จาก"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "ถึง"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "นำออก {{count}} รายการ"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "นำออก {{count}} รายการ"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "นำ {{count}} รายการออกจากรายการ"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "นำ {{count}} รายการออกจากรายการ"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "คืนค่า"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "เลือกทั้งหมด"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "เลือก {{count}} รายการ"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "เลือก {{count}} รายการ"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "ไม่เลือกเลย"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "ลำดับเพลย์ลิสต์"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "กำลังดึงวันที่อัปโหลด…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "เรียงลำดับ"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "เก่าสุดก่อน"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "ใหม่สุดก่อน"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "ใช้การซิงค์"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "เปลี่ยนโฟลเดอร์…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "มีวิดีโอ {{n}} รายการอยู่ใน {{dir}} แล้ว ซิงค์เพื่อดาวน์โหลดเฉพาะรายการใหม่หรือไม่?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "อยู่ในโฟลเดอร์แล้ว"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "ไม่พบวิดีโอจากเพลย์ลิสต์นี้ใน {{dir}}"
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "ไม่พบวิดีโอจากแหล่งนี้ใน {{dir}}"
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "ยังไม่ได้ดาวน์โหลดอะไร"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "กำลังตรวจสอบโฟลเดอร์…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "ภาพขนาดย่อของวิดีโอ"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "เลือกคุณภาพสำหรับชุดงาน"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} รายการ"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} รายการ"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "แต่ละวิดีโอจะเลือกระดับที่กำหนดแยกกัน — เพลย์ลิสต์ที่หลากหลายจึงทำงานได้ตามคาด"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "กำหนด {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "กำหนดให้รายการที่เลือก"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "ระยะเวลา"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "โปรไฟล์"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "แก้ไข {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "ไม่มีรายการตรงกับตัวกรองนี้"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "ตัวกรองโปรไฟล์"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "กำหนดโปรไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Shift-click เพื่อเลือกช่วง, {{modifier}}-click เพื่อเพิ่มหนึ่งรายการ หรือลากผ่านแถว จากนั้นเลือกโปรไฟล์ด้านบนหรือคลิกขวาที่รายการที่เลือก"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "กำหนดโปรไฟล์ให้หลายวิดีโอพร้อมกัน"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "เลือก {{selected}} จาก {{total}}"
+
+msgctxt "wizard.profileEditor.action.addLanguage"
+msgid "Add"
+msgstr "เพิ่ม"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "เปลี่ยนค่าทั่วไป"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "เลือกโฟลเดอร์ปลายทาง"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "เลือกไอคอนโปรไฟล์"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "นำ {{code}} ออก"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "รีเซ็ตโปรไฟล์"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "บันทึกโปรไฟล์"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "ตั้งค่าการแทนที่โปรไฟล์"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "ตั้งค่าการแทนที่"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "ใช้ค่าเริ่มต้นส่วนกลาง"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "ดีที่สุด"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "สูงสุด 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "สูงสุด 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "สูงสุด 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "คุณภาพดีที่สุด"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "ปลายทางส่วนกลาง"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "การแทนที่โปรไฟล์"
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "ปลายทางที่ใช้จริง"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "การตั้งค่าเดียวที่ใช้ซ้ำได้สำหรับดาวน์โหลดด่วน URL แบบกลุ่ม และเพลย์ลิสต์"
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "โปรไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "เปลี่ยนปลายทางส่วนกลางไม่ได้"
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "รีเซ็ตการตั้งค่าโปรไฟล์ไม่ได้"
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "บันทึกการตั้งค่าโปรไฟล์ไม่ได้"
+
+msgctxt "wizard.profileEditor.field.compatibility"
+msgid "Compatibility"
+msgstr "ความเข้ากันได้"
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "การส่งมอบ"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "ไอคอนโปรไฟล์"
+
+msgctxt "wizard.profileEditor.field.languageCodes"
+msgid "Subtitle language codes"
+msgstr "รหัสภาษาคำบรรยาย"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "ภาษา"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "ชื่อโปรไฟล์"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "ชื่อและไอคอนโปรไฟล์"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "เส้นทางแทนที่ของโปรไฟล์"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "คุณภาพ"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "ความละเอียด"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "แหล่งที่มา"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "ชื่อโฟลเดอร์ย่อย"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "ดาวน์โหลดคำบรรยาย"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "ไฟล์เก็บถาวร"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "เสียง"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "คำบรรยาย"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "ชั้นเรียน"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "คลิป"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "การควบคุม"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "เพลง"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "พอดแคสต์"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "เพลงหรือพอดแคสต์"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "เฉพาะไฟล์คำบรรยาย"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subs only"
+msgstr "เฉพาะคำบรรยาย"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "ไฟล์วิดีโอปกติ"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "วิดีโอ + เสียง"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "เฉพาะวิดีโอไม่มีเสียง"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "วิดีโอ ไม่มีเสียง"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "คำบรรยายอัตโนมัติจะบันทึกเป็น SRT แทน ASS"
+
+msgctxt "wizard.profileEditor.note.noLanguages"
+msgid "No languages selected"
+msgstr "ไม่ได้เลือกภาษา"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "โปรไฟล์นี้จะไม่ขอไฟล์คำบรรยายหรือแทร็กคำบรรยายแบบฝัง"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "ข้ามสำหรับผลลัพธ์ประเภทนี้"
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "โปรไฟล์นี้เพิ่มเฉพาะไฟล์คำบรรยายลงคิว โดยข้ามวิดีโอ เสียง SponsorBlock และการแปลงสื่อ"
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "โปรไฟล์จะใช้ปลายทางส่วนกลาง เว้นแต่คุณจะตั้งค่าปลายทางแทนที่ของโปรไฟล์"
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "ตัวเลือกขั้นสูง"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "เลือกวิธีหลักที่ต้องการดาวน์โหลด"
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "ประเภทการดาวน์โหลด"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "ชื่อและไอคอนที่แสดงในดาวน์โหลดด่วน URL แบบกลุ่ม และรายการโปรไฟล์"
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "ข้อมูลโปรไฟล์"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "ตัวเลือกผลลัพธ์"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "เลือกโฟลเดอร์สำหรับโปรไฟล์นี้"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "ข้าม"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "เฉพาะที่สร้างอัตโนมัติ"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "คำบรรยายที่ทำเองก่อน แล้วจึงอัตโนมัติ"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "เฉพาะที่ทำเอง"
+
+msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
+msgid "M4A / AAC"
+msgstr "M4A / AAC"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "ความช่วยเหลือสำหรับ {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "ยกเลิกการเตรียม"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "ลิงก์ปัจจุบัน"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy กำลังอ่านลิงก์และใช้ {{profileName}}"
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "ล้มเหลว {{count}} รายการ"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "ล้มเหลว {{count}} รายการ"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "กำลังดึงรายละเอียด"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "กำลังเพิ่มลงคิว"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "กำลังเตรียมดาวน์โหลดด่วน"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "เปิดหน้าต่างนี้ไว้ขณะที่ Arroxy เตรียมคิว"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "เนื้อหาเติมเวลา"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "อินโทร"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "เพลงนอกประเด็น"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "เอาต์โทร"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "ตัวอย่าง"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "โปรโมตตนเอง"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "สปอนเซอร์"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "หมวดหมู่"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "ทำเครื่องหมายเป็นบท"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "ปิด"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "ลบช่วง"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "การกรองสปอนเซอร์"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)"
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา"
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "ยืนยัน"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "บันทึก"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "รูปแบบ"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "ผลลัพธ์"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "เพลย์ลิสต์"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "คุณภาพ"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "โปรไฟล์"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "คำบรรยาย"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "คำบรรยายอัตโนมัติจะบันทึกเป็น SRT แทน ASS — สำหรับวิดีโอ YouTube ระบบจะลบข้อความซ้ำจากคำบรรยายแบบเลื่อน ซึ่งตัวแปลง ASS ของเรายังทำซ้ำไม่ได้"
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "อัตโนมัติ"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "ล้างทั้งหมด"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "โหมดฝังจะบันทึกผลลัพธ์เป็น .mkv เพื่อฝังแทร็กคำบรรยายได้อย่างเสถียร"
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "รูปแบบ"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "เลือกศูนย์ หนึ่ง หรือหลายรายการ — แล้วแต่คุณเลย ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "ไม่มีคำบรรยายสำหรับวิดีโอนี้"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "ไม่มีภาษาที่ตรงกัน"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "ไม่ได้เลือกคำบรรยาย"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "นำ {{name}} ออก"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "ฝังในวิดีโอ"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "บันทึกเป็น"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "ข้างวิดีโอ"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "โฟลเดอร์ย่อย subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "ค้นหาภาษา…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "สร้างอัตโนมัติ"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "ทำเอง"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "จะดาวน์โหลดคำบรรยาย {{count}} รายการ"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "จะดาวน์โหลดคำบรรยาย {{count}} รายการ"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "ข้าม"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "ข้ามสำหรับวิดีโอนี้"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "การนำทางโปรไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "ขั้นสูง"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "ส่งสถิติการใช้งานแบบไม่ระบุตัวตน"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
+msgstr "รายงานข้อขัดข้อง ความล้มเหลว และข้อเสนอแนะแบบไม่ระบุตัวตน โดยไม่มี URL ชื่อวิดีโอ หรือชื่อไฟล์"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "ลองใหม่อัตโนมัติหลังเครือข่ายหรือเซิร์ฟเวอร์สะดุด โดยรอนานขึ้นระหว่างแต่ละครั้ง การดาวน์โหลดที่เว็บไซต์บล็อกจะไม่ถูกลองใหม่อัตโนมัติ"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "ลองดาวน์โหลดที่ล้มเหลวใหม่"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "ครั้ง"
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "ใช้เฉพาะ CSS ไม่มีการเรนเดอร์ canvas"
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "ประสิทธิภาพดีที่สุด"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "ฉากหลัง WebGL แบบเคลื่อนไหวเมื่อรองรับ"
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "สวยที่สุด"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "ปรับจากภาพเคลื่อนไหวมากที่สุดไปจนถึงประสิทธิภาพดีที่สุด"
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "คุณภาพฉากหลัง"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "เลือกปริมาณการเคลื่อนไหวที่ Arroxy ใช้กับฉากหลังแบบเคลื่อนไหว"
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "รูปลักษณ์และประสิทธิภาพ"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "ฮาร์ดแวร์ WebGL ใช้งานไม่ได้บนอุปกรณ์นี้ Arroxy จึงใช้ฉากหลังที่เน้นประสิทธิภาพ"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL แบบกลุ่ม"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "เพิ่ม URL หลายรายการลงคิว"
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "ล้าง URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "เพิ่มลิงก์จากคลิปบอร์ดแล้ว"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มเพื่อเพิ่มลิงก์เหล่านั้น"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "ปิดลิงก์ที่คัดลอก"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "ลิงก์ที่คัดลอกพร้อมแล้ว"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "เฝ้าดูคลิปบอร์ด"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "กรอกช่อง URL อัตโนมัติเมื่อคุณคัดลอกลิงก์วิดีโอ"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "ใช้ลิงก์ที่คัดลอก"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "ซ่อนไว้ในถาดระบบเมื่อปิด"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "ดาวน์โหลดต่อในเบื้องหลังหลังปิดหน้าต่าง"
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "จำนวนรายการในคิวที่ดาวน์โหลดพร้อมกัน การดาวน์โหลดพร้อมกันมากขึ้นช่วยให้คิวยาวเสร็จเร็ว แต่เพิ่มโอกาสที่เว็บไซต์จะจำกัดคุณ"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "ดาวน์โหลดพร้อมกัน"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "ดาวน์โหลด"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "เว็บไซต์อย่าง YouTube อาจทำเครื่องหมาย — และบางครั้งแบน — บัญชีที่ yt-dlp ใช้คุกกี้ หากทำได้ให้ใช้บัญชีสำรอง"
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "อ่านคุกกี้โดยตรงจากเบราว์เซอร์ ต้องปิดเบราว์เซอร์ตระกูล Chromium"
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "เบราว์เซอร์"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "เลือกเบราว์เซอร์…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "เลือก…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "ล้าง"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "เลือกเบราว์เซอร์ที่จะใช้คุกกี้"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "เลือกไฟล์ที่จะใช้คุกกี้"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "รับ cookies.txt ในเครื่อง (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "ไฟล์คุกกี้"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "ส่งออกคุกกี้อย่างไร?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "ไม่ได้เลือกไฟล์"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "ความเสี่ยง: cookies.txt มีเซสชันที่ลงชื่อเข้าใช้ทั้งหมดของเบราว์เซอร์นั้น — เก็บเป็นความลับ"
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "เบราว์เซอร์"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "ไฟล์"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "แหล่งคุกกี้"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "ปิด"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "ช่วยสำหรับวิดีโอจำกัดอายุ เฉพาะสมาชิก และวิดีโอส่วนตัวของบัญชี"
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "เร่งการดาวน์โหลดขนาดใหญ่โดยดึงหลายส่วนของวิดีโอพร้อมกัน ค่าที่สูงขึ้นเพิ่มโอกาสที่เว็บไซต์จะจำกัดคุณ"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "การเชื่อมต่อดาวน์โหลด"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "การเชื่อมต่อ"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "เฉพาะเสียง"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "คำบรรยาย"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "เว็บไซต์กว่า 2000 แห่ง"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "เพลย์ลิสต์เพลง"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "เพลย์ลิสต์วิดีโอ"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "สิ่งที่ Arroxy ดาวน์โหลดได้"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "ช่อง"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "เพลง"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "เพลย์ลิสต์"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "พอดแคสต์"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "วิดีโอ"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "ตัวช่วยทีละขั้น เลือกรูปแบบ คุณภาพ และอื่น ๆ"
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "ดาวน์โหลดจาก URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "เปลี่ยนแป้นลัด"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "แป้นลัดนี้ถูกแอปอื่นใช้แล้ว — เลือกแป้นลัดอื่น"
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "หรือกด"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "คัดลอกลิงก์วิดีโอจากที่ใดก็ได้ กดแป้นลัดนี้ แล้ว Arroxy จะเพิ่มลงคิวด้วยโปรไฟล์ที่ใช้อยู่โดยไม่ต้องสลับหน้าต่าง"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "เปลี่ยนหรือปิดได้ในการตั้งค่า"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "กดปุ่ม…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "รีเซ็ตเป็นค่าเริ่มต้น"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "ดาวน์โหลดลิงก์ที่คัดลอกจากแอปใดก็ได้โดยไม่ต้องเปิด Arroxy"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "แป้นลัดส่วนกลาง"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "ทดสอบ"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "เปิดใช้แป้นลัดส่วนกลาง"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "กดแป้นลัดขณะที่มีลิงก์วิดีโอในคลิปบอร์ด"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "ดาวน์โหลดแบบโต้ตอบ"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "การดาวน์โหลดที่ทำงานอยู่จะใช้ขีดจำกัดเดิม หยุดชั่วคราวแล้วทำต่อเพื่อใช้การเปลี่ยนแปลง"
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "กำหนดเอง…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "เช่น 750K หรือ 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "จำกัดแบนด์วิดท์สำหรับการดาวน์โหลดสื่อ โดยทั่วไปการเว้นจังหวะคำขอด้านล่างช่วยเลี่ยงการจำกัดอัตราได้มากกว่า"
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "ใช้ตัวเลขตามด้วย K หรือ M (เช่น 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "ขีดจำกัดความเร็วดาวน์โหลด"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "ปิด"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "กำลังดาวน์โหลดในเบื้องหลัง… ฉันทำหลายอย่างพร้อมกันได้ 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "ใส่ลิงก์แล้วปล่อยให้ Arroxy ดาวน์โหลด ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "สเตอริโอที่รองรับกว้าง"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "ควบคุมสิ่งที่ต้นฉบับดีที่สุดเลือก แถวเสียงแบบกำหนดเองและ M4A/AAC ยังคงเลือกไว้อย่างชัดเจน"
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "การตั้งค่าเสียงต้นฉบับ"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "เลือกเสียงรอบทิศทาง / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "เพิ่มช่วงรอสั้น ๆ ระหว่างแต่ละการดาวน์โหลด เพื่อไม่ให้ Arroxy เข้าถึงเว็บไซต์ถี่เกินไป ค่าเป็นวินาที"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "พักก่อนเริ่มสื่อ: สูงสุด"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "พักก่อนเริ่มสื่อ: ต่ำสุด"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "รอระหว่างการตรวจสอบข้อมูลเมตา"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "รอก่อนไฟล์คำบรรยาย"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "ดาวน์โหลดแบบนุ่มนวล"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "ให้ Arroxy ระมัดระวังแค่ไหน?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "สมดุล"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "ระมัดระวัง"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "กำหนดเอง"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "ปิด"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "ช่วงรอ: {{requests}} ระหว่างการตรวจสอบ, {{downloads}} ก่อนเริ่มสื่อ, {{subtitles}} ก่อนไฟล์คำบรรยาย"
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "ช่วงรอเหล่านี้เกิดขึ้นภายในการดาวน์โหลดแต่ละรายการ จำนวนการดาวน์โหลดพร้อมกันตั้งค่าแยกในดาวน์โหลดพร้อมกัน"
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "ค่าเริ่มต้น เพิ่มช่วงพักสั้น ๆ ระหว่างคำขอและก่อนเริ่มสื่อ"
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "เพิ่มช่วงพักนานขึ้นสำหรับเพลย์ลิสต์ขนาดใหญ่หรือเครือข่ายที่มักถูกจำกัด"
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "ปรับการควบคุมขั้นสูงต่อการดาวน์โหลดด้วยตนเอง"
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "ใช้เฉพาะช่วงพักพื้นฐานสั้น ๆ ที่ Arroxy ใช้กับสื่อและคำบรรยาย"
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "วินาที"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "ขีดจำกัดปัจจุบัน: {{count}} รายการ"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "กำหนดเอง…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "ใช้จำนวนเต็มตั้งแต่ {{min}} ถึง {{max}}"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "บันทึกขีดจำกัด"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "ขีดจำกัดการตรวจสอบเพลย์ลิสต์แบบกำหนดเอง"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "กำหนดเอง: {{count}} รายการ"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "จำนวนรายการสูงสุดที่ Arroxy โหลดเมื่อเปิดเพลย์ลิสต์ ช่อง หรือผลการค้นหา"
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "ใช้จำนวนเต็มตั้งแต่ 1 ถึง 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "รายการเพลย์ลิสต์ที่จะตรวจสอบ"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} รายการ"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "ตรงกับ --playlist-end ของ yt-dlp: Arroxy จะขอรายการเพลย์ลิสต์ ช่อง หรือผลการค้นหาเพียงเท่านี้ขณะสร้างตัวเลือก"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "โปรไฟล์ที่ใช้อยู่"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "มีในตัว"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "กำหนดเอง"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "ซ่อนอยู่"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "แก้ไขแล้ว"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "เปลี่ยนปลายทางส่วนกลาง"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "ปลายทาง"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "แก้ไข"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "แก้ไขโปรไฟล์ที่ใช้อยู่"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "โปรไฟล์ที่ซ่อนจะยังอยู่ที่นี่ แต่ไม่แสดงในตัวเลือกโปรไฟล์ทั้งหมด"
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "แสดงโปรไฟล์ในตัวเลือก: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "ต้องมีโปรไฟล์พร้อมใช้งานอย่างน้อยหนึ่งรายการ"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "จัดการโปรไฟล์"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "เปลี่ยนโปรไฟล์ที่ใช้อยู่สำหรับดาวน์โหลดด่วน URL แบบกลุ่ม และเพลย์ลิสต์"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "สลับโปรไฟล์"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "โปรไฟล์ใหม่"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "สร้าง เลือก แก้ไข หรือลบการตั้งค่าดาวน์โหลดที่ใช้ซ้ำได้"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "โปรไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "นำออก"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "รีเซ็ต"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "สลับโปรไฟล์ดาวน์โหลด: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "สลับโปรไฟล์ดาวน์โหลด"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "ล้าง"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "ส่งทราฟฟิกผ่านพร็อกซี — มีประโยชน์สำหรับเนื้อหาที่จำกัดภูมิภาค"
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL พร็อกซี"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "เตรียม URL เหล่านั้นไม่ได้เลย"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "ดาวน์โหลดด่วน"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "จะดาวน์โหลดโดยใช้: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "เพิ่มรายการนี้ไม่ได้: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "เพิ่มรายการที่ใช้ได้ลงคิวแล้ว เตรียม URL ไม่ได้ {{count}} รายการ"
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "เพิ่มรายการที่ใช้ได้ลงคิวแล้ว เตรียม URL ไม่ได้ {{count}} รายการ"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "เตรียมรายการในคิวไม่ได้"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "กำลังเตรียม"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "ตรวจสอบไม่สำเร็จ"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "เพิ่มลงคิวแล้ว"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "วาง URL ของวิดีโอ เพลย์ลิสต์ ช่อง หรือการค้นหาเพื่อเริ่มต้น"
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "การทำงานส่วนกลางที่มีผลต่อการดาวน์โหลดผ่านโปรไฟล์ด้วย"
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "การทำงานของการดาวน์โหลด"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "ข้อมูลเข้า"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "โปรไฟล์"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "การตั้งค่า"

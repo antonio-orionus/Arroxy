@@ -5,7 +5,7 @@ export type MockPlatform = 'win32' | 'darwin' | 'linux'
 export const MOCK_PLATFORMS: readonly MockPlatform[] = ['win32', 'darwin', 'linux'] as const
 export const MOCK_PLATFORM_LABELS: Record<MockPlatform, string> = {win32: 'Windows', darwin: 'macOS', linux: 'Linux'}
 
-export const RTL_LANGS = new Set<SupportedLang>(['ar', 'ur', 'ps'])
+export const RTL_LANGS = new Set<SupportedLang>(['ar', 'fa', 'ur', 'ps'])
 
 export interface BrowserMockKnobs {
 	theme: UiTheme | null

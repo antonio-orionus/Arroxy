@@ -6,6 +6,11 @@ import de from './locales/de.json' with {type: 'json'}
 import en from './locales/en.json' with {type: 'json'}
 import es from './locales/es.json' with {type: 'json'}
 import fr from './locales/fr.json' with {type: 'json'}
+import it from './locales/it.json' with {type: 'json'}
+import ko from './locales/ko.json' with {type: 'json'}
+import fa from './locales/fa.json' with {type: 'json'}
+import pl from './locales/pl.json' with {type: 'json'}
+import th from './locales/th.json' with {type: 'json'}
 import sw from './locales/sw.json' with {type: 'json'}
 import uz from './locales/uz.json' with {type: 'json'}
 import am from './locales/am.json' with {type: 'json'}
@@ -20,6 +25,7 @@ import ru from './locales/ru.json' with {type: 'json'}
 import sr from './locales/sr.json' with {type: 'json'}
 import uk from './locales/uk.json' with {type: 'json'}
 import zh from './locales/zh.json' with {type: 'json'}
+import zhHant from './locales/zh-Hant.json' with {type: 'json'}
 import ja from './locales/ja.json' with {type: 'json'}
 import vi from './locales/vi.json' with {type: 'json'}
 import tr from './locales/tr.json' with {type: 'json'}
@@ -30,12 +36,13 @@ export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'
 export type {SupportedLang} from './types.js'
 export {isRtl} from './rtl.js'
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, sw, uz, pt, vi, tr, am, ar, ur, ps, bn, hi, my, el, ru, sr, uk, zh, ja}
+const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, it, sw, uz, pl, pt, vi, tr, am, ar, ur, ps, fa, bn, hi, th, my, el, ru, sr, uk, zh, ja, ko, 'zh-Hant': zhHant}
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
 	if (!raw) return 'en'
 	const lower = raw.toLowerCase()
-	const exact = SUPPORTED_LANGS.find(l => l === lower)
+	if (/^zh(?:[-_](?:hant|tw|hk|mo))(?:[-_]|$)/.test(lower)) return 'zh-Hant'
+	const exact = SUPPORTED_LANGS.find(l => l.toLowerCase() === lower)
 	if (exact) return exact
 	const prefix = lower.split(/[-_]/)[0]
 	const partial = SUPPORTED_LANGS.find(l => l === prefix)

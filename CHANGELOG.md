@@ -8,6 +8,25 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.15
+
+Arroxy now speaks Korean, Italian, Polish, Persian, Thai, and Traditional Chinese, bringing the app and its documentation to 30 languages.
+
+## Highlights
+
+### Six New Complete Translations
+
+- The full interface is now available in **한국어**, **Italiano**, **Polski**, **فارسی**, **ไทย**, and **繁體中文** — including settings, downloads, profiles, playlists, errors, and update messages.
+- Each new language also has its own translated README, including installation, security verification, privacy, and troubleshooting guidance.
+- Persian uses the correct right-to-left layout throughout the app.
+
+### Traditional Chinese Locale Detection
+
+- Systems configured for Taiwan, Hong Kong, Macau, or an explicit `zh-Hant` locale now open Arroxy in Traditional Chinese automatically.
+- Generic Chinese and Simplified Chinese locales, including mainland China and Singapore, continue to use Simplified Chinese.
+
+---
+
 ## 0.4.14
 
 Arroxy now reaches YouTube through your proxy for every step, not just the download itself, and a single button collects everything a bug report needs.

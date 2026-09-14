@@ -17,8 +17,10 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 	en: 'English',
 	es: 'Español',
 	fr: 'Français',
+	it: 'Italiano',
 	sw: 'Kiswahili',
 	uz: "O'zbekcha",
+	pl: 'Polski',
 	pt: 'Português',
 	vi: 'Tiếng Việt',
 	tr: 'Türkçe',
@@ -26,15 +28,19 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 	ar: 'العربية',
 	ur: 'اردو',
 	ps: 'پښتو',
+	fa: 'فارسی',
 	bn: 'বাংলা',
 	hi: 'हिन्दी',
+	th: 'ไทย',
 	my: 'မြန်မာဘာသာ',
 	el: 'Ελληνικά',
 	ru: 'Русский',
 	sr: 'Српски',
 	uk: 'Українська',
 	zh: '中文',
-	ja: '日本語'
+	ja: '日本語',
+	ko: '한국어',
+	'zh-Hant': '繁體中文'
 }
 
 // `kind` is always populated — `'unknown'` covers the unmatched-stderr fallback.

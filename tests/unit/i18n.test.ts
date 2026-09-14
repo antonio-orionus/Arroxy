@@ -18,16 +18,32 @@ describe('pickLanguage', () => {
 
 	it('strips region tag and matches the prefix', () => {
 		expect(pickLanguage('id-ID')).toBe('id')
-		expect(pickLanguage('zh-TW')).toBe('zh')
 		expect(pickLanguage('zh-CN')).toBe('zh')
+		expect(pickLanguage('zh-SG')).toBe('zh')
 		expect(pickLanguage('en-US')).toBe('en')
 		expect(pickLanguage('de_AT')).toBe('de')
 		expect(pickLanguage('tr-TR')).toBe('tr')
 		expect(pickLanguage('pt-BR')).toBe('pt')
 	})
 
+	it('selects Traditional Chinese for Hant-script regions and tags', () => {
+		expect(pickLanguage('zh-TW')).toBe('zh-Hant')
+		expect(pickLanguage('zh-HK')).toBe('zh-Hant')
+		expect(pickLanguage('zh-MO')).toBe('zh-Hant')
+		expect(pickLanguage('zh-Hant')).toBe('zh-Hant')
+		expect(pickLanguage('ZH-hant-hk')).toBe('zh-Hant')
+		expect(pickLanguage('zh-Hans')).toBe('zh')
+	})
+
+	it('recognizes the new language locales', () => {
+		expect(pickLanguage('ko-KR')).toBe('ko')
+		expect(pickLanguage('it-IT')).toBe('it')
+		expect(pickLanguage('pl-PL')).toBe('pl')
+		expect(pickLanguage('fa-IR')).toBe('fa')
+		expect(pickLanguage('th-TH')).toBe('th')
+	})
+
 	it('falls back to en when language is unsupported', () => {
-		expect(pickLanguage('it-IT')).toBe('en')
 		expect(pickLanguage('tlh')).toBe('en')
 	})
 
@@ -44,6 +60,12 @@ describe('mainT', () => {
 		expect(mainT('es', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar descargas y salir')
 		expect(mainT('tr', 'dialogs.quitWithActiveDownloads.confirm')).toBe('İndirmeleri İptal Et ve Çık')
 		expect(mainT('pt', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar Downloads e Sair')
+		expect(mainT('ko', 'common.continue')).toBe('계속')
+		expect(mainT('it', 'common.continue')).toBe('Continua')
+		expect(mainT('pl', 'common.continue')).toBe('Kontynuuj')
+		expect(mainT('fa', 'common.continue')).toBe('ادامه')
+		expect(mainT('th', 'common.continue')).toBe('ดำเนินการต่อ')
+		expect(mainT('zh-Hant', 'common.continue')).toBe('繼續')
 	})
 
 	it('falls back to English when a key is missing in target language', () => {

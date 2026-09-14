@@ -1,0 +1,3186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "정보"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "MIT 라이선스 · Antonio Orionus 제작"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Arroxy 정보"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "YouTube 및 2000개 이상의 사이트를 위한 빠르고 편리한 다운로더입니다."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "타사 고지 사항 보기"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "웹사이트"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "피드백"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Arroxy가 마음에 드시나요? 의견을 들려주세요! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "로그"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "진단 파일 저장"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "로그와 앱 정보를 다운로드 폴더의 파일 하나로 모아 GitHub 이슈에 바로 첨부할 수 있게 합니다. 사용자 폴더 이름은 제거되지만 동영상 링크와 제목은 유지됩니다."
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "확대"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "축소"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "뒤로"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "계속"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "불러오는 중"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "다시 시도"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "처음부터"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy는 계속 실행되며 진행 중인 다운로드를 완료합니다. 나중에 고급 설정에서 변경할 수 있습니다."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "트레이로 숨기기"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "닫을 때 Arroxy를 시스템 트레이로 숨길까요?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "종료"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "다시 묻지 않기"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "다운로드 취소 후 종료"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "나중에 다시 시작하려면 일시 중지하고, 진행 상황을 버리려면 취소하세요."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "계속 다운로드"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}}개 다운로드 진행 중"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}}개 다운로드 진행 중"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "다운로드 일시 중지 후 종료"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "렌더러 프로세스가 중단되었습니다({{reason}}). 다시 시도하려면 새로고침하세요."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy에 문제가 발생했습니다"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "종료"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "새로고침"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "이 동영상은 연령 제한이 있어 로그인한 계정 없이는 다운로드할 수 없습니다."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "봇 보호가 작동했습니다. 사용 중인 IP가 데이터센터 대역이거나 사용자가 많은 VPN 출구라 차단되었을 가능성이 큽니다. IP를 바꾸거나 다른 VPN 엔드포인트를 선택한 뒤 다시 시도하세요. 계속 실패한다면 사이트의 일시적인 변경 때문일 수 있습니다. Arroxy는 시작할 때 yt-dlp를 자동 업데이트하므로 업스트림에서 수정본이 배포되면 자동으로 적용됩니다."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "서버가 다운로드 도중 연결을 계속 끊어 yt-dlp가 재시도 후 포기했습니다. 주로 가장 큰 동영상 형식(4K HDR/고비트레이트 VP9)에서 발생합니다. 다시 시도하거나 네트워크/VPN을 바꾸거나 더 낮은 해상도의 형식을 선택하세요."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "이 동영상은 DRM으로 보호됩니다. yt-dlp는 DRM을 제거할 수 없으므로 파일을 다운로드할 수 없습니다."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "이 동영상은 현재 지역에서 볼 수 없습니다."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "IP 주소가 차단된 것 같습니다. 나중에 다시 시도하거나 VPN을 사용하세요."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "이 동영상은 로그인한 계정이 필요합니다. cookies.txt(설정 → 쿠키)를 설정하고 다시 시도하세요."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp에서 ffmpeg 또는 ffprobe를 찾을 수 없습니다. 번들 바이너리를 복구하거나 FFmpeg 위치를 설정한 뒤 다시 시도하세요."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "디스크 공간이 부족합니다. 공간을 확보하고 다시 시도하세요."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "사이트의 응답을 분석할 수 없습니다. yt-dlp 추출기가 사이트 변경을 따라가지 못했을 수 있습니다. Arroxy는 시작 시 yt-dlp를 자동 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp가 다운로드를 완료했지만 후처리(병합/먹싱/변환)에 실패했습니다. 일시적인 ffmpeg 문제인 경우가 많으니 다시 시도하고, 문제가 계속되면 다른 형식 조합을 사용해 보세요."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "사이트에서 요청 속도를 제한하고 있습니다. 잠시 기다렸다가 다시 시도하세요."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "이 동영상을 사용할 수 없습니다. 비공개이거나 삭제되었거나 지역 제한이 있을 수 있습니다."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "다운로드에 실패했습니다. 아래 원시 출력을 확인하세요."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "이 URL은 yt-dlp에서 지원하지 않습니다. yt-dlp가 지원하는 다른 사이트의 링크를 사용해 보세요."
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "다운로드한 파일의 이름 지정 방식을 선택하세요. 토큰을 클릭해 삽입하고 /를 사용해 다운로드를 폴더로 분류하세요."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "파일 이름 템플릿을 입력하세요."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "여분의 /를 제거하세요. 모든 폴더에는 이름이 필요합니다."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "파일 이름에 사용할 수 없는 문자를 제거하세요: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "이 폴더 이름은 사용할 수 없습니다. . 및 .. 그리고 CON 같은 예약어를 피하세요."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "각 다운로드에 고유한 이름이 지정되도록 파일 이름에 {title} 또는 {id}를 추가하세요."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution}은 폴더 이름으로 사용할 수 없습니다. 다운로드가 시작될 때까지 화질을 알 수 없기 때문입니다."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "일치하지 않는 { 또는 }가 있습니다. {title}처럼 토큰을 감싸세요."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "템플릿이 너무 깁니다."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "알 수 없는 토큰 {{token}}입니다."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id}가 없으면 Arroxy는 이미 다운로드한 재생목록 항목을 감지하거나 .m3u 재생목록을 만들 수 없습니다."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "파일 이름 템플릿"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "파일 이름 템플릿에 {id}가 없거나 다운로드를 폴더로 분류하므로 사용할 수 없습니다."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "재생목록에서"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "단일 동영상"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "전역 템플릿을 사용하려면 비워 두세요."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "파일 이름 템플릿"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "오디오"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "오디오만 · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "언어"
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "이 폴더의 경로가 시스템에서 허용하는 것보다 너무 깊습니다. 다운로드가 실패할 수 있으니 더 짧은 폴더를 선택하세요."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "이 동영상 이름이 템플릿의 모든 부분에 맞지 않아 기본 이름을 사용했습니다."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "폴더 선택기를 열 수 없습니다."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "이미 대기열에 있음 — 사본을 추가하지 않았습니다"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "이전 링크를 처리하는 중입니다"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "클립보드에 링크가 없습니다. 먼저 링크를 복사하세요"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "여러 링크가 복사되었습니다. Arroxy의 URL 일괄 추가를 사용하세요"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "이 링크는 간단한 확인이 필요합니다. Arroxy를 열고 다시 붙여넣으세요"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "클립보드에서 다운로드를 대기열에 추가했습니다"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "링크를 추가할 수 없습니다. Arroxy에서 다시 시도하세요"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "이 폴더는 이 재생목록에 사용할 수 없습니다."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "설정을 저장할 수 없습니다."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "열 수 없습니다."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "설정이 완료되지 않았습니다. 완료될 때까지 일부 다운로드가 실패할 수 있습니다."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "오디오(최고)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "오디오({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "최상의 원본 오디오, 재인코딩 없음"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "M4A(AAC)로 변환"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "MP3로 변환"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Opus로 변환"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "YouTube에서는 1080p를 초과하는 H.264를 사용할 수 없어 자동으로 1080p로 제한됩니다"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "최대 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "최대 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "최대 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "최대 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "최대 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "최대 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "최대 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "최대 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "최고 화질"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "1080p로 제한되며 항목별로 더 낮은 화질을 사용합니다"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "가능한 가장 작은 파일"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "2K로 제한되며 항목별로 더 낮은 화질을 사용합니다"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "2160p로 제한되며 항목별로 더 낮은 화질을 사용합니다"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "매우 작은 파일, 낮은 화질"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "제한된 대역폭을 위한 작은 파일"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "낮은 대역폭"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "더 작은 파일, 높은 호환성"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "항목별 최고 품질의 동영상과 오디오"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "오디오"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "동영상"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "최상의 원본"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "스마트 TV H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "항목별 최상의 컨테이너와 코덱"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "가능한 경우 MP4의 H.264 동영상 + AAC 오디오 선호"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "동영상 없음, 최상의 오디오"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "오디오만"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "최대 720p + 좋은 오디오"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "균형"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "최고 해상도 + 최상의 오디오"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "최고 화질"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "최저 해상도 + 낮은 오디오 품질"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "작은 파일"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "동영상과 오디오 없이 자막만"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "자막만"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "보조 파일"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "설명"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "미디어"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "누락됨"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "자막"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "미리보기 이미지"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "결과물"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "진행 중이거나 대기 중인 모든 다운로드 취소"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "완료된 다운로드 지우기"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "대기열에 추가한 다운로드가 여기에 표시됩니다"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "전체"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "대기열 상태 필터"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "모든 항목"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "다운로드"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "다운로드 실패"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "대상 폴더 열기"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "일시 중지"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "대기 중만"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "지금 받기 — 대기열 건너뛰기"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "제거"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "다시 시작"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "다시 시도"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "자동 재시도 중({{attempt}}번째 시도)"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "위치 설정"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "위치를 설정할 대기 중인 항목을 선택하세요."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "취소됨"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "완료"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "오류"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "보류됨"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "일시 중지됨"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "대기 중"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "세부 정보 가져오는 중"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "다운로드 중"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "모든 진행 중인 다운로드를 일시 중지하고 새 다운로드가 시작되지 않게 합니다"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "대기열이 일시 중지되었습니다. 다시 시작할 때까지 대기 항목은 시작되지 않습니다"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "일시 중지된 다운로드를 다시 시작하고 대기열을 계속 진행합니다"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "대기열 다시 시작"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "선택한 항목"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}}개 선택 · 총 {{total}}개"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "다운로드"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "추가됨"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "결과물"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "열"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "완료 시간"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "형식"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "{{title}}의 결과물 숨기기"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "출력 대상"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "진행률"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "{{title}}의 결과물 표시"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "{{label}} 기준 정렬"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "상태"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "제목"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "이제 다운로드는 다운로드 탭에 있습니다. 언제든 열어 진행 상황을 확인하세요."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "계속"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "새 업데이트를 실행 중입니다. 주요 변경 사항을 확인하세요."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "전체 릴리스 노트 ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Arroxy {{version}}의 새로운 기능"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "실행 파일 선택"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Homebrew로 설치"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "WinGet으로 설치"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "의존성 폴더 열기"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "기본값으로 재설정"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "설정 다시 시도"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "설정 로그 보기"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "바이너리가 --version에 응답하지 않았습니다. 손상되었거나 잘못된 빌드일 수 있습니다."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows에서 파일을 차단했습니다(SmartScreen/Defender). 설치된 파일을 선택하거나 런타임 폴더를 허용 목록에 추가하세요."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "다운로드에 실패했습니다. 인터넷 연결을 확인하고 다시 시도하세요."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "압축 파일 추출에 실패했습니다. 다운로드가 손상되었을 수 있으니 다시 시도하세요."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "다운로드한 파일의 체크섬이 일치하지 않습니다. 다시 다운로드하세요."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg와 ffprobe는 서로 맞는 한 쌍으로 함께 설정해야 합니다."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "시스템에서 파일 실행을 거부했습니다. 신뢰할 수 있는 파일을 선택하거나 관리자 권한으로 다시 시도하세요."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "파일이 없거나 실행할 수 없습니다. 작동하는 파일을 선택하세요."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "버전 확인 시간이 초과되었습니다. 파일이 멈췄을 수 있으니 다시 시도하세요."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "확인할 수 없습니다."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "설정에 도움이 필요합니다"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "복사됨!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "링크 복사"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — Windows, macOS 및 Linux용 무료 오픈 소스 동영상 다운로더. YouTube, Vimeo, Twitch 및 2000개 이상의 사이트를 지원합니다.\n"
+"4K · HDR · MP3 · Shorts · 자막 · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy는 무료 오픈 소스입니다. 공유하면 더 많은 사람이 Arroxy를 발견할 수 있습니다."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "공유"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Arroxy 공유"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Arroxy 공유"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Arroxy 공유"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "문제가 있나요? 수동으로 설정하세요"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "{{binary}} 다운로드 중…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "다시 오신 것을 환영합니다!"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "이 버전의 첫 확인이라 시간이 걸립니다. 보통 1분 정도 걸립니다."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} 확인 중…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "다운로드 준비 중…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "설정에 실패했습니다. 자세한 내용은 설정 로그를 여세요."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "다운로드 취소됨"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "다운로드 완료"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "동영상 변환 중…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "디스크 공간 부족 — {{required}}이(가) 필요하지만 {{free}}만 사용할 수 있습니다"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "{{name}} 바이너리 다운로드 중…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "동영상과 오디오 다운로드 중…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "메타데이터 삽입 중…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "오디오 변환 중…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlock에 연결 중…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "자막 가져오는 중…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "오디오와 동영상 병합 중…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube 토큰 생성 중…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "파일 이동 중…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "바이너리 준비 중…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "토큰 다시 생성 중…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock을 사용할 수 없어 재시도 중({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "연결이 멈춰 재시도 중({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "요청 제한을 피하기 위해 {{seconds}}초 대기 중…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "yt-dlp 프로세스 시작 중…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "동영상이 저장되었지만 일부 자막을 다운로드하지 못했습니다"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "알 수 없는 다운로드 시작 오류"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "완화된 추출기로 다운로드했습니다. 더 안정적인 다운로드를 위해 cookies.txt를 설정하세요"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp가 코드 {{code}}로 종료되었습니다"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "yt-dlp 프로세스 오류: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "다크 모드"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "라이트 모드"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "시스템 기본값"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "닫기"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "최대화"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "최소화"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "복원"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "클립보드에서 다운로드"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Arroxy 열기"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Arroxy 종료"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1개 다운로드 중 · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}}개 다운로드 중 · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "유휴"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "명령을 클립보드에 복사했습니다"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "명령을 클립보드에 복사"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "업데이트 배너 닫기"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "다운로드 ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "DMG 다운로드 ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "다운로드 중…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "설치 후 다시 시작"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "업데이트 실패"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "사용 가능"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}}을(를) 사용할 수 있습니다. 현재 버전은 {{currentVersion}}입니다."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}}을(를) 사용할 수 있습니다. Homebrew로 업데이트하세요."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}}을(를) 사용할 수 있습니다. 새 DMG를 다운로드하세요."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}}을(를) 사용할 수 있습니다. 새 빌드를 다운로드하세요."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "다시 시도"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— 현재 버전 {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "불러오는 중…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "준비됨"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "동영상, 재생목록, 채널, 검색 또는 오디오 URL을 붙여넣으세요. Arroxy가 대기열에 추가하기 전에 중복을 제거합니다."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "일괄 미리보기를 보려면 하나 이상의 URL을 붙여넣으세요."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "무시됨"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "계속하려면 지원되는 URL을 하나 이상 추가하세요."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "중복"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL 목록"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL 일괄 추가"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ 대기열"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "대기열에 추가합니다. 진행 중인 다운로드가 끝나면 시작됩니다"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "오디오만"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{total}}개 동영상 중 {{count}}개"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{total}}개 동영상 중 {{count}}개"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{total}}개 트랙 중 {{count}}개"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{total}}개 트랙 중 {{count}}개"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{total}}개 URL 중 {{count}}개"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{total}}개 URL 중 {{count}}개"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "오디오"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "일괄"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "항목"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "재생목록"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "프리셋"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "저장 위치"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "크기"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "자막"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "동영상"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "파일 저장 위치"
+
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "아래 대상에 저장됩니다"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "아래 {{count}}개 대상에 저장됩니다"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "자막 전용 프리셋이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}}개 항목"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}}개 항목"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "이 일괄 작업의 프로필"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "받기! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "대기열을 건너뛰고 지금 시작해 다른 진행 중인 다운로드와 함께 실행합니다"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "다운로드할 준비가 되었습니다!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "알 수 없음"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "오디오 트랙은 내장 자막 스트림을 지원하지 않아 자막 포함 방식이 별도 파일로 변경되었습니다."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "출력 컨테이너가 지원하지 않아 미리보기 이미지 포함을 건너뛰었습니다."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "사용자 지정…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "데스크탑"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "문서"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "다운로드"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "저장 위치"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "홈"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "음악"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "사진"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "폴더 이름에 잘못된 문자가 있습니다"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "예: lo-fi 추출본"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "하위 폴더에 저장"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "동영상"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "오디오"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "오디오만"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "오디오만(동영상 없음)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "쿠키가 설정되었지만 꺼져 있습니다. 전체 목록을 받으려면 쿠키를 켜고 다시 시도하거나 네트워크를 바꿔 보세요."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "쿠키를 사용해도 YouTube에서 이 분석을 제한했습니다. 나중에 다시 시도하거나 네트워크를 바꾸세요."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "형식 목록이 불완전할 수 있습니다. 고급 설정에서 쿠키를 설정하거나 네트워크를 바꿔 다시 시도하세요."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "쿠키를 켜고 다시 시도"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "분석이 제한됨"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "다시 시도"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "비트레이트"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "변환"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}}kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "오디오 변환에는 오디오 전용 모드가 필요합니다(동영상 선택을 해제하세요)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "원본 스트림이 선택되었습니다. 비트레이트는 mp3, m4a 또는 opus로 변환할 때만 적용됩니다."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "변환 · 비압축"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV(비압축)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "브라우저"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "파일"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "쿠키 소스"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp 문서(이슈 #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 이상은 Windows에서 다른 앱이 읽을 수 없는 방식으로 쿠키를 암호화합니다. 아래 해결 방법 중 하나를 시도하세요."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "브라우저 확장 프로그램으로 Chrome의 쿠키를 내보낸 다음 이 앱을 파일 모드로 전환하고 내보낸 파일을 선택하세요."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "cookies.txt 내보내기"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox는 앱 바인딩 암호화를 사용하지 않습니다. 쿠키 설정을 열고 브라우저 목록에서 Firefox를 선택하세요."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Firefox로 전환"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Chrome 실행 바로 가기에 --disable-features=LockProfileCookieDatabase를 추가하세요. 경고: 기존에 암호화된 쿠키가 무효화되어 모든 사이트에서 로그아웃되며 다시 로그인해야 합니다."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "앱 바인딩 암호화를 끄고 Chrome 실행"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Windows 암호화로 Chrome 쿠키가 차단됨"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "쿠키는 브라우저에서 직접 읽습니다. 브라우저가 실행 중이면 쿠키 데이터베이스가 잠겨 있을 수 있습니다(Chromium 계열). 브라우저에서 YouTube에도 로그인되어 있어야 합니다. 브라우저를 닫거나 다른 브라우저로 바꾸거나 파일 모드로 전환하거나 쿠키를 꺼 보세요."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "쿠키 파일이 비었거나 만료되었거나 형식이 잘못되었을 수 있습니다(yt-dlp는 Netscape cookies.txt 형식이 필요합니다). 쿠키를 다시 내보내거나 다른 파일을 선택하거나 브라우저 모드로 전환하거나 쿠키를 꺼 보세요."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "쿠키가 원인일 수 있음"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "인증 없이는 yt-dlp가 이 동영상에 접근할 수 없습니다. 고급 설정에서 쿠키를 설정하세요. 이미 로그인한 브라우저를 지정하거나 cookies.txt 파일을 가져오면 됩니다."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "이 사이트는 로그인이 필요함"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "쿠키 설정 열기"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "그대로 유지"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "내장 오디오"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "형식 불러오는 중"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "분석이 끝날 때까지 기다려 주세요. 재생목록과 검색은 시간이 걸릴 수 있습니다."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "최상 + 최상 = 최고 품질. 이 조합을 추천합니다!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "오디오 없음"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "고품질"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "저품질"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "중간 품질"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "빠른 프리셋"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "크기 알 수 없음"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "확인으로 건너뛰기"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "남은 모든 단계에 저장된 환경설정을 사용합니다. 설정을 바꾸려면 단계별로 계속 진행하세요. 선택은 다음 사용을 위해 저장됩니다."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "최적의 형식을 찾는 중…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "합계"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "동영상"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "동영상만"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "클릭한 동영상만 받을까요, 아니면 재생목록에서 선택할까요? 다음 단계에서 특정 동영상이나 범위를 선택할 수 있습니다."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "재생목록에서 선택"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "재생목록 분석 제한: {{count}}개 항목"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "yt-dlp 재생목록 모드를 사용하며 선택 화면을 표시하기 전에 분석 제한까지 가져옵니다."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "이 동영상만 다운로드하거나 활성 빠른 다운로드 프로필로 전체 재생목록을 대기열에 추가합니다."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Arroxy가 재생목록, 채널 또는 검색 결과를 대기열에 추가하기 전에 분석할 최대 항목 수입니다."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "불러온 모든 재생목록 항목을 활성 빠른 다운로드 프로필로 대기열에 추가합니다. 분석이 제한에 도달하면 Arroxy가 추가 전에 확인합니다."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "하나의 다운로드만 대기열에 추가하고 이 URL에 연결된 재생목록은 무시합니다."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "이 동영상 다운로드"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "전체 재생목록 다운로드"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "yt-dlp 단일 동영상 모드를 사용하므로 이 URL에 연결된 재생목록은 무시됩니다."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "이 항목만"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "이 링크에 재생목록이 있습니다"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "최신 플레이어에서 탐색할 수 있는 챕터 마커입니다."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "챕터 포함"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "제목, 아티스트, 설명 및 업로드 날짜를 파일에 기록합니다."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "메타데이터 포함"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "파일 안에 표지 이미지를 넣습니다. WebM 동영상은 MKV로 리먹싱되며, 자막을 포함할 때는 건너뜁니다."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "미리보기 이미지 포함"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "동영상 설명을 다운로드 옆에 .description 텍스트 파일로 저장합니다."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "설명 저장"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "동영상 옆에 .m3u 재생목록을 저장하여 미디어 플레이어에서 순서대로 열리게 합니다."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr ".m3u 재생목록 파일 생성"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "미리보기 이미지를 다운로드 옆에 .jpg 이미지 파일로 저장합니다."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "미리보기 이미지 저장"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "계속하려면 복원하세요."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "모든 항목이 제거되었습니다"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "이미 다운로드됨"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL 일괄 추가"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "기다릴 필요가 없습니다. 지금 대기열에 추가한 파일도 다운로드할 때 실제 이름을 받습니다."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "동영상 세부 정보 가져오는 중… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "세부 정보 없음"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "세부 정보 가져오는 중"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "대기 중"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "라이브"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "재생목록 항목"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "다운로드할 동영상"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "동영상 {{count}}개"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "동영상 {{count}}개"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "트랙 {{count}}개"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "트랙 {{count}}개"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "URL {{count}}개"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "URL {{count}}개"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "재생목록 가져오는 중…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "동영상 가져오는 중…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "처음 {{count}}개 항목으로 제한됨"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}}개 페이지 발견"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}}개 페이지 발견"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "동영상 수집 중"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "채널 페이지 검색 중"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "항목별 프로필 지정"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "화질, SponsorBlock, 출력 및 저장 단계를 건너뛰고 각 항목에 다운로드 프로필을 지정합니다"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "재생목록"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "이 중 {{count}}개는 동영상이 아닌 재생목록입니다. 다운로드하려면 링크를 따로 붙여넣으세요."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "이 중 {{count}}개는 동영상이 아닌 재생목록입니다. 다운로드하려면 링크를 하나씩 붙여넣으세요."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "계속하려면 동영상을 하나 이상 선택하세요"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "처음 {{count}}개 항목을 표시합니다. 더 보려면 불러오기 제한을 늘리세요."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "재생목록 분석 제한됨"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "분석 제한됨"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "범위 적용"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "시작"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "끝"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}}개 제거됨"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}}개 제거됨"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "목록에서 {{count}}개 제거"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "목록에서 {{count}}개 제거"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "복원"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "모두 선택"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}}개 선택됨"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}}개 선택됨"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "모두 선택 해제"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "재생목록 순서"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "업로드 날짜 가져오는 중…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "정렬"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "오래된 항목 먼저"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "최신 항목 먼저"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "동기화 적용"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "폴더 변경…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "이 동영상 중 {{n}}개가 이미 {{dir}}에 있습니다. 새 항목만 다운로드하도록 동기화할까요?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "이미 폴더에 있음"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "{{dir}}에서 이 재생목록의 동영상을 찾을 수 없습니다."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "{{dir}}에서 이 소스의 동영상을 찾을 수 없습니다."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "아직 다운로드 없음"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "폴더 확인 중…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "동영상 미리보기 이미지"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "일괄 작업의 화질 선택"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}}개 항목"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}}개 항목"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "각 동영상이 선택한 등급을 독립적으로 결정하므로 다양한 재생목록도 예상대로 작동합니다."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "{{profileName}} 지정"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "선택 항목에 지정"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "길이"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "프로필"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "{{name}} 편집"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "필터와 일치하는 항목이 없습니다"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "프로필 필터"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "다운로드 프로필 지정"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "범위를 선택하려면 Shift-클릭, 하나를 추가하려면 {{modifier}}-클릭하거나 행을 가로질러 드래그하세요. 그런 다음 위에서 프로필을 선택하거나 선택 항목을 마우스 오른쪽 버튼으로 클릭하세요."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "여러 동영상에 프로필 한 번에 지정"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{total}}개 중 {{selected}}개 선택"
+
+msgctxt "wizard.profileEditor.action.addLanguage"
+msgid "Add"
+msgstr "추가"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "전역 설정 변경"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "대상 폴더 선택"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "프로필 아이콘 선택"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "{{code}} 제거"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "프로필 재설정"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "프로필 저장"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "프로필 재정의 설정"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "재정의 설정"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "전역 기본값 사용"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "최상"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "최대 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "최대 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "최대 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "최고 화질"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "전역 대상"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "프로필 재정의"
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "확정된 대상"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "빠른 다운로드, URL 일괄 추가 및 재생목록에 재사용할 수 있는 설정입니다."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "다운로드 프로필"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "전역 대상을 변경할 수 없습니다."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "프로필 설정을 재설정할 수 없습니다."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "프로필 설정을 저장할 수 없습니다."
+
+msgctxt "wizard.profileEditor.field.compatibility"
+msgid "Compatibility"
+msgstr "호환성"
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "전달 방식"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "프로필 아이콘"
+
+msgctxt "wizard.profileEditor.field.languageCodes"
+msgid "Subtitle language codes"
+msgstr "자막 언어 코드"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "언어"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "프로필 이름"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "프로필 이름 및 아이콘"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "프로필 재정의 경로"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "화질"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "해상도"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "소스"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "하위 폴더 이름"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "자막 다운로드"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "보관"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "오디오"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "캡션"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "강의"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "클립"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "컨트롤"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "다운로드"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "음악"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "팟캐스트"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "동영상"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "음악 또는 팟캐스트"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "오디오만"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "자막 파일만"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subs only"
+msgstr "자막만"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "일반 동영상 파일"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "동영상 + 오디오"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "오디오 없는 동영상만"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "동영상, 오디오 없음"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "자동 생성 자막은 ASS 대신 SRT로 저장됩니다."
+
+msgctxt "wizard.profileEditor.note.noLanguages"
+msgid "No languages selected"
+msgstr "선택한 언어 없음"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "이 프로필에서는 자막 파일이나 내장 자막 트랙을 요청하지 않습니다."
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "이 출력 유형에서는 건너뜁니다."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "이 프로필은 자막 파일만 대기열에 추가합니다. 동영상, 오디오, SponsorBlock 및 미디어 변환은 건너뜁니다."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "프로필 재정의를 설정하지 않으면 전역 대상을 사용합니다."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "고급 옵션"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "주로 사용할 다운로드 방식을 선택하세요."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "다운로드 유형"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "빠른 다운로드, URL 일괄 추가 및 프로필 목록에 표시되는 이름과 아이콘입니다."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "프로필 식별 정보"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "출력 옵션"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "이 프로필의 폴더 선택"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "건너뜀"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "스폰서 구간을 챕터로 표시합니다(비파괴)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock 없음 — 동영상이 업로드된 그대로 재생됩니다."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "FFmpeg로 동영상에서 스폰서 구간을 잘라냅니다."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "자동 생성만"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "수동 우선, 이후 자동"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "수동만"
+
+msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
+msgid "M4A / AAC"
+msgstr "M4A / AAC"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} 도움말"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "준비 취소"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "현재 링크"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy가 링크를 읽고 {{profileName}}을(를) 적용하고 있습니다."
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}}개 실패"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}}개 실패"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "세부 정보 가져오는 중"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "대기열에 추가 중"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "빠른 다운로드 준비 중"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Arroxy가 대기열을 준비하는 동안 이 창을 열어 두세요."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "필러"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "인트로"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "주제와 무관한 음악"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "아웃트로"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "미리보기"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "자기 홍보"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "스폰서"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "카테고리"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "챕터로 표시"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "끄기"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "구간 제거"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "스폰서 필터링"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "스폰서 구간을 챕터로 표시합니다(비파괴)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock 없음 — 동영상이 업로드된 그대로 재생됩니다."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "FFmpeg로 동영상에서 스폰서 구간을 잘라냅니다."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "확인"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "저장"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "형식"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "출력"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "재생목록"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "동영상"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "화질"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "프로필"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "자막"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "자동 생성 자막은 ASS 대신 SRT로 저장됩니다. YouTube 동영상에서는 롤링 큐 중복을 정리하며, 이 처리는 아직 ASS 변환기에서 재현할 수 없습니다."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "자동"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "모두 지우기"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "포함 모드는 자막 트랙을 안정적으로 포함하기 위해 출력을 .mkv로 저장합니다."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "형식"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "0개, 1개 또는 여러 개를 선택하세요. 원하는 대로 하면 됩니다 ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "이 동영상에 사용 가능한 자막이 없습니다"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "일치하는 언어 없음"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "선택한 자막 없음"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "{{name}} 제거"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "동영상에 포함"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "저장 형식"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "동영상 옆"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "subtitles/ 하위 폴더"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "언어 검색…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "자동 생성"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "수동"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "자막 {{count}}개를 다운로드합니다"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "자막 {{count}}개를 다운로드합니다"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "건너뛰기"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "이 동영상에서는 건너뛰기"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "다운로드 프로필 탐색"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "고급"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "익명 사용 통계 보내기"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
+msgstr "충돌, 오류 및 피드백을 익명으로 보고합니다. URL, 동영상 제목 또는 파일 이름은 포함하지 않습니다."
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "네트워크나 서버 문제가 발생하면 재시도 간격을 늘려 자동으로 다시 시도합니다. 사이트에서 차단한 다운로드는 자동으로 재시도하지 않습니다."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "실패한 다운로드 재시도"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "회"
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "CSS만 사용하며 캔버스 렌더링은 없습니다."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "최고 성능"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "지원되는 경우 움직이는 WebGL 배경을 사용합니다."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "가장 아름답게"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "가장 역동적인 모양에서 최고 성능까지 조절합니다."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "배경 품질"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Arroxy의 움직이는 배경에 사용할 동작 수준을 선택하세요."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "모양 및 성능"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "이 기기에서 하드웨어 WebGL을 사용할 수 없어 Arroxy가 성능 배경을 사용합니다."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL 일괄 추가"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "여러 URL을 추가하고 대기열에 넣습니다."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "URL 지우기"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "클립보드의 링크가 추가됨"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "여러 링크가 복사되었습니다. URL 일괄 추가를 사용하세요"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "복사한 링크 닫기"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "복사한 링크 준비됨"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "클립보드 감시"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "동영상 링크를 복사하면 URL 필드를 자동으로 채웁니다."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "복사한 링크 사용"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "닫을 때 트레이로 숨기기"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "창을 닫은 뒤에도 백그라운드에서 다운로드를 계속합니다."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "대기열에서 동시에 다운로드할 항목 수입니다. 동시에 더 많이 받으면 긴 대기열이 빨리 끝나지만 사이트에서 제한할 가능성이 커집니다."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "동시 다운로드"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "다운로드"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube 같은 사이트는 yt-dlp에서 쿠키를 사용하는 계정을 표시하거나 때로는 정지할 수 있습니다. 가능하면 일회용 계정을 사용하세요."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "브라우저에서 쿠키를 직접 읽습니다. Chromium 계열 브라우저는 닫혀 있어야 합니다."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "브라우저"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "브라우저 선택…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "선택…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "지우기"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "쿠키를 사용할 브라우저 선택"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "쿠키 파일 선택"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "로컬에서 cookies.txt 받기(Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt(Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "쿠키 파일"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "쿠키를 내보내는 방법"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "선택한 파일 없음"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "위험: cookies.txt에는 해당 브라우저의 로그인된 모든 세션이 포함됩니다. 비공개로 보관하세요."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "브라우저"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "파일"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "쿠키 소스"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "끄기"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "연령 제한, 회원 전용 및 계정 비공개 동영상에 도움이 됩니다."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "동영상의 여러 부분을 동시에 받아 대용량 다운로드 속도를 높입니다. 값이 높을수록 사이트에서 제한할 가능성이 커집니다."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "다운로드 연결"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "연결"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "오디오만"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "자막"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000개 이상의 사이트"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "음악 재생목록"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "동영상"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "동영상 재생목록"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy로 받을 수 있는 항목"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "채널"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "음악"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "재생목록"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "팟캐스트"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "동영상"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "단계별 마법사에서 형식, 화질 등을 선택합니다."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "URL에서 다운로드"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "단축키 변경"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "이 단축키는 다른 앱에서 사용 중입니다. 다른 단축키를 선택하세요."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "또는 다음 키 누르기"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "어디서든 동영상 링크를 복사하고 이 단축키를 누르면 창을 전환하지 않아도 Arroxy가 활성 프로필로 대기열에 추가합니다."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "설정에서 변경하거나 끌 수 있습니다."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "키를 누르세요…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "기본값으로 재설정"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Arroxy를 열지 않고 어떤 앱에서든 복사한 링크를 다운로드합니다."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "전역 단축키"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "테스트"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "전역 단축키 사용"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "클립보드에 동영상 링크를 복사한 상태에서 단축키를 누르세요."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "대화형 다운로드"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "진행 중인 다운로드는 현재 제한을 유지합니다. 변경 사항을 적용하려면 일시 중지 후 다시 시작하세요."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "사용자 지정…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "예: 750K 또는 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "미디어 다운로드 대역폭을 제한합니다. 아래 요청 간격 설정이 일반적으로 요청 제한을 피하는 데 더 효과적입니다."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "숫자 뒤에 K 또는 M을 입력하세요(예: 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "다운로드 속도 제한"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "끄기"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "백그라운드에서 다운로드 중… 멀티태스킹도 문제없어요 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "링크를 넣고 Arroxy에 맡기세요 ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "호환 스테레오"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "최상의 원본이 선택할 항목을 제어합니다. 수동 오디오 행과 M4A/AAC는 명시적으로 유지됩니다."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "원본 오디오 환경설정"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "서라운드 / Dolby 선호"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "각 다운로드 중 짧게 대기하여 사이트에 지나치게 많은 요청을 보내지 않습니다. 값은 초 단위입니다."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "미디어 시작 전 대기: 최대"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "미디어 시작 전 대기: 최소"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "메타데이터 확인 사이 대기"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "자막 파일 전 대기"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "신중한 다운로드"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy를 얼마나 신중하게 사용할까요?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "균형"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "신중하게"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "사용자 지정"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "끄기"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "대기: 확인 사이 {{requests}}, 미디어 시작 전 {{downloads}}, 자막 파일 전 {{subtitles}}."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "이 대기는 각 다운로드 안에서 적용됩니다. 동시에 실행할 다운로드 수는 동시 다운로드에서 별도로 설정합니다."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "기본값입니다. 요청 사이와 미디어 시작 전에 짧은 대기를 추가합니다."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "대규모 재생목록이나 제한이 자주 발생하는 네트워크에 더 긴 대기를 추가합니다."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "다운로드별 고급 제어를 직접 조정합니다."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Arroxy가 미디어와 자막에 적용하는 최소한의 기본 대기만 사용합니다."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "초"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "현재 제한: {{count}}개 항목"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "사용자 지정…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "{{min}}부터 {{max}}까지의 정수를 사용하세요."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "제한 저장"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "사용자 지정 재생목록 분석 제한"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "사용자 지정: {{count}}개 항목"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "재생목록, 채널 또는 검색 결과를 열 때 Arroxy가 불러올 최대 항목 수입니다."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "1부터 5000까지의 정수를 사용하세요"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "분석할 재생목록 항목"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}}개 항목"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "yt-dlp --playlist-end에 해당합니다. Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "활성 프로필"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "기본 제공"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "사용자 지정"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "숨김"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "수정됨"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "전역 대상 변경"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "대상"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "편집"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "활성 프로필 편집"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "숨긴 프로필은 여기에 남아 있지만 모든 프로필 선택기에서는 사라집니다."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "선택기에 프로필 표시: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "사용 가능한 프로필을 하나 이상 유지하세요."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "프로필 관리"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "빠른 다운로드, URL 일괄 추가 및 재생목록에 사용할 활성 프로필을 변경합니다."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "프로필 전환"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "새 프로필"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "재사용 가능한 다운로드 설정을 만들고 선택하고 편집하거나 제거합니다."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "다운로드 프로필"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "제거"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "재설정"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "다운로드 프로필 전환: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "다운로드 프로필 전환"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "지우기"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "프록시를 통해 트래픽을 라우팅합니다. 지역 제한 콘텐츠에 유용합니다."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "프록시 URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "어떤 URL도 준비할 수 없습니다"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "빠른 다운로드"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "다음 프로필로 다운로드: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "이 항목을 추가할 수 없습니다: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "처리된 항목은 대기열에 추가했습니다. URL {{count}}개를 준비하지 못했습니다."
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "처리된 항목은 대기열에 추가했습니다. URL {{count}}개를 준비하지 못했습니다."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "대기열 항목을 준비할 수 없습니다"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "준비 중"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "분석 실패"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "대기열에 추가됨"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "시작하려면 동영상, 재생목록, 채널 또는 검색 URL을 붙여넣으세요."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "프로필 기반 다운로드에도 영향을 주는 전역 동작입니다."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "다운로드 동작"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "입력"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "프로필"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "설정"
