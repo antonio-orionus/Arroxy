@@ -11,21 +11,23 @@ const SECRET_PATTERNS = [
 
 const SECRET_FLAGS = new Set(['--password', '-p', '--twofactor', '-2', '--video-password', '--ap-password', '--client-certificate-password', '--netrc-cmd', '--add-headers', '--cookies', '--cookies-from-browser'])
 
-interface RedactionEnv {
-	NODE_ENV?: string
-}
+type RedactionEnv = Readonly<Record<string, string | undefined>>
 
-function isDevelopment(env: RedactionEnv): boolean {
-	return env.NODE_ENV === 'development'
+// Redaction is a promise to every consumer that secrets stay out of logs, so it
+// only switches off on a flag named for exactly that. NODE_ENV=development is
+// too common in consumer setups to double as a credential-leak switch.
+function isUnredacted(env: RedactionEnv): boolean {
+	const value = env.YTDLP_MCP_UNREDACTED?.trim().toLowerCase()
+	return value === '1' || value === 'true' || value === 'yes' || value === 'on'
 }
 
 export function redactText(value: string, replacement = '[REDACTED]', env: RedactionEnv = process.env): string {
-	if (isDevelopment(env)) return value
+	if (isUnredacted(env)) return value
 	return SECRET_PATTERNS.reduce((text, pattern) => text.replace(pattern, `$1${replacement}`), value)
 }
 
 export function redactArgs(args: string[], env: RedactionEnv = process.env): string[] {
-	if (isDevelopment(env)) return [...args]
+	if (isUnredacted(env)) return [...args]
 
 	const redacted: string[] = []
 	for (let index = 0; index < args.length; index += 1) {
@@ -71,6 +73,6 @@ function redactProxy(value: string): string {
 
 export function excerpt(value: string, maxLength = 1200, env: RedactionEnv = process.env): string {
 	const cleaned = redactText(value.trim(), '[REDACTED]', env)
-	if (isDevelopment(env)) return cleaned
+	if (isUnredacted(env)) return cleaned
 	return cleaned.length <= maxLength ? cleaned : `${cleaned.slice(0, maxLength)}...`
 }

@@ -173,23 +173,39 @@ describe('redaction', () => {
 		expect(redactText('https://example.com/video?X-Amz-Signature=secret&x=1')).toContain('X-Amz-Signature=[REDACTED]')
 	})
 
-	it('does not truncate or redact excerpts in development mode', () => {
-		const input = `prefix ${'x'.repeat(20)} po_token=web.gvs+SECRET suffix`
+	it('keeps redacting when NODE_ENV is development', () => {
+		const env = {NODE_ENV: 'development'}
 
-		expect(excerpt(input, 12, {NODE_ENV: 'development'})).toBe(input)
+		expect(redactText('po_token=SECRET', '[REDACTED]', env)).toBe('po_token=[REDACTED]')
+		expect(redactArgs(['--password', 'secret'], env)).toEqual(['--password', '[REDACTED]'])
+		expect(excerpt(`${'x'.repeat(20)} po_token=SECRET`, 12, env)).toBe(`${'x'.repeat(12)}...`)
 	})
 
-	it('does not redact args in development mode', () => {
-		const previousNodeEnv = process.env.NODE_ENV
-		process.env.NODE_ENV = 'development'
+	it('does not truncate or redact excerpts when YTDLP_MCP_UNREDACTED is enabled', () => {
+		const input = `prefix ${'x'.repeat(20)} po_token=web.gvs+SECRET suffix`
+
+		expect(excerpt(input, 12, {YTDLP_MCP_UNREDACTED: 'true'})).toBe(input)
+	})
+
+	it('does not redact args when YTDLP_MCP_UNREDACTED is enabled in process.env', () => {
+		const previous = process.env.YTDLP_MCP_UNREDACTED
+		process.env.YTDLP_MCP_UNREDACTED = '1'
 		try {
 			const args = ['--extractor-args', 'youtube:po_token=web.gvs+SECRET;visitor_data=VISITOR', '--proxy', 'http://user:pass@proxy.example:8080']
 
 			expect(redactArgs(args)).toEqual(args)
 		} finally {
-			if (previousNodeEnv === undefined) delete process.env.NODE_ENV
-			else process.env.NODE_ENV = previousNodeEnv
+			if (previous === undefined) delete process.env.YTDLP_MCP_UNREDACTED
+			else process.env.YTDLP_MCP_UNREDACTED = previous
 		}
+	})
+
+	it.each(['1', 'true', 'yes', 'on', ' TRUE ', 'Yes', '\tOn\n'])('treats YTDLP_MCP_UNREDACTED=%j as redaction off', value => {
+		expect(redactText('po_token=SECRET', '[REDACTED]', {YTDLP_MCP_UNREDACTED: value})).toBe('po_token=SECRET')
+	})
+
+	it.each(['', '0', 'false', 'no', 'off', 'development'])('treats YTDLP_MCP_UNREDACTED=%j as redaction on', value => {
+		expect(redactText('po_token=SECRET', '[REDACTED]', {YTDLP_MCP_UNREDACTED: value})).toBe('po_token=[REDACTED]')
 	})
 })
 

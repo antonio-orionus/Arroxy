@@ -13,6 +13,7 @@ Source and contributions live in the Arroxy monorepo at [`packages/yt-dlp-bridge
 
 - [Install](#install)
 - [Features](#features)
+- [What changed in 0.3.0](#what-changed-in-030)
 - [What changed in 0.2.0](#what-changed-in-020)
 - [Usage](#usage)
 - [API](#api)
@@ -45,6 +46,13 @@ Requires Node.js >= 22.13 and ESM.
 - Low-level process runner using `spawn` with `shell: false`, bounded output capture, timeouts, and structured failures.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
+
+## What changed in 0.3.0
+
+- `parseYtDlpOutputLine` emits two new event kinds: `artifact` (a written description, info JSON, or thumbnail sidecar, with its `path`) and `transfer-retry` (yt-dlp's in-process `Got error: ... Retrying (n/m)` line, with `attempt` and `total`). `postprocess` events now carry the output `path` when yt-dlp prints one. Exhaustive `switch` statements over `YtDlpOutputEvent` need the two new cases.
+- Media plans always pass `--socket-timeout`. `DownloadRetryPolicy` gains an optional `socketTimeout` (seconds), defaulting to yt-dlp's own 20s via `DEFAULT_SOCKET_TIMEOUT_SECONDS`.
+- A media plan that replays `resume.loadInfoJsonPath` without an explicit `downloadRetryPolicy` now uses `INFO_JSON_DOWNLOAD_RETRY_POLICY`: 3 retries and a 15s socket timeout, so a pinned, unreachable CDN host fails in about a minute instead of about seven. Fragment retries keep the default budget. Pass `downloadRetryPolicy` to keep the previous behavior.
+- `redactText`, `redactArgs`, and `excerpt` accept an optional `env` argument (default `process.env`). Setting `YTDLP_MCP_UNREDACTED=true` disables redaction and excerpt truncation for local debugging. `NODE_ENV` has no effect on redaction.
 
 ## What changed in 0.2.0
 
@@ -290,6 +298,7 @@ import { redactArgs } from "yt-dlp-bridge/redaction";
 | `YTDLP_MCP_TIMEOUT_MS` | `900000` | Default command timeout (ms). |
 | `YTDLP_MCP_MAX_OUTPUT_BYTES` | `4194304` | Maximum retained stdout/stderr bytes. |
 | `YTDLP_MCP_JS_RUNTIMES` | `deno,node,bun,quickjs` | JavaScript runtimes considered for extractor challenges. |
+| `YTDLP_MCP_UNREDACTED` | `false` | Disable secret redaction and excerpt truncation. Local debugging only: logs will contain tokens, cookies, and credentials. |
 
 ## Requirements
 

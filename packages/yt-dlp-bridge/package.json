@@ -1,6 +1,6 @@
 {
 	"name": "yt-dlp-bridge",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "TypeScript library for safe, no-shell yt-dlp integration: workflow planning, argv generation, process execution, output parsing, and structured errors.",
 	"type": "module",
 	"license": "MIT",
