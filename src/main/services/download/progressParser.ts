@@ -24,6 +24,21 @@ export type StatusEmit = (jobId: string, stage: StatusEvent['stage'], statusKey:
 export type ProgressEmit = (event: ProgressEvent) => void
 export type ArtifactEmit = (event: QueueArtifactEvent) => void
 
+const PROGRESS_LINE = /^\[download\]\s+(\d+(?:\.\d+)?|Unknown)% of /
+// Stands in for a percent yt-dlp cannot report, so such a file is logged once.
+const UNKNOWN_PROGRESS_STEP = -1
+
+// yt-dlp redraws its progress line several times a second, and logging every
+// redraw pushed the lines that explain a failure out of a rotated log. Keep the
+// first line of each 10% step (100% is its own step) for the current file.
+function takeProgressLogStep(active: ActiveDownload, line: string): boolean {
+	const percent = PROGRESS_LINE.exec(line)?.[1]
+	const step = percent === undefined || percent === 'Unknown' ? UNKNOWN_PROGRESS_STEP : Math.floor(Math.min(Number(percent), 100) / 10)
+	if (step === active.lastLoggedProgressStep) return false
+	active.lastLoggedProgressStep = step
+	return true
+}
+
 function rememberSubtitlePath(active: ActiveDownload, path: string): void {
 	if (!active.subtitlePaths.includes(path)) active.subtitlePaths.push(path)
 }
@@ -45,8 +60,8 @@ export class ProgressParser {
 		for (const line of splitStderrLines(text)) {
 			if (line.startsWith('WARNING:') || line.startsWith('ERROR:')) {
 				logger.warn(line, {jobId, source: 'yt-dlp-progress'})
-			} else if (/^\[download\]\s+(?:\d+(?:\.\d+)?|Unknown)% of /.test(line)) {
-				logger.debug(line, {jobId, source: 'yt-dlp-progress'})
+			} else if (PROGRESS_LINE.test(line)) {
+				if (takeProgressLogStep(active, line)) logger.debug(line, {jobId, source: 'yt-dlp-progress'})
 			} else {
 				logger.info(line, {jobId, source: 'yt-dlp-progress'})
 			}
@@ -58,6 +73,7 @@ export class ProgressParser {
 				const path = event.path
 				const kind = isSubtitleFile(path) ? 'subtitle' : 'media'
 				active.currentFileKind = kind
+				active.lastLoggedProgressStep = undefined
 				if (kind === 'subtitle') {
 					rememberSubtitlePath(active, path)
 				} else {

@@ -30,6 +30,8 @@ import {ClipboardWatcher, watcherWindowFromBrowserWindow} from '@main/services/C
 import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} from '@main/services/HotkeyService.js'
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
+import {configureLogFile} from '@main/utils/logFile.js'
+import {describeSessionContext} from '@main/utils/sessionContext.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
@@ -225,8 +227,13 @@ if (hasSingleInstanceLock) {
 		lifecyclePhase = 'ready'
 		gpuInfoReadiness?.startBudget(GPU_INFO_BUDGET_MS)
 		const userDataPath = app.getPath('userData')
-		log.transports.file.resolvePathFn = () => path.join(userDataPath, 'logs', 'main.log')
-		log.info('Session started')
+		const runtimeFacts = {appVersion: app.getVersion(), electronVersion: process.versions.electron, platform: process.platform, arch: process.arch}
+		// Filled in once the stores exist; until then the context says so instead
+		// of guessing. Read lazily because a rotation can happen at any time.
+		let contextSources: {settingsStore: SettingsStore; tokenService: TokenService} | null = null
+		const sessionContext = (): Record<string, unknown> => describeSessionContext(runtimeFacts, contextSources?.settingsStore.getSync() ?? null, contextSources?.tokenService.lastWarmUp() ?? null)
+		configureLogFile(log.transports.file, {logPath: path.join(userDataPath, 'logs', 'main.log'), onRotated: () => log.info('Log file rotated', sessionContext())})
+		log.info('Session started', sessionContext())
 		let graphicsPolicyPromise: Promise<GraphicsPolicy> | null = null
 		const graphicsPolicyProvider = async (): Promise<GraphicsPolicy> => {
 			graphicsPolicyPromise ??= (async () => {
@@ -286,6 +293,8 @@ if (hasSingleInstanceLock) {
 
 		const tokenProvider = isMockBackend || e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider(() => settingsStore.getSync().common.proxyUrl)
 		const tokenService = new TokenService(tokenProvider)
+		contextSources = {settingsStore, tokenService}
+		log.info('Session context', sessionContext())
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode})
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend)
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache)

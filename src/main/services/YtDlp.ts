@@ -8,7 +8,7 @@ import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
-import {parseProxySetting, type ProxySetting} from '@main/utils/proxyUrl.js'
+import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
 import {siteForUrl} from '@shared/sites/index.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -32,11 +32,6 @@ function summarizeDependencySourceForLog(source: DependencySource | null | undef
 	if (source.kind === 'managed') return {ytDlpSource: source.kind, ytDlpProvider: source.provider, ytDlpChannel: source.channel}
 	if (source.kind === 'managedCache') return {ytDlpSource: 'managed-cache', ytDlpProvider: source.provider, ytDlpChannel: source.channel}
 	return {ytDlpSource: source.kind}
-}
-
-function describeProxy(proxy: ProxySetting): string | null {
-	if (proxy.kind === 'none') return null
-	return proxy.kind === 'proxy' ? proxy.redacted : '<invalid>'
 }
 
 export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
@@ -433,7 +428,7 @@ export class YtDlp {
 			tokenService: this.tokenService,
 			cookies,
 			proxyUrl,
-			proxyForLog: describeProxy(proxySetting),
+			proxyForLog: proxyForLog(proxySetting),
 			limitRate,
 			timeoutMs: validOverride ?? (isProbe ? PROBE_TIMEOUT_MS : undefined),
 			isProbe,

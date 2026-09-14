@@ -1,5 +1,13 @@
 import {describe, expect, it} from 'vitest'
-import {parseProxySetting} from '@main/utils/proxyUrl.js'
+import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
+
+describe('proxyForLog', () => {
+	it('gives no proxy as null, an unusable one as a marker, and a proxy without credentials', () => {
+		expect(proxyForLog(parseProxySetting(''))).toBeNull()
+		expect(proxyForLog(parseProxySetting('ftp://proxy.example:21'))).toBe('<invalid>')
+		expect(proxyForLog(parseProxySetting('http://user:secret@10.0.0.1:3128'))).toBe('http://***:***@10.0.0.1:3128')
+	})
+})
 
 describe('parseProxySetting', () => {
 	it('treats a missing or blank value as no proxy', () => {

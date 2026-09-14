@@ -48,6 +48,13 @@ export function parseProxySetting(raw: string | undefined): ProxySetting {
 	return {kind: 'proxy', url: withoutTrailingSlash(url.href), chromiumRules: `${scheme}://${url.host}`, credentials, redacted: withoutTrailingSlash(redactedUrl.href)}
 }
 
+// The one form of the setting that may reach a log: nothing when unset, a
+// marker when unusable, and never the credentials.
+export function proxyForLog(proxy: ProxySetting): string | null {
+	if (proxy.kind === 'none') return null
+	return proxy.kind === 'proxy' ? proxy.redacted : '<invalid>'
+}
+
 // URL serialization appends "/" to an empty path; a proxy address has none.
 function withoutTrailingSlash(href: string): string {
 	return href.endsWith('/') ? href.slice(0, -1) : href

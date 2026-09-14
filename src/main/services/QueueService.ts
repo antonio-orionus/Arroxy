@@ -39,7 +39,7 @@ import {findInadmissibleQueueItem, findLiveDuplicate} from './download/queueAdmi
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
-import {describeMutation, statusSummary, type Mutation} from './download/queueMutation.js'
+import {describeMutation, isProgressOnlyMutation, statusSummary, type Mutation} from './download/queueMutation.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
 
 import type {QueueStore} from '@main/stores/QueueStore.js'
@@ -616,7 +616,7 @@ export class QueueService extends EventEmitter {
 	}
 
 	private commit(mutation: Mutation): void {
-		logger.debug('commit', {mutation: describeMutation(mutation)})
+		if (!isProgressOnlyMutation(mutation)) logger.debug('commit', {mutation: describeMutation(mutation)})
 		switch (mutation.kind) {
 			case 'add': {
 				const atIdx = this.items.length

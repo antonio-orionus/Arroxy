@@ -1,7 +1,7 @@
 import {BrowserWindow, session} from 'electron'
 import log from 'electron-log/main.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
-import {parseProxySetting, type ProxySetting} from '@main/utils/proxyUrl.js'
+import {parseProxySetting, proxyForLog, type ProxySetting} from '@main/utils/proxyUrl.js'
 
 const logger = log.scope('token')
 
@@ -13,10 +13,6 @@ const PARTITION = 'persist:youtube-hidden'
 // credentials, so a changed password counts as a change.
 function proxyKey(proxy: ProxySetting): string {
 	return proxy.kind === 'proxy' ? proxy.url : proxy.kind
-}
-
-function describeProxy(proxy: ProxySetting): string {
-	return proxy.kind === 'proxy' ? proxy.redacted : proxy.kind
 }
 
 function delay(ms: number): Promise<void> {
@@ -111,7 +107,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 			win.webContents.once('did-fail-load', (_, code, description) => {
 				// Logged here, not only by the caller: the failure is swallowed into a
 				// no-token fallback further up, and this is where the cause is known.
-				logger.warn('PoT scrape: YouTube failed to load', {code, description, proxy: describeProxy(this.proxy)})
+				logger.warn('PoT scrape: YouTube failed to load', {code, description, proxy: proxyForLog(this.proxy)})
 				reject(new Error(`YouTube failed to load: ${description} (${code})`))
 			})
 			void win.loadURL(YOUTUBE_URL, {userAgent: CHROME_UA})

@@ -1,4 +1,5 @@
 import {describe, expect, it, vi} from 'vitest'
+import log from 'electron-log/main.js'
 import {ProgressParser} from '@main/services/download/progressParser.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -34,6 +35,38 @@ function makeActive(input: ResolvedStartDownloadInput): ActiveDownload {
 		disposables: new AsyncStack()
 	}
 }
+
+// yt-dlp redraws its progress line several times a second. Logging every redraw
+// made progress a third of a user's log and rotated away the lines that explain
+// a failure (issue #222), so the log keeps one line per 10% step.
+describe('ProgressParser — progress logging', () => {
+	function loggedProgressLines(): unknown[] {
+		return vi
+			.mocked(log.debug)
+			.mock.calls.map(call => call[0])
+			.filter(line => typeof line === 'string' && line.includes('% of'))
+	}
+
+	it('logs one progress line per 10% step instead of every redraw', () => {
+		vi.mocked(log.debug).mockClear()
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download]   1.0% of 10.00MiB at 1.00MiB/s ETA 00:09\r[download]   5.0% of 10.00MiB at 1.00MiB/s ETA 00:09\r[download]  12.0% of 10.00MiB at 1.00MiB/s ETA 00:08\r[download]  15.0% of 10.00MiB at 1.00MiB/s ETA 00:08\r[download] 100% of 10.00MiB in 00:00:10 at 1.00MiB/s\n')
+
+		expect(loggedProgressLines()).toEqual(['[download]   1.0% of 10.00MiB at 1.00MiB/s ETA 00:09', '[download]  12.0% of 10.00MiB at 1.00MiB/s ETA 00:08', '[download] 100% of 10.00MiB in 00:00:10 at 1.00MiB/s'])
+	})
+
+	it('starts counting again when the next file begins', () => {
+		vi.mocked(log.debug).mockClear()
+		const parser = new ProgressParser(vi.fn(), vi.fn())
+		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
+
+		parser.consume(active, '[download]  55.0% of 10.00MiB at 1.00MiB/s ETA 00:05\n[download] Destination: /tmp/video.f251.webm\n[download]  57.0% of 2.00MiB at 1.00MiB/s ETA 00:01\n')
+
+		expect(loggedProgressLines()).toEqual(['[download]  55.0% of 10.00MiB at 1.00MiB/s ETA 00:05', '[download]  57.0% of 2.00MiB at 1.00MiB/s ETA 00:01'])
+	})
+})
 
 describe('ProgressParser — stream framing', () => {
 	// yt-dlp redraws progress with a bare '\r' and only terminates real lines with
