@@ -95,6 +95,12 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.logsUploadFeedbackDiagnostic, input)
 	})
 
+	it('logs.saveDiagnostics', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.logs.saveDiagnostics()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.logsSaveDiagnostics)
+	})
+
 	it('dialog.chooseFolder', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		void api.dialog.chooseFolder()

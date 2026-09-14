@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Αρχεία καταγραφής"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Αποθήκευση αρχείου διαγνωστικών"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Συγκεντρώνει τα αρχεία καταγραφής και τις λεπτομέρειες της εφαρμογής σε ένα αρχείο στον φάκελο Λήψεις, έτοιμο για επισύναψη σε ένα issue στο GitHub. Το όνομα του φακέλου χρήστη αφαιρείται· οι σύνδεσμοι και οι τίτλοι των βίντεο παραμένουν."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Μεγέθυνση"

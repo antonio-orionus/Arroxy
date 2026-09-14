@@ -9,6 +9,10 @@ export interface RuntimeFacts {
 	arch: string
 }
 
+export function currentRuntimeFacts(appVersion: string): RuntimeFacts {
+	return {appVersion, electronVersion: process.versions.electron ?? 'unknown', platform: process.platform, arch: process.arch}
+}
+
 // What a reader needs to interpret the log lines that follow: which build is
 // running, how it reaches the network, and whether the PO token warm-up worked.
 // Written at session start and restated at the top of every rotated log file,

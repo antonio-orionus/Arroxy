@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Galmee"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Faayilii qorannoo olkaa'i"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Galmee fi odeeffannoo appii faayilii tokko keessatti kuusaa Downloads keessatti walitti qaba, GitHub issue irratti maxxansuuf qophaa'aa. Maqaan kuusaa fayyadamaa kee ni haqama; liinkiiwwan fi mata-dureewwan viidiyoo ni hafu."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Guddisi"

@@ -18,6 +18,15 @@ describe('system shell actions', () => {
 		expect(console.error).toHaveBeenCalledWith('[shell] logs.openDir failed', error)
 	})
 
+	it('logs failed saveDiagnostics IPC results', async () => {
+		const error = {code: 'ipc' as const, message: 'Disk full'}
+		vi.mocked(window.appApi.logs.saveDiagnostics).mockResolvedValue(fail(error))
+
+		await useAppStore.getState().saveDiagnostics()
+
+		expect(console.error).toHaveBeenCalledWith('[shell] logs.saveDiagnostics failed', error)
+	})
+
 	it('logs failed openBinariesDir IPC results', async () => {
 		const error = {code: 'ipc' as const, message: 'Explorer failed'}
 		vi.mocked(window.appApi.shell.openBinariesDir).mockResolvedValue(fail(error))

@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "startOver": "Jalqabbii irra deebi'i"},
-	"app": {"feedback": "Yaada", "logs": "Galmee", "feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬", "zoomIn": "Guddisi", "zoomOut": "Xiqqeessi"},
+	"app": {
+		"feedback": "Yaada",
+		"logs": "Galmee",
+		"saveDiagnostics": "Faayilii qorannoo olkaa'i",
+		"saveDiagnosticsDescription": "Galmee fi odeeffannoo appii faayilii tokko keessatti kuusaa Downloads keessatti walitti qaba, GitHub issue irratti maxxansuuf qophaa'aa. Maqaan kuusaa fayyadamaa kee ni haqama; liinkiiwwan fi mata-dureewwan viidiyoo ni hafu.",
+		"feedbackNudge": "Arroxy si gammachiisaa jiraa? Yaada kee dhaga'uu barbaada! 💬",
+		"zoomIn": "Guddisi",
+		"zoomOut": "Xiqqeessi"
+	},
 	"about": {"button": "Waa'ee", "openTitle": "Waa'ee Arroxy", "tagline": "YouTube fi marsariitota 2000+ biroo irraa buusuuf meeshaa ariifataa fi salphaa.", "websiteLink": "Marsariitii", "githubLink": "GitHub", "licenseLine": "Heeyyama MIT · by Antonio Orionus", "thirdPartyNotices": "Beeksisa seera-biroo ilaali"},
 	"titleBar": {"close": "Cufii", "minimize": "Xiqqeessi", "maximize": "Guddisi", "restore": "Deebi'si"},
 	"splash": {

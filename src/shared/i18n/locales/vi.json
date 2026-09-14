@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Quay lại", "cancel": "Hủy", "continue": "Tiếp tục", "loading": "Đang tải…", "retry": "Thử lại", "startOver": "Bắt đầu lại"},
-	"app": {"feedback": "Phản hồi", "logs": "Nhật ký", "feedbackNudge": "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬", "zoomIn": "Phóng to", "zoomOut": "Thu nhỏ"},
+	"app": {
+		"feedback": "Phản hồi",
+		"logs": "Nhật ký",
+		"saveDiagnostics": "Lưu tệp chẩn đoán",
+		"saveDiagnosticsDescription": "Gom nhật ký và thông tin ứng dụng vào một tệp trong thư mục Tải xuống, sẵn sàng đính kèm vào issue trên GitHub. Tên thư mục người dùng của bạn sẽ được xóa; liên kết và tiêu đề video vẫn được giữ lại.",
+		"feedbackNudge": "Bạn thích Arroxy không? Tôi rất muốn nghe ý kiến của bạn! 💬",
+		"zoomIn": "Phóng to",
+		"zoomOut": "Thu nhỏ"
+	},
 	"about": {"button": "Giới thiệu", "openTitle": "Giới thiệu về Arroxy", "tagline": "Trình tải xuống nhanh, thân thiện cho YouTube và hơn 2000 trang web khác.", "websiteLink": "Trang web", "githubLink": "GitHub", "licenseLine": "Giấy phép MIT · bởi Antonio Orionus", "thirdPartyNotices": "Xem thông báo bên thứ ba"},
 	"titleBar": {"close": "Đóng", "minimize": "Thu nhỏ", "maximize": "Phóng to", "restore": "Khôi phục"},
 	"splash": {

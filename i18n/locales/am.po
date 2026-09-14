@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "ምዝግቦች"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "የምርመራ ፋይል አስቀምጥ"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "ምዝግቦችዎን እና የመተግበሪያ ዝርዝሮችን በDownloads አቃፊ ውስጥ ወዳለ አንድ ፋይል ያስቀምጣል፤ ከGitHub issue ጋር ለማያያዝ ዝግጁ ነው። የተጠቃሚ አቃፊዎ ስም ይወገዳል፤ የቪዲዮ አገናኞች እና ርዕሶች ይቀራሉ።"
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "አቅርብ"

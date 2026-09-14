@@ -467,6 +467,10 @@ export function installBrowserMock(): void {
 			uploadFeedbackDiagnostic: input => {
 				console.log('[mock] uploadFeedbackDiagnostic', input.reportId)
 				return Promise.resolve({ok: true, data: {reportId: input.reportId, diagnosticUrl: null, rawBytes: 128_000, compressedBytes: 32_000, truncated: false, sha256: 'mock-diagnostic-sha256'}} as const)
+			},
+			saveDiagnostics: () => {
+				console.log('[mock] saveDiagnostics')
+				return Promise.resolve({ok: true, data: {path: '/home/user/Downloads/arroxy-diagnostics-mock.txt'}} as const)
 			}
 		},
 

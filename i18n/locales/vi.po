@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Nhật ký"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Lưu tệp chẩn đoán"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Gom nhật ký và thông tin ứng dụng vào một tệp trong thư mục Tải xuống, sẵn sàng đính kèm vào issue trên GitHub. Tên thư mục người dùng của bạn sẽ được xóa; liên kết và tiêu đề video vẫn được giữ lại."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Phóng to"

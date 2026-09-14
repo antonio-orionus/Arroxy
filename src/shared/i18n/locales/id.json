@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "startOver": "Mulai dari awal"},
-	"app": {"feedback": "Masukan", "logs": "Log", "feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬", "zoomIn": "Perbesar", "zoomOut": "Perkecil"},
+	"app": {
+		"feedback": "Masukan",
+		"logs": "Log",
+		"saveDiagnostics": "Simpan file diagnostik",
+		"saveDiagnosticsDescription": "Menggabungkan log dan detail aplikasi ke dalam satu file di folder Unduhan, siap dilampirkan ke issue GitHub. Nama folder pengguna dihapus; tautan dan judul video tetap ada.",
+		"feedbackNudge": "Menikmati Arroxy? Saya ingin mendengar pendapat Anda! 💬",
+		"zoomIn": "Perbesar",
+		"zoomOut": "Perkecil"
+	},
 	"about": {"button": "Tentang", "openTitle": "Tentang Arroxy", "tagline": "Pengunduh yang cepat dan ramah untuk YouTube dan 2000+ situs lainnya.", "websiteLink": "Situs web", "githubLink": "GitHub", "licenseLine": "Lisensi MIT · oleh Antonio Orionus", "thirdPartyNotices": "Lihat pemberitahuan pihak ketiga"},
 	"titleBar": {"close": "Menutup", "minimize": "Memperkecil", "maximize": "Maksimalkan", "restore": "Memulihkan"},
 	"splash": {

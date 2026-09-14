@@ -336,6 +336,7 @@ export interface SystemSlice {
 	clearBinaryOverride: (id: DependencyId) => Promise<void>
 	openBinariesDir: () => Promise<void>
 	openLogs: () => Promise<void>
+	saveDiagnostics: () => Promise<void>
 	markReleaseNotesShown: (version: string) => Promise<void>
 	setLanguage: (lang: SupportedLang) => void
 	setCookiesPath: (path: string) => Promise<void>

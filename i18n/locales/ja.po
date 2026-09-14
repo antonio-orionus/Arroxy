@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "ログ"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "診断ファイルを保存"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "ログとアプリの情報を「ダウンロード」フォルダー内の1つのファイルにまとめます。GitHub の Issue にそのまま添付できます。ユーザーフォルダー名は削除されますが、動画のリンクとタイトルは残ります。"
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "拡大"

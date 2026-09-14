@@ -1,6 +1,14 @@
 {
 	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
-	"app": {"feedback": "አስተያየት", "logs": "ምዝግቦች", "feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬", "zoomIn": "አቅርብ", "zoomOut": "አርቅ"},
+	"app": {
+		"feedback": "አስተያየት",
+		"logs": "ምዝግቦች",
+		"saveDiagnostics": "የምርመራ ፋይል አስቀምጥ",
+		"saveDiagnosticsDescription": "ምዝግቦችዎን እና የመተግበሪያ ዝርዝሮችን በDownloads አቃፊ ውስጥ ወዳለ አንድ ፋይል ያስቀምጣል፤ ከGitHub issue ጋር ለማያያዝ ዝግጁ ነው። የተጠቃሚ አቃፊዎ ስም ይወገዳል፤ የቪዲዮ አገናኞች እና ርዕሶች ይቀራሉ።",
+		"feedbackNudge": "Arroxy ደስ ይለዎታል? አስተያየትዎን ማካፈል ይፈልጋሉ! 💬",
+		"zoomIn": "አቅርብ",
+		"zoomOut": "አርቅ"
+	},
 	"about": {"button": "ስለ", "openTitle": "ስለ Arroxy", "tagline": "ለYouTube እና ለ2000+ ሌሎች ጣቢያዎች ፈጣን እና ምቹ አውርጅ።", "websiteLink": "ድረ-ገጽ", "githubLink": "GitHub", "licenseLine": "MIT ፈቃድ · በ Antonio Orionus", "thirdPartyNotices": "የሦስተኛ ወገን ማስታወቂያዎችን ይመልከቱ"},
 	"titleBar": {"close": "ዝጋ", "minimize": "አሳንስ", "maximize": "አሰፋ", "restore": "መልስ"},
 	"splash": {

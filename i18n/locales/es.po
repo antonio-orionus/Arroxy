@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Registros"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Guardar archivo de diagnóstico"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Reúne los registros y los datos de la app en un solo archivo en Descargas, listo para adjuntarlo a un issue de GitHub. Se elimina el nombre de la carpeta de usuario; los enlaces y títulos de los videos se mantienen."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Acercar"

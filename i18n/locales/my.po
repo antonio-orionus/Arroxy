@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "မှတ်တမ်းများ"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "စစ်ဆေးချက်ဖိုင် သိမ်းရန်"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "မှတ်တမ်းများနှင့် အက်ပ်အသေးစိတ်များကို Downloads ဖိုင်တွဲထဲရှိ ဖိုင်တစ်ခုတည်းတွင် စုစည်းပေးပြီး GitHub issue တွင် ပူးတွဲရန် အသင့်ဖြစ်စေသည်။ အသုံးပြုသူဖိုင်တွဲအမည်ကို ဖယ်ရှားပြီး ဗီဒီယိုလင့်ခ်များနှင့် ခေါင်းစဉ်များ ကျန်ရှိနေမည်။"
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "ချဲ့မည်"

@@ -5,10 +5,13 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {ok} from '@shared/result.js'
 import {DEPENDENCY_IDS, type DependencyId} from '@shared/types.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
+import {writeDiagnosticsFile} from '@main/services/DiagnosticsFile.js'
 import {uploadFeedbackDiagnostic} from '@main/services/FeedbackDiagnostics.js'
 import {handleRaw, toIpcFailure, toUnknownFailure} from './utils.js'
 
-export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: BinaryManager): void {
+// `describeDiagnosticsContext` supplies the session context for the diagnostics
+// file, so these handlers never need to know which services it is built from.
+export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: BinaryManager, describeDiagnosticsContext: () => Record<string, unknown>): void {
 	handleRaw(IPC_CHANNELS.chooseFolder, async (_, payload: unknown) => {
 		try {
 			// Open at the caller's current folder when provided, so "Change folder"
@@ -83,6 +86,19 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
 			const logPath = log.transports.file.getFile().path
 			const upload = await uploadFeedbackDiagnostic({logPath, reportId})
 			return ok(upload)
+		} catch (error) {
+			return toUnknownFailure(error)
+		}
+	})
+
+	// Written to Downloads, where the user can find it again, then revealed so
+	// the next step — dragging it into an issue — is one move away.
+	handleRaw(IPC_CHANNELS.logsSaveDiagnostics, async () => {
+		try {
+			const filePath = await writeDiagnosticsFile({logPath: log.transports.file.getFile().path, outputDir: app.getPath('downloads'), context: describeDiagnosticsContext()})
+			log.info('Diagnostics file saved', {fileName: path.basename(filePath)})
+			shell.showItemInFolder(filePath)
+			return ok({path: filePath})
 		} catch (error) {
 			return toUnknownFailure(error)
 		}

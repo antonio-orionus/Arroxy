@@ -1,5 +1,6 @@
-import type {BrowserWindow} from 'electron'
+import {app, type BrowserWindow} from 'electron'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import {currentRuntimeFacts, describeSessionContext} from '@main/utils/sessionContext.js'
 import type {GraphicsPolicy} from '@shared/types.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
@@ -54,7 +55,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
 	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService})
-	registerFileHandlers(mainWindow, binaryManager)
+	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)
 	registerAnalyticsHandlers()

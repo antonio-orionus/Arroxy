@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 import {gzip} from 'node:zlib'
 import {promisify} from 'node:util'
+import {redactDiagnosticLog} from './diagnosticRedaction.js'
 
 const gzipAsync = promisify(gzip)
 
@@ -118,16 +119,6 @@ function normalizeReportId(reportId: string): string {
 		throw new Error('Invalid feedback report id')
 	}
 	return normalized
-}
-
-function redactDiagnosticLog(value: string): string {
-	return value
-		.replace(/\/home\/[^/\s]+/g, '/home/<user>')
-		.replace(/\/Users\/[^/\s]+/g, '/Users/<user>')
-		.replace(/[A-Z]:\\Users\\[^\\\r\n]+/g, 'C:\\Users\\<user>')
-		.replace(/([?&](?:access_)?token=)[^&\s]+/gi, '$1<redacted>')
-		.replace(/([?&](?:api_)?key=)[^&\s]+/gi, '$1<redacted>')
-		.replace(/([?&](?:password|passwd|secret|session|auth|cookie)=)[^&\s]+/gi, '$1<redacted>')
 }
 
 function isAbortError(error: unknown): boolean {

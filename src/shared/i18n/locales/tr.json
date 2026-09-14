@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "loading": "Yükleniyor…", "retry": "Tekrar dene", "startOver": "Baştan başla"},
-	"app": {"feedback": "Geri bildirim", "logs": "Günlükler", "feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬", "zoomIn": "Yakınlaştır", "zoomOut": "Uzaklaştır"},
+	"app": {
+		"feedback": "Geri bildirim",
+		"logs": "Günlükler",
+		"saveDiagnostics": "Tanılama dosyasını kaydet",
+		"saveDiagnosticsDescription": "Günlükleri ve uygulama bilgilerini İndirilenler klasöründe tek bir dosyada toplar; dosya bir GitHub issue'suna eklenmeye hazırdır. Kullanıcı klasörünüzün adı kaldırılır; video bağlantıları ve başlıkları korunur.",
+		"feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬",
+		"zoomIn": "Yakınlaştır",
+		"zoomOut": "Uzaklaştır"
+	},
 	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "MIT Lisansı · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
 	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},
 	"splash": {

@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Zurück", "cancel": "Abbrechen", "continue": "Weiter", "loading": "Wird geladen…", "retry": "Erneut versuchen", "startOver": "Von vorn beginnen"},
-	"app": {"feedback": "Feedback", "logs": "Protokolle", "feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬", "zoomIn": "Vergrößern", "zoomOut": "Verkleinern"},
+	"app": {
+		"feedback": "Feedback",
+		"logs": "Protokolle",
+		"saveDiagnostics": "Diagnosedatei speichern",
+		"saveDiagnosticsDescription": "Fasst Protokolle und App-Details in einer Datei im Downloads-Ordner zusammen, bereit zum Anhängen an ein GitHub-Issue. Der Name des Benutzerordners wird entfernt; Videolinks und -titel bleiben erhalten.",
+		"feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬",
+		"zoomIn": "Vergrößern",
+		"zoomOut": "Verkleinern"
+	},
 	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT-Lizenz · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
 	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},
 	"splash": {

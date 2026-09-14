@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "لاګونه"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "د تشخیص فایل خوندي کړئ"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "ستاسو لاګونه او د اپ جزئیات د Downloads په فولډر کې په یوه فایل کې راټولوي، چې GitHub issue ته د ضمیمه کولو لپاره چمتو وي. ستاسو د کارن فولډر نوم لرې کیږي؛ د ویډیو لینکونه او سرلیکونه پاتې کیږي."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "لویول"

@@ -20,6 +20,7 @@ export const IPC_CHANNELS = {
 	shellOpenExternal: 'shell:openExternal',
 	logsOpenDir: 'logs:openDir',
 	logsUploadFeedbackDiagnostic: 'logs:uploadFeedbackDiagnostic',
+	logsSaveDiagnostics: 'logs:saveDiagnostics',
 	eventsStatus: 'events:status',
 	eventsProgress: 'events:progress',
 	windowMinimize: 'window:minimize',
