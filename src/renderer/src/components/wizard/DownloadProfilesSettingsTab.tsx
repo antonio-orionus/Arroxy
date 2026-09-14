@@ -1,6 +1,6 @@
 import {useEffect, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {AlertTriangle, FileText, Gauge} from 'lucide-react'
+import {AlertTriangle, FileArchive, FileText, Gauge} from 'lucide-react'
 import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
 import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
@@ -123,6 +123,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 		settings,
 		graphicsPolicy,
 		openLogs,
+		saveDiagnostics,
 		setAdvancedAutoOpen,
 		setClipboardWatchEnabled,
 		setCookiesPath,
@@ -411,6 +412,14 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							<FileText data-icon="inline-start" aria-hidden />
 							{t('app.logs')}
 						</Button>
+					</Field>
+
+					<Field>
+						<Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => void saveDiagnostics()} data-testid="btn-save-diagnostics">
+							<FileArchive data-icon="inline-start" aria-hidden />
+							{t('app.saveDiagnostics')}
+						</Button>
+						<FieldDescription>{t('app.saveDiagnosticsDescription')}</FieldDescription>
 					</Field>
 				</FieldGroup>
 			</SettingsPanel>

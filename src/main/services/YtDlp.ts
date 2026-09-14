@@ -7,6 +7,8 @@ import {planWorkflow, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflo
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
+import {unknownToMessage} from '@main/utils/errorFactory.js'
+import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
 import {siteForUrl} from '@shared/sites/index.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -30,18 +32,6 @@ function summarizeDependencySourceForLog(source: DependencySource | null | undef
 	if (source.kind === 'managed') return {ytDlpSource: source.kind, ytDlpProvider: source.provider, ytDlpChannel: source.channel}
 	if (source.kind === 'managedCache') return {ytDlpSource: 'managed-cache', ytDlpProvider: source.provider, ytDlpChannel: source.channel}
 	return {ytDlpSource: source.kind}
-}
-
-function redactProxy(url: string | undefined): string | null {
-	if (!url) return null
-	try {
-		const u = new URL(url)
-		if (u.username) u.username = '***'
-		if (u.password) u.password = '***'
-		return u.toString()
-	} catch {
-		return '<unparseable>'
-	}
 }
 
 export type YtDlpRequest = ProbeWorkflowInput | CallerMediaWorkflowInput | CallerSubtitlesWorkflowInput
@@ -108,6 +98,8 @@ interface InvokeOptions {
 	tokenService: TokenService
 	cookies?: ResolvedCookies | null
 	proxyUrl?: string
+	/** Credential-free form of the proxy setting for logs. */
+	proxyForLog?: string | null
 	limitRate?: string
 	timeoutMs?: number
 	signal?: YtDlpSignal
@@ -163,7 +155,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
-	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...jsRuntimeSummary, cookies: opts.cookies?.kind ?? null, proxy: redactProxy(opts.proxyUrl), args: redactArgs(args)})
+	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...jsRuntimeSummary, cookies: opts.cookies?.kind ?? null, proxy: opts.proxyForLog ?? null, args: redactArgs(args)})
 
 	const abortSignal = opts.signal?.abortSignal
 	if (abortSignal?.aborted) {
@@ -318,7 +310,10 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 	let result: YtDlpResult
 	try {
 		result = await invokeOnce(opts, {kind: 'pot', reMint: false})
-	} catch {
+	} catch (err) {
+		// The spawn that follows is logged as a plain fallback attempt; without
+		// this line nothing in the log says the run lost its token, or why.
+		ytDlpLog.warn('PoT unavailable — running without a token', {error: unknownToMessage(err), reMint: false})
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
@@ -326,7 +321,8 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 
 	try {
 		result = await invokeOnce(opts, {kind: 'pot', reMint: true})
-	} catch {
+	} catch (err) {
+		ytDlpLog.warn('PoT unavailable — running without a token', {error: unknownToMessage(err), reMint: true})
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
@@ -399,7 +395,11 @@ export class YtDlp {
 		this._lastInvocations = []
 		const settings = await this.settingsStore.get()
 		const cookies = resolveCookies(settings)
-		const proxyUrl = nonEmpty(settings.common?.proxyUrl?.trim())
+		// The normalized URL, so yt-dlp and the token window read the setting the
+		// same way. An unusable value is still handed to yt-dlp as typed: its own
+		// error names the problem better than silently dropping the proxy would.
+		const proxySetting = parseProxySetting(settings.common?.proxyUrl)
+		const proxyUrl = proxySetting.kind === 'proxy' ? proxySetting.url : nonEmpty(settings.common?.proxyUrl?.trim())
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
 		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
@@ -428,6 +428,7 @@ export class YtDlp {
 			tokenService: this.tokenService,
 			cookies,
 			proxyUrl,
+			proxyForLog: proxyForLog(proxySetting),
 			limitRate,
 			timeoutMs: validOverride ?? (isProbe ? PROBE_TIMEOUT_MS : undefined),
 			isProbe,

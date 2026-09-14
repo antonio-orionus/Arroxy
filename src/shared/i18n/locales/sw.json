@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "startOver": "Anza upya"},
-	"app": {"feedback": "Maoni", "logs": "Kumbukumbu", "feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬", "zoomIn": "Kuza", "zoomOut": "Punguza"},
+	"app": {
+		"feedback": "Maoni",
+		"logs": "Kumbukumbu",
+		"saveDiagnostics": "Hifadhi faili la uchunguzi",
+		"saveDiagnosticsDescription": "Huweka kumbukumbu na maelezo ya programu katika faili moja ndani ya folda ya Downloads, tayari kuambatishwa kwenye issue ya GitHub. Jina la folda yako ya mtumiaji huondolewa; viungo na majina ya video hubaki.",
+		"feedbackNudge": "Unafurahia Arroxy? Ningependa kusikia kutoka kwako! 💬",
+		"zoomIn": "Kuza",
+		"zoomOut": "Punguza"
+	},
 	"about": {"button": "Kuhusu", "openTitle": "Kuhusu Arroxy", "tagline": "Kipakua cha haraka na rahisi kwa YouTube na tovuti nyingine 2000+.", "websiteLink": "Tovuti", "githubLink": "GitHub", "licenseLine": "Leseni ya MIT · na Antonio Orionus", "thirdPartyNotices": "Tazama notisi za wengine"},
 	"titleBar": {"close": "Funga", "minimize": "Punguza", "maximize": "Panua", "restore": "Rejesha"},
 	"splash": {

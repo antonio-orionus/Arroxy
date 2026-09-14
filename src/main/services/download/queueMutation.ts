@@ -20,6 +20,13 @@ export function statusSummary(items: readonly QueueItem[], spawningCount: number
 	return counts
 }
 
+// Progress events fire once per progress update for every active item. The
+// item's own status lines already record where it is, so a commit() debug line
+// per update only buries the lines that explain a failure.
+export function isProgressOnlyMutation(m: Mutation): boolean {
+	return m.kind === 'event' && m.evt.kind === 'progress'
+}
+
 // Short human-readable mutation label for commit() debug logs.
 export function describeMutation(m: Mutation): string {
 	switch (m.kind) {

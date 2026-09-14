@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "startOver": "Start over"},
-	"app": {"feedback": "Feedback", "logs": "Logs", "feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬", "zoomIn": "Zoom in", "zoomOut": "Zoom out"},
+	"app": {
+		"feedback": "Feedback",
+		"logs": "Logs",
+		"saveDiagnostics": "Save diagnostics file",
+		"saveDiagnosticsDescription": "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay.",
+		"feedbackNudge": "Enjoying Arroxy? I'd love to hear from you! 💬",
+		"zoomIn": "Zoom in",
+		"zoomOut": "Zoom out"
+	},
 	"about": {"button": "About", "openTitle": "About Arroxy", "tagline": "Fast, friendly downloader for YouTube and 2000+ other sites.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT License · by Antonio Orionus", "thirdPartyNotices": "View third-party notices"},
 	"titleBar": {"close": "Close", "minimize": "Minimize", "maximize": "Maximize", "restore": "Restore"},
 	"splash": {

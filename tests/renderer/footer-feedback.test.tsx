@@ -9,6 +9,7 @@ function ok<T>(data: T) {
 
 const mockOpenExternal = vi.fn().mockResolvedValue(ok({opened: true}))
 const mockOpenLogsDir = vi.fn().mockResolvedValue(ok({opened: true}))
+const mockSaveDiagnostics = vi.fn().mockResolvedValue(ok({path: '/Users/me/Downloads/arroxy-diagnostics-20260914-102030.txt'}))
 const mockUploadFeedbackDiagnostic = vi.fn(async ({reportId}: {reportId: string}) => ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)}))
 const mockTallyOpenPopup = vi.fn()
 
@@ -33,7 +34,7 @@ const mockAppApi = {
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
 	hotkey: {reportOutcome: vi.fn().mockResolvedValue(ok(undefined)), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(ok(undefined)), rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
-	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic},
+	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic, saveDiagnostics: mockSaveDiagnostics},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 	events: {
 		onStatus: vi.fn().mockReturnValue(() => undefined),
@@ -210,6 +211,19 @@ describe('Footer feedback controls', () => {
 		fireEvent.click(await screen.findByTestId('btn-logs'))
 		await waitFor(() => {
 			expect(mockOpenLogsDir).toHaveBeenCalledOnce()
+		})
+	})
+
+	it('Settings Save diagnostics file button writes the diagnostics file', async () => {
+		render(<App />)
+		fireEvent.click(await screen.findByText('Settings'))
+		const button = await screen.findByTestId('btn-save-diagnostics')
+		expect(button).toHaveTextContent('Save diagnostics file')
+
+		fireEvent.click(button)
+
+		await waitFor(() => {
+			expect(mockSaveDiagnostics).toHaveBeenCalledOnce()
 		})
 	})
 })

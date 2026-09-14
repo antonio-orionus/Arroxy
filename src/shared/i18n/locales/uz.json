@@ -1,6 +1,14 @@
 {
 	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "startOver": "Qaytadan boshlash"},
-	"app": {"feedback": "Fikr-mulohaza", "logs": "Jurnallar", "feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬", "zoomIn": "Kattalashtirish", "zoomOut": "Kichraytirish"},
+	"app": {
+		"feedback": "Fikr-mulohaza",
+		"logs": "Jurnallar",
+		"saveDiagnostics": "Diagnostika faylini saqlash",
+		"saveDiagnosticsDescription": "Jurnallar va ilova ma'lumotlarini Yuklanmalar jildidagi bitta faylga to'playdi, uni GitHub issue'ga biriktirish mumkin. Foydalanuvchi jildingiz nomi olib tashlanadi; video havolalari va sarlavhalari qoladi.",
+		"feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬",
+		"zoomIn": "Kattalashtirish",
+		"zoomOut": "Kichraytirish"
+	},
 	"about": {
 		"button": "Dastur haqida",
 		"openTitle": "Arroxy haqida",

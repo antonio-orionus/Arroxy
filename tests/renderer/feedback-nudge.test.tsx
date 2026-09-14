@@ -29,7 +29,11 @@ const mockAppApi = {
 	settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: true})), update: vi.fn()},
 	hotkey: {reportOutcome: vi.fn().mockResolvedValue(ok(undefined)), getState: vi.fn().mockResolvedValue({ok: true, data: {accelerator: 'CommandOrControl+Shift+D', registered: true}}), testPress: vi.fn().mockResolvedValue(ok(undefined)), rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
-	logs: {openDir: vi.fn().mockResolvedValue(ok({opened: true})), uploadFeedbackDiagnostic: vi.fn(async ({reportId}: {reportId: string}) => ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)}))},
+	logs: {
+		openDir: vi.fn().mockResolvedValue(ok({opened: true})),
+		saveDiagnostics: vi.fn().mockResolvedValue(ok({path: '/tmp/arroxy-diagnostics.txt'})),
+		uploadFeedbackDiagnostic: vi.fn(async ({reportId}: {reportId: string}) => ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)}))
+	},
 	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 	events: {
 		onStatus: vi.fn().mockReturnValue(() => undefined),

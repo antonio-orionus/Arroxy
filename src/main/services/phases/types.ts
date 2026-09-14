@@ -55,6 +55,9 @@ export interface ActiveJobInput {
 	tempDir?: string
 	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
+	// 10% step of the last progress line written to the log for the current
+	// file. ProgressParser logs a redraw only when the step changes.
+	lastLoggedProgressStep?: number
 }
 
 // The runtime shape after start() narrowed the job: phases can safely read

@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Log"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Simpan file diagnostik"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Menggabungkan log dan detail aplikasi ke dalam satu file di folder Unduhan, siap dilampirkan ke issue GitHub. Nama folder pengguna dihapus; tautan dan judul video tetap ada."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Perbesar"

@@ -1,6 +1,14 @@
 {
 	"common": {"back": "वापस", "cancel": "रद्द करें", "continue": "जारी रखें", "loading": "लोड हो रहा है…", "retry": "फिर से कोशिश करें", "startOver": "फिर से शुरू करें"},
-	"app": {"feedback": "प्रतिक्रिया", "logs": "लॉग", "feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬", "zoomIn": "ज़ूम इन", "zoomOut": "ज़ूम आउट"},
+	"app": {
+		"feedback": "प्रतिक्रिया",
+		"logs": "लॉग",
+		"saveDiagnostics": "डायग्नोस्टिक फ़ाइल सहेजें",
+		"saveDiagnosticsDescription": "आपके लॉग और ऐप की जानकारी को Downloads फ़ोल्डर में एक फ़ाइल में रखता है, जिसे सीधे GitHub issue में जोड़ा जा सकता है। आपके यूज़र फ़ोल्डर का नाम हटा दिया जाता है; वीडियो लिंक और शीर्षक बने रहते हैं।",
+		"feedbackNudge": "Arroxy पसंद आ रहा है? आपकी राय सुनने को बेताब हूँ! 💬",
+		"zoomIn": "ज़ूम इन",
+		"zoomOut": "ज़ूम आउट"
+	},
 	"about": {"button": "जानकारी", "openTitle": "Arroxy के बारे में", "tagline": "YouTube और 2000+ अन्य साइटों के लिए तेज़ और सरल डाउनलोडर।", "websiteLink": "वेबसाइट", "githubLink": "GitHub", "licenseLine": "MIT लाइसेंस · Antonio Orionus द्वारा", "thirdPartyNotices": "तृतीय-पक्ष सूचनाएँ देखें"},
 	"titleBar": {"close": "बंद करें", "minimize": "छोटा करें", "maximize": "बड़ा करें", "restore": "पुनर्स्थापित करें"},
 	"splash": {

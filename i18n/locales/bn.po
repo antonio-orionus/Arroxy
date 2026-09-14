@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "লগ"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "ডায়াগনস্টিক ফাইল সংরক্ষণ করুন"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "আপনার লগ ও অ্যাপের তথ্য Downloads ফোল্ডারে একটি ফাইলে রাখে, যা GitHub issue-তে সংযুক্ত করার জন্য প্রস্তুত। আপনার ব্যবহারকারী ফোল্ডারের নাম সরিয়ে দেওয়া হয়; ভিডিও লিংক ও শিরোনাম থেকে যায়।"
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "জুম ইন"

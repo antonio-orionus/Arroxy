@@ -64,6 +64,28 @@ describe('TokenService.warmUp', () => {
 	})
 })
 
+// The warm-up runs once at startup and its outcome used to live only in that
+// startup log line, the first thing a rotated log loses. Recording it lets the
+// log carry it forward (issue #222: the one line naming the cause was gone).
+describe('TokenService.lastWarmUp', () => {
+	it('is null before any warm-up has run', () => {
+		const service = new TokenService(makeProvider())
+
+		expect(service.lastWarmUp()).toBeNull()
+	})
+
+	it('records the outcome of the latest warm-up, failure reason included', async () => {
+		const provider = makeProvider({ensureReady: vi.fn().mockRejectedValueOnce(new Error('YouTube failed to load: ERR_ADDRESS_INVALID (-108)')).mockResolvedValue(undefined)})
+		const service = new TokenService(provider)
+
+		await service.warmUp()
+		expect(service.lastWarmUp()).toEqual({ready: false, reason: 'YouTube failed to load: ERR_ADDRESS_INVALID (-108)', at: expect.any(String)})
+
+		await service.warmUp()
+		expect(service.lastWarmUp()).toEqual({ready: true, at: expect.any(String)})
+	})
+})
+
 describe('TokenService.mintTokenForUrl', () => {
 	it('returns cached token without calling provider', async () => {
 		const provider = makeProvider()

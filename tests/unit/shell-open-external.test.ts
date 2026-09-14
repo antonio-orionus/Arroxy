@@ -24,7 +24,7 @@ import {shell} from 'electron'
 beforeEach(() => {
 	handleCalls.length = 0
 	vi.clearAllMocks()
-	registerFileHandlers({} as never, {getRuntimeCacheDir: vi.fn().mockReturnValue('/tmp/cache')} as never)
+	registerFileHandlers({} as never, {getRuntimeCacheDir: vi.fn().mockReturnValue('/tmp/cache')} as never, () => ({}))
 })
 
 function openExternalHandler() {

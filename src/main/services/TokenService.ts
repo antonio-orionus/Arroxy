@@ -50,6 +50,13 @@ function untilAborted<T>(work: Promise<T>, signal: AbortSignal | undefined): Pro
 	])
 }
 
+export interface WarmUpRecord {
+	ready: boolean
+	reason?: string
+	/** ISO timestamp of when the warm-up settled. */
+	at: string
+}
+
 interface TokenCache {
 	token: string
 	visitorData: string
@@ -58,8 +65,16 @@ interface TokenCache {
 
 export class TokenService {
 	private cache: TokenCache | null = null
+	private lastWarmUpRecord: WarmUpRecord | null = null
 
 	constructor(private readonly provider: TokenProvider) {}
+
+	// Outcome of the most recent warm-up. It runs once at startup and its log line
+	// is the first thing a rotated log loses, so the log context carries it
+	// forward from here.
+	lastWarmUp(): WarmUpRecord | null {
+		return this.lastWarmUpRecord
+	}
 
 	// Both entrypoints below drive the same hidden window, and both used to
 	// destroy it on the way out regardless of who else was still mid-scrape. That
@@ -72,6 +87,12 @@ export class TokenService {
 	}
 
 	async warmUp(signal?: AbortSignal): Promise<{ready: boolean; reason?: string}> {
+		const result = await this.runWarmUp(signal)
+		this.lastWarmUpRecord = {...result, at: new Date().toISOString()}
+		return result
+	}
+
+	private async runWarmUp(signal?: AbortSignal): Promise<{ready: boolean; reason?: string}> {
 		if (signal?.aborted) return {ready: false, reason: 'cancelled'}
 		using _window = this.lease()
 		try {

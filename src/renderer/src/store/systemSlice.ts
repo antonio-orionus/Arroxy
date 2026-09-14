@@ -403,6 +403,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			}
 		},
 
+		// Main writes the file and reveals it in the file manager, which is the
+		// confirmation: the user's next step is dragging it into an issue.
+		saveDiagnostics: async () => {
+			try {
+				const result = await window.appApi.logs.saveDiagnostics()
+				if (!result.ok) notify.shellActionFailed('logs.saveDiagnostics', result.error)
+			} catch (err) {
+				notify.shellActionFailed('logs.saveDiagnostics', err)
+			}
+		},
+
 		markReleaseNotesShown: async version => {
 			await applyCommonPatchAsync(get, set, 'releaseNotes', {lastReleaseNotesVersionShown: version})
 		},

@@ -12,6 +12,11 @@ happens because someone typed `@coderabbitai review`.
 Trigger it **right after opening the PR**, then verify each finding and fix what
 is valid. Do not merge on a green CI alone.
 
+**Antonio (2026-09-14): do not re-trigger for small follow-ups — the initial
+review is usually enough.** Only spend the second trigger when the commits
+pushed after the first review are substantial (new logic, not just review-fix
+tweaks). The rest of this section explains why a second trigger is ever needed.
+
 **Trigger again after pushing review fixes — once.** This reverses the earlier
 rule in this file, which said a second trigger buys nothing because CodeRabbit
 picks up later commits on its own. It does not, because that behaviour belongs

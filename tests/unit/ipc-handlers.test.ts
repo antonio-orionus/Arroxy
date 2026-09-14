@@ -27,7 +27,7 @@ vi.mock('electron', () => ({
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {shell} from 'electron'
+import {app, shell} from 'electron'
 import log from 'electron-log/main.js'
 
 class FakeDownloadService extends EventEmitter {
@@ -58,7 +58,11 @@ function makeDeps() {
 		changeOutputTarget: vi.fn().mockResolvedValue({ok: true, data: {outputDir: '/new', items: [], skipped: []}}),
 		snapshotPayload: vi.fn().mockReturnValue({items: [], schedulerPaused: false})
 	})
-	const settingsStore = {get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}), update: vi.fn()}
+	const settingsStore = {
+		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}),
+		getSync: vi.fn().mockReturnValue({common: {cookiesMode: 'off'}, profiles: {active: {kind: 'builtin', id: 'balanced'}}}),
+		update: vi.fn()
+	}
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
 	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
@@ -69,7 +73,7 @@ function makeDeps() {
 		settingsStore: settingsStore as never,
 		queueService: queueService as never,
 		binaryManager: {ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureFFprobe: vi.fn(), installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'), installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe')} as never,
-		tokenService: {warmUp: vi.fn()} as never,
+		tokenService: {warmUp: vi.fn(), lastWarmUp: vi.fn().mockReturnValue(null)} as never,
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
 		hotkeyService: hotkeyService as never,
@@ -466,6 +470,31 @@ describe('registerIpcHandlers', () => {
 			expect(result.ok).toBe(false)
 			expect(result.error?.message).toBe('Invalid feedback report id')
 			expect(log.transports.file.getFile).not.toHaveBeenCalled()
+		})
+
+		it('logs:saveDiagnostics writes the diagnostics file to Downloads and reveals it', async () => {
+			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-ipc-diagnostics-'))
+			const logPath = path.join(tempDir, 'main.log')
+			await fs.writeFile(logPath, 'diagnostic log\n')
+			vi.mocked(log.transports.file.getFile).mockReturnValue({path: logPath} as ReturnType<typeof log.transports.file.getFile>)
+			vi.mocked(app.getPath).mockReturnValue(tempDir)
+			try {
+				const deps = makeDeps()
+				registerIpcHandlers(deps)
+
+				const handler = findCall(IPC_CHANNELS.logsSaveDiagnostics)!.fn
+				const result = (await handler(null, undefined)) as {ok: boolean; data?: {path: string}}
+
+				expect(result.ok).toBe(true)
+				expect(path.dirname(result.data?.path ?? '')).toBe(tempDir)
+				expect(shell.showItemInFolder).toHaveBeenCalledWith(result.data?.path)
+				const content = await fs.readFile(result.data?.path ?? '', 'utf8')
+				expect(content).toContain('"appVersion": "1.0.0"')
+				expect(content).toContain('diagnostic log')
+			} finally {
+				vi.mocked(app.getPath).mockReturnValue('/tmp')
+				await fs.rm(tempDir, {force: true, recursive: true})
+			}
 		})
 	})
 })

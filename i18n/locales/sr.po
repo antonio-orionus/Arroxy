@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Дневници"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Сачувај датотеку дијагностике"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Сакупља дневнике и податке о апликацији у једну датотеку у фасцикли Преузимања, спремну за прилагање уз issue на GitHub-у. Име корисничке фасцикле се уклања; линкови и наслови видеа остају."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Увећај"

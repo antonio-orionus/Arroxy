@@ -47,6 +47,14 @@ msgctxt "app.logs"
 msgid "Logs"
 msgstr "Günlükler"
 
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Tanılama dosyasını kaydet"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Günlükleri ve uygulama bilgilerini İndirilenler klasöründe tek bir dosyada toplar; dosya bir GitHub issue'suna eklenmeye hazırdır. Kullanıcı klasörünüzün adı kaldırılır; video bağlantıları ve başlıkları korunur."
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Yakınlaştır"
