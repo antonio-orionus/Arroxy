@@ -8,6 +8,30 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.14
+
+Arroxy now reaches YouTube through your proxy for every step, not just the download itself, and a single button collects everything a bug report needs.
+
+## Highlights
+
+### Your Proxy Covers The Whole Download
+
+- Before each download Arroxy loads YouTube in a hidden window to get the token YouTube asks for. That window ignored the proxy in Settings, so on a network where YouTube only opens through a proxy it failed quietly, and downloads carried on without the token. YouTube can answer those with fewer formats, so a download could come out in lower quality than the profile asked for.
+- The hidden window now goes through the same proxy as the download, picks up a new proxy as soon as you change it, and signs in to proxies that need a username and password.
+- A proxy typed as just `host:port`, without `http://` in front, now works everywhere, the same way it already did for the download.
+
+### Save A Diagnostics File For Bug Reports
+
+- Settings has a new **Save diagnostics file** button. It puts your logs and the app details into one file in your Downloads folder, ready to attach to a GitHub issue. Your user folder name is removed from it; video links and titles stay.
+
+### Logs That Keep What Matters
+
+- When Arroxy has to download without YouTube's token, the log now says so, and says why.
+- Progress updates no longer fill the log, and it holds five times as much before starting a new file, so the lines that explain a problem are still there when you look.
+- Each log file starts with the app version, your cookie and proxy settings (password hidden) and the last token result, so it makes sense on its own.
+
+---
+
 ## 0.4.13
 
 Subtitles survive titles in any language, a download stuck at 0% now recovers by itself instead of needing an app restart, SponsorBlock keeps working in mixed batches, and crashed sessions stop leaving empty folders behind.
