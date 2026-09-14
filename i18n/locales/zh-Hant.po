@@ -1,0 +1,3186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: zh-Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "關於"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "MIT 授權條款 · 作者 Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "關於 Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "快速、好用的下載工具，支援 YouTube 與其他 2000 多個網站。"
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "檢視第三方聲明"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "網站"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "意見回饋"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "喜歡 Arroxy 嗎？很期待聽聽你的想法！💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "記錄"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "儲存診斷檔案"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "將記錄與應用程式詳細資料整理成「下載」資料夾中的單一檔案，可直接附加到 GitHub issue。你的使用者資料夾名稱會被移除；影片連結與標題則會保留。"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "放大"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "縮小"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "返回"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "繼續"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "載入中"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "重試"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "重新開始"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy 會繼續執行並完成進行中的下載。你可以稍後在進階設定中變更此選項。"
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "隱藏到系統匣"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "關閉時要將 Arroxy 隱藏到系統匣嗎？"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "結束"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "不要再詢問"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "取消下載並結束"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "暫停以便稍後繼續，或取消並捨棄目前進度。"
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "繼續下載"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "有 {{count}} 個下載正在進行"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "有 {{count}} 個下載正在進行"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "暫停下載並結束"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "轉譯器程序發生當機（{{reason}}）。請重新載入再試一次。"
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy 發生問題"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "結束"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "重新載入"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "此影片有年齡限制，必須登入帳號才能下載。"
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "已觸發機器人防護。你使用的 IP 很可能已被標記（資料中心網段或繁忙的 VPN 出口）。請更換 IP 或選擇其他 VPN 節點後重試。如果問題持續，可能是網站端的暫時變更——Arroxy 啟動時會自動更新 yt-dlp，因此上游發布修正後會自動套用。"
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "伺服器持續在下載途中切斷連線，yt-dlp 重試後仍無法完成。這通常發生在最大的影片格式（4K HDR／高位元率 VP9）。請重試、切換網路／VPN，或選擇較低解析度的格式。"
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "此影片受 DRM 保護。yt-dlp 無法移除 DRM，因此無法下載檔案。"
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "此影片在你的地區無法觀看。"
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "你的 IP 位址似乎已被封鎖。請稍後再試或使用 VPN。"
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "此影片需要已登入的帳號。請設定 cookies.txt（設定 → Cookie）後重試。"
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp 找不到 ffmpeg 或 ffprobe。請修復隨附的執行檔，或設定 FFmpeg 的位置後重試。"
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "網路錯誤。請檢查連線後重試。"
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "磁碟空間不足。請釋放空間後重試。"
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "無法解析網站的回應。yt-dlp 的擷取器可能已跟不上網站變更。Arroxy 啟動時會自動更新 yt-dlp——請在修正發布幾分鐘後重試。"
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp 已完成下載，但後續處理（合併／多工處理／轉換）失敗。這通常是暫時性的 ffmpeg 問題——請重試；若問題持續，請改用其他格式組合。"
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "網站正在限制請求頻率。請等待一分鐘後重試。"
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "此影片無法使用——它可能是私人影片、已刪除，或受地區限制。"
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "下載失敗。請查看下方的原始輸出。"
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "yt-dlp 不支援此 URL。請改用 yt-dlp 支援之網站的其他連結。"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "選擇下載檔案的命名方式。按一下權杖即可插入。使用 / 將下載內容分類到資料夾。"
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "輸入檔名範本。"
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "移除多餘的 /——每個資料夾都必須有名稱。"
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "移除檔名中不允許的字元：\\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "此資料夾名稱不被允許。請避免使用 .、.. 以及 CON 等保留名稱。"
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "在檔名中加入 {title} 或 {id}，讓每個下載項目都有自己的名稱。"
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} 不能用來命名資料夾——下載開始前無法得知畫質。"
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ 或 } 沒有配對——請像 {title} 一樣包住權杖。"
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "範本太長。"
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "未知的權杖 {{token}}。"
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "若沒有 {id}，Arroxy 就無法偵測已下載的播放清單項目，也無法產生 .m3u 播放清單。"
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "檔名範本"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "無法使用，因為檔名範本未包含 {id}，或會將下載內容分類到資料夾。"
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "在播放清單中"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "單部影片"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "留空以沿用全域範本。"
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "檔名範本"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "音訊"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "僅音訊 · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "語言"
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "此資料夾的路徑層級對你的系統而言過深。下載仍可能失敗——請選擇路徑較短的資料夾。"
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "此影片名稱無法放入範本的每個部分，因此改用預設名稱。"
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "無法開啟資料夾選擇器。"
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "已在佇列中——未新增副本"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "仍在處理上一個連結"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "剪貼簿中沒有連結——請先複製一個連結"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "已複製多個連結——請使用 Arroxy 的「批次 URL」"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "此連結需要快速檢查——請開啟 Arroxy 並再次貼上"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "已從剪貼簿將下載加入佇列"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "無法新增該連結——請在 Arroxy 中重試"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "此資料夾無法用於這個播放清單。"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "無法儲存設定。"
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "無法開啟。"
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "設定尚未完成。在完成前，部分下載可能會失敗。"
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "音訊（最佳）"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "音訊（{{format}} {{kbps}}K）"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "最佳原生音訊，不重新編碼"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "轉換為 M4A（AAC）"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "轉換為 MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "轉換為 Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "YouTube 不提供高於 1080p 的 H.264——已自動限制為 1080p"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "最高 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "最高 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "最高 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "最高 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "最高 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "最高 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "最高 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "最高 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "最佳畫質"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "上限為 1080p，各項目會視情況改用較低畫質"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "盡可能最小的檔案"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "上限為 2K，各項目會視情況改用較低畫質"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "上限為 2160p，各項目會視情況改用較低畫質"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "檔案非常小，畫質較低"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "適合頻寬有限環境的小檔案"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "低頻寬"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "較小的檔案，廣泛相容"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "各項目可用的最高畫質影片與音訊"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "音訊"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "影片"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "最佳原生格式"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "智慧型電視 H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "各項目可用的最佳封裝格式與編解碼器"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "可行時優先使用 MP4 中的 H.264 影片 + AAC 音訊"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "無影片，最佳音訊"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "僅音訊"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "最高 720p + 良好音訊"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "均衡"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "最高解析度 + 最佳音訊"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "最佳畫質"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "最低解析度 + 低品質音訊"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "小型檔案"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "無影片、無音訊，只有字幕"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "僅字幕"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "附屬檔案"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "描述"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "媒體"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "缺少"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "字幕"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "縮圖"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "產出檔案"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "取消所有進行中與等待中的下載"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "清除已完成的下載"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "排入佇列的下載會顯示在這裡"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "全部"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "佇列狀態篩選器"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "所有項目"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "下載"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "下載失敗"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "開啟目的地資料夾"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "暫停"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "僅等待中"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "立即下載——略過佇列"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "移除"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "繼續"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "重試"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "正在自動重試（第 {{attempt}} 次）"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "設定位置"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "選取等待中的項目以設定位置。"
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "已取消"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "完成"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "錯誤"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "保留"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "已暫停"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "等待中"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "正在擷取詳細資料"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "正在下載"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "暫停所有進行中的下載，並阻止新下載開始"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "佇列已暫停——在你繼續佇列前，等待中的項目不會開始"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "繼續已暫停的下載，並讓佇列繼續處理"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "繼續佇列"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "已選項目"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "已選 {{selected}} 個 · 共 {{total}} 個"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "下載"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "加入時間"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "產出檔案"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "欄"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "完成時間"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "格式"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "隱藏 {{title}} 的產出檔案"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "輸出目的地"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "進度"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "顯示 {{title}} 的產出檔案"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "依 {{label}} 排序"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "狀態"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "標題"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "下載項目現在位於「下載」分頁——你可以隨時開啟以追蹤進度。"
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "繼續"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "你正在執行剛更新的版本。以下是重點內容。"
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "完整版本資訊 ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Arroxy {{version}} 的新功能"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "選擇執行檔"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "使用 Homebrew 安裝"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "使用 WinGet 安裝"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "開啟相依元件資料夾"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "重設為預設值"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "重試設定"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "檢視設定記錄"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "執行檔未回應 --version。它可能已損毀或是錯誤的組建版本。"
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "Windows 已封鎖檔案（SmartScreen／Defender）。請選擇已安裝的副本，或將執行階段資料夾加入允許清單。"
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "下載失敗。請檢查網際網路連線後重試。"
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "解壓縮失敗。下載內容可能已損毀——請重試。"
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "下載檔案的總和檢查碼不符。請重新下載。"
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg 與 ffprobe 必須設定為相符的一對。"
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "系統拒絕執行檔案。請選擇你信任的副本，或以系統管理員身分重試。"
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "檔案遺失或無法啟動。請選擇可用的副本。"
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "版本檢查逾時。檔案可能已停止回應——請重試。"
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "無法驗證。"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "設定需要你的協助"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "已複製！"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "複製連結"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy——適用於 Windows、macOS 與 Linux 的免費開放原始碼影片下載器。支援 YouTube、Vimeo、Twitch 與 2000 多個網站。\n"
+"4K · HDR · MP3 · Shorts · 字幕 · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy 免費且開放原始碼。分享它能讓更多人發現這款應用程式。"
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "分享"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "分享 Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "分享 Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "分享 Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "遇到問題？手動設定"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "正在下載 {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "嘿，歡迎回來！"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "這是此版本的第一次檢查，因此會比較慢。通常約需一分鐘。"
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "正在檢查 {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "正在準備下載…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "設定失敗。請開啟設定記錄以查看詳細資料。"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "下載已取消"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "下載完成"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "正在轉換影片…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "磁碟空間不足——需要 {{required}}，但只有 {{free}} 可用"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "正在下載 {{name}} 執行檔…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "正在下載影片與音訊…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "正在嵌入中繼資料…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "正在轉換音訊…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "正在聯絡 SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "正在擷取字幕…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "正在合併音訊與影片…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "正在產生 YouTube 權杖…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "正在移動檔案…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "正在準備執行檔…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "正在重新產生權杖…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock 無法使用，正在重試（{{attempt}}/{{total}}）…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "連線停滯，正在重試（{{attempt}}/{{total}}）…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "正在等待 {{seconds}} 秒以避免頻率限制…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "正在啟動 yt-dlp 程序…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "影片已儲存——部分字幕無法下載"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "未知的下載啟動錯誤"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "已使用較寬鬆的擷取器下載——請設定 cookies.txt 以提高下載可靠性"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp 已結束，代碼為 {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "yt-dlp 程序錯誤：{{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "深色模式"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "淺色模式"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "系統預設"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "關閉"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "最大化"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "最小化"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "還原"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "從剪貼簿下載"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "開啟 Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "結束 Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 個下載中 · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} 個下載中 · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "閒置"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "已將指令複製到剪貼簿"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "將指令複製到剪貼簿"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "關閉更新橫幅"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "下載 ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "下載 DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "正在下載…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "安裝並重新啟動"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "更新失敗"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "已推出"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} 已推出——你目前使用 {{currentVersion}}。"
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} 已推出——請使用 Homebrew 更新。"
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} 已推出——請下載新的 DMG。"
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} 已推出——請下載新的組建版本。"
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "重試"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "——你目前使用 {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "載入中…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "就緒"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "貼上影片、播放清單、頻道、搜尋或音訊 URL。Arroxy 會先清除重複項目，再加入佇列。"
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "貼上一個或多個 URL 以預覽批次。"
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "已忽略"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "請加入至少一個支援的 URL 才能繼續。"
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "重複"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL 清單"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "批次 URL"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ 佇列"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "加入佇列——進行中的下載完成後開始"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "僅音訊"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}}／{{total}} 部影片"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}}／{{total}} 部影片"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}}／{{total}} 個音軌"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}}／{{total}} 個音軌"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}}／{{total}} 個 URL"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}}／{{total}} 個 URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "音訊"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "批次"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "項目"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "播放清單"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "預設集"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "儲存至"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "大小"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "影片"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "你的檔案將儲存至"
+
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "它將儲存至下方目的地"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "它們將儲存至下方 {{count}} 個目的地"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "已啟用「僅字幕」預設集，但未選擇字幕語言——不會下載任何內容。"
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} 個項目"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} 個項目"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "此批次中的設定檔"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "下載吧！↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "略過佇列——立即開始，與其他進行中的下載同時執行"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "準備好下載了！"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "未知"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "字幕嵌入已改為獨立檔案——音軌不支援嵌入式字幕串流。"
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "已略過縮圖嵌入——輸出封裝格式不支援此功能。"
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "自訂…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "桌面"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "文件"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "下載"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "儲存至"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "個人資料夾"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "音樂"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "圖片"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "資料夾名稱含有無效字元"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "例如 lo-fi 擷取"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "儲存到子資料夾"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "影片"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "音訊"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "僅音訊"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "僅音訊（無影片）"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookie 已設定但目前關閉。請啟用後重試以取得完整清單，或切換網路後重試。"
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "即使使用 Cookie，YouTube 仍限制了這次探查。請稍後再試或切換網路。"
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "格式清單可能不完整。請在進階設定中設定 Cookie，或切換網路後重試。"
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "啟用 Cookie 並重試"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "探查受到限制"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "重試"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "位元率"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "轉換"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "音訊轉換需要僅音訊模式（取消選取影片）。"
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "已選擇原生串流——位元率只適用於轉換成 mp3、m4a 或 opus。"
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "轉換 · 未壓縮"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV（未壓縮）"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "瀏覽器"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "檔案"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Cookie 來源"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp 文件（issue #10927）"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 及更新版本在 Windows 上使用其他應用程式無法讀取的方式加密 Cookie。請嘗試下方其中一種因應方式。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "使用瀏覽器擴充功能從 Chrome 匯出 Cookie，接著將此應用程式切換為「檔案」模式並選取匯出的檔案。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "匯出 cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox 不使用 App-Bound Encryption。請開啟 Cookie 設定，並從瀏覽器清單選擇 Firefox。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "切換至 Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "將 --disable-features=LockProfileCookieDatabase 加入 Chrome 的啟動捷徑。警告：這會使先前加密的 Cookie 失效，因此所有網站都會將你登出，且必須重新登入。"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "停用 App-Bound Encryption 後啟動 Chrome"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Chrome Cookie 遭 Windows 加密封鎖"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookie 會直接從瀏覽器讀取。如果瀏覽器正在執行，其 Cookie 資料庫可能已被鎖定（Chromium 系列）。瀏覽器也必須已登入 YouTube。請嘗試關閉瀏覽器、切換瀏覽器、改用「檔案」模式，或關閉 Cookie。"
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Cookie 檔案可能是空的、已過期，或格式錯誤（yt-dlp 需要 Netscape cookies.txt 格式）。請嘗試重新匯出 Cookie、選擇其他檔案、切換至「瀏覽器」模式，或關閉 Cookie。"
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookie 可能是原因"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp 無法在未驗證身分的情況下存取此影片。請在進階設定中設定 Cookie——指向已登入的瀏覽器，或匯入 cookies.txt 檔案。"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "此網站需要登入"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "開啟 Cookie 設定"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "保持不變"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "內建音訊"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "正在載入格式"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "請等待探查完成——播放清單與搜尋可能需要一些時間。"
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "最佳 + 最佳 = 最高品質。我會選這個！"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "無音訊"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "高品質"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "低品質"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "中等品質"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "快速預設集"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "大小未知"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "跳至確認"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "將已儲存的偏好套用至所有剩餘步驟。若要變更設定，請改為逐步繼續——你的選擇會儲存供下次使用。"
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "正在為你尋找最佳格式…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "總計"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "影片"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "僅影片"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "只要你點選的影片，還是要從播放清單中挑選？下一步可選擇特定影片或範圍。"
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "從播放清單選取"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "播放清單探查上限：{{count}} 個項目"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "使用 yt-dlp 播放清單模式，先擷取至設定的探查上限，再顯示選取器。"
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "只下載此影片，或使用目前的「快速下載」設定檔將整個播放清單加入佇列。"
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Arroxy 將播放清單、頻道或搜尋結果加入佇列前最多掃描的項目數。"
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "使用目前的「快速下載」設定檔，將所有已載入的播放清單項目加入佇列。若掃描達到上限，Arroxy 會先詢問再加入。"
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "只加入一個下載，並忽略此 URL 所附的播放清單。"
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "下載此影片"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "下載整個播放清單"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "使用 yt-dlp 單一影片模式，因此會忽略此 URL 所附的播放清單。"
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "只要這個"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "此連結包含播放清單"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "可在任何現代播放器中導覽的章節標記。"
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "嵌入章節"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "將標題、藝人、描述與上傳日期寫入檔案。"
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "嵌入中繼資料"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "將封面圖片放入檔案。WebM 影片會重新封裝為 MKV；嵌入字幕時會略過。"
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "嵌入縮圖"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "將影片描述儲存為下載檔案旁的 .description 文字檔。"
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "儲存描述"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "在影片旁儲存 .m3u 播放清單，讓媒體播放器依序開啟影片。"
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "產生 .m3u 播放清單檔案"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "將縮圖儲存為下載檔案旁的 .jpg 圖片。"
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "儲存縮圖"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "還原它們以繼續。"
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "所有項目都已移除"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "已下載"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "批次 URL"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "不必等待——現在加入佇列的檔案仍會在下載時取得真正的名稱。"
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "正在擷取影片詳細資料… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "無法取得詳細資料"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "正在擷取詳細資料"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "等待中"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "直播"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "播放清單項目"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "要下載的影片"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} 部影片"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} 部影片"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} 個音軌"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} 個音軌"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} 個 URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} 個 URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "正在擷取播放清單…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "正在擷取影片…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "限制為前 {{count}} 個項目"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "找到 {{count}} 個頁面"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "找到 {{count}} 個頁面"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "正在收集影片"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "正在掃描頻道頁面"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "依項目指派設定檔"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "略過畫質、SponsorBlock、輸出與儲存——改為替每個項目指派下載設定檔"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "播放清單"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "其中 {{count}} 個是播放清單而非影片——請單獨貼上其連結以下載。"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "其中 {{count}} 個是播放清單而非影片——請逐一貼上連結以下載。"
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "請選取至少一部影片才能繼續"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "顯示前 {{count}} 個項目。提高載入上限以查看更多項目。"
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "播放清單掃描有上限"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "掃描有上限"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "套用範圍"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "從"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "至"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "已移除 {{count}} 個"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "已移除 {{count}} 個"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "從清單移除 {{count}} 個"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "從清單移除 {{count}} 個"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "還原"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "全選"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "已選 {{count}} 個"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "已選 {{count}} 個"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "全不選"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "播放清單順序"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "正在擷取上傳日期…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "排序"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "最舊優先"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "最新優先"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "套用同步"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "變更資料夾…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "其中 {{n}} 部影片已存在於 {{dir}}。要同步並只下載新影片嗎？"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "已在資料夾中"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "在 {{dir}} 中找不到此播放清單的影片。"
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "在 {{dir}} 中找不到此來源的影片。"
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "尚未下載任何內容"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "正在檢查資料夾…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "影片縮圖"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "選擇批次畫質"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} 個項目"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} 個項目"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "每部影片會獨立解析所選層級——混合格式的播放清單也能如預期運作。"
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "指派 {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "指派給選取項目"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "長度"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "設定檔"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "編輯 {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "沒有符合此篩選器的項目"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "設定檔篩選器"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "指派下載設定檔"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "按住 Shift 點按可選取範圍，按住 {{modifier}} 點按可加入單一項目，或拖曳跨過多列。接著選擇上方的設定檔，或在選取項目上按右鍵。"
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "一次替多部影片指派設定檔"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "已選 {{selected}}／{{total}} 個"
+
+msgctxt "wizard.profileEditor.action.addLanguage"
+msgid "Add"
+msgstr "新增"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "變更全域設定"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "選擇目的地資料夾"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "選擇設定檔圖示"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "移除 {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "重設設定檔"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "儲存設定檔"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "設定設定檔覆寫"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "設定覆寫"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "使用全域預設值"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "最佳"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "最高 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "最高 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "最高 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "最佳畫質"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "全域目的地"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "設定檔覆寫"
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "解析後的目的地"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "一套可重複用於快速下載、批次 URL 與播放清單的設定。"
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "下載設定檔"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "無法變更全域目的地。"
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "無法重設設定檔設定。"
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "無法儲存設定檔設定。"
+
+msgctxt "wizard.profileEditor.field.compatibility"
+msgid "Compatibility"
+msgstr "相容性"
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "交付方式"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "設定檔圖示"
+
+msgctxt "wizard.profileEditor.field.languageCodes"
+msgid "Subtitle language codes"
+msgstr "字幕語言代碼"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "語言"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "設定檔名稱"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "設定檔名稱與圖示"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "設定檔覆寫路徑"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "畫質"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "解析度"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "來源"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "子資料夾名稱"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "字幕下載"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "封存"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "音訊"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "字幕"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "課程"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "短片"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "控制項"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "下載"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "音樂"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "影片"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "音樂或 Podcast"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "僅音訊"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "僅字幕檔案"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subs only"
+msgstr "僅字幕"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "一般影片檔案"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "影片 + 音訊"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "僅無聲影片"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "影片，無音訊"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "自動產生的字幕將儲存為 SRT，而非 ASS。"
+
+msgctxt "wizard.profileEditor.note.noLanguages"
+msgid "No languages selected"
+msgstr "未選擇語言"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "此設定檔不會要求字幕檔案或嵌入式字幕軌。"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "此輸出類型會略過。"
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "此設定檔只會將字幕檔案加入佇列。影片、音訊、SponsorBlock 與媒體轉換皆會略過。"
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "設定檔會沿用全域目的地，除非你設定設定檔覆寫。"
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "進階選項"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "選擇主要的下載方式。"
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "下載類型"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "顯示於快速下載、批次 URL 與設定檔清單中的名稱及圖示。"
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "設定檔識別資訊"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "輸出選項"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "選擇此設定檔的資料夾"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "已略過"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "將贊助片段標示為章節（不修改內容）。"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "不使用 SponsorBlock——影片會依上傳時的內容播放。"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "使用 FFmpeg 從影片中剪除贊助片段。"
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "僅自動產生"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "手動優先，其次自動"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "僅手動"
+
+msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
+msgid "M4A / AAC"
+msgstr "M4A / AAC"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} 說明"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "取消準備"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "目前連結"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy 正在讀取連結並套用 {{profileName}}。"
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} 個失敗"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} 個失敗"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "正在擷取詳細資料"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "正在加入佇列"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "正在準備快速下載"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Arroxy 準備佇列時，請保持此視窗開啟。"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "填充內容"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "開場"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "離題音樂"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "片尾"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "預覽"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "自我宣傳"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "贊助商"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "類別"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "標示為章節"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "關閉"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "移除片段"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "贊助片段篩選"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "將贊助片段標示為章節（不修改內容）。"
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "不使用 SponsorBlock——影片會依上傳時的內容播放。"
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "使用 FFmpeg 從影片中剪除贊助片段。"
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "確認"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "儲存"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "格式"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "輸出"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "播放清單"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "影片"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "畫質"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "設定檔"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "自動產生的字幕將儲存為 SRT，而非 ASS——YouTube 影片會清除捲動字幕的重複內容，目前我們的 ASS 轉換器還無法重現這項處理。"
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "自動"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "全部清除"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "嵌入模式會將輸出儲存為 .mkv，以可靠地嵌入字幕軌。"
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "格式"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "可以不選、選一個或多個——完全由你決定 ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "此影片沒有可用字幕"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "沒有符合的語言"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "未選擇字幕"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "移除 {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "嵌入影片"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "儲存為"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "影片旁"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Subtitles/ 子資料夾"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "搜尋語言…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "自動產生"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "手動"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "將下載 {{count}} 個字幕"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "將下載 {{count}} 個字幕"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "略過"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "此影片略過"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "下載設定檔導覽"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "進階"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "傳送匿名使用統計資料"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
+msgstr "匿名回報當機、失敗與意見回饋。不包含 URL、影片標題或檔名。"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "網路或伺服器發生短暫問題後會自動重試，且每次嘗試之間等待更久。遭網站封鎖的下載絕不會自動重試。"
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "重試失敗的下載"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "次"
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "僅使用 CSS，不進行畫布轉譯。"
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "最佳效能"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "支援時使用動態 WebGL 背景。"
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "最精美"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "從最豐富的動畫效果調整至最佳效能。"
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "背景品質"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "選擇 Arroxy 動態背景要使用多少動畫效果。"
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "外觀與效能"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "此裝置無法使用硬體 WebGL，因此 Arroxy 正使用效能優先的背景。"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "批次 URL"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "新增多個 URL 並排入佇列。"
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "清除 URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "已從剪貼簿新增連結"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "已複製多個連結——請使用批次 URL 加入"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "關閉已複製的連結"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "已複製的連結已就緒"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "監看剪貼簿"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "複製影片連結時自動填入 URL 欄位。"
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "使用已複製的連結"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "關閉時隱藏到系統匣"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "關閉視窗後繼續在背景下載。"
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "同時下載的佇列項目數。一次下載越多，長佇列完成得越快，但也更可能遭網站限制。"
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "同時下載數"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "個下載"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "YouTube 等網站可能會標記，甚至封鎖 Cookie 遭 yt-dlp 使用的帳號。可以的話，請使用備用帳號。"
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "直接從瀏覽器讀取 Cookie。Chromium 系列瀏覽器必須關閉。"
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "瀏覽器"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "選擇瀏覽器…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "選擇…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "清除"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "選擇要使用 Cookie 的瀏覽器"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "選擇要使用 Cookie 的檔案"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "在本機取得 cookies.txt（Chrome）"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt（Firefox）"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Cookie 檔案"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "如何匯出 Cookie？"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "未選擇檔案"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "風險：cookies.txt 包含該瀏覽器所有已登入的工作階段——請妥善保密。"
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "瀏覽器"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "檔案"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Cookie 來源"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "關閉"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "有助於下載年齡限制、會員專屬及帳號私人影片。"
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "同時擷取影片的多個部分以加快大型下載。數值越高，越可能遭網站限制。"
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "下載連線數"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "個連線"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "僅音訊"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000 多個網站"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "音樂播放清單"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "影片"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "影片播放清單"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy 可以下載的內容"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "頻道"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "音樂"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "播放清單"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcast"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "影片"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "逐步精靈。選擇格式、畫質與更多選項。"
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "從 URL 下載"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "變更快捷鍵"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "此快捷鍵已被其他應用程式使用——請選擇另一個。"
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "或按下"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "在任何地方複製影片連結並按下此快捷鍵，Arroxy 就會使用目前的設定檔將它加入佇列，無需切換視窗。"
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "可在「設定」中變更或關閉。"
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "按下按鍵…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "重設為預設值"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "不用開啟 Arroxy，就能下載從任何應用程式複製的連結。"
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "全域快捷鍵"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "測試"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "啟用全域快捷鍵"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "剪貼簿中有影片連結時按下快捷鍵。"
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "互動式下載"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "進行中的下載會保留目前限制。請暫停後繼續，以套用變更。"
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "自訂…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "例如 750K 或 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "限制媒體下載頻寬。下方的請求節奏通常是更有效的頻率限制調整方式。"
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "使用數字加上 K 或 M（例如 500K、1.5M）"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "下載速度限制"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "關閉"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "正在背景下載…我可以同時處理多項工作 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "貼上連結，讓 Arroxy 幫你下載 ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "相容立體聲"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "控制「最佳原生格式」的選擇。手動音訊列與 M4A/AAC 仍維持明確選擇。"
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "原生音訊偏好"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "優先使用環繞音效／Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "在每次下載期間加入短暫等待，避免 Arroxy 對網站提出過於頻繁的請求。數值以秒為單位。"
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "媒體開始前暫停：最大"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "媒體開始前暫停：最小"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "中繼資料檢查間隔"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "字幕檔案前等待"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "溫和下載"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Arroxy 應該多謹慎？"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "均衡"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "謹慎"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "自訂"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "關閉"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "等待：檢查間隔 {{requests}}、媒體開始前 {{downloads}}、字幕檔案前 {{subtitles}}。"
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "這些等待會發生在每個下載內。同時執行的下載數量需在「同時下載數」中另行設定。"
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "預設。會在請求之間及媒體開始前加入短暫等待。"
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "針對大型播放清單或經常遇到限制的網路加入更長的等待。"
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "自行調整各下載的進階控制項。"
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "只使用 Arroxy 為媒體與字幕保留的少量基本等待。"
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "秒"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "目前上限：{{count}} 個項目"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "自訂…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "請使用 {{min}} 到 {{max}} 之間的整數。"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "儲存上限"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "自訂播放清單掃描上限"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "自訂：{{count}} 個項目"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Arroxy 開啟播放清單、頻道或搜尋結果時最多載入的項目數。"
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "請使用 1 到 5000 之間的整數"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "要掃描的播放清單項目"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} 個項目"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "對應 yt-dlp 的 --playlist-end：Arroxy 建立選取器時只會要求這麼多播放清單、頻道或搜尋項目。"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "目前設定檔"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "內建"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "自訂"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "已隱藏"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "已修改"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "變更全域目的地"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "目的地"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "編輯"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "編輯目前設定檔"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "隱藏的設定檔會保留在這裡，但不會出現在任何設定檔選取器中。"
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "在選取器中顯示設定檔：{{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "至少保留一個可用的設定檔。"
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "管理設定檔"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "變更快速下載、批次 URL 與播放清單使用的設定檔。"
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "切換設定檔"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "新增設定檔"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "建立、選取、編輯或移除可重複使用的下載設定。"
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "下載設定檔"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "移除"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "重設"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "切換下載設定檔：{{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "切換下載設定檔"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "清除"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "透過 Proxy 路由流量——適合有地區限制的內容。"
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "這些 URL 全都無法準備"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "快速下載"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "將使用以下設定檔下載：{{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "無法新增此項目：{{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "已將成功的項目加入佇列。{{count}} 個 URL 無法準備。"
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "已將成功的項目加入佇列。{{count}} 個 URL 無法準備。"
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "無法準備佇列項目"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "準備中"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "探查失敗"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "已加入佇列"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "貼上影片、播放清單、頻道或搜尋 URL 以開始。"
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "也會影響設定檔下載的全域行為。"
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "下載行為"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "輸入"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "設定檔"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "設定"

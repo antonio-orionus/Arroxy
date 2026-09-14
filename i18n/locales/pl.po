@@ -1,0 +1,3186 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Informacje"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "MIT License · by Antonio Orionus"
+msgstr "Licencja MIT · autor: Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Informacje o Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Szybki i przyjazny program do pobierania z YouTube i ponad 2000 innych witryn."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Wyświetl informacje o oprogramowaniu innych firm"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Witryna"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Opinia"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Podoba Ci się Arroxy? Chętnie poznam Twoją opinię! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Dzienniki"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Zapisz plik diagnostyczny"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Umieszcza dzienniki i informacje o aplikacji w jednym pliku w folderze Pobrane, gotowym do dołączenia do zgłoszenia w GitHub. Nazwa folderu użytkownika zostaje usunięta; linki i tytuły filmów pozostają."
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Powiększ"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Pomniejsz"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Wstecz"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Kontynuuj"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Wczytywanie"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Zacznij od początku"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy pozostanie uruchomiony i dokończy aktywne pobierania. Możesz to później zmienić w ustawieniach zaawansowanych."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Ukryj w zasobniku"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Ukrywać Arroxy w zasobniku systemowym przy zamykaniu?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Zakończ"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Nie pytaj ponownie"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Anuluj pobierania i zakończ"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Wstrzymaj, aby wznowić później, albo anuluj, aby odrzucić postęp."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Kontynuuj pobieranie"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Trwa {{count}} pobieranie"
+
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Trwają {{count}} pobierania"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Wstrzymaj pobierania i zakończ"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Proces renderera uległ awarii ({{reason}}). Załaduj ponownie, aby spróbować jeszcze raz."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Wystąpił problem z Arroxy"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Zakończ"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Załaduj ponownie"
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Ten film ma ograniczenie wiekowe i nie można go pobrać bez zalogowanego konta."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy auto-updates yt-dlp on launch, so the fix lands automatically once upstream ships it."
+msgstr "Uruchomiono ochronę przed botami. Używany adres IP jest najprawdopodobniej oznaczony (zakres centrum danych lub przeciążony punkt wyjścia VPN). Zmień adres IP albo wybierz inny punkt VPN i spróbuj ponownie. Jeśli problem nie ustąpi, może to być tymczasowa zmiana po stronie witryny — Arroxy automatycznie aktualizuje yt-dlp przy uruchomieniu, więc poprawka trafi do aplikacji, gdy tylko zostanie wydana przez projekt źródłowy."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Serwer wielokrotnie przerywał pobieranie w połowie i yt-dlp zrezygnował po kolejnych próbach. Zwykle dotyczy to największych formatów wideo (4K HDR / VP9 o wysokiej przepływności). Spróbuj ponownie, zmień sieć/VPN albo wybierz format o niższej rozdzielczości."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded."
+msgstr "Ten film jest chroniony DRM. yt-dlp nie może usunąć DRM, więc pliku nie można pobrać."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Ten film nie jest dostępny w Twoim regionie."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Twój adres IP jest prawdopodobnie zablokowany. Spróbuj ponownie później albo użyj VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgstr "Ten film wymaga zalogowanego konta. Skonfiguruj plik cookies.txt (Ustawienia → Pliki cookie) i spróbuj ponownie."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
+msgstr "yt-dlp nie może znaleźć ffmpeg ani ffprobe. Napraw dołączone pliki binarne albo ustaw lokalizację FFmpeg i spróbuj ponownie."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Błąd sieci. Sprawdź połączenie i spróbuj ponownie."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Za mało miejsca na dysku. Zwolnij miejsce i spróbuj ponownie."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
+msgstr "Nie udało się przeanalizować odpowiedzi witryny. Ekstraktor yt-dlp mógł przestać pasować do zmian w serwisie. Arroxy automatycznie aktualizuje yt-dlp przy uruchomieniu — spróbuj ponownie za kilka minut, gdy poprawka zostanie wydana."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "yt-dlp zakończył pobieranie, ale przetwarzanie końcowe (łączenie/multipleksowanie/konwersja) nie powiodło się. Często jest to przejściowy problem z ffmpeg — spróbuj ponownie, a jeśli problem się powtarza, wybierz inną kombinację formatów."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "Site is rate-limiting requests. Wait a minute then retry."
+msgstr "Witryna ogranicza liczbę żądań. Odczekaj minutę i spróbuj ponownie."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Ten film jest niedostępny — może być prywatny, usunięty lub zablokowany w Twoim regionie."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Pobieranie nie powiodło się. Zobacz nieprzetworzone dane wyjściowe poniżej."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr "Ten adres URL nie jest obsługiwany przez yt-dlp. Wypróbuj inny link z dowolnej witryny obsługiwanej przez yt-dlp."
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Wybierz sposób nazywania pobranych plików. Kliknij token, aby go wstawić. Użyj /, aby sortować pliki do folderów."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Wprowadź szablon nazwy pliku."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Usuń dodatkowy znak / — każdy folder musi mieć nazwę."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Usuń znaki niedozwolone w nazwach plików: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Ta nazwa folderu jest niedozwolona. Unikaj . i .. oraz nazw zastrzeżonych, takich jak CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Dodaj {title} lub {id} do nazwy pliku, aby każdy pobrany plik otrzymał własną nazwę."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} nie może nazywać folderu — jakość nie jest znana przed rozpoczęciem pobierania."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Niedopasowany znak { lub } — zapisuj tokeny tak jak {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Szablon jest za długi."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Nieznany token {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Bez {id} Arroxy nie może wykrywać już pobranych elementów playlisty ani generować playlist .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Szablon nazwy pliku"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Niedostępne, ponieważ szablon nazwy pliku nie zawiera {id} albo sortuje pobierane pliki do folderów."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Na playliście"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Pojedynczy film"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Pozostaw puste, aby odziedziczyć szablon globalny."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Szablon nazwy pliku"
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Dźwięk"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Tylko dźwięk · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Język"
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Ścieżka tego folderu jest zbyt głęboka dla systemu. Pobieranie może się nie udać — wybierz krótszą ścieżkę."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Nazwa tego filmu nie mieści się we wszystkich częściach szablonu, więc użyto nazwy domyślnej."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Nie udało się otworzyć okna wyboru folderu."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Już jest w kolejce — nie dodano kopii"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Still working on the previous link"
+msgstr "Nadal przetwarzam poprzedni link"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Brak linku w schowku — najpierw go skopiuj"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Skopiowano wiele linków — użyj funkcji Wiele adresów URL w Arroxy"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs a quick review — open Arroxy and paste it again"
+msgstr "Ten link wymaga szybkiego sprawdzenia — otwórz Arroxy i wklej go ponownie"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Dodano pobieranie ze schowka do kolejki"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Nie udało się dodać tego linku — spróbuj ponownie w Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Tego folderu nie można użyć dla tej playlisty."
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Nie udało się zapisać ustawień."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Nie udało się tego otworzyć."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Konfiguracja nie została ukończona. Niektóre pobierania mogą się nie udać, dopóki jej nie dokończysz."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Dźwięk (najlepszy)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Dźwięk ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Najlepszy dźwięk źródłowy, bez ponownego kodowania"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Konwertuj do M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Konwertuj do MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Konwertuj do Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "Format H.264 powyżej 1080p nie jest dostępny w YouTube — automatycznie ograniczono do 1080p"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Do 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Do 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Do 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Do 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Do 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Do 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Do 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Do 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Najlepsza jakość"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Ograniczenie do 1080p, dla poszczególnych elementów wybiera niższą jakość"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Najmniejsze możliwe pliki"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Ograniczenie do 2K, dla poszczególnych elementów wybiera niższą jakość"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Ograniczenie do 2160p, dla poszczególnych elementów wybiera niższą jakość"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Bardzo małe pliki, niska jakość"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Małe pliki przy ograniczonej przepustowości"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Niska przepustowość"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Mniejsze pliki, szeroka zgodność"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Najwyższa dostępna jakość obrazu i dźwięku dla każdego elementu"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Dźwięk"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Wideo"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Najlepszy format źródłowy"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "H.264 MP4 do Smart TV"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Najlepszy dostępny kontener i kodeki dla każdego elementu"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Preferuj wideo H.264 i dźwięk AAC w kontenerze MP4, gdy to możliwe"
+
+msgctxt "presets.audio-only.desc"
+msgid "No video, best audio"
+msgstr "Bez wideo, najlepszy dźwięk"
+
+msgctxt "presets.audio-only.label"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
+
+msgctxt "presets.balanced.desc"
+msgid "720p max + good audio"
+msgstr "Maks. 720p + dobry dźwięk"
+
+msgctxt "presets.balanced.label"
+msgid "Balanced"
+msgstr "Zrównoważony"
+
+msgctxt "presets.best-quality.desc"
+msgid "Highest resolution + best audio"
+msgstr "Najwyższa rozdzielczość + najlepszy dźwięk"
+
+msgctxt "presets.best-quality.label"
+msgid "Best quality"
+msgstr "Najlepsza jakość"
+
+msgctxt "presets.small-file.desc"
+msgid "Lowest resolution + low audio"
+msgstr "Najniższa rozdzielczość + niska jakość dźwięku"
+
+msgctxt "presets.small-file.label"
+msgid "Small file"
+msgstr "Mały plik"
+
+msgctxt "presets.subtitle-only.desc"
+msgid "No video, no audio, only subtitles"
+msgstr "Bez obrazu i dźwięku, tylko napisy"
+
+msgctxt "presets.subtitle-only.label"
+msgid "Subtitles only"
+msgstr "Tylko napisy"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Plik dodatkowy"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Opis"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Multimedia"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Brak"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Napisy"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefakt"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Anuluj wszystkie aktywne i oczekujące pobierania"
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Wyczyść ukończone pobierania"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Pobierania w kolejce pojawią się tutaj"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Wszystkie"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtry stanu kolejki"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Wszystkie elementy"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Pobieranie"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Pobieranie nie powiodło się"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Otwórz folder docelowy"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Wstrzymaj"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Tylko oczekujące"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Pobierz teraz — pomiń kolejkę"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Usuń"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Wznów"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "automatyczna ponowna próba (próba {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Ustaw lokalizację"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Wybierz oczekujące elementy, aby ustawić ich lokalizację."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Anulowano"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Gotowe"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Błąd"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Wstrzymane"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Wstrzymano"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Oczekiwanie"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Pobieranie szczegółów"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Pobieranie"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Wstrzymaj wszystkie aktywne pobierania i nie uruchamiaj nowych"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Kolejka jest wstrzymana — oczekujące elementy nie rozpoczną się, dopóki jej nie wznowisz"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Wznów wstrzymane pobierania i pozwól kolejce działać dalej"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Wznów kolejkę"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Wybrane elementy"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "Wybrano {{selected}} · łącznie {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Pobieranie"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Dodano"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefakty"
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Kolumny"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Ukończono"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Ukryj artefakty dla {{title}}"
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Miejsce docelowe"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Postęp"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Pokaż artefakty dla {{title}}"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sortuj według: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Stan"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Tytuł"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Pobierania są teraz na karcie Pobrane — możesz ją otworzyć w dowolnym momencie, aby śledzić postęp."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Kontynuuj"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Korzystasz ze świeżej aktualizacji. Oto najważniejsze zmiany."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Pełne informacje o wydaniu ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Co nowego w Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Wybierz plik wykonywalny"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Zainstaluj przez Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Zainstaluj przez WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Otwórz folder zależności"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Przywróć domyślne"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Retry setup"
+msgstr "Ponów konfigurację"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Wyświetl dziennik konfiguracji"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.hints.badExitCode"
+msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
+msgstr "Plik binarny nie odpowiedział na --version. Może być uszkodzony albo pochodzić z niewłaściwej kompilacji."
+
+msgctxt "repair.hints.blockedOrQuarantined"
+msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
+msgstr "System Windows zablokował plik (SmartScreen/Defender). Wybierz zainstalowaną kopię albo dodaj folder środowiska wykonawczego do wyjątków."
+
+msgctxt "repair.hints.downloadFailed"
+msgid "Download failed. Check your internet connection and retry."
+msgstr "Pobieranie nie powiodło się. Sprawdź połączenie internetowe i spróbuj ponownie."
+
+msgctxt "repair.hints.extractFailed"
+msgid "Archive extraction failed. The download may be corrupt — retry."
+msgstr "Nie udało się rozpakować archiwum. Pobrany plik może być uszkodzony — spróbuj ponownie."
+
+msgctxt "repair.hints.hashFailed"
+msgid "Checksum mismatch on the downloaded file. Retry the download."
+msgstr "Suma kontrolna pobranego pliku jest niezgodna. Spróbuj pobrać go ponownie."
+
+msgctxt "repair.hints.pairIncomplete"
+msgid "ffmpeg and ffprobe must both be set as a matched pair."
+msgstr "ffmpeg i ffprobe muszą być ustawione razem jako zgodna para."
+
+msgctxt "repair.hints.permissionDenied"
+msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
+msgstr "System odmówił uruchomienia pliku. Wybierz zaufaną kopię albo spróbuj ponownie jako administrator."
+
+msgctxt "repair.hints.spawnFailed"
+msgid "The file is missing or could not be launched. Pick a working copy."
+msgstr "Brakuje pliku albo nie można go uruchomić. Wybierz działającą kopię."
+
+msgctxt "repair.hints.timeout"
+msgid "The version probe timed out. The file may be hung — retry."
+msgstr "Upłynął limit czasu sprawdzania wersji. Plik mógł się zawiesić — spróbuj ponownie."
+
+msgctxt "repair.hints.unknown"
+msgid "Could not be verified."
+msgstr "Nie udało się zweryfikować."
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Konfiguracja wymaga Twojej pomocy"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Skopiowano!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopiuj link"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — bezpłatny program open source do pobierania wideo dla Windows, macOS i Linux. Działa z YouTube, Vimeo, Twitch oraz ponad 2000 witrynami.\n"
+"4K · HDR · MP3 · Shorts · Napisy · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy jest bezpłatny i ma otwarty kod źródłowy. Udostępnienie go pomoże większej liczbie osób go odkryć."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Udostępnij"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Udostępnij Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Udostępnij Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Udostępnij Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Masz problemy? Skonfiguruj ręcznie"
+
+msgctxt "splash.downloading"
+msgid "Downloading {{binary}}…"
+msgstr "Pobieranie {{binary}}…"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Witaj ponownie!"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Pierwsze sprawdzenie tej wersji będzie powolne. Zwykle trwa około minuty."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Sprawdzanie {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Przygotowywanie pobierania…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Konfiguracja nie powiodła się. Otwórz dziennik konfiguracji, aby poznać szczegóły."
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Pobieranie anulowane"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Pobieranie ukończone"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Konwertowanie wideo…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Za mało miejsca na dysku — potrzeba {{required}}, dostępne tylko {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Pobieranie pliku binarnego {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Pobieranie obrazu i dźwięku…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Osadzanie metadanych…"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Konwertowanie dźwięku…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Łączenie z SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Pobieranie napisów…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Łączenie dźwięku i obrazu…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Tworzenie tokenu YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Przenoszenie plików…"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Przygotowywanie plików binarnych…"
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Ponowne tworzenie tokenu…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock jest niedostępny, ponawianie ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Połączenie utknęło, ponawianie ({{attempt}}/{{total}})…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Oczekiwanie {{seconds}} s, aby uniknąć ograniczenia liczby żądań…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting yt-dlp process…"
+msgstr "Uruchamianie procesu yt-dlp…"
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Film zapisany — nie udało się pobrać niektórych napisów"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Nieznany błąd uruchamiania pobierania"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Pobrano z łagodniejszym ekstraktorem — skonfiguruj cookies.txt, aby pobieranie było bardziej niezawodne"
+
+msgctxt "status.ytdlpExitCode"
+msgid "yt-dlp exited with code {{code}}"
+msgstr "yt-dlp zakończył działanie z kodem {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "yt-dlp process error: {{error}}"
+msgstr "Błąd procesu yt-dlp: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tryb ciemny"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Tryb jasny"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Domyślne ustawienie systemu"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Zamknij"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maksymalizuj"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimalizuj"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Przywróć"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Pobierz ze schowka"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Otwórz Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Zakończ Arroxy"
+
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 pobieranie · {{percent}}%"
+
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} pobrań · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Bezczynny"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.appVersion"
+msgid "Arroxy {{version}}"
+msgstr "Arroxy {{version}}"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Skopiowano polecenie do schowka"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopiuj polecenie do schowka"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Odrzuć baner aktualizacji"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Pobierz ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Pobierz DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Pobieranie…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Zainstaluj i uruchom ponownie"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Aktualizacja nie powiodła się"
+
+msgctxt "update.isAvailable"
+msgid "is available"
+msgstr "jest dostępna"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} jest dostępny — masz wersję {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} jest dostępny — zaktualizuj przez Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} jest dostępny — pobierz nowy plik DMG."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} jest dostępny — pobierz nową kompilację."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+msgctxt "update.youHave"
+msgid "— you have {{currentVersion}}"
+msgstr "— masz wersję {{currentVersion}}"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Wczytywanie…"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Gotowe"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Wklej adresy URL filmów, playlist, kanałów, wyszukiwań lub dźwięku. Arroxy usunie duplikaty przed dodaniem do kolejki."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Wklej co najmniej jeden adres URL, aby wyświetlić podgląd partii."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Pominięto"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Dodaj co najmniej jeden obsługiwany adres URL, aby kontynuować."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplikat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Lista adresów URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Wiele adresów URL"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Kolejka"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Dodaje do kolejki — rozpocznie się po zakończeniu aktywnego pobierania"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
+
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} z {{total}} filmu"
+
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} z {{total}} filmów"
+
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} z {{total}} utworu"
+
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} z {{total}} utworów"
+
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} z {{total}} adresu URL"
+
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} z {{total}} adresów URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Dźwięk"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Partia"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Elementy"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Playlista"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Ustawienie wstępne"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Zapisz w"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Rozmiar"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Napisy"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Wideo"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Twój plik trafi do"
+
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Trafi do poniższego miejsca docelowego"
+
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Trafią do {{count}} poniższych miejsc docelowych"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Ustawienie Tylko napisy jest aktywne, ale nie wybrano języka napisów — nic nie zostanie pobrane."
+
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementów"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profile w tej partii"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Pobierz! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Pomija kolejkę — uruchamia się teraz obok innych aktywnych pobierań"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Wszystko gotowe do pobrania!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Nieznane"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Zmieniono osadzanie napisów na osobne pliki — ścieżki dźwiękowe nie obsługują osadzonych strumieni napisów."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Pominięto osadzanie miniatury — kontener wyjściowy go nie obsługuje."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Niestandardowe…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Pulpit"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Pobieranie"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Zapisz w"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Katalog domowy"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muzyka"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Obrazy"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Nazwa folderu zawiera niedozwolone znaki"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "np. lo-fi rips"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Zapisz w podfolderze"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmy"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Dźwięk"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
+
+msgctxt "wizard.formats.audioOnlyOption"
+msgid "Audio only (no video)"
+msgstr "Tylko dźwięk (bez obrazu)"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Pliki cookie są skonfigurowane, ale wyłączone. Włącz je i spróbuj ponownie, aby uzyskać pełną listę, albo zmień sieć."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Nawet z plikami cookie YouTube ograniczył to sprawdzanie. Spróbuj ponownie później albo zmień sieć."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Lista formatów może być niepełna. Skonfiguruj pliki cookie w ustawieniach zaawansowanych albo zmień sieć i spróbuj ponownie."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Włącz pliki cookie i spróbuj ponownie"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Sprawdzanie zostało ograniczone"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Przepływność"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Konwertuj"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kb/s"
+
+msgctxt "wizard.formats.convert.requiresAudioOnly"
+msgid "Audio conversion requires audio-only mode (deselect the video pick)."
+msgstr "Konwersja dźwięku wymaga trybu tylko audio (odznacz wideo)."
+
+msgctxt "wizard.formats.convert.requiresLossy"
+msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
+msgstr "Wybrano strumień źródłowy — przepływność ma zastosowanie tylko podczas konwersji do mp3, m4a lub opus."
+
+msgctxt "wizard.formats.convert.uncompressed"
+msgid "Convert · uncompressed"
+msgstr "Konwertuj · bez kompresji"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (bez kompresji)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Przeglądarka"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Plik"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Źródło plików cookie"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "Dokumentacja yt-dlp (zgłoszenie nr 10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 i nowsze szyfrują pliki cookie w sposób, którego inne aplikacje w Windows nie mogą odczytać. Wypróbuj jedno z poniższych obejść."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Wyeksportuj pliki cookie z Chrome za pomocą rozszerzenia przeglądarki, przełącz aplikację w tryb Plik i wybierz wyeksportowany plik."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Eksportuj cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox nie korzysta z szyfrowania powiązanego z aplikacją. Otwórz ustawienia plików cookie i wybierz Firefox z listy przeglądarek."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Przełącz na Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Dodaj --disable-features=LockProfileCookieDatabase do skrótu uruchamiającego Chrome. Ostrzeżenie: unieważni to wcześniej zaszyfrowane pliki cookie, więc nastąpi wylogowanie ze wszystkich witryn i konieczne będzie ponowne logowanie."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Uruchom Chrome z wyłączonym szyfrowaniem powiązanym z aplikacją"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Pliki cookie Chrome zablokowane przez szyfrowanie Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Pliki cookie są odczytywane bezpośrednio z przeglądarki. Jeśli jest uruchomiona, jej baza plików cookie może być zablokowana (rodzina Chromium). Przeglądarka musi też być zalogowana w YouTube. Zamknij przeglądarkę, wybierz inną, przełącz na tryb Plik albo wyłącz pliki cookie."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Plik cookie może być pusty, wygasły lub mieć niewłaściwy format (yt-dlp oczekuje formatu Netscape cookies.txt). Wyeksportuj pliki cookie ponownie, wybierz inny plik, przełącz na tryb Przeglądarka albo wyłącz pliki cookie."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Przyczyną mogą być pliki cookie"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "yt-dlp nie mógł uzyskać dostępu do tego filmu bez uwierzytelnienia. Skonfiguruj pliki cookie w ustawieniach zaawansowanych — wskaż przeglądarkę, w której masz już otwartą sesję, albo zaimportuj plik cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Ta witryna wymaga zalogowania"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Otwórz ustawienia plików cookie"
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Pozostaw bez zmian"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Wbudowany dźwięk"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Wczytywanie formatów"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Poczekaj na zakończenie sprawdzania — playlisty i wyszukiwania mogą trochę potrwać."
+
+msgctxt "wizard.formats.mascot"
+msgid "Best + Best = max quality. I'd pick that!"
+msgstr "Najlepszy + Najlepszy = maksymalna jakość. To mój wybór!"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Bez dźwięku"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Wysoka jakość"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Niska jakość"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Średnia jakość"
+
+msgctxt "wizard.formats.quickPresets"
+msgid "Quick presets"
+msgstr "Szybkie ustawienia"
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Nieznany rozmiar"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Przejdź do potwierdzenia"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Używa zapisanych preferencji we wszystkich pozostałych krokach. Aby zmienić ustawienie, przejdź kolejne kroki — wybór zostanie zapisany na przyszłość."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Wyszukiwanie najlepszych formatów…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Łącznie"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Wideo"
+
+msgctxt "wizard.formats.videoOnly"
+msgid "Video only"
+msgstr "Tylko wideo"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Chcesz tylko kliknięty film, czy wybrać z playlisty? W następnym kroku wybierzesz konkretne filmy lub zakres."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Wybierz z playlisty"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Limit sprawdzania playlisty: {{count}} elementów"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Uses yt-dlp playlist mode and fetches up to your playlist probe limit before showing the picker."
+msgstr "Używa trybu playlisty yt-dlp i pobiera elementy do ustawionego limitu, zanim wyświetli wybór."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Pobierz tylko ten film albo dodaj całą playlistę do kolejki z aktywnym profilem Szybkie pobieranie."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Maksymalna liczba elementów skanowanych przez Arroxy przed dodaniem playlisty, kanału lub wyników wyszukiwania do kolejki."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Dodaje każdy wczytany element playlisty do kolejki z aktywnym profilem Szybkie pobieranie. Jeśli skan osiągnie limit, Arroxy zapyta przed dodaniem."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Dodaje jedno pobieranie i ignoruje playlistę dołączoną do tego adresu URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Pobierz ten film"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Pobierz całą playlistę"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Uses yt-dlp single-video mode so the playlist attached to this URL is ignored."
+msgstr "Używa trybu pojedynczego filmu yt-dlp, więc playlista dołączona do tego adresu URL zostanie zignorowana."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Tylko ten"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Ten link zawiera playlistę"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Znaczniki rozdziałów obsługiwane w każdym nowoczesnym odtwarzaczu."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Osadź rozdziały"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Tytuł, wykonawca, opis i data przesłania zostaną zapisane w pliku."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Osadź metadane"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Okładka wewnątrz pliku. Wideo WebM zostanie przepakowane do MKV; opcja pomijana przy osadzaniu napisów."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Osadź miniaturę"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Zapisuje opis filmu jako plik tekstowy .description obok pobranego pliku."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Zapisz opis"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Zapisuje playlistę .m3u obok filmów, aby odtwarzacz otwierał je we właściwej kolejności."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Utwórz plik playlisty .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Zapisuje miniaturę jako plik obrazu .jpg obok pobranego pliku."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Zapisz miniaturę"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Przywróć je, aby kontynuować."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Usunięto wszystkie elementy"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Już pobrano"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Wiele adresów URL"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nie musisz czekać — pliki dodane teraz do kolejki i tak otrzymają właściwe nazwy podczas pobierania."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Pobieranie szczegółów filmu… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Szczegóły niedostępne"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Pobieranie szczegółów"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Oczekiwanie"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "na żywo"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Elementy playlisty"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Filmy do pobrania"
+
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} film"
+
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} filmów"
+
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} utwór"
+
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} utworów"
+
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} adres URL"
+
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} adresów URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Pobieranie playlisty…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Pobieranie filmów…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Ograniczono do pierwszych {{count}} elementów"
+
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Znaleziono {{count}} stronę"
+
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Znaleziono {{count}} stron"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Zbieranie filmów"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Skanowanie stron kanału"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Przypisz profile do elementów"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Pomija Jakość, SponsorBlock, Wyjście i Zapis — zamiast tego przypisz profil pobierania do każdego elementu"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Playlista"
+
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} z nich to playlista, nie film — wklej jej link osobno, aby ją pobrać."
+
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} z nich to playlisty, nie filmy — wklejaj ich linki pojedynczo, aby je pobrać."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Wybierz co najmniej jeden film, aby kontynuować"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Wyświetlono pierwsze {{count}} elementów. Zwiększ limit wczytywania, aby zobaczyć więcej."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Skanowanie playlisty jest ograniczone"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Skanowanie jest ograniczone"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Zastosuj zakres"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Od"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Do"
+
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "Usunięto {{count}}"
+
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "Usunięto {{count}}"
+
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Usuń {{count}} z listy"
+
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Usuń {{count}} z listy"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Przywróć"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Zaznacz wszystko"
+
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "Wybrano {{count}}"
+
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "Wybrano {{count}}"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Odznacz wszystko"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Kolejność playlisty"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Pobieranie dat przesłania…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sortuj"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Najstarsze najpierw"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Najnowsze najpierw"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Zastosuj synchronizację"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Zmień folder…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} z tych filmów jest już w {{dir}}. Zsynchronizować, aby pobrać tylko nowe?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Już w folderze"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "W {{dir}} nie znaleziono filmów z tej playlisty."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "W {{dir}} nie znaleziono filmów z tego źródła."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Jeszcze nic nie pobrano"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Sprawdzanie folderu…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Miniatura filmu"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Wybierz jakość dla partii"
+
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} element"
+
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementów"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Każdy film niezależnie dobiera wybrany poziom — zróżnicowane playlisty działają bez niespodzianek."
+
+msgctxt "wizard.playlistProfiles.assignAria"
+msgid "Assign {{profileName}}"
+msgstr "Przypisz {{profileName}}"
+
+msgctxt "wizard.playlistProfiles.assignTrigger"
+msgid "Assign to selection"
+msgstr "Przypisz do zaznaczenia"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Czas trwania"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Edytuj {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Żaden element nie pasuje do tego filtra"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filtry profili"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Przypisz profile pobierania"
+
+msgctxt "wizard.playlistProfiles.hintBody"
+msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+msgstr "Kliknij z Shiftem, aby wybrać zakres, z {{modifier}}, aby dodać element, albo przeciągnij po wierszach. Następnie wybierz profil powyżej lub kliknij zaznaczenie prawym przyciskiem."
+
+msgctxt "wizard.playlistProfiles.hintTitle"
+msgid "Assign profiles to several videos at once"
+msgstr "Przypisz profile do kilku filmów naraz"
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Wybrano {{selected}} z {{total}}"
+
+msgctxt "wizard.profileEditor.action.addLanguage"
+msgid "Add"
+msgstr "Dodaj"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Zmień ustawienie globalne"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Wybierz folder docelowy"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Wybierz ikonę profilu"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Usuń {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Zresetuj profil"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Zapisz profil"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Ustaw zastąpienie profilu"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Ustaw zastąpienie"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Użyj wartości globalnej"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Najlepszy"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Do 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Do 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Do 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Najlepsza jakość"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Miejsce globalne"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Zastąpienie profilu"
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Docelowa lokalizacja"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Jedna konfiguracja wielokrotnego użytku dla Szybkiego pobierania, wielu adresów URL i playlist."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Profil pobierania"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Nie udało się zmienić globalnego miejsca docelowego."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Nie udało się zresetować ustawień profilu."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Nie udało się zapisać ustawień profilu."
+
+msgctxt "wizard.profileEditor.field.compatibility"
+msgid "Compatibility"
+msgstr "Zgodność"
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Dostarczanie"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Ikona profilu"
+
+msgctxt "wizard.profileEditor.field.languageCodes"
+msgid "Subtitle language codes"
+msgstr "Kody języków napisów"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Języki"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Nazwa profilu"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Nazwa i ikona profilu"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Ścieżka zastąpienia profilu"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Jakość"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Rozdzielczość"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Źródło"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Nazwa podfolderu"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Pobieranie napisów"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Archiwum"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Dźwięk"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Napisy"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Zajęcia"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klip"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Sterowanie"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Pobieranie"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Muzyka"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Wideo"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Muzyka lub podcasty"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Tylko pliki napisów"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subs only"
+msgstr "Tylko napisy"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Zwykłe pliki wideo"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Wideo + dźwięk"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Tylko nieme wideo"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Wideo bez dźwięku"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Napisy automatyczne zostaną zapisane jako SRT zamiast ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguages"
+msgid "No languages selected"
+msgstr "Nie wybrano języków"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Ten profil nie będzie pobierał plików napisów ani osadzonych ścieżek napisów."
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Pominięto dla tego typu wyjścia."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Ten profil dodaje do kolejki tylko pliki napisów. Wideo, dźwięk, SponsorBlock i konwersja multimediów są pomijane."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profile dziedziczą globalne miejsce docelowe, chyba że ustawisz zastąpienie profilu."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Opcje zaawansowane"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Wybierz główny sposób pobierania."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Typ pobierania"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Nazwa i ikona widoczne w Szybkim pobieraniu, wielu adresach URL i na listach profili."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Tożsamość profilu"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Opcje wyjścia"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Wybierz folder dla tego profilu"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Pominięto"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Oznacza segmenty sponsorskie jako rozdziały (bez modyfikacji)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock — film jest odtwarzany tak, jak go przesłano."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Wycina segmenty sponsorskie z filmu za pomocą FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Tylko automatyczne"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Najpierw ręczne, potem automatyczne"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Tylko ręczne"
+
+msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
+msgid "M4A / AAC"
+msgstr "M4A / AAC"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Pomoc: {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Anuluj przygotowanie"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Bieżący link"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy odczytuje link i stosuje profil {{profileName}}."
+
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "Niepowodzenie: {{count}}"
+
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "Niepowodzenie: {{count}}"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Pobieranie szczegółów"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Dodawanie do kolejki"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Przygotowywanie Szybkiego pobierania"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Nie zamykaj tego okna, gdy Arroxy przygotowuje kolejkę."
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Wypełniacz"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Wstęp"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Muzyka niezwiązana z tematem"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Zakończenie"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Zapowiedź"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Autopromocja"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategorie"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Oznacz jako rozdziały"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Wyłączone"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Usuń segmenty"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Filtrowanie sponsorów"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Oznacza segmenty sponsorskie jako rozdziały (bez modyfikacji)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock — film jest odtwarzany tak, jak go przesłano."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Wycina segmenty sponsorskie z filmu za pomocą FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Potwierdź"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Zapisz"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Wyjście"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlista"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Filmy"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Jakość"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profile"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Napisy"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Napisy automatyczne zostaną zapisane jako SRT zamiast ASS — w filmach YouTube usuwane są powtórzenia przewijanych kwestii, których nasz konwerter ASS nie potrafi jeszcze odtworzyć."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Automatycznie"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Wyczyść wszystko"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Tryb osadzania zapisuje plik jako .mkv, aby niezawodnie osadzić ścieżki napisów."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Format"
+
+msgctxt "wizard.subtitles.mascot"
+msgid "Pick zero, one, or many — totally up to you ✨"
+msgstr "Wybierz zero, jeden lub wiele — decyzja należy do Ciebie ✨"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Brak napisów dla tego filmu"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Brak pasujących języków"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Nie wybrano napisów"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Usuń {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Osadź w filmie"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Zapisz jako"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Obok filmu"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Podfolder subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Szukaj języków…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automatyczne"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ręczne"
+
+msgctxt "wizard.subtitles.selectedNote_one"
+msgid "{{count}} subtitle will be downloaded"
+msgstr "Zostanie pobrany {{count}} napis"
+
+msgctxt "wizard.subtitles.selectedNote_other"
+msgid "{{count}} subtitles will be downloaded"
+msgstr "Zostaną pobrane {{count}} napisy"
+
+msgctxt "wizard.subtitles.skip"
+msgid "Skip"
+msgstr "Pomiń"
+
+msgctxt "wizard.subtitles.skipSubs"
+msgid "Skip for this video"
+msgstr "Pomiń dla tego filmu"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Nawigacja profilu pobierania"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Zaawansowane"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send anonymous usage stats"
+msgstr "Wysyłaj anonimowe statystyki użycia"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
+msgstr "Anonimowo zgłasza awarie, niepowodzenia i opinie. Bez adresów URL, tytułów filmów ani nazw plików."
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Automatycznie ponawia po problemie z siecią lub serwerem, czekając coraz dłużej między próbami. Pobierania zablokowane przez witrynę nigdy nie są ponawiane automatycznie."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Ponawiaj nieudane pobierania"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "razy"
+
+msgctxt "wizard.url.backdrop.cssOnlyDescription"
+msgid "CSS only, no canvas rendering."
+msgstr "Tylko CSS, bez renderowania na płótnie."
+
+msgctxt "wizard.url.backdrop.cssOnlyLabel"
+msgid "Best performance"
+msgstr "Najlepsza wydajność"
+
+msgctxt "wizard.url.backdrop.gpuDescription"
+msgid "Animated WebGL backdrop when supported."
+msgstr "Animowane tło WebGL, gdy jest obsługiwane."
+
+msgctxt "wizard.url.backdrop.gpuLabel"
+msgid "Most beautiful"
+msgstr "Najpiękniejszy wygląd"
+
+msgctxt "wizard.url.backdrop.modeDescription"
+msgid "Move from the most animated look to best performance."
+msgstr "Przejdź od najbardziej animowanego wyglądu do najlepszej wydajności."
+
+msgctxt "wizard.url.backdrop.modeLabel"
+msgid "Backdrop quality"
+msgstr "Jakość tła"
+
+msgctxt "wizard.url.backdrop.panelDescription"
+msgid "Choose how much motion Arroxy uses for the animated backdrop."
+msgstr "Wybierz intensywność ruchu animowanego tła Arroxy."
+
+msgctxt "wizard.url.backdrop.panelTitle"
+msgid "Appearance and performance"
+msgstr "Wygląd i wydajność"
+
+msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
+msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+msgstr "Sprzętowy WebGL jest niedostępny na tym urządzeniu, więc Arroxy używa tła zoptymalizowanego pod kątem wydajności."
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Wiele adresów URL"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Dodaj wiele adresów URL do kolejki."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Wyczyść adres URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Dodano link ze schowka"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Skopiowano wiele linków — dodaj je przez Wiele adresów URL"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgctxt "wizard.url.clipboard.dismissCopiedLink"
+msgid "Dismiss copied link"
+msgstr "Odrzuć skopiowany link"
+
+msgctxt "wizard.url.clipboard.pendingLinkReady"
+msgid "Copied link ready"
+msgstr "Skopiowany link jest gotowy"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Obserwuj schowek"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Automatycznie wypełnia pole URL po skopiowaniu linku do filmu."
+
+msgctxt "wizard.url.clipboard.useCopiedLink"
+msgid "Use copied link"
+msgstr "Użyj skopiowanego linku"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Ukrywaj w zasobniku przy zamykaniu"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Kontynuuj pobieranie w tle po zamknięciu okna."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Liczba elementów kolejki pobieranych jednocześnie. Więcej równoległych pobierań szybciej kończy długą kolejkę, ale zwiększa ryzyko ograniczeń ze strony witryny."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Równoczesne pobierania"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "pobrań"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by yt-dlp. Use a throwaway account when possible."
+msgstr "Witryny takie jak YouTube mogą oznaczać, a czasem blokować konta, których pliki cookie są używane przez yt-dlp. Jeśli to możliwe, użyj konta jednorazowego."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Odczytuje pliki cookie bezpośrednio z przeglądarki. Przeglądarki z rodziny Chromium muszą być zamknięte."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Przeglądarka"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Wybierz przeglądarkę…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Wybierz…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Wyczyść"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Wybierz przeglądarkę, z której użyć plików cookie"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Wybierz plik z plikami cookie"
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Uzyskaj cookies.txt LOKALNIE (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Plik cookie"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Jak wyeksportować pliki cookie?"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Nie wybrano pliku"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Ryzyko: plik cookies.txt zawiera wszystkie zalogowane sesje tej przeglądarki — zachowaj go dla siebie."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Przeglądarka"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Plik"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Źródło plików cookie"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Wyłączone"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Pomaga przy filmach z ograniczeniem wiekowym, tylko dla członków i prywatnych dla konta."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Przyspiesza duże pobierania, pobierając kilka części filmu jednocześnie. Wyższe wartości zwiększają ryzyko ograniczeń ze strony witryny."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Połączenia pobierania"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "połączeń"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Tylko dźwięk"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Napisy"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Ponad 2000 witryn"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Playlisty muzyczne"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Filmy"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Playlisty wideo"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Co może pobrać Arroxy"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanały"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muzyka"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Playlisty"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasty"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Filmy"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Kreator krok po kroku. Wybierz format, jakość i inne opcje."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Pobierz z adresu URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Zmień skrót"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Ten skrót jest zajęty przez inną aplikację — wybierz inny."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Lub naciśnij"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Skopiuj link do filmu w dowolnej aplikacji, naciśnij ten skrót, a Arroxy doda go do kolejki z aktywnym profilem — bez przełączania okien."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Zmień lub wyłącz go w Ustawieniach."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Naciśnij klawisze…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Przywróć domyślne"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Pobierz dowolny link skopiowany z dowolnej aplikacji bez otwierania Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Globalny skrót klawiszowy"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testuj"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Włącz globalny skrót"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Naciśnij skrót, gdy w schowku znajduje się link do filmu."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Pobieranie interaktywne"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktywne pobierania zachowują bieżący limit. Wstrzymaj je i wznów, aby zastosować zmiany."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Niestandardowe…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "np. 750K lub 1,5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Ogranicza przepustowość pobierania multimediów. Poniższe odstępy między żądaniami są zwykle skuteczniejszym sposobem unikania limitów."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Użyj liczby z literą K lub M (np. 500K, 1,5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Limit prędkości pobierania"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Wyłączone"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Pobieranie w tle… Potrafię robić kilka rzeczy naraz 😎"
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Wklej link i pozwól Arroxy go pobrać ✨"
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Zgodne stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
+msgstr "Określa wybór opcji Najlepszy format źródłowy. Ręcznie wybrane ścieżki dźwiękowe i M4A/AAC pozostają bez zmian."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Preferencje dźwięku źródłowego"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Preferuj dźwięk przestrzenny / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Dodaje krótkie przerwy podczas każdego pobierania, aby Arroxy nie obciążał witryny zbyt intensywnie. Wartości są podane w sekundach."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Przerwa przed rozpoczęciem multimediów: maks."
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Przerwa przed rozpoczęciem multimediów: min."
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Przerwa między sprawdzaniem metadanych"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Przerwa przed plikami napisów"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Łagodne pobieranie"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Jak ostrożny ma być Arroxy?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Zrównoważony"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Ostrożnie"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Niestandardowo"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Wyłączone"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Przerwy: {{requests}} między sprawdzeniami, {{downloads}} przed uruchomieniem multimediów, {{subtitles}} przed plikami napisów."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Te przerwy występują wewnątrz każdego pobierania. Liczbę równoczesnych pobierań ustawia się osobno w sekcji Równoczesne pobierania."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Domyślne. Dodaje krótkie przerwy między żądaniami i przed uruchomieniem multimediów."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Dodaje dłuższe przerwy dla dużych playlist lub sieci, które często napotykają ograniczenia."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Samodzielnie dostosuj zaawansowane ustawienia każdego pobierania."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Używa tylko krótkich podstawowych przerw stosowanych przez Arroxy dla multimediów i napisów."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Bieżący limit: {{count}} elementów"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Niestandardowe…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Użyj liczby całkowitej od {{min}} do {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Zapisz limit"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Niestandardowy limit skanowania playlisty"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Niestandardowo: {{count}} elementów"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Maksymalna liczba elementów wczytywanych przez Arroxy po otwarciu playlisty, kanału lub wyników wyszukiwania."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Użyj liczby całkowitej od 1 do 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Elementy playlisty do przeskanowania"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} elementów"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Odpowiada opcji yt-dlp --playlist-end: podczas tworzenia wyboru Arroxy prosi tylko o podaną liczbę elementów playlisty, kanału lub wyszukiwania."
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktywny profil"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Wbudowany"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Niestandardowo"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Ukryty"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Zmodyfikowany"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Zmień globalne miejsce docelowe"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Miejsce docelowe"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Edytuj"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Edytuj aktywny profil"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Ukryte profile pozostają tutaj, ale znikają ze wszystkich list wyboru profilu."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Pokaż profil na listach wyboru: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Pozostaw dostępny co najmniej jeden profil."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Zarządzaj profilami"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Zmień aktywny profil dla Szybkiego pobierania, wielu adresów URL i playlist."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Przełącz profil"
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Nowy profil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Twórz, wybieraj, edytuj lub usuwaj konfiguracje pobierania wielokrotnego użytku."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Profile pobierania"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Usuń"
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Resetuj"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Przełącz profil pobierania: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Przełącz profil pobierania"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Wyczyść"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Kieruj ruch przez serwer proxy — przydatne dla treści z ograniczeniami regionalnymi."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Adres URL proxy"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Nie udało się przygotować żadnego z tych adresów URL"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Szybkie pobieranie"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Pobieranie przy użyciu: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Nie udało się dodać tego elementu: {{error}}"
+
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresu URL."
+
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresów URL."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Nie udało się przygotować elementu kolejki"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Przygotowywanie"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Sprawdzanie nie powiodło się"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Dodano do kolejki"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Wklej adres URL filmu, playlisty, kanału lub wyszukiwania, aby rozpocząć."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Ustawienia globalne wpływające także na pobieranie sterowane profilami."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Zachowanie pobierania"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Dane wejściowe"
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profile"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Ustawienia"

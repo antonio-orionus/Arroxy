@@ -4,6 +4,7 @@ import {isRtl, RTL_LANGS} from '@shared/i18n/rtl.js'
 describe('isRtl', () => {
 	it('returns true for RTL languages', () => {
 		expect(isRtl('ar')).toBe(true)
+		expect(isRtl('fa')).toBe(true)
 		expect(isRtl('ps')).toBe(true)
 	})
 

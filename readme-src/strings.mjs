@@ -15,8 +15,10 @@ import { de } from "./locales/de.mjs";
 import { en } from "./locales/en.mjs";
 import { es } from "./locales/es.mjs";
 import { fr } from "./locales/fr.mjs";
+import { it } from "./locales/it.mjs";
 import { sw } from "./locales/sw.mjs";
 import { uz } from "./locales/uz.mjs";
+import { pl } from "./locales/pl.mjs";
 import { pt } from "./locales/pt.mjs";
 import { vi } from "./locales/vi.mjs";
 import { tr } from "./locales/tr.mjs";
@@ -24,8 +26,10 @@ import { am } from "./locales/am.mjs";
 import { ar } from "./locales/ar.mjs";
 import { ur } from "./locales/ur.mjs";
 import { ps } from "./locales/ps.mjs";
+import { fa } from "./locales/fa.mjs";
 import { bn } from "./locales/bn.mjs";
 import { hi } from "./locales/hi.mjs";
+import { th } from "./locales/th.mjs";
 import { my } from "./locales/my.mjs";
 import { el } from "./locales/el.mjs";
 import { ru } from "./locales/ru.mjs";
@@ -33,6 +37,8 @@ import { sr } from "./locales/sr.mjs";
 import { uk } from "./locales/uk.mjs";
 import { zh } from "./locales/zh.mjs";
 import { ja } from "./locales/ja.mjs";
+import { ko } from "./locales/ko.mjs";
+import { zhHant } from "./locales/zh-Hant.mjs";
 
 export const LOCALES = [
   { code: "om", filename: "README.om.md", name: "Afaan Oromoo", strings: om },
@@ -41,8 +47,10 @@ export const LOCALES = [
   { code: "en", filename: "README.md", name: "English", strings: en },
   { code: "es", filename: "README.es.md", name: "Español", strings: es },
   { code: "fr", filename: "README.fr.md", name: "Français", strings: fr },
+  { code: "it", filename: "README.it.md", name: "Italiano", strings: it },
   { code: "sw", filename: "README.sw.md", name: "Kiswahili", strings: sw },
   { code: "uz", filename: "README.uz.md", name: "O'zbekcha", strings: uz },
+  { code: "pl", filename: "README.pl.md", name: "Polski", strings: pl },
   { code: "pt", filename: "README.pt.md", name: "Português", strings: pt },
   { code: "vi", filename: "README.vi.md", name: "Tiếng Việt", strings: vi },
   { code: "tr", filename: "README.tr.md", name: "Türkçe", strings: tr },
@@ -50,8 +58,10 @@ export const LOCALES = [
   { code: "ar", filename: "README.ar.md", name: "العربية", strings: ar },
   { code: "ur", filename: "README.ur.md", name: "اردو", strings: ur },
   { code: "ps", filename: "README.ps.md", name: "پښتو", strings: ps },
+  { code: "fa", filename: "README.fa.md", name: "فارسی", strings: fa },
   { code: "bn", filename: "README.bn.md", name: "বাংলা", strings: bn },
   { code: "hi", filename: "README.hi.md", name: "हिन्दी", strings: hi },
+  { code: "th", filename: "README.th.md", name: "ไทย", strings: th },
   { code: "my", filename: "README.my.md", name: "မြန်မာဘာသာ", strings: my },
   { code: "el", filename: "README.el.md", name: "Ελληνικά", strings: el },
   { code: "ru", filename: "README.ru.md", name: "Русский", strings: ru },
@@ -59,4 +69,6 @@ export const LOCALES = [
   { code: "uk", filename: "README.uk.md", name: "Українська", strings: uk },
   { code: "zh", filename: "README.zh.md", name: "中文", strings: zh },
   { code: "ja", filename: "README.ja.md", name: "日本語", strings: ja },
+  { code: "ko", filename: "README.ko.md", name: "한국어", strings: ko },
+  { code: "zh-Hant", filename: "README.zh-Hant.md", name: "繁體中文", strings: zhHant },
 ];

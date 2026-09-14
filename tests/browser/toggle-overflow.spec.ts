@@ -15,7 +15,7 @@ interface Screen {
 	open?: {trigger: string; wait: string}
 }
 
-const LOCALES = ['en', 'el', 'fr', 'my', 'ur'] as const
+const LOCALES = ['en', 'el', 'fr', 'my', 'ur', 'it', 'pl', 'fa', 'th', 'ko', 'zh-Hant'] as const
 
 const VIEWPORTS = [
 	{name: 'min-window', width: 720, height: 680},
