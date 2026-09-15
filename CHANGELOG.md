@@ -8,6 +8,30 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.16-beta.1
+
+Arroxy makes subtitle languages easy to find and keeps queue actions and settings reliable when several things happen at once.
+
+## Highlights
+
+### Find Subtitle Languages By Name
+
+- Download Profiles now have a searchable language picker instead of a box that expects subtitle codes. Search in your app language, choose as many languages as you need, and still enter an exact code for a site-specific track.
+- Choosing a base language such as German also matches regional tracks such as `de-DE`, while an exact regional or extractor-specific code stays exact.
+- When subtitles are enabled, the profile editor now makes sure at least one language is selected before saving.
+
+### Queue Actions Stay Predictable
+
+- Overlapping bulk actions such as pausing, resuming, or cancelling the queue no longer restart an item while another action is still working through it.
+- Progress updates no longer rewrite the whole queue file several times a second, reducing synchronous disk work while downloads are active.
+
+### Settings Writes Cannot Overtake Each Other
+
+- Rapid language and dependency-path changes are now saved in order instead of allowing a slower write to replace a newer choice.
+- Dependency overrides changed during startup or another verification pass are checked afterward, and a rejected settings write restores the value the app actually has saved.
+
+---
+
 ## 0.4.15
 
 Arroxy now speaks Korean, Italian, Polish, Persian, Thai, and Traditional Chinese, bringing the app and its documentation to 30 languages.
