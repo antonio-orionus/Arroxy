@@ -629,7 +629,7 @@ describe('QueueService — bulk persist coalescing', () => {
 		expect(qs.snapshot()).toHaveLength(0)
 	})
 
-	it('clearCompleted with no eligible items does not persist', async () => {
+	it('clearCompleted with no eligible items persists once at bulk exit', async () => {
 		const store = fakeStore()
 		const saveSpy = vi.mocked(store.save)
 		const ds = new FakeDownloadService()
@@ -639,7 +639,7 @@ describe('QueueService — bulk persist coalescing', () => {
 
 		await qs.clearCompleted()
 
-		expect(saveSpy.mock.calls.length - baselineCalls).toBe(0)
+		expect(saveSpy.mock.calls.length - baselineCalls).toBe(1)
 	})
 
 	it('remove cleans preserved resume temp dir', async () => {
