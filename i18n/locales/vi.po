@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "Đã sao chép lệnh vào bộ nhớ tạm"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "Cập nhật thất bại"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "đã có sẵn"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} đã có — bạn đang dùng {{currentVersion}}."
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} đã có — tải bản dựng mới."
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "Thử lại"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— bạn đang dùng {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "Đã chọn {{selected}}/{{total}}"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "Thêm"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "Đổi mặc định chung"
@@ -2000,6 +1984,10 @@ msgstr "Đặt ghi đè"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "Dùng mặc định chung"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Dùng mã ngôn ngữ “{{code}}”"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "Cách lưu"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "Biểu tượng hồ sơ"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "Mã ngôn ngữ phụ đề"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "Phụ đề tự động sẽ được lưu dưới dạng SRT thay vì ASS."
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "Chưa chọn ngôn ngữ nào"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Không có ngôn ngữ phù hợp"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "Hồ sơ này sẽ không yêu cầu tệp phụ đề hay bản phụ đề nhúng nào."
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Tìm theo tên hoặc mã ngôn ngữ"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "Đã bỏ qua với loại đầu ra này."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Chọn ít nhất một ngôn ngữ."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Chọn ít nhất một ngôn ngữ hoặc tắt tải phụ đề."
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."

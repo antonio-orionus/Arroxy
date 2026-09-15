@@ -109,6 +109,48 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('adds subtitle languages by searching their name', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(balanced).toBeDefined()
+		const profile: DownloadProfile = {...balanced!, subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'}}
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		expect(await screen.findByTestId('profiles-editor-subtitle-languages')).toHaveTextContent('English')
+		// Base UI only opens the list for input events that carry an `inputType`
+		// (it ignores autofill), which jsdom's change events lack.
+		fireEvent.input(screen.getByLabelText('Languages'), {target: {value: 'russian'}, inputType: 'insertText'})
+		fireEvent.click(await screen.findByTestId('profiles-editor-subtitle-language-option-ru'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({subtitles: expect.objectContaining({languages: ['en', 'ru']})}))
+		})
+	})
+
+	it('blocks saving while subtitles are on without any language', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(balanced).toBeDefined()
+		const profile: DownloadProfile = {...balanced!, subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'}}
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		fireEvent.click(await screen.findByRole('button', {name: 'Remove English'}))
+		expect(await screen.findByText('Choose at least one language, or turn subtitle downloads off.')).toBeInTheDocument()
+		expect(screen.getByRole('button', {name: 'Save profile'})).toBeDisabled()
+
+		fireEvent.input(screen.getByLabelText('Languages'), {target: {value: 'uk'}, inputType: 'insertText'})
+		fireEvent.click(await screen.findByTestId('profiles-editor-subtitle-language-option-uk'))
+		expect(screen.queryByText('Choose at least one language, or turn subtitle downloads off.')).not.toBeInTheDocument()
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({subtitles: expect.objectContaining({languages: ['uk']})}))
+		})
+	})
+
 	it('saves WAV audio-only profiles without a bitrate', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'audio-only')
 		expect(profile).toBeDefined()

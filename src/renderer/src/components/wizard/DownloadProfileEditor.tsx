@@ -1,7 +1,7 @@
 import {useId, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys, TFunction} from 'i18next'
-import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, Plus, RotateCcw, Scissors, SlidersHorizontal, X, type LucideIcon} from 'lucide-react'
+import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, RotateCcw, Scissors, SlidersHorizontal, type LucideIcon} from 'lucide-react'
 import {DOWNLOAD_PROFILE_ICONS, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
@@ -31,6 +31,7 @@ import {ScrollArea} from '../ui/scroll-area.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {ProfileSwitchRow} from './DownloadProfileSwitchRow.js'
+import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 
 interface SelectOption<T extends string> {
@@ -243,7 +244,6 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 		audioQuality,
 		subtitleEnabled,
 		subtitleLanguages,
-		subtitleLanguageDraft,
 		subtitleSource,
 		subtitleDelivery,
 		subtitleFormat,
@@ -263,7 +263,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 	const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled
 	const outputEnabledCount = [embedMetadata, embedChapters, saveDescription, saveThumbnail].filter(Boolean).length
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
-	const {subfolderInvalid, filenameTemplateError} = validateDownloadProfileDraft(draft)
+	const {subfolderInvalid, filenameTemplateError, subtitleLanguagesMissing} = validateDownloadProfileDraft(draft)
 	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
 	const videoResolutionOptions = codec === 'mp4' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
@@ -304,14 +304,6 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 
 	function setProfileCodec(nextCodec: PlaylistVideoCodec): void {
 		updateDraft({type: 'set-codec', codec: nextCodec})
-	}
-
-	function addSubtitleLanguages(): void {
-		updateDraft({type: 'add-subtitle-languages'})
-	}
-
-	function removeSubtitleLanguage(code: string): void {
-		updateDraft({type: 'remove-subtitle-language', code})
 	}
 
 	async function chooseDestinationFolder(): Promise<void> {
@@ -521,46 +513,23 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 											<AlertDescription className="text-[12px]">{t('wizard.profileEditor.note.noSubtitles')}</AlertDescription>
 										</Alert>
 									) : (
-										<div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.65fr)]">
-											<Field className="gap-1.5">
-												<FieldLabel htmlFor="profile-subtitle-language-draft" className="text-[12px] font-medium text-[var(--text-subtle)]">
+										<div className="flex flex-col gap-3">
+											<Field className="gap-1.5" data-invalid={subtitleLanguagesMissing || undefined}>
+												<FieldLabel htmlFor="profile-subtitle-languages" className="text-[12px] font-medium text-[var(--text-subtle)]">
 													{t('wizard.profileEditor.field.languages')}
 												</FieldLabel>
-												<div className="flex min-h-8 flex-wrap items-center gap-1.5 rounded-lg border border-input bg-background/30 px-2 py-1">
-													{subtitleLanguages.length > 0 ? (
-														subtitleLanguages.map(code => (
-															<Badge key={code} variant="secondary" className="h-6 gap-1 px-2 text-[11px] font-semibold">
-																<span>{code}</span>
-																<Button type="button" variant="ghost" size="icon-xs" onClick={() => removeSubtitleLanguage(code)} className="-me-1 size-4 rounded-full p-0" aria-label={t('wizard.profileEditor.action.removeLanguage', {code})}>
-																	<X data-icon="inline-start" aria-hidden />
-																</Button>
-															</Badge>
-														))
-													) : (
-														<span className="px-1 text-[11px] italic text-[var(--text-subtle)]">{t('wizard.profileEditor.note.noLanguages')}</span>
-													)}
-												</div>
-												<InputGroup aria-label={t('wizard.profileEditor.field.languageCodes')}>
-													<InputGroupInput
-														id="profile-subtitle-language-draft"
-														value={subtitleLanguageDraft}
-														onChange={event => updateDraft({type: 'set-subtitle-language-draft', subtitleLanguageDraft: event.target.value})}
-														onKeyDown={event => {
-															if (event.key !== 'Enter') return
-															event.preventDefault()
-															addSubtitleLanguages()
-														}}
-														placeholder="en, uk, pt-br"
-														className="text-[12px]"
-														aria-label={t('wizard.profileEditor.field.languageCodes')}
-													/>
-													<InputGroupAddon align="inline-end">
-														<InputGroupButton type="button" className="text-[11px]" onClick={addSubtitleLanguages} disabled={subtitleLanguageDraft.trim().length === 0}>
-															<Plus data-icon="inline-start" />
-															{t('wizard.profileEditor.action.addLanguage')}
-														</InputGroupButton>
-													</InputGroupAddon>
-												</InputGroup>
+												<SubtitleLanguagePicker
+													id="profile-subtitle-languages"
+													value={subtitleLanguages}
+													onValueChange={next => updateDraft({type: 'set-subtitle-languages', subtitleLanguages: next})}
+													invalid={subtitleLanguagesMissing}
+													describedBy={subtitleLanguagesMissing ? 'profile-subtitle-languages-error' : undefined}
+												/>
+												{subtitleLanguagesMissing ? (
+													<FieldDescription id="profile-subtitle-languages-error" className="text-[12px] text-destructive">
+														{t(subtitlesOnly ? 'wizard.profileEditor.note.subtitleLanguagesRequired' : 'wizard.profileEditor.note.subtitleLanguagesRequiredOrOff')}
+													</FieldDescription>
+												) : null}
 											</Field>
 
 											<FieldGroup className="gap-3">
@@ -780,7 +749,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 						<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
 							{t('common.cancel')}
 						</Button>
-						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid || filenameTemplateError !== null} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid || filenameTemplateError !== null || subtitleLanguagesMissing} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
 							{t('wizard.profileEditor.action.save')}
 						</Button>
 					</div>

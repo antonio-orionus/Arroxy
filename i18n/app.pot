@@ -1064,10 +1064,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr ""
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr ""
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr ""
@@ -1100,10 +1096,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr ""
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr ""
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr ""
@@ -1122,10 +1114,6 @@ msgstr ""
 
 msgctxt "update.retry"
 msgid "Retry"
-msgstr ""
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
 msgstr ""
 
 msgctxt "videoCard.titlePlaceholder"
@@ -1955,10 +1943,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr ""
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr ""
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr ""
@@ -1993,6 +1977,10 @@ msgstr ""
 
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
+msgstr ""
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
 msgstr ""
 
 msgctxt "wizard.profileEditor.audioFormat.best"
@@ -2061,10 +2049,6 @@ msgstr ""
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
-msgstr ""
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
 msgstr ""
 
 msgctxt "wizard.profileEditor.field.languages"
@@ -2179,16 +2163,28 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr ""
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
 msgstr ""
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr ""
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr ""
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr ""
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
 msgstr ""
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"

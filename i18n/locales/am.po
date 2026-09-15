@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "ትዕዛዝ ወደ ቅጂ ሰሌዳ ተቀድቷል"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "ዝማኔ አልተሳካም"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "ተገኝቷል"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} ይገኛል — {{currentVersion}} አለዎት።"
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} ይገኛል — አዲሱን build ያውርዱ።"
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "እንደገና ሞክር"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— እርስዎ ያለዎት {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "አክል"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "አጠቃላይን ቀይር"
@@ -2000,6 +1984,10 @@ msgstr "ተሻሪ አዘጋጅ"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "አጠቃላይ ነባሪን ተጠቀም"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "“{{code}}” የቋንቋ ኮድ ተጠቀም"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "የማስቀመጫ መንገድ"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "የመገለጫ አዶ"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "የትርጉም ጽሑፍ ቋንቋ ኮዶች"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "ራስ-ሰር መግለጫ ጽሑፎች በASS ፋንታ በSRT ይቀመጣሉ።"
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "ምንም ቋንቋ አልተመረጠም"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "የሚዛመድ ቋንቋ የለም"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "ለዚህ መገለጫ ምንም የትርጉም ጽሑፍ ፋይል ወይም የተካተተ የትርጉም ትራክ አይጠየቅም።"
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "በቋንቋ ስም ወይም ኮድ ፈልግ"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "ለዚህ የውጤት ዓይነት ተዘሏል።"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "ቢያንስ አንድ ቋንቋ ይምረጡ።"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "ቢያንስ አንድ ቋንቋ ይምረጡ፣ ወይም የትርጉም ጽሑፍ ማውረድን ያጥፉ።"
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."

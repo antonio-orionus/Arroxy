@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "คัดลอกคำสั่งไปยังคลิปบอร์ดแล้ว"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "อัปเดตไม่สำเร็จ"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "พร้อมใช้งานแล้ว"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — คุณมีเวอร์ชัน {{currentVersion}}"
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} พร้อมใช้งานแล้ว — ด
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "ลองอีกครั้ง"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— คุณมีเวอร์ชัน {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "เลือก {{selected}} จาก {{total}}"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "เพิ่ม"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "เปลี่ยนค่าทั่วไป"
@@ -2000,6 +1984,10 @@ msgstr "ตั้งค่าการแทนที่"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "ใช้ค่าเริ่มต้นส่วนกลาง"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "ใช้รหัสภาษา “{{code}}”"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "การส่งมอบ"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "ไอคอนโปรไฟล์"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "รหัสภาษาคำบรรยาย"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "คำบรรยายอัตโนมัติจะบันทึกเป็น SRT แทน ASS"
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "ไม่ได้เลือกภาษา"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "ไม่พบภาษาที่ตรงกัน"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "โปรไฟล์นี้จะไม่ขอไฟล์คำบรรยายหรือแทร็กคำบรรยายแบบฝัง"
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "ค้นหาด้วยชื่อหรือรหัสภาษา"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "ข้ามสำหรับผลลัพธ์ประเภทนี้"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "เลือกภาษาอย่างน้อยหนึ่งภาษา"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "เลือกภาษาอย่างน้อยหนึ่งภาษา หรือปิดการดาวน์โหลดคำบรรยาย"
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."

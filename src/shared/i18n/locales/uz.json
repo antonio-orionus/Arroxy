@@ -487,7 +487,6 @@
 				"resolution": "Ruxsat",
 				"quality": "Sifat",
 				"source": "Manba",
-				"languageCodes": "Subtitr til kodlari",
 				"subfolderName": "Ichki jild nomi",
 				"name": "Profil nomi",
 				"subtitleDownloads": "Subtitr yuklamalari",
@@ -499,8 +498,8 @@
 				"chooseIcon": "Profil belgisini tanlang",
 				"setOverride": "Profil almashtirishini belgilash",
 				"chooseFolder": "Manzil jildini tanlang",
-				"addLanguage": "Qo'shish",
 				"removeLanguage": "{{code}}ni olib tashlash",
+				"useLanguageCode": "“{{code}}” til kodidan foydalanish",
 				"changeGlobalShort": "Umumiyni o'zgartirish",
 				"setOverrideShort": "Almashtirishni belgilash",
 				"useGlobalDefault": "Umumiy standartdan foydalanish",
@@ -512,7 +511,10 @@
 			"note": {
 				"subtitlesOnly": "Bu profil faqat subtitr fayllarini navbatga qo'yadi. Video, audio, SponsorBlock va media konvertatsiyasi o'tkazib yuboriladi.",
 				"noSubtitles": "Bu profil uchun na subtitr fayllari, na ichki subtitr yo'llari so'ralmaydi.",
-				"noLanguages": "Til tanlanmagan",
+				"searchLanguages": "Til nomi yoki kodi bo‘yicha qidirish",
+				"noLanguageMatches": "Mos tillar topilmadi",
+				"subtitleLanguagesRequired": "Kamida bitta tilni tanlang.",
+				"subtitleLanguagesRequiredOrOff": "Kamida bitta tilni tanlang yoki subtitr yuklamalarini o‘chiring.",
 				"autoCaptionsSrt": "Avtomatik taglavhalar ASS o'rniga SRT sifatida saqlanadi.",
 				"skippedForOutputType": "Bu chiqish turi uchun o'tkazib yuborildi."
 			},
@@ -589,9 +591,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "mavjud",
-		"youHave": "— sizda {{currentVersion}} bor",
 		"message": {"generic": "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor.", "homebrew": "Arroxy {{version}} mavjud — Homebrew orqali yangilang.", "macosDirect": "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling.", "portable": "Arroxy {{version}} mavjud — yangi build ni yuklab oling."},
 		"install": "O'rnatish va qayta ishga tushirish",
 		"downloading": "Yuklanmoqda…",

@@ -446,7 +446,6 @@
 				"resolution": "ጥራት መጠን",
 				"quality": "ጥራት",
 				"source": "ምንጭ",
-				"languageCodes": "የትርጉም ጽሑፍ ቋንቋ ኮዶች",
 				"subfolderName": "የንዑስ አቃፊ ስም",
 				"name": "የመገለጫ ስም",
 				"subtitleDownloads": "የትርጉም ጽሑፍ ማውረዶች",
@@ -458,8 +457,8 @@
 				"chooseIcon": "የመገለጫ አዶ ይምረጡ",
 				"setOverride": "የመገለጫ ተሻሪ አዘጋጅ",
 				"chooseFolder": "የመድረሻ አቃፊ ይምረጡ",
-				"addLanguage": "አክል",
 				"removeLanguage": "{{code}} አስወግድ",
+				"useLanguageCode": "“{{code}}” የቋንቋ ኮድ ተጠቀም",
 				"changeGlobalShort": "አጠቃላይን ቀይር",
 				"setOverrideShort": "ተሻሪ አዘጋጅ",
 				"useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም",
@@ -471,7 +470,10 @@
 			"note": {
 				"subtitlesOnly": "ይህ መገለጫ የትርጉም ጽሑፍ ፋይሎችን ብቻ ወደ ወረፋ ያስገባል። ቪዲዮ፣ ድምፅ፣ SponsorBlock እና የሚዲያ ልወጣ ይዘለላሉ።",
 				"noSubtitles": "ለዚህ መገለጫ ምንም የትርጉም ጽሑፍ ፋይል ወይም የተካተተ የትርጉም ትራክ አይጠየቅም።",
-				"noLanguages": "ምንም ቋንቋ አልተመረጠም",
+				"searchLanguages": "በቋንቋ ስም ወይም ኮድ ፈልግ",
+				"noLanguageMatches": "የሚዛመድ ቋንቋ የለም",
+				"subtitleLanguagesRequired": "ቢያንስ አንድ ቋንቋ ይምረጡ።",
+				"subtitleLanguagesRequiredOrOff": "ቢያንስ አንድ ቋንቋ ይምረጡ፣ ወይም የትርጉም ጽሑፍ ማውረድን ያጥፉ።",
 				"autoCaptionsSrt": "ራስ-ሰር መግለጫ ጽሑፎች በASS ፋንታ በSRT ይቀመጣሉ።",
 				"skippedForOutputType": "ለዚህ የውጤት ዓይነት ተዘሏል።"
 			},
@@ -543,9 +545,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "ተገኝቷል",
-		"youHave": "— እርስዎ ያለዎት {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} ይገኛል — {{currentVersion}} አለዎት።", "homebrew": "Arroxy {{version}} ይገኛል — በHomebrew ያዘምኑ።", "macosDirect": "Arroxy {{version}} ይገኛል — አዲሱን DMG ያውርዱ።", "portable": "Arroxy {{version}} ይገኛል — አዲሱን build ያውርዱ።"},
 		"install": "ጫን እና ዳግም ጀምር",
 		"downloading": "እያወረዱ…",

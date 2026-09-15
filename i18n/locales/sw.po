@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "Amri imenakiliwa kwenye ubao wa kunakili"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "Sasisho limeshindwa"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "inapatikana"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} inapatikana — una {{currentVersion}}."
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} inapatikana — pakua build mpya."
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "Jaribu tena"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— una {{currentVersion}}"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "{{selected}} kati ya {{total}} zimechaguliwa"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "Ongeza"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "Badilisha ya jumla"
@@ -2000,6 +1984,10 @@ msgstr "Weka ubatilishaji"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "Tumia chaguo-msingi la jumla"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Tumia msimbo wa lugha “{{code}}”"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "Njia ya kuhifadhi"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "Aikoni ya wasifu"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "Misimbo ya lugha za manukuu"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS."
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "Hakuna lugha iliyochaguliwa"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Hakuna lugha zinazolingana"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa."
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Tafuta kwa jina au msimbo wa lugha"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "Imerukwa kwa aina hii ya matokeo."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Chagua angalau lugha moja."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Chagua angalau lugha moja, au zima upakuaji wa manukuu."
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."

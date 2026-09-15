@@ -479,7 +479,6 @@
 				"resolution": "Azimio",
 				"quality": "Ubora",
 				"source": "Chanzo",
-				"languageCodes": "Misimbo ya lugha za manukuu",
 				"subfolderName": "Jina la folda ndogo",
 				"name": "Jina la wasifu",
 				"subtitleDownloads": "Upakuaji wa manukuu",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Chagua aikoni ya wasifu",
 				"setOverride": "Weka ubatilishaji wa wasifu",
 				"chooseFolder": "Chagua folda lengwa",
-				"addLanguage": "Ongeza",
 				"removeLanguage": "Ondoa {{code}}",
+				"useLanguageCode": "Tumia msimbo wa lugha “{{code}}”",
 				"changeGlobalShort": "Badilisha ya jumla",
 				"setOverrideShort": "Weka ubatilishaji",
 				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Wasifu huu huweka foleni faili za manukuu pekee. Video, sauti, SponsorBlock na ubadilishaji wa media hurukwa.",
 				"noSubtitles": "Wasifu huu hautaomba faili za manukuu wala nyimbo za manukuu zilizopachikwa.",
-				"noLanguages": "Hakuna lugha iliyochaguliwa",
+				"searchLanguages": "Tafuta kwa jina au msimbo wa lugha",
+				"noLanguageMatches": "Hakuna lugha zinazolingana",
+				"subtitleLanguagesRequired": "Chagua angalau lugha moja.",
+				"subtitleLanguagesRequiredOrOff": "Chagua angalau lugha moja, au zima upakuaji wa manukuu.",
 				"autoCaptionsSrt": "Manukuu ya kiotomatiki yatahifadhiwa kama SRT badala ya ASS.",
 				"skippedForOutputType": "Imerukwa kwa aina hii ya matokeo."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "inapatikana",
-		"youHave": "— una {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} inapatikana — una {{currentVersion}}.", "homebrew": "Arroxy {{version}} inapatikana — sasisha kwa Homebrew.", "macosDirect": "Arroxy {{version}} inapatikana — pakua DMG mpya.", "portable": "Arroxy {{version}} inapatikana — pakua build mpya."},
 		"install": "Sakinisha na Uanzishe Upya",
 		"downloading": "Inapakua…",

@@ -470,7 +470,6 @@
 				"resolution": "Resolution",
 				"quality": "Quality",
 				"source": "Source",
-				"languageCodes": "Subtitle language codes",
 				"subfolderName": "Subfolder name",
 				"name": "Profile name",
 				"subtitleDownloads": "Subtitle downloads",
@@ -482,8 +481,8 @@
 				"chooseIcon": "Choose profile icon",
 				"setOverride": "Set profile override",
 				"chooseFolder": "Choose destination folder",
-				"addLanguage": "Add",
 				"removeLanguage": "Remove {{code}}",
+				"useLanguageCode": "Use language code “{{code}}”",
 				"changeGlobalShort": "Change global",
 				"setOverrideShort": "Set override",
 				"useGlobalDefault": "Use global default",
@@ -495,7 +494,10 @@
 			"note": {
 				"subtitlesOnly": "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped.",
 				"noSubtitles": "No subtitle files or embedded subtitle tracks will be requested for this profile.",
-				"noLanguages": "No languages selected",
+				"searchLanguages": "Search by language name or code",
+				"noLanguageMatches": "No matching languages",
+				"subtitleLanguagesRequired": "Choose at least one language.",
+				"subtitleLanguagesRequiredOrOff": "Choose at least one language, or turn subtitle downloads off.",
 				"autoCaptionsSrt": "Auto-captions will be saved as SRT instead of ASS.",
 				"skippedForOutputType": "Skipped for this output type."
 			},
@@ -572,9 +574,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "is available",
-		"youHave": "— you have {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} is available — you have {{currentVersion}}.", "homebrew": "Arroxy {{version}} is available — update with Homebrew.", "macosDirect": "Arroxy {{version}} is available — download the new DMG.", "portable": "Arroxy {{version}} is available — download the new build."},
 		"install": "Install & Restart",
 		"downloading": "Downloading…",

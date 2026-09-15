@@ -479,7 +479,6 @@
 				"resolution": "解像度",
 				"quality": "品質",
 				"source": "ソース",
-				"languageCodes": "字幕の言語コード",
 				"subfolderName": "サブフォルダー名",
 				"name": "プロフィール名",
 				"subtitleDownloads": "字幕のダウンロード",
@@ -491,8 +490,8 @@
 				"chooseIcon": "プロフィールアイコンを選択",
 				"setOverride": "プロフィール個別設定を指定",
 				"chooseFolder": "保存先フォルダーを選択",
-				"addLanguage": "追加",
 				"removeLanguage": "{{code}}を削除",
+				"useLanguageCode": "言語コード「{{code}}」を使用",
 				"changeGlobalShort": "全体設定を変更",
 				"setOverrideShort": "個別設定を指定",
 				"useGlobalDefault": "全体の既定値を使う",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "このプロフィールは字幕ファイルのみをキューに追加します。動画、音声、SponsorBlock、メディア変換はスキップされます。",
 				"noSubtitles": "このプロフィールでは字幕ファイルも埋め込み字幕トラックも取得しません。",
-				"noLanguages": "言語が選択されていません",
+				"searchLanguages": "言語名またはコードで検索",
+				"noLanguageMatches": "一致する言語はありません",
+				"subtitleLanguagesRequired": "少なくとも1つの言語を選択してください。",
+				"subtitleLanguagesRequiredOrOff": "少なくとも1つの言語を選択するか、字幕のダウンロードをオフにしてください。",
 				"autoCaptionsSrt": "自動字幕は ASS ではなく SRT として保存されます。",
 				"skippedForOutputType": "この出力形式ではスキップされます。"
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "が利用可能です",
-		"youHave": "— 現在のバージョン: {{currentVersion}}",
 		"message": {
 			"generic": "Arroxy {{version}} が利用可能です — 現在は {{currentVersion}} です。",
 			"homebrew": "Arroxy {{version}} が利用可能です — Homebrew で更新してください。",

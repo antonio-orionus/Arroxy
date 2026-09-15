@@ -487,7 +487,6 @@
 				"resolution": "Резолуција",
 				"quality": "Квалитет",
 				"source": "Извор",
-				"languageCodes": "Кодови језика титлова",
 				"subfolderName": "Назив подфасцикле",
 				"name": "Назив профила",
 				"subtitleDownloads": "Преузимања титлова",
@@ -499,8 +498,8 @@
 				"chooseIcon": "Изабери икону профила",
 				"setOverride": "Постави замену профила",
 				"chooseFolder": "Изабери одредишну фасциклу",
-				"addLanguage": "Додај",
 				"removeLanguage": "Ukloni {{code}}",
+				"useLanguageCode": "Користи код језика „{{code}}“",
 				"changeGlobalShort": "Промени опште",
 				"setOverrideShort": "Постави замену",
 				"useGlobalDefault": "Користи општу подразумевану вредност",
@@ -512,7 +511,10 @@
 			"note": {
 				"subtitlesOnly": "Овај профил ставља у ред само датотеке титлова. Видео, аудио, SponsorBlock и конверзија медија се прескачу.",
 				"noSubtitles": "За овај профил неће бити затражене ни датотеке титлова ни уграђене титл траке.",
-				"noLanguages": "Ниједан језик није изабран",
+				"searchLanguages": "Претражи по називу или коду језика",
+				"noLanguageMatches": "Нема одговарајућих језика",
+				"subtitleLanguagesRequired": "Изаберите бар један језик.",
+				"subtitleLanguagesRequiredOrOff": "Изаберите бар један језик или искључите преузимање титлова.",
 				"autoCaptionsSrt": "Аутоматски титлови биће сачувани као SRT уместо ASS.",
 				"skippedForOutputType": "Прескочено за овај тип излаза."
 			},
@@ -589,9 +591,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "је доступно",
-		"youHave": "— тренутно имаш {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} је доступан — имате {{currentVersion}}.", "homebrew": "Arroxy {{version}} је доступан — ажурирајте преко Homebrew-а.", "macosDirect": "Arroxy {{version}} је доступан — преузмите нови DMG.", "portable": "Arroxy {{version}} је доступан — преузмите нову верзију."},
 		"install": "Инсталирај и Поново покрени",
 		"downloading": "Преузимање…",

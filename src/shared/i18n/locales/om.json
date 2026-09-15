@@ -491,7 +491,6 @@
 				"resolution": "Ifa bal'ina",
 				"quality": "Qulqullina",
 				"source": "Madda",
-				"languageCodes": "Koodii afaan ergaa gadii",
 				"subfolderName": "Maqaa gale xiqqaa",
 				"name": "Maqaa piroofaayilii",
 				"subtitleDownloads": "Buufata ergaa gadii",
@@ -503,8 +502,8 @@
 				"chooseIcon": "Mallattoo piroofaayilii filadhu",
 				"setOverride": "Bakka bu'iinsa piroofaayilii qindeessi",
 				"chooseFolder": "Galee ga'umsaa filadhu",
-				"addLanguage": "Dabali",
 				"removeLanguage": "{{code}} balleessi",
+				"useLanguageCode": "Koodii afaanii “{{code}}” fayyadami",
 				"changeGlobalShort": "Waliigalaa jijjiiri",
 				"setOverrideShort": "Bakka bu'iinsa qindeessi",
 				"useGlobalDefault": "Durtii waliigalaa fayyadami",
@@ -516,7 +515,10 @@
 			"note": {
 				"subtitlesOnly": "Piroofaayiliin kun faayilii ergaa gadii qofa tarree keessa kaa'a. Viidiyoon, sagaleen, SponsorBlock fi jijjiirraan miidiyaa ni darbatamu.",
 				"noSubtitles": "Piroofaayilii kanaaf faayiliin ergaa gadii ykn sararri ergaa gadii keessatti galfame hin gaafatamu.",
-				"noLanguages": "Afaan hin filatamne",
+				"searchLanguages": "Maqaa afaanii ykn koodiin barbaadi",
+				"noLanguageMatches": "Afaan walsimu hin jiru",
+				"subtitleLanguagesRequired": "Yoo xiqqaate afaan tokko filadhu.",
+				"subtitleLanguagesRequiredOrOff": "Yoo xiqqaate afaan tokko filadhu, ykn buufata ergaa gadii dhaamsi.",
 				"autoCaptionsSrt": "Ergaan gadii ofumaan uumame bakka ASS SRT ta'ee ni olkaa'ama.",
 				"skippedForOutputType": "Gosa bahaa kanaaf darbameera."
 			},
@@ -593,9 +595,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "ni argama",
-		"youHave": "— kan qabdu {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} ni jira — ati {{currentVersion}} qabda.", "homebrew": "Arroxy {{version}} ni jira — Homebrew-n haaromsi.", "macosDirect": "Arroxy {{version}} ni jira — DMG haaraa buusi.", "portable": "Arroxy {{version}} ni jira — build haaraa buusi."},
 		"install": "Facaalikee fi Deebi'i jalqabi",
 		"downloading": "Buufamaa jira…",

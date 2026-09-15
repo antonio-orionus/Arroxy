@@ -479,7 +479,6 @@
 				"resolution": "ریزولوشن",
 				"quality": "کیفیت",
 				"source": "سرچینه",
-				"languageCodes": "د سرلیکونو د ژبې کوډونه",
 				"subfolderName": "د فرعي پوښۍ نوم",
 				"name": "د پروفایل نوم",
 				"subtitleDownloads": "د سرلیکونو ښکته کول",
@@ -491,8 +490,8 @@
 				"chooseIcon": "د پروفایل نښه وټاکئ",
 				"setOverride": "د پروفایل بدیل وټاکئ",
 				"chooseFolder": "د موخې پوښۍ وټاکئ",
-				"addLanguage": "زیاتول",
 				"removeLanguage": "{{code}} لرې کړئ",
+				"useLanguageCode": "د ژبې کوډ “{{code}}” وکاروئ",
 				"changeGlobalShort": "ټولیز بدلول",
 				"setOverrideShort": "بدیل وټاکئ",
 				"useGlobalDefault": "ټولیزه اصلي ارزښت وکاروئ",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "دا پروفایل یوازې د سرلیکونو دوتنې په کتار کې اچوي. ویډیو، غږ، SponsorBlock او د رسنیو اړول پرېښودل کېږي.",
 				"noSubtitles": "د دې پروفایل لپاره به نه د سرلیکونو دوتنې او نه ځای پر ځای شوي سرلیک لارې وغوښتل شي.",
-				"noLanguages": "هیڅ ژبه نه ده ټاکل شوې",
+				"searchLanguages": "د ژبې د نوم یا کوډ له مخې ولټوئ",
+				"noLanguageMatches": "هېڅ سمون لرونکې ژبه نشته",
+				"subtitleLanguagesRequired": "لږ تر لږه یوه ژبه غوره کړئ.",
+				"subtitleLanguagesRequiredOrOff": "لږ تر لږه یوه ژبه غوره کړئ، یا د سرلیکونو ښکته کول بند کړئ.",
 				"autoCaptionsSrt": "خودکار سرلیکونه به د ASS پر ځای د SRT په توګه خوندي شي.",
 				"skippedForOutputType": "د دې وتنې ډول لپاره پرېښودل شوی."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "شتون لري",
-		"youHave": "— تاسو {{currentVersion}} لرئ",
 		"message": {"generic": "Arroxy {{version}} شته — تاسو {{currentVersion}} لرئ.", "homebrew": "Arroxy {{version}} شته — د Homebrew له لارې يې تازه کړئ.", "macosDirect": "Arroxy {{version}} شته — نوی DMG ډاونلوډ کړئ.", "portable": "Arroxy {{version}} شته — نوې build ډاونلوډ کړئ."},
 		"install": "نصب کړه او بیا پیل کړه",
 		"downloading": "ډاونلوډیږي…",

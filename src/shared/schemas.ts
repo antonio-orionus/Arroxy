@@ -436,7 +436,10 @@ export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['a
 // import from `@shared/schemas` get one source of truth and the import graph
 // stays acyclic.
 
-const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean()})
+// `includeRegionalVariants`: `languages` are base codes that should also fetch
+// regional tracks (`de` → `de-DE`). Download profiles set it; the wizard sends
+// exact track keys picked from the probe result.
+const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: subtitleModeSchema, format: subtitleFormatSchema, writeAuto: z.boolean(), includeRegionalVariants: z.boolean().optional()})
 
 const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
 

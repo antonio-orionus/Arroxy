@@ -1,5 +1,6 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
+import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
@@ -75,7 +76,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 					kind: 'subtitles',
 					url: input.url,
 					output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-					subtitles: {languages: subs.languages, format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto}
+					subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto}
 				},
 				buildYtDlpSignal(ctx, active)
 			)

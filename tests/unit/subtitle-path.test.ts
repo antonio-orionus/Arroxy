@@ -61,6 +61,19 @@ describe('detectSubtitleLang', () => {
 	it('is case-insensitive for subtitle extension', () => {
 		expect(detectSubtitleLang('video.en.SRT', ['en'])).toBe('en')
 	})
+
+	it('matches a regional variant track to its requested base language', () => {
+		expect(detectSubtitleLang('video.de-DE.srt', ['de'])).toBe('de')
+		expect(detectSubtitleLang('Tutorial 1.0.zh-Hans.vtt', ['zh'])).toBe('zh')
+	})
+
+	it('prefers an exact code over a base-language match', () => {
+		expect(detectSubtitleLang('video.en-US.srt', ['en', 'en-US'])).toBe('en-US')
+	})
+
+	it('does not treat translated tracks as regional variants', () => {
+		expect(detectSubtitleLang('video.de-en.srt', ['de'])).toBeNull()
+	})
 })
 
 describe('EMBED_CONTAINER_EXT', () => {

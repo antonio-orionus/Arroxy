@@ -479,7 +479,6 @@
 				"resolution": "Auflösung",
 				"quality": "Qualität",
 				"source": "Quelle",
-				"languageCodes": "Untertitel-Sprachcodes",
 				"subfolderName": "Unterordnername",
 				"name": "Profilname",
 				"subtitleDownloads": "Untertitel-Downloads",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Profilsymbol wählen",
 				"setOverride": "Profil-Überschreibung festlegen",
 				"chooseFolder": "Zielordner wählen",
-				"addLanguage": "Hinzufügen",
 				"removeLanguage": "{{code}} entfernen",
+				"useLanguageCode": "Sprachcode „{{code}}“ verwenden",
 				"changeGlobalShort": "Global ändern",
 				"setOverrideShort": "Überschreibung festlegen",
 				"useGlobalDefault": "Globalen Standard verwenden",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Dieses Profil stellt nur Untertiteldateien in die Warteschlange. Video, Audio, SponsorBlock und Medienkonvertierung werden übersprungen.",
 				"noSubtitles": "Für dieses Profil werden keine Untertiteldateien oder eingebetteten Untertitelspuren angefordert.",
-				"noLanguages": "Keine Sprachen ausgewählt",
+				"searchLanguages": "Nach Sprachname oder -code suchen",
+				"noLanguageMatches": "Keine passenden Sprachen",
+				"subtitleLanguagesRequired": "Wählen Sie mindestens eine Sprache aus.",
+				"subtitleLanguagesRequiredOrOff": "Wählen Sie mindestens eine Sprache aus oder deaktivieren Sie Untertitel-Downloads.",
 				"autoCaptionsSrt": "Automatische Untertitel werden als SRT statt ASS gespeichert.",
 				"skippedForOutputType": "Für diesen Ausgabetyp übersprungen."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "ist verfügbar",
-		"youHave": "— du hast {{currentVersion}}",
 		"message": {
 			"generic": "Arroxy {{version}} ist verfügbar — du hast {{currentVersion}}.",
 			"homebrew": "Arroxy {{version}} ist verfügbar — mit Homebrew aktualisieren.",

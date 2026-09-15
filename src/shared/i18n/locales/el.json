@@ -479,7 +479,6 @@
 				"resolution": "Ανάλυση",
 				"quality": "Ποιότητα",
 				"source": "Πηγή",
-				"languageCodes": "Κωδικοί γλωσσών υποτίτλων",
 				"subfolderName": "Όνομα υποφακέλου",
 				"name": "Όνομα προφίλ",
 				"subtitleDownloads": "Λήψεις υποτίτλων",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Επιλογή εικονιδίου προφίλ",
 				"setOverride": "Ορισμός παράκαμψης προφίλ",
 				"chooseFolder": "Επιλογή φακέλου προορισμού",
-				"addLanguage": "Προσθήκη",
 				"removeLanguage": "Αφαίρεση {{code}}",
+				"useLanguageCode": "Χρήση του κωδικού γλώσσας «{{code}}»",
 				"changeGlobalShort": "Αλλαγή γενικού",
 				"setOverrideShort": "Ορισμός παράκαμψης",
 				"useGlobalDefault": "Χρήση γενικής προεπιλογής",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Αυτό το προφίλ βάζει στην ουρά μόνο αρχεία υποτίτλων. Το βίντεο, ο ήχος, το SponsorBlock και η μετατροπή μέσων παραλείπονται.",
 				"noSubtitles": "Για αυτό το προφίλ δεν θα ζητηθούν αρχεία υποτίτλων ούτε ενσωματωμένα κομμάτια υποτίτλων.",
-				"noLanguages": "Δεν επιλέχθηκαν γλώσσες",
+				"searchLanguages": "Αναζήτηση με όνομα ή κωδικό γλώσσας",
+				"noLanguageMatches": "Δεν βρέθηκαν γλώσσες που να ταιριάζουν",
+				"subtitleLanguagesRequired": "Επιλέξτε τουλάχιστον μία γλώσσα.",
+				"subtitleLanguagesRequiredOrOff": "Επιλέξτε τουλάχιστον μία γλώσσα ή απενεργοποιήστε τις λήψεις υποτίτλων.",
 				"autoCaptionsSrt": "Οι αυτόματοι υπότιτλοι θα αποθηκευτούν ως SRT αντί για ASS.",
 				"skippedForOutputType": "Παραλείπεται για αυτόν τον τύπο εξόδου."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "είναι διαθέσιμο",
-		"youHave": "— έχεις {{currentVersion}}",
 		"message": {
 			"generic": "Το Arroxy {{version}} είναι διαθέσιμο — έχεις την {{currentVersion}}.",
 			"homebrew": "Το Arroxy {{version}} είναι διαθέσιμο — ενημέρωσε μέσω Homebrew.",

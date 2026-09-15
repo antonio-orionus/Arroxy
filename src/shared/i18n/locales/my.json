@@ -470,7 +470,6 @@
 				"resolution": "ရင်းမြစ်ကြည်လင်ပြတ်သားမှု",
 				"quality": "အရည်အသွေး",
 				"source": "အရင်းအမြစ်",
-				"languageCodes": "စာတန်းထိုး ဘာသာစကားကုဒ်များ",
 				"subfolderName": "အောက်ခံဖိုင်တွဲ အမည်",
 				"name": "ပရိုဖိုင်အမည်",
 				"subtitleDownloads": "စာတန်းထိုး ဒေါင်းလုဒ်များ",
@@ -482,8 +481,8 @@
 				"chooseIcon": "ပရိုဖိုင်အိုင်ကွန် ရွေးပါ",
 				"setOverride": "ပရိုဖိုင် အစားထိုးမှု သတ်မှတ်ရန်",
 				"chooseFolder": "ဦးတည်ရာ ဖိုင်တွဲ ရွေးပါ",
-				"addLanguage": "ထည့်ရန်",
 				"removeLanguage": "{{code}} ဖယ်ရှားပါ",
+				"useLanguageCode": "ဘာသာစကားကုဒ် “{{code}}” ကို အသုံးပြုပါ",
 				"changeGlobalShort": "အထွေထွေကို ပြောင်းရန်",
 				"setOverrideShort": "အစားထိုးမှု သတ်မှတ်ရန်",
 				"useGlobalDefault": "အထွေထွေ မူလတန်ဖိုးကို သုံးရန်",
@@ -495,7 +494,10 @@
 			"note": {
 				"subtitlesOnly": "ဤပရိုဖိုင်သည် စာတန်းဖိုင်များကိုသာ တန်းစီထည့်သည်။ ဗီဒီယို၊ အသံ၊ SponsorBlock နှင့် မီဒီယာပြောင်းလဲမှုကို ကျော်သွားသည်။",
 				"noSubtitles": "ဤပရိုဖိုင်အတွက် စာတန်းဖိုင် သို့မဟုတ် ထည့်သွင်းထားသော စာတန်းလမ်းကြောင်း တောင်းဆိုမည် မဟုတ်ပါ။",
-				"noLanguages": "ဘာသာစကား မရွေးရသေးပါ",
+				"searchLanguages": "ဘာသာစကားအမည် သို့မဟုတ် ကုဒ်ဖြင့် ရှာပါ",
+				"noLanguageMatches": "ကိုက်ညီသော ဘာသာစကား မရှိပါ",
+				"subtitleLanguagesRequired": "အနည်းဆုံး ဘာသာစကားတစ်ခု ရွေးပါ။",
+				"subtitleLanguagesRequiredOrOff": "အနည်းဆုံး ဘာသာစကားတစ်ခု ရွေးပါ၊ သို့မဟုတ် စာတန်းထိုး ဒေါင်းလုဒ်များကို ပိတ်ပါ။",
 				"autoCaptionsSrt": "အလိုအလျောက် စာတန်းများကို ASS အစား SRT အဖြစ် သိမ်းပါမည်။",
 				"skippedForOutputType": "ဤအထွက်အမျိုးအစားအတွက် ကျော်သွားသည်။"
 			},
@@ -567,9 +569,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "ရရှိနိုင်ပြီ",
-		"youHave": "— သင့်တွင် {{currentVersion}} ရှိသည်",
 		"message": {"generic": "Arroxy {{version}} ရနိုင်ပါပြီ — သင့်တွင် {{currentVersion}} ရှိသည်။", "homebrew": "Arroxy {{version}} ရနိုင်ပါပြီ — Homebrew ဖြင့် အပ်ဒိတ်လုပ်ပါ။", "macosDirect": "Arroxy {{version}} ရနိုင်ပါပြီ — DMG အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။", "portable": "Arroxy {{version}} ရနိုင်ပါပြီ — build အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။"},
 		"install": "တပ်ဆင်ပြီး ပြန်စမည်",
 		"downloading": "ဒေါင်းလုဒ်လုပ်နေသည်…",

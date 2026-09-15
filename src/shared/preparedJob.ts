@@ -19,6 +19,10 @@ export interface SubtitleOptions {
 	mode: SubtitleMode
 	format: SubtitleFormat
 	writeAuto: boolean
+	// `languages` are base codes that should also fetch regional tracks
+	// (`de` → `de-DE`). Download profiles set it; the wizard sends exact track
+	// keys picked from the probe result.
+	includeRegionalVariants?: boolean
 }
 
 export type SponsorBlockOptions = {mode: 'off'} | {mode: 'mark' | 'remove'; categories: SponsorBlockCategory[]}

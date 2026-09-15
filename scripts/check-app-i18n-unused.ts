@@ -14,6 +14,7 @@
 
 import {readdirSync, readFileSync} from 'fs'
 import {join} from 'path'
+import {fileURLToPath} from 'node:url'
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 
 // Keys under these prefixes are built at runtime (e.g. `errors.ytdlp.${kind}`)
@@ -56,7 +57,7 @@ function* walkTs(dir: string): Generator<string> {
 
 // Collect every quoted string that looks like a dot-path key.
 // Matches 'foo.bar.baz' and "foo.bar.baz" (non-template literals only — no ${).
-const KEY_PATTERN = /(?<![`$])['"]([a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*){1,})['"]/g
+const KEY_PATTERN = /(?<![`$])['"]([a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z0-9_-]+){1,})['"]/g
 
 // pluralKey('base', count) is a project helper that emits `base_one` / `base_other`
 // at runtime. Capture the first-arg base names so plural variants aren't flagged.
@@ -76,7 +77,7 @@ function collectStaticKeys(root: string): {refs: Set<string>; pluralBases: Set<s
 // ── main ─────────────────────────────────────────────────────────────────────
 
 const strict = process.argv.includes('--strict')
-const repoRoot = new URL('..', import.meta.url).pathname
+const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(repoRoot, 'src')
 
 const enLeaves = flattenLeaves(en)

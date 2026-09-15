@@ -1,6 +1,7 @@
 import {describe, expect, it, vi, beforeEach} from 'vitest'
 import {SidecarSubsPhase} from '@main/services/phases/SidecarSubsPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
+import {ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
@@ -57,6 +58,13 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.kind).toBe('subtitles')
 		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: false}})
+	})
+
+	it('expands profile languages into yt-dlp regional-variant selectors', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, languages: ['de'], includeRegionalVariants: true}}}})
+		await SidecarSubsPhase(false).run(ctx)
+		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+		expect(req.subtitles.languages).toEqual([ytDlpSubtitleLanguageSelector('de')])
 	})
 
 	it('does not forward SponsorBlock config to the subtitle request', async () => {

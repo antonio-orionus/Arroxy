@@ -479,7 +479,6 @@
 				"resolution": "Resolução",
 				"quality": "Qualidade",
 				"source": "Origem",
-				"languageCodes": "Códigos de idioma da legenda",
 				"subfolderName": "Nome da subpasta",
 				"name": "Nome do perfil",
 				"subtitleDownloads": "Downloads de legenda",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Escolher ícone do perfil",
 				"setOverride": "Definir pasta específica",
 				"chooseFolder": "Escolher pasta de destino",
-				"addLanguage": "Adicionar",
 				"removeLanguage": "Remover {{code}}",
+				"useLanguageCode": "Usar o código de idioma “{{code}}”",
 				"changeGlobalShort": "Alterar global",
 				"setOverrideShort": "Definir específica",
 				"useGlobalDefault": "Usar padrão global",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Este perfil enfileira apenas arquivos de legenda. Vídeo, áudio, SponsorBlock e conversão de mídia são ignorados.",
 				"noSubtitles": "Nenhum arquivo de legenda ou faixa de legenda embutida será solicitado para este perfil.",
-				"noLanguages": "Nenhum idioma selecionado",
+				"searchLanguages": "Buscar por nome ou código de idioma",
+				"noLanguageMatches": "Nenhum idioma correspondente",
+				"subtitleLanguagesRequired": "Escolha pelo menos um idioma.",
+				"subtitleLanguagesRequiredOrOff": "Escolha pelo menos um idioma ou desative os downloads de legendas.",
 				"autoCaptionsSrt": "Legendas automáticas serão salvas como SRT em vez de ASS.",
 				"skippedForOutputType": "Ignorado para este tipo de saída."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "está disponível",
-		"youHave": "— você tem a {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} está disponível — você tem a {{currentVersion}}.", "homebrew": "Arroxy {{version}} está disponível — atualize pelo Homebrew.", "macosDirect": "Arroxy {{version}} está disponível — baixe o novo DMG.", "portable": "Arroxy {{version}} está disponível — baixe a nova versão."},
 		"install": "Instalar e Reiniciar",
 		"downloading": "Baixando…",

@@ -487,7 +487,6 @@
 				"resolution": "Rozdzielczość",
 				"quality": "Jakość",
 				"source": "Źródło",
-				"languageCodes": "Kody języków napisów",
 				"subfolderName": "Nazwa podfolderu",
 				"name": "Nazwa profilu",
 				"subtitleDownloads": "Pobieranie napisów",
@@ -499,8 +498,8 @@
 				"chooseIcon": "Wybierz ikonę profilu",
 				"setOverride": "Ustaw zastąpienie profilu",
 				"chooseFolder": "Wybierz folder docelowy",
-				"addLanguage": "Dodaj",
 				"removeLanguage": "Usuń {{code}}",
+				"useLanguageCode": "Użyj kodu języka „{{code}}”",
 				"changeGlobalShort": "Zmień ustawienie globalne",
 				"setOverrideShort": "Ustaw zastąpienie",
 				"useGlobalDefault": "Użyj wartości globalnej",
@@ -512,7 +511,10 @@
 			"note": {
 				"subtitlesOnly": "Ten profil dodaje do kolejki tylko pliki napisów. Wideo, dźwięk, SponsorBlock i konwersja multimediów są pomijane.",
 				"noSubtitles": "Ten profil nie będzie pobierał plików napisów ani osadzonych ścieżek napisów.",
-				"noLanguages": "Nie wybrano języków",
+				"searchLanguages": "Szukaj według nazwy lub kodu języka",
+				"noLanguageMatches": "Brak pasujących języków",
+				"subtitleLanguagesRequired": "Wybierz co najmniej jeden język.",
+				"subtitleLanguagesRequiredOrOff": "Wybierz co najmniej jeden język lub wyłącz pobieranie napisów.",
 				"autoCaptionsSrt": "Napisy automatyczne zostaną zapisane jako SRT zamiast ASS.",
 				"skippedForOutputType": "Pominięto dla tego typu wyjścia."
 			},
@@ -589,9 +591,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "jest dostępna",
-		"youHave": "— masz wersję {{currentVersion}}",
 		"message": {
 			"generic": "Arroxy {{version}} jest dostępny — masz wersję {{currentVersion}}.",
 			"homebrew": "Arroxy {{version}} jest dostępny — zaktualizuj przez Homebrew.",

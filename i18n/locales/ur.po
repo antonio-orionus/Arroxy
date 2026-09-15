@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "کمانڈ کلپ بورڈ پر کاپی ہو گئی"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "اپ ڈیٹ ناکام"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "دستیاب ہے"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔"
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ ک
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "دوبارہ کوشش کریں"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— آپ کے پاس {{currentVersion}} ہے"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "{{total}} میں سے {{selected}} منتخب"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "شامل کریں"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "عالمی تبدیل کریں"
@@ -2000,6 +1984,10 @@ msgstr "اووررائیڈ مقرر کریں"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "عالمی ڈیفالٹ استعمال کریں"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "زبان کا کوڈ “{{code}}” استعمال کریں"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "محفوظ کرنے کا طریقہ"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "پروفائل آئیکن"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "سب ٹائٹل زبان کوڈز"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "خودکار کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے۔"
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "کوئی زبان منتخب نہیں"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "کوئی مماثل زبان نہیں"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "اس پروفائل کے لیے نہ سب ٹائٹل فائلیں اور نہ ایمبیڈڈ سب ٹائٹل ٹریکس طلب کیے جائیں گے۔"
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "زبان کے نام یا کوڈ سے تلاش کریں"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "اس آؤٹ پٹ قسم کے لیے چھوڑ دیا گیا۔"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "کم از کم ایک زبان منتخب کریں۔"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "کم از کم ایک زبان منتخب کریں، یا سب ٹائٹل ڈاؤن لوڈز بند کریں۔"
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
