@@ -479,7 +479,6 @@
 				"resolution": "Resolusi",
 				"quality": "Kualitas",
 				"source": "Sumber",
-				"languageCodes": "Kode bahasa subtitel",
 				"subfolderName": "Nama subfolder",
 				"name": "Nama profil",
 				"subtitleDownloads": "Unduhan subtitel",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Pilih ikon profil",
 				"setOverride": "Atur penggantian profil",
 				"chooseFolder": "Pilih folder tujuan",
-				"addLanguage": "Tambah",
 				"removeLanguage": "Hapus {{code}}",
+				"useLanguageCode": "Gunakan kode bahasa “{{code}}”",
 				"changeGlobalShort": "Ubah global",
 				"setOverrideShort": "Atur penggantian",
 				"useGlobalDefault": "Gunakan default global",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Profil ini hanya mengantrekan berkas subtitel. Video, audio, SponsorBlock, dan konversi media dilewati.",
 				"noSubtitles": "Profil ini tidak akan meminta berkas subtitel maupun trek subtitel tersemat.",
-				"noLanguages": "Tidak ada bahasa yang dipilih",
+				"searchLanguages": "Cari berdasarkan nama atau kode bahasa",
+				"noLanguageMatches": "Tidak ada bahasa yang cocok",
+				"subtitleLanguagesRequired": "Pilih setidaknya satu bahasa.",
+				"subtitleLanguagesRequiredOrOff": "Pilih setidaknya satu bahasa, atau nonaktifkan unduhan subtitel.",
 				"autoCaptionsSrt": "Teks otomatis akan disimpan sebagai SRT, bukan ASS.",
 				"skippedForOutputType": "Dilewati untuk jenis keluaran ini."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "tersedia",
-		"youHave": "— Anda memiliki {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}.", "homebrew": "Arroxy {{version}} tersedia — perbarui dengan Homebrew.", "macosDirect": "Arroxy {{version}} tersedia — unduh DMG baru.", "portable": "Arroxy {{version}} tersedia — unduh build baru."},
 		"install": "Instal & Mulai Ulang",
 		"downloading": "Mengunduh…",

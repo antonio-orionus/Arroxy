@@ -201,7 +201,7 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 	const isSubtitleOnly = profile.media.kind === 'subtitles-only'
 	const subtitleLanguages = profile.subtitles.enabled || isSubtitleOnly ? profile.subtitles.languages : []
 	const subtitleMode = profile.subtitles.mode === 'embed' && spec?.producesVideo !== true ? 'sidecar' : profile.subtitles.mode
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: subtitleMode, format: profile.subtitles.format, writeAuto: profile.subtitles.source !== 'manual-only'} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: subtitleMode, format: profile.subtitles.format, writeAuto: profile.subtitles.source !== 'manual-only', includeRegionalVariants: true} : undefined
 	const sponsorBlock: SponsorBlockOptions = !spec?.producesVideo || profile.sponsorBlock.mode === 'off' || profile.sponsorBlock.categories.length === 0 ? {mode: 'off'} : {mode: profile.sponsorBlock.mode, categories: [...profile.sponsorBlock.categories]}
 	const embed: EmbedOptions = isSubtitleOnly
 		? {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}

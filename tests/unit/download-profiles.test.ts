@@ -221,7 +221,7 @@ describe('download profiles', () => {
 		expect(resolved.intent).toEqual({kind: 'video-audio', codec: 'mp4', tiers: ['1080', '720'], audio: {format: 'm4a'}})
 		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
 		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
-		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true})
+		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})
 		expect(downloadProfileLabel(profile)).toBe('Up to 1080p · MP4/H.264 · AAC audio')
@@ -234,7 +234,7 @@ describe('download profiles', () => {
 		expect(resolved.intent).toBeNull()
 		expect(resolved.spec).toBeNull()
 		expect(resolved.isSubtitleOnly).toBe(true)
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false})
+		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false, includeRegionalVariants: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'off'})
 		expect(resolved.embed).toEqual({chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false})
 	})
@@ -244,7 +244,7 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.spec?.producesVideo).toBe(false)
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true})
+		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
 	})
 
 	it('resolves WAV audio-only profiles as lossless conversion with no bitrate', () => {

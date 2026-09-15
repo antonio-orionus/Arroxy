@@ -479,7 +479,6 @@
 				"resolution": "Resolución",
 				"quality": "Calidad",
 				"source": "Origen",
-				"languageCodes": "Códigos de idioma de subtítulos",
 				"subfolderName": "Nombre de la subcarpeta",
 				"name": "Nombre del perfil",
 				"subtitleDownloads": "Descargas de subtítulos",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Elegir icono del perfil",
 				"setOverride": "Definir anulación del perfil",
 				"chooseFolder": "Elegir carpeta de destino",
-				"addLanguage": "Añadir",
 				"removeLanguage": "Quitar {{code}}",
+				"useLanguageCode": "Usar el código de idioma «{{code}}»",
 				"changeGlobalShort": "Cambiar global",
 				"setOverrideShort": "Definir anulación",
 				"useGlobalDefault": "Usar el valor global",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Este perfil solo pone en cola archivos de subtítulos. Se omiten el vídeo, el audio, SponsorBlock y la conversión de medios.",
 				"noSubtitles": "Este perfil no solicitará archivos de subtítulos ni pistas de subtítulos incrustadas.",
-				"noLanguages": "Ningún idioma seleccionado",
+				"searchLanguages": "Buscar por nombre o código de idioma",
+				"noLanguageMatches": "No hay idiomas coincidentes",
+				"subtitleLanguagesRequired": "Elige al menos un idioma.",
+				"subtitleLanguagesRequiredOrOff": "Elige al menos un idioma o desactiva las descargas de subtítulos.",
 				"autoCaptionsSrt": "Los subtítulos automáticos se guardarán como SRT en lugar de ASS.",
 				"skippedForOutputType": "Omitido para este tipo de salida."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "está disponible",
-		"youHave": "— tienes la {{currentVersion}}",
 		"message": {
 			"generic": "Arroxy {{version}} está disponible — tienes {{currentVersion}}.",
 			"homebrew": "Arroxy {{version}} está disponible — actualiza con Homebrew.",

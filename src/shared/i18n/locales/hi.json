@@ -454,7 +454,6 @@
 				"resolution": "रिज़ॉल्यूशन",
 				"quality": "गुणवत्ता",
 				"source": "स्रोत",
-				"languageCodes": "उपशीर्षक भाषा कोड",
 				"subfolderName": "सबफ़ोल्डर नाम",
 				"name": "प्रोफ़ाइल नाम",
 				"subtitleDownloads": "उपशीर्षक डाउनलोड",
@@ -466,8 +465,8 @@
 				"chooseIcon": "प्रोफ़ाइल आइकन चुनें",
 				"setOverride": "प्रोफ़ाइल ओवरराइड सेट करें",
 				"chooseFolder": "गंतव्य फ़ोल्डर चुनें",
-				"addLanguage": "जोड़ें",
 				"removeLanguage": "{{code}} हटाएँ",
+				"useLanguageCode": "“{{code}}” भाषा कोड का उपयोग करें",
 				"changeGlobalShort": "वैश्विक बदलें",
 				"setOverrideShort": "ओवरराइड सेट करें",
 				"useGlobalDefault": "वैश्विक डिफ़ॉल्ट उपयोग करें",
@@ -479,7 +478,10 @@
 			"note": {
 				"subtitlesOnly": "यह प्रोफ़ाइल केवल उपशीर्षक फ़ाइलें कतार में जोड़ती है। वीडियो, ऑडियो, SponsorBlock और मीडिया रूपांतरण छोड़ दिए जाते हैं।",
 				"noSubtitles": "इस प्रोफ़ाइल के लिए कोई उपशीर्षक फ़ाइल या एम्बेडेड उपशीर्षक ट्रैक नहीं माँगा जाएगा।",
-				"noLanguages": "कोई भाषा चयनित नहीं",
+				"searchLanguages": "भाषा के नाम या कोड से खोजें",
+				"noLanguageMatches": "कोई मेल खाती भाषा नहीं",
+				"subtitleLanguagesRequired": "कम से कम एक भाषा चुनें।",
+				"subtitleLanguagesRequiredOrOff": "कम से कम एक भाषा चुनें, या उपशीर्षक डाउनलोड बंद कर दें।",
 				"autoCaptionsSrt": "स्वतः कैप्शन ASS के बजाय SRT के रूप में सहेजे जाएँगे।",
 				"skippedForOutputType": "इस आउटपुट प्रकार के लिए छोड़ा गया।"
 			},
@@ -556,9 +558,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "उपलब्ध है",
-		"youHave": "— आपके पास है {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} उपलब्ध है — आपके पास {{currentVersion}} है।", "homebrew": "Arroxy {{version}} उपलब्ध है — Homebrew से अपडेट करें।", "macosDirect": "Arroxy {{version}} उपलब्ध है — नया DMG डाउनलोड करें।", "portable": "Arroxy {{version}} उपलब्ध है — नया build डाउनलोड करें।"},
 		"install": "इंस्टॉल करके पुनः शुरू करें",
 		"downloading": "डाउनलोड हो रहा है…",

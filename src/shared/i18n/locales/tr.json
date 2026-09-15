@@ -479,7 +479,6 @@
 				"resolution": "Çözünürlük",
 				"quality": "Kalite",
 				"source": "Kaynak",
-				"languageCodes": "Altyazı dil kodları",
 				"subfolderName": "Alt klasör adı",
 				"name": "Profil adı",
 				"subtitleDownloads": "Altyazı indirmeleri",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Profil simgesini seç",
 				"setOverride": "Profil geçersiz kılmasını ayarla",
 				"chooseFolder": "Hedef klasörü seç",
-				"addLanguage": "Ekle",
 				"removeLanguage": "{{code}} kaldır",
+				"useLanguageCode": "“{{code}}” dil kodunu kullan",
 				"changeGlobalShort": "Geneli değiştir",
 				"setOverrideShort": "Geçersiz kılmayı ayarla",
 				"useGlobalDefault": "Genel varsayılanı kullan",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Bu profil yalnızca altyazı dosyalarını kuyruğa alır. Video, ses, SponsorBlock ve medya dönüştürme atlanır.",
 				"noSubtitles": "Bu profil için altyazı dosyası veya gömülü altyazı izi istenmeyecek.",
-				"noLanguages": "Dil seçilmedi",
+				"searchLanguages": "Dil adı veya koduna göre ara",
+				"noLanguageMatches": "Eşleşen dil yok",
+				"subtitleLanguagesRequired": "En az bir dil seçin.",
+				"subtitleLanguagesRequiredOrOff": "En az bir dil seçin veya altyazı indirmelerini kapatın.",
 				"autoCaptionsSrt": "Otomatik altyazılar ASS yerine SRT olarak kaydedilecek.",
 				"skippedForOutputType": "Bu çıktı türü için atlandı."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "kullanılabilir",
-		"youHave": "— sende {{currentVersion}} var",
 		"message": {"generic": "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var.", "homebrew": "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle.", "macosDirect": "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir.", "portable": "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."},
 		"install": "Yükle ve Yeniden Başlat",
 		"downloading": "İndiriliyor…",

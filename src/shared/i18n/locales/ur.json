@@ -479,7 +479,6 @@
 				"resolution": "ریزولوشن",
 				"quality": "معیار",
 				"source": "ماخذ",
-				"languageCodes": "سب ٹائٹل زبان کوڈز",
 				"subfolderName": "ذیلی فولڈر کا نام",
 				"name": "پروفائل کا نام",
 				"subtitleDownloads": "سب ٹائٹل ڈاؤن لوڈز",
@@ -491,8 +490,8 @@
 				"chooseIcon": "پروفائل آئیکن منتخب کریں",
 				"setOverride": "پروفائل اووررائیڈ مقرر کریں",
 				"chooseFolder": "منزل فولڈر منتخب کریں",
-				"addLanguage": "شامل کریں",
 				"removeLanguage": "{{code}} ہٹائیں",
+				"useLanguageCode": "زبان کا کوڈ “{{code}}” استعمال کریں",
 				"changeGlobalShort": "عالمی تبدیل کریں",
 				"setOverrideShort": "اووررائیڈ مقرر کریں",
 				"useGlobalDefault": "عالمی ڈیفالٹ استعمال کریں",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "یہ پروفائل صرف سب ٹائٹل فائلیں قطار میں شامل کرتا ہے۔ ویڈیو، آڈیو، SponsorBlock اور میڈیا کنورژن چھوڑ دیے جاتے ہیں۔",
 				"noSubtitles": "اس پروفائل کے لیے نہ سب ٹائٹل فائلیں اور نہ ایمبیڈڈ سب ٹائٹل ٹریکس طلب کیے جائیں گے۔",
-				"noLanguages": "کوئی زبان منتخب نہیں",
+				"searchLanguages": "زبان کے نام یا کوڈ سے تلاش کریں",
+				"noLanguageMatches": "کوئی مماثل زبان نہیں",
+				"subtitleLanguagesRequired": "کم از کم ایک زبان منتخب کریں۔",
+				"subtitleLanguagesRequiredOrOff": "کم از کم ایک زبان منتخب کریں، یا سب ٹائٹل ڈاؤن لوڈز بند کریں۔",
 				"autoCaptionsSrt": "خودکار کیپشنز ASS کے بجائے SRT کے طور پر محفوظ ہوں گے۔",
 				"skippedForOutputType": "اس آؤٹ پٹ قسم کے لیے چھوڑ دیا گیا۔"
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "دستیاب ہے",
-		"youHave": "— آپ کے پاس {{currentVersion}} ہے",
 		"message": {"generic": "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔", "homebrew": "Arroxy {{version}} دستیاب ہے — Homebrew سے اپ ڈیٹ کریں۔", "macosDirect": "Arroxy {{version}} دستیاب ہے — نیا DMG ڈاؤن لوڈ کریں۔", "portable": "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ کریں۔"},
 		"install": "انسٹال اور ری اسٹارٹ",
 		"downloading": "ڈاؤن لوڈ ہو رہا ہے…",

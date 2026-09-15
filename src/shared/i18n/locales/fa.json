@@ -479,7 +479,6 @@
 				"resolution": "وضوح",
 				"quality": "کیفیت",
 				"source": "منبع",
-				"languageCodes": "کدهای زبان زیرنویس",
 				"subfolderName": "نام زیرپوشه",
 				"name": "نام نمایه",
 				"subtitleDownloads": "دانلود زیرنویس",
@@ -491,8 +490,8 @@
 				"chooseIcon": "انتخاب نماد نمایه",
 				"setOverride": "تنظیم جایگزینی نمایه",
 				"chooseFolder": "انتخاب پوشهٔ مقصد",
-				"addLanguage": "افزودن",
 				"removeLanguage": "حذف {{code}}",
+				"useLanguageCode": "استفاده از کد زبان «{{code}}»",
 				"changeGlobalShort": "تغییر تنظیم سراسری",
 				"setOverrideShort": "تنظیم جایگزینی",
 				"useGlobalDefault": "استفاده از پیش‌فرض سراسری",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "این نمایه فقط فایل‌های زیرنویس را به صف می‌افزاید. ویدیو، صدا، SponsorBlock و تبدیل رسانه انجام نمی‌شوند.",
 				"noSubtitles": "برای این نمایه هیچ فایل زیرنویس یا قطعهٔ زیرنویس جاسازی‌شده‌ای درخواست نمی‌شود.",
-				"noLanguages": "هیچ زبانی انتخاب نشده",
+				"searchLanguages": "جستجو بر اساس نام یا کد زبان",
+				"noLanguageMatches": "هیچ زبان منطبقی وجود ندارد",
+				"subtitleLanguagesRequired": "حداقل یک زبان انتخاب کنید.",
+				"subtitleLanguagesRequiredOrOff": "حداقل یک زبان انتخاب کنید، یا دانلود زیرنویس را خاموش کنید.",
 				"autoCaptionsSrt": "زیرنویس‌های خودکار به‌جای ASS با قالب SRT ذخیره می‌شوند.",
 				"skippedForOutputType": "برای این نوع خروجی نادیده گرفته می‌شود."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "در دسترس است",
-		"youHave": "— نسخهٔ شما {{currentVersion}} است",
 		"message": {
 			"generic": "Arroxy {{version}} در دسترس است — نسخهٔ شما {{currentVersion}} است.",
 			"homebrew": "Arroxy {{version}} در دسترس است — با Homebrew به‌روزرسانی کنید.",

@@ -1,5 +1,6 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
+import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
@@ -23,7 +24,7 @@ export const SubtitleOnlyPhase: Phase = {
 				kind: 'subtitles',
 				url: input.url,
 				output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-				subtitles: {languages: subtitles.languages, format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto}
+				subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto}
 			},
 			buildYtDlpSignal(ctx, active, {
 				onMinting: attempt => {

@@ -1067,10 +1067,6 @@ msgctxt "tray.tooltip"
 msgid "Arroxy"
 msgstr "Arroxy"
 
-msgctxt "update.appVersion"
-msgid "Arroxy {{version}}"
-msgstr "Arroxy {{version}}"
-
 msgctxt "update.copied"
 msgid "Copied command to clipboard"
 msgstr "command ကို clipboard သို့ကူးပြီးပြီ"
@@ -1103,10 +1099,6 @@ msgctxt "update.installFailed"
 msgid "Update failed"
 msgstr "အပ်ဒိတ် မအောင်မြင်ပါ"
 
-msgctxt "update.isAvailable"
-msgid "is available"
-msgstr "ရရှိနိုင်ပြီ"
-
 msgctxt "update.message.generic"
 msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
 msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — သင့်တွင် {{currentVersion}} ရှိသည်။"
@@ -1126,10 +1118,6 @@ msgstr "Arroxy {{version}} ရနိုင်ပါပြီ — build အသစ
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "ထပ်စမ်းမည်"
-
-msgctxt "update.youHave"
-msgid "— you have {{currentVersion}}"
-msgstr "— သင့်တွင် {{currentVersion}} ရှိသည်"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1961,10 +1949,6 @@ msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
 msgstr "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်"
 
-msgctxt "wizard.profileEditor.action.addLanguage"
-msgid "Add"
-msgstr "ထည့်ရန်"
-
 msgctxt "wizard.profileEditor.action.changeGlobalShort"
 msgid "Change global"
 msgstr "အထွေထွေကို ပြောင်းရန်"
@@ -2000,6 +1984,10 @@ msgstr "အစားထိုးမှု သတ်မှတ်ရန်"
 msgctxt "wizard.profileEditor.action.useGlobalDefault"
 msgid "Use global default"
 msgstr "အထွေထွေ မူလတန်ဖိုးကို သုံးရန်"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "ဘာသာစကားကုဒ် “{{code}}” ကို အသုံးပြုပါ"
 
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
@@ -2068,10 +2056,6 @@ msgstr "သိမ်းဆည်းပုံ"
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
 msgstr "ပရိုဖိုင်အိုင်ကွန်"
-
-msgctxt "wizard.profileEditor.field.languageCodes"
-msgid "Subtitle language codes"
-msgstr "စာတန်းထိုး ဘာသာစကားကုဒ်များ"
 
 msgctxt "wizard.profileEditor.field.languages"
 msgid "Languages"
@@ -2185,17 +2169,29 @@ msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
 msgstr "အလိုအလျောက် စာတန်းများကို ASS အစား SRT အဖြစ် သိမ်းပါမည်။"
 
-msgctxt "wizard.profileEditor.note.noLanguages"
-msgid "No languages selected"
-msgstr "ဘာသာစကား မရွေးရသေးပါ"
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "ကိုက်ညီသော ဘာသာစကား မရှိပါ"
 
 msgctxt "wizard.profileEditor.note.noSubtitles"
 msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
 msgstr "ဤပရိုဖိုင်အတွက် စာတန်းဖိုင် သို့မဟုတ် ထည့်သွင်းထားသော စာတန်းလမ်းကြောင်း တောင်းဆိုမည် မဟုတ်ပါ။"
 
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "ဘာသာစကားအမည် သို့မဟုတ် ကုဒ်ဖြင့် ရှာပါ"
+
 msgctxt "wizard.profileEditor.note.skippedForOutputType"
 msgid "Skipped for this output type."
 msgstr "ဤအထွက်အမျိုးအစားအတွက် ကျော်သွားသည်။"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "အနည်းဆုံး ဘာသာစကားတစ်ခု ရွေးပါ။"
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "အနည်းဆုံး ဘာသာစကားတစ်ခု ရွေးပါ၊ သို့မဟုတ် စာတန်းထိုး ဒေါင်းလုဒ်များကို ပိတ်ပါ။"
 
 msgctxt "wizard.profileEditor.note.subtitlesOnly"
 msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."

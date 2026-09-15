@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {downloadProfileSchema} from '@shared/schemas.js'
+import {downloadProfileSchema, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {createDownloadProfileDraft, downloadProfileFromDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
@@ -83,12 +83,29 @@ describe('DownloadProfileDraft', () => {
 		expect(validateDownloadProfileDraft(updateDownloadProfileDraft(draft, {type: 'set-save-inside-subfolder', saveInsideSubfolder: false})).subfolderInvalid).toBe(false)
 	})
 
-	it('accepts multi-subtag subtitle language codes in profile drafts', () => {
+	it('flags missing subtitle languages only while subtitles are effectively on', () => {
 		let draft = createDownloadProfileDraft(null)
-		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-language-draft', subtitleLanguageDraft: 'zh-Hant-TW es-419 en bad_value'})
-		draft = updateDownloadProfileDraft(draft, {type: 'add-subtitle-languages'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: []})
+		expect(validateDownloadProfileDraft(draft).subtitleLanguagesMissing).toBe(true)
 
-		expect(draft.subtitleLanguages).toEqual(['en', 'uk', 'zh-hant-tw', 'es-419'])
+		const off = updateDownloadProfileDraft(draft, {type: 'set-subtitle-enabled', subtitleEnabled: false})
+		expect(validateDownloadProfileDraft(off).subtitleLanguagesMissing).toBe(false)
+
+		const subtitlesOnly = updateDownloadProfileDraft(off, {type: 'set-media-mode', mediaMode: 'subtitles-only'})
+		expect(validateDownloadProfileDraft(subtitlesOnly).subtitleLanguagesMissing).toBe(true)
+
+		const withLanguage = updateDownloadProfileDraft(subtitlesOnly, {type: 'set-subtitle-languages', subtitleLanguages: ['en']})
+		expect(validateDownloadProfileDraft(withLanguage).subtitleLanguagesMissing).toBe(false)
+	})
+
+	it('dedupes selected subtitle languages and caps them at the schema limit', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: ['en', 'uk', 'en', 'zh-Hant']})
+		expect(draft.subtitleLanguages).toEqual(['en', 'uk', 'zh-Hant'])
+
+		const many = Array.from({length: MAX_SUBTITLE_LANGUAGES + 5}, (_, index) => `x${index.toString().padStart(2, '0')}`)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-subtitle-languages', subtitleLanguages: many})
+		expect(draft.subtitleLanguages).toHaveLength(MAX_SUBTITLE_LANGUAGES)
 	})
 
 	it('serializes the draft into a download profile', () => {

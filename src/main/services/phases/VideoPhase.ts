@@ -4,6 +4,7 @@ import type {AudioConvert as BridgeAudioConvert} from 'yt-dlp-bridge'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
+import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import type {AudioConvert} from '@shared/types.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
@@ -137,7 +138,7 @@ export function VideoPhase(embed: boolean): Phase {
 					output: {directory: job.outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
 					selection: {formatId, formatSelector, formatSort, mergeOutputFormat},
 					...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
-					...(embed && (preparedJob.subtitles?.languages.length ?? 0) > 0 && preparedJob.subtitles ? {subtitles: {embed: true, languages: preparedJob.subtitles.languages, writeAuto: preparedJob.subtitles.writeAuto}} : {}),
+					...(embed && (preparedJob.subtitles?.languages.length ?? 0) > 0 && preparedJob.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(preparedJob.subtitles), writeAuto: preparedJob.subtitles.writeAuto}} : {}),
 					...(sbConfig ? {sponsorBlock: sbConfig} : {}),
 					...(extractor ? {extractor} : {}),
 					embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},

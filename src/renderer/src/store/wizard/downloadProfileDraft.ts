@@ -1,6 +1,6 @@
 import {DEFAULTS} from '@shared/constants.js'
 import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
-import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
+import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'
 import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
 import {type FilenameTemplateFailure, validateFilenameTemplate} from '@shared/filenameTemplate.js'
 
@@ -20,7 +20,6 @@ export interface DownloadProfileDraft {
 	audioQuality: DownloadProfileAudioQuality
 	subtitleEnabled: boolean
 	subtitleLanguages: string[]
-	subtitleLanguageDraft: string
 	subtitleSource: DownloadProfileSubtitleSource
 	subtitleDelivery: SubtitleMode
 	subtitleFormat: SubtitleFormat
@@ -46,9 +45,6 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-audio-quality'; audioQuality: DownloadProfileAudioQuality}
 	| {type: 'set-subtitle-enabled'; subtitleEnabled: boolean}
 	| {type: 'set-subtitle-languages'; subtitleLanguages: string[]}
-	| {type: 'set-subtitle-language-draft'; subtitleLanguageDraft: string}
-	| {type: 'add-subtitle-languages'}
-	| {type: 'remove-subtitle-language'; code: string}
 	| {type: 'set-subtitle-source'; subtitleSource: DownloadProfileSubtitleSource}
 	| {type: 'set-subtitle-delivery'; subtitleDelivery: SubtitleMode}
 	| {type: 'set-subtitle-format'; subtitleFormat: SubtitleFormat}
@@ -65,6 +61,9 @@ export type DownloadProfileDraftAction =
 export interface DownloadProfileDraftValidation {
 	subfolderInvalid: boolean
 	filenameTemplateError: FilenameTemplateFailure | null
+	// Subtitles are on but no language is chosen: media profiles would silently
+	// download without subtitles, and subtitles-only profiles cannot be queued.
+	subtitleLanguagesMissing: boolean
 }
 
 export const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
@@ -76,13 +75,6 @@ export function defaultProfileSubfolderName(name: string): string {
 
 function smartTvCompatibleResolution(codec: PlaylistVideoCodec, resolution: PlaylistVideoTier): PlaylistVideoTier {
 	return codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(resolution) ? SMART_TV_MP4_MAX_TIER : resolution
-}
-
-function parseLanguageCodes(value: string): string[] {
-	return value
-		.split(/[\s,]+/)
-		.map(code => code.trim().toLowerCase())
-		.filter(code => /^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/.test(code))
 }
 
 function bitrateToQuality(bitrateKbps: number | undefined): DownloadProfileAudioQuality {
@@ -129,7 +121,6 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
 		subtitleLanguages: initialProfile ? initialProfile.subtitles.languages : ['en', 'uk'],
-		subtitleLanguageDraft: '',
 		subtitleSource: initialProfile?.subtitles.source ?? 'manual-first',
 		subtitleDelivery: initialProfile?.subtitles.mode ?? 'sidecar',
 		subtitleFormat: initialProfile?.subtitles.format ?? 'srt',
@@ -168,16 +159,7 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 		case 'set-subtitle-enabled':
 			return {...draft, subtitleEnabled: action.subtitleEnabled}
 		case 'set-subtitle-languages':
-			return {...draft, subtitleLanguages: [...action.subtitleLanguages]}
-		case 'set-subtitle-language-draft':
-			return {...draft, subtitleLanguageDraft: action.subtitleLanguageDraft}
-		case 'add-subtitle-languages': {
-			const nextCodes = parseLanguageCodes(draft.subtitleLanguageDraft)
-			if (nextCodes.length === 0) return draft
-			return {...draft, subtitleLanguages: [...new Set([...draft.subtitleLanguages, ...nextCodes])], subtitleLanguageDraft: ''}
-		}
-		case 'remove-subtitle-language':
-			return {...draft, subtitleLanguages: draft.subtitleLanguages.filter(item => item !== action.code)}
+			return {...draft, subtitleLanguages: [...new Set(action.subtitleLanguages)].slice(0, MAX_SUBTITLE_LANGUAGES)}
 		case 'set-subtitle-source':
 			return {...draft, subtitleSource: action.subtitleSource}
 		case 'set-subtitle-delivery':
@@ -209,7 +191,7 @@ export function validateDownloadProfileDraft(draft: DownloadProfileDraft): Downl
 	// An empty template is not an error — it means "inherit the global one".
 	const template = draft.filenameTemplate.trim()
 	const validation = template ? validateFilenameTemplate(template) : {ok: true as const}
-	return {subfolderInvalid: draft.saveInsideSubfolder && draft.subfolderName.trim() !== '' && !isValidSubfolder(draft.subfolderName), filenameTemplateError: validation.ok ? null : validation}
+	return {subfolderInvalid: draft.saveInsideSubfolder && draft.subfolderName.trim() !== '' && !isValidSubfolder(draft.subfolderName), filenameTemplateError: validation.ok ? null : validation, subtitleLanguagesMissing: effectiveSubtitleEnabled(draft) && draft.subtitleLanguages.length === 0}
 }
 
 function audioBitrateFromQuality(audioQuality: DownloadProfileAudioQuality): AudioBitrate {

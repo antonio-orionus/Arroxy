@@ -479,7 +479,6 @@
 				"resolution": "الدقة",
 				"quality": "الجودة",
 				"source": "المصدر",
-				"languageCodes": "رموز لغات الترجمة",
 				"subfolderName": "اسم المجلد الفرعي",
 				"name": "اسم الملف",
 				"subtitleDownloads": "تنزيل الترجمات",
@@ -491,8 +490,8 @@
 				"chooseIcon": "اختيار أيقونة الملف",
 				"setOverride": "تعيين تجاوز الملف",
 				"chooseFolder": "اختيار مجلد الوجهة",
-				"addLanguage": "إضافة",
 				"removeLanguage": "إزالة {{code}}",
+				"useLanguageCode": "استخدام رمز اللغة “{{code}}”",
 				"changeGlobalShort": "تغيير العام",
 				"setOverrideShort": "تعيين تجاوز",
 				"useGlobalDefault": "استخدام الإعداد العام",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "يضيف هذا الملف ملفات الترجمة فقط إلى القائمة. ويتم تخطّي الفيديو والصوت وSponsorBlock وتحويل الوسائط.",
 				"noSubtitles": "لن يُطلب لهذا الملف أي ملفات ترجمة أو مسارات ترجمة مضمّنة.",
-				"noLanguages": "لم يتم اختيار أي لغة",
+				"searchLanguages": "البحث باسم اللغة أو رمزها",
+				"noLanguageMatches": "لا توجد لغات مطابقة",
+				"subtitleLanguagesRequired": "اختر لغة واحدة على الأقل.",
+				"subtitleLanguagesRequiredOrOff": "اختر لغة واحدة على الأقل، أو أوقف تنزيل الترجمات.",
 				"autoCaptionsSrt": "ستُحفظ الترجمات التلقائية بصيغة SRT بدلاً من ASS.",
 				"skippedForOutputType": "تم تخطّيه لنوع الإخراج هذا."
 			},
@@ -576,9 +578,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "متاح",
-		"youHave": "— لديك {{currentVersion}}",
 		"message": {"generic": "يتوفر Arroxy {{version}} — لديك {{currentVersion}}.", "homebrew": "يتوفر Arroxy {{version}} — حدّث عبر Homebrew.", "macosDirect": "يتوفر Arroxy {{version}} — نزّل ملف DMG الجديد.", "portable": "يتوفر Arroxy {{version}} — نزّل البناء الجديد."},
 		"install": "تثبيت وإعادة التشغيل",
 		"downloading": "جارٍ التنزيل…",

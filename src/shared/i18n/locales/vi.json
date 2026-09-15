@@ -479,7 +479,6 @@
 				"resolution": "Độ phân giải",
 				"quality": "Chất lượng",
 				"source": "Nguồn",
-				"languageCodes": "Mã ngôn ngữ phụ đề",
 				"subfolderName": "Tên thư mục con",
 				"name": "Tên hồ sơ",
 				"subtitleDownloads": "Tải phụ đề",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Chọn biểu tượng hồ sơ",
 				"setOverride": "Đặt ghi đè hồ sơ",
 				"chooseFolder": "Chọn thư mục đích",
-				"addLanguage": "Thêm",
 				"removeLanguage": "Xóa {{code}}",
+				"useLanguageCode": "Dùng mã ngôn ngữ “{{code}}”",
 				"changeGlobalShort": "Đổi mặc định chung",
 				"setOverrideShort": "Đặt ghi đè",
 				"useGlobalDefault": "Dùng mặc định chung",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Hồ sơ này chỉ đưa tệp phụ đề vào hàng đợi. Video, âm thanh, SponsorBlock và chuyển đổi phương tiện đều bị bỏ qua.",
 				"noSubtitles": "Hồ sơ này sẽ không yêu cầu tệp phụ đề hay bản phụ đề nhúng nào.",
-				"noLanguages": "Chưa chọn ngôn ngữ nào",
+				"searchLanguages": "Tìm theo tên hoặc mã ngôn ngữ",
+				"noLanguageMatches": "Không có ngôn ngữ phù hợp",
+				"subtitleLanguagesRequired": "Chọn ít nhất một ngôn ngữ.",
+				"subtitleLanguagesRequiredOrOff": "Chọn ít nhất một ngôn ngữ hoặc tắt tải phụ đề.",
 				"autoCaptionsSrt": "Phụ đề tự động sẽ được lưu dưới dạng SRT thay vì ASS.",
 				"skippedForOutputType": "Đã bỏ qua với loại đầu ra này."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "đã có sẵn",
-		"youHave": "— bạn đang dùng {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} đã có — bạn đang dùng {{currentVersion}}.", "homebrew": "Arroxy {{version}} đã có — cập nhật bằng Homebrew.", "macosDirect": "Arroxy {{version}} đã có — tải DMG mới.", "portable": "Arroxy {{version}} đã có — tải bản dựng mới."},
 		"install": "Cài đặt & Khởi động lại",
 		"downloading": "Đang tải xuống…",

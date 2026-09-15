@@ -479,7 +479,6 @@
 				"resolution": "Разрешение",
 				"quality": "Качество",
 				"source": "Источник",
-				"languageCodes": "Коды языков субтитров",
 				"subfolderName": "Имя подпапки",
 				"name": "Название профиля",
 				"subtitleDownloads": "Загрузка субтитров",
@@ -491,8 +490,8 @@
 				"chooseIcon": "Выбрать значок профиля",
 				"setOverride": "Задать переопределение профиля",
 				"chooseFolder": "Выбрать папку назначения",
-				"addLanguage": "Добавить",
 				"removeLanguage": "Удалить {{code}}",
+				"useLanguageCode": "Использовать код языка «{{code}}»",
 				"changeGlobalShort": "Изменить общую папку",
 				"setOverrideShort": "Задать переопределение",
 				"useGlobalDefault": "Использовать общее значение",
@@ -504,7 +503,10 @@
 			"note": {
 				"subtitlesOnly": "Этот профиль ставит в очередь только файлы субтитров. Видео, аудио, SponsorBlock и конвертация медиа пропускаются.",
 				"noSubtitles": "Для этого профиля не будут запрашиваться ни файлы субтитров, ни встроенные дорожки субтитров.",
-				"noLanguages": "Языки не выбраны",
+				"searchLanguages": "Поиск по названию или коду языка",
+				"noLanguageMatches": "Нет подходящих языков",
+				"subtitleLanguagesRequired": "Выберите хотя бы один язык.",
+				"subtitleLanguagesRequiredOrOff": "Выберите хотя бы один язык или отключите загрузку субтитров.",
 				"autoCaptionsSrt": "Автоматические субтитры будут сохранены в SRT вместо ASS.",
 				"skippedForOutputType": "Пропущено для этого типа вывода."
 			},
@@ -581,9 +583,6 @@
 		}
 	},
 	"update": {
-		"appVersion": "Arroxy {{version}}",
-		"isAvailable": "доступна",
-		"youHave": "— у вас {{currentVersion}}",
 		"message": {"generic": "Arroxy {{version}} доступна — у вас {{currentVersion}}.", "homebrew": "Arroxy {{version}} доступна — обновите через Homebrew.", "macosDirect": "Arroxy {{version}} доступна — скачайте новый DMG.", "portable": "Arroxy {{version}} доступна — скачайте новую сборку."},
 		"install": "Установить и перезапустить",
 		"downloading": "Загрузка…",

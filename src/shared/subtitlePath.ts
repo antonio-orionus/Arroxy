@@ -3,6 +3,7 @@
 // format updates ext detection automatically.
 
 import {SUBTITLE_FORMATS} from './schemas.js'
+import {matchesSubtitleLanguage} from './subtitleLanguages.js'
 
 const EXTS_ALT = SUBTITLE_FORMATS.join('|')
 
@@ -13,25 +14,19 @@ export function isSubtitleFile(path: string): boolean {
 	return SUBTITLE_EXT_REGEX.test(path)
 }
 
-function escapeRegExp(s: string): string {
-	return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
+// eslint-disable-next-line security/detect-non-literal-regexp -- EXTS_ALT is derived from the hardcoded SUBTITLE_FORMATS enum; not user input
+const TRACK_KEY_REGEX = new RegExp(`\\.([\\w-]+)\\.(${EXTS_ALT})$`, 'i')
 
-// Strict lang detection: only matches when the path ends in `.<lang>.<ext>`
-// where `<lang>` exactly equals one of the requested codes. This avoids the
-// "Tutorial 1.0.en.srt" false-positive that a generic `\.([^.]+)\.<ext>$`
-// regex would produce. Returns null if no requested lang matches; callers
-// should fall back to 'und' (not to a positional guess).
+// Strict lang detection: reads the `<lang>` segment of a path ending in
+// `.<lang>.<ext>` and only accepts it when it equals a requested code, or is a
+// regional variant of one (`de-DE` for `de`). The track key cannot contain a
+// dot, which avoids the "Tutorial 1.0.en.srt" → `0` false-positive. Returns
+// null if no requested lang matches; callers should fall back to 'und' (not to
+// a positional guess).
 export function detectSubtitleLang(path: string, requestedLangs: readonly string[]): string | null {
-	const patterns = requestedLangs.map(lang => ({
-		lang,
-		// eslint-disable-next-line security/detect-non-literal-regexp -- escapeRegExp(lang) sanitizes requestedLangs, EXTS_ALT is from the hardcoded SUBTITLE_FORMATS enum, and the pattern is end-anchored
-		re: new RegExp(`\\.${escapeRegExp(lang)}\\.(${EXTS_ALT})$`, 'i')
-	}))
-	for (const {lang, re} of patterns) {
-		if (re.test(path)) return lang
-	}
-	return null
+	const trackKey = TRACK_KEY_REGEX.exec(path)?.[1]
+	if (!trackKey) return null
+	return requestedLangs.find(lang => lang.toLowerCase() === trackKey.toLowerCase()) ?? requestedLangs.find(lang => matchesSubtitleLanguage(lang, trackKey)) ?? null
 }
 
 // Embed mode forces mkv container — declared once so ytDlpArgs and the muxer
