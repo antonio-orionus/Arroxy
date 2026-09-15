@@ -47,25 +47,25 @@ function queueSettingsWrite<T>(run: () => Promise<T>): Promise<T> {
 	return next
 }
 
-let binaryOverrideWarmupRun: Promise<void> | null = null
-let binaryOverrideWarmupRerunRequested = false
+// A saved dependency override must be verified by a forced warmup, but every
+// warmup entry point returns early while another warmup holds warmupRunning.
+// An override saved during any warmup — its own earlier repair, startup, a
+// manual retry, Homebrew, or winget — records the request here instead, and
+// whichever warmup finishes runs one forced repair against what landed.
+let overrideRepairPending = false
 
-function queueBinaryOverrideWarmup(get: GetState): Promise<void> {
-	if (binaryOverrideWarmupRun) {
-		binaryOverrideWarmupRerunRequested = true
-		return binaryOverrideWarmupRun
+async function repairAfterOverrideSave(get: GetState): Promise<void> {
+	if (get().warmupRunning) {
+		overrideRepairPending = true
+		return
 	}
+	await get().repairWarmup()
+}
 
-	const run = (async () => {
-		do {
-			binaryOverrideWarmupRerunRequested = false
-			await get().repairWarmup()
-		} while (binaryOverrideWarmupRerunRequested)
-	})().finally(() => {
-		binaryOverrideWarmupRun = null
-	})
-	binaryOverrideWarmupRun = run
-	return run
+function drainOverrideRepair(get: GetState): void {
+	if (!overrideRepairPending) return
+	overrideRepairPending = false
+	void get().repairWarmup()
 }
 
 // Mirrors main's deepMerge one level down: each section named by the patch
@@ -94,14 +94,26 @@ async function restoreCanonicalSettings(set: SetState): Promise<void> {
 // Resolves true when main accepted the write, so a caller can gate follow-up
 // work (e.g. a warmup repair) on it.
 async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<boolean> {
-	const result = await window.appApi.settings.update(patch)
-	if (!result.ok) {
-		await restoreCanonicalSettings(set)
-		notify.settingsSaveFailed(label, result.error)
-		return false
+	let error: unknown
+	try {
+		const result = await window.appApi.settings.update(patch)
+		if (result.ok) {
+			set({settings: result.data})
+			return true
+		}
+		error = result.error
+	} catch (err) {
+		// main's handler turns thrown errors into a fail Result, so a rejection is
+		// the IPC transport itself — still roll the optimistic patch back.
+		error = err
 	}
-	set({settings: result.data})
-	return true
+	try {
+		await restoreCanonicalSettings(set)
+	} catch {
+		// Keep the write failure as the reported error.
+	}
+	notify.settingsSaveFailed(label, error)
+	return false
 }
 
 function applyOptimistic(get: GetState, set: SetState, patch: SettingsPatch): void {
@@ -305,6 +317,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			}
 
 			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
+			drainOverrideRepair(get)
 		},
 
 		setSplashDismissed: dismissed => {
@@ -333,6 +346,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
@@ -356,6 +370,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('homebrew repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
@@ -379,6 +394,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('winget repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
@@ -386,7 +402,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides', makeBinaryOverridePatch(id, path)))
 			if (!saved) return
 			try {
-				await queueBinaryOverrideWarmup(get)
+				await repairAfterOverrideSave(get)
 			} catch (err) {
 				notify.warmupFailed('post-override repair threw', err)
 			}
@@ -396,7 +412,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides clear', makeBinaryOverridePatch(id, undefined)))
 			if (!saved) return
 			try {
-				await queueBinaryOverrideWarmup(get)
+				await repairAfterOverrideSave(get)
 			} catch (err) {
 				notify.warmupFailed('post-clear repair threw', err)
 			}

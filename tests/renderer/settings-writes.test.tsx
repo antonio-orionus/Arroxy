@@ -22,7 +22,7 @@ function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings
 function mount(): void {
 	mockApi = buildMockAppApi()
 	Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
-	useAppStore.setState({initialized: true, initializing: false, settings: buildSettings()})
+	useAppStore.setState({initialized: true, initializing: false, settings: buildSettings(), warmupRunning: false, warmupCancellable: false})
 }
 
 describe('settings writes', () => {
@@ -70,6 +70,20 @@ describe('settings writes', () => {
 		await writes
 
 		expect(update).toHaveBeenCalledTimes(2)
+	})
+
+	it('restores canonical settings when the settings IPC call rejects', async () => {
+		// main's handler turns thrown errors into a fail Result, so a rejection can
+		// only come from the IPC transport — it must still roll the optimistic
+		// patch back instead of escaping as an unhandled rejection.
+		mount()
+		mockApi.settings.update = vi.fn().mockRejectedValue(new Error('IPC channel closed'))
+		mockApi.settings.get = vi.fn().mockResolvedValue(ok(buildSettings()))
+
+		await expect(useAppStore.getState().setProxyUrl('http://proxy:8080')).resolves.toBeUndefined()
+
+		expect(mockApi.settings.get).toHaveBeenCalledOnce()
+		expect(useAppStore.getState().settings?.common.proxyUrl).toBe(buildSettings().common.proxyUrl)
 	})
 
 	it('keeps the stored language in step with the language the user picked', async () => {
@@ -129,5 +143,31 @@ describe('settings writes', () => {
 		await Promise.all([first, second])
 
 		expect(warmUp).toHaveBeenCalledTimes(2)
+	})
+
+	it('verifies an override saved while an unrelated warmup is already running', async () => {
+		// A manual repair (or startup, Homebrew, winget) holds warmupRunning, so
+		// the override's own repair would hit the guard and never check the new
+		// path. The running warmup must re-run a forced repair when it finishes.
+		mount()
+		type WarmUpResult = Awaited<ReturnType<MockApi['app']['warmUp']>>
+		const warmUpResult = await mockApi.app.warmUp({force: true})
+		let resolveRepair: ((value: WarmUpResult) => void) | undefined
+		const warmUp = vi
+			.fn()
+			.mockImplementationOnce(() => new Promise<WarmUpResult>(resolve => (resolveRepair = resolve)))
+			.mockResolvedValue(warmUpResult)
+		mockApi.app.warmUp = warmUp
+
+		const repair = useAppStore.getState().repairWarmup()
+		expect(warmUp).toHaveBeenCalledTimes(1)
+		await useAppStore.getState().setBinaryOverride('yt-dlp', '/opt/yt-dlp')
+		expect(warmUp).toHaveBeenCalledTimes(1)
+
+		resolveRepair?.(warmUpResult)
+		await repair
+
+		await vi.waitFor(() => expect(warmUp).toHaveBeenCalledTimes(2))
+		await vi.waitFor(() => expect(useAppStore.getState().warmupRunning).toBe(false))
 	})
 })
