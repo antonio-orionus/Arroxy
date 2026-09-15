@@ -136,6 +136,24 @@ describe('QueueService — downloadService listener path', () => {
 		expect(item.progressPercent).toBe(67)
 	})
 
+	it('does not rewrite queue.json on progress updates', () => {
+		const ds = new FakeDownloadService()
+		const store = fakeStore()
+		const qs = new QueueService(store, ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-progress-persist', status: 'running', lastJobId: 'job-progress-persist'})])
+		vi.mocked(store.save).mockClear()
+
+		ds.emit('progress', progressEvent('job-progress-persist', 40))
+		ds.emit('progress', progressEvent('job-progress-persist', 60))
+		qs.flushPendingProgressForTests()
+
+		expect(qs.snapshot()[0]?.progressPercent).toBeCloseTo(60, 1)
+		expect(store.save).not.toHaveBeenCalled()
+
+		ds.emit('status', doneStatus('job-progress-persist'))
+		expect(store.save).toHaveBeenCalledTimes(1)
+	})
+
 	it('downloadService emitting artifact records it on the matching queue item', () => {
 		const {qs, ds} = makeService()
 		qs.add([makeItem({id: 'q-artifact', status: 'running', lastJobId: 'job-artifact'})])

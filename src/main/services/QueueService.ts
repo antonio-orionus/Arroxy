@@ -618,7 +618,11 @@ export class QueueService extends EventEmitter {
 				}
 				const next = transition(prev, mutation.evt)
 				this.items[idx] = next
-				this.persist()
+				// A progress update never needs a disk write: persistence demotes a running
+				// item to pending with progress reset (prepareItemForPersistence), so the
+				// file would be identical — and electron-store rewrites the whole queue
+				// synchronously on the main process, once per yt-dlp progress redraw.
+				if (!isProgressOnlyMutation(mutation)) this.persist()
 				// Write the playlist M3U incrementally after each successful item, not
 				// only when the whole group finishes: a crash, a parked (paused) item,
 				// or items spread across lanes would otherwise leave no M3U despite
