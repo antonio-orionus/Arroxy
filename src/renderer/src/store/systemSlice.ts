@@ -47,6 +47,27 @@ function queueSettingsWrite<T>(run: () => Promise<T>): Promise<T> {
 	return next
 }
 
+let binaryOverrideWarmupRun: Promise<void> | null = null
+let binaryOverrideWarmupRerunRequested = false
+
+function queueBinaryOverrideWarmup(get: GetState): Promise<void> {
+	if (binaryOverrideWarmupRun) {
+		binaryOverrideWarmupRerunRequested = true
+		return binaryOverrideWarmupRun
+	}
+
+	const run = (async () => {
+		do {
+			binaryOverrideWarmupRerunRequested = false
+			await get().repairWarmup()
+		} while (binaryOverrideWarmupRerunRequested)
+	})().finally(() => {
+		binaryOverrideWarmupRun = null
+	})
+	binaryOverrideWarmupRun = run
+	return run
+}
+
 // Mirrors main's deepMerge one level down: each section named by the patch
 // merges field by field over the current one, the rest are left alone.
 function optimisticSettings(previous: AppSettings, patch: SettingsPatch): AppSettings {
@@ -365,7 +386,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides', makeBinaryOverridePatch(id, path)))
 			if (!saved) return
 			try {
-				await get().repairWarmup()
+				await queueBinaryOverrideWarmup(get)
 			} catch (err) {
 				notify.warmupFailed('post-override repair threw', err)
 			}
@@ -375,7 +396,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides clear', makeBinaryOverridePatch(id, undefined)))
 			if (!saved) return
 			try {
-				await get().repairWarmup()
+				await queueBinaryOverrideWarmup(get)
 			} catch (err) {
 				notify.warmupFailed('post-clear repair threw', err)
 			}

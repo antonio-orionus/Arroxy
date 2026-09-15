@@ -102,4 +102,32 @@ describe('settings writes', () => {
 		expect(update).toHaveBeenCalledTimes(2)
 		expect(mockApi.app.warmUp).toHaveBeenCalledWith({force: true})
 	})
+
+	it('runs warmup for the final override when override saves overlap', async () => {
+		mount()
+		type WarmUpResult = Awaited<ReturnType<MockApi['app']['warmUp']>>
+		const warmUpResult = await mockApi.app.warmUp({force: true})
+		let resolveFirstWarmup: ((value: WarmUpResult) => void) | undefined
+		const warmUp = vi
+			.fn()
+			.mockImplementationOnce(() => new Promise<WarmUpResult>(resolve => (resolveFirstWarmup = resolve)))
+			.mockResolvedValue(warmUpResult)
+		mockApi.app.warmUp = warmUp
+		mockApi.settings.update = vi
+			.fn()
+			.mockResolvedValueOnce(ok(buildSettings({binaryOverrides: {ytDlp: '/opt/yt-dlp-first'}})))
+			.mockResolvedValueOnce(ok(buildSettings({binaryOverrides: {ytDlp: '/opt/yt-dlp-final'}})))
+
+		const first = useAppStore.getState().setBinaryOverride('yt-dlp', '/opt/yt-dlp-first')
+		await vi.waitFor(() => expect(warmUp).toHaveBeenCalledTimes(1))
+
+		const second = useAppStore.getState().setBinaryOverride('yt-dlp', '/opt/yt-dlp-final')
+		await vi.waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledTimes(2))
+		expect(warmUp).toHaveBeenCalledTimes(1)
+
+		resolveFirstWarmup?.(warmUpResult)
+		await Promise.all([first, second])
+
+		expect(warmUp).toHaveBeenCalledTimes(2)
+	})
 })
