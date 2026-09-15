@@ -42,7 +42,7 @@ export function buildSubtitleLanguageOptions(uiLanguage: string): SubtitleLangua
 }
 
 function searchable(value: string): string {
-	return value.normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase().trim()
+	return value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim()
 }
 
 // Lower is better. Exact codes and aliases beat names so `uk` means Ukrainian,
