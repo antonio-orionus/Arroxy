@@ -71,4 +71,35 @@ describe('settings writes', () => {
 
 		expect(update).toHaveBeenCalledTimes(2)
 	})
+
+	it('keeps the stored language in step with the language the user picked', async () => {
+		mount()
+		mockApi.settings.update = vi.fn().mockResolvedValue(ok(buildSettings({language: 'de'})))
+
+		useAppStore.getState().setLanguage('de')
+
+		expect(useAppStore.getState().settings?.common.language).toBe('de')
+		await vi.waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {language: 'de'}}))
+	})
+
+	it('queues a binary override behind an in-flight settings write', async () => {
+		mount()
+		type UpdateResult = Awaited<ReturnType<MockApi['settings']['update']>>
+		let resolveFirst: ((value: UpdateResult) => void) | undefined
+		const update = vi
+			.fn()
+			.mockImplementationOnce(() => new Promise<UpdateResult>(resolve => (resolveFirst = resolve)))
+			.mockImplementationOnce(() => Promise.resolve(ok(buildSettings())))
+		mockApi.settings.update = update
+
+		const writes = Promise.all([useAppStore.getState().setProxyUrl('http://proxy:8080'), useAppStore.getState().setBinaryOverride('yt-dlp', '/opt/yt-dlp')])
+		await Promise.resolve()
+		expect(update).toHaveBeenCalledOnce()
+
+		resolveFirst?.(ok(buildSettings({proxyUrl: 'http://proxy:8080'})))
+		await writes
+
+		expect(update).toHaveBeenCalledTimes(2)
+		expect(mockApi.app.warmUp).toHaveBeenCalledWith({force: true})
+	})
 })

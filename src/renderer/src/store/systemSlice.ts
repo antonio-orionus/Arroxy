@@ -38,9 +38,12 @@ function handleCompletedDownloadMilestones(doneIncrements: number, prevMilestone
 // removes the class rather than guarding each symptom.
 let settingsWriteQueue: Promise<void> = Promise.resolve()
 
-function queueSettingsWrite(run: () => Promise<void>): Promise<void> {
+function queueSettingsWrite<T>(run: () => Promise<T>): Promise<T> {
 	const next = settingsWriteQueue.then(run)
-	settingsWriteQueue = next.catch(() => undefined)
+	settingsWriteQueue = next.then(
+		() => undefined,
+		() => undefined
+	)
 	return next
 }
 
@@ -67,14 +70,17 @@ async function restoreCanonicalSettings(set: SetState): Promise<void> {
 
 // The optimistic patch is applied by the caller, synchronously: the UI has to
 // see it in the tick it acted, before this ever reaches the queue.
-async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<void> {
+// Resolves true when main accepted the write, so a caller can gate follow-up
+// work (e.g. a warmup repair) on it.
+async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<boolean> {
 	const result = await window.appApi.settings.update(patch)
 	if (!result.ok) {
 		await restoreCanonicalSettings(set)
 		notify.settingsSaveFailed(label, result.error)
-		return
+		return false
 	}
 	set({settings: result.data})
+	return true
 }
 
 function applyOptimistic(get: GetState, set: SetState, patch: SettingsPatch): void {
@@ -87,7 +93,7 @@ function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['c
 }
 
 // Shared pattern for setCookiesPath/setProxyUrl/...
-function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<boolean> {
 	applyOptimistic(get, set, {common: patch})
 	return queueSettingsWrite(() => writeSettings(set, label, {common: patch}))
 }
@@ -132,7 +138,7 @@ function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patc
 	})
 }
 
-function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
+function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<boolean> {
 	applyOptimistic(get, set, {profiles})
 	return queueSettingsWrite(() => writeSettings(set, label, {profiles}))
 }
@@ -356,13 +362,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setBinaryOverride: async (id, path) => {
-			const patch = makeBinaryOverridePatch(id, path)
-			const result = await window.appApi.settings.update(patch)
-			if (!result.ok) {
-				notify.settingsSaveFailed('binaryOverrides', result.error)
-				return
-			}
-			set({settings: result.data})
+			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides', makeBinaryOverridePatch(id, path)))
+			if (!saved) return
 			try {
 				await get().repairWarmup()
 			} catch (err) {
@@ -371,13 +372,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		clearBinaryOverride: async id => {
-			const patch = makeBinaryOverridePatch(id, undefined)
-			const result = await window.appApi.settings.update(patch)
-			if (!result.ok) {
-				notify.settingsSaveFailed('binaryOverrides clear', result.error)
-				return
-			}
-			set({settings: result.data})
+			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides clear', makeBinaryOverridePatch(id, undefined)))
+			if (!saved) return
 			try {
 				await get().repairWarmup()
 			} catch (err) {
@@ -423,9 +419,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			document.documentElement.lang = lang
 			document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr'
 			void i18next.changeLanguage(lang)
-			void window.appApi.settings.update({common: {language: lang}}).then(result => {
-				if (!result.ok) notify.settingsSaveFailed('language', result.error)
-			})
+			void applyCommonPatchAsync(get, set, 'language', {language: lang})
 			void window.appApi.app.setLanguage(lang)
 		},
 
