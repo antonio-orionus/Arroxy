@@ -14,6 +14,7 @@
 
 import {readdirSync, readFileSync} from 'fs'
 import {join} from 'path'
+import {fileURLToPath} from 'node:url'
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 
 // Keys under these prefixes are built at runtime (e.g. `errors.ytdlp.${kind}`)
@@ -76,7 +77,7 @@ function collectStaticKeys(root: string): {refs: Set<string>; pluralBases: Set<s
 // ── main ─────────────────────────────────────────────────────────────────────
 
 const strict = process.argv.includes('--strict')
-const repoRoot = new URL('..', import.meta.url).pathname
+const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(repoRoot, 'src')
 
 const enLeaves = flattenLeaves(en)
