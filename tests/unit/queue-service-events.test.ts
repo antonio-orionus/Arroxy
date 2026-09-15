@@ -136,6 +136,24 @@ describe('QueueService — downloadService listener path', () => {
 		expect(item.progressPercent).toBe(67)
 	})
 
+	it('does not rewrite queue.json on progress updates', () => {
+		const ds = new FakeDownloadService()
+		const store = fakeStore()
+		const qs = new QueueService(store, ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-progress-persist', status: 'running', lastJobId: 'job-progress-persist'})])
+		vi.mocked(store.save).mockClear()
+
+		ds.emit('progress', progressEvent('job-progress-persist', 40))
+		ds.emit('progress', progressEvent('job-progress-persist', 60))
+		qs.flushPendingProgressForTests()
+
+		expect(qs.snapshot()[0]?.progressPercent).toBeCloseTo(60, 1)
+		expect(store.save).not.toHaveBeenCalled()
+
+		ds.emit('status', doneStatus('job-progress-persist'))
+		expect(store.save).toHaveBeenCalledTimes(1)
+	})
+
 	it('downloadService emitting artifact records it on the matching queue item', () => {
 		const {qs, ds} = makeService()
 		qs.add([makeItem({id: 'q-artifact', status: 'running', lastJobId: 'job-artifact'})])
@@ -629,7 +647,7 @@ describe('QueueService — bulk persist coalescing', () => {
 		expect(qs.snapshot()).toHaveLength(0)
 	})
 
-	it('clearCompleted with no eligible items does not persist', async () => {
+	it('clearCompleted with no eligible items persists once at bulk exit', async () => {
 		const store = fakeStore()
 		const saveSpy = vi.mocked(store.save)
 		const ds = new FakeDownloadService()
@@ -639,7 +657,7 @@ describe('QueueService — bulk persist coalescing', () => {
 
 		await qs.clearCompleted()
 
-		expect(saveSpy.mock.calls.length - baselineCalls).toBe(0)
+		expect(saveSpy.mock.calls.length - baselineCalls).toBe(1)
 	})
 
 	it('remove cleans preserved resume temp dir', async () => {

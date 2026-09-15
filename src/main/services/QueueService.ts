@@ -19,8 +19,9 @@
 // (serialized .m3u writes).
 //
 // Mutation pipeline: every state change flows through commit() — one
-// internal seam that runs apply → persist → emit → recomputeSchedule. No
-// caller decides when to schedule; it always happens.
+// internal seam that runs apply → persist → emit → recomputeSchedule. Inside a
+// bulk command (inBulk) persist and scheduling are deferred to the outermost
+// exit. No caller decides when to schedule; it always happens.
 
 import {EventEmitter} from 'node:events'
 import log from 'electron-log/main.js'
@@ -92,10 +93,13 @@ export class QueueService extends EventEmitter {
 	private pendingProgress = new Map<string, QueueItem>()
 	private flushTimer: NodeJS.Timeout | null = null
 	private static readonly PROGRESS_FLUSH_MS = 100
-	// Bulk-mutation guard: when true, per-commit persist() and scheduler recompute
-	// are suppressed so a bulk operation writes queue.json once and cannot spawn
-	// replacement downloads midway through a multi-item command.
-	private inBulk = false
+	// Bulk-command depth. While > 0, per-commit persist() and scheduler recompute
+	// are deferred to the outermost inBulk() exit, so a multi-item command writes
+	// queue.json once and cannot spawn a download it is about to cancel. A counter,
+	// not a boolean: bulk commands await between commits and IPC runs them
+	// concurrently, so the first one to finish must not re-enable scheduling
+	// under another that is still mid-loop.
+	private bulkDepth = 0
 	private readonly finalArtifactTargets = new FinalArtifactTargets()
 	// Owns the automatic-retry budget and timers. Writes only through commit().
 	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
@@ -194,9 +198,10 @@ export class QueueService extends EventEmitter {
 		return ok({ids: toAdd.map(i => i.id)})
 	}
 
-	// Atomic probe-stage swap; Promise.resolve keeps the IPC contract async.
+	// Probe-stage swap: remove + add commit back-to-back inside one bulk scope,
+	// so the swap persists once and schedules once.
 	replaceProbing(itemId: string, items: QueueItem[]): Promise<Result<{ids: string[]}>> {
-		return Promise.resolve(this.probeLifecycle.replaceProbing(itemId, items))
+		return this.inBulk(() => this.probeLifecycle.replaceProbing(itemId, items))
 	}
 
 	// Explicit-start IPC entry point. The scheduler auto-spawns pending items
@@ -351,25 +356,23 @@ export class QueueService extends EventEmitter {
 			this.sleep.clear()
 			this.autoRetry.clearAll()
 			this.setSchedulerPaused(true, {silent: true})
-			this.inBulk = true
-			try {
-				for (const id of ids) {
-					const item = this.findItem(id)
-					if (item) await this.artifactCleanup.cleanup(item)
-					if (this.findItem(id)?.status === QUEUE_STATUS.probing) this.probeAbortHook(id)
-					const jobId = item?.lastJobId
-					if (jobId) this.forgetProgressState(jobId)
-					this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
+			await this.inBulk(async () => {
+				try {
+					for (const id of ids) {
+						const item = this.findItem(id)
+						if (item) await this.artifactCleanup.cleanup(item)
+						if (this.findItem(id)?.status === QUEUE_STATUS.probing) this.probeAbortHook(id)
+						const jobId = item?.lastJobId
+						if (jobId) this.forgetProgressState(jobId)
+						this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
+					}
+				} finally {
+					// Restore "fresh slate" before the bulk exit persists and reschedules — even if a
+					// cleanup throws, the queue must not stay silently paused. Emit the unpause only
+					// when it undoes a renderer-visible pause.
+					this.setSchedulerPaused(false, {silent: !this.rendererSchedulerPaused})
 				}
-			} finally {
-				this.inBulk = false
-			}
-			// Restore "fresh slate" — future adds auto-spawn. Emit the unpause only when it
-			// undoes a renderer-visible pause (renderer-reported state, not a pre-await snapshot).
-			this.setSchedulerPaused(false, {silent: !this.rendererSchedulerPaused})
-			this.recomputeSchedule()
-			// Single persist for the whole sweep — also flushes schedulerPaused=false.
-			this.persist()
+			})
 			logger.info('cancelAll done', {snapshot: this.statusSummary()})
 			return ok(undefined)
 		}
@@ -439,46 +442,24 @@ export class QueueService extends EventEmitter {
 			const item = this.findItem(id)
 			if (item) await this.artifactCleanup.cleanup(item)
 		}
-		this.inBulk = true
-		try {
-			for (const id of idsToRemove) {
-				this.commit({kind: 'remove', itemId: id})
-			}
-		} finally {
-			this.inBulk = false
-		}
-		if (idsToRemove.length > 0) this.persist()
+		await this.inBulk(() => {
+			for (const id of idsToRemove) this.commit({kind: 'remove', itemId: id})
+		})
 		return ok(undefined)
 	}
 
-	async applySelectionAction(action: QueueSelectionAction, itemIds: string[]): Promise<Result<QueueSelectionCommandResult>> {
-		this.inBulk = true
-		let result: Result<QueueSelectionCommandResult>
-		try {
-			result = await applyQueueSelectionAction(
+	applySelectionAction(action: QueueSelectionAction, itemIds: string[]): Promise<Result<QueueSelectionCommandResult>> {
+		return this.inBulk(() =>
+			applyQueueSelectionAction(
 				{cancel: itemId => this.cancel(itemId), findItem: itemId => this.findItem(itemId), pause: itemId => this.pause(itemId), remove: itemId => this.remove(itemId), resume: itemId => this.resume(itemId), retry: itemId => this.retry(itemId), setLane: (itemId, lane) => this.setLane(itemId, lane)},
 				action,
 				itemIds
 			)
-		} finally {
-			this.inBulk = false
-		}
-		if (result.ok) {
-			this.recomputeSchedule()
-			if (result.data.appliedIds.length > 0) this.persist()
-		}
-		return result
+		)
 	}
 
-	async changeOutputTarget(itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {
-		this.inBulk = true
-		const result = await changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir).finally(() => {
-			this.inBulk = false
-		})
-		if (!result.ok) return result
-		this.recomputeSchedule()
-		if (result.data.items.length > 0) this.persist()
-		return result
+	changeOutputTarget(itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {
+		return this.inBulk(() => changeQueueOutputTarget({findItem: itemId => this.findItem(itemId), patchItem: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher})}, itemIds, outputDir))
 	}
 
 	async remove(itemId: string): Promise<Result<void>> {
@@ -637,7 +618,11 @@ export class QueueService extends EventEmitter {
 				}
 				const next = transition(prev, mutation.evt)
 				this.items[idx] = next
-				this.persist()
+				// A progress update never needs a disk write: persistence demotes a running
+				// item to pending with progress reset (prepareItemForPersistence), so the
+				// file would be identical — and electron-store rewrites the whole queue
+				// synchronously on the main process, once per yt-dlp progress redraw.
+				if (!isProgressOnlyMutation(mutation)) this.persist()
 				// Write the playlist M3U incrementally after each successful item, not
 				// only when the whole group finishes: a crash, a parked (paused) item,
 				// or items spread across lanes would otherwise leave no M3U despite
@@ -673,7 +658,7 @@ export class QueueService extends EventEmitter {
 				break
 			}
 		}
-		if (!this.inBulk) this.recomputeSchedule()
+		if (this.bulkDepth === 0) this.recomputeSchedule()
 	}
 
 	// scheduler --------------------------------------------------------------
@@ -774,13 +759,24 @@ export class QueueService extends EventEmitter {
 		return this.items.find(i => i.lastJobId === jobId)
 	}
 
-	// Persist gate: short-circuits when a bulk op (cancelAll, clearCompleted)
-	// is in flight. Each commit() call site invokes persist() unconditionally
-	// for clarity — the guard here is the single chokepoint. If a future bulk
-	// path adds items (e.g., import-from-file), the same invariant holds
-	// without needing per-case handling.
+	private async inBulk<T>(run: () => T | Promise<T>): Promise<T> {
+		this.bulkDepth++
+		try {
+			return await run()
+		} finally {
+			this.bulkDepth--
+			if (this.bulkDepth === 0) {
+				this.persist()
+				this.recomputeSchedule()
+			}
+		}
+	}
+
+	// Persist gate: deferred while any bulk command is in flight — the outermost
+	// inBulk() exit writes once. Each commit() call site invokes persist()
+	// unconditionally for clarity; the guard here is the single chokepoint.
 	private persist(): void {
-		if (this.inBulk) return
+		if (this.bulkDepth > 0) return
 		void this.queueStore.save(this.items, this.schedulerPaused).catch(err => {
 			logger.error('Queue persist failed', {error: err instanceof Error ? err.message : String(err)})
 		})

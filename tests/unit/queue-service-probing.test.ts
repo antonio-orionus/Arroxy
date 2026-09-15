@@ -118,6 +118,9 @@ describe('QueueService — probing items', () => {
 
 	it('replaceProbing keeps the placeholder when its canonical URL is already live', async () => {
 		const {qs, ds} = makeService()
+		// Keep the already-live item's auto-spawn in flight so the scheduler pass
+		// at the probe-swap bulk exit remains idempotent.
+		ds.start.mockReturnValue(new Promise(() => undefined))
 		const canonicalUrl = 'https://youtube.com/watch?v=canonical'
 		qs.add([probingItem('p1', 'https://youtu.be/canonical'), makeItem({id: 'live', status: 'pending', url: canonicalUrl, job: REAL_JOB})])
 

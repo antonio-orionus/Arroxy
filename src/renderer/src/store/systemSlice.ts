@@ -38,10 +38,34 @@ function handleCompletedDownloadMilestones(doneIncrements: number, prevMilestone
 // removes the class rather than guarding each symptom.
 let settingsWriteQueue: Promise<void> = Promise.resolve()
 
-function queueSettingsWrite(run: () => Promise<void>): Promise<void> {
+function queueSettingsWrite<T>(run: () => Promise<T>): Promise<T> {
 	const next = settingsWriteQueue.then(run)
-	settingsWriteQueue = next.catch(() => undefined)
+	settingsWriteQueue = next.then(
+		() => undefined,
+		() => undefined
+	)
 	return next
+}
+
+// A saved dependency override must be verified by a forced warmup, but every
+// warmup entry point returns early while another warmup holds warmupRunning.
+// An override saved during any warmup — its own earlier repair, startup, a
+// manual retry, Homebrew, or winget — records the request here instead, and
+// whichever warmup finishes runs one forced repair against what landed.
+let overrideRepairPending = false
+
+async function repairAfterOverrideSave(get: GetState): Promise<void> {
+	if (get().warmupRunning) {
+		overrideRepairPending = true
+		return
+	}
+	await get().repairWarmup()
+}
+
+function drainOverrideRepair(get: GetState): void {
+	if (!overrideRepairPending) return
+	overrideRepairPending = false
+	void get().repairWarmup()
 }
 
 // Mirrors main's deepMerge one level down: each section named by the patch
@@ -67,14 +91,29 @@ async function restoreCanonicalSettings(set: SetState): Promise<void> {
 
 // The optimistic patch is applied by the caller, synchronously: the UI has to
 // see it in the tick it acted, before this ever reaches the queue.
-async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<void> {
-	const result = await window.appApi.settings.update(patch)
-	if (!result.ok) {
-		await restoreCanonicalSettings(set)
-		notify.settingsSaveFailed(label, result.error)
-		return
+// Resolves true when main accepted the write, so a caller can gate follow-up
+// work (e.g. a warmup repair) on it.
+async function writeSettings(set: SetState, label: string, patch: SettingsPatch): Promise<boolean> {
+	let error: unknown
+	try {
+		const result = await window.appApi.settings.update(patch)
+		if (result.ok) {
+			set({settings: result.data})
+			return true
+		}
+		error = result.error
+	} catch (err) {
+		// main's handler turns thrown errors into a fail Result, so a rejection is
+		// the IPC transport itself — still roll the optimistic patch back.
+		error = err
 	}
-	set({settings: result.data})
+	try {
+		await restoreCanonicalSettings(set)
+	} catch {
+		// Keep the write failure as the reported error.
+	}
+	notify.settingsSaveFailed(label, error)
+	return false
 }
 
 function applyOptimistic(get: GetState, set: SetState, patch: SettingsPatch): void {
@@ -87,7 +126,7 @@ function commonPatch(get: GetState, set: SetState, patch: Partial<AppSettings['c
 }
 
 // Shared pattern for setCookiesPath/setProxyUrl/...
-function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<void> {
+function applyCommonPatchAsync(get: GetState, set: SetState, label: string, patch: Partial<AppSettings['common']>): Promise<boolean> {
 	applyOptimistic(get, set, {common: patch})
 	return queueSettingsWrite(() => writeSettings(set, label, {common: patch}))
 }
@@ -132,7 +171,7 @@ function applyHotkeyPatchAsync(get: GetState, set: SetState, label: string, patc
 	})
 }
 
-function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<void> {
+function applyProfilesPatchAsync(get: GetState, set: SetState, label: string, profiles: AppSettings['profiles']): Promise<boolean> {
 	applyOptimistic(get, set, {profiles})
 	return queueSettingsWrite(() => writeSettings(set, label, {profiles}))
 }
@@ -278,6 +317,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			}
 
 			set({initialized: true, initializing: false, warmupRunning: false, warmupCancellable: false, warmupDiagnostics, warmupBlocking})
+			drainOverrideRepair(get)
 		},
 
 		setSplashDismissed: dismissed => {
@@ -306,6 +346,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
@@ -329,6 +370,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('homebrew repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
@@ -352,34 +394,25 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				notify.warmupFailed('winget repair threw', err)
 			} finally {
 				set({warmupRunning: false, warmupCancellable: false})
+				drainOverrideRepair(get)
 			}
 		},
 
 		setBinaryOverride: async (id, path) => {
-			const patch = makeBinaryOverridePatch(id, path)
-			const result = await window.appApi.settings.update(patch)
-			if (!result.ok) {
-				notify.settingsSaveFailed('binaryOverrides', result.error)
-				return
-			}
-			set({settings: result.data})
+			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides', makeBinaryOverridePatch(id, path)))
+			if (!saved) return
 			try {
-				await get().repairWarmup()
+				await repairAfterOverrideSave(get)
 			} catch (err) {
 				notify.warmupFailed('post-override repair threw', err)
 			}
 		},
 
 		clearBinaryOverride: async id => {
-			const patch = makeBinaryOverridePatch(id, undefined)
-			const result = await window.appApi.settings.update(patch)
-			if (!result.ok) {
-				notify.settingsSaveFailed('binaryOverrides clear', result.error)
-				return
-			}
-			set({settings: result.data})
+			const saved = await queueSettingsWrite(() => writeSettings(set, 'binaryOverrides clear', makeBinaryOverridePatch(id, undefined)))
+			if (!saved) return
 			try {
-				await get().repairWarmup()
+				await repairAfterOverrideSave(get)
 			} catch (err) {
 				notify.warmupFailed('post-clear repair threw', err)
 			}
@@ -423,9 +456,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			document.documentElement.lang = lang
 			document.documentElement.dir = isRtl(lang) ? 'rtl' : 'ltr'
 			void i18next.changeLanguage(lang)
-			void window.appApi.settings.update({common: {language: lang}}).then(result => {
-				if (!result.ok) notify.settingsSaveFailed('language', result.error)
-			})
+			void applyCommonPatchAsync(get, set, 'language', {language: lang})
 			void window.appApi.app.setLanguage(lang)
 		},
 
