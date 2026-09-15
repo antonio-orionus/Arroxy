@@ -8,7 +8,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.4.16-beta.1
+## 0.4.16
 
 Arroxy makes subtitle languages easy to find and keeps queue actions and settings reliable when several things happen at once.
 
