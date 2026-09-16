@@ -4,6 +4,7 @@ import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -22,7 +23,7 @@ function makeCtx(outputDir = '/output'): PhaseContext {
 	const job: DownloadJob = {id: 'test-job-id', url: 'https://www.youtube.com/watch?v=test', outputDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 	const controller = new AbortController()
 	const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack()}
-	return {active, signal: active.signal, ytDlp: {} as never, emitStatus: vi.fn(), register: () => undefined, safeConsume: vi.fn()}
+	return {active, signal: active.signal, ytDlp: {} as never, emitStatus: vi.fn(), register: () => undefined, safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 }
 
 describe('PreflightPhase', () => {

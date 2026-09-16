@@ -11,6 +11,7 @@ import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, QueueResumeContext, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 // Only the visibility helper is stubbed: it shells out to `attrib`, which does
 // not exist off Windows, and these tests are about when it is called.
@@ -54,7 +55,7 @@ function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload
 		})
 	})
 
-	const ctx: PhaseContext = {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+	const ctx: PhaseContext = {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock, usesCookies: vi.fn().mockResolvedValue(false), ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 	return Object.assign(ctx, {runMock})
 }
 
@@ -130,7 +131,7 @@ describe('VideoPhase(embed=false)', () => {
 	it('pre-media info-json failure retries once without loadInfoJsonPath', async () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		const outcome = await VideoPhase(false).run(ctx)
 
@@ -150,7 +151,7 @@ describe('VideoPhase(embed=false)', () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -165,7 +166,7 @@ describe('VideoPhase(embed=false)', () => {
 		const runMock = vi.fn().mockResolvedValueOnce(CHUNK_TRANSFER_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -184,7 +185,7 @@ describe('VideoPhase(embed=false)', () => {
 			active.controller.abort()
 			return false
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		const outcome = await VideoPhase(false).run(ctx)
 
@@ -198,7 +199,7 @@ describe('VideoPhase(embed=false)', () => {
 		const runMock = vi.fn().mockResolvedValueOnce(NETWORK_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -212,7 +213,7 @@ describe('VideoPhase(embed=false)', () => {
 		const runMock = vi.fn().mockResolvedValueOnce(EXIT_ERROR).mockResolvedValueOnce(SUCCESS)
 		const invalidateTokenSession = vi.fn()
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -228,7 +229,7 @@ describe('VideoPhase(embed=false)', () => {
 		const invalidateTokenSession = vi.fn()
 		const input: ResolvedStartDownloadInput = {url: 'https://vimeo.com/123456', outputDir: '/tmp', job: {...BASE_JOB, extractor: 'vimeo', extractorKey: 'Vimeo'}, probeInfoJsonPath: '/cache/stale.info.json'}
 		const active = makeActive({input, job: {...makeJob(), url: input.url}})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock, invalidateTokenSession} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -242,7 +243,7 @@ describe('VideoPhase(embed=false)', () => {
 			return NETWORK_ERROR
 		})
 		const active = makeActive({input: {...BASE_INPUT, probeInfoJsonPath: '/cache/stale.info.json'}, tempDir: '/tmp/arroxy-resume-info-json'})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		const outcome = await VideoPhase(false).run(ctx)
 
@@ -464,7 +465,7 @@ describe('VideoPhase — cancel / pause', () => {
 		const runMock = vi.fn().mockImplementation((_req, _signal) => {
 			return Promise.resolve(SUCCESS)
 		})
-		const ctx: PhaseContext = {active: makeActive({cancelRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active: makeActive({cancelRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 		// Set cancelRequested during the run
 		runMock.mockImplementationOnce(async () => {
 			ctx.active.cancelRequested = true
@@ -477,7 +478,7 @@ describe('VideoPhase — cancel / pause', () => {
 
 	it('pauseRequested after run → returns paused', async () => {
 		const runMock = vi.fn().mockImplementation(async () => SUCCESS)
-		const ctx: PhaseContext = {active: makeActive({pauseRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active: makeActive({pauseRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 		runMock.mockImplementationOnce(async () => {
 			ctx.active.pauseRequested = true
 			return SUCCESS
@@ -507,7 +508,7 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		const runMock = vi.fn().mockResolvedValue(runResult)
 		const realController = new AbortController()
 		const active: ActiveDownload = {job, input, controller: realController, signal: realController.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack(), ...activeOverrides}
-		const ctx: PhaseContext = {active, signal: realController.signal, register: disposable => active.disposables.defer(disposable), ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: realController.signal, register: disposable => active.disposables.defer(disposable), ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 		return Object.assign(ctx, {runMock})
 	}
 
@@ -647,7 +648,7 @@ describe('VideoPhase — signal callbacks', () => {
 			signal?.onMinting?.(1)
 			return SUCCESS
 		})
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -657,7 +658,7 @@ describe('VideoPhase — signal callbacks', () => {
 
 	it('fallback attempt → does not emit any status (onMinting never fires for fallback)', async () => {
 		const runMock = vi.fn().mockImplementation(async (_req, _signal) => SUCCESS)
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -672,7 +673,7 @@ describe('VideoPhase — signal callbacks', () => {
 		})
 		const active = makeActive()
 		const registerSpy = vi.fn((d: () => void | Promise<void>) => active.disposables.defer(d))
-		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 
@@ -688,7 +689,7 @@ describe('VideoPhase — signal callbacks', () => {
 			signal?.onStderr?.('stderr line\n')
 			return SUCCESS
 		})
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 
 		await VideoPhase(false).run(ctx)
 

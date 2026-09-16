@@ -43,7 +43,8 @@ export interface FixtureServerBehavior {
 }
 
 export type FixtureServerRequest =
-	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number}
+	// signedIn: whether yt-dlp ran this extraction with cookies.
+	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean}
 	| {kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number}
 	| {kind: 'media'; videoId: string; formatId: string; method: string; at: number; status: number}
 	| {kind: 'subtitle'; videoId: string; at: number; status: number}
@@ -294,10 +295,10 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		requests.push(request)
 	}
 
-	async function handleProbe(videoId: string, res: http.ServerResponse): Promise<void> {
+	async function handleProbe(videoId: string, signedIn: boolean, res: http.ServerResponse): Promise<void> {
 		activeProbes += 1
 		maxActiveProbes = Math.max(maxActiveProbes, activeProbes)
-		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, at: Date.now()})
+		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn, at: Date.now()})
 		const delayMs = metadataDelayFor(behavior, videoId)
 		if (delayMs > 0) await delay(delayMs)
 		const status = behavior.metadataFailureIds.has(videoId) ? 503 : 204
@@ -345,7 +346,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 			const requestUrl = new URL(req.url ?? '/', 'http://127.0.0.1')
 			const probeMatch = /^\/probe\/([^/]+)$/.exec(requestUrl.pathname)
 			if (probeMatch) {
-				await handleProbe(probeMatch[1], res)
+				await handleProbe(probeMatch[1], requestUrl.searchParams.get('signedIn') === '1', res)
 				return
 			}
 			const mediaMatch = FIXTURE_MEDIA_ROUTE.exec(requestUrl.pathname)

@@ -1,3 +1,4 @@
+import type {CookielessRetry} from '../download/cookielessRetry.js'
 import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
@@ -92,6 +93,9 @@ export interface PhaseContext {
 	active: ActiveJob
 	signal: AbortSignal
 	ytDlp: YtDlp
+	// Session-wide: whether retrying YouTube-limited downloads without cookies
+	// has helped so far. Owned by DownloadService, shared by every job.
+	cookielessRetry: CookielessRetry
 	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void
 	register(disposable: Disposable): void
 	safeConsume(text: string): void

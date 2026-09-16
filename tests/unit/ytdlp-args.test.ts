@@ -493,6 +493,20 @@ describe('YtDlp — cookies injection', () => {
 		expect(args).not.toContain('--cookies-from-browser')
 	})
 
+	it('withoutCookies leaves configured cookies out of that run only', async () => {
+		const ytDlp = makeYtDlp({settings: {cookiesMode: 'browser', cookiesBrowser: 'firefox'}})
+		expect(await ytDlp.usesCookies()).toBe(true)
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		await ytDlp.run({kind: 'probe', url: URL}, undefined, {withoutCookies: true})
+		await ytDlp.run({kind: 'probe', url: URL})
+		expect(getArgs(0)).not.toContain('--cookies-from-browser')
+		expect(getArgs(1)).toContain('--cookies-from-browser')
+	})
+
+	it('usesCookies is false when cookies are off', async () => {
+		expect(await makeYtDlp({settings: {cookiesMode: 'off', cookiesPath: '/home/u/cookies.txt'}}).usesCookies()).toBe(false)
+	})
+
 	it("cookiesMode='off' → no --cookies even with path", async () => {
 		const ytDlp = makeYtDlp({settings: {cookiesMode: 'off', cookiesPath: '/home/u/cookies.txt'}})
 		await ytDlp.run({kind: 'probe', url: URL})

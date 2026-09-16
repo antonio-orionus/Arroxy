@@ -10,6 +10,7 @@ import {z} from 'zod'
 import type {MediaIntent} from '@shared/schemas.js'
 
 const SABR_SKIPPED = /Some (\S+) client https formats have been skipped as they are missing a URL/
+const INFO_JSON_WRITTEN = /^\[info\] Writing video metadata as JSON to: /
 
 // Format rules fall back to 360p progressive when URLs are withheld, so a
 // result under 720p is the symptom worth flagging; a cap below 720p lowers it.
@@ -17,6 +18,12 @@ const EXPECTED_MIN_HEIGHT = 720
 
 export function sabrSkippedClient(line: string): string | null {
 	return SABR_SKIPPED.exec(line)?.[1] ?? null
+}
+
+// yt-dlp prints this line before it writes the file, so the info-json is only
+// complete once a later line arrives.
+export function isInfoJsonWriteLine(line: string): boolean {
+	return INFO_JSON_WRITTEN.test(line)
 }
 
 export interface SelectedFormat {
@@ -68,4 +75,21 @@ export function assessQualityLimit(input: {sabrSkipped: boolean; selectedHeight:
 	const cap = requestedCap(input.intent)
 	if (cap === null) return null
 	return input.selectedHeight < Math.min(cap, EXPECTED_MIN_HEIGHT) ? {height: input.selectedHeight} : null
+}
+
+// Availability values that tell a video can't be fetched signed out, so dropping
+// cookies would only trade low quality for a failure.
+const SIGN_IN_AVAILABILITY = new Set(['needs_auth', 'premium_only', 'subscriber_only'])
+const accessFieldsSchema = z.object({age_limit: z.number().nullish(), availability: z.string().nullish()})
+
+export function requiresSignIn(infoJsonText: string): boolean {
+	let raw: unknown
+	try {
+		raw = JSON.parse(infoJsonText)
+	} catch {
+		return false
+	}
+	const parsed = accessFieldsSchema.safeParse(raw)
+	if (!parsed.success) return false
+	return (parsed.data.age_limit ?? 0) > 0 || SIGN_IN_AVAILABILITY.has(parsed.data.availability ?? '')
 }

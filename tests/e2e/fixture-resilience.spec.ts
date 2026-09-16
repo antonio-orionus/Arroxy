@@ -1,7 +1,9 @@
 import {expect, test} from '@playwright/test'
 import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
-import {SABR_LIMITED_VIDEO_ID, fixtureMediaFileSize} from './fixtureMediaCatalog.js'
+import {COOKIE_LIMITED_VIDEO_ID, SABR_LIMITED_VIDEO_ID, fixtureMediaFileSize} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -198,6 +200,64 @@ test('Electron quick download flags a download YouTube limited below the profile
 		expect(mediaFormats(SABR_LIMITED_VIDEO_ID)).toEqual(['18'])
 		expect(mediaFormats(controlId)).toEqual(['22'])
 	})
+})
+
+// Risk: a signed-in session YouTube limits saves every video at 360p even
+// though the same video downloads at 720p signed out. The fixture extractor
+// withholds 720p for ARX14 only when yt-dlp got cookies, and for ARX13 always.
+test('Electron quick download retries a cookie-limited download without cookies and remembers the verdict', async () => {
+	test.setTimeout(200_000)
+	const cookiesDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-fixture-cookies-'))
+	const cookiesPath = path.join(cookiesDir, 'cookies.txt')
+	fs.writeFileSync(cookiesPath, '# Netscape HTTP Cookie File\n')
+	try {
+		await withFixtureProductApp(
+			{
+				settings: settings => {
+					settings.common.cookiesMode = 'file'
+					settings.common.cookiesPath = cookiesPath
+				},
+				userDataPrefix: 'arroxy-fixture-cookieless-user-',
+				outputPrefix: 'arroxy-fixture-cookieless-out-'
+			},
+			async ({page, fixtureServer, urls, queue, files}) => {
+				const quickDownload = page.locator('[data-testid="profiles-quick-download"]')
+				const quickDownloadVideo = async (videoId: string): Promise<void> => {
+					await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+					await expect(quickDownload).toBeEnabled({timeout: 60_000})
+					await quickDownload.click()
+					await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0, {timeout: 60_000})
+				}
+				// One entry per yt-dlp extraction: the probe, then any download that re-extracts.
+				const extractionsSignedIn = (videoId: string): boolean[] => fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'probe-start' && request.videoId === videoId ? [request.signedIn] : []))
+				const completedFormats = (videoId: string): string[] => fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'media' && request.videoId === videoId && request.status === 200 ? [request.formatId] : []))
+
+				// The signed-in run is stopped once formats are chosen; the cookieless
+				// retry gets 720p, so no notice is shown.
+				await quickDownloadVideo(COOKIE_LIMITED_VIDEO_ID)
+				await queue.expectStatus('Fixture Video 14', 'done', 120_000)
+				await expect(queue.cardByTitle('Fixture Video 14').getByTestId('queue-quality-warning')).toHaveCount(0)
+				expect(completedFormats(COOKIE_LIMITED_VIDEO_ID).at(-1)).toBe('22')
+				// Probe with cookies; the download loads its info-json, is stopped, and
+				// re-extracts without cookies.
+				expect(extractionsSignedIn(COOKIE_LIMITED_VIDEO_ID)).toEqual([true, false])
+
+				// Having helped, the session starts the next download without cookies.
+				// This video is limited regardless, so it lands at 360p with the notice.
+				// The queue checks switched tabs; the download tab is the first one.
+				await page.getByRole('tab').first().click()
+				await quickDownloadVideo(SABR_LIMITED_VIDEO_ID)
+				await queue.expectStatus('Fixture Video 13', 'done', 120_000)
+				await expect(queue.cardByTitle('Fixture Video 13').getByTestId('queue-quality-warning')).toContainText('360p')
+				expect(completedFormats(SABR_LIMITED_VIDEO_ID)).toEqual(['18'])
+				expect(extractionsSignedIn(SABR_LIMITED_VIDEO_ID)).toEqual([true, false])
+
+				files.expectMp4Count(2)
+			}
+		)
+	} finally {
+		fs.rmSync(cookiesDir, {recursive: true, force: true})
+	}
 })
 
 test('Electron paused active fixture download resumes after app relaunch', async () => {

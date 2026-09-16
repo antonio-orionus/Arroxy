@@ -6,6 +6,7 @@ import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -45,7 +46,7 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
 	const runMock = vi.fn().mockResolvedValue(runResult)
 	const active = makeActive(activeOverrides)
-	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 }
 
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
@@ -145,7 +146,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			active.pauseRequested = true
 			return EXIT_ERROR // SIGTERM makes yt-dlp exit non-zero
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 		const outcome = await SidecarSubsPhase(false).run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})
@@ -208,7 +209,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 			active.pauseRequested = true
 			return {ok: true, outputPath: '/tmp/video.mkv'}
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})

@@ -40,9 +40,9 @@ function titleOverride(video: (typeof catalog.videos)[number]): string | undefin
 }
 
 /** Formats the extractor withholds and warnings it prints for this entry. */
-function sessionLimits(video: (typeof catalog.videos)[number]): {withheldFormatIds: string[]; warnings: string[]} {
-	const limited = video as {withheldFormatIds?: string[]; warnings?: string[]}
-	return {withheldFormatIds: limited.withheldFormatIds ?? [], warnings: limited.warnings ?? []}
+function sessionLimits(video: (typeof catalog.videos)[number]): {withheldFormatIds: string[]; warnings: string[]; withCookiesOnly: boolean} {
+	const limited = video as {withheldFormatIds?: string[]; warnings?: string[]; limitedWithCookiesOnly?: boolean}
+	return {withheldFormatIds: limited.withheldFormatIds ?? [], warnings: limited.warnings ?? [], withCookiesOnly: limited.limitedWithCookiesOnly === true}
 }
 
 function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
@@ -65,9 +65,15 @@ export const AWKWARD_TITLE_VIDEO_ID = awkwardTitleVideo.id
 export const AWKWARD_TITLE = titleOverride(awkwardTitleVideo) ?? ''
 // Mimics a signed-in session YouTube limited: the 720p format comes back without
 // a URL and yt-dlp prints its SABR warning, leaving only the 360p fallback.
-const sabrLimitedVideo = catalog.videos.find(video => sessionLimits(video).warnings.some(warning => warning.includes('missing a URL')))
+const isSabrLimited = (video: (typeof catalog.videos)[number]): boolean => sessionLimits(video).warnings.some(warning => warning.includes('missing a URL'))
+const sabrLimitedVideo = catalog.videos.find(video => isSabrLimited(video) && !sessionLimits(video).withCookiesOnly)
 if (!sabrLimitedVideo) throw new Error('fixture-media-catalog.json must define a SABR-limited fixture video')
 export const SABR_LIMITED_VIDEO_ID = sabrLimitedVideo.id
+// Limited the same way, but only for a signed-in session: without cookies the
+// 720p format comes back with its URL.
+const cookieLimitedVideo = catalog.videos.find(video => isSabrLimited(video) && sessionLimits(video).withCookiesOnly)
+if (!cookieLimitedVideo) throw new Error('fixture-media-catalog.json must define a fixture video limited only with cookies')
+export const COOKIE_LIMITED_VIDEO_ID = cookieLimitedVideo.id
 
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds

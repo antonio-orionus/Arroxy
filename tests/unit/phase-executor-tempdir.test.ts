@@ -6,6 +6,7 @@ import {AsyncStack} from '@main/services/phases/types.js'
 import type {Phase, PhaseContext, PhaseOutcome, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, LocalizedError, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -33,7 +34,8 @@ function makeCtx(active: ActiveDownload): PhaseContext {
 			}),
 		ytDlp: {} as never,
 		emitStatus: vi.fn(),
-		safeConsume: vi.fn()
+		safeConsume: vi.fn(),
+		cookielessRetry: new CookielessRetry()
 	}
 }
 

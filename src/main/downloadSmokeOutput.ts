@@ -1,8 +1,7 @@
-import {sabrSkippedClient} from './services/download/formatLimitSignals.js'
+import {isInfoJsonWriteLine, sabrSkippedClient} from './services/download/formatLimitSignals.js'
 
 const SELECTED_FORMAT = /^\[info\] [\w-]+: Downloading \d+ format\(s\): (\S+)/
 const PLAYER_API = /^\[youtube\] [\w-]+: Downloading (.+?) player API JSON/
-const INFO_JSON_WRITTEN = /^\[info\] Writing video metadata as JSON to: /
 const TRANSFER_STARTING = /^\[download\] (Destination: |Sleeping )/
 const MAX_WARNINGS = 50
 
@@ -42,7 +41,7 @@ export function createDownloadSmokeObserver(): DownloadSmokeObserver {
 				const sabr = sabrSkippedClient(line)
 				if (sabr) addDistinct(state.sabrSkippedClients, sabr)
 				if (line.startsWith('WARNING:') && state.warnings.length < MAX_WARNINGS) addDistinct(state.warnings, line)
-				if (INFO_JSON_WRITTEN.test(line)) infoJsonWritten = true
+				if (isInfoJsonWriteLine(line)) infoJsonWritten = true
 			}
 		},
 		snapshot() {

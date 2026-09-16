@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {assessQualityLimit, parseSelectedFormats, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
+import {assessQualityLimit, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
 import type {MediaIntent, PlaylistVideoTier} from '@shared/schemas.js'
 
 const SABR_WARNING = 'WARNING: [youtube] z1NNgSu8hTI: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details'
@@ -59,5 +59,27 @@ describe('assessQualityLimit', () => {
 	it('never flags audio-only intents or unknown heights', () => {
 		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: null, intent: video(['720'])})).toBeNull()
 		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: AUDIO_ONLY})).toBeNull()
+	})
+})
+
+describe('isInfoJsonWriteLine', () => {
+	it('matches only the metadata write line', () => {
+		expect(isInfoJsonWriteLine('[info] Writing video metadata as JSON to: /tmp/x/_arroxy.info.json')).toBe(true)
+		expect(isInfoJsonWriteLine('[download] Destination: /tmp/x/video.mp4')).toBe(false)
+	})
+})
+
+describe('requiresSignIn', () => {
+	it('flags age-restricted and account-only videos', () => {
+		expect(requiresSignIn(JSON.stringify({age_limit: 18}))).toBe(true)
+		expect(requiresSignIn(JSON.stringify({availability: 'subscriber_only'}))).toBe(true)
+		expect(requiresSignIn(JSON.stringify({availability: 'needs_auth', age_limit: 0}))).toBe(true)
+	})
+
+	it('treats public, unlisted, unknown, and unreadable info-json as not requiring sign-in', () => {
+		expect(requiresSignIn(JSON.stringify({age_limit: 0, availability: 'public'}))).toBe(false)
+		expect(requiresSignIn(JSON.stringify({availability: 'unlisted'}))).toBe(false)
+		expect(requiresSignIn(JSON.stringify({}))).toBe(false)
+		expect(requiresSignIn('not json')).toBe(false)
 	})
 })

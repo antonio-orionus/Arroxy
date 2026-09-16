@@ -19,6 +19,7 @@ import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
 import {JobLifecycle} from './JobLifecycle.js'
+import {CookielessRetry} from './download/cookielessRetry.js'
 
 const logger = log.scope('downloads')
 
@@ -37,6 +38,7 @@ export class DownloadService extends EventEmitter {
 	private maxConcurrent: number
 	private readonly progressParser: ProgressParser
 	private readonly lifecycle: JobLifecycle
+	private readonly cookielessRetry = new CookielessRetry()
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -179,6 +181,7 @@ export class DownloadService extends EventEmitter {
 			active,
 			signal: active.signal,
 			ytDlp: this.ytDlp,
+			cookielessRetry: this.cookielessRetry,
 			emitStatus: (stage, statusKey, params?, error?, resumeContext?) => this.emitStatus(job.id, stage, statusKey, params, error, resumeContext),
 			register: disposable =>
 				active.disposables.defer(async () => {

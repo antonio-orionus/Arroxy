@@ -5,6 +5,7 @@ import {AsyncStack} from '@main/services/phases/types.js'
 import type {Phase, PhaseContext, PhaseOutcome, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, LocalizedError, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -32,7 +33,7 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 }
 
 function makeCtx(activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
-	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 }
 
 function stubPhase(outcome: PhaseOutcome): Phase {

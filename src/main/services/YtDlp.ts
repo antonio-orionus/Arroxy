@@ -331,6 +331,12 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 	return invokeOnce(opts, finalFallbackStrategy(opts))
 }
 
+export interface YtDlpRunOptions {
+	// Leave out the configured cookies for this run only. The quality fallback
+	// uses it when a signed-in session got withheld formats.
+	withoutCookies?: boolean
+}
+
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
 export type SettingsSource = Pick<SettingsStore, 'get'>
 
@@ -392,12 +398,16 @@ export class YtDlp {
 		return this._lastInvocations.map(summary => ({...summary, args: [...summary.args]}))
 	}
 
-	async run(req: YtDlpRequest, signal?: YtDlpSignal): Promise<YtDlpResult> {
+	async usesCookies(): Promise<boolean> {
+		return resolveCookies(await this.settingsStore.get()) !== null
+	}
+
+	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []
 		const settings = await this.settingsStore.get()
-		const cookies = resolveCookies(settings)
+		const cookies = options.withoutCookies ? null : resolveCookies(settings)
 		// The normalized URL, so yt-dlp and the token window read the setting the
 		// same way. An unusable value is still handed to yt-dlp as typed: its own
 		// error names the problem better than silently dropping the proxy would.

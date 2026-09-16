@@ -1,17 +1,21 @@
+import {readFileSync} from 'node:fs'
 import {mkdir, readFile, rm, stat} from 'node:fs/promises'
+import log from 'electron-log/main.js'
 import {dirname, join} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
-import {assessQualityLimit, parseSelectedFormats, sabrSkippedClient, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
+import {assessQualityLimit, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
+
+const logger = log.scope('downloads')
 
 async function setupTempDir(outputDir: string, jobId: string, preserve: boolean, overridePath?: string): Promise<string | undefined> {
 	const tempDir = overridePath ?? join(outputDir, TEMP_DIR_NAME, jobId.slice(0, 8))
@@ -39,7 +43,7 @@ async function setupTempDir(outputDir: string, jobId: string, preserve: boolean,
 
 async function detectCachedInfoJson(tempDir: string | undefined): Promise<string | undefined> {
 	if (!tempDir) return undefined
-	const path = join(tempDir, '_arroxy.info.json')
+	const path = join(tempDir, INFO_JSON_NAME)
 	try {
 		const s = await stat(path)
 		return s.isFile() ? path : undefined
@@ -59,9 +63,43 @@ function isSkippableSponsorBlockApiFailure(result: Exclude<YtDlpResult, {kind: '
 // the info-json yt-dlp writes after format selection, before temp cleanup.
 async function detectQualityLimit(job: ResolvedStartDownloadInput['job'], tempDir: string | undefined, formatsWithheld: boolean): Promise<QualityLimit | null> {
 	if (!formatsWithheld || job.kind !== 'ranged-format' || !tempDir) return null
-	const infoJson = await readFile(join(tempDir, '_arroxy.info.json'), 'utf8').catch(() => null)
+	const infoJson = await readFile(join(tempDir, INFO_JSON_NAME), 'utf8').catch(() => null)
 	const selectedHeight = infoJson === null ? null : selectedMaxHeight(parseSelectedFormats(infoJson))
 	return assessQualityLimit({sabrSkipped: true, selectedHeight, intent: job.intent})
+}
+
+const INFO_JSON_NAME = '_arroxy.info.json'
+
+interface MediaRunMode {
+	withoutCookies: boolean
+	stopIfLimited: boolean
+}
+
+const WITH_COOKIES: MediaRunMode = {withoutCookies: false, stopIfLimited: false}
+const WITHOUT_COOKIES: MediaRunMode = {withoutCookies: true, stopIfLimited: false}
+
+interface MediaRun {
+	req: YtDlpRequest
+	result: YtDlpResult
+	formatsWithheld: boolean
+	// Stopped by the phase right after format selection because YouTube limited
+	// the signed-in session; the result is the cancelled run, not a failure.
+	stoppedLimited: boolean
+}
+
+// Synchronous because it runs inside the output callback, between yt-dlp
+// finishing the info-json and the media transfer getting underway. The file is
+// small and this only happens once per run, after the withheld-formats warning.
+function isLimitedSelection(tempDir: string, job: ResolvedStartDownloadInput['job']): boolean {
+	if (job.kind !== 'ranged-format') return false
+	let text: string
+	try {
+		text = readFileSync(join(tempDir, INFO_JSON_NAME), 'utf8')
+	} catch {
+		return false
+	}
+	if (requiresSignIn(text)) return false
+	return assessQualityLimit({sabrSkipped: true, selectedHeight: selectedMaxHeight(parseSelectedFormats(text)), intent: job.intent}) !== null
 }
 
 function hasMediaTransferStarted(active: PhaseContext['active']): boolean {
@@ -119,35 +157,54 @@ export function VideoPhase(embed: boolean): Phase {
 			// a few seconds on extractor work and thumbnail conversion first.
 			// The first `[download] Destination:` line in consumeProgress emits
 			// the accurate status when the actual data download begins.
-			// yt-dlp prints the withheld-formats warning during extraction, so it is
-			// only seen on runs that extract; a run that loads the probe's info-json
-			// inherits the probe's observation instead.
-			let formatsWithheldSeen = false
-			const consume = (text: string): void => {
-				ctx.safeConsume(text)
-				if (!formatsWithheldSeen && text.split(/\r?\n|\r/).some(line => sabrSkippedClient(line) !== null)) formatsWithheldSeen = true
-			}
-			const runMedia = async (infoJsonPath: string | undefined): Promise<{req: YtDlpRequest; result: YtDlpResult}> => {
+			const runMedia = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
 				const req = buildRequest(infoJsonPath)
-				const result = await ytDlp.run(
-					req,
-					buildYtDlpSignal(ctx, active, {
-						onMinting: attempt => {
-							ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
-						},
-						onStdout: consume,
-						onStderr: consume
-					})
-				)
-				return {req, result}
+				// yt-dlp prints the withheld-formats warning during extraction, so a run
+				// that loads the probe's info-json inherits the probe's observation.
+				let formatsWithheld = infoJsonPath !== undefined && infoJsonPath === input.probeInfoJsonPath && input.probeFormatsWithheld === true
+				let infoJsonWritten = false
+				let stopChecked = false
+				let stoppedLimited = false
+				const stop = new AbortController()
+				// Checked on the first line after the info-json write, when the file is
+				// complete and the media transfer has at most just begun. Lines from
+				// that point on are not forwarded, so a stopped run leaves no media
+				// state behind for the retry to trip over.
+				const consume = (text: string): void => {
+					if (stoppedLimited) return
+					const forwarded: string[] = []
+					for (const line of text.split(/\r?\n|\r/)) {
+						if (sabrSkippedClient(line) !== null) formatsWithheld = true
+						if (mode.stopIfLimited && tempDir && !stopChecked && infoJsonWritten && line.length > 0 && formatsWithheld) {
+							stopChecked = true
+							if (isLimitedSelection(tempDir, preparedJob)) {
+								stoppedLimited = true
+								stop.abort()
+								if (forwarded.length > 0) ctx.safeConsume(forwarded.join('\n'))
+								return
+							}
+						}
+						if (isInfoJsonWriteLine(line)) infoJsonWritten = true
+						forwarded.push(line)
+					}
+					ctx.safeConsume(text)
+				}
+				const signal = buildYtDlpSignal(ctx, active, {
+					onMinting: attempt => {
+						ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
+					},
+					onStdout: consume,
+					onStderr: consume,
+					abortSignal: stop.signal
+				})
+				const result = await ytDlp.run(req, signal, {withoutCookies: mode.withoutCookies})
+				return {req, result, formatsWithheld, stoppedLimited}
 			}
 
-			let {req, result} = await runMedia(loadInfoJsonPath)
-
-			if (active.pauseRequested) return {kind: 'paused'}
-			if (active.cancelRequested) return {kind: 'cancelled'}
-
-			if (loadInfoJsonPath && result.kind !== 'success' && !hasMediaTransferStarted(active) && !isSkippableSponsorBlockApiFailure(result, req)) {
+			const runWithInfoJsonFallback = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
+				const first = await runMedia(infoJsonPath, mode)
+				if (active.pauseRequested || active.cancelRequested || first.stoppedLimited) return first
+				if (!infoJsonPath || first.result.kind === 'success' || hasMediaTransferStarted(active) || isSkippableSponsorBlockApiFailure(first.result, first.req)) return first
 				// Dropping the info-json re-extracts, but extraction runs under the
 				// same session identity — and YouTube keys the googlevideo edge host
 				// to that identity, so a wedged host is handed straight back. Reset
@@ -159,16 +216,47 @@ export function VideoPhase(embed: boolean): Phase {
 				// inside it, so it takes the job's signal and the flags are re-read
 				// after it. Otherwise a cancel landing mid-reset would spawn the
 				// fallback anyway, only to kill it on the next line.
-				if (canRecoverWithNewSession(result, site)) await ctx.ytDlp.invalidateTokenSession(active.signal)
-				if (active.pauseRequested) return {kind: 'paused'}
-				if (active.cancelRequested) return {kind: 'cancelled'}
-
-				const retry = await runMedia(undefined)
-				req = retry.req
-				result = retry.result
-				if (active.pauseRequested) return {kind: 'paused'}
-				if (active.cancelRequested) return {kind: 'cancelled'}
+				if (canRecoverWithNewSession(first.result, site)) await ctx.ytDlp.invalidateTokenSession(active.signal)
+				if (active.pauseRequested || active.cancelRequested) return first
+				return runMedia(undefined, mode)
 			}
+
+			const interrupted = (): PhaseOutcome | null => (active.pauseRequested ? {kind: 'paused'} : active.cancelRequested ? {kind: 'cancelled'} : null)
+			const retry = ctx.cookielessRetry
+			const cookielessEligible = preparedJob.kind === 'ranged-format' && site.id === 'youtube' && tempDir !== undefined && retry.current !== 'no-help' && (await ytDlp.usesCookies())
+			// A probe info-json extracted with cookies but not limited can still be
+			// loaded as is; starting without cookies only pays off when extraction
+			// has to run again anyway.
+			const startWithoutCookies = cookielessEligible && retry.startWithoutCookies() && resumeInfoJsonPath === undefined && (input.probeInfoJsonPath === undefined || input.probeFormatsWithheld === true)
+
+			let run: MediaRun
+			let triedWithoutCookies = startWithoutCookies
+			if (startWithoutCookies) {
+				run = await runWithInfoJsonFallback(undefined, WITHOUT_COOKIES)
+			} else {
+				run = await runWithInfoJsonFallback(loadInfoJsonPath, {withoutCookies: false, stopIfLimited: cookielessEligible && retry.stopLimitedRun()})
+				const stoppedFirst = interrupted()
+				if (stoppedFirst) return stoppedFirst
+				if (run.stoppedLimited) {
+					logger.info('YouTube limited the signed-in download; retrying without cookies', {jobId: job.id})
+					triedWithoutCookies = true
+					run = await runMedia(undefined, WITHOUT_COOKIES)
+				}
+			}
+			const stopped = interrupted()
+			if (stopped) return stopped
+			// Cookieless failed (sign-in wall, bot check, a video that needs an
+			// account): the session stops trying and this download goes back to the
+			// configured cookies, where it can at least finish at the lower quality.
+			if (triedWithoutCookies && run.result.kind !== 'success') {
+				retry.record('failed')
+				triedWithoutCookies = false
+				logger.info('Download without cookies failed; using cookies again', {jobId: job.id})
+				run = await runWithInfoJsonFallback(loadInfoJsonPath, WITH_COOKIES)
+				const stoppedAgain = interrupted()
+				if (stoppedAgain) return stoppedAgain
+			}
+			const {req, result} = run
 
 			if (result.kind !== 'success') {
 				if (isSkippableSponsorBlockApiFailure(result, req)) {
@@ -183,9 +271,9 @@ export function VideoPhase(embed: boolean): Phase {
 			}
 
 			if (result.usedExtractorFallback) active.usedExtractorFallback = true
-			const loadedProbeInfoJson = input.probeInfoJsonPath !== undefined && req.kind === 'media' && req.resume?.loadInfoJsonPath === input.probeInfoJsonPath
-			const qualityLimit = await detectQualityLimit(preparedJob, tempDir, formatsWithheldSeen || (loadedProbeInfoJson && input.probeFormatsWithheld === true))
+			const qualityLimit = await detectQualityLimit(preparedJob, tempDir, run.formatsWithheld)
 			if (qualityLimit) active.qualityLimit = qualityLimit
+			if (triedWithoutCookies) retry.record(qualityLimit ? 'still-limited' : 'full-quality')
 			return {kind: 'continue'}
 		}
 	}
