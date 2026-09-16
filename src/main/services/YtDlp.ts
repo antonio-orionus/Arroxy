@@ -331,6 +331,9 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 	return invokeOnce(opts, finalFallbackStrategy(opts))
 }
 
+// Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
+export type SettingsSource = Pick<SettingsStore, 'get'>
+
 export class YtDlp {
 	private _ytDlpPath: string | null = null
 	private _ffmpegPath: string | null = null
@@ -341,7 +344,7 @@ export class YtDlp {
 	constructor(
 		private readonly binaryManager: BinaryManager,
 		private readonly tokenService: TokenService,
-		private readonly settingsStore: SettingsStore,
+		private readonly settingsStore: SettingsSource,
 		private readonly opts: {e2eMode?: E2eHarnessMode} = {}
 	) {}
 
