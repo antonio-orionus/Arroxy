@@ -25,7 +25,11 @@ function electronExecutable(): string {
 }
 
 async function runDownloadSmoke(env: Record<string, string>, videoUrl: string): Promise<{exitCode: number | null; report: Record<string, unknown>}> {
-	const result = await runProcess(electronExecutable(), [path.join(process.cwd(), 'out', 'main', 'index.js')], {env: {...env, ARROXY_SMOKE_KIND: 'download', ARROXY_SMOKE_URL: videoUrl, ARROXY_SMOKE_TIMEOUT_MS: '60000'}, timeoutMs: 90_000})
+	// A bare Electron launch on a Linux CI runner aborts in Chromium's SUID
+	// sandbox check (chrome-sandbox is not root-owned in node_modules) before
+	// any app code runs. The smoke opens no untrusted content, so skip it there.
+	const sandboxArgs = process.platform === 'linux' ? ['--no-sandbox'] : []
+	const result = await runProcess(electronExecutable(), [...sandboxArgs, path.join(process.cwd(), 'out', 'main', 'index.js')], {env: {...env, ARROXY_SMOKE_KIND: 'download', ARROXY_SMOKE_URL: videoUrl, ARROXY_SMOKE_TIMEOUT_MS: '60000'}, timeoutMs: 90_000})
 	const line = result.stdout.split(/\r?\n/).findLast(candidate => candidate.startsWith(RESULT_PREFIX))
 	if (!line) throw new Error(`download smoke printed no result line\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`)
 	const report: unknown = JSON.parse(line.slice(RESULT_PREFIX.length))

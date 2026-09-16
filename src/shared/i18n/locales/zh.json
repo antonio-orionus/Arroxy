@@ -504,7 +504,7 @@
 			"defaultError": "下载失败",
 			"retryingSoon": "正在自动重试（第 {{attempt}} 次）",
 			"qualityLimited": "限制为 {{height}}p",
-			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕失败",
+			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
 			"pause": "暂停",
 			"resume": "继续",
 			"cancel": "取消",

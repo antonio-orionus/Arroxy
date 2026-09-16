@@ -57,6 +57,10 @@ export interface ActiveJobInput {
 	// Set when YouTube withheld format URLs and the saved file came out below
 	// what the profile asked for; completion reports it instead of a plain done.
 	qualityLimit?: QualityLimit
+	// yt-dlp reported withheld formats during this job's extraction. A resumed
+	// run loads the saved info-json and never extracts again, so this is how it
+	// still knows.
+	formatsWithheld?: boolean
 	tempDir?: string
 	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
@@ -74,6 +78,8 @@ export interface PausedDownload {
 	job: DownloadJob
 	input: ResolvedStartDownloadInput
 	tempDir?: string
+	qualityLimit?: QualityLimit
+	formatsWithheld?: boolean
 }
 
 export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey} | {kind: 'hard-failed'; error: LocalizedError; resumeContext?: QueueResumeContext} | {kind: 'cancelled'} | {kind: 'paused'}

@@ -525,7 +525,7 @@
 			"defaultError": "下載失敗",
 			"retryingSoon": "正在自動重試（第 {{attempt}} 次）",
 			"qualityLimited": "限制為 {{height}}p",
-			"qualityLimitedSubtitlesFailed": "限制為 {{height}}p · 部分字幕失敗",
+			"qualityLimitedSubtitlesFailed": "限制為 {{height}}p · 部分字幕無法下載",
 			"pause": "暫停",
 			"resume": "繼續",
 			"cancel": "取消",

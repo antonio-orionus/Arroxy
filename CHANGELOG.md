@@ -16,7 +16,7 @@ Arroxy works around YouTube quietly limiting a signed-in session to 360p, and te
 
 ### Full Quality When YouTube Limits Your Account
 
-- Some YouTube accounts get only 360p even though the same video downloads at full quality without signing in. When a download with cookies comes out limited like this, Arroxy now stops it as soon as the formats are chosen and fetches the video again without cookies.
+- Some YouTube accounts get only 360p even though the same video downloads at full quality without signing in. When a download with cookies would come out limited like this, Arroxy now notices before the video transfers and fetches it without cookies instead.
 - If that gives the full quality, later downloads in the same session start without cookies. A video that needs sign-in, such as an age-restricted one, still falls back to your cookies.
 - When YouTube still withholds the higher qualities, the download finishes and its queue row says *Limited to 360p* instead of looking like a normal download. Hover it for what might help.
 

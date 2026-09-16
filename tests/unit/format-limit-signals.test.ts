@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {assessQualityLimit, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
+import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
 import type {MediaIntent, PlaylistVideoTier} from '@shared/schemas.js'
 
 const SABR_WARNING = 'WARNING: [youtube] z1NNgSu8hTI: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details'
@@ -81,5 +81,24 @@ describe('requiresSignIn', () => {
 		expect(requiresSignIn(JSON.stringify({availability: 'unlisted'}))).toBe(false)
 		expect(requiresSignIn(JSON.stringify({}))).toBe(false)
 		expect(requiresSignIn('not json')).toBe(false)
+	})
+})
+
+describe('availableMaxHeight', () => {
+	it('returns the tallest video format, ignoring audio-only entries', () => {
+		const info = JSON.stringify({
+			formats: [
+				{format_id: '18', height: 360, vcodec: 'avc1'},
+				{format_id: '140', height: null, vcodec: 'none'},
+				{format_id: '135', height: 480, vcodec: 'avc1'}
+			]
+		})
+		expect(availableMaxHeight(info)).toBe(480)
+	})
+
+	it('returns null without usable formats', () => {
+		expect(availableMaxHeight(JSON.stringify({formats: [{height: null, vcodec: 'none'}]}))).toBeNull()
+		expect(availableMaxHeight(JSON.stringify({}))).toBeNull()
+		expect(availableMaxHeight('nope')).toBeNull()
 	})
 })

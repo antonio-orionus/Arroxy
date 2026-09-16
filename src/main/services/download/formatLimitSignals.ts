@@ -60,6 +60,24 @@ export function selectedMaxHeight(formats: readonly SelectedFormat[] | null): nu
 	return heights.length > 0 ? Math.max(...heights) : null
 }
 
+const availableFormatsSchema = z.object({formats: z.array(z.object({height: z.number().nullish(), vcodec: z.string().nullish()})).optional()})
+
+// The tallest video format an info-json offers. Withheld formats are already
+// missing from the list, so for a probe info-json this is the best a download
+// that loads it can select.
+export function availableMaxHeight(infoJsonText: string): number | null {
+	let raw: unknown
+	try {
+		raw = JSON.parse(infoJsonText)
+	} catch {
+		return null
+	}
+	const parsed = availableFormatsSchema.safeParse(raw)
+	if (!parsed.success) return null
+	const heights = (parsed.data.formats ?? []).flatMap(f => (f.vcodec !== 'none' && typeof f.height === 'number' ? [f.height] : []))
+	return heights.length > 0 ? Math.max(...heights) : null
+}
+
 function requestedCap(intent: MediaIntent): number | null {
 	if (intent.kind === 'audio-only') return null
 	const numeric = intent.tiers.flatMap(tier => (tier === 'best' ? [] : [Number(tier)]))

@@ -563,7 +563,7 @@
 			"defaultError": "Download non riuscito",
 			"retryingSoon": "nuovo tentativo automatico (tentativo {{attempt}})",
 			"qualityLimited": "Limitato a {{height}}p",
-			"qualityLimitedSubtitlesFailed": "Limitato a {{height}}p · alcuni sottotitoli non riusciti",
+			"qualityLimitedSubtitlesFailed": "Limitato a {{height}}p · alcuni sottotitoli non scaricati",
 			"pause": "Metti in pausa",
 			"resume": "Riprendi",
 			"cancel": "Annulla",

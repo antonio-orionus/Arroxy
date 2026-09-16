@@ -2,6 +2,7 @@
 // one input varied (cookies / proxy / profile / player clients), stops once
 // yt-dlp has chosen formats, and prints a JSON report. Triggered by
 // ARROXY_SMOKE_KIND=download. Never persists settings.
+import {readFileSync} from 'node:fs'
 import {mkdir, mkdtemp, readFile, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
@@ -22,6 +23,16 @@ import {buildMediaRequest} from './services/phases/mediaRequest.js'
 import type {SettingsStore} from './stores/SettingsStore.js'
 import {HiddenWindowTokenProvider} from './token/providers/HiddenWindowTokenProvider.js'
 import {MockTokenProvider} from './token/providers/MockTokenProvider.js'
+
+// Synchronous because it runs in the output callback; a small file, read only
+// between the write announcement and the transfer.
+function infoJsonReadable(path: string): boolean {
+	try {
+		return parseSelectedFormats(readFileSync(path, 'utf8')) !== null
+	} catch {
+		return false
+	}
+}
 
 // Must match the info-json base name the bridge writes into the temp directory.
 const INFO_JSON_NAME = '_arroxy.info.json'
@@ -116,9 +127,12 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 			timedOut = true
 			controller.abort()
 		}, config.timeoutMs)
+		const infoJsonPath = join(tempDir, INFO_JSON_NAME)
 		const onText = (text: string): void => {
 			observer.push(text)
-			if (observer.snapshot().shouldStop && !controller.signal.aborted) controller.abort()
+			if (controller.signal.aborted) return
+			const seen = observer.snapshot()
+			if (seen.transferStarting || (seen.infoJsonWriteSeen && infoJsonReadable(infoJsonPath))) controller.abort()
 		}
 		const result = await ytDlp.run(req, {abortSignal: controller.signal, onStdout: onText, onStderr: onText}).finally(() => clearTimeout(timer))
 
@@ -128,7 +142,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		const lastAttempt = report.attempts.at(-1)
 		report.spawned = lastAttempt ? summarizeSpawnArgs(lastAttempt.args) : null
 		report.selection.selectedFormat = seen.selectedFormat
-		const infoJson = await readFile(join(tempDir, INFO_JSON_NAME), 'utf8').catch(() => null)
+		const infoJson = await readFile(infoJsonPath, 'utf8').catch(() => null)
 		const formats = infoJson ? parseSelectedFormats(infoJson) : null
 		report.selection.formats = formats
 		report.selection.maxHeight = selectedMaxHeight(formats)

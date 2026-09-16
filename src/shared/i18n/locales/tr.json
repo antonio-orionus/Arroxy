@@ -563,7 +563,7 @@
 			"defaultError": "İndirme başarısız oldu",
 			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
 			"qualityLimited": "{{height}}p ile sınırlı",
-			"qualityLimitedSubtitlesFailed": "{{height}}p ile sınırlı · bazı altyazılar başarısız",
+			"qualityLimitedSubtitlesFailed": "{{height}}p ile sınırlı · bazı altyazılar indirilemedi",
 			"pause": "Duraklat",
 			"resume": "Sürdür",
 			"cancel": "İptal",

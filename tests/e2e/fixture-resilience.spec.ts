@@ -232,14 +232,13 @@ test('Electron quick download retries a cookie-limited download without cookies 
 				const extractionsSignedIn = (videoId: string): boolean[] => fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'probe-start' && request.videoId === videoId ? [request.signedIn] : []))
 				const completedFormats = (videoId: string): string[] => fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'media' && request.videoId === videoId && request.status === 200 ? [request.formatId] : []))
 
-				// The signed-in run is stopped once formats are chosen; the cookieless
-				// retry gets 720p, so no notice is shown.
+				// The probe (with cookies) finds 720p withheld, so the download skips the
+				// signed-in run and fetches without cookies, getting 720p and no notice.
 				await quickDownloadVideo(COOKIE_LIMITED_VIDEO_ID)
 				await queue.expectStatus('Fixture Video 14', 'done', 120_000)
 				await expect(queue.cardByTitle('Fixture Video 14').getByTestId('queue-quality-warning')).toHaveCount(0)
 				expect(completedFormats(COOKIE_LIMITED_VIDEO_ID).at(-1)).toBe('22')
-				// Probe with cookies; the download loads its info-json, is stopped, and
-				// re-extracts without cookies.
+				// Probe with cookies, then the download's own extraction without them.
 				expect(extractionsSignedIn(COOKIE_LIMITED_VIDEO_ID)).toEqual([true, false])
 
 				// Having helped, the session starts the next download without cookies.

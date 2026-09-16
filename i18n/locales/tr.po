@@ -613,7 +613,7 @@ msgstr "{{height}}p ile sınırlı"
 
 msgctxt "queue.item.qualityLimitedSubtitlesFailed"
 msgid "Limited to {{height}}p · some subtitles failed"
-msgstr "{{height}}p ile sınırlı · bazı altyazılar başarısız"
+msgstr "{{height}}p ile sınırlı · bazı altyazılar indirilemedi"
 
 msgctxt "queue.item.remove"
 msgid "Remove"

@@ -1,4 +1,4 @@
-import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
@@ -52,6 +52,12 @@ interface ScriptedRun {
 	withheld: boolean
 	infoJson: string
 	result?: YtDlpResult
+	// Finishes before the stop lands, as a small file on a fast link can.
+	outrunsStop?: boolean
+	// The output file was already there, so nothing was fetched.
+	alreadyDownloaded?: boolean
+	// A stderr line lands between the info-json announcement and the write.
+	stderrBeforeWrite?: boolean
 }
 
 let outputDir: string
@@ -67,7 +73,7 @@ afterEach(async () => {
 // A yt-dlp stand-in that prints output in the real order: extraction warnings,
 // the metadata write line, the info-json on disk, then the first transfer line.
 // A run stopped by its abort signal resolves as cancelled, like YtDlp does.
-function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: CookielessRetry; input?: Partial<ResolvedStartDownloadInput>}) {
+function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: CookielessRetry; input?: Partial<ResolvedStartDownloadInput>; active?: Partial<ActiveDownload>}) {
 	const runs = [...opts.runs]
 	const cookieFlags: boolean[] = []
 	const run = vi.fn(async (req: YtDlpRequest, signal?: YtDlpSignal, options?: YtDlpRunOptions) => {
@@ -77,9 +83,11 @@ function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: Cook
 		const infoJsonPath = join(req.output.tempDirectory, '_arroxy.info.json')
 		if (script.withheld && !req.resume) signal?.onStderr?.(SABR_WARNING)
 		signal?.onStdout?.(`[info] Writing video metadata as JSON to: ${infoJsonPath}\n`)
+		if (script.stderrBeforeWrite) signal?.onStderr?.('WARNING: [youtube] abc: unrelated warning\n')
 		await writeFile(infoJsonPath, script.infoJson)
-		signal?.onStdout?.(`[download] Destination: ${join(req.output.tempDirectory, 'video.mp4')}\n`)
-		if (signal?.abortSignal?.aborted) return CANCELLED
+		if (script.alreadyDownloaded) signal?.onStdout?.(`[download] ${join(outputDir, 'video.mp4')} has already been downloaded\n`)
+		else signal?.onStdout?.(`[download] Destination: ${join(req.output.tempDirectory, 'video.mp4')}\n`)
+		if (signal?.abortSignal?.aborted && !script.outrunsStop) return CANCELLED
 		return script.result ?? SUCCESS
 	})
 	const controller = new AbortController()
@@ -91,7 +99,8 @@ function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: Cook
 		cancelRequested: false,
 		pauseRequested: false,
 		subtitlePaths: [],
-		disposables: new AsyncStack()
+		disposables: new AsyncStack(),
+		...opts.active
 	}
 	const safeConsume = vi.fn()
 	const cookielessRetry = opts.retry ?? new CookielessRetry()
@@ -127,6 +136,29 @@ describe('VideoPhase quality limit detection', () => {
 		expect(ctx.active.qualityLimit).toEqual({height: 360})
 	})
 
+	it('remembers withheld formats for a resumed run that loads its saved info-json', async () => {
+		const tempDir = join(outputDir, '.arroxy-temp', 'job-qual')
+		await mkdir(tempDir, {recursive: true})
+		await writeFile(join(tempDir, '_arroxy.info.json'), INFO_360)
+		const {ctx, cookieFlags} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], active: {tempDir, formatsWithheld: true}})
+		await VideoPhase(false).run(ctx)
+		expect(cookieFlags).toEqual([true])
+		expect(ctx.active.qualityLimit).toEqual({height: 360})
+	})
+
+	it('keeps checking when a line arrives before the info-json is written', async () => {
+		const {ctx, cookieFlags} = makeCtx({
+			usesCookies: true,
+			runs: [
+				{withheld: true, infoJson: INFO_360, stderrBeforeWrite: true},
+				{withheld: false, infoJson: INFO_720}
+			]
+		})
+		await VideoPhase(false).run(ctx)
+		expect(cookieFlags).toEqual([true, false])
+		expect(ctx.active.qualityLimit).toBeUndefined()
+	})
+
 	it('never records a limit for a format the user picked explicitly', async () => {
 		const single: MediaJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: RANGED_720.embed}
 		const {ctx} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], input: {job: single}})
@@ -153,22 +185,83 @@ describe('VideoPhase retry without cookies', () => {
 		expect(destinations).toHaveLength(1)
 	})
 
-	it('stops a download that loaded a limited probe info-json and re-extracts without cookies', async () => {
+	it('skips the signed-in run when the probe info-json already shows the limit', async () => {
 		const probeInfoJsonPath = join(outputDir, 'probe.info.json')
-		await writeFile(probeInfoJsonPath, INFO_360)
-		const {ctx, cookieFlags} = makeCtx({
+		await writeFile(probeInfoJsonPath, JSON.stringify({formats: [{format_id: '18', height: 360, vcodec: 'avc1'}]}))
+		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: false, infoJson: INFO_720}], input: {probeInfoJsonPath, probeFormatsWithheld: true}})
+		await VideoPhase(false).run(ctx)
+		expect(cookieFlags).toEqual([false])
+		const loaded = vi.mocked(ctx.ytDlp.run).mock.calls.map(([req]) => (req.kind === 'media' ? req.resume?.loadInfoJsonPath : 'not-media'))
+		expect(loaded).toEqual([undefined])
+		expect(cookielessRetry.current).toBe('helps')
+	})
+
+	it('loads a probe info-json that still offers the requested quality, with cookies', async () => {
+		const probeInfoJsonPath = join(outputDir, 'probe.info.json')
+		await writeFile(
+			probeInfoJsonPath,
+			JSON.stringify({
+				formats: [
+					{format_id: '18', height: 360, vcodec: 'avc1'},
+					{format_id: '398', height: 720, vcodec: 'av01'}
+				]
+			})
+		)
+		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_720}], input: {probeInfoJsonPath, probeFormatsWithheld: true}})
+		await VideoPhase(false).run(ctx)
+		expect(cookieFlags).toEqual([true])
+		expect(cookielessRetry.current).toBe('untested')
+	})
+
+	it('keeps a limited download that finished before the stop reached it', async () => {
+		const {ctx, cookieFlags, cookielessRetry} = makeCtx({usesCookies: true, runs: [{withheld: true, infoJson: INFO_360, outrunsStop: true}]})
+		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
+		expect(cookieFlags).toEqual([true])
+		expect(ctx.active.qualityLimit).toEqual({height: 360})
+		expect(cookielessRetry.current).toBe('untested')
+	})
+
+	it('draws no verdict from a cookieless run that found the file already downloaded', async () => {
+		const {ctx, cookieFlags, cookielessRetry} = makeCtx({
+			usesCookies: true,
+			runs: [
+				{withheld: true, infoJson: INFO_360},
+				{withheld: false, infoJson: INFO_720, alreadyDownloaded: true}
+			]
+		})
+		await VideoPhase(false).run(ctx)
+		expect(cookieFlags).toEqual([true, false])
+		expect(cookielessRetry.current).toBe('untested')
+	})
+
+	it('removes partial files from the stopped run before retrying', async () => {
+		const {ctx} = makeCtx({
 			usesCookies: true,
 			runs: [
 				{withheld: true, infoJson: INFO_360},
 				{withheld: false, infoJson: INFO_720}
-			],
-			input: {probeInfoJsonPath, probeFormatsWithheld: true}
+			]
+		})
+		const run = vi.mocked(ctx.ytDlp.run)
+		const original = run.getMockImplementation()
+		if (!original) throw new Error('missing run implementation')
+		const partialsSeenByRetry: boolean[] = []
+		run.mockImplementation(async (req, signal, options) => {
+			if (req.kind === 'media' && req.output.tempDirectory) {
+				const partial = join(req.output.tempDirectory, 'video.mp4.part')
+				if (options?.withoutCookies)
+					partialsSeenByRetry.push(
+						await access(partial).then(
+							() => true,
+							() => false
+						)
+					)
+				else await writeFile(partial, 'x')
+			}
+			return original(req, signal, options)
 		})
 		await VideoPhase(false).run(ctx)
-		expect(cookieFlags).toEqual([true, false])
-		const requests = vi.mocked(ctx.ytDlp.run).mock.calls.map(([req]) => (req.kind === 'media' ? req.resume?.loadInfoJsonPath : 'not-media'))
-		expect(requests).toEqual([probeInfoJsonPath, undefined])
-		expect(ctx.active.qualityLimit).toBeUndefined()
+		expect(partialsSeenByRetry).toEqual([false])
 	})
 
 	it('keeps the warning and stops retrying for the session when cookies were not the cause', async () => {

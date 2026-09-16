@@ -14,26 +14,25 @@ const COOKIE_RUN = [
 ]
 
 describe('createDownloadSmokeObserver', () => {
-	it('extracts selection, clients and SABR skips, and waits for the line after the info-json write', () => {
+	it('extracts selection, clients and SABR skips, and notes the info-json announcement', () => {
 		const obs = createDownloadSmokeObserver()
 		obs.push(COOKIE_RUN.join('\n') + '\n')
-		expect(obs.snapshot()).toEqual({selectedFormat: '18', playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: [COOKIE_RUN[5]], shouldStop: false})
+		expect(obs.snapshot()).toEqual({selectedFormat: '18', playerApiClients: ['web embedded', 'tv downgraded'], sabrSkippedClients: ['web_embedded'], warnings: [COOKIE_RUN[5]], infoJsonWriteSeen: true, transferStarting: false})
 		obs.push('[download] Sleeping 1.81 seconds ...\n')
-		expect(obs.snapshot().shouldStop).toBe(true)
+		expect(obs.snapshot().transferStarting).toBe(true)
 	})
 
-	it('stops on any line after the info-json write', () => {
+	it('does not treat a later line as proof the info-json is complete', () => {
 		const obs = createDownloadSmokeObserver()
 		obs.push('[info] Writing video metadata as JSON to: /tmp/_arroxy.info.json\n')
-		expect(obs.snapshot().shouldStop).toBe(false)
-		obs.push('[info] Downloading video thumbnail 41 ...\n')
-		expect(obs.snapshot().shouldStop).toBe(true)
+		obs.push('WARNING: [youtube] abc: a stderr line that raced the write\n')
+		expect(obs.snapshot()).toMatchObject({infoJsonWriteSeen: true, transferStarting: false})
 	})
 
-	it('stops on a download destination line even without an info-json line', () => {
+	it('reports a download destination line as a transfer starting, even without an info-json line', () => {
 		const obs = createDownloadSmokeObserver()
 		obs.push('[download] Destination: /tmp/x.f398.mp4\r\n')
-		expect(obs.snapshot().shouldStop).toBe(true)
+		expect(obs.snapshot().transferStarting).toBe(true)
 	})
 
 	it('dedupes warnings and clients', () => {

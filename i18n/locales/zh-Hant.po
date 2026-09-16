@@ -613,7 +613,7 @@ msgstr "限制為 {{height}}p"
 
 msgctxt "queue.item.qualityLimitedSubtitlesFailed"
 msgid "Limited to {{height}}p · some subtitles failed"
-msgstr "限制為 {{height}}p · 部分字幕失敗"
+msgstr "限制為 {{height}}p · 部分字幕無法下載"
 
 msgctxt "queue.item.remove"
 msgid "Remove"
