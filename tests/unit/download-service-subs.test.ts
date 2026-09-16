@@ -64,7 +64,7 @@ function makeService() {
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/usr/bin/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/usr/bin/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false)
 	return {service, recentJobsStore}
 }

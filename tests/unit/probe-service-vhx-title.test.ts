@@ -33,7 +33,7 @@ function makeYtDlp(): YtDlp {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 't', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {}, single: {}, playlist: {}})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	return new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 }
 
 const PARENT_URL = 'https://www.trilogyplus.com/free-videos/videos/scammer-sobs-during-police-interrogation'

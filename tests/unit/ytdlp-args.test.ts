@@ -38,7 +38,7 @@ function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; vi
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, single: {}, playlist: {}})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never, {e2eMode: opts.e2eMode})
+	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode})
 }
 
 function getArgs(callIndex = 0): string[] {

@@ -23,7 +23,7 @@ function makeYtDlp(tokenService?: {mintTokenForUrl: ReturnType<typeof vi.fn>; in
 	// contradicts any recorded probe verdict the path was resolved from.
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore as never), tokenService: ts, binaryManager}
+	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore), tokenService: ts, binaryManager}
 }
 
 function mediaRequest(): YtDlpRequest {
