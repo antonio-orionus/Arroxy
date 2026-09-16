@@ -103,6 +103,7 @@
 		"check:i18n": "bun run check:locales && bun run check:readme && bun run check:app",
 		"smoke": "bun scripts/smoke-youtube.ts",
 		"smoke:playlist": "bun scripts/smoke-playlist-presets.ts",
+		"smoke:download": "bun scripts/smoke-download.ts",
 		"release:beta": "bash scripts/release.sh beta",
 		"release:stable": "bash scripts/release.sh stable",
 		"prepare": "husky",

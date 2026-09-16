@@ -11,6 +11,7 @@ A headless mode of the real app that runs the production download request for on
 | `src/main/services/phases/mediaRequest.ts`  | The media request builder shared with queued downloads                       |
 | `src/main/index.ts`                         | Dispatch, before the token service and queue exist                           |
 | `scripts/smoke/download-smoke-matrix.ps1`   | Windows grid runner                                                          |
+| `scripts/smoke-download.ts`                 | `bun run smoke:download` wrapper for macOS/Linux                             |
 
 ## Why it can be trusted
 
@@ -39,12 +40,14 @@ Exit code 0 means a format was selected and reported; 1 means the tool could not
 
 ```bash
 bun run build
-env -u ELECTRON_RUN_AS_NODE ELECTRON_USER_DATA="$(mktemp -d)" \
-  ARROXY_SMOKE_KIND=download ARROXY_SMOKE_URL='https://www.youtube.com/watch?v=z1NNgSu8hTI' ARROXY_SMOKE_COOKIES=off \
-  ./node_modules/.bin/electron out/main/index.js 2>&1 | grep -E 'download smoke|ARROXY_DOWNLOAD_SMOKE_RESULT'
+bun run smoke:download -- --url 'https://www.youtube.com/watch?v=z1NNgSu8hTI' --cookies off
+bun run smoke:download -- --cookies browser:firefox --clients none      # URL from ARROXY_SMOKE_URL or youtube-urls.local.txt
+bun run smoke:download -- --exe /Applications/Arroxy.app/Contents/MacOS/Arroxy --proxy off
 ```
 
-`env -u ELECTRON_RUN_AS_NODE` matters when the shell was itself started from an Electron app: an inherited `ELECTRON_RUN_AS_NODE=1` makes Electron run as plain Node and fail on `import {BrowserWindow} from 'electron'`. A packaged binary takes the same variables.
+The flags map one-to-one onto the environment contract above. The wrapper prints a summary (format, height, what was sent to yt-dlp, SABR skips) and saves the full report to `$TMPDIR/arroxy-download-smoke-last.json`. It always uses a scratch `ELECTRON_USER_DATA`, reused between runs so the managed yt-dlp is fetched once (`--fresh` for a new one).
+
+It also removes `ELECTRON_RUN_AS_NODE`. A shell started from an Electron app (an editor, an agent harness) can inherit `ELECTRON_RUN_AS_NODE=1`, which makes Electron run as plain Node and fail with `does not provide an export named 'BrowserWindow'`. When launching Electron by hand, use `env -u ELECTRON_RUN_AS_NODE`.
 
 ## Windows matrix
 
