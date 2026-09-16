@@ -1,7 +1,7 @@
 import {expect, test} from '@playwright/test'
 import fs from 'node:fs'
 import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
-import {fixtureMediaFileSize} from './fixtureMediaCatalog.js'
+import {SABR_LIMITED_VIDEO_ID, fixtureMediaFileSize} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -164,6 +164,40 @@ test('Electron sidecar subtitle failure completes the video with a subtitle warn
 			expect(subtitleFailure).toBeTruthy()
 		}
 	)
+})
+
+// Risk: YouTube withholds format URLs for a session, the 720p profile silently
+// falls back to 360p, and the user is never told why. The SABR-limited fixture
+// withholds 720p and prints yt-dlp's warning during the probe; an ordinary
+// fixture in the same app is the control. Oracles: the row notice, the format
+// actually fetched, and the absence of the notice on the control row.
+test('Electron quick download flags a download YouTube limited below the profile quality', async () => {
+	test.setTimeout(160_000)
+	const controlId = FIXTURE_VIDEO_IDS[8]
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-quality-limit-user-', outputPrefix: 'arroxy-fixture-quality-limit-out-'}, async ({page, fixtureServer, urls, queue, files}) => {
+		await expect(page.locator('[data-testid="profiles-active-profile-card"]')).toContainText('720p')
+		const quickDownload = page.locator('[data-testid="profiles-quick-download"]')
+		for (const videoId of [SABR_LIMITED_VIDEO_ID, controlId]) {
+			// Quick download stays busy while it probes and queues the previous link.
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await expect(quickDownload).toBeEnabled({timeout: 60_000})
+			await quickDownload.click()
+			await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0, {timeout: 60_000})
+		}
+
+		await queue.expectStatus('Fixture Video 13', 'done', 120_000)
+		await queue.expectStatus('Fixture Video 9', 'done', 120_000)
+		const notice = queue.cardByTitle('Fixture Video 13').getByTestId('queue-quality-warning')
+		await expect(notice).toBeVisible()
+		await expect(notice).toContainText('360p')
+		await expect(queue.cardByTitle('Fixture Video 9').getByTestId('queue-quality-warning')).toHaveCount(0)
+
+		files.expectMp4Count(2)
+		const mediaFormats = (videoId: string): string[] => fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'media' && request.videoId === videoId && request.status === 200 ? [request.formatId] : []))
+		expect(mediaFormats(SABR_LIMITED_VIDEO_ID)).toEqual(['18'])
+		expect(mediaFormats(controlId)).toEqual(['22'])
+	})
 })
 
 test('Electron paused active fixture download resumes after app relaunch', async () => {

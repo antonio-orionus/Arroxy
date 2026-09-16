@@ -134,6 +134,26 @@ describe('ProbeService — video probe', () => {
 		}
 	})
 
+	it('marks the info-json ref when the probe saw YouTube withhold format URLs', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'yt2', title: 'Limited', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=yt2', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a', height: 360}]})
+		const warning = 'WARNING: [youtube] yt2: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account.\n'
+		vi.mocked(spawnYtDlp).mockImplementation(() => {
+			const proc = Object.assign(new EventEmitter(), {stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()})
+			setTimeout(() => {
+				proc.stderr.emit('data', Buffer.from(warning))
+				proc.stdout.emit('data', Buffer.from(json))
+				proc.emit('close', 0)
+			}, 5)
+			return proc as never
+		})
+		const cache = {write: vi.fn().mockResolvedValue({id: '00000000-0000-4000-8000-000000000002', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'yt2', formatsWithheld: true}), resolve: vi.fn().mockResolvedValue('/cache/x.info.json')} as unknown as ProbeInfoJsonCache
+
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt2', {cookiesMode: 'off', playlistMode: 'video'})
+
+		expect(r.ok).toBe(true)
+		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: 'yt2'}), {videoId: 'yt2', formatsWithheld: true})
+	})
+
 	it('does not write info-json refs for auto-mode probes even when they resolve to a video', async () => {
 		const json = JSON.stringify({_type: 'video', id: 'auto-video', title: 'Auto Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=auto-video', formats: [{format_id: '251', ext: 'webm', vcodec: 'none', acodec: 'opus', abr: 143}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)

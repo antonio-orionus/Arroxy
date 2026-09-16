@@ -300,7 +300,7 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('builds Queue Manager scenarios without legacy drawer names', () => {
-		for (const id of ['queue-active', 'queue-pending', 'queue-mixed-selection', 'queue-artifacts', 'queue-errors', 'queue-columns'] as const) {
+		for (const id of ['queue-active', 'queue-pending', 'queue-mixed-selection', 'queue-artifacts', 'queue-errors', 'queue-notices', 'queue-columns'] as const) {
 			expect(getScenario(id).description).not.toMatch(/drawer/i)
 		}
 

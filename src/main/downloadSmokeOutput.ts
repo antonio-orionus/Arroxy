@@ -1,8 +1,7 @@
-import {z} from 'zod'
+import {sabrSkippedClient} from './services/download/formatLimitSignals.js'
 
 const SELECTED_FORMAT = /^\[info\] [\w-]+: Downloading \d+ format\(s\): (\S+)/
 const PLAYER_API = /^\[youtube\] [\w-]+: Downloading (.+?) player API JSON/
-const SABR_SKIPPED = /Some (\S+) client https formats have been skipped as they are missing a URL/
 const INFO_JSON_WRITTEN = /^\[info\] Writing video metadata as JSON to: /
 const TRANSFER_STARTING = /^\[download\] (Destination: |Sleeping )/
 const MAX_WARNINGS = 50
@@ -40,8 +39,8 @@ export function createDownloadSmokeObserver(): DownloadSmokeObserver {
 				if (selected?.[1]) state.selectedFormat = selected[1]
 				const client = PLAYER_API.exec(line)
 				if (client?.[1]) addDistinct(state.playerApiClients, client[1])
-				const sabr = SABR_SKIPPED.exec(line)
-				if (sabr?.[1]) addDistinct(state.sabrSkippedClients, sabr[1])
+				const sabr = sabrSkippedClient(line)
+				if (sabr) addDistinct(state.sabrSkippedClients, sabr)
 				if (line.startsWith('WARNING:') && state.warnings.length < MAX_WARNINGS) addDistinct(state.warnings, line)
 				if (INFO_JSON_WRITTEN.test(line)) infoJsonWritten = true
 			}
@@ -50,33 +49,4 @@ export function createDownloadSmokeObserver(): DownloadSmokeObserver {
 			return {...state, playerApiClients: [...state.playerApiClients], sabrSkippedClients: [...state.sabrSkippedClients], warnings: [...state.warnings]}
 		}
 	}
-}
-
-export interface SelectedFormat {
-	formatId: string
-	height: number | null
-	vcodec: string | null
-	acodec: string | null
-}
-
-const formatFieldsSchema = z.object({format_id: z.string(), height: z.number().nullish(), vcodec: z.string().nullish(), acodec: z.string().nullish()})
-const infoJsonSelectionSchema = formatFieldsSchema.extend({requested_formats: z.array(formatFieldsSchema).optional()})
-
-function toSelected(f: z.infer<typeof formatFieldsSchema>): SelectedFormat {
-	return {formatId: f.format_id, height: f.height ?? null, vcodec: f.vcodec ?? null, acodec: f.acodec ?? null}
-}
-
-// The info-json is yt-dlp output read back from disk, so it is parsed rather
-// than trusted: a merged selection lists its parts in requested_formats, a
-// single-file one carries the format on the top level.
-export function parseSelectedFormats(infoJsonText: string): SelectedFormat[] | null {
-	let raw: unknown
-	try {
-		raw = JSON.parse(infoJsonText)
-	} catch {
-		return null
-	}
-	const parsed = infoJsonSelectionSchema.safeParse(raw)
-	if (!parsed.success) return null
-	return parsed.data.requested_formats?.length ? parsed.data.requested_formats.map(toSelected) : [toSelected(parsed.data)]
 }

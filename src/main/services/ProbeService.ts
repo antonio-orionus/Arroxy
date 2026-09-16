@@ -17,6 +17,7 @@ import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp} from './YtDlp.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
+import {sabrSkippedClient} from './download/formatLimitSignals.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
 const logger = log.scope('probe')
@@ -567,7 +568,7 @@ export class ProbeService extends EventEmitter {
 						}
 					}
 				}
-				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null}) : undefined
+				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null, ...(final.stderr.split(/\r?\n/).some(line => sabrSkippedClient(line) !== null) ? {formatsWithheld: true} : {})}) : undefined
 				if (probeInfoJsonRef) {
 					const probeInfoJsonPath = await this.probeInfoJsonCache?.resolve(probeInfoJsonRef)
 					logger.info('Probe info-json cached', {url, videoId: probeInfoJsonRef.videoId ?? null, probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})

@@ -553,6 +553,8 @@
 		"item": {
 			"defaultError": "Download failed",
 			"retryingSoon": "retrying automatically (attempt {{attempt}})",
+			"qualityLimited": "Limited to {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limited to {{height}}p · some subtitles failed",
 			"pause": "Pause",
 			"resume": "Resume",
 			"cancel": "Cancel",
@@ -600,6 +602,8 @@
 		"fetchingSubtitles": "Fetching subtitles…",
 		"sleepingBetweenRequests": "Waiting {{seconds}}s to avoid rate limits…",
 		"subtitlesFailed": "Video saved — some subtitles could not be downloaded",
+		"qualityLimited": "Saved at {{height}}p — YouTube withheld higher qualities for this download. If cookies are on, turning them off may help.",
+		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. If cookies are on, turning them off may help.",
 		"cancelled": "Download cancelled",
 		"complete": "Download complete",
 		"usedExtractorFallback": "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads",

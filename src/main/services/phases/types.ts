@@ -1,3 +1,4 @@
+import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
@@ -52,6 +53,9 @@ export interface ActiveJobInput {
 	mediaPath?: string
 	mediaPostprocessStarted?: boolean
 	usedExtractorFallback?: boolean
+	// Set when YouTube withheld format URLs and the saved file came out below
+	// what the profile asked for; completion reports it instead of a plain done.
+	qualityLimit?: QualityLimit
 	tempDir?: string
 	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>

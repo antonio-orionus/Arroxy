@@ -12,11 +12,12 @@ import {prepareJob} from '@shared/prepareJob.js'
 import type {AppSettings} from '@shared/types.js'
 import type {E2eHarnessMode} from './e2eHarness.js'
 import {applyDownloadSmokeOverrides, type DownloadSmokeConfig} from './downloadSmokeConfig.js'
-import {createDownloadSmokeObserver, parseSelectedFormats} from './downloadSmokeOutput.js'
+import {createDownloadSmokeObserver} from './downloadSmokeOutput.js'
 import {serializeDownloadSmokeReport, summarizeSpawnArgs, type DownloadSmokeReport} from './downloadSmokeReport.js'
 import type {BinaryManager} from './services/BinaryManager.js'
 import {TokenService} from './services/TokenService.js'
 import {YtDlp, type SettingsSource, type YtDlpResult} from './services/YtDlp.js'
+import {parseSelectedFormats, selectedMaxHeight} from './services/download/formatLimitSignals.js'
 import {buildMediaRequest} from './services/phases/mediaRequest.js'
 import type {SettingsStore} from './stores/SettingsStore.js'
 import {HiddenWindowTokenProvider} from './token/providers/HiddenWindowTokenProvider.js'
@@ -130,8 +131,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		const infoJson = await readFile(join(tempDir, INFO_JSON_NAME), 'utf8').catch(() => null)
 		const formats = infoJson ? parseSelectedFormats(infoJson) : null
 		report.selection.formats = formats
-		const heights = (formats ?? []).flatMap(f => (f.height === null ? [] : [f.height]))
-		report.selection.maxHeight = heights.length > 0 ? Math.max(...heights) : null
+		report.selection.maxHeight = selectedMaxHeight(formats)
 
 		report.outcome = seen.selectedFormat ? 'format-selected' : timedOut ? 'timeout' : 'ytdlp-error'
 		report.ok = report.outcome === 'format-selected'

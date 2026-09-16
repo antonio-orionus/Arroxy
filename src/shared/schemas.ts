@@ -390,6 +390,8 @@ export const STATUS_KEY = {
 	fetchingSubtitles: 'fetchingSubtitles',
 	sleepingBetweenRequests: 'sleepingBetweenRequests',
 	subtitlesFailed: 'subtitlesFailed',
+	qualityLimited: 'qualityLimited',
+	qualityLimitedSubtitlesFailed: 'qualityLimitedSubtitlesFailed',
 	cancelled: 'cancelled',
 	complete: 'complete',
 	usedExtractorFallback: 'usedExtractorFallback',
@@ -606,7 +608,7 @@ export const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, r
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
 const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
-const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional()})
+const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional(), formatsWithheld: z.literal(true).optional()})
 const queueArtifactSchema = z.object({id: z.string().min(1), kind: queueArtifactKindSchema, path: z.string().min(1), fileName: z.string().min(1), sizeBytes: z.number().int().nonnegative().optional(), discoveredAt: z.string().min(1), missing: z.boolean().optional(), internal: z.boolean().optional()})
 
 export const queueItemSchema = z

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {createDownloadSmokeObserver, parseSelectedFormats} from '@main/downloadSmokeOutput.js'
+import {createDownloadSmokeObserver} from '@main/downloadSmokeOutput.js'
 
 // Lines copied from a 0.4.16 user log: cookies enabled, 360p picked.
 const COOKIE_RUN = [
@@ -41,31 +41,5 @@ describe('createDownloadSmokeObserver', () => {
 		obs.push(`${COOKIE_RUN[3]}\n${COOKIE_RUN[3]}\n${COOKIE_RUN[5]}\n${COOKIE_RUN[5]}\n`)
 		expect(obs.snapshot().playerApiClients).toEqual(['web embedded'])
 		expect(obs.snapshot().warnings).toHaveLength(1)
-	})
-})
-
-describe('parseSelectedFormats', () => {
-	it('reads requested_formats for merged selections', () => {
-		const json = JSON.stringify({
-			format_id: '398+251',
-			height: 720,
-			requested_formats: [
-				{format_id: '398', height: 720, vcodec: 'av01.0.05M.08', acodec: 'none'},
-				{format_id: '251', height: null, vcodec: 'none', acodec: 'opus'}
-			]
-		})
-		expect(parseSelectedFormats(json)).toEqual([
-			{formatId: '398', height: 720, vcodec: 'av01.0.05M.08', acodec: 'none'},
-			{formatId: '251', height: null, vcodec: 'none', acodec: 'opus'}
-		])
-	})
-
-	it('falls back to the top-level format for single-file selections', () => {
-		expect(parseSelectedFormats(JSON.stringify({format_id: '18', height: 360, vcodec: 'avc1.42001E', acodec: 'mp4a.40.2'}))).toEqual([{formatId: '18', height: 360, vcodec: 'avc1.42001E', acodec: 'mp4a.40.2'}])
-	})
-
-	it('returns null for truncated or foreign JSON', () => {
-		expect(parseSelectedFormats('{"format_id": "1')).toBeNull()
-		expect(parseSelectedFormats(JSON.stringify({title: 'no format'}))).toBeNull()
 	})
 })

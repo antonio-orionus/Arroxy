@@ -122,6 +122,28 @@ describe('QueueManagerTab', () => {
 		expect(screen.queryByTestId('queue-manager-row-item-5000')).not.toBeInTheDocument()
 	})
 
+	it('labels a quality-limited finished row briefly and explains it in the tooltip', () => {
+		useAppStore.setState({queue: [makeItem({id: 'limited', title: 'Limited video', status: 'done', progressPercent: 100, lastStatus: {key: 'qualityLimited', params: {height: 360}}}), makeItem({id: 'plain', title: 'Plain video', status: 'done', progressPercent: 100, lastStatus: {key: 'complete'}})]})
+
+		render(<QueueManagerTab />)
+
+		const notices = screen.getAllByTestId('queue-quality-warning')
+		expect(notices).toHaveLength(1)
+		expect(notices[0]).toHaveTextContent('Limited to 360p')
+		expect(notices[0].getAttribute('title')).toMatch(/360p[\s\S]*cookies/i)
+	})
+
+	it('shows one notice covering both a quality limit and failed subtitles', () => {
+		useAppStore.setState({queue: [makeItem({id: 'both', title: 'Both video', status: 'done', progressPercent: 100, lastStatus: {key: 'qualityLimitedSubtitlesFailed', params: {height: 360}}})]})
+
+		render(<QueueManagerTab />)
+
+		const notice = screen.getByTestId('queue-quality-warning')
+		expect(notice).toHaveTextContent('Limited to 360p')
+		expect(notice).toHaveTextContent(/subtitles/i)
+		expect(notice.getAttribute('title')).toMatch(/cookies/i)
+	})
+
 	it('filters by queue status', () => {
 		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'}), makeItem({id: 'done', title: 'Finished video', status: 'done', progressPercent: 100})]})
 

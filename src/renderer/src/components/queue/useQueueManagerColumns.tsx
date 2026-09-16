@@ -2,6 +2,7 @@ import {useMemo, type ReactNode} from 'react'
 import {createColumnHelper} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
 import {Ban, Captions, CheckCircle2, ChevronDown, Clock, Loader2, Pause, PauseCircle, XCircle} from 'lucide-react'
+import type {StatusKey} from '@shared/schemas.js'
 import type {QueueItem, QueueItemStatus} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {cn} from '@renderer/lib/utils.js'
@@ -53,8 +54,30 @@ function rowStatusDetail(item: QueueItem, t: TFunction): string {
 		return item.retryAt ? `${message} — ${t('queue.item.retryingSoon', {attempt: item.retryCount})}` : message
 	}
 	if (item.status === 'running' || item.status === 'paused-active') return item.progressDetail ?? formatStatus(item.lastStatus)
-	if (item.status === 'done' && item.lastStatus?.key === 'subtitlesFailed') return formatStatus(item.lastStatus)
+	const notice = doneNotice(item)
+	if (notice) return notice.label(item, t)
 	return ''
+}
+
+interface DoneNotice {
+	testId: string
+	// Rows are a fixed single line, so a long notice gets a short label and
+	// keeps its full explanation (the part the user can act on) in the tooltip.
+	label: (item: QueueItem, t: TFunction) => string
+}
+
+const heightParam = (item: QueueItem): string | number => item.lastStatus?.params?.height ?? ''
+
+// A finished row still carries a notice when something about the result needs
+// the user's attention; each kind keeps its own test id.
+const DONE_NOTICES: Partial<Record<StatusKey, DoneNotice>> = {
+	subtitlesFailed: {testId: 'queue-subs-warning', label: item => formatStatus(item.lastStatus)},
+	qualityLimited: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimited', {height: heightParam(item)})},
+	qualityLimitedSubtitlesFailed: {testId: 'queue-quality-warning', label: (item, t) => t('queue.item.qualityLimitedSubtitlesFailed', {height: heightParam(item)})}
+}
+
+function doneNotice(item: QueueItem): DoneNotice | undefined {
+	return item.status === 'done' && item.lastStatus ? DONE_NOTICES[item.lastStatus.key] : undefined
 }
 
 export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; t: TFunction}): QueueManagerColumn[] {
@@ -94,9 +117,9 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 								</Badge>
 								{detail ? (
 									<span
-										data-testid={item.status === 'error' ? 'queue-error-msg' : item.status === 'done' && item.lastStatus?.key === 'subtitlesFailed' ? 'queue-subs-warning' : undefined}
-										className={cn('max-w-48 truncate text-[11px]', item.status === 'error' ? 'text-[var(--color-status-error)]' : 'text-[var(--text-subtle)]')}
-										title={detail}
+										data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId}
+										className={cn('max-w-48 truncate text-[11px]', item.status === 'error' ? 'text-[var(--color-status-error)]' : doneNotice(item) ? 'text-[var(--color-status-paused)]' : 'text-[var(--text-subtle)]')}
+										title={doneNotice(item) ? formatStatus(item.lastStatus) : detail}
 									>
 										{detail}
 									</span>

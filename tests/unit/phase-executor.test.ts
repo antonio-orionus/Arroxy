@@ -65,6 +65,23 @@ describe('PhaseExecutor', () => {
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.complete)
 	})
 
+	it('completion with a quality limit → reports qualityLimited with the saved height instead of complete', async () => {
+		const ctx = makeCtx({qualityLimit: {height: 360}})
+
+		await new PhaseExecutor().run(ctx, [stubPhase({kind: 'continue'})])
+
+		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimited, {height: 360})
+		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalledWith('done', STATUS_KEY.complete)
+	})
+
+	it('a subtitle soft failure on a quality-limited download reports both', async () => {
+		const ctx = makeCtx({qualityLimit: {height: 360}})
+
+		await new PhaseExecutor().run(ctx, [stubPhase({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})])
+
+		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: 360})
+	})
+
 	it('completion with usedExtractorFallback → emits usedExtractorFallback before complete', async () => {
 		const ctx = makeCtx({usedExtractorFallback: true})
 

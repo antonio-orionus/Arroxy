@@ -1,9 +1,11 @@
-import {mkdir, rm, stat} from 'node:fs/promises'
+import {mkdir, readFile, rm, stat} from 'node:fs/promises'
 import {dirname, join} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
+import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
+import {assessQualityLimit, parseSelectedFormats, sabrSkippedClient, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
@@ -50,6 +52,16 @@ function isSkippableSponsorBlockApiFailure(result: Exclude<YtDlpResult, {kind: '
 	if (result.kind !== 'exit-error') return false
 	if (req.kind !== 'media' || req.sponsorBlock === undefined || req.sponsorBlock.categories.length === 0) return false
 	return /Unable to communicate with SponsorBlock API/i.test([result.rawError, result.stderr].filter(Boolean).join('\n'))
+}
+
+// Only a format range can be pushed down by withheld URLs; an explicit format
+// either downloads as picked or fails outright. The selected height comes from
+// the info-json yt-dlp writes after format selection, before temp cleanup.
+async function detectQualityLimit(job: ResolvedStartDownloadInput['job'], tempDir: string | undefined, formatsWithheld: boolean): Promise<QualityLimit | null> {
+	if (!formatsWithheld || job.kind !== 'ranged-format' || !tempDir) return null
+	const infoJson = await readFile(join(tempDir, '_arroxy.info.json'), 'utf8').catch(() => null)
+	const selectedHeight = infoJson === null ? null : selectedMaxHeight(parseSelectedFormats(infoJson))
+	return assessQualityLimit({sabrSkipped: true, selectedHeight, intent: job.intent})
 }
 
 function hasMediaTransferStarted(active: PhaseContext['active']): boolean {
@@ -107,6 +119,14 @@ export function VideoPhase(embed: boolean): Phase {
 			// a few seconds on extractor work and thumbnail conversion first.
 			// The first `[download] Destination:` line in consumeProgress emits
 			// the accurate status when the actual data download begins.
+			// yt-dlp prints the withheld-formats warning during extraction, so it is
+			// only seen on runs that extract; a run that loads the probe's info-json
+			// inherits the probe's observation instead.
+			let formatsWithheldSeen = false
+			const consume = (text: string): void => {
+				ctx.safeConsume(text)
+				if (!formatsWithheldSeen && text.split(/\r?\n|\r/).some(line => sabrSkippedClient(line) !== null)) formatsWithheldSeen = true
+			}
 			const runMedia = async (infoJsonPath: string | undefined): Promise<{req: YtDlpRequest; result: YtDlpResult}> => {
 				const req = buildRequest(infoJsonPath)
 				const result = await ytDlp.run(
@@ -114,7 +134,9 @@ export function VideoPhase(embed: boolean): Phase {
 					buildYtDlpSignal(ctx, active, {
 						onMinting: attempt => {
 							ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
-						}
+						},
+						onStdout: consume,
+						onStderr: consume
 					})
 				)
 				return {req, result}
@@ -161,6 +183,9 @@ export function VideoPhase(embed: boolean): Phase {
 			}
 
 			if (result.usedExtractorFallback) active.usedExtractorFallback = true
+			const loadedProbeInfoJson = input.probeInfoJsonPath !== undefined && req.kind === 'media' && req.resume?.loadInfoJsonPath === input.probeInfoJsonPath
+			const qualityLimit = await detectQualityLimit(preparedJob, tempDir, formatsWithheldSeen || (loadedProbeInfoJson && input.probeFormatsWithheld === true))
+			if (qualityLimit) active.qualityLimit = qualityLimit
 			return {kind: 'continue'}
 		}
 	}

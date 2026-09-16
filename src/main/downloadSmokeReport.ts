@@ -1,5 +1,5 @@
 import type {CookiesMode} from '@shared/schemas.js'
-import type {SelectedFormat} from './downloadSmokeOutput.js'
+import type {SelectedFormat} from './services/download/formatLimitSignals.js'
 import type {YtDlpInvocationSummary} from './services/YtDlp.js'
 
 export const DOWNLOAD_SMOKE_RESULT_PREFIX = 'ARROXY_DOWNLOAD_SMOKE_RESULT '
