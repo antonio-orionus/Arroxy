@@ -14,7 +14,7 @@ function makeService() {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'mock-token', visitorData: 'mock-visitor'})}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 	// Use maxConcurrent=4 to exercise the legacy multi-job assumptions in this
 	// integration suite (concurrent start, multi-job cancel-by-id). QueueService
 	// applies the cap=1 policy in production.
@@ -232,7 +232,7 @@ describe('DownloadService (mock mode)', () => {
 		const tokenService = {mintTokenForUrl: vi.fn()}
 		const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 		const settingsStore = {get: vi.fn().mockResolvedValue({})}
-		const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+		const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 		const service = new DownloadService(ytDlp, recentJobsStore as never, true)
 		vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue()
 

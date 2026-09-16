@@ -19,6 +19,7 @@ import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
 import {JobLifecycle} from './JobLifecycle.js'
+import {CookielessRetry} from './download/cookielessRetry.js'
 
 const logger = log.scope('downloads')
 
@@ -37,6 +38,7 @@ export class DownloadService extends EventEmitter {
 	private maxConcurrent: number
 	private readonly progressParser: ProgressParser
 	private readonly lifecycle: JobLifecycle
+	private readonly cookielessRetry = new CookielessRetry()
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -117,7 +119,21 @@ export class DownloadService extends EventEmitter {
 		job.status = 'running'
 		job.updatedAt = nowIso()
 		const controller = new AbortController()
-		const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: paused.tempDir, disposables: new AsyncStack()}
+		const active: ActiveDownload = {
+			job,
+			input,
+			controller,
+			signal: controller.signal,
+			cancelRequested: false,
+			pauseRequested: false,
+			subtitlePaths: [],
+			mediaDownloadStarted: false,
+			mediaComponentPaths: [],
+			tempDir: paused.tempDir,
+			qualityLimit: paused.qualityLimit,
+			formatsWithheld: paused.formatsWithheld,
+			disposables: new AsyncStack()
+		}
 		this.activeJobs.set(job.id, active)
 		const resumedTempDir = await QueueResumeLifecycle.validateTempDir(paused.tempDir)
 		if (paused.tempDir && !resumedTempDir) logger.info('Resume: preserved tempDir missing — restarting fresh', {jobId: job.id, tempDir: paused.tempDir})
@@ -179,6 +195,7 @@ export class DownloadService extends EventEmitter {
 			active,
 			signal: active.signal,
 			ytDlp: this.ytDlp,
+			cookielessRetry: this.cookielessRetry,
 			emitStatus: (stage, statusKey, params?, error?, resumeContext?) => this.emitStatus(job.id, stage, statusKey, params, error, resumeContext),
 			register: disposable =>
 				active.disposables.defer(async () => {
@@ -219,7 +236,7 @@ export class DownloadService extends EventEmitter {
 					return
 				}
 				this.activeJobs.delete(job.id)
-				this.pausedJobs.set(job.id, {job, input, tempDir: active.tempDir})
+				this.pausedJobs.set(job.id, {job, input, tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
 				logger.info('Download paused — temp dir preserved', {jobId: job.id, tempDir: active.tempDir})
 				return
 			case 'continue':

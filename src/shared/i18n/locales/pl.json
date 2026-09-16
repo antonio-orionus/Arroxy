@@ -570,6 +570,8 @@
 		"item": {
 			"defaultError": "Pobieranie nie powiodło się",
 			"retryingSoon": "automatyczna ponowna próba (próba {{attempt}})",
+			"qualityLimited": "Ograniczono do {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Ograniczono do {{height}}p · części napisów nie pobrano",
 			"pause": "Wstrzymaj",
 			"resume": "Wznów",
 			"cancel": "Anuluj",
@@ -622,6 +624,8 @@
 		"fetchingSubtitles": "Pobieranie napisów…",
 		"sleepingBetweenRequests": "Oczekiwanie {{seconds}} s, aby uniknąć ograniczenia liczby żądań…",
 		"subtitlesFailed": "Film zapisany — nie udało się pobrać niektórych napisów",
+		"qualityLimited": "Zapisano w {{height}}p — YouTube wstrzymał wyższe jakości dla tego pobierania. Może pomóc ponowna próba później lub z innej sieci.",
+		"qualityLimitedSubtitlesFailed": "Zapisano w {{height}}p — YouTube wstrzymał wyższe jakości dla tego pobierania i nie udało się pobrać niektórych napisów. Może pomóc ponowna próba później lub z innej sieci.",
 		"cancelled": "Pobieranie anulowane",
 		"complete": "Pobieranie ukończone",
 		"usedExtractorFallback": "Pobrano z łagodniejszym ekstraktorem — skonfiguruj cookies.txt, aby pobieranie było bardziej niezawodne",

@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Falló la descarga",
 			"retryingSoon": "reintentando automáticamente (intento {{attempt}})",
+			"qualityLimited": "Limitado a {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limitado a {{height}}p · algunos subtítulos fallaron",
 			"pause": "Pausar",
 			"resume": "Reanudar",
 			"cancel": "Cancelar",
@@ -614,6 +616,8 @@
 		"fetchingSubtitles": "Obteniendo subtítulos…",
 		"sleepingBetweenRequests": "Esperando {{seconds}}s para evitar límites…",
 		"subtitlesFailed": "Video guardado — algunos subtítulos no se pudieron descargar",
+		"qualityLimited": "Guardado en {{height}}p — YouTube retuvo las calidades superiores para esta descarga. Volver a intentarlo más tarde o desde otra red puede ayudar.",
+		"qualityLimitedSubtitlesFailed": "Guardado en {{height}}p — YouTube retuvo las calidades superiores para esta descarga y algunos subtítulos no se pudieron descargar. Volver a intentarlo más tarde o desde otra red puede ayudar.",
 		"cancelled": "Descarga cancelada",
 		"complete": "Descarga completada",
 		"usedExtractorFallback": "Descargado con extractor relajado — configura un cookies.txt para descargas más fiables",

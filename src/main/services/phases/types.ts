@@ -1,3 +1,5 @@
+import type {CookielessRetry} from '../download/cookielessRetry.js'
+import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
@@ -52,6 +54,13 @@ export interface ActiveJobInput {
 	mediaPath?: string
 	mediaPostprocessStarted?: boolean
 	usedExtractorFallback?: boolean
+	// Set when YouTube withheld format URLs and the saved file came out below
+	// what the profile asked for; completion reports it instead of a plain done.
+	qualityLimit?: QualityLimit
+	// yt-dlp reported withheld formats during this job's extraction. A resumed
+	// run loads the saved info-json and never extracts again, so this is how it
+	// still knows.
+	formatsWithheld?: boolean
 	tempDir?: string
 	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
@@ -69,6 +78,8 @@ export interface PausedDownload {
 	job: DownloadJob
 	input: ResolvedStartDownloadInput
 	tempDir?: string
+	qualityLimit?: QualityLimit
+	formatsWithheld?: boolean
 }
 
 export type PhaseOutcome = {kind: 'continue'} | {kind: 'completed'} | {kind: 'soft-failed'; status: StatusKey} | {kind: 'hard-failed'; error: LocalizedError; resumeContext?: QueueResumeContext} | {kind: 'cancelled'} | {kind: 'paused'}
@@ -88,6 +99,9 @@ export interface PhaseContext {
 	active: ActiveJob
 	signal: AbortSignal
 	ytDlp: YtDlp
+	// Session-wide: whether retrying YouTube-limited downloads without cookies
+	// has helped so far. Owned by DownloadService, shared by every job.
+	cookielessRetry: CookielessRetry
 	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void
 	register(disposable: Disposable): void
 	safeConsume(text: string): void

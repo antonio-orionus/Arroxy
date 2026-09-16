@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Jetzt starten — Warteschlange überspringen"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Begrenzt auf {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Entfernen"
@@ -970,6 +978,14 @@ msgstr "Dateien werden verschoben…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Binärdateien werden vorbereitet…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten. Ein späterer Versuch oder ein anderes Netzwerk kann helfen."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

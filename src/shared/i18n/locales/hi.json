@@ -537,6 +537,8 @@
 		"item": {
 			"defaultError": "डाउनलोड विफल",
 			"retryingSoon": "अपने आप दोबारा कोशिश हो रही है (प्रयास {{attempt}})",
+			"qualityLimited": "{{height}}p तक सीमित",
+			"qualityLimitedSubtitlesFailed": "{{height}}p तक सीमित · कुछ सबटाइटल विफल",
 			"pause": "रोकें",
 			"resume": "फिर से शुरू",
 			"cancel": "रद्द करें",
@@ -584,6 +586,8 @@
 		"fetchingSubtitles": "सबटाइटल लाए जा रहे हैं…",
 		"sleepingBetweenRequests": "सीमाओं से बचने के लिए {{seconds}}s प्रतीक्षा कर रहे हैं…",
 		"subtitlesFailed": "वीडियो सहेजा गया — कुछ सबटाइटल डाउनलोड नहीं हो सके",
+		"qualityLimited": "{{height}}p में सहेजा गया — YouTube ने इस डाउनलोड के लिए ऊँची क्वालिटी रोक दी। बाद में या किसी दूसरे नेटवर्क से फिर कोशिश करना मदद कर सकता है।",
+		"qualityLimitedSubtitlesFailed": "{{height}}p में सहेजा गया — YouTube ने इस डाउनलोड के लिए ऊँची क्वालिटी रोक दी, और कुछ सबटाइटल डाउनलोड नहीं हो सके। बाद में या किसी दूसरे नेटवर्क से फिर कोशिश करना मदद कर सकता है।",
 		"cancelled": "डाउनलोड रद्द कर दिया",
 		"complete": "डाउनलोड पूरा",
 		"usedExtractorFallback": "सरलीकृत एक्सट्रैक्टर के साथ डाउनलोड हुआ — अधिक भरोसेमंद डाउनलोड के लिए cookies.txt सेट करें",

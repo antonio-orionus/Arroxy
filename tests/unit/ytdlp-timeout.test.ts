@@ -15,7 +15,7 @@ function makeYtDlp() {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	return new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 }
 
 function probeRequest(): YtDlpRequest {

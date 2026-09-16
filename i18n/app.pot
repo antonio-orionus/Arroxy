@@ -606,6 +606,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr ""
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr ""
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr ""
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr ""
@@ -966,6 +974,14 @@ msgstr ""
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
+msgstr ""
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr ""
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
 msgstr ""
 
 msgctxt "status.remintingToken"

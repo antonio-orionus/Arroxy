@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Download fehlgeschlagen",
 			"retryingSoon": "wird automatisch wiederholt (Versuch {{attempt}})",
+			"qualityLimited": "Begrenzt auf {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Begrenzt auf {{height}}p · einige Untertitel fehlgeschlagen",
 			"pause": "Pause",
 			"resume": "Fortsetzen",
 			"cancel": "Abbrechen",
@@ -614,6 +616,8 @@
 		"fetchingSubtitles": "Untertitel werden geholt…",
 		"sleepingBetweenRequests": "Warte {{seconds}}s, um Limits zu vermeiden…",
 		"subtitlesFailed": "Video gespeichert — einige Untertitel konnten nicht geladen werden",
+		"qualityLimited": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
+		"qualityLimitedSubtitlesFailed": "In {{height}}p gespeichert — YouTube hat höhere Qualitäten für diesen Download zurückgehalten, und einige Untertitel konnten nicht geladen werden. Ein späterer Versuch oder ein anderes Netzwerk kann helfen.",
 		"cancelled": "Download abgebrochen",
 		"complete": "Download abgeschlossen",
 		"usedExtractorFallback": "Mit gelockertem Extraktor heruntergeladen — richte eine cookies.txt für zuverlässigere Downloads ein",

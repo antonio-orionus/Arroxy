@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "İndirme başarısız oldu",
 			"retryingSoon": "otomatik yeniden deneniyor (deneme {{attempt}})",
+			"qualityLimited": "{{height}}p ile sınırlı",
+			"qualityLimitedSubtitlesFailed": "{{height}}p ile sınırlı · bazı altyazılar indirilemedi",
 			"pause": "Duraklat",
 			"resume": "Sürdür",
 			"cancel": "İptal",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "Altyazılar alınıyor…",
 		"sleepingBetweenRequests": "Hız sınırlarından kaçınmak için {{seconds}} sn bekleniyor…",
 		"subtitlesFailed": "Video kaydedildi — bazı altyazılar indirilemedi",
+		"qualityLimited": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir.",
 		"cancelled": "İndirme iptal edildi",
 		"complete": "İndirme tamamlandı",
 		"usedExtractorFallback": "Gevşetilmiş çıkarıcıyla indirildi — daha güvenilir indirmeler için cookies.txt kur",

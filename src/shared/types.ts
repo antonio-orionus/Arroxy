@@ -445,6 +445,9 @@ export interface ProbeInfoJsonRef {
 	id: string
 	createdAt: string
 	videoId?: string
+	// The probe saw YouTube list formats without download URLs (yt-dlp's
+	// "missing a URL" warning), which can cap the download's quality.
+	formatsWithheld?: true
 }
 
 export interface ProbeProgressEvent {
@@ -578,6 +581,10 @@ export interface StartDownloadInput {
 	// Main-process-only resolved path for an opaque QueueItem.probeInfoJsonRef.
 	// The IPC start schema intentionally does not accept this from the renderer.
 	probeInfoJsonPath?: string
+	// Main-process-only: the probe that wrote that info-json saw YouTube withhold
+	// format URLs. A download that loads it skips extraction and so never prints
+	// the warning itself.
+	probeFormatsWithheld?: boolean
 }
 
 // The narrowed shape once DownloadService.start() has refused the unresolved

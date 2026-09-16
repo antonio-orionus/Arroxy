@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "اوس ډاونلوډ — قطار پرېږدئ"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "په {{height}}p پورې محدود"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "په {{height}}p پورې محدود · ځینې ژباړلیکونه ناکام شول"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "لیرې کول"
@@ -970,6 +978,14 @@ msgstr "فایلونه لیږدول کیږي…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "بائنري فایلونه چمتو کیږي…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول، او ځینې ژباړلیکونه ډاونلوډ نه شول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

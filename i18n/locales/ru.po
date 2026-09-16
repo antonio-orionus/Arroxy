@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Загрузить сейчас — пропустить очередь"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Ограничено {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Ограничено {{height}}p · часть субтитров не загрузилась"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Удалить"
@@ -970,6 +978,14 @@ msgstr "Перемещение файлов…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Подготовка бинарников…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Сохранено в {{height}}p — YouTube не отдал более высокое качество для этой загрузки. Может помочь повторная попытка позже или из другой сети."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Сохранено в {{height}}p — YouTube не отдал более высокое качество для этой загрузки, и некоторые субтитры не загрузились. Может помочь повторная попытка позже или из другой сети."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

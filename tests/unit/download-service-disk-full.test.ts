@@ -60,7 +60,7 @@ function makeService() {
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 	const service = new DownloadService(ytDlp, recentJobsStore as never)
 
 	return {service, recentJobsStore, ytDlp}

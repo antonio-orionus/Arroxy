@@ -39,10 +39,21 @@ function titleOverride(video: (typeof catalog.videos)[number]): string | undefin
 	return title === undefined || title === '' ? undefined : title
 }
 
+/** Formats the extractor withholds and warnings it prints for this entry. */
+function sessionLimits(video: (typeof catalog.videos)[number]): {withheldFormatIds: string[]; warnings: string[]; withCookiesOnly: boolean} {
+	const limited = video as {withheldFormatIds?: string[]; warnings?: string[]; limitedWithCookiesOnly?: boolean}
+	return {withheldFormatIds: limited.withheldFormatIds ?? [], warnings: limited.warnings ?? [], withCookiesOnly: limited.limitedWithCookiesOnly === true}
+}
+
+function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
+	const limits = sessionLimits(video)
+	return limits.withheldFormatIds.length > 0 || limits.warnings.length > 0
+}
+
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')
 // Ordinary fixture videos only. A video carrying an awkward title is addressed
 // through its own export, so tests that just need "some video" never draw one.
-export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined).map(video => video.id)
+export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video)).map(video => video.id)
 const splitMediaVideo = catalog.videos.find(video => video.formatSet === 'split')
 if (!splitMediaVideo) throw new Error('fixture-media-catalog.json must define a split fixture video')
 export const SPLIT_MEDIA_VIDEO_ID = splitMediaVideo.id
@@ -52,6 +63,18 @@ if (!awkwardTitleVideo) throw new Error('fixture-media-catalog.json must define 
 export const AWKWARD_TITLE_VIDEO_ID = awkwardTitleVideo.id
 /** The raw title, before any sanitizing or shortening Arroxy applies. */
 export const AWKWARD_TITLE = titleOverride(awkwardTitleVideo) ?? ''
+// Mimics a signed-in session YouTube limited: the 720p format comes back without
+// a URL and yt-dlp prints its SABR warning, leaving only the 360p fallback.
+const isSabrLimited = (video: (typeof catalog.videos)[number]): boolean => sessionLimits(video).warnings.some(warning => warning.includes('missing a URL'))
+const sabrLimitedVideo = catalog.videos.find(video => isSabrLimited(video) && !sessionLimits(video).withCookiesOnly)
+if (!sabrLimitedVideo) throw new Error('fixture-media-catalog.json must define a SABR-limited fixture video')
+export const SABR_LIMITED_VIDEO_ID = sabrLimitedVideo.id
+// Limited the same way, but only for a signed-in session: without cookies the
+// 720p format comes back with its URL.
+const cookieLimitedVideo = catalog.videos.find(video => isSabrLimited(video) && sessionLimits(video).withCookiesOnly)
+if (!cookieLimitedVideo) throw new Error('fixture-media-catalog.json must define a fixture video limited only with cookies')
+export const COOKIE_LIMITED_VIDEO_ID = cookieLimitedVideo.id
+
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds
 export const FIXTURE_MEDIA_FORMAT_IDS = Object.values(catalog.formatSets).flatMap(formatSet => formatSet.map(format => format.id))

@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "ڈاؤن لوڈ ناکام",
 			"retryingSoon": "خود بخود دوبارہ کوشش جاری ہے (کوشش {{attempt}})",
+			"qualityLimited": "{{height}}p تک محدود",
+			"qualityLimitedSubtitlesFailed": "{{height}}p تک محدود · کچھ سب ٹائٹلز ناکام",
 			"pause": "روکیں",
 			"resume": "دوبارہ شروع کریں",
 			"cancel": "منسوخ کریں",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "سب ٹائٹلز لائے جا رہے ہیں…",
 		"sleepingBetweenRequests": "ریٹ لمٹس سے بچنے کے لیے {{seconds}} سیکنڈ انتظار…",
 		"subtitlesFailed": "ویڈیو محفوظ ہو گئی — کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے",
+		"qualityLimited": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
+		"qualityLimitedSubtitlesFailed": "{{height}}p میں محفوظ ہوئی — YouTube نے اس ڈاؤن لوڈ کے لیے اعلیٰ کوالٹی روک لی، اور کچھ سب ٹائٹلز ڈاؤن لوڈ نہ ہو سکے۔ بعد میں یا کسی دوسرے نیٹ ورک سے دوبارہ کوشش کرنا مددگار ہو سکتا ہے۔",
 		"cancelled": "ڈاؤن لوڈ منسوخ",
 		"complete": "ڈاؤن لوڈ مکمل",
 		"usedExtractorFallback": "ریلیکسڈ ایکسٹریکٹر سے ڈاؤن لوڈ ہوا — زیادہ قابل اعتماد ڈاؤن لوڈز کے لیے cookies.txt سیٹ اپ کریں",

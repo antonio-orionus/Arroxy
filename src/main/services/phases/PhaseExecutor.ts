@@ -18,7 +18,9 @@ export class PhaseExecutor {
 					this.emitCompletion(ctx)
 					return out
 				case 'soft-failed':
-					ctx.emitStatus('done', out.status)
+					// Both notices matter: the quality limit concerns the video itself.
+					if (out.status === STATUS_KEY.subtitlesFailed && ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: ctx.active.qualityLimit.height})
+					else ctx.emitStatus('done', out.status)
 					return out
 				case 'hard-failed':
 					// Phase already emitted the error status with the LocalizedError.
@@ -40,6 +42,8 @@ export class PhaseExecutor {
 		if (ctx.active.usedExtractorFallback) {
 			ctx.emitStatus('download', STATUS_KEY.usedExtractorFallback)
 		}
-		ctx.emitStatus('done', STATUS_KEY.complete)
+		// A quality limit replaces the plain completion notice.
+		if (ctx.active.qualityLimit) ctx.emitStatus('done', STATUS_KEY.qualityLimited, {height: ctx.active.qualityLimit.height})
+		else ctx.emitStatus('done', STATUS_KEY.complete)
 	}
 }

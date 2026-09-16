@@ -35,6 +35,8 @@ import {currentRuntimeFacts, describeSessionContext} from '@main/utils/sessionCo
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
 import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
+import {readDownloadSmokeConfig} from '@main/downloadSmokeConfig.js'
+import {reportDownloadSmokeConfigError, runDownloadSmokeMode} from '@main/downloadSmoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
@@ -287,6 +289,16 @@ if (hasSingleInstanceLock) {
 		// yt-dlp before any renderer window or queue lifecycle can interfere.
 		if (readRuntimeSmokeEnabled()) {
 			const code = await runRuntimeSmokeMode({binaryManager})
+			exitWithCode(code)
+			return
+		}
+
+		// Download smoke — production media request with one input varied, stops
+		// at format selection. Runs before the token service and queue exist so
+		// it cannot start the user's persisted downloads.
+		const downloadSmoke = readDownloadSmokeConfig(process.env)
+		if (downloadSmoke) {
+			const code = downloadSmoke.ok ? await runDownloadSmokeMode({config: downloadSmoke.config, binaryManager, settingsStore, e2eMode}) : reportDownloadSmokeConfigError(downloadSmoke.error)
 			exitWithCode(code)
 			return
 		}

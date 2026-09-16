@@ -26,7 +26,7 @@ function makeStubs(binaryOverrides: Partial<{ensureYtDlp: () => Promise<string>}
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore as never)
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 	return {ytDlp, binaryManager, tokenService, recentJobsStore, settingsStore}
 }
 

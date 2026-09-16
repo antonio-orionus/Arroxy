@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Tải ngay — bỏ qua hàng đợi"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Giới hạn ở {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Giới hạn ở {{height}}p · một số phụ đề bị lỗi"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Xóa"
@@ -970,6 +978,14 @@ msgstr "Đang di chuyển tệp…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Đang chuẩn bị các tệp nhị phân…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này. Thử lại sau hoặc từ mạng khác có thể giúp ích."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này và một số phụ đề không thể tải xuống. Thử lại sau hoặc từ mạng khác có thể giúp ích."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

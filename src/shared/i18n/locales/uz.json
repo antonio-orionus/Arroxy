@@ -570,6 +570,8 @@
 		"item": {
 			"defaultError": "Yuklama muvaffaqiyatsiz",
 			"retryingSoon": "avtomatik qayta urinilmoqda ({{attempt}}-urinish)",
+			"qualityLimited": "{{height}}p bilan cheklangan",
+			"qualityLimitedSubtitlesFailed": "{{height}}p bilan cheklangan · ba'zi subtitrlar yuklanmadi",
 			"pause": "To'xtatish",
 			"resume": "Davom ettirish",
 			"cancel": "Bekor qilish",
@@ -617,6 +619,8 @@
 		"fetchingSubtitles": "Subtitrlar olinmoqda…",
 		"sleepingBetweenRequests": "Tezlik chegarasidan qochish uchun {{seconds}} soniya kutilmoqda…",
 		"subtitlesFailed": "Video saqlandi — ba'zi subtitrlarni yuklab bo'lmadi",
+		"qualityLimited": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p sifatda saqlandi — YouTube bu yuklab olish uchun yuqoriroq sifatlarni bermadi va ba'zi subtitrlarni yuklab bo'lmadi. Keyinroq yoki boshqa tarmoqdan qayta urinish yordam berishi mumkin.",
 		"cancelled": "Yuklama bekor qilindi",
 		"complete": "Yuklama yakunlandi",
 		"usedExtractorFallback": "Yengilroq ekstraktor bilan yuklab olindi — ishonchli yuklamalar uchun cookies.txt ni sozlang",

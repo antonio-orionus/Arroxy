@@ -19,12 +19,12 @@ export class ProbeInfoJsonCache {
 		this.dir = join(userDataPath, CACHE_DIR)
 	}
 
-	async write(info: unknown, opts: {videoId?: string | null} = {}): Promise<ProbeInfoJsonRef> {
+	async write(info: unknown, opts: {videoId?: string | null; formatsWithheld?: boolean} = {}): Promise<ProbeInfoJsonRef> {
 		await mkdir(this.dir, {recursive: true})
 		const id = randomUUID()
 		const createdAt = new Date().toISOString()
 		await writeFile(this.pathFor(id), `${JSON.stringify(info)}\n`, 'utf8')
-		return {id, createdAt, ...(opts.videoId ? {videoId: opts.videoId} : {})}
+		return {id, createdAt, ...(opts.videoId ? {videoId: opts.videoId} : {}), ...(opts.formatsWithheld ? {formatsWithheld: true} : {})}
 	}
 
 	async resolve(ref: ProbeInfoJsonRef | undefined): Promise<string | undefined> {

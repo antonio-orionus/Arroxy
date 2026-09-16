@@ -42,10 +42,21 @@ def _fixture_title(catalog, video_id):
     return video.get('title') or f"Fixture Video {video['number']}"
 
 
-def _fixture_formats(catalog, base_url, video_id):
+def _session_limited(video, signed_in):
+    # `limitedWithCookiesOnly` mimics an account YouTube limits while the same
+    # video downloads at full quality signed out.
+    return not video.get('limitedWithCookiesOnly') or signed_in
+
+
+def _fixture_formats(catalog, base_url, video_id, signed_in):
     video = _fixture_video(catalog, video_id)
+    # A catalog entry may withhold formats to mimic YouTube returning a format
+    # list without usable URLs for them (e.g. SABR-limited sessions).
+    withheld = set(video.get('withheldFormatIds', [])) if _session_limited(video, signed_in) else set()
     formats = []
     for descriptor in catalog['formatSets'][video['formatSet']]:
+        if descriptor['id'] in withheld:
+            continue
         entry = {
             'format_id': descriptor['id'],
             'format_note': descriptor['note'],
@@ -72,9 +83,10 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
             raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
         return base_url.rstrip('/')
 
-    def _notify_fixture_probe(self, base_url, video_id):
+    def _notify_fixture_probe(self, base_url, video_id, signed_in):
         try:
-            request = urllib.request.Request(f'{base_url}/probe/{video_id}', headers={'User-Agent': 'arroxy-fixture-e2e'})
+            query = '?signedIn=1' if signed_in else ''
+            request = urllib.request.Request(f'{base_url}/probe/{video_id}{query}', headers={'User-Agent': 'arroxy-fixture-e2e'})
             with urllib.request.urlopen(request, timeout=60):
                 return
         except Exception as err:
@@ -85,8 +97,16 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         catalog = _fixture_catalog()
         _fixture_video(catalog, video_id)
         base_url = self._fixture_base_url()
-        self._notify_fixture_probe(base_url, video_id)
+        params = self._downloader.params
+        signed_in = bool(params.get('cookiefile') or params.get('cookiesfrombrowser'))
+        self._notify_fixture_probe(base_url, video_id, signed_in)
         title = _fixture_title(catalog, video_id)
+        video = _fixture_video(catalog, video_id)
+        # Catalog warnings are printed exactly as yt-dlp's YouTube extractor
+        # would print them, so output parsers see a realistic line.
+        if _session_limited(video, signed_in):
+            for warning in video.get('warnings', []):
+                self.report_warning(warning, video_id)
 
         return {
             'id': video_id,
@@ -115,7 +135,7 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                 ],
             },
             'automatic_captions': {},
-            'formats': _fixture_formats(catalog, base_url, video_id),
+            'formats': _fixture_formats(catalog, base_url, video_id, signed_in),
         }
 
 

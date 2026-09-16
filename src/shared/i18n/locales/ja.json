@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "ダウンロード失敗",
 			"retryingSoon": "自動的に再試行中（{{attempt}} 回目）",
+			"qualityLimited": "{{height}}pに制限",
+			"qualityLimitedSubtitlesFailed": "{{height}}pに制限 · 一部の字幕が失敗",
 			"pause": "一時停止",
 			"resume": "再開",
 			"cancel": "キャンセル",
@@ -614,6 +616,8 @@
 		"fetchingSubtitles": "字幕を取得中…",
 		"sleepingBetweenRequests": "レート制限回避のため{{seconds}}秒待機中…",
 		"subtitlesFailed": "ビデオは保存されました — 一部の字幕をダウンロードできませんでした",
+		"qualityLimited": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供しませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
+		"qualityLimitedSubtitlesFailed": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供せず、一部の字幕もダウンロードできませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
 		"cancelled": "ダウンロードがキャンセルされました",
 		"complete": "ダウンロード完了",
 		"usedExtractorFallback": "簡易抽出モードでダウンロードしました — より確実にするには cookies.txt の設定をおすすめします",

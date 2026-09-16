@@ -38,7 +38,7 @@ function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; vi
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, single: {}, playlist: {}})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore as never, {e2eMode: opts.e2eMode})
+	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode})
 }
 
 function getArgs(callIndex = 0): string[] {
@@ -491,6 +491,20 @@ describe('YtDlp — cookies injection', () => {
 		expect(idx).toBeGreaterThan(-1)
 		expect(args[idx + 1]).toBe('/home/u/cookies.txt')
 		expect(args).not.toContain('--cookies-from-browser')
+	})
+
+	it('withoutCookies leaves configured cookies out of that run only', async () => {
+		const ytDlp = makeYtDlp({settings: {cookiesMode: 'browser', cookiesBrowser: 'firefox'}})
+		expect(await ytDlp.usesCookies()).toBe(true)
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		await ytDlp.run({kind: 'probe', url: URL}, undefined, {withoutCookies: true})
+		await ytDlp.run({kind: 'probe', url: URL})
+		expect(getArgs(0)).not.toContain('--cookies-from-browser')
+		expect(getArgs(1)).toContain('--cookies-from-browser')
+	})
+
+	it('usesCookies is false when cookies are off', async () => {
+		expect(await makeYtDlp({settings: {cookiesMode: 'off', cookiesPath: '/home/u/cookies.txt'}}).usesCookies()).toBe(false)
 	})
 
 	it("cookiesMode='off' → no --cookies even with path", async () => {

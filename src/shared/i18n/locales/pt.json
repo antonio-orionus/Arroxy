@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Falha no download",
 			"retryingSoon": "tentando novamente automaticamente (tentativa {{attempt}})",
+			"qualityLimited": "Limitado a {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limitado a {{height}}p · algumas legendas falharam",
 			"pause": "Pausar",
 			"resume": "Retomar",
 			"cancel": "Cancelar",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "Buscando legendas…",
 		"sleepingBetweenRequests": "Aguardando {{seconds}}s para evitar limites de taxa…",
 		"subtitlesFailed": "Vídeo salvo — algumas legendas não puderam ser baixadas",
+		"qualityLimited": "Salvo em {{height}}p — o YouTube reteve as qualidades mais altas neste download. Tentar de novo mais tarde ou em outra rede pode ajudar.",
+		"qualityLimitedSubtitlesFailed": "Salvo em {{height}}p — o YouTube reteve as qualidades mais altas neste download, e algumas legendas não puderam ser baixadas. Tentar de novo mais tarde ou em outra rede pode ajudar.",
 		"cancelled": "Download cancelado",
 		"complete": "Download concluído",
 		"usedExtractorFallback": "Baixado com extrator alternativo — configure um arquivo cookies.txt para downloads mais confiáveis",

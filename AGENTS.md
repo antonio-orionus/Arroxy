@@ -187,7 +187,7 @@ ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts -
 
 The flag only takes effect together with `ARROXY_E2E=1` (which the fixture harness already sets) — see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. It maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
 
-Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, not the dev server.
+Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, not the dev server. Never hide the build's output: it type-checks first and stops on any error (including in test files), leaving the old bundle in place. The E2E global setup refuses to run when `out/main/index.js` is older than any file in `src/` (`ARROXY_E2E_ALLOW_STALE_BUILD=1` to override).
 
 ---
 

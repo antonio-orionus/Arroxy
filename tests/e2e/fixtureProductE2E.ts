@@ -3,7 +3,7 @@ import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
 import type {AppSettings} from '../../src/shared/types.js'
-import {assertNoExternalRequests, buildFixtureEnv, fixturePlaylistUrl, fixtureUrl, runProcess, startDenyProxy, startFixtureServer, writeE2eSettings, type FixtureServer, type FixtureServerBehavior, type ProcessResult} from './fixtureHarness.js'
+import {assertNoExternalRequests, buildFixtureElectronEnv, buildFixtureEnv, fixturePlaylistUrl, fixtureUrl, runProcess, startDenyProxy, startFixtureServer, writeE2eSettings, type FixtureServer, type FixtureServerBehavior, type ProcessResult} from './fixtureHarness.js'
 import {applyQueueAction, expectMp4Count, expectNoMp4For, expectQueueStatus, launchFixtureApp, listFilesRecursive, mediaFiles, openQueueTab, prepareFixtureRuntime, queueCardByTitle, type QueueRowAction} from './fixtureWorkflow.js'
 
 interface FixtureProductOptions {
@@ -57,6 +57,8 @@ export interface FixtureYtDlpContext {
 	outputDir: string
 	ytDlpPath: string
 	env: Record<string, string>
+	// For launching the app itself as a headless process (no Playwright window).
+	electronEnv: Record<string, string>
 	urls: UrlHelpers
 	runYtDlp: (args: string[], timeoutMs?: number) => Promise<ProcessResult>
 }
@@ -125,9 +127,10 @@ export async function withFixtureYtDlp(options: FixtureYtDlpOptions, run: (ctx: 
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-ytdlp-user-'))
 	const outputDir = fs.mkdtempSync(path.join(os.tmpdir(), options.outputPrefix ?? 'arroxy-fixture-ytdlp-out-'))
 	const env = buildFixtureEnv({userDataDir, fixtureServer, denyProxy, ytDlpPath})
+	const electronEnv = buildFixtureElectronEnv({userDataDir, fixtureServer, denyProxy, ytDlpPath})
 
 	try {
-		await run({fixtureServer, userDataDir, outputDir, ytDlpPath, env, urls: urls(), runYtDlp: (args, timeoutMs) => runProcess(ytDlpPath, args, {env, timeoutMs})})
+		await run({fixtureServer, userDataDir, outputDir, ytDlpPath, env, electronEnv, urls: urls(), runYtDlp: (args, timeoutMs) => runProcess(ytDlpPath, args, {env, timeoutMs})})
 		assertNoExternalRequests(denyProxy)
 	} finally {
 		await Promise.all([attemptCleanup(() => denyProxy.close()), attemptCleanup(() => fixtureServer.close())])

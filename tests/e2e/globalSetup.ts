@@ -1,3 +1,4 @@
+import {assertBuildIsFresh} from './buildFreshness.js'
 import {resetClipboardLock} from './clipboardLock.js'
 import {prepareFixtureRuntime} from './fixtureWorkflow.js'
 
@@ -14,6 +15,7 @@ import {prepareFixtureRuntime} from './fixtureWorkflow.js'
  * there is no path that reaches a worker cold.
  */
 export default async function globalSetup(): Promise<void> {
+	assertBuildIsFresh()
 	// Safe here and nowhere else: no worker exists yet, so a lock found now can
 	// only be debris from a run that died. See resetClipboardLock.
 	await resetClipboardLock()

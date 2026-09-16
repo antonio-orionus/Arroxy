@@ -67,6 +67,18 @@ describe('QueueService — downloadService listener path', () => {
 		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({probeInfoJsonPath: '/cache/probe.info.json'}))
 	})
 
+	it('passes the probe withheld-formats signal along with the resolved info-json', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(ok({job: {id: 'job-limited', url: '', outputDir: '/tmp', status: 'running', createdAt: '', updatedAt: ''}}))
+		const cache = {resolve: vi.fn().mockResolvedValue('/cache/limited.info.json'), delete: vi.fn()}
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 0, 1, undefined, cache as never)
+		qs.add([makeItem({id: 'limited', status: 'pending', probeInfoJsonRef: {id: '00000000-0000-4000-8000-000000000003', createdAt: '2026-06-14T00:00:00.000Z', formatsWithheld: true}})])
+
+		await qs.start('limited')
+
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({probeInfoJsonPath: '/cache/limited.info.json', probeFormatsWithheld: true}))
+	})
+
 	it('downloadService emitting status done → item status=done, progressPercent=100', () => {
 		const {qs, ds} = makeService()
 		qs.add([makeItem({id: 'q-1', status: 'running', lastJobId: 'job-1'})])

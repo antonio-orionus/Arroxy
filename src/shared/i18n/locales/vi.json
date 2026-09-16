@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Tải xuống thất bại",
 			"retryingSoon": "đang tự động thử lại (lần {{attempt}})",
+			"qualityLimited": "Giới hạn ở {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Giới hạn ở {{height}}p · một số phụ đề bị lỗi",
 			"pause": "Tạm dừng",
 			"resume": "Tiếp tục",
 			"cancel": "Hủy",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "Đang tải phụ đề…",
 		"sleepingBetweenRequests": "Đang chờ {{seconds}}s để tránh giới hạn tốc độ…",
 		"subtitlesFailed": "Đã lưu video — một số phụ đề không thể tải xuống",
+		"qualityLimited": "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này. Thử lại sau hoặc từ mạng khác có thể giúp ích.",
+		"qualityLimitedSubtitlesFailed": "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này và một số phụ đề không thể tải xuống. Thử lại sau hoặc từ mạng khác có thể giúp ích.",
 		"cancelled": "Đã hủy tải xuống",
 		"complete": "Tải xuống hoàn tất",
 		"usedExtractorFallback": "Đã tải xuống với trình trích xuất dự phòng — thiết lập cookies.txt để tải xuống đáng tin cậy hơn",

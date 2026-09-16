@@ -524,6 +524,8 @@
 		"item": {
 			"defaultError": "ዳውንሎድ ወድቋል",
 			"retryingSoon": "በራስ-ሰር እየሞከረ ነው (ሙከራ {{attempt}})",
+			"qualityLimited": "በ{{height}}p ተገድቧል",
+			"qualityLimitedSubtitlesFailed": "በ{{height}}p ተገድቧል · አንዳንድ ንዑስ ርዕሶች አልተሳኩም",
 			"pause": "አቋርጥ",
 			"resume": "ቀጥል",
 			"cancel": "ሰርዝ",
@@ -571,6 +573,8 @@
 		"fetchingSubtitles": "ንዑስ ርዕሶችን እያምጡ…",
 		"sleepingBetweenRequests": "ፍጥነት ላለማቀዝ {{seconds}} ሰከንድ እየጠበቁ…",
 		"subtitlesFailed": "ቪዲዮ ተቀምጧል — አንዳንድ ንዑስ ርዕሶች ሊዳውንሎድ አልቻሉም",
+		"qualityLimited": "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።",
+		"qualityLimitedSubtitlesFailed": "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል፣ እና አንዳንድ ንዑስ ርዕሶች ሊዳውንሎድ አልቻሉም። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።",
 		"cancelled": "ዳውንሎድ ተሰርዟል",
 		"complete": "ዳውንሎድ ተጠናቅቋል",
 		"usedExtractorFallback": "ቀልל ቅናሽ ሞዴ ዳውንሎድ ተደርጓል — ይበልጥ አስተማማኝ ዳውንሎዶች ለማግኘት cookies.txt አዘጋጅ",

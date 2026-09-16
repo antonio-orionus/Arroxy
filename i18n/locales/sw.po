@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Pakua sasa — ruka foleni"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Imedhibitiwa kwa {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Imedhibitiwa kwa {{height}}p · baadhi ya manukuu yameshindwa"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Ondoa"
@@ -970,6 +978,14 @@ msgstr "Inahamisha faili…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Inaandaa faili za binary…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

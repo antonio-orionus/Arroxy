@@ -5,6 +5,7 @@ import {AsyncStack} from '@main/services/phases/types.js'
 import type {Phase, PhaseContext, PhaseOutcome, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, LocalizedError, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -32,7 +33,7 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 }
 
 function makeCtx(activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
-	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 }
 
 function stubPhase(outcome: PhaseOutcome): Phase {
@@ -63,6 +64,23 @@ describe('PhaseExecutor', () => {
 		expect(phase2.run).not.toHaveBeenCalled()
 		expect(outcome.kind).toBe('completed')
 		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.complete)
+	})
+
+	it('completion with a quality limit → reports qualityLimited with the saved height instead of complete', async () => {
+		const ctx = makeCtx({qualityLimit: {height: 360}})
+
+		await new PhaseExecutor().run(ctx, [stubPhase({kind: 'continue'})])
+
+		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimited, {height: 360})
+		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalledWith('done', STATUS_KEY.complete)
+	})
+
+	it('a subtitle soft failure on a quality-limited download reports both', async () => {
+		const ctx = makeCtx({qualityLimit: {height: 360}})
+
+		await new PhaseExecutor().run(ctx, [stubPhase({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})])
+
+		expect(vi.mocked(ctx.emitStatus)).toHaveBeenCalledWith('done', STATUS_KEY.qualityLimitedSubtitlesFailed, {height: 360})
 	})
 
 	it('completion with usedExtractorFallback → emits usedExtractorFallback before complete', async () => {

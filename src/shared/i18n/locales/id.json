@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Pengunduhan gagal",
 			"retryingSoon": "mencoba lagi otomatis (percobaan {{attempt}})",
+			"qualityLimited": "Dibatasi ke {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Dibatasi ke {{height}}p · beberapa subtitle gagal",
 			"pause": "Berhenti sebentar",
 			"resume": "Melanjutkan",
 			"cancel": "Membatalkan",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "Mengambil subtitle…",
 		"sleepingBetweenRequests": "Menunggu {{seconds}} untuk menghindari batas kecepatan…",
 		"subtitlesFailed": "Video disimpan — beberapa subtitle tidak dapat diunduh",
+		"qualityLimited": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
+		"qualityLimitedSubtitlesFailed": "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini, dan beberapa subtitle tidak dapat diunduh. Mencoba lagi nanti atau dari jaringan lain mungkin membantu.",
 		"cancelled": "Pengunduhan dibatalkan",
 		"complete": "Pengunduhan selesai",
 		"usedExtractorFallback": "Diunduh dengan ekstraktor santai — siapkan cookies.txt untuk pengunduhan yang lebih andal",

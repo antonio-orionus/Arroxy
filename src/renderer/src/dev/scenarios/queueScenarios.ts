@@ -31,6 +31,12 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 				queueItem({id: 'queue-errors-1', title: 'Failed Download - Bot Block', status: QUEUE_STATUS.error, progressPercent: 17, progressDetail: null, error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}, finishedAt: '2026-05-31T12:00:00.000Z'}),
 				queueItem({id: 'queue-errors-2', title: 'Cancelled Download - User Cancelled', status: QUEUE_STATUS.cancelled, progressPercent: 23, progressDetail: null, finishedAt: '2026-05-31T11:30:00.000Z'})
 			]
+		case 'queue-notices':
+			return [
+				queueItem({id: 'queue-notices-1', title: 'Finished - YouTube limited quality', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.qualityLimited, params: {height: 360}}, finishedAt: '2026-05-31T12:00:00.000Z'}),
+				queueItem({id: 'queue-notices-2', title: 'Finished - Subtitles failed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.subtitlesFailed}, finishedAt: '2026-05-31T11:50:00.000Z'}),
+				queueItem({id: 'queue-notices-3', title: 'Finished - Limited quality and subtitles failed', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, lastStatus: {key: STATUS_KEY.qualityLimitedSubtitlesFailed, params: {height: 360}}, finishedAt: '2026-05-31T11:40:00.000Z'})
+			]
 		case 'queue-columns':
 			return [
 				queueItem({id: 'queue-columns-1', title: 'Column Fixture - Newest Pending', status: QUEUE_STATUS.pending, addedAt: '2026-05-31T12:00:00.000Z', lastStatus: null}),

@@ -19,6 +19,7 @@ import type {ActiveDownload, PhaseContext} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {EmbedOptions, PreparedJob, SponsorBlockOptions} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
+import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
 vi.mock('@main/services/download/tempDirVisibility.js', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/services/download/tempDirVisibility.js')>()
@@ -55,7 +56,7 @@ function makeCtx(): PhaseContext {
 	const input: ResolvedStartDownloadInput = {url: 'https://x/y', outputDir, job: BASE_JOB as Extract<PreparedJob, {kind: 'single-format'}>}
 	const controller = new AbortController()
 	const active: ActiveDownload = {job, input, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], disposables: new AsyncStack()}
-	return {active, signal: controller.signal, register: d => active.disposables.defer(d), ytDlp: {run: vi.fn().mockResolvedValue(SUCCESS)} as never, emitStatus: vi.fn(), safeConsume: vi.fn()}
+	return {active, signal: controller.signal, register: d => active.disposables.defer(d), ytDlp: {run: vi.fn().mockResolvedValue(SUCCESS)} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
 }
 
 describe('VideoPhase — startup sweep racing temp dir setup', () => {

@@ -503,6 +503,8 @@
 		"item": {
 			"defaultError": "下载失败",
 			"retryingSoon": "正在自动重试（第 {{attempt}} 次）",
+			"qualityLimited": "限制为 {{height}}p",
+			"qualityLimitedSubtitlesFailed": "限制为 {{height}}p · 部分字幕未能下载",
 			"pause": "暂停",
 			"resume": "继续",
 			"cancel": "取消",
@@ -550,6 +552,8 @@
 		"fetchingSubtitles": "正在获取字幕…",
 		"sleepingBetweenRequests": "等待 {{seconds}} 秒以避免限流…",
 		"subtitlesFailed": "视频已保存 — 部分字幕未能下载",
+		"qualityLimited": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质。稍后重试或换用其他网络可能会有帮助。",
+		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
 		"cancelled": "下载已取消",
 		"complete": "下载完成",
 		"usedExtractorFallback": "已使用简化提取模式完成下载 — 配置 cookies.txt 可让下载更稳定",

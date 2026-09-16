@@ -8,6 +8,20 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.17
+
+Arroxy works around YouTube quietly limiting a signed-in session to 360p, and tells you when it could not.
+
+## Highlights
+
+### Full Quality When YouTube Limits Your Account
+
+- Some YouTube accounts get only 360p even though the same video downloads at full quality without signing in. When a download with cookies would come out limited like this, Arroxy now notices before the video transfers and fetches it without cookies instead.
+- If that gives the full quality, later downloads in the same session start without cookies. A video that needs sign-in, such as an age-restricted one, still falls back to your cookies.
+- When YouTube still withholds the higher qualities, the download finishes and its queue row says *Limited to 360p* instead of looking like a normal download. Hover it for what might help.
+
+---
+
 ## 0.4.16
 
 Arroxy makes subtitle languages easy to find and keeps queue actions and settings reliable when several things happen at once.

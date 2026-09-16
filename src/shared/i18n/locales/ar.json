@@ -557,6 +557,8 @@
 		"item": {
 			"defaultError": "فشل التنزيل",
 			"retryingSoon": "تتم إعادة المحاولة تلقائيًا (المحاولة {{attempt}})",
+			"qualityLimited": "محدود بدقة {{height}}p",
+			"qualityLimitedSubtitlesFailed": "محدود بدقة {{height}}p · تعذّر تنزيل بعض الترجمات",
 			"pause": "إيقاف مؤقت",
 			"resume": "استئناف",
 			"cancel": "إلغاء",
@@ -604,6 +606,8 @@
 		"fetchingSubtitles": "جارٍ جلب الترجمات…",
 		"sleepingBetweenRequests": "الانتظار {{seconds}} ثانية لتجنب تجاوز الحد…",
 		"subtitlesFailed": "تم حفظ الفيديو — تعذّر تنزيل بعض الترجمات",
+		"qualityLimited": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
+		"qualityLimitedSubtitlesFailed": "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل، وتعذّر تنزيل بعض الترجمات. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى.",
 		"cancelled": "تم إلغاء التنزيل",
 		"complete": "اكتمل التنزيل",
 		"usedExtractorFallback": "تم التنزيل باستخدام المستخرج المخفف — أعدّ cookies.txt لتنزيلات أكثر موثوقية",
