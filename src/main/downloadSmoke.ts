@@ -10,6 +10,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {allDownloadProfiles, resolveActiveDownloadProfile, resolveDownloadProfile} from '@shared/downloadProfiles.js'
 import {prepareJob} from '@shared/prepareJob.js'
 import type {AppSettings} from '@shared/types.js'
+import type {E2eHarnessMode} from './e2eHarness.js'
 import {applyDownloadSmokeOverrides, type DownloadSmokeConfig} from './downloadSmokeConfig.js'
 import {createDownloadSmokeObserver, parseSelectedFormats} from './downloadSmokeOutput.js'
 import {serializeDownloadSmokeReport, type DownloadSmokeReport} from './downloadSmokeReport.js'
@@ -19,6 +20,7 @@ import {YtDlp, type SettingsSource, type YtDlpResult} from './services/YtDlp.js'
 import {buildMediaRequest} from './services/phases/mediaRequest.js'
 import type {SettingsStore} from './stores/SettingsStore.js'
 import {HiddenWindowTokenProvider} from './token/providers/HiddenWindowTokenProvider.js'
+import {MockTokenProvider} from './token/providers/MockTokenProvider.js'
 
 // Must match the info-json base name the bridge writes into the temp directory.
 const INFO_JSON_NAME = '_arroxy.info.json'
@@ -69,15 +71,16 @@ function finish(report: DownloadSmokeReport, started: number): number {
 	return report.ok ? 0 : 1
 }
 
-export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; binaryManager: BinaryManager; settingsStore: SettingsStore}): Promise<number> {
-	const {config, binaryManager} = deps
+export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; binaryManager: BinaryManager; settingsStore: SettingsStore; e2eMode: E2eHarnessMode}): Promise<number> {
+	const {config, binaryManager, e2eMode} = deps
 	const started = Date.now()
 	const settings = applyDownloadSmokeOverrides(await deps.settingsStore.get(), config)
 	const source: SettingsSource = {get: () => Promise.resolve(settings)}
 	// Its own token window, reading the overlaid proxy — the production provider
-	// reads the persisted one.
-	const tokenService = new TokenService(new HiddenWindowTokenProvider(() => settings.common.proxyUrl))
-	const ytDlp = new YtDlp(binaryManager, tokenService, source)
+	// reads the persisted one. Fixture E2E runs swap in the mock provider, as the
+	// app itself does, so a smoke against the fixture extractor never reaches YouTube.
+	const tokenService = new TokenService(e2eMode.useMockTokenProvider ? new MockTokenProvider() : new HiddenWindowTokenProvider(() => settings.common.proxyUrl))
+	const ytDlp = new YtDlp(binaryManager, tokenService, source, {e2eMode})
 	const profile = config.profileId ? allDownloadProfiles(settings.profiles).find(p => p.id === config.profileId) : resolveActiveDownloadProfile(settings.profiles).profile
 	const report = initialReport(config, settings, profile?.id ?? config.profileId ?? '')
 	const nativeAudioPreference = settings.common.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference

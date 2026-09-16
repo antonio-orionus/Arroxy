@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs'
 import {describe, expect, it} from 'vitest'
 import catalog from '../e2e/fixture-media-catalog.json' with {type: 'json'}
-import {AWKWARD_TITLE, AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID, fixtureMediaContentType, fixtureMediaPathExtension} from '../e2e/fixtureMediaCatalog.js'
+import {AWKWARD_TITLE, AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SABR_LIMITED_VIDEO_ID, SPLIT_MEDIA_VIDEO_ID, fixtureMediaContentType, fixtureMediaPathExtension} from '../e2e/fixtureMediaCatalog.js'
 
 describe('fixture media catalog', () => {
 	it('owns fixture ids, playlist membership, titles, and format facts', () => {
@@ -14,6 +14,8 @@ describe('fixture media catalog', () => {
 		expect(catalog.videos.find(video => video.id === SPLIT_MEDIA_VIDEO_ID)?.number).toBe(11)
 		expect(AWKWARD_TITLE_VIDEO_ID).toBe('ARX00000012')
 		expect(FIXTURE_VIDEO_IDS).not.toContain(AWKWARD_TITLE_VIDEO_ID)
+		expect(SABR_LIMITED_VIDEO_ID).toBe('ARX00000013')
+		expect(FIXTURE_VIDEO_IDS).not.toContain(SABR_LIMITED_VIDEO_ID)
 		expect(catalog.formatSets.muxed.map(format => format.id)).toEqual(['18', '22'])
 		expect(catalog.formatSets.split.map(format => format.id)).toEqual(['137', '140'])
 		expect(fixtureMediaPathExtension('140')).toBe('m4a')

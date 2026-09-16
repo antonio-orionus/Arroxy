@@ -44,8 +44,13 @@ def _fixture_title(catalog, video_id):
 
 def _fixture_formats(catalog, base_url, video_id):
     video = _fixture_video(catalog, video_id)
+    # A catalog entry may withhold formats to mimic YouTube returning a format
+    # list without usable URLs for them (e.g. SABR-limited sessions).
+    withheld = set(video.get('withheldFormatIds', []))
     formats = []
     for descriptor in catalog['formatSets'][video['formatSet']]:
+        if descriptor['id'] in withheld:
+            continue
         entry = {
             'format_id': descriptor['id'],
             'format_note': descriptor['note'],
@@ -87,6 +92,10 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         base_url = self._fixture_base_url()
         self._notify_fixture_probe(base_url, video_id)
         title = _fixture_title(catalog, video_id)
+        # Catalog warnings are printed exactly as yt-dlp's YouTube extractor
+        # would print them, so output parsers see a realistic line.
+        for warning in _fixture_video(catalog, video_id).get('warnings', []):
+            self.report_warning(warning, video_id)
 
         return {
             'id': video_id,

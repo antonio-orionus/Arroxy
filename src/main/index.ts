@@ -298,7 +298,7 @@ if (hasSingleInstanceLock) {
 		// it cannot start the user's persisted downloads.
 		const downloadSmoke = readDownloadSmokeConfig(process.env)
 		if (downloadSmoke) {
-			const code = downloadSmoke.ok ? await runDownloadSmokeMode({config: downloadSmoke.config, binaryManager, settingsStore}) : reportDownloadSmokeConfigError(downloadSmoke.error)
+			const code = downloadSmoke.ok ? await runDownloadSmokeMode({config: downloadSmoke.config, binaryManager, settingsStore, e2eMode}) : reportDownloadSmokeConfigError(downloadSmoke.error)
 			exitWithCode(code)
 			return
 		}
