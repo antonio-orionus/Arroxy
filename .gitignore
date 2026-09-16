@@ -43,6 +43,7 @@ runtime-cache/
 .playwright-mcp/
 .worktrees/
 docs/my
+# One-off specs and plans stay local by design; see dev-docs/README.md.
 docs/superpowers/*
 .claude/scheduled_tasks.lock
 .claude/*.lock

@@ -14,7 +14,7 @@ Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-o
 - One Markdown file per feature/topic. Kebab-case filename: `share-feature.md`, `release-pipeline.md`.
 - Begin each doc with a "lives in" file table that lists the source paths the doc references. Makes refactor-driven rot easy to spot.
 - Treat these as living documents — when shipping a refactor that touches a file mentioned here, update the doc in the same PR.
-- For one-off design specs that won't outlive the work, prefer `docs/superpowers/specs/YYYY-MM-DD-*.md` (planning skill default) so they don't pile up here.
+- For one-off design specs and implementation plans that won't outlive the work, prefer `docs/superpowers/specs/YYYY-MM-DD-*.md` and `docs/superpowers/plans/YYYY-MM-DD-*.md` (planning skill defaults) so they don't pile up here. **`docs/superpowers/` is gitignored** — those files exist only in the checkout that wrote them. Any agent on the same machine can read them by path; to hand a plan across machines, put its essentials in the PR description or issue. Anything that must outlive the work belongs here or in an ADR instead.
 
 ## Index
 
