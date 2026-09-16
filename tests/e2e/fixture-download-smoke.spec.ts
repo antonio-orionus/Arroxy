@@ -41,7 +41,7 @@ test('download smoke reports the 720p selection for an unrestricted fixture vide
 		const {exitCode, report} = await runDownloadSmoke(electronEnv, urls.video(FIXTURE_VIDEO_IDS[0]))
 
 		expect(exitCode).toBe(0)
-		expect(report).toMatchObject({ok: true, outcome: 'format-selected', selection: {selectedFormat: '22', maxHeight: 720}, observed: {sabrSkippedClients: []}})
+		expect(report).toMatchObject({ok: true, outcome: 'format-selected', selection: {selectedFormat: '22', maxHeight: 720}, observed: {sabrSkippedClients: []}, spawned: {cookies: 'none', proxy: false, poToken: true, playerClients: ['default', 'web_embedded']}})
 	})
 })
 

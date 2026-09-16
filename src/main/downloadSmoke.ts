@@ -13,7 +13,7 @@ import type {AppSettings} from '@shared/types.js'
 import type {E2eHarnessMode} from './e2eHarness.js'
 import {applyDownloadSmokeOverrides, type DownloadSmokeConfig} from './downloadSmokeConfig.js'
 import {createDownloadSmokeObserver, parseSelectedFormats} from './downloadSmokeOutput.js'
-import {serializeDownloadSmokeReport, type DownloadSmokeReport} from './downloadSmokeReport.js'
+import {serializeDownloadSmokeReport, summarizeSpawnArgs, type DownloadSmokeReport} from './downloadSmokeReport.js'
 import type {BinaryManager} from './services/BinaryManager.js'
 import {TokenService} from './services/TokenService.js'
 import {YtDlp, type SettingsSource, type YtDlpResult} from './services/YtDlp.js'
@@ -51,6 +51,7 @@ function initialReport(config: DownloadSmokeConfig, settings: AppSettings, profi
 		effective: {cookiesMode: settings.common.cookiesMode ?? 'off', proxyConfigured: Boolean(settings.common.proxyUrl?.trim()), formatSelector: null, formatSort: null},
 		selection: {selectedFormat: null, formats: null, maxHeight: null},
 		observed: {playerApiClients: [], sabrSkippedClients: [], warnings: []},
+		spawned: null,
 		attempts: [],
 		error: null,
 		durationMs: 0
@@ -123,6 +124,8 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		const seen = observer.snapshot()
 		report.observed = {playerApiClients: seen.playerApiClients, sabrSkippedClients: seen.sabrSkippedClients, warnings: seen.warnings}
 		report.attempts = ytDlp.getLastInvocationSummaries()
+		const lastAttempt = report.attempts.at(-1)
+		report.spawned = lastAttempt ? summarizeSpawnArgs(lastAttempt.args) : null
 		report.selection.selectedFormat = seen.selectedFormat
 		const infoJson = await readFile(join(tempDir, INFO_JSON_NAME), 'utf8').catch(() => null)
 		const formats = infoJson ? parseSelectedFormats(infoJson) : null

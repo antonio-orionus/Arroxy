@@ -68,7 +68,7 @@ $rows = foreach ($case in $cases) {
 
   $line = Get-Content $out -Encoding UTF8 | Where-Object { $_.StartsWith($resultPrefix) } | Select-Object -Last 1
   if (-not $line) {
-    [pscustomobject]@{ Case = $case.Name; Outcome = 'no-report'; Format = ''; MaxHeight = ''; Clients = ''; SabrSkipped = ''; Error = "see $out" }
+    [pscustomobject]@{ Case = $case.Name; Outcome = 'no-report'; Format = ''; MaxHeight = ''; SentCookies = ''; SentProxy = ''; SentClients = ''; Clients = ''; SabrSkipped = ''; Error = "see $out" }
     continue
   }
   $r = $line.Substring($resultPrefix.Length) | ConvertFrom-Json
@@ -77,6 +77,10 @@ $rows = foreach ($case in $cases) {
     Outcome     = $r.outcome
     Format      = $r.selection.selectedFormat
     MaxHeight   = $r.selection.maxHeight
+    # What the last yt-dlp spawn actually received, read back from its argv.
+    SentCookies = $r.spawned.cookies
+    SentProxy   = $r.spawned.proxy
+    SentClients = if ($null -eq $r.spawned.playerClients) { '(yt-dlp)' } else { $r.spawned.playerClients -join ',' }
     Clients     = ($r.observed.playerApiClients -join ',')
     SabrSkipped = ($r.observed.sabrSkippedClients -join ',')
     Error       = $r.error
