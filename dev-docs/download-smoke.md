@@ -12,6 +12,7 @@ A headless mode of the real app that runs the production download request for on
 | `src/main/index.ts`                         | Dispatch, before the token service and queue exist                           |
 | `scripts/smoke/download-smoke-matrix.ps1`   | Windows grid runner                                                          |
 | `scripts/smoke-download.ts`                 | `bun run smoke:download` wrapper for macOS/Linux                             |
+| `scripts/vm/`                               | Sync, build, release install, and matrix runs on the Windows test VM         |
 
 ## Why it can be trusted
 
@@ -60,18 +61,28 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\smoke\download-smoke
 
 Cases: no cookies; browser cookies; browser cookies with yt-dlp's own player clients; a cookies file when `-CookiesFile` is given; and, when `-Proxy` is given, the cookie and no-cookie cases again without the proxy. Every case uses an isolated `ELECTRON_USER_DATA` under `%TEMP%\arroxy-download-smoke`, where the raw stdout/stderr of each case also stays for inspection. Browser cookies are read from the real browser profile.
 
-Sample output from a Windows 11 test VM with a signed-in Firefox (a non-limited account):
+Sample output from a Windows 11 test VM with a signed-in Firefox (an account YouTube does not limit):
 
 ```text
-Case                                  Outcome         Format    MaxHeight Clients                    SabrSkipped
-no-cookies                            format-selected 398+251-1       720 visionos,web embedded
-cookies-firefox                       format-selected 398+251-1       720 web embedded,tv downgraded
-cookies-firefox-ytdlp-default-clients format-selected 398+251-1       720 web embedded,tv downgraded
+Case                                  Outcome         Format    MaxHeight SentCookies SentProxy SentClients          Clients                    SabrSkipped
+no-cookies                            format-selected 398+251-1       720 none            False default,web_embedded visionos,web embedded
+cookies-firefox                       format-selected 398+251-1       720 browser         False default,web_embedded web embedded,tv downgraded
+cookies-firefox-ytdlp-default-clients format-selected 398+251-1       720 browser         False (yt-dlp)             web embedded,tv downgraded
 ```
 
-### Remote runs
+`Sent*` columns are what the last yt-dlp command actually received; `Clients` are the player APIs yt-dlp then queried.
 
-Copy the `.ps1` over with `scp` and run it with `powershell -NoProfile -ExecutionPolicy Bypass -File <path>`. Do not inline the script into an ssh command; PowerShell `$` quoting breaks. A plain SSH session is enough: stdout comes back through `Start-Process -RedirectStandardOutput`, and the hidden token window mints a PO token without an interactive desktop session. Host and credentials for test machines live in the user-level agent config, never in this repository.
+### Remote runs (the Windows test VM)
+
+```bash
+scripts/vm/win-sync.sh                 # push this checkout, including uncommitted work
+scripts/vm/win-build.sh                # bun install + dist:win:dir on the VM
+scripts/vm/win-download-smoke.sh -Url 'https://www.youtube.com/watch?v=z1NNgSu8hTI' -Browser firefox
+```
+
+The scripts reach the VM through an SSH alias (`win-vm` by default, `ARROXY_WIN_VM` to override) with key auth. Host, user, and key live in `~/.ssh/config`, never in this repository. They ship each PowerShell script with `scp` and run it with `-File`, because inline PowerShell over ssh breaks on `$` quoting, and they quote every argument for the remote `cmd.exe`. A plain SSH session is enough: stdout comes back through `Start-Process -RedirectStandardOutput`, and the hidden token window mints a PO token without anyone logged on.
+
+`scripts/vm/win-install-release.sh [tag]` installs a published release (default: latest stable) after checking it against `SHA256SUMS`. That gives a baseline to compare with the branch build, but only builds that include download smoke can run the matrix.
 
 ### Asking a user to run it
 
