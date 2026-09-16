@@ -97,6 +97,7 @@ The last stdout line is `ARROXY_DOWNLOAD_SMOKE_RESULT {json}`.
 - `selection.maxHeight` against the profile's tier cap: a gap is the problem being investigated.
 - `selection.selectedFormat` is yt-dlp's choice (`18` is the 360p progressive fallback).
 - `observed.sabrSkippedClients` non-empty means YouTube listed formats for those clients but withheld their download URLs, which leaves only low progressive formats. yt-dlp's warning guesses a SABR-only experiment on the account; the log alone does not prove whether the cause is the account, the account combined with the network (proxy/VPN IP), or a YouTube test group. Compare the cookie and no-proxy cases to narrow it down.
+  Queued downloads act on the same signal: a limited run with cookies is stopped once formats are chosen and retried without cookies, and the app remembers for the session whether that helped. The smoke deliberately does not retry, so each case shows what that one combination gets.
 - `observed.playerApiClients` is which player APIs yt-dlp actually queried.
 - `effective` is what the overlay resolved to, including the format selector and sort.
 - `spawned` is read back from the last yt-dlp command: which cookie flag it got (`none` / `file` / `browser`), whether a proxy and a PO token were passed, and the exact `player_client` list (`null` means yt-dlp chose its own). The matrix shows these as `SentCookies`, `SentProxy`, and `SentClients`, so there is no need to dig through `attempts` to confirm an override took effect.

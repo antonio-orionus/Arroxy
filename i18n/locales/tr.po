@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Şimdi çek — kuyruğu atla"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "{{height}}p ile sınırlı"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "{{height}}p ile sınırlı · bazı altyazılar başarısız"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Kaldır"
@@ -970,6 +978,14 @@ msgstr "Dosyalar taşınıyor…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "İkili dosyalar hazırlanıyor…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

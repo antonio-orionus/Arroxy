@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Descargar ahora — saltar la cola"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Limitado a {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Limitado a {{height}}p · algunos subtítulos fallaron"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Quitar"
@@ -970,6 +978,14 @@ msgstr "Moviendo archivos…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Preparando binarios…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Guardado en {{height}}p — YouTube retuvo las calidades superiores para esta descarga. Volver a intentarlo más tarde o desde otra red puede ayudar."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Guardado en {{height}}p — YouTube retuvo las calidades superiores para esta descarga y algunos subtítulos no se pudieron descargar. Volver a intentarlo más tarde o desde otra red puede ayudar."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "ดาวน์โหลดตอนนี้ — ข้ามคิว"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "จำกัดที่ {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "จำกัดที่ {{height}}p · คำบรรยายบางรายการล้มเหลว"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "นำออก"
@@ -970,6 +978,14 @@ msgstr "กำลังย้ายไฟล์…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "กำลังเตรียมไบนารี…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ การลองใหม่ภายหลังหรือจากเครือข่ายอื่นอาจช่วยได้"
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ และดาวน์โหลดคำบรรยายบางรายการไม่ได้ การลองใหม่ภายหลังหรือจากเครือข่ายอื่นอาจช่วยได้"
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Λήψη τώρα — παράκαμψη ουράς"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Περιορίστηκε στα {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Περιορίστηκε στα {{height}}p · ορισμένοι υπότιτλοι απέτυχαν"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Κατάργηση"
@@ -970,6 +978,14 @@ msgstr "Μετακίνηση αρχείων…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Προετοιμασία δυαδικών…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Αποθηκεύτηκε σε {{height}}p — το YouTube απέκρυψε υψηλότερες ποιότητες για αυτή τη λήψη. Μια νέα προσπάθεια αργότερα ή από άλλο δίκτυο μπορεί να βοηθήσει."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Αποθηκεύτηκε σε {{height}}p — το YouTube απέκρυψε υψηλότερες ποιότητες για αυτή τη λήψη και ορισμένοι υπότιτλοι δεν κατέβηκαν. Μια νέα προσπάθεια αργότερα ή από άλλο δίκτυο μπορεί να βοηθήσει."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "አሁን አውርድ — ወረፋን ዝለል"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "በ{{height}}p ተገድቧል"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "በ{{height}}p ተገድቧል · አንዳንድ ንዑስ ርዕሶች አልተሳኩም"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "አስወግድ"
@@ -970,6 +978,14 @@ msgstr "ፋይሎችን እያዘዋወሩ…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "ሁለዮሽ ፋይሎችን እያዘጋጁ…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።"
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል፣ እና አንዳንድ ንዑስ ርዕሶች ሊዳውንሎድ አልቻሉም። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።"
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

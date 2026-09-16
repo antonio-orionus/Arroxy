@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "تنزيل الآن — تجاوز القائمة"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "محدود بدقة {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "محدود بدقة {{height}}p · تعذّر تنزيل بعض الترجمات"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "إزالة"
@@ -970,6 +978,14 @@ msgstr "جارٍ نقل الملفات…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "جارٍ تحضير الثنائيات…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "تم الحفظ بدقة {{height}}p — حجب YouTube الجودات الأعلى لهذا التنزيل، وتعذّر تنزيل بعض الترجمات. قد تفيد إعادة المحاولة لاحقًا أو من شبكة أخرى."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

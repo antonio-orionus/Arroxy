@@ -574,6 +574,8 @@
 		"item": {
 			"defaultError": "Daawniloodii kufe",
 			"retryingSoon": "ofumaan irra deebi'ee yaalaa jira (yaalii {{attempt}})",
+			"qualityLimited": "{{height}}p tti daangeffame",
+			"qualityLimitedSubtitlesFailed": "{{height}}p tti daangeffame · axxiinnota tokko tokko hin milkoofne",
 			"pause": "Dhaabi",
 			"resume": "Itti fufi",
 			"cancel": "Haqi",
@@ -621,6 +623,8 @@
 		"fetchingSubtitles": "Axxiinni fidaa jira…",
 		"sleepingBetweenRequests": "Dhiibbaa oolfachuuf sekoondii {{seconds}} eegaa jira…",
 		"subtitlesFailed": "Viidiyoon kuufame — axxiinnota tokko tokko buufachuu hin danda'amne",
+		"qualityLimited": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a.",
 		"cancelled": "Daawniloodii haqame",
 		"complete": "Daawniloodii xumurame",
 		"usedExtractorFallback": "Haala laafaa ta'een buufame — daawniloodii amanamuuf cookies.txt qopheessi",

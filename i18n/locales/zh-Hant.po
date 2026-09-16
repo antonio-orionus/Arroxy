@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "立即下載——略過佇列"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "限制為 {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "限制為 {{height}}p · 部分字幕失敗"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "移除"
@@ -970,6 +978,14 @@ msgstr "正在移動檔案…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "正在準備執行檔…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質。稍後再試或改用其他網路可能會有幫助。"
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質，且部分字幕無法下載。稍後再試或改用其他網路可能會有幫助。"
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

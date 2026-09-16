@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "지금 받기 — 대기열 건너뛰기"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "{{height}}p로 제한됨"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "{{height}}p로 제한됨 · 일부 자막 실패"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "제거"
@@ -970,6 +978,14 @@ msgstr "파일 이동 중…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "바이너리 준비 중…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았고 일부 자막을 다운로드하지 못했습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

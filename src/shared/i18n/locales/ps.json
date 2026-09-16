@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "ډاونلوډ ناکام شو",
 			"retryingSoon": "په اتوماتيک ډول بیا هڅه کیږي (هڅه {{attempt}})",
+			"qualityLimited": "په {{height}}p پورې محدود",
+			"qualityLimitedSubtitlesFailed": "په {{height}}p پورې محدود · ځینې ژباړلیکونه ناکام شول",
 			"pause": "درول",
 			"resume": "دوام",
 			"cancel": "لغوه کول",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "ژباړلیکونه ترلاسه کیږي…",
 		"sleepingBetweenRequests": "د نرخ محدودیتونو مخنیوي لپاره {{seconds}} ثانیې انتظار…",
 		"subtitlesFailed": "ویډیو خوندي شوه — ځینې ژباړلیکونه ډاونلوډ نه شول",
+		"qualityLimited": "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي.",
+		"qualityLimitedSubtitlesFailed": "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول، او ځینې ژباړلیکونه ډاونلوډ نه شول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي.",
 		"cancelled": "ډاونلوډ لغوه شو",
 		"complete": "ډاونلوډ بشپړ شو",
 		"usedExtractorFallback": "د آزاد ایکسټریکټر سره ډاونلوډ شو — د باوري ډاونلوډونو لپاره cookies.txt تنظیم کړئ",

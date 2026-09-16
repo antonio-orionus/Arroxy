@@ -130,7 +130,7 @@ describe('QueueManagerTab', () => {
 		const notices = screen.getAllByTestId('queue-quality-warning')
 		expect(notices).toHaveLength(1)
 		expect(notices[0]).toHaveTextContent('Limited to 360p')
-		expect(notices[0].getAttribute('title')).toMatch(/360p[\s\S]*cookies/i)
+		expect(notices[0].getAttribute('title')).toMatch(/360p[\s\S]*another network/i)
 	})
 
 	it('shows one notice covering both a quality limit and failed subtitles', () => {
@@ -141,7 +141,7 @@ describe('QueueManagerTab', () => {
 		const notice = screen.getByTestId('queue-quality-warning')
 		expect(notice).toHaveTextContent('Limited to 360p')
 		expect(notice).toHaveTextContent(/subtitles/i)
-		expect(notice.getAttribute('title')).toMatch(/cookies/i)
+		expect(notice.getAttribute('title')).toMatch(/subtitles[\s\S]*another network/i)
 	})
 
 	it('filters by queue status', () => {

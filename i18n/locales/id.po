@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Tarik sekarang — lewati antrian"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Dibatasi ke {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Dibatasi ke {{height}}p · beberapa subtitle gagal"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Menghapus"
@@ -970,6 +978,14 @@ msgstr "Memindahkan file…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Mempersiapkan biner…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini. Mencoba lagi nanti atau dari jaringan lain mungkin membantu."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Disimpan dalam {{height}}p — YouTube menahan kualitas yang lebih tinggi untuk unduhan ini, dan beberapa subtitle tidak dapat diunduh. Mencoba lagi nanti atau dari jaringan lain mungkin membantu."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

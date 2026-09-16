@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Загрузить сейчас — пропустить очередь"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Ограничено на {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Ограничено на {{height}}p · неки титлови нису преузети"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Уклони"
@@ -970,6 +978,14 @@ msgstr "Премештање датотека…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Припрема бинарних датотека…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Сачувано у {{height}}p — YouTube је ускратио више квалитете за ово преузимање. Можда помаже поновни покушај касније или са друге мреже."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Сачувано у {{height}}p — YouTube је ускратио више квалитете за ово преузимање, а неки титлови нису могли бити преузети. Можда помаже поновни покушај касније или са друге мреже."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

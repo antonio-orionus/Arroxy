@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Upakuaji umeshindwa",
 			"retryingSoon": "inajaribu tena kiotomatiki (jaribio {{attempt}})",
+			"qualityLimited": "Imedhibitiwa kwa {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Imedhibitiwa kwa {{height}}p · baadhi ya manukuu yameshindwa",
 			"pause": "Simamisha",
 			"resume": "Endelea",
 			"cancel": "Ghairi",
@@ -609,6 +611,8 @@
 		"fetchingSubtitles": "Inapata manukuu…",
 		"sleepingBetweenRequests": "Inasubiri sekunde {{seconds}} kuepuka vikwazo vya kiwango…",
 		"subtitlesFailed": "Video imehifadhiwa — baadhi ya manukuu hayakuweza kupakuliwa",
+		"qualityLimited": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
+		"qualityLimitedSubtitlesFailed": "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia.",
 		"cancelled": "Upakuaji umeghairiwa",
 		"complete": "Upakuaji umekamilika",
 		"usedExtractorFallback": "Imepakiwa kwa kiboreshaji laini — weka cookies.txt kwa upakuaji wa kuaminika zaidi",

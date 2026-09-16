@@ -524,6 +524,8 @@
 		"item": {
 			"defaultError": "下載失敗",
 			"retryingSoon": "正在自動重試（第 {{attempt}} 次）",
+			"qualityLimited": "限制為 {{height}}p",
+			"qualityLimitedSubtitlesFailed": "限制為 {{height}}p · 部分字幕失敗",
 			"pause": "暫停",
 			"resume": "繼續",
 			"cancel": "取消",
@@ -571,6 +573,8 @@
 		"fetchingSubtitles": "正在擷取字幕…",
 		"sleepingBetweenRequests": "正在等待 {{seconds}} 秒以避免頻率限制…",
 		"subtitlesFailed": "影片已儲存——部分字幕無法下載",
+		"qualityLimited": "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質。稍後再試或改用其他網路可能會有幫助。",
+		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質，且部分字幕無法下載。稍後再試或改用其他網路可能會有幫助。",
 		"cancelled": "下載已取消",
 		"complete": "下載完成",
 		"usedExtractorFallback": "已使用較寬鬆的擷取器下載——請設定 cookies.txt 以提高下載可靠性",

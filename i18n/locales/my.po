@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "ယခု ဒေါင်းလုဒ် — တန်းစီစာရင်း ကျော်"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "{{height}}p သို့ ကန့်သတ်ထားသည်"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "{{height}}p သို့ ကန့်သတ်ထားသည် · အချို့စာတန်းထိုးများ မအောင်မြင်ပါ"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "ဖျက်မည်"
@@ -970,6 +978,14 @@ msgstr "ဖိုင်များရွှေ့နေသည်…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Binary ဖိုင်များပြင်ဆင်နေသည်…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "{{height}}p ဖြင့် သိမ်းပြီးပြီ — YouTube က ဤဒေါင်းလုဒ်အတွက် ပိုမြင့်သော အရည်အသွေးများကို ထိန်းထားသည်။ နောက်မှ သို့မဟုတ် အခြားကွန်ရက်မှ ထပ်စမ်းကြည့်ခြင်းက အထောက်အကူဖြစ်နိုင်သည်။"
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "{{height}}p ဖြင့် သိမ်းပြီးပြီ — YouTube က ဤဒေါင်းလုဒ်အတွက် ပိုမြင့်သော အရည်အသွေးများကို ထိန်းထားပြီး အချို့စာတန်းထိုးများ ဒေါင်းလုဒ်မဆင်းနိုင်ပါ။ နောက်မှ သို့မဟုတ် အခြားကွန်ရက်မှ ထပ်စမ်းကြည့်ခြင်းက အထောက်အကူဖြစ်နိုင်သည်။"
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

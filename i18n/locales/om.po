@@ -607,6 +607,14 @@ msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
 msgstr "Amma buusi — tarree darbii"
 
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "{{height}}p tti daangeffame"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "{{height}}p tti daangeffame · axxiinnota tokko tokko hin milkoofne"
+
 msgctxt "queue.item.remove"
 msgid "Remove"
 msgstr "Balleessi"
@@ -970,6 +978,14 @@ msgstr "Faayiloota daddabarsamaa jira…"
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"
 msgstr "Faayiloota binaryii qopheessaa jira…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "{{height}}p tti kuufame — YouTube qulqullina ol'aanaa buufata kanaaf dhoorke, akkasumas axxiinnota tokko tokko buufachuu hin danda'amne. Booda ykn neetworkii biraatiin irra deebi'anii yaaluun gargaaruu danda'a."
 
 msgctxt "status.remintingToken"
 msgid "Re-minting token…"

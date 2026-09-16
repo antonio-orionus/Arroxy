@@ -553,6 +553,8 @@
 		"item": {
 			"defaultError": "다운로드 실패",
 			"retryingSoon": "자동 재시도 중({{attempt}}번째 시도)",
+			"qualityLimited": "{{height}}p로 제한됨",
+			"qualityLimitedSubtitlesFailed": "{{height}}p로 제한됨 · 일부 자막 실패",
 			"pause": "일시 중지",
 			"resume": "다시 시작",
 			"cancel": "취소",
@@ -605,6 +607,8 @@
 		"fetchingSubtitles": "자막 가져오는 중…",
 		"sleepingBetweenRequests": "요청 제한을 피하기 위해 {{seconds}}초 대기 중…",
 		"subtitlesFailed": "동영상이 저장되었지만 일부 자막을 다운로드하지 못했습니다",
+		"qualityLimited": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았고 일부 자막을 다운로드하지 못했습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다.",
 		"cancelled": "다운로드 취소됨",
 		"complete": "다운로드 완료",
 		"usedExtractorFallback": "완화된 추출기로 다운로드했습니다. 더 안정적인 다운로드를 위해 cookies.txt를 설정하세요",

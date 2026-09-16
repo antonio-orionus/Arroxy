@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "Échec du téléchargement",
 			"retryingSoon": "nouvelle tentative automatique (tentative {{attempt}})",
+			"qualityLimited": "Limité à {{height}}p",
+			"qualityLimitedSubtitlesFailed": "Limité à {{height}}p · certains sous-titres ont échoué",
 			"pause": "Pause",
 			"resume": "Reprendre",
 			"cancel": "Annuler",
@@ -614,6 +616,8 @@
 		"fetchingSubtitles": "Récupération des sous-titres…",
 		"sleepingBetweenRequests": "Attente {{seconds}}s pour éviter les limites…",
 		"subtitlesFailed": "Vidéo enregistrée — certains sous-titres n'ont pu être téléchargés",
+		"qualityLimited": "Enregistré en {{height}}p — YouTube a retenu les qualités supérieures pour ce téléchargement. Réessayer plus tard ou depuis un autre réseau peut aider.",
+		"qualityLimitedSubtitlesFailed": "Enregistré en {{height}}p — YouTube a retenu les qualités supérieures pour ce téléchargement, et certains sous-titres n'ont pu être téléchargés. Réessayer plus tard ou depuis un autre réseau peut aider.",
 		"cancelled": "Téléchargement annulé",
 		"complete": "Téléchargement terminé",
 		"usedExtractorFallback": "Téléchargé avec un extracteur assoupli — configurez un cookies.txt pour des téléchargements plus fiables",

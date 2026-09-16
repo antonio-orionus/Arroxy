@@ -562,6 +562,8 @@
 		"item": {
 			"defaultError": "دانلود ناموفق بود",
 			"retryingSoon": "تلاش دوبارهٔ خودکار (تلاش {{attempt}})",
+			"qualityLimited": "محدود به {{height}}p",
+			"qualityLimitedSubtitlesFailed": "محدود به {{height}}p · برخی زیرنویس‌ها ناموفق بودند",
 			"pause": "مکث",
 			"resume": "ادامه",
 			"cancel": "لغو",
@@ -614,6 +616,8 @@
 		"fetchingSubtitles": "در حال دریافت زیرنویس‌ها…",
 		"sleepingBetweenRequests": "برای جلوگیری از محدودیت درخواست، {{seconds}} ثانیه صبر می‌شود…",
 		"subtitlesFailed": "ویدیو ذخیره شد — برخی زیرنویس‌ها دانلود نشدند",
+		"qualityLimited": "با کیفیت {{height}}p ذخیره شد — YouTube کیفیت‌های بالاتر را برای این دانلود دریغ کرد. تلاش دوباره در زمانی دیگر یا از شبکه‌ای دیگر ممکن است کمک کند.",
+		"qualityLimitedSubtitlesFailed": "با کیفیت {{height}}p ذخیره شد — YouTube کیفیت‌های بالاتر را برای این دانلود دریغ کرد و برخی زیرنویس‌ها دانلود نشدند. تلاش دوباره در زمانی دیگر یا از شبکه‌ای دیگر ممکن است کمک کند.",
 		"cancelled": "دانلود لغو شد",
 		"complete": "دانلود کامل شد",
 		"usedExtractorFallback": "با استخراج‌گر آسان‌گیر دانلود شد — برای دانلودهای مطمئن‌تر cookies.txt تنظیم کنید",
