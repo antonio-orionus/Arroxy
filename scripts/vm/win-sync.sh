@@ -16,6 +16,8 @@ trap 'rm -rf "$work"' EXIT
 
 cd "$repo"
 { git ls-files; git ls-files --others --exclude-standard; } | sort -u | while IFS= read -r f; do
+	# The remote keeps its own record under this name; never let content replace it.
+	[ "$f" = .vm-sync-manifest ] && continue
 	[ -f "$f" ] && printf '%s\n' "$f"
 done >"$work/manifest.txt"
 COPYFILE_DISABLE=1 tar -czf "$work/arroxy-src.tgz" -T "$work/manifest.txt"

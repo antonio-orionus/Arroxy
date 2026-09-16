@@ -21,6 +21,7 @@ $newManifest = Join-Path $stageDir 'manifest.txt'
 $savedManifest = Join-Path $Dest '.vm-sync-manifest'
 
 New-Item -ItemType Directory -Force -Path $Dest | Out-Null
+$destRoot = [IO.Path]::GetFullPath($Dest).TrimEnd('\')
 & "$env:SystemRoot\System32\tar.exe" -xzf $archive -C $Dest
 if ($LASTEXITCODE -ne 0) { throw "tar failed with exit $LASTEXITCODE" }
 
@@ -31,7 +32,17 @@ if (Test-Path $savedManifest) {
   foreach ($path in $current) { [void]$keep.Add($path) }
   foreach ($path in (Get-Content $savedManifest -Encoding UTF8)) {
     if ($keep.Contains($path)) { continue }
-    $target = Join-Path $Dest ($path -replace '/', '\')
+    # Manifest entries are repo-relative. Anything rooted, climbing out, or
+    # resolving outside the checkout is refused rather than deleted.
+    if ([IO.Path]::IsPathRooted($path) -or ($path -split '[\\/]' -contains '..')) {
+      Write-Warning "skipping unsafe manifest entry: $path"
+      continue
+    }
+    $target = [IO.Path]::GetFullPath((Join-Path $destRoot ($path -replace '/', '\')))
+    if (-not $target.StartsWith($destRoot + '\', [StringComparison]::OrdinalIgnoreCase)) {
+      Write-Warning "skipping manifest entry outside ${destRoot}: $path"
+      continue
+    }
     if (Test-Path -LiteralPath $target -PathType Leaf) {
       Remove-Item -LiteralPath $target -Force
       $removed++

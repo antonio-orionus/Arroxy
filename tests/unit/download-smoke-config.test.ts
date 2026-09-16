@@ -30,7 +30,8 @@ describe('readDownloadSmokeConfig', () => {
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_COOKIES: 'browser:netscape'}, /ARROXY_SMOKE_COOKIES/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_COOKIES: 'file:'}, /ARROXY_SMOKE_COOKIES/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_PLAYER_CLIENTS: ' , '}, /ARROXY_SMOKE_PLAYER_CLIENTS/],
-		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_TIMEOUT_MS: '-5'}, /ARROXY_SMOKE_TIMEOUT_MS/]
+		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_TIMEOUT_MS: '-5'}, /ARROXY_SMOKE_TIMEOUT_MS/],
+		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_TIMEOUT_MS: '2147483648'}, /ARROXY_SMOKE_TIMEOUT_MS/]
 	])('rejects invalid input %#', (env, message) => {
 		const result = readDownloadSmokeConfig({ARROXY_SMOKE_KIND: 'download', ...env})
 		expect(result?.ok).toBe(false)

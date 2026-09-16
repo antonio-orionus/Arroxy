@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {parseOxlintUnix, parseTscOutput, partitionFindings} from '../../scripts/commitFallout.js'
+import {checkerFailure, parseOxlintUnix, parseTscOutput, partitionFindings, stagedTypeScriptPaths} from '../../scripts/commitFallout.js'
 
 describe('parseOxlintUnix', () => {
 	it('reads file and message from unix-format lines and skips the summary', () => {
@@ -25,5 +25,33 @@ describe('partitionFindings', () => {
 		const result = partitionFindings([finding('tests/a.test.ts'), finding('src/wip.ts'), finding('src/new-untracked.ts')], new Set(['src/wip.ts', 'src/new-untracked.ts']))
 		expect(result.blocking.map(f => f.file)).toEqual(['tests/a.test.ts'])
 		expect(result.ignored.map(f => f.file)).toEqual(['src/wip.ts', 'src/new-untracked.ts'])
+	})
+})
+
+describe('stagedTypeScriptPaths', () => {
+	it('includes deletions and both sides of a rename, and skips non-TypeScript files', () => {
+		const nameStatus = ['D\tsrc/main/removed.ts', 'R100\tsrc/old.ts\tsrc/new.ts', 'M\tREADME.md', 'A\tsrc/renderer/App.tsx', ''].join('\n')
+		expect(stagedTypeScriptPaths(nameStatus)).toEqual(['src/main/removed.ts', 'src/old.ts', 'src/new.ts', 'src/renderer/App.tsx'])
+	})
+
+	it('treats a deletion-only commit as TypeScript work', () => {
+		expect(stagedTypeScriptPaths('D\tsrc/main/removed.ts\n')).toEqual(['src/main/removed.ts'])
+	})
+})
+
+describe('checkerFailure', () => {
+	const finding = {tool: 'tsc' as const, file: 'a.ts', location: '1,1', message: 'error TS1: x'}
+
+	it('fails when a checker cannot start', () => {
+		expect(checkerFailure('tsc', {exitCode: null, launchError: 'spawn bunx ENOENT', output: ''}, [])).toMatch(/could not start/)
+	})
+
+	it('fails when a checker exits non-zero without parseable findings', () => {
+		expect(checkerFailure('oxlint', {exitCode: 2, launchError: null, output: 'panic: boom'}, [])).toMatch(/exited with 2[\s\S]*panic: boom/)
+	})
+
+	it('passes a non-zero exit that produced findings, and a clean run', () => {
+		expect(checkerFailure('tsc', {exitCode: 2, launchError: null, output: ''}, [finding])).toBeNull()
+		expect(checkerFailure('tsc', {exitCode: 0, launchError: null, output: ''}, [])).toBeNull()
 	})
 })

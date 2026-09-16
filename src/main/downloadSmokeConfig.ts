@@ -20,6 +20,8 @@ export interface DownloadSmokeConfig {
 export type DownloadSmokeConfigResult = {ok: true; config: DownloadSmokeConfig} | {ok: false; error: string}
 
 const DEFAULT_TIMEOUT_MS = 180_000
+// setTimeout treats larger delays as 1 ms, which would abort the run at once.
+const MAX_TIMER_DELAY_MS = 2_147_483_647
 const BROWSER_PREFIX = 'browser:'
 const FILE_PREFIX = 'file:'
 
@@ -70,8 +72,9 @@ export function readDownloadSmokeConfig(env: NodeJS.ProcessEnv): DownloadSmokeCo
 		.number()
 		.int()
 		.positive()
+		.max(MAX_TIMER_DELAY_MS)
 		.safeParse(timeoutRaw ?? DEFAULT_TIMEOUT_MS)
-	if (!timeout.success) return {ok: false, error: `ARROXY_SMOKE_TIMEOUT_MS must be a positive integer, got "${timeoutRaw}"`}
+	if (!timeout.success) return {ok: false, error: `ARROXY_SMOKE_TIMEOUT_MS must be a positive integer up to 2147483647, got "${timeoutRaw}"`}
 	return {ok: true, config: {url, cookies, proxy, profileId: trimmed(env.ARROXY_SMOKE_PROFILE) ?? null, youtubePlayerClients, timeoutMs: timeout.data}}
 }
 

@@ -49,6 +49,10 @@ $smokeVars = 'ARROXY_SMOKE_KIND', 'ARROXY_SMOKE_URL', 'ARROXY_SMOKE_COOKIES', 'A
 function Clear-SmokeEnv {
   foreach ($name in $smokeVars) { Remove-Item "Env:$name" -ErrorAction SilentlyContinue }
 }
+# Inherited from a shell started by an Electron app, this makes Arroxy.exe run
+# as plain Node and every case report nothing. Never wanted here, so it is not
+# restored afterwards.
+Remove-Item Env:ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
 
 $rows = foreach ($case in $cases) {
   Clear-SmokeEnv

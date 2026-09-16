@@ -17,7 +17,7 @@ A headless mode of the real app that runs the production download request for on
 ## Why it can be trusted
 
 - **Same request as a queued download.** The request comes from the same builder `VideoPhase` uses, so a smoke run sends exactly what a playlist/profile download sends, including Arroxy's PO token, retry ladder, and pacing.
-- **One input varied.** Overrides are applied to an in-memory copy of the settings. Nothing is written to disk.
+- **One input varied.** Overrides are applied to an in-memory copy of the settings; the persisted settings file is never modified. (The run itself still writes scratch files: the temp download directory, and the wrappers' report and log files.)
 - **No downloads.** The yt-dlp bridge's skip-download option drops the format rules, so it cannot be used. Instead the real download starts and is aborted on the first line yt-dlp prints after writing the info-json, before media transfers. The temp directory is deleted afterwards.
 - **Cannot start queued work.** The mode runs before the queue is initialised.
 
@@ -56,8 +56,10 @@ It also removes `ELECTRON_RUN_AS_NODE`. A shell started from an Electron app (an
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\smoke\download-smoke-matrix.ps1 `
   -Exe "$env:LOCALAPPDATA\Programs\arroxy\Arroxy.exe" `
   -Url https://www.youtube.com/watch?v=z1NNgSu8hTI `
-  -Browser firefox [-CookiesFile C:\path\cookies.txt] [-Proxy http://127.0.0.1:10808] [-ProfileId balanced]
+  -Browser firefox
 ```
+
+Optional: `-CookiesFile C:\path\cookies.txt` adds a cookie-file case, `-Proxy http://127.0.0.1:10808` adds the no-proxy cases, `-ProfileId balanced` picks a profile, `-TimeoutMs 180000` sets the per-case budget.
 
 Cases: no cookies; browser cookies; browser cookies with yt-dlp's own player clients; a cookies file when `-CookiesFile` is given; and, when `-Proxy` is given, the cookie and no-cookie cases again without the proxy. Every case uses an isolated `ELECTRON_USER_DATA` under `%TEMP%\arroxy-download-smoke`, where the raw stdout/stderr of each case also stays for inspection. Browser cookies are read from the real browser profile.
 
@@ -82,7 +84,7 @@ scripts/vm/win-download-smoke.sh -Url 'https://www.youtube.com/watch?v=z1NNgSu8h
 
 The scripts reach the VM through an SSH alias (`win-vm` by default, `ARROXY_WIN_VM` to override) with key auth. Host, user, and key live in `~/.ssh/config`, never in this repository. They ship each PowerShell script with `scp` and run it with `-File`, because inline PowerShell over ssh breaks on `$` quoting, and they quote every argument for the remote `cmd.exe`. A plain SSH session is enough: stdout comes back through `Start-Process -RedirectStandardOutput`, and the hidden token window mints a PO token without anyone logged on.
 
-`scripts/vm/win-install-release.sh [tag]` installs a published release (default: latest stable) after checking it against `SHA256SUMS`. That gives a baseline to compare with the branch build, but only builds that include download smoke can run the matrix.
+`scripts/vm/win-install-release.sh` installs the latest stable release, and `scripts/vm/win-install-release.sh v0.4.16` a specific tag, after checking it against `SHA256SUMS`. That gives a baseline to compare with the branch build, but only builds that include download smoke can run the matrix.
 
 ### Asking a user to run it
 
