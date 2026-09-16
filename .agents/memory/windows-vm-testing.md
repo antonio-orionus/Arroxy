@@ -6,7 +6,7 @@ type: reference
 
 # Windows VM testing (replaces tag-push iteration)
 
-The local Windows 11 ARM64 test VM is the fast loop for Windows-only verification: build `dist:win:dir`, run `verify:startup`, exercise installer/portable flows — no tag push, no 16-minute CI round trip. Connection details (host, credentials, launch constraints) live in the **user-level agent config** (`~/.config/opencode/AGENTS.md`), never in this repo. The VM must be booted manually in the Fusion GUI first; verify reachability before use.
+The local Windows 11 ARM64 test VM is the fast loop for Windows-only verification: build `dist:win:dir`, run `verify:startup`, exercise installer/portable flows — no tag push, no 16-minute CI round trip. Connection details (host, credentials, launch constraints) live in the **user-level agent config** (`~/.claude/CLAUDE.md`, `~/.config/opencode/AGENTS.md`) and `~/.ssh/config` (alias `win-vm`, key auth), never in this repo. The VM must be booted manually in the Fusion GUI first; verify reachability before use.
 
 ## Provisioned state (2026-08-31)
 
