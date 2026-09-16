@@ -21,6 +21,7 @@ Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-o
 - [anti-slop-dryrun.md](anti-slop-dryrun.md) — Regenerated anti-slop findings, upstream provenance, and the selective six-rule adoption decision.
 - [ci-cd-strategy.md](ci-cd-strategy.md) — Single source of truth for CI/CD: every workflow with trigger and ownership, the startup-verification tiers, and `main`'s branch-protection contract.
 - [in-app-browser-spec.md](in-app-browser-spec.md) — Explore tab: embedded browser with YouTube sign-in, session cookies handed to yt-dlp. Covers the non-negotiable user-agent rule, cookie handoff, rollout behind a flag with Legacy frozen, and the untested cross-platform matrix.
+- [download-smoke.md](download-smoke.md) — Headless download smoke: runs the production download request for one YouTube link with one input varied (cookies, proxy, profile, player clients), stops at format selection, and reports why a quality was picked. Includes the Windows matrix script.
 - [dependabot-triage.md](dependabot-triage.md) — Algorithm for handling Dependabot PRs. Decision tree, light vs deep review steps, local Claude Code only (no API billing), comment cheatsheet.
 - [custom-quick-presets-spec.md](custom-quick-presets-spec.md) — Quick presets design spec.
 - [release-runbook.md](release-runbook.md) — Manual maintainer checklist for beta validation and stable tagging, both cut from `main`.

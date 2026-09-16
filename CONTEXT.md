@@ -180,6 +180,10 @@ _Avoid_: log bundle, crash report, support dump
 The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered for up to seven days, as long as the file it was checked against hasn't changed.
 _Avoid_: bootstrap, init, preflight
 
+**Download smoke**:
+A headless run of the real download path for one link that stops as soon as the downloader has chosen formats, reporting which formats were picked and why — used to compare cookie, proxy, profile, and player-client variations one at a time.
+_Avoid_: dry run, format test, quality probe
+
 ### Architecture
 
 **Core**:
