@@ -123,6 +123,14 @@ bun run agents:skills:restore
 
 Only tiny project-owned, non-installable skills stay tracked under `./.agents/skills/`. Do not add `.claude/skills/` to Git; that directory is local/generated only. If a new public skill is useful for Arroxy, add it through the Skills CLI so `skills-lock.json` records the source and hash instead of committing the skill's source tree.
 
+## Agent tooling — no tool lock-in
+
+The repo works the same for any coding agent. Keep agent config in three layers:
+
+1. **Shared sources (tracked, plain files):** `AGENTS.md`, `CONTEXT.md`, `.agents/memory/`, `.agents/skills/` + `skills-lock.json`, and `.agents/mcp.json`. Edit only these.
+2. **Per-tool adapters (gitignored, generated):** `.claude/skills/` links, `.mcp.json`, `.codex/config.toml`, `opencode.jsonc`. (`CLAUDE.md` is a tracked symlink to `AGENTS.md`.) `bun run agents:sync` rebuilds them (`bootstrap` and `agents:skills:restore` run it too). Codex and OpenCode read `.agents/skills` natively; only Claude Code needs the links. To add a tool, extend `scripts/agents-sync.ts`.
+3. **Harness plugins (per machine, never in the repo):** Superpowers, context7, playwright, CodeGraph prompt hooks, etc. install differently in every tool — see [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md). Tracked files must not depend on them: never reference plugin-namespaced skills (`superpowers:*`, `feature-dev:*`) or tool-specific tool names as requirements. If a plugin workflow matters for Arroxy, write the rule into `AGENTS.md` or a project skill.
+
 ---
 
 ## Post-Task Checks

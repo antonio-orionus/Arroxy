@@ -430,7 +430,7 @@ aspirational.
 
 ## 15. Test strategy
 
-> The layer ownership rules in `CLAUDE.md` govern. This section covers only what
+> The layer ownership rules in `AGENTS.md` govern. This section covers only what
 > the dual-deploy split adds. Not re-validated since 2026-05-26 — an earlier
 > draft assumed a `createCore(ports)` factory that this program does not build.
 

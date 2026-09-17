@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Fail if any TS/TSX file in src/ exceeds MAX_LOC.
-// Soft target is ~700 (see CLAUDE.md); hard cap defaults to 800.
+// Soft target is ~700 (see AGENTS.md); hard cap defaults to 800.
 // Override: `--max 1000`.
 
 import {readdir, readFile} from 'node:fs/promises'
