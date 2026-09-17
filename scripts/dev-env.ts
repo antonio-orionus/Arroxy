@@ -6,6 +6,7 @@ import net from 'node:net'
 import path from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {promisify} from 'node:util'
+import {syncAgents} from './agents-sync.js'
 import {checkEmbeddedPayload, hostEmbeddedTarget} from './build/embeddedPayload.js'
 
 const RENDERER_HOST = '127.0.0.1' as const
@@ -559,6 +560,7 @@ async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void>
 	await runStep('Rebuilding native Electron app dependencies', () => spawnChecked(commandName('bun'), ['run', 'electron-builder', 'install-app-deps'], {cwd: repoRoot, env: childEnv}))
 	await runStep('Verifying Electron payload', () => repairElectronPayload(repoRoot, childEnv))
 	await runStep('Verifying embedded host binaries', () => ensureEmbeddedHostBinaries(repoRoot, childEnv))
+	await runStep('Syncing agent adapters', () => syncAgents(repoRoot))
 	await runStep('Installing Playwright Chromium', () => spawnChecked(commandName('bun'), ['run', 'playwright', 'install', 'chromium'], {cwd: repoRoot, env: childEnv}))
 
 	console.log(`\n${kind} complete`)

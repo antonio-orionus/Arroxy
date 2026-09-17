@@ -11,7 +11,8 @@
 	"author": {"name": "Antonio Orionus", "email": "orionusAI@proton.me", "url": "https://x.com/OrionusAI"},
 	"license": "MIT",
 	"scripts": {
-		"agents:skills:restore": "bunx skills experimental_install",
+		"agents:skills:restore": "bunx skills experimental_install && bun run agents:sync",
+		"agents:sync": "bun scripts/agents-sync.ts",
 		"bootstrap": "bun scripts/dev-env.ts bootstrap",
 		"repair": "bun scripts/dev-env.ts repair",
 		"doctor": "bun scripts/dev-env.ts doctor",

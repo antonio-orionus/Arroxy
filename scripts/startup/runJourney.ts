@@ -33,7 +33,7 @@ export function buildJourneyEnv(journey: StartupJourney, ctx: RunContext, profil
 	const env: NodeJS.ProcessEnv = {...process.env, ...journey.env, ELECTRON_USER_DATA: profileDir}
 
 	// ELECTRON_RUN_AS_NODE turns the app into a bare Node process — it must never
-	// reach the app itself, only yt-dlp's child env (see CLAUDE.md).
+	// reach the app itself, only yt-dlp's child env (see AGENTS.md).
 	delete env.ELECTRON_RUN_AS_NODE
 
 	// ARROXY_E2E would swap in MockTokenProvider and the fixture yt-dlp plugin,

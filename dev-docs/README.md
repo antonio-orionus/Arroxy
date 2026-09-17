@@ -5,7 +5,7 @@ Internal engineering docs — feature designs, architecture notes, system maps.
 **Not** to be confused with:
 
 - `readme-src/` — README source-of-truth (English + 20 locales).
-- `CLAUDE.md` / `AGENTS.md` — agent operating notes (tracked, but keep detail here and link out).
+- `AGENTS.md` (with `CLAUDE.md` as a symlink) — agent operating notes (tracked, but keep detail here and link out).
 
 Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-orionus/arroxy-web`](https://github.com/antonio-orionus/arroxy-web). Don't put landing content here.
 
@@ -18,6 +18,7 @@ Public landing site (`arroxy.orionus.dev`) lives in a separate repo: [`antonio-o
 
 ## Index
 
+- [agent-setup.md](agent-setup.md) — Tool-neutral agent config: shared `.agents/` sources, `bun run agents:sync` adapters for Claude Code / Codex / OpenCode, and per-tool plugin installs (Superpowers, CodeGraph hook).
 - [anti-slop-dryrun.md](anti-slop-dryrun.md) — Regenerated anti-slop findings, upstream provenance, and the selective six-rule adoption decision.
 - [ci-cd-strategy.md](ci-cd-strategy.md) — Single source of truth for CI/CD: every workflow with trigger and ownership, the startup-verification tiers, and `main`'s branch-protection contract.
 - [in-app-browser-spec.md](in-app-browser-spec.md) — Explore tab: embedded browser with YouTube sign-in, session cookies handed to yt-dlp. Covers the non-negotiable user-agent rule, cookie handoff, rollout behind a flag with Legacy frozen, and the untested cross-platform matrix.

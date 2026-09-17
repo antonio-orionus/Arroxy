@@ -8,7 +8,7 @@ metadata:
 Two APIs that plausible-looking code reaches for and this repo does not have. Both cost
 time repeatedly during the playlist multi-profile work (2026-08), across separate tasks.
 
-**`asChild` does not exist here.** `CLAUDE.md` says not to add Radix, but the trap is
+**`asChild` does not exist here.** `AGENTS.md` says not to add Radix, but the trap is
 subtler than adding a dependency: `asChild` is the Radix idiom for projecting a child as
 the trigger, and writing it against a `base-nova` primitive fails. These components take a
 **`render` prop** instead — see `TooltipTrigger` in `src/renderer/src/components/ui/tooltip.tsx`
