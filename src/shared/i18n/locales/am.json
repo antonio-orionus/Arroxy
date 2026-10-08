@@ -633,7 +633,8 @@
 		"subtitle-only": {"label": "ንዑስ ርዕሶች ብቻ", "desc": "ቪዲዮ የለም፣ ድምጽ የለም፣ ንዑስ ርዕሶች ብቻ"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "ንዑስ ርዕሶች"},
+		"subtitles": {"note": "ለእያንዳንዱ ቪዲዮ የንዑስ ርዕስ ፋይሎች ብቻ ይቀመጣሉ — ቪዲዮም ሆነ ድምጽ አይወርድም።", "languages": "ቋንቋዎች", "languagesRequired": "ለመቀጠል ቢያንስ አንድ ቋንቋ ይምረጡ።", "source": "ምንጭ", "deliveryHeading": "እንደ አስቀምጥ", "deliveryLoose": "በቀጥታ በማስቀመጫ አቃፊ ውስጥ"},
 		"videoFormat": {"best": "Best codec", "mp4": "ስማርት TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ለእያንዳንዱ ንጥል የሚገኝ ከፍተኛ codec", "mp4": "H.264 + AAC ይመረጣል፣ MP4 ኮንቴነር · በተቻለ መጠን"},
 		"tier": {"144": "እስከ 144p", "240": "እስከ 240p", "360": "እስከ 360p", "480": "እስከ 480p", "720": "እስከ 720p", "1080": "እስከ 1080p", "1440": "እስከ 1440p", "2160": "እስከ 4K", "best": "Best quality"},

@@ -612,7 +612,8 @@
 		"subtitle-only": {"label": "仅字幕", "desc": "无视频无音频，仅字幕"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "字幕"},
+		"subtitles": {"note": "每个视频仅保存字幕文件 — 不下载视频或音频。", "languages": "语言", "languagesRequired": "请至少选择一种语言以继续。", "source": "来源", "deliveryHeading": "保存方式", "deliveryLoose": "直接保存在保存文件夹中"},
 		"videoFormat": {"best": "Best codec", "mp4": "智能电视 H.264 MP4"},
 		"videoFormatDesc": {"best": "每个项目可用的最高编解码器", "mp4": "优先 H.264 + AAC，MP4 容器 · 尽力匹配"},
 		"tier": {"144": "最高 144p", "240": "最高 240p", "360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "Best quality"},

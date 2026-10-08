@@ -32,6 +32,13 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
 	}
 }
 
+// Ships with English so quick download can queue it unedited; the profile is
+// editable, and the batch wizard seeds from the app language instead.
+function subtitlesOnlyProfile(): DownloadProfile {
+	const base = baseProfile('subtitles-only', 'Subtitles only', {kind: 'subtitles-only'}, 'captions')
+	return {...base, subtitles: {...base.subtitles, enabled: true, languages: ['en']}}
+}
+
 function videoCompatibilityLabel(codec: 'best' | 'mp4'): string {
 	return codec === 'mp4' ? 'MP4/H.264' : 'Native formats'
 }
@@ -56,6 +63,7 @@ export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
 	baseProfile('mp4-720', 'Smart TV MP4 HD 720p', videoAudio('mp4', ['720']), 'video'),
 	baseProfile('mp4-480', 'Smart TV MP4 SD 480p', videoAudio('mp4', ['480']), 'video'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio'),
+	subtitlesOnlyProfile(),
 	baseProfile('low-240', 'Low data 240p', videoAudio('best', ['240']), 'clip', false),
 	baseProfile('low-144', 'Lowest 144p', videoAudio('best', ['144']), 'clip', false)
 ] as const
@@ -252,6 +260,6 @@ export function downloadProfileLabel(profile: DownloadProfile): string {
 			if (profile.media.audio.format === 'wav') return 'Audio only · WAV'
 			return `Audio only · ${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}K`
 		case 'subtitles-only':
-			return 'Subtitles only'
+			return ['Subtitles only', profile.subtitles.languages.join(', '), profile.subtitles.format.toUpperCase()].filter(part => part.length > 0).join(' · ')
 	}
 }

@@ -1,5 +1,6 @@
-import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistVideoTier} from './schemas.js'
+import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, PlaylistVideoTier} from './schemas.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
+import type {SubtitleOptions} from './preparedJob.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
@@ -52,11 +53,24 @@ const SURROUND_AUDIO_SELECTOR = [
 	COMPATIBLE_AUDIO_SELECTOR
 ].join('/')
 
-export function playlistSelectionToMediaIntent(selection: PlaylistSelection): MediaIntent {
+// A subtitles-only batch downloads no media, so it has no media intent.
+export function playlistSelectionToMediaIntent(selection: PlaylistSelection): MediaIntent | null {
+	if (selection.kind === 'subtitles') return null
 	if (selection.kind === 'audio') {
 		return {kind: 'audio-only', audio: {format: selection.format, bitrateKbps: selection.bitrateKbps}}
 	}
 	return {kind: 'video-audio', codec: selection.codec, tiers: [selection.tier], audio: {format: selection.codec === 'mp4' ? 'm4a' : 'best'}}
+}
+
+export function playlistSelectionProducesVideo(selection: PlaylistSelection): boolean {
+	const intent = playlistSelectionToMediaIntent(selection)
+	return intent !== null && mediaIntentSpec(intent).producesVideo
+}
+
+// Same source → writeAuto rule as resolveDownloadProfile, so a batch and a
+// profile asking for the same languages request the same tracks.
+export function playlistSubtitleOptions(selection: PlaylistSubtitleSelection): SubtitleOptions {
+	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, writeAuto: selection.source !== 'manual-only', includeRegionalVariants: true}
 }
 
 export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaIntent | null {

@@ -8,6 +8,21 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.18
+
+Arroxy can now fetch subtitles only for a whole list of videos at once.
+
+## Highlights
+
+### Subtitles Only for Playlists and Bulk Lists
+
+- The batch quality step now offers **Subtitles** next to Video and Audio. Paste a list of URLs or open a playlist, pick Subtitles, choose the languages, and every item queues as a subtitle-only download — no video or audio files to delete afterwards.
+- The language picker is the same searchable list as in download profiles and starts from your app language, so the common case is one click. Source (manual, auto-generated, or both), delivery (directly in the save folder or a `subtitles/` subfolder), and format (SRT, VTT, ASS) are chosen in the same place.
+- Steps that only make sense for media files, such as SponsorBlock and embed options, are skipped for a subtitles batch, and the queue labels each item with its languages and format.
+- A built-in **Subtitles only** download profile joins the profile list, so Quick Download and per-item playlist profiles can fetch captions without creating a custom profile first. It starts with English; edit it to pick your languages, source, delivery, and format. Profile labels now show the languages and format for subtitle-only profiles.
+
+---
+
 ## 0.4.17
 
 Arroxy works around YouTube quietly limiting a signed-in session to 360p, and tells you when it could not.

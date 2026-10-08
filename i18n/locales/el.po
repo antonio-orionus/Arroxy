@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "Το H.264 πάνω από 1080p δεν είναι διαθέσιμο στο YouTube — περιορίζεται αυτόματα στα 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Αποθήκευση ως"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Απευθείας στον φάκελο αποθήκευσης"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Γλώσσες"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Επιλέξτε τουλάχιστον μία γλώσσα για να συνεχίσετε."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Για κάθε βίντεο αποθηκεύονται μόνο αρχεία υποτίτλων — δεν γίνεται λήψη βίντεο ή ήχου."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Πηγή"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Έως 1080p"
@@ -466,6 +490,10 @@ msgstr "Καλύτερο διαθέσιμο βίντεο + ήχος ανά στ�
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Υπότιτλοι"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

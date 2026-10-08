@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 por encima de 1080p no está disponible en YouTube — se limita automáticamente a 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Guardar como"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Directamente en la carpeta de destino"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Idiomas"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Elige al menos un idioma para continuar."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Solo se guardan los archivos de subtítulos de cada vídeo — no se descarga vídeo ni audio."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Origen"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Hasta 1080p"
@@ -466,6 +490,10 @@ msgstr "Mejor vídeo + audio disponible por elemento"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtítulos"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

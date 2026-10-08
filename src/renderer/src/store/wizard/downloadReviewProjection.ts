@@ -1,5 +1,4 @@
 import {humanSize} from '@shared/format.js'
-import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
@@ -66,9 +65,13 @@ export function conflictLabelKey(code: UserVisibleConflictCode): (typeof CONFLIC
 	return CONFLICT_LABEL_KEYS[code]
 }
 
-function playlistPresetLabel(state: AppState, t: Translate): string {
+function playlistPresetLabel(state: AppState, t: Translate, language: string): string {
 	const {playlistSelection} = state
 	if (!playlistSelection) return ''
+	if (playlistSelection.kind === 'subtitles') {
+		const languages = playlistSelection.languages.map(code => resolveSubtitleLabel(code, {}, {}, language)).join(', ')
+		return [t('presets.subtitle-only.label'), languages, playlistSelection.format.toUpperCase()].filter(part => part.length > 0).join(' · ')
+	}
 	if (playlistSelection.kind === 'audio') {
 		if (playlistSelection.format === 'best') return t('playlistPresets.audioFormat.best')
 		return t('playlistPresets.audioFormatBitrate', {format: playlistSelection.format.toUpperCase(), kbps: playlistSelection.bitrateKbps ?? 192})
@@ -150,9 +153,9 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 	const finalDir = effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)
 	const shortPath = formatHomeRelativePath(finalDir, ctx.commonPaths)
 	const subtitleValue = buildSubtitleValue(state, effectiveSubtitleLanguages, ctx)
-	const playlistPreset = inMultiProfile ? '' : playlistPresetLabel(state, ctx.t)
+	const playlistPreset = inMultiProfile ? '' : playlistPresetLabel(state, ctx.t, ctx.language)
 
-	const isAudioPlaylistPreset = !inMultiProfile && !!state.playlistSelection && !mediaIntentSpec(playlistSelectionToMediaIntent(state.playlistSelection)).producesVideo
+	const isAudioPlaylistPreset = !inMultiProfile && state.playlistSelection?.kind === 'audio'
 	const itemsAreAudio = isAudioOnlySource(state.wizardExtractor) || isAudioPlaylistPreset
 	const countLabel = inBatch ? itemCountLabel(state, inBulk, itemsAreAudio) : null
 	const itemsValue = countLabel ? ctx.t(countLabel.key, countLabel.params) : ''
@@ -177,7 +180,8 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 				{key: 'size', label: ctx.t('wizard.confirm.labelSize'), value: estimatedSize}
 			]
 
-	const hasNothingSelected = inBatch ? !state.playlistSelection || state.selectedPlaylistItemIds.length === 0 : state.selectedVideoFormatId === '' && state.audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0
+	const batchHasNoLanguages = state.playlistSelection?.kind === 'subtitles' && state.playlistSelection.languages.length === 0
+	const hasNothingSelected = inBatch ? !state.playlistSelection || batchHasNoLanguages || state.selectedPlaylistItemIds.length === 0 : state.selectedVideoFormatId === '' && state.audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0
 
 	const allConflicts: SanitizeConflict[] = !inBatch
 		? sanitizeJobOptions({

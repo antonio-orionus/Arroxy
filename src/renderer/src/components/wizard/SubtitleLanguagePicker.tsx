@@ -9,9 +9,12 @@ interface SubtitleLanguagePickerProps {
 	onValueChange: (languages: string[]) => void
 	invalid?: boolean
 	describedBy?: string
+	// Test ids for the chips container and each option (`<optionTestIdPrefix>-<code>`).
+	testId?: string
+	optionTestIdPrefix?: string
 }
 
-export function SubtitleLanguagePicker({id, value, onValueChange, invalid = false, describedBy}: SubtitleLanguagePickerProps): ReactNode {
+export function SubtitleLanguagePicker({id, value, onValueChange, invalid = false, describedBy, testId = 'profiles-editor-subtitle-languages', optionTestIdPrefix = 'profiles-editor-subtitle-language-option'}: SubtitleLanguagePickerProps): ReactNode {
 	const {t, i18n} = useTranslation()
 	const anchor = useComboboxAnchor()
 	const [query, setQuery] = useState('')
@@ -25,7 +28,7 @@ export function SubtitleLanguagePicker({id, value, onValueChange, invalid = fals
 
 	return (
 		<Combobox multiple autoHighlight items={items} filter={null} value={[...value]} onValueChange={onValueChange} inputValue={query} onInputValueChange={setQuery} itemToStringLabel={labelFor}>
-			<ComboboxChips ref={anchor} className="min-h-10" data-testid="profiles-editor-subtitle-languages">
+			<ComboboxChips ref={anchor} className="min-h-10" data-testid={testId}>
 				<ComboboxValue>
 					{(codes: string[]) => (
 						<>
@@ -46,7 +49,7 @@ export function SubtitleLanguagePicker({id, value, onValueChange, invalid = fals
 					{(code: string) => {
 						const option = optionsByCode.get(code)
 						return (
-							<ComboboxItem key={code} value={code} className="text-[12px]" data-testid={`profiles-editor-subtitle-language-option-${code}`}>
+							<ComboboxItem key={code} value={code} className="text-[12px]" data-testid={`${optionTestIdPrefix}-${code}`}>
 								{option ? (
 									<>
 										<span className="min-w-0 truncate">{option.label}</span>

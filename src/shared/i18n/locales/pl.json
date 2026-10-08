@@ -684,7 +684,15 @@
 		"subtitle-only": {"label": "Tylko napisy", "desc": "Bez obrazu i dźwięku, tylko napisy"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Wideo", "audio": "Dźwięk"},
+		"type": {"video": "Wideo", "audio": "Dźwięk", "subtitles": "Napisy"},
+		"subtitles": {
+			"note": "Dla każdego filmu zapisywane są tylko pliki napisów — nie pobiera się obrazu ani dźwięku.",
+			"languages": "Języki",
+			"languagesRequired": "Wybierz co najmniej jeden język, aby kontynuować.",
+			"source": "Źródło",
+			"deliveryHeading": "Zapisz jako",
+			"deliveryLoose": "Bezpośrednio w folderze zapisu"
+		},
 		"videoFormat": {"best": "Najlepszy format źródłowy", "mp4": "H.264 MP4 do Smart TV"},
 		"videoFormatDesc": {"best": "Najlepszy dostępny kontener i kodeki dla każdego elementu", "mp4": "Preferuj wideo H.264 i dźwięk AAC w kontenerze MP4, gdy to możliwe"},
 		"tier": {"144": "Do 144p", "240": "Do 240p", "360": "Do 360p", "480": "Do 480p", "720": "Do 720p", "1080": "Do 1080p", "1440": "Do 1440p", "2160": "Do 4K", "best": "Najlepsza jakość"},

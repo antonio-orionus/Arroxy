@@ -169,6 +169,8 @@ export const fr = {
     "**SponsorBlock** — passe ou marque les sponsors, intros, outros, autopromos en chapitres",
   feat_post_4:
     "**Métadonnées intégrées** — titre, date de mise en ligne, chaîne, description, miniature et marqueurs de chapitres écrits dans le fichier",
+  feat_post_5:
+    "**Lots sous-titres uniquement** — collez une liste d'URL ou ouvrez une playlist, choisissez Sous-titres et ne récupérez que les fichiers de sous-titres de chaque vidéo",
   feat_sites_h3: "YouTube + 2000 sites",
   feat_sites_1:
     "**YouTube, en entier** — Vidéos, Shorts, Chaînes, Playlists, YouTube Music et Podcasts traités comme des sources de premier rang",

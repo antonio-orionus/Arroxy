@@ -278,6 +278,51 @@ test('Electron bulk metadata concurrency and back/next navigation reach complete
 	})
 })
 
+// The user-facing risk from the bug report: paste a list of URLs, pick
+// Subtitles, and get only caption files back. Only the real app proves the
+// batch builder, the queue, and yt-dlp agree on what a subtitles batch is.
+test('Electron bulk list downloads subtitles only when the Subtitles type is chosen', async () => {
+	test.setTimeout(180_000)
+	const videoIds = [FIXTURE_VIDEO_IDS[2], FIXTURE_VIDEO_IDS[3]] as const
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-bulk-subs-user-', outputPrefix: 'arroxy-fixture-bulk-subs-out-'}, async ({app, page, fixtureServer, urls, files}) => {
+		await startBulkFromClipboard(page, app, urls.videos(videoIds).join('\n'))
+		await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('2')
+		await page.locator('[data-testid="bulk-url-confirm"]').click()
+
+		await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible()
+		await clickContinue(page)
+		await expect(page.locator('[data-testid="step-playlist-presets"]')).toBeVisible()
+		await page.locator('[data-testid="playlist-type-subtitles"]').click()
+		// Seeded from the UI language: English is already selected, so the
+		// common case is one click.
+		await expect(page.locator('[data-testid="playlist-subtitle-languages"]')).toContainText('English')
+		await clickContinue(page)
+
+		// No SponsorBlock or output step for a subtitles batch — straight to the folder.
+		await expect(page.locator('[data-testid="step-folder"]')).toBeVisible()
+		await page
+			.getByTestId('step-folder')
+			.getByRole('button', {name: /continue/i})
+			.click()
+		await expect(page.locator('[data-testid="step-confirm"]')).toBeVisible()
+		await expect(page.locator('[data-testid="step-confirm"]')).toContainText('Subtitles only')
+		await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+		await openQueueTab(page)
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(2, {timeout: 20_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
+
+		const subtitleFiles = files.mediaFiles('.en.srt')
+		expect(subtitleFiles).toHaveLength(2)
+		for (const videoId of videoIds) {
+			expect(subtitleFiles.some(file => fs.readFileSync(file, 'utf8').includes(`Fixture subtitle for ${videoId}`))).toBe(true)
+		}
+		files.expectMp4Count(0)
+		expect(fixtureServer.telemetry().requests.filter(request => request.kind === 'media')).toHaveLength(0)
+	})
+})
+
 test('Electron bulk Quick Download shows preparation progress and queues fixture files', async () => {
 	test.setTimeout(180_000)
 

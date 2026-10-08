@@ -25,7 +25,7 @@ Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-14._
+> _Last updated: 2026-10-08._
 
 > 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../pulls).
 
@@ -281,6 +281,7 @@ Arroxy ma jedno zadanie: wklejasz adres URL i otrzymujesz czysty plik lokalny. B
 
 - **Napisy** w SRT, VTT lub ASS — ręczne albo generowane automatycznie, w każdym dostępnym języku
 - Zapisuj obok filmu, osadzaj w `.mkv` albo porządkuj w podfolderze `Subtitles/`
+- **Partie tylko z napisami** — wklej listę adresów URL lub otwórz playlistę, wybierz Napisy i pobierz wyłącznie pliki napisów dla każdego filmu
 - **SponsorBlock** — pomijaj sponsorów, intra, zakończenia i autopromocje albo oznaczaj je jako rozdziały
 - **Osadzone metadane** — tytuł, data przesłania, kanał, opis, miniatura i znaczniki rozdziałów zapisane w pliku
 

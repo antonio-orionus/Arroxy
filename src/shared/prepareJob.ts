@@ -1,5 +1,5 @@
 import {DEFAULTS} from './constants.js'
-import {mediaIntentSpec, playlistSelectionToMediaIntent} from './mediaIntent.js'
+import {mediaIntentSpec, playlistSelectionToMediaIntent, playlistSubtitleOptions} from './mediaIntent.js'
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import type {AudioConvert, MediaIntent, NativeAudioPreference, PlaylistSelection, Preset, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
 
@@ -36,6 +36,11 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	const filenameTemplate = input.filenameTemplate ? {filenameTemplate: input.filenameTemplate} : {}
 
 	if (input.mode === 'playlist') {
+		if (input.playlistSelection?.kind === 'subtitles') {
+			const batchSubtitles = playlistSubtitleOptions(input.playlistSelection)
+			if (batchSubtitles.languages.length === 0) throw new Error('prepareJob: subtitle-only requires non-empty subtitle languages')
+			return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles: batchSubtitles}
+		}
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
 		if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent')
 		if (!input.filenameTemplate) throw new Error('prepareJob: playlist mode requires filenameTemplate')

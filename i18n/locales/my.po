@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "YouTube တွင် 1080p အထက် H.264 မရှိပါ — 1080p သို့ အလိုအလျောက် ကန့်သတ်သည်"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "မည်သို့သိမ်းမည်"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "သိမ်းဆည်းသည့်ဖိုင်တွဲထဲတွင် တိုက်ရိုက်"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "ဘာသာစကားများ"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "ဆက်လက်ရန် အနည်းဆုံး ဘာသာစကားတစ်ခု ရွေးပါ။"
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "ဗီဒီယိုတစ်ခုချင်းစီအတွက် စာတန်းထိုးဖိုင်များကိုသာ သိမ်းဆည်းသည် — ဗီဒီယို သို့မဟုတ် အသံကို ဒေါင်းလုဒ်မလုပ်ပါ။"
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "အရင်းအမြစ်"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "1080p အထိ"
@@ -466,6 +490,10 @@ msgstr "အရာတစ်ခုချင်းစီအတွက် အကေ�
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "စာတန်းထိုး"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

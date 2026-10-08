@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Сачувај као"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Директно у фасцикли за чување"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Језици"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Изаберите бар један језик да бисте наставили."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "За сваки видео чувају се само датотеке титлова — видео и звук се не преузимају."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Извор"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Do 1080p"
@@ -466,6 +490,10 @@ msgstr "Najbolji dostupan video + audio po stavci"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Титлови"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

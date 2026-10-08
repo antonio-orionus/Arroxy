@@ -169,6 +169,8 @@ export const es = {
     "**SponsorBlock** — omite o marca como capítulos patrocinadores, intros, outros y autopromociones",
   feat_post_4:
     "**Metadatos incrustados** — título, fecha de subida, canal, descripción, miniatura y marcadores de capítulo escritos en el archivo",
+  feat_post_5:
+    "**Lotes solo de subtítulos** — pega una lista de URLs o abre una lista de reproducción, elige Subtítulos y obtén solo los archivos de subtítulos de cada vídeo",
   feat_sites_h3: "YouTube + 2000 sitios",
   feat_sites_1:
     "**YouTube, al completo** — Videos, Shorts, Canales, Playlists, YouTube Music y Podcasts tratados como fuentes de primera clase",

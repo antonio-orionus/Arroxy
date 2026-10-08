@@ -671,7 +671,15 @@
 		"subtitle-only": {"label": "Apenas legendas", "desc": "Sem vídeo, sem áudio, apenas legendas"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Vídeo", "audio": "Áudio"},
+		"type": {"video": "Vídeo", "audio": "Áudio", "subtitles": "Legendas"},
+		"subtitles": {
+			"note": "Apenas os arquivos de legendas de cada vídeo são salvos — nenhum vídeo ou áudio é baixado.",
+			"languages": "Idiomas",
+			"languagesRequired": "Escolha pelo menos um idioma para continuar.",
+			"source": "Origem",
+			"deliveryHeading": "Salvar como",
+			"deliveryLoose": "Diretamente na pasta de salvamento"
+		},
 		"videoFormat": {"best": "Melhor nativo", "mp4": "MP4 H.264 para Smart TV"},
 		"videoFormatDesc": {"best": "Melhor formato e codecs disponíveis por item", "mp4": "Preferir vídeo H.264 + áudio AAC em MP4 quando possível"},
 		"tier": {"144": "Até 144p", "240": "Até 240p", "360": "Até 360p", "480": "Até 480p", "720": "Até 720p", "1080": "Até 1080p", "1440": "Até 1440p", "2160": "Até 4K", "best": "Melhor qualidade"},

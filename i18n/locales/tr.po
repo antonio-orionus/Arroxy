@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "YouTube’da 1080p üzeri H.264 kullanılamaz — otomatik olarak 1080p ile sınırlanır"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Kaydetme biçimi"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Doğrudan kayıt klasörüne"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Diller"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Devam etmek için en az bir dil seçin."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Her video için yalnızca altyazı dosyaları kaydedilir — video veya ses indirilmez."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Kaynak"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "1080p’ye kadar"
@@ -466,6 +490,10 @@ msgstr "Her öğe için en yüksek kullanılabilir video + ses"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Ses"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Altyazılar"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

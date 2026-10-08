@@ -193,7 +193,9 @@ async function probeInfoJson(ytDlpPath: string, url: string, cli: CliArgs, nodeP
 }
 
 function reqFor(selection: PlaylistSelection, outputDir: string, infoJsonPath: string, url: string): WorkflowInput {
-	const spec = mediaIntentSpec(playlistSelectionToMediaIntent(selection))
+	const intent = playlistSelectionToMediaIntent(selection)
+	if (!intent) throw new Error(`smoke case has no media intent: ${JSON.stringify(selection)}`)
+	const spec = mediaIntentSpec(intent)
 	return {
 		kind: 'media',
 		url,
@@ -289,6 +291,8 @@ function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo): strin
 		return failures
 	}
 
+	// Smoke cases cover media selections only; a subtitles batch has no stream to inspect.
+	if (caseDef.selection.kind !== 'audio') return [`unsupported smoke selection: ${caseDef.selection.kind}`]
 	const audio = selectedAudio(info)
 	const video = selectedVideo(info)
 	if (!audio) failures.push('yt-dlp selected no audio stream')

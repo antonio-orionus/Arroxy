@@ -671,7 +671,8 @@
 		"subtitle-only": {"label": "Chỉ phụ đề", "desc": "Không có video, không có âm thanh, chỉ phụ đề"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Phụ đề"},
+		"subtitles": {"note": "Chỉ lưu các tệp phụ đề cho mỗi video — không tải xuống video hay âm thanh.", "languages": "Ngôn ngữ", "languagesRequired": "Chọn ít nhất một ngôn ngữ để tiếp tục.", "source": "Nguồn", "deliveryHeading": "Lưu dưới dạng", "deliveryLoose": "Trực tiếp trong thư mục lưu"},
 		"videoFormat": {"best": "Best codec", "mp4": "TV thông minh H.264 MP4"},
 		"videoFormatDesc": {"best": "Codec cao nhất có sẵn cho từng mục", "mp4": "Ưu tiên H.264 + AAC, vùng chứa MP4 · cố gắng tốt nhất"},
 		"tier": {"144": "Tối đa 144p", "240": "Tối đa 240p", "360": "Tối đa 360p", "480": "Tối đa 480p", "720": "Tối đa 720p", "1080": "Tối đa 1080p", "1440": "Tối đa 1440p", "2160": "Tối đa 4K", "best": "Best quality"},

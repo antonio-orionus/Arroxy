@@ -166,6 +166,8 @@ export const sw = {
     "**SponsorBlock** — ruka au weka alama za sehemu kwenye wadhamini, utangulizi, mwisho, matangazo binafsi",
   feat_post_4:
     "**Metadata iliyowekwa** — kichwa, tarehe ya kupakia, chaneli, maelezo, picha ndogo, na alama za sura zimeandikwa ndani ya faili",
+  feat_post_5:
+    "**Mafungu ya manukuu pekee** — bandika orodha ya URL au fungua orodha ya kucheza, chagua Manukuu, na upate faili za manukuu pekee kwa kila video",
   feat_sites_h3: "YouTube + Tovuti 2000",
   feat_sites_1:
     "**YouTube kamili** — Video, Shorts, Vituo, Orodha za Kucheza, YouTube Music na Podikasti zinashughulikiwa kama vyanzo vya daraja la kwanza",

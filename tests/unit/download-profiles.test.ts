@@ -41,7 +41,7 @@ function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfil
 
 describe('download profiles', () => {
 	it('built-ins are immutable profile-shaped defaults', () => {
-		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only', 'low-240', 'low-144'])
+		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => profile.id)).toEqual(['best-quality', 'best-2160', 'best-1440', 'hd-1080', 'balanced', 'small-file', 'mp4-1080', 'mp4-720', 'mp4-480', 'audio-only', 'subtitles-only', 'low-240', 'low-144'])
 		expect(BUILTIN_DOWNLOAD_PROFILES.map(profile => [profile.id, profile.name])).toEqual([
 			['best-quality', 'Best available'],
 			['best-2160', '4K UHD 2160p'],
@@ -53,6 +53,7 @@ describe('download profiles', () => {
 			['mp4-720', 'Smart TV MP4 HD 720p'],
 			['mp4-480', 'Smart TV MP4 SD 480p'],
 			['audio-only', 'Audio only'],
+			['subtitles-only', 'Subtitles only'],
 			['low-240', 'Low data 240p'],
 			['low-144', 'Lowest 144p']
 		])
@@ -61,8 +62,19 @@ describe('download profiles', () => {
 			expect(downloadProfileSchema.safeParse(profile).success).toBe(true)
 			expect(profile.output).toEqual({kind: 'default'})
 			expect(profile.subfolder).toEqual({enabled: true, name: profile.name})
-			expect(profile.subtitles).toEqual({enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'})
 			expect(profile.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false})
+
+			if (profile.media.kind === 'subtitles-only') {
+				// Ships with a language so the quick-download path can queue it as-is;
+				// English is the most common caption track and the profile is editable.
+				expect(profile.subtitles).toEqual({enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'})
+				const resolved = resolveDownloadProfile(profile, {kind: 'builtin', id: profile.id})
+				expect(resolved.isSubtitleOnly).toBe(true)
+				expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
+				expect(resolved.embed).toEqual({chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false})
+				continue
+			}
+			expect(profile.subtitles).toEqual({enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'})
 
 			if (profile.media.kind === 'audio-only') {
 				expect(profile.media.audio.format).toBe('best')
@@ -112,6 +124,7 @@ describe('download profiles', () => {
 		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!)).toBe('Up to 720p · Native formats · Native audio')
 		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'small-file')!)).toBe('Up to 480p · Native formats · Native audio')
 		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-720')!)).toBe('Up to 720p · MP4/H.264 · AAC audio')
+		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'subtitles-only')!)).toBe('Subtitles only · en · SRT')
 	})
 
 	it('derives a builtin ref when resolving a builtin profile without an explicit ref', () => {

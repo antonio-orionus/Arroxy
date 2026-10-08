@@ -25,7 +25,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-14._
+> _Last updated: 2026-10-08._
 
 ---
 
@@ -279,6 +279,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 - **Manukuu** katika SRT, VTT, au ASS — ya mkono au yaliyozalishwa kiotomatiki, katika lugha yoyote inayopatikana
 - Hifadhi karibu na video, ingiza ndani ya `.mkv`, au panga katika folda ndogo ya `Subtitles/`
+- **Mafungu ya manukuu pekee** — bandika orodha ya URL au fungua orodha ya kucheza, chagua Manukuu, na upate faili za manukuu pekee kwa kila video
 - **SponsorBlock** — ruka au weka alama za sehemu kwenye wadhamini, utangulizi, mwisho, matangazo binafsi
 - **Metadata iliyowekwa** — kichwa, tarehe ya kupakia, chaneli, maelezo, picha ndogo, na alama za sura zimeandikwa ndani ya faili
 

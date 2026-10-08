@@ -169,6 +169,8 @@ export const vi = {
     "**SponsorBlock** — bỏ qua hoặc đánh dấu chương cho các đoạn quảng cáo, intro, outro, tự quảng bá",
   feat_post_4:
     "**Siêu dữ liệu nhúng** — tiêu đề, ngày tải lên, kênh, mô tả, thumbnail và điểm đánh dấu chương được ghi vào file",
+  feat_post_5:
+    "**Lô chỉ phụ đề** — dán danh sách URL hoặc mở danh sách phát, chọn Phụ đề và chỉ nhận các tệp phụ đề cho mỗi video",
   feat_sites_h3: "YouTube + 2000 trang",
   feat_sites_1:
     "**YouTube đầy đủ** — Video, Shorts, Kênh, Playlist, YouTube Music và Podcast được hỗ trợ như nguồn hạng nhất",

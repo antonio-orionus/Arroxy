@@ -165,6 +165,8 @@ export const en = {
     "**SponsorBlock** — skip or chapter-mark sponsors, intros, outros, self-promos",
   feat_post_4:
     "**Embedded metadata** — title, upload date, channel, description, thumbnail, and chapter markers written into the file",
+  feat_post_5:
+    "**Subtitles-only batches** — paste a list of URLs or open a playlist, pick Subtitles, and get only the caption files for every video",
   feat_sites_h3: "YouTube + 2000 sites",
   feat_sites_1:
     "**YouTube, in full** — Videos, Shorts, Channels, Playlists, YouTube Music, and Podcasts handled as first-class sources",

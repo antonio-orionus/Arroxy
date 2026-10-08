@@ -666,7 +666,8 @@
 		"subtitle-only": {"label": "ترجمات فقط", "desc": "بدون فيديو، بدون صوت، ترجمات فقط"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "الترجمات"},
+		"subtitles": {"note": "يتم حفظ ملفات الترجمة فقط لكل فيديو — لا يتم تنزيل أي فيديو أو صوت.", "languages": "اللغات", "languagesRequired": "اختر لغة واحدة على الأقل للمتابعة.", "source": "المصدر", "deliveryHeading": "حفظ بصيغة", "deliveryLoose": "مباشرةً في مجلد الحفظ"},
 		"videoFormat": {"best": "Best codec", "mp4": "تلفاز ذكي H.264 MP4"},
 		"videoFormatDesc": {"best": "أعلى ترميز متاح لكل عنصر", "mp4": "يفضّل H.264 + AAC، حاوية MP4 · أفضل محاولة"},
 		"tier": {"144": "حتى 144p", "240": "حتى 240p", "360": "حتى 360p", "480": "حتى 480p", "720": "حتى 720p", "1080": "حتى 1080p", "1440": "حتى 1440p", "2160": "حتى 4K", "best": "Best quality"},

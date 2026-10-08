@@ -22,8 +22,14 @@ const OUTPUT_DIR = '/tmp/out'
 const TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
 
 // Build a minimal media WorkflowInput from a PlaylistSelection, mirroring VideoPhase logic.
+function specFor(sel: PlaylistSelection) {
+	const intent = playlistSelectionToMediaIntent(sel)
+	if (!intent) throw new Error('media selection expected')
+	return mediaIntentSpec(intent)
+}
+
 function reqFor(sel: PlaylistSelection): WorkflowInput {
-	const spec = mediaIntentSpec(playlistSelectionToMediaIntent(sel))
+	const spec = specFor(sel)
 	return {kind: 'media', url: URL, output: {directory: OUTPUT_DIR, template: TEMPLATE}, selection: {formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat}, ...(spec.audioConvert ? {audio: {convert: bridgeAudioConvert(spec.audioConvert)}} : {})}
 }
 
@@ -81,7 +87,7 @@ describe('Video · MP4 codec', () => {
 	})
 
 	it('forcesMkv (video+embed with subs) → embed merge wins over playlist mp4 merge', () => {
-		const spec = mediaIntentSpec(playlistSelectionToMediaIntent({kind: 'video', tier: '1080', codec: 'mp4'}))
+		const spec = specFor({kind: 'video', tier: '1080', codec: 'mp4'})
 		const req: WorkflowInput = {kind: 'media', url: URL, output: {directory: OUTPUT_DIR, template: TEMPLATE}, selection: {formatSelector: spec.formatSelector, formatSort: spec.formatSort, mergeOutputFormat: spec.mergeOutputFormat}, subtitles: {embed: true, languages: ['en']}}
 		const args = planWorkflow(req).args
 		// forcesMkv = true (video+embed with subtitles) — mkv wins

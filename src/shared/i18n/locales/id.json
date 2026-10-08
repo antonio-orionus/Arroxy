@@ -671,7 +671,8 @@
 		"subtitle-only": {"label": "Hanya subtitle", "desc": "Tidak ada video, tidak ada audio, hanya subtitle"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitle"},
+		"subtitles": {"note": "Hanya file subtitle yang disimpan untuk setiap video — video dan audio tidak diunduh.", "languages": "Bahasa", "languagesRequired": "Pilih setidaknya satu bahasa untuk melanjutkan.", "source": "Sumber", "deliveryHeading": "Simpan sebagai", "deliveryLoose": "Langsung di folder penyimpanan"},
 		"videoFormat": {"best": "Asli terbaik", "mp4": "TV Pintar H.264 MP4"},
 		"videoFormatDesc": {"best": "Wadah dan codec terbaik yang tersedia per item", "mp4": "Lebih suka video H.264 + audio AAC dalam MP4 jika memungkinkan"},
 		"tier": {"144": "Hingga 144p", "240": "Hingga 240p", "360": "Hingga 360p", "480": "Hingga 480p", "720": "Hingga 720p", "1080": "Hingga 1080p", "1440": "Hingga 1440p", "2160": "Hingga 4K", "best": "Kualitas terbaik"},

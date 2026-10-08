@@ -87,9 +87,24 @@ const subfolderNameSchema = z
 export const audioConvertSchema = z.discriminatedUnion('target', [z.object({target: z.literal('wav')}), z.object({target: z.enum(LOSSY_TARGET_VALUES), bitrateKbps: audioBitrateSchema})])
 export type AudioConvert = z.infer<typeof audioConvertSchema>
 
-export const playlistSelectionSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('video'), tier: playlistVideoTierSchema, codec: playlistVideoCodecSchema}), z.object({kind: z.literal('audio'), format: playlistAudioFormatSchema, bitrateKbps: audioBitrateSchema.optional()})])
+export const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only'])
+export type DownloadProfileSubtitleSource = z.infer<typeof downloadProfileSubtitleSourceSchema>
+
+// A subtitles-only batch has no media file to embed into, so the delivery
+// choice is narrower than the single-video wizard's SubtitleMode.
+export const playlistSubtitleModeSchema = subtitleModeSchema.exclude(['embed'])
+export type PlaylistSubtitleMode = z.infer<typeof playlistSubtitleModeSchema>
+export const PLAYLIST_SUBTITLE_MODES = playlistSubtitleModeSchema.options
+
+export const playlistSelectionSchema = z.discriminatedUnion('kind', [
+	z.object({kind: z.literal('video'), tier: playlistVideoTierSchema, codec: playlistVideoCodecSchema}),
+	z.object({kind: z.literal('audio'), format: playlistAudioFormatSchema, bitrateKbps: audioBitrateSchema.optional()}),
+	z.object({kind: z.literal('subtitles'), languages: z.array(z.string()).max(MAX_SUBTITLE_LANGUAGES), source: downloadProfileSubtitleSourceSchema, mode: playlistSubtitleModeSchema, format: subtitleFormatSchema})
+])
 export type PlaylistSelection = z.infer<typeof playlistSelectionSchema>
+export type PlaylistSubtitleSelection = Extract<PlaylistSelection, {kind: 'subtitles'}>
 export const DEFAULT_PLAYLIST_SELECTION: PlaylistSelection = {kind: 'video', tier: 'best', codec: 'best'}
+export const DEFAULT_PLAYLIST_SUBTITLE_SELECTION: PlaylistSubtitleSelection = {kind: 'subtitles', languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'}
 
 // Playlist picker sort order. View-only: `id` and `playlistIndex` are immutable
 // probe-order identity (mixes repeat videos, so ids are per-row), and sorting
@@ -118,9 +133,6 @@ export const mediaIntentSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})
 ])
 export type MediaIntent = z.infer<typeof mediaIntentSchema>
-
-export const downloadProfileSubtitleSourceSchema = z.enum(['manual-first', 'manual-only', 'auto-only'])
-export type DownloadProfileSubtitleSource = z.infer<typeof downloadProfileSubtitleSourceSchema>
 
 const downloadProfileSubtitlesSchema = z.object({enabled: z.boolean(), languages: z.array(z.string()).max(MAX_SUBTITLE_LANGUAGES), source: downloadProfileSubtitleSourceSchema, mode: subtitleModeSchema, format: subtitleFormatSchema})
 

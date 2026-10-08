@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "保存方法"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "保存先フォルダーに直接"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "言語"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "続行するには少なくとも1つの言語を選択してください。"
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "各動画について字幕ファイルのみを保存します — 動画や音声はダウンロードされません。"
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "ソース"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "最大 1080p"
@@ -466,6 +490,10 @@ msgstr "各項目で利用可能な最高の動画 + 音声"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

@@ -683,7 +683,15 @@
 		"subtitle-only": {"label": "Axxiinni qofa", "desc": "Viidiyoo hin jiru, sagalee hin jiru, axxiinni qofa"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Axxiinni"},
+		"subtitles": {
+			"note": "Viidiyoo hundaaf faayiloonni axxiinii qofti ni kuufamu — viidiyoon ykn sagaleen hin buufamu.",
+			"languages": "Afaanota",
+			"languagesRequired": "Itti fufuuf yoo xiqqaate afaan tokko filadhu.",
+			"source": "Madda",
+			"deliveryHeading": "Akkamitti kuusi",
+			"deliveryLoose": "Kallattiin ukaankaa kuusaa keessatti"
+		},
 		"videoFormat": {"best": "Best codec", "mp4": "TV smart H.264 MP4"},
 		"videoFormatDesc": {"best": "Codec ol’aanaa argamu tokkoon tokkoon wantaaf", "mp4": "H.264 + AAC filatama, konteenera MP4 · carraa gaarii"},
 		"tier": {"144": "Hanga 144p", "240": "Hanga 240p", "360": "Hanga 360p", "480": "Hanga 480p", "720": "Hanga 720p", "1080": "Hanga 1080p", "1440": "Hanga 1440p", "2160": "Hanga 4K", "best": "Best quality"},

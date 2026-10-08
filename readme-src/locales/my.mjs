@@ -169,6 +169,8 @@ export const my = {
     "**SponsorBlock** — sponsors, intros, outros, self-promos ကို ကျော်ပြီး chapter-mark လုပ်ပါ",
   feat_post_4:
     "**Embedded metadata** — ခေါင်းစဉ်၊ upload date, channel, description, thumbnail နှင့် chapter markers တို့ကို ဖိုင်ထဲသို့ ရေးသွင်းသည်",
+  feat_post_5:
+    "**စာတန်းထိုးသီးသန့် အစုလိုက်** — URL စာရင်းကို ကူးထည့်ပါ သို့မဟုတ် ပလေးလစ်ကို ဖွင့်ပါ၊ စာတန်းထိုးကို ရွေးပါ၊ ဗီဒီယိုတစ်ခုချင်းစီအတွက် စာတန်းထိုးဖိုင်များကိုသာ ရယူပါ",
   feat_sites_h3: "YouTube + ၂၀၀၀ ဆိုဒ်",
   feat_sites_1:
     "**YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်",

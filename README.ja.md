@@ -25,7 +25,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-09-14._
+> _Last updated: 2026-10-08._
 
 > 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。
 
@@ -281,6 +281,7 @@ Arroxy はひとつのことのために作られています：URL を貼って
 
 - SRT、VTT、または ASS 形式の**字幕** — 手動または自動生成、利用可能な任意の言語
 - 動画の隣に保存、`.mkv` に埋め込み、または `Subtitles/` サブフォルダに整理
+- **字幕のみの一括処理** — URLリストを貼り付けるかプレイリストを開き、字幕を選ぶだけで、各動画の字幕ファイルだけを取得
 - **SponsorBlock** — スポンサー、イントロ、アウトロ、自己宣伝をスキップまたはチャプターマーク
 - **埋め込みメタデータ** — タイトル、アップロード日、チャンネル、説明、サムネイル、チャプターマーカーをファイルに書き込み
 

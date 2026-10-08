@@ -671,7 +671,8 @@
 		"subtitle-only": {"label": "یوازې ژباړلیکونه", "desc": "ویډیو نشته، غږ نشته، یوازې ژباړلیکونه"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "ژباړلیکونه"},
+		"subtitles": {"note": "د هرې ویډیو لپاره یوازې د ژباړلیک فایلونه خوندي کیږي — هیڅ ویډیو یا غږ نه ډاونلوډیږي.", "languages": "ژبې", "languagesRequired": "د دوام لپاره لږ تر لږه یوه ژبه غوره کړئ.", "source": "سرچینه", "deliveryHeading": "د خوندي کولو بڼه", "deliveryLoose": "مستقیم د خوندي کولو فولډر کې"},
 		"videoFormat": {"best": "Best codec", "mp4": "سمارټ TV H.264 MP4"},
 		"videoFormatDesc": {"best": "د هر توکي لپاره تر ټولو لوړ موجود codec", "mp4": "H.264 + AAC غوره، MP4 کانتینر · تر وسه ښه"},
 		"tier": {"144": "تر 144p پورې", "240": "تر 240p پورې", "360": "تر 360p پورې", "480": "تر 480p پورې", "720": "تر 720p پورې", "1080": "تر 1080p پورې", "1440": "تر 1440p پورې", "2160": "تر 4K پورې", "best": "Best quality"},
