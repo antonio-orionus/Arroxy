@@ -16,3 +16,4 @@
 - [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read the `theme:startup` log lines and never repro it by stopping xdg-desktop-portal.
 - [YouTube auto-caption -orig tracks](youtube-auto-caption-orig-tracks.md) — automatic_captions mixes byte-identical bare+-orig ASR twins with flaky tlang translations; subtitle 429 ≠ IP block.
 - [yt-dlp stdout corrupts scraped paths](ytdlp-stdout-drops-non-ascii.md) — four ways the stdout we scrape media/subtitle paths from mangles them, all failing silently as ENOENT; fixed with `--encoding utf-8` + a decoding line reader.
+- [Dependabot never bumps overrides](dependabot-never-bumps-overrides.md) — stale `overrides` pins become the vulnerable versions; `dependencies` ships whole trees in app.asar; never delete lock entries to re-resolve.
