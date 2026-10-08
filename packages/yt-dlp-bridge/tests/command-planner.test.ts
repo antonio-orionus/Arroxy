@@ -173,6 +173,39 @@ describe('planWorkflow — subtitles', () => {
 		expect(adjacent(plan.args, '-o', '/out/subtitles/%(title).200B.%(ext)s')).toBe(true)
 		expect(plan.facts.effectiveSubtitleFormat).toBe('srt')
 	})
+
+	it('requests manual subtitles unless auto-only is asked for', () => {
+		const manualFirst = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: true}})
+		const manualOnly = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: false}})
+
+		expect(manualFirst.args).toContain('--write-subs')
+		expect(manualFirst.args).toContain('--write-auto-subs')
+		expect(manualOnly.args).toContain('--write-subs')
+		expect(manualOnly.args).not.toContain('--write-auto-subs')
+	})
+
+	it('asks yt-dlp for automatic captions only when autoOnly is set', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'srt', autoOnly: true}})
+
+		expect(plan.args).toContain('--write-auto-subs')
+		expect(plan.args).not.toContain('--write-subs')
+		expect(adjacent(plan.args, '--sub-langs', 'en')).toBe(true)
+	})
+
+	it('treats autoOnly as automatic captions for the ASS to SRT coercion', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'ass', autoOnly: true}})
+
+		expect(adjacent(plan.args, '--sub-format', 'srt/best')).toBe(true)
+		expect(plan.facts.effectiveSubtitleFormat).toBe('srt')
+	})
+
+	it('drops manual subtitles from an embedded-subtitles media download when autoOnly is set', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestvideo+bestaudio/best'}, subtitles: {embed: true, languages: ['en'], autoOnly: true}})
+
+		expect(plan.args).toContain('--embed-subs')
+		expect(plan.args).toContain('--write-auto-subs')
+		expect(plan.args).not.toContain('--write-subs')
+	})
 })
 
 describe('redactArgs', () => {

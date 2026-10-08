@@ -19,6 +19,10 @@ export interface SubtitleOptions {
 	mode: SubtitleMode
 	format: SubtitleFormat
 	writeAuto: boolean
+	// Request automatic captions only and skip manual tracks, so an "auto-only"
+	// source choice is honoured even when a manual track exists. Implies
+	// `writeAuto`; absent means manual tracks are requested as usual.
+	autoOnly?: boolean
 	// `languages` are base codes that should also fetch regional tracks
 	// (`de` → `de-DE`). Download profiles set it; the wizard sends exact track
 	// keys picked from the probe result.

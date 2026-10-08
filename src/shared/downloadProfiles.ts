@@ -4,6 +4,7 @@ import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIn
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
+import {subtitleSourceOptions} from './subtitleLanguages.js'
 
 const BUILTIN_TIMESTAMP = '2026-06-07T00:00:00.000Z'
 const BUILTIN_PROFILE_EMBED = {chapters: true, metadata: true, thumbnail: false, description: false, thumbnailSidecar: false} as const
@@ -209,7 +210,7 @@ export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadPr
 	const isSubtitleOnly = profile.media.kind === 'subtitles-only'
 	const subtitleLanguages = profile.subtitles.enabled || isSubtitleOnly ? profile.subtitles.languages : []
 	const subtitleMode = profile.subtitles.mode === 'embed' && spec?.producesVideo !== true ? 'sidecar' : profile.subtitles.mode
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: subtitleMode, format: profile.subtitles.format, writeAuto: profile.subtitles.source !== 'manual-only', includeRegionalVariants: true} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: subtitleMode, format: profile.subtitles.format, ...subtitleSourceOptions(profile.subtitles.source), includeRegionalVariants: true} : undefined
 	const sponsorBlock: SponsorBlockOptions = !spec?.producesVideo || profile.sponsorBlock.mode === 'off' || profile.sponsorBlock.categories.length === 0 ? {mode: 'off'} : {mode: profile.sponsorBlock.mode, categories: [...profile.sponsorBlock.categories]}
 	const embed: EmbedOptions = isSubtitleOnly
 		? {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}

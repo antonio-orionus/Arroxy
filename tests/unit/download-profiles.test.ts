@@ -257,7 +257,18 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.spec?.producesVideo).toBe(false)
-		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
+		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true, autoOnly: true, includeRegionalVariants: true})
+	})
+
+	it.each([
+		['manual-first', {writeAuto: true}],
+		['manual-only', {writeAuto: false}],
+		['auto-only', {writeAuto: true, autoOnly: true}]
+	] as const)('maps the %s subtitle source to the job track selection', (source, expected) => {
+		const profile = customProfile({subtitles: {enabled: true, languages: ['en'], source, mode: 'sidecar', format: 'srt'}})
+		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
+
+		expect(resolved.subtitles).toEqual({languages: ['en'], mode: 'sidecar', format: 'srt', includeRegionalVariants: true, ...expected})
 	})
 
 	it('resolves WAV audio-only profiles as lossless conversion with no bitrate', () => {

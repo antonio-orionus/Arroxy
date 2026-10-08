@@ -1,6 +1,7 @@
 import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, PlaylistVideoTier} from './schemas.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
+import {subtitleSourceOptions} from './subtitleLanguages.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
@@ -67,10 +68,8 @@ export function playlistSelectionProducesVideo(selection: PlaylistSelection): bo
 	return intent !== null && mediaIntentSpec(intent).producesVideo
 }
 
-// Same source → writeAuto rule as resolveDownloadProfile, so a batch and a
-// profile asking for the same languages request the same tracks.
 export function playlistSubtitleOptions(selection: PlaylistSubtitleSelection): SubtitleOptions {
-	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, writeAuto: selection.source !== 'manual-only', includeRegionalVariants: true}
+	return {languages: [...selection.languages], mode: selection.mode, format: selection.format, ...subtitleSourceOptions(selection.source), includeRegionalVariants: true}
 }
 
 export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaIntent | null {

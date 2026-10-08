@@ -57,6 +57,20 @@ describe('SubtitleOnlyPhase', () => {
 		expect(req.subtitles.languages).toEqual(['en'])
 	})
 
+	it('forwards autoOnly so manual tracks are skipped', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true, autoOnly: true}}}})
+		await SubtitleOnlyPhase.run(ctx)
+		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
+	})
+
+	it('omits autoOnly for manual-first jobs', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}})
+		await SubtitleOnlyPhase.run(ctx)
+		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+		expect(req.subtitles.autoOnly).toBeUndefined()
+	})
+
 	it('forwards filenameTemplate for single subtitle-only jobs', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, filenameTemplate: '{title} [{id}]'}}})
 		await SubtitleOnlyPhase.run(ctx)

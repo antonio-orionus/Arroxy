@@ -47,7 +47,7 @@ export type FixtureServerRequest =
 	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean}
 	| {kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number}
 	| {kind: 'media'; videoId: string; formatId: string; method: string; at: number; status: number}
-	| {kind: 'subtitle'; videoId: string; at: number; status: number}
+	| {kind: 'subtitle'; videoId: string; track: 'manual' | 'auto'; at: number; status: number}
 	| {kind: 'thumbnail'; videoId: string; at: number; status: number}
 
 export interface FixtureServerTelemetry {
@@ -188,8 +188,11 @@ async function generateMuxedMediaBuffer(): Promise<Buffer> {
 
 const muxedMediaBuffer = memoized(generateMuxedMediaBuffer)
 
-function vtt(videoId: string): Buffer {
-	return Buffer.from(`WEBVTT\n\n00:00:00.000 --> 00:00:02.000\nFixture subtitle for ${videoId}\n`, 'utf8')
+// The manual and automatic tracks carry different text so a downloaded file
+// shows which track yt-dlp actually fetched.
+function vtt(videoId: string, track: 'manual' | 'auto'): Buffer {
+	const cue = track === 'auto' ? `Fixture auto caption for ${videoId}` : `Fixture subtitle for ${videoId}`
+	return Buffer.from(`WEBVTT\n\n00:00:00.000 --> 00:00:02.000\n${cue}\n`, 'utf8')
 }
 
 function parseRange(range: string | undefined, size: number): {start: number; end: number} | null {
@@ -375,17 +378,18 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 				serveBuffer(req, res, JPEG_1X1, 'image/jpeg', false)
 				return
 			}
-			const subtitleMatch = /^\/subtitles\/([^/]+)\/en\.vtt$/.exec(requestUrl.pathname)
+			const subtitleMatch = /^\/subtitles\/([^/]+)\/en(\.auto)?\.vtt$/.exec(requestUrl.pathname)
 			if (subtitleMatch) {
 				const videoId = subtitleMatch[1]
+				const track = subtitleMatch[2] ? 'auto' : 'manual'
 				if (behavior.subtitleFailureIds.has(videoId)) {
-					record({kind: 'subtitle', videoId, status: 503, at: Date.now()})
+					record({kind: 'subtitle', videoId, track, status: 503, at: Date.now()})
 					res.writeHead(503, {'Content-Type': 'text/plain; charset=utf-8'})
 					res.end(`subtitle failure for ${videoId}`)
 					return
 				}
-				record({kind: 'subtitle', videoId, status: 200, at: Date.now()})
-				serveBuffer(req, res, vtt(videoId), 'text/vtt; charset=utf-8', false)
+				record({kind: 'subtitle', videoId, track, status: 200, at: Date.now()})
+				serveBuffer(req, res, vtt(videoId, track), 'text/vtt; charset=utf-8', false)
 				return
 			}
 			res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'})
