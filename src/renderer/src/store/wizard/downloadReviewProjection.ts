@@ -180,7 +180,9 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 				{key: 'size', label: ctx.t('wizard.confirm.labelSize'), value: estimatedSize}
 			]
 
-	const batchHasNoLanguages = state.playlistSelection?.kind === 'subtitles' && state.playlistSelection.languages.length === 0
+	// Multi-profile mode never visits the presets step, so a leftover empty
+	// subtitles selection says nothing about a batch whose items carry profiles.
+	const batchHasNoLanguages = !inMultiProfile && state.playlistSelection?.kind === 'subtitles' && state.playlistSelection.languages.length === 0
 	const hasNothingSelected = inBatch ? !state.playlistSelection || batchHasNoLanguages || state.selectedPlaylistItemIds.length === 0 : state.selectedVideoFormatId === '' && state.audioSelection.kind === 'none' && effectiveSubtitleLanguages.length === 0
 
 	const allConflicts: SanitizeConflict[] = !inBatch

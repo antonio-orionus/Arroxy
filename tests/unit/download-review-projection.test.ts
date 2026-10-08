@@ -128,6 +128,15 @@ describe('subtitles-only batch review', () => {
 		expect(review.hasNothingSelected).toBe(false)
 	})
 
+	it('ignores a stale empty subtitles selection in multi-profile mode', () => {
+		// The presets step is skipped in multi-profile mode, so the selection is
+		// whatever the wizard last held; each item carries its own profile.
+		const review = buildDownloadReview(state({wizardMode: 'bulk', multiProfileMode: true, playlistSelection: {...SUBS, languages: []}}), {t, language: 'en', commonPaths: state().commonPaths})
+
+		expect(review.hasNothingSelected).toBe(false)
+		expect(review.allowedActions.addToQueue).toBe(true)
+	})
+
 	it('blocks queueing when no language is chosen', () => {
 		const review = buildDownloadReview(state({wizardMode: 'bulk', playlistSelection: {...SUBS, languages: []}}), {t, language: 'en', commonPaths: state().commonPaths})
 
