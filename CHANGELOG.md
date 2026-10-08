@@ -10,7 +10,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## 0.4.18
 
-Arroxy can now fetch subtitles only for a whole list of videos at once.
+Arroxy can now fetch subtitles only for a whole list of videos at once, and ships a security update to its runtime.
 
 ## Highlights
 
@@ -20,6 +20,14 @@ Arroxy can now fetch subtitles only for a whole list of videos at once.
 - The language picker is the same searchable list as in download profiles and starts from your app language, so the common case is one click. Source (manual, auto-generated, or both), delivery (directly in the save folder or a `subtitles/` subfolder), and format (SRT, VTT, ASS) are chosen in the same place.
 - Steps that only make sense for media files, such as SponsorBlock and embed options, are skipped for a subtitles batch, and the queue labels each item with its languages and format.
 - A built-in **Subtitles only** download profile joins the profile list, so Quick Download and per-item playlist profiles can fetch captions without creating a custom profile first. It starts with English; edit it to pick your languages, source, delivery, and format. Profile labels now show the languages and format for subtitle-only profiles.
+
+### Security Update to the App Runtime
+
+- Arroxy's bundled Electron is updated to 43.7.7, which fixes four high-severity security advisories in the previous version. Downloads, sign-in with YouTube, and everything else work as before.
+
+### "Auto-generated only" Now Skips Manual Subtitles
+
+- Choosing **Auto-generated only** as the subtitle source in a download profile or a subtitles batch used to behave exactly like "Manual first, then auto", so a video's manual subtitles were still downloaded. It now fetches only the automatic captions, even when a manual track exists for the same language.
 
 ---
 

@@ -32,6 +32,12 @@ describe('playlist subtitles selection', () => {
 			expect(playlistSelectionProducesVideo({kind: 'audio', format: 'best'})).toBe(false)
 		})
 
+		it('marks auto-only selections so only automatic captions are requested', () => {
+			expect(playlistSubtitleOptions({...SUBS, source: 'auto-only'})).toEqual({languages: ['en', 'pl'], mode: 'sidecar', format: 'srt', writeAuto: true, autoOnly: true, includeRegionalVariants: true})
+			expect(playlistSubtitleOptions({...SUBS, source: 'manual-first'})).not.toHaveProperty('autoOnly')
+			expect(playlistSubtitleOptions({...SUBS, source: 'manual-only'})).not.toHaveProperty('autoOnly')
+		})
+
 		it('maps the selection to job subtitle options', () => {
 			expect(playlistSubtitleOptions(SUBS)).toEqual({languages: ['en', 'pl'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
 			expect(playlistSubtitleOptions({...SUBS, source: 'manual-only', mode: 'subfolder', format: 'vtt'})).toEqual({languages: ['en', 'pl'], mode: 'subfolder', format: 'vtt', writeAuto: false, includeRegionalVariants: true})

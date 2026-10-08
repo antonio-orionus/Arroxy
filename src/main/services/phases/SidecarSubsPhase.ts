@@ -76,7 +76,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 					kind: 'subtitles',
 					url: input.url,
 					output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-					subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto}
+					subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto, ...(subs.autoOnly ? {autoOnly: true} : {})}
 				},
 				buildYtDlpSignal(ctx, active)
 			)

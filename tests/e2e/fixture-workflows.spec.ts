@@ -323,6 +323,52 @@ test('Electron bulk list downloads subtitles only when the Subtitles type is cho
 	})
 })
 
+// "Auto-generated only" must skip a manual track that exists for the same
+// language. The fixture offers both, with different text, so the written file
+// and the server's request log show which track yt-dlp really fetched.
+for (const {source, button, expectedText, expectedTrack, unexpectedTrack} of [
+	{source: 'auto-only', button: 'Auto-generated only', expectedText: 'Fixture auto caption for', expectedTrack: 'auto', unexpectedTrack: 'manual'},
+	{source: 'manual-first', button: 'Manual first, then auto', expectedText: 'Fixture subtitle for', expectedTrack: 'manual', unexpectedTrack: 'auto'}
+] as const) {
+	test(`Electron bulk subtitles with source ${source} fetch only the ${expectedTrack} track`, async () => {
+		test.setTimeout(180_000)
+		const videoIds = [FIXTURE_VIDEO_IDS[4], FIXTURE_VIDEO_IDS[5]] as const
+
+		await withFixtureProductApp({userDataPrefix: `arroxy-fixture-bulk-subs-${source}-user-`, outputPrefix: `arroxy-fixture-bulk-subs-${source}-out-`}, async ({app, page, fixtureServer, urls, files}) => {
+			await startBulkFromClipboard(page, app, urls.videos(videoIds).join('\n'))
+			await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('2')
+			await page.locator('[data-testid="bulk-url-confirm"]').click()
+
+			await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible()
+			await clickContinue(page)
+			await expect(page.locator('[data-testid="step-playlist-presets"]')).toBeVisible()
+			await page.locator('[data-testid="playlist-type-subtitles"]').click()
+			await page.getByRole('button', {name: button}).click()
+			await clickContinue(page)
+
+			await expect(page.locator('[data-testid="step-folder"]')).toBeVisible()
+			await page
+				.getByTestId('step-folder')
+				.getByRole('button', {name: /continue/i})
+				.click()
+			await expect(page.locator('[data-testid="step-confirm"]')).toBeVisible()
+			await page.locator('[data-testid="btn-add-to-queue"]').click()
+
+			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
+
+			const subtitleFiles = files.mediaFiles('.en.srt')
+			expect(subtitleFiles).toHaveLength(2)
+			for (const videoId of videoIds) {
+				expect(subtitleFiles.some(file => fs.readFileSync(file, 'utf8').includes(`${expectedText} ${videoId}`))).toBe(true)
+			}
+			const subtitleRequests = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.status === 200 ? [request.track] : []))
+			expect(subtitleRequests).toContain(expectedTrack)
+			expect(subtitleRequests).not.toContain(unexpectedTrack)
+		})
+	})
+}
+
 test('Electron bulk Quick Download shows preparation progress and queues fixture files', async () => {
 	test.setTimeout(180_000)
 

@@ -68,7 +68,7 @@ export interface CallerMediaWorkflowInput {
 	output: CallerOutput
 	selection?: {formatId?: string; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; skipDownload?: boolean}
 	audio?: {convert?: AudioConvert}
-	subtitles?: {embed?: boolean; languages: string[]; writeAuto?: boolean}
+	subtitles?: {embed?: boolean; languages: string[]; writeAuto?: boolean; autoOnly?: boolean}
 	sponsorBlock?: SponsorBlockPlan
 	extractor?: {youtube?: {playerClient?: string[]}}
 	embed?: {chapters?: boolean; metadata?: boolean; thumbnail?: boolean; description?: boolean; thumbnailSidecar?: boolean}
@@ -79,7 +79,7 @@ export interface CallerSubtitlesWorkflowInput {
 	kind: 'subtitles'
 	url: string
 	output: CallerOutput
-	subtitles: {languages: string[]; format: SubtitleFormat; writeAuto?: boolean}
+	subtitles: {languages: string[]; format: SubtitleFormat; writeAuto?: boolean; autoOnly?: boolean}
 }
 
 type ManagedDownloadWorkflowInput = z.input<typeof WorkflowDownloadInputSchema>
@@ -236,10 +236,12 @@ function planCallerSubtitlesWorkflow(input: CallerSubtitlesWorkflowInput, option
 		...baseArgs(options),
 		'--skip-download',
 		'--no-playlist',
-		'--write-subs',
+		// With only --write-auto-subs yt-dlp skips manual tracks, which it would
+		// otherwise prefer over an automatic one for the same language.
+		...(input.subtitles.autoOnly ? [] : ['--write-subs']),
 		'--sub-langs',
 		input.subtitles.languages.join(','),
-		...(input.subtitles.writeAuto ? ['--write-auto-subs'] : []),
+		...(requestsAutoSubs(input.subtitles) ? ['--write-auto-subs'] : []),
 		...sleepSubtitlesArgs(options.pacing),
 		...requestPacingArgs(options.pacing),
 		'--sub-format',
@@ -294,8 +296,8 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	const audioConvert = embedSubs ? undefined : input.audio?.convert
 
 	if (embedSubs && input.subtitles) {
-		args.push('--write-subs', '--embed-subs', '--sub-langs', input.subtitles.languages.join(','), '--merge-output-format', EMBED_SUBTITLE_CONTAINER_EXT, '--compat-options', 'no-keep-subs', ...sleepSubtitlesArgs(options.pacing))
-		if (input.subtitles.writeAuto) args.push('--write-auto-subs')
+		args.push(...(input.subtitles.autoOnly ? [] : ['--write-subs']), '--embed-subs', '--sub-langs', input.subtitles.languages.join(','), '--merge-output-format', EMBED_SUBTITLE_CONTAINER_EXT, '--compat-options', 'no-keep-subs', ...sleepSubtitlesArgs(options.pacing))
+		if (requestsAutoSubs(input.subtitles)) args.push('--write-auto-subs')
 	} else {
 		args.push('--no-write-subs', '--no-write-auto-subs')
 	}
@@ -637,8 +639,12 @@ function appendCallerExtractorArgs(args: string[], input: CallerMediaWorkflowInp
 	pushJoined(args, 'youtube', 'player_client', input.extractor?.youtube?.playerClient ?? [])
 }
 
-function resolveEffectiveSubtitleFormat(input: {format: SubtitleFormat; writeAuto?: boolean}): SubtitleFormat {
-	return input.writeAuto === true && input.format === 'ass' ? 'srt' : input.format
+function requestsAutoSubs(subtitles: {writeAuto?: boolean; autoOnly?: boolean}): boolean {
+	return subtitles.writeAuto === true || subtitles.autoOnly === true
+}
+
+function resolveEffectiveSubtitleFormat(input: {format: SubtitleFormat; writeAuto?: boolean; autoOnly?: boolean}): SubtitleFormat {
+	return requestsAutoSubs(input) && input.format === 'ass' ? 'srt' : input.format
 }
 
 function resolveEmbedPolicy(input: {metadata: boolean | undefined; thumbnail: boolean | undefined; audioConvert: AudioConvert | undefined}): {metadata: boolean; thumbnail: boolean} {

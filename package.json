@@ -1,6 +1,6 @@
 {
 	"name": "arroxy",
-	"version": "0.4.17",
+	"version": "0.4.18",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
 	"type": "module",
@@ -188,7 +188,7 @@
 		"@types/yauzl": "3.4.0",
 		"@vitejs/plugin-react": "6.1.1",
 		"concurrently": "10.0.5",
-		"electron": "43.4.0",
+		"electron": "43.7.7",
 		"electron-builder": "26.17.0",
 		"electron-vite": "5.0.0",
 		"eslint-plugin-react": "7.37.5",

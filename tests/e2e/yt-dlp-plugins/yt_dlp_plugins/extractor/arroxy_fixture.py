@@ -134,7 +134,15 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                     },
                 ],
             },
-            'automatic_captions': {},
+            'automatic_captions': {
+                'en': [
+                    {
+                        'url': f'{base_url}/subtitles/{video_id}/en.auto.vtt',
+                        'ext': 'vtt',
+                        'name': 'English',
+                    },
+                ],
+            },
             'formats': _fixture_formats(catalog, base_url, video_id, signed_in),
         }
 

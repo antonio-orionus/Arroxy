@@ -1,3 +1,13 @@
+import type {DownloadProfileSubtitleSource} from './schemas.js'
+
+// Which caption tracks a subtitle source asks yt-dlp for. One rule shared by
+// download profiles and subtitles-only batches so both request the same tracks.
+// `auto-only` must skip manual tracks, which yt-dlp otherwise prefers.
+export function subtitleSourceOptions(source: DownloadProfileSubtitleSource): {writeAuto: boolean; autoOnly?: true} {
+	if (source === 'manual-only') return {writeAuto: false}
+	return source === 'auto-only' ? {writeAuto: true, autoOnly: true} : {writeAuto: true}
+}
+
 // Download profiles store base language codes (`de`), but the tracks a URL
 // offers are often regional variants (`de-DE`, `pt-BR`, `es-419`, `zh-Hans`).
 // A profile asking for `de` should get those too — but not `de-en`, which is
