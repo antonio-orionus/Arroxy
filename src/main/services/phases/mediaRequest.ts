@@ -58,7 +58,7 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 		output: {directory: outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
 		selection: {formatId, formatSelector, formatSort, mergeOutputFormat},
 		...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
-		...(embed && (job.subtitles?.languages.length ?? 0) > 0 && job.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(job.subtitles), writeAuto: job.subtitles.writeAuto}} : {}),
+		...(embed && (job.subtitles?.languages.length ?? 0) > 0 && job.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(job.subtitles), writeAuto: job.subtitles.writeAuto, ...(job.subtitles.autoOnly ? {autoOnly: true} : {})}} : {}),
 		...(sbConfig ? {sponsorBlock: sbConfig} : {}),
 		...(extractor ? {extractor} : {}),
 		embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},

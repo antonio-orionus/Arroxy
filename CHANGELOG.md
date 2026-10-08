@@ -21,6 +21,10 @@ Arroxy can now fetch subtitles only for a whole list of videos at once.
 - Steps that only make sense for media files, such as SponsorBlock and embed options, are skipped for a subtitles batch, and the queue labels each item with its languages and format.
 - A built-in **Subtitles only** download profile joins the profile list, so Quick Download and per-item playlist profiles can fetch captions without creating a custom profile first. It starts with English; edit it to pick your languages, source, delivery, and format. Profile labels now show the languages and format for subtitle-only profiles.
 
+### "Auto-generated only" Now Skips Manual Subtitles
+
+- Choosing **Auto-generated only** as the subtitle source in a download profile or a subtitles batch used to behave exactly like "Manual first, then auto", so a video's manual subtitles were still downloaded. It now fetches only the automatic captions, even when a manual track exists for the same language.
+
 ---
 
 ## 0.4.17

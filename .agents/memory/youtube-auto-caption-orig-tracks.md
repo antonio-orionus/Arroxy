@@ -43,3 +43,14 @@ lossless dedupe — identical bytes to its `-orig` twin.
 
 `--extractor-args youtube:skip=translated_subs` stops yt-dlp emitting translation
 entries at all (`get_translated_subs` gate ~4237).
+
+## Subtitle source → yt-dlp flags
+
+`SubtitleOptions.autoOnly` (set from the `auto-only` source by
+`subtitleSourceOptions`) makes the bridge drop `--write-subs` and keep
+`--write-auto-subs`. yt-dlp's `process_subtitles` merges manual first and lets
+automatic captions fill only languages without a manual track, so without
+`autoOnly` an "auto-only" choice is indistinguishable from manual-first. A
+profile's base code (`en`) matches the bare automatic key, not `en-orig`; for an
+English original they are byte-identical, for other originals the bare key is a
+flaky translation.

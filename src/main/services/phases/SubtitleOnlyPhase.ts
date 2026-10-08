@@ -24,7 +24,7 @@ export const SubtitleOnlyPhase: Phase = {
 				kind: 'subtitles',
 				url: input.url,
 				output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-				subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto}
+				subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto, ...(subtitles.autoOnly ? {autoOnly: true} : {})}
 			},
 			buildYtDlpSignal(ctx, active, {
 				onMinting: attempt => {

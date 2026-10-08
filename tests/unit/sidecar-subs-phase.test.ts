@@ -61,6 +61,13 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: false}})
 	})
 
+	it('forwards autoOnly so manual tracks are skipped', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, writeAuto: true, autoOnly: true}}}})
+		await SidecarSubsPhase(false).run(ctx)
+		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
+		expect(req.subtitles).toMatchObject({writeAuto: true, autoOnly: true})
+	})
+
 	it('expands profile languages into yt-dlp regional-variant selectors', async () => {
 		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_JOB.subtitles!, languages: ['de'], includeRegionalVariants: true}}}})
 		await SidecarSubsPhase(false).run(ctx)
