@@ -292,3 +292,14 @@ describe('release asset names', () => {
 		}
 	})
 })
+
+describe('packaged app contents', () => {
+	it('ships the bundled build output and no node_modules', () => {
+		// The main, preload and renderer bundles inline every npm dependency
+		// (scripts/check-main-bundle.ts guards main), so copying node_modules into
+		// app.asar only added ~80 MB of dead files.
+		const config = JSON.parse(read('electron-builder.json5')) as {files?: string[]}
+
+		expect(config.files).toEqual(['out/**/*', '!node_modules/**/*'])
+	})
+})

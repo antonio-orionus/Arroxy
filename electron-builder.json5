@@ -16,7 +16,7 @@
     "output": "dist",
     "buildResources": "build"
   },
-  "files": ["out/**/*"],
+  "files": ["out/**/*", "!node_modules/**/*"],
   "extraResources": [
     {
       "from": "build/icon-tray.png",
