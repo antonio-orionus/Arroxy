@@ -1,0 +1,8 @@
+[
+	{
+		"id": "GHSA-ch52-4w7c-c8xp",
+		"package": "http-cache-semantics",
+		"reason": "Reaches the app through make-fetch-happen, but Arroxy never passes cachePath to it, so its HTTP cache (the only user of this code) is off. The fix, 4.3.0, was published 2026-10-04 and becomes installable on 2026-10-11 under the 7-day minimum release age. Bump it and remove this entry; the gate blocks again after the expiry date.",
+		"expires": "2026-10-12"
+	}
+]

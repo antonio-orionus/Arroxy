@@ -8,11 +8,12 @@ Procedure for handling a Dependabot PR. No API-billed AI review — local Claude
 |---|---|
 | `.github/dependabot.yml` | Schedule, groups, 2-day cooldown |
 | `.github/workflows/ci.yml` | Lint, types, knip, madge, LOC, pin guard, tests |
-| `.github/workflows/deps-vuln-gate.yml` | `bun audit` on any PR touching `package.json`/`bun.lock` |
+| `.github/workflows/deps-vuln-gate.yml` | Vulnerability gate on any PR touching `package.json`/`bun.lock` |
 | `bunfig.toml` | `minimumReleaseAge = 604800` (7d) local install floor |
 | `package.json` | All deps exact-pinned (no `^`/`~`) |
 | `scripts/check-dependency-pins.mjs` | Enforces pin discipline |
-| `scripts/check-deps-vuln.mjs` | Wraps `bun audit --json`, fails on ≥high |
+| `scripts/depsVuln.ts` | Vulnerability gate: fails on production advisories ≥high, lists tooling-only ones without failing |
+| `scripts/deps-vuln-accepted.json` | Reasoned, expiring exceptions for advisories with no usable fix yet |
 | `scripts/check-ts-max-loc.mjs` | Hard cap 800 LOC per TS file |
 
 ## Cadence
@@ -98,6 +99,20 @@ Dependabot opens these tagged with the GHSA ID. Treat as deep review **plus**:
 2. If you don't call the vulnerable path, you can still merge for hygiene — no urgency.
 3. If you do call it, prioritize merge over feature work.
 4. `bun run deps:vuln` post-merge to confirm the advisory drops out of the audit.
+
+## What the vulnerability gate blocks
+
+`bun run deps:vuln` audits the **production** tree (`bun audit --prod`), which is what the packaged app ships, and fails on advisories at or above `high`. Findings that exist only in build and test tooling are printed as a count per package but never fail the gate. A gate that is permanently red over tooling gets ignored, which is how a CLI's whole dependency tree once shipped inside the app unnoticed.
+
+- **Keep the production tree honest.** A package the app does not load at runtime belongs in `devDependencies`. electron-builder packs every production dependency and its transitive tree into `app.asar` whether or not the code imports it. After moving or adding a dependency, check the packed archive: `bun run dist:mac:arm64:dir`, then `bunx @electron/asar list dist/mac-arm64/Arroxy.app/Contents/Resources/app.asar`.
+- **Accepting an advisory.** Only when no fixed version can be installed yet, for example because it is inside the 7-day release-age window, or when the vulnerable code path is provably unreachable. Add an entry to `scripts/deps-vuln-accepted.json` with the GHSA id, package, a reason, and an `expires` date. An entry stops accepting on its expiry date and the gate fails again. An entry that no longer matches anything is reported so it gets removed.
+- **Tooling-only findings** are still worth clearing when a parent bump or a safe override allows it. They are tracked, not enforced.
+
+## Overrides go stale
+
+`package.json` `overrides` pin transitive packages to exact versions, usually to land a security fix before a parent releases. **Dependabot never bumps an override.** Each pin sits at whatever was latest when it was written and becomes the vulnerable version once a newer advisory lands. When the gate flags a package that appears in `overrides`, bump the pin to the newest patched version in the same major line that is at least 7 days old, then run `bun install` and confirm only that package changed in `bun.lock`.
+
+Do not delete lockfile entries to force a re-resolve. With this repo's isolated linker it re-resolves a large part of the tree and produces unrelated lockfile churn.
 
 ## Tricky cases
 
