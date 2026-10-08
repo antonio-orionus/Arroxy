@@ -8,6 +8,24 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.19
+
+Arroxy is a much smaller app, with a round of security fixes to the code it ships.
+
+## Highlights
+
+### A Much Smaller App
+
+- Arroxy's own files shrank from about 140 MB to 11 MB. Earlier builds carried thousands of files the app never used, including a whole developer tool, alongside the code that actually runs. Installed on a Mac, the app now takes about 70 MB less space, and downloads and updates are smaller too.
+- Nothing changes in how Arroxy looks or works. The parts that run are exactly the same as before.
+
+### Security Fixes
+
+- The bundled YAML and URL parsing libraries are updated to versions with upstream security fixes.
+- Removing the unused files also removed several third-party packages with known security advisories from the app entirely.
+
+---
+
 ## 0.4.18
 
 Arroxy can now fetch subtitles only for a whole list of videos at once, and ships a security update to its runtime.
