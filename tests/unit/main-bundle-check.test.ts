@@ -27,4 +27,19 @@ describe('findExternalMainImports', () => {
 	it('flags absolute paths that would break once the app is packaged', () => {
 		expect(findExternalMainImports('import x from "/Users/dev/arroxy/node_modules/zod/index.js";').map(item => item.specifier)).toEqual(['/Users/dev/arroxy/node_modules/zod/index.js'])
 	})
+
+	it('ignores import and require text inside strings and comments', () => {
+		const source = ['const help = "Example: await import(\'zod\')";', 'const doc = \'require("electron-store")\';', '// import log from "electron-log";', '/* export * from "make-fetch-happen"; */'].join('\n')
+
+		expect(findExternalMainImports(source)).toEqual([])
+	})
+
+	it('flags compact value-level re-exports', () => {
+		expect(findExternalMainImports('export*from"electron-store";').map(item => item.specifier)).toEqual(['electron-store'])
+		expect(findExternalMainImports('export*as store from"electron-store";').map(item => item.specifier)).toEqual(['electron-store'])
+	})
+
+	it('flags a real require() call of a package', () => {
+		expect(findExternalMainImports('const fetch = require("make-fetch-happen");')).toEqual([{specifier: 'make-fetch-happen', via: 'require'}])
+	})
 })
