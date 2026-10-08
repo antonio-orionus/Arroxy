@@ -676,7 +676,8 @@
 		"subtitle-only": {"label": "字幕のみ", "desc": "動画・音声なし、字幕のみ"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "字幕"},
+		"subtitles": {"note": "各動画について字幕ファイルのみを保存します — 動画や音声はダウンロードされません。", "languages": "言語", "languagesRequired": "続行するには少なくとも1つの言語を選択してください。", "source": "ソース", "deliveryHeading": "保存方法", "deliveryLoose": "保存先フォルダーに直接"},
 		"videoFormat": {"best": "Best codec", "mp4": "スマートTV H.264 MP4"},
 		"videoFormatDesc": {"best": "各項目で利用可能な最高のコーデック", "mp4": "H.264 + AAC を優先、MP4 コンテナ · 可能な範囲で"},
 		"tier": {"144": "最大 144p", "240": "最大 240p", "360": "最大 360p", "480": "最大 480p", "720": "最大 720p", "1080": "最大 1080p", "1440": "最大 1440p", "2160": "最大 4K", "best": "Best quality"},

@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import type {FormatOption, PlaylistEntry} from '@shared/types.js'
+import type {FormatOption, PlaylistEntry, PlaylistSelection} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {buildDownloadReview} from '@renderer/store/wizard/downloadReviewProjection.js'
 
@@ -114,5 +114,33 @@ describe('DownloadReviewProjection', () => {
 
 		expect(review.hasNothingSelected).toBe(true)
 		expect(review.allowedActions).toEqual({addToQueue: false, downloadNow: false})
+	})
+})
+
+describe('subtitles-only batch review', () => {
+	const SUBS: PlaylistSelection = {kind: 'subtitles', languages: ['en', 'pl'], source: 'manual-first', mode: 'sidecar', format: 'srt'}
+
+	it('summarizes the preset as subtitles with languages and format', () => {
+		const review = buildDownloadReview(state({wizardMode: 'bulk', playlistSelection: SUBS}), {t, language: 'en', commonPaths: state().commonPaths})
+
+		expect(review.playlistPresetLabel).toBe('presets.subtitle-only.label · English, Polish · SRT')
+		expect(review.itemCountLabel).toEqual({key: 'wizard.confirm.itemsValueBulk', params: {count: 2, total: '2'}})
+		expect(review.hasNothingSelected).toBe(false)
+	})
+
+	it('ignores a stale empty subtitles selection in multi-profile mode', () => {
+		// The presets step is skipped in multi-profile mode, so the selection is
+		// whatever the wizard last held; each item carries its own profile.
+		const review = buildDownloadReview(state({wizardMode: 'bulk', multiProfileMode: true, playlistSelection: {...SUBS, languages: []}}), {t, language: 'en', commonPaths: state().commonPaths})
+
+		expect(review.hasNothingSelected).toBe(false)
+		expect(review.allowedActions.addToQueue).toBe(true)
+	})
+
+	it('blocks queueing when no language is chosen', () => {
+		const review = buildDownloadReview(state({wizardMode: 'bulk', playlistSelection: {...SUBS, languages: []}}), {t, language: 'en', commonPaths: state().commonPaths})
+
+		expect(review.hasNothingSelected).toBe(true)
+		expect(review.allowedActions.addToQueue).toBe(false)
 	})
 })

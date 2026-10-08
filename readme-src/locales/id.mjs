@@ -59,6 +59,7 @@ export const id = {
   "feat_post_2": "Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`",
   "feat_post_3": "**SponsorBlock** — lewati atau tandai bab sponsor, intro, outro, promo mandiri",
   "feat_post_4": "**Metadata tersemat** — judul, tanggal pengunggahan, saluran, deskripsi, gambar mini, dan penanda bab yang ditulis ke dalam file",
+  "feat_post_5": "**Batch hanya subtitle** — tempel daftar URL atau buka playlist, pilih Subtitle, dan dapatkan hanya file teks untuk setiap video",
   "feat_sites_h3": "YouTube + 2000 situs",
   "feat_sites_1": "**YouTube, selengkapnya** — Video, Shorts, Saluran, Daftar Putar, Musik YouTube, dan Podcast ditangani sebagai sumber kelas satu",
   "feat_sites_2": "**2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi",

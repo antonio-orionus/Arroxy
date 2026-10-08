@@ -679,7 +679,15 @@
 		"subtitle-only": {"label": "Faqat subtitrlar", "desc": "Video yo'q, audio yo'q, faqat subtitrlar"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitrlar"},
+		"subtitles": {
+			"note": "Har bir video uchun faqat subtitr fayllari saqlanadi — video yoki audio yuklab olinmaydi.",
+			"languages": "Tillar",
+			"languagesRequired": "Davom etish uchun kamida bitta tilni tanlang.",
+			"source": "Manba",
+			"deliveryHeading": "Saqlash turi",
+			"deliveryLoose": "To'g'ridan-to'g'ri saqlash papkasida"
+		},
 		"videoFormat": {"best": "Best codec", "mp4": "Aqlli TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Har bir element uchun mavjud eng yuqori kodek", "mp4": "H.264 + AAC afzal, MP4 konteyner · imkon qadar"},
 		"tier": {"144": "144p gacha", "240": "240p gacha", "360": "360p gacha", "480": "480p gacha", "720": "720p gacha", "1080": "1080p gacha", "1440": "1440p gacha", "2160": "4K gacha", "best": "Best quality"},

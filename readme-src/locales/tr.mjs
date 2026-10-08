@@ -168,6 +168,8 @@ export const tr = {
     "**SponsorBlock** — sponsorları, intro'ları, outro'ları ve öz tanıtımları atla ya da bölüm olarak işaretle",
   feat_post_4:
     "**Gömülü meta veriler** — başlık, yükleme tarihi, kanal, açıklama, küçük resim ve bölüm işaretleri dosyaya yazılır",
+  feat_post_5:
+    "**Yalnızca altyazı toplu işleri** — bir URL listesi yapıştırın veya bir oynatma listesi açın, Altyazılar'ı seçin ve her video için yalnızca altyazı dosyalarını alın",
   feat_sites_h3: "YouTube + 2000 site",
   feat_sites_1:
     "**YouTube, tam kapsamlı** — Videolar, Shorts, Kanallar, Oynatma Listeleri, YouTube Music ve Podcast'ler birinci sınıf kaynak olarak ele alınır",

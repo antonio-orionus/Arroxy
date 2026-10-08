@@ -671,7 +671,15 @@
 		"subtitle-only": {"label": "صرف سب ٹائٹلز", "desc": "کوئی ویڈیو نہیں، کوئی آڈیو نہیں، صرف سب ٹائٹلز"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "سب ٹائٹلز"},
+		"subtitles": {
+			"note": "ہر ویڈیو کے لیے صرف سب ٹائٹل فائلیں محفوظ ہوتی ہیں — کوئی ویڈیو یا آڈیو ڈاؤن لوڈ نہیں ہوتا۔",
+			"languages": "زبانیں",
+			"languagesRequired": "جاری رکھنے کے لیے کم از کم ایک زبان منتخب کریں۔",
+			"source": "ماخذ",
+			"deliveryHeading": "محفوظ کریں بطور",
+			"deliveryLoose": "براہِ راست محفوظ کرنے والے فولڈر میں"
+		},
 		"videoFormat": {"best": "Best codec", "mp4": "سمارٹ TV H.264 MP4"},
 		"videoFormatDesc": {"best": "ہر آئٹم کے لیے سب سے اعلیٰ دستیاب کوڈیک", "mp4": "H.264 + AAC ترجیحی، MP4 کنٹینر · بہترین کوشش"},
 		"tier": {"144": "144p تک", "240": "240p تک", "360": "360p تک", "480": "480p تک", "720": "720p تک", "1080": "1080p تک", "1440": "1440p تک", "2160": "4K تک", "best": "Best quality"},

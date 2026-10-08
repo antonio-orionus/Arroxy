@@ -169,6 +169,8 @@ export const om = {
     "**SponsorBlock** — beeksisa, seensa, xumura, of-daldala naanna'i ykn boqonnaa godhi",
   feat_post_4:
     "**Metadata makame** — mata-duree, guyyaa olkaa'uu, chaanaalii, ibsaa, suuraafi boqonnaa mallattoota faayila keessatti barreessa",
+  feat_post_5:
+    "**Tuuta axxiinii qofa** — tarree URL maxxansi ykn tarree taphaa bani, Axxiinii filadhu, viidiyoo hundaafis faayiloota axxiinii qofa argadhu",
   feat_sites_h3: "YouTube + Saayitii 2000",
   feat_sites_1:
     "**YouTube guutummaatti** — Viidiyoowwan, Shorts, Chaanaalota, Playlistoota, YouTube Music fi Podkaastota madda sadarkaa jalqabaa ta'aniin hojjetamu",

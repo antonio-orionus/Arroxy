@@ -671,7 +671,15 @@
 		"subtitle-only": {"label": "Manukuu peke yake", "desc": "Hakuna video, hakuna sauti, manukuu peke yake"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Manukuu"},
+		"subtitles": {
+			"note": "Ni faili za manukuu pekee zinazohifadhiwa kwa kila video — hakuna video wala sauti inayopakuliwa.",
+			"languages": "Lugha",
+			"languagesRequired": "Chagua angalau lugha moja ili kuendelea.",
+			"source": "Chanzo",
+			"deliveryHeading": "Hifadhi kama",
+			"deliveryLoose": "Moja kwa moja kwenye folda ya kuhifadhi"
+		},
 		"videoFormat": {"best": "Best codec", "mp4": "Runinga janja H.264 MP4"},
 		"videoFormatDesc": {"best": "Kodeki bora inayopatikana kwa kila kipengee", "mp4": "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"},
 		"tier": {"144": "Hadi 144p", "240": "Hadi 240p", "360": "Hadi 360p", "480": "Hadi 480p", "720": "Hadi 720p", "1080": "Hadi 1080p", "1440": "Hadi 1440p", "2160": "Hadi 4K", "best": "Best quality"},

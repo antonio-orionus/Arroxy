@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 trên 1080p không có trên YouTube — tự động giới hạn ở 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Lưu dưới dạng"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Trực tiếp trong thư mục lưu"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Ngôn ngữ"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Chọn ít nhất một ngôn ngữ để tiếp tục."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Chỉ lưu các tệp phụ đề cho mỗi video — không tải xuống video hay âm thanh."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Nguồn"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Tối đa 1080p"
@@ -466,6 +490,10 @@ msgstr "Video + âm thanh tốt nhất có sẵn cho từng mục"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Phụ đề"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

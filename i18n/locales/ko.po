@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "YouTube에서는 1080p를 초과하는 H.264를 사용할 수 없어 자동으로 1080p로 제한됩니다"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "저장 형식"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "저장 폴더에 바로"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "언어"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "계속하려면 언어를 하나 이상 선택하세요."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "각 동영상의 자막 파일만 저장됩니다 — 동영상이나 오디오는 다운로드하지 않습니다."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "소스"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "최대 1080p"
@@ -466,6 +490,10 @@ msgstr "항목별 최고 품질의 동영상과 오디오"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "오디오"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "자막"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

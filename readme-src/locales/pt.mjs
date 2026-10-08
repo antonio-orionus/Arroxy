@@ -169,6 +169,8 @@ export const pt = {
     "**SponsorBlock** — pule ou marque como capítulos os trechos de patrocínio, introduções, encerramentos e autopromoções",
   feat_post_4:
     "**Metadados incorporados** — título, data de publicação, canal, descrição, miniatura e marcadores de capítulo gravados no arquivo",
+  feat_post_5:
+    "**Lotes só de legendas** — cole uma lista de URLs ou abra uma playlist, escolha Legendas e receba apenas os arquivos de legenda de cada vídeo",
   feat_sites_h3: "YouTube + 2000 sites",
   feat_sites_1:
     "**YouTube completo** — vídeos, Shorts, canais, playlists, YouTube Music e podcasts tratados como fontes de primeira classe",

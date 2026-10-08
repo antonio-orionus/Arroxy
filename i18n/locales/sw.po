@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Hifadhi kama"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Moja kwa moja kwenye folda ya kuhifadhi"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Lugha"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Chagua angalau lugha moja ili kuendelea."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Ni faili za manukuu pekee zinazohifadhiwa kwa kila video — hakuna video wala sauti inayopakuliwa."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Chanzo"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Hadi 1080p"
@@ -466,6 +490,10 @@ msgstr "Video + sauti bora inayopatikana kwa kila kipengee"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Manukuu"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

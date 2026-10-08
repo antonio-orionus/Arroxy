@@ -671,7 +671,8 @@
 		"subtitle-only": {"label": "Yalnızca altyazılar", "desc": "Video yok, ses yok, yalnızca altyazılar"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Ses"},
+		"type": {"video": "Video", "audio": "Ses", "subtitles": "Altyazılar"},
+		"subtitles": {"note": "Her video için yalnızca altyazı dosyaları kaydedilir — video veya ses indirilmez.", "languages": "Diller", "languagesRequired": "Devam etmek için en az bir dil seçin.", "source": "Kaynak", "deliveryHeading": "Kaydetme biçimi", "deliveryLoose": "Doğrudan kayıt klasörüne"},
 		"videoFormat": {"best": "En iyi yerel", "mp4": "Akıllı TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Her öğe için en iyi kullanılabilir kapsayıcı ve kodekler", "mp4": "Mümkün olduğunda MP4 içinde H.264 video + AAC ses tercih et"},
 		"tier": {"144": "144p’ye kadar", "240": "240p’ye kadar", "360": "360p’ye kadar", "480": "480p’ye kadar", "720": "720p’ye kadar", "1080": "1080p’ye kadar", "1440": "1440p’ye kadar", "2160": "4K’ya kadar", "best": "En iyi kalite"},

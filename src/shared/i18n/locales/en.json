@@ -662,7 +662,8 @@
 		"subtitle-only": {"label": "Subtitles only", "desc": "No video, no audio, only subtitles"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtitles"},
+		"subtitles": {"note": "Only subtitle files are saved for each video — no video or audio is downloaded.", "languages": "Languages", "languagesRequired": "Choose at least one language to continue.", "source": "Source", "deliveryHeading": "Save as", "deliveryLoose": "Directly in the save folder"},
 		"videoFormat": {"best": "Best native", "mp4": "Smart TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Best available container and codecs per item", "mp4": "Prefer H.264 video + AAC audio in MP4 when possible"},
 		"tier": {"144": "Up to 144p", "240": "Up to 240p", "360": "Up to 360p", "480": "Up to 480p", "720": "Up to 720p", "1080": "Up to 1080p", "1440": "Up to 1440p", "2160": "Up to 4K", "best": "Best quality"},

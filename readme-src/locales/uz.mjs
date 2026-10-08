@@ -167,6 +167,8 @@ export const uz = {
     "**SponsorBlock** — homiylar, kirishlar, xotimalar, o'z reklamalarini o'tkazib yuborish yoki bo'limga belgilash",
   feat_post_4:
     "**Joylashtirilgan metadata** — sarlavha, yuklash sanasi, kanal, tavsif, miniatyura va bob belgilari faylga yoziladi",
+  feat_post_5:
+    "**Faqat subtitrli to'plamlar** — URL ro'yxatini joylashtiring yoki pleylistni oching, Subtitrlar-ni tanlang va har bir video uchun faqat subtitr fayllarini oling",
   feat_sites_h3: "YouTube + 2000 sayt",
   feat_sites_1:
     "**YouTube to'liq** — Videolar, Shorts, Kanallar, Pleylistlar, YouTube Music va Podkastlar birinchi darajali manbalar sifatida ishlaydi",

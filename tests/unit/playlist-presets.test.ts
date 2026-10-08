@@ -4,7 +4,9 @@ import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, COMPATIBLE_MP4_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 function specFor(selection: PlaylistSelection) {
-	return mediaIntentSpec(playlistSelectionToMediaIntent(selection))
+	const intent = playlistSelectionToMediaIntent(selection)
+	if (!intent) throw new Error('media selection expected')
+	return mediaIntentSpec(intent)
 }
 
 describe('mediaIntentSpec', () => {

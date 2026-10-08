@@ -161,6 +161,8 @@ export const zhHant = {
     "**SponsorBlock** — 跳過或章節標記贊助商、片頭、片尾、自我推廣片段",
   feat_post_4:
     "**嵌入後設資料** — 標題、上傳日期、頻道、描述、封面圖和章節標記寫入檔案",
+  feat_post_5:
+    "**僅字幕批次** — 貼上網址清單或開啟播放清單，選擇「字幕」，即可只取得每部影片的字幕檔案",
   feat_sites_h3: "YouTube + 2000 個網站",
   feat_sites_1:
     "**YouTube，全面支援** — 影片、Shorts、頻道、播放清單、YouTube Music 和Podcast作為一等來源處理",

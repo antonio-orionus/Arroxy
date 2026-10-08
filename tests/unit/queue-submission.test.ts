@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
-import type {DownloadProfile, FormatOption, PlaylistEntry, ProbeResult} from '@shared/types.js'
+import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
 
@@ -430,5 +430,33 @@ describe('bulk submissions keep intake order', () => {
 		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({wizardMode: 'bulk', playlistItems: items, selectedPlaylistItemIds: ['bulk-1', 'bulk-2'], playlistSortMode: 'upload-desc'}), 'normal')
 
 		expect(prepared?.items.map(item => item.url)).toEqual(['https://example.com/1', 'https://example.com/2'])
+	})
+})
+
+describe('subtitles-only batch selections', () => {
+	const SUBS: PlaylistSelection = {kind: 'subtitles', languages: ['en', 'pl'], source: 'manual-first', mode: 'subfolder', format: 'vtt'}
+
+	it('prepares bulk subtitle-only jobs without media, SponsorBlock, or embed options', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk', playlistSelection: SUBS, wizardSponsorBlockMode: 'remove', wizardSponsorBlockCategories: ['sponsor']}), 'normal')
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.manifest).toBeUndefined()
+		for (const item of prepared?.items ?? []) {
+			expect(item.job).toMatchObject({kind: 'subtitle-only', subtitles: {languages: ['en', 'pl'], mode: 'subfolder', format: 'vtt', writeAuto: true}})
+		}
+	})
+
+	it('labels subtitle-only batch items with the languages and format', async () => {
+		await i18next.changeLanguage('en')
+		const prepared = prepareManualQueueSubmission(manualPlaylistState({playlistSelection: SUBS}), 'normal')
+
+		expect(prepared?.items[0]?.formatLabel).toBe('Subtitles only · en, pl · VTT')
+	})
+
+	it('keeps playlist grouping and skips the M3U manifest for subtitle-only playlists', () => {
+		const prepared = prepareManualQueueSubmission(manualPlaylistState({playlistSelection: SUBS}), 'normal')
+
+		expect(prepared?.items.every(item => item.playlistGroupId !== undefined)).toBe(true)
+		expect(prepared?.items.every(item => item.writeM3u === false)).toBe(true)
 	})
 })

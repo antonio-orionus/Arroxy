@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "YouTube 不提供高於 1080p 的 H.264——已自動限制為 1080p"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "儲存為"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "直接存放在儲存資料夾中"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "語言"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "請至少選擇一種語言以繼續。"
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "每部影片只會儲存字幕檔案 — 不會下載影片或音訊。"
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "來源"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "最高 1080p"
@@ -466,6 +490,10 @@ msgstr "各項目可用的最高畫質影片與音訊"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "音訊"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "字幕"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

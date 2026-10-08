@@ -167,6 +167,8 @@ export const de = {
     "**SponsorBlock** — Sponsoren, Intros, Outros, Eigenwerbung überspringen oder als Kapitel markieren",
   feat_post_4:
     "**Eingebettete Metadaten** — Titel, Upload-Datum, Kanal, Beschreibung, Thumbnail und Kapitelmarkierungen in die Datei geschrieben",
+  feat_post_5:
+    "**Nur-Untertitel-Stapel** — eine Liste von URLs einfügen oder eine Playlist öffnen, Untertitel wählen und für jedes Video nur die Untertiteldateien erhalten",
   feat_sites_h3: "YouTube + 2000 Seiten",
   feat_sites_1:
     "**YouTube, vollständig** — Videos, Shorts, Kanäle, Playlists, YouTube Music und Podcasts werden als erstklassige Quellen behandelt",

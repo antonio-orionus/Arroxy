@@ -676,7 +676,15 @@
 		"subtitle-only": {"label": "Solo subtítulos", "desc": "Sin vídeo ni audio, solo subtítulos"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Subtítulos"},
+		"subtitles": {
+			"note": "Solo se guardan los archivos de subtítulos de cada vídeo — no se descarga vídeo ni audio.",
+			"languages": "Idiomas",
+			"languagesRequired": "Elige al menos un idioma para continuar.",
+			"source": "Origen",
+			"deliveryHeading": "Guardar como",
+			"deliveryLoose": "Directamente en la carpeta de destino"
+		},
 		"videoFormat": {"best": "Best codec", "mp4": "TV inteligente H.264 MP4"},
 		"videoFormatDesc": {"best": "Códec más alto disponible por elemento", "mp4": "H.264 + AAC preferido, contenedor MP4 · mejor esfuerzo"},
 		"tier": {"144": "Hasta 144p", "240": "Hasta 240p", "360": "Hasta 360p", "480": "Hasta 480p", "720": "Hasta 720p", "1080": "Hasta 1080p", "1440": "Hasta 1440p", "2160": "Hasta 4K", "best": "Best quality"},

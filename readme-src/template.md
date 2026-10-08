@@ -277,6 +277,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 - {{feat_post_1}}
 - {{feat_post_2}}
+- {{feat_post_5}}
 - {{feat_post_3}}
 - {{feat_post_4}}
 

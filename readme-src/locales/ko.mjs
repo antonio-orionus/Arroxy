@@ -144,6 +144,7 @@ export const ko = {
   feat_post_2: "동영상 옆에 저장하거나 `.mkv`에 삽입하거나 `Subtitles/` 하위 폴더에 정리",
   feat_post_3: "**SponsorBlock** — 스폰서, 인트로, 아웃트로, 자체 홍보를 건너뛰거나 챕터로 표시",
   feat_post_4: "**삽입 메타데이터** — 제목, 업로드 날짜, 채널, 설명, 썸네일 및 챕터 표시를 파일에 기록",
+  feat_post_5: "**자막 전용 일괄 처리** — URL 목록을 붙여넣거나 재생목록을 열고 자막을 선택하면 각 동영상의 자막 파일만 받습니다",
   feat_sites_h3: "YouTube + 2000개 사이트",
   feat_sites_1: "**완전한 YouTube 지원** — 동영상, Shorts, 채널, 재생목록, YouTube Music 및 팟캐스트를 최우선 소스로 처리",
   feat_sites_2: "yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등",

@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 ที่สูงกว่า 1080p ไม่มีใน YouTube — จำกัดไว้ที่ 1080p โดยอัตโนมัติ"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "บันทึกเป็น"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "ในโฟลเดอร์บันทึกโดยตรง"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "ภาษา"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "เลือกภาษาอย่างน้อยหนึ่งภาษาเพื่อดำเนินการต่อ"
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "บันทึกเฉพาะไฟล์คำบรรยายของแต่ละวิดีโอ — ไม่ดาวน์โหลดวิดีโอหรือเสียง"
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "แหล่งที่มา"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "สูงสุด 1080p"
@@ -466,6 +490,10 @@ msgstr "วิดีโอและเสียงคุณภาพสูงส
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "เสียง"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "คำบรรยาย"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

@@ -1,14 +1,26 @@
-import {useEffect, type ReactNode} from 'react'
+import {useEffect, useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
+import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, type PlaylistSubtitleSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, DEFAULT_PLAYLIST_SUBTITLE_SELECTION, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {SMART_TV_MP4_BLOCKED_TIERS, SMART_TV_MP4_MAX_TIER} from '../../store/wizard/downloadProfileDraft.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Item, ItemContent, ItemDescription, ItemGroup, ItemTitle} from '../ui/item.js'
 import {ScrollArea} from '../ui/scroll-area.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
+import {PlaylistSubtitlesPanel} from './PlaylistSubtitlesPanel.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {cn} from '@renderer/lib/utils.js'
+import {normalizeSubtitleLanguageCode} from '@renderer/lib/subtitleLanguageCatalog.js'
+
+type PlaylistSelectionKind = PlaylistSelection['kind']
+const SELECTION_KINDS: readonly PlaylistSelectionKind[] = ['video', 'audio', 'subtitles']
+
+// First visit to the Subtitles type: start from the UI language so the common
+// case is one click, not a search.
+function seededSubtitleSelection(uiLanguage: string): PlaylistSubtitleSelection {
+	const code = normalizeSubtitleLanguageCode(uiLanguage)
+	return {...DEFAULT_PLAYLIST_SUBTITLE_SELECTION, languages: code ? [code] : []}
+}
 
 const VIDEO_TIERS = PLAYLIST_VIDEO_TIERS
 const AUDIO_FORMATS: PlaylistAudioFormat[] = ['best', 'mp3', 'm4a', 'opus']
@@ -17,23 +29,26 @@ const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
 const SECTION_LABEL = 'text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-1.5'
 
 export function StepPlaylistPresets(): ReactNode {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const {playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds} = useAppStore()
 
 	const sel: PlaylistSelection = playlistSelection ?? DEFAULT_PLAYLIST_SELECTION
+	// Switching Subtitles → Audio → Subtitles should not throw away the
+	// languages the user already picked on this visit.
+	const lastSubtitleSelection = useRef<PlaylistSubtitleSelection | null>(null)
+	useEffect(() => {
+		if (sel.kind === 'subtitles') lastSubtitleSelection.current = sel
+	}, [sel])
 
 	useEffect(() => {
 		if (playlistSelection === null) setPlaylistSelection(DEFAULT_PLAYLIST_SELECTION)
 	}, [playlistSelection, setPlaylistSelection])
 
-	function setKind(kind: 'video' | 'audio'): void {
-		if (kind === 'video') {
-			if (sel.kind === 'video') return
-			setPlaylistSelection({kind: 'video', tier: 'best', codec: 'best'})
-		} else {
-			if (sel.kind === 'audio') return
-			setPlaylistSelection({kind: 'audio', format: 'best'})
-		}
+	function setKind(kind: PlaylistSelectionKind): void {
+		if (sel.kind === kind) return
+		if (kind === 'video') setPlaylistSelection({kind: 'video', tier: 'best', codec: 'best'})
+		else if (kind === 'audio') setPlaylistSelection({kind: 'audio', format: 'best'})
+		else setPlaylistSelection(lastSubtitleSelection.current ?? seededSubtitleSelection(i18n.language))
 	}
 
 	function setVideoCodec(codec: 'best' | 'mp4'): void {
@@ -75,6 +90,7 @@ export function StepPlaylistPresets(): ReactNode {
 	const currentBitrate = sel.kind === 'audio' && sel.format !== 'best' ? (sel.bitrateKbps ?? 192) : 192
 	const showBitrate = sel.kind === 'audio' && LOSSY_AUDIO.has(sel.format)
 	const showMp4Cap = sel.kind === 'video' && sel.codec === 'mp4'
+	const subtitlesIncomplete = sel.kind === 'subtitles' && sel.languages.length === 0
 
 	return (
 		<div className="flex h-full flex-col gap-3 px-4 py-3" data-testid="step-playlist-presets">
@@ -92,16 +108,16 @@ export function StepPlaylistPresets(): ReactNode {
 							variant="outline"
 							value={[currentKind]}
 							onValueChange={arr => {
-								if (arr[0]) setKind(arr[0] as 'video' | 'audio')
+								const next = SELECTION_KINDS.find(kind => kind === arr[0])
+								if (next) setKind(next)
 							}}
 							className="w-full"
 						>
-							<ToggleGroupItem value="video" className="flex-1">
-								{t('playlistPresets.type.video')}
-							</ToggleGroupItem>
-							<ToggleGroupItem value="audio" className="flex-1">
-								{t('playlistPresets.type.audio')}
-							</ToggleGroupItem>
+							{SELECTION_KINDS.map(kind => (
+								<ToggleGroupItem key={kind} value={kind} className="flex-1" data-testid={`playlist-type-${kind}`}>
+									{t(`playlistPresets.type.${kind}`)}
+								</ToggleGroupItem>
+							))}
 						</ToggleGroup>
 					</div>
 
@@ -225,11 +241,13 @@ export function StepPlaylistPresets(): ReactNode {
 							)}
 						</>
 					)}
+
+					{sel.kind === 'subtitles' && <PlaylistSubtitlesPanel selection={sel} onChange={setPlaylistSelection} />}
 				</div>
 			</ScrollArea>
 
-			<WizardStepFooterActions onBack={back} onContinue={advance}>
-				<Button type="button" onClick={skipToConfirm} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
+			<WizardStepFooterActions onBack={back} onContinue={advance} continueDisabled={subtitlesIncomplete}>
+				<Button type="button" onClick={skipToConfirm} disabled={subtitlesIncomplete} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
 					{t('wizard.formats.skipToConfirm')}
 				</Button>
 			</WizardStepFooterActions>

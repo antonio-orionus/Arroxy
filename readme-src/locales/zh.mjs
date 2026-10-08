@@ -161,6 +161,8 @@ export const zh = {
     "**SponsorBlock** — 跳过或章节标记赞助商、片头、片尾、自我推广片段",
   feat_post_4:
     "**嵌入元数据** — 标题、上传日期、频道、描述、封面图和章节标记写入文件",
+  feat_post_5:
+    "**仅字幕批量** — 粘贴链接列表或打开播放列表，选择“字幕”，即可只获取每个视频的字幕文件",
   feat_sites_h3: "YouTube + 2000 个网站",
   feat_sites_1:
     "**YouTube，全面支持** — 视频、Shorts、频道、播放列表、YouTube Music 和播客作为一等来源处理",

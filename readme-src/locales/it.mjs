@@ -144,6 +144,7 @@ export const it = {
   feat_post_2: "Salvali accanto al video, incorporali in `.mkv` oppure organizzali nella sottocartella `Subtitles/`",
   feat_post_3: "**SponsorBlock** — salta sponsor, introduzioni, finali e autopromozioni oppure contrassegnali come capitoli",
   feat_post_4: "**Metadati incorporati** — titolo, data di caricamento, canale, descrizione, miniatura e indicatori dei capitoli scritti nel file",
+  feat_post_5: "**Batch solo sottotitoli** — incolla un elenco di URL o apri una playlist, scegli Sottotitoli e ottieni solo i file dei sottotitoli di ogni video",
   feat_sites_h3: "YouTube + 2000 siti",
   feat_sites_1: "**YouTube completo** — video, Shorts, canali, playlist, YouTube Music e podcast sono gestiti come sorgenti di prima classe",
   feat_sites_2: "**Oltre 2000 altri siti** tramite yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org e molti altri",

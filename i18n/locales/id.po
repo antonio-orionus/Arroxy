@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Simpan sebagai"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Langsung di folder penyimpanan"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Bahasa"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Pilih setidaknya satu bahasa untuk melanjutkan."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Hanya file subtitle yang disimpan untuk setiap video — video dan audio tidak diunduh."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Sumber"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "Hingga 1080p"
@@ -466,6 +490,10 @@ msgstr "Video + audio tertinggi yang tersedia per item"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtitle"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

@@ -174,12 +174,13 @@ describe('StepPlaylistProfiles', () => {
 		// "archive" and "podcast" would sit after every builtin. This
 		// asserts the screen re-sorts to baseline-then-custom-then-builtin
 		// instead of using catalog order as-is: both customs sort to the front
-		// (slots 1-2) and a builtin — 'audio-only', the likeliest pick this
-		// reordering exists to surface — sorts behind every other builtin, last
-		// of all (the opt-in low-data built-ins are filtered out of pickers).
+		// (slots 1-2) and the media-less builtins — 'audio-only' and
+		// 'subtitles-only', the likeliest picks this reordering exists to
+		// surface — sort behind every other builtin, last of all (the opt-in
+		// low-data built-ins are filtered out of pickers).
 		const rowIds = screen.getAllByTestId(/^assign-profile-/).map(button => button.dataset.testid?.replace('assign-profile-', ''))
 		expect(rowIds.slice(0, 2)).toEqual(['archive', 'podcast'])
-		expect(rowIds.at(-1)).toBe('audio-only')
+		expect(rowIds.slice(-2)).toEqual(['audio-only', 'subtitles-only'])
 	})
 
 	it('assigns a builtin profile reached far down the dropdown list', () => {

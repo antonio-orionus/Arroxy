@@ -633,7 +633,8 @@
 		"subtitle-only": {"label": "僅字幕", "desc": "無影片、無音訊，只有字幕"}
 	},
 	"playlistPresets": {
-		"type": {"video": "影片", "audio": "音訊"},
+		"type": {"video": "影片", "audio": "音訊", "subtitles": "字幕"},
+		"subtitles": {"note": "每部影片只會儲存字幕檔案 — 不會下載影片或音訊。", "languages": "語言", "languagesRequired": "請至少選擇一種語言以繼續。", "source": "來源", "deliveryHeading": "儲存為", "deliveryLoose": "直接存放在儲存資料夾中"},
 		"videoFormat": {"best": "最佳原生格式", "mp4": "智慧型電視 H.264 MP4"},
 		"videoFormatDesc": {"best": "各項目可用的最佳封裝格式與編解碼器", "mp4": "可行時優先使用 MP4 中的 H.264 影片 + AAC 音訊"},
 		"tier": {"144": "最高 144p", "240": "最高 240p", "360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "最佳畫質"},

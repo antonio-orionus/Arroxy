@@ -1,5 +1,5 @@
 import type {PlaylistSelection, Preset, SubtitleMap} from '@shared/types.js'
-import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
+import {playlistSelectionProducesVideo} from '@shared/mediaIntent.js'
 import {presetProducesMedia, presetProducesVideo} from '@shared/presetTraits.js'
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
 import {wizardStepNameSchema} from '@shared/schemas.js'
@@ -63,12 +63,14 @@ function stepApplies(step: VisibleWizardStep, state: WizardStepGraphInput, hasSu
 	}
 	if (step === 'sponsorblock') {
 		if (!isYouTubeExtractor(state.wizardExtractor)) return false
-		if (isBatchMode(state.wizardMode) && state.playlistSelection) return mediaIntentSpec(playlistSelectionToMediaIntent(state.playlistSelection)).producesVideo
+		if (isBatchMode(state.wizardMode) && state.playlistSelection) return playlistSelectionProducesVideo(state.playlistSelection)
 		if (state.activePreset && !presetProducesVideo(state.activePreset)) return false
 		return true
 	}
 	if (step === 'output') {
-		if (isBatchMode(state.wizardMode) && state.playlistSelection) return true
+		// Output collects embed/sidecar options for a media file; a subtitles
+		// batch produces none.
+		if (isBatchMode(state.wizardMode) && state.playlistSelection) return state.playlistSelection.kind !== 'subtitles'
 		if (state.activePreset && !presetProducesMedia(state.activePreset)) return false
 		return true
 	}

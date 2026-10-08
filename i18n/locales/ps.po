@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "په YouTube کې له 1080p پورته H.264 نشته — په اتومات ډول 1080p ته محدودېږي"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "د خوندي کولو بڼه"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "مستقیم د خوندي کولو فولډر کې"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "ژبې"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "د دوام لپاره لږ تر لږه یوه ژبه غوره کړئ."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "د هرې ویډیو لپاره یوازې د ژباړلیک فایلونه خوندي کیږي — هیڅ ویډیو یا غږ نه ډاونلوډیږي."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "سرچینه"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "تر 1080p پورې"
@@ -466,6 +490,10 @@ msgstr "د هر توکي لپاره غوره ویډیو + غږ"
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "Audio"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "ژباړلیکونه"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"

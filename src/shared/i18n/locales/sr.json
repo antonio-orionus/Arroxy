@@ -679,7 +679,8 @@
 		"subtitle-only": {"label": "Само титлови", "desc": "Без видеа, без звука, само титлови"}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio"},
+		"type": {"video": "Video", "audio": "Audio", "subtitles": "Титлови"},
+		"subtitles": {"note": "За сваки видео чувају се само датотеке титлова — видео и звук се не преузимају.", "languages": "Језици", "languagesRequired": "Изаберите бар један језик да бисте наставили.", "source": "Извор", "deliveryHeading": "Сачувај као", "deliveryLoose": "Директно у фасцикли за чување"},
 		"videoFormat": {"best": "Best codec", "mp4": "Паметни TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Najviši dostupan kodek po stavci", "mp4": "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"},
 		"tier": {"144": "Do 144p", "240": "Do 240p", "360": "Do 360p", "480": "Do 480p", "720": "Do 720p", "1080": "Do 1080p", "1440": "Do 1440p", "2160": "Do 4K", "best": "Best quality"},

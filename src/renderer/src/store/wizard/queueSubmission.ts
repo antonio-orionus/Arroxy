@@ -104,6 +104,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 }
 
 function resolvePlaylistFormatLabel(s: PlaylistSelection): string {
+	if (s.kind === 'subtitles') return [i18next.t('presets.subtitle-only.label'), s.languages.join(', '), s.format.toUpperCase()].join(' · ')
 	if (s.kind === 'audio') {
 		if (s.format === 'best') return i18next.t('playlistPresets.audioFormat.best')
 		return i18next.t('playlistPresets.audioFormatBitrate', {format: s.format.toUpperCase(), kbps: s.bitrateKbps ?? 192})
@@ -128,10 +129,14 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	const baseDir = templateOwnsDirs(undefined, state.settings?.common?.filenameTemplate) ? templateOutputDir(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), template, templateMeta) : resolvePlaylistDir(state)
 	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, baseDir)
 
+	// A subtitles batch skips the output and SponsorBlock steps, so the wizard
+	// state for them is stale; prepareJob ignores both for subtitle-only jobs.
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, nativeAudioPreference, filenameTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
+	// An .m3u lists media files; a subtitles batch writes none.
+	const writeM3u = state.wizardMode === 'playlist' && playlistSelection.kind !== 'subtitles' && state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate)
 
 	return {
 		id: generateId(),
@@ -153,7 +158,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		artifacts: [],
 		...(state.wizardMode === 'playlist' ? {playlistGroupId} : {}),
 		...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
-		writeM3u: state.wizardMode === 'playlist' && state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate),
+		writeM3u,
 		job
 	}
 }

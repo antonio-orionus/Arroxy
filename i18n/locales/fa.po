@@ -391,6 +391,30 @@ msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
 msgstr "H.264 بالاتر از 1080p در YouTube در دسترس نیست — به‌طور خودکار به 1080p محدود شد"
 
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "ذخیره با قالب"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "مستقیماً در پوشهٔ ذخیره"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "زبان‌ها"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "برای ادامه حداقل یک زبان انتخاب کنید."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "برای هر ویدیو فقط فایل‌های زیرنویس ذخیره می‌شود — هیچ ویدیو یا صدایی دانلود نمی‌شود."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "منبع"
+
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
 msgstr "تا 1080p"
@@ -466,6 +490,10 @@ msgstr "بالاترین کیفیت ویدیو و صدای موجود برای �
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
 msgstr "صدا"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "زیرنویس‌ها"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
