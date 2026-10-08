@@ -24,10 +24,15 @@ const advisorySchema = z.object({id: z.number(), url: z.string(), title: z.strin
 export const auditReportSchema = z.record(z.string(), z.array(advisorySchema))
 export type AuditReport = z.infer<typeof auditReportSchema>
 
+// Date.parse normalizes impossible dates (2026-02-30 becomes 2 March), so a real
+// calendar date is one that survives a round trip through the parsed UTC date.
 const isoDateSchema = z
 	.string()
 	.regex(/^\d{4}-\d{2}-\d{2}$/, 'expected YYYY-MM-DD')
-	.refine(value => !Number.isNaN(Date.parse(`${value}T00:00:00Z`)), 'not a real calendar date')
+	.refine(value => {
+		const time = Date.parse(`${value}T00:00:00Z`)
+		return !Number.isNaN(time) && new Date(time).toISOString().slice(0, 10) === value
+	}, 'not a real calendar date')
 const acceptedAdvisorySchema = z.object({id: z.string().min(1), package: z.string().min(1), reason: z.string().min(1), expires: isoDateSchema})
 export const acceptedAdvisoriesSchema = z.array(acceptedAdvisorySchema)
 export type AcceptedAdvisory = z.infer<typeof acceptedAdvisorySchema>
@@ -95,13 +100,33 @@ export function evaluateAudit(input: {prod: AuditReport; all: AuditReport; thres
 	return {blocking, accepted: passed, expired, unused, devOnly}
 }
 
+export interface AuditProcessResult {
+	status: number | null
+	stdout: string
+	stderr: string
+	error?: Error | undefined
+}
+
+// `bun audit --json` prints a JSON object on stdout in every case where the audit
+// actually ran: `{}` with exit 0 for a clean tree, a report with exit 1 when it
+// finds advisories. A failed audit (no lockfile, registry unreachable) prints
+// nothing on stdout and an error on stderr, also with exit 1. The exit code alone
+// cannot tell those apart, so the presence of a report is what counts, and its
+// absence is always a failure. Reading it as "clean" would let the gate pass
+// without having checked anything.
+export function parseAuditOutput(result: AuditProcessResult): AuditReport {
+	if (result.error) throw new Error(`could not run bun audit: ${result.error.message}`)
+	const start = result.stdout.indexOf('{')
+	if (start < 0) {
+		const detail = result.stderr.trim() || `exit status ${String(result.status)}`
+		throw new Error(`bun audit produced no audit report (${detail})`)
+	}
+	return auditReportSchema.parse(JSON.parse(result.stdout.slice(start)))
+}
+
 function runAudit(args: string[]): AuditReport {
 	const result = spawnSync('bun', ['audit', ...args, '--json'], {encoding: 'utf8', maxBuffer: 64 * 1024 * 1024})
-	const stdout = result.stdout ?? ''
-	const start = stdout.indexOf('{')
-	// bun prints a plain "no vulnerabilities" line, not JSON, for a clean tree.
-	if (start < 0) return {}
-	return auditReportSchema.parse(JSON.parse(stdout.slice(start)))
+	return parseAuditOutput({status: result.status, stdout: result.stdout ?? '', stderr: result.stderr ?? '', error: result.error})
 }
 
 function loadAccepted(): AcceptedAdvisory[] {

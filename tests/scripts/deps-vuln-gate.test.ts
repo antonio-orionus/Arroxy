@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest'
-import {acceptedAdvisoriesSchema, advisoryId, auditReportSchema, evaluateAudit, type AcceptedAdvisory, type AuditReport} from '../../scripts/depsVuln.js'
+import {acceptedAdvisoriesSchema, advisoryId, auditReportSchema, evaluateAudit, parseAuditOutput, type AcceptedAdvisory, type AuditReport} from '../../scripts/depsVuln.js'
 
 function advisory(ghsa: string, severity: 'low' | 'moderate' | 'high' | 'critical', title = `title ${ghsa}`): AuditReport[string][number] {
 	return {id: 1, url: `https://github.com/advisories/${ghsa}`, title, severity, vulnerable_versions: '<1.0.0'}
@@ -99,9 +99,50 @@ describe('input parsing', () => {
 		expect(auditReportSchema.safeParse({pkg: [{...advisory('GHSA-7777-7777-7777', 'high'), severity: 'scary'}]}).success).toBe(false)
 	})
 
+	it.each(['2026-02-30', '2026-02-29', '2026-04-31', '2026-13-01', '2026-00-10'])('rejects the impossible expiry date %s', expires => {
+		expect(acceptedAdvisoriesSchema.safeParse([{id: 'GHSA-8888-8888-8888', package: 'p', reason: 'why', expires}]).success).toBe(false)
+	})
+
+	it.each(['2028-02-29', '2026-12-31', '2026-10-12'])('accepts the real expiry date %s', expires => {
+		expect(acceptedAdvisoriesSchema.safeParse([{id: 'GHSA-8888-8888-8888', package: 'p', reason: 'why', expires}]).success).toBe(true)
+	})
+
 	it('requires a reason and a valid expiry date on every acceptance', () => {
 		expect(acceptedAdvisoriesSchema.safeParse([{id: 'GHSA-8888-8888-8888', package: 'p', reason: '', expires: '2026-10-18'}]).success).toBe(false)
 		expect(acceptedAdvisoriesSchema.safeParse([{id: 'GHSA-8888-8888-8888', package: 'p', reason: 'why', expires: 'soon'}]).success).toBe(false)
 		expect(acceptedAdvisoriesSchema.safeParse([{id: 'GHSA-8888-8888-8888', package: 'p', reason: 'why', expires: '2026-10-18'}]).success).toBe(true)
+	})
+})
+
+describe('parseAuditOutput', () => {
+	const report = JSON.stringify({pkg: [advisory('GHSA-9999-9999-9999', 'high')]})
+
+	it('reads the empty object bun prints for a clean tree', () => {
+		expect(parseAuditOutput({status: 0, stdout: '{}\n', stderr: ''})).toEqual({})
+	})
+
+	it('reads a report even though bun exits 1 when it finds advisories', () => {
+		expect(Object.keys(parseAuditOutput({status: 1, stdout: report, stderr: ''}))).toEqual(['pkg'])
+	})
+
+	it("fails, with bun's own message, when the audit could not run", () => {
+		expect(() => parseAuditOutput({status: 1, stdout: '', stderr: 'error: missing lockfile, nothing to audit\n'})).toThrow(/missing lockfile/)
+	})
+
+	it('fails when the registry cannot be reached instead of reporting a clean tree', () => {
+		expect(() => parseAuditOutput({status: 1, stdout: '', stderr: 'error: POST https://registry.example/-/npm/v1/security/advisories/bulk - ConnectionRefused'})).toThrow(/ConnectionRefused/)
+	})
+
+	it('fails on empty output even when bun reports success', () => {
+		expect(() => parseAuditOutput({status: 0, stdout: '', stderr: ''})).toThrow(/no audit report/i)
+	})
+
+	it('fails when bun could not be started', () => {
+		expect(() => parseAuditOutput({status: null, stdout: '', stderr: '', error: new Error('spawn bun ENOENT')})).toThrow(/ENOENT/)
+	})
+
+	it('fails on output that is not a valid report', () => {
+		expect(() => parseAuditOutput({status: 1, stdout: 'not json {', stderr: ''})).toThrow()
+		expect(() => parseAuditOutput({status: 1, stdout: '{"pkg": "oops"}', stderr: ''})).toThrow()
 	})
 })
