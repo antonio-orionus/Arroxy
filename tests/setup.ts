@@ -1,8 +1,15 @@
 import '@testing-library/jest-dom/vitest'
+import {configure} from '@testing-library/dom'
 import {vi} from 'vitest'
 import {initI18n} from '@shared/i18n/index.js'
 
 initI18n('en')
+
+// findBy*/waitFor give up after 1s by default. A lazy chunk (the profile editor)
+// loads in milliseconds locally but took longer than that on a loaded Windows
+// runner, failing a test whose UI was correct. The wait still ends the moment
+// the element appears, so a passing test is not slowed down.
+configure({asyncUtilTimeout: 5_000})
 
 if (typeof window !== 'undefined') {
 	window.appVersion = '0.0.0-test'

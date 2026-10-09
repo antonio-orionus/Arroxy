@@ -25,10 +25,14 @@ function noProbeMemo(): ProbeVerdictStore {
 	return {get: async () => null, record: async () => undefined, forget: async () => undefined, clear: async () => undefined}
 }
 
+// These tests are about the chain's policy, not the system PATH: a real
+// `where`/`which` spawn here made them hang on a loaded Windows runner.
+const noSystemPath = async (): Promise<string[]> => []
+
 async function makeMgr(entries: RuntimeBinaryManifestEntry[], materialize: RuntimeBinaryMaterializerPort['materialize']): Promise<BinaryManager> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-cascade-'))
 	const indexProvider: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id))}
-	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider, runtimeBinaryMaterializer: {materialize}, probeVerdicts: noProbeMemo()})
+	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider, runtimeBinaryMaterializer: {materialize}, probeVerdicts: noProbeMemo(), pathLookup: noSystemPath})
 }
 
 // Stubs the probe at the boundary the chain actually branches on, so each test
