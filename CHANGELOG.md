@@ -24,6 +24,10 @@ Arroxy looks like one app again: every screen now shares the same panels, button
 
 ### Easier to Read and Use
 
+- The selected option is now the easiest one to spot. Its label gets brighter instead of dimmer, and in light mode it gets a clear blue outline.
+- Switches that are off now look off, not disabled.
+- The URL field stands out from the panel around it, and the tab bar shows the current tab and the one under your pointer more clearly.
+- Panels are a little more see-through, so the background shows through softly on every tab, not just during a download.
 - Descriptions under settings are a little brighter, so they stay readable over the background in both themes.
 - Radio buttons and checkboxes have stronger outlines in light mode.
 - The format and audio lists work with the arrow keys, and screen readers now announce each option's name.

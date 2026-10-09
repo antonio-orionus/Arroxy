@@ -161,7 +161,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	}
 
 	return (
-		<Card variant="glass" className="gap-4 px-4" data-testid="profiles-settings-tab">
+		<Card variant="glass" className="mx-auto w-full max-w-2xl gap-4 px-4" data-testid="profiles-settings-tab">
 			<Panel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
 				<FieldGroup className="gap-4">
 					<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />

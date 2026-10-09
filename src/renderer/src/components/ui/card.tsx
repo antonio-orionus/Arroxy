@@ -7,7 +7,7 @@ import {cn} from '@renderer/lib/utils.js'
 
 // `glass` is the lit stage a tab lives on (one per view, owns the backdrop blur);
 // `inset` is a calm sub-panel inside a stage or dialog. See DESIGN.md "Elevation".
-const CARD_VARIANTS = {default: '', glass: 'glow-panel rounded-2xl ring-0', inset: 'rounded-lg bg-background/30 ring-border-strong'} as const
+const CARD_VARIANTS = {default: '', glass: 'glow-panel rounded-2xl ring-0', inset: 'rounded-lg bg-background/12 ring-border-strong'} as const
 
 function Card({className, size = 'default', variant = 'default', render, ...props}: useRender.ComponentProps<'div'> & {size?: 'default' | 'sm'; variant?: keyof typeof CARD_VARIANTS}): ReactNode {
 	return useRender({

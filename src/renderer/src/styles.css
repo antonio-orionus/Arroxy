@@ -329,8 +329,8 @@ body {
    Dark sky = translucent navy; light sky = frosted white. Two layers max. */
 @utility glass {
 	background: var(--glass-panel) !important;
-	backdrop-filter: blur(28px) saturate(160%);
-	-webkit-backdrop-filter: blur(28px) saturate(160%);
+	backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
 }
 
 /* ── Glow panel: lit-from-within glass for OUTERMOST / standalone surfaces.
@@ -348,8 +348,8 @@ body {
 		linear-gradient(145deg, hsl(212 100% 56% / 0.18), transparent 58%) padding-box,
 		linear-gradient(var(--glass-panel), var(--glass-panel)) padding-box,
 		var(--glow-gradient) border-box !important;
-	backdrop-filter: blur(32px) saturate(165%);
-	-webkit-backdrop-filter: blur(32px) saturate(165%);
+	backdrop-filter: blur(var(--glass-blur)) saturate(165%);
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(165%);
 	box-shadow:
 		inset 0 1px 0 0 var(--glass-sheen),
 		inset 0 -34px 74px -36px var(--inner-bloom),
@@ -372,15 +372,17 @@ body {
 		inset 0 1px 0 0 var(--glass-sheen),
 		inset 0 -28px 60px -34px var(--inner-bloom),
 		var(--panel-glow);
-}
-.glow-tile[data-slot="input-group"] {
-	background:
-		linear-gradient(180deg, var(--field-glow-veil), var(--field-glow-veil)) padding-box,
-		radial-gradient(120% 150% at 0% 0%, var(--glass-cyan), transparent 44%) padding-box,
-		radial-gradient(120% 150% at 100% 110%, var(--glass-violet), transparent 48%) padding-box,
-		linear-gradient(var(--field-glow-bg), var(--field-glow-bg)) padding-box,
-		var(--glow-gradient) border-box !important;
-	box-shadow: var(--field-glow-shadow);
+	/* The URL field: its own fill, nested here because a layered !important
+	   beats an unlayered one, so an outside override never applied. */
+	&[data-slot="input-group"] {
+		background:
+			linear-gradient(180deg, var(--field-glow-veil), var(--field-glow-veil)) padding-box,
+			radial-gradient(120% 150% at 0% 0%, var(--field-glow-cyan), transparent 44%) padding-box,
+			radial-gradient(120% 150% at 100% 110%, var(--field-glow-violet), transparent 48%) padding-box,
+			linear-gradient(var(--field-glow-bg), var(--field-glow-bg)) padding-box,
+			var(--glow-gradient) border-box !important;
+		box-shadow: var(--field-glow-shadow);
+	}
 }
 
 /* ── Icon tile: small dimensional gradient chip. A diagonal blue fill, a cyan
@@ -595,8 +597,11 @@ body {
 	color: var(--tabs-hover-ink);
 	transform: translateY(-1px);
 }
-.download-home-tabs [data-slot="tabs-trigger"]:hover::before {
-	opacity: 0.42;
+.download-home-tabs [data-slot="tabs-trigger"]:not([data-active]):hover::before {
+	/* Hover is its own look (a lifted pill), not a faded selection. */
+	background: var(--tabs-hover-bg);
+	box-shadow: var(--tabs-hover-shadow);
+	opacity: 1;
 	transform: scaleX(1);
 }
 .download-home-tabs [data-slot="tabs-trigger"][data-active] {
@@ -709,7 +714,9 @@ body {
 			linear-gradient(var(--brand-dim), var(--brand-dim)) padding-box,
 			var(--wizard-choice-fill) padding-box,
 			var(--glow-gradient) border-box !important;
-		box-shadow: var(--wizard-choice-selected-shadow);
+		/* !important: a pressed toggle's own inset-ring is also a box-shadow and
+		   would otherwise replace this, leaving option cards without the ring. */
+		box-shadow: var(--wizard-choice-selected-shadow) !important;
 	}
 	/* Only the option's own control disables the surface, not any nested button. */
 	&[data-disabled],
@@ -1025,6 +1032,7 @@ body {
 	--color-border-strong: var(--border-strong);
 	--color-subtle-foreground: var(--text-subtle);
 	--color-selected-foreground: var(--selected-foreground);
+	--color-switch-off: var(--switch-off);
 	/* Scoped to the Quick Download / profile signature control. */
 	--color-quick-card-ink: var(--quick-card-ink);
 	--color-quick-card-muted: var(--quick-card-muted);
@@ -1089,8 +1097,11 @@ body {
 	--border: hsl(220, 18%, 88%);
 	--border-strong: hsl(220, 18%, 80%);
 	--input: hsl(220, 18%, 88%);
+	/* Off switch track. A solid slate, so off reads as a choice (thumb and
+	   track ≥3:1 against the sky) and stays distinct from disabled. */
+	--switch-off: hsl(222, 20%, 64%);
 	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(225, 18%, 46%);
+	--text-subtle: hsl(225, 22%, 38%);
 	/* Text on a selected option. Brand-tinted but stronger than plain text, so
 	   the chosen option never reads as the muted one (the brand blue itself
 	   is ~3:1 on either sky). */
@@ -1104,12 +1115,18 @@ body {
 	--field-placeholder: hsl(224 18% 42%);
 	--field-addon: hsl(224 26% 34%);
 	--field-highlight: hsl(0 0% 100% / 0.9);
-	--field-glow-bg: hsl(205 100% 98% / 0.9);
-	--field-glow-veil: hsl(202 100% 91% / 0.36);
-	--field-glow-shadow: inset 0 1px 0 0 var(--field-highlight), inset 0 -18px 40px -30px hsl(266 88% 66% / 0.26), 0 0 0 1px hsl(206 100% 72% / 0.18), 0 0 28px -18px var(--brand-glow);
+	/* The URL field is the page's one input: a near-white well that stands off
+	   the pastel stage, not another tint of it. */
+	--field-glow-bg: hsl(0 0% 100% / 0.96);
+	--field-glow-veil: transparent;
+	--field-glow-cyan: transparent;
+	--field-glow-violet: transparent;
+	--field-glow-shadow: inset 0 1px 2px 0 hsl(220 60% 40% / 0.12), 0 0 0 1px hsl(214 80% 60% / 0.45), 0 6px 20px -12px hsl(218 90% 45% / 0.45);
 	/* Light sky — cool ocean field: frosted-white glass, lit blue edges, cloud + water wash */
 	--glass: hsl(205 100% 98% / 0.72);
-	--glass-panel: hsl(205 100% 98% / 0.5);
+	--glass-panel: hsl(205 100% 98% / 0.42);
+	/* Frosted, not opaque: the aurora's shapes should still read through a stage. */
+	--glass-blur: 14px;
 	--glass-tile: hsl(205 100% 97% / 0.64);
 	--glass-surface-veil: hsl(202 100% 93% / 0.18);
 	--glass-control-veil: hsl(202 100% 92% / 0.16);
@@ -1165,26 +1182,28 @@ body {
 	--wizard-summary-edge: linear-gradient(135deg, hsl(198 100% 58% / 0.48), hsl(220 100% 56% / 0.2) 48%, hsl(268 92% 64% / 0.4));
 	--wizard-summary-sheen: linear-gradient(110deg, hsl(0 0% 100% / 0.46), transparent 34%), radial-gradient(90% 130% at 100% 120%, hsl(268 96% 66% / 0.12), transparent 58%);
 	--wizard-summary-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -18px 42px -30px hsl(266 88% 66% / 0.2), 0 0 28px -20px var(--brand-glow);
-	--wizard-choice-fill: linear-gradient(180deg, hsl(205 100% 99% / 0.72), hsl(215 100% 96% / 0.54));
+	--wizard-choice-fill: linear-gradient(180deg, hsl(205 100% 99% / 0.86), hsl(215 100% 98% / 0.74));
 	--wizard-choice-edge: linear-gradient(135deg, hsl(205 100% 58% / 0.46), hsl(220 100% 56% / 0.16) 48%, hsl(268 88% 64% / 0.32));
 	--wizard-choice-hover-fill: linear-gradient(180deg, hsl(204 100% 98% / 0.9), hsl(216 100% 94% / 0.68));
 	--wizard-choice-hover-edge: linear-gradient(135deg, hsl(198 100% 56% / 0.62), hsl(220 100% 56% / 0.3) 48%, hsl(268 88% 60% / 0.52));
 	/* Selected must differ from the near-white rest fill at a glance, not just by
 	   its radio dot: a clear blue tint plus a brand ring inside the glow edge. */
-	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(212 100% 89% / 0.94), hsl(222 100% 85% / 0.84));
+	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 88% / 0.9));
 	--wizard-choice-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -14px 34px -30px hsl(268 96% 66% / 0.2);
 	--wizard-choice-hover-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.8), inset 0 -16px 36px -30px hsl(268 96% 64% / 0.24), 0 0 24px -18px var(--brand-glow);
-	--wizard-choice-selected-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.7), inset 0 0 0 1px hsl(220 100% 56% / 0.5), 0 0 26px -14px var(--brand-glow);
+	--wizard-choice-selected-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 4px 18px -10px var(--brand-glow);
 	--queue-row-selected-fill: linear-gradient(90deg, hsl(213 100% 94% / 0.78), hsl(220 100% 92% / 0.56)), var(--brand-dim);
 	--queue-row-selected-shadow: inset 0 0 0 1px hsl(210 100% 58% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.62), 0 0 24px -18px var(--brand-glow);
 	--tabs-rail-bg: linear-gradient(180deg, hsl(205 100% 96% / 0.8), hsl(216 100% 94% / 0.58));
 	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 58% / 0.34), hsl(222 100% 62% / 0.14) 44%, hsl(268 96% 64% / 0.32));
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
 	--tabs-rail-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.52), inset 0 -18px 38px -34px hsl(268 96% 66% / 0.28), 0 14px 34px -28px hsl(207 100% 52% / 0.38), 0 0 34px -26px var(--brand-glow);
-	--tabs-active-bg: linear-gradient(180deg, hsl(205 100% 91% / 0.9), hsl(220 100% 92% / 0.72)), color-mix(in srgb, var(--background) 60%, transparent);
-	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 58% / 0.32), inset 0 1px 0 hsl(0 0% 100% / 0.54), 0 0 26px -16px var(--brand-glow);
+	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 87% / 0.92));
+	--tabs-active-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 4px 18px -10px var(--brand-glow);
+	--tabs-hover-bg: hsl(0 0% 100% / 0.72);
+	--tabs-hover-shadow: inset 0 0 0 1px hsl(220 60% 62% / 0.45), 0 2px 10px -6px hsl(220 60% 40% / 0.35);
 	--tabs-hover-ink: hsl(226 56% 16%);
-	--tabs-active-ink: hsl(226 58% 12%);
+	--tabs-active-ink: var(--selected-foreground);
 	--tabs-active-text-shadow: 0 0 14px hsl(213 100% 72% / 0.18);
 	--backdrop:
 		radial-gradient(42% 30% at 64% 44%, hsl(194 100% 72% / 0.3), transparent 62%), radial-gradient(34% 24% at 92% 8%, hsl(266 86% 74% / 0.2), transparent 66%), radial-gradient(54% 26% at 18% 23%, hsl(0 0% 100% / 0.5), transparent 72%),
@@ -1206,7 +1225,7 @@ body {
 	--secondary: hsl(226, 30%, 9%);
 	--secondary-foreground: hsl(240, 40%, 96%);
 	--muted: hsl(226, 30%, 9%);
-	--muted-foreground: hsl(228, 24%, 69%);
+	--muted-foreground: hsl(228, 30%, 79%);
 	--accent: hsl(226, 28%, 11%);
 	--accent-foreground: hsl(240, 40%, 96%);
 	--destructive: hsl(349, 100%, 61%);
@@ -1216,8 +1235,9 @@ body {
 	--border: hsla(0, 0%, 100%, 0.08);
 	--border-strong: hsla(0, 0%, 100%, 0.13);
 	--input: hsla(0, 0%, 100%, 0.08);
+	--switch-off: hsla(0, 0%, 100%, 0.2);
 	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(228, 15%, 60%);
+	--text-subtle: hsl(228, 20%, 71%);
 	--selected-foreground: hsl(205, 100%, 82%);
 	--text-glass-muted: hsl(228 34% 78%);
 	--icon-tile-ink: hsl(220 100% 94%);
@@ -1230,14 +1250,16 @@ body {
 	--field-highlight: hsl(205 100% 84% / 0.18);
 	--field-glow-bg: hsl(226 62% 6% / 0.88);
 	--field-glow-veil: hsl(228 82% 2% / 0.64);
+	--field-glow-cyan: var(--glass-cyan);
+	--field-glow-violet: var(--glass-violet);
 	--field-glow-shadow: inset 0 1px 0 0 var(--field-highlight), inset 0 -18px 44px -28px hsl(274 96% 46% / 0.24), 0 0 0 1px hsl(205 100% 80% / 0.12), 0 0 30px -18px var(--brand-glow);
 	/* Dark sky surfaces + signal — lit-from-within glass over a bright nebula */
 	--glass: hsl(226 58% 8% / 0.78);
 	/* Stage glass: the most see-through pair that keeps muted text at 4.5:1 over
 	   the brightest aurora behind it (measured), so the blurred sky reads through. */
-	--glass-panel: hsl(228 68% 4% / 0.7);
+	--glass-panel: hsl(228 68% 4% / 0.58);
 	--glass-tile: hsl(226 62% 6% / 0.84);
-	--glass-surface-veil: hsl(228 82% 2% / 0.35);
+	--glass-surface-veil: hsl(228 82% 2% / 0.24);
 	--glass-control-veil: hsl(228 82% 2% / 0.58);
 	--glass-cyan: hsl(196 100% 62% / 0.18);
 	--glass-violet: hsl(270 96% 62% / 0.15);
@@ -1303,6 +1325,8 @@ body {
 	--tabs-rail-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.2), inset 0 -22px 42px -34px hsl(268 96% 66% / 0.55), 0 18px 44px -34px hsl(225 90% 2% / 0.88), 0 0 36px -27px var(--brand-glow);
 	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 52% / 0.16), hsl(268 96% 52% / 0.1)), color-mix(in srgb, var(--background) 72%, transparent);
 	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 78% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 0 24px -18px var(--brand-glow);
+	--tabs-hover-bg: hsl(214 100% 70% / 0.1);
+	--tabs-hover-shadow: inset 0 0 0 1px hsl(205 100% 78% / 0.22);
 	--tabs-hover-ink: hsl(224 48% 88%);
 	--tabs-active-ink: hsl(220 100% 96%);
 	--tabs-active-text-shadow: 0 0 12px hsl(213 100% 72% / 0.22), 0 0 18px hsl(268 95% 70% / 0.14);

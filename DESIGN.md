@@ -187,7 +187,7 @@ A single electric blue carries identity across two skies, a deep aurora-navy voi
 
 Depth is **glass over an aurora-lit canvas, lit at the edges**. Not flat tonal layering, not soft drop-shadow lift. Two glass materials, both translucent so the bloom reads through, both edged with a luminous blue ring:
 
-- **`glow-panel`** — the outermost / standalone surface (the Download input panel, the mascot helper card, a manage card). Owns the backdrop blur (32px), a diagonal inner sheen, a gradient blue/cyan/violet edge, a top highlight, and a soft outer bloom (`--panel-glow`).
+- **`glow-panel`** — the outermost / standalone surface (the Download input panel, the mascot helper card, a manage card). Owns the backdrop blur (`--glass-blur`, 14px: frosted, so the aurora's shapes still read through; not opaque), a diagonal inner sheen, a gradient blue/cyan/violet edge, a top highlight, and a soft outer bloom (`--panel-glow`).
 - **`glow-tile`** — a tile that lives *inside* a glow-panel (the URL field and secondary action rows). Same lit edge + gradient, **no backdrop blur of its own** (the parent already blurred the canvas; re-blurring blurred content only muddies it). One blur layer per stack.
 - **`quick-profile-cluster`** — the signature split Quick Download/profile control. The outer cluster owns the hot gradient edge and shared bloom; `quick-profile-action` is the saturated primary half, and `quick-profile-selector` is the raised active-profile half. This is the main screen's primary treatment.
 
