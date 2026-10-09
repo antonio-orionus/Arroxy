@@ -42,10 +42,10 @@ typography:
     letterSpacing: "normal"
   label:
     fontFamily: "Poppins, sans-serif"
-    fontSize: "0.5625rem"
-    fontWeight: 700
+    fontSize: "0.6875rem"
+    fontWeight: 600
     lineHeight: 1.2
-    letterSpacing: "0.12em"
+    letterSpacing: "0.08em"
   mono:
     fontFamily: "JetBrains Mono, monospace"
     fontSize: "0.8125rem"
@@ -174,13 +174,14 @@ A single electric blue carries identity across two skies, a deep aurora-navy voi
 - **Headline** (600, 1.125rem/18px, -0.01em): Card titles ("Quick Download"), dialog titles.
 - **Title** (600, 0.9375rem/15px): Button labels, row titles, the active profile name.
 - **Body** (400, 0.875rem/14px, 1.5): Descriptions, helper text, prose. Cap prose at 65-75ch.
-- **Label** (700, 0.5625rem/9px, 0.12em, UPPERCASE): Section eyebrows ("ACTIVE PROFILE", "DOWNLOAD INPUT"). Reserved for ≤4-word labels; never sentences.
+- **Label** (600, 0.6875rem/11px, 0.08em, UPPERCASE): Section eyebrows ("ACTIVE PROFILE", "SAVE TO", stepper captions, table headers). Reserved for ≤4-word labels; never sentences. Always rendered through `SectionLabel` (or the `text-label` token), never restated by hand. It was 9px; that was unreadable in non-Latin scripts.
+- **Caption** (0.6875rem/11px): Timestamps, counts, hints, small badges.
 - **Mono** (400, 0.8125rem/13px): Numeric/technical values inline. `font-variant-numeric: tabular-nums` so progress counters don't shift width.
 
 ### Named Rules
 **The Tabular-Numbers Rule.** Any number that updates live (progress %, downloaded bytes, ETA) renders in JetBrains Mono with `tabular-nums`. Proportional digits that reflow on every tick are forbidden.
 
-**The Uppercase-Label-Only Rule.** All-caps is for the 9px section eyebrow and badges only. No all-caps headings, no all-caps buttons, no all-caps body. ≤4 words or it isn't a label.
+**The Uppercase-Label-Only Rule.** All-caps is for the 11px section eyebrow and small badges only. No all-caps headings, no all-caps buttons, no all-caps body. ≤4 words or it isn't a label.
 
 ## 4. Elevation
 
@@ -198,7 +199,8 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Primary bloom** (`--quick-action-shadow` / `--quick-cluster-shadow`): only the Quick Download side and its containing split control. The lit-from-within hero.
 - **Edge gradient** (`var(--glow-gradient)` / `var(--glow-gradient-hot)`): the luminous cyan-to-blue-to-violet border on glass surfaces.
 - **Focus ring** (`box-shadow: 0 0 0 3px var(--ring)/0.5`): keyboard focus on any control.
-- **Selection ring** (`box-shadow: 0 0 0 2px var(--brand-dim)`): the active radio option / selected profile.
+- **Primary glow** (`shadow-glow`, `0 4px 14px var(--brand-glow)`): under the one `glow` button per view.
+- **Selection ring** (`shadow-selected`, `0 0 0 2px var(--brand-dim)`): reserved; selected options use the choice surface instead (see Components).
 - **Progress glow** (`box-shadow: 0 0 8px var(--brand-glow)` on the indicator): the download bar reads as energy moving.
 
 ### Named Rules
@@ -214,9 +216,9 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 ### Buttons
 
 - **Shape:** 16px radius (`{rounded.lg}`), compact 32px height. Icon buttons are square at the same height.
-- **Primary:** Electric Blue fill or the `quick-profile-action` gradient, Ink label, soft primary glow beneath (`0 4px 14px var(--brand-glow)` or `--quick-action-shadow`). Used for the single most important action per view (Pull it!, Quick Download). Hover lifts to Blue Lift; active nudges `translate-y-px`.
+- **Primary:** `variant="glow"`: Electric Blue fill with `shadow-glow` beneath. Exactly one per view (Continue, + Queue, Save profile). It always sits last in a button row. Hover lifts to Blue Lift; disabled drops the glow. The Quick Download half of the split control is the home screen's own primary.
 - **Hover / Focus:** All buttons transition `all` ~150-200ms. Focus-visible draws the 3px brand ring.
-- **Secondary / Outline / Ghost:** Secondary uses Glass Surface fill; outline uses a hairline border over transparent; ghost is text-only until hover tints it with `muted`. Everything that isn't the one primary action lives here.
+- **Secondary / Outline / Ghost:** `outline` (strong border) carries Back, Skip, and every other secondary action; ghost is text-only until hover; `link` with `size="inline"` sits inside running text. Never restate a button's size, colour, or shadow at the call site.
 - **Destructive:** Low-alpha Error Red fill (`destructive/10`) with Error Red text, not a solid red block. Hover deepens the alpha.
 
 ### Inputs / Fields
@@ -228,6 +230,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ### Cards / Panels
 
+- **Card variants:** `variant="glass"` is the lit stage a tab lives on (one per view, owns the blur; URL, Downloads, Profiles, Settings). `variant="inset"` is a calm sub-panel inside a stage or dialog. `Panel` = inset card + title, description, and an end-aligned action; `PanelSection` = a labelled sub-group inside a Panel. Panels never nest.
 - **Corner Style:** Large, 20-28px (`{rounded.xl}`-`{rounded.2xl}`) on hero panels and the split Quick Download/profile cluster; 13-16px on list rows.
 - **Background:** Glass Surface over void; raised glass for the active-profile card so it reads as the live selection.
 - **Border:** Hairline at rest. Glow Border when the panel is the primary/active surface (Quick Download tile, selected profile).
@@ -236,7 +239,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ### Navigation
 
-- **Style:** Horizontal top tab bar (URL / Profiles / Settings) with a leading icon per tab, under a slim custom title bar (window controls + share/min/max). Active tab: Ink label + pill highlight + subtle glow; inactive: Ink Muted, no glow. Tabs are the only top-level nav; no left sidebar.
+- **Style:** Horizontal top tab bar (URL / Downloads / Profiles / Settings) with a leading icon per tab, under a slim custom title bar (window controls + share/min/max). Active tab: Ink label + pill highlight + subtle glow; inactive: Ink Muted, no glow. Tabs are the only top-level nav; no left sidebar.
 - **Title bar:** Draggable region, frameless-window controls, app name + mascot lockup at the leading edge.
 
 ### Quick Download / Profile Control (signature)
@@ -244,17 +247,38 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Style:** A single split control with a hot gradient edge. The left half is the primary Quick Download action with the strongest bloom, a lit download icon tile, and a forward chevron. The right half is the active profile selector, raised but quieter, with the profile icon, `ACTIVE PROFILE` label, profile name, summary, and a circular chevron.
 - **Behavior:** Disabled state reduces opacity and saturation when no URL is ready. Preparing state swaps the download icon for a spinner and keeps the profile context visible. The profile half opens a popover for switching, editing, creating, or managing profiles.
 
-### Radio Options / Profile Picker (signature)
+### Choice Surfaces (signature)
 
-- **Style:** Compact rows (`Item` primitive) and profile menu options. Unselected: transparent or low-alpha muted fill, Ink Muted label, hover tints with `accent`. Selected: `--brand-dim` fill + `0 0 0 1-2px var(--brand-dim)` selection ring + brand-colored, semibold label, and check/radio indicator. This is how "current choice" reads everywhere (download profile, save location, format preset).
+- **One look for "selectable", one for "selected", everywhere.** The `choice-surface` utility: a dark glass fill with a soft lit edge at rest; selected adds the blue tint and the full glow-gradient edge. Selection is driven by the control's own state (a checked radio or checkbox inside, a pressed toggle, or `data-selected`), never by per-screen classes.
+- **ChoiceRow:** a row in a `RadioGroup` (format and audio rows): radio, label, end-aligned metadata. The whole row selects; arrow keys move through the group.
+- **CheckRow:** the checkbox sibling for multi-select grids (SponsorBlock categories, subtitle languages).
+- **OptionCard:** a `ToggleGroupItem` card, vertical (icon over title over description: download type, quick presets, playlist tiers) or horizontal (icon, title, end meta: save location).
+- **Profile cards** use the same surface with `data-selected`.
+
+### Settings Rows
+
+- `SettingRow`: label (+ description or a `HelpTip`) on the start side, control on the end side. `SettingSwitch` is the boolean form. Every settings surface (Settings tab, profile editor, Output step) uses these rows; booleans are always a Switch, never an Off/On segmented control.
+
+### Notices
+
+- `Alert` with a status variant (`info`, `success`, `warning`, `destructive`), icon as the first child (the variant colours it), `AlertAction` for dismiss. `size="sm"` for compact inline notices. Validation messages are `FieldError`, never coloured text.
+
+### Speech Bubble and Icon Tile
+
+- `SpeechBubble` is the mascot's one voice: popover surface, strong border, a tail on any side (RTL-aware). `MascotBubble` pairs it with the mascot.
+- `IconTile` carries one icon before a title: `lit` (the gradient Aurora tile, home entry points) or `soft` (primary tint, headers and cards).
 
 ### Tip / Helper card (signature)
 
 - A friendly, low-stakes glass card with the mascot, a short contextual title/body, three checkmarked helper bullets, and a capability matrix. The matrix names YouTube and 2000+ sites, using recognizable site logos and tooltip badges for details. Warm, human, never a modal. It teaches without blocking.
 
-### Queue card (signature)
+### Queue (signature)
 
-- Glass row carrying thumbnail (shimmer placeholder while loading), title, status, and a `progress-glow` bar. Status tint (done/paused/error) applies as a very low-alpha background glow + icon, never a loud fill. Enters with a 0.18s `card-enter` slide.
+- A virtualized table inside the Downloads glass stage: thumbnail, title, a status `Badge` (secondary / info / warning / success / destructive, always with an icon and a label), progress, format, artifacts. Status never reads by colour alone.
+
+### Wizard (flow mode)
+
+- The wizard takes over the window: stepper on top, the step's content, and a sticky full-bleed footer bar. Footer order is Back, secondary actions, then the one `glow` primary last.
 
 ## 6. Do's and Don'ts
 
@@ -263,7 +287,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Do** make glass float above the solid void; backdrop-blur the panels, never the background.
 - **Do** tie every glow to a state (primary / focused / live / status). If it doesn't mean something, delete it.
 - **Do** render live numbers in JetBrains Mono with `tabular-nums`.
-- **Do** pair every status color with an icon and text (color blindness + 21 locales incl. RTL).
+- **Do** pair every status color with an icon and text (color blindness + every supported locale incl. RTL).
 - **Do** ship both skies as peers: dark void and light cool-blue field, same blue signal, same status colors, only neutrals flip.
 - **Do** use big rounding (16-28px) on hero panels for the friendly, approachable read.
 - **Do** honor `prefers-reduced-motion`: glows stay (they're static state), but slide/float/shimmer/pulse animations collapse to instant or crossfade.
@@ -281,3 +305,9 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Don't** use side-stripe borders (`border-left`/`right` > 1px as a colored accent), gradient text (`background-clip: text`), or all-caps body copy.
 - **Don't** reintroduce Outfit or Geist, or add a third UI font family.
 - **Don't** use em dashes in UI copy; use commas, colons, periods, or parentheses.
+
+## 7. Implementation Contract
+
+- **Primitives** live in `src/renderer/src/components/ui/` (shadcn base-nova, customised there and only there). **Composites** live in `components/shared/`: `SectionLabel`, `SettingRow`, `SettingSwitch`, `HelpTip`, `Panel`, `PanelSection`, `ChoiceRow`, `CheckRow`, `OptionCard`, `IconTile`, `SpeechBubble`, `MascotBubble`.
+- Screens compose these; they do not restate sizes, colours, radii, or shadows. `tests/unit/ui-consistency-ratchet.test.ts` counts one-off values per file and only lets the count go down.
+- Review any primitive or composite change in the UI Kit (`bun run dev:mock`, then `/?kit`), in both skies and in RTL.
