@@ -8,6 +8,31 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## Unreleased
+
+Arroxy looks like one app again: every screen now shares the same panels, buttons, and selection style, and the step-by-step download sits on the same glass panel as the rest of the app.
+
+## Highlights
+
+### One Consistent Look
+
+- Every tab and every step of an interactive download now sits on the same glass panel, with the aurora softly showing through. The step-by-step download no longer takes over the whole window.
+- Choices look and behave the same everywhere. Format rows, quick presets, save locations, download types, and profiles all show the selected option the same way, and selected options now get their highlight as intended (it was missing on several screens).
+- Settings, the profile editor, and the Output step use the same rows: a label, a short description, and a switch on the side. On/off options are always switches.
+- Section labels are larger and easier to read, especially in Arabic, Amharic, Burmese, and other non-Latin scripts.
+- The download list's status filters match the other filter chips, and the language menu at the bottom of the window is now a proper menu that lists every language by its own name.
+
+### Easier to Read and Use
+
+- Descriptions under settings are a little brighter, so they stay readable over the background in both themes.
+- Radio buttons and checkboxes have stronger outlines in light mode.
+- The format and audio lists work with the arrow keys, and screen readers now announce each option's name.
+- Save locations use proper icons instead of emoji.
+- The setup screen no longer cuts off its top when several components need repair.
+- Two notes in the download profile editor that were only in English are now translated into every language.
+
+---
+
 ## 0.4.19
 
 Arroxy is a much smaller app, with a round of security fixes to the code it ships.
