@@ -537,14 +537,14 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 						<Panel title={t('wizard.profileEditor.panel.advanced.title')} description={t('wizard.profileEditor.panel.advanced.description')} className="lg:self-start">
 							<FieldGroup className="gap-3">
 								<div className="grid gap-2" data-testid="profiles-editor-destination-policy">
-									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-border' : 'border-[var(--brand)]/55 bg-[var(--brand-dim)]')} data-testid="profiles-editor-global-destination">
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-border' : 'border-primary/55 bg-primary/12')} data-testid="profiles-editor-global-destination">
 										<div className="min-w-0">
 											<div className="flex min-w-0 items-center gap-2">
-												<FolderCog className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-												<span className="text-[12px] font-semibold">{t('wizard.profileEditor.destination.global')}</span>
+												<FolderCog className="size-4 shrink-0 text-primary" aria-hidden />
+												<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.global')}</span>
 												<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{hasDestinationOverride ? 'Inherited' : 'Active'}</Badge>
 											</div>
-											<p className="mt-1 truncate font-mono text-[12px] text-[var(--text-subtle)]" title={globalDestinationRoot || undefined}>
+											<p className="mt-1 truncate font-mono text-xs text-subtle-foreground" title={globalDestinationRoot || undefined}>
 												{readablePath(globalDestinationRoot, commonPaths)}
 											</p>
 										</div>
@@ -556,14 +556,14 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 										</div>
 									</div>
 
-									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-[var(--brand)]/55 bg-[var(--brand-dim)]' : 'border-border')} data-testid="profiles-editor-profile-override">
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-primary/55 bg-primary/12' : 'border-border')} data-testid="profiles-editor-profile-override">
 										<div className="min-w-0">
 											<div className="flex min-w-0 items-center gap-2">
-												<Folder className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-												<span className="text-[12px] font-semibold">{t('wizard.profileEditor.destination.override')}</span>
+												<Folder className="size-4 shrink-0 text-primary" aria-hidden />
+												<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.override')}</span>
 												<Badge variant={hasDestinationOverride ? 'secondary' : 'outline'}>{hasDestinationOverride ? 'Overrides global' : showDestinationOverride ? 'Choose folder' : 'No override set'}</Badge>
 											</div>
-											<p className="mt-1 text-[11px] leading-snug text-[var(--text-subtle)]">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
+											<p className="mt-1 text-caption leading-snug text-subtle-foreground">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
 										</div>
 										{!showDestinationOverride ? (
 											<div className="mt-2 flex flex-wrap gap-2">
@@ -578,7 +578,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 											<Field className="mt-3 gap-1.5">
 												<FieldLabel htmlFor="profile-destination">{t('wizard.profileEditor.field.overridePath')}</FieldLabel>
 												<InputGroup>
-													<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder={t('wizard.profileEditor.placeholder.folder')} className="font-mono text-[12px]" />
+													<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder={t('wizard.profileEditor.placeholder.folder')} className="font-mono text-xs" />
 													<InputGroupAddon align="inline-end">
 														<InputGroupButton type="button" size="icon-xs" aria-label={t('wizard.profileEditor.action.chooseFolder')} onClick={() => void chooseDestinationFolder()}>
 															<Folder aria-hidden />
@@ -595,15 +595,15 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 										) : null}
 									</div>
 
-									<div className="rounded-lg border border-[var(--border-strong)] bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
-										<p className="text-[11px] font-medium text-[var(--text-subtle)]">{t('wizard.profileEditor.destination.resolved')}</p>
-										<p className="mt-1 truncate font-mono text-[12px] text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
+									<div className="rounded-lg border border-border-strong bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
+										<p className="text-caption font-medium text-subtle-foreground">{t('wizard.profileEditor.destination.resolved')}</p>
+										<p className="mt-1 truncate font-mono text-xs text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
 											{resolvedDestinationLabel}
 										</p>
 									</div>
 								</div>
 
-								<Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">
+								<Field orientation="horizontal" className="items-center gap-2 text-xs text-subtle-foreground">
 									<Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={checked => updateDraft({type: 'set-save-inside-subfolder', saveInsideSubfolder: checked === true})} />
 									<FieldLabel htmlFor="profile-subfolder-enabled" size="sm">
 										{t('wizard.folder.subfolder.toggle')}

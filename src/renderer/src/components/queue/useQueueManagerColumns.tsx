@@ -141,7 +141,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 						const item = info.row.original
 						return (
 							<div className="min-w-24 max-w-32">
-								<div className="font-mono text-[12px] text-muted-foreground">{Math.round(item.progressPercent)}%</div>
+								<div className="font-mono text-xs text-muted-foreground">{Math.round(item.progressPercent)}%</div>
 								<Progress value={item.progressPercent} className="mt-1 gap-0 [&_[data-slot=progress-track]]:h-[3px]" />
 							</div>
 						)
@@ -150,7 +150,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				columnHelper.accessor('formatLabel', {
 					header: ({column}) => sortableHeader(t('queue.table.format'), column, t),
 					cell: info => (
-						<span className="block truncate text-[12px] text-muted-foreground" title={info.getValue()}>
+						<span className="block truncate text-xs text-muted-foreground" title={info.getValue()}>
 							{info.getValue()}
 						</span>
 					)
@@ -158,7 +158,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				columnHelper.accessor('outputDir', {
 					header: ({column}) => sortableHeader(t('queue.table.outputTarget'), column, t),
 					cell: info => (
-						<span className="block max-w-56 truncate font-mono text-[11px] text-muted-foreground" title={info.getValue()}>
+						<span className="block max-w-56 truncate font-mono text-caption text-muted-foreground" title={info.getValue()}>
 							{info.getValue()}
 						</span>
 					)
@@ -182,7 +182,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 									event.stopPropagation()
 									onToggleExpanded(item.id)
 								}}
-								className="h-7 gap-1 px-2 text-[11px]"
+								className="h-7 gap-1 px-2 text-caption"
 							>
 								<Captions size={12} aria-hidden />
 								{count}
@@ -191,8 +191,8 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 						)
 					}
 				}),
-				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-[11px] text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
-				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-[11px] text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
+				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
+				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
 			] as QueueManagerColumn[],
 		[expandedIds, onToggleExpanded, t]
 	)

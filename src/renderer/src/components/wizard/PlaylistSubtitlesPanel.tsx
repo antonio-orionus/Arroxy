@@ -114,7 +114,7 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 						</ToggleGroupItem>
 					))}
 				</ToggleGroup>
-				{showAutoSrtNote ? <p className="mt-2 text-[11px] leading-snug text-[var(--text-subtle)]">{t('wizard.profileEditor.note.autoCaptionsSrt')}</p> : null}
+				{showAutoSrtNote ? <p className="mt-2 text-caption leading-snug text-subtle-foreground">{t('wizard.profileEditor.note.autoCaptionsSrt')}</p> : null}
 			</div>
 		</div>
 	)

@@ -50,7 +50,7 @@ export function StepSponsorBlock(): ReactNode {
 				</ToggleGroup>
 
 				<span />
-				<p className="text-[11px] text-[var(--text-subtle)] leading-snug">{t(SB_MODE_HINT_KEYS[wizardSponsorBlockMode])}</p>
+				<p className="text-caption text-subtle-foreground leading-snug">{t(SB_MODE_HINT_KEYS[wizardSponsorBlockMode])}</p>
 			</div>
 
 			{/* ── Categories (visible when mode is not off) ── */}

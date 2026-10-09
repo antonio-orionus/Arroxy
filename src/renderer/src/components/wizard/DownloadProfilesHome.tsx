@@ -416,11 +416,11 @@ export function DownloadProfilesHome(): ReactNode {
 			>
 				<div className="relative z-30 mx-auto flex justify-center">
 					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-testid="profiles-tabs">
-						<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+						<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
 							<Link2 data-icon="inline-start" aria-hidden />
 							{t('wizard.steps.url')}
 						</TabsTrigger>
-						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 flex-[1.22_1_0] rounded-full border-0 px-3 text-[14px] data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 flex-[1.22_1_0] rounded-full border-0 px-3 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
 							<Inbox data-icon="inline-start" aria-hidden />
 							{t('queue.tabLabel')}
 							{queueCount > 0 ? (
@@ -429,11 +429,11 @@ export function DownloadProfilesHome(): ReactNode {
 								</Badge>
 							) : null}
 						</TabsTrigger>
-						<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+						<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
 							<Users data-icon="inline-start" aria-hidden />
 							{t('wizard.url.tabs.profiles')}
 						</TabsTrigger>
-						<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-[14px] data-active:border-transparent">
+						<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
 							<Settings data-icon="inline-start" aria-hidden />
 							{t('wizard.url.tabs.settings')}
 						</TabsTrigger>
@@ -449,7 +449,7 @@ export function DownloadProfilesHome(): ReactNode {
 									<img src={mascotHeaderImage} alt="" aria-hidden className="mt-0.5 size-12 shrink-0 object-contain sm:size-14" draggable={false} />
 									<div className="min-w-0 flex-1">
 										<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
-										<CardDescription className="mt-1.5 text-body text-[var(--text-subtle)]" data-testid="profiles-mascot-copy">
+										<CardDescription className="mt-1.5 text-body text-subtle-foreground" data-testid="profiles-mascot-copy">
 											{mascotHeaderBody}
 										</CardDescription>
 									</div>
@@ -518,7 +518,7 @@ export function DownloadProfilesHome(): ReactNode {
 				<Suspense
 					fallback={
 						<output className="fixed inset-0 z-50 grid place-items-center bg-background/35" aria-label={t('wizard.formats.loadingAria')}>
-							<Spinner className="size-5 text-[var(--brand)]" aria-hidden />
+							<Spinner className="size-5 text-primary" aria-hidden />
 						</output>
 					}
 				>
@@ -546,9 +546,9 @@ function ClipboardPendingAction({onApply, onDismiss}: {onApply: () => void; onDi
 	const statusLabel = t('wizard.url.clipboard.pendingLinkReady')
 	const actionLabel = t('wizard.url.clipboard.useCopiedLink')
 	return (
-		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-[var(--brand-dim)] px-3 py-2 text-[12px] text-foreground" data-testid="clipboard-pending">
+		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-primary/12 px-3 py-2 text-xs text-foreground" data-testid="clipboard-pending">
 			<span className="flex min-w-0 flex-1 items-center gap-2">
-				<Icon className="size-3.5 shrink-0 text-[var(--brand)]" aria-hidden />
+				<Icon className="size-3.5 shrink-0 text-primary" aria-hidden />
 				<span className="min-w-0 truncate">{statusLabel}</span>
 			</span>
 			<Button type="button" variant="outline" size="xs" onClick={onApply} data-testid="clipboard-pending-action" className="bg-background/50">
@@ -569,7 +569,7 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			disabled={disabled}
 			onClick={onClick}
 			data-testid={testId}
-			className="glow-tile group/row h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-[1rem] border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
+			className="glow-tile group/row h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-lg border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
 		>
 			<IconTile tone="lit" className="transition-transform duration-200 group-hover/row:scale-105">
 				<Icon />
@@ -607,8 +607,8 @@ function ProfilesTab({
 			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
 				<div>
 					<CardTitle className="text-xl font-semibold leading-tight">{t('wizard.url.profile.panelTitle')}</CardTitle>
-					<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">{t('wizard.url.profile.panelDescription')}</CardDescription>
-					<p className="mt-1 text-[11px] text-[var(--text-subtle)]">{t('wizard.url.profile.enableHint')}</p>
+					<CardDescription className="mt-1 text-xs text-subtle-foreground">{t('wizard.url.profile.panelDescription')}</CardDescription>
+					<p className="mt-1 text-caption text-subtle-foreground">{t('wizard.url.profile.enableHint')}</p>
 				</div>
 				<Button variant="glow" type="button" onClick={() => onEdit(null)}>
 					<Plus data-icon="inline-start" />

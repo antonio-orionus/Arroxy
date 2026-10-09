@@ -35,7 +35,7 @@ const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
 const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
 const UiKit = lazy(() => import('./dev/UiKit.js').then(module => ({default: module.UiKit})))
-const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[13px] text-muted-foreground max-sm:size-6 max-sm:px-0'
+const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-sm text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
 type BackdropPreviewMode = 'gpu' | 'css'
@@ -196,7 +196,7 @@ export function App(): ReactNode {
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
 				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} softwareWebglAllowed={backdropPreviewMode === 'gpu'} />
-				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-[var(--border-strong)] bg-background/80 px-2 py-1.5 backdrop-blur">
+				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-border-strong bg-background/80 px-2 py-1.5 backdrop-blur">
 					<ThemeToggle />
 					<div className="h-5 w-px bg-border" aria-hidden />
 					<div className="flex items-center gap-1 rounded-md border border-border bg-muted/30 p-0.5" data-testid="backdrop-preview-controls" aria-label="Backdrop render path">
@@ -209,7 +209,7 @@ export function App(): ReactNode {
 									type="button"
 									onClick={() => applyBackdropPreviewMode(mode.id)}
 									aria-pressed={active}
-									className={cn('inline-flex h-7 items-center gap-1 rounded px-2 text-[11px] font-medium transition-colors', active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'text-muted-foreground hover:bg-accent hover:text-foreground')}
+									className={cn('inline-flex h-7 items-center gap-1 rounded px-2 text-caption font-medium transition-colors', active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'text-muted-foreground hover:bg-accent hover:text-foreground')}
 									data-testid={`backdrop-preview-${mode.id}`}
 								>
 									<Icon size={12} aria-hidden />
@@ -218,7 +218,7 @@ export function App(): ReactNode {
 							)
 						})}
 					</div>
-					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-[11px] leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
+					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-caption leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
 						{activeBackdropPreview.description}
 					</p>
 					<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
@@ -255,11 +255,11 @@ export function App(): ReactNode {
 								+
 							</Button>
 						</ButtonGroup>
-						<span className="w-8 text-center text-[13px] text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
+						<span className="w-8 text-center text-sm text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
 						<ThemeToggle />
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
-						<div className="min-w-0 [&_select]:max-w-[4.75rem] [&_select]:truncate sm:[&_select]:max-w-none" data-testid="footer-language-picker">
+						<div className="min-w-0 [&_[data-slot=select-trigger]]:max-w-[6rem] [&_[data-slot=select-value]]:truncate sm:[&_[data-slot=select-trigger]]:max-w-none" data-testid="footer-language-picker">
 							<LanguagePicker />
 						</div>
 					</div>

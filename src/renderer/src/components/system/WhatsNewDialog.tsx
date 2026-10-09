@@ -91,17 +91,17 @@ function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersio
 				<section key={section.title} className="rounded-lg border border-border bg-muted/30 p-3">
 					<h3 className="cn-font-heading text-sm font-semibold text-foreground">{section.title}</h3>
 					{section.body.length > 0 && (
-						<div className="mt-2 flex flex-col gap-2 text-[13px] leading-5 text-muted-foreground">
+						<div className="mt-2 flex flex-col gap-2 text-sm leading-5 text-muted-foreground">
 							{section.body.map(paragraph => (
 								<p key={paragraph}>{paragraph}</p>
 							))}
 						</div>
 					)}
 					{section.bullets.length > 0 && (
-						<ul className="mt-2 flex flex-col gap-1.5 text-[13px] leading-5 text-muted-foreground">
+						<ul className="mt-2 flex flex-col gap-1.5 text-sm leading-5 text-muted-foreground">
 							{section.bullets.map(bullet => (
 								<li key={bullet} className="flex gap-2">
-									<span className="mt-2 size-1.5 shrink-0 rounded-full bg-[var(--brand)]" aria-hidden />
+									<span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
 									<span>{bullet}</span>
 								</li>
 							))}

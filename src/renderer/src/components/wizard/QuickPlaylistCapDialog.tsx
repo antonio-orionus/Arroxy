@@ -37,7 +37,7 @@ export function QuickPlaylistCapDialog(): ReactNode {
 				</DialogHeader>
 
 				<div className="rounded-lg border border-border bg-background/30 p-3">
-					<p className="mb-2 text-[12px] font-semibold text-foreground">Change load limit</p>
+					<p className="mb-2 text-xs font-semibold text-foreground">Change load limit</p>
 					<PlaylistProbeLimitSelector
 						testId="quick-playlist-cap-probe-limit"
 						showCurrent={false}

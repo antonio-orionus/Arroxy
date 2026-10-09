@@ -1024,6 +1024,11 @@ body {
 	--font-heading: var(--font-sans);
 	--color-border-strong: var(--border-strong);
 	--color-subtle-foreground: var(--text-subtle);
+	/* Scoped to the Quick Download / profile signature control. */
+	--color-quick-card-ink: var(--quick-card-ink);
+	--color-quick-card-muted: var(--quick-card-muted);
+	--color-quick-selector-ink: var(--quick-selector-ink);
+	--color-quick-selector-muted: var(--quick-selector-muted);
 	--color-success: var(--success);
 	--color-warning: var(--warning);
 	--color-info: var(--info);

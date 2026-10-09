@@ -186,7 +186,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							<ToggleGroupItem value="file">{t('wizard.url.cookies.sourceFile')}</ToggleGroupItem>
 							<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 						</ToggleGroup>
-						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-caption">
 							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
 								{t('wizard.url.cookies.helpLink')}
 							</Button>
@@ -207,7 +207,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 								{t('wizard.url.cookies.fileLabel')}
 							</FieldLabel>
 							<InputGroup className="h-9">
-								<InputGroupInput id="profiles-settings-cookies-path" readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder={t('wizard.url.cookies.placeholder')} className="text-[12px] font-mono" data-testid="profiles-settings-cookies-path" />
+								<InputGroupInput id="profiles-settings-cookies-path" readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder={t('wizard.url.cookies.placeholder')} className="text-xs font-mono" data-testid="profiles-settings-cookies-path" />
 								<InputGroupAddon align="inline-end">
 									<InputGroupButton type="button" onClick={() => void chooseCookiesFile()}>
 										{t('wizard.url.cookies.choose')}
@@ -256,7 +256,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							<FieldDescription>{t('wizard.url.proxy.description')}</FieldDescription>
 						</FieldContent>
 						<InputGroup className="h-9">
-							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-[12px] font-mono" data-testid="profiles-settings-proxy-url" />
+							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-xs font-mono" data-testid="profiles-settings-proxy-url" />
 							<InputGroupAddon align="inline-end">
 								<InputGroupButton type="button" onClick={() => void setProxyUrl('')} disabled={!proxyUrl}>
 									{t('wizard.url.proxy.clear')}
@@ -298,7 +298,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							<PopoverContent align="end" sideOffset={8} className="w-64">
 								<div className="flex flex-col gap-1">
 									<SectionLabel>{t('wizard.url.limitRate.label')}</SectionLabel>
-									<p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.activeWarning')}</p>
+									<p className="text-caption text-subtle-foreground">{t('wizard.url.limitRate.activeWarning')}</p>
 								</div>
 								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
 							</PopoverContent>

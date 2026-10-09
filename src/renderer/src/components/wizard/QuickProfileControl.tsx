@@ -60,7 +60,7 @@ export function QuickProfileControl({
 	const hasDestination = !compact && Boolean(destination?.trim())
 	const clusterTestId = testIdPrefix === 'profiles' ? 'profiles-quick-preview' : 'bulk-quick-profile-preview'
 	return (
-		<div className={cn('quick-profile-cluster flex w-full flex-col overflow-hidden rounded-[1.25rem] md:flex-row', compact ? 'md:min-h-[5rem]' : hasDestination ? 'md:min-h-[8.5rem]' : 'md:min-h-[6.5rem]')} data-linked-control="quick-profile" data-testid={clusterTestId}>
+		<div className={cn('quick-profile-cluster flex w-full flex-col overflow-hidden rounded-xl md:flex-row', compact ? 'md:min-h-[5rem]' : hasDestination ? 'md:min-h-[8.5rem]' : 'md:min-h-[6.5rem]')} data-linked-control="quick-profile" data-testid={clusterTestId}>
 			<button
 				type="button"
 				disabled={disabled}
@@ -80,12 +80,12 @@ export function QuickProfileControl({
 				<span className={cn('icon-tile quick-icon-tile relative grid shrink-0 place-items-center rounded-xl [&_svg]:size-6', compact ? 'size-11' : 'size-12 md:size-14 md:[&_svg]:size-7')}>{preparing ? <Spinner aria-hidden className={compact ? 'size-5' : 'size-6 md:size-7'} /> : <Download aria-hidden />}</span>
 				<span className="relative flex min-w-0 flex-col">
 					<span className={compact ? 'text-title' : 'text-headline'}>{preparing ? `${t('wizard.url.quickPreparing')}…` : t('wizard.url.quickDownload')}</span>
-					<span className={cn('mt-1 block truncate font-medium leading-snug text-[var(--quick-card-muted)]', compact ? 'text-xs' : 'text-sm md:whitespace-nowrap')}>{t('wizard.url.quickDownloadTooltip', {profileName: activeProfile.name})}</span>
+					<span className={cn('mt-1 block truncate font-medium leading-snug text-quick-card-muted', compact ? 'text-xs' : 'text-sm md:whitespace-nowrap')}>{t('wizard.url.quickDownloadTooltip', {profileName: activeProfile.name})}</span>
 					{showHotkeyHint ? (
 						<Tooltip>
 							<TooltipTrigger
 								render={props => (
-									<span {...props} aria-label={`${t('wizard.url.hotkey.hintLabel')} ${spokenChord.join(' ')}`} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] font-medium text-[var(--quick-card-muted)]">
+									<span {...props} aria-label={`${t('wizard.url.hotkey.hintLabel')} ${spokenChord.join(' ')}`} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-caption font-medium text-quick-card-muted">
 										<span>{t('wizard.url.hotkey.hintLabel')}</span>
 										<KbdGroup aria-hidden="true">
 											{chordKeys.map(key => (
@@ -104,7 +104,7 @@ export function QuickProfileControl({
 						</Tooltip>
 					) : null}
 				</span>
-				<ChevronRight className={cn('relative ms-auto shrink-0 text-[var(--quick-card-ink)] opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5', compact ? 'size-5' : 'size-5 md:size-6')} aria-hidden />
+				<ChevronRight className={cn('relative ms-auto shrink-0 text-quick-card-ink opacity-85 transition-transform duration-200 group-hover/quick:translate-x-0.5', compact ? 'size-5' : 'size-5 md:size-6')} aria-hidden />
 			</button>
 
 			<ProfileMenu
@@ -173,7 +173,7 @@ function ProfileMenu({
 		<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 			<div
 				className={cn(
-					'quick-profile-selector relative flex min-w-0 flex-1 flex-col whitespace-normal rounded-[1rem] text-left',
+					'quick-profile-selector relative flex min-w-0 flex-1 flex-col whitespace-normal rounded-lg text-left',
 					compact ? 'm-1.5 min-h-[4.25rem] p-1.5 md:basis-[48%]' : destinationLabel ? 'm-2 min-h-[7.75rem] p-3 md:m-2 md:basis-[50%] md:self-stretch lg:m-3 lg:basis-[54%] lg:p-3.5 xl:basis-[56%]' : 'm-2 min-h-[5.5rem] p-2 md:m-2 md:min-h-0 md:basis-[50%] md:self-stretch lg:m-3 lg:basis-[54%] lg:p-2 xl:basis-[56%]'
 				)}
 				data-testid={`${testIdPrefix}-active-profile-card`}
@@ -213,7 +213,7 @@ function ProfileMenu({
 									size="icon"
 									aria-label={editActiveProfileLabel}
 									onClick={() => closeAndRun(() => onEditProfile(activeProfile))}
-									className={cn('quick-profile-inline-action shrink-0 rounded-full text-[var(--quick-selector-muted)] hover:text-[var(--quick-selector-ink)]', compact ? 'size-9' : 'size-10')}
+									className={cn('quick-profile-inline-action shrink-0 rounded-full text-quick-selector-muted hover:text-quick-selector-ink', compact ? 'size-9' : 'size-10')}
 									data-testid={`${testIdPrefix}-edit-active-profile`}
 								>
 									<PenLine aria-hidden />
@@ -225,12 +225,12 @@ function ProfileMenu({
 				</div>
 				{destinationLabel ? (
 					<div className="quick-profile-destination relative mt-2 flex min-w-0 items-center gap-2 rounded-xl px-2 py-2" data-testid={`${testIdPrefix}-profile-destination`}>
-						<Folder className="size-4 shrink-0 text-[var(--quick-selector-muted)]" aria-hidden />
+						<Folder className="size-4 shrink-0 text-quick-selector-muted" aria-hidden />
 						<span className="min-w-0 flex-1">
-							<span className="block truncate text-[11px] font-medium leading-snug text-[var(--quick-selector-muted)]" title={destinationDetailLabel}>
+							<span className="block truncate text-caption font-medium leading-snug text-quick-selector-muted" title={destinationDetailLabel}>
 								{destinationDetailLabel}
 							</span>
-							<span className="mt-1 block truncate font-mono text-[12px] leading-tight text-[var(--quick-selector-ink)]" title={destinationLabel}>
+							<span className="mt-1 block truncate font-mono text-xs leading-tight text-quick-selector-ink" title={destinationLabel}>
 								{destinationLabel}
 							</span>
 						</span>
@@ -245,7 +245,7 @@ function ProfileMenu({
 											size="icon-sm"
 											aria-label={changeGlobalDestinationLabel}
 											onClick={() => closeAndRun(onChangeGlobalDestination)}
-											className="quick-profile-inline-action shrink-0 text-[var(--quick-selector-muted)] hover:text-[var(--quick-selector-ink)]"
+											className="quick-profile-inline-action shrink-0 text-quick-selector-muted hover:text-quick-selector-ink"
 											data-testid={`${testIdPrefix}-change-global-destination`}
 										>
 											<FolderCog aria-hidden />
@@ -267,12 +267,12 @@ function ProfileMenu({
 				// Preserve the measured grid while the menu animates closed.
 				keepMounted
 				sideOffset={10}
-				className="relative max-h-[calc(100vh-6rem)] w-[min(50rem,calc(100vw-2rem))] gap-3 overflow-y-auto border-[var(--border-strong)] p-3 before:absolute before:-top-2 before:right-8 before:size-4 before:rotate-45 before:border-s before:border-t before:border-[var(--border-strong)] before:bg-popover"
+				className="relative max-h-[calc(100vh-6rem)] w-[min(50rem,calc(100vw-2rem))] gap-3 overflow-y-auto border-border-strong p-3 before:absolute before:-top-2 before:right-8 before:size-4 before:rotate-45 before:border-s before:border-t before:border-border-strong before:bg-popover"
 				data-testid={menuTestId}
 			>
 				<PopoverHeader>
 					<PopoverTitle className="text-base font-semibold">{t('wizard.url.profile.menuTitle')}</PopoverTitle>
-					<PopoverDescription className="text-[13px] leading-relaxed">{t('wizard.url.profile.menuDescription')}</PopoverDescription>
+					<PopoverDescription className="text-sm leading-relaxed">{t('wizard.url.profile.menuDescription')}</PopoverDescription>
 				</PopoverHeader>
 				<Separator />
 				<div className="grid grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2" data-testid={`${testIdPrefix}-profile-menu-grid`}>
@@ -288,15 +288,16 @@ function ProfileMenu({
 								}}
 								aria-pressed={active}
 								title={`${profile.name}: ${label}`}
-								className={cn('h-auto min-h-12 w-full justify-start gap-2.5 whitespace-normal rounded-md px-2.5 py-2 text-left', active ? 'border-[var(--brand)] bg-[var(--brand-dim)] shadow-[0_0_0_1px_var(--brand-dim)]' : 'bg-muted/20 hover:border-[var(--border-strong)]')}
+								data-selected={active || undefined}
+								className="choice-surface h-auto min-h-12 w-full justify-start gap-2.5 rounded-md px-2.5 py-2 text-start whitespace-normal"
 								data-testid={`${testIdPrefix}-profile-option-${profile.id}`}
 							>
-								<Icon className="shrink-0 text-[var(--brand)]" aria-hidden />
+								<Icon className="shrink-0 text-primary" aria-hidden />
 								<span className="min-w-0 flex-1">
-									<span className="block truncate text-[13px] font-semibold text-foreground">{profile.name}</span>
-									<span className="block truncate text-[11px] font-normal leading-tight text-[var(--text-subtle)]">{label}</span>
+									<span className="block truncate text-sm font-semibold text-foreground">{profile.name}</span>
+									<span className="block truncate text-caption font-normal leading-tight text-subtle-foreground">{label}</span>
 								</span>
-								{active ? <Check className="shrink-0 text-[var(--brand)]" aria-hidden /> : null}
+								{active ? <Check className="shrink-0 text-primary" aria-hidden /> : null}
 							</Button>
 						)
 					})}

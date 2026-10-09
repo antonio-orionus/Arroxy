@@ -33,7 +33,7 @@ function QualityBadge({quality, label}: {quality: AudioTrackQuality; label: stri
 		<Tooltip>
 			<TooltipTrigger
 				render={props => (
-					<span {...props} aria-label={label} data-testid={`audio-quality-${quality}`} className={cn('inline-flex size-[17px] shrink-0 items-center justify-center rounded-full border border-[var(--border-strong)] bg-white/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] dark:bg-white/10', QUALITY_ICON_CLASS[quality])}>
+					<span {...props} aria-label={label} data-testid={`audio-quality-${quality}`} className={cn('inline-flex size-4.5 shrink-0 items-center justify-center rounded-full border border-border-strong bg-background/40', QUALITY_ICON_CLASS[quality])}>
 						<span aria-hidden className="flex h-[10px] items-end gap-[1px]">
 							{[1, 2, 3].map(index => (
 								<span key={index} className={cn('w-[2px] rounded-full bg-current transition-opacity', index === 1 && 'h-[4px]', index === 2 && 'h-[7px]', index === 3 && 'h-[10px]', index > activeBars && 'opacity-20')} />

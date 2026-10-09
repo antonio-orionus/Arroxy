@@ -70,7 +70,7 @@ export function SelectableVirtualTable<T>({
 }: SelectableVirtualTableProps<T>): ReactNode {
 	const columnClass = columnClassName ?? ((): undefined => undefined)
 	return (
-		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-[var(--border-strong)] bg-background/25" data-testid={scrollTestId}>
+		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25" data-testid={scrollTestId}>
 			<Table className="w-full table-fixed">
 				<TableHeader className="sticky top-0 z-10 bg-card/95 backdrop-blur">
 					{table.getHeaderGroups().map(headerGroup => (

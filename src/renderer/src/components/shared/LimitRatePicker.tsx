@@ -91,7 +91,7 @@ export function LimitRatePicker({value, onChange}: Props): ReactNode {
 			</ToggleGroup>
 			{customMode && (
 				<div className="flex flex-col gap-1">
-					<Input key={customInputKey} type="text" defaultValue={customInitialValue} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-[12px] font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
+					<Input key={customInputKey} type="text" defaultValue={customInitialValue} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-xs font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
 					{customError && <FieldError data-testid="limit-rate-custom-error">{t('wizard.url.limitRate.invalid')}</FieldError>}
 				</div>
 			)}

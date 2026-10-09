@@ -116,7 +116,7 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 				</SelectContent>
 			</Select>
 			{showCurrent && (
-				<p className="text-[11px] text-[var(--text-subtle)]" data-testid={`${testId}-current`}>
+				<p className="text-caption text-subtle-foreground" data-testid={`${testId}-current`}>
 					{t('wizard.url.playlistProbeLimit.current', {count: playlistLimit})}
 				</p>
 			)}

@@ -103,11 +103,11 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 	}
 
 	return (
-		<section className="rounded-md border border-[var(--border-strong)] bg-card/40 px-3 py-2.5" data-testid="playlist-scope-control">
+		<section className="rounded-md border border-border-strong bg-card/40 px-3 py-2.5" data-testid="playlist-scope-control">
 			<div className="flex items-center gap-3">
 				<div className="min-w-0 flex-1">
 					<SectionLabel>{copy(t, 'wizard.url.playlistScope.label', 'Playlist scope')}</SectionLabel>
-					<p className="mt-1 truncate text-[12px] text-foreground" data-testid="playlist-scope-summary">
+					<p className="mt-1 truncate text-xs text-foreground" data-testid="playlist-scope-summary">
 						{scopeSummary(playlistScope, appLimit, t)}
 					</p>
 				</div>
@@ -162,7 +162,7 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 								{mode === 'range' && (
 									<div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
 										<Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={fromDraft} onChange={event => setFromDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-from" />
-										<span className="text-[11px] text-[var(--text-subtle)]">{copy(t, 'wizard.url.playlistScope.to', 'to')}</span>
+										<span className="text-caption text-subtle-foreground">{copy(t, 'wizard.url.playlistScope.to', 'to')}</span>
 										<Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={toDraft} onChange={event => setToDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-to" />
 									</div>
 								)}

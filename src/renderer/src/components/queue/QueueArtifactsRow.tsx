@@ -38,20 +38,20 @@ export function QueueArtifactsRow({columnsLength, item}: {columnsLength: number;
 	return (
 		<TableRow data-testid={`queue-artifacts-${item.id}`} className="bg-muted/20 hover:bg-muted/20">
 			<TableCell colSpan={columnsLength} className="min-w-0 overflow-hidden whitespace-normal px-3 py-2">
-				<div className="ms-8 grid min-w-0 max-w-full gap-1 overflow-hidden border-s border-[var(--border-strong)] ps-3 sm:ms-11">
+				<div className="ms-8 grid min-w-0 max-w-full gap-1 overflow-hidden border-s border-border-strong ps-3 sm:ms-11">
 					{artifacts.map(artifact => {
 						const size = formatArtifactSize(artifact.sizeBytes)
 						return (
-							<div key={artifact.id} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2 text-[12px] text-muted-foreground">
+							<div key={artifact.id} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2 text-xs text-muted-foreground">
 								<Badge variant="secondary" size="sm" className="shrink-0 uppercase tracking-wide">
 									{artifactKindLabel(artifact.kind, t)}
 								</Badge>
 								<span className="block min-w-0 truncate font-mono text-foreground" title={artifact.path}>
 									{artifact.fileName}
 								</span>
-								{size ? <span className="shrink-0 text-[var(--text-subtle)]">{size}</span> : null}
+								{size ? <span className="shrink-0 text-subtle-foreground">{size}</span> : null}
 								{artifact.missing ? (
-									<span className="inline-flex shrink-0 items-center gap-1 text-[var(--color-status-error)]">
+									<span className="inline-flex shrink-0 items-center gap-1 text-destructive">
 										<AlertTriangle size={11} aria-hidden />
 										{t('queue.artifact.missing')}
 									</span>

@@ -61,7 +61,7 @@ function PlaylistProbeSkeletonRows({showThumbnail}: {showThumbnail: boolean}): R
 
 function PlaylistProbeLoadingStatus({loadingLabel, phaseLabel, progressLabel, progressValue, limitHint}: {loadingLabel: string; phaseLabel: string | null; progressLabel: string | null; progressValue: number | null; limitHint: string | null}): ReactNode {
 	return (
-		<div className="rounded-md border border-[var(--border-strong)] bg-card/40 px-3 py-2.5 text-sm" data-testid="playlist-probe-loading" aria-live="polite">
+		<div className="rounded-md border border-border-strong bg-card/40 px-3 py-2.5 text-sm" data-testid="playlist-probe-loading" aria-live="polite">
 			<div className="flex items-center justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
 					<IconTile size="sm">
@@ -456,12 +456,12 @@ export function StepPlaylistItems(): ReactNode {
 																<span className="min-w-0 flex-1">
 																	<span className="block truncate text-sm">{entry.title}</span>
 																	{isBulk ? (
-																		<span className="block truncate font-mono text-[11px] text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
+																		<span className="block truncate font-mono text-caption text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
 																			{bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
 																			{entry.url}
 																		</span>
 																	) : bulkRowStatusKey ? (
-																		<span className="flex items-center gap-1.5 truncate text-[11px] text-muted-foreground" data-testid={`playlist-row-status-${entry.id}`}>
+																		<span className="flex items-center gap-1.5 truncate text-caption text-muted-foreground" data-testid={`playlist-row-status-${entry.id}`}>
 																			{bulkRowStatus === 'resolving' ? <span className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : null}
 																			{t(bulkRowStatusKey)}
 																		</span>

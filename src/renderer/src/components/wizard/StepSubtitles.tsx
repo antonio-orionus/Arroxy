@@ -84,7 +84,7 @@ export function StepSubtitles(): ReactNode {
 					{wizardSubtitleMode === 'embed' ? (
 						<>
 							<span />
-							<p data-testid="subtitle-embed-note" className="text-[11px] text-[var(--text-subtle)] leading-snug">
+							<p data-testid="subtitle-embed-note" className="text-caption text-subtle-foreground leading-snug">
 								{t('wizard.subtitles.embedNote')}
 							</p>
 						</>
@@ -117,7 +117,7 @@ export function StepSubtitles(): ReactNode {
 					{showAutoAssNote && (
 						<>
 							<span />
-							<p data-testid="subtitle-auto-ass-note" className="text-[11px] text-[var(--text-subtle)] leading-snug">
+							<p data-testid="subtitle-auto-ass-note" className="text-caption text-subtle-foreground leading-snug">
 								{t('wizard.subtitles.autoAssNote')}
 							</p>
 						</>
@@ -140,7 +140,7 @@ export function StepSubtitles(): ReactNode {
 					<div className="flex items-center gap-2 min-h-[28px]">
 						<div className="flex flex-1 flex-wrap gap-1.5 overflow-hidden">
 							{selectedItems.length === 0 ? (
-								<span className="text-[11px] italic text-[var(--text-subtle)]">{t('wizard.subtitles.noSelected')}</span>
+								<span className="text-caption italic text-subtle-foreground">{t('wizard.subtitles.noSelected')}</span>
 							) : (
 								selectedItems.map(({code, displayName}) => (
 									<Badge key={code} className="h-6 ps-2.5 pe-1">
@@ -162,7 +162,7 @@ export function StepSubtitles(): ReactNode {
 							)}
 						</div>
 						<div className="flex items-center gap-2 shrink-0">
-							{selectedCount > 0 && <span className="text-[11px] text-[var(--text-subtle)]">{selectedCount}</span>}
+							{selectedCount > 0 && <span className="text-caption text-subtle-foreground">{selectedCount}</span>}
 							{selectedCount > 0 && (
 								<Button type="button" variant="link" size="inline" onClick={clearAll} className="text-caption">
 									{t('wizard.subtitles.clearAll')}

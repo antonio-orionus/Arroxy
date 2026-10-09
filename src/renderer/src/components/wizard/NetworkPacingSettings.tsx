@@ -68,7 +68,7 @@ export function NetworkPacingSettings(): ReactNode {
 				<FieldDescription>{t('wizard.url.networkPacing.description')}</FieldDescription>
 			</FieldContent>
 
-			<div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5">
+			<div className="flex flex-col gap-1.5 rounded-md border border-border-strong bg-background/35 p-2.5">
 				<div className="flex items-center gap-1">
 					<SectionLabel render={<span id="network-pacing-preset-label" />}>{t('wizard.url.networkPacing.presetLabel')}</SectionLabel>
 					<HelpTip testId="network-pacing-tooltip" label={t('wizard.url.networkPacing.presetLabel')}>
@@ -102,14 +102,14 @@ export function NetworkPacingSettings(): ReactNode {
 					))}
 				</ToggleGroup>
 				{pacingPreset !== 'custom' && (
-					<p className="text-[11px] text-[var(--text-subtle)]" data-testid="network-pacing-summary">
+					<p className="text-caption text-subtle-foreground" data-testid="network-pacing-summary">
 						{t('wizard.url.networkPacing.summary', presetSummaryValues(pacingPreset))}
 					</p>
 				)}
 			</div>
 
 			{pacingPreset === 'custom' && (
-				<FieldGroup className="grid grid-cols-2 gap-2 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="network-pacing-custom">
+				<FieldGroup className="grid grid-cols-2 gap-2 rounded-md border border-border-strong bg-background/35 p-2.5" data-testid="network-pacing-custom">
 					{CUSTOM_FIELDS.map(field => (
 						<Field key={field.key} className="gap-1">
 							<FieldLabel htmlFor={field.testId} size="sm">
@@ -124,11 +124,11 @@ export function NetworkPacingSettings(): ReactNode {
 									onChange={e => onFieldChange(field.key, e.target.value)}
 									onBlur={() => onFieldBlur(field.key)}
 									placeholder={String(NETWORK_PACING_PRESET_VALUES.balanced[field.labelKey] ?? '')}
-									className="text-[12px] font-mono"
+									className="text-xs font-mono"
 									data-testid={field.testId}
 								/>
 								<InputGroupAddon align="inline-end">
-									<InputGroupText className="text-[11px]">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</InputGroupText>
+									<InputGroupText className="text-caption">{t(`wizard.url.networkPacing.units.${field.unitKey}`)}</InputGroupText>
 								</InputGroupAddon>
 							</InputGroup>
 						</Field>

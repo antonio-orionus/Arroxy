@@ -59,10 +59,10 @@ export function AboutDialog(): ReactNode {
 
 				<div className="flex flex-col items-center gap-2 text-xs text-muted-foreground">
 					<span>{t('about.licenseLine')}</span>
-					<button type="button" onClick={() => openExternalUrl(NOTICES_URL)} className="inline-flex items-center gap-1 underline underline-offset-2 hover:text-foreground transition-colors" data-testid="about-link-notices">
+					<Button type="button" variant="link" size="inline" onClick={() => openExternalUrl(NOTICES_URL)} className="text-muted-foreground underline hover:text-foreground" data-testid="about-link-notices">
 						{t('about.thirdPartyNotices')}
-						<ExternalLink size={11} aria-hidden />
-					</button>
+						<ExternalLink className="size-3" aria-hidden />
+					</Button>
 				</div>
 			</DialogContent>
 		</Dialog>

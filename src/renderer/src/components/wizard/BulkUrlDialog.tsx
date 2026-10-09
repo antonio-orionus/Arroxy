@@ -126,7 +126,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 							<ItemGroup className="gap-0 divide-y divide-border" data-size="xs">
 								{preview.previewAccepted.map((item, index) => (
 									<Item key={item.url} size="xs" className="rounded-none border-0 px-3 py-2">
-										<ItemMedia variant="icon" className="text-[var(--brand)]">
+										<ItemMedia variant="icon" className="text-primary">
 											<Link2 />
 										</ItemMedia>
 										<span className="shrink-0 font-mono text-xs text-muted-foreground">{index + 1}</span>
@@ -141,7 +141,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 									</Item>
 								))}
 								{preview.previewRejected.map(item => (
-									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-[var(--color-status-paused)]">
+									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-warning">
 										<ItemMedia variant="icon">
 											<AlertTriangle />
 										</ItemMedia>

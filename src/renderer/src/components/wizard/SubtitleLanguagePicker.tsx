@@ -33,12 +33,12 @@ export function SubtitleLanguagePicker({id, value, onValueChange, invalid = fals
 					{(codes: string[]) => (
 						<>
 							{codes.map(code => (
-								<ComboboxChip key={code} removeLabel={t('wizard.profileEditor.action.removeLanguage', {code: labelFor(code)})} className="text-[12px]">
+								<ComboboxChip key={code} removeLabel={t('wizard.profileEditor.action.removeLanguage', {code: labelFor(code)})} className="text-xs">
 									{labelFor(code)}
-									<span className="text-[11px] font-normal text-[var(--text-subtle)]">{code}</span>
+									<span className="text-caption font-normal text-subtle-foreground">{code}</span>
 								</ComboboxChip>
 							))}
-							<ComboboxChipsInput id={id} aria-invalid={invalid || undefined} aria-describedby={describedBy} placeholder={codes.length === 0 ? t('wizard.profileEditor.note.searchLanguages') : undefined} className="text-[12px]" />
+							<ComboboxChipsInput id={id} aria-invalid={invalid || undefined} aria-describedby={describedBy} placeholder={codes.length === 0 ? t('wizard.profileEditor.note.searchLanguages') : undefined} className="text-xs" />
 						</>
 					)}
 				</ComboboxValue>
@@ -49,12 +49,12 @@ export function SubtitleLanguagePicker({id, value, onValueChange, invalid = fals
 					{(code: string) => {
 						const option = optionsByCode.get(code)
 						return (
-							<ComboboxItem key={code} value={code} className="text-[12px]" data-testid={`${optionTestIdPrefix}-${code}`}>
+							<ComboboxItem key={code} value={code} className="text-xs" data-testid={`${optionTestIdPrefix}-${code}`}>
 								{option ? (
 									<>
 										<span className="min-w-0 truncate">{option.label}</span>
-										{option.nativeName !== option.label ? <span className="min-w-0 truncate text-[var(--text-subtle)]">{option.nativeName}</span> : null}
-										<span className="ms-auto shrink-0 text-[11px] text-[var(--text-subtle)]">{code}</span>
+										{option.nativeName !== option.label ? <span className="min-w-0 truncate text-subtle-foreground">{option.nativeName}</span> : null}
+										<span className="ms-auto shrink-0 text-caption text-subtle-foreground">{code}</span>
 									</>
 								) : (
 									t('wizard.profileEditor.action.useLanguageCode', {code})

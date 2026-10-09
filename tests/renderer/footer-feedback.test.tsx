@@ -126,7 +126,7 @@ describe('Footer feedback controls', () => {
 		expect(footer.className).toContain('max-sm:px-2')
 
 		expect(screen.getByTestId('footer-left-controls').className).toContain('min-w-0')
-		expect(screen.getByTestId('footer-language-picker').className).toContain('[&_select]:max-w-[4.75rem]')
+		expect(screen.getByTestId('footer-language-picker').className).toContain('[&_[data-slot=select-trigger]]:max-w-[6rem]')
 		expect(screen.getByTestId('footer-actions').className).toContain('shrink-0')
 		expect(screen.getByTestId('btn-about').className).toContain('max-sm:hidden')
 		expect(screen.getByTestId('btn-share-label').className).toContain('max-sm:sr-only')
