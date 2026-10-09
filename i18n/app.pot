@@ -2131,6 +2131,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr ""
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr ""
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr ""
@@ -2257,6 +2261,14 @@ msgstr ""
 
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr ""
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
 msgstr ""
 
 msgctxt "wizard.profileEditor.panel.output.title"

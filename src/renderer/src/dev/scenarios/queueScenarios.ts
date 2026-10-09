@@ -11,6 +11,15 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 			return [queueItem({id: 'queue-tab-tip-1', title: 'First queued download - Downloads tab onboarding', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null})]
 		case 'queue-active':
 			return [queueItem({id: 'queue-active-1', status: QUEUE_STATUS.running, progressPercent: 42, progressDetail: 'Downloading 42%', lastJobId: 'mock-active-job'})]
+		case 'queue-parallel':
+			return [
+				queueItem({id: 'queue-parallel-1', title: 'Scenario Queue Item - parallel A', status: QUEUE_STATUS.running, progressPercent: 71, progressDetail: 'Downloading 71% · 18.4 MiB/s · ETA 0:42', formatLabel: '2160p | webm | 60fps', lastJobId: 'mock-parallel-1'}),
+				queueItem({id: 'queue-parallel-2', title: 'Scenario Queue Item - parallel B', status: QUEUE_STATUS.running, progressPercent: 38, progressDetail: 'Downloading 38% · 12.1 MiB/s · ETA 1:57', formatLabel: '1080p | mp4 | 30fps', lastJobId: 'mock-parallel-2'}),
+				queueItem({id: 'queue-parallel-3', title: 'Scenario Queue Item - parallel C', status: QUEUE_STATUS.running, progressPercent: 12, progressDetail: 'Downloading 12% · 9.6 MiB/s · ETA 3:10', formatLabel: 'm4a | AAC | 130 kbps', lastJobId: 'mock-parallel-3'}),
+				queueItem({id: 'queue-parallel-4', title: 'Scenario Queue Item - parallel D', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null}),
+				queueItem({id: 'queue-parallel-5', title: 'Scenario Queue Item - parallel E', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, finishedAt: '2026-05-31T12:00:00.000Z'}),
+				queueItem({id: 'queue-parallel-6', title: 'Scenario Queue Item - parallel F', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, finishedAt: '2026-05-31T11:52:00.000Z'})
+			]
 		case 'queue-pending':
 			return [
 				queueItem({id: 'queue-pending-1', title: 'Pending Download - Longform Interview', status: QUEUE_STATUS.pending, progressPercent: 0, progressDetail: null, lastStatus: null}),

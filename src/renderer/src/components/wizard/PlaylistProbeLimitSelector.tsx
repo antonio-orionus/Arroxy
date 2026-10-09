@@ -9,6 +9,7 @@ import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Input} from '../ui/input.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
+import {FieldError} from '../ui/field.js'
 
 interface Props {
 	testId?: string
@@ -115,7 +116,7 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 				</SelectContent>
 			</Select>
 			{showCurrent && (
-				<p className="text-[11px] text-[var(--text-subtle)]" data-testid={`${testId}-current`}>
+				<p className="text-caption text-subtle-foreground" data-testid={`${testId}-current`}>
 					{t('wizard.url.playlistProbeLimit.current', {count: playlistLimit})}
 				</p>
 			)}
@@ -127,7 +128,7 @@ export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', cla
 						<DialogDescription>{t('wizard.url.playlistProbeLimit.customDialogDescription', {min: PLAYLIST_PROBE_LIMIT_MIN, max: PLAYLIST_PROBE_LIMIT_MAX})}</DialogDescription>
 					</DialogHeader>
 					<Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={customDraft} onChange={event => setCustomDraft(event.target.value)} placeholder={String(DEFAULT_PLAYLIST_PROBE_LIMIT)} aria-invalid={customInvalid} data-testid={`${testId}-custom-input`} className="font-mono" />
-					{customInvalid && <p className="text-[11px] text-amber-500">{t('wizard.url.playlistProbeLimit.invalid')}</p>}
+					{customInvalid && <FieldError>{t('wizard.url.playlistProbeLimit.invalid')}</FieldError>}
 					<DialogFooter>
 						<Button type="button" variant="outline" onClick={() => setCustomOpen(false)}>
 							{t('wizard.url.playlistProbeLimit.customDialogCancel')}

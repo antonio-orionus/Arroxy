@@ -1,0 +1,9 @@
+{
+	"App.tsx": {"arbitrary-shadow": 1, "raw-control": 2},
+	"components/layout/TitleBar.tsx": {"arbitrary-color": 1, "raw-control": 4},
+	"components/queue/QueueManagerToolbar.tsx": {"raw-control": 1},
+	"components/queue/useQueueManagerColumns.tsx": {"raw-control": 1},
+	"components/wizard/DownloadProfilesHome.tsx": {"arbitrary-color": 1, "raw-control": 1},
+	"components/wizard/QuickProfileControl.tsx": {"raw-control": 1},
+	"components/wizard/StepPlaylistItems.tsx": {"arbitrary-radius": 1}
+}

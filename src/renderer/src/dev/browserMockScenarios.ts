@@ -3,7 +3,7 @@ import {YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfileRef, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
-import type {AppState, SetState} from '../store/types.js'
+import type {AppState} from '../store/types.js'
 import {bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
 import {bilibiliHydrationVideo, buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
 import {buildQueueItems} from './scenarios/queueScenarios.js'
@@ -57,6 +57,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'update-none',
 	'queue-tab-tip',
 	'queue-active',
+	'queue-parallel',
 	'queue-pending',
 	'queue-scheduler-paused',
 	'queue-mixed-selection',
@@ -117,7 +118,8 @@ export interface ScenarioWorkbenchStore {
 	setWizardUrl: AppState['setWizardUrl']
 	submitUrl: AppState['submitUrl']
 	quickDownload: AppState['quickDownload']
-	setState: SetState
+	// Scenarios only ever merge plain patches into the store.
+	setState: (patch: Partial<AppState>) => void
 }
 
 export {bilibiliHydrationVideo, bulkStressFixture, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload}
@@ -187,6 +189,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'update-none', group: 'Updates', title: 'No update', description: 'No update available - banner is hidden.', kind: 'update'},
 	{id: 'queue-tab-tip', group: 'Queue', title: 'Downloads tab first-run tip', description: 'Mascot cue that points users to the new Downloads tab after their first queued item.', kind: 'queue'},
 	{id: 'queue-active', group: 'Queue', title: 'Queue active', description: 'Running work, progress, and Downloads tab activity animation.', kind: 'queue'},
+	{id: 'queue-parallel', group: 'Queue', title: 'Queue parallel', description: 'Three downloads in flight at different progress, one waiting, two finished.', kind: 'queue'},
 	{id: 'queue-pending', group: 'Queue', title: 'Queue pending', description: 'Pending-only rows where Set location is enabled.', kind: 'queue'},
 	{id: 'queue-scheduler-paused', group: 'Queue', title: 'Queue scheduler paused', description: 'Globally paused scheduler: pending rows wait behind the paused banner; Resume queue starts the mock queue.', kind: 'queue'},
 	{id: 'queue-mixed-selection', group: 'Queue', title: 'Queue mixed selection', description: 'Mixed statuses for selected-action availability and disabled hints.', kind: 'queue'},

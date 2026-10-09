@@ -11,6 +11,7 @@ import {VideoColumn} from './format/VideoColumn.js'
 import {BotWallNotice} from './format/BotWallNotice.js'
 import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
+import {SpeechBubble} from '../shared/SpeechBubble.js'
 
 export function StepFormatSelect(): ReactNode {
 	const {t} = useTranslation()
@@ -41,15 +42,13 @@ export function StepFormatSelect(): ReactNode {
 	if (formatsLoading) {
 		return (
 			<div className="wizard-step flex flex-col items-center gap-4 py-8">
-				<div className="rounded-2xl bg-[var(--brand-dim)] p-4 shadow-[0_0_28px_var(--brand-glow)]">
+				<div className="rounded-2xl bg-primary/12 p-4 shadow-glow">
 					<img src={downloadingImg} alt="" aria-hidden className="size-28 object-contain" />
 				</div>
-				<div className="relative rounded-xl border border-border bg-secondary px-4 py-2.5 text-sm text-muted-foreground leading-relaxed shadow-sm text-center max-w-[260px]">
-					<span aria-hidden className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '7px solid var(--border)'}} />
-					<span aria-hidden className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '7px solid var(--secondary)'}} />
+				<SpeechBubble tail="top" className="max-w-64 text-center text-sm text-muted-foreground">
 					{t('wizard.formats.sniffing')}
-				</div>
-				<div className="flex items-center gap-2 text-xs text-[var(--text-subtle)]">
+				</SpeechBubble>
+				<div className="flex items-center gap-2 text-xs text-subtle-foreground">
 					<Spinner aria-label={t('wizard.formats.loadingAria')} />
 					<span>{t('wizard.formats.loadingHint')}</span>
 				</div>

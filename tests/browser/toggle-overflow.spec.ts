@@ -27,6 +27,7 @@ const SCREENS: readonly Screen[] = [
 	{name: 'settings', query: '', hash: 'settings', ready: '[data-testid="native-audio-preference"]'},
 	{name: 'settings-limit-rate', query: '', hash: 'settings', ready: '[data-testid="profiles-settings-limit-rate-trigger"]', open: {trigger: '[data-testid="profiles-settings-limit-rate-trigger"]', wait: '[data-testid="limit-rate-picker"]'}},
 	{name: 'wizard-formats', query: 'scenario=single-normal&mockStep=formats', hash: '', ready: '[data-testid="step-formats"]'},
+	{name: 'wizard-formats-multilingual-audio', query: 'scenario=probe-audio-multilingual', hash: '', ready: '[data-testid="step-formats"]'},
 	{name: 'wizard-subtitles', query: 'scenario=single-normal&mockStep=subtitles', hash: '', ready: '[data-testid="step-subtitles"]'},
 	{name: 'wizard-sponsorblock', query: 'scenario=single-normal&mockStep=sponsorblock', hash: '', ready: '[data-testid="step-sponsorblock"]'},
 	{name: 'wizard-folder', query: 'scenario=single-normal&mockStep=folder', hash: '', ready: '[data-testid="step-folder"]'},
@@ -89,18 +90,28 @@ async function overflowingGroups(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
+// Radio rows (ChoiceRow): every row stays inside its group, and the title and
+// track details stay inside the row, in both directions.
 async function overflowingRadioTitles(page: Page): Promise<OverflowReport[]> {
 	return page.evaluate(() => {
 		const found: {label: string; overflowPx: number; spillPx: number}[] = []
-		for (const node of document.querySelectorAll('[role="radio"] [data-slot="item-title"]')) {
-			const el = node as HTMLElement
-			const row = el.closest('[role="radio"]')
-			if (!row) continue
-			const rect = el.getBoundingClientRect()
-			if (rect.width === 0) continue
-			const rowRect = row.getBoundingClientRect()
-			const spillPx = Math.round(Math.max(rect.right - rowRect.right, rowRect.left - rect.left))
-			if (spillPx > 1) found.push({label: (el.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx})
+		const spill = (inner: DOMRect, outer: DOMRect): number => Math.round(Math.max(inner.right - outer.right, outer.left - inner.left))
+		for (const group of document.querySelectorAll<HTMLElement>('[data-slot="radio-group"]')) {
+			const groupRect = group.getBoundingClientRect()
+			if (groupRect.width === 0) continue
+			for (const row of group.querySelectorAll<HTMLElement>('[data-slot="field-label"]:has([data-slot="radio-group-item"])')) {
+				const rowRect = row.getBoundingClientRect()
+				if (rowRect.width === 0) continue
+				const rowSpill = spill(rowRect, groupRect)
+				if (rowSpill > 1) found.push({label: (row.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: rowSpill})
+				// Skip Base UI's visually hidden native input, which is positioned off-row by design.
+				for (const part of row.querySelectorAll<HTMLElement>('[data-slot="field"] > :not(input)')) {
+					const partRect = part.getBoundingClientRect()
+					if (partRect.width === 0) continue
+					const partSpill = spill(partRect, rowRect)
+					if (partSpill > 1) found.push({label: (part.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: partSpill})
+				}
+			}
 		}
 		return found
 	})

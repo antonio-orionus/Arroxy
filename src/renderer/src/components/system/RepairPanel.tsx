@@ -4,7 +4,9 @@ import {AlertTriangle, FolderOpen, RefreshCw, FileSearch, RotateCcw, X, PackageP
 import type {BinaryOverrides, DependencyDiagnostic, DependencyFailureKind, DependencyId} from '@shared/types.js'
 import {FAILURE_CODE} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
+import {Card} from '../ui/card.js'
 
 interface Props {
 	diagnostics: Record<DependencyId, DependencyDiagnostic>
@@ -53,7 +55,7 @@ export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 
 	return (
 		<div className="mt-4 max-w-md">
-			<div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+			<div className="flex items-center gap-2 text-warning">
 				<AlertTriangle size={16} />
 				<span className="font-medium">{t('repair.title')}</span>
 			</div>
@@ -71,19 +73,19 @@ export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 					const code = knownKind ? FAILURE_CODE[knownKind] : diag.failure ? 'ARX-???' : null
 					const technicalDetail = diag.failure ? `${diag.failure.kind}${diag.failure.osCode ? ` (${diag.failure.osCode})` : ''}` : 'failed'
 					return (
-						<li key={id} className="rounded border border-border bg-background/50 p-3">
+						<Card key={id} variant="inset" size="sm" render={<li />} className="gap-1 px-3">
 							<div className="flex items-center justify-between gap-2">
 								<span className="font-medium">{t(DEPENDENCY_LABEL_KEY[id])}</span>
 								{code ? (
-									<span className="rounded bg-amber-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-amber-900 dark:bg-amber-900/40 dark:text-amber-200" title={technicalDetail}>
+									<Badge variant="warning" size="sm" className="font-mono" title={technicalDetail}>
 										{code}
-									</span>
+									</Badge>
 								) : (
 									<span className="text-xs text-muted-foreground">failed</span>
 								)}
 							</div>
-							<p className="mt-1 text-xs text-muted-foreground">{hint}</p>
-							<p className="mt-1 font-mono text-[10px] text-muted-foreground/70">{technicalDetail}</p>
+							<p className="text-xs text-muted-foreground">{hint}</p>
+							<p className="font-mono text-caption text-subtle-foreground">{technicalDetail}</p>
 							<div className="mt-2 flex flex-wrap gap-2">
 								<Button size="sm" variant="outline" onClick={() => void pickAndOverride(id)} disabled={warmupRunning}>
 									<FileSearch size={14} /> {t('repair.actions.chooseExecutable')}
@@ -104,7 +106,7 @@ export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 									</Button>
 								)}
 							</div>
-						</li>
+						</Card>
 					)
 				})}
 			</ul>

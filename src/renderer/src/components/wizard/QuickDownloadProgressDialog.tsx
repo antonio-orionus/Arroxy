@@ -10,6 +10,7 @@ import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Progress} from '../ui/progress.js'
 import {Spinner} from '../ui/spinner.js'
+import {IconTile} from '../shared/IconTile.js'
 
 const PHASE_LABEL_KEYS: Record<QuickDownloadProgressPhase, 'wizard.quickProgress.phase.probing' | 'wizard.quickProgress.phase.queueing'> = {probing: 'wizard.quickProgress.phase.probing', queueing: 'wizard.quickProgress.phase.queueing'}
 
@@ -53,9 +54,9 @@ export function QuickDownloadProgressDialog(): ReactNode {
 			<DialogContent data-testid="quick-download-progress-dialog" className="overflow-hidden sm:max-w-md" showCloseButton={false}>
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						<span className="icon-tile grid size-9 shrink-0 place-items-center rounded-lg">
-							<Download className="size-4" aria-hidden />
-						</span>
+						<IconTile tone="lit" size="sm">
+							<Download />
+						</IconTile>
 						{t('wizard.quickProgress.title')}
 					</DialogTitle>
 					<DialogDescription>{t('wizard.quickProgress.description', {profileName: activeProfile.name})}</DialogDescription>
@@ -64,17 +65,17 @@ export function QuickDownloadProgressDialog(): ReactNode {
 				<div className="grid min-w-0 gap-3" data-testid="quick-download-progress-body">
 					<div className="glow-tile min-w-0 max-w-full overflow-hidden rounded-xl border-transparent p-3" data-testid="quick-download-progress-current" aria-live="polite">
 						<div className="flex min-w-0 items-center gap-2">
-							<Link2 className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-							<span className="min-w-0 flex-1 truncate text-[13px] font-medium text-foreground" data-testid="quick-download-progress-current-label">
+							<Link2 className="size-4 shrink-0 text-primary" aria-hidden />
+							<span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground" data-testid="quick-download-progress-current-label">
 								{currentLabel}
 							</span>
 						</div>
-						<div className="mt-3 flex items-center justify-between gap-3 text-[12px]">
-							<span className="inline-flex min-w-0 items-center gap-1.5 font-medium text-[var(--brand)]" data-testid="quick-download-progress-phase">
+						<div className="mt-3 flex items-center justify-between gap-3 text-xs">
+							<span className="inline-flex min-w-0 items-center gap-1.5 font-medium text-primary" data-testid="quick-download-progress-phase">
 								<Spinner aria-hidden className="size-3.5" />
 								<span className="truncate">{phaseLabel}</span>
 							</span>
-							<span className="shrink-0 rounded-full border border-[var(--brand)]/30 bg-[var(--brand-dim)] px-2 py-0.5 font-mono tabular-nums text-[var(--brand)]" data-testid="quick-download-progress-count">
+							<span className="shrink-0 rounded-full border border-primary/30 bg-primary/12 px-2 py-0.5 font-mono tabular-nums text-primary" data-testid="quick-download-progress-count">
 								{progressCountLabel}
 							</span>
 						</div>
@@ -85,10 +86,10 @@ export function QuickDownloadProgressDialog(): ReactNode {
 								<Progress value={progressValue} className="[&_[data-slot=progress-track]]:h-1.5" />
 							</div>
 						)}
-						{showProbeLimitHint ? <p className="mt-2 text-[12px] text-[var(--text-glass-muted)]">{t('wizard.playlist.loadingLimitHint', {count: playlistLimit})}</p> : null}
-						{failed > 0 ? <p className="mt-2 text-[12px] font-medium text-[var(--color-status-paused)]">{t('wizard.quickProgress.failedCount', {count: failed})}</p> : null}
+						{showProbeLimitHint ? <p className="mt-2 text-xs text-muted-foreground">{t('wizard.playlist.loadingLimitHint', {count: playlistLimit})}</p> : null}
+						{failed > 0 ? <p className="mt-2 text-xs font-medium text-warning">{t('wizard.quickProgress.failedCount', {count: failed})}</p> : null}
 					</div>
-					<p className={cn('text-[12px] leading-relaxed text-[var(--text-glass-muted)]', failed > 0 && 'text-[var(--color-status-paused)]')}>{t('wizard.quickProgress.waitHint')}</p>
+					<p className={cn('text-xs leading-relaxed text-muted-foreground', failed > 0 && 'text-warning')}>{t('wizard.quickProgress.waitHint')}</p>
 				</div>
 
 				<DialogFooter>

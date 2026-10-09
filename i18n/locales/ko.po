@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "자막 다운로드"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "프로필은 언어 코드를 요청하며, 사용 가능 여부는 URL마다 확인됩니다."
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "보관"
@@ -2264,6 +2268,14 @@ msgstr "빠른 다운로드, URL 일괄 추가 및 프로필 목록에 표시되
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "프로필 식별 정보"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}}개 사용"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}}개 사용"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

@@ -76,34 +76,32 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 	return (
 		<Field className="gap-2">
 			<FieldContent className="gap-0.5">
-				<FieldLabel htmlFor={inputId} className="text-[13px] font-medium text-foreground">
-					{label}
-				</FieldLabel>
-				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{description}</FieldDescription>
+				<FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
 
-			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-[12px]" data-testid={testId} aria-invalid={error !== null} />
+			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-xs" data-testid={testId} aria-invalid={error !== null} />
 
 			<div className="flex flex-wrap gap-1">
 				{FILENAME_TOKENS.map(token => (
-					<Button key={token} type="button" variant="outline" size="sm" className="h-6 px-2 font-mono text-[11px]" onClick={() => insertToken(token)} data-testid={`filename-token-${token}`}>
+					<Button key={token} type="button" variant="outline" size="xs" className="font-mono" onClick={() => insertToken(token)} data-testid={`filename-token-${token}`}>
 						{`{${token}}`}
 					</Button>
 				))}
 			</div>
 
 			{error ? (
-				<p className="text-[11px] text-destructive" data-testid="filename-template-error">
+				<p className="text-caption text-destructive" data-testid="filename-template-error">
 					{t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})}
 				</p>
 			) : preview ? (
 				<div className="flex flex-col gap-0.5">
-					<p className="font-mono text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-preview">
+					<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview">
 						{previewsDiffer ? `${t('filenameTemplate.previewSingle')}: ` : ''}
 						{preview}
 					</p>
 					{previewsDiffer ? (
-						<p className="font-mono text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-preview-playlist">
+						<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview-playlist">
 							{`${t('filenameTemplate.previewPlaylist')}: `}
 							{playlistPreview}
 						</p>
@@ -112,7 +110,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 			) : null}
 
 			{showIdWarning ? (
-				<p className="flex items-start gap-1.5 text-[11px] text-[var(--text-subtle)]" data-testid="filename-template-id-warning">
+				<p className="flex items-start gap-1.5 text-caption text-subtle-foreground" data-testid="filename-template-id-warning">
 					<AlertTriangle className="mt-0.5 size-3 shrink-0" aria-hidden />
 					{t('filenameTemplate.idWarning')}
 				</p>

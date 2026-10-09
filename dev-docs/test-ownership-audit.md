@@ -128,7 +128,7 @@ The tables below list tests that should change. Unlisted tests from the per-test
 | --- | --- | --- | --- |
 | `tests/renderer/app.test.tsx:36,55,102` | Narrow | App composition / renderer store | Avoid proving real shell/input availability or mocked queue completion; E2E/smaller suites own those. |
 | `tests/renderer/feedback-nudge.test.tsx:173,195` | Narrow | Feedback nudge behavior + footer URL owner | Keep dismissal/timer state; static URL and browser visual class coverage belong elsewhere. |
-| `tests/renderer/radio-option.test.tsx:46,67` | Narrow | RadioOption | Merge duplicated disabled keyboard/callback coverage. |
+| `tests/renderer/choice-row.test.tsx` | Keep | ChoiceRow | Replaced the RadioOption tests when format rows became a RadioGroup. |
 | `tests/renderer/smart-drawer.test.tsx:37,106` | Delete | SmartDrawer focused branches | Sleep-banner negative assertion is dead UI; three-active aggregate duplicates the two-active branch. |
 | `tests/renderer/splash-greeting.test.tsx:6,11` | Move | Unit/pure helper | Pure greeting gate does not need jsdom. |
 | `tests/renderer/update-banner.test.tsx:12,23,34,39,45,52` | Move | Unit/pure `resolveAction` policy | Pure channel policy should live outside DOM tests. |
@@ -226,7 +226,7 @@ This appendix is intentionally coarse. The deep per-test findings above override
 | `tests/renderer/preset-pipeline.test.ts` | Move/delete per test | Pure pipeline/helper tests belong under `tests/unit/`; two audio-only fallback rows are duplicates. |
 | `tests/renderer/probe-orchestrator.test.tsx` | Kept | Owns store orchestration rules; do not expand into user acceptance. |
 | `tests/renderer/queue-item-card.test.tsx` | Keep | Owns queue card visual states and button callbacks. |
-| `tests/renderer/radio-option.test.tsx` | Keep | Owns reusable control behavior. |
+| `tests/renderer/choice-row.test.tsx` | Keep | Owns reusable choice-row behavior. |
 | `tests/renderer/restore-format-selection.test.ts` | Move per file | Pure format/subtitle restoration helper coverage belongs under `tests/unit/`; delete duplicate rows noted above. |
 | `tests/renderer/smart-drawer.test.tsx` | Kept/merged | Single SmartDrawer suite. |
 | `tests/renderer/splash-greeting.test.tsx` | Move | Pure greeting gate belongs under `tests/unit/`. |

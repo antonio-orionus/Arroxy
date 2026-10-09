@@ -469,7 +469,7 @@
 				"identity": {"title": "Danh tính hồ sơ", "description": "Tên và biểu tượng hiển thị trong Tải nhanh, URL hàng loạt và danh sách hồ sơ."},
 				"downloadType": {"title": "Kiểu tải xuống", "description": "Chọn cách tải xuống chính mà bạn muốn."},
 				"advanced": {"title": "Tùy chọn nâng cao", "description": "Hồ sơ kế thừa đích chung trừ khi bạn đặt ghi đè hồ sơ."},
-				"output": {"title": "Tùy chọn đầu ra"},
+				"output": {"title": "Tùy chọn đầu ra", "enabledCount_one": "Đã bật {{count}}", "enabledCount_other": "Đã bật {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Tên thư mục con",
 				"name": "Tên hồ sơ",
 				"subtitleDownloads": "Tải phụ đề",
+				"subtitleDownloadsDescription": "Hồ sơ yêu cầu mã ngôn ngữ; khả năng có sẵn được xác định cho từng URL.",
 				"languages": "Ngôn ngữ",
 				"delivery": "Cách lưu",
 				"overridePath": "Đường dẫn ghi đè hồ sơ"

@@ -14,6 +14,7 @@ import {Textarea} from '../ui/textarea.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {buildBulkUrlPreview} from './bulkUrlPreview.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
 
 export interface BulkUrlDialogActionState {
 	acceptedUrls: string[]
@@ -95,9 +96,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 				<div data-testid="bulk-url-dialog-body" className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pe-1">
 					<Field className="gap-2">
-						<FieldLabel htmlFor="bulk-url-textarea" className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
-							{t('wizard.bulk.textareaLabel')}
-						</FieldLabel>
+						<SectionLabel render={<FieldLabel htmlFor="bulk-url-textarea" />}>{t('wizard.bulk.textareaLabel')}</SectionLabel>
 						<Textarea ref={textareaRef} id="bulk-url-textarea" data-testid="bulk-url-textarea" value={raw} onChange={event => setRaw(event.target.value)} placeholder={t('wizard.bulk.textareaPlaceholder')} spellCheck={false} className="h-40 resize-none overflow-y-auto text-sm" />
 					</Field>
 
@@ -127,7 +126,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 							<ItemGroup className="gap-0 divide-y divide-border" data-size="xs">
 								{preview.previewAccepted.map((item, index) => (
 									<Item key={item.url} size="xs" className="rounded-none border-0 px-3 py-2">
-										<ItemMedia variant="icon" className="text-[var(--brand)]">
+										<ItemMedia variant="icon" className="text-primary">
 											<Link2 />
 										</ItemMedia>
 										<span className="shrink-0 font-mono text-xs text-muted-foreground">{index + 1}</span>
@@ -135,14 +134,14 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 											<ItemTitle className="block w-full truncate font-mono text-xs font-normal text-foreground/80">{item.url}</ItemTitle>
 										</ItemContent>
 										<ItemActions>
-											<Badge variant="outline" className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+											<Badge variant="outline" size="sm" className="uppercase tracking-wide text-muted-foreground">
 												{item.kind}
 											</Badge>
 										</ItemActions>
 									</Item>
 								))}
 								{preview.previewRejected.map(item => (
-									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-[var(--color-status-paused)]">
+									<Item key={item.id} size="xs" className="rounded-none border-0 px-3 py-2 text-warning">
 										<ItemMedia variant="icon">
 											<AlertTriangle />
 										</ItemMedia>

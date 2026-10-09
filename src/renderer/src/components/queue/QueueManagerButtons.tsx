@@ -1,6 +1,5 @@
 import type {ComponentType, ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {actionDisabledTooltip, type QueueActionDefinition} from './queueManagerActions.js'
@@ -15,7 +14,7 @@ export function TooltipIconButton({Icon, className, disabled, label, onClick, te
 					void children
 					return (
 						<span {...triggerProps} className="inline-flex" title={tooltip}>
-							<Button type="button" variant="ghost" size="icon-sm" className={cn('h-7 w-7', className)} aria-label={label} title={tooltip} data-testid={testId} disabled={disabled} onClick={onClick}>
+							<Button type="button" variant="ghost" size="icon-sm" className={className} aria-label={label} title={tooltip} data-testid={testId} disabled={disabled} onClick={onClick}>
 								<Icon size={13} aria-hidden />
 							</Button>
 						</span>

@@ -2,8 +2,10 @@ import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {FormatSelectionView} from '../../../store/formatSelectionView.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
-import {RadioOption} from '../../ui/radio-option.js'
+import {RadioGroup} from '../../ui/radio-group.js'
+import {ChoiceRow} from '../../shared/ChoiceRow.js'
 import {ScrollArea} from '../../ui/scroll-area.js'
+import {SectionLabel} from '../../shared/SectionLabel.js'
 
 interface VideoColumnProps {
 	view: FormatSelectionView['video']
@@ -20,22 +22,22 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 
 	return (
 		<div className="flex flex-col gap-0 h-full">
-			<div className="flex items-center justify-between mb-[6px]">
-				<p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.formats.video')}</p>
-				<div className="flex items-center gap-[6px]">
+			<div className="mb-1.5 flex items-center justify-between">
+				<SectionLabel>{t('wizard.formats.video')}</SectionLabel>
+				<div className="flex items-center gap-1.5">
 					{view.dynamicRangeOptions.length > 1 && (
-						<ToggleGroup value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-[3px]">
+						<ToggleGroup size="xs" variant="outline" value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-1">
 							{view.dynamicRangeOptions.map(dr => (
-								<ToggleGroupItem key={dr} value={dr} shape="chip" className="wizard-filter-chip min-h-5 rounded-full px-[7px] text-[11px] font-semibold">
+								<ToggleGroupItem key={dr} value={dr} shape="chip">
 									{dr}
 								</ToggleGroupItem>
 							))}
 						</ToggleGroup>
 					)}
 					{view.extOptions.length > 1 && (
-						<ToggleGroup value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-[3px]">
+						<ToggleGroup size="xs" variant="outline" value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-1">
 							{view.extOptions.map(ext => (
-								<ToggleGroupItem key={ext} value={ext} shape="chip" className="wizard-filter-chip min-h-5 rounded-full px-[7px] text-[11px] font-semibold">
+								<ToggleGroupItem key={ext} value={ext} shape="chip">
 									{ext}
 								</ToggleGroupItem>
 							))}
@@ -45,22 +47,12 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 			</div>
 
 			<ScrollArea className="flex-1 min-h-0">
-				{view.rows.map(row => {
-					const isChecked = selectedVideoFormatId === row.formatId
-					return (
-						<RadioOption key={row.formatId || 'audio-only'} checked={isChecked} disabled={view.disabled} onClick={() => onSelect(row.formatId)} label={row.resolution} labelClassName="min-w-[68px]">
-							{
-								<>
-									{row.meta && (
-										<span className="text-[13px] ml-auto whitespace-nowrap" style={{color: isChecked ? 'hsla(220,100%,70%,0.7)' : 'var(--text-subtle)'}}>
-											{row.meta}
-										</span>
-									)}
-								</>
-							}
-						</RadioOption>
-					)
-				})}
+				{/* A disabled column shows nothing as chosen, even though the store keeps a selection. */}
+				<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="gap-1">
+					{view.rows.map(row => (
+						<ChoiceRow key={row.formatId || 'audio-only'} id={`video-format-${row.formatId || 'audio-only'}`} value={row.formatId} label={row.resolution} meta={row.meta} disabled={view.disabled} />
+					))}
+				</RadioGroup>
 			</ScrollArea>
 		</div>
 	)

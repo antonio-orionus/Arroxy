@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "የትርጉም ጽሑፍ ማውረዶች"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "መገለጫዎች የቋንቋ ኮዶችን ይጠይቃሉ፤ መገኘታቸው ለእያንዳንዱ URL ይወሰናል።"
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "መዝገብ"
@@ -2264,6 +2268,14 @@ msgstr "በፈጣን ማውረድ፣ በጅምላ አድራሻዎች እና በ�
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "የመገለጫ ማንነት"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} ነቅቷል"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} ነቅቷል"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

@@ -21,16 +21,18 @@ import {
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {Checkbox} from '../ui/checkbox.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
-import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
+import {Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {ScrollArea} from '../ui/scroll-area.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {ProfileSwitchRow} from './DownloadProfileSwitchRow.js'
+import {SettingSwitch} from '../shared/SettingSwitch.js'
+import {Panel} from '../shared/Panel.js'
+import {OptionCard} from '../shared/OptionCard.js'
+import {PanelSection} from '../shared/PanelSection.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 
@@ -162,24 +164,10 @@ const SPONSOR_BLOCK_OPTIONS = [
 
 const SPONSOR_BLOCK_HINT_KEYS = {off: 'wizard.profileEditor.sponsorBlockHint.off', mark: 'wizard.profileEditor.sponsorBlockHint.mark', remove: 'wizard.profileEditor.sponsorBlockHint.remove'} as const satisfies Record<SponsorBlockMode, ParseKeys>
 
-const OUTPUT_MODE_CARD_CLASS = 'min-h-[4.35rem] flex-col gap-1.5 rounded-lg border border-[var(--border-strong)] px-2 py-2.5 text-center'
-
 function optionLabel<T extends string>(t: TFunction, options: readonly SelectOption<T>[], value: unknown): string {
 	const selected = options.find(option => option.value === value)
 	if (selected) return t(selected.labelKey)
 	return typeof value === 'string' ? value : ''
-}
-
-function ProfilePanel({title, description, children, className}: {title: string; description?: string; children: ReactNode; className?: string}): ReactNode {
-	return (
-		<Card size="sm" className={cn('gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3', className)}>
-			<CardHeader className="gap-1 px-3">
-				<CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
-				{description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
-			</CardHeader>
-			<CardContent className="px-3">{children}</CardContent>
-		</Card>
-	)
 }
 
 function ProfileSelect<T extends string>({label, value, options, onValueChange, testId, disabled = false}: {label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string; disabled?: boolean}): ReactNode {
@@ -189,9 +177,7 @@ function ProfileSelect<T extends string>({label, value, options, onValueChange, 
 
 	return (
 		<Field className="gap-1.5">
-			<FieldLabel htmlFor={triggerId} className="text-[12px] font-medium text-[var(--text-subtle)]">
-				{label}
-			</FieldLabel>
+			<FieldLabel htmlFor={triggerId}>{label}</FieldLabel>
 			<Select
 				value={value}
 				onValueChange={next => {
@@ -364,18 +350,16 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 					<DialogDescription>{t('wizard.profileEditor.dialogDescription')}</DialogDescription>
 				</DialogHeader>
 				{profileActionError ? (
-					<Alert variant="destructive" className="py-2">
-						<AlertDescription className="text-[12px]">{profileActionError}</AlertDescription>
+					<Alert variant="destructive" size="sm">
+						<AlertDescription>{profileActionError}</AlertDescription>
 					</Alert>
 				) : null}
 				<ScrollArea className="max-h-[min(78vh,46rem)]">
 					<div className="grid gap-4 p-1 pr-3 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.85fr)]">
 						<div className="flex flex-col gap-3">
-							<ProfilePanel title={t('wizard.profileEditor.panel.identity.title')} description={t('wizard.profileEditor.panel.identity.description')}>
+							<Panel title={t('wizard.profileEditor.panel.identity.title')} description={t('wizard.profileEditor.panel.identity.description')}>
 								<Field className="gap-1.5">
-									<FieldLabel htmlFor="profile-name" className="text-[12px] font-medium text-[var(--text-subtle)]">
-										{t('wizard.profileEditor.field.name')}
-									</FieldLabel>
+									<FieldLabel htmlFor="profile-name">{t('wizard.profileEditor.field.name')}</FieldLabel>
 									<InputGroup className="h-10" aria-label={t('wizard.profileEditor.field.nameAndIcon')}>
 										<Popover open={profileIconPickerOpen} onOpenChange={setProfileIconPickerOpen}>
 											<InputGroupAddon align="inline-start" className="pl-1.5">
@@ -405,13 +389,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 													{PROFILE_ICON_OPTIONS.map(option => {
 														const Icon = option.icon
 														return (
-															<ToggleGroupItem
-																key={option.value}
-																value={option.value}
-																title={t(option.labelKey)}
-																className="grid h-10 place-items-center rounded-lg border bg-background/25 p-0 text-[var(--text-subtle)] hover:border-[var(--border-strong)] hover:text-foreground"
-																data-testid={`profiles-editor-icon-${option.value}`}
-															>
+															<ToggleGroupItem key={option.value} value={option.value} title={t(option.labelKey)} size="lg" data-testid={`profiles-editor-icon-${option.value}`}>
 																<Icon aria-hidden />
 																<span className="sr-only">{t(option.labelKey)}</span>
 															</ToggleGroupItem>
@@ -423,9 +401,9 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 										<InputGroupInput id="profile-name" value={profileName} onChange={event => changeProfileName(event.target.value)} data-testid="profiles-editor-name" />
 									</InputGroup>
 								</Field>
-							</ProfilePanel>
+							</Panel>
 
-							<ProfilePanel title={t('wizard.profileEditor.panel.downloadType.title')} description={t('wizard.profileEditor.panel.downloadType.description')}>
+							<Panel title={t('wizard.profileEditor.panel.downloadType.title')} description={t('wizard.profileEditor.panel.downloadType.description')}>
 								<ToggleGroup
 									variant="outline"
 									value={[mediaMode]}
@@ -437,28 +415,23 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 								>
 									{MEDIA_MODES.map(option => {
 										const Icon = option.icon
-										return (
-											<ToggleGroupItem key={option.value} value={option.value} className={OUTPUT_MODE_CARD_CLASS} title={t(option.descriptionKey)}>
-												<Icon data-icon="inline-start" aria-hidden />
-												<span className="text-[11px] font-semibold leading-tight">{t(option.labelKey)}</span>
-											</ToggleGroupItem>
-										)
+										return <OptionCard key={option.value} value={option.value} align="center" icon={<Icon aria-hidden />} title={t(option.labelKey)} hint={t(option.descriptionKey)} className="justify-center py-3" />
 									})}
 								</ToggleGroup>
-							</ProfilePanel>
+							</Panel>
 
 							<div className="grid gap-3 sm:grid-cols-2">
 								{showVideo ? (
-									<ProfilePanel title={t('playlistPresets.type.video')}>
+									<Panel title={t('playlistPresets.type.video')}>
 										<FieldGroup className="gap-3">
 											<ProfileSelect label={t('wizard.profileEditor.field.compatibility')} value={codec} options={VIDEO_COMPATIBILITY_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
 											<ProfileSelect label={t('wizard.profileEditor.field.resolution')} value={resolution} options={videoResolutionOptions} onValueChange={next => updateDraft({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
 										</FieldGroup>
-									</ProfilePanel>
+									</Panel>
 								) : null}
 
 								{showAudio ? (
-									<ProfilePanel title={t('formatLabel.audioFallback')}>
+									<Panel title={t('formatLabel.audioFallback')}>
 										<FieldGroup className="gap-3">
 											{mediaMode === 'audio-only' ? (
 												<>
@@ -469,55 +442,35 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 												<ProfileSelect label={t('queue.table.format')} value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
 											)}
 										</FieldGroup>
-									</ProfilePanel>
+									</Panel>
 								) : null}
 							</div>
 
 							{subtitlesOnly ? (
-								<Alert variant="info" className="py-2 text-[12px]">
-									<AlertDescription className="text-[12px]">{t('wizard.profileEditor.note.subtitlesOnly')}</AlertDescription>
+								<Alert variant="info" size="sm">
+									<AlertDescription>{t('wizard.profileEditor.note.subtitlesOnly')}</AlertDescription>
 								</Alert>
 							) : null}
 
-							<ProfilePanel title={t('wizard.confirm.labelSubtitles')}>
+							<Panel title={t('wizard.confirm.labelSubtitles')}>
 								<FieldGroup className="gap-3">
-									<Field orientation="horizontal" className="items-start justify-between gap-3">
-										<FieldContent className="gap-1">
-											<FieldTitle id="profile-subtitle-downloads" className="text-[12px] font-medium text-[var(--text-subtle)]">
-												{t('wizard.profileEditor.field.subtitleDownloads')}
-											</FieldTitle>
-											<FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">Profiles request language codes; availability is resolved for each URL.</FieldDescription>
-										</FieldContent>
-										<ToggleGroup
-											variant="outline"
-											aria-labelledby="profile-subtitle-downloads"
-											value={[effectiveSubtitleEnabled ? 'on' : 'off']}
-											onValueChange={value => {
-												const next = value[0]
-												if (next === 'on') updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: true})
-												if (next === 'off' && !subtitlesOnly) updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: false})
-											}}
-											className="grid w-auto min-w-36 shrink-0 grid-cols-2"
-										>
-											<ToggleGroupItem value="off" disabled={subtitlesOnly} className="flex-1">
-												{t('wizard.sponsorblock.mode.off')}
-											</ToggleGroupItem>
-											<ToggleGroupItem value="on" className="flex-1">
-												On
-											</ToggleGroupItem>
-										</ToggleGroup>
-									</Field>
+									<SettingSwitch
+										id="profile-subtitle-downloads"
+										label={t('wizard.profileEditor.field.subtitleDownloads')}
+										description={t('wizard.profileEditor.field.subtitleDownloadsDescription')}
+										checked={effectiveSubtitleEnabled}
+										disabled={subtitlesOnly}
+										onCheckedChange={next => updateDraft({type: 'set-subtitle-enabled', subtitleEnabled: next})}
+									/>
 
 									{!effectiveSubtitleEnabled ? (
-										<Alert variant="info" className="py-2 text-[12px]">
-											<AlertDescription className="text-[12px]">{t('wizard.profileEditor.note.noSubtitles')}</AlertDescription>
+										<Alert variant="info" size="sm">
+											<AlertDescription>{t('wizard.profileEditor.note.noSubtitles')}</AlertDescription>
 										</Alert>
 									) : (
 										<div className="flex flex-col gap-3">
 											<Field className="gap-1.5" data-invalid={subtitleLanguagesMissing || undefined}>
-												<FieldLabel htmlFor="profile-subtitle-languages" className="text-[12px] font-medium text-[var(--text-subtle)]">
-													{t('wizard.profileEditor.field.languages')}
-												</FieldLabel>
+												<FieldLabel htmlFor="profile-subtitle-languages">{t('wizard.profileEditor.field.languages')}</FieldLabel>
 												<SubtitleLanguagePicker
 													id="profile-subtitle-languages"
 													value={subtitleLanguages}
@@ -525,21 +478,16 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 													invalid={subtitleLanguagesMissing}
 													describedBy={subtitleLanguagesMissing ? 'profile-subtitle-languages-error' : undefined}
 												/>
-												{subtitleLanguagesMissing ? (
-													<FieldDescription id="profile-subtitle-languages-error" className="text-[12px] text-destructive">
-														{t(subtitlesOnly ? 'wizard.profileEditor.note.subtitleLanguagesRequired' : 'wizard.profileEditor.note.subtitleLanguagesRequiredOrOff')}
-													</FieldDescription>
-												) : null}
+												{subtitleLanguagesMissing ? <FieldError id="profile-subtitle-languages-error">{t(subtitlesOnly ? 'wizard.profileEditor.note.subtitleLanguagesRequired' : 'wizard.profileEditor.note.subtitleLanguagesRequiredOrOff')}</FieldError> : null}
 											</Field>
 
 											<FieldGroup className="gap-3">
 												<ProfileSelect label={t('wizard.profileEditor.field.source')} value={subtitleSource} options={SUBTITLE_SOURCE_OPTIONS} onValueChange={next => updateDraft({type: 'set-subtitle-source', subtitleSource: next})} testId="profiles-editor-subtitle-source" />
 
 												<Field className="gap-1.5">
-													<FieldTitle id="profile-subtitle-delivery" className="text-[12px] font-medium text-[var(--text-subtle)]">
-														{t('wizard.profileEditor.field.delivery')}
-													</FieldTitle>
+													<FieldTitle id="profile-subtitle-delivery">{t('wizard.profileEditor.field.delivery')}</FieldTitle>
 													<ToggleGroup
+														size="sm"
 														variant="outline"
 														aria-labelledby="profile-subtitle-delivery"
 														value={[subtitleDelivery]}
@@ -549,20 +497,19 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 														className="grid w-full grid-cols-3"
 													>
 														{SUBTITLE_DELIVERY_OPTIONS.map(option => (
-															<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5">
+															<ToggleGroupItem key={option.value} value={option.value}>
 																{t(option.labelKey)}
 															</ToggleGroupItem>
 														))}
 													</ToggleGroup>
-													{subtitleDelivery === 'embed' ? <FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">{t('wizard.subtitles.embedNote')}</FieldDescription> : null}
+													{subtitleDelivery === 'embed' ? <FieldDescription>{t('wizard.subtitles.embedNote')}</FieldDescription> : null}
 												</Field>
 
 												{subtitleDelivery !== 'embed' ? (
 													<Field className="gap-1.5">
-														<FieldTitle id="profile-subtitle-format" className="text-[12px] font-medium text-[var(--text-subtle)]">
-															{t('queue.table.format')}
-														</FieldTitle>
+														<FieldTitle id="profile-subtitle-format">{t('queue.table.format')}</FieldTitle>
 														<ToggleGroup
+															size="sm"
 															variant="outline"
 															aria-labelledby="profile-subtitle-format"
 															value={[subtitleFormat]}
@@ -572,32 +519,32 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 															className="grid w-full grid-cols-3"
 														>
 															{SUBTITLE_FORMAT_OPTIONS.map(option => (
-																<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5">
+																<ToggleGroupItem key={option.value} value={option.value}>
 																	{t(option.labelKey)}
 																</ToggleGroupItem>
 															))}
 														</ToggleGroup>
-														{subtitleSource !== 'manual-only' && subtitleFormat === 'ass' ? <FieldDescription className="text-[11px] leading-snug text-[var(--text-subtle)]">{t('wizard.profileEditor.note.autoCaptionsSrt')}</FieldDescription> : null}
+														{subtitleSource !== 'manual-only' && subtitleFormat === 'ass' ? <FieldDescription>{t('wizard.profileEditor.note.autoCaptionsSrt')}</FieldDescription> : null}
 													</Field>
 												) : null}
 											</FieldGroup>
 										</div>
 									)}
 								</FieldGroup>
-							</ProfilePanel>
+							</Panel>
 						</div>
 
-						<ProfilePanel title={t('wizard.profileEditor.panel.advanced.title')} description={t('wizard.profileEditor.panel.advanced.description')} className="lg:self-start">
+						<Panel title={t('wizard.profileEditor.panel.advanced.title')} description={t('wizard.profileEditor.panel.advanced.description')} className="lg:self-start">
 							<FieldGroup className="gap-3">
 								<div className="grid gap-2" data-testid="profiles-editor-destination-policy">
-									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-border' : 'border-[var(--brand)]/55 bg-[var(--brand-dim)]')} data-testid="profiles-editor-global-destination">
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-border' : 'border-primary/55 bg-primary/12')} data-testid="profiles-editor-global-destination">
 										<div className="min-w-0">
 											<div className="flex min-w-0 items-center gap-2">
-												<FolderCog className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-												<span className="text-[12px] font-semibold">{t('wizard.profileEditor.destination.global')}</span>
+												<FolderCog className="size-4 shrink-0 text-primary" aria-hidden />
+												<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.global')}</span>
 												<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{hasDestinationOverride ? 'Inherited' : 'Active'}</Badge>
 											</div>
-											<p className="mt-1 truncate font-mono text-[12px] text-[var(--text-subtle)]" title={globalDestinationRoot || undefined}>
+											<p className="mt-1 truncate font-mono text-xs text-subtle-foreground" title={globalDestinationRoot || undefined}>
 												{readablePath(globalDestinationRoot, commonPaths)}
 											</p>
 										</div>
@@ -609,14 +556,14 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 										</div>
 									</div>
 
-									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-[var(--brand)]/55 bg-[var(--brand-dim)]' : 'border-border')} data-testid="profiles-editor-profile-override">
+									<div className={cn('rounded-lg border bg-background/25 p-3 transition-colors', hasDestinationOverride ? 'border-primary/55 bg-primary/12' : 'border-border')} data-testid="profiles-editor-profile-override">
 										<div className="min-w-0">
 											<div className="flex min-w-0 items-center gap-2">
-												<Folder className="size-4 shrink-0 text-[var(--brand)]" aria-hidden />
-												<span className="text-[12px] font-semibold">{t('wizard.profileEditor.destination.override')}</span>
+												<Folder className="size-4 shrink-0 text-primary" aria-hidden />
+												<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.override')}</span>
 												<Badge variant={hasDestinationOverride ? 'secondary' : 'outline'}>{hasDestinationOverride ? 'Overrides global' : showDestinationOverride ? 'Choose folder' : 'No override set'}</Badge>
 											</div>
-											<p className="mt-1 text-[11px] leading-snug text-[var(--text-subtle)]">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
+											<p className="mt-1 text-caption leading-snug text-subtle-foreground">{hasDestinationOverride ? 'This profile saves to its own root before the subfolder is added.' : 'No override set. This profile uses the global destination above.'}</p>
 										</div>
 										{!showDestinationOverride ? (
 											<div className="mt-2 flex flex-wrap gap-2">
@@ -629,11 +576,9 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 
 										{showDestinationOverride ? (
 											<Field className="mt-3 gap-1.5">
-												<FieldLabel htmlFor="profile-destination" className="text-[12px] font-medium text-[var(--text-subtle)]">
-													{t('wizard.profileEditor.field.overridePath')}
-												</FieldLabel>
+												<FieldLabel htmlFor="profile-destination">{t('wizard.profileEditor.field.overridePath')}</FieldLabel>
 												<InputGroup>
-													<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder={t('wizard.profileEditor.placeholder.folder')} className="font-mono text-[12px]" />
+													<InputGroupInput id="profile-destination" value={destination} onChange={event => changeDestination(event.target.value)} placeholder={t('wizard.profileEditor.placeholder.folder')} className="font-mono text-xs" />
 													<InputGroupAddon align="inline-end">
 														<InputGroupButton type="button" size="icon-xs" aria-label={t('wizard.profileEditor.action.chooseFolder')} onClick={() => void chooseDestinationFolder()}>
 															<Folder aria-hidden />
@@ -644,30 +589,28 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 													<Button type="button" variant="ghost" size="xs" onClick={useGlobalDefaultDestination}>
 														{t('wizard.profileEditor.action.useGlobalDefault')}
 													</Button>
-													{destinationPickerError ? <FieldDescription className="text-[12px] text-destructive">{destinationPickerError}</FieldDescription> : null}
+													{destinationPickerError ? <FieldError>{destinationPickerError}</FieldError> : null}
 												</div>
 											</Field>
 										) : null}
 									</div>
 
-									<div className="rounded-lg border border-[var(--border-strong)] bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
-										<p className="text-[11px] font-medium text-[var(--text-subtle)]">{t('wizard.profileEditor.destination.resolved')}</p>
-										<p className="mt-1 truncate font-mono text-[12px] text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
+									<div className="rounded-lg border border-border-strong bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
+										<p className="text-caption font-medium text-subtle-foreground">{t('wizard.profileEditor.destination.resolved')}</p>
+										<p className="mt-1 truncate font-mono text-xs text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
 											{resolvedDestinationLabel}
 										</p>
 									</div>
 								</div>
 
-								<Field orientation="horizontal" className="items-center gap-2 text-[12px] text-[var(--text-subtle)]">
+								<Field orientation="horizontal" className="items-center gap-2 text-xs text-subtle-foreground">
 									<Checkbox id="profile-subfolder-enabled" checked={saveInsideSubfolder} onCheckedChange={checked => updateDraft({type: 'set-save-inside-subfolder', saveInsideSubfolder: checked === true})} />
-									<FieldLabel htmlFor="profile-subfolder-enabled" className="text-[12px] text-[var(--text-subtle)]">
+									<FieldLabel htmlFor="profile-subfolder-enabled" size="sm">
 										{t('wizard.folder.subfolder.toggle')}
 									</FieldLabel>
 								</Field>
 								<Field className="gap-1.5 pl-7">
-									<FieldLabel htmlFor="profile-subfolder-name" className="text-[12px] font-medium text-[var(--text-subtle)]">
-										{t('wizard.profileEditor.field.subfolderName')}
-									</FieldLabel>
+									<FieldLabel htmlFor="profile-subfolder-name">{t('wizard.profileEditor.field.subfolderName')}</FieldLabel>
 									<InputGroup aria-label={t('wizard.profileEditor.field.subfolderName')}>
 										<InputGroupInput
 											id="profile-subfolder-name"
@@ -680,7 +623,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 											data-testid="profiles-editor-subfolder-name"
 										/>
 									</InputGroup>
-									{subfolderInvalid ? <FieldDescription className="text-[12px] text-destructive">Use a valid folder name without / \ : * ? &quot; &lt; &gt; |.</FieldDescription> : null}
+									{subfolderInvalid ? <FieldError>{t('wizard.folder.subfolder.invalid')}</FieldError> : null}
 								</Field>
 
 								<FilenameTemplateField
@@ -693,26 +636,19 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 									testId="profiles-editor-filename-template"
 								/>
 
-								<Card size="sm" className="rounded-lg bg-background/25 px-3 py-3">
-									<div className="mb-2 flex items-center justify-between gap-3">
-										<h4 className="text-sm font-semibold">{t('wizard.profileEditor.panel.output.title')}</h4>
-										<Badge variant="outline">{outputEnabledCount} enabled</Badge>
+								<PanelSection title={t('wizard.profileEditor.panel.output.title')} action={<Badge variant="outline">{t('wizard.profileEditor.panel.output.enabledCount', {count: outputEnabledCount})}</Badge>}>
+									<div className="grid gap-3">
+										<SettingSwitch id="profile-output-metadata" label={t(OUTPUT_OPTION_KEYS.metadata.labelKey)} help={t(OUTPUT_OPTION_KEYS.metadata.descriptionKey)} checked={embedMetadata} onCheckedChange={next => updateDraft({type: 'set-embed-metadata', embedMetadata: next})} />
+										<SettingSwitch id="profile-output-chapters" label={t(OUTPUT_OPTION_KEYS.chapters.labelKey)} help={t(OUTPUT_OPTION_KEYS.chapters.descriptionKey)} checked={embedChapters} onCheckedChange={next => updateDraft({type: 'set-embed-chapters', embedChapters: next})} />
+										<SettingSwitch id="profile-output-description" label={t(OUTPUT_OPTION_KEYS.description.labelKey)} help={t(OUTPUT_OPTION_KEYS.description.descriptionKey)} checked={saveDescription} onCheckedChange={next => updateDraft({type: 'set-save-description', saveDescription: next})} />
+										<SettingSwitch id="profile-output-thumbnail" label={t(OUTPUT_OPTION_KEYS.thumbnail.labelKey)} help={t(OUTPUT_OPTION_KEYS.thumbnail.descriptionKey)} checked={saveThumbnail} onCheckedChange={next => updateDraft({type: 'set-save-thumbnail', saveThumbnail: next})} />
 									</div>
-									<div className="grid gap-2">
-										<ProfileSwitchRow id="profile-output-metadata" label={t(OUTPUT_OPTION_KEYS.metadata.labelKey)} description={t(OUTPUT_OPTION_KEYS.metadata.descriptionKey)} checked={embedMetadata} onCheckedChange={next => updateDraft({type: 'set-embed-metadata', embedMetadata: next})} />
-										<ProfileSwitchRow id="profile-output-chapters" label={t(OUTPUT_OPTION_KEYS.chapters.labelKey)} description={t(OUTPUT_OPTION_KEYS.chapters.descriptionKey)} checked={embedChapters} onCheckedChange={next => updateDraft({type: 'set-embed-chapters', embedChapters: next})} />
-										<ProfileSwitchRow id="profile-output-description" label={t(OUTPUT_OPTION_KEYS.description.labelKey)} description={t(OUTPUT_OPTION_KEYS.description.descriptionKey)} checked={saveDescription} onCheckedChange={next => updateDraft({type: 'set-save-description', saveDescription: next})} />
-										<ProfileSwitchRow id="profile-output-thumbnail" label={t(OUTPUT_OPTION_KEYS.thumbnail.labelKey)} description={t(OUTPUT_OPTION_KEYS.thumbnail.descriptionKey)} checked={saveThumbnail} onCheckedChange={next => updateDraft({type: 'set-save-thumbnail', saveThumbnail: next})} />
-									</div>
-								</Card>
+								</PanelSection>
 
-								<Card size="sm" className="rounded-lg bg-background/25 px-3 py-3">
-									<div className="mb-2 flex items-center justify-between gap-3">
-										<h4 className="text-sm font-semibold">{t('wizard.profileEditor.panel.sponsorBlock.title')}</h4>
-										<Badge variant="outline">{showVideo ? optionLabel(t, SPONSOR_BLOCK_OPTIONS, sponsorBlockMode) : t('wizard.profileEditor.skipped')}</Badge>
-									</div>
+								<PanelSection title={t('wizard.profileEditor.panel.sponsorBlock.title')} action={<Badge variant="outline">{showVideo ? optionLabel(t, SPONSOR_BLOCK_OPTIONS, sponsorBlockMode) : t('wizard.profileEditor.skipped')}</Badge>}>
 									{showVideo ? (
 										<ToggleGroup
+											size="sm"
 											variant="outline"
 											value={[sponsorBlockMode]}
 											onValueChange={value => {
@@ -721,19 +657,19 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 											className="grid w-full grid-cols-3"
 										>
 											{SPONSOR_BLOCK_OPTIONS.map(option => (
-												<ToggleGroupItem key={option.value} value={option.value} className="min-h-8 px-1.5 py-1 text-center text-[12px] leading-tight group-data-[spacing=0]/toggle-group:px-1.5" title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
+												<ToggleGroupItem key={option.value} value={option.value} title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
 													{t(option.labelKey)}
 												</ToggleGroupItem>
 											))}
 										</ToggleGroup>
 									) : (
-										<Alert variant="info" className="py-2 text-[12px]">
-											<AlertDescription className="text-[12px]">{t('wizard.profileEditor.note.skippedForOutputType')}</AlertDescription>
+										<Alert variant="info" size="sm">
+											<AlertDescription>{t('wizard.profileEditor.note.skippedForOutputType')}</AlertDescription>
 										</Alert>
 									)}
-								</Card>
+								</PanelSection>
 							</FieldGroup>
-						</ProfilePanel>
+						</Panel>
 					</div>
 				</ScrollArea>
 				<DialogFooter className="sm:justify-between">
@@ -749,7 +685,7 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 						<Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
 							{t('common.cancel')}
 						</Button>
-						<Button type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid || filenameTemplateError !== null || subtitleLanguagesMissing} className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+						<Button variant="glow" type="button" onClick={() => void saveProfile()} disabled={subfolderInvalid || filenameTemplateError !== null || subtitleLanguagesMissing}>
 							{t('wizard.profileEditor.action.save')}
 						</Button>
 					</div>

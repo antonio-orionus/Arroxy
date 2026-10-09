@@ -428,10 +428,24 @@
 				"identity": {"title": "配置标识", "description": "在快速下载、批量链接和配置列表中显示的名称和图标。"},
 				"downloadType": {"title": "下载类型", "description": "选择你希望使用的主要下载方式。"},
 				"advanced": {"title": "高级选项", "description": "除非你设置配置覆盖，否则配置将沿用全局保存位置。"},
-				"output": {"title": "输出选项"},
+				"output": {"title": "输出选项", "enabledCount_one": "已启用 {{count}} 项", "enabledCount_other": "已启用 {{count}} 项"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
-			"field": {"nameAndIcon": "配置名称和图标", "icon": "配置图标", "compatibility": "兼容性", "resolution": "分辨率", "quality": "质量", "source": "来源", "subfolderName": "子文件夹名称", "name": "配置名称", "subtitleDownloads": "字幕下载", "languages": "语言", "delivery": "保存方式", "overridePath": "配置覆盖路径"},
+			"field": {
+				"nameAndIcon": "配置名称和图标",
+				"icon": "配置图标",
+				"compatibility": "兼容性",
+				"resolution": "分辨率",
+				"quality": "质量",
+				"source": "来源",
+				"subfolderName": "子文件夹名称",
+				"name": "配置名称",
+				"subtitleDownloads": "字幕下载",
+				"subtitleDownloadsDescription": "配置文件按语言代码请求字幕；是否可用会针对每个 URL 单独判断。",
+				"languages": "语言",
+				"delivery": "保存方式",
+				"overridePath": "配置覆盖路径"
+			},
 			"action": {
 				"chooseIcon": "选择配置图标",
 				"setOverride": "设置配置覆盖",

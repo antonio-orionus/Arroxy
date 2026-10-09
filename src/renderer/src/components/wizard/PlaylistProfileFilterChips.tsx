@@ -4,7 +4,7 @@
 
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {cn} from '@renderer/lib/utils.js'
+import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import type {DownloadProfileActionOption} from './downloadProfileActions.js'
 import type {PlaylistProfileFilter} from './playlistProfileTableState.js'
 
@@ -16,32 +16,30 @@ interface PlaylistProfileFilterChipsProps {
 	onFilterChange: (filter: PlaylistProfileFilter) => void
 }
 
-function FilterChip({active, text, testId, onClick}: {active: boolean; text: string; testId: string; onClick: () => void}): ReactNode {
-	return (
-		<button
-			type="button"
-			data-testid={testId}
-			aria-pressed={active}
-			onClick={onClick}
-			className={cn(
-				'inline-flex h-7 shrink-0 items-center gap-1 rounded-full px-2.5 text-[10px] font-semibold uppercase tracking-[0.08em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-				active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'bg-muted/25 text-muted-foreground hover:bg-accent hover:text-foreground'
-			)}
-		>
-			{text}
-		</button>
-	)
-}
-
 export function PlaylistProfileFilterChips({options, counts, totalCount, filter, onFilterChange}: PlaylistProfileFilterChipsProps): ReactNode {
 	const {t} = useTranslation()
 	const assignedOptions = options.filter(option => (counts.get(option.profile.id) ?? 0) > 0)
 	return (
-		<div role="group" className="flex max-w-full gap-1 overflow-x-auto" aria-label={t('wizard.playlistProfiles.filtersLabel')} data-testid="playlist-profile-filters">
-			<FilterChip active={filter === 'all'} text={t('wizard.playlistProfiles.filterChip', {name: t('queue.filterAll'), count: totalCount})} testId="filter-profile-all" onClick={() => onFilterChange('all')} />
+		<ToggleGroup
+			size="xs"
+			variant="outline"
+			spacing={1}
+			value={[filter]}
+			onValueChange={value => {
+				if (value[0]) onFilterChange(value[0])
+			}}
+			className="max-w-full gap-1 overflow-x-auto"
+			aria-label={t('wizard.playlistProfiles.filtersLabel')}
+			data-testid="playlist-profile-filters"
+		>
+			<ToggleGroupItem value="all" shape="chip" className="uppercase" data-testid="filter-profile-all">
+				{t('wizard.playlistProfiles.filterChip', {name: t('queue.filterAll'), count: totalCount})}
+			</ToggleGroupItem>
 			{assignedOptions.map(option => (
-				<FilterChip key={option.profile.id} active={filter === option.profile.id} text={t('wizard.playlistProfiles.filterChip', {name: option.profile.name, count: counts.get(option.profile.id) ?? 0})} testId={`filter-profile-${option.profile.id}`} onClick={() => onFilterChange(option.profile.id)} />
+				<ToggleGroupItem key={option.profile.id} value={option.profile.id} shape="chip" className="uppercase" data-testid={`filter-profile-${option.profile.id}`}>
+					{t('wizard.playlistProfiles.filterChip', {name: option.profile.name, count: counts.get(option.profile.id) ?? 0})}
+				</ToggleGroupItem>
 			))}
-		</div>
+		</ToggleGroup>
 	)
 }

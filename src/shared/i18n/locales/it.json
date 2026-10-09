@@ -469,7 +469,7 @@
 				"identity": {"title": "Identità del profilo", "description": "Nome e icona visualizzati in Download rapido, URL multipli e negli elenchi dei profili."},
 				"downloadType": {"title": "Tipo di download", "description": "Scegli il metodo principale di download."},
 				"advanced": {"title": "Opzioni avanzate", "description": "I profili ereditano la destinazione globale, a meno che non venga impostata una destinazione sostitutiva."},
-				"output": {"title": "Opzioni di output"},
+				"output": {"title": "Opzioni di output", "enabledCount_one": "{{count}} attive", "enabledCount_other": "{{count}} attive"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Nome della sottocartella",
 				"name": "Nome del profilo",
 				"subtitleDownloads": "Download dei sottotitoli",
+				"subtitleDownloadsDescription": "I profili richiedono codici lingua; la disponibilità viene verificata per ogni URL.",
 				"languages": "Lingue",
 				"delivery": "Consegna",
 				"overridePath": "Percorso sostitutivo del profilo"

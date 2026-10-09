@@ -34,6 +34,7 @@ import {
 } from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
+import {showcaseProbe, showcaseQueueItem} from './dev/showcaseContent.js'
 
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch'
 
@@ -146,7 +147,7 @@ export function installBrowserMock(): void {
 	const queueUpdatedListeners = new Set<(event: {item: QueueItem}) => void>()
 	const queueRemovedListeners = new Set<(event: {itemId: string}) => void>()
 	const queueSchedulerListeners = new Set<(event: QueueSchedulerEventPayload) => void>()
-	const queueItems: QueueItem[] = [...scenarioState.queueItems]
+	const queueItems: QueueItem[] = knobs.showcase ? scenarioState.queueItems.map(showcaseQueueItem) : [...scenarioState.queueItems]
 	const queueItemById = new Map(queueItems.map(item => [item.id, item]))
 	let queueRunning = false
 	// Mirror of QueueService's global scheduler-pause flag: while true, the mock
@@ -264,6 +265,70 @@ export function installBrowserMock(): void {
 		maybeStartNextQueueItem()
 	}
 
+	async function probeMock(input: Parameters<AppApi['downloads']['probe']>[0]): ReturnType<AppApi['downloads']['probe']> {
+		if (!looksLikeUrl(input.url)) {
+			return {ok: false, error: {kind: 'other', code: 'invalid_url', message: 'Not a valid http(s) URL'}}
+		}
+
+		const probeErrorKind = mockProbeErrorKind(input.url)
+		if (probeErrorKind !== null) {
+			return {ok: false, error: buildProbeErrorForKind(probeErrorKind)}
+		}
+
+		if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
+			await delay(1400)
+			return {ok: false, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}
+		}
+
+		if (shouldMockPlaylistProbe(input)) {
+			const itemCount = mockPlaylistItemCount(input.url)
+			await delay(1400)
+			return {ok: true, data: playlistProbe(itemCount, {webpageUrl: input.url})}
+		}
+
+		// Hydration theater for the playlist-hydration scenario: per-item
+		// video probes resolve mock Bilibili parts after the standard
+		// delay so the picker's resolving/progress states stay visible.
+		// p5 fails and p7 resolves dateless by builder contract.
+		if (scenarioState.scenario.id === 'playlist-hydration' && input.playlistMode === 'video') {
+			await delay(1400)
+			const video = bilibiliHydrationVideo(input.url)
+			if (video === null) return {ok: false, error: {kind: 'other', code: 'unknown', message: 'Mock hydration failure'}}
+			return {ok: true, data: {...video, webpageUrl: input.url}}
+		}
+
+		if (scenarioState.probeResult) {
+			await delay(1400)
+			return {ok: true, data: {...scenarioState.probeResult, webpageUrl: input.url}}
+		}
+
+		// Visual harness: append `?fail=1` to a URL to simulate a hard
+		// probe failure (drives the wizard error step + CookiesErrorAlert).
+		// Combine with `&bot=1` to simulate a bot-wall hard fail so the
+		// BotWallNotice (forceShow on StepError) renders alongside. Combine
+		// with `&dpapi=1` to simulate the Chrome 127+ App-Bound Encryption
+		// failure so the DPAPI variant of CookiesErrorAlert renders.
+		if (/[?&]fail=1\b/.test(input.url)) {
+			const isBot = /[?&]bot=1\b/.test(input.url)
+			const isDpapi = /[?&]dpapi=1\b/.test(input.url)
+			if (isDpapi) {
+				return {ok: false, error: {kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: Failed to decrypt with DPAPI. See https://github.com/yt-dlp/yt-dlp/issues/10927 for more info'}}}
+			}
+			if (isBot) {
+				return {ok: false, error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "ERROR: [youtube] x: Sign in to confirm you're not a bot. Use --cookies-from-browser …"}}}
+			}
+			return {ok: false, error: {kind: 'ytdlp', error: {kind: 'unavailable', raw: 'ERROR: [youtube] dQw4w9WgXcQ: Video unavailable. The uploader has not made this video available in your country.'}}}
+		}
+
+		// Visual harness: append `?bot=1` to a URL to simulate the bot-wall
+		// degraded probe (signal-only, no count truncation). Used to render
+		// the BotWallNotice variants in the renderer dev server.
+		const simulateBotWall = /[?&]bot=1\b/.test(input.url)
+
+		await delay(1400)
+		return {ok: true, data: normalVideoProbe({webpageUrl: input.url, degraded: simulateBotWall ? {reasons: ['botWall' as const]} : undefined})}
+	}
+
 	const mock: AppApi = {
 		app: {
 			warmUp: async input => {
@@ -308,7 +373,7 @@ export function installBrowserMock(): void {
 			},
 			getGraphicsPolicy: async () => {
 				await Promise.resolve()
-				return {ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}}
+				return {ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: knobs.backdropSoftware}}}
 			},
 			installYtDlpWithHomebrew: async () => {
 				await delay(800)
@@ -342,67 +407,8 @@ export function installBrowserMock(): void {
 				/* no-op in browser */
 			},
 			probe: async input => {
-				if (!looksLikeUrl(input.url)) {
-					return {ok: false, error: {kind: 'other', code: 'invalid_url', message: 'Not a valid http(s) URL'}}
-				}
-
-				const probeErrorKind = mockProbeErrorKind(input.url)
-				if (probeErrorKind !== null) {
-					return {ok: false, error: buildProbeErrorForKind(probeErrorKind)}
-				}
-
-				if (shouldMockEmptyPlaylistScopeReload(scenarioState.scenario, input.playlistMode, input.playlistScope)) {
-					await delay(1400)
-					return {ok: false, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}
-				}
-
-				if (shouldMockPlaylistProbe(input)) {
-					const itemCount = mockPlaylistItemCount(input.url)
-					await delay(1400)
-					return {ok: true, data: playlistProbe(itemCount, {webpageUrl: input.url})}
-				}
-
-				// Hydration theater for the playlist-hydration scenario: per-item
-				// video probes resolve mock Bilibili parts after the standard
-				// delay so the picker's resolving/progress states stay visible.
-				// p5 fails and p7 resolves dateless by builder contract.
-				if (scenarioState.scenario.id === 'playlist-hydration' && input.playlistMode === 'video') {
-					await delay(1400)
-					const video = bilibiliHydrationVideo(input.url)
-					if (video === null) return {ok: false, error: {kind: 'other', code: 'unknown', message: 'Mock hydration failure'}}
-					return {ok: true, data: {...video, webpageUrl: input.url}}
-				}
-
-				if (scenarioState.probeResult) {
-					await delay(1400)
-					return {ok: true, data: {...scenarioState.probeResult, webpageUrl: input.url}}
-				}
-
-				// Visual harness: append `?fail=1` to a URL to simulate a hard
-				// probe failure (drives the wizard error step + CookiesErrorAlert).
-				// Combine with `&bot=1` to simulate a bot-wall hard fail so the
-				// BotWallNotice (forceShow on StepError) renders alongside. Combine
-				// with `&dpapi=1` to simulate the Chrome 127+ App-Bound Encryption
-				// failure so the DPAPI variant of CookiesErrorAlert renders.
-				if (/[?&]fail=1\b/.test(input.url)) {
-					const isBot = /[?&]bot=1\b/.test(input.url)
-					const isDpapi = /[?&]dpapi=1\b/.test(input.url)
-					if (isDpapi) {
-						return {ok: false, error: {kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: Failed to decrypt with DPAPI. See https://github.com/yt-dlp/yt-dlp/issues/10927 for more info'}}}
-					}
-					if (isBot) {
-						return {ok: false, error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "ERROR: [youtube] x: Sign in to confirm you're not a bot. Use --cookies-from-browser …"}}}
-					}
-					return {ok: false, error: {kind: 'ytdlp', error: {kind: 'unavailable', raw: 'ERROR: [youtube] dQw4w9WgXcQ: Video unavailable. The uploader has not made this video available in your country.'}}}
-				}
-
-				// Visual harness: append `?bot=1` to a URL to simulate the bot-wall
-				// degraded probe (signal-only, no count truncation). Used to render
-				// the BotWallNotice variants in the renderer dev server.
-				const simulateBotWall = /[?&]bot=1\b/.test(input.url)
-
-				await delay(1400)
-				return {ok: true, data: normalVideoProbe({webpageUrl: input.url, degraded: simulateBotWall ? {reasons: ['botWall' as const]} : undefined})}
+				const result = await probeMock(input)
+				return knobs.showcase && result.ok ? {ok: true, data: showcaseProbe(result.data)} : result
 			},
 
 			start: input => {

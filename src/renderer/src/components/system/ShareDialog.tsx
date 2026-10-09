@@ -136,8 +136,8 @@ export function ShareDialog(): ReactNode {
 					<DialogDescription>{t('share.description')}</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex items-center gap-2 rounded-md border border-[var(--border-strong)] bg-muted/40 px-3 py-2">
-					<span className="flex-1 truncate text-[12px] font-mono text-foreground">{SHARE_URL}</span>
+				<div className="flex items-center gap-2 rounded-md border border-border-strong bg-muted/40 px-3 py-2">
+					<span className="flex-1 truncate text-xs font-mono text-foreground">{SHARE_URL}</span>
 					<Button type="button" variant="outline" size="sm" onClick={handleCopy} data-testid="share-copy-link">
 						{copied ? <CopyCheck size={14} /> : <Copy size={14} />}
 						<span>{copied ? t('share.copied') : t('share.copyLink')}</span>
@@ -148,12 +148,12 @@ export function ShareDialog(): ReactNode {
 					{sortedDestinations.map(dest => {
 						const Icon = dest.Icon
 						return (
-							<button key={dest.id} type="button" onClick={() => handleSocial(dest)} className="flex flex-col items-center justify-center gap-1 rounded-md border border-border bg-background p-2 hover:bg-muted transition-colors" data-testid={`share-dest-${dest.id}`} title={dest.label}>
-								<span className="flex h-7 w-7 items-center justify-center text-foreground" style={dest.color ? {color: dest.color} : undefined}>
+							<Button key={dest.id} type="button" variant="outline" onClick={() => handleSocial(dest)} className="h-auto min-w-0 flex-col gap-1 p-2" data-testid={`share-dest-${dest.id}`} title={dest.label}>
+								<span className="flex size-7 items-center justify-center text-foreground" style={dest.color ? {color: dest.color} : undefined}>
 									<Icon width={20} height={20} />
 								</span>
-								<span className="text-[11px] text-muted-foreground truncate w-full text-center">{dest.label}</span>
-							</button>
+								<span className="w-full truncate text-center text-caption text-muted-foreground">{dest.label}</span>
+							</Button>
 						)
 					})}
 				</div>

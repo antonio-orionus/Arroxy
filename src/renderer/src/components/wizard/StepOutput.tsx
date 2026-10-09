@@ -3,8 +3,8 @@ import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {canWriteM3u} from '../../store/wizard/outputTemplates.js'
 import {Separator} from '../ui/separator.js'
+import {SettingSwitch} from '../shared/SettingSwitch.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
-import {Switch} from '../ui/switch.js'
 
 export function StepOutput(): ReactNode {
 	const {t} = useTranslation()
@@ -19,63 +19,23 @@ export function StepOutput(): ReactNode {
 	return (
 		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-output">
 			<div className="flex flex-col gap-3 py-1">
-				<div className="flex items-center justify-between gap-3">
-					<div className="flex flex-col gap-0.5">
-						<span className="text-[13px] font-medium text-foreground">{t('wizard.output.embedChapters.label')}</span>
-						<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.embedChapters.description')}</span>
-					</div>
-					<Switch checked={wizardEmbedChapters} onCheckedChange={setEmbedChapters} aria-label={t('wizard.output.embedChapters.label')} data-testid="embed-chapters-toggle" />
-				</div>
-
-				<div className="flex items-center justify-between gap-3">
-					<div className="flex flex-col gap-0.5">
-						<span className="text-[13px] font-medium text-foreground">{t('wizard.output.embedMetadata.label')}</span>
-						<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.embedMetadata.description')}</span>
-					</div>
-					<Switch checked={wizardEmbedMetadata} onCheckedChange={setEmbedMetadata} aria-label={t('wizard.output.embedMetadata.label')} data-testid="embed-metadata-toggle" />
-				</div>
-
-				<div className="flex items-center justify-between gap-3">
-					<div className="flex flex-col gap-0.5">
-						<span className="text-[13px] font-medium text-foreground">{t('wizard.output.embedThumbnail.label')}</span>
-						<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.embedThumbnail.description')}</span>
-					</div>
-					<Switch checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} aria-label={t('wizard.output.embedThumbnail.label')} data-testid="embed-thumbnail-toggle" />
-				</div>
+				<SettingSwitch id="output-embed-chapters" label={t('wizard.output.embedChapters.label')} description={t('wizard.output.embedChapters.description')} checked={wizardEmbedChapters} onCheckedChange={setEmbedChapters} testId="embed-chapters-toggle" />
+				<SettingSwitch id="output-embed-metadata" label={t('wizard.output.embedMetadata.label')} description={t('wizard.output.embedMetadata.description')} checked={wizardEmbedMetadata} onCheckedChange={setEmbedMetadata} testId="embed-metadata-toggle" />
+				<SettingSwitch id="output-embed-thumbnail" label={t('wizard.output.embedThumbnail.label')} description={t('wizard.output.embedThumbnail.description')} checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} testId="embed-thumbnail-toggle" />
 			</div>
 
-			<Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
+			<Separator className="my-1.5" />
 
 			<div className="flex flex-col gap-3 py-1">
-				<div className="flex items-center justify-between gap-3">
-					<div className="flex flex-col gap-0.5">
-						<span className="text-[13px] font-medium text-foreground">{t('wizard.output.writeDescription.label')}</span>
-						<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.writeDescription.description')}</span>
-					</div>
-					<Switch checked={wizardWriteDescription} onCheckedChange={setWriteDescription} aria-label={t('wizard.output.writeDescription.label')} data-testid="write-description-toggle" />
-				</div>
-
-				<div className="flex items-center justify-between gap-3">
-					<div className="flex flex-col gap-0.5">
-						<span className="text-[13px] font-medium text-foreground">{t('wizard.output.writeThumbnail.label')}</span>
-						<span className="text-[11px] text-[var(--text-subtle)]">{t('wizard.output.writeThumbnail.description')}</span>
-					</div>
-					<Switch checked={wizardWriteThumbnail} onCheckedChange={setWriteThumbnail} aria-label={t('wizard.output.writeThumbnail.label')} data-testid="write-thumbnail-toggle" />
-				</div>
+				<SettingSwitch id="output-write-description" label={t('wizard.output.writeDescription.label')} description={t('wizard.output.writeDescription.description')} checked={wizardWriteDescription} onCheckedChange={setWriteDescription} testId="write-description-toggle" />
+				<SettingSwitch id="output-write-thumbnail" label={t('wizard.output.writeThumbnail.label')} description={t('wizard.output.writeThumbnail.description')} checked={wizardWriteThumbnail} onCheckedChange={setWriteThumbnail} testId="write-thumbnail-toggle" />
 			</div>
 
 			{isPlaylist && (
 				<>
-					<Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
-
+					<Separator className="my-1.5" />
 					<div className="flex flex-col gap-3 py-1">
-						<div className="flex items-center justify-between gap-3">
-							<div className="flex flex-col gap-0.5">
-								<span className="text-[13px] font-medium text-foreground">{t('wizard.output.writeM3u.label')}</span>
-								<span className="text-[11px] text-[var(--text-subtle)]">{canMatchById ? t('wizard.output.writeM3u.description') : t('filenameTemplate.m3uDisabled')}</span>
-							</div>
-							<Switch checked={wizardWriteM3u && canMatchById} disabled={!canMatchById} onCheckedChange={setWriteM3u} aria-label={t('wizard.output.writeM3u.label')} data-testid="write-m3u-toggle" />
-						</div>
+						<SettingSwitch id="output-write-m3u" label={t('wizard.output.writeM3u.label')} description={canMatchById ? t('wizard.output.writeM3u.description') : t('filenameTemplate.m3uDisabled')} checked={wizardWriteM3u && canMatchById} disabled={!canMatchById} onCheckedChange={setWriteM3u} testId="write-m3u-toggle" />
 					</div>
 				</>
 			)}

@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "Download dei sottotitoli"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "I profili richiedono codici lingua; la disponibilità viene verificata per ogni URL."
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "Archivio"
@@ -2264,6 +2268,14 @@ msgstr "Nome e icona visualizzati in Download rapido, URL multipli e negli elenc
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Identità del profilo"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} attive"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} attive"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

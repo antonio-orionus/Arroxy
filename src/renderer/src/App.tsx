@@ -33,8 +33,11 @@ import changelogText from '../../../CHANGELOG.md?raw'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
-const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
-const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[13px] text-muted-foreground max-sm:size-6 max-sm:px-0'
+// Dev-only screens: gating the dynamic import itself lets Vite drop their chunks
+// from production builds instead of shipping them unreachable.
+const ScenarioGallery = SHOW_SCENARIO_GALLERY ? lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery}))) : null
+const UiKit = import.meta.env.MODE === 'browser-mock' ? lazy(() => import('./dev/UiKit.js').then(module => ({default: module.UiKit}))) : null
+const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-sm text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
 type BackdropPreviewMode = 'gpu' | 'css'
@@ -44,6 +47,17 @@ const BACKDROP_PREVIEW_MODES = [
 	{description: 'WebGL shader preview: hardware when available, software allowed in this stage.', icon: Cpu, id: 'gpu', label: 'WebGL shader'},
 	{description: 'CSS emergency: no canvas, body gradients only.', icon: Paintbrush, id: 'css', label: 'CSS emergency'}
 ] as const satisfies readonly {description: string; icon: typeof Cpu; id: BackdropPreviewMode; label: string}[]
+
+// Design-system sheet (browser-mock only): every primitive in every variant. Reach it via `?kit`.
+function isUiKitStage(): boolean {
+	return import.meta.env.MODE === 'browser-mock' && new URLSearchParams(window.location.search).has('kit')
+}
+
+function exitUiKitStage(): void {
+	const url = new URL(window.location.href)
+	url.searchParams.delete('kit')
+	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
+}
 
 function isBackdropOnlyStage(): boolean {
 	return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && new URLSearchParams(window.location.search).has('backdrop')
@@ -157,6 +171,19 @@ export function App(): ReactNode {
 		return () => clearTimeout(t)
 	}, [showNudge])
 
+	if (UiKit && isUiKitStage()) {
+		return (
+			<TooltipProvider>
+				<div className="relative h-screen w-screen overflow-hidden">
+					<AppBackdrop key={`${colorScheme}-${backdropRenderMode}`} colorScheme={colorScheme} renderMode={backdropRenderMode} softwareWebglAllowed={softwareWebglAllowed} />
+					<Suspense fallback={null}>
+						<UiKit onExit={exitUiKitStage} />
+					</Suspense>
+				</div>
+			</TooltipProvider>
+		)
+	}
+
 	// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
 	// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.
 	if (isBackdropOnlyStage()) {
@@ -171,7 +198,7 @@ export function App(): ReactNode {
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
 				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} softwareWebglAllowed={backdropPreviewMode === 'gpu'} />
-				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-[var(--border-strong)] bg-background/80 px-2 py-1.5 backdrop-blur">
+				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-border-strong bg-background/80 px-2 py-1.5 backdrop-blur">
 					<ThemeToggle />
 					<div className="h-5 w-px bg-border" aria-hidden />
 					<div className="flex items-center gap-1 rounded-md border border-border bg-muted/30 p-0.5" data-testid="backdrop-preview-controls" aria-label="Backdrop render path">
@@ -184,7 +211,7 @@ export function App(): ReactNode {
 									type="button"
 									onClick={() => applyBackdropPreviewMode(mode.id)}
 									aria-pressed={active}
-									className={cn('inline-flex h-7 items-center gap-1 rounded px-2 text-[11px] font-medium transition-colors', active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'text-muted-foreground hover:bg-accent hover:text-foreground')}
+									className={cn('inline-flex h-7 items-center gap-1 rounded px-2 text-caption font-medium transition-colors', active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'text-muted-foreground hover:bg-accent hover:text-foreground')}
 									data-testid={`backdrop-preview-${mode.id}`}
 								>
 									<Icon size={12} aria-hidden />
@@ -193,7 +220,7 @@ export function App(): ReactNode {
 							)
 						})}
 					</div>
-					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-[11px] leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
+					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-caption leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
 						{activeBackdropPreview.description}
 					</p>
 					<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
@@ -230,11 +257,11 @@ export function App(): ReactNode {
 								+
 							</Button>
 						</ButtonGroup>
-						<span className="w-8 text-center text-[13px] text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
+						<span className="w-8 text-center text-sm text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
 						<ThemeToggle />
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
-						<div className="min-w-0 [&_select]:max-w-[4.75rem] [&_select]:truncate sm:[&_select]:max-w-none" data-testid="footer-language-picker">
+						<div className="min-w-0 [&_[data-slot=select-trigger]]:max-w-[6rem] [&_[data-slot=select-value]]:truncate sm:[&_[data-slot=select-trigger]]:max-w-none" data-testid="footer-language-picker">
 							<LanguagePicker />
 						</div>
 					</div>
@@ -288,7 +315,7 @@ export function App(): ReactNode {
 				) : null}
 				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} />
 				<WhatsNewDialog open={whatsNew.open} digest={whatsNew.digest} onClose={whatsNew.close} onOpenFullNotes={whatsNew.openFullNotes} />
-				{SHOW_SCENARIO_GALLERY ? (
+				{ScenarioGallery ? (
 					<Suspense fallback={null}>
 						<ScenarioGallery />
 					</Suspense>

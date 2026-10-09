@@ -444,7 +444,7 @@
 				"identity": {"title": "प्रोफ़ाइल पहचान", "description": "क्विक डाउनलोड, बल्क URL और प्रोफ़ाइल सूचियों में दिखने वाला नाम और आइकन।"},
 				"downloadType": {"title": "डाउनलोड प्रकार", "description": "चुनें कि आप मुख्य रूप से किस तरह डाउनलोड करना चाहते हैं।"},
 				"advanced": {"title": "उन्नत विकल्प", "description": "जब तक आप प्रोफ़ाइल ओवरराइड सेट नहीं करते, प्रोफ़ाइलें वैश्विक गंतव्य ही अपनाती हैं।"},
-				"output": {"title": "आउटपुट विकल्प"},
+				"output": {"title": "आउटपुट विकल्प", "enabledCount_one": "{{count}} चालू", "enabledCount_other": "{{count}} चालू"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -457,6 +457,7 @@
 				"subfolderName": "सबफ़ोल्डर नाम",
 				"name": "प्रोफ़ाइल नाम",
 				"subtitleDownloads": "उपशीर्षक डाउनलोड",
+				"subtitleDownloadsDescription": "प्रोफ़ाइल भाषा कोड माँगती हैं; उपलब्धता हर URL के लिए अलग से तय होती है।",
 				"languages": "भाषाएँ",
 				"delivery": "सहेजने का तरीका",
 				"overridePath": "प्रोफ़ाइल ओवरराइड पथ"

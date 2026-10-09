@@ -403,6 +403,10 @@ shadcn/ui is the primary source for renderer UI primitives. Before inventing cus
 
 **Install via CLI:** `bunx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.
 
+**One-off styling is ratcheted.** Outside `components/ui/` and `dev/`, arbitrary font sizes, colours, shadows, radii, type metrics, raw Tailwind palette colours, and raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>` are counted per file by `tests/unit/ui-consistency-ratchet.test.ts` against `tests/unit/ui-consistency-baseline.json`. Counts may only go down: express the need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), and after a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vitest run --project node tests/unit/ui-consistency-ratchet.test.ts`. Never raise it.
+
+**Review primitive changes in the UI Kit.** `bun run dev:mock` then open `/?kit` (or the gallery's "UI kit" button): every primitive in every variant on the real glass surfaces, with theme and LTR/RTL switches. `tests/browser/ui-kit.spec.ts` keeps it rendering in both skies and directions.
+
 **Segmented controls own their own layout.** `toggleVariants` already provides pressed-state brand styling, `min-w-0`, `wrap-anywhere`, and `min-h-*` sizing, so a `ToggleGroupItem` never needs `whitespace-*`, `shrink-*`, `min-w-*`, a fixed `h-*`, or any `aria-pressed:` / `data-[state=on]:` colour at the call site. Pass `shape="chip"` when a short token (bitrate, extension, file format) must stay on one line — and give that group `flex-wrap`, since `ToggleGroup` is a non-wrapping flex row by default and unshrinkable chips would otherwise overflow it.
 
 Use `wrap-anywhere`, not `break-words`: `overflow-wrap: break-word` does not shrink a flex/grid item's intrinsic min-content width, so a single long word still overflows its track.
@@ -626,6 +630,10 @@ Do **not** hardcode the locale list or count anywhere in code, docs, or memory. 
 | README build                   | `LOCALES` in [`readme-src/strings.mjs`](readme-src/strings.mjs)       | —                                                                                         |
 
 Both must stay in lockstep with the landing-site locale list in the `arroxy-web` repo. The `en` locale is the canonical reference; the build script and the `WidenStrings<EnTranslation>` type (see `src/shared/i18n/types.ts`) diff every other locale against it.
+
+### README screenshots
+
+The product screenshots in `build/` are generated, not hand-captured. `bun run screenshots:readme` renders the browser-mock renderer with showcase content (`?showcase=1`: neutral sample titles and generated artwork, never real video art) and the software WebGL backdrop (`?backdropSoftware=1`, so headless Chromium shows the GPU look rather than the no-GPU fallback) and overwrites each file; `bun run screenshots:readme -g "Bulk URLs"` retakes one. The recipe list lives in `tests/screenshots/readme-screenshots.spec.ts`. After a UI change, rerun it and commit the updated PNGs with the change. For a new feature: add a Scenario Workbench scenario that shows it (if none does), add a recipe entry, run the command, and reference `build/<file>` from `readme-src/template.md`. The Global hotkey image is an illustration and `demo.gif` is a screen recording; neither is generated.
 
 ### What NOT to edit directly
 

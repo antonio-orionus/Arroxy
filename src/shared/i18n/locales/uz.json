@@ -477,7 +477,7 @@
 				"identity": {"title": "Profil identifikatori", "description": "Tez yuklab olish, Ommaviy URL va profil ro'yxatlarida ko'rinadigan nom va belgi."},
 				"downloadType": {"title": "Yuklab olish turi", "description": "Asosan qanday yuklab olishni xohlashingizni tanlang."},
 				"advanced": {"title": "Kengaytirilgan sozlamalar", "description": "Agar profil almashtirishini belgilamasangiz, profillar umumiy manzilni meros qilib oladi."},
-				"output": {"title": "Chiqish sozlamalari"},
+				"output": {"title": "Chiqish sozlamalari", "enabledCount_one": "{{count}} ta yoqilgan", "enabledCount_other": "{{count}} ta yoqilgan"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -490,6 +490,7 @@
 				"subfolderName": "Ichki jild nomi",
 				"name": "Profil nomi",
 				"subtitleDownloads": "Subtitr yuklamalari",
+				"subtitleDownloadsDescription": "Profillar til kodlarini so'raydi; mavjudligi har bir URL uchun alohida aniqlanadi.",
 				"languages": "Tillar",
 				"delivery": "Saqlash usuli",
 				"overridePath": "Profil almashtirish yo'li"

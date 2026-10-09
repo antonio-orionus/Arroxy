@@ -29,8 +29,8 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 	}
 
 	return (
-		<div className="banner-slide-in flex h-9 shrink-0 items-center justify-between gap-3 border-b border-border bg-[var(--brand-dim)] px-4" data-testid="update-banner">
-			<span className="text-[13px] text-foreground/80 truncate" data-testid="update-banner-message">
+		<div className="banner-slide-in flex h-9 shrink-0 items-center justify-between gap-3 border-b border-border bg-primary/12 px-4" data-testid="update-banner">
+			<span className="text-sm text-foreground/80 truncate" data-testid="update-banner-message">
 				{installError ? (
 					<span className="text-destructive font-medium">
 						{t('update.installFailed')}: {installError}
@@ -42,21 +42,21 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 
 			<ButtonGroup className="shrink-0">
 				{action.kind === 'install' && (
-					<Button type="button" onClick={onInstall} disabled={installing} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
+					<Button type="button" onClick={onInstall} disabled={installing} size="sm">
 						{installing ? <Spinner data-icon="inline-start" /> : null}
 						{installing ? t('update.downloading') : installError ? t('update.retry') : t('update.install')}
 					</Button>
 				)}
 
 				{action.kind === 'download' && (
-					<Button type="button" onClick={onDownload} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
+					<Button type="button" onClick={onDownload} size="sm">
 						{t(copy.buttonKey ?? 'update.download')}
 					</Button>
 				)}
 
 				{action.kind === 'command' && (
 					<>
-						<code className="font-mono text-[12px] px-1.5 py-0.5 rounded bg-muted text-foreground" data-testid="update-command">
+						<code className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-foreground" data-testid="update-command">
 							{action.cmd}
 						</code>
 						<Button type="button" variant="ghost" size="icon-xs" onClick={() => void handleCopy(action.cmd)} aria-label={copied ? t('update.copied') : t('update.copy')}>

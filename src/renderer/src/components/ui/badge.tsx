@@ -15,15 +15,23 @@ const badgeVariants = cva(
 				destructive: 'bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20',
 				outline: 'border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground',
 				ghost: 'hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50',
-				link: 'text-primary underline-offset-4 hover:underline'
+				link: 'text-primary underline-offset-4 hover:underline',
+				success: 'bg-success/12 text-success',
+				warning: 'bg-warning/12 text-warning',
+				info: 'bg-info/12 text-info'
+			},
+			size: {
+				default: '',
+				// Dense rows and inline tags (format codes, "Built-in", "Auto").
+				sm: 'h-4.5 px-1.5 text-caption'
 			}
 		},
-		defaultVariants: {variant: 'default'}
+		defaultVariants: {variant: 'default', size: 'default'}
 	}
 )
 
-function Badge({className, variant = 'default', render, ...props}: useRender.ComponentProps<'span'> & VariantProps<typeof badgeVariants>): ReactNode {
-	return useRender({defaultTagName: 'span', props: mergeProps<'span'>({className: cn(badgeVariants({variant}), className)}, props), render, state: {slot: 'badge', variant}})
+function Badge({className, variant = 'default', size = 'default', render, ...props}: useRender.ComponentProps<'span'> & VariantProps<typeof badgeVariants>): ReactNode {
+	return useRender({defaultTagName: 'span', props: mergeProps<'span'>({className: cn(badgeVariants({variant, size}), className)}, props), render, state: {slot: 'badge', variant}})
 }
 
 export {Badge}

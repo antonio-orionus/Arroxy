@@ -496,6 +496,42 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
 		}
 	})
 
+	it('shows no format as selected while every row is disabled in subtitle-only mode', () => {
+		renderFormats('subtitle-only')
+		// The store keeps '' / {kind: 'none'} as the selection, which match the
+		// "Audio only" and "No audio" rows; a disabled row must never read as chosen.
+		expect(screen.getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')).toEqual([])
+	})
+
+	it('keeps exactly one video and one audio row selected for a normal preset', () => {
+		renderFormats('best-quality')
+		expect(screen.getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')).toHaveLength(2)
+	})
+
+	it('maps each format row to its store selection', () => {
+		renderFormats('best-quality')
+		const radio = (name: string, index = 0): HTMLElement => {
+			const match = screen.getAllByRole('radio', {name})[index]
+			if (!match) throw new Error(`no radio named ${name}`)
+			return match
+		}
+
+		fireEvent.click(radio('Keep as-is'))
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
+
+		fireEvent.click(radio('opus'))
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '140'})
+
+		// Converting audio needs an audio-only pick; the convert rows unlock with it.
+		fireEvent.click(radio('Audio only'))
+		expect(useAppStore.getState().selectedVideoFormatId).toBe('')
+		fireEvent.click(radio('mp3'))
+		expect(useAppStore.getState().audioSelection).toMatchObject({kind: 'convert-lossy', target: 'mp3'})
+		fireEvent.click(radio('wav'))
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
+		expect(radio('wav').getAttribute('aria-checked')).toBe('true')
+	})
+
 	it('disables only the audio-convert radios for non-subtitle-only presets with a video pick', () => {
 		renderFormats('best-quality')
 		const radios = screen.getAllByRole('radio')

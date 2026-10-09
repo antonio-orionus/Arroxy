@@ -11,7 +11,7 @@ describe('toggleVariants', () => {
 	})
 
 	it('never pins a fixed height, so a wrapped label can grow the control', () => {
-		for (const size of ['default', 'sm', 'lg'] as const) {
+		for (const size of ['xs', 'default', 'sm', 'lg'] as const) {
 			const classes = toggleVariants({size}).split(' ')
 			expect(classes.filter(c => c.startsWith('h-') && c !== 'h-auto')).toEqual([])
 			expect(classes.some(c => /^min-h-\d/.test(c))).toBe(true)
@@ -19,7 +19,7 @@ describe('toggleVariants', () => {
 	})
 
 	it('never pins a minimum width, so a narrow track can squeeze the control', () => {
-		for (const size of ['default', 'sm', 'lg'] as const) {
+		for (const size of ['xs', 'default', 'sm', 'lg'] as const) {
 			expect(
 				toggleVariants({size})
 					.split(' ')
@@ -36,7 +36,7 @@ describe('toggleVariants', () => {
 
 	it('owns the pressed-state brand styling so call sites never restate it', () => {
 		const base = toggleVariants({})
-		for (const token of ['aria-pressed:border-[var(--brand)]', 'aria-pressed:bg-[var(--brand-dim)]', 'aria-pressed:text-[var(--brand)]', 'data-[state=on]:border-[var(--brand)]', 'data-[state=on]:bg-[var(--brand-dim)]', 'data-[state=on]:text-[var(--brand)]']) {
+		for (const token of ['aria-pressed:border-primary', 'aria-pressed:bg-primary/12', 'aria-pressed:text-selected-foreground', 'data-[state=on]:border-primary', 'data-[state=on]:bg-primary/12', 'data-[state=on]:text-selected-foreground']) {
 			expect(base).toContain(token)
 		}
 	})

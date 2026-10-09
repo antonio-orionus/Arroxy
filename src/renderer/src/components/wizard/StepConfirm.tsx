@@ -12,6 +12,8 @@ import {VideoSummaryCard} from '../shared/VideoSummaryCard.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import loveImg from '../../assets/Love.png'
 import {createTranslationPort} from '../../lib/translation.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {Card} from '../ui/card.js'
 
 export function StepConfirm(): ReactNode {
 	const {t, i18n} = useTranslation()
@@ -27,7 +29,7 @@ export function StepConfirm(): ReactNode {
 			{!review.inBatch && <VideoSummaryCard thumbnail={state.wizardThumbnail} title={state.wizardTitle} duration={state.wizardDuration} resolution={state.selectedVideoFormatId !== '' ? review.videoResolution : undefined} webpageUrl={state.wizardWebpageUrl} />}
 
 			{/* Mascot banner */}
-			<div className="flex items-center gap-4 p-4 rounded-lg border border-[hsla(220,100%,56%,0.15)] bg-[var(--brand-dim)] shrink-0">
+			<div className="flex shrink-0 items-center gap-4 rounded-lg border border-primary/20 bg-primary/12 p-4">
 				<img src={loveImg} alt="" aria-hidden className="size-16 shrink-0 object-contain" />
 				<div>
 					<p className="text-sm font-semibold text-foreground">{t('wizard.confirm.readyHeadline')}</p>
@@ -36,7 +38,7 @@ export function StepConfirm(): ReactNode {
 							t('wizard.confirm.landInMultiProfile', {count: profileBreakdown.length})
 						) : (
 							<>
-								{t('wizard.confirm.landIn')} <code className="font-mono text-foreground/80">{review.shortPath}</code>
+								{t('wizard.confirm.landIn')} <code className="font-mono text-foreground">{review.shortPath}</code>
 							</>
 						)}
 					</p>
@@ -44,24 +46,26 @@ export function StepConfirm(): ReactNode {
 			</div>
 
 			{/* Summary table */}
-			<div className="overflow-hidden rounded-lg border border-border bg-secondary" data-testid="confirm-preview">
+			<Card variant="inset" className="gap-0 py-0" data-testid="confirm-preview">
 				<Table>
 					<TableBody>
 						{review.summaryRows.map(row => (
 							<TableRow key={row.key} className="hover:bg-transparent">
-								<TableCell className="w-16 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{row.label}</TableCell>
-								<TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-foreground/80" data-testid={`confirm-${row.key}`}>
+								<SectionLabel render={<TableCell />} className="w-16 px-4 py-2">
+									{row.label}
+								</SectionLabel>
+								<TableCell className="max-w-xs px-4 py-2 text-sm text-foreground" data-testid={`confirm-${row.key}`}>
 									<span className="block truncate">{row.value}</span>
 								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
 				</Table>
-			</div>
+			</Card>
 
 			{profileBreakdown.length > 0 && (
-				<div className="overflow-hidden rounded-lg border border-border bg-secondary" data-testid="confirm-profile-breakdown">
-					<p className="px-4 pt-3 text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{t('wizard.confirm.profileBreakdownHeading')}</p>
+				<Card variant="inset" className="gap-0 py-0" data-testid="confirm-profile-breakdown">
+					<SectionLabel className="px-4 pt-3">{t('wizard.confirm.profileBreakdownHeading')}</SectionLabel>
 					<Table>
 						<TableBody>
 							{profileBreakdown.map(row => {
@@ -71,9 +75,9 @@ export function StepConfirm(): ReactNode {
 										<TableCell className="w-8 px-4 py-2">
 											<Icon size={14} className="text-muted-foreground" aria-hidden />
 										</TableCell>
-										<TableCell className="px-0 py-2 text-xs text-foreground/90">{row.name}</TableCell>
+										<TableCell className="px-0 py-2 text-sm text-foreground">{row.name}</TableCell>
 										<TableCell className="px-2 py-2 text-xs text-muted-foreground tabular-nums">{t('wizard.confirm.profileBreakdownCount', {count: row.count})}</TableCell>
-										<TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-foreground/80">
+										<TableCell className="max-w-xs px-4 py-2 font-mono text-xs text-muted-foreground">
 											<span className="block truncate">{row.outputDir}</span>
 										</TableCell>
 									</TableRow>
@@ -81,7 +85,7 @@ export function StepConfirm(): ReactNode {
 							})}
 						</TableBody>
 					</Table>
-				</div>
+				</Card>
 			)}
 
 			{review.conflictWarnings.length > 0 && (
@@ -104,7 +108,7 @@ export function StepConfirm(): ReactNode {
 			)}
 
 			<WizardFooter>
-				<Button variant="ghost" type="button" onClick={back} data-testid="btn-back" disabled={isSubmittingToQueue} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
+				<Button variant="outline" type="button" onClick={back} data-testid="btn-back" disabled={isSubmittingToQueue}>
 					{t('common.back')}
 				</Button>
 				{review.inBatch ? (
@@ -113,7 +117,7 @@ export function StepConfirm(): ReactNode {
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
-								<Button {...props} type="button" onClick={() => void addToQueue()} data-testid="btn-add-to-queue" disabled={!review.allowedActions.addToQueue || isSubmittingToQueue} className="shadow-[0_4px_14px_var(--brand-glow)] pl-4 pr-3 min-w-[96px]">
+								<Button variant="glow" {...props} type="button" onClick={() => void addToQueue()} data-testid="btn-add-to-queue" disabled={!review.allowedActions.addToQueue || isSubmittingToQueue} className="min-w-24">
 									{t('wizard.confirm.addToQueue')}
 								</Button>
 							)}
@@ -135,7 +139,7 @@ export function StepConfirm(): ReactNode {
 						<Tooltip>
 							<TooltipTrigger
 								render={props => (
-									<Button {...props} type="button" onClick={() => void addToQueue()} data-testid="btn-add-to-queue" disabled={!review.allowedActions.addToQueue || isSubmittingToQueue} className="shadow-[0_4px_14px_var(--brand-glow)] pl-4 pr-3 min-w-[96px]">
+									<Button variant="glow" {...props} type="button" onClick={() => void addToQueue()} data-testid="btn-add-to-queue" disabled={!review.allowedActions.addToQueue || isSubmittingToQueue} className="min-w-24">
 										{t('wizard.confirm.addToQueue')}
 									</Button>
 								)}

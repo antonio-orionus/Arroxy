@@ -469,7 +469,7 @@
 				"identity": {"title": "Ταυτότητα προφίλ", "description": "Όνομα και εικονίδιο που εμφανίζονται στη Γρήγορη λήψη, στα Μαζικά URL και στις λίστες προφίλ."},
 				"downloadType": {"title": "Τύπος λήψης", "description": "Επιλέξτε τον κύριο τρόπο με τον οποίο θέλετε να κατεβάζετε."},
 				"advanced": {"title": "Σύνθετες επιλογές", "description": "Τα προφίλ κληρονομούν τον γενικό προορισμό εκτός αν ορίσετε παράκαμψη προφίλ."},
-				"output": {"title": "Επιλογές εξόδου"},
+				"output": {"title": "Επιλογές εξόδου", "enabledCount_one": "{{count}} ενεργά", "enabledCount_other": "{{count}} ενεργά"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Όνομα υποφακέλου",
 				"name": "Όνομα προφίλ",
 				"subtitleDownloads": "Λήψεις υποτίτλων",
+				"subtitleDownloadsDescription": "Τα προφίλ ζητούν κωδικούς γλώσσας· η διαθεσιμότητα ελέγχεται για κάθε URL ξεχωριστά.",
 				"languages": "Γλώσσες",
 				"delivery": "Τρόπος αποθήκευσης",
 				"overridePath": "Διαδρομή παράκαμψης προφίλ"

@@ -15,6 +15,7 @@ import IconFacebook from '~icons/logos/facebook'
 import IconReddit from '~icons/logos/reddit-icon'
 import IconDailymotion from '~icons/simple-icons/dailymotion'
 import IconBilibili from '~icons/simple-icons/bilibili'
+import {SectionLabel} from './SectionLabel.js'
 
 type CapabilityId = 'youtube' | 'any-site'
 type CapabilityIcon = ComponentType<SVGProps<SVGSVGElement>>
@@ -52,7 +53,7 @@ export function SourceCapabilityStrip({className, testId = 'source-capabilities'
 
 	return (
 		<div className={cn('rounded-xl border border-border/70 bg-muted/30 px-3 py-2.5 text-start', className)} data-testid={testId}>
-			<p className="text-label uppercase text-[var(--text-subtle)]">{t('wizard.url.features.heading')}</p>
+			<SectionLabel>{t('wizard.url.features.heading')}</SectionLabel>
 			<div className="mt-2 grid gap-2">
 				{FEATURE_GROUPS.map(group => {
 					const heading = t(group.heading)
@@ -65,14 +66,14 @@ export function SourceCapabilityStrip({className, testId = 'source-capabilities'
 							<Tooltip>
 								<TooltipTrigger
 									render={props => (
-										<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={detailLabel} data-testid={`${testIdPrefix}-${group.id}-tip`} className="-my-1 shrink-0 rounded-full text-[var(--text-subtle)] hover:text-foreground">
+										<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={detailLabel} data-testid={`${testIdPrefix}-${group.id}-tip`} className="-my-1 shrink-0 rounded-full text-subtle-foreground hover:text-foreground">
 											<Info aria-hidden />
 										</Button>
 									)}
 								/>
 								<TooltipContent data-testid={`${testIdPrefix}-${group.id}-content`} className="max-w-[15rem] flex-wrap items-start justify-start gap-1.5 border border-border bg-popover text-popover-foreground shadow-lg">
 									{group.items.map(item => (
-										<Badge key={item} variant="outline" className="bg-background/50 px-2 py-0 text-[11px]">
+										<Badge key={item} variant="outline" size="sm" className="bg-background/50">
 											{t(item)}
 										</Badge>
 									))}

@@ -460,7 +460,7 @@
 				"identity": {"title": "Profile identity", "description": "Name and icon shown in Quick Download, Bulk URLs, and profile lists."},
 				"downloadType": {"title": "Download type", "description": "Choose the primary way you want to download."},
 				"advanced": {"title": "Advanced options", "description": "Profiles inherit the global destination unless you set a profile override."},
-				"output": {"title": "Output options"},
+				"output": {"title": "Output options", "enabledCount_one": "{{count}} enabled", "enabledCount_other": "{{count}} enabled"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -473,6 +473,7 @@
 				"subfolderName": "Subfolder name",
 				"name": "Profile name",
 				"subtitleDownloads": "Subtitle downloads",
+				"subtitleDownloadsDescription": "Profiles request language codes; availability is resolved for each URL.",
 				"languages": "Languages",
 				"delivery": "Delivery",
 				"overridePath": "Profile override path"

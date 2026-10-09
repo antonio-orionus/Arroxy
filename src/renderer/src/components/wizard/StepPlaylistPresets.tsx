@@ -4,13 +4,13 @@ import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection
 import {SMART_TV_MP4_BLOCKED_TIERS, SMART_TV_MP4_MAX_TIER} from '../../store/wizard/downloadProfileDraft.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
-import {Item, ItemContent, ItemDescription, ItemGroup, ItemTitle} from '../ui/item.js'
 import {ScrollArea} from '../ui/scroll-area.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {PlaylistSubtitlesPanel} from './PlaylistSubtitlesPanel.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
-import {cn} from '@renderer/lib/utils.js'
 import {normalizeSubtitleLanguageCode} from '@renderer/lib/subtitleLanguageCatalog.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {OptionCard} from '../shared/OptionCard.js'
 
 type PlaylistSelectionKind = PlaylistSelection['kind']
 const SELECTION_KINDS: readonly PlaylistSelectionKind[] = ['video', 'audio', 'subtitles']
@@ -25,8 +25,6 @@ function seededSubtitleSelection(uiLanguage: string): PlaylistSubtitleSelection 
 const VIDEO_TIERS = PLAYLIST_VIDEO_TIERS
 const AUDIO_FORMATS: PlaylistAudioFormat[] = ['best', 'mp3', 'm4a', 'opus']
 const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
-
-const SECTION_LABEL = 'text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-1.5'
 
 export function StepPlaylistPresets(): ReactNode {
 	const {t, i18n} = useTranslation()
@@ -103,7 +101,7 @@ export function StepPlaylistPresets(): ReactNode {
 				<div className="flex flex-col gap-4 p-1">
 					{/* Type toggle */}
 					<div>
-						<p className={SECTION_LABEL}>{t('wizard.playlistPresets.subhead')}</p>
+						<SectionLabel className="mb-1.5">{t('wizard.playlistPresets.subhead')}</SectionLabel>
 						<ToggleGroup
 							variant="outline"
 							value={[currentKind]}
@@ -125,69 +123,40 @@ export function StepPlaylistPresets(): ReactNode {
 						<>
 							{/* Compatibility toggle */}
 							<div>
-								<p className={SECTION_LABEL}>{t('playlistPresets.type.video')}</p>
-								<ItemGroup className="grid grid-cols-2 gap-2">
-									{(['best', 'mp4'] as const).map(codec => {
-										const selected = currentCodec === codec
-										return (
-											<Item
-												key={codec}
-												variant="outline"
-												role="button"
-												tabIndex={0}
-												aria-pressed={selected}
-												onClick={() => setVideoCodec(codec)}
-												onKeyDown={e => {
-													if (e.key === 'Enter' || e.key === ' ') {
-														e.preventDefault()
-														setVideoCodec(codec)
-													}
-												}}
-												className={cn('cursor-pointer hover:bg-muted/40', selected && 'border-primary bg-primary/5 shadow-[0_0_0_2px_var(--brand-dim)]')}
-											>
-												<ItemContent>
-													<ItemTitle>{t(`playlistPresets.videoFormat.${codec}`)}</ItemTitle>
-													<ItemDescription>{t(`playlistPresets.videoFormatDesc.${codec}`)}</ItemDescription>
-												</ItemContent>
-											</Item>
-										)
-									})}
-								</ItemGroup>
+								<SectionLabel className="mb-1.5">{t('playlistPresets.type.video')}</SectionLabel>
+								<ToggleGroup
+									value={[currentCodec]}
+									onValueChange={arr => {
+										const next = (['best', 'mp4'] as const).find(codec => codec === arr[0])
+										if (next) setVideoCodec(next)
+									}}
+									spacing={2}
+									className="grid w-full grid-cols-2 gap-2"
+								>
+									{(['best', 'mp4'] as const).map(codec => (
+										<OptionCard key={codec} value={codec} title={t(`playlistPresets.videoFormat.${codec}`)} description={t(`playlistPresets.videoFormatDesc.${codec}`)} />
+									))}
+								</ToggleGroup>
 							</div>
 
 							{/* Quality / tier grid */}
 							<div>
-								<p className={SECTION_LABEL}>{t('playlistPresets.tier.best')}</p>
-								<ItemGroup className="grid grid-cols-2 gap-2 md:grid-cols-3 md:grid-rows-auto" data-testid="tier-list">
-									{VIDEO_TIERS.map(tier => {
-										const blocked = currentCodec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)
-										const selected = currentTier === tier
-										return (
-											<Item
-												key={tier}
-												variant="outline"
-												role="button"
-												tabIndex={blocked ? -1 : 0}
-												aria-pressed={selected}
-												aria-disabled={blocked}
-												onClick={() => setTier(tier)}
-												onKeyDown={e => {
-													if (e.key === 'Enter' || e.key === ' ') {
-														e.preventDefault()
-														setTier(tier)
-													}
-												}}
-												className={cn('cursor-pointer hover:bg-muted/40', selected && 'border-primary bg-primary/5 shadow-[0_0_0_2px_var(--brand-dim)]', blocked && 'cursor-not-allowed opacity-40')}
-											>
-												<ItemContent>
-													<ItemTitle>{t(`playlistPresets.tier.${tier}`)}</ItemTitle>
-													<ItemDescription>{t(`playlistPresets.tierDesc.${tier}`)}</ItemDescription>
-												</ItemContent>
-											</Item>
-										)
-									})}
-								</ItemGroup>
-								{showMp4Cap && <p className="mt-2 text-[11px] text-muted-foreground">{t('playlistPresets.mp4Cap')}</p>}
+								<SectionLabel className="mb-1.5">{t('playlistPresets.tier.best')}</SectionLabel>
+								<ToggleGroup
+									value={[currentTier]}
+									onValueChange={arr => {
+										const next = VIDEO_TIERS.find(tier => tier === arr[0])
+										if (next) setTier(next)
+									}}
+									spacing={2}
+									className="grid w-full grid-cols-2 gap-2 md:grid-cols-3"
+									data-testid="tier-list"
+								>
+									{VIDEO_TIERS.map(tier => (
+										<OptionCard key={tier} value={tier} disabled={currentCodec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)} title={t(`playlistPresets.tier.${tier}`)} description={t(`playlistPresets.tierDesc.${tier}`)} />
+									))}
+								</ToggleGroup>
+								{showMp4Cap && <p className="mt-2 text-caption text-muted-foreground">{t('playlistPresets.mp4Cap')}</p>}
 							</div>
 						</>
 					)}
@@ -196,47 +165,43 @@ export function StepPlaylistPresets(): ReactNode {
 						<>
 							{/* Audio format cards */}
 							<div>
-								<p className={SECTION_LABEL}>{t('playlistPresets.type.audio')}</p>
-								<ItemGroup className="grid grid-cols-2 gap-2">
-									{AUDIO_FORMATS.map(fmt => {
-										const selected = currentAudioFormat === fmt
-										return (
-											<Item
-												key={fmt}
-												variant="outline"
-												role="button"
-												tabIndex={0}
-												aria-pressed={selected}
-												onClick={() => setAudioFormat(fmt)}
-												onKeyDown={e => {
-													if (e.key === 'Enter' || e.key === ' ') {
-														e.preventDefault()
-														setAudioFormat(fmt)
-													}
-												}}
-												className={cn('cursor-pointer hover:bg-muted/40', selected && 'border-primary bg-primary/5 shadow-[0_0_0_2px_var(--brand-dim)]')}
-											>
-												<ItemContent>
-													<ItemTitle>{t(`playlistPresets.audioFormat.${fmt}`)}</ItemTitle>
-													<ItemDescription>{t(`playlistPresets.audioFormatDesc.${fmt}`)}</ItemDescription>
-												</ItemContent>
-											</Item>
-										)
-									})}
-								</ItemGroup>
+								<SectionLabel className="mb-1.5">{t('playlistPresets.type.audio')}</SectionLabel>
+								<ToggleGroup
+									value={[currentAudioFormat]}
+									onValueChange={arr => {
+										const next = AUDIO_FORMATS.find(fmt => fmt === arr[0])
+										if (next) setAudioFormat(next)
+									}}
+									spacing={2}
+									className="grid w-full grid-cols-2 gap-2"
+								>
+									{AUDIO_FORMATS.map(fmt => (
+										<OptionCard key={fmt} value={fmt} title={t(`playlistPresets.audioFormat.${fmt}`)} description={t(`playlistPresets.audioFormatDesc.${fmt}`)} />
+									))}
+								</ToggleGroup>
 							</div>
 
 							{/* Bitrate chips — lossy formats only */}
 							{showBitrate && (
 								<div>
-									<p className={SECTION_LABEL}>{t('wizard.formats.convert.bitrate')}</p>
-									<div className="flex flex-wrap gap-2">
+									<SectionLabel className="mb-1.5">{t('wizard.formats.convert.bitrate')}</SectionLabel>
+									<ToggleGroup
+										size="sm"
+										variant="outline"
+										spacing={1}
+										value={[String(currentBitrate)]}
+										onValueChange={arr => {
+											const next = AUDIO_BITRATES.find(kbps => String(kbps) === arr[0])
+											if (next) setBitrate(next)
+										}}
+										className="flex-wrap gap-1"
+									>
 										{AUDIO_BITRATES.map(kbps => (
-											<Button key={kbps} type="button" variant={currentBitrate === kbps ? 'default' : 'outline'} size="sm" onClick={() => setBitrate(kbps)} className={cn('rounded-full px-3', currentBitrate === kbps && 'shadow-[0_4px_14px_var(--brand-glow)]')}>
+											<ToggleGroupItem key={kbps} value={String(kbps)} shape="chip">
 												{kbps}K
-											</Button>
+											</ToggleGroupItem>
 										))}
-									</div>
+									</ToggleGroup>
 								</div>
 							)}
 						</>
@@ -247,7 +212,7 @@ export function StepPlaylistPresets(): ReactNode {
 			</ScrollArea>
 
 			<WizardStepFooterActions onBack={back} onContinue={advance} continueDisabled={subtitlesIncomplete}>
-				<Button type="button" onClick={skipToConfirm} disabled={subtitlesIncomplete} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
+				<Button variant="outline" type="button" onClick={skipToConfirm} disabled={subtitlesIncomplete} title={t('wizard.formats.skipToConfirmTooltip')}>
 					{t('wizard.formats.skipToConfirm')}
 				</Button>
 			</WizardStepFooterActions>

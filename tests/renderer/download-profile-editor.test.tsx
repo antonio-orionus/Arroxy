@@ -151,6 +151,29 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('turns subtitle downloads on and off with a switch, and keeps it on for a subtitles-only profile', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(balanced).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+		const {unmount} = render(<DownloadProfileEditor initialProfile={balanced} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		const toggle = await screen.findByRole('switch', {name: 'Subtitle downloads'})
+		expect(toggle).toHaveAttribute('aria-checked', 'false')
+		fireEvent.click(toggle)
+		expect(toggle).toHaveAttribute('aria-checked', 'true')
+		expect(await screen.findByLabelText('Languages')).toBeInTheDocument()
+		fireEvent.click(toggle)
+		expect(toggle).toHaveAttribute('aria-checked', 'false')
+		unmount()
+
+		const subtitlesOnly = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'subtitles-only')
+		expect(subtitlesOnly).toBeDefined()
+		render(<DownloadProfileEditor initialProfile={subtitlesOnly} open onOpenChange={() => undefined} />)
+		const locked = await screen.findByRole('switch', {name: 'Subtitle downloads'})
+		expect(locked).toHaveAttribute('aria-checked', 'true')
+		expect(locked).toHaveAttribute('aria-disabled', 'true')
+	})
+
 	it('saves WAV audio-only profiles without a bitrate', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'audio-only')
 		expect(profile).toBeDefined()

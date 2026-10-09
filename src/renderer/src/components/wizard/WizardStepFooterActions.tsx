@@ -9,7 +9,7 @@ interface WizardStepFooterActionsProps {
 	continueDisabled?: boolean
 	// Override the default 'Continue' label.
 	continueLabel?: ReactNode
-	// Extra buttons rendered after the continue button (e.g. skip-to-confirm).
+	// Secondary buttons (e.g. skip-to-confirm), rendered before Continue: the primary action always sits last.
 	children?: ReactNode
 	info?: ReactNode
 	extraAbove?: ReactNode
@@ -19,13 +19,13 @@ export function WizardStepFooterActions({onBack, onContinue, continueDisabled, c
 	const {t} = useTranslation()
 	return (
 		<WizardFooter info={info} extraAbove={extraAbove}>
-			<Button variant="ghost" type="button" onClick={onBack} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
+			<Button variant="outline" type="button" onClick={onBack}>
 				{t('common.back')}
 			</Button>
-			<Button type="button" disabled={continueDisabled} onClick={onContinue} className="shadow-[0_4px_14px_var(--brand-glow)]">
+			{children}
+			<Button variant="glow" type="button" disabled={continueDisabled} onClick={onContinue}>
 				{continueLabel ?? t('common.continue')}
 			</Button>
-			{children}
 		</WizardFooter>
 	)
 }

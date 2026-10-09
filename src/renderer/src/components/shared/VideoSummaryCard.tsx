@@ -29,12 +29,12 @@ export function VideoSummaryCard({thumbnail, title, duration, resolution, webpag
 
 	return (
 		<div data-slot="video-summary-card" className="wizard-summary-surface flex shrink-0 items-center gap-[10px] rounded-lg px-[12px] py-[9px]">
-			<div className="aspect-video w-[68px] flex-shrink-0 overflow-hidden rounded-[5px] border border-[var(--border-strong)] bg-[var(--field-bg)] shadow-[inset_0_1px_0_var(--field-highlight)]">
+			<div className="aspect-video w-[68px] flex-shrink-0 overflow-hidden rounded-sm border border-border-strong bg-muted">
 				{thumbnail ? <img src={thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="block h-full w-full object-cover" /> : <div className="thumb-shimmer h-full w-full" aria-hidden />}
 			</div>
 			<div className="flex flex-col gap-[2px] flex-1 min-w-0">
-				<p className="text-[14px] font-bold text-foreground leading-snug truncate">{title || t('videoCard.titlePlaceholder')}</p>
-				<p className="text-[12px] text-[var(--text-subtle)]">{meta}</p>
+				<p className="truncate text-sm leading-snug font-bold text-foreground">{title || t('videoCard.titlePlaceholder')}</p>
+				<p className="text-xs text-subtle-foreground">{meta}</p>
 			</div>
 		</div>
 	)

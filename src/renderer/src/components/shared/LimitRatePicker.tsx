@@ -7,6 +7,7 @@ import {Alert, AlertDescription} from '../ui/alert.js'
 import {Input} from '../ui/input.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {LIMIT_RATE_PRESETS, formatLimitRateLabel, isLimitRatePreset} from './limitRateFormat.js'
+import {FieldError} from '../ui/field.js'
 
 interface Props {
 	value: string | undefined
@@ -57,10 +58,11 @@ export function LimitRatePicker({value, onChange}: Props): ReactNode {
 			{hasActiveDownloads && (
 				<Alert variant="warning" data-testid="limit-rate-active-warning">
 					<AlertTriangle />
-					<AlertDescription className="text-[11px]">{t('wizard.url.limitRate.activeWarning')}</AlertDescription>
+					<AlertDescription>{t('wizard.url.limitRate.activeWarning')}</AlertDescription>
 				</Alert>
 			)}
 			<ToggleGroup
+				size="sm"
 				value={[selectedToggleValue]}
 				onValueChange={values => {
 					const next = values[0]
@@ -75,26 +77,22 @@ export function LimitRatePicker({value, onChange}: Props): ReactNode {
 				spacing={1}
 				className="grid w-full grid-cols-2 items-stretch"
 			>
-				<ToggleGroupItem value="off" className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+				<ToggleGroupItem value="off" className="justify-start">
 					{t('wizard.url.limitRate.off')}
 				</ToggleGroupItem>
 				{LIMIT_RATE_PRESETS.map(preset => (
-					<ToggleGroupItem key={preset} value={preset} className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+					<ToggleGroupItem key={preset} value={preset} className="justify-start">
 						{formatLimitRateLabel(preset)}
 					</ToggleGroupItem>
 				))}
-				<ToggleGroupItem value="custom" className="min-h-7 justify-start px-2 text-[12px] aria-pressed:shadow-[0_0_0_2px_var(--brand-dim)]">
+				<ToggleGroupItem value="custom" className="justify-start">
 					{t('wizard.url.limitRate.custom')}
 				</ToggleGroupItem>
 			</ToggleGroup>
 			{customMode && (
 				<div className="flex flex-col gap-1">
-					<Input key={customInputKey} type="text" defaultValue={customInitialValue} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-[12px] font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
-					{customError && (
-						<p className="text-[11px] text-amber-500" data-testid="limit-rate-custom-error">
-							{t('wizard.url.limitRate.invalid')}
-						</p>
-					)}
+					<Input key={customInputKey} type="text" defaultValue={customInitialValue} onChange={e => handleCustomChange(e.target.value)} placeholder={t('wizard.url.limitRate.customPlaceholder')} className="h-8 text-xs font-mono" aria-invalid={customError} data-testid="limit-rate-custom-input" />
+					{customError && <FieldError data-testid="limit-rate-custom-error">{t('wizard.url.limitRate.invalid')}</FieldError>}
 				</div>
 			)}
 		</div>

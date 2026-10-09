@@ -436,7 +436,7 @@
 				"identity": {"title": "ข้อมูลโปรไฟล์", "description": "ชื่อและไอคอนที่แสดงในดาวน์โหลดด่วน URL แบบกลุ่ม และรายการโปรไฟล์"},
 				"downloadType": {"title": "ประเภทการดาวน์โหลด", "description": "เลือกวิธีหลักที่ต้องการดาวน์โหลด"},
 				"advanced": {"title": "ตัวเลือกขั้นสูง", "description": "โปรไฟล์จะใช้ปลายทางส่วนกลาง เว้นแต่คุณจะตั้งค่าปลายทางแทนที่ของโปรไฟล์"},
-				"output": {"title": "ตัวเลือกผลลัพธ์"},
+				"output": {"title": "ตัวเลือกผลลัพธ์", "enabledCount_one": "เปิดอยู่ {{count}} รายการ", "enabledCount_other": "เปิดอยู่ {{count}} รายการ"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -449,6 +449,7 @@
 				"subfolderName": "ชื่อโฟลเดอร์ย่อย",
 				"name": "ชื่อโปรไฟล์",
 				"subtitleDownloads": "ดาวน์โหลดคำบรรยาย",
+				"subtitleDownloadsDescription": "โปรไฟล์จะขอรหัสภาษา ส่วนจะมีให้หรือไม่จะตรวจสอบแยกตามแต่ละ URL",
 				"languages": "ภาษา",
 				"delivery": "การส่งมอบ",
 				"overridePath": "เส้นทางแทนที่ของโปรไฟล์"

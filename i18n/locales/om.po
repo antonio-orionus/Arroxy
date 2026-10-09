@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "Buufata ergaa gadii"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a."
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "Kuusaa"
@@ -2264,6 +2268,14 @@ msgstr "Maqaa fi mallattoo Buufata Saffisaa, URL Baay'ee fi tarree piroofaayilii
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Eenyummaa piroofaayilii"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} dandeessifame"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} dandeessifame"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

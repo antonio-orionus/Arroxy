@@ -89,6 +89,7 @@
 		"test:e2e:fixtures:ci": "bun run embed:fetch:host && bun run build && node scripts/e2e-fixtures.mjs",
 		"test:browser": "bun scripts/dev-env.ts run browser-test",
 		"test:browser:smoke": "bun scripts/dev-env.ts run browser-smoke",
+		"screenshots:readme": "bun scripts/dev-env.ts run screenshots",
 		"profile:backdrop": "node scripts/profile-backdrop.mjs",
 		"profile:backdrop:weak": "node scripts/profile-backdrop.mjs --weak-cpu --quick",
 		"build:readme": "bun readme-src/build.mjs",

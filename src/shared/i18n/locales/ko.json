@@ -460,7 +460,7 @@
 				"identity": {"title": "프로필 식별 정보", "description": "빠른 다운로드, URL 일괄 추가 및 프로필 목록에 표시되는 이름과 아이콘입니다."},
 				"downloadType": {"title": "다운로드 유형", "description": "주로 사용할 다운로드 방식을 선택하세요."},
 				"advanced": {"title": "고급 옵션", "description": "프로필 재정의를 설정하지 않으면 전역 대상을 사용합니다."},
-				"output": {"title": "출력 옵션"},
+				"output": {"title": "출력 옵션", "enabledCount_one": "{{count}}개 사용", "enabledCount_other": "{{count}}개 사용"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -473,6 +473,7 @@
 				"subfolderName": "하위 폴더 이름",
 				"name": "프로필 이름",
 				"subtitleDownloads": "자막 다운로드",
+				"subtitleDownloadsDescription": "프로필은 언어 코드를 요청하며, 사용 가능 여부는 URL마다 확인됩니다.",
 				"languages": "언어",
 				"delivery": "전달 방식",
 				"overridePath": "프로필 재정의 경로"

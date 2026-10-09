@@ -10,18 +10,20 @@ const alertVariants = cva(
 		variants: {
 			variant: {
 				default: 'bg-card text-card-foreground',
-				success: 'border-emerald-500/30 bg-emerald-500/10 text-foreground *:[svg]:text-emerald-500',
-				info: 'border-sky-500/30 bg-sky-500/10 text-foreground *:[svg]:text-sky-500',
-				warning: 'border-amber-500/30 bg-amber-500/10 text-foreground *:[svg]:text-amber-500',
+				success: 'border-success/30 bg-success/10 text-foreground *:[svg]:text-success',
+				info: 'border-info/30 bg-info/10 text-foreground *:[svg]:text-info',
+				warning: 'border-warning/30 bg-warning/10 text-foreground *:[svg]:text-warning',
 				destructive: 'bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current'
-			}
+			},
+			// `sm`: a compact inline notice under a control or inside a dense panel.
+			size: {default: '', sm: "px-2.5 py-1.5 text-xs *:[svg:not([class*='size-'])]:size-3.5"}
 		},
-		defaultVariants: {variant: 'default'}
+		defaultVariants: {variant: 'default', size: 'default'}
 	}
 )
 
-function Alert({className, variant, ...props}: React.ComponentProps<'div'> & VariantProps<typeof alertVariants>): ReactNode {
-	return <div data-slot="alert" role="alert" className={cn(alertVariants({variant}), className)} {...props} />
+function Alert({className, variant, size = 'default', ...props}: React.ComponentProps<'div'> & VariantProps<typeof alertVariants>): ReactNode {
+	return <div data-slot="alert" role="alert" data-size={size} className={cn(alertVariants({variant, size}), className)} {...props} />
 }
 
 function AlertTitle({className, ...props}: React.ComponentProps<'div'>): ReactNode {
@@ -29,7 +31,7 @@ function AlertTitle({className, ...props}: React.ComponentProps<'div'>): ReactNo
 }
 
 function AlertDescription({className, ...props}: React.ComponentProps<'div'>): ReactNode {
-	return <div data-slot="alert-description" className={cn('text-sm text-balance text-muted-foreground md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4', className)} {...props} />
+	return <div data-slot="alert-description" className={cn('text-sm text-balance wrap-anywhere text-muted-foreground group-data-[size=sm]/alert:text-xs md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4', className)} {...props} />
 }
 
 function AlertAction({className, ...props}: React.ComponentProps<'div'>): ReactNode {

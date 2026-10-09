@@ -15,13 +15,16 @@ function SelectValue({className, ...props}: SelectPrimitive.Value.Props): ReactN
 	return <SelectPrimitive.Value data-slot="select-value" className={cn('flex flex-1 text-start', className)} {...props} />
 }
 
-function SelectTrigger({className, size = 'default', children, ...props}: SelectPrimitive.Trigger.Props & {size?: 'sm' | 'default'}): ReactNode {
+function SelectTrigger({className, size = 'default', variant = 'default', children, ...props}: SelectPrimitive.Trigger.Props & {size?: 'sm' | 'default'; variant?: 'default' | 'ghost'}): ReactNode {
 	return (
 		<SelectPrimitive.Trigger
 			data-slot="select-trigger"
 			data-size={size}
+			data-variant={variant}
 			className={cn(
 				"flex w-fit items-center justify-between gap-1.5 rounded-lg border border-[var(--field-border)] bg-[var(--field-bg)] py-2 pe-2 ps-2.5 text-sm whitespace-nowrap shadow-[inset_0_1px_0_var(--field-highlight)] transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:border-[var(--field-disabled-border)] disabled:bg-[var(--field-disabled-bg)] disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-[var(--field-placeholder)] data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+				// Inline chrome (status bar): no field box until hover.
+				variant === 'ghost' && 'border-transparent bg-transparent text-muted-foreground shadow-none hover:bg-muted hover:text-foreground',
 				className
 			)}
 			{...props}

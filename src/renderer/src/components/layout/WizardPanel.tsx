@@ -9,6 +9,19 @@ import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
 import {QuickDownloadProgressDialog} from '../wizard/QuickDownloadProgressDialog.js'
 import {cn} from '@renderer/lib/utils.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
+import {Check} from 'lucide-react'
+import {Card} from '../ui/card.js'
+
+// The wizard lives on the same glass stage as the tabs. Overflow stays visible
+// so each step's sticky footer can pin to the scrollport while the step scrolls.
+function WizardStage({enabled, children}: {enabled: boolean; children: ReactNode}): ReactNode {
+	if (!enabled) return children
+	return (
+		<Card variant="glass" data-wizard-stage="" className="flex-1 gap-0 overflow-visible px-6 pt-5 pb-0">
+			{children}
+		</Card>
+	)
+}
 
 function WizardStepFallback(): ReactNode {
 	return <div className="wizard-step min-h-32" data-testid="wizard-step-loading" aria-busy="true" />
@@ -49,36 +62,37 @@ export function WizardPanel(): ReactNode {
 	}, [activeIndex])
 
 	return (
-		<section className={cn('flex min-h-full min-w-0 flex-col px-6', isDownloadHome ? 'pt-4' : 'pt-3', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
-			{wizardStep !== 'error' && !isDownloadHome && (
-				<div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
-					{visibleSteps.map((stepKey, i) => {
-						const isDone = i < activeIndex
-						const isActive = i === activeIndex
-						return (
-							<div key={stepKey} className="flex items-center flex-1 last:flex-none">
-								<div className="flex flex-col items-center gap-1">
-									<div
-										className={cn(
-											'w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border shadow-[inset_0_1px_0_var(--field-highlight)] transition-all duration-300',
-											isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
-											isDone && 'border-transparent bg-[var(--brand)] text-white',
-											!isActive && !isDone && 'border-[var(--field-border)] bg-[var(--field-bg)] text-[var(--field-addon)]'
-										)}
-										style={isActive ? {boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)'} : isDone ? {boxShadow: '0 0 6px var(--brand-glow)'} : undefined}
-									>
-										{isDone ? '✓' : i + 1}
+		<section className={cn('flex min-h-full min-w-0 flex-col px-6', isDownloadHome ? 'pt-4' : 'pt-3 pb-4', isBackward ? 'wizard-backward' : 'wizard-forward')} data-testid="wizard-panel">
+			<WizardStage enabled={!isDownloadHome}>
+				{wizardStep !== 'error' && !isDownloadHome && (
+					<div className="flex items-center mb-4" aria-hidden data-testid="step-indicator">
+						{visibleSteps.map((stepKey, i) => {
+							const isDone = i < activeIndex
+							const isActive = i === activeIndex
+							return (
+								<div key={stepKey} className="flex items-center flex-1 last:flex-none">
+									<div className="flex flex-col items-center gap-1">
+										<div
+											className={cn(
+												'flex size-6 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300',
+												isActive && 'border-primary bg-primary/12 text-selected-foreground ring-3 ring-primary/12',
+												isDone && 'border-transparent bg-primary text-primary-foreground',
+												!isActive && !isDone && 'border-border-strong bg-card text-muted-foreground'
+											)}
+										>
+											{isDone ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : i + 1}
+										</div>
+										<span className={cn('text-label uppercase', isActive ? 'text-selected-foreground' : 'text-subtle-foreground')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
 									</div>
-									<span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
+									{i < visibleSteps.length - 1 && <div className={cn('mx-1 mb-4 h-0.5 flex-1 rounded-full transition-all duration-500', isDone ? 'bg-primary' : 'bg-border-strong')} />}
 								</div>
-								{i < visibleSteps.length - 1 && <div className={cn('h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full', isDone ? 'bg-[var(--brand)]' : 'bg-[var(--field-border)]')} style={isDone ? {boxShadow: '0 0 4px var(--brand-glow)'} : undefined} />}
-							</div>
-						)
-					})}
-				</div>
-			)}
+							)
+						})}
+					</div>
+				)}
 
-			{wizardStep === 'error' ? <StepError /> : activeDescriptor ? <Suspense fallback={<WizardStepFallback />}>{activeDescriptor.render()}</Suspense> : null}
+				{wizardStep === 'error' ? <StepError /> : activeDescriptor ? <Suspense fallback={<WizardStepFallback />}>{activeDescriptor.render()}</Suspense> : null}
+			</WizardStage>
 			<MixedUrlPromptDialog />
 			<QuickDownloadProgressDialog />
 			<QuickPlaylistCapDialog />

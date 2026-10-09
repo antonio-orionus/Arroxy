@@ -28,6 +28,7 @@ export function PlaylistSortControl({value, onChange, canSortByUpload, isFetchin
 		<div className="flex flex-wrap items-center gap-2">
 			<span className="text-xs text-muted-foreground">{t('wizard.playlist.sortLabel')}</span>
 			<ToggleGroup
+				size="sm"
 				variant="outline"
 				value={[value]}
 				onValueChange={vals => {
@@ -42,7 +43,7 @@ export function PlaylistSortControl({value, onChange, canSortByUpload, isFetchin
 					const uploadMode = mode !== 'api'
 					const key = SORT_MODE_LABEL_KEYS[mode]
 					return (
-						<ToggleGroupItem key={mode} value={mode} disabled={disabled || (uploadMode && !canSortByUpload)} className="px-3 text-[12px]" data-testid={`playlist-sort-${mode}`}>
+						<ToggleGroupItem key={mode} value={mode} disabled={disabled || (uploadMode && !canSortByUpload)} data-testid={`playlist-sort-${mode}`}>
 							{t(key)}
 						</ToggleGroupItem>
 					)
