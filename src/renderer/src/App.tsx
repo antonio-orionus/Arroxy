@@ -33,8 +33,10 @@ import changelogText from '../../../CHANGELOG.md?raw'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
-const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
-const UiKit = lazy(() => import('./dev/UiKit.js').then(module => ({default: module.UiKit})))
+// Dev-only screens: gating the dynamic import itself lets Vite drop their chunks
+// from production builds instead of shipping them unreachable.
+const ScenarioGallery = SHOW_SCENARIO_GALLERY ? lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery}))) : null
+const UiKit = import.meta.env.MODE === 'browser-mock' ? lazy(() => import('./dev/UiKit.js').then(module => ({default: module.UiKit}))) : null
 const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-sm text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
@@ -169,7 +171,7 @@ export function App(): ReactNode {
 		return () => clearTimeout(t)
 	}, [showNudge])
 
-	if (isUiKitStage()) {
+	if (UiKit && isUiKitStage()) {
 		return (
 			<TooltipProvider>
 				<div className="relative h-screen w-screen overflow-hidden">
@@ -313,7 +315,7 @@ export function App(): ReactNode {
 				) : null}
 				<FeedbackDialog open={feedbackDialogOpen} onOpenChange={setFeedbackDialogOpen} />
 				<WhatsNewDialog open={whatsNew.open} digest={whatsNew.digest} onClose={whatsNew.close} onOpenFullNotes={whatsNew.openFullNotes} />
-				{SHOW_SCENARIO_GALLERY ? (
+				{ScenarioGallery ? (
 					<Suspense fallback={null}>
 						<ScenarioGallery />
 					</Suspense>

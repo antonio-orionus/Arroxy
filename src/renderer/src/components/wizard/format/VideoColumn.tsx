@@ -47,7 +47,8 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 			</div>
 
 			<ScrollArea className="flex-1 min-h-0">
-				<RadioGroup value={selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="gap-1">
+				{/* A disabled column shows nothing as chosen, even though the store keeps a selection. */}
+				<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="gap-1">
 					{view.rows.map(row => (
 						<ChoiceRow key={row.formatId || 'audio-only'} id={`video-format-${row.formatId || 'audio-only'}`} value={row.formatId} label={row.resolution} meta={row.meta} disabled={view.disabled} />
 					))}

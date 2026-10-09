@@ -72,7 +72,7 @@ export function SelectableVirtualTable<T>({
 	return (
 		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25" data-testid={scrollTestId}>
 			<Table className="w-full table-fixed">
-				<TableHeader className="sticky top-0 z-10 bg-card/95 backdrop-blur">
+				<TableHeader className="sticky top-0 z-10 bg-card/95">
 					{table.getHeaderGroups().map(headerGroup => (
 						<TableRow key={headerGroup.id} className="hover:bg-transparent">
 							{headerGroup.headers.map(header => (

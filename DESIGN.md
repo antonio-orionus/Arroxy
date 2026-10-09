@@ -90,9 +90,9 @@ components:
     rounded: "{rounded.lg}"
     height: "44px"
     padding: "0 16px"
-  radio-option-active:
+  choice-surface-selected:
     backgroundColor: "{colors.border-glow}"
-    textColor: "{colors.brand}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.md}"
 ---
 
@@ -208,6 +208,8 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 **The Glass-Floats, Background-Recedes Rule.** Only floating/elevated surfaces are glass. The background, void in dark, field in light, is never glass and never blurred; it is the solid canvas the aurora lives in. Glass is frosted white (~60%) in light, translucent navy (~55%) in dark, both lit at the edge.
 
 **The One-Blur Rule.** Exactly one element in any nested stack owns the backdrop blur (the `glow-panel`); tiles inside it use `glow-tile` or quick-profile classes (no blur). Never stack backdrop-blurs, blurring already-blurred glass turns it to mud and costs frames. Edge gradients and glow may nest freely; blur may not.
+
+**The No-GPU-No-Blur Rule.** Backdrop blur is only free when hardware WebGL draws the sky. Without it (CSS or static fallback, software renderer) the blur re-composites the animated backdrop on the CPU every frame, which measured 38 fps without it against 21 fps with it. On those paths (`body:not(.backdrop-webgl-active)`) glass drops its blur and gets a denser fill so text keeps 4.5:1 over the unblurred sky.
 
 **The Bloom-Is-Rationed Rule.** The soft edge gradient is the default and may appear on every glass surface. The bright *outer bloom* is rationed: one primary split control per view, plus genuine live/focused states. If three things on a screen have a strong outer bloom, two are wrong, dial them back to the edge gradient.
 

@@ -8,7 +8,7 @@ import {Field, FieldLabel, FieldTitle} from '../ui/field.js'
 export function CheckRow({id, label, checked, onCheckedChange, meta, disabled, testId, className}: {id: string; label: ReactNode; checked: boolean; onCheckedChange: (checked: boolean) => void; meta?: ReactNode; disabled?: boolean; testId?: string; className?: string}): ReactNode {
 	return (
 		<FieldLabel htmlFor={id} className={cn('w-full rounded-md *:data-[slot=field]:px-2 *:data-[slot=field]:py-1.5', className)} data-testid={testId}>
-			<Field orientation="horizontal" className="items-center gap-2">
+			<Field orientation="horizontal" className="min-w-0 items-center gap-2">
 				{/* base-ui gives `id` to its hidden input, so name the visible checkbox explicitly. */}
 				<Checkbox id={id} checked={checked} onCheckedChange={onCheckedChange} disabled={disabled} aria-labelledby={`${id}-label`} />
 				<FieldTitle id={`${id}-label`} className="min-w-0 flex-1 truncate">

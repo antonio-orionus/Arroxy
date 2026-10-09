@@ -11,7 +11,8 @@ function isSupportedLang(value: unknown): value is SupportedLang {
 
 export function LanguagePicker(): ReactNode {
 	const {t} = useTranslation()
-	const {language, setLanguage} = useAppStore()
+	const language = useAppStore(state => state.language)
+	const setLanguage = useAppStore(state => state.setLanguage)
 
 	return (
 		<Select

@@ -1337,13 +1337,29 @@ body {
 	color: var(--foreground);
 }
 
-/* Inside the wizard stage the footer is the stage's bottom bar: same glass, the
-   stage's rounded corners, and no blur of its own (One-Blur Rule). */
+/* Without hardware WebGL (CSS or static fallback, software renderer) the
+   stage blur re-composites the animated backdrop on the CPU every frame:
+   measured 38 fps without it vs 21 fps with it on a throttled software run.
+   Drop the blur there and make the glass denser so text keeps 4.5:1 over the
+   unblurred sky. Hardware-WebGL machines keep the blurred aurora. */
+body:not(.backdrop-webgl-active) .glow-panel,
+body:not(.backdrop-webgl-active) .glass {
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+body:not(.backdrop-webgl-active) {
+	--glass-panel: hsl(205 100% 98% / 0.72);
+}
+.dark body:not(.backdrop-webgl-active) {
+	--glass-panel: hsl(228 68% 4% / 0.84);
+}
+
+/* Inside the wizard stage the footer is the stage's bottom bar: the stage's
+   rounded corners and no blur of its own (One-Blur Rule). It keeps its own
+   near-opaque fill on purpose: the footer is sticky and long steps scroll
+   beneath it, so a see-through footer would show content behind the buttons. */
 [data-wizard-stage] .wizard-footer-surface {
 	border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
-	background:
-		linear-gradient(var(--glass-surface-veil), var(--glass-surface-veil)) padding-box,
-		var(--wizard-footer-edge) border-box !important;
 	backdrop-filter: none;
 	-webkit-backdrop-filter: none;
 }

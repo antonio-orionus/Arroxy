@@ -11,7 +11,7 @@ import {describe, expect, it} from 'vitest'
 // one-off fails the build, and removing one fails until the baseline is
 // lowered, so the gain is locked in.
 //
-// Lower the baseline after a cleanup with:
+// Lower the baseline after a cleanup with (it never raises a count):
 //   UPDATE_UI_RATCHET=1 bunx vitest run --project node tests/unit/ui-consistency-ratchet.test.ts
 
 const RENDERER_SRC = path.resolve('src/renderer/src')
@@ -102,12 +102,26 @@ function isRule(value: string): value is Rule {
 	return Object.hasOwn(RULES, value)
 }
 
+function lowered(baseline: Baseline, current: Baseline): Baseline {
+	const next: Baseline = {}
+	for (const [file, allowed] of Object.entries(baseline)) {
+		const counts: Counts = {}
+		for (const [rule, limit] of Object.entries(allowed)) {
+			if (!isRule(rule)) continue
+			const count = Math.min(limit, current[file]?.[rule] ?? 0)
+			if (count > 0) counts[rule] = count
+		}
+		if (Object.keys(counts).length > 0) next[file] = counts
+	}
+	return next
+}
+
 describe('ui consistency ratchet', () => {
 	const current = measure()
 
-	if (process.env.UPDATE_UI_RATCHET === '1') {
-		writeFileSync(BASELINE_FILE, serializeBaseline(current))
-	}
+	// Update mode only ever lowers counts: an increase (or a new file) keeps the old
+	// allowance, so the regression check below still fails and can't be laundered.
+	if (process.env.UPDATE_UI_RATCHET === '1') writeFileSync(BASELINE_FILE, serializeBaseline(lowered(readBaseline(), current)))
 
 	const baseline = readBaseline()
 

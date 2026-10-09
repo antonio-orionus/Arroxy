@@ -53,6 +53,8 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 
 	// The radio group speaks strings; these encode and decode the three selection kinds.
 	const selectedValue = audioSelection.kind === 'none' ? 'none' : audioSelection.kind === 'native' ? `native:${audioSelection.formatId}` : `convert:${audioSelection.target}`
+	// A disabled row never reads as chosen, even though the store keeps the selection.
+	const selectedRowDisabled = audioSelection.kind === 'none' ? view.noAudioDisabled : audioSelection.kind === 'native' ? subtitleOnly : subtitleOnly || view.convertDisabled
 	const selectValue = (value: string): void => {
 		if (value === 'none') return onSelect({kind: 'none'})
 		const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
@@ -106,7 +108,7 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 			</div>
 
 			<ScrollArea className="max-h-[240px]">
-				<RadioGroup value={selectedValue} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="gap-1">
+				<RadioGroup value={selectedRowDisabled ? null : selectedValue} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="gap-1">
 					{/* Muxed-video sources surface "Keep as-is" first because it's the
             zero-cost default — embedded audio stays in the file, no extraction
             step. Convert/no-audio rows still follow for users who explicitly

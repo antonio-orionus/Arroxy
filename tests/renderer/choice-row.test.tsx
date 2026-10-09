@@ -34,8 +34,12 @@ describe('ChoiceRow', () => {
 		expect(onValueChange).not.toHaveBeenCalled()
 	})
 
-	it('renders the row on the shared choice surface', () => {
+	it('exposes the checked state the shared choice surface paints from', () => {
 		renderGroup()
-		expect(screen.getByText('1080p').closest('label')?.className).toContain('choice-surface')
+		// styles.css `choice-surface` highlights a row via :has([data-slot="radio-group-item"][data-checked]).
+		const row = (text: string): HTMLElement | null => screen.getByText(text).closest('label')
+		expect(row('2160p')?.querySelector('[data-slot="radio-group-item"][data-checked]')).not.toBeNull()
+		expect(row('1080p')?.querySelector('[data-slot="radio-group-item"][data-checked]')).toBeNull()
+		expect(row('1080p')?.classList.contains('has-[>[data-slot=field]]:choice-surface')).toBe(true)
 	})
 })
