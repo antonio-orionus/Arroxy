@@ -1,12 +1,13 @@
 import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
-import {Checkbox} from '../ui/checkbox.js'
 import {Separator} from '../ui/separator.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {SPONSORBLOCK_CATEGORIES, SPONSORBLOCK_MODES} from '@shared/schemas.js'
 import type {SponsorBlockMode} from '@shared/types.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {CheckRow} from '../shared/CheckRow.js'
 
 const SB_MODE_LABEL_KEYS = {off: 'wizard.sponsorblock.mode.off', mark: 'wizard.sponsorblock.mode.mark', remove: 'wizard.sponsorblock.mode.remove'} as const satisfies Record<SponsorBlockMode, string>
 
@@ -26,8 +27,11 @@ export function StepSponsorBlock(): ReactNode {
 		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-sponsorblock">
 			{/* ── Mode ───────────────────────────────────────── */}
 			<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
-				<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.sponsorblock.modeHeading')}</span>
+				<SectionLabel render={<span />} className="px-1 shrink-0">
+					{t('wizard.sponsorblock.modeHeading')}
+				</SectionLabel>
 				<ToggleGroup
+					size="sm"
 					variant="outline"
 					value={[wizardSponsorBlockMode]}
 					onValueChange={values => {
@@ -39,7 +43,7 @@ export function StepSponsorBlock(): ReactNode {
 					className="flex-wrap"
 				>
 					{SPONSORBLOCK_MODES.map(mode => (
-						<ToggleGroupItem key={mode} value={mode} className="min-h-7 px-2 text-[12px]">
+						<ToggleGroupItem key={mode} value={mode}>
 							{t(SB_MODE_LABEL_KEYS[mode])}
 						</ToggleGroupItem>
 					))}
@@ -54,20 +58,11 @@ export function StepSponsorBlock(): ReactNode {
 				<>
 					<Separator className="bg-border/50 -mx-6 w-auto my-1.5" />
 					<div data-testid="sb-categories">
-						<p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-2 pt-1 pb-1.5">{t('wizard.sponsorblock.categoriesHeading')}</p>
-						<div className="grid grid-cols-3 gap-x-1 gap-y-0.5">
+						<SectionLabel className="px-2 pt-1 pb-1.5">{t('wizard.sponsorblock.categoriesHeading')}</SectionLabel>
+						<div className="grid grid-cols-3 gap-1">
 							{SPONSORBLOCK_CATEGORIES.map(cat => {
 								const isChecked = wizardSponsorBlockCategories.includes(cat)
-								return (
-									<label
-										key={cat}
-										data-testid={`sb-cat-${cat}`}
-										className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-md border border-[var(--field-border)] bg-[var(--field-bg)] px-2 text-sm font-medium shadow-[inset_0_1px_0_var(--field-highlight)] transition-colors hover:border-[var(--brand)] hover:bg-[var(--brand-dim)] has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:text-[var(--brand)] has-[[data-checked]]:shadow-[inset_0_0_0_1px_var(--brand-dim)]"
-									>
-										<Checkbox checked={isChecked} onCheckedChange={() => toggleSponsorBlockCategory(cat)} className="border-[var(--border-strong)] data-checked:border-[var(--brand)] data-checked:bg-[var(--brand)] data-checked:text-white" />
-										<span className="flex-1 text-start truncate">{t(`wizard.sponsorblock.cat.${cat}`)}</span>
-									</label>
-								)
+								return <CheckRow key={cat} id={`sb-cat-${cat}-check`} testId={`sb-cat-${cat}`} label={t(`wizard.sponsorblock.cat.${cat}`)} checked={isChecked} onCheckedChange={() => toggleSponsorBlockCategory(cat)} />
 							})}
 						</div>
 					</div>

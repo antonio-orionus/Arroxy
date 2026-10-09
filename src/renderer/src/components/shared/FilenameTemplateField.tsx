@@ -76,17 +76,15 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 	return (
 		<Field className="gap-2">
 			<FieldContent className="gap-0.5">
-				<FieldLabel htmlFor={inputId} className="text-[13px] font-medium text-foreground">
-					{label}
-				</FieldLabel>
-				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{description}</FieldDescription>
+				<FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
 
 			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-[12px]" data-testid={testId} aria-invalid={error !== null} />
 
 			<div className="flex flex-wrap gap-1">
 				{FILENAME_TOKENS.map(token => (
-					<Button key={token} type="button" variant="outline" size="sm" className="h-6 px-2 font-mono text-[11px]" onClick={() => insertToken(token)} data-testid={`filename-token-${token}`}>
+					<Button key={token} type="button" variant="outline" size="xs" className="font-mono" onClick={() => insertToken(token)} data-testid={`filename-token-${token}`}>
 						{`{${token}}`}
 					</Button>
 				))}

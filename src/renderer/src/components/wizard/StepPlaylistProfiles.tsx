@@ -16,7 +16,7 @@ import {selectionModifierLabel} from '../../lib/platform.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {isTypingTarget} from '../shared/isTypingTarget.js'
-import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {Alert, AlertAction, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
@@ -220,15 +220,15 @@ export function StepPlaylistProfiles(): ReactNode {
 				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={setEditingProfile} onReset={() => reset(selectedItemIds)} />
 
 				{!settings?.common?.multiProfileHintDismissed ? (
-					<Alert variant="info" className="flex items-start gap-3" data-testid="multi-profile-hint">
-						<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
-						<div className="min-w-0 flex-1">
-							<AlertTitle>{t('wizard.playlistProfiles.hintTitle')}</AlertTitle>
-							<AlertDescription className="break-words">{t('wizard.playlistProfiles.hintBody', {modifier: selectionModifierLabel()})}</AlertDescription>
-						</div>
-						<Button type="button" variant="ghost" size="icon-sm" className="-mt-1 -me-1 shrink-0" aria-label={t('titleBar.close')} onClick={() => void dismissMultiProfileHint()}>
-							<X />
-						</Button>
+					<Alert variant="info" data-testid="multi-profile-hint">
+						<Info />
+						<AlertTitle>{t('wizard.playlistProfiles.hintTitle')}</AlertTitle>
+						<AlertDescription>{t('wizard.playlistProfiles.hintBody', {modifier: selectionModifierLabel()})}</AlertDescription>
+						<AlertAction>
+							<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => void dismissMultiProfileHint()}>
+								<X />
+							</Button>
+						</AlertAction>
 					</Alert>
 				) : null}
 

@@ -28,7 +28,7 @@ export function QuickPlaylistCapDialog(): ReactNode {
 			<DialogContent data-testid="quick-playlist-cap-dialog" className="sm:max-w-lg">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						<AlertTriangle className="text-amber-500" aria-hidden />
+						<AlertTriangle className="text-warning" aria-hidden />
 						Playlist scan is capped
 					</DialogTitle>
 					<DialogDescription>
@@ -51,7 +51,7 @@ export function QuickPlaylistCapDialog(): ReactNode {
 					<Button type="button" variant="outline" onClick={dismissQuickPlaylistCapDialog}>
 						Cancel
 					</Button>
-					<Button type="button" onClick={() => void queueLoadedPlaylistWithActiveProfile()} disabled={itemCount === 0 || isSubmittingToQueue} data-testid="quick-playlist-cap-queue-loaded" className="shadow-[0_4px_14px_var(--brand-glow)] disabled:shadow-none">
+					<Button variant="glow" type="button" onClick={() => void queueLoadedPlaylistWithActiveProfile()} disabled={itemCount === 0 || isSubmittingToQueue} data-testid="quick-playlist-cap-queue-loaded">
 						Queue loaded items
 					</Button>
 				</DialogFooter>

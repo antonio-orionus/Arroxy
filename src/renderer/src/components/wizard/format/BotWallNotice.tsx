@@ -5,7 +5,6 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildProbeErrorExperience, type BotWallGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 import {Alert, AlertDescription, AlertTitle} from '@renderer/components/ui/alert.js'
 import {Button} from '@renderer/components/ui/button.js'
-import {cn} from '@renderer/lib/utils.js'
 
 type GuidanceDensity = 'full' | 'compact'
 
@@ -37,10 +36,10 @@ export function BotWallGuidanceAlert({guidance, onEnableCookiesAndRetry, onRetry
 	const body = guidance.variant === 'unconfigured' ? t('wizard.formats.botWall.bodyUnconfigured') : guidance.variant === 'disabled' ? t('wizard.formats.botWall.bodyDisabled') : t('wizard.formats.botWall.bodyEnabled')
 
 	return (
-		<Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={guidance.variant} data-density={density} className={cn('text-[12px]', compact && 'py-2')}>
-			<AlertTriangle className={cn(compact && 'mt-0.5 size-3.5')} />
-			<AlertTitle className={cn('text-[12px]', compact && 'text-[11px]')}>{t('wizard.formats.botWall.heading')}</AlertTitle>
-			<AlertDescription className={cn('text-[12px] text-current', compact && 'text-[11px]')}>{body}</AlertDescription>
+		<Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={guidance.variant} data-density={density} size={compact ? 'sm' : 'default'}>
+			<AlertTriangle />
+			<AlertTitle>{t('wizard.formats.botWall.heading')}</AlertTitle>
+			<AlertDescription>{body}</AlertDescription>
 			{showActions ? (
 				<div className="col-start-2 flex flex-wrap gap-2">
 					{showEnableAction ? (

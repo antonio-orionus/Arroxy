@@ -1,15 +1,15 @@
 import {useState, type ReactNode} from 'react'
-import {Info} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {NETWORK_PACING_PRESET_VALUES} from '@shared/constants.js'
 import {pacingSleepSecondsSchema} from '@shared/schemas.js'
 import type {NetworkPacingPreset} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
 import {InputGroup, InputGroupAddon, InputGroupInput, InputGroupText} from '../ui/input-group.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {HelpTip} from '../shared/HelpTip.js'
 
 const CUSTOM_FIELDS = [
 	{key: 'pacingSleepRequests', labelKey: 'sleepRequests', unitKey: 'seconds', testId: 'pacing-sleep-requests'},
@@ -19,21 +19,6 @@ const CUSTOM_FIELDS = [
 ] as const
 
 const OFF_SUBTITLE_SLEEP_SECONDS = 3
-
-function HelpTooltip({children, testId, label}: {children: ReactNode; testId: string; label: string}): ReactNode {
-	return (
-		<Tooltip>
-			<TooltipTrigger
-				render={props => (
-					<Button {...props} type="button" variant="ghost" size="icon-xs" aria-label={label} className="text-[var(--text-subtle)] hover:text-foreground" data-testid={testId}>
-						<Info aria-hidden />
-					</Button>
-				)}
-			/>
-			<TooltipContent className="max-w-[18rem] leading-snug">{children}</TooltipContent>
-		</Tooltip>
-	)
-}
 
 function toDraft(value: number | undefined): string {
 	return value === undefined ? '' : String(value)
@@ -79,22 +64,19 @@ export function NetworkPacingSettings(): ReactNode {
 	return (
 		<Field className="gap-3" data-testid="network-pacing-section">
 			<FieldContent className="gap-0.5">
-				<FieldTitle id="network-pacing-heading" className="text-[13px] font-medium text-foreground">
-					{t('wizard.url.networkPacing.heading')}
-				</FieldTitle>
-				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.networkPacing.description')}</FieldDescription>
+				<FieldTitle id="network-pacing-heading">{t('wizard.url.networkPacing.heading')}</FieldTitle>
+				<FieldDescription>{t('wizard.url.networkPacing.description')}</FieldDescription>
 			</FieldContent>
 
 			<div className="flex flex-col gap-1.5 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5">
 				<div className="flex items-center gap-1">
-					<span id="network-pacing-preset-label" className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">
-						{t('wizard.url.networkPacing.presetLabel')}
-					</span>
-					<HelpTooltip testId="network-pacing-tooltip" label={t('wizard.url.networkPacing.presetLabel')}>
+					<SectionLabel render={<span id="network-pacing-preset-label" />}>{t('wizard.url.networkPacing.presetLabel')}</SectionLabel>
+					<HelpTip testId="network-pacing-tooltip" label={t('wizard.url.networkPacing.presetLabel')}>
 						{t('wizard.url.networkPacing.tooltip')}
-					</HelpTooltip>
+					</HelpTip>
 				</div>
 				<ToggleGroup
+					size="sm"
 					variant="outline"
 					value={[pacingPreset]}
 					onValueChange={value => {
@@ -108,12 +90,12 @@ export function NetworkPacingSettings(): ReactNode {
 						<Tooltip key={preset}>
 							<TooltipTrigger
 								render={props => (
-									<ToggleGroupItem {...props} value={preset} className="min-h-7 justify-start px-2 text-[12px]">
+									<ToggleGroupItem {...props} value={preset} className="justify-start">
 										{t(`wizard.url.networkPacing.presets.${preset}`)}
 									</ToggleGroupItem>
 								)}
 							/>
-							<TooltipContent className="max-w-[18rem] leading-snug" data-testid={`network-pacing-${preset}-tooltip`}>
+							<TooltipContent className="max-w-72 leading-snug" data-testid={`network-pacing-${preset}-tooltip`}>
 								{t(`wizard.url.networkPacing.tooltips.${preset}`)}
 							</TooltipContent>
 						</Tooltip>
@@ -130,7 +112,7 @@ export function NetworkPacingSettings(): ReactNode {
 				<FieldGroup className="grid grid-cols-2 gap-2 rounded-md border border-[var(--border-strong)] bg-background/35 p-2.5" data-testid="network-pacing-custom">
 					{CUSTOM_FIELDS.map(field => (
 						<Field key={field.key} className="gap-1">
-							<FieldLabel htmlFor={field.testId} className="text-[11px] font-medium text-[var(--text-subtle)]">
+							<FieldLabel htmlFor={field.testId} size="sm">
 								{t(`wizard.url.networkPacing.fields.${field.labelKey}`)}
 							</FieldLabel>
 							<InputGroup>

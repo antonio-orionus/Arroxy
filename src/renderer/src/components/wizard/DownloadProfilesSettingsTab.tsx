@@ -10,7 +10,7 @@ import {useAppStore} from '../../store/useAppStore.js'
 import type {AdvancedSettingsTarget} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
+import {Card} from '../ui/card.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText} from '../ui/input-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
@@ -19,10 +19,14 @@ import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {LimitRatePicker} from '../shared/LimitRatePicker.js'
 import {formatLimitRateLabel} from '../shared/limitRateFormat.js'
 import {NetworkPacingSettings} from './NetworkPacingSettings.js'
-import {SettingSwitch} from './SettingSwitch.js'
+import {SettingSwitch} from '../shared/SettingSwitch.js'
+import {SettingRow} from '../shared/SettingRow.js'
+import {Panel} from '../shared/Panel.js'
+import {OptionCard} from '../shared/OptionCard.js'
 import {HotkeySettingsSection} from './HotkeySettingsSection.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
 
 const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?: boolean}[] = [
 	{value: 'firefox', label: 'Firefox'},
@@ -44,18 +48,6 @@ const BACKDROP_RENDER_OPTIONS = [
 ] as const satisfies readonly {value: BackdropRenderMode; labelKey: string; descriptionKey: string}[]
 
 const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
-
-function SettingsPanel({title, description, testId, children}: {title: string; description?: string; testId?: string; children: ReactNode}): ReactNode {
-	return (
-		<Card size="sm" className="gap-3 rounded-lg border-[var(--border-strong)] bg-card/40 py-3" data-testid={testId}>
-			<CardHeader className="gap-1 px-3">
-				<CardTitle className="text-sm font-semibold leading-tight">{title}</CardTitle>
-				{description ? <CardDescription className="text-[12px] leading-snug text-[var(--text-subtle)]">{description}</CardDescription> : null}
-			</CardHeader>
-			<CardContent className="px-3">{children}</CardContent>
-		</Card>
-	)
-}
 
 // Shared shape for the two numeric transport settings. Keeps its own draft so
 // typing is not fought by the persisted value; on blur an out-of-range entry
@@ -98,20 +90,14 @@ function NumericSettingRow({
 	}
 
 	return (
-		<Field orientation="horizontal" className="items-center justify-between gap-3" data-testid={`${testId}-row`}>
-			<FieldContent className="gap-0.5">
-				<FieldTitle id={id} className="text-[13px] font-medium text-foreground">
-					{label}
-				</FieldTitle>
-				<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{description}</FieldDescription>
-			</FieldContent>
+		<SettingRow id={id} label={label} description={description} testId={`${testId}-row`}>
 			<InputGroup className="w-40 shrink-0">
-				<InputGroupInput type="number" min={0} max={max} value={draft ?? (value ? String(value) : '')} onChange={event => setDraft(event.target.value)} onBlur={() => commit()} placeholder={String(placeholder)} aria-labelledby={id} className="text-[12px] font-mono" data-testid={testId} />
+				<InputGroupInput type="number" min={0} max={max} value={draft ?? (value ? String(value) : '')} onChange={event => setDraft(event.target.value)} onBlur={() => commit()} placeholder={String(placeholder)} aria-labelledby={id} className="font-mono text-xs" data-testid={testId} />
 				<InputGroupAddon align="inline-end">
-					<InputGroupText className="text-[11px]">{unit}</InputGroupText>
+					<InputGroupText className="text-caption">{unit}</InputGroupText>
 				</InputGroupAddon>
 			</InputGroup>
-		</Field>
+		</SettingRow>
 	)
 }
 
@@ -175,19 +161,18 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	}
 
 	return (
-		<div className="mx-auto flex w-full max-w-2xl flex-col gap-4" data-testid="profiles-settings-tab">
-			<SettingsPanel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
+		<Card variant="glass" className="gap-4 px-4" data-testid="profiles-settings-tab">
+			<Panel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
 				<FieldGroup className="gap-4">
 					<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
 
 					<Field className="gap-1.5" data-testid="cookies-source">
 						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-cookies-mode" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.cookies.sourceLabel')}
-							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.cookies.toggleDescription')}</FieldDescription>
+							<FieldTitle id="profiles-settings-cookies-mode">{t('wizard.url.cookies.sourceLabel')}</FieldTitle>
+							<FieldDescription>{t('wizard.url.cookies.toggleDescription')}</FieldDescription>
 						</FieldContent>
 						<ToggleGroup
+							size="sm"
 							variant="outline"
 							value={[cookiesMode]}
 							onValueChange={value => {
@@ -197,24 +182,18 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							className="flex w-full flex-wrap gap-1"
 							aria-labelledby="profiles-settings-cookies-mode"
 						>
-							<ToggleGroupItem value="off" className="min-h-7 px-3 text-[12px]">
-								{t('wizard.url.cookies.sourceOff')}
-							</ToggleGroupItem>
-							<ToggleGroupItem value="file" className="min-h-7 px-3 text-[12px]">
-								{t('wizard.url.cookies.sourceFile')}
-							</ToggleGroupItem>
-							<ToggleGroupItem value="browser" className="min-h-7 px-3 text-[12px]">
-								{t('wizard.url.cookies.sourceBrowser')}
-							</ToggleGroupItem>
+							<ToggleGroupItem value="off">{t('wizard.url.cookies.sourceOff')}</ToggleGroupItem>
+							<ToggleGroupItem value="file">{t('wizard.url.cookies.sourceFile')}</ToggleGroupItem>
+							<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 						</ToggleGroup>
 						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
-							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
+							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
 								{t('wizard.url.cookies.helpLink')}
 							</Button>
-							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
+							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
 								{t('wizard.url.cookies.extensionFirefox')}
 							</Button>
-							<Button type="button" variant="link" size="xs" className="h-auto px-0 text-[11px] text-[var(--text-subtle)] hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
+							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
 								{t('wizard.url.cookies.extensionChrome')}
 							</Button>
 						</div>
@@ -224,7 +203,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 					{cookiesMode === 'file' ? (
 						<Field className="gap-1.5">
-							<FieldLabel htmlFor="profiles-settings-cookies-path" className="text-[11px] font-medium text-[var(--text-subtle)]">
+							<FieldLabel htmlFor="profiles-settings-cookies-path" size="sm">
 								{t('wizard.url.cookies.fileLabel')}
 							</FieldLabel>
 							<InputGroup className="h-9">
@@ -244,7 +223,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 					{cookiesMode === 'browser' ? (
 						<Field className="gap-1.5">
-							<FieldLabel htmlFor="profiles-settings-cookies-browser-trigger" className="text-[11px] font-medium text-[var(--text-subtle)]">
+							<FieldLabel htmlFor="profiles-settings-cookies-browser-trigger" size="sm">
 								{t('wizard.url.cookies.browserLabel')}
 							</FieldLabel>
 							<Select
@@ -266,17 +245,15 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 									</SelectGroup>
 								</SelectContent>
 							</Select>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.cookies.browserHelp')}</FieldDescription>
+							<FieldDescription>{t('wizard.url.cookies.browserHelp')}</FieldDescription>
 							{showMissingBrowserWarning ? <WarningText text={t('wizard.url.cookies.enabledButNoBrowser')} /> : null}
 						</Field>
 					) : null}
 
 					<Field className="gap-1.5">
 						<FieldContent className="gap-0.5">
-							<FieldLabel htmlFor="profiles-settings-proxy-url" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.proxy.label')}
-							</FieldLabel>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.proxy.description')}</FieldDescription>
+							<FieldLabel htmlFor="profiles-settings-proxy-url">{t('wizard.url.proxy.label')}</FieldLabel>
+							<FieldDescription>{t('wizard.url.proxy.description')}</FieldDescription>
 						</FieldContent>
 						<InputGroup className="h-9">
 							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-[12px] font-mono" data-testid="profiles-settings-proxy-url" />
@@ -290,28 +267,24 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 					<Field orientation="horizontal" className="items-start justify-between gap-3" data-testid="playlist-probe-limit-section">
 						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-playlist-probe-limit" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.playlistProbeLimit.label')}
-							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.playlistProbeLimit.description')}</FieldDescription>
+							<FieldTitle id="profiles-settings-playlist-probe-limit">{t('wizard.url.playlistProbeLimit.label')}</FieldTitle>
+							<FieldDescription>{t('wizard.url.playlistProbeLimit.description')}</FieldDescription>
 						</FieldContent>
 						<PlaylistProbeLimitSelector testId="profiles-settings-playlist-probe-limit" className="w-40" showCurrent={false} />
 					</Field>
 				</FieldGroup>
-			</SettingsPanel>
+			</Panel>
 
-			<SettingsPanel testId="hotkey-section" title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
+			<Panel testId="hotkey-section" title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
 				<HotkeySettingsSection />
-			</SettingsPanel>
+			</Panel>
 
-			<SettingsPanel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
+			<Panel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
 				<FieldGroup className="gap-4">
 					<Field orientation="horizontal" className="items-center justify-between gap-3">
 						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-speed-limit" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.limitRate.label')}
-							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.description')}</FieldDescription>
+							<FieldTitle id="profiles-settings-speed-limit">{t('wizard.url.limitRate.label')}</FieldTitle>
+							<FieldDescription>{t('wizard.url.limitRate.description')}</FieldDescription>
 						</FieldContent>
 						<Popover>
 							<PopoverTrigger
@@ -324,7 +297,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							/>
 							<PopoverContent align="end" sideOffset={8} className="w-64">
 								<div className="flex flex-col gap-1">
-									<p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{t('wizard.url.limitRate.label')}</p>
+									<SectionLabel>{t('wizard.url.limitRate.label')}</SectionLabel>
 									<p className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.limitRate.activeWarning')}</p>
 								</div>
 								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
@@ -378,12 +351,11 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 
 					<Field className="gap-2" data-testid="native-audio-preference">
 						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-native-audio" className="text-[13px] font-medium text-foreground">
-								{t('wizard.url.nativeAudioPreference.label')}
-							</FieldTitle>
-							<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.nativeAudioPreference.description')}</FieldDescription>
+							<FieldTitle id="profiles-settings-native-audio">{t('wizard.url.nativeAudioPreference.label')}</FieldTitle>
+							<FieldDescription>{t('wizard.url.nativeAudioPreference.description')}</FieldDescription>
 						</FieldContent>
 						<ToggleGroup
+							size="sm"
 							variant="outline"
 							value={[nativeAudioPreference]}
 							onValueChange={value => {
@@ -394,7 +366,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							aria-labelledby="profiles-settings-native-audio"
 						>
 							{NATIVE_AUDIO_PREFERENCES.map(option => (
-								<ToggleGroupItem key={option} value={option} className="min-h-7 px-3 text-[12px]" data-testid={`native-audio-preference-${option}`}>
+								<ToggleGroupItem key={option} value={option} data-testid={`native-audio-preference-${option}`}>
 									{t(NATIVE_AUDIO_LABEL_KEYS[option])}
 								</ToggleGroupItem>
 							))}
@@ -422,15 +394,13 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 						<FieldDescription>{t('app.saveDiagnosticsDescription')}</FieldDescription>
 					</Field>
 				</FieldGroup>
-			</SettingsPanel>
+			</Panel>
 
-			<SettingsPanel title={t('wizard.url.backdrop.panelTitle')} description={t('wizard.url.backdrop.panelDescription')}>
+			<Panel title={t('wizard.url.backdrop.panelTitle')} description={t('wizard.url.backdrop.panelDescription')}>
 				<Field className="gap-2">
 					<FieldContent className="gap-0.5">
-						<FieldTitle id="profiles-settings-backdrop-mode-label" className="text-[13px] font-medium text-foreground">
-							{t('wizard.url.backdrop.modeLabel')}
-						</FieldTitle>
-						<FieldDescription className="text-[11px] text-[var(--text-subtle)]">{t('wizard.url.backdrop.modeDescription')}</FieldDescription>
+						<FieldTitle id="profiles-settings-backdrop-mode-label">{t('wizard.url.backdrop.modeLabel')}</FieldTitle>
+						<FieldDescription>{t('wizard.url.backdrop.modeDescription')}</FieldDescription>
 					</FieldContent>
 					<div className="rounded-lg border border-border bg-muted/20 p-1" data-testid="profiles-settings-backdrop-mode">
 						<ToggleGroup
@@ -440,34 +410,31 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 								if (value[0]) void setBackdropRenderMode(value[0] as BackdropRenderMode)
 							}}
 							spacing={1}
-							className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-1"
+							className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-2"
 							aria-labelledby="profiles-settings-backdrop-mode-label"
 						>
 							{BACKDROP_RENDER_OPTIONS.map(option => (
-								<ToggleGroupItem key={option.value} value={option.value} className="min-h-[4.5rem] w-full flex-col items-start justify-start gap-1 px-3 py-2 text-left" data-testid={`profiles-settings-backdrop-mode-${option.value}`}>
-									<span className="block w-full text-[12px] font-semibold leading-tight">{t(option.labelKey)}</span>
-									<span className="block w-full text-[10px] font-normal leading-snug text-[var(--text-subtle)]">{t(option.descriptionKey)}</span>
-								</ToggleGroupItem>
+								<OptionCard key={option.value} value={option.value} title={t(option.labelKey)} description={t(option.descriptionKey)} className="w-full" data-testid={`profiles-settings-backdrop-mode-${option.value}`} />
 							))}
 						</ToggleGroup>
 					</div>
 					{showBackdropRuntimeFallback ? (
-						<Alert data-testid="profiles-settings-backdrop-mode-fallback" className="py-2">
+						<Alert size="sm" data-testid="profiles-settings-backdrop-mode-fallback">
 							<AlertTriangle className="size-4" aria-hidden />
-							<AlertDescription className="text-[11px] leading-snug">{t('wizard.url.backdrop.runtimeFallbackNotice')}</AlertDescription>
+							<AlertDescription>{t('wizard.url.backdrop.runtimeFallbackNotice')}</AlertDescription>
 						</Alert>
 					) : null}
 				</Field>
-			</SettingsPanel>
-		</div>
+			</Panel>
+		</Card>
 	)
 }
 
 function WarningText({text}: {text: string}): ReactNode {
 	return (
-		<Alert variant="warning" className="py-1.5">
+		<Alert variant="warning" size="sm">
 			<AlertTriangle aria-hidden />
-			<AlertDescription className="text-[11px]">{text}</AlertDescription>
+			<AlertDescription>{text}</AlertDescription>
 		</Alert>
 	)
 }

@@ -32,6 +32,8 @@ import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
+import {IconTile} from '../shared/IconTile.js'
+import {SpeechBubble} from '../shared/SpeechBubble.js'
 
 type ProfilesTab = 'download' | 'queue' | 'profiles' | 'settings'
 const PROFILE_TABS = ['download', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
@@ -196,8 +198,8 @@ function QuickDownloadErrorAlert({experience, message, onEnableCookiesAndRetry, 
 	const showBotWallGuidance = experience?.botWall.variant !== undefined && experience.botWall.variant !== 'hidden'
 	const showCookiesGuidance = experience?.cookies.variant !== undefined && experience.cookies.variant !== 'hidden'
 	return (
-		<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
-			<AlertDescription className="flex flex-col gap-2 text-[11px] text-current">
+		<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
+			<AlertDescription className="flex flex-col gap-2">
 				<span>{t('wizard.url.quickFailed', {error: message})}</span>
 				<div className="flex flex-wrap gap-2">
 					<Button type="button" size="sm" variant="outline" onClick={() => onRetry()} data-testid="quick-download-retry">
@@ -229,10 +231,7 @@ function QueueTabFirstRunCue({onDismiss, persistent = false}: {onDismiss: () => 
 		<div className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 flex -translate-x-1/2 justify-center px-3" data-testid="queue-tab-first-run-cue">
 			<div className="nudge-in pointer-events-auto flex max-w-[min(20rem,calc(100vw-2rem))] items-end gap-2">
 				<img src={downloadingImg} alt="" aria-hidden draggable={false} className="size-10 shrink-0 object-contain" />
-				<div className="relative rounded-xl border border-[var(--border-strong)] bg-secondary px-3 py-2 text-xs leading-relaxed text-foreground/85 shadow-lg">
-					{t('queue.tabTip')}
-					<span aria-hidden className="absolute -top-[6px] start-6 size-0" style={{borderBottom: '6px solid var(--secondary)', borderLeft: '6px solid transparent', borderRight: '6px solid transparent'}} />
-				</div>
+				<SpeechBubble tail="top">{t('queue.tabTip')}</SpeechBubble>
 			</div>
 		</div>
 	)
@@ -425,7 +424,7 @@ export function DownloadProfilesHome(): ReactNode {
 							<Inbox data-icon="inline-start" aria-hidden />
 							{t('queue.tabLabel')}
 							{queueCount > 0 ? (
-								<Badge variant="secondary" className="download-count-badge ms-0.5 h-4 min-w-4 px-1 font-mono text-[10px]">
+								<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
 									{queueCount}
 								</Badge>
 							) : null}
@@ -443,7 +442,7 @@ export function DownloadProfilesHome(): ReactNode {
 				</div>
 
 				<TabsContent value="download" className="flex flex-col gap-4">
-					<Card className="glow-panel rounded-[1.5rem] border-transparent" data-testid="profiles-download-panel">
+					<Card variant="glass" data-testid="profiles-download-panel">
 						<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
 							<div className="min-w-0">
 								<div className="flex min-w-0 items-start gap-3" data-testid="profiles-mascot-header">
@@ -489,8 +488,8 @@ export function DownloadProfilesHome(): ReactNode {
 
 							{quickDownloadStatus === 'error' ? <QuickDownloadErrorAlert experience={quickDownloadProbeExperience} message={quickErrorText} onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()} onOpenCookiesSettings={openCookiesSettings} onRetry={() => void retryQuickDownloadFailure()} t={t} /> : null}
 							{showQuickPartialWarning ? (
-								<Alert variant="warning" className="mt-2 py-2" data-testid="quick-download-feedback">
-									<AlertDescription className="text-[11px]">{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
+								<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
+									<AlertDescription>{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
 								</Alert>
 							) : null}
 
@@ -572,9 +571,9 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			data-testid={testId}
 			className="glow-tile group/row h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-[1rem] border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
 		>
-			<span className="icon-tile grid size-10 shrink-0 place-items-center rounded-lg transition-transform duration-200 group-hover/row:scale-[1.05]">
-				<Icon className="size-5" aria-hidden />
-			</span>
+			<IconTile tone="lit" className="transition-transform duration-200 group-hover/row:scale-105">
+				<Icon />
+			</IconTile>
 			<span className="flex min-w-0 flex-1 flex-col items-start">
 				<span className="text-title">{title}</span>
 				<span className="glass-muted-text text-xs font-normal">{description}</span>
@@ -604,14 +603,14 @@ function ProfilesTab({
 	const {t} = useTranslation()
 	const enabledCount = profiles.filter(profile => profile.enabled).length
 	return (
-		<Card className="glow-panel rounded-2xl border-transparent" data-testid="profiles-manage-tab">
+		<Card variant="glass" data-testid="profiles-manage-tab">
 			<CardHeader className="flex-row flex-wrap items-center justify-between gap-3">
 				<div>
 					<CardTitle className="text-xl font-semibold leading-tight">{t('wizard.url.profile.panelTitle')}</CardTitle>
 					<CardDescription className="mt-1 text-[12px] text-[var(--text-subtle)]">{t('wizard.url.profile.panelDescription')}</CardDescription>
 					<p className="mt-1 text-[11px] text-[var(--text-subtle)]">{t('wizard.url.profile.enableHint')}</p>
 				</div>
-				<Button type="button" onClick={() => onEdit(null)} className="shadow-[0_4px_14px_var(--brand-glow)]">
+				<Button variant="glow" type="button" onClick={() => onEdit(null)}>
 					<Plus data-icon="inline-start" />
 					{t('wizard.url.profile.newProfile')}
 				</Button>
@@ -625,7 +624,14 @@ function ProfilesTab({
 					const canRemove = isCustom || origin.overridden
 					const canToggleOff = profile.enabled ? enabledCount > 1 : true
 					return (
-						<article key={profile.id} data-active={active ? 'true' : undefined} data-disabled-profile={!profile.enabled ? 'true' : undefined} className={cn('profile-card rounded-lg p-3', !profile.enabled && 'opacity-60 saturate-[0.7]')} data-testid={`profiles-manage-card-${profile.id}`}>
+						<article
+							key={profile.id}
+							data-active={active ? 'true' : undefined}
+							data-selected={active || undefined}
+							data-disabled-profile={!profile.enabled ? 'true' : undefined}
+							className={cn('choice-surface rounded-lg p-3', !profile.enabled && 'opacity-60 saturate-[0.7]')}
+							data-testid={`profiles-manage-card-${profile.id}`}
+						>
 							<button
 								type="button"
 								className="flex w-full items-start gap-3 text-left"
@@ -637,9 +643,9 @@ function ProfilesTab({
 								}}
 								data-testid={`profiles-manage-card-${profile.id}-picker`}
 							>
-								<span className="grid size-10 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/35 bg-[var(--brand-dim)] text-[var(--brand)]">
-									<Icon aria-hidden />
-								</span>
+								<IconTile>
+									<Icon />
+								</IconTile>
 								<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
 									<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
 										<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
@@ -647,12 +653,12 @@ function ProfilesTab({
 										</span>
 										<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
 										{!profile.enabled ? <Badge variant="outline">{t('wizard.url.profile.badgeDisabled')}</Badge> : null}
-										<Check className={cn('ml-auto size-4 shrink-0 text-[var(--brand)] transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
+										<Check className={cn('ms-auto size-4 shrink-0 text-primary transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
 									</span>
-									<span className="mt-1 block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-description`}>
+									<span className="mt-1 block text-xs text-subtle-foreground" data-testid={`profiles-manage-card-${profile.id}-description`}>
 										{downloadProfileLabel(profile)}
 									</span>
-									<span className="block text-[12px] leading-snug text-[var(--text-subtle)]" data-testid={`profiles-manage-card-${profile.id}-detail`}>
+									<span className="block text-xs text-subtle-foreground" data-testid={`profiles-manage-card-${profile.id}-detail`}>
 										{profileDetail(profile, t)}
 									</span>
 								</span>

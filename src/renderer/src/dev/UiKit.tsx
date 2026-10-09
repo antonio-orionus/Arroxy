@@ -1,5 +1,15 @@
 import {useState, type ReactNode} from 'react'
-import {AlertTriangle, CheckCircle2, Download, FolderOpen, Info, Link2, Pause, Play, Search, Trash2, XCircle} from 'lucide-react'
+import {AlertTriangle, CheckCircle2, Clapperboard, Download, FolderOpen, Info, Inbox, Link2, Music, Pause, Play, Search, Trash2, XCircle} from 'lucide-react'
+import {CheckRow} from '../components/shared/CheckRow.js'
+import {ChoiceRow} from '../components/shared/ChoiceRow.js'
+import {IconTile} from '../components/shared/IconTile.js'
+import {OptionCard} from '../components/shared/OptionCard.js'
+import {Panel} from '../components/shared/Panel.js'
+import {PanelSection} from '../components/shared/PanelSection.js'
+import {SectionLabel} from '../components/shared/SectionLabel.js'
+import {SettingRow} from '../components/shared/SettingRow.js'
+import {SettingSwitch} from '../components/shared/SettingSwitch.js'
+import {SpeechBubble} from '../components/shared/SpeechBubble.js'
 import {ThemeToggle} from '../components/system/ThemeToggle.js'
 import {Alert, AlertDescription, AlertTitle} from '../components/ui/alert.js'
 import {Badge} from '../components/ui/badge.js'
@@ -95,6 +105,11 @@ function DirectionToggle(): ReactNode {
 
 export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 	const [progress, setProgress] = useState(42)
+	const [switchOn, setSwitchOn] = useState(true)
+	const [choice, setChoice] = useState('2160')
+	const [checks, setChecks] = useState<string[]>(['Sponsor'])
+	const [option, setOption] = useState('video')
+	const [folder, setFolder] = useState('downloads')
 	return (
 		<div className="relative z-10 flex h-screen flex-col" data-testid="ui-kit">
 			<header className="chrome-glass flex flex-wrap items-center gap-3 border-b px-5 py-3">
@@ -385,6 +400,89 @@ export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 									</DialogFooter>
 								</DialogContent>
 							</Dialog>
+						</div>
+					</Section>
+
+					<Section title="Composites: settings">
+						<Panel title="Panel" description="A titled group of controls inside a stage or dialog." action={<Badge variant="outline">3 enabled</Badge>}>
+							<div className="flex flex-col gap-3">
+								<SettingSwitch id="kit-setting-switch" label="Watch clipboard" description="SettingSwitch: label, description, switch at the end." checked={switchOn} onCheckedChange={setSwitchOn} />
+								<SettingSwitch id="kit-setting-help" label="Embed chapters" help="SettingSwitch with a help tip instead of a description." checked onCheckedChange={() => undefined} />
+								<SettingRow id="kit-setting-row" label="Downloads at once" description="SettingRow with any control in the slot.">
+									<Input aria-labelledby="kit-setting-row" defaultValue="2" className="w-24" />
+								</SettingRow>
+								<PanelSection
+									title="PanelSection"
+									action={
+										<Badge variant="secondary" size="sm">
+											Off
+										</Badge>
+									}
+								>
+									<p className="text-sm text-muted-foreground">A labelled sub-group inside a panel. Panels never nest.</p>
+								</PanelSection>
+							</div>
+						</Panel>
+						<SectionLabel>SectionLabel: the one eyebrow style</SectionLabel>
+					</Section>
+
+					<Section title="Composites: choices">
+						<SectionLabel>ChoiceRow (radio list)</SectionLabel>
+						<RadioGroup value={choice} onValueChange={value => setChoice(String(value))} className="gap-1">
+							<ChoiceRow id="kit-choice-2160" value="2160" label="2160p" meta="webm · 30fps · 2.2 GB" />
+							<ChoiceRow id="kit-choice-1080" value="1080" label="1080p" meta="mp4 · 30fps · 515 MB" />
+							<ChoiceRow id="kit-choice-mp3" value="mp3" label="mp3" meta="Convert" disabled />
+						</RadioGroup>
+						<SectionLabel>CheckRow (multi-select grid)</SectionLabel>
+						<div className="grid grid-cols-3 gap-1">
+							{['Sponsor', 'Intro', 'Outro'].map(label => (
+								<CheckRow key={label} id={`kit-check-${label}`} label={label} checked={checks.includes(label)} onCheckedChange={() => setChecks(current => (current.includes(label) ? current.filter(item => item !== label) : [...current, label]))} />
+							))}
+						</div>
+						<SectionLabel>OptionCard: vertical and horizontal</SectionLabel>
+						<ToggleGroup
+							value={[option]}
+							onValueChange={value => {
+								if (value[0]) setOption(value[0])
+							}}
+							spacing={2}
+							className="grid w-full grid-cols-3 gap-2"
+						>
+							<OptionCard value="video" align="center" icon={<Clapperboard />} title="Video + audio" className="justify-center py-3" />
+							<OptionCard value="audio" align="center" icon={<Music />} title="Audio only" className="justify-center py-3" />
+							<OptionCard value="text" title="With description" description="Title and helper text." />
+						</ToggleGroup>
+						<ToggleGroup
+							value={[folder]}
+							onValueChange={value => {
+								if (value[0]) setFolder(value[0])
+							}}
+							spacing={1}
+							className="grid w-full grid-cols-1 gap-1"
+						>
+							<OptionCard value="downloads" orientation="horizontal" icon={<Download />} title="Downloads" meta="~/Downloads" />
+							<OptionCard value="music" orientation="horizontal" icon={<Music />} title="Music" meta="~/Music" />
+						</ToggleGroup>
+					</Section>
+
+					<Section title="Composites: identity">
+						<div className="flex items-center gap-3">
+							<IconTile tone="lit">
+								<Download />
+							</IconTile>
+							<IconTile>
+								<Inbox />
+							</IconTile>
+							<IconTile size="sm">
+								<Spinner />
+							</IconTile>
+							<span className="text-sm text-muted-foreground">IconTile: lit, soft, sm</span>
+						</div>
+						<div className="grid grid-cols-2 gap-6 py-2">
+							<SpeechBubble tail="start">Tail start</SpeechBubble>
+							<SpeechBubble tail="end">Tail end</SpeechBubble>
+							<SpeechBubble tail="top">Tail top</SpeechBubble>
+							<SpeechBubble tail="bottom">Tail bottom</SpeechBubble>
 						</div>
 					</Section>
 

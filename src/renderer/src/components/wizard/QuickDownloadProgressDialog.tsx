@@ -10,6 +10,7 @@ import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Progress} from '../ui/progress.js'
 import {Spinner} from '../ui/spinner.js'
+import {IconTile} from '../shared/IconTile.js'
 
 const PHASE_LABEL_KEYS: Record<QuickDownloadProgressPhase, 'wizard.quickProgress.phase.probing' | 'wizard.quickProgress.phase.queueing'> = {probing: 'wizard.quickProgress.phase.probing', queueing: 'wizard.quickProgress.phase.queueing'}
 
@@ -53,9 +54,9 @@ export function QuickDownloadProgressDialog(): ReactNode {
 			<DialogContent data-testid="quick-download-progress-dialog" className="overflow-hidden sm:max-w-md" showCloseButton={false}>
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
-						<span className="icon-tile grid size-9 shrink-0 place-items-center rounded-lg">
-							<Download className="size-4" aria-hidden />
-						</span>
+						<IconTile tone="lit" size="sm">
+							<Download />
+						</IconTile>
 						{t('wizard.quickProgress.title')}
 					</DialogTitle>
 					<DialogDescription>{t('wizard.quickProgress.description', {profileName: activeProfile.name})}</DialogDescription>

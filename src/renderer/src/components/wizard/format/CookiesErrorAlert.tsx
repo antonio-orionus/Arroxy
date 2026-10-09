@@ -20,9 +20,9 @@ interface CookiesAlertShellProps {
 function CookiesAlertShell({mode, variant, body, footer, density}: CookiesAlertShellProps): ReactNode {
 	const compact = density === 'compact'
 	return (
-		<Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} data-density={density} {...(variant ? {'data-variant': variant} : {})} className={cn('text-[12px]', compact && 'py-2')}>
-			<AlertTriangle className={cn(compact && 'mt-0.5 size-3.5')} />
-			<AlertDescription className={cn('flex flex-col gap-1 text-[12px] text-current', compact && 'text-[11px]')}>{body}</AlertDescription>
+		<Alert role="status" variant="warning" data-testid="cookies-error-alert" data-mode={mode} data-density={density} {...(variant ? {'data-variant': variant} : {})} size={compact ? 'sm' : 'default'}>
+			<AlertTriangle />
+			<AlertDescription className="flex flex-col gap-1">{body}</AlertDescription>
 			<div className={cn('col-start-2 flex flex-col gap-2', compact && 'gap-1.5')}>{footer}</div>
 		</Alert>
 	)
@@ -80,7 +80,7 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full'
 				}
 				footer={
 					<>
-						<ol className={cn('flex list-decimal flex-col gap-1.5 ps-4 marker:text-amber-700/80 dark:marker:text-amber-200/70', density === 'compact' && 'gap-1')}>
+						<ol className={cn('flex list-decimal flex-col gap-1.5 ps-4 marker:text-warning', density === 'compact' && 'gap-1')}>
 							<li>
 								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFirefoxLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFirefoxBody')}</span>
 							</li>
@@ -89,7 +89,7 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full'
 							</li>
 							<li>
 								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixUnsafeLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixUnsafeBody')}</span>{' '}
-								<Button type="button" variant="link" size="xs" className={cn('h-auto px-0 align-baseline text-[12px]', density === 'compact' && 'text-[11px]')} onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
+								<Button type="button" variant="link" size="inline" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
 									{t('wizard.formats.cookiesError.dpapi.docsLinkLabel')}
 									<ExternalLink data-icon="inline-end" />
 								</Button>
@@ -112,7 +112,7 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full'
 			body={
 				<>
 					<span className="font-semibold">{t('wizard.formats.cookiesError.heading')}</span>
-					<span className="text-[11px] text-amber-800/80 dark:text-amber-200/80">
+					<span className="text-caption text-muted-foreground">
 						{t('wizard.formats.cookiesError.currentModeLabel')}: <span className="font-medium">{modeLabel}</span>
 					</span>
 					<span className="leading-snug">{explanation}</span>

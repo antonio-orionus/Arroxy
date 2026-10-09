@@ -16,6 +16,7 @@ import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from 
 import {QueueManagerToolbar} from './QueueManagerToolbar.js'
 import {QueueManagerTable} from './QueueManagerTable.js'
 import {useQueueManagerColumns} from './useQueueManagerColumns.js'
+import {Card} from '../ui/card.js'
 
 const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, addedAt: 900, finishedAt: 900}
 
@@ -199,7 +200,7 @@ export function QueueManagerTab(): ReactNode {
 	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, viewportWidth)).length)
 
 	return (
-		<section className="glow-panel mx-auto flex min-h-[28rem] w-full max-w-[92rem] flex-col overflow-hidden rounded-[1.25rem] border-transparent p-3" data-testid="queue-manager-tab">
+		<Card variant="glass" render={<section />} className="mx-auto min-h-[28rem] w-full max-w-[92rem] gap-0 p-3" data-testid="queue-manager-tab">
 			<QueueManagerToolbar
 				t={t}
 				queue={queue}
@@ -243,6 +244,6 @@ export function QueueManagerTab(): ReactNode {
 				interactions={interactions}
 				onContextAction={runSelectedAction}
 			/>
-		</section>
+		</Card>
 	)
 }

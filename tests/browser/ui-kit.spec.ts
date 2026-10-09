@@ -4,7 +4,7 @@ import {expect, test} from '@playwright/test'
 // It is the review surface for primitive changes, so it must keep rendering in
 // both skies and both directions, without errors and without horizontal overflow.
 
-const SECTIONS = ['typography', 'colour-tokens', 'buttons', 'segmented-controls', 'form-controls', 'badges', 'alerts', 'surfaces', 'progress-and-loading', 'navigation-and-overlays', 'empty-state']
+const SECTIONS = ['typography', 'colour-tokens', 'buttons', 'segmented-controls', 'form-controls', 'badges', 'alerts', 'surfaces', 'progress-and-loading', 'navigation-and-overlays', 'composites-settings', 'composites-choices', 'composites-identity', 'empty-state']
 
 const VARIANTS = [
 	{name: 'dark', query: 'theme=dark', dir: 'ltr'},

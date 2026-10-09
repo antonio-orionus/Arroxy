@@ -42,14 +42,14 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 
 			<ButtonGroup className="shrink-0">
 				{action.kind === 'install' && (
-					<Button type="button" onClick={onInstall} disabled={installing} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
+					<Button type="button" onClick={onInstall} disabled={installing} size="sm">
 						{installing ? <Spinner data-icon="inline-start" /> : null}
 						{installing ? t('update.downloading') : installError ? t('update.retry') : t('update.install')}
 					</Button>
 				)}
 
 				{action.kind === 'download' && (
-					<Button type="button" onClick={onDownload} size="sm" className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
+					<Button type="button" onClick={onDownload} size="sm">
 						{t(copy.buttonKey ?? 'update.download')}
 					</Button>
 				)}

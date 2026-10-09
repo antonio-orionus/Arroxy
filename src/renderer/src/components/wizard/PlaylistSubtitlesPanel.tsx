@@ -4,11 +4,10 @@ import {Captions} from 'lucide-react'
 import type {DownloadProfileSubtitleSource, PlaylistSubtitleMode, PlaylistSubtitleSelection, SubtitleFormat} from '@shared/schemas.js'
 import {PLAYLIST_SUBTITLE_MODES, SUBTITLE_FORMATS} from '@shared/schemas.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
-import {Field, FieldDescription, FieldLabel} from '../ui/field.js'
+import {Field, FieldError, FieldLabel} from '../ui/field.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
-
-const SECTION_LABEL = 'text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)] mb-1.5'
+import {SectionLabel} from '../shared/SectionLabel.js'
 
 // Same vocabulary as the profile editor, so a batch and a profile describe
 // the same track choice with the same words.
@@ -32,15 +31,13 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 
 	return (
 		<div className="flex flex-col gap-4" data-testid="playlist-subtitles-panel">
-			<Alert variant="info" className="py-2">
+			<Alert variant="info" size="sm">
 				<Captions aria-hidden />
-				<AlertDescription className="text-[12px]">{t('playlistPresets.subtitles.note')}</AlertDescription>
+				<AlertDescription>{t('playlistPresets.subtitles.note')}</AlertDescription>
 			</Alert>
 
 			<Field className="gap-1.5" data-invalid={languagesMissing || undefined}>
-				<FieldLabel htmlFor="playlist-subtitle-languages" className="text-[12px] font-medium text-[var(--text-subtle)]">
-					{t('playlistPresets.subtitles.languages')}
-				</FieldLabel>
+				<FieldLabel htmlFor="playlist-subtitle-languages">{t('playlistPresets.subtitles.languages')}</FieldLabel>
 				<SubtitleLanguagePicker
 					id="playlist-subtitle-languages"
 					value={selection.languages}
@@ -50,16 +47,13 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 					testId="playlist-subtitle-languages"
 					optionTestIdPrefix="playlist-subtitle-language-option"
 				/>
-				{languagesMissing ? (
-					<FieldDescription id="playlist-subtitle-languages-error" className="text-[12px] text-destructive">
-						{t('playlistPresets.subtitles.languagesRequired')}
-					</FieldDescription>
-				) : null}
+				{languagesMissing ? <FieldError id="playlist-subtitle-languages-error">{t('playlistPresets.subtitles.languagesRequired')}</FieldError> : null}
 			</Field>
 
 			<div>
-				<p className={SECTION_LABEL}>{t('playlistPresets.subtitles.source')}</p>
+				<SectionLabel className="mb-1.5">{t('playlistPresets.subtitles.source')}</SectionLabel>
 				<ToggleGroup
+					size="sm"
 					variant="outline"
 					value={[selection.source]}
 					onValueChange={values => {
@@ -71,7 +65,7 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 					className="flex-wrap"
 				>
 					{SOURCE_OPTIONS.map(option => (
-						<ToggleGroupItem key={option.value} value={option.value} className="min-h-7 px-2 text-[12px]">
+						<ToggleGroupItem key={option.value} value={option.value}>
 							{t(option.labelKey)}
 						</ToggleGroupItem>
 					))}
@@ -79,8 +73,9 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 			</div>
 
 			<div>
-				<p className={SECTION_LABEL}>{t('playlistPresets.subtitles.deliveryHeading')}</p>
+				<SectionLabel className="mb-1.5">{t('playlistPresets.subtitles.deliveryHeading')}</SectionLabel>
 				<ToggleGroup
+					size="sm"
 					variant="outline"
 					value={[selection.mode]}
 					onValueChange={values => {
@@ -92,7 +87,7 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 					className="flex-wrap"
 				>
 					{PLAYLIST_SUBTITLE_MODES.map(mode => (
-						<ToggleGroupItem key={mode} value={mode} className="min-h-7 px-2 text-[12px]">
+						<ToggleGroupItem key={mode} value={mode}>
 							{t(DELIVERY_LABEL_KEYS[mode])}
 						</ToggleGroupItem>
 					))}
@@ -100,8 +95,9 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 			</div>
 
 			<div>
-				<p className={SECTION_LABEL}>{t('wizard.subtitles.format.heading')}</p>
+				<SectionLabel className="mb-1.5">{t('wizard.subtitles.format.heading')}</SectionLabel>
 				<ToggleGroup
+					size="xs"
 					variant="outline"
 					value={[selection.format]}
 					onValueChange={values => {
@@ -113,7 +109,7 @@ export function PlaylistSubtitlesPanel({selection, onChange}: PlaylistSubtitlesP
 					className="flex-wrap"
 				>
 					{SUBTITLE_FORMATS.map((format: SubtitleFormat) => (
-						<ToggleGroupItem key={format} value={format} shape="chip" className="min-h-6 px-2 text-[11px] font-semibold uppercase">
+						<ToggleGroupItem key={format} value={format} shape="chip" className="uppercase">
 							{format.toUpperCase()}
 						</ToggleGroupItem>
 					))}

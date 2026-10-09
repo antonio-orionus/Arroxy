@@ -21,7 +21,7 @@ export function FormatFooter({view, onBack, onContinue, onSkipToConfirm}: Format
 					t('presets.subtitle-only.label')
 				) : view.selectedFilesize ? (
 					<>
-						{t('wizard.formats.total')} <span className="text-[17px] font-bold text-[var(--brand)]">~{humanSize(view.selectedFilesize)}</span>
+						{t('wizard.formats.total')} <span className="text-headline font-bold text-primary">~{humanSize(view.selectedFilesize)}</span>
 					</>
 				) : view.mode === 'audio-only' ? (
 					t('wizard.formats.audioOnly')
@@ -30,14 +30,14 @@ export function FormatFooter({view, onBack, onContinue, onSkipToConfirm}: Format
 				)
 			}
 		>
-			<Button variant="ghost" type="button" onClick={onBack} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
+			<Button variant="outline" type="button" onClick={onBack}>
 				{t('common.back')}
 			</Button>
-			<Button type="button" onClick={onContinue} disabled={!view.canContinue} className="shadow-[0_4px_14px_var(--brand-glow)]">
-				{t('common.continue')}
-			</Button>
-			<Button type="button" onClick={onSkipToConfirm} title={t('wizard.formats.skipToConfirmTooltip')} className="shadow-[0_4px_14px_var(--brand-glow)]">
+			<Button variant="outline" type="button" onClick={onSkipToConfirm} title={t('wizard.formats.skipToConfirmTooltip')}>
 				{t('wizard.formats.skipToConfirm')}
+			</Button>
+			<Button variant="glow" type="button" onClick={onContinue} disabled={!view.canContinue}>
+				{t('common.continue')}
 			</Button>
 		</WizardFooter>
 	)

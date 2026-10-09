@@ -97,7 +97,7 @@ export function QuickProfileControl({
 							/>
 							<TooltipContent side="bottom" className="max-w-xs flex-col items-start gap-1 text-left">
 								<span>{t('wizard.url.hotkey.hintTooltip')}</span>
-								<Button type="button" variant="link" size="xs" className="h-auto p-0 text-left text-background opacity-80 hover:text-background" onClick={() => openAdvancedSettings('hotkey')}>
+								<Button type="button" variant="link" size="inline" className="text-start text-background opacity-80 hover:text-background" onClick={() => openAdvancedSettings('hotkey')}>
 									{t('wizard.url.hotkey.hintTooltipSettings')}
 								</Button>
 							</TooltipContent>

@@ -9,6 +9,7 @@ import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
 import {QuickDownloadProgressDialog} from '../wizard/QuickDownloadProgressDialog.js'
 import {cn} from '@renderer/lib/utils.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
+import {Check} from 'lucide-react'
 
 function WizardStepFallback(): ReactNode {
 	return <div className="wizard-step min-h-32" data-testid="wizard-step-loading" aria-busy="true" />
@@ -60,18 +61,17 @@ export function WizardPanel(): ReactNode {
 								<div className="flex flex-col items-center gap-1">
 									<div
 										className={cn(
-											'w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-bold border shadow-[inset_0_1px_0_var(--field-highlight)] transition-all duration-300',
-											isActive && 'border-[var(--brand)] bg-[var(--brand-dim)] text-[var(--brand)]',
-											isDone && 'border-transparent bg-[var(--brand)] text-white',
-											!isActive && !isDone && 'border-[var(--field-border)] bg-[var(--field-bg)] text-[var(--field-addon)]'
+											'flex size-6 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300',
+											isActive && 'border-primary bg-primary/12 text-primary ring-3 ring-primary/12',
+											isDone && 'border-transparent bg-primary text-primary-foreground',
+											!isActive && !isDone && 'border-border-strong bg-card text-muted-foreground'
 										)}
-										style={isActive ? {boxShadow: '0 0 0 3px var(--brand-dim), 0 0 12px var(--brand-glow)'} : isDone ? {boxShadow: '0 0 6px var(--brand-glow)'} : undefined}
 									>
-										{isDone ? '✓' : i + 1}
+										{isDone ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : i + 1}
 									</div>
-									<span className={cn('text-[11px] font-semibold uppercase tracking-[0.07em]', isActive && 'text-[var(--brand)]', (isDone || (!isActive && !isDone)) && 'text-[var(--text-subtle)]')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
+									<span className={cn('text-label uppercase', isActive ? 'text-primary' : 'text-subtle-foreground')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
 								</div>
-								{i < visibleSteps.length - 1 && <div className={cn('h-[2px] flex-1 mb-4 mx-1 transition-all duration-500 rounded-full', isDone ? 'bg-[var(--brand)]' : 'bg-[var(--field-border)]')} style={isDone ? {boxShadow: '0 0 4px var(--brand-glow)'} : undefined} />}
+								{i < visibleSteps.length - 1 && <div className={cn('mx-1 mb-4 h-0.5 flex-1 rounded-full transition-all duration-500', isDone ? 'bg-primary' : 'bg-border-strong')} />}
 							</div>
 						)
 					})}

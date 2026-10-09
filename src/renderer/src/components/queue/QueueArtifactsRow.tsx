@@ -43,7 +43,7 @@ export function QueueArtifactsRow({columnsLength, item}: {columnsLength: number;
 						const size = formatArtifactSize(artifact.sizeBytes)
 						return (
 							<div key={artifact.id} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2 text-[12px] text-muted-foreground">
-								<Badge variant="secondary" className="shrink-0 text-[10px] uppercase tracking-[0.08em]">
+								<Badge variant="secondary" size="sm" className="shrink-0 uppercase tracking-wide">
 									{artifactKindLabel(artifact.kind, t)}
 								</Badge>
 								<span className="block min-w-0 truncate font-mono text-foreground" title={artifact.path}>

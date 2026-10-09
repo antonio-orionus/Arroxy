@@ -1,10 +1,9 @@
-import {useMemo, useState, type ReactNode} from 'react'
+import {useMemo, useState, type ReactNode, useId} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Search, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
-import {Checkbox} from '../ui/checkbox.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {InputGroup, InputGroupAddon, InputGroupInput} from '../ui/input-group.js'
 import {Separator} from '../ui/separator.js'
@@ -15,6 +14,8 @@ import {MascotBubble} from '../shared/MascotBubble.js'
 import {buildSubtitleList, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import loveImg from '../../assets/Love.png'
 import {SUBTITLE_FORMATS, SUBTITLE_MODES} from '@shared/schemas.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {CheckRow} from '../shared/CheckRow.js'
 
 export function StepSubtitles(): ReactNode {
 	const {t, i18n} = useTranslation()
@@ -58,8 +59,11 @@ export function StepSubtitles(): ReactNode {
 			{/* ── Save as / Format — only relevant when subs exist ─ */}
 			{hasLangs && (
 				<div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2.5 items-center -mx-1">
-					<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.saveMode.heading')}</span>
+					<SectionLabel render={<span />} className="px-1 shrink-0">
+						{t('wizard.subtitles.saveMode.heading')}
+					</SectionLabel>
 					<ToggleGroup
+						size="sm"
 						variant="outline"
 						value={[wizardSubtitleMode]}
 						onValueChange={values => {
@@ -71,7 +75,7 @@ export function StepSubtitles(): ReactNode {
 						className="flex-wrap"
 					>
 						{saveModes.map(({mode, label}) => (
-							<ToggleGroupItem key={mode} value={mode} className="min-h-7 px-2 text-[12px]">
+							<ToggleGroupItem key={mode} value={mode}>
 								{label}
 							</ToggleGroupItem>
 						))}
@@ -86,8 +90,11 @@ export function StepSubtitles(): ReactNode {
 						</>
 					) : (
 						<>
-							<span className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-1 shrink-0">{t('wizard.subtitles.format.heading')}</span>
+							<SectionLabel render={<span />} className="px-1 shrink-0">
+								{t('wizard.subtitles.format.heading')}
+							</SectionLabel>
 							<ToggleGroup
+								size="xs"
 								variant="outline"
 								value={[wizardSubtitleFormat]}
 								onValueChange={values => {
@@ -99,7 +106,7 @@ export function StepSubtitles(): ReactNode {
 								className="flex-wrap"
 							>
 								{SUBTITLE_FORMATS.map(fmt => (
-									<ToggleGroupItem key={fmt} value={fmt} shape="chip" className="min-h-6 px-2 text-[11px] font-semibold uppercase">
+									<ToggleGroupItem key={fmt} value={fmt} shape="chip" className="uppercase">
 										{fmt.toUpperCase()}
 									</ToggleGroupItem>
 								))}
@@ -136,7 +143,7 @@ export function StepSubtitles(): ReactNode {
 								<span className="text-[11px] italic text-[var(--text-subtle)]">{t('wizard.subtitles.noSelected')}</span>
 							) : (
 								selectedItems.map(({code, displayName}) => (
-									<Badge key={code} className="h-6 gap-1 bg-[var(--brand)] ps-2.5 pe-1.5 text-[11px] text-white">
+									<Badge key={code} className="h-6 ps-2.5 pe-1">
 										{displayName}
 										<Button
 											type="button"
@@ -146,7 +153,7 @@ export function StepSubtitles(): ReactNode {
 											}}
 											variant="ghost"
 											size="icon-xs"
-											className="size-4 rounded-full p-0 text-white hover:bg-white/20 hover:text-white"
+											className="size-4 rounded-full p-0 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
 										>
 											<X data-icon="inline-start" strokeWidth={3} />
 										</Button>
@@ -157,7 +164,7 @@ export function StepSubtitles(): ReactNode {
 						<div className="flex items-center gap-2 shrink-0">
 							{selectedCount > 0 && <span className="text-[11px] text-[var(--text-subtle)]">{selectedCount}</span>}
 							{selectedCount > 0 && (
-								<Button type="button" variant="link" size="xs" onClick={clearAll} className="h-auto px-0 text-[11px]">
+								<Button type="button" variant="link" size="inline" onClick={clearAll} className="text-caption">
 									{t('wizard.subtitles.clearAll')}
 								</Button>
 							)}
@@ -200,18 +207,18 @@ export function StepSubtitles(): ReactNode {
 			)}
 
 			<WizardFooter extraAbove={footerExtra}>
-				<Button variant="ghost" type="button" onClick={back} className="border-[1.5px] border-[var(--border-strong)] text-muted-foreground hover:text-foreground">
+				<Button variant="outline" type="button" onClick={back}>
 					{t('common.back')}
 				</Button>
 				{selectedCount > 0 ? (
 					<>
-						<Button variant="ghost" type="button" onClick={skipSubtitles} className="border-[1.5px] border-[var(--border-strong)] text-foreground hover:bg-accent/60">
+						<Button variant="outline" type="button" onClick={skipSubtitles}>
 							{t('wizard.subtitles.skipSubs')}
 						</Button>
 						<Tooltip>
 							<TooltipTrigger
 								render={props => (
-									<Button {...props} type="button" onClick={advance} className="shadow-[0_4px_14px_var(--brand-glow)]">
+									<Button variant="glow" {...props} type="button" onClick={advance}>
 										{t('common.continue')}
 									</Button>
 								)}
@@ -220,7 +227,7 @@ export function StepSubtitles(): ReactNode {
 						</Tooltip>
 					</>
 				) : (
-					<Button type="button" onClick={skipSubtitles} className="shadow-[0_4px_14px_var(--brand-glow)]">
+					<Button variant="glow" type="button" onClick={skipSubtitles}>
 						{hasLangs ? t('wizard.subtitles.skipSubs') : t('wizard.subtitles.skip')}
 					</Button>
 				)}
@@ -238,28 +245,31 @@ interface LangSectionProps {
 }
 
 function LangSection({label, items, selected, onToggle, autoBadge}: LangSectionProps): ReactNode | null {
+	const sectionId = useId()
 	if (items.length === 0) return null
 	return (
 		<div>
-			<p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-subtle)] px-2 pt-1.5 pb-0.5">
+			<SectionLabel className="px-2 pt-1.5 pb-0.5">
 				{label} ({items.length})
-			</p>
-			<div className="grid grid-cols-3 gap-x-1">
+			</SectionLabel>
+			<div className="grid grid-cols-3 gap-1">
 				{items.map(({code, displayName, isAuto}) => {
 					const isChecked = selected.includes(code)
 					return (
-						<label
+						<CheckRow
 							key={code}
-							className="flex h-8 w-full cursor-pointer items-center gap-2 rounded-md border border-[var(--field-border)] bg-[var(--field-bg)] px-2 text-sm font-medium shadow-[inset_0_1px_0_var(--field-highlight)] transition-colors hover:border-[var(--brand)] hover:bg-[var(--brand-dim)] has-[[data-checked]]:border-[var(--brand)] has-[[data-checked]]:bg-[var(--brand-dim)] has-[[data-checked]]:text-[var(--brand)] has-[[data-checked]]:shadow-[inset_0_0_0_1px_var(--brand-dim)]"
-						>
-							<Checkbox checked={isChecked} onCheckedChange={() => onToggle(code)} className="border-[var(--border-strong)] data-checked:border-[var(--brand)] data-checked:bg-[var(--brand)] data-checked:text-white" />
-							<span className="flex-1 text-start truncate">{displayName}</span>
-							{isAuto && (
-								<Badge variant="secondary" className="text-[10px] font-semibold text-[var(--brand)]">
-									{autoBadge}
-								</Badge>
-							)}
-						</label>
+							id={`${sectionId}-${code}`}
+							label={displayName}
+							checked={isChecked}
+							onCheckedChange={() => onToggle(code)}
+							meta={
+								isAuto ? (
+									<Badge variant="info" size="sm">
+										{autoBadge}
+									</Badge>
+								) : null
+							}
+						/>
 					)
 				})}
 			</div>

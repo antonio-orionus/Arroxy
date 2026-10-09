@@ -6,8 +6,8 @@ import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
 import {Button} from '../ui/button.js'
-import {Field, FieldContent, FieldDescription, FieldGroup, FieldTitle} from '../ui/field.js'
-import {SettingSwitch} from './SettingSwitch.js'
+import {Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldTitle} from '../ui/field.js'
+import {SettingSwitch} from '../shared/SettingSwitch.js'
 
 const STOP_KEYS = new Set(['Escape', 'Tab'])
 
@@ -73,12 +73,8 @@ export function HotkeySettingsSection(): ReactNode {
 
 			<Field className="gap-1.5">
 				<FieldContent className="gap-0.5">
-					<FieldTitle id="profiles-settings-hotkey-chord" className="text-[13px] font-medium text-foreground">
-						{t('wizard.url.hotkey.changeShortcut')}
-					</FieldTitle>
-					<FieldDescription className="text-[11px] text-[var(--text-subtle)]" data-testid="profiles-settings-hotkey-chord-value">
-						{formatHotkeyChord(accelerator).join(' + ')}
-					</FieldDescription>
+					<FieldTitle id="profiles-settings-hotkey-chord">{t('wizard.url.hotkey.changeShortcut')}</FieldTitle>
+					<FieldDescription data-testid="profiles-settings-hotkey-chord-value">{formatHotkeyChord(accelerator).join(' + ')}</FieldDescription>
 				</FieldContent>
 				<div className="flex items-center gap-2" data-testid="profiles-settings-hotkey-recorder">
 					{recording ? (
@@ -107,11 +103,7 @@ export function HotkeySettingsSection(): ReactNode {
 						{t('wizard.url.hotkey.test')}
 					</Button>
 				</div>
-				{hotkeyRegistration === 'conflict' ? (
-					<FieldDescription className="text-[11px] text-destructive" data-testid="profiles-settings-hotkey-conflict">
-						{t('wizard.url.hotkey.conflict')}
-					</FieldDescription>
-				) : null}
+				{hotkeyRegistration === 'conflict' ? <FieldError data-testid="profiles-settings-hotkey-conflict">{t('wizard.url.hotkey.conflict')}</FieldError> : null}
 			</Field>
 		</FieldGroup>
 	)

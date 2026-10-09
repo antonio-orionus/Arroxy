@@ -54,7 +54,7 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 				a profile has nothing to do with the current selection. */}
 				<PopoverTrigger
 					render={
-						<Button type="button" variant="outline" size="sm" className="h-7 gap-1.5 border-[1.5px] border-[var(--border-strong)] px-2 text-xs" data-testid="playlist-profile-assign-trigger">
+						<Button type="button" variant="outline" size="sm" data-testid="playlist-profile-assign-trigger">
 							{t('wizard.playlistProfiles.assignTrigger')}
 							<ChevronDown size={12} aria-hidden />
 						</Button>
@@ -68,7 +68,7 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 				<PopoverContent align="start" className="w-max max-w-[min(24rem,var(--available-width))] max-h-72 gap-1 overflow-y-auto p-1.5">
 					{options.map(option => (
 						<div key={option.profile.id} className="group/profile flex items-center gap-1">
-							<Button type="button" variant="ghost" size="sm" disabled={disabled} className="h-8 min-w-0 flex-1 justify-start gap-2 px-2 text-xs" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
+							<Button type="button" variant="ghost" size="sm" disabled={disabled} className="min-w-0 flex-1 justify-start gap-2" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
 								<option.Icon size={14} className="shrink-0" aria-hidden />
 								<span className="min-w-0 flex-1 truncate text-left">{option.profile.name}</span>
 							</Button>
@@ -87,7 +87,7 @@ export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEd
 					))}
 				</PopoverContent>
 			</Popover>
-			<Button type="button" variant="outline" size="sm" disabled={disabled} onClick={onReset} className="h-7 gap-1.5 border-[1.5px] border-[var(--border-strong)] px-2 text-xs" data-testid="playlist-profile-reset">
+			<Button type="button" variant="outline" size="sm" disabled={disabled} onClick={onReset} className="h-7 gap-1.5 px-2 text-xs" data-testid="playlist-profile-reset">
 				<RotateCcw size={13} aria-hidden />
 				{t('wizard.url.profile.reset')}
 			</Button>

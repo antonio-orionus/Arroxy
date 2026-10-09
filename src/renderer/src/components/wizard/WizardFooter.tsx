@@ -13,7 +13,7 @@ export function WizardFooter({children, info, extraAbove}: WizardFooterProps): R
 			{extraAbove ? <div className="px-6">{extraAbove}</div> : null}
 			<Separator className="wizard-footer-divider my-0 w-full" />
 			<div className="flex items-center px-6 py-3">
-				<div className="flex-1 text-[13px] text-muted-foreground">{info}</div>
+				<div className="flex-1 text-sm text-muted-foreground">{info}</div>
 				<div className="flex gap-2">{children}</div>
 			</div>
 		</div>

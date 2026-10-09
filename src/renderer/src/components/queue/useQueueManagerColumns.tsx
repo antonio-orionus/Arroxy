@@ -11,15 +11,22 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Progress} from '../ui/progress.js'
 
-const STATUS_META: Record<QueueItemStatus, {className: string; icon: ReactNode; labelKey: 'queue.item.statusProbing' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'}> = {
-	probing: {className: 'text-muted-foreground', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusProbing'},
-	pending: {className: 'text-muted-foreground', icon: <Clock size={12} aria-hidden />, labelKey: 'queue.item.statusPending'},
-	running: {className: 'text-[var(--brand)]', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusRunning'},
-	'paused-held': {className: 'text-[var(--color-status-paused)]', icon: <PauseCircle size={12} aria-hidden />, labelKey: 'queue.item.statusHeld'},
-	'paused-active': {className: 'text-[var(--color-status-paused)]', icon: <Pause size={12} aria-hidden />, labelKey: 'queue.item.statusPaused'},
-	done: {className: 'text-[var(--color-status-done)]', icon: <CheckCircle2 size={12} aria-hidden />, labelKey: 'queue.item.statusDone'},
-	error: {className: 'text-[var(--color-status-error)]', icon: <XCircle size={12} aria-hidden />, labelKey: 'queue.item.statusError'},
-	cancelled: {className: 'text-muted-foreground', icon: <Ban size={12} aria-hidden />, labelKey: 'queue.item.statusCancelled'}
+const STATUS_META: Record<
+	QueueItemStatus,
+	{
+		variant: 'secondary' | 'info' | 'warning' | 'success' | 'destructive'
+		icon: ReactNode
+		labelKey: 'queue.item.statusProbing' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'
+	}
+> = {
+	probing: {variant: 'secondary', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusProbing'},
+	pending: {variant: 'secondary', icon: <Clock size={12} aria-hidden />, labelKey: 'queue.item.statusPending'},
+	running: {variant: 'info', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusRunning'},
+	'paused-held': {variant: 'warning', icon: <PauseCircle size={12} aria-hidden />, labelKey: 'queue.item.statusHeld'},
+	'paused-active': {variant: 'warning', icon: <Pause size={12} aria-hidden />, labelKey: 'queue.item.statusPaused'},
+	done: {variant: 'success', icon: <CheckCircle2 size={12} aria-hidden />, labelKey: 'queue.item.statusDone'},
+	error: {variant: 'destructive', icon: <XCircle size={12} aria-hidden />, labelKey: 'queue.item.statusError'},
+	cancelled: {variant: 'secondary', icon: <Ban size={12} aria-hidden />, labelKey: 'queue.item.statusCancelled'}
 }
 
 const columnHelper = createColumnHelper<QueueItem>()
@@ -93,10 +100,10 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 							<div className="flex min-w-0 items-center gap-2">
 								<div className="size-11 shrink-0 overflow-hidden rounded-md bg-secondary">{item.thumbnail ? <img src={item.thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="size-full object-cover" /> : <div className="thumb-shimmer size-full" aria-hidden />}</div>
 								<div className="min-w-0">
-									<p className="truncate text-[13px] font-semibold text-foreground" data-testid="queue-title">
+									<p className="truncate text-sm font-semibold text-foreground" data-testid="queue-title">
 										{item.title}
 									</p>
-									<p className="truncate text-[11px] text-[var(--text-subtle)]">{item.url}</p>
+									<p className="truncate text-caption text-subtle-foreground">{item.url}</p>
 								</div>
 							</div>
 						)
@@ -111,14 +118,14 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 						const detail = rowStatusDetail(item, t)
 						return (
 							<div className="flex min-w-[8rem] flex-col gap-1">
-								<Badge variant="secondary" className={cn('w-fit gap-1 text-[10px] font-semibold uppercase tracking-wider', meta.className)}>
+								<Badge variant={meta.variant} size="sm" className="w-fit uppercase tracking-wide">
 									{meta.icon}
 									{statusText(item, t)}
 								</Badge>
 								{detail ? (
 									<span
 										data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId}
-										className={cn('max-w-48 truncate text-[11px]', item.status === 'error' ? 'text-[var(--color-status-error)]' : doneNotice(item) ? 'text-[var(--color-status-paused)]' : 'text-[var(--text-subtle)]')}
+										className={cn('max-w-48 truncate text-caption', item.status === 'error' ? 'text-destructive' : doneNotice(item) ? 'text-warning' : 'text-subtle-foreground')}
 										title={doneNotice(item) ? formatStatus(item.lastStatus) : detail}
 									>
 										{detail}

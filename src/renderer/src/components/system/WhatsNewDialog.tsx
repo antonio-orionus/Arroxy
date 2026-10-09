@@ -6,6 +6,7 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Separator} from '../ui/separator.js'
+import {IconTile} from '../shared/IconTile.js'
 
 interface Props {
 	open: boolean
@@ -29,12 +30,12 @@ export function WhatsNewDialog({open, digest, onClose, onOpenFullNotes}: Props):
 			<DialogContent data-testid="whats-new-dialog" className="overflow-hidden sm:max-w-xl md:max-w-2xl">
 				<DialogHeader>
 					<div className="flex items-start gap-3 pe-8">
-						<span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[var(--border-strong)] bg-[var(--brand-dim)] text-[var(--brand)] shadow-[0_0_24px_var(--brand-glow)]" aria-hidden>
+						<IconTile>
 							<Sparkles />
-						</span>
+						</IconTile>
 						<div className="min-w-0 flex-1">
 							{!multiple && (
-								<Badge variant="secondary" className="mb-2 w-fit font-mono text-[10px] tabular-nums">
+								<Badge variant="secondary" size="sm" className="mb-2 w-fit font-mono tabular-nums">
 									v{digest.version}
 								</Badge>
 							)}
@@ -57,7 +58,7 @@ export function WhatsNewDialog({open, digest, onClose, onOpenFullNotes}: Props):
 						{t('releaseNotes.fullNotes')}
 						<ExternalLink data-icon="inline-end" aria-hidden />
 					</Button>
-					<Button type="button" onClick={onClose} className="shadow-[0_4px_14px_var(--brand-glow)]">
+					<Button variant="glow" type="button" onClick={onClose}>
 						{t('releaseNotes.continue')}
 					</Button>
 				</DialogFooter>
@@ -71,7 +72,7 @@ function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersio
 		<div className="flex flex-col gap-3" data-testid={`whats-new-release-${release.version}`}>
 			{showVersion && (
 				<div className="flex items-center gap-2">
-					<Badge variant="outline" className="font-mono text-[10px] tabular-nums">
+					<Badge variant="outline" size="sm" className="font-mono tabular-nums">
 						v{release.version}
 					</Badge>
 					<Separator className="flex-1" />

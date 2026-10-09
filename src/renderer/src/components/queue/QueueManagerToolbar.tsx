@@ -12,6 +12,8 @@ import {QueueActionButton, TooltipIconButton} from './QueueManagerButtons.js'
 import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisabled, queueStatusFilterCount, type QueueSelectedAction} from './queueManagerActions.js'
 import type {QueueStatusFilter} from './queueManagerState.js'
 import type {QueueTableColumnId} from './queueTablePreferences.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
+import {IconTile} from '../shared/IconTile.js'
 
 interface QueueManagerToolbarProps {
 	t: TFunction
@@ -34,11 +36,11 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 		<>
 			<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
 				<div className="flex min-w-0 items-center gap-2.5">
-					<div className="grid size-9 shrink-0 place-items-center rounded-lg border border-[var(--brand)]/25 bg-[var(--brand-dim)] text-[var(--brand)]">
-						<Inbox size={17} aria-hidden />
-					</div>
+					<IconTile>
+						<Inbox />
+					</IconTile>
 					<div className="min-w-0">
-						<h2 className="text-[18px] font-semibold leading-tight tracking-[-0.01em]">{t('queue.header')}</h2>
+						<h2 className="text-headline">{t('queue.header')}</h2>
 						<p className="text-[12px] text-muted-foreground" data-testid="queue-selection-summary">
 							{t('queue.selectionSummary', {selected: selectedCount, total: queue.length})}
 						</p>
@@ -80,7 +82,7 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 					<Popover>
 						<PopoverTrigger
 							render={
-								<Button type="button" variant="ghost" size="icon-sm" className="h-7 w-7" aria-label={t('queue.table.columns')} title={t('queue.table.columns')}>
+								<Button type="button" variant="ghost" size="icon-sm" aria-label={t('queue.table.columns')} title={t('queue.table.columns')}>
 									<Columns3 size={13} aria-hidden />
 								</Button>
 							}
@@ -99,7 +101,9 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 						</PopoverContent>
 					</Popover>
 					<ButtonGroup className="flex-wrap items-center gap-1 rounded-xl border border-border/60 bg-background/25 px-1 py-0.5" aria-label={t('queue.globalActionsLabel')}>
-						<span className="px-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--text-subtle)]">{t('queue.globalActionsLabel')}</span>
+						<SectionLabel render={<span />} className="px-1">
+							{t('queue.globalActionsLabel')}
+						</SectionLabel>
 						<TooltipIconButton Icon={Pause} label={t('queue.pauseAllTitle')} testId="btn-pause-all" disabled={schedulerPaused} onClick={onPauseAll} />
 						<TooltipIconButton Icon={Play} label={t('queue.resumeAllTitle')} testId="btn-resume-first" onClick={onResumeAll} />
 						<TooltipIconButton Icon={X} label={t('queue.cancelAllTitle')} onClick={onCancelAll} />

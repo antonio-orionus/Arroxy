@@ -8,7 +8,7 @@ import {Button} from '../ui/button.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Checkbox} from '../ui/checkbox.js'
 import {Input} from '../ui/input.js'
-import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
+import {Alert, AlertAction, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger} from '../ui/context-menu.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
@@ -25,6 +25,8 @@ import {PlaylistScopeControl} from './PlaylistScopeControl.js'
 import {PlaylistSortControl} from './PlaylistSortControl.js'
 import {sortPlaylistEntries} from '../../store/wizard/playlistSort.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
+import {IconTile} from '../shared/IconTile.js'
+import {Spinner} from '../ui/spinner.js'
 
 const PLAYLIST_PROBE_SKELETON_ROWS = [
 	{id: 'first', width: 'w-8/12', metaWide: false},
@@ -62,16 +64,16 @@ function PlaylistProbeLoadingStatus({loadingLabel, phaseLabel, progressLabel, pr
 		<div className="rounded-md border border-[var(--border-strong)] bg-card/40 px-3 py-2.5 text-sm" data-testid="playlist-probe-loading" aria-live="polite">
 			<div className="flex items-center justify-between gap-3">
 				<div className="flex min-w-0 items-center gap-3">
-					<span className="grid size-8 shrink-0 place-items-center rounded-full border border-[var(--brand)]/35 bg-[var(--brand-dim)] text-[var(--brand)] shadow-[0_0_14px_var(--brand-glow)]">
-						<span className="size-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
-					</span>
+					<IconTile size="sm">
+						<Spinner />
+					</IconTile>
 					<div className="min-w-0">
 						<p className="truncate font-medium text-foreground">{loadingLabel}</p>
 						{phaseLabel ? <p className="truncate text-xs text-muted-foreground">{phaseLabel}</p> : null}
 					</div>
 				</div>
 				{progressLabel ? (
-					<Badge variant="outline" className="h-7 shrink-0 border-[var(--brand)]/40 bg-[var(--brand-dim)] px-2.5 font-mono text-[11px] tabular-nums text-[var(--brand)]" data-testid="playlist-probe-progress-count">
+					<Badge variant="info" className="shrink-0 font-mono tabular-nums" data-testid="playlist-probe-progress-count">
 						{progressLabel}
 					</Badge>
 				) : null}
@@ -276,23 +278,21 @@ export function StepPlaylistItems(): ReactNode {
 				) : null}
 
 				{!isBulk && playlistScopeError ? (
-					<Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-scope-error">
-						<Info className="mt-0.5 size-4 shrink-0 text-amber-500" />
-						<div className="min-w-0 flex-1">
-							<AlertTitle>{t('wizard.url.playlistScope.emptyTitle', {defaultValue: 'No videos in that scope'})}</AlertTitle>
-							<AlertDescription className="break-words">{playlistScopeError}</AlertDescription>
-						</div>
+					<Alert variant="warning" data-testid="playlist-scope-error">
+						<Info />
+						<AlertTitle>{t('wizard.url.playlistScope.emptyTitle', {defaultValue: 'No videos in that scope'})}</AlertTitle>
+						<AlertDescription>{playlistScopeError}</AlertDescription>
 					</Alert>
 				) : null}
 
 				{showProbeLimitAlert && (
-					<Alert variant="warning" className="flex items-start gap-3" data-testid="playlist-probe-limit-alert">
-						<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
-						<div className="min-w-0 flex-1">
-							<AlertTitle>{t(playlistProbeLimitAlertTitleKey)}</AlertTitle>
-							<AlertDescription className="break-words">{probeLimitDescription}</AlertDescription>
+					<Alert variant="warning" data-testid="playlist-probe-limit-alert">
+						<Info />
+						<AlertTitle>{t(playlistProbeLimitAlertTitleKey)}</AlertTitle>
+						<AlertDescription>{probeLimitDescription}</AlertDescription>
+						<div className="col-start-2 mt-2">
+							<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
 						</div>
-						<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
 					</Alert>
 				)}
 
@@ -352,55 +352,55 @@ export function StepPlaylistItems(): ReactNode {
 						)}
 
 						{!isBulk && syncScanState === 'done' && !syncDismissed && foundCount > 0 && (
-							<Alert variant="success" className="flex items-start gap-3">
-								<FolderCheck className="mt-0.5 size-4 shrink-0 text-emerald-500" />
-								<div className="min-w-0 flex-1">
-									<AlertTitle>{t('wizard.playlist.syncFoundTitle')}</AlertTitle>
-									<AlertDescription className="break-words">{t('wizard.playlist.syncFoundDesc', {n: foundCount, dir: syncDir})}</AlertDescription>
-									<div className="mt-2.5 flex items-center gap-2">
-										<Button
-											type="button"
-											size="sm"
-											onClick={() => {
-												applyFolderSync()
-												setSyncDismissed(true)
-											}}
-										>
-											{t('wizard.playlist.syncApply')}
-										</Button>
-										<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
-											{t('wizard.playlist.syncChange')}
-										</Button>
-									</div>
+							<Alert variant="success">
+								<FolderCheck />
+								<AlertTitle>{t('wizard.playlist.syncFoundTitle')}</AlertTitle>
+								<AlertDescription>{t('wizard.playlist.syncFoundDesc', {n: foundCount, dir: syncDir})}</AlertDescription>
+								<div className="col-start-2 mt-2.5 flex items-center gap-2">
+									<Button
+										type="button"
+										size="sm"
+										onClick={() => {
+											applyFolderSync()
+											setSyncDismissed(true)
+										}}
+									>
+										{t('wizard.playlist.syncApply')}
+									</Button>
+									<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
+										{t('wizard.playlist.syncChange')}
+									</Button>
 								</div>
-								<Button type="button" variant="ghost" size="icon-sm" className="-mt-1 -me-1 shrink-0" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
-									<X />
-								</Button>
+								<AlertAction>
+									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
+										<X />
+									</Button>
+								</AlertAction>
 							</Alert>
 						)}
 
 						{!isBulk && syncScanState === 'done' && !syncDismissed && foundCount === 0 && (
-							<Alert variant="info" className="flex items-start gap-3">
-								<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
-								<div className="min-w-0 flex-1">
-									<AlertTitle>{t('wizard.playlist.syncNoneTitle')}</AlertTitle>
-									<AlertDescription className="break-words">{t(playlistSyncNoneDescKey, {dir: syncDir})}</AlertDescription>
-									<div className="mt-2.5">
-										<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
-											{t('wizard.playlist.syncChange')}
-										</Button>
-									</div>
+							<Alert variant="info">
+								<Info />
+								<AlertTitle>{t('wizard.playlist.syncNoneTitle')}</AlertTitle>
+								<AlertDescription>{t(playlistSyncNoneDescKey, {dir: syncDir})}</AlertDescription>
+								<div className="col-start-2 mt-2.5">
+									<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
+										{t('wizard.playlist.syncChange')}
+									</Button>
 								</div>
-								<Button type="button" variant="ghost" size="icon-sm" className="-mt-1 -me-1 shrink-0" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
-									<X />
-								</Button>
+								<AlertAction>
+									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
+										<X />
+									</Button>
+								</AlertAction>
 							</Alert>
 						)}
 
 						{nestedPlaylistCount > 0 && (
-							<Alert variant="info" className="flex items-start gap-3" data-testid="nested-playlist-hint">
-								<Info className="mt-0.5 size-4 shrink-0 text-sky-500" />
-								<AlertDescription className="min-w-0 flex-1 break-words">{t('wizard.playlist.nestedPlaylistHint', {count: nestedPlaylistCount})}</AlertDescription>
+							<Alert variant="info" data-testid="nested-playlist-hint">
+								<Info />
+								<AlertDescription>{t('wizard.playlist.nestedPlaylistHint', {count: nestedPlaylistCount})}</AlertDescription>
 							</Alert>
 						)}
 
@@ -468,12 +468,12 @@ export function StepPlaylistItems(): ReactNode {
 																	) : null}
 																</span>
 																{isPlaylistRow && (
-																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																	<Badge variant="secondary" size="sm" className="shrink-0 text-muted-foreground">
 																		{t('wizard.playlist.nestedPlaylistBadge')}
 																	</Badge>
 																)}
 																{isAlreadyDownloaded && (
-																	<Badge variant="secondary" className="shrink-0 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+																	<Badge variant="secondary" size="sm" className="shrink-0 text-muted-foreground">
 																		{t('wizard.playlist.alreadyDownloaded')}
 																	</Badge>
 																)}
@@ -505,7 +505,7 @@ export function StepPlaylistItems(): ReactNode {
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
-								<Button {...props} type="button" variant="outline" size="sm" className="border-[1.5px] border-[var(--border-strong)]" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
+								<Button {...props} type="button" variant="outline" size="sm" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
 									<Layers size={14} aria-hidden />
 									{t('wizard.playlist.multiProfileEntry')}
 								</Button>

@@ -16,6 +16,7 @@ import {cn} from '@renderer/lib/utils.js'
 import {ContextMenu, ContextMenuTrigger} from '../ui/context-menu.js'
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '../ui/table.js'
 import type {RowSelectionInteractions} from './useRowSelectionInteractions.js'
+import {SectionLabel} from './SectionLabel.js'
 
 export interface SelectableVirtualTableProps<T> {
 	table: TanstackTable<T>
@@ -75,9 +76,9 @@ export function SelectableVirtualTable<T>({
 					{table.getHeaderGroups().map(headerGroup => (
 						<TableRow key={headerGroup.id} className="hover:bg-transparent">
 							{headerGroup.headers.map(header => (
-								<TableHead key={header.id} className={cn('px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]', columnClass(header.column.id))}>
+								<SectionLabel key={header.id} render={<TableHead />} className={cn('px-3', columnClass(header.column.id))}>
 									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-								</TableHead>
+								</SectionLabel>
 							))}
 						</TableRow>
 					))}

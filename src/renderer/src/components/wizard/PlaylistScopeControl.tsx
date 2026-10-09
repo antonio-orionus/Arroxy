@@ -12,6 +12,7 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {Field, FieldLabel} from '../ui/field.js'
 import {Input} from '../ui/input.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
 
 type ItemMode = PlaylistScope['items']['kind']
 
@@ -105,7 +106,7 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 		<section className="rounded-md border border-[var(--border-strong)] bg-card/40 px-3 py-2.5" data-testid="playlist-scope-control">
 			<div className="flex items-center gap-3">
 				<div className="min-w-0 flex-1">
-					<p className="text-[9px] font-bold uppercase tracking-[0.12em] text-[var(--text-subtle)]">{copy(t, 'wizard.url.playlistScope.label', 'Playlist scope')}</p>
+					<SectionLabel>{copy(t, 'wizard.url.playlistScope.label', 'Playlist scope')}</SectionLabel>
 					<p className="mt-1 truncate text-[12px] text-foreground" data-testid="playlist-scope-summary">
 						{scopeSummary(playlistScope, appLimit, t)}
 					</p>
@@ -135,8 +136,9 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 
 					<div className="flex flex-col gap-3">
 						<Field className="gap-1.5">
-							<FieldLabel className="text-[11px] font-medium text-[var(--text-subtle)]">{copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}</FieldLabel>
+							<FieldLabel size="sm">{copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}</FieldLabel>
 							<ToggleGroup
+								size="sm"
 								value={[mode]}
 								onValueChange={values => {
 									const next = values[0]
@@ -147,14 +149,14 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 								spacing={1}
 								className="grid w-full items-stretch"
 							>
-								<ToggleGroupItem value="app-limit" className="min-h-7 justify-start px-2 text-[12px]">
+								<ToggleGroupItem value="app-limit" className="justify-start">
 									{copy(t, 'wizard.url.playlistScope.appLimit', 'Use app limit: {{count}}', {count: appLimit})}
 								</ToggleGroupItem>
-								<ToggleGroupItem value="first" className="min-h-7 justify-start px-2 text-[12px]">
+								<ToggleGroupItem value="first" className="justify-start">
 									{copy(t, 'wizard.url.playlistScope.first', 'First')}
 								</ToggleGroupItem>
 								{mode === 'first' && <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={firstDraft} onChange={event => setFirstDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-first-input" />}
-								<ToggleGroupItem value="range" className="min-h-7 justify-start px-2 text-[12px]">
+								<ToggleGroupItem value="range" className="justify-start">
 									{copy(t, 'wizard.url.playlistScope.range', 'Range')}
 								</ToggleGroupItem>
 								{mode === 'range' && (
@@ -168,12 +170,12 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 						</Field>
 						{!parsedScope && (
 							<Alert variant="warning">
-								<AlertDescription className="text-[11px]">{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</AlertDescription>
+								<AlertDescription>{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</AlertDescription>
 							</Alert>
 						)}
 						{applyError ? (
 							<Alert variant="warning" data-testid="playlist-scope-apply-error">
-								<AlertDescription className="text-[11px]">{applyError}</AlertDescription>
+								<AlertDescription>{applyError}</AlertDescription>
 							</Alert>
 						) : null}
 					</div>
