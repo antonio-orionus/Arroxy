@@ -11,6 +11,10 @@ export interface BrowserMockKnobs {
 	theme: UiTheme | null
 	locale: SupportedLang | null
 	platform: MockPlatform | null
+	// Sample titles and generated artwork instead of fixture content (`?showcase=1`), for screenshots.
+	showcase: boolean
+	// Allow the software (SwiftShader) WebGL backdrop (`?backdropSoftware=1`), so headless captures show the GPU look.
+	backdropSoftware: boolean
 }
 
 function getParams(location: Pick<Location, 'search'> | URL): URLSearchParams {
@@ -29,7 +33,7 @@ export function readKnobs(location: Pick<Location, 'search'> | URL): BrowserMock
 	const rawPlatform = params.get('platform')
 	const platform: MockPlatform | null = (MOCK_PLATFORMS as readonly string[]).includes(rawPlatform ?? '') ? (rawPlatform as MockPlatform) : null
 
-	return {theme, locale, platform}
+	return {theme, locale, platform, showcase: params.get('showcase') === '1', backdropSoftware: params.get('backdropSoftware') === '1'}
 }
 
 export function knobUrl(updates: Partial<BrowserMockKnobs>, base: Pick<Location, 'href'>): string {

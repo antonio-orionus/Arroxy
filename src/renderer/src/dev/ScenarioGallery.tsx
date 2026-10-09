@@ -8,6 +8,8 @@ import type {UiTheme} from '@shared/schemas.js'
 import {cn} from '../lib/utils.js'
 import {useAppStore} from '../store/useAppStore.js'
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '../components/ui/select.js'
+import {showcasePlaylistEntry, showcaseWatchUrl} from './showcaseContent.js'
+import type {AppState} from '../store/types.js'
 
 const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics']
 const PLAYLIST_PRESETS = [99, 100, 101] as const
@@ -28,11 +30,19 @@ function activeUrlParams(): ReturnType<typeof readUrlParams> {
 	}
 }
 
+// Scenario patches seed playlist rows straight into the store; showcase mode
+// rewrites them on the way in, like the mock bridge does for probes and the queue.
+function setScenarioState(patch: Partial<AppState>): void {
+	if (!activeKnobs().showcase) return useAppStore.setState(patch)
+	const {playlistItems, wizardUrl} = patch
+	useAppStore.setState({...patch, ...(playlistItems ? {playlistItems: playlistItems.map(showcasePlaylistEntry)} : {}), ...(wizardUrl ? {wizardUrl: showcaseWatchUrl(wizardUrl)} : {})})
+}
+
 function activeKnobs(): ReturnType<typeof readKnobs> {
 	try {
 		return readKnobs(window.location)
 	} catch {
-		return {theme: null, locale: null, platform: null}
+		return {theme: null, locale: null, platform: null, showcase: false, backdropSoftware: false}
 	}
 }
 
@@ -166,7 +176,7 @@ export function ScenarioGallery(): ReactNode {
 		void applyScenarioWorkbenchState({
 			scenario,
 			params: {playlistCount: urlParams.playlistCount, probeErrorKind: urlParams.probeErrorKind, probeErrorTarget: urlParams.probeErrorTarget, mockStep: urlParams.mockStep},
-			store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, quickDownload: store.quickDownload, setState: useAppStore.setState}
+			store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, quickDownload: store.quickDownload, setState: setScenarioState}
 		})
 	}, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind, urlParams.probeErrorTarget])
 

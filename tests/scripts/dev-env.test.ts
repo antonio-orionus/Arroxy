@@ -188,12 +188,13 @@ describe('dev-env pure helpers', () => {
 		expect(env.rendererPortSource).toBe('computed')
 	})
 
-	it('allows browser tests to reuse an occupied override port', async () => {
+	it('allows browser tests and screenshot runs to reuse an occupied override port', async () => {
 		const port = 41_234
 		await listenOn(port)
 		const env = resolveDevEnv({repoRoot: '/tmp/arroxy', env: {ARROXY_RENDERER_PORT: String(port)}})
 
 		await expect(assertLauncherPortAvailable(env, 'browser-test')).resolves.toBeUndefined()
+		await expect(assertLauncherPortAvailable(env, 'screenshots')).resolves.toBeUndefined()
 		await expect(assertLauncherPortAvailable(env, 'mock')).rejects.toThrow()
 	})
 

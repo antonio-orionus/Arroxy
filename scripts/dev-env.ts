@@ -131,7 +131,7 @@ interface LauncherEnvOptions {
 	gpu?: 'force' | 'swiftshader'
 }
 
-type LauncherName = 'electron' | 'mock' | 'browser-test' | 'browser-smoke'
+type LauncherName = 'electron' | 'mock' | 'browser-test' | 'browser-smoke' | 'screenshots'
 
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return typeof value === 'object' && value !== null
@@ -540,12 +540,13 @@ async function assertOverridePortAvailable(env: DevEnvPaths): Promise<void> {
 }
 
 export async function assertLauncherPortAvailable(env: DevEnvPaths, launcher: LauncherName): Promise<void> {
-	if (launcher === 'browser-test') return
+	// Playwright reuses a running renderer on the selected port.
+	if (launcher === 'browser-test' || launcher === 'screenshots') return
 	await assertOverridePortAvailable(env)
 }
 
 function isLauncherName(value: string | undefined): value is LauncherName {
-	return value === 'electron' || value === 'mock' || value === 'browser-test' || value === 'browser-smoke'
+	return value === 'electron' || value === 'mock' || value === 'browser-test' || value === 'browser-smoke' || value === 'screenshots'
 }
 
 async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void> {
@@ -617,7 +618,7 @@ async function clearFreshMainLog(env: DevEnvPaths): Promise<void> {
 
 async function runLauncher(args: string[]): Promise<void> {
 	const [launcher, ...launcherArgs] = args
-	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke>')
+	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke|screenshots>')
 	const repoRoot = await findRepoRoot(process.cwd())
 	const env = await resolveRuntimeDevEnv(repoRoot)
 	await assertLauncherPortAvailable(env, launcher)
@@ -629,6 +630,12 @@ async function runLauncher(args: string[]): Promise<void> {
 		if (options.fresh) await clearFreshMainLog(env)
 		await ensureEmbeddedHostBinaries(repoRoot, baseEnv)
 		await spawnChecked(commandName('bun'), ['run', 'electron-vite', 'dev'], {cwd: repoRoot, env: applyElectronLauncherEnv(baseEnv, options)})
+		return
+	}
+
+	if (launcher === 'screenshots') {
+		// Extra arguments go to Playwright, e.g. `-g "Bulk URLs"` to retake one shot.
+		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', '--config', 'playwright.screenshots.config.ts', ...launcherArgs], {cwd: repoRoot, env: baseEnv})
 		return
 	}
 
@@ -649,7 +656,7 @@ async function runLauncher(args: string[]): Promise<void> {
 		return
 	}
 
-	throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke>')
+	throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke|screenshots>')
 }
 
 function normalizeFileUrlForComparison(href: string): string {

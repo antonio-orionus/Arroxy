@@ -631,6 +631,10 @@ Do **not** hardcode the locale list or count anywhere in code, docs, or memory. 
 
 Both must stay in lockstep with the landing-site locale list in the `arroxy-web` repo. The `en` locale is the canonical reference; the build script and the `WidenStrings<EnTranslation>` type (see `src/shared/i18n/types.ts`) diff every other locale against it.
 
+### README screenshots
+
+The product screenshots in `build/` are generated, not hand-captured. `bun run screenshots:readme` renders the browser-mock renderer with showcase content (`?showcase=1`: neutral sample titles and generated artwork, never real video art) and the software WebGL backdrop (`?backdropSoftware=1`, so headless Chromium shows the GPU look rather than the no-GPU fallback) and overwrites each file; `bun run screenshots:readme -g "Bulk URLs"` retakes one. The recipe list lives in `tests/screenshots/readme-screenshots.spec.ts`. After a UI change, rerun it and commit the updated PNGs with the change. For a new feature: add a Scenario Workbench scenario that shows it (if none does), add a recipe entry, run the command, and reference `build/<file>` from `readme-src/template.md`. The Global hotkey image is an illustration and `demo.gif` is a screen recording; neither is generated.
+
 ### What NOT to edit directly
 
 - `README.md`, `README.es.md`, `README.de.md`, … — generated from `readme-src/`
