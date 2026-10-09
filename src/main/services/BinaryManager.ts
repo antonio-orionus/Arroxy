@@ -259,6 +259,9 @@ function bundledBinaryPath(name: 'ffmpeg' | 'ffprobe'): string {
 	return path.join(import.meta.dirname, '..', '..', 'build', 'embedded', `${process.platform}-${arch}`, fileName)
 }
 
+// Finds a binary by name on the system PATH, in PATH order.
+export type PathLookup = (name: string, signal?: AbortSignal) => Promise<string[]>
+
 export class BinaryManager {
 	private readonly cacheDir: string
 
@@ -272,6 +275,8 @@ export class BinaryManager {
 
 	private readonly probeVerdicts: ProbeVerdictStore
 
+	private readonly pathLookup: PathLookup
+
 	private resolved: Partial<Record<DependencyId, string>> = {}
 
 	private lastDiagnostics: Partial<Record<DependencyId, DependencyDiagnostic>> = {}
@@ -280,13 +285,14 @@ export class BinaryManager {
 
 	private readonly ffmpegPairRun = new SharedRun<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}>()
 
-	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort; probeVerdicts?: ProbeVerdictStore}) {
+	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort; probeVerdicts?: ProbeVerdictStore; pathLookup?: PathLookup}) {
 		this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries')
 		this.artifactCacheDir = path.join(userDataPath, 'runtime-cache', 'artifact-cache-v1')
 		this.overridesProvider = options?.overridesProvider ?? ((): BinaryOverrides | undefined => undefined)
 		this.runtimeBinaryIndex = options?.runtimeBinaryIndex ?? new RuntimeBinaryIndexService(userDataPath)
 		this.runtimeBinaryMaterializer = options?.runtimeBinaryMaterializer ?? new RuntimeBinaryMaterializer()
 		this.probeVerdicts = options?.probeVerdicts ?? new ProbeVerdictCache(path.join(userDataPath, 'runtime-cache'))
+		this.pathLookup = options?.pathLookup ?? whereOnPath
 	}
 
 	getRuntimeCacheDir(): string {
@@ -479,7 +485,7 @@ export class BinaryManager {
 		// when managed download is unreachable (firewalled, rate-limited, etc.).
 		onProgress?.({binary: id, phase: 'fallback'})
 		const pathBinaryName = process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp'
-		const candidates = await whereOnPath(pathBinaryName, signal)
+		const candidates = await this.pathLookup(pathBinaryName, signal)
 		for (const candidate of candidates) {
 			const source: DependencySource = {kind: 'systemPath', path: candidate}
 			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order
@@ -680,7 +686,7 @@ export class BinaryManager {
 
 			onProgress?.({binary: id, phase: 'fallback'})
 			const binaryName = process.platform === 'win32' ? `${id}.exe` : id
-			const pathCandidates = await whereOnPath(binaryName, signal)
+			const pathCandidates = await this.pathLookup(binaryName, signal)
 			for (const candidate of pathCandidates) {
 				const pathSource: DependencySource = {kind: 'systemPath', path: candidate}
 				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order

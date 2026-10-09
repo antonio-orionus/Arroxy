@@ -26,6 +26,10 @@ const YT_DLP_PROBE_TIMEOUT_MS = 120_000
 // waiting the full budget on each one turns a 2-minute stall into an 8-minute
 // one on exactly the machines that are already struggling.
 const SHORT_LEASH_PROBE_TIMEOUT_MS = 5_000
+// `where`/`which` answer in milliseconds; a lookup still running after this has
+// stalled (a loaded Windows host can hang process creation), and an unbounded
+// one would hold binary resolution, and the splash, with it.
+const PATH_LOOKUP_TIMEOUT_MS = 10_000
 
 // 'full' is the ordinary budget. 'shortLeash' applies after an environment-fatal
 // failure — see isEnvironmentFatalFailure in @shared/dependencyPolicy.
@@ -162,7 +166,7 @@ export async function whereOnPath(name: string, signal?: AbortSignal): Promise<s
 	try {
 		const tool = process.platform === 'win32' ? 'where' : 'which'
 		const args = process.platform === 'win32' ? [name] : ['-a', name]
-		const {stdout} = await execFileAsync(tool, args, {windowsHide: true, signal})
+		const {stdout} = await execFileAsync(tool, args, {windowsHide: true, signal, timeout: PATH_LOOKUP_TIMEOUT_MS})
 		found.push(
 			...stdout
 				.split(/\r?\n/)

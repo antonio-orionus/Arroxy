@@ -28,9 +28,14 @@ function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<st
 	return {materialize: vi.fn(async candidate => ({executablePath: await run(candidate), cacheKey: `${candidate.id}-${candidate.channel}-${candidate.provider}`, metadataPath: '/metadata.json', manifest: candidate}))}
 }
 
-async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>} = {}): Promise<BinaryManager> {
+// Only the PATH-fallback tests below touch the real system PATH; the rest are
+// about the manifest and cache chain, and a real `where`/`which` spawn here
+// made them hang on a loaded Windows runner.
+const noSystemPath = async (): Promise<string[]> => []
+
+async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>; realSystemPath?: boolean} = {}): Promise<BinaryManager> {
 	const dir = await tempDir()
-	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider(options.entries ?? []), runtimeBinaryMaterializer: materializer(options.materialize ?? (async candidate => `/managed/${candidate.id}-${candidate.channel}-${candidate.provider}`))})
+	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider(options.entries ?? []), runtimeBinaryMaterializer: materializer(options.materialize ?? (async candidate => `/managed/${candidate.id}-${candidate.channel}-${candidate.provider}`)), pathLookup: options.realSystemPath ? undefined : noSystemPath})
 }
 
 function stubProbe(mgr: BinaryManager, options: {acceptSystemPath?: boolean; acceptManaged?: boolean} = {}): void {
@@ -124,7 +129,7 @@ describe('BinaryManager manifest resolution', () => {
 		const userData = await tempDir('bm-ytdlp-managed-cache-')
 		const body = Buffer.from('cached official yt-dlp')
 		const executablePath = await writeManagedCache(userData, entry({size: body.length, sha256: sha256(body)}), body)
-		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused')})
+		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused'), pathLookup: noSystemPath})
 		stubProbe(mgr, {acceptSystemPath: false})
 
 		const diag = await mgr.resolveYtDlp()
@@ -138,7 +143,7 @@ describe('BinaryManager manifest resolution', () => {
 		const body = Buffer.from('cached official yt-dlp')
 		const executablePath = await writeManagedCache(userData, entry({size: body.length, sha256: sha256(body)}), body)
 		await fs.writeFile(executablePath, 'tampered')
-		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused')})
+		const mgr = new BinaryManager(userData, {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused'), pathLookup: noSystemPath})
 		const acceptedSources: DependencySource[] = []
 		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async (_id, source, _candidatePath, attempts) => {
 			acceptedSources.push(source)
@@ -167,7 +172,7 @@ describe('BinaryManager manifest resolution', () => {
 		const originalPath = process.env.PATH
 		process.env.PATH = `${temp}${path.delimiter}${originalPath ?? ''}`
 		try {
-			const mgr = await makeMgr()
+			const mgr = await makeMgr({realSystemPath: true})
 			vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
 				if (source.kind !== 'systemPath') {
 					attempts.push({source, failure: {kind: 'spawn_failed', message: 'bundled disabled for test'}})
