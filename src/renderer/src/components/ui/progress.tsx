@@ -15,7 +15,7 @@ function Progress({className, children, value, ...props}: ProgressPrimitive.Root
 }
 
 function ProgressTrack({className, ...props}: ProgressPrimitive.Track.Props): ReactNode {
-	return <ProgressPrimitive.Track className={cn('relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-secondary', className)} data-slot="progress-track" {...props} />
+	return <ProgressPrimitive.Track className={cn('relative flex h-1 w-full items-center overflow-x-hidden rounded-full bg-foreground/10', className)} data-slot="progress-track" {...props} />
 }
 
 function ProgressIndicator({className, ...props}: ProgressPrimitive.Indicator.Props): ReactNode {

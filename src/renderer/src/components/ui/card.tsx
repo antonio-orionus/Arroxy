@@ -1,20 +1,30 @@
 import type {ReactNode} from 'react'
 import * as React from 'react'
+import {mergeProps} from '@base-ui/react/merge-props'
+import {useRender} from '@base-ui/react/use-render'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Card({className, size = 'default', ...props}: React.ComponentProps<'div'> & {size?: 'default' | 'sm'}): ReactNode {
-	return (
-		<div
-			data-slot="card"
-			data-size={size}
-			className={cn(
-				'group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl',
-				className
-			)}
-			{...props}
-		/>
-	)
+// `glass` is the lit stage a tab lives on (one per view, owns the backdrop blur);
+// `inset` is a calm sub-panel inside a stage or dialog. See DESIGN.md "Elevation".
+const CARD_VARIANTS = {default: '', glass: 'glow-panel rounded-2xl ring-0', inset: 'rounded-lg bg-background/30 ring-border-strong'} as const
+
+function Card({className, size = 'default', variant = 'default', render, ...props}: useRender.ComponentProps<'div'> & {size?: 'default' | 'sm'; variant?: keyof typeof CARD_VARIANTS}): ReactNode {
+	return useRender({
+		defaultTagName: 'div',
+		props: mergeProps<'div'>(
+			{
+				className: cn(
+					'group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl',
+					CARD_VARIANTS[variant],
+					className
+				)
+			},
+			props
+		),
+		render,
+		state: {slot: 'card', size, variant}
+	})
 }
 
 function CardHeader({className, ...props}: React.ComponentProps<'div'>): ReactNode {

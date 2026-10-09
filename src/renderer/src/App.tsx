@@ -34,6 +34,7 @@ import changelogText from '../../../CHANGELOG.md?raw'
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
 const ScenarioGallery = lazy(() => import('./dev/ScenarioGallery.js').then(module => ({default: module.ScenarioGallery})))
+const UiKit = lazy(() => import('./dev/UiKit.js').then(module => ({default: module.UiKit})))
 const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-[13px] text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
@@ -44,6 +45,17 @@ const BACKDROP_PREVIEW_MODES = [
 	{description: 'WebGL shader preview: hardware when available, software allowed in this stage.', icon: Cpu, id: 'gpu', label: 'WebGL shader'},
 	{description: 'CSS emergency: no canvas, body gradients only.', icon: Paintbrush, id: 'css', label: 'CSS emergency'}
 ] as const satisfies readonly {description: string; icon: typeof Cpu; id: BackdropPreviewMode; label: string}[]
+
+// Design-system sheet (browser-mock only): every primitive in every variant. Reach it via `?kit`.
+function isUiKitStage(): boolean {
+	return import.meta.env.MODE === 'browser-mock' && new URLSearchParams(window.location.search).has('kit')
+}
+
+function exitUiKitStage(): void {
+	const url = new URL(window.location.href)
+	url.searchParams.delete('kit')
+	window.location.assign(`${url.pathname}${url.search}${url.hash}`)
+}
 
 function isBackdropOnlyStage(): boolean {
 	return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && new URLSearchParams(window.location.search).has('backdrop')
@@ -156,6 +168,19 @@ export function App(): ReactNode {
 		const t = setTimeout(() => setShowNudge(false), 8_000)
 		return () => clearTimeout(t)
 	}, [showNudge])
+
+	if (isUiKitStage()) {
+		return (
+			<TooltipProvider>
+				<div className="relative h-screen w-screen overflow-hidden">
+					<AppBackdrop key={`${colorScheme}-${backdropRenderMode}`} colorScheme={colorScheme} renderMode={backdropRenderMode} softwareWebglAllowed={softwareWebglAllowed} />
+					<Suspense fallback={null}>
+						<UiKit onExit={exitUiKitStage} />
+					</Suspense>
+				</div>
+			</TooltipProvider>
+		)
+	}
 
 	// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
 	// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.

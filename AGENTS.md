@@ -403,6 +403,10 @@ shadcn/ui is the primary source for renderer UI primitives. Before inventing cus
 
 **Install via CLI:** `bunx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.
 
+**One-off styling is ratcheted.** Outside `components/ui/` and `dev/`, arbitrary font sizes, colours, shadows, radii, type metrics, raw Tailwind palette colours, and raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>` are counted per file by `tests/unit/ui-consistency-ratchet.test.ts` against `tests/unit/ui-consistency-baseline.json`. Counts may only go down: express the need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), and after a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vitest run --project node tests/unit/ui-consistency-ratchet.test.ts`. Never raise it.
+
+**Review primitive changes in the UI Kit.** `bun run dev:mock` then open `/?kit` (or the gallery's "UI kit" button): every primitive in every variant on the real glass surfaces, with theme and LTR/RTL switches. `tests/browser/ui-kit.spec.ts` keeps it rendering in both skies and directions.
+
 **Segmented controls own their own layout.** `toggleVariants` already provides pressed-state brand styling, `min-w-0`, `wrap-anywhere`, and `min-h-*` sizing, so a `ToggleGroupItem` never needs `whitespace-*`, `shrink-*`, `min-w-*`, a fixed `h-*`, or any `aria-pressed:` / `data-[state=on]:` colour at the call site. Pass `shape="chip"` when a short token (bitrate, extension, file format) must stay on one line — and give that group `flex-wrap`, since `ToggleGroup` is a non-wrapping flex row by default and unshrinkable chips would otherwise overflow it.
 
 Use `wrap-anywhere`, not `break-words`: `overflow-wrap: break-word` does not shrink a flex/grid item's intrinsic min-content width, so a single long word still overflows its track.
