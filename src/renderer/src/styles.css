@@ -1077,7 +1077,7 @@ body {
 	--secondary: hsl(220, 30%, 97%);
 	--secondary-foreground: hsl(226, 48%, 11%);
 	--muted: hsl(220, 30%, 97%);
-	--muted-foreground: hsl(225, 22%, 38%);
+	--muted-foreground: hsl(225, 22%, 35%);
 	--accent: hsl(220, 20%, 92%);
 	--accent-foreground: hsl(226, 48%, 11%);
 	--destructive: hsl(349, 100%, 55%);
@@ -1225,9 +1225,11 @@ body {
 	--field-glow-shadow: inset 0 1px 0 0 var(--field-highlight), inset 0 -18px 44px -28px hsl(274 96% 46% / 0.24), 0 0 0 1px hsl(205 100% 80% / 0.12), 0 0 30px -18px var(--brand-glow);
 	/* Dark sky surfaces + signal — lit-from-within glass over a bright nebula */
 	--glass: hsl(226 58% 8% / 0.78);
-	--glass-panel: hsl(228 68% 4% / 0.8);
+	/* Stage glass: the most see-through pair that keeps muted text at 4.5:1 over
+	   the brightest aurora behind it (measured), so the blurred sky reads through. */
+	--glass-panel: hsl(228 68% 4% / 0.7);
 	--glass-tile: hsl(226 62% 6% / 0.84);
-	--glass-surface-veil: hsl(228 82% 2% / 0.5);
+	--glass-surface-veil: hsl(228 82% 2% / 0.35);
 	--glass-control-veil: hsl(228 82% 2% / 0.58);
 	--glass-cyan: hsl(196 100% 62% / 0.18);
 	--glass-violet: hsl(270 96% 62% / 0.15);
@@ -1333,4 +1335,15 @@ body {
 }
 .splash-cancel:hover {
 	color: var(--foreground);
+}
+
+/* Inside the wizard stage the footer is the stage's bottom bar: same glass, the
+   stage's rounded corners, and no blur of its own (One-Blur Rule). */
+[data-wizard-stage] .wizard-footer-surface {
+	border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+	background:
+		linear-gradient(var(--glass-surface-veil), var(--glass-surface-veil)) padding-box,
+		var(--wizard-footer-edge) border-box !important;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
 }

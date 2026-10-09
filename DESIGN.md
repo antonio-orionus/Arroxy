@@ -230,7 +230,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ### Cards / Panels
 
-- **Card variants:** `variant="glass"` is the lit stage a tab lives on (one per view, owns the blur; URL, Downloads, Profiles, Settings). `variant="inset"` is a calm sub-panel inside a stage or dialog. `Panel` = inset card + title, description, and an end-aligned action; `PanelSection` = a labelled sub-group inside a Panel. Panels never nest.
+- **Card variants:** `variant="glass"` is the lit stage a view lives on (one per view, owns the blur; URL, Downloads, Profiles, Settings, and the wizard). Its glass is as see-through as contrast allows: muted text keeps 4.5:1 over the brightest aurora behind it, so the sky reads through as soft colour, never as detail. `variant="inset"` is a calm sub-panel inside a stage or dialog. `Panel` = inset card + title, description, and an end-aligned action; `PanelSection` = a labelled sub-group inside a Panel. Panels never nest.
 - **Corner Style:** Large, 20-28px (`{rounded.xl}`-`{rounded.2xl}`) on hero panels and the split Quick Download/profile cluster; 13-16px on list rows.
 - **Background:** Glass Surface over void; raised glass for the active-profile card so it reads as the live selection.
 - **Border:** Hairline at rest. Glow Border when the panel is the primary/active surface (Quick Download tile, selected profile).
@@ -276,9 +276,9 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 - A virtualized table inside the Downloads glass stage: thumbnail, title, a status `Badge` (secondary / info / warning / success / destructive, always with an icon and a label), progress, format, artifacts. Status never reads by colour alone.
 
-### Wizard (flow mode)
+### Wizard
 
-- The wizard takes over the window: stepper on top, the step's content, and a sticky full-bleed footer bar. Footer order is Back, secondary actions, then the one `glow` primary last.
+- The wizard sits on the same glass stage as the tabs: stepper at the top of the stage, the step's content, and a sticky footer that is the stage's bottom bar (it pins to the window bottom while a long step scrolls). Footer order is Back, secondary actions, then the one `glow` primary last.
 
 ## 6. Do's and Don'ts
 

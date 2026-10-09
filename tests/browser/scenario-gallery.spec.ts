@@ -25,23 +25,26 @@ async function waitForPlaylistProfiles(page: Page): Promise<void> {
 	await page.waitForSelector('[data-testid="step-playlist-profiles"]', {timeout: 6_000})
 }
 
+// The wizard sits on the glass stage; its footer is the stage's bottom bar. It
+// spans the stage edge to edge, and its bottom rests on whichever comes first:
+// the stage's own bottom edge, or the scrollport bottom while the step scrolls.
 async function expectWizardFooterFlush(page: Page): Promise<void> {
-	const readDeltas = async (): Promise<{bottom: number; left: number; right: number}> =>
+	const readDeltas = async (): Promise<{bottom: number; left: number; right: number; clipped: number}> =>
 		page.evaluate(() => {
 			const footer = document.querySelector<HTMLElement>('.wizard-footer-surface')
-			const scrollport = document.querySelector<HTMLElement>('[data-testid="wizard-scrollport"]') ?? document.querySelector<HTMLElement>('[data-testid="wizard-panel"]')?.parentElement
-			if (!footer || !scrollport) throw new Error('Expected wizard footer and wizard scrollport')
-			const bounds = (element: HTMLElement) => {
-				const rect = element.getBoundingClientRect()
-				return {bottom: rect.bottom, left: rect.left, right: rect.right, top: rect.top}
-			}
-			const metrics = {footer: bounds(footer), scrollport: bounds(scrollport)}
-			return {bottom: Math.abs(metrics.footer.bottom - metrics.scrollport.bottom), left: Math.abs(metrics.footer.left - metrics.scrollport.left), right: Math.abs(metrics.footer.right - metrics.scrollport.right)}
+			const stage = document.querySelector<HTMLElement>('[data-wizard-stage]')
+			const scrollport = document.querySelector<HTMLElement>('[data-testid="wizard-scrollport"]')
+			if (!footer || !stage || !scrollport) throw new Error('Expected wizard footer, stage, and scrollport')
+			const f = footer.getBoundingClientRect()
+			const st = stage.getBoundingClientRect()
+			const sp = scrollport.getBoundingClientRect()
+			return {bottom: Math.abs(f.bottom - Math.min(st.bottom, sp.bottom)), left: Math.abs(f.left - st.left), right: Math.abs(f.right - st.right), clipped: Math.max(0, f.bottom - sp.bottom, sp.top - f.top)}
 		})
 
 	await expect.poll(async () => (await readDeltas()).bottom).toBeLessThanOrEqual(1)
 	await expect.poll(async () => (await readDeltas()).left).toBeLessThanOrEqual(1)
 	await expect.poll(async () => (await readDeltas()).right).toBeLessThanOrEqual(1)
+	await expect.poll(async () => (await readDeltas()).clipped).toBeLessThanOrEqual(1)
 }
 
 test('scenario gallery is available in browser-mock mode', async ({page}) => {
@@ -264,7 +267,7 @@ test('playlist multi-profile scale scenario renders 500 items for scroll and vir
 	await expect(page.getByTestId('filter-profile-hd-1080')).toBeVisible()
 })
 
-test('wizard footer stays flush to the scrollport across wizard screens', async ({page}) => {
+test('wizard footer stays the bottom bar of the glass stage across wizard screens', async ({page}) => {
 	for (const viewport of [
 		{width: 390, height: 844},
 		{width: 882, height: 834}
