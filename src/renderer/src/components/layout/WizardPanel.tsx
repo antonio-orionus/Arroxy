@@ -75,14 +75,14 @@ export function WizardPanel(): ReactNode {
 										<div
 											className={cn(
 												'flex size-6 items-center justify-center rounded-full border text-xs font-bold transition-all duration-300',
-												isActive && 'border-primary bg-primary/12 text-primary ring-3 ring-primary/12',
+												isActive && 'border-primary bg-primary/12 text-selected-foreground ring-3 ring-primary/12',
 												isDone && 'border-transparent bg-primary text-primary-foreground',
 												!isActive && !isDone && 'border-border-strong bg-card text-muted-foreground'
 											)}
 										>
 											{isDone ? <Check className="size-3.5" strokeWidth={3} aria-hidden /> : i + 1}
 										</div>
-										<span className={cn('text-label uppercase', isActive ? 'text-primary' : 'text-subtle-foreground')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
+										<span className={cn('text-label uppercase', isActive ? 'text-selected-foreground' : 'text-subtle-foreground')}>{t(stepKey === 'playlistItems' ? playlistItemsStepLabelKey : (`wizard.steps.${stepKey}` as const))}</span>
 									</div>
 									{i < visibleSteps.length - 1 && <div className={cn('mx-1 mb-4 h-0.5 flex-1 rounded-full transition-all duration-500', isDone ? 'bg-primary' : 'bg-border-strong')} />}
 								</div>

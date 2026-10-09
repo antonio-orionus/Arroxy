@@ -14,8 +14,8 @@ export function OptionCard({icon, title, description, meta, hint, orientation = 
 	const vertical = orientation === 'vertical'
 	return (
 		<ToggleGroupItem className={cn('choice-surface h-auto gap-1 rounded-lg px-3 py-2 whitespace-normal', vertical ? 'flex-col' : 'flex-row gap-3', vertical && align === 'start' ? 'items-start text-start' : 'items-center', vertical && align === 'center' && 'text-center', className)} title={hint} {...item}>
-			{icon ? <span className="flex shrink-0 text-subtle-foreground group-data-pressed/toggle:text-primary [&_svg:not([class*='size-'])]:size-4">{icon}</span> : null}
-			<span className={cn('min-w-0 text-sm font-medium text-foreground group-data-pressed/toggle:text-primary', !vertical && 'flex-1 truncate text-start')}>{title}</span>
+			{icon ? <span className="flex shrink-0 text-subtle-foreground group-data-pressed/toggle:text-selected-foreground [&_svg:not([class*='size-'])]:size-4">{icon}</span> : null}
+			<span className={cn('min-w-0 text-sm font-medium text-foreground group-data-pressed/toggle:text-selected-foreground', !vertical && 'flex-1 truncate text-start')}>{title}</span>
 			{description ? <span className="text-xs font-normal text-subtle-foreground">{description}</span> : null}
 			{meta ? <span className="max-w-36 shrink-0 truncate font-mono text-xs font-normal text-subtle-foreground">{meta}</span> : null}
 		</ToggleGroupItem>

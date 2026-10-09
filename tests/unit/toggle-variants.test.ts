@@ -36,7 +36,7 @@ describe('toggleVariants', () => {
 
 	it('owns the pressed-state brand styling so call sites never restate it', () => {
 		const base = toggleVariants({})
-		for (const token of ['aria-pressed:border-primary', 'aria-pressed:bg-primary/12', 'aria-pressed:text-primary', 'data-[state=on]:border-primary', 'data-[state=on]:bg-primary/12', 'data-[state=on]:text-primary']) {
+		for (const token of ['aria-pressed:border-primary', 'aria-pressed:bg-primary/12', 'aria-pressed:text-selected-foreground', 'data-[state=on]:border-primary', 'data-[state=on]:bg-primary/12', 'data-[state=on]:text-selected-foreground']) {
 			expect(base).toContain(token)
 		}
 	})

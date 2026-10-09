@@ -1024,6 +1024,7 @@ body {
 	--font-heading: var(--font-sans);
 	--color-border-strong: var(--border-strong);
 	--color-subtle-foreground: var(--text-subtle);
+	--color-selected-foreground: var(--selected-foreground);
 	/* Scoped to the Quick Download / profile signature control. */
 	--color-quick-card-ink: var(--quick-card-ink);
 	--color-quick-card-muted: var(--quick-card-muted);
@@ -1090,6 +1091,10 @@ body {
 	--input: hsl(220, 18%, 88%);
 	--ring: hsl(220, 100%, 56%);
 	--text-subtle: hsl(225, 18%, 46%);
+	/* Text on a selected option. Brand-tinted but stronger than plain text, so
+	   the chosen option never reads as the muted one (the brand blue itself
+	   is ~3:1 on either sky). */
+	--selected-foreground: hsl(224, 92%, 40%);
 	--text-glass-muted: hsl(225 30% 34%);
 	--icon-tile-ink: hsl(220 100% 48%);
 	--field-bg: hsl(205 100% 99% / 0.78);
@@ -1211,6 +1216,7 @@ body {
 	--input: hsla(0, 0%, 100%, 0.08);
 	--ring: hsl(220, 100%, 56%);
 	--text-subtle: hsl(228, 15%, 60%);
+	--selected-foreground: hsl(205, 100%, 82%);
 	--text-glass-muted: hsl(228 34% 78%);
 	--icon-tile-ink: hsl(220 100% 94%);
 	--field-bg: hsl(226 54% 8% / 0.72);

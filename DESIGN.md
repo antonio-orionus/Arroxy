@@ -251,7 +251,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ### Choice Surfaces (signature)
 
-- **One look for "selectable", one for "selected", everywhere.** The `choice-surface` utility: a dark glass fill with a soft lit edge at rest; selected adds the blue tint and the full glow-gradient edge. Selection is driven by the control's own state (a checked radio or checkbox inside, a pressed toggle, or `data-selected`), never by per-screen classes.
+- **One look for "selectable", one for "selected", everywhere.** The `choice-surface` utility: a dark glass fill with a soft lit edge at rest; selected adds the blue tint and the full glow-gradient edge. Selection is driven by the control's own state (a checked radio or checkbox inside, a pressed toggle, or `data-selected`), never by per-screen classes. Selected text uses `text-selected-foreground` (icy blue in dark, deep blue in light), never `text-primary`: Electric Blue is ~3:1 on either sky, so a blue label made the chosen option read as the muted one. The blue lives in the fill, edge, and control; the label gets brighter, not dimmer.
 - **ChoiceRow:** a row in a `RadioGroup` (format and audio rows): radio, label, end-aligned metadata. The whole row selects; arrow keys move through the group.
 - **CheckRow:** the checkbox sibling for multi-select grids (SponsorBlock categories, subtitle languages).
 - **OptionCard:** a `ToggleGroupItem` card, vertical (icon over title over description: download type, quick presets, playlist tiers) or horizontal (icon, title, end meta: save location).
