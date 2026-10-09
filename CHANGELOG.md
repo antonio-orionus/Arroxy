@@ -8,32 +8,18 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## Unreleased
+## 0.4.20
 
-Arroxy looks like one app again: every screen now shares the same panels, buttons, and selection style, and the step-by-step download sits on the same glass panel as the rest of the app.
+Arroxy looks like one app again: every screen now shares the same panels, buttons, and selection style.
 
 ## Highlights
 
-### One Consistent Look
-
-- Every tab and every step of an interactive download now sits on the same glass panel, with the aurora softly showing through. The step-by-step download no longer takes over the whole window.
-- Choices look and behave the same everywhere. Format rows, quick presets, save locations, download types, and profiles all show the selected option the same way, and selected options now get their highlight as intended (it was missing on several screens).
-- Settings, the profile editor, and the Output step use the same rows: a label, a short description, and a switch on the side. On/off options are always switches.
-- Section labels are larger and easier to read, especially in Arabic, Amharic, Burmese, and other non-Latin scripts.
-- The download list's status filters match the other filter chips, and the language menu at the bottom of the window is now a proper menu that lists every language by its own name.
-
-### Easier to Read and Use
-
-- The selected option is now the easiest one to spot. Its label gets brighter instead of dimmer, and in light mode it gets a clear blue outline.
-- Switches that are off now look off, not disabled.
-- The URL field stands out from the panel around it, and the tab bar shows the current tab and the one under your pointer more clearly.
-- Panels are a little more see-through, so the background shows through softly on every tab, not just during a download.
-- Descriptions under settings are a little brighter, so they stay readable over the background in both themes.
-- Radio buttons and checkboxes have stronger outlines in light mode.
-- The format and audio lists work with the arrow keys, and screen readers now announce each option's name.
-- Save locations use proper icons instead of emoji.
-- The setup screen no longer cuts off its top when several components need repair.
-- Two notes in the download profile editor that were only in English are now translated into every language.
+- Every tab and every download step sits on the same glass panel, with the background softly showing through.
+- The selected option is easy to spot everywhere, and switches that are off no longer look disabled.
+- Light mode is easier to read, including the URL field and the tab bar.
+- Section labels are larger and easier to read in non-Latin scripts.
+- The format and audio lists work with the arrow keys, and screen readers announce each option.
+- The language menu lists every language by its own name.
 
 ---
 
