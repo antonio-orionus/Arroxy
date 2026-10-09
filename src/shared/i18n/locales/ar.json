@@ -469,7 +469,7 @@
 				"identity": {"title": "هوية الملف", "description": "الاسم والأيقونة الظاهران في التنزيل السريع وروابط الدُفعات وقوائم الملفات."},
 				"downloadType": {"title": "نوع التنزيل", "description": "اختر الطريقة الأساسية التي تريد التنزيل بها."},
 				"advanced": {"title": "خيارات متقدمة", "description": "ترث الملفات الوجهة العامة ما لم تُعيّن تجاوزًا للملف."},
-				"output": {"title": "خيارات الإخراج"},
+				"output": {"title": "خيارات الإخراج", "enabledCount_one": "{{count}} مفعّل", "enabledCount_other": "{{count}} مفعّل"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "اسم المجلد الفرعي",
 				"name": "اسم الملف",
 				"subtitleDownloads": "تنزيل الترجمات",
+				"subtitleDownloadsDescription": "تطلب الملفات الشخصية رموز اللغات؛ ويُحدَّد توفّرها لكل رابط على حدة.",
 				"languages": "اللغات",
 				"delivery": "طريقة الحفظ",
 				"overridePath": "مسار تجاوز الملف"

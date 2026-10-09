@@ -469,7 +469,7 @@
 				"identity": {"title": "پروفائل شناخت", "description": "کوئیک ڈاؤن لوڈ، بلک URLs اور پروفائل فہرستوں میں دکھایا جانے والا نام اور آئیکن۔"},
 				"downloadType": {"title": "ڈاؤن لوڈ کی قسم", "description": "منتخب کریں کہ آپ بنیادی طور پر کس طرح ڈاؤن لوڈ کرنا چاہتے ہیں۔"},
 				"advanced": {"title": "اعلیٰ اختیارات", "description": "جب تک آپ پروفائل اووررائیڈ مقرر نہ کریں، پروفائلز عالمی منزل ہی اپناتے ہیں۔"},
-				"output": {"title": "آؤٹ پٹ اختیارات"},
+				"output": {"title": "آؤٹ پٹ اختیارات", "enabledCount_one": "{{count}} فعال", "enabledCount_other": "{{count}} فعال"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "ذیلی فولڈر کا نام",
 				"name": "پروفائل کا نام",
 				"subtitleDownloads": "سب ٹائٹل ڈاؤن لوڈز",
+				"subtitleDownloadsDescription": "پروفائلز زبان کے کوڈ طلب کرتے ہیں؛ دستیابی ہر URL کے لیے الگ طے ہوتی ہے۔",
 				"languages": "زبانیں",
 				"delivery": "محفوظ کرنے کا طریقہ",
 				"overridePath": "پروفائل اووررائیڈ راستہ"

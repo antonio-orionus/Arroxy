@@ -469,7 +469,7 @@
 				"identity": {"title": "Profil kimliği", "description": "Hızlı İndirme, Toplu URL ve profil listelerinde görünen ad ve simge."},
 				"downloadType": {"title": "İndirme türü", "description": "Öncelikli olarak nasıl indirmek istediğinizi seçin."},
 				"advanced": {"title": "Gelişmiş seçenekler", "description": "Profil için bir geçersiz kılma ayarlamadığınız sürece profiller genel hedefi devralır."},
-				"output": {"title": "Çıktı seçenekleri"},
+				"output": {"title": "Çıktı seçenekleri", "enabledCount_one": "{{count}} etkin", "enabledCount_other": "{{count}} etkin"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Alt klasör adı",
 				"name": "Profil adı",
 				"subtitleDownloads": "Altyazı indirmeleri",
+				"subtitleDownloadsDescription": "Profiller dil kodları ister; kullanılabilirlik her URL için ayrı belirlenir.",
 				"languages": "Diller",
 				"delivery": "Kaydetme biçimi",
 				"overridePath": "Profil geçersiz kılma yolu"

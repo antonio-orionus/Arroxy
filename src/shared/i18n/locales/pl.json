@@ -477,7 +477,7 @@
 				"identity": {"title": "Tożsamość profilu", "description": "Nazwa i ikona widoczne w Szybkim pobieraniu, wielu adresach URL i na listach profili."},
 				"downloadType": {"title": "Typ pobierania", "description": "Wybierz główny sposób pobierania."},
 				"advanced": {"title": "Opcje zaawansowane", "description": "Profile dziedziczą globalne miejsce docelowe, chyba że ustawisz zastąpienie profilu."},
-				"output": {"title": "Opcje wyjścia"},
+				"output": {"title": "Opcje wyjścia", "enabledCount_one": "Włączone: {{count}}", "enabledCount_other": "Włączone: {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -490,6 +490,7 @@
 				"subfolderName": "Nazwa podfolderu",
 				"name": "Nazwa profilu",
 				"subtitleDownloads": "Pobieranie napisów",
+				"subtitleDownloadsDescription": "Profile żądają kodów języków; dostępność jest ustalana osobno dla każdego adresu URL.",
 				"languages": "Języki",
 				"delivery": "Dostarczanie",
 				"overridePath": "Ścieżka zastąpienia profilu"

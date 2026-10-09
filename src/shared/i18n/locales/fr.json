@@ -469,7 +469,7 @@
 				"identity": {"title": "Identité du profil", "description": "Nom et icône affichés dans le téléchargement rapide, les URL en lot et les listes de profils."},
 				"downloadType": {"title": "Type de téléchargement", "description": "Choisissez la façon principale dont vous voulez télécharger."},
 				"advanced": {"title": "Options avancées", "description": "Les profils héritent de la destination globale sauf si vous définissez une dérogation de profil."},
-				"output": {"title": "Options de sortie"},
+				"output": {"title": "Options de sortie", "enabledCount_one": "{{count}} activées", "enabledCount_other": "{{count}} activées"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Nom du sous-dossier",
 				"name": "Nom du profil",
 				"subtitleDownloads": "Téléchargements de sous-titres",
+				"subtitleDownloadsDescription": "Les profils demandent des codes de langue ; la disponibilité est vérifiée pour chaque URL.",
 				"languages": "Langues",
 				"delivery": "Livraison",
 				"overridePath": "Chemin de la dérogation de profil"

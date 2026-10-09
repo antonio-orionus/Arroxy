@@ -453,7 +453,7 @@
 				"identity": {"title": "প্রোফাইল পরিচয়", "description": "কুইক ডাউনলোড, বাল্ক URL ও প্রোফাইল তালিকায় দেখানো নাম ও আইকন।"},
 				"downloadType": {"title": "ডাউনলোডের ধরন", "description": "আপনি প্রধানত কীভাবে ডাউনলোড করতে চান তা বাছুন।"},
 				"advanced": {"title": "উন্নত বিকল্প", "description": "আপনি প্রোফাইল ওভাররাইড সেট না করলে প্রোফাইল গ্লোবাল গন্তব্যই ব্যবহার করে।"},
-				"output": {"title": "আউটপুট বিকল্প"},
+				"output": {"title": "আউটপুট বিকল্প", "enabledCount_one": "{{count}}টি চালু", "enabledCount_other": "{{count}}টি চালু"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -466,6 +466,7 @@
 				"subfolderName": "সাবফোল্ডারের নাম",
 				"name": "প্রোফাইলের নাম",
 				"subtitleDownloads": "সাবটাইটেল ডাউনলোড",
+				"subtitleDownloadsDescription": "প্রোফাইল ভাষার কোড অনুরোধ করে; প্রতিটি URL-এর জন্য প্রাপ্যতা আলাদাভাবে নির্ধারিত হয়।",
 				"languages": "ভাষা",
 				"delivery": "সংরক্ষণের ধরন",
 				"overridePath": "প্রোফাইল ওভাররাইড পথ"

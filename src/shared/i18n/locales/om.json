@@ -481,7 +481,7 @@
 				"identity": {"title": "Eenyummaa piroofaayilii", "description": "Maqaa fi mallattoo Buufata Saffisaa, URL Baay'ee fi tarree piroofaayilii keessatti mul'atu."},
 				"downloadType": {"title": "Gosa buufataa", "description": "Karaa ijoo ittiin buufachuu barbaaddu filadhu."},
 				"advanced": {"title": "Filannoo olaanaa", "description": "Bakka bu'iinsa piroofaayilii yoo hin qindeessine, piroofaayiliin ga'umsa waliigalaa dhaala."},
-				"output": {"title": "Filannoo bahaa"},
+				"output": {"title": "Filannoo bahaa", "enabledCount_one": "{{count}} dandeessifame", "enabledCount_other": "{{count}} dandeessifame"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -494,6 +494,7 @@
 				"subfolderName": "Maqaa gale xiqqaa",
 				"name": "Maqaa piroofaayilii",
 				"subtitleDownloads": "Buufata ergaa gadii",
+				"subtitleDownloadsDescription": "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a.",
 				"languages": "Afaanota",
 				"delivery": "Karaa olkaa'uu",
 				"overridePath": "Daandii bakka bu'iinsa piroofaayilii"

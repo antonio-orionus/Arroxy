@@ -469,7 +469,7 @@
 				"identity": {"title": "プロフィール情報", "description": "クイックダウンロード、一括URL、プロフィール一覧に表示される名前とアイコンです。"},
 				"downloadType": {"title": "ダウンロードの種類", "description": "主にどの方法でダウンロードするかを選びます。"},
 				"advanced": {"title": "詳細オプション", "description": "プロフィール個別設定を指定しない限り、全体の保存先が引き継がれます。"},
-				"output": {"title": "出力オプション"},
+				"output": {"title": "出力オプション", "enabledCount_one": "{{count}} 件有効", "enabledCount_other": "{{count}} 件有効"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "サブフォルダー名",
 				"name": "プロフィール名",
 				"subtitleDownloads": "字幕のダウンロード",
+				"subtitleDownloadsDescription": "プロファイルは言語コードで指定します。利用できるかは URL ごとに判定されます。",
 				"languages": "言語",
 				"delivery": "保存方法",
 				"overridePath": "プロフィール個別設定のパス"

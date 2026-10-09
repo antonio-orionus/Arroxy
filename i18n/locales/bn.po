@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "সাবটাইটেল ডাউনলোড"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "প্রোফাইল ভাষার কোড অনুরোধ করে; প্রতিটি URL-এর জন্য প্রাপ্যতা আলাদাভাবে নির্ধারিত হয়।"
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "আর্কাইভ"
@@ -2264,6 +2268,14 @@ msgstr "কুইক ডাউনলোড, বাল্ক URL ও প্রো
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "প্রোফাইল পরিচয়"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}}টি চালু"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}}টি চালু"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

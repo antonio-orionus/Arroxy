@@ -469,7 +469,7 @@
 				"identity": {"title": "Profilidentität", "description": "Name und Symbol, die in Schnell-Download, Massen-URLs und Profillisten angezeigt werden."},
 				"downloadType": {"title": "Download-Typ", "description": "Wähle die primäre Art, wie du herunterladen möchtest."},
 				"advanced": {"title": "Erweiterte Optionen", "description": "Profile übernehmen das globale Ziel, sofern du keine Profil-Überschreibung festlegst."},
-				"output": {"title": "Ausgabeoptionen"},
+				"output": {"title": "Ausgabeoptionen", "enabledCount_one": "{{count}} aktiviert", "enabledCount_other": "{{count}} aktiviert"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Unterordnername",
 				"name": "Profilname",
 				"subtitleDownloads": "Untertitel-Downloads",
+				"subtitleDownloadsDescription": "Profile fordern Sprachcodes an; die Verfügbarkeit wird für jede URL einzeln ermittelt.",
 				"languages": "Sprachen",
 				"delivery": "Ablage",
 				"overridePath": "Pfad der Profil-Überschreibung"

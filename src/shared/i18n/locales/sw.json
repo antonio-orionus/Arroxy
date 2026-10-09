@@ -469,7 +469,7 @@
 				"identity": {"title": "Utambulisho wa wasifu", "description": "Jina na aikoni zinazoonyeshwa katika Upakuaji wa Haraka, URL za Wingi na orodha za wasifu."},
 				"downloadType": {"title": "Aina ya upakuaji", "description": "Chagua njia kuu unayotaka kupakua."},
 				"advanced": {"title": "Chaguo za kina", "description": "Wasifu hurithi lengo la jumla isipokuwa uweke ubatilishaji wa wasifu."},
-				"output": {"title": "Chaguo za matokeo"},
+				"output": {"title": "Chaguo za matokeo", "enabledCount_one": "{{count}} zimewashwa", "enabledCount_other": "{{count}} zimewashwa"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Jina la folda ndogo",
 				"name": "Jina la wasifu",
 				"subtitleDownloads": "Upakuaji wa manukuu",
+				"subtitleDownloadsDescription": "Wasifu huomba misimbo ya lugha; upatikanaji huamuliwa kwa kila URL.",
 				"languages": "Lugha",
 				"delivery": "Njia ya kuhifadhi",
 				"overridePath": "Njia ya ubatilishaji wa wasifu"

@@ -2137,6 +2137,10 @@ msgctxt "wizard.profileEditor.field.subtitleDownloads"
 msgid "Subtitle downloads"
 msgstr "စာတန်းထိုး ဒေါင်းလုဒ်များ"
 
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "ပရိုဖိုင်များက ဘာသာစကားကုဒ်များကို တောင်းဆိုသည်။ ရရှိနိုင်မှုကို URL တစ်ခုချင်းစီအတွက် ဆုံးဖြတ်သည်။"
+
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
 msgstr "မှတ်တမ်း"
@@ -2264,6 +2268,14 @@ msgstr "အမြန်ဒေါင်းလုဒ်၊ အစုလိုက�
 msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "ပရိုဖိုင် အထောက်အထား"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} ခု ဖွင့်ထား"
+
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} ခု ဖွင့်ထား"
 
 msgctxt "wizard.profileEditor.panel.output.title"
 msgid "Output options"

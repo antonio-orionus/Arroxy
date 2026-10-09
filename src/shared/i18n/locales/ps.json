@@ -469,7 +469,7 @@
 				"identity": {"title": "د پروفایل پېژندنه", "description": "هغه نوم او نښه چې په چټک ښکته کولو، ډله ییزو پتو او د پروفایلونو لیستونو کې ښکاري."},
 				"downloadType": {"title": "د ښکته کولو ډول", "description": "وټاکئ چې تاسو په اصل کې څنګه ښکته کول غواړئ."},
 				"advanced": {"title": "پرمختللي انتخابونه", "description": "پروفایلونه ټولیزه موخه په میراث وړي، پرته له دې چې تاسو د پروفایل بدیل وټاکئ."},
-				"output": {"title": "د وتنې انتخابونه"},
+				"output": {"title": "د وتنې انتخابونه", "enabledCount_one": "{{count}} فعال", "enabledCount_other": "{{count}} فعال"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "د فرعي پوښۍ نوم",
 				"name": "د پروفایل نوم",
 				"subtitleDownloads": "د سرلیکونو ښکته کول",
+				"subtitleDownloadsDescription": "پروفایلونه د ژبې کوډونه غواړي؛ شتون یې د هر URL لپاره جلا ټاکل کېږي.",
 				"languages": "ژبې",
 				"delivery": "د خوندي کولو لاره",
 				"overridePath": "د پروفایل د بدیل لاره"

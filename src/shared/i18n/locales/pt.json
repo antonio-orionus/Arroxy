@@ -469,7 +469,7 @@
 				"identity": {"title": "Identidade do perfil", "description": "Nome e ícone exibidos no Download Rápido, URLs em lote e listas de perfis."},
 				"downloadType": {"title": "Tipo de download", "description": "Escolha a forma principal como deseja baixar."},
 				"advanced": {"title": "Opções avançadas", "description": "Os perfis herdam o destino global a menos que você defina um destino específico para o perfil."},
-				"output": {"title": "Opções de saída"},
+				"output": {"title": "Opções de saída", "enabledCount_one": "{{count}} ativadas", "enabledCount_other": "{{count}} ativadas"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Nome da subpasta",
 				"name": "Nome do perfil",
 				"subtitleDownloads": "Downloads de legenda",
+				"subtitleDownloadsDescription": "Os perfis pedem códigos de idioma; a disponibilidade é verificada para cada URL.",
 				"languages": "Idiomas",
 				"delivery": "Entrega",
 				"overridePath": "Caminho específico do perfil"

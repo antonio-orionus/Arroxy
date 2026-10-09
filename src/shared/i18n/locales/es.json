@@ -469,7 +469,7 @@
 				"identity": {"title": "Identidad del perfil", "description": "Nombre e icono que se muestran en Descarga rápida, URLs en lote y listas de perfiles."},
 				"downloadType": {"title": "Tipo de descarga", "description": "Elige la forma principal en que quieres descargar."},
 				"advanced": {"title": "Opciones avanzadas", "description": "Los perfiles heredan el destino global salvo que definas una anulación del perfil."},
-				"output": {"title": "Opciones de salida"},
+				"output": {"title": "Opciones de salida", "enabledCount_one": "{{count}} activadas", "enabledCount_other": "{{count}} activadas"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Nombre de la subcarpeta",
 				"name": "Nombre del perfil",
 				"subtitleDownloads": "Descargas de subtítulos",
+				"subtitleDownloadsDescription": "Los perfiles solicitan códigos de idioma; la disponibilidad se resuelve para cada URL.",
 				"languages": "Idiomas",
 				"delivery": "Entrega",
 				"overridePath": "Ruta de anulación del perfil"

@@ -436,7 +436,7 @@
 				"identity": {"title": "設定檔識別資訊", "description": "顯示於快速下載、批次 URL 與設定檔清單中的名稱及圖示。"},
 				"downloadType": {"title": "下載類型", "description": "選擇主要的下載方式。"},
 				"advanced": {"title": "進階選項", "description": "設定檔會沿用全域目的地，除非你設定設定檔覆寫。"},
-				"output": {"title": "輸出選項"},
+				"output": {"title": "輸出選項", "enabledCount_one": "已啟用 {{count}} 項", "enabledCount_other": "已啟用 {{count}} 項"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -449,6 +449,7 @@
 				"subfolderName": "子資料夾名稱",
 				"name": "設定檔名稱",
 				"subtitleDownloads": "字幕下載",
+				"subtitleDownloadsDescription": "設定檔依語言代碼要求字幕；是否可用會針對每個 URL 個別判斷。",
 				"languages": "語言",
 				"delivery": "交付方式",
 				"overridePath": "設定檔覆寫路徑"

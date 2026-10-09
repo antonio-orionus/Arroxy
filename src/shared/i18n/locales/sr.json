@@ -477,7 +477,7 @@
 				"identity": {"title": "Идентитет профила", "description": "Назив и икона приказани у Брзом преузимању, Групним URL-овима и листама профила."},
 				"downloadType": {"title": "Тип преузимања", "description": "Изаберите основни начин на који желите да преузимате."},
 				"advanced": {"title": "Напредне опције", "description": "Профили наслеђују опште одредиште осим ако не поставите замену профила."},
-				"output": {"title": "Опције излаза"},
+				"output": {"title": "Опције излаза", "enabledCount_one": "Укључено: {{count}}", "enabledCount_other": "Укључено: {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -490,6 +490,7 @@
 				"subfolderName": "Назив подфасцикле",
 				"name": "Назив профила",
 				"subtitleDownloads": "Преузимања титлова",
+				"subtitleDownloadsDescription": "Профили траже кодове језика; доступност се утврђује за сваки URL посебно.",
 				"languages": "Језици",
 				"delivery": "Начин чувања",
 				"overridePath": "Путања замене профила"

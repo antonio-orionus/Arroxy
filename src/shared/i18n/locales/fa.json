@@ -469,7 +469,7 @@
 				"identity": {"title": "مشخصات نمایه", "description": "نام و نمادی که در دانلود سریع، URLهای گروهی و فهرست نمایه‌ها نمایش داده می‌شود."},
 				"downloadType": {"title": "نوع دانلود", "description": "روش اصلی دانلود را انتخاب کنید."},
 				"advanced": {"title": "گزینه‌های پیشرفته", "description": "نمایه‌ها مقصد سراسری را به ارث می‌برند، مگر اینکه جایگزینی برای نمایه تنظیم کنید."},
-				"output": {"title": "گزینه‌های خروجی"},
+				"output": {"title": "گزینه‌های خروجی", "enabledCount_one": "{{count}} فعال", "enabledCount_other": "{{count}} فعال"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "نام زیرپوشه",
 				"name": "نام نمایه",
 				"subtitleDownloads": "دانلود زیرنویس",
+				"subtitleDownloadsDescription": "پروفایل‌ها کدهای زبان را درخواست می‌کنند؛ دسترس‌پذیری برای هر URL جداگانه بررسی می‌شود.",
 				"languages": "زبان‌ها",
 				"delivery": "تحویل",
 				"overridePath": "مسیر جایگزین نمایه"

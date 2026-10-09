@@ -469,7 +469,7 @@
 				"identity": {"title": "Identitas profil", "description": "Nama dan ikon yang tampil di Unduh Cepat, URL Massal, dan daftar profil."},
 				"downloadType": {"title": "Jenis unduhan", "description": "Pilih cara utama Anda ingin mengunduh."},
 				"advanced": {"title": "Opsi lanjutan", "description": "Profil mewarisi tujuan global kecuali Anda mengatur penggantian profil."},
-				"output": {"title": "Opsi keluaran"},
+				"output": {"title": "Opsi keluaran", "enabledCount_one": "{{count}} aktif", "enabledCount_other": "{{count}} aktif"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -482,6 +482,7 @@
 				"subfolderName": "Nama subfolder",
 				"name": "Nama profil",
 				"subtitleDownloads": "Unduhan subtitel",
+				"subtitleDownloadsDescription": "Profil meminta kode bahasa; ketersediaannya ditentukan untuk setiap URL.",
 				"languages": "Bahasa",
 				"delivery": "Cara penyimpanan",
 				"overridePath": "Jalur penggantian profil"
