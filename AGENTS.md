@@ -75,6 +75,7 @@ Use `docs/adr/0001-slug.md` style files for those decisions. Keep them concise.
 ### Agent Skills
 
 - **translate-arroxy-i18n** — manages app locale updates, gettext PO/POT sync, runtime locale JSON generation, and i18n audit commands. Entry point: `.agents/skills/translate-arroxy-i18n/SKILL.md`.
+- **ship-fix** — runs the end-to-end flow for a bug fix: worktree, test-first fix, PR, CodeRabbit, CI validation, squash-merge, version bump and release, with cheaper subagents for mechanical work. Entry point: `.agents/skills/ship-fix/SKILL.md`.
 
 ---
 
