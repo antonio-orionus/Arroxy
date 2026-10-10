@@ -647,7 +647,8 @@
 			"needsReview": "このリンクには簡単な確認が必要です — Arroxyを開いて再度貼り付けてください",
 			"busy": "前のリンクをまだ処理中です",
 			"submissionFailed": "そのリンクを追加できませんでした — Arroxyでもう一度お試しください"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} 件の動画はすでにキューにあるため、スキップしました", "skippedAlreadyQueued_other": "{{count}} 件の動画はすでにキューにあるため、スキップしました"}
 	},
 	"errors": {
 		"ytdlp": {

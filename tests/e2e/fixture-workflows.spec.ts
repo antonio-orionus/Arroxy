@@ -3,7 +3,7 @@ import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
-import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_OVERLAP_PLAYLIST_TITLE, FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -100,6 +100,50 @@ test('Electron Quick Download playlist that repeats a video queues it once', asy
 		const profileDir = smallFileProfileDir(outputDir)
 		files.expectMp4Count(uniqueCount, profileDir)
 		await expectOrderedM3u(profileDir, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS)
+	})
+})
+
+// Risk: a playlist that shares videos with what is already live in the queue.
+// Admission refuses a live duplicate, so the whole playlist used to be lost to
+// "already active" with none of its new videos queued. The queue is held with
+// pause-all so the first playlist's items stay live while the second is added.
+test('Electron Quick Download of a playlist that overlaps the queue adds only the new videos and says how many it skipped', async () => {
+	test.setTimeout(260_000)
+	const newVideoIds = FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS.filter(id => !FIXTURE_PLAYLIST_VIDEO_IDS.includes(id))
+	const skippedCount = FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS.length - newVideoIds.length
+	const queuedCount = FIXTURE_PLAYLIST_VIDEO_IDS.length + newVideoIds.length
+	expect(skippedCount).toBe(2)
+	expect(newVideoIds).toHaveLength(1)
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-quick-overlap-user-', outputPrefix: 'arroxy-fixture-quick-overlap-out-', settings: configureSmallFileQuickProfile}, async ({page, outputDir, urls, files}) => {
+		const rows = page.locator('[data-testid^="queue-manager-row-"]')
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
+		await page.locator('[data-testid="profiles-quick-download"]').click()
+
+		await openQueueTab(page)
+		await expect(rows).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
+		await page.getByTestId('btn-pause-all').click()
+		await expect(page.getByTestId('queue-paused-banner')).toBeVisible()
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="running"]')).toHaveCount(0, {timeout: 30_000})
+
+		// Back on the Quick Download tab, add the overlapping playlist.
+		await page.getByTestId('profiles-tabs').getByRole('tab').first().click()
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.overlapPlaylist())
+		await page.locator('[data-testid="profiles-quick-download"]').click()
+
+		await expect(page.locator('[data-sonner-toast]', {hasText: `${skippedCount} videos are already in the queue — skipped`})).toBeVisible({timeout: 60_000})
+		await openQueueTab(page)
+		await expect(rows).toHaveCount(queuedCount, {timeout: 20_000})
+		await expect(page.getByText(/already active|Couldn.t add this one/)).toHaveCount(0)
+
+		// Nothing was downloaded yet; resume and the queue drains to one file per video.
+		await page.getByTestId('queue-resume-from-banner').click()
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(queuedCount, {timeout: 200_000})
+		const profileDir = smallFileProfileDir(outputDir)
+		files.expectMp4Count(queuedCount, profileDir)
+		// The .m3u is rebuilt from the whole playlist, so it lists the videos the
+		// first playlist already downloaded as well as the new one.
+		await expectOrderedM3u(profileDir, FIXTURE_OVERLAP_PLAYLIST_TITLE, FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS)
 	})
 })
 

@@ -637,7 +637,8 @@
 			"needsReview": "هذا الرابط يحتاج إلى مراجعة سريعة — افتح Arroxy وأعد لصقه",
 			"busy": "ما زلنا نعالج الرابط السابق",
 			"submissionFailed": "تعذّر إضافة هذا الرابط — حاول مجددًا في Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "تم تخطي فيديو واحد موجود بالفعل في قائمة الانتظار", "skippedAlreadyQueued_other": "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"}
 	},
 	"errors": {
 		"ytdlp": {

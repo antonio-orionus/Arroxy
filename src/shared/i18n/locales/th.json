@@ -604,7 +604,8 @@
 			"needsReview": "ลิงก์นี้ต้องตรวจสอบเล็กน้อย — เปิด Arroxy แล้ววางอีกครั้ง",
 			"busy": "ยังคงประมวลผลลิงก์ก่อนหน้า",
 			"submissionFailed": "เพิ่มลิงก์นั้นไม่ได้ — ลองอีกครั้งใน Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว", "skippedAlreadyQueued_other": "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"}
 	},
 	"errors": {
 		"ytdlp": {

@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "यह फ़ोल्डर इस प्लेलिस्ट के लिए उपयोग नहीं किया जा सकता।"
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} वीडियो पहले से कतार में है — छोड़ दिया गया"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} वीडियो पहले से कतार में हैं — छोड़ दिए गए"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "आपकी सेटिंग्स सहेजी नहीं जा सकीं।"

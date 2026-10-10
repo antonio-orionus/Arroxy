@@ -642,7 +642,8 @@
 			"needsReview": "Tautan ini perlu pemeriksaan singkat — buka Arroxy dan tempel lagi",
 			"busy": "Masih memproses tautan sebelumnya",
 			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video sudah ada di antrean — dilewati", "skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"}
 	},
 	"errors": {
 		"ytdlp": {

@@ -642,7 +642,8 @@
 			"needsReview": "Bu bağlantı hızlı bir inceleme gerektiriyor — Arroxy'yi açıp yeniden yapıştırın",
 			"busy": "Önceki bağlantı hâlâ işleniyor",
 			"submissionFailed": "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video zaten kuyrukta — atlandı", "skippedAlreadyQueued_other": "{{count}} video zaten kuyrukta — atlandı"}
 	},
 	"errors": {
 		"ytdlp": {

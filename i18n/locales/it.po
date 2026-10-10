@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Questa cartella non può essere usata per la playlist."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} video è già in coda — saltato"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} video sono già in coda — saltati"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "Impossibile salvare le impostazioni."

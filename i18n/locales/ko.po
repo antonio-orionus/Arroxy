@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "이 폴더는 이 재생목록에 사용할 수 없습니다."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "설정을 저장할 수 없습니다."

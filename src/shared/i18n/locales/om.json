@@ -654,7 +654,8 @@
 			"needsReview": "Hidhanni kun ilaalchi gahaabaa barbaada — Arroxy baneetti irra deebi'aa maxxansi",
 			"busy": "Hidha duraan yeroo ammaa hojjechaa jirra",
 			"submissionFailed": "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera", "skippedAlreadyQueued_other": "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"}
 	},
 	"errors": {
 		"ytdlp": {

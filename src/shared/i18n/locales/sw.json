@@ -642,7 +642,8 @@
 			"needsReview": "Kiungo hiki kinahitaji ukaguzi mfupi — fungua Arroxy ukiweke tena",
 			"busy": "Bado tunashughulikia kiungo kilichopita",
 			"submissionFailed": "Kiungo hicho hakiweza kuongezwa — jaribu tena katika Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "Video {{count}} tayari iko kwenye foleni — imerukwa", "skippedAlreadyQueued_other": "Video {{count}} tayari ziko kwenye foleni — zimerukwa"}
 	},
 	"errors": {
 		"ytdlp": {

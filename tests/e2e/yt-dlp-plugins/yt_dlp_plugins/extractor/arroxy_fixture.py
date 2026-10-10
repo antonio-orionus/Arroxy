@@ -24,7 +24,7 @@ def _fixture_catalog():
 
 
 def _fixture_playlists(catalog):
-    return [catalog['playlist'], catalog['repeatedPlaylist']]
+    return [catalog['playlist'], catalog['repeatedPlaylist'], catalog['overlapPlaylist']]
 
 
 def _fixture_playlist_id_pattern():

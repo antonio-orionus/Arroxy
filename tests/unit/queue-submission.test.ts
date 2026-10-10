@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
-import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult} from '@shared/types.js'
+import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {AppState} from '@renderer/store/types.js'
 import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
@@ -73,6 +73,7 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		playlistId: 'PL',
 		playlistIsMultiVideo: false,
 		playlistSelection: {kind: 'video', tier: '1080', codec: 'best'},
+		queue: [],
 		...overrides
 	} as AppState
 }
@@ -437,6 +438,160 @@ describe('a video listed twice is queued once', () => {
 		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: REPEATED_ITEMS, selectedPlaylistItemIds: ALL_REPEATED_IDS}), 'normal')
 
 		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
+	})
+})
+
+// A video that is already live in the queue is skipped, not a reason to reject
+// the whole playlist: admission refuses a live duplicate, so the batch is
+// filtered here and the user is told how many were left out.
+function queued(url: string, status: QueueItemStatus = 'pending'): QueueItem {
+	return {id: `q-${status}-${url}`, url, status} as QueueItem
+}
+const LIVE_STATUSES: QueueItemStatus[] = ['probing', 'pending', 'running', 'paused-held', 'paused-active']
+const TERMINAL_STATUSES: QueueItemStatus[] = ['done', 'error', 'cancelled']
+const ABC_ITEMS: PlaylistEntry[] = ['a', 'b', 'c'].map((id, index) => ({id, title: id.toUpperCase(), url: `https://youtu.be/${id}`, thumbnail: '', duration: 1, playlistIndex: index + 1, videoId: id}))
+const ABC_URLS = ABC_ITEMS.map(entry => entry.url)
+
+describe('videos already live in the queue are skipped', () => {
+	describe('prepareActiveProfileQueueSubmission', () => {
+		const probe = {...PLAYLIST_PROBE, entries: ABC_ITEMS}
+
+		it('drops the queued entry, numbers the rest contiguously, and counts the skip', () => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({settings: numberedSettings(), queue: [queued('https://youtu.be/a')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/c'])
+			expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(['001 - B', '002 - C'])
+			expect(prepared?.skippedAlreadyQueued).toBe(1)
+		})
+
+		// The manifest is the playlist's full ordered list by contract (the .m3u is
+		// rebuilt from it and from the files on disk), so a skipped video stays in it.
+		it('keeps the whole playlist in the manifest', () => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/a')]}), 'normal')
+
+			expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b', 'c'])
+		})
+
+		it.each(LIVE_STATUSES)('skips a %s item', status => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/b', status)]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/a', 'https://youtu.be/c'])
+			expect(prepared?.skippedAlreadyQueued).toBe(1)
+		})
+
+		it.each(TERMINAL_STATUSES)('does not skip a %s item', status => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url, status))}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(ABC_URLS)
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+
+		it('counts a queued video listed twice once', () => {
+			const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({queue: [queued('https://youtu.be/a')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/c'])
+			expect(prepared?.skippedAlreadyQueued).toBe(1)
+		})
+
+		it('yields no items, and no manifest, when every video is already queued', () => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url))}), 'normal')
+
+			expect(prepared).toEqual({items: [], skippedAlreadyQueued: 3})
+		})
+
+		it('reports nothing skipped when the queue is unrelated', () => {
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/zzz')]}), 'normal')
+
+			expect(prepared?.items).toHaveLength(3)
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+
+		it('leaves a lone video to the admission guard', () => {
+			const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({queue: [queued(VIDEO_PROBE.webpageUrl)]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual([VIDEO_PROBE.webpageUrl])
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+	})
+
+	describe('prepareManualQueueSubmission', () => {
+		const picked = (overrides: Partial<AppState> = {}) => manualPlaylistState({playlistItems: ABC_ITEMS, selectedPlaylistItemIds: ['a', 'b', 'c'], ...overrides})
+
+		it('playlist picker: drops the queued entry, numbers the rest contiguously, and counts the skip', () => {
+			const prepared = prepareManualQueueSubmission(picked({settings: numberedSettings(), queue: [queued('https://youtu.be/b')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/a', 'https://youtu.be/c'])
+			expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(['001 - A', '002 - C'])
+			expect(prepared?.skippedAlreadyQueued).toBe(1)
+			expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b', 'c'])
+		})
+
+		it('only counts skipped videos that were selected', () => {
+			const prepared = prepareManualQueueSubmission(picked({selectedPlaylistItemIds: ['a', 'b'], queue: [queued('https://youtu.be/c')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/a', 'https://youtu.be/b'])
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+
+		it('bulk list: drops queued URLs in intake order and counts them', () => {
+			const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk', playlistItems: ABC_ITEMS, selectedPlaylistItemIds: ['a', 'b', 'c'], queue: [queued('https://youtu.be/a'), queued('https://youtu.be/c', 'running')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b'])
+			expect(prepared?.skippedAlreadyQueued).toBe(2)
+			expect(prepared?.manifest).toBeUndefined()
+		})
+
+		it.each(TERMINAL_STATUSES)('does not skip a %s item', status => {
+			const prepared = prepareManualQueueSubmission(picked({queue: ABC_URLS.map(url => queued(url, status))}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(ABC_URLS)
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+
+		it('yields no items, and no manifest, when everything selected is already queued', () => {
+			const prepared = prepareManualQueueSubmission(picked({queue: ABC_URLS.map(url => queued(url))}), 'normal')
+
+			expect(prepared).toEqual({items: [], skippedAlreadyQueued: 3})
+		})
+
+		it('still returns null when nothing is selected', () => {
+			expect(prepareManualQueueSubmission(picked({selectedPlaylistItemIds: [], queue: [queued('https://youtu.be/a')]}), 'normal')).toBeNull()
+		})
+
+		it('leaves a single video to the admission guard', () => {
+			const prepared = prepareManualQueueSubmission(state({queue: [queued('https://www.youtube.com/watch?v=abc')]}), 'normal')
+
+			expect(prepared?.items).toHaveLength(1)
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+	})
+
+	describe('prepareMultiProfileQueueSubmission', () => {
+		const picked = (overrides: Partial<AppState> = {}) => multiProfileState({playlistItems: ABC_ITEMS, selectedPlaylistItemIds: ['a', 'b', 'c'], ...overrides})
+
+		it('drops the queued entry and counts the skip', () => {
+			const prepared = prepareMultiProfileQueueSubmission(picked({queue: [queued('https://youtu.be/a')]}), 'normal')
+
+			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/c'])
+			expect(prepared?.skippedAlreadyQueued).toBe(1)
+		})
+
+		it.each(TERMINAL_STATUSES)('does not skip a %s item', status => {
+			const prepared = prepareMultiProfileQueueSubmission(picked({queue: ABC_URLS.map(url => queued(url, status))}), 'normal')
+
+			expect(prepared?.items).toHaveLength(3)
+			expect(prepared?.skippedAlreadyQueued).toBe(0)
+		})
+
+		it('yields no items when everything selected is already queued', () => {
+			const prepared = prepareMultiProfileQueueSubmission(picked({queue: ABC_URLS.map(url => queued(url))}), 'normal')
+
+			expect(prepared).toEqual({items: [], skippedAlreadyQueued: 3})
+		})
+
+		it('still returns null when nothing is selected', () => {
+			expect(prepareMultiProfileQueueSubmission(picked({selectedPlaylistItemIds: [], queue: [queued('https://youtu.be/a')]}), 'normal')).toBeNull()
+		})
 	})
 })
 

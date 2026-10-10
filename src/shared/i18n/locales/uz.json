@@ -650,7 +650,8 @@
 			"needsReview": "Bu havola tezkor tekshiruvni talab qiladi — Arroxy'ni ochib qayta joylang",
 			"busy": "Oldingi havola hali ishlanmoqda",
 			"submissionFailed": "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi", "skippedAlreadyQueued_other": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"}
 	},
 	"errors": {
 		"ytdlp": {

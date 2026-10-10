@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Та фасцикла не може да се користи за ову плејлисту."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} видео је већ у реду — прескочен"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Прескочено видео снимака који су већ у реду: {{count}}"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "Није могуће сачувати ваша подешавања."

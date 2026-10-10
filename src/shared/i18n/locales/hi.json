@@ -617,7 +617,8 @@
 			"needsReview": "इस लिंक को एक त्वरित समीक्षा चाहिए — Arroxy खोलें और इसे फिर से पेस्ट करें",
 			"busy": "पिछला लिंक अभी भी प्रोसेस हो रहा है",
 			"submissionFailed": "वह लिंक जोड़ा नहीं जा सका — Arroxy में फिर से कोशिश करें"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} वीडियो पहले से कतार में है — छोड़ दिया गया", "skippedAlreadyQueued_other": "{{count}} वीडियो पहले से कतार में हैं — छोड़ दिए गए"}
 	},
 	"errors": {
 		"ytdlp": {

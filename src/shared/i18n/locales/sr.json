@@ -650,7 +650,8 @@
 			"needsReview": "Ова веза захтева брзу проверу — отворите Arroxy и налепите је поново",
 			"busy": "Још обрађујемо претходну везу",
 			"submissionFailed": "Та веза није могла бити додата — покушајте поново у Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} видео је већ у реду — прескочен", "skippedAlreadyQueued_other": "Прескочено видео снимака који су већ у реду: {{count}}"}
 	},
 	"errors": {
 		"ytdlp": {

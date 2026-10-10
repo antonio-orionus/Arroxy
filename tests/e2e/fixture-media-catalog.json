@@ -1,6 +1,7 @@
 {
 	"playlist": {"id": "PLarroxyfixture", "title": "Fixture Playlist", "videoIds": ["ARX00000001", "ARX00000002", "ARX00000003"]},
 	"repeatedPlaylist": {"id": "PLarroxyrepeats", "title": "Fixture Repeats", "videoIds": ["ARX00000001", "ARX00000002", "ARX00000001", "ARX00000003"]},
+	"overlapPlaylist": {"id": "PLarroxyoverlap", "title": "Fixture Overlap", "videoIds": ["ARX00000002", "ARX00000003", "ARX00000004"]},
 	"videos": [
 		{"id": "ARX00000001", "number": 1, "formatSet": "muxed"},
 		{"id": "ARX00000002", "number": 2, "formatSet": "muxed"},
