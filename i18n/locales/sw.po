@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "Video {{count}} tayari iko kwenye foleni — imerukwa"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Video {{count}} tayari ziko kwenye foleni — zimerukwa"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "Haikuweza kuhifadhi mipangilio yako."

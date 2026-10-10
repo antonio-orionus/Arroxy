@@ -596,7 +596,8 @@
 			"needsReview": "该链接需要快速确认 — 打开 Arroxy 并重新粘贴",
 			"busy": "正在处理上一个链接",
 			"submissionFailed": "无法添加该链接 — 请在 Arroxy 中重试"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} 个视频已在队列中 — 已跳过", "skippedAlreadyQueued_other": "{{count}} 个视频已在队列中 — 已跳过"}
 	},
 	"errors": {
 		"ytdlp": {

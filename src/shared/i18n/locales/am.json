@@ -604,7 +604,8 @@
 			"needsReview": "ይህ አገናኝ አጭር ማረጋገጫ ያስፈልገዋል — Arroxyን ክፈተው እንደገና ይላኩ",
 			"busy": "አሁንም በቀድሞው አገናኝ ላይ እየሰራን ነው",
 			"submissionFailed": "ያ አገናኝ ማከል አልተቻለም — በArroxy ውስጥ እንደገና ይሞክሩ"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ቪዲዮ ቀድሞ በወረፋ ውስጥ ነው — ተዘሏል", "skippedAlreadyQueued_other": "{{count}} ቪዲዮዎች ቀድሞ በወረፋ ውስጥ ናቸው — ተዘለዋል"}
 	},
 	"errors": {
 		"ytdlp": {

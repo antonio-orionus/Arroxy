@@ -633,7 +633,8 @@
 			"needsReview": "That link needs a quick review — open Arroxy and paste it again",
 			"busy": "Still working on the previous link",
 			"submissionFailed": "Could not add that link — try again in Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video is already in the queue — skipped", "skippedAlreadyQueued_other": "{{count}} videos are already in the queue — skipped"}
 	},
 	"errors": {
 		"ytdlp": {

@@ -642,7 +642,8 @@
 			"needsReview": "اس لنک کو فوری جانچ کی ضرورت ہے — Arroxy کھولیں اور دوبارہ پیسٹ کریں",
 			"busy": "پچھلا لنک ابھی پروسیس ہو رہا ہے",
 			"submissionFailed": "یہ لنک شامل نہیں ہو سکا — Arroxy میں دوبارہ کوشش کریں"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ویڈیو پہلے سے قطار میں ہے — چھوڑ دی گئی", "skippedAlreadyQueued_other": "{{count}} ویڈیوز پہلے سے قطار میں ہیں — چھوڑ دی گئیں"}
 	},
 	"errors": {
 		"ytdlp": {

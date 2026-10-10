@@ -65,6 +65,13 @@ export const notify = {
 		const {key, level} = HOTKEY_OUTCOME_COPY[outcome]
 		emit(level, i18next.t(key), 'hotkey')
 	},
+	// A batch that overlaps what is already live in the queue is trimmed rather
+	// than rejected (see `withoutAlreadyQueued`). Not an error: the rest queued,
+	// or there was nothing new to queue. One id, so repeats collapse.
+	queueSkippedAlreadyQueued(count: number): void {
+		console.info(`[queue] skipped ${count} video(s) already in the queue`)
+		emit('info', i18next.t('notifications.queue.skippedAlreadyQueued', {count}), 'queue-skipped-already-queued')
+	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and
 		// happens on a large share of downloads; surfacing it every time would

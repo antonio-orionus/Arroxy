@@ -655,7 +655,8 @@
 			"needsReview": "Ten link wymaga szybkiego sprawdzenia — otwórz Arroxy i wklej go ponownie",
 			"busy": "Nadal przetwarzam poprzedni link",
 			"submissionFailed": "Nie udało się dodać tego linku — spróbuj ponownie w Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} film jest już w kolejce — pominięto", "skippedAlreadyQueued_other": "Pominięto filmy, które są już w kolejce: {{count}}"}
 	},
 	"errors": {
 		"ytdlp": {

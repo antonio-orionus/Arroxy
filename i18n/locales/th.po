@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "ใช้โฟลเดอร์นี้กับเพลย์ลิสต์นี้ไม่ได้"
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "บันทึกการตั้งค่าไม่ได้"

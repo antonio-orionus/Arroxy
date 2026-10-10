@@ -5,6 +5,7 @@ import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
+import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
@@ -30,6 +31,12 @@ export interface PlaylistManifestPayload {
 export interface PreparedQueueSubmission {
 	items: QueueItem[]
 	manifest?: PlaylistManifestPayload
+	/**
+	 * Entries left out because the same video is already live in the queue. Zero
+	 * `items` with a positive count means everything was already queued: not a
+	 * failure, and not an empty selection (that is `null`).
+	 */
+	skippedAlreadyQueued: number
 }
 
 function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueItem | null {
@@ -205,6 +212,20 @@ function firstOccurrencePerUrl(entries: readonly PlaylistEntry[]): PlaylistEntry
 }
 
 /**
+ * Admission refuses a video whose URL is already live in the queue, and fails
+ * the whole batch for it. A playlist that overlaps what is queued must not be
+ * lost for that reason, so those entries are left out here and counted, and the
+ * caller tells the user. Admission itself stays the last-line guard for a
+ * renderer queue that has gone stale. Terminal items do not block: a finished or
+ * cancelled video can be queued again.
+ */
+function withoutAlreadyQueued(entries: readonly PlaylistEntry[], queue: readonly QueueItem[]): {entries: PlaylistEntry[]; skippedAlreadyQueued: number} {
+	const liveUrls = new Set(queue.filter(isLiveQueueItem).map(item => item.url))
+	const admitted = entries.filter(entry => !liveUrls.has(entry.url))
+	return {entries: admitted, skippedAlreadyQueued: entries.length - admitted.length}
+}
+
+/**
  * A container row addresses a channel/playlist/album, not a video. The probe
  * keeps those rows so an all-container result still renders a picker, and they
  * start unselected — but selection is reachable by hand (select-all, range,
@@ -220,28 +241,32 @@ function isQueueableEntry(entry: PlaylistEntry): boolean {
 export function prepareManualQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
 	if (state.wizardMode === 'single') {
 		const item = buildSingleQueueItemFromState(state, lane)
-		return item ? {items: [item]} : null
+		return item ? {items: [item], skippedAlreadyQueued: 0} : null
 	}
 
 	const playlistGroupId = generateId()
 	// Bulk rows render in intake order (the sort control is playlist-only), so
 	// submission keeps intake order even if playlistSortMode retains a stale
 	// upload mode from an earlier playlist. Playlist mode submits view order.
-	const selected = submissionOrderEntries(state)
-	if (selected.length === 0) return null
-	// Contiguous 001..N over the sorted selected rows — no gaps from unselected
-	// or removed entries. Display-only: entry.playlistIndex is untouched.
+	const ordered = submissionOrderEntries(state)
+	if (ordered.length === 0) return null
+	const {entries: selected, skippedAlreadyQueued} = withoutAlreadyQueued(ordered, state.queue)
+	if (selected.length === 0) return {items: [], skippedAlreadyQueued}
+	// Contiguous 001..N over the queued rows — no gaps from unselected, removed
+	// or already-queued entries. Display-only: entry.playlistIndex is untouched.
 	const items = selected.map((e, index) => buildPlaylistQueueItem(e, state, playlistGroupId, lane, index + 1))
 	// The playlist root, not the first item's folder — a nesting template can put
 	// item 0 in an uploader-specific subfolder that does not represent the set.
 	const baseDir = resolvePlaylistDir(state)
-	return {items, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
+	return {items, skippedAlreadyQueued, ...(state.wizardMode === 'playlist' ? {manifest: playlistManifestPayload(state, playlistGroupId, baseDir)} : {})}
 }
 
 export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
 	// Same intake-order rule as prepareManualQueueSubmission above.
-	const selected = submissionOrderEntries(state)
-	if (selected.length === 0) return null
+	const ordered = submissionOrderEntries(state)
+	if (ordered.length === 0) return null
+	const {entries: selected, skippedAlreadyQueued} = withoutAlreadyQueued(ordered, state.queue)
+	if (selected.length === 0) return {items: [], skippedAlreadyQueued}
 
 	const profiles = allDownloadProfiles(state.settings?.profiles)
 	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
@@ -272,7 +297,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 		})
 	})
 
-	return {items}
+	return {items, skippedAlreadyQueued}
 }
 
 function downloadProfileRefLabel(ref: DownloadProfileRef): string {
@@ -362,7 +387,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			writeM3u: false,
 			lane
 		})
-		return {items: [item]}
+		return {items: [item], skippedAlreadyQueued: 0}
 	}
 
 	const playlistGroupId = generateId()
@@ -377,7 +402,10 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	// order is kept verbatim: with no picker the user never chose a sort for
 	// this list, and playlistSortMode here is leftover from an earlier one.
 	// Numbering is contiguous over the queued entries.
-	const entries = firstOccurrencePerUrl(probe.entries.filter(isQueueableEntry))
+	const listed = firstOccurrencePerUrl(probe.entries.filter(isQueueableEntry))
+	if (listed.length === 0) return null
+	const {entries, skippedAlreadyQueued} = withoutAlreadyQueued(listed, state.queue)
+	if (entries.length === 0) return {items: [], skippedAlreadyQueued}
 	const items = entries.map((entry, index) => {
 		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId, index + 1)
 		return buildProfileEntryQueueItem({
@@ -395,6 +423,8 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			lane
 		})
 	})
-	if (items.length === 0) return null
-	return {items, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: entries.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
+	// The manifest lists the whole playlist, skipped videos included: the .m3u is
+	// rebuilt from it plus the files on disk, so it must describe the playlist,
+	// not just this batch.
+	return {items, skippedAlreadyQueued, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: listed.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

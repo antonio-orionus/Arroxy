@@ -642,7 +642,8 @@
 			"needsReview": "Эта ссылка требует быстрой проверки — откройте Arroxy и вставьте её снова",
 			"busy": "Обрабатывается предыдущая ссылка",
 			"submissionFailed": "Не удалось добавить эту ссылку — попробуйте снова в Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} видео уже в очереди — пропущено", "skippedAlreadyQueued_other": "Пропущено видео, уже находящихся в очереди: {{count}}"}
 	},
 	"errors": {
 		"ytdlp": {

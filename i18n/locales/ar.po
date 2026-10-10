@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "تم تخطي فيديو واحد موجود بالفعل في قائمة الانتظار"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "تعذّر حفظ إعداداتك."

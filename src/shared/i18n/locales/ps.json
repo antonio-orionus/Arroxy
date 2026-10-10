@@ -642,7 +642,8 @@
 			"needsReview": "دا لینک چټکې بیاکتنې ته اړتیا لري — Arroxy خلاص کړئ او بیا یې پیسټ کړئ",
 			"busy": "پخوانی لینک لا تراوسه پروسس کیږي",
 			"submissionFailed": "دا لینک اضافه نشو کیدی — په Arroxy کې بیا هڅه وکړئ"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ویډیو لا دمخې په قطار کې دی — پرېښودل شو", "skippedAlreadyQueued_other": "{{count}} ویډیوګانې لا دمخې په قطار کې دي — پرېښودل شوې"}
 	},
 	"errors": {
 		"ytdlp": {

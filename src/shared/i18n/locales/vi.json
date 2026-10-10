@@ -642,7 +642,8 @@
 			"needsReview": "Liên kết này cần xem xét nhanh — mở Arroxy và dán lại",
 			"busy": "Vẫn đang xử lý liên kết trước",
 			"submissionFailed": "Không thể thêm liên kết đó — thử lại trong Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video đã có trong hàng đợi — đã bỏ qua", "skippedAlreadyQueued_other": "{{count}} video đã có trong hàng đợi — đã bỏ qua"}
 	},
 	"errors": {
 		"ytdlp": {

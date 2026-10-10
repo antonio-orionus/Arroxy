@@ -642,7 +642,8 @@
 			"needsReview": "Esse link precisa de uma verificação rápida — abra o Arroxy e cole-o novamente",
 			"busy": "Ainda processando o link anterior",
 			"submissionFailed": "Não foi possível adicionar esse link — tente novamente no Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo já está na fila — ignorado", "skippedAlreadyQueued_other": "{{count}} vídeos já estão na fila — ignorados"}
 	},
 	"errors": {
 		"ytdlp": {

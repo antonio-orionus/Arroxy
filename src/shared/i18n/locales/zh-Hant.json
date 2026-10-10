@@ -604,7 +604,8 @@
 			"needsReview": "此連結需要快速檢查——請開啟 Arroxy 並再次貼上",
 			"busy": "仍在處理上一個連結",
 			"submissionFailed": "無法新增該連結——請在 Arroxy 中重試"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} 部影片已在佇列中——已略過", "skippedAlreadyQueued_other": "{{count}} 部影片已在佇列中——已略過"}
 	},
 	"errors": {
 		"ytdlp": {

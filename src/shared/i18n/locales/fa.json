@@ -647,7 +647,8 @@
 			"needsReview": "این پیوند به بررسی کوتاهی نیاز دارد — Arroxy را باز کنید و دوباره آن را جای‌گذاری کنید",
 			"busy": "هنوز در حال پردازش پیوند قبلی است",
 			"submissionFailed": "این پیوند افزوده نشد — دوباره در Arroxy تلاش کنید"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ویدیو از قبل در صف است — نادیده گرفته شد", "skippedAlreadyQueued_other": "{{count}} ویدیو از قبل در صف هستند — نادیده گرفته شدند"}
 	},
 	"errors": {
 		"ytdlp": {

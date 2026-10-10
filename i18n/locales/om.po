@@ -339,6 +339,14 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu."
 
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera"
+
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"
+
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
 msgstr "Qindaa'ina kee olkaa'uun hin danda'amne."

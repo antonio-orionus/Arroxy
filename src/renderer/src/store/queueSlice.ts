@@ -8,6 +8,7 @@
 
 import type {QueueLane} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
+import {notify} from '@renderer/lib/notify.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
 import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
@@ -41,11 +42,19 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 	try {
 		const prepared = stateBeforeSubmit.multiProfileMode ? prepareMultiProfileQueueSubmission(get(), lane) : prepareManualQueueSubmission(get(), lane)
 		if (!prepared) return
+		if (prepared.items.length === 0) {
+			// Everything selected is already queued: nothing failed and nothing
+			// was queued. Tell the user and leave the wizard where it is, so they
+			// can adjust the selection.
+			notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
+			return
+		}
 		const result = await submitPreparedQueueSubmission(prepared)
 		if (!result.ok) {
 			set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: result.error}, wizardErrorOrigin: null})
 			return
 		}
+		if (prepared.skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
 		await persistFormatPrefs(set, get)
 		get().reset()
 	} catch (error) {

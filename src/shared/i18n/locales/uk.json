@@ -650,7 +650,8 @@
 			"needsReview": "Це посилання потребує швидкої перевірки — відкрийте Arroxy і вставте його знову",
 			"busy": "Ще обробляється попереднє посилання",
 			"submissionFailed": "Не вдалося додати це посилання — спробуйте ще раз у Arroxy"
-		}
+		},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} відео вже в черзі — пропущено", "skippedAlreadyQueued_other": "Пропущено відео, які вже в черзі: {{count}}"}
 	},
 	"errors": {
 		"ytdlp": {

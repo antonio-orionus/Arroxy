@@ -3,7 +3,22 @@ import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
 import type {AppSettings} from '../../src/shared/types.js'
-import {assertNoExternalRequests, buildFixtureElectronEnv, buildFixtureEnv, fixturePlaylistUrl, fixtureRepeatedPlaylistUrl, fixtureUrl, runProcess, startDenyProxy, startFixtureServer, writeE2eSettings, type FixtureServer, type FixtureServerBehavior, type ProcessResult} from './fixtureHarness.js'
+import {
+	assertNoExternalRequests,
+	buildFixtureElectronEnv,
+	buildFixtureEnv,
+	fixtureOverlapPlaylistUrl,
+	fixturePlaylistUrl,
+	fixtureRepeatedPlaylistUrl,
+	fixtureUrl,
+	runProcess,
+	startDenyProxy,
+	startFixtureServer,
+	writeE2eSettings,
+	type FixtureServer,
+	type FixtureServerBehavior,
+	type ProcessResult
+} from './fixtureHarness.js'
 import {applyQueueAction, expectMp4Count, expectNoMp4For, expectQueueStatus, launchFixtureApp, listFilesRecursive, mediaFiles, openQueueTab, prepareFixtureRuntime, queueCardByTitle, type QueueRowAction} from './fixtureWorkflow.js'
 
 interface FixtureProductOptions {
@@ -23,6 +38,7 @@ interface UrlHelpers {
 	video: (videoId: string) => string
 	playlist: () => string
 	repeatedPlaylist: () => string
+	overlapPlaylist: () => string
 	videos: (videoIds: readonly string[]) => string[]
 }
 
@@ -65,7 +81,7 @@ export interface FixtureYtDlpContext {
 }
 
 function urls(): UrlHelpers {
-	return {video: fixtureUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
+	return {video: fixtureUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
 }
 
 function queue(page: Page): QueueHelpers {
