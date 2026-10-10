@@ -8,6 +8,18 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.22
+
+Videos that are already in your queue no longer block a whole playlist from being added.
+
+## Highlights
+
+- When part of a playlist or link list is already in the queue, Arroxy skips those videos and adds the rest, instead of refusing the entire list.
+- A short notice tells you how many videos were skipped. If everything was already queued, you get the same notice and nothing is added twice.
+- Videos that already finished, failed, or were cancelled can still be queued again.
+
+---
+
 ## 0.4.21
 
 Playlists that list the same video more than once now download instead of failing.
