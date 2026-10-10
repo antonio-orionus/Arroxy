@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vitest'
 import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult} from '@shared/types.js'
+import type {PreparedJob} from '@shared/preparedJob.js'
 import type {AppState} from '@renderer/store/types.js'
 import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
 
@@ -379,6 +380,63 @@ describe('container rows are never queued', () => {
 
 	it('prepareActiveProfileQueueSubmission returns null when every entry is a container', () => {
 		expect(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [CONTAINER_ITEM]}, state(), 'normal')).toBeNull()
+	})
+})
+
+// Mixes and long playlists list one video at several positions. The probe keeps
+// each position as its own row, but the queue admits a video once, so every
+// submission seam queues the first occurrence only. Without that, the repeat is
+// rejected as an in-batch duplicate and the whole batch is lost.
+const REPEATED_ITEMS: PlaylistEntry[] = [
+	{id: '1::a', title: 'A', url: 'https://youtu.be/a', thumbnail: '', duration: 1, playlistIndex: 1, videoId: 'a'},
+	{id: '2::b', title: 'B', url: 'https://youtu.be/b', thumbnail: '', duration: 1, playlistIndex: 2, videoId: 'b'},
+	{id: '3::a', title: 'A', url: 'https://youtu.be/a', thumbnail: '', duration: 1, playlistIndex: 3, videoId: 'a'},
+	{id: '4::c', title: 'C', url: 'https://youtu.be/c', thumbnail: '', duration: 1, playlistIndex: 4, videoId: 'c'}
+]
+const REPEATED_URLS = ['https://youtu.be/a', 'https://youtu.be/b', 'https://youtu.be/c']
+const ALL_REPEATED_IDS = REPEATED_ITEMS.map(entry => entry.id)
+function jobFilenameTemplate(job: PreparedJob): string | undefined {
+	return 'filenameTemplate' in job ? job.filenameTemplate : undefined
+}
+const NUMBERED_TITLES = ['001 - A', '002 - B', '003 - C']
+function numberedSettings(): AppState['settings'] {
+	const settings = defaultAppSettings('/downloads')
+	return {...settings, common: {...settings.common, filenameTemplate: '{playlist_index} - {title}'}}
+}
+
+describe('a video listed twice is queued once', () => {
+	it('prepareActiveProfileQueueSubmission keeps the first occurrence, numbers contiguously, and matches the manifest', () => {
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({settings: numberedSettings()}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
+		expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(NUMBERED_TITLES)
+		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b', 'c'])
+	})
+
+	it('prepareManualQueueSubmission keeps the first selected occurrence, numbers contiguously, and matches the manifest', () => {
+		const prepared = prepareManualQueueSubmission(manualPlaylistState({settings: numberedSettings(), playlistItems: REPEATED_ITEMS, selectedPlaylistItemIds: ALL_REPEATED_IDS}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
+		expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(NUMBERED_TITLES)
+		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b', 'c'])
+	})
+
+	it('prepareManualQueueSubmission queues a repeated video that is selected only at its later position', () => {
+		const prepared = prepareManualQueueSubmission(manualPlaylistState({playlistItems: REPEATED_ITEMS, selectedPlaylistItemIds: ['2::b', '3::a']}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/a'])
+	})
+
+	it('prepareManualQueueSubmission dedupes a bulk list', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardMode: 'bulk', playlistItems: REPEATED_ITEMS, selectedPlaylistItemIds: ALL_REPEATED_IDS}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
+	})
+
+	it('prepareMultiProfileQueueSubmission queues each video once', () => {
+		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: REPEATED_ITEMS, selectedPlaylistItemIds: ALL_REPEATED_IDS}), 'normal')
+
+		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
 	})
 })
 

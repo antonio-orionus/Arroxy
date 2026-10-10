@@ -77,6 +77,11 @@ export const COOKIE_LIMITED_VIDEO_ID = cookieLimitedVideo.id
 
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds
+// A playlist that lists one video at two positions, as a mix or a long playlist can.
+export const FIXTURE_REPEATED_PLAYLIST_ID = catalog.repeatedPlaylist.id
+export const FIXTURE_REPEATED_PLAYLIST_TITLE = catalog.repeatedPlaylist.title
+export const FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS = catalog.repeatedPlaylist.videoIds
+export const FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS = [...new Set(FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS)]
 export const FIXTURE_MEDIA_FORMAT_IDS = Object.values(catalog.formatSets).flatMap(formatSet => formatSet.map(format => format.id))
 
 export function fixtureMediaPathExtension(formatId: string): string {

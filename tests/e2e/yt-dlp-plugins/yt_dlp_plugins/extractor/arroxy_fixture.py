@@ -23,8 +23,12 @@ def _fixture_catalog():
         raise ExtractorError(f'Could not load Arroxy fixture media catalog: {err}')
 
 
+def _fixture_playlists(catalog):
+    return [catalog['playlist'], catalog['repeatedPlaylist']]
+
+
 def _fixture_playlist_id_pattern():
-    return re.escape(_fixture_catalog()['playlist']['id'])
+    return '|'.join(re.escape(playlist['id']) for playlist in _fixture_playlists(_fixture_catalog()))
 
 
 def _fixture_video(catalog, video_id):
@@ -153,8 +157,8 @@ class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):
     def _real_extract(self, url):
         playlist_id = self._match_id(url)
         catalog = _fixture_catalog()
-        playlist = catalog['playlist']
-        if playlist_id != playlist['id']:
+        playlist = next((candidate for candidate in _fixture_playlists(catalog) if candidate['id'] == playlist_id), None)
+        if playlist is None:
             raise ExtractorError(f'Unknown Arroxy fixture playlist id: {playlist_id}')
         base_url = os.environ.get('ARROXY_E2E_FIXTURE_BASE_URL', '').rstrip('/')
         if not base_url:

@@ -9,8 +9,8 @@ import path from 'node:path'
 import {defaultAppSettings} from '../../src/shared/constants.js'
 import {downloadFile, downloadText, parseShaLine, sha256ForFile} from '../../src/main/services/binary/BinaryDownloader.js'
 import type {AppSettings} from '../../src/shared/types.js'
-import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaKind} from './fixtureMediaCatalog.js'
-export {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
+import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_PLAYLIST_ID, FIXTURE_REPEATED_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaKind} from './fixtureMediaCatalog.js'
+export {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureMediaCatalog.js'
 
 const execFileAsync = promisify(execFile)
 
@@ -443,6 +443,10 @@ export function fixtureUrl(videoId: string): string {
 
 export function fixturePlaylistUrl(): string {
 	return `https://www.youtube.com/playlist?list=${FIXTURE_PLAYLIST_ID}`
+}
+
+export function fixtureRepeatedPlaylistUrl(): string {
+	return `https://www.youtube.com/playlist?list=${FIXTURE_REPEATED_PLAYLIST_ID}`
 }
 
 async function canRunYtDlp(candidate: string): Promise<boolean> {

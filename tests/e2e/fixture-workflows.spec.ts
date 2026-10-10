@@ -3,7 +3,7 @@ import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
-import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleConfirm, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -77,6 +77,29 @@ test('Electron Quick Download playlist queues entries and writes an ordered M3U'
 		const profileDir = smallFileProfileDir(outputDir)
 		files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length, profileDir)
 		await expectOrderedM3u(profileDir, 'Fixture Playlist', FIXTURE_PLAYLIST_VIDEO_IDS)
+	})
+})
+
+// Risk: a playlist (or mix) that lists one video at two positions. The probe keeps
+// both positions, but the queue admits a video once, so queueing every row used
+// to fail the whole batch with "already active" on an empty queue.
+test('Electron Quick Download playlist that repeats a video queues it once', async () => {
+	test.setTimeout(220_000)
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-quick-repeat-user-', outputPrefix: 'arroxy-fixture-quick-repeat-out-', settings: configureSmallFileQuickProfile}, async ({page, outputDir, urls, files}) => {
+		expect(FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS.length).toBeGreaterThan(FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS.length)
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.repeatedPlaylist())
+		await page.locator('[data-testid="profiles-quick-download"]').click()
+
+		await openQueueTab(page)
+		const uniqueCount = FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS.length
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(uniqueCount, {timeout: 160_000})
+		await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(uniqueCount)
+		await expect(page.getByText(/already active|Couldn.t add this one/)).toHaveCount(0)
+
+		const profileDir = smallFileProfileDir(outputDir)
+		files.expectMp4Count(uniqueCount, profileDir)
+		await expectOrderedM3u(profileDir, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS)
 	})
 })
 

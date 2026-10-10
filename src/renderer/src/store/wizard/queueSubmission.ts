@@ -165,7 +165,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 
 function playlistManifestPayload(state: AppState, playlistGroupId: string, outputDir: string): PlaylistManifestPayload {
 	const removed = new Set(state.removedPlaylistItemIds)
-	const items = state.playlistItems.filter(entry => !removed.has(entry.id)).filter(isQueueableEntry)
+	const items = firstOccurrencePerUrl(state.playlistItems.filter(entry => !removed.has(entry.id)).filter(isQueueableEntry))
 	return {playlistGroupId, playlistTitle: state.playlistTitle || 'Playlist', outputDir, items: items.map(e => ({videoId: e.videoId, title: e.title, duration: e.duration}))}
 }
 
@@ -184,7 +184,24 @@ function selectedPlaylistEntries(state: AppState): PlaylistEntry[] {
 // control, so intake order is the order.
 function submissionOrderEntries(state: AppState): PlaylistEntry[] {
 	const selected = selectedPlaylistEntries(state)
-	return state.wizardMode === 'bulk' ? selected : sortPlaylistEntries(selected, state.playlistSortMode)
+	return firstOccurrencePerUrl(state.wizardMode === 'bulk' ? selected : sortPlaylistEntries(selected, state.playlistSortMode))
+}
+
+/**
+ * The queue admits a video once (its URL is the key), but a playlist or mix may
+ * list one video at several positions and the probe keeps each position as its
+ * own row. Every batch is reduced to the first occurrence of each URL before
+ * items are built, so numbering and the playlist manifest describe exactly what
+ * is queued; otherwise admission rejects the repeat as an in-batch duplicate
+ * and the whole batch is lost.
+ */
+function firstOccurrencePerUrl(entries: readonly PlaylistEntry[]): PlaylistEntry[] {
+	const seen = new Set<string>()
+	return entries.filter(entry => {
+		if (seen.has(entry.url)) return false
+		seen.add(entry.url)
+		return true
+	})
 }
 
 /**
@@ -360,7 +377,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	// order is kept verbatim: with no picker the user never chose a sort for
 	// this list, and playlistSortMode here is leftover from an earlier one.
 	// Numbering is contiguous over the queued entries.
-	const entries = probe.entries.filter(isQueueableEntry)
+	const entries = firstOccurrencePerUrl(probe.entries.filter(isQueueableEntry))
 	const items = entries.map((entry, index) => {
 		const entryMeta = playlistEntryTemplateMeta(entry, probe.playlistTitle, probe.playlistId, index + 1)
 		return buildProfileEntryQueueItem({
