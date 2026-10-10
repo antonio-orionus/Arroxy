@@ -67,6 +67,8 @@ opencode.jsonc
 !.agents/skills/find-test-gaps/**
 !.agents/skills/remember/
 !.agents/skills/remember/**
+!.agents/skills/ship-fix/
+!.agents/skills/ship-fix/**
 !.agents/skills/translate-arroxy-i18n/
 !.agents/skills/translate-arroxy-i18n/**
 
