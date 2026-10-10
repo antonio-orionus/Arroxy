@@ -8,6 +8,17 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.21
+
+Playlists that list the same video more than once now download instead of failing.
+
+## Highlights
+
+- A playlist or mix that repeats a video no longer fails with "queue item URL is already active". Each video is queued once, and the rest of the playlist downloads as normal.
+- The playlist file (.m3u) and the numbering match exactly what was queued.
+
+---
+
 ## 0.4.20
 
 Arroxy looks like one app again: every screen now shares the same panels, buttons, and selection style.
