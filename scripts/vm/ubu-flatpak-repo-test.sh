@@ -77,7 +77,7 @@ REF="http://127.0.0.1:$PORT/io.github.antonio_orionus.Arroxy.flatpakref"
 install_script() {
 	local out
 	for _ in 1 2 3; do
-		out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "ARROXY_FLATPAKREF=$REF sh -s -- $*" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1)" && {
+		out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "ARROXY_FLATPAKREF=${SCRIPT_REF:-$REF} sh -s -- $*" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1)" && {
 			printf '%s\n' "$out"
 			return 0
 		}
@@ -106,8 +106,20 @@ script_case "fresh install" "Installing Arroxy from its Flatpak repo"
 script_case "run again" "already installed from its Flatpak repo; updating"
 ubu_remote flatpak-uninstall-all
 ubu_remote flatpak-install-old-bundle
-script_case "over a copy from an old .flatpak" "Replacing the copy installed from an older .flatpak"
+# An old copy whose move fails (repo unreachable) must still be installed:
+# the script never removes it first.
+echo "install script: old .flatpak copy, repo unreachable"
+before="$(ubu_remote flatpak-origin)"
+out="$(SCRIPT_REF="http://127.0.0.1:1/io.github.antonio_orionus.Arroxy.flatpakref" install_script --flatpak || true)"
+after="$(ubu_remote flatpak-origin)"
+check "the script reports the failure" "$(grep -q 'untouched\|still works' <<<"$out" && echo 1)"
+check "the old copy is still installed, unchanged ($(field remote "$after"), commit ${before##*commit=})" "$([[ $after == "$before" ]] && echo 1)"
+script_case "over a copy from an old .flatpak" "Moving the copy from an older .flatpak onto Arroxy's Flatpak repo"
 check "the old copy's settings survived" "$([[ $(ubu_remote flatpak-marker) == kept ]] && echo 1)"
+ubu_remote flatpak-repo-bump "$PORT" >/dev/null
+updated_before="$(field commit "$(ubu_remote flatpak-origin)")"
+ubu_remote flatpak-update >/dev/null
+check "the moved copy updates with flatpak update" "$([[ $(field commit "$(ubu_remote flatpak-origin)") != "$updated_before" ]] && echo 1)"
 echo "install script: refusals"
 out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "sh -s -- --flatpak" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1 || true)"
 check "x86_64-only on this arm64 guest without the test repo" "$(grep -q 'x86_64 Linux builds only' <<<"$out" && echo 1)"

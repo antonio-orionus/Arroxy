@@ -20,13 +20,13 @@ One line, on any x86_64 distro:
 curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
 ```
 
-`scripts/install.sh --flatpak` installs Flatpak with the system package manager if it is missing (apt, dnf, pacman or zypper; the only `sudo` step), updates an install that already comes from the repo, replaces a copy from an old bundle (settings stay), refuses to add a per-user copy next to a system-wide one, then installs from the `.flatpakref`. With Flatpak already present, the `.flatpakref` alone does the same job:
+`scripts/install.sh --flatpak` installs Flatpak with the system package manager if it is missing (apt, dnf, pacman or zypper; the only `sudo` step), updates an install that already comes from the repo, moves a copy from an old bundle onto the repo in place (it gives that copy's dead origin remote the repo URL and key, then runs `flatpak update`; nothing is removed first, so a failed download leaves the old copy working), refuses to add a per-user copy next to a system-wide one, then installs from the `.flatpakref`. With Flatpak already present, the `.flatpakref` alone does the same job:
 
 ```bash
 flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 ```
 
-`scripts/vm/ubu-flatpak-repo-test.sh` runs the script piped into the guest's `sh` (dash) for a fresh install, a re-run and an old-bundle copy. The branch that installs Flatpak itself is not exercised there: the guest already has Flatpak, and its `sudo` needs a password.
+`scripts/vm/ubu-flatpak-repo-test.sh` runs the script piped into the guest's `sh` (dash) for a fresh install, a re-run and an old-bundle copy — including that copy surviving untouched when the repo is unreachable. The branch that installs Flatpak itself is not exercised there: the guest already has Flatpak, and its `sudo` needs a password.
 
 Installing the `.flatpak` from a stable GitHub Release works too: the bundle carries the repo URL and key, so the install gets the repo as its origin and updates the same way. Prerelease bundles leave the repo out — the repo only carries stable releases, and `flatpak update` must not move a beta tester onto them.
 

@@ -88,6 +88,20 @@ case "$arch" in
   *) die "Unsupported architecture: $arch (x86_64 only)" ;;
 esac
 
+# One of curl/wget is enough; distros ship one or the other (fresh Ubuntu, for
+# instance, has wget but no curl). Missing both only fails once a download is
+# actually needed.
+if command -v curl >/dev/null 2>&1; then
+  fetch() { curl -fsSL "$1" -o "$2"; }
+  fetch_out() { curl -fsSL "$1"; }
+elif command -v wget >/dev/null 2>&1; then
+  fetch() { wget -qO "$2" "$1"; }
+  fetch_out() { wget -qO- "$1"; }
+else
+  fetch() { die "Need curl or wget to download. Install either, then re-run."; }
+  fetch_out() { fetch "$@"; }
+fi
+
 # --- --flatpak ---------------------------------------------------------------
 
 as_root() {
@@ -138,11 +152,20 @@ install_flatpak() {
       info "Done. From now on: flatpak update (or GNOME Software)."
       exit 0
     fi
-    # Copies from an older .flatpak bundle have no update source, and Flatpak
-    # refuses to install over them ("already installed", even with
-    # --reinstall). Uninstalling keeps ~/.var/app, i.e. the settings.
-    info "Replacing the copy installed from an older .flatpak (your settings stay)"
-    flatpak uninstall --user --noninteractive -y "$FLATPAK_ID" >/dev/null
+    # A copy from an older .flatpak bundle has an origin remote with no URL
+    # and no key, so it never updates, and Flatpak refuses to install over it
+    # ("already installed", even with --reinstall). Pointing that remote at
+    # the repo moves it in place: nothing is removed first, so a failed
+    # download leaves the current copy working, and a re-run picks up here.
+    info "Moving the copy from an older .flatpak onto Arroxy's Flatpak repo (nothing is removed)"
+    key="$(fetch_out "${FLATPAKREF%/*}/arroxy.flatpakrepo" | sed -n 's/^GPGKey=//p')" || key=""
+    [ -n "$key" ] || die "Could not read the repo's signing key. Your current Arroxy is untouched; check your connection and re-run."
+    printf '%s' "$key" | base64 -d | flatpak remote-modify --user --url="$FLATPAK_REPO_URL" --gpg-import=- --gpg-verify --enable "$origin" \
+      || die "Could not point the existing copy at the repo. Your current Arroxy is untouched."
+    flatpak update --user --noninteractive -y "$FLATPAK_ID" \
+      || die "The update from the repo failed. Your current Arroxy still works; re-run to try again."
+    info "Done. Your settings stayed, and from now on: flatpak update (or GNOME Software)."
+    exit 0
   fi
 
   info "Installing Arroxy from its Flatpak repo"
@@ -163,16 +186,6 @@ install_flatpak() {
 }
 
 [ "$mode" = flatpak ] && install_flatpak
-
-# One of curl/wget is enough; distros ship one or the other (fresh Ubuntu, for
-# instance, has wget but no curl).
-if command -v curl >/dev/null 2>&1; then
-  fetch() { curl -fsSL "$1" -o "$2"; }
-elif command -v wget >/dev/null 2>&1; then
-  fetch() { wget -qO "$2" "$1"; }
-else
-  die "Need curl or wget to download. Install either, then re-run."
-fi
 
 if command -v sha256sum >/dev/null 2>&1; then
   sha256_of() { sha256sum "$1" | cut -d' ' -f1; }
