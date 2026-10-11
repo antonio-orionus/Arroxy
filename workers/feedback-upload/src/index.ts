@@ -1,4 +1,6 @@
 const ROUTE_PATH = '/api/feedback-diagnostics';
+// Installed apps POST to the legacy host path forever; newer apps use the site's subpath.
+const ROUTE_PATHS = new Set([ROUTE_PATH, `/arroxy${ROUTE_PATH}`]);
 const MAX_COMPRESSED_BYTES = 1_500_000;
 const UPLOAD_HEADER = 'feedback-diagnostic-v1';
 const REPORT_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -16,7 +18,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     try {
       const url = new URL(request.url);
-      if (url.pathname !== ROUTE_PATH) {
+      if (!ROUTE_PATHS.has(url.pathname)) {
         return json({ error: 'not_found' }, 404);
       }
       if (request.method !== 'POST') {

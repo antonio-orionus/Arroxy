@@ -88,6 +88,35 @@ describe('feedback upload Worker', () => {
 		expect(put).not.toHaveBeenCalled()
 	})
 
+	it('accepts uploads on the subpath route, with or without a query string, sharing the legacy rate-limit bucket', async () => {
+		const {bucket, put} = makeBucket()
+		const {rateLimit, limit} = makeRateLimit()
+		const response = await worker.fetch(
+			new Request('https://orionus.dev/arroxy/api/feedback-diagnostics?source=app', {
+				method: 'POST',
+				headers: {'x-arroxy-upload': 'feedback-diagnostic-v1', 'x-arroxy-report-id': reportId, 'content-type': 'application/gzip', 'content-encoding': 'gzip', 'cf-connecting-ip': '203.0.113.10'},
+				body: new Uint8Array([31, 139, 8, 0])
+			}),
+			makeEnv(bucket, rateLimit)
+		)
+
+		const data: {diagnostic_key?: string} = await response.json()
+		expect(response.status).toBe(201)
+		expect(data.diagnostic_key).toMatch(new RegExp(`^feedback/\\d{4}-\\d{2}-\\d{2}/${reportId}\\.log\\.gz$`))
+		expect(limit).toHaveBeenCalledWith({key: '/api/feedback-diagnostics:203.0.113.10'})
+		expect(put).toHaveBeenCalledOnce()
+	})
+
+	it.each(['/arroxy/api/other', '/api/feedback-diagnostics/', '/arroxy/api/feedback-diagnostics/extra', '/arroxy/'])('returns 404 for %s without touching R2 or the rate limiter', async path => {
+		const {bucket, put} = makeBucket()
+		const {rateLimit, limit} = makeRateLimit()
+		const response = await worker.fetch(new Request(`https://orionus.dev${path}`, {method: 'POST', body: new Uint8Array([1])}), makeEnv(bucket, rateLimit))
+
+		expect(response.status).toBe(404)
+		expect(limit).not.toHaveBeenCalled()
+		expect(put).not.toHaveBeenCalled()
+	})
+
 	it('rejects invalid report ids before writing to R2', async () => {
 		const {bucket, put} = makeBucket()
 		const response = await worker.fetch(
