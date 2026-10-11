@@ -1,7 +1,21 @@
 # Site migration: `arroxy.orionus.dev` → `orionus.dev/arroxy/`
 
-Status: plan, not started. Drafted 2026-10-11 from the live Cloudflare account (via Wrangler), both site repos, and an
-independent Codex review.
+Status: **switched 2026-10-11.** Stages 0–6 done and smoke-checked; Stage 7 ships with the next app release
+(#252); Stage 8 (Search Console) and Stage 9 (optional decommission) remain. Drafted from the live Cloudflare account (via
+Wrangler), both site repos, and an independent Codex review.
+
+## What happened during execution
+
+- `_redirects` was silently truncated on Pages: Cloudflare counts every rule after the first splat as dynamic (max 100),
+  so rule 104 onward never fired. Nine of the ignored rules redirected live blog posts to `/blog/`. Workers reject such a
+  file, which exposed it; arroxy-web now keeps plain rules before splats and tests the limits.
+- The new feedback route needed a trailing `*`: route matching includes the query string.
+- Fresh deploys and the new redirect rule took a few seconds to reach every edge; rerun the smoke check before
+  concluding anything failed.
+- Workers Builds deploys `arroxy-site` from arroxy-web `main` in under 30 seconds. Pages production deploys for
+  `arroxy-web` are off; its last production deployment `51cb5142` is the rollback anchor.
+- The personal site links Arroxy from the header (sm and up), footer, home bio and projects page, and its robots.txt lists
+  the Arroxy sitemap.
 
 ## Strategy in one paragraph
 
