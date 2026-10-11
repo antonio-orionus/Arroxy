@@ -258,13 +258,11 @@ export const sr = {
   dl_linux_fuse_text: "Ако покретање и даље не успе, покрените без монтирања — FUSE пакет није потребан:",
   dl_linux_targz_h4: "Обична архива (без FUSE, без инсталације):",
   dl_linux_targz_text: "`.tar.gz` издање је иста апликација без AppImage омотача — распакујте било где и покрените. Без инсталатера и без FUSE пакета.",
-  dl_linux_flatpak_prereq: "Ubuntu долази са Snap-ом уместо Flatpak-а, па прво инсталирајте Flatpak и додајте Flathub — одатле пакет преузима свој runtime:",
+  dl_linux_flatpak_prereq: "Ubuntu долази са Snap-ом уместо Flatpak-а, па прво инсталирајте Flatpak:",
+  dl_linux_flatpak_bundle: "Више волите датотеку? Преузмите `Arroxy-linux-x64.flatpak` са исте странице издања и инсталирајте њу — подешава исти репозиторијум, па ажурирања раде на исти начин:",
+  dl_linux_flatpak_old_bundle: "**Инсталирали сте из старијег `.flatpak`?** Та копија нема извор ажурирања. Деинсталирајте је једном (подешавања остају), па покрените команду за инсталацију изнад:",
   dl_linux_arch_note: "**Linux преузимања на страници издања су само x86_64.** На ARM64 машинама (Raspberry Pi, Asahi Linux) Flatpak се инсталира, али не успева при покретању уз `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**Ажурирања:** пакет такође додаје сопствени Flatpak репозиторијум Arroxy-ја, па након тога `flatpak update` (или GNOME Software) одржава Arroxy ажурним. Инсталирали сте из старијег пакета? Инсталирајте нови једном.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (алтернатива у песковнику):** Инсталирајте га из сопственог Flatpak репозиторијума Arroxy-ја. Сам подешава Flathub runtime, а након тога `flatpak update` (или GNOME Software) одржава Arroxy ажурним.",
   dl_warning_h3: "Зашто можете видети упозорење",
   dl_warning_p1:
     "Arroxy је open-source пројекат са MIT лиценцом. Windows и macOS верзије **нису потписане кодом** — сертификати Apple Developer ID и Windows EV за потписивање кода коштају стотине долара годишње, које независни пројекат плаћа из сопственог џепа. Без тих потписа, Windows SmartScreen и macOS Gatekeeper ће вас упозорити при првом покретању. Упозорења значе *да ваш оперативни систем не препознаје издавача* — не значе да је Arroxy малвер.",

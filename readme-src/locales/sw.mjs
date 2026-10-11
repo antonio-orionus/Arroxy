@@ -256,13 +256,11 @@ export const sw = {
   dl_linux_fuse_text: "Ikiwa uzinduzi bado unashindwa, iendeshe bila kupachika — hakuna kifurushi cha FUSE kinachohitajika:",
   dl_linux_targz_h4: "Tarball ya kawaida (hakuna FUSE, hakuna usakinishaji):",
   dl_linux_targz_text: "Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna kisakinishi wala kifurushi cha FUSE.",
-  dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:",
+  dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak kwanza:",
+  dl_linux_flatpak_bundle: "Unapendelea faili? Pakua `Arroxy-linux-x64.flatpak` kutoka ukurasa uleule wa toleo na uisakinishe badala yake — huandaa hazina ileile, kwa hivyo masasisho hufanya kazi vivyo hivyo:",
+  dl_linux_flatpak_old_bundle: "**Ulisakinisha kutoka `.flatpak` ya zamani?** Nakala hiyo haina chanzo cha masasisho. Iondoe mara moja (mipangilio yako inabaki), kisha endesha amri ya usakinishaji iliyo hapo juu:",
   dl_linux_arch_note: "**Vipakuliwa vya Linux kwenye ukurasa wa matoleo ni vya x86_64 pekee.** Kwenye mashine za ARM64 (Raspberry Pi, Asahi Linux) Flatpak husakinishwa lakini hushindwa kuanza ikitoa `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**Masasisho:** kifurushi hiki pia huongeza hazina ya Flatpak ya Arroxy yenyewe, kwa hivyo baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa. Ulisakinisha kutoka kifurushi cha zamani? Sakinisha kipya mara moja.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (mbadala wenye sanduku):** Isakinishe kutoka hazina ya Flatpak ya Arroxy yenyewe. Huandaa runtime ya Flathub yenyewe, na baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa.",
   dl_warning_h3: "Kwa nini unaweza kuona onyo",
   dl_warning_p1:
     "Arroxy ni chanzo wazi na ina leseni ya MIT. Ujenzi wa Windows na macOS **haujasainiwa kwa nambari** — cheti cha Apple Developer ID na Windows EV cha kutia saini msimbo huchangia mamia ya dola kwa mwaka, ambayo mradi wa kujitegemea hulipa mfukoni mwake. Bila saini hizo, Windows SmartScreen na macOS Gatekeeper watakuonya wakati wa uzinduzi wa kwanza. Maonyo hayo yanamaanisha *mfumo wako wa uendeshaji haukuitambua kampuni inayotoa programu* — hayamaanishi kwamba Arroxy ni programu hasidi.",

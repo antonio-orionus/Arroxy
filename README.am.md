@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።
+**Flatpak (ለቅርቅብ አማራጭ):** ከArroxy የራሱ Flatpak ማከማቻ ይጫኑት። የFlathub runtime-ን በራሱ ያዘጋጃል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል።
 
-ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦
+Ubuntu ከFlatpak ይልቅ Snapን ስለሚያካትት በመጀመሪያ Flatpakን ይጫኑ፦
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**ዝማኔዎች:** ጥቅሉ የArroxyን የራሱን Flatpak ማከማቻም ያክላል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል። ከቀድሞ ጥቅል ጭነውት ከሆነ አዲሱን አንድ ጊዜ ይጫኑ።
+ፋይል ይመርጣሉ? `Arroxy-linux-x64.flatpak`ን ከዚያው የመልቀቂያ ገጽ አውርደው በምትኩ ይጫኑት — ያንኑ ማከማቻ ያዘጋጃል፣ ስለዚህ ዝማኔዎች በተመሳሳይ መንገድ ይሰራሉ፦
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**ከቀድሞ `.flatpak` ነው የጫኑት?** ያ ቅጂ የዝማኔ ምንጭ የለውም። አንድ ጊዜ ያራግፉት (ቅንብሮችዎ ይቆያሉ)፣ ከዚያ ከላይ ያለውን የመጫኛ ትዕዛዝ ያስኪዱ፦
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።
 

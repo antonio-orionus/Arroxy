@@ -174,12 +174,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-{{dl_linux_flatpak_updates}}
+{{dl_linux_flatpak_bundle}}
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+{{dl_linux_flatpak_old_bundle}}
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 {{dl_linux_arch_note}}
 

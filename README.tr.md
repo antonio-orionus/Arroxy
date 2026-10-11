@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (sandbox'lı alternatif):** aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` indir.
+**Flatpak (sandbox'lı alternatif):** Arroxy'nin kendi Flatpak deposundan kurun. Flathub çalışma ortamını kendisi kurar ve bundan sonra `flatpak update` (veya GNOME Yazılım) Arroxy'yi güncel tutar.
 
-Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun ve Flathub'ı ekleyin — paket çalışma zamanını oradan indirir:
+Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Güncellemeler:** paket, Arroxy'nin kendi Flatpak deposunu da ekler; böylece bundan sonra `flatpak update` (veya GNOME Yazılım) Arroxy'yi güncel tutar. Eski bir paketten mi kurdunuz? Yenisini bir kez kurun.
+Dosya mı tercih edersiniz? Aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` dosyasını indirip onu kurun — aynı depoyu ayarlar, böylece güncellemeler aynı şekilde çalışır:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Eski bir `.flatpak` dosyasından mı kurdunuz?** O kopyanın güncelleme kaynağı yok. Bir kez kaldırın (ayarlarınız korunur), ardından yukarıdaki kurulum komutunu çalıştırın:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.
 

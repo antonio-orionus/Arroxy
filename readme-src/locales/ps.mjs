@@ -253,13 +253,11 @@ export const ps = {
   dl_linux_fuse_text: "که بیا هم پیل نه شي، هغه پرته له ماونټ کولو چل کړئ — د FUSE کڅوړې ته اړتیا نشته:",
   dl_linux_targz_h4: "ساده تاربال (نه FUSE، نه انسټال):",
   dl_linux_targz_text: "د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. نه انسټالر پکار دی او نه د FUSE کڅوړه.",
-  dl_linux_flatpak_prereq: "اوبنټو د Flatpak پرځای Snap لري، نو لومړی Flatpak انسټال کړئ او Flathub ورزیات کړئ — بنډل خپل رن‌ټایم له همدې ځایه اخلي:",
+  dl_linux_flatpak_prereq: "Ubuntu د Flatpak پر ځای له Snap سره راځي، نو لومړی Flatpak نصب کړئ:",
+  dl_linux_flatpak_bundle: "دوتنه غوره کوئ؟ له همدې خپرونې پاڼې نه `Arroxy-linux-x64.flatpak` ښکته کړئ او هغه نصب کړئ — همغه ذخیره برابروي، نو تازه‌کول هم په همدې ډول کار کوي:",
+  dl_linux_flatpak_old_bundle: "**له زاړه `.flatpak` نه مو نصب کړی؟** هغه کاپي د تازه‌کولو سرچینه نه لري. یو ځل یې لرې کړئ (ستاسو امستنې پاتې کیږي)، بیا پورته د نصب کمانډ وچلوئ:",
   dl_linux_arch_note: "**د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.",
-  dl_linux_flatpak_updates: "**تازه‌کول:** دا بنډل د Arroxy خپل Flatpak ذخیره هم زیاتوي، نو له هغې وروسته `flatpak update` (یا GNOME Software) Arroxy تازه ساتي. له زاړه بنډل نه مو نصب کړی؟ نوی یې یو ځل نصب کړئ.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (sandboxed بدیل):** د ورته خپرونې پاڼې څخه `Arroxy-*.flatpak` ډاونلوډ کړئ.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (sandboxed بدیل):** دا د Arroxy له خپلې Flatpak ذخیرې نه نصب کړئ. دا د Flathub runtime پخپله برابروي، او له هغې وروسته `flatpak update` (یا GNOME Software) Arroxy تازه ساتي.",
   dl_warning_h3: "ولې ممکن خبرداری وګورئ",
   dl_warning_p1:
     "Arroxy خلاصه سرچینه او MIT-licensed ده. د Windows او macOS جوړونې **د کوډ لاسلیک شوي نه دي** — د Apple Developer ID او د Windows EV د کوډ لاسلیک کولو سندونه هر کال د سلو ډالرو لګښت لري، چې یو خپلواک پروژه له خپل ځان ادا کوي. پرته له هغو لاسلیکونو، د Windows SmartScreen او macOS Gatekeeper به تاسو ته د لومړي پیل پر مهال خبرداری درکوي. خبرداریونه دا معنی لري چې *ستاسو OS خپرنده نه پیژني* — دا معنی نه لري چې Arroxy malware دی.",

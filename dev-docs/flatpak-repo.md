@@ -20,7 +20,9 @@ flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.githu
 
 Installing the `.flatpak` from a stable GitHub Release works too: the bundle carries the repo URL and key, so the install gets the repo as its origin and updates the same way. Prerelease bundles leave the repo out — the repo only carries stable releases, and `flatpak update` must not move a beta tester onto them.
 
-Copies installed from a bundle before the repo existed (0.4.22 and earlier) have no update source, and contain no banner code. They need one more manual install of a new bundle or the `.flatpakref`; after that, `flatpak update` works.
+Copies installed from a bundle before the repo existed (0.4.22 and earlier) have no update source, and contain no banner code. Installing over them fails with "already installed" (also with `--reinstall` and a `.flatpakref`, because the app belongs to the bundle's dead origin remote). Two ways move them onto the repo, both verified on the VM to keep one copy and the user's settings: `flatpak uninstall --user io.github.antonio_orionus.Arroxy` followed by the `.flatpakref` install (what the README says), or `flatpak install --user --reinstall` of a new stable bundle. After that, `flatpak update` works.
+
+The `.flatpakref` install needs nothing else set up: on an installation with no remotes at all it adds Arroxy's repo and Flathub (for the runtime) by itself.
 
 ## How a release publishes it
 

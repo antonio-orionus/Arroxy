@@ -256,13 +256,11 @@ export const bn = {
   dl_linux_fuse_text: "তারপরও চালু না হলে, মাউন্ট ছাড়াই চালান — FUSE প্যাকেজ লাগবে না:",
   dl_linux_targz_h4: "সাধারণ টারবল (FUSE নেই, ইনস্টল নেই):",
   dl_linux_targz_text: "`.tar.gz` বিল্ডটি একই অ্যাপ, শুধু AppImage মোড়ক ছাড়া — যেকোনো জায়গায় এক্সট্র্যাক্ট করে চালান। ইনস্টলারও লাগে না, FUSE প্যাকেজও নয়।",
-  dl_linux_flatpak_prereq: "Ubuntu-তে Flatpak-এর বদলে Snap থাকে, তাই আগে Flatpak ইনস্টল করে Flathub যোগ করুন — বান্ডলটি সেখান থেকেই রানটাইম নেয়:",
+  dl_linux_flatpak_prereq: "Ubuntu-তে Flatpak-এর বদলে Snap থাকে, তাই আগে Flatpak ইনস্টল করুন:",
+  dl_linux_flatpak_bundle: "ফাইল পছন্দ? একই রিলিজ পেজ থেকে `Arroxy-linux-x64.flatpak` ডাউনলোড করে সেটি ইনস্টল করুন — এটি একই রিপোজিটরি সেট আপ করে, তাই আপডেট একইভাবে কাজ করে:",
+  dl_linux_flatpak_old_bundle: "**পুরোনো `.flatpak` থেকে ইনস্টল করেছেন?** সেই কপির কোনো আপডেট উৎস নেই। একবার আনইনস্টল করুন (আপনার সেটিংস থেকে যাবে), তারপর উপরের ইনস্টল কমান্ডটি চালান:",
   dl_linux_arch_note: "**রিলিজ পেজের Linux ডাউনলোড শুধু x86_64-এর জন্য।** ARM64 মেশিনে (Raspberry Pi, Asahi Linux) Flatpak ইনস্টল হয় ঠিকই, কিন্তু চালু করার সময় `bwrap: execvp ldconfig: Exec format error` দিয়ে ব্যর্থ হয়।",
-  dl_linux_flatpak_updates: "**আপডেট:** বান্ডেলটি Arroxy-র নিজস্ব Flatpak রিপোজিটরিও যোগ করে, তাই এরপর থেকে `flatpak update` (বা GNOME Software) Arroxy-কে হালনাগাদ রাখে। পুরোনো বান্ডেল থেকে ইনস্টল করেছেন? নতুনটি একবার ইনস্টল করুন।",
-  dl_linux_flatpak_intro:
-    "**Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (স্যান্ডবক্সড বিকল্প):** Arroxy-র নিজস্ব Flatpak রিপোজিটরি থেকে ইনস্টল করুন। এটি নিজেই Flathub রানটাইম সেট আপ করে, আর এরপর থেকে `flatpak update` (বা GNOME Software) Arroxy-কে হালনাগাদ রাখে।",
   dl_warning_h3: "কেন আপনি সতর্কবার্তা দেখতে পাচ্ছেন",
   dl_warning_p1:
     "Arroxy ওপেন-সোর্স এবং MIT-লাইসেন্সকৃত। Windows এবং macOS বিল্ডগুলো **কোড-সাইন করা নয়** — Apple Developer ID এবং Windows EV কোড-সাইনিং সার্টিফিকেটের প্রতিটির জন্য বছরে কয়েকশো ডলার খরচ হয়, যা একটি ইন্ডি প্রজেক্ট নিজের পকেট থেকে দেয়। এই সিগনেচার ছাড়া, Windows SmartScreen এবং macOS Gatekeeper প্রথম লঞ্চে আপনাকে সতর্ক করবে। সতর্কবার্তার মানে হলো *আপনার OS প্রকাশকটিকে চেনে না* — এর মানে এই নয় যে Arroxy ম্যালওয়্যার।",

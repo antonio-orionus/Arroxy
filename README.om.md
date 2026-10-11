@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.
+**Flatpak (filannoo sandboxed):** Kuusaa Flatpak kan Arroxy mataa isaa irraa ijaari. Runtime Flathub ofumaan qopheessa; achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha.
 
-Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:
+Ubuntu Flatpak bakka Snap qabatee dhufa, kanaaf jalqaba Flatpak ijaari:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Haaromsa:** Bundle-n kun kuusaa Flatpak kan Arroxy mataa isaa illee ni dabala; kanaaf achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha. Bundle moofaa irraa ijaarattee? Isa haaraa al tokko ijaari.
+Faayilii filattaa? Fuula gadhiisaa sana irraa `Arroxy-linux-x64.flatpak` buufadhuu isa ijaari — kuusaa sanuma qopheessa, kanaaf haaromsi akkasuma hojjeta:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**`.flatpak` moofaa irraa ijaarattee?** Garagalchi sun madda haaromsaa hin qabu. Al tokko haqi (qindaa'inni kee ni hafa), sana booda ajaja ijaarsaa armaan olii hojjechiisi:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.
 

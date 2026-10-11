@@ -259,13 +259,11 @@ export const pt = {
   dl_linux_fuse_text: "Se mesmo assim não abrir, execute sem montagem — não precisa do pacote FUSE:",
   dl_linux_targz_h4: "Tarball simples (sem FUSE, sem instalação):",
   dl_linux_targz_text: "A versão `.tar.gz` é o mesmo app sem o invólucro AppImage — extraia em qualquer lugar e execute. Sem instalador e sem pacote FUSE.",
-  dl_linux_flatpak_prereq: "O Ubuntu vem com Snap em vez de Flatpak, então instale o Flatpak e adicione o Flathub primeiro — o pacote baixa o runtime de lá:",
+  dl_linux_flatpak_prereq: "O Ubuntu vem com Snap em vez de Flatpak, então instale o Flatpak primeiro:",
+  dl_linux_flatpak_bundle: "Prefere um arquivo? Baixe `Arroxy-linux-x64.flatpak` da mesma página da versão e instale-o — ele configura o mesmo repositório, então as atualizações funcionam do mesmo jeito:",
+  dl_linux_flatpak_old_bundle: "**Instalou a partir de um `.flatpak` antigo?** Essa cópia não tem origem de atualizações. Desinstale-a uma vez (suas configurações permanecem) e depois execute o comando de instalação acima:",
   dl_linux_arch_note: "**Os downloads de Linux na página de versões são apenas x86_64.** Em máquinas ARM64 (Raspberry Pi, Asahi Linux) o Flatpak instala, mas falha ao iniciar com `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**Atualizações:** o pacote também adiciona o repositório Flatpak próprio do Arroxy, então a partir daí `flatpak update` (ou o GNOME Software) mantém o Arroxy atualizado. Instalou a partir de um pacote antigo? Instale o novo uma vez.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (alternativa em sandbox):** baixe o `Arroxy-linux-x64.flatpak` na mesma página de release.",
-
-  // ---- Ajuda de instalação reorganizada (foco em quem não é técnico, download manual em primeiro lugar) ----
+  dl_linux_flatpak_intro: "**Flatpak (alternativa em sandbox):** Instale-o a partir do repositório Flatpak próprio do Arroxy. Ele configura sozinho o runtime do Flathub e, a partir daí, `flatpak update` (ou o GNOME Software) mantém o Arroxy atualizado.",
   dl_warning_h3: "Por que você pode ver um aviso",
   dl_warning_p1:
     "O Arroxy é de código aberto e licenciado sob MIT. As builds para Windows e macOS **não são assinadas digitalmente** — os certificados Apple Developer ID e de assinatura EV do Windows custam centenas de dólares por ano cada um, e um projeto independente paga isso do próprio bolso. Sem essas assinaturas, o SmartScreen do Windows e o Gatekeeper do macOS avisam na primeira execução. Os avisos dizem que *o seu sistema não reconhece o publicador* — não que o Arroxy seja malware.",

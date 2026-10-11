@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (alternativa em sandbox):** baixe o `Arroxy-linux-x64.flatpak` na mesma página de release.
+**Flatpak (alternativa em sandbox):** Instale-o a partir do repositório Flatpak próprio do Arroxy. Ele configura sozinho o runtime do Flathub e, a partir daí, `flatpak update` (ou o GNOME Software) mantém o Arroxy atualizado.
 
-O Ubuntu vem com Snap em vez de Flatpak, então instale o Flatpak e adicione o Flathub primeiro — o pacote baixa o runtime de lá:
+O Ubuntu vem com Snap em vez de Flatpak, então instale o Flatpak primeiro:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Atualizações:** o pacote também adiciona o repositório Flatpak próprio do Arroxy, então a partir daí `flatpak update` (ou o GNOME Software) mantém o Arroxy atualizado. Instalou a partir de um pacote antigo? Instale o novo uma vez.
+Prefere um arquivo? Baixe `Arroxy-linux-x64.flatpak` da mesma página da versão e instale-o — ele configura o mesmo repositório, então as atualizações funcionam do mesmo jeito:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Instalou a partir de um `.flatpak` antigo?** Essa cópia não tem origem de atualizações. Desinstale-a uma vez (suas configurações permanecem) e depois execute o comando de instalação acima:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Os downloads de Linux na página de versões são apenas x86_64.** Em máquinas ARM64 (Raspberry Pi, Asahi Linux) o Flatpak instala, mas falha ao iniciar com `bwrap: execvp ldconfig: Exec format error`.
 

@@ -244,13 +244,11 @@ export const am = {
   dl_linux_fuse_text: "አስጀምሩ አሁንም ካልሆነ ሳይጫን አስሂዱት — የFUSE ጥቅል አያስፈልግም፦",
   dl_linux_targz_h4: "ተራ ታርቦል (FUSE የለም፣ ጫና የለም)፦",
   dl_linux_targz_text: "የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።",
-  dl_linux_flatpak_prereq: "ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦",
+  dl_linux_flatpak_prereq: "Ubuntu ከFlatpak ይልቅ Snapን ስለሚያካትት በመጀመሪያ Flatpakን ይጫኑ፦",
+  dl_linux_flatpak_bundle: "ፋይል ይመርጣሉ? `Arroxy-linux-x64.flatpak`ን ከዚያው የመልቀቂያ ገጽ አውርደው በምትኩ ይጫኑት — ያንኑ ማከማቻ ያዘጋጃል፣ ስለዚህ ዝማኔዎች በተመሳሳይ መንገድ ይሰራሉ፦",
+  dl_linux_flatpak_old_bundle: "**ከቀድሞ `.flatpak` ነው የጫኑት?** ያ ቅጂ የዝማኔ ምንጭ የለውም። አንድ ጊዜ ያራግፉት (ቅንብሮችዎ ይቆያሉ)፣ ከዚያ ከላይ ያለውን የመጫኛ ትዕዛዝ ያስኪዱ፦",
   dl_linux_arch_note: "**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።",
-  dl_linux_flatpak_updates: "**ዝማኔዎች:** ጥቅሉ የArroxyን የራሱን Flatpak ማከማቻም ያክላል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል። ከቀድሞ ጥቅል ጭነውት ከሆነ አዲሱን አንድ ጊዜ ይጫኑ።",
-  dl_linux_flatpak_intro:
-    "**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (ለቅርቅብ አማራጭ):** ከArroxy የራሱ Flatpak ማከማቻ ይጫኑት። የFlathub runtime-ን በራሱ ያዘጋጃል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል።",
   dl_warning_h3: "ለምን ማስጠንቀቂያ ሊታዩዎ ይችላሉ",
   dl_warning_p1:
     "Arroxy ምን ኮድ ያለው (open-source) እና MIT ፈቃድ ያለው ነው። የ Windows እና macOS ቅጅዎቹ **ኮድ አልተፈረመባቸውም** — Apple Developer ID እና Windows EV ኮድ-ፊርማ ሰርቲፊኬቶቹ እያንዳንዳቸው በዓመት በመቶዎች ዶላር ያስወጣሉ፣ ይህ ነጻ ፕሮጀክት ከኪሳቸው ይከፍላሉ። ያነዚህ ፊርሞች ሳይኖሩ፣ Windows SmartScreen እና macOS Gatekeeper በመጀመሪያ አስጀማሪ ያስጠነቅቋቸዋል። ማስጠንቀቂያዎቹ *ሥርዓተ ክወናዎ ናሸርን አይለይም* ማለት ናቸው — Arroxy ተንኮል-አዘል ሶፍትዌር ነው ማለት አይደሉም።",

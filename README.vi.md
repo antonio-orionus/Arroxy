@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (lựa chọn thay thế sandbox):** tải `Arroxy-*.flatpak` từ cùng trang phát hành.
+**Flatpak (lựa chọn thay thế sandbox):** Cài từ kho Flatpak riêng của Arroxy. Nó tự thiết lập runtime Flathub, và từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới.
 
-Ubuntu đi kèm Snap chứ không phải Flatpak, nên hãy cài Flatpak và thêm Flathub trước — gói sẽ tải runtime từ đó:
+Ubuntu đi kèm Snap thay vì Flatpak, nên hãy cài Flatpak trước:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Cập nhật:** gói này cũng thêm kho Flatpak riêng của Arroxy, nên từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới. Đã cài từ gói cũ? Hãy cài gói mới một lần.
+Thích dùng tệp hơn? Tải `Arroxy-linux-x64.flatpak` từ cùng trang phát hành và cài nó thay thế — tệp này thiết lập cùng kho đó, nên cập nhật hoạt động y như vậy:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Đã cài từ tệp `.flatpak` cũ?** Bản đó không có nguồn cập nhật. Gỡ cài đặt một lần (cài đặt của bạn vẫn giữ nguyên), rồi chạy lệnh cài đặt ở trên:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.
 

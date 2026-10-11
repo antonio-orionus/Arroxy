@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (sandboxed Alternative):** Lade `Arroxy-*.flatpak` von derselben Release-Seite herunter.
+**Flatpak (sandboxed Alternative):** Installiere es aus Arroxys eigenem Flatpak-Repository. Es richtet die Flathub-Laufzeit selbst ein, und danach hält `flatpak update` (oder GNOME Software) Arroxy aktuell.
 
-Ubuntu liefert Snap statt Flatpak, installiere daher zuerst Flatpak und füge Flathub hinzu — das Bundle lädt seine Runtime von dort:
+Ubuntu liefert Snap statt Flatpak aus, installiere also zuerst Flatpak:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Updates:** Das Bundle fügt außerdem Arroxys eigenes Flatpak-Repository hinzu, sodass `flatpak update` (oder GNOME Software) Arroxy danach aktuell hält. Aus einem älteren Bundle installiert? Installiere das neue einmal.
+Lieber eine Datei? Lade `Arroxy-linux-x64.flatpak` von derselben Release-Seite herunter und installiere stattdessen diese — sie richtet dasselbe Repository ein, Updates funktionieren also genauso:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Aus einer älteren `.flatpak` installiert?** Diese Kopie hat keine Update-Quelle. Deinstalliere sie einmal (deine Einstellungen bleiben erhalten) und führe dann den Installationsbefehl oben aus:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Die Linux-Downloads auf der Release-Seite gibt es nur für x86_64.** Auf ARM64-Geräten (Raspberry Pi, Asahi Linux) lässt sich das Flatpak zwar installieren, scheitert aber beim Start mit `bwrap: execvp ldconfig: Exec format error`.
 

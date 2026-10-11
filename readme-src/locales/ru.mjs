@@ -259,13 +259,11 @@ export const ru = {
   dl_linux_fuse_text: "Если запуск всё равно не удаётся — запустите без монтирования, пакет FUSE не нужен:",
   dl_linux_targz_h4: "Обычный архив (без FUSE, без установки):",
   dl_linux_targz_text: "Сборка `.tar.gz` — то же приложение без обёртки AppImage: распакуйте куда угодно и запустите. Ни установщика, ни пакета FUSE.",
-  dl_linux_flatpak_prereq: "В Ubuntu вместо Flatpak поставляется Snap, поэтому сначала установите Flatpak и добавьте Flathub — оттуда пакет загружает свой рантайм:",
+  dl_linux_flatpak_prereq: "В Ubuntu вместо Flatpak идёт Snap, поэтому сначала установите Flatpak:",
+  dl_linux_flatpak_bundle: "Удобнее файлом? Скачайте `Arroxy-linux-x64.flatpak` с той же страницы релиза и установите его — он подключает тот же репозиторий, так что обновления работают так же:",
+  dl_linux_flatpak_old_bundle: "**Ставили из старого `.flatpak`?** У этой копии нет источника обновлений. Удалите её один раз (настройки сохранятся), затем выполните команду установки выше:",
   dl_linux_arch_note: "**Загрузки для Linux на странице релизов только x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak установится, но не запустится: `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**Обновления:** пакет также добавляет собственный Flatpak-репозиторий Arroxy, поэтому дальше `flatpak update` (или GNOME Software) поддерживает Arroxy в актуальном состоянии. Ставили из старого пакета? Установите новый один раз.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (изолированная альтернатива):** скачайте `Arroxy-*.flatpak` с той же страницы релиза.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (изолированная альтернатива):** Установите его из собственного Flatpak-репозитория Arroxy. Среда выполнения Flathub настроится сама, а дальше `flatpak update` (или GNOME Software) будет поддерживать Arroxy в актуальном состоянии.",
   dl_warning_h3: "Почему вы можете увидеть предупреждение",
   dl_warning_p1:
     "Arroxy — открытый проект с лицензией MIT. Сборки для Windows и macOS **не подписаны кодом** — сертификаты Apple Developer ID и Windows EV для подписи кода стоят сотни долларов в год, и независимый проект платит за них из своего кармана. Без этих подписей Windows SmartScreen и macOS Gatekeeper будут предупреждать вас при первом запуске. Предупреждения означают *что ваша ОС не распознаёт издателя* — они не говорят о том, что Arroxy является вредоносным ПО.",

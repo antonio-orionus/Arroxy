@@ -40,6 +40,16 @@ it (polkit wants interactive auth). Recovery needs a human at the Fusion console
 that need a new session (e.g. `scripts/vm/ubu-vm.sh gnome-unsafe-mode`) apply at the next
 login — ask the user to reboot the VM from Fusion.
 
+## Launches can leave dialogs you cannot see
+
+Arroxy registers its global hotkey through GNOME's GlobalShortcuts portal; GNOME answers
+with an "Add Keyboard Shortcuts" dialog on the VM's screen. Over ssh nobody sees or answers
+it, so every unseeded launch stacks another one (found after ~7 had piled up). The
+`scripts/vm/` launchers seed test profiles with the hotkey and analytics off; any new
+launcher must do the same. With GNOME in unsafe mode, list stray windows via `Eval` on
+`global.get_window_actors()`; the dialogs belong to
+`gnome-control-center-global-shortcuts-provider` — stopping it closes them.
+
 ## Operating rules
 
 - Confirm that the guest is running and verify SSH reachability before use; its VMware NAT address may change.

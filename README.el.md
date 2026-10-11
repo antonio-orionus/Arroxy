@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (εναλλακτικό σε sandbox):** κατεβάστε το `Arroxy-*.flatpak` από την ίδια σελίδα έκδοσης.
+**Flatpak (εναλλακτικό σε sandbox):** Εγκατάστησέ το από το δικό του αποθετήριο Flatpak του Arroxy. Ρυθμίζει μόνο του το runtime του Flathub, και από εκεί και πέρα το `flatpak update` (ή το GNOME Software) κρατά το Arroxy ενημερωμένο.
 
-Το Ubuntu διαθέτει Snap αντί για Flatpak, οπότε εγκαταστήστε πρώτα το Flatpak και προσθέστε το Flathub — από εκεί κατεβάζει το πακέτο το runtime του:
+Το Ubuntu έρχεται με Snap αντί για Flatpak, οπότε εγκατάστησε πρώτα το Flatpak:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Ενημερώσεις:** Το πακέτο προσθέτει επίσης το δικό του αποθετήριο Flatpak του Arroxy, οπότε από εκεί και πέρα το `flatpak update` (ή το GNOME Software) κρατά το Arroxy ενημερωμένο. Το εγκατέστησες από παλαιότερο πακέτο; Εγκατάστησε το νέο μία φορά.
+Προτιμάς αρχείο; Κατέβασε το `Arroxy-linux-x64.flatpak` από την ίδια σελίδα έκδοσης και εγκατάστησε αυτό — ρυθμίζει το ίδιο αποθετήριο, οπότε οι ενημερώσεις λειτουργούν με τον ίδιο τρόπο:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Το εγκατέστησες από παλαιότερο `.flatpak`;** Εκείνο το αντίγραφο δεν έχει πηγή ενημερώσεων. Απεγκατάστησέ το μία φορά (οι ρυθμίσεις σου μένουν) και μετά τρέξε την παραπάνω εντολή εγκατάστασης:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Τα αρχεία Linux στη σελίδα εκδόσεων είναι μόνο x86_64.** Σε μηχανήματα ARM64 (Raspberry Pi, Asahi Linux) το Flatpak εγκαθίσταται αλλά αποτυγχάνει στην εκκίνηση με `bwrap: execvp ldconfig: Exec format error`.
 

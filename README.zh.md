@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak（沙箱版）：** 从同一发布页下载 `Arroxy-*.flatpak`。
+**Flatpak（沙箱版）：** 从 Arroxy 自己的 Flatpak 仓库安装。它会自动设置 Flathub 运行时，此后 `flatpak update`（或 GNOME 软件）会让 Arroxy 保持最新。
 
-Ubuntu 自带的是 Snap 而非 Flatpak，因此请先安装 Flatpak 并添加 Flathub — 安装包会从那里获取运行时：
+Ubuntu 自带的是 Snap 而不是 Flatpak，所以请先安装 Flatpak：
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**更新：** 该软件包还会添加 Arroxy 自己的 Flatpak 仓库，此后 `flatpak update`（或 GNOME 软件）会让 Arroxy 保持最新。如果是从旧版软件包安装的，请再安装一次新的软件包。
+更喜欢用文件？从同一个发布页面下载 `Arroxy-linux-x64.flatpak` 并改为安装它——它会设置同一个仓库，因此更新方式完全相同：
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**是从旧版 `.flatpak` 安装的吗？** 那份安装没有更新来源。请先卸载一次（设置会保留），然后运行上面的安装命令：
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **发布页面上的 Linux 下载仅提供 x86_64。** 在 ARM64 设备（树莓派、Asahi Linux）上 Flatpak 可以安装，但启动时会失败并报 `bwrap: execvp ldconfig: Exec format error`。
 

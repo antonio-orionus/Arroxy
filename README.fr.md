@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (alternative en sandbox) :** télécharge `Arroxy-*.flatpak` depuis la même page de release.
+**Flatpak (alternative en sandbox) :** Installez-le depuis le dépôt Flatpak d'Arroxy. Il configure lui-même le runtime Flathub, et ensuite `flatpak update` (ou GNOME Logiciels) garde Arroxy à jour.
 
-Ubuntu fournit Snap plutôt que Flatpak : installe donc Flatpak et ajoute Flathub d'abord — le bundle y récupère son runtime :
+Ubuntu fournit Snap plutôt que Flatpak, installez donc d'abord Flatpak :
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Mises à jour :** le paquet ajoute aussi le dépôt Flatpak d'Arroxy, donc ensuite `flatpak update` (ou GNOME Logiciels) garde Arroxy à jour. Installé depuis un ancien paquet ? Installez le nouveau une fois.
+Vous préférez un fichier ? Téléchargez `Arroxy-linux-x64.flatpak` depuis la même page de version et installez-le à la place — il configure le même dépôt, les mises à jour fonctionnent donc de la même façon :
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Installé depuis un ancien `.flatpak` ?** Cette copie n'a aucune source de mises à jour. Désinstallez-la une fois (vos réglages sont conservés), puis lancez la commande d'installation ci-dessus :
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Les téléchargements Linux sur la page des versions sont uniquement en x86_64.** Sur les machines ARM64 (Raspberry Pi, Asahi Linux) le Flatpak s'installe mais échoue au lancement avec `bwrap: execvp ldconfig: Exec format error`.
 

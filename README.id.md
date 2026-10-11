@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.
+**Flatpak (alternatif sandbox):** Pasang dari repositori Flatpak milik Arroxy. Ia menyiapkan runtime Flathub sendiri, dan setelah itu `flatpak update` (atau GNOME Software) menjaga Arroxy tetap mutakhir.
 
-Ubuntu menyertakan Snap alih-alih Flatpak, jadi instal Flatpak dan tambahkan Flathub terlebih dahulu — bundel mengambil runtime-nya dari sana:
+Ubuntu menyertakan Snap, bukan Flatpak, jadi pasang Flatpak terlebih dahulu:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Pembaruan:** bundel ini juga menambahkan repositori Flatpak milik Arroxy, jadi setelah itu `flatpak update` (atau GNOME Software) menjaga Arroxy tetap mutakhir. Dipasang dari bundel lama? Pasang yang baru sekali.
+Lebih suka berkas? Unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama dan pasang itu — ia menyiapkan repositori yang sama, jadi pembaruan bekerja dengan cara yang sama:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Dipasang dari `.flatpak` lama?** Salinan itu tidak punya sumber pembaruan. Copot sekali (pengaturan Anda tetap ada), lalu jalankan perintah pemasangan di atas:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Unduhan Linux di halaman rilis hanya untuk x86_64.** Di mesin ARM64 (Raspberry Pi, Asahi Linux) Flatpak tetap terinstal tetapi gagal saat diluncurkan dengan `bwrap: execvp ldconfig: Exec format error`.
 

@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.
+**Flatpak (qumloq muhitdagi muqobil):** Uni Arroxy'ning o'z Flatpak omboridan o'rnating. U Flathub runtime'ini o'zi sozlaydi va shundan keyin `flatpak update` (yoki GNOME Software) Arroxy'ni yangilab turadi.
 
-Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:
+Ubuntu Flatpak o'rniga Snap bilan keladi, shuning uchun avval Flatpak'ni o'rnating:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Yangilanishlar:** to'plam Arroxy'ning o'z Flatpak omborini ham qo'shadi, shuning uchun keyin `flatpak update` (yoki GNOME Software) Arroxy'ni yangilab turadi. Eski to'plamdan o'rnatganmisiz? Yangisini bir marta o'rnating.
+Fayl qulayroqmi? Xuddi shu reliz sahifasidan `Arroxy-linux-x64.flatpak` faylini yuklab oling va uni o'rnating — u o'sha omborni sozlaydi, shuning uchun yangilanishlar xuddi shunday ishlaydi:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Eski `.flatpak` faylidan o'rnatganmisiz?** O'sha nusxada yangilanish manbasi yo'q. Uni bir marta o'chiring (sozlamalaringiz saqlanadi), so'ng yuqoridagi o'rnatish buyrug'ini ishga tushiring:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.
 

@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.
+**Flatpak (mbadala wenye sanduku):** Isakinishe kutoka hazina ya Flatpak ya Arroxy yenyewe. Huandaa runtime ya Flathub yenyewe, na baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa.
 
-Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:
+Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak kwanza:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Masasisho:** kifurushi hiki pia huongeza hazina ya Flatpak ya Arroxy yenyewe, kwa hivyo baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa. Ulisakinisha kutoka kifurushi cha zamani? Sakinisha kipya mara moja.
+Unapendelea faili? Pakua `Arroxy-linux-x64.flatpak` kutoka ukurasa uleule wa toleo na uisakinishe badala yake — huandaa hazina ileile, kwa hivyo masasisho hufanya kazi vivyo hivyo:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Ulisakinisha kutoka `.flatpak` ya zamani?** Nakala hiyo haina chanzo cha masasisho. Iondoe mara moja (mipangilio yako inabaki), kisha endesha amri ya usakinishaji iliyo hapo juu:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Vipakuliwa vya Linux kwenye ukurasa wa matoleo ni vya x86_64 pekee.** Kwenye mashine za ARM64 (Raspberry Pi, Asahi Linux) Flatpak husakinishwa lakini hushindwa kuanza ikitoa `bwrap: execvp ldconfig: Exec format error`.
 

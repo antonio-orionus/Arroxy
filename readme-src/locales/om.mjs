@@ -258,13 +258,11 @@ export const om = {
   dl_linux_fuse_text: "Eegaluun yoo ammallee fashale, osoo hin fe'in isa yaasi — paakejiin FUSE hin barbaachisu:",
   dl_linux_targz_h4: "Taarboolii salphaa (FUSE hin barbaachisu, ijaarsi hin barbaachisu):",
   dl_linux_targz_text: "Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Ijaarsis ta'e paakejiin FUSE hin barbaachisu.",
-  dl_linux_flatpak_prereq: "Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:",
+  dl_linux_flatpak_prereq: "Ubuntu Flatpak bakka Snap qabatee dhufa, kanaaf jalqaba Flatpak ijaari:",
+  dl_linux_flatpak_bundle: "Faayilii filattaa? Fuula gadhiisaa sana irraa `Arroxy-linux-x64.flatpak` buufadhuu isa ijaari — kuusaa sanuma qopheessa, kanaaf haaromsi akkasuma hojjeta:",
+  dl_linux_flatpak_old_bundle: "**`.flatpak` moofaa irraa ijaarattee?** Garagalchi sun madda haaromsaa hin qabu. Al tokko haqi (qindaa'inni kee ni hafa), sana booda ajaja ijaarsaa armaan olii hojjechiisi:",
   dl_linux_arch_note: "**Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.",
-  dl_linux_flatpak_updates: "**Haaromsa:** Bundle-n kun kuusaa Flatpak kan Arroxy mataa isaa illee ni dabala; kanaaf achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha. Bundle moofaa irraa ijaarattee? Isa haaraa al tokko ijaari.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (filannoo sandboxed):** Kuusaa Flatpak kan Arroxy mataa isaa irraa ijaari. Runtime Flathub ofumaan qopheessa; achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha.",
   dl_warning_h3: "Maaliif akeekkachiisa arguu dandeessa",
   dl_warning_p1:
     "Arroxy madda banaa fi hayyama MIT qaba. Ijaarsonni Windows fi macOS **mallattoo hin qaban** — ragaaleen Apple Developer ID fi Windows EV mallattoo koodii kafaltii waggaatti dhibba doolara baay'ee waan gaafataniif, pirojektiin self-funded baasii kana mataa isaarraa kafala. Mallattoo sana malee, Windows SmartScreen fi macOS Gatekeeper yeroo jalqabaatti si akeekachisuu. Akeekkachiisni kun *siistamni kee maxxantiisa hin beeku* jechuudha — Arroxy malwaare dha jechuuf miti.",

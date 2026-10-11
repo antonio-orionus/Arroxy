@@ -256,13 +256,11 @@ export const en = {
   dl_linux_fuse_text: "If launch still fails, run it without mounting — no FUSE package needed:",
   dl_linux_targz_h4: "Plain tarball (no FUSE, no install):",
   dl_linux_targz_text: "The `.tar.gz` build is the same app without the AppImage wrapper — extract it anywhere and run it. No installer and no FUSE package needed.",
-  dl_linux_flatpak_prereq: "Ubuntu ships Snap rather than Flatpak, so install Flatpak and add Flathub first — the bundle pulls its runtime from there:",
+  dl_linux_flatpak_prereq: "Ubuntu ships Snap rather than Flatpak, so install Flatpak first:",
+  dl_linux_flatpak_bundle: "Prefer a file? Download `Arroxy-linux-x64.flatpak` from the same release page and install it instead — it sets up the same repository, so updates work the same way:",
+  dl_linux_flatpak_old_bundle: "**Installed from an older `.flatpak`?** That copy has no update source. Uninstall it once (your settings stay), then run the install command above:",
   dl_linux_arch_note: "**The Linux downloads on the release page are x86_64 only.** On ARM64 machines (Raspberry Pi, Asahi Linux) the Flatpak still installs, then fails at launch with `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**Updates:** the bundle also adds Arroxy's own Flatpak repository, so from then on `flatpak update` (or GNOME Software) keeps Arroxy current. Installed from an older bundle? Install the new one once.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (sandboxed alternative):** download `Arroxy-linux-x64.flatpak` from the same release page.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (sandboxed alternative):** Install it from Arroxy's own Flatpak repository. It sets up the Flathub runtime by itself, and from then on `flatpak update` (or GNOME Software) keeps Arroxy current.",
   dl_warning_h3: "Why you may see a warning",
   dl_warning_p1:
     "Arroxy is open-source and MIT-licensed. The Windows and macOS builds are **not code-signed** — Apple Developer ID and Windows EV code-signing certificates each cost hundreds of dollars per year, which an indie project pays out of pocket. Without those signatures, Windows SmartScreen and macOS Gatekeeper will warn you on first launch. The warnings mean *your OS doesn't recognize the publisher* — they don't mean Arroxy is malware.",

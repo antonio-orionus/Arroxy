@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (ізольована альтернатива):** завантажте `Arroxy-*.flatpak` з тієї ж сторінки релізу.
+**Flatpak (ізольована альтернатива):** Встановіть його з власного Flatpak-репозиторію Arroxy. Середовище виконання Flathub налаштується саме, а далі `flatpak update` (або GNOME Software) підтримуватиме Arroxy в актуальному стані.
 
-В Ubuntu замість Flatpak постачається Snap, тож спершу встановіть Flatpak і додайте Flathub — звідти пакунок завантажує свій runtime:
+В Ubuntu замість Flatpak постачається Snap, тож спершу встановіть Flatpak:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**Оновлення:** пакет також додає власний Flatpak-репозиторій Arroxy, тож надалі `flatpak update` (або GNOME Software) підтримує Arroxy в актуальному стані. Встановлювали зі старого пакета? Встановіть новий один раз.
+Зручніше файлом? Завантажте `Arroxy-linux-x64.flatpak` з тієї ж сторінки релізу й установіть його — він підключає той самий репозиторій, тож оновлення працюють так само:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**Встановлювали зі старого `.flatpak`?** Ця копія не має джерела оновлень. Видаліть її один раз (налаштування збережуться), потім виконайте команду встановлення вище:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **Завантаження для Linux на сторінці релізів лише x86_64.** На машинах ARM64 (Raspberry Pi, Asahi Linux) Flatpak встановиться, але не запуститься: `bwrap: execvp ldconfig: Exec format error`.
 

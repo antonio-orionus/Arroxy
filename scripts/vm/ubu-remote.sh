@@ -105,6 +105,7 @@ cmd_install() {
 	# GitHub on every launch is slow and holds the window on the startup screen.
 	mkdir -p "$INSTALL" "$BASE/userdata" "$(dirname "$DESKTOP")"
 	find "$BASE/userdata" -mindepth 1 -maxdepth 1 ! -name runtime-cache -exec rm -rf {} +
+	seed_profile "$BASE/userdata"
 	cp "$source" "$INSTALL/$name"
 	chmod +x "$INSTALL/$name"
 	printf '[Desktop Entry]\nType=Application\nName=Arroxy (VM update test)\nExec=%s\n' "$INSTALL/$name" >"$DESKTOP"
@@ -130,6 +131,16 @@ wait_for_cdp() {
 		sleep 0.25
 	done
 	die "app did not open CDP port $cdp_port; last log lines: $(tail -5 "$BASE/app.log")"
+}
+
+# seed_profile <user-data-dir> — test launches start with the global hotkey,
+# analytics and clipboard watching off. The hotkey goes through GNOME's
+# GlobalShortcuts portal, which opens an "Add Keyboard Shortcuts" dialog on
+# the user's screen for every unanswered launch; analytics would report VM test
+# runs as real usage.
+seed_profile() {
+	mkdir -p "$1"
+	printf '%s\n' '{"common": {"hotkeyEnabled": false, "analyticsEnabled": false, "clipboardWatchEnabled": false}}' >"$1/settings.json"
 }
 
 cmd_launch() {
@@ -368,6 +379,13 @@ cmd_flatpak_launch() {
 		esac
 	done
 	flatpak info --user "$FLATPAK_ID" >/dev/null 2>&1 || die "$FLATPAK_ID is not installed; run ubu-flatpak-build.sh --install"
+	# A seeded test profile the sandbox can write (its ~/.var/app directory),
+	# fresh per launch apart from the managed yt-dlp.
+	local profile="$HOME/.var/app/$FLATPAK_ID/vm-test-userdata"
+	mkdir -p "$profile"
+	find "$profile" -mindepth 1 -maxdepth 1 ! -name runtime-cache -exec rm -rf {} +
+	seed_profile "$profile"
+	run_args+=(--env=ELECTRON_USER_DATA="$profile")
 	export_session_env "$debug"
 	setsid flatpak run "${run_args[@]}" "$FLATPAK_ID" --remote-debugging-port="$cdp_port" </dev/null >"$BASE/app.log" 2>&1 &
 	wait_for_cdp "$cdp_port"

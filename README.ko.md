@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak(샌드박스 대안):** 같은 릴리스 페이지에서 `Arroxy-linux-x64.flatpak`을 다운로드하세요.
+**Flatpak(샌드박스 대안):** Arroxy 전용 Flatpak 저장소에서 설치하세요. Flathub 런타임은 자동으로 설정되며, 이후에는 `flatpak update`(또는 GNOME 소프트웨어)로 Arroxy를 최신 상태로 유지할 수 있습니다.
 
-Ubuntu는 Flatpak 대신 Snap을 기본 제공하므로 먼저 Flatpak을 설치하고 Flathub를 추가하세요. 번들이 그곳에서 런타임을 가져옵니다:
+Ubuntu에는 Flatpak 대신 Snap이 기본으로 들어 있으므로 먼저 Flatpak을 설치하세요:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**업데이트:** 이 번들은 Arroxy 전용 Flatpak 저장소도 추가하므로, 이후에는 `flatpak update`(또는 GNOME 소프트웨어)로 Arroxy를 최신 상태로 유지할 수 있습니다. 이전 번들로 설치했다면 새 번들을 한 번 설치하세요.
+파일이 더 편하다면 같은 릴리스 페이지에서 `Arroxy-linux-x64.flatpak`을 내려받아 설치하세요. 같은 저장소가 설정되므로 업데이트도 똑같이 동작합니다:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**예전 `.flatpak`으로 설치했나요?** 그 사본에는 업데이트 출처가 없습니다. 한 번 제거한 뒤(설정은 유지됩니다) 위의 설치 명령을 실행하세요:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **릴리스 페이지의 Linux 다운로드는 x86_64 전용입니다.** ARM64 장치(Raspberry Pi, Asahi Linux)에서는 Flatpak이 설치되더라도 시작할 때 `bwrap: execvp ldconfig: Exec format error` 오류가 발생합니다.
 

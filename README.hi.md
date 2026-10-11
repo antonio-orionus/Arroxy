@@ -162,9 +162,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (सैंडबॉक्स विकल्प):** उसी रिलीज़ पेज से `Arroxy-*.flatpak` डाउनलोड करें।
+**Flatpak (सैंडबॉक्स विकल्प):** इसे Arroxy की अपनी Flatpak रिपॉज़िटरी से इंस्टॉल करें। यह Flathub रनटाइम खुद सेट कर लेता है, और उसके बाद `flatpak update` (या GNOME Software) Arroxy को अपडेट रखता है।
 
-Ubuntu में Flatpak की जगह Snap आता है, इसलिए पहले Flatpak इंस्टॉल करें और Flathub जोड़ें — बंडल अपना रनटाइम वहीं से लेता है:
+Ubuntu में Flatpak की जगह Snap आता है, इसलिए पहले Flatpak इंस्टॉल करें:
 
 ```bash
 # Ubuntu / Debian
@@ -178,12 +178,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**अपडेट:** यह बंडल Arroxy की अपनी Flatpak रिपॉज़िटरी भी जोड़ता है, इसलिए उसके बाद `flatpak update` (या GNOME Software) Arroxy को अपडेट रखता है। पुराने बंडल से इंस्टॉल किया था? नया बंडल एक बार इंस्टॉल करें।
+फ़ाइल पसंद है? उसी रिलीज़ पेज से `Arroxy-linux-x64.flatpak` डाउनलोड करें और उसे इंस्टॉल करें — यह वही रिपॉज़िटरी सेट करता है, इसलिए अपडेट उसी तरह काम करते हैं:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**पुराने `.flatpak` से इंस्टॉल किया था?** उस कॉपी का कोई अपडेट स्रोत नहीं है। उसे एक बार अनइंस्टॉल करें (आपकी सेटिंग्स बनी रहेंगी), फिर ऊपर वाला इंस्टॉल कमांड चलाएँ:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **रिलीज़ पेज पर Linux डाउनलोड सिर्फ़ x86_64 के लिए हैं।** ARM64 मशीनों (Raspberry Pi, Asahi Linux) पर Flatpak इंस्टॉल तो हो जाता है, पर लॉन्च पर `bwrap: execvp ldconfig: Exec format error` के साथ विफल होता है।
 

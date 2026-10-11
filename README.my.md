@@ -160,9 +160,9 @@ tar xzf Arroxy-linux-x64.tar.gz
 ./Arroxy-linux-x64/arroxy
 ```
 
-**Flatpak (sandboxed alternative):** တူညီသော release page မှ `Arroxy-*.flatpak` ကို download ဆင်းပါ။
+**Flatpak (sandboxed alternative):** Arroxy ၏ ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းပါ။ Flathub runtime ကို ၎င်းကိုယ်တိုင် ပြင်ဆင်ပေးပြီး ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။
 
-Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ install ပြီး Flathub ကို ထည့်ပါ — bundle သည် runtime ကို ထိုမှ ရယူသည်:
+Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ ထည့်သွင်းပါ:
 
 ```bash
 # Ubuntu / Debian
@@ -176,12 +176,22 @@ sudo pacman -S flatpak
 ```
 
 ```bash
-flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user ./Arroxy-linux-x64.flatpak
+flatpak install --user https://antonio-orionus.github.io/Arroxy/flatpak/io.github.antonio_orionus.Arroxy.flatpakref
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
-**အပ်ဒိတ်များ:** ဤ bundle သည် Arroxy ၏ ကိုယ်ပိုင် Flatpak repository ကိုလည်း ထည့်ပေးသဖြင့် ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ bundle အဟောင်းမှ ထည့်သွင်းထားပါသလား။ အသစ်ကို တစ်ကြိမ် ထည့်သွင်းပါ။
+ဖိုင်ဖြင့် ထည့်လိုပါသလား။ ထုတ်ဝေမှုစာမျက်နှာတစ်ခုတည်းမှ `Arroxy-linux-x64.flatpak` ကို ဒေါင်းလုဒ်လုပ်ပြီး ၎င်းကို ထည့်သွင်းပါ — repository တစ်ခုတည်းကို ပြင်ဆင်ပေးသဖြင့် အပ်ဒိတ်များ အလားတူ အလုပ်လုပ်ပါသည်:
+
+```bash
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install --user ./Arroxy-linux-x64.flatpak
+```
+
+**`.flatpak` အဟောင်းမှ ထည့်သွင်းထားပါသလား။** ထိုမိတ္တူတွင် အပ်ဒိတ်ရင်းမြစ် မရှိပါ။ တစ်ကြိမ် ဖယ်ရှားပြီး (သင့်ဆက်တင်များ ကျန်ရှိနေပါမည်) အထက်ပါ ထည့်သွင်းရေး command ကို run ပါ:
+
+```bash
+flatpak uninstall --user io.github.antonio_orionus.Arroxy
+```
 
 **ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။
 

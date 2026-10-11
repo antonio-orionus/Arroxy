@@ -240,13 +240,11 @@ export const zhHant = {
   dl_linux_fuse_text: "如果仍無法啟動，可以不掛載直接執行 — 無需 FUSE 軟體包：",
   dl_linux_targz_h4: "普通壓縮包（無需 FUSE，無需安裝）：",
   dl_linux_targz_text: "`.tar.gz` 版本就是去掉 AppImage 外殼的同一個應用 — 解壓到任意位置直接執行。無需安裝程式，也無需 FUSE 軟體包。",
-  dl_linux_flatpak_prereq: "Ubuntu 自帶的是 Snap 而非 Flatpak，因此請先安裝 Flatpak 並新增 Flathub — 安裝套件會從那裡取得執行時：",
+  dl_linux_flatpak_prereq: "Ubuntu 內建的是 Snap 而非 Flatpak，所以請先安裝 Flatpak：",
+  dl_linux_flatpak_bundle: "比較想用檔案？從同一個發行頁面下載 `Arroxy-linux-x64.flatpak` 改為安裝它——它會設定同一個軟體庫，所以更新方式完全相同：",
+  dl_linux_flatpak_old_bundle: "**是從舊版 `.flatpak` 安裝的嗎？** 那份安裝沒有更新來源。請先解除安裝一次（設定會保留），再執行上方的安裝指令：",
   dl_linux_arch_note: "**釋出頁面上的 Linux 下載僅提供 x86_64。** 在 ARM64 裝置（樹莓派、Asahi Linux）上 Flatpak 可以安裝，但啟動時會失敗並報 `bwrap: execvp ldconfig: Exec format error`。",
-  dl_linux_flatpak_updates: "**更新：** 此套件也會加入 Arroxy 自己的 Flatpak 軟體庫，之後 `flatpak update`（或 GNOME 軟體）就會讓 Arroxy 保持最新。若是從舊版套件安裝，請再安裝一次新套件。",
-  dl_linux_flatpak_intro:
-    "**Flatpak（沙箱版）：** 從同一釋出頁下載 `Arroxy-*.flatpak`。",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak（沙箱版）：** 從 Arroxy 自己的 Flatpak 軟體庫安裝。它會自動設定 Flathub 執行環境，之後 `flatpak update`（或 GNOME 軟體）就會讓 Arroxy 保持最新。",
   dl_warning_h3: "為什麼可能會看到警告",
   dl_warning_p1:
     "Arroxy 是開源軟體，採用 MIT 授權條款。Windows 和 macOS 版本**未經程式碼簽名** — Apple Developer ID 和 Windows EV 程式碼簽名憑證每年各需數百美元，對於獨立專案來說完全自掏腰包。沒有這些簽名，Windows SmartScreen 和 macOS Gatekeeper 在首次啟動時會向你發出警告。這些警告的意思是*你的系統不認識該釋出者* — 並不意味著 Arroxy 是惡意軟體。",

@@ -254,13 +254,11 @@ export const ar = {
   dl_linux_fuse_text: "إذا فشل التشغيل بعد ذلك، شغّله دون تركيب — لا حاجة إلى حزمة FUSE:",
   dl_linux_targz_h4: "أرشيف عادي (بدون FUSE، بدون تثبيت):",
   dl_linux_targz_text: "إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. بلا مثبِّت وبلا حزمة FUSE.",
-  dl_linux_flatpak_prereq: "يأتي أوبونتو مع Snap بدلاً من Flatpak، لذا ثبّت Flatpak وأضف Flathub أولاً — فالحزمة تجلب بيئة التشغيل من هناك:",
+  dl_linux_flatpak_prereq: "يأتي Ubuntu مع Snap بدلًا من Flatpak، لذا ثبّت Flatpak أولًا:",
+  dl_linux_flatpak_bundle: "تفضّل ملفًا؟ نزّل `Arroxy-linux-x64.flatpak` من صفحة الإصدار نفسها وثبّته بدلًا من ذلك — فهو يُعدّ المستودع نفسه، لذا تعمل التحديثات بالطريقة نفسها:",
+  dl_linux_flatpak_old_bundle: "**ثبّتَّه من ملف `.flatpak` أقدم؟** تلك النسخة بلا مصدر للتحديثات. أزل تثبيتها مرة واحدة (تبقى إعداداتك)، ثم شغّل أمر التثبيت أعلاه:",
   dl_linux_arch_note: "**تنزيلات لينكس في صفحة الإصدارات متاحة لمعمارية x86_64 فقط.** على أجهزة ARM64 (Raspberry Pi، Asahi Linux) يُثبَّت Flatpak لكنه يفشل عند التشغيل برسالة `bwrap: execvp ldconfig: Exec format error`.",
-  dl_linux_flatpak_updates: "**التحديثات:** تضيف الحزمة أيضًا مستودع Flatpak الخاص بـ Arroxy، فيُبقي `flatpak update` (أو GNOME Software) برنامج Arroxy محدّثًا بعد ذلك. ثبّته من حزمة أقدم؟ ثبّت الحزمة الجديدة مرة واحدة.",
-  dl_linux_flatpak_intro:
-    "**Flatpak (بديل معزول):** نزِّل `Arroxy-*.flatpak` من صفحة الإصدار نفسها.",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (بديل معزول):** ثبّته من مستودع Flatpak الخاص بـ Arroxy. يُعدّ بيئة تشغيل Flathub بنفسه، ومن بعدها يُبقي `flatpak update` (أو GNOME Software) برنامج Arroxy محدّثًا.",
   dl_warning_h3: "لماذا قد تظهر لك تحذيرات",
   dl_warning_p1:
     "Arroxy مفتوح المصدر ومرخَّص بـ MIT. إصدارات Windows وmacOS **غير موقَّعة رمزياً** — شهادات Apple Developer ID وWindows EV للتوقيع الرمزي تكلّف كل منها مئات الدولارات سنوياً، وهو ما يتحمّله المشروع المستقل من جيبه. وبدون تلك التوقيعات، سيحذّرك Windows SmartScreen وmacOS Gatekeeper عند الإطلاق الأول. تعني هذه التحذيرات *أن نظام تشغيلك لا يتعرّف على الناشر* — ولا تعني أن Arroxy برنامج خبيث.",

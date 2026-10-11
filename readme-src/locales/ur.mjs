@@ -258,13 +258,11 @@ export const ur = {
   dl_linux_fuse_text: "اگر پھر بھی نہ چلے تو اسے ماؤنٹ کیے بغیر چلائیں — FUSE پیکیج کی ضرورت نہیں:",
   dl_linux_targz_h4: "سادہ ٹاربال (نہ FUSE، نہ انسٹال):",
   dl_linux_targz_text: "`.tar.gz` بلڈ وہی ایپ ہے، بس AppImage ریپر کے بغیر — کہیں بھی ایکسٹریکٹ کریں اور چلائیں۔ نہ انسٹالر چاہیے، نہ FUSE پیکیج۔",
-  dl_linux_flatpak_prereq: "Ubuntu میں Flatpak کے بجائے Snap آتا ہے، اس لیے پہلے Flatpak انسٹال کریں اور Flathub شامل کریں — بنڈل اپنا رن ٹائم وہیں سے لیتا ہے:",
+  dl_linux_flatpak_prereq: "Ubuntu میں Flatpak کی جگہ Snap آتا ہے، اس لیے پہلے Flatpak انسٹال کریں:",
+  dl_linux_flatpak_bundle: "فائل پسند ہے؟ اسی ریلیز صفحے سے `Arroxy-linux-x64.flatpak` ڈاؤن لوڈ کر کے اسے انسٹال کریں — یہ وہی ریپوزٹری سیٹ کرتا ہے، اس لیے اپ ڈیٹس اسی طرح کام کرتی ہیں:",
+  dl_linux_flatpak_old_bundle: "**پرانی `.flatpak` سے انسٹال کیا تھا؟** اس کاپی کا کوئی اپ ڈیٹ ذریعہ نہیں۔ اسے ایک بار ان انسٹال کریں (آپ کی سیٹنگز برقرار رہیں گی)، پھر اوپر والی انسٹال کمانڈ چلائیں:",
   dl_linux_arch_note: "**ریلیز پیج پر Linux ڈاؤن لوڈز صرف x86_64 کے لیے ہیں۔** ARM64 مشینوں (Raspberry Pi، Asahi Linux) پر Flatpak انسٹال تو ہو جاتا ہے مگر لانچ پر `bwrap: execvp ldconfig: Exec format error` کے ساتھ ناکام ہو جاتا ہے۔",
-  dl_linux_flatpak_updates: "**اپ ڈیٹس:** یہ بنڈل Arroxy کی اپنی Flatpak ریپوزٹری بھی شامل کرتا ہے، اس لیے اس کے بعد `flatpak update` (یا GNOME Software) Arroxy کو تازہ رکھتا ہے۔ پرانے بنڈل سے انسٹال کیا تھا؟ نیا بنڈل ایک بار انسٹال کریں۔",
-  dl_linux_flatpak_intro:
-    "**Flatpak (سینڈ باکسڈ متبادل):** اسی ریلیز پیج سے `Arroxy-*.flatpak` ڈاؤن لوڈ کریں۔",
-
-  // ---- Reorganized install help (normie-first, manual-download primary) ----
+  dl_linux_flatpak_intro: "**Flatpak (سینڈ باکسڈ متبادل):** اسے Arroxy کی اپنی Flatpak ریپوزٹری سے انسٹال کریں۔ یہ Flathub رن ٹائم خود سیٹ کر لیتا ہے، اور اس کے بعد `flatpak update` (یا GNOME Software) Arroxy کو تازہ رکھتا ہے۔",
   dl_warning_h3: "آپ کو وارننگ کیوں نظر آ سکتی ہے",
   dl_warning_p1:
     "Arroxy اوپن سورس اور MIT لائسنس یافتہ ہے۔ Windows اور macOS بلڈز **کوڈ سائنڈ نہیں ہیں** — Apple Developer ID اور Windows EV کوڈ سائننگ سرٹیفکیٹس میں سے ہر ایک سالانہ سینکڑوں ڈالر لاگت آتی ہے، جو ایک انڈی پروجیکٹ اپنی جیب سے ادا کرتا ہے۔ ان دستخطوں کے بغیر، Windows SmartScreen اور macOS Gatekeeper پہلی بار لانچ پر آپ کو تنبیہ کریں گے۔ یہ تنبیہات اس بات کی علامت ہیں کہ *آپ کا OS ناشر کو نہیں پہچانتا* — یہ اس بات کی علامت نہیں کہ Arroxy میلویئر ہے۔",
