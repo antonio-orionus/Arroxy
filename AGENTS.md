@@ -537,7 +537,7 @@ git push --follow-tags
 
 ### Job graph
 
-`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `build-flatpak` starts after `build` (builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, `publish-flatpak-repo` (GitHub Pages deploy), and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
+`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `fetch-flatpak-source` downloads the Linux tarball from the draft release after `build` (it alone holds the write token; drafts are invisible to a read-only one), then `build-flatpak` (read-only: builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, `publish-flatpak-repo` (GitHub Pages deploy), and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
 
 Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `publish-release` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
 

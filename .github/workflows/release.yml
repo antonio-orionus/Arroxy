@@ -460,24 +460,47 @@ jobs:
           fi
           gh release edit "$REF_NAME" --draft=false $EXTRA
 
+  fetch-flatpak-source:
+    # The Flatpak is built from the Linux tarball on the release, which is still
+    # a draft here, and drafts are invisible to a read-only token. This job only
+    # downloads the tarball, so the write token never reaches build-flatpak's
+    # build and signing steps.
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download the Linux tarball from the draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --pattern Arroxy-linux-x64.tar.gz \
+            --dir flatpak-source
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: flatpak-source
+          path: flatpak-source/Arroxy-linux-x64.tar.gz
+          if-no-files-found: error
+
   build-flatpak:
     # Builds the Flatpak, signs it into Arroxy's own Flatpak repo (deployed to
     # GitHub Pages by `publish-flatpak-repo` for stable tags) and builds the
     # release bundle, which carries that repo so `flatpak update` works after a
     # bundle install. Not published to Flathub; no manifest changes go to main.
     #
-    # Depends on `build` so Flatpak can be uploaded before `publish-release`
-    # generates SHA256SUMS. The tar.gz hash is computed directly from the
+    # Runs after `build` (through fetch-flatpak-source) so Flatpak can be
+    # uploaded before `publish-release` generates SHA256SUMS. The tar.gz hash is computed directly from the
     # artifact rather than read out of SHA256SUMS, keeping this job independent
     # from the final publish gate.
-    needs: build
+    needs: fetch-flatpak-source
     runs-on: ubuntu-latest
-    # contents: write only so `gh release download` can see the release: it is
-    # still a draft here, and drafts are invisible to a read-only token.
-    # Nothing in this job writes to the repo (upload-flatpak and
-    # publish-flatpak-repo do the publishing).
+    # Read-only: this job runs the Flatpak build and holds the repo signing key.
+    # The tarball comes from fetch-flatpak-source; upload-flatpak and
+    # publish-flatpak-repo do the publishing.
     permissions:
-      contents: write
+      contents: read
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
@@ -488,9 +511,11 @@ jobs:
           # dates of prior v* tags to render the metainfo <releases> block.
           fetch-depth: 0
           fetch-tags: true
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: flatpak-source
+          path: flatpak
       - name: Render manifest for this release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # The flatpak-builder container runs as a different user than the
           # workspace owner; without this, git refuses to read the repo with
@@ -499,10 +524,6 @@ jobs:
           # across steps in this container image.
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           TARBALL="Arroxy-linux-x64.tar.gz"
-          gh release download "${GITHUB_REF_NAME}" \
-            --repo "${GITHUB_REPOSITORY}" \
-            --pattern "$TARBALL" \
-            --dir flatpak
           HASH=$(sha256sum "flatpak/$TARBALL" | awk '{print $1}')
           python3 scripts/render-flatpak-manifest.py \
             --sha256 "$HASH" \

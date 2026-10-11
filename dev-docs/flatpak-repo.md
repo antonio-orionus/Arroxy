@@ -36,11 +36,12 @@ The `.flatpakref` install needs nothing else set up: on an installation with no 
 
 ## How a release publishes it
 
-1. `build-flatpak` builds with `flatpak-builder` into `repo/` (the action's own bundle and artifact are off).
-2. It imports `FLATPAK_GPG_PRIVATE_KEY` and checks its fingerprint against `flatpak/repo-signing-key.asc`.
-3. `publish-repo.sh` signs the app commit (`flatpak build-sign`), rebuilds and signs the summary and appstream data (`flatpak build-update-repo --prune`), copies the repo into `flatpak-site/flatpak/`, writes `arroxy.flatpakrepo`, `io.github.antonio_orionus.Arroxy.flatpakref` and an index page, and builds `arroxy.flatpak` with `--repo-url` and the key.
-4. The bundle goes to the release as before (`upload-flatpak`); for stable tags the site is uploaded as the Pages artifact.
-5. `publish-flatpak-repo` deploys it with `actions/deploy-pages` after `publish-release`, so the repo never announces a release before the GitHub Release is public.
+1. `fetch-flatpak-source` downloads the Linux tarball from the release, which is still a draft. Only this job gets `contents: write` (a read-only token cannot see drafts), so the write token never reaches the build or the signing key.
+2. `build-flatpak` (read-only) builds from that tarball with `flatpak-builder` into `repo/` (the action's own bundle and artifact are off).
+3. It imports `FLATPAK_GPG_PRIVATE_KEY` and checks its fingerprint against `flatpak/repo-signing-key.asc`.
+4. `publish-repo.sh` signs the app commit (`flatpak build-sign`), rebuilds and signs the summary and appstream data (`flatpak build-update-repo --prune`), copies the repo into `flatpak-site/flatpak/`, writes `arroxy.flatpakrepo`, `io.github.antonio_orionus.Arroxy.flatpakref` and an index page, and builds `arroxy.flatpak` with `--repo-url` and the key.
+5. The bundle goes to the release as before (`upload-flatpak`); for stable tags the site is uploaded as the Pages artifact.
+6. `publish-flatpak-repo` deploys it with `actions/deploy-pages` after `publish-release`, so the repo never announces a release before the GitHub Release is public.
 
 The repo is rebuilt from scratch each release and holds only the latest commit. Installed copies still update: OSTree fetches the new commit's objects and reuses what is already on disk.
 
