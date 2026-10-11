@@ -77,7 +77,7 @@ verify: `gh pr view <N> --json state` reports `MERGED`; `origin/main` contains t
 ### 9. Release
 Run from `main` (the primary checkout or a fresh worktree on `origin/main`), local `main` equal to `origin/main`:
 
-1. Bump `package.json` version: patch for fixes, minor for features, beta suffix only if asked. Run this phase autonomously — do not hand the release script back to the user.
+1. Bump `package.json` version: patch for fixes **and** features — throughout 0.4.x even a UI redesign and six new languages shipped as patches. A minor bump only closes out a beta line or marks a milestone the user names. Beta suffix only if asked. Run this phase autonomously — do not hand the release script back to the user.
 2. Add a `## <version>` section at the top of `CHANGELOG.md`, same shape and friendly user-facing tone as the latest entries (one-line summary, then `## Highlights` bullets in plain language). It is the release-notes source of truth; never edit GitHub release notes directly.
 3. `bun run check`, then commit `release: <version>` and push `main`.
 4. Wait for the required checks on that main commit to pass; `scripts/release.sh` refuses a stable tag otherwise (`bash scripts/release.sh stable --verify-only` previews the gate).
