@@ -13,7 +13,7 @@
 			"zone_name": "orionus.dev"
 		},
 		{
-			"pattern": "orionus.dev/arroxy/api/feedback-diagnostics",
+			"pattern": "orionus.dev/arroxy/api/feedback-diagnostics*",
 			"zone_name": "orionus.dev"
 		}
 	],

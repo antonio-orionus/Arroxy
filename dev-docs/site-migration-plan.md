@@ -104,8 +104,9 @@ Each stage lists what it changes in production, how to verify it, and how to und
 
 1. Accept `/api/feedback-diagnostics` **and** `/arroxy/api/feedback-diagnostics` in
    `workers/feedback-upload/src/index.ts`; add tests for both and for any other path still returning 404.
-2. Add the route `orionus.dev/arroxy/api/feedback-diagnostics` next to the old one in `wrangler.jsonc`. It only claims
-   one exact path that returns 404 on the personal site today.
+2. Add the route `orionus.dev/arroxy/api/feedback-diagnostics*` next to the old one in `wrangler.jsonc` (the trailing `*`
+   lets query strings through; route matching includes them). It only claims a path that returns 404 on the personal
+   site today, and the handler still checks the exact pathname.
 3. PR → merge → `wrangler deploy`.
 - **verify:** smoke `feedback` + `personal`. Then a real upload end to end: run the app with
   `ARROXY_FEEDBACK_DIAGNOSTICS_URL=https://orionus.dev/arroxy/api/feedback-diagnostics`, send feedback with diagnostics,

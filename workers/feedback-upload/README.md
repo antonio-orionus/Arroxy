@@ -33,7 +33,7 @@ bunx wrangler deploy --dry-run
 bunx wrangler deploy
 ```
 
-The routes in `wrangler.jsonc` assume `orionus.dev` is on Cloudflare and that `arroxy.orionus.dev` keeps a proxied DNS record. Set both routes to fail closed (dashboard → Workers Routes), so an exhausted Free-plan request quota never forwards uploads to another origin.
+The routes in `wrangler.jsonc` assume `orionus.dev` is on Cloudflare and that `arroxy.orionus.dev` keeps a proxied DNS record. The new route ends in `*` because route matching includes the query string; the handler still checks the exact pathname. Set both routes to fail closed (dashboard → Workers Routes), so an exhausted Free-plan request quota never forwards uploads to another origin.
 
 ## Required Cloudflare Hardening
 

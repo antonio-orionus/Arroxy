@@ -88,11 +88,15 @@ describe('feedback upload Worker', () => {
 		expect(put).not.toHaveBeenCalled()
 	})
 
-	it('accepts uploads on the subpath route and shares the legacy rate-limit bucket', async () => {
+	it('accepts uploads on the subpath route, with or without a query string, sharing the legacy rate-limit bucket', async () => {
 		const {bucket, put} = makeBucket()
 		const {rateLimit, limit} = makeRateLimit()
 		const response = await worker.fetch(
-			new Request('https://orionus.dev/arroxy/api/feedback-diagnostics', {method: 'POST', headers: {'x-arroxy-upload': 'feedback-diagnostic-v1', 'x-arroxy-report-id': reportId, 'content-type': 'application/gzip', 'content-encoding': 'gzip', 'cf-connecting-ip': '203.0.113.10'}, body: new Uint8Array([31, 139, 8, 0])}),
+			new Request('https://orionus.dev/arroxy/api/feedback-diagnostics?source=app', {
+				method: 'POST',
+				headers: {'x-arroxy-upload': 'feedback-diagnostic-v1', 'x-arroxy-report-id': reportId, 'content-type': 'application/gzip', 'content-encoding': 'gzip', 'cf-connecting-ip': '203.0.113.10'},
+				body: new Uint8Array([31, 139, 8, 0])
+			}),
 			makeEnv(bucket, rateLimit)
 		)
 
