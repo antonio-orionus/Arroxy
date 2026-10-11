@@ -8,6 +8,15 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.25
+
+Arroxy's website has a new address: **https://orionus.dev/arroxy/**.
+
+## Highlights
+
+- **New website address.** The About, Share, and update "Download" links now open https://orionus.dev/arroxy/. Old links to `arroxy.orionus.dev`, including the ones in earlier versions of Arroxy, keep working and forward to the new address.
+- **Feedback diagnostics** upload to the new address too. Uploads from earlier versions keep working unchanged.
+
 ## 0.4.24
 
 Flatpak users now get updates, and on Linux Arroxy's window shows its own icon.

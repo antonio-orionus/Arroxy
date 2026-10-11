@@ -50,15 +50,32 @@ describe('FeedbackDiagnostics', () => {
 		const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify({report_id: reportId, diagnostic_url: null}), {status: 201, headers: {'content-type': 'application/json'}}))
 
 		try {
-			const result = await uploadFeedbackDiagnostic({endpoint: 'https://arroxy.orionus.dev/api/feedback-diagnostics', fetchImpl, logPath, reportId})
+			const result = await uploadFeedbackDiagnostic({endpoint: 'https://orionus.dev/arroxy/api/feedback-diagnostics', fetchImpl, logPath, reportId})
 
 			expect(result).toMatchObject({reportId, diagnosticUrl: null, rawBytes: 15, truncated: false})
 			expect(result.compressedBytes).toBeGreaterThan(0)
 			expect(fetchImpl).toHaveBeenCalledWith(
-				'https://arroxy.orionus.dev/api/feedback-diagnostics',
+				'https://orionus.dev/arroxy/api/feedback-diagnostics',
 				expect.objectContaining({method: 'POST', body: expect.any(ArrayBuffer), headers: expect.objectContaining({'x-arroxy-upload': 'feedback-diagnostic-v1', 'x-arroxy-report-id': reportId, 'content-type': 'application/gzip', 'content-encoding': 'gzip'})})
 			)
 		} finally {
+			await fs.rm(tempDir, {force: true, recursive: true})
+		}
+	})
+
+	it('posts to the site subpath endpoint by default', async () => {
+		const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-feedback-diagnostics-default-'))
+		const logPath = path.join(tempDir, 'main.log')
+		await fs.writeFile(logPath, 'diagnostic log\n')
+		const reportId = '11111111-1111-4111-8111-111111111111'
+		const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify({report_id: reportId, diagnostic_url: null}), {status: 201, headers: {'content-type': 'application/json'}}))
+		vi.stubEnv('ARROXY_FEEDBACK_DIAGNOSTICS_URL', undefined)
+
+		try {
+			await uploadFeedbackDiagnostic({fetchImpl, logPath, reportId})
+			expect(fetchImpl).toHaveBeenCalledWith('https://orionus.dev/arroxy/api/feedback-diagnostics', expect.anything())
+		} finally {
+			vi.unstubAllEnvs()
 			await fs.rm(tempDir, {force: true, recursive: true})
 		}
 	})
@@ -85,7 +102,7 @@ describe('FeedbackDiagnostics', () => {
 
 		try {
 			vi.useFakeTimers()
-			const upload = uploadFeedbackDiagnostic({endpoint: 'https://arroxy.orionus.dev/api/feedback-diagnostics', fetchImpl, logPath, reportId, timeoutMs: 1})
+			const upload = uploadFeedbackDiagnostic({endpoint: 'https://orionus.dev/arroxy/api/feedback-diagnostics', fetchImpl, logPath, reportId, timeoutMs: 1})
 			const rejectedUpload = expectRejectsToThrow(upload, 'Diagnostic upload timed out')
 			await fetchStarted
 			await vi.advanceTimersByTimeAsync(1)
@@ -101,7 +118,7 @@ describe('FeedbackDiagnostics', () => {
 	it('rejects invalid report ids before reading or uploading logs', async () => {
 		const fetchImpl = vi.fn()
 
-		await expectRejectsToThrow(uploadFeedbackDiagnostic({endpoint: 'https://arroxy.orionus.dev/api/feedback-diagnostics', fetchImpl, logPath: '/tmp/does-not-matter.log', reportId: 'report-123'}), 'Invalid feedback report id')
+		await expectRejectsToThrow(uploadFeedbackDiagnostic({endpoint: 'https://orionus.dev/arroxy/api/feedback-diagnostics', fetchImpl, logPath: '/tmp/does-not-matter.log', reportId: 'report-123'}), 'Invalid feedback report id')
 		expect(fetchImpl).not.toHaveBeenCalled()
 	})
 
@@ -113,7 +130,7 @@ describe('FeedbackDiagnostics', () => {
 		const fetchImpl = vi.fn().mockResolvedValue(new Response(JSON.stringify({report_id: '22222222-2222-4222-8222-222222222222', diagnostic_url: null}), {status: 201, headers: {'content-type': 'application/json'}}))
 
 		try {
-			await expectRejectsToThrow(uploadFeedbackDiagnostic({endpoint: 'https://arroxy.orionus.dev/api/feedback-diagnostics', fetchImpl, logPath, reportId}), 'Diagnostic upload response report_id did not match request')
+			await expectRejectsToThrow(uploadFeedbackDiagnostic({endpoint: 'https://orionus.dev/arroxy/api/feedback-diagnostics', fetchImpl, logPath, reportId}), 'Diagnostic upload response report_id did not match request')
 		} finally {
 			await fs.rm(tempDir, {force: true, recursive: true})
 		}

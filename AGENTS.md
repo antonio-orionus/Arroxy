@@ -348,7 +348,7 @@ async (page) => {
       extraHTTPHeaders: { 'Accept-Language': 'hi-IN,hi;q=0.9,en;q=0.5' }
     });
   const p = await context.newPage();
-  await p.goto('https://arroxy.orionus.dev/');
+  await p.goto('https://orionus.dev/arroxy/');
   await p.waitForTimeout(1500); // let inline redirect script fire
   const result = { url: p.url(), title: await p.title() };
   await context.close();
@@ -451,8 +451,8 @@ Renderer shows `<UpdateBanner>` between title bar and content area; `resolveActi
 - `scoop` → copy-command for `scoop update arroxy`
 - `homebrew` → copy-command for `brew upgrade --cask arroxy`
 - `flatpak` → copy-command for `flatpak update io.github.antonio_orionus.Arroxy` (updates come from Arroxy's own Flatpak repo; see Release Pipeline). On Linux electron-updater only checks inside an AppImage, so Flatpak sets `autoUpdater.forceDevUpdateConfig` to let the *check* run; `flatpak` is non-installable, nothing is downloaded.
-- `portable` → "Download ↗" link to https://arroxy.orionus.dev/ (NSIS auto-update can't run from a %TEMP% extract)
-- `direct` on darwin → "Download ↗" link to https://arroxy.orionus.dev/ (DMG is unsigned, can't self-update)
+- `portable` → "Download ↗" link to https://orionus.dev/arroxy/ (NSIS auto-update can't run from a %TEMP% extract)
+- `direct` on darwin → "Download ↗" link to https://orionus.dev/arroxy/ (DMG is unsigned, can't self-update)
 - `direct` on win/linux (and `winget`) → "Install & Restart" button → invokes `updater:install` → main calls `downloadUpdate()` → on `update-downloaded` calls `quitAndInstall(false, true)`
 
 ### Known gap: Linux tar.gz never sees the banner
@@ -616,7 +616,7 @@ The `Last updated:` date in each README is stamped by `build.mjs` — never hand
 
 The build script validates **key parity** — if any locale is missing a key that `en` has (or has an extra key), the build fails loudly. Every new string must be translated into every supported language.
 
-The landing site (`arroxy.orionus.dev`) lives in a separate repo: [antonio-orionus/arroxy-web](https://github.com/antonio-orionus/arroxy-web). Don't update landing copy from here — open a PR there instead.
+The landing site (`orionus.dev/arroxy/`; the old `arroxy.orionus.dev` 301s there) lives in a separate repo: [antonio-orionus/arroxy-web](https://github.com/antonio-orionus/arroxy-web). Don't update landing copy from here — open a PR there instead.
 
 ### Adding a new feature
 

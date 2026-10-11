@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import {WEBSITE_URL} from '@shared/constants.js'
 import type {UpdateAvailablePayload} from '@shared/types.js'
 
 export interface UpdateChannelState {
@@ -29,7 +30,7 @@ export function useUpdateChannel(): UpdateChannelState {
 	}
 
 	function download(): void {
-		void window.appApi.shell.openExternal('https://arroxy.orionus.dev/')
+		void window.appApi.shell.openExternal(WEBSITE_URL)
 		setInfo(null)
 	}
 

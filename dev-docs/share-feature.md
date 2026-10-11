@@ -160,7 +160,7 @@ grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7
 All share URLs use `encodeURIComponent`. Default share text comes from `i18next.t('share.defaultMessage')`. URL constant:
 
 ```ts
-const SHARE_URL = 'https://arroxy.orionus.dev';
+const SHARE_URL = WEBSITE_URL; // 'https://orionus.dev/arroxy/' from @shared/constants
 ```
 
 External open uses `window.appApi.shell.openExternal(url)` (Electron IPC → OS default browser/handler) — **not** `window.open`.

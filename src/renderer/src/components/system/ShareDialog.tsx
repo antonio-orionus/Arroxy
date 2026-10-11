@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Button} from '../ui/button.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {WEBSITE_URL} from '@shared/constants.js'
 import {track} from '../../lib/analytics.js'
 
 import IconX from '~icons/simple-icons/x'
@@ -30,8 +31,6 @@ import IconSkype from '~icons/logos/skype'
 import IconPocket from '~icons/simple-icons/pocket'
 import IconBuffer from '~icons/simple-icons/buffer'
 import IconDiaspora from '~icons/simple-icons/diaspora'
-
-const SHARE_URL = 'https://arroxy.orionus.dev'
 
 // Viber dropped: viber://forward URL is rejected by shell.openExternal's
 // http(s)-only allowlist (fileHandlers.ts), so the button silently did nothing.
@@ -112,7 +111,7 @@ export function ShareDialog(): ReactNode {
 	}
 
 	function handleCopy(): void {
-		void navigator.clipboard.writeText(SHARE_URL).then(() => {
+		void navigator.clipboard.writeText(WEBSITE_URL).then(() => {
 			clickedRef.current = true
 			track('share_destination_clicked', {destination: 'copy'})
 			track('share_link_copied')
@@ -125,7 +124,7 @@ export function ShareDialog(): ReactNode {
 		const msg = t('share.defaultMessage')
 		clickedRef.current = true
 		track('share_destination_clicked', {destination: dest.id})
-		openExternal(dest.buildUrl(SHARE_URL, msg))
+		openExternal(dest.buildUrl(WEBSITE_URL, msg))
 	}
 
 	return (
@@ -137,7 +136,7 @@ export function ShareDialog(): ReactNode {
 				</DialogHeader>
 
 				<div className="flex items-center gap-2 rounded-md border border-border-strong bg-muted/40 px-3 py-2">
-					<span className="flex-1 truncate text-xs font-mono text-foreground">{SHARE_URL}</span>
+					<span className="flex-1 truncate text-xs font-mono text-foreground">{WEBSITE_URL}</span>
 					<Button type="button" variant="outline" size="sm" onClick={handleCopy} data-testid="share-copy-link">
 						{copied ? <CopyCheck size={14} /> : <Copy size={14} />}
 						<span>{copied ? t('share.copied') : t('share.copyLink')}</span>
