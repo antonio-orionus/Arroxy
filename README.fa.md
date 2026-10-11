@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 اسکریپت Linux دانلود را با `SHA256SUMS` منتشرشده بررسی می‌کند و Arroxy را به منوی برنامه‌ها می‌افزاید. ساخت‌ها فقط برای x86_64 هستند. `curl` ندارید؟ `curl -fsSL` را با `wget -qO-` جایگزین کنید.
 
+**Flatpak ایزوله را ترجیح می‌دهید؟** `--flatpak` را اضافه کنید. در صورت نیاز ابتدا Flatpak را نصب می‌کند (تنها مرحله‌ای که `sudo` می‌خواهد)، سپس Arroxy را از مخزن Flatpak خودش نصب می‌کند تا `flatpak update` آن را به‌روز نگه دارد. نسخه‌ای که از یک `.flatpak` قدیمی‌تر نصب شده جایگزین می‌شود و تنظیماتش می‌ماند:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | پلتفرم | دانلود مستقیم |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

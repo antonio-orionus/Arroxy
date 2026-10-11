@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Skrip Linux memverifikasi unduhan terhadap `SHA256SUMS` yang dipublikasikan dan menambahkan Arroxy ke menu aplikasi Anda. Build hanya tersedia untuk x86_64. Tidak ada `curl`? Ganti `curl -fsSL` dengan `wget -qO-`.
 
+**Lebih suka Flatpak yang tersandbox?** Tambahkan `--flatpak`. Skrip ini memasang Flatpak terlebih dahulu bila perlu (satu-satunya langkah yang meminta `sudo`), lalu memasang Arroxy dari repositori Flatpak miliknya, sehingga `flatpak update` menjaganya tetap mutakhir. Salinan dari `.flatpak` lama diganti dan pengaturannya tetap ada:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Platform | Unduh langsung |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

@@ -162,6 +162,7 @@ export const ko = {
   dl_platform_col: "플랫폼",
   dl_format_col: "직접 다운로드",
   dl_oneline_note: "Linux 스크립트는 공개된 `SHA256SUMS`와 다운로드를 대조하고 Arroxy를 애플리케이션 메뉴에 추가합니다. 빌드는 x86_64 전용입니다. `curl`이 없나요? `curl -fsSL`을 `wget -qO-`로 바꾸세요.",
+  dl_oneline_flatpak: "**샌드박스된 Flatpak을 원하시나요?** `--flatpak`을 붙이세요. 필요하면 먼저 Flatpak을 설치하고(`sudo`를 묻는 유일한 단계), 이어서 Arroxy 전용 Flatpak 저장소에서 Arroxy를 설치하므로 `flatpak update`로 최신 상태를 유지할 수 있습니다. 예전 `.flatpak`으로 설치한 사본은 교체되며 설정은 유지됩니다:",
   dl_win_scoop: "Scoop을 선호하나요? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_grab: "모든 릴리스 파일 →",
   dl_win_h3: "Windows: 설치형과 포터블",

@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Hati ya Linux huthibitisha upakuaji dhidi ya `SHA256SUMS` zilizochapishwa na kuongeza Arroxy kwenye menyu yako ya programu. Matoleo ni ya x86_64 pekee. Huna `curl`? Badilisha `curl -fsSL` kuwa `wget -qO-`.
 
+**Unapendelea Flatpak iliyotengwa?** Ongeza `--flatpak`. Husakinisha Flatpak kwanza ikihitajika (hatua pekee inayoomba `sudo`), kisha husakinisha Arroxy kutoka hazina yake ya Flatpak, kwa hivyo `flatpak update` huiweka ya kisasa. Nakala kutoka `.flatpak` ya zamani hubadilishwa na mipangilio yake inabaki:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Jukwaa | Fomati |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

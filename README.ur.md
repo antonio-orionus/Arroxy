@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 لینکس اسکرپٹ ڈاؤن لوڈ کو شائع کردہ `SHA256SUMS` کے مقابل جانچتا ہے اور Arroxy کو آپ کے ایپلیکیشن مینو میں شامل کرتا ہے۔ بلڈز صرف x86_64 کے لیے ہیں۔ `curl` نہیں ہے؟ `curl -fsSL` کی جگہ `wget -qO-` استعمال کریں۔
 
+**سینڈ باکس والا Flatpak پسند ہے؟** `--flatpak` شامل کریں۔ ضرورت ہو تو یہ پہلے Flatpak انسٹال کرتا ہے (صرف یہی قدم `sudo` مانگتا ہے)، پھر Arroxy کو اس کی اپنی Flatpak ریپوزٹری سے انسٹال کرتا ہے، تاکہ `flatpak update` اسے تازہ رکھے۔ پرانی `.flatpak` سے انسٹال کی گئی کاپی بدل دی جاتی ہے اور اس کی سیٹنگز برقرار رہتی ہیں:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | پلیٹ فارم | فارمیٹ |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

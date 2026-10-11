@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 O script de Linux verifica o download com os `SHA256SUMS` publicados e adiciona o Arroxy ao seu menu de aplicações. As versões são apenas x86_64. Sem `curl`? Troque `curl -fsSL` por `wget -qO-`.
 
+**Prefere o Flatpak isolado?** Adicione `--flatpak`. Ele instala o Flatpak primeiro se precisar (o único passo que pede `sudo`) e depois o Arroxy a partir do seu próprio repositório Flatpak, então `flatpak update` o mantém atualizado. Uma cópia de um `.flatpak` antigo é substituída e mantém as configurações:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Plataforma | Download direto |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

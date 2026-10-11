@@ -200,6 +200,7 @@ export const pt = {
   dl_format_col: "Download direto",
   dl_oneline_note:
     "O script de Linux verifica o download com os `SHA256SUMS` publicados e adiciona o Arroxy ao seu menu de aplicações. As versões são apenas x86_64. Sem `curl`? Troque `curl -fsSL` por `wget -qO-`.",
+  dl_oneline_flatpak: "**Prefere o Flatpak isolado?** Adicione `--flatpak`. Ele instala o Flatpak primeiro se precisar (o único passo que pede `sudo`) e depois o Arroxy a partir do seu próprio repositório Flatpak, então `flatpak update` o mantém atualizado. Uma cópia de um `.flatpak` antigo é substituída e mantém as configurações:",
   dl_win_scoop:
     "Prefere o Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Instalador (NSIS) ou `.exe` portátil",

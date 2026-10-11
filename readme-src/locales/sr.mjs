@@ -197,6 +197,7 @@ export const sr = {
   dl_format_col: "Формат",
   dl_oneline_note:
     "Linux скрипта проверава преузимање помоћу објављених `SHA256SUMS` и додаје Arroxy у мени апликација. Верзије су само x86_64. Немате `curl`? Замените `curl -fsSL` са `wget -qO-`.",
+  dl_oneline_flatpak: "**Више волите изоловани Flatpak?** Додајте `--flatpak`. По потреби прво инсталира Flatpak (једини корак који тражи `sudo`), затим Arroxy из његовог сопственог Flatpak репозиторијума, па га `flatpak update` одржава ажурним. Копија из старијег `.flatpak` се замењује и задржава подешавања:",
   dl_win_scoop:
     "Више волите Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Инсталатер (NSIS) или преносиви `.exe`",

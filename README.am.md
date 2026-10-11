@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 የLinux ስክሪፕቱ ማውረዱን ከታተሙት `SHA256SUMS` ጋር ያረጋግጣል እንዲሁም Arroxy ወደ መተግበሪያዎች ዝርዝርዎ ይጨምራል። ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።
 
+**በገለልተኛ ሳጥን የሚሰራውን Flatpak ይመርጣሉ?** `--flatpak` ያክሉ። አስፈላጊ ከሆነ መጀመሪያ Flatpakን ይጭናል (`sudo` የሚጠይቀው ብቸኛው ደረጃ)፣ ከዚያ Arroxyን ከራሱ Flatpak ማከማቻ ይጭናል፣ ስለዚህ `flatpak update` ወቅታዊ ያደርገዋል። ከቀድሞ `.flatpak` የተጫነ ቅጂ ይተካል፤ ቅንብሮቹም ይቆያሉ፦
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | ሥርዓተ ክወና | ቅርጸት |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

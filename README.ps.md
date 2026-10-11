@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 د لینکس سکریپټ ډاونلوډ د خپاره شوي `SHA256SUMS` پر وړاندې تاییدوي او Arroxy ستاسو د اپلیکیشنونو مینو ته ورزیاتوي. جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.
 
+**بند (sandboxed) Flatpak غوره کوئ؟** `--flatpak` ورزیات کړئ. که اړتیا وي لومړی Flatpak نصبوي (یوازینی ګام چې `sudo` غواړي)، بیا Arroxy د هغه له خپلې Flatpak ذخیرې نه نصبوي، نو `flatpak update` یې تازه ساتي. له زاړه `.flatpak` نه نصب شوې کاپي بدلیږي او امستنې یې پاتې کیږي:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | پلیټفارم | بڼه |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

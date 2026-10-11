@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.
 
+**تفضّل نسخة Flatpak المعزولة؟** أضف `--flatpak`. يثبّت Flatpak أولًا إن لزم (الخطوة الوحيدة التي تطلب `sudo`)، ثم يثبّت Arroxy من مستودع Flatpak الخاص به، فيُبقيه `flatpak update` محدّثًا. تُستبدل النسخة المثبّتة من ملف `.flatpak` أقدم مع الاحتفاظ بإعداداتها:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | النظام | الصيغة |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

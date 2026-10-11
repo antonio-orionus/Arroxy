@@ -360,6 +360,27 @@ cmd_flatpak_install_debug() {
 	retry 3 flatpak install --user --noninteractive -y "$remote" "$FLATPAK_ID.Debug"
 }
 
+# flatpak-install-old-bundle — the situation of users from 0.4.22 and earlier:
+# a copy from a bundle without a repo, plus a settings file to prove an
+# upgrade path keeps user data (see flatpak-marker).
+cmd_flatpak_install_old_bundle() {
+	flatpak build-bundle --runtime-repo=https://dl.flathub.org/repo/flathub.flatpakrepo --arch=aarch64 \
+		"$BASE/flatpak-repo" "$BASE/old-style.flatpak" "$FLATPAK_ID" master
+	retry 3 flatpak install --user --noninteractive -y "$BASE/old-style.flatpak" >/dev/null
+	rm -f "$BASE/old-style.flatpak"
+	mkdir -p "$HOME/.var/app/$FLATPAK_ID/config/arroxy"
+	echo marker >"$HOME/.var/app/$FLATPAK_ID/config/arroxy/vm-test-marker"
+}
+
+cmd_flatpak_marker() {
+	[[ -f $HOME/.var/app/$FLATPAK_ID/config/arroxy/vm-test-marker ]] && echo kept || echo lost
+}
+
+# flatpak-copies — how many installations hold the app (user + system).
+cmd_flatpak_copies() {
+	flatpak list --columns=application | grep -cx "$FLATPAK_ID" || true
+}
+
 # flatpak-update — exactly the command the in-app banner hands out.
 cmd_flatpak_update() {
 	retry 3 flatpak update --noninteractive -y "$FLATPAK_ID"
@@ -512,6 +533,9 @@ case "$command" in
 	flatpak-install-ref) cmd_flatpak_install_ref "$@" ;;
 	flatpak-install-bundle) cmd_flatpak_install_bundle ;;
 	flatpak-install-debug) cmd_flatpak_install_debug ;;
+	flatpak-install-old-bundle) cmd_flatpak_install_old_bundle ;;
+	flatpak-marker) cmd_flatpak_marker ;;
+	flatpak-copies) cmd_flatpak_copies ;;
 	flatpak-update) cmd_flatpak_update ;;
 	flatpak-origin) cmd_flatpak_origin ;;
 	app-id) cmd_app_id ;;

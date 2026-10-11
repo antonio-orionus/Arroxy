@@ -4,12 +4,19 @@
 #   curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 #   wget -qO- https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh
 #
-# Uninstall (note the `-s --`, needed because the script arrives on stdin):
-#   curl -fsSL <url> | sh -s -- --uninstall
+# Options go after `sh -s --`, needed because the script arrives on stdin:
+#   curl -fsSL <url> | sh -s -- --flatpak      install the Flatpak instead
+#   curl -fsSL <url> | sh -s -- --uninstall    remove the AppImage install
 #
-# Downloads the latest AppImage, verifies it against the release's published
-# SHA256SUMS, and adds a desktop entry so Arroxy shows up in the applications
-# menu. Everything lands under $HOME — no sudo, no system paths.
+# By default: downloads the latest AppImage, verifies it against the release's
+# published SHA256SUMS, and adds a desktop entry so Arroxy shows up in the
+# applications menu. Everything lands under $HOME — no sudo, no system paths.
+#
+# --flatpak: installs Flatpak itself if it is missing (the one step that needs
+# sudo), then installs Arroxy for the current user from Arroxy's own Flatpak
+# repo, so `flatpak update` and GNOME Software keep it current. Flatpak checks
+# the repo's GPG signature on every install and update. A copy installed from an
+# older .flatpak bundle (no update source) is replaced; its settings stay.
 #
 # POSIX sh on purpose: this is piped into `sh`, so bashisms would break on
 # dash/ash. Nothing here may read stdin — stdin is the script itself.
@@ -44,7 +51,13 @@ uninstall() {
   exit 0
 }
 
-[ "${1:-}" = "--uninstall" ] && uninstall
+mode=appimage
+case "${1:-}" in
+  "") ;;
+  --uninstall) uninstall ;;
+  --flatpak) mode=flatpak ;;
+  *) die "Unknown option: $1 (expected --flatpak or --uninstall)" ;;
+esac
 
 # --- environment checks ------------------------------------------------------
 
@@ -57,15 +70,99 @@ case "$os" in
   *) die "Unsupported OS: $os" ;;
 esac
 
+# ARROXY_FLATPAKREF points --flatpak at another repo; the test VM uses it for a
+# local arm64 repo, which is also why it lifts the x86_64-only check.
+FLATPAK_ID="io.github.antonio_orionus.Arroxy"
+FLATPAKREF="${ARROXY_FLATPAKREF:-https://antonio-orionus.github.io/Arroxy/flatpak/${FLATPAK_ID}.flatpakref}"
+FLATPAK_REPO_URL="${FLATPAKREF%/*}/repo/"
+
 arch="$(uname -m)"
 case "$arch" in
   x86_64|amd64) ;;
   aarch64|arm64)
-    die "Arroxy publishes x86_64 Linux builds only, and this machine is $arch.
-    An x86_64 AppImage cannot run here, so nothing was installed.
-    Track ARM64 support: https://github.com/${REPO}/issues" ;;
+    if [ "$mode" = appimage ] || [ -z "${ARROXY_FLATPAKREF:-}" ]; then
+      die "Arroxy publishes x86_64 Linux builds only, and this machine is $arch.
+    An x86_64 build cannot run here, so nothing was installed.
+    Track ARM64 support: https://github.com/${REPO}/issues"
+    fi ;;
   *) die "Unsupported architecture: $arch (x86_64 only)" ;;
 esac
+
+# --- --flatpak ---------------------------------------------------------------
+
+as_root() {
+  if [ "$(id -u)" -eq 0 ]; then
+    "$@"
+  elif command -v sudo >/dev/null 2>&1; then
+    sudo "$@"
+  else
+    die "Installing Flatpak needs root, and sudo is not available. Install Flatpak (https://flatpak.org/setup/), then re-run."
+  fi
+}
+
+install_flatpak() {
+  fresh_flatpak=0
+  if ! command -v flatpak >/dev/null 2>&1; then
+    info "Flatpak is not installed; installing it (sudo may ask for your password)"
+    # sudo reads the password from the terminal, not stdin, so the piped
+    # script stays intact; DEBIAN_FRONTEND keeps debconf from prompting.
+    if command -v apt-get >/dev/null 2>&1; then
+      as_root apt-get update -qq
+      as_root env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq flatpak
+    elif command -v dnf >/dev/null 2>&1; then
+      as_root dnf install -y flatpak
+    elif command -v pacman >/dev/null 2>&1; then
+      as_root pacman -S --needed --noconfirm flatpak
+    elif command -v zypper >/dev/null 2>&1; then
+      as_root zypper --non-interactive install flatpak
+    else
+      die "No apt, dnf, pacman or zypper found. Install Flatpak (https://flatpak.org/setup/), then re-run."
+    fi
+    command -v flatpak >/dev/null 2>&1 || die "Flatpak still is not available after installing it."
+    fresh_flatpak=1
+  fi
+
+  # This installs for the current user; a system-wide copy would make two.
+  if flatpak info --system "$FLATPAK_ID" >/dev/null 2>&1; then
+    die "Arroxy is already installed system-wide. Installing it for your user too would leave two copies.
+    Remove the system copy first (your settings stay), then re-run:
+      sudo flatpak uninstall --system $FLATPAK_ID"
+  fi
+
+  if flatpak info --user "$FLATPAK_ID" >/dev/null 2>&1; then
+    origin="$(flatpak info --user --show-origin "$FLATPAK_ID")"
+    origin_url="$(flatpak remotes --user --columns=name,url | awk -v r="$origin" '$1 == r {print $2}')"
+    if [ "$origin_url" = "$FLATPAK_REPO_URL" ]; then
+      info "Arroxy is already installed from its Flatpak repo; updating it"
+      flatpak update --user --noninteractive -y "$FLATPAK_ID"
+      info "Done. From now on: flatpak update (or GNOME Software)."
+      exit 0
+    fi
+    # Copies from an older .flatpak bundle have no update source, and Flatpak
+    # refuses to install over them ("already installed", even with
+    # --reinstall). Uninstalling keeps ~/.var/app, i.e. the settings.
+    info "Replacing the copy installed from an older .flatpak (your settings stay)"
+    flatpak uninstall --user --noninteractive -y "$FLATPAK_ID" >/dev/null
+  fi
+
+  info "Installing Arroxy from its Flatpak repo"
+  # The .flatpakref names Flathub as the runtime source; Flatpak adds it if
+  # it is missing.
+  flatpak install --user --noninteractive -y "$FLATPAKREF" \
+    || die "Flatpak install failed. Check your connection and re-run, or install the .flatpak from:
+    https://github.com/${REPO}/releases/latest"
+
+  info "Arroxy installed. It updates with: flatpak update (or GNOME Software)"
+  if [ "$fresh_flatpak" -eq 1 ]; then
+    warn "Flatpak was just installed: log out and back in for Arroxy to appear in your applications menu.
+    Until then, start it with:  flatpak run $FLATPAK_ID"
+  else
+    info "Launch it from your applications menu, or run: flatpak run $FLATPAK_ID"
+  fi
+  exit 0
+}
+
+[ "$mode" = flatpak ] && install_flatpak
 
 # One of curl/wget is enough; distros ship one or the other (fresh Ubuntu, for
 # instance, has wget but no curl).

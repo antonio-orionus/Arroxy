@@ -199,6 +199,7 @@ export const vi = {
   dl_format_col: "Định dạng",
   dl_oneline_note:
     "Script Linux đối chiếu tệp tải về với `SHA256SUMS` đã công bố và thêm Arroxy vào menu ứng dụng. Bản dựng chỉ dành cho x86_64. Không có `curl`? Thay `curl -fsSL` bằng `wget -qO-`.",
+  dl_oneline_flatpak: "**Thích bản Flatpak chạy trong sandbox?** Thêm `--flatpak`. Script sẽ cài Flatpak trước nếu cần (bước duy nhất hỏi `sudo`), rồi cài Arroxy từ kho Flatpak riêng của nó, nên `flatpak update` giữ Arroxy luôn mới. Bản cài từ tệp `.flatpak` cũ sẽ được thay thế và giữ nguyên cài đặt:",
   dl_win_scoop:
     "Bạn thích Scoop hơn? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Trình cài đặt (NSIS) hoặc Portable `.exe`",

@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Linux script သည် ဒေါင်းလုဒ်ကို ထုတ်ပြန်ထားသော `SHA256SUMS` ဖြင့် စစ်ဆေးပြီး Arroxy ကို သင့်အက်ပ်မီနူးထဲ ထည့်ပေးသည်။ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။
 
+**sandbox လုပ်ထားသော Flatpak ကို ပိုကြိုက်ပါသလား။** `--flatpak` ထည့်ပါ။ လိုအပ်ပါက Flatpak ကို အရင်ထည့်သွင်းပြီး (`sudo` တောင်းသည့် တစ်ခုတည်းသော အဆင့်) ထို့နောက် Arroxy ကို ၎င်း၏ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းသဖြင့် `flatpak update` က နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ `.flatpak` အဟောင်းမှ ထည့်ထားသော မိတ္တူကို အစားထိုးပြီး ဆက်တင်များ ကျန်ရှိနေပါမည်:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Platform | Format |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

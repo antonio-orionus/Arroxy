@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.
 
+**Flatpak adda baafame filattaa?** `--flatpak` dabali. Yoo barbaachise dura Flatpak ijaara (tarkaanfii `sudo` gaafatu qofa), sana booda Arroxy kuusaa Flatpak mataa isaa irraa ijaara; kanaaf `flatpak update` haaromsaa godha. Garagalchi `.flatpak` moofaa irraa ijaarame ni bakka bu'ama, qindaa'inni isaa ni hafa:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Platform | Format |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

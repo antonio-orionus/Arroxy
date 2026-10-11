@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Linux 脚本会根据已发布的 `SHA256SUMS` 校验下载文件，并将 Arroxy 添加到应用程序菜单。仅提供 x86_64 版本。没有 `curl`？请将 `curl -fsSL` 换成 `wget -qO-`。
 
+**更想用沙盒化的 Flatpak？** 加上 `--flatpak`。必要时会先安装 Flatpak（唯一需要 `sudo` 的步骤），再从 Arroxy 自己的 Flatpak 仓库安装，此后 `flatpak update` 会让它保持最新。从旧版 `.flatpak` 安装的副本会被替换，设置会保留：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | 平台 | 格式 |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

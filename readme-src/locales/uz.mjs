@@ -197,6 +197,7 @@ export const uz = {
   dl_format_col: "Format",
   dl_oneline_note:
     "Linux skripti yuklamani e'lon qilingan `SHA256SUMS` bilan tekshiradi va Arroxy'ni dasturlar menyusiga qo'shadi. To'plamlar faqat x86_64 uchun. `curl` yo'qmi? `curl -fsSL` o'rniga `wget -qO-` ishlating.",
+  dl_oneline_flatpak: "**Izolyatsiyalangan Flatpak ma'qulmi?** `--flatpak` qo'shing. Kerak bo'lsa avval Flatpak'ni o'rnatadi (`sudo` so'raydigan yagona qadam), so'ng Arroxy'ni o'z Flatpak omboridan o'rnatadi, shuning uchun `flatpak update` uni yangilab turadi. Eski `.flatpak` dan o'rnatilgan nusxa almashtiriladi va sozlamalari saqlanadi:",
   dl_win_scoop:
     "Scoop'ni afzal ko'rasizmi? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "O'rnatuvchi (NSIS) yoki Portable `.exe`",

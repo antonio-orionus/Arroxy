@@ -71,6 +71,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Скрипт для Linux звіряє завантаження з опублікованими `SHA256SUMS` і додає Arroxy до меню програм. Збірки лише x86_64. Немає `curl`? Замініть `curl -fsSL` на `wget -qO-`.
 
+**Хочете ізольований Flatpak?** Додайте `--flatpak`. Скрипт за потреби спершу встановить Flatpak (єдиний крок, що просить `sudo`), потім Arroxy з його власного Flatpak-репозиторію, тож `flatpak update` оновлюватиме його. Копію зі старого `.flatpak` буде замінено, налаштування збережуться:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Платформа | Формат |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

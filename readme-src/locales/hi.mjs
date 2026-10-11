@@ -199,6 +199,7 @@ export const hi = {
   dl_format_col: "फ़ॉर्मैट",
   dl_oneline_note:
     "Linux स्क्रिप्ट डाउनलोड को प्रकाशित `SHA256SUMS` से सत्यापित करती है और Arroxy को आपके एप्लिकेशन मेनू में जोड़ती है। बिल्ड केवल x86_64 के लिए हैं। `curl` नहीं है? `curl -fsSL` की जगह `wget -qO-` उपयोग करें।",
+  dl_oneline_flatpak: "**सैंडबॉक्स्ड Flatpak पसंद है?** `--flatpak` जोड़ें। ज़रूरत हो तो यह पहले Flatpak इंस्टॉल करता है (सिर्फ़ यही कदम `sudo` माँगता है), फिर Arroxy को उसकी अपनी Flatpak रिपॉज़िटरी से इंस्टॉल करता है, ताकि `flatpak update` उसे अपडेट रखे। पुराने `.flatpak` से इंस्टॉल की गई कॉपी बदल दी जाती है और उसकी सेटिंग्स बनी रहती हैं:",
   dl_win_scoop:
     "Scoop पसंद करते हैं? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "इंस्टॉलर (NSIS) या पोर्टेबल `.exe`",

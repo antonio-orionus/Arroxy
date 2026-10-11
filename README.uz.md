@@ -69,6 +69,12 @@ curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts
 
 Linux skripti yuklamani e'lon qilingan `SHA256SUMS` bilan tekshiradi va Arroxy'ni dasturlar menyusiga qo'shadi. To'plamlar faqat x86_64 uchun. `curl` yo'qmi? `curl -fsSL` o'rniga `wget -qO-` ishlating.
 
+**Izolyatsiyalangan Flatpak ma'qulmi?** `--flatpak` qo'shing. Kerak bo'lsa avval Flatpak'ni o'rnatadi (`sudo` so'raydigan yagona qadam), so'ng Arroxy'ni o'z Flatpak omboridan o'rnatadi, shuning uchun `flatpak update` uni yangilab turadi. Eski `.flatpak` dan o'rnatilgan nusxa almashtiriladi va sozlamalari saqlanadi:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonio-orionus/Arroxy/main/scripts/install.sh | sh -s -- --flatpak
+```
+
 | Platforma | Format |
 | --- | --- |
 | Windows | [![Windows Setup](https://img.shields.io/badge/Windows-Setup-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Setup.exe) [![Windows Portable](https://img.shields.io/badge/Windows-Portable-0078D4?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/antonio-orionus/Arroxy/releases/latest/download/Arroxy-win-x64-Portable.exe) |

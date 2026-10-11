@@ -69,7 +69,52 @@ ubu_remote flatpak-repo-publish "$PORT" | sed 's/^/        /'
 install_and_update "install from the .flatpakref:" ubu_remote flatpak-install-ref "$PORT"
 install_and_update "install from the bundle:" ubu_remote flatpak-install-bundle
 
-# 4. The installed Flatpak itself: with a local feed announcing a newer release,
+# 4. The one-line install: scripts/install.sh --flatpak, piped into the guest's
+# sh (dash) exactly like `curl … | sh -s -- --flatpak`, against the local repo.
+REF="http://127.0.0.1:$PORT/io.github.antonio_orionus.Arroxy.flatpakref"
+# install_script [args...] — runs the script; retries only on the guest's
+# known flaky Flathub TLS, so a real failure still fails.
+install_script() {
+	local out
+	for _ in 1 2 3; do
+		out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "ARROXY_FLATPAKREF=$REF sh -s -- $*" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1)" && {
+			printf '%s\n' "$out"
+			return 0
+		}
+		grep -q 'SSL connect error' <<<"$out" || break
+	done
+	printf '%s\n' "$out"
+	return 1
+}
+script_case() {
+	local label="$1" expect="$2" out state
+	shift 2
+	echo "install script: $label"
+	if out="$(install_script --flatpak)"; then
+		state="$(ubu_remote flatpak-origin)"
+		check "it says: $expect" "$(grep -qF "$expect" <<<"$out" && echo 1)"
+		check "installed from Arroxy's repo, GPG-verified" "$([[ $(field url "$state") == "$URL" && $(field gpg "$state") == verify ]] && echo 1)"
+		check "exactly one copy" "$([[ $(ubu_remote flatpak-copies) == 1 ]] && echo 1)"
+	else
+		printf '%s\n' "$out" | tail -3 | sed 's/^/        /'
+		check "the script succeeded" 0
+	fi
+}
+
+ubu_remote flatpak-uninstall-all
+script_case "fresh install" "Installing Arroxy from its Flatpak repo"
+script_case "run again" "already installed from its Flatpak repo; updating"
+ubu_remote flatpak-uninstall-all
+ubu_remote flatpak-install-old-bundle
+script_case "over a copy from an old .flatpak" "Replacing the copy installed from an older .flatpak"
+check "the old copy's settings survived" "$([[ $(ubu_remote flatpak-marker) == kept ]] && echo 1)"
+echo "install script: refusals"
+out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "sh -s -- --flatpak" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1 || true)"
+check "x86_64-only on this arm64 guest without the test repo" "$(grep -q 'x86_64 Linux builds only' <<<"$out" && echo 1)"
+out="$(ssh -o BatchMode=yes "$UBU_VM_HOST" "sh -s -- --bogus" <"$UBU_REPO_ROOT/scripts/install.sh" 2>&1 || true)"
+check "an unknown option is refused" "$(grep -q 'Unknown option: --bogus' <<<"$out" && echo 1)"
+
+# 5. The installed Flatpak itself: with a local feed announcing a newer release,
 # the in-app banner must hand out the same command step 2 just proved works.
 echo "in-app banner:"
 appimage="$UBU_REPO_ROOT/dist/Arroxy-linux-arm64.AppImage"

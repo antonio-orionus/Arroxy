@@ -185,6 +185,7 @@ export const zh = {
   dl_format_col: "格式",
   dl_oneline_note:
     "Linux 脚本会根据已发布的 `SHA256SUMS` 校验下载文件，并将 Arroxy 添加到应用程序菜单。仅提供 x86_64 版本。没有 `curl`？请将 `curl -fsSL` 换成 `wget -qO-`。",
+  dl_oneline_flatpak: "**更想用沙盒化的 Flatpak？** 加上 `--flatpak`。必要时会先安装 Flatpak（唯一需要 `sudo` 的步骤），再从 Arroxy 自己的 Flatpak 仓库安装，此后 `flatpak update` 会让它保持最新。从旧版 `.flatpak` 安装的副本会被替换，设置会保留：",
   dl_win_scoop:
     "更喜欢 Scoop？ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "安装版（NSIS）或便携版 `.exe`",

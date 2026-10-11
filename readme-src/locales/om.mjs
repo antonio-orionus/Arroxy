@@ -199,6 +199,7 @@ export const om = {
   dl_format_col: "Format",
   dl_oneline_note:
     "Skiriptiin Linux buufata `SHA256SUMS` maxxanfame waliin mirkaneessa, akkasumas Arroxy gara baafata appilikeeshinii keetiitti dabala. Gosti x86_64 qofa. `curl` hin qabduu? `curl -fsSL` bakka `wget -qO-` fayyadami.",
+  dl_oneline_flatpak: "**Flatpak adda baafame filattaa?** `--flatpak` dabali. Yoo barbaachise dura Flatpak ijaara (tarkaanfii `sudo` gaafatu qofa), sana booda Arroxy kuusaa Flatpak mataa isaa irraa ijaara; kanaaf `flatpak update` haaromsaa godha. Garagalchi `.flatpak` moofaa irraa ijaarame ni bakka bu'ama, qindaa'inni isaa ni hafa:",
   dl_win_scoop:
     "Scoop filattaa? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Fayyadu (NSIS) ykn Portable `.exe`",

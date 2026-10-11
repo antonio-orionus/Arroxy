@@ -195,6 +195,7 @@ export const ar = {
   dl_format_col: "الصيغة",
   dl_oneline_note:
     "يتحقق سكربت لينكس من التنزيل مقابل ملفات `SHA256SUMS` المنشورة ويضيف Arroxy إلى قائمة تطبيقاتك. الإصدارات متاحة لمعمارية x86_64 فقط. لا يوجد `curl`؟ استبدل `curl -fsSL` بـ `wget -qO-`.",
+  dl_oneline_flatpak: "**تفضّل نسخة Flatpak المعزولة؟** أضف `--flatpak`. يثبّت Flatpak أولًا إن لزم (الخطوة الوحيدة التي تطلب `sudo`)، ثم يثبّت Arroxy من مستودع Flatpak الخاص به، فيُبقيه `flatpak update` محدّثًا. تُستبدل النسخة المثبّتة من ملف `.flatpak` أقدم مع الاحتفاظ بإعداداتها:",
   dl_win_scoop:
     "تفضّل Scoop؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "المثبِّت (NSIS) أو محمول `.exe`",

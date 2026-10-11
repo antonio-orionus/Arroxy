@@ -162,6 +162,7 @@ export const fa = {
   dl_platform_col: "پلتفرم",
   dl_format_col: "دانلود مستقیم",
   dl_oneline_note: "اسکریپت Linux دانلود را با `SHA256SUMS` منتشرشده بررسی می‌کند و Arroxy را به منوی برنامه‌ها می‌افزاید. ساخت‌ها فقط برای x86_64 هستند. `curl` ندارید؟ `curl -fsSL` را با `wget -qO-` جایگزین کنید.",
+  dl_oneline_flatpak: "**Flatpak ایزوله را ترجیح می‌دهید؟** `--flatpak` را اضافه کنید. در صورت نیاز ابتدا Flatpak را نصب می‌کند (تنها مرحله‌ای که `sudo` می‌خواهد)، سپس Arroxy را از مخزن Flatpak خودش نصب می‌کند تا `flatpak update` آن را به‌روز نگه دارد. نسخه‌ای که از یک `.flatpak` قدیمی‌تر نصب شده جایگزین می‌شود و تنظیماتش می‌ماند:",
   dl_win_scoop: "Scoop را ترجیح می‌دهید؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_grab: "همهٔ فایل‌های انتشار ←",
   dl_win_h3: "Windows: نصاب یا نسخهٔ همراه",

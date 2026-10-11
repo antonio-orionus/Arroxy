@@ -198,6 +198,7 @@ export const uk = {
   dl_format_col: "Формат",
   dl_oneline_note:
     "Скрипт для Linux звіряє завантаження з опублікованими `SHA256SUMS` і додає Arroxy до меню програм. Збірки лише x86_64. Немає `curl`? Замініть `curl -fsSL` на `wget -qO-`.",
+  dl_oneline_flatpak: "**Хочете ізольований Flatpak?** Додайте `--flatpak`. Скрипт за потреби спершу встановить Flatpak (єдиний крок, що просить `sudo`), потім Arroxy з його власного Flatpak-репозиторію, тож `flatpak update` оновлюватиме його. Копію зі старого `.flatpak` буде замінено, налаштування збережуться:",
   dl_win_scoop:
     "Віддаєте перевагу Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Інсталятор (NSIS) або портативний `.exe`",

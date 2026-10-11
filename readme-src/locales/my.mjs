@@ -199,6 +199,7 @@ export const my = {
   dl_format_col: "Format",
   dl_oneline_note:
     "Linux script သည် ဒေါင်းလုဒ်ကို ထုတ်ပြန်ထားသော `SHA256SUMS` ဖြင့် စစ်ဆေးပြီး Arroxy ကို သင့်အက်ပ်မီနူးထဲ ထည့်ပေးသည်။ Build များမှာ x86_64 အတွက်သာ ဖြစ်သည်။ `curl` မရှိဘူးလား။ `curl -fsSL` အစား `wget -qO-` သုံးပါ။",
+  dl_oneline_flatpak: "**sandbox လုပ်ထားသော Flatpak ကို ပိုကြိုက်ပါသလား။** `--flatpak` ထည့်ပါ။ လိုအပ်ပါက Flatpak ကို အရင်ထည့်သွင်းပြီး (`sudo` တောင်းသည့် တစ်ခုတည်းသော အဆင့်) ထို့နောက် Arroxy ကို ၎င်း၏ကိုယ်ပိုင် Flatpak repository မှ ထည့်သွင်းသဖြင့် `flatpak update` က နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ `.flatpak` အဟောင်းမှ ထည့်ထားသော မိတ္တူကို အစားထိုးပြီး ဆက်တင်များ ကျန်ရှိနေပါမည်:",
   dl_win_scoop:
     "Scoop ကို ပိုနှစ်သက်ပါသလား။ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Installer (NSIS) သို့မဟုတ် Portable `.exe`",

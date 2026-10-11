@@ -194,6 +194,7 @@ export const ps = {
   dl_format_col: "بڼه",
   dl_oneline_note:
     "د لینکس سکریپټ ډاونلوډ د خپاره شوي `SHA256SUMS` پر وړاندې تاییدوي او Arroxy ستاسو د اپلیکیشنونو مینو ته ورزیاتوي. جوړښتونه یوازې د x86_64 لپاره دي. `curl` نشته؟ `curl -fsSL` په `wget -qO-` بدل کړئ.",
+  dl_oneline_flatpak: "**بند (sandboxed) Flatpak غوره کوئ؟** `--flatpak` ورزیات کړئ. که اړتیا وي لومړی Flatpak نصبوي (یوازینی ګام چې `sudo` غواړي)، بیا Arroxy د هغه له خپلې Flatpak ذخیرې نه نصبوي، نو `flatpak update` یې تازه ساتي. له زاړه `.flatpak` نه نصب شوې کاپي بدلیږي او امستنې یې پاتې کیږي:",
   dl_win_scoop:
     "Scoop غوره ګڼئ؟ `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "نصب کوونکی (NSIS) یا پورټیبل `.exe`",

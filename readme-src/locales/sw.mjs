@@ -196,6 +196,7 @@ export const sw = {
   dl_format_col: "Fomati",
   dl_oneline_note:
     "Hati ya Linux huthibitisha upakuaji dhidi ya `SHA256SUMS` zilizochapishwa na kuongeza Arroxy kwenye menyu yako ya programu. Matoleo ni ya x86_64 pekee. Huna `curl`? Badilisha `curl -fsSL` kuwa `wget -qO-`.",
+  dl_oneline_flatpak: "**Unapendelea Flatpak iliyotengwa?** Ongeza `--flatpak`. Husakinisha Flatpak kwanza ikihitajika (hatua pekee inayoomba `sudo`), kisha husakinisha Arroxy kutoka hazina yake ya Flatpak, kwa hivyo `flatpak update` huiweka ya kisasa. Nakala kutoka `.flatpak` ya zamani hubadilishwa na mipangilio yake inabaki:",
   dl_win_scoop:
     "Unapendelea Scoop? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Kisanidi (NSIS) au Inayobebeka `.exe`",

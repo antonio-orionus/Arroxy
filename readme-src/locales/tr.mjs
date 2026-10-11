@@ -198,6 +198,7 @@ export const tr = {
   dl_format_col: "Doğrudan indirme",
   dl_oneline_note:
     "Linux betiği indirmeyi yayımlanan `SHA256SUMS` ile doğrular ve Arroxy'yi uygulama menünüze ekler. Sürümler yalnızca x86_64'tür. `curl` yok mu? `curl -fsSL` yerine `wget -qO-` kullanın.",
+  dl_oneline_flatpak: "**Yalıtılmış Flatpak'i mi tercih edersiniz?** `--flatpak` ekleyin. Gerekirse önce Flatpak'i kurar (`sudo` isteyen tek adım), ardından Arroxy'yi kendi Flatpak deposundan kurar; böylece `flatpak update` onu güncel tutar. Eski bir `.flatpak` dosyasından kurulan kopya değiştirilir ve ayarları korunur:",
   dl_win_scoop:
     "Scoop mu tercih edersiniz? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "Kurucu (NSIS) veya Taşınabilir `.exe`",

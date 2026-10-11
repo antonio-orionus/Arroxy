@@ -187,6 +187,7 @@ export const am = {
   dl_format_col: "ቅርጸት",
   dl_oneline_note:
     "የLinux ስክሪፕቱ ማውረዱን ከታተሙት `SHA256SUMS` ጋር ያረጋግጣል እንዲሁም Arroxy ወደ መተግበሪያዎች ዝርዝርዎ ይጨምራል። ግንባታዎቹ ለx86_64 ብቻ ናቸው። `curl` የለም? `curl -fsSL` በ`wget -qO-` ይተኩ።",
+  dl_oneline_flatpak: "**በገለልተኛ ሳጥን የሚሰራውን Flatpak ይመርጣሉ?** `--flatpak` ያክሉ። አስፈላጊ ከሆነ መጀመሪያ Flatpakን ይጭናል (`sudo` የሚጠይቀው ብቸኛው ደረጃ)፣ ከዚያ Arroxyን ከራሱ Flatpak ማከማቻ ይጭናል፣ ስለዚህ `flatpak update` ወቅታዊ ያደርገዋል። ከቀድሞ `.flatpak` የተጫነ ቅጂ ይተካል፤ ቅንብሮቹም ይቆያሉ፦",
   dl_win_scoop:
     "Scoop ይመርጣሉ? `scoop bucket add arroxy https://github.com/antonio-orionus/scoop-bucket && scoop install arroxy`",
   dl_win_format: "ጫኝ (NSIS) ወይም ተጓዥ `.exe`",
