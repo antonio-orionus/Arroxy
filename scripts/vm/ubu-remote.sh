@@ -335,7 +335,10 @@ cmd_flatpak_uninstall_all() {
 	if flatpak info --user "$FLATPAK_ID" >/dev/null 2>&1; then
 		remote=$(flatpak info --user --show-origin "$FLATPAK_ID")
 		flatpak uninstall --user --noninteractive -y "$FLATPAK_ID" >/dev/null
-		[[ $remote != flathub ]] && flatpak remote-delete --user --force "$remote" 2>/dev/null || true
+		# Flatpak may already have dropped a bundle's origin remote with the app.
+		if [[ $remote != flathub ]]; then
+			flatpak remote-delete --user --force "$remote" 2>/dev/null || true
+		fi
 	fi
 	flatpak remote-delete --user --force arroxy 2>/dev/null || true
 }
@@ -346,6 +349,15 @@ cmd_flatpak_install_ref() {
 }
 cmd_flatpak_install_bundle() {
 	retry 3 flatpak install --user --noninteractive -y "$BASE/Arroxy-repo.flatpak"
+}
+
+# flatpak-install-debug — the .Debug extension from the app's own remote. A
+# GPG-verified remote refuses unsigned refs, so this proves publish-repo.sh
+# signed every ref, not just the app.
+cmd_flatpak_install_debug() {
+	local remote
+	remote=$(flatpak info --user --show-origin "$FLATPAK_ID")
+	retry 3 flatpak install --user --noninteractive -y "$remote" "$FLATPAK_ID.Debug"
 }
 
 # flatpak-update — exactly the command the in-app banner hands out.
@@ -499,6 +511,7 @@ case "$command" in
 	flatpak-uninstall-all) cmd_flatpak_uninstall_all ;;
 	flatpak-install-ref) cmd_flatpak_install_ref "$@" ;;
 	flatpak-install-bundle) cmd_flatpak_install_bundle ;;
+	flatpak-install-debug) cmd_flatpak_install_debug ;;
 	flatpak-update) cmd_flatpak_update ;;
 	flatpak-origin) cmd_flatpak_origin ;;
 	app-id) cmd_app_id ;;

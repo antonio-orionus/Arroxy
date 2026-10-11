@@ -147,13 +147,15 @@ describe('registerUpdaterHandlers', () => {
 		}
 	})
 
-	it('ignores a non-loopback ARROXY_UPDATE_FEED_URL and logs the rejection', () => {
-		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'https://example.com/feed/')
+	it('ignores a non-loopback ARROXY_UPDATE_FEED_URL and logs the rejection without the URL', () => {
+		// A rejected value may carry credentials; it must not reach the log.
+		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'https://user:s3cret@example.com/feed/')
 		const warn = vi.spyOn(log, 'warn').mockImplementation(() => {})
 		try {
 			registerUpdaterHandlers(makeWindow())
 			expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'})
-			expect(warn).toHaveBeenCalledWith(expect.stringContaining('ARROXY_UPDATE_FEED_URL'), 'https://example.com/feed/')
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('ARROXY_UPDATE_FEED_URL'))
+			expect(JSON.stringify(warn.mock.calls)).not.toContain('s3cret')
 		} finally {
 			warn.mockRestore()
 			vi.unstubAllEnvs()

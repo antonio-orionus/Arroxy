@@ -7,7 +7,12 @@
 
 export type UpdateFeed = {provider: 'github'; owner: string; repo: string; channel: string} | {provider: 'generic'; url: string; channel: string}
 
-export type ResolvedUpdateFeed = {kind: 'github'; feed: UpdateFeed} | {kind: 'override'; feed: UpdateFeed} | {kind: 'rejected'; feed: UpdateFeed; value: string}
+// A rejected value is not carried along: it may hold credentials, and nothing
+// downstream needs it.
+export interface ResolvedUpdateFeed {
+	kind: 'github' | 'override' | 'rejected'
+	feed: UpdateFeed
+}
 
 const LOOPBACK_HOSTS: ReadonlySet<string> = new Set(['127.0.0.1', 'localhost', '[::1]'])
 
@@ -21,6 +26,6 @@ export function resolveUpdateFeed(env: NodeJS.ProcessEnv, channel: string): Reso
 	const github: UpdateFeed = {provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel}
 	const override = env.ARROXY_UPDATE_FEED_URL
 	if (!override) return {kind: 'github', feed: github}
-	if (!isLoopbackHttpUrl(override)) return {kind: 'rejected', feed: github, value: override}
+	if (!isLoopbackHttpUrl(override)) return {kind: 'rejected', feed: github}
 	return {kind: 'override', feed: {provider: 'generic', url: override, channel}}
 }

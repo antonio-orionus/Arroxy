@@ -85,8 +85,13 @@ for name in "${cases[@]}"; do
 	ubu_remote launch "$name" "$UBU_CDP_PORT" "$UBU_FEED_PORT"
 	since="$(ssh -o BatchMode=yes "$UBU_VM_HOST" 'date +%s')"
 	failures_before=$failures
-	ubu_cdp click-update --timeout 60000
-	if ! ubu_remote wait-relaunch "$since" "$id_before"; then check "update installed and app relaunched" 0; fi
+	# Failures are recorded, not fatal: the remaining cases, the state and the
+	# updater log below still report.
+	if ! ubu_cdp click-update --timeout 60000; then
+		check "update banner appeared and Install & Restart was clicked" 0
+	elif ! ubu_remote wait-relaunch "$since" "$id_before"; then
+		check "update installed and app relaunched" 0
+	fi
 	state="$(ubu_remote state)"
 	printf '        %s\n' "$state"
 

@@ -52,7 +52,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	const {channel, allowPrerelease} = resolveUpdateChannel(app.getVersion())
 	const resolvedFeed = resolveUpdateFeed(process.env, channel)
 	if (resolvedFeed.kind === 'override') log.warn('[updater] reading releases from ARROXY_UPDATE_FEED_URL', resolvedFeed.feed)
-	if (resolvedFeed.kind === 'rejected') log.warn('[updater] ignoring ARROXY_UPDATE_FEED_URL: only loopback http(s) URLs are allowed', resolvedFeed.value)
+	if (resolvedFeed.kind === 'rejected') log.warn('[updater] ignoring ARROXY_UPDATE_FEED_URL: only loopback http(s) URLs without credentials are allowed')
 	autoUpdater.setFeedURL(resolvedFeed.feed)
 	autoUpdater.channel = channel
 	autoUpdater.allowDowngrade = false // channel setter silently sets allowDowngrade=true; override it

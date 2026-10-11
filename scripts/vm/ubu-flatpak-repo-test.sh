@@ -44,11 +44,17 @@ install_and_update() {
 	shift
 	echo "$label"
 	ubu_remote flatpak-uninstall-all
-	"$@" >/dev/null
+	# A failed install is a failed check, not the end of the run: the other
+	# install path and the summary still report.
+	if ! "$@" >/dev/null; then
+		check "install succeeded" 0
+		return 0
+	fi
 	state="$(ubu_remote flatpak-origin)"
 	echo "        installed: $state"
 	check "installed with Arroxy's repo as its origin" "$([[ $(field url "$state") == "$URL" ]] && echo 1)"
 	check "updates are GPG-verified" "$([[ $(field gpg "$state") == verify ]] && echo 1)"
+	check "every ref is signed (the .Debug extension installs from the verified remote)" "$(ubu_remote flatpak-install-debug >/dev/null 2>&1 && echo 1)"
 	before="$(field commit "$state")"
 
 	ubu_remote flatpak-repo-bump "$PORT" | sed 's/^/        /'
@@ -71,11 +77,14 @@ if [[ -f $appimage ]]; then
 	trap 'ubu_tunnel_close; ubu_remote stop >/dev/null || true' EXIT
 	ubu_vm_stage_feed "$appimage" 9.9.9
 	ubu_remote feed-start "$UBU_FEED_PORT"
-	ubu_remote flatpak-launch "$UBU_CDP_PORT" "$UBU_FEED_PORT"
-	ubu_tunnel_open
 	command='flatpak update io.github.antonio_orionus.Arroxy'
-	check "the banner offers \`$command\`" "$(ubu_cdp wait-text "$command" --timeout 60000 >/dev/null && echo 1)"
-	ubu_remote stop
+	if ubu_remote flatpak-launch "$UBU_CDP_PORT" "$UBU_FEED_PORT"; then
+		ubu_tunnel_open
+		check "the banner offers \`$command\`" "$(ubu_cdp wait-text "$command" --timeout 60000 >/dev/null && echo 1)"
+	else
+		check "the installed Flatpak launches" 0
+	fi
+	ubu_remote stop || true
 else
 	echo "  skipped: no $appimage to announce as the newer release (bun run dist:linux:arm64)"
 fi

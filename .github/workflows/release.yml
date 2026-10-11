@@ -472,8 +472,11 @@ jobs:
     # from the final publish gate.
     needs: build
     runs-on: ubuntu-latest
+    # Read-only: this job holds the repo signing key, and it only downloads a
+    # release asset and uploads workflow artifacts (upload-flatpak and
+    # publish-flatpak-repo do the writing).
     permissions:
-      contents: write
+      contents: read
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged

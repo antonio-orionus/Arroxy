@@ -31,9 +31,22 @@ done
 
 command -v gpg >/dev/null || { echo "gpg is required: brew install gnupg" >&2; exit 1; }
 command -v gh >/dev/null || { echo "gh is required" >&2; exit 1; }
-if ((!force)) && gh secret list --repo "$REPO" | awk '{print $1}' | grep -qx "$SECRET"; then
-	echo "$SECRET already exists in $REPO. Replacing it breaks updates for every installed Flatpak; pass --force only if that is intended." >&2
-	exit 1
+# Fail closed: a key that already exists anywhere — the secret or the committed
+# public half — must not be replaced by accident, and an unreadable secret list
+# is not proof that there is no secret.
+if ((!force)); then
+	if [[ -e $public ]]; then
+		echo "$public already exists, so a signing key was created before. Replacing it breaks updates for every installed Flatpak; pass --force only if that is intended." >&2
+		exit 1
+	fi
+	if ! secrets="$(gh secret list --repo "$REPO")"; then
+		echo "could not list the secrets of $REPO, so cannot rule out an existing $SECRET; check gh auth and retry" >&2
+		exit 1
+	fi
+	if awk '{print $1}' <<<"$secrets" | grep -qx "$SECRET"; then
+		echo "$SECRET already exists in $REPO. Replacing it breaks updates for every installed Flatpak; pass --force only if that is intended." >&2
+		exit 1
+	fi
 fi
 [[ -e $backup ]] && { echo "$backup already exists; choose another --backup path" >&2; exit 1; }
 

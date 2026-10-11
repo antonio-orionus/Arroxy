@@ -29,6 +29,6 @@ describe('resolveUpdateFeed', () => {
 		['not a URL', 'not a url']
 	])('rejects %s and falls back to GitHub', (_label, url) => {
 		const resolved = resolveUpdateFeed({ARROXY_UPDATE_FEED_URL: url}, 'latest')
-		expect(resolved).toEqual({kind: 'rejected', feed: GITHUB, value: url})
+		expect(resolved).toEqual({kind: 'rejected', feed: GITHUB})
 	})
 })

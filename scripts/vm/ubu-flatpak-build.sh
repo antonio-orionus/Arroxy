@@ -7,7 +7,7 @@
 #
 # Input is dist/Arroxy-linux-arm64.tar.gz (bun run dist:linux:arm64, or
 # --build). The first run installs the Flathub runtimes into the VM user's
-# Flatpak installation (about 1 GB); later runs reuse them.
+# Flatpak installation (about 3 GB, SDK included); later runs reuse them.
 #
 # Usage: scripts/vm/ubu-flatpak-build.sh [--build] [--install]
 #   --build    run bun run dist:linux:arm64 first

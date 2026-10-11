@@ -47,6 +47,15 @@ for required in repo site url key; do
 done
 [[ -d $repo/objects ]] || { echo "$repo is not an OSTree repo" >&2; exit 1; }
 
+# The site is rebuilt from scratch; never let that delete the repo itself.
+# Checked before anything touches the repo.
+repo_abs="$(cd "$repo" && pwd -P)"
+mkdir -p "$site"
+site_abs="$(cd "$site" && pwd -P)"
+case "$repo_abs/" in
+	"$site_abs"/*) echo "--site ($site_abs) must not contain --repo ($repo_abs)" >&2; exit 1 ;;
+esac
+
 gpg_args=(--gpg-sign="$key")
 [[ -n $homedir ]] && gpg_args+=(--gpg-homedir="$homedir")
 gpg_cmd=(gpg)
@@ -58,9 +67,21 @@ trap 'rm -f "$public_key"' EXIT
 [[ -s $public_key ]] || { echo "no public key for $key" >&2; exit 1; }
 gpg_key_b64="$(base64 <"$public_key" | tr -d '\n')"
 
-# Sign the app commit, then rebuild the summary (signed too) and the appstream
-# data GNOME Software reads.
-flatpak build-sign "${gpg_args[@]}" --arch="$arch" "$repo" "$APP_ID" "$BRANCH"
+# Sign every app and runtime ref the build exported — the app and the
+# .Debug extension flatpak-builder adds — so any of them installs from a
+# GPG-verified remote. build-update-repo then signs the summary and the
+# appstream refs GNOME Software reads.
+signed=0
+while read -r ref _; do
+	IFS=/ read -r kind id ref_arch ref_branch <<<"$ref"
+	case "$kind" in
+		app) flatpak build-sign "${gpg_args[@]}" --arch="$ref_arch" "$repo" "$id" "$ref_branch" ;;
+		runtime) flatpak build-sign "${gpg_args[@]}" --runtime --arch="$ref_arch" "$repo" "$id" "$ref_branch" ;;
+		*) continue ;;
+	esac
+	signed=$((signed + 1))
+done < <(flatpak repo --branches "$repo")
+((signed)) || { echo "no app or runtime refs in $repo" >&2; exit 1; }
 flatpak build-update-repo "${gpg_args[@]}" --title=Arroxy --default-branch="$BRANCH" --prune "$repo"
 
 rm -rf "$site"
