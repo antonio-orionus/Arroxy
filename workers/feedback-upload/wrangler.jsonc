@@ -11,6 +11,10 @@
 		{
 			"pattern": "arroxy.orionus.dev/api/feedback-diagnostics",
 			"zone_name": "orionus.dev"
+		},
+		{
+			"pattern": "orionus.dev/arroxy/api/feedback-diagnostics",
+			"zone_name": "orionus.dev"
 		}
 	],
 	"r2_buckets": [

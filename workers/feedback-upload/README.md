@@ -2,11 +2,15 @@
 
 Stores automatic feedback diagnostic log uploads in a private Cloudflare R2 bucket after a user submits the Tally feedback form.
 
-Endpoint:
+Endpoints (same Worker, same R2 bucket, one shared rate-limit bucket per client IP):
 
 ```text
-POST https://arroxy.orionus.dev/api/feedback-diagnostics
+POST https://orionus.dev/arroxy/api/feedback-diagnostics   # current site path
+POST https://arroxy.orionus.dev/api/feedback-diagnostics   # legacy host — keep forever
 ```
+
+Installed copies of Arroxy hardcode the legacy URL, and a redirect cannot carry a POST, so the legacy route, its handler
+path, and the exclusion of this path from the `arroxy.orionus.dev` redirect rule must never be removed.
 
 The desktop app opens Tally immediately. If the user submits the form, Arroxy uploads a gzip-compressed, redacted tail of `main.log` with the same renderer-generated `report_id` that was sent to Tally as a hidden field. The Worker stores the object in R2 under that report id and returns the same id to the app.
 
@@ -29,7 +33,7 @@ bunx wrangler deploy --dry-run
 bunx wrangler deploy
 ```
 
-The route in `wrangler.jsonc` assumes `orionus.dev` is already on Cloudflare and that `arroxy.orionus.dev` has a proxied DNS record.
+The routes in `wrangler.jsonc` assume `orionus.dev` is on Cloudflare and that `arroxy.orionus.dev` keeps a proxied DNS record. Set both routes to fail closed (dashboard → Workers Routes), so an exhausted Free-plan request quota never forwards uploads to another origin.
 
 ## Required Cloudflare Hardening
 
@@ -42,7 +46,7 @@ Configure these in Cloudflare:
 
 Built-in Worker checks:
 
-- accepts only `POST /api/feedback-diagnostics`
+- accepts only `POST /api/feedback-diagnostics` and `POST /arroxy/api/feedback-diagnostics`
 - rate-limits upload attempts to 10 requests per minute per client IP using the Worker Rate Limiting binding
 - rejects missing `x-arroxy-upload: feedback-diagnostic-v1`
 - rejects missing or invalid `x-arroxy-report-id` UUIDs
