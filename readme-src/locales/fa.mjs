@@ -193,6 +193,7 @@ export const fa = {
   dl_linux_targz_text: "ساخت `.tar.gz` همان برنامه بدون پوشش AppImage است؛ هرجا خواستید استخراج و اجرا کنید. نصاب یا FUSE لازم نیست.",
   dl_linux_flatpak_prereq: "Ubuntu به‌جای Flatpak با Snap عرضه می‌شود؛ ابتدا Flatpak را نصب و Flathub را اضافه کنید تا بسته runtime خود را از آنجا دریافت کند:",
   dl_linux_arch_note: "**دانلودهای Linux در صفحهٔ انتشار فقط برای x86_64 هستند.** روی دستگاه ARM64 (مانند Raspberry Pi و Asahi Linux)، Flatpak نصب می‌شود اما هنگام اجرا خطای `bwrap: execvp ldconfig: Exec format error` می‌دهد.",
+  dl_linux_flatpak_updates: "**به‌روزرسانی‌ها:** این بسته مخزن Flatpak خودِ Arroxy را هم اضافه می‌کند، پس از آن به بعد `flatpak update` (یا GNOME Software) Arroxy را به‌روز نگه می‌دارد. از بستهٔ قدیمی‌تر نصب کرده‌اید؟ بستهٔ جدید را یک بار نصب کنید.",
   dl_linux_flatpak_intro: "**Flatpak (گزینهٔ sandbox):** فایل `Arroxy-linux-x64.flatpak` را از همان صفحهٔ انتشار بگیرید.",
   dl_warning_h3: "چرا ممکن است هشدار ببینید",
   dl_warning_p1: "Arroxy متن‌باز و دارای مجوز MIT است. ساخت‌های Windows و macOS **امضای کد ندارند**؛ گواهی‌های Apple Developer ID و امضای Windows EV هرکدام سالانه صدها دلار هزینه دارند که باید از جیب یک پروژهٔ مستقل پرداخت شود. بدون این امضاها، Windows SmartScreen و macOS Gatekeeper در نخستین اجرا هشدار می‌دهند. هشدار یعنی *سیستم‌عامل ناشر را نمی‌شناسد*، نه اینکه Arroxy بدافزار است.",

@@ -258,6 +258,7 @@ export const bn = {
   dl_linux_targz_text: "`.tar.gz` বিল্ডটি একই অ্যাপ, শুধু AppImage মোড়ক ছাড়া — যেকোনো জায়গায় এক্সট্র্যাক্ট করে চালান। ইনস্টলারও লাগে না, FUSE প্যাকেজও নয়।",
   dl_linux_flatpak_prereq: "Ubuntu-তে Flatpak-এর বদলে Snap থাকে, তাই আগে Flatpak ইনস্টল করে Flathub যোগ করুন — বান্ডলটি সেখান থেকেই রানটাইম নেয়:",
   dl_linux_arch_note: "**রিলিজ পেজের Linux ডাউনলোড শুধু x86_64-এর জন্য।** ARM64 মেশিনে (Raspberry Pi, Asahi Linux) Flatpak ইনস্টল হয় ঠিকই, কিন্তু চালু করার সময় `bwrap: execvp ldconfig: Exec format error` দিয়ে ব্যর্থ হয়।",
+  dl_linux_flatpak_updates: "**আপডেট:** বান্ডেলটি Arroxy-র নিজস্ব Flatpak রিপোজিটরিও যোগ করে, তাই এরপর থেকে `flatpak update` (বা GNOME Software) Arroxy-কে হালনাগাদ রাখে। পুরোনো বান্ডেল থেকে ইনস্টল করেছেন? নতুনটি একবার ইনস্টল করুন।",
   dl_linux_flatpak_intro:
     "**Flatpak (স্যান্ডবক্সড বিকল্প):** একই রিলিজ পেজ থেকে `Arroxy-*.flatpak` ডাউনলোড করুন।",
 

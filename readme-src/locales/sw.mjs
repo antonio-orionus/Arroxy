@@ -258,6 +258,7 @@ export const sw = {
   dl_linux_targz_text: "Toleo la `.tar.gz` ni programu ile ile bila kifuniko cha AppImage — ifungue popote kisha uiendeshe. Hakuna kisakinishi wala kifurushi cha FUSE.",
   dl_linux_flatpak_prereq: "Ubuntu huja na Snap badala ya Flatpak, kwa hivyo sakinisha Flatpak na uongeze Flathub kwanza — kifurushi hupakua runtime yake kutoka hapo:",
   dl_linux_arch_note: "**Vipakuliwa vya Linux kwenye ukurasa wa matoleo ni vya x86_64 pekee.** Kwenye mashine za ARM64 (Raspberry Pi, Asahi Linux) Flatpak husakinishwa lakini hushindwa kuanza ikitoa `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**Masasisho:** kifurushi hiki pia huongeza hazina ya Flatpak ya Arroxy yenyewe, kwa hivyo baada ya hapo `flatpak update` (au GNOME Software) huiweka Arroxy ikiwa ya kisasa. Ulisakinisha kutoka kifurushi cha zamani? Sakinisha kipya mara moja.",
   dl_linux_flatpak_intro:
     "**Flatpak (mbadala wenye sanduku):** pakua `Arroxy-*.flatpak` kutoka ukurasa huo huo wa toleo.",
 

@@ -193,6 +193,7 @@ export const ko = {
   dl_linux_targz_text: "`.tar.gz` 빌드는 AppImage 래퍼가 없는 동일한 앱입니다. 원하는 곳에 압축을 풀고 실행하세요. 설치 프로그램과 FUSE가 필요 없습니다.",
   dl_linux_flatpak_prereq: "Ubuntu는 Flatpak 대신 Snap을 기본 제공하므로 먼저 Flatpak을 설치하고 Flathub를 추가하세요. 번들이 그곳에서 런타임을 가져옵니다:",
   dl_linux_arch_note: "**릴리스 페이지의 Linux 다운로드는 x86_64 전용입니다.** ARM64 장치(Raspberry Pi, Asahi Linux)에서는 Flatpak이 설치되더라도 시작할 때 `bwrap: execvp ldconfig: Exec format error` 오류가 발생합니다.",
+  dl_linux_flatpak_updates: "**업데이트:** 이 번들은 Arroxy 전용 Flatpak 저장소도 추가하므로, 이후에는 `flatpak update`(또는 GNOME 소프트웨어)로 Arroxy를 최신 상태로 유지할 수 있습니다. 이전 번들로 설치했다면 새 번들을 한 번 설치하세요.",
   dl_linux_flatpak_intro: "**Flatpak(샌드박스 대안):** 같은 릴리스 페이지에서 `Arroxy-linux-x64.flatpak`을 다운로드하세요.",
   dl_warning_h3: "경고가 표시될 수 있는 이유",
   dl_warning_p1: "Arroxy는 오픈 소스이며 MIT 라이선스를 사용합니다. Windows와 macOS 빌드는 **코드 서명되지 않았습니다**. Apple Developer ID와 Windows EV 코드 서명 인증서는 각각 연간 수백 달러가 들며 독립 프로젝트가 직접 부담해야 합니다. 서명이 없으면 Windows SmartScreen과 macOS Gatekeeper가 처음 실행할 때 경고합니다. 경고는 *운영 체제가 게시자를 알지 못한다*는 뜻이지 Arroxy가 악성 코드라는 뜻이 아닙니다.",

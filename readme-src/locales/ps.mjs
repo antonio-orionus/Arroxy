@@ -255,6 +255,7 @@ export const ps = {
   dl_linux_targz_text: "د `.tar.gz` بیلډ همغه اپلیکیشن دی خو د AppImage پوښ پرته — هر چیرې یې استخراج کړئ او چل یې کړئ. نه انسټالر پکار دی او نه د FUSE کڅوړه.",
   dl_linux_flatpak_prereq: "اوبنټو د Flatpak پرځای Snap لري، نو لومړی Flatpak انسټال کړئ او Flathub ورزیات کړئ — بنډل خپل رن‌ټایم له همدې ځایه اخلي:",
   dl_linux_arch_note: "**د خپرونې پاڼې د لینکس ډاونلوډونه یوازې x86_64 دي.** په ARM64 ماشینونو (Raspberry Pi، Asahi Linux) کې Flatpak انسټالېږي خو د پیل پر مهال د `bwrap: execvp ldconfig: Exec format error` سره ناکامېږي.",
+  dl_linux_flatpak_updates: "**تازه‌کول:** دا بنډل د Arroxy خپل Flatpak ذخیره هم زیاتوي، نو له هغې وروسته `flatpak update` (یا GNOME Software) Arroxy تازه ساتي. له زاړه بنډل نه مو نصب کړی؟ نوی یې یو ځل نصب کړئ.",
   dl_linux_flatpak_intro:
     "**Flatpak (sandboxed بدیل):** د ورته خپرونې پاڼې څخه `Arroxy-*.flatpak` ډاونلوډ کړئ.",
 

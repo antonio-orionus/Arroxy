@@ -95,28 +95,69 @@ describe('registerUpdaterHandlers', () => {
 		vi.resetModules()
 	})
 
-	it('skips autoUpdater entirely when running under Flatpak', async () => {
+	it('checks for updates under Flatpak and reports them with the flatpak channel', async () => {
 		vi.resetModules()
 		vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue('flatpak')}))
 		vi.doMock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
 		vi.doMock('electron-updater', () => {
-			const au = {autoDownload: true, autoInstallOnAppQuit: true, on: vi.fn(), removeAllListeners: vi.fn(), setFeedURL: vi.fn(), checkForUpdates: vi.fn().mockResolvedValue(undefined), downloadUpdate: vi.fn().mockResolvedValue(undefined), quitAndInstall: vi.fn()}
+			const au = {autoDownload: true, autoInstallOnAppQuit: true, forceDevUpdateConfig: false, on: vi.fn(), removeAllListeners: vi.fn(), setFeedURL: vi.fn(), checkForUpdates: vi.fn().mockResolvedValue(undefined), downloadUpdate: vi.fn().mockResolvedValue(undefined), quitAndInstall: vi.fn()}
 			return {default: {autoUpdater: au}, autoUpdater: au}
 		})
 		const {registerUpdaterHandlers: registerWithFlatpak} = await import('@main/ipc/registerUpdaterHandlers.js')
 		const {autoUpdater: scopedAutoUpdater} = await import('electron-updater')
+		const handlers: HandlerMap = {}
+		vi.mocked(scopedAutoUpdater.on).mockImplementation((event: string, fn: any) => {
+			handlers[event as EventName] = fn
+			return scopedAutoUpdater
+		})
 
-		registerWithFlatpak(makeWindow())
+		const win = makeWindow()
+		registerWithFlatpak(win)
 		vi.runAllTimers()
+		handlers['update-available']!({version: '2.0.0'})
 
-		expect(scopedAutoUpdater.on).not.toHaveBeenCalled()
-		expect(scopedAutoUpdater.checkForUpdates).not.toHaveBeenCalled()
-		expect(scopedAutoUpdater.removeAllListeners).not.toHaveBeenCalled()
+		// The Linux updater refuses to check without $APPIMAGE; Flatpak has none.
+		expect(scopedAutoUpdater.forceDevUpdateConfig).toBe(true)
+		expect(scopedAutoUpdater.checkForUpdates).toHaveBeenCalledOnce()
+		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({version: '2.0.0', installChannel: 'flatpak'}))
 
 		vi.doUnmock('@main/installChannel')
 		vi.doUnmock('electron')
 		vi.doUnmock('electron-updater')
 		vi.resetModules()
+	})
+
+	it('leaves the updater dev override off outside Flatpak', () => {
+		registerUpdaterHandlers(makeWindow())
+		expect(vi.mocked(autoUpdater).forceDevUpdateConfig).not.toBe(true)
+	})
+
+	it('reads releases from GitHub by default', () => {
+		registerUpdaterHandlers(makeWindow())
+		expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'})
+	})
+
+	it('reads releases from a loopback ARROXY_UPDATE_FEED_URL', () => {
+		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'http://127.0.0.1:8765/')
+		try {
+			registerUpdaterHandlers(makeWindow())
+			expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'generic', url: 'http://127.0.0.1:8765/', channel: 'latest'})
+		} finally {
+			vi.unstubAllEnvs()
+		}
+	})
+
+	it('ignores a non-loopback ARROXY_UPDATE_FEED_URL and logs the rejection', () => {
+		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'https://example.com/feed/')
+		const warn = vi.spyOn(log, 'warn').mockImplementation(() => {})
+		try {
+			registerUpdaterHandlers(makeWindow())
+			expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'})
+			expect(warn).toHaveBeenCalledWith(expect.stringContaining('ARROXY_UPDATE_FEED_URL'), 'https://example.com/feed/')
+		} finally {
+			warn.mockRestore()
+			vi.unstubAllEnvs()
+		}
 	})
 
 	it('does not send IPC if window is destroyed', () => {
@@ -214,7 +255,7 @@ describe('registerUpdaterHandlers', () => {
 	})
 
 	it('updater:install rejects with ok:false on non-installable channels', async () => {
-		for (const channel of ['scoop', 'homebrew', 'portable'] as const) {
+		for (const channel of ['scoop', 'homebrew', 'portable', 'flatpak'] as const) {
 			vi.resetModules()
 			vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue(channel)}))
 			vi.doMock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))

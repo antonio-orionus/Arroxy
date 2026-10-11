@@ -242,6 +242,7 @@ export const zhHant = {
   dl_linux_targz_text: "`.tar.gz` 版本就是去掉 AppImage 外殼的同一個應用 — 解壓到任意位置直接執行。無需安裝程式，也無需 FUSE 軟體包。",
   dl_linux_flatpak_prereq: "Ubuntu 自帶的是 Snap 而非 Flatpak，因此請先安裝 Flatpak 並新增 Flathub — 安裝套件會從那裡取得執行時：",
   dl_linux_arch_note: "**釋出頁面上的 Linux 下載僅提供 x86_64。** 在 ARM64 裝置（樹莓派、Asahi Linux）上 Flatpak 可以安裝，但啟動時會失敗並報 `bwrap: execvp ldconfig: Exec format error`。",
+  dl_linux_flatpak_updates: "**更新：** 此套件也會加入 Arroxy 自己的 Flatpak 軟體庫，之後 `flatpak update`（或 GNOME 軟體）就會讓 Arroxy 保持最新。若是從舊版套件安裝，請再安裝一次新套件。",
   dl_linux_flatpak_intro:
     "**Flatpak（沙箱版）：** 從同一釋出頁下載 `Arroxy-*.flatpak`。",
 

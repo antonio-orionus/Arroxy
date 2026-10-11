@@ -25,7 +25,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 11+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-08._
+> _Last updated: 2026-10-11._
 
 ---
 
@@ -180,6 +180,8 @@ flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/fl
 flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
+
+**အပ်ဒိတ်များ:** ဤ bundle သည် Arroxy ၏ ကိုယ်ပိုင် Flatpak repository ကိုလည်း ထည့်ပေးသဖြင့် ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ bundle အဟောင်းမှ ထည့်သွင်းထားပါသလား။ အသစ်ကို တစ်ကြိမ် ထည့်သွင်းပါ။
 
 **ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။
 

@@ -246,6 +246,7 @@ export const am = {
   dl_linux_targz_text: "የ`.tar.gz` ግንባታ ያው መተግበሪያ ነው ያለ AppImage መጠቅለያ — የትም ፈትታችሁ አስሂዱት። ጫኚም የFUSE ጥቅልም አያስፈልግም።",
   dl_linux_flatpak_prereq: "ኡቡንቱ ከFlatpak ይልቅ Snap ይዞ ይመጣል፣ ስለዚህ መጀመሪያ Flatpak ጫኑና Flathub ጨምሩ — ጥቅሉ ራንታይሙን ከዚያ ያመጣል፦",
   dl_linux_arch_note: "**በተለቀቀው ገጽ ላይ ያሉት የሊኑክስ ማውረጃዎች x86_64 ብቻ ናቸው።** በARM64 ማሽኖች (Raspberry Pi፣ Asahi Linux) ላይ Flatpak ይጫናል ግን ሲጀመር በ`bwrap: execvp ldconfig: Exec format error` ይወድቃል።",
+  dl_linux_flatpak_updates: "**ዝማኔዎች:** ጥቅሉ የArroxyን የራሱን Flatpak ማከማቻም ያክላል፤ ከዚያ በኋላ `flatpak update` (ወይም GNOME Software) Arroxyን ወቅታዊ ያደርገዋል። ከቀድሞ ጥቅል ጭነውት ከሆነ አዲሱን አንድ ጊዜ ይጫኑ።",
   dl_linux_flatpak_intro:
     "**Flatpak (ለቅርቅብ አማራጭ):** `Arroxy-*.flatpak` ን ከተመሳሳዩ ስሪት ገጽ ያውርዱ።",
 

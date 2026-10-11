@@ -260,6 +260,7 @@ export const sr = {
   dl_linux_targz_text: "`.tar.gz` издање је иста апликација без AppImage омотача — распакујте било где и покрените. Без инсталатера и без FUSE пакета.",
   dl_linux_flatpak_prereq: "Ubuntu долази са Snap-ом уместо Flatpak-а, па прво инсталирајте Flatpak и додајте Flathub — одатле пакет преузима свој runtime:",
   dl_linux_arch_note: "**Linux преузимања на страници издања су само x86_64.** На ARM64 машинама (Raspberry Pi, Asahi Linux) Flatpak се инсталира, али не успева при покретању уз `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**Ажурирања:** пакет такође додаје сопствени Flatpak репозиторијум Arroxy-ја, па након тога `flatpak update` (или GNOME Software) одржава Arroxy ажурним. Инсталирали сте из старијег пакета? Инсталирајте нови једном.",
   dl_linux_flatpak_intro:
     "**Flatpak (алтернатива у песковнику):** преузмите `Arroxy-*.flatpak` са исте странице издања.",
 

@@ -261,6 +261,7 @@ export const vi = {
   dl_linux_targz_text: "Bản `.tar.gz` chính là ứng dụng đó nhưng không có lớp vỏ AppImage — giải nén ở đâu cũng được rồi chạy. Không cần trình cài đặt, không cần gói FUSE.",
   dl_linux_flatpak_prereq: "Ubuntu đi kèm Snap chứ không phải Flatpak, nên hãy cài Flatpak và thêm Flathub trước — gói sẽ tải runtime từ đó:",
   dl_linux_arch_note: "**Các bản tải Linux trên trang phát hành chỉ có x86_64.** Trên máy ARM64 (Raspberry Pi, Asahi Linux), Flatpak vẫn cài được nhưng khi khởi chạy sẽ lỗi `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**Cập nhật:** gói này cũng thêm kho Flatpak riêng của Arroxy, nên từ đó `flatpak update` (hoặc GNOME Software) giữ Arroxy luôn mới. Đã cài từ gói cũ? Hãy cài gói mới một lần.",
   dl_linux_flatpak_intro:
     "**Flatpak (lựa chọn thay thế sandbox):** tải `Arroxy-*.flatpak` từ cùng trang phát hành.",
 

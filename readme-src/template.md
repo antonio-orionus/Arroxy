@@ -179,6 +179,8 @@ flatpak install --user ./Arroxy-linux-x64.flatpak
 flatpak run io.github.antonio_orionus.Arroxy
 ```
 
+{{dl_linux_flatpak_updates}}
+
 {{dl_linux_arch_note}}
 
 <details>

@@ -5,14 +5,15 @@ const {autoUpdater} = electronUpdater
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {detectInstallChannel} from '@main/installChannel.js'
+import {resolveUpdateFeed} from '@main/updateFeed.js'
 import {trackMain} from '@main/services/analytics.js'
 import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '@shared/types.js'
 
 // Channels where the in-app installer should not run — either because an
-// external package manager owns updates (scoop/homebrew) or because the
+// external package manager owns updates (scoop/homebrew/flatpak) or because the
 // install layout can't accept an NSIS overwrite (portable). The renderer
 // still gets a banner so the user can copy the upgrade command.
-const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'homebrew', 'portable'])
+const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'homebrew', 'portable', 'flatpak'])
 
 // Map the running version's semver prerelease tag to an electron-updater
 // release channel. Stable versions follow `latest` and must never see beta
@@ -34,11 +35,13 @@ function resolveUpdateChannel(version: string): {channel: string; allowPrereleas
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	const installChannel = detectInstallChannel(app.getName())
 
-	// Flatpak updates are managed by the Flatpak ecosystem (flatpak update /
-	// GNOME Software). Running the in-app autoUpdater here would be wrong (it
-	// can't install) and showing a banner without a real update check would be
-	// misleading — the host package manager already notifies the user.
-	if (installChannel === 'flatpak') return
+	// Flatpak installs update from Arroxy's own Flatpak repo (`flatpak update`,
+	// GNOME Software). The banner still matters: many users never open a software
+	// centre, and a terminal-only user would otherwise never hear of an update.
+	// On Linux electron-updater only checks inside an AppImage ($APPIMAGE set);
+	// forceDevUpdateConfig is its one switch past that gate, and only the check
+	// runs here — flatpak is NON_INSTALLABLE, so nothing is ever downloaded.
+	if (installChannel === 'flatpak') autoUpdater.forceDevUpdateConfig = true
 
 	// Portable and scoop targets ship a portable .exe that extracts to %TEMP% —
 	// app-update.yml is absent from that extracted bundle, causing ENOENT when
@@ -47,7 +50,10 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	// The channel must match the running version's semver tag so a beta install
 	// queries beta.yml (not latest.yml — which 404s on prerelease releases).
 	const {channel, allowPrerelease} = resolveUpdateChannel(app.getVersion())
-	autoUpdater.setFeedURL({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel})
+	const resolvedFeed = resolveUpdateFeed(process.env, channel)
+	if (resolvedFeed.kind === 'override') log.warn('[updater] reading releases from ARROXY_UPDATE_FEED_URL', resolvedFeed.feed)
+	if (resolvedFeed.kind === 'rejected') log.warn('[updater] ignoring ARROXY_UPDATE_FEED_URL: only loopback http(s) URLs are allowed', resolvedFeed.value)
+	autoUpdater.setFeedURL(resolvedFeed.feed)
 	autoUpdater.channel = channel
 	autoUpdater.allowDowngrade = false // channel setter silently sets allowDowngrade=true; override it
 	autoUpdater.allowPrerelease = allowPrerelease

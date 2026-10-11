@@ -450,6 +450,7 @@ Renderer shows `<UpdateBanner>` between title bar and content area; `resolveActi
 
 - `scoop` → copy-command for `scoop update arroxy`
 - `homebrew` → copy-command for `brew upgrade --cask arroxy`
+- `flatpak` → copy-command for `flatpak update io.github.antonio_orionus.Arroxy` (updates come from Arroxy's own Flatpak repo; see Release Pipeline). On Linux electron-updater only checks inside an AppImage, so Flatpak sets `autoUpdater.forceDevUpdateConfig` to let the *check* run; `flatpak` is non-installable, nothing is downloaded.
 - `portable` → "Download ↗" link to https://arroxy.orionus.dev/ (NSIS auto-update can't run from a %TEMP% extract)
 - `direct` on darwin → "Download ↗" link to https://arroxy.orionus.dev/ (DMG is unsigned, can't self-update)
 - `direct` on win/linux (and `winget`) → "Install & Restart" button → invokes `updater:install` → main calls `downloadUpdate()` → on `update-downloaded` calls `quitAndInstall(false, true)`
@@ -468,7 +469,7 @@ IPC channel names live in `IPC_CHANNELS` (`@shared/ipc`); payload types (`Instal
 
 ## Release Pipeline
 
-Pushing a `v*` tag publishes to **four channels in one go**: GitHub Releases, Scoop, Homebrew Cask, Winget. No per-release manual steps.
+Pushing a `v*` tag publishes to **five channels in one go**: GitHub Releases, Scoop, Homebrew Cask, Winget, and Arroxy's own Flatpak repo. No per-release manual steps.
 
 ### Branch + tag conventions
 
@@ -536,7 +537,7 @@ git push --follow-tags
 
 ### Job graph
 
-`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `build-flatpak` starts after `build`, then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
+`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `build-flatpak` starts after `build` (builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, `publish-flatpak-repo` (GitHub Pages deploy), and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
 
 Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `publish-release` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
 
@@ -546,9 +547,10 @@ Arroxy uses GitHub immutable releases for release asset integrity and the GitHub
 
 ### Required GitHub repo secret
 
-| Secret         | Used by            | Scope                                   |
-| -------------- | ------------------ | --------------------------------------- |
-| `WINGET_TOKEN` | all 3 publish jobs | classic PAT, `public_repo` + `workflow` |
+| Secret                    | Used by            | Scope                                                        |
+| ------------------------- | ------------------ | ------------------------------------------------------------ |
+| `WINGET_TOKEN`            | all 3 publish jobs | classic PAT, `public_repo` + `workflow`                      |
+| `FLATPAK_GPG_PRIVATE_KEY` | `build-flatpak`    | signs the Flatpak repo; must match `flatpak/repo-signing-key.asc` |
 
 Despite the name, this single token authenticates Scoop, Homebrew, **and** Winget pushes (needs `public_repo` to push to external bucket/tap repos and to fork `microsoft/winget-pkgs`). Rotate every 90 days.
 
@@ -563,8 +565,9 @@ If we ever change the PackageIdentifier, repeat that one-time submission for the
 - [`antonio-orionus/scoop-bucket`](https://github.com/antonio-orionus/scoop-bucket) — single `bucket/arroxy.json` manifest, auto-bumped per release
 - [`antonio-orionus/homebrew-arroxy`](https://github.com/antonio-orionus/homebrew-arroxy) — single `Casks/arroxy.rb` cask with `on_arm`/`on_intel` stanzas, auto-bumped per release
 - [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs) — community repo; PRs land at `manifests/a/AntonioOrionus/Arroxy/<version>/`
+- This repo's GitHub Pages — Arroxy's Flatpak repo at https://antonio-orionus.github.io/Arroxy/flatpak/, replaced by every stable release (`publish-flatpak-repo`). See [`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md); never rotate its signing key casually — installed copies reject updates signed by another key.
 
-GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle. No Snap / AUR — community can maintain those if demand appears.
+GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle (stable bundles carry the Flatpak repo as their remote, so `flatpak update` works after installing one). No Snap / AUR — community can maintain those if demand appears.
 
 ---
 

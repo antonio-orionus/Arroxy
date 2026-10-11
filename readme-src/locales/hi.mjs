@@ -260,6 +260,7 @@ export const hi = {
   dl_linux_targz_text: "`.tar.gz` बिल्ड वही ऐप है, बस AppImage रैपर के बिना — कहीं भी एक्सट्रैक्ट करें और चलाएँ। न इंस्टॉलर चाहिए, न FUSE पैकेज।",
   dl_linux_flatpak_prereq: "Ubuntu में Flatpak की जगह Snap आता है, इसलिए पहले Flatpak इंस्टॉल करें और Flathub जोड़ें — बंडल अपना रनटाइम वहीं से लेता है:",
   dl_linux_arch_note: "**रिलीज़ पेज पर Linux डाउनलोड सिर्फ़ x86_64 के लिए हैं।** ARM64 मशीनों (Raspberry Pi, Asahi Linux) पर Flatpak इंस्टॉल तो हो जाता है, पर लॉन्च पर `bwrap: execvp ldconfig: Exec format error` के साथ विफल होता है।",
+  dl_linux_flatpak_updates: "**अपडेट:** यह बंडल Arroxy की अपनी Flatpak रिपॉज़िटरी भी जोड़ता है, इसलिए उसके बाद `flatpak update` (या GNOME Software) Arroxy को अपडेट रखता है। पुराने बंडल से इंस्टॉल किया था? नया बंडल एक बार इंस्टॉल करें।",
   dl_linux_flatpak_intro:
     "**Flatpak (सैंडबॉक्स विकल्प):** उसी रिलीज़ पेज से `Arroxy-*.flatpak` डाउनलोड करें।",
 

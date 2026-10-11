@@ -256,6 +256,7 @@ export const ar = {
   dl_linux_targz_text: "إصدار `.tar.gz` هو التطبيق نفسه بدون غلاف AppImage — فك ضغطه في أي مكان وشغّله. بلا مثبِّت وبلا حزمة FUSE.",
   dl_linux_flatpak_prereq: "يأتي أوبونتو مع Snap بدلاً من Flatpak، لذا ثبّت Flatpak وأضف Flathub أولاً — فالحزمة تجلب بيئة التشغيل من هناك:",
   dl_linux_arch_note: "**تنزيلات لينكس في صفحة الإصدارات متاحة لمعمارية x86_64 فقط.** على أجهزة ARM64 (Raspberry Pi، Asahi Linux) يُثبَّت Flatpak لكنه يفشل عند التشغيل برسالة `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**التحديثات:** تضيف الحزمة أيضًا مستودع Flatpak الخاص بـ Arroxy، فيُبقي `flatpak update` (أو GNOME Software) برنامج Arroxy محدّثًا بعد ذلك. ثبّته من حزمة أقدم؟ ثبّت الحزمة الجديدة مرة واحدة.",
   dl_linux_flatpak_intro:
     "**Flatpak (بديل معزول):** نزِّل `Arroxy-*.flatpak` من صفحة الإصدار نفسها.",
 

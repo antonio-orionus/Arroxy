@@ -260,6 +260,7 @@ export const om = {
   dl_linux_targz_text: "Ijaarsi `.tar.gz` isuma appii sanaa haguuggii AppImage malee — bakka feete baasii yaasi. Ijaarsis ta'e paakejiin FUSE hin barbaachisu.",
   dl_linux_flatpak_prereq: "Ubuntu Flatpak osoo hin taane Snap wajjin dhufa, kanaaf dursitee Flatpak ijaari akkasumas Flathub itti dabali — paakejiin runtime isaa achirraa fudhata:",
   dl_linux_arch_note: "**Buufannoowwan Linux fuula gadhiisaa irra jiran x86_64 qofaaf.** Maashinoota ARM64 (Raspberry Pi, Asahi Linux) irratti Flatpak ni ijaarama garuu yeroo eegalu `bwrap: execvp ldconfig: Exec format error` jedhee kufa.",
+  dl_linux_flatpak_updates: "**Haaromsa:** Bundle-n kun kuusaa Flatpak kan Arroxy mataa isaa illee ni dabala; kanaaf achiin booda `flatpak update` (ykn GNOME Software) Arroxy haaromsaa akka ta'u godha. Bundle moofaa irraa ijaarattee? Isa haaraa al tokko ijaari.",
   dl_linux_flatpak_intro:
     "**Flatpak (filannoo sandboxed):** `Arroxy-*.flatpak` gara fuula baasii sanuma irraa buusi.",
 

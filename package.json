@@ -3,6 +3,7 @@
 	"version": "0.4.22",
 	"private": true,
 	"description": "Arroxy - YouTube downloader app",
+	"desktopName": "arroxy.desktop",
 	"type": "module",
 	"main": "out/main/index.js",
 	"packageManager": "bun@1.4.0",

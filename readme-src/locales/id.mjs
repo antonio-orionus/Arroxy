@@ -126,6 +126,7 @@ export const id = {
   "dl_linux_targz_text": "Build `.tar.gz` adalah aplikasi yang sama tanpa pembungkus AppImage — ekstrak di mana saja lalu jalankan. Tanpa pemasang dan tanpa paket FUSE.",
   "dl_linux_flatpak_prereq": "Ubuntu menyertakan Snap alih-alih Flatpak, jadi instal Flatpak dan tambahkan Flathub terlebih dahulu — bundel mengambil runtime-nya dari sana:",
   "dl_linux_arch_note": "**Unduhan Linux di halaman rilis hanya untuk x86_64.** Di mesin ARM64 (Raspberry Pi, Asahi Linux) Flatpak tetap terinstal tetapi gagal saat diluncurkan dengan `bwrap: execvp ldconfig: Exec format error`.",
+  "dl_linux_flatpak_updates": "**Pembaruan:** bundel ini juga menambahkan repositori Flatpak milik Arroxy, jadi setelah itu `flatpak update` (atau GNOME Software) menjaga Arroxy tetap mutakhir. Dipasang dari bundel lama? Pasang yang baru sekali.",
   "dl_linux_flatpak_intro": "**Flatpak (alternatif sandbox):** unduh `Arroxy-linux-x64.flatpak` dari halaman rilis yang sama.",
   "dl_warning_h3": "Mengapa Anda mungkin melihat peringatan",
   "dl_warning_p1": "Arroxy adalah sumber terbuka dan berlisensi MIT. Versi Windows dan macOS **tidak ditandatangani dengan kode** — ID Pengembang Apple dan sertifikat penandatanganan kode Windows EV masing-masing berharga ratusan dolar per tahun, yang dibayar langsung oleh proyek indie. Tanpa tanda tangan tersebut, Windows SmartScreen dan macOS Gatekeeper akan memperingatkan Anda pada peluncuran pertama. Peringatan tersebut berarti *OS Anda tidak mengenali penerbitnya* — bukan berarti Arroxy adalah malware.",

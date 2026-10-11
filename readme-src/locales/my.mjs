@@ -260,6 +260,7 @@ export const my = {
   dl_linux_targz_text: "`.tar.gz` ဗားရှင်းသည် AppImage အခွံမပါသော အက်ပ်တူပင်ဖြစ်သည် — ကြိုက်ရာနေရာတွင် ဖြေပြီး ဖွင့်လိုက်ပါ။ installer လည်းမလို၊ FUSE package လည်း မလိုပါ။",
   dl_linux_flatpak_prereq: "Ubuntu တွင် Flatpak အစား Snap ပါလာသဖြင့် Flatpak ကို ဦးစွာ install ပြီး Flathub ကို ထည့်ပါ — bundle သည် runtime ကို ထိုမှ ရယူသည်:",
   dl_linux_arch_note: "**ထုတ်ဝေမှုစာမျက်နှာရှိ Linux ဒေါင်းလုဒ်များသည် x86_64 သီးသန့်ဖြစ်သည်။** ARM64 စက်များ (Raspberry Pi, Asahi Linux) တွင် Flatpak install လုပ်၍ရသော်လည်း ဖွင့်သည့်အခါ `bwrap: execvp ldconfig: Exec format error` ဖြင့် ကျရှုံးသည်။",
+  dl_linux_flatpak_updates: "**အပ်ဒိတ်များ:** ဤ bundle သည် Arroxy ၏ ကိုယ်ပိုင် Flatpak repository ကိုလည်း ထည့်ပေးသဖြင့် ထို့နောက် `flatpak update` (သို့မဟုတ် GNOME Software) က Arroxy ကို နောက်ဆုံးဗားရှင်းဖြစ်အောင် ထိန်းပေးပါသည်။ bundle အဟောင်းမှ ထည့်သွင်းထားပါသလား။ အသစ်ကို တစ်ကြိမ် ထည့်သွင်းပါ။",
   dl_linux_flatpak_intro:
     "**Flatpak (sandboxed alternative):** တူညီသော release page မှ `Arroxy-*.flatpak` ကို download ဆင်းပါ။",
 

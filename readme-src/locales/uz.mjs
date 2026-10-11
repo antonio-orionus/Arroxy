@@ -259,6 +259,7 @@ export const uz = {
   dl_linux_targz_text: "`.tar.gz` to'plami — AppImage qobig'isiz o'sha ilovaning o'zi: istalgan joyga chiqaring va ishga tushiring. Na o'rnatuvchi, na FUSE paketi kerak.",
   dl_linux_flatpak_prereq: "Ubuntu tarkibida Flatpak emas, Snap keladi, shuning uchun avval Flatpak o'rnating va Flathub qo'shing — to'plam o'z runtime'ini o'sha yerdan oladi:",
   dl_linux_arch_note: "**Relizlar sahifasidagi Linux yuklamalari faqat x86_64 uchun.** ARM64 qurilmalarida (Raspberry Pi, Asahi Linux) Flatpak o'rnatiladi, lekin ishga tushirishda `bwrap: execvp ldconfig: Exec format error` xatosi bilan tugaydi.",
+  dl_linux_flatpak_updates: "**Yangilanishlar:** to'plam Arroxy'ning o'z Flatpak omborini ham qo'shadi, shuning uchun keyin `flatpak update` (yoki GNOME Software) Arroxy'ni yangilab turadi. Eski to'plamdan o'rnatganmisiz? Yangisini bir marta o'rnating.",
   dl_linux_flatpak_intro:
     "**Flatpak (qumloq muhitdagi muqobil):** xuddi shu reliz sahifasidan `Arroxy-*.flatpak` ni yuklab oling.",
 

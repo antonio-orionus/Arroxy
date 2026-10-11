@@ -193,6 +193,7 @@ export const it = {
   dl_linux_targz_text: "La build `.tar.gz` contiene la stessa app senza il wrapper AppImage: estraila ovunque ed eseguila. Non servono un programma di installazione né FUSE.",
   dl_linux_flatpak_prereq: "Ubuntu include Snap anziché Flatpak; installa quindi Flatpak e aggiungi prima Flathub, da cui il pacchetto scaricherà il proprio runtime:",
   dl_linux_arch_note: "**I download Linux nella pagina della versione sono disponibili solo per x86_64.** Sui sistemi ARM64 (Raspberry Pi, Asahi Linux) Flatpak si installa comunque, ma poi non parte e mostra `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**Aggiornamenti:** il pacchetto aggiunge anche il repository Flatpak di Arroxy, quindi da lì in poi `flatpak update` (o GNOME Software) mantiene Arroxy aggiornato. Installato da un pacchetto precedente? Installa quello nuovo una volta.",
   dl_linux_flatpak_intro: "**Flatpak (alternativa in sandbox):** scarica `Arroxy-linux-x64.flatpak` dalla stessa pagina della versione.",
   dl_warning_h3: "Perché potresti vedere un avviso",
   dl_warning_p1: "Arroxy è open source e distribuito con licenza MIT. Le build Windows e macOS **non sono firmate digitalmente**: i certificati Apple Developer ID ed EV per Windows costano ciascuno centinaia di euro all'anno, a carico di un progetto indipendente. Senza tali firme, Windows SmartScreen e macOS Gatekeeper mostrano un avviso al primo avvio. Gli avvisi indicano che *il sistema operativo non riconosce l'autore*, non che Arroxy sia malware.",

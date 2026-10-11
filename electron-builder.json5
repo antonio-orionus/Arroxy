@@ -78,7 +78,8 @@
       { "target": "AppImage", "arch": ["x64"] },
       { "target": "tar.gz", "arch": ["x64"] }
     ],
-    "artifactName": "${productName}-linux-${arch}.${ext}"
+    "artifactName": "${productName}-linux-${arch}.${ext}",
+    "syncDesktopName": true
   },
   "publish": {
     "provider": "github",

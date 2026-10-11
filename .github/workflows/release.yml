@@ -461,8 +461,10 @@ jobs:
           gh release edit "$REF_NAME" --draft=false $EXTRA
 
   build-flatpak:
-    # Build a Flatpak bundle for the GitHub Release only.
-    # This does not publish to Flathub or commit manifest changes back to main.
+    # Builds the Flatpak, signs it into Arroxy's own Flatpak repo (deployed to
+    # GitHub Pages by `publish-flatpak-repo` for stable tags) and builds the
+    # release bundle, which carries that repo so `flatpak update` works after a
+    # bundle install. Not published to Flathub; no manifest changes go to main.
     #
     # Depends on `build` so Flatpak can be uploaded before `publish-release`
     # generates SHA256SUMS. The tar.gz hash is computed directly from the
@@ -507,12 +509,61 @@ jobs:
             --metainfo-output flatpak/io.github.antonio_orionus.Arroxy.metainfo.xml
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: arroxy.flatpak
           manifest-path: flatpak/io.github.antonio_orionus.Arroxy.yml
+          # The bundle comes from scripts/flatpak/publish-repo.sh below, which
+          # points it at Arroxy's Flatpak repo; the action only fills `repo/`.
+          build-bundle: false
+          upload-artifact: false
           # Stable across release tags. Previously keyed on github.sha which
           # never hit, adding ~7 min per release. Invalidates only when flatpak
           # manifest or electron build inputs change.
           cache-key: flatpak-builder-${{ hashFiles('flatpak/**', 'electron-builder.json5', 'package.json') }}
+      - name: Import Flatpak repo signing key
+        # The key signs every commit and the repo summary; installed copies
+        # refuse updates that it did not sign. Created once with
+        # scripts/flatpak/create-signing-key.sh (see dev-docs/flatpak-repo.md).
+        env:
+          FLATPAK_GPG_PRIVATE_KEY: ${{ secrets.FLATPAK_GPG_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FLATPAK_GPG_PRIVATE_KEY" ]; then
+            echo "::error::FLATPAK_GPG_PRIVATE_KEY is not set — run scripts/flatpak/create-signing-key.sh once (dev-docs/flatpak-repo.md)"
+            exit 1
+          fi
+          GNUPGHOME="$RUNNER_TEMP/flatpak-gnupg"
+          mkdir -p "$GNUPGHOME" && chmod 700 "$GNUPGHOME"
+          printf '%s\n' "$FLATPAK_GPG_PRIVATE_KEY" | gpg --homedir "$GNUPGHOME" --batch --import
+          KEY=$(gpg --homedir "$GNUPGHOME" --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')
+          # Installed copies only accept updates signed by the key they were
+          # installed with; signing with any other key would strand them all.
+          COMMITTED=$(gpg --homedir "$GNUPGHOME" --show-keys --with-colons flatpak/repo-signing-key.asc | awk -F: '/^fpr/ {print $10; exit}')
+          if [ "$KEY" != "$COMMITTED" ]; then
+            echo "::error::FLATPAK_GPG_PRIVATE_KEY ($KEY) does not match flatpak/repo-signing-key.asc ($COMMITTED)"
+            exit 1
+          fi
+          echo "FLATPAK_GNUPGHOME=$GNUPGHOME" >> "$GITHUB_ENV"
+          echo "FLATPAK_GPG_KEY=$KEY" >> "$GITHUB_ENV"
+      - name: Sign, publish the Flatpak repo, build the bundle
+        # Prerelease bundles leave the repo out: the repo carries stable
+        # releases only, and `flatpak update` must not move a beta tester onto it.
+        env:
+          FLATPAK_REPO_URL: https://antonio-orionus.github.io/Arroxy/flatpak
+        run: |
+          set -euo pipefail
+          extra=()
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then extra+=(--no-bundle-remote); fi
+          bash scripts/flatpak/publish-repo.sh --repo repo --site flatpak-site/flatpak --url "$FLATPAK_REPO_URL" \
+            --gpg-key "$FLATPAK_GPG_KEY" --gpg-homedir "$FLATPAK_GNUPGHOME" --bundle arroxy.flatpak "${extra[@]}"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: arroxy-x86_64.flatpak
+          path: arroxy.flatpak
+          if-no-files-found: error
+      - name: Upload Flatpak repo for GitHub Pages
+        if: ${{ !contains(github.ref_name, '-') }}
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: flatpak-site
 
   upload-flatpak:
     needs: build-flatpak
@@ -539,6 +590,24 @@ jobs:
             --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-flatpak-repo:
+    # Arroxy's Flatpak repo on GitHub Pages — the Flatpak counterpart of the
+    # Scoop bucket and Homebrew tap. Installed copies pick the release up with
+    # `flatpak update` or GNOME Software. Stable releases only, and only after
+    # the GitHub Release is public, so the repo never runs ahead of it.
+    needs: [publish-release, build-flatpak]
+    if: ${{ !contains(github.ref_name, '-') }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}flatpak/
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   notify-web-release-manifest:
     needs: publish-release

@@ -259,6 +259,7 @@ export const tr = {
   dl_linux_targz_text: "`.tar.gz` sürümü, AppImage sarmalayıcısı olmayan aynı uygulamadır — istediğiniz yere çıkarın ve çalıştırın. Kurulum programı ve FUSE paketi gerekmez.",
   dl_linux_flatpak_prereq: "Ubuntu, Flatpak yerine Snap ile gelir; bu yüzden önce Flatpak'i kurun ve Flathub'ı ekleyin — paket çalışma zamanını oradan indirir:",
   dl_linux_arch_note: "**Sürüm sayfasındaki Linux indirmeleri yalnızca x86_64'tür.** ARM64 makinelerde (Raspberry Pi, Asahi Linux) Flatpak kurulur ama açılışta `bwrap: execvp ldconfig: Exec format error` hatasıyla başarısız olur.",
+  dl_linux_flatpak_updates: "**Güncellemeler:** paket, Arroxy'nin kendi Flatpak deposunu da ekler; böylece bundan sonra `flatpak update` (veya GNOME Yazılım) Arroxy'yi güncel tutar. Eski bir paketten mi kurdunuz? Yenisini bir kez kurun.",
   dl_linux_flatpak_intro:
     "**Flatpak (sandbox'lı alternatif):** aynı sürüm sayfasından `Arroxy-linux-x64.flatpak` indir.",
 

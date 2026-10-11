@@ -258,6 +258,7 @@ export const ja = {
   dl_linux_targz_text: "`.tar.gz` 版は AppImage のラッパーを外した同じアプリです。好きな場所に展開して実行するだけで、インストーラーも FUSE パッケージも不要です。",
   dl_linux_flatpak_prereq: "Ubuntu には Flatpak ではなく Snap が同梱されているため、まず Flatpak をインストールして Flathub を追加してください。バンドルはそこからランタイムを取得します：",
   dl_linux_arch_note: "**リリースページの Linux ダウンロードは x86_64 のみです。** ARM64 マシン（Raspberry Pi、Asahi Linux）では Flatpak はインストールできますが、起動時に `bwrap: execvp ldconfig: Exec format error` で失敗します。",
+  dl_linux_flatpak_updates: "**アップデート:** このバンドルは Arroxy 独自の Flatpak リポジトリも追加するため、以後は `flatpak update`（または GNOME ソフトウェア）で Arroxy を最新に保てます。古いバンドルからインストールした場合は、新しいバンドルを一度インストールしてください。",
   dl_linux_flatpak_intro:
     "**Flatpak（サンドボックス版）：** 同じリリースページから `Arroxy-*.flatpak` をダウンロード。",
 

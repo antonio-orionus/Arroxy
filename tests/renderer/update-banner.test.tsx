@@ -34,11 +34,10 @@ describe('resolveAction', () => {
 		expect(resolveAction('portable', 'win32')).toEqual({kind: 'download'})
 	})
 
-	// Flatpak is filtered upstream in the main process — the renderer never
-	// receives this channel in production. The case is kept in resolveAction for
-	// type exhaustiveness only; the safe fallback is download.
-	it('flatpak → download (unreachable in production but defined for exhaustiveness)', () => {
-		expect(resolveAction('flatpak', 'linux')).toEqual({kind: 'download'})
+	// Flatpak installs update from Arroxy's Flatpak repo; the app cannot replace
+	// its own sandboxed files, so the banner hands the user the command.
+	it('flatpak → copy-command for flatpak update', () => {
+		expect(resolveAction('flatpak', 'linux')).toEqual({kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy'})
 	})
 })
 

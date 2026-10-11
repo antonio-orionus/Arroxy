@@ -21,10 +21,10 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 			return {kind: 'download'}
 		case 'direct':
 			return platform === 'darwin' ? {kind: 'download'} : {kind: 'install'}
-		// Flatpak is filtered upstream in the main process — the renderer should
-		// never receive this channel. Handled here only for type exhaustiveness.
+		// Arroxy's Flatpak repo serves updates; the sandboxed app cannot replace
+		// its own files, so the user runs the update.
 		case 'flatpak':
-			return {kind: 'download'}
+			return {kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy'}
 		default: {
 			// Exhaustiveness check — adding a channel without handling here is a type error.
 			const _exhaustive: never = channel

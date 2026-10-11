@@ -261,6 +261,7 @@ export const fr = {
   dl_linux_targz_text: "La version `.tar.gz` est la même application sans l'enveloppe AppImage : décompresse-la où tu veux et lance-la. Ni installateur ni paquet FUSE.",
   dl_linux_flatpak_prereq: "Ubuntu fournit Snap plutôt que Flatpak : installe donc Flatpak et ajoute Flathub d'abord — le bundle y récupère son runtime :",
   dl_linux_arch_note: "**Les téléchargements Linux sur la page des versions sont uniquement en x86_64.** Sur les machines ARM64 (Raspberry Pi, Asahi Linux) le Flatpak s'installe mais échoue au lancement avec `bwrap: execvp ldconfig: Exec format error`.",
+  dl_linux_flatpak_updates: "**Mises à jour :** le paquet ajoute aussi le dépôt Flatpak d'Arroxy, donc ensuite `flatpak update` (ou GNOME Logiciels) garde Arroxy à jour. Installé depuis un ancien paquet ? Installez le nouveau une fois.",
   dl_linux_flatpak_intro:
     "**Flatpak (alternative en sandbox) :** télécharge `Arroxy-*.flatpak` depuis la même page de release.",
 
