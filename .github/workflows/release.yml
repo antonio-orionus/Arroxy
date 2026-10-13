@@ -743,8 +743,9 @@ jobs:
             homepage "https://github.com/antonio-orionus/Arroxy"
 
             # Electron 44 requires macOS 13; refuse the install on older
-            # systems instead of shipping an app that cannot launch.
-            depends_on macos: ">= :ventura"
+            # systems instead of shipping an app that cannot launch. A bare
+            # symbol is a minimum; the ">= :x" string form is deprecated.
+            depends_on macos: :ventura
 
             app "Arroxy.app"
 
@@ -777,7 +778,7 @@ jobs:
           ruby -c Casks/arroxy.rb
           grep -q 'postflight_steps do' Casks/arroxy.rb
           grep -q 'com.apple.quarantine' Casks/arroxy.rb
-          grep -q 'depends_on macos:' Casks/arroxy.rb
+          grep -q 'depends_on macos: :ventura' Casks/arroxy.rb
           grep -q "version \"${GITHUB_REF_NAME#v}\"" Casks/arroxy.rb
           echo "cask OK"
       - name: Commit & push
