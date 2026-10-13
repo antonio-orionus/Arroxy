@@ -63,6 +63,12 @@ watch sat on the wrong endpoint).
 Any wait loop must therefore treat all three as terminal, so silence is never
 mistaken for progress.
 
+**Never filter by `created_at`.** The walkthrough carrying `No actionable
+comments` is the summary comment CodeRabbit posted when the PR opened, edited
+in place when the review finishes — its `created_at` predates your trigger and
+only `updated_at` moves. On PR #262 a poll restricted to comments created after
+the trigger sat for 30 minutes on a review that had finished in 3.
+
 ## How to apply
 
 ```bash
