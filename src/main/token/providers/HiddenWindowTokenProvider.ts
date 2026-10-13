@@ -1,11 +1,11 @@
-import {BrowserWindow, session} from 'electron'
+import {app, BrowserWindow, session} from 'electron'
 import log from 'electron-log/main.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
+import {blandUserAgent} from '@main/utils/blandUserAgent.js'
 import {parseProxySetting, proxyForLog, type ProxySetting} from '@main/utils/proxyUrl.js'
 
 const logger = log.scope('token')
 
-const CHROME_UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' + '(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
 const YOUTUBE_URL = 'https://www.youtube.com?themeRefresh=1'
 const PARTITION = 'persist:youtube-hidden'
 
@@ -53,6 +53,9 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		}
 
 		this.hiddenWindow = new BrowserWindow({show: false, width: 1280, height: 720, webPreferences: {nodeIntegration: false, contextIsolation: true, session: session.fromPartition(PARTITION)}})
+		// Set on the webContents, not per load, so the document, its
+		// subresource requests and navigator.userAgent all agree.
+		this.hiddenWindow.webContents.setUserAgent(blandUserAgent(app.userAgentFallback, app.getName()))
 
 		// Chromium's proxy rules cannot carry credentials, so an authenticated proxy
 		// challenges the page instead. Only proxy challenges are answered — a site
@@ -110,7 +113,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 				logger.warn('PoT scrape: YouTube failed to load', {code, description, proxy: proxyForLog(this.proxy)})
 				reject(new Error(`YouTube failed to load: ${description} (${code})`))
 			})
-			void win.loadURL(YOUTUBE_URL, {userAgent: CHROME_UA})
+			void win.loadURL(YOUTUBE_URL)
 		})
 
 		const found = await this.pollForWebPoClient(win, 20_000)
