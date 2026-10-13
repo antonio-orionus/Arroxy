@@ -12,7 +12,7 @@ function isProbablyDownloadableUrl(input: string): boolean {
 }
 
 export interface ClipboardReader {
-	readText(): string
+	readText(): Promise<string>
 }
 
 export type WatcherEvent = 'focus' | 'blur' | 'show' | 'hide' | 'minimize' | 'restore'
@@ -55,6 +55,11 @@ export class ClipboardWatcher {
 	private lastSeen = ''
 	private enabled = false
 	private listening = false
+	// Clipboard reads are async. Each polling session gets a generation so a
+	// read that settles after stop() (blur, hide, disable, dispose) is dropped
+	// instead of acting on a window that is no longer watching.
+	private generation = 0
+	private reading = false
 	private readonly attentionHandler = (): void => this.syncPolling()
 
 	constructor(
@@ -88,22 +93,30 @@ export class ClipboardWatcher {
 
 	private start(): void {
 		if (this.timer) return
-		this.timer = setInterval(() => this.pollOnce(), this.intervalMs)
+		this.timer = setInterval(() => void this.pollOnce(), this.intervalMs)
 	}
 
 	private stop(): void {
 		if (!this.timer) return
 		clearInterval(this.timer)
 		this.timer = null
+		this.generation++
+		// A read still pending from the old session must not block the next one.
+		this.reading = false
 	}
 
-	private pollOnce(): void {
+	private async pollOnce(): Promise<void> {
+		if (this.reading) return
+		this.reading = true
+		const generation = this.generation
 		let text: string
 		try {
-			text = this.reader.readText()
+			text = await this.reader.readText()
 		} catch {
-			return
+			text = ''
 		}
+		if (generation !== this.generation) return
+		this.reading = false
 		if (!text || text === this.lastSeen) return
 		this.lastSeen = text
 		const trimmed = text.trim()

@@ -41,12 +41,12 @@ async function expectSinkLine(file: string, text: string, timeout = 30_000): Pro
 // Mirrors the registered chord handler: main reads + pre-classifies the
 // clipboard, then dispatches the trigger to the renderer.
 async function pressHotkey(app: ElectronApplication): Promise<void> {
-	await app.evaluate(() => {
-		const service = (globalThis as Record<string, unknown>).__arroxyHotkeyService as {getState(): {accelerator: string | null; registered: boolean}; handleTrigger(): void} | undefined
+	await app.evaluate(async () => {
+		const service = (globalThis as Record<string, unknown>).__arroxyHotkeyService as {getState(): {accelerator: string | null; registered: boolean}; handleTrigger(): Promise<void>} | undefined
 		if (!service) throw new Error('__arroxyHotkeyService is not exposed on globalThis')
 		const state = service.getState()
 		if (!state.registered) throw new Error(`hotkey service is not registered: ${JSON.stringify(state)}`)
-		service.handleTrigger()
+		await service.handleTrigger()
 	})
 }
 
