@@ -191,7 +191,7 @@
 		"@vitejs/plugin-react": "6.1.1",
 		"acorn": "8.16.0",
 		"concurrently": "10.0.5",
-		"electron": "43.7.7",
+		"electron": "44.5.1",
 		"electron-builder": "26.17.0",
 		"electron-vite": "5.0.0",
 		"eslint-plugin-react": "7.37.5",
