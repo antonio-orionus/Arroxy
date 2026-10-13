@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import {describe, expect, it} from 'vitest'
-import {buildGraphicsPolicy} from '@main/services/GraphicsPolicy.js'
+import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 
 const HEALTHY_FEATURES = {gpu_compositing: 'enabled', rasterization: 'enabled', webgl: 'enabled'}
 
@@ -95,5 +95,21 @@ describe('graphics policy', () => {
 
 		expect(policy.backdrop.forceRenderMode).toBe('css-only')
 		expect(policy.backdrop.softwareWebglAllowed).toBe(false)
+	})
+})
+
+describe('isGpuAccessDenied', () => {
+	// Chromium rejects app.getGPUInfo() with this whenever the GPU process runs
+	// without GPU access. "due to frequent crashes" is its fallback wording for
+	// display-compositor mode on a GPU-less host, not evidence of a crash.
+	it('recognizes every GPU-access-denied rejection', () => {
+		expect(isGpuAccessDenied(new Error('GPU access not allowed. Reason: GPU access is disabled due to frequent crashes.'))).toBe(true)
+		expect(isGpuAccessDenied(new Error('GPU access not allowed. Reason: GPU access is disabled through commandline switch --disable-gpu and --disable-software-rasterizer.'))).toBe(true)
+	})
+
+	it('treats any other failure as unexpected', () => {
+		expect(isGpuAccessDenied(new Error("GPU process isn't usable. Goodbye."))).toBe(false)
+		expect(isGpuAccessDenied('GPU access not allowed')).toBe(false)
+		expect(isGpuAccessDenied(undefined)).toBe(false)
 	})
 })

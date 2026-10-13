@@ -13,7 +13,7 @@ import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {setupAnalytics, setAnalyticsEnabled, trackCrashDetectedOncePerSession, trackMain} from '@main/services/analytics.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
-import {buildGraphicsPolicy} from '@main/services/GraphicsPolicy.js'
+import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 import {DownloadService} from '@main/services/DownloadService.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
@@ -250,7 +250,8 @@ if (hasSingleInstanceLock) {
 					gpuInfo = await app.getGPUInfo('basic')
 					log.info('gpu info', gpuInfo)
 				} catch (err: unknown) {
-					log.warn('gpu info failed', err)
+					if (isGpuAccessDenied(err)) log.info('gpu info unavailable', {reason: err.message})
+					else log.warn('gpu info failed', err)
 					gpuInfo = undefined
 				}
 				const policy = buildGraphicsPolicy({isPackaged: app.isPackaged, env: process.env, featureStatus: gpuFeatureStatus, featureStatusUsable: gpuInfoUpdated, gpuInfo, gpuInfoUnavailable: gpuInfo === undefined})

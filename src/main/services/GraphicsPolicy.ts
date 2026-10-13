@@ -101,6 +101,15 @@ function makePolicy(input: GraphicsPolicyInput, forceRenderMode: GraphicsPolicy[
 	}
 }
 
+// Chromium rejects app.getGPUInfo() with this prefix whenever the GPU process
+// has no GPU access: no usable GPU, --disable-gpu, or display-compositor
+// fallback. That is a state the feature status already reports, not a failure;
+// "due to frequent crashes" is Chromium's fallback wording on a GPU-less host.
+// Real GPU process crashes surface through child-process-gone instead.
+export function isGpuAccessDenied(err: unknown): err is Error {
+	return err instanceof Error && err.message.startsWith('GPU access not allowed')
+}
+
 export function buildGraphicsPolicy(input: GraphicsPolicyInput): GraphicsPolicy {
 	const softwareWebglAllowed = !input.isPackaged && input.env.ARROXY_BACKDROP_SOFTWARE === '1'
 	const rendererDiagnostics = collectRendererDiagnostics(input.gpuInfo)
