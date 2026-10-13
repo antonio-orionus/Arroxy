@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} from 'react'
-import {getCoreRowModel, getSortedRowModel, useReactTable, type ColumnOrderState, type SortingState, type Updater, type VisibilityState} from '@tanstack/react-table'
+import {useTable, type ColumnOrderState, type ColumnVisibilityState, type SortingState, type Updater} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
 import {CirclePause} from 'lucide-react'
@@ -16,6 +16,7 @@ import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from 
 import {QueueManagerToolbar} from './QueueManagerToolbar.js'
 import {QueueManagerTable} from './QueueManagerTable.js'
 import {useQueueManagerColumns} from './useQueueManagerColumns.js'
+import {queueTableFeatures} from './queueTableFeatures.js'
 import {Card} from '../ui/card.js'
 
 const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, addedAt: 900, finishedAt: 900}
@@ -165,7 +166,7 @@ export function QueueManagerTab(): ReactNode {
 	)
 
 	const setColumnVisibility = useCallback(
-		(updater: Updater<VisibilityState>): void => {
+		(updater: Updater<ColumnVisibilityState>): void => {
 			updateTablePreferences(previous => ({...previous, columnVisibility: resolveUpdater(updater, previous.columnVisibility)}))
 		},
 		[updateTablePreferences]
@@ -173,13 +174,10 @@ export function QueueManagerTab(): ReactNode {
 
 	const columns = useQueueManagerColumns({expandedIds, onToggleExpanded: toggleExpanded, t})
 
-	// TanStack Table returns function-bearing objects that React Compiler cannot safely memoize.
-	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const table = useReactTable<QueueItem>({
+	const table = useTable({
+		features: queueTableFeatures,
 		data: filteredQueue,
 		columns,
-		getCoreRowModel: getCoreRowModel(),
-		getSortedRowModel: getSortedRowModel(),
 		getRowId: item => item.id,
 		onColumnOrderChange: setColumnOrder,
 		onColumnVisibilityChange: setColumnVisibility,
@@ -189,6 +187,8 @@ export function QueueManagerTab(): ReactNode {
 	const rows = table.getRowModel().rows
 	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
 	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	// TanStack Virtual returns function-bearing objects that React Compiler cannot safely memoize.
+	// oxlint-disable-next-line react-hooks-js/incompatible-library
 	const rowVirtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 62, overscan: 8})
 	const virtualRows = rowVirtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]

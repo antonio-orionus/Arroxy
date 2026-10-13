@@ -4,12 +4,18 @@
 // about what a row means — columns, menu contents and any expansion row come
 // from the caller.
 //
+// Generic over the table's TanStack features because each caller registers a
+// different set. Only core APIs are called on the instances; visible cells go
+// through the feature-agnostic `row_getVisibleCells`, which honours column
+// visibility when the caller registers it and returns every cell otherwise.
+//
 // The row carries a named `group/row` class so a caller's cell markup (e.g.
 // the playlist-profiles PROFILE cell's quick-edit pencil) can reveal a
 // hover/focus-only control with `group-hover/row:` without this component
 // knowing anything about that control.
 
-import {flexRender, type Row, type Table as TanstackTable} from '@tanstack/react-table'
+import {flexRender, type Row, type RowData, type Table as TanstackTable, type TableFeatures} from '@tanstack/react-table'
+import {row_getVisibleCells} from '@tanstack/react-table/static-functions'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {Fragment, type KeyboardEvent, type ReactNode, type RefObject} from 'react'
 import {cn} from '@renderer/lib/utils.js'
@@ -18,9 +24,9 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '../
 import type {RowSelectionInteractions} from './useRowSelectionInteractions.js'
 import {SectionLabel} from './SectionLabel.js'
 
-export interface SelectableVirtualTableProps<T> {
-	table: TanstackTable<T>
-	rows: Row<T>[]
+export interface SelectableVirtualTableProps<TFeatures extends TableFeatures, T extends RowData> {
+	table: TanstackTable<TFeatures, T>
+	rows: Row<TFeatures, T>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
 	topVirtualPadding: number
@@ -28,12 +34,12 @@ export interface SelectableVirtualTableProps<T> {
 	renderedColumnCount: number
 	selectedIds: ReadonlySet<string>
 	interactions: RowSelectionInteractions
-	getRowId: (row: Row<T>) => string
+	getRowId: (row: Row<TFeatures, T>) => string
 	emptyLabel: string
 	renderContextMenu: (rowId: string) => ReactNode
-	renderExtraRows?: (row: Row<T>) => ReactNode
+	renderExtraRows?: (row: Row<TFeatures, T>) => ReactNode
 	rowTestId: (rowId: string) => string
-	rowDataAttributes?: (row: Row<T>) => Record<string, string>
+	rowDataAttributes?: (row: Row<TFeatures, T>) => Record<string, string>
 	columnClassName?: (columnId: string) => string | undefined
 	scrollTestId: string
 }
@@ -49,7 +55,7 @@ function runRowKeyboardToggle(event: KeyboardEvent<HTMLTableRowElement>, toggle:
 	toggle()
 }
 
-export function SelectableVirtualTable<T>({
+export function SelectableVirtualTable<TFeatures extends TableFeatures, T extends RowData>({
 	table,
 	rows,
 	virtualRows,
@@ -67,7 +73,7 @@ export function SelectableVirtualTable<T>({
 	rowDataAttributes,
 	columnClassName,
 	scrollTestId
-}: SelectableVirtualTableProps<T>): ReactNode {
+}: SelectableVirtualTableProps<TFeatures, T>): ReactNode {
 	const columnClass = columnClassName ?? ((): undefined => undefined)
 	return (
 		<div ref={scrollRef} className="h-[clamp(12rem,calc(100vh-16rem),34rem)] min-h-0 overflow-auto rounded-xl border border-border-strong bg-background/25" data-testid={scrollTestId}>
@@ -120,7 +126,7 @@ export function SelectableVirtualTable<T>({
 														onPointerEnter={event => interactions.onRowPointerEnter(rowId, event)}
 														className={cn('group/row cursor-pointer border-border/60 hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring', selected && 'queue-manager-row-selected')}
 													>
-														{row.getVisibleCells().map(cell => (
+														{row_getVisibleCells(row).map(cell => (
 															<TableCell key={cell.id} className={cn('min-w-0 overflow-hidden px-3 py-2', columnClass(cell.column.id))}>
 																{flexRender(cell.column.columnDef.cell, cell.getContext())}
 															</TableCell>

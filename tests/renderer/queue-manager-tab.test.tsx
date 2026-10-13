@@ -533,6 +533,22 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByRole('columnheader', {name: /finished/i})).toBeInTheDocument()
 	})
 
+	it('renders row cells only for visible columns', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', title: 'Finished video', status: 'done', addedAt: '2026-06-19T09:00:00.000Z', finishedAt: '2026-06-19T09:05:00.000Z'})]})
+
+		render(<QueueManagerTab />)
+		const cellCount = (): number => within(screen.getByTestId('queue-manager-row-done')).getAllByRole('cell').length
+
+		expect(cellCount()).toBe(screen.getAllByRole('columnheader').length)
+		const hiddenCellCount = cellCount()
+
+		fireEvent.click(screen.getByRole('button', {name: /columns/i}))
+		fireEvent.click(screen.getByRole('checkbox', {name: /finished/i}))
+
+		expect(cellCount()).toBe(hiddenCellCount + 1)
+		expect(cellCount()).toBe(screen.getAllByRole('columnheader').length)
+	})
+
 	it('labels global queue actions as applying to all items', () => {
 		useAppStore.setState({queue: [makeItem({id: 'pending', title: 'Waiting video', status: 'pending'})]})
 

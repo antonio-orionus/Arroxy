@@ -4,7 +4,7 @@
 // wires state, never table markup.
 
 import type {ReactNode, RefObject} from 'react'
-import type {Row, Table as ReactTable} from '@tanstack/react-table'
+import type {Row, Table} from '@tanstack/react-table'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
 import {RotateCcw, Trash2} from 'lucide-react'
@@ -13,10 +13,11 @@ import {ContextMenuContent, ContextMenuItem, ContextMenuSeparator} from '../ui/c
 import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
 import type {RowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import type {DownloadProfileActionOption} from './downloadProfileActions.js'
+import type {PlaylistProfileTableFeatures} from './playlistProfileTableFeatures.js'
 
 interface PlaylistProfileTableProps {
-	table: ReactTable<PlaylistEntry>
-	rows: Row<PlaylistEntry>[]
+	table: Table<PlaylistProfileTableFeatures, PlaylistEntry>
+	rows: Row<PlaylistProfileTableFeatures, PlaylistEntry>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
 	topVirtualPadding: number

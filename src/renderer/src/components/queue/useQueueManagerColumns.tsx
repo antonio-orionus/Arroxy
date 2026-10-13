@@ -1,5 +1,5 @@
 import {useMemo, type ReactNode} from 'react'
-import {createColumnHelper} from '@tanstack/react-table'
+import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
 import {Ban, Captions, CheckCircle2, ChevronDown, Clock, Loader2, Pause, PauseCircle, XCircle} from 'lucide-react'
 import type {StatusKey} from '@shared/schemas.js'
@@ -10,6 +10,7 @@ import {formatLocalizedError, formatStatus} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Progress} from '../ui/progress.js'
+import type {QueueTableFeatures} from './queueTableFeatures.js'
 
 const STATUS_META: Record<
 	QueueItemStatus,
@@ -29,8 +30,7 @@ const STATUS_META: Record<
 	cancelled: {variant: 'secondary', icon: <Ban size={12} aria-hidden />, labelKey: 'queue.item.statusCancelled'}
 }
 
-const columnHelper = createColumnHelper<QueueItem>()
-type QueueManagerColumn = ReturnType<typeof columnHelper.accessor>
+const columnHelper = createColumnHelper<QueueTableFeatures, QueueItem>()
 
 function formatQueueDate(value: string | null, t: TFunction): string {
 	if (!value) return t('queue.table.notAvailable')
@@ -87,10 +87,10 @@ function doneNotice(item: QueueItem): DoneNotice | undefined {
 	return item.status === 'done' && item.lastStatus ? DONE_NOTICES[item.lastStatus.key] : undefined
 }
 
-export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; t: TFunction}): QueueManagerColumn[] {
+export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; t: TFunction}): ColumnDef<QueueTableFeatures, QueueItem>[] {
 	return useMemo(
 		() =>
-			[
+			columnHelper.columns([
 				columnHelper.accessor('title', {
 					header: ({column}) => sortableHeader(t('queue.table.title'), column, t),
 					enableHiding: false,
@@ -165,7 +165,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				}),
 				columnHelper.accessor('artifacts', {
 					header: ({column}) => sortableHeader(t('queue.table.artifacts'), column, t),
-					sortingFn: (rowA, rowB) => visibleQueueArtifacts(rowA.original.artifacts).length - visibleQueueArtifacts(rowB.original.artifacts).length,
+					sortFn: (rowA, rowB) => visibleQueueArtifacts(rowA.original.artifacts).length - visibleQueueArtifacts(rowB.original.artifacts).length,
 					cell: info => {
 						const item = info.row.original
 						const count = visibleQueueArtifacts(item.artifacts).length
@@ -193,7 +193,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				}),
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
 				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
-			] as QueueManagerColumn[],
+			]),
 		[expandedIds, onToggleExpanded, t]
 	)
 }

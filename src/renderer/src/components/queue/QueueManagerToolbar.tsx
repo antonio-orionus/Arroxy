@@ -12,6 +12,7 @@ import {QueueActionButton, TooltipIconButton} from './QueueManagerButtons.js'
 import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisabled, queueStatusFilterCount, type QueueSelectedAction} from './queueManagerActions.js'
 import type {QueueStatusFilter} from './queueManagerState.js'
 import type {QueueTableColumnId} from './queueTablePreferences.js'
+import type {QueueTableFeatures} from './queueTableFeatures.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {IconTile} from '../shared/IconTile.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
@@ -22,7 +23,7 @@ interface QueueManagerToolbarProps {
 	selectedItems: QueueItem[]
 	selectedCount: number
 	filter: QueueStatusFilter
-	columns: Column<QueueItem, unknown>[]
+	columns: Column<QueueTableFeatures, QueueItem, unknown>[]
 	onFilterChange: (filter: QueueStatusFilter) => void
 	onSelectedAction: (action: QueueSelectedAction) => void
 	schedulerPaused: boolean

@@ -1,5 +1,5 @@
 import {Fragment, type ReactNode, type RefObject} from 'react'
-import type {Row, Table as ReactTable} from '@tanstack/react-table'
+import type {Row, Table} from '@tanstack/react-table'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
 import type {TFunction} from 'i18next'
@@ -9,12 +9,13 @@ import {ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSh
 import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
 import type {RowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {QueueArtifactsRow} from './QueueArtifactsRow.js'
+import type {QueueTableFeatures} from './queueTableFeatures.js'
 import {SELECTED_ACTIONS, actionButtonDisabled, actionDisabledTooltip, type QueueSelectedAction} from './queueManagerActions.js'
 
 interface QueueManagerTableProps {
 	t: TFunction
-	table: ReactTable<QueueItem>
-	rows: Row<QueueItem>[]
+	table: Table<QueueTableFeatures, QueueItem>
+	rows: Row<QueueTableFeatures, QueueItem>[]
 	virtualRows: VirtualItem[]
 	scrollRef: RefObject<HTMLDivElement | null>
 	topVirtualPadding: number

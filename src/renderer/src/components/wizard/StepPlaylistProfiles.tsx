@@ -7,7 +7,7 @@
 
 import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {getCoreRowModel, useReactTable} from '@tanstack/react-table'
+import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {Info, X} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
@@ -25,6 +25,7 @@ import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizar
 import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {usePlaylistProfileColumns} from './usePlaylistProfileColumns.js'
+import {playlistProfileTableFeatures} from './playlistProfileTableFeatures.js'
 import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
 import {PlaylistProfileFilterChips} from './PlaylistProfileFilterChips.js'
 import {PlaylistProfileTable} from './PlaylistProfileTable.js'
@@ -116,12 +117,12 @@ export function StepPlaylistProfiles(): ReactNode {
 	const filteredItems = useMemo(() => (filter === 'all' ? items : items.filter(entry => resolveProfile(entry).id === filter)), [filter, items, resolveProfile])
 
 	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile, onEditProfile: setEditingProfile})
-	// TanStack Table returns function-bearing objects that React Compiler cannot safely memoize.
-	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const table = useReactTable<PlaylistEntry>({data: filteredItems, columns, getCoreRowModel: getCoreRowModel(), getRowId: entry => entry.id})
+	const table = useTable({features: playlistProfileTableFeatures, data: filteredItems, columns, getRowId: entry => entry.id})
 	const rows = table.getRowModel().rows
 	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
 	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	// TanStack Virtual returns function-bearing objects that React Compiler cannot safely memoize.
+	// oxlint-disable-next-line react-hooks-js/incompatible-library
 	const virtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 48, overscan: 8})
 	const virtualRows = virtualizer.getVirtualItems()
 	const firstVirtualRow = virtualRows[0]
