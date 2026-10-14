@@ -24,8 +24,10 @@ permissions:
 
 jobs:
   scan:
+    name: Scan yt-dlp source
     runs-on: ubuntu-latest
     permissions:
+      # create-pull-request pushes the scan branch and opens the PR.
       contents: write
       pull-requests: write
 

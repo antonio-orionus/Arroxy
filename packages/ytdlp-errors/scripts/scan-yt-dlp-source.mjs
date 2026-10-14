@@ -159,6 +159,9 @@ function mergeRawHits(priorStrings, rawHits) {
  * @returns {string}
  */
 function clone(commit, name) {
+	// Only a full or abbreviated SHA reaches `git fetch`, so a value like
+	// `--upload-pack=...` can never be read as an option.
+	if (!/^[0-9a-f]{7,40}$/i.test(commit)) throw new Error(`Expected a hex commit SHA for the ${name} checkout, got "${commit}".`)
 	const dir = join(ROOT, '.tmp', name)
 	rmSync(dir, {recursive: true, force: true})
 	mkdirSync(dirname(dir), {recursive: true})
