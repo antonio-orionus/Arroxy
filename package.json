@@ -212,7 +212,7 @@
 		"typescript": "6.0.3",
 		"unplugin-icons": "24.0.0",
 		"vite": "8.3.3",
-		"vitest": "4.1.10"
+		"vitest": "5.0.3"
 	},
 	"lint-staged": {
 		"readme-src/**": "bash -lc 'bun run build:readme && git add README.md README.*.md' --",
