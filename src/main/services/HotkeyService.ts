@@ -19,7 +19,7 @@ export interface ShortcutRegistry {
 }
 
 export interface HotkeyClipboardReader {
-	readText(): string
+	readText(): Promise<string>
 }
 
 export interface HotkeyWindow {
@@ -105,7 +105,7 @@ export class HotkeyService {
 				this.current = null
 			}
 			if (this.current === null || !this.registry.isRegistered(accelerator)) {
-				this.registry.register(accelerator, () => this.handleTrigger())
+				this.registry.register(accelerator, () => void this.handleTrigger())
 				this.current = accelerator
 			}
 		}
@@ -121,23 +121,34 @@ export class HotkeyService {
 		return {accelerator: this.current, registered: this.current !== null && this.registry.isRegistered(this.current)}
 	}
 
-	handleTrigger(): void {
-		if (!this.current || !this.registry.isRegistered(this.current)) {
+	// Never rejects: callers fire it from the chord, the tray, and IPC.
+	async handleTrigger(): Promise<void> {
+		if (!this.isChordLive()) {
 			log.warn('[hotkey] trigger ignored — chord not registered', {current: this.current})
 			return
 		}
 		let text = ''
 		try {
-			text = this.reader.readText()
+			text = await this.reader.readText()
 		} catch (err) {
 			log.warn('[hotkey] clipboard read failed', err)
 			text = ''
+		}
+		// The read is async: the chord may have been disabled or the window
+		// closed while it was pending.
+		if (!this.isChordLive() || this.window.isDestroyed()) {
+			log.warn('[hotkey] trigger dropped — chord or window gone during clipboard read', {current: this.current})
+			return
 		}
 		const trigger = classifyHotkeyClipboard(text)
 		log.info('[hotkey] trigger dispatched to renderer', {kind: trigger.kind, chars: text.length})
 		// The renderer stays alive while hidden (only occluded/blur throttling
 		// applies), so the trigger flows identically in both cases.
 		this.window.send(IPC_CHANNELS.eventsHotkeyTrigger, trigger)
+	}
+
+	private isChordLive(): boolean {
+		return this.current !== null && this.registry.isRegistered(this.current)
 	}
 
 	dispose(): void {

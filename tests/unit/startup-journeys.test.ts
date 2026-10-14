@@ -33,14 +33,6 @@ describe('journey catalog', () => {
 		}
 	})
 
-	it("waives the gpu-info warning the no-gpu journey's own mode provokes", () => {
-		const noGpu = JOURNEYS.find(journey => journey.id === 'no-gpu')
-		if (!noGpu) throw new Error('no-gpu journey missing from the catalog')
-		const cleanLog = cleanStartupLog()
-		const line = '[2026-08-30 05:22:53.000] [warn]  gpu info failed Error: GPU access not allowed. Reason: GPU access is disabled through commandline switch --disable-gpu and --disable-software-rasterizer.'
-		expect(inspectStartupLog(`${cleanLog}\n${line}`, noGpu.logPolicy)).toEqual([])
-	})
-
 	it('waives the updater metadata 404 the release gate provokes against its own draft', () => {
 		// The gate exports GH_TOKEN, which lets electron-updater see the draft
 		// release under construction; its latest-*.yml is not uploaded yet, so

@@ -388,8 +388,8 @@ Backdrop fallback is adaptive, not screenshot-based: `AppBackdrop` chooses the d
 If testing Electron sandbox as the GPU blocker, the local Electron helper may need setuid before `bun run gpu:probe:sandbox` / `bun run dev:sandbox`:
 
 ```bash
-sudo chown root:root node_modules/.bun/electron@42.3.0/node_modules/electron/dist/chrome-sandbox
-sudo chmod 4755 node_modules/.bun/electron@42.3.0/node_modules/electron/dist/chrome-sandbox
+sudo chown root:root node_modules/electron/dist/chrome-sandbox
+sudo chmod 4755 node_modules/electron/dist/chrome-sandbox
 ```
 
 ---

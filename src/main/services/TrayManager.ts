@@ -27,7 +27,7 @@ export class TrayManager {
 		private readonly queueService: QueueService,
 		private readonly languageRef: {current: SupportedLang},
 		private readonly onQuit: () => void = () => {},
-		private readonly hotkeyTrigger: {handleTrigger(): void} | null = null
+		private readonly hotkeyTrigger: {handleTrigger(): Promise<void>} | null = null
 	) {
 		this.onQueueUpdated = ({item}) => {
 			if (item.status === QUEUE_STATUS.running) {
@@ -123,7 +123,7 @@ export class TrayManager {
 		}
 
 		const {hotkeyTrigger} = this
-		const hotkeyItem = hotkeyTrigger && this.hotkeyUsable ? {label: mainT(lang, 'tray.menu.downloadFromClipboard'), click: () => hotkeyTrigger.handleTrigger()} : null
+		const hotkeyItem = hotkeyTrigger && this.hotkeyUsable ? {label: mainT(lang, 'tray.menu.downloadFromClipboard'), click: () => void hotkeyTrigger.handleTrigger()} : null
 		const menu = Menu.buildFromTemplate([{label: statusLabel, enabled: false}, {type: 'separator'}, ...(hotkeyItem ? [hotkeyItem] : []), {label: mainT(lang, 'tray.menu.open'), click: () => this.toggleWindow()}, {type: 'separator'}, {label: mainT(lang, 'tray.menu.quit'), click: () => this.onQuit()}])
 		this.tray.setContextMenu(menu)
 	}

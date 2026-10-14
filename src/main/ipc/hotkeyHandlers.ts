@@ -34,7 +34,7 @@ export function registerHotkeyHandlers(deps: HotkeyHandlerDeps): void {
 	// runs (clipboard read → pre-classify → renderer ack), so the button proves
 	// the registered chord works end to end.
 	handleRaw(IPC_CHANNELS.hotkeyTestPress, async () => {
-		hotkeyService.handleTrigger()
-		return Promise.resolve(ok(undefined))
+		await hotkeyService.handleTrigger()
+		return ok(undefined)
 	})
 }

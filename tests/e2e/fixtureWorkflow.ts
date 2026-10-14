@@ -80,9 +80,9 @@ async function clickStepButtonIfPresent(page: Page, testId: string, buttonName: 
 }
 
 export async function writeClipboard(app: ElectronApplication, text: string): Promise<void> {
-	await app.evaluate(({clipboard}, value) => {
-		clipboard.writeText(value)
-	}, text)
+	// Electron 44's writeText resolves once the system clipboard holds the
+	// text; returning it makes evaluate wait, so a paste cannot win the race.
+	await app.evaluate(({clipboard}, value) => clipboard.writeText(value), text)
 }
 
 export async function launchFixtureApp(ytDlpPath: string, input: {userDataDir: string; fixtureServer: FixtureServer; denyProxy: DenyProxy}): Promise<{app: ElectronApplication; page: Page}> {
