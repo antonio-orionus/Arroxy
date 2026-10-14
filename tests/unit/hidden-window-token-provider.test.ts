@@ -35,7 +35,8 @@ interface MockWindow {
 	setSkipTaskbar: (skip: boolean) => void
 	on: (event: string, listener: () => void) => void
 	loadURL: (url: string, opts?: unknown) => Promise<void>
-	webContents: {once: (event: string, listener: (...args: unknown[]) => void) => void; on: (event: string, listener: LoginListener) => void; executeJavaScript: (script: string) => Promise<unknown>}
+	userAgent: string | null
+	webContents: {once: (event: string, listener: (...args: unknown[]) => void) => void; on: (event: string, listener: LoginListener) => void; executeJavaScript: (script: string) => Promise<unknown>; setUserAgent: (userAgent: string) => void}
 }
 
 function makeWindow(): MockWindow {
@@ -44,6 +45,7 @@ function makeWindow(): MockWindow {
 		loadedUrls: [],
 		scripts: [],
 		loginListener: null,
+		userAgent: null,
 		destroy: () => {
 			win.destroyed = true
 		},
@@ -67,6 +69,10 @@ function makeWindow(): MockWindow {
 			on: (event, listener) => {
 				if (event === 'login') win.loginListener = listener
 			},
+			setUserAgent: userAgent => {
+				events.push('setUserAgent')
+				win.userAgent = userAgent
+			},
 			executeJavaScript: async script => {
 				if (win.destroyed) throw new Error('Object has been destroyed')
 				win.scripts.push(script)
@@ -78,7 +84,11 @@ function makeWindow(): MockWindow {
 	return win
 }
 
+// Electron's default UA as a packaged macOS build reports it.
+const ELECTRON_DEFAULT_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Arroxy/0.4.25 Chrome/150.0.7871.250 Electron/43.7.7 Safari/537.36'
+
 vi.mock('electron', () => ({
+	app: {userAgentFallback: ELECTRON_DEFAULT_UA, getName: () => 'Arroxy'},
 	session: {fromPartition: () => partitionSession},
 	// A plain function, not an arrow: BrowserWindow is invoked with `new`, and an
 	// arrow function cannot be a constructor. Returning an object from a
@@ -110,7 +120,8 @@ describe('HiddenWindowTokenProvider proxy', () => {
 
 		await provider.ensureReady()
 
-		expect(events.slice(0, 2)).toEqual(['setProxy {"proxyRules":"http://127.0.0.1:10808"}', 'loadURL'])
+		// The UA is set when the window is created; only the proxy/load order matters here.
+		expect(events.filter(event => event !== 'setUserAgent').slice(0, 2)).toEqual(['setProxy {"proxyRules":"http://127.0.0.1:10808"}', 'loadURL'])
 	})
 
 	it('leaves the system proxy in charge when none is configured', async () => {
@@ -183,6 +194,21 @@ describe('HiddenWindowTokenProvider proxy', () => {
 
 		await expect(provider.ensureReady()).rejects.toThrow('YouTube failed to load: ERR_ADDRESS_INVALID (-108)')
 		expect(log.warn).toHaveBeenCalledWith('PoT scrape: YouTube failed to load', {code: -108, description: 'ERR_ADDRESS_INVALID', proxy: 'http://***:***@10.0.0.1:3128'})
+	})
+})
+
+// The token page is attested by BotGuard. A UA that claims a browser and OS the
+// window is not running (it used to claim Linux + Chrome 130 on every host)
+// contradicts the client hints Chromium sends with every request.
+describe('HiddenWindowTokenProvider user agent', () => {
+	it('identifies as the real platform and Chromium with only the embedder tokens swapped, before the page loads', async () => {
+		const provider = new HiddenWindowTokenProvider(() => '')
+		provider.acquireWindow()
+
+		await provider.ensureReady()
+
+		expect(created[0].userAgent).toBe('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.250 Desktop/1.0 Safari/537.36')
+		expect(events.indexOf('setUserAgent')).toBeLessThan(events.indexOf('loadURL'))
 	})
 })
 
