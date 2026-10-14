@@ -139,9 +139,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		saveDescription: initialProfile?.embed.description ?? true,
 		saveThumbnail: initialProfile?.embed.thumbnailSidecar ?? true,
 		sponsorBlockMode: initialProfile?.sponsorBlock.mode ?? 'off',
-		// A profile saved with SponsorBlock off stores no categories; turning it on
-		// again starts from the same defaults the wizard uses.
-		sponsorBlockCategories: initialProfile?.sponsorBlock.categories.length ? [...initialProfile.sponsorBlock.categories] : [...DEFAULTS.sponsorBlockCategories]
+		sponsorBlockCategories: initialSponsorBlockCategories(initialProfile)
 	}
 }
 
@@ -202,6 +200,16 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, sponsorBlockCategories: SPONSORBLOCK_CATEGORIES.filter(category => selected.has(category))}
 		}
 	}
+}
+
+// An active mode keeps exactly what was saved, even an empty selection. A profile
+// saved with SponsorBlock off stores no categories, so turning it on again starts
+// from the same defaults the wizard uses.
+function initialSponsorBlockCategories(initialProfile: DownloadProfile | null): SponsorBlockCategory[] {
+	if (!initialProfile) return [...DEFAULTS.sponsorBlockCategories]
+	const {mode, categories} = initialProfile.sponsorBlock
+	if (mode !== 'off' || categories.length > 0) return [...categories]
+	return [...DEFAULTS.sponsorBlockCategories]
 }
 
 function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['media'] {

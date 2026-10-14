@@ -179,4 +179,12 @@ describe('DownloadProfileDraft', () => {
 		expect(profile.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor', 'outro']})
 		expect(createDownloadProfileDraft(profile).sponsorBlockCategories).toEqual(['sponsor', 'outro'])
 	})
+	it('keeps an active SponsorBlock mode with no categories as saved', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const emptyActive: DownloadProfile = {...balanced, id: 'sb-empty', sponsorBlock: {mode: 'mark', categories: []}}
+		expect(createDownloadProfileDraft(emptyActive).sponsorBlockCategories).toEqual([])
+
+		const off: DownloadProfile = {...balanced, id: 'sb-off', sponsorBlock: {mode: 'off', categories: []}}
+		expect(createDownloadProfileDraft(off).sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
+	})
 })
