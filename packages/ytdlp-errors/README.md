@@ -166,9 +166,9 @@ stream.on('end', () => {
 
 ## Upstream sync
 
-`scripts/scan-yt-dlp-source.mjs` clones yt-dlp at the pin in `data/yt-dlp-version.json`, greps for `report_error` / `raise *Error` / `raise_*` call sites, dedupes by content hash, and writes `data/known-yt-dlp-strings.json`. Each entry carries `source` (file:line), `call` (which API emitted it), `fragment` (the string), and `kind` (`null` until triaged).
+`scripts/scan-yt-dlp-source.mjs` clones yt-dlp at the pin in `data/yt-dlp-version.json`, greps for `report_error` / `raise *Error` / `raise_*` call sites, dedupes by content hash, and appends new strings to `data/known-yt-dlp-strings.json`. Each entry carries `source` (file:line), `call` (which API emitted it), `fragment` (the string), and `kind` (`null` until triaged). The scan covers yt-dlp core, downloaders, postprocessors, `extractor/common.py`, and the YouTube extractor; other per-site extractors are skipped. `--baseline <commit>` limits additions to strings that are new since that commit.
 
-Maintainers can re-run the scan when updating the pinned yt-dlp release. Reviewers triage `kind: null` entries before publishing.
+Every Monday the `ytdlp-errors Upstream Scan` workflow checks for a new stable yt-dlp release, bumps the pin, scans with the previous pin as baseline, and opens a PR. Reviewers triage `kind: null` entries on that PR before merging.
 
 Coverage tests (`tests/upstream-coverage.test.ts`) assert every non-null entry round-trips through `classifyYtDlpStderr` to its declared kind. Fixture blobs in `tests/fixtures/yt-dlp-stderr/` provide realistic full-stderr samples per kind.
 

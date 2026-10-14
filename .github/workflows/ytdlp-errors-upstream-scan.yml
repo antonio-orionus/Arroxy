@@ -1,0 +1,119 @@
+name: ytdlp-errors Upstream Scan
+
+# Weekly: when yt-dlp has a new stable release, bump the pin in
+# packages/ytdlp-errors/data and add the in-scope error strings that are new
+# since the previous pin (kind: null), then open a PR for triage. Arroxy's
+# bot-block recovery, auto-retry, resume, and cookies guidance all key on the
+# classified kind, so reworded upstream errors silently disable them.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.0'
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Bump pin to latest stable yt-dlp
+        id: pin
+        working-directory: packages/ytdlp-errors
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # An open scan PR may carry triage commits; regenerating the branch
+          # would force-push over them. Wait until it is merged or closed.
+          open_pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head chore/ytdlp-errors-upstream-scan --state open --json number --jq '.[0].number // empty')
+          if [ -n "$open_pr" ]; then
+            echo "Scan PR #${open_pr} is still open; skipping."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          latest=$(gh api repos/yt-dlp/yt-dlp/releases/latest --jq .tag_name)
+          ref=$(gh api "repos/yt-dlp/yt-dlp/git/refs/tags/${latest}")
+          sha=$(jq -er .object.sha <<<"$ref")
+          type=$(jq -er .object.type <<<"$ref")
+          if [ "$type" = "tag" ]; then
+            tag=$(gh api "repos/yt-dlp/yt-dlp/git/tags/${sha}")
+            sha=$(jq -er .object.sha <<<"$tag")
+            type=$(jq -er .object.type <<<"$tag")
+          fi
+          if [ "$type" != "commit" ]; then
+            echo "::error::yt-dlp tag ${latest} resolved to unsupported object type ${type}"
+            exit 1
+          fi
+          previous=$(jq -er .commit data/yt-dlp-version.json)
+          echo "Latest yt-dlp: ${latest} @ ${sha} (pinned: ${previous})"
+          if [ "$sha" = "$previous" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "previous=${previous}" >> "$GITHUB_OUTPUT"
+          jq --arg v "$latest" --arg c "$sha" '.version = $v | .commit = $c' data/yt-dlp-version.json > data/yt-dlp-version.json.new
+          mv data/yt-dlp-version.json.new data/yt-dlp-version.json
+
+      - name: Scan strings new since the previous pin
+        if: steps.pin.outputs.changed == 'true'
+        working-directory: packages/ytdlp-errors
+        env:
+          PREVIOUS_COMMIT: ${{ steps.pin.outputs.previous }}
+        run: bun run scan-upstream -- --clone --baseline "$PREVIOUS_COMMIT"
+
+      - name: Format generated data
+        if: steps.pin.outputs.changed == 'true'
+        run: bunx biome format --write packages/ytdlp-errors/data
+
+      # No package validation here: new entries carry kind: null, and the
+      # triage-backlog test fails until a human assigns kinds on the PR branch.
+      # That triage push is what runs CI.
+      - name: Open PR
+        if: steps.pin.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ github.token }}
+          add-paths: packages/ytdlp-errors/data
+          commit-message: 'chore(ytdlp-errors): bump yt-dlp pin and rescan upstream strings'
+          branch: chore/ytdlp-errors-upstream-scan
+          delete-branch: true
+          title: 'chore(ytdlp-errors): bump yt-dlp pin and rescan upstream strings'
+          body: |
+            Automated weekly scan of yt-dlp source at the pin in `packages/ytdlp-errors/data/yt-dlp-version.json`.
+
+            Review:
+            1. Walk the `packages/ytdlp-errors/data/known-yt-dlp-strings.json` diff. New entries land with `kind: null`; assign a kind, or leave null on purpose and say why in `notes`.
+            2. If a pattern must widen for new strings, edit `packages/ytdlp-errors/src/patterns.ts` and add a fixture under `packages/ytdlp-errors/tests/fixtures/yt-dlp-stderr/<kind>/`.
+            3. `upstream-coverage.test.ts` enforces that every non-null kind round-trips.
+
+            CI does not run on PRs opened by `GITHUB_TOKEN`; it runs when you push the triage commit. A PR that only bumps the pin (no new strings) can be closed and reopened to trigger checks.
