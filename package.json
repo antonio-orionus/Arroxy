@@ -210,7 +210,7 @@
 		"shadcn": "4.21.0",
 		"tailwindcss": "4.3.3",
 		"typescript": "6.0.3",
-		"unplugin-icons": "23.0.1",
+		"unplugin-icons": "24.0.0",
 		"vite": "8.3.2",
 		"vitest": "4.1.10"
 	},
