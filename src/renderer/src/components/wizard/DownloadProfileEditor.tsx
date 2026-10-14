@@ -2,12 +2,13 @@ import {useId, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys, TFunction} from 'i18next'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, RotateCcw, Scissors, SlidersHorizontal, type LucideIcon} from 'lucide-react'
-import {DOWNLOAD_PROFILE_ICONS, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
+import {DOWNLOAD_PROFILE_ICONS, PLAYLIST_VIDEO_TIERS, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {
+	canDraftEmbedThumbnail,
 	createDownloadProfileDraft,
 	defaultProfileSubfolderName,
 	downloadProfileFromDraft,
@@ -29,6 +30,8 @@ import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {ScrollArea} from '../ui/scroll-area.js'
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
+import {CheckRow} from '../shared/CheckRow.js'
+import {SectionLabel} from '../shared/SectionLabel.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
 import {Panel} from '../shared/Panel.js'
 import {OptionCard} from '../shared/OptionCard.js'
@@ -152,6 +155,7 @@ const SUBTITLE_SOURCE_OPTIONS = [
 const OUTPUT_OPTION_KEYS = {
 	chapters: {labelKey: 'wizard.output.embedChapters.label', descriptionKey: 'wizard.output.embedChapters.description'},
 	metadata: {labelKey: 'wizard.output.embedMetadata.label', descriptionKey: 'wizard.output.embedMetadata.description'},
+	embedThumbnail: {labelKey: 'wizard.output.embedThumbnail.label', descriptionKey: 'wizard.output.embedThumbnail.description'},
 	description: {labelKey: 'wizard.output.writeDescription.label', descriptionKey: 'wizard.output.writeDescription.description'},
 	thumbnail: {labelKey: 'wizard.output.writeThumbnail.label', descriptionKey: 'wizard.output.writeThumbnail.description'}
 } as const
@@ -239,15 +243,18 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 		subfolderName,
 		embedMetadata,
 		embedChapters,
+		embedThumbnail,
 		saveDescription,
 		saveThumbnail,
-		sponsorBlockMode
+		sponsorBlockMode,
+		sponsorBlockCategories
 	} = draft
 	const showVideo = mediaMode === 'video-audio' || mediaMode === 'video-only'
 	const showAudio = mediaMode === 'video-audio' || mediaMode === 'audio-only'
 	const subtitlesOnly = mediaMode === 'subtitles-only'
 	const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled
-	const outputEnabledCount = [embedMetadata, embedChapters, saveDescription, saveThumbnail].filter(Boolean).length
+	const showEmbedThumbnail = canDraftEmbedThumbnail(draft)
+	const outputEnabledCount = [embedMetadata, embedChapters, showEmbedThumbnail && embedThumbnail, saveDescription, saveThumbnail].filter(Boolean).length
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
 	const {subfolderInvalid, filenameTemplateError, subtitleLanguagesMissing} = validateDownloadProfileDraft(draft)
 	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
@@ -640,6 +647,16 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 									<div className="grid gap-3">
 										<SettingSwitch id="profile-output-metadata" label={t(OUTPUT_OPTION_KEYS.metadata.labelKey)} help={t(OUTPUT_OPTION_KEYS.metadata.descriptionKey)} checked={embedMetadata} onCheckedChange={next => updateDraft({type: 'set-embed-metadata', embedMetadata: next})} />
 										<SettingSwitch id="profile-output-chapters" label={t(OUTPUT_OPTION_KEYS.chapters.labelKey)} help={t(OUTPUT_OPTION_KEYS.chapters.descriptionKey)} checked={embedChapters} onCheckedChange={next => updateDraft({type: 'set-embed-chapters', embedChapters: next})} />
+										{showEmbedThumbnail ? (
+											<SettingSwitch
+												id="profile-output-embed-thumbnail"
+												label={t(OUTPUT_OPTION_KEYS.embedThumbnail.labelKey)}
+												help={t(OUTPUT_OPTION_KEYS.embedThumbnail.descriptionKey)}
+												checked={embedThumbnail}
+												onCheckedChange={next => updateDraft({type: 'set-embed-thumbnail', embedThumbnail: next})}
+												testId="profiles-editor-embed-thumbnail"
+											/>
+										) : null}
 										<SettingSwitch id="profile-output-description" label={t(OUTPUT_OPTION_KEYS.description.labelKey)} help={t(OUTPUT_OPTION_KEYS.description.descriptionKey)} checked={saveDescription} onCheckedChange={next => updateDraft({type: 'set-save-description', saveDescription: next})} />
 										<SettingSwitch id="profile-output-thumbnail" label={t(OUTPUT_OPTION_KEYS.thumbnail.labelKey)} help={t(OUTPUT_OPTION_KEYS.thumbnail.descriptionKey)} checked={saveThumbnail} onCheckedChange={next => updateDraft({type: 'set-save-thumbnail', saveThumbnail: next})} />
 									</div>
@@ -647,21 +664,40 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 
 								<PanelSection title={t('wizard.profileEditor.panel.sponsorBlock.title')} action={<Badge variant="outline">{showVideo ? optionLabel(t, SPONSOR_BLOCK_OPTIONS, sponsorBlockMode) : t('wizard.profileEditor.skipped')}</Badge>}>
 									{showVideo ? (
-										<ToggleGroup
-											size="sm"
-											variant="outline"
-											value={[sponsorBlockMode]}
-											onValueChange={value => {
-												if (value[0]) updateDraft({type: 'set-sponsor-block-mode', sponsorBlockMode: value[0] as SponsorBlockMode})
-											}}
-											className="grid w-full grid-cols-3"
-										>
-											{SPONSOR_BLOCK_OPTIONS.map(option => (
-												<ToggleGroupItem key={option.value} value={option.value} title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
-													{t(option.labelKey)}
-												</ToggleGroupItem>
-											))}
-										</ToggleGroup>
+										<div className="grid gap-3">
+											<ToggleGroup
+												size="sm"
+												variant="outline"
+												value={[sponsorBlockMode]}
+												onValueChange={value => {
+													if (value[0]) updateDraft({type: 'set-sponsor-block-mode', sponsorBlockMode: value[0] as SponsorBlockMode})
+												}}
+												className="grid w-full grid-cols-3"
+											>
+												{SPONSOR_BLOCK_OPTIONS.map(option => (
+													<ToggleGroupItem key={option.value} value={option.value} title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
+														{t(option.labelKey)}
+													</ToggleGroupItem>
+												))}
+											</ToggleGroup>
+											{sponsorBlockMode !== 'off' ? (
+												<div className="grid gap-1.5" data-testid="profiles-editor-sb-categories">
+													<SectionLabel>{t('wizard.sponsorblock.categoriesHeading')}</SectionLabel>
+													<div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
+														{SPONSORBLOCK_CATEGORIES.map(category => (
+															<CheckRow
+																key={category}
+																id={`profile-sb-cat-${category}`}
+																testId={`profiles-editor-sb-cat-${category}`}
+																label={t(`wizard.sponsorblock.cat.${category}`)}
+																checked={sponsorBlockCategories.includes(category)}
+																onCheckedChange={() => updateDraft({type: 'toggle-sponsor-block-category', category})}
+															/>
+														))}
+													</div>
+												</div>
+											) : null}
+										</div>
 									) : (
 										<Alert variant="info" size="sm">
 											<AlertDescription>{t('wizard.profileEditor.note.skippedForOutputType')}</AlertDescription>

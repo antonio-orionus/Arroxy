@@ -193,6 +193,45 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('offers thumbnail embedding only for media that can hold cover art, and saves it', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'audio-only')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		// Native "best" audio is often WebM/opus, which yt-dlp cannot embed into.
+		await screen.findByTestId('profiles-editor-audio-format')
+		expect(screen.queryByTestId('profiles-editor-embed-thumbnail')).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByTestId('profiles-editor-audio-format'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-audio-format-option-mp3'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-embed-thumbnail'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: expect.objectContaining({kind: 'audio-only', audio: expect.objectContaining({format: 'mp3'})}), embed: expect.objectContaining({thumbnail: true})}))
+		})
+	})
+
+	it('picks SponsorBlock categories once a mode is on, and saves them', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		expect(await screen.findByText('Mark as chapters')).toBeInTheDocument()
+		expect(screen.queryByTestId('profiles-editor-sb-cat-outro')).not.toBeInTheDocument()
+		fireEvent.click(screen.getByText('Mark as chapters'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-sb-cat-outro'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({sponsorBlock: {mode: 'mark', categories: expect.arrayContaining(['outro'])}}))
+		})
+	})
+
 	it('edits the explicit profile subfolder instead of deriving it silently on save', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-1080')
 		expect(profile).toBeDefined()

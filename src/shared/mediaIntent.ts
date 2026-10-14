@@ -96,6 +96,14 @@ export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: Nati
 	}
 }
 
+// yt-dlp embeds cover art into mp3/m4a/opus and into a merged video (it remuxes
+// a WebM merge to MKV for it). A single native stream — video-only, or "best"
+// audio, often WebM/opus — fails postprocessing instead, and WAV has no slot.
+export function canEmbedThumbnail(spec: MediaIntentSpec): boolean {
+	if (spec.audioConvert) return spec.audioConvert.target !== 'wav'
+	return spec.producesVideo && spec.producesAudio
+}
+
 function bestNativeAudioSelector(preference: NativeAudioPreference): string {
 	return preference === 'surround' ? SURROUND_AUDIO_SELECTOR : COMPATIBLE_AUDIO_SELECTOR
 }

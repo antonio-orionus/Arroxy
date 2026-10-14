@@ -10,10 +10,11 @@ import type {FormatOption} from '@shared/types.js'
  * - audio convert → target format ('mp3', 'm4a', 'opus', 'wav')
  * - audio-only native → format's own ext (often 'webm' for YouTube opus)
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
- * - video + same-container audio → that container
+ * - video + same-container audio → that container, except a WebM merge that
+ *   embeds a thumbnail, which yt-dlp switches to mkv to hold the cover art
  * - video + mixed-container audio → mkv (yt-dlp default merge)
  */
-export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], activePreset: Preset | null): string {
+export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], activePreset: Preset | null, embedThumbnail = false): string {
 	if (activePreset === 'subtitle-only') return 'subtitle-only'
 
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
@@ -38,7 +39,8 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 
 	if (!videoExt) return 'unknown'
 
-	if (videoExt === 'webm' && (!audioExt || audioExt === 'webm')) return 'webm'
+	if (videoExt === 'webm' && !audioExt) return 'webm'
+	if (videoExt === 'webm' && audioExt === 'webm') return embedThumbnail ? 'mkv' : 'webm'
 	if (videoExt === 'mp4' && (!audioExt || audioExt === 'm4a' || audioExt === 'mp4')) return 'mp4'
 	return 'mkv'
 }

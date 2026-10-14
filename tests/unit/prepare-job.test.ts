@@ -120,6 +120,37 @@ describe('prepareJob', () => {
 			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps')
 		})
 
+		// yt-dlp remuxes a merged WebM to MKV for cover art, but a single native
+		// stream (video-only, "best" audio) fails postprocessing and WAV has no slot.
+		it('keeps thumbnail embedding for merged video and lossy audio conversions', () => {
+			const intents = [
+				{kind: 'video-audio' as const, codec: 'best' as const, tiers: ['1080' as const], audio: {format: 'best' as const}},
+				{kind: 'video-audio' as const, codec: 'mp4' as const, tiers: ['720' as const], audio: {format: 'm4a' as const}},
+				{kind: 'audio-only' as const, audio: {format: 'mp3' as const, bitrateKbps: 192 as const}},
+				{kind: 'audio-only' as const, audio: {format: 'm4a' as const, bitrateKbps: 192 as const}},
+				{kind: 'audio-only' as const, audio: {format: 'opus' as const, bitrateKbps: 128 as const}}
+			]
+			for (const mediaIntent of intents) {
+				const job = prepareJob({...BASE, mode: 'playlist', mediaIntent, filenameTemplate: 't.ext', embed: EMBED_ALL})
+				if (job.kind !== 'ranged-format') throw new Error('unreachable')
+				expect(job.embed, mediaIntent.kind).toEqual(EMBED_ALL)
+			}
+		})
+
+		it('drops thumbnail embedding where the output cannot hold cover art', () => {
+			const intents = [
+				{kind: 'video-only' as const, codec: 'best' as const, tiers: ['1080' as const]},
+				{kind: 'video-only' as const, codec: 'mp4' as const, tiers: ['1080' as const]},
+				{kind: 'audio-only' as const, audio: {format: 'best' as const}},
+				{kind: 'audio-only' as const, audio: {format: 'wav' as const}}
+			]
+			for (const mediaIntent of intents) {
+				const job = prepareJob({...BASE, mode: 'playlist', mediaIntent, filenameTemplate: 't.ext', embed: EMBED_ALL})
+				if (job.kind !== 'ranged-format') throw new Error('unreachable')
+				expect(job.embed, JSON.stringify(mediaIntent)).toEqual({...EMBED_ALL, thumbnail: false})
+			}
+		})
+
 		it('throws when ranged mode missing media intent', () => {
 			expect(() => prepareJob({...BASE, mode: 'playlist', filenameTemplate: 't.ext'})).toThrow(/mediaIntent/)
 		})

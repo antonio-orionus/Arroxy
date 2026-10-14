@@ -1,8 +1,9 @@
 import {describe, expect, it} from 'vitest'
+import {DEFAULTS} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {downloadProfileSchema, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
-import {createDownloadProfileDraft, downloadProfileFromDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
+import {canDraftEmbedThumbnail, createDownloadProfileDraft, downloadProfileFromDraft, type DownloadProfileDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
 const NOW = '2026-06-10T12:00:00.000Z'
 
@@ -140,5 +141,42 @@ describe('DownloadProfileDraft', () => {
 
 		const profile = downloadProfileFromDraft(draft, NOW, () => 'hidden-custom')
 		expect(profile.enabled).toBe(false)
+	})
+	it('round-trips thumbnail embedding for media that can hold cover art', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'audio-only'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-audio-format', audioFormat: 'mp3'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-embed-thumbnail', embedThumbnail: true})
+
+		const profile = downloadProfileFromDraft(draft, NOW, () => 'mp3-cover')
+		expect(profile.embed.thumbnail).toBe(true)
+		expect(createDownloadProfileDraft(profile).embedThumbnail).toBe(true)
+	})
+
+	it('never stores thumbnail embedding for media that cannot hold cover art', () => {
+		const modes: [DownloadProfileDraft['mediaMode'], DownloadProfileDraft['audioFormat']][] = [
+			['video-only', 'best'],
+			['audio-only', 'best'],
+			['audio-only', 'wav'],
+			['subtitles-only', 'best']
+		]
+		for (const [mediaMode, audioFormat] of modes) {
+			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(null), {type: 'set-embed-thumbnail', embedThumbnail: true})
+			draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode})
+			draft = updateDownloadProfileDraft(draft, {type: 'set-audio-format', audioFormat})
+			expect(canDraftEmbedThumbnail(draft), `${mediaMode}/${audioFormat}`).toBe(false)
+			expect(downloadProfileFromDraft(draft, NOW, () => 'id').embed.thumbnail, `${mediaMode}/${audioFormat}`).toBe(false)
+		}
+	})
+	it('round-trips the chosen SponsorBlock categories instead of resetting them', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-sponsor-block-mode', sponsorBlockMode: 'remove'})
+		expect(draft.sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
+		for (const category of DEFAULTS.sponsorBlockCategories) if (category !== 'sponsor') draft = updateDownloadProfileDraft(draft, {type: 'toggle-sponsor-block-category', category})
+		draft = updateDownloadProfileDraft(draft, {type: 'toggle-sponsor-block-category', category: 'outro'})
+
+		const profile = downloadProfileFromDraft(draft, NOW, () => 'sb')
+		expect(profile.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor', 'outro']})
+		expect(createDownloadProfileDraft(profile).sponsorBlockCategories).toEqual(['sponsor', 'outro'])
 	})
 })

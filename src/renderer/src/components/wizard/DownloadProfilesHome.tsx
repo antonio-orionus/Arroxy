@@ -132,7 +132,14 @@ function markQueueTabTipSeen(): void {
 function profileDetail(profile: DownloadProfile, t: TFunction): string {
 	const subs = profile.subtitles.enabled || profile.media.kind === 'subtitles-only' ? `${profile.subtitles.languages.join(', ') || 'selected'} ${t('wizard.confirm.labelSubtitles').toLowerCase()}` : t('wizard.subtitles.noSelected')
 	const output = profile.output.kind === 'fixed' ? profile.output.dir : t('wizard.folder.downloads')
-	const artifacts = [profile.embed.metadata ? t('wizard.output.embedMetadata.label') : null, profile.embed.thumbnailSidecar ? t('wizard.output.writeThumbnail.label') : null, profile.embed.description ? t('wizard.output.writeDescription.label') : null].filter(Boolean).join(' · ')
+	const artifacts = [
+		profile.embed.metadata ? t('wizard.output.embedMetadata.label') : null,
+		profile.embed.thumbnail ? t('wizard.output.embedThumbnail.label') : null,
+		profile.embed.thumbnailSidecar ? t('wizard.output.writeThumbnail.label') : null,
+		profile.embed.description ? t('wizard.output.writeDescription.label') : null
+	]
+		.filter(Boolean)
+		.join(' · ')
 	return `${subs} · ${output}${artifacts ? ` · ${artifacts}` : ''}`
 }
 

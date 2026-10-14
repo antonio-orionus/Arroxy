@@ -84,6 +84,18 @@ describe('resolveOutputContainer', () => {
 			expect(resolveOutputContainer('137', NONE, sidecar, FORMATS, null)).toBe('webm')
 		})
 
+		// yt-dlp swaps a WebM merge to MKV when it has to embed a thumbnail; a
+		// single WebM stream is never merged, so it stays WebM and cannot hold one.
+		it('webm merge that embeds a thumbnail → mkv', () => {
+			const audio: AudioSelection = {kind: 'native', formatId: '251'}
+			expect(resolveOutputContainer('137', audio, sidecar, FORMATS, null, true)).toBe('mkv')
+		})
+
+		it('single webm stream that embeds a thumbnail stays webm', () => {
+			expect(resolveOutputContainer('137', NONE, sidecar, FORMATS, null, true)).toBe('webm')
+			expect(resolveOutputContainer('', {kind: 'native', formatId: '251'}, sidecar, FORMATS, null, true)).toBe('webm')
+		})
+
 		it('mp4 video + m4a audio → mp4', () => {
 			const audio: AudioSelection = {kind: 'native', formatId: '140'}
 			expect(resolveOutputContainer('298', audio, sidecar, FORMATS, null)).toBe('mp4')

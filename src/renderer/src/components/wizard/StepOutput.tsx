@@ -2,26 +2,31 @@ import {type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {canWriteM3u} from '../../store/wizard/outputTemplates.js'
+import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {Separator} from '../ui/separator.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 
 export function StepOutput(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back, settings} = useAppStore()
+	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, playlistSelection, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, advance, back, settings} = useAppStore()
 	// Playlist files are located by matching `[videoId]`; without {id} in the
 	// filename template an M3U would list names that never appear on disk.
 	// Gated on both reasons M3U can be impossible: no {id} to match files by, and
 	// a nesting template that scatters entries across folders.
 	const canMatchById = canWriteM3u(undefined, settings?.common?.filenameTemplate)
 	const isPlaylist = wizardMode === 'playlist'
+	// A batch fixes its media type before this step, so a choice yt-dlp could
+	// not honour is hidden; single mode warns per format on the review step.
+	const batchIntent = wizardMode !== 'single' && playlistSelection ? playlistSelectionToMediaIntent(playlistSelection) : null
+	const showEmbedThumbnail = batchIntent === null || canEmbedThumbnail(mediaIntentSpec(batchIntent))
 
 	return (
 		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-output">
 			<div className="flex flex-col gap-3 py-1">
 				<SettingSwitch id="output-embed-chapters" label={t('wizard.output.embedChapters.label')} description={t('wizard.output.embedChapters.description')} checked={wizardEmbedChapters} onCheckedChange={setEmbedChapters} testId="embed-chapters-toggle" />
 				<SettingSwitch id="output-embed-metadata" label={t('wizard.output.embedMetadata.label')} description={t('wizard.output.embedMetadata.description')} checked={wizardEmbedMetadata} onCheckedChange={setEmbedMetadata} testId="embed-metadata-toggle" />
-				<SettingSwitch id="output-embed-thumbnail" label={t('wizard.output.embedThumbnail.label')} description={t('wizard.output.embedThumbnail.description')} checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} testId="embed-thumbnail-toggle" />
+				{showEmbedThumbnail ? <SettingSwitch id="output-embed-thumbnail" label={t('wizard.output.embedThumbnail.label')} description={t('wizard.output.embedThumbnail.description')} checked={wizardEmbedThumbnail} onCheckedChange={setEmbedThumbnail} testId="embed-thumbnail-toggle" /> : null}
 			</div>
 
 			<Separator className="my-1.5" />

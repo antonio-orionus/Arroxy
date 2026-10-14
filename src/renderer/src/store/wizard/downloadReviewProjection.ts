@@ -189,7 +189,7 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 		? sanitizeJobOptions({
 				isSubtitleOnly: state.activePreset === 'subtitle-only',
 				hasVideoTrack: state.selectedVideoFormatId !== '',
-				resolvedOutputContainer: resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, state.activePreset),
+				resolvedOutputContainer: resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, state.activePreset, state.wizardEmbedThumbnail),
 				subtitleMode: state.wizardSubtitleMode,
 				subtitleLanguages: effectiveSubtitleLanguages,
 				embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},

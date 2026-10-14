@@ -1,6 +1,7 @@
 import {DEFAULTS} from '@shared/constants.js'
-import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
-import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'
+import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
+import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
 import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
 import {type FilenameTemplateFailure, validateFilenameTemplate} from '@shared/filenameTemplate.js'
 
@@ -30,9 +31,11 @@ export interface DownloadProfileDraft {
 	subfolderName: string
 	embedMetadata: boolean
 	embedChapters: boolean
+	embedThumbnail: boolean
 	saveDescription: boolean
 	saveThumbnail: boolean
 	sponsorBlockMode: SponsorBlockMode
+	sponsorBlockCategories: SponsorBlockCategory[]
 }
 
 export type DownloadProfileDraftAction =
@@ -54,9 +57,11 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-subfolder-name'; subfolderName: string}
 	| {type: 'set-embed-metadata'; embedMetadata: boolean}
 	| {type: 'set-embed-chapters'; embedChapters: boolean}
+	| {type: 'set-embed-thumbnail'; embedThumbnail: boolean}
 	| {type: 'set-save-description'; saveDescription: boolean}
 	| {type: 'set-save-thumbnail'; saveThumbnail: boolean}
 	| {type: 'set-sponsor-block-mode'; sponsorBlockMode: SponsorBlockMode}
+	| {type: 'toggle-sponsor-block-category'; category: SponsorBlockCategory}
 
 export interface DownloadProfileDraftValidation {
 	subfolderInvalid: boolean
@@ -130,9 +135,13 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName),
 		embedMetadata: initialProfile?.embed.metadata ?? true,
 		embedChapters: initialProfile?.embed.chapters ?? true,
+		embedThumbnail: initialProfile?.embed.thumbnail ?? DEFAULTS.embedThumbnail,
 		saveDescription: initialProfile?.embed.description ?? true,
 		saveThumbnail: initialProfile?.embed.thumbnailSidecar ?? true,
-		sponsorBlockMode: initialProfile?.sponsorBlock.mode ?? 'off'
+		sponsorBlockMode: initialProfile?.sponsorBlock.mode ?? 'off',
+		// A profile saved with SponsorBlock off stores no categories; turning it on
+		// again starts from the same defaults the wizard uses.
+		sponsorBlockCategories: initialProfile?.sponsorBlock.categories.length ? [...initialProfile.sponsorBlock.categories] : [...DEFAULTS.sponsorBlockCategories]
 	}
 }
 
@@ -178,13 +187,33 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, embedMetadata: action.embedMetadata}
 		case 'set-embed-chapters':
 			return {...draft, embedChapters: action.embedChapters}
+		case 'set-embed-thumbnail':
+			return {...draft, embedThumbnail: action.embedThumbnail}
 		case 'set-save-description':
 			return {...draft, saveDescription: action.saveDescription}
 		case 'set-save-thumbnail':
 			return {...draft, saveThumbnail: action.saveThumbnail}
 		case 'set-sponsor-block-mode':
 			return {...draft, sponsorBlockMode: action.sponsorBlockMode}
+		case 'toggle-sponsor-block-category': {
+			const selected = new Set(draft.sponsorBlockCategories)
+			if (selected.has(action.category)) selected.delete(action.category)
+			else selected.add(action.category)
+			return {...draft, sponsorBlockCategories: SPONSORBLOCK_CATEGORIES.filter(category => selected.has(category))}
+		}
 	}
+}
+
+function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['media'] {
+	if (draft.mediaMode === 'audio-only') return {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}
+	if (draft.mediaMode === 'subtitles-only') return {kind: 'subtitles-only'}
+	if (draft.mediaMode === 'video-audio') return {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution], audio: {format: videoAudioFormat(draft)}}
+	return {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution]}
+}
+
+export function canDraftEmbedThumbnail(draft: DownloadProfileDraft): boolean {
+	const intent = mediaIntentFromProfileMedia(profileMediaFromDraft(draft))
+	return intent !== null && canEmbedThumbnail(mediaIntentSpec(intent))
 }
 
 export function validateDownloadProfileDraft(draft: DownloadProfileDraft): DownloadProfileDraftValidation {
@@ -214,20 +243,13 @@ export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: strin
 		name: draft.profileName.trim() || 'Download Profile',
 		icon: draft.profileIcon,
 		enabled: draft.enabled,
-		media:
-			draft.mediaMode === 'audio-only'
-				? {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}
-				: draft.mediaMode === 'subtitles-only'
-					? {kind: 'subtitles-only'}
-					: draft.mediaMode === 'video-audio'
-						? {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution], audio: {format: videoAudioFormat(draft)}}
-						: {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution]},
+		media: profileMediaFromDraft(draft),
 		subtitles: {enabled: subtitlesEnabled, languages: subtitlesEnabled ? draft.subtitleLanguages : [], source: draft.subtitleSource, mode: draft.subtitleDelivery, format: draft.subtitleFormat},
 		output: draft.destination.trim() ? {kind: 'fixed', dir: draft.destination.trim()} : {kind: 'default'},
 		filename: draft.filenameTemplate.trim() ? {kind: 'custom', template: draft.filenameTemplate.trim()} : {kind: 'default'},
 		subfolder: {enabled: draft.saveInsideSubfolder, name: draft.saveInsideSubfolder ? draft.subfolderName.trim() || defaultProfileSubfolderName(draft.profileName) : ''},
-		sponsorBlock: {mode: showVideo ? draft.sponsorBlockMode : 'off', categories: showVideo && draft.sponsorBlockMode !== 'off' ? [...DEFAULTS.sponsorBlockCategories] : []},
-		embed: {chapters: showVideo && draft.embedChapters, metadata: draft.embedMetadata, thumbnail: false, description: draft.saveDescription, thumbnailSidecar: draft.saveThumbnail},
+		sponsorBlock: {mode: showVideo ? draft.sponsorBlockMode : 'off', categories: showVideo && draft.sponsorBlockMode !== 'off' ? [...draft.sponsorBlockCategories] : []},
+		embed: {chapters: showVideo && draft.embedChapters, metadata: draft.embedMetadata, thumbnail: draft.embedThumbnail && canDraftEmbedThumbnail(draft), description: draft.saveDescription, thumbnailSidecar: draft.saveThumbnail},
 		createdAt: draft.createdAt ?? now,
 		updatedAt: now
 	}
