@@ -8,6 +8,16 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.4.26
+
+Download profiles can now put the thumbnail inside your files, and choose which SponsorBlock segments to handle.
+
+## Highlights
+
+- **Cover art from download profiles.** Turn on **Embed thumbnail** in a profile and its MP3, M4A, and Opus files get the video thumbnail as cover art, and its videos show it as their poster in compatible players. Until now profiles could only save the thumbnail as a separate image file.
+- **SponsorBlock categories per profile.** A profile that marks or removes SponsorBlock segments now lets you pick which kinds: sponsors, intros, outros, self-promos, and more. Editing a profile no longer resets them to the defaults.
+- **Fewer failed downloads with Embed thumbnail on.** Playlist and bulk downloads no longer fail when the chosen format can't hold cover art (for example "best" native audio); the option is hidden for those formats instead. A single WebM video with audio now gets its cover art too, saved as MKV.
+
 ## 0.4.25
 
 Arroxy's website has a new address: **https://orionus.dev/arroxy/**.
