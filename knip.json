@@ -5,9 +5,9 @@
 		"packages/yt-dlp-bridge": {"project": ["src/**/*.ts", "tests/**/*.ts"]},
 		"packages/ytdlp-errors": {"project": ["src/**/*.ts", "tests/**/*.ts", "scripts/**/*.mjs", "*.config.ts"]}
 	},
-	"ignore": ["src/renderer/src/components/ui/**", "tools/oxlint/anti-slop/**/*.test.ts"],
+	"ignore": ["src/renderer/src/components/ui/**"],
 	"ignoreExportsUsedInFile": {"interface": true, "type": true},
-	"ignoreDependencies": ["@fontsource/jetbrains-mono", "@fontsource/poppins", "@iconify-json/logos", "@iconify-json/simple-icons", "@oxlint/plugins", "shadcn", "tw-animate-css", "tailwindcss", "@svgr/plugin-jsx"],
+	"ignoreDependencies": ["@fontsource/jetbrains-mono", "@fontsource/poppins", "@iconify-json/logos", "@iconify-json/simple-icons", "shadcn", "tw-animate-css", "tailwindcss", "@svgr/plugin-jsx"],
 	"ignoreBinaries": ["msgmerge", "taskkill", "ditto", "robocopy", "hdiutil", "terminal-notifier", "shellcheck"],
 	"ignoreUnresolved": ["~icons/.*"]
 }

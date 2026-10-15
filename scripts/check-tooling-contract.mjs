@@ -14,7 +14,7 @@ const REQUIRED_GITIGNORE_ENTRIES = ['mise.local.toml', '.mise.local.toml', '.pla
 // Vite+ owns formatting, linting, tests, packaging, staged checks and hooks.
 // These standalone configs and packages must not come back next to it.
 const REPLACED_ROOT_CONFIGS = ['biome.json', 'biome.jsonc', '.oxlintrc.json', '.oxfmtrc.json', '.lintstagedrc', '.lintstagedrc.json', '.husky/pre-commit', 'vitest.config.ts', 'vitest.config.mts', 'tsup.config.ts', 'tsdown.config.ts']
-const REPLACED_DEV_DEPENDENCIES = ['@biomejs/biome', 'oxlint', 'oxfmt', 'husky', 'lint-staged', 'concurrently', 'tsup', 'tsdown']
+const REPLACED_DEV_DEPENDENCIES = ['@biomejs/biome', 'oxfmt', 'husky', 'lint-staged', 'concurrently', 'tsup', 'tsdown']
 const STAGED_FORMAT_PATTERN = '*.{json,jsonc,css}'
 const STAGED_CODE_PATTERN = '*.{ts,tsx,cts,mts,js,mjs,cjs}'
 const STATIC_CHECK_SCRIPT = 'bun run errors:build && vp check'
@@ -262,8 +262,14 @@ const rootScripts = stringMap(rootPackage.scripts)
 const rootDevDependencies = stringMap(rootPackage.devDependencies)
 const vitePlusManifestPath = 'node_modules/vite-plus/package.json'
 const vitePlusManifest = existsSync(repoPath(vitePlusManifestPath)) ? readJson(vitePlusManifestPath) : {}
-const oxlintVersion = exactVersion(stringMap(vitePlusManifest.dependencies).oxlint)
+const vitePlusDependencies = stringMap(vitePlusManifest.dependencies)
+const oxlintVersion = exactVersion(vitePlusDependencies.oxlint)
 const oxlintPluginsVersion = rootDevDependencies['@oxlint/plugins']
+// vp resolves oxlint and oxlint-tsgolint from the working directory first, and
+// Node's lookup climbs into parent directories. Pinning both in the root makes
+// vp use this checkout's copy. Without the pins, a worktree nested inside
+// another checkout loads that checkout's oxlint.
+const PROJECT_LINT_BINARIES = ['oxlint', 'oxlint-tsgolint']
 const workspaces = Array.isArray(rootPackage.workspaces) ? rootPackage.workspaces : []
 const packageDirs = packageDirsFromWorkspaces(workspaces)
 const packageRecords = packageDirs.map(dir => ({dir, packageJson: readJson(`${dir}/package.json`)}))
@@ -297,6 +303,10 @@ assert(typeof rootDevDependencies['vite-plus'] === 'string', 'Root devDependenci
 assert(typeof oxlintVersion === 'string' && oxlintVersion.length > 0, `Could not read the oxlint version bundled by vite-plus from ${vitePlusManifestPath}; run bun install.`)
 assert(typeof oxlintPluginsVersion === 'string' && oxlintPluginsVersion.length > 0, 'Root devDependencies must pin @oxlint/plugins.')
 assert(oxlintPluginsVersion === oxlintVersion, `@oxlint/plugins must use the exact oxlint version bundled by vite-plus (oxlint ${oxlintVersion}, @oxlint/plugins ${oxlintPluginsVersion}).`)
+for (const name of PROJECT_LINT_BINARIES) {
+	const bundled = exactVersion(vitePlusDependencies[name])
+	assert(rootDevDependencies[name] === bundled, `Root devDependencies must pin ${name} to the exact version vite-plus bundles (${bundled}), so vp lints with this checkout's copy; got ${rootDevDependencies[name]}.`)
+}
 for (const name of REPLACED_DEV_DEPENDENCIES) {
 	assert(rootDevDependencies[name] === undefined, `Root devDependencies must not include ${name}; Vite+ provides that tool.`)
 }

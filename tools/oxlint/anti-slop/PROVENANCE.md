@@ -6,7 +6,6 @@
 - Upstream license: MIT; the complete text is in `LICENSE`.
 - Dependencies: `oxlint` and `@oxlint/plugins`, pinned exactly to Arroxy's `oxlint` version.
 - Distribution rationale: upstream publishes no official npm package and explicitly intends this plugin to be vendored.
-- Upstream rule tests (`*.test.ts`) import `oxlint/plugins-dev` and are not run by Arroxy's gates; Vite+ provides oxlint, so Knip ignores them.
 - Local modification policy: do not modify rule semantics during initial adoption. Any later fork requires focused rule tests and a documented rationale; update this record with the new source commit and local changes.
 - Scope: the generic plugin is registered; the optional Effect plugin is intentionally not registered because Arroxy does not use Effect.
 

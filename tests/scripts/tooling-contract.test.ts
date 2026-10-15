@@ -33,7 +33,7 @@ function packageJson(options: {devDependencies?: Record<string, string>} = {}): 
 			type: 'module',
 			packageManager: 'bun@1.2.23',
 			workspaces: [],
-			devDependencies: options.devDependencies ?? {'vite-plus': '1.1.0', '@oxlint/plugins': '1.78.0'},
+			devDependencies: options.devDependencies ?? {'vite-plus': '1.1.0', '@oxlint/plugins': '1.78.0', oxlint: '1.78.0', 'oxlint-tsgolint': '7.0.1'},
 			scripts: {
 				prepare: 'vp config --no-agent',
 				'check:static': 'bun run errors:build && vp check',
@@ -69,7 +69,7 @@ async function createContractFixture(overrides: {gitignore?: string; mise?: stri
 	await Promise.all([
 		writeFixtureFile(root, 'package.json', packageJson({devDependencies: overrides.devDependencies})),
 		writeFixtureFile(root, 'vite.config.ts', viteConfig({staged: overrides.staged, lintOptions: overrides.lintOptions, noCycle: overrides.noCycle})),
-		writeFixtureFile(root, 'node_modules/vite-plus/package.json', JSON.stringify({name: 'vite-plus', dependencies: {oxlint: overrides.bundledOxlint ?? '=1.78.0'}})),
+		writeFixtureFile(root, 'node_modules/vite-plus/package.json', JSON.stringify({name: 'vite-plus', dependencies: {oxlint: overrides.bundledOxlint ?? '=1.78.0', 'oxlint-tsgolint': '=7.0.1'}})),
 		writeFixtureFile(root, '.vite-hooks/pre-commit', 'vp staged\n\nbun scripts/check-commit-fallout.ts\n'),
 		writeFixtureFile(root, 'knip.json', '{"workspaces":{}}\n'),
 		writeFixtureFile(root, '.node-version', '24.16.0\n'),
@@ -106,8 +106,18 @@ describe('tooling contract', () => {
 		expect(result.output).toContain('@oxlint/plugins must use the exact oxlint version bundled by vite-plus')
 	})
 
+	it('requires the lint binaries vp resolves to be pinned to the bundled versions', async () => {
+		const root = await createContractFixture({devDependencies: {'vite-plus': '1.1.0', '@oxlint/plugins': '1.78.0', oxlint: '1.77.0'}})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('must pin oxlint to the exact version vite-plus bundles (1.78.0)')
+		expect(result.output).toContain('must pin oxlint-tsgolint to the exact version vite-plus bundles (7.0.1)')
+	})
+
 	it('fails when a replaced standalone tool comes back', async () => {
-		const root = await createContractFixture({devDependencies: {'vite-plus': '1.1.0', '@oxlint/plugins': '1.78.0', '@biomejs/biome': '2.5.15'}})
+		const root = await createContractFixture({devDependencies: {'vite-plus': '1.1.0', '@oxlint/plugins': '1.78.0', oxlint: '1.78.0', 'oxlint-tsgolint': '7.0.1', '@biomejs/biome': '2.5.15'}})
 		await writeFixtureFile(root, 'biome.jsonc', '{}\n')
 
 		const result = runToolingContract(root)
