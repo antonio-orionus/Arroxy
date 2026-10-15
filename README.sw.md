@@ -25,7 +25,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy ni bure na ina leseni ya MIT — hakuna matangazo, hakuna toleo la kulipi
 | Zana    | Toleo   | Usanidi |
 | ------- | ------- | ------- |
 | Git     | yoyote  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` au `.node-version` |
-| Bun     | 1.2.23  | `mise install` au `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` au `.node-version` |
+| Bun     | 1.4.2  | `mise install` au `package.json` `packageManager` |
 
 Inapendekezwa: sakinisha `mise`, kisha endesha `mise install` ndani ya checkout. Bila mise, washa Node.js kutoka `.node-version` na Bun kutoka `package.json` kabla ya `bun run bootstrap`.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-Baada ya ku-clone, endesha `mise trust && mise install` ndani ya checkout. Ikiwa shell yako tayari inatumia `fnm`, `nvm`, au Bun ya Homebrew, wezesha mise katika `~/.zshrc` ili Arroxy itumie Node.js 24.16.0 na Bun 1.2.23:
+Baada ya ku-clone, endesha `mise trust && mise install` ndani ya checkout. Ikiwa shell yako tayari inatumia `fnm`, `nvm`, au Bun ya Homebrew, wezesha mise katika `~/.zshrc` ili Arroxy itumie Node.js 24.21.0 na Bun 1.4.2:
 
 ```bash
 printf '

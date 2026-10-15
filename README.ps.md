@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy وړیا دی او د MIT جواز لري — نه اعلانونه او 
 | وسیله  | نسخه | نصب |
 | ------- | ------- | ------- |
 | Git     | هر     | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` یا `.node-version` |
-| Bun     | 1.2.23  | `mise install` یا `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` یا `.node-version` |
+| Bun     | 1.4.2  | `mise install` یا `package.json` `packageManager` |
 
 سپارښتنه: `mise` نصب کړئ، بیا په checkout کې `mise install` وچلوئ. که mise نه کاروئ، د `bun run bootstrap` نه مخکې Node.js له `.node-version` او Bun له `package.json` څخه په لاسي ډول فعال کړئ.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-له clone وروسته، په checkout کې `mise trust && mise install` وچلوئ. که ستاسو shell له مخکې `fnm`، `nvm`، يا د Homebrew Bun کاروي، نو په `~/.zshrc` کې mise فعال کړئ څو Arroxy د Node.js 24.16.0 او Bun 1.2.23 وکاروي:
+له clone وروسته، په checkout کې `mise trust && mise install` وچلوئ. که ستاسو shell له مخکې `fnm`، `nvm`، يا د Homebrew Bun کاروي، نو په `~/.zshrc` کې mise فعال کړئ څو Arroxy د Node.js 24.21.0 او Bun 1.4.2 وکاروي:
 
 ```bash
 printf '

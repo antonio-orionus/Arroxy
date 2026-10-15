@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 > 🌐 این ترجمه با کمک هوش مصنوعی تهیه شده است. [README انگلیسی](README.md) منبع معتبر است. خطایی پیدا کردید؟ [یک PR باز کنید](../../pulls).
 
@@ -395,8 +395,8 @@ Arroxy رایگان و دارای مجوز MIT است؛ بدون تبلیغ و �
 | ابزار | نسخه | نصب |
 | ----- | ----- | --- |
 | Git | هر نسخه | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` یا `.node-version` |
-| Bun | 1.2.23 | `mise install` یا `package.json` و `packageManager` |
+| Node.js | 24.21.0 | `mise install` یا `.node-version` |
+| Bun | 1.4.2 | `mise install` یا `package.json` و `packageManager` |
 
 پیشنهاد می‌شود `mise` را نصب کنید و سپس در checkout فرمان `mise install` را اجرا کنید. بدون mise، پیش از `bun run bootstrap` نسخهٔ Node.js را از `.node-version` و Bun را از `package.json` به‌صورت دستی فعال کنید.
 
@@ -415,7 +415,7 @@ brew install mise
 xcode-select --install
 ```
 
-پس از clone، در checkout فرمان `mise trust && mise install` را اجرا کنید. اگر shell شما از قبل `fnm`، `nvm` یا Bun نصب‌شده با Homebrew را به کار می‌برد، mise را در `~/.zshrc` فعال کنید تا Arroxy از Node.js 24.16.0 و Bun 1.2.23 استفاده کند:
+پس از clone، در checkout فرمان `mise trust && mise install` را اجرا کنید. اگر shell شما از قبل `fnm`، `nvm` یا Bun نصب‌شده با Homebrew را به کار می‌برد، mise را در `~/.zshrc` فعال کنید تا Arroxy از Node.js 24.21.0 و Bun 1.4.2 استفاده کند:
 
 ```bash
 printf '

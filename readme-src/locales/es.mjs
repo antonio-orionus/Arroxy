@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | Herramienta | Versión  | Instalación |
 | ----------- | -------- | ----------- |
 | Git         | cualquiera | [git-scm.com](https://git-scm.com) |
-| Node.js     | 24.16.0  | \`mise install\` o \`.node-version\` |
-| Bun         | 1.2.23   | \`mise install\` o \`package.json\` \`packageManager\` |
+| Node.js     | 24.21.0  | \`mise install\` o \`.node-version\` |
+| Bun         | 1.4.2   | \`mise install\` o \`package.json\` \`packageManager\` |
 
 Recomendado: instala \`mise\` y luego ejecuta \`mise install\` en el checkout. Sin mise, activa manualmente Node.js desde \`.node-version\` y Bun desde \`package.json\` antes de \`bun run bootstrap\`.
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-Después de clonar, ejecuta \`mise trust && mise install\` desde el checkout. Si tu shell ya usa \`fnm\`, \`nvm\` o Bun instalado con Homebrew, activa mise en \`~/.zshrc\` para que Arroxy use Node.js 24.16.0 y Bun 1.2.23:
+Después de clonar, ejecuta \`mise trust && mise install\` desde el checkout. Si tu shell ya usa \`fnm\`, \`nvm\` o Bun instalado con Homebrew, activa mise en \`~/.zshrc\` para que Arroxy use Node.js 24.21.0 y Bun 1.4.2:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

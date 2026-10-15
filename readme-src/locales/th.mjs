@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | เครื่องมือ | รุ่น | การติดตั้ง |
 | ---------- | --- | ---------- |
 | Git | ใดก็ได้ | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` หรือ \`.node-version\` |
-| Bun | 1.2.23 | \`mise install\` หรือ \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` หรือ \`.node-version\` |
+| Bun | 1.4.2 | \`mise install\` หรือ \`package.json\` \`packageManager\` |
 
 แนะนำให้ติดตั้ง \`mise\` แล้วเรียกใช้ \`mise install\` ใน checkout หากไม่ใช้ mise ให้เปิดใช้ Node.js ตาม \`.node-version\` และ Bun ตาม \`package.json\` ด้วยตนเองก่อน \`bun run bootstrap\`
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-หลัง clone ให้เรียกใช้ \`mise trust && mise install\` ใน checkout หาก shell ใช้ \`fnm\`, \`nvm\` หรือ Bun จาก Homebrew อยู่แล้ว ให้เปิดใช้ mise ใน \`~/.zshrc\` เพื่อให้ Arroxy ใช้ Node.js 24.16.0 และ Bun 1.2.23:
+หลัง clone ให้เรียกใช้ \`mise trust && mise install\` ใน checkout หาก shell ใช้ \`fnm\`, \`nvm\` หรือ Bun จาก Homebrew อยู่แล้ว ให้เปิดใช้ mise ใน \`~/.zshrc\` เพื่อให้ Arroxy ใช้ Node.js 24.21.0 และ Bun 1.4.2:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

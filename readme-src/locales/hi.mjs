@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | टूल    | वर्शन   | इंस्टॉल |
 | ------- | ------- | ------- |
 | Git     | कोई भी  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` या \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` या \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` या \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` या \`package.json\` \`packageManager\` |
 
 सुझाव: \`mise\` इंस्टॉल करें, फिर checkout में \`mise install\` चलाएँ। mise के बिना, \`bun run bootstrap\` से पहले \`.node-version\` से Node.js और \`package.json\` से Bun मैन्युअली सक्रिय करें।
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-क्लोन करने के बाद checkout में \`mise trust && mise install\` चलाएँ। अगर आपका shell पहले से \`fnm\`, \`nvm\`, या Homebrew Bun इस्तेमाल करता है, तो \`~/.zshrc\` में mise सक्रिय करें ताकि Arroxy Node.js 24.16.0 और Bun 1.2.23 इस्तेमाल करे:
+क्लोन करने के बाद checkout में \`mise trust && mise install\` चलाएँ। अगर आपका shell पहले से \`fnm\`, \`nvm\`, या Homebrew Bun इस्तेमाल करता है, तो \`~/.zshrc\` में mise सक्रिय करें ताकि Arroxy Node.js 24.21.0 और Bun 1.4.2 इस्तेमाल करे:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

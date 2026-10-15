@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | Araç    | Sürüm   | Kurulum |
 | ------- | ------- | ------- |
 | Git     | herhangi | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` veya \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` veya \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` veya \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` veya \`package.json\` \`packageManager\` |
 
 Önerilen: \`mise\` kur, sonra checkout içinde \`mise install\` çalıştır. mise olmadan, \`bun run bootstrap\` öncesinde Node.js'i \`.node-version\` üzerinden ve Bun'ı \`package.json\` üzerinden elle etkinleştir.
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-Klonladıktan sonra checkout içinde \`mise trust && mise install\` çalıştır. Shell'in zaten \`fnm\`, \`nvm\` veya Homebrew Bun kullanıyorsa, Arroxy'nin Node.js 24.16.0 ve Bun 1.2.23 alması için \`~/.zshrc\` içinde mise'i etkinleştir:
+Klonladıktan sonra checkout içinde \`mise trust && mise install\` çalıştır. Shell'in zaten \`fnm\`, \`nvm\` veya Homebrew Bun kullanıyorsa, Arroxy'nin Node.js 24.21.0 ve Bun 1.4.2 alması için \`~/.zshrc\` içinde mise'i etkinleştir:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

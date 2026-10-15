@@ -25,7 +25,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, fooyya'iinsi kaff
 | Meeshaa | Verzhiyoonii | Fayyadu |
 | ------- | ------- | ------- |
 | Git     | kamiyyuu | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` yookaan `.node-version` |
-| Bun     | 1.2.23  | `mise install` yookaan `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` yookaan `.node-version` |
+| Bun     | 1.4.2  | `mise install` yookaan `package.json` `packageManager` |
 
 Kan gorfamu: `mise` fe'i, sana booda checkout keessatti `mise install` hojjedhu. Mise malee, `bun run bootstrap` dura Node.js `.node-version` irraa fi Bun `package.json` irraa harkaan hojiirra oolchi.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-Erga clone gootee booda checkout keessatti `mise trust && mise install` hojjedhu. Yoo shell kee duraan `fnm`, `nvm`, ykn Homebrew Bun fayyadama ta'e, Arroxy Node.js 24.16.0 fi Bun 1.2.23 akka fayyadamuuf `~/.zshrc` keessatti mise kakaasi:
+Erga clone gootee booda checkout keessatti `mise trust && mise install` hojjedhu. Yoo shell kee duraan `fnm`, `nvm`, ykn Homebrew Bun fayyadama ta'e, Arroxy Node.js 24.21.0 fi Bun 1.4.2 akka fayyadamuuf `~/.zshrc` keessatti mise kakaasi:
 
 ```bash
 printf '

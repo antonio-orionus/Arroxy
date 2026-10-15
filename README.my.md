@@ -25,7 +25,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy သည် အခမဲ့ဖြစ်ပြီး MIT လိုင်စ�
 | Tool    | ဗားရှင်း | ထည့်သွင်းရန် |
 | ------- | ------- | ------- |
 | Git     | မည်သည့်ဗားရှင်းမဆို | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` သို့မဟုတ် `.node-version` |
-| Bun     | 1.2.23  | `mise install` သို့မဟုတ် `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` သို့မဟုတ် `.node-version` |
+| Bun     | 1.4.2  | `mise install` သို့မဟုတ် `package.json` `packageManager` |
 
 အကြံပြုချက်: `mise` ကို install လုပ်ပြီး checkout အတွင်း `mise install` ကို run ပါ။ mise မသုံးပါက `bun run bootstrap` မလုပ်ခင် `.node-version` မှ Node.js နှင့် `package.json` မှ Bun ကို manual activate လုပ်ပါ။
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-clone ပြီးနောက် checkout ထဲတွင် `mise trust && mise install` ကို run လုပ်ပါ။ သင့် shell က `fnm`, `nvm`, သို့မဟုတ် Homebrew Bun ကို အသုံးပြုနေပြီးသားဖြစ်ပါက Arroxy သည် Node.js 24.16.0 နှင့် Bun 1.2.23 ကို သုံးနိုင်ရန် `~/.zshrc` တွင် mise ကို activate လုပ်ပါ:
+clone ပြီးနောက် checkout ထဲတွင် `mise trust && mise install` ကို run လုပ်ပါ။ သင့် shell က `fnm`, `nvm`, သို့မဟုတ် Homebrew Bun ကို အသုံးပြုနေပြီးသားဖြစ်ပါက Arroxy သည် Node.js 24.21.0 နှင့် Bun 1.4.2 ကို သုံးနိုင်ရန် `~/.zshrc` တွင် mise ကို activate လုပ်ပါ:
 
 ```bash
 printf '

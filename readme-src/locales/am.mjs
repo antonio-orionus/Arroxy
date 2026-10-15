@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | መሣሪያ  | ስሪት    | ጫን |
 | ------- | ------- | ------- |
 | Git     | any     | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` ወይም \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` ወይም \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` ወይም \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` ወይም \`package.json\` \`packageManager\` |
 
 የሚመከር: \`mise\` ይጫኑ፣ ከዚያ checkout ውስጥ \`mise install\` ያሂዱ። mise ካልተጠቀሙ፣ \`bun run bootstrap\` ከመሮጡ በፊት Node.jsን ከ\`.node-version\` እና Bunን ከ\`package.json\` በእጅ ያንቁ።
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-ከ clone በኋላ በ checkout ውስጥ \`mise trust && mise install\` ያስኪዱ። shell እርስዎ አስቀድሞ \`fnm\`፣ \`nvm\` ወይም Homebrew Bun የሚጠቀም ከሆነ፣ Arroxy Node.js 24.16.0 እና Bun 1.2.23 እንዲጠቀም \`~/.zshrc\` ውስጥ mise ን ያንቁ:
+ከ clone በኋላ በ checkout ውስጥ \`mise trust && mise install\` ያስኪዱ። shell እርስዎ አስቀድሞ \`fnm\`፣ \`nvm\` ወይም Homebrew Bun የሚጠቀም ከሆነ፣ Arroxy Node.js 24.21.0 እና Bun 1.4.2 እንዲጠቀም \`~/.zshrc\` ውስጥ mise ን ያንቁ:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

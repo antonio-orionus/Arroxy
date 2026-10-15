@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 > 🌐 यह AI-सहायता प्राप्त अनुवाद है। [अंग्रेज़ी README](README.md) सत्य का स्रोत है। कोई गलती दिखी? [PR का स्वागत है](../../pulls)।
 
@@ -395,8 +395,8 @@ Arroxy मुफ़्त और MIT-लाइसेंस्ड है — क�
 | टूल    | वर्शन   | इंस्टॉल |
 | ------- | ------- | ------- |
 | Git     | कोई भी  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` या `.node-version` |
-| Bun     | 1.2.23  | `mise install` या `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` या `.node-version` |
+| Bun     | 1.4.2  | `mise install` या `package.json` `packageManager` |
 
 सुझाव: `mise` इंस्टॉल करें, फिर checkout में `mise install` चलाएँ। mise के बिना, `bun run bootstrap` से पहले `.node-version` से Node.js और `package.json` से Bun मैन्युअली सक्रिय करें।
 
@@ -415,7 +415,7 @@ brew install mise
 xcode-select --install
 ```
 
-क्लोन करने के बाद checkout में `mise trust && mise install` चलाएँ। अगर आपका shell पहले से `fnm`, `nvm`, या Homebrew Bun इस्तेमाल करता है, तो `~/.zshrc` में mise सक्रिय करें ताकि Arroxy Node.js 24.16.0 और Bun 1.2.23 इस्तेमाल करे:
+क्लोन करने के बाद checkout में `mise trust && mise install` चलाएँ। अगर आपका shell पहले से `fnm`, `nvm`, या Homebrew Bun इस्तेमाल करता है, तो `~/.zshrc` में mise सक्रिय करें ताकि Arroxy Node.js 24.21.0 और Bun 1.4.2 इस्तेमाल करे:
 
 ```bash
 printf '

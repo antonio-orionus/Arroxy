@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy је бесплатан и под MIT лиценцом — без рек�
 | Алат    | Верзија | Инсталација |
 | ------- | ------- | ----------- |
 | Git     | било која | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` или `.node-version` |
-| Bun     | 1.2.23  | `mise install` или `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` или `.node-version` |
+| Bun     | 1.4.2  | `mise install` или `package.json` `packageManager` |
 
 Препоручено: инсталирајте `mise`, затим покрените `mise install` у checkout-у. Без mise-а, ручно активирајте Node.js из `.node-version` и Bun из `package.json` пре `bun run bootstrap`.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-После клонирања, покрените `mise trust && mise install` у checkout-у. Ако ваш shell већ користи `fnm`, `nvm` или Bun из Homebrew-а, активирајте mise у `~/.zshrc` како би Arroxy користио Node.js 24.16.0 и Bun 1.2.23:
+После клонирања, покрените `mise trust && mise install` у checkout-у. Ако ваш shell већ користи `fnm`, `nvm` или Bun из Homebrew-а, активирајте mise у `~/.zshrc` како би Arroxy користио Node.js 24.21.0 и Bun 1.4.2:
 
 ```bash
 printf '

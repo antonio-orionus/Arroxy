@@ -84,8 +84,8 @@ If `bun run doctor` reports a newer Node.js from `fnm` or a newer Bun from Homeb
 ```bash
 which node
 which bun
-node --version       # expected: v24.16.0
-bun --version        # expected: 1.2.23
+node --version       # expected: v24.21.0
+bun --version        # expected: 1.4.2
 ```
 
 As a one-off workaround before fixing shell activation, run commands through mise:

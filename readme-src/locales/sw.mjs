@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | Zana    | Toleo   | Usanidi |
 | ------- | ------- | ------- |
 | Git     | yoyote  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` au \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` au \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` au \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` au \`package.json\` \`packageManager\` |
 
 Inapendekezwa: sakinisha \`mise\`, kisha endesha \`mise install\` ndani ya checkout. Bila mise, washa Node.js kutoka \`.node-version\` na Bun kutoka \`package.json\` kabla ya \`bun run bootstrap\`.
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-Baada ya ku-clone, endesha \`mise trust && mise install\` ndani ya checkout. Ikiwa shell yako tayari inatumia \`fnm\`, \`nvm\`, au Bun ya Homebrew, wezesha mise katika \`~/.zshrc\` ili Arroxy itumie Node.js 24.16.0 na Bun 1.2.23:
+Baada ya ku-clone, endesha \`mise trust && mise install\` ndani ya checkout. Ikiwa shell yako tayari inatumia \`fnm\`, \`nvm\`, au Bun ya Homebrew, wezesha mise katika \`~/.zshrc\` ili Arroxy itumie Node.js 24.21.0 na Bun 1.4.2:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

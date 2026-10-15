@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | Công cụ | Phiên bản | Cài đặt |
 | -------- | --------- | ------- |
 | Git     | bất kỳ  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` hoặc \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` hoặc \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` hoặc \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` hoặc \`package.json\` \`packageManager\` |
 
 Khuyến nghị: cài \`mise\`, rồi chạy \`mise install\` trong checkout. Nếu không dùng mise, hãy kích hoạt thủ công Node.js từ \`.node-version\` và Bun từ \`package.json\` trước \`bun run bootstrap\`.
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-Sau khi clone, chạy \`mise trust && mise install\` trong checkout. Nếu shell của bạn đã dùng \`fnm\`, \`nvm\`, hoặc Bun từ Homebrew, hãy kích hoạt mise trong \`~/.zshrc\` để Arroxy dùng Node.js 24.16.0 và Bun 1.2.23:
+Sau khi clone, chạy \`mise trust && mise install\` trong checkout. Nếu shell của bạn đã dùng \`fnm\`, \`nvm\`, hoặc Bun từ Homebrew, hãy kích hoạt mise trong \`~/.zshrc\` để Arroxy dùng Node.js 24.21.0 và Bun 1.4.2:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 > 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。
 
@@ -395,8 +395,8 @@ Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有付费版
 | 工具    | 版本 | 安装 |
 | ------- | ------- | ------- |
 | Git     | 任意     | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` 或 `.node-version` |
-| Bun     | 1.2.23  | `mise install` 或 `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` 或 `.node-version` |
+| Bun     | 1.4.2  | `mise install` 或 `package.json` `packageManager` |
 
 推荐安装 `mise`，然后在 checkout 中运行 `mise install`。如果不用 mise，请先按 `.node-version` 手动启用 Node.js，并按 `package.json` 启用 Bun，再运行 `bun run bootstrap`。
 
@@ -415,7 +415,7 @@ brew install mise
 xcode-select --install
 ```
 
-克隆后，在 checkout 中运行 `mise trust && mise install`。如果你的 shell 已经使用 `fnm`、`nvm` 或 Homebrew Bun，请在 `~/.zshrc` 中启用 mise，让 Arroxy 使用 Node.js 24.16.0 和 Bun 1.2.23：
+克隆后，在 checkout 中运行 `mise trust && mise install`。如果你的 shell 已经使用 `fnm`、`nvm` 或 Homebrew Bun，请在 `~/.zshrc` 中启用 mise，让 Arroxy 使用 Node.js 24.21.0 和 Bun 1.4.2：
 
 ```bash
 printf '

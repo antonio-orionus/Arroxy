@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | 工具    | 版本 | 安裝 |
 | ------- | ------- | ------- |
 | Git     | 任意     | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` 或 \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` 或 \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` 或 \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` 或 \`package.json\` \`packageManager\` |
 
 推薦安裝 \`mise\`，然後在 checkout 中執行 \`mise install\`。如果不用 mise，請先按 \`.node-version\` 手動啟用 Node.js，並按 \`package.json\` 啟用 Bun，再執行 \`bun run bootstrap\`。
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-克隆後，在 checkout 中執行 \`mise trust && mise install\`。如果你的 shell 已經使用 \`fnm\`、\`nvm\` 或 Homebrew Bun，請在 \`~/.zshrc\` 中啟用 mise，讓 Arroxy 使用 Node.js 24.16.0 和 Bun 1.2.23：
+克隆後，在 checkout 中執行 \`mise trust && mise install\`。如果你的 shell 已經使用 \`fnm\`、\`nvm\` 或 Homebrew Bun，請在 \`~/.zshrc\` 中啟用 mise，讓 Arroxy 使用 Node.js 24.21.0 和 Bun 1.4.2：
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | Алат    | Верзија | Инсталација |
 | ------- | ------- | ----------- |
 | Git     | било која | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` или \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` или \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` или \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` или \`package.json\` \`packageManager\` |
 
 Препоручено: инсталирајте \`mise\`, затим покрените \`mise install\` у checkout-у. Без mise-а, ручно активирајте Node.js из \`.node-version\` и Bun из \`package.json\` пре \`bun run bootstrap\`.
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-После клонирања, покрените \`mise trust && mise install\` у checkout-у. Ако ваш shell већ користи \`fnm\`, \`nvm\` или Bun из Homebrew-а, активирајте mise у \`~/.zshrc\` како би Arroxy користио Node.js 24.16.0 и Bun 1.2.23:
+После клонирања, покрените \`mise trust && mise install\` у checkout-у. Ако ваш shell већ користи \`fnm\`, \`nvm\` или Bun из Homebrew-а, активирајте mise у \`~/.zshrc\` како би Arroxy користио Node.js 24.21.0 и Bun 1.4.2:
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

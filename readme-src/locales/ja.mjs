@@ -19,8 +19,8 @@ const TECH_CONTENT = `<details>
 | ツール  | バージョン | インストール |
 | ------- | ------- | ------- |
 | Git     | 任意    | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | \`mise install\` または \`.node-version\` |
-| Bun     | 1.2.23  | \`mise install\` または \`package.json\` \`packageManager\` |
+| Node.js | 24.21.0 | \`mise install\` または \`.node-version\` |
+| Bun     | 1.4.2  | \`mise install\` または \`package.json\` \`packageManager\` |
 
 推奨: \`mise\` をインストールし、checkout 内で \`mise install\` を実行します。mise を使わない場合は、\`bun run bootstrap\` の前に \`.node-version\` の Node.js と \`package.json\` の Bun を手動で有効化してください。
 
@@ -39,7 +39,7 @@ brew install mise
 xcode-select --install
 \`\`\`
 
-clone 後、checkout 内で \`mise trust && mise install\` を実行してください。shell がすでに \`fnm\`、\`nvm\`、または Homebrew の Bun を使っている場合は、Arroxy が Node.js 24.16.0 と Bun 1.2.23 を使うように \`~/.zshrc\` で mise を有効化してください：
+clone 後、checkout 内で \`mise trust && mise install\` を実行してください。shell がすでに \`fnm\`、\`nvm\`、または Homebrew の Bun を使っている場合は、Arroxy が Node.js 24.21.0 と Bun 1.4.2 を使うように \`~/.zshrc\` で mise を有効化してください：
 
 \`\`\`bash
 printf '\n# mise\nif command -v mise >/dev/null 2>&1; then\n  eval "$(mise activate zsh)"\nfi\n' >> ~/.zshrc

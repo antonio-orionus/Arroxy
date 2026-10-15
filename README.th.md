@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../pulls) ได้เลย
 
@@ -395,8 +395,8 @@ Arroxy ฟรีและใช้ MIT License — ไม่มีโฆษณ�
 | เครื่องมือ | รุ่น | การติดตั้ง |
 | ---------- | --- | ---------- |
 | Git | ใดก็ได้ | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` หรือ `.node-version` |
-| Bun | 1.2.23 | `mise install` หรือ `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` หรือ `.node-version` |
+| Bun | 1.4.2 | `mise install` หรือ `package.json` `packageManager` |
 
 แนะนำให้ติดตั้ง `mise` แล้วเรียกใช้ `mise install` ใน checkout หากไม่ใช้ mise ให้เปิดใช้ Node.js ตาม `.node-version` และ Bun ตาม `package.json` ด้วยตนเองก่อน `bun run bootstrap`
 
@@ -415,7 +415,7 @@ brew install mise
 xcode-select --install
 ```
 
-หลัง clone ให้เรียกใช้ `mise trust && mise install` ใน checkout หาก shell ใช้ `fnm`, `nvm` หรือ Bun จาก Homebrew อยู่แล้ว ให้เปิดใช้ mise ใน `~/.zshrc` เพื่อให้ Arroxy ใช้ Node.js 24.16.0 และ Bun 1.2.23:
+หลัง clone ให้เรียกใช้ `mise trust && mise install` ใน checkout หาก shell ใช้ `fnm`, `nvm` หรือ Bun จาก Homebrew อยู่แล้ว ให้เปิดใช้ mise ใน `~/.zshrc` เพื่อให้ Arroxy ใช้ Node.js 24.21.0 และ Bun 1.4.2:
 
 ```bash
 printf '

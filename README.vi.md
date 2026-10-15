@@ -25,7 +25,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy miễn phí và có giấy phép MIT — không quảng cáo, không bả
 | Công cụ | Phiên bản | Cài đặt |
 | -------- | --------- | ------- |
 | Git     | bất kỳ  | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` hoặc `.node-version` |
-| Bun     | 1.2.23  | `mise install` hoặc `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` hoặc `.node-version` |
+| Bun     | 1.4.2  | `mise install` hoặc `package.json` `packageManager` |
 
 Khuyến nghị: cài `mise`, rồi chạy `mise install` trong checkout. Nếu không dùng mise, hãy kích hoạt thủ công Node.js từ `.node-version` và Bun từ `package.json` trước `bun run bootstrap`.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-Sau khi clone, chạy `mise trust && mise install` trong checkout. Nếu shell của bạn đã dùng `fnm`, `nvm`, hoặc Bun từ Homebrew, hãy kích hoạt mise trong `~/.zshrc` để Arroxy dùng Node.js 24.16.0 và Bun 1.2.23:
+Sau khi clone, chạy `mise trust && mise install` trong checkout. Nếu shell của bạn đã dùng `fnm`, `nvm`, hoặc Bun từ Homebrew, hãy kích hoạt mise trong `~/.zshrc` để Arroxy dùng Node.js 24.21.0 và Bun 1.4.2:
 
 ```bash
 printf '

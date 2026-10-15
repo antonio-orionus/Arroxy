@@ -25,7 +25,7 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 > 🌐 Esta es una traducción asistida por IA. El [README en inglés](README.md) es la fuente de verdad. ¿Encontraste un error? [Las PRs son bienvenidas](../../pulls).
 
@@ -395,8 +395,8 @@ Arroxy es gratuito y con licencia MIT: sin anuncios, sin versión de pago. Si te
 | Herramienta | Versión  | Instalación |
 | ----------- | -------- | ----------- |
 | Git         | cualquiera | [git-scm.com](https://git-scm.com) |
-| Node.js     | 24.16.0  | `mise install` o `.node-version` |
-| Bun         | 1.2.23   | `mise install` o `package.json` `packageManager` |
+| Node.js     | 24.21.0  | `mise install` o `.node-version` |
+| Bun         | 1.4.2   | `mise install` o `package.json` `packageManager` |
 
 Recomendado: instala `mise` y luego ejecuta `mise install` en el checkout. Sin mise, activa manualmente Node.js desde `.node-version` y Bun desde `package.json` antes de `bun run bootstrap`.
 
@@ -415,7 +415,7 @@ brew install mise
 xcode-select --install
 ```
 
-Después de clonar, ejecuta `mise trust && mise install` desde el checkout. Si tu shell ya usa `fnm`, `nvm` o Bun instalado con Homebrew, activa mise en `~/.zshrc` para que Arroxy use Node.js 24.16.0 y Bun 1.2.23:
+Después de clonar, ejecuta `mise trust && mise install` desde el checkout. Si tu shell ya usa `fnm`, `nvm` o Bun instalado con Homebrew, activa mise en `~/.zshrc` para que Arroxy use Node.js 24.21.0 y Bun 1.4.2:
 
 ```bash
 printf '

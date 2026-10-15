@@ -25,7 +25,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-13._
+> _Last updated: 2026-10-15._
 
 ---
 
@@ -393,8 +393,8 @@ Arroxy bepul va MIT litsenziyasi ostida tarqatiladi — reklama yo'q, pullik ver
 | Vosita  | Versiya | O'rnatish |
 | ------- | ------- | --------- |
 | Git     | istalgan | [git-scm.com](https://git-scm.com) |
-| Node.js | 24.16.0 | `mise install` yoki `.node-version` |
-| Bun     | 1.2.23  | `mise install` yoki `package.json` `packageManager` |
+| Node.js | 24.21.0 | `mise install` yoki `.node-version` |
+| Bun     | 1.4.2  | `mise install` yoki `package.json` `packageManager` |
 
 Tavsiya: `mise` ni o'rnating, so'ng checkout ichida `mise install` ni ishga tushiring. Mise bo'lmasa, `bun run bootstrap` dan oldin Node.js'ni `.node-version` dan va Bun'ni `package.json` dan qo'lda faollashtiring.
 
@@ -413,7 +413,7 @@ brew install mise
 xcode-select --install
 ```
 
-Klon qilgandan so'ng checkout ichida `mise trust && mise install` ni ishga tushiring. Agar shellingiz allaqachon `fnm`, `nvm` yoki Homebrew orqali o'rnatilgan Bun ishlatsa, Arroxy Node.js 24.16.0 va Bun 1.2.23 ni olishi uchun `~/.zshrc` da mise ni faollashtiring:
+Klon qilgandan so'ng checkout ichida `mise trust && mise install` ni ishga tushiring. Agar shellingiz allaqachon `fnm`, `nvm` yoki Homebrew orqali o'rnatilgan Bun ishlatsa, Arroxy Node.js 24.21.0 va Bun 1.4.2 ni olishi uchun `~/.zshrc` da mise ni faollashtiring:
 
 ```bash
 printf '
