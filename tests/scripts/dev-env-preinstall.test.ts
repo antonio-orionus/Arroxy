@@ -2,7 +2,7 @@ import {readFile} from 'node:fs/promises'
 import {builtinModules} from 'node:module'
 import path from 'node:path'
 import ts from 'typescript'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 // `bootstrap` and `doctor` run dev-env.ts in a checkout with no node_modules,
 // so nothing it loads may need an installed package. Steps that do run as
