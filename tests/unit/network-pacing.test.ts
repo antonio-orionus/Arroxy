@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {defaultAppSettings, NETWORK_PACING_PRESET_VALUES} from '@shared/constants.js'
 import {resolveNetworkPacing} from '@shared/networkPacing.js'
 import type {CommonSettings} from '@shared/types.js'

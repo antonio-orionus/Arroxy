@@ -19,7 +19,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'

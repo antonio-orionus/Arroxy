@@ -1,7 +1,7 @@
 import {spawn} from 'node:child_process'
 import {existsSync} from 'node:fs'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime} from '@main/services/ytDlpJsRuntime.js'
 
 const electronRuntime: YtDlpJsRuntime = {kind: 'electron-node', executablePath: '/Applications/Arroxy.app/Contents/MacOS/Arroxy', version: '24.16.0'}

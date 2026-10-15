@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {nextMonotonicPercent, ProgressFormatter} from '@shared/progressFormat.js'
 
 describe('progress ui helpers', () => {

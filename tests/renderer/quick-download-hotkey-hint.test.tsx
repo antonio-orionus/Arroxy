@@ -1,5 +1,5 @@
 import {act, fireEvent, render, screen} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QuickProfileControl} from '@renderer/components/wizard/QuickProfileControl.js'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

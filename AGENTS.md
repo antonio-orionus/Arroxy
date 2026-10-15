@@ -141,21 +141,26 @@ The repo works the same for any coding agent. Keep agent config in three layers:
 After completing any implementation task, run this single command and fix all errors caused by your change before reporting done:
 
 ```bash
-bun run check   # format + lint + tooling contract + typecheck + knip + madge + package gates
+bun run check   # vp check (format + lint + types + import cycles) + tests + knip + tooling contract + package gates
 ```
 
 Do not skip. A change in one file can break types, introduce dead code, or create circular imports elsewhere.
 
 If `bun run check`, lint, typecheck, or tests report an unexpected failure that is not clearly attributable to your current task, do not try to fix it opportunistically. Capture the relevant failure, state that it appears outside the current session scope, and leave it alone so a parallel agent's in-progress work is not disrupted. Only touch unrelated files when the user explicitly expands the scope or when you can show the failure is a direct consequence of your edits.
 
-### On-demand hygiene checks
+### Fast static check
 
 ```bash
-bun run madge           # circular imports — exit 1 if any found
+bunx vp check           # format + lint + type errors + import cycles, ~5 s
+bunx vp check --fix     # same, and apply formatter and lint fixes
 bun run knip:test-only  # src/ files imported only from tests/ — potential dead production code
 ```
 
-Run `madge` after any refactor that moves modules or changes import boundaries. Run `knip:test-only` when reviewing whether a helper belongs in `src/` or `tests/`.
+Use `vp check` while iterating; `bun run check` is the full gate before reporting done. Run `knip:test-only` when reviewing whether a helper belongs in `src/` or `tests/`.
+
+### Toolchain — Vite+
+
+Formatting, linting, tests, library packaging, staged-file checks, commit hooks and the `check` task runner all come from [Vite+](https://viteplus.dev) (`vp`), configured in the root `vite.config.ts`. Run it as `bunx vp <command>` or through the `bun run` scripts. Its docs for the installed version live at `node_modules/vite-plus/docs`; read them rather than guessing flags, and use `bunx vp toolchain` to see bundled tool versions. electron-vite still owns the Electron dev and build. `vp check` type-checks through the TypeScript 7 toolchain; the publishable packages still type-check and build with `tsc`. Do not bring back Biome, standalone oxlint, Madge as a gate, husky, lint-staged, concurrently or tsup.
 
 The root-owned tooling contract lives in `dev-docs/tooling-contract.md`. Do not add package-local formatter/linter configs. Publishable package runtime `workspace:*` dependencies are allowed only for local workspace packages and must pass packed metadata verification.
 
@@ -183,7 +188,7 @@ Use `bun run repair` for a non-destructive checkout repair when dependencies, El
 
 ### Test runner
 
-Use `bun run test` (vitest), **not** `bun test` (Bun's built-in runner ignores vitest config and per-file `// @vitest-environment` directives). For a single file: `bunx vitest run --project node <path>` or `--project jsdom <path>` from repo root.
+Use `bun run test` (vitest), **not** `bun test` (Bun's built-in runner ignores vitest config and per-file `// @vitest-environment` directives). For a single file: `bunx vp test run --project node <path>` or `--project jsdom <path>` from repo root. Test files import from `vite-plus/test`, not `vitest`.
 
 When adding idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater.removeAllListeners()`), add the method as `vi.fn()` to the matching `vi.mock('electron')` / `vi.mock('electron-updater')` blocks — otherwise tests fail at module-load with `TypeError: X is not a function`.
 
@@ -406,7 +411,7 @@ shadcn/ui is the primary source for renderer UI primitives. Before inventing cus
 
 **Install via CLI:** `bunx shadcn@latest add <component>` (style: `base-nova`). Never hand-roll `@base-ui/react/*` wrappers. After install, modify freely to match app style.
 
-**One-off styling is ratcheted.** Outside `components/ui/` and `dev/`, arbitrary font sizes, colours, shadows, radii, type metrics, raw Tailwind palette colours, and raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>` are counted per file by `tests/unit/ui-consistency-ratchet.test.ts` against `tests/unit/ui-consistency-baseline.json`. Counts may only go down: express the need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), and after a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vitest run --project node tests/unit/ui-consistency-ratchet.test.ts`. Never raise it.
+**One-off styling is ratcheted.** Outside `components/ui/` and `dev/`, arbitrary font sizes, colours, shadows, radii, type metrics, raw Tailwind palette colours, and raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>` are counted per file by `tests/unit/ui-consistency-ratchet.test.ts` against `tests/unit/ui-consistency-baseline.json`. Counts may only go down: express the need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), and after a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vp test run --project node tests/unit/ui-consistency-ratchet.test.ts`. Never raise it.
 
 **Review primitive changes in the UI Kit.** `bun run dev:mock` then open `/?kit` (or the gallery's "UI kit" button): every primitive in every variant on the real glass surfaces, with theme and LTR/RTL switches. `tests/browser/ui-kit.spec.ts` keeps it rendering in both skies and directions.
 
@@ -504,7 +509,7 @@ Do **not** edit GitHub Release notes directly via the web UI or `gh release edit
 **Before committing the release bump**, run the full local gate and fix any failures. A broken release commit fails CI and the tag-side `quality-gate` in `release.yml` now blocks publishing before any artifacts are built:
 
 ```bash
-bun run check      # format + lint + tooling contract + typecheck + knip + madge + package gates
+bun run check      # vp check (format + lint + types + import cycles) + tests + knip + tooling contract + package gates
 ```
 
 Do not skip. A type error, dead export, circular import, stale locale key, or test failure that slips into a release tag breaks the remote release gate.

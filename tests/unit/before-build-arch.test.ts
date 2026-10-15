@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 interface BeforeBuildModule {
 	resolveBuilderArch: (contextArch: unknown, hostArch: NodeJS.Architecture) => 'x64' | 'arm64' | 'ia32' | 'armv7l'

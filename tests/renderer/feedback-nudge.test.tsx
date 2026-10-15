@@ -1,6 +1,6 @@
 import {render, screen, act} from '@testing-library/react'
 import {fireEvent} from '@testing-library/react'
-import {beforeEach, afterEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {ok} from '../shared/fixtures.js'

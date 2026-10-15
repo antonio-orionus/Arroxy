@@ -10,7 +10,7 @@
 // Assertions check the flags that matter for format correctness.
 // Pacing is omitted (undefined) — covered by pacing-specific tests.
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'

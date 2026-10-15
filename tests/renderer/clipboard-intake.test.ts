@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildClipboardCandidate, resolveClipboardIntake} from '@renderer/components/wizard/clipboardIntake.js'
 
 const singleUrl = 'https://www.youtube.com/watch?v=one'

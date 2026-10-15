@@ -1,4 +1,4 @@
-import {vi} from 'vitest'
+import {vi} from 'vite-plus/test'
 import type {AppApi} from '@shared/api.js'
 import type {AppSettings, DependencyDiagnostic, DependencyId, QueueItem, WarmUpOutput} from '@shared/types.js'
 import {defaultAppSettings} from '@shared/constants.js'

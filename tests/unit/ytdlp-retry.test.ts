@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'

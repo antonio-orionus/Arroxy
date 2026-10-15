@@ -1,5 +1,5 @@
 import {readFileSync} from 'node:fs'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import catalog from '../e2e/fixture-media-catalog.json' with {type: 'json'}
 import {AWKWARD_TITLE, AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, COOKIE_LIMITED_VIDEO_ID, FIXTURE_VIDEO_IDS, SABR_LIMITED_VIDEO_ID, SPLIT_MEDIA_VIDEO_ID, fixtureMediaContentType, fixtureMediaPathExtension} from '../e2e/fixtureMediaCatalog.js'
 

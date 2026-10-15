@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {shouldShowSplashGreeting} from '@renderer/components/system/splashGreeting.js'
 import {buildAppSettings} from '../shared/settingsFixtures.js'
 

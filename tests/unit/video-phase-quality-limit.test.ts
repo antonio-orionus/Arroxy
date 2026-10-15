@@ -1,7 +1,7 @@
 import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {VideoPhase} from '@main/services/phases/VideoPhase.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {ActiveDownload, PhaseContext} from '@main/services/phases/types.js'

@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect} from 'vite-plus/test'
 import {applyPreset} from '@renderer/store/wizard/formatPicker.js'
 import {buildFormatId, buildAudioConvertPayload} from '@renderer/store/helpers.js'
 import {strategyFor} from '@main/services/phases/index.js'

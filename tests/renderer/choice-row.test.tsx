@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen} from '@testing-library/react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {ChoiceRow} from '@renderer/components/shared/ChoiceRow.js'
 import {RadioGroup} from '@renderer/components/ui/radio-group.js'
 

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {assignProfileToItems, clearAssignmentsForItems, profileAssignmentCounts, resolveAssignedProfile, sameProfileRef} from '@renderer/store/wizard/playlistProfileAssignments.js'
 

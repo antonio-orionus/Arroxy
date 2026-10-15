@@ -2,7 +2,8 @@
 // Fail if any dependency version uses a semver range (^ ~ >= > ||) instead of
 // an exact pin. Protects the supply-chain posture set in bunfig.toml.
 //
-// Allowed: exact ("1.2.3", "1.2.3-beta.4"), workspace, file:, link:, git URLs.
+// Allowed: exact ("1.2.3", "1.2.3-beta.4"), workspace, file:, link:, git URLs,
+// and "catalog:" when the root catalog entry it points at is itself exact.
 // Disallowed: "^1.0.0", "~1.0.0", ">=1.0.0", "1.x", "*", "latest", bare majors.
 
 import {readFileSync} from 'node:fs'
@@ -19,14 +20,23 @@ const PROTOCOL_PREFIXES = ['workspace:', 'file:', 'link:', 'portal:', 'npm:', 'g
 const EXACT_SEMVER = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/
 
 const offenders = []
+const catalog = pkg.catalog ?? {}
+
+function isPinned(range) {
+	return PROTOCOL_PREFIXES.some(p => range.startsWith(p)) || EXACT_SEMVER.test(range)
+}
+
+for (const [name, range] of Object.entries(catalog)) {
+	if (typeof range !== 'string' || !isPinned(range)) offenders.push({section: 'catalog', name, range})
+}
 
 for (const section of SECTIONS) {
 	const deps = pkg[section]
 	if (!deps) continue
 	for (const [name, range] of Object.entries(deps)) {
 		if (typeof range !== 'string') continue
-		if (PROTOCOL_PREFIXES.some(p => range.startsWith(p))) continue
-		if (EXACT_SEMVER.test(range)) continue
+		if (isPinned(range)) continue
+		if (range === 'catalog:' && Object.hasOwn(catalog, name)) continue
 		offenders.push({section, name, range})
 	}
 }

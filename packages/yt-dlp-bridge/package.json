@@ -2,42 +2,111 @@
 	"name": "yt-dlp-bridge",
 	"version": "0.4.0",
 	"description": "TypeScript library for safe, no-shell yt-dlp integration: workflow planning, argv generation, process execution, output parsing, and structured errors.",
-	"type": "module",
+	"keywords": [
+		"argv",
+		"command-builder",
+		"esm",
+		"ffmpeg",
+		"mcp",
+		"media-downloader",
+		"metadata-extraction",
+		"no-shell",
+		"redaction",
+		"structured-errors",
+		"subprocess",
+		"typescript",
+		"video-downloader",
+		"youtube-dl",
+		"yt-dlp",
+		"yt-dlp-node",
+		"zod"
+	],
+	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/yt-dlp-bridge#readme",
+	"bugs": {
+		"url": "https://github.com/antonio-orionus/Arroxy/issues"
+	},
 	"license": "MIT",
 	"author": "Antonio Orionus",
-	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/yt-dlp-bridge#readme",
-	"repository": {"type": "git", "url": "git+https://github.com/antonio-orionus/Arroxy.git", "directory": "packages/yt-dlp-bridge"},
-	"bugs": {"url": "https://github.com/antonio-orionus/Arroxy/issues"},
-	"packageManager": "bun@1.2.23",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/antonio-orionus/Arroxy.git",
+		"directory": "packages/yt-dlp-bridge"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"type": "module",
+	"sideEffects": false,
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
-		".": {"types": "./dist/index.d.ts", "import": "./dist/index.js"},
-		"./config": {"types": "./dist/config.d.ts", "import": "./dist/config.js"},
-		"./environment": {"types": "./dist/environment.d.ts", "import": "./dist/environment.js"},
-		"./errors": {"types": "./dist/errors.d.ts", "import": "./dist/errors.js"},
-		"./filesystem": {"types": "./dist/filesystem.d.ts", "import": "./dist/filesystem.js"},
-		"./option-catalog": {"types": "./dist/option-catalog.d.ts", "import": "./dist/option-catalog.js"},
-		"./parsers": {"types": "./dist/parsers.d.ts", "import": "./dist/parsers.js"},
-		"./redaction": {"types": "./dist/redaction.d.ts", "import": "./dist/redaction.js"},
-		"./runner": {"types": "./dist/runner.d.ts", "import": "./dist/runner.js"},
-		"./schemas": {"types": "./dist/schemas.d.ts", "import": "./dist/schemas.js"},
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./config": {
+			"types": "./dist/config.d.ts",
+			"import": "./dist/config.js"
+		},
+		"./environment": {
+			"types": "./dist/environment.d.ts",
+			"import": "./dist/environment.js"
+		},
+		"./errors": {
+			"types": "./dist/errors.d.ts",
+			"import": "./dist/errors.js"
+		},
+		"./filesystem": {
+			"types": "./dist/filesystem.d.ts",
+			"import": "./dist/filesystem.js"
+		},
+		"./option-catalog": {
+			"types": "./dist/option-catalog.d.ts",
+			"import": "./dist/option-catalog.js"
+		},
+		"./parsers": {
+			"types": "./dist/parsers.d.ts",
+			"import": "./dist/parsers.js"
+		},
+		"./redaction": {
+			"types": "./dist/redaction.d.ts",
+			"import": "./dist/redaction.js"
+		},
+		"./runner": {
+			"types": "./dist/runner.d.ts",
+			"import": "./dist/runner.js"
+		},
+		"./schemas": {
+			"types": "./dist/schemas.d.ts",
+			"import": "./dist/schemas.js"
+		},
 		"./package.json": "./package.json"
 	},
-	"files": ["dist", "README.md", "LICENSE"],
-	"sideEffects": false,
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "node scripts/clean-dist.mjs && tsc -p tsconfig.json && node scripts/copy-assets.mjs",
 		"generate:options": "node scripts/generate-ytdlp-option-catalog.mjs",
 		"verify:options": "node scripts/verify-ytdlp-option-catalog.mjs",
-		"test": "vitest run --config vitest.config.mts",
+		"test": "vp test run",
 		"typecheck": "tsc --noEmit",
 		"prepack": "bun run build",
 		"pack:dry-run": "bun pm pack --dry-run"
 	},
-	"keywords": ["yt-dlp", "yt-dlp-node", "youtube-dl", "media-downloader", "video-downloader", "ffmpeg", "metadata-extraction", "command-builder", "argv", "no-shell", "subprocess", "redaction", "structured-errors", "typescript", "esm", "zod", "mcp"],
-	"dependencies": {"ytdlp-errors": "workspace:*", "zod": "4.6.5"},
-	"devDependencies": {"@types/node": "26.6.4", "typescript": "6.0.3", "vitest": "5.0.3"},
-	"engines": {"node": ">=22.13"},
-	"publishConfig": {"access": "public"}
+	"dependencies": {
+		"ytdlp-errors": "workspace:*",
+		"zod": "4.6.5"
+	},
+	"devDependencies": {
+		"@types/node": "26.6.4",
+		"typescript": "6.0.3",
+		"vite-plus": "catalog:"
+	},
+	"engines": {
+		"node": ">=22.13"
+	},
+	"packageManager": "bun@1.2.23"
 }

@@ -1,5 +1,5 @@
 import {act, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {DownloadProfilesHome} from '@renderer/components/wizard/DownloadProfilesHome.js'
 import {DownloadProfilesSettingsTab} from '@renderer/components/wizard/DownloadProfilesSettingsTab.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

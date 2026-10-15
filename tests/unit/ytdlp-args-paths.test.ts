@@ -1,5 +1,5 @@
 import {EventEmitter} from 'node:events'
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 
 vi.mock('@main/utils/process', async importOriginal => {

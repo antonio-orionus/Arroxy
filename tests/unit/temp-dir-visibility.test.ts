@@ -1,5 +1,5 @@
 import {join, win32} from 'node:path'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {createTempDirHider, normalizeCreatedPath} from '@main/services/download/tempDirVisibility.js'
 
 const WIN_ROOT = 'C:\\Users\\Admin\\Downloads\\.arroxy-temp'

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {toggleVariants} from '@renderer/components/ui/toggle.variants.js'
 
 describe('toggleVariants', () => {

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {acceptedAdvisoriesSchema, advisoryId, auditReportSchema, evaluateAudit, parseAuditOutput, type AcceptedAdvisory, type AuditReport} from '../../scripts/depsVuln.js'
 
 function advisory(ghsa: string, severity: 'low' | 'moderate' | 'high' | 'critical', title = `title ${ghsa}`): AuditReport[string][number] {

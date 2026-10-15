@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {describeSessionContext} from '@main/utils/sessionContext.js'
 import {defaultAppSettings} from '@shared/constants.js'
 

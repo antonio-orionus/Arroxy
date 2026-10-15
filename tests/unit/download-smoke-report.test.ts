@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DOWNLOAD_SMOKE_RESULT_PREFIX, serializeDownloadSmokeReport, summarizeSpawnArgs, type DownloadSmokeReport} from '@main/downloadSmokeReport.js'
 
 const report: DownloadSmokeReport = {

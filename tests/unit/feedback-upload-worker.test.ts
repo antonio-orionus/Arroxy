@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import worker from '../../workers/feedback-upload/src/index.js'
 
 type PutFn = (key: string, value: ReadableStream | ArrayBuffer | ArrayBufferView | string | null | Blob, options?: R2PutOptions) => Promise<R2Object>

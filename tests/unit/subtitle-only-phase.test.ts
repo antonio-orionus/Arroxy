@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'

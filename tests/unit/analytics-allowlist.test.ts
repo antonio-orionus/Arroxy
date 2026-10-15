@@ -1,7 +1,7 @@
 import {readdir, readFile} from 'node:fs/promises'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
-import {describe, it, expect, vi, beforeEach} from 'vitest'
+import {describe, it, expect, vi, beforeEach} from 'vite-plus/test'
 
 const {ctorMock, trackMock, identifyMock, setGlobalPropertiesMock, addHeaderMock} = vi.hoisted(() => {
 	const trackMock = vi.fn().mockResolvedValue(undefined)

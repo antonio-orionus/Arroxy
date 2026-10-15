@@ -5,7 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {createHash} from 'node:crypto'
 import cacache from 'cacache'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, classifyDownloadError, copyCachedArtifactToFile, downloadArtifactToCache, downloadFile, sha256HexToSri} from '@main/services/binary/BinaryDownloader.js'
 
 async function withServer(handler: http.RequestListener, run: (url: string) => Promise<void>): Promise<void> {

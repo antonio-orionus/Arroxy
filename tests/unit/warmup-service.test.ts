@@ -1,4 +1,4 @@
-import {afterEach, describe, it, expect, vi} from 'vitest'
+import {afterEach, describe, it, expect, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 import {WarmupService} from '@main/services/WarmupService.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'

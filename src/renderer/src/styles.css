@@ -1,18 +1,18 @@
-@import "tailwindcss";
-@import "@fontsource/poppins/400.css";
-@import "@fontsource/poppins/500.css";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
-@import "@fontsource/jetbrains-mono/400.css";
-@import "@fontsource/jetbrains-mono/500.css";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--font-sans: "Poppins", sans-serif;
-	--font-mono: "JetBrains Mono", monospace;
+	--font-sans: 'Poppins', sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
 	--text-display: 1.5rem;
 	--text-display--line-height: 1.2;
 	--text-display--letter-spacing: -0.02em;
@@ -84,7 +84,7 @@ body {
 	/* ── Backdrop: dark aurora over the void / cool ocean field in light.
 		   Fixed, behind all content, never blurred — it is the canvas the glass floats on. */
 	body::before {
-		content: "";
+		content: '';
 		position: fixed;
 		inset: 0;
 		z-index: 0;
@@ -94,7 +94,7 @@ body {
 
 	/* Backdrop accent: dark uses the aurora ribbon; light uses cloud/horizon haze. */
 	body::after {
-		content: "";
+		content: '';
 		position: fixed;
 		inset: 1rem 1.5rem auto auto;
 		width: min(80rem, 88vw);
@@ -140,7 +140,7 @@ body {
 		/* edge vignette over the reference aurora photo, then the photo itself */
 		background:
 			radial-gradient(132% 110% at 50% 34%, transparent 50%, hsl(238 80% 4% / 0.5) 100%),
-			url("./assets/backdrop/dark-aurora.webp") center center / cover no-repeat hsl(236 74% 4%);
+			url('./assets/backdrop/dark-aurora.webp') center center / cover no-repeat hsl(236 74% 4%);
 		filter: saturate(110%);
 		transform: scale(1.05);
 		transform-origin: 52% 42%;
@@ -163,7 +163,7 @@ body {
 		/* soft foreground/edge easing over the reference ocean photo, then the photo */
 		background:
 			radial-gradient(130% 120% at 56% 38%, transparent 60%, hsl(206 70% 40% / 0.16) 100%),
-			url("./assets/backdrop/light-ocean.webp") center center / cover no-repeat hsl(202 90% 86%);
+			url('./assets/backdrop/light-ocean.webp') center center / cover no-repeat hsl(202 90% 86%);
 		filter: saturate(104%);
 		transform: scale(1.04);
 		transform-origin: 56% 44%;
@@ -374,7 +374,7 @@ body {
 		var(--panel-glow);
 	/* The URL field: its own fill, nested here because a layered !important
 	   beats an unlayered one, so an outside override never applied. */
-	&[data-slot="input-group"] {
+	&[data-slot='input-group'] {
 		background:
 			linear-gradient(180deg, var(--field-glow-veil), var(--field-glow-veil)) padding-box,
 			radial-gradient(120% 150% at 0% 0%, var(--field-glow-cyan), transparent 44%) padding-box,
@@ -404,7 +404,7 @@ body {
 	color: var(--icon-tile-ink);
 }
 .icon-tile::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 1px;
 	border-radius: inherit;
@@ -445,7 +445,7 @@ body {
 	color: var(--quick-card-ink);
 }
 .quick-profile-cluster::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 0;
 	z-index: -1;
@@ -468,7 +468,7 @@ body {
 	box-shadow: var(--quick-selector-shadow);
 }
 .quick-profile-selector::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 1px;
 	border-radius: inherit;
@@ -547,7 +547,7 @@ body {
 	box-shadow: var(--tabs-rail-shadow);
 }
 .download-home-tabs::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 0.42rem;
 	border-radius: inherit;
@@ -555,7 +555,7 @@ body {
 	background: var(--tabs-rail-sheen);
 	opacity: 0.8;
 }
-.download-home-tabs [data-slot="tabs-trigger"] {
+.download-home-tabs [data-slot='tabs-trigger'] {
 	isolation: isolate;
 	min-width: 0;
 	height: 3.45rem !important;
@@ -575,8 +575,8 @@ body {
 	justify-content: center;
 	line-height: 1;
 }
-.download-home-tabs [data-slot="tabs-trigger"]::before {
-	content: "";
+.download-home-tabs [data-slot='tabs-trigger']::before {
+	content: '';
 	position: absolute;
 	inset: 0.08rem;
 	z-index: -1;
@@ -589,27 +589,27 @@ body {
 		transform 180ms ease;
 	transform: scaleX(0.94);
 }
-.download-home-tabs [data-slot="tabs-trigger"]::after {
+.download-home-tabs [data-slot='tabs-trigger']::after {
 	content: none;
 	display: none;
 }
-.download-home-tabs [data-slot="tabs-trigger"]:hover {
+.download-home-tabs [data-slot='tabs-trigger']:hover {
 	color: var(--tabs-hover-ink);
 	transform: translateY(-1px);
 }
-.download-home-tabs [data-slot="tabs-trigger"]:not([data-active]):hover::before {
+.download-home-tabs [data-slot='tabs-trigger']:not([data-active]):hover::before {
 	/* Hover is its own look (a lifted pill), not a faded selection. */
 	background: var(--tabs-hover-bg);
 	box-shadow: var(--tabs-hover-shadow);
 	opacity: 1;
 	transform: scaleX(1);
 }
-.download-home-tabs [data-slot="tabs-trigger"][data-active] {
+.download-home-tabs [data-slot='tabs-trigger'][data-active] {
 	color: var(--tabs-active-ink);
 	font-weight: 600;
 	text-shadow: var(--tabs-active-text-shadow);
 }
-.download-home-tabs [data-slot="tabs-trigger"][data-active]::before {
+.download-home-tabs [data-slot='tabs-trigger'][data-active]::before {
 	opacity: 1;
 	transform: scaleX(1);
 }
@@ -621,7 +621,7 @@ body {
 		0 0 18px -10px var(--brand-glow);
 }
 
-.download-home-tabs .queue-tab-working [data-slot="badge"] {
+.download-home-tabs .queue-tab-working [data-slot='badge'] {
 	box-shadow: 0 0 12px -6px var(--brand-glow);
 }
 
@@ -671,7 +671,7 @@ body {
 	color: var(--foreground);
 }
 .wizard-summary-surface::before {
-	content: "";
+	content: '';
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
@@ -707,8 +707,8 @@ body {
 	&[data-pressed],
 	&[data-checked],
 	&[data-selected],
-	&:has([data-slot="radio-group-item"][data-checked]),
-	&:has([data-slot="checkbox"][data-checked]) {
+	&:has([data-slot='radio-group-item'][data-checked]),
+	&:has([data-slot='checkbox'][data-checked]) {
 		background:
 			var(--wizard-choice-selected-fill) padding-box,
 			linear-gradient(var(--brand-dim), var(--brand-dim)) padding-box,
@@ -720,8 +720,8 @@ body {
 	}
 	/* Only the option's own control disables the surface, not any nested button. */
 	&[data-disabled],
-	&:has([data-slot="radio-group-item"][data-disabled]),
-	&:has([data-slot="checkbox"][data-disabled]) {
+	&:has([data-slot='radio-group-item'][data-disabled]),
+	&:has([data-slot='checkbox'][data-disabled]) {
 		opacity: 0.45;
 	}
 }
@@ -817,10 +817,10 @@ body {
 .wizard-backward .wizard-step {
 	animation: fade-slide-in-backward 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
-[dir="rtl"] .wizard-forward .wizard-step {
+[dir='rtl'] .wizard-forward .wizard-step {
 	animation-name: fade-slide-in-forward-rtl;
 }
-[dir="rtl"] .wizard-backward .wizard-step {
+[dir='rtl'] .wizard-backward .wizard-step {
 	animation-name: fade-slide-in-backward-rtl;
 }
 
@@ -854,7 +854,7 @@ body {
 }
 
 /* ── Progress bar glow ─────────────────────────────────── */
-.progress-glow [data-slot="progress-indicator"] {
+.progress-glow [data-slot='progress-indicator'] {
 	background: linear-gradient(90deg, var(--brand), var(--brand-hover));
 	box-shadow: 0 0 8px var(--brand-glow);
 }

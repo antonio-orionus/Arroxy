@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {extractReleaseNotesMarkdown, listChangelogVersions, parseReleaseNotes, releaseNotesForVersion, releaseNotesSince, shouldShowWhatsNew} from '@shared/releaseNotes.js'
 
 const CHANGELOG = `# Changelog

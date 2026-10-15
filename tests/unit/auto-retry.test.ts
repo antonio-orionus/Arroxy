@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {AUTO_RETRY_BACKOFF_MS, autoRetryDelayMs, decideAutoRetry} from '@shared/autoRetry.js'
 import type {YtDlpErrorKind} from '@shared/types.js'
 

@@ -1,6 +1,6 @@
 import {generateKeyPairSync} from 'node:crypto'
 import {readFileSync} from 'node:fs'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {entriesForRuntimeBinaryValidation, findGithubAsset, githubHeaders, normalizePrivateKeyPem, parseGithubRelease, signRuntimeIndexPayload, verifyRuntimeIndexPayloadSignature} from '../../scripts/build/runtimeBinaryManifest.js'
 import type {RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'
 

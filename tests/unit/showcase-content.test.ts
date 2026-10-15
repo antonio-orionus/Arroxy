@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import type {QueueItem} from '@shared/types.js'
 import {readKnobs} from '@renderer/dev/browserMockKnobs.js'
 import {normalVideoProbe, playlistProbe} from '@renderer/dev/browserMockScenarios.js'

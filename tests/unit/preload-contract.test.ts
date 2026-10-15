@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {createPreloadApi, type PreloadIpcRenderer} from '@preload/createPreloadApi.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 

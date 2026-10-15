@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {act} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {ok} from '../shared/fixtures.js'
 import {buildAppSettings} from '../shared/settingsFixtures.js'

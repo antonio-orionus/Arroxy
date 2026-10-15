@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
 import type {HotkeyWindow} from '@main/services/HotkeyService.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'

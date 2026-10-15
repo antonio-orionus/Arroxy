@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {binaryInternals} from '@main/services/BinaryManager.js'
 import {parseSourceForgeLatestYtDlpVersion} from '@main/services/binary/YtDlpBinarySource.js'
 

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {audioTrackLabel, audioTrackQuality, isAudioTrackQuality, isDefaultAudio, isOriginalAudio} from '@shared/audioTrackMeta.js'
 
 describe('audio track metadata helpers', () => {

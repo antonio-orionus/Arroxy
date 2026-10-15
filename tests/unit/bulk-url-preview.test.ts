@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildBulkUrlPreview, BULK_URL_PREVIEW_LIMIT} from '@renderer/components/wizard/bulkUrlPreview.js'
 
 function urls(count: number): string {

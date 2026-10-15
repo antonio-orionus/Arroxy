@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {type StartupJourney, STARTUP_TIERS, validateJourneySequence, validateTier} from '../../scripts/startup/journeys.js'
 
 const CLEAN = {allowedWarnings: [], allowedErrors: []} as const

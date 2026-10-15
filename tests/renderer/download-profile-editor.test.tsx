@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {DownloadProfileEditor} from '@renderer/components/wizard/DownloadProfileEditor.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildWizardStepGraph, nextWizardStep, type WizardStepGraphInput, type VisibleWizardStep} from '@renderer/store/wizard/wizardStepGraph.js'
 
 type NavTestContext = Omit<WizardStepGraphInput, 'wizardStep' | 'wizardSubtitles' | 'wizardAutomaticCaptions'> & {hasSubtitles: boolean}

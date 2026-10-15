@@ -1,5 +1,5 @@
 import {act, cleanup, render, waitFor} from '@testing-library/react'
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {AppBackdrop} from '@renderer/components/layout/background/AppBackdrop.js'
 import {lightOceanScene} from '@renderer/components/layout/background/lightOcean/scene.js'
 

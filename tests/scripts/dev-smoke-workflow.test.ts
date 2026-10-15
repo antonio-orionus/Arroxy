@@ -1,6 +1,6 @@
 import {readFile} from 'node:fs/promises'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 async function readOptionalWorkflow(path: string): Promise<string> {
 	try {

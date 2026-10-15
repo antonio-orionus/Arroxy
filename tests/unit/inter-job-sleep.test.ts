@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {InterJobSleep} from '@main/services/download/InterJobSleep.js'
 import {INTER_JOB_SLEEP_MS} from '@shared/constants.js'
 

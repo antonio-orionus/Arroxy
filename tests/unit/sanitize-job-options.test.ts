@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import type {SanitizeInput} from '@shared/sanitizeJobOptions.js'
 

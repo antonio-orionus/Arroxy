@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QueueTitleBackfill, type QueueTitleBackfillDeps} from '@main/services/download/queueTitleBackfill.js'
 import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'

@@ -1,6 +1,6 @@
 import {existsSync, readdirSync, readFileSync, writeFileSync} from 'node:fs'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 // Ratchet on one-off styling outside the design-system primitives.
 //
@@ -12,7 +12,7 @@ import {describe, expect, it} from 'vitest'
 // lowered, so the gain is locked in.
 //
 // Lower the baseline after a cleanup with (it never raises a count):
-//   UPDATE_UI_RATCHET=1 bunx vitest run --project node tests/unit/ui-consistency-ratchet.test.ts
+//   UPDATE_UI_RATCHET=1 bunx vp test run --project node tests/unit/ui-consistency-ratchet.test.ts
 
 const RENDERER_SRC = path.resolve('src/renderer/src')
 const BASELINE_FILE = path.resolve('tests/unit/ui-consistency-baseline.json')

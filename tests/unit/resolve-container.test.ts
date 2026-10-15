@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {resolveOutputContainer} from '@renderer/store/wizard/resolveContainer.js'
 import type {AudioSelection, Preset, SubtitleMode} from '@shared/schemas.js'
 import type {FormatOption} from '@shared/types.js'

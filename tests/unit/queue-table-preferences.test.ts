@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_QUEUE_TABLE_PREFERENCES, sanitizeQueueTablePreferences} from '@renderer/components/queue/queueTablePreferences.js'
 
 describe('queue table preferences', () => {

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {BUNDLED_RUNTIME_BINARY_INDEX} from '@main/services/binary/BundledRuntimeBinaryIndex.js'
 import {runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'

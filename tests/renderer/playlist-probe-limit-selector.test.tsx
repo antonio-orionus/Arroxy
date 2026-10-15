@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QuickPlaylistCapDialog} from '@renderer/components/wizard/QuickPlaylistCapDialog.js'
 import {StepPlaylistItems} from '@renderer/components/wizard/StepPlaylistItems.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

@@ -1,5 +1,7 @@
 # Tooling Migration Audit
 
+> Historical record. Formatting has since moved from Biome to Oxfmt and every tool runs through Vite+; see [tooling-contract.md](tooling-contract.md) for the current contract.
+
 Audit date: 2026-06-08.
 
 Implementation branch: `tooling-migration-main`.

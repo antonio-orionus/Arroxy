@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
 
 describe('decideCloseAction — no tray (darwin or tray init failed)', () => {

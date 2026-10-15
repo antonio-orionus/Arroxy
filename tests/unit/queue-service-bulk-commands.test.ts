@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import fs from 'node:fs/promises'
 import os from 'node:os'

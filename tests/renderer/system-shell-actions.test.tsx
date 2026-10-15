@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {fail} from '@shared/result.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'

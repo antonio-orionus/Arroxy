@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import type {YtDlpErrorKind} from '@shared/types.js'
 import {classifyYtDlpFailure} from '@main/services/download/errorClassification.js'
 import type {DiskProbe} from '@main/services/download/errorClassification.js'

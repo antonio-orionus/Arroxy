@@ -4,7 +4,7 @@
 // strings.json). Whenever upstream changes wording, these tests fail —
 // surfacing the drift before users hit it.
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {readFileSync} from 'node:fs'
 import {join, dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'

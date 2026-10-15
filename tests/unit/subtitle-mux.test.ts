@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'
 
 vi.mock('node:fs/promises', () => ({access: vi.fn(), readFile: vi.fn(), writeFile: vi.fn().mockResolvedValue(undefined), rename: vi.fn().mockResolvedValue(undefined), unlink: vi.fn().mockResolvedValue(undefined)}))

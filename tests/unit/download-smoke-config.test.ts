@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {applyDownloadSmokeOverrides, readDownloadSmokeConfig, type DownloadSmokeConfig} from '@main/downloadSmokeConfig.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings} from '@shared/types.js'

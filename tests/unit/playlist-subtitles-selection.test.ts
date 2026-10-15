@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_PLAYLIST_SUBTITLE_SELECTION, MAX_SUBTITLE_LANGUAGES, playlistSelectionSchema, type PlaylistSelection} from '@shared/schemas.js'
 import {playlistSelectionProducesVideo, playlistSelectionToMediaIntent, playlistSubtitleOptions} from '@shared/mediaIntent.js'
 import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'

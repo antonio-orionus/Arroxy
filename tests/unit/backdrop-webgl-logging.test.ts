@@ -1,4 +1,4 @@
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {createWebglProgram} from '../../src/renderer/src/components/layout/background/webgl.js'
 
 // The backdrop probe compiles the repo's constant GLSL on the machine's real GL

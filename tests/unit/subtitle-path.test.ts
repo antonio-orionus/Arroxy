@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {isSubtitleFile, detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
 
 describe('isSubtitleFile', () => {

@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SidecarSubsPhase} from '@main/services/phases/SidecarSubsPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'

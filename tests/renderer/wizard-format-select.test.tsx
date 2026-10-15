@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {FormatOption} from '@shared/types.js'
 

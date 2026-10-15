@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {applyPreset, restoreFormatSelection, restoreSubtitleSelection} from '@renderer/store/wizard/formatPicker.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings, FormatOption, SinglePrefs} from '@shared/types.js'

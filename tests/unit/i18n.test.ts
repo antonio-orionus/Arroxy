@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {pickLanguage} from '@shared/i18n/index.js'
 import {mainT, pluralKey} from '@main/i18n.js'
 

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, COMPATIBLE_MP4_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'

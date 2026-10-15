@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 
 // Must mock electron and electron-updater before importing the module under test
 vi.mock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))

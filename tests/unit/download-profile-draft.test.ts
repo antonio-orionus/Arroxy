@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULTS} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {downloadProfileSchema, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'

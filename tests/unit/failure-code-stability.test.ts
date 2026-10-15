@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {FAILURE_CODE} from '@shared/types.js'
 
 // Stability snapshot. These ARX-### codes are a public contract: users see

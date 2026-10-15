@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbe, outcomeForProbeError} from '@renderer/store/wizard/hotkeyTrigger.js'
 import type {ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

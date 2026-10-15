@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import type {ProbeError} from '@shared/types.js'
 import {buildProbeErrorExperience, configuredCookiesRetryMode, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'

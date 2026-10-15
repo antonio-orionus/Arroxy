@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, it, expect, vi, afterEach} from 'vitest'
+import {describe, it, expect, vi, afterEach} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import type {DownloadService} from '@main/services/DownloadService.js'

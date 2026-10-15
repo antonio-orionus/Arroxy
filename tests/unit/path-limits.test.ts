@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {limitsFor, measure, normalizeName, truncateTo, type LengthUnit} from '@shared/pathLimits.js'
 
 // The numbers asserted here are not conventions — they were measured. macOS was

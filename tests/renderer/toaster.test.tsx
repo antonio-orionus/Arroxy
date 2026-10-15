@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {Toaster} from '@renderer/components/ui/sonner.js'
 import {notify, setNotificationSink} from '@renderer/lib/notify.js'
 import {useToastSink} from '@renderer/lib/toastSink.js'

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {render, screen} from '@testing-library/react'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {VideoSummaryCard} from '@renderer/components/shared/VideoSummaryCard.js'
 import {WizardFooter} from '@renderer/components/wizard/WizardFooter.js'
 

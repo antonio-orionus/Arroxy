@@ -1,5 +1,5 @@
 import {render, screen, fireEvent, act} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {UpdateBanner} from '@renderer/components/system/UpdateBanner.js'
 import {resolveAction} from '@renderer/components/system/updateBannerAction.js'
 import type {UpdateAvailablePayload} from '@shared/types.js'
@@ -159,7 +159,7 @@ describe('UpdateBanner', () => {
 
 	it('shows installFailed error message + retry button when installError is set', () => {
 		render(<UpdateBanner info={makeInfo()} installing={false} installError={'network down'} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
-		expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*network down/)
+		expect(screen.getByTestId('update-banner-message').textContent).toMatch(/Update failed.*network down/)
 		// Button label switches from "Install & Restart" to "Retry" while in error state.
 		expect(screen.getByRole('button', {name: 'Retry'})).toBeInTheDocument()
 	})

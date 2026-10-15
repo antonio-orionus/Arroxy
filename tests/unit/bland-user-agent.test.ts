@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {BLAND_UA_TOKEN, blandUserAgent} from '@main/utils/blandUserAgent.js'
 
 // Electron's default UA on each platform: real OS, real Chromium, plus the

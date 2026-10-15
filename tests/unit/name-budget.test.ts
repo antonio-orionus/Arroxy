@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {SUFFIX_RESERVE, SHRINK_ORDER, TOKEN_FLOOR, fitName, type BudgetPiece} from '@shared/nameBudget.js'
 import {limitsFor, measure} from '@shared/pathLimits.js'
 import type {FilenameToken} from '@shared/schemas.js'

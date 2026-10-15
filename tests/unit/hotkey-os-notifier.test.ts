@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {balloonNotifier, createSinkNotifier} from '@main/services/hotkeyOsNotifier.js'
 
 // The sink notifier is the E2E assertion point for hotkey OS notifications:

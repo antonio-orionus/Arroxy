@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import type {FormatOption, PlaylistEntry, PlaylistSelection} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {buildDownloadReview} from '@renderer/store/wizard/downloadReviewProjection.js'

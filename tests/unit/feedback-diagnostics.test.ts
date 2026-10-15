@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {gunzipSync} from 'node:zlib'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {createFeedbackDiagnosticPayload, FEEDBACK_DIAGNOSTIC_TAIL_BYTES, uploadFeedbackDiagnostic} from '@main/services/FeedbackDiagnostics.js'
 
 async function expectRejectsToThrow(promise: Promise<unknown>, message: string): Promise<void> {

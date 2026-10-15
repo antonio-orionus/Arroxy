@@ -2,7 +2,7 @@ import {spawnSync} from 'node:child_process'
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 describe('app i18n unused-key checker', () => {
 	it('recognizes referenced keys with numeric and hyphenated path segments', async () => {

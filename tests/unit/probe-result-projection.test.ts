@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {FormatOption, ProbeResult} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'

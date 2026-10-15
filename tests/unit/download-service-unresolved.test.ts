@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi, afterEach} from 'vitest'
+import {describe, expect, it, vi, afterEach} from 'vite-plus/test'
 import {DownloadService} from '@main/services/DownloadService.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 

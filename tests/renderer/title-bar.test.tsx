@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react'
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {WindowApi} from '@shared/api.js'
 
 function installWindowApi(platform: NodeJS.Platform): void {

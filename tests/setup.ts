@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest'
 import {configure} from '@testing-library/dom'
-import {vi} from 'vitest'
+import {vi} from 'vite-plus/test'
 import {initI18n} from '@shared/i18n/index.js'
 
 initI18n('en')

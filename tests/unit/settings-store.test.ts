@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
 import {defaultAppSettings} from '@shared/constants.js'

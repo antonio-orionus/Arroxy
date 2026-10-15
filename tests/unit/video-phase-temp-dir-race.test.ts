@@ -11,7 +11,7 @@
 import {mkdtemp, mkdir, rm, rmdir, access} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {VideoPhase} from '@main/services/phases/VideoPhase.js'
 import {hideTempDirRoot} from '@main/services/download/tempDirVisibility.js'
 import {AsyncStack} from '@main/services/phases/types.js'

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 

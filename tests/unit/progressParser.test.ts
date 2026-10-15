@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 import {ProgressParser} from '@main/services/download/progressParser.js'
 import {AsyncStack} from '@main/services/phases/types.js'

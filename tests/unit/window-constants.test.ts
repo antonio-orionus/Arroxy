@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {WINDOW_MIN_HEIGHT} from '@shared/constants.js'
 
 describe('window sizing constants', () => {

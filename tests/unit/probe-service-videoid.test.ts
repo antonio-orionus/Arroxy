@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {mapPlaylistEntries} from '@main/services/ProbeService.js'
 import type {InfoDict} from '@shared/schemas.js'
 

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildWizardStepGraph, nextWizardStep, visibleWizardSteps, type WizardStepGraphInput} from '@renderer/store/wizard/wizardStepGraph.js'
 
 function state(overrides: Partial<WizardStepGraphInput> = {}): WizardStepGraphInput {

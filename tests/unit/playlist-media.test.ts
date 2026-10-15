@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {findPlayableFileName, sanitizeM3uTitle} from '@shared/playlistMedia.js'
 import {buildM3u} from '@main/services/playlistM3u.js'
 import type {PlaylistManifest} from '@shared/playlistManifest.js'

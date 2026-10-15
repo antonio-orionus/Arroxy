@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {selectView} from '@renderer/store/formatSelectionView.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'

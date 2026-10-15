@@ -4,7 +4,7 @@ import {mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {pathToFileURL} from 'node:url'
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
 
 const LIB = join(process.cwd(), 'scripts/test-binaries/_lib.sh')
 

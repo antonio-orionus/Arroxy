@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isMixedUrlIntent, isObviousSingleUrlIntent, urlIntentBulkLabel, urlIntentHomeLabel} from '@shared/urlIntent.js'
 
 describe('classifyUrlIntent', () => {

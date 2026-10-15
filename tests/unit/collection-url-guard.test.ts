@@ -6,7 +6,7 @@
 // collection under one pre-bound filename. Nothing downstream re-checks the URL,
 // so the queue boundary is the last place this can be caught.
 
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {QueueService} from '@main/services/QueueService.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'

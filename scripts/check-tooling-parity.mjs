@@ -1,7 +1,7 @@
-import {existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {existsSync, mkdtempSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {dirname, join, resolve} from 'node:path'
-import {fileURLToPath} from 'node:url'
+import {fileURLToPath, pathToFileURL} from 'node:url'
 import {createRequire} from 'node:module'
 import {spawnSync} from 'node:child_process'
 
@@ -10,7 +10,8 @@ const requireFromRepo = createRequire(join(repoRoot, 'package.json'))
 const isWindows = process.platform === 'win32'
 
 const tempDir = mkdtempSync(join(tmpdir(), 'arroxy-tooling-parity-'))
-const oxlintConfigPath = join(repoRoot, '.oxlintrc.json')
+// The root lint config is the `lint` block of vite.config.ts; `vp lint -c` reads it directly.
+const oxlintConfigPath = join(repoRoot, 'vite.config.ts')
 
 const requiredRules = [
 	'typescript/no-unsafe-assignment',
@@ -25,6 +26,7 @@ const requiredRules = [
 	'security/detect-non-literal-regexp',
 	'security/detect-child-process',
 	'react-js/no-deprecated',
+	'import/no-cycle',
 	'anti-slop/no-chained-type-assertions',
 	'anti-slop/no-object-parameters',
 	'anti-slop/no-reflect-apply',
@@ -53,6 +55,10 @@ function run(label, command, args, options = {}) {
 function localBinPath(name) {
 	const candidates = isWindows ? [`${name}.exe`, `${name}.cmd`] : [name]
 	return candidates.map(candidate => join(repoRoot, 'node_modules', '.bin', candidate)).find(candidate => existsSync(candidate))
+}
+
+function runLint(label, args) {
+	return runPackage(label, 'vp', ['lint', ...args])
 }
 
 function runPackage(label, name, args) {
@@ -84,8 +90,8 @@ function flattenRules(config) {
 }
 
 try {
-	const oxlintConfig = JSON.parse(readFileSync(oxlintConfigPath, 'utf8'))
-	const configuredRules = flattenRules(oxlintConfig)
+	const {default: viteConfig} = await import(pathToFileURL(oxlintConfigPath).href)
+	const configuredRules = flattenRules(viteConfig.lint ?? {})
 	const missingRules = requiredRules.filter(rule => !configuredRules.has(rule))
 	if (missingRules.length > 0) {
 		fail(`Oxlint config is missing parity-critical rules: ${missingRules.join(', ')}`)
@@ -97,7 +103,7 @@ try {
 	const antiSlopRules = {'anti-slop/no-chained-type-assertions': 'error', 'anti-slop/no-object-parameters': 'error', 'anti-slop/no-reflect-apply': 'error', 'anti-slop/no-reflect-get': 'error', 'anti-slop/no-unknown-type-aliases': 'error', 'anti-slop/no-widen-then-assert': 'error'}
 	const antiSlopConfigPath = join(tempDir, 'anti-slop.oxlintrc.json')
 	const antiSlopSpecifier = resolve(repoRoot, 'tools/oxlint/anti-slop/index.ts')
-	writeFileSync(antiSlopConfigPath, JSON.stringify({$schema: join(repoRoot, 'node_modules/oxlint/configuration_schema.json'), options: {typeAware: true}, jsPlugins: [{name: 'anti-slop', specifier: antiSlopSpecifier}], rules: antiSlopRules}, null, 2))
+	writeFileSync(antiSlopConfigPath, JSON.stringify({options: {typeAware: true}, jsPlugins: [{name: 'anti-slop', specifier: antiSlopSpecifier}], rules: antiSlopRules}, null, 2))
 
 	const antiSlopFixturePath = join(tempDir, 'anti-slop-fixture.ts')
 	writeFileSync(
@@ -115,8 +121,8 @@ try {
 		].join('\n')
 	)
 	const antiSlopRuleIds = Object.keys(antiSlopRules).map(rule => rule.slice('anti-slop/'.length))
-	assertFailsWith(runPackage('Oxlint anti-slop parity', 'oxlint', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
-	assertFailsWith(runPackage('Oxlint root production scope parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
+	assertFailsWith(runLint('Oxlint anti-slop parity', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
+	assertFailsWith(runLint('Oxlint root production scope parity', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopFixturePath]), antiSlopRuleIds)
 
 	const antiSlopAcceptedPath = join(tempDir, 'anti-slop-accepted.ts')
 	writeFileSync(
@@ -131,21 +137,19 @@ try {
 			'void precise; void directValue; void directCall;'
 		].join('\n')
 	)
-	const acceptedResult = runPackage('Oxlint anti-slop accepted parity', 'oxlint', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopAcceptedPath])
+	const acceptedResult = runLint('Oxlint anti-slop accepted parity', ['--config', antiSlopConfigPath, '--tsconfig', tsconfigPath, antiSlopAcceptedPath])
 	if (acceptedResult.status !== 0) fail('Oxlint anti-slop accepted fixture unexpectedly failed', acceptedResult.output)
 
 	const antiSlopTestScopePath = join(tempDir, 'selected.test.ts')
 	writeFileSync(antiSlopTestScopePath, ['function acceptsObject(value: object): void { void value; }', "const source = {id: 'id'};", 'const chained = (source as unknown) as string;', 'void acceptsObject; void chained;'].join('\n'))
-	const testScopeResult = runPackage('Oxlint root test scope parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopTestScopePath])
+	const testScopeResult = runLint('Oxlint root test scope parity', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, antiSlopTestScopePath])
 	if (testScopeResult.status === 0) fail('Oxlint anti-slop test-scope fixture unexpectedly passed', testScopeResult.output)
 	if (testScopeResult.output.includes('no-chained-type-assertions')) fail('Test scope unexpectedly enabled anti-slop/no-chained-type-assertions', testScopeResult.output)
 	if (!testScopeResult.output.includes('no-object-parameters')) fail('Test scope disabled more than anti-slop/no-chained-type-assertions', testScopeResult.output)
 
-	const biomeSyntaxPath = join(tempDir, 'biome-syntax.js')
-	const biomeConfigPath = join(tempDir, 'biome.jsonc')
-	writeFileSync(biomeConfigPath, JSON.stringify({$schema: join(repoRoot, 'node_modules/@biomejs/biome/configuration_schema.json'), files: {ignoreUnknown: false, includes: ['**/*.js']}, formatter: {enabled: true}, linter: {enabled: false}, assist: {enabled: false}}, null, 2))
-	writeFileSync(biomeSyntaxPath, 'export const octal = 010;\n')
-	assertFailsWith(runPackage('Biome parser parity', 'biome', ['check', '--config-path', biomeConfigPath, biomeSyntaxPath]), ['octal'])
+	const octalSyntaxPath = join(tempDir, 'octal-syntax.js')
+	writeFileSync(octalSyntaxPath, 'export const octal = 010;\n')
+	assertFailsWith(runLint('Oxc parser parity', ['--config', oxlintConfigPath, octalSyntaxPath]), ['octal'])
 
 	const unsafePath = join(tempDir, 'unsafe.ts')
 	writeFileSync(
@@ -169,14 +173,13 @@ try {
 			'export const unbound = counter.method;'
 		].join('\n')
 	)
-	assertFailsWith(runPackage('Oxlint type-aware parity', 'oxlint', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return', 'restrict-template-expressions', 'unbound-method'])
+	assertFailsWith(runLint('Oxlint type-aware parity', ['--config', oxlintConfigPath, '--tsconfig', tsconfigPath, unsafePath]), ['no-unsafe-assignment', 'no-unsafe-call', 'no-unsafe-member-access', 'no-unsafe-return', 'restrict-template-expressions', 'unbound-method'])
 
 	const bridgeConfigPath = join(tempDir, '.oxlintrc.parity.json')
 	writeFileSync(
 		bridgeConfigPath,
 		JSON.stringify(
 			{
-				$schema: join(repoRoot, 'node_modules/oxlint/configuration_schema.json'),
 				env: {browser: true, builtin: true, node: true},
 				plugins: ['eslint', 'typescript', 'react', 'jsx-a11y'],
 				options: {typeAware: true},
@@ -194,23 +197,23 @@ try {
 
 	const hooksPath = join(tempDir, 'hooks.tsx')
 	writeFileSync(hooksPath, ["import { useState } from 'react';", 'export function BrokenHook({ value }: { value: number }) {', '  if (value > 0) {', '    useState(0);', '  }', '  return <button>{value}</button>;', '}'].join('\n'))
-	assertFailsWith(runPackage('Oxlint React hooks bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, hooksPath]), ['rules-of-hooks'])
+	assertFailsWith(runLint('Oxlint React hooks bridge parity', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, hooksPath]), ['rules-of-hooks'])
 
 	const setStatePath = join(tempDir, 'set-state.tsx')
 	writeFileSync(setStatePath, ["import { useState } from 'react';", 'export function BrokenSetState({ value }: { value: number }) {', '  const [count, setCount] = useState(0);', '  setCount(value);', '  return <button>{count}</button>;', '}'].join('\n'))
-	assertFailsWith(runPackage('Oxlint React compiler bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, setStatePath]), ['set-state-in-render'])
+	assertFailsWith(runLint('Oxlint React compiler bridge parity', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, setStatePath]), ['set-state-in-render'])
 
 	const staticPath = join(tempDir, 'static.tsx')
 	writeFileSync(staticPath, ['export function Parent({ value }: { value: number }) {', '  function Child() {', '    return <span>{value}</span>;', '  }', '  return <Child />;', '}'].join('\n'))
-	assertFailsWith(runPackage('Oxlint React static-components bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, staticPath]), ['static-components'])
+	assertFailsWith(runLint('Oxlint React static-components bridge parity', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, staticPath]), ['static-components'])
 
 	const deprecatedReactPath = join(tempDir, 'deprecated-react.tsx')
 	writeFileSync(deprecatedReactPath, ["import ReactDOM from 'react-dom';", "const root = document.createElement('div');", 'ReactDOM.render(<span />, root);'].join('\n'))
-	assertFailsWith(runPackage('Oxlint React deprecated bridge parity', 'oxlint', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, deprecatedReactPath]), ['no-deprecated'])
+	assertFailsWith(runLint('Oxlint React deprecated bridge parity', ['--config', bridgeConfigPath, '--tsconfig', tsconfigPath, deprecatedReactPath]), ['no-deprecated'])
 
 	const securityPath = join(tempDir, 'security.js')
 	writeFileSync(securityPath, ["const childProcess = require('node:child_process');", 'const command = process.argv[2];', 'const pattern = process.argv[3];', 'childProcess.exec(command);', 'new RegExp(pattern);'].join('\n'))
-	assertFailsWith(runPackage('Oxlint security bridge parity', 'oxlint', ['--config', bridgeConfigPath, securityPath]), ['detect-child-process', 'detect-non-literal-regexp'])
+	assertFailsWith(runLint('Oxlint security bridge parity', ['--config', bridgeConfigPath, securityPath]), ['detect-child-process', 'detect-non-literal-regexp'])
 
 	console.log('Tooling parity checks passed.')
 } finally {

@@ -1,5 +1,5 @@
 import {act, render, screen, fireEvent, waitFor} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
@@ -194,7 +194,7 @@ describe('App renderer', () => {
 
 		const quick = await screen.findByTestId('profiles-quick-download')
 		const fetch = screen.getByTestId('profiles-interactive-download')
-		expect(quick).toHaveTextContent(/Quick download/i)
+		expect(quick.textContent).toMatch(/Quick download/i)
 		expect(quick).toHaveTextContent('Will download using: Balanced 720p')
 		expect(screen.getByTestId('profiles-quick-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced 720p')

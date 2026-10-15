@@ -1,5 +1,5 @@
 import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QueueManagerTab} from '@renderer/components/queue/QueueManagerTab.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {i18next} from '@shared/i18n/index.js'
@@ -140,7 +140,7 @@ describe('QueueManagerTab', () => {
 
 		const notice = screen.getByTestId('queue-quality-warning')
 		expect(notice).toHaveTextContent('Limited to 360p')
-		expect(notice).toHaveTextContent(/subtitles/i)
+		expect(notice.textContent).toMatch(/subtitles/i)
 		expect(notice.getAttribute('title')).toMatch(/subtitles[\s\S]*another network/i)
 	})
 

@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect} from 'vite-plus/test'
 import {strategyFor, phasesFor, type StrategyKind} from '@main/services/phases/index.js'
 import type {PreparedJob, SubtitleOptions, SponsorBlockOptions, EmbedOptions} from '@shared/preparedJob.js'
 

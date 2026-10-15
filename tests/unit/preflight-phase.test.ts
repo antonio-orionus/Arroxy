@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {PreflightPhase} from '@main/services/phases/PreflightPhase.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'

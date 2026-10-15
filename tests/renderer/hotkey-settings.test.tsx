@@ -1,5 +1,5 @@
 import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {HotkeySettingsSection} from '@renderer/components/wizard/HotkeySettingsSection.js'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

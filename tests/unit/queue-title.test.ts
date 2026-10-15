@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
 import {deriveTitleFromArtifact, withBackfilledTitle} from '@shared/queueTitle.js'
 import {makeItem} from '../shared/fixtures.js'

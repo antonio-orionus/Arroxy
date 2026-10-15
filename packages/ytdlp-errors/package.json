@@ -2,22 +2,78 @@
 	"name": "ytdlp-errors",
 	"version": "1.2.0",
 	"description": "Classify yt-dlp stderr into a closed taxonomy of error kinds (botBlock, ipBlock, rateLimit, ageRestricted, drmProtected, ...). Zero deps, pure regex, ESM + CJS.",
-	"keywords": ["yt-dlp", "youtube-dl", "ytdlp", "yt-dlp-wrapper", "error", "errors", "error-handling", "error-classifier", "classifier", "stderr", "stderr-parser", "parser", "taxonomy", "regex", "typescript", "nodejs", "esm", "cjs", "zero-dependencies", "video-download", "media-download", "downloader"],
+	"keywords": [
+		"cjs",
+		"classifier",
+		"downloader",
+		"error",
+		"error-classifier",
+		"error-handling",
+		"errors",
+		"esm",
+		"media-download",
+		"nodejs",
+		"parser",
+		"regex",
+		"stderr",
+		"stderr-parser",
+		"taxonomy",
+		"typescript",
+		"video-download",
+		"youtube-dl",
+		"yt-dlp",
+		"yt-dlp-wrapper",
+		"ytdlp",
+		"zero-dependencies"
+	],
 	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/ytdlp-errors#readme",
-	"repository": {"type": "git", "url": "git+https://github.com/antonio-orionus/Arroxy.git", "directory": "packages/ytdlp-errors"},
-	"bugs": {"url": "https://github.com/antonio-orionus/Arroxy/issues"},
-	"packageManager": "bun@1.2.23",
+	"bugs": {
+		"url": "https://github.com/antonio-orionus/Arroxy/issues"
+	},
 	"license": "MIT",
 	"author": "Antonio Orionus",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/antonio-orionus/Arroxy.git",
+		"directory": "packages/ytdlp-errors"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"CHANGELOG.md",
+		"LICENSE"
+	],
 	"type": "module",
+	"sideEffects": false,
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"exports": {".": {"types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs"}, "./package.json": "./package.json"},
-	"files": ["dist", "README.md", "CHANGELOG.md", "LICENSE"],
-	"sideEffects": false,
-	"engines": {"node": ">=18"},
-	"scripts": {"typecheck": "tsc --noEmit", "test": "vitest run --config vitest.config.ts", "build": "tsup", "prepack": "bun run typecheck && bun run test && bun run build", "pack:dry-run": "bun pm pack --dry-run", "scan-upstream": "node scripts/scan-yt-dlp-source.mjs"},
-	"devDependencies": {"@types/node": "26.6.4", "tsup": "8.5.1", "typescript": "6.0.3", "vitest": "5.0.3"},
-	"publishConfig": {"access": "public"}
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./package.json": "./package.json"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"test": "vp test run",
+		"build": "vp pack",
+		"prepack": "bun run typecheck && bun run test && bun run build",
+		"pack:dry-run": "bun pm pack --dry-run",
+		"scan-upstream": "node scripts/scan-yt-dlp-source.mjs"
+	},
+	"devDependencies": {
+		"@types/node": "26.6.4",
+		"typescript": "6.0.3",
+		"vite-plus": "catalog:"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"packageManager": "bun@1.2.23"
 }

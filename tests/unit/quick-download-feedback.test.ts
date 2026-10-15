@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, QUICK_DOWNLOAD_FEEDBACK_INITIAL, queueIdsFromAddResult, reconcileQuickDownloadFeedback, resetQuickDownloadFeedback} from '@renderer/store/wizard/quickDownloadFeedback.js'
 import {makeItem} from '../shared/fixtures.js'
 

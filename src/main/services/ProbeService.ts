@@ -187,7 +187,7 @@ const YOUTUBE_TAB_PAGE_PROGRESS_RE = /\[youtube:tab\]\s+.+?\spage\s+(\d+):\s+Dow
 
 function stripAnsiEscapeSequences(line: string): string {
 	let clean = ''
-	for (let index = 0; index < line.length; ) {
+	for (let index = 0; index < line.length;) {
 		if (line.charCodeAt(index) === 27 && line[index + 1] === '[') {
 			index += 2
 			while (index < line.length) {

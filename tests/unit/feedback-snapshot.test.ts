@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildFeedbackHiddenFields} from '@renderer/components/system/feedbackSnapshot.js'
 import {makeItem} from '../shared/fixtures.js'
 

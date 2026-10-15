@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
 import {canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
 import type {PlaylistEntry} from '@shared/types.js'

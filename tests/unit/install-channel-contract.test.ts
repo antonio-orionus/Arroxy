@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {INSTALL_CHANNELS, type InstallChannel} from '@shared/types.js'
 import {resolveAction, type Action} from '@renderer/components/system/updateBannerAction.js'
 

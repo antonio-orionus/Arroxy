@@ -1,6 +1,6 @@
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import type {z} from 'zod'
 import {planWorkflow} from '../src/index.js'
 import {loadConfig} from '../src/config.js'

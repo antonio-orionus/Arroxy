@@ -1,6 +1,6 @@
 // @vitest-environment node
 import {EventEmitter} from 'node:events'
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import {isPrivateHostname, patchInfoJsonTitle, smuggledRefererOf} from '@main/services/vhxTitleRecovery.js'

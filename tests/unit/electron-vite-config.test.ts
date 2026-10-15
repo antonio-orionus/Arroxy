@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 import {isExternalMainBuildImport, isExternalPreloadBuildImport, readRendererDevServerPort} from '../../electron.vite.config.js'
 

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {findStaleBuild} from '../e2e/buildFreshness.js'
 
 describe('findStaleBuild', () => {

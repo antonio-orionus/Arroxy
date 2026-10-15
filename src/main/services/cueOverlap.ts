@@ -82,7 +82,7 @@ function collectTimings(content: string): CueTiming[] {
 	let blockIsMetadata = false
 	let blockHasTiming = false
 
-	for (let offset = 0; offset <= content.length; ) {
+	for (let offset = 0; offset <= content.length;) {
 		const newline = content.indexOf('\n', offset)
 		const lineEnd = newline === -1 ? content.length : newline
 		const line = content.slice(offset, lineEnd)

@@ -1,4 +1,4 @@
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 
 const ORIGINAL_PLATFORM = Object.getOwnPropertyDescriptor(process, 'platform')!
 const ORIGINAL_EXEC_PATH = Object.getOwnPropertyDescriptor(process, 'execPath')!

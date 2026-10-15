@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
 
 const YT_URL = 'https://www.youtube.com/watch?v=k1qBgIw8fAQ'

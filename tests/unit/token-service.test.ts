@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {TokenService} from '@main/services/TokenService.js'
 
 function makeProvider(overrides: Partial<{ensureReady: () => Promise<void>; getVisitorData: () => Promise<string>; mintToken: (binding: string) => Promise<string>; acquireWindow: () => void; releaseWindow: () => void; dispose: () => void}> = {}) {

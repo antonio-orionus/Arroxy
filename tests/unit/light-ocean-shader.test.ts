@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {lightOceanScene} from '@renderer/components/layout/background/lightOcean/scene.js'
 import {FRAG} from '@renderer/components/layout/background/lightOcean/shader.js'
 

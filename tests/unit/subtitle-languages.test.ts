@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {matchesSubtitleLanguage, ytDlpSubtitleLanguages, ytDlpSubtitleLanguageSelector} from '@shared/subtitleLanguages.js'
 
 // Track keys observed on a real YouTube video (`yt-dlp --list-subs`), plus

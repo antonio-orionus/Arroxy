@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import type {FormatOption} from '@shared/types.js'
 

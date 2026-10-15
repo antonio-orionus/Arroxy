@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect} from 'vite-plus/test'
 import {isRtl, RTL_LANGS} from '@shared/i18n/rtl.js'
 
 describe('isRtl', () => {

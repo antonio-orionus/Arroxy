@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, flattenStringLeaves, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
 
 describe('i18n catalog workflow', () => {

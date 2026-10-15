@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {downloadProfileSchema} from '@shared/schemas.js'
 import {
 	BUILTIN_DOWNLOAD_PROFILES,

@@ -6,7 +6,7 @@
 // already had this feedback; the playlist picker did not.
 
 import {cleanup, render, screen} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {PlaylistEntry} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
 import {defaultAppSettings} from '@shared/constants.js'

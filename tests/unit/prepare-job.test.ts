@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'
 import {preparedJobSchema, type EmbedOptions} from '@shared/preparedJob.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'

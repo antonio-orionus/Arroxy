@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {StepUrlInput} from '@renderer/components/wizard/StepUrlInput.js'
 import {MixedUrlPromptDialog} from '@renderer/components/wizard/MixedUrlPromptDialog.js'
 import {TooltipProvider} from '@renderer/components/ui/tooltip.js'
@@ -183,7 +183,7 @@ describe('advanced network settings', () => {
 		fireEvent.change(screen.getByTestId('filename-template-input'), {target: {value: '{resolution}/{title}'}})
 
 		await waitFor(() => {
-			expect(screen.getByTestId('filename-template-error')).toHaveTextContent(/quality isn't known/i)
+			expect(screen.getByTestId('filename-template-error').textContent).toMatch(/quality isn't known/i)
 		})
 		expect(screen.queryByTestId('filename-template-preview')).toBeNull()
 	})

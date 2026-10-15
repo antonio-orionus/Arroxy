@@ -6,7 +6,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {BinaryManager, type ProbeOutcome} from '@main/services/BinaryManager.js'
 import type {ProbeVerdictStore} from '@main/services/binary/ProbeVerdictCache.js'
 import type {DependencyAttempt, DependencyId, DependencySource, WarmupProgressEvent} from '@shared/types.js'

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it, vi, afterEach} from 'vitest'
+import {describe, expect, it, vi, afterEach} from 'vite-plus/test'
 
 vi.mock('@main/services/analytics', () => ({trackMain: vi.fn()}))
 

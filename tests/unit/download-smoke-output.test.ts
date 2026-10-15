@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {createDownloadSmokeObserver} from '@main/downloadSmokeOutput.js'
 
 // Lines copied from a 0.4.16 user log: cookies enabled, 360p picked.

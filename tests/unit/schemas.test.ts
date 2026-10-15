@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 

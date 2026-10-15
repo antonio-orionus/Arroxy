@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {BulkUrlDialog} from '@renderer/components/wizard/BulkUrlDialog.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'

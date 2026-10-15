@@ -1,7 +1,7 @@
 import {mkdtemp, mkdir, readdir, stat, utimes, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {collectLiveTempDirs, sweepStaleTempDirs} from '@main/services/download/startupTempSweep.js'
 import {TEMP_DIR_NAME} from '@main/services/download/cleanup.js'
 import type {QueueItem} from '@shared/types.js'

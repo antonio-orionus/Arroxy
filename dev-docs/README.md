@@ -34,5 +34,5 @@ Public landing site (`orionus.dev/arroxy/`) lives in a separate repo: [`antonio-
 - [startup-performance.md](startup-performance.md) — Why startup takes as long as it does. Warm vs cold measurements, the ~15s PyInstaller/security-scan probe and why it recurs on every yt-dlp bump, what 0.4.8 changed, how to read the warmup log lines, and how to reproduce any of it.
 - [startup-verification.md](startup-verification.md) — Startup-verification program: current tier status, the nine design decisions and their rationale, open defects, and incidents.
 - [test-ownership-audit.md](test-ownership-audit.md) — Risk-owned test strategy audit. Maps current tests to the right layer and lists duplicate acceptance coverage to refactor.
-- [tooling-contract.md](tooling-contract.md) — The root-owned tooling contract behind `bun run check` (format, lint, typecheck, knip, madge, package gates). Do not add package-local formatter/linter configs.
+- [tooling-contract.md](tooling-contract.md) — The root-owned tooling contract behind `bun run check` (`vp check`, tests, knip, package gates). Do not add package-local formatter/linter configs.
 - [tooling-migration-audit.md](tooling-migration-audit.md) — Tailwind, ESLint, Prettier, Biome, and Oxlint audit. Includes measured Biome coverage loss and replacement options for lost rules.

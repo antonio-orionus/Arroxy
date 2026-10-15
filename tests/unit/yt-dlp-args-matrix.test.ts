@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect} from 'vite-plus/test'
 import type {AudioConvert, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'

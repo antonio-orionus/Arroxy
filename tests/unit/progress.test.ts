@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {parseSpeedBps, parseEtaSeconds, formatEta, ProgressFormatter, nextMonotonicPercent} from '../../src/shared/progressFormat.js'
 import {ProgressNormalizer} from '../../src/shared/progressNormalizer.js'
 

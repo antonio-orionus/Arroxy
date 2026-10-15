@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
 import {LanguagePicker} from '@renderer/components/system/LanguagePicker.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {i18next} from '@shared/i18n/index.js'

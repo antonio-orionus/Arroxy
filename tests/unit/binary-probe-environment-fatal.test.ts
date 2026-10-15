@@ -9,7 +9,7 @@
 import fsPromises from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {afterAll, beforeAll, describe, expect, it} from 'vitest'
+import {afterAll, beforeAll, describe, expect, it} from 'vite-plus/test'
 import {isEnvironmentFatalFailure} from '@shared/dependencyPolicy.js'
 import {probeBinary, probeTimeoutMs} from '@main/services/binary/BinaryProbe.js'
 import type {DependencySource} from '@shared/types.js'

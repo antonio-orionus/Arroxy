@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {hydrateBulkMetadata, nextBulkMetadataRunId} from '@renderer/store/wizard/bulkMetadataHydration.js'

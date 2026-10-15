@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {notify, setNotificationSink, type NotificationLevel} from '@renderer/lib/notify.js'

@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {checkDiskSpace} from '@main/utils/diskSpace.js'
 
 vi.mock('node:fs/promises', async importOriginal => {

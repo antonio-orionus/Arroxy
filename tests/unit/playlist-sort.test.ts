@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {PLAYLIST_SORT_MODES, playlistSortModeSchema} from '@shared/schemas.js'
 import {sortPlaylistEntries} from '@renderer/store/wizard/playlistSort.js'
 import type {PlaylistEntry} from '@shared/types.js'

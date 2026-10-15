@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {ProbeResult, StatusEvent} from '@shared/types.js'

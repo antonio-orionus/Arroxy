@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 
 import {applyScenarioWorkbenchState, buildScenarioAppApiState, bulkStressFixture, getScenario, mockStepForScenario, readScenarioIdFromUrl, readUrlParams, shouldMockEmptyPlaylistScopeReload, shouldShowBrowserMockStartupSplash, type ScenarioWorkbenchStore} from '@renderer/dev/browserMockScenarios.js'
 import {QUEUE_STATUS, queueItemSchema} from '@shared/schemas.js'

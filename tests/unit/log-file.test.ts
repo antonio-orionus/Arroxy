@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import type {LogFile} from 'electron-log'
 import {configureLogFile, LOG_FILE_MAX_BYTES} from '@main/utils/logFile.js'
 

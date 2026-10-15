@@ -1,4 +1,4 @@
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
 import type {TokenService} from '@main/services/TokenService.js'
 import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'

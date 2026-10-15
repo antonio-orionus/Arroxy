@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {RUNTIME_BINARY_INDEX_SIGNATURE_URL, RUNTIME_BINARY_INDEX_URL} from '@main/services/binary/RuntimeBinaryTrust.js'
 
 describe('RuntimeBinaryTrust', () => {

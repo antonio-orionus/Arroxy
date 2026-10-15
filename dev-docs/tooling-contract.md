@@ -1,26 +1,30 @@
 # Tooling Contract
 
-Arroxy uses one root-owned monorepo tooling contract. Package-local configuration is allowed only when a package needs its own build, test, or registry publish surface.
+Arroxy uses one root-owned monorepo tooling contract built on [Vite+](https://viteplus.dev): the `vp` CLI bundles Vite, Vitest, Oxlint, Oxfmt, tsdown and the Vite Task runner, all configured from the root `vite.config.ts`. Package-local configuration is allowed only when a package needs its own build, test, or registry publish surface.
+
+Vite+ docs for the installed version live at `node_modules/vite-plus/docs`; `bunx vp toolchain` prints the exact version of every bundled tool. Vite+ does not drive the Electron build: electron-vite (`electron.vite.config.ts`) owns dev and build and runs on the `vite` that Vite+ provides, and electron-builder owns packaging.
 
 ## Authorities
 
 | Concern | Tool | Contract |
 | --- | --- | --- |
-| Formatting | Biome | Formatter only. `biome.jsonc` keeps `linter` and `assist` disabled. |
-| Linting | Oxlint | Root `.oxlintrc.json` is the only Oxlint config. Type-aware lint runs after `lint:prepare`. |
-| Types | TypeScript | Root `tsc --noEmit` checks app and shared workspace source. Publishable packages keep local `tsconfig` files for their package output. |
-| Tests | Vitest | Root tests use the root Vitest config; packages keep package-specific Vitest configs when their package build needs one. |
+| Formatting | Oxfmt (`vp fmt`) | Root `vite.config.ts` `fmt` block. Its `ignorePatterns` keep prose, generated files, `*.json5` and `skills-lock.json` out of scope. |
+| Static checks | `vp check` | One pass: Oxfmt, Oxlint and type errors. `check:static` builds `ytdlp-errors` first, because type-aware rules read its built types. |
+| Linting | Oxlint (`vp lint`) | Root `vite.config.ts` `lint` block is the only lint config. `import/no-cycle` covers `src/` and every package `src/`, resolving tsconfig path aliases. |
+| Types | `vp check` (`typeCheck: true`) | Type checking runs inside lint through the TypeScript 7 toolchain (tsgolint); `build` type-checks with `vp check --no-fmt --no-lint`. Publishable packages still run `tsc` in their own `typecheck` and `build` scripts. |
+| Tests | Vitest (`vp test`) | Root `vite.config.ts` `test` block defines the `node` and `jsdom` projects; each package's `vite.config.ts` holds its own `test` block. Tests import from `vite-plus/test`. |
+| Library builds | tsdown (`vp pack`) | `ytdlp-errors` builds from its `vite.config.ts` `pack` block with `fixedExtension: false`, so output names match `package.json` `exports`. |
+| Task running | Vite Task (`vp run`) | `bun run check` runs the `quality-gate` task: every gate in parallel, then `packages:check`. The task is uncached on purpose. |
+| Commit hooks | `vp config` / `vp staged` | `.vite-hooks/pre-commit` runs `vp staged` (rules in the `vite.config.ts` `staged` block), then the commit-fallout check. |
 | Unused code | Knip | Every workspace package must be represented in `knip.json`. |
-| Import cycles | Madge | Every workspace package with TS/JS source must be represented in the root `madge` script. |
 | Registry package safety | Package gates | Root `packages:check` owns dependency order and runs package typecheck, test, build, pack dry-run, and packed metadata verification. |
 
 ## Root Commands
 
 ```bash
-bun run format                  # Biome formatter
-bun run format:check            # Biome formatter check
-bun run lint:prepare            # build workspace outputs needed by type-aware lint
-bun run lint                    # lint:prepare + oxlint --type-aware .
+bunx vp check                   # format + lint + type errors + import cycles
+bunx vp check --fix             # same, with formatter and lint fixes
+bun run check:static            # errors:build + vp check (the gate's static step)
 bun run check:tooling-parity    # representative rule parity probes
 bun run check:tooling-contract  # verifies this monorepo tooling contract
 bun run packages:check          # registry package gates in dependency order
@@ -31,10 +35,12 @@ bun run check                   # canonical local and CI gate
 
 ## Pre-commit Hook
 
-`.husky/pre-commit` runs two steps:
+`.vite-hooks/pre-commit` runs two steps:
 
-1. `lint-staged` formats and lints the **staged** files.
-2. `scripts/check-commit-fallout.ts` runs when TypeScript is staged. It runs whole-repo `oxlint --type-aware` and `tsc --noEmit` in parallel (about 5 s) and blocks on findings in files the commit fully determines. Step 1 alone misses a change's fallout in files it doesn't touch. For example, narrowing a constructor parameter type makes `as never` casts in untouched tests redundant, and type-aware lint rejects them.
+1. `vp staged` formats and lints the **staged** files. Code files go through `vp fmt`, then `vp lint --fix --deny-warnings`. That is `vp check` plus a warning gate, because `vp check` exits 0 on warnings and cannot take `--deny-warnings`.
+2. `scripts/check-commit-fallout.ts` runs when TypeScript is staged. It runs one whole-repo `vp lint --type-aware`, which also reports type errors (about 4 s), and blocks on findings in files the commit fully determines. Step 1 alone misses a change's fallout in files it doesn't touch. For example, narrowing a constructor parameter type makes `as never` casts in untouched tests redundant, and type-aware lint rejects them.
+
+`bun install` runs `vp config --no-agent`, which installs the hook dispatcher under `.vite-hooks/_`. It leaves an existing `core.hooksPath` alone, so a clone that used husky before keeps pointing at the dead `.husky/_` and runs no hooks. Run `bunx vp hooks enable` once in such a clone. `core.hooksPath` is shared by every worktree of a clone.
 
 A file with unstaged or untracked changes holds work outside the commit, possibly a parallel agent's. Its findings are reported but never block. `git commit --no-verify` bypasses both steps; `bun run check` still gates the PR.
 
@@ -44,13 +50,14 @@ Package release workflows use `bun pm pack` to build tarballs, then publish thos
 
 ## Workspace Package Rules
 
-- Add every workspace package to Biome includes, Knip workspaces, and Madge source roots when it has source.
+- Add every workspace package to Knip workspaces and to the `import/no-cycle` lint override when it has source, and never exclude it in the `fmt` block's `ignorePatterns`.
 - Publishable packages must expose `typecheck`, `test`, `build`, `prepack`, and `pack:dry-run`.
 - Publishable packages use `bun pm pack --dry-run` for local pack checks.
 - Publishable package-to-package runtime dependencies may use `workspace:*` only when the dependency name is another local workspace package.
 - Packed package metadata must not contain `workspace:`; `scripts/check-package-publish-metadata.mjs` verifies Bun rewrites internal `workspace:*` dependencies to the exact local package version.
 - The root app is private and may use `workspace:*` for local package development.
-- Keep package-local build/test configs when they describe package output. Do not add package-local Biome, Oxlint, ESLint, or Prettier configs.
+- Keep package-local `vite.config.ts` files for package `test` and `pack` blocks only. They must not define `fmt`, `lint` or `staged`; Vite+ ignores nested format and lint configs. Do not add package-local Oxlint, Oxfmt, ESLint, Biome, or Prettier configs.
+- Do not reintroduce a tool Vite+ already provides (Biome, standalone `oxlint`/`oxfmt`, husky, lint-staged, concurrently, tsup, tsdown). `check:tooling-contract` rejects them.
 
 ## Oxlint Bridge Policy
 
@@ -73,6 +80,6 @@ The root config adopts exactly these six rules as errors:
 
 `no-unknown-parameters` and `no-runtime-typeof` are intentionally rejected because they conflict with Arroxy's trust-transition parsing and valid typed-union/capability narrowing. `no-unsafe-dictionary-type`, `no-known-value-widening`, and `no-unknown-returns` are audit-only. The remaining upstream rules are rejected or deferred; none is hidden behind a broad directory override.
 
-`oxlint` and `@oxlint/plugins` must remain exact-version aligned in `package.json`. `check:tooling-contract` enforces the alignment, while `check:tooling-parity` runs single-file fixtures that prove all six rules execute, accepted syntax remains accepted, and the test override disables only chained assertions. When an Oxlint upgrade is incompatible, remove the anti-slop registration and dependency rather than pinning Oxlint back solely for the plugin.
+Root `@oxlint/plugins` must stay pinned to the exact `oxlint` version that the installed `vite-plus` bundles; bump it in the same commit as `vite-plus`. `check:tooling-contract` enforces the alignment, while `check:tooling-parity` runs single-file fixtures that prove all six rules execute, accepted syntax remains accepted, and the test override disables only chained assertions. When an Oxlint upgrade is incompatible, remove the anti-slop registration and dependency rather than pinning Vite+ back solely for the plugin. The vendored plugin keeps importing `@oxlint/plugins`; `vp migrate` rewrites those imports to `vite-plus/lint/plugins`, which resolves an older bundled copy, so revert that rewrite under `tools/` after any migrate run.
 
 Audit-only rules may be run manually during a focused refactor, but they are not CI policies or numeric ratchets. New broad rule overrides require architectural justification; file-path membership alone is not a trust-boundary justification.

@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {HotkeyService, classifyHotkeyClipboard, type HotkeyWindow, type ShortcutRegistry} from '@main/services/HotkeyService.js'
 
 function makeRegistry(): ShortcutRegistry & {handlers: Map<string, () => void>; foreign: Set<string>} {

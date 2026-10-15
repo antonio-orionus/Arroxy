@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {act, cleanup, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import * as downloadProfilesModule from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, within} from '@testing-library/react'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {StepUrlInput} from '@renderer/components/wizard/StepUrlInput.js'
 import {TooltipProvider} from '@renderer/components/ui/tooltip.js'

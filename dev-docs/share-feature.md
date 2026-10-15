@@ -266,10 +266,10 @@ When keys change, edit English first, run `bun run i18n:sync`, translate the fuz
 ## 8. Verification Checklist
 
 ```bash
-bun run lint && bun run typecheck && bun run knip
+bunx vp check && bun run knip
 ```
 
-All three must exit clean. Currently they do.
+Both must exit clean. Currently they do.
 
 Renderer-only Playwright walk-through (per `AGENTS.md`):
 

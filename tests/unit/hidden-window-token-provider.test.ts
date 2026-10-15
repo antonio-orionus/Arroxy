@@ -3,7 +3,7 @@
 // one throws on a destroyed webContents — and it takes no user cancel to happen,
 // just a queue item respawning while warmup is still scraping.
 
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 
 const created: MockWindow[] = []

@@ -1,6 +1,6 @@
 import {readFile} from 'node:fs/promises'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 async function readWorkflow(): Promise<string> {
 	return readFile(join(process.cwd(), '.github/workflows/deps-vuln-gate.yml'), 'utf8')

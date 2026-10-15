@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {resolveUpdateFeed} from '@main/updateFeed.js'
 
 const GITHUB = {provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'}

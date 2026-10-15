@@ -1,25 +1,20 @@
-import {describe, expect, it} from 'vitest'
-import {checkerFailure, parseOxlintUnix, parseTscOutput, partitionFindings, stagedTypeScriptPaths} from '../../scripts/commitFallout.js'
+import {describe, expect, it} from 'vite-plus/test'
+import {checkerFailure, parseOxlintUnix, partitionFindings, stagedTypeScriptPaths} from '../../scripts/commitFallout.js'
 
 describe('parseOxlintUnix', () => {
 	it('reads file and message from unix-format lines and skips the summary', () => {
 		const out = ['tests/unit/ytdlp-args.test.ts:41:65: This assertion is unnecessary. [Error/typescript(no-unnecessary-type-assertion)]', '', '1 problem'].join('\n')
-		expect(parseOxlintUnix(out)).toEqual([{tool: 'oxlint', file: 'tests/unit/ytdlp-args.test.ts', location: '41:65', message: 'This assertion is unnecessary. [Error/typescript(no-unnecessary-type-assertion)]'}])
+		expect(parseOxlintUnix(out)).toEqual([{file: 'tests/unit/ytdlp-args.test.ts', location: '41:65', message: 'This assertion is unnecessary. [Error/typescript(no-unnecessary-type-assertion)]'}])
 	})
-})
 
-describe('parseTscOutput', () => {
-	it('reads file and message from non-pretty tsc errors, including Windows paths', () => {
-		const out = ["src/main/downloadSmoke.ts(76,47): error TS2345: Argument of type 'string' is not assignable.", 'src\\main\\index.ts(3,1): error TS2307: Cannot find module.', 'Found 2 errors.'].join('\n')
-		expect(parseTscOutput(out)).toEqual([
-			{tool: 'tsc', file: 'src/main/downloadSmoke.ts', location: '76,47', message: "error TS2345: Argument of type 'string' is not assignable."},
-			{tool: 'tsc', file: 'src/main/index.ts', location: '3,1', message: 'error TS2307: Cannot find module.'}
-		])
+	it('reads type errors from the same pass, including Windows paths', () => {
+		const out = ["src\\shared\\types.ts:640:14: Type 'string' is not assignable to type 'number'. [Error/typescript(TS2322)]", '', '1 problem'].join('\n')
+		expect(parseOxlintUnix(out)).toEqual([{file: 'src/shared/types.ts', location: '640:14', message: "Type 'string' is not assignable to type 'number'. [Error/typescript(TS2322)]"}])
 	})
 })
 
 describe('partitionFindings', () => {
-	const finding = (file: string) => ({tool: 'oxlint' as const, file, location: '1:1', message: 'x'})
+	const finding = (file: string) => ({file, location: '1:1', message: 'x'})
 
 	it('blocks on files the commit determines and sets aside files with other uncommitted work', () => {
 		const result = partitionFindings([finding('tests/a.test.ts'), finding('src/wip.ts'), finding('src/new-untracked.ts')], new Set(['src/wip.ts', 'src/new-untracked.ts']))
@@ -40,18 +35,18 @@ describe('stagedTypeScriptPaths', () => {
 })
 
 describe('checkerFailure', () => {
-	const finding = {tool: 'tsc' as const, file: 'a.ts', location: '1,1', message: 'error TS1: x'}
+	const finding = {file: 'a.ts', location: '1:1', message: 'x'}
 
 	it('fails when a checker cannot start', () => {
-		expect(checkerFailure('tsc', {exitCode: null, launchError: 'spawn bunx ENOENT', output: ''}, [])).toMatch(/could not start/)
+		expect(checkerFailure({exitCode: null, launchError: 'spawn bunx ENOENT', output: ''}, [])).toMatch(/could not start/)
 	})
 
 	it('fails when a checker exits non-zero without parseable findings', () => {
-		expect(checkerFailure('oxlint', {exitCode: 2, launchError: null, output: 'panic: boom'}, [])).toMatch(/exited with 2[\s\S]*panic: boom/)
+		expect(checkerFailure({exitCode: 2, launchError: null, output: 'panic: boom'}, [])).toMatch(/exited with 2[\s\S]*panic: boom/)
 	})
 
 	it('passes a non-zero exit that produced findings, and a clean run', () => {
-		expect(checkerFailure('tsc', {exitCode: 2, launchError: null, output: ''}, [finding])).toBeNull()
-		expect(checkerFailure('tsc', {exitCode: 0, launchError: null, output: ''}, [])).toBeNull()
+		expect(checkerFailure({exitCode: 2, launchError: null, output: ''}, [finding])).toBeNull()
+		expect(checkerFailure({exitCode: 0, launchError: null, output: ''}, [])).toBeNull()
 	})
 })

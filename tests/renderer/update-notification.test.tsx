@@ -1,5 +1,5 @@
 import {render, screen, fireEvent, act} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {AppApi} from '@shared/api.js'
@@ -261,7 +261,7 @@ describe('UpdateBanner integration in App', () => {
 		})
 
 		// Spinner clears, error surfaces, button switches to Retry.
-		expect(screen.getByTestId('update-banner-message')).toHaveTextContent(/Update failed.*no network/)
+		expect(screen.getByTestId('update-banner-message').textContent).toMatch(/Update failed.*no network/)
 		expect(screen.getByRole('button', {name: 'Retry'})).toBeInTheDocument()
 	})
 

@@ -1,7 +1,7 @@
 import {readFileSync} from 'node:fs'
 import {execFileSync} from 'node:child_process'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 import {btbnTargets} from '../../scripts/build/btbnResolver.js'
 import {YT_DLP_SOURCES, ytDlpTargets} from '@main/services/binary/YtDlpBinarySource.js'

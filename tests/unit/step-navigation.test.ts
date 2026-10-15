@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildWizardStepGraph, nextWizardStep, visibleWizardSteps, WIZARD_STEPS, type VisibleWizardStep, type WizardStepGraphInput} from '@renderer/store/wizard/wizardStepGraph.js'
 
 // Step gating predicates are pure — exercise them directly without spinning

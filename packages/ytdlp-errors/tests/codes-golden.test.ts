@@ -2,7 +2,7 @@
 // change for consumers who key i18n strings or analytics labels off the
 // code — must roll a major SemVer bump and update this golden file.
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {readFileSync} from 'node:fs'
 import {join, dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'

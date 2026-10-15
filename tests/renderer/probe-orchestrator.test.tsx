@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {ProbeError, ProbeResult} from '@shared/types.js'
 import {ok, fail, type Result} from '@shared/result.js'

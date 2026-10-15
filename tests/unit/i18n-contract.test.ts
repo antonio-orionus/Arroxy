@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import es from '@shared/i18n/locales/es.json' with {type: 'json'}
 import fr from '@shared/i18n/locales/fr.json' with {type: 'json'}

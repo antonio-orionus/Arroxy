@@ -11,7 +11,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {BinaryManager, type RuntimeBinaryMaterializerPort} from '@main/services/BinaryManager.js'
 import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBinaryIndexService.js'
 import type {ProbeVerdictStore} from '@main/services/binary/ProbeVerdictCache.js'

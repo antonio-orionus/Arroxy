@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
 import type {MediaIntent, PlaylistVideoTier} from '@shared/schemas.js'
 

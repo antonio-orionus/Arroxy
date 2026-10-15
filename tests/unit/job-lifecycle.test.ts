@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {JobLifecycle} from '@main/services/JobLifecycle.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {ActiveJob} from '@main/services/phases/types.js'

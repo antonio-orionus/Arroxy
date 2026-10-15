@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {blockingDependencyFailures} from '@shared/dependencyPolicy.js'
 import type {DependencyDiagnostic, DependencyId} from '@shared/types.js'
 

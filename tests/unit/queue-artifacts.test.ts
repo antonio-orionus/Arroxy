@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {queueItemSchema} from '@shared/schemas.js'
 import {artifactKindForPath, markMissingArtifacts, moveQueueArtifactPath, queueArtifactFromPath, upsertQueueArtifact, visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {makeItem} from '../shared/fixtures.js'

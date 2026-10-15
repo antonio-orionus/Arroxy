@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec} from '@shared/mediaIntent.js'
 import type {MediaIntent} from '@shared/schemas.js'
 

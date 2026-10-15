@@ -78,9 +78,9 @@ function formatJson(value: JsonObject): string {
 }
 
 function formatRuntimeLocaleJson(): void {
-	const result = spawnSync(process.execPath, ['x', 'biome', 'format', '--write', ...NON_EN_LANGS.map(localeJsonPath)], {stdio: 'inherit'})
+	const result = spawnSync(process.execPath, ['x', 'vp', 'fmt', ...NON_EN_LANGS.map(localeJsonPath)], {stdio: 'inherit'})
 	if (result.error) throw new Error(`Failed to format runtime locale JSON. (${result.error.message})`)
-	if (result.status !== 0) throw new Error(`Biome format failed for runtime locale JSON with status ${result.status ?? 'unknown'}.`)
+	if (result.status !== 0) throw new Error(`vp fmt failed for runtime locale JSON with status ${result.status ?? 'unknown'}.`)
 }
 
 function deepEqual(a: unknown, b: unknown): boolean {

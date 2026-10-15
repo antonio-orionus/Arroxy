@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {createStreamTextReader, splitStderrLines} from '@main/utils/process.js'
 
 // The reporter's own title — a playlist of Persian videos on Windows. Every

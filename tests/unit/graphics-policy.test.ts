@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 
 const HEALTHY_FEATURES = {gpu_compositing: 'enabled', rasterization: 'enabled', webgl: 'enabled'}

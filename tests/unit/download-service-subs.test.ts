@@ -1,4 +1,4 @@
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {mkdtempSync, readFileSync, writeFileSync, rmSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'

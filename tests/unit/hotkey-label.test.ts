@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 
 // The stored value is an Electron accelerator, written either by DEFAULTS, by

@@ -2,7 +2,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {scanFolderForVideoIds} from '@main/ipc/playlistHandlers.js'
 
 async function tmp(files: string[]): Promise<string> {

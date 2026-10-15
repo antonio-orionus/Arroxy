@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {queueItemSchema} from '@shared/schemas.js'
 import type {QueueItem} from '@shared/types.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'

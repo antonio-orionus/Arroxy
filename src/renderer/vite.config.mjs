@@ -1,19 +1,10 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import Icons from 'unplugin-icons/vite';
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+import {defineConfig} from 'vite-plus'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import Icons from 'unplugin-icons/vite'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@renderer': path.resolve(__dirname, 'src'),
-      '@shared': path.resolve(__dirname, '../../src/shared'),
-      'ytdlp-errors': path.resolve(__dirname, '../../packages/ytdlp-errors/src/index.ts')
-    }
-  },
-  plugins: [react(), tailwindcss(), Icons({ compiler: 'jsx', jsx: 'react' })]
-});
+export default defineConfig({resolve: {alias: {'@renderer': path.resolve(__dirname, 'src'), '@shared': path.resolve(__dirname, '../../src/shared'), 'ytdlp-errors': path.resolve(__dirname, '../../packages/ytdlp-errors/src/index.ts')}}, plugins: [react(), tailwindcss(), Icons({compiler: 'jsx', jsx: 'react'})]})

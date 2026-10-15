@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {JOURNEYS, journeysForTier} from '../../scripts/startup/journeys.js'
 import {inspectStartupLog} from '../../scripts/startup/logOracle.js'
 

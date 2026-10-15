@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {dedupeCues, type Cue} from '@main/services/cueDedupe.js'
 
 function collect(input: Cue[]): Cue[] {

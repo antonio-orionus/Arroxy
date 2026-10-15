@@ -1,4 +1,4 @@
-import {afterEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 
 import {BTBN_PINNED_RELEASE_TAG, btbnTargetFor, btbnTargets, floatingLatestAssetName, formatShellEnv, githubHeaders, isCliEntrypoint, isTimestampedMasterAssetName, resolveBtbnAsset, selectBtbnAsset, windowsPathToFileUrl, type BtbnRelease} from '../../scripts/build/btbnResolver.js'
 

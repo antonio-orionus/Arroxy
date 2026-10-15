@@ -1,5 +1,5 @@
 import {render, screen, fireEvent, waitFor} from '@testing-library/react'
-import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
 import {ok} from '../shared/fixtures.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

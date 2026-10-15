@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import type {PlaylistSelection} from '@shared/schemas.js'
 import {StepPlaylistPresets} from '@renderer/components/wizard/StepPlaylistPresets.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

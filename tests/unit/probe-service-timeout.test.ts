@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {ProbeService} from '@main/services/ProbeService.js'
 import type {YtDlpResult, YtDlpSignal} from '@main/services/YtDlp.js'
 

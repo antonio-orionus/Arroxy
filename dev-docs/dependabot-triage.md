@@ -7,7 +7,7 @@ Procedure for handling a Dependabot PR. No API-billed AI review — local Claude
 | Path | Role |
 |---|---|
 | `.github/dependabot.yml` | Schedule, groups, 2-day cooldown |
-| `.github/workflows/ci.yml` | Lint, types, knip, madge, LOC, pin guard, tests |
+| `.github/workflows/ci.yml` | `vp check` (format, lint, types, import cycles), knip, LOC, pin guard, tests |
 | `.github/workflows/deps-vuln-gate.yml` | Vulnerability gate on any PR touching `package.json`/`bun.lock` |
 | `bunfig.toml` | `minimumReleaseAge = 604800` (7d) local install floor |
 | `package.json` | All deps exact-pinned (no `^`/`~`) |
@@ -33,7 +33,7 @@ PR open
   │                         - typecheck fail (TS types drifted)
   │                         - test fail (behavior change)
   │                         - knip dead-export (rare on dep bumps)
-  │                         - madge cycle (rare on dep bumps)
+  │                         - import cycle (rare on dep bumps)
   │                         - check:pins (bot snuck a range — shouldn't happen)
   │                         - check:loc (unrelated)
   │                         - deps-vuln-gate (bump kept/introduced ≥high CVE)
@@ -62,7 +62,7 @@ claude                          # spawn local Claude Code (subscription only)
 Then run sanity locally:
 
 ```bash
-bun run check                  # lint + types + knip + madge + loc + pins + tests
+bun run check                  # vp check + knip + loc + pins + tests
 bun run dev                    # smoke the app once
 ```
 

@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'

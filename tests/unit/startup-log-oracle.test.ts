@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {inspectStartupLog} from '../../scripts/startup/logOracle.js'
 
 const CLEAN_LOG = `[2026-08-30 05:22:31.753] [info]  Session started

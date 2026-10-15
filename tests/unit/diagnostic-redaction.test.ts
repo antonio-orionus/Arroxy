@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {redactDiagnosticLog} from '@main/services/diagnosticRedaction.js'
 
 // Diagnostics leave the machine (feedback upload, a file attached to a public

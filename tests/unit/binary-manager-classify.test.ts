@@ -1,4 +1,4 @@
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {binaryInternals} from '@main/services/BinaryManager.js'
 
 const {classifyProbeError, probeTimeoutMs} = binaryInternals

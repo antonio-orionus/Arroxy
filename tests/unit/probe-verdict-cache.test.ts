@@ -5,7 +5,7 @@
 import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {ProbeVerdictCache} from '@main/services/binary/ProbeVerdictCache.js'
 
 let root = ''

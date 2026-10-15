@@ -95,7 +95,7 @@ jobs:
 
       - name: Format generated data
         if: steps.pin.outputs.changed == 'true'
-        run: bunx biome format --write packages/ytdlp-errors/data
+        run: bunx vp fmt packages/ytdlp-errors/data
 
       # No package validation here: new entries carry kind: null, and the
       # triage-backlog test fails until a human assigns kinds on the PR branch.

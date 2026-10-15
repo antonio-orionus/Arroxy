@@ -2,7 +2,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import {afterEach, describe, expect, it} from 'vitest'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 

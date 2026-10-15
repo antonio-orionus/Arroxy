@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 
 const commonPaths = {downloads: '/Users/bob/Downloads', videos: '/Users/bob/Movies', desktop: '/Users/bob/Desktop', music: '/Users/bob/Music', documents: '/Users/bob/Documents', pictures: '/Users/bob/Pictures', home: '/Users/bob'}

@@ -126,8 +126,10 @@ Playwright browser downloads use Playwright's normal user cache by default. If y
 Run the full local gate before opening a PR. CI gates on the same checks.
 
 ```bash
-bun run check       # format + lint + tooling contract + typecheck + knip + madge + LOC + pins + i18n + tests + package gates
+bun run check       # vp check (format + lint + types + import cycles) + tests + knip + tooling contract + LOC + pins + i18n + package gates
 ```
+
+While iterating, `bunx vp check --fix` runs the static part in about five seconds.
 
 The root-owned tooling contract is documented in [`dev-docs/tooling-contract.md`](dev-docs/tooling-contract.md). New workspace packages must be wired into that contract before merging.
 

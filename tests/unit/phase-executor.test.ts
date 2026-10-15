@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {PhaseExecutor} from '@main/services/phases/PhaseExecutor.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {AsyncStack} from '@main/services/phases/types.js'

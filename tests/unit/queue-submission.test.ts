@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
 import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'

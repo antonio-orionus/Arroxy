@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {applyQueueProjectionBatch, bindQueueProjection, projectQueueSnapshot, type QueueProjectionBindings} from '@renderer/store/queueProjection.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL, resetQuickDownloadFeedback, type QuickDownloadFeedbackState} from '@renderer/store/wizard/quickDownloadFeedback.js'
 import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'

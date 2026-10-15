@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {applyQueueSelectionAction, type QueueSelectionActionHost} from '@main/services/queueSelectionActionApply.js'
 import {ok} from '@shared/result.js'
 import type {QueueSelectionAction} from '@shared/types.js'

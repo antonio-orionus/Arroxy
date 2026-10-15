@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {transition, illegalTransition, type QueueEvent} from '@shared/queueTransition.js'
 import type {QueueItem, QueueResumeContext} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'

@@ -1,5 +1,5 @@
 import {EventEmitter} from 'node:events'
-import {describe, expect, it, vi, afterEach} from 'vitest'
+import {describe, expect, it, vi, afterEach} from 'vite-plus/test'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()

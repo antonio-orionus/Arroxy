@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {isProgressOnlyMutation} from '@main/services/download/queueMutation.js'
 
 // Progress events arrive once per progress update for every active item. Their

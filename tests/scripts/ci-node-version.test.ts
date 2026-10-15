@@ -1,6 +1,6 @@
 import {readFile} from 'node:fs/promises'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 
 async function readWorkflow(path: string): Promise<string> {
 	return readFile(join(process.cwd(), path), 'utf8')

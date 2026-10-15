@@ -1,6 +1,6 @@
 import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 
 const root = process.cwd()

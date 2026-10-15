@@ -1,7 +1,7 @@
 import {mkdtemp, mkdir, writeFile, access, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {AsyncStack, type ActiveDownload} from '@main/services/phases/types.js'
 import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 import type {DownloadJob, QueueItem} from '@shared/types.js'

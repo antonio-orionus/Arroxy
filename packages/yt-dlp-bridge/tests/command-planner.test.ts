@@ -1,4 +1,4 @@
-import {describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vite-plus/test'
 import {DEFAULT_DOWNLOAD_RETRY_POLICY, DEFAULT_SOCKET_TIMEOUT_SECONDS, EMBED_SUBTITLE_CONTAINER_EXT, INFO_JSON_DOWNLOAD_RETRY_POLICY, planWorkflow, type WorkflowInput} from '../src/index.js'
 import {parseYtDlpOutputLine} from '../src/parsers.js'
 import {redactArgs} from '../src/redaction.js'

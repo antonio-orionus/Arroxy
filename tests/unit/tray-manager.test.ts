@@ -1,5 +1,5 @@
 // @vitest-environment node
-import {describe, expect, it, vi, beforeEach, afterEach} from 'vitest'
+import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import type {QueueItem} from '@shared/types.js'

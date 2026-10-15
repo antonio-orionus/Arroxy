@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {fail, ok, type Result} from '@shared/result.js'
 

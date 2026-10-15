@@ -1,4 +1,4 @@
-import {describe, expect, it, afterEach} from 'vitest'
+import {describe, expect, it, afterEach} from 'vite-plus/test'
 import {mkdtemp, writeFile, readdir} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'

@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it, vi} from 'vite-plus/test'
 import {BOOT_SPLASH_DARK_BACKGROUND_COLOR, BOOT_SPLASH_LIGHT_BACKGROUND_COLOR, followsSystemTheme, watchSystemThemeBackground} from '../../src/main/windowPresentation.js'
 
 function fakeNativeTheme(initialDark: boolean) {
