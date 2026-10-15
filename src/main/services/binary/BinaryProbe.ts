@@ -197,6 +197,18 @@ async function settleWithin(work: Promise<unknown>, timeoutMs: number, signal?: 
 	}
 }
 
+// A stat on an unreachable share holds one libuv threadpool worker for the SMB
+// timeout (21s measured on Windows 11), and the pool has four by default: five
+// offline shares on PATH starved the scan and stalled every other filesystem
+// call in the process. Network candidates therefore take turns in one lane
+// shared by every lookup, so they never hold more than one worker. Only UNC
+// paths are recognised; a mapped drive letter looks local.
+let networkLane: Promise<void> = Promise.resolve()
+
+function isNetworkPath(candidate: string): boolean {
+	return process.platform === 'win32' && /^[\\/]{2}(?![?.][\\/])/.test(candidate)
+}
+
 // Discover binaries on PATH, then in the platform's fallback locations (macOS
 // GUI apps often miss Homebrew's bin dirs). Scans in-process rather than
 // spawning `where`/`which`, whose process creation can stall on a loaded
@@ -205,14 +217,19 @@ async function settleWithin(work: Promise<unknown>, timeoutMs: number, signal?: 
 export async function whereOnPath(name: string, signal?: AbortSignal): Promise<string[]> {
 	const candidates = [...pathDirectories(process.env.PATH).map(dir => path.join(dir, name)), ...fallbackPathCandidates(name)]
 	const matches: Array<string | null> = candidates.map(() => null)
-	await settleWithin(
-		Promise.all(
-			candidates.map(async (candidate, index) => {
-				if (await isRunnableFile(candidate)) matches[index] = candidate
-			})
-		),
-		PATH_LOOKUP_TIMEOUT_MS,
-		signal
-	)
+	let expired = false
+	const check = async (candidate: string, index: number): Promise<void> => {
+		if (await isRunnableFile(candidate)) matches[index] = candidate
+	}
+	const checks = candidates.map((candidate, index) => {
+		if (!isNetworkPath(candidate)) return check(candidate, index)
+		// A turn reached after this lookup gave up is skipped, so a stalled share
+		// does not leave a backlog of dead checks queued behind it.
+		const turn = networkLane.then(() => (expired ? undefined : check(candidate, index)))
+		networkLane = turn
+		return turn
+	})
+	await settleWithin(Promise.all(checks), PATH_LOOKUP_TIMEOUT_MS, signal)
+	expired = true
 	return [...new Set(matches.filter((match): match is string => match !== null))]
 }

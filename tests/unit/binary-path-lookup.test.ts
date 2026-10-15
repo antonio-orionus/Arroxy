@@ -123,6 +123,32 @@ describe('whereOnPath', () => {
 		await expect(lookup).resolves.toEqual([path.join(healthy, name)])
 	})
 
+	// A stat on an unreachable share holds one of libuv's four threadpool workers
+	// for the SMB timeout (21s measured). Five such entries ahead of a local one
+	// returned nothing and stalled an unrelated stat for 20.8s on Windows 11.
+	it.runIf(process.platform === 'win32')('checks network PATH entries one at a time so local ones still answer', async () => {
+		vi.useFakeTimers()
+		const shares = [1, 2, 3, 4, 5].map(host => `\\\\192.0.2.${host}\\offline-share`)
+		const local = path.join(os.tmpdir(), 'local-bin')
+		stubPath(...shares, local)
+		const stalled: Array<() => void> = []
+		vi.spyOn(fs, 'stat').mockImplementation(async candidate => {
+			if (String(candidate).startsWith('\\\\')) return new Promise<never>((_, reject) => stalled.push(() => reject(enoent())))
+			if (candidate === path.join(local, name)) return {isFile: () => true} as Awaited<ReturnType<typeof fs.stat>>
+			throw enoent()
+		})
+		vi.spyOn(fs, 'access').mockImplementation(async candidate => {
+			if (candidate !== path.join(local, name)) throw enoent()
+		})
+
+		const lookup = whereOnPath(name)
+		await vi.advanceTimersByTimeAsync(10_000)
+
+		await expect(lookup).resolves.toEqual([path.join(local, name)])
+		expect(stalled).toHaveLength(1)
+		for (const release of stalled) release()
+	})
+
 	it('stops waiting as soon as the caller aborts', async () => {
 		const stalled = path.join(os.tmpdir(), 'offline-share')
 		stubPath(stalled)
