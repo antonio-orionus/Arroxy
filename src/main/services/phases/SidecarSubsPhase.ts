@@ -1,7 +1,7 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
-import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
 
@@ -31,6 +31,7 @@ async function runEmbedMux(ctx: PhaseContext): Promise<boolean> {
 			videoPath: active.mediaPath,
 			subtitlePaths: active.subtitlePaths,
 			requestedLangs: subtitleLanguages,
+			keepCoverArt: preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail,
 			onSpawn: proc => {
 				active.ffmpegProcess = proc
 				if (active.cancelRequested) proc.kill('SIGKILL')
@@ -89,6 +90,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			if (subResult.usedExtractorFallback) active.usedExtractorFallback = true
+			active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subs.format ?? DEFAULTS.subtitleFormat)
 
 			if (subs.writeAuto) {
 				await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
