@@ -187,6 +187,10 @@ msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "مساحة القرص غير كافية. أفرغ مساحة وأعد المحاولة."
 
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "لا يستطيع Arroxy الكتابة في مجلد التنزيل. قد يكون للقراءة فقط، أو على محرك أقراص مقفل، أو محظورًا بإعدادات الخصوصية في نظامك. اختر مجلدًا آخر أو اسمح بالوصول، ثم أعد المحاولة."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
 msgstr "تعذّر تحليل الاستجابة الواردة من الموقع. ربما تكون أداة الاستخراج في yt-dlp قد تأخّرت. يقوم Arroxy بتحديث yt-dlp تلقائيًا عند التشغيل — أعد المحاولة بعد بضع دقائق حالما يصدر الإصلاح."
@@ -1010,6 +1014,10 @@ msgstr "جارٍ إنشاء رمز YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "جارٍ نقل الملفات…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "تعذّر الحفظ في {{dir}} — لا يُسمح لـ Arroxy بالكتابة هناك"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

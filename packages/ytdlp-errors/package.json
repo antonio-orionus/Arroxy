@@ -1,6 +1,6 @@
 {
 	"name": "ytdlp-errors",
-	"version": "1.1.4",
+	"version": "1.2.0",
 	"description": "Classify yt-dlp stderr into a closed taxonomy of error kinds (botBlock, ipBlock, rateLimit, ageRestricted, drmProtected, ...). Zero deps, pure regex, ESM + CJS.",
 	"keywords": ["yt-dlp", "youtube-dl", "ytdlp", "yt-dlp-wrapper", "error", "errors", "error-handling", "error-classifier", "classifier", "stderr", "stderr-parser", "parser", "taxonomy", "regex", "typescript", "nodejs", "esm", "cjs", "zero-dependencies", "video-download", "media-download", "downloader"],
 	"homepage": "https://github.com/antonio-orionus/Arroxy/tree/main/packages/ytdlp-errors#readme",

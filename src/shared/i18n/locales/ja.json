@@ -627,6 +627,7 @@
 		"downloadingBinary": "バイナリ {{name}} をダウンロード中…",
 		"unknownStartupFailure": "ダウンロード開始時に不明なエラーが発生しました",
 		"diskSpaceInsufficient": "ディスク空き容量が不足しています — {{required}} 必要ですが、空きは {{free}} のみです",
+		"outputNotWritable": "{{dir}} に保存できません — Arroxy にはそこへの書き込みが許可されていません",
 		"fetchingSponsorBlock": "SponsorBlock に接続中…",
 		"retryingSponsorBlock": "SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…",
 		"retryingTransfer": "接続が停滞、再試行中 ({{attempt}}/{{total}})…"
@@ -659,6 +660,7 @@
 			"unavailable": "この動画は利用できません — 非公開、削除済み、または地域制限の可能性があります。",
 			"geoBlocked": "この動画はあなたの地域では視聴できません。",
 			"outOfDiskSpace": "ディスク容量が不足しています。空き容量を増やして再試行してください。",
+			"outputNotWritable": "Arroxy がダウンロードフォルダーに書き込めません。フォルダーが読み取り専用か、ロックされたドライブ上にあるか、システムのプライバシー設定でブロックされている可能性があります。別のフォルダーを選ぶかアクセスを許可してから、再試行してください。",
 			"unsupportedUrl": "その URL は yt-dlp でサポートされていません。yt-dlp がサポートするサイトの別のリンクを試してください。",
 			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、yt-dlpは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
 			"missingDependency": "yt-dlp が ffmpeg または ffprobe を見つけられませんでした。同梱バイナリを修復するか FFmpeg の場所を設定してから、再試行してください。",

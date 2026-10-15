@@ -187,6 +187,10 @@ msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i."
 
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
 msgstr "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Extractor yt-dlp jijjiiramuu mala. Arroxy yeroo banamu yt-dlp ofumaan haaressa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i."
@@ -1010,6 +1014,10 @@ msgstr "Tookenii YouTube uumaa jira…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "Faayiloota daddabarsamaa jira…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

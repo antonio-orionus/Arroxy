@@ -292,4 +292,12 @@ describe('structured error adapter', () => {
 
 		expect(toStructuredError(error)).toMatchObject({kind: 'unsupportedUrl', retryable: false, exitCode: 1})
 	})
+
+	it('points an unwritable output folder at a permissions fix', () => {
+		const error = new CommandExecutionError('failed', {command: 'yt-dlp', args: ['https://example.com'], stdout: '', stderr: "ERROR: unable to open for writing: [Errno 13] Permission denied: '/srv/media/clip.mp4.part'", exitCode: 1, durationMs: 10})
+
+		const structured = toStructuredError(error)
+		expect(structured).toMatchObject({kind: 'outputNotWritable', retryable: true})
+		expect(structured.suggestedFixes).toContain('Grant write access to the output root or choose a different one.')
+	})
 })

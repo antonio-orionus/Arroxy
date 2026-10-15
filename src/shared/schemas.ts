@@ -412,6 +412,7 @@ export const STATUS_KEY = {
 	downloadingBinary: 'downloadingBinary',
 	unknownStartupFailure: 'unknownStartupFailure',
 	diskSpaceInsufficient: 'diskSpaceInsufficient',
+	outputNotWritable: 'outputNotWritable',
 	fetchingSponsorBlock: 'fetchingSponsorBlock',
 	retryingSponsorBlock: 'retryingSponsorBlock',
 	retryingTransfer: 'retryingTransfer'

@@ -187,6 +187,10 @@ msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "فضای دیسک کافی نیست. مقداری فضا آزاد کنید و دوباره تلاش کنید."
 
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy نمی‌تواند در پوشهٔ دانلود بنویسد. ممکن است فقط‌خواندنی باشد، روی درایوی قفل‌شده باشد یا تنظیمات حریم خصوصی سیستم شما جلوی آن را گرفته باشد. پوشهٔ دیگری انتخاب کنید یا اجازهٔ دسترسی بدهید و دوباره تلاش کنید."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
 msgstr "پاسخ سایت قابل تجزیه نبود. ممکن است استخراج‌گر yt-dlp با تغییرات سایت هماهنگ نباشد. Arroxy هنگام اجرا yt-dlp را خودکار به‌روزرسانی می‌کند — چند دقیقه پس از انتشار اصلاح دوباره تلاش کنید."
@@ -1010,6 +1014,10 @@ msgstr "در حال ساخت توکن YouTube…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "در حال جابه‌جایی فایل‌ها…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "ذخیره در {{dir}} ممکن نیست — Arroxy اجازهٔ نوشتن در آنجا را ندارد"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

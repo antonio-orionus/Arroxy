@@ -13,6 +13,7 @@ export const YT_DLP_ERROR_KINDS = [
 	'drmProtected',
 	'loginRequired',
 	'outOfDiskSpace',
+	'outputNotWritable',
 	'chunkTransferFailure',
 	'missingDependency',
 	'postprocessFailure',

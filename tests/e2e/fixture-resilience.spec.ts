@@ -95,6 +95,34 @@ test('Electron media failure can be retried to a completed output file', async (
 	})
 })
 
+// Risk: a download folder that refuses writes used to let yt-dlp start and die
+// on its first write, showing raw stderr. Preflight must stop it before any
+// media request, name the cause, and let a retry succeed once access returns.
+// POSIX permission bits do not stop root, and Windows ignores them.
+test('Electron download into a read-only folder fails before transfer and retries once writable', async () => {
+	test.skip(process.platform === 'win32' || process.getuid?.() === 0, 'needs POSIX permissions enforced for the test user')
+	test.setTimeout(160_000)
+	const videoId = FIXTURE_VIDEO_IDS[6]
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-readonly-user-', outputPrefix: 'arroxy-fixture-readonly-out-'}, async ({page, outputDir, fixtureServer, queue, files}) => {
+		await prepareSingleConfirm(page, videoId)
+		fs.chmodSync(outputDir, 0o555)
+		try {
+			await page.locator('[data-testid="btn-download-now"]').click()
+			await queue.expectStatus('Fixture Video 7', 'error', 90_000)
+			await expect(queue.cardByTitle('Fixture Video 7').getByTestId('queue-error-msg')).toContainText("Arroxy can't write to the download folder")
+			expect(fixtureServer.telemetry().requests.some(request => isMediaRequestFor(videoId, request))).toBe(false)
+			expect(files.listRecursive()).toEqual([])
+		} finally {
+			fs.chmodSync(outputDir, 0o755)
+		}
+
+		await queue.action('Fixture Video 7', 'retry')
+		await queue.expectStatus('Fixture Video 7', 'done', 120_000)
+		files.expectMp4Count(1)
+	})
+})
+
 test('Electron split media failure preserves temp artifacts and retries from resume context', async () => {
 	test.setTimeout(180_000)
 	const videoId = SPLIT_MEDIA_VIDEO_ID

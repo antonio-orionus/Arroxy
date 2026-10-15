@@ -584,6 +584,7 @@
 		"downloadingBinary": "{{name}} ሁለዮሽ ፋይል እያወረዱ…",
 		"unknownStartupFailure": "ያልታወቀ ዳውንሎድ መጀመሪያ ወደቀ",
 		"diskSpaceInsufficient": "በቂ የዲስክ ቦታ የለም — {{required}} ያስፈልጋል፣ {{free}} ብቻ አለ",
+		"outputNotWritable": "ወደ {{dir}} ማስቀመጥ አይቻልም — Arroxy እዚያ እንዲጽፍ አልተፈቀደለትም",
 		"fetchingSponsorBlock": "SponsorBlock እያነጋገሩ…",
 		"retryingSponsorBlock": "SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…",
 		"retryingTransfer": "ግንኙነት ተቋርጧል፣ እንደገና በመሞከር ላይ ({{attempt}}/{{total}})…"
@@ -616,6 +617,7 @@
 			"unavailable": "ይህ ቪዲዮ አይገኝም — ምናልባት የግል፣ ተሰርዟል ወይም ክልል-ተዘግቷል።",
 			"geoBlocked": "ይህ ቪዲዮ በክልልዎ አይገኝም።",
 			"outOfDiskSpace": "በቂ ዲስክ ቦታ የለም። ቦታ ፍቱ እና እንደገና ሞክሩ።",
+			"outputNotWritable": "Arroxy ወደ ማውረጃ አቃፊው መጻፍ አልቻለም። አቃፊው ለንባብ ብቻ የሆነ፣ በተቆለፈ ድራይቭ ላይ ያለ ወይም በሲስተምዎ የግላዊነት ቅንብሮች የታገደ ሊሆን ይችላል። ሌላ አቃፊ ይምረጡ ወይም መዳረሻ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።",
 			"unsupportedUrl": "ያ URL በyt-dlp አይደገፍም። በyt-dlp ከሚደገፉ ጣቢያዎች ሌላ አገናኝ ይሞክሩ።",
 			"chunkTransferFailure": "አገልጋዩ ውርዱን ደጋግሞ ሲያቋርጥ yt-dlp እንደገና ከሞከረ በኋላ ሰጥቷል። ይህ ብዙ ጊዜ ትልቁን የቪዲዮ ቅርጸቶች (4K HDR / ከፍተኛ bitrate VP9) ይነካል። እንደገና ሞክሩ፣ አውታረ መረብ/VPN ይቀይሩ፣ ወይም ዝቅተኛ ጥራት ቅርጸት ይምረጡ።",
 			"missingDependency": "yt-dlp ffmpeg ወይም ffprobe ማግኘት አልቻለም። የተጠቃለሉትን ባይነሪዎች ያስተካክሉ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ እንደገና ይሞክሩ።",

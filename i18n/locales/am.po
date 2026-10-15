@@ -187,6 +187,10 @@ msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "በቂ ዲስክ ቦታ የለም። ቦታ ፍቱ እና እንደገና ሞክሩ።"
 
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy ወደ ማውረጃ አቃፊው መጻፍ አልቻለም። አቃፊው ለንባብ ብቻ የሆነ፣ በተቆለፈ ድራይቭ ላይ ያለ ወይም በሲስተምዎ የግላዊነት ቅንብሮች የታገደ ሊሆን ይችላል። ሌላ አቃፊ ይምረጡ ወይም መዳረሻ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።"
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
 msgstr "ከጣቢያው የተመለሰውን ምላሽ መፈታት አልተቻለም። የyt-dlp extractor ጊዜ ያለፈበት ሊሆን ይችላል። Arroxy በሚነሳበት ጊዜ yt-dlp ን በራስ-ሰር ያዘምነዋል — እርማቱ እንደተለቀቀ በጥቂት ደቂቃዎች ውስጥ እንደገና ሞክሩ።"
@@ -1010,6 +1014,10 @@ msgstr "YouTube ቶከን እያመረቱ…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "ፋይሎችን እያዘዋወሩ…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "ወደ {{dir}} ማስቀመጥ አይቻልም — Arroxy እዚያ እንዲጽፍ አልተፈቀደለትም"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

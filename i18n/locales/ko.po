@@ -187,6 +187,10 @@ msgctxt "errors.ytdlp.outOfDiskSpace"
 msgid "Not enough disk space. Free up space and retry."
 msgstr "디스크 공간이 부족합니다. 공간을 확보하고 다시 시도하세요."
 
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy가 다운로드 폴더에 쓸 수 없습니다. 폴더가 읽기 전용이거나, 잠긴 드라이브에 있거나, 시스템의 개인정보 보호 설정으로 차단되었을 수 있습니다. 다른 폴더를 선택하거나 접근을 허용한 뒤 다시 시도하세요."
+
 msgctxt "errors.ytdlp.parse"
 msgid "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships."
 msgstr "사이트의 응답을 분석할 수 없습니다. yt-dlp 추출기가 사이트 변경을 따라가지 못했을 수 있습니다. Arroxy는 시작 시 yt-dlp를 자동 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요."
@@ -1010,6 +1014,10 @@ msgstr "YouTube 토큰 생성 중…"
 msgctxt "status.movingFiles"
 msgid "Moving files…"
 msgstr "파일 이동 중…"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "{{dir}}에 저장할 수 없습니다 — Arroxy에 그곳에 쓸 권한이 없습니다"
 
 msgctxt "status.preparingBinaries"
 msgid "Preparing binaries…"

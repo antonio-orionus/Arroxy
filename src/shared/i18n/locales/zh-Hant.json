@@ -584,6 +584,7 @@
 		"downloadingBinary": "正在下載 {{name}} 執行檔…",
 		"unknownStartupFailure": "未知的下載啟動錯誤",
 		"diskSpaceInsufficient": "磁碟空間不足——需要 {{required}}，但只有 {{free}} 可用",
+		"outputNotWritable": "無法儲存到 {{dir}}——Arroxy 沒有在該處寫入的權限",
 		"fetchingSponsorBlock": "正在聯絡 SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock 無法使用，正在重試（{{attempt}}/{{total}}）…",
 		"retryingTransfer": "連線停滯，正在重試（{{attempt}}/{{total}}）…"
@@ -616,6 +617,7 @@
 			"unavailable": "此影片無法使用——它可能是私人影片、已刪除，或受地區限制。",
 			"geoBlocked": "此影片在你的地區無法觀看。",
 			"outOfDiskSpace": "磁碟空間不足。請釋放空間後重試。",
+			"outputNotWritable": "Arroxy 無法寫入下載資料夾。該資料夾可能是唯讀的、位於已鎖定的磁碟機上，或被系統的隱私權設定封鎖。請選擇其他資料夾或允許存取，然後重試。",
 			"unsupportedUrl": "yt-dlp 不支援此 URL。請改用 yt-dlp 支援之網站的其他連結。",
 			"chunkTransferFailure": "伺服器持續在下載途中切斷連線，yt-dlp 重試後仍無法完成。這通常發生在最大的影片格式（4K HDR／高位元率 VP9）。請重試、切換網路／VPN，或選擇較低解析度的格式。",
 			"missingDependency": "yt-dlp 找不到 ffmpeg 或 ffprobe。請修復隨附的執行檔，或設定 FFmpeg 的位置後重試。",

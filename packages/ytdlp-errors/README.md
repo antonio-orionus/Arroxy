@@ -66,6 +66,7 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `drmProtected` | `YTDLP_DRM_PROTECTED` | no | no | DRM (Widevine/PlayReady) |
 | `loginRequired` | `YTDLP_LOGIN_REQUIRED` | yes | yes | Subscriber-only / private |
 | `outOfDiskSpace` | `YTDLP_OUT_OF_DISK_SPACE` | yes | yes | ENOSPC during write/merge |
+| `outputNotWritable` | `YTDLP_OUTPUT_NOT_WRITABLE` | yes | yes | Output folder refuses writes: permission denied, read-only drive, or a privacy-protected folder |
 | `chunkTransferFailure` | `YTDLP_CHUNK_TRANSFER_FAILURE` | yes | no | Ranged HTTP truncation; retries exhausted |
 | `missingDependency` | `YTDLP_MISSING_DEPENDENCY` | yes | yes | Required binary such as ffmpeg is missing |
 | `postprocessFailure` | `YTDLP_POSTPROCESS_FAILURE` | yes | no | ffmpeg mux/convert/remux failure |

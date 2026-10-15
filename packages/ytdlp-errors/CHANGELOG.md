@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.0 — output folder write failures
+
+### Added
+
+- Added `outputNotWritable` for an output or temp folder that refuses writes: `Permission denied` / `Access is denied` (EACCES), `Read-only file system` (EROFS), and `Operation not permitted` (EPERM, e.g. a macOS privacy-protected folder) on yt-dlp's open-for-writing, write-data, and create-directory call sites, plus its `Cannot write ... file` messages.
+- Added stable code `YTDLP_OUTPUT_NOT_WRITABLE`, metadata, README coverage, and fixture coverage.
+
+### Changed
+
+- `Postprocessing: Unable to create directory: [Errno 13] ...` now classifies as `outputNotWritable` instead of `postprocessFailure`. ENOSPC on the same call sites still classifies as `outOfDiskSpace`.
+
 ## 1.1.0 — missing dependency classification
 
 ### Added

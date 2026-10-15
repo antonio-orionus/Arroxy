@@ -1,9 +1,7 @@
-import {randomUUID} from 'node:crypto'
-import {mkdir, unlink, writeFile} from 'node:fs/promises'
-import {join} from 'node:path'
 import {fail, ok, type Result} from '@shared/result.js'
 import {canApplyQueueActionToItem} from '@shared/queueActions.js'
 import {createAppError} from '@main/utils/errorFactory.js'
+import {checkWritableDirectory} from '@main/utils/writableDirectory.js'
 import type {QueueActionSkippedItem, QueueItem, QueueOutputTargetChangeItemResult, QueueOutputTargetChangeResult} from '@shared/types.js'
 
 type QueueItemPatcher = (item: QueueItem) => QueueItem
@@ -24,15 +22,8 @@ function changeSingleOutputTarget(host: QueueOutputTargetMoveHost, item: QueueIt
 }
 
 async function ensureWritableDirectory(outputDir: string): Promise<Result<void>> {
-	try {
-		await mkdir(outputDir, {recursive: true})
-		const probePath = join(outputDir, `.arroxy-write-test-${process.pid}-${randomUUID()}`)
-		await writeFile(probePath, '')
-		await unlink(probePath)
-		return ok(undefined)
-	} catch (error) {
-		return fail(createAppError('validation', `outputDir is not writable: ${error instanceof Error ? error.message : String(error)}`))
-	}
+	const check = await checkWritableDirectory(outputDir)
+	return check.ok ? ok(undefined) : fail(createAppError('validation', `outputDir is not writable: ${check.error}`))
 }
 
 export async function changeQueueOutputTarget(host: QueueOutputTargetMoveHost, itemIds: string[], outputDir: string): Promise<Result<QueueOutputTargetChangeResult>> {

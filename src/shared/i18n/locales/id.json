@@ -622,6 +622,7 @@
 		"downloadingBinary": "Mengunduh biner {{name}}…",
 		"unknownStartupFailure": "Kegagalan startup pengunduhan yang tidak diketahui",
 		"diskSpaceInsufficient": "Ruang disk tidak cukup — memerlukan {{required}}, hanya tersedia {{free}}",
+		"outputNotWritable": "Tidak dapat menyimpan ke {{dir}} — Arroxy tidak diizinkan menulis di sana",
 		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…"
@@ -654,6 +655,7 @@
 			"unavailable": "Video ini tidak tersedia — mungkin bersifat pribadi, dihapus, atau dikunci wilayahnya.",
 			"geoBlocked": "Video ini tidak tersedia di wilayah Anda.",
 			"outOfDiskSpace": "Ruang disk tidak cukup. Kosongkan ruang dan coba lagi.",
+			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",
 			"unsupportedUrl": "URL tersebut tidak didukung oleh yt-dlp. Coba tautan lain dari situs mana pun yang didukung yt-dlp.",
 			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan yt-dlp menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
 			"missingDependency": "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Perbaiki biner yang dibundel atau atur lokasi FFmpeg, lalu coba lagi.",

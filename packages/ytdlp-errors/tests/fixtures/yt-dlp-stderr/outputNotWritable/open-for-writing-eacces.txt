@@ -1,0 +1,2 @@
+[download] Destination: /Users/me/Movies/Locked/clip.mp4
+ERROR: unable to open for writing: [Errno 13] Permission denied: '/Users/me/Movies/Locked/clip.mp4.part'

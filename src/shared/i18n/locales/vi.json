@@ -622,6 +622,7 @@
 		"downloadingBinary": "Đang tải xuống tệp nhị phân {{name}}…",
 		"unknownStartupFailure": "Lỗi khởi động tải xuống không xác định",
 		"diskSpaceInsufficient": "Không đủ dung lượng đĩa — cần {{required}}, chỉ còn {{free}}",
+		"outputNotWritable": "Không thể lưu vào {{dir}} — Arroxy không được phép ghi vào đó",
 		"fetchingSponsorBlock": "Đang kết nối SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Kết nối bị treo, đang thử lại ({{attempt}}/{{total}})…"
@@ -654,6 +655,7 @@
 			"unavailable": "Video này không khả dụng — có thể là riêng tư, đã bị xóa hoặc bị chặn theo khu vực.",
 			"geoBlocked": "Video này không có sẵn ở khu vực của bạn.",
 			"outOfDiskSpace": "Không đủ dung lượng đĩa. Hãy giải phóng dung lượng rồi thử lại.",
+			"outputNotWritable": "Arroxy không thể ghi vào thư mục tải xuống. Thư mục có thể chỉ cho phép đọc, nằm trên ổ đĩa bị khóa, hoặc bị chặn bởi cài đặt quyền riêng tư của hệ thống. Hãy chọn thư mục khác hoặc cho phép truy cập rồi thử lại.",
 			"unsupportedUrl": "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ.",
 			"chunkTransferFailure": "Máy chủ liên tục ngắt kết nối giữa chừng và yt-dlp đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn.",
 			"missingDependency": "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy sửa các tệp nhị phân đi kèm hoặc đặt vị trí FFmpeg, rồi thử lại.",

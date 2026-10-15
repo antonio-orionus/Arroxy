@@ -622,6 +622,7 @@
 		"downloadingBinary": "{{name}} ikili dosyası indiriliyor…",
 		"unknownStartupFailure": "Bilinmeyen indirme başlatma hatası",
 		"diskSpaceInsufficient": "Yeterli disk alanı yok — {{required}} gerekiyor, yalnızca {{free}} kullanılabilir",
+		"outputNotWritable": "{{dir}} konumuna kaydedilemiyor — Arroxy'nin oraya yazma izni yok",
 		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
 		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…"
@@ -654,6 +655,7 @@
 			"unavailable": "Bu video kullanılamıyor — özel, silinmiş veya bölge kilitli olabilir.",
 			"geoBlocked": "Bu video bölgenizde kullanılamıyor.",
 			"outOfDiskSpace": "Yeterli disk alanı yok. Yer açıp tekrar dene.",
+			"outputNotWritable": "Arroxy indirme klasörüne yazamıyor. Klasör salt okunur olabilir, kilitli bir sürücüde olabilir ya da sisteminin gizlilik ayarları tarafından engelleniyor olabilir. Başka bir klasör seç veya erişime izin ver, sonra tekrar dene.",
 			"unsupportedUrl": "Bu URL yt-dlp tarafından desteklenmiyor. yt-dlp’nin desteklediği sitelerden farklı bir bağlantı dene.",
 			"chunkTransferFailure": "Sunucu indirmeyi akış ortasında kesmeye devam etti ve yt-dlp tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç.",
 			"missingDependency": "yt-dlp ffmpeg veya ffprobe bulamadı. Paketlenen ikili dosyaları onar veya bir FFmpeg konumu ayarla, sonra tekrar dene.",

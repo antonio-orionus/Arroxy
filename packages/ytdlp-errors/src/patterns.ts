@@ -58,6 +58,21 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	//  - Some installers: "not enough storage"
 	outOfDiskSpace: /no space left on device|there is not enough space on the disk|disk quota exceeded|not enough storage/i,
 
+	// The output or temp location refuses writes. Anchored on the call sites
+	// that touch the destination so an unrelated permission error (an
+	// unreadable cookies file, say) stays unknown:
+	//  - downloader/http.py: "unable to open for writing: {err}" and
+	//    "unable to write data: {err}"
+	//  - YoutubeDL._ensure_dir_exists and MoveFilesAfterDownloadPP:
+	//    "Unable to create directory: {e}"
+	// each carrying EACCES ([Errno 13] / [WinError 5]), EROFS ([Errno 30]),
+	// or EPERM ([Errno 1], e.g. a macOS privacy-protected folder). Plus
+	// YoutubeDL.py's errno-less "Cannot write ... metadata to JSON file /
+	// description file / subtitles file". Sits after outOfDiskSpace so ENOSPC
+	// on the same call sites keeps its own kind, and before postprocessFailure
+	// so a "Postprocessing: Unable to create directory" line names the cause.
+	outputNotWritable: /unable to (?:open for writing|write data|create directory):[^\n]*(?:\[Errno (?:1|13|30)\]|\[WinError 5\]|permission denied|read-only file system|access is denied|operation not permitted)|cannot write [^\n]*(?:metadata to JSON file|description file|subtitles file)/i,
+
 	// YouTube ranged-HTTP truncation + retry exhaustion. Three real sources:
 	//  - utils/_utils.py report_retry: "{e}. Giving up after N retries"
 	//  - ContentTooShortError from http downloader:

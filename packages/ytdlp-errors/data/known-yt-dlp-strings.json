@@ -18,7 +18,7 @@
 			"call": "PostProcessingError",
 			"fragment": "Unable to create directory: {e}",
 			"kind": null,
-			"notes": "Reaches stderr wrapped as 'Postprocessing: Unable to create directory: <OSError>' (YoutubeDL.process_info), which yt-postprocessing-wrapper covers as postprocessFailure; an ENOSPC OSError classifies as outOfDiskSpace first. Bare fragment cannot round-trip, so kind stays null."
+			"notes": "Reaches stderr wrapped as 'Postprocessing: Unable to create directory: <OSError>' (YoutubeDL.process_info). With the OSError appended it classifies as outputNotWritable (EACCES/EROFS/EPERM) or outOfDiskSpace (ENOSPC); the bare fragment carries no errno, so kind stays null. Fixture coverage: tests/fixtures/yt-dlp-stderr/outputNotWritable/postprocess-move-eacces.txt."
 		},
 		{
 			"id": "9fa4254c60bc",
@@ -34,7 +34,7 @@
 			"call": "report_error",
 			"fragment": "Unable to create directory: {e}",
 			"kind": null,
-			"notes": "Output-directory creation failure (YoutubeDL._ensure_dir_exists). Classification depends on the wrapped OSError: ENOSPC -> outOfDiskSpace; permission-denied has no kind yet and falls through to unknown."
+			"notes": "Output-directory creation failure (YoutubeDL._ensure_dir_exists). Classification depends on the wrapped OSError: EACCES/EROFS/EPERM -> outputNotWritable, ENOSPC -> outOfDiskSpace; the bare fragment carries no errno, so kind stays null. Fixture coverage: tests/fixtures/yt-dlp-stderr/outputNotWritable/create-directory-eacces.txt."
 		},
 		{"id": "yt-content-too-short", "fragment": "content too short (expected %d bytes and served %d)", "source": "yt_dlp/YoutubeDL.py:3558", "call": "report_error", "kind": "chunkTransferFailure"},
 		{"id": "yt-did-not-get-data-blocks", "fragment": "Did not get any data blocks", "source": "yt_dlp/downloader/http.py:329", "call": "report_error", "kind": "chunkTransferFailure"},

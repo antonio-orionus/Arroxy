@@ -635,6 +635,7 @@
 		"downloadingBinary": "Pobieranie pliku binarnego {{name}}…",
 		"unknownStartupFailure": "Nieznany błąd uruchamiania pobierania",
 		"diskSpaceInsufficient": "Za mało miejsca na dysku — potrzeba {{required}}, dostępne tylko {{free}}",
+		"outputNotWritable": "Nie można zapisać w {{dir}} — Arroxy nie ma uprawnień do zapisu w tym miejscu",
 		"fetchingSponsorBlock": "Łączenie z SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock jest niedostępny, ponawianie ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Połączenie utknęło, ponawianie ({{attempt}}/{{total}})…"
@@ -667,6 +668,7 @@
 			"unavailable": "Ten film jest niedostępny — może być prywatny, usunięty lub zablokowany w Twoim regionie.",
 			"geoBlocked": "Ten film nie jest dostępny w Twoim regionie.",
 			"outOfDiskSpace": "Za mało miejsca na dysku. Zwolnij miejsce i spróbuj ponownie.",
+			"outputNotWritable": "Arroxy nie może zapisywać w folderze pobierania. Folder może być tylko do odczytu, znajdować się na zablokowanym dysku lub być zablokowany przez ustawienia prywatności systemu. Wybierz inny folder lub zezwól na dostęp, a potem spróbuj ponownie.",
 			"unsupportedUrl": "Ten adres URL nie jest obsługiwany przez yt-dlp. Wypróbuj inny link z dowolnej witryny obsługiwanej przez yt-dlp.",
 			"chunkTransferFailure": "Serwer wielokrotnie przerywał pobieranie w połowie i yt-dlp zrezygnował po kolejnych próbach. Zwykle dotyczy to największych formatów wideo (4K HDR / VP9 o wysokiej przepływności). Spróbuj ponownie, zmień sieć/VPN albo wybierz format o niższej rozdzielczości.",
 			"missingDependency": "yt-dlp nie może znaleźć ffmpeg ani ffprobe. Napraw dołączone pliki binarne albo ustaw lokalizację FFmpeg i spróbuj ponownie.",

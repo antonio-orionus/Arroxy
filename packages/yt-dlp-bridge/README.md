@@ -13,6 +13,7 @@ Source and contributions live in the Arroxy monorepo at [`packages/yt-dlp-bridge
 
 - [Install](#install)
 - [Features](#features)
+- [What changed in 0.4.0](#what-changed-in-040)
 - [What changed in 0.3.0](#what-changed-in-030)
 - [What changed in 0.2.0](#what-changed-in-020)
 - [Usage](#usage)
@@ -46,6 +47,10 @@ Requires Node.js >= 22.13 and ESM.
 - Low-level process runner using `spawn` with `shell: false`, bounded output capture, timeouts, and structured failures.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
+
+## What changed in 0.4.0
+
+- Requires `ytdlp-errors` 1.2.0. `toStructuredError` can now return `kind: 'outputNotWritable'` when the output folder refuses writes (permission denied, read-only drive, or a privacy-protected folder), with a suggested fix to grant write access or choose another output root.
 
 ## What changed in 0.3.0
 

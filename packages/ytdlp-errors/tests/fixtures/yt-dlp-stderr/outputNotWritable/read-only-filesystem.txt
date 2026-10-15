@@ -1,0 +1,1 @@
+ERROR: unable to open for writing: [Errno 30] Read-only file system: '/Volumes/CAMERA/clip.mp4.part'

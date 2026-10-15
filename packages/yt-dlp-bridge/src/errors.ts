@@ -45,6 +45,7 @@ function suggestedFixes(kind: string, flags: readonly string[] | undefined): str
 	if (kind === 'rateLimit') fixes.add('Retry later or add conservative sleep/retry settings.')
 	if (kind === 'geoBlocked') fixes.add('Use an allowed region, proxy, or yt-dlp geo-bypass option where legal.')
 	if (kind === 'outOfDiskSpace') fixes.add('Free disk space or choose a different output root.')
+	if (kind === 'outputNotWritable') fixes.add('Grant write access to the output root or choose a different one.')
 
 	return [...fixes]
 }

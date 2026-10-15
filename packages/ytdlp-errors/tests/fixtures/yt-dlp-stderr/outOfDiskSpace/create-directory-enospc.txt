@@ -1,0 +1,1 @@
+ERROR: Unable to create directory: [Errno 28] No space left on device: '/srv/media/Full/Playlist'

@@ -613,6 +613,7 @@
 		"downloadingBinary": "Downloading {{name}} binary…",
 		"unknownStartupFailure": "Unknown download startup failure",
 		"diskSpaceInsufficient": "Not enough disk space — need {{required}}, only {{free}} available",
+		"outputNotWritable": "Can't save to {{dir}} — Arroxy isn't allowed to write there",
 		"fetchingSponsorBlock": "Contacting SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…"
@@ -645,6 +646,7 @@
 			"unavailable": "This video is unavailable — it may be private, deleted, or region-locked.",
 			"geoBlocked": "This video is not available in your region.",
 			"outOfDiskSpace": "Not enough disk space. Free up space and retry.",
+			"outputNotWritable": "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry.",
 			"unsupportedUrl": "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites.",
 			"chunkTransferFailure": "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format.",
 			"missingDependency": "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry.",

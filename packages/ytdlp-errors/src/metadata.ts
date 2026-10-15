@@ -37,6 +37,7 @@ export const ERROR_KIND_METADATA: Record<YtDlpErrorKind, KindMetadata> = {
 	drmProtected: {code: 'YTDLP_DRM_PROTECTED', recoverable: false, userActionable: false, docsUrl: `${WIKI}/FAQ#yt-dlp-cant-download-drm-protected-content`},
 	loginRequired: {code: 'YTDLP_LOGIN_REQUIRED', recoverable: true, userActionable: true, suggestedFlags: ['--cookies-from-browser', '--cookies', '--username', '--password']},
 	outOfDiskSpace: {code: 'YTDLP_OUT_OF_DISK_SPACE', recoverable: true, userActionable: true},
+	outputNotWritable: {code: 'YTDLP_OUTPUT_NOT_WRITABLE', recoverable: true, userActionable: true},
 	chunkTransferFailure: {code: 'YTDLP_CHUNK_TRANSFER_FAILURE', recoverable: true, userActionable: false, suggestedFlags: ['--retries', '--fragment-retries', '--http-chunk-size']},
 	missingDependency: {code: 'YTDLP_MISSING_DEPENDENCY', recoverable: true, userActionable: true, suggestedFlags: ['--ffmpeg-location'], docsUrl: `${WIKI}/FFmpeg`},
 	postprocessFailure: {code: 'YTDLP_POSTPROCESS_FAILURE', recoverable: true, userActionable: false, suggestedFlags: ['--ffmpeg-location']},

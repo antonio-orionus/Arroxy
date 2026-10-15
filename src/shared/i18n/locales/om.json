@@ -634,6 +634,7 @@
 		"downloadingBinary": "Faayilii binaryii {{name}} buufaa jira…",
 		"unknownStartupFailure": "Daawniloodii jalqabbii hin beekamne kufee",
 		"diskSpaceInsufficient": "Bakki kuusaa gahaa miti — {{required}} barbaachisa, {{free}} qofa jira",
+		"outputNotWritable": "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu",
 		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
 		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…"
@@ -666,6 +667,7 @@
 			"unavailable": "Viidiyoon kun hin argamu — dhuunfaa, haqame, ykn naannoo-cufaa ta'uu mala.",
 			"geoBlocked": "Viidiyoon kun naanno kee keessatti hin argamu.",
 			"outOfDiskSpace": "Bakki disikii gahaa hin jiru. Bakka duwwaa godhi achiin irra deebi'i.",
+			"outputNotWritable": "Arroxy galmee buufataa keessatti barreessuu hin danda'u. Galmeen sun dubbisuuf qofa ta'uu, dhaabbata cufame irra jiraachuu, ykn qindaa'ina dhuunfummaa sirna keetiin dhorkamuu danda'a. Galmee biraa filadhu ykn seensa hayyami, achiin irra deebi'i.",
 			"unsupportedUrl": "URL kana yt-dlp hin deeggaru. Marsariitota yt-dlp deeggaru keessaa hidhaa biraa yaali.",
 			"chunkTransferFailure": "Sarvarri buufannaa giddu-galeessatti kuteera, yt-dlp irra deebi'uun yaale booddee kufe. Kun baay'inaan foormaatii viidiyoo guddoo (4K HDR / VP9 bitrate olaanaa) irratti mul'ata. Irra deebi'i, network/VPN jijjiiri, ykn foormaatii qulqullina xiqqaa ta'e filadhu.",
 			"missingDependency": "yt-dlp ffmpeg yookaan ffprobe argachuu hin dandeenye. Baayinaariiwwan keessaa jiran suphi yookaan bakka FFmpeg saagi, achiin irra deebi'i.",

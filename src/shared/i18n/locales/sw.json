@@ -622,6 +622,7 @@
 		"downloadingBinary": "Inapakua binary ya {{name}}…",
 		"unknownStartupFailure": "Kushindwa kwa kuanzisha pasijulikane",
 		"diskSpaceInsufficient": "Nafasi ya diski haitoshi — inahitajika {{required}}, {{free}} tu inapatikana",
+		"outputNotWritable": "Haiwezekani kuhifadhi kwenye {{dir}} — Arroxy hairuhusiwi kuandika hapo",
 		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…"
@@ -654,6 +655,7 @@
 			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
 			"geoBlocked": "Video hii haipatikani katika eneo lako.",
 			"outOfDiskSpace": "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena.",
+			"outputNotWritable": "Arroxy haiwezi kuandika kwenye folda ya vipakuliwa. Huenda ni ya kusoma tu, iko kwenye diski iliyofungwa, au imezuiwa na mipangilio ya faragha ya mfumo wako. Chagua folda nyingine au ruhusu ufikiaji, kisha ujaribu tena.",
 			"unsupportedUrl": "URL hiyo haitumiki na yt-dlp. Jaribu kiungo kingine kutoka tovuti yoyote inayotumika na yt-dlp.",
 			"chunkTransferFailure": "Seva ilikatiza upakuaji mara kwa mara na yt-dlp ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini.",
 			"missingDependency": "yt-dlp haikuweza kupata ffmpeg au ffprobe. Rekebisha binari zilizojumuishwa au weka eneo la FFmpeg, kisha ujaribu tena.",
