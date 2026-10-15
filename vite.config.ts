@@ -177,7 +177,8 @@ export default defineConfig({
 		},
 		overrides: [
 			// Resolves tsconfig path aliases, so it also sees cycles through `@shared/…` and `@main/…` imports.
-			{files: ['src/**/*.{ts,tsx,cts}', 'packages/*/src/**/*.ts'], rules: {'import/no-cycle': 'error'}},
+			// ignoreTypes: false keeps type-only cycles in scope, as Madge had them.
+			{files: ['src/**/*.{ts,tsx,cts}', 'packages/*/src/**/*.ts'], rules: {'import/no-cycle': ['error', {ignoreTypes: false}]}},
 			{
 				files: ['**/*.tsx'],
 				rules: {

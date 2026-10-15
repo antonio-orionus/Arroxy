@@ -50,10 +50,10 @@ function packageJson(options: {devDependencies?: Record<string, string>} = {}): 
 	)}\n`
 }
 
-function viteConfig(options: {staged?: Record<string, string>; lintOptions?: Record<string, unknown>} = {}): string {
+function viteConfig(options: {staged?: Record<string, string>; lintOptions?: Record<string, unknown>; noCycle?: unknown} = {}): string {
 	const config = {
 		fmt: {ignorePatterns: ['dist/**']},
-		lint: {options: options.lintOptions ?? {typeAware: true, typeCheck: true}, overrides: [{files: ['src/**/*.ts'], rules: {'import/no-cycle': 'error'}}]},
+		lint: {options: options.lintOptions ?? {typeAware: true, typeCheck: true}, overrides: [{files: ['src/**/*.ts'], rules: {'import/no-cycle': options.noCycle ?? ['error', {ignoreTypes: false}]}}]},
 		run: {tasks: {'quality-gate': {command: 'bun run packages:check', dependsOn: ['check:static', 'check:tooling-parity', 'check:tooling-contract'], cache: false}}},
 		staged: options.staged ?? VALID_STAGED
 	}
@@ -64,11 +64,11 @@ function publishWorkflow(command: string): string {
 	return `permissions:\n  id-token: write\nsteps:\n  - uses: actions/setup-node@v6\n    with:\n      node-version: 24\n      registry-url: https://registry.npmjs.org\n      package-manager-cache: false\n  - run: ${command}\n  - run: bun pm view\n  - run: bun pm pack --destination npm-artifacts\n  run: npm publish ./npm-artifacts/*.tgz --access public\n`
 }
 
-async function createContractFixture(overrides: {gitignore?: string; mise?: string; staged?: Record<string, string>; lintOptions?: Record<string, unknown>; devDependencies?: Record<string, string>; bundledOxlint?: string} = {}): Promise<string> {
+async function createContractFixture(overrides: {gitignore?: string; mise?: string; staged?: Record<string, string>; lintOptions?: Record<string, unknown>; noCycle?: unknown; devDependencies?: Record<string, string>; bundledOxlint?: string} = {}): Promise<string> {
 	const root = await tempRoot()
 	await Promise.all([
 		writeFixtureFile(root, 'package.json', packageJson({devDependencies: overrides.devDependencies})),
-		writeFixtureFile(root, 'vite.config.ts', viteConfig({staged: overrides.staged, lintOptions: overrides.lintOptions})),
+		writeFixtureFile(root, 'vite.config.ts', viteConfig({staged: overrides.staged, lintOptions: overrides.lintOptions, noCycle: overrides.noCycle})),
 		writeFixtureFile(root, 'node_modules/vite-plus/package.json', JSON.stringify({name: 'vite-plus', dependencies: {oxlint: overrides.bundledOxlint ?? '=1.78.0'}})),
 		writeFixtureFile(root, '.vite-hooks/pre-commit', 'vp staged\n\nbun scripts/check-commit-fallout.ts\n'),
 		writeFixtureFile(root, 'knip.json', '{"workspaces":{}}\n'),
@@ -124,6 +124,15 @@ describe('tooling contract', () => {
 
 		expect(result.status).toBe(1)
 		expect(result.output).toContain('lint.options.typeCheck must stay on')
+	})
+
+	it('requires import/no-cycle to cover type-only cycles', async () => {
+		const root = await createContractFixture({noCycle: 'error'})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('import/no-cycle as an error with ignoreTypes: false')
 	})
 
 	it('rejects staged rules that edit the same code file in parallel', async () => {

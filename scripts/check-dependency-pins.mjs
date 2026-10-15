@@ -2,7 +2,8 @@
 // Fail if any dependency version uses a semver range (^ ~ >= > ||) instead of
 // an exact pin. Protects the supply-chain posture set in bunfig.toml.
 //
-// Allowed: exact ("1.2.3", "1.2.3-beta.4"), workspace, file:, link:, git URLs,
+// Allowed: exact ("1.2.3", "1.2.3-beta.4"), registry aliases to an exact version
+// ("npm:pkg@1.2.3"), workspace, file:, link:, git URLs,
 // and "catalog:" when the root catalog entry it points at is itself exact.
 // Disallowed: "^1.0.0", "~1.0.0", ">=1.0.0", "1.x", "*", "latest", bare majors.
 
@@ -14,7 +15,7 @@ const pkg = JSON.parse(readFileSync(PKG_PATH, 'utf8'))
 const SECTIONS = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']
 
 // Anything starting with these is a non-registry spec we don't pin.
-const PROTOCOL_PREFIXES = ['workspace:', 'file:', 'link:', 'portal:', 'npm:', 'git+', 'git:', 'github:', 'http:', 'https:']
+const PROTOCOL_PREFIXES = ['workspace:', 'file:', 'link:', 'portal:', 'git+', 'git:', 'github:', 'http:', 'https:']
 
 // Exact semver: digits.digits.digits with optional -pre.N or +meta.
 const EXACT_SEMVER = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/
@@ -22,8 +23,16 @@ const EXACT_SEMVER = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/
 const offenders = []
 const catalog = pkg.catalog ?? {}
 
+// "npm:@scope/name@1.2.3" — the version follows the last "@" (a scoped name
+// has its own leading "@"). An alias is a registry fetch, so it pins like one.
+function isExactNpmAlias(range) {
+	if (!range.startsWith('npm:')) return false
+	const at = range.lastIndexOf('@')
+	return at > 'npm:'.length && EXACT_SEMVER.test(range.slice(at + 1))
+}
+
 function isPinned(range) {
-	return PROTOCOL_PREFIXES.some(p => range.startsWith(p)) || EXACT_SEMVER.test(range)
+	return PROTOCOL_PREFIXES.some(p => range.startsWith(p)) || EXACT_SEMVER.test(range) || isExactNpmAlias(range)
 }
 
 for (const [name, range] of Object.entries(catalog)) {

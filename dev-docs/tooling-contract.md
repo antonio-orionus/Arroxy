@@ -10,7 +10,7 @@ Vite+ docs for the installed version live at `node_modules/vite-plus/docs`; `bun
 | --- | --- | --- |
 | Formatting | Oxfmt (`vp fmt`) | Root `vite.config.ts` `fmt` block. Its `ignorePatterns` keep prose, generated files, `*.json5` and `skills-lock.json` out of scope. |
 | Static checks | `vp check` | One pass: Oxfmt, Oxlint and type errors. `check:static` builds `ytdlp-errors` first, because type-aware rules read its built types. |
-| Linting | Oxlint (`vp lint`) | Root `vite.config.ts` `lint` block is the only lint config. `import/no-cycle` covers `src/` and every package `src/`, resolving tsconfig path aliases. |
+| Linting | Oxlint (`vp lint`) | Root `vite.config.ts` `lint` block is the only lint config. `import/no-cycle` (with `ignoreTypes: false`, so type-only cycles count) covers `src/` and every package `src/`, resolving tsconfig path aliases. |
 | Types | `vp check` (`typeCheck: true`) | Type checking runs inside lint through the TypeScript 7 toolchain (tsgolint); `build` type-checks with `vp check --no-fmt --no-lint`. Publishable packages still run `tsc` in their own `typecheck` and `build` scripts. |
 | Tests | Vitest (`vp test`) | Root `vite.config.ts` `test` block defines the `node` and `jsdom` projects; each package's `vite.config.ts` holds its own `test` block. Tests import from `vite-plus/test`. |
 | Library builds | tsdown (`vp pack`) | `ytdlp-errors` builds from its `vite.config.ts` `pack` block with `fixedExtension: false`, so output names match `package.json` `exports`. |

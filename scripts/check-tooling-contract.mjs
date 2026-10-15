@@ -55,6 +55,14 @@ function readText(path) {
 	return readFileSync(repoPath(path), 'utf8')
 }
 
+// import/no-cycle skips type-only imports by default; a type-only cycle is
+// still a cycle, so the rule must run as an error with ignoreTypes: false.
+function isStrictNoCycle(setting) {
+	if (!Array.isArray(setting)) return false
+	const [severity, options] = setting
+	return severity === 'error' && isObject(options) && options.ignoreTypes === false
+}
+
 async function importConfig(path) {
 	const module = await import(pathToFileURL(repoPath(path)).href)
 	return isObject(module.default) ? module.default : {}
@@ -282,7 +290,7 @@ const qualityGateDependsOn = Array.isArray(qualityGate.dependsOn) ? qualityGate.
 const preCommitHookPath = '.vite-hooks/pre-commit'
 const preCommitHook = existsSync(repoPath(preCommitHookPath)) ? readText(preCommitHookPath) : ''
 const knipWorkspaces = knip.workspaces ?? {}
-const noCycleFiles = (Array.isArray(lintConfig.overrides) ? lintConfig.overrides : []).filter(override => isObject(override) && isObject(override.rules) && override.rules['import/no-cycle'] === 'error').flatMap(override => (Array.isArray(override.files) ? override.files.map(posix) : []))
+const noCycleFiles = (Array.isArray(lintConfig.overrides) ? lintConfig.overrides : []).filter(override => isObject(override) && isObject(override.rules) && isStrictNoCycle(override.rules['import/no-cycle'])).flatMap(override => (Array.isArray(override.files) ? override.files.map(posix) : []))
 
 assert(rootPackage.private === true, 'Root package must stay private so workspace-only dependencies are never published from the app package.')
 assert(typeof rootDevDependencies['vite-plus'] === 'string', 'Root devDependencies must include vite-plus, the toolchain authority.')
@@ -309,7 +317,7 @@ assert(lintOptions.typeAware === true, 'vite.config.ts lint.options.typeAware mu
 assert(lintOptions.typeCheck === true, 'vite.config.ts lint.options.typeCheck must stay on; vp check and vp lint own type checking.')
 assert(
 	noCycleFiles.some(pattern => pattern.startsWith('src/')),
-	'vite.config.ts lint must enable import/no-cycle as an error for src/.'
+	'vite.config.ts lint must enable import/no-cycle as an error with ignoreTypes: false for src/.'
 )
 assert(rootScripts['check:static'] === STATIC_CHECK_SCRIPT, `Root check:static must run "${STATIC_CHECK_SCRIPT}" (format, lint, type check and import cycles in one pass).`)
 assert((rootScripts.build ?? '').startsWith('bun run errors:build && vp check --no-fmt --no-lint && '), 'Root build must type-check with vp check --no-fmt --no-lint before bundling.')
