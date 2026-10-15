@@ -8,9 +8,14 @@ import type {PreparedJob} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+vi.mock('@main/services/subtitlePostProcess', () => ({
+	resolveConvertedSubtitlePaths: vi.fn(async (paths: readonly string[]) => [...paths]),
+	postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined),
+	muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}),
+	logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}
+}))
 
-import {postProcessSubtitleFiles} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -112,6 +117,15 @@ describe('SubtitleOnlyPhase', () => {
 		// The site gate reads these — forwarding the wrong ones silently disables
 		// the rolling dedupe or the URL fallback.
 		expect(calledOpts).toMatchObject({extractor: BASE_JOB.extractor, url: BASE_INPUT.url, jobId: expect.any(String)})
+	})
+
+	it('post-processes the converted subtitle files, not the deleted pre-conversion paths', async () => {
+		vi.mocked(resolveConvertedSubtitlePaths).mockResolvedValueOnce(['/tmp/video.en.srt'])
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {...BASE_JOB, subtitles: {...BASE_SUBS, writeAuto: true}}}, subtitlePaths: ['/tmp/video.en.vtt']})
+		await SubtitleOnlyPhase.run(ctx)
+		expect(resolveConvertedSubtitlePaths).toHaveBeenCalledWith(['/tmp/video.en.vtt'], 'srt')
+		expect(vi.mocked(postProcessSubtitleFiles).mock.calls[0][0]).toEqual(['/tmp/video.en.srt'])
+		expect(ctx.active.subtitlePaths).toEqual(['/tmp/video.en.srt'])
 	})
 
 	it('postProcessSubtitleFiles shouldAbort reflects cancelRequested', async () => {

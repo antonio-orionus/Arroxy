@@ -5,7 +5,7 @@
 // the ffmpeg child if a cancel lands mid-mux).
 
 import {extname} from 'node:path'
-import {readFile, rename, unlink, writeFile} from 'node:fs/promises'
+import {access, readFile, rename, unlink, writeFile} from 'node:fs/promises'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import log from 'electron-log/main.js'
 import {dedupeSrt} from './srtDedupe.js'
@@ -14,6 +14,7 @@ import {normalizeCueOverlaps} from './cueOverlap.js'
 import {spawnFFmpeg} from '@main/utils/process.js'
 import {detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
+import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
 
 export const logger = log.scope('subs')
 
@@ -59,16 +60,58 @@ function toIso639(lang: string): string {
 	return lang
 }
 
-function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: {path: string; lang: string}[]; outputPath: string}): string[] {
+// Matroska carries cover art as a file attachment, so it is re-added from a
+// copy rather than mapped: a mapped cover would land as a one-frame video track.
+const COVER_ART_ATTACHMENT_NAME = 'cover.jpg'
+
+function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: {path: string; lang: string}[]; coverPath: string | undefined; outputPath: string}): string[] {
 	const args: string[] = ['-y']
 	args.push('-i', opts.videoPath)
 	for (const track of opts.subtitleTracks) args.push('-i', track.path)
+	// Explicit maps: without them ffmpeg keeps one stream per type, which drops
+	// every subtitle track but one. `0:V` is every video stream except cover art.
+	args.push('-map', '0:V', '-map', '0:a?')
+	for (let i = 0; i < opts.subtitleTracks.length; i++) args.push('-map', String(i + 1))
 	args.push('-c', 'copy', '-c:s', 'srt')
 	for (let i = 0; i < opts.subtitleTracks.length; i++) {
 		args.push(`-metadata:s:s:${i}`, `language=${toIso639(opts.subtitleTracks[i].lang)}`)
 	}
+	if (opts.coverPath) args.push('-attach', opts.coverPath, '-metadata:s:t', 'mimetype=image/jpeg', '-metadata:s:t', `filename=${COVER_ART_ATTACHMENT_NAME}`)
 	args.push(opts.outputPath)
 	return args
+}
+
+// Copies the embedded cover (always JPEG: thumbnails are converted before they
+// are embedded) out of the video. ffmpeg exits non-zero when there is none.
+function buildCoverExtractArgs(videoPath: string, coverPath: string): string[] {
+	return ['-y', '-i', videoPath, '-map', '0:v', '-map', '-0:V', '-c', 'copy', '-frames:v', '1', '-f', 'image2', '-update', '1', coverPath]
+}
+
+// yt-dlp's `--convert-subs` writes `<stem>.<format>` and deletes the original
+// without printing either path, so the paths scraped from its output still name
+// the deleted pre-conversion file. Point each missing path at the sibling that
+// exists, trying the requested format first.
+export async function resolveConvertedSubtitlePaths(paths: readonly string[], requestedFormat: SubtitleFormat): Promise<string[]> {
+	const formats = [requestedFormat, ...SUBTITLE_FORMATS.filter(format => format !== requestedFormat)]
+	const resolved = await Promise.all(
+		paths.map(async path => {
+			if (await fileExists(path)) return path
+			const stem = path.slice(0, path.length - extname(path).length)
+			for (const format of formats) {
+				const candidate = `${stem}.${format}`
+				if (await fileExists(candidate)) return candidate
+			}
+			return path
+		})
+	)
+	return [...new Set(resolved)]
+}
+
+function fileExists(path: string): Promise<boolean> {
+	return access(path).then(
+		() => true,
+		() => false
+	)
 }
 
 // Post-process the auto-caption files phase 2 wrote. Two passes, in order:
@@ -121,13 +164,30 @@ export interface MuxResult {
 	outputPath?: string
 }
 
+// Enough of ffmpeg's stderr to name the failing stream without flooding the log.
+const STDERR_TAIL_CHARS = 2000
+
+function runFfmpeg(ffmpegPath: string, args: string[], onSpawn: (proc: ChildProcessWithoutNullStreams) => void): Promise<{ok: boolean; stderrTail: string}> {
+	return new Promise(resolve => {
+		let stderrTail = ''
+		const proc = spawnFFmpeg(ffmpegPath, args)
+		onSpawn(proc)
+		proc.stderr.on('data', (chunk: Buffer | string) => {
+			stderrTail = (stderrTail + chunk.toString()).slice(-STDERR_TAIL_CHARS)
+		})
+		proc.on('error', () => resolve({ok: false, stderrTail}))
+		proc.on('close', code => resolve({ok: code === 0, stderrTail}))
+	})
+}
+
 // Mux deduped sidecar subs into the merged video via ffmpeg -c copy (+ srt
 // for sub streams). Returns the new media path on success.
+// `keepCoverArt` carries the embedded thumbnail over as a Matroska attachment.
 //
 // Lang attribution is strict: each sub path must end in `.<lang>.<ext>` for
 // one of the requested langs. Unknown → 'und' (no positional fallback —
 // yt-dlp doesn't guarantee output order matches input order).
-export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
+export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath: string; subtitlePaths: readonly string[]; requestedLangs: readonly string[]; keepCoverArt: boolean; onSpawn: (proc: ChildProcessWithoutNullStreams) => void; jobId: string}): Promise<MuxResult> {
 	if (opts.subtitlePaths.length === 0) return {ok: false}
 
 	const tracks = opts.subtitlePaths.map(path => ({path, lang: detectSubtitleLang(path, opts.requestedLangs) ?? 'und'}))
@@ -135,17 +195,21 @@ export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath
 	const stem = opts.videoPath.replace(/\.[^.\\/]+$/, '')
 	const outputPath = `${stem}.${EMBED_CONTAINER_EXT}`
 	const tempPath = `${stem}.muxing.${EMBED_CONTAINER_EXT}`
-	const args = buildSubtitleEmbedArgs({videoPath: opts.videoPath, subtitleTracks: tracks, outputPath: tempPath})
+	const coverTempPath = `${stem}.muxing-cover.jpg`
 
-	const ok = await new Promise<boolean>(resolve => {
-		const proc = spawnFFmpeg(opts.ffmpegPath, args)
-		opts.onSpawn(proc)
-		proc.on('error', () => resolve(false))
-		proc.on('close', code => resolve(code === 0))
-	})
+	let coverPath: string | undefined
+	if (opts.keepCoverArt) {
+		const extracted = await runFfmpeg(opts.ffmpegPath, buildCoverExtractArgs(opts.videoPath, coverTempPath), opts.onSpawn)
+		if (extracted.ok) coverPath = coverTempPath
+		else logger.warn('subtitle mux: no cover art to keep', {jobId: opts.jobId, stderrTail: extracted.stderrTail})
+	}
 
-	if (!ok) {
-		logger.error('subtitle mux: ffmpeg failed or cancelled', {jobId: opts.jobId})
+	const args = buildSubtitleEmbedArgs({videoPath: opts.videoPath, subtitleTracks: tracks, coverPath, outputPath: tempPath})
+	const muxed = await runFfmpeg(opts.ffmpegPath, args, opts.onSpawn)
+	if (opts.keepCoverArt) await unlink(coverTempPath).catch(() => {})
+
+	if (!muxed.ok) {
+		logger.error('subtitle mux: ffmpeg failed or cancelled', {jobId: opts.jobId, args, stderrTail: muxed.stderrTail})
 		await unlink(tempPath).catch(() => {})
 		return {ok: false}
 	}

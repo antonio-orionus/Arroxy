@@ -17,31 +17,13 @@
 //
 // 5. Oracles: exactly one output file with the profile's extension in the
 //    profile's folder, carrying an `attached_pic` stream per ffprobe.
-import {execFileSync} from 'node:child_process'
-import fs from 'node:fs'
 import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {DownloadProfile} from '../../src/shared/types.js'
 import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {probeStreams} from './ffprobe.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
-
-function bundledFfprobePath(): string {
-	const ext = process.platform === 'win32' ? '.exe' : ''
-	const arch = process.arch === 'arm64' ? 'arm64' : 'x64'
-	const bundled = path.join(process.cwd(), 'build', 'embedded', `${process.platform}-${arch}`, `ffprobe${ext}`)
-	return fs.existsSync(bundled) ? bundled : 'ffprobe'
-}
-
-function hasAttachedPicture(file: string): boolean {
-	const ffprobe = bundledFfprobePath()
-	const dir = path.dirname(ffprobe)
-	const env = {...process.env, LD_LIBRARY_PATH: `${dir}${path.delimiter}${process.env.LD_LIBRARY_PATH ?? ''}`}
-	const out = execFileSync(ffprobe, ['-v', 'error', '-show_entries', 'stream_disposition=attached_pic', '-of', 'json', file], {env, encoding: 'utf8'})
-	const parsed: unknown = JSON.parse(out)
-	if (typeof parsed !== 'object' || parsed === null || !('streams' in parsed) || !Array.isArray(parsed.streams)) throw new Error(`unexpected ffprobe output: ${out}`)
-	return parsed.streams.some((stream: unknown) => typeof stream === 'object' && stream !== null && 'disposition' in stream && typeof stream.disposition === 'object' && stream.disposition !== null && 'attached_pic' in stream.disposition && stream.disposition.attached_pic === 1)
-}
 
 function coverArtProfile(id: string, name: string, media: DownloadProfile['media']): DownloadProfile {
 	const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
@@ -77,7 +59,7 @@ for (const {label, videoIndex, extension, profile} of CASES) {
 				const profileDir = path.join(outputDir, profile.name)
 				const outputs = files.mediaFiles(extension, profileDir)
 				expect(outputs).toHaveLength(1)
-				expect(hasAttachedPicture(outputs[0])).toBe(true)
+				expect(probeStreams(outputs[0]).some(stream => stream.attachedPic)).toBe(true)
 			}
 		)
 	})

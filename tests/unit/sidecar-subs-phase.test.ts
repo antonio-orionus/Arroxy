@@ -12,9 +12,14 @@ const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: fa
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 
-vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
+vi.mock('@main/services/subtitlePostProcess', () => ({
+	resolveConvertedSubtitlePaths: vi.fn(async (paths: readonly string[]) => [...paths]),
+	postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined),
+	muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: true, outputPath: '/tmp/video.mkv'}),
+	logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}
+}))
 
-import {postProcessSubtitleFiles, muxSubtitlesIntoVideo} from '@main/services/subtitlePostProcess.js'
+import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths} from '@main/services/subtitlePostProcess.js'
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -164,6 +169,26 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
 		await SidecarSubsPhase(true).run(ctx)
 		expect(muxSubtitlesIntoVideo).toHaveBeenCalledOnce()
+	})
+
+	// yt-dlp converts .vtt to the requested format and deletes the original;
+	// muxing the scraped .vtt path failed every embed on YouTube.
+	it('muxes the converted subtitle files, not the deleted pre-conversion paths', async () => {
+		vi.mocked(resolveConvertedSubtitlePaths).mockResolvedValueOnce(['/tmp/video.en.srt', '/tmp/video.es.srt'])
+		const ctx = makeCtx(SUCCESS, {mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.vtt', '/tmp/video.es.vtt']})
+		await SidecarSubsPhase(true).run(ctx)
+		expect(resolveConvertedSubtitlePaths).toHaveBeenCalledWith(['/tmp/video.en.vtt', '/tmp/video.es.vtt'], 'srt')
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].subtitlePaths).toEqual(['/tmp/video.en.srt', '/tmp/video.es.srt'])
+		expect(ctx.active.subtitlePaths).toEqual(['/tmp/video.en.srt', '/tmp/video.es.srt'])
+	})
+
+	it('keeps the cover art only when the job embeds the thumbnail', async () => {
+		await SidecarSubsPhase(true).run(makeCtx(SUCCESS))
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0][0].keepCoverArt).toBe(false)
+
+		const withThumbnail: ResolvedStartDownloadInput = {...BASE_INPUT, job: {...BASE_JOB, embed: {...EMBED_OFF, thumbnail: true}}}
+		await SidecarSubsPhase(true).run(makeCtx(SUCCESS, {input: withThumbnail}))
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[1][0].keepCoverArt).toBe(true)
 	})
 
 	it('mux success → updates active.mediaPath to muxed output', async () => {

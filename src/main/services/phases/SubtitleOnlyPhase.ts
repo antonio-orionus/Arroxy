@@ -1,7 +1,7 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
-import {postProcessSubtitleFiles, logger} from '../subtitlePostProcess.js'
+import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
@@ -47,6 +47,7 @@ export const SubtitleOnlyPhase: Phase = {
 		}
 
 		if (result.usedExtractorFallback) active.usedExtractorFallback = true
+		active.subtitlePaths = await resolveConvertedSubtitlePaths(active.subtitlePaths, subtitles.format ?? DEFAULTS.subtitleFormat)
 
 		if (subtitles.writeAuto) {
 			await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
