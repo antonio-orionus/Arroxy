@@ -34,7 +34,10 @@ describe('checkWritableDirectory', () => {
 		await chmod(root, 0o555)
 		const result = await checkWritableDirectory(root)
 		expect(result.ok).toBe(false)
-		if (!result.ok) expect(result.error).toMatch(/EACCES|permission denied/i)
+		if (!result.ok) {
+			expect(result.code).toBe('EACCES')
+			expect(result.error).toMatch(/permission denied/i)
+		}
 	})
 
 	it.runIf(canDenyWrites)('rejects a missing subfolder under a read-only directory', async () => {

@@ -2,7 +2,9 @@ import {randomUUID} from 'node:crypto'
 import {mkdir, unlink, writeFile} from 'node:fs/promises'
 import {join} from 'node:path'
 
-export type WritableDirectoryResult = {ok: true} | {ok: false; error: string}
+// `code` is the Node errno code (EACCES, EROFS, ENOSPC, ...) when the failure
+// carries one, so callers can tell a refused write from a full disk.
+export type WritableDirectoryResult = {ok: true} | {ok: false; code: string | undefined; error: string}
 
 // Creates `dir` if missing, then writes and removes a probe file. A permission
 // bit check (fs.access W_OK) is not enough: it misses read-only mounts, macOS
@@ -15,6 +17,11 @@ export async function checkWritableDirectory(dir: string): Promise<WritableDirec
 		await unlink(probePath)
 		return {ok: true}
 	} catch (error) {
-		return {ok: false, error: error instanceof Error ? error.message : String(error)}
+		return {ok: false, code: errnoCode(error), error: error instanceof Error ? error.message : String(error)}
 	}
+}
+
+function errnoCode(error: unknown): string | undefined {
+	if (!(error instanceof Error) || !('code' in error)) return undefined
+	return typeof error.code === 'string' ? error.code : undefined
 }
