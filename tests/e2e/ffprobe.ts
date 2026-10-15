@@ -46,7 +46,9 @@ function parseStream(raw: unknown): ProbedStream {
 export function probeStreams(file: string): ProbedStream[] {
 	const ffprobe = bundledFfprobePath()
 	const dir = path.dirname(ffprobe)
-	const env = {...process.env, LD_LIBRARY_PATH: `${dir}${path.delimiter}${process.env.LD_LIBRARY_PATH ?? ''}`}
+	// Same rule as the app's ffmpeg spawns: only Linux builds ship shared libs.
+	const env: NodeJS.ProcessEnv = {...process.env}
+	if (process.platform === 'linux') env.LD_LIBRARY_PATH = `${dir}${path.delimiter}${process.env.LD_LIBRARY_PATH ?? ''}`
 	const out = execFileSync(ffprobe, ['-v', 'error', '-show_entries', 'stream=codec_type,codec_name:stream_tags:stream_disposition=attached_pic', '-of', 'json', file], {env, encoding: 'utf8'})
 	const parsed: unknown = JSON.parse(out)
 	if (!isRecord(parsed) || !Array.isArray(parsed.streams)) throw new Error(`unexpected ffprobe output: ${out}`)

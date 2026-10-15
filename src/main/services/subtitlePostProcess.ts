@@ -197,16 +197,20 @@ export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath
 	const tempPath = `${stem}.muxing.${EMBED_CONTAINER_EXT}`
 	const coverTempPath = `${stem}.muxing-cover.jpg`
 
-	let coverPath: string | undefined
-	if (opts.keepCoverArt) {
-		const extracted = await runFfmpeg(opts.ffmpegPath, buildCoverExtractArgs(opts.videoPath, coverTempPath), opts.onSpawn)
-		if (extracted.ok) coverPath = coverTempPath
-		else logger.warn('subtitle mux: no cover art to keep', {jobId: opts.jobId, stderrTail: extracted.stderrTail})
+	let args: string[] = []
+	let muxed: {ok: boolean; stderrTail: string}
+	try {
+		let coverPath: string | undefined
+		if (opts.keepCoverArt) {
+			const extracted = await runFfmpeg(opts.ffmpegPath, buildCoverExtractArgs(opts.videoPath, coverTempPath), opts.onSpawn)
+			if (extracted.ok) coverPath = coverTempPath
+			else logger.warn('subtitle mux: no cover art to keep', {jobId: opts.jobId, stderrTail: extracted.stderrTail})
+		}
+		args = buildSubtitleEmbedArgs({videoPath: opts.videoPath, subtitleTracks: tracks, coverPath, outputPath: tempPath})
+		muxed = await runFfmpeg(opts.ffmpegPath, args, opts.onSpawn)
+	} finally {
+		if (opts.keepCoverArt) await unlink(coverTempPath).catch(() => {})
 	}
-
-	const args = buildSubtitleEmbedArgs({videoPath: opts.videoPath, subtitleTracks: tracks, coverPath, outputPath: tempPath})
-	const muxed = await runFfmpeg(opts.ffmpegPath, args, opts.onSpawn)
-	if (opts.keepCoverArt) await unlink(coverTempPath).catch(() => {})
 
 	if (!muxed.ok) {
 		logger.error('subtitle mux: ffmpeg failed or cancelled', {jobId: opts.jobId, args, stderrTail: muxed.stderrTail})

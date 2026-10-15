@@ -117,6 +117,17 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(muxArgs).not.toContain('-attach')
 	})
 
+	it('keepCoverArt and the mux spawn throws → the cover copy is still removed', async () => {
+		vi.mocked(spawnFFmpeg)
+			.mockReturnValueOnce(makeFakeFFmpeg(0) as never)
+			.mockImplementationOnce(() => {
+				throw new Error('spawn EACCES')
+			})
+
+		await expect(muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt'], requestedLangs: ['en'], keepCoverArt: true, onSpawn: vi.fn(), jobId: JOB_ID})).rejects.toThrow('spawn EACCES')
+		expect(unlink).toHaveBeenCalledWith('/tmp/video.muxing-cover.jpg')
+	})
+
 	it('keepCoverArt=false → a single ffmpeg run, no cover step', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 
