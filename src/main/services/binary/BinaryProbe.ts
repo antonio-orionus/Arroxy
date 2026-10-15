@@ -2,10 +2,7 @@ import {execFile} from 'node:child_process'
 import {constants as fsConstants} from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-import {promisify} from 'node:util'
 import type {DependencyFailure, DependencyId} from '@shared/types.js'
-
-const execFileAsync = promisify(execFile)
 
 // ffmpeg/ffprobe ship inside the app bundle and answer `-version` in ~20ms.
 const PROBE_TIMEOUT_MS = 30_000
@@ -26,9 +23,10 @@ const YT_DLP_PROBE_TIMEOUT_MS = 120_000
 // waiting the full budget on each one turns a 2-minute stall into an 8-minute
 // one on exactly the machines that are already struggling.
 const SHORT_LEASH_PROBE_TIMEOUT_MS = 5_000
-// `where`/`which` answer in milliseconds; a lookup still running after this has
-// stalled (a loaded Windows host can hang process creation), and an unbounded
-// one would hold binary resolution, and the splash, with it.
+// A PATH scan is a few dozen stats and answers in milliseconds; one still
+// running after this is stuck on an unreachable entry (an offline network
+// share), and an unbounded one would hold binary resolution, and the splash,
+// with it.
 const PATH_LOOKUP_TIMEOUT_MS = 10_000
 
 // 'full' is the ordinary budget. 'shortLeash' applies after an environment-fatal
@@ -159,37 +157,62 @@ export async function probeBinary(filePath: string, args: string[], timeoutMs: n
 	})
 }
 
-// Discover binaries on PATH. On Windows uses `where.exe`; on POSIX uses `which`.
-// Returns absolute paths in PATH order. Empty array on failure.
-export async function whereOnPath(name: string, signal?: AbortSignal): Promise<string[]> {
-	const found: string[] = []
+// Absolute PATH entries only. `where.exe` also searches the working directory
+// first, and a relative or empty entry resolves against it: either lets a
+// binary planted next to the process shadow the real one.
+function pathDirectories(rawPath: string | undefined): string[] {
+	return (rawPath ?? '')
+		.split(path.delimiter)
+		.map(entry => entry.replace(/^"(.*)"$/, '$1'))
+		.filter(entry => path.isAbsolute(entry))
+}
+
+async function isRunnableFile(candidate: string): Promise<boolean> {
 	try {
-		const tool = process.platform === 'win32' ? 'where' : 'which'
-		const args = process.platform === 'win32' ? [name] : ['-a', name]
-		const {stdout} = await execFileAsync(tool, args, {windowsHide: true, signal, timeout: PATH_LOOKUP_TIMEOUT_MS})
-		found.push(
-			...stdout
-				.split(/\r?\n/)
-				.map(line => line.trim())
-				.filter(line => line.length > 0)
-		)
-	} catch {
-		// PATH lookup failed; macOS GUI apps often miss Homebrew's bin dirs.
+		if (!(await fsPromises.stat(candidate)).isFile()) return false
+	} catch (error) {
+		// App Execution Aliases (WindowsApps\winget.exe) are reparse points that
+		// stat refuses with EACCES although Windows launches them; access sees them.
+		const aliasRefusal = process.platform === 'win32' && error instanceof Error && 'code' in error && error.code === 'EACCES'
+		if (!aliasRefusal) return false
 	}
+	return isExecutable(candidate)
+}
 
-	const fallbackCandidates = fallbackPathCandidates(name)
-	const fallbackResults = await Promise.all(
-		fallbackCandidates.map(async candidate => {
-			try {
-				await fsPromises.access(candidate)
-				return candidate
-			} catch {
-				// absent fallback path
-				return null
-			}
-		})
+// Resolves when `work` settles, `timeoutMs` passes, or `signal` aborts, whichever
+// comes first. Never rejects; `work` must not either.
+async function settleWithin(work: Promise<unknown>, timeoutMs: number, signal?: AbortSignal): Promise<void> {
+	if (signal?.aborted) return
+	let timer: NodeJS.Timeout | undefined
+	const stop = new AbortController()
+	const cutoff = new Promise<void>(resolve => {
+		timer = setTimeout(resolve, timeoutMs)
+		signal?.addEventListener('abort', () => resolve(), {once: true, signal: stop.signal})
+	})
+	try {
+		await Promise.race([work, cutoff])
+	} finally {
+		clearTimeout(timer)
+		stop.abort()
+	}
+}
+
+// Discover binaries on PATH, then in the platform's fallback locations (macOS
+// GUI apps often miss Homebrew's bin dirs). Scans in-process rather than
+// spawning `where`/`which`, whose process creation can stall on a loaded
+// Windows host. Returns absolute paths in that order; a stalled entry is
+// dropped at the deadline and the matches that answered are kept.
+export async function whereOnPath(name: string, signal?: AbortSignal): Promise<string[]> {
+	const candidates = [...pathDirectories(process.env.PATH).map(dir => path.join(dir, name)), ...fallbackPathCandidates(name)]
+	const matches: Array<string | null> = candidates.map(() => null)
+	await settleWithin(
+		Promise.all(
+			candidates.map(async (candidate, index) => {
+				if (await isRunnableFile(candidate)) matches[index] = candidate
+			})
+		),
+		PATH_LOOKUP_TIMEOUT_MS,
+		signal
 	)
-	found.push(...fallbackResults.filter((candidate): candidate is string => candidate !== null))
-
-	return [...new Set(found)]
+	return [...new Set(matches.filter((match): match is string => match !== null))]
 }
