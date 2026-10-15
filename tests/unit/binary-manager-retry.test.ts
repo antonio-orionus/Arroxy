@@ -28,14 +28,13 @@ function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<st
 	return {materialize: vi.fn(async candidate => ({executablePath: await run(candidate), cacheKey: `${candidate.id}-${candidate.channel}-${candidate.provider}`, metadataPath: '/metadata.json', manifest: candidate}))}
 }
 
-// Only the PATH-fallback tests below touch the real system PATH; the rest are
-// about the manifest and cache chain, and a real `where`/`which` spawn here
-// made them hang on a loaded Windows runner.
+// These tests are about the manifest and cache chain; a real `where`/`which`
+// spawn here made them hang on a loaded Windows runner.
 const noSystemPath = async (): Promise<string[]> => []
 
-async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>; realSystemPath?: boolean} = {}): Promise<BinaryManager> {
+async function makeMgr(options: {entries?: RuntimeBinaryManifestEntry[]; materialize?: (candidate: RuntimeBinaryManifestEntry) => Promise<string>} = {}): Promise<BinaryManager> {
 	const dir = await tempDir()
-	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider(options.entries ?? []), runtimeBinaryMaterializer: materializer(options.materialize ?? (async candidate => `/managed/${candidate.id}-${candidate.channel}-${candidate.provider}`)), pathLookup: options.realSystemPath ? undefined : noSystemPath})
+	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider(options.entries ?? []), runtimeBinaryMaterializer: materializer(options.materialize ?? (async candidate => `/managed/${candidate.id}-${candidate.channel}-${candidate.provider}`)), pathLookup: noSystemPath})
 }
 
 function stubProbe(mgr: BinaryManager, options: {acceptSystemPath?: boolean; acceptManaged?: boolean} = {}): void {
@@ -156,38 +155,31 @@ describe('BinaryManager manifest resolution', () => {
 	})
 
 	it('falls back to ffmpeg and ffprobe on PATH when bundled binaries are unusable', async () => {
-		// realpath because Windows hands back an 8.3 short path (RUNNER~1) from the
-		// temp dir, while the resolved binary path comes back long-form — the two
-		// name the same directory but never compare equal as strings.
-		const temp = await fs.realpath(await tempDir('bm-path-'))
+		// PATH lookup is injected: a real `where` spawn stalled past its timeout on a
+		// loaded Windows runner, came back empty, and left the bundled rejection as
+		// the final answer. Finding names on PATH is whereOnPath's contract, tested
+		// on its own; this test owns the fallback order.
+		const ffmpegPath = path.join(os.tmpdir(), 'bm-path', 'ffmpeg')
+		const ffprobePath = path.join(os.tmpdir(), 'bm-path', 'ffprobe')
+		const onPath: Record<string, string> = {ffmpeg: ffmpegPath, 'ffmpeg.exe': ffmpegPath, ffprobe: ffprobePath, 'ffprobe.exe': ffprobePath}
+		const pathLookup = vi.fn(async (name: string) => (onPath[name] ? [onPath[name]] : []))
+		const mgr = new BinaryManager(await tempDir(), {runtimeBinaryIndex: indexProvider([]), runtimeBinaryMaterializer: materializer(async () => '/unused'), pathLookup})
+		vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
+			if (source.kind !== 'systemPath') {
+				attempts.push({source, failure: {kind: 'spawn_failed', message: 'bundled disabled for test'}})
+				return {kind: 'rejected'}
+			}
+			attempts.push({source})
+			return {kind: 'accepted', diagnostic: {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}}
+		})
+
+		const result = await mgr.resolveFFmpegPair()
+
 		const exeExt = process.platform === 'win32' ? '.exe' : ''
-		const ffmpegPath = path.join(temp, `ffmpeg${exeExt}`)
-		const ffprobePath = path.join(temp, `ffprobe${exeExt}`)
-		await fs.writeFile(ffmpegPath, 'fake-ffmpeg')
-		await fs.writeFile(ffprobePath, 'fake-ffprobe')
-		if (process.platform !== 'win32') {
-			await fs.chmod(ffmpegPath, 0o755)
-			await fs.chmod(ffprobePath, 0o755)
-		}
-		const originalPath = process.env.PATH
-		process.env.PATH = `${temp}${path.delimiter}${originalPath ?? ''}`
-		try {
-			const mgr = await makeMgr({realSystemPath: true})
-			vi.spyOn(mgr as unknown as {probeAndAccept: (id: DependencyId, source: DependencySource, p: string, attempts: unknown[]) => Promise<ProbeOutcome>}, 'probeAndAccept').mockImplementation(async (id, source, candidatePath, attempts) => {
-				if (source.kind !== 'systemPath') {
-					attempts.push({source, failure: {kind: 'spawn_failed', message: 'bundled disabled for test'}})
-					return {kind: 'rejected'}
-				}
-				attempts.push({source})
-				return {kind: 'accepted', diagnostic: {id, state: 'runnable', source, resolvedPath: candidatePath, attempts: attempts as never}}
-			})
-
-			const result = await mgr.resolveFFmpegPair()
-
-			expect(result.ffmpeg.source).toEqual({kind: 'systemPath', path: ffmpegPath})
-			expect(result.ffprobe.source).toEqual({kind: 'systemPath', path: ffprobePath})
-		} finally {
-			process.env.PATH = originalPath
-		}
+		expect(pathLookup.mock.calls.map(([name]) => name).sort()).toEqual([`ffmpeg${exeExt}`, `ffprobe${exeExt}`])
+		expect(result.ffmpeg.source).toEqual({kind: 'systemPath', path: ffmpegPath})
+		expect(result.ffprobe.source).toEqual({kind: 'systemPath', path: ffprobePath})
+		expect(result.ffmpeg.attempts.map(attempt => attempt.source.kind)).toEqual(['bundled', 'systemPath'])
+		expect(result.ffprobe.attempts.map(attempt => attempt.source.kind)).toEqual(['bundled', 'systemPath'])
 	})
 })
