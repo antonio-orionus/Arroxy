@@ -3,3 +3,6 @@ linker = "isolated"
 # Block packages younger than 7 days (supply-chain protection).
 # Mirrors npm `minimum-release-age` (minutes) and pnpm `minimumReleaseAge` (minutes).
 minimumReleaseAge = 604800
+# Never fetch a package at import time. Auto-install bypasses bun.lock and the
+# release-age gate above, and it hid scripts that ran before `bun install`.
+auto = "disable"
