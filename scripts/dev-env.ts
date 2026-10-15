@@ -661,7 +661,7 @@ async function runLauncher(args: string[]): Promise<void> {
 	if (launcherArgs.length > 0) throw new Error(`Unexpected arguments for ${launcher}: ${launcherArgs.join(' ')}`)
 
 	if (launcher === 'mock') {
-		await spawnChecked(commandName('bun'), ['run', 'vite', 'src/renderer', '--host', env.rendererHost, '--port', String(env.rendererPort), '--strictPort', '--config', 'src/renderer/vite.config.mjs', '--mode', 'browser-mock'], {cwd: repoRoot, env: baseEnv})
+		await spawnChecked(commandName('bun'), ['run', 'vp', 'dev', 'src/renderer', '--host', env.rendererHost, '--port', String(env.rendererPort), '--strictPort', '--config', 'src/renderer/vite.config.mjs', '--mode', 'browser-mock'], {cwd: repoRoot, env: baseEnv})
 		return
 	}
 

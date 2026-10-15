@@ -24,5 +24,5 @@ export default defineConfig({
 	workers: 1,
 	reporter: 'list',
 	use: {baseURL, headless: true, viewport: {width: 900, height: 760}, deviceScaleFactor: 2, colorScheme: 'dark'},
-	webServer: {command: `bun run vite src/renderer --host 127.0.0.1 --port ${port} --strictPort --config src/renderer/vite.config.mjs --mode browser-mock`, url: baseURL, reuseExistingServer: true, timeout: 30_000}
+	webServer: {command: `bun run vp dev src/renderer --host 127.0.0.1 --port ${port} --strictPort --config src/renderer/vite.config.mjs --mode browser-mock`, url: baseURL, reuseExistingServer: true, timeout: 30_000}
 })

@@ -297,7 +297,7 @@ Only bypass the wrapper when you intentionally need a custom Vite invocation, su
 
 ```bash
 # Fallback only. From project root — uses src/renderer/vite.config.mjs (aliases + Tailwind + React)
-bunx vite src/renderer --port 5173 --mode browser-mock
+bunx vp dev src/renderer --port 5173 --mode browser-mock
 ```
 
 The renderer's `browserMock.ts` stubs `window.appApi` with simulated downloads, formats, settings when Vite runs in explicit `browser-mock` mode — no Electron needed. Electron dev and packaged builds must use the real preload bridge.
