@@ -23,7 +23,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | বিনামূল্যে, কোনো প্রিমিয়াম টায়ার নেই |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | ওপেন সোর্স |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | শুধুমাত্র লোকাল প্রসেসিং |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| কোনো লগইন বা কুকি এক্সপোর্ট নেই |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | কোনো ব্যবহারের সীমা নেই |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | ক্রস-প্ল্যাটফর্ম ডেস্কটপ অ্যাপ |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | সাবটাইটেল + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy একটি কাজের জন্য তৈরি: URL পেস্ট করুন, একটি পরিষ্কার লোকাল ফাইল পান। কোনো অ্যাকাউন্ট নেই, কোনো আপসেল নেই, কোনো ডেটা সংগ্রহ নেই।
+Arroxy একটি কাজের জন্য তৈরি: URL পেস্ট করুন, একটি পরিষ্কার লোকাল ফাইল পান। কোনো আপসেল নেই, কোনো ডেটা সংগ্রহ নেই।
 
 ---
 
@@ -338,8 +337,8 @@ YouTube যা দেয় সব কিছু: 4K UHD (2160p), 1440p, 1080p, 7
 **আমি কি শুধু অডিও MP3 হিসেবে বের করতে পারব?**
 হ্যাঁ। format মেনু থেকে *শুধু অডিও* বেছে নিন, তারপর MP3, M4A/AAC, Opus বা WAV নির্বাচন করুন।
 
-**আমার কি YouTube অ্যাকাউন্ট বা কুকিজ দরকার?**
-ডিফল্টভাবে, না — Arroxy YouTube অ্যাকাউন্ট, লগইন বা কুকি এক্সপোর্ট ছাড়াই কাজ করে। যে ভিডিওতে অ্যাকাউন্ট লাগে, যেমন প্রাইভেট, শুধুমাত্র সদস্যদের জন্য বা বয়স-সীমাবদ্ধ ভিডিও, তার জন্য Explore ট্যাবে একবার সাইন ইন করুন: Arroxy এখনও সাইন-আউট অবস্থাতেই ডাউনলোড করে এবং অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে ডাউনলোড ব্যর্থ হলেই কেবল সেই সাইন-ইন ব্যবহার করে। কুকি সেটিংসে এটিই **Explore সাইন-ইন** বিকল্প, যা তালিকার প্রথমে এবং "প্রস্তাবিত" চিহ্নিত; কুকি বন্ধ থাকলে প্রথমবার Explore খোলার সময় Arroxy নিজেই এটি বেছে নেয়। কুকি ফাইল বা আপনার ব্রাউজারের কুকিও কাজ করে। যেভাবেই হোক, yt-dlp-এর উইকি উল্লেখ করে যে [কুকি-ভিত্তিক অটোমেশন একটি Google অ্যাকাউন্টকে ফ্ল্যাগ করতে পারে](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); তাই সেকেন্ডারি অ্যাকাউন্টই নিরাপদ পছন্দ।
+**YouTube অ্যাকাউন্ট লাগে এমন ভিডিও আমি কীভাবে ডাউনলোড করব?**
+Explore ট্যাবে একবার সাইন ইন করুন। এরপর Arroxy আপনার অ্যাকাউন্টে দেখা যায় এমন প্রাইভেট ও শুধু-সদস্যদের ভিডিও, বয়স যাচাই করা অ্যাকাউন্ট হলে বয়স-সীমাবদ্ধ ভিডিও, এবং আপনার Watch Later ও Liked তালিকা ডাউনলোড করতে পারে। অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে ডাউনলোড ব্যর্থ হলেই কেবল Arroxy সেই সাইন-ইন ব্যবহার করে; বাকি সব আগের মতোই ডাউনলোড হয়। কুকি সেটিংসে এটিই **Explore সাইন-ইন** বিকল্প, যা তালিকার প্রথমে এবং "প্রস্তাবিত" চিহ্নিত, আর প্রথমবার Explore খোলার সময় Arroxy নিজেই এটি বেছে নেয়। yt-dlp-এর উইকি উল্লেখ করে যে [সাইন-ইন করা অটোমেশন একটি Google অ্যাকাউন্টকে ফ্ল্যাগ করতে পারে](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); তাই সেকেন্ডারি অ্যাকাউন্টই নিরাপদ পছন্দ।
 
 **YouTube কিছু পরিবর্তন করলেও কি এটি কাজ করতে থাকবে?**
 yt-dlp চালুর সময় স্বয়ংক্রিয়ভাবে আপডেট হয়, এবং YouTube কিছু পরিবর্তন করলে Arroxy দ্রুত ফিক্স পাঠায়। YouTube যখন আপনি বট নন তা নিশ্চিত করতে বলে, তখন আপনি Explore-এ সাইন ইন করে থাকলে Arroxy আপনার Explore সাইন-ইনও চেষ্টা করে, আর কুকি সেটিংসে ফাইল বা ব্রাউজার থেকে কুকিও ব্যবহার করা যায়।

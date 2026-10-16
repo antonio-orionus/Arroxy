@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | Бесплатно, без премијум нивоа |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Отворени код |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Само локална обрада |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Без пријаве или извоза колачића |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Без ограничења употребе |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Кроссплатформна десктоп апликација |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Титлови + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy је направљен за једну ствар: налепите URL, добијете чист локални фајл. Без налога, без додатне продаје, без прикупљања података.
+Arroxy је направљен за једну ствар: налепите URL, добијете чист локални фајл. Без додатне продаје, без прикупљања података.
 
 ---
 
@@ -338,8 +337,8 @@ Explore има сопствену пријаву, одвојену од ваше
 **Могу ли извући само аудио као MP3?**
 Da. Izaberi *samo audio* u meniju formata, pa zatim MP3, M4A/AAC, Opus ili WAV.
 
-**Да ли треба YouTube налог или колачићи?**
-Подразумевано, не — Arroxy ради без YouTube налога, пријаве или извоза колачића. За видеа која захтевају налог, попут приватних, доступних само члановима или са старосним ограничењем, пријавите се једном у картици Explore: Arroxy и даље преузима без пријаве и користи ту пријаву само када преузимање не успе из разлога који налог може да реши. То је опција **Explore пријава**, наведена прва и означена као „Препоручено“ у подешавањима колачића; Arroxy је сам бира када први пут отворите Explore ако су колачићи били искључени. Раде и фајл са колачићима или колачићи вашег претраживача. У сваком случају, документација yt-dlp-а напомиње да [аутоматизација заснована на колачићима може означити ваш Google налог](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), па је безбедније користити помоћни налог.
+**Како да преузмем видеа за која је потребан YouTube налог?**
+Пријавите се једном у картици Explore. Arroxy тада може да преузима приватна видеа и видеа само за чланове које ваш налог може да гледа, видеа са старосним ограничењем ако је налог верификован по узрасту, као и ваше листе „Гледај касније“ и „Свиђа ми се“. Пријаву користи само када преузимање не успе из разлога који налог може да реши; све остало се преузима као и раније. То је опција **Explore пријава**, наведена прва и означена као „Препоручено“ у подешавањима колачића, а Arroxy је сам бира када први пут отворите Explore. Документација yt-dlp-а напомиње да [аутоматизација са пријављеним налогом може означити ваш Google налог](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), па је безбедније користити помоћни налог.
 
 **Хоће ли наставити да ради кад YouTube нешто промени?**
 yt-dlp се аутоматски ажурира при покретању, а Arroxy брзо испоручује исправке кад YouTube нешто промени. Када YouTube затражи да потврдите да нисте бот, Arroxy покушава и са вашом Explore пријавом ако сте се тамо пријавили, а колачићи из фајла или претраживача доступни су у подешавањима колачића.

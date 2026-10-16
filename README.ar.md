@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | مجاني، بدون مستوى مميز |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | مفتوح المصدر |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | معالجة محلية فقط |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| لا تسجيل دخول ولا تصدير كوكيز |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | لا حدود للاستخدام |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | تطبيق سطح مكتب متعدد الأنظمة |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | ترجمات + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy مبني لغرض واحد: الصق رابطاً، احصل على ملف محلي نظيف. لا حسابات، لا عروض ترويجية، لا جمع بيانات.
+Arroxy مبني لغرض واحد: الصق رابطاً، احصل على ملف محلي نظيف. لا عروض ترويجية، لا جمع بيانات.
 
 ---
 
@@ -338,8 +337,8 @@ Arroxy مبني لغرض واحد: الصق رابطاً، احصل على مل�
 **هل يمكنني استخراج الصوت فقط بصيغة MP3؟**
 نعم. اختر *صوت فقط* من قائمة الصيغ ثم اختر MP3 أو M4A/AAC أو Opus أو WAV.
 
-**هل أحتاج إلى حساب يوتيوب أو كوكيز؟**
-افتراضياً، لا — يعمل Arroxy دون حساب YouTube أو تسجيل دخول أو تصدير كوكيز. للفيديوهات التي تحتاج إلى حساب، مثل الخاصة أو المخصَّصة للأعضاء أو المقيَّدة بالعمر، سجّل الدخول مرة واحدة في تبويب Explore: ما يزال Arroxy ينزّل دون تسجيل دخول ولا يستخدم هذا الدخول إلا عندما يفشل تنزيل لسبب يمكن لحساب إصلاحه. هذا هو خيار **تسجيل الدخول عبر Explore**، المدرج أولاً والموسوم بـ«موصى به» في إعدادات الكوكيز؛ ويختاره Arroxy لك أول مرة تفتح فيها Explore إذا كانت الكوكيز متوقفة. كما يصلح ملف كوكيز أو كوكيز متصفحك. وفي الحالتين، يشير ويكي yt-dlp إلى أن [الأتمتة المعتمدة على الكوكيز قد تُعلِّم حساب Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)، لذا فالحساب الثانوي هو الخيار الأكثر أماناً.
+**كيف أنزّل الفيديوهات التي تحتاج إلى حساب YouTube؟**
+سجّل الدخول مرة واحدة في تبويب Explore. عندها يستطيع Arroxy تنزيل الفيديوهات الخاصة وفيديوهات الأعضاء فقط التي يمكن لحسابك مشاهدتها، والفيديوهات المقيَّدة بالعمر إذا كان عمر الحساب موثَّقاً، وقائمتَي «المشاهدة لاحقاً» و«الإعجابات». ولا يستخدم هذا الدخول إلا عندما يفشل تنزيل لسبب يمكن لحساب إصلاحه؛ أما كل ما عدا ذلك فيُنزَّل كما كان. هذا هو خيار **تسجيل الدخول عبر Explore**، المدرج أولاً والموسوم بـ«موصى به» في إعدادات الكوكيز، ويختاره Arroxy لك أول مرة تفتح فيها Explore. يشير ويكي yt-dlp إلى أن [الأتمتة بحساب مسجَّل الدخول قد تُعلِّم حساب Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)، لذا فالحساب الثانوي هو الخيار الأكثر أماناً.
 
 **هل سيستمر في العمل عند تغيير يوتيوب لشيء ما؟**
 يُحدَّث yt-dlp تلقائياً عند الإطلاق، ويُصدر Arroxy إصلاحات بسرعة عندما يُغيِّر YouTube شيئاً ما. وعندما يطلب YouTube تأكيد أنك لست روبوتاً، يجرّب Arroxy أيضاً تسجيل دخولك في Explore إن كنت قد سجّلت الدخول فيه، كما تتوفر كوكيز من ملف أو من متصفحك في إعدادات الكوكيز.

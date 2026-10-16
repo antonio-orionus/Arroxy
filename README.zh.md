@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | 免费，无付费版 |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | 开源 |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | 仅本地处理 |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| 无需登录或导出 Cookie |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | 无使用上限 |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | 跨平台桌面应用 |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | 字幕 + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号、无追加销售、无数据收集。
+Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无追加销售、无数据收集。
 
 ---
 
@@ -340,8 +339,8 @@ YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p
 **能将音频提取为 MP3 吗？**
 可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。
 
-**需要 YouTube 账号或 Cookie 吗？**
-默认不需要 — Arroxy 无需 YouTube 账号、登录或导出 Cookie 即可工作。对于需要账号的视频（例如私享、仅会员可见或年龄限制的视频），在 Explore 标签页中登录一次即可：Arroxy 仍在未登录状态下下载，只有当下载因账号可解决的原因失败时才使用该登录。这就是 Cookie 设置中的 **Explore 登录** 选项，排在第一位并标有“推荐”；如果 Cookie 原本是关闭的，首次打开 Explore 时 Arroxy 会为你选中它。Cookie 文件或浏览器的 Cookie 也可以使用。无论哪种方式，yt-dlp 的 wiki 都指出[基于 Cookie 的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用备用账号是更安全的选择。
+**如何下载需要 YouTube 账号的视频？**
+在 Explore 标签页中登录一次。之后 Arroxy 就能下载你的账号可观看的私享和会员专属视频、已通过年龄验证的账号可看的年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表。只有当下载因账号可解决的原因失败时才会使用该登录，其他下载与之前一样。这就是 Cookie 设置中的 **Explore 登录** 选项，排在第一位并标有“推荐”，首次打开 Explore 时 Arroxy 会为你选中它。yt-dlp 的 wiki 指出[已登录状态下的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用备用账号是更安全的选择。
 
 **YouTube 更新后还能继续使用吗？**
 yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。YouTube 要求确认你不是机器人时，如果你已在 Explore 中登录，Arroxy 也会尝试使用该登录；Cookie 设置中还可使用来自文件或浏览器的 Cookie。

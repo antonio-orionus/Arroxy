@@ -23,7 +23,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ Perbandingan berdampingan dengan alternatif yang paling umum:
 | Gratis, tidak ada tingkat premium |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Sumber terbuka |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Hanya pemrosesan lokal |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Tidak ada login atau ekspor cookie |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Tidak ada batasan penggunaan |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Aplikasi desktop lintas platform |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Subtitle + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Tidak ada akun, tidak ada upsell, tidak ada pengumpulan data.
+Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Tidak ada upsell, tidak ada pengumpulan data.
 
 ---
 
@@ -340,8 +339,8 @@ Apa pun yang disajikan YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, 
 **Bisakah saya mengekstrak audionya saja sebagai MP3?**
 Ya. Pilih *audio saja* di menu format dan pilih MP3, M4A/AAC, Opus, atau WAV.
 
-**Apakah saya memerlukan akun atau cookie YouTube?**
-Secara default, tidak — Arroxy berfungsi tanpa akun YouTube, login, atau ekspor cookie. Untuk video yang memerlukan akun, seperti video privat, khusus anggota, atau dengan batasan usia, masuklah sekali di tab Explore: Arroxy tetap mengunduh tanpa masuk dan hanya memakai login itu saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Ini adalah pilihan **Login Explore**, tercantum pertama dan bertanda Disarankan di setelan cookie; Arroxy memilihnya untuk Anda saat pertama kali Anda membuka Explore jika cookie sebelumnya nonaktif. File cookie atau cookie browser Anda juga bisa dipakai. Bagaimanapun, wiki yt-dlp mencatat bahwa [otomatisasi berbasis cookie dapat menandai akun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), jadi akun sekunder adalah pilihan yang lebih aman.
+**Bagaimana cara mengunduh video yang memerlukan akun YouTube?**
+Masuklah sekali di tab Explore. Arroxy kemudian dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Login itu hanya dipakai saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun; yang lain diunduh seperti biasa. Ini adalah pilihan **Login Explore**, tercantum pertama dan bertanda Disarankan di setelan cookie, dan Arroxy memilihnya untuk Anda saat pertama kali Anda membuka Explore. Wiki yt-dlp mencatat bahwa [otomatisasi dengan akun yang sudah masuk dapat menandai akun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), jadi akun sekunder adalah pilihan yang lebih aman.
 
 **Apakah ini akan tetap berfungsi ketika YouTube mengubah sesuatu?**
 yt-dlp diperbarui secara otomatis saat peluncuran, dan Arroxy segera mengirimkan perbaikan ketika YouTube mengubah sesuatu. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda jika Anda sudah masuk di sana, dan cookie dari file atau browser tersedia di setelan cookie.

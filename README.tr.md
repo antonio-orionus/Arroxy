@@ -23,7 +23,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ En yaygın alternatiflerle yan yana karşılaştırma:
 | Ücretsiz, premium katman yok |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Açık kaynak |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Yalnızca yerel işleme |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Giriş veya çerez dışa aktarma yok |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Kullanım sınırı yok |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Platformlar arası masaüstü uygulaması |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Altyazılar + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosya al. Hesap yok, ek satış yok, veri toplama yok.
+Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosya al. Ek satış yok, veri toplama yok.
 
 ---
 
@@ -340,8 +339,8 @@ YouTube ne sunuyorsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızc
 **Yalnızca sesi MP3 olarak çıkarabilir miyim?**
 Evet. Biçim menüsünde *yalnızca ses* seç ve MP3, M4A/AAC, Opus veya WAV tercih et.
 
-**YouTube hesabı veya çerez gerekir mi?**
-Varsayılan olarak hayır — Arroxy YouTube hesabı, giriş veya çerez dışa aktarma olmadan çalışır. Özel, üyelere özel veya yaş kısıtlamalı videolar gibi hesap gerektiren videolar için Explore sekmesinde bir kez giriş yap: Arroxy yine de oturum açmadan indirir ve bu girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir; çerezler kapalıysa Explore'u ilk açtığında Arroxy bunu senin için seçer. Bir çerez dosyası veya tarayıcının çerezleri de çalışır. Her durumda yt-dlp wiki'si [çerez tabanlı otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.
+**Hesap gerektiren YouTube videolarını nasıl indiririm?**
+Explore sekmesinde bir kez giriş yap. Arroxy bunun ardından hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır; geri kalan her şey eskisi gibi iner. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir ve Explore'u ilk açtığında Arroxy bunu senin için seçer. yt-dlp wiki'si [oturum açılmış otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.
 
 **YouTube bir şey değiştirdiğinde çalışmaya devam eder mi?**
 yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. YouTube robot olmadığını doğrulamanı istediğinde, Explore'da giriş yaptıysan Arroxy Explore girişini de dener; bir dosyadaki veya tarayıcındaki çerezler de çerez ayarlarında kullanılabilir.

@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | Безкоштовно, без преміум-рівня |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Відкритий код |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Лише локальна обробка |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Без логіну та експорту кук |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Без обмежень використання |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Крос-платформний настільний застосунок |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Субтитри + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy створений для однієї задачі: вставте URL — отримайте чистий локальний файл. Без акаунтів, без апселів, без збору даних.
+Arroxy створений для однієї задачі: вставте URL — отримайте чистий локальний файл. Без апселів, без збору даних.
 
 ---
 
@@ -340,8 +339,8 @@ Explore має власний вхід, окремий від вашого бр�
 **Чи можна витягти лише аудіо як MP3?**
 Так. Обери *лише аудіо* в меню форматів, а потім MP3, M4A/AAC, Opus або WAV.
 
-**Чи потрібен акаунт YouTube або куки?**
-За замовчуванням — ні. Arroxy працює без акаунта YouTube, без логіну та без експорту кук. Для відео, що потребують акаунта (приватних, лише для учасників або з віковим обмеженням), увійдіть один раз на вкладці Explore: Arroxy, як і раніше, завантажує без входу й використовує цей вхід, лише коли завантаження зривається з причини, яку може вирішити акаунт. Це варіант **Вхід через Explore**: він стоїть першим і позначений «Рекомендовано» в налаштуваннях cookies; Arroxy обирає його сам, коли ви вперше відкриваєте Explore, якщо cookies були вимкнені. Підійдуть також файл cookies або cookies вашого браузера. У будь-якому разі у вікі yt-dlp зазначено, що [автоматизація на основі кук може позначити акаунт Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), тож безпечніше використовувати другий акаунт.
+**Як завантажувати відео, для яких потрібен акаунт YouTube?**
+Увійдіть один раз на вкладці Explore. Після цього Arroxy зможе завантажувати приватні відео та відео лише для учасників, які доступні вашому акаунту, відео з віковим обмеженням (якщо акаунт підтверджено за віком), а також ваші списки «Дивитися пізніше» та «Вподобані». Цей вхід використовується, лише коли завантаження зривається з причини, яку може вирішити акаунт; усе інше завантажується як і раніше. Це варіант **Вхід через Explore**: він стоїть першим і позначений «Рекомендовано» в налаштуваннях cookies, а Arroxy обирає його сам, коли ви вперше відкриваєте Explore. У вікі yt-dlp зазначено, що [автоматизація з входом в акаунт може позначити акаунт Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), тож безпечніше використовувати другий акаунт.
 
 **Чи продовжить він працювати, якщо YouTube щось зміниться?**
 yt-dlp автоматично оновлюється під час запуску, а Arroxy оперативно випускає виправлення, коли YouTube щось змінює. Коли YouTube просить підтвердити, що ви не бот, Arroxy також пробує ваш вхід в Explore, якщо ви там увійшли, а cookies з файлу чи браузера доступні в налаштуваннях cookies.

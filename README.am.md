@@ -23,7 +23,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | ነፃ፣ ምንም ፕሪሚየም ደረጃ የለም |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | ምን ኮድ ያለው |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | አካባቢያዊ ሂደት ብቻ |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| ምንም ግባ ወይም ኩኪ ላክ |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | ምንም የአጠቃቀም ወሰን |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | ለሁሉም ዓይነት ሥርዓቶች የሚሠራ የዴስክቶፕ አፕ |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | ንዑስ ርዕሶች + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ይለጥፉ፣ ንጹህ አካባቢያዊ ፋይል ያግኙ። ምንም ሒሳቦች፣ ምንም ሽያጭ፣ ምንም የዳታ ስብስብ።
+Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ይለጥፉ፣ ንጹህ አካባቢያዊ ፋይል ያግኙ። ምንም ሽያጭ፣ ምንም የዳታ ስብስብ።
 
 ---
 
@@ -338,8 +337,8 @@ YouTube የሚሰጣቸው ሁሉ: 4K UHD (2160p)፣ 1440p፣ 1080p፣ 720p፣ 4
 **ድምፁን ብቻ MP3 አድርጎ ማቅረብ ይቻላሉ?**
 አዎ። በፎርማት ሜኑ ውስጥ *ኦዲዮ ብቻ* ምረጥ እና MP3፣ M4A/AAC፣ Opus ወይም WAV ምረጥ።
 
-**YouTube ሒሳብ ወይም ኩኪዎች ያስፈልጉናሉ?**
-በነባሪ፣ አይ — Arroxy ያለ YouTube ሒሳብ፣ ግባ ወይም ኩኪ ማውጣት ይሠራል። እንደ የግል፣ የአባላት-ብቻ ወይም ዕድሜ-የተገደቡ ቪዲዮዎች ሒሳብ ለሚፈልጉ ቪዲዮዎች፣ በExplore ትር ውስጥ አንድ ጊዜ ይግቡ፦ Arroxy አሁንም ሳይገባ ያወርዳል፣ ይህንን መግቢያ የሚጠቀመው ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ ነው። ይህ **Explore መግቢያ** ምርጫ ነው፣ በኩኪ ቅንብሮች ውስጥ መጀመሪያ የተዘረዘረ እና Recommended ተብሎ የተመለከተ፤ ኩኪዎች ጠፍተው ከነበረ Explore ለመጀመሪያ ጊዜ ሲከፍቱ Arroxy ራሱ ይመርጣል። የኩኪ ፋይል ወይም የbrowser ኩኪዎችዎም ይሠራሉ። በሁለቱም መንገድ፣ የ yt-dlp ዊኪ [በኩኪ ላይ የተመሠረተ አውቶሜሽን የ Google ሒሳብን ሊያመለክት እንደሚችል](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) ያስታውቃል፣ ስለዚህ ሁለተኛ ሒሳብ ጥንቃቄ ያለው ምርጫ ነው።
+**YouTube ሒሳብ የሚፈልጉ ቪዲዮዎችን እንዴት አወርዳለሁ?**
+በExplore ትር ውስጥ አንድ ጊዜ ይግቡ። ከዚያ Arroxy ሒሳብዎ ማየት የሚችላቸውን የግል እና የአባላት-ብቻ ቪዲዮዎች፣ ሒሳቡ በዕድሜ ከተረጋገጠ ዕድሜ-የተገደቡ ቪዲዮዎች፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ማውረድ ይችላል። መግቢያውን የሚጠቀመው ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ ነው፤ የቀረው ሁሉ እንደ ቀድሞው ይወርዳል። ይህ **Explore መግቢያ** ምርጫ ነው፣ በኩኪ ቅንብሮች ውስጥ መጀመሪያ የተዘረዘረ እና Recommended ተብሎ የተመለከተ፣ እና Explore ለመጀመሪያ ጊዜ ሲከፍቱ Arroxy ራሱ ይመርጣል። የ yt-dlp ዊኪ [በመግቢያ የሚደረግ አውቶሜሽን የ Google ሒሳብን ሊያመለክት እንደሚችል](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) ያስታውቃል፣ ስለዚህ ሁለተኛ ሒሳብ ጥንቃቄ ያለው ምርጫ ነው።
 
 **YouTube ሲቀያየር አሁንም ይሠራሉ?**
 yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube አንድ ነገር ሲቀይር Arroxy እርማቶችን በፍጥነት ያደርሳሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ፣ እዚያ ከገቡ Arroxy የExplore መግቢያዎን ደግሞ ይሞክራል፣ እና ከፋይል ወይም ከbrowser የሚመጡ ኩኪዎች በኩኪ ቅንብሮች ውስጥ ይገኛሉ።

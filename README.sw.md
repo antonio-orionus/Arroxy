@@ -23,7 +23,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ Ulinganisho wa pamoja na mbadala za kawaida zaidi:
 | Bure, hakuna ngazi ya malipo |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Chanzo wazi |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Usindikaji wa mahali hapo tu |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Hakuna kuingia au kuhamisha vidakuzi |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Hakuna vikwazo vya matumizi |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Programu ya mezani inayofanya kazi kwenye mifumo yote |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Manukuu + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna akaunti, hakuna mauzo ya ziada, hakuna ukusanyaji wa data.
+Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Hakuna mauzo ya ziada, hakuna ukusanyaji wa data.
 
 ---
 
@@ -338,8 +337,8 @@ Chochote YouTube kinatoa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja
 **Je, ninaweza kutoa sauti pekee kama MP3?**
 Ndiyo. Chagua *sauti pekee* kwenye menyu ya fomati kisha uchague MP3, M4A/AAC, Opus au WAV.
 
-**Je, ninahitaji akaunti ya YouTube au vidakuzi?**
-Kwa chaguomsingi, hapana — Arroxy hufanya kazi bila akaunti ya YouTube, kuingia, au kuhamisha vidakuzi. Kwa video zinazohitaji akaunti, kama vile za faragha, za wanachama pekee, au zenye kikomo cha umri, ingia mara moja kwenye kichupo cha Explore: Arroxy bado hupakua bila kuingia na hutumia kuingia huko tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha. Hili ni chaguo la **Kuingia kwa Explore**, lililoorodheshwa kwanza na kuwekewa alama ya Inapendekezwa katika mipangilio ya vidakuzi; Arroxy huliteua kwa ajili yako mara ya kwanza unapofungua Explore ikiwa vidakuzi vilikuwa vimezimwa. Faili ya vidakuzi au vidakuzi vya kivinjari chako pia hufanya kazi. Kwa vyovyote, wiki ya yt-dlp inaeleza kwamba [otomatiki inayotegemea vidakuzi inaweza kuweka alama kwenye akaunti ya Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); kwa hiyo akaunti ya pili ndiyo chaguo salama zaidi.
+**Ninawezaje kupakua video zinazohitaji akaunti ya YouTube?**
+Ingia mara moja kwenye kichupo cha Explore. Kisha Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Hutumia kuingia huko tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha; kila kitu kingine hupakuliwa kama kawaida. Hili ni chaguo la **Kuingia kwa Explore**, lililoorodheshwa kwanza na kuwekewa alama ya Inapendekezwa katika mipangilio ya vidakuzi, na Arroxy huliteua kwa ajili yako mara ya kwanza unapofungua Explore. Wiki ya yt-dlp inaeleza kwamba [otomatiki ya akaunti iliyoingia inaweza kuweka alama kwenye akaunti ya Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); kwa hiyo akaunti ya pili ndiyo chaguo salama zaidi.
 
 **Je, itaendelea kufanya kazi YouTube ikibadilisha kitu?**
 yt-dlp husasishwa kiotomatiki wakati wa uzinduzi, na Arroxy hutuma marekebisho haraka YouTube inapobadilisha kitu. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore ikiwa umeingia huko, na vidakuzi kutoka kwenye faili au kivinjari chako vinapatikana katika mipangilio ya vidakuzi.

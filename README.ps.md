@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | وړیا، هیڅ پریمیم کچه نشته |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | خلاصه سرچینه |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | یوازې ځایي پروسس کول |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| هیڅ ننوتل یا د کوکیز صادرول نشته |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | هیڅ د کارولو سقف نشته |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | کراس-پلیټفارم ډیسکټاپ اپلیکیشن |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | ساب ټایټلونه + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک ځایني فایل ترلاسه کړئ. هیڅ اکاونټونه، هیڅ اضافي پلورنه، هیڅ د معلوماتو راټولونه.
+Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک ځایني فایل ترلاسه کړئ. هیڅ اضافي پلورنه، هیڅ د معلوماتو راټولونه.
 
 ---
 
@@ -338,8 +337,8 @@ Explore خپل sign in ساتي، ستاسو له browser جلا، او Arroxy �
 **ایا کولی شم یوازې اوډیو د MP3 په توګه وباسم؟**
 هو. د format menu کې *یوازې آډیو* وټاکئ او بیا MP3، M4A/AAC، Opus یا WAV غوره کړئ.
 
-**ایا ما ته د YouTube اکاونټ یا کوکیز ته اړتیا ده؟**
-په ډیفالټ کې، نه — Arroxy د YouTube اکاونټ، ننوتلو، یا د کوکیز صادرولو پرته کار کوي. د هغو ویډیوګانو لپاره چې اکاونټ ته اړتیا لري، لکه شخصي، یوازې د غړو یا د عمر محدودیت لرونکې، په Explore ټب کې یو ځل sign in وکړئ: Arroxy لا هم له sign in پرته ډاونلوډ کوي او دا sign in یوازې هغه وخت کاروي چې ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي. دا د **Explore sign in** انتخاب دی، چې د کوکیز په تنظیماتو کې لومړی لیست شوی او Recommended نښه لري؛ که کوکیز بند وي، Arroxy دا لومړی ځل چې Explore پرانیزئ ستاسو لپاره غوره کوي. د کوکیز فایل یا ستاسو د browser کوکیز هم کار کوي. په هر صورت، د yt-dlp ویکي یاد کوي چې [د کوکیز پر بنسټ اتومات کولی شي د ګوګل اکاونټ بیرغ کړي](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)، نو دوهم اکاونټ خوندي انتخاب دی.
+**هغه ویډیوګانې څنګه ډاونلوډ کړم چې د YouTube اکاونټ ته اړتیا لري؟**
+په Explore ټب کې یو ځل sign in وکړئ. بیا Arroxy کولی شي هغه شخصي او یوازې د غړو ویډیوګانې ډاونلوډ کړي چې ستاسو اکاونټ یې لیدلی شي، د عمر محدودیت لرونکې ویډیوګانې که اکاونټ د عمر لپاره تایید شوی وي، او ستاسو Watch Later او Liked لیستونه. دا sign in یوازې هغه وخت کاروي چې ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي؛ نور هر څه لکه مخکې ډاونلوډېږي. دا د **Explore sign in** انتخاب دی، چې د کوکیز په تنظیماتو کې لومړی لیست شوی او Recommended نښه لري، او Arroxy یې ستاسو لپاره لومړی ځل چې Explore پرانیزئ غوره کوي. د yt-dlp ویکي یاد کوي چې [د sign in سره اتومات کول کولی شي د ګوګل اکاونټ بیرغ کړي](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)، نو دوهم اکاونټ خوندي انتخاب دی.
 
 **ایا کله چې YouTube یو شی بدل کوي کار کوي؟**
 yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy هغه وخت چې YouTube یو شی بدل کړي په چټکۍ سره فکسونه لیږدوي. کله چې YouTube وغواړي تاسو تایید کړئ چې bot نه یاست، که تاسو په Explore کې sign in کړی وي Arroxy ستاسو Explore sign in هم هڅوي، او د فایل یا browser کوکیز د کوکیز په تنظیماتو کې شته.

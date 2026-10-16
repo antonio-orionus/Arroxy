@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | رایگان، بدون سطح پولی |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | متن‌باز |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | پردازش فقط روی دستگاه |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| بدون ورود به حساب یا صادرکردن کوکی |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | بدون محدودیت استفاده |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | برنامهٔ دسکتاپ چندسکویی |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | زیرنویس + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy برای یک کار ساخته شده است: نشانی را بچسبانید و یک فایل محلی تمیز تحویل بگیرید. بدون حساب، فروش اضافی یا جمع‌آوری داده.
+Arroxy برای یک کار ساخته شده است: نشانی را بچسبانید و یک فایل محلی تمیز تحویل بگیرید. بدون فروش اضافی یا جمع‌آوری داده.
 
 ---
 
@@ -340,8 +339,8 @@ Explore ورود جداگانهٔ خودش را نگه می‌دارد، مست�
 **می‌توانم فقط صدا را به‌صورت MP3 بگیرم؟**
 بله. در منوی قالب *فقط صدا* را انتخاب کنید و MP3، M4A/AAC، Opus یا WAV را برگزینید.
 
-**به حساب YouTube یا کوکی نیاز دارم؟**
-در حالت پیش‌فرض خیر؛ Arroxy بدون حساب YouTube، ورود یا صادرکردن کوکی کار می‌کند. برای ویدیوهایی که حساب لازم دارند، مانند ویدیوهای خصوصی، ویژهٔ اعضا یا دارای محدودیت سنی، یک بار در زبانهٔ Explore وارد شوید: Arroxy همچنان بدون ورود دانلود می‌کند و فقط وقتی از این ورود استفاده می‌کند که دانلودی به شکلی شکست بخورد که حساب بتواند رفعش کند. این گزینهٔ **ورود Explore** است که در تنظیمات کوکی اول فهرست آمده و «پیشنهادی» علامت خورده؛ اگر کوکی‌ها خاموش بوده باشند، Arroxy اولین بار که Explore را باز می‌کنید خودش آن را انتخاب می‌کند. فایل کوکی یا کوکی‌های مرورگرتان هم کار می‌کند. در هر حال، راهنمای yt-dlp یادآور می‌شود که [اتوماسیون مبتنی بر کوکی ممکن است باعث علامت‌گذاری حساب Google شود](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)؛ پس حساب ثانویه انتخاب امن‌تری است.
+**ویدیوهایی را که حساب YouTube لازم دارند چطور دانلود کنم؟**
+یک بار در زبانهٔ Explore وارد شوید. بعد از آن Arroxy می‌تواند ویدیوهای خصوصی و ویژهٔ اعضا را که حسابتان می‌تواند ببیند، ویدیوهای دارای محدودیت سنی (اگر سن حساب تأیید شده باشد) و فهرست‌های «تماشا در آینده» و «پسندیده‌ها» را دانلود کند. فقط وقتی از این ورود استفاده می‌کند که دانلودی به شکلی شکست بخورد که حساب بتواند رفعش کند؛ بقیهٔ چیزها مثل قبل دانلود می‌شوند. این گزینهٔ **ورود Explore** است که در تنظیمات کوکی اول فهرست آمده و «پیشنهادی» علامت خورده، و Arroxy اولین بار که Explore را باز می‌کنید خودش آن را انتخاب می‌کند. راهنمای yt-dlp یادآور می‌شود که [اتوماسیون با حساب واردشده ممکن است باعث علامت‌گذاری حساب Google شود](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)؛ پس حساب ثانویه انتخاب امن‌تری است.
 
 **وقتی YouTube چیزی را تغییر دهد باز هم کار می‌کند؟**
 yt-dlp هنگام شروع خودکار به‌روز می‌شود و Arroxy پس از تغییرات YouTube سریع اصلاحیه می‌دهد. وقتی YouTube می‌خواهد تأیید کنید ربات نیستید، Arroxy در صورت ورود شما در Explore ورودتان را هم امتحان می‌کند و کوکی‌های فایل یا مرورگر در تنظیمات کوکی در دسترس‌اند.

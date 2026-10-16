@@ -114,12 +114,11 @@ export const en = {
   why_r1: "Free, no premium tier",
   why_r2: "Open source",
   why_r3: "Local processing only",
-  why_r4: "No login or cookie export",
   why_r5: "No usage caps",
   why_r6: "Cross-platform desktop app",
   why_r7: "Subtitles + SponsorBlock",
   why_summary:
-    "Arroxy is built for one thing: paste a URL, get a clean local file. No accounts, no upsells, no data collection.",
+    "Arroxy is built for one thing: paste a URL, get a clean local file. No upsells, no data collection.",
   feat_explore_h3: "Explore: browse YouTube inside Arroxy",
   feat_explore_1:
     "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
@@ -351,9 +350,9 @@ export const en = {
   faq_q3: "Can I extract just the audio as MP3?",
   faq_a3:
     "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",
-  faq_q4: "Do I need a YouTube account or cookies?",
+  faq_q4: "How do I download videos that need a YouTube account?",
   faq_a4:
-    "By default, no — Arroxy works without a YouTube account, login, or cookie export. For videos that need an account, such as private, members-only, or age-restricted videos, sign in once in the Explore tab: Arroxy still downloads signed out and only uses that sign-in when a download fails in a way an account can fix. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings; Arroxy picks it for you the first time you open Explore if cookies were off. A cookies file or your browser's cookies work too. Either way, yt-dlp's wiki notes that [cookie-based automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.",
+    "Sign in once in the Explore tab. Arroxy can then download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. It uses the sign-in only when a download fails in a way an account can fix; everything else downloads as before. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings, and Arroxy picks it for you the first time you open Explore. yt-dlp's wiki notes that [signed-in automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.",
   faq_q5: "Will it keep working when YouTube changes something?",
   faq_a5:
     "yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.",

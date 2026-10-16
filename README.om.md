@@ -23,7 +23,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:
 | Bilisaa, sadarkaa kafaltii hin qabu |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Madda banaa |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Naannoo keessatti qofa hojeta |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Seensuu ykn kuukkii erga hin barbaachisu |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Daangaa fayyadama hin qabu |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | App desktop platformoota hundaaf |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Subtitle + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Akkaawuntiin hin jiru, gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.
+Arroxy waan tokko qofaaf ijaarame: URL maxxansi, faayila naannoo qulqulluu argadhu. Gurgurtaa dabalaataa hin jiru, odeeffannoo walitti qabuu hin jiru.
 
 ---
 
@@ -338,8 +337,8 @@ YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, saga
 **Sagalee qofaa MP3 akka ta'uun baasuu danda'aa?**
 Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yookaan WAV filadhu.
 
-**Akkaawuntii YouTube ykn kuukkii barbaachisaa?**
-Durtii, lakki — Arroxy akkaawuntii YouTube, seensuu, ykn ergaa kuukkii malee hojeeta. Viidiyoowwan akkaawuntii barbaadan, kan akka dhuunfaa, miseensoota qofaaf, ykn umurii daangeffaman, tabii Explore keessatti altokko seeni: Arroxy ammas utuu hin seenin buufata, yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa sana fayyadama. Kun filannoo **Seensa Explore** dha, qindoomina kuukkii keessatti jalqabaatti tarreeffamee Kan Gorfamu jedhamee mallatteeffame; yoo kuukkiin cufamee ture Arroxy yeroo jalqabaaf Explore banattu siif filata. Faayilli kuukkii ykn kuukkiin biraawzara keetii illee ni hojjeta. Haala kamiinuu, wiki yt-dlp [automatic kuukkii irratti hundaa'u akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; kanaaf akkaawuntiin lammaffaan filannoo nageenya caalu dha.
+**Viidiyoowwan akkaawuntii YouTube barbaadan akkamitti buufadha?**
+Tabii Explore keessatti altokko seeni. Yeroo sana Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Seensa sana yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa fayyadama; kan hafe hundi akka duraan buufama. Kun filannoo **Seensa Explore** dha, qindoomina kuukkii keessatti jalqabaatti tarreeffamee Kan Gorfamu jedhamee mallatteeffame, Arroxyn immoo yeroo jalqabaaf Explore banattu siif filata. Wiki yt-dlp [automatic akkaawuntii seenaan irratti hundaa'e akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; kanaaf akkaawuntiin lammaffaan filannoo nageenya caalu dha.
 
 **YouTube waan tokko jijjiirte itti fufaa hojeta?**
 yt-dlp yeroo eegaluu irratti ofumaan haaromfama, fi Arroxy yeroo YouTube waan tokko jijjiirtu ariitiidhaan sirreessa erga. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy yoo Explore keessatti seentee jirta seensa Explore kee illee ni yaala, kuukkiin faayila ykn biraawzara irraa immoo qindoomina kuukkii keessatti ni argama.

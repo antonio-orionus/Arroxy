@@ -115,12 +115,11 @@ export const zh = {
   why_r1: "免费，无付费版",
   why_r2: "开源",
   why_r3: "仅本地处理",
-  why_r4: "无需登录或导出 Cookie",
   why_r5: "无使用上限",
   why_r6: "跨平台桌面应用",
   why_r7: "字幕 + SponsorBlock",
   why_summary:
-    "Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号、无追加销售、无数据收集。",
+    "Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无追加销售、无数据收集。",
   feat_explore_h3: "Explore：在 Arroxy 内浏览 YouTube",
   feat_explore_1:
     "**Explore 标签页** — 在 Arroxy 内浏览 YouTube，无需复制链接即可下载你找到的内容。**下载 · *你的配置*** 会把你正在查看的视频、播放列表或频道加入队列；旁边的箭头可切换配置，魔杖则打开分步下载，用来选择格式、字幕等",
@@ -329,9 +328,9 @@ export const zh = {
   faq_q3: "能将音频提取为 MP3 吗？",
   faq_a3:
     "可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。",
-  faq_q4: "需要 YouTube 账号或 Cookie 吗？",
+  faq_q4: "如何下载需要 YouTube 账号的视频？",
   faq_a4:
-    "默认不需要 — Arroxy 无需 YouTube 账号、登录或导出 Cookie 即可工作。对于需要账号的视频（例如私享、仅会员可见或年龄限制的视频），在 Explore 标签页中登录一次即可：Arroxy 仍在未登录状态下下载，只有当下载因账号可解决的原因失败时才使用该登录。这就是 Cookie 设置中的 **Explore 登录** 选项，排在第一位并标有“推荐”；如果 Cookie 原本是关闭的，首次打开 Explore 时 Arroxy 会为你选中它。Cookie 文件或浏览器的 Cookie 也可以使用。无论哪种方式，yt-dlp 的 wiki 都指出[基于 Cookie 的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用备用账号是更安全的选择。",
+    "在 Explore 标签页中登录一次。之后 Arroxy 就能下载你的账号可观看的私享和会员专属视频、已通过年龄验证的账号可看的年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表。只有当下载因账号可解决的原因失败时才会使用该登录，其他下载与之前一样。这就是 Cookie 设置中的 **Explore 登录** 选项，排在第一位并标有“推荐”，首次打开 Explore 时 Arroxy 会为你选中它。yt-dlp 的 wiki 指出[已登录状态下的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用备用账号是更安全的选择。",
   faq_q5: "YouTube 更新后还能继续使用吗？",
   faq_a5:
     "yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。YouTube 要求确认你不是机器人时，如果你已在 Explore 中登录，Arroxy 也会尝试使用该登录；Cookie 设置中还可使用来自文件或浏览器的 Cookie。",

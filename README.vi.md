@@ -23,7 +23,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ So sánh trực tiếp với các lựa chọn thay thế phổ biến nhất:
 | Miễn phí, không có gói cao cấp |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Mã nguồn mở |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Chỉ xử lý cục bộ |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Không cần đăng nhập hay xuất cookie |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Không giới hạn sử dụng |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Ứng dụng máy tính để bàn đa nền tảng |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Phụ đề + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. Không tài khoản, không upsell, không thu thập dữ liệu.
+Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. không upsell, không thu thập dữ liệu.
 
 ---
 
@@ -338,8 +337,8 @@ Bất kỳ thứ gì YouTube cung cấp: 4K UHD (2160p), 1440p, 1080p, 720p, 480
 **Tôi có thể trích xuất chỉ âm thanh dạng MP3 không?**
 Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AAC, Opus hoặc WAV.
 
-**Tôi có cần tài khoản YouTube hay cookie không?**
-Mặc định là không — Arroxy hoạt động mà không cần tài khoản YouTube, đăng nhập hay xuất cookie. Với video cần tài khoản, như video riêng tư, dành cho thành viên hoặc giới hạn độ tuổi, hãy đăng nhập một lần trong tab Explore: Arroxy vẫn tải khi chưa đăng nhập và chỉ dùng đăng nhập đó khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng; Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore nếu cookie đang tắt. Tệp cookie hoặc cookie của trình duyệt cũng dùng được. Dù theo cách nào, wiki của yt-dlp lưu ý rằng [tự động hóa dựa trên cookie có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.
+**Làm sao để tải video cần tài khoản YouTube?**
+Hãy đăng nhập một lần trong tab Explore. Sau đó Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy chỉ dùng đăng nhập này khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục; mọi thứ khác vẫn tải như trước. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng, và Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore. Wiki của yt-dlp lưu ý rằng [tự động hóa khi đã đăng nhập có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.
 
 **Ứng dụng có tiếp tục hoạt động khi YouTube thay đổi gì đó không?**
 yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore nếu bạn đã đăng nhập ở đó, và cookie từ tệp hoặc trình duyệt có sẵn trong cài đặt cookie.

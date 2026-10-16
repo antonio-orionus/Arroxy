@@ -116,12 +116,11 @@ export const vi = {
   why_r1: "Miễn phí, không có gói cao cấp",
   why_r2: "Mã nguồn mở",
   why_r3: "Chỉ xử lý cục bộ",
-  why_r4: "Không cần đăng nhập hay xuất cookie",
   why_r5: "Không giới hạn sử dụng",
   why_r6: "Ứng dụng máy tính để bàn đa nền tảng",
   why_r7: "Phụ đề + SponsorBlock",
   why_summary:
-    "Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. Không tài khoản, không upsell, không thu thập dữ liệu.",
+    "Arroxy được xây dựng cho một mục đích duy nhất: dán URL, nhận file cục bộ sạch. không upsell, không thu thập dữ liệu.",
   feat_explore_h3: "Explore: duyệt YouTube ngay trong Arroxy",
   feat_explore_1:
     "**Tab Explore** — duyệt YouTube ngay trong Arroxy và tải những gì bạn tìm thấy mà không cần sao chép liên kết. **Tải xuống · *hồ sơ của bạn*** đưa video, danh sách phát hoặc kênh bạn đang xem vào hàng đợi; mũi tên bên cạnh để đổi hồ sơ, còn cây đũa phép mở trình tải từng bước để chọn định dạng, phụ đề, v.v.",
@@ -352,9 +351,9 @@ export const vi = {
   faq_q3: "Tôi có thể trích xuất chỉ âm thanh dạng MP3 không?",
   faq_a3:
     "Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AAC, Opus hoặc WAV.",
-  faq_q4: "Tôi có cần tài khoản YouTube hay cookie không?",
+  faq_q4: "Làm sao để tải video cần tài khoản YouTube?",
   faq_a4:
-    "Mặc định là không — Arroxy hoạt động mà không cần tài khoản YouTube, đăng nhập hay xuất cookie. Với video cần tài khoản, như video riêng tư, dành cho thành viên hoặc giới hạn độ tuổi, hãy đăng nhập một lần trong tab Explore: Arroxy vẫn tải khi chưa đăng nhập và chỉ dùng đăng nhập đó khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng; Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore nếu cookie đang tắt. Tệp cookie hoặc cookie của trình duyệt cũng dùng được. Dù theo cách nào, wiki của yt-dlp lưu ý rằng [tự động hóa dựa trên cookie có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.",
+    "Hãy đăng nhập một lần trong tab Explore. Sau đó Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy chỉ dùng đăng nhập này khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục; mọi thứ khác vẫn tải như trước. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng, và Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore. Wiki của yt-dlp lưu ý rằng [tự động hóa khi đã đăng nhập có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.",
   faq_q5: "Ứng dụng có tiếp tục hoạt động khi YouTube thay đổi gì đó không?",
   faq_a5:
     "yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore nếu bạn đã đăng nhập ở đó, và cookie từ tệp hoặc trình duyệt có sẵn trong cài đặt cookie.",

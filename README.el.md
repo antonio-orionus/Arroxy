@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -308,12 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | Δωρεάν, χωρίς premium επίπεδο |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Ανοιχτού κώδικα |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Μόνο τοπική επεξεργασία |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Χωρίς σύνδεση ή εξαγωγή cookies |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Χωρίς όρια χρήσης |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Εφαρμογή επιφάνειας εργασίας για πολλαπλές πλατφόρμες |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Υπότιτλοι + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Το Arroxy κατασκευάστηκε για ένα πράγμα: επικολλήστε ένα URL, αποκτήστε ένα καθαρό τοπικό αρχείο. Χωρίς λογαριασμούς, χωρίς upsells, χωρίς συλλογή δεδομένων.
+Το Arroxy κατασκευάστηκε για ένα πράγμα: επικολλήστε ένα URL, αποκτήστε ένα καθαρό τοπικό αρχείο. Χωρίς upsells, χωρίς συλλογή δεδομένων.
 
 ---
 
@@ -338,8 +337,8 @@ sha256sum Arroxy-linux-x64.AppImage
 **Μπορώ να εξάγω μόνο τον ήχο ως MP3;**
 Ναι. Επίλεξε *μόνο ήχος* στο μενού μορφής και μετά MP3, M4A/AAC, Opus ή WAV.
 
-**Χρειάζομαι λογαριασμό YouTube ή cookies;**
-Από προεπιλογή, όχι — το Arroxy λειτουργεί χωρίς λογαριασμό YouTube, σύνδεση ή εξαγωγή cookies. Για βίντεο που χρειάζονται λογαριασμό, όπως ιδιωτικά, μόνο για μέλη ή με περιορισμό ηλικίας, συνδεθείτε μία φορά στην καρτέλα Explore: το Arroxy εξακολουθεί να κατεβάζει χωρίς σύνδεση και χρησιμοποιεί αυτή τη σύνδεση μόνο όταν μια λήψη αποτυγχάνει με τρόπο που μπορεί να διορθώσει ένας λογαριασμός. Αυτή είναι η επιλογή **Σύνδεση Explore**, πρώτη στη λίστα και με την ένδειξη «Προτείνεται» στις ρυθμίσεις cookies· το Arroxy την επιλέγει για εσάς την πρώτη φορά που ανοίγετε το Explore, αν τα cookies ήταν απενεργοποιημένα. Λειτουργεί και ένα αρχείο cookies ή τα cookies του προγράμματος περιήγησής σας. Σε κάθε περίπτωση, το wiki του yt-dlp σημειώνει ότι [η αυτοματοποίηση με βάση cookies μπορεί να επισημάνει έναν λογαριασμό Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), οπότε ένας δευτερεύων λογαριασμός είναι η ασφαλέστερη επιλογή.
+**Πώς κατεβάζω βίντεο που χρειάζονται λογαριασμό YouTube;**
+Συνδεθείτε μία φορά στην καρτέλα Explore. Το Arroxy μπορεί τότε να κατεβάζει ιδιωτικά βίντεο και βίντεο μόνο για μέλη που βλέπει ο λογαριασμός σας, βίντεο με περιορισμό ηλικίας αν ο λογαριασμός έχει επαληθευτεί ηλικιακά, καθώς και τις λίστες «Παρακολούθηση αργότερα» και «Μου αρέσουν». Χρησιμοποιεί τη σύνδεση μόνο όταν μια λήψη αποτυγχάνει με τρόπο που μπορεί να διορθώσει ένας λογαριασμός· όλα τα υπόλοιπα κατεβαίνουν όπως πριν. Αυτή είναι η επιλογή **Σύνδεση Explore**, πρώτη στη λίστα και με την ένδειξη «Προτείνεται» στις ρυθμίσεις cookies, και το Arroxy την επιλέγει για εσάς την πρώτη φορά που ανοίγετε το Explore. Το wiki του yt-dlp σημειώνει ότι [η αυτοματοποίηση με σύνδεση μπορεί να επισημάνει έναν λογαριασμό Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), οπότε ένας δευτερεύων λογαριασμός είναι η ασφαλέστερη επιλογή.
 
 **Θα συνεχίσει να λειτουργεί όταν το YouTube αλλάξει κάτι;**
 Το yt-dlp ενημερώνεται αυτόματα κατά την εκκίνηση, και το Arroxy κυκλοφορεί διορθώσεις άμεσα όταν το YouTube αλλάζει κάτι. Όταν το YouTube ζητά να επιβεβαιώσετε ότι δεν είστε ρομπότ, το Arroxy δοκιμάζει και τη σύνδεσή σας στο Explore αν έχετε συνδεθεί εκεί, ενώ cookies από αρχείο ή από το πρόγραμμα περιήγησής σας είναι διαθέσιμα στις ρυθμίσεις cookies.

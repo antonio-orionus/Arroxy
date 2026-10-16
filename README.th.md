@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: 2026-10-16._
 
@@ -310,12 +310,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | ฟรี ไม่มีระดับพรีเมียม |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | โอเพนซอร์ส |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | ประมวลผลในเครื่องเท่านั้น |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| ไม่ต้องเข้าสู่ระบบหรือส่งออกคุกกี้ |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | ไม่จำกัดการใช้งาน |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | แอปเดสก์ท็อปข้ามแพลตฟอร์ม |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | คำบรรยาย + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy ถูกสร้างมาเพื่อสิ่งเดียว: วาง URL แล้วรับไฟล์สะอาดในเครื่อง ไม่มีบัญชี ไม่มีการขายเพิ่ม และไม่มีการเก็บข้อมูล
+Arroxy ถูกสร้างมาเพื่อสิ่งเดียว: วาง URL แล้วรับไฟล์สะอาดในเครื่อง ไม่มีการขายเพิ่ม และไม่มีการเก็บข้อมูล
 
 ---
 
@@ -340,8 +339,8 @@ Explore เก็บการเข้าสู่ระบบของตัว
 **แยกเฉพาะเสียงเป็น MP3 ได้หรือไม่**
 ได้ เลือก *เฉพาะเสียง* ในเมนูรูปแบบ แล้วเลือก MP3, M4A/AAC, Opus หรือ WAV
 
-**ต้องมีบัญชี YouTube หรือคุกกี้หรือไม่**
-โดยค่าเริ่มต้นไม่ต้อง — Arroxy ทำงานโดยไม่มีบัญชี YouTube การเข้าสู่ระบบ หรือการส่งออกคุกกี้ สำหรับวิดีโอที่ต้องใช้บัญชี เช่น วิดีโอส่วนตัว เฉพาะสมาชิก หรือจำกัดอายุ ให้เข้าสู่ระบบครั้งเดียวในแท็บ Explore: Arroxy ยังดาวน์โหลดแบบไม่เข้าสู่ระบบ และใช้การเข้าสู่ระบบนั้นเฉพาะเมื่อการดาวน์โหลดล้มเหลวด้วยเหตุที่บัญชีแก้ได้ นี่คือตัวเลือก **การเข้าสู่ระบบ Explore** ซึ่งอยู่อันดับแรกและมีป้ายแนะนำในการตั้งค่าคุกกี้ Arroxy จะเลือกให้เองเมื่อคุณเปิด Explore ครั้งแรกหากปิดคุกกี้ไว้ ไฟล์คุกกี้หรือคุกกี้ของเบราว์เซอร์ก็ใช้ได้เช่นกัน ไม่ว่าแบบใด วิกิ yt-dlp ระบุว่า [ระบบอัตโนมัติที่ใช้คุกกี้อาจทำให้บัญชี Google ถูกทำเครื่องหมาย](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) การใช้บัญชีสำรองจึงปลอดภัยกว่า
+**จะดาวน์โหลดวิดีโอที่ต้องใช้บัญชี YouTube ได้อย่างไร**
+เข้าสู่ระบบครั้งเดียวในแท็บ Explore จากนั้น Arroxy จะดาวน์โหลดวิดีโอส่วนตัวและวิดีโอเฉพาะสมาชิกที่บัญชีของคุณดูได้ วิดีโอจำกัดอายุหากบัญชียืนยันอายุแล้ว รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณได้ โดยจะใช้การเข้าสู่ระบบนี้เฉพาะเมื่อการดาวน์โหลดล้มเหลวด้วยเหตุที่บัญชีแก้ได้ ส่วนอย่างอื่นดาวน์โหลดเหมือนเดิม นี่คือตัวเลือก **การเข้าสู่ระบบ Explore** ซึ่งอยู่อันดับแรกและมีป้ายแนะนำในการตั้งค่าคุกกี้ และ Arroxy จะเลือกให้เองเมื่อคุณเปิด Explore ครั้งแรก วิกิ yt-dlp ระบุว่า [ระบบอัตโนมัติที่เข้าสู่ระบบอาจทำให้บัญชี Google ถูกทำเครื่องหมาย](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) การใช้บัญชีสำรองจึงปลอดภัยกว่า
 
 **ยังใช้ได้หรือไม่เมื่อ YouTube เปลี่ยนแปลง**
 yt-dlp อัปเดตอัตโนมัติเมื่อเปิดแอป และ Arroxy ออกการแก้ไขอย่างรวดเร็วเมื่อ YouTube เปลี่ยน เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต Arroxy จะลองใช้การเข้าสู่ระบบ Explore ด้วยหากคุณเข้าสู่ระบบไว้ และในการตั้งค่าคุกกี้ยังใช้คุกกี้จากไฟล์หรือเบราว์เซอร์ได้

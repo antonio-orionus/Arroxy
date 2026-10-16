@@ -23,7 +23,7 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
 > _Last updated: {{LAST_UPDATED}}._
 
@@ -306,7 +306,6 @@ sha256sum Arroxy-linux-x64.AppImage
 | {{why_r1}} |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | {{why_r2}} |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | {{why_r3}} |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| {{why_r4}} |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | {{why_r5}} |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | {{why_r6}} |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | {{why_r7}} |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
