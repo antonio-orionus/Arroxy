@@ -92,7 +92,8 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
-	await rm(outputDir, {recursive: true, force: true})
+	// Windows can still hold the job's temp dir for a moment after the test ends (EPERM).
+	await rm(outputDir, {recursive: true, force: true, maxRetries: 5, retryDelay: 100})
 })
 
 function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token: string; visitorData: string}>; canEscalate?: boolean; verified?: ExploreSignInState} = {}) {
