@@ -120,6 +120,17 @@ export const en = {
   why_r7: "Subtitles + SponsorBlock",
   why_summary:
     "Arroxy is built for one thing: paste a URL, get a clean local file. No accounts, no upsells, no data collection.",
+  feat_explore_h3: "Explore: browse YouTube inside Arroxy",
+  feat_explore_1:
+    "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
+  feat_explore_2:
+    "**Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click",
+  feat_explore_3:
+    "**Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Arroxy still downloads signed out and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in",
+  feat_explore_4:
+    "**Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget the sign-in",
+  feat_explore_5:
+    "**Ad blocker** — Explore blocks ads and trackers on its own pages; downloads are unaffected. On by default, one click on the shield in Explore's toolbar turns it off, and it never acts on Google's sign-in pages. YouTube may push back on ad blockers for signed-in accounts",
   feat_quality_h3: "Quality & formats",
   feat_quality_1: "Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2: "**High frame rate** preserved as-is — 60 fps, 120 fps, HDR",
@@ -135,7 +146,7 @@ export const en = {
   feat_workflow_12:
     "**Global download hotkey** — copy a link in any app and press `Ctrl+Shift+D` (`Cmd+Shift+D` on macOS); Arroxy queues it with your active profile without opening the window, and a notification confirms it. On by default, rebindable",
   feat_workflow_1:
-    "**Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, or Quick Download with saved defaults",
+    "**Flexible start modes** — choose a guided single download, playlist/channel picker, bulk URL paste, Quick Download with saved defaults, or browse and download from Explore",
   feat_workflow_2:
     "**Central download queue** — every single, playlist, bulk, or quick job lands in one place for progress, pause, resume, cancel, retry, and priority control",
   feat_workflow_3:
@@ -156,6 +167,10 @@ export const en = {
     "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt",
   feat_workflow_11:
     "**Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and grab the rest as MP3",
+  feat_workflow_13:
+    "**Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare",
+  feat_workflow_14:
+    "**Downloads tells you what needs you** — if Arroxy can't read a link, its row says why and offers the fix: Retry, turn on cookies, or sign in in Explore. With cookies off, **Sign in with Explore** retries it for you once you're signed in. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review. The Downloads tab counts the rows waiting for you",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",
@@ -193,6 +208,12 @@ export const en = {
   hotkey_fig_cap:
     "<b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading",
   shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
+  shot8_cap:
+    "<b>Explore</b><br/>Browse YouTube inside Arroxy and download the page you're on with your active profile",
+  shot9_cap:
+    "<b>Explore's first screen</b><br/>A quick look at Explore, and why a secondary account is the safer sign-in",
+  shot10_cap:
+    "<b>Downloads tells you what needs you</b><br/>Links prepare in the background; a failed one offers its fix, a long playlist waits for your choice",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
   dl_oneline_note:
@@ -320,6 +341,8 @@ export const en = {
     "Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.",
   privacy_p2:
     "Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand failures, crashes, feedback, OS, and app versions. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.",
+  privacy_p3:
+    "Explore keeps its own sign-in, separate from your browser, and Arroxy never reads or fills in the sign-in form — you type into Google's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets it.",
   faq_q1: "Is it really free?",
   faq_a1: "Yes — MIT licensed, no premium tier, no feature gating.",
   faq_q2: "What video qualities can I download?",
@@ -330,10 +353,10 @@ export const en = {
     "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",
   faq_q4: "Do I need a YouTube account or cookies?",
   faq_a4:
-    "By default, no — Arroxy works without a YouTube account, login, or cookie export. Optional cookie support is available in Advanced settings (Cookies source: file or browser) for content that requires authentication, such as age-restricted or members-only videos. It is off by default. If you enable it, yt-dlp's wiki notes that [cookie-based automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); a throwaway account is the safer choice in that case.",
+    "By default, no — Arroxy works without a YouTube account, login, or cookie export. For videos that need an account, such as private, members-only, or age-restricted videos, sign in once in the Explore tab: Arroxy still downloads signed out and only uses that sign-in when a download fails in a way an account can fix. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings; Arroxy picks it for you the first time you open Explore if cookies were off. A cookies file or your browser's cookies work too. Either way, yt-dlp's wiki notes that [cookie-based automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.",
   faq_q5: "Will it keep working when YouTube changes something?",
   faq_a5:
-    "yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. If you ever do hit an issue, optional cookie support is available in Advanced settings as a fallback.",
+    "yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.",
   faq_q6: "What languages is Arroxy available in?",
   faq_a6:
     "{{LANG_COUNT}} languages, out of the box: {{LANG_NAME_LIST}}. Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Runtime locale JSON lives in src/shared/i18n/locales/, and translator-facing PO catalogs live in i18n/locales/ — open a PR on GitHub to contribute.",
@@ -357,12 +380,6 @@ export const en = {
   plan_r2_name: "**YouTube audio track preferences**",
   plan_r2_desc:
     "Set an app-wide spoken-language track preference, with per-profile overrides when YouTube offers multiple audio tracks",
-  plan_r6_name: "**In-app browser sign-in**",
-  plan_r6_desc:
-    "Open browser windows inside Arroxy so you can sign in and use site cookies without exporting them manually",
-  plan_r8_name: "**One-click video download**",
-  plan_r8_desc:
-    "Start a video download in one click from a detected or pasted URL using your active profile",
   plan_r3_name: "**Stronger retry recovery**",
   plan_r3_desc:
     "A new retry path for downloads interrupted by unreliable or problematic internet connections",

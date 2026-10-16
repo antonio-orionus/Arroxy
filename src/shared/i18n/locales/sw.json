@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "startOver": "Anza upya"},
+	"common": {"back": "Rudi", "cancel": "Ghairi", "continue": "Endelea", "loading": "Inapakia…", "retry": "Jaribu tena", "dismiss": "Funga", "startOver": "Anza upya"},
 	"app": {
 		"feedback": "Maoni",
 		"logs": "Kumbukumbu",
@@ -238,6 +238,11 @@
 				"sourceOff": "Zima",
 				"sourceFile": "Faili",
 				"sourceBrowser": "Kivinjari",
+				"sourceExplore": "Kuingia kwa Explore",
+				"recommended": "Inapendekezwa",
+				"exploreDescription": "Hutumia kuingia kwako kwenye Explore tu pale upakuaji unapohitaji.",
+				"exploreDisabled": "Kichupo cha Explore kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore. Kiwashe chini ya Explore hapa chini.",
+				"openExplore": "Fungua Explore",
 				"toggleDescription": "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi.",
 				"risk": "Hatari: cookies.txt ina vikao vyote vilivyoingia kwa kivinjari hicho — weka siri.",
 				"fileLabel": "Faili ya vidakuzi",
@@ -382,6 +387,7 @@
 				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",
 				"bodyDisabled": "Vidakuzi vimesanidiwa lakini vimezimwa. Viwashe na ujaribu tena kupata orodha kamili, au badilisha mtandao na ujaribu tena.",
 				"bodyEnabled": "Hata na vidakuzi, YouTube ilipunguza uchunguzi huu. Jaribu tena baadaye au badilisha mtandao.",
+				"bodyExplore": "YouTube imezuia ombi hili. Jaribu tena baadaye au badilisha mtandao.",
 				"retryCta": "Jaribu tena",
 				"enableRetryCta": "Washa vidakuzi na ujaribu tena"
 			},
@@ -390,9 +396,15 @@
 				"currentModeLabel": "Chanzo cha vidakuzi",
 				"currentModeFile": "Faili",
 				"currentModeBrowser": "Kivinjari",
+				"currentModeExplore": "Kuingia kwa Explore",
 				"explanationFile": "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (yt-dlp inategemea Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi.",
 				"explanationBrowser": "Vidakuzi vinasomwa moja kwa moja kutoka kwenye kivinjari. Ikiwa kivinjari kinaendesha sasa hivi, hifadhidata yake ya vidakuzi inaweza kufungwa (familia ya Chromium). Kivinjari pia lazima kiingie katika YouTube. Jaribu kufunga kivinjari, ubadilishe hadi kivinjari tofauti, ubadilishe hadi hali ya Faili, au uzime vidakuzi.",
 				"openSettingsCta": "Fungua mipangilio ya vidakuzi",
+				"exploreSignIn": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Explore kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji.", "cta": "Ingia kwenye Explore"},
+				"exploreSignedIn": {"heading": "Umeingia kwenye Explore", "body": "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Explore kiotomatiki. Huenda isipatikane kwa sababu nyingine."},
+				"exploreOffer": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Ingia kwenye Explore na Arroxy itajaribu tena.", "cta": "Ingia kwenye Explore"},
+				"exploreReuse": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Umeingia kwenye Explore, lakini upakuaji hautumii kuingia huko kwa sasa.", "cta": "Tumia kuingia kwangu kwa Explore na ujaribu tena"},
+				"otherCookiesCta": "Tumia faili ya vidakuzi au kivinjari badala yake…",
 				"needsCookies": {"heading": "Tovuti hii inahitaji kuingia", "body": "yt-dlp haikuweza kufikia video hii bila uthibitisho. Sanidi vidakuzi katika mipangilio ya hali ya juu — ielekeza kwenye kivinjari unachoingia tayari, au ingiza faili ya cookies.txt."},
 				"dpapi": {
 					"heading": "Vidakuzi vya Chrome vimezuiwa na usimbaji fiche wa Windows",
@@ -531,6 +543,17 @@
 	"queue": {
 		"header": "Vipakuliwa",
 		"tabLabel": "Vipakuliwa",
+		"attentionBadge_one": "Upakuaji {{count}} unahitaji umakini wako",
+		"attentionBadge_other": "Upakuaji {{count}} unahitaji umakini wako",
+		"choice": {
+			"cappedBody_one": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
+			"cappedBody_other": "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi.",
+			"reviewBody_one": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua.",
+			"reviewBody_other": "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua.",
+			"all": "Video zote",
+			"first": "{{count}} za kwanza",
+			"review": "Kagua"
+		},
 		"tabTip": "Vipakuliwa sasa viko kwenye kichupo cha Vipakuliwa — kifungue wakati wowote kufuatilia maendeleo.",
 		"empty": "Vipakuliwa vilivyowekwa kwenye foleni vitaonekana hapa",
 		"filtersLabel": "Vichujio vya hali ya foleni",
@@ -576,6 +599,7 @@
 			"remove": "Ondoa",
 			"pullNow": "Pakua sasa — ruka foleni",
 			"statusProbing": "Inaleta maelezo",
+			"statusNeedsChoice": "Inahitaji chaguo lako",
 			"statusPending": "Inasubiri",
 			"statusRunning": "Inapakua",
 			"statusHeld": "Imeshikiliwa",
@@ -625,13 +649,18 @@
 		"outputNotWritable": "Haiwezekani kuhifadhi kwenye {{dir}} — Arroxy hairuhusiwi kuandika hapo",
 		"fetchingSponsorBlock": "Inawasiliana na SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Inaingia kwa akaunti yako ya Explore…",
+		"exploreSignedOut": "Umetoka kwenye Explore — ingia tena"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Haikuweza kuhifadhi mipangilio yako.",
 		"warmupFailed": "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamilike.",
 		"shellActionFailed": "Haikuweza kufungua hiyo.",
 		"folderSelectFailed": "Haikuweza kufungua kichagua folda.",
+		"exploreSignInRetrying_one": "Umeingia kwa Explore — inajaribu tena kiungo 1",
+		"exploreSignInRetrying_other": "Umeingia kwa Explore — inajaribu tena viungo {{count}}",
+		"exploreSignOutFailed": "Imeshindwa kutoka kwenye Explore. Jaribu tena.",
 		"playlistFolderRejected": "Folda hiyo haiwezi kutumika kwa orodha hii ya kucheza.",
 		"filenameFolderTooDeep": "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi.",
 		"filenameTemplateCannotFit": "Jina la video hii haliwezi kutoshea kila sehemu ya kiolezo chako, kwa hivyo jina chaguo-msingi limetumika.",
@@ -640,11 +669,25 @@
 			"alreadyQueued": "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa",
 			"invalidClipboard": "Hakuna kiungo kwenye ubao wa kunakili — nakili moja kwanza",
 			"multipleUrls": "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy",
-			"needsReview": "Kiungo hiki kinahitaji ukaguzi mfupi — fungua Arroxy ukiweke tena",
-			"busy": "Bado tunashughulikia kiungo kilichopita",
+			"needsReview": "Kiungo hicho kinahitaji chaguo lako — tazama Vipakuliwa katika Arroxy",
+			"cookiesSetup": "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena",
+			"busy": "Arroxy bado inaanza — jaribu tena baada ya muda mfupi",
 			"submissionFailed": "Kiungo hicho hakiweza kuongezwa — jaribu tena katika Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "Video {{count}} tayari iko kwenye foleni — imerukwa", "skippedAlreadyQueued_other": "Video {{count}} tayari ziko kwenye foleni — zimerukwa"}
+		"queue": {"skippedAlreadyQueued_one": "Video {{count}} tayari iko kwenye foleni — imerukwa", "skippedAlreadyQueued_other": "Video {{count}} tayari ziko kwenye foleni — zimerukwa"},
+		"quickDownload": {
+			"added": "Imeongezwa: {{title}}",
+			"alreadyQueued": "Tayari kwenye foleni",
+			"failed": "Imeshindwa kuandaa {{title}}",
+			"notAdded": "Kiungo hicho hakikuweza kuongezwa — jaribu tena",
+			"chooseHowMany_one": "Video {{count}}+ — chagua ngapi",
+			"chooseHowMany_other": "Video {{count}}+ — chagua ngapi",
+			"review_one": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
+			"review_other": "Video {{count}} kwenye orodha hii — kagua ili kuchagua",
+			"reviewCapped_one": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
+			"reviewCapped_other": "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua",
+			"view": "Tazama"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -663,7 +706,7 @@
 			"parse": "Haikuwezekana kuchanganua jibu kutoka tovuti. Kichanganuzi cha yt-dlp kinaweza kuwa kimepitwa na wakati. Arroxy huboresha yt-dlp kiotomatiki wakati wa uzinduzi — jaribu tena baada ya dakika chache marekebisho yatakapowasili.",
 			"network": "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena.",
 			"drmProtected": "Video hii inalindwa na DRM. yt-dlp haiwezi kuondoa DRM, kwa hivyo faili haiwezi kupakuliwa.",
-			"loginRequired": "Video hii inahitaji akaunti iliyoingia. Sanidi cookies.txt (Mipangilio → Cookies) na ujaribu tena.",
+			"loginRequired": "Video hii inahitaji akaunti iliyoingia.",
 			"unknown": "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini."
 		}
 	},
@@ -740,5 +783,59 @@
 			"invalid-segment": "Jina hilo la folda haliruhusiwi. Epuka . na .. na majina yaliyohifadhiwa kama CON.",
 			"resolution-in-dir": "{resolution} haiwezi kutaja folda — ubora haujulikani hadi upakuaji uanze."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Mpya",
+		"notice": {
+			"title": "Vinjari YouTube ndani ya Arroxy",
+			"body": "Tafuta video, orodha ya kucheza au kituo na upakue kutoka hapa — bila kunakili viungo. Ingia kwenye YouTube hapa ili kupakua video zinazohitaji akaunti.",
+			"riskTitle": "Ingia kwa akaunti ya pili",
+			"riskBody": "YouTube inaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama yt-dlp. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu.",
+			"continue": "Endelea"
+		},
+		"nudge": {
+			"off": "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore.",
+			"file": "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Explore.",
+			"browser": "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Explore.",
+			"useExplore": "Tumia kuingia kwa Explore",
+			"notNow": "Si sasa"
+		},
+		"toolbar": {
+			"aria": "Vidhibiti vya kivinjari cha Explore",
+			"back": "Rudi",
+			"forward": "Mbele",
+			"reload": "Pakia upya",
+			"home": "Mwanzo wa YouTube",
+			"addressAria": "Anwani",
+			"addressPlaceholder": "Tafuta YouTube au bandika kiungo cha YouTube",
+			"offsiteHint": "Explore huvinjari YouTube pekee.",
+			"offsiteDownload": "Pakua kiungo hiki",
+			"offsiteHintHost": "Explore huvinjari YouTube pekee. {{host}}",
+			"searchTooLong": "Utafutaji huo ni mrefu mno.",
+			"downloadWithProfile": "Pakua · {{profileName}}",
+			"interactiveHint": "Chagua fomati, manukuu na zaidi…",
+			"grabUnavailable": "Fungua video, orodha ya kucheza au kituo ili kupakua",
+			"adBlock": {
+				"aria": "Kizuia matangazo",
+				"off": "Kizuia matangazo: kimezimwa — bofya ili kukiwasha",
+				"starting": "Kizuia matangazo: kinaanza — bofya ili kukizima",
+				"on": "Kizuia matangazo: kimewashwa — bofya ili kukizima",
+				"unavailable": "Kizuia matangazo: hakipatikani, orodha zake za vichujio hazikuweza kupakuliwa — bofya ili kukizima",
+				"accountNote": "YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti.",
+			"showTab": "Onyesha kichupo cha Explore",
+			"showTabDescription": "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Explore.",
+			"signOut": "Toka kwenye Explore",
+			"signOutDescription": "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore.",
+			"signOutConfirmTitle": "Utoke kwenye Explore?",
+			"signOutConfirmBody": "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena.",
+			"signOutConfirm": "Toka"
+		},
+		"error": {"proxyTitle": "Explore haiwezi kuunganisha kupitia proksi yako", "proxyBody": "Angalia proksi katika Mipangilio, kisha jaribu tena.", "loadTitle": "Ukurasa huu haukupakia", "loadBody": "Angalia muunganisho wako, kisha jaribu tena.", "retry": "Jaribu tena", "openSettings": "Fungua Mipangilio"}
 	}
 }

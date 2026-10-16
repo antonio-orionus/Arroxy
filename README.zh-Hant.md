@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。
 
@@ -33,6 +33,7 @@
 
 ## 目錄
 
+- [功能](#features)
 - [安裝和首次啟動](#install)
   - [Windows 首次啟動](#windows-first-launch)
   - [macOS 首次啟動](#macos-first-launch)
@@ -40,12 +41,96 @@
   - [Linux 首次啟動](#linux-first-launch)
   - [驗證你的下載（SHA256）](#verify)
 - [為什麼選 Arroxy](#why)
-- [功能](#features)
 - [隱私](#privacy)
 - [常見問題](#faq)
 - [開發藍圖](#roadmap)
 - [支援 Arroxy](#support)
 - [技術堆疊](#tech)
+
+---
+
+## <a id="features"></a>功能
+
+### Explore：在 Arroxy 內瀏覽 YouTube
+
+- **Explore 分頁** — 在 Arroxy 內瀏覽 YouTube，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等
+- **位址列** — 輸入文字即可搜尋 YouTube，或貼上 YouTube 連結。Explore 只瀏覽 YouTube，其他網站的連結不會在其中開啟，但你可以一鍵下載
+- **需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。Arroxy 仍以未登入狀態下載，只有在下載因帳號可解決的原因失敗時，才會使用你在 Explore 的登入。當 YouTube 要求確認你不是機器人時，Arroxy 也會嘗試使用你在 Explore 的登入
+- **建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除登入時，隨時可在設定中登出 Explore
+- **廣告攔截** — Explore 會攔截自身頁面上的廣告和追蹤器，不影響下載。預設開啟，點一下 Explore 工具列上的盾牌即可關閉，且不會作用於 Google 的登入頁面。對已登入的帳號，YouTube 可能會抵制廣告攔截
+
+### 畫質與格式
+
+- 最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p
+- **高影格率**依原樣保留 — 60 fps、120 fps、HDR
+- **音訊** — 將僅音訊匯出為 MP3、M4A/AAC、Opus 或 WAV。在互動式下載中，可用時選擇來源的原生環繞聲/Dolby 音軌（AC-3、E-AC-3、5.1、DRC），或設定全域預設 **優先環繞聲 / Dolby**
+- 快速預設：*最佳畫質* · *平衡* · *小檔案*
+
+### 隱私與控制
+
+- 100% 本機處理 — 下載直接從 YouTube 到你的硬碟
+- 無登入、無 Cookie、無 Google 帳號繫結
+- 檔案直接儲存到你選擇的資料夾
+
+### 工作流程
+
+- **全域下載快速鍵** — 在任意應用中複製連結後按 `Ctrl+Shift+D`（macOS 為 `Cmd+Shift+D`），Arroxy 會用目前設定直接加入佇列，無需開啟視窗，並以通知確認。預設開啟，可重新繫結
+- **靈活的開始模式** — 選擇引導式單個下載、播放清單/頻道選擇器、批次貼上 URL、使用已儲存預設值的 Quick Download，或在 Explore 中瀏覽並下載
+- **中央下載佇列** — 單個、播放清單、批次或快速任務都會進入同一個地方，用於查看進度、暫停、繼續、取消、重試和控制優先順序
+- **剪貼簿監控** — 複製 YouTube 連結後切回應用程式，Arroxy 自動填入 URL（可在進階設定中切換）
+- **自動清理 URL** — 剝除追蹤參數（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）並展開 `youtube.com/redirect` 跳轉連結
+- **托盤模式** — 關閉視窗後下載在後臺繼續執行
+- **30 種語言** — 自動檢測系統語系，可隨時切換
+- **播放清單同步** — 將播放清單與本機資料夾重新比對，跳過已下載的影片；建立一個 `.m3u` 播放清單檔案，並在每個影片下載後更新
+- **速度和節奏控制** — 限制下載頻寬、設定同時取得影片的分段數量，並用預設新增請求延遲（*關閉 · 平衡 · 謹慎 · 自訂*）
+- **檔名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{resolution}` 和 `{playlist_index}` 依你的方式命名下載檔案，可全域設定或按下載設定分別設定
+- **同時下載數與自動重試** — 選擇佇列中同時進行的下載數量，讓遇到網路或伺服器問題的下載由 Arroxy 自動重試，每次嘗試前等待更久
+- **播放清單逐項設定** — 為播放清單中的每個影片分配各自的下載設定，而不是整份清單用同一套設定，一次即可將部分影片存為最高畫質、其餘轉成 MP3
+- **Quick Download 在背景執行** — 連結會立即出現在「下載」中並在那裡準備，附有 **檢視** 的提示加以確認，URL 輸入框隨即清空，方便貼上下一個連結。前面的還在準備時，可以繼續開始任意多個
+- **「下載」會告訴你哪些需要處理** — Arroxy 讀取不了某個連結時，該列會說明原因並提供解決辦法：重試、開啟 Cookie，或在 Explore 登入。Cookie 關閉時，登入後點選 **使用 Explore 登入** 會幫你重試。超過載入上限的播放清單會在其所在列等你選擇：全部、前幾個，或先檢閱。「下載」分頁會顯示等你處理的列數
+
+### 字幕與後處理
+
+- **字幕**以 SRT、VTT 或 ASS 格式下載 — 手動或自動生成，支援任意可用語言
+- 儲存到影片旁邊、嵌入 `.mkv`，或整理到 `Subtitles/` 子資料夾
+- **僅字幕批次** — 貼上網址清單或開啟播放清單，選擇「字幕」，即可只取得每部影片的字幕檔案
+- **SponsorBlock** — 跳過或章節標記贊助商、片頭、片尾、自我推廣片段
+- **嵌入後設資料** — 標題、上傳日期、頻道、描述、封面圖和章節標記寫入檔案
+
+### YouTube + 2000 個網站
+
+- **YouTube，全面支援** — 影片、Shorts、頻道、播放清單、YouTube Music 和Podcast作為一等來源處理
+- **透過 yt-dlp 支援 2000+ 個其他網站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等眾多網站
+- **僅音訊和字幕**在所有支援的網站上均可使用，不限於 YouTube
+- 若某個網站發生變化，yt-dlp 每週釋出修復，Arroxy 在啟動時自動更新二進位檔
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>在 Arroxy 內瀏覽 YouTube，用目前設定下載你正在看的頁面</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore 首屏</b><br/>快速了解 Explore，以及為什麼用備用帳號登入更安全</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>「下載」告訴你哪些需要處理</b><br/>連結在背景準備；失敗的會提供解決辦法，較長的播放清單則等你選擇</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 全域下載快速鍵 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把複製的連結直接送入下載佇列" width="760" /></picture><br/><sub><b>全域下載快速鍵</b><br/>隨處複製連結，按一次——立即進入佇列並開始下載</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>播放清單逐項設定</b><br/>為每個影片指定各自的設定——部分存為 4K，其餘轉成 MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>快速下載首頁</b><br/>貼上網址，用目前設定一鍵下載</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>可重複使用的下載設定</b><br/>將格式、畫質和輸出儲存為預設——每次下載重複使用</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>多語言音軌</b><br/>精確選擇影片自帶的音訊語言</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>環繞聲 / Dolby 音訊</b><br/>識別並保留 5.1 和 Dolby 音軌</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>批次網址模式</b><br/>貼上清單，自動去重，一次全部加入佇列</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>並行下載佇列</b><br/>多個下載同時進行，即時顯示進度</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -234,79 +319,13 @@ Arroxy 只做一件事：貼上連結，取得乾淨的本機檔案。無帳號�
 
 ---
 
-## <a id="features"></a>功能
-
-### 畫質與格式
-
-- 最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p
-- **高影格率**依原樣保留 — 60 fps、120 fps、HDR
-- **音訊** — 將僅音訊匯出為 MP3、M4A/AAC、Opus 或 WAV。在互動式下載中，可用時選擇來源的原生環繞聲/Dolby 音軌（AC-3、E-AC-3、5.1、DRC），或設定全域預設 **優先環繞聲 / Dolby**
-- 快速預設：*最佳畫質* · *平衡* · *小檔案*
-
-### 隱私與控制
-
-- 100% 本機處理 — 下載直接從 YouTube 到你的硬碟
-- 無登入、無 Cookie、無 Google 帳號繫結
-- 檔案直接儲存到你選擇的資料夾
-
-### 工作流程
-
-- **全域下載快速鍵** — 在任意應用中複製連結後按 `Ctrl+Shift+D`（macOS 為 `Cmd+Shift+D`），Arroxy 會用目前設定直接加入佇列，無需開啟視窗，並以通知確認。預設開啟，可重新繫結
-- **靈活的開始模式** — 選擇引導式單個下載、播放清單/頻道選擇器、批次貼上 URL，或使用已儲存預設值的 Quick Download
-- **中央下載佇列** — 單個、播放清單、批次或快速任務都會進入同一個地方，用於查看進度、暫停、繼續、取消、重試和控制優先順序
-- **剪貼簿監控** — 複製 YouTube 連結後切回應用程式，Arroxy 自動填入 URL（可在進階設定中切換）
-- **自動清理 URL** — 剝除追蹤參數（`si`、`pp`、`utm_*`、`fbclid`、`gclid`）並展開 `youtube.com/redirect` 跳轉連結
-- **托盤模式** — 關閉視窗後下載在後臺繼續執行
-- **30 種語言** — 自動檢測系統語系，可隨時切換
-- **播放清單同步** — 將播放清單與本機資料夾重新比對，跳過已下載的影片；建立一個 `.m3u` 播放清單檔案，並在每個影片下載後更新
-- **速度和節奏控制** — 限制下載頻寬、設定同時取得影片的分段數量，並用預設新增請求延遲（*關閉 · 平衡 · 謹慎 · 自訂*）
-- **檔名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{resolution}` 和 `{playlist_index}` 依你的方式命名下載檔案，可全域設定或按下載設定分別設定
-- **同時下載數與自動重試** — 選擇佇列中同時進行的下載數量，讓遇到網路或伺服器問題的下載由 Arroxy 自動重試，每次嘗試前等待更久
-- **播放清單逐項設定** — 為播放清單中的每個影片分配各自的下載設定，而不是整份清單用同一套設定，一次即可將部分影片存為最高畫質、其餘轉成 MP3
-
-### 字幕與後處理
-
-- **字幕**以 SRT、VTT 或 ASS 格式下載 — 手動或自動生成，支援任意可用語言
-- 儲存到影片旁邊、嵌入 `.mkv`，或整理到 `Subtitles/` 子資料夾
-- **僅字幕批次** — 貼上網址清單或開啟播放清單，選擇「字幕」，即可只取得每部影片的字幕檔案
-- **SponsorBlock** — 跳過或章節標記贊助商、片頭、片尾、自我推廣片段
-- **嵌入後設資料** — 標題、上傳日期、頻道、描述、封面圖和章節標記寫入檔案
-
-### YouTube + 2000 個網站
-
-- **YouTube，全面支援** — 影片、Shorts、頻道、播放清單、YouTube Music 和Podcast作為一等來源處理
-- **透過 yt-dlp 支援 2000+ 個其他網站** — Vimeo、Twitch、Twitter/X、TikTok、SoundCloud、Bandcamp、Bilibili、BBC iPlayer、archive.org 等眾多網站
-- **僅音訊和字幕**在所有支援的網站上均可使用，不限於 YouTube
-- 若某個網站發生變化，yt-dlp 每週釋出修復，Arroxy 在啟動時自動更新二進位檔
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 全域下載快速鍵 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把複製的連結直接送入下載佇列" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>全域下載快速鍵</b><br/>隨處複製連結，按一次——立即進入佇列並開始下載</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>播放清單逐項設定</b><br/>為每個影片指定各自的設定——部分存為 4K，其餘轉成 MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>快速下載首頁</b><br/>貼上網址，用目前設定一鍵下載</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>可重複使用的下載設定</b><br/>將格式、畫質和輸出儲存為預設——每次下載重複使用</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>多語言音軌</b><br/>精確選擇影片自帶的音訊語言</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>環繞聲 / Dolby 音訊</b><br/>識別並保留 5.1 和 Dolby 音軌</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>批次網址模式</b><br/>貼上清單，自動去重，一次全部加入佇列</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>並行下載佇列</b><br/>多個下載同時進行，即時顯示進度</sub></td>
-  </tr>
-</table>
-
----
-
 ## <a id="privacy"></a>隱私
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
 Arroxy 透過 [OpenPanel](https://openpanel.dev) 傳送匿名聚合遙測資料 — 僅用於瞭解故障、崩潰、意見回饋、OS 和應用程式版本。無 URL、無影片標題、無檔案路徑、無帳號資訊、無指紋識別、無個人資料。每次安裝的 ID 是隨機的，不與你的身分繫結。你可以在設定中選擇退出。
+
+Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀取或填寫登入表單 — 你是在 Google 自己的頁面上輸入。下載在未登入狀態下進行；只有在下載因帳號可解決的原因失敗時，Arroxy 才會重新讀取該登入，把它放進僅供該次下載使用的暫存檔，並在之後刪除該檔案。在設定中登出 Explore 即可清除登入。
 
 ---
 
@@ -322,10 +341,10 @@ YouTube 提供的都行：4K UHD（2160p）、1440p、1080p、720p、480p、360p
 可以。在格式選單裡選擇*僅音訊*，然後選擇 MP3、M4A/AAC、Opus 或 WAV。
 
 **需要 YouTube 帳號或 Cookie 嗎？**
-預設不需要 — Arroxy 無需 YouTube 帳號、登入或匯出 Cookie 即可工作。對於需要身分驗證的內容（例如年齡限制或僅會員可見的影片），進階設定中提供可選的 Cookie 支援（Cookies source: file or browser）。該選項預設關閉。如果你啟用它，yt-dlp 的 wiki 指出[基於 Cookie 的自動化可能會標記 Google 帳號](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)；這種情況下使用備用帳號是更安全的選擇。
+預設不需要 — Arroxy 無需 YouTube 帳號、登入或匯出 Cookie 即可工作。對於需要帳號的影片（例如私人、僅會員可見或年齡限制的影片），在 Explore 分頁中登入一次即可：Arroxy 仍以未登入狀態下載，只有在下載因帳號可解決的原因失敗時才使用該登入。這就是 Cookie 設定中的 **Explore 登入** 選項，排在第一位並標有「建議」；如果 Cookie 原本是關閉的，首次開啟 Explore 時 Arroxy 會為你選取它。Cookie 檔案或瀏覽器的 Cookie 也可以使用。無論哪種方式，yt-dlp 的 wiki 都指出[基於 Cookie 的自動化可能會標記 Google 帳號](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用備用帳號是更安全的選擇。
 
 **YouTube 更新後還能繼續使用嗎？**
-yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時釋出修復。如果你確實遇到問題，進階設定中提供可選的 Cookie 支援作為後備方案。
+yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時釋出修復。YouTube 要求確認你不是機器人時，如果你已在 Explore 登入，Arroxy 也會嘗試使用該登入；Cookie 設定中還可使用來自檔案或瀏覽器的 Cookie。
 
 **Arroxy 支援哪些語言？**
 立即可用的 30 種語言：Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文。 Arroxy 會在首次啟動時自動檢測作業系統語言，你也可以隨時從工具列的語言選擇器切換。Runtime locale JSON 位於 src/shared/i18n/locales/，面向譯者的 PO catalog 位於 i18n/locales/ — 歡迎在 GitHub 上建立 PR 貢獻。
@@ -352,8 +371,6 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 | ---------------- | ---------------- |
 | **播放清單與頻道篩選** | 列舉播放清單或頻道時的日期範圍篩選 |
 | **YouTube 音軌偏好** | 當 YouTube 提供多個音軌時，設定全應用程式預設口語音軌，並允許每個設定單獨覆蓋 |
-| **應用程式內瀏覽器登入** | 在 Arroxy 內開啟瀏覽器視窗，登入並使用站點 cookies，無需手動匯出 |
-| **一鍵影片下載** | 使用目前設定，從檢測到或貼上的 URL 一鍵開始影片下載 |
 | **更強的重試恢復** | 為不穩定或有問題的網路連線中斷的下載提供新的重試路徑 |
 | **完整下載管理器面板** | 將佇列面板擴充套件為更完整的管理器，包括為排隊專案更改目標資料夾 |
 | **定時下載** | 在設定時間啟動佇列（適合連夜批次下載） |

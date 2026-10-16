@@ -33,6 +33,7 @@
 
 ## {{toc_heading}}
 
+- [{{features_h2}}](#features)
 - [{{dl_h2}}](#install)
   - [{{dl_win_first_h3}}](#windows-first-launch)
   - [{{dl_macos_first_h3}}](#macos-first-launch)
@@ -40,12 +41,96 @@
   - [{{dl_linux_first_h3}}](#linux-first-launch)
   - [{{dl_verify_h3}}](#verify)
 - [{{why_h2}}](#why)
-- [{{features_h2}}](#features)
 - [{{privacy_h2}}](#privacy)
 - [{{faq_h2}}](#faq)
 - [{{roadmap_h2}}](#roadmap)
 - [{{support_h2}}](#support)
 - [{{tech_h2}}](#tech)
+
+---
+
+## <a id="features"></a>{{features_h2}}
+
+### {{feat_explore_h3}}
+
+- {{feat_explore_1}}
+- {{feat_explore_2}}
+- {{feat_explore_3}}
+- {{feat_explore_4}}
+- {{feat_explore_5}}
+
+### {{feat_quality_h3}}
+
+- {{feat_quality_1}}
+- {{feat_quality_2}}
+- {{feat_quality_3}}
+- {{feat_quality_4}}
+
+### {{feat_privacy_h3}}
+
+- {{feat_privacy_1}}
+- {{feat_privacy_2}}
+- {{feat_privacy_3}}
+
+### {{feat_workflow_h3}}
+
+- {{feat_workflow_12}}
+- {{feat_workflow_1}}
+- {{feat_workflow_2}}
+- {{feat_workflow_3}}
+- {{feat_workflow_4}}
+- {{feat_workflow_5}}
+- {{feat_workflow_6}}
+- {{feat_workflow_7}}
+- {{feat_workflow_8}}
+- {{feat_workflow_9}}
+- {{feat_workflow_10}}
+- {{feat_workflow_11}}
+- {{feat_workflow_13}}
+- {{feat_workflow_14}}
+
+### {{feat_post_h3}}
+
+- {{feat_post_1}}
+- {{feat_post_2}}
+- {{feat_post_5}}
+- {{feat_post_3}}
+- {{feat_post_4}}
+
+### {{feat_sites_h3}}
+
+- {{feat_sites_1}}
+- {{feat_sites_2}}
+- {{feat_sites_3}}
+- {{feat_sites_4}}
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{shot8_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{shot9_cap}}</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{shot10_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="{{hotkey_fig_alt}}" width="760" /></picture><br/><sub>{{hotkey_fig_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub>{{shot7_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub>{{shot1_cap}}</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub>{{shot2_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub>{{shot3_cap}}</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub>{{shot4_cap}}</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub>{{shot5_cap}}</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub>{{shot6_cap}}</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -230,79 +315,13 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ---
 
-## <a id="features"></a>{{features_h2}}
-
-### {{feat_quality_h3}}
-
-- {{feat_quality_1}}
-- {{feat_quality_2}}
-- {{feat_quality_3}}
-- {{feat_quality_4}}
-
-### {{feat_privacy_h3}}
-
-- {{feat_privacy_1}}
-- {{feat_privacy_2}}
-- {{feat_privacy_3}}
-
-### {{feat_workflow_h3}}
-
-- {{feat_workflow_12}}
-- {{feat_workflow_1}}
-- {{feat_workflow_2}}
-- {{feat_workflow_3}}
-- {{feat_workflow_4}}
-- {{feat_workflow_5}}
-- {{feat_workflow_6}}
-- {{feat_workflow_7}}
-- {{feat_workflow_8}}
-- {{feat_workflow_9}}
-- {{feat_workflow_10}}
-- {{feat_workflow_11}}
-
-### {{feat_post_h3}}
-
-- {{feat_post_1}}
-- {{feat_post_2}}
-- {{feat_post_5}}
-- {{feat_post_3}}
-- {{feat_post_4}}
-
-### {{feat_sites_h3}}
-
-- {{feat_sites_1}}
-- {{feat_sites_2}}
-- {{feat_sites_3}}
-- {{feat_sites_4}}
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="{{hotkey_fig_alt}}" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{hotkey_fig_cap}}</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub>{{shot7_cap}}</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub>{{shot1_cap}}</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub>{{shot2_cap}}</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub>{{shot3_cap}}</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub>{{shot4_cap}}</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub>{{shot5_cap}}</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub>{{shot6_cap}}</sub></td>
-  </tr>
-</table>
-
----
-
 ## <a id="privacy"></a>{{privacy_h2}}
 
 {{privacy_p1}}
 
 {{privacy_p2}}
+
+{{privacy_p3}}
 
 ---
 
@@ -348,8 +367,6 @@ sha256sum Arroxy-linux-x64.AppImage
 | ---------------- | ---------------- |
 | {{plan_r1_name}} | {{plan_r1_desc}} |
 | {{plan_r2_name}} | {{plan_r2_desc}} |
-| {{plan_r6_name}} | {{plan_r6_desc}} |
-| {{plan_r8_name}} | {{plan_r8_desc}} |
 | {{plan_r3_name}} | {{plan_r3_desc}} |
 | {{plan_r4_name}} | {{plan_r4_desc}} |
 | {{plan_r5_name}} | {{plan_r5_desc}} |

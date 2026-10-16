@@ -50,7 +50,9 @@ const mockAppApi = {
 			add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),
 			getSnapshot: vi.fn().mockResolvedValue({ok: true, data: {items: [], schedulerPaused: false}}),
 			probeFailed: vi.fn().mockResolvedValue({ok: true, data: undefined}),
-			replaceProbing: vi.fn((input: {items: {id: string}[]}) => Promise.resolve({ok: true, data: {ids: input.items.map(item => item.id)}} as const)),
+			needsChoice: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+			reprobe: vi.fn().mockResolvedValue({ok: true, data: undefined}),
+			replaceProbing: vi.fn((input: {items: {id: string}[]}) => Promise.resolve({ok: true, data: {ids: input.items.map(item => item.id), skippedAlreadyQueued: 0}} as const)),
 			start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			pause: vi.fn().mockResolvedValue({ok: true, data: undefined}),
 			resume: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -65,6 +67,17 @@ const mockAppApi = {
 			resumeAll: vi.fn().mockResolvedValue({ok: true, data: undefined})
 		},
 		events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
+	},
+	explore: {
+		navigate: vi.fn(),
+		setBounds: vi.fn(),
+		setVisible: vi.fn(),
+		setActive: vi.fn(),
+		signOut: vi.fn(),
+		getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null})),
+		capture: vi.fn().mockResolvedValue(ok(null)),
+		onStateChanged: vi.fn().mockReturnValue(() => undefined),
+		onPointerInView: vi.fn().mockReturnValue(() => undefined)
 	},
 	updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue(undefined)},
 	analytics: {track: vi.fn()},

@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Продовжити"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Закрити"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Завантаження…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "YouTube, схоже, заблокував твою IP-адресу. Спробуй пізніше або скористайся VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Для цього відео потрібен авторизований акаунт. Налаштуй cookies.txt (Налаштування → Cookies) і повтори спробу."
+msgid "This video needs a signed-in account."
+msgstr "Для цього відео потрібен акаунт із виконаним входом."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Завантаження не вдалося. Дивись необро�
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Цей URL не підтримується yt-dlp. Спробуйте інше посилання з будь-якого сайту, який підтримує yt-dlp."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Перевір підключення та спробуй ще раз."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Сторінка не завантажилась"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Відкрити налаштування"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Перевір проксі в налаштуваннях і спробуй ще раз."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore не може підключитися через твій проксі"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Повторити"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Нове"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Знаходь відео, плейлист або канал і завантажуй прямо звідси — без копіювання посилань. Увійди в YouTube тут, щоб завантажувати відео, для яких потрібен акаунт."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Продовжити"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube може позначити — а іноді й забанити — акаунти, які використовуються із засобами завантаження на кшталт yt-dlp. Використовуй акаунт, якого не шкода втратити, а не основний."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Входь через додатковий акаунт"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Переглядай YouTube просто в Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Завантаження використовують cookies твого браузера, а не вхід через Explore."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Завантаження використовують твій файл cookies, а не вхід через Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Не зараз"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookies вимкнено, тому завантаження не використовують вхід через Explore."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Використовувати вхід через Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Переглядай YouTube в Arroxy і входь, щоб завантажувати відео, для яких потрібен акаунт."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Показувати вкладку Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Якщо вимкнути, завантаження також перестануть використовувати вхід через Explore."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Вийти з Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Вийти"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Це видалить твій вхід у YouTube і дані перегляду в Explore. Завантаження, для яких потрібен акаунт, завершуватимуться помилкою, доки ти знову не ввійдеш."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Вийти з Explore?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Видаляє твій вхід у YouTube і дані перегляду в Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube може опиратися блокувальникам реклами для акаунтів із виконаним входом."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Блокувальник реклами"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Блокувальник реклами: вимкнено — натисни, щоб увімкнути"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Блокувальник реклами: увімкнено — натисни, щоб вимкнути"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Блокувальник реклами: запускається — натисни, щоб вимкнути"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Блокувальник реклами: недоступний, не вдалося завантажити його списки фільтрів — натисни, щоб вимкнути"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Адреса"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "Шукай на YouTube або встав посилання YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Елементи керування браузера Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Завантажити · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Вперед"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Відкрий відео, плейлист або канал, щоб завантажити його"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Головна YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Вибрати формат, субтитри та інше…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Завантажити це посилання"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore відкриває лише YouTube."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore відкриває лише YouTube. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Перезавантажити"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Запит задовгий."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Мова"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Вхід через Explore виконано — повторюємо 1 посилання"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Вхід через Explore виконано — повторюємо посилання: {{count}}"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Не вдалося вийти з Explore. Спробуй ще раз."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Ця тека вкладена надто глибоко для вашої системи. Завантаження все одно може не вдатися — виберіть коротшу теку."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Вже в черзі — копію не додано"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Ще обробляється попереднє посилання"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy ще запускається — спробуй за мить"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Заверши налаштування cookies в Arroxy і спробуй ще раз"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Скопійовано кілька посилань — скористайтеся «Масові URL» в Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Це посилання потребує швидкої перевірки — відкрийте Arroxy і вставте його знову"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Для цього посилання потрібен твій вибір — відкрий «Завантаження» в Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} відео вже в черзі — пропущено"
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Пропущено відео, які вже в черзі: {{count}}"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Додано: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Вже в черзі"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ відео — вибери, скільки завантажити"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ відео — вибери, скільки завантажити"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Не вдалося підготувати {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Не вдалося додати посилання — спробуй ще раз"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} відео в цьому списку — переглянь і вибери"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Відео в цьому списку: {{count}} — переглянь і вибери"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Показати"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Файл"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "Потребують уваги: {{count}}"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "Потребують уваги: {{count}}"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Скасувати всі активні та очікувані завантаження"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Усі відео"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Перші {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Перегляд"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Помилка"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Утримано"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Потрібен твій вибір"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Вбудовування метаданих…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Вихід з Explore виконано — увійди знову"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Конвертація аудіо…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock недоступний, повторна спроба ({{at
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "З'єднання зависло, повтор ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Вхід через твій обліковий запис Explore…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Навіть з cookies YouTube обмежив цей запит. Спробуй пізніше або зміни мережу."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube обмежив цей запит. Спробуй пізніше або зміни мережу."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Список форматів може бути неповним. Налаштуй cookies у розширених налаштуваннях або зміни мережу та спробуй ще раз."
@@ -1468,6 +1772,10 @@ msgstr "WAV (uncompressed)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Браузер"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Вхід в Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Файл cookies може бути порожнім, застарілим або у неправильному форматі (yt-dlp очікує Netscape cookies.txt). Спробуй повторно експортувати cookies, вибрати інший файл, перейти в режим «Браузер» або вимкнути cookies."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Увійди через Explore, і Arroxy повторить спробу."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Увійти через Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Для цього відео може знадобитися акаунт YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Вхід в Explore виконано, але зараз завантаження не використовують цей вхід."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Використати вхід в Explore і повторити"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Для цього відео може знадобитися акаунт YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Якщо для цього відео потрібен акаунт, Arroxy автоматично використає твій вхід через Explore. Воно може бути недоступним з іншої причини."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Вхід в Explore виконано"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Якщо для цього відео потрібен акаунт YouTube, увійди в Explore та спробуй ще раз. Arroxy використовує цей вхід, лише коли він потрібен для завантаження."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Увійти в Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Для цього відео може знадобитися акаунт YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Причина може бути в cookies"
@@ -1536,6 +1888,10 @@ msgstr "Цей сайт вимагає авторизації"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Відкрити налаштування cookies"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Використати файл cookies або браузер…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Обери файл, щоб використовувати cookies"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Використовує твій вхід через Explore, лише коли він потрібен для завантаження."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Вкладку Explore вимкнено, тому завантаження не використовують вхід через Explore. Увімкни її в розділі Explore нижче."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "Отримати cookies.txt ЛОКАЛЬНО (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Як експортувати cookies?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Відкрити Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Файл не обрано"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Рекомендовано"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Ризик: cookies.txt містить усі активні сесії 
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Браузер"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Вхід в Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

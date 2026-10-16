@@ -183,7 +183,7 @@ describe('App renderer', () => {
 		})
 	})
 
-	it('renders quick download and disables URL actions while preparing', async () => {
+	it('renders quick download and prepares a link in the background, with no modal', async () => {
 		let resolveProbe!: (value: Awaited<ReturnType<typeof mockAppApi.downloads.probe>>) => void
 		vi.mocked(mockAppApi.downloads.probe).mockReturnValue(
 			new Promise(resolve => {
@@ -227,33 +227,16 @@ describe('App renderer', () => {
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
 		fireEvent.click(quick)
 
-		const progressDialog = await screen.findByTestId('quick-download-progress-dialog')
-		expect(progressDialog).toHaveTextContent('Preparing Quick Download')
-		expect(progressDialog).toHaveTextContent('Balanced 720p')
-		expect(progressDialog).toHaveClass('overflow-hidden')
-		expect(screen.getByTestId('quick-download-progress-body')).toHaveClass('min-w-0')
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
-		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
-		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 1')
-
-		act(() => {
-			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'pages', loaded: 8, at: new Date().toISOString()}} as never)
-		})
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Scanning channel pages')
-		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('8 pages found')
-		expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
-
-		act(() => {
-			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'items', loaded: 48, total: 100, at: new Date().toISOString()}} as never)
-		})
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Collecting videos')
-		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('48 / 100')
-		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '48')
-
-		await waitFor(() => {
-			expect(quick).toBeDisabled()
-			expect(fetch).toBeDisabled()
-		})
+		// The link becomes a probing row in Downloads at once; the field clears
+		// for the next link, and nothing blocks the window.
+		await waitFor(() => expect(mockAppApi.queue.cmd.add).toHaveBeenCalledTimes(1))
+		expect(vi.mocked(mockAppApi.queue.cmd.add).mock.calls[0]?.[0][0]).toMatchObject({status: 'probing', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'})
+		await waitFor(() => expect(input).toHaveValue(''))
+		expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=jNQXAC9IVRw'}})
+		expect(quick).toBeEnabled()
+		expect(fetch).toBeEnabled()
 
 		resolveProbe({
 			ok: true,
@@ -273,12 +256,7 @@ describe('App renderer', () => {
 			}
 		})
 
-		await waitFor(() => {
-			expect(mockAppApi.queue.cmd.add).toHaveBeenCalledTimes(1)
-		})
-		await waitFor(() => {
-			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
-		})
+		await waitFor(() => expect(mockAppApi.queue.cmd.replaceProbing).toHaveBeenCalledTimes(1))
 	})
 
 	it('explains profile destination overrides on the active profile card', async () => {
@@ -293,22 +271,38 @@ describe('App renderer', () => {
 		expect(destination).toHaveTextContent('/mnt/archive/Lectures')
 	})
 
-	it('cancels quick download preparation from the blocking progress dialog', async () => {
+	// Bulk URLs still prepares its links in one modal run.
+	it('shows and cancels a Bulk URLs preparation in the blocking progress dialog', async () => {
 		vi.mocked(mockAppApi.downloads.probe).mockReturnValue(new Promise(() => undefined))
 		render(<App />)
+		await screen.findByTestId('profiles-main-input')
 
-		const input = await screen.findByTestId('profiles-main-input')
-		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
-		fireEvent.click(screen.getByTestId('profiles-quick-download'))
+		act(() => {
+			void useAppStore.getState().quickDownloadUrls(['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=jNQXAC9IVRw'])
+		})
 
-		expect(await screen.findByTestId('quick-download-progress-dialog')).toBeInTheDocument()
+		const progressDialog = await screen.findByTestId('quick-download-progress-dialog')
+		expect(progressDialog).toHaveTextContent('Preparing Quick Download')
+		expect(progressDialog).toHaveTextContent('Balanced 720p')
+		expect(progressDialog).toHaveClass('overflow-hidden')
+		expect(screen.getByTestId('quick-download-progress-body')).toHaveClass('min-w-0')
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
+		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
+		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 2')
+
+		act(() => {
+			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'items', loaded: 48, total: 100, at: new Date().toISOString()}} as never)
+		})
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Collecting videos')
+		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('48 / 100')
+		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '48')
+
 		fireEvent.click(screen.getByTestId('quick-download-progress-cancel'))
 
 		await waitFor(() => {
 			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
 		})
 		expect(mockAppApi.downloads.probeCancel).toHaveBeenCalled()
-		expect(screen.getByTestId('profiles-main-input')).toHaveValue('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 	})
 
 	it('closes the profile picker when opening the new profile editor', async () => {

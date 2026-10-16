@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "ဆက်လက်သွားမည်"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "ပိတ်မည်"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "ဖွင့်နေသည်…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "သင့် IP လိပ်စာကို YouTube မှ ပိတ်ဆို့ထားနိုင်သည်။ နောက်မှပြန်ကြိုးစားပါ သို့ VPN သုံးပါ။"
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "ဤဗီဒီယိုအတွက် login ဝင်ထားသော account လိုအပ်သည်။ cookies.txt တစ်ခု တပ်ဆင်ပါ (ဆက်တင် → Cookies) ပြီးနောက် ထပ်ကြိုးစားပါ။"
+msgid "This video needs a signed-in account."
+msgstr "ဤဗီဒီယိုအတွက် sign in ဝင်ထားသော အကောင့် လိုအပ်သည်။"
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "ဒေါင်းလုဒ်မအောင်မြင်ပါ။ �
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "ထို URL ကို yt-dlp မထောက်ပံ့ပါ။ yt-dlp ထောက်ပံ့သော site များမှ အခြား link တစ်ခုကို စမ်းကြည့်ပါ။"
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "ဤစာမျက်နှာ မတက်လာပါ"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "ဆက်တင်များ ဖွင့်မည်"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "ဆက်တင်များရှိ ပရောက်စီကို စစ်ဆေးပြီး ထပ်ကြိုးစားပါ။"
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore သည် သင့်ပရောက်စီမှတစ်ဆင့် ချိတ်ဆက်၍မရပါ"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "ထပ်မံကြိုးစားမည်"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "အသစ်"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "ဗီဒီယို၊ ပလေးလစ် သို့မဟုတ် ချန်နယ်တစ်ခုကို ရှာပြီး ဤနေရာမှ တိုက်ရိုက်ဒေါင်းလုဒ်လုပ်ပါ — လင့်ခ်ကူးစရာမလိုပါ။ အကောင့်လိုအပ်သော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ဤနေရာတွင် YouTube သို့ ဝင်ရောက်ပါ။"
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "ဆက်လက်သွားမည်"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "yt-dlp ကဲ့သို့ ဒေါင်းလုဒ်ကိရိယာများနှင့် သုံးသော အကောင့်များကို YouTube က အလံပြ — တစ်ခါတစ်ရံ ပိတ်ပင် — နိုင်သည်။ ဆုံးရှုံးသော်လည်း ခံနိုင်သည့် အကောင့်ကို သုံးပါ၊ သင့်အဓိကအကောင့်ကို မသုံးပါနှင့်။"
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "အရန်အကောင့်ဖြင့် ဝင်ရောက်ပါ"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Arroxy ထဲမှာပင် YouTube ကို ကြည့်ရှုပါ"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "ဒေါင်းလုဒ်များသည် သင့် browser ၏ ကွတ်ကီးကို သုံးပြီး Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "ဒေါင်းလုဒ်များသည် သင့်ကွတ်ကီးဖိုင်ကို သုံးပြီး Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "ယခုမလုပ်သေးပါ"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "ကွတ်ကီးပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Explore ဝင်ရောက်မှု သုံးမည်"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Arroxy ထဲတွင် YouTube ကို ကြည့်ရှုပြီး အကောင့်လိုအပ်သော ဗီဒီယိုများအတွက် ဝင်ရောက်ပါ။"
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Explore တက်ဘ် ပြမည်"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "ပိတ်လိုက်လျှင် ဒေါင်းလုဒ်များလည်း သင့် Explore ဝင်ရောက်မှုကို မသုံးတော့ပါ။"
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Explore မှ ထွက်မည်"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "ထွက်မည်"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "ဤသည်က Explore ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။ အကောင့်လိုအပ်သော ဒေါင်းလုဒ်များသည် ပြန်ဝင်သည်အထိ မအောင်မြင်ပါ။"
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Explore မှ ထွက်မလား?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Explore ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။"
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "sign in ဝင်ထားသော အကောင့်များအတွက် YouTube က ကြော်ငြာပိတ်ဆို့ကိရိယာကို ခုခံနိုင်သည်။"
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "ကြော်ငြာပိတ်ဆို့ကိရိယာ"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "ကြော်ငြာပိတ်ဆို့ကိရိယာ- ပိတ်ထားသည် — ဖွင့်ရန် နှိပ်ပါ"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "ကြော်ငြာပိတ်ဆို့ကိရိယာ- ဖွင့်ထားသည် — ပိတ်ရန် နှိပ်ပါ"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "ကြော်ငြာပိတ်ဆို့ကိရိယာ- စတင်နေသည် — ပိတ်ရန် နှိပ်ပါ"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "ကြော်ငြာပိတ်ဆို့ကိရိယာ- မရနိုင်ပါ၊ ၎င်း၏ filter စာရင်းများကို ဒေါင်းလုဒ်မလုပ်နိုင်ပါ — ပိတ်ရန် နှိပ်ပါ"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "လိပ်စာ"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "YouTube တွင် ရှာပါ သို့မဟုတ် YouTube လင့်ခ်ကို ကူးထည့်ပါ"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Explore browser ထိန်းချုပ်မှုများ"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "နောက်သို့"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "ဒေါင်းလုဒ် · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "ရှေ့သို့"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "ဒေါင်းလုဒ်လုပ်ရန် ဗီဒီယို၊ ပလေးလစ် သို့မဟုတ် ချန်နယ်တစ်ခု ဖွင့်ပါ"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube ပင်မစာမျက်နှာ"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "format၊ စာတန်းထိုး စသည်တို့ကို ရွေးပါ…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "ဤလင့်ခ်ကို ဒေါင်းလုဒ်လုပ်ပါ"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။"
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။ {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "ပြန်လည်ဖွင့်မည်"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "ထိုရှာဖွေမှု အရှည်လွန်းသည်။"
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ဘာသာစကား"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် 1 ခုကို ပြန်စမ်းနေသည်"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် {{count}} ခုကို ပြန်စမ်းနေသည်"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Explore မှ မထွက်နိုင်ပါ။ ထပ်ကြိုးစားပါ။"
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "ဤဖိုင်တွဲသည် သင့်စနစ်အတွက် အလွန်နက်ရှိုင်းလွန်းသည်။ ဒေါင်းလုဒ် မအောင်မြင်နိုင်သေးပါ — ပိုတိုသောဖိုင်တွဲကို ရွေးပါ။"
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "အလျှံတွင် ရှိပြီးသား — မိတ္တူ ထပ်ထည့်ထားခြင်း မရှိပါ"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "ယခင်လင့်ခ်ကို အလုပ်လုပ်ဆောင်နေဆဲဖြစ်သည်"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy စတင်နေဆဲဖြစ်သည် — ခဏနောက်မှ ပြန်စမ်းကြည့်ပါ"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Arroxy တွင် cookie ဆက်တင်ကို အပြီးသတ်ပြီး ပြန်စမ်းကြည့်ပါ"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "လင့်ခ်များစွာ ကော်ပီကူးထားပါသည် — Arroxy ရှိ “URL အများအပြား” ကို သုံးပါ"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "ဤလင့်ခ်သည် စစ်ဆေးမှု တစ်ခု လိုအပ်သည် — Arroxy ကို ဖွင့်ပြီး ပြန်ကပ်ပါ"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "ဤလင့်ခ်ကို သင်ရွေးချယ်ရန် လိုသည် — Arroxy ရှိ ဒေါင်းလုဒ်များကို ကြည့်ပါ"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "တန်းစီစာရင်းတွင် ရှိပြီး�
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "ထည့်ပြီး- {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "စာရင်းထဲတွင် ရှိပြီးသား"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} ကို ပြင်ဆင်၍မရပါ"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "ထိုလင့်ခ်ကို ထည့်၍မရပါ — ပြန်စမ်းကြည့်ပါ"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "ကြည့်ရန်"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ဖိုင်"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "လုပ်ဆောင်နေသောနှင့် ဆိုင်းငံ့ထားသောဒေါင်းလုဒ်အားလုံး ဖျက်သိမ်းမည်"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "ဗီဒီယိုအားလုံး"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။"
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။"
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "ပထမ {{count}} ခု"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "ပြန်လည်စစ်ဆေးရန်"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။"
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "အမှား"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "ထိန်းထားသည်"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "သင်ရွေးချယ်ရန် လိုသည်"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Metadata ထည့်သွင်းနေသည်…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Explore မှ ထွက်သွားပါပြီ — ပြန်ဝင်ပါ"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "အသံပြောင်းလဲနေသည်…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock မရရှိနိုင်ပါ၊ ပြန်လည�
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "ချိတ်ဆက်မှု ရပ်တန့်နေသည်၊ ပြန်လည်ကြိုးစားနေသည် ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "သင့် Explore အကောင့်ဖြင့် ဝင်ရောက်နေသည်…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Cookies ပါသော်လည်း YouTube မှ ဤစစ်ဆေးမှုကို ကန့်သတ်ပြီ။ နောက်မှ ထပ်ကြိုးစားပါ သို့မဟုတ် network ပြောင်းပါ။"
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube က ဤတောင်းဆိုမှုကို ကန့်သတ်ထားသည်။ နောက်မှ ထပ်ကြိုးစားပါ သို့မဟုတ် ကွန်ရက်ပြောင်းပါ။"
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "ဖော်မတ်စာရင်း မပြည့်စုံနိုင်ပါ။ အဆင့်မြင့်ဆက်တင်တွင် cookies တပ်ဆင်ပါ၊ သို့မဟုတ် network ပြောင်းပြီး ထပ်ကြိုးစားပါ။"
@@ -1468,6 +1772,10 @@ msgstr "WAV (ချုံ့မထားသော)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Browser"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Explore ဝင်ရောက်မှု"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Cookies ဖိုင်သည် ဗလာဖြစ်နေ၊ သက်တမ်းကုန်နေ သို့မဟုတ် မှားသောဖော်မတ်ဖြစ်နေနိုင်သည် (yt-dlp သည် Netscape cookies.txt ကိုသာ လက်ခံသည်)။ Cookies ကို ထပ်မံ export လုပ်ကြည့်ပါ၊ ဖိုင်အခြားတစ်ခုရွေးကြည့်ပါ၊ Browser မုဒ်သို့ပြောင်းကြည့်ပါ၊ သို့မဟုတ် cookies ပိတ်ကြည့်ပါ။"
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Explore ဖြင့် sign in ဝင်ပါ၊ Arroxy က ပြန်စမ်းပေးပါမည်။"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Explore ဖြင့် sign in ဝင်ပါ"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့် လိုနိုင်သည်"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Explore တွင် sign in ဝင်ထားသော်လည်း ဒေါင်းလုဒ်များက ထို sign-in ကို ယခု မသုံးနေပါ။"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "ကျွန်ုပ်၏ Explore sign-in ကို သုံးပြီး ပြန်စမ်းပါ"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့် လိုနိုင်သည်"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "ဤဗီဒီယိုအတွက် အကောင့်လိုအပ်ပါက Arroxy သည် သင့် Explore ဝင်ရောက်မှုကို အလိုအလျောက် သုံးသည်။ အခြားအကြောင်းရင်းကြောင့်လည်း မရနိုင်ဖြစ်နိုင်သည်။"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Explore သို့ ဝင်ရောက်ထားသည်"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့်လိုအပ်ပါက Explore တွင် ဝင်ရောက်ပြီး ထပ်ကြိုးစားပါ။ ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ Arroxy က ထိုဝင်ရောက်မှုကို သုံးသည်။"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Explore တွင် ဝင်ရောက်မည်"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့် လိုနိုင်သည်"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookies သည် အကြောင်းရင်းဖြစ်နိုင်သည်"
@@ -1536,6 +1888,10 @@ msgstr "ဤဝဘ်ဆိုဒ်တွင် အကောင့်ဝင်�
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Cookies ဆက်တင် ဖွင့်မည်"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "၎င်းအစား cookie ဖိုင် သို့မဟုတ် browser ကို သုံးပါ…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "ကွတ်ကီးသုံးရန် ဖိုင်ရွေးပါ"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ သင့် Explore ဝင်ရောက်မှုကို သုံးသည်။"
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Explore တက်ဘ်ပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် Explore ဝင်ရောက်မှုကို မသုံးပါ။ အောက်ရှိ Explore တွင် ဖွင့်ပါ။"
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "cookies.txt ကို ဒေသတွင်း ရယူရန် (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "ကွတ်ကီးများ ထုတ်ယူနည်းကား?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Explore ဖွင့်မည်"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "ဖိုင်မရွေးရသေးပါ"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "အကြံပြု"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "အန္တရာယ်: cookies.txt တွင် ထို browser ၏
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Browser"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Explore ဝင်ရောက်မှု"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

@@ -68,3 +68,52 @@ describe('toast sink', () => {
 		expect(shown[2]?.options.id).toBe(shown[1]?.options.id)
 	})
 })
+
+describe('toast actions', () => {
+	beforeEach(() => {
+		shown.length = 0
+	})
+	afterEach(() => setNotificationSink(null))
+
+	it('renders a single action as the toast’s action button', () => {
+		render(<App />)
+		const view = vi.fn()
+		notify.quickDownloadAdded('Video', view)
+		const action = shown[0]?.options.action
+		if (!action || typeof action !== 'object' || !('onClick' in action)) throw new Error('expected an action object')
+		expect(action.label).toBe('View')
+		action.onClick(new MouseEvent('click') as never)
+		expect(view).toHaveBeenCalledTimes(1)
+		expect(shown[0]?.options.cancel).toBeUndefined()
+	})
+
+	it('renders the main action first and View as the second button', () => {
+		render(<App />)
+		const retry = vi.fn()
+		const view = vi.fn()
+		notify.quickDownloadFailed('row', 'Video', {kind: 'retry', run: retry}, view)
+		const {action, cancel} = shown[0]?.options ?? {}
+		if (!action || typeof action !== 'object' || !('onClick' in action)) throw new Error('expected an action object')
+		if (!cancel || typeof cancel !== 'object' || !('onClick' in cancel)) throw new Error('expected a second button')
+		expect([action.label, cancel.label]).toEqual(['Retry', 'View'])
+		action.onClick(new MouseEvent('click') as never)
+		cancel.onClick(new MouseEvent('click') as never)
+		expect(retry).toHaveBeenCalledTimes(1)
+		expect(view).toHaveBeenCalledTimes(1)
+	})
+
+	// Sonner closes the toast after an action click without calling onDismiss
+	// or onAutoClose. A same-id notification raised by the action itself (a
+	// fast re-failure) must still open a fresh toast, not the leaving one.
+	it.each(['action', 'cancel'] as const)('opens a new toast for a notification raised right after a %s click', button => {
+		render(<App />)
+		const refail = (): void => notify.quickDownloadFailed('row', 'Video', {kind: 'retry', run: () => undefined})
+		notify.quickDownloadFailed('row', 'Video', {kind: 'retry', run: refail}, refail)
+		const clicked = shown[0]?.options[button]
+		if (!clicked || typeof clicked !== 'object' || !('onClick' in clicked)) throw new Error('expected a button')
+		clicked.onClick(new MouseEvent('click') as never)
+
+		expect(shown).toHaveLength(2)
+		expect(shown[1]?.options.id).not.toBe(shown[0]?.options.id)
+	})
+})

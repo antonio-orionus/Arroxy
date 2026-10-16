@@ -122,6 +122,12 @@ export const tr = {
   why_r7: "Altyazılar + SponsorBlock",
   why_summary:
     "Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosya al. Hesap yok, ek satış yok, veri toplama yok.",
+  feat_explore_h3: "Explore: YouTube'a Arroxy içinden göz at",
+  feat_explore_1: "**Explore sekmesi** — YouTube'a Arroxy içinden göz at ve bulduklarını bağlantı kopyalamadan indir. **İndir · *profilin*** baktığın videoyu, oynatma listesini veya kanalı kuyruğa ekler; yanındaki ok profil değiştirir, sihirli değnek ise biçim, altyazı ve daha fazlasını seçebileceğin adım adım indirmeyi açar",
+  feat_explore_2: "**Adres çubuğu** — YouTube'da aramak için yaz ya da bir YouTube bağlantısı yapıştır. Explore yalnızca YouTube'a göz atar, bu yüzden başka bir siteden gelen bağlantı orada açılmaz ama tek tıkla indirebilirsin",
+  feat_explore_3: "**Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Arroxy yine de oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. YouTube robot olmadığını doğrulamanı istediğinde Arroxy Explore girişini de dener",
+  feat_explore_4: "**İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişi unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap",
+  feat_explore_5: "**Reklam engelleyici** — Explore kendi sayfalarındaki reklamları ve izleyicileri engeller; indirmeler etkilenmez. Varsayılan olarak açık, Explore araç çubuğundaki kalkana tek tıklama onu kapatır ve Google'ın giriş sayfalarında asla devreye girmez. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir",
   feat_quality_h3: "Kalite ve biçimler",
   feat_quality_1: "**4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p'ye kadar",
   feat_quality_2:
@@ -137,8 +143,7 @@ export const tr = {
   feat_privacy_3: "Dosyalar doğrudan seçtiğin klasöre kaydedilir",
   feat_workflow_h3: "İş akışı",
   feat_workflow_12: "**Genel indirme kısayolu** — herhangi bir uygulamada bir bağlantı kopyala ve `Ctrl+Shift+D` (macOS'ta `Cmd+Shift+D`) tuşlarına bas; Arroxy pencereyi açmadan aktif profilinle kuyruğa ekler ve bir bildirim bunu doğrular. Varsayılan olarak açık, yeniden atanabilir",
-  feat_workflow_1:
-    "**Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma veya kayıtlı varsayılanlarla Hızlı İndirme seç",
+  feat_workflow_1: "**Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma, kayıtlı varsayılanlarla Hızlı İndirme veya Explore'da gezip indirme seç",
   feat_workflow_2:
     "**Merkezi indirme kuyruğu** — her tekil, oynatma listesi, toplu veya hızlı iş; ilerleme, duraklatma, sürdürme, iptal, yeniden deneme ve öncelik kontrolü için tek yere gelir",
   feat_workflow_3:
@@ -159,6 +164,8 @@ export const tr = {
     "**Aynı anda indirme ve otomatik yeniden deneme** — kuyruktaki kaç indirmenin aynı anda çalışacağını seç ve ağ ya da sunucu kaynaklı sorun yaşayan bir indirmeyi Arroxy'nin, her denemeden önce daha uzun bekleyerek yeniden denemesine izin ver",
   feat_workflow_11:
     "**Oynatma listesinde öğe başına profil** — bir oynatma listesindeki her videoya, tüm liste için tek bir ayar yerine kendi indirme profilini atayın; böylece tek geçişte bazılarını tam kalitede arşivleyip kalanını MP3 olarak alabilirsiniz",
+  feat_workflow_13: "**Hızlı İndirme arka planda çalışır** — bağlantı hemen İndirmeler'de görünür ve orada hazırlanır, **Görüntüle** içeren bir not bunu doğrular ve URL alanı bir sonraki bağlantı için temizlenir. Öncekiler hazırlanırken istediğin kadar başlat",
+  feat_workflow_14: "**İndirmeler sana neye ihtiyaç olduğunu söyler** — Arroxy bir bağlantıyı okuyamazsa satırı nedenini söyler ve çözümü sunar: Tekrar dene, çerezleri aç veya Explore'da giriş yap. Çerezler kapalıyken **Explore ile giriş yap**, giriş yaptıktan sonra bunu senin için yeniden dener. Yükleme sınırından uzun bir oynatma listesi satırında bekler; tamamını, ilk birkaç videoyu veya bir incelemeyi seçmeni bekler. İndirmeler sekmesi sende bekleyen satırları sayar",
   feat_post_h3: "Altyazılar ve son işleme",
   feat_post_1:
     "**Altyazılar** SRT, VTT veya ASS olarak — manuel ya da otomatik oluşturulmuş, mevcut herhangi bir dilde",
@@ -194,6 +201,9 @@ export const tr = {
   hotkey_fig_alt: "Arroxy genel indirme kısayolu — Windows ve Linux'ta Ctrl+Shift+D, macOS'ta Cmd+Shift+D, kopyalanan bağlantıyı doğrudan indirme kuyruğuna gönderir",
   hotkey_fig_cap: "<b>Genel indirme kısayolu</b><br/>Bağlantıyı nerede olursan ol kopyala, bir kez bas — kuyruğa girer ve inmeye başlar",
   shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al",
+  shot8_cap: "<b>Explore</b><br/>YouTube'a Arroxy içinden göz at ve bulunduğun sayfayı aktif profilinle indir",
+  shot9_cap: "<b>Explore'un ilk ekranı</b><br/>Explore'a kısa bir bakış ve ikincil hesabın neden daha güvenli giriş olduğu",
+  shot10_cap: "<b>İndirmeler sana neye ihtiyaç olduğunu söyler</b><br/>Bağlantılar arka planda hazırlanır; başarısız olan çözümünü sunar, uzun bir oynatma listesi seçimini bekler",
   dl_platform_col: "Platform",
   dl_format_col: "Doğrudan indirme",
   dl_oneline_note:
@@ -321,6 +331,7 @@ export const tr = {
     "İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.",
   privacy_p2:
     "Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin hataları, çökmeleri, geri bildirimleri, işletim sistemlerini ve uygulama sürümlerini anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.",
+  privacy_p3: "Explore, tarayıcından ayrı kendi girişini tutar ve Arroxy giriş formunu asla okumaz ya da doldurmaz — Google'ın kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişi unutturur.",
   faq_q1: "Gerçekten ücretsiz mi?",
   faq_a1: "Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.",
   faq_q2: "Hangi video kalitelerini indirebilirim?",
@@ -330,11 +341,9 @@ export const tr = {
   faq_a3:
     "Evet. Biçim menüsünde *yalnızca ses* seç ve MP3, M4A/AAC, Opus veya WAV tercih et.",
   faq_q4: "YouTube hesabı veya çerez gerekir mi?",
-  faq_a4:
-    "Varsayılan olarak hayır — Arroxy YouTube hesabı, giriş veya çerez dışa aktarma olmadan çalışır. Yaş kısıtlamalı veya üyelere özel videolar gibi kimlik doğrulaması gerektiren içerikler için Gelişmiş ayarlarda isteğe bağlı çerez desteği vardır (Çerez kaynağı: dosya veya tarayıcı). Varsayılan olarak kapalıdır. Etkinleştirirsen yt-dlp wiki'si [çerez tabanlı otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir; bu durumda geçici bir hesap daha güvenlidir.",
+  faq_a4: "Varsayılan olarak hayır — Arroxy YouTube hesabı, giriş veya çerez dışa aktarma olmadan çalışır. Özel, üyelere özel veya yaş kısıtlamalı videolar gibi hesap gerektiren videolar için Explore sekmesinde bir kez giriş yap: Arroxy yine de oturum açmadan indirir ve bu girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir; çerezler kapalıysa Explore'u ilk açtığında Arroxy bunu senin için seçer. Bir çerez dosyası veya tarayıcının çerezleri de çalışır. Her durumda yt-dlp wiki'si [çerez tabanlı otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.",
   faq_q5: "YouTube bir şey değiştirdiğinde çalışmaya devam eder mi?",
-  faq_a5:
-    "yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. Yine de sorun yaşarsan Gelişmiş ayarlarda isteğe bağlı çerez desteği yedek yol olarak kullanılabilir.",
+  faq_a5: "yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. YouTube robot olmadığını doğrulamanı istediğinde, Explore'da giriş yaptıysan Arroxy Explore girişini de dener; bir dosyadaki veya tarayıcındaki çerezler de çerez ayarlarında kullanılabilir.",
   faq_q6: "Arroxy hangi dillerde mevcut?",
   faq_a6:
     "Kutudan çıktığı gibi {{LANG_COUNT}} dil: {{LANG_NAME_LIST}}. Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.",
@@ -358,12 +367,6 @@ export const tr = {
   plan_r2_name: "**YouTube ses parçası tercihleri**",
   plan_r2_desc:
     "YouTube birden fazla ses parçası sunduğunda profil bazlı geçersiz kılmalarla birlikte uygulama geneli konuşulan dil tercihi ayarla",
-  plan_r6_name: "**Uygulama içi tarayıcı oturumu**",
-  plan_r6_desc:
-    "Elle dışa aktarma olmadan oturum açıp site çerezlerini kullanabilmen için Arroxy içinde tarayıcı pencereleri aç",
-  plan_r8_name: "**Tek tıkla video indirme**",
-  plan_r8_desc:
-    "Algılanan veya yapıştırılan URL’den etkin profilini kullanarak tek tıkla video indirmesi başlat",
   plan_r3_name: "**Daha güçlü yeniden deneme kurtarması**",
   plan_r3_desc:
     "Güvenilmez veya sorunlu internet bağlantılarıyla kesilen indirmeler için yeni bir yeniden deneme yolu",

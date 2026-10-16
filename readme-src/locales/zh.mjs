@@ -121,6 +121,17 @@ export const zh = {
   why_r7: "字幕 + SponsorBlock",
   why_summary:
     "Arroxy 只做一件事：粘贴链接，获取干净的本地文件。无账号、无追加销售、无数据收集。",
+  feat_explore_h3: "Explore：在 Arroxy 内浏览 YouTube",
+  feat_explore_1:
+    "**Explore 标签页** — 在 Arroxy 内浏览 YouTube，无需复制链接即可下载你找到的内容。**下载 · *你的配置*** 会把你正在查看的视频、播放列表或频道加入队列；旁边的箭头可切换配置，魔杖则打开分步下载，用来选择格式、字幕等",
+  feat_explore_2:
+    "**地址栏** — 输入关键词搜索 YouTube，或粘贴 YouTube 链接。Explore 只浏览 YouTube，其他网站的链接不会在其中打开，但你可以一键下载",
+  feat_explore_3:
+    "**需要账号的下载** — 在 Explore 中登录一次，Arroxy 就能下载你的账号可观看的私享和会员专属视频、已通过年龄验证的账号可看的年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表。Arroxy 仍默认在未登录状态下下载，只有当下载因账号可解决的原因失败时才会使用你在 Explore 中的登录。YouTube 要求确认你不是机器人时，Arroxy 也会尝试使用你在 Explore 中的登录",
+  feat_explore_4:
+    "**建议使用备用账号** — Explore 的首屏会说明原因：使用账号下载有一定风险，该账号可能被限制。想清除登录时，随时可在设置中退出 Explore",
+  feat_explore_5:
+    "**广告拦截** — Explore 会拦截自身页面上的广告和跟踪器，不影响下载。默认开启，点击 Explore 工具栏上的盾牌即可关闭，并且不会作用于 Google 的登录页面。对已登录的账号，YouTube 可能会抵制广告拦截",
   feat_quality_h3: "画质与格式",
   feat_quality_1: "最高 **4K UHD（2160p）**、1440p、1080p、720p、480p、360p",
   feat_quality_2: "**高帧率**原样保留 — 60 fps、120 fps、HDR",
@@ -134,7 +145,7 @@ export const zh = {
   feat_workflow_h3: "工作流",
   feat_workflow_12: "**全局下载快捷键** — 在任意应用中复制链接后按 `Ctrl+Shift+D`（macOS 为 `Cmd+Shift+D`），Arroxy 会用当前配置直接加入队列，无需打开窗口，并以通知确认。默认开启，可重新绑定",
   feat_workflow_1:
-    "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL，或使用已保存默认值的 Quick Download",
+    "**灵活的开始模式** — 选择引导式单个下载、播放列表/频道选择器、批量粘贴 URL、使用已保存默认值的 Quick Download，或在 Explore 中浏览并下载",
   feat_workflow_2:
     "**中央下载队列** — 单个、播放列表、批量或快速任务都会进入同一个地方，用于查看进度、暂停、继续、取消、重试和控制优先级",
   feat_workflow_3:
@@ -153,6 +164,10 @@ export const zh = {
     "**同时下载数与自动重试** — 选择队列中同时进行的下载数量，让遇到网络或服务器问题的下载由 Arroxy 自动重试，每次尝试前等待更久",
   feat_workflow_11:
     "**播放列表逐条配置** — 为播放列表中的每个视频分配各自的下载配置，而不是整份列表用同一套设置，一次即可将部分视频存为完整画质、其余转成 MP3",
+  feat_workflow_13:
+    "**Quick Download 在后台运行** — 链接会立即出现在“下载”中并在那里准备，带有 **查看** 的提示予以确认，URL 输入框随即清空，方便粘贴下一个链接。前面的还在准备时，可以继续开始任意多个",
+  feat_workflow_14:
+    "**“下载”会告诉你哪些需要处理** — Arroxy 读取不了某个链接时，该行会说明原因并给出解决办法：重试、开启 Cookie，或在 Explore 中登录。Cookie 关闭时，登录后点击 **使用 Explore 登录** 会替你重试。超过加载上限的播放列表会在其所在行等你选择：全部、前几个，或先审阅。“下载”标签页会显示等你处理的行数",
   feat_post_h3: "字幕与后处理",
   feat_post_1:
     "**字幕**以 SRT、VTT 或 ASS 格式下载 — 手动或自动生成，支持任意可用语言",
@@ -181,6 +196,9 @@ export const zh = {
   hotkey_fig_alt: "Arroxy 全局下载快捷键 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把复制的链接直接送入下载队列",
   hotkey_fig_cap: "<b>全局下载快捷键</b><br/>随处复制链接，按一次——即刻进入队列并开始下载",
   shot7_cap: "<b>播放列表逐条配置</b><br/>为每个视频指定各自的配置——部分存为 4K，其余转成 MP3",
+  shot8_cap: "<b>Explore</b><br/>在 Arroxy 内浏览 YouTube，用当前配置下载你正在查看的页面",
+  shot9_cap: "<b>Explore 首屏</b><br/>快速了解 Explore，以及为什么用备用账号登录更安全",
+  shot10_cap: "<b>“下载”告诉你哪些需要处理</b><br/>链接在后台准备；失败的会给出解决办法，较长的播放列表则等你选择",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_oneline_note:
@@ -301,6 +319,8 @@ export const zh = {
     "下载通过 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接从 YouTube 获取到你选择的文件夹 — 不经过任何第三方服务器。观看历史、下载历史、URL 和文件内容均保留在你的设备上。",
   privacy_p2:
     "Arroxy 通过 [OpenPanel](https://openpanel.dev) 发送匿名聚合遥测数据 — 仅用于了解故障、崩溃、反馈、OS 和应用版本。无 URL、无视频标题、无文件路径、无账号信息、无指纹识别、无个人数据。每次安装的 ID 是随机的，不与你的身份绑定。你可以在设置中选择退出。",
+  privacy_p3:
+    "Explore 有自己独立的登录，与你的浏览器分开，Arroxy 不会读取或填写登录表单 — 你是在 Google 自己的页面上输入。下载在未登录状态下进行；只有当下载因账号可解决的原因失败时，Arroxy 才会重新读取该登录，把它放进仅供本次下载使用的临时文件，并在之后删除该文件。在设置中退出 Explore 即可清除登录。",
   faq_q1: "真的免费吗？",
   faq_a1: "是的 — MIT 许可证，无付费版，无功能门槛。",
   faq_q2: "能下载哪些视频画质？",
@@ -311,10 +331,10 @@ export const zh = {
     "可以。在格式菜单里选择*仅音频*，然后选择 MP3、M4A/AAC、Opus 或 WAV。",
   faq_q4: "需要 YouTube 账号或 Cookie 吗？",
   faq_a4:
-    "默认不需要 — Arroxy 无需 YouTube 账号、登录或导出 Cookie 即可工作。对于需要身份验证的内容（例如年龄限制或仅会员可见的视频），高级设置中提供可选的 Cookie 支持（Cookies source: file or browser）。该选项默认关闭。如果你启用它，yt-dlp 的 wiki 指出[基于 Cookie 的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)；这种情况下使用一次性账号是更安全的选择。",
+    "默认不需要 — Arroxy 无需 YouTube 账号、登录或导出 Cookie 即可工作。对于需要账号的视频（例如私享、仅会员可见或年龄限制的视频），在 Explore 标签页中登录一次即可：Arroxy 仍在未登录状态下下载，只有当下载因账号可解决的原因失败时才使用该登录。这就是 Cookie 设置中的 **Explore 登录** 选项，排在第一位并标有“推荐”；如果 Cookie 原本是关闭的，首次打开 Explore 时 Arroxy 会为你选中它。Cookie 文件或浏览器的 Cookie 也可以使用。无论哪种方式，yt-dlp 的 wiki 都指出[基于 Cookie 的自动化可能会标记 Google 账号](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用备用账号是更安全的选择。",
   faq_q5: "YouTube 更新后还能继续使用吗？",
   faq_a5:
-    "yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。如果你确实遇到问题，高级设置中提供可选的 Cookie 支持作为后备方案。",
+    "yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时发布修复。YouTube 要求确认你不是机器人时，如果你已在 Explore 中登录，Arroxy 也会尝试使用该登录；Cookie 设置中还可使用来自文件或浏览器的 Cookie。",
   faq_q6: "Arroxy 支持哪些语言？",
   faq_a6:
     "开箱即用的 {{LANG_COUNT}} 种语言：{{LANG_NAME_LIST}}。 Arroxy 会在首次启动时自动检测操作系统语言，你也可以随时从工具栏的语言选择器切换。Runtime locale JSON 位于 src/shared/i18n/locales/，面向译者的 PO catalog 位于 i18n/locales/ — 欢迎在 GitHub 上打开 PR 贡献。",
@@ -338,11 +358,6 @@ export const zh = {
   plan_r2_name: "**YouTube 音轨偏好**",
   plan_r2_desc:
     "当 YouTube 提供多个音轨时，设置全应用默认口语音轨，并允许每个配置单独覆盖",
-  plan_r6_name: "**应用内浏览器登录**",
-  plan_r6_desc:
-    "在 Arroxy 内打开浏览器窗口，登录并使用站点 cookies，无需手动导出",
-  plan_r8_name: "**一键视频下载**",
-  plan_r8_desc: "使用当前配置，从检测到或粘贴的 URL 一键开始视频下载",
   plan_r3_name: "**更强的重试恢复**",
   plan_r3_desc: "为不稳定或有问题的网络连接中断的下载提供新的重试路径",
   plan_r4_name: "**完整下载管理器抽屉**",

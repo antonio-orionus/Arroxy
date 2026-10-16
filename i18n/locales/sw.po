@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Endelea"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Funga"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Inapakia…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Video hii inahitaji akaunti iliyoingia. Sanidi cookies.txt (Mipangilio → Cookies) na ujaribu tena."
+msgid "This video needs a signed-in account."
+msgstr "Video hii inahitaji akaunti iliyoingia."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Upakuaji umeshindwa. Tazama matokeo ghafi hapa chini."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "URL hiyo haitumiki na yt-dlp. Jaribu kiungo kingine kutoka tovuti yoyote inayotumika na yt-dlp."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Angalia muunganisho wako, kisha jaribu tena."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Ukurasa huu haukupakia"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Fungua Mipangilio"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Angalia proksi katika Mipangilio, kisha jaribu tena."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore haiwezi kuunganisha kupitia proksi yako"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Jaribu tena"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Mpya"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Tafuta video, orodha ya kucheza au kituo na upakue kutoka hapa — bila kunakili viungo. Ingia kwenye YouTube hapa ili kupakua video zinazohitaji akaunti."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Endelea"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube inaweza kuweka alama — na wakati mwingine kupiga marufuku — akaunti zinazotumiwa na zana za kupakua kama yt-dlp. Tumia akaunti usiyojali kuipoteza, si akaunti yako kuu."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Ingia kwa akaunti ya pili"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Vinjari YouTube ndani ya Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Explore."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Si sasa"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Tumia kuingia kwa Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Onyesha kichupo cha Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Explore."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Toka kwenye Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Toka"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Utoke kwenye Explore?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Kizuia matangazo"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Kizuia matangazo: kimezimwa — bofya ili kukiwasha"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Kizuia matangazo: kimewashwa — bofya ili kukizima"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Kizuia matangazo: kinaanza — bofya ili kukizima"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Kizuia matangazo: hakipatikani, orodha zake za vichujio hazikuweza kupakuliwa — bofya ili kukizima"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Anwani"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "Tafuta YouTube au bandika kiungo cha YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Vidhibiti vya kivinjari cha Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Rudi"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Pakua · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Mbele"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Fungua video, orodha ya kucheza au kituo ili kupakua"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Mwanzo wa YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Chagua fomati, manukuu na zaidi…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Pakua kiungo hiki"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore huvinjari YouTube pekee."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore huvinjari YouTube pekee. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Pakia upya"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Utafutaji huo ni mrefu mno."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Lugha"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Umeingia kwa Explore — inajaribu tena kiungo 1"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Umeingia kwa Explore — inajaribu tena viungo {{count}}"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Imeshindwa kutoka kwenye Explore. Jaribu tena."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Folda hii ina kina kirefu mno kwa mfumo wako. Upakuaji bado unaweza kushindwa — chagua folda fupi zaidi."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Tayari lipo kwenye foleni — hakuna nakala iliyooongezwa"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Bado tunashughulikia kiungo kilichopita"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy bado inaanza — jaribu tena baada ya muda mfupi"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Maliza kusanidi vidakuzi katika Arroxy, kisha jaribu tena"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Viungo vingi vimenakiliwa — tumia “URL nyingi” katika Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Kiungo hiki kinahitaji ukaguzi mfupi — fungua Arroxy ukiweke tena"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Kiungo hicho kinahitaji chaguo lako — tazama Vipakuliwa katika Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "Video {{count}} tayari iko kwenye foleni — imerukwa"
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Video {{count}} tayari ziko kwenye foleni — zimerukwa"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Imeongezwa: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Tayari kwenye foleni"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "Video {{count}}+ — chagua ngapi"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "Video {{count}}+ — chagua ngapi"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Imeshindwa kuandaa {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Kiungo hicho hakikuweza kuongezwa — jaribu tena"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "Video {{count}} kwenye orodha hii — kagua ili kuchagua"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Video {{count}} kwenye orodha hii — kagua ili kuchagua"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Tazama"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Faili"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "Upakuaji {{count}} unahitaji umakini wako"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "Upakuaji {{count}} unahitaji umakini wako"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Video zote"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Zaidi ya video {{count}} kwenye playlist hii. Zipakue zote, za kwanza {{count}}, au chagua kupitia ukaguzi."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "{{count}} za kwanza"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Kagua"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Hitilafu"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Imeshikiliwa"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Inahitaji chaguo lako"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Inaingiza metadata…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Umetoka kwenye Explore — ingia tena"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Inabadilisha sauti…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock haipatikani, inajaribu tena ({{attempt}}/{{total}})…"
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Inaingia kwa akaunti yako ya Explore…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Hata na vidakuzi, YouTube ilipunguza uchunguzi huu. Jaribu tena baadaye au badilisha mtandao."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube imezuia ombi hili. Jaribu tena baadaye au badilisha mtandao."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena."
@@ -1468,6 +1772,10 @@ msgstr "WAV (uncompressed)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Kivinjari"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Kuingia kwa Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko katika umbizo lisilo sahihi (yt-dlp inategemea Netscape cookies.txt). Jaribu kusafirisha vidakuzi tena, chagua faili tofauti, ubadilishe hadi hali ya Kivinjari, au uzime vidakuzi."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Ingia kwenye Explore na Arroxy itajaribu tena."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Ingia kwenye Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video hii inaweza kuhitaji akaunti ya YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Umeingia kwenye Explore, lakini upakuaji hautumii kuingia huko kwa sasa."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Tumia kuingia kwangu kwa Explore na ujaribu tena"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video hii inaweza kuhitaji akaunti ya YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Explore kiotomatiki. Huenda isipatikane kwa sababu nyingine."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Umeingia kwenye Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Explore kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Ingia kwenye Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video hii inaweza kuhitaji akaunti ya YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Vidakuzi vinaweza kuwa sababu"
@@ -1536,6 +1888,10 @@ msgstr "Tovuti hii inahitaji kuingia"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Fungua mipangilio ya vidakuzi"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Tumia faili ya vidakuzi au kivinjari badala yake…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Chagua faili kutumia vidakuzi"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Hutumia kuingia kwako kwenye Explore tu pale upakuaji unapohitaji."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Kichupo cha Explore kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore. Kiwashe chini ya Explore hapa chini."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Ninasafirisha vidakuzi vipi?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Fungua Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Hakuna faili iliyochaguliwa"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Inapendekezwa"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Hatari: cookies.txt ina vikao vyote vilivyoingia kwa kivinjari hicho —
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Kivinjari"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Kuingia kwa Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

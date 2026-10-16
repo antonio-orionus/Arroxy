@@ -74,6 +74,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr ""
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr ""
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr ""
@@ -171,7 +175,7 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr ""
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
+msgid "This video needs a signed-in account."
 msgstr ""
 
 msgctxt "errors.ytdlp.missingDependency"
@@ -212,6 +216,194 @@ msgstr ""
 
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
+msgstr ""
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr ""
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr ""
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr ""
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr ""
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr ""
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr ""
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr ""
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr ""
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr ""
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr ""
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr ""
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr ""
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr ""
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr ""
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr ""
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr ""
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr ""
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr ""
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr ""
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr ""
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr ""
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr ""
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr ""
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr ""
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr ""
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr ""
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr ""
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr ""
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr ""
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr ""
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr ""
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr ""
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr ""
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr ""
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr ""
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr ""
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr ""
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr ""
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr ""
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr ""
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr ""
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
 msgstr ""
 
 msgctxt "filenameTemplate.description"
@@ -298,6 +490,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr ""
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr ""
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr ""
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr ""
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr ""
@@ -315,7 +519,11 @@ msgid "Already in the queue — no copy added"
 msgstr ""
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr ""
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
 msgstr ""
 
 msgctxt "notifications.hotkey.invalidClipboard"
@@ -327,7 +535,7 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr ""
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
+msgid "That link needs your choice — see Downloads in Arroxy"
 msgstr ""
 
 msgctxt "notifications.hotkey.queued"
@@ -348,6 +556,50 @@ msgstr ""
 
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
+msgstr ""
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr ""
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr ""
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr ""
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr ""
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr ""
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr ""
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr ""
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr ""
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr ""
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr ""
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
 msgstr ""
 
 msgctxt "notifications.settingsSaveFailed"
@@ -594,8 +846,44 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr ""
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr ""
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr ""
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
+msgstr ""
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr ""
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr ""
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr ""
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr ""
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr ""
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr ""
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr ""
 
 msgctxt "queue.clearTitle"
@@ -692,6 +980,10 @@ msgstr ""
 
 msgctxt "queue.item.statusHeld"
 msgid "Held"
+msgstr ""
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
 msgstr ""
 
 msgctxt "queue.item.statusPaused"
@@ -988,6 +1280,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr ""
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr ""
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr ""
@@ -1038,6 +1334,10 @@ msgstr ""
 
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr ""
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
 msgstr ""
 
 msgctxt "status.sleepingBetweenRequests"
@@ -1415,6 +1715,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr ""
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr ""
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr ""
@@ -1461,6 +1765,10 @@ msgstr ""
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
 msgstr ""
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
@@ -1515,6 +1823,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr ""
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr ""
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr ""
@@ -1529,6 +1881,10 @@ msgstr ""
 
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
+msgstr ""
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
 msgstr ""
 
 msgctxt "wizard.formats.keepAudio"
@@ -2731,6 +3087,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr ""
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr ""
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr ""
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr ""
@@ -2747,8 +3111,16 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr ""
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr ""
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
+msgstr ""
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
 msgstr ""
 
 msgctxt "wizard.url.cookies.risk"
@@ -2757,6 +3129,10 @@ msgstr ""
 
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
+msgstr ""
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
 msgstr ""
 
 msgctxt "wizard.url.cookies.sourceFile"

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "startOver": "重新开始"},
+	"common": {"back": "返回", "cancel": "取消", "continue": "继续", "loading": "加载中…", "retry": "重试", "dismiss": "关闭", "startOver": "重新开始"},
 	"app": {
 		"feedback": "反馈",
 		"logs": "日志",
@@ -221,6 +221,11 @@
 				"sourceOff": "关闭",
 				"sourceFile": "文件",
 				"sourceBrowser": "浏览器",
+				"sourceExplore": "Explore 登录",
+				"recommended": "推荐",
+				"exploreDescription": "仅在下载需要时才使用你的 Explore 登录。",
+				"exploreDisabled": "Explore 标签页已关闭，因此下载不会使用你的 Explore 登录。请在下方的 Explore 中开启。",
+				"openExplore": "打开 Explore",
 				"toggleDescription": "可帮助下载年龄限制、会员专属和账户私享的视频。",
 				"risk": "风险: cookies.txt 包含该浏览器所有已登录的会话 — 请妥善保管。",
 				"fileLabel": "Cookie 文件",
@@ -352,6 +357,7 @@
 				"bodyUnconfigured": "格式列表可能不完整。请在高级设置中配置 cookies，或更换网络后重试。",
 				"bodyDisabled": "Cookies 已配置但未启用。启用后重试可获取完整列表，或更换网络后重试。",
 				"bodyEnabled": "即使使用了 cookies，YouTube 仍然限制了本次探测。请稍后重试或更换网络。",
+				"bodyExplore": "YouTube 限制了此请求。请稍后重试或切换网络。",
 				"retryCta": "重试",
 				"enableRetryCta": "启用 cookies 并重试"
 			},
@@ -360,9 +366,15 @@
 				"currentModeLabel": "Cookies 来源",
 				"currentModeFile": "文件",
 				"currentModeBrowser": "浏览器",
+				"currentModeExplore": "Explore 登录",
 				"explanationFile": "你的 cookies 文件可能为空、已过期或格式不正确（yt-dlp 需要 Netscape cookies.txt 格式）。请尝试重新导出 cookies、选择其他文件、切换到浏览器模式或关闭 cookies。",
 				"explanationBrowser": "Cookies 直接从浏览器读取。如果浏览器当前正在运行，其 cookie 数据库可能已被锁定（Chromium-family）。浏览器还必须已登录 YouTube。请尝试关闭浏览器、切换到其他浏览器、切换到文件模式或关闭 cookies。",
 				"openSettingsCta": "打开 cookies 设置",
+				"exploreSignIn": {"heading": "此视频可能需要 YouTube 账号", "body": "如果此视频需要 YouTube 账号，请在 Explore 中登录后重试。Arroxy 仅在下载需要时才使用该登录。", "cta": "在 Explore 中登录"},
+				"exploreSignedIn": {"heading": "已登录 Explore", "body": "如果此视频需要账号，Arroxy 会自动使用你的 Explore 登录。也可能因其他原因而无法使用。"},
+				"exploreOffer": {"heading": "此视频可能需要 YouTube 账号", "body": "使用 Explore 登录后，Arroxy 会重试。", "cta": "使用 Explore 登录"},
+				"exploreReuse": {"heading": "此视频可能需要 YouTube 账号", "body": "你已在 Explore 中登录，但下载目前没有使用该登录。", "cta": "使用我的 Explore 登录并重试"},
+				"otherCookiesCta": "改用 Cookie 文件或浏览器…",
 				"needsCookies": {"heading": "此网站需要登录", "body": "yt-dlp 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。"},
 				"dpapi": {
 					"heading": "Chrome Cookies 被 Windows 加密阻止",
@@ -485,6 +497,17 @@
 	"queue": {
 		"header": "下载",
 		"tabLabel": "下载",
+		"attentionBadge_one": "{{count}} 个下载需要你处理",
+		"attentionBadge_other": "{{count}} 个下载需要你处理",
+		"choice": {
+			"cappedBody_one": "此播放列表中的视频超过 {{count}} 个。可以全部下载、只下载前 {{count}} 个，或在查看中自行挑选。",
+			"cappedBody_other": "此播放列表中的视频超过 {{count}} 个。可以全部下载、只下载前 {{count}} 个，或在查看中自行挑选。",
+			"reviewBody_one": "此链接是包含 {{count}} 个视频的列表。查看后即可挑选要下载的内容。",
+			"reviewBody_other": "此链接是包含 {{count}} 个视频的列表。查看后即可挑选要下载的内容。",
+			"all": "所有视频",
+			"first": "前 {{count}} 个",
+			"review": "查看"
+		},
 		"tabTip": "下载现在都在下载标签页中 — 随时打开即可查看进度。",
 		"empty": "排队的下载会显示在这里",
 		"filtersLabel": "队列状态筛选",
@@ -530,6 +553,7 @@
 			"remove": "移除",
 			"pullNow": "立即下载 — 跳过队列",
 			"statusProbing": "正在获取详情",
+			"statusNeedsChoice": "需要你来选择",
 			"statusPending": "等待中",
 			"statusRunning": "下载中",
 			"statusHeld": "已挂起",
@@ -579,13 +603,18 @@
 		"outputNotWritable": "无法保存到 {{dir}} — Arroxy 没有在该处写入的权限",
 		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…",
-		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…"
+		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "正在使用你的 Explore 账号登录…",
+		"exploreSignedOut": "已退出 Explore — 请重新登录"
 	},
 	"notifications": {
 		"settingsSaveFailed": "无法保存你的设置。",
 		"warmupFailed": "初始化未完成。在完成之前，部分下载可能会失败。",
 		"shellActionFailed": "无法打开该项目。",
 		"folderSelectFailed": "无法打开文件夹选择器。",
+		"exploreSignInRetrying_one": "已使用 Explore 登录 — 正在重试 1 个链接",
+		"exploreSignInRetrying_other": "已使用 Explore 登录 — 正在重试 {{count}} 个链接",
+		"exploreSignOutFailed": "无法退出 Explore 登录，请重试。",
 		"playlistFolderRejected": "该文件夹无法用于此播放列表。",
 		"filenameFolderTooDeep": "此文件夹层级对你的系统来说太深。下载仍可能失败 — 请选择更短的文件夹。",
 		"filenameTemplateCannotFit": "此视频的名称无法容纳模板的每个部分，因此使用了默认名称。",
@@ -594,11 +623,25 @@
 			"alreadyQueued": "已在队列中 — 未重复添加",
 			"invalidClipboard": "剪贴板中没有链接 — 请先复制一个",
 			"multipleUrls": "已复制多个链接 — 请在 Arroxy 中使用「批量 URL」",
-			"needsReview": "该链接需要快速确认 — 打开 Arroxy 并重新粘贴",
-			"busy": "正在处理上一个链接",
+			"needsReview": "此链接需要你来选择 — 请在 Arroxy 中查看“下载”",
+			"cookiesSetup": "请先在 Arroxy 中完成 Cookie 设置，然后再试",
+			"busy": "Arroxy 仍在启动 — 请稍后再试",
 			"submissionFailed": "无法添加该链接 — 请在 Arroxy 中重试"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} 个视频已在队列中 — 已跳过", "skippedAlreadyQueued_other": "{{count}} 个视频已在队列中 — 已跳过"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} 个视频已在队列中 — 已跳过", "skippedAlreadyQueued_other": "{{count}} 个视频已在队列中 — 已跳过"},
+		"quickDownload": {
+			"added": "已添加：{{title}}",
+			"alreadyQueued": "已在队列中",
+			"failed": "无法准备 {{title}}",
+			"notAdded": "无法添加该链接 — 请重试",
+			"chooseHowMany_one": "{{count}}+ 个视频 — 选择数量",
+			"chooseHowMany_other": "{{count}}+ 个视频 — 选择数量",
+			"review_one": "此列表中有 {{count}} 个视频 — 查看后选择",
+			"review_other": "此列表中有 {{count}} 个视频 — 查看后选择",
+			"reviewCapped_one": "此列表中有 {{count}}+ 个视频 — 查看后选择",
+			"reviewCapped_other": "此列表中有 {{count}}+ 个视频 — 查看后选择",
+			"view": "查看"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -617,7 +660,7 @@
 			"parse": "无法解析网站的响应。yt-dlp 的提取器可能已过时。Arroxy 会在启动时自动更新 yt-dlp——请几分钟后再重试，等待修复发布。",
 			"network": "网络错误。请检查你的连接并重试。",
 			"drmProtected": "该视频受 DRM 保护。yt-dlp 无法去除 DRM，因此无法下载该文件。",
-			"loginRequired": "该视频需要已登录的账号。请设置 cookies.txt（设置 → Cookies）后重试。",
+			"loginRequired": "此视频需要已登录的账号。",
 			"unknown": "下载失败。请查看下方的原始输出。"
 		}
 	},
@@ -677,5 +720,46 @@
 			"invalid-segment": "该文件夹名称不被允许。请避免 . 和 .. 以及 CON 之类的保留名称。",
 			"resolution-in-dir": "{resolution} 不能用作文件夹名称 — 画质要到下载开始后才能确定。"
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "新",
+		"notice": {
+			"title": "在 Arroxy 中直接浏览 YouTube",
+			"body": "查找视频、播放列表或频道，无需复制链接，直接在这里下载。在这里登录 YouTube，即可下载需要账号的视频。",
+			"riskTitle": "请使用备用账号登录",
+			"riskBody": "YouTube 可能会标记、有时甚至封禁用于 yt-dlp 等下载工具的账号。请使用可以失去的账号，而不是你的主账号。",
+			"continue": "继续"
+		},
+		"nudge": {"off": "Cookies 已关闭，因此下载不会使用你的 Explore 登录。", "file": "下载使用的是你的 Cookies 文件，而不是你的 Explore 登录。", "browser": "下载使用的是浏览器的 Cookies，而不是你的 Explore 登录。", "useExplore": "使用 Explore 登录", "notNow": "暂不"},
+		"toolbar": {
+			"aria": "当前页面",
+			"back": "后退",
+			"forward": "前进",
+			"reload": "重新加载",
+			"home": "YouTube 首页",
+			"addressAria": "地址",
+			"addressPlaceholder": "搜索 YouTube 或粘贴 YouTube 链接",
+			"offsiteHint": "Explore 只浏览 YouTube。",
+			"offsiteDownload": "下载此链接",
+			"offsiteHintHost": "Explore 只浏览 YouTube。{{host}}",
+			"searchTooLong": "搜索内容太长。",
+			"downloadWithProfile": "下载 · {{profileName}}",
+			"interactiveHint": "选择格式、字幕等…",
+			"grabUnavailable": "打开视频、播放列表或频道即可下载",
+			"adBlock": {"aria": "广告拦截", "off": "广告拦截：已关闭 — 点击开启", "starting": "广告拦截：启动中 — 点击关闭", "on": "广告拦截：已开启 — 点击关闭", "unavailable": "广告拦截：不可用，无法下载其过滤列表 — 点击关闭", "accountNote": "对于已登录的账号，YouTube 可能会抵制广告拦截。"}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "在 Arroxy 中浏览 YouTube，并登录以访问需要账号的视频。",
+			"showTab": "显示 Explore 标签页",
+			"showTabDescription": "关闭后，下载也将不再使用你的 Explore 登录。",
+			"signOut": "退出 Explore 登录",
+			"signOutDescription": "清除 Explore 中的 YouTube 登录信息和浏览数据。",
+			"signOutConfirmTitle": "退出 Explore 登录？",
+			"signOutConfirmBody": "这将清除 Explore 中的 YouTube 登录信息和浏览数据。需要账号的下载将失败，直到你重新登录。",
+			"signOutConfirm": "退出登录"
+		},
+		"error": {"proxyTitle": "Explore 无法通过你的代理连接", "proxyBody": "请在设置中检查代理，然后重试。", "loadTitle": "此页面未能加载", "loadBody": "请检查网络连接，然后重试。", "retry": "重试", "openSettings": "打开设置"}
 	}
 }

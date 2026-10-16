@@ -25,12 +25,13 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 ---
 
 ## বিষয়বস্তু
 
+- [বৈশিষ্ট্যসমূহ](#features)
 - [ইনস্টল ও প্রথম চালু](#install)
   - [Windows প্রথম লঞ্চ](#windows-first-launch)
   - [macOS প্রথম লঞ্চ](#macos-first-launch)
@@ -38,12 +39,96 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
   - [Linux প্রথম লঞ্চ](#linux-first-launch)
   - [আপনার ডাউনলোড যাচাই করুন (SHA256)](#verify)
 - [কেন Arroxy](#why)
-- [বৈশিষ্ট্যসমূহ](#features)
 - [গোপনীয়তা](#privacy)
 - [সাধারণ প্রশ্নোত্তর](#faq)
 - [রোডম্যাপ](#roadmap)
 - [Arroxy-কে সমর্থন করুন](#support)
 - [নির্মিত হয়েছে](#tech)
+
+---
+
+## <a id="features"></a>বৈশিষ্ট্যসমূহ
+
+### Explore: Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন
+
+- **Explore ট্যাব** — Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং লিংক কপি না করেই যা পান তা ডাউনলোড করুন। **ডাউনলোড · *আপনার প্রোফাইল*** আপনি যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন সেটি সারিতে যোগ করে; পাশের তীর প্রোফাইল বদলায়, আর জাদুদণ্ড ফরম্যাট, সাবটাইটেল ইত্যাদি বেছে নিতে ধাপে ধাপে ডাউনলোড খোলে
+- **অ্যাড্রেস বার** — YouTube-এ খুঁজতে টাইপ করুন বা একটি YouTube লিংক পেস্ট করুন। Explore শুধু YouTube ব্রাউজ করে, তাই অন্য সাইটের লিংক সেখানে খোলে না, তবে এক ক্লিকেই সেটি ডাউনলোড করা যায়
+- **অ্যাকাউন্ট লাগে এমন ডাউনলোড** — Explore-এ একবার সাইন ইন করলে Arroxy আপনার অ্যাকাউন্টে দেখা যায় এমন প্রাইভেট ও শুধু-সদস্যদের ভিডিও, বয়স যাচাই করা অ্যাকাউন্ট হলে বয়স-সীমাবদ্ধ ভিডিও, এবং আপনার Watch Later ও Liked তালিকা ডাউনলোড করতে পারে। Arroxy এখনও সাইন-আউট অবস্থাতেই ডাউনলোড করে এবং অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে ডাউনলোড ব্যর্থ হলেই কেবল আপনার Explore সাইন-ইন ব্যবহার করে। YouTube যখন আপনি যে বট নন তা নিশ্চিত করতে বলে, তখনও Arroxy আপনার Explore সাইন-ইন চেষ্টা করে
+- **সেকেন্ডারি অ্যাকাউন্ট ব্যবহার করুন** — Explore-এর প্রথম স্ক্রিনে কারণটা বলা আছে: অ্যাকাউন্ট দিয়ে ডাউনলোড করলে সেই অ্যাকাউন্ট সীমাবদ্ধ হওয়ার কিছুটা ঝুঁকি থাকে। সাইন-ইন ভুলিয়ে দিতে চাইলে যেকোনো সময় সেটিংস থেকে Explore থেকে সাইন আউট করুন
+- **অ্যাড ব্লকার** — Explore তার নিজের পেজে বিজ্ঞাপন ও ট্র্যাকার ব্লক করে; ডাউনলোডে কোনো প্রভাব পড়ে না। ডিফল্টে চালু, Explore-এর টুলবারে শিল্ডে এক ক্লিকেই বন্ধ করা যায়, আর Google-এর সাইন-ইন পেজে এটি কখনও কাজ করে না। সাইন-ইন করা অ্যাকাউন্টে YouTube অ্যাড ব্লকারে বাধা দিতে পারে
+
+### মান ও ফরম্যাট
+
+- **4K UHD (2160p)** পর্যন্ত, 1440p, 1080p, 720p, 480p, 360p
+- **হাই ফ্রেম রেট** যেমন আছে তেমনই — 60 fps, 120 fps, HDR
+- **অডিও** — শুধু অডিও MP3, M4A/AAC, Opus বা WAV হিসেবে এক্সপোর্ট করুন। ইন্টারঅ্যাক্টিভ ডাউনলোডে, উপলভ্য হলে উৎসের নেটিভ surround/Dolby ট্র্যাক (AC-3, E-AC-3, 5.1, DRC) বেছে নিন, অথবা গ্লোবাল ডিফল্ট **সারাউন্ড / Dolby অগ্রাধিকার দিন** সেট করুন
+- দ্রুত প্রিসেট: *সর্বোচ্চ মান* · *ব্যালেন্সড* · *ছোট ফাইল*
+
+### গোপনীয়তা ও নিয়ন্ত্রণ
+
+- ১০০% লোকাল প্রসেসিং — ডাউনলোড সরাসরি YouTube থেকে আপনার ডিস্কে যায়
+- কোনো লগইন নেই, কোনো কুকিজ নেই, কোনো Google অ্যাকাউন্ট লিঙ্ক নেই
+- ফাইল সরাসরি আপনার বেছে নেওয়া ফোল্ডারে সংরক্ষিত হয়
+
+### ওয়ার্কফ্লো
+
+- **গ্লোবাল ডাউনলোড হটকি** — যেকোনো অ্যাপে একটি লিংক কপি করে `Ctrl+Shift+D` (macOS-এ `Cmd+Shift+D`) চাপুন; Arroxy উইন্ডো না খুলেই আপনার সক্রিয় প্রোফাইল দিয়ে সেটি সারিতে যোগ করে এবং একটি নোটিফিকেশন তা নিশ্চিত করে। ডিফল্টে চালু, কি বদলানো যায়
+- **নমনীয় শুরু মোড** — গাইডেড একক ডাউনলোড, playlist/channel picker, bulk URL paste, সংরক্ষিত ডিফল্টসহ Quick Download, অথবা Explore থেকে ব্রাউজ করে ডাউনলোড বেছে নিন
+- **কেন্দ্রীয় ডাউনলোড queue** — একক, playlist, bulk, বা quick কাজ সবই progress, pause, resume, cancel, retry, এবং priority control-এর জন্য এক জায়গায় আসে
+- **ক্লিপবোর্ড ওয়াচ** — একটি YouTube লিঙ্ক কপি করুন এবং অ্যাপে ফিরলে Arroxy স্বয়ংক্রিয়ভাবে URL পূরণ করে (অ্যাডভান্সড সেটিংসে টগল করুন)
+- **অটো-ক্লিন URLs** — ট্র্যাকিং প্যারামিটার (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) সরিয়ে দেয় এবং `youtube.com/redirect` লিঙ্ক খুলে দেয়
+- **ট্রে মোড** — উইন্ডো বন্ধ করলেও ডাউনলোড ব্যাকগ্রাউন্ডে চলতে থাকে
+- **30টি ভাষা** — সিস্টেম লোকেল স্বয়ংক্রিয়ভাবে শনাক্ত করে, যেকোনো সময় বদলানো যায়
+- **প্লেলিস্ট সিঙ্ক** — আগে ডাউনলোড করা ভিডিও এড়াতে একটি স্থানীয় ফোল্ডারের সঙ্গে প্লেলিস্ট আবার স্ক্যান করে; প্রতিটি ভিডিও ডাউনলোড হওয়ার সঙ্গে সঙ্গে আপডেট হওয়া একটি `.m3u` প্লেলিস্ট ফাইল তৈরি করে
+- **Speed ও pacing controls** — download bandwidth সীমিত করুন, একসাথে ভিডিওর কতগুলো অংশ download হবে তা সেট করুন, এবং presets (*Off · Balanced · Careful · Custom*) দিয়ে request delay যোগ করুন
+- **ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা
+- **একসাথে ডাউনলোড ও স্বয়ংক্রিয় পুনঃচেষ্টা** — একসাথে কতগুলো সারিবদ্ধ ডাউনলোড চলবে তা বেছে নিন, এবং নেটওয়ার্ক বা সার্ভার সমস্যায় পড়া ডাউনলোড Arroxy প্রতিটি চেষ্টার আগে আরও বেশি অপেক্ষা করে আবার চেষ্টা করুক
+- **প্লেলিস্টের প্রতিটি আইটেমের জন্য প্রোফাইল** — পুরো তালিকার জন্য একটি সেটিং-এর বদলে প্লেলিস্টের প্রতিটি ভিডিওকে তার নিজস্ব ডাউনলোড প্রোফাইল দিন, যাতে একবারেই কিছু ভিডিও পূর্ণ মানে সংরক্ষণ আর বাকিগুলো MP3 হিসেবে নেওয়া যায়
+- **Quick Download ব্যাকগ্রাউন্ডে চলে** — লিংকটি সঙ্গে সঙ্গে ডাউনলোড ট্যাবে দেখা যায় এবং সেখানেই প্রস্তুত হয়, **দেখুন** সহ একটি নোট তা নিশ্চিত করে, আর পরের লিংকের জন্য URL ঘর খালি হয়ে যায়। আগেরগুলো প্রস্তুত হওয়ার সময়ও যত খুশি শুরু করুন
+- **ডাউনলোড ট্যাব জানায় কোনটিতে আপনার দরকার** — Arroxy কোনো লিংক পড়তে না পারলে তার এন্ট্রিতে কারণ লেখা থাকে এবং সমাধান দেওয়া হয়: আবার চেষ্টা করুন, কুকি চালু করুন, অথবা Explore-এ সাইন ইন করুন। কুকি বন্ধ থাকলে, সাইন ইন করার পর **Explore দিয়ে সাইন ইন** আপনার হয়ে সেটি আবার চেষ্টা করে। লোড সীমার চেয়ে বড় প্লেলিস্ট তার এন্ট্রিতেই অপেক্ষা করে, যাতে আপনি সব, প্রথম কয়েকটি, বা পর্যালোচনা বেছে নিতে পারেন। ডাউনলোড ট্যাব আপনার অপেক্ষায় থাকা এন্ট্রির সংখ্যা গোনে
+
+### সাবটাইটেল ও পোস্ট-প্রসেসিং
+
+- **সাবটাইটেল** SRT, VTT বা ASS-এ — ম্যানুয়াল বা অটো-জেনারেটেড, যেকোনো উপলব্ধ ভাষায়
+- ভিডিওর পাশে সংরক্ষণ করুন, `.mkv`-এ এম্বেড করুন, বা `Subtitles/` সাবফোল্ডারে সংগঠিত করুন
+- **শুধু সাবটাইটেলের ব্যাচ** — URL-এর তালিকা পেস্ট করুন বা প্লেলিস্ট খুলুন, সাবটাইটেল বেছে নিন, আর প্রতিটি ভিডিওর জন্য শুধু ক্যাপশন ফাইল পান
+- **SponsorBlock** — স্পনসর, ইন্ট্রো, আউট্রো, সেলফ-প্রোমো স্কিপ বা চ্যাপ্টার-মার্ক করুন
+- **এম্বেডেড মেটাডেটা** — শিরোনাম, আপলোডের তারিখ, চ্যানেল, বিবরণ, থাম্বনেইল ও চ্যাপ্টার মার্কার ফাইলে লেখা হয়
+
+### YouTube + ২০০০ সাইট
+
+- **YouTube, সম্পূর্ণ** — Videos, Shorts, Channels, Playlists, YouTube Music ও Podcasts প্রথম শ্রেণীর উৎস হিসেবে পরিচালিত হয়
+- **২০০০+ অন্যান্য সাইট** yt-dlp-এর মাধ্যমে — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org এবং আরও অনেক কিছু
+- **শুধু অডিও ও সাবটাইটেল** সমস্ত সমর্থিত সাইটে কাজ করে, শুধু YouTube-এ নয়
+- কোনো সাইট পরিবর্তিত হলে, yt-dlp সাপ্তাহিক ফিক্স পাঠায় এবং Arroxy লঞ্চে বাইনারি অটো-আপডেট করে
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং সক্রিয় প্রোফাইল দিয়ে বর্তমান পেজটি ডাউনলোড করুন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore-এর প্রথম স্ক্রিন</b><br/>Explore-এর সংক্ষিপ্ত পরিচিতি, এবং সেকেন্ডারি অ্যাকাউন্ট কেন সাইন-ইনের নিরাপদ উপায়</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ডাউনলোড ট্যাব জানায় কোনটিতে আপনার দরকার</b><br/>লিংক ব্যাকগ্রাউন্ডে প্রস্তুত হয়; ব্যর্থ লিংক সমাধান দেখায়, আর লম্বা প্লেলিস্ট আপনার সিদ্ধান্তের অপেক্ষায় থাকে</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>দ্রুত ডাউনলোড হোম</b><br/>একটি URL পেস্ট করুন এবং আপনার সক্রিয় প্রোফাইল দিয়ে সঙ্গে সঙ্গে ডাউনলোড করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>পুনঃব্যবহারযোগ্য ডাউনলোড প্রোফাইল</b><br/>ফরম্যাট, মান ও আউটপুট প্রিসেট হিসেবে সংরক্ষণ করুন — প্রতি ডাউনলোডে পুনরায় ব্যবহার করুন</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>বহুভাষিক অডিও ট্র্যাক</b><br/>ভিডিওতে থাকা সঠিক অডিও ভাষা নির্বাচন করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>সারাউন্ড / Dolby অডিও</b><br/>5.1 এবং Dolby ট্র্যাক শনাক্ত করে সংরক্ষণ করা হয়</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>বাল্ক URL মোড</b><br/>একটি তালিকা পেস্ট করুন, স্বয়ংক্রিয়ভাবে ডুপ্লিকেট সরান, সব একসাথে সারিবদ্ধ করুন</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -232,79 +317,13 @@ Arroxy একটি কাজের জন্য তৈরি: URL পেস্�
 
 ---
 
-## <a id="features"></a>বৈশিষ্ট্যসমূহ
-
-### মান ও ফরম্যাট
-
-- **4K UHD (2160p)** পর্যন্ত, 1440p, 1080p, 720p, 480p, 360p
-- **হাই ফ্রেম রেট** যেমন আছে তেমনই — 60 fps, 120 fps, HDR
-- **অডিও** — শুধু অডিও MP3, M4A/AAC, Opus বা WAV হিসেবে এক্সপোর্ট করুন। ইন্টারঅ্যাক্টিভ ডাউনলোডে, উপলভ্য হলে উৎসের নেটিভ surround/Dolby ট্র্যাক (AC-3, E-AC-3, 5.1, DRC) বেছে নিন, অথবা গ্লোবাল ডিফল্ট **সারাউন্ড / Dolby অগ্রাধিকার দিন** সেট করুন
-- দ্রুত প্রিসেট: *সর্বোচ্চ মান* · *ব্যালেন্সড* · *ছোট ফাইল*
-
-### গোপনীয়তা ও নিয়ন্ত্রণ
-
-- ১০০% লোকাল প্রসেসিং — ডাউনলোড সরাসরি YouTube থেকে আপনার ডিস্কে যায়
-- কোনো লগইন নেই, কোনো কুকিজ নেই, কোনো Google অ্যাকাউন্ট লিঙ্ক নেই
-- ফাইল সরাসরি আপনার বেছে নেওয়া ফোল্ডারে সংরক্ষিত হয়
-
-### ওয়ার্কফ্লো
-
-- **গ্লোবাল ডাউনলোড হটকি** — যেকোনো অ্যাপে একটি লিংক কপি করে `Ctrl+Shift+D` (macOS-এ `Cmd+Shift+D`) চাপুন; Arroxy উইন্ডো না খুলেই আপনার সক্রিয় প্রোফাইল দিয়ে সেটি সারিতে যোগ করে এবং একটি নোটিফিকেশন তা নিশ্চিত করে। ডিফল্টে চালু, কি বদলানো যায়
-- **নমনীয় শুরু মোড** — গাইডেড একক ডাউনলোড, playlist/channel picker, bulk URL paste, অথবা সংরক্ষিত ডিফল্টসহ Quick Download বেছে নিন
-- **কেন্দ্রীয় ডাউনলোড queue** — একক, playlist, bulk, বা quick কাজ সবই progress, pause, resume, cancel, retry, এবং priority control-এর জন্য এক জায়গায় আসে
-- **ক্লিপবোর্ড ওয়াচ** — একটি YouTube লিঙ্ক কপি করুন এবং অ্যাপে ফিরলে Arroxy স্বয়ংক্রিয়ভাবে URL পূরণ করে (অ্যাডভান্সড সেটিংসে টগল করুন)
-- **অটো-ক্লিন URLs** — ট্র্যাকিং প্যারামিটার (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) সরিয়ে দেয় এবং `youtube.com/redirect` লিঙ্ক খুলে দেয়
-- **ট্রে মোড** — উইন্ডো বন্ধ করলেও ডাউনলোড ব্যাকগ্রাউন্ডে চলতে থাকে
-- **30টি ভাষা** — সিস্টেম লোকেল স্বয়ংক্রিয়ভাবে শনাক্ত করে, যেকোনো সময় বদলানো যায়
-- **প্লেলিস্ট সিঙ্ক** — আগে ডাউনলোড করা ভিডিও এড়াতে একটি স্থানীয় ফোল্ডারের সঙ্গে প্লেলিস্ট আবার স্ক্যান করে; প্রতিটি ভিডিও ডাউনলোড হওয়ার সঙ্গে সঙ্গে আপডেট হওয়া একটি `.m3u` প্লেলিস্ট ফাইল তৈরি করে
-- **Speed ও pacing controls** — download bandwidth সীমিত করুন, একসাথে ভিডিওর কতগুলো অংশ download হবে তা সেট করুন, এবং presets (*Off · Balanced · Careful · Custom*) দিয়ে request delay যোগ করুন
-- **ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা
-- **একসাথে ডাউনলোড ও স্বয়ংক্রিয় পুনঃচেষ্টা** — একসাথে কতগুলো সারিবদ্ধ ডাউনলোড চলবে তা বেছে নিন, এবং নেটওয়ার্ক বা সার্ভার সমস্যায় পড়া ডাউনলোড Arroxy প্রতিটি চেষ্টার আগে আরও বেশি অপেক্ষা করে আবার চেষ্টা করুক
-- **প্লেলিস্টের প্রতিটি আইটেমের জন্য প্রোফাইল** — পুরো তালিকার জন্য একটি সেটিং-এর বদলে প্লেলিস্টের প্রতিটি ভিডিওকে তার নিজস্ব ডাউনলোড প্রোফাইল দিন, যাতে একবারেই কিছু ভিডিও পূর্ণ মানে সংরক্ষণ আর বাকিগুলো MP3 হিসেবে নেওয়া যায়
-
-### সাবটাইটেল ও পোস্ট-প্রসেসিং
-
-- **সাবটাইটেল** SRT, VTT বা ASS-এ — ম্যানুয়াল বা অটো-জেনারেটেড, যেকোনো উপলব্ধ ভাষায়
-- ভিডিওর পাশে সংরক্ষণ করুন, `.mkv`-এ এম্বেড করুন, বা `Subtitles/` সাবফোল্ডারে সংগঠিত করুন
-- **শুধু সাবটাইটেলের ব্যাচ** — URL-এর তালিকা পেস্ট করুন বা প্লেলিস্ট খুলুন, সাবটাইটেল বেছে নিন, আর প্রতিটি ভিডিওর জন্য শুধু ক্যাপশন ফাইল পান
-- **SponsorBlock** — স্পনসর, ইন্ট্রো, আউট্রো, সেলফ-প্রোমো স্কিপ বা চ্যাপ্টার-মার্ক করুন
-- **এম্বেডেড মেটাডেটা** — শিরোনাম, আপলোডের তারিখ, চ্যানেল, বিবরণ, থাম্বনেইল ও চ্যাপ্টার মার্কার ফাইলে লেখা হয়
-
-### YouTube + ২০০০ সাইট
-
-- **YouTube, সম্পূর্ণ** — Videos, Shorts, Channels, Playlists, YouTube Music ও Podcasts প্রথম শ্রেণীর উৎস হিসেবে পরিচালিত হয়
-- **২০০০+ অন্যান্য সাইট** yt-dlp-এর মাধ্যমে — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org এবং আরও অনেক কিছু
-- **শুধু অডিও ও সাবটাইটেল** সমস্ত সমর্থিত সাইটে কাজ করে, শুধু YouTube-এ নয়
-- কোনো সাইট পরিবর্তিত হলে, yt-dlp সাপ্তাহিক ফিক্স পাঠায় এবং Arroxy লঞ্চে বাইনারি অটো-আপডেট করে
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy-এর গ্লোবাল ডাউনলোড হটকি — Windows ও Linux-এ Ctrl+Shift+D, macOS-এ Cmd+Shift+D, কপি করা লিংক সরাসরি ডাউনলোড সারিতে পাঠায়" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>গ্লোবাল ডাউনলোড হটকি</b><br/>যেকোনো জায়গায় লিংক কপি করুন, একবার চাপুন — সারিতে ঢুকে ডাউনলোড শুরু</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>প্লেলিস্টের প্রতিটি আইটেমের প্রোফাইল</b><br/>প্রতিটি ভিডিওকে নিজস্ব প্রোফাইল দিন — কিছু 4K-তে সংরক্ষণ করুন, বাকিগুলো MP3 হিসেবে নিন</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>দ্রুত ডাউনলোড হোম</b><br/>একটি URL পেস্ট করুন এবং আপনার সক্রিয় প্রোফাইল দিয়ে সঙ্গে সঙ্গে ডাউনলোড করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>পুনঃব্যবহারযোগ্য ডাউনলোড প্রোফাইল</b><br/>ফরম্যাট, মান ও আউটপুট প্রিসেট হিসেবে সংরক্ষণ করুন — প্রতি ডাউনলোডে পুনরায় ব্যবহার করুন</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>বহুভাষিক অডিও ট্র্যাক</b><br/>ভিডিওতে থাকা সঠিক অডিও ভাষা নির্বাচন করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>সারাউন্ড / Dolby অডিও</b><br/>5.1 এবং Dolby ট্র্যাক শনাক্ত করে সংরক্ষণ করা হয়</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>বাল্ক URL মোড</b><br/>একটি তালিকা পেস্ট করুন, স্বয়ংক্রিয়ভাবে ডুপ্লিকেট সরান, সব একসাথে সারিবদ্ধ করুন</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>সমান্তরাল ডাউনলোড সারি</b><br/>লাইভ অগ্রগতিসহ একসাথে একাধিক ডাউনলোড</sub></td>
-  </tr>
-</table>
-
----
-
 ## <a id="privacy"></a>গোপনীয়তা
 
 ডাউনলোডগুলো সরাসরি [yt-dlp](https://github.com/yt-dlp/yt-dlp)-এর মাধ্যমে YouTube থেকে আপনার বেছে নেওয়া ফোল্ডারে আনা হয় — কোনো থার্ড-পার্টি সার্ভারের মধ্য দিয়ে যায় না। দেখার ইতিহাস, ডাউনলোড ইতিহাস, URL ও ফাইলের বিষয়বস্তু আপনার ডিভাইসেই থাকে।
 
 Arroxy [OpenPanel](https://openpanel.dev)-এর মাধ্যমে বেনামী, সমষ্টিগত টেলিমেট্রি পাঠায় — ব্যর্থতা, ক্র্যাশ, মতামত, OS ও অ্যাপ সংস্করণ বোঝার জন্য যতটা দরকার। কোনো URL, ভিডিও শিরোনাম, ফাইল পাথ, অ্যাকাউন্ট তথ্য, ফিঙ্গারপ্রিন্টিং বা ব্যক্তিগত ডেটা নেই। প্রতি-ইনস্টল ID এলোমেলো এবং আপনার পরিচয়ের সাথে যুক্ত নয়। সেটিংসে অপ্ট আউট করতে পারবেন।
+
+Explore ব্রাউজার থেকে আলাদা তার নিজস্ব সাইন-ইন রাখে, এবং Arroxy কখনও সাইন-ইন ফর্ম পড়ে না বা পূরণ করে না — আপনি Google-এর নিজের পেজেই টাইপ করেন। ডাউনলোড সাইন-আউট অবস্থায় চলে; অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে কোনো ডাউনলোড ব্যর্থ হলেই কেবল Arroxy সাইন-ইনটি নতুন করে পড়ে, সেই ডাউনলোডের জন্য একটি অস্থায়ী ফাইলে রাখে এবং পরে ফাইলটি মুছে দেয়। সেটিংসে Explore থেকে সাইন আউট করলে সাইন-ইন ভুলে যায়।
 
 ---
 
@@ -320,10 +339,10 @@ YouTube যা দেয় সব কিছু: 4K UHD (2160p), 1440p, 1080p, 7
 হ্যাঁ। format মেনু থেকে *শুধু অডিও* বেছে নিন, তারপর MP3, M4A/AAC, Opus বা WAV নির্বাচন করুন।
 
 **আমার কি YouTube অ্যাকাউন্ট বা কুকিজ দরকার?**
-ডিফল্টভাবে, না — Arroxy YouTube অ্যাকাউন্ট, লগইন বা কুকি এক্সপোর্ট ছাড়াই কাজ করে। বয়স-সীমাবদ্ধ বা শুধুমাত্র সদস্যদের জন্য ভিডিওর মতো প্রমাণীকরণের প্রয়োজন এমন কনটেন্টের জন্য Advanced settings-এ ঐচ্ছিক কুকি সাপোর্ট পাওয়া যায় (Cookies source: file or browser)। ডিফল্টভাবে এটি বন্ধ থাকে। আপনি যদি এটি চালু করেন, yt-dlp-এর উইকি উল্লেখ করে যে [কুকি-ভিত্তিক অটোমেশন একটি Google অ্যাকাউন্টকে ফ্ল্যাগ করতে পারে](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); সেক্ষেত্রে একটি অস্থায়ী অ্যাকাউন্টই নিরাপদ পছন্দ।
+ডিফল্টভাবে, না — Arroxy YouTube অ্যাকাউন্ট, লগইন বা কুকি এক্সপোর্ট ছাড়াই কাজ করে। যে ভিডিওতে অ্যাকাউন্ট লাগে, যেমন প্রাইভেট, শুধুমাত্র সদস্যদের জন্য বা বয়স-সীমাবদ্ধ ভিডিও, তার জন্য Explore ট্যাবে একবার সাইন ইন করুন: Arroxy এখনও সাইন-আউট অবস্থাতেই ডাউনলোড করে এবং অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে ডাউনলোড ব্যর্থ হলেই কেবল সেই সাইন-ইন ব্যবহার করে। কুকি সেটিংসে এটিই **Explore সাইন-ইন** বিকল্প, যা তালিকার প্রথমে এবং "প্রস্তাবিত" চিহ্নিত; কুকি বন্ধ থাকলে প্রথমবার Explore খোলার সময় Arroxy নিজেই এটি বেছে নেয়। কুকি ফাইল বা আপনার ব্রাউজারের কুকিও কাজ করে। যেভাবেই হোক, yt-dlp-এর উইকি উল্লেখ করে যে [কুকি-ভিত্তিক অটোমেশন একটি Google অ্যাকাউন্টকে ফ্ল্যাগ করতে পারে](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); তাই সেকেন্ডারি অ্যাকাউন্টই নিরাপদ পছন্দ।
 
 **YouTube কিছু পরিবর্তন করলেও কি এটি কাজ করতে থাকবে?**
-yt-dlp চালুর সময় স্বয়ংক্রিয়ভাবে আপডেট হয়, এবং YouTube কিছু পরিবর্তন করলে Arroxy দ্রুত ফিক্স পাঠায়। যদি কখনো সমস্যায় পড়েন, ফলব্যাক হিসেবে Advanced settings-এ ঐচ্ছিক কুকি সাপোর্ট পাওয়া যায়।
+yt-dlp চালুর সময় স্বয়ংক্রিয়ভাবে আপডেট হয়, এবং YouTube কিছু পরিবর্তন করলে Arroxy দ্রুত ফিক্স পাঠায়। YouTube যখন আপনি বট নন তা নিশ্চিত করতে বলে, তখন আপনি Explore-এ সাইন ইন করে থাকলে Arroxy আপনার Explore সাইন-ইনও চেষ্টা করে, আর কুকি সেটিংসে ফাইল বা ব্রাউজার থেকে কুকিও ব্যবহার করা যায়।
 
 **Arroxy কোন ভাষায় পাওয়া যায়?**
 শুরু থেকেই 30টি ভাষা: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文। Arroxy প্রথম চালুর সময় আপনার অপারেটিং সিস্টেমের ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত করে, এবং টুলবারের ভাষা পিকার থেকে যেকোনো সময় বদলানো যায়। Runtime locale JSON থাকে src/shared/i18n/locales/ এ, আর অনুবাদকদের জন্য PO catalog থাকে i18n/locales/ এ — অবদান রাখতে GitHub-এ PR খুলুন।
@@ -350,8 +369,6 @@ yt-dlp চালুর সময় স্বয়ংক্রিয়ভা�
 | ---------------- | ---------------- |
 | **প্লেলিস্ট ও চ্যানেল ফিল্টার** | playlist বা channel enumerate করার সময় date-range filters |
 | **YouTube অডিও ট্র্যাক পছন্দ** | YouTube একাধিক অডিও ট্র্যাক দিলে পুরো app-এর জন্য কথ্য-ভাষার track preference সেট করুন, আর প্রতিটি profile-এ override করুন |
-| **অ্যাপের ভেতর browser sign-in** | Arroxy-র ভেতর browser windows খুলে সাইন ইন করুন এবং site cookies ম্যানুয়ালি export না করেই ব্যবহার করুন |
-| **এক-ক্লিক ভিডিও ডাউনলোড** | active profile ব্যবহার করে detected বা pasted URL থেকে এক ক্লিকে ভিডিও ডাউনলোড শুরু করুন |
 | **আরও শক্তিশালী রিট্রাই রিকভারি** | অবিশ্বস্ত বা সমস্যাযুক্ত ইন্টারনেট সংযোগে বাধাগ্রস্ত ডাউনলোডের জন্য নতুন রিট্রাই পথ |
 | **পূর্ণ ডাউনলোড ম্যানেজার ড্রয়ার** | কিউ ড্রয়ারকে আরও পূর্ণ ম্যানেজারে পরিণত করা, queued আইটেমের destination folder বদলানোসহ |
 | **নির্ধারিত সময়ে ডাউনলোড** | নির্দিষ্ট সময়ে কিউ শুরু করুন (রাতভর রান) |

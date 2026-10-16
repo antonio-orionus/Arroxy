@@ -25,7 +25,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../pulls).
 
@@ -33,6 +33,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 ## 목차
 
+- [기능](#features)
 - [설치 및 최초 실행](#install)
   - [Windows 최초 실행](#windows-first-launch)
   - [macOS 최초 실행](#macos-first-launch)
@@ -40,12 +41,96 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
   - [Linux 최초 실행](#linux-first-launch)
   - [다운로드 확인(SHA256)](#verify)
 - [Arroxy를 선택하는 이유](#why)
-- [기능](#features)
 - [개인정보 보호](#privacy)
 - [자주 묻는 질문](#faq)
 - [로드맵](#roadmap)
 - [Arroxy 후원](#support)
 - [사용 기술](#tech)
+
+---
+
+## <a id="features"></a>기능
+
+### Explore: Arroxy 안에서 YouTube 탐색
+
+- **Explore 탭** — Arroxy 안에서 YouTube를 둘러보고, 링크를 복사하지 않고도 찾은 영상을 바로 다운로드합니다. **다운로드 · *내 프로필*** 은 보고 있는 동영상, 재생목록 또는 채널을 대기열에 추가하고, 옆의 화살표로 프로필을 바꾸며, 마법봉은 형식·자막 등을 고르는 단계별 다운로드를 엽니다
+- **주소창** — 입력해서 YouTube를 검색하거나 YouTube 링크를 붙여 넣습니다. Explore는 YouTube만 탐색하므로 다른 사이트의 링크는 여기서 열리지 않지만, 클릭 한 번으로 다운로드할 수 있습니다
+- **계정이 필요한 다운로드** — Explore에서 한 번 로그인하면 Arroxy가 계정으로 볼 수 있는 비공개·멤버 전용 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. Arroxy는 여전히 로그아웃 상태로 다운로드하며, 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 Explore 로그인을 사용합니다. YouTube가 봇이 아닌지 확인을 요구할 때도 Arroxy는 Explore 로그인을 시도합니다
+- **보조 계정을 사용하세요** — Explore 첫 화면에서 이유를 설명합니다. 계정으로 다운로드하면 해당 계정이 제한될 위험이 어느 정도 있습니다. 로그인 정보를 지우고 싶다면 언제든 설정에서 Explore 로그아웃을 하세요
+- **광고 차단** — Explore는 자체 페이지의 광고와 트래커를 차단하며 다운로드에는 영향이 없습니다. 기본으로 켜져 있고 Explore 도구 모음의 방패를 한 번 클릭하면 끌 수 있으며, Google 로그인 페이지에서는 작동하지 않습니다. 로그인한 계정에는 YouTube가 광고 차단에 대응할 수 있습니다
+
+### 화질 및 형식
+
+- 최대 **4K UHD(2160p)**, 1440p, 1080p, 720p, 480p, 360p
+- **높은 프레임 속도**를 그대로 보존 — 60 fps, 120 fps, HDR
+- **오디오** — 오디오만 MP3, M4A/AAC, Opus 또는 WAV로 내보냅니다. 대화형 다운로드에서는 소스가 제공하는 네이티브 서라운드/Dolby 트랙(AC-3, E-AC-3, 5.1, DRC)을 선택하거나 전역 기본값으로 **서라운드 / Dolby 우선**을 설정할 수 있습니다
+- 빠른 프리셋: *최고 화질* · *균형* · *작은 파일*
+
+### 개인정보 보호 및 제어
+
+- 100% 로컬 처리 — YouTube에서 사용자의 디스크로 바로 다운로드
+- **오픈 소스** — 모든 코드를 감사할 수 있으며 MIT 라이선스 적용
+- 선택한 폴더에 파일을 바로 저장
+
+### 워크플로
+
+- **전역 다운로드 단축키** — 어느 앱에서든 링크를 복사하고 `Ctrl+Shift+D`(macOS에서는 `Cmd+Shift+D`)를 누르면, 창을 열지 않고 활성 프로필로 대기열에 추가되며 알림으로 확인됩니다. 기본 활성화되며 키를 변경할 수 있습니다
+- **유연한 시작 모드** — 안내식 단일 다운로드, 재생목록/채널 선택기, URL 일괄 붙여넣기, 저장된 기본값을 사용하는 빠른 다운로드 또는 Explore에서 탐색하며 다운로드 중에서 선택
+- **중앙 다운로드 대기열** — 단일, 재생목록, 일괄, 빠른 작업을 한곳에서 진행률 확인, 일시 중지, 재개, 취소, 재시도 및 우선순위 조정
+- **클립보드 감시** — YouTube 링크를 복사하고 앱으로 돌아오면 Arroxy가 URL을 자동으로 입력합니다(고급 설정에서 전환)
+- **URL 자동 정리** — 추적 매개변수(`si`, `pp`, `utm_*`, `fbclid`, `gclid`)를 제거하고 `youtube.com/redirect` 링크를 해제
+- **트레이 모드** — 창을 닫아도 다운로드가 백그라운드에서 계속 실행
+- **30개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
+- **재생목록 동기화** — 재생목록을 로컬 폴더와 다시 비교해 이미 받은 동영상을 건너뛰고, 동영상이 내려받아질 때마다 갱신되는 `.m3u` 재생목록 파일을 생성
+- **속도 및 간격 제어** — 다운로드 대역폭과 동시에 받는 동영상 조각 수를 제한하고, 요청 지연을 프리셋(*끄기 · 균형 · 주의 · 사용자 지정*)으로 설정
+- **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
+- **동시 다운로드 및 자동 재시도** — 동시에 실행할 대기열 작업 수를 정하고, 네트워크나 서버 문제를 만난 다운로드를 매번 더 오래 기다린 뒤 Arroxy가 다시 시도
+- **재생목록 항목별 프로필** — 목록 전체에 하나의 설정을 쓰는 대신 각 동영상에 개별 프로필을 지정하여, 한 번에 일부는 최고 화질로 보관하고 나머지는 MP3로 저장
+- **빠른 다운로드는 백그라운드에서 동작** — 링크가 곧바로 다운로드 탭에 나타나 거기서 준비되고, **보기**가 있는 알림이 확인해 주며, URL 입력란은 다음 링크를 위해 비워집니다. 앞선 항목이 준비되는 동안에도 원하는 만큼 시작할 수 있습니다
+- **다운로드 탭이 도움이 필요한 항목을 알려 줍니다** — Arroxy가 링크를 읽을 수 없으면 해당 행에 이유와 해결 방법(다시 시도, 쿠키 켜기, Explore에서 로그인)이 표시됩니다. 쿠키가 꺼져 있다면 로그인한 뒤 **Explore로 로그인**이 대신 다시 시도합니다. 불러오기 한도를 넘는 재생목록은 행에서 전체, 처음 몇 개, 검토 중 선택을 기다립니다. 다운로드 탭에는 사용자를 기다리는 행의 수가 표시됩니다
+
+### 자막 및 후처리
+
+- SRT, VTT 또는 ASS **자막** — 수동 또는 자동 생성, 제공되는 모든 언어
+- 동영상 옆에 저장하거나 `.mkv`에 삽입하거나 `Subtitles/` 하위 폴더에 정리
+- **자막 전용 일괄 처리** — URL 목록을 붙여넣거나 재생목록을 열고 자막을 선택하면 각 동영상의 자막 파일만 받습니다
+- **SponsorBlock** — 스폰서, 인트로, 아웃트로, 자체 홍보를 건너뛰거나 챕터로 표시
+- **삽입 메타데이터** — 제목, 업로드 날짜, 채널, 설명, 썸네일 및 챕터 표시를 파일에 기록
+
+### YouTube + 2000개 사이트
+
+- **완전한 YouTube 지원** — 동영상, Shorts, 채널, 재생목록, YouTube Music 및 팟캐스트를 최우선 소스로 처리
+- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등
+- **오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동
+- 사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy 안에서 YouTube를 둘러보고, 보고 있는 페이지를 활성 프로필로 다운로드</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore 첫 화면</b><br/>Explore 간단 소개와 보조 계정 로그인이 더 안전한 이유</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>다운로드 탭이 도움이 필요한 항목을 알려 줍니다</b><br/>링크는 백그라운드에서 준비되고, 실패한 항목은 해결 방법을 제시하며, 긴 재생목록은 선택을 기다립니다</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>재사용 가능한 다운로드 프로필</b><br/>형식, 화질, 출력 프리셋을 저장해 다운로드마다 재사용</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>다국어 오디오 트랙</b><br/>동영상에 포함된 정확한 오디오 언어 선택</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>서라운드 / Dolby 오디오</b><br/>5.1 및 Dolby 트랙을 감지하고 보존</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL 일괄 모드</b><br/>목록을 붙여 넣고 중복을 자동 제거한 뒤 모두 대기열에 추가</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>병렬 다운로드 대기열</b><br/>실시간 진행률과 함께 여러 다운로드를 동시에 실행</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -234,79 +319,13 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 
 ---
 
-## <a id="features"></a>기능
-
-### 화질 및 형식
-
-- 최대 **4K UHD(2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **높은 프레임 속도**를 그대로 보존 — 60 fps, 120 fps, HDR
-- **오디오** — 오디오만 MP3, M4A/AAC, Opus 또는 WAV로 내보냅니다. 대화형 다운로드에서는 소스가 제공하는 네이티브 서라운드/Dolby 트랙(AC-3, E-AC-3, 5.1, DRC)을 선택하거나 전역 기본값으로 **서라운드 / Dolby 우선**을 설정할 수 있습니다
-- 빠른 프리셋: *최고 화질* · *균형* · *작은 파일*
-
-### 개인정보 보호 및 제어
-
-- 100% 로컬 처리 — YouTube에서 사용자의 디스크로 바로 다운로드
-- **오픈 소스** — 모든 코드를 감사할 수 있으며 MIT 라이선스 적용
-- 선택한 폴더에 파일을 바로 저장
-
-### 워크플로
-
-- **전역 다운로드 단축키** — 어느 앱에서든 링크를 복사하고 `Ctrl+Shift+D`(macOS에서는 `Cmd+Shift+D`)를 누르면, 창을 열지 않고 활성 프로필로 대기열에 추가되며 알림으로 확인됩니다. 기본 활성화되며 키를 변경할 수 있습니다
-- **유연한 시작 모드** — 안내식 단일 다운로드, 재생목록/채널 선택기, URL 일괄 붙여넣기 또는 저장된 기본값을 사용하는 빠른 다운로드 중에서 선택
-- **중앙 다운로드 대기열** — 단일, 재생목록, 일괄, 빠른 작업을 한곳에서 진행률 확인, 일시 중지, 재개, 취소, 재시도 및 우선순위 조정
-- **클립보드 감시** — YouTube 링크를 복사하고 앱으로 돌아오면 Arroxy가 URL을 자동으로 입력합니다(고급 설정에서 전환)
-- **URL 자동 정리** — 추적 매개변수(`si`, `pp`, `utm_*`, `fbclid`, `gclid`)를 제거하고 `youtube.com/redirect` 링크를 해제
-- **트레이 모드** — 창을 닫아도 다운로드가 백그라운드에서 계속 실행
-- **30개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
-- **재생목록 동기화** — 재생목록을 로컬 폴더와 다시 비교해 이미 받은 동영상을 건너뛰고, 동영상이 내려받아질 때마다 갱신되는 `.m3u` 재생목록 파일을 생성
-- **속도 및 간격 제어** — 다운로드 대역폭과 동시에 받는 동영상 조각 수를 제한하고, 요청 지연을 프리셋(*끄기 · 균형 · 주의 · 사용자 지정*)으로 설정
-- **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
-- **동시 다운로드 및 자동 재시도** — 동시에 실행할 대기열 작업 수를 정하고, 네트워크나 서버 문제를 만난 다운로드를 매번 더 오래 기다린 뒤 Arroxy가 다시 시도
-- **재생목록 항목별 프로필** — 목록 전체에 하나의 설정을 쓰는 대신 각 동영상에 개별 프로필을 지정하여, 한 번에 일부는 최고 화질로 보관하고 나머지는 MP3로 저장
-
-### 자막 및 후처리
-
-- SRT, VTT 또는 ASS **자막** — 수동 또는 자동 생성, 제공되는 모든 언어
-- 동영상 옆에 저장하거나 `.mkv`에 삽입하거나 `Subtitles/` 하위 폴더에 정리
-- **자막 전용 일괄 처리** — URL 목록을 붙여넣거나 재생목록을 열고 자막을 선택하면 각 동영상의 자막 파일만 받습니다
-- **SponsorBlock** — 스폰서, 인트로, 아웃트로, 자체 홍보를 건너뛰거나 챕터로 표시
-- **삽입 메타데이터** — 제목, 업로드 날짜, 채널, 설명, 썸네일 및 챕터 표시를 파일에 기록
-
-### YouTube + 2000개 사이트
-
-- **완전한 YouTube 지원** — 동영상, Shorts, 채널, 재생목록, YouTube Music 및 팟캐스트를 최우선 소스로 처리
-- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등
-- **오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동
-- 사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>재사용 가능한 다운로드 프로필</b><br/>형식, 화질, 출력 프리셋을 저장해 다운로드마다 재사용</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>다국어 오디오 트랙</b><br/>동영상에 포함된 정확한 오디오 언어 선택</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>서라운드 / Dolby 오디오</b><br/>5.1 및 Dolby 트랙을 감지하고 보존</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>URL 일괄 모드</b><br/>목록을 붙여 넣고 중복을 자동 제거한 뒤 모두 대기열에 추가</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>병렬 다운로드 대기열</b><br/>실시간 진행률과 함께 여러 다운로드를 동시에 실행</sub></td>
-  </tr>
-</table>
-
----
-
 ## <a id="privacy"></a>개인정보 보호
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 YouTube에서 선택한 폴더로 파일을 직접 가져오며 외부 서버를 거치지 않습니다. 시청 기록, 다운로드 기록, URL, 파일 내용은 장치에 남습니다.
 
 Arroxy는 [OpenPanel](https://openpanel.dev)을 통해 익명의 집계 텔레메트리를 보냅니다. 독립 프로젝트가 오류, 충돌, 피드백, OS 및 앱 버전을 파악하는 데 필요한 정도뿐입니다. URL, 동영상 제목, 파일 경로, 계정 정보, 지문 또는 개인 데이터는 포함하지 않습니다. 설치별 ID는 무작위이며 신원과 연결되지 않습니다. 설정에서 거부할 수 있습니다.
+
+Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는 로그인 양식을 읽거나 채우지 않습니다. 입력은 Google 자체 페이지에서 직접 합니다. 다운로드는 로그아웃 상태로 실행되고, 계정으로 해결할 수 있는 이유로 실패할 때만 Arroxy가 로그인 정보를 새로 읽어 해당 다운로드용 임시 파일에 두었다가 끝나면 파일을 삭제합니다. 설정에서 Explore를 로그아웃하면 로그인 정보가 지워집니다.
 
 ---
 
@@ -322,10 +341,10 @@ YouTube가 제공하는 모든 화질: 4K UHD(2160p), 1440p, 1080p, 720p, 480p, 
 예. 형식 메뉴에서 *오디오 전용*을 선택하고 MP3, M4A/AAC, Opus 또는 WAV를 고르세요.
 
 **YouTube 계정이나 쿠키가 필요한가요?**
-기본적으로 필요 없습니다. Arroxy는 YouTube 계정, 로그인 또는 쿠키 내보내기 없이 작동합니다. 연령 제한이나 회원 전용 동영상처럼 인증이 필요한 콘텐츠에는 고급 설정에서 선택적 쿠키 지원(쿠키 소스: 파일 또는 브라우저)을 사용할 수 있으며 기본값은 꺼짐입니다. 이를 켜면 yt-dlp 위키가 [쿠키 기반 자동화로 Google 계정이 표시될 수 있음](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)을 안내하므로, 이 경우 임시 계정이 더 안전합니다.
+기본적으로 필요 없습니다. Arroxy는 YouTube 계정, 로그인 또는 쿠키 내보내기 없이 작동합니다. 비공개, 멤버 전용, 연령 제한 동영상처럼 계정이 필요한 경우에는 Explore 탭에서 한 번 로그인하세요. Arroxy는 여전히 로그아웃 상태로 다운로드하며, 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 그 로그인을 사용합니다. 쿠키 설정에서 첫 번째로 표시되고 추천 표시가 붙은 **Explore 로그인** 옵션이 바로 이것이며, 쿠키가 꺼져 있었다면 Explore를 처음 열 때 Arroxy가 대신 선택합니다. 쿠키 파일이나 브라우저의 쿠키도 사용할 수 있습니다. 어느 쪽이든 yt-dlp 위키가 [쿠키 기반 자동화로 Google 계정이 표시될 수 있음](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)을 안내하므로 보조 계정이 더 안전합니다.
 
 **YouTube가 변경되어도 계속 작동하나요?**
-yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 신속하게 수정 사항을 배포합니다. 문제가 발생하면 고급 설정의 선택적 쿠키 지원을 대안으로 사용할 수 있습니다.
+yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 신속하게 수정 사항을 배포합니다. YouTube가 봇이 아닌지 확인을 요구하면, Explore에 로그인해 둔 경우 Arroxy가 그 로그인도 시도하며, 쿠키 설정에서는 파일이나 브라우저의 쿠키도 사용할 수 있습니다.
 
 **Arroxy는 어떤 언어를 지원하나요?**
 설치 즉시 30개 언어를 사용할 수 있습니다: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy는 처음 실행할 때 운영 체제 언어를 자동 감지하며 도구 모음의 언어 선택기에서 언제든 변경할 수 있습니다. 런타임 로캘 JSON은 src/shared/i18n/locales/에, 번역자용 PO 카탈로그는 i18n/locales/에 있습니다. 기여하려면 GitHub에서 PR을 열어 주세요.
@@ -352,8 +371,6 @@ yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 �
 | ---------------- | ---------------- |
 | **재생목록 및 채널 필터** | 재생목록이나 채널을 나열할 때 날짜 범위로 필터링 |
 | **YouTube 오디오 트랙 환경설정** | YouTube가 여러 오디오 트랙을 제공할 때 프로필별 재정의와 함께 앱 전체의 음성 언어 선호도 설정 |
-| **앱 내 브라우저 로그인** | Arroxy 안에서 브라우저 창을 열어 수동으로 내보내지 않고 로그인 및 사이트 쿠키 사용 |
-| **한 번 클릭 동영상 다운로드** | 감지하거나 붙여 넣은 URL을 활성 프로필로 한 번에 다운로드 시작 |
 | **더 강력한 재시도 복구** | 불안정하거나 문제가 있는 인터넷 연결로 중단된 다운로드를 위한 새 재시도 경로 |
 | **전체 다운로드 관리자 패널** | 대기 중인 항목의 대상 폴더 변경을 포함해 대기열 패널을 더 완전한 관리자로 확장 |
 | **예약 다운로드** | 정해진 시간에 대기열 시작(야간 실행 등) |
