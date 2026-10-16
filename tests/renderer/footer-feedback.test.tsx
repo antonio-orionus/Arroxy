@@ -74,7 +74,7 @@ const mockAppApi = {
 		setVisible: vi.fn(),
 		setActive: vi.fn(),
 		signOut: vi.fn(),
-		getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null})),
+		getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
 		capture: vi.fn().mockResolvedValue(ok(null)),
 		onStateChanged: vi.fn().mockReturnValue(() => undefined),
 		onPointerInView: vi.fn().mockReturnValue(() => undefined)

@@ -52,7 +52,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			setVisible: vi.fn().mockResolvedValue(ok(undefined)),
 			setActive: vi.fn().mockResolvedValue(ok(undefined)),
 			signOut: vi.fn().mockResolvedValue(ok(undefined)),
-			getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null})),
+			getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
 			onStateChanged: vi.fn().mockReturnValue(() => undefined),
 			onPointerInView: vi.fn().mockReturnValue(() => undefined)
 		},

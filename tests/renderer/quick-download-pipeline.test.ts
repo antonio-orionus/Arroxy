@@ -658,7 +658,7 @@ describe('a probe that needs the user’s choice', () => {
 	})
 
 	// The link lives exactly as long as its review run (P2-R40).
-	it.each(['openCookiesSettings', 'openExploreSignIn'] as const)('leaving the review through %s never lets a later run replace the row', async leave => {
+	it.each(['openCookiesSettings', 'openExploreSignIn', 'back'] as const)('leaving the review through %s never lets a later run replace the row', async leave => {
 		const probe = deferredProbe()
 		const id = await cappedRow(probe)
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
@@ -719,15 +719,6 @@ describe('a probe that needs the user’s choice', () => {
 		expect(api.queue.cmd.replaceProbing).toHaveBeenLastCalledWith({itemId: id, items: expect.any(Array)})
 		expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
 		expect(queue()[0]?.id).toBe(id)
-	})
-
-	it('a new wizard run after leaving the review never replaces the row', async () => {
-		const probe = deferredProbe()
-		const id = await cappedRow(probe)
-		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
-		useAppStore.getState().back()
-		expect(useAppStore.getState().reviewSourceRowId).toBeNull()
-		void probe
 	})
 
 	it('asks for a review when a link that did not look like a collection is one', async () => {
