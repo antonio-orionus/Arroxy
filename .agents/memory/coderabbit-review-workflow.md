@@ -1,6 +1,6 @@
 ---
 name: coderabbit-review-workflow
-description: Automatic reviews are OFF in this repo, so every CodeRabbit review needs an explicit trigger — once at open and once after pushing review fixes; poll issues/<N>/comments for all three outcomes because pulls/<N>/reviews stays 0 on a clean review; never merge on green CI alone.
+description: CodeRabbit reviews at most 100 files per PR (counted after path_filters) and 2 reviews per hour; automatic reviews are OFF in this repo, so every CodeRabbit review needs an explicit trigger — once at open and once after pushing review fixes; poll issues/<N>/comments for all three outcomes because pulls/<N>/reviews stays 0 on a clean review; never merge on green CI alone.
 metadata:
   type: feedback
 ---
@@ -40,6 +40,29 @@ reviews off the check reports `pass` with the text "Review skipped: automatic
 reviews are disabled" — a pass that means the exact opposite of reviewed. On
 PR #164 the check was green with no review at all, so merging on CI status would
 have skipped review entirely.
+
+## Hard limits: 100 files per PR, 2 reviews per hour
+
+**A PR over 100 files is skipped outright** — "Review skipped: Too many files!
+This PR contains 143 files, which is 43 over the limit of 100" (PRs #275/#276,
+2026-10-16). The count is taken after `.coderabbit.yaml` path_filters, so
+generated READMEs and excluded locale files don't count, but every source,
+test, and doc file does. The plan label says "Advanced" yet the cap is 100, not
+the 150/300 that CodeRabbit's public release notes list for paid tiers — trust
+the bot's own message, not the docs.
+
+For a bigger change, split it into **stacked review PRs of ≤100 files each**
+(e.g. core src → unit tests → renderer → e2e/docs/locales), each based on the
+one below. Merge them top-down into their bases, then squash-merge the bottom
+PR into `main`. A partial branch fails CI on its own; only the final squash
+needs to be green. Before opening, count each PR's files with the path_filters
+applied, and keep `.coderabbit.yaml`'s locale exclusion list complete — newer
+locales missing from it pushed one half of the 0.5.0 split over the cap.
+
+**The 2-reviews-per-hour quota is shared across the repo.** A stack of N PRs
+needs about N/2 hours of triggers: trigger two, wait for the window, trigger
+the next two. A refused trigger replies "rate limited" and is never retried on
+its own — re-trigger it after the window.
 
 ## Every outcome lands on `issues/<N>/comments`
 
