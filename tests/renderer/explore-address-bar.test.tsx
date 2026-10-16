@@ -95,6 +95,15 @@ describe('Explore address bar', () => {
 		expect(screen.queryByTestId('explore-address-hint')).toBeNull()
 	})
 
+	it('ignores Enter that confirms an input-method candidate', async () => {
+		const input = await renderExplore()
+		fireEvent.focus(input)
+		fireEvent.change(input, {target: {value: 'にほんご'}})
+		fireEvent.keyDown(input, {key: 'Enter', isComposing: true})
+		fireEvent.keyDown(input, {key: 'Enter'})
+		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url: 'https://www.youtube.com/results?search_query=%E3%81%AB%E3%81%BB%E3%82%93%E3%81%94'}]))
+	})
+
 	it('searches YouTube for plain text', async () => {
 		const input = await renderExplore()
 		typeAndEnter(input, 'lofi beats')
