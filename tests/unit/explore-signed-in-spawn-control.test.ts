@@ -13,10 +13,10 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 const taskkill = vi.hoisted(() => ({route: (_pid: number): void => undefined}))
 vi.mock('node:child_process', async importOriginal => {
 	const actual = await importOriginal<typeof import('node:child_process')>()
-	const spawn = (command: string, args: readonly string[] = [], ...rest: unknown[]): unknown => {
-		if (command !== 'taskkill') return Reflect.apply(actual.spawn, actual, [command, args, ...rest])
+	const spawn = (command: string, args: readonly string[] = [], options: import('node:child_process').SpawnOptions = {}): ReturnType<typeof actual.spawn> => {
+		if (command !== 'taskkill') return actual.spawn(command, args, options)
 		taskkill.route(Number(args[args.indexOf('/pid') + 1]))
-		return {on: () => undefined}
+		return {on: () => undefined} as never
 	}
 	return {...actual, spawn}
 })
