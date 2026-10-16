@@ -232,8 +232,16 @@ async function tabPaintGaps(page: Page): Promise<TabPaintGaps> {
 // Even spacing on the home tab bar: no painted pill, glow or ring reaches its
 // neighbour, and every neighbouring pair is as far apart as every other.
 async function expectEvenTabSpacing(page: Page): Promise<void> {
-	// The selected pill fades and scales in; measure once its animations settle.
-	await page.evaluate(() => Promise.all(document.getAnimations().map(animation => animation.finished)))
+	// The selected pill fades and scales in; measure once finite animations settle.
+	// Spinners loop forever, so only animations that end are awaited.
+	await page.evaluate(() =>
+		Promise.all(
+			document
+				.getAnimations()
+				.filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity)
+				.map(animation => animation.finished.catch(() => undefined))
+		)
+	)
 	const {gaps, painted} = await tabPaintGaps(page)
 	const zoom = await page.evaluate(() => {
 		const rail = document.querySelector<HTMLElement>('[data-testid="profiles-tabs"]')
