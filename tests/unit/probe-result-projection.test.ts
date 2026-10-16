@@ -150,3 +150,34 @@ describe('ProbeResultProjection', () => {
 		expect(projectProbeFailure(error)).toMatchObject({wizardStep: 'error', formatsLoading: false, playlistProbeLoading: false, wizardError: error, wizardErrorOrigin: 'formats'})
 	})
 })
+
+describe('ProbeResultProjection — job auth', () => {
+	it('keeps a signed-in video probe auth for the single wizard item', () => {
+		expect(projectVideoProbeResult({...VIDEO_PROBE, auth: 'exploreSession'}, appState(), true).wizardProbeAuth).toBe('exploreSession')
+		expect(projectVideoProbeResult(VIDEO_PROBE, appState(), true).wizardProbeAuth).toBeUndefined()
+	})
+
+	it('entries keep the auth main put on them (an account-only playlist)', () => {
+		const patch = projectPlaylistProbeResult({...PLAYLIST_PROBE, auth: 'exploreSession', entries: PLAYLIST_PROBE.entries.map(entry => ({...entry, auth: 'exploreSession' as const}))}, appState(), true)
+
+		expect(patch.playlistItems?.map(entry => entry.auth)).toEqual(['exploreSession', 'exploreSession'])
+	})
+
+	it('a playlist enumerated signed in past a bot wall leaves its entries anonymous (R20)', () => {
+		const patch = projectPlaylistProbeResult({...PLAYLIST_PROBE, auth: 'exploreSession'}, appState(), true)
+
+		expect(patch.playlistItems?.every(entry => entry.auth === undefined)).toBe(true)
+	})
+
+	it('an anonymous playlist leaves its entries untouched', () => {
+		const patch = projectPlaylistProbeResult(PLAYLIST_PROBE, appState(), true)
+
+		expect(patch.playlistItems?.every(entry => !('auth' in entry))).toBe(true)
+	})
+
+	it('a bulk row seeded from a signed-in collection keeps the auth', () => {
+		const projection = projectBulkStart(['https://youtu.be/a'], appState(), new Map([['https://youtu.be/a', {title: 'A', thumbnail: '', videoId: 'a', auth: 'exploreSession' as const}]]))
+
+		expect(projection.playlistItems[0]?.auth).toBe('exploreSession')
+	})
+})

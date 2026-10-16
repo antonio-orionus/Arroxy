@@ -1,3 +1,4 @@
+import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -7,6 +8,7 @@ import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {YtDlpResult} from '@main/services/YtDlp.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
+import {explorePorts} from '../helpers/explorePorts.js'
 
 vi.mock('@main/services/subtitlePostProcess', () => ({
 	resolveConvertedSubtitlePaths: vi.fn(async (paths: readonly string[]) => [...paths]),
@@ -46,7 +48,7 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 
 function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
 	const runMock = vi.fn().mockResolvedValue(runResult)
-	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock, ffmpegPath: null} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+	return {active: makeActive(activeOverrides), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock, ffmpegPath: null} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 }
 
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
@@ -60,6 +62,30 @@ describe('SubtitleOnlyPhase', () => {
 		expect(req.kind).toBe('subtitles')
 		expect(req.url).toBe(BASE_INPUT.url)
 		expect(req.subtitles.languages).toEqual(['en'])
+	})
+
+	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
+		const anonymous = makeCtx(SUCCESS)
+		await SubtitleOnlyPhase.run(anonymous)
+		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
+
+		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
+		await SubtitleOnlyPhase.run(signedIn)
+		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
+	})
+
+	it('parks a paused escalated job whose Explore session is gone instead of failing it', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, pauseRequested: true})
+		const outcome = await SubtitleOnlyPhase.run(ctx)
+		expect(outcome).toEqual({kind: 'paused'})
+		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
+		expect(vi.mocked(ctx.emitStatus)).not.toHaveBeenCalled()
+	})
+
+	it('still fails a signed-out escalated job that is not paused', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}})
+		const outcome = await SubtitleOnlyPhase.run(ctx)
+		expect(outcome.kind).toBe('hard-failed')
 	})
 
 	it('forwards autoOnly so manual tracks are skipped', async () => {
@@ -144,14 +170,14 @@ describe('SubtitleOnlyPhase', () => {
 			active.pauseRequested = true
 			return EXIT_ERROR // SIGTERM makes yt-dlp exit non-zero
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		const outcome = await SubtitleOnlyPhase.run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})
 
 	it('cancelled after run → returns cancelled', async () => {
-		const ctx: PhaseContext = {active: makeActive({cancelRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active: makeActive({cancelRequested: false}), signal: new AbortController().signal, register: () => undefined, ytDlp: {} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 		const runMock = vi.fn().mockImplementationOnce(async () => {
 			ctx.active.cancelRequested = true
 			return SUCCESS
@@ -168,7 +194,7 @@ describe('SubtitleOnlyPhase', () => {
 			signal?.onMinting?.(1)
 			return SUCCESS
 		})
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await SubtitleOnlyPhase.run(ctx)
 
@@ -178,7 +204,7 @@ describe('SubtitleOnlyPhase', () => {
 
 	it('no onMinting call → no token status emitted', async () => {
 		const runMock = vi.fn().mockImplementation(async (_req, _signal) => SUCCESS)
-		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active: makeActive(), signal: new AbortController().signal, register: () => undefined, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await SubtitleOnlyPhase.run(ctx)
 
@@ -186,14 +212,14 @@ describe('SubtitleOnlyPhase', () => {
 	})
 
 	it('onSpawn → assigns process, registers SIGKILL disposable, emits fetchingSubtitles', async () => {
-		const fakeProc = {kill: vi.fn()}
+		const fakeProc = Object.assign(new EventEmitter(), {kill: vi.fn()})
 		const runMock = vi.fn().mockImplementation(async (_req, signal) => {
 			signal?.onSpawn?.(fakeProc)
 			return SUCCESS
 		})
 		const active = makeActive()
 		const registerSpy = vi.fn((d: () => void | Promise<void>) => active.disposables.defer(d))
-		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: registerSpy, ytDlp: {run: runMock} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 
 		await SubtitleOnlyPhase.run(ctx)
 

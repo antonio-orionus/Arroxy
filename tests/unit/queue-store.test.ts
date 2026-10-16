@@ -134,6 +134,18 @@ describe('QueueStore', () => {
 		expect(await loadOk(store)).toEqual([])
 	})
 
+	// A row this version cannot read (a newer shape after a downgrade, or one
+	// damaged on disk) costs only itself: the rest of the queue loads.
+	it('drops only the rows that fail validation and keeps the rest', async () => {
+		const [store, dir] = await tempStore()
+		const first = makeItem({id: 'first', status: 'pending'})
+		const last = makeItem({id: 'last', status: 'done', progressPercent: 100, finishedAt: '2024-01-01T12:00:00.000Z'})
+		const future = {...makeItem({id: 'future', status: 'pending'}), status: 'some-future-status'}
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [first, future, 'not a row', last]}), 'utf-8')
+
+		expect((await loadOk(store)).map(item => item.id)).toEqual(['first', 'last'])
+	})
+
 	it('returns validation failure for non-array JSON (no silent recovery)', async () => {
 		const [store, dir] = await tempStore()
 		await fs.writeFile(path.join(dir, 'queue.json'), '{"not": "an array"}', 'utf-8')
@@ -175,6 +187,16 @@ describe('QueueStore — beta migration', () => {
 		expect(loaded[0].status).toBe('pending')
 		expect(loaded[0].progressPercent).toBe(0)
 		expect((loaded[0] as unknown as Record<string, unknown>).downloadJobId).toBeUndefined()
+	})
+
+	// A hotkey placeholder saved before rows kept their probe mode cannot be
+	// retried faithfully. It is dropped on its own; the rest of the queue loads.
+	it('drops a placeholder row saved without its probe mode and keeps the rest', async () => {
+		const [store, dir] = await tempStore()
+		const kept = makeItem({id: 'kept', status: 'pending'})
+		const stale = {...makeItem({id: 'stale', status: 'error', error: {kind: 'network', raw: 'x'}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'}), probeMode: undefined}
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [kept, stale]}), 'utf-8')
+		expect((await loadOk(store)).map(item => item.id)).toEqual(['kept'])
 	})
 
 	it('migrates old paused (with downloadJobId) → paused-held + strips downloadJobId', async () => {

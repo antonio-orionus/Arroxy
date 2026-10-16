@@ -29,6 +29,47 @@ describe('settings and recent stores', () => {
 		expect(readBack.common.defaultOutputDir).toBe('/home/test/downloads')
 	})
 
+	it('validates the Explore user-agent token on write only', async () => {
+		for (const bad of ['Gecko/20100101', 'Mozilla/5.0 (X11) Gecko/20100101 Firefox/140.0', 'x'.repeat(65) + '/1']) expect(updateSettingsSchema.safeParse({common: {exploreUserAgent: bad}}).success).toBe(false)
+		expect(updateSettingsSchema.safeParse({common: {exploreUserAgent: 'Desktop/2.0'}}).success).toBe(true)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-ua-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		const updated = await store.update({common: {exploreUserAgent: 'Desktop/2.0'}})
+		expect(updated.common.exploreUserAgent).toBe('Desktop/2.0')
+	})
+
+	it('keeps every other common setting when a stored Explore user-agent token is no longer valid', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-ua-stored-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {...baseDefaults.common, exploreUserAgent: 'Gecko/1', defaultOutputDir: '/home/test/keep', hotkeyEnabled: false}, single: baseDefaults.single, playlist: baseDefaults.playlist, profiles: baseDefaults.profiles}))
+		const store = new SettingsStore(userData, baseDefaults)
+
+		const loaded = await store.get()
+		expect(loaded.common).toMatchObject({defaultOutputDir: '/home/test/keep', hotkeyEnabled: false, exploreUserAgent: 'Gecko/1'})
+	})
+
+	it('persists the Explore notice and mode-nudge flags', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-flags-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		expect(updateSettingsSchema.safeParse({common: {exploreModeNudgeDismissedFor: 'bogus'}}).success).toBe(false)
+
+		const updated = await store.update({common: {exploreNoticeSeen: true, exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: 'browser'}})
+		expect(updated.common).toMatchObject({exploreNoticeSeen: true, exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: 'browser'})
+		expect((await store.get()).common.exploreModeNudgeDismissedFor).toBe('browser')
+	})
+
+	it('leaves the Explore ad blocker setting unset (unset means on) and persists an explicit choice', async () => {
+		expect(baseDefaults.common.exploreAdBlock).toBeUndefined()
+		expect(updateSettingsSchema.safeParse({common: {exploreAdBlock: 'yes'}}).success).toBe(false)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-adblock-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		expect((await store.update({common: {exploreAdBlock: true}})).common.exploreAdBlock).toBe(true)
+		expect((await new SettingsStore(userData, baseDefaults).get()).common.exploreAdBlock).toBe(true)
+		expect((await store.update({common: {exploreAdBlock: false}})).common.exploreAdBlock).toBe(false)
+		expect((await new SettingsStore(userData, baseDefaults).get()).common.exploreAdBlock).toBe(false)
+	})
+
 	it('defaults and persists the remaining backdrop render modes', async () => {
 		expect(baseDefaults.common.backdropRenderMode).toBe('gpu')
 

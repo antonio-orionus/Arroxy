@@ -35,7 +35,7 @@ describe('planQueueAction', () => {
 	})
 
 	it('does not offer retry for terminal probe errors with no runnable job', () => {
-		const probeError = makeItem({id: 'probe-error', status: 'error', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, error: {kind: 'unknown', raw: 'probe failed'}})
+		const probeError = makeItem({id: 'probe-error', status: 'error', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video', error: {kind: 'unknown', raw: 'probe failed'}})
 
 		expect(canApplyQueueActionToItem('retry', probeError)).toBe(false)
 		expect(planQueueAction('retry', [probeError]).applicableIds).toEqual([])

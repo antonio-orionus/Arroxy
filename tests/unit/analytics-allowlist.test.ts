@@ -153,6 +153,13 @@ describe('OpenPanel track delegation', () => {
 		expect(trackMock).toHaveBeenCalledWith('probe_failed', {duration_bucket: '<2s', error_category: 'bot_detected', cookies_mode: 'off'})
 	})
 
+	it('accepts the explore cookie mode and an escalated flag on download and probe failure events', () => {
+		setupAnalytics(undefined, undefined, true, 'install-id-test')
+		expect(() => trackMain('download_started', {preset: 'single-format', cookies_mode: 'explore', escalated: true})).not.toThrow()
+		expect(() => trackMain('download_failed', {duration_bucket: '<30s', error_category: 'botBlock', escalated: true})).not.toThrow()
+		expect(() => trackMain('probe_failed', {duration_bucket: '<2s', error_category: 'bot_detected', cookies_mode: 'explore', escalated: false})).not.toThrow()
+	})
+
 	it('rejects error_category on format_probed in dev mode', () => {
 		setupAnalytics(undefined, undefined, true, 'install-id-test')
 		expect(() => trackMain('format_probed', {error_category: 'bot_detected'} as any)).toThrow(/prop "error_category" not allowed/)

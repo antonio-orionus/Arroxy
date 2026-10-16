@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {startDownloadSchema, queueArraySchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
+import {queueArraySchema} from '@shared/queueItemSchema.js'
+import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}
@@ -25,6 +26,13 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	it('accepts single-format job', () => {
 		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(true)
+	})
+
+	it('carries a known job auth and rejects anything else', () => {
+		const base = {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}}
+		const parsed = startDownloadSchema.safeParse({...base, auth: 'exploreSession'})
+		expect(parsed.success && parsed.data.auth).toBe('exploreSession')
+		expect(startDownloadSchema.safeParse({...base, auth: 'admin'}).success).toBe(false)
 	})
 
 	it(`MAX_SUBTITLE_LANGUAGES (${MAX_SUBTITLE_LANGUAGES}) is exported and positive`, () => {

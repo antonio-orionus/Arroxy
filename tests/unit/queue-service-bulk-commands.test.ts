@@ -79,7 +79,7 @@ describe('QueueService — bulk commands', () => {
 		const {qs, ds, store} = makeService()
 		// Never resolves: keeps the auto-spawn from committing `started` mid-assertion.
 		ds.start.mockReturnValue(new Promise(() => undefined))
-		qs.add([makeItem({id: 'p1', status: 'probing', job: UNRESOLVED})])
+		qs.add([makeItem({id: 'p1', status: 'probing', job: UNRESOLVED, probeMode: 'video'})])
 		vi.mocked(store.save).mockClear()
 
 		const result = await qs.replaceProbing('p1', [makeItem({id: 'r1', status: 'pending', job: REAL_JOB})])

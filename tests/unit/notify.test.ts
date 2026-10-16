@@ -88,3 +88,112 @@ describe('which failures reach the user', () => {
 		expect(sink.mock.calls[0]?.[1]).toMatch(/shorter folder/i)
 	})
 })
+
+describe('toasts with actions', () => {
+	it('sends no actions argument for a plain notification', () => {
+		vi.spyOn(console, 'info').mockImplementation(() => {})
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.clipboard('Link filled')
+		expect(sink.mock.calls[0]).toHaveLength(3)
+	})
+
+	it('offers View on an added quick download and runs the caller’s command', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		const view = vi.fn()
+		notify.quickDownloadAdded('Fixture Video 1', view)
+		const [level, message, , actions] = sink.mock.calls[0] ?? []
+		expect(level).toBe('info')
+		expect(message).toBe('Added: Fixture Video 1')
+		expect(actions).toHaveLength(1)
+		expect(actions[0].label).toBe('View')
+		actions[0].onClick()
+		expect(view).toHaveBeenCalledTimes(1)
+	})
+
+	it('collapses repeated adds and already-queued answers under one id each', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadAdded('one', vi.fn())
+		notify.quickDownloadAdded('two', vi.fn())
+		notify.quickDownloadAlreadyQueued(vi.fn())
+		notify.quickDownloadAlreadyQueued(vi.fn())
+		const ids = sink.mock.calls.map(call => call[2])
+		expect(ids[0]).toBe(ids[1])
+		expect(ids[2]).toBe(ids[3])
+		expect(ids[0]).not.toBe(ids[2])
+		expect(sink.mock.calls[2]?.[1]).toBe('Already in the queue')
+		expect(sink.mock.calls[2]?.[3]?.[0]?.label).toBe('View')
+	})
+
+	it('puts the failure’s main action first and View second, one toast per row', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		const retry = vi.fn()
+		const view = vi.fn()
+		notify.quickDownloadFailed('row-1', 'https://example.com/a', {kind: 'retry', run: retry}, view)
+		notify.quickDownloadFailed('row-2', 'Other', {kind: 'sign-in', run: vi.fn()}, vi.fn())
+		notify.quickDownloadFailed('row-1', 'https://example.com/a', {kind: 'retry', run: retry}, view)
+		const [level, message, id, actions] = sink.mock.calls[0] ?? []
+		expect(level).toBe('error')
+		expect(message).toBe("Couldn't prepare example.com/a")
+		expect(actions.map((action: {label: string}) => action.label)).toEqual(['Retry', 'View'])
+		actions[0].onClick()
+		actions[1].onClick()
+		expect(retry).toHaveBeenCalledTimes(1)
+		expect(view).toHaveBeenCalledTimes(1)
+		expect(sink.mock.calls[1]?.[3]?.[0]?.label).toBe('Sign in in Explore')
+		expect(sink.mock.calls[1]?.[2]).not.toBe(id)
+		expect(sink.mock.calls[2]?.[2]).toBe(id)
+	})
+
+	it('raises a quick download toast without View when the caller has none', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadAdded('Video')
+		notify.quickDownloadFailed('row', 'Video', {kind: 'retry', run: vi.fn()})
+		expect(sink.mock.calls[0]).toHaveLength(3)
+		expect(sink.mock.calls[1]?.[3]?.map((action: {label: string}) => action.label)).toEqual(['Retry'])
+	})
+
+	it('asks how many videos to queue for a playlist over the load limit', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadNeedsChoice('row-1', {kind: 'playlist-cap', count: 100, capped: true}, vi.fn())
+		expect(sink.mock.calls[0]?.[1]).toBe('100+ videos — choose how many')
+		expect(sink.mock.calls[0]?.[3]?.[0]?.label).toBe('View')
+	})
+
+	// A review-only row offers no "how many": its toast says what it asks.
+	it('asks for a review of a link that turned out to be a list', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadNeedsChoice('row-2', {kind: 'playlist-review', count: 12, capped: false}, vi.fn())
+		notify.quickDownloadNeedsChoice('row-3', {kind: 'playlist-review', count: 100, capped: true}, vi.fn())
+		expect(sink.mock.calls.map(call => call[1])).toEqual(['12 videos in this list — review to pick', '100+ videos in this list — review to pick'])
+	})
+})
+
+// A toast names the item by its title; a link the probe has not titled yet
+// reads as a short host + id (or a one-line, ellipsized address), so a URL
+// never wraps mid-word in the toast.
+describe('the item a quick download toast names', () => {
+	it.each([
+		['Fixture Video 1', 'Fixture Video 1'],
+		['https://www.youtube.com/watch?v=nighttrain3', 'youtube.com · nighttrain3'],
+		['https://m.youtube.com/watch?v=abc&list=PL1', 'youtube.com · abc'],
+		['https://youtu.be/dQw4w9WgXcQ?t=42', 'youtu.be · dQw4w9WgXcQ'],
+		['https://www.youtube.com/shorts/short123', 'youtube.com · short123'],
+		['https://www.youtube.com/playlist?list=PLmock_capped', 'youtube.com · PLmock_capped'],
+		['https://www.youtube.com/watch?v=abc&list=PLmock', 'youtube.com · abc'],
+		['https://example.com/a', 'example.com/a'],
+		['https://media.example/course/42/lessons/an-extremely-long-lesson-slug-that-goes-on', 'media.example/course/42/lessons/an-extre…']
+	])('%s reads as %s', (title, shown) => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadAdded(title)
+		notify.quickDownloadFailed('row', title, {kind: 'retry', run: vi.fn()})
+		expect(sink.mock.calls.map(call => call[1])).toEqual([`Added: ${shown}`, `Couldn't prepare ${shown}`])
+	})
+})

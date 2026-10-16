@@ -1,6 +1,6 @@
 import type {QueueItem} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
-import {queueItemSchema} from '@shared/schemas.js'
+import {queueItemSchema} from '@shared/queueItemSchema.js'
 
 export {ok} from '@shared/result.js'
 

@@ -133,6 +133,37 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.queueCmdChangeOutputTarget, input)
 	})
 
+	it('explore.navigate', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.explore.navigate({kind: 'back'})
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.exploreNavigate, {kind: 'back'})
+	})
+
+	it('explore.setBounds', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const rect = {x: 0, y: 48, width: 900, height: 600}
+		void api.explore.setBounds(rect)
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.exploreSetBounds, rect)
+	})
+
+	it('explore.setVisible', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.explore.setVisible(false)
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.exploreSetVisible, {visible: false})
+	})
+
+	it('explore.signOut', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.explore.signOut()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.exploreSignOut)
+	})
+
+	it('explore.getState', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.explore.getState()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.exploreGetState)
+	})
+
 	it('updater.install', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		void api.updater.install()
@@ -250,5 +281,33 @@ describe('unsubscribe — removes exact wrapper function', () => {
 		unsubscribe()
 
 		expect(ipc.removeListener).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, wrappedAtRegister)
+	})
+	it('explore.onStateChanged forwards the payload and unsubscribes with removeListener', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const listener = vi.fn()
+		const unsubscribe = api.explore.onStateChanged(listener)
+
+		expect(ipc.on).toHaveBeenCalledWith(IPC_CHANNELS.exploreStateChanged, expect.any(Function))
+		const [, wrapped] = ipc.on.mock.calls[0]
+		const state = {url: 'https://www.youtube.com/', title: 'YouTube', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null}
+		wrapped({}, state)
+		expect(listener).toHaveBeenCalledWith(state)
+
+		unsubscribe()
+		expect(ipc.removeListener).toHaveBeenCalledWith(IPC_CHANNELS.exploreStateChanged, wrapped)
+	})
+
+	it('explore.onPointerInView passes no payload on and unsubscribes with removeListener', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		const listener = vi.fn()
+		const unsubscribe = api.explore.onPointerInView(listener)
+
+		expect(ipc.on).toHaveBeenCalledWith(IPC_CHANNELS.explorePointerInView, expect.any(Function))
+		const [, wrapped] = ipc.on.mock.calls[0]
+		wrapped({}, {injected: 'payload'})
+		expect(listener).toHaveBeenCalledWith()
+
+		unsubscribe()
+		expect(ipc.removeListener).toHaveBeenCalledWith(IPC_CHANNELS.explorePointerInView, wrapped)
 	})
 })

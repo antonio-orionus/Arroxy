@@ -1,9 +1,13 @@
 import {EventEmitter} from 'node:events'
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {ProbeService} from '@main/services/ProbeService.js'
-import {YtDlp} from '@main/services/YtDlp.js'
+import {YtDlp, type YtDlpResult} from '@main/services/YtDlp.js'
 import type {ProbeProgressEvent} from '@shared/types.js'
-import type {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
+import type {ExploreSignInState} from '@shared/schemas.js'
+import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
@@ -564,5 +568,314 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		expect(r.data.kind).toBe('video')
 		if (r.data.kind !== 'video') throw new Error('expected video probe result')
 		expect(r.data.timestamp).toBeUndefined()
+	})
+})
+
+describe('ProbeService — Explore session escalation', () => {
+	const VIDEO_URL = 'https://www.youtube.com/watch?v=abc'
+	const AGE_GATE = 'ERROR: [youtube] abc: Sign in to confirm your age. This video may be inappropriate for some users.'
+
+	function exitError(rawError: string): YtDlpResult {
+		return {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError, stdout: '', stderr: rawError}
+	}
+
+	function success(info: unknown): YtDlpResult {
+		return {kind: 'success', stdout: JSON.stringify(info), stderr: '', usedExtractorFallback: false}
+	}
+
+	function videoInfo(): unknown {
+		return {_type: 'video', id: 'abc', title: 'Signed-in Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: VIDEO_URL, formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]}
+	}
+
+	function playlistWith(ids: string[]): unknown {
+		return {_type: 'playlist', id: 'WL', title: 'Watch later', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=WL', entries: ids.map(id => ({_type: 'url', id, url: `https://www.youtube.com/watch?v=${id}`, title: `Video ${id}`, ie_key: 'Youtube'}))}
+	}
+
+	function makeEscalationService(results: YtDlpResult[], canEscalate: () => Promise<boolean>, cache?: ProbeInfoJsonCache, verified: ExploreSignInState = 'signedIn') {
+		const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => {
+			const next = results.shift()
+			if (!next) throw new Error('unexpected yt-dlp run')
+			return next
+		})
+		const gate = {canEscalate: vi.fn(canEscalate)}
+		const verifySignedIn = vi.fn((_siteId: string) => Promise.resolve(verified))
+		const service = new ProbeService({run} as never, false, cache, {exploreGate: gate, exploreSession: {verifySignedIn}})
+		return {service, run, gate, verifySignedIn}
+	}
+
+	// A2-3: yt-dlp warned that the session's cookies are no longer valid on the escalated probe.
+	describe('rejected account cookies on an escalated probe', () => {
+		const rejected = (result: YtDlpResult): YtDlpResult => ({...result, accountCookiesRejected: true})
+
+		it('retries once with a fresh jar when the session is still signed in', async () => {
+			const {service, run, verifySignedIn} = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE)), success(videoInfo())], async () => true, undefined, 'signedIn')
+
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+			expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+			expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+			expect(result.ok && result.data.auth).toBe('exploreSession')
+		})
+
+		it('retries only once', async () => {
+			const {service, run, verifySignedIn} = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE)), rejected(exitError(AGE_GATE))], async () => true, undefined, 'signedIn')
+
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+			expect(result.ok).toBe(false)
+			expect(run).toHaveBeenCalledTimes(3)
+			expect(verifySignedIn).toHaveBeenCalledOnce()
+		})
+
+		it('fails as signed out, and tells the Explore view, when the site says signed out — even if the run succeeded anonymously', async () => {
+			for (const signedInRun of [rejected(exitError(AGE_GATE)), rejected(success(videoInfo()))]) {
+				const {service, run} = makeEscalationService([exitError(AGE_GATE), signedInRun], async () => true, undefined, 'signedOut')
+				const verifiedSignedOut = vi.fn()
+				service.onExploreVerifiedSignedOut(verifiedSignedOut)
+
+				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+				expect(result).toEqual({ok: false, error: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'Signed out of the Explore session'}}})
+				expect(run).toHaveBeenCalledTimes(2)
+				expect(verifiedSignedOut).toHaveBeenCalledTimes(1)
+			}
+		})
+
+		it('fails a failed probe as retryable when the check cannot tell, and keeps a successful one', async () => {
+			const failed = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE))], async () => true, undefined, 'unknown')
+			expect(await failed.service.probe(VIDEO_URL, {playlistMode: 'video'})).toEqual({ok: false, error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}})
+			expect(failed.run).toHaveBeenCalledTimes(2)
+
+			const succeeded = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo()))], async () => true, undefined, 'unknown')
+			const result = await succeeded.service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok && result.data.auth).toBe('exploreSession')
+			expect(succeeded.run).toHaveBeenCalledTimes(2)
+		})
+
+		// M3: that run went out without the account's cookies, so its info-json is not a signed-in one.
+		it('does not cache the info-json of a kept success that ran without the cookies', async () => {
+			const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-rejected-cache-'))
+			try {
+				const {service} = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo()))], async () => true, new ProbeInfoJsonCache(dir), 'unknown')
+				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+				expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef).toBeUndefined()
+				await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
+			} finally {
+				await fs.rm(dir, {recursive: true, force: true})
+			}
+		})
+
+		it('still caches the info-json of the fresh-jar retry that was accepted', async () => {
+			const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-retry-cache-'))
+			try {
+				const {service} = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo())), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir), 'signedIn')
+				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+				expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
+			} finally {
+				await fs.rm(dir, {recursive: true, force: true})
+			}
+		})
+
+		it('ignores the warning on a probe that never escalated', async () => {
+			const {service, verifySignedIn} = makeEscalationService([rejected(success(videoInfo()))], async () => true)
+			expect((await service.probe(VIDEO_URL, {playlistMode: 'video'})).ok).toBe(true)
+			expect(verifySignedIn).not.toHaveBeenCalled()
+		})
+
+		it('checks a rejected escalated playlist that came back empty', async () => {
+			const {service, run, verifySignedIn} = makeEscalationService([success(playlistWith([])), rejected(success(playlistWith([]))), success(playlistWith(['a']))], async () => true, undefined, 'signedIn')
+
+			const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+
+			expect(verifySignedIn).toHaveBeenCalledOnce()
+			expect(run).toHaveBeenCalledTimes(3)
+			expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a'])
+		})
+	})
+
+	it('re-runs a sign-in-required probe with the Explore session and marks the result', async () => {
+		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-escalate-'))
+		const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(gate.canEscalate).toHaveBeenCalledWith('youtube')
+		expect(run).toHaveBeenCalledTimes(2)
+		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
+		expect(result.ok && result.data.auth).toBe('exploreSession')
+		expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
+		expect(log.info).toHaveBeenCalledWith('Probe escalated to the Explore session', {url: VIDEO_URL})
+		await fs.rm(dir, {recursive: true, force: true})
+	})
+
+	it('does not escalate when the gate says no (not explore mode / signed out / disabled)', async () => {
+		const {service, run} = makeEscalationService([exitError(AGE_GATE)], async () => false)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
+	})
+
+	it('does not consult the gate for a failure an account cannot fix', async () => {
+		const {service, run, gate} = makeEscalationService([exitError('ERROR: [youtube] abc: Video unavailable. This video has been removed by the uploader')], async () => true)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
+		expect(gate.canEscalate).not.toHaveBeenCalled()
+	})
+
+	it('escalates at most once and reports the signed-in failure', async () => {
+		const {service, run} = makeEscalationService([exitError(AGE_GATE), exitError(AGE_GATE)], async () => true)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(run).toHaveBeenCalledTimes(2)
+		expect(result.ok).toBe(false)
+	})
+
+	it('escalates an empty Watch Later playlist and marks the result', async () => {
+		const {service, run} = makeEscalationService([success(playlistWith([])), success(playlistWith(['a', 'b']))], async () => true)
+
+		const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+
+		expect(run).toHaveBeenCalledTimes(2)
+		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
+		expect(result.ok && result.data.kind === 'playlist' && result.data.auth).toBe('exploreSession')
+		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
+	})
+
+	it('signs in every item of a playlist only an account can open', async () => {
+		const {service} = makeEscalationService([success(playlistWith([])), success(playlistWith(['a', 'b']))], async () => true)
+
+		const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+
+		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.auth)).toEqual(['exploreSession', 'exploreSession'])
+	})
+
+	it('enumerates a bot-walled playlist signed in but leaves its items anonymous (R20)', async () => {
+		const BOT_WALL = "ERROR: [youtube:tab] PLx: Sign in to confirm you're not a bot. This helps protect our community."
+		const publicPlaylist = {...(playlistWith(['a', 'b']) as object), id: 'PLx', webpage_url: 'https://www.youtube.com/playlist?list=PLx'}
+		const {service, run} = makeEscalationService([exitError(BOT_WALL), success(publicPlaylist)], async () => true)
+
+		const result = await service.probe('https://www.youtube.com/playlist?list=PLx')
+
+		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}])
+		expect(result.ok && result.data.auth).toBe('exploreSession')
+		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
+		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.every(entry => entry.auth === undefined)).toBe(true)
+	})
+
+	it('does not escalate an empty ordinary playlist', async () => {
+		const {service, run, gate} = makeEscalationService([success({...(playlistWith([]) as object), id: 'PLx', webpage_url: 'https://www.youtube.com/playlist?list=PLx'})], async () => true)
+
+		const result = await service.probe('https://www.youtube.com/playlist?list=PLx')
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
+		expect(gate.canEscalate).not.toHaveBeenCalled()
+	})
+
+	it('does not escalate a cancelled probe', async () => {
+		const {service, run, gate} = makeEscalationService([], async () => true)
+		run.mockImplementationOnce(async () => {
+			service.cancelInFlight()
+			return exitError(AGE_GATE)
+		})
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
+		expect(gate.canEscalate).not.toHaveBeenCalled()
+	})
+
+	// A keyed probe belongs to a Downloads placeholder row: the wizard's cancel
+	// (a new URL, Enter, leaving for Settings) must never abort it.
+	it('leaves a keyed probe running when the wizard cancels its probes', async () => {
+		const {service, run} = makeEscalationService([], async () => false)
+		const signals: AbortSignal[] = []
+		run.mockImplementation(async (...args: unknown[]) => {
+			const options = args[1] as {abortSignal: AbortSignal}
+			signals.push(options.abortSignal)
+			service.cancelInFlight()
+			return success(videoInfo())
+		})
+
+		await service.probe(VIDEO_URL, {playlistMode: 'video', ownerKey: 'row-1'})
+
+		expect(signals[0]?.aborted).toBe(false)
+	})
+
+	it('aborts a keyed probe only through its own key', async () => {
+		const {service, run} = makeEscalationService([], async () => false)
+		const signals: AbortSignal[] = []
+		run.mockImplementation(async (...args: unknown[]) => {
+			signals.push((args[1] as {abortSignal: AbortSignal}).abortSignal)
+			service.cancelProbe('row-1')
+			return exitError('ERROR: cancelled')
+		})
+
+		await service.probe(VIDEO_URL, {playlistMode: 'video', ownerKey: 'row-1'})
+
+		expect(signals[0]?.aborted).toBe(true)
+	})
+
+	it('never escalates a probe that opted out (title backfill), even with an open gate', async () => {
+		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-no-escalate-'))
+		const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video', timeoutMs: 180_000, escalate: false})
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
+		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+		expect(gate.canEscalate).not.toHaveBeenCalled()
+		await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
+		await fs.rm(dir, {recursive: true, force: true})
+	})
+
+	it('keeps the Explore session on the degraded-success retry after escalation', async () => {
+		const degraded = {...(success(videoInfo()) as Extract<YtDlpResult, {kind: 'success'}>), stderr: 'WARNING: [youtube] abc: Some formats may be missing'}
+		const {service, run} = makeEscalationService([exitError(AGE_GATE), degraded, success(videoInfo())], async () => true)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok && result.data.auth).toBe('exploreSession')
+		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+	})
+
+	it('keeps the Explore session on the timeout retry after escalation', async () => {
+		const timedOut: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Probe timed out', stdout: '', stderr: ''}
+		const {service, run} = makeEscalationService([exitError(AGE_GATE), timedOut, success(videoInfo())], async () => true)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok && result.data.auth).toBe('exploreSession')
+		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+	})
+
+	it('leaves an ordinary success anonymous', async () => {
+		const {service, run, gate} = makeEscalationService([success(videoInfo())], async () => true)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok && result.data.auth).toBeUndefined()
+		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+		expect(gate.canEscalate).not.toHaveBeenCalled()
+	})
+
+	it('runs anonymously and never escalates without a gate', async () => {
+		const {run} = makeEscalationService([], async () => true)
+		run.mockResolvedValueOnce(exitError(AGE_GATE))
+		const service = new ProbeService({run} as never)
+
+		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+
+		expect(result.ok).toBe(false)
+		expect(run).toHaveBeenCalledTimes(1)
 	})
 })

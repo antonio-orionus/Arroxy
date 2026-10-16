@@ -45,6 +45,8 @@ function makeDeps() {
 		add: vi.fn().mockReturnValue({ok: true, data: {ids: []}}),
 		probeFailed: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		replaceProbing: vi.fn((input: {items: {id: string}[]}) => ({ok: true, data: {ids: input.items.map(item => item.id)}})),
+		needsChoice: vi.fn().mockReturnValue({ok: true, data: undefined}),
+		reprobe: vi.fn().mockReturnValue({ok: true, data: undefined}),
 		onProbeAbort: vi.fn(),
 		setTitleBackfillProbe: vi.fn(),
 		start: vi.fn().mockResolvedValue({ok: true, data: undefined}),
@@ -79,6 +81,7 @@ function makeDeps() {
 		hotkeyService: hotkeyService as never,
 		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
+		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn()} as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}
 	}
@@ -140,7 +143,7 @@ describe('registerIpcHandlers', () => {
 	})
 
 	describe('title backfill wiring', () => {
-		it('probes placeholder rows with the pinned 180s budget, not the default', async () => {
+		it('probes placeholder rows anonymously with the pinned 180s budget, not the default', async () => {
 			expect(PROBE_TIMEOUT_MS).toBe(180_000)
 			const deps = makeDeps()
 			deps._raw.probeService.probe.mockResolvedValue({ok: true, data: {kind: 'video', title: '  Real Title  '}})
@@ -151,7 +154,7 @@ describe('registerIpcHandlers', () => {
 			const probeTitle = setProbe.mock.calls[0]?.[0] as (url: string) => Promise<string | null>
 
 			await expect(probeTitle('https://example.com/a')).resolves.toBe('Real Title')
-			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://example.com/a', {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS})
+			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://example.com/a', {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false})
 		})
 	})
 
@@ -317,6 +320,30 @@ describe('registerIpcHandlers', () => {
 			const result = (await handler(null, [validItem])) as {ok: boolean}
 			expect(result.ok).toBe(true)
 			expect(deps._raw.queueService.add).toHaveBeenCalledOnce()
+		})
+
+		it('queue:cmd:needsChoice forwards a valid choice and refuses an unknown one', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdNeedsChoice)!.fn
+			const valid = (await handler(null, {itemId: 'p1', choice: {kind: 'playlist-cap', loaded: 100}, title: 'Mix'})) as {ok: boolean}
+			expect(valid.ok).toBe(true)
+			expect(deps._raw.queueService.needsChoice).toHaveBeenCalledWith('p1', {kind: 'playlist-cap', loaded: 100}, 'Mix')
+
+			const invalid = (await handler(null, {itemId: 'p1', choice: {kind: 'everything'}, title: 'Mix'})) as {ok: boolean}
+			expect(invalid.ok).toBe(false)
+			expect(deps._raw.queueService.needsChoice).toHaveBeenCalledOnce()
+		})
+
+		it('queue:cmd:reprobe forwards the row id', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.queueCmdReprobe)!.fn
+			const result = (await handler(null, {itemId: 'p1'})) as {ok: boolean}
+			expect(result.ok).toBe(true)
+			expect(deps._raw.queueService.reprobe).toHaveBeenCalledWith('p1')
 		})
 
 		it('queue:cmd:applySelectionAction accepts a valid action and selected item ids', async () => {

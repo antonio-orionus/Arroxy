@@ -8,6 +8,8 @@ import {resolveE2eHarnessMode, type E2eHarnessMode} from '@main/e2eHarness.js'
 import {EMBED_SUBTITLE_CONTAINER_EXT, type AudioConvert, type PlaylistScope, type ProbePlaylistMode, type SponsorBlockPlan, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import type {DependencySource} from '@shared/types.js'
+import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
+import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {SOURCE_PREFERRED_BEST_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
@@ -27,18 +29,29 @@ const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/downloads'
 const tempRoots: string[] = []
 
-function makeFakeProcess(exitCode = 0) {
+function makeFakeProcess(exitCode = 0, stderr = '') {
 	const proc = Object.assign(new EventEmitter(), {stdout: new EventEmitter(), stderr: new EventEmitter(), kill: vi.fn()})
-	setTimeout(() => proc.emit('close', exitCode), 10)
+	setTimeout(() => {
+		if (stderr) proc.stderr.emit('data', Buffer.from(stderr))
+		proc.emit('close', exitCode)
+	}, 10)
 	return proc
 }
 
-function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null} = {}) {
+// The token service of the most recent makeYtDlp(), for asserting on minting.
+let lastTokenService: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
+
+function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'> | null} = {}) {
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, single: {}, playlist: {}})}
-	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode})
+	lastTokenService = tokenService
+	// Escalated runs need both the jar port and the spawn gate; a test that injects jars gets an unpaced gate unless it says otherwise.
+	const spawnGate = opts.spawnGate === null ? undefined : (opts.spawnGate ?? (opts.sessionJars ? new ExploreSpawnGate({minSpacingMs: 0}) : undefined))
+	// The live authorization check before a signed-in spawn passes unless a test says otherwise.
+	const sessionAuth = opts.sessionJars ? {canEscalate: () => Promise.resolve(true)} : undefined
+	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode, sessionJars: opts.sessionJars, spawnGate, sessionAuth})
 }
 
 function getArgs(callIndex = 0): string[] {
@@ -493,11 +506,11 @@ describe('YtDlp — cookies injection', () => {
 		expect(args).not.toContain('--cookies-from-browser')
 	})
 
-	it('withoutCookies leaves configured cookies out of that run only', async () => {
+	it("identity 'none' leaves configured cookies out of that run only", async () => {
 		const ytDlp = makeYtDlp({settings: {cookiesMode: 'browser', cookiesBrowser: 'firefox'}})
 		expect(await ytDlp.usesCookies()).toBe(true)
 		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
-		await ytDlp.run({kind: 'probe', url: URL}, undefined, {withoutCookies: true})
+		await ytDlp.run({kind: 'probe', url: URL}, undefined, {identity: 'none'})
 		await ytDlp.run({kind: 'probe', url: URL})
 		expect(getArgs(0)).not.toContain('--cookies-from-browser')
 		expect(getArgs(1)).toContain('--cookies-from-browser')
@@ -969,5 +982,166 @@ describe('download connections', () => {
 		const ytDlp = makeYtDlp({settings: {downloadConnections: 8}})
 		await ytDlp.run({kind: 'probe', url: URL})
 		expect(getArgs()).not.toContain('--concurrent-fragments')
+	})
+})
+
+describe('YtDlp — run identity', () => {
+	const passThroughJars = (): SessionCookieJarPort => ({withJar: async (_siteId, fn) => fn('/tmp/j.txt')})
+	const exploreSettings = {cookiesMode: 'explore'}
+
+	it('passes a per-spawn jar from the session port', async () => {
+		const withJar = vi.fn(async (_siteId: string, fn: (jarPath: string) => Promise<unknown>) => fn('/tmp/explore-jars/j1.txt'))
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar} as SessionCookieJarPort})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(withJar).toHaveBeenCalledWith('youtube', expect.any(Function))
+		const args = getArgs()
+		expect(args[args.indexOf('--cookies') + 1]).toBe('/tmp/explore-jars/j1.txt')
+	})
+
+	it('asks the port for a fresh jar on every run', async () => {
+		const withJar = vi.fn(async (_siteId: string, fn: (jarPath: string) => Promise<unknown>) => fn('/tmp/j.txt'))
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar} as SessionCookieJarPort})
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(withJar).toHaveBeenCalledTimes(2)
+		expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2)
+	})
+
+	it('never sends the anonymous PO token on an escalated run', async () => {
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(lastTokenService.mintTokenForUrl).not.toHaveBeenCalled()
+		expect(getArgs().join(' ')).not.toContain('po_token=')
+	})
+
+	it('stays anonymous with a PO token for an ordinary run under explore mode', async () => {
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()})
+		await ytDlp.run(mediaRequest())
+		expect(getArgs()).not.toContain('--cookies')
+		expect(getArgs().join(' ')).toContain('po_token=')
+	})
+
+	it('flags the "account cookies are no longer valid" warning', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValueOnce(makeFakeProcess(0, 'WARNING: [youtube] The provided YouTube account cookies are no longer valid. They have likely been rotated in the browser') as never)
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result.kind).toBe('success')
+		expect(result.kind === 'success' && result.accountCookiesRejected).toBe(true)
+	})
+
+	it('does not flag a run whose cookies were accepted', async () => {
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).not.toHaveProperty('accountCookiesRejected')
+	})
+
+	it("identity 'none' runs without cookies even under explore mode", async () => {
+		await makeYtDlp({settings: {cookiesMode: 'file', cookiesPath: '/c.txt'}}).run(mediaRequest(), undefined, {identity: 'none'})
+		expect(getArgs()).not.toContain('--cookies')
+	})
+
+	it('refuses to run an escalated job anonymously when explore mode is off', async () => {
+		const withJar = vi.fn()
+		const result = await makeYtDlp({settings: {cookiesMode: 'off'}, sessionJars: {withJar}}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+		expect(withJar).not.toHaveBeenCalled()
+	})
+
+	it('refuses to run an escalated job when no session jar port was injected', async () => {
+		const result = await makeYtDlp({settings: exploreSettings}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('returns the unavailable result, without spawning, when the jar cannot be written', async () => {
+		const withJar = vi.fn().mockRejectedValue(new Error('EACCES: /secret/path'))
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: {withJar}}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('hands out a fresh unavailable result each time', async () => {
+		const first = await makeYtDlp({settings: exploreSettings}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		const second = await makeYtDlp({settings: exploreSettings}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(first).toEqual(second)
+		expect(first).not.toBe(second)
+		if (first.kind === 'exit-error') first.rawError = 'mutated'
+		const third = await makeYtDlp({settings: exploreSettings}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(third.kind === 'exit-error' && third.rawError).toBe('Explore session unavailable')
+	})
+
+	it('runs an escalated spawn through the spawn gate under the job key', async () => {
+		const keys: string[] = []
+		const run = <T>(key: string, fn: () => Promise<T>): Promise<T> => {
+			keys.push(key)
+			return fn()
+		}
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run, resetJob: vi.fn()}})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
+		expect(keys).toEqual(['job-9'])
+		expect(spawnYtDlp).toHaveBeenCalledOnce()
+	})
+
+	it('never gates an anonymous run', async () => {
+		const run = vi.fn()
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run, resetJob: vi.fn()}})
+		await ytDlp.run(mediaRequest(), undefined, {jobKey: 'job-9'})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'none', jobKey: 'job-9'})
+		expect(run).not.toHaveBeenCalled()
+	})
+
+	it('fails a run past the per-job cap without spawning', async () => {
+		const withJar = vi.fn()
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar}, spawnGate: {run: vi.fn().mockResolvedValue({kind: 'cap-exceeded'}), resetJob: vi.fn()}})
+		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
+		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, errorKind: 'unknown'})
+		expect(result.kind === 'exit-error' && result.rawError).toMatch(/signed-in attempts/i)
+		expect(withJar).not.toHaveBeenCalled()
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('reports a run cancelled while it waited at the gate as cancelled', async () => {
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run: vi.fn().mockResolvedValue({kind: 'cancelled'}), resetJob: vi.fn()}})
+		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
+		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, rawError: 'Cancelled'})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('gives a run without a job key a budget of its own (escalated probes)', async () => {
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()})
+		for (let i = 0; i < 7; i++) await ytDlp.run(probeRequest(), undefined, {identity: 'exploreSession'})
+		expect(spawnYtDlp).toHaveBeenCalledTimes(7)
+	})
+
+	it('refuses an escalated run when no spawn gate was injected', async () => {
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: null}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('refuses an escalated run when its slot comes up and the session is no longer authorized', async () => {
+		const withJar = vi.fn()
+		const ytDlp = new YtDlp(
+			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
+			{mintTokenForUrl: vi.fn(), invalidateCache: vi.fn()} as never,
+			{get: vi.fn().mockResolvedValue({common: exploreSettings, single: {}, playlist: {}})},
+			{sessionJars: {withJar}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate: () => Promise.resolve(false)}}
+		)
+		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
+		expect(withJar).not.toHaveBeenCalled()
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('writes no jar for a run that was already cancelled', async () => {
+		const withJar = vi.fn()
+		const controller = new AbortController()
+		controller.abort()
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: {withJar}}).run(mediaRequest(), {abortSignal: controller.signal}, {identity: 'exploreSession'})
+		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, rawError: 'Cancelled'})
+		expect(withJar).not.toHaveBeenCalled()
+		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 })

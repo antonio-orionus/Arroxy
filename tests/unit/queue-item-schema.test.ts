@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {queueItemSchema} from '@shared/schemas.js'
+import {queueItemSchema} from '@shared/queueItemSchema.js'
 import {makeItem} from '../shared/fixtures.js'
 
 describe('queue item schema', () => {
