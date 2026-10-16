@@ -7,6 +7,19 @@ import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 
+// On Windows a tree kill shells out to `taskkill /pid <pid>`. Route it to the
+// fake yt-dlp it names, as the group-kill spy does on Unix, so a fake pid never
+// reaches the real taskkill (or a real process that happens to hold that pid).
+const taskkill = vi.hoisted(() => ({route: (_pid: number): void => undefined}))
+vi.mock('node:child_process', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:child_process')>()
+	const spawn = (command: string, args: readonly string[] = [], ...rest: unknown[]): unknown => {
+		if (command !== 'taskkill') return Reflect.apply(actual.spawn, actual, [command, args, ...rest])
+		taskkill.route(Number(args[args.indexOf('/pid') + 1]))
+		return {on: () => undefined}
+	}
+	return {...actual, spawn}
+})
 vi.mock('@main/utils/process', async importOriginal => {
 	const actual = await importOriginal<typeof import('@main/utils/process.js')>()
 	return {...actual, spawnYtDlp: vi.fn()}
@@ -57,6 +70,7 @@ function fakeProcess(exitCode: number | null, stderr = '') {
 	return proc
 }
 const fakes = new Map<number, ReturnType<typeof fakeProcess>>()
+taskkill.route = pid => fakes.get(pid)?.kill()
 
 // Group kills go through process.kill(-pid); a fake pid must never reach the real one.
 function groupKills(): number[] {
