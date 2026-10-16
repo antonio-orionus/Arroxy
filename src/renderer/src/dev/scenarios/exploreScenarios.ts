@@ -8,7 +8,7 @@ interface ScenarioLike {
 // The ad blocker is on by default (P2-R53); only `explore-adblock-off` shows it off.
 const BLANK_VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'on'}
 
-const SAMPLE_PAGE: ExploreViewState = {...BLANK_VIEW, url: 'https://www.youtube.com/watch?v=aurora4k01', title: 'Sample page', canGoBack: true, signedIn: true}
+const SAMPLE_PAGE: ExploreViewState = {...BLANK_VIEW, url: 'https://www.youtube.com/@sample-travel-films/videos', title: 'Sample page', canGoBack: true, signedIn: true}
 
 // What the native Explore view would report for each Explore scenario. Every
 // other scenario leaves the view blank.
