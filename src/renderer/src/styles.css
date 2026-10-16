@@ -533,7 +533,7 @@ body {
 
 .download-home-tabs {
 	position: relative;
-	width: min(44rem, calc(100vw - 3rem)) !important;
+	width: min(44rem, 100%) !important;
 	height: 4.35rem !important;
 	gap: 0.35rem !important;
 	padding: 0.45rem !important;
@@ -557,7 +557,11 @@ body {
 }
 .download-home-tabs [data-slot='tabs-trigger'] {
 	isolation: isolate;
+	/* Sized to its own content, the free room shared equally: every label sits
+	   the same distance from its pill's edges, whatever its length or badge. */
+	flex: 1 1 auto;
 	min-width: 0;
+	padding-inline: 0.75rem;
 	height: 3.45rem !important;
 	gap: 0.7rem;
 	color: var(--text-glass-muted);
@@ -568,17 +572,44 @@ body {
 		filter 180ms ease,
 		transform 180ms ease;
 }
-.download-home-tabs .downloads-tab-trigger {
+/* Triggers that carry a badge (queue count, Explore's "New") tighten the icon-label gap to fit at 720px. */
+.download-home-tabs .downloads-tab-trigger,
+.download-home-tabs .explore-tab-trigger {
 	gap: 0.45rem;
+}
+/* The frame is the container the rail's rules measure. CSS `zoom` (the UI zoom
+   setting) shrinks the frame in its own CSS px while the window keeps its size,
+   so viewport media queries never fire for it; container queries do. */
+.download-home-tabs-frame {
+	container: tabs-rail / inline-size;
+}
+/* Narrow rail (a small window, or a UI zoom above 100%): the five labels need the
+   room Explore's "New" badge and then the icons take. Labels stay; extras go in turn.
+   Thresholds are measured widths of this frame at 720px / uiZoom 1.0-1.5 (672 down to
+   432 CSS px): with the badge, fr and pl overflow up to 638 and my/it/ko up to 578;
+   without icons my's Settings label still overflows at 528, hence 40rem and 36rem. */
+@container tabs-rail (width < 40rem) {
+	.download-home-tabs .explore-tab-trigger [data-slot='badge'] {
+		display: none;
+	}
+}
+@container tabs-rail (width < 36rem) {
+	.download-home-tabs [data-slot='tabs-trigger'] [data-icon] {
+		display: none;
+	}
 }
 .download-home-tabs .download-count-badge {
 	justify-content: center;
 	line-height: 1;
 }
+/* The pill. Inset further along the row than across it, so neighbouring pills
+   (a selected tab beside a working Downloads tab, say) keep a clear, equal gap.
+   Pill shadows add no sideways glow for the same reason: only the inset rings
+   and a downward glow. */
 .download-home-tabs [data-slot='tabs-trigger']::before {
 	content: '';
 	position: absolute;
-	inset: 0.08rem;
+	inset: 0.08rem 0.2rem;
 	z-index: -1;
 	border-radius: inherit;
 	background: var(--tabs-active-bg);
@@ -613,12 +644,37 @@ body {
 	opacity: 1;
 	transform: scaleX(1);
 }
+/* Keyboard focus rings the pill from inside, not the trigger box from outside,
+   so it never reaches into the gap or a neighbouring pill. The transparent
+   outline, drawn inside the box, is invisible normally and shows under forced
+   colours (Windows High Contrast), which drop box-shadow rings. */
+.download-home-tabs [data-slot='tabs-trigger']:focus-visible {
+	border-color: transparent;
+	box-shadow: none;
+	outline: 2px solid transparent;
+	outline-offset: -2px;
+}
+.download-home-tabs [data-slot='tabs-trigger']:focus-visible::before {
+	opacity: 1;
+	transform: scaleX(1);
+	box-shadow:
+		inset 0 0 0 2px var(--ring),
+		var(--tabs-hover-shadow);
+}
+.download-home-tabs [data-slot='tabs-trigger']:not([data-active]):focus-visible::before {
+	background: var(--tabs-hover-bg);
+}
+.download-home-tabs [data-slot='tabs-trigger'][data-active]:focus-visible::before {
+	box-shadow:
+		inset 0 0 0 2px var(--ring),
+		var(--tabs-active-shadow);
+}
 
 .download-home-tabs .queue-tab-working::before {
 	opacity: 0.58;
 	box-shadow:
 		var(--tabs-active-shadow),
-		0 0 18px -10px var(--brand-glow);
+		0 6px 16px -16px var(--brand-glow);
 }
 
 .download-home-tabs .queue-tab-working [data-slot='badge'] {
@@ -735,6 +791,22 @@ body {
 	box-shadow:
 		var(--queue-row-selected-shadow),
 		0 0 0 2px var(--ring);
+}
+
+/* A row shown by a toast's View: a ring that fades, so the eye lands on it. */
+[data-slot='table-row'][data-highlighted='true'] {
+	animation: queue-row-highlight 2.4s ease-out both;
+}
+@keyframes queue-row-highlight {
+	0%,
+	40% {
+		box-shadow: inset 0 0 0 2px var(--primary);
+		background: color-mix(in oklab, var(--primary) 14%, transparent);
+	}
+	100% {
+		box-shadow: inset 0 0 0 2px transparent;
+		background: transparent;
+	}
 }
 
 /* ── Reduced motion: collapse slide/float/shimmer/pulse to instant.
@@ -1199,9 +1271,9 @@ body {
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
 	--tabs-rail-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.52), inset 0 -18px 38px -34px hsl(268 96% 66% / 0.28), 0 14px 34px -28px hsl(207 100% 52% / 0.38), 0 0 34px -26px var(--brand-glow);
 	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 87% / 0.92));
-	--tabs-active-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 4px 18px -10px var(--brand-glow);
+	--tabs-active-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 8px 14px -14px var(--brand-glow);
 	--tabs-hover-bg: hsl(0 0% 100% / 0.72);
-	--tabs-hover-shadow: inset 0 0 0 1px hsl(220 60% 62% / 0.45), 0 2px 10px -6px hsl(220 60% 40% / 0.35);
+	--tabs-hover-shadow: inset 0 0 0 1px hsl(220 60% 62% / 0.45), 0 4px 8px -8px hsl(220 60% 40% / 0.35);
 	--tabs-hover-ink: hsl(226 56% 16%);
 	--tabs-active-ink: var(--selected-foreground);
 	--tabs-active-text-shadow: 0 0 14px hsl(213 100% 72% / 0.18);
@@ -1324,7 +1396,7 @@ body {
 	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 78% / 0.08), transparent 36% 62%, hsl(268 96% 74% / 0.08));
 	--tabs-rail-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.2), inset 0 -22px 42px -34px hsl(268 96% 66% / 0.55), 0 18px 44px -34px hsl(225 90% 2% / 0.88), 0 0 36px -27px var(--brand-glow);
 	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 52% / 0.16), hsl(268 96% 52% / 0.1)), color-mix(in srgb, var(--background) 72%, transparent);
-	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 78% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 0 24px -18px var(--brand-glow);
+	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 78% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 6px 18px -18px var(--brand-glow);
 	--tabs-hover-bg: hsl(214 100% 70% / 0.1);
 	--tabs-hover-shadow: inset 0 0 0 1px hsl(205 100% 78% / 0.22);
 	--tabs-hover-ink: hsl(224 48% 88%);

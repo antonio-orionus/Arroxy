@@ -65,6 +65,19 @@ describe('playlist hydration', () => {
 		expect(state.playlistItems[0]?.titleIsPlaceholder).toBeUndefined()
 	})
 
+	it('keeps the auth of a hydration probe that needed the Explore session', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE({auth: 'exploreSession'})))
+		window.appApi = api
+		const id = 'bulk-1'
+		const url = 'https://www.youtube.com/watch?v=members1'
+		useAppStore.setState({wizardMode: 'bulk', playlistItems: [{id, url, title: url, thumbnail: '', playlistIndex: 1, videoId: null}], selectedPlaylistItemIds: [id], bulkMetadataStatus: 'resolving', bulkMetadataCompleted: 0, bulkMetadataTotal: 1, bulkMetadataById: {}})
+
+		await hydrateBulkMetadata([{id, url, index: 0}], useAppStore.setState, nextBulkMetadataRunId())
+
+		expect(useAppStore.getState().playlistItems[0]?.auth).toBe('exploreSession')
+	})
+
 	it('never probes non-placeholder rows when only placeholder targets are passed', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE()))

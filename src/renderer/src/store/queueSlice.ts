@@ -9,11 +9,14 @@
 import type {QueueLane} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
+import {replaceHash} from '@renderer/lib/navigation.js'
 import type {GetState, SetState, QueueSlice} from './types.js'
 import {persistFormatPrefs} from './wizard/persistFormatPrefs.js'
+import {configuredCookiesRetryMode} from './wizard/probeErrorExperience.js'
 import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
+import {forgetAllPlaceholders, forgetPlaceholder, settlePlaceholder} from './quickDownload/quickDownloadPipeline.js'
 
 function errorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error)
@@ -42,19 +45,26 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 	try {
 		const prepared = stateBeforeSubmit.multiProfileMode ? prepareMultiProfileQueueSubmission(get(), lane) : prepareManualQueueSubmission(get(), lane)
 		if (!prepared) return
+		const reviewSourceRowId = stateBeforeSubmit.reviewSourceRowId
 		if (prepared.items.length === 0) {
 			// Everything selected is already queued: nothing failed and nothing
 			// was queued. Tell the user and leave the wizard where it is, so they
-			// can adjust the selection.
+			// can adjust the selection. A reviewed row has nothing left to wait for.
+			if (reviewSourceRowId !== null) {
+				await settlePlaceholder(reviewSourceRowId)
+				set({reviewSourceRowId: null})
+			}
 			notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
 			return
 		}
-		const result = await submitPreparedQueueSubmission(prepared)
+		const result = await submitPreparedQueueSubmission(prepared, reviewSourceRowId)
+		if (result.ok && reviewSourceRowId !== null) forgetPlaceholder(reviewSourceRowId)
 		if (!result.ok) {
 			set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: result.error}, wizardErrorOrigin: null})
 			return
 		}
-		if (prepared.skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
+		const skippedAlreadyQueued = prepared.skippedAlreadyQueued + result.skippedAlreadyQueued
+		if (skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(skippedAlreadyQueued)
 		await persistFormatPrefs(set, get)
 		get().reset()
 	} catch (error) {
@@ -76,6 +86,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 		queue: [],
 		schedulerPaused: false,
 		isSubmittingToQueue: false,
+		queueFocus: null,
 
 		// "+ Queue" → normal lane: respects cap=1, waits for the active slot.
 		// "Pull it!" → priority lane: spawns alongside running normal items,
@@ -93,6 +104,7 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		cancelItemDownload: async itemId => {
 			await window.appApi.queue.cmd.cancel({itemId})
+			forgetPlaceholder(itemId)
 		},
 
 		pauseItemDownload: async itemId => {
@@ -105,14 +117,24 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		removeQueueItem: async itemId => {
 			await window.appApi.queue.cmd.remove({itemId})
+			forgetPlaceholder(itemId)
 		},
 
 		retryQueueItem: async itemId => {
 			await window.appApi.queue.cmd.retry({itemId})
 		},
 
+		retryDownloadWithCookies: async itemId => {
+			const targetMode = configuredCookiesRetryMode(get().settings?.common)
+			if (!targetMode) return
+			await get().setCookiesMode(targetMode)
+			await get().retryQueueItem(itemId)
+		},
+
 		applyQueueSelectionAction: async (action, itemIds) => {
-			return window.appApi.queue.cmd.applySelectionAction({action, itemIds})
+			const result = await window.appApi.queue.cmd.applySelectionAction({action, itemIds})
+			if (action === 'cancel' || action === 'remove') for (const itemId of itemIds) forgetPlaceholder(itemId)
+			return result
 		},
 
 		changeQueueOutputTarget: async (itemIds, outputDir) => {
@@ -136,6 +158,8 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 
 		cancelAll: async () => {
 			await window.appApi.queue.cmd.cancel({itemId: null})
+			// Cancel-all removes every placeholder row, and with it every open choice.
+			forgetAllPlaceholders()
 		},
 
 		openItemFolder: async itemId => {
@@ -148,6 +172,19 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 			const item = get().queue.find(i => i.id === itemId)
 			if (!item) return
 			void window.appApi.shell.openExternal(item.url)
+		},
+
+		// The tab bar lives on the download home. A wizard run in progress is
+		// never thrown away for it (P2-R41): the toasts offer no View then, and a
+		// stray call does nothing.
+		showQueueItem: itemId => {
+			if (get().wizardStep !== 'url') return
+			replaceHash('queue')
+			if (itemId !== null) set(state => ({queueFocus: {itemId, seq: (state.queueFocus?.seq ?? 0) + 1}}))
+		},
+
+		clearQueueFocus: seq => {
+			if (get().queueFocus?.seq === seq) set({queueFocus: null})
 		}
 	}
 }

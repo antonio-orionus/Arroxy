@@ -10,9 +10,13 @@ import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {projectPlaylistProbeResult} from './probeResultProjection.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
-import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback, type QuickDownloadRetryPlaylistMode} from './quickDownloadFeedback.js'
-import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
+import {forgetPlaceholder, placedProfile, settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
+import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from './urlIntentPolicy.js'
+
+// Bulk URLs' quick download: several links probed in one modal run, then
+// queued together. A single link's quick download runs in the background as
+// a placeholder row instead (quickDownload/quickDownloadPipeline).
 
 let quickDownloadRunSeq = 0
 
@@ -36,10 +40,6 @@ function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetS
 	return true
 }
 
-function retryContextFor(mode: QuickDownloadRetryPlaylistMode | undefined): {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} {
-	return mode ? {retryPlaylistMode: mode} : {}
-}
-
 function probeInputFor(url: string, scope: PlaylistScope, mode: ProbePlaylistMode = 'auto'): {url: string; playlistMode: ProbePlaylistMode; playlistScope?: PlaylistScope} {
 	const playlistMode: ProbePlaylistMode = mode
 	return {url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope: scope})}
@@ -55,6 +55,8 @@ function applyQuickPlaylistProbeData(probe: Extract<ProbeResult, {kind: 'playlis
 }
 
 function openPlaylistReviewFromQuickProbe(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState): void {
+	// Bulk's own review: it replaces no Downloads row.
+	set({reviewSourceRowId: null})
 	applyPlaylistProbeResult(probe, set, get)
 	void get().scanDownloadedInFolder()
 	set({...resetQuickDownloadFeedback(), quickPlaylistCapDialogOpen: false})
@@ -66,7 +68,7 @@ interface EnqueuedProbeResult {
 	skippedAlreadyQueued: number
 }
 
-async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState, get: GetState, retryContext: {retryPlaylistMode?: QuickDownloadRetryPlaylistMode} = {}): Promise<EnqueuedProbeResult | null> {
+async function enqueueActiveProfileProbeResult(probe: ProbeResult, urls: string[], set: SetState, get: GetState): Promise<EnqueuedProbeResult | null> {
 	let probeForQueue = probe
 	if (probe.kind === 'playlist') {
 		applyQuickPlaylistProbeData(probe, set, get)
@@ -75,85 +77,34 @@ async function enqueueActiveProfileProbeResult(probe: ProbeResult, set: SetState
 			return null
 		}
 		if (get().playlistItems.length === 0) {
-			set(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', ...retryContext}))
+			set(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls}))
 			return null
 		}
 		probeForQueue = {...probe, entries: get().playlistItems}
 	}
 
-	const prepared = prepareActiveProfileQueueSubmission(probeForQueue, get(), 'normal')
+	const prepared = prepareActiveProfileQueueSubmission(probeForQueue, get(), 'normal', {url: get().wizardUrl, playlistTitle: get().playlistTitle})
 	if (!prepared) {
-		set(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', ...retryContext}))
+		set(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls}))
 		return null
 	}
 	if (prepared.items.length === 0) return {ids: [], skippedAlreadyQueued: prepared.skippedAlreadyQueued}
 	const result = await submitPreparedQueueSubmission(prepared)
 	if (!result.ok) {
-		set(failedQuickDownloadFeedback({kind: 'queue', message: result.error, ...retryContext}))
+		set(failedQuickDownloadFeedback({kind: 'queue', message: result.error, urls}))
 		return null
 	}
-	return {ids: result.ids, skippedAlreadyQueued: prepared.skippedAlreadyQueued}
+	return {ids: result.ids, skippedAlreadyQueued: prepared.skippedAlreadyQueued + result.skippedAlreadyQueued}
 }
 
 function quickProbeTitle(probe: ProbeResult): string | null {
 	return probe.kind === 'playlist' ? probe.playlistTitle || null : probe.title || null
 }
 
-function quickProbeItemCount(probe: ProbeResult): number {
-	return probe.kind === 'playlist' ? Math.max(probe.entries.length, 1) : 1
-}
-
 function ensureOutputFallback(set: SetState, get: GetState): void {
 	const currentOutputDir = get().wizardOutputDir
 	const fallbackOutputDir = get().settings?.common?.defaultOutputDir ?? ''
 	set({wizardOutputDir: currentOutputDir.trim() ? currentOutputDir : fallbackOutputDir})
-}
-
-export async function quickDownload(set: SetState, get: GetState, mixedUrlMode?: QuickDownloadRetryPlaylistMode): Promise<void> {
-	if (get().quickDownloadStatus === 'preparing') return
-	const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
-	if (!cleaned) return
-	if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
-	const intent = classifyUrlIntent(cleaned)
-	const action = mixedUrlMode ? ({kind: mixedUrlMode === 'video' ? 'probe-video' : 'probe-playlist', playlistMode: mixedUrlMode} as const) : policyForUrlIntent(intent, 'quick-download')
-	const retryContext = retryContextFor(mixedUrlMode)
-	if (action.kind === 'show-mixed-prompt') {
-		set({...mixedUrlPromptPatch(cleaned, 'quick-download'), ...resetQuickDownloadFeedback()})
-		return
-	}
-	if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
-
-	const runId = nextRunId()
-	void window.appApi.downloads.probeCancel()
-	set({wizardUrl: cleaned, ...preparingQuickDownloadFeedback({current: cleaned, runId, total: 1}), playlistProbeProgress: null, wizardError: null, cookiesConfigDialogIssue: null})
-
-	try {
-		const result = await window.appApi.downloads.probe(probeInputFor(cleaned, get().playlistScope, action.playlistMode))
-		if (!isRunActive(runId)) return
-		if (!result.ok) {
-			set(failedQuickDownloadFeedback({kind: 'probe', error: result.error, ...retryContext}))
-			return
-		}
-		set(quickDownloadProgressPatch({quickDownloadProgressPhase: 'queueing', quickDownloadProgressTotal: quickProbeItemCount(result.data), quickDownloadProgressCurrent: result.data.webpageUrl || cleaned, quickDownloadProgressTitle: quickProbeTitle(result.data)}))
-
-		ensureOutputFallback(set, get)
-		if (result.data.kind === 'playlist' && !mixedUrlMode && shouldReviewPlaylistProbeResult(intent)) {
-			openPlaylistReviewFromQuickProbe(result.data, set, get)
-			return
-		}
-
-		const enqueued = await enqueueActiveProfileProbeResult(result.data, set, get, retryContext)
-		if (!isRunActive(runId)) return
-		if (!enqueued) return
-
-		WizardCommands.resetAll(set)
-		if (enqueued.skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(enqueued.skippedAlreadyQueued)
-		// Every video was already queued: nothing to track, back to idle.
-		if (enqueued.ids.length > 0) set(queuedQuickDownloadFeedback(enqueued.ids))
-	} catch (err) {
-		if (!isRunActive(runId)) return
-		set(failedQuickDownloadFeedback({kind: 'exception', message: err instanceof Error ? err.message : String(err), ...retryContext}))
-	}
 }
 
 export async function quickDownloadUrls(urls: string[], set: SetState, get: GetState): Promise<void> {
@@ -163,6 +114,8 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 		return cleaned.length > 0 ? [cleaned] : []
 	})
 	if (cleanedUrls.length === 0) return
+	// Bulk URLs is a URL-tab flow, and a new run: the review of no row.
+	set({wizardOrigin: 'download', reviewSourceRowId: null})
 
 	for (const url of cleanedUrls) {
 		if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
@@ -221,7 +174,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 		for (const {url, probe} of probeResults) {
 			if (!isRunActive(runId)) return
 			set(quickDownloadProgressPatch({quickDownloadProgressPhase: 'queueing', quickDownloadProgressCurrent: probe.webpageUrl || url, quickDownloadProgressTitle: quickProbeTitle(probe)}))
-			const enqueued = await enqueueActiveProfileProbeResult(probe, set, get)
+			const enqueued = await enqueueActiveProfileProbeResult(probe, cleanedUrls, set, get)
 			if (!isRunActive(runId)) return
 			if (!enqueued) return
 			queuedIds.push(...enqueued.ids)
@@ -235,8 +188,8 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 			return
 		}
 		if (queuedIds.length === 0) {
-			const representativeError = selectProbeErrorForGuidance(failedProbeErrors, get().settings?.common)
-			set(failedQuickDownloadFeedback(representativeError ? {kind: 'bulk-probe', error: representativeError, urls: [...cleanedUrls], failedCount} : {kind: 'prepare', messageKey: 'wizard.url.quickBulkAllFailed'}))
+			const representativeError = selectProbeErrorForGuidance(failedProbeErrors, get().settings?.common, get().exploreView?.signedIn ?? null)
+			set(failedQuickDownloadFeedback(representativeError ? {kind: 'bulk-probe', error: representativeError, urls: [...cleanedUrls], failedCount} : {kind: 'prepare', messageKey: 'wizard.url.quickBulkAllFailed', urls: [...cleanedUrls]}))
 			return
 		}
 
@@ -245,23 +198,21 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 		set(queuedQuickDownloadFeedback(queuedIds, failedCount))
 	} catch (err) {
 		if (!isRunActive(runId)) return
-		set(failedQuickDownloadFeedback({kind: 'exception', message: err instanceof Error ? err.message : String(err)}))
+		set(failedQuickDownloadFeedback({kind: 'exception', message: err instanceof Error ? err.message : String(err), urls: cleanedUrls}))
 	}
 }
 
 export async function retryQuickDownloadFailure(set: SetState, get: GetState): Promise<void> {
 	const failure = get().quickDownloadFailure
-	if (failure?.kind === 'bulk-probe') {
-		await quickDownloadUrls(failure.urls, set, get)
-		return
-	}
-	await quickDownload(set, get, failure?.retryPlaylistMode)
+	if (failure) await quickDownloadUrls(failure.urls, set, get)
 }
 
+// The cap dialog's "change the limit and scan again" for the capped link.
 export async function retryQuickPlaylistCap(set: SetState, get: GetState): Promise<void> {
-	if (!get().wizardUrl) return
+	const url = get().wizardUrl
+	if (!url) return
 	set({quickPlaylistCapDialogOpen: false})
-	await quickDownload(set, get, 'playlist')
+	await quickDownloadUrls([url], set, get)
 }
 
 export async function retryQuickDownloadWithCookies(set: SetState, get: GetState): Promise<void> {
@@ -296,25 +247,32 @@ export async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: G
 			isMultiVideo: state.playlistIsMultiVideo,
 			entries: state.playlistItems
 		}
-		const prepared = prepareActiveProfileQueueSubmission(probe, get(), lane)
+		// A review of a quick download's row queues with the profile that row
+		// was placed with, like its other answers.
+		const {reviewSourceRowId} = state
+		const pinned = reviewSourceRowId !== null ? placedProfile(reviewSourceRowId) : undefined
+		const prepared = prepareActiveProfileQueueSubmission(probe, get(), lane, {url: state.wizardUrl, playlistTitle: state.playlistTitle}, pinned)
 		if (!prepared) {
-			set({...failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed'}), quickPlaylistCapDialogOpen: false})
+			set({...failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls: [state.wizardUrl]}), quickPlaylistCapDialogOpen: false})
 			return
 		}
 		if (prepared.items.length === 0) {
 			// Everything loaded is already queued: not a failure, so no error UI.
+			if (reviewSourceRowId !== null) await settlePlaceholder(reviewSourceRowId)
 			WizardCommands.resetAll(set)
 			notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
 			return
 		}
-		const result = await submitPreparedQueueSubmission(prepared)
+		const result = await submitPreparedQueueSubmission(prepared, reviewSourceRowId)
+		if (result.ok && reviewSourceRowId !== null) forgetPlaceholder(reviewSourceRowId)
 		if (!result.ok) {
-			set({...failedQuickDownloadFeedback({kind: 'queue', message: result.error}), quickPlaylistCapDialogOpen: false})
+			set({...failedQuickDownloadFeedback({kind: 'queue', message: result.error, urls: [state.wizardUrl]}), quickPlaylistCapDialogOpen: false})
 			return
 		}
 
 		WizardCommands.resetAll(set)
-		if (prepared.skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
+		const skippedAlreadyQueued = prepared.skippedAlreadyQueued + result.skippedAlreadyQueued
+		if (skippedAlreadyQueued > 0) notify.queueSkippedAlreadyQueued(skippedAlreadyQueued)
 		set(queuedQuickDownloadFeedback(result.ids))
 	} finally {
 		set({isSubmittingToQueue: false})

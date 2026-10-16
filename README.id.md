@@ -23,9 +23,9 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -33,6 +33,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 ## Isi
 
+- [Fitur](#features)
 - [Instalasi dan peluncuran pertama](#install)
   - [Windows peluncuran pertama](#windows-first-launch)
   - [macOS peluncuran pertama](#macos-first-launch)
@@ -40,12 +41,96 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
   - [Linux peluncuran pertama](#linux-first-launch)
   - [Verifikasi unduhan Anda (SHA256)](#verify)
 - [Mengapa Arroxy](#why)
-- [Fitur](#features)
 - [Privasi](#privacy)
 - [Pertanyaan Umum](#faq)
 - [Peta jalan](#roadmap)
 - [Dukung Arroxy](#support)
 - [Dibangun dengan](#tech)
+
+---
+
+## <a id="features"></a>Fitur
+
+### Explore: jelajahi YouTube di dalam Arroxy
+
+- **Tab Explore** — jelajahi YouTube di dalam Arroxy dan unduh yang Anda temukan tanpa menyalin tautan. **Unduh · *profil Anda*** memasukkan video, daftar putar, atau saluran yang sedang Anda lihat ke antrean; panah di sebelahnya mengganti profil, dan tongkat sihir membuka unduhan langkah demi langkah untuk memilih format, subtitle, dan lainnya
+- **Bilah alamat** — ketik untuk mencari di YouTube atau tempel tautan YouTube. Explore hanya menjelajahi YouTube, jadi tautan dari situs lain tidak dibuka di sana, tetapi Anda bisa mengunduhnya dengan satu klik
+- **Unduhan yang memerlukan akun** — masuk sekali di Explore dan Arroxy dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Arroxy tetap mengunduh tanpa masuk dan hanya memakai login Explore Anda saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda
+- **Gunakan akun sekunder** — layar pertama Explore menjelaskan alasannya: mengunduh dengan akun membawa risiko tertentu akun tersebut dibatasi. Keluar dari Explore lewat Pengaturan kapan pun Anda ingin melupakan login
+- **Pemblokir iklan** — Explore memblokir iklan dan pelacak di halamannya sendiri; unduhan tidak terpengaruh. Aktif secara bawaan, satu klik pada ikon perisai di bilah alat Explore menonaktifkannya, dan ia tidak pernah bekerja di halaman login Google. YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk
+
+### Kualitas & format
+
+- Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
+- **Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR
+- **Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default
+- Preset cepat: *Kualitas terbaik* · *Seimbang* · *File kecil*
+
+### Privasi & kontrol
+
+- 100% pemrosesan lokal — pengunduhan langsung dari YouTube ke disk Anda
+- **Sumber terbuka** — setiap baris dapat diaudit, berlisensi MIT
+- File disimpan langsung ke folder yang Anda pilih
+
+### Alur kerja
+
+- **Pintasan unduh global** — salin tautan di aplikasi mana pun lalu tekan `Ctrl+Shift+D` (`Cmd+Shift+D` di macOS); Arroxy memasukkannya ke antrean dengan profil aktif tanpa membuka jendela, dan notifikasi mengonfirmasinya. Aktif secara bawaan, bisa diubah
+- **Mode mulai yang fleksibel** — pilih unduhan tunggal yang dipandu, pemilih daftar putar/saluran, tempel URL massal, Unduh Cepat dengan default tersimpan, atau jelajahi dan unduh dari Explore
+- **Antrian unduhan terpusat** — setiap tugas tunggal, daftar putar, massal, atau cepat berada di satu tempat untuk kemajuan, jeda, melanjutkan, membatalkan, mencoba lagi, dan kontrol prioritas
+- **Pantau clipboard** — salin tautan YouTube dan Arroxy otomatis mengisi URL saat Anda kembali fokus ke aplikasi (aktifkan di Pengaturan lanjutan)
+- **Pembersihan otomatis URL** — menghapus parameter pelacakan (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) dan membuka tautan `youtube.com/redirect`
+- **Mode baki** — menutup jendela akan membuat unduhan tetap berjalan di latar belakang
+- **30 bahasa** — mendeteksi lokal sistem secara otomatis, dapat dialihkan kapan saja
+- **Sinkronisasi daftar putar** — memindai ulang daftar putar ke folder lokal untuk melewati video yang sudah diunduh; menghasilkan file daftar putar `.m3u` yang diperbarui saat setiap video diunduh
+- **Kontrol kecepatan dan tempo** — membatasi bandwidth pengunduhan, mengatur berapa banyak bagian video yang diunduh sekaligus, dan menambahkan penundaan permintaan dengan preset (*Mati · Seimbang · Hati-hati · Kustom*)
+- **Templat nama berkas** — beri nama unduhan sesuai keinginan Anda dengan `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, dan `{playlist_index}`, secara global atau per profil unduhan
+- **Unduhan sekaligus dan coba ulang otomatis** — pilih berapa banyak unduhan antrean yang berjalan bersamaan, dan biarkan Arroxy mencoba ulang unduhan yang mengalami gangguan jaringan atau server, dengan menunggu lebih lama sebelum tiap percobaan
+- **Profil per item dalam daftar putar** — beri setiap video dalam daftar putar profil unduhannya sendiri, bukan satu pengaturan untuk semuanya, sehingga satu proses bisa mengarsipkan sebagian dalam kualitas penuh dan mengambil sisanya sebagai MP3
+- **Unduh Cepat berjalan di latar belakang** — tautan langsung muncul di Unduhan dan disiapkan di sana, catatan dengan **Lihat** mengonfirmasinya, dan kolom URL dikosongkan untuk tautan berikutnya. Mulai sebanyak yang Anda mau selagi yang sebelumnya disiapkan
+- **Unduhan memberi tahu apa yang butuh perhatian Anda** — jika Arroxy tidak bisa membaca tautan, barisnya menjelaskan alasannya dan menawarkan solusi: Coba lagi, aktifkan cookie, atau masuk di Explore. Saat cookie nonaktif, **Masuk dengan Explore** mencobanya lagi untuk Anda setelah Anda masuk. Playlist yang lebih panjang dari batas muat Anda menunggu di barisnya sampai Anda memilih semuanya, beberapa yang pertama, atau meninjau. Tab Unduhan menghitung baris yang menunggu Anda
+
+### Subtitle & pasca-pemrosesan
+
+- **Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia
+- Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`
+- **Batch hanya subtitle** — tempel daftar URL atau buka playlist, pilih Subtitle, dan dapatkan hanya file teks untuk setiap video
+- **SponsorBlock** — lewati atau tandai bab sponsor, intro, outro, promo mandiri
+- **Metadata tersemat** — judul, tanggal pengunggahan, saluran, deskripsi, gambar mini, dan penanda bab yang ditulis ke dalam file
+
+### YouTube + 2000 situs
+
+- **YouTube, selengkapnya** — Video, Shorts, Saluran, Daftar Putar, Musik YouTube, dan Podcast ditangani sebagai sumber kelas satu
+- **2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi
+- **Khusus audio dan subtitel** berfungsi di semua situs yang didukung, tidak hanya YouTube
+- Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Jelajahi YouTube di dalam Arroxy dan unduh halaman yang sedang Anda buka dengan profil aktif</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Layar pertama Explore</b><br/>Sekilas tentang Explore, dan alasan akun sekunder adalah login yang lebih aman</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Unduhan memberi tahu apa yang butuh perhatian Anda</b><br/>Tautan disiapkan di latar belakang; yang gagal menawarkan solusinya, playlist panjang menunggu pilihan Anda</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Pintasan unduh global Arroxy — Ctrl+Shift+D di Windows dan Linux, Cmd+Shift+D di macOS, mengirim tautan yang disalin langsung ke antrean unduhan" width="760" /></picture><br/><sub><b>Pintasan unduh global</b><br/>Salin tautan di mana saja, tekan sekali — langsung masuk antrean dan mulai diunduh</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profil per item playlist</b><br/>Beri tiap video profilnya sendiri — simpan sebagian dalam 4K, ambil sisanya sebagai MP3</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Beranda Unduhan Cepat</b><br/>Tempel URL dan unduh langsung dengan profil aktif Anda</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Profil unduhan yang dapat digunakan kembali</b><br/>Simpan preset format, kualitas, dan output — gunakan kembali untuk setiap unduhan</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Trek audio multi-bahasa</b><br/>Pilih bahasa audio yang tepat yang dikirimkan video</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Audio surround / Dolby</b><br/>5.1 dan trek Dolby terdeteksi dan disimpan</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Mode URL massal</b><br/>Tempelkan daftar, hapus duplikat otomatis, masukkan semuanya ke dalam antrean sekaligus</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Antrean unduhan paralel</b><br/>Beberapa unduhan sekaligus dengan progres langsung</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -225,80 +310,11 @@ Perbandingan berdampingan dengan alternatif yang paling umum:
 | Gratis, tidak ada tingkat premium |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Sumber terbuka |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Hanya pemrosesan lokal |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Tidak ada login atau ekspor cookie |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Tidak ada batasan penggunaan |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Aplikasi desktop lintas platform |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Subtitle + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Tidak ada akun, tidak ada upsell, tidak ada pengumpulan data.
-
----
-
-## <a id="features"></a>Fitur
-
-### Kualitas & format
-
-- Hingga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Kecepatan frame tinggi** dipertahankan apa adanya — 60 fps, 120 fps, HDR
-- **Audio** — mengekspor audio saja sebagai MP3, M4A/AAC, Opus, atau WAV. Dalam download interaktif, pilih trek surround/Dolby asli sumber (AC-3, E-AC-3, 5.1, DRC) bila tersedia, atau atur global **Prefer surround / Dolby** default
-- Preset cepat: *Kualitas terbaik* · *Seimbang* · *File kecil*
-
-### Privasi & kontrol
-
-- 100% pemrosesan lokal — pengunduhan langsung dari YouTube ke disk Anda
-- **Sumber terbuka** — setiap baris dapat diaudit, berlisensi MIT
-- File disimpan langsung ke folder yang Anda pilih
-
-### Alur kerja
-
-- **Pintasan unduh global** — salin tautan di aplikasi mana pun lalu tekan `Ctrl+Shift+D` (`Cmd+Shift+D` di macOS); Arroxy memasukkannya ke antrean dengan profil aktif tanpa membuka jendela, dan notifikasi mengonfirmasinya. Aktif secara bawaan, bisa diubah
-- **Mode mulai yang fleksibel** — pilih unduhan tunggal yang dipandu, pemilih daftar putar/saluran, tempel URL massal, atau Unduhan Cepat dengan default tersimpan
-- **Antrian unduhan terpusat** — setiap tugas tunggal, daftar putar, massal, atau cepat berada di satu tempat untuk kemajuan, jeda, melanjutkan, membatalkan, mencoba lagi, dan kontrol prioritas
-- **Pantau clipboard** — salin tautan YouTube dan Arroxy otomatis mengisi URL saat Anda kembali fokus ke aplikasi (aktifkan di Pengaturan lanjutan)
-- **Pembersihan otomatis URL** — menghapus parameter pelacakan (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) dan membuka tautan `youtube.com/redirect`
-- **Mode baki** — menutup jendela akan membuat unduhan tetap berjalan di latar belakang
-- **30 bahasa** — mendeteksi lokal sistem secara otomatis, dapat dialihkan kapan saja
-- **Sinkronisasi daftar putar** — memindai ulang daftar putar ke folder lokal untuk melewati video yang sudah diunduh; menghasilkan file daftar putar `.m3u` yang diperbarui saat setiap video diunduh
-- **Kontrol kecepatan dan tempo** — membatasi bandwidth pengunduhan, mengatur berapa banyak bagian video yang diunduh sekaligus, dan menambahkan penundaan permintaan dengan preset (*Mati · Seimbang · Hati-hati · Kustom*)
-- **Templat nama berkas** — beri nama unduhan sesuai keinginan Anda dengan `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, dan `{playlist_index}`, secara global atau per profil unduhan
-- **Unduhan sekaligus dan coba ulang otomatis** — pilih berapa banyak unduhan antrean yang berjalan bersamaan, dan biarkan Arroxy mencoba ulang unduhan yang mengalami gangguan jaringan atau server, dengan menunggu lebih lama sebelum tiap percobaan
-- **Profil per item dalam daftar putar** — beri setiap video dalam daftar putar profil unduhannya sendiri, bukan satu pengaturan untuk semuanya, sehingga satu proses bisa mengarsipkan sebagian dalam kualitas penuh dan mengambil sisanya sebagai MP3
-
-### Subtitle & pasca-pemrosesan
-
-- **Subtitel** dalam SRT, VTT, atau ASS — dibuat secara manual atau otomatis, dalam bahasa apa pun yang tersedia
-- Simpan di samping video, sematkan ke `.mkv`, atau atur ke dalam subfolder `Subtitles/`
-- **Batch hanya subtitle** — tempel daftar URL atau buka playlist, pilih Subtitle, dan dapatkan hanya file teks untuk setiap video
-- **SponsorBlock** — lewati atau tandai bab sponsor, intro, outro, promo mandiri
-- **Metadata tersemat** — judul, tanggal pengunggahan, saluran, deskripsi, gambar mini, dan penanda bab yang ditulis ke dalam file
-
-### YouTube + 2000 situs
-
-- **YouTube, selengkapnya** — Video, Shorts, Saluran, Daftar Putar, Musik YouTube, dan Podcast ditangani sebagai sumber kelas satu
-- **2000+ situs lainnya** melalui yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, dan masih banyak lagi
-- **Khusus audio dan subtitel** berfungsi di semua situs yang didukung, tidak hanya YouTube
-- Jika situs berubah, yt-dlp mengirimkan perbaikan setiap minggu dan Arroxy memperbarui biner secara otomatis saat peluncuran
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Pintasan unduh global Arroxy — Ctrl+Shift+D di Windows dan Linux, Cmd+Shift+D di macOS, mengirim tautan yang disalin langsung ke antrean unduhan" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pintasan unduh global</b><br/>Salin tautan di mana saja, tekan sekali — langsung masuk antrean dan mulai diunduh</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil per item playlist</b><br/>Beri tiap video profilnya sendiri — simpan sebagian dalam 4K, ambil sisanya sebagai MP3</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Beranda Unduhan Cepat</b><br/>Tempel URL dan unduh langsung dengan profil aktif Anda</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Profil unduhan yang dapat digunakan kembali</b><br/>Simpan preset format, kualitas, dan output — gunakan kembali untuk setiap unduhan</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Trek audio multi-bahasa</b><br/>Pilih bahasa audio yang tepat yang dikirimkan video</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Audio surround / Dolby</b><br/>5.1 dan trek Dolby terdeteksi dan disimpan</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Mode URL massal</b><br/>Tempelkan daftar, hapus duplikat otomatis, masukkan semuanya ke dalam antrean sekaligus</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Antrean unduhan paralel</b><br/>Beberapa unduhan sekaligus dengan progres langsung</sub></td>
-  </tr>
-</table>
+Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Tidak ada upsell, tidak ada pengumpulan data.
 
 ---
 
@@ -307,6 +323,8 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
 Arroxy mengirimkan telemetri agregat anonim melalui [OpenPanel](https://openpanel.dev) — cukup bagi proyek indie untuk memahami kegagalan, kerusakan, umpan balik, OS, dan versi aplikasi. Tidak ada URL, judul video, jalur file, info akun, sidik jari, atau data pribadi. ID per-instal bersifat acak dan tidak terikat dengan identitas Anda. Anda dapat memilih untuk tidak ikut serta dalam Pengaturan.
+
+Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login — Anda mengetik di halaman Google sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
 
 ---
 
@@ -321,11 +339,11 @@ Apa pun yang disajikan YouTube: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, 
 **Bisakah saya mengekstrak audionya saja sebagai MP3?**
 Ya. Pilih *audio saja* di menu format dan pilih MP3, M4A/AAC, Opus, atau WAV.
 
-**Apakah saya memerlukan akun atau cookie YouTube?**
-Secara default, tidak — Arroxy berfungsi tanpa akun YouTube, login, atau ekspor cookie. Dukungan cookie opsional tersedia di Setelan lanjutan (Sumber cookie: file atau browser) untuk konten yang memerlukan autentikasi, seperti video dengan batasan usia atau video khusus anggota. Ini dinonaktifkan secara default. Jika Anda mengaktifkannya, wiki yt-dlp mencatat bahwa [otomatisasi berbasis cookie dapat menandai akun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); rekening sekali pakai adalah pilihan yang lebih aman dalam hal ini.
+**Bagaimana cara mengunduh video yang memerlukan akun YouTube?**
+Masuklah sekali di tab Explore. Arroxy kemudian dapat mengunduh video privat dan khusus anggota yang bisa ditonton akun Anda, video dengan batasan usia jika usia akun terverifikasi, serta daftar Tonton Nanti dan Disukai Anda. Login itu hanya dipakai saat unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun; yang lain diunduh seperti biasa. Ini adalah pilihan **Login Explore**, tercantum pertama dan bertanda Disarankan di setelan cookie, dan Arroxy memilihnya untuk Anda saat pertama kali Anda membuka Explore. Wiki yt-dlp mencatat bahwa [otomatisasi dengan akun yang sudah masuk dapat menandai akun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), jadi akun sekunder adalah pilihan yang lebih aman.
 
 **Apakah ini akan tetap berfungsi ketika YouTube mengubah sesuatu?**
-yt-dlp diperbarui secara otomatis saat peluncuran, dan Arroxy segera mengirimkan perbaikan ketika YouTube mengubah sesuatu. Jika Anda mengalami masalah, dukungan cookie opsional tersedia di Pengaturan lanjutan sebagai cadangan.
+yt-dlp diperbarui secara otomatis saat peluncuran, dan Arroxy segera mengirimkan perbaikan ketika YouTube mengubah sesuatu. Saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, Arroxy juga mencoba login Explore Anda jika Anda sudah masuk di sana, dan cookie dari file atau browser tersedia di setelan cookie.
 
 **Bahasa apa saja yang tersedia di Arroxy?**
 30 bahasa langsung tersedia: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy otomatis mendeteksi bahasa sistem operasi Anda saat pertama kali dijalankan, dan Anda dapat beralih kapan saja dari pemilih bahasa di toolbar. JSON locale runtime berada di src/shared/i18n/locales/, dan katalog PO untuk penerjemah berada di i18n/locales/ — buka PR di GitHub untuk berkontribusi.
@@ -352,8 +370,6 @@ Masih direncanakan — kira-kira dalam urutan prioritas:
 | ---------------- | ---------------- |
 | **Daftar putar & filter saluran** | Filter rentang tanggal saat menghitung daftar putar atau saluran |
 | **Preferensi trek audio YouTube** | Tetapkan preferensi trek bahasa lisan di seluruh aplikasi, dengan penggantian per profil ketika YouTube menawarkan beberapa trek audio |
-| **Login browser dalam aplikasi** | Buka jendela browser di dalam Arroxy sehingga Anda dapat masuk dan menggunakan cookie situs tanpa mengekspornya secara manual |
-| **Unduh video sekali klik** | Mulai pengunduhan video dalam satu klik dari URL yang terdeteksi atau ditempelkan menggunakan profil aktif Anda |
 | **Pemulihan coba lagi yang lebih kuat** | Jalur percobaan ulang baru untuk pengunduhan yang terganggu oleh koneksi internet yang tidak dapat diandalkan atau bermasalah |
 | **Laci pengelola unduhan lengkap** | Ubah laci antrean menjadi pengelola yang lebih lengkap, termasuk mengubah folder tujuan untuk item antrean |
 | **Unduhan terjadwal** | Memulai antrian pada waktu yang ditentukan (berjalan semalaman) |

@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "ดำเนินการต่อ"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "ปิด"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "กำลังโหลด"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "ดูเหมือนว่าที่อยู่ IP ของคุณถูกบล็อก ลองใหม่ภายหลังหรือใช้ VPN"
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "วิดีโอนี้ต้องใช้บัญชีที่ลงชื่อเข้าใช้ ตั้งค่า cookies.txt (การตั้งค่า → คุกกี้) แล้วลองใหม่"
+msgid "This video needs a signed-in account."
+msgstr "วิดีโอนี้ต้องใช้บัญชีที่เข้าสู่ระบบ"
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "ดาวน์โหลดไม่สำเร็จ ดูผลล�
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "URL นี้ไม่รองรับโดย yt-dlp ลองใช้ลิงก์อื่นจากเว็บไซต์ใดก็ได้ที่ yt-dlp รองรับ"
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "ตรวจสอบการเชื่อมต่อของคุณ แล้วลองอีกครั้ง"
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "โหลดหน้านี้ไม่สำเร็จ"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "เปิดการตั้งค่า"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "ตรวจสอบพร็อกซีในการตั้งค่า แล้วลองอีกครั้ง"
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore เชื่อมต่อผ่านพร็อกซีของคุณไม่ได้"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "ลองอีกครั้ง"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "ใหม่"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "ค้นหาวิดีโอ เพลย์ลิสต์ หรือช่อง แล้วดาวน์โหลดจากที่นี่ได้เลย ไม่ต้องคัดลอกลิงก์ ลงชื่อเข้าใช้ YouTube ที่นี่เพื่อดาวน์โหลดวิดีโอที่ต้องใช้บัญชี"
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "ดำเนินการต่อ"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube อาจติดธง — และบางครั้งแบน — บัญชีที่ใช้กับเครื่องมือดาวน์โหลดอย่าง yt-dlp ควรใช้บัญชีที่คุณยอมเสียได้ ไม่ใช่บัญชีหลักของคุณ"
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "ลงชื่อเข้าใช้ด้วยบัญชีสำรอง"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "เรียกดู YouTube ได้ในตัว Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "การดาวน์โหลดใช้คุกกี้ของเบราว์เซอร์ ไม่ใช่การลงชื่อเข้าใช้ Explore"
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "การดาวน์โหลดใช้ไฟล์คุกกี้ของคุณ ไม่ใช่การลงชื่อเข้าใช้ Explore"
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "ไว้ทีหลัง"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "คุกกี้ปิดอยู่ การดาวน์โหลดจึงไม่ใช้การลงชื่อเข้าใช้ Explore ของคุณ"
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "ใช้การลงชื่อเข้าใช้ Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "เรียกดู YouTube ใน Arroxy และลงชื่อเข้าใช้สำหรับวิดีโอที่ต้องใช้บัญชี"
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "แสดงแท็บ Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "การปิดแท็บนี้จะทำให้การดาวน์โหลดหยุดใช้การลงชื่อเข้าใช้ Explore ของคุณด้วย"
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "ออกจากระบบ Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "ออกจากระบบ"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "การดำเนินการนี้จะล้างการลงชื่อเข้าใช้ YouTube และข้อมูลการเรียกดูใน Explore การดาวน์โหลดที่ต้องใช้บัญชีจะล้มเหลวจนกว่าคุณจะลงชื่อเข้าใช้อีกครั้ง"
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "ออกจากระบบ Explore ไหม"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "ล้างการลงชื่อเข้าใช้ YouTube และข้อมูลการเรียกดูใน Explore"
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube อาจต่อต้านตัวบล็อกโฆษณาสำหรับบัญชีที่เข้าสู่ระบบอยู่"
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "ตัวบล็อกโฆษณา"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "ตัวบล็อกโฆษณา: ปิด — คลิกเพื่อเปิด"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "ตัวบล็อกโฆษณา: เปิด — คลิกเพื่อปิด"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "ตัวบล็อกโฆษณา: กำลังเริ่ม — คลิกเพื่อปิด"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "ตัวบล็อกโฆษณา: ใช้งานไม่ได้ ดาวน์โหลดรายการตัวกรองไม่สำเร็จ — คลิกเพื่อปิด"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "ที่อยู่"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "ค้นหาใน YouTube หรือวางลิงก์ YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "ตัวควบคุมเบราว์เซอร์ Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "ย้อนกลับ"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "ดาวน์โหลด · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "ไปข้างหน้า"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "เปิดวิดีโอ เพลย์ลิสต์ หรือช่องเพื่อดาวน์โหลด"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "หน้าแรก YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "เลือกรูปแบบ คำบรรยาย และอื่น ๆ…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "ดาวน์โหลดลิงก์นี้"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore เรียกดูได้เฉพาะ YouTube"
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore เรียกดูได้เฉพาะ YouTube {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "โหลดใหม่"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "คำค้นหายาวเกินไป"
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ภาษา"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "เข้าสู่ระบบด้วย Explore แล้ว — กำลังลองใหม่ 1 ลิงก์"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "เข้าสู่ระบบด้วย Explore แล้ว — กำลังลองใหม่ {{count}} ลิงก์"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "ออกจากระบบ Explore ไม่สำเร็จ ลองอีกครั้ง"
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "เส้นทางโฟลเดอร์นี้ลึกเกินไปสำหรับระบบของคุณ การดาวน์โหลดอาจยังล้มเหลว — เลือกโฟลเดอร์ที่มีเส้นทางสั้นกว่า"
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "อยู่ในคิวแล้ว — ไม่ได้เพิ่มสำเนา"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "ยังคงประมวลผลลิงก์ก่อนหน้า"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy ยังกำลังเริ่มต้นอยู่ — ลองอีกครั้งในอีกสักครู่"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "ตั้งค่าคุกกี้ใน Arroxy ให้เสร็จ แล้วลองอีกครั้ง"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มใน Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "ลิงก์นี้ต้องตรวจสอบเล็กน้อย — เปิด Arroxy แล้ววางอีกครั้ง"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "ลิงก์นี้ต้องให้คุณเลือก — ดูที่ดาวน์โหลดใน Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "ข้าม {{count}} วิดีโอที่อยู่ในค�
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "เพิ่มแล้ว: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "อยู่ในคิวแล้ว"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ วิดีโอ — เลือกจำนวน"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ วิดีโอ — เลือกจำนวน"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "เตรียม {{title}} ไม่สำเร็จ"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "เพิ่มลิงก์นั้นไม่สำเร็จ — ลองอีกครั้ง"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "รายการนี้มี {{count}} วิดีโอ — ตรวจดูเพื่อเลือก"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "รายการนี้มี {{count}} วิดีโอ — ตรวจดูเพื่อเลือก"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "รายการนี้มี {{count}}+ วิดีโอ — ตรวจดูเพื่อเลือก"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "รายการนี้มี {{count}}+ วิดีโอ — ตรวจดูเพื่อเลือก"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "ดู"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ไฟล์ผลลัพธ์"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "ดาวน์โหลด {{count}} รายการต้องให้คุณดู"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "ดาวน์โหลด {{count}} รายการต้องให้คุณดู"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "ยกเลิกการดาวน์โหลดที่กำลังทำงานและรออยู่ทั้งหมด"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "วิดีโอทั้งหมด"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "เพลย์ลิสต์นี้มีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดทั้งหมด เฉพาะ {{count}} รายการแรก หรือตรวจดูเพื่อเลือกก็ได้"
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "เพลย์ลิสต์นี้มีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดทั้งหมด เฉพาะ {{count}} รายการแรก หรือตรวจดูเพื่อเลือกก็ได้"
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "{{count}} รายการแรก"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "ตรวจดู"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด"
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "ข้อผิดพลาด"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "พักไว้"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "ต้องให้คุณเลือก"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "กำลังฝังข้อมูลเมตา…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "ออกจากระบบ Explore แล้ว — ลงชื่อเข้าใช้อีกครั้ง"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "กำลังแปลงเสียง…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock ใช้งานไม่ได้ กำลังลอ�
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "การเชื่อมต่อค้าง กำลังลองใหม่ ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "กำลังลงชื่อเข้าใช้ด้วยบัญชี Explore ของคุณ…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "แม้ใช้คุกกี้ YouTube ก็จำกัดการตรวจสอบนี้ ลองใหม่ภายหลังหรือเปลี่ยนเครือข่าย"
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube จำกัดคำขอนี้ ลองใหม่ภายหลังหรือเปลี่ยนเครือข่าย"
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "รายการรูปแบบอาจไม่ครบ ตั้งค่าคุกกี้ในการตั้งค่าขั้นสูง หรือเปลี่ยนเครือข่ายแล้วลองใหม่"
@@ -1468,6 +1772,10 @@ msgstr "WAV (ไม่บีบอัด)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "เบราว์เซอร์"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "ลงชื่อเข้าใช้ Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "ไฟล์คุกกี้อาจว่างเปล่า หมดอายุ หรืออยู่ในรูปแบบที่ไม่ถูกต้อง (yt-dlp ต้องใช้ Netscape cookies.txt) ลองส่งออกคุกกี้ใหม่ เลือกไฟล์อื่น เปลี่ยนเป็นโหมดเบราว์เซอร์ หรือปิดคุกกี้"
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "เข้าสู่ระบบด้วย Explore แล้ว Arroxy จะลองใหม่ให้"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "เข้าสู่ระบบด้วย Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "วิดีโอนี้อาจต้องใช้บัญชี YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "คุณเข้าสู่ระบบ Explore อยู่ แต่ตอนนี้การดาวน์โหลดยังไม่ได้ใช้การเข้าสู่ระบบนั้น"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "ใช้การเข้าสู่ระบบ Explore ของฉันแล้วลองใหม่"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "วิดีโอนี้อาจต้องใช้บัญชี YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "หากวิดีโอนี้ต้องใช้บัญชี Arroxy จะใช้การลงชื่อเข้าใช้ Explore ของคุณโดยอัตโนมัติ อาจใช้ไม่ได้ด้วยเหตุผลอื่น"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "ลงชื่อเข้าใช้ Explore แล้ว"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "หากวิดีโอนี้ต้องใช้บัญชี YouTube ให้ลงชื่อเข้าใช้ใน Explore แล้วลองอีกครั้ง Arroxy จะใช้การลงชื่อเข้าใช้นั้นเฉพาะเมื่อการดาวน์โหลดต้องใช้"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "ลงชื่อเข้าใช้ใน Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "วิดีโอนี้อาจต้องใช้บัญชี YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "คุกกี้อาจเป็นสาเหตุ"
@@ -1536,6 +1888,10 @@ msgstr "เว็บไซต์นี้ต้องลงชื่อเข้
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "เปิดการตั้งค่าคุกกี้"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "ใช้ไฟล์คุกกี้หรือเบราว์เซอร์แทน…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "เลือกไฟล์ที่จะใช้คุกกี้"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "ใช้การลงชื่อเข้าใช้ Explore เฉพาะเมื่อการดาวน์โหลดต้องใช้"
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "แท็บ Explore ปิดอยู่ การดาวน์โหลดจึงไม่ใช้การลงชื่อเข้าใช้ Explore ของคุณ เปิดได้ที่ Explore ด้านล่าง"
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "รับ cookies.txt ในเครื่อง (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "ส่งออกคุกกี้อย่างไร?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "เปิด Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "ไม่ได้เลือกไฟล์"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "แนะนำ"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "ความเสี่ยง: cookies.txt มีเซสชันท�
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "เบราว์เซอร์"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "ลงชื่อเข้าใช้ Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

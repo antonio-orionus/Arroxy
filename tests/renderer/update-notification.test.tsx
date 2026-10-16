@@ -46,6 +46,16 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			},
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
+		explore: {
+			navigate: vi.fn().mockResolvedValue(ok(undefined)),
+			setBounds: vi.fn().mockResolvedValue(ok(undefined)),
+			setVisible: vi.fn().mockResolvedValue(ok(undefined)),
+			setActive: vi.fn().mockResolvedValue(ok(undefined)),
+			signOut: vi.fn().mockResolvedValue(ok(undefined)),
+			getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
+			onStateChanged: vi.fn().mockReturnValue(() => undefined),
+			onPointerInView: vi.fn().mockReturnValue(() => undefined)
+		},
 		updater: {onUpdateAvailable: overrides.onUpdateAvailable ?? (() => () => undefined), install: overrides.install ?? (vi.fn().mockResolvedValue({ok: true}) as () => Promise<{ok: true}>)},
 		analytics: {track: vi.fn()}
 	} as unknown as AppApi

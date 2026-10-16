@@ -2,8 +2,8 @@ import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {ProbeError} from '@shared/types.js'
 import type {MixedUrlPromptSource} from '../types.js'
 
+// Leaves `wizardUrl` alone: Explore's link never belongs in the URL tab's field.
 export interface MixedUrlPromptPatch {
-	wizardUrl: string
 	mixedUrlPromptOpen: true
 	mixedUrlPending: string
 	mixedUrlPromptSource: MixedUrlPromptSource
@@ -12,5 +12,5 @@ export interface MixedUrlPromptPatch {
 }
 
 export function mixedUrlPromptPatch(url: string, source: MixedUrlPromptSource): MixedUrlPromptPatch {
-	return {wizardUrl: url, mixedUrlPromptOpen: true, mixedUrlPending: url, mixedUrlPromptSource: source, wizardError: null, cookiesConfigDialogIssue: null}
+	return {mixedUrlPromptOpen: true, mixedUrlPending: url, mixedUrlPromptSource: source, wizardError: null, cookiesConfigDialogIssue: null}
 }

@@ -8,7 +8,7 @@
 // updates format pools, subtitle pools, output prefs, and dialog flags in
 // one transition so the UI never sees a half-updated wizard.
 
-import type {PlaylistScope, ProbePlaylistMode, ProbeResult, WizardTransition} from '@shared/types.js'
+import type {PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, ProbeResult, WizardTransition} from '@shared/types.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
@@ -16,14 +16,14 @@ import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
-import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardStep} from '../types.js'
+import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardOrigin, WizardStep} from '../types.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, isHydrationMode, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {quickDownload as runQuickDownload, quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
+import {quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
 import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult, type BulkEntrySeed} from './probeResultProjection.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
@@ -69,6 +69,13 @@ function logStep(transition: WizardTransition, fromStep: WizardStep, toStep: Wiz
 	window.appApi.diagnostics.logWizardStep({transition, fromStep, toStep, snapshot})
 }
 
+// A run started in Explore lands back on it. A run from the URL tab is already
+// there, so it leaves the tab alone. Called before the step changes, so the
+// home mounts on the right tab rather than flashing the previous one.
+function landOnOrigin(origin: WizardOrigin): void {
+	if (origin === 'explore') replaceHash('explore')
+}
+
 function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetState): boolean {
 	const issue = getIncompleteCookiesConfigIssue(get().settings?.common)
 	if (!issue) return false
@@ -105,13 +112,28 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 	void hydrateBulkMetadata(targets, set, runId)
 }
 
-async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
+function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState): void {
 	nextBulkMetadataRunId()
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode)
 	set(startProjection.patch)
 	logStep('submitUrl', startProjection.fromStep, startProjection.initialStep, pickWizardSnapshot(get()))
+}
 
+function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetState, firstProbe: boolean): void {
+	applyPlaylistProbeResult(probe, set, get, firstProbe)
+	// Background-scan the destination folder so the sync alert is ready by the
+	// time the user looks at the list — no manual "Sync with folder" click.
+	void get().scanDownloadedInFolder()
+	startPlaylistPlaceholderHydration(set, get)
+}
+
+async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
+	startProbe(url, playlistMode, set, get)
+	await finishProbe(url, playlistMode, set, get, firstProbe)
+}
+
+async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean): Promise<void> {
 	const playlistScope = get().playlistScope
 	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
 	if (!result.ok) {
@@ -120,14 +142,26 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 	}
 
 	if (result.data.kind === 'playlist') {
-		applyPlaylistProbeResult(result.data, set, get, firstProbe)
-		// Background-scan the destination folder so the sync alert is ready by the
-		// time the user looks at the list — no manual "Sync with folder" click.
-		void get().scanDownloadedInFolder()
-		startPlaylistPlaceholderHydration(set, get)
+		landPlaylistProbe(result.data, set, get, firstProbe)
 	} else {
 		applyVideoProbeResult(result.data, set, get, firstProbe)
 	}
+}
+
+// The interactive submission of `wizardUrl`, shared by a new submission and a
+// retry within the same run (which keeps the run's review source row).
+async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetState): Promise<void> {
+	const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
+	if (!cleaned) return
+	set({wizardOrigin: origin})
+	const action = policyForUrlIntent(classifyUrlIntent(cleaned), 'interactive-submit')
+	if (action.kind === 'show-mixed-prompt') {
+		set({wizardUrl: cleaned, ...mixedUrlPromptPatch(cleaned, 'wizard')})
+		return
+	}
+	if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
+	if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
+	await runProbe(cleaned, action.playlistMode, set, get)
 }
 
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
@@ -196,6 +230,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 	return {
 		wizardStep: RESET_WIZARD_STATE.wizardStep,
+		wizardOrigin: RESET_WIZARD_STATE.wizardOrigin,
 		wizardMode: RESET_WIZARD_STATE.wizardMode,
 		wizardUrl: RESET_WIZARD_STATE.wizardUrl,
 		wizardTitle: RESET_WIZARD_STATE.wizardTitle,
@@ -242,25 +277,17 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		quickDownloadProgressCurrent: RESET_WIZARD_STATE.quickDownloadProgressCurrent,
 		quickDownloadProgressTitle: RESET_WIZARD_STATE.quickDownloadProgressTitle,
 		quickDownloadProgressRunId: RESET_WIZARD_STATE.quickDownloadProgressRunId,
+		reviewSourceRowId: RESET_WIZARD_STATE.reviewSourceRowId,
 		syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
 		syncScanState: RESET_WIZARD_STATE.syncScanState,
 
 		setWizardUrl: url => set({wizardUrl: url, ...resetQuickDownloadFeedback()}),
 
-		submitUrl: async () => {
-			const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
-			if (!cleaned) return
-			const action = policyForUrlIntent(classifyUrlIntent(cleaned), 'interactive-submit')
-			if (action.kind === 'show-mixed-prompt') {
-				set(mixedUrlPromptPatch(cleaned, 'wizard'))
-				return
-			}
-			if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
-			if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
-			await runProbe(cleaned, action.playlistMode, set, get)
+		// A submitted URL is a new run: it is the review of no row.
+		submitUrl: async (origin = 'download') => {
+			set({reviewSourceRowId: null})
+			await submitWizardUrl(origin, set, get)
 		},
-
-		quickDownload: () => runQuickDownload(set, get),
 
 		quickDownloadUrls: urls => quickDownloadUrls(urls, set, get),
 
@@ -272,11 +299,17 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		cancelQuickDownload: () => cancelQuickDownload(set, get),
 
+		dismissQuickDownloadFailure: () => {
+			if (get().quickDownloadStatus === 'error') set(resetQuickDownloadFeedback())
+		},
+
 		startBulkUrls: urls => {
 			const previousState = get()
 			if (previousState.wizardMode === 'bulk' && previousState.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('start-new-bulk', previousState)
 			}
+			// Bulk URLs is a URL-tab flow, and a new run: no review source row.
+			set({wizardOrigin: 'download', reviewSourceRowId: null})
 			const bulkRunId = nextBulkMetadataRunId()
 			const fromStep = get().wizardStep
 
@@ -357,9 +390,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const source = get().mixedUrlPromptSource
 			set({mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null})
 			if (!pending) return
-			if (source === 'quick-download') {
-				set({wizardUrl: pending})
-				await runQuickDownload(set, get, choice)
+			if (source === 'url-tab' || source === 'explore') {
+				await get().quickDownload({url: pending, entry: source, playlistMode: choice})
 				return
 			}
 			if (choice === 'video') {
@@ -502,6 +534,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				// the session.
 				set({playlistProbeLoading: false, playlistProbeProgress: null, bulkMetadataStatus: 'done'})
 			}
+			if (target === 'url') {
+				landOnOrigin(state.wizardOrigin)
+				set({wizardOrigin: 'download', reviewSourceRowId: null})
+			}
 			set({wizardStep: target, ...(target === 'subtitles' && {wizardSubtitleSkipped: false})})
 			logStep('back', state.wizardStep, target, pickWizardSnapshot(get()))
 		},
@@ -530,6 +566,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			if (isHydrationMode(state.wizardMode) && state.bulkMetadataStatus === 'resolving') {
 				cancelBulkMetadataProbes('reset', state)
 			}
+			landOnOrigin(state.wizardOrigin)
 			WizardCommands.resetAll(set)
 			logStep('reset', fromStep, 'url', pickWizardSnapshot(get()))
 		},
@@ -539,7 +576,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			if (wizardErrorOrigin === 'formats') {
 				set({wizardStep: 'formats', formatsLoading: true, wizardError: null})
 				logStep('retry', wizardStep, 'formats', pickWizardSnapshot(get()))
-				await get().submitUrl()
+				// The same run: it keeps the tab it started from, and the row it reviews.
+				await submitWizardUrl(get().wizardOrigin, set, get)
 			}
 		},
 
@@ -565,7 +603,23 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// bound and emit results into a step the user already left.
 			void window.appApi.downloads.probeCancel()
 			replaceHash('settings')
-			set({wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
+			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
+		},
+
+		openPlaylistReview: async (url, playlistMode, sourceRowId, probe) => {
+			set({wizardOrigin: 'download'})
+			startProbe(url, playlistMode, set, get)
+			set({reviewSourceRowId: sourceRowId})
+			if (probe) landPlaylistProbe(probe, set, get, true)
+			else await finishProbe(url, playlistMode, set, get, true)
+		},
+
+		openExploreSignIn: () => {
+			// Like openCookiesSettings: the abandoned probe is cancelled and the
+			// wizard returns to the url step, where the tab bar lives.
+			void window.appApi.downloads.probeCancel()
+			replaceHash('explore')
+			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: null})
 		}
 	}
 }

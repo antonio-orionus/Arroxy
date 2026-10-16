@@ -1,5 +1,5 @@
 {
-	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "loading": "لوڈ ہو رہا ہے…", "retry": "دوبارہ کوشش کریں", "startOver": "دوبارہ شروع کریں"},
+	"common": {"back": "واپس", "cancel": "منسوخ کریں", "continue": "جاری رکھیں", "loading": "لوڈ ہو رہا ہے…", "retry": "دوبارہ کوشش کریں", "dismiss": "بند کریں", "startOver": "دوبارہ شروع کریں"},
 	"app": {
 		"feedback": "فیڈبیک",
 		"logs": "لاگز",
@@ -238,6 +238,11 @@
 				"sourceOff": "بند",
 				"sourceFile": "فائل",
 				"sourceBrowser": "براؤزر",
+				"sourceExplore": "Explore سائن ان",
+				"recommended": "تجویز کردہ",
+				"exploreDescription": "صرف تب Explore سائن ان استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔",
+				"exploreDisabled": "Explore ٹیب بند ہے، اس لیے ڈاؤن لوڈز Explore سائن ان استعمال نہیں کرتے۔ اسے نیچے Explore میں آن کریں۔",
+				"openExplore": "Explore کھولیں",
 				"toggleDescription": "عمر کی پابندی والی، صرف ممبرز والی، اور اکاؤنٹ پرائیویٹ ویڈیوز کے لیے مددگار۔",
 				"risk": "خطرہ: cookies.txt میں اس براؤزر کے ہر لاگ اِن سیشن کی معلومات ہوتی ہیں — اسے پرائیویٹ رکھیں۔",
 				"fileLabel": "Cookies فائل",
@@ -382,6 +387,7 @@
 				"bodyUnconfigured": "فارمیٹ کی فہرست نامکمل ہو سکتی ہے۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
 				"bodyDisabled": "Cookies ترتیب دی گئی ہیں لیکن بند ہیں۔ مکمل فہرست کے لیے انہیں فعال کریں اور دوبارہ کوشش کریں، یا نیٹ ورک تبدیل کر کے دوبارہ کوشش کریں۔",
 				"bodyEnabled": "Cookies کے ساتھ بھی YouTube نے یہ پروب محدود کی۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
+				"bodyExplore": "YouTube نے اس درخواست کو محدود کر دیا۔ بعد میں دوبارہ کوشش کریں یا نیٹ ورک تبدیل کریں۔",
 				"retryCta": "دوبارہ کوشش کریں",
 				"enableRetryCta": "Cookies فعال کریں اور دوبارہ کوشش کریں"
 			},
@@ -390,9 +396,15 @@
 				"currentModeLabel": "Cookies کا ذریعہ",
 				"currentModeFile": "فائل",
 				"currentModeBrowser": "براؤزر",
+				"currentModeExplore": "Explore سائن ان",
 				"explanationFile": "آپ کی cookies فائل خالی، میعاد ختم، یا غلط فارمیٹ میں ہو سکتی ہے (yt-dlp Netscape cookies.txt کی توقع رکھتا ہے)۔ cookies دوبارہ ایکسپورٹ کریں، مختلف فائل منتخب کریں، براؤزر موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
 				"explanationBrowser": "Cookies براہ راست براؤزر سے پڑھی جاتی ہیں۔ اگر براؤزر ابھی چل رہا ہے تو اس کا cookie ڈیٹا بیس لاک ہو سکتا ہے (Chromium-family)۔ براؤزر کا YouTube میں سائن اِن ہونا بھی ضروری ہے۔ براؤزر بند کریں، کوئی مختلف براؤزر آزمائیں، فائل موڈ پر سوئچ کریں، یا cookies بند کر دیں۔",
 				"openSettingsCta": "Cookies سیٹنگز کھولیں",
+				"exploreSignIn": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "اگر اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہے تو Explore میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔", "cta": "Explore میں سائن ان کریں"},
+				"exploreSignedIn": {"heading": "Explore میں سائن ان ہیں", "body": "اگر اس ویڈیو کے لیے اکاؤنٹ درکار ہے تو Arroxy خود بخود آپ کا Explore سائن ان استعمال کرتا ہے۔ یہ کسی اور وجہ سے دستیاب نہیں ہو سکتی۔"},
+				"exploreOffer": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "Explore کے ساتھ سائن ان کریں اور Arroxy دوبارہ کوشش کرے گا۔", "cta": "Explore کے ساتھ سائن ان کریں"},
+				"exploreReuse": {"heading": "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکتا ہے", "body": "آپ Explore میں سائن ان ہیں، لیکن ڈاؤن لوڈز اس وقت اس سائن ان کو استعمال نہیں کر رہے۔", "cta": "Explore سائن ان استعمال کریں اور دوبارہ کوشش کریں"},
+				"otherCookiesCta": "اس کے بجائے Cookies فائل یا براؤزر استعمال کریں…",
 				"needsCookies": {"heading": "اس سائٹ کو سائن اِن ضروری ہے", "body": "yt-dlp تصدیق کے بغیر اس ویڈیو تک رسائی حاصل نہیں کر سکا۔ ایڈوانسڈ سیٹنگز میں cookies ترتیب دیں — کسی ایسے براؤزر کی طرف اشارہ کریں جس میں آپ پہلے سے سائن اِن ہوں، یا cookies.txt فائل درآمد کریں۔"},
 				"dpapi": {
 					"heading": "Chrome cookies ونڈوز انکرپشن کے ذریعے بلاک ہیں",
@@ -531,6 +543,17 @@
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",
+		"attentionBadge_one": "{{count}} ڈاؤن لوڈ کو آپ کی توجہ چاہیے",
+		"attentionBadge_other": "{{count}} ڈاؤن لوڈز کو آپ کی توجہ چاہیے",
+		"choice": {
+			"cappedBody_one": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیو ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
+			"cappedBody_other": "اس پلے لسٹ میں {{count}} سے زیادہ ویڈیوز ہیں۔ سب ڈاؤن لوڈ کریں، پہلے {{count}}، یا جائزے میں چنیں۔",
+			"reviewBody_one": "یہ لنک {{count}} ویڈیو کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔",
+			"reviewBody_other": "یہ لنک {{count}} ویڈیوز کی فہرست ہے۔ کیا ڈاؤن لوڈ کرنا ہے یہ چننے کے لیے جائزہ لیں۔",
+			"all": "تمام ویڈیوز",
+			"first": "پہلے {{count}}",
+			"review": "جائزہ"
+		},
 		"tabTip": "ڈاؤن لوڈز اب Downloads ٹیب میں ہیں — پیش رفت دیکھنے کے لیے اسے کسی بھی وقت کھولیں۔",
 		"empty": "قطار میں شامل ڈاؤن لوڈز یہاں ظاہر ہوں گے",
 		"filtersLabel": "قطار کی حالت کے فلٹرز",
@@ -576,6 +599,7 @@
 			"remove": "ہٹائیں",
 			"pullNow": "اب ڈاؤن لوڈ — قطار چھوڑیں",
 			"statusProbing": "تفصیلات لی جا رہی ہیں",
+			"statusNeedsChoice": "آپ کا انتخاب درکار ہے",
 			"statusPending": "منتظر",
 			"statusRunning": "ڈاؤن لوڈ ہو رہا ہے",
 			"statusHeld": "روکا گیا",
@@ -625,13 +649,18 @@
 		"outputNotWritable": "{{dir}} میں محفوظ نہیں کیا جا سکتا — Arroxy کو وہاں لکھنے کی اجازت نہیں",
 		"fetchingSponsorBlock": "SponsorBlock سے رابطہ ہو رہا ہے…",
 		"retryingSponsorBlock": "SponsorBlock دستیاب نہیں، دوبارہ کوشش ({{attempt}}/{{total}})…",
-		"retryingTransfer": "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})…"
+		"retryingTransfer": "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "آپ کے Explore اکاؤنٹ سے سائن ان ہو رہا ہے…",
+		"exploreSignedOut": "Explore سے سائن آؤٹ ہو گیا — دوبارہ سائن ان کریں"
 	},
 	"notifications": {
 		"settingsSaveFailed": "آپ کی ترتیبات محفوظ نہیں ہو سکیں۔",
 		"warmupFailed": "سیٹ اپ مکمل نہیں ہوا۔ مکمل ہونے تک کچھ ڈاؤن لوڈز ناکام ہو سکتے ہیں۔",
 		"shellActionFailed": "اسے کھولا نہیں جا سکا۔",
 		"folderSelectFailed": "فولڈر منتخب کنندہ نہیں کھولا جا سکا۔",
+		"exploreSignInRetrying_one": "Explore کے ساتھ سائن ان ہو گیا — 1 لنک دوبارہ آزمایا جا رہا ہے",
+		"exploreSignInRetrying_other": "Explore کے ساتھ سائن ان ہو گیا — {{count}} لنکس دوبارہ آزمائے جا رہے ہیں",
+		"exploreSignOutFailed": "Explore سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
 		"playlistFolderRejected": "یہ فولڈر اس پلے لسٹ کے لیے استعمال نہیں ہو سکتا۔",
 		"filenameFolderTooDeep": "یہ فولڈر آپ کے سسٹم کے لیے بہت گہرا ہے۔ ڈاؤن لوڈ پھر بھی ناکام ہو سکتا ہے — چھوٹا فولڈر منتخب کریں۔",
 		"filenameTemplateCannotFit": "اس ویڈیو کا نام آپ کے ٹیمپلیٹ کے ہر حصے میں نہیں سماتا، اس لیے پہلے سے طے شدہ نام استعمال کیا گیا۔",
@@ -640,11 +669,25 @@
 			"alreadyQueued": "پہلے سے قطار میں ہے — کوئی کاپی شامل نہیں ہوئی",
 			"invalidClipboard": "کلپ بورڈ میں کوئی لنک نہیں — پہلے ایک کاپی کریں",
 			"multipleUrls": "متعدد لنکس کاپی ہو گئے — Arroxy میں “متعدد URLs” استعمال کریں",
-			"needsReview": "اس لنک کو فوری جانچ کی ضرورت ہے — Arroxy کھولیں اور دوبارہ پیسٹ کریں",
-			"busy": "پچھلا لنک ابھی پروسیس ہو رہا ہے",
+			"needsReview": "اس لنک کے لیے آپ کا انتخاب درکار ہے — Arroxy میں Downloads دیکھیں",
+			"cookiesSetup": "Arroxy میں Cookies کی سیٹ اپ مکمل کریں، پھر دوبارہ کوشش کریں",
+			"busy": "Arroxy ابھی شروع ہو رہا ہے — ذرا دیر بعد دوبارہ کوشش کریں",
 			"submissionFailed": "یہ لنک شامل نہیں ہو سکا — Arroxy میں دوبارہ کوشش کریں"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} ویڈیو پہلے سے قطار میں ہے — چھوڑ دی گئی", "skippedAlreadyQueued_other": "{{count}} ویڈیوز پہلے سے قطار میں ہیں — چھوڑ دی گئیں"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ویڈیو پہلے سے قطار میں ہے — چھوڑ دی گئی", "skippedAlreadyQueued_other": "{{count}} ویڈیوز پہلے سے قطار میں ہیں — چھوڑ دی گئیں"},
+		"quickDownload": {
+			"added": "شامل ہو گیا: {{title}}",
+			"alreadyQueued": "پہلے سے قطار میں ہے",
+			"failed": "{{title}} تیار نہیں ہو سکا",
+			"notAdded": "یہ لنک شامل نہیں ہو سکا — دوبارہ کوشش کریں",
+			"chooseHowMany_one": "{{count}}+ ویڈیو — منتخب کریں کتنے",
+			"chooseHowMany_other": "{{count}}+ ویڈیوز — منتخب کریں کتنے",
+			"review_one": "اس فہرست میں {{count}} ویڈیو — چننے کے لیے جائزہ لیں",
+			"review_other": "اس فہرست میں {{count}} ویڈیوز — چننے کے لیے جائزہ لیں",
+			"reviewCapped_one": "اس فہرست میں {{count}}+ ویڈیو — چننے کے لیے جائزہ لیں",
+			"reviewCapped_other": "اس فہرست میں {{count}}+ ویڈیوز — چننے کے لیے جائزہ لیں",
+			"view": "دیکھیں"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -663,7 +706,7 @@
 			"parse": "سائٹ کا جواب پارس نہیں ہو سکا۔ ممکن ہے yt-dlp کا ایکسٹریکٹر پرانا ہو گیا ہو۔ Arroxy لانچ پر yt-dlp کو خودکار اپڈیٹ کرتا ہے — چند منٹ بعد دوبارہ کوشش کریں جب فکس آ جائے۔",
 			"network": "نیٹ ورک کی خرابی۔ اپنا کنکشن چیک کر کے دوبارہ کوشش کریں۔",
 			"drmProtected": "یہ ویڈیو DRM سے محفوظ ہے۔ yt-dlp DRM نہیں ہٹا سکتا، اس لیے فائل ڈاؤن لوڈ نہیں ہو سکتی۔",
-			"loginRequired": "اس ویڈیو کے لیے سائن اِن اکاؤنٹ ضروری ہے۔ cookies.txt سیٹ اپ کریں (ترتیبات → Cookies) اور دوبارہ کوشش کریں۔",
+			"loginRequired": "اس ویڈیو کے لیے سائن ان اکاؤنٹ درکار ہے۔",
 			"unknown": "ڈاؤن لوڈ ناکام ہو گیا۔ نیچے خام آؤٹ پٹ دیکھیں۔"
 		}
 	},
@@ -747,5 +790,59 @@
 			"invalid-segment": "یہ فولڈر نام قابل قبول نہیں۔ . اور .. اور CON جیسے محفوظ ناموں سے گریز کریں۔",
 			"resolution-in-dir": "{resolution} کسی فولڈر کا نام نہیں بن سکتا — معیار ڈاؤن لوڈ شروع ہونے پر ہی معلوم ہوتا ہے۔"
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "نیا",
+		"notice": {
+			"title": "YouTube کو Arroxy کے اندر ہی براؤز کریں",
+			"body": "کوئی ویڈیو، پلے لسٹ یا چینل تلاش کریں اور یہیں سے ڈاؤن لوڈ کریں — لنک کاپی کیے بغیر۔ اکاؤنٹ کی ضرورت والی ویڈیوز ڈاؤن لوڈ کرنے کے لیے یہاں YouTube میں سائن ان کریں۔",
+			"riskTitle": "ثانوی اکاؤنٹ سے سائن ان کریں",
+			"riskBody": "YouTube ان اکاؤنٹس کو فلیگ — اور کبھی کبھار بین — کر سکتا ہے جو yt-dlp جیسے ڈاؤن لوڈ ٹولز کے ساتھ استعمال ہوں۔ ایسا اکاؤنٹ استعمال کریں جسے کھونے کا نقصان نہ ہو، اپنا مرکزی اکاؤنٹ نہیں۔",
+			"continue": "جاری رکھیں"
+		},
+		"nudge": {
+			"off": "Cookies بند ہیں، اس لیے ڈاؤن لوڈز Explore سائن ان استعمال نہیں کرتے۔",
+			"file": "ڈاؤن لوڈز آپ کی cookies فائل استعمال کرتے ہیں، Explore سائن ان نہیں۔",
+			"browser": "ڈاؤن لوڈز آپ کے براؤزر کی cookies استعمال کرتے ہیں، Explore سائن ان نہیں۔",
+			"useExplore": "Explore سائن ان استعمال کریں",
+			"notNow": "ابھی نہیں"
+		},
+		"toolbar": {
+			"aria": "Explore براؤزر کنٹرولز",
+			"back": "واپس",
+			"forward": "آگے",
+			"reload": "ری لوڈ",
+			"home": "YouTube ہوم",
+			"addressAria": "ایڈریس",
+			"addressPlaceholder": "YouTube پر تلاش کریں یا YouTube کا لنک پیسٹ کریں",
+			"offsiteHint": "Explore صرف YouTube براؤز کرتا ہے۔",
+			"offsiteDownload": "یہ لنک ڈاؤن لوڈ کریں",
+			"offsiteHintHost": "Explore صرف YouTube براؤز کرتا ہے۔ {{host}}",
+			"searchTooLong": "یہ تلاش بہت لمبی ہے۔",
+			"downloadWithProfile": "ڈاؤن لوڈ · {{profileName}}",
+			"interactiveHint": "فارمیٹ، سب ٹائٹلز اور مزید چنیں…",
+			"grabUnavailable": "ڈاؤن لوڈ کرنے کے لیے کوئی ویڈیو، پلے لسٹ یا چینل کھولیں",
+			"adBlock": {
+				"aria": "اشتہار بلاکر",
+				"off": "اشتہار بلاکر: بند — آن کرنے کے لیے کلک کریں",
+				"starting": "اشتہار بلاکر: شروع ہو رہا ہے — بند کرنے کے لیے کلک کریں",
+				"on": "اشتہار بلاکر: آن — بند کرنے کے لیے کلک کریں",
+				"unavailable": "اشتہار بلاکر: دستیاب نہیں، اس کی فلٹر فہرستیں ڈاؤن لوڈ نہ ہو سکیں — بند کرنے کے لیے کلک کریں",
+				"accountNote": "YouTube سائن ان اکاؤنٹس کے لیے اشتہار بلاکرز کی مزاحمت کر سکتا ہے۔"
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "YouTube کو Arroxy کے اندر براؤز کریں اور اکاؤنٹ کی ضرورت والی ویڈیوز کے لیے سائن ان کریں۔",
+			"showTab": "Explore ٹیب دکھائیں",
+			"showTabDescription": "اسے بند کرنے سے ڈاؤن لوڈز بھی Explore سائن ان استعمال نہیں کریں گے۔",
+			"signOut": "Explore سے سائن آؤٹ کریں",
+			"signOutDescription": "Explore میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف کرتا ہے۔",
+			"signOutConfirmTitle": "Explore سے سائن آؤٹ کریں؟",
+			"signOutConfirmBody": "اس سے Explore میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف ہو جاتا ہے۔ اکاؤنٹ کی ضرورت والے ڈاؤن لوڈز دوبارہ سائن ان کرنے تک ناکام رہیں گے۔",
+			"signOutConfirm": "سائن آؤٹ کریں"
+		},
+		"error": {"proxyTitle": "Explore آپ کی پراکسی کے ذریعے کنیکٹ نہیں ہو سکتا", "proxyBody": "ترتیبات میں پراکسی چیک کریں، پھر دوبارہ کوشش کریں۔", "loadTitle": "یہ صفحہ لوڈ نہیں ہوا", "loadBody": "اپنا کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔", "retry": "دوبارہ کوشش کریں", "openSettings": "ترتیبات کھولیں"}
 	}
 }

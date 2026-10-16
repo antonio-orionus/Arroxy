@@ -119,7 +119,8 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 							uploader: probe.uploader ?? entry.uploader,
 							uploadDate: probe.uploadDate ?? entry.uploadDate,
 							timestamp: probe.timestamp ?? entry.timestamp,
-							...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {})
+							...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {}),
+							...(probe.auth ? {auth: probe.auth} : {})
 						}
 						// A real title retires the placeholder flag so {title}
 						// binds literally from here on; an empty probe title keeps

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "뒤로", "cancel": "취소", "continue": "계속", "loading": "불러오는 중", "retry": "다시 시도", "startOver": "처음부터"},
+	"common": {"back": "뒤로", "cancel": "취소", "continue": "계속", "loading": "불러오는 중", "retry": "다시 시도", "dismiss": "닫기", "startOver": "처음부터"},
 	"app": {
 		"feedback": "피드백",
 		"logs": "로그",
@@ -229,6 +229,11 @@
 				"sourceOff": "끄기",
 				"sourceFile": "파일",
 				"sourceBrowser": "브라우저",
+				"sourceExplore": "Explore 로그인",
+				"recommended": "추천",
+				"exploreDescription": "다운로드에 필요할 때만 Explore 로그인을 사용합니다.",
+				"exploreDisabled": "Explore 탭이 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다. 아래 Explore에서 켜세요.",
+				"openExplore": "Explore 열기",
 				"toggleDescription": "연령 제한, 회원 전용 및 계정 비공개 동영상에 도움이 됩니다.",
 				"risk": "위험: cookies.txt에는 해당 브라우저의 로그인된 모든 세션이 포함됩니다. 비공개로 보관하세요.",
 				"fileLabel": "쿠키 파일",
@@ -373,6 +378,7 @@
 				"bodyUnconfigured": "형식 목록이 불완전할 수 있습니다. 고급 설정에서 쿠키를 설정하거나 네트워크를 바꿔 다시 시도하세요.",
 				"bodyDisabled": "쿠키가 설정되었지만 꺼져 있습니다. 전체 목록을 받으려면 쿠키를 켜고 다시 시도하거나 네트워크를 바꿔 보세요.",
 				"bodyEnabled": "쿠키를 사용해도 YouTube에서 이 분석을 제한했습니다. 나중에 다시 시도하거나 네트워크를 바꾸세요.",
+				"bodyExplore": "YouTube가 이 요청을 제한했습니다. 나중에 다시 시도하거나 네트워크를 바꿔 보세요.",
 				"retryCta": "다시 시도",
 				"enableRetryCta": "쿠키를 켜고 다시 시도"
 			},
@@ -381,9 +387,15 @@
 				"currentModeLabel": "쿠키 소스",
 				"currentModeFile": "파일",
 				"currentModeBrowser": "브라우저",
+				"currentModeExplore": "Explore 로그인",
 				"explanationFile": "쿠키 파일이 비었거나 만료되었거나 형식이 잘못되었을 수 있습니다(yt-dlp는 Netscape cookies.txt 형식이 필요합니다). 쿠키를 다시 내보내거나 다른 파일을 선택하거나 브라우저 모드로 전환하거나 쿠키를 꺼 보세요.",
 				"explanationBrowser": "쿠키는 브라우저에서 직접 읽습니다. 브라우저가 실행 중이면 쿠키 데이터베이스가 잠겨 있을 수 있습니다(Chromium 계열). 브라우저에서 YouTube에도 로그인되어 있어야 합니다. 브라우저를 닫거나 다른 브라우저로 바꾸거나 파일 모드로 전환하거나 쿠키를 꺼 보세요.",
 				"openSettingsCta": "쿠키 설정 열기",
+				"exploreSignIn": {"heading": "이 동영상은 YouTube 계정이 필요할 수 있습니다", "body": "이 동영상에 YouTube 계정이 필요하면 Explore에서 로그인한 다음 다시 시도하세요. Arroxy는 다운로드에 필요할 때만 그 로그인을 사용합니다.", "cta": "Explore에서 로그인"},
+				"exploreSignedIn": {"heading": "Explore에 로그인됨", "body": "이 동영상에 계정이 필요하면 Arroxy가 Explore 로그인을 자동으로 사용합니다. 다른 이유로 사용할 수 없는 것일 수도 있습니다."},
+				"exploreOffer": {"heading": "이 동영상에는 YouTube 계정이 필요할 수 있습니다", "body": "Explore로 로그인하면 Arroxy가 다시 시도합니다.", "cta": "Explore로 로그인"},
+				"exploreReuse": {"heading": "이 동영상에는 YouTube 계정이 필요할 수 있습니다", "body": "Explore에 로그인되어 있지만 지금은 다운로드에서 그 로그인을 사용하지 않고 있습니다.", "cta": "내 Explore 로그인으로 다시 시도"},
+				"otherCookiesCta": "대신 쿠키 파일 또는 브라우저 사용…",
 				"needsCookies": {"heading": "이 사이트는 로그인이 필요함", "body": "인증 없이는 yt-dlp가 이 동영상에 접근할 수 없습니다. 고급 설정에서 쿠키를 설정하세요. 이미 로그인한 브라우저를 지정하거나 cookies.txt 파일을 가져오면 됩니다."},
 				"dpapi": {
 					"heading": "Windows 암호화로 Chrome 쿠키가 차단됨",
@@ -522,6 +534,17 @@
 	"queue": {
 		"header": "다운로드",
 		"tabLabel": "다운로드",
+		"attentionBadge_one": "다운로드 {{count}}개 확인 필요",
+		"attentionBadge_other": "다운로드 {{count}}개 확인 필요",
+		"choice": {
+			"cappedBody_one": "이 재생목록에 동영상이 {{count}}개를 넘습니다. 모두 다운로드하거나, 처음 {{count}}개만 받거나, 검토해서 직접 고를 수 있습니다.",
+			"cappedBody_other": "이 재생목록에 동영상이 {{count}}개를 넘습니다. 모두 다운로드하거나, 처음 {{count}}개만 받거나, 검토해서 직접 고를 수 있습니다.",
+			"reviewBody_one": "이 링크는 동영상 {{count}}개짜리 목록입니다. 검토하여 다운로드할 항목을 선택하세요.",
+			"reviewBody_other": "이 링크는 동영상 {{count}}개짜리 목록입니다. 검토하여 다운로드할 항목을 선택하세요.",
+			"all": "모든 동영상",
+			"first": "처음 {{count}}개",
+			"review": "검토"
+		},
 		"tabTip": "이제 다운로드는 다운로드 탭에 있습니다. 언제든 열어 진행 상황을 확인하세요.",
 		"empty": "대기열에 추가한 다운로드가 여기에 표시됩니다",
 		"filtersLabel": "대기열 상태 필터",
@@ -567,6 +590,7 @@
 			"remove": "제거",
 			"pullNow": "지금 받기 — 대기열 건너뛰기",
 			"statusProbing": "세부 정보 가져오는 중",
+			"statusNeedsChoice": "선택 필요",
 			"statusPending": "대기 중",
 			"statusRunning": "다운로드 중",
 			"statusHeld": "보류됨",
@@ -621,13 +645,18 @@
 		"outputNotWritable": "{{dir}}에 저장할 수 없습니다 — Arroxy에 그곳에 쓸 권한이 없습니다",
 		"fetchingSponsorBlock": "SponsorBlock에 연결 중…",
 		"retryingSponsorBlock": "SponsorBlock을 사용할 수 없어 재시도 중({{attempt}}/{{total}})…",
-		"retryingTransfer": "연결이 멈춰 재시도 중({{attempt}}/{{total}})…"
+		"retryingTransfer": "연결이 멈춰 재시도 중({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Explore 계정으로 로그인하는 중…",
+		"exploreSignedOut": "Explore에서 로그아웃됨 — 다시 로그인하세요"
 	},
 	"notifications": {
 		"settingsSaveFailed": "설정을 저장할 수 없습니다.",
 		"warmupFailed": "설정이 완료되지 않았습니다. 완료될 때까지 일부 다운로드가 실패할 수 있습니다.",
 		"shellActionFailed": "열 수 없습니다.",
 		"folderSelectFailed": "폴더 선택기를 열 수 없습니다.",
+		"exploreSignInRetrying_one": "Explore로 로그인함 — 링크 1개 다시 시도 중",
+		"exploreSignInRetrying_other": "Explore로 로그인함 — 링크 {{count}}개 다시 시도 중",
+		"exploreSignOutFailed": "Explore에서 로그아웃하지 못했습니다. 다시 시도하세요.",
 		"playlistFolderRejected": "이 폴더는 이 재생목록에 사용할 수 없습니다.",
 		"filenameFolderTooDeep": "이 폴더의 경로가 시스템에서 허용하는 것보다 너무 깊습니다. 다운로드가 실패할 수 있으니 더 짧은 폴더를 선택하세요.",
 		"filenameTemplateCannotFit": "이 동영상 이름이 템플릿의 모든 부분에 맞지 않아 기본 이름을 사용했습니다.",
@@ -636,11 +665,25 @@
 			"alreadyQueued": "이미 대기열에 있음 — 사본을 추가하지 않았습니다",
 			"invalidClipboard": "클립보드에 링크가 없습니다. 먼저 링크를 복사하세요",
 			"multipleUrls": "여러 링크가 복사되었습니다. Arroxy의 URL 일괄 추가를 사용하세요",
-			"needsReview": "이 링크는 간단한 확인이 필요합니다. Arroxy를 열고 다시 붙여넣으세요",
-			"busy": "이전 링크를 처리하는 중입니다",
+			"needsReview": "이 링크는 선택이 필요합니다 — Arroxy의 다운로드를 확인하세요",
+			"cookiesSetup": "Arroxy에서 쿠키 설정을 마친 뒤 다시 시도하세요",
+			"busy": "Arroxy가 아직 시작하는 중입니다 — 잠시 후 다시 시도하세요",
 			"submissionFailed": "링크를 추가할 수 없습니다. Arroxy에서 다시 시도하세요"
 		},
-		"queue": {"skippedAlreadyQueued_one": "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다", "skippedAlreadyQueued_other": "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"}
+		"queue": {"skippedAlreadyQueued_one": "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다", "skippedAlreadyQueued_other": "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"},
+		"quickDownload": {
+			"added": "추가됨: {{title}}",
+			"alreadyQueued": "이미 대기열에 있습니다",
+			"failed": "{{title}}을(를) 준비하지 못했습니다",
+			"notAdded": "링크를 추가하지 못했습니다 — 다시 시도하세요",
+			"chooseHowMany_one": "동영상 {{count}}개 이상 — 개수 선택",
+			"chooseHowMany_other": "동영상 {{count}}개 이상 — 개수 선택",
+			"review_one": "이 목록에 동영상 {{count}}개 — 검토하여 선택",
+			"review_other": "이 목록에 동영상 {{count}}개 — 검토하여 선택",
+			"reviewCapped_one": "이 목록에 동영상 {{count}}개 이상 — 검토하여 선택",
+			"reviewCapped_other": "이 목록에 동영상 {{count}}개 이상 — 검토하여 선택",
+			"view": "보기"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -659,7 +702,7 @@
 			"parse": "사이트의 응답을 분석할 수 없습니다. yt-dlp 추출기가 사이트 변경을 따라가지 못했을 수 있습니다. Arroxy는 시작 시 yt-dlp를 자동 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요.",
 			"network": "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요.",
 			"drmProtected": "이 동영상은 DRM으로 보호됩니다. yt-dlp는 DRM을 제거할 수 없으므로 파일을 다운로드할 수 없습니다.",
-			"loginRequired": "이 동영상은 로그인한 계정이 필요합니다. cookies.txt(설정 → 쿠키)를 설정하고 다시 시도하세요.",
+			"loginRequired": "이 동영상은 로그인한 계정이 필요합니다.",
 			"unknown": "다운로드에 실패했습니다. 아래 원시 출력을 확인하세요."
 		}
 	},
@@ -729,5 +772,53 @@
 			"invalid-segment": "이 폴더 이름은 사용할 수 없습니다. . 및 .. 그리고 CON 같은 예약어를 피하세요.",
 			"resolution-in-dir": "{resolution}은 폴더 이름으로 사용할 수 없습니다. 다운로드가 시작될 때까지 화질을 알 수 없기 때문입니다."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "새 기능",
+		"notice": {
+			"title": "Arroxy에서 바로 YouTube 둘러보기",
+			"body": "동영상, 재생목록 또는 채널을 찾아 링크 복사 없이 여기서 바로 다운로드하세요. 계정이 필요한 동영상을 받으려면 여기서 YouTube에 로그인하세요.",
+			"riskTitle": "보조 계정으로 로그인하세요",
+			"riskBody": "YouTube는 yt-dlp 같은 다운로드 도구로 사용한 계정에 표시를 하거나 때로는 정지할 수 있습니다. 주 계정이 아니라 잃어도 괜찮은 계정을 사용하세요.",
+			"continue": "계속"
+		},
+		"nudge": {"off": "쿠키가 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다.", "file": "다운로드에는 Explore 로그인이 아니라 쿠키 파일이 사용됩니다.", "browser": "다운로드에는 Explore 로그인이 아니라 브라우저의 쿠키가 사용됩니다.", "useExplore": "Explore 로그인 사용", "notNow": "나중에"},
+		"toolbar": {
+			"aria": "현재 페이지",
+			"back": "뒤로",
+			"forward": "앞으로",
+			"reload": "새로고침",
+			"home": "YouTube 홈",
+			"addressAria": "주소",
+			"addressPlaceholder": "YouTube를 검색하거나 YouTube 링크를 붙여 넣으세요",
+			"offsiteHint": "Explore는 YouTube만 탐색합니다.",
+			"offsiteDownload": "이 링크 다운로드",
+			"offsiteHintHost": "Explore는 YouTube만 탐색합니다. {{host}}",
+			"searchTooLong": "검색어가 너무 깁니다.",
+			"downloadWithProfile": "다운로드 · {{profileName}}",
+			"interactiveHint": "형식, 자막 등을 선택…",
+			"grabUnavailable": "동영상, 재생목록 또는 채널을 열면 다운로드할 수 있습니다",
+			"adBlock": {
+				"aria": "광고 차단",
+				"off": "광고 차단: 꺼짐 — 클릭하여 켜기",
+				"starting": "광고 차단: 시작 중 — 클릭하여 끄기",
+				"on": "광고 차단: 켜짐 — 클릭하여 끄기",
+				"unavailable": "광고 차단: 사용할 수 없음, 필터 목록을 다운로드하지 못했습니다 — 클릭하여 끄기",
+				"accountNote": "로그인한 계정에 대해서는 YouTube가 광고 차단에 대응할 수 있습니다."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Arroxy에서 YouTube를 둘러보고 계정이 필요한 동영상을 위해 로그인하세요.",
+			"showTab": "Explore 탭 표시",
+			"showTabDescription": "끄면 다운로드에도 Explore 로그인이 사용되지 않습니다.",
+			"signOut": "Explore에서 로그아웃",
+			"signOutDescription": "Explore의 YouTube 로그인 정보와 탐색 데이터를 삭제합니다.",
+			"signOutConfirmTitle": "Explore에서 로그아웃할까요?",
+			"signOutConfirmBody": "Explore의 YouTube 로그인 정보와 탐색 데이터가 삭제됩니다. 계정이 필요한 다운로드는 다시 로그인할 때까지 실패합니다.",
+			"signOutConfirm": "로그아웃"
+		},
+		"error": {"proxyTitle": "Explore가 프록시를 통해 연결할 수 없습니다", "proxyBody": "설정에서 프록시를 확인한 다음 다시 시도하세요.", "loadTitle": "이 페이지를 불러오지 못했습니다", "loadBody": "연결을 확인한 다음 다시 시도하세요.", "retry": "다시 시도", "openSettings": "설정 열기"}
 	}
 }

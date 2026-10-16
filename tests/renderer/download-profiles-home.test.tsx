@@ -49,6 +49,31 @@ describe('DownloadProfilesHome downloads tab', () => {
 		expect(screen.getByRole('tab', {name: /^lineup/i})).toBeInTheDocument()
 	})
 
+	// The badge counts the rows only the user can move on: a failed
+	// preparation or an open choice. Otherwise it shows how many rows there are.
+	it('turns the Downloads badge into the count of rows that need attention', () => {
+		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+		render(<DownloadProfilesHome />)
+		const tab = screen.getByRole('tab', {name: /^downloads/i})
+		expect(within(tab).queryByTestId('downloads-attention-badge')).not.toBeInTheDocument()
+		expect(tab).toHaveTextContent('1')
+
+		act(() =>
+			useAppStore.setState({
+				queue: [
+					makeItem({id: 'pending', status: 'pending'}),
+					makeItem({id: 'failed-download', status: 'error', error: {kind: 'network', raw: 'x'}}),
+					makeItem({id: 'probe-error', status: 'error', error: {kind: 'network', raw: 'x'}, job: unresolved, probeMode: 'video'}),
+					makeItem({id: 'choice', status: 'needs-choice', choice: {kind: 'playlist-review', count: 3}, job: unresolved, probeMode: 'video'}),
+					makeItem({id: 'probing', status: 'probing', job: unresolved, probeMode: 'video'})
+				]
+			})
+		)
+		const badge = within(tab).getByTestId('downloads-attention-badge')
+		expect(badge).toHaveTextContent('2')
+		expect(badge).toHaveAttribute('title', '2 downloads need your attention')
+	})
+
 	it('marks the Downloads tab active only while queue work is running or moving files', () => {
 		render(<DownloadProfilesHome />)
 		expect(screen.getByRole('tab', {name: /^downloads/i})).not.toHaveAttribute('data-queue-active', 'true')

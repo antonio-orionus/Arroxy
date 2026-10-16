@@ -147,43 +147,9 @@ test('Electron Quick Download of a playlist that overlaps the queue adds only th
 	})
 })
 
-test('Electron Quick Download capped playlist can queue the globally loaded slice', async () => {
-	test.setTimeout(180_000)
-	const expectedIds = FIXTURE_PLAYLIST_VIDEO_IDS.slice(0, 2)
-	const skippedId = FIXTURE_PLAYLIST_VIDEO_IDS[2]
-	if (!skippedId) throw new Error('fixture playlist needs a skipped third item')
-
-	await withFixtureProductApp(
-		{
-			userDataPrefix: 'arroxy-fixture-quick-playlist-cap-queue-user-',
-			outputPrefix: 'arroxy-fixture-quick-playlist-cap-queue-out-',
-			settings: settings => {
-				configureSmallFileQuickProfile(settings)
-				settings.common.playlistProbeLimit = 2
-			}
-		},
-		async ({page, outputDir, urls, files}) => {
-			await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
-			await page.locator('[data-testid="profiles-quick-download"]').click()
-
-			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeVisible({timeout: 60_000})
-			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toContainText('Arroxy loaded 2 items using the current limit of 2')
-			await page.locator('[data-testid="quick-playlist-cap-queue-loaded"]').click()
-
-			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeHidden({timeout: 20_000})
-			await openQueueTab(page)
-			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(expectedIds.length, {timeout: 20_000})
-			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(expectedIds.length, {timeout: 140_000})
-
-			const profileDir = smallFileProfileDir(outputDir)
-			files.expectMp4Count(expectedIds.length, profileDir)
-			files.expectNoMp4For(skippedId, profileDir)
-			await expectOrderedM3u(profileDir, 'Fixture Playlist', expectedIds)
-		}
-	)
-})
-
-test('Electron Quick Download capped playlist can increase the global cap and retry', async () => {
+// First N is owned by fixture-background-quick-download; All probes again
+// without the load limit and queues the whole playlist.
+test('Electron Quick Download of a capped playlist queues every video when the row is answered All', async () => {
 	test.setTimeout(220_000)
 
 	await withFixtureProductApp(
@@ -199,12 +165,9 @@ test('Electron Quick Download capped playlist can increase the global cap and re
 			await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
 			await page.locator('[data-testid="profiles-quick-download"]').click()
 
-			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeVisible({timeout: 60_000})
-			await page.locator('[data-testid="quick-playlist-cap-probe-limit-trigger"]').click()
-			await page.locator('[data-testid="quick-playlist-cap-probe-limit-option-100"]').click()
-
-			await expect(page.locator('[data-testid="quick-playlist-cap-dialog"]')).toBeHidden({timeout: 20_000})
 			await openQueueTab(page)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="needs-choice"]')).toHaveCount(1, {timeout: 60_000})
+			await page.getByTestId('queue-choice').getByRole('button', {name: 'All videos'}).click()
 			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
 			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 160_000})
 

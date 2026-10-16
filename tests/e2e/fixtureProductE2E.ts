@@ -2,7 +2,9 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
-import type {AppSettings} from '../../src/shared/types.js'
+import {queueArraySchema} from '../../src/shared/queueItemSchema.js'
+import type {ExploreCookie} from '../../src/shared/sites/types.js'
+import type {AppSettings, QueueItem} from '../../src/shared/types.js'
 import {
 	assertNoExternalRequests,
 	buildFixtureElectronEnv,
@@ -15,6 +17,7 @@ import {
 	startDenyProxy,
 	startFixtureServer,
 	writeE2eSettings,
+	writeExploreCookies,
 	type FixtureServer,
 	type FixtureServerBehavior,
 	type ProcessResult
@@ -24,6 +27,14 @@ import {applyQueueAction, expectMp4Count, expectNoMp4For, expectQueueStatus, lau
 interface FixtureProductOptions {
 	behavior?: FixtureServerBehavior
 	settings?: (settings: AppSettings) => void
+	// Seeded into the Explore partition at startup, as if the user had signed in.
+	exploreCookies?: readonly ExploreCookie[]
+	// A local page the Explore view opens instead of YouTube.
+	exploreHomeUrl?: string
+	// A filter list the Explore ad blocker is built from, written to the profile: no list is ever fetched.
+	exploreAdBlockFilters?: string
+	// A queue left by a previous session, restored at startup.
+	restoredQueue?: (outputDir: string) => QueueItem[]
 	userDataPrefix?: string
 	outputPrefix?: string
 }
@@ -100,6 +111,19 @@ async function attemptCleanup(cleanup: () => Promise<void> | void): Promise<void
 	}
 }
 
+// Validated with the app's own schema: a malformed seed would otherwise be
+// dropped at load as a corrupted queue and the scenario would wait for nothing.
+function writeRestoredQueue(userDataDir: string, items: QueueItem[]): void {
+	fs.writeFileSync(path.join(userDataDir, 'queue.json'), JSON.stringify({items: queueArraySchema.parse(items)}), 'utf8')
+}
+
+/** The queue as the app last persisted it, parsed with the app's own schema. */
+export function readPersistedQueue(userDataDir: string): QueueItem[] {
+	const raw: unknown = JSON.parse(fs.readFileSync(path.join(userDataDir, 'queue.json'), 'utf8'))
+	const items = typeof raw === 'object' && raw !== null && 'items' in raw ? raw.items : undefined
+	return queueArraySchema.parse(items)
+}
+
 export async function withFixtureProductApp(options: FixtureProductOptions, run: (ctx: FixtureProductContext) => Promise<void>): Promise<void> {
 	const ytDlpPath = await prepareFixtureRuntime()
 	const fixtureServer = await startFixtureServer(options.behavior)
@@ -107,10 +131,18 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-user-'))
 	const outputDir = fs.mkdtempSync(path.join(os.tmpdir(), options.outputPrefix ?? 'arroxy-fixture-out-'))
 	writeE2eSettings(userDataDir, outputDir, options.settings)
+	const exploreCookiesPath = options.exploreCookies ? writeExploreCookies(userDataDir, options.exploreCookies) : undefined
+	if (options.restoredQueue) writeRestoredQueue(userDataDir, options.restoredQueue(outputDir))
+	let exploreAdBlockFiltersPath: string | undefined
+	if (options.exploreAdBlockFilters !== undefined) {
+		exploreAdBlockFiltersPath = path.join(userDataDir, 'e2e-adblock-filters.txt')
+		fs.writeFileSync(exploreAdBlockFiltersPath, options.exploreAdBlockFilters, 'utf8')
+	}
+	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath}
 
 	let app: ElectronApplication | null = null
 	try {
-		const launched = await launchFixtureApp(ytDlpPath, {userDataDir, fixtureServer, denyProxy})
+		const launched = await launchFixtureApp(ytDlpPath, launchInput)
 		app = launched.app
 		await run({
 			app,
@@ -123,7 +155,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 			files: files(outputDir),
 			relaunch: async () => {
 				if (app) await app.close()
-				const next = await launchFixtureApp(ytDlpPath, {userDataDir, fixtureServer, denyProxy})
+				const next = await launchFixtureApp(ytDlpPath, launchInput)
 				app = next.app
 				return {app: next.app, page: next.page, queue: queue(next.page)}
 			}

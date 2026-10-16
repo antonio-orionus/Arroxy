@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode} from 'react'
+import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTable, type ColumnOrderState, type ColumnVisibilityState, type SortingState, type Updater} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
@@ -18,6 +18,9 @@ import {QueueManagerTable} from './QueueManagerTable.js'
 import {useQueueManagerColumns} from './useQueueManagerColumns.js'
 import {queueTableFeatures} from './queueTableFeatures.js'
 import {Card} from '../ui/card.js'
+
+// How long a row shown by a View command stays highlighted.
+const FOCUS_HIGHLIGHT_MS = 2_400
 
 const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, addedAt: 900, finishedAt: 900}
 
@@ -47,6 +50,10 @@ export function QueueManagerTab(): ReactNode {
 	const resumeAll = useAppStore(state => state.resumeAll)
 	const cancelAll = useAppStore(state => state.cancelAll)
 	const clearCompleted = useAppStore(state => state.clearCompleted)
+	const cancelItemDownload = useAppStore(state => state.cancelItemDownload)
+	const queueFocus = useAppStore(state => state.queueFocus)
+	const clearQueueFocus = useAppStore(state => state.clearQueueFocus)
+	const [highlightedId, setHighlightedId] = useState<string | null>(null)
 	const [state, dispatch] = useReducer(queueManagerReducer, undefined, createQueueManagerState)
 	const {filter, selection, expandedIds, tablePreferences, viewportWidth} = state
 	const {selectedIds, contextIds} = selection
@@ -172,7 +179,8 @@ export function QueueManagerTab(): ReactNode {
 		[updateTablePreferences]
 	)
 
-	const columns = useQueueManagerColumns({expandedIds, onToggleExpanded: toggleExpanded, t})
+	const cancelProbing = useCallback((itemId: string): void => void cancelItemDownload(itemId), [cancelItemDownload])
+	const columns = useQueueManagerColumns({expandedIds, onToggleExpanded: toggleExpanded, onCancelProbing: cancelProbing, t})
 
 	const table = useTable({
 		features: queueTableFeatures,
@@ -195,6 +203,28 @@ export function QueueManagerTab(): ReactNode {
 	const lastVirtualRow = virtualRows.at(-1)
 	const topVirtualPadding = firstVirtualRow?.start ?? 0
 	const bottomVirtualPadding = Math.max(0, rowVirtualizer.getTotalSize() - (lastVirtualRow?.start ?? 0) - (lastVirtualRow?.size ?? 0))
+	// A View command: clear a filter that hides its row, scroll to it,
+	// highlight it, and consume the command. A row gone from the queue
+	// (cancelled meanwhile) spends the command instead.
+	useEffect(() => {
+		if (!queueFocus) return
+		const index = rows.findIndex(row => row.original.id === queueFocus.itemId)
+		if (index < 0) {
+			if (!queue.some(item => item.id === queueFocus.itemId)) clearQueueFocus(queueFocus.seq)
+			else if (filter !== 'all') dispatch({type: 'set-filter', filter: 'all'})
+			return
+		}
+		rowVirtualizer.scrollToIndex(index, {align: 'center'})
+		setHighlightedId(queueFocus.itemId)
+		clearQueueFocus(queueFocus.seq)
+	}, [clearQueueFocus, filter, queue, queueFocus, rowVirtualizer, rows])
+
+	useEffect(() => {
+		if (!highlightedId) return undefined
+		const timeout = window.setTimeout(() => setHighlightedId(null), FOCUS_HIGHLIGHT_MS)
+		return () => window.clearTimeout(timeout)
+	}, [highlightedId])
+
 	const selectedCount = selectedItems.length
 	const visibleColumns = table.getVisibleLeafColumns()
 	const renderedColumnCount = Math.max(1, visibleColumns.filter(column => isResponsiveRenderedColumn(column.id, viewportWidth)).length)
@@ -242,6 +272,7 @@ export function QueueManagerTab(): ReactNode {
 				expandedIds={expandedIds}
 				selectedIds={selectedIds}
 				interactions={interactions}
+				highlightedId={highlightedId}
 				onContextAction={runSelectedAction}
 			/>
 		</Card>

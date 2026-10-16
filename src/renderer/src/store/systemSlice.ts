@@ -14,6 +14,9 @@ let unbindQueueProjection: (() => void) | null = null
 let unbindHotkeyTrigger: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
+let unbindExploreView: (() => void) | null = null
+let unbindExplorePointer: (() => void) | null = null
+let exploreViewBinding = 0
 let hotkeyStatusRequest = 0
 
 const SHARE_MILESTONES: readonly number[] = [3, 25, 100]
@@ -211,6 +214,33 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		commonPaths: undefined,
 		shareDialogOpen: false,
 		shareDialogTrigger: null,
+		exploreView: null,
+		explorePointerEntries: 0,
+
+		bindExploreView: () => {
+			// The view lives in main; the renderer mirrors what main last reported.
+			// A pushed state always wins over the initial read, which may answer late.
+			unbindExploreView?.()
+			const binding = ++exploreViewBinding
+			let pushed = false
+			unbindExploreView = window.appApi.explore.onStateChanged(state => {
+				pushed = true
+				set({exploreView: state})
+			})
+			unbindExplorePointer?.()
+			unbindExplorePointer = window.appApi.explore.onPointerInView(() => set(state => ({explorePointerEntries: state.explorePointerEntries + 1})))
+			// A failed read leaves the state unknown (null) until main pushes one.
+			window.appApi.explore.getState().then(
+				result => {
+					if (!result.ok) {
+						console.warn('[explore] initial state read failed', result.error)
+						return
+					}
+					if (binding === exploreViewBinding && !pushed) set({exploreView: result.data})
+				},
+				(err: unknown) => console.warn('[explore] initial state read failed', err)
+			)
+		},
 
 		initialize: async () => {
 			if (get().initialized || get().initializing) return
@@ -254,6 +284,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// Both halves of feedback are now bound. Main may register the chord;
 			// presses during the remaining startup work are acknowledged as busy.
 			void window.appApi.hotkey.rendererReady()
+
+			get().bindExploreView()
 
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
@@ -476,6 +508,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'proxyUrl', {proxyUrl: url})
 		},
 
+		setExploreAdBlock: async enabled => {
+			await applyCommonPatchAsync(get, set, 'exploreAdBlock', {exploreAdBlock: enabled})
+		},
+
 		setLimitRate: async value => {
 			await applyCommonPatchAsync(get, set, 'limitRate', {limitRate: value ?? ''})
 		},
@@ -589,6 +625,37 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		dismissMultiProfileHint: async () => {
 			await applyCommonPatchAsync(get, set, 'multiProfileHintDismissed', {multiProfileHintDismissed: true})
+		},
+
+		acknowledgeExploreNotice: async () => {
+			await applyCommonPatchAsync(get, set, 'exploreNoticeSeen', {exploreNoticeSeen: true})
+		},
+
+		markExploreFirstOpen: async () => {
+			// D6: only an `off` found at the first open is switched; `file`/`browser`
+			// are never switched, and a later `off` is a deliberate choice.
+			const switchToExplore = (get().settings?.common?.cookiesMode ?? 'off') === 'off'
+			await applyCommonPatchAsync(get, set, 'exploreModeAutoSwitched', switchToExplore ? {cookiesMode: 'explore', exploreModeAutoSwitched: true} : {exploreModeAutoSwitched: true})
+		},
+
+		switchToExploreCookiesMode: () => applyCommonPatchAsync(get, set, 'cookiesMode', {cookiesMode: 'explore', exploreModeAutoSwitched: true}),
+
+		dismissExploreModeNudge: async mode => {
+			await applyCommonPatchAsync(get, set, 'exploreModeNudgeDismissedFor', {exploreModeNudgeDismissedFor: mode})
+		},
+
+		setExploreEnabled: async enabled => {
+			await applyCommonPatchAsync(get, set, 'exploreEnabled', {exploreEnabled: enabled})
+		},
+
+		signOutOfExplore: async () => {
+			// Main pushes the signed-out state; nothing to set here.
+			try {
+				const result = await window.appApi.explore.signOut()
+				if (!result.ok) notify.exploreSignOutFailed(result.error)
+			} catch (err) {
+				notify.exploreSignOutFailed(err)
+			}
 		}
 	}
 }

@@ -7,6 +7,7 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 		uiZoom: DEFAULTS.uiZoom,
 		uiTheme: DEFAULTS.uiTheme,
 		aboutDialogOpen: false,
+		exploreAddressHint: null,
 
 		setUiZoom: zoom => {
 			const stepInverse = 1 / ZOOM_STEP
@@ -24,6 +25,8 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 			})
 		},
 
-		setAboutDialogOpen: open => set({aboutDialogOpen: open})
+		setAboutDialogOpen: open => set({aboutDialogOpen: open}),
+
+		setExploreAddressHint: hint => set({exploreAddressHint: hint})
 	}
 }

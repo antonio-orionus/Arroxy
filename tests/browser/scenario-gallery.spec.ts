@@ -170,12 +170,17 @@ test('profile scenarios render their seeded browser-mock states', async ({page})
 	await openScenario(page, 'profiles-bulk')
 	await expect(page.getByTestId('bulk-url-dialog')).toBeVisible()
 
+	// A quick download's failure lands on its row in Downloads, with the guidance.
 	await openWithParams(page, 'probeError=botBlock&probeErrorTarget=quick-download')
-	await expect(page.getByTestId('quick-download-feedback')).toBeVisible()
-	await expect(page.getByTestId('quick-download-retry')).toBeVisible()
-	await expect(page.getByTestId('quick-download-cookies-settings')).toBeVisible()
-	await expect(page.getByTestId('bot-wall-notice')).toContainText('Probe was limited')
-	await expect(page.getByTestId('cookies-error-alert')).toContainText('This site requires sign-in')
+	await page.getByRole('tab', {name: /^downloads/i}).click()
+	const failed = page.locator('[data-testid^="queue-attention-"]').first()
+	await expect(failed.getByTestId('quick-download-feedback')).toBeVisible()
+	await expect(failed.getByTestId('quick-download-retry')).toBeVisible()
+	await expect(failed.getByTestId('quick-download-cookies-settings')).toBeVisible()
+	await expect(failed.getByTestId('bot-wall-notice')).toContainText('Probe was limited')
+	// P2-R51: cookies off with the Explore tab on, so the row leads with Explore.
+	await expect(failed.getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-offer')
+	await expect(failed.getByRole('button', {name: 'Sign in with Explore'})).toBeVisible()
 
 	await openScenario(page, 'profiles-playlist-cap')
 	await expect(page.getByTestId('quick-playlist-cap-dialog')).toBeVisible()
@@ -227,6 +232,15 @@ test('queue scenarios hydrate manager states', async ({page}) => {
 		await expect(page.getByTestId('queue-manager-tab')).toBeVisible()
 		await expect(page.locator('[data-testid^="queue-manager-row-"]').first()).toHaveAttribute('data-status', status)
 	}
+})
+
+test('queue attention scenario shows the rows that need the user and the badge counting them', async ({page}) => {
+	await openScenario(page, 'queue-attention')
+	await page.getByRole('tab', {name: /^downloads/i}).click()
+	await expect(page.getByTestId('downloads-attention-badge')).toHaveText('2')
+	await expect(page.getByTestId('queue-manager-row-qa-preparing')).toHaveAttribute('data-status', 'probing')
+	await expect(page.getByTestId('queue-attention-qa-failed').getByRole('button', {name: 'Sign in in Explore'})).toBeVisible()
+	await expect(page.getByTestId('queue-attention-qa-capped').getByTestId('queue-choice-all')).toBeVisible()
 })
 
 test('playlist loading scaffold scenario is available for visual review', async ({page}) => {

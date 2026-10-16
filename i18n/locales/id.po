@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Melanjutkan"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Tutup"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Memuat…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "Alamat IP Anda tampaknya diblokir. Coba lagi nanti atau gunakan VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Video ini memerlukan akun masuk. Siapkan cookies.txt (Pengaturan → Cookies) dan coba lagi."
+msgid "This video needs a signed-in account."
+msgstr "Video ini memerlukan akun yang sudah masuk."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Pengunduhan gagal. Lihat keluaran mentahnya di bawah."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "URL tersebut tidak didukung oleh yt-dlp. Coba tautan lain dari situs mana pun yang didukung yt-dlp."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Periksa koneksi Anda, lalu coba lagi."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Halaman ini tidak termuat"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Buka Pengaturan"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Periksa proxy di Pengaturan, lalu coba lagi."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore tidak dapat terhubung melalui proxy Anda"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Mencoba kembali"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Baru"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Temukan video, playlist, atau kanal dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke YouTube di sini untuk mengunduh video yang memerlukan akun."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Lanjutkan"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti yt-dlp. Gunakan akun yang rela Anda kehilangan, bukan akun utama."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Masuk dengan akun sekunder"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Jelajahi YouTube langsung di dalam Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Unduhan memakai cookie peramban Anda, bukan login Explore."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Unduhan memakai berkas cookie Anda, bukan login Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Nanti saja"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookie nonaktif, jadi unduhan tidak memakai login Explore Anda."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Pakai login Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan akun."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Tampilkan tab Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Menonaktifkannya juga menghentikan unduhan memakai login Explore Anda."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Keluar dari Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Keluar"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Ini menghapus login YouTube dan data penjelajahan Anda di Explore. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Keluar dari Explore?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Menghapus login YouTube dan data penjelajahan Anda di Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Pemblokir iklan"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Pemblokir iklan: nonaktif — klik untuk mengaktifkan"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Pemblokir iklan: aktif — klik untuk menonaktifkan"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Pemblokir iklan: memulai — klik untuk menonaktifkan"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Pemblokir iklan: tidak tersedia, daftar filternya tidak dapat diunduh — klik untuk menonaktifkan"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Alamat"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "Cari di YouTube atau tempel tautan YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Kontrol peramban Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Kembali"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Unduh · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Maju"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Buka video, playlist, atau kanal untuk mengunduhnya"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Beranda YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Pilih format, subtitle, dan lainnya…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Unduh tautan ini"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore hanya menjelajahi YouTube."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore hanya menjelajahi YouTube. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Muat ulang"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Pencarian itu terlalu panjang."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Bahasa"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Masuk dengan Explore — mencoba ulang 1 tautan"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Masuk dengan Explore — mencoba ulang {{count}} tautan"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Tidak dapat keluar dari Explore. Coba lagi."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Sudah ada di antrean — tidak ada salinan ditambahkan"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Masih memproses tautan sebelumnya"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy masih memulai — coba lagi sebentar lagi"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Beberapa tautan disalin — gunakan “URL massal” di Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Tautan ini perlu pemeriksaan singkat — buka Arroxy dan tempel lagi"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Tautan itu perlu pilihan Anda — lihat Unduhan di Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} video sudah ada di antrean — dilewati"
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} video sudah ada di antrean — dilewati"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Ditambahkan: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Sudah ada di antrean"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video — pilih jumlahnya"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video — pilih jumlahnya"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Tidak dapat menyiapkan {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Tautan itu tidak bisa ditambahkan — coba lagi"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} video dalam daftar ini — tinjau untuk memilih"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} video dalam daftar ini — tinjau untuk memilih"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ video dalam daftar ini — tinjau untuk memilih"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ video dalam daftar ini — tinjau untuk memilih"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Lihat"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Artefak"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} unduhan memerlukan perhatian Anda"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} unduhan memerlukan perhatian Anda"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Batalkan semua unduhan yang aktif dan tertunda"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Semua video"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "{{count}} pertama"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Tinjau"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Kesalahan"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Dipegang"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Perlu pilihan Anda"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Menyematkan metadata…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Keluar dari Explore — masuk lagi"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Mengonversi audio…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…"
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Masuk dengan akun Explore Anda…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Bahkan dengan cookie, YouTube membatasi penyelidikan ini. Coba lagi nanti atau ganti jaringan."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube membatasi permintaan ini. Coba lagi nanti atau ganti jaringan."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi."
@@ -1468,6 +1772,10 @@ msgstr "WAV (tidak terkompresi)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Peramban"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Login Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (yt-dlp mengharapkan Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Masuk di Explore dan Arroxy akan mencobanya lagi."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Masuk di Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video ini mungkin memerlukan akun YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Anda sudah masuk di Explore, tetapi unduhan sedang tidak memakai login itu."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Pakai login Explore saya dan coba lagi"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video ini mungkin memerlukan akun YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Jika video ini memerlukan akun, Arroxy otomatis memakai login Explore Anda. Video mungkin juga tidak tersedia karena alasan lain."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Sudah masuk ke Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Jika video ini memerlukan akun YouTube, masuk di Explore lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Masuk di Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video ini mungkin memerlukan akun YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookie mungkin menjadi penyebabnya"
@@ -1536,6 +1888,10 @@ msgstr "Situs ini memerlukan proses masuk"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Buka pengaturan cookie"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Gunakan file cookie atau peramban sebagai gantinya…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Pilih file untuk menggunakan cookie"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Memakai login Explore hanya saat unduhan membutuhkannya."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Tab Explore nonaktif, jadi unduhan tidak memakai login Explore Anda. Aktifkan di bagian Explore di bawah."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "Dapatkan cookies.txt SECARA LOKAL (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Bagaimana cara mengekspor cookie?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Buka Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Tidak ada berkas yang dipilih"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Disarankan"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Risiko: cookies.txt berisi setiap sesi login untuk browser tersebut — 
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Peramban"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Login Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

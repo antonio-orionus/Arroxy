@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Συνέχεια"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Απόρριψη"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Φόρτωση…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "Η διεύθυνση IP σου φαίνεται να έχει αποκλειστεί από το YouTube. Δοκίμασε αργότερα ή χρησιμοποίησε VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Αυτό το βίντεο απαιτεί συνδεδεμένο λογαριασμό. Ρύθμισε ένα cookies.txt (Ρυθμίσεις → Cookies) και δοκίμασε ξανά."
+msgid "This video needs a signed-in account."
+msgstr "Αυτό το βίντεο απαιτεί λογαριασμό με σύνδεση."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Η λήψη απέτυχε. Δες το raw output παρακάτω."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Αυτό το URL δεν υποστηρίζεται από το yt-dlp. Δοκίμασε διαφορετικό σύνδεσμο από οποιονδήποτε ιστότοπο που υποστηρίζει το yt-dlp."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Η σελίδα δεν φορτώθηκε"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Άνοιγμα ρυθμίσεων"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Έλεγξε το proxy στις Ρυθμίσεις και δοκίμασε ξανά."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Το Explore δεν μπορεί να συνδεθεί μέσω του proxy σου"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Επανάληψη"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Νέο"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Βρες ένα βίντεο, μια λίστα αναπαραγωγής ή ένα κανάλι και κάνε λήψη από εδώ — χωρίς αντιγραφή συνδέσμων. Συνδέσου στο YouTube εδώ για να κατεβάζεις βίντεο που απαιτούν λογαριασμό."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Συνέχεια"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς που χρησιμοποιούνται με εργαλεία λήψης όπως το yt-dlp. Χρησιμοποίησε έναν λογαριασμό που αντέχεις να χάσεις, όχι τον κύριο."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Συνδέσου με δευτερεύοντα λογαριασμό"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Περιήγηση στο YouTube μέσα στο Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Οι λήψεις χρησιμοποιούν τα cookies του προγράμματος περιήγησής σου, όχι τη σύνδεσή σου στο Explore."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Οι λήψεις χρησιμοποιούν το αρχείο cookies σου, όχι τη σύνδεσή σου στο Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Όχι τώρα"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Τα cookies είναι απενεργοποιημένα, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στο Explore."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Χρήση σύνδεσης Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Περιηγήσου στο YouTube μέσα στο Arroxy και συνδέσου για βίντεο που απαιτούν λογαριασμό."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Εμφάνιση της καρτέλας Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Η απενεργοποίηση σταματά επίσης τις λήψεις από το να χρησιμοποιούν τη σύνδεσή σου στο Explore."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Αποσύνδεση από το Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Αποσύνδεση"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στο Explore. Οι λήψεις που απαιτούν λογαριασμό θα αποτυγχάνουν μέχρι να συνδεθείς ξανά."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Αποσύνδεση από το Explore;"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στο Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "Το YouTube μπορεί να αντιδράσει στη φραγή διαφημίσεων για συνδεδεμένους λογαριασμούς."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Φραγή διαφημίσεων"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Φραγή διαφημίσεων: ανενεργή — κάνε κλικ για ενεργοποίηση"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Φραγή διαφημίσεων: ενεργή — κάνε κλικ για απενεργοποίηση"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Φραγή διαφημίσεων: εκκίνηση — κάνε κλικ για απενεργοποίηση"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Φραγή διαφημίσεων: μη διαθέσιμη, δεν ήταν δυνατή η λήψη των λιστών φίλτρων της — κάνε κλικ για απενεργοποίηση"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Διεύθυνση"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "Αναζήτησε στο YouTube ή επικόλλησε έναν σύνδεσμο YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Στοιχεία ελέγχου του προγράμματος περιήγησης Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Πίσω"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Λήψη · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Μπροστά"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Άνοιξε ένα βίντεο, μια λίστα αναπαραγωγής ή ένα κανάλι για λήψη"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Αρχική του YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Επίλεξε μορφή, υπότιτλους και άλλα…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Λήψη αυτού του συνδέσμου"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Το Explore περιηγείται μόνο στο YouTube."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Το Explore περιηγείται μόνο στο YouTube. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Ανανέωση"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Η αναζήτηση είναι πολύ μεγάλη."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Γλώσσα"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για 1 σύνδεσμο"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για {{count}} συνδέσμους"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Δεν ήταν δυνατή η αποσύνδεση από το Explore. Δοκίμασε ξανά."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Αυτός ο φάκελος είναι πολύ βαθύς για το σύστημά σας. Η λήψη μπορεί να αποτύχει παρ' όλα αυτά — επιλέξτε συντομότερο φάκελο."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Είναι ήδη στην ουρά — δεν προστέθηκε αντίγραφο"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Επεξεργάζεται ακόμα ο προηγούμενος σύνδεσμος"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Το Arroxy ξεκινά ακόμα — δοκίμασε ξανά σε λίγο"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Ολοκλήρωσε τη ρύθμιση των cookies στο Arroxy και δοκίμασε ξανά"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Αντιγράφηκαν πολλαπλοί σύνδεσμοι — χρησιμοποιήστε τα «Μαζικά URL» στο Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Αυτός ο σύνδεσμος χρειάζεται έναν γρήγορο έλεγχο — ανοίξτε το Arroxy και επικολλήστε τον ξανά"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Αυτός ο σύνδεσμος χρειάζεται την επιλογή σου — δες τις Λήψεις στο Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} βίντεο είναι ήδη στην ουρά — παρα�
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} βίντεο είναι ήδη στην ουρά — παραλείφθηκαν"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Προστέθηκε: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Είναι ήδη στην ουρά"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ βίντεο — επίλεξε πόσα"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ βίντεο — επίλεξε πόσα"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Δεν ήταν δυνατή η προετοιμασία του {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Δεν ήταν δυνατή η προσθήκη του συνδέσμου — δοκίμασε ξανά"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Προβολή"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Αρχείο"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} λήψη χρειάζεται την προσοχή σου"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} λήψεις χρειάζονται την προσοχή σου"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Ακύρωση όλων των ενεργών και εκκρεμών λήψεων"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Όλα τα βίντεο"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Περισσότερα από {{count}} βίντεο σε αυτή τη λίστα αναπαραγωγής. Κατέβασε όλα, τα πρώτα {{count}} ή διάλεξε μέσω επισκόπησης."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Περισσότερα από {{count}} βίντεο σε αυτή τη λίστα αναπαραγωγής. Κατέβασε όλα, τα πρώτα {{count}} ή διάλεξε μέσω επισκόπησης."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Τα πρώτα {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Επισκόπηση"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Αυτός ο σύνδεσμος είναι λίστα με {{count}} βίντεο. Κάνε επισκόπηση για να διαλέξεις τι θα κατεβάσεις."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Αυτός ο σύνδεσμος είναι λίστα με {{count}} βίντεο. Κάνε επισκόπηση για να διαλέξεις τι θα κατεβάσεις."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Σφάλμα"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Σε κράτηση"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Χρειάζεται την επιλογή σου"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Ενσωμάτωση μεταδεδομένων…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Αποσυνδέθηκες από το Explore — συνδέσου ξανά"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Μετατροπή ήχου…"
@@ -1042,6 +1338,10 @@ msgstr "Το SponsorBlock δεν είναι διαθέσιμο, επανάληψ
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "Η σύνδεση κόλλησε, νέα προσπάθεια ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Σύνδεση με τον λογαριασμό σου στο Explore…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Ακόμα και με cookies, το YouTube περιόρισε αυτή την ανίχνευση. Δοκίμασε αργότερα ή άλλαξε δίκτυο."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "Το YouTube περιόρισε αυτό το αίτημα. Δοκίμασε αργότερα ή άλλαξε δίκτυο."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Η λίστα μορφών μπορεί να είναι ελλιπής. Ρύθμισε cookies στις ρυθμίσεις για προχωρημένους, ή άλλαξε δίκτυο και δοκίμασε ξανά."
@@ -1468,6 +1772,10 @@ msgstr "WAV (αμετάβλητο)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Πρόγραμμα περιήγησης"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Σύνδεση Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Το αρχείο cookies μπορεί να είναι κενό, ληγμένο ή σε λάθος μορφή (το yt-dlp αναμένει Netscape cookies.txt). Δοκίμασε να εξάγεις ξανά τα cookies, να επιλέξεις διαφορετικό αρχείο, να μεταβείς σε λειτουργία προγράμματος περιήγησης ή να απενεργοποιήσεις τα cookies."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Συνδέσου μέσω Explore και το Arroxy θα το ξαναδοκιμάσει."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Σύνδεση μέσω Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Έχεις συνδεθεί στο Explore, αλλά οι λήψεις δεν χρησιμοποιούν αυτή τη σύνδεση αυτή τη στιγμή."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Χρήση σύνδεσης Explore και επανάληψη"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό, το Arroxy χρησιμοποιεί αυτόματα τη σύνδεσή σου στο Explore. Μπορεί να μην είναι διαθέσιμο για άλλο λόγο."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Έχεις συνδεθεί στο Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό YouTube, συνδέσου στο Explore και δοκίμασε ξανά. Το Arroxy χρησιμοποιεί αυτή τη σύνδεση μόνο όταν τη χρειάζεται μια λήψη."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Σύνδεση στο Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Τα cookies μπορεί να φταίνε"
@@ -1536,6 +1888,10 @@ msgstr "Αυτός ο ιστότοπος απαιτεί σύνδεση"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Άνοιγμα ρυθμίσεων cookies"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Χρήση αρχείου cookies ή προγράμματος περιήγησης…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Επέλεξε αρχείο για χρήση cookies"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Χρησιμοποιεί τη σύνδεσή σου στο Explore μόνο όταν τη χρειάζεται μια λήψη."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Η καρτέλα Explore είναι απενεργοποιημένη, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στο Explore. Ενεργοποίησέ την στην ενότητα Explore παρακάτω."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "Λήψη cookies.txt ΤΟΠΙΚΑ (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Πώς εξάγω τα cookies;"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Άνοιγμα του Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Δεν έχει επιλεγεί αρχείο"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Προτεινόμενο"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Κίνδυνος: το cookies.txt περιέχει κάθε συνδε�
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Πρόγραμμα περιήγησης"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Σύνδεση Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

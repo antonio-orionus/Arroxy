@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react'
-import {AlertTriangle, ExternalLink} from 'lucide-react'
+import {AlertTriangle, Compass, ExternalLink, RefreshCw, ShieldCheck} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
-import type {CookiesGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
+import type {ConfiguredCookiesMode, CookiesGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 import {Alert, AlertDescription} from '@renderer/components/ui/alert.js'
 import {Button} from '@renderer/components/ui/button.js'
 import {cn} from '@renderer/lib/utils.js'
@@ -43,13 +43,90 @@ function OpenCookiesSettingsButton({onOpenSettings, density, testId}: {onOpenSet
 interface CookiesGuidanceAlertProps {
 	guidance: CookiesGuidance
 	onOpenSettings: () => void
+	onSignInWithExplore: () => void
+	onSignInWithExploreThenRetry: () => void
+	onRetryWithExploreSignIn: () => void
+	// The offer's second way when a cookies file or browser is already set up.
+	onEnableCookiesAndRetry: () => void
 	density?: GuidanceDensity
 	openSettingsTestId?: string
 }
 
-export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full', openSettingsTestId = 'cookies-error-open-settings-cta'}: CookiesGuidanceAlertProps): ReactNode | null {
+const CONFIGURED_COPY = {
+	file: {heading: 'wizard.formats.cookiesError.heading', mode: 'wizard.formats.cookiesError.currentModeFile', explanation: 'wizard.formats.cookiesError.explanationFile'},
+	browser: {heading: 'wizard.formats.cookiesError.heading', mode: 'wizard.formats.cookiesError.currentModeBrowser', explanation: 'wizard.formats.cookiesError.explanationBrowser'},
+	explore: {heading: 'wizard.formats.cookiesError.exploreSignedIn.heading', mode: 'wizard.formats.cookiesError.currentModeExplore', explanation: 'wizard.formats.cookiesError.exploreSignedIn.body'}
+} as const satisfies Record<ConfiguredCookiesMode, {heading: string; mode: string; explanation: string}>
+
+const EXPLORE_OFFER_COPY = {
+	'explore-offer': {heading: 'wizard.formats.cookiesError.exploreOffer.heading', body: 'wizard.formats.cookiesError.exploreOffer.body', cta: 'wizard.formats.cookiesError.exploreOffer.cta'},
+	'explore-reuse': {heading: 'wizard.formats.cookiesError.exploreReuse.heading', body: 'wizard.formats.cookiesError.exploreReuse.body', cta: 'wizard.formats.cookiesError.exploreReuse.cta'}
+} as const
+
+export function CookiesGuidanceAlert({guidance, onOpenSettings, onSignInWithExplore, onSignInWithExploreThenRetry, onRetryWithExploreSignIn, onEnableCookiesAndRetry, density = 'full', openSettingsTestId = 'cookies-error-open-settings-cta'}: CookiesGuidanceAlertProps): ReactNode | null {
 	const {t} = useTranslation()
 	if (guidance.variant === 'hidden') return null
+	if (guidance.variant === 'explore-offer' || guidance.variant === 'explore-reuse') {
+		// P2-R51: Explore first; a cookies file or browser stays the second way.
+		const copy = EXPLORE_OFFER_COPY[guidance.variant]
+		const offer = guidance.variant === 'explore-offer'
+		const size = density === 'compact' ? 'xs' : 'sm'
+		return (
+			<CookiesAlertShell
+				mode="off"
+				variant={guidance.variant}
+				density={density}
+				body={
+					<>
+						<span className="font-semibold">{t(copy.heading)}</span>
+						<span className="leading-snug">{t(copy.body)}</span>
+					</>
+				}
+				footer={
+					<div className="flex flex-wrap gap-2">
+						<Button type="button" size={size} variant="default" onClick={offer ? onSignInWithExploreThenRetry : onRetryWithExploreSignIn} data-testid={offer ? 'cookies-error-explore-offer-cta' : 'cookies-error-explore-reuse-cta'}>
+							{offer ? <Compass data-icon="inline-start" /> : <RefreshCw data-icon="inline-start" />}
+							{t(copy.cta)}
+						</Button>
+						{guidance.secondary === 'enable-cookies' ? (
+							<Button type="button" size={size} variant="outline" onClick={onEnableCookiesAndRetry} data-testid="cookies-error-enable-cookies-retry">
+								<ShieldCheck data-icon="inline-start" />
+								{t('wizard.formats.botWall.enableRetryCta')}
+							</Button>
+						) : (
+							<Button type="button" size={size} variant="outline" onClick={onOpenSettings} data-testid={openSettingsTestId}>
+								<ExternalLink data-icon="inline-start" />
+								{t('wizard.formats.cookiesError.otherCookiesCta')}
+							</Button>
+						)}
+					</div>
+				}
+			/>
+		)
+	}
+	if (guidance.variant === 'explore-sign-in') {
+		return (
+			<CookiesAlertShell
+				mode="explore"
+				variant="explore-sign-in"
+				density={density}
+				body={
+					<>
+						<span className="font-semibold">{t('wizard.formats.cookiesError.exploreSignIn.heading')}</span>
+						<span className="leading-snug">{t('wizard.formats.cookiesError.exploreSignIn.body')}</span>
+					</>
+				}
+				footer={
+					<div className="flex flex-wrap gap-2">
+						<Button type="button" size={density === 'compact' ? 'xs' : 'sm'} variant="outline" onClick={onSignInWithExplore} data-testid="cookies-error-explore-sign-in-cta">
+							<Compass data-icon="inline-start" />
+							{t('wizard.formats.cookiesError.exploreSignIn.cta')}
+						</Button>
+					</div>
+				}
+			/>
+		)
+	}
 	if (guidance.variant === 'needs-cookies') {
 		return (
 			<CookiesAlertShell
@@ -102,8 +179,7 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full'
 		)
 	}
 
-	const modeLabel = guidance.mode === 'file' ? t('wizard.formats.cookiesError.currentModeFile') : t('wizard.formats.cookiesError.currentModeBrowser')
-	const explanation = guidance.mode === 'file' ? t('wizard.formats.cookiesError.explanationFile') : t('wizard.formats.cookiesError.explanationBrowser')
+	const copy = CONFIGURED_COPY[guidance.mode]
 
 	return (
 		<CookiesAlertShell
@@ -111,11 +187,11 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, density = 'full'
 			density={density}
 			body={
 				<>
-					<span className="font-semibold">{t('wizard.formats.cookiesError.heading')}</span>
+					<span className="font-semibold">{t(copy.heading)}</span>
 					<span className="text-caption text-muted-foreground">
-						{t('wizard.formats.cookiesError.currentModeLabel')}: <span className="font-medium">{modeLabel}</span>
+						{t('wizard.formats.cookiesError.currentModeLabel')}: <span className="font-medium">{t(copy.mode)}</span>
 					</span>
-					<span className="leading-snug">{explanation}</span>
+					<span className="leading-snug">{t(copy.explanation)}</span>
 				</>
 			}
 			footer={<OpenCookiesSettingsButton onOpenSettings={onOpenSettings} density={density} testId={openSettingsTestId} />}

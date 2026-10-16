@@ -54,6 +54,10 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 			]
 		case 'queue-large':
 			return buildLargeQueueItems()
+		case 'queue-quick-download':
+			return buildQuickDownloadItems()
+		case 'queue-attention':
+			return buildAttentionItems()
 		default:
 			return []
 	}
@@ -77,6 +81,63 @@ function buildLargeQueueItems(): QueueItem[] {
 			...(status === QUEUE_STATUS.pausedActive ? {lastJobId: `large-job-${n}`, tempDir: `/tmp/arroxy-large-${n}`} : {})
 		})
 	})
+}
+
+// A quick download's placeholder rows, one per state the Downloads tab resolves.
+export const QUICK_DOWNLOAD_SCENARIO_ROWS = {probing: 'qd-probing', failed: 'qd-failed', capped: 'qd-capped', review: 'qd-review'} as const
+
+function buildQuickDownloadItems(): QueueItem[] {
+	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+	const placeholder = {thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved}
+	return [
+		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.probing, url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', title: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', status: QUEUE_STATUS.probing, probeMode: 'video', addedAt: '2026-05-31T12:03:00.000Z'}),
+		queueItem({
+			...placeholder,
+			id: QUICK_DOWNLOAD_SCENARIO_ROWS.failed,
+			url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+			title: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+			status: QUEUE_STATUS.error,
+			probeMode: 'video',
+			error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"},
+			addedAt: '2026-05-31T12:02:00.000Z'
+		}),
+		queueItem({
+			...placeholder,
+			id: QUICK_DOWNLOAD_SCENARIO_ROWS.capped,
+			url: 'https://www.youtube.com/playlist?list=PLmock_capped',
+			title: 'Mock Browser Playlist - every lecture of the semester',
+			status: QUEUE_STATUS.needsChoice,
+			probeMode: 'playlist',
+			choice: {kind: 'playlist-cap', loaded: 100},
+			addedAt: '2026-05-31T12:01:00.000Z'
+		}),
+		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.review, url: 'https://media.example/course/42', title: 'Course 42 - all lessons', status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'playlist-review', count: 12}, addedAt: '2026-05-31T12:00:00.000Z'})
+	]
+}
+
+export const ATTENTION_SCENARIO_ROWS = {preparing: 'qa-preparing', failed: 'qa-failed', capped: 'qa-capped'} as const
+// Neutral IDs: the README screenshot shows these links as the placeholder rows' titles.
+export const ATTENTION_SCENARIO_FAILED_URL = 'https://www.youtube.com/watch?v=nighttrain3'
+
+// Newest first, as Downloads sorts by default: preparing, failed, waiting for a choice.
+function buildAttentionItems(): QueueItem[] {
+	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+	const placeholder = {thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved}
+	const preparingUrl = 'https://www.youtube.com/watch?v=reefdoc002'
+	return [
+		queueItem({...placeholder, id: ATTENTION_SCENARIO_ROWS.preparing, url: preparingUrl, title: preparingUrl, status: QUEUE_STATUS.probing, probeMode: 'video', addedAt: '2026-05-31T12:02:00.000Z'}),
+		queueItem({
+			...placeholder,
+			id: ATTENTION_SCENARIO_ROWS.failed,
+			url: ATTENTION_SCENARIO_FAILED_URL,
+			title: ATTENTION_SCENARIO_FAILED_URL,
+			status: QUEUE_STATUS.error,
+			probeMode: 'video',
+			error: {kind: 'loginRequired', raw: "Private video. Sign in if you've been granted access to this video"},
+			addedAt: '2026-05-31T12:01:00.000Z'
+		}),
+		queueItem({...placeholder, id: ATTENTION_SCENARIO_ROWS.capped, url: 'https://www.youtube.com/playlist?list=PLsample_lectures', title: 'Every lecture of the semester', status: QUEUE_STATUS.needsChoice, probeMode: 'playlist', choice: {kind: 'playlist-cap', loaded: 100}, addedAt: '2026-05-31T12:00:00.000Z'})
+	]
 }
 
 function buildMultiQueueItems(): QueueItem[] {

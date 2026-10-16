@@ -128,7 +128,7 @@ test('hotkey acknowledges every attempt through exactly one channel', async () =
 			await pressHotkey(app)
 			await expectToastCount(page, 'Already in the queue', 1)
 			expect(await readSinkLines(sink)).toEqual([])
-			await expect(page.locator('[data-sonner-toast]', {hasText: 'Still working on the previous link'})).toHaveCount(0)
+			await expect(page.locator('[data-sonner-toast]', {hasText: 'Arroxy is still starting'})).toHaveCount(0)
 
 			// 3. Filesystem oracle: the acknowledged download really completed.
 			// Hidden-window outcomes (OS channel, dead link, multi hint, empty
@@ -185,7 +185,7 @@ test('hotkey acknowledges every hidden-window attempt through the OS channel onl
 			// delayed probe can finish — completed items legitimately re-queue.
 			await pressHotkey(app)
 			await expectSinkLine(sink, 'Already in the queue')
-			expect((await readSinkLines(sink)).some(line => line.includes('Still working on the previous link'))).toBe(false)
+			expect((await readSinkLines(sink)).some(line => line.includes('Arroxy is still starting'))).toBe(false)
 
 			// Dead link: queued placeholder, then submission-failed, not silence.
 			await writeClipboard(app, 'https://www.youtube.com/watch?v=ARXDEAD0000')

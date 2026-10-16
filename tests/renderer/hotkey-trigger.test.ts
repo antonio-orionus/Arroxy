@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vite-plus/test'
-import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbe, outcomeForProbeError} from '@renderer/store/wizard/hotkeyTrigger.js'
-import type {ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
+import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbeError} from '@renderer/store/wizard/hotkeyTrigger.js'
+import type {ProbeError, QueueItem} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {fail, ok} from '@shared/result.js'
@@ -32,8 +32,17 @@ function queueItem(overrides: Partial<QueueItem> = {}): QueueItem {
 	}
 }
 
-function run(trigger: Parameters<typeof intakeHotkeyTrigger>[0], overrides: {preparing?: boolean; queue?: QueueItem[]} = {}) {
-	return intakeHotkeyTrigger(trigger, {quickDownloadStatus: overrides.preparing ? 'preparing' : 'idle', queue: overrides.queue ?? []})
+function run(trigger: Parameters<typeof intakeHotkeyTrigger>[0]) {
+	return intakeHotkeyTrigger(trigger)
+}
+
+// A press placed through the real pipeline, against a given live queue.
+async function press(url: string, queue: QueueItem[]) {
+	const api = buildMockAppApi()
+	Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
+	useAppStore.setState({settings: defaultAppSettings('/tmp'), queue, wizardOutputDir: '/tmp'})
+	await handleHotkeyTrigger({kind: 'single', url}, useAppStore.getState)
+	return api
 }
 
 describe('intakeHotkeyTrigger', () => {
@@ -49,10 +58,6 @@ describe('intakeHotkeyTrigger', () => {
 	it('runs an obvious collection URL with playlist probe mode', () => {
 		const intake = run({kind: 'single', url: 'https://www.youtube.com/playlist?list=PL123'})
 		expect(intake).toMatchObject({kind: 'run', playlistMode: 'playlist'})
-	})
-
-	it('is busy while a quick download is preparing', () => {
-		expect(run({kind: 'single', url: URL}, {preparing: true})).toEqual({kind: 'outcome', outcome: 'busy'})
 	})
 
 	it('reports invalid clipboard for empty and multiple payloads', () => {
@@ -74,63 +79,66 @@ describe('intakeHotkeyTrigger', () => {
 	it('runs a radio URL as a plain video', () => {
 		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=RDone&start_radio=1'})).toMatchObject({kind: 'run', playlistMode: 'video'})
 	})
+})
 
-	it('dedupes against live queue items by cleaned URL', () => {
-		const queue = [queueItem({status: 'running'}), queueItem({id: 'q2', status: 'pending', url: 'https://other.example/x'})]
-		expect(run({kind: 'single', url: URL}, {queue})).toEqual({kind: 'outcome', outcome: 'already-queued'})
+// Dedupe lives in the shared pipeline; the hotkey hears it as already-queued.
+describe('a press on a link already live in the queue', () => {
+	it('dedupes against live queue items by cleaned URL', async () => {
+		const api = await press(URL, [queueItem({status: 'running'}), queueItem({id: 'q2', status: 'pending', url: 'https://other.example/x'})])
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'already-queued', url: URL})
+		expect(api.queue.cmd.add).not.toHaveBeenCalled()
 	})
 
-	it('treats a probing placeholder as live: same URL is already-queued, not busy', () => {
-		const queue = [queueItem({status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]
-		expect(run({kind: 'single', url: URL}, {queue})).toEqual({kind: 'outcome', outcome: 'already-queued'})
+	it('treats a probing placeholder as live: same URL is already-queued, not busy', async () => {
+		const api = await press(URL, [queueItem({status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})])
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'already-queued', url: URL})
 	})
 
-	it('lets a different URL run while another hotkey probe is in flight', () => {
-		const queue = [queueItem({status: 'probing', url: 'https://other.example/in-flight', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]
-		expect(run({kind: 'single', url: URL}, {queue})).toMatchObject({kind: 'run', url: URL})
+	it('lets a different URL run while another hotkey probe is in flight', async () => {
+		const api = await press(URL, [queueItem({status: 'probing', url: 'https://other.example/in-flight', job: {kind: 'unresolved', extractor: '', extractorKey: ''}})])
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: URL})
 	})
 
-	it('ignores youtu.be/watch URL-shape differences only via cleanUrl, not canonical IDs (known v1 limitation)', () => {
-		const queue = [queueItem({status: 'paused-active', url: 'https://youtu.be/one'})]
-		expect(run({kind: 'single', url: 'https://www.youtube.com/watch?v=one'}, {queue})).toMatchObject({kind: 'run'})
+	it('ignores youtu.be/watch URL-shape differences only via cleanUrl, not canonical IDs (known v1 limitation)', async () => {
+		const api = await press('https://www.youtube.com/watch?v=one', [queueItem({status: 'paused-active', url: 'https://youtu.be/one'})])
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: 'https://www.youtube.com/watch?v=one'})
 	})
 
-	it('does not dedupe against done, error, or cancelled items', () => {
-		const statuses = ['done', 'error', 'cancelled'] as const
-		for (const status of statuses) {
-			expect(run({kind: 'single', url: URL}, {queue: [queueItem({status})]})).toMatchObject({kind: 'run'})
+	it('does not dedupe against done, error, or cancelled items', async () => {
+		for (const status of ['done', 'error', 'cancelled'] as const) {
+			const api = await press(URL, [queueItem({status, ...(status === 'error' ? {error: {kind: 'network', raw: 'x'}} : {})})])
+			expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: URL})
 		}
 	})
 })
 
 describe('probe outcome mapping', () => {
-	it('maps cookies-config probe failures to needs-review', () => {
+	it('maps cookies-config probe failures to their own outcome', () => {
 		const error: ProbeError = {kind: 'other', code: 'cookies_config', message: 'needs cookies'}
-		expect(outcomeForProbeError(error)).toBe('needs-review')
+		expect(outcomeForProbeError(error)).toBe('cookies-setup')
 	})
 
-	it('maps other probe failures to submission-failed', () => {
+	it('maps other probe failures, and failures to prepare the rows, to submission-failed', () => {
 		const error: ProbeError = {kind: 'other', code: 'invalid_url', message: 'bad url'}
 		expect(outcomeForProbeError(error)).toBe('submission-failed')
-	})
-
-	it('sends non-obvious playlist probes to review instead of silently queueing', () => {
-		const playlist = {kind: 'playlist', entries: []} as unknown as ProbeResult
-		expect(outcomeForProbe(playlist)).toBe('needs-review')
-	})
-
-	it('keeps obvious collections out of the noninteractive queue path too', () => {
-		const playlist = {kind: 'playlist', entries: []} as unknown as ProbeResult
-		expect(outcomeForProbe(playlist)).toBe('needs-review')
+		expect(outcomeForProbeError(null)).toBe('submission-failed')
 	})
 })
 
 describe('handleHotkeyTrigger', () => {
+	it('is busy before the renderer has its settings', async () => {
+		const api = buildMockAppApi()
+		Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
+		useAppStore.setState({settings: null})
+		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'busy', url: URL})
+	})
+
 	it('does not write quick-download or wizard state when the probe-stage swap fails', async () => {
 		const api = buildMockAppApi()
 		api.queue.cmd.add = vi.fn(async (items: QueueItem[]) => {
 			useAppStore.setState({queue: items})
-			return ok({ids: items.map(item => item.id)})
+			return ok({ids: items.map(item => item.id), skippedAlreadyQueued: 0})
 		})
 		api.queue.cmd.replaceProbing = vi.fn().mockResolvedValue(fail({code: 'validation', message: 'placeholder cancelled', recoverable: true}))
 		Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
@@ -138,7 +146,7 @@ describe('handleHotkeyTrigger', () => {
 
 		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
 
-		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false})
-		expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce()
+		await vi.waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce())
+		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardUrl: ''})
 	})
 })

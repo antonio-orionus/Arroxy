@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "startOver": "Jalqabbii irra deebi'i"},
+	"common": {"back": "Duubatti", "cancel": "Haqi", "continue": "Itti fufi", "loading": "Fe'amaa jira…", "retry": "Irra deebi'i", "dismiss": "Dhiisi", "startOver": "Jalqabbii irra deebi'i"},
 	"app": {
 		"feedback": "Yaada",
 		"logs": "Galmee",
@@ -250,6 +250,11 @@
 				"sourceOff": "Dhaabbi",
 				"sourceFile": "Faayilii",
 				"sourceBrowser": "Browser",
+				"sourceExplore": "Seensa Explore",
+				"recommended": "Kan gorfamu",
+				"exploreDescription": "Buufannoon yoo isa barbaadu qofa seensa Explore fayyadama.",
+				"exploreDisabled": "Tab Explore cufameera, kanaaf buufannoon seensa Explore hin fayyadamu. Gadii Explore keessatti banii.",
+				"openExplore": "Explore bani",
 				"toggleDescription": "Viidiyoowwan umuriin-daangeffame, miseensota-qofaaf, fi dhuunfaa ta'e ni gargaara.",
 				"risk": "Balaa: cookies.txt seensa browser sanaa hunda qaba — dhuunfaa ta'ee eegi.",
 				"fileLabel": "Faayilii Cookies",
@@ -394,6 +399,7 @@
 				"bodyUnconfigured": "Tarreessi foormaatii guutuu ta'uu dhiisuu danda'a. Qindaa'inoota ammayyaa keessatti cookies qopheessi, ykn netwoorkii jijjiiri achiin irra deebi'i.",
 				"bodyDisabled": "Cookies qindaa'eera garuu dhaabbe jira. Tarreessa guutuu argachuuf cookies dandeessii achiin irra deebi'i, ykn netwoorkii jijjiiri achiin irra deebi'i.",
 				"bodyEnabled": "Cookies waliin illee, YouTube qorannoo kana daangeessee jira. Booda irra deebi'i ykn netwoorkii jijjiiri.",
+				"bodyExplore": "YouTube gaaffii kana daangeesse. Booda irra deebi'i ykn netwoorkii jijjiiri.",
 				"retryCta": "Irra deebi'i",
 				"enableRetryCta": "Cookies dandeessii achiin irra deebi'i"
 			},
@@ -402,9 +408,15 @@
 				"currentModeLabel": "Madda Cookies",
 				"currentModeFile": "Faayilii",
 				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Seensa Explore",
 				"explanationFile": "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta'uu danda'a (yt-dlp Netscape cookies.txt eega). Cookies irra deebi'ii ergi, faayilii biraa filadhu, Browser haala jijjiiri, ykn cookies dhaabbi.",
 				"explanationBrowser": "Cookies browser irraa kallattiin dubbifama. Browser yoo amma hojjechaa jiraate, kuusaa cookies isaa cufamuu danda'a (Chromium-gosa). Browser YouTube keessattis seenuu qaba. Browser cufadhu, browser biraa jijjiiri, Faayilii haala jijjiiri, ykn cookies dhaabbi.",
 				"openSettingsCta": "Qindaa'inoota cookies bani",
+				"exploreSignIn": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaadu ni danda'a", "body": "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Explore keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.", "cta": "Explore keessatti seeni"},
+				"exploreSignedIn": {"heading": "Explore keessa seentee jirta", "body": "Viidiyoon kun akkaawuntii kan barbaadu yoo ta'e, Arroxy seensa Explore ofumaan fayyadama. Sababa biraatiin hin argamu ta'uu danda'a."},
+				"exploreOffer": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Explore keessatti seeni, Arroxyn irra deebi'ee yaala.", "cta": "Explore keessatti seeni"},
+				"exploreReuse": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Explore keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu.", "cta": "Seensa Explore koo fayyadamii irra deebi'ii yaali"},
+				"otherCookiesCta": "Faayilii cookies ykn browser fayyadami…",
 				"needsCookies": {"heading": "Gareewwan kun seensa gaafata", "body": "yt-dlp viidiyoo kana mirkaneessuu malee argachuu hin danda'u. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi."},
 				"dpapi": {
 					"heading": "Cookies Chrome'ii farsimaa Windows'n cufame",
@@ -543,6 +555,17 @@
 	"queue": {
 		"header": "Buufata",
 		"tabLabel": "Buufata",
+		"attentionBadge_one": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
+		"attentionBadge_other": "Buufannaan {{count}} xiyyeeffannoo kee barbaada",
+		"choice": {
+			"cappedBody_one": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
+			"cappedBody_other": "Viidiyoo {{count}} ol playlist kana keessa jira. Hunda buusi, jalqaba {{count}} buusi, ykn sakatta'iinsaan fili.",
+			"reviewBody_one": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i.",
+			"reviewBody_other": "Hidhaan kun tarree viidiyoo {{count}} dha. Maal buusuu akka filattu sakatta'i.",
+			"all": "Viidiyoowwan hundaa",
+			"first": "Jalqaba {{count}}",
+			"review": "Sakatta'i"
+		},
 		"tabTip": "Buusawwan amma caancala Buufata keessa jiru — adeemsa hordofuuf yeroo barbaaddetti bani.",
 		"empty": "Buusawwan tarreeffaman asitti ni mulʼatu",
 		"filtersLabel": "Calleeffamtoota haala tarree",
@@ -588,6 +611,7 @@
 			"remove": "Balleessi",
 			"pullNow": "Amma buusi — tarree darbii",
 			"statusProbing": "Ibsa fidaa jira",
+			"statusNeedsChoice": "Filannoo kee barbaada",
 			"statusPending": "Eegaa jira",
 			"statusRunning": "Buusaa jira",
 			"statusHeld": "Qabame",
@@ -637,13 +661,18 @@
 		"outputNotWritable": "{{dir}} keessatti olkaa'uun hin danda'amu — Arroxy achitti barreessuuf hayyama hin qabu",
 		"fetchingSponsorBlock": "SponsorBlock waliin qunnamtii godhamaa jira…",
 		"retryingSponsorBlock": "SponsorBlock hin argamne, irra deebi'ii yaalamuutti jira ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Herrega Explore keetiin seenaa jira…",
+		"exploreSignedOut": "Explore irraa baatee jirta — irra deebi'ii seeni"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Qindaa'ina kee olkaa'uun hin danda'amne.",
 		"warmupFailed": "Qophiin hin xumuramne. Hanga xumuramutti buufannoowwan tokko tokko kufuu danda'u.",
 		"shellActionFailed": "Sana banuun hin danda'amne.",
 		"folderSelectFailed": "Filannoo galee banuun hin danda'amne.",
+		"exploreSignInRetrying_one": "Explore'n seenameera — hidhaa 1 irra deebi'ee yaalaa jira",
+		"exploreSignInRetrying_other": "Explore'n seenameera — hidhaawwan {{count}} irra deebi'ee yaalaa jira",
+		"exploreSignOutFailed": "Explore irraa ba'uun hin danda'amne. Irra deebi'ii yaali.",
 		"playlistFolderRejected": "Galeen sun tarree taphannaa kanaaf itti fayyadamuun hin danda'amu.",
 		"filenameFolderTooDeep": "Galeen kun sirna keetiif baay'ee gadi fagoo dha. Buufannaan ammas kufuu danda'a — galee gabaabaa filadhu.",
 		"filenameTemplateCannotFit": "Maqaan viidiyoo kanaa kutaa fakkeenya keetii hunda keessa hin galu, kanaaf maqaan durtii fayyadameera.",
@@ -652,11 +681,25 @@
 			"alreadyQueued": "Kan dura baay'ina keessa jira — kopii hin dabalame",
 			"invalidClipboard": "Buufama keessa hidhanni hin jiru — duratti tokko galchee",
 			"multipleUrls": "Hidhoota hedduu galcheeffamanii — Arroxy keessaa «URL hedduu» fayyadami",
-			"needsReview": "Hidhanni kun ilaalchi gahaabaa barbaada — Arroxy baneetti irra deebi'aa maxxansi",
-			"busy": "Hidha duraan yeroo ammaa hojjechaa jirra",
+			"needsReview": "Hidhaan kun filannoo kee barbaada — Arroxy keessatti Buufata ilaali",
+			"cookiesSetup": "Arroxy keessatti qindaa'ina cookies xumuri, ergasii irra deebi'ii yaali",
+			"busy": "Arroxy ammallee eegala jira — yeroo muraasa booda irra deebi'ii yaali",
 			"submissionFailed": "Hidhanni kun dabaluu hin dandeenye — Arroxy keessaa irra deebi'i yaali"
 		},
-		"queue": {"skippedAlreadyQueued_one": "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera", "skippedAlreadyQueued_other": "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"}
+		"queue": {"skippedAlreadyQueued_one": "Viidiyoon {{count}} duraan tarree keessa jira — dhiifameera", "skippedAlreadyQueued_other": "Viidiyoonni {{count}} duraan tarree keessa jiru — dhiifamaniiru"},
+		"quickDownload": {
+			"added": "Dabalameera: {{title}}",
+			"alreadyQueued": "Duraanuu tarree keessa jira",
+			"failed": "{{title}} qopheessuun hin danda'amne",
+			"notAdded": "Hidhaan sun dabaluu hin dandeenye — irra deebi'ii yaali",
+			"chooseHowMany_one": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
+			"chooseHowMany_other": "Viidiyoo {{count}}+ — meeqa akka ta'u filadhu",
+			"review_one": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
+			"review_other": "Viidiyoon {{count}} tarree kana keessa jira — filachuuf sakatta'i",
+			"reviewCapped_one": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
+			"reviewCapped_other": "Viidiyoon {{count}}+ tarree kana keessa jira — filachuuf sakatta'i",
+			"view": "Ilaali"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -675,7 +718,7 @@
 			"parse": "Deebii saayitii irraa dhufe parse gochuun hin danda'amne. Extractor yt-dlp jijjiiramuu mala. Arroxy yeroo banamu yt-dlp ofumaan haaressa — daqiiqaa muraasa booda fooyya'iinsi yeroo ba'u irra deebi'i.",
 			"network": "Dogoggora network. Walqunnamtii kee mirkaneessi ergasii irra deebi'i.",
 			"drmProtected": "Viidiyoon kun DRM-iin eegama. yt-dlp DRM haquu hin danda'u, kanaafuu faayilichi buufachuu hin danda'amu.",
-			"loginRequired": "Viidiyoon kun seensa gaafata. cookies.txt qopheessi (Qindaa'inoota → Cookies) achiin irra deebi'i.",
+			"loginRequired": "Viidiyoon kun akkaawuntii seene barbaada.",
 			"unknown": "Buufannaan kufe. Bu’aa raaw’aa armaan gadii ilaali."
 		}
 	},
@@ -758,6 +801,67 @@
 			"empty-segment": "/ dabalataa haqi — galmeen hundi maqaa barbaada.",
 			"invalid-segment": "Maqaan galmee kun hin hayyamamu. . fi .. akkasumas maqaawwan qabaman akka CON irraa fagaadhu.",
 			"resolution-in-dir": "{resolution} galmee maqaa baasuu hin danda'u — qulqullinni hanga buufamni jalqabutti hin beekamu."
+		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Haaraa",
+		"notice": {
+			"title": "YouTube Arroxy keessatti ilaali",
+			"body": "Viidiyoo, tarree taphachiisaa ykn channel barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as YouTube seeni.",
+			"riskTitle": "Akkaawuntii lammaffaatiin seeni",
+			"riskBody": "YouTube akkaawuntiiwwan meeshaalee buufannoo akka yt-dlp waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin.",
+			"continue": "Itti fufi"
+		},
+		"nudge": {
+			"off": "Cookies cufamaniiru, kanaaf buufannoon seensa Explore hin fayyadamu.",
+			"file": "Buufannoon faayilii cookies keetii fayyadama, seensa Explore hin fayyadamu.",
+			"browser": "Buufannoon cookies browser keetii fayyadama, seensa Explore hin fayyadamu.",
+			"useExplore": "Seensa Explore fayyadami",
+			"notNow": "Amma miti"
+		},
+		"toolbar": {
+			"aria": "To'annoo browser Explore",
+			"back": "Duubatti",
+			"forward": "Fuuldura",
+			"reload": "Fe'adhu",
+			"home": "Mana YouTube",
+			"addressAria": "Teessoo",
+			"addressPlaceholder": "YouTube barbaadi ykn hidhaa YouTube maxxansi",
+			"offsiteHint": "Explore YouTube qofa ilaala.",
+			"offsiteDownload": "Hidhaa kana buusi",
+			"offsiteHintHost": "Explore YouTube qofa ilaala. {{host}}",
+			"searchTooLong": "Barbaacha sun dheeraa dha.",
+			"downloadWithProfile": "Buusi · {{profileName}}",
+			"interactiveHint": "Formaata, barruu jalaa fi kkf filadhu…",
+			"grabUnavailable": "Buufachuuf viidiyoo, tarree taphachiisaa ykn channel bani",
+			"adBlock": {
+				"aria": "Dhorkaa beeksisaa",
+				"off": "Dhorkaa beeksisaa: cufaa — banuuf tuqi",
+				"starting": "Dhorkaa beeksisaa: eegalaa jira — cufuuf tuqi",
+				"on": "Dhorkaa beeksisaa: banaa — cufuuf tuqi",
+				"unavailable": "Dhorkaa beeksisaa: hin argamu, tarreewwan filtaraa buufachuun hin danda'amne — cufuuf tuqi",
+				"accountNote": "YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
+			"showTab": "Tab Explore agarsiisi",
+			"showTabDescription": "Cufuun isaa buufannoon seensa Explore akka hin fayyadamne ni godha.",
+			"signOut": "Explore irraa ba'i",
+			"signOutDescription": "Seensa YouTube fi daataa daawwannaa Explore keessaa qulqulleessa.",
+			"signOutConfirmTitle": "Explore irraa ba'uu?",
+			"signOutConfirmBody": "Kun seensa YouTube fi daataa daawwannaa Explore keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa.",
+			"signOutConfirm": "Ba'i"
+		},
+		"error": {
+			"proxyTitle": "Explore proksii keetiin walitti hin hidhamu",
+			"proxyBody": "Proksii Qindaa'inoota keessatti ilaali, itti aansuun irra deebi'ii yaali.",
+			"loadTitle": "Fuulli kun hin fe'amne",
+			"loadBody": "Walitti hidhamiinsa kee ilaali, itti aansuun irra deebi'ii yaali.",
+			"retry": "Irra deebi'i",
+			"openSettings": "Qindaa'inoota bani"
 		}
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"common": {"back": "返回", "cancel": "取消", "continue": "繼續", "loading": "載入中", "retry": "重試", "startOver": "重新開始"},
+	"common": {"back": "返回", "cancel": "取消", "continue": "繼續", "loading": "載入中", "retry": "重試", "dismiss": "關閉", "startOver": "重新開始"},
 	"app": {
 		"feedback": "意見回饋",
 		"logs": "記錄",
@@ -229,6 +229,11 @@
 				"sourceOff": "關閉",
 				"sourceFile": "檔案",
 				"sourceBrowser": "瀏覽器",
+				"sourceExplore": "Explore 登入",
+				"recommended": "建議",
+				"exploreDescription": "僅在下載需要時才使用你的 Explore 登入。",
+				"exploreDisabled": "Explore 分頁已關閉，因此下載不會使用你的 Explore 登入。請在下方的 Explore 中開啟。",
+				"openExplore": "開啟 Explore",
 				"toggleDescription": "有助於下載年齡限制、會員專屬及帳號私人影片。",
 				"risk": "風險：cookies.txt 包含該瀏覽器所有已登入的工作階段——請妥善保密。",
 				"fileLabel": "Cookie 檔案",
@@ -360,6 +365,7 @@
 				"bodyUnconfigured": "格式清單可能不完整。請在進階設定中設定 Cookie，或切換網路後重試。",
 				"bodyDisabled": "Cookie 已設定但目前關閉。請啟用後重試以取得完整清單，或切換網路後重試。",
 				"bodyEnabled": "即使使用 Cookie，YouTube 仍限制了這次探查。請稍後再試或切換網路。",
+				"bodyExplore": "YouTube 限制了此要求。請稍後再試，或切換網路。",
 				"retryCta": "重試",
 				"enableRetryCta": "啟用 Cookie 並重試"
 			},
@@ -368,9 +374,15 @@
 				"currentModeLabel": "Cookie 來源",
 				"currentModeFile": "檔案",
 				"currentModeBrowser": "瀏覽器",
+				"currentModeExplore": "Explore 登入",
 				"explanationFile": "Cookie 檔案可能是空的、已過期，或格式錯誤（yt-dlp 需要 Netscape cookies.txt 格式）。請嘗試重新匯出 Cookie、選擇其他檔案、切換至「瀏覽器」模式，或關閉 Cookie。",
 				"explanationBrowser": "Cookie 會直接從瀏覽器讀取。如果瀏覽器正在執行，其 Cookie 資料庫可能已被鎖定（Chromium 系列）。瀏覽器也必須已登入 YouTube。請嘗試關閉瀏覽器、切換瀏覽器、改用「檔案」模式，或關閉 Cookie。",
 				"openSettingsCta": "開啟 Cookie 設定",
+				"exploreSignIn": {"heading": "此影片可能需要 YouTube 帳戶", "body": "如果此影片需要 YouTube 帳戶，請在 Explore 中登入後再試一次。Arroxy 僅在下載需要時才使用該登入。", "cta": "在 Explore 中登入"},
+				"exploreSignedIn": {"heading": "已登入 Explore", "body": "如果此影片需要帳戶，Arroxy 會自動使用你的 Explore 登入。也可能因其他原因而無法使用。"},
+				"exploreOffer": {"heading": "此影片可能需要 YouTube 帳號", "body": "使用 Explore 登入後，Arroxy 會重試。", "cta": "使用 Explore 登入"},
+				"exploreReuse": {"heading": "此影片可能需要 YouTube 帳號", "body": "你已在 Explore 中登入，但下載目前沒有使用該登入。", "cta": "使用我的 Explore 登入並重試"},
+				"otherCookiesCta": "改用 Cookie 檔案或瀏覽器…",
 				"needsCookies": {"heading": "此網站需要登入", "body": "yt-dlp 無法在未驗證身分的情況下存取此影片。請在進階設定中設定 Cookie——指向已登入的瀏覽器，或匯入 cookies.txt 檔案。"},
 				"dpapi": {
 					"heading": "Chrome Cookie 遭 Windows 加密封鎖",
@@ -493,6 +505,17 @@
 	"queue": {
 		"header": "下載",
 		"tabLabel": "下載",
+		"attentionBadge_one": "{{count}} 個下載需要你處理",
+		"attentionBadge_other": "{{count}} 個下載需要你處理",
+		"choice": {
+			"cappedBody_one": "此播放清單中的影片超過 {{count}} 部。可以全部下載、只下載前 {{count}} 部，或在檢視中自行挑選。",
+			"cappedBody_other": "此播放清單中的影片超過 {{count}} 部。可以全部下載、只下載前 {{count}} 部，或在檢視中自行挑選。",
+			"reviewBody_one": "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。",
+			"reviewBody_other": "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。",
+			"all": "所有影片",
+			"first": "前 {{count}} 部",
+			"review": "檢視"
+		},
 		"tabTip": "下載項目現在位於「下載」分頁——你可以隨時開啟以追蹤進度。",
 		"empty": "排入佇列的下載會顯示在這裡",
 		"filtersLabel": "佇列狀態篩選器",
@@ -538,6 +561,7 @@
 			"remove": "移除",
 			"pullNow": "立即下載——略過佇列",
 			"statusProbing": "正在擷取詳細資料",
+			"statusNeedsChoice": "需要你來選擇",
 			"statusPending": "等待中",
 			"statusRunning": "正在下載",
 			"statusHeld": "保留",
@@ -587,13 +611,18 @@
 		"outputNotWritable": "無法儲存到 {{dir}}——Arroxy 沒有在該處寫入的權限",
 		"fetchingSponsorBlock": "正在聯絡 SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock 無法使用，正在重試（{{attempt}}/{{total}}）…",
-		"retryingTransfer": "連線停滯，正在重試（{{attempt}}/{{total}}）…"
+		"retryingTransfer": "連線停滯，正在重試（{{attempt}}/{{total}}）…",
+		"signingInWithExplore": "正在使用你的 Explore 帳戶登入…",
+		"exploreSignedOut": "已登出 Explore — 請重新登入"
 	},
 	"notifications": {
 		"settingsSaveFailed": "無法儲存設定。",
 		"warmupFailed": "設定尚未完成。在完成前，部分下載可能會失敗。",
 		"shellActionFailed": "無法開啟。",
 		"folderSelectFailed": "無法開啟資料夾選擇器。",
+		"exploreSignInRetrying_one": "已使用 Explore 登入 — 正在重試 1 個連結",
+		"exploreSignInRetrying_other": "已使用 Explore 登入 — 正在重試 {{count}} 個連結",
+		"exploreSignOutFailed": "無法登出 Explore，請再試一次。",
 		"playlistFolderRejected": "此資料夾無法用於這個播放清單。",
 		"filenameFolderTooDeep": "此資料夾的路徑層級對你的系統而言過深。下載仍可能失敗——請選擇路徑較短的資料夾。",
 		"filenameTemplateCannotFit": "此影片名稱無法放入範本的每個部分，因此改用預設名稱。",
@@ -602,11 +631,25 @@
 			"alreadyQueued": "已在佇列中——未新增副本",
 			"invalidClipboard": "剪貼簿中沒有連結——請先複製一個連結",
 			"multipleUrls": "已複製多個連結——請使用 Arroxy 的「批次 URL」",
-			"needsReview": "此連結需要快速檢查——請開啟 Arroxy 並再次貼上",
-			"busy": "仍在處理上一個連結",
+			"needsReview": "此連結需要你來選擇 — 請在 Arroxy 中查看「下載」",
+			"cookiesSetup": "請先在 Arroxy 中完成 Cookie 設定，然後再試",
+			"busy": "Arroxy 仍在啟動 — 請稍後再試",
 			"submissionFailed": "無法新增該連結——請在 Arroxy 中重試"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} 部影片已在佇列中——已略過", "skippedAlreadyQueued_other": "{{count}} 部影片已在佇列中——已略過"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} 部影片已在佇列中——已略過", "skippedAlreadyQueued_other": "{{count}} 部影片已在佇列中——已略過"},
+		"quickDownload": {
+			"added": "已加入：{{title}}",
+			"alreadyQueued": "已在佇列中",
+			"failed": "無法準備 {{title}}",
+			"notAdded": "無法加入該連結 — 請重試",
+			"chooseHowMany_one": "{{count}}+ 部影片 — 選擇數量",
+			"chooseHowMany_other": "{{count}}+ 部影片 — 選擇數量",
+			"review_one": "此清單中有 {{count}} 部影片 — 檢視後選擇",
+			"review_other": "此清單中有 {{count}} 部影片 — 檢視後選擇",
+			"reviewCapped_one": "此清單中有 {{count}}+ 部影片 — 檢視後選擇",
+			"reviewCapped_other": "此清單中有 {{count}}+ 部影片 — 檢視後選擇",
+			"view": "檢視"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -625,7 +668,7 @@
 			"parse": "無法解析網站的回應。yt-dlp 的擷取器可能已跟不上網站變更。Arroxy 啟動時會自動更新 yt-dlp——請在修正發布幾分鐘後重試。",
 			"network": "網路錯誤。請檢查連線後重試。",
 			"drmProtected": "此影片受 DRM 保護。yt-dlp 無法移除 DRM，因此無法下載檔案。",
-			"loginRequired": "此影片需要已登入的帳號。請設定 cookies.txt（設定 → Cookie）後重試。",
+			"loginRequired": "此影片需要已登入的帳號。",
 			"unknown": "下載失敗。請查看下方的原始輸出。"
 		}
 	},
@@ -695,5 +738,46 @@
 			"invalid-segment": "此資料夾名稱不被允許。請避免使用 .、.. 以及 CON 等保留名稱。",
 			"resolution-in-dir": "{resolution} 不能用來命名資料夾——下載開始前無法得知畫質。"
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "新",
+		"notice": {
+			"title": "在 Arroxy 中直接瀏覽 YouTube",
+			"body": "尋找影片、播放清單或頻道，不必複製連結，直接在這裡下載。在這裡登入 YouTube，即可下載需要帳戶的影片。",
+			"riskTitle": "請使用備用帳戶登入",
+			"riskBody": "YouTube 可能會標記、有時甚至封鎖用於 yt-dlp 等下載工具的帳戶。請使用可以失去的帳戶，而不是你的主要帳戶。",
+			"continue": "繼續"
+		},
+		"nudge": {"off": "Cookie 已關閉，因此下載不會使用你的 Explore 登入。", "file": "下載使用的是你的 Cookie 檔案，而不是你的 Explore 登入。", "browser": "下載使用的是瀏覽器的 Cookie，而不是你的 Explore 登入。", "useExplore": "使用 Explore 登入", "notNow": "暫時不要"},
+		"toolbar": {
+			"aria": "目前頁面",
+			"back": "上一頁",
+			"forward": "下一頁",
+			"reload": "重新載入",
+			"home": "YouTube 首頁",
+			"addressAria": "位址",
+			"addressPlaceholder": "搜尋 YouTube 或貼上 YouTube 連結",
+			"offsiteHint": "Explore 只瀏覽 YouTube。",
+			"offsiteDownload": "下載此連結",
+			"offsiteHintHost": "Explore 只瀏覽 YouTube。{{host}}",
+			"searchTooLong": "搜尋內容太長。",
+			"downloadWithProfile": "下載 · {{profileName}}",
+			"interactiveHint": "選擇格式、字幕等…",
+			"grabUnavailable": "開啟影片、播放清單或頻道即可下載",
+			"adBlock": {"aria": "廣告攔截", "off": "廣告攔截：已關閉 — 點一下開啟", "starting": "廣告攔截：啟動中 — 點一下關閉", "on": "廣告攔截：已開啟 — 點一下關閉", "unavailable": "廣告攔截：無法使用，無法下載其過濾清單 — 點一下關閉", "accountNote": "對於已登入的帳號，YouTube 可能會抵制廣告攔截。"}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "在 Arroxy 中瀏覽 YouTube，並登入以存取需要帳戶的影片。",
+			"showTab": "顯示 Explore 分頁",
+			"showTabDescription": "關閉後，下載也將不再使用你的 Explore 登入。",
+			"signOut": "登出 Explore",
+			"signOutDescription": "清除 Explore 中的 YouTube 登入資訊和瀏覽資料。",
+			"signOutConfirmTitle": "要登出 Explore 嗎？",
+			"signOutConfirmBody": "這會清除 Explore 中的 YouTube 登入資訊和瀏覽資料。需要帳戶的下載將會失敗，直到你重新登入。",
+			"signOutConfirm": "登出"
+		},
+		"error": {"proxyTitle": "Explore 無法透過你的代理伺服器連線", "proxyBody": "請在設定中檢查代理伺服器，然後再試一次。", "loadTitle": "此頁面無法載入", "loadBody": "請檢查網路連線，然後再試一次。", "retry": "重試", "openSettings": "開啟設定"}
 	}
 }

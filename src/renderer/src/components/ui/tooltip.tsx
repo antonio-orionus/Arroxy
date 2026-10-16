@@ -15,10 +15,20 @@ function TooltipTrigger({...props}: TooltipPrimitive.Trigger.Props): ReactNode {
 	return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
 }
 
-function TooltipContent({className, side = 'top', sideOffset = 4, align = 'center', alignOffset = 0, children, ...props}: TooltipPrimitive.Popup.Props & Pick<TooltipPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>): ReactNode {
+function TooltipContent({
+	className,
+	side = 'top',
+	sideOffset = 4,
+	align = 'center',
+	alignOffset = 0,
+	collisionAvoidance,
+	collisionPadding,
+	children,
+	...props
+}: TooltipPrimitive.Popup.Props & Pick<TooltipPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'collisionAvoidance' | 'collisionPadding' | 'side' | 'sideOffset'>): ReactNode {
 	return (
 		<TooltipPrimitive.Portal>
-			<TooltipPrimitive.Positioner align={align} alignOffset={alignOffset} side={side} sideOffset={sideOffset} className="isolate z-50">
+			<TooltipPrimitive.Positioner align={align} alignOffset={alignOffset} collisionAvoidance={collisionAvoidance} collisionPadding={collisionPadding} side={side} sideOffset={sideOffset} className="isolate z-50">
 				<TooltipPrimitive.Popup
 					data-slot="tooltip-content"
 					className={cn(

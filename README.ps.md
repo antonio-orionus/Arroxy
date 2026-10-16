@@ -23,14 +23,15 @@
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 ---
 
 ## منځپانګه
 
+- [ځانګړتیاوې](#features)
 - [نصب او لومړی پیل](#install)
   - [Windows لومړی پیل](#windows-first-launch)
   - [macOS لومړی پیل](#macos-first-launch)
@@ -38,12 +39,96 @@
   - [Linux لومړی پیل](#linux-first-launch)
   - [خپل ډاونلوډ تصدیق کړئ (SHA256)](#verify)
 - [ولې Arroxy](#why)
-- [ځانګړتیاوې](#features)
 - [محرمیت](#privacy)
 - [مکرر پوښتنې](#faq)
 - [د پرمختیا لار](#roadmap)
 - [Arroxy ملاتړ وکړئ](#support)
 - [د جوړولو ټیکنالوژي](#tech)
+
+---
+
+## <a id="features"></a>ځانګړتیاوې
+
+### Explore: په Arroxy کې YouTube وګورئ
+
+- **Explore ټب** — د Arroxy په دننه کې YouTube وګورئ او هغه څه چې مومئ پرته له لینکونو کاپي کولو ډاونلوډ یې کړئ. **ډاونلوډ · *ستاسو پروفایل*** هغه ویډیو، playlist یا چینل په قطار کې اچوي چې تاسو یې ګورئ؛ د هغې تر څنګ تیر پروفایلونه بدلوي، او جادویي لرګی د فارمټونو، ساب ټایټلونو او نورو د ټاکلو لپاره ګام په ګام ډاونلوډ پرانیزي
+- **د پتې پټه** — د YouTube د لټون لپاره ټایپ کړئ یا د YouTube لینک پیسټ کړئ. Explore یوازې YouTube ګوري، نو د بل سایټ لینک هلته نه خلاصېږي، خو تاسو یې په یو click ډاونلوډ کولی شئ
+- **هغه ډاونلوډونه چې اکاونټ ته اړتیا لري** — په Explore کې یو ځل sign in وکړئ او Arroxy کولی شي هغه شخصي او یوازې د غړو ویډیوګانې ډاونلوډ کړي چې ستاسو اکاونټ یې لیدلی شي، د عمر محدودیت لرونکې ویډیوګانې که اکاونټ د عمر لپاره تایید شوی وي، او ستاسو Watch Later او Liked لیستونه. Arroxy لا هم له sign in پرته ډاونلوډ کوي او ستاسو Explore sign in یوازې هغه وخت کاروي چې ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي. کله چې YouTube وغواړي تاسو تایید کړئ چې bot نه یاست، Arroxy ستاسو Explore sign in هم هڅوي
+- **دوهم اکاونټ وکاروئ** — د Explore لومړی سکرین دلیل بیانوي: د اکاونټ سره ډاونلوډ کول د هغه اکاونټ د محدودېدو یو څه خطر لري. کله چې غواړئ sign in هېر شي، له Settings څخه له Explore sign out وکړئ
+- **د اعلان بلاکر** — Explore په خپلو پاڼو کې اعلانونه او ټریکرونه بلاک کوي؛ ډاونلوډونه نه اغېزمنېږي. په ډیفالټ فعال دی، د Explore په toolbar کې په shield یو click یې بندوي، او د Google په sign in پاڼو هیڅکله عمل نه کوي. YouTube کېدای شي د sign in شویو اکاونټونو لپاره د اعلان بلاکرونو پروړاندې مقاومت وکړي
+
+### کیفیت او بڼه
+
+- تر **4K UHD (2160p)** پورې، 1440p، 1080p، 720p، 480p، 360p
+- **لوړ فریم نرخ** لکه چې دی ساتل کیږي — 60 fps، 120 fps، HDR
+- **آډیو** — یوازې آډیو MP3، M4A/AAC، Opus یا WAV ته صادر کړئ. په تعاملي ډاونلوډونو کې، که موجود وي، د سرچینې اصلي surround/Dolby ټرېکونه (AC-3، E-AC-3، 5.1، DRC) وټاکئ، یا نړیوال تلواله **surround / Dolby ته لومړیتوب ورکړئ** وټاکئ
+- ګړندي مخکینۍ: *ترټولو ښه کیفیت* · *متوازن* · *کوچنی فایل*
+
+### محرمیت او کنټرول
+
+- ۱۰۰٪ ځایني پروسس کول — ډاونلوډونه مستقیما له YouTube څخه ستاسو ډیسک ته ځي
+- هیڅ ننوتل، هیڅ کوکیز، هیڅ د ګوګل اکاونټ لینک نه دی
+- فایلونه مستقیما هغه فولډر ته خوندي کیږي چې تاسو انتخاب کوئ
+
+### کاري جریان
+
+- **عمومي د ډاونلوډ هاټکي** — په هره اپلیکیشن کې یو لینک کاپي کړئ او `Ctrl+Shift+D` (په macOS کې `Cmd+Shift+D`) کېکاږئ؛ Arroxy یې پرته له دې چې کړکۍ پرانیزي ستاسو فعال پروفایل سره په کتار کې ورزیاتوي او یوه خبرتیا یې تاییدوي. په ډیفالټ ډول فعال، بیا ټاکل کېدونکی
+- **انعطاف منونکي د پیل حالتونه** — لارښود شوی واحد ډاونلوډ، د playlist/channel ټاکونکی، د bulk URL پیسټ، د خوندي شوو defaultونو سره Quick Download، یا له Explore څخه کتل او ډاونلوډ وټاکئ
+- **مرکزي ډاونلوډ قطار** — هر single، playlist، bulk، یا quick کار د پرمختګ، pause، resume، cancel، retry، او priority کنټرول لپاره یوه ځای ته راځي
+- **د کلپبورډ لیدل** — یو YouTube لینک کاپي کړئ او Arroxy د اپ بیا تمرکز کولو پر مهال URL پخپله ډکوي (د پرمختللو تنظیماتو کې بدل کړئ)
+- **د URL اتوماتیک پاکول** — د تعقیب پیرامیترونه (`si`، `pp`، `utm_*`، `fbclid`، `gclid`) لرې کوي او `youtube.com/redirect` لینکونه پرانیستي
+- **د ټرې حالت** — د کړکۍ بندول ډاونلوډونه شالید کې روان ساتي
+- **30 ژبې** — د سیسټم ژبه په اتومات ډول پېژني، هر وخت بدلول کېدای شي
+- **د پلی‌لېست همغږي** — پلی‌لېست له ځایي فولډر سره بیا ګوري تر څو مخکې ډاونلوډ شوې ویډیوګانې پرېږدي؛ د `.m3u` پلی‌لېست فایل جوړوي چې د هرې ویډیو په ډاونلوډ سره تازه کېږي
+- **د سرعت او pacing کنټرولونه** — د ډاونلوډ bandwidth محدود کړئ، وټاکئ چې د ویډیو څو برخې په یو وخت کې ډاونلوډ شي، او د requests تر منځ ځنډونه د presets (*بند · متوازن · محتاط · دودیز*) سره زیات کړئ
+- **د دوتنې نوم بېلګې** — د `{title}`، `{uploader}`، `{id}`، `{date}`، `{resolution}` او `{playlist_index}` په مرسته خپل ښکته کول د خپلې خوښې سره سم ونوموئ، ټولیز یا د هر ښکته کولو پروفایل لپاره
+- **یو ځای ډاونلوډونه او اتوماتیک بیا هڅه** — وټاکئ چې د کتار څو ډاونلوډونه په یو وخت کې روان وي، او هغه ډاونلوډ چې د شبکې یا سرور ستونزه ورسره پیښه شوې وي، Arroxy د هرې هڅې دمخه اوږد انتظار سره بیا هڅه وکړي
+- **د پلی‌لېست د هر توکي لپاره پروفایل** — د ټول لیست لپاره یوه ترتیب پرځای، د پلی‌لېست هر ویډیو ته خپل ډاونلوډ پروفایل وټاکئ، ترڅو یو پړاو کې ځینې په بشپړ کیفیت خوندي شي او پاتې یې د MP3 په توګه واخیستل شي
+- **Quick Download په شاليد کې کار کوي** — لینک سمدستي په ډاونلوډونو کې ښکاري او هلته چمتو کېږي، د **View** سره یوه یادښت دا تاییدوي، او د URL ساحه د راتلونکي لینک لپاره پاکېږي. کله چې پخواني چمتو کېږي، لکه څومره چې غواړئ پیل یې کړئ
+- **ډاونلوډونه درته وايي څه ستاسو سره اړتیا لري** — که Arroxy یو لینک ونه لوستلی شي، د هغه کتار دلیل وايي او حل وړاندې کوي: بیا هڅه، کوکیز فعالول، یا په Explore کې sign in. کله چې کوکیز بند وي، **له Explore سره sign in** وروسته له دې چې تاسو sign in وکړئ، دا بیا درته هڅوي. هغه playlist چې ستاسو د بارولو حد څخه اوږد وي په خپل کتار کې انتظار کوي چې تاسو ټول، لومړني، یا بیاکتنه وټاکئ. د ډاونلوډونو ټب هغه کتارونه شمېري چې ستاسو انتظار باسي
+
+### ساب ټایټلونه او د پروسس کولو وروسته
+
+- **ساب ټایټلونه** د SRT، VTT، یا ASS کې — لاسي یا اتوماتیک جوړ شوي، د هر شته ژبې کې
+- د ویډیو تر څنګ خوندي کړئ، `.mkv` کې ځای پر ځای کړئ، یا د `Subtitles/` فرعي فولډر کې سازمان ورکړئ
+- **یوازې د ژباړلیکونو ډله** — د URL لیست پیسټ کړئ یا پلې لیست خلاص کړئ، ژباړلیکونه غوره کړئ، او د هرې ویډیو لپاره یوازې د ژباړلیک فایلونه ترلاسه کړئ
+- **SponsorBlock** — سپانسران، شمولې، وتلو، ځان-سپارښتنې پریږدئ یا د فصل نښه ورکړئ
+- **ځای پر ځای شوي میټاډاټا** — سرلیک، د اپلوډ نیټه، چینل، توضیح، تصویر، او د فصل نښانونه فایل ته لیکل کیږي
+
+### YouTube + ۲۰۰۰ سایټونه
+
+- **YouTube، بشپړ** — Videos، Shorts، Channels، Playlists، YouTube Music، او Podcasts د لومړي ټولګي سرچینو په توګه اداره کیږي
+- **۲۰۰۰+ نور سایټونه** د yt-dlp له لارې — Vimeo، Twitch، Twitter/X، TikTok، SoundCloud، Bandcamp، Bilibili، BBC iPlayer، archive.org، او ډیر نور
+- **یوازې اوډیو او ساب ټایټلونه** د هر ملاتړ شوي سایټ پر مهال کار کوي، نه یوازې YouTube
+- که یو سایټ بدل شي، yt-dlp اونیزه فکسونه لیږدوي او Arroxy د پیلولو پر مهال بائنري اوتومات تازه کوي
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>په Arroxy کې YouTube وګورئ او اوسنۍ پاڼه د خپل فعال پروفایل سره ډاونلوډ کړئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د Explore لومړی سکرین</b><br/>Explore ته یوه ګړندۍ کتنه، او ولې دوهم اکاونټ خوندي sign in دی</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ډاونلوډونه درته وايي څه ستاسو سره اړتیا لري</b><br/>لینکونه په شاليد کې چمتو کېږي؛ ناکام لینک حل وړاندې کوي، اوږد playlist ستاسو انتخاب ته انتظار باسي</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>څو ژبني غږ مزي</b><br/>هغه دقیق غږ ژبه وټاکئ چې ویډیو یې لري</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby غږ</b><br/>د 5.1 او Dolby مزي پیژندل کیږي او ساتل کیږي</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>د ډله ییز URL حالت</b><br/>لیست پیسټ کړئ، په اتومات ډول نقلونه لرې کړئ، ټول یې په یوه وخت کې کتار کړئ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -223,80 +308,11 @@ sha256sum Arroxy-linux-x64.AppImage
 | وړیا، هیڅ پریمیم کچه نشته |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | خلاصه سرچینه |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | یوازې ځایي پروسس کول |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| هیڅ ننوتل یا د کوکیز صادرول نشته |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | هیڅ د کارولو سقف نشته |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | کراس-پلیټفارم ډیسکټاپ اپلیکیشن |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | ساب ټایټلونه + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک ځایني فایل ترلاسه کړئ. هیڅ اکاونټونه، هیڅ اضافي پلورنه، هیڅ د معلوماتو راټولونه.
-
----
-
-## <a id="features"></a>ځانګړتیاوې
-
-### کیفیت او بڼه
-
-- تر **4K UHD (2160p)** پورې، 1440p، 1080p، 720p، 480p، 360p
-- **لوړ فریم نرخ** لکه چې دی ساتل کیږي — 60 fps، 120 fps، HDR
-- **آډیو** — یوازې آډیو MP3، M4A/AAC، Opus یا WAV ته صادر کړئ. په تعاملي ډاونلوډونو کې، که موجود وي، د سرچینې اصلي surround/Dolby ټرېکونه (AC-3، E-AC-3، 5.1، DRC) وټاکئ، یا نړیوال تلواله **surround / Dolby ته لومړیتوب ورکړئ** وټاکئ
-- ګړندي مخکینۍ: *ترټولو ښه کیفیت* · *متوازن* · *کوچنی فایل*
-
-### محرمیت او کنټرول
-
-- ۱۰۰٪ ځایني پروسس کول — ډاونلوډونه مستقیما له YouTube څخه ستاسو ډیسک ته ځي
-- هیڅ ننوتل، هیڅ کوکیز، هیڅ د ګوګل اکاونټ لینک نه دی
-- فایلونه مستقیما هغه فولډر ته خوندي کیږي چې تاسو انتخاب کوئ
-
-### کاري جریان
-
-- **عمومي د ډاونلوډ هاټکي** — په هره اپلیکیشن کې یو لینک کاپي کړئ او `Ctrl+Shift+D` (په macOS کې `Cmd+Shift+D`) کېکاږئ؛ Arroxy یې پرته له دې چې کړکۍ پرانیزي ستاسو فعال پروفایل سره په کتار کې ورزیاتوي او یوه خبرتیا یې تاییدوي. په ډیفالټ ډول فعال، بیا ټاکل کېدونکی
-- **انعطاف منونکي د پیل حالتونه** — لارښود شوی واحد ډاونلوډ، د playlist/channel ټاکونکی، د bulk URL پیسټ، یا د خوندي شوو defaultونو سره Quick Download وټاکئ
-- **مرکزي ډاونلوډ قطار** — هر single، playlist، bulk، یا quick کار د پرمختګ، pause، resume، cancel، retry، او priority کنټرول لپاره یوه ځای ته راځي
-- **د کلپبورډ لیدل** — یو YouTube لینک کاپي کړئ او Arroxy د اپ بیا تمرکز کولو پر مهال URL پخپله ډکوي (د پرمختللو تنظیماتو کې بدل کړئ)
-- **د URL اتوماتیک پاکول** — د تعقیب پیرامیترونه (`si`، `pp`، `utm_*`، `fbclid`، `gclid`) لرې کوي او `youtube.com/redirect` لینکونه پرانیستي
-- **د ټرې حالت** — د کړکۍ بندول ډاونلوډونه شالید کې روان ساتي
-- **30 ژبې** — د سیسټم ژبه په اتومات ډول پېژني، هر وخت بدلول کېدای شي
-- **د پلی‌لېست همغږي** — پلی‌لېست له ځایي فولډر سره بیا ګوري تر څو مخکې ډاونلوډ شوې ویډیوګانې پرېږدي؛ د `.m3u` پلی‌لېست فایل جوړوي چې د هرې ویډیو په ډاونلوډ سره تازه کېږي
-- **د سرعت او pacing کنټرولونه** — د ډاونلوډ bandwidth محدود کړئ، وټاکئ چې د ویډیو څو برخې په یو وخت کې ډاونلوډ شي، او د requests تر منځ ځنډونه د presets (*بند · متوازن · محتاط · دودیز*) سره زیات کړئ
-- **د دوتنې نوم بېلګې** — د `{title}`، `{uploader}`، `{id}`، `{date}`، `{resolution}` او `{playlist_index}` په مرسته خپل ښکته کول د خپلې خوښې سره سم ونوموئ، ټولیز یا د هر ښکته کولو پروفایل لپاره
-- **یو ځای ډاونلوډونه او اتوماتیک بیا هڅه** — وټاکئ چې د کتار څو ډاونلوډونه په یو وخت کې روان وي، او هغه ډاونلوډ چې د شبکې یا سرور ستونزه ورسره پیښه شوې وي، Arroxy د هرې هڅې دمخه اوږد انتظار سره بیا هڅه وکړي
-- **د پلی‌لېست د هر توکي لپاره پروفایل** — د ټول لیست لپاره یوه ترتیب پرځای، د پلی‌لېست هر ویډیو ته خپل ډاونلوډ پروفایل وټاکئ، ترڅو یو پړاو کې ځینې په بشپړ کیفیت خوندي شي او پاتې یې د MP3 په توګه واخیستل شي
-
-### ساب ټایټلونه او د پروسس کولو وروسته
-
-- **ساب ټایټلونه** د SRT، VTT، یا ASS کې — لاسي یا اتوماتیک جوړ شوي، د هر شته ژبې کې
-- د ویډیو تر څنګ خوندي کړئ، `.mkv` کې ځای پر ځای کړئ، یا د `Subtitles/` فرعي فولډر کې سازمان ورکړئ
-- **یوازې د ژباړلیکونو ډله** — د URL لیست پیسټ کړئ یا پلې لیست خلاص کړئ، ژباړلیکونه غوره کړئ، او د هرې ویډیو لپاره یوازې د ژباړلیک فایلونه ترلاسه کړئ
-- **SponsorBlock** — سپانسران، شمولې، وتلو، ځان-سپارښتنې پریږدئ یا د فصل نښه ورکړئ
-- **ځای پر ځای شوي میټاډاټا** — سرلیک، د اپلوډ نیټه، چینل، توضیح، تصویر، او د فصل نښانونه فایل ته لیکل کیږي
-
-### YouTube + ۲۰۰۰ سایټونه
-
-- **YouTube، بشپړ** — Videos، Shorts، Channels، Playlists، YouTube Music، او Podcasts د لومړي ټولګي سرچینو په توګه اداره کیږي
-- **۲۰۰۰+ نور سایټونه** د yt-dlp له لارې — Vimeo، Twitch، Twitter/X، TikTok، SoundCloud، Bandcamp، Bilibili، BBC iPlayer، archive.org، او ډیر نور
-- **یوازې اوډیو او ساب ټایټلونه** د هر ملاتړ شوي سایټ پر مهال کار کوي، نه یوازې YouTube
-- که یو سایټ بدل شي، yt-dlp اونیزه فکسونه لیږدوي او Arroxy د پیلولو پر مهال بائنري اوتومات تازه کوي
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د پلی‌لېست د هر توکي پروفایل</b><br/>هر ویډیو ته خپل پروفایل ورکړئ — ځینې په 4K کې خوندي کړئ، پاتې یې د MP3 په توګه واخلئ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>د چټک ښکته کولو کور</b><br/>URL پیسټ کړئ او په خپل فعال پروفایل سره یې سمدلاسه ښکته کړئ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>د بیا کارونې وړ د ښکته کولو پروفایلونه</b><br/>بڼه، کیفیت او محصول د وړاندیز په توګه خوندي کړئ — په هر ښکته کولو کې یې بیا وکاروئ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>څو ژبني غږ مزي</b><br/>هغه دقیق غږ ژبه وټاکئ چې ویډیو یې لري</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby غږ</b><br/>د 5.1 او Dolby مزي پیژندل کیږي او ساتل کیږي</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>د ډله ییز URL حالت</b><br/>لیست پیسټ کړئ، په اتومات ډول نقلونه لرې کړئ، ټول یې په یوه وخت کې کتار کړئ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>موازي د ښکته کولو کتار</b><br/>د ژوندۍ پرمختیا سره په یوه وخت کې څو ښکته کول</sub></td>
-  </tr>
-</table>
+Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک ځایني فایل ترلاسه کړئ. هیڅ اضافي پلورنه، هیڅ د معلوماتو راټولونه.
 
 ---
 
@@ -305,6 +321,8 @@ Arroxy د یوه کار لپاره جوړ شوی: URL پیسټ کړئ، پاک �
 ډاونلوډونه مستقیما د [yt-dlp](https://github.com/yt-dlp/yt-dlp) له لارې له YouTube څخه هغه فولډر ته راوړل کیږي چې تاسو انتخاب کوئ — هیڅ شی د دریمې ډلې سرور له لارې نه تیریږي. د لیدلو تاریخ، ډاونلوډ تاریخ، URL، او د فایل منځپانګه ستاسو وسیله کې پاتې کیږي.
 
 Arroxy د [OpenPanel](https://openpanel.dev) له لارې ناپیژندلې، ټولیزه ټیلیمیټري لېږي — یوازې د ناکامیو، کریشونو، نظرونو، OS او د اپ نسخو د پوهېدو لپاره. URLs، د ویډیو سرلیکونه، د فایل لارې، د اکاونټ معلومات، fingerprinting یا شخصي معلومات نشته. د هر نصب ID تصادفي دی او ستاسو هویت سره نه تړل کېږي. تاسو یې په Settings کې بندولی شئ.
+
+Explore خپل sign in ساتي، ستاسو له browser جلا، او Arroxy هیڅکله د sign in فورمه نه لولي او نه یې ډکوي — تاسو د Google په خپله پاڼه کې ټایپ کوئ. ډاونلوډونه له sign in پرته چلېږي؛ یوازې کله چې یو ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي، Arroxy sign in بیا لولي، د هغه ډاونلوډ لپاره یې په موقت فایل کې ساتي، او وروسته فایل ړنګوي. په Settings کې له Explore څخه sign out دا هېروي.
 
 ---
 
@@ -319,11 +337,11 @@ Arroxy د [OpenPanel](https://openpanel.dev) له لارې ناپیژندلې، 
 **ایا کولی شم یوازې اوډیو د MP3 په توګه وباسم؟**
 هو. د format menu کې *یوازې آډیو* وټاکئ او بیا MP3، M4A/AAC، Opus یا WAV غوره کړئ.
 
-**ایا ما ته د YouTube اکاونټ یا کوکیز ته اړتیا ده؟**
-په ډیفالټ کې، نه — Arroxy د YouTube اکاونټ، ننوتلو، یا د کوکیز صادرولو پرته کار کوي. د کوکیز اختیاري ملاتړ په پرمختللو تنظیماتو کې شتون لري (د کوکیز سرچینه: فایل یا براوزر) د هغه منځپانګې لپاره چې اعتبار ته اړتیا لري، لکه د عمر محدودې یا یوازې د غړو ویډیوګانې. دا په ډیفالټ کې غیرفعاله ده. که تاسو یې فعاله کړئ، د yt-dlp ویکي یاد کوي چې [د کوکیز پر بنسټ اتومات کولی شي ستاسو د ګوګل اکاونټ بیرغ کړي](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)؛ په دې حالت کې یو لرې غورځولو وړ اکاونټ خوندي انتخاب دی.
+**هغه ویډیوګانې څنګه ډاونلوډ کړم چې د YouTube اکاونټ ته اړتیا لري؟**
+په Explore ټب کې یو ځل sign in وکړئ. بیا Arroxy کولی شي هغه شخصي او یوازې د غړو ویډیوګانې ډاونلوډ کړي چې ستاسو اکاونټ یې لیدلی شي، د عمر محدودیت لرونکې ویډیوګانې که اکاونټ د عمر لپاره تایید شوی وي، او ستاسو Watch Later او Liked لیستونه. دا sign in یوازې هغه وخت کاروي چې ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي؛ نور هر څه لکه مخکې ډاونلوډېږي. دا د **Explore sign in** انتخاب دی، چې د کوکیز په تنظیماتو کې لومړی لیست شوی او Recommended نښه لري، او Arroxy یې ستاسو لپاره لومړی ځل چې Explore پرانیزئ غوره کوي. د yt-dlp ویکي یاد کوي چې [د sign in سره اتومات کول کولی شي د ګوګل اکاونټ بیرغ کړي](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)، نو دوهم اکاونټ خوندي انتخاب دی.
 
 **ایا کله چې YouTube یو شی بدل کوي کار کوي؟**
-yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy هغه وخت چې YouTube یو شی بدل کړي په چټکۍ سره فکسونه لیږدوي. که تاسو کله ستونزه لرئ، د کوکیز اختیاري ملاتړ په پرمختللو تنظیماتو کې د بیک اپ په توګه شتون لري.
+yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy هغه وخت چې YouTube یو شی بدل کړي په چټکۍ سره فکسونه لیږدوي. کله چې YouTube وغواړي تاسو تایید کړئ چې bot نه یاست، که تاسو په Explore کې sign in کړی وي Arroxy ستاسو Explore sign in هم هڅوي، او د فایل یا browser کوکیز د کوکیز په تنظیماتو کې شته.
 
 **Arroxy د کومو ژبو لپاره شته دی؟**
 30 ژبې له مخکې چمتو دي: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy په لومړي پیل کې ستاسو د عملیاتي سیسټم ژبه په اتومات ډول پېژني، او تاسو یې هر وخت د تولبار د ژبې له ټاکونکي څخه بدلولای شئ. Runtime locale JSON په src/shared/i18n/locales/ کې دی، او د ژباړونکو PO catalog په i18n/locales/ کې دی — د مرستې لپاره په GitHub کې PR پرانیزئ.
@@ -350,8 +368,6 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 | ---------------- | ---------------- |
 | **د پلیلیسټ او چینل فیلترونه** | د playlist یا channel د شمېرلو پر مهال date-range filters |
 | **د YouTube د غږ ټریک غوره توبونه** | کله چې YouTube څو غږیز ټریکونه وړاندې کوي، د ټول app لپاره د خبرې ژبې track غوره توب وټاکئ او د هر profile لپاره override وکړئ |
-| **په app کې دننه browser sign-in** | د Arroxy دننه browser windows پرانیزئ څو sign in وکړئ او site cookies د لاس له export پرته وکاروئ |
-| **یو-click ویډیو ډاونلوډ** | د active profile په کارولو detected یا pasted URL څخه ویډیو ډاونلوډ په یو click پیل کړئ |
 | **غښتلی retry recovery** | د بې ثباته یا ستونزمن internet connection له امله د پرې شویو ډاونلوډونو لپاره نوی retry لاره |
 | **بشپړ download manager drawer** | د queue drawer بشپړ manager ته اړول، د queued items لپاره destination folder بدلولو په ګډون |
 | **مهالویش شوي ډاونلوډونه** | کیو د ټاکلي وخت کې پیل کړئ (شپه اجرا کول) |

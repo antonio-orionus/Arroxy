@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Tiếp tục"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Đóng"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Đang tải…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "Địa chỉ IP của bạn dường như bị YouTube chặn. Hãy thử lại sau hoặc dùng VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Video này yêu cầu tài khoản đã đăng nhập. Hãy thiết lập cookies.txt (Cài đặt → Cookies) và thử lại."
+msgid "This video needs a signed-in account."
+msgstr "Video này cần một tài khoản đã đăng nhập."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Tải xuống thất bại. Xem đầu ra thô bên dưới."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Hãy kiểm tra kết nối của bạn rồi thử lại."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Trang này không tải được"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Mở Cài đặt"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Hãy kiểm tra proxy trong Cài đặt rồi thử lại."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore không thể kết nối qua proxy của bạn"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Thử lại"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Mới"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Tìm video, danh sách phát hoặc kênh và tải xuống ngay tại đây — không cần sao chép liên kết. Đăng nhập YouTube tại đây để tải các video cần tài khoản."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Tiếp tục"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube có thể gắn cờ — và đôi khi cấm — các tài khoản dùng với công cụ tải xuống như yt-dlp. Hãy dùng tài khoản bạn có thể chấp nhận mất, không phải tài khoản chính."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Đăng nhập bằng tài khoản phụ"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Duyệt YouTube ngay trong Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Tải xuống dùng cookies của trình duyệt, không dùng đăng nhập Explore của bạn."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Tải xuống dùng tệp cookies của bạn, không dùng đăng nhập Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Để sau"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookies đang tắt nên tải xuống không dùng đăng nhập Explore của bạn."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Dùng đăng nhập Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Duyệt YouTube trong Arroxy và đăng nhập để xem các video cần tài khoản."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Hiện tab Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Tắt tab này cũng khiến tải xuống ngừng dùng đăng nhập Explore của bạn."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Đăng xuất khỏi Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Đăng xuất"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Thao tác này xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Explore. Các lượt tải cần tài khoản sẽ thất bại cho đến khi bạn đăng nhập lại."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Đăng xuất khỏi Explore?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube có thể chống lại trình chặn quảng cáo với các tài khoản đã đăng nhập."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Trình chặn quảng cáo"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Trình chặn quảng cáo: tắt — nhấp để bật"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Trình chặn quảng cáo: bật — nhấp để tắt"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Trình chặn quảng cáo: đang khởi động — nhấp để tắt"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Trình chặn quảng cáo: không khả dụng, không tải được danh sách bộ lọc — nhấp để tắt"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Địa chỉ"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "Tìm trên YouTube hoặc dán liên kết YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Điều khiển trình duyệt Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Quay lại"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Tải xuống · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Tiến tới"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Mở một video, danh sách phát hoặc kênh để tải xuống"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Trang chủ YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Chọn định dạng, phụ đề và hơn thế…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Tải liên kết này"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore chỉ duyệt YouTube."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore chỉ duyệt YouTube. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Tải lại"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Cụm tìm kiếm quá dài."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Ngôn ngữ"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Đã đăng nhập bằng Explore — đang thử lại 1 liên kết"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Đã đăng nhập bằng Explore — đang thử lại {{count}} liên kết"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Không thể đăng xuất khỏi Explore. Hãy thử lại."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Thư mục này quá sâu đối với hệ thống của bạn. Việc tải xuống vẫn có thể thất bại — hãy chọn thư mục ngắn hơn."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Đã có trong hàng đợi — không thêm bản sao"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Vẫn đang xử lý liên kết trước"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy vẫn đang khởi động — hãy thử lại sau giây lát"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Hãy hoàn tất thiết lập cookie trong Arroxy rồi thử lại"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Đã sao chép nhiều liên kết — dùng “URL hàng loạt” trong Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Liên kết này cần xem xét nhanh — mở Arroxy và dán lại"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Liên kết này cần bạn chọn — xem mục Tải xuống trong Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} video đã có trong hàng đợi — đã bỏ qua"
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} video đã có trong hàng đợi — đã bỏ qua"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Đã thêm: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Đã có trong hàng đợi"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video — chọn số lượng"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video — chọn số lượng"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Không thể chuẩn bị {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Không thể thêm liên kết này — hãy thử lại"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} video trong danh sách này — xem lại để chọn"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} video trong danh sách này — xem lại để chọn"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ video trong danh sách này — xem lại để chọn"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ video trong danh sách này — xem lại để chọn"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Xem"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Tệp"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} lượt tải cần bạn chú ý"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} lượt tải cần bạn chú ý"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Hủy tất cả các tải xuống đang hoạt động và đang chờ"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Tất cả video"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Danh sách phát này có hơn {{count}} video. Hãy tải tất cả, {{count}} video đầu tiên, hoặc xem lại để tự chọn."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Danh sách phát này có hơn {{count}} video. Hãy tải tất cả, {{count}} video đầu tiên, hoặc xem lại để tự chọn."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "{{count}} video đầu"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Xem lại"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Liên kết này là danh sách {{count}} video. Hãy xem lại để chọn nội dung cần tải."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Liên kết này là danh sách {{count}} video. Hãy xem lại để chọn nội dung cần tải."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Lỗi"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Đang giữ"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Cần bạn chọn"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Đang nhúng metadata…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Đã đăng xuất khỏi Explore — hãy đăng nhập lại"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Đang chuyển đổi âm thanh…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock không khả dụng, đang thử lại ({{attempt}}/{{total
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "Kết nối bị treo, đang thử lại ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Đang đăng nhập bằng tài khoản Explore của bạn…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Ngay cả với cookies, YouTube vẫn giới hạn lần kiểm tra này. Hãy thử lại sau hoặc đổi mạng."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube đã giới hạn yêu cầu này. Hãy thử lại sau hoặc đổi mạng."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Danh sách định dạng có thể không đầy đủ. Thiết lập cookies trong cài đặt nâng cao, hoặc đổi mạng và thử lại."
@@ -1468,6 +1772,10 @@ msgstr "WAV (không nén)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Trình duyệt"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Đăng nhập Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Tệp cookies của bạn có thể trống, đã hết hạn hoặc sai định dạng (yt-dlp yêu cầu Netscape cookies.txt). Hãy thử xuất lại cookies, chọn tệp khác, chuyển sang chế độ Trình duyệt hoặc tắt cookies."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Đăng nhập bằng Explore và Arroxy sẽ thử lại."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Đăng nhập bằng Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video này có thể cần tài khoản YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Bạn đã đăng nhập Explore, nhưng hiện các lượt tải chưa dùng đăng nhập đó."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Dùng đăng nhập Explore của tôi và thử lại"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video này có thể cần tài khoản YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Nếu video này cần tài khoản, Arroxy sẽ tự dùng đăng nhập Explore của bạn. Video cũng có thể không khả dụng vì lý do khác."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Đã đăng nhập Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Nếu video này cần tài khoản YouTube, hãy đăng nhập trong Explore rồi thử lại. Arroxy chỉ dùng đăng nhập đó khi một lượt tải cần đến."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Đăng nhập trong Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Video này có thể cần tài khoản YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookies có thể là nguyên nhân"
@@ -1536,6 +1888,10 @@ msgstr "Trang web này yêu cầu đăng nhập"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Mở cài đặt cookies"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Dùng tệp cookie hoặc trình duyệt thay thế…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Chọn một tệp để dùng cookies"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Chỉ dùng đăng nhập Explore khi một lượt tải cần đến."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Tab Explore đang tắt nên tải xuống không dùng đăng nhập Explore của bạn. Hãy bật ở mục Explore bên dưới."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "Lấy cookies.txt TRÊN MÁY (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Cách xuất cookies?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Mở Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Chưa chọn tệp"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Khuyên dùng"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Rủi ro: một cookies.txt chứa mọi phiên đăng nhập của trì
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Trình duyệt"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Đăng nhập Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"
