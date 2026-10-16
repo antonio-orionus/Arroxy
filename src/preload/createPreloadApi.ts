@@ -188,7 +188,6 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			},
 			install: () => ipcRenderer.invoke(IPC_CHANNELS.updaterInstall)
 		},
-		analytics: {track: (name, props) => ipcRenderer.send(IPC_CHANNELS.analyticsTrack, {name, props})},
 		diagnostics: {logWizardStep: snapshot => ipcRenderer.send(IPC_CHANNELS.diagnosticsLogWizardStep, snapshot)},
 		playlist: {scanFolder: input => ipcRenderer.invoke(IPC_CHANNELS.playlistScanFolder, input), registerManifest: manifest => ipcRenderer.invoke(IPC_CHANNELS.playlistRegisterManifest, manifest)}
 	}

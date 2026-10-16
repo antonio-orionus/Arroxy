@@ -339,7 +339,7 @@ export const en = {
   privacy_p1:
     "Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.",
   privacy_p2:
-    "Arroxy sends anonymous, aggregate telemetry via [OpenPanel](https://openpanel.dev) — just enough for an indie project to understand failures, crashes, feedback, OS, and app versions. No URLs, video titles, file paths, account info, fingerprinting, or personal data. The per-install ID is random and not tied to your identity. You can opt out in Settings.",
+    "No telemetry — just one anonymous heartbeat a day: app version, OS, language, install channel and country, so we can count active users. No IDs, URLs, video titles, file paths or account info. You can turn it off in Settings.",
   privacy_p3:
     "Explore keeps its own sign-in, separate from your browser, and Arroxy never reads or fills in the sign-in form — you type into Google's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets it.",
   faq_q1: "Is it really free?",

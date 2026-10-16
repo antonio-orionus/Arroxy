@@ -740,8 +740,6 @@ export function installBrowserMock(): void {
 			}
 		},
 
-		analytics: {track: (name, props) => console.log('[mock] analytics', name, props)},
-
 		diagnostics: {logWizardStep: snapshot => console.log('[mock] wizard step', snapshot)},
 
 		playlist: {

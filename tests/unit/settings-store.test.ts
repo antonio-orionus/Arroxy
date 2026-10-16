@@ -29,6 +29,23 @@ describe('settings and recent stores', () => {
 		expect(readBack.common.defaultOutputDir).toBe('/home/test/downloads')
 	})
 
+	it('records the heartbeat day internally and keeps no install identifier', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-heartbeat-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, installId: 'legacy-install-id'}}), 'utf-8')
+		const store = new SettingsStore(userData, baseDefaults)
+		expect(store.getSync().common).not.toHaveProperty('installId')
+
+		await store.recordHeartbeatDay('2026-10-16')
+		expect(new SettingsStore(userData, baseDefaults).getSync().common.lastHeartbeatDay).toBe('2026-10-16')
+		expect(updateSettingsSchema.safeParse({common: {lastHeartbeatDay: '2026-10-17'}}).success).toBe(false)
+	})
+
+	it('keeps the user settings when the stored heartbeat day is malformed', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-heartbeat-bad-'))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', lastHeartbeatDay: 'not-a-date'}}), 'utf-8')
+		expect(new SettingsStore(userData, baseDefaults).getSync().common.defaultOutputDir).toBe('/persisted/downloads')
+	})
+
 	it('validates the Explore user-agent token on write only', async () => {
 		for (const bad of ['Gecko/20100101', 'Mozilla/5.0 (X11) Gecko/20100101 Firefox/140.0', 'x'.repeat(65) + '/1']) expect(updateSettingsSchema.safeParse({common: {exploreUserAgent: bad}}).success).toBe(false)
 		expect(updateSettingsSchema.safeParse({common: {exploreUserAgent: 'Desktop/2.0'}}).success).toBe(true)
@@ -226,7 +243,7 @@ describe('settings and recent stores', () => {
 	it('preserves current cookies mode and preferences when the legacy flag is malformed', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-'))
 		const settingsPath = path.join(userData, 'settings.json')
-		await fs.writeFile(settingsPath, JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesMode: 'file', cookiesEnabled: 'true', installId: 'cookies-mode-test'}}), 'utf-8')
+		await fs.writeFile(settingsPath, JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesMode: 'file', cookiesEnabled: 'true'}}), 'utf-8')
 
 		const store = new SettingsStore(userData, baseDefaults)
 		const settings = await store.get()
@@ -250,7 +267,7 @@ describe('settings and recent stores', () => {
 
 	it('defaults cookies mode to off while preserving preferences when the legacy flag is malformed', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-cookies-mode-legacy-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesEnabled: 'true', installId: 'cookies-mode-legacy-test'}}), 'utf-8')
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', language: 'fr', cookiesEnabled: 'true'}}), 'utf-8')
 
 		const store = new SettingsStore(userData, baseDefaults)
 		const settings = await store.get()

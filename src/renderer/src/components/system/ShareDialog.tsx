@@ -1,11 +1,10 @@
-import {type ComponentType, type SVGProps, useMemo, useRef, useState, type ReactNode} from 'react'
+import {type ComponentType, type SVGProps, useMemo, useState, type ReactNode} from 'react'
 import {Copy, CopyCheck, Mail} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Button} from '../ui/button.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {WEBSITE_URL} from '@shared/constants.js'
-import {track} from '../../lib/analytics.js'
 
 import IconX from '~icons/simple-icons/x'
 import IconFacebook from '~icons/logos/facebook'
@@ -91,20 +90,13 @@ const POPULARITY_ORDER: Exclude<DestinationId, 'copy'>[] = ['facebook', 'whatsap
 export function ShareDialog(): ReactNode {
 	const {t} = useTranslation()
 	const open = useAppStore(s => s.shareDialogOpen)
-	const trigger = useAppStore(s => s.shareDialogTrigger)
 	const closeShareDialog = useAppStore(s => s.closeShareDialog)
 	const [copied, setCopied] = useState(false)
-	// Tracks whether the user clicked any destination (or Copy) during this
-	// open session — used by share_dialog_closed to distinguish prompt fatigue
-	// (close without click) from a successful share funnel.
-	const clickedRef = useRef(false)
 
 	const sortedDestinations = useMemo(() => POPULARITY_ORDER.map(id => SOCIAL_DESTINATIONS.find(d => d.id === id)).filter((d): d is SocialDestination => d !== undefined), [])
 
 	function handleOpenChange(next: boolean): void {
 		if (!next) {
-			track('share_dialog_closed', {via: trigger ?? 'footer', clicked: clickedRef.current})
-			clickedRef.current = false
 			setCopied(false)
 			closeShareDialog()
 		}
@@ -112,9 +104,6 @@ export function ShareDialog(): ReactNode {
 
 	function handleCopy(): void {
 		void navigator.clipboard.writeText(WEBSITE_URL).then(() => {
-			clickedRef.current = true
-			track('share_destination_clicked', {destination: 'copy'})
-			track('share_link_copied')
 			setCopied(true)
 			setTimeout(() => setCopied(false), 1500)
 		})
@@ -122,8 +111,6 @@ export function ShareDialog(): ReactNode {
 
 	function handleSocial(dest: SocialDestination): void {
 		const msg = t('share.defaultMessage')
-		clickedRef.current = true
-		track('share_destination_clicked', {destination: dest.id})
 		openExternal(dest.buildUrl(WEBSITE_URL, msg))
 	}
 

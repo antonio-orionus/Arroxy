@@ -121,10 +121,9 @@ export interface CommonSettings {
 	rememberLastOutputDir: boolean
 	lastSubfolderEnabled?: boolean
 	lastSubfolder?: string
-	// Stable per-install random UUID used as the OpenPanel `profileId`. No PII —
-	// this is a random anonymous identifier, not derived from the user. Generated
-	// lazily by SettingsStore on first launch when missing.
-	installId?: string
+	// UTC day (YYYY-MM-DD) of the last anonymous heartbeat, so an install is
+	// counted at most once per day. Internal: never accepted from the renderer.
+	lastHeartbeatDay?: string
 	uiZoom?: number
 	uiTheme?: UiTheme
 	backdropRenderMode?: BackdropRenderMode

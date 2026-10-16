@@ -2942,12 +2942,12 @@ msgid "Advanced"
 msgstr "उन्नत"
 
 msgctxt "wizard.url.analytics.toggle"
-msgid "Send anonymous usage stats"
-msgstr "अनाम उपयोग आँकड़े भेजें"
+msgid "Send daily heartbeat"
+msgstr "रोज़ाना सिग्नल भेजें"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
-msgstr "क्रैश, विफलताओं और फ़ीडबैक की गुमनाम रिपोर्ट देता है। कोई URL, वीडियो शीर्षक या फ़ाइलनाम नहीं।"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "कोई टेलीमेट्री नहीं। दिन में एक बार, एक गुमनाम सिग्नल ऐप वर्ज़न, OS, भाषा और देश भेजता है, ताकि हम सक्रिय उपयोगकर्ताओं की गिनती कर सकें। कोई ID, URL, वीडियो शीर्षक या फ़ाइलनाम नहीं।"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

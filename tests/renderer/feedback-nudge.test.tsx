@@ -79,7 +79,6 @@ const mockAppApi = {
 		onPointerInView: vi.fn().mockReturnValue(() => undefined)
 	},
 	updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue(undefined)},
-	analytics: {track: vi.fn()},
 	diagnostics: {logWizardStep: vi.fn()},
 	playlist: {scanFolder: vi.fn().mockResolvedValue({ok: true, data: {matchedIds: []}}), registerManifest: vi.fn().mockResolvedValue({ok: true, data: undefined})}
 }

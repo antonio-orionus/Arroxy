@@ -342,7 +342,7 @@ export const my = {
   privacy_p1:
     "Downloads များကို [yt-dlp](https://github.com/yt-dlp/yt-dlp) မှတဆင့် YouTube မှ တိုက်ရိုက် သင်ရွေးချယ်သောဖိုဒါသို့ fetch လုပ်သည် — third-party server မှတဆင့် routing မလုပ်ပါ။ ကြည့်ရှုမှတ်တမ်း၊ ဒေါင်းလုဒ်မှတ်တမ်း၊ URL များနှင့် ဖိုင်အကြောင်းအရာများသည် သင့်ကိရိယာပေါ်တွင်သာ ကျန်ရှိသည်။",
   privacy_p2:
-    "Arroxy သည် [OpenPanel](https://openpanel.dev) မှတဆင့် anonymous aggregate telemetry ပေးပို့သည် — failures, crashes, feedback, OS နှင့် app versions များကို နားလည်ရန်လောက်သာ။ URLs, video titles, file paths, account info, fingerprinting သို့မဟုတ် personal data မရှိပါ။ per-install ID သည် random ဖြစ်ပြီး သင့် identity နှင့် မချိတ်ဆက်ထားပါ။ Settings တွင် opt out လုပ်နိုင်သည်။",
+    "Telemetry မရှိပါ — တစ်နေ့လျှင် anonymous signal တစ်ခုသာ ပို့သည်: app version, OS, ဘာသာစကား, install channel နှင့် နိုင်ငံ — active users အရေအတွက်ကို ရေတွက်နိုင်ရန်။ ID, URLs, video titles, file paths သို့မဟုတ် account info မပါဝင်ပါ။ Settings တွင် ပိတ်နိုင်သည်။",
   privacy_p3:
     "Explore သည် သင့် browser နှင့် သီးခြားဖြစ်သော ကိုယ်ပိုင် sign-in ကို ထားရှိပြီး Arroxy က sign-in ဖောင်ကို ဘယ်တော့မှ မဖတ်ပါ၊ မဖြည့်ပါ — Google ၏ ကိုယ်ပိုင်စာမျက်နှာတွင် သင်ကိုယ်တိုင် ရိုက်ထည့်ရသည်။ ဒေါင်းလုဒ်များသည် sign out အခြေအနေတွင် လုပ်ဆောင်သည်၊ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ Arroxy က sign-in ကို အသစ်ပြန်ဖတ်ပြီး ထိုဒေါင်းလုဒ်အတွက် ယာယီဖိုင်တွင်ထားကာ နောက်မှ ထိုဖိုင်ကို ဖျက်သည်။ ဆက်တင်များတွင် Explore မှ sign out လုပ်ပါက sign-in ကို မေ့သွားသည်။",
   faq_q1: "တကယ်ကို အခမဲ့လား?",

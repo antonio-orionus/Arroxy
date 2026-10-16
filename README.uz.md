@@ -320,7 +320,7 @@ Arroxy bir narsa uchun yaratilgan: URL'ni joylashtiring, toza mahalliy fayl olin
 
 Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.
 
-Arroxy [OpenPanel](https://openpanel.dev) orqali anonim, agregat telemetriya yuboradi — nosozliklar, qulashlar, fikr-mulohazalar, OS va ilova versiyalarini tushunish uchun yetarli. URL, video sarlavhasi, fayl yo‘li, hisob ma’lumoti, fingerprinting yoki shaxsiy ma’lumot yo‘q. Har bir o‘rnatish IDsi tasodifiy va shaxsingizga bog‘lanmagan. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
+Telemetriya yo‘q — kuniga faqat bitta anonim signal: ilova versiyasi, OS, til, o‘rnatish kanali va mamlakat, faol foydalanuvchilarni sanash uchun. ID, URL, video sarlavhasi, fayl yo‘li yoki hisob ma’lumoti yo‘q. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
 
 Explore o'z kirishini saqlaydi, brauzeringizdan alohida, va Arroxy kirish shaklini hech qachon o'qimaydi yoki to'ldirmaydi — siz Google'ning o'z sahifasiga yozasiz. Yuklab olishlar tizimga kirmasdan bajariladi; faqat biri hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda Arroxy kirishni o'sha payt o'qiydi, o'sha yuklab olish uchun vaqtinchalik faylda saqlaydi va keyin faylni o'chiradi. Sozlamalarda Explore'dan chiqish uni unutadi.
 

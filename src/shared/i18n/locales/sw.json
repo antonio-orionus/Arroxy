@@ -315,7 +315,7 @@
 				"units": {"seconds": "sek"}
 			},
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
-			"analytics": {"toggle": "Tuma takwimu za matumizi zisizo na jina", "toggleDescription": "Huripoti makosa, matatizo na maoni kwa njia isiyojulikana. Hakuna URL, majina ya video, au majina ya faili."}
+			"analytics": {"toggle": "Tuma ishara ya kila siku", "toggleDescription": "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, mfumo wa uendeshaji, lugha na nchi ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."}
 		},
 		"quickProgress": {
 			"title": "Inaandaa Upakuaji wa haraka",

@@ -322,7 +322,7 @@ Arroxy dibuat untuk satu hal: tempelkan URL, dapatkan file lokal yang bersih. Ti
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
-Arroxy mengirimkan telemetri agregat anonim melalui [OpenPanel](https://openpanel.dev) — cukup bagi proyek indie untuk memahami kegagalan, kerusakan, umpan balik, OS, dan versi aplikasi. Tidak ada URL, judul video, jalur file, info akun, sidik jari, atau data pribadi. ID per-instal bersifat acak dan tidak terikat dengan identitas Anda. Anda dapat memilih untuk tidak ikut serta dalam Pengaturan.
+Tanpa telemetri — hanya satu sinyal anonim per hari: versi aplikasi, OS, bahasa, saluran instalasi, dan negara, agar kami bisa menghitung pengguna aktif. Tanpa ID, URL, judul video, jalur file, atau info akun. Anda bisa mematikannya di Pengaturan.
 
 Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login — Anda mengetik di halaman Google sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
 

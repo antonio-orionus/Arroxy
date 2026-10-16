@@ -171,14 +171,6 @@ describe('invoke methods → correct IPC channel', () => {
 	})
 })
 
-describe('send methods → correct IPC channel', () => {
-	it('analytics.track', () => {
-		const api = createPreloadApi(ipc.ipcRenderer)
-		api.analytics.track('app_started', {install_channel: 'direct'})
-		expect(ipc.send).toHaveBeenCalledWith(IPC_CHANNELS.analyticsTrack, {name: 'app_started', props: {install_channel: 'direct'}})
-	})
-})
-
 describe('event listeners — strip Electron event wrapper', () => {
 	it('onStatus: listener receives only the payload, not the Electron event', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)

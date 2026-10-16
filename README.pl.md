@@ -322,7 +322,7 @@ Arroxy ma jedno zadanie: wklejasz adres URL i otrzymujesz czysty plik lokalny. B
 
 Pliki są pobierane przez [yt-dlp](https://github.com/yt-dlp/yt-dlp) bezpośrednio z YouTube do wybranego folderu — bez pośrednictwa serwera zewnętrznego. Historia oglądania i pobierania, adresy URL oraz zawartość plików pozostają na urządzeniu.
 
-Arroxy wysyła przez [OpenPanel](https://openpanel.dev) anonimową, zagregowaną telemetrię — tylko tyle, aby niezależny projekt mógł rozumieć błędy, awarie, opinie, systemy operacyjne i wersje aplikacji. Bez adresów URL, tytułów filmów, ścieżek plików, danych kont, odcisków urządzenia ani danych osobowych. Identyfikator instalacji jest losowy i niezwiązany z Twoją tożsamością. Możesz zrezygnować w Ustawieniach.
+Bez telemetrii — tylko jeden anonimowy sygnał dziennie: wersja aplikacji, system, język, kanał instalacji i kraj, abyśmy mogli policzyć aktywnych użytkowników. Bez identyfikatorów, adresów URL, tytułów filmów, ścieżek plików i danych kont. Możesz go wyłączyć w Ustawieniach.
 
 Explore ma własne logowanie, oddzielone od Twojej przeglądarki, a Arroxy nigdy nie odczytuje ani nie wypełnia formularza logowania — wpisujesz dane na stronie Google. Pobieranie odbywa się bez logowania; tylko gdy jedno kończy się błędem, który może naprawić konto, Arroxy odczytuje logowanie na nowo, przechowuje je w pliku tymczasowym na czas tego pobierania i potem go usuwa. Wylogowanie z Explore w Ustawieniach usuwa logowanie.
 

@@ -306,7 +306,7 @@
 				"units": {"seconds": "초"}
 			},
 			"closeToTray": {"toggle": "닫을 때 트레이로 숨기기", "toggleDescription": "창을 닫은 뒤에도 백그라운드에서 다운로드를 계속합니다."},
-			"analytics": {"toggle": "익명 사용 통계 보내기", "toggleDescription": "충돌, 오류 및 피드백을 익명으로 보고합니다. URL, 동영상 제목 또는 파일 이름은 포함하지 않습니다."}
+			"analytics": {"toggle": "일일 하트비트 보내기", "toggleDescription": "원격 분석은 없습니다. 하루에 한 번 익명 하트비트로 앱 버전, OS, 언어, 국가를 보내 활성 사용자 수를 셉니다. ID, URL, 동영상 제목, 파일 이름은 포함하지 않습니다."}
 		},
 		"quickProgress": {
 			"title": "빠른 다운로드 준비 중",

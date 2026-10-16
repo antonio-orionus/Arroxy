@@ -1,7 +1,6 @@
 import {EventEmitter} from 'node:events'
 import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
-import {trackMain} from '@main/services/analytics.js'
 import {phasesFor, PhaseExecutor} from './phases/index.js'
 import type {PhaseContext, PhaseOutcome} from './phases/index.js'
 import {nowIso} from '@main/utils/clock.js'
@@ -156,11 +155,6 @@ export class DownloadService extends EventEmitter {
 		this.registerInputTempDirCleanup(active)
 		this.activeJobs.set(job.id, active)
 		logger.info('Download job created', {jobId: job.id, url: job.url, outputDir: job.outputDir, kind: preparedJob.kind})
-		const hasSubs = preparedJob.kind !== 'subtitle-only' ? Boolean(preparedJob.subtitles?.languages.length) : true
-		const hasSponsorBlock = preparedJob.kind !== 'subtitle-only' && preparedJob.sponsorBlock.mode !== 'off'
-		const embedMetadata = preparedJob.kind !== 'subtitle-only' && preparedJob.embed.metadata
-		const embedThumbnail = preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail
-		trackMain('download_started', {preset: preparedJob.kind, has_subtitles: hasSubs, has_sponsorblock: hasSponsorBlock, cookies_mode: input.cookiesMode ?? 'off', embed_metadata: embedMetadata, embed_thumbnail: embedThumbnail, escalated: input.auth === 'exploreSession'})
 		return this.runJob(active)
 	}
 
@@ -488,8 +482,7 @@ export class DownloadService extends EventEmitter {
 		// timers) before writing the RecentJob entry. Per-disposable failures
 		// log + continue; a stuck cleanup can't block finalize.
 		if (active) await this.lifecycle.drain(active)
-		// An escalation mid-run rewrites the active input's auth, so this reads the final identity.
-		await this.lifecycle.finalize(job, status, error, {escalated: active?.input.auth === 'exploreSession'})
+		await this.lifecycle.finalize(job, status, error)
 	}
 
 	private emitFinalArtifacts(active: ActiveDownload): void {

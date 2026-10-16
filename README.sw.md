@@ -320,7 +320,7 @@ Arroxy imejengwa kwa jambo moja: bandika URL, pata faili safi la mahali hapo. Ha
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-Arroxy hutuma telemetry isiyo na jina na ya jumla kupitia [OpenPanel](https://openpanel.dev) — ya kutosha kuelewa makosa, ajali, maoni, OS na matoleo ya programu. Hakuna URLs, vichwa vya video, njia za faili, taarifa za akaunti, fingerprinting au data binafsi. Kitambulisho cha kila usakinishaji ni cha nasibu na hakihusiani na utambulisho wako. Unaweza kujiondoa katika Mipangilio.
+Hakuna telemetry — ishara moja tu isiyo na jina kwa siku: toleo la programu, OS, lugha, njia ya usakinishaji na nchi, ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuizima katika Mipangilio.
 
 Explore ina njia yake ya kuingia, tofauti na kivinjari chako, na Arroxy haisomi wala kujaza fomu ya kuingia kamwe — unaandika kwenye ukurasa wa Google wenyewe. Upakuaji hufanyika bila kuingia; ni pale tu upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha ndipo Arroxy husoma kuingia upya, kuliweka kwenye faili ya muda kwa upakuaji huo, na kufuta faili baadaye. Kutoka kwenye Explore katika Mipangilio huifanya isahaulike.
 

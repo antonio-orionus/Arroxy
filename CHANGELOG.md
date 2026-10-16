@@ -8,6 +8,16 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.5.2
+
+Arroxy now reports less: no telemetry, just one anonymous heartbeat a day.
+
+## Highlights
+
+- **No telemetry, just a daily heartbeat.** Arroxy used to report failures and crashes anonymously. Now it sends only one anonymous heartbeat a day — app version, OS, language, install channel and country — so we can count how many people use it. No IDs, URLs, video titles or file names. The switch in Settings is now called **Send daily heartbeat**, and if you had turned reporting off, it stays off.
+
+---
+
 ## 0.5.1
 
 A small follow-up to 0.5.0 that polishes two things you see right away.

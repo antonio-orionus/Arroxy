@@ -143,7 +143,6 @@ export interface AppApi {
 		onPointerInView(listener: () => void): () => void
 	}
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}
-	analytics: {track(name: string, props?: Record<string, string | number | boolean>): void}
 	diagnostics: {logWizardStep(snapshot: WizardStepSnapshot): void}
 	playlist: {scanFolder(input: {outputDir: string; videoIds: string[]}): Promise<Result<{matchedIds: string[]}>>; registerManifest(manifest: PlaylistManifest): Promise<Result<void>>}
 }

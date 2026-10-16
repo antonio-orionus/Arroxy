@@ -513,17 +513,6 @@ export async function copyCachedArtifactToFile(cacheRoot: string, key: string, d
 	}
 }
 
-// Extract structured diagnostic fields from a network/cache error for analytics.
-export function downloadErrorDetails(err: unknown): {error_code?: string; status_code?: number} {
-	if (!(err instanceof Error)) return {}
-	const result: {error_code?: string; status_code?: number} = {}
-	const code = errorCode(err)
-	if (typeof code === 'string') result.error_code = code.slice(0, 32)
-	const statusCode = (err as {response?: {statusCode?: unknown}; status?: unknown}).response?.statusCode ?? (err as {status?: unknown}).status
-	if (typeof statusCode === 'number') result.status_code = statusCode
-	return result
-}
-
 // Map an arbitrary download-pipeline failure to a `DependencyFailureKind`.
 // Used by `BinaryResolver` to record `attempts[]` entries on its strategy chain.
 export function classifyDownloadError(err: unknown): DependencyFailureKind {

@@ -315,7 +315,7 @@
 				"units": {"seconds": "giây"}
 			},
 			"closeToTray": {"toggle": "Ẩn xuống khay khi đóng", "toggleDescription": "Tiếp tục tải xuống trong nền sau khi đóng cửa sổ."},
-			"analytics": {"toggle": "Gửi thống kê sử dụng ẩn danh", "toggleDescription": "Báo cáo ẩn danh về sự cố, lỗi và phản hồi. Không có URL, tiêu đề video hay tên tệp."}
+			"analytics": {"toggle": "Gửi tín hiệu hằng ngày", "toggleDescription": "Không có telemetry. Mỗi ngày một lần, một tín hiệu ẩn danh gửi phiên bản ứng dụng, hệ điều hành, ngôn ngữ và quốc gia để chúng tôi đếm số người dùng đang hoạt động. Không có ID, URL, tiêu đề video hay tên tệp."}
 		},
 		"quickProgress": {
 			"title": "Đang chuẩn bị Tải nhanh",

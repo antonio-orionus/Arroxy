@@ -2942,12 +2942,12 @@ msgid "Advanced"
 msgstr "Erweitert"
 
 msgctxt "wizard.url.analytics.toggle"
-msgid "Send anonymous usage stats"
-msgstr "Anonyme Nutzungsstatistiken senden"
+msgid "Send daily heartbeat"
+msgstr "Tägliches Lebenszeichen senden"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
-msgstr "Meldet Abstürze, Fehler und Feedback anonym. Keine URLs, Videotitel oder Dateinamen."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Keine Telemetrie. Einmal am Tag sendet ein anonymes Lebenszeichen App-Version, Betriebssystem, Sprache und Land, damit wir aktive Nutzer zählen können. Keine IDs, URLs, Videotitel oder Dateinamen."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

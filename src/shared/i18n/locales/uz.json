@@ -323,7 +323,7 @@
 				"units": {"seconds": "soniya"}
 			},
 			"closeToTray": {"toggle": "Yopilganda tizim soatiga yashirish", "toggleDescription": "Oyna yopilgandan keyin yuklamalar fonda davom etadi."},
-			"analytics": {"toggle": "Anonim foydalanish statistikasini yuborish", "toggleDescription": "Nosozliklar, qulashlar va fikr-mulohazalar haqida anonim ravishda xabar beradi. URL, video sarlavhalari yoki fayl nomlari yo'q."}
+			"analytics": {"toggle": "Kunlik signal yuborish", "toggleDescription": "Telemetriya yo'q. Kuniga bir marta anonim signal ilova versiyasi, OT, til va mamlakatni yuboradi — shunda faol foydalanuvchilarni sanay olamiz. ID, URL, video sarlavhalari yoki fayl nomlari yo'q."}
 		},
 		"quickProgress": {
 			"title": "Tez yuklab olish tayyorlanmoqda",

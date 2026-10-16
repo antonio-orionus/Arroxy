@@ -329,7 +329,7 @@ export const pt = {
   privacy_p1:
     "Os downloads são feitos direto pelo [yt-dlp](https://github.com/yt-dlp/yt-dlp), do YouTube para a pasta que você escolher — nada passa por um servidor de terceiros. Histórico de vídeos, histórico de downloads, URLs e o conteúdo dos arquivos ficam no seu dispositivo.",
   privacy_p2:
-    "O Arroxy envia telemetria anônima e agregada pelo [OpenPanel](https://openpanel.dev) — apenas o suficiente para um projeto independente entender falhas, quedas, feedback, sistema operacional e versões do app. Sem URLs, títulos de vídeo, caminhos de arquivo, dados de conta, fingerprinting ou dados pessoais. O identificador por instalação é aleatório e não está ligado à sua identidade. Você pode desativar nas configurações.",
+    "Sem telemetria — só um sinal anônimo por dia: versão do app, sistema operacional, idioma, canal de instalação e país, para contarmos os usuários ativos. Sem IDs, URLs, títulos de vídeo, caminhos de arquivo ou dados de conta. Você pode desativar nas configurações.",
   privacy_p3: "O Explore mantém o próprio login, separado do seu navegador, e o Arroxy nunca lê nem preenche o formulário de login — você digita na própria página do Google. Os downloads rodam sem login; só quando um falha de um jeito que uma conta pode resolver, o Arroxy lê o login na hora, guarda em um arquivo temporário para aquele download e apaga o arquivo depois. Sair do Explore nas configurações faz o login ser esquecido.",
   faq_q1: "É realmente gratuito?",
   faq_a1:

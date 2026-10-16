@@ -315,7 +315,7 @@
 				"units": {"seconds": "Sek"}
 			},
 			"closeToTray": {"toggle": "Beim Schließen in die Taskleiste minimieren", "toggleDescription": "Downloads im Hintergrund fortsetzen, wenn das Fenster geschlossen wird."},
-			"analytics": {"toggle": "Anonyme Nutzungsstatistiken senden", "toggleDescription": "Meldet Abstürze, Fehler und Feedback anonym. Keine URLs, Videotitel oder Dateinamen."}
+			"analytics": {"toggle": "Tägliches Lebenszeichen senden", "toggleDescription": "Keine Telemetrie. Einmal am Tag sendet ein anonymes Lebenszeichen App-Version, Betriebssystem, Sprache und Land, damit wir aktive Nutzer zählen können. Keine IDs, URLs, Videotitel oder Dateinamen."}
 		},
 		"quickProgress": {
 			"title": "Schnelldownload wird vorbereitet",

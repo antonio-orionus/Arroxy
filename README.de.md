@@ -322,7 +322,7 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 
 Downloads werden direkt über [yt-dlp](https://github.com/yt-dlp/yt-dlp) von YouTube in den von dir gewählten Ordner geholt — nichts wird über einen Drittanbieter-Server geleitet. Verlauf, Download-Historie, URLs und Dateiinhalte bleiben auf deinem Gerät.
 
-Arroxy sendet anonyme, aggregierte Telemetrie über [OpenPanel](https://openpanel.dev) — gerade genug, um Fehler, Abstürze, Feedback, OS und App-Versionen zu verstehen. Keine URLs, Video-Titel, Dateipfade, Kontodaten, Fingerprinting oder personenbezogenen Daten. Die ID pro Installation ist zufällig und nicht mit deiner Identität verknüpft. Du kannst das in den Einstellungen deaktivieren.
+Keine Telemetrie — nur ein anonymes Lebenszeichen pro Tag: App-Version, OS, Sprache, Installationskanal und Land, damit wir aktive Nutzer zählen können. Keine IDs, URLs, Videotitel, Dateipfade oder Kontodaten. Du kannst es in den Einstellungen abschalten.
 
 Explore hat eine eigene Anmeldung, getrennt von deinem Browser, und Arroxy liest oder füllt das Anmeldeformular nie aus – du tippst auf Googles eigener Seite. Downloads laufen abgemeldet; nur wenn einer auf eine Weise scheitert, die ein Konto beheben kann, liest Arroxy die Anmeldung frisch aus, hält sie für diesen Download in einer temporären Datei und löscht die Datei danach. Wenn du dich in den Einstellungen von Explore abmeldest, wird sie vergessen.
 

@@ -77,7 +77,6 @@ export const IPC_CHANNELS = {
 	hotkeyGetState: 'cmd:hotkeyGetState',
 	hotkeyTestPress: 'cmd:hotkeyTestPress',
 	hotkeyRendererReady: 'cmd:hotkeyRendererReady',
-	analyticsTrack: 'analytics:track',
 	diagnosticsLogWizardStep: 'diagnostics:logWizardStep',
 	warmupProgress: 'warmup:progress',
 	dialogChooseExecutable: 'dialog:chooseExecutable',

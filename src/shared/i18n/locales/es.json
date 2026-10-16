@@ -315,7 +315,7 @@
 				"units": {"seconds": "seg"}
 			},
 			"closeToTray": {"toggle": "Minimizar a la bandeja al cerrar", "toggleDescription": "Continuar descargas en segundo plano al cerrar la ventana."},
-			"analytics": {"toggle": "Enviar estadísticas de uso anónimas", "toggleDescription": "Informa de forma anónima sobre fallos, errores y comentarios. Sin URLs, títulos de vídeo ni nombres de archivo."}
+			"analytics": {"toggle": "Enviar señal diaria", "toggleDescription": "Sin telemetría. Una vez al día, una señal anónima envía la versión de la aplicación, el sistema operativo, el idioma y el país para contar los usuarios activos. Sin ID, URL, títulos de vídeo ni nombres de archivo."}
 		},
 		"quickProgress": {
 			"title": "Preparando descarga rápida",

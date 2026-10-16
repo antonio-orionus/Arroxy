@@ -384,8 +384,6 @@ export interface UiSlice {
 	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 }
 
-export type ShareTrigger = 'footer' | 'about' | 'wizard-card' | 'milestone' | 'high-value-inline'
-
 export interface SystemSlice {
 	initialized: boolean
 	initializing: boolean
@@ -401,7 +399,6 @@ export interface SystemSlice {
 	language: SupportedLang
 	commonPaths: AppSettings['common']['commonPaths']
 	shareDialogOpen: boolean
-	shareDialogTrigger: ShareTrigger | null
 	// The Explore view as main last reported it (no cookies); null until main first answers.
 	exploreView: ExploreViewState | null
 	// Counts the pointer's entries into the native view; a toolbar tooltip opened before the latest one is closed.
@@ -448,7 +445,7 @@ export interface SystemSlice {
 	saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<void>
 	removeDownloadProfile: (id: string) => Promise<void>
 	setDownloadProfileEnabled: (id: string, enabled: boolean) => Promise<void>
-	openShareDialog: (trigger: ShareTrigger) => void
+	openShareDialog: () => void
 	closeShareDialog: () => void
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>

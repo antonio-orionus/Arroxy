@@ -1,12 +1,11 @@
 # Share Feature — Internal Reference
 
-Shipping reference for the in-app **Share** feature: dialog, all entry points, persisted settings, triggers, telemetry, and i18n. Code lives in:
+Shipping reference for the in-app **Share** feature: dialog, all entry points, persisted settings, triggers, and i18n. Code lives in:
 
 - `src/shared/types.ts` — settings shape
 - `src/shared/schemas.ts` — zod patch validator
 - `src/shared/queueItem.ts` — `isHighValueDownload` helper (gates the SmartDrawer banner)
-- `src/main/services/analytics.ts` — telemetry allowlist
-- `src/renderer/src/store/types.ts` — `ShareTrigger` union + slice signature
+- `src/renderer/src/store/types.ts` — slice signature
 - `src/renderer/src/store/systemSlice.ts` — state, helpers, actions
 - `src/renderer/src/components/system/ShareDialog.tsx` — the dialog (26 destinations, popularity-sorted, brand icons via `unplugin-icons` + Iconify `logos:*` / `simple-icons:*`)
 - `src/renderer/src/components/layout/SmartDrawer.tsx` — high-value passive banner
@@ -37,13 +36,9 @@ All three are `.optional()` in `commonSettingsPatchSchema`. No default values �
 
 ## 2. Trigger System
 
-`ShareTrigger` union (6 values) in `src/renderer/src/store/types.ts`:
+Entry points: footer, title bar, About dialog, wizard inline card, download milestones, and the high-value inline banner. Every one sets `shareDialogOpen: true`; the store does not record which surface opened the dialog.
 
-```ts
-type ShareTrigger = 'footer' | 'titlebar' | 'about' | 'wizard-card' | 'milestone' | 'high-value-inline';
-```
-
-The previous `time` member (a 20-minute recurring modal) and `queue-item` member (a per-completed-item Share2 button — visually ambiguous next to a downloaded file) were removed. All triggers funnel through `openShareDialogInternal(set, trigger)` in `systemSlice.ts`.
+The previous `time` trigger (a 20-minute recurring modal) and `queue-item` button (a per-completed-item Share2 button — visually ambiguous next to a downloaded file) were removed.
 
 ### Truth table
 
@@ -96,7 +91,7 @@ Inside the `event.stage === 'done'` branch of the status-event handler in `syste
 2. Read `prevCount = settings.common.successfulDownloadCount ?? 0`.
 3. `nextCount = prevCount + 1`.
 4. Persist via `commonPatch({ successfulDownloadCount: nextCount })`.
-5. If `SHARE_MILESTONES.includes(nextCount)`, fire `openShareDialogInternal(set, 'milestone')`.
+5. If `SHARE_MILESTONES.includes(nextCount)`, open the dialog.
 
 `SHARE_MILESTONES = [3, 25, 100]`. Wide spacing intentional — first prompt at proven engagement (3), second at clearly-engaged user (25), third at power user (100). After 100 the modal never fires again. No global opt-out: 3 lifetime events is bearable, and no automatic surface needs a kill switch.
 
@@ -115,7 +110,6 @@ const SHARE_MILESTONES: readonly number[] = [3, 25, 100];
 Single instance, mounted once in `App.tsx` (`<ShareDialog />` after `<AboutDialog />`). Reads state directly from store via Zustand selectors:
 
 - `shareDialogOpen` — controlled `open`
-- `shareDialogTrigger` — recorded on `share_dialog_closed { via }` for funnel attribution
 - `closeShareDialog` — action
 
 Dialog width: `sm:max-w-lg md:max-w-2xl` (widened from `sm:max-w-md` to fit the 26-destination grid).
@@ -169,13 +163,6 @@ External open uses `window.appApi.shell.openExternal(url)` (Electron IPC → OS 
 
 Uses `navigator.clipboard.writeText(WEBSITE_URL)`. Renders `Copy` ↔ `CopyCheck` icon swap (lucide-react) for ~1.5 s after click.
 
-### Close tracking
-
-`handleOpenChange(false)` fires `share_dialog_closed { via, clicked }`:
-
-- `via`: the `ShareTrigger` that opened the dialog (falls back to `'footer'` when the trigger is `null`, which shouldn't normally occur).
-- `clicked`: boolean — `true` if any social destination or Copy was clicked during the open session, `false` otherwise. A `useRef<boolean>` flips to `true` inside `handleSocial` / `handleCopy` and resets on close. Closes the prompt-fatigue measurement gap (dialog opens vs. successful share funnel).
-
 ---
 
 ## 4. Entry Points (5 manual surfaces + 1 automatic modal)
@@ -198,23 +185,7 @@ SmartDrawer banner × dismiss: `data-testid="share-high-value-banner-dismiss"` �
 
 ## 5. Telemetry
 
-All events go through `track(name, props)` (`src/renderer/src/lib/analytics.ts`) which forwards over IPC. Main-side `trackMain` enforces the allowlist in `src/main/services/analytics.ts`. All events are gated by the user's `analyticsEnabled` setting (existing global gate in `trackMain`).
-
-> **Currently gated off:** of the share events below, only `share_link_copied` is actually sent. The rest are still validated (prop schema + dev typo guard) but dropped before reaching OpenPanel via the `ENABLED` keep-set in `trackMain`. Add a name to `ENABLED` to start sending it again.
-
-| Event                                | Props                                     | Fired from                                      | Notes                                                                                                                 |
-| ------------------------------------ | ----------------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `share_dialog_opened`                | `{ via: ShareTrigger }`                   | `openShareDialogInternal()`                     | Every open, regardless of trigger.                                                                                    |
-| `share_dialog_closed`                | `{ via: ShareTrigger, clicked: boolean }` | `ShareDialog` `handleOpenChange(false)`         | Lets us measure prompt fatigue: opens without destination clicks.                                                     |
-| `share_destination_clicked`          | `{ destination: DestinationId }`          | `ShareDialog` `handleSocial` and `handleCopy`   | Every social/copy/email click.                                                                                        |
-| `share_link_copied`                  | `{}`                                      | `ShareDialog` `handleCopy`                      | Sub-case fired in addition to `share_destination_clicked` for the Copy button.                                        |
-| `share_inline_card_impression`       | `{}`                                      | `StepUrlInput.tsx` `useEffect`                  | First time the wizard inline card becomes visible per session. Deduped via `useRef`.                                  |
-| `share_inline_card_clicked`          | `{}`                                      | `StepUrlInput.tsx` `handleShareInlineCardClick` | Card body click. Always paired with a subsequent `share_dialog_opened { via: 'wizard-card' }`.                        |
-| `share_inline_card_dismissed`        | `{}`                                      | `setShareInlineCardDismissed()`                 | Single fire on wizard card × click.                                                                                   |
-| `share_prompt_impression`            | `{ via: ShareTrigger }`                   | `SmartDrawer.tsx` `useEffect`                   | First time the high-value banner becomes visible. Deduped via `useRef`.                                               |
-| `share_prompt_dismissed`             | `{ via: ShareTrigger }`                   | `setShareHighValueBannerDismissed()`            | Banner × click.                                                                                                       |
-
-Verifying allowlist parity: with `ARROXY_ANALYTICS_DEBUG=1` set, the dev branch of `trackMain` throws on unknown events / props.
+None. Share surfaces send no events; the app reports nothing but the daily anonymous heartbeat described in [`heartbeat.md`](heartbeat.md).
 
 ---
 
@@ -254,7 +225,7 @@ When keys change, edit English first, run `bun run i18n:sync`, translate the fuz
 
 ## 7. Edge Cases & Concurrency Notes
 
-- **Concurrent triggers.** If a milestone fires while a manual surface is already open, the milestone path overwrites `{ open: true, trigger: 'milestone' }`. Acceptable — `openShareDialogInternal` is idempotent and the timestamp write is a single optimistic patch.
+- **Concurrent triggers.** If a milestone fires while a manual surface is already open, the milestone path sets `shareDialogOpen: true` again. Acceptable — opening is idempotent and the timestamp write is a single optimistic patch.
 - **Settings race.** `commonPatch()` does an optimistic local `set()` and a fire-and-forget `settings.update()`. If the update fails, local state stays ahead of disk. Acceptable trade-off for share fields — no critical data loss, and `notify.settingsSaveFailed('share', err)` logs the failure.
 - **`window.open` vs `shell.openExternal`.** Renderer `window.open` doesn't trigger Electron's external browser by default. All destinations route through IPC. The explicit `browser-mock` dev mode in `src/renderer/src/browserMock.ts` polyfills `shell.openExternal` to call `window.open`, so dev-server testing still works.
 - **Mock state in dev.** The renderer dev server uses `browserMock.ts` to stub `window.appApi` only when Vite runs with `--mode browser-mock`. Settings mutations there don't survive page reload — full Electron run is required to verify persistence.

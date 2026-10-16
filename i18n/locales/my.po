@@ -2942,12 +2942,12 @@ msgid "Advanced"
 msgstr "အဆင့်မြင့်"
 
 msgctxt "wizard.url.analytics.toggle"
-msgid "Send anonymous usage stats"
-msgstr "အမည်မသိ သုံးစွဲမှုစာရင်းအင်းများ ပေးပို့ပါ"
+msgid "Send daily heartbeat"
+msgstr "နေ့စဉ် အချက်ပြမှု ပေးပို့ပါ"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
-msgstr "အမည်မဖော်ဘဲ ကျရှုံးမှုများ၊ ပျက်ကွက်မှုများနှင့် တုံ့ပြန်ချက်များကို အစီရင်ခံသည်။ URL၊ ဗီဒီယိုခေါင်းစဉ်များ သို့မဟုတ် ဖိုင်အမည်များ မပါဝင်ပါ။"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Telemetry မစုဆောင်းပါ။ တစ်နေ့တစ်ကြိမ် အမည်မဖော်သော အချက်ပြမှုတစ်ခုက အက်ပ်ဗားရှင်း၊ OS၊ ဘာသာစကားနှင့် နိုင်ငံကို ပေးပို့ပြီး အသုံးပြုနေသူ အရေအတွက်ကို ရေတွက်နိုင်စေပါသည်။ ID၊ URL၊ ဗီဒီယိုခေါင်းစဉ်များ သို့မဟုတ် ဖိုင်အမည်များ မပါဝင်ပါ။"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

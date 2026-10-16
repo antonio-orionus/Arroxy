@@ -10,7 +10,7 @@ export interface ExtractorIdentity {
 	// (PoT minting, rolling-cue dedupe, SponsorBlock UI, etc.).
 	extractor: string
 	// yt-dlp's extractor_key (PascalCase form, e.g. 'Youtube'). Carried for
-	// logging / analytics; not used in branching logic.
+	// logging; not used in branching logic.
 	extractorKey: string
 }
 

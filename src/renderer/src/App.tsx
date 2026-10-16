@@ -270,7 +270,7 @@ export function App(): ReactNode {
 							<Info data-icon="inline-start" aria-hidden />
 							{t('about.button')}
 						</Button>
-						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => openShareDialog('footer')} title={t('share.footerTooltip')} data-testid="btn-share">
+						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => openShareDialog()} title={t('share.footerTooltip')} data-testid="btn-share">
 							<Share2 data-icon="inline-start" aria-hidden />
 							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-share-label">
 								{t('share.footerLabel')}
