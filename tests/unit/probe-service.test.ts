@@ -695,18 +695,21 @@ describe('ProbeService — Explore session escalation', () => {
 
 	it('re-runs a sign-in-required probe with the Explore session and marks the result', async () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-escalate-'))
-		const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
+		try {
+			const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
 
-		expect(gate.canEscalate).toHaveBeenCalledWith('youtube')
-		expect(run).toHaveBeenCalledTimes(2)
-		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
-		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
-		expect(result.ok && result.data.auth).toBe('exploreSession')
-		expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
-		expect(log.info).toHaveBeenCalledWith('Probe escalated to the Explore session', {url: VIDEO_URL})
-		await fs.rm(dir, {recursive: true, force: true})
+			expect(gate.canEscalate).toHaveBeenCalledWith('youtube')
+			expect(run).toHaveBeenCalledTimes(2)
+			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+			expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
+			expect(result.ok && result.data.auth).toBe('exploreSession')
+			expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
+			expect(log.info).toHaveBeenCalledWith('Probe escalated to the Explore session', {url: VIDEO_URL})
+		} finally {
+			await fs.rm(dir, {recursive: true, force: true})
+		}
 	})
 
 	it('does not escalate when the gate says no (not explore mode / signed out / disabled)', async () => {
@@ -826,16 +829,19 @@ describe('ProbeService — Explore session escalation', () => {
 
 	it('never escalates a probe that opted out (title backfill), even with an open gate', async () => {
 		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-no-escalate-'))
-		const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
+		try {
+			const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video', timeoutMs: 180_000, escalate: false})
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video', timeoutMs: 180_000, escalate: false})
 
-		expect(result.ok).toBe(false)
-		expect(run).toHaveBeenCalledTimes(1)
-		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
-		expect(gate.canEscalate).not.toHaveBeenCalled()
-		await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
-		await fs.rm(dir, {recursive: true, force: true})
+			expect(result.ok).toBe(false)
+			expect(run).toHaveBeenCalledTimes(1)
+			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+			expect(gate.canEscalate).not.toHaveBeenCalled()
+			await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
+		} finally {
+			await fs.rm(dir, {recursive: true, force: true})
+		}
 	})
 
 	it('keeps the Explore session on the degraded-success retry after escalation', async () => {
