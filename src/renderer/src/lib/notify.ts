@@ -7,11 +7,33 @@
 
 import i18next from 'i18next'
 import type {HotkeyOutcome} from '@shared/types.js'
+import type {QueueChoice} from '@shared/schemas.js'
 import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
+import {toastItemName} from './toastItemName.js'
 
 export type NotificationLevel = 'error' | 'warning' | 'info'
 
-export type NotificationSink = (level: NotificationLevel, message: string, id: string) => void
+// A button on the toast. `onClick` is the caller's command; this module only
+// carries it, so it stays free of the store as well as of the UI.
+export interface NotificationAction {
+	label: string
+	onClick: () => void
+}
+
+// Sonner draws one primary action and one secondary button, so a toast offers at most two.
+export type NotificationActions = readonly [NotificationAction] | readonly [NotificationAction, NotificationAction]
+
+export type NotificationSink = (level: NotificationLevel, message: string, id: string, actions?: NotificationActions) => void
+
+// The failed preparation's main way forward: probe again, sign in first
+// (`sign-in`: in Explore; `explore-offer`: switch to Explore, retry once signed
+// in), or retry with the Explore sign-in the user already has.
+export interface QuickDownloadFailureAction {
+	kind: 'retry' | 'sign-in' | 'explore-offer' | 'explore-reuse'
+	run: () => void
+}
+
+const FAILURE_ACTION_LABEL = {retry: 'common.retry', 'sign-in': 'wizard.formats.cookiesError.exploreSignIn.cta', 'explore-offer': 'wizard.formats.cookiesError.exploreOffer.cta', 'explore-reuse': 'wizard.formats.cookiesError.exploreReuse.cta'} as const satisfies Record<QuickDownloadFailureAction['kind'], string>
 
 let sink: NotificationSink | null = null
 
@@ -24,8 +46,18 @@ export function setNotificationSink(next: NotificationSink | null): void {
  * `id` collapses repeats: warmup retries and repeated save failures fire the
  * same call many times, and a stack of identical toasts is noise, not signal.
  */
-function emit(level: NotificationLevel, message: string, id: string): void {
-	sink?.(level, message, id)
+function emit(level: NotificationLevel, message: string, id: string, actions?: NotificationActions): void {
+	if (actions) sink?.(level, message, id, actions)
+	else sink?.(level, message, id)
+}
+
+function viewAction(onView: () => void): NotificationAction {
+	return {label: i18next.t('notifications.quickDownload.view'), onClick: onView}
+}
+
+// View is left out when the caller has nowhere to send the user (a wizard run is open).
+function viewOnly(onView: (() => void) | undefined): NotificationActions | undefined {
+	return onView ? [viewAction(onView)] : undefined
 }
 
 export const notify = {
@@ -42,6 +74,14 @@ export const notify = {
 	shellActionFailed(action: string, error: unknown): void {
 		console.error(`[shell] ${action} failed`, error)
 		emit('error', i18next.t('notifications.shellActionFailed'), `shell-${action}`)
+	},
+	// Explore reported the sign-in "Sign in with Explore" waited for; the failed items probe again.
+	exploreSignInRetrying(count: number): void {
+		emit('info', i18next.t('notifications.exploreSignInRetrying', {count}), 'explore-sign-in-retry')
+	},
+	exploreSignOutFailed(error: unknown): void {
+		console.error('[explore] sign-out failed', error)
+		emit('error', i18next.t('notifications.exploreSignOutFailed'), 'explore-sign-out')
 	},
 	folderSelectFailed(error: unknown): void {
 		console.error('[dialog] folder selection failed', error)
@@ -71,6 +111,30 @@ export const notify = {
 	queueSkippedAlreadyQueued(count: number): void {
 		console.info(`[queue] skipped ${count} video(s) already in the queue`)
 		emit('info', i18next.t('notifications.queue.skippedAlreadyQueued', {count}), 'queue-skipped-already-queued')
+	},
+	// A quick download is placed as a row in Downloads before its probe runs.
+	// One id: a burst of adds keeps one toast, showing the latest.
+	quickDownloadAdded(title: string, onView?: () => void): void {
+		emit('info', i18next.t('notifications.quickDownload.added', {title: toastItemName(title)}), 'quick-download-added', viewOnly(onView))
+	},
+	quickDownloadAlreadyQueued(onView?: () => void): void {
+		emit('info', i18next.t('notifications.quickDownload.alreadyQueued'), 'quick-download-already-queued', viewOnly(onView))
+	},
+	// The link could not even be placed in Downloads (main refused the row).
+	quickDownloadNotAdded(): void {
+		emit('error', i18next.t('notifications.quickDownload.notAdded'), 'quick-download-not-added')
+	},
+	// One toast per row: a retry that fails again replaces its own toast.
+	quickDownloadFailed(itemId: string, title: string, action: QuickDownloadFailureAction, onView?: () => void): void {
+		const main: NotificationAction = {label: i18next.t(FAILURE_ACTION_LABEL[action.kind]), onClick: action.run}
+		emit('error', i18next.t('notifications.quickDownload.failed', {title: toastItemName(title)}), `quick-download-failed-${itemId}`, onView ? [main, viewAction(onView)] : [main])
+	},
+	// `capped`: the probe stopped at the load limit, so `count` is a lower bound.
+	// A playlist over the limit asks how many; a link that turned out to be a
+	// list asks for a review.
+	quickDownloadNeedsChoice(itemId: string, choice: {kind: QueueChoice['kind']; count: number; capped: boolean}, onView?: () => void): void {
+		const key = choice.kind === 'playlist-cap' ? 'notifications.quickDownload.chooseHowMany' : choice.capped ? 'notifications.quickDownload.reviewCapped' : 'notifications.quickDownload.review'
+		emit('info', i18next.t(key, {count: choice.count}), `quick-download-choice-${itemId}`, viewOnly(onView))
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {
 		// Deliberately console-only. Trimming a long title to fit is routine and

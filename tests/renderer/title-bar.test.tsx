@@ -29,6 +29,12 @@ describe('TitleBar window controls', () => {
 		expect(screen.queryByTestId('wc-close')).not.toBeInTheDocument()
 	})
 
+	it('carries no share button; sharing lives in the footer and About', async () => {
+		await renderTitleBar('linux')
+
+		expect(screen.getAllByRole('button').map(button => button.getAttribute('data-testid'))).toEqual(['wc-minimize', 'wc-maximize', 'wc-close'])
+	})
+
 	it('keeps renderer window controls on Windows and Linux', async () => {
 		await renderTitleBar('linux')
 

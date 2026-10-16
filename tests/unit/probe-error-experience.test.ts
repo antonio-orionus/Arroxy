@@ -1,15 +1,17 @@
 import {describe, expect, it} from 'vite-plus/test'
+import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
-import type {ProbeError} from '@shared/types.js'
-import {buildProbeErrorExperience, configuredCookiesRetryMode, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
+import type {CommonSettings, ProbeError} from '@shared/types.js'
+import {buildProbeErrorExperience, configuredCookiesRetryMode, type ExploreSignedIn, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 
 function ytdlpError(kind: YtDlpErrorKind, raw = `ERROR: ${kind}`): ProbeError {
 	return {kind: 'ytdlp', error: {kind, raw}}
 }
 
+// `exploreEnabled: false` pins the pre-Explore guidance these cases describe.
 describe('ProbeErrorExperience', () => {
 	it('classifies every yt-dlp error kind through one interface', () => {
-		const classified = YT_DLP_ERROR_KINDS.map(kind => buildProbeErrorExperience({error: ytdlpError(kind), commonSettings: {cookiesMode: 'off'}}))
+		const classified = YT_DLP_ERROR_KINDS.map(kind => buildProbeErrorExperience({error: ytdlpError(kind), commonSettings: {cookiesMode: 'off', exploreEnabled: false}}))
 
 		expect(classified).toHaveLength(YT_DLP_ERROR_KINDS.length)
 		for (const [index, experience] of classified.entries()) {
@@ -17,16 +19,16 @@ describe('ProbeErrorExperience', () => {
 			expect(experience.actions.retry).toBe(true)
 		}
 
-		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off'}})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: false}})
-		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: {cookiesMode: 'off'}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
-		expect(buildProbeErrorExperience({error: ytdlpError('network'), commonSettings: {cookiesMode: 'off'}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'hidden'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
+		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: false}})
+		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
+		expect(buildProbeErrorExperience({error: ytdlpError('network'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'hidden'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
 	})
 
 	it('projects cookies and bot-wall variants from settings state', () => {
-		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt'}})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'disabled'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: true}})
+		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off', exploreEnabled: false, cookiesPath: '/tmp/cookies.txt'}})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'disabled'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: true}})
 		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'}})).toMatchObject({cookies: {variant: 'configured', mode: 'file'}, botWall: {variant: 'enabled'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: false}})
 		expect(buildProbeErrorExperience({error: ytdlpError('unknown', 'ERROR: Failed to decrypt with DPAPI'), commonSettings: {cookiesMode: 'browser', cookiesBrowser: 'chrome'}})).toMatchObject({cookies: {variant: 'dpapi', mode: 'browser'}, actions: {openCookiesSettings: true}})
-		expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: {cookiesMode: 'off'}})).toMatchObject({errorKind: undefined, cookies: {variant: 'hidden'}, botWall: {variant: 'unconfigured'}, actions: {retry: false}})
+		expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({errorKind: undefined, cookies: {variant: 'hidden'}, botWall: {variant: 'unconfigured'}, actions: {retry: false}})
 	})
 
 	it('keeps low-level kind helpers available for narrow callers', () => {
@@ -54,10 +56,167 @@ describe('ProbeErrorExperience', () => {
 		const botBlock = ytdlpError('botBlock')
 		const ageRestricted = ytdlpError('ageRestricted')
 
-		expect(selectProbeErrorForGuidance([], {cookiesMode: 'off'})).toBeNull()
-		expect(selectProbeErrorForGuidance([network, botBlock], {cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt'})).toBe(botBlock)
-		expect(selectProbeErrorForGuidance([network, ageRestricted], {cookiesMode: 'off'})).toBe(ageRestricted)
-		expect(selectProbeErrorForGuidance([network, rateLimit], {cookiesMode: 'off'})).toBe(rateLimit)
-		expect(selectProbeErrorForGuidance([network, ytdlpError('parse')], {cookiesMode: 'off'})).toBe(network)
+		expect(selectProbeErrorForGuidance([], {cookiesMode: 'off', exploreEnabled: false})).toBeNull()
+		expect(selectProbeErrorForGuidance([network, botBlock], {cookiesMode: 'off', exploreEnabled: false, cookiesPath: '/tmp/cookies.txt'})).toBe(botBlock)
+		expect(selectProbeErrorForGuidance([network, ageRestricted], {cookiesMode: 'off', exploreEnabled: false})).toBe(ageRestricted)
+		expect(selectProbeErrorForGuidance([network, rateLimit], {cookiesMode: 'off', exploreEnabled: false})).toBe(rateLimit)
+		expect(selectProbeErrorForGuidance([network, ytdlpError('parse')], {cookiesMode: 'off', exploreEnabled: false})).toBe(network)
+	})
+
+	describe('under the explore cookie mode', () => {
+		const EXPLORE = {cookiesMode: 'explore'} as const
+
+		it('asks a signed-out user to sign in in Explore, from the cookies alert only', () => {
+			const experience = buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: EXPLORE, exploreSignedIn: false})
+			expect(experience).toMatchObject({cookies: {variant: 'explore-sign-in', mode: 'explore'}, botWall: {variant: 'explore'}, actions: {signInWithExplore: true, openCookiesSettings: false, enableCookiesAndRetry: false}})
+		})
+
+		it('treats a sign-in state not yet known as signed out', () => {
+			for (const kind of ['ageRestricted', 'loginRequired', 'unavailable'] as const) {
+				expect(buildProbeErrorExperience({error: ytdlpError(kind), commonSettings: EXPLORE}).cookies.variant).toBe('explore-sign-in')
+				expect(buildProbeErrorExperience({error: ytdlpError(kind), commonSettings: EXPLORE, exploreSignedIn: null}).cookies.variant).toBe('explore-sign-in')
+			}
+		})
+
+		it('tells a signed-in user their Explore sign-in was used', () => {
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), commonSettings: EXPLORE, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'configured', mode: 'explore'}, actions: {signInWithExplore: false, openCookiesSettings: true, enableCookiesAndRetry: false}})
+		})
+
+		it('stays quiet about cookies for a failure an account cannot fix', () => {
+			for (const exploreSignedIn of [true, false, null]) {
+				expect(buildProbeErrorExperience({error: ytdlpError('network'), commonSettings: EXPLORE, exploreSignedIn})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'hidden'}, actions: {signInWithExplore: false, openCookiesSettings: false}})
+			}
+		})
+
+		it('keeps bot-wall guidance free of a sign-in call (degraded probe, rate limit)', () => {
+			expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: EXPLORE, exploreSignedIn: false})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'explore'}, actions: {signInWithExplore: false, enableCookiesAndRetry: false}})
+			expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: EXPLORE, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'explore'}})
+		})
+
+		it('falls back to the off-mode guidance while the Explore tab is turned off', () => {
+			const disabled = {...EXPLORE, exploreEnabled: false}
+			expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: disabled, exploreSignedIn: false})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {signInWithExplore: false, openCookiesSettings: true}})
+		})
+
+		it('never offers "Enable cookies and retry" under explore, which would silently leave the explore mode', () => {
+			const disabled = {...EXPLORE, exploreEnabled: false}
+			for (const stored of [{cookiesPath: '/tmp/cookies.txt'}, {cookiesBrowser: 'firefox' as const}]) {
+				expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {...disabled, ...stored}, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {enableCookiesAndRetry: false, openCookiesSettings: true}})
+				expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: {...disabled, ...stored}}).botWall.variant).toBe('unconfigured')
+			}
+		})
+
+		it('selects the error a sign-in would fix', () => {
+			const ageRestricted = ytdlpError('ageRestricted')
+			expect(selectProbeErrorForGuidance([ytdlpError('network'), ytdlpError('rateLimit'), ageRestricted], EXPLORE, false)).toBe(ageRestricted)
+		})
+	})
+
+	// P2-R51: under `off` with Explore enabled, a failure an account can fix
+	// leads with Explore; every other combination keeps its guidance.
+	describe('under the off cookie mode with Explore enabled', () => {
+		const MODES = ['off', 'file', 'browser', 'explore'] as const
+		const SIGNED_IN: readonly ExploreSignedIn[] = [true, false, null]
+		const ENABLED = [undefined, true, false] as const
+
+		function experience(kind: YtDlpErrorKind, common: Partial<CommonSettings>, exploreSignedIn: ExploreSignedIn) {
+			return buildProbeErrorExperience({error: ytdlpError(kind), commonSettings: common, exploreSignedIn})
+		}
+
+		it('offers Sign in with Explore to a signed-out user (state not yet known included), cookie settings second', () => {
+			for (const kind of ['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'] as const) {
+				for (const exploreSignedIn of [false, null]) {
+					expect(experience(kind, {cookiesMode: 'off'}, exploreSignedIn)).toMatchObject({
+						cookies: {variant: 'explore-offer', mode: 'off', secondary: 'open-settings'},
+						actions: {signInWithExploreThenRetry: true, retryWithExploreSignIn: false, signInWithExplore: false, openCookiesSettings: true, enableCookiesAndRetry: false}
+					})
+				}
+			}
+		})
+
+		it('offers "Use my Explore sign-in and retry" to a signed-in user who turned the mode off', () => {
+			for (const kind of ['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'] as const) {
+				expect(experience(kind, {cookiesMode: 'off', exploreEnabled: true}, true)).toMatchObject({cookies: {variant: 'explore-reuse', mode: 'off'}, actions: {retryWithExploreSignIn: true, signInWithExploreThenRetry: false, signInWithExplore: false, openCookiesSettings: true, enableCookiesAndRetry: false}})
+			}
+		})
+
+		it('keeps the bot-wall alert free of a second call (one alert carries it)', () => {
+			for (const stored of [{}, {cookiesPath: '/tmp/cookies.txt'}, {cookiesBrowser: 'firefox' as const}]) {
+				for (const exploreSignedIn of SIGNED_IN) {
+					expect(experience('botBlock', {cookiesMode: 'off', ...stored}, exploreSignedIn).botWall.variant).toBe('explore')
+				}
+			}
+		})
+
+		// A cookies file or browser already set up: its second way is the one-click
+		// "Enable cookies and retry", not a trip to the settings.
+		it('offers Enable cookies and retry as the second way when cookies are already set up', () => {
+			for (const [stored, secondary] of [
+				[{}, 'open-settings'],
+				[{cookiesPath: '/tmp/cookies.txt'}, 'enable-cookies'],
+				[{cookiesBrowser: 'firefox' as const}, 'enable-cookies']
+			] as const) {
+				for (const exploreSignedIn of SIGNED_IN) {
+					const enable = secondary === 'enable-cookies'
+					expect(experience('loginRequired', {cookiesMode: 'off', ...stored}, exploreSignedIn)).toMatchObject({cookies: {secondary}, actions: {enableCookiesAndRetry: enable, openCookiesSettings: !enable}})
+				}
+			}
+		})
+
+		it('offers nothing about Explore until the settings have loaded', () => {
+			for (const commonSettings of [null, undefined]) {
+				const result = buildProbeErrorExperience({error: ytdlpError('loginRequired'), commonSettings, exploreSignedIn: false})
+				expect(result.cookies.variant).not.toMatch(/^explore-/)
+				expect(result.actions).toMatchObject({signInWithExploreThenRetry: false, retryWithExploreSignIn: false})
+			}
+		})
+
+		it('never offers Explore for a rate limit, in any mode or sign-in state', () => {
+			for (const cookiesMode of MODES) {
+				for (const exploreSignedIn of SIGNED_IN) {
+					for (const exploreEnabled of ENABLED) {
+						const {cookies, actions} = experience('rateLimit', {cookiesMode, exploreEnabled}, exploreSignedIn)
+						expect(cookies.variant).not.toMatch(/^explore-(offer|reuse)$/)
+						expect(actions).toMatchObject({signInWithExploreThenRetry: false, retryWithExploreSignIn: false, signInWithExplore: false})
+					}
+				}
+			}
+		})
+
+		it('leaves every other combination as it was: kill switch off, file, browser, explore, and failures an account cannot fix', () => {
+			for (const kind of YT_DLP_ERROR_KINDS) {
+				for (const exploreSignedIn of SIGNED_IN) {
+					// The kill switch off: what `off` always offered.
+					const legacyOff = experience(kind, {cookiesMode: 'off', exploreEnabled: false}, exploreSignedIn)
+					expect(legacyOff.actions).toMatchObject({signInWithExploreThenRetry: false, retryWithExploreSignIn: false})
+					if (!isCookiesNeededKind(kind)) {
+						for (const exploreEnabled of [undefined, true] as const) expect(experience(kind, {cookiesMode: 'off', exploreEnabled}, exploreSignedIn)).toEqual(legacyOff)
+					}
+					for (const cookiesMode of ['file', 'browser'] as const) {
+						const reference = experience(kind, {cookiesMode, exploreEnabled: false}, null)
+						for (const exploreEnabled of ENABLED) expect(experience(kind, {cookiesMode, exploreEnabled}, exploreSignedIn)).toEqual(reference)
+						expect(reference.actions).toMatchObject({signInWithExploreThenRetry: false, retryWithExploreSignIn: false})
+					}
+					for (const exploreEnabled of ENABLED) {
+						expect(experience(kind, {cookiesMode: 'explore', exploreEnabled}, exploreSignedIn).actions).toMatchObject({signInWithExploreThenRetry: false, retryWithExploreSignIn: false})
+					}
+				}
+			}
+		})
+
+		it('selects the error a sign-in would fix', () => {
+			const ageRestricted = ytdlpError('ageRestricted')
+			expect(selectProbeErrorForGuidance([ytdlpError('network'), ytdlpError('rateLimit'), ageRestricted], {cookiesMode: 'off'}, false)).toBe(ageRestricted)
+		})
+	})
+})
+
+// The error line sits next to the guidance alert on the row and the wizard
+// error step: for a failure an account can fix it states the reason only, and
+// leaves the way forward (Explore, a cookies file, a browser) to the alert.
+describe('the error message beside the guidance', () => {
+	it.each(['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'] as const)('%s gives no cookie instructions of its own', kind => {
+		expect(isCookiesNeededKind(kind)).toBe(true)
+		expect(en.errors.ytdlp[kind]).not.toMatch(/cookie|settings/i)
 	})
 })

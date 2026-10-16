@@ -8,6 +8,7 @@ import type {ActiveDownload, PhaseContext} from '@main/services/phases/types.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
+import {explorePorts} from '../helpers/explorePorts.js'
 
 // Only the visibility helper is stubbed: it shells out to `attrib`, which does
 // not exist off Windows.
@@ -73,13 +74,15 @@ afterEach(async () => {
 // A yt-dlp stand-in that prints output in the real order: extraction warnings,
 // the metadata write line, the info-json on disk, then the first transfer line.
 // A run stopped by its abort signal resolves as cancelled, like YtDlp does.
-function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: CookielessRetry; input?: Partial<ResolvedStartDownloadInput>; active?: Partial<ActiveDownload>}) {
+function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: CookielessRetry; input?: Partial<ResolvedStartDownloadInput>; active?: Partial<ActiveDownload>; signedIn?: boolean}) {
 	const runs = [...opts.runs]
 	const cookieFlags: boolean[] = []
+	const identities: unknown[] = []
 	const run = vi.fn(async (req: YtDlpRequest, signal?: YtDlpSignal, options?: YtDlpRunOptions) => {
 		const script = runs.shift()
 		if (!script || req.kind !== 'media' || !req.output.tempDirectory) throw new Error('unexpected yt-dlp run')
-		cookieFlags.push(options?.withoutCookies !== true)
+		cookieFlags.push(options?.identity !== 'none')
+		identities.push(options?.identity)
 		const infoJsonPath = join(req.output.tempDirectory, '_arroxy.info.json')
 		if (script.withheld && !req.resume) signal?.onStderr?.(SABR_WARNING)
 		signal?.onStdout?.(`[info] Writing video metadata as JSON to: ${infoJsonPath}\n`)
@@ -104,8 +107,8 @@ function makeCtx(opts: {runs: ScriptedRun[]; usesCookies?: boolean; retry?: Cook
 	}
 	const safeConsume = vi.fn()
 	const cookielessRetry = opts.retry ?? new CookielessRetry()
-	const ctx: PhaseContext = {active, signal: controller.signal, register: () => undefined, ytDlp: {run, usesCookies: vi.fn().mockResolvedValue(opts.usesCookies ?? false), invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume, cookielessRetry}
-	return {ctx, cookieFlags, safeConsume, cookielessRetry, remainingRuns: runs}
+	const ctx: PhaseContext = {active, signal: controller.signal, register: () => undefined, ytDlp: {run, usesCookies: vi.fn().mockResolvedValue(opts.usesCookies ?? false), invalidateTokenSession: vi.fn()} as never, emitStatus: vi.fn(), safeConsume, cookielessRetry, ...explorePorts({signedIn: opts.signedIn})}
+	return {ctx, cookieFlags, identities, safeConsume, cookielessRetry, remainingRuns: runs}
 }
 
 describe('VideoPhase quality limit detection', () => {
@@ -249,7 +252,7 @@ describe('VideoPhase retry without cookies', () => {
 		run.mockImplementation(async (req, signal, options) => {
 			if (req.kind === 'media' && req.output.tempDirectory) {
 				const partial = join(req.output.tempDirectory, 'video.mp4.part')
-				if (options?.withoutCookies)
+				if (options?.identity === 'none')
 					partialsSeenByRetry.push(
 						await access(partial).then(
 							() => true,
@@ -332,5 +335,26 @@ describe('VideoPhase retry without cookies', () => {
 		await VideoPhase(false).run(ctx)
 		expect(cookieFlags).toEqual([true])
 		expect(cookielessRetry.current).toBe('untested')
+	})
+})
+
+// D4: an escalated job only ever runs signed in — the session-wide cookieless
+// retry would run it with no cookies at all.
+describe('VideoPhase retry without cookies — escalated jobs', () => {
+	it('never runs the cookieless retry for an escalated job (D4)', async () => {
+		const {ctx, identities, cookielessRetry} = makeCtx({usesCookies: true, signedIn: true, runs: [{withheld: true, infoJson: INFO_360}], input: {auth: 'exploreSession'}})
+		await VideoPhase(false).run(ctx)
+		expect(identities).toEqual(['exploreSession'])
+		expect(ctx.active.qualityLimit).toEqual({height: 360})
+		expect(cookielessRetry.current).toBe('untested')
+	})
+
+	it('does not start an escalated job without cookies even once cookieless is known to help', async () => {
+		const retry = new CookielessRetry()
+		retry.record('full-quality')
+		const {ctx, identities} = makeCtx({usesCookies: true, signedIn: true, retry, runs: [{withheld: true, infoJson: INFO_360}], input: {auth: 'exploreSession'}})
+		await VideoPhase(false).run(ctx)
+		expect(identities).toEqual(['exploreSession'])
+		expect(ctx.active.qualityLimit).toEqual({height: 360})
 	})
 })

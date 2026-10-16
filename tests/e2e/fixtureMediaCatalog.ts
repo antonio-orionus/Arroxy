@@ -45,6 +45,11 @@ function sessionLimits(video: (typeof catalog.videos)[number]): {withheldFormatI
 	return {withheldFormatIds: limited.withheldFormatIds ?? [], warnings: limited.warnings ?? [], withCookiesOnly: limited.limitedWithCookiesOnly === true}
 }
 
+/** Extraction refuses anonymous runs, as YouTube does for an age-restricted video. */
+function requiresSignIn(video: (typeof catalog.videos)[number]): boolean {
+	return (video as {requiresSignIn?: boolean}).requiresSignIn === true
+}
+
 function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 	const limits = sessionLimits(video)
 	return limits.withheldFormatIds.length > 0 || limits.warnings.length > 0
@@ -53,7 +58,7 @@ function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')
 // Ordinary fixture videos only. A video carrying an awkward title is addressed
 // through its own export, so tests that just need "some video" never draw one.
-export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video)).map(video => video.id)
+export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video) && !requiresSignIn(video)).map(video => video.id)
 const splitMediaVideo = catalog.videos.find(video => video.formatSet === 'split')
 if (!splitMediaVideo) throw new Error('fixture-media-catalog.json must define a split fixture video')
 export const SPLIT_MEDIA_VIDEO_ID = splitMediaVideo.id
@@ -74,6 +79,10 @@ export const SABR_LIMITED_VIDEO_ID = sabrLimitedVideo.id
 const cookieLimitedVideo = catalog.videos.find(video => isSabrLimited(video) && sessionLimits(video).withCookiesOnly)
 if (!cookieLimitedVideo) throw new Error('fixture-media-catalog.json must define a fixture video limited only with cookies')
 export const COOKIE_LIMITED_VIDEO_ID = cookieLimitedVideo.id
+// Downloads only when the Explore session's fixture marker cookie reaches yt-dlp.
+const signInVideo = catalog.videos.find(requiresSignIn)
+if (!signInVideo) throw new Error('fixture-media-catalog.json must define a video that requires sign-in')
+export const SIGN_IN_VIDEO_ID = signInVideo.id
 
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds

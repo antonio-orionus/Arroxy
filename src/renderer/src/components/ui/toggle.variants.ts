@@ -23,7 +23,9 @@ export const toggleVariants = cva(
 				xs: "min-h-6 rounded-full px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
 				default: 'min-h-8 px-2.5 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2',
 				sm: "min-h-7 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-				lg: 'min-h-9 px-2.5 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2'
+				lg: 'min-h-9 px-2.5 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2',
+				// Icon-only, matching Button size="icon-sm" in a toolbar row.
+				'icon-sm': 'size-7 shrink-0 rounded-[min(var(--radius-md),12px)] px-0'
 			},
 			shape: {label: '', chip: 'shrink-0 whitespace-nowrap'}
 		},

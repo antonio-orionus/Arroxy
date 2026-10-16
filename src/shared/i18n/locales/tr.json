@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "loading": "Yükleniyor…", "retry": "Tekrar dene", "startOver": "Baştan başla"},
+	"common": {"back": "Geri", "cancel": "İptal", "continue": "Devam et", "loading": "Yükleniyor…", "retry": "Tekrar dene", "dismiss": "Kapat", "startOver": "Baştan başla"},
 	"app": {
 		"feedback": "Geri bildirim",
 		"logs": "Günlükler",
@@ -238,6 +238,11 @@
 				"sourceOff": "Kapalı",
 				"sourceFile": "Dosya",
 				"sourceBrowser": "Tarayıcı",
+				"sourceExplore": "Explore oturumu",
+				"recommended": "Önerilen",
+				"exploreDescription": "Explore oturumunu yalnızca bir indirme gerektirdiğinde kullanır.",
+				"exploreDisabled": "Explore sekmesi kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz. Aşağıdaki Explore bölümünden aç.",
+				"openExplore": "Explore'u aç",
 				"toggleDescription": "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur.",
 				"risk": "Risk: cookies.txt, o tarayıcıdaki tüm oturum açmış oturumları içerir — gizli tut.",
 				"fileLabel": "Çerez dosyası",
@@ -382,6 +387,7 @@
 				"bodyUnconfigured": "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene.",
 				"bodyDisabled": "Çerezler yapılandırılmış ama kapalı. Tam listeyi almak için etkinleştirip tekrar dene ya da ağı değiştirip tekrar dene.",
 				"bodyEnabled": "Çerezlerle bile YouTube bu denetimi sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
+				"bodyExplore": "YouTube bu isteği sınırladı. Daha sonra tekrar dene veya ağı değiştir.",
 				"retryCta": "Tekrar dene",
 				"enableRetryCta": "Çerezleri etkinleştir ve tekrar dene"
 			},
@@ -390,9 +396,15 @@
 				"currentModeLabel": "Çerez kaynağı",
 				"currentModeFile": "Dosya",
 				"currentModeBrowser": "Tarayıcı",
+				"currentModeExplore": "Explore oturumu",
 				"explanationFile": "Çerez dosyan boş, süresi dolmuş veya yanlış biçimde olabilir (yt-dlp Netscape cookies.txt bekler). Çerezleri yeniden dışa aktarmayı, farklı bir dosya seçmeyi, Tarayıcı moduna geçmeyi veya çerezleri kapatmayı dene.",
 				"explanationBrowser": "Çerezler doğrudan tarayıcıdan okunur. Tarayıcı şu anda çalışıyorsa çerez veritabanı kilitli olabilir (Chromium ailesi). Tarayıcıda YouTube oturumu da açık olmalıdır. Tarayıcıyı kapatmayı, farklı bir tarayıcıya geçmeyi, Dosya moduna geçmeyi veya çerezleri kapatmayı dene.",
 				"openSettingsCta": "Çerez ayarlarını aç",
+				"exploreSignIn": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Bu video bir YouTube hesabı gerektiriyorsa Explore'da oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır.", "cta": "Explore'da oturum aç"},
+				"exploreSignedIn": {"heading": "Explore'da oturum açıldı", "body": "Bu video hesap gerektiriyorsa Arroxy, Explore oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir."},
+				"exploreOffer": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Explore'da oturum aç, Arroxy yeniden denesin.", "cta": "Explore'da oturum aç"},
+				"exploreReuse": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Explore'da oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor.", "cta": "Explore oturumumu kullan ve yeniden dene"},
+				"otherCookiesCta": "Bunun yerine bir çerez dosyası veya tarayıcı kullan…",
 				"needsCookies": {"heading": "Bu site oturum açmayı gerektiriyor", "body": "yt-dlp bu videoya kimlik doğrulaması olmadan erişemedi. Gelişmiş ayarlarda çerezleri yapılandır — zaten oturum açtığın bir tarayıcıyı göster veya bir cookies.txt dosyası içe aktar."},
 				"dpapi": {
 					"heading": "Chrome çerezleri Windows şifrelemesi tarafından engellendi",
@@ -531,6 +543,17 @@
 	"queue": {
 		"header": "İndirmeler",
 		"tabLabel": "İndirmeler",
+		"attentionBadge_one": "{{count}} indirme dikkatini bekliyor",
+		"attentionBadge_other": "{{count}} indirme dikkatini bekliyor",
+		"choice": {
+			"cappedBody_one": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
+			"cappedBody_other": "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç.",
+			"reviewBody_one": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir.",
+			"reviewBody_other": "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir.",
+			"all": "Tüm videolar",
+			"first": "İlk {{count}}",
+			"review": "Gözden geçir"
+		},
 		"tabTip": "İndirmeler artık İndirmeler sekmesinde — ilerlemeyi izlemek için istediğin zaman aç.",
 		"empty": "Kuyruktaki indirmeler burada görünecek",
 		"filtersLabel": "Kuyruk durumu filtreleri",
@@ -576,6 +599,7 @@
 			"remove": "Kaldır",
 			"pullNow": "Şimdi çek — kuyruğu atla",
 			"statusProbing": "Ayrıntılar alınıyor",
+			"statusNeedsChoice": "Seçimini bekliyor",
 			"statusPending": "Bekliyor",
 			"statusRunning": "İndiriliyor",
 			"statusHeld": "Bekletildi",
@@ -625,13 +649,18 @@
 		"outputNotWritable": "{{dir}} konumuna kaydedilemiyor — Arroxy'nin oraya yazma izni yok",
 		"fetchingSponsorBlock": "SponsorBlock ile iletişim kuruluyor…",
 		"retryingSponsorBlock": "SponsorBlock kullanılamıyor, tekrar deneniyor ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Explore hesabınla oturum açılıyor…",
+		"exploreSignedOut": "Explore oturumu kapandı — yeniden oturum aç"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Ayarların kaydedilemedi.",
 		"warmupFailed": "Kurulum tamamlanmadı. Tamamlanana kadar bazı indirmeler başarısız olabilir.",
 		"shellActionFailed": "Bu açılamadı.",
 		"folderSelectFailed": "Klasör seçici açılamadı.",
+		"exploreSignInRetrying_one": "Explore ile oturum açıldı — 1 bağlantı yeniden deneniyor",
+		"exploreSignInRetrying_other": "Explore ile oturum açıldı — {{count}} bağlantı yeniden deneniyor",
+		"exploreSignOutFailed": "Explore'dan çıkış yapılamadı. Tekrar dene.",
 		"playlistFolderRejected": "Bu klasör bu oynatma listesi için kullanılamaz.",
 		"filenameFolderTooDeep": "Bu klasör sisteminiz için çok derin. İndirme yine de başarısız olabilir — daha kısa bir klasör seçin.",
 		"filenameTemplateCannotFit": "Bu videonun adı şablonunuzun her parçasına sığmıyor, bu yüzden varsayılan ad kullanıldı.",
@@ -640,11 +669,25 @@
 			"alreadyQueued": "Zaten kuyrukta — kopya eklenmedi",
 			"invalidClipboard": "Panoda bağlantı yok — önce bir tane kopyalayın",
 			"multipleUrls": "Birden fazla bağlantı kopyalandı — Arroxy'de Toplu URL'leri kullanın",
-			"needsReview": "Bu bağlantı hızlı bir inceleme gerektiriyor — Arroxy'yi açıp yeniden yapıştırın",
-			"busy": "Önceki bağlantı hâlâ işleniyor",
+			"needsReview": "Bu bağlantı için seçim yapman gerekiyor — Arroxy'de İndirmeler'e bak",
+			"cookiesSetup": "Arroxy'de çerez kurulumunu bitir, sonra yeniden dene",
+			"busy": "Arroxy hâlâ başlıyor — birazdan yeniden dene",
 			"submissionFailed": "Bu bağlantı eklenemedi — Arroxy'de yeniden deneyin"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video zaten kuyrukta — atlandı", "skippedAlreadyQueued_other": "{{count}} video zaten kuyrukta — atlandı"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video zaten kuyrukta — atlandı", "skippedAlreadyQueued_other": "{{count}} video zaten kuyrukta — atlandı"},
+		"quickDownload": {
+			"added": "Eklendi: {{title}}",
+			"alreadyQueued": "Zaten kuyrukta",
+			"failed": "{{title}} hazırlanamadı",
+			"notAdded": "Bu bağlantı eklenemedi — yeniden dene",
+			"chooseHowMany_one": "{{count}}+ video — kaç tane olacağını seç",
+			"chooseHowMany_other": "{{count}}+ video — kaç tane olacağını seç",
+			"review_one": "Bu listede {{count}} video var — seçmek için gözden geçir",
+			"review_other": "Bu listede {{count}} video var — seçmek için gözden geçir",
+			"reviewCapped_one": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
+			"reviewCapped_other": "Bu listede {{count}}+ video var — seçmek için gözden geçir",
+			"view": "Görüntüle"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -663,7 +706,7 @@
 			"parse": "Siteden gelen yanıt ayrıştırılamadı. yt-dlp çıkarıcısı değişmiş olabilir. Arroxy açılışta yt-dlp’yi otomatik günceller — düzeltme yayınlandıktan birkaç dakika sonra tekrar dene.",
 			"network": "Ağ hatası. Bağlantını kontrol edip tekrar dene.",
 			"drmProtected": "Bu video DRM korumalı. yt-dlp DRM’i kaldıramaz, bu yüzden dosya indirilemez.",
-			"loginRequired": "Bu video oturum açılmış hesap gerektiriyor. Bir cookies.txt ayarla (Ayarlar → Çerezler) ve tekrar dene.",
+			"loginRequired": "Bu video, oturum açılmış bir hesap gerektiriyor.",
 			"unknown": "İndirme başarısız oldu. Aşağıdaki ham çıktıya bak."
 		}
 	},
@@ -733,5 +776,53 @@
 			"invalid-segment": "Bu klasör adına izin verilmiyor. . ve .. ile CON gibi ayrılmış adlardan kaçın.",
 			"resolution-in-dir": "{resolution} bir klasöre ad olamaz — kalite ancak indirme başlayınca belli olur."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Yeni",
+		"notice": {
+			"title": "YouTube'a doğrudan Arroxy içinde göz at",
+			"body": "Bir video, oynatma listesi veya kanal bul ve buradan indir — bağlantı kopyalamadan. Hesap gerektiren videoları indirmek için burada YouTube'da oturum aç.",
+			"riskTitle": "İkincil bir hesapla oturum aç",
+			"riskBody": "YouTube, yt-dlp gibi indirme araçlarıyla kullanılan hesapları işaretleyebilir ve bazen yasaklayabilir. Ana hesabını değil, kaybetmeyi göze alabileceğin bir hesap kullan.",
+			"continue": "Devam et"
+		},
+		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz.", "file": "İndirmeler Explore oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Explore oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Explore oturumunu kullan", "notNow": "Şimdi değil"},
+		"toolbar": {
+			"aria": "Explore tarayıcı denetimleri",
+			"back": "Geri",
+			"forward": "İleri",
+			"reload": "Yeniden yükle",
+			"home": "YouTube ana sayfası",
+			"addressAria": "Adres",
+			"addressPlaceholder": "YouTube'da ara veya YouTube bağlantısı yapıştır",
+			"offsiteHint": "Explore yalnızca YouTube'a göz atar.",
+			"offsiteDownload": "Bu bağlantıyı indir",
+			"offsiteHintHost": "Explore yalnızca YouTube'a göz atar. {{host}}",
+			"searchTooLong": "Bu arama çok uzun.",
+			"downloadWithProfile": "İndir · {{profileName}}",
+			"interactiveHint": "Biçim, altyazı ve daha fazlasını seç…",
+			"grabUnavailable": "İndirmek için bir video, oynatma listesi veya kanal aç",
+			"adBlock": {
+				"aria": "Reklam engelleyici",
+				"off": "Reklam engelleyici: kapalı — açmak için tıkla",
+				"starting": "Reklam engelleyici: başlıyor — kapatmak için tıkla",
+				"on": "Reklam engelleyici: açık — kapatmak için tıkla",
+				"unavailable": "Reklam engelleyici: kullanılamıyor, filtre listeleri indirilemedi — kapatmak için tıkla",
+				"accountNote": "YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "YouTube'a Arroxy içinde göz at ve hesap gerektiren videolar için oturum aç.",
+			"showTab": "Explore sekmesini göster",
+			"showTabDescription": "Kapatmak, indirmelerin Explore oturumunu kullanmasını da durdurur.",
+			"signOut": "Explore'dan çıkış yap",
+			"signOutDescription": "Explore'daki YouTube oturumunu ve gezinme verilerini temizler.",
+			"signOutConfirmTitle": "Explore'dan çıkış yapılsın mı?",
+			"signOutConfirmBody": "Bu, Explore'daki YouTube oturumunu ve gezinme verilerini temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur.",
+			"signOutConfirm": "Çıkış yap"
+		},
+		"error": {"proxyTitle": "Explore, proxy'n üzerinden bağlanamıyor", "proxyBody": "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene.", "loadTitle": "Bu sayfa yüklenmedi", "loadBody": "Bağlantını kontrol et, sonra tekrar dene.", "retry": "Tekrar dene", "openSettings": "Ayarları aç"}
 	}
 }

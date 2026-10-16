@@ -70,6 +70,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}, probeResu
 		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn()},
 		analytics: {track: vi.fn()},
+		explore: {getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})), onStateChanged: vi.fn().mockReturnValue(() => undefined), onPointerInView: vi.fn().mockReturnValue(() => undefined)},
 		diagnostics: {logWizardStep: vi.fn()}
 	}
 }

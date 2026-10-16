@@ -26,6 +26,8 @@ interface BotWallGuidanceAlertProps {
 	retryTestId?: string
 }
 
+const BOT_WALL_BODY = {unconfigured: 'wizard.formats.botWall.bodyUnconfigured', disabled: 'wizard.formats.botWall.bodyDisabled', enabled: 'wizard.formats.botWall.bodyEnabled', explore: 'wizard.formats.botWall.bodyExplore'} as const satisfies Record<Exclude<BotWallGuidance['variant'], 'hidden'>, string>
+
 export function BotWallGuidanceAlert({guidance, onEnableCookiesAndRetry, onRetry, density = 'full', showRetryAction = true, enableTestId = 'bot-wall-enable-cta', retryTestId = 'bot-wall-retry-cta'}: BotWallGuidanceAlertProps): JSX.Element | null {
 	const {t} = useTranslation()
 	if (guidance.variant === 'hidden') return null
@@ -33,7 +35,7 @@ export function BotWallGuidanceAlert({guidance, onEnableCookiesAndRetry, onRetry
 	const showEnableAction = guidance.variant === 'disabled'
 	const showActions = showEnableAction || showRetryAction
 
-	const body = guidance.variant === 'unconfigured' ? t('wizard.formats.botWall.bodyUnconfigured') : guidance.variant === 'disabled' ? t('wizard.formats.botWall.bodyDisabled') : t('wizard.formats.botWall.bodyEnabled')
+	const body = t(BOT_WALL_BODY[guidance.variant])
 
 	return (
 		<Alert role="status" variant="warning" data-testid="bot-wall-notice" data-variant={guidance.variant} data-density={density} size={compact ? 'sm' : 'default'}>

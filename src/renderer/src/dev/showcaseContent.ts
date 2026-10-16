@@ -94,7 +94,8 @@ export function showcaseProbe(probe: ProbeResult): ProbeResult {
 	return {...probe, webpageUrl, title: title(probe.title, seed), thumbnail: showcaseArtwork(seed), duration: duration(probe.duration)}
 }
 
+// A placeholder row (no job yet) has no artwork in the app either, so it keeps none.
 export function showcaseQueueItem(item: QueueItem): QueueItem {
 	const seed = item.id
-	return {...item, title: title(item.title, seed), thumbnail: showcaseArtwork(seed)}
+	return {...item, title: title(item.title, seed), thumbnail: item.job.kind === 'unresolved' ? item.thumbnail : showcaseArtwork(seed)}
 }

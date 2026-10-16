@@ -149,6 +149,9 @@ function expectSourcePreferredSelector(selector: string | undefined): void {
 	expect(selector).toContain("[format_note~=?'(?i)\\boriginal\\b']")
 }
 
+// The wizard's fallbacks; these tests name everything through the probe.
+const NO_SOURCE = {url: '', playlistTitle: ''}
+
 describe('QueueSubmission', () => {
 	it('prepares a single manual queue item', () => {
 		const prepared = prepareManualQueueSubmission(state(), 'priority')
@@ -216,7 +219,7 @@ describe('QueueSubmission', () => {
 	})
 
 	it('prepares an active-profile video item', () => {
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardOutputDir: '/profile-downloads'}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardOutputDir: '/profile-downloads'}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items).toHaveLength(1)
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Up to 720p · Native formats · Native audio', job: {kind: 'ranged-format'}})
@@ -226,7 +229,7 @@ describe('QueueSubmission', () => {
 	it('threads surround preference into active-profile best-native selectors', () => {
 		const settings = defaultAppSettings('/downloads')
 		settings.common.nativeAudioPreference = 'surround'
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)
 		const job = prepared?.items[0]?.job
 
 		expect(job?.kind).toBe('ranged-format')
@@ -237,20 +240,20 @@ describe('QueueSubmission', () => {
 	})
 
 	it('uses the probe webpage URL for active-profile video items when wizard state is stale', () => {
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardUrl: 'https://www.youtube.com/watch?v=stale'}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardUrl: 'https://www.youtube.com/watch?v=stale'}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items[0]?.url).toBe('https://www.youtube.com/watch?v=abc')
 	})
 
 	it('uses the default downloads folder and profile subfolder with native separators', () => {
 		const settings = defaultAppSettings('C:\\Users\\User\\Downloads')
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings, wizardOutputDir: ''}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings, wizardOutputDir: ''}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items[0]?.outputDir).toBe('C:\\Users\\User\\Downloads\\Balanced 720p')
 	})
 
 	it('prepares active-profile playlist items and manifest payload', () => {
-		const prepared = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state(), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state(), 'normal', NO_SOURCE)
 
 		expect(prepared?.items).toHaveLength(2)
 		expect(prepared?.items[0]).toMatchObject({playlistGroupId: expect.any(String), outputDir: '/downloads/Balanced 720p', writeM3u: true})
@@ -261,7 +264,7 @@ describe('QueueSubmission', () => {
 		const settings = defaultAppSettings('/downloads')
 		const profile = subtitleProfile()
 		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [profile], overrides: [], enabledOverrides: {}}
-		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'vtt', writeAuto: false}}})
 	})
@@ -284,7 +287,7 @@ describe('QueueSubmission', () => {
 			{id: '2::b', title: 'B', url: 'https://example.com/b', thumbnail: '', playlistIndex: 2, videoId: 'b', timestamp: 100}
 		]
 
-		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries}, state({playlistSortMode: 'upload-asc'}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries}, state({playlistSortMode: 'upload-asc'}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items.map(item => item.url)).toEqual(['https://example.com/a', 'https://example.com/b'])
 	})
@@ -373,14 +376,14 @@ describe('container rows are never queued', () => {
 	it('prepareActiveProfileQueueSubmission drops them', () => {
 		const probe = {...PLAYLIST_PROBE, entries: [...PLAYLIST_ITEMS, CONTAINER_ITEM]}
 
-		const prepared = prepareActiveProfileQueueSubmission(probe, state(), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission(probe, state(), 'normal', NO_SOURCE)
 
 		expect(prepared?.items.map(item => item.url)).toEqual([PLAYLIST_ITEMS[0].url, PLAYLIST_ITEMS[1].url])
 		expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b'])
 	})
 
 	it('prepareActiveProfileQueueSubmission returns null when every entry is a container', () => {
-		expect(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [CONTAINER_ITEM]}, state(), 'normal')).toBeNull()
+		expect(prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [CONTAINER_ITEM]}, state(), 'normal', NO_SOURCE)).toBeNull()
 	})
 })
 
@@ -407,7 +410,7 @@ function numberedSettings(): AppState['settings'] {
 
 describe('a video listed twice is queued once', () => {
 	it('prepareActiveProfileQueueSubmission keeps the first occurrence, numbers contiguously, and matches the manifest', () => {
-		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({settings: numberedSettings()}), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({settings: numberedSettings()}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items.map(item => item.url)).toEqual(REPEATED_URLS)
 		expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(NUMBERED_TITLES)
@@ -457,7 +460,7 @@ describe('videos already live in the queue are skipped', () => {
 		const probe = {...PLAYLIST_PROBE, entries: ABC_ITEMS}
 
 		it('drops the queued entry, numbers the rest contiguously, and counts the skip', () => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({settings: numberedSettings(), queue: [queued('https://youtu.be/a')]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({settings: numberedSettings(), queue: [queued('https://youtu.be/a')]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/c'])
 			expect(prepared?.items.map(item => jobFilenameTemplate(item.job))).toEqual(['001 - B', '002 - C'])
@@ -467,47 +470,47 @@ describe('videos already live in the queue are skipped', () => {
 		// The manifest is the playlist's full ordered list by contract (the .m3u is
 		// rebuilt from it and from the files on disk), so a skipped video stays in it.
 		it('keeps the whole playlist in the manifest', () => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/a')]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/a')]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.manifest?.items.map(item => item.videoId)).toEqual(['a', 'b', 'c'])
 		})
 
 		it.each(LIVE_STATUSES)('skips a %s item', status => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/b', status)]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/b', status)]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/a', 'https://youtu.be/c'])
 			expect(prepared?.skippedAlreadyQueued).toBe(1)
 		})
 
 		it.each(TERMINAL_STATUSES)('does not skip a %s item', status => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url, status))}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url, status))}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items.map(item => item.url)).toEqual(ABC_URLS)
 			expect(prepared?.skippedAlreadyQueued).toBe(0)
 		})
 
 		it('counts a queued video listed twice once', () => {
-			const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({queue: [queued('https://youtu.be/a')]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: REPEATED_ITEMS}, state({queue: [queued('https://youtu.be/a')]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items.map(item => item.url)).toEqual(['https://youtu.be/b', 'https://youtu.be/c'])
 			expect(prepared?.skippedAlreadyQueued).toBe(1)
 		})
 
 		it('yields no items, and no manifest, when every video is already queued', () => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url))}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: ABC_URLS.map(url => queued(url))}), 'normal', NO_SOURCE)
 
 			expect(prepared).toEqual({items: [], skippedAlreadyQueued: 3})
 		})
 
 		it('reports nothing skipped when the queue is unrelated', () => {
-			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/zzz')]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(probe, state({queue: [queued('https://youtu.be/zzz')]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items).toHaveLength(3)
 			expect(prepared?.skippedAlreadyQueued).toBe(0)
 		})
 
 		it('leaves a lone video to the admission guard', () => {
-			const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({queue: [queued(VIDEO_PROBE.webpageUrl)]}), 'normal')
+			const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({queue: [queued(VIDEO_PROBE.webpageUrl)]}), 'normal', NO_SOURCE)
 
 			expect(prepared?.items.map(item => item.url)).toEqual([VIDEO_PROBE.webpageUrl])
 			expect(prepared?.skippedAlreadyQueued).toBe(0)
@@ -619,7 +622,7 @@ describe('placeholder titles ride onto queue items', () => {
 	})
 
 	it('prepareActiveProfileQueueSubmission carries the flag', () => {
-		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [PLACEHOLDER_ITEM, PLAYLIST_ITEMS[1]]}, state(), 'normal')
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, entries: [PLACEHOLDER_ITEM, PLAYLIST_ITEMS[1]]}, state(), 'normal', NO_SOURCE)
 
 		expect(prepared?.items).toHaveLength(2)
 		expect(prepared?.items[0]?.titleIsPlaceholder).toBe(true)
@@ -671,5 +674,58 @@ describe('subtitles-only batch selections', () => {
 
 		expect(prepared?.items.every(item => item.playlistGroupId !== undefined)).toBe(true)
 		expect(prepared?.items.every(item => item.writeM3u === false)).toBe(true)
+	})
+})
+
+describe('job auth threading', () => {
+	const SIGNED_IN_ITEMS: PlaylistEntry[] = PLAYLIST_ITEMS.map(entry => ({...entry, auth: 'exploreSession'}))
+
+	it('quick-download items of an account-only playlist carry the auth main put on its entries', () => {
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, auth: 'exploreSession', entries: SIGNED_IN_ITEMS}, state(), 'normal', NO_SOURCE)
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items.map(item => item.auth)).toEqual(['exploreSession', 'exploreSession'])
+	})
+
+	it('quick-download items of a playlist enumerated past a bot wall start anonymous (R20)', () => {
+		const prepared = prepareActiveProfileQueueSubmission({...PLAYLIST_PROBE, auth: 'exploreSession'}, state(), 'normal', NO_SOURCE)
+
+		expect(prepared?.items).toHaveLength(2)
+		expect(prepared?.items.every(item => !('auth' in item))).toBe(true)
+	})
+
+	it('a signed-in video probe makes the quick-download item signed in', () => {
+		const prepared = prepareActiveProfileQueueSubmission({...VIDEO_PROBE, auth: 'exploreSession'}, state(), 'normal', NO_SOURCE)
+
+		expect(prepared?.items[0]?.auth).toBe('exploreSession')
+	})
+
+	it('the single wizard item carries the probe auth', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardProbeAuth: 'exploreSession'}), 'normal')
+
+		expect(prepared?.items[0]?.auth).toBe('exploreSession')
+	})
+
+	it('manual playlist and bulk items carry their entry auth', () => {
+		for (const wizardMode of ['playlist', 'bulk'] as const) {
+			const prepared = prepareManualQueueSubmission(state({wizardMode, playlistItems: SIGNED_IN_ITEMS}), 'normal')
+			expect(prepared?.items.map(item => item.auth)).toEqual(['exploreSession', 'exploreSession'])
+		}
+	})
+
+	it('multi-profile items carry their entry auth', () => {
+		const prepared = prepareMultiProfileQueueSubmission(multiProfileState({playlistItems: SIGNED_IN_ITEMS}), 'normal')
+
+		expect(prepared?.items.length).toBeGreaterThan(0)
+		expect(prepared?.items.every(item => item.auth === 'exploreSession')).toBe(true)
+	})
+
+	it('anonymous probes leave auth off every item', () => {
+		const quick = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state(), 'normal', NO_SOURCE)
+		const single = prepareManualQueueSubmission(state(), 'normal')
+
+		expect(quick?.items.length).toBeGreaterThan(0)
+		expect(single?.items.length).toBeGreaterThan(0)
+		expect([...(quick?.items ?? []), ...(single?.items ?? [])].every(item => !('auth' in item))).toBe(true)
 	})
 })

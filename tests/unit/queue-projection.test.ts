@@ -115,4 +115,81 @@ describe('QueueProjection', () => {
 		listeners.scheduler?.({paused: false})
 		expect(current.schedulerPaused).toBe(false)
 	})
+
+	// A placeholder swap re-adds the row under the same id; with the window
+	// hidden (background throttling) its first progress lands in the same batch.
+	it('keeps an update for a row removed and re-added in the same batch', () => {
+		const placeholder = makeItem({id: 'x', status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'})
+		const swapped = makeItem({id: 'x', status: 'pending'})
+
+		const result = applyQueueProjectionBatch(state([placeholder]), {removes: new Set(['x']), adds: [{items: [swapped], atIdx: 0}], updates: new Map([['x', {...swapped, status: 'done', progressPercent: 100}]])})
+
+		expect(result.queue.map(item => [item.id, item.status])).toEqual([['x', 'done']])
+	})
+
+	it('still drops an update for a row removed for good', () => {
+		const q1 = makeItem({id: 'q1', status: 'pending'})
+		const result = applyQueueProjectionBatch(state([q1]), {removes: new Set(['q1']), adds: [], updates: new Map([['q1', {...q1, status: 'running'}]])})
+		expect(result.queue).toEqual([])
+	})
+
+	it('orders removed, added, then updated events of one id within a flush', () => {
+		const listeners: Partial<{added: (event: {items: QueueItem[]; atIdx: number}) => void; updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void}> = {}
+		const events: QueueProjectionBindings = {
+			onSnapshot: () => vi.fn(),
+			onAdded: listener => {
+				listeners.added = listener
+				return vi.fn()
+			},
+			onUpdated: listener => {
+				listeners.updated = listener
+				return vi.fn()
+			},
+			onRemoved: listener => {
+				listeners.removed = listener
+				return vi.fn()
+			},
+			onScheduler: () => vi.fn()
+		}
+		const placeholder = makeItem({id: 'x', status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'})
+		let current = {...state([placeholder]), settings: {common: {successfulDownloadCount: 0}}}
+		const scheduled: (() => void)[] = []
+		bindQueueProjection({events, get: () => current, set: patcher => (current = {...current, ...patcher(current)}), schedule: callback => scheduled.push(callback), readSuccessfulDownloadCount: () => 0, onDoneIncrements: vi.fn()})
+
+		// A stale update before the swap must not outlive it.
+		listeners.updated?.({item: {...placeholder, title: 'stale'}})
+		listeners.removed?.({itemId: 'x'})
+		const swapped = makeItem({id: 'x', status: 'pending', title: 'Swapped'})
+		listeners.added?.({items: [swapped], atIdx: 0})
+		listeners.updated?.({item: {...swapped, status: 'running', progressPercent: 40}})
+		for (const flush of scheduled) flush()
+
+		expect(current.queue.map(item => [item.id, item.status, item.title, item.progressPercent])).toEqual([['x', 'running', 'Swapped', 40]])
+	})
+
+	it('drops a row added and removed within one flush', () => {
+		const listeners: Partial<{added: (event: {items: QueueItem[]; atIdx: number}) => void; removed: (event: {itemId: string}) => void}> = {}
+		const events: QueueProjectionBindings = {
+			onSnapshot: () => vi.fn(),
+			onAdded: listener => {
+				listeners.added = listener
+				return vi.fn()
+			},
+			onUpdated: () => vi.fn(),
+			onRemoved: listener => {
+				listeners.removed = listener
+				return vi.fn()
+			},
+			onScheduler: () => vi.fn()
+		}
+		let current = {...state([]), settings: {common: {successfulDownloadCount: 0}}}
+		const scheduled: (() => void)[] = []
+		bindQueueProjection({events, get: () => current, set: patcher => (current = {...current, ...patcher(current)}), schedule: callback => scheduled.push(callback), readSuccessfulDownloadCount: () => 0, onDoneIncrements: vi.fn()})
+
+		listeners.added?.({items: [makeItem({id: 'gone', status: 'probing', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'})], atIdx: 0})
+		listeners.removed?.({itemId: 'gone'})
+		for (const flush of scheduled) flush()
+
+		expect(current.queue).toEqual([])
+	})
 })

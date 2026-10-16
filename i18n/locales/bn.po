@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "চালিয়ে যান"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "বন্ধ করুন"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "লোড হচ্ছে…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "আপনার IP ঠিকানা YouTube দ্বারা ব্লক মনে হচ্ছে। পরে আবার চেষ্টা করুন বা VPN ব্যবহার করুন।"
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "এই ভিডিওর জন্য সাইন-ইন করা অ্যাকাউন্ট প্রয়োজন। cookies.txt সেট আপ করুন (সেটিংস → Cookies) এবং আবার চেষ্টা করুন।"
+msgid "This video needs a signed-in account."
+msgstr "এই ভিডিওর জন্য সাইন ইন করা অ্যাকাউন্ট লাগবে।"
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "ডাউনলোড ব্যর্থ। নিচে raw output দ�
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "এই URL টি yt-dlp সমর্থন করে না। yt-dlp সমর্থিত যেকোনো সাইটের অন্য একটি লিংক চেষ্টা করুন।"
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "আপনার সংযোগ পরীক্ষা করুন, তারপর আবার চেষ্টা করুন।"
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "এই পৃষ্ঠাটি লোড হয়নি"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "সেটিংস খুলুন"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "সেটিংসে প্রক্সি পরীক্ষা করুন, তারপর আবার চেষ্টা করুন।"
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore আপনার প্রক্সির মাধ্যমে সংযোগ করতে পারছে না"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "আবার চেষ্টা করুন"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "নতুন"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "কোনো ভিডিও, প্লেলিস্ট বা চ্যানেল খুঁজে এখান থেকেই ডাউনলোড করুন — লিংক কপি করতে হবে না। অ্যাকাউন্ট প্রয়োজন এমন ভিডিও ডাউনলোড করতে এখানে YouTube-এ সাইন ইন করুন।"
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "চালিয়ে যান"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube, yt-dlp-এর মতো ডাউনলোড টুলের সঙ্গে ব্যবহৃত অ্যাকাউন্ট ফ্ল্যাগ — এবং কখনও কখনও নিষিদ্ধ — করতে পারে। যে অ্যাকাউন্ট হারালে ক্ষতি নেই সেটি ব্যবহার করুন, আপনার মূল অ্যাকাউন্ট নয়।"
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "একটি দ্বিতীয় অ্যাকাউন্ট দিয়ে সাইন ইন করুন"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "ডাউনলোডে আপনার ব্রাউজারের কুকিজ ব্যবহার হয়, Explore সাইন-ইন নয়।"
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "ডাউনলোডে আপনার কুকিজ ফাইল ব্যবহার হয়, Explore সাইন-ইন নয়।"
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "এখন নয়"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "কুকিজ বন্ধ আছে, তাই ডাউনলোডে আপনার Explore সাইন-ইন ব্যবহার হয় না।"
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Explore সাইন-ইন ব্যবহার করুন"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Arroxy-এর ভেতরে YouTube ব্রাউজ করুন এবং অ্যাকাউন্ট প্রয়োজন এমন ভিডিওর জন্য সাইন ইন করুন।"
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Explore ট্যাব দেখান"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "এটি বন্ধ করলে ডাউনলোডেও আপনার Explore সাইন-ইন ব্যবহার হওয়া বন্ধ হয়।"
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Explore থেকে সাইন আউট করুন"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "সাইন আউট"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "এতে Explore-এ আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে যাবে। আবার সাইন ইন না করা পর্যন্ত অ্যাকাউন্ট প্রয়োজন এমন ডাউনলোড ব্যর্থ হবে।"
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Explore থেকে সাইন আউট করবেন?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Explore-এ আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে দেয়।"
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "সাইন ইন করা অ্যাকাউন্টের ক্ষেত্রে YouTube অ্যাড ব্লকারে বাধা দিতে পারে।"
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "অ্যাড ব্লকার"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "অ্যাড ব্লকার: বন্ধ — চালু করতে ক্লিক করুন"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "অ্যাড ব্লকার: চালু — বন্ধ করতে ক্লিক করুন"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "অ্যাড ব্লকার: চালু হচ্ছে — বন্ধ করতে ক্লিক করুন"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "অ্যাড ব্লকার: পাওয়া যাচ্ছে না, এর ফিল্টার তালিকা ডাউনলোড করা যায়নি — বন্ধ করতে ক্লিক করুন"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "ঠিকানা"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "YouTube-এ খুঁজুন বা YouTube লিংক পেস্ট করুন"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Explore ব্রাউজার নিয়ন্ত্রণ"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "পেছনে"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "ডাউনলোড · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "সামনে"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "ডাউনলোড করতে একটি ভিডিও, প্লেলিস্ট বা চ্যানেল খুলুন"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube হোম"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "ফরম্যাট, সাবটাইটেল ও আরও বেছে নিন…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "এই লিংক ডাউনলোড করুন"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore শুধু YouTube ব্রাউজ করে।"
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore শুধু YouTube ব্রাউজ করে। {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "রিলোড করুন"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "এই সার্চটি অনেক বড়।"
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ভাষা"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Explore দিয়ে সাইন ইন হয়েছে — 1টি লিংক আবার চেষ্টা হচ্ছে"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Explore দিয়ে সাইন ইন হয়েছে — {{count}}টি লিংক আবার চেষ্টা হচ্ছে"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Explore থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।"
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "এই ফোল্ডারটি আপনার সিস্টেমের জন্য অনেক গভীরে। ডাউনলোড তবুও ব্যর্থ হতে পারে — একটি ছোট ফোল্ডার বেছে নিন।"
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "ইতিমধ্যে সারিতে আছে — কপি যোগ করা হয়নি"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "আগের লিংকটি এখনও প্রক্রিয়া করা হচ্ছে"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy এখনও চালু হচ্ছে — একটু পরে আবার চেষ্টা করুন"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Arroxy-তে কুকিজ সেটআপ শেষ করুন, তারপর আবার চেষ্টা করুন"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "একাধিক লিংক কপি হয়েছে — Arroxy-তে “বাল্ক URL” ব্যবহার করুন"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "এই লিংকটির একটি দ্রুত পর্যালোচনা প্রয়োজন — Arroxy খুলে আবার পেস্ট করুন"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "এই লিংকে আপনার সিদ্ধান্ত লাগবে — Arroxy-তে ডাউনলোড দেখুন"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}}টি ভিডিও ইতিমধ্যে সারিত
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}}টি ভিডিও ইতিমধ্যে সারিতে আছে — বাদ দেওয়া হয়েছে"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "যোগ হয়েছে: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "ইতিমধ্যে সারিতে আছে"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ ভিডিও — কতগুলো নেবেন বেছে নিন"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ ভিডিও — কতগুলো নেবেন বেছে নিন"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} প্রস্তুত করা যায়নি"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "লিংকটি যোগ করা যায়নি — আবার চেষ্টা করুন"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "এই তালিকায় {{count}}টি ভিডিও — বেছে নিতে পর্যালোচনা করুন"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "এই তালিকায় {{count}}টি ভিডিও — বেছে নিতে পর্যালোচনা করুন"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "এই তালিকায় {{count}}+ ভিডিও — বেছে নিতে পর্যালোচনা করুন"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "এই তালিকায় {{count}}+ ভিডিও — বেছে নিতে পর্যালোচনা করুন"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "দেখুন"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ফাইল"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}}টি ডাউনলোডে আপনার নজর দরকার"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}}টি ডাউনলোডে আপনার নজর দরকার"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "সব সক্রিয় ও অপেক্ষমাণ ডাউনলোড বাতিল করুন"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "সব ভিডিও"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "এই প্লেলিস্টে {{count}}টির বেশি ভিডিও আছে। সবগুলো, প্রথম {{count}}টি ডাউনলোড করুন, অথবা পর্যালোচনায় বেছে নিন।"
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "এই প্লেলিস্টে {{count}}টির বেশি ভিডিও আছে। সবগুলো, প্রথম {{count}}টি ডাউনলোড করুন, অথবা পর্যালোচনায় বেছে নিন।"
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "প্রথম {{count}}টি"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "পর্যালোচনা"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "এই লিংকটি {{count}}টি ভিডিওর একটি তালিকা। কী ডাউনলোড করবেন তা বেছে নিতে পর্যালোচনা করুন।"
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "এই লিংকটি {{count}}টি ভিডিওর একটি তালিকা। কী ডাউনলোড করবেন তা বেছে নিতে পর্যালোচনা করুন।"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "ত্রুটি"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "ধরে রাখা"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "আপনার সিদ্ধান্ত দরকার"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "মেটাডেটা যুক্ত হচ্ছে…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Explore থেকে সাইন আউট হয়ে গেছে — আবার সাইন ইন করুন"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "অডিও রূপান্তর হচ্ছে…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock অনুপলব্ধ, আবার চেষ্টা �
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "সংযোগ আটকে গেছে, আবার চেষ্টা করা হচ্ছে ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "আপনার Explore অ্যাকাউন্ট দিয়ে সাইন ইন করা হচ্ছে…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "কুকিজ থাকলেও YouTube এই প্রোব সীমাবদ্ধ করেছে। পরে আবার চেষ্টা করুন বা নেটওয়ার্ক পরিবর্তন করুন।"
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube এই অনুরোধ সীমিত করেছে। পরে আবার চেষ্টা করুন বা নেটওয়ার্ক বদলান।"
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "ফরম্যাট তালিকা অসম্পূর্ণ হতে পারে। উন্নত সেটিংসে কুকিজ সেট করুন, অথবা নেটওয়ার্ক পরিবর্তন করে আবার চেষ্টা করুন।"
@@ -1468,6 +1772,10 @@ msgstr "WAV (uncompressed)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "ব্রাউজার"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Explore সাইন-ইন"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "আপনার কুকিজ ফাইলটি খালি, মেয়াদ শেষ বা ভুল ফরম্যাটে থাকতে পারে (yt-dlp Netscape cookies.txt আশা করে)। কুকিজ পুনরায় এক্সপোর্ট করুন, ভিন্ন ফাইল বেছে নিন, ব্রাউজার মোডে স্যুইচ করুন, অথবা কুকিজ বন্ধ করে দেখুন।"
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Explore দিয়ে সাইন ইন করুন, Arroxy আবার চেষ্টা করবে।"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Explore দিয়ে সাইন ইন করুন"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট লাগতে পারে"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "আপনি Explore-এ সাইন ইন করা আছেন, কিন্তু ডাউনলোড এখন সেই সাইন-ইন ব্যবহার করছে না।"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "আমার Explore সাইন-ইন ব্যবহার করে আবার চেষ্টা করুন"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট লাগতে পারে"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "এই ভিডিওর জন্য অ্যাকাউন্ট প্রয়োজন হলে Arroxy স্বয়ংক্রিয়ভাবে আপনার Explore সাইন-ইন ব্যবহার করে। অন্য কোনো কারণেও এটি অনুপলব্ধ হতে পারে।"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Explore-এ সাইন ইন করা আছে"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট প্রয়োজন হলে Explore-এ সাইন ইন করে আবার চেষ্টা করুন। ডাউনলোডের প্রয়োজন হলেই Arroxy সেই সাইন-ইন ব্যবহার করে।"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Explore-এ সাইন ইন করুন"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট লাগতে পারে"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "কুকিজ কারণ হতে পারে"
@@ -1536,6 +1888,10 @@ msgstr "এই সাইটে সাইন-ইন প্রয়োজন"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "কুকিজ সেটিংস খুলুন"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "এর বদলে কুকিজ ফাইল বা ব্রাউজার ব্যবহার করুন…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "কুকিজ ব্যবহার করতে একটি ফাইল বেছে নিন"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "ডাউনলোডের প্রয়োজন হলেই Explore সাইন-ইন ব্যবহার করে।"
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Explore ট্যাব বন্ধ আছে, তাই ডাউনলোডে আপনার Explore সাইন-ইন ব্যবহার হয় না। নিচে Explore-এ এটি চালু করুন।"
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "cookies.txt স্থানীয়ভাবে পান (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "কুকিজ এক্সপোর্ট করব কীভাবে?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Explore খুলুন"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "কোনো ফাইল নির্বাচিত হয়নি"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "প্রস্তাবিত"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "ঝুঁকি: cookies.txt-এ ওই ব্রাউজারের �
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "ব্রাউজার"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Explore সাইন-ইন"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

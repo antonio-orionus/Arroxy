@@ -91,6 +91,15 @@ describe('QueueService.add — collection URL guard', () => {
 	it('accepts an empty batch', () => {
 		expect(makeService().add([]).ok).toBe(true)
 	})
+
+	// A quick download of a playlist places a placeholder row for the playlist
+	// link itself. It has no job, so it can never download; its probe swaps it
+	// for one row per video, and those are what the guard checks.
+	it('admits a placeholder row for a collection link', () => {
+		const qs = makeService()
+		const placeholder = makeItem({id: 'p', status: 'probing', url: PLAYLIST, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'video'})
+		expect(qs.add([placeholder]).ok).toBe(true)
+	})
 })
 
 // --- source 2: containers that survive the probe's heterogeneous filter ------
@@ -141,6 +150,26 @@ describe('expandBulkCollectionUrls — abort', () => {
 
 		expect(result.aborted).toBe(true)
 		expect(probe).toHaveBeenCalledTimes(1)
+	})
+})
+
+describe('expandBulkCollectionUrls — job auth', () => {
+	it('seeds each entry with the auth main gave it (an account-only collection)', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', auth: 'exploreSession', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1', auth: 'exploreSession'}]}})
+
+		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {items: {kind: 'app-limit'}} as never)
+
+		expect(result.seeds.get('https://youtu.be/e1')?.auth).toBe('exploreSession')
+	})
+
+	it('leaves the entries of a collection enumerated past a bot wall anonymous (R20)', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', auth: 'exploreSession', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1'}]}})
+
+		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {items: {kind: 'app-limit'}} as never)
+
+		expect(result.seeds.get('https://youtu.be/e1')?.auth).toBeUndefined()
 	})
 })
 

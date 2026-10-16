@@ -81,6 +81,14 @@ describe('resolveE2eHarnessMode', () => {
 		expect(spawnEnv.NO_PROXY).toBe('127.0.0.1,localhost,::1')
 	})
 
+	it('leaves signed-in spawn pacing to production defaults outside the harness', () => {
+		expect(resolveE2eHarnessMode({}, {isPackaged: false}).exploreSpawnSpacingMs).toBeUndefined()
+	})
+
+	it('removes the spacing between signed-in spawns in E2E mode', () => {
+		expect(resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot()}, {isPackaged: false}).exploreSpawnSpacingMs).toBe(0)
+	})
+
 	it('keeps clipboard watching disabled in E2E unless explicitly opted in', () => {
 		const root = makePluginRoot()
 		const disabled = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: root}, {isPackaged: false})
@@ -89,6 +97,72 @@ describe('resolveE2eHarnessMode', () => {
 		expect(disabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(false)
 		expect(enabled.allowClipboardWatch).toBe(true)
 		expect(enabled.applyAppSettingsDefaults(defaultAppSettings('/downloads')).common.clipboardWatchEnabled).toBe(true)
+	})
+})
+
+describe('resolveE2eHarnessMode Explore cookies', () => {
+	function cookiesFile(content: string): string {
+		const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-cookies-'))
+		tempRoots.push(dir)
+		const file = path.join(dir, 'cookies.json')
+		fs.writeFileSync(file, content)
+		return file
+	}
+	const goodCookie = {name: 'SAPISID', value: 'x', domain: '.youtube.com', hostOnly: false, path: '/', secure: true, httpOnly: false, session: false, expirationDate: 2_000_000_000}
+
+	it('parses the seed file into Explore cookies', () => {
+		const file = cookiesFile(JSON.stringify([goodCookie]))
+		const mode = resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_EXPLORE_COOKIES: file}, {isPackaged: false})
+		expect(mode.exploreCookies).toEqual([goodCookie])
+	})
+
+	it('has no cookies when the variable is unset', () => {
+		expect(resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot()}, {isPackaged: false}).exploreCookies).toBeUndefined()
+	})
+
+	it('ignores the variable outside the gated harness', () => {
+		const file = cookiesFile(JSON.stringify([goodCookie]))
+		expect(resolveE2eHarnessMode({ARROXY_E2E_EXPLORE_COOKIES: file}, {isPackaged: false}).exploreCookies).toBeUndefined()
+	})
+
+	it('requires an absolute path', () => {
+		expect(() => resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_EXPLORE_COOKIES: 'cookies.json'}, {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_COOKIES.*absolute/)
+	})
+
+	it('fails loudly when the file is missing', () => {
+		expect(() => resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_EXPLORE_COOKIES: path.join(os.tmpdir(), 'arroxy-no-such-cookies.json')}, {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_COOKIES/)
+	})
+
+	it('fails loudly on invalid JSON', () => {
+		const file = cookiesFile('{not json')
+		expect(() => resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_EXPLORE_COOKIES: file}, {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_COOKIES/)
+	})
+
+	it('fails loudly when a cookie has the wrong shape', () => {
+		const file = cookiesFile(JSON.stringify([{...goodCookie, secure: 'yes'}]))
+		expect(() => resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ARROXY_E2E_EXPLORE_COOKIES: file}, {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_COOKIES/)
+	})
+})
+
+describe('resolveE2eHarnessMode Explore home override', () => {
+	const enabled = (extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv => ({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ...extra})
+
+	it('exposes an absolute http(s) URL', () => {
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_HOME: 'http://127.0.0.1:4567/explore/home'}), {isPackaged: false}).exploreHomeUrl).toBe('http://127.0.0.1:4567/explore/home')
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_HOME: 'https://localhost:8443/'}), {isPackaged: false}).exploreHomeUrl).toBe('https://localhost:8443/')
+	})
+
+	it('has no override when the variable is unset', () => {
+		expect(resolveE2eHarnessMode(enabled({}), {isPackaged: false}).exploreHomeUrl).toBeUndefined()
+	})
+
+	it('ignores the variable outside the gated harness', () => {
+		expect(resolveE2eHarnessMode({ARROXY_E2E_EXPLORE_HOME: 'http://127.0.0.1:4567/'}, {isPackaged: false}).exploreHomeUrl).toBeUndefined()
+		expect(resolveE2eHarnessMode({ARROXY_E2E: '1', ARROXY_E2E_EXPLORE_HOME: 'http://127.0.0.1:4567/', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot()}, {isPackaged: true}).exploreHomeUrl).toBeUndefined()
+	})
+
+	it.each(['127.0.0.1:4567/home', '/explore/home', 'file:///tmp/home.html', 'javascript:alert(1)', 'data:text/html,x', 'not a url', ''])('fails loudly on %j', value => {
+		expect(() => resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_HOME: value}), {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_HOME/)
 	})
 })
 
@@ -106,5 +180,32 @@ describe('isHeadlessWindowRequested', () => {
 
 	it('keeps E2E runs visible by default', () => {
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '1'})).toBe(false)
+	})
+})
+
+describe('resolveE2eHarnessMode Explore ad blocker filter seed', () => {
+	const enabled = (extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv => ({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ...extra})
+
+	function filtersFile(text: string): string {
+		const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-e2e-adblock-'))
+		tempRoots.push(dir)
+		const file = path.join(dir, 'filters.txt')
+		fs.writeFileSync(file, text)
+		return file
+	}
+
+	it('reads the filter list the engine is built from instead of fetching one', () => {
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS: filtersFile('/fixture-ad.js\n')}), {isPackaged: false}).exploreAdBlockFilters).toBe('/fixture-ad.js\n')
+	})
+
+	it('is absent unless set, outside the gated harness, and in any packaged build', () => {
+		const file = filtersFile('/fixture-ad.js')
+		expect(resolveE2eHarnessMode(enabled({}), {isPackaged: false}).exploreAdBlockFilters).toBeUndefined()
+		expect(resolveE2eHarnessMode({ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS: file}, {isPackaged: false}).exploreAdBlockFilters).toBeUndefined()
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS: file, ARROXY_ENABLE_E2E_HARNESS: '1'}), {isPackaged: true}).exploreAdBlockFilters).toBeUndefined()
+	})
+
+	it.each(['relative/filters.txt', '/no/such/filters.txt'])('fails loudly on %j', value => {
+		expect(() => resolveE2eHarnessMode(enabled({ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS: value}), {isPackaged: false})).toThrow(/ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS/)
 	})
 })

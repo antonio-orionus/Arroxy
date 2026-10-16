@@ -1,6 +1,6 @@
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine, Plus, Users} from 'lucide-react'
+import {ChevronDown, ChevronRight, Download, Folder, FolderCog, PenLine} from 'lucide-react'
 import {DEFAULTS} from '@shared/constants.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import {formatHotkeyChord, formatHotkeyChordSpoken} from '@renderer/lib/hotkeyLabel.js'
@@ -8,11 +8,14 @@ import {cn} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
 import {Kbd, KbdGroup} from '../ui/kbd.js'
-import {Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger} from '../ui/popover.js'
-import {Separator} from '../ui/separator.js'
+import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
+import {DownloadProfileMenuContent, type DownloadProfileMenuTestIdPrefix} from './DownloadProfileMenu.js'
+
+// The URL tab and the Bulk dialog; Explore opens the same menu from its own toolbar.
+type QuickProfileTestIdPrefix = Exclude<DownloadProfileMenuTestIdPrefix, 'explore'>
 
 interface QuickProfileControlProps {
 	defaultProfileMenuOpen?: boolean
@@ -25,10 +28,11 @@ interface QuickProfileControlProps {
 	onManageProfiles: () => void
 	onNewProfile: () => void
 	onPickProfile: (ref: DownloadProfileRef) => void
-	preparing: boolean
+	// Bulk URLs prepares its links in one run; a single link prepares in the background.
+	preparing?: boolean
 	profilesPrefs?: DownloadProfilesPrefs
 	size?: 'default' | 'compact'
-	testIdPrefix?: 'profiles' | 'bulk'
+	testIdPrefix?: QuickProfileTestIdPrefix
 }
 
 export function QuickProfileControl({
@@ -42,7 +46,7 @@ export function QuickProfileControl({
 	onManageProfiles,
 	onNewProfile,
 	onPickProfile,
-	preparing,
+	preparing = false,
 	profilesPrefs,
 	size = 'default',
 	testIdPrefix = 'profiles'
@@ -150,12 +154,11 @@ function ProfileMenu({
 	onNewProfile: () => void
 	onPickProfile: (ref: DownloadProfileRef) => void
 	model: DownloadProfileActionModel
-	testIdPrefix: 'profiles' | 'bulk'
+	testIdPrefix: QuickProfileTestIdPrefix
 }): ReactNode {
 	const {t} = useTranslation()
-	const menuTestId = `${testIdPrefix}-profile-menu`
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
-	const {ActiveIcon, activeSummary, options} = model
+	const {ActiveIcon, activeSummary} = model
 	const destinationLabel = compact ? undefined : destination?.trim()
 	const destinationDetailText = destinationDetail?.trim()
 	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText
@@ -258,66 +261,7 @@ function ProfileMenu({
 					</div>
 				) : null}
 			</div>
-			<PopoverContent
-				align="end"
-				collisionAvoidance={{side: 'shift', align: 'shift', fallbackAxisSide: 'none'}}
-				collisionPadding={{top: 76, right: 16, bottom: 24, left: 16}}
-				finalFocus={closeType => closeType === 'keyboard'}
-				initialFocus={openType => openType === 'keyboard'}
-				// Preserve the measured grid while the menu animates closed.
-				keepMounted
-				sideOffset={10}
-				className="relative max-h-[calc(100vh-6rem)] w-[min(50rem,calc(100vw-2rem))] gap-3 overflow-y-auto border-border-strong p-3 before:absolute before:-top-2 before:right-8 before:size-4 before:rotate-45 before:border-s before:border-t before:border-border-strong before:bg-popover"
-				data-testid={menuTestId}
-			>
-				<PopoverHeader>
-					<PopoverTitle className="text-base font-semibold">{t('wizard.url.profile.menuTitle')}</PopoverTitle>
-					<PopoverDescription className="text-sm leading-relaxed">{t('wizard.url.profile.menuDescription')}</PopoverDescription>
-				</PopoverHeader>
-				<Separator />
-				<div className="grid grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2" data-testid={`${testIdPrefix}-profile-menu-grid`}>
-					{options.map(({profile, ref, Icon, active, label}) => {
-						return (
-							<Button
-								key={profile.id}
-								type="button"
-								variant="outline"
-								onClick={() => {
-									onPickProfile(ref)
-									setMenuOpen(false)
-								}}
-								aria-pressed={active}
-								title={`${profile.name}: ${label}`}
-								data-selected={active || undefined}
-								className="choice-surface h-auto min-h-12 w-full justify-start gap-2.5 rounded-md px-2.5 py-2 text-start whitespace-normal"
-								data-testid={`${testIdPrefix}-profile-option-${profile.id}`}
-							>
-								<Icon className="shrink-0 text-primary" aria-hidden />
-								<span className="min-w-0 flex-1">
-									<span className="block truncate text-sm font-semibold text-foreground">{profile.name}</span>
-									<span className="block truncate text-caption font-normal leading-tight text-subtle-foreground">{label}</span>
-								</span>
-								{active ? <Check className="shrink-0 text-primary" aria-hidden /> : null}
-							</Button>
-						)
-					})}
-				</div>
-				<Separator />
-				<div className="grid grid-cols-1 gap-2 sm:grid-cols-3" data-testid={`${testIdPrefix}-profile-menu-actions`}>
-					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(() => onEditProfile(activeProfile))}>
-						<PenLine data-icon="inline-start" />
-						{editActiveProfileLabel}
-					</Button>
-					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(onNewProfile)}>
-						<Plus data-icon="inline-start" />
-						{t('wizard.url.profile.newProfile')}
-					</Button>
-					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(onManageProfiles)}>
-						<Users data-icon="inline-start" />
-						{t('wizard.url.profile.manageProfiles')}
-					</Button>
-				</div>
-			</PopoverContent>
+			<DownloadProfileMenuContent model={model} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />
 		</Popover>
 	)
 }

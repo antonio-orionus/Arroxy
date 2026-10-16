@@ -8,9 +8,11 @@ import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 
 export function StepError(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardError, settings, retry, reset, openCookiesSettings, retryFormatProbe, retryProbeWithCookies} = useAppStore()
+	const {wizardError, wizardUrl, settings, exploreView, retry, reset, openCookiesSettings, openExploreSignIn, retryFormatProbe, retryProbeWithCookies, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore()
+	// Leaving for Explore is the user's own choice here, unlike a toast's (P2-R41).
+	const target = {kind: 'wizard', url: wizardUrl.trim()} as const
 	const message = formatProbeError(wizardError)
-	const experience = buildProbeErrorExperience({error: wizardError, commonSettings: settings?.common})
+	const experience = buildProbeErrorExperience({error: wizardError, commonSettings: settings?.common, exploreSignedIn: exploreView?.signedIn ?? null})
 	const showBotWallNotice = experience.botWall.variant !== 'hidden'
 	const showCookiesAlert = experience.cookies.variant !== 'hidden'
 
@@ -25,7 +27,14 @@ export function StepError(): ReactNode {
 			{showBotWallNotice || showCookiesAlert ? (
 				<div className="w-full max-w-md text-start flex flex-col gap-2">
 					<BotWallGuidanceAlert guidance={experience.botWall} onEnableCookiesAndRetry={() => void retryProbeWithCookies()} onRetry={() => void retryFormatProbe()} />
-					<CookiesGuidanceAlert guidance={experience.cookies} onOpenSettings={openCookiesSettings} />
+					<CookiesGuidanceAlert
+						guidance={experience.cookies}
+						onOpenSettings={openCookiesSettings}
+						onSignInWithExplore={openExploreSignIn}
+						onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry(target)}
+						onRetryWithExploreSignIn={() => void retryWithExploreSignIn(target)}
+						onEnableCookiesAndRetry={() => void retryProbeWithCookies()}
+					/>
 				</div>
 			) : null}
 			<div className="flex gap-2">

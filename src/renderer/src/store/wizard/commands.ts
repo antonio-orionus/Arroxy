@@ -7,7 +7,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
-import type {GetState, SetState, WizardStep} from '../types.js'
+import type {GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 
@@ -17,8 +17,10 @@ import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 export const RESET_WIZARD_STATE = {
 	// probe + step nav
 	wizardStep: 'url' as WizardStep,
+	wizardOrigin: 'download' as WizardOrigin,
 	wizardMode: 'single' as WizardMode,
 	wizardUrl: '',
+	reviewSourceRowId: null as string | null,
 	wizardTitle: '',
 	wizardThumbnail: '',
 	wizardDuration: undefined as number | undefined,
@@ -30,6 +32,7 @@ export const RESET_WIZARD_STATE = {
 	wizardExtractorKey: '',
 	wizardWebpageUrl: '',
 	wizardProbeInfoJsonRef: undefined,
+	wizardProbeAuth: undefined,
 	formatsLoading: false,
 	wizardError: null,
 	wizardErrorOrigin: null,

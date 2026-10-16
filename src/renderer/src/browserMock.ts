@@ -17,7 +17,9 @@ import type {
 	WarmupProgressEvent
 } from '@shared/types.js'
 import {QUEUE_STATUS, STATUS_KEY, YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
-import {canApplyQueueActionToItem, findLiveQueueDuplicate} from '@shared/queueActions.js'
+import {admitAgainstLive, canApplyQueueActionToItem} from '@shared/queueActions.js'
+import {illegalTransition, transition, type QueueEvent} from '@shared/queueTransition.js'
+import type {Result} from '@shared/result.js'
 import {
 	BROWSER_MOCK_LAUNCH_MODES,
 	bilibiliHydrationVideo,
@@ -34,6 +36,7 @@ import {
 } from './dev/browserMockScenarios.js'
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
+import {createExploreMock} from './dev/exploreMock.js'
 import {showcaseProbe, showcaseQueueItem} from './dev/showcaseContent.js'
 
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch'
@@ -157,6 +160,7 @@ export function installBrowserMock(): void {
 	let warmupCallCount = 0
 
 	let settings: AppSettings = scenarioState.settings
+	const exploreMock = createExploreMock(scenarioState.explore)
 
 	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))
@@ -224,6 +228,18 @@ export function installBrowserMock(): void {
 		queueItems[index] = nextItem
 		queueItemById.set(nextItem.id, nextItem)
 		emitQueueUpdated(nextItem)
+	}
+
+	// Probe-stage commands, through the shared state machine exactly as QueueProbeLifecycle applies them.
+	function applyProbeStageEvent(itemId: string, evt: QueueEvent): Promise<Result<void>> {
+		const item = queueItemById.get(itemId)
+		if (!item || illegalTransition(item, evt)) return Promise.resolve({ok: false, error: {code: 'validation', message: `${evt.kind} is a stale signal`}})
+		setQueueItem(transition(item, evt))
+		return Promise.resolve({ok: true, data: undefined})
+	}
+
+	function isPlaceholder(item: QueueItem): boolean {
+		return item.status === QUEUE_STATUS.probing || item.status === QUEUE_STATUS.needsChoice
 	}
 
 	function removeQueueItem(itemId: string): void {
@@ -431,6 +447,7 @@ export function installBrowserMock(): void {
 				return {ok: true, data: {...settings}}
 			},
 			update: patch => {
+				if (patch.common?.exploreAdBlock !== undefined) exploreMock.setAdBlock(patch.common.exploreAdBlock)
 				settings = {common: {...settings.common, ...(patch.common ?? {})}, single: {...settings.single, ...(patch.single ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
 				return Promise.resolve({ok: true, data: {...settings}} as const)
 			}
@@ -527,23 +544,21 @@ export function installBrowserMock(): void {
 
 		queue: {
 			cmd: {
-				add: items => {
-					const duplicate = findLiveQueueDuplicate(items, queueItems)
-					if (duplicate) return Promise.resolve({ok: false, error: {code: 'conflict', message: `queue item URL is already active: ${duplicate.url}`}} as const)
+				add: toAdd => {
+					const admission = admitAgainstLive(toAdd, queueItems)
+					if (!admission.ok) return Promise.resolve({ok: false, error: {code: 'conflict', message: `queue item URL is already active: ${admission.duplicate.url}`}} as const)
+					const items = admission.admitted
 					const atIdx = queueItems.length
 					queueItems.push(...items)
 					for (const item of items) queueItemById.set(item.id, item)
 					queueAddedListeners.forEach(listener => listener({items, atIdx}))
 					maybeStartNextQueueItem()
-					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
+					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id), skippedAlreadyQueued: admission.skippedAlreadyQueued}} as const)
 				},
 				getSnapshot: () => Promise.resolve({ok: true, data: {items: [...queueItems], schedulerPaused: mockSchedulerPaused}} as const),
-				probeFailed: ({itemId, error}) => {
-					const item = queueItemById.get(itemId)
-					if (!item || item.status !== QUEUE_STATUS.probing) return Promise.resolve({ok: false, error: {code: 'validation', message: 'probeFailed is a stale signal'}} as const)
-					setQueueItem({...item, status: QUEUE_STATUS.error, error, progressPercent: 0, progressDetail: null})
-					return Promise.resolve({ok: true, data: undefined} as const)
-				},
+				probeFailed: ({itemId, error}) => applyProbeStageEvent(itemId, {kind: 'probe-failed', error}),
+				needsChoice: ({itemId, choice, title}) => applyProbeStageEvent(itemId, {kind: 'needs-choice', choice, title}),
+				reprobe: ({itemId}) => applyProbeStageEvent(itemId, {kind: 'probe-restarted'}),
 				start: ({itemId}) => {
 					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {
@@ -568,7 +583,9 @@ export function installBrowserMock(): void {
 				},
 				cancel: ({itemId}) => {
 					const targets = itemId === null ? [...queueItems] : [queueItemById.get(itemId)].filter((item): item is QueueItem => item !== undefined)
-					targets.forEach(item => setQueueItem({...item, status: QUEUE_STATUS.cancelled, progressDetail: null, finishedAt: new Date().toISOString()}))
+					// A placeholder is removed, never cancelled (QueueProbeLifecycle.discard).
+					targets.filter(isPlaceholder).forEach(item => removeQueueItem(item.id))
+					targets.filter(item => !isPlaceholder(item)).forEach(item => setQueueItem({...item, status: QUEUE_STATUS.cancelled, progressDetail: null, finishedAt: new Date().toISOString()}))
 					// Mirror QueueService.cancel(null): cancel-all is a fresh slate that
 					// also unpauses the scheduler (transition-only emission).
 					if (itemId === null && mockSchedulerPaused) {
@@ -589,10 +606,10 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: undefined} as const)
 				},
 				// Mirror QueueProbeLifecycle.replaceProbing: atomic swap that
-				// refuses (enqueueing nothing) unless the placeholder is still probing.
+				// refuses (enqueueing nothing) once the placeholder is gone.
 				replaceProbing: ({itemId, items}) => {
 					const placeholder = queueItemById.get(itemId)
-					if (!placeholder || placeholder.status !== QUEUE_STATUS.probing) {
+					if (!placeholder || !isPlaceholder(placeholder)) {
 						return Promise.resolve({ok: false, error: {code: 'validation', message: 'probing placeholder is no longer active'}} as const)
 					}
 					const atIdx = queueItems.findIndex(item => item.id === itemId)
@@ -601,7 +618,7 @@ export function installBrowserMock(): void {
 					for (const item of items) queueItemById.set(item.id, item)
 					queueAddedListeners.forEach(listener => listener({items, atIdx}))
 					maybeStartNextQueueItem()
-					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id)}} as const)
+					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id), skippedAlreadyQueued: 0}} as const)
 				},
 				setLane: ({itemId, lane}) => {
 					const item = queueItemById.get(itemId)
@@ -699,6 +716,8 @@ export function installBrowserMock(): void {
 				}
 			}
 		},
+
+		explore: exploreMock.api,
 
 		updater: {
 			onUpdateAvailable: listener => {

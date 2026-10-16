@@ -1,14 +1,27 @@
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {CommonSettings, ProbeDegradationReason, ProbeError} from '@shared/types.js'
 
-export type CookiesGuidanceVariant = 'hidden' | 'needs-cookies' | 'configured' | 'dpapi'
-export type BotWallGuidanceVariant = 'hidden' | 'unconfigured' | 'disabled' | 'enabled'
+// `explore`: neutral copy — the cookies alert alone carries the Explore sign-in call.
+export type BotWallGuidanceVariant = 'hidden' | 'unconfigured' | 'disabled' | 'enabled' | 'explore'
 export type ConfiguredCookiesRetryMode = 'file' | 'browser'
 
-export interface CookiesGuidance {
-	variant: CookiesGuidanceVariant
-	mode: NonNullable<CommonSettings['cookiesMode']>
-}
+type CookiesMode = NonNullable<CommonSettings['cookiesMode']>
+export type ConfiguredCookiesMode = Exclude<CookiesMode, 'off'>
+
+// `mode` is the effective mode: `off` also stands for `explore` with the Explore tab turned off.
+// `explore-offer` / `explore-reuse` (P2-R51): `off` with the Explore tab on leads
+// with Explore — sign in there first, or use the sign-in it already holds. The
+// second way: "Enable cookies and retry" when a cookies file or browser is set
+// up, else cookie settings.
+export type ExploreOfferSecondary = 'enable-cookies' | 'open-settings'
+export type CookiesGuidance =
+	| {variant: 'hidden'; mode: CookiesMode}
+	| {variant: 'needs-cookies'; mode: 'off'}
+	| {variant: 'explore-offer'; mode: 'off'; secondary: ExploreOfferSecondary}
+	| {variant: 'explore-reuse'; mode: 'off'; secondary: ExploreOfferSecondary}
+	| {variant: 'configured'; mode: ConfiguredCookiesMode}
+	| {variant: 'dpapi'; mode: 'browser'}
+	| {variant: 'explore-sign-in'; mode: 'explore'}
 
 export interface BotWallGuidance {
 	variant: BotWallGuidanceVariant
@@ -18,13 +31,20 @@ export interface ProbeErrorExperience {
 	errorKind: YtDlpErrorKind | undefined
 	cookies: CookiesGuidance
 	botWall: BotWallGuidance
-	actions: {retry: boolean; openCookiesSettings: boolean; enableCookiesAndRetry: boolean}
+	// signInWithExplore: open Explore to sign in (the `explore` mode's call).
+	// signInWithExploreThenRetry: switch to `explore`, open Explore, retry once signed in.
+	// retryWithExploreSignIn: switch to `explore` and retry now.
+	actions: {retry: boolean; openCookiesSettings: boolean; enableCookiesAndRetry: boolean; signInWithExplore: boolean; signInWithExploreThenRetry: boolean; retryWithExploreSignIn: boolean}
 }
+
+// The Explore view's sign-in flag; null while main has not answered yet.
+export type ExploreSignedIn = boolean | null
 
 interface ProbeErrorExperienceInput {
 	error: ProbeError | null
 	commonSettings?: Partial<CommonSettings> | null
 	degradedReasons?: readonly ProbeDegradationReason[] | null
+	exploreSignedIn?: ExploreSignedIn
 }
 
 const COOKIES_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'])
@@ -63,43 +83,98 @@ export function configuredCookiesRetryMode(commonSettings: Partial<CommonSetting
 	return null
 }
 
-function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined}): CookiesGuidance {
-	const mode = input.commonSettings?.cookiesMode ?? 'off'
-	if (mode === 'off') {
-		return {mode, variant: isCookiesNeededKind(input.errorKind) ? 'needs-cookies' : 'hidden'}
+// The kill switch also disables escalation (spec D3), so `explore` with the
+// Explore tab turned off behaves, and is guided, like `off`.
+function effectiveCookiesMode(commonSettings: Partial<CommonSettings> | null | undefined): CookiesMode {
+	const mode = commonSettings?.cookiesMode ?? 'off'
+	return mode === 'explore' && commonSettings?.exploreEnabled === false ? 'off' : mode
+}
+
+// Only a stored `off` with the Explore tab on, for a failure an account can fix
+// (the kinds escalation reaches, so never a rate limit). `file` / `browser` are
+// never overridden.
+// Nothing is offered before the settings load: the stored mode is not known yet.
+function offersExplore(commonSettings: Partial<CommonSettings> | null | undefined, errorKind: YtDlpErrorKind | undefined): boolean {
+	return commonSettings != null && canSwitchToExplore(commonSettings) && isCookiesNeededKind(errorKind)
+}
+
+// The only mode the Explore offer may replace: a stored `off`, with the Explore tab on.
+export function canSwitchToExplore(commonSettings: Partial<CommonSettings> | null | undefined): boolean {
+	return commonSettings != null && (commonSettings.cookiesMode ?? 'off') === 'off' && commonSettings.exploreEnabled !== false
+}
+
+function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn}): CookiesGuidance {
+	const mode = effectiveCookiesMode(input.commonSettings)
+	switch (mode) {
+		case 'off':
+			if (offersExplore(input.commonSettings, input.errorKind)) {
+				const secondary = configuredCookiesRetryMode(input.commonSettings) ? 'enable-cookies' : 'open-settings'
+				return input.exploreSignedIn === true ? {mode, variant: 'explore-reuse', secondary} : {mode, variant: 'explore-offer', secondary}
+			}
+			return isCookiesNeededKind(input.errorKind) ? {mode, variant: 'needs-cookies'} : {mode, variant: 'hidden'}
+		case 'explore':
+			// Escalation only reaches failures an account can fix; other errors say nothing about the sign-in.
+			if (!isCookiesNeededKind(input.errorKind)) return {mode, variant: 'hidden'}
+			return input.exploreSignedIn === true ? {mode, variant: 'configured'} : {mode, variant: 'explore-sign-in'}
+		case 'browser':
+			return isDpapiCookieError(probeErrorRaw(input.error)) ? {mode, variant: 'dpapi'} : {mode, variant: 'configured'}
+		case 'file':
+			return {mode, variant: 'configured'}
 	}
-	if (mode === 'browser' && isDpapiCookieError(probeErrorRaw(input.error))) return {mode, variant: 'dpapi'}
-	return {mode, variant: 'configured'}
 }
 
 function botWallGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; degradedReasons?: readonly ProbeDegradationReason[] | null; errorKind: YtDlpErrorKind | undefined}): BotWallGuidance {
 	const isBotWall = isBotWallKind(input.errorKind) || (input.degradedReasons?.includes('botWall') ?? false)
 	if (!isBotWall) return {variant: 'hidden'}
-	const mode = input.commonSettings?.cookiesMode ?? 'off'
-	if (mode !== 'off') return {variant: 'enabled'}
-	return {variant: hasConfiguredCookies(input.commonSettings) ? 'disabled' : 'unconfigured'}
+	// The cookies alert carries the Explore offer; this one stays neutral (P2-R19).
+	if (offersExplore(input.commonSettings, input.errorKind)) return {variant: 'explore'}
+	switch (effectiveCookiesMode(input.commonSettings)) {
+		case 'off':
+			// Under `explore` (Explore tab off), "Enable cookies and retry" would silently
+			// move the user off the explore mode: point to cookie settings instead.
+			return {variant: input.commonSettings?.cookiesMode !== 'explore' && hasConfiguredCookies(input.commonSettings) ? 'disabled' : 'unconfigured'}
+		case 'explore':
+			return {variant: 'explore'}
+		case 'file':
+		case 'browser':
+			return {variant: 'enabled'}
+	}
 }
 
-export function buildProbeErrorExperience({error, commonSettings = null, degradedReasons = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
+export function buildProbeErrorExperience({error, commonSettings = null, degradedReasons = null, exploreSignedIn = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
 	const errorKind = probeErrorKind(error)
-	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind})
+	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn})
 	const botWall = botWallGuidanceVariant({commonSettings, degradedReasons, errorKind})
-	return {errorKind, cookies, botWall, actions: {retry: error !== null, openCookiesSettings: cookies.variant !== 'hidden', enableCookiesAndRetry: botWall.variant === 'disabled'}}
+	const signInWithExplore = cookies.variant === 'explore-sign-in'
+	const offerSecondary = cookies.variant === 'explore-offer' || cookies.variant === 'explore-reuse' ? cookies.secondary : null
+	return {
+		errorKind,
+		cookies,
+		botWall,
+		actions: {
+			retry: error !== null,
+			openCookiesSettings: cookies.variant !== 'hidden' && !signInWithExplore && offerSecondary !== 'enable-cookies',
+			enableCookiesAndRetry: botWall.variant === 'disabled' || offerSecondary === 'enable-cookies',
+			signInWithExplore,
+			signInWithExploreThenRetry: cookies.variant === 'explore-offer',
+			retryWithExploreSignIn: cookies.variant === 'explore-reuse'
+		}
+	}
 }
 
-function guidanceScore(error: ProbeError, commonSettings: Partial<CommonSettings> | null | undefined): number {
-	const experience = buildProbeErrorExperience({error, commonSettings})
+function guidanceScore(error: ProbeError, commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn): number {
+	const experience = buildProbeErrorExperience({error, commonSettings, exploreSignedIn})
 	if (experience.actions.enableCookiesAndRetry) return 3
-	if (experience.actions.openCookiesSettings) return 2
+	if (experience.cookies.variant !== 'hidden') return 2
 	if (experience.botWall.variant !== 'hidden') return 1
 	return 0
 }
 
-export function selectProbeErrorForGuidance(errors: readonly ProbeError[], commonSettings: Partial<CommonSettings> | null | undefined): ProbeError | null {
+export function selectProbeErrorForGuidance(errors: readonly ProbeError[], commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn = null): ProbeError | null {
 	let selected: ProbeError | null = null
 	let selectedScore = -1
 	for (const error of errors) {
-		const score = guidanceScore(error, commonSettings)
+		const score = guidanceScore(error, commonSettings, exploreSignedIn)
 		if (score <= selectedScore) continue
 		selected = error
 		selectedScore = score

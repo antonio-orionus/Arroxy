@@ -1,6 +1,17 @@
 import {DEFAULTS} from '@shared/constants.js'
-import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
-import type {DownloadProfile, DownloadProfileRef, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
+import {
+	allDownloadProfiles,
+	downloadProfileLabel,
+	downloadProfileRefFor,
+	resolveActiveDownloadProfile,
+	resolveChosenDownloadProfile,
+	resolveDownloadProfile,
+	resolveDownloadProfileBaseDir,
+	resolveDownloadProfileOutputDir,
+	type DownloadProfileOutputContext,
+	type ResolvedDownloadProfile
+} from '@shared/downloadProfiles.js'
+import type {DownloadProfile, DownloadProfileRef, JobAuth, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
@@ -106,6 +117,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		artifacts: [],
 		writeM3u: state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate),
 		...(state.wizardProbeInfoJsonRef ? {probeInfoJsonRef: state.wizardProbeInfoJsonRef} : {}),
+		...(state.wizardProbeAuth ? {auth: state.wizardProbeAuth} : {}),
 		job
 	}
 }
@@ -165,6 +177,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 		artifacts: [],
 		...(state.wizardMode === 'playlist' ? {playlistGroupId} : {}),
 		...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
+		...(entry.auth ? {auth: entry.auth} : {}),
 		writeM3u,
 		job
 	}
@@ -283,6 +296,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 		return buildProfileEntryQueueItem({
 			entry: {url: entry.url, title: entry.title, thumbnail: entry.thumbnail, ...placeholderTitleFlag(entry.titleIsPlaceholder)},
 			...(entry.probeInfoJsonRef ? {probeInfoJsonRef: entry.probeInfoJsonRef} : {}),
+			auth: entry.auth,
 			outputDir,
 			extractor: state.wizardExtractor,
 			extractorKey: state.wizardExtractorKey,
@@ -327,6 +341,7 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 function buildProfileEntryQueueItem(params: {
 	entry: Pick<PlaylistEntry, 'url' | 'title' | 'thumbnail' | 'titleIsPlaceholder'>
 	probeInfoJsonRef?: PlaylistEntry['probeInfoJsonRef']
+	auth: JobAuth | undefined
 	outputDir: string
 	extractor: string
 	extractorKey: string
@@ -357,17 +372,37 @@ function buildProfileEntryQueueItem(params: {
 		artifacts: [],
 		...(params.playlistGroupId ? {playlistGroupId: params.playlistGroupId} : {}),
 		...(params.probeInfoJsonRef ? {probeInfoJsonRef: params.probeInfoJsonRef} : {}),
+		...(params.auth ? {auth: params.auth} : {}),
 		writeM3u: params.writeM3u,
 		retryCount: 0,
 		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference)
 	}
 }
 
-export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane): PreparedQueueSubmission | null {
-	const {profile, ref} = resolveActiveDownloadProfile(state.settings?.profiles)
+/**
+ * The download profile a background quick download was placed with, and the
+ * folders it resolved against then. Its row is labelled with them, so the
+ * download keeps them when the user switches profile or folder while the
+ * probe runs.
+ */
+export interface PinnedDownloadProfile {
+	ref: DownloadProfileRef
+	outputContext: DownloadProfileOutputContext
+}
+
+export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile {
+	return {ref: resolveActiveDownloadProfile(state.settings?.profiles).ref, outputContext: {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}}
+}
+
+// `source`: what names the result when the probe does not — the link and a
+// playlist title. The wizard and Bulk URLs pass theirs; a background quick
+// download passes its row's link and no title, and the profile it was placed
+// with (`pinned`); without one, the active profile and folders are used.
+export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane, source: {url: string; playlistTitle: string}, pinned: PinnedDownloadProfile = pinActiveDownloadProfile(state)): PreparedQueueSubmission | null {
+	const {profile, ref} = resolveChosenDownloadProfile(pinned.ref, state.settings?.profiles)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
-	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+	const {outputContext} = pinned
 	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
 
@@ -375,8 +410,9 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
 		const templateMeta = {title: probe.title, id: probe.videoId, uploader: probe.uploader, uploadDate: probe.uploadDate}
 		const item = buildProfileEntryQueueItem({
-			entry: {url: probe.webpageUrl || state.wizardUrl, title: probe.title, thumbnail: probe.thumbnail},
+			entry: {url: probe.webpageUrl || source.url, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
+			auth: probe.auth,
 			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),
 			extractor: probe.extractor,
 			extractorKey: probe.extractorKey,
@@ -411,6 +447,8 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 		return buildProfileEntryQueueItem({
 			entry,
 			probeInfoJsonRef: entry.probeInfoJsonRef,
+			// Main stamps `auth` on the entries that need the account (R20).
+			auth: entry.auth,
 			outputDir: ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot,
 			extractor: probe.extractor,
 			extractorKey: probe.extractorKey,
@@ -426,5 +464,5 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 	// The manifest lists the whole playlist, skipped videos included: the .m3u is
 	// rebuilt from it plus the files on disk, so it must describe the playlist,
 	// not just this batch.
-	return {items, skippedAlreadyQueued, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, state.playlistTitle), outputDir: playlistRoot, items: listed.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
+	return {items, skippedAlreadyQueued, manifest: {playlistGroupId, playlistTitle: playlistTitleFallback(probe.playlistTitle, source.playlistTitle), outputDir: playlistRoot, items: listed.map(entry => ({videoId: entry.videoId, title: entry.title, duration: entry.duration}))}}
 }

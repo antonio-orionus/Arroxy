@@ -30,7 +30,11 @@ function makeService() {
 }
 
 function probingItem(id: string, url = `https://youtube.com/watch?v=${id}`): QueueItem {
-	return makeItem({id, status: 'probing', url, title: url, job: UNRESOLVED})
+	return makeItem({id, status: 'probing', url, title: url, job: UNRESOLVED, probeMode: 'video'})
+}
+
+function choiceItem(id: string, url = `https://youtube.com/playlist?list=${id}`): QueueItem {
+	return makeItem({id, status: 'needs-choice', url, title: 'Playlist', job: UNRESOLVED, probeMode: 'video', choice: {kind: 'playlist-cap', loaded: 100}})
 }
 
 describe('QueueService — probing items', () => {
@@ -52,12 +56,26 @@ describe('QueueService — probing items', () => {
 		expect(qs.snapshot().map(item => item.id)).toEqual(['p1'])
 	})
 
-	it('rejects duplicate live URLs within one batch', () => {
+	// A batch naming one video twice queues it once; the repeat is not a video
+	// "already in the queue", so it is not counted as one.
+	it('queues a video repeated within one batch once, without counting the repeat', () => {
 		const {qs} = makeService()
 		const result = qs.add([probingItem('p1', 'https://youtube.com/watch?v=same'), probingItem('p2', 'https://youtube.com/watch?v=same')])
 
-		expect(result.ok).toBe(false)
-		expect(qs.snapshot()).toEqual([])
+		expect(result).toEqual({ok: true, data: {ids: ['p1'], skippedAlreadyQueued: 0}})
+		expect(qs.snapshot().map(item => item.id)).toEqual(['p1'])
+	})
+
+	// The renderer's queue can lag main's: a batch that overlaps rows main
+	// already holds still queues its new videos, and says how many it skipped.
+	it('add admits the new rows of a batch that overlaps live rows and counts the rest', () => {
+		const {qs} = makeService()
+		qs.add([probingItem('live', 'https://youtube.com/watch?v=shared')])
+
+		const result = qs.add([probingItem('dup', 'https://youtube.com/watch?v=shared'), probingItem('new', 'https://youtube.com/watch?v=new')])
+
+		expect(result).toEqual({ok: true, data: {ids: ['new'], skippedAlreadyQueued: 1}})
+		expect(qs.snapshot().map(item => item.id)).toEqual(['live', 'new'])
 	})
 
 	it('probeFailed moves probing → error with the probe error', () => {
@@ -132,6 +150,36 @@ describe('QueueService — probing items', () => {
 		expect(ds.start).toHaveBeenCalledOnce()
 	})
 
+	// Two overlapping playlists prepared at once: the second swap meets entries
+	// the first one just queued. Only those are left out; the rest are queued,
+	// and the first queued row keeps the placeholder's id.
+	it('replaceProbing admits the new entries of a batch that overlaps live rows and counts the rest', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockReturnValue(new Promise(() => undefined))
+		const shared = 'https://youtube.com/watch?v=shared'
+		qs.add([probingItem('p1', 'https://youtube.com/playlist?list=B'), makeItem({id: 'live', status: 'pending', url: shared, job: REAL_JOB})])
+
+		const result = await qs.replaceProbing('p1', [makeItem({id: 'p1', status: 'pending', url: shared, job: REAL_JOB}), makeItem({id: 'n1', status: 'pending', url: 'https://youtube.com/watch?v=new1', job: REAL_JOB}), makeItem({id: 'n2', status: 'pending', url: 'https://youtube.com/watch?v=new2', job: REAL_JOB})])
+
+		expect(result).toEqual({ok: true, data: {ids: ['p1', 'n2'], skippedAlreadyQueued: 1}})
+		expect(qs.snapshot().map(item => [item.id, item.url])).toEqual([
+			['live', shared],
+			['p1', 'https://youtube.com/watch?v=new1'],
+			['n2', 'https://youtube.com/watch?v=new2']
+		])
+	})
+
+	it('replaceProbing queues a video repeated within the batch once, without counting the repeat', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockReturnValue(new Promise(() => undefined))
+		qs.add([probingItem('p1', 'https://youtube.com/playlist?list=R')])
+		const repeated = 'https://youtube.com/watch?v=twice'
+
+		const result = await qs.replaceProbing('p1', [makeItem({id: 'p1', status: 'pending', url: repeated, job: REAL_JOB}), makeItem({id: 'r2', status: 'pending', url: repeated, job: REAL_JOB}), makeItem({id: 'r3', status: 'pending', url: 'https://youtube.com/watch?v=once', job: REAL_JOB})])
+
+		expect(result).toEqual({ok: true, data: {ids: ['p1', 'r3'], skippedAlreadyQueued: 0}})
+	})
+
 	it('remove aborts the probe through the abort hook', async () => {
 		const {qs} = makeService()
 		const onProbeAbort = vi.fn()
@@ -142,7 +190,9 @@ describe('QueueService — probing items', () => {
 		expect(qs.snapshot().find(i => i.id === 'p1')).toBeUndefined()
 	})
 
-	it('cancel aborts the probe through the abort hook', async () => {
+	// A placeholder is not a download yet: cancelling it aborts its probe and
+	// removes the row rather than leaving a cancelled ghost behind.
+	it('cancel aborts the probe and removes the placeholder', async () => {
 		const {qs} = makeService()
 		const onProbeAbort = vi.fn()
 		qs.onProbeAbort(onProbeAbort)
@@ -150,20 +200,72 @@ describe('QueueService — probing items', () => {
 		const result = await qs.cancel('p1')
 		expect(result.ok).toBe(true)
 		expect(onProbeAbort).toHaveBeenCalledWith('p1')
-		expect(qs.snapshot().find(i => i.id === 'p1')?.status).toBe('cancelled')
+		expect(qs.snapshot().find(i => i.id === 'p1')).toBeUndefined()
 	})
 
-	it('cancel(null) sweeps probing items and aborts their probes', async () => {
+	it('cancel(null) removes placeholders, aborts their probes, and cancels downloads', async () => {
 		const {qs} = makeService()
 		const onProbeAbort = vi.fn()
 		qs.onProbeAbort(onProbeAbort)
-		qs.add([probingItem('p1'), makeItem({id: 'a', status: 'pending'})])
+		qs.add([probingItem('p1'), choiceItem('c1'), makeItem({id: 'a', status: 'pending'})])
 		await qs.cancel(null)
 		expect(onProbeAbort).toHaveBeenCalledWith('p1')
-		const p1 = qs.snapshot().find(i => i.id === 'p1')
-		const a = qs.snapshot().find(i => i.id === 'a')
-		expect(p1?.status).toBe('cancelled')
-		expect(a?.status).toBe('cancelled')
+		expect(onProbeAbort).not.toHaveBeenCalledWith('c1')
+		expect(qs.snapshot().map(i => [i.id, i.status])).toEqual([['a', 'cancelled']])
+	})
+
+	it('cancel removes a needs-choice row without touching any probe', async () => {
+		const {qs} = makeService()
+		const onProbeAbort = vi.fn()
+		qs.onProbeAbort(onProbeAbort)
+		qs.add([choiceItem('c1')])
+		expect((await qs.cancel('c1')).ok).toBe(true)
+		expect(onProbeAbort).not.toHaveBeenCalled()
+		expect(qs.snapshot()).toEqual([])
+	})
+
+	it('needsChoice parks a probing row with its choice and title', () => {
+		const {qs} = makeService()
+		qs.add([probingItem('p1')])
+		const result = qs.needsChoice('p1', {kind: 'playlist-cap', loaded: 100}, 'Road trip mix')
+		expect(result.ok).toBe(true)
+		expect(qs.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 100}, title: 'Road trip mix'})
+	})
+
+	it('needsChoice is a stale signal once the placeholder is gone', async () => {
+		const {qs} = makeService()
+		qs.add([probingItem('p1')])
+		await qs.cancel('p1')
+		expect(qs.needsChoice('p1', {kind: 'playlist-review', count: 3}, 'x').ok).toBe(false)
+	})
+
+	it('reprobe returns a probe-error row to probing, and a needs-choice row too', () => {
+		const {qs} = makeService()
+		qs.add([probingItem('p1'), choiceItem('c1')])
+		qs.probeFailed('p1', {kind: 'network', raw: 'offline'})
+		expect(qs.reprobe('p1').ok).toBe(true)
+		expect(qs.reprobe('c1').ok).toBe(true)
+		expect(qs.snapshot().map(i => [i.id, i.status, i.error])).toEqual([
+			['p1', 'probing', null],
+			['c1', 'probing', null]
+		])
+	})
+
+	it('reprobe refuses a row that has a real job or is already probing', () => {
+		const {qs} = makeService()
+		qs.add([probingItem('p1'), makeItem({id: 'e', status: 'error', error: {kind: 'network', raw: 'x'}, job: REAL_JOB})])
+		expect(qs.reprobe('p1').ok).toBe(false)
+		expect(qs.reprobe('e').ok).toBe(false)
+		expect(qs.reprobe('missing').ok).toBe(false)
+	})
+
+	it('replaceProbing resolves a needs-choice row once the user chose', async () => {
+		const {qs, ds} = makeService()
+		ds.start.mockReturnValue(new Promise(() => undefined))
+		qs.add([choiceItem('c1')])
+		const result = await qs.replaceProbing('c1', [makeItem({id: 'r1', status: 'pending', job: REAL_JOB})])
+		expect(result.ok).toBe(true)
+		expect(qs.snapshot().map(i => i.id)).toEqual(['r1'])
 	})
 
 	it('remove on a probing item does not call the abort hook for non-probing items', async () => {
@@ -184,5 +286,15 @@ describe('QueueService — probing items', () => {
 		const stale = qs.snapshot().find(i => i.id === 'stale')
 		expect(stale?.status).toBe('error')
 		expect(stale?.error?.kind).toBe('unknown')
+	})
+
+	// Decision: a choice survives a restart. It needs no live probe, and its
+	// actions re-probe when the renderer no longer holds the probe result.
+	it('keeps a needs-choice row as it is on boot', async () => {
+		const store = fakeStore()
+		store.load = vi.fn().mockResolvedValue(ok({items: [choiceItem('kept')], schedulerPaused: false}))
+		const qs = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
+		await qs.init()
+		expect(qs.snapshot()[0]).toMatchObject({id: 'kept', status: 'needs-choice', choice: {kind: 'playlist-cap', loaded: 100}})
 	})
 })

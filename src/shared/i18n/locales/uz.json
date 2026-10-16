@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "startOver": "Qaytadan boshlash"},
+	"common": {"back": "Orqaga", "cancel": "Bekor qilish", "continue": "Davom etish", "loading": "Yuklanmoqda…", "retry": "Qayta urinish", "dismiss": "Yopish", "startOver": "Qaytadan boshlash"},
 	"app": {
 		"feedback": "Fikr-mulohaza",
 		"logs": "Jurnallar",
@@ -246,6 +246,11 @@
 				"sourceOff": "O'chirilgan",
 				"sourceFile": "Fayl",
 				"sourceBrowser": "Brauzer",
+				"sourceExplore": "Explore kirishi",
+				"recommended": "Tavsiya etiladi",
+				"exploreDescription": "Explore orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
+				"exploreDisabled": "Explore yorlig'i o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi. Uni quyidagi Explore bo'limida yoqing.",
+				"openExplore": "Explore'ni ochish",
 				"toggleDescription": "Yosh cheklovli, faqat a'zolar uchun va shaxsiy hisob videolari bilan yordam beradi.",
 				"risk": "Xavf: cookies.txt o'sha brauzerning barcha kirgan sessiyalarini o'z ichiga oladi — uni shaxsiy saqlang.",
 				"fileLabel": "Cookies fayli",
@@ -390,6 +395,7 @@
 				"bodyUnconfigured": "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring.",
 				"bodyDisabled": "Cookies sozlangan, lekin o'chirilgan. To'liq ro'yxat uchun ularni yoqing va qayta urinib ko'ring, yoki tarmoqni o'zgartirin.",
 				"bodyEnabled": "Cookies bilan ham YouTube bu tekshiruvni chekladi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
+				"bodyExplore": "YouTube bu so'rovni cheklab qo'ydi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring.",
 				"retryCta": "Qayta urinish",
 				"enableRetryCta": "Cookiesni yoqish va qayta urinish"
 			},
@@ -398,9 +404,15 @@
 				"currentModeLabel": "Cookies manbai",
 				"currentModeFile": "Fayl",
 				"currentModeBrowser": "Brauzer",
+				"currentModeExplore": "Explore kirishi",
 				"explanationFile": "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (yt-dlp Netscape cookies.txt kutadi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring.",
 				"explanationBrowser": "Cookies to'g'ridan-to'g'ri brauzerdan o'qiladi. Agar brauzer hozir ochiq bo'lsa, uning cookie ma'lumotlar bazasi qulflangan bo'lishi mumkin (Chromium-family). Brauzer YouTube ga kirgan bo'lishi ham kerak. Brauzerni yoping, boshqa brauzer sinab ko'ring, Fayl rejimiga o'ting yoki cookiesni o'chiring.",
 				"openSettingsCta": "Cookies sozlamalarini ochish",
+				"exploreSignIn": {"heading": "Bu video YouTube hisobini talab qilishi mumkin", "body": "Agar bu video YouTube hisobini talab qilsa, Explore'ga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.", "cta": "Explore'ga kirish"},
+				"exploreSignedIn": {"heading": "Explore'ga kirilgan", "body": "Agar bu video hisob talab qilsa, Arroxy Explore orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."},
+				"exploreOffer": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Explore orqali kiring, Arroxy qayta urinib ko'radi.", "cta": "Explore'ga kirish"},
+				"exploreReuse": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Siz Explore'ga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti.", "cta": "Explore orqali kirishimdan foydalanib, qayta urinish"},
+				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…",
 				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "yt-dlp bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
 				"dpapi": {
 					"heading": "Chrome cookies Windows shifrlash orqali bloklangan",
@@ -539,6 +551,17 @@
 	"queue": {
 		"header": "Yuklamalar",
 		"tabLabel": "Yuklamalar",
+		"attentionBadge_one": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
+		"attentionBadge_other": "{{count}} ta yuklab olish e'tiboringizni kutmoqda",
+		"choice": {
+			"cappedBody_one": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
+			"cappedBody_other": "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang.",
+			"reviewBody_one": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing.",
+			"reviewBody_other": "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing.",
+			"all": "Barcha videolar",
+			"first": "Birinchi {{count}} ta",
+			"review": "Ko'rib chiqish"
+		},
 		"tabTip": "Yuklab olishlar endi Yuklamalar varag‘ida — jarayonni kuzatish uchun uni istalgan vaqtda oching.",
 		"empty": "Navbatga qo‘shilgan yuklab olishlar shu yerda ko‘rinadi",
 		"filtersLabel": "Navbat holati filtrlari",
@@ -584,6 +607,7 @@
 			"remove": "O'chirish",
 			"pullNow": "Hozir yuklab olish — navbatni o‘tkazish",
 			"statusProbing": "Tafsilotlar olinmoqda",
+			"statusNeedsChoice": "Tanlovingiz kerak",
 			"statusPending": "Kutilmoqda",
 			"statusRunning": "Yuklanmoqda",
 			"statusHeld": "Ushlab turilgan",
@@ -633,13 +657,18 @@
 		"outputNotWritable": "{{dir}} ga saqlab bo'lmaydi — Arroxy'ga u yerga yozishga ruxsat berilmagan",
 		"fetchingSponsorBlock": "SponsorBlock bilan bog'lanilmoqda…",
 		"retryingSponsorBlock": "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Explore hisobingiz bilan kirilmoqda…",
+		"exploreSignedOut": "Explore’dan chiqildi — qaytadan kiring"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Sozlamalaringizni saqlab bo'lmadi.",
 		"warmupFailed": "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiyatsiz bo'lishi mumkin.",
 		"shellActionFailed": "Buni ochib bo'lmadi.",
 		"folderSelectFailed": "Jild tanlagichni ochib bo'lmadi.",
+		"exploreSignInRetrying_one": "Explore orqali kirildi — 1 ta havola qayta uriniladi",
+		"exploreSignInRetrying_other": "Explore orqali kirildi — {{count}} ta havola qayta uriniladi",
+		"exploreSignOutFailed": "Explore'dan chiqib bo'lmadi. Qayta urinib ko'ring.",
 		"playlistFolderRejected": "Bu jildni ushbu pleylist uchun ishlatib bo'lmaydi.",
 		"filenameFolderTooDeep": "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang.",
 		"filenameTemplateCannotFit": "Bu videoning nomi shablonningizning har bir qismiga sig'maydi, shuning uchun standart nom ishlatildi.",
@@ -648,11 +677,25 @@
 			"alreadyQueued": "Allaqachon navbatda — nusxa qo'shilmadi",
 			"invalidClipboard": "Vaqtinchalik buferda havola yo'q — avval birini nusxalang",
 			"multipleUrls": "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning",
-			"needsReview": "Bu havola tezkor tekshiruvni talab qiladi — Arroxy'ni ochib qayta joylang",
-			"busy": "Oldingi havola hali ishlanmoqda",
+			"needsReview": "Bu havola sizning tanlovingizni kutmoqda — Arroxy'dagi Yuklamalar bo'limiga qarang",
+			"cookiesSetup": "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring",
+			"busy": "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring",
 			"submissionFailed": "Bu havolani qo'shib bo'lmadi — Arroxyda qayta urinib ko'ring"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi", "skippedAlreadyQueued_other": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi", "skippedAlreadyQueued_other": "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"},
+		"quickDownload": {
+			"added": "Qo'shildi: {{title}}",
+			"alreadyQueued": "Navbatda allaqachon bor",
+			"failed": "{{title}} tayyorlanmadi",
+			"notAdded": "Bu havolani qo'shib bo'lmadi — qayta urinib ko'ring",
+			"chooseHowMany_one": "{{count}}+ video — nechtasini tanlang",
+			"chooseHowMany_other": "{{count}}+ video — nechtasini tanlang",
+			"review_one": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
+			"review_other": "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing",
+			"reviewCapped_one": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
+			"reviewCapped_other": "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing",
+			"view": "Ko'rish"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -671,7 +714,7 @@
 			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. yt-dlp ekstraktori eskirib qolgan bo'lishi mumkin. Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi — bir necha daqiqadan so'ng tuzatish kelgach qayta urinib ko'ring.",
 			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",
 			"drmProtected": "Bu video DRM bilan himoyalangan. yt-dlp DRM ni olib tashlayolmaydi, shuning uchun fayl yuklab bo'lmaydi.",
-			"loginRequired": "Bu video uchun tizimga kirgan hisob zarur. cookies.txt ni sozlang (Sozlamalar → Cookies) va qayta urinib ko'ring.",
+			"loginRequired": "Bu video uchun tizimga kirgan hisob kerak.",
 			"unknown": "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring."
 		}
 	},
@@ -755,5 +798,59 @@
 			"invalid-segment": "Bu papka nomiga ruxsat berilmaydi. . va .. hamda CON kabi band nomlardan saqlaning.",
 			"resolution-in-dir": "{resolution} papkaga nom bo'la olmaydi — sifat yuklash boshlangunga qadar noma'lum."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Yangi",
+		"notice": {
+			"title": "YouTube'ni Arroxy ichida ko'ring",
+			"body": "Video, pleylist yoki kanalni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda YouTube'ga kiring.",
+			"riskTitle": "Qo'shimcha hisob bilan kiring",
+			"riskBody": "YouTube yt-dlp kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
+			"continue": "Davom etish"
+		},
+		"nudge": {
+			"off": "Cookies o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi.",
+			"file": "Yuklab olishlar Explore orqali kirishni emas, cookies faylingizdan foydalanadi.",
+			"browser": "Yuklab olishlar Explore orqali kirishni emas, brauzeringiz cookies'idan foydalanadi.",
+			"useExplore": "Explore orqali kirishdan foydalanish",
+			"notNow": "Hozir emas"
+		},
+		"toolbar": {
+			"aria": "Explore brauzer boshqaruvlari",
+			"back": "Orqaga",
+			"forward": "Oldinga",
+			"reload": "Qayta yuklash",
+			"home": "YouTube bosh sahifasi",
+			"addressAria": "Manzil",
+			"addressPlaceholder": "YouTube'da qidiring yoki YouTube havolasini joylang",
+			"offsiteHint": "Explore faqat YouTube'ni ko'rsatadi.",
+			"offsiteDownload": "Bu havolani yuklab olish",
+			"offsiteHintHost": "Explore faqat YouTube'ni ko'rsatadi. {{host}}",
+			"searchTooLong": "Bu qidiruv juda uzun.",
+			"downloadWithProfile": "Yuklab olish · {{profileName}}",
+			"interactiveHint": "Format, subtitr va boshqalarni tanlang…",
+			"grabUnavailable": "Yuklab olish uchun video, pleylist yoki kanalni oching",
+			"adBlock": {
+				"aria": "Reklama blokeri",
+				"off": "Reklama blokeri: o'chiq — yoqish uchun bosing",
+				"starting": "Reklama blokeri: ishga tushmoqda — o'chirish uchun bosing",
+				"on": "Reklama blokeri: yoniq — o'chirish uchun bosing",
+				"unavailable": "Reklama blokeri: mavjud emas, filtr ro'yxatlarini yuklab bo'lmadi — o'chirish uchun bosing",
+				"accountNote": "YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
+			"showTab": "Explore yorlig'ini ko'rsatish",
+			"showTabDescription": "O'chirsangiz, yuklab olishlar ham Explore orqali kirishdan foydalanmaydi.",
+			"signOut": "Explore'dan chiqish",
+			"signOutDescription": "Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi.",
+			"signOutConfirmTitle": "Explore'dan chiqilsinmi?",
+			"signOutConfirmBody": "Bu Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi.",
+			"signOutConfirm": "Chiqish"
+		},
+		"error": {"proxyTitle": "Explore proxy orqali ulana olmaydi", "proxyBody": "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring.", "loadTitle": "Bu sahifa yuklanmadi", "loadBody": "Ulanishni tekshiring, so'ng qayta urinib ko'ring.", "retry": "Qayta urinish", "openSettings": "Sozlamalarni ochish"}
 	}
 }

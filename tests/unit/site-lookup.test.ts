@@ -1,5 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
+import {siteById, siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
+import {youtubeSite} from '@shared/sites/youtube.js'
+import type {ExploreCookie} from '@shared/sites/types.js'
 
 const YT_URL = 'https://www.youtube.com/watch?v=k1qBgIw8fAQ'
 
@@ -30,5 +32,30 @@ describe('siteForJob', () => {
 
 	it('agrees with siteForUrl on the fallback path', () => {
 		expect(siteForJob('', 'https://youtu.be/k1qBgIw8fAQ')).toBe(siteForUrl('https://youtu.be/k1qBgIw8fAQ'))
+	})
+})
+
+const cookie = (name: string, domain = '.youtube.com'): ExploreCookie => ({name, value: 'v', domain, hostOnly: false, path: '/', secure: true, httpOnly: true, session: false})
+
+describe('siteById', () => {
+	it('returns the adapter for a site id', () => {
+		expect(siteById('youtube')).toBe(youtubeSite)
+		expect(siteById('generic').id).toBe('generic')
+		expect(siteById('generic').explore).toBeUndefined()
+	})
+})
+
+describe('youtubeSite.explore', () => {
+	it('limits jars to youtube.com', () => {
+		expect(youtubeSite.explore?.cookieDomains).toEqual(['youtube.com'])
+	})
+
+	it('needs LOGIN_INFO plus a SAPISID-family cookie, as yt-dlp does', () => {
+		const signedIn = youtubeSite.explore!.isSignedIn
+		expect(signedIn([cookie('LOGIN_INFO'), cookie('SAPISID')])).toBe(true)
+		expect(signedIn([cookie('LOGIN_INFO'), cookie('__Secure-3PAPISID')])).toBe(true)
+		expect(signedIn([cookie('SAPISID')])).toBe(false)
+		expect(signedIn([cookie('LOGIN_INFO')])).toBe(false)
+		expect(signedIn([cookie('LOGIN_INFO', '.google.com'), cookie('SAPISID', '.google.com')])).toBe(false)
 	})
 })

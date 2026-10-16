@@ -1,3 +1,4 @@
+import {EventEmitter} from 'node:events'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {SidecarSubsPhase} from '@main/services/phases/SidecarSubsPhase.js'
 import {STATUS_KEY} from '@shared/schemas.js'
@@ -7,6 +8,7 @@ import type {PhaseContext, ActiveDownload} from '@main/services/phases/types.js'
 import type {DownloadJob, ResolvedStartDownloadInput} from '@shared/types.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
+import {explorePorts} from '../helpers/explorePorts.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
@@ -51,19 +53,46 @@ function makeActive(overrides: Partial<ActiveDownload> = {}): ActiveDownload {
 function makeCtx(runResult: YtDlpResult, activeOverrides: Partial<ActiveDownload> = {}): PhaseContext {
 	const runMock = vi.fn().mockResolvedValue(runResult)
 	const active = makeActive(activeOverrides)
-	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+	return {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 }
 
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
 const EXIT_ERROR: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'fail', stdout: '', stderr: ''}
 
 describe('SidecarSubsPhase(embedAfter=false)', () => {
+	it('parks a paused escalated job whose Explore session is gone instead of soft-failing it', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, pauseRequested: true})
+		const outcome = await SidecarSubsPhase(false).run(ctx)
+		expect(outcome).toEqual({kind: 'paused'})
+		expect(vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled()
+	})
+
+	it('cancels rather than soft-failing a cancelled escalated job whose session is gone', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}, cancelRequested: true})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'cancelled'})
+	})
+
+	it('soft-fails a signed-out escalated job that is not interrupted', async () => {
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+	})
+
 	it('calls ytDlp.run with kind: subtitles', async () => {
 		const ctx = makeCtx(SUCCESS)
 		await SidecarSubsPhase(false).run(ctx)
 		const [req] = vi.mocked(ctx.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]
 		expect(req.kind).toBe('subtitles')
 		expect(req).toMatchObject({output: {subtitleMode: 'sidecar'}, subtitles: {languages: ['en'], format: 'srt', writeAuto: false}})
+	})
+
+	it('runs anonymously by default and with the Explore session for an escalated job', async () => {
+		const anonymous = makeCtx(SUCCESS)
+		await SidecarSubsPhase(false).run(anonymous)
+		expect(vi.mocked(anonymous.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1'})
+
+		const signedIn = Object.assign(makeCtx(SUCCESS, {input: {...BASE_INPUT, auth: 'exploreSession'}}), explorePorts({signedIn: true}))
+		await SidecarSubsPhase(false).run(signedIn)
+		expect(vi.mocked(signedIn.ytDlp.run as ReturnType<typeof vi.fn>).mock.calls[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
 	})
 
 	it('forwards autoOnly so manual tracks are skipped', async () => {
@@ -158,7 +187,7 @@ describe('SidecarSubsPhase(embedAfter=false)', () => {
 			active.pauseRequested = true
 			return EXIT_ERROR // SIGTERM makes yt-dlp exit non-zero
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 		const outcome = await SidecarSubsPhase(false).run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})
@@ -237,11 +266,11 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 		const active = makeActive({cancelRequested: false, mediaPath: '/tmp/video.mp4', subtitlePaths: ['/tmp/video.en.srt']})
 		const runMock = vi.fn().mockResolvedValue(SUCCESS)
 		vi.mocked(muxSubtitlesIntoVideo).mockImplementationOnce(async opts => {
-			opts.onSpawn({kill: vi.fn()} as never)
+			opts.onSpawn(Object.assign(new EventEmitter(), {kill: vi.fn()}) as never)
 			active.pauseRequested = true
 			return {ok: true, outputPath: '/tmp/video.mkv'}
 		})
-		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry()}
+		const ctx: PhaseContext = {active, signal: active.signal, register: d => active.disposables.defer(d), ytDlp: {run: runMock, ffmpegPath: '/fake/ffmpeg'} as never, emitStatus: vi.fn(), safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...explorePorts()}
 		const outcome = await SidecarSubsPhase(true).run(ctx)
 		expect(outcome.kind).toBe('paused')
 	})
@@ -255,7 +284,7 @@ describe('SidecarSubsPhase(embedAfter=true)', () => {
 	it('onSpawn from mux sets active.ffmpegProcess; cleared after mux', async () => {
 		let procDuringMux: unknown
 		vi.mocked(muxSubtitlesIntoVideo).mockImplementationOnce(async opts => {
-			const fakeProc = {}
+			const fakeProc = new EventEmitter()
 			opts.onSpawn(fakeProc as never)
 			procDuringMux = fakeProc
 			return {ok: true, outputPath: '/tmp/video.mkv'}

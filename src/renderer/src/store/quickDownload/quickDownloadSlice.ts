@@ -1,0 +1,171 @@
+// QuickDownload slice — the in-app ends of the background quick download:
+// the URL tab's and Explore's intake, and the Downloads tab's resolution of a
+// placeholder row (Retry, the needs-choice answers). The pipeline itself lives
+// in quickDownloadPipeline; the hotkey's intake in wizard/hotkeyTrigger.
+
+import {cleanUrl} from '@shared/cleanUrl.js'
+import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS} from '@shared/schemas.js'
+import {classifyUrlIntent} from '@shared/urlIntent.js'
+import {ok} from '@shared/result.js'
+import type {ProbePlaylistMode, QueueItem} from '@shared/types.js'
+import type {ExploreRetryTarget, GetState, QuickDownloadSlice, SetState} from '../types.js'
+import {mixedUrlPromptPatch} from '../wizard/mixedUrlPrompt.js'
+import {canSwitchToExplore, configuredCookiesRetryMode} from '../wizard/probeErrorExperience.js'
+import {rewriteYouTubeChannelRoot} from '../wizard/urlIntake.js'
+import {policyForUrlIntent} from '../wizard/urlIntentPolicy.js'
+import {applyResolution, forgetChoiceProbe, keptChoiceProbe, placedProfile, placeQuickDownload, runPlaceholderProbe} from './quickDownloadPipeline.js'
+import {resolveQuickProbe} from './quickProbeResolution.js'
+import {quickDownloadToasts} from './quickDownloadToasts.js'
+import {withRetryTarget} from './exploreSignInRetry.js'
+
+function cleanQuickDownloadUrl(url: string): string {
+	return rewriteYouTubeChannelRoot(cleanUrl(url.trim()))
+}
+
+// A placeholder row carries the probe mode it was submitted with (the
+// schema requires it on every unresolved row); its Retry and choices reuse it.
+type PlaceholderRow = QueueItem & {probeMode: ProbePlaylistMode}
+
+function findPlaceholder(itemId: string, get: GetState): PlaceholderRow | undefined {
+	const row = get().queue.find(item => item.id === itemId)
+	if (row?.job.kind !== 'unresolved' || row.probeMode === undefined) return undefined
+	return {...row, probeMode: row.probeMode}
+}
+
+// Back to probing in main. False when main refused, or the IPC call itself
+// rejected: the Downloads tab calls the row's Retry and choices without
+// waiting, so a transport failure is reported here and the row stays as it is.
+async function restartProbe(itemId: string): Promise<boolean> {
+	try {
+		return (await window.appApi.queue.cmd.reprobe({itemId})).ok
+	} catch (error) {
+		console.error('[quick-download] restarting the probe failed', error)
+		return false
+	}
+}
+
+// Back to probing in main, then probe again with the row's own settings.
+async function reprobeRow(row: PlaceholderRow, get: GetState, widen?: Pick<Parameters<typeof runPlaceholderProbe>[1], 'scope' | 'take'>): Promise<void> {
+	if (!(await restartProbe(row.id))) return
+	forgetChoiceProbe(row.id)
+	await runPlaceholderProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, get, quickDownloadToasts('downloads', get))
+}
+
+// A retry from where the user is: a failed preparation probes again in the
+// background, a failed download downloads again, the wizard probes in place.
+async function retryTargetNow(target: ExploreRetryTarget, get: GetState): Promise<void> {
+	switch (target.kind) {
+		case 'row':
+			return get().retryQuickDownloadRow(target.itemId)
+		case 'download':
+			return get().retryQueueItem(target.itemId)
+		case 'wizard':
+			return get().retry()
+		case 'home':
+			return get().retryQuickDownloadFailure()
+	}
+}
+
+export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDownloadSlice {
+	return {
+		exploreRetryTargets: [],
+
+		signInWithExploreThenRetry: async target => {
+			// Only a stored `off` with the Explore tab on is switched. Under the
+			// explore mode the wait needs no write; any other mode (a stale
+			// button) is never overridden, so the click is a plain retry.
+			const common = get().settings?.common
+			const switching = canSwitchToExplore(common)
+			if (!switching && !(common?.cookiesMode === 'explore' && common.exploreEnabled !== false)) {
+				await retryTargetNow(target, get)
+				return
+			}
+			// Explore opens at once; the wait is armed only once the switch is
+			// saved. A settings write still in flight answers with the mode main
+			// held before the switch, and that echo would cancel a wait armed on
+			// the optimistic one. Signing in takes far longer than the write.
+			const switched = switching ? get().switchToExploreCookiesMode() : Promise.resolve(true)
+			get().openExploreSignIn()
+			if (!(await switched)) return
+			set(state => ({exploreRetryTargets: withRetryTarget(state.exploreRetryTargets, target)}))
+		},
+
+		retryWithExploreSignIn: async target => {
+			if (canSwitchToExplore(get().settings?.common) && !(await get().switchToExploreCookiesMode())) return
+			await retryTargetNow(target, get)
+		},
+
+		quickDownload: async ({url, entry, title, playlistMode}) => {
+			const cleaned = cleanQuickDownloadUrl(url)
+			if (!cleaned) return
+			// Decisions that need no probe stay upfront, as a dialog.
+			const issue = getIncompleteCookiesConfigIssue(get().settings?.common)
+			if (issue) {
+				set({cookiesConfigDialogIssue: issue})
+				return
+			}
+			let mode: ProbePlaylistMode | undefined = playlistMode
+			if (!mode) {
+				const action = policyForUrlIntent(classifyUrlIntent(cleaned), 'quick-download')
+				if (action.kind === 'show-mixed-prompt') {
+					set(mixedUrlPromptPatch(cleaned, entry))
+					return
+				}
+				if (!('playlistMode' in action)) return
+				mode = action.playlistMode
+			}
+			const toasts = quickDownloadToasts(entry, get)
+			let placed = false
+			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {})}, get, event => {
+				if (event.kind === 'added' || event.kind === 'already-queued') placed = true
+				toasts(event)
+			})
+			// The link is in Downloads now: clear the field for the next one,
+			// unless the user already typed something else.
+			if (placed && entry === 'url-tab' && cleanQuickDownloadUrl(get().wizardUrl) === cleaned) get().setWizardUrl('')
+		},
+
+		retryQuickDownloadRow: async itemId => {
+			const row = findPlaceholder(itemId, get)
+			if (row?.status !== QUEUE_STATUS.error) return
+			await reprobeRow(row, get)
+		},
+
+		retryQuickDownloadRowWithCookies: async itemId => {
+			const targetMode = configuredCookiesRetryMode(get().settings?.common)
+			if (!targetMode) return
+			await get().setCookiesMode(targetMode)
+			await get().retryQuickDownloadRow(itemId)
+		},
+
+		chooseQuickDownloadRow: async (itemId, answer) => {
+			const row = findPlaceholder(itemId, get)
+			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return
+			const kept = keptChoiceProbe(itemId)
+			if (answer === 'review') {
+				// The row stays until the review queues (P2-R40): the wizard's
+				// submission replaces it, and an abandoned review leaves it waiting.
+				await get().openPlaylistReview(row.url, row.probeMode, itemId, kept)
+				return
+			}
+			if (answer === 'all') {
+				await reprobeRow(row, get, {scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}})
+				return
+			}
+			if (row.choice.kind !== 'playlist-cap') return
+			const take = {kind: 'first', count: row.choice.loaded} as const
+			if (!kept) {
+				await reprobeRow(row, get, {scope: {items: take}, take})
+				return
+			}
+			// The kept probe already holds the first N: no second probe. The row
+			// still goes back to probing, so a failure can land on it as usual.
+			if (!(await restartProbe(itemId))) return
+			forgetChoiceProbe(itemId)
+			const profile = placedProfile(itemId)
+			const resolution = resolveQuickProbe(ok(kept), {url: row.url, playlistMode: row.probeMode, limit: take.count, take, ...(profile ? {profile} : {})}, get())
+			await applyResolution(itemId, row.title, resolution, get, quickDownloadToasts('downloads', get))
+		}
+	}
+}

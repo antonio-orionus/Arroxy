@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 
-import {isExternalMainBuildImport, isExternalPreloadBuildImport, readRendererDevServerPort} from '../../electron.vite.config.js'
+import {exploreAdBlockPreloadPlugin, isExternalMainBuildImport, isExternalPreloadBuildImport, readRendererDevServerPort} from '../../electron.vite.config.js'
 
 describe('electron.vite.config', () => {
 	it('bundles main-process npm dependencies while keeping electron and node builtins external', () => {
@@ -44,5 +44,35 @@ describe('electron.vite.config', () => {
 		expect(readRendererDevServerPort({ARROXY_RENDERER_PORT: '23456'})).toBe(23_456)
 		expect(() => readRendererDevServerPort({ARROXY_RENDERER_PORT: 'abc'})).toThrow(/ARROXY_RENDERER_PORT/)
 		expect(() => readRendererDevServerPort({ARROXY_RENDERER_PORT: '70000'})).toThrow(/ARROXY_RENDERER_PORT/)
+	})
+})
+
+// The Explore ad blocker's library resolves its preload from node_modules when
+// it loads; the packaged app has none, so the build swaps that module and ships the preload itself.
+describe('exploreAdBlockPreloadPlugin', () => {
+	type Hook = (this: {emitFile: (file: {type: string; fileName: string; source: string}) => void}, ...args: unknown[]) => unknown
+	const plugin = exploreAdBlockPreloadPlugin()
+	const hook = (name: 'resolveId' | 'load' | 'generateBundle'): Hook => plugin[name] as unknown as Hook
+	const noop = {emitFile: () => undefined}
+
+	it("swaps the library's preload_path module, and only that one", () => {
+		const importer = '/repo/node_modules/.bun/@ghostery+adblocker-electron@2.18.2/node_modules/@ghostery/adblocker-electron/dist/esm/index.js'
+		const swapped = hook('resolveId').call(noop, './preload_path.js', importer)
+		expect(swapped).toEqual(expect.any(String))
+		expect(hook('resolveId').call(noop, './preload_path.js', 'C:\\repo\\node_modules\\@ghostery\\adblocker-electron\\dist\\esm\\index.js')).toBe(swapped)
+		expect(hook('resolveId').call(noop, './preload_path.js', '/repo/src/main/index.ts')).toBeNull()
+		expect(hook('resolveId').call(noop, './other.js', importer)).toBeNull()
+
+		const code = String(hook('load').call(noop, swapped))
+		expect(code).toContain('explore-adblock-preload.cjs')
+		expect(code).not.toMatch(/createRequire|node_modules/)
+	})
+
+	it('emits the preload next to the main bundle, self-contained but for electron', () => {
+		const emitted: {fileName: string; source: string}[] = []
+		hook('generateBundle').call({emitFile: file => emitted.push(file)})
+		expect(emitted.map(file => file.fileName)).toEqual(['explore-adblock-preload.cjs'])
+		const requires = [...(emitted[0]?.source ?? '').matchAll(/require\(['"]([^'"]+)['"]\)/g)].map(match => match[1])
+		expect(requires).toEqual(['electron'])
 	})
 })

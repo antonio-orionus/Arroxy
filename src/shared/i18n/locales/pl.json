@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Wstecz", "cancel": "Anuluj", "continue": "Kontynuuj", "loading": "Wczytywanie", "retry": "Spróbuj ponownie", "startOver": "Zacznij od początku"},
+	"common": {"back": "Wstecz", "cancel": "Anuluj", "continue": "Kontynuuj", "loading": "Wczytywanie", "retry": "Spróbuj ponownie", "dismiss": "Odrzuć", "startOver": "Zacznij od początku"},
 	"app": {
 		"feedback": "Opinia",
 		"logs": "Dzienniki",
@@ -246,6 +246,11 @@
 				"sourceOff": "Wyłączone",
 				"sourceFile": "Plik",
 				"sourceBrowser": "Przeglądarka",
+				"sourceExplore": "Logowanie Explore",
+				"recommended": "Zalecane",
+				"exploreDescription": "Używa logowania w Explore tylko wtedy, gdy pobieranie go potrzebuje.",
+				"exploreDisabled": "Karta Explore jest wyłączona, więc pobieranie nie używa logowania w Explore. Włącz ją poniżej w sekcji Explore.",
+				"openExplore": "Otwórz Explore",
 				"toggleDescription": "Pomaga przy filmach z ograniczeniem wiekowym, tylko dla członków i prywatnych dla konta.",
 				"risk": "Ryzyko: plik cookies.txt zawiera wszystkie zalogowane sesje tej przeglądarki — zachowaj go dla siebie.",
 				"fileLabel": "Plik cookie",
@@ -390,6 +395,7 @@
 				"bodyUnconfigured": "Lista formatów może być niepełna. Skonfiguruj pliki cookie w ustawieniach zaawansowanych albo zmień sieć i spróbuj ponownie.",
 				"bodyDisabled": "Pliki cookie są skonfigurowane, ale wyłączone. Włącz je i spróbuj ponownie, aby uzyskać pełną listę, albo zmień sieć.",
 				"bodyEnabled": "Nawet z plikami cookie YouTube ograniczył to sprawdzanie. Spróbuj ponownie później albo zmień sieć.",
+				"bodyExplore": "YouTube ograniczył to żądanie. Spróbuj ponownie później lub zmień sieć.",
 				"retryCta": "Spróbuj ponownie",
 				"enableRetryCta": "Włącz pliki cookie i spróbuj ponownie"
 			},
@@ -398,9 +404,15 @@
 				"currentModeLabel": "Źródło plików cookie",
 				"currentModeFile": "Plik",
 				"currentModeBrowser": "Przeglądarka",
+				"currentModeExplore": "Logowanie Explore",
 				"explanationFile": "Plik cookie może być pusty, wygasły lub mieć niewłaściwy format (yt-dlp oczekuje formatu Netscape cookies.txt). Wyeksportuj pliki cookie ponownie, wybierz inny plik, przełącz na tryb Przeglądarka albo wyłącz pliki cookie.",
 				"explanationBrowser": "Pliki cookie są odczytywane bezpośrednio z przeglądarki. Jeśli jest uruchomiona, jej baza plików cookie może być zablokowana (rodzina Chromium). Przeglądarka musi też być zalogowana w YouTube. Zamknij przeglądarkę, wybierz inną, przełącz na tryb Plik albo wyłącz pliki cookie.",
 				"openSettingsCta": "Otwórz ustawienia plików cookie",
+				"exploreSignIn": {"heading": "Ten film może wymagać konta YouTube", "body": "Jeśli ten film wymaga konta YouTube, zaloguj się w Explore i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje.", "cta": "Zaloguj się w Explore"},
+				"exploreSignedIn": {"heading": "Zalogowano w Explore", "body": "Jeśli ten film wymaga konta, Arroxy automatycznie użyje logowania w Explore. Może być niedostępne z innego powodu."},
+				"exploreOffer": {"heading": "Ten film może wymagać konta YouTube", "body": "Zaloguj się w Explore, a Arroxy spróbuje ponownie.", "cta": "Zaloguj się w Explore"},
+				"exploreReuse": {"heading": "Ten film może wymagać konta YouTube", "body": "Jesteś zalogowany w Explore, ale pobieranie obecnie nie korzysta z tego logowania.", "cta": "Użyj mojego logowania w Explore i spróbuj ponownie"},
+				"otherCookiesCta": "Użyj zamiast tego pliku cookie lub przeglądarki…",
 				"needsCookies": {"heading": "Ta witryna wymaga zalogowania", "body": "yt-dlp nie mógł uzyskać dostępu do tego filmu bez uwierzytelnienia. Skonfiguruj pliki cookie w ustawieniach zaawansowanych — wskaż przeglądarkę, w której masz już otwartą sesję, albo zaimportuj plik cookies.txt."},
 				"dpapi": {
 					"heading": "Pliki cookie Chrome zablokowane przez szyfrowanie Windows",
@@ -539,6 +551,17 @@
 	"queue": {
 		"header": "Pobieranie",
 		"tabLabel": "Pobieranie",
+		"attentionBadge_one": "{{count}} pobieranie wymaga Twojej uwagi",
+		"attentionBadge_other": "Pobrania wymagające Twojej uwagi: {{count}}",
+		"choice": {
+			"cappedBody_one": "Ponad {{count}} film w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
+			"cappedBody_other": "Ponad {{count}} filmów w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
+			"reviewBody_one": "Ten link to lista zawierająca {{count}} film. Sprawdź ją, aby wybrać, co pobrać.",
+			"reviewBody_other": "Ten link to lista filmów: {{count}}. Sprawdź ją, aby wybrać, co pobrać.",
+			"all": "Wszystkie filmy",
+			"first": "Pierwsze {{count}}",
+			"review": "Sprawdź"
+		},
 		"tabTip": "Pobierania są teraz na karcie Pobrane — możesz ją otworzyć w dowolnym momencie, aby śledzić postęp.",
 		"empty": "Pobierania w kolejce pojawią się tutaj",
 		"filtersLabel": "Filtry stanu kolejki",
@@ -584,6 +607,7 @@
 			"remove": "Usuń",
 			"pullNow": "Pobierz teraz — pomiń kolejkę",
 			"statusProbing": "Pobieranie szczegółów",
+			"statusNeedsChoice": "Wymaga Twojego wyboru",
 			"statusPending": "Oczekiwanie",
 			"statusRunning": "Pobieranie",
 			"statusHeld": "Wstrzymane",
@@ -638,13 +662,18 @@
 		"outputNotWritable": "Nie można zapisać w {{dir}} — Arroxy nie ma uprawnień do zapisu w tym miejscu",
 		"fetchingSponsorBlock": "Łączenie z SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock jest niedostępny, ponawianie ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Połączenie utknęło, ponawianie ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Połączenie utknęło, ponawianie ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Logowanie przez twoje konto Explore…",
+		"exploreSignedOut": "Wylogowano z Explore — zaloguj się ponownie"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Nie udało się zapisać ustawień.",
 		"warmupFailed": "Konfiguracja nie została ukończona. Niektóre pobierania mogą się nie udać, dopóki jej nie dokończysz.",
 		"shellActionFailed": "Nie udało się tego otworzyć.",
 		"folderSelectFailed": "Nie udało się otworzyć okna wyboru folderu.",
+		"exploreSignInRetrying_one": "Zalogowano w Explore — ponawiam 1 link",
+		"exploreSignInRetrying_other": "Zalogowano w Explore — ponawiam linki: {{count}}",
+		"exploreSignOutFailed": "Nie udało się wylogować z Explore. Spróbuj ponownie.",
 		"playlistFolderRejected": "Tego folderu nie można użyć dla tej playlisty.",
 		"filenameFolderTooDeep": "Ścieżka tego folderu jest zbyt głęboka dla systemu. Pobieranie może się nie udać — wybierz krótszą ścieżkę.",
 		"filenameTemplateCannotFit": "Nazwa tego filmu nie mieści się we wszystkich częściach szablonu, więc użyto nazwy domyślnej.",
@@ -653,11 +682,25 @@
 			"alreadyQueued": "Już jest w kolejce — nie dodano kopii",
 			"invalidClipboard": "Brak linku w schowku — najpierw go skopiuj",
 			"multipleUrls": "Skopiowano wiele linków — użyj funkcji Wiele adresów URL w Arroxy",
-			"needsReview": "Ten link wymaga szybkiego sprawdzenia — otwórz Arroxy i wklej go ponownie",
-			"busy": "Nadal przetwarzam poprzedni link",
+			"needsReview": "Ten link wymaga Twojego wyboru — zobacz Pobieranie w Arroxy",
+			"cookiesSetup": "Dokończ konfigurację plików cookie w Arroxy, a potem spróbuj ponownie",
+			"busy": "Arroxy jeszcze się uruchamia — spróbuj ponownie za chwilę",
 			"submissionFailed": "Nie udało się dodać tego linku — spróbuj ponownie w Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} film jest już w kolejce — pominięto", "skippedAlreadyQueued_other": "Pominięto filmy, które są już w kolejce: {{count}}"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} film jest już w kolejce — pominięto", "skippedAlreadyQueued_other": "Pominięto filmy, które są już w kolejce: {{count}}"},
+		"quickDownload": {
+			"added": "Dodano: {{title}}",
+			"alreadyQueued": "Już w kolejce",
+			"failed": "Nie udało się przygotować: {{title}}",
+			"notAdded": "Nie udało się dodać tego linku — spróbuj ponownie",
+			"chooseHowMany_one": "{{count}}+ film — wybierz, ile",
+			"chooseHowMany_other": "Filmów: {{count}}+ — wybierz, ile",
+			"review_one": "{{count}} film na tej liście — sprawdź, aby wybrać",
+			"review_other": "Filmów na tej liście: {{count}} — sprawdź, aby wybrać",
+			"reviewCapped_one": "{{count}}+ film na tej liście — sprawdź, aby wybrać",
+			"reviewCapped_other": "Filmów na tej liście: {{count}}+ — sprawdź, aby wybrać",
+			"view": "Zobacz"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -676,7 +719,7 @@
 			"parse": "Nie udało się przeanalizować odpowiedzi witryny. Ekstraktor yt-dlp mógł przestać pasować do zmian w serwisie. Arroxy automatycznie aktualizuje yt-dlp przy uruchomieniu — spróbuj ponownie za kilka minut, gdy poprawka zostanie wydana.",
 			"network": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
 			"drmProtected": "Ten film jest chroniony DRM. yt-dlp nie może usunąć DRM, więc pliku nie można pobrać.",
-			"loginRequired": "Ten film wymaga zalogowanego konta. Skonfiguruj plik cookies.txt (Ustawienia → Pliki cookie) i spróbuj ponownie.",
+			"loginRequired": "Ten film wymaga zalogowanego konta.",
 			"unknown": "Pobieranie nie powiodło się. Zobacz nieprzetworzone dane wyjściowe poniżej."
 		}
 	},
@@ -752,6 +795,67 @@
 			"empty-segment": "Usuń dodatkowy znak / — każdy folder musi mieć nazwę.",
 			"invalid-segment": "Ta nazwa folderu jest niedozwolona. Unikaj . i .. oraz nazw zastrzeżonych, takich jak CON.",
 			"resolution-in-dir": "{resolution} nie może nazywać folderu — jakość nie jest znana przed rozpoczęciem pobierania."
+		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Nowość",
+		"notice": {
+			"title": "Przeglądaj YouTube prosto w Arroxy",
+			"body": "Znajdź film, playlistę lub kanał i pobierz go stąd, bez kopiowania linków. Zaloguj się tu do YouTube, aby pobierać filmy wymagające konta.",
+			"riskTitle": "Zaloguj się na konto dodatkowe",
+			"riskBody": "YouTube może oznaczać — a czasem blokować — konta używane z narzędziami do pobierania, takimi jak yt-dlp. Użyj konta, które możesz stracić, a nie głównego.",
+			"continue": "Kontynuuj"
+		},
+		"nudge": {
+			"off": "Pliki cookie są wyłączone, więc pobieranie nie używa logowania w Explore.",
+			"file": "Pobieranie używa twojego pliku cookie, a nie logowania w Explore.",
+			"browser": "Pobieranie używa plików cookie z twojej przeglądarki, a nie logowania w Explore.",
+			"useExplore": "Użyj logowania w Explore",
+			"notNow": "Nie teraz"
+		},
+		"toolbar": {
+			"aria": "Elementy sterujące przeglądarki Explore",
+			"back": "Wstecz",
+			"forward": "Dalej",
+			"reload": "Odśwież",
+			"home": "Strona główna YouTube",
+			"addressAria": "Adres",
+			"addressPlaceholder": "Szukaj w YouTube lub wklej link do YouTube",
+			"offsiteHint": "Explore przegląda tylko YouTube.",
+			"offsiteDownload": "Pobierz ten link",
+			"offsiteHintHost": "Explore przegląda tylko YouTube. {{host}}",
+			"searchTooLong": "To wyszukiwanie jest zbyt długie.",
+			"downloadWithProfile": "Pobierz · {{profileName}}",
+			"interactiveHint": "Wybierz format, napisy i więcej…",
+			"grabUnavailable": "Otwórz film, playlistę lub kanał, aby pobrać",
+			"adBlock": {
+				"aria": "Blokowanie reklam",
+				"off": "Blokowanie reklam: wyłączone — kliknij, aby włączyć",
+				"starting": "Blokowanie reklam: uruchamianie — kliknij, aby wyłączyć",
+				"on": "Blokowanie reklam: włączone — kliknij, aby wyłączyć",
+				"unavailable": "Blokowanie reklam: niedostępne, nie udało się pobrać list filtrów — kliknij, aby wyłączyć",
+				"accountNote": "YouTube może utrudniać korzystanie z blokad reklam na zalogowanych kontach."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Przeglądaj YouTube w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
+			"showTab": "Pokaż kartę Explore",
+			"showTabDescription": "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania w Explore.",
+			"signOut": "Wyloguj się z Explore",
+			"signOutDescription": "Usuwa logowanie do YouTube i dane przeglądania w Explore.",
+			"signOutConfirmTitle": "Wylogować się z Explore?",
+			"signOutConfirmBody": "To usuwa logowanie do YouTube i dane przeglądania w Explore. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie.",
+			"signOutConfirm": "Wyloguj"
+		},
+		"error": {
+			"proxyTitle": "Explore nie może połączyć się przez twój serwer proxy",
+			"proxyBody": "Sprawdź proxy w Ustawieniach, a potem spróbuj ponownie.",
+			"loadTitle": "Ta strona się nie załadowała",
+			"loadBody": "Sprawdź połączenie, a potem spróbuj ponownie.",
+			"retry": "Spróbuj ponownie",
+			"openSettings": "Otwórz Ustawienia"
 		}
 	}
 }

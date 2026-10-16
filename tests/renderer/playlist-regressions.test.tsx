@@ -40,6 +40,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 		queue: {
 			cmd: {
 				add: vi.fn().mockResolvedValue(ok({ids: []})),
+				replaceProbing: vi.fn().mockResolvedValue(ok({ids: []})),
 				getSnapshot: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: false})),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
@@ -51,6 +52,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 			},
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
+		explore: {getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null})), onStateChanged: vi.fn().mockReturnValue(() => undefined), onPointerInView: vi.fn().mockReturnValue(() => undefined)},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}
 	}
@@ -174,11 +176,13 @@ describe('playlist regressions', () => {
 		window.appApi = api as never
 
 		await useAppStore.getState().initialize()
-		useAppStore.setState({wizardUrl: 'https://youtube.com/watch?v=abc123', settings: buildAppSettings({filenameTemplate: '{title}'})} as never)
+		useAppStore.setState({settings: buildAppSettings({filenameTemplate: '{title}'})} as never)
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: 'https://youtube.com/watch?v=abc123', entry: 'url-tab'})
 
-		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0]?.[0]
+		// The placeholder row is swapped for the prepared item.
+		await vi.waitFor(() => expect(window.appApi.queue.cmd.replaceProbing).toHaveBeenCalled())
+		const item = vi.mocked(window.appApi.queue.cmd.replaceProbing).mock.calls[0]?.[0]?.items[0]
 		expect(item?.job.kind).toBe('ranged-format')
 		if (item?.job.kind !== 'ranged-format') throw new Error('ranged-format job expected')
 		expect(item.job.filenameTemplate).toBe('Single Video')

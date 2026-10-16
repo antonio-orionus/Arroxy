@@ -9,6 +9,8 @@ import {ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuSh
 import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
 import type {RowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {QueueArtifactsRow} from './QueueArtifactsRow.js'
+import {DownloadErrorGuidanceRow, QueueAttentionRow} from './QueueAttentionRow.js'
+import {isDownloadErrorRow, needsAttention} from './queueAttention.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
 import {SELECTED_ACTIONS, actionButtonDisabled, actionDisabledTooltip, type QueueSelectedAction} from './queueManagerActions.js'
 
@@ -25,14 +27,16 @@ interface QueueManagerTableProps {
 	expandedIds: ReadonlySet<string>
 	selectedIds: ReadonlySet<string>
 	interactions: RowSelectionInteractions
+	// The row a View command pointed at, briefly highlighted.
+	highlightedId: string | null
 	onContextAction: (action: QueueSelectedAction, items: QueueItem[]) => void
 }
 
 function columnClassName(columnId: string): string {
-	if (columnId === 'title') return 'w-[30%] min-w-0'
-	if (columnId === 'status') return 'w-[14%]'
+	if (columnId === 'title') return 'w-[25%] min-w-0'
+	if (columnId === 'status') return 'w-[18%]'
 	if (columnId === 'progressPercent') return 'w-[10%]'
-	if (columnId === 'formatLabel') return 'w-[14%] max-[820px]:hidden'
+	if (columnId === 'formatLabel') return 'w-[15%] max-[820px]:hidden'
 	if (columnId === 'outputDir') return 'w-[15%] max-[1040px]:hidden'
 	if (columnId === 'artifacts') return 'w-[7%] text-center'
 	if (columnId === 'addedAt') return 'w-[10%] max-[900px]:hidden'
@@ -71,7 +75,7 @@ function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction:
 	)
 }
 
-export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItems, expandedIds, selectedIds, interactions, onContextAction}: QueueManagerTableProps): ReactNode {
+export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItems, expandedIds, selectedIds, interactions, highlightedId, onContextAction}: QueueManagerTableProps): ReactNode {
 	return (
 		<SelectableVirtualTable
 			table={table}
@@ -87,10 +91,15 @@ export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVi
 			emptyLabel={t('queue.empty')}
 			scrollTestId="queue-manager-scroll"
 			rowTestId={rowId => `queue-manager-row-${rowId}`}
-			rowDataAttributes={row => ({'data-status': row.original.status})}
+			rowDataAttributes={row => ({'data-status': row.original.status, ...(row.original.id === highlightedId ? {'data-highlighted': 'true'} : {})})}
 			columnClassName={columnClassName}
 			renderContextMenu={() => <QueueContextMenuItems items={contextItems} onAction={onContextAction} />}
-			renderExtraRows={row => (expandedIds.has(row.original.id) ? <QueueArtifactsRow columnsLength={renderedColumnCount} item={row.original} /> : null)}
+			renderExtraRows={row => (
+				<>
+					{needsAttention(row.original) ? <QueueAttentionRow columnsLength={renderedColumnCount} item={row.original} /> : isDownloadErrorRow(row.original) ? <DownloadErrorGuidanceRow columnsLength={renderedColumnCount} item={row.original} /> : null}
+					{expandedIds.has(row.original.id) ? <QueueArtifactsRow columnsLength={renderedColumnCount} item={row.original} /> : null}
+				</>
+			)}
 		/>
 	)
 }

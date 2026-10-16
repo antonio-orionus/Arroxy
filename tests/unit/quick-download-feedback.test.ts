@@ -7,9 +7,9 @@ describe('QuickDownloadFeedback', () => {
 		expect(resetQuickDownloadFeedback()).toEqual(QUICK_DOWNLOAD_FEEDBACK_INITIAL)
 		expect(preparingQuickDownloadFeedback({current: 'https://youtube.com/watch?v=q1', runId: 7, total: 2})).toEqual({...QUICK_DOWNLOAD_FEEDBACK_INITIAL, quickDownloadStatus: 'preparing', quickDownloadProgressCurrent: 'https://youtube.com/watch?v=q1', quickDownloadProgressRunId: 7, quickDownloadProgressTotal: 2})
 		expect(queuedQuickDownloadFeedback(['q1'])).toEqual({quickDownloadStatus: 'queued', quickDownloadFailure: null, quickDownloadQueueIds: ['q1'], quickDownloadProgressRunId: null, quickDownloadProgressFailed: 0})
-		expect(failedQuickDownloadFeedback({kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}})).toEqual({
+		expect(failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls: ['https://youtu.be/one']})).toEqual({
 			quickDownloadStatus: 'error',
-			quickDownloadFailure: {kind: 'probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: 'sign in'}}},
+			quickDownloadFailure: {kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls: ['https://youtu.be/one']},
 			quickDownloadQueueIds: [],
 			quickDownloadProgressRunId: null
 		})

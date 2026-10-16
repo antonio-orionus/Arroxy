@@ -1,0 +1,109 @@
+import {describe, expect, it} from 'vite-plus/test'
+import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
+import {escalationReason, reachesPlaylistItems, type EscalationInput} from '@main/services/exploreEscalation.js'
+import type {EscalationReason} from '@shared/schemas.js'
+
+const YOUTUBE_WATCH = 'https://www.youtube.com/watch?v=abc'
+const WATCH_LATER = 'https://www.youtube.com/playlist?list=WL'
+const LIKED = 'https://www.youtube.com/playlist?list=LL'
+const PUBLIC_PLAYLIST = 'https://www.youtube.com/playlist?list=PLx'
+
+type ProbeInput = Extract<EscalationInput, {stage: 'probe'}>
+type DownloadInput = Extract<EscalationInput, {stage: 'download'}>
+
+function probeFailure(kind: YtDlpErrorKind, raw: string, url: string = YOUTUBE_WATCH): ProbeInput {
+	return {stage: 'probe', url, error: {kind: 'ytdlp', error: {kind, raw}}}
+}
+
+function downloadFailure(errorKind: YtDlpErrorKind, rawError: string | null, ladderExhausted = true): DownloadInput {
+	return {stage: 'download', errorKind, rawError, ladderExhausted}
+}
+
+// Full yt-dlp stderr lines for account-only videos. Kinds come from the production classifier,
+// so these rows follow what it actually emits (it reports `unknown` for some of them).
+const ACCOUNT_ONLY_VIDEO_LINES = [
+	'ERROR: [youtube] abc: Join this channel to get access to members-only content like this video, and other exclusive perks.',
+	"ERROR: [youtube] abc: This video is available to this channel's members on level: Fan (or any higher level). Join this channel to get access to members-only content and other exclusive perks.",
+	'ERROR: [youtube] abc: This video is available to this channel’s members on level: Fan (or any higher level). Join this channel to get access to members-only content and other exclusive perks.',
+	"ERROR: [youtube] abc: Private video. Sign in if you've been granted access to this video",
+	'ERROR: [youtube] abc: Private video. Sign in if you’ve been granted access to this video'
+]
+
+describe('escalationReason', () => {
+	it.each(ACCOUNT_ONLY_VIDEO_LINES)('escalates an account-only video line at probe and download stage: %s', line => {
+		const {kind} = classifyYtDlpStderr(line)
+		expect(['unknown', 'unavailable']).toContain(kind)
+		expect(escalationReason(probeFailure(kind, line))).not.toBeNull()
+		expect(escalationReason(downloadFailure(kind, line))).not.toBeNull()
+	})
+
+	it.each<[YtDlpErrorKind, string]>([
+		['loginRequired', 'Sign in to confirm your age'],
+		['ageRestricted', 'This video may be inappropriate for some users'],
+		['botBlock', "Sign in to confirm you're not a bot"]
+	])('escalates %s: %s', (kind, raw) => {
+		expect(escalationReason(probeFailure(kind, raw))).not.toBeNull()
+	})
+
+	it.each<[YtDlpErrorKind, string]>([
+		['ipBlock', 'HTTP Error 403'],
+		['rateLimit', 'HTTP Error 429'],
+		['geoBlocked', 'not available in your country'],
+		['drmProtected', 'DRM protected'],
+		['unavailable', 'This video has been removed by the uploader'],
+		['network', 'Connection reset']
+	])('does not escalate %s: %s', (kind, raw) => {
+		expect(escalationReason(probeFailure(kind, raw))).toBeNull()
+	})
+
+	it('escalates an empty Watch Later playlist probe', () => {
+		expect(escalationReason({stage: 'probe', url: WATCH_LATER, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}})).not.toBeNull()
+	})
+
+	it('escalates a Liked playlist probe whose message says the playlist does not exist', () => {
+		expect(escalationReason(probeFailure('unknown', 'The playlist does not exist.', LIKED))).not.toBeNull()
+	})
+
+	it('escalates a probe whose message says the playlist does not exist, whatever the playlist id', () => {
+		expect(escalationReason(probeFailure('unknown', 'The playlist does not exist.', PUBLIC_PLAYLIST))).not.toBeNull()
+	})
+
+	it('does not escalate an empty public playlist that is not account-only', () => {
+		expect(escalationReason({stage: 'probe', url: PUBLIC_PLAYLIST, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}})).toBeNull()
+	})
+
+	it('escalates a download-time bot wall only after the PoT ladder is exhausted', () => {
+		expect(escalationReason(downloadFailure('botBlock', "Sign in to confirm you're not a bot", false))).toBeNull()
+		expect(escalationReason(downloadFailure('botBlock', "Sign in to confirm you're not a bot", true))).not.toBeNull()
+	})
+
+	it('does not escalate an unknown download failure even when it names a playlist', () => {
+		expect(escalationReason(downloadFailure('unknown', 'The playlist does not exist.', true))).toBeNull()
+	})
+
+	it('never escalates a cancellation', () => {
+		expect(escalationReason({stage: 'probe', url: YOUTUBE_WATCH, error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}})).toBeNull()
+	})
+})
+
+describe('escalation reasons and playlist items (R20)', () => {
+	it.each<[EscalationInput, EscalationReason]>([
+		[probeFailure('loginRequired', 'Sign in to confirm your age'), 'loginRequired'],
+		[probeFailure('ageRestricted', 'This video may be inappropriate for some users'), 'ageRestricted'],
+		[probeFailure('unknown', "ERROR: [youtube] abc: Private video. Sign in if you've been granted access to this video"), 'accountOnlyVideo'],
+		[{stage: 'probe', url: WATCH_LATER, error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}, 'accountOnlyPlaylist'],
+		[probeFailure('unknown', 'The playlist does not exist.', LIKED), 'playlistMissing'],
+		[probeFailure('botBlock', "Sign in to confirm you're not a bot"), 'botBlock'],
+		[downloadFailure('botBlock', "Sign in to confirm you're not a bot", true), 'botBlock']
+	])('names why %j escalates: %s', (input, reason) => {
+		expect(escalationReason(input)).toBe(reason)
+	})
+
+	it.each<EscalationReason>(['loginRequired', 'ageRestricted', 'accountOnlyVideo', 'accountOnlyPlaylist', 'playlistMissing'])('an account-only reason (%s) signs in the playlist items too', reason => {
+		expect(reachesPlaylistItems(reason)).toBe(true)
+	})
+
+	it('a bot wall signs in only the enumeration: its items start anonymous', () => {
+		expect(reachesPlaylistItems('botBlock')).toBe(false)
+	})
+})

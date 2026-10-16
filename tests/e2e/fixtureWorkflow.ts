@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {expect, _electron as electron, type ElectronApplication, type Page, type Locator} from '@playwright/test'
-import {buildFixtureElectronEnv, ensureHostEmbeddedBinaries, ensureYtDlpPath, fixtureUrl, type DenyProxy, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
+import {buildFixtureElectronEnv, ensureHostEmbeddedBinaries, ensureYtDlpPath, fixtureUrl, type FixtureEnvInput, type FixtureServerRequest} from './fixtureHarness.js'
 import {withClipboardLock} from './clipboardLock.js'
 
 let fixtureRuntimePromise: Promise<string> | null = null
@@ -85,8 +85,8 @@ export async function writeClipboard(app: ElectronApplication, text: string): Pr
 	await app.evaluate(({clipboard}, value) => clipboard.writeText(value), text)
 }
 
-export async function launchFixtureApp(ytDlpPath: string, input: {userDataDir: string; fixtureServer: FixtureServer; denyProxy: DenyProxy}): Promise<{app: ElectronApplication; page: Page}> {
-	const app = await electron.launch({args: [path.join(process.cwd(), 'out', 'main', 'index.js')], env: buildFixtureElectronEnv({userDataDir: input.userDataDir, fixtureServer: input.fixtureServer, denyProxy: input.denyProxy, ytDlpPath})})
+export async function launchFixtureApp(ytDlpPath: string, input: Omit<FixtureEnvInput, 'ytDlpPath'>): Promise<{app: ElectronApplication; page: Page}> {
+	const app = await electron.launch({args: [path.join(process.cwd(), 'out', 'main', 'index.js')], env: buildFixtureElectronEnv({...input, ytDlpPath})})
 	const page = await app.firstWindow()
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 60_000})
 	await expect(page.locator('[data-testid="profiles-main-input"]')).toBeVisible()
@@ -157,7 +157,7 @@ export async function openQueueTab(page: Page): Promise<void> {
 	// "Downloads" (queue.tabLabel), so a /^queue/i name match never resolves and
 	// every caller of this helper times out.
 	//
-	// Quick Download opens a progress dialog whose portal overlay covers the tab
+	// Bulk URLs opens a progress dialog whose portal overlay covers the tab
 	// strip, so wait for any modal to detach before clicking rather than racing it.
 	await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0, {timeout: 120_000})
 	await page.locator('.downloads-tab-trigger').click()

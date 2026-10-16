@@ -6,9 +6,11 @@ import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_M
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
+import {replaceHash} from '@renderer/lib/navigation.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {AdvancedSettingsTarget} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
+import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
@@ -27,6 +29,7 @@ import {HotkeySettingsSection} from './HotkeySettingsSection.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
+import {ExploreSettingsPanel} from '../explore/ExploreSettingsPanel.js'
 
 const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?: boolean}[] = [
 	{value: 'firefox', label: 'Firefox'},
@@ -132,6 +135,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	const filenameTemplateError = filenameTemplateValidation.ok ? null : filenameTemplateValidation
 	const cookiesPath = common?.cookiesPath ?? ''
 	const cookiesMode: CookiesMode = common?.cookiesMode ?? 'off'
+	const exploreEnabled = common?.exploreEnabled !== false
 	const cookiesBrowser = common?.cookiesBrowser
 	const proxyUrl = common?.proxyUrl ?? ''
 	const commonPaths = common?.commonPaths
@@ -182,10 +186,14 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							className="flex w-full flex-wrap gap-1"
 							aria-labelledby="profiles-settings-cookies-mode"
 						>
+							<ToggleGroupItem value="explore">
+								{t('wizard.url.cookies.sourceExplore')} <Badge size="sm">{t('wizard.url.cookies.recommended')}</Badge>
+							</ToggleGroupItem>
 							<ToggleGroupItem value="off">{t('wizard.url.cookies.sourceOff')}</ToggleGroupItem>
 							<ToggleGroupItem value="file">{t('wizard.url.cookies.sourceFile')}</ToggleGroupItem>
 							<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 						</ToggleGroup>
+						{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} /> : null}
 						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-caption">
 							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
 								{t('wizard.url.cookies.helpLink')}
@@ -274,6 +282,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 					</Field>
 				</FieldGroup>
 			</Panel>
+
+			<ExploreSettingsPanel />
 
 			<Panel testId="hotkey-section" title={t('wizard.url.hotkey.sectionTitle')} description={t('wizard.url.hotkey.sectionDescription')}>
 				<HotkeySettingsSection />
@@ -427,6 +437,20 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</Field>
 			</Panel>
 		</Card>
+	)
+}
+
+// The tab is the only place to sign in, so with it turned off there is nothing to link to.
+function ExploreModeDescription({enabled}: {enabled: boolean}): ReactNode {
+	const {t} = useTranslation()
+	if (!enabled) return <WarningText text={t('wizard.url.cookies.exploreDisabled')} />
+	return (
+		<FieldDescription className="flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="cookies-explore-description">
+			<span>{t('wizard.url.cookies.exploreDescription')}</span>
+			<Button type="button" variant="link" size="inline" onClick={() => replaceHash('explore')} data-testid="cookies-open-explore">
+				{t('wizard.url.cookies.openExplore')}
+			</Button>
+		</FieldDescription>
 	)
 }
 

@@ -1,7 +1,7 @@
 # In-App Browser (Explore) Spec
 
-Status: design revised after independent review (2026-10-13) — awaiting the
-signed-in PO-token measurement and spec sign-off, then the implementation plan
+Status: implemented on `feat/explore`; manual matrix passed on the product build (2026-10-15/16) — shipping as
+**Arroxy 0.5.0** in a single PR
 Updated: 2026-10-13 (cross-platform spike, cookie-freshness experiment,
 decisions D1–D6, review revision R1)
 
@@ -34,7 +34,7 @@ and never a UI label.
 | `src/renderer/src/components/wizard/DownloadProfilesHome.tsx` | the **existing** tab bar — Explore is added as one more tab |
 | `src/renderer/src/store/wizard/probeErrorExperience.ts`, `DownloadProfilesSettingsTab.tsx`, `src/main/services/analytics.ts` | `explore` mode in error guidance, settings and the ban warning, analytics |
 | `src/main/services/download/startupTempSweep.ts` | sweeps temp jars orphaned by a crash |
-| `design/in-app-browser/` | mockups — `Main.dc.html` chosen, `MinWindow.dc.html` the 720x680 floor. **Gitignored (`/design/`), so local-only**; layout decisions are restated in [UI](#ui) |
+| `design/in-app-browser/` | mockups — `Main.dc.html` chosen, `MinWindow.dc.html` the minimum-window layout (drawn at 720x680; the real minimum is 720x760). **Gitignored (`/design/`), so local-only**; layout decisions are restated in [UI](#ui) |
 
 ## Goal
 
@@ -105,7 +105,7 @@ signed-in sessions sometimes get *fewer* formats (why `CookielessRetry` exists).
 The user clicks YouTube's own Sign in; Google's page renders in the same view —
 the flow the spike verified on three platforms. No separate window. Reversible:
 a dedicated window would wrap the same engine and session if the inline flow
-proves cramped (e.g. reCAPTCHA at 720x680).
+proves cramped (e.g. reCAPTCHA at the 720x760 minimum window).
 
 ### D3 — Explore is on by default, with a "New" badge; the URL tab stays the launch tab
 
@@ -238,7 +238,7 @@ class ExploreSessionService implements SessionCookieJarPort {
 Session setup, applied before anything loads:
 
 - **`WebContentsView`**, not `<webview>` and not a second `BrowserWindow`; `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`, no preload with app privileges. On Linux the app already runs with `--no-sandbox` (`build/afterPack.mjs`), so `sandbox: true` is a no-op there — an accepted, existing platform risk, stated rather than hidden.
-- **Proxy:** the user's proxy setting is applied to the partition (as `HiddenWindowTokenProvider` does for its own), and proxy-auth `login` events are answered from it — otherwise cookies rotate from a different IP than yt-dlp uses.
+- **Proxy:** the user's proxy setting is applied to the partition (as `HiddenWindowTokenProvider` does for its own), and proxy-auth `login` events are answered from it — otherwise cookies rotate from a different IP than yt-dlp uses. A changed proxy setting is re-applied to an open view at once. A setting the partition refuses, and a page load that fails in the proxy (`ERR_PROXY_*`, `ERR_TUNNEL_CONNECTION_FAILED`, `ERR_SOCKS_CONNECTION_FAILED`, `ERR_MANDATORY_PROXY_CONFIGURATION_FAILED`), show the view's proxy error with a way to Settings; any other main-frame failure shows the generic load error. A **refused setting fails closed**: the partition still routes the old way, so the open page is stopped and replaced by `about:blank`, page navigations are refused, and no committed navigation clears the error. Only a setting that applies (a re-apply or Retry) clears it and reloads the page the view was on; the blank page leaves no history entry.
 - **Permissions:** `setPermissionRequestHandler` / `setPermissionCheckHandler` deny everything except what sign-in needs (to be confirmed in the manual matrix: WebAuthn/security keys, possibly clipboard-read for paste). Deny camera, mic, geolocation, notifications, MIDI.
 - **Downloads:** `will-download` is cancelled; downloads go through Arroxy's pipeline only.
 - **Devtools:** disabled when `app.isPackaged`; the gate is unit-tested (mock E2E runs unpackaged and cannot prove it).
@@ -314,7 +314,7 @@ no YouTube page loaded nothing rotates, so simply re-reading the jar returns the
 same cookies.
 
 - **Before escalating:** `hasAuthCookies` must pass (cheap). No validity check and no keep-alive page: **measured 2026-10-13/14**, a session left 10 h with no YouTube page loaded (only signed-in yt-dlp runs in between, which do not rotate sign-in cookies) still authenticated yt-dlp from a fresh jar, and a page load afterwards reported `LOGGED_IN: true` — consistent with yt-dlp maintainers' "unused sessions last days–weeks". Validity is checked only when yt-dlp rejects the cookies (below).
-- **On yt-dlp's warning** ("The provided YouTube account cookies are no longer valid…" — a warning, not an error; no `ytdlp-errors` kind): call `verifySignedIn`. If `LOGGED_IN` is true, retry the spawn **once** with a fresh jar. If false, Explore enters a **signed-out** state ("Signed out of Explore — sign in again") and the job fails with the "Sign in in Explore" action, rather than silently degrading.
+- **On yt-dlp's warning** ("The provided YouTube account cookies are no longer valid…" — a warning, not an error; no `ytdlp-errors` kind): call `verifySignedIn`. If `LOGGED_IN` is true, retry the spawn **once** with a fresh jar. If false, Explore's `signedIn` turns false (and stays false over cookie presence until the site itself reports signed in again) and the job fails with the "Sign in in Explore" action, rather than silently degrading. There is no separate signed-out notice: the failed download's guidance is the signal.
 - Both retries count against the per-job signed-in spawn cap (D1).
 
 ### Concurrency and pacing
@@ -325,14 +325,21 @@ same cookies.
 
 ### Navigation policy
 
-Navigation rules govern **top-level and frame navigations** of the Explore view;
-subresources (images, scripts, video from `ytimg.com`, `ggpht.com`,
-`googlevideo.com`, `gstatic.com`, …) are not filtered in v1.
+Navigation rules govern **top-level (main-frame) navigations** of the Explore
+view. Sub-frames are **not policed in v1**, like subresources (images, scripts,
+video from `ytimg.com`, `ggpht.com`, `googlevideo.com`, `gstatic.com`, …):
+policing them would break reCAPTCHA (`www.google.com/recaptcha`, off the
+allowlist) during sign-in and YouTube's own embedded frames. A sub-frame
+navigation or redirect can never reach `shell.openExternal` — only a main-frame
+navigation, or a `window.open` (from any frame) within the user-gesture window,
+can.
 
 - **Allowed in-view:** `youtube.com` and subdomains, `youtu.be` (redirects into youtube.com), `accounts.google.com`, `accounts.youtube.com`, Google's ccTLD sign-in hops (`accounts.google.<cctld>` — the spike observed `accounts.google.co.in/accounts/SetSID`), and the consent pages (`consent.youtube.com`, `consent.google.com`) that EU users see first. **Not** `google.com` at large — Explore must not become a Gmail/Search browser.
-- **User-initiated link to anywhere else** → `shell.openExternal`, **only** for `http:` / `https:` and only on a user gesture.
+  - The ccTLD hop matches two-letter country codes only (`accounts.google.<cc>`, `accounts.google.co.<cc>`, `accounts.google.com.<cc>`), never a generic TLD. Residual risk: a few registries do not reserve `google.com.<cc>` / `google.co.<cc>` to Google, so a third party holding such a name could get its `accounts.` host loaded in the signed-in view. It cannot read Google's or YouTube's cookies (they are domain-scoped) but could show a look-alike page. Accepted for v1; the matrix's host log would reveal such a hop.
+- **User-initiated link to anywhere else** → `shell.openExternal`, **only** for `http:` / `https:` and only on a user gesture. Electron's navigation events carry no gesture flag, so a gesture is a click or key press in the view within the last second, and one gesture authorises at most one external open.
 - **Redirect to an unexpected host during a navigation** (not user-initiated) → blocked and its host logged; never handed to the system browser (sign-in redirect URLs can carry session material such as `sidt`).
-- `setWindowOpenHandler` → `{action: 'deny'}`, routing to the rules above. Verified 2026-10-13: the full sign-in (incl. reCAPTCHA and TOTP) opened **no popups** on any platform.
+- `setWindowOpenHandler` → `{action: 'deny'}`, routing to the rules above. An allowlisted target loads in the view only within the user-gesture window too, so a script or a sub-frame cannot replace the page without a click. Verified 2026-10-13: the full sign-in (incl. reCAPTCHA and TOTP) opened **no popups** on any platform.
+- **Description links** (P2-R30, accepted): YouTube wraps outbound links in `youtube.com/redirect`, which is on the allowlist, so a click loads YouTube's own leave-YouTube interstitial in the view; its "Go to site" is the user's click and opens the system browser through the rule above. Explore is for signing in, browsing and downloading, so the extra step stays.
 - Never inject scripts into `accounts.google.com` — not for convenience, not for diagnostics. (`verifySignedIn` reads `ytcfg` on `youtube.com` only.)
 - The manual matrix logs every off-allowlist host hit during sign-in, to catch hops the spike did not see.
 
@@ -355,7 +362,7 @@ as "cookies + `web.gvs` token → 0 formats". So:
   | Signed-in, **no token** (raw yt-dlp) | `tv_samsung`, `web_embedded` | `401+258`, **2160p**; no withheld-formats warning |
 
   The research's "cookies + `web.gvs` token → 0 formats" came from the old `mweb` path and **does not reproduce** on current yt-dlp. The anonymous token on a signed-in run is harmless for formats but still pairs two identities.
-- **Recommendation (needs sign-off — reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of step 3 (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
+- **Decided 2026-10-14 (reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of step 3 (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
 - Signed-in runs currently use `web_embedded` / `tv_samsung` / `web` ([yt-dlp #17805](https://github.com/yt-dlp/yt-dlp/pull/17805)); `android_vr` does not support cookies. Do not hard-code client assumptions; they move with yt-dlp releases.
 - **`CHROME_UA` fix ships separately, first:** `HiddenWindowTokenProvider` declares `X11; Linux x86_64 … Chrome/130` regardless of host — the same class of lie as above, affecting every user's minting today. Its own PR and beta, independent of Explore.
 
@@ -377,6 +384,20 @@ New `common` fields:
 | `exploreNoticeSeen` | `boolean` | `false` | First-run ban-risk notice acknowledged |
 | `exploreModeAutoSwitched` | `boolean` | `false` | D6 one-time `off` → `explore` at first Explore open |
 | `exploreModeNudgeDismissedFor` | `CookiesMode?` | unset | D6 "Not now", cleared when `cookiesMode` changes |
+| `exploreLastUrl` | `string?` | unset | Last site page the view showed, reopened at the next start (P2-R34). Main-owned: not in the renderer's settings patch |
+| `exploreAdBlock` | `boolean?` | unset → on | The Explore ad blocker (P2-R36) |
+
+**Last page (P2-R34).** The view records each committed main-frame page (full
+and in-page navigations — YouTube is a single-page app), debounced to one write
+per second of quiet and flushed when the window closes. Only a **site page** is
+kept: https, a host on the site's own domains (`youtube.com` family for v1), not
+a sign-in or consent host (`accounts.*`, `consent.*`), not one of the site's
+own hops (`/redirect`, `/signin*`, `/logout`, `/signout`), no credentials in the
+URL, at most 2048 chars; anything else leaves the last kept page in place. A new
+view opens the stored page while it still passes that check, else home; Home
+still opens home. Under the E2E home override, only the override's origin counts
+(stored real-site pages are ignored, so the override always wins). **Sign out of
+Explore** forgets the page. The URL is never logged.
 
 `auth: JobAuth` (default `'anonymous'`) on: the queue item (persisted),
 `probeInfoJsonRefSchema`, the probe result, and `startDownloadSchema`. Persisted
@@ -388,17 +409,45 @@ a run uses instead of combining flags.
 
 ## UI
 
-Mockups: [`design/in-app-browser/`](../design/in-app-browser/) — `Main.dc.html`
-is the chosen split layout, `MinWindow.dc.html` the 720x680 floor.
+Mockups (local-only, gitignored): `design/in-app-browser/` — `Main.dc.html`
+is the chosen split layout, `MinWindow.dc.html` the minimum-window layout (drawn at 720x680; the real
+minimum is 720x760).
 
 - **Tab bar:** the existing one gains Explore after URL (D3), with a "New" badge; URL stays the launch tab. With `exploreEnabled` off, the bar is exactly today's.
-- **Explore first run:** ban-risk notice, then the YouTube home page. The view mounts on first open only (D3.1).
+- **Explore first run:** ban-risk notice, then the YouTube home page. The view mounts on first open only (D3.1). The notice opens with a decorative preview of Explore (`aria-hidden`, `inert`): the toolbar in miniature with the real Download split naming the active profile, over an abstract video page (top bar with search and avatar, side menu, chip row, two-column card grid) in neutral shapes and theme colours — no site branding, artwork or people. It is shorter in a narrow card (a container query on the card, which measures unzoomed CSS px, so any UI zoom above 100% at the 720 px floor gets the short form). At 720x760 and UI zoom 100% the whole notice, Continue included, is in view without scrolling (asserted in en, el, fr, my, pl and ur); at 125% and above, scrolling to reach Continue is accepted.
 - **Sign-in inline** (D2) — nothing injected, no Arroxy UI over Google's form.
-- **Split pane:** browser above, download controls below; must hold at 720x680. **Grab** takes the view's current URL (from `exploreStateChanged`) into the download flow — no second URL input.
-- **No sign-in status chip**, except the explicit *signed-out* state after a failed verification (stale-cookie handling).
-- **The native view paints over all DOM.** Overlay policy: the renderer reports a placeholder element's rect; main positions the view there (multiplied by the UI zoom factor, re-sent on resize/zoom). The view is **hidden** whenever the placeholder is unmounted or any modal/dialog/sheet is open (dialogs, the What's-new dialog, settings sheets). Toasts and the update banner must not render inside the placeholder's area. Alerts (nudge, notices) take layout rows *above* the placeholder.
+- **Toolbar above the view;** must hold at the 720x760 minimum window and at 150% UI zoom in the longest locales. **Grab** takes the view's current URL (from `exploreStateChanged`) into the download flow — no second URL input. From the start of the row:
+  - Back, Forward, Reload, Home, then the **address bar** (P2-R45, reverses P2-R33): a YouTube-scoped omnibox. Unfocused it shows the page's address; focus selects it all, so a paste replaces it; Esc or blur puts the page's address back. The placeholder (shown only when empty) reads "Search YouTube or paste a YouTube link". Nothing is judged while the user types; on Enter a shared classifier (`classifyExploreAddress`) routes the text:
+    - text is a **link** only with a scheme, a leading `www.`, a bare host plus a path (`vimeo.com/123`), or a bare host that is one of the site's own (`youtube.com`, `youtu.be`); anything else, a dotted word such as `node.js`, `e.g.` or `v1.2` included, is **plain text** and opens `https://www.youtube.com/results?search_query=…`;
+    - a **YouTube link** — a host among the site's content hosts (`SiteExplore.contentHosts`: `youtube.com` and every subdomain, so `m.` and `music.youtube.com` too, and `youtu.be`) — loads in the view: always https, `youtu.be/<id>` as `https://www.youtube.com/watch?v=<id>` keeping `t` and `list`;
+    - a **link on any other host** loads nothing and opens nothing (a typed address is no page gesture): a hint row under the toolbar says "Explore only browses YouTube." and names the link's host, with **Download this link**, which runs the background quick download (Explore entry, active profile). The hint closes on Esc, on an edit, after Download, or when the user leaves the Explore tab (which also drops an edit in progress). It is its own row, so the view shrinks below it;
+    - anything else (another scheme such as `javascript:` or `data:`, credentials in the URL, a sign-in, account or consent host — `SiteExplore.signInHosts`: `accounts.google.*`, `accounts.youtube.com`, `myaccount.google.com`; `SiteExplore.consentHosts`: `consent.youtube.com`, `consent.google.*` — or a link over 2048 characters) is refused in the renderer: the hint without the host or Download, and nothing is sent. A search whose text or results URL is over 2048 characters gets its own hint, "That search is too long."
+    The hint row is not a live region itself; an always-mounted, visually hidden polite `role="status"` region announces its text (empty while there is none).
+    The renderer sends links and searches as `{kind: 'address', url}`; **main alone decides** what loads (only it knows the E2E home origin, which it treats as the site): `exploreHandlers` checks the address with zod against `isExploreSiteAddress` (https on the site's content hosts with the default port and never a sign-in or account host, or the E2E home origin; no username or password; within the cap), logs only the host of a refusal and answers a validation error, which the renderer shows as the hint; any other failed navigate result (IPC, an error in main) is only logged, and a result that lands after the user left the tab is dropped. Sign-in and account pages stay reachable by clicking on a page (the navigation allowlist is unchanged); they are only never typed. The host checks again, loads the parsed form (`new URL(url).href`, never the raw string), spends any click the page just received (so a redirect off the site is blocked, never opened in the system browser) and loads through the proxy gate (`whenProxyReady`).
+  - A split button, **Download · *active profile*** with the profile's icon: the main part queues the page with the active profile (quick download) and stays in Explore. Like the URL tab's Quick Download it prepares in the background (P2-R37/R38): the page becomes a placeholder row in Downloads at once, named by the page title until the probe knows the video's, and an `Added: <title>` toast with **View** confirms it; several Downloads prepare in parallel. A failure or a choice the probe raises (a playlist over the load limit, a link that turned out to be a list) lands on that row, resolved from the Downloads tab, plus a toast; nothing appears above the view. The chevron opens the URL tab's profile menu (the same component: the profile grid, then Edit, New and Manage); a pick sets the global active profile. A long profile name truncates and stays whole in the native tooltip.
+  - An icon-only **interactive** button (a wand, unlike every profile icon) with a native tooltip, "Choose format, subtitles and more…": it opens the step-by-step flow with the current page. That run remembers Explore as its origin, so Back to the home, Start over and a finished queue all land on Explore again; a run from the URL tab is unchanged. The origin belongs to that run: Retry from its error step keeps it, while Advanced settings, a bulk Download, and a failed Download's Retry clicked on the URL tab are URL-tab runs.
+  - Every part is disabled unless the page is a video, playlist or channel; a Download still preparing never blocks the next. Tooltips are native `title`s on purpose: they are OS windows, which the view cannot cover.
+- **Ad blocker shield (P2-R36):** an icon-only toggle between the address and the Download split, pressed while `exploreAdBlock` is on. Its icon and native `title` give the state from `adBlock` in the view state (off, starting, on, unavailable) plus one line: "YouTube may push back on ad blockers for signed-in accounts." See **Ad blocker** below.
+- **No sign-in status chip.** After a verification finds the session signed out, `signedIn` turns false and the failed download offers "Sign in in Explore"; there is no separate signed-out notice.
+- **The native view paints over all DOM.** Overlay policy: the renderer reports a placeholder element's rect in CSS px (which already include the UI zoom, a CSS `zoom` on the content wrapper); main multiplies it by the main window's zoom factor (the default menu's Cmd/Ctrl +/−/0) and positions the view there. The renderer re-sends on resize and whenever the window zoom changes. The view is **hidden** whenever the placeholder is unmounted or any modal/dialog/sheet/popover is open (dialogs, the What's-new dialog, settings sheets, the profile menu, the mixed-URL prompt), and when the main window's renderer commits a new page (`did-navigate`: a reload; the navigations the main window cancels leave the view alone). Toasts and the update banner must not render inside the placeholder's area. Alerts (nudge, notices) take layout rows *above* the placeholder.
+- **A snapshot stands in for the hidden page (P2-R35).** When an overlay opens, the renderer first asks main for a snapshot (`explore:capture`: `capturePage`, encoded as a quality-85 JPEG data URL at full device resolution, so it is sharp on HiDPI — ~15 ms to encode, where a full-size PNG takes ~300 ms), shows it in the placeholder where the view was, and only then hides the view. On close the live view is shown first, then the picture is dropped. No picture (nothing shown, an error, a failed or rejected capture, or none within ~300 ms) means the view hides at once, as before: the overlay is never held up. The picture lives only in the viewport's state; it is never stored or logged. An error surface or leaving the tab hides the view at once, without a picture. Toasts keep their own rule (P2-R16): the view shrinks for them and does not hide.
+- **Sound follows the tab:** the view is muted while the Explore tab is not the active tab (P2-R32); a dialog over it hides it but does not mute it.
+- **Even tab spacing:** each tab trigger sizes to its content and shares the free room equally; pills are inset along the row, cast no sideways glow, and keyboard focus rings the pill from inside (plus a transparent inset outline, so forced colours still show focus), so any two lit pills (selected, hovered, a working Downloads tab) keep the same clear gap. The tab-bar sweep measures it.
 - **Five tabs at the 720px floor** with the longest locales (`el`, `fr`, `my`) is the main layout risk. There is no tab-bar overflow test to extend today — add a case to `tests/browser/toggle-overflow.spec.ts`.
 - shadcn primitives only; no Radix; `toggleVariants` rules; the ui-consistency ratchet must not rise.
+
+## Ad blocker
+
+P2-R36, user-approved: [Ghostery's adblocker](https://github.com/ghostery/adblocker) (`@ghostery/adblocker-electron`, MPL-2.0, listed in `THIRD_PARTY_NOTICES.txt`).
+
+- **On by default** (`exploreAdBlock`, P2-R53). Unset means on and only an explicit `false` (the user turned it off) means off; `isExploreAdBlockOn` in shared is the one reading, main and renderer. Nothing is written on startup. The shield toggles it; main applies it to the Explore session at once and reloads the page shown. Downloads, the main window and the token window are never touched: the blocker lives on the Explore partition only.
+- **Lazy.** Nothing is loaded or fetched until an Explore view opens with the blocker on (the default) or it is turned on. The library's module is imported on first use (it sets `ELECTRON_DISABLE_SECURITY_WARNINGS` in `process.env` as it loads; Arroxy puts it back, since yt-dlp spawns inherit the environment).
+- **Engine:** the prebuilt ads + tracking lists, fetched through the Explore session's `fetch` (the proxy applies, and nothing goes out while the proxy setting is refused), cached in `userData/explore-adblock/engine.bin` with the library's cache option and refreshed after a week. A failed refresh keeps the older cache. No lists and no cache: the status is `unavailable`, nothing is blocked, Explore works as before, one warning is logged; the next turn-on, or a proxy setting that applies, tries again. A new view's first page waits up to 3 s for the blocker; one that starts later reloads the page. A session left running checks daily whether the lists are over a week old and, if so, fetches them in the background and swaps the engine in place (requests keep using the old one meanwhile; no reload).
+- **Follows the tab.** The kill switch (and a closed window) takes the blocker off the partition: no request hooks or page script without the tab. Without a view the status follows the setting (`starting`: it starts with the next view, before its first page; `off` only after the user turned it off).
+- **Trust (accepted risk).** The lists, including scriptlets that run inside the signed-in YouTube page, come from Ghostery's GitHub (`raw.githubusercontent.com/ghostery/adblocker/master/...`) over HTTPS with no integrity check beyond TLS; a compromised list could inject script into Explore pages. This is how list-based blockers work (uBlock Origin and Ghostery's own extension trust their list hosts the same way), the user can turn the blocker off with one click, and the risk is limited to the Explore partition. Accepted for v1.
+- **Never on sign-in.** Requests to, and requests made by a page or frame on, the site's sign-in hosts (`SiteExplore.signInHosts`: `accounts.google.com`, its country hosts, `accounts.youtube.com`, `myaccount.google.com`) are never blocked, and those pages get no cosmetic filtering. Checked in Arroxy's own listeners rather than with `@@…$document` filters, which the library matches against the referrer (often empty) and `$important` filters override.
+- **Session hooks.** Electron keeps one `webRequest` listener per event per session. The blocker is the only owner of the Explore session's `onBeforeRequest` and `onHeadersReceived`, and turning it off clears exactly those. Arroxy does not use the library's `enableBlockingInSession`: it resolves its preload from `node_modules` (absent in a packaged app), registers IPC handlers that answer any renderer, and cannot spare sign-in pages. Arroxy registers the same preload per session (`registerPreloadScript`, frame type), answers the library's two IPC channels only for Explore-session senders, and parses the page's DOM report with zod (an unknown `lifecycle` value is read as a DOM update and logged once, so a newer preload never silently loses cosmetics). Two tripwires guard a library upgrade: a test reads `BlockingContext.enable()` and fails if it registers anything Arroxy does not mirror, and another checks that the shipped preload invokes exactly the channels Arroxy answers. The build ships the preload next to the main bundle (`exploreAdBlockPreloadPlugin` in `electron.vite.config.ts`). The library calls the page's `executeJavaScript` and `insertCSS` without awaiting them, so Arroxy hands its cosmetic handler a contained event (`CosmeticEvent`: the frame ids and a sender whose two calls settle themselves): a scriptlet that throws in the page logs one debug line per page (host only) instead of an unhandled rejection in main; nothing is installed process-wide. A third tripwire checks the handler reads nothing else off the event.
+- **Tests:** unit (lifecycle, cache, failure, sign-in hosts against a real engine), renderer (shield states and titles), browser-mock scenarios `explore-adblock-off` (every other Explore scenario has the shield on) / `explore-adblock-unavailable` (in the toolbar overflow sweep), and fixture E2E: a local page's "ad" script on a second local origin is not requested on a fresh profile (on by default), is requested once the shield is turned off, its banner hidden only while the shield is on, and the off choice holds across a restart. The E2E builds the engine from `ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS` (never in a packaged build), so no list is fetched.
 
 ## IPC
 
@@ -406,15 +455,17 @@ Add to `IPC_CHANNELS` in [`src/shared/ipc.ts`](../src/shared/ipc.ts); every
 renderer → main payload is parsed with zod in main:
 
 ```
-exploreNavigate      'explore:navigate'      // {kind: 'url', url} | {kind: 'back'|'forward'|'reload'|'home'}
-exploreSetBounds     'explore:setBounds'     // {x, y, width, height} in CSS px; main applies the zoom factor
+exploreNavigate      'explore:navigate'      // {kind: 'back'|'forward'|'reload'|'home'} | {kind: 'address', url} — a typed address, loaded only on the site (P2-R45)
+exploreSetBounds     'explore:setBounds'     // {x, y, width, height} in CSS px; main applies the main window's zoom factor
 exploreSetVisible    'explore:setVisible'    // {visible: boolean} — overlay policy, unmount
+exploreSetActive     'explore:setActive'     // {active: boolean} — the Explore tab is the active tab; unmutes the view
 exploreSignOut       'explore:signOut'
 exploreGetState      'explore:getState'
+exploreCapture       'explore:capture'       // → JPEG data URL | null; the handler drops anything but a base64 JPEG within 16 MiB chars
 exploreStateChanged  'explore:stateChanged'  // main → renderer
 ```
 
-State: `{url, title, canGoBack, canGoForward, loading, signedIn, signedOutAfterVerify}`.
+State: `{url, title, canGoBack, canGoForward, loading, signedIn, error, adBlock}` — `error` is `'proxy' | 'load' | null`; `adBlock` is `'off' | 'starting' | 'on' | 'unavailable'`.
 Grab reads `url` from state — no separate channel. **Cookies never cross IPC.**
 
 ## Security
@@ -422,7 +473,7 @@ Grab reads `url` from state — no separate channel. **Cookies never cross IPC.*
 - Temp jars: own temp dir, `0600` where meaningful, deleted in a `finally`, swept at startup, never in the output directory, filtered to the site's `cookieDomains` (YouTube: `youtube.com` only).
 - Never log cookie values — names and domains only.
 - If cookies are ever persisted outside the session (they should not be), encrypt at rest via `safeStorage`.
-- **Cookie encryption at rest is a separate change.** The Explore partition is plaintext on disk today, like the existing token partition. The `EnableCookieEncryption` fuse is a **one-way, app-wide** switch with real risks: the macOS build is unsigned (`identity: null`), so the Keychain item may prompt or fail to decrypt after updates (a silent sign-out); the Flatpak lacks `--talk-name=org.freedesktop.secrets`; Linux without a keyring falls back to plaintext anyway; turning the fuse off later corrupts the store. It gets its own change, its own beta, and an ADR. **Explore may ship in beta without it; Explore may not reach a stable release without it** (or an explicit, recorded decision to accept plaintext).
+- **Cookie encryption at rest: not used (decided 2026-10-15).** The Explore partition stays plaintext on disk, like the existing token partition and a yt-dlp `cookies.txt`; Chromium keeps its cookie database readable by the user's account only. The `EnableCookieEncryption` fuse was researched and rejected: it protects only copies of the profile (backups, synced folders, a stolen disk), never against code running as the user, and it costs more than that buys here — the unsigned macOS build would raise a Keychain prompt after every update (denying it signs the user out), Linux without a reachable keyring (including today's Flatpak) silently signs out or falls back to a fixed key, and a downgrade to a build without the fuse deletes the Google/YouTube cookies. This is the explicit, recorded decision to accept plaintext that a stable release requires; revisit it if the macOS build gets a Developer ID.
 - Account safety: concurrency and pacing caps above; ban-risk notice before sign-in.
 - `NSBluetoothAlwaysUsageDescription` in the packaged macOS app's Info.plist, or Bluetooth security keys cannot complete 2FA.
 
@@ -434,10 +485,10 @@ drive real YouTube login from CI.
 | Layer | Covers |
 |---|---|
 | Unit (`tests/unit`) | Jar writer: host-only cookies (`FALSE`, no leading dot), `#HttpOnly_`, expiry `0` for session cookies, `__Host-`/`__Secure-` names; domain filter (`.google.com` excluded); escalation matcher over `(kind, message)` incl. private, members-only, WL/LL, botBlock-after-ladder, and every non-escalating kind; sticky `auth` through probe result → ref → queue item → `StartDownloadInput`, playlist inheritance, persistence before the escalated spawn; per-job spawn cap; concurrency/pacing; `CookielessRetry` bypass (D4); `resolveCookies` exhaustive over modes, `file`/`browser`/`off` unchanged; auto-switch at first open exactly once, later `off` respected, `file`/`browser` never switched; `probeErrorExperience` under `explore`; stale warning → verify → one retry / signed-out state; navigation policy decisions; `exploreUserAgent` validation; devtools gate; **UA invariant**; escalated runs never receive the anonymous PO token |
-| Renderer (`tests/renderer`) | Explore tab after URL, "New" badge, URL still the launch tab, absent when `exploreEnabled` off; first-run notice; nudge shown/hidden/dismissed; view not mounted before first open; placeholder hidden while a modal is open |
-| Browser mock (`tests/browser`) | Explore layout at 720x680 and 150% zoom; new tab-bar case in `toggle-overflow.spec.ts` across `el`/`fr`/`my` |
+| Renderer (`tests/renderer`) | Explore tab after URL, "New" badge, URL still the launch tab, absent when `exploreEnabled` off; first-run notice; nudge shown/hidden/dismissed; view not mounted before first open; placeholder hidden while a modal is open; overlay snapshot order (capture → picture → hide; show → drop) and its fallbacks |
+| Browser mock (`tests/browser`) | Explore layout at the minimum window size (720x760) and 150% zoom; new tab-bar case in `toggle-overflow.spec.ts` across `el`/`fr`/`my` |
 | Mock Electron E2E | Partition isolation from the app session; no cookies over IPC; no Explore partition activity before first open; `will-download` cancelled |
-| Fixture Product E2E | Needs an **E2E-only hook** (gated on `ARROXY_E2E=1`) to seed cookies into the Explore partition. **Escalation scenario:** the fixture plugin reads a marker cookie via `self._get_cookies('https://www.youtube.com')` and raises "Sign in to confirm your age" without it; the probe fails anonymously, escalates, downloads. Oracles: the plugin reports the marker per request (reusing the existing `signedIn` request field), so other items are shown anonymous; the item's `auth` persisted; the file exists; deny proxy clean. **D4 scenario** with `COOKIE_LIMITED_VIDEO_ID`: an escalated, quality-limited job asserts no cookieless retry happens. **Never real YouTube auth.** |
+| Fixture Product E2E | Needs an **E2E-only hook** (gated on `ARROXY_E2E=1`) to seed cookies into the Explore partition. **Escalation scenario:** the fixture plugin reads a marker cookie via `self._get_cookies('https://www.youtube.com')` and raises "Sign in to confirm your age" without it; the probe fails anonymously, escalates, downloads. Oracles: the plugin reports the marker per request (reusing the existing `signedIn` request field), so other items are shown anonymous; the item's `auth` persisted; the file exists; deny proxy clean. **D4 scenario** with `COOKIE_LIMITED_VIDEO_ID`: an escalated, quality-limited job asserts no cookieless retry happens. **Last page:** after a restart the view reopens the fixture origin's second page, never asking for home. **Never real YouTube auth.** |
 | Manual | Cross-platform matrix on the product build (below), logging off-allowlist hosts |
 
 **Manual matrix — executed 2026-10-13** with a throwaway spike (plain Electron
@@ -455,9 +506,21 @@ Oracle: yt-dlp reads the account's Watch Later with the session jar and gets
 Observed on every platform, and binding on the implementation:
 
 - **YouTube reloads itself on first load** (`?themeRefresh=1`), aborting the initial `loadURL` with `ERR_ABORTED`. Treat that abort as normal navigation, never as a failure. (`HiddenWindowTokenProvider` already loads the `themeRefresh` URL, likely for this reason.)
-- **Google inserted `challenge/recaptcha` before the password step** every time (new account; may not apply to established ones). The Explore view must be large enough to solve a reCAPTCHA at the 720x680 floor.
+- **Google inserted `challenge/recaptcha` before the password step** every time (new account; may not apply to established ones). The Explore view must be large enough to solve a reCAPTCHA at the 720x760 minimum window.
 - **Linux ran with `--no-sandbox`** — identical to the shipped Linux build (`build/afterPack.mjs`), so no deviation from production.
+- **Electron 44.6.0 / Chromium 152** (the version `main` moved to on 2026-10-14): page-load probe on macOS still reaches `GlifWebSignIn` with `Desktop/1.0`. The full matrix is repeated on the product build (implementation step 6).
 - Not yet run: x64 Windows/Linux (same Chromium; low risk — run one probe before release) and bot-wall relief (cannot be provoked on demand).
+
+**Manual matrix on the product build — executed 2026-10-15/16** (packaged `feat/explore` builds, Electron 44.6.0, fresh profile per platform, a spare Google account signed in by hand inside Explore). Oracle as above: Watch Later (`list=WL`) fails signed out with *"The playlist does not exist"*, then escalates and downloads.
+
+| Platform | Sign-in in Explore | Signed-out probe fails | Escalated to the Explore session | Downloads complete | Cookie jars cleaned up | Cookie values in logs |
+|---|---|---|---|---|---|---|
+| macOS 26 arm64 | pass | pass | pass | 3/3 | 4 written, 0 left | none |
+| Windows 11 arm64 | pass (passkey dialog first, see below) | pass | pass | pass | pass (1 open jar belonged to a running download) | none |
+| Ubuntu 26.04 arm64 | pass | pass | pass | 3/3 | 0 left | none |
+
+- **Windows shows a "Sign in with a passkey" dialog before the email step.** Google's sign-in page offers passkeys up front; in Chrome that is a quiet autofill suggestion, but Electron has no conditional-mediation UI, so Windows Security opens its own dialog. Cancel continues to email and password. Accepted: no injection into the sign-in page, and real security keys keep working.
+- Downloads ran with the signed-in pacing (`sleepingBetweenRequests` 6 s) and one fresh `0600` jar per spawn, deleted afterwards.
 
 ## Implementation order
 
@@ -477,6 +540,6 @@ invalidated the design.
 
 ## Open items
 
-- **Escalated runs without a PO token** (PO tokens) — measured; recommendation awaits sign-off.
 - **Members-only wording** — confirm the message against a real members-only video (D1).
-- **Sign-in permissions** — which permissions Google's flow requests (security keys, paste), from the manual matrix.
+- **Sign-in permissions** — the product-build matrix saw no permission request beyond the Windows passkey dialog (WebAuthn); security-key sign-in over Bluetooth on macOS still needs a real key to confirm.
+- **x64 probe** — one x64 Windows or Linux page-load probe before the release (same Chromium as arm64; low risk).

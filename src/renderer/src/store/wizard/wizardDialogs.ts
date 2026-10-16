@@ -25,7 +25,7 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 
 		openAdvancedSettings: target => {
 			replaceHash('settings')
-			set({wizardStep: 'url', wizardError: null, wizardErrorOrigin: null, mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null, advancedAutoOpen: true, advancedAutoTarget: target, cookiesConfigDialogIssue: null})
+			set({wizardStep: 'url', wizardOrigin: 'download', wizardError: null, wizardErrorOrigin: null, mixedUrlPromptOpen: false, mixedUrlPending: null, mixedUrlPromptSource: null, advancedAutoOpen: true, advancedAutoTarget: target, cookiesConfigDialogIssue: null})
 		},
 
 		dismissCookiesConfigDialog: () => {

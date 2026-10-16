@@ -77,9 +77,11 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 		},
 		queue: {
 			cmd: {
-				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id)}))),
+				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id), skippedAlreadyQueued: 0}))),
 				getSnapshot: vi.fn().mockResolvedValue(ok({items: [] as import('@shared/types.js').QueueItem[], schedulerPaused: false})),
 				probeFailed: vi.fn().mockResolvedValue(ok(undefined)),
+				needsChoice: vi.fn().mockResolvedValue(ok(undefined)),
+				reprobe: vi.fn().mockResolvedValue(ok(undefined)),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),
@@ -87,7 +89,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				retry: vi.fn().mockResolvedValue(ok(undefined)),
 				clearCompleted: vi.fn().mockResolvedValue(ok(undefined)),
 				remove: vi.fn().mockResolvedValue(ok(undefined)),
-				replaceProbing: vi.fn((input: {itemId: string; items: QueueItem[]}) => Promise.resolve(ok({ids: input.items.map(item => item.id)}))),
+				replaceProbing: vi.fn((input: {itemId: string; items: QueueItem[]}) => Promise.resolve(ok({ids: input.items.map(item => item.id), skippedAlreadyQueued: 0}))),
 				setLane: vi.fn().mockResolvedValue(ok(undefined)),
 				applySelectionAction: vi.fn().mockResolvedValue(ok({action: 'pause', appliedIds: [], skipped: []})),
 				changeOutputTarget: vi.fn().mockResolvedValue(ok({outputDir: '/tmp', items: [], skipped: []})),
@@ -95,6 +97,17 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 				resumeAll: vi.fn().mockResolvedValue(ok(undefined))
 			},
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
+		},
+		explore: {
+			navigate: vi.fn().mockResolvedValue(ok(undefined)),
+			setBounds: vi.fn().mockResolvedValue(ok(undefined)),
+			setVisible: vi.fn().mockResolvedValue(ok(undefined)),
+			setActive: vi.fn().mockResolvedValue(ok(undefined)),
+			signOut: vi.fn().mockResolvedValue(ok(undefined)),
+			getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
+			capture: vi.fn().mockResolvedValue(ok(null)),
+			onStateChanged: vi.fn().mockReturnValue(() => undefined),
+			onPointerInView: vi.fn().mockReturnValue(() => undefined)
 		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue({ok: true})},
 		analytics: {track: vi.fn()},
