@@ -116,16 +116,8 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 					{view.selectedVideoIsMuxed && <ChoiceRow id="audio-keep" value="none" disabled={view.noAudioDisabled} label={t('wizard.formats.keepAudio')} meta={t('wizard.formats.keepAudioMeta')} />}
 
 					{view.nativeRows.map(row => {
-						const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
-						const label = row.quality ? (
-							<span className="inline-flex min-w-0 items-center gap-1.5">
-								{qualityLabel ? <QualityBadge quality={row.quality} label={qualityLabel} /> : null}
-								{row.title ? <span className="truncate">{row.title}</span> : null}
-							</span>
-						) : (
-							row.title
-						)
-						return <ChoiceRow key={row.formatId} id={`audio-native-${row.formatId}`} value={`native:${row.formatId}`} disabled={subtitleOnly} label={label} meta={row.meta} />
+						const badge = row.quality ? <QualityBadge quality={row.quality} label={t(QUALITY_LABEL_KEY[row.quality])} /> : null
+						return <ChoiceRow key={row.formatId} id={`audio-native-${row.formatId}`} value={`native:${row.formatId}`} disabled={subtitleOnly} adornment={badge} label={row.title} meta={row.meta} />
 					})}
 
 					{view.convertTargets.flatMap(target => {

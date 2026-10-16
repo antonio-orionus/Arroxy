@@ -43,3 +43,25 @@ describe('ChoiceRow', () => {
 		expect(row('1080p')?.classList.contains('has-[>[data-slot=field]]:choice-surface')).toBe(true)
 	})
 })
+
+describe('ChoiceRow label truncation', () => {
+	it('keeps the full label and details reachable when they are cut with an ellipsis', () => {
+		render(
+			<RadioGroup value="en">
+				<ChoiceRow id="row-en" value="en" adornment={<span data-testid="badge" />} label="English original (default)" meta="m4a · AAC · 130 kbps · 1.4 MB" />
+			</RadioGroup>
+		)
+		expect(screen.getByText('English original (default)')).toHaveAttribute('title', 'English original (default)')
+		expect(screen.getByText('m4a · AAC · 130 kbps · 1.4 MB')).toHaveAttribute('title', 'm4a · AAC · 130 kbps · 1.4 MB')
+		expect(screen.getByRole('radio', {name: 'English original (default)'})).toBeInTheDocument()
+	})
+
+	it('renders the adornment beside the label, outside the truncating text', () => {
+		render(
+			<RadioGroup value="en">
+				<ChoiceRow id="row-en" value="en" adornment={<span data-testid="badge" />} label="English" />
+			</RadioGroup>
+		)
+		expect(screen.getByText('English').contains(screen.getByTestId('badge'))).toBe(false)
+	})
+})

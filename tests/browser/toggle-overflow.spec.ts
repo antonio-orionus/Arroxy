@@ -179,6 +179,26 @@ async function railOutsideBounds(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
+// Radio rows (ChoiceRow): anything clipped inside a row must be plain text cut
+// with an ellipsis. Overflow clips an inline box (badge + name wrapper) mid-word
+// with no ellipsis, which the spill checks above cannot see.
+async function clippedWithoutEllipsis(page: Page): Promise<OverflowReport[]> {
+	return page.evaluate(() => {
+		const found: {label: string; overflowPx: number; spillPx: number}[] = []
+		for (const row of document.querySelectorAll<HTMLElement>('[data-slot="radio-group"] [data-slot="field"]')) {
+			for (const el of row.querySelectorAll<HTMLElement>('*')) {
+				const overflowPx = el.scrollWidth - el.clientWidth
+				if (overflowPx <= 1 || el.clientWidth === 0) continue
+				const style = getComputedStyle(el)
+				if (style.overflowX === 'visible') continue
+				const clipsBox = [...el.children].some(child => getComputedStyle(child).display !== 'inline')
+				if (style.textOverflow !== 'ellipsis' || clipsBox) found.push({label: (el.textContent ?? '').trim().slice(0, 32), overflowPx, spillPx: 0})
+			}
+		}
+		return found
+	})
+}
+
 interface TabPaintGaps {
 	// Painted gap between each pair of neighbouring triggers, in screen px.
 	gaps: number[]
@@ -351,6 +371,7 @@ for (const viewport of VIEWPORTS) {
 				expect(await overflowingToggles(page)).toEqual([])
 				expect(await overflowingGroups(page)).toEqual([])
 				expect(await overflowingRadioTitles(page)).toEqual([])
+				expect(await clippedWithoutEllipsis(page)).toEqual([])
 				expect(await overflowingTabs(page)).toEqual([])
 			})
 		}
