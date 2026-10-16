@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "startOver": "Empezar de nuevo"},
+	"common": {"back": "Atrás", "cancel": "Cancelar", "continue": "Continuar", "loading": "Cargando…", "retry": "Reintentar", "dismiss": "Descartar", "startOver": "Empezar de nuevo"},
 	"app": {
 		"feedback": "Comentarios",
 		"logs": "Registros",
@@ -238,6 +238,11 @@
 				"sourceOff": "Desactivado",
 				"sourceFile": "Archivo",
 				"sourceBrowser": "Navegador",
+				"sourceExplore": "Sesión de Explore",
+				"recommended": "Recomendado",
+				"exploreDescription": "Usa tu sesión de Explore solo cuando una descarga la necesita.",
+				"exploreDisabled": "La pestaña Explore está desactivada, así que las descargas no usan tu sesión de Explore. Actívala abajo, en Explore.",
+				"openExplore": "Abrir Explore",
 				"toggleDescription": "Ayuda con vídeos restringidos por edad, solo para miembros y privados de tu cuenta.",
 				"risk": "Riesgo: un cookies.txt contiene todas las sesiones iniciadas de ese navegador — guárdalo en privado.",
 				"fileLabel": "Archivo de cookies",
@@ -382,6 +387,7 @@
 				"bodyUnconfigured": "La lista de formatos puede estar incompleta. Configura las cookies en los ajustes avanzados, o cambia de red e inténtalo de nuevo.",
 				"bodyDisabled": "Las cookies están configuradas pero desactivadas. Actívalas y vuelve a intentarlo para obtener la lista completa, o cambia de red e inténtalo de nuevo.",
 				"bodyEnabled": "Incluso con cookies, YouTube ha limitado esta consulta. Inténtalo más tarde o cambia de red.",
+				"bodyExplore": "YouTube limitó esta solicitud. Inténtalo más tarde o cambia de red.",
 				"retryCta": "Reintentar",
 				"enableRetryCta": "Activar cookies y reintentar"
 			},
@@ -390,9 +396,15 @@
 				"currentModeLabel": "Fuente de cookies",
 				"currentModeFile": "Archivo",
 				"currentModeBrowser": "Navegador",
+				"currentModeExplore": "Sesión de Explore",
 				"explanationFile": "El archivo de cookies puede estar vacío, caducado o en un formato incorrecto (yt-dlp espera Netscape cookies.txt). Prueba a exportar las cookies de nuevo, elegir un archivo diferente, cambiar al modo Navegador o desactivar las cookies.",
 				"explanationBrowser": "Las cookies se leen directamente del navegador. Si el navegador está abierto en este momento, su base de datos de cookies puede estar bloqueada (familia Chromium). El navegador también debe tener la sesión de YouTube iniciada. Prueba a cerrar el navegador, cambiar a otro, cambiar al modo Archivo o desactivar las cookies.",
 				"openSettingsCta": "Abrir ajustes de cookies",
+				"exploreSignIn": {"heading": "Este vídeo puede requerir una cuenta de YouTube", "body": "Si este vídeo requiere una cuenta de YouTube, inicia sesión en Explore y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita.", "cta": "Iniciar sesión en Explore"},
+				"exploreSignedIn": {"heading": "Sesión iniciada en Explore", "body": "Si este vídeo requiere una cuenta, Arroxy usa automáticamente tu sesión de Explore. Puede que no esté disponible por otro motivo."},
+				"exploreOffer": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Inicia sesión en Explore y Arroxy lo reintentará.", "cta": "Iniciar sesión en Explore"},
+				"exploreReuse": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Has iniciado sesión en Explore, pero las descargas no están usando esa sesión ahora mismo.", "cta": "Usar mi sesión de Explore y reintentar"},
+				"otherCookiesCta": "Usar un archivo de cookies o un navegador…",
 				"needsCookies": {"heading": "Este sitio requiere inicio de sesión", "body": "yt-dlp no pudo acceder a este vídeo sin autenticación. Configura las cookies en los ajustes avanzados — apúntalas a un navegador en el que ya hayas iniciado sesión o importa un archivo cookies.txt."},
 				"dpapi": {
 					"heading": "Cookies de Chrome bloqueadas por el cifrado de Windows",
@@ -531,6 +543,17 @@
 	"queue": {
 		"header": "Descargas",
 		"tabLabel": "Descargas",
+		"attentionBadge_one": "{{count}} descarga necesita tu atención",
+		"attentionBadge_other": "{{count}} descargas necesitan tu atención",
+		"choice": {
+			"cappedBody_one": "Más de {{count}} video en esta playlist. Descárgalos todos, los primeros {{count}} o elige en una revisión.",
+			"cappedBody_other": "Más de {{count}} videos en esta playlist. Descárgalos todos, los primeros {{count}} o elige en una revisión.",
+			"reviewBody_one": "Este enlace es una lista de {{count}} video. Revísala para elegir qué descargar.",
+			"reviewBody_other": "Este enlace es una lista de {{count}} videos. Revísala para elegir qué descargar.",
+			"all": "Todos los videos",
+			"first": "Primeros {{count}}",
+			"review": "Revisar"
+		},
 		"tabTip": "Las descargas ahora viven en la pestaña Descargas — ábrela cuando quieras para seguir el progreso.",
 		"empty": "Las descargas en cola aparecerán aquí",
 		"filtersLabel": "Filtros de estado de la cola",
@@ -576,6 +599,7 @@
 			"remove": "Quitar",
 			"pullNow": "Descargar ahora — saltar la cola",
 			"statusProbing": "Obteniendo detalles",
+			"statusNeedsChoice": "Necesita tu elección",
 			"statusPending": "Esperando",
 			"statusRunning": "Descargando",
 			"statusHeld": "Retenido",
@@ -630,13 +654,18 @@
 		"outputNotWritable": "No se puede guardar en {{dir}} — Arroxy no tiene permiso para escribir ahí",
 		"fetchingSponsorBlock": "Contactando SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock no disponible, reintentando ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Conexión estancada, reintentando ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Conexión estancada, reintentando ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Iniciando sesión con tu cuenta de Explore…",
+		"exploreSignedOut": "Sesión de Explore cerrada — vuelve a iniciar sesión"
 	},
 	"notifications": {
 		"settingsSaveFailed": "No se pudo guardar tu configuración.",
 		"warmupFailed": "La configuración inicial no terminó. Algunas descargas pueden fallar hasta que lo haga.",
 		"shellActionFailed": "No se pudo abrir eso.",
 		"folderSelectFailed": "No se pudo abrir el selector de carpetas.",
+		"exploreSignInRetrying_one": "Sesión iniciada con Explore — reintentando 1 enlace",
+		"exploreSignInRetrying_other": "Sesión iniciada con Explore — reintentando {{count}} enlaces",
+		"exploreSignOutFailed": "No se pudo cerrar sesión en Explore. Inténtalo de nuevo.",
 		"playlistFolderRejected": "Esa carpeta no se puede usar para esta lista de reproducción.",
 		"filenameFolderTooDeep": "Esta carpeta es demasiado profunda para tu sistema. La descarga aún podría fallar — elige una carpeta más corta.",
 		"filenameTemplateCannotFit": "El nombre de este vídeo no cabe en todas las partes de tu plantilla, así que se usó el nombre predeterminado.",
@@ -645,11 +674,25 @@
 			"alreadyQueued": "Ya está en la cola — no se añadió otra copia",
 			"invalidClipboard": "No hay ningún enlace en el portapapeles — copia uno primero",
 			"multipleUrls": "Se copiaron varios enlaces — usa «URLs en lote» en Arroxy",
-			"needsReview": "Ese enlace necesita una revisión rápida — abre Arroxy y pégalo de nuevo",
-			"busy": "Aún se está procesando el enlace anterior",
+			"needsReview": "Ese enlace necesita tu elección — mira Descargas en Arroxy",
+			"cookiesSetup": "Termina de configurar las cookies en Arroxy y vuelve a intentarlo",
+			"busy": "Arroxy aún se está iniciando — inténtalo de nuevo en un momento",
 			"submissionFailed": "No se pudo añadir ese enlace — inténtalo de nuevo en Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo ya está en la cola — omitido", "skippedAlreadyQueued_other": "{{count}} vídeos ya están en la cola — omitidos"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo ya está en la cola — omitido", "skippedAlreadyQueued_other": "{{count}} vídeos ya están en la cola — omitidos"},
+		"quickDownload": {
+			"added": "Añadido: {{title}}",
+			"alreadyQueued": "Ya está en la cola",
+			"failed": "No se pudo preparar {{title}}",
+			"notAdded": "No se pudo añadir ese enlace — inténtalo de nuevo",
+			"chooseHowMany_one": "{{count}}+ video — elige cuántos",
+			"chooseHowMany_other": "{{count}}+ videos — elige cuántos",
+			"review_one": "{{count}} video en esta lista — revisa para elegir",
+			"review_other": "{{count}} videos en esta lista — revisa para elegir",
+			"reviewCapped_one": "{{count}}+ video en esta lista — revisa para elegir",
+			"reviewCapped_other": "{{count}}+ videos en esta lista — revisa para elegir",
+			"view": "Ver"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -668,7 +711,7 @@
 			"parse": "No se pudo analizar la respuesta del sitio. Es posible que el extractor de yt-dlp esté desfasado. Arroxy actualiza yt-dlp automáticamente al iniciar — reintenta en unos minutos cuando llegue el arreglo.",
 			"network": "Error de red. Comprueba tu conexión y reintenta.",
 			"drmProtected": "Este vídeo está protegido con DRM. yt-dlp no puede eliminar el DRM, por lo que el archivo no se puede descargar.",
-			"loginRequired": "Este vídeo requiere una cuenta con sesión iniciada. Configura un cookies.txt (Ajustes → Cookies) y vuelve a intentarlo.",
+			"loginRequired": "Este video necesita una cuenta con sesión iniciada.",
 			"unknown": "La descarga falló. Mira la salida en bruto a continuación."
 		}
 	},
@@ -745,5 +788,59 @@
 			"invalid-segment": "Ese nombre de carpeta no está permitido. Evita . y .. y nombres reservados como CON.",
 			"resolution-in-dir": "{resolution} no puede dar nombre a una carpeta: la calidad no se conoce hasta que empieza la descarga."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Nuevo",
+		"notice": {
+			"title": "Explora YouTube dentro de Arroxy",
+			"body": "Encuentra un vídeo, una lista de reproducción o un canal y descárgalo desde aquí, sin copiar enlaces. Inicia sesión en YouTube aquí para descargar vídeos que requieren una cuenta.",
+			"riskTitle": "Inicia sesión con una cuenta secundaria",
+			"riskBody": "YouTube puede marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como yt-dlp. Usa una cuenta que puedas permitirte perder, no la principal.",
+			"continue": "Continuar"
+		},
+		"nudge": {
+			"off": "Las cookies están desactivadas, así que las descargas no usan tu sesión de Explore.",
+			"file": "Las descargas usan tu archivo de cookies, no tu sesión de Explore.",
+			"browser": "Las descargas usan las cookies de tu navegador, no tu sesión de Explore.",
+			"useExplore": "Usar sesión de Explore",
+			"notNow": "Ahora no"
+		},
+		"toolbar": {
+			"aria": "Controles del navegador de Explore",
+			"back": "Atrás",
+			"forward": "Adelante",
+			"reload": "Recargar",
+			"home": "Inicio de YouTube",
+			"addressAria": "Dirección",
+			"addressPlaceholder": "Busca en YouTube o pega un enlace de YouTube",
+			"offsiteHint": "Explore solo navega por YouTube.",
+			"offsiteDownload": "Descargar este enlace",
+			"offsiteHintHost": "Explore solo navega por YouTube. {{host}}",
+			"searchTooLong": "Esa búsqueda es demasiado larga.",
+			"downloadWithProfile": "Descargar · {{profileName}}",
+			"interactiveHint": "Elige formato, subtítulos y más…",
+			"grabUnavailable": "Abre un vídeo, una lista de reproducción o un canal para descargarlo",
+			"adBlock": {
+				"aria": "Bloqueador de anuncios",
+				"off": "Bloqueador de anuncios: desactivado — haz clic para activarlo",
+				"starting": "Bloqueador de anuncios: iniciando — haz clic para desactivarlo",
+				"on": "Bloqueador de anuncios: activado — haz clic para desactivarlo",
+				"unavailable": "Bloqueador de anuncios: no disponible, no se pudieron descargar sus listas de filtros — haz clic para desactivarlo",
+				"accountNote": "YouTube puede oponerse a los bloqueadores de anuncios en cuentas con sesión iniciada."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Navega por YouTube dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
+			"showTab": "Mostrar la pestaña Explore",
+			"showTabDescription": "Al desactivarla, las descargas también dejan de usar tu sesión de Explore.",
+			"signOut": "Cerrar sesión en Explore",
+			"signOutDescription": "Borra tu sesión de YouTube y los datos de navegación en Explore.",
+			"signOutConfirmTitle": "¿Cerrar sesión en Explore?",
+			"signOutConfirmBody": "Esto borra tu sesión de YouTube y los datos de navegación en Explore. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión.",
+			"signOutConfirm": "Cerrar sesión"
+		},
+		"error": {"proxyTitle": "Explore no puede conectarse a través de tu proxy", "proxyBody": "Revisa el proxy en Ajustes y vuelve a intentarlo.", "loadTitle": "Esta página no se cargó", "loadBody": "Comprueba tu conexión y vuelve a intentarlo.", "retry": "Reintentar", "openSettings": "Abrir Ajustes"}
 	}
 }

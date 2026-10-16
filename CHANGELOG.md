@@ -8,6 +8,26 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## 0.5.0
+
+Arroxy now has **Explore**, a built-in browser tab for finding videos and signing in to YouTube when a download needs your account.
+
+## Highlights
+
+- **Explore tab.** Browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at with your active profile; the arrow next to it switches profiles with the same menu as the URL tab. The wand button opens the step-by-step download instead, for picking formats, subtitles, and more, and brings you back to Explore when you're done. Type or paste in Explore's address bar to open a YouTube link or search YouTube; a link from another site isn't opened in Explore, but you can download it from there. Explore is on by default and carries a "New" badge; you can hide it any time with **Show the Explore tab** in Settings.
+- **Quick Download works in the background.** Quick Download on the URL tab and Download in Explore no longer hold the window while Arroxy reads the link. The link shows up in Downloads right away, a note with **View** confirms it, the URL field clears for the next link, and you can start more while earlier ones prepare.
+- **Downloads tells you what needs you.** If Arroxy can't read a link, its row in Downloads explains why and offers the same fixes as before: Retry, turn cookies on and retry, open the cookie settings, or sign in in Explore. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review, and a link that turns out to be a list offers a review. The Downloads tab shows how many rows are waiting for you.
+- **Explore picks up where you left off.** After a restart, Explore reopens the last YouTube page you were on. Signing out of Explore forgets it.
+- **The page stays in view under menus.** Opening a menu or dialog over Explore keeps a still picture of the page in place instead of a blank area, and the live page comes back when it closes.
+- **Downloads that need an account.** Sign in once in Explore and Arroxy can download private and members-only videos your account can watch, and age-restricted videos if the account is age-verified. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in. Arroxy downloads signed out as usual and only uses your Explore sign-in when a download fails in a way an account can fix. Each time it does, it reads the sign-in fresh, keeps it in a temporary file, and deletes the file afterwards.
+- **A new cookie choice.** **Explore sign-in** joins Off, File, and Browser in the cookie settings. The first time you open Explore, it switches from Off to Explore sign-in once; if you change it later, Arroxy keeps your choice. A cookies file or browser you already set up is never switched for you. Explore sign-in is marked as recommended, and if you're signed in to Explore while downloads use something else, Explore says so. When a download needs an account and cookies are off, the failed row offers **Sign in with Explore** and retries by itself once you're signed in.
+- **Use a secondary account.** Explore's first screen recommends signing in with a secondary account, because downloading with an account carries some risk of that account being restricted.
+- **An ad blocker for Explore.** Explore blocks ads and trackers on its pages by default; downloads are unaffected, and it never acts on Google's sign-in pages. The shield in Explore's toolbar turns it off with one click, and Arroxy remembers your choice. YouTube may push back on ad blockers for signed-in accounts, so turn it off if you'd rather not risk that.
+- **Sign out of Explore** from Settings whenever you want to forget the sign-in.
+- **Share moved out of the title bar.** Share Arroxy from the footer or the About dialog.
+- **Security keys on macOS.** Arroxy now declares Bluetooth use, so macOS can ask for permission when you sign in to Explore with a Bluetooth security key.
+- **If you go back to an older version:** after choosing the Explore sign-in cookie setting, running an older Arroxy build resets your general settings to their defaults, because older builds don't know that value. Switching the cookie setting away from Explore sign-in first avoids this. An older build also starts with an empty Downloads list if rows were still being read or waiting for your choice when you closed Arroxy.
+
 ## 0.4.27
 
 Download profiles can now put the thumbnail inside your files and choose which SponsorBlock segments to handle, embedded subtitles carry every language you pick, and Arroxy finds the ffmpeg and yt-dlp installed on your system more reliably.

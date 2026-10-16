@@ -435,7 +435,7 @@ Localized labels run 1.5–2x longer than English (`el`, `fr`, and `my` are the 
 
 Arroxy uses Tailwind v4 default mobile-first breakpoints: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px. There are no custom Tailwind breakpoint overrides.
 
-The real Electron window has min size `720x680` and default size `900x760`, so production normally starts above `sm` and around `md`; `<640px` is mainly browser-mock/test coverage.
+The real Electron window has min size `720x760` and default size `900x760`, so production normally starts above `sm` and around `md`; `<640px` is mainly browser-mock/test coverage.
 
 ---
 

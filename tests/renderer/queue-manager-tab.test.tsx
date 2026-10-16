@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
+import {act, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QueueManagerTab} from '@renderer/components/queue/QueueManagerTab.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
@@ -9,6 +9,7 @@ import {makeItem} from '../shared/fixtures.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const virtualRange = vi.hoisted(() => ({start: 0, count: 12, estimateSize: 62}))
+const scrollToIndex = vi.hoisted(() => vi.fn())
 
 vi.mock('@tanstack/react-virtual', () => ({
 	useVirtualizer: ({count, estimateSize}: {count: number; estimateSize: () => number}) => {
@@ -22,7 +23,8 @@ vi.mock('@tanstack/react-virtual', () => ({
 					const index = virtualRange.start + offset
 					return {index, key: index, size, start: index * size}
 				}),
-			measureElement: () => undefined
+			measureElement: () => undefined,
+			scrollToIndex
 		}
 	}
 }))
@@ -45,6 +47,7 @@ const actions = {
 }
 
 beforeEach(() => {
+	scrollToIndex.mockReset()
 	virtualRange.start = 0
 	virtualRange.count = 12
 	virtualRange.estimateSize = 62
@@ -57,7 +60,7 @@ beforeEach(() => {
 	const api = buildMockAppApi()
 	vi.mocked(api.dialog.chooseFolder).mockResolvedValue(ok({path: '/archive'}))
 	window.appApi = api
-	useAppStore.setState({queue: [], ...actions})
+	useAppStore.setState({queue: [], queueFocus: null, ...actions})
 })
 
 afterEach(() => {
@@ -600,5 +603,38 @@ describe('QueueManagerTab', () => {
 		render(<QueueManagerTab />)
 
 		expect(screen.getAllByTestId('queue-title').map(node => node.textContent)).toEqual(['Alpha video', 'Zeta video'])
+	})
+
+	describe('a View command', () => {
+		it('scrolls to the row, highlights it, and consumes the command', async () => {
+			useAppStore.setState({queue: makeLargeQueue(40)})
+			render(<QueueManagerTab />)
+			act(() => useAppStore.getState().showQueueItem('item-30'))
+
+			// Newest first by default, so the 30th of 40 is the 11th row.
+			await waitFor(() => expect(scrollToIndex).toHaveBeenCalledWith(10, {align: 'center'}))
+			expect(useAppStore.getState().queueFocus).toBeNull()
+			expect(await screen.findByTestId('queue-manager-row-item-30')).toHaveAttribute('data-highlighted', 'true')
+			expect(screen.getByTestId('queue-manager-row-item-31')).not.toHaveAttribute('data-highlighted')
+		})
+
+		it('clears a status filter that hides the row', async () => {
+			useAppStore.setState({queue: [makeItem({id: 'done-1', title: 'Finished', status: 'done'}), makeItem({id: 'waiting', title: 'Waiting', status: 'pending'})]})
+			render(<QueueManagerTab />)
+			fireEvent.click(screen.getByTestId('queue-filter-done'))
+			act(() => useAppStore.getState().showQueueItem('waiting'))
+
+			expect(await screen.findByTestId('queue-manager-row-waiting')).toHaveAttribute('data-highlighted', 'true')
+		})
+
+		// The row went away (cancelled, swapped) before View: the command is
+		// spent rather than left to highlight something later.
+		it('consumes a command for a row that is not in the queue', () => {
+			useAppStore.setState({queue: makeLargeQueue(3)})
+			render(<QueueManagerTab />)
+			act(() => useAppStore.getState().showQueueItem('gone'))
+			expect(useAppStore.getState().queueFocus).toBeNull()
+			expect(scrollToIndex).not.toHaveBeenCalled()
+		})
 	})
 })

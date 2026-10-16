@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "startOver": "Mulai dari awal"},
+	"common": {"back": "Kembali", "cancel": "Membatalkan", "continue": "Melanjutkan", "loading": "Memuat…", "retry": "Mencoba kembali", "dismiss": "Tutup", "startOver": "Mulai dari awal"},
 	"app": {
 		"feedback": "Masukan",
 		"logs": "Log",
@@ -238,6 +238,11 @@
 				"sourceOff": "Mati",
 				"sourceFile": "Mengajukan",
 				"sourceBrowser": "Peramban",
+				"sourceExplore": "Login Explore",
+				"recommended": "Disarankan",
+				"exploreDescription": "Memakai login Explore hanya saat unduhan membutuhkannya.",
+				"exploreDisabled": "Tab Explore nonaktif, jadi unduhan tidak memakai login Explore Anda. Aktifkan di bagian Explore di bawah.",
+				"openExplore": "Buka Explore",
 				"toggleDescription": "Membantu dengan video dengan batasan usia, khusus anggota, dan akun pribadi.",
 				"risk": "Risiko: cookies.txt berisi setiap sesi login untuk browser tersebut — jaga kerahasiaannya.",
 				"fileLabel": "File cookie",
@@ -382,6 +387,7 @@
 				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",
 				"bodyDisabled": "Cookie dikonfigurasikan tetapi dimatikan. Aktifkan dan coba lagi untuk mendapatkan daftar lengkap, atau ubah jaringan dan coba lagi.",
 				"bodyEnabled": "Bahkan dengan cookie, YouTube membatasi penyelidikan ini. Coba lagi nanti atau ganti jaringan.",
+				"bodyExplore": "YouTube membatasi permintaan ini. Coba lagi nanti atau ganti jaringan.",
 				"retryCta": "Mencoba kembali",
 				"enableRetryCta": "Aktifkan cookie dan coba lagi"
 			},
@@ -390,9 +396,15 @@
 				"currentModeLabel": "Sumber cookie",
 				"currentModeFile": "Berkas",
 				"currentModeBrowser": "Peramban",
+				"currentModeExplore": "Login Explore",
 				"explanationFile": "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang salah (yt-dlp mengharapkan Netscape cookies.txt). Coba ekspor ulang cookie, pilih file lain, alihkan ke mode Browser, atau matikan cookie.",
 				"explanationBrowser": "Cookie dibaca langsung dari browser. Jika browser sedang berjalan, database cookie-nya mungkin terkunci (keluarga Chromium). Browser juga harus masuk ke YouTube. Coba tutup browser, beralih ke browser lain, beralih ke mode File, atau matikan cookie.",
 				"openSettingsCta": "Buka pengaturan cookie",
+				"exploreSignIn": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Jika video ini memerlukan akun YouTube, masuk di Explore lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya.", "cta": "Masuk di Explore"},
+				"exploreSignedIn": {"heading": "Sudah masuk ke Explore", "body": "Jika video ini memerlukan akun, Arroxy otomatis memakai login Explore Anda. Video mungkin juga tidak tersedia karena alasan lain."},
+				"exploreOffer": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Masuk di Explore dan Arroxy akan mencobanya lagi.", "cta": "Masuk di Explore"},
+				"exploreReuse": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Anda sudah masuk di Explore, tetapi unduhan sedang tidak memakai login itu.", "cta": "Pakai login Explore saya dan coba lagi"},
+				"otherCookiesCta": "Gunakan file cookie atau peramban sebagai gantinya…",
 				"needsCookies": {"heading": "Situs ini memerlukan proses masuk", "body": "yt-dlp tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."},
 				"dpapi": {
 					"heading": "Cookie Chrome diblokir oleh enkripsi Windows",
@@ -531,6 +543,17 @@
 	"queue": {
 		"header": "Unduhan",
 		"tabLabel": "Unduhan",
+		"attentionBadge_one": "{{count}} unduhan memerlukan perhatian Anda",
+		"attentionBadge_other": "{{count}} unduhan memerlukan perhatian Anda",
+		"choice": {
+			"cappedBody_one": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
+			"cappedBody_other": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
+			"reviewBody_one": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh.",
+			"reviewBody_other": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh.",
+			"all": "Semua video",
+			"first": "{{count}} pertama",
+			"review": "Tinjau"
+		},
 		"tabTip": "Unduhan langsung ada di tab Unduhan sekarang — buka kapan saja untuk melacak kemajuan.",
 		"empty": "Unduhan yang antri akan muncul di sini",
 		"filtersLabel": "Filter status antrian",
@@ -576,6 +599,7 @@
 			"remove": "Menghapus",
 			"pullNow": "Tarik sekarang — lewati antrian",
 			"statusProbing": "Mengambil detail",
+			"statusNeedsChoice": "Perlu pilihan Anda",
 			"statusPending": "Menunggu",
 			"statusRunning": "Mengunduh",
 			"statusHeld": "Dipegang",
@@ -625,13 +649,18 @@
 		"outputNotWritable": "Tidak dapat menyimpan ke {{dir}} — Arroxy tidak diizinkan menulis di sana",
 		"fetchingSponsorBlock": "Menghubungi SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock tidak tersedia, coba lagi ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Masuk dengan akun Explore Anda…",
+		"exploreSignedOut": "Keluar dari Explore — masuk lagi"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Tidak dapat menyimpan pengaturan Anda.",
 		"warmupFailed": "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai.",
 		"shellActionFailed": "Tidak dapat membuka itu.",
 		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
+		"exploreSignInRetrying_one": "Masuk dengan Explore — mencoba ulang 1 tautan",
+		"exploreSignInRetrying_other": "Masuk dengan Explore — mencoba ulang {{count}} tautan",
+		"exploreSignOutFailed": "Tidak dapat keluar dari Explore. Coba lagi.",
 		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
 		"filenameFolderTooDeep": "Folder ini terlalu dalam untuk sistem Anda. Unduhan mungkin tetap gagal — pilih folder yang lebih pendek.",
 		"filenameTemplateCannotFit": "Nama video ini tidak muat di setiap bagian templat Anda, jadi nama bawaan digunakan.",
@@ -640,11 +669,25 @@
 			"alreadyQueued": "Sudah ada di antrean — tidak ada salinan ditambahkan",
 			"invalidClipboard": "Tidak ada tautan di papan klip — salin satu dulu",
 			"multipleUrls": "Beberapa tautan disalin — gunakan “URL massal” di Arroxy",
-			"needsReview": "Tautan ini perlu pemeriksaan singkat — buka Arroxy dan tempel lagi",
-			"busy": "Masih memproses tautan sebelumnya",
+			"needsReview": "Tautan itu perlu pilihan Anda — lihat Unduhan di Arroxy",
+			"cookiesSetup": "Selesaikan penyiapan cookie di Arroxy, lalu coba lagi",
+			"busy": "Arroxy masih memulai — coba lagi sebentar lagi",
 			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video sudah ada di antrean — dilewati", "skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video sudah ada di antrean — dilewati", "skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"},
+		"quickDownload": {
+			"added": "Ditambahkan: {{title}}",
+			"alreadyQueued": "Sudah ada di antrean",
+			"failed": "Tidak dapat menyiapkan {{title}}",
+			"notAdded": "Tautan itu tidak bisa ditambahkan — coba lagi",
+			"chooseHowMany_one": "{{count}}+ video — pilih jumlahnya",
+			"chooseHowMany_other": "{{count}}+ video — pilih jumlahnya",
+			"review_one": "{{count}} video dalam daftar ini — tinjau untuk memilih",
+			"review_other": "{{count}} video dalam daftar ini — tinjau untuk memilih",
+			"reviewCapped_one": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
+			"reviewCapped_other": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
+			"view": "Lihat"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -663,7 +706,7 @@
 			"parse": "Tidak dapat menguraikan respons dari situs. Ekstraktor yt-dlp mungkin melayang. Arroxy memperbarui secara otomatis yt-dlp saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dikirimkan.",
 			"network": "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",
 			"drmProtected": "Video ini dilindungi DRM. yt-dlp tidak dapat menghapus DRM, sehingga file tidak dapat diunduh.",
-			"loginRequired": "Video ini memerlukan akun masuk. Siapkan cookies.txt (Pengaturan → Cookies) dan coba lagi.",
+			"loginRequired": "Video ini memerlukan akun yang sudah masuk.",
 			"unknown": "Pengunduhan gagal. Lihat keluaran mentahnya di bawah."
 		}
 	},
@@ -740,5 +783,53 @@
 			"invalid-segment": "Nama folder itu tidak diizinkan. Hindari . dan .. serta nama khusus seperti CON.",
 			"resolution-in-dir": "{resolution} tidak bisa menamai folder — kualitas baru diketahui saat unduhan dimulai."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "Baru",
+		"notice": {
+			"title": "Jelajahi YouTube langsung di dalam Arroxy",
+			"body": "Temukan video, playlist, atau kanal dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke YouTube di sini untuk mengunduh video yang memerlukan akun.",
+			"riskTitle": "Masuk dengan akun sekunder",
+			"riskBody": "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti yt-dlp. Gunakan akun yang rela Anda kehilangan, bukan akun utama.",
+			"continue": "Lanjutkan"
+		},
+		"nudge": {"off": "Cookie nonaktif, jadi unduhan tidak memakai login Explore Anda.", "file": "Unduhan memakai berkas cookie Anda, bukan login Explore.", "browser": "Unduhan memakai cookie peramban Anda, bukan login Explore.", "useExplore": "Pakai login Explore", "notNow": "Nanti saja"},
+		"toolbar": {
+			"aria": "Kontrol peramban Explore",
+			"back": "Kembali",
+			"forward": "Maju",
+			"reload": "Muat ulang",
+			"home": "Beranda YouTube",
+			"addressAria": "Alamat",
+			"addressPlaceholder": "Cari di YouTube atau tempel tautan YouTube",
+			"offsiteHint": "Explore hanya menjelajahi YouTube.",
+			"offsiteDownload": "Unduh tautan ini",
+			"offsiteHintHost": "Explore hanya menjelajahi YouTube. {{host}}",
+			"searchTooLong": "Pencarian itu terlalu panjang.",
+			"downloadWithProfile": "Unduh · {{profileName}}",
+			"interactiveHint": "Pilih format, subtitle, dan lainnya…",
+			"grabUnavailable": "Buka video, playlist, atau kanal untuk mengunduhnya",
+			"adBlock": {
+				"aria": "Pemblokir iklan",
+				"off": "Pemblokir iklan: nonaktif — klik untuk mengaktifkan",
+				"starting": "Pemblokir iklan: memulai — klik untuk menonaktifkan",
+				"on": "Pemblokir iklan: aktif — klik untuk menonaktifkan",
+				"unavailable": "Pemblokir iklan: tidak tersedia, daftar filternya tidak dapat diunduh — klik untuk menonaktifkan",
+				"accountNote": "YouTube mungkin menolak pemblokir iklan untuk akun yang sudah masuk."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan akun.",
+			"showTab": "Tampilkan tab Explore",
+			"showTabDescription": "Menonaktifkannya juga menghentikan unduhan memakai login Explore Anda.",
+			"signOut": "Keluar dari Explore",
+			"signOutDescription": "Menghapus login YouTube dan data penjelajahan Anda di Explore.",
+			"signOutConfirmTitle": "Keluar dari Explore?",
+			"signOutConfirmBody": "Ini menghapus login YouTube dan data penjelajahan Anda di Explore. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi.",
+			"signOutConfirm": "Keluar"
+		},
+		"error": {"proxyTitle": "Explore tidak dapat terhubung melalui proxy Anda", "proxyBody": "Periksa proxy di Pengaturan, lalu coba lagi.", "loadTitle": "Halaman ini tidak termuat", "loadBody": "Periksa koneksi Anda, lalu coba lagi.", "retry": "Mencoba kembali", "openSettings": "Buka Pengaturan"}
 	}
 }

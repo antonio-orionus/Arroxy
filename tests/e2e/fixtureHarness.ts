@@ -8,6 +8,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {defaultAppSettings} from '../../src/shared/constants.js'
 import {downloadFile, downloadText, parseShaLine, sha256ForFile} from '../../src/main/services/binary/BinaryDownloader.js'
+import type {ExploreCookie} from '../../src/shared/sites/types.js'
 import type {AppSettings} from '../../src/shared/types.js'
 import {FIXTURE_MEDIA_CATALOG_PATH, FIXTURE_MEDIA_FORMAT_IDS, FIXTURE_OVERLAP_PLAYLIST_ID, FIXTURE_PLAYLIST_ID, FIXTURE_REPEATED_PLAYLIST_ID, fixtureMediaContentType, fixtureMediaKind} from './fixtureMediaCatalog.js'
 export {
@@ -54,8 +55,10 @@ export interface FixtureServerBehavior {
 }
 
 export type FixtureServerRequest =
-	// signedIn: whether yt-dlp ran this extraction with cookies.
-	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean}
+	// signedIn: whether yt-dlp ran this extraction with cookies. marker: the
+	// seeded Explore session's fixture cookie, null for any other run.
+	// cookieDomains: the domains of every cookie yt-dlp held (never values).
+	| {kind: 'probe-start'; videoId: string; at: number; activeProbeCount: number; signedIn: boolean; marker: string | null; cookieDomains: string[]}
 	| {kind: 'probe-end'; videoId: string; at: number; activeProbeCount: number; status: number}
 	| {kind: 'media'; videoId: string; formatId: string; method: string; at: number; status: number}
 	| {kind: 'subtitle'; videoId: string; lang: string; track: 'manual' | 'auto'; at: number; status: number}
@@ -309,10 +312,11 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		requests.push(request)
 	}
 
-	async function handleProbe(videoId: string, signedIn: boolean, res: http.ServerResponse): Promise<void> {
+	async function handleProbe(videoId: string, query: URLSearchParams, res: http.ServerResponse): Promise<void> {
 		activeProbes += 1
 		maxActiveProbes = Math.max(maxActiveProbes, activeProbes)
-		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn, at: Date.now()})
+		const cookieDomains = (query.get('domains') ?? '').split(',').filter(domain => domain !== '')
+		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn: query.get('signedIn') === '1', marker: query.get('marker'), cookieDomains, at: Date.now()})
 		const delayMs = metadataDelayFor(behavior, videoId)
 		if (delayMs > 0) await delay(delayMs)
 		const status = behavior.metadataFailureIds.has(videoId) ? 503 : 204
@@ -360,7 +364,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 			const requestUrl = new URL(req.url ?? '/', 'http://127.0.0.1')
 			const probeMatch = /^\/probe\/([^/]+)$/.exec(requestUrl.pathname)
 			if (probeMatch) {
-				await handleProbe(probeMatch[1], requestUrl.searchParams.get('signedIn') === '1', res)
+				await handleProbe(probeMatch[1], requestUrl.searchParams, res)
 				return
 			}
 			const mediaMatch = FIXTURE_MEDIA_ROUTE.exec(requestUrl.pathname)
@@ -602,7 +606,20 @@ export async function ensureHostEmbeddedBinaries(): Promise<void> {
 	}
 }
 
-export function buildFixtureEnv(input: {userDataDir: string; fixtureServer: FixtureServer; denyProxy: DenyProxy; ytDlpPath: string}): Record<string, string> {
+export interface FixtureEnvInput {
+	userDataDir: string
+	fixtureServer: FixtureServer
+	denyProxy: DenyProxy
+	ytDlpPath: string
+	// Seed file for the Explore partition, written by writeExploreCookies.
+	exploreCookiesPath?: string
+	// A local page the Explore view opens instead of YouTube (ARROXY_E2E_EXPLORE_HOME).
+	exploreHomeUrl?: string
+	// A filter list file the Explore ad blocker is built from (ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS).
+	exploreAdBlockFiltersPath?: string
+}
+
+export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> {
 	const env: Record<string, string> = Object.fromEntries(Object.entries(process.env).filter((entry): entry is [string, string] => typeof entry[1] === 'string'))
 	env.ARROXY_E2E = '1'
 	env.ELECTRON_USER_DATA = input.userDataDir
@@ -622,12 +639,18 @@ export function buildFixtureEnv(input: {userDataDir: string; fixtureServer: Fixt
 	// Hotkey OS notifications post into a sink file instead of the OS so the
 	// hotkey spec can assert them deterministically (see fixture-hotkey.spec).
 	env.ARROXY_E2E_OS_NOTIFIER_SINK_PATH = path.join(input.userDataDir, 'hotkey-os-notifications.log')
+	if (input.exploreCookiesPath) env.ARROXY_E2E_EXPLORE_COOKIES = input.exploreCookiesPath
+	else delete env.ARROXY_E2E_EXPLORE_COOKIES
+	if (input.exploreHomeUrl) env.ARROXY_E2E_EXPLORE_HOME = input.exploreHomeUrl
+	else delete env.ARROXY_E2E_EXPLORE_HOME
+	if (input.exploreAdBlockFiltersPath) env.ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS = input.exploreAdBlockFiltersPath
+	else delete env.ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS
 	delete env.MOCK_BACKEND
 	delete env.ELECTRON_RUN_AS_NODE
 	return env
 }
 
-export function buildFixtureElectronEnv(input: {userDataDir: string; fixtureServer: FixtureServer; denyProxy: DenyProxy; ytDlpPath: string}): Record<string, string> {
+export function buildFixtureElectronEnv(input: FixtureEnvInput): Record<string, string> {
 	const env = buildFixtureEnv(input)
 	for (const key of ['HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'http_proxy', 'https_proxy', 'all_proxy']) {
 		delete env[key]
@@ -660,6 +683,18 @@ export function writeE2eSettings(userDataDir: string, outputDir: string, configu
 	settings.common.launchCount = 3
 	configure?.(settings)
 	fs.writeFileSync(path.join(userDataDir, 'settings.json'), JSON.stringify(settings), 'utf8')
+}
+
+/**
+ * Writes the cookies the app seeds into its Explore partition at startup
+ * (ARROXY_E2E_EXPLORE_COOKIES). The file lives in the run's own userData dir,
+ * so a seeded session never outlives its scenario.
+ */
+export function writeExploreCookies(userDataDir: string, cookies: readonly ExploreCookie[]): string {
+	fs.mkdirSync(userDataDir, {recursive: true})
+	const file = path.join(userDataDir, 'e2e-explore-cookies.json')
+	fs.writeFileSync(file, JSON.stringify(cookies), 'utf8')
+	return file
 }
 
 export function assertNoExternalRequests(proxy: DenyProxy): void {

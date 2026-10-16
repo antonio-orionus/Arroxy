@@ -1,5 +1,5 @@
 {
-	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "startOver": "ከመጀመሪያ ጀምር"},
+	"common": {"back": "ተመለስ", "cancel": "ሰርዝ", "continue": "ቀጥል", "loading": "በመጫን ላይ…", "retry": "እንደገና ሞክር", "dismiss": "ዝጋ", "startOver": "ከመጀመሪያ ጀምር"},
 	"app": {
 		"feedback": "አስተያየት",
 		"logs": "ምዝግቦች",
@@ -229,6 +229,11 @@
 				"sourceOff": "ጠፍ",
 				"sourceFile": "ፋይል",
 				"sourceBrowser": "አሳሽ",
+				"sourceExplore": "የExplore መግቢያ",
+				"recommended": "የሚመከር",
+				"exploreDescription": "ውርድ ሲፈልገው ብቻ የExplore መግቢያዎን ይጠቀማል።",
+				"exploreDisabled": "የExplore ትር ጠፍቷል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም። ከታች በExplore ውስጥ ያብሩት።",
+				"openExplore": "Explore ክፈት",
 				"toggleDescription": "ዕድሜ-ተገደበ፣ አባላት-ብቻ እና የግል ቪዲዮዎችን ያግዛል።",
 				"risk": "አደጋ: cookies.txt ለዚያ አሳሽ ሁሉንም የገቡ ስሬቶች ይዟል — ይጠብቁ።",
 				"fileLabel": "Cookies ፋይል",
@@ -360,6 +365,7 @@
 				"bodyUnconfigured": "የቅርጸት ዝርዝሩ ሙሉ ላይሆን ይችላል። Cookies በከፍተኛ ቅንብሮች ያዘጋጁ፣ ወይም አውታረ መረብ ቀይሩ እና እንደገና ሞክሩ።",
 				"bodyDisabled": "Cookies ተዘጋጅቷል ነገር ግን ጠፍ ነው። ያስቡ እና እንደገና ሞክሩ፣ ወይም አውታረ መረብ ቀይሩ።",
 				"bodyEnabled": "Cookies ቢኖርም YouTube ይህን ምርምር ገደበ። ቆይቶ ዳግም ሞክሩ ወይም አውታረ መረብ ቀይሩ።",
+				"bodyExplore": "YouTube ይህን ጥያቄ ገድቧል። ቆይተው እንደገና ይሞክሩ ወይም አውታረ መረብ ይቀይሩ።",
 				"retryCta": "እንደገና ሞክር",
 				"enableRetryCta": "Cookies አስቻል እና እንደገና ሞክር"
 			},
@@ -368,9 +374,15 @@
 				"currentModeLabel": "Cookies ምንጭ",
 				"currentModeFile": "ፋይል",
 				"currentModeBrowser": "አሳሽ",
+				"currentModeExplore": "የExplore መግቢያ",
 				"explanationFile": "የ Cookies ፋይልዎ ባዶ፣ ጊዜው ያለፈ፣ ወይም ትክክለኛ ቅርጸት ላይሆን ይችላል (yt-dlp Netscape cookies.txt ይጠቀማል)። Cookies ዳግም ወደ ውጭ ለማሳደር፣ ሌላ ፋይል ለመምረጥ፣ ወደ አሳሽ ሁነታ ለመቀየር፣ ወይም Cookies ለማጥፋት ይሞክሩ።",
 				"explanationBrowser": "Cookies ቀጥታ ከአሳሹ ይነበባሉ። አሳሹ አሁን እየሰራ ከሆነ፣ የ cookie ዳታቤዝ ተቆልፎ ሊሆን ይችላል (Chromium-ቤተሰብ)። አሳሹ ወደ YouTube ገብቶ መሆን አለበት። አሳሹን ለመዝጋት፣ ወደ ሌላ አሳሽ ለመቀየር፣ ወደ ፋይል ሁነታ ለመቀየር፣ ወይም Cookies ለማጥፋት ይሞክሩ።",
 				"openSettingsCta": "የ Cookies ቅንብሮችን ክፈት",
+				"exploreSignIn": {"heading": "ይህ ቪዲዮ የYouTube መለያ ሊያስፈልገው ይችላል", "body": "ይህ ቪዲዮ የYouTube መለያ የሚያስፈልገው ከሆነ በExplore ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።", "cta": "በExplore ውስጥ ይግቡ"},
+				"exploreSignedIn": {"heading": "ወደ Explore ገብተዋል", "body": "ይህ ቪዲዮ መለያ የሚያስፈልገው ከሆነ Arroxy የExplore መግቢያዎን በራስ-ሰር ይጠቀማል። በሌላ ምክንያት ላይገኝ ይችላል።"},
+				"exploreOffer": {"heading": "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል", "body": "በExplore ይግቡ፣ Arroxy ደግሞ እንደገና ይሞክረዋል።", "cta": "በExplore ይግቡ"},
+				"exploreReuse": {"heading": "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል", "body": "በExplore ገብተዋል፣ ነገር ግን ማውረዶች አሁን ያንን መግቢያ እየተጠቀሙ አይደሉም።", "cta": "የExplore መግቢያን ተጠቀም እና እንደገና ሞክር"},
+				"otherCookiesCta": "በምትኩ የCookies ፋይል ወይም አሳሽ ይጠቀሙ…",
 				"needsCookies": {"heading": "ይህ ጣቢያ መግባትን ያስፈልጋል", "body": "yt-dlp ያለ ማረጋገጫ ይህን ቪዲዮ ማግኘት አልቻለም። Cookies በከፍተኛ ቅንብሮች ያዋቅሩ — ወደ ዘለቁበት አሳሽ ያዋቅሩ ወይም cookies.txt ፋይል ያስገቡ።"},
 				"dpapi": {
 					"heading": "Chrome cookies በ Windows ምስጠራ ታግደዋል",
@@ -493,6 +505,17 @@
 	"queue": {
 		"header": "ዳውንሎዶች",
 		"tabLabel": "ዳውንሎዶች",
+		"attentionBadge_one": "ትኩረት የሚሹ፦ {{count}}",
+		"attentionBadge_other": "ትኩረት የሚሹ፦ {{count}}",
+		"choice": {
+			"cappedBody_one": "በዚህ የቪዲዮ ዝርዝር ውስጥ ከ{{count}} በላይ ቪዲዮ አለ። ሁሉንም፣ የመጀመሪያዎቹን {{count}} ያውርዱ፣ ወይም በግምገማ ይምረጡ።",
+			"cappedBody_other": "በዚህ የቪዲዮ ዝርዝር ውስጥ ከ{{count}} በላይ ቪዲዮዎች አሉ። ሁሉንም፣ የመጀመሪያዎቹን {{count}} ያውርዱ፣ ወይም በግምገማ ይምረጡ።",
+			"reviewBody_one": "ይህ አገናኝ የ{{count}} ቪዲዮ ዝርዝር ነው። ምን እንደሚወርድ ለመምረጥ ይገምግሙት።",
+			"reviewBody_other": "ይህ አገናኝ የ{{count}} ቪዲዮዎች ዝርዝር ነው። ምን እንደሚወርድ ለመምረጥ ይገምግሙት።",
+			"all": "ሁሉም ቪዲዮዎች",
+			"first": "የመጀመሪያዎቹ {{count}}",
+			"review": "ግምገማ"
+		},
 		"tabTip": "ዳውንሎዶች አሁን በዳውንሎዶች ትር ውስጥ ይገኛሉ — ሂደታቸውን ለመከታተል ማንኛውም ጊዜ ይክፈቱት።",
 		"empty": "በወረፋ የተጨመሩ ማውረዶች እዚህ ይታያሉ",
 		"filtersLabel": "የወረፋ ሁኔታ ማጣሪያዎች",
@@ -538,6 +561,7 @@
 			"remove": "አስወግድ",
 			"pullNow": "አሁን አውርድ — ወረፋን ዝለል",
 			"statusProbing": "ዝርዝሮች በመ 가져오는 ላይ",
+			"statusNeedsChoice": "ምርጫዎን ይፈልጋል",
 			"statusPending": "በመጠበቅ ላይ",
 			"statusRunning": "በማውረድ ላይ",
 			"statusHeld": "ተይዟል",
@@ -587,13 +611,18 @@
 		"outputNotWritable": "ወደ {{dir}} ማስቀመጥ አይቻልም — Arroxy እዚያ እንዲጽፍ አልተፈቀደለትም",
 		"fetchingSponsorBlock": "SponsorBlock እያነጋገሩ…",
 		"retryingSponsorBlock": "SponsorBlock አይገኝም፣ እንደገና እየሞከሩ ({{attempt}}/{{total}})…",
-		"retryingTransfer": "ግንኙነት ተቋርጧል፣ እንደገና በመሞከር ላይ ({{attempt}}/{{total}})…"
+		"retryingTransfer": "ግንኙነት ተቋርጧል፣ እንደገና በመሞከር ላይ ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "በExplore መለያዎ በመግባት ላይ…",
+		"exploreSignedOut": "ከExplore ወጥተዋል — እንደገና ይግቡ"
 	},
 	"notifications": {
 		"settingsSaveFailed": "ቅንብሮችዎን ማስቀመጥ አልተቻለም።",
 		"warmupFailed": "ማዋቀር አልተጠናቀቀም። እስኪጠናቀቅ ድረስ አንዳንድ ማውረዶች ሊሳኩ ይችላሉ።",
 		"shellActionFailed": "ያንን መክፈት አልተቻለም።",
 		"folderSelectFailed": "የአቃፊ መምረጫን መክፈት አልተቻለም።",
+		"exploreSignInRetrying_one": "በExplore ገብተዋል — 1 አገናኝ እንደገና በመሞከር ላይ",
+		"exploreSignInRetrying_other": "በExplore ገብተዋል — {{count}} አገናኞች እንደገና በመሞከር ላይ",
+		"exploreSignOutFailed": "ከExplore መውጣት አልተቻለም። እንደገና ይሞክሩ።",
 		"playlistFolderRejected": "ያ አቃፊ ለዚህ የአጫዋች ዝርዝር መጠቀም አይቻልም።",
 		"filenameFolderTooDeep": "ይህ አቃፊ ለስርዓትዎ በጣም ጥልቅ ነው። ማውረዱ አሁንም ሊሳካ ይችላል — አጭር አቃፊ ይምረጡ።",
 		"filenameTemplateCannotFit": "የዚህ ቪዲዮ ስም የአብነትዎን እያንዳንዱን ክፍል አይይዝም፣ ስለዚህ ነባሪው ስም ጥቅም ላይ ውሏል።",
@@ -602,11 +631,25 @@
 			"alreadyQueued": "ቀድሞ በወረፋ ውስጥ ነው — ቅጂ አልተጨመረም",
 			"invalidClipboard": "በቅጂ ሰሌዳ ላይ አገናኝ የለም — መጀመሪያ አንዱን ይቅዱ",
 			"multipleUrls": "ብዙ አገናኞች ተቀድተዋል — በArroxy ውስጥ «ብዙ URLዎች»ን ይጠቀሙ",
-			"needsReview": "ይህ አገናኝ አጭር ማረጋገጫ ያስፈልገዋል — Arroxyን ክፈተው እንደገና ይላኩ",
-			"busy": "አሁንም በቀድሞው አገናኝ ላይ እየሰራን ነው",
+			"needsReview": "ይህ አገናኝ ምርጫዎን ይፈልጋል — በArroxy ውስጥ «ዳውንሎዶች»ን ይመልከቱ",
+			"cookiesSetup": "በArroxy ውስጥ የCookies ማዋቀሩን ይጨርሱ፣ ከዚያ እንደገና ይሞክሩ",
+			"busy": "Arroxy አሁንም እየጀመረ ነው — ከጥቂት ጊዜ በኋላ እንደገና ይሞክሩ",
 			"submissionFailed": "ያ አገናኝ ማከል አልተቻለም — በArroxy ውስጥ እንደገና ይሞክሩ"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} ቪዲዮ ቀድሞ በወረፋ ውስጥ ነው — ተዘሏል", "skippedAlreadyQueued_other": "{{count}} ቪዲዮዎች ቀድሞ በወረፋ ውስጥ ናቸው — ተዘለዋል"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} ቪዲዮ ቀድሞ በወረፋ ውስጥ ነው — ተዘሏል", "skippedAlreadyQueued_other": "{{count}} ቪዲዮዎች ቀድሞ በወረፋ ውስጥ ናቸው — ተዘለዋል"},
+		"quickDownload": {
+			"added": "ተጨምሯል፦ {{title}}",
+			"alreadyQueued": "ቀድሞ በወረፋ ውስጥ ነው",
+			"failed": "{{title}}ን ማዘጋጀት አልተቻለም",
+			"notAdded": "ያን አገናኝ ማከል አልተቻለም — እንደገና ይሞክሩ",
+			"chooseHowMany_one": "{{count}}+ ቪዲዮ — ምን ያህል እንደሚወርድ ይምረጡ",
+			"chooseHowMany_other": "{{count}}+ ቪዲዮዎች — ምን ያህል እንደሚወርድ ይምረጡ",
+			"review_one": "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮ — ለመምረጥ ይገምግሙ",
+			"review_other": "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮዎች — ለመምረጥ ይገምግሙ",
+			"reviewCapped_one": "በዚህ ዝርዝር ውስጥ {{count}}+ ቪዲዮ — ለመምረጥ ይገምግሙ",
+			"reviewCapped_other": "በዚህ ዝርዝር ውስጥ {{count}}+ ቪዲዮዎች — ለመምረጥ ይገምግሙ",
+			"view": "ይመልከቱ"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -625,7 +668,7 @@
 			"parse": "ከጣቢያው የተመለሰውን ምላሽ መፈታት አልተቻለም። የyt-dlp extractor ጊዜ ያለፈበት ሊሆን ይችላል። Arroxy በሚነሳበት ጊዜ yt-dlp ን በራስ-ሰር ያዘምነዋል — እርማቱ እንደተለቀቀ በጥቂት ደቂቃዎች ውስጥ እንደገና ሞክሩ።",
 			"network": "የአውታረ መረብ ስህተት። ግንኙነትዎን ያረጋግጡ እና እንደገና ይሞክሩ።",
 			"drmProtected": "ይህ ቪዲዮ DRM የተጠበቀ ነው። yt-dlp DRM ን ማስወገድ አይችልም፣ ስለዚህ ፋይሉ ሊዳውንሎድ አይቻልም።",
-			"loginRequired": "ይህ ቪዲዮ ወደ ስርዓት የገባ መለያ ያስፈልገዋል። cookies.txt ያዋቅሩ (ቅንብሮች → Cookies) እና እንደገና ሞክሩ።",
+			"loginRequired": "ይህ ቪዲዮ የገባ መለያ ያስፈልገዋል።",
 			"unknown": "ማውረድ አልተሳካም። ከታች ያለውን raw output ይመልከቱ።"
 		}
 	},
@@ -695,5 +738,46 @@
 			"invalid-segment": "ይህ የአቃፊ ስም አይፈቀድም። . እና .. እንዲሁም እንደ CON ያሉ የተያዙ ስሞችን ያስወግዱ።",
 			"resolution-in-dir": "{resolution} አቃፊ መሰየም አይችልም — ጥራቱ ውርዱ እስኪጀምር ድረስ አይታወቅም።"
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "አዲስ",
+		"notice": {
+			"title": "YouTubeን በArroxy ውስጥ ያስሱ",
+			"body": "ቪዲዮ፣ የቪዲዮ ዝርዝር ወይም ቻናል ያግኙና ከዚህ ያውርዱ — አገናኞችን መቅዳት አያስፈልግም። መለያ የሚያስፈልጋቸውን ቪዲዮዎች ለማውረድ እዚህ YouTube ውስጥ ይግቡ።",
+			"riskTitle": "በሁለተኛ መለያ ይግቡ",
+			"riskBody": "YouTube እንደ yt-dlp ካሉ የማውረጃ መሣሪያዎች ጋር የሚጠቀሙ መለያዎችን ሊጠቁም — እና አንዳንድ ጊዜ ሊያግድ — ይችላል። ማጣት የማይከብድዎትን መለያ ይጠቀሙ፣ ዋና መለያዎን አይደለም።",
+			"continue": "ቀጥል"
+		},
+		"nudge": {"off": "Cookies ጠፍተዋል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም።", "file": "ውርዶች የcookies ፋይልዎን ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "browser": "ውርዶች የአሳሽዎን cookies ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "useExplore": "የExplore መግቢያ ተጠቀም", "notNow": "አሁን አይደለም"},
+		"toolbar": {
+			"aria": "የExplore አሳሽ መቆጣጠሪያዎች",
+			"back": "ተመለስ",
+			"forward": "ወደፊት",
+			"reload": "ዳግም ጫን",
+			"home": "የYouTube መነሻ",
+			"addressAria": "አድራሻ",
+			"addressPlaceholder": "YouTube ይፈልጉ ወይም የYouTube አገናኝ ይለጥፉ",
+			"offsiteHint": "Explore YouTubeን ብቻ ያስሳል።",
+			"offsiteDownload": "ይህን አገናኝ አውርድ",
+			"offsiteHintHost": "Explore YouTubeን ብቻ ያስሳል። {{host}}",
+			"searchTooLong": "ያ ፍለጋ በጣም ረጅም ነው።",
+			"downloadWithProfile": "አውርድ · {{profileName}}",
+			"interactiveHint": "ቅርጸት፣ ንዑስ ርዕሶች እና ሌሎችን ምረጥ…",
+			"grabUnavailable": "ለማውረድ ቪዲዮ፣ የቪዲዮ ዝርዝር ወይም ቻናል ይክፈቱ",
+			"adBlock": {"aria": "የማስታወቂያ ማገጃ", "off": "የማስታወቂያ ማገጃ፦ ጠፍቷል — ለማብራት ጠቅ ያድርጉ", "starting": "የማስታወቂያ ማገጃ፦ በመጀመር ላይ — ለማጥፋት ጠቅ ያድርጉ", "on": "የማስታወቂያ ማገጃ፦ በርቷል — ለማጥፋት ጠቅ ያድርጉ", "unavailable": "የማስታወቂያ ማገጃ፦ አይገኝም፣ የማጣሪያ ዝርዝሮቹ ሊወርዱ አልቻሉም — ለማጥፋት ጠቅ ያድርጉ", "accountNote": "YouTube ለገቡ መለያዎች የማስታወቂያ ማገጃዎችን ሊቋቋም ይችላል።"}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "YouTubeን በArroxy ውስጥ ያስሱ እና መለያ ለሚያስፈልጋቸው ቪዲዮዎች ይግቡ።",
+			"showTab": "የExplore ትርን አሳይ",
+			"showTabDescription": "ማጥፋት ውርዶችም የExplore መግቢያዎን እንዳይጠቀሙ ያደርጋል።",
+			"signOut": "ከExplore ውጣ",
+			"signOutDescription": "በExplore ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል።",
+			"signOutConfirmTitle": "ከExplore ይውጡ?",
+			"signOutConfirmBody": "ይህ በExplore ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል። መለያ የሚያስፈልጋቸው ውርዶች እንደገና እስኪገቡ ድረስ አይሳኩም።",
+			"signOutConfirm": "ውጣ"
+		},
+		"error": {"proxyTitle": "Explore በፕሮክሲዎ በኩል መገናኘት አልቻለም", "proxyBody": "በቅንብሮች ውስጥ ፕሮክሲውን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።", "loadTitle": "ይህ ገጽ አልተጫነም", "loadBody": "ግንኙነትዎን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።", "retry": "እንደገና ሞክር", "openSettings": "ቅንብሮችን ክፈት"}
 	}
 }

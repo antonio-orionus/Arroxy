@@ -149,7 +149,8 @@ test('Electron split media failure preserves temp artifacts and retries from res
 		await queue.action(title, 'retry')
 		await queue.expectStatus(title, 'done', 120_000)
 
-		expect(fs.existsSync(tempDir)).toBe(false)
+		// `done` is emitted before the download's finalize drains its temp cleanup.
+		await expect.poll(() => fs.existsSync(tempDir)).toBe(false)
 		const outputs = files.mediaFiles('.mp4')
 		expect(outputs).toHaveLength(1)
 		// Derived rather than a magic number: the merged file must exceed the
@@ -209,7 +210,7 @@ test('Electron quick download flags a download YouTube limited below the profile
 		await expect(page.locator('[data-testid="profiles-active-profile-card"]')).toContainText('720p')
 		const quickDownload = page.locator('[data-testid="profiles-quick-download"]')
 		for (const videoId of [SABR_LIMITED_VIDEO_ID, controlId]) {
-			// Quick download stays busy while it probes and queues the previous link.
+			// Each link prepares in the background as its own row; nothing blocks the next.
 			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
 			await expect(quickDownload).toBeEnabled({timeout: 60_000})
 			await quickDownload.click()

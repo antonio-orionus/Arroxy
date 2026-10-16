@@ -20,6 +20,8 @@ interface Shot {
 	query: string
 	// The element that proves the screen finished loading (after `prepare`, if any).
 	ready: string
+	// A taller window than the default, for a screen whose story does not fit in 760 px.
+	height?: number
 	prepare?: (page: Page) => Promise<void>
 }
 
@@ -49,6 +51,9 @@ const SHOTS: readonly Shot[] = [
 			await page.getByTestId('bulk-url-textarea').fill([...SAMPLE_URLS, SAMPLE_URLS[0]].join('\n'))
 		}
 	},
+	{name: 'Explore', file: 'Explore-screenshot.png', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
+	{name: 'Explore browsing', file: 'Explore-browsing-screenshot.png', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
+	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'Downloads')},
 	{name: 'Parallel downloads', file: 'Downloading-in-parallel-screenshot.png', query: 'scenario=queue-parallel', ready: '[data-testid="queue-manager-row-queue-parallel-6"]', prepare: page => openTab(page, 'Downloads')}
 ]
 
@@ -64,6 +69,7 @@ async function openTab(page: Page, name: string): Promise<void> {
 
 for (const shot of SHOTS) {
 	test(shot.name, async ({page}) => {
+		if (shot.height) await page.setViewportSize({width: 900, height: shot.height})
 		await page.goto(`/?${shot.query}&theme=dark&showcase=1&backdropSoftware=1`)
 		await page.waitForSelector('[data-testid="app-root"]')
 		await page.addStyleTag({content: `${HIDE.join(',')}{display:none!important}`})

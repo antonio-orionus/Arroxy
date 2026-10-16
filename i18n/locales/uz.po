@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Davom etish"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Yopish"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Yuklanmoqda…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "IP manzilingiz YouTube tomonidan bloklangan ko'rinadi. Keyinroq urinib ko'ring yoki VPN ishlating."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "Bu video uchun tizimga kirgan hisob zarur. cookies.txt ni sozlang (Sozlamalar → Cookies) va qayta urinib ko'ring."
+msgid "This video needs a signed-in account."
+msgstr "Bu video uchun tizimga kirgan hisob kerak."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "Yuklab olish muvaffaqiyatsiz tugadi. Quyidagi xom natijani ko'ring."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Ulanishni tekshiring, so'ng qayta urinib ko'ring."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Bu sahifa yuklanmadi"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Sozlamalarni ochish"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore proxy orqali ulana olmaydi"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Qayta urinish"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Yangi"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "Video, pleylist yoki kanalni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda YouTube'ga kiring."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Davom etish"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube yt-dlp kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Qo'shimcha hisob bilan kiring"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "YouTube'ni Arroxy ichida ko'ring"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Yuklab olishlar Explore orqali kirishni emas, brauzeringiz cookies'idan foydalanadi."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Yuklab olishlar Explore orqali kirishni emas, cookies faylingizdan foydalanadi."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Hozir emas"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookies o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Explore orqali kirishdan foydalanish"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Explore yorlig'ini ko'rsatish"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "O'chirsangiz, yuklab olishlar ham Explore orqali kirishdan foydalanmaydi."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Explore'dan chiqish"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Chiqish"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "Bu Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Explore'dan chiqilsinmi?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Reklama blokeri"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Reklama blokeri: o'chiq — yoqish uchun bosing"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Reklama blokeri: yoniq — o'chirish uchun bosing"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Reklama blokeri: ishga tushmoqda — o'chirish uchun bosing"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Reklama blokeri: mavjud emas, filtr ro'yxatlarini yuklab bo'lmadi — o'chirish uchun bosing"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Manzil"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "YouTube'da qidiring yoki YouTube havolasini joylang"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Explore brauzer boshqaruvlari"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Orqaga"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Yuklab olish · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Oldinga"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Yuklab olish uchun video, pleylist yoki kanalni oching"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube bosh sahifasi"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "Format, subtitr va boshqalarni tanlang…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "Bu havolani yuklab olish"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore faqat YouTube'ni ko'rsatadi."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore faqat YouTube'ni ko'rsatadi. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Qayta yuklash"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Bu qidiruv juda uzun."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Til"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Explore orqali kirildi — 1 ta havola qayta uriniladi"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Explore orqali kirildi — {{count}} ta havola qayta uriniladi"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Explore'dan chiqib bo'lmadi. Qayta urinib ko'ring."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "Bu jild tizimingiz uchun juda chuqur. Yuklab olish baribir muvaffaqiyatsiz bo'lishi mumkin — qisqaroq jild tanlang."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "Allaqachon navbatda — nusxa qo'shilmadi"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "Oldingi havola hali ishlanmoqda"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy hali ishga tushmoqda — birozdan so'ng qayta urinib ko'ring"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Arroxy'da cookie sozlamasini tugallang, so'ng qayta urinib ko'ring"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "Bir nechta havola nusxalandi — Arroxyda “Ommaviy URLlar”dan foydalaning"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "Bu havola tezkor tekshiruvni talab qiladi — Arroxy'ni ochib qayta joylang"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Bu havola sizning tanlovingizni kutmoqda — Arroxy'dagi Yuklamalar bo'limiga qarang"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} ta video allaqachon navbatda — o‘tkazib yuborildi"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Qo'shildi: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Navbatda allaqachon bor"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video — nechtasini tanlang"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ video — nechtasini tanlang"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} tayyorlanmadi"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Bu havolani qo'shib bo'lmadi — qayta urinib ko'ring"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Bu ro'yxatda {{count}} ta video — tanlash uchun ko'rib chiqing"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "Bu ro'yxatda {{count}}+ ta video — tanlash uchun ko'rib chiqing"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Ko'rish"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Fayl"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} ta yuklab olish e'tiboringizni kutmoqda"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} ta yuklab olish e'tiboringizni kutmoqda"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Barcha faol va kutayotgan yuklamalarni bekor qilish"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Barcha videolar"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Bu pleylistda {{count}} tadan ortiq video bor. Hammasini, birinchi {{count}} tasini yuklab oling yoki ko'rib chiqishda tanlang."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Birinchi {{count}} ta"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Ko'rib chiqish"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Bu havola {{count}} ta videodan iborat ro'yxat. Nimani yuklashni tanlash uchun uni ko'rib chiqing."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "Xato"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "Ushlab turilgan"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Tanlovingiz kerak"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "Metama'lumotlar joylashtirilmoqda…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Explore’dan chiqildi — qaytadan kiring"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "Audio konvertatsiya qilinmoqda…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock mavjud emas, qayta urinilmoqda ({{attempt}}/{{total}})…"
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Explore hisobingiz bilan kirilmoqda…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "Cookies bilan ham YouTube bu tekshiruvni chekladi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube bu so'rovni cheklab qo'ydi. Keyinroq urinib ko'ring yoki tarmoqni o'zgartiring."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring."
@@ -1468,6 +1772,10 @@ msgstr "WAV (uncompressed)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "Brauzer"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Explore kirishi"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi mumkin (yt-dlp Netscape cookies.txt kutadi). Cookiesni qayta eksport qiling, boshqa fayl tanlang, Brauzer rejimiga o'ting yoki cookiesni o'chiring."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Explore orqali kiring, Arroxy qayta urinib ko'radi."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Explore'ga kirish"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Siz Explore'ga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Explore orqali kirishimdan foydalanib, qayta urinish"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Agar bu video hisob talab qilsa, Arroxy Explore orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Explore'ga kirilgan"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Agar bu video YouTube hisobini talab qilsa, Explore'ga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Explore'ga kirish"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Bu video YouTube hisobini talab qilishi mumkin"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Sabab cookies bo'lishi mumkin"
@@ -1536,6 +1888,10 @@ msgstr "Bu sayt tizimga kirish talab qiladi"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "Cookies sozlamalarini ochish"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "Cookiesdan foydalanish uchun fayl tanlang"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Explore orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Explore yorlig'i o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi. Uni quyidagi Explore bo'limida yoqing."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "cookies.txt ni LOKAL olish (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "Cookiesni qanday eksport qilaman?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Explore'ni ochish"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "Fayl tanlanmagan"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Tavsiya etiladi"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "Xavf: cookies.txt o'sha brauzerning barcha kirgan sessiyalarini o'z ichi
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "Brauzer"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Explore kirishi"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

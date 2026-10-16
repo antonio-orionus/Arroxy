@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "जारी रखें"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "बंद करें"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "लोड हो रहा है…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "आपका IP YouTube ने ब्लॉक कर दिया लगता है। बाद में कोशिश करें या VPN का उपयोग करें।"
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "इस वीडियो के लिए साइन-इन खाता ज़रूरी है। एक cookies.txt सेट करें (सेटिंग्स → Cookies) और फिर से प्रयास करें।"
+msgid "This video needs a signed-in account."
+msgstr "इस वीडियो के लिए साइन इन किया हुआ अकाउंट चाहिए।"
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "डाउनलोड विफल। नीचे raw output देख�
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "यह URL yt-dlp द्वारा समर्थित नहीं है। yt-dlp की समर्थित साइटों में से कोई अन्य लिंक आज़माएँ।"
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "अपना कनेक्शन जाँचें, फिर दोबारा कोशिश करें।"
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "यह पेज लोड नहीं हुआ"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "सेटिंग्स खोलें"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "सेटिंग्स में प्रॉक्सी जाँचें, फिर दोबारा कोशिश करें।"
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Explore आपके प्रॉक्सी से कनेक्ट नहीं हो पा रहा"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "फिर से कोशिश करें"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "नया"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "कोई वीडियो, प्लेलिस्ट या चैनल ढूँढें और यहीं से डाउनलोड करें — लिंक कॉपी करने की ज़रूरत नहीं। जिन वीडियो के लिए अकाउंट चाहिए, उन्हें डाउनलोड करने के लिए यहाँ YouTube में साइन इन करें।"
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "जारी रखें"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "YouTube, yt-dlp जैसे डाउनलोड टूल के साथ इस्तेमाल होने वाले अकाउंट को फ़्लैग — और कभी-कभी बैन — कर सकता है। ऐसा अकाउंट इस्तेमाल करें जिसे खोने से आपको फ़र्क़ न पड़े, अपना मुख्य अकाउंट नहीं।"
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "दूसरे अकाउंट से साइन इन करें"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "YouTube ब्राउज़ करें, सीधे Arroxy के अंदर"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "डाउनलोड आपके ब्राउज़र की कुकी का उपयोग करते हैं, Explore साइन-इन का नहीं।"
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "डाउनलोड आपकी कुकी फ़ाइल का उपयोग करते हैं, Explore साइन-इन का नहीं।"
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "अभी नहीं"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "कुकी बंद हैं, इसलिए डाउनलोड आपके Explore साइन-इन का उपयोग नहीं करते।"
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Explore साइन-इन उपयोग करें"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "Arroxy के अंदर YouTube ब्राउज़ करें और जिन वीडियो के लिए अकाउंट चाहिए उनके लिए साइन इन करें।"
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Explore टैब दिखाएँ"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "इसे बंद करने पर डाउनलोड भी आपके Explore साइन-इन का उपयोग करना बंद कर देते हैं।"
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Explore से साइन आउट करें"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "साइन आउट"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "इससे Explore में आपका YouTube साइन-इन और ब्राउज़िंग डेटा साफ़ हो जाएगा। जिन डाउनलोड के लिए अकाउंट चाहिए, वे दोबारा साइन इन करने तक विफल रहेंगे।"
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Explore से साइन आउट करें?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "Explore में आपका YouTube साइन-इन और ब्राउज़िंग डेटा साफ़ करता है।"
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "साइन इन किए हुए अकाउंट के लिए YouTube ऐड ब्लॉकर का विरोध कर सकता है।"
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "ऐड ब्लॉकर"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "ऐड ब्लॉकर: बंद — चालू करने के लिए क्लिक करें"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "ऐड ब्लॉकर: चालू — बंद करने के लिए क्लिक करें"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "ऐड ब्लॉकर: शुरू हो रहा है — बंद करने के लिए क्लिक करें"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "ऐड ब्लॉकर: उपलब्ध नहीं, इसकी फ़िल्टर सूचियाँ डाउनलोड नहीं हो सकीं — बंद करने के लिए क्लिक करें"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "पता"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "YouTube पर खोजें या YouTube लिंक पेस्ट करें"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Explore ब्राउज़र नियंत्रण"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "वापस"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "डाउनलोड · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "आगे"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "डाउनलोड करने के लिए कोई वीडियो, प्लेलिस्ट या चैनल खोलें"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube होम"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "फ़ॉर्मैट, उपशीर्षक वगैरह चुनें…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "यह लिंक डाउनलोड करें"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "Explore सिर्फ़ YouTube ब्राउज़ करता है।"
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "Explore सिर्फ़ YouTube ब्राउज़ करता है। {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "रीलोड करें"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "वह खोज बहुत लंबी है।"
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "भाषा"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Explore से साइन इन हो गया — 1 लिंक फिर आज़माया जा रहा है"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Explore से साइन इन हो गया — {{count}} लिंक फिर आज़माए जा रहे हैं"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Explore से साइन आउट नहीं हो सका। फिर से कोशिश करें।"
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "यह फ़ोल्डर आपके सिस्टम के लिए बहुत गहरा है। डाउनलोड फिर भी विफल हो सकता है — छोटा फ़ोल्डर चुनें।"
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "पहले से कतार में है — कोई कॉपी नहीं जोड़ी गई"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "पिछला लिंक अभी भी प्रोसेस हो रहा है"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy अभी शुरू हो रहा है — थोड़ी देर में फिर कोशिश करें"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Arroxy में कुकी सेटअप पूरा करें, फिर दोबारा कोशिश करें"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "कई लिंक कॉपी हो गए हैं — Arroxy में “बल्क URLs” का उपयोग करें"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "इस लिंक को एक त्वरित समीक्षा चाहिए — Arroxy खोलें और इसे फिर से पेस्ट करें"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "इस लिंक के लिए आपका चुनाव चाहिए — Arroxy में डाउनलोड देखें"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "{{count}} वीडियो पहले से कतार में 
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} वीडियो पहले से कतार में हैं — छोड़ दिए गए"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "जोड़ा गया: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "पहले से कतार में है"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ वीडियो — कितने लेने हैं, चुनें"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ वीडियो — कितने लेने हैं, चुनें"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "{{title}} तैयार नहीं हो सका"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "वह लिंक नहीं जोड़ा जा सका — फिर कोशिश करें"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "इस सूची में {{count}} वीडियो — चुनने के लिए समीक्षा करें"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "इस सूची में {{count}} वीडियो — चुनने के लिए समीक्षा करें"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "इस सूची में {{count}}+ वीडियो — चुनने के लिए समीक्षा करें"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "इस सूची में {{count}}+ वीडियो — चुनने के लिए समीक्षा करें"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "देखें"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "फ़ाइल"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} डाउनलोड को आपके ध्यान की ज़रूरत है"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} डाउनलोड को आपके ध्यान की ज़रूरत है"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "सभी सक्रिय और प्रतीक्षारत डाउनलोड रद्द करें"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "सभी वीडियो"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "इस प्लेलिस्ट में {{count}} से ज़्यादा वीडियो हैं। सभी डाउनलोड करें, पहले {{count}}, या समीक्षा में चुनें।"
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "इस प्लेलिस्ट में {{count}} से ज़्यादा वीडियो हैं। सभी डाउनलोड करें, पहले {{count}}, या समीक्षा में चुनें।"
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "पहले {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "समीक्षा"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "यह लिंक {{count}} वीडियो की सूची है। क्या डाउनलोड करना है, यह चुनने के लिए समीक्षा करें।"
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "यह लिंक {{count}} वीडियो की सूची है। क्या डाउनलोड करना है, यह चुनने के लिए समीक्षा करें।"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "त्रुटि"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "रोका गया"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "आपका चुनाव चाहिए"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "मेटाडेटा एम्बेड हो रहा है…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Explore से साइन आउट हो गए — फिर से साइन इन करें"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "ऑडियो कनवर्ट हो रहा है…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock अनुपलब्ध है, पुनः प्रय�
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "कनेक्शन अटका, पुनः प्रयास ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "आपके Explore खाते से साइन इन हो रहा है…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "कुकी के साथ भी YouTube ने इस जाँच को सीमित किया। बाद में पुनः प्रयास करें या नेटवर्क बदलें।"
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube ने इस अनुरोध को सीमित कर दिया। बाद में फिर कोशिश करें या नेटवर्क बदलें।"
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "फ़ॉर्मेट सूची अधूरी हो सकती है। उन्नत सेटिंग्स में कुकी सेट करें, या नेटवर्क बदलकर पुनः प्रयास करें।"
@@ -1468,6 +1772,10 @@ msgstr "WAV (uncompressed)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "ब्राउज़र"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Explore साइन-इन"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "आपकी कुकी फ़ाइल खाली, एक्सपायर्ड या गलत फ़ॉर्मेट में हो सकती है (yt-dlp को Netscape cookies.txt चाहिए)। कुकी फिर से एक्सपोर्ट करें, कोई अलग फ़ाइल चुनें, ब्राउज़र मोड पर जाएँ, या कुकी बंद कर दें।"
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Explore से साइन इन करें, Arroxy इसे फिर आज़माएगा।"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Explore से साइन इन करें"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "इस वीडियो के लिए YouTube अकाउंट चाहिए हो सकता है"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "आप Explore में साइन इन हैं, लेकिन डाउनलोड अभी उस साइन-इन का इस्तेमाल नहीं कर रहे हैं।"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "मेरा Explore साइन-इन इस्तेमाल करें और फिर आज़माएँ"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "इस वीडियो के लिए YouTube अकाउंट चाहिए हो सकता है"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "अगर इस वीडियो के लिए अकाउंट चाहिए, तो Arroxy अपने-आप आपके Explore साइन-इन का उपयोग करता है। यह किसी और कारण से भी अनुपलब्ध हो सकता है।"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Explore में साइन इन हैं"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "अगर इस वीडियो के लिए YouTube अकाउंट चाहिए, तो Explore में साइन इन करें और फिर से कोशिश करें। Arroxy उस साइन-इन का उपयोग तभी करता है जब किसी डाउनलोड को उसकी ज़रूरत हो।"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Explore में साइन इन करें"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "इस वीडियो के लिए YouTube अकाउंट चाहिए हो सकता है"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "कुकी इसकी वजह हो सकती है"
@@ -1536,6 +1888,10 @@ msgstr "इस साइट के लिए साइन-इन ज़रूर
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "कुकी सेटिंग्स खोलें"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "इसके बजाय कुकी फ़ाइल या ब्राउज़र इस्तेमाल करें…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "कुकी का उपयोग करने के लिए फ़ाइल चुनें"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Explore साइन-इन का उपयोग तभी होता है जब किसी डाउनलोड को उसकी ज़रूरत हो।"
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Explore टैब बंद है, इसलिए डाउनलोड आपके Explore साइन-इन का उपयोग नहीं करते। इसे नीचे Explore में चालू करें।"
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "cookies.txt स्थानीय रूप से प्राप्त करें (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "कुकी कैसे एक्सपोर्ट करें?"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Explore खोलें"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "कोई फ़ाइल चयनित नहीं"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "अनुशंसित"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "जोखिम: cookies.txt में उस ब्राउज़र �
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "ब्राउज़र"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Explore साइन-इन"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

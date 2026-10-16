@@ -75,6 +75,10 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "متابعة"
 
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "تجاهل"
+
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "جارٍ التحميل…"
@@ -172,8 +176,8 @@ msgid "Your IP address appears to be blocked. Try again later or use a VPN."
 msgstr "يبدو أن عنوان IP الخاص بك محظور من قِبل YouTube. حاول لاحقاً أو استخدم VPN."
 
 msgctxt "errors.ytdlp.loginRequired"
-msgid "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry."
-msgstr "هذا الفيديو يتطلب حساباً مسجّل الدخول. أعدّ cookies.txt (الإعدادات → Cookies) وأعد المحاولة."
+msgid "This video needs a signed-in account."
+msgstr "يحتاج هذا الفيديو إلى حساب مسجَّل الدخول."
 
 msgctxt "errors.ytdlp.missingDependency"
 msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
@@ -214,6 +218,194 @@ msgstr "فشل التنزيل. راجع الإخراج الخام أدناه."
 msgctxt "errors.ytdlp.unsupportedUrl"
 msgid "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites."
 msgstr "هذا الرابط غير مدعوم من yt-dlp. جرّب رابطًا آخر من أي موقع يدعمه yt-dlp."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "تحقق من اتصالك ثم حاول مرة أخرى."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "تعذّر تحميل هذه الصفحة"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "افتح الإعدادات"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "تحقق من الوكيل في الإعدادات ثم حاول مرة أخرى."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "لا يمكن لـ Explore الاتصال عبر الوكيل الخاص بك"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "جديد"
+
+msgctxt "explore.notice.body"
+msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
+msgstr "ابحث عن فيديو أو قائمة تشغيل أو قناة ونزّله من هنا — دون نسخ الروابط. سجّل الدخول إلى YouTube هنا لتنزيل الفيديوهات التي تتطلب حساباً."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "متابعة"
+
+msgctxt "explore.notice.riskBody"
+msgid "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one."
+msgstr "قد يُعلّم YouTube — وأحياناً يحظر — الحسابات المستخدمة مع أدوات التنزيل مثل yt-dlp. استخدم حساباً يمكنك التضحية به، لا حسابك الرئيسي."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "سجّل الدخول بحساب ثانوي"
+
+msgctxt "explore.notice.title"
+msgid "Browse YouTube right inside Arroxy"
+msgstr "تصفّح YouTube داخل Arroxy مباشرةً"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "تستخدم التنزيلات كوكيز متصفحك، وليس تسجيل دخول Explore."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "تستخدم التنزيلات ملف الكوكيز الخاص بك، وليس تسجيل دخول Explore."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "ليس الآن"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "الكوكيز متوقفة، لذا لا تستخدم التنزيلات تسجيل دخول Explore."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "استخدم تسجيل دخول Explore"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
+msgstr "تصفّح YouTube داخل Arroxy وسجّل الدخول للفيديوهات التي تتطلب حساباً."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "إظهار تبويب Explore"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "إيقافه يمنع أيضاً التنزيلات من استخدام تسجيل دخول Explore."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "تسجيل الخروج من Explore"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "تسجيل الخروج"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
+msgstr "سيؤدي هذا إلى مسح تسجيل دخولك إلى YouTube وبيانات التصفح في Explore. ستفشل التنزيلات التي تتطلب حساباً حتى تسجّل الدخول مجدداً."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "تسجيل الخروج من Explore؟"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your YouTube sign-in and browsing data in Explore."
+msgstr "يمسح تسجيل دخولك إلى YouTube وبيانات التصفح في Explore."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Explore"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "قد يقاوم YouTube مانعات الإعلانات للحسابات المسجَّل دخولها."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "مانع الإعلانات"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "مانع الإعلانات: متوقف — انقر للتشغيل"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "مانع الإعلانات: يعمل — انقر للإيقاف"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "مانع الإعلانات: قيد البدء — انقر للإيقاف"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "مانع الإعلانات: غير متاح، تعذّر تنزيل قوائم المرشحات الخاصة به — انقر للإيقاف"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "العنوان"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search YouTube or paste a YouTube link"
+msgstr "ابحث في YouTube أو الصق رابط YouTube"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "عناصر تحكم متصفح Explore"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "رجوع"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "تنزيل · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "للأمام"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "افتح فيديو أو قائمة تشغيل أو قناة لتنزيلها"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "الصفحة الرئيسية لـ YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Choose format, subtitles and more…"
+msgstr "اختر الصيغة والترجمات وغير ذلك…"
+
+msgctxt "explore.toolbar.offsiteDownload"
+msgid "Download this link"
+msgstr "نزّل هذا الرابط"
+
+msgctxt "explore.toolbar.offsiteHint"
+msgid "Explore only browses YouTube."
+msgstr "يتصفّح Explore موقع YouTube فقط."
+
+msgctxt "explore.toolbar.offsiteHintHost"
+msgid "Explore only browses YouTube. {{host}}"
+msgstr "يتصفّح Explore موقع YouTube فقط. {{host}}"
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "إعادة التحميل"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "عبارة البحث هذه طويلة جدًا."
 
 msgctxt "filenameTemplate.description"
 msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
@@ -299,6 +491,18 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "اللغة"
 
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة رابط واحد"
+
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} روابط"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "تعذّر تسجيل الخروج من Explore. حاول مرة أخرى."
+
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
 msgstr "هذا المجلد عميق جدًا بالنسبة لنظامك. قد يفشل التنزيل رغم ذلك — اختر مجلدًا أقصر."
@@ -316,8 +520,12 @@ msgid "Already in the queue — no copy added"
 msgstr "في قائمة الانتظار بالفعل — لم تُضف نسخة"
 
 msgctxt "notifications.hotkey.busy"
-msgid "Still working on the previous link"
-msgstr "ما زلنا نعالج الرابط السابق"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "ما يزال Arroxy يبدأ التشغيل — حاول مجددًا بعد لحظة"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "أكمل إعداد الكوكيز في Arroxy ثم حاول مجددًا"
 
 msgctxt "notifications.hotkey.invalidClipboard"
 msgid "No link on your clipboard — copy one first"
@@ -328,8 +536,8 @@ msgid "Multiple links copied — use Bulk URLs in Arroxy"
 msgstr "تم نسخ روابط متعددة — استخدم «روابط متعددة» في Arroxy"
 
 msgctxt "notifications.hotkey.needsReview"
-msgid "That link needs a quick review — open Arroxy and paste it again"
-msgstr "هذا الرابط يحتاج إلى مراجعة سريعة — افتح Arroxy وأعد لصقه"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "هذا الرابط يحتاج إلى اختيارك — راجع «التنزيلات» في Arroxy"
 
 msgctxt "notifications.hotkey.queued"
 msgid "Download queued from clipboard"
@@ -350,6 +558,50 @@ msgstr "تم تخطي فيديو واحد موجود بالفعل في قائم�
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "تمت الإضافة: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "في قائمة الانتظار بالفعل"
+
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "تعذّر تجهيز {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "تعذّرت إضافة هذا الرابط — حاول مجددًا"
+
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
+
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
+
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "عرض"
 
 msgctxt "notifications.settingsSaveFailed"
 msgid "Could not save your settings."
@@ -595,9 +847,45 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ملف"
 
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "إلغاء جميع التنزيلات النشطة والمعلقة"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "كل الفيديوهات"
+
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "أول {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "مراجعة"
+
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -694,6 +982,10 @@ msgstr "خطأ"
 msgctxt "queue.item.statusHeld"
 msgid "Held"
 msgstr "معلّق"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "يحتاج إلى اختيارك"
 
 msgctxt "queue.item.statusPaused"
 msgid "Paused"
@@ -991,6 +1283,10 @@ msgctxt "status.embeddingMetadata"
 msgid "Embedding metadata…"
 msgstr "جارٍ تضمين البيانات الوصفية…"
 
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "تم تسجيل الخروج من Explore — سجّل الدخول مجددًا"
+
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
 msgstr "جارٍ تحويل الصوت…"
@@ -1042,6 +1338,10 @@ msgstr "SponsorBlock غير متاح، جارٍ إعادة المحاولة ({{a
 msgctxt "status.retryingTransfer"
 msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
 msgstr "تعذّر الاتصال، جارٍ إعادة المحاولة ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "جارٍ تسجيل الدخول بحساب Explore الخاص بك…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1421,6 +1721,10 @@ msgctxt "wizard.formats.botWall.bodyEnabled"
 msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
 msgstr "حتى مع الكوكيز، قيّد YouTube هذا الفحص. حاول لاحقاً أو بدّل الشبكة."
 
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "قيّد YouTube هذا الطلب. حاول لاحقاً أو بدّل الشبكة."
+
 msgctxt "wizard.formats.botWall.bodyUnconfigured"
 msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
 msgstr "قائمة الصيغ قد تكون غير مكتملة. أعدّ الكوكيز في الإعدادات المتقدمة، أو غيّر الشبكة وأعد المحاولة."
@@ -1468,6 +1772,10 @@ msgstr "WAV (غير مضغوط)"
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
 msgstr "متصفح"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "دخول Explore"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -1521,6 +1829,50 @@ msgctxt "wizard.formats.cookiesError.explanationFile"
 msgid "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
 msgstr "ملف الكوكيز قد يكون فارغاً أو منتهي الصلاحية أو بتنسيق خاطئ (يتوقع yt-dlp ملف Netscape cookies.txt). جرّب إعادة تصدير الكوكيز، أو اختيار ملف مختلف، أو التبديل إلى وضع المتصفح، أو إيقاف الكوكيز."
 
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "سجّل الدخول عبر Explore وسيعيد Arroxy المحاولة."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "تسجيل الدخول عبر Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "قد يحتاج هذا الفيديو إلى حساب YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "تم تسجيل دخولك إلى Explore، لكن التنزيلات لا تستخدم تسجيل الدخول هذا حاليًا."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "استخدم تسجيل دخول Explore وأعد المحاولة"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "قد يحتاج هذا الفيديو إلى حساب YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "إذا كان هذا الفيديو يتطلب حساباً، يستخدم Arroxy تسجيل دخول Explore تلقائياً. قد يكون غير متاح لسبب آخر."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "تم تسجيل الدخول إلى Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "إذا كان هذا الفيديو يتطلب حساب YouTube، سجّل الدخول في Explore وأعد المحاولة. يستخدم Arroxy هذا التسجيل فقط عندما يحتاجه التنزيل."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "سجّل الدخول في Explore"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "قد يتطلب هذا الفيديو حساب YouTube"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "ربما تكون الكوكيز هي السبب"
@@ -1536,6 +1888,10 @@ msgstr "هذا الموقع يتطلب تسجيل الدخول"
 msgctxt "wizard.formats.cookiesError.openSettingsCta"
 msgid "Open cookies settings"
 msgstr "فتح إعدادات الكوكيز"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "استخدم ملف كوكيز أو متصفحًا بدلًا من ذلك…"
 
 msgctxt "wizard.formats.keepAudio"
 msgid "Keep as-is"
@@ -2737,6 +3093,14 @@ msgctxt "wizard.url.cookies.enabledButNoFile"
 msgid "Pick a file to use cookies"
 msgstr "اختر ملفاً لاستخدام الكوكيز"
 
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "يستخدم تسجيل دخول Explore فقط عندما يحتاجه التنزيل."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "تبويب Explore متوقف، لذا لا تستخدم التنزيلات تسجيل دخول Explore. فعّله ضمن Explore أدناه."
+
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
 msgstr "احصل على cookies.txt محلياً (Chrome)"
@@ -2753,9 +3117,17 @@ msgctxt "wizard.url.cookies.helpLink"
 msgid "How do I export cookies?"
 msgstr "كيف أصدّر الكوكيز؟"
 
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "افتح Explore"
+
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
 msgstr "لم يتم اختيار ملف"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "موصى به"
 
 msgctxt "wizard.url.cookies.risk"
 msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
@@ -2764,6 +3136,10 @@ msgstr "تحذير: يحتوي cookies.txt على جميع جلسات تسجيل
 msgctxt "wizard.url.cookies.sourceBrowser"
 msgid "Browser"
 msgstr "متصفح"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "دخول Explore"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

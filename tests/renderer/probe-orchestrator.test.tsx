@@ -174,6 +174,13 @@ describe('quickDownload', () => {
 		unsubscribe()
 	})
 
+	// A single link's Quick Download prepares in the background: a placeholder
+	// row is swapped for what the probe prepared (see quick-download-pipeline).
+	async function swapped(api: ReturnType<typeof buildMockAppApi>) {
+		await vi.waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalled())
+		return vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
+	}
+
 	it('opens the mixed URL prompt instead of silently forcing a watch/list URL to single-video mode', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
@@ -183,11 +190,11 @@ describe('quickDownload', () => {
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
 		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp/downloads', settings})
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 
 		expect(api.downloads.probe).not.toHaveBeenCalled()
 		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardUrl: mixedUrl, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'quick-download', quickDownloadStatus: 'idle'})
+		expect(useAppStore.getState()).toMatchObject({wizardUrl: mixedUrl, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'url-tab', quickDownloadStatus: 'idle'})
 	})
 
 	it('resumes quick download in single-video mode when the mixed URL prompt chooses the video', async () => {
@@ -199,11 +206,11 @@ describe('quickDownload', () => {
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
 		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp/downloads', settings: {...settings, common: {...settings.common, rememberLastOutputDir: false, clipboardWatchEnabled: false, filenameTemplate: '{title} [{id}]'}}})
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 		await useAppStore.getState().dismissMixedPrompt('video')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video'})
-		const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0]
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video', ownerKey: expect.any(String)})
+		const [queued] = await swapped(api)
 		expect(queued).toMatchObject({
 			url: VIDEO_PROBE.webpageUrl,
 			title: 'Test Video',
@@ -216,7 +223,6 @@ describe('quickDownload', () => {
 		})
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 	})
 
 	it('queues the whole playlist when quick download mixed URL prompt chooses the playlist', async () => {
@@ -227,15 +233,15 @@ describe('quickDownload', () => {
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
 		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
 		await useAppStore.getState().dismissMixedPrompt('playlist')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', playlistScope: expect.any(Object)})
-		const items = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0] ?? []
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', ownerKey: expect.any(String)})
+		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
 		expect(items.every(item => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true)
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickDownloadStatus: 'queued'})
+		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
 	it('works on first launch with default profile settings', async () => {
@@ -245,42 +251,21 @@ describe('quickDownload', () => {
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp/first-launch-downloads', settings: defaultAppSettings('/tmp/first-launch-downloads')})
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: YOUTUBE_URL, entry: 'url-tab'})
 
-		const queued = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0]?.[0]
+		const [queued] = await swapped(api)
 		expect(queued).toMatchObject({outputDir: '/tmp/first-launch-downloads/Balanced 720p', formatLabel: 'Up to 720p · Native formats · Native audio', job: expect.objectContaining({kind: 'ranged-format', intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}}})})
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 		expect(useAppStore.getState().wizardUrl).toBe('')
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
 	it('resets quick-download feedback when the URL changes', () => {
-		useAppStore.setState({quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'exception', message: 'Previous failure'}})
+		useAppStore.setState({quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'exception', message: 'Previous failure', urls: [YOUTUBE_URL]}})
 
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 
 		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
 		expect(useAppStore.getState().quickDownloadFailure).toBeNull()
-	})
-
-	it('sets preparing while the probe is in flight', async () => {
-		const api = buildMockAppApi()
-		let resolveProbe!: (v: Result<ProbeResult, ProbeError>) => void
-		vi.mocked(api.downloads.probe).mockReturnValue(
-			new Promise<Result<ProbeResult, ProbeError>>(res => {
-				resolveProbe = res
-			})
-		)
-		window.appApi = api
-
-		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
-		const promise = useAppStore.getState().quickDownload()
-
-		expect(useAppStore.getState().quickDownloadStatus).toBe('preparing')
-
-		resolveProbe(ok(VIDEO_PROBE))
-		await promise
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 	})
 
 	it('queues every loaded playlist entry with the active profile', async () => {
@@ -289,10 +274,10 @@ describe('quickDownload', () => {
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: 'https://www.youtube.com/playlist?list=PLtest', entry: 'url-tab'})
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', playlistScope: expect.any(Object)})
-		const items = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0] ?? []
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', ownerKey: expect.any(String)})
+		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
 		expect(items.every(item => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true)
@@ -305,38 +290,34 @@ describe('quickDownload', () => {
 				]
 			})
 		)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
-	it('opens playlist review instead of silently queueing when an unknown URL probes as a playlist', async () => {
+	it('asks for a review on the row instead of silently queueing when an unknown URL probes as a playlist', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok({...PLAYLIST_PROBE, webpageUrl: 'https://example.com/course'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: 'https://example.com/course', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: 'https://example.com/course', entry: 'url-tab'})
 
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'playlist', playlistTitle: 'My Playlist', quickDownloadStatus: 'idle'})
+		await vi.waitFor(() => expect(api.queue.cmd.needsChoice).toHaveBeenCalledWith({itemId: expect.any(String), choice: {kind: 'playlist-review', count: 2}, title: 'My Playlist'}))
+		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickDownloadStatus: 'idle'})
 	})
 
-	it('opens the quick playlist cap dialog when a playlist quick scan is capped', async () => {
+	it('asks how many to queue on the row when a playlist quick scan is capped', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbeWithEntries(101)))
 		window.appApi = api
 
 		const settings = defaultAppSettings('/tmp')
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: {...settings, common: {...settings.common, playlistProbeLimit: 100}}})
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: 'https://www.youtube.com/playlist?list=PLtest', entry: 'url-tab'})
 
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().wizardStep).toBe('url')
-		expect(useAppStore.getState().playlistLikelyCapped).toBe(true)
-		expect(useAppStore.getState().playlistItems).toHaveLength(100)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
-		expect(useAppStore.getState().quickDownloadFailure).toBeNull()
-		expect(useAppStore.getState().quickPlaylistCapDialogOpen).toBe(true)
+		await vi.waitFor(() => expect(api.queue.cmd.needsChoice).toHaveBeenCalledWith(expect.objectContaining({choice: {kind: 'playlist-cap', loaded: 100}})))
+		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickPlaylistCapDialogOpen: false, playlistItems: []})
 	})
 
 	it('queues capped playlist loaded items with the active profile', async () => {
@@ -496,50 +477,6 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 	})
 
-	it('retryQuickDownloadFailure preserves a mixed URL single-video choice', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))
-		window.appApi = api
-
-		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownload()
-		await useAppStore.getState().dismissMixedPrompt('video')
-
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video'})
-		expect(useAppStore.getState().quickDownloadFailure?.kind).toBe('probe')
-
-		vi.mocked(api.downloads.probe).mockClear()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		await useAppStore.getState().retryQuickDownloadFailure()
-
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video'})
-		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-	})
-
-	it('retryQuickDownloadFailure preserves a mixed URL playlist choice', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))
-		window.appApi = api
-
-		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownload()
-		await useAppStore.getState().dismissMixedPrompt('playlist')
-
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', playlistScope: expect.any(Object)})
-		expect(useAppStore.getState().quickDownloadFailure?.kind).toBe('probe')
-
-		vi.mocked(api.downloads.probe).mockClear()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
-		await useAppStore.getState().retryQuickDownloadFailure()
-
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', playlistScope: expect.any(Object)})
-		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-	})
-
 	it('retryQuickDownloadWithCookies enables configured cookies before rerunning a failed bulk URL list', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}))
@@ -582,54 +519,16 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(0)
 	})
 
-	it('ignores stale quickDownload exceptions after cancellation', async () => {
+	it('keeps the URL when the row cannot be placed', async () => {
 		const api = buildMockAppApi()
-		let rejectProbe!: (reason: Error) => void
-		vi.mocked(api.downloads.probe).mockReturnValue(
-			new Promise<Result<ProbeResult, ProbeError>>((_, reject) => {
-				rejectProbe = reject
-			})
-		)
-		window.appApi = api
-
-		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
-		const promise = useAppStore.getState().quickDownload()
-		expect(useAppStore.getState().quickDownloadStatus).toBe('preparing')
-
-		useAppStore.getState().cancelQuickDownload()
-		rejectProbe(new Error('late probe failure'))
-		await promise
-
-		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
-		expect(useAppStore.getState().quickDownloadFailure).toBeNull()
-	})
-
-	it('keeps the URL and shows an error when probing fails', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))
-		window.appApi = api
-
-		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
-		await useAppStore.getState().quickDownload()
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().wizardUrl).toBe(YOUTUBE_URL)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('error')
-		expect(useAppStore.getState().quickDownloadFailure).toEqual({kind: 'probe', error: {kind: 'other', code: 'unknown', message: 'Probe failed'}})
-	})
-
-	it('keeps the URL and shows an error when queue add fails', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
 		vi.mocked(api.queue.cmd.add).mockResolvedValue(fail({code: 'validation', message: 'Queue failed'}))
 		window.appApi = api
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp'})
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: YOUTUBE_URL, entry: 'url-tab'})
 
 		expect(useAppStore.getState().wizardUrl).toBe(YOUTUBE_URL)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('error')
-		expect(useAppStore.getState().quickDownloadFailure).toEqual({kind: 'queue', message: 'Queue failed'})
+		expect(api.downloads.probe).not.toHaveBeenCalled()
 	})
 
 	it('opens the cookies config dialog without probing when cookies settings are incomplete', async () => {
@@ -638,9 +537,10 @@ describe('quickDownload', () => {
 
 		useAppStore.setState({wizardUrl: YOUTUBE_URL, wizardOutputDir: '/tmp', settings: {...defaultAppSettings('/tmp'), common: {...defaultAppSettings('/tmp').common, rememberLastOutputDir: false, clipboardWatchEnabled: false, cookiesMode: 'file', cookiesPath: ''}}})
 
-		await useAppStore.getState().quickDownload()
+		await useAppStore.getState().quickDownload({url: YOUTUBE_URL, entry: 'url-tab'})
 
 		expect(api.downloads.probe).not.toHaveBeenCalled()
+		expect(api.queue.cmd.add).not.toHaveBeenCalled()
 		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
 		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
 	})

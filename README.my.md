@@ -23,14 +23,15 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 ---
 
 ## မာတိကာ
 
+- [လုပ်ဆောင်ချက်များ](#features)
 - [ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း](#install)
   - [Windows ပထမဆုံး launch](#windows-first-launch)
   - [macOS ပထမဆုံး launch](#macos-first-launch)
@@ -38,12 +39,96 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
   - [Linux ပထမဆုံး launch](#linux-first-launch)
   - [သင့်ဒေါင်းလုဒ်ကို အတည်ပြုပါ (SHA256)](#verify)
 - [Arroxy ဘာကြောင့်](#why)
-- [လုပ်ဆောင်ချက်များ](#features)
 - [ကိုယ်ရေးကိုယ်တာ](#privacy)
 - [မေးလေ့ရှိသောမေးခွန်းများ](#faq)
 - [လမ်းပြမြေပုံ](#roadmap)
 - [Arroxy ကို ပံ့ပိုးရန်](#support)
 - [တည်ဆောက်ထားသောနည်းပညာ](#tech)
+
+---
+
+## <a id="features"></a>လုပ်ဆောင်ချက်များ
+
+### Explore: Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပါ
+
+- **Explore tab** — Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး လင့်ခ်မကူးဘဲ တွေ့သည့်အရာကို ဒေါင်းလုဒ်လုပ်ပါ။ **ဒေါင်းလုဒ် · *သင့်ပရိုဖိုင်*** သည် သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို စာရင်းထဲထည့်ပေးသည်၊ ဘေးရှိ မြှားက ပရိုဖိုင်ပြောင်းပေးပြီး မှော်လှံတံက format၊ subtitle စသည်တို့ကို ရွေးရန် အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပေးသည်
+- **လိပ်စာဘား** — YouTube တွင် ရှာဖွေရန် ရိုက်ထည့်ပါ သို့မဟုတ် YouTube လင့်ခ်ကို ကူးထည့်ပါ။ Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သဖြင့် အခြားဝက်ဘ်ဆိုက်မှ လင့်ခ်ကို ထိုနေရာတွင် မဖွင့်ပေးသော်လည်း တစ်ချက်နှိပ်ရုံဖြင့် ဒေါင်းလုဒ်လုပ်နိုင်သည်
+- **အကောင့်လိုသော ဒေါင်းလုဒ်များ** — Explore တွင် တစ်ကြိမ် sign in လုပ်ထားလျှင် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ Arroxy သည် sign out အခြေအနေတွင်ပင် ဒေါင်းလုဒ်လုပ်ပြီး အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ သင်၏ Explore sign-in ကို အသုံးပြုသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါတွင်လည်း Arroxy က သင်၏ Explore sign-in ကို စမ်းကြည့်သည်
+- **အရန်အကောင့် သုံးပါ** — Explore ၏ ပထမဆုံးမျက်နှာပြင်က အကြောင်းရင်းကို ရှင်းပြထားသည် - အကောင့်ဖြင့် ဒေါင်းလုဒ်လုပ်ခြင်းသည် ထိုအကောင့် ကန့်သတ်ခံရနိုင်သည့် အန္တရာယ် အနည်းငယ်ရှိသည်။ sign-in ကို မေ့စေလိုသည့်အခါ ဆက်တင်များမှ Explore ကို အချိန်မရွေး sign out လုပ်ပါ
+- **ကြော်ငြာပိတ်ဆို့ကိရိယာ** — Explore သည် ၎င်း၏ကိုယ်ပိုင်စာမျက်နှာများတွင် ကြော်ငြာနှင့် tracker များကို ပိတ်ဆို့သည်၊ ဒေါင်းလုဒ်များကို မထိခိုက်ပါ။ မူရင်းအတိုင်း ဖွင့်ထားပြီး Explore toolbar ရှိ ဒိုင်းလွှားကို တစ်ချက်နှိပ်ရုံဖြင့် ပိတ်နိုင်ကာ Google ၏ sign-in စာမျက်နှာများတွင် ဘယ်တော့မှ အလုပ်မလုပ်ပါ။ sign in ဝင်ထားသော အကောင့်များအတွက် YouTube က ကြော်ငြာပိတ်ဆို့ကိရိယာကို ပြန်လည်တားဆီးနိုင်သည်
+
+### အရည်အသွေးနှင့် format များ
+
+- **4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p
+- **High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR
+- **အသံ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်ပါ။ interactive downloads တွင် ရနိုင်ပါက source ၏ native surround/Dolby tracks (AC-3၊ E-AC-3၊ 5.1၊ DRC) ကို ရွေးချယ်ပါ၊ သို့မဟုတ် global default **surround / Dolby ကို ဦးစားပေးပါ** ကို သတ်မှတ်ပါ
+- အမြန် presets: *အကောင်းဆုံးအရည်အသွေး* · * မျှတသော* · *ဖိုင်ငယ်*
+
+### ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု
+
+- 100% local processing — ဒေါင်းလုဒ်များသည် YouTube မှ တိုက်ရိုက် သင့် disk သို့ သွားသည်
+- Login မပါ၊ cookie မပါ၊ Google account ချိတ်ဆက်မှုမပါ
+- သင်ရွေးချယ်သောဖိုဒါတွင် ဖိုင်များကို တိုက်ရိုက်သိမ်းဆည်းသည်
+
+### Workflow
+
+- **စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်** — မည်သည့်အက်ပ်တွင်မဆို လင့်ခ်ကို ကူးယူပြီး `Ctrl+Shift+D` (macOS တွင် `Cmd+Shift+D`) ကိုနှိပ်ပါ။ Arroxy သည် ဝင်းဒိုးမဖွင့်ဘဲ သင့်လက်ရှိပရိုဖိုင်ဖြင့် စာရင်းထဲထည့်ပေးပြီး အသိပေးချက်ဖြင့် အတည်ပြုပါသည်။ မူရင်းအတိုင်း ဖွင့်ထားပြီး ပြန်သတ်မှတ်နိုင်သည်
+- **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သိမ်းထားသော defaults ဖြင့် Quick Download၊ သို့မဟုတ် Explore တွင် ကြည့်ရှုပြီး ဒေါင်းလုဒ်လုပ်ခြင်းတို့ကို ရွေးပါ
+- **ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်
+- **Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)
+- **Auto-clean URLs** — tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ကိုဖယ်ရှားပြီး `youtube.com/redirect` links ကိုဖြေရှင်းသည်
+- **Tray mode** — window ကိုပိတ်လျှင် downloads များသည် နောက်ကွယ်တွင် ဆက်လည်ပတ်နေသည်
+- **30 ဘာသာစကား** — စနစ်ဒေသကို အလိုအလျောက်သိရှိနိုင်ပြီး အချိန်မရွေးပြောင်းနိုင်သည်
+- **Playlist sync** — ဒေါင်းလုဒ်လုပ်ပြီးသား ဗီဒီယိုများကို ကျော်ရန် playlist ကို local folder နှင့် ပြန်စစ်ဆေးပြီး၊ ဗီဒီယိုတစ်ခုစီ ဒေါင်းလုဒ်ပြီးတိုင်း အပ်ဒိတ်ဖြစ်သော `.m3u` playlist ဖိုင်ကို ဖန်တီးသည်
+- **Speed နှင့် pacing controls** — download bandwidth ကိုကန့်သတ်ပါ၊ ဗီဒီယိုအပိုင်းမည်မျှကို တစ်ပြိုင်နက် download လုပ်မည်ကို သတ်မှတ်ပါ၊ presets (*Off · Balanced · Careful · Custom*) ဖြင့် request delays ထည့်ပါ
+- **ဖိုင်အမည် ပုံစံခွက်များ** — `{title}`၊ `{uploader}`၊ `{id}`၊ `{date}`၊ `{resolution}` နှင့် `{playlist_index}` တို့ဖြင့် ဒေါင်းလုဒ်များကို သင်နှစ်သက်သလို အမည်ပေးပါ။ အထွေထွေ သို့မဟုတ် ဒေါင်းလုဒ်ပရိုဖိုင်တစ်ခုစီအလိုက် သတ်မှတ်နိုင်သည်
+- **တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ နှင့် အလိုအလျောက် ပြန်ကြိုးစားမှု** — တန်းစီထားသော ဒေါင်းလုဒ်မည်မျှကို တစ်ပြိုင်နက် လုပ်မည်ကို ရွေးပါ၊ ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာ ကြုံရသော ဒေါင်းလုဒ်ကို Arroxy သည် ကြိုးစားမှုတိုင်းမတိုင်မီ ပိုကြာစွာ စောင့်ပြီး ပြန်ကြိုးစားပါမည်
+- **Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်** — list တစ်ခုလုံးအတွက် setting တစ်ခုတည်း အသုံးပြုမည့်အစား၊ playlist ထဲက ဗီဒီယိုတစ်ခုစီကို ၎င်းတို့ ကိုယ်ပိုင် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပေးနိုင်သဖြင့် တစ်ကြိမ်တည်းတွင် အချို့ကို အရည်အသွေးအပြည့်ဖြင့် သိမ်းဆည်းပြီး ကျန်တာကို MP3 အနေနှင့် ရယူနိုင်သည်
+- **Quick Download သည် နောက်ခံတွင် အလုပ်လုပ်သည်** — လင့်ခ်သည် ဒေါင်းလုဒ်များထဲတွင် ချက်ချင်းပေါ်လာပြီး ထိုနေရာတွင်ပင် ပြင်ဆင်ပေးကာ **ကြည့်ရန်** ပါသော မှတ်စုက အတည်ပြုပေးပြီး နောက်လင့်ခ်အတွက် URL အကွက်ကို ရှင်းပေးသည်။ ယခင်ဟာများ ပြင်ဆင်နေစဉ်မှာပင် လိုသလောက် စတင်နိုင်သည်
+- **ဒေါင်းလုဒ်များက သင့်အကူအညီလိုသည်ကို ပြောပြသည်** — Arroxy က လင့်ခ်ကို မဖတ်နိုင်ပါက ၎င်း၏အတန်းတွင် အကြောင်းရင်းကိုပြပြီး ဖြေရှင်းနည်းကို အကြံပြုသည် - ထပ်မံကြိုးစားမည်၊ cookie ဖွင့်ပါ သို့မဟုတ် Explore တွင် sign in ဝင်ပါ။ cookie ပိတ်ထားလျှင် သင် sign in ဝင်ပြီးနောက် **Explore ဖြင့် Sign in** က သင့်အတွက် ပြန်စမ်းပေးသည်။ load ကန့်သတ်ချက်ထက် ရှည်သော playlist သည် ၎င်း၏အတန်းပေါ်တွင် စောင့်နေပြီး အားလုံး၊ ပထမအနည်းငယ် သို့မဟုတ် ပြန်လည်စစ်ဆေးခြင်းကို သင်ရွေးရန် စောင့်သည်။ ဒေါင်းလုဒ်များ tab တွင် သင့်ကိုစောင့်နေသော အတန်းအရေအတွက်ကို ပြသည်
+
+### Subtitles နှင့် post-processing
+
+- SRT, VTT သို့မဟုတ် ASS တွင် **Subtitles** — ကိုယ်တိုင်ရိုက်ထည့်ထားသော သို့မဟုတ် auto-generated၊ မည်သည့် language မဆို
+- ဗီဒီယိုဘေးတွင်သိမ်းပါ၊ `.mkv` ထဲ embed လုပ်ပါ၊ သို့မဟုတ် `Subtitles/` subfolder တွင် စီစဉ်ပါ
+- **စာတန်းထိုးသီးသန့် အစုလိုက်** — URL စာရင်းကို ကူးထည့်ပါ သို့မဟုတ် ပလေးလစ်ကို ဖွင့်ပါ၊ စာတန်းထိုးကို ရွေးပါ၊ ဗီဒီယိုတစ်ခုချင်းစီအတွက် စာတန်းထိုးဖိုင်များကိုသာ ရယူပါ
+- **SponsorBlock** — sponsors, intros, outros, self-promos ကို ကျော်ပြီး chapter-mark လုပ်ပါ
+- **Embedded metadata** — ခေါင်းစဉ်၊ upload date, channel, description, thumbnail နှင့် chapter markers တို့ကို ဖိုင်ထဲသို့ ရေးသွင်းသည်
+
+### YouTube + ၂၀၀၀ ဆိုဒ်
+
+- **YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်
+- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org နှင့် အခြားအများကြီး
+- **အသံသာနှင့် subtitle များ** ထောက်ပံ့သောဆိုဒ်တိုင်းတွင် အလုပ်လုပ်သည်၊ YouTube တွင်သာမဟုတ်
+- ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး ကြည့်နေသော စာမျက်နှာကို လက်ရှိပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်လုပ်ပါ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore ၏ ပထမဆုံးမျက်နှာပြင်</b><br/>Explore ကို အကျဉ်းချုပ်ကြည့်ခြင်းနှင့် အရန်အကောင့်က sign in ဝင်ရန် ပိုလုံခြုံသည့် အကြောင်းရင်း</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ဒေါင်းလုဒ်များက သင့်အကူအညီလိုသည်ကို ပြောပြသည်</b><br/>လင့်ခ်များကို နောက်ခံတွင် ပြင်ဆင်သည်၊ မအောင်မြင်သည့်လင့်ခ်က ဖြေရှင်းနည်းပေးပြီး ရှည်သော playlist က သင့်ရွေးချယ်မှုကို စောင့်သည်</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy ၏ စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ် — Windows နှင့် Linux တွင် Ctrl+Shift+D၊ macOS တွင် Cmd+Shift+D ဖြင့် ကူးယူထားသောလင့်ခ်ကို ဒေါင်းလုဒ်စာရင်းသို့ တိုက်ရိုက်ပို့သည်" width="760" /></picture><br/><sub><b>စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်</b><br/>ဘယ်နေရာမှာမဆို လင့်ခ်ကူးပြီး တစ်ချက်နှိပ်လိုက်ရုံ — စာရင်းထဲရောက်ပြီး ဒေါင်းလုဒ်စတင်</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို MP3 အဖြစ် ရယူပါ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>အမြန်ဒေါင်းလုဒ် ပင်မ</b><br/>URL ကို ကူးထည့်ပြီး သင့်လက်ရှိ ပရိုဖိုင်ဖြင့် ချက်ချင်းဒေါင်းလုဒ်လုပ်ပါ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>ပြန်သုံးနိုင်သော ဒေါင်းလုဒ်ပရိုဖိုင်များ</b><br/>ဖော်မတ်၊ အရည်အသွေးနှင့် အထွက်ကို ကြိုတင်သတ်မှတ်ချက်အဖြစ် သိမ်းပါ — ဒေါင်းလုဒ်တိုင်းတွင် ပြန်သုံးပါ</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>ဘာသာစကားစုံ အသံလမ်းကြောင်းများ</b><br/>ဗီဒီယိုပါ တိကျသော အသံဘာသာစကားကို ရွေးပါ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby အသံ</b><br/>5.1 နှင့် Dolby လမ်းကြောင်းများကို ရှာဖွေ ထိန်းသိမ်းပေးသည်</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>အစုလိုက် URL မုဒ်</b><br/>စာရင်းကူးထည့်ပါ၊ ပွားနေသည်များကို အလိုအလျောက်ဖယ်ရှားပါ၊ အားလုံးကို တစ်ပြိုင်နက်တန်းစီပါ</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>ပြိုင်တူ ဒေါင်းလုဒ်တန်းစီ</b><br/>တိုက်ရိုက်တိုးတက်မှုဖြင့် တစ်ပြိုင်နက် ဒေါင်းလုဒ်များစွာ</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -223,80 +308,11 @@ Third-party malware scan လိုချင်ပါသလား? [VirusTotal](h
 | အခမဲ့၊ premium tier မပါ |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Open source |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Local processing သာ |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Login သို့မဟုတ် cookie export မလိုအပ် |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | အသုံးပြုမှုကန့်သတ်ချက်မပါ |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Cross-platform desktop app |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Subtitles + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချက်ဖြင့် တည်ဆောက်ထားသည်: URL ကို paste လုပ်ပြီး ကောင်းမွန်သောသော local file ကိုရရှိပါ။ Account မပါ၊ upsell မပါ၊ data ကောက်ခံမှုမပါ။
-
----
-
-## <a id="features"></a>လုပ်ဆောင်ချက်များ
-
-### အရည်အသွေးနှင့် format များ
-
-- **4K UHD (2160p)** အထိ၊ 1440p, 1080p, 720p, 480p, 360p
-- **High frame rate** ကို မူရင်းအတိုင်း ထိန်းသိမ်း — 60 fps, 120 fps, HDR
-- **အသံ** — အသံသာကို MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV အဖြစ် export လုပ်ပါ။ interactive downloads တွင် ရနိုင်ပါက source ၏ native surround/Dolby tracks (AC-3၊ E-AC-3၊ 5.1၊ DRC) ကို ရွေးချယ်ပါ၊ သို့မဟုတ် global default **surround / Dolby ကို ဦးစားပေးပါ** ကို သတ်မှတ်ပါ
-- အမြန် presets: *အကောင်းဆုံးအရည်အသွေး* · * မျှတသော* · *ဖိုင်ငယ်*
-
-### ကိုယ်ရေးကိုယ်တာနှင့် ထိန်းချုပ်မှု
-
-- 100% local processing — ဒေါင်းလုဒ်များသည် YouTube မှ တိုက်ရိုက် သင့် disk သို့ သွားသည်
-- Login မပါ၊ cookie မပါ၊ Google account ချိတ်ဆက်မှုမပါ
-- သင်ရွေးချယ်သောဖိုဒါတွင် ဖိုင်များကို တိုက်ရိုက်သိမ်းဆည်းသည်
-
-### Workflow
-
-- **စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်** — မည်သည့်အက်ပ်တွင်မဆို လင့်ခ်ကို ကူးယူပြီး `Ctrl+Shift+D` (macOS တွင် `Cmd+Shift+D`) ကိုနှိပ်ပါ။ Arroxy သည် ဝင်းဒိုးမဖွင့်ဘဲ သင့်လက်ရှိပရိုဖိုင်ဖြင့် စာရင်းထဲထည့်ပေးပြီး အသိပေးချက်ဖြင့် အတည်ပြုပါသည်။ မူရင်းအတိုင်း ဖွင့်ထားပြီး ပြန်သတ်မှတ်နိုင်သည်
-- **ပြောင်းလွယ်ပြင်လွယ် စတင်မုဒ်များ** — လမ်းညွှန်ထားသော single download၊ playlist/channel picker၊ bulk URL paste၊ သို့မဟုတ် သိမ်းထားသော defaults ဖြင့် Quick Download ကိုရွေးပါ
-- **ဗဟို download queue** — single၊ playlist၊ bulk၊ quick job အားလုံးသည် progress၊ pause၊ resume၊ cancel၊ retry နှင့် priority control အတွက် တစ်နေရာတည်းသို့ ရောက်သည်
-- **Clipboard watch** — YouTube link ကို copy လုပ်ပြီး app ကို refocus လုပ်သောအခါ Arroxy သည် URL ကို auto-fill လုပ်သည် (Advanced settings တွင် toggle နှိပ်ပါ)
-- **Auto-clean URLs** — tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ကိုဖယ်ရှားပြီး `youtube.com/redirect` links ကိုဖြေရှင်းသည်
-- **Tray mode** — window ကိုပိတ်လျှင် downloads များသည် နောက်ကွယ်တွင် ဆက်လည်ပတ်နေသည်
-- **30 ဘာသာစကား** — စနစ်ဒေသကို အလိုအလျောက်သိရှိနိုင်ပြီး အချိန်မရွေးပြောင်းနိုင်သည်
-- **Playlist sync** — ဒေါင်းလုဒ်လုပ်ပြီးသား ဗီဒီယိုများကို ကျော်ရန် playlist ကို local folder နှင့် ပြန်စစ်ဆေးပြီး၊ ဗီဒီယိုတစ်ခုစီ ဒေါင်းလုဒ်ပြီးတိုင်း အပ်ဒိတ်ဖြစ်သော `.m3u` playlist ဖိုင်ကို ဖန်တီးသည်
-- **Speed နှင့် pacing controls** — download bandwidth ကိုကန့်သတ်ပါ၊ ဗီဒီယိုအပိုင်းမည်မျှကို တစ်ပြိုင်နက် download လုပ်မည်ကို သတ်မှတ်ပါ၊ presets (*Off · Balanced · Careful · Custom*) ဖြင့် request delays ထည့်ပါ
-- **ဖိုင်အမည် ပုံစံခွက်များ** — `{title}`၊ `{uploader}`၊ `{id}`၊ `{date}`၊ `{resolution}` နှင့် `{playlist_index}` တို့ဖြင့် ဒေါင်းလုဒ်များကို သင်နှစ်သက်သလို အမည်ပေးပါ။ အထွေထွေ သို့မဟုတ် ဒေါင်းလုဒ်ပရိုဖိုင်တစ်ခုစီအလိုက် သတ်မှတ်နိုင်သည်
-- **တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ နှင့် အလိုအလျောက် ပြန်ကြိုးစားမှု** — တန်းစီထားသော ဒေါင်းလုဒ်မည်မျှကို တစ်ပြိုင်နက် လုပ်မည်ကို ရွေးပါ၊ ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာ ကြုံရသော ဒေါင်းလုဒ်ကို Arroxy သည် ကြိုးစားမှုတိုင်းမတိုင်မီ ပိုကြာစွာ စောင့်ပြီး ပြန်ကြိုးစားပါမည်
-- **Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်** — list တစ်ခုလုံးအတွက် setting တစ်ခုတည်း အသုံးပြုမည့်အစား၊ playlist ထဲက ဗီဒီယိုတစ်ခုစီကို ၎င်းတို့ ကိုယ်ပိုင် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပေးနိုင်သဖြင့် တစ်ကြိမ်တည်းတွင် အချို့ကို အရည်အသွေးအပြည့်ဖြင့် သိမ်းဆည်းပြီး ကျန်တာကို MP3 အနေနှင့် ရယူနိုင်သည်
-
-### Subtitles နှင့် post-processing
-
-- SRT, VTT သို့မဟုတ် ASS တွင် **Subtitles** — ကိုယ်တိုင်ရိုက်ထည့်ထားသော သို့မဟုတ် auto-generated၊ မည်သည့် language မဆို
-- ဗီဒီယိုဘေးတွင်သိမ်းပါ၊ `.mkv` ထဲ embed လုပ်ပါ၊ သို့မဟုတ် `Subtitles/` subfolder တွင် စီစဉ်ပါ
-- **စာတန်းထိုးသီးသန့် အစုလိုက်** — URL စာရင်းကို ကူးထည့်ပါ သို့မဟုတ် ပလေးလစ်ကို ဖွင့်ပါ၊ စာတန်းထိုးကို ရွေးပါ၊ ဗီဒီယိုတစ်ခုချင်းစီအတွက် စာတန်းထိုးဖိုင်များကိုသာ ရယူပါ
-- **SponsorBlock** — sponsors, intros, outros, self-promos ကို ကျော်ပြီး chapter-mark လုပ်ပါ
-- **Embedded metadata** — ခေါင်းစဉ်၊ upload date, channel, description, thumbnail နှင့် chapter markers တို့ကို ဖိုင်ထဲသို့ ရေးသွင်းသည်
-
-### YouTube + ၂၀၀၀ ဆိုဒ်
-
-- **YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်
-- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org နှင့် အခြားအများကြီး
-- **အသံသာနှင့် subtitle များ** ထောက်ပံ့သောဆိုဒ်တိုင်းတွင် အလုပ်လုပ်သည်၊ YouTube တွင်သာမဟုတ်
-- ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy ၏ စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ် — Windows နှင့် Linux တွင် Ctrl+Shift+D၊ macOS တွင် Cmd+Shift+D ဖြင့် ကူးယူထားသောလင့်ခ်ကို ဒေါင်းလုဒ်စာရင်းသို့ တိုက်ရိုက်ပို့သည်" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်</b><br/>ဘယ်နေရာမှာမဆို လင့်ခ်ကူးပြီး တစ်ချက်နှိပ်လိုက်ရုံ — စာရင်းထဲရောက်ပြီး ဒေါင်းလုဒ်စတင်</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို MP3 အဖြစ် ရယူပါ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>အမြန်ဒေါင်းလုဒ် ပင်မ</b><br/>URL ကို ကူးထည့်ပြီး သင့်လက်ရှိ ပရိုဖိုင်ဖြင့် ချက်ချင်းဒေါင်းလုဒ်လုပ်ပါ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>ပြန်သုံးနိုင်သော ဒေါင်းလုဒ်ပရိုဖိုင်များ</b><br/>ဖော်မတ်၊ အရည်အသွေးနှင့် အထွက်ကို ကြိုတင်သတ်မှတ်ချက်အဖြစ် သိမ်းပါ — ဒေါင်းလုဒ်တိုင်းတွင် ပြန်သုံးပါ</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>ဘာသာစကားစုံ အသံလမ်းကြောင်းများ</b><br/>ဗီဒီယိုပါ တိကျသော အသံဘာသာစကားကို ရွေးပါ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround / Dolby အသံ</b><br/>5.1 နှင့် Dolby လမ်းကြောင်းများကို ရှာဖွေ ထိန်းသိမ်းပေးသည်</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>အစုလိုက် URL မုဒ်</b><br/>စာရင်းကူးထည့်ပါ၊ ပွားနေသည်များကို အလိုအလျောက်ဖယ်ရှားပါ၊ အားလုံးကို တစ်ပြိုင်နက်တန်းစီပါ</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>ပြိုင်တူ ဒေါင်းလုဒ်တန်းစီ</b><br/>တိုက်ရိုက်တိုးတက်မှုဖြင့် တစ်ပြိုင်နက် ဒေါင်းလုဒ်များစွာ</sub></td>
-  </tr>
-</table>
+Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချက်ဖြင့် တည်ဆောက်ထားသည်: URL ကို paste လုပ်ပြီး ကောင်းမွန်သောသော local file ကိုရရှိပါ။ upsell မပါ၊ data ကောက်ခံမှုမပါ။
 
 ---
 
@@ -305,6 +321,8 @@ Arroxy ကို တစ်ခုတည်းသောရည်ရွယ်ချ
 Downloads များကို [yt-dlp](https://github.com/yt-dlp/yt-dlp) မှတဆင့် YouTube မှ တိုက်ရိုက် သင်ရွေးချယ်သောဖိုဒါသို့ fetch လုပ်သည် — third-party server မှတဆင့် routing မလုပ်ပါ။ ကြည့်ရှုမှတ်တမ်း၊ ဒေါင်းလုဒ်မှတ်တမ်း၊ URL များနှင့် ဖိုင်အကြောင်းအရာများသည် သင့်ကိရိယာပေါ်တွင်သာ ကျန်ရှိသည်။
 
 Arroxy သည် [OpenPanel](https://openpanel.dev) မှတဆင့် anonymous aggregate telemetry ပေးပို့သည် — failures, crashes, feedback, OS နှင့် app versions များကို နားလည်ရန်လောက်သာ။ URLs, video titles, file paths, account info, fingerprinting သို့မဟုတ် personal data မရှိပါ။ per-install ID သည် random ဖြစ်ပြီး သင့် identity နှင့် မချိတ်ဆက်ထားပါ။ Settings တွင် opt out လုပ်နိုင်သည်။
+
+Explore သည် သင့် browser နှင့် သီးခြားဖြစ်သော ကိုယ်ပိုင် sign-in ကို ထားရှိပြီး Arroxy က sign-in ဖောင်ကို ဘယ်တော့မှ မဖတ်ပါ၊ မဖြည့်ပါ — Google ၏ ကိုယ်ပိုင်စာမျက်နှာတွင် သင်ကိုယ်တိုင် ရိုက်ထည့်ရသည်။ ဒေါင်းလုဒ်များသည် sign out အခြေအနေတွင် လုပ်ဆောင်သည်၊ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ Arroxy က sign-in ကို အသစ်ပြန်ဖတ်ပြီး ထိုဒေါင်းလုဒ်အတွက် ယာယီဖိုင်တွင်ထားကာ နောက်မှ ထိုဖိုင်ကို ဖျက်သည်။ ဆက်တင်များတွင် Explore မှ sign out လုပ်ပါက sign-in ကို မေ့သွားသည်။
 
 ---
 
@@ -319,11 +337,11 @@ YouTube ပေးသောအရာများအားလုံး: 4K UHD (21
 **Audio ကိုသာ MP3 အဖြစ် ထုတ်ယူနိုင်သလား?**
 ဟုတ်ပါတယ်။ format menu ထဲက *အသံသာ* ကိုရွေးပြီး MP3၊ M4A/AAC၊ Opus သို့မဟုတ် WAV ကိုရွေးပါ။
 
-**YouTube account သို့မဟုတ် cookie လိုအပ်သလား?**
-ပုံမှန်အားဖြင့် မလိုအပ်ပါ — Arroxy သည် YouTube account, login သို့မဟုတ် cookie export မပါဘဲ အလုပ်လုပ်သည်။ အသက်အရွယ်ကန့်သတ်ထားသော သို့မဟုတ် member-only ဗီဒီယိုကဲ့သို့ authentication လိုအပ်သော content များအတွက် Advanced settings တွင် optional cookie support (Cookies source: file or browser) ရရှိနိုင်ပါသည်။ default အားဖြင့် ပိတ်ထားသည်။ သင်ဖွင့်လိုက်ပါက yt-dlp ၏ wiki က [cookie-based automation သည် Google account ကို flag လုပ်နိုင်ကြောင်း](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) သတိပေးထားသည်; ၎င်းအခြေအနေတွင် throwaway account တစ်ခုသည် ပိုပြီးဘေးကင်းသောရွေးချယ်မှုဖြစ်သည်။
+**YouTube account လိုအပ်သော ဗီဒီယိုများကို ဘယ်လို ဒေါင်းလုဒ်လုပ်ရမလဲ?**
+Explore tab တွင် တစ်ကြိမ် sign in ဝင်ပါ။ ထို့နောက် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ ထို sign-in ကို သုံးပြီး ကျန်အရာအားလုံးကို အရင်ကဲ့သို့ပင် ဒေါင်းလုဒ်လုပ်သည်။ ၎င်းမှာ cookie ဆက်တင်များတွင် ပထမဆုံးစာရင်းသွင်းထားပြီး "အကြံပြု" ဟု အမှတ်အသားပြထားသော **Explore sign-in** ရွေးချယ်မှုဖြစ်ပြီး Explore ကို ပထမဆုံးဖွင့်သောအခါ Arroxy က သင့်အတွက် ရွေးပေးသည်။ yt-dlp ၏ wiki က [sign in ဝင်ထားသော automation သည် Google account ကို flag လုပ်နိုင်ကြောင်း](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) သတိပေးထားသဖြင့် အရန် account တစ်ခုသည် ပိုပြီးဘေးကင်းသောရွေးချယ်မှုဖြစ်သည်။
 
 **YouTube တွင် တစ်ခုခုပြောင်းသောအခါ ဆက်လက်အလုပ်လုပ်မည်လား?**
-yt-dlp ကို launch တိုင်း အလိုအလျောက် update လုပ်ပြီး YouTube က တစ်ခုခု ပြောင်းလဲသောအခါ Arroxy က fix များကို လျင်မြန်စွာ ထုတ်ပေးသည်။ ပြဿနာတစ်စုံတစ်ရာ ကြုံတွေ့ခဲ့ပါက Advanced settings တွင် optional cookie support ကို fallback အဖြစ် ရရှိနိုင်ပါသည်။
+yt-dlp ကို launch တိုင်း အလိုအလျောက် update လုပ်ပြီး YouTube က တစ်ခုခု ပြောင်းလဲသောအခါ Arroxy က fix များကို လျင်မြန်စွာ ထုတ်ပေးသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါ Explore တွင် sign in ဝင်ထားလျှင် Arroxy က သင်၏ Explore sign-in ကိုလည်း စမ်းကြည့်ပြီး cookie ဆက်တင်များတွင် ဖိုင် သို့မဟုတ် browser မှ cookie များကိုလည်း သုံးနိုင်သည်။
 
 **Arroxy ကို မည်သည့်ဘာသာစကားများဖြင့် ရနိုင်သနည်း?**
 ချက်ချင်းအသုံးပြုနိုင်သော 30 ဘာသာစကားများ: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文။ Arroxy သည် ပထမဆုံးစတင်ချိန်တွင် သင့် operating system ဘာသာစကားကို အလိုအလျောက်သိရှိပြီး toolbar ရှိ ဘာသာစကားရွေးချယ်စနစ်မှ အချိန်မရွေးပြောင်းနိုင်သည်။ Runtime locale JSON သည် src/shared/i18n/locales/ တွင်ရှိပြီး ဘာသာပြန်သူများအတွက် PO catalog များသည် i18n/locales/ တွင်ရှိသည် — ပါဝင်ရန် GitHub တွင် PR ဖွင့်ပါ။
@@ -350,8 +368,6 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 | ---------------- | ---------------- |
 | **Playlist နှင့် channel filters** | playlist သို့မဟုတ် channel ကို enumerate လုပ်သည့်အခါ date-range filters |
 | **YouTube audio track preference များ** | YouTube တွင် audio tracks များစွာရှိပါက app တစ်ခုလုံးအတွက် spoken-language track preference သတ်မှတ်ပြီး profile တစ်ခုချင်းစီမှာ override လုပ်ပါ |
-| **App ထဲရှိ browser sign-in** | Arroxy ထဲတွင် browser windows ဖွင့်ပြီး sign in လုပ်ကာ site cookies ကို manually export မလုပ်ဘဲ အသုံးပြုနိုင်ရန် |
-| **တစ်ချက်နှိပ် video download** | active profile ဖြင့် detected သို့မဟုတ် pasted URL မှ video download ကို တစ်ချက်နှိပ်၍ စတင်ပါ |
 | **ပိုမိုခိုင်မာသော retry recovery** | မတည်ငြိမ်သော သို့မဟုတ် ပြဿနာရှိသော internet connection ကြောင့် ပြတ်တောက်သွားသော downloads များအတွက် retry လမ်းကြောင်းအသစ် |
 | **ပြည့်စုံသော download manager drawer** | queue drawer ကို ပိုမိုပြည့်စုံသော manager အဖြစ် ပြောင်းလဲပြီး queued items များအတွက် destination folder ပြောင်းလဲနိုင်ရန် |
 | **ဒေါင်းလုဒ်ချိန်သတ်မှတ်ခြင်း** | သတ်မှတ်ချိန်တွင် queue ကို စတင်ပါ (ညဘက် runs) |

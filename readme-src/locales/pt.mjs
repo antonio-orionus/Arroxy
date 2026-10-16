@@ -116,12 +116,17 @@ export const pt = {
   why_r1: "Gratuito, sem plano premium",
   why_r2: "Código aberto",
   why_r3: "Processamento apenas local",
-  why_r4: "Sem login nem exportação de cookies",
   why_r5: "Sem limites de uso",
   why_r6: "App de desktop multiplataforma",
   why_r7: "Legendas + SponsorBlock",
   why_summary:
-    "O Arroxy foi feito para uma coisa só: você cola uma URL e recebe um arquivo local limpo. Sem contas, sem vendas empurradas, sem coleta de dados.",
+    "O Arroxy foi feito para uma coisa só: você cola uma URL e recebe um arquivo local limpo. Sem vendas empurradas, sem coleta de dados.",
+  feat_explore_h3: "Explore: navegue pelo YouTube dentro do Arroxy",
+  feat_explore_1: "**Aba Explore** — navegue pelo YouTube dentro do Arroxy e baixe o que encontrar sem copiar links. **Baixar · *seu perfil*** coloca na fila o vídeo, a playlist ou o canal que você está vendo; a seta ao lado troca de perfil, e a varinha abre o download passo a passo para escolher formatos, legendas e mais",
+  feat_explore_2: "**Barra de endereço** — digite para pesquisar no YouTube ou cole um link do YouTube. O Explore só navega pelo YouTube, então um link de outro site não é aberto ali, mas você pode baixá-lo com um clique",
+  feat_explore_3: "**Downloads que precisam de uma conta** — entre uma vez no Explore e o Arroxy poderá baixar vídeos privados e exclusivos para membros que a sua conta consiga assistir, vídeos com restrição de idade se a idade da conta for verificada, e as suas listas Assistir mais tarde e Curtidos. O Arroxy continua baixando sem login e só usa o seu login do Explore quando um download falha de um jeito que uma conta pode resolver. Quando o YouTube pede para confirmar que você não é um robô, o Arroxy também tenta o seu login do Explore",
+  feat_explore_4: "**Use uma conta secundária** — a primeira tela do Explore explica o motivo: baixar com uma conta traz algum risco de essa conta ser restringida. Saia do Explore pelas configurações sempre que quiser esquecer o login",
+  feat_explore_5: "**Bloqueador de anúncios** — o Explore bloqueia anúncios e rastreadores nas próprias páginas; os downloads não são afetados. Ativado por padrão, um clique no escudo da barra de ferramentas do Explore o desativa, e ele nunca age nas páginas de login do Google. O YouTube pode dificultar o uso de bloqueadores de anúncios em contas conectadas",
   feat_quality_h3: "Qualidade e formatos",
   feat_quality_1: "Até **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
@@ -138,8 +143,7 @@ export const pt = {
   feat_privacy_3: "Arquivos salvos direto na pasta que você escolher",
   feat_workflow_h3: "Fluxo de trabalho",
   feat_workflow_12: "**Atalho global de download** — copie um link em qualquer app e pressione `Ctrl+Shift+D` (`Cmd+Shift+D` no macOS); o Arroxy o coloca na fila com o seu perfil ativo sem abrir a janela, e uma notificação confirma. Ativo por padrão e reconfigurável",
-  feat_workflow_1:
-    "**Modos de início flexíveis** — escolha um download individual guiado, o seletor de playlist/canal, a colagem de URLs em massa ou o Quick Download com os seus padrões salvos",
+  feat_workflow_1: "**Modos de início flexíveis** — escolha um download individual guiado, o seletor de playlist/canal, a colagem de URLs em massa, o Quick Download com os seus padrões salvos ou navegue e baixe pelo Explore",
   feat_workflow_2:
     "**Fila central de downloads** — todo trabalho individual, de playlist, em massa ou rápido chega a um só lugar, com progresso, pausa, retomada, cancelamento, nova tentativa e controle de prioridade",
   feat_workflow_3:
@@ -160,6 +164,8 @@ export const pt = {
     "**Downloads simultâneos e nova tentativa automática** — escolha quantos downloads da fila rodam ao mesmo tempo e deixe o Arroxy tentar de novo um download que esbarrou em um problema de rede ou de servidor, esperando mais tempo a cada tentativa",
   feat_workflow_11:
     "**Perfis por item da playlist** — atribua a cada vídeo de uma playlist o seu próprio perfil de download, em vez de uma única configuração para a lista inteira, para arquivar alguns em qualidade máxima e pegar o restante como MP3 em uma só passada",
+  feat_workflow_13: "**O Quick Download funciona em segundo plano** — o link aparece na hora em Downloads e é preparado ali, uma nota com **Ver** confirma, e o campo de URL é limpo para o próximo link. Inicie quantos quiser enquanto os anteriores são preparados",
+  feat_workflow_14: "**Downloads mostra o que precisa de você** — se o Arroxy não consegue ler um link, a linha dele diz o motivo e oferece a solução: Tentar novamente, ativar os cookies ou entrar no Explore. Com os cookies desativados, **Entrar com o Explore** tenta de novo por você assim que você entrar. Uma playlist maior que o seu limite de carregamento espera na própria linha até você escolher toda ela, os primeiros vídeos ou uma revisão. A aba Downloads conta as linhas que esperam por você",
   feat_post_h3: "Legendas e pós-processamento",
   feat_post_1:
     "**Legendas** em SRT, VTT ou ASS — manuais ou geradas automaticamente, em qualquer idioma disponível",
@@ -196,6 +202,9 @@ export const pt = {
   hotkey_fig_cap: "<b>Atalho global de download</b><br/>Copie um link em qualquer lugar, pressione uma vez — ele entra na fila e começa a baixar",
   shot7_cap:
     "<b>Perfis por item da playlist</b><br/>Dê a cada vídeo o seu próprio perfil — arquive alguns em 4K e pegue o restante como MP3",
+  shot8_cap: "<b>Explore</b><br/>Navegue pelo YouTube dentro do Arroxy e baixe a página em que você está com o seu perfil ativo",
+  shot9_cap: "<b>A primeira tela do Explore</b><br/>Uma olhada rápida no Explore e por que uma conta secundária é o login mais seguro",
+  shot10_cap: "<b>Downloads mostra o que precisa de você</b><br/>Os links são preparados em segundo plano; um que falha oferece a solução, uma playlist longa espera a sua escolha",
   dl_platform_col: "Plataforma",
   dl_format_col: "Download direto",
   dl_oneline_note:
@@ -321,6 +330,7 @@ export const pt = {
     "Os downloads são feitos direto pelo [yt-dlp](https://github.com/yt-dlp/yt-dlp), do YouTube para a pasta que você escolher — nada passa por um servidor de terceiros. Histórico de vídeos, histórico de downloads, URLs e o conteúdo dos arquivos ficam no seu dispositivo.",
   privacy_p2:
     "O Arroxy envia telemetria anônima e agregada pelo [OpenPanel](https://openpanel.dev) — apenas o suficiente para um projeto independente entender falhas, quedas, feedback, sistema operacional e versões do app. Sem URLs, títulos de vídeo, caminhos de arquivo, dados de conta, fingerprinting ou dados pessoais. O identificador por instalação é aleatório e não está ligado à sua identidade. Você pode desativar nas configurações.",
+  privacy_p3: "O Explore mantém o próprio login, separado do seu navegador, e o Arroxy nunca lê nem preenche o formulário de login — você digita na própria página do Google. Os downloads rodam sem login; só quando um falha de um jeito que uma conta pode resolver, o Arroxy lê o login na hora, guarda em um arquivo temporário para aquele download e apaga o arquivo depois. Sair do Explore nas configurações faz o login ser esquecido.",
   faq_q1: "É realmente gratuito?",
   faq_a1:
     "Sim — licença MIT, sem plano premium, sem recursos bloqueados.",
@@ -330,12 +340,10 @@ export const pt = {
   faq_q3: "Dá para extrair só o áudio em MP3?",
   faq_a3:
     "Sim. Escolha *apenas áudio* no menu de formatos e selecione MP3, M4A/AAC, Opus ou WAV.",
-  faq_q4: "Preciso de uma conta do YouTube ou de cookies?",
-  faq_a4:
-    "Por padrão, não — o Arroxy funciona sem conta do YouTube, sem login e sem exportar cookies. O suporte opcional a cookies está nas configurações avançadas (origem dos cookies: arquivo ou navegador) para conteúdos que exigem autenticação, como vídeos com restrição de idade ou exclusivos para membros. Ele vem desligado. Se você ativá-lo, a wiki do yt-dlp alerta que [a automação baseada em cookies pode marcar uma conta Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); nesse caso, uma conta descartável é a opção mais segura.",
+  faq_q4: "Como baixo vídeos que exigem uma conta do YouTube?",
+  faq_a4: "Entre uma vez na aba Explore. O Arroxy poderá então baixar vídeos privados e exclusivos para membros que a sua conta consiga assistir, vídeos com restrição de idade se a idade da conta for verificada, e as suas listas Assistir mais tarde e Curtidos. Ele só usa o login quando um download falha de um jeito que uma conta pode resolver; todo o resto é baixado como antes. É a opção **Login do Explore**, listada primeiro e marcada como Recomendada nas configurações de cookies, e o Arroxy a seleciona para você na primeira vez que abrir o Explore. A wiki do yt-dlp alerta que [a automação com login pode marcar uma conta Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), então uma conta secundária é a opção mais segura.",
   faq_q5: "Vai continuar funcionando quando o YouTube mudar alguma coisa?",
-  faq_a5:
-    "O yt-dlp é atualizado automaticamente na inicialização, e o Arroxy lança correções rapidamente quando o YouTube muda algo. Se ainda assim você esbarrar em um problema, o suporte opcional a cookies está disponível nas configurações avançadas como alternativa.",
+  faq_a5: "O yt-dlp é atualizado automaticamente na inicialização, e o Arroxy lança correções rapidamente quando o YouTube muda algo. Quando o YouTube pede para confirmar que você não é um robô, o Arroxy também tenta o seu login do Explore, se você entrou lá, e os cookies de um arquivo ou do seu navegador estão disponíveis nas configurações de cookies.",
   faq_q6: "Em quais idiomas o Arroxy está disponível?",
   faq_a6:
     "{{LANG_COUNT}} idiomas, prontos para uso: {{LANG_NAME_LIST}}. O Arroxy detecta automaticamente o idioma do seu sistema operacional na primeira execução, e você pode trocar quando quiser pelo seletor de idiomas na barra de ferramentas. Os JSON de idioma usados em runtime ficam em src/shared/i18n/locales/, e os catálogos PO para tradutores ficam em i18n/locales/ — abra um PR no GitHub para contribuir.",
@@ -360,12 +368,6 @@ export const pt = {
   plan_r2_name: "**Preferências de faixa de áudio do YouTube**",
   plan_r2_desc:
     "Defina uma preferência global de idioma falado, com substituições por perfil quando o YouTube oferecer várias faixas de áudio",
-  plan_r6_name: "**Login pelo navegador dentro do app**",
-  plan_r6_desc:
-    "Abrir janelas de navegador dentro do Arroxy para você fazer login e usar os cookies do site sem exportá-los manualmente",
-  plan_r8_name: "**Download de vídeo em um clique**",
-  plan_r8_desc:
-    "Iniciar o download de um vídeo com um clique a partir de uma URL detectada ou colada, usando o seu perfil ativo",
   plan_r3_name: "**Recuperação de tentativas mais robusta**",
   plan_r3_desc:
     "Um novo caminho de nova tentativa para downloads interrompidos por conexões instáveis ou problemáticas",

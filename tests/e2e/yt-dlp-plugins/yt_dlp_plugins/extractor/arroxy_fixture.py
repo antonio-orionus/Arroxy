@@ -2,6 +2,7 @@ import json
 import os
 from pathlib import Path
 import re
+import urllib.parse
 import urllib.request
 
 from yt_dlp.extractor.youtube import YoutubeIE, YoutubeTabIE
@@ -87,10 +88,24 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
             raise ExtractorError('ARROXY_E2E_FIXTURE_BASE_URL is required for Arroxy fixture extraction')
         return base_url.rstrip('/')
 
-    def _notify_fixture_probe(self, base_url, video_id, signed_in):
+    def _explore_marker(self):
+        # Only the seeded Explore session carries this cookie, so its presence
+        # tells an Explore-signed-in extraction from an anonymous one.
+        marker = self._get_cookies('https://www.youtube.com').get('ARROXY_FIXTURE_AUTH')
+        return marker.value if marker else None
+
+    def _cookie_domains(self):
+        # Domains only, never values: lets the harness prove which cookies reached yt-dlp.
+        return sorted({cookie.domain for cookie in self._downloader.cookiejar})
+
+    def _notify_fixture_probe(self, base_url, video_id, signed_in, marker):
         try:
-            query = '?signedIn=1' if signed_in else ''
-            request = urllib.request.Request(f'{base_url}/probe/{video_id}{query}', headers={'User-Agent': 'arroxy-fixture-e2e'})
+            query = {'domains': ','.join(self._cookie_domains())}
+            if signed_in:
+                query['signedIn'] = '1'
+            if marker:
+                query['marker'] = marker
+            request = urllib.request.Request(f'{base_url}/probe/{video_id}?{urllib.parse.urlencode(query)}', headers={'User-Agent': 'arroxy-fixture-e2e'})
             with urllib.request.urlopen(request, timeout=60):
                 return
         except Exception as err:
@@ -102,10 +117,14 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         _fixture_video(catalog, video_id)
         base_url = self._fixture_base_url()
         params = self._downloader.params
-        signed_in = bool(params.get('cookiefile') or params.get('cookiesfrombrowser'))
-        self._notify_fixture_probe(base_url, video_id, signed_in)
+        marker = self._explore_marker()
+        signed_in = bool(marker) or bool(params.get('cookiefile') or params.get('cookiesfrombrowser'))
+        # Recorded before the sign-in check so the harness also sees refused extractions.
+        self._notify_fixture_probe(base_url, video_id, signed_in, marker)
         title = _fixture_title(catalog, video_id)
         video = _fixture_video(catalog, video_id)
+        if video.get('requiresSignIn') and not marker:
+            raise ExtractorError('Sign in to confirm your age. This video may be inappropriate for some users.', expected=True)
         # Catalog warnings are printed exactly as yt-dlp's YouTube extractor
         # would print them, so output parsers see a realistic line.
         if _session_limited(video, signed_in):

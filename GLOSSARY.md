@@ -145,8 +145,24 @@ A saved, reusable set of download settings the user applies in one click, withou
 _Avoid_: preset, template, config
 
 **Quick download**:
-Starting a download straight from a saved profile, skipping the wizard steps.
+Starting a download straight from a saved profile, skipping the wizard steps. A single link prepares in the background as a placeholder row in Downloads, so several can prepare at once and nothing waits on the window.
 _Avoid_: instant download, one-click download
+
+**Placeholder row**:
+The row a quick download puts in Downloads the moment a link is taken in, before its probe has answered. It has no job yet and never starts by itself; once the probe answers it becomes the queued items, a probe-error row, or a row that needs your choice. Cancelling it simply removes it.
+_Avoid_: pending row, stub row, ghost row
+
+**Probe-error row**:
+A placeholder row whose probe failed. It carries the same guidance as any failed probe and is resolved from the row: retry, enable cookies and retry, open cookie settings, or sign in in Explore.
+_Avoid_: failed download (nothing downloaded), broken row
+
+**Needs your choice**:
+A placeholder row waiting for a decision only the user can make once the link is probed: how much of a playlist that went past the load limit to queue (all, the first N, or a review), or whether to review a link that turned out to be a playlist. It keeps waiting across a restart.
+_Avoid_: pending decision, blocked row, needs review
+
+**Needs attention**:
+A row only the user can move on — a probe-error row or one that needs your choice. The Downloads tab counts them.
+_Avoid_: alerts, problems, warnings
 
 ### Subtitles
 
@@ -191,6 +207,28 @@ _Avoid_: cookie fallback, signed-out mode
 **Download smoke**:
 A headless run of the real download path for one link that stops as soon as the downloader has chosen formats, reporting which formats were picked and why — used to compare cookie, proxy, profile, and player-client variations one at a time.
 _Avoid_: dry run, format test, quality probe
+
+### Explore
+
+**Explore**:
+The in-app browser tab where the user browses a supported site and may sign in. It sits beside the **Wizard** as a second way to find a video, and a link opened there can be handed to a download.
+_Avoid_: built-in browser, web view, browse tab
+
+**Explore session**:
+The persistent browsing identity behind Explore, owned by the app and kept separate from the user's own browser. Signing in to Explore signs in this identity; signing out of Explore clears it.
+_Avoid_: Explore account, browser profile
+
+**Explore cookies**:
+The cookies read from the Explore session each time a download step needs them, used for that step and then discarded.
+_Avoid_: session cookies (that term already means cookies that expire when a browser closes), saved login
+
+**Escalation**:
+Switching one download from anonymous to the Explore session after a failure that an account can fix, such as a private, members-only, or age-restricted video, or a bot check.
+_Avoid_: fallback, login retry, upgrade
+
+**Job auth**:
+The identity a job runs as: anonymous, or the Explore session after escalation. It is fixed for the rest of that job.
+_Avoid_: login state, credentials
 
 ### Architecture
 

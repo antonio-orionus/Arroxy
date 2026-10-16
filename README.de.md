@@ -23,9 +23,9 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No account, no ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-15._
+> _Last updated: 2026-10-16._
 
 > 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).
 
@@ -33,6 +33,7 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 ## Inhalt
 
+- [Funktionen](#features)
 - [Installieren und erster Start](#install)
   - [Windows-Erststart](#windows-first-launch)
   - [macOS-Erststart](#macos-first-launch)
@@ -40,12 +41,96 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
   - [Linux-Erststart](#linux-first-launch)
   - [Download verifizieren (SHA256)](#verify)
 - [Warum Arroxy](#why)
-- [Funktionen](#features)
 - [Datenschutz](#privacy)
 - [Häufig gestellte Fragen](#faq)
 - [Roadmap](#roadmap)
 - [Arroxy unterstützen](#support)
 - [Gebaut mit](#tech)
+
+---
+
+## <a id="features"></a>Funktionen
+
+### Explore: YouTube direkt in Arroxy durchstöbern
+
+- **Explore-Tab** — durchstöbere YouTube direkt in Arroxy und lade herunter, was du findest, ohne Links zu kopieren. **Download · *dein Profil*** stellt das Video, die Playlist oder den Kanal, den du gerade ansiehst, in die Warteschlange; mit dem Pfeil daneben wechselst du das Profil, und der Zauberstab öffnet den Schritt-für-Schritt-Download für Formate, Untertitel und mehr
+- **Adressleiste** — tippe, um YouTube zu durchsuchen, oder füge einen YouTube-Link ein. Explore durchstöbert nur YouTube, daher wird ein Link von einer anderen Seite dort nicht geöffnet, lässt sich aber mit einem Klick herunterladen
+- **Downloads, die ein Konto brauchen** — melde dich einmal in Explore an, und Arroxy kann private und Mitglieder-Videos laden, die dein Konto ansehen darf, altersbeschränkte Videos, wenn das Konto altersverifiziert ist, sowie deine Listen „Später ansehen“ und „Gefällt mir“. Arroxy lädt weiterhin abgemeldet und nutzt deine Explore-Anmeldung nur, wenn ein Download auf eine Weise scheitert, die ein Konto beheben kann. Wenn YouTube verlangt zu bestätigen, dass du kein Bot bist, probiert Arroxy ebenfalls deine Explore-Anmeldung
+- **Nutze ein Zweitkonto** — der erste Bildschirm von Explore erklärt, warum: Das Herunterladen mit einem Konto birgt ein gewisses Risiko, dass dieses Konto eingeschränkt wird. Melde dich in den Einstellungen von Explore ab, wann immer du die Anmeldung vergessen lassen willst
+- **Werbeblocker** — Explore blockiert Werbung und Tracker auf seinen eigenen Seiten; Downloads bleiben unberührt. Standardmäßig an, ein Klick auf das Schild in der Explore-Symbolleiste schaltet ihn aus, und auf Googles Anmeldeseiten greift er nie ein. YouTube kann bei angemeldeten Konten gegen Werbeblocker vorgehen
+
+### Qualität & Formate
+
+- Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
+- **Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR
+- **Audio** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren. In interaktiven Downloads die nativen Surround-/Dolby-Spuren der Quelle (AC-3, E-AC-3, 5.1, DRC) auswählen, sofern verfügbar, oder einen globalen Standard **Surround / Dolby bevorzugen** setzen
+- Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*
+
+### Datenschutz & Kontrolle
+
+- 100 % lokale Verarbeitung — Downloads gehen direkt von YouTube auf deine Festplatte
+- Kein Login, keine Cookies, kein verknüpftes Google-Konto
+- Dateien direkt in den von dir gewählten Ordner gespeichert
+
+### Workflow
+
+- **Globaler Download-Hotkey** — kopiere einen Link in einer beliebigen App und drücke `Ctrl+Shift+D` (`Cmd+Shift+D` unter macOS); Arroxy stellt ihn mit deinem aktiven Profil in die Warteschlange, ohne das Fenster zu öffnen, und eine Benachrichtigung bestätigt es. Standardmäßig aktiv, frei belegbar
+- **Flexible Startmodi** — wähle einen geführten Einzel-Download, eine Playlist-/Kanal-Auswahl, Bulk-URL-Eingabe, Quick Download mit gespeicherten Standardwerten oder stöbere und lade direkt in Explore
+- **Zentrale Download-Warteschlange** — jeder Einzel-, Playlist-, Bulk- oder Quick-Job landet an einem Ort für Fortschritt, Pausieren, Fortsetzen, Abbrechen, Wiederholen und Priorität
+- **Zwischenablage-Überwachung** — kopiere einen YouTube-Link und Arroxy füllt die URL automatisch aus, wenn du die App wieder fokussierst (in den erweiterten Einstellungen umschaltbar)
+- **URLs automatisch bereinigen** — entfernt Tracking-Parameter (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) und löst `youtube.com/redirect`-Links auf
+- **Tray-Modus** — das Schließen des Fensters lässt Downloads im Hintergrund weiterlaufen
+- **30 Sprachen** – erkennt automatisch das Systemgebietsschema und kann jederzeit umgeschaltet werden
+- **Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird
+- **Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, lege fest, wie viele Teile eines Videos gleichzeitig geladen werden, und füge Anfragepausen mit Presets hinzu (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)
+- **Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil
+- **Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass Arroxy einen Download nach einem Netzwerk- oder Serverproblem erneut versuchen, mit längerer Wartezeit vor jedem Versuch
+- **Profile pro Playlist-Eintrag** — weisen Sie jedem Video in einer Playlist ein eigenes Download-Profil zu statt einer Einstellung für die ganze Liste, sodass ein Durchlauf manche in voller Qualität archivieren und den Rest als MP3 holen kann
+- **Quick Download läuft im Hintergrund** — der Link erscheint sofort in Downloads und wird dort vorbereitet, ein Hinweis mit **Ansehen** bestätigt es, und das URL-Feld leert sich für den nächsten Link. Starte beliebig viele, während frühere noch vorbereitet werden
+- **Downloads zeigt, was dich braucht** — wenn Arroxy einen Link nicht lesen kann, nennt seine Zeile den Grund und bietet die Lösung an: Erneut versuchen, Cookies einschalten oder in Explore anmelden. Bei ausgeschalteten Cookies versucht **Mit Explore anmelden** es für dich erneut, sobald du angemeldet bist. Eine Playlist, die länger als dein Ladelimit ist, wartet in ihrer Zeile darauf, dass du alles, die ersten Videos oder eine Prüfung wählst. Der Downloads-Tab zählt die Zeilen, die auf dich warten
+
+### Untertitel & Nachbearbeitung
+
+- **Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache
+- Neben dem Video speichern, in `.mkv` einbetten oder in einem `Subtitles/`-Unterordner organisieren
+- **Nur-Untertitel-Stapel** — eine Liste von URLs einfügen oder eine Playlist öffnen, Untertitel wählen und für jedes Video nur die Untertiteldateien erhalten
+- **SponsorBlock** — Sponsoren, Intros, Outros, Eigenwerbung überspringen oder als Kapitel markieren
+- **Eingebettete Metadaten** — Titel, Upload-Datum, Kanal, Beschreibung, Thumbnail und Kapitelmarkierungen in die Datei geschrieben
+
+### YouTube + 2000 Seiten
+
+- **YouTube, vollständig** — Videos, Shorts, Kanäle, Playlists, YouTube Music und Podcasts werden als erstklassige Quellen behandelt
+- **2000+ weitere Seiten** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org und viele mehr
+- **Nur Audio und Untertitel** funktionieren auf jeder unterstützten Seite, nicht nur auf YouTube
+- Ändert sich eine Seite, liefert yt-dlp wöchentlich Fixes und Arroxy aktualisiert das Binary beim Start automatisch
+
+<table align="center" width="100%">
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Explore-browsing-screenshot.png" alt="Arroxy — Explore tab browsing a video page, with the Download button for the active profile" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Explore</b><br/>Durchstöbere YouTube direkt in Arroxy und lade die aktuelle Seite mit deinem aktiven Profil herunter</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Explore-screenshot.png" alt="Arroxy — Explore first-run screen recommending a secondary account" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Der erste Bildschirm von Explore</b><br/>Ein kurzer Blick auf Explore – und warum ein Zweitkonto die sicherere Anmeldung ist</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads zeigt, was dich braucht</b><br/>Links werden im Hintergrund vorbereitet; ein fehlgeschlagener bietet seine Lösung an, eine lange Playlist wartet auf deine Wahl</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Globaler Download-Hotkey von Arroxy — Ctrl+Shift+D unter Windows und Linux, Cmd+Shift+D unter macOS, schickt den kopierten Link direkt in die Download-Warteschlange" width="760" /></picture><br/><sub><b>Globaler Download-Hotkey</b><br/>Link irgendwo kopieren, einmal drücken — er landet in der Warteschlange und der Download startet</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profile pro Playlist-Eintrag</b><br/>Jedem Video ein eigenes Profil geben – manche in 4K archivieren, den Rest als MP3 holen</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick-Download-Startseite</b><br/>URL einfügen und sofort mit deinem aktiven Profil herunterladen</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Wiederverwendbare Download-Profile</b><br/>Format, Qualität und Ausgabe als Voreinstellung speichern – pro Download wiederverwenden</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Mehrsprachige Audiospuren</b><br/>Genau die Audiosprache wählen, die ein Video mitbringt</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround-/Dolby-Audio</b><br/>5.1- und Dolby-Spuren erkannt und erhalten</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Massen-URL-Modus</b><br/>Liste einfügen, automatisch entdoppeln, alle auf einmal einreihen</sub></td>
+    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralleler Download-Verlauf</b><br/>Mehrere Downloads gleichzeitig mit Live-Fortschritt</sub></td>
+  </tr>
+</table>
 
 ---
 
@@ -225,80 +310,11 @@ Ein direkter Vergleich mit den gängigsten Alternativen:
 | Kostenlos, keine Premium-Stufe |   ✅   |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Open Source |   ✅   |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Nur lokale Verarbeitung |   ✅   |         ✅          |     ✅      |             ❌             |         ✅         |
-| Kein Login oder Cookie-Export |   ✅   |         ⚠️          |     ⚠️      |             ⚠️             |         ✅         |
 | Keine Nutzungsbeschränkungen |   ✅   |         ⚠️          |     ✅      |             🚫             |         ⚠️         |
 | Plattformübergreifende Desktop-App |   ✅   |         ✅          |     ✅      |            N/A             |         ❌         |
 | Untertitel + SponsorBlock |   ✅   |         ⚠️          |     ❌      |             ❌             |         ❌         |
 
-Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten. Keine Konten, kein Upselling, keine Datensammlung.
-
----
-
-## <a id="features"></a>Funktionen
-
-### Qualität & Formate
-
-- Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR
-- **Audio** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren. In interaktiven Downloads die nativen Surround-/Dolby-Spuren der Quelle (AC-3, E-AC-3, 5.1, DRC) auswählen, sofern verfügbar, oder einen globalen Standard **Surround / Dolby bevorzugen** setzen
-- Schnell-Presets: *Beste Qualität* · *Ausgewogen* · *Kleine Datei*
-
-### Datenschutz & Kontrolle
-
-- 100 % lokale Verarbeitung — Downloads gehen direkt von YouTube auf deine Festplatte
-- Kein Login, keine Cookies, kein verknüpftes Google-Konto
-- Dateien direkt in den von dir gewählten Ordner gespeichert
-
-### Workflow
-
-- **Globaler Download-Hotkey** — kopiere einen Link in einer beliebigen App und drücke `Ctrl+Shift+D` (`Cmd+Shift+D` unter macOS); Arroxy stellt ihn mit deinem aktiven Profil in die Warteschlange, ohne das Fenster zu öffnen, und eine Benachrichtigung bestätigt es. Standardmäßig aktiv, frei belegbar
-- **Flexible Startmodi** — wähle einen geführten Einzel-Download, eine Playlist-/Kanal-Auswahl, Bulk-URL-Eingabe oder Quick Download mit gespeicherten Standardwerten
-- **Zentrale Download-Warteschlange** — jeder Einzel-, Playlist-, Bulk- oder Quick-Job landet an einem Ort für Fortschritt, Pausieren, Fortsetzen, Abbrechen, Wiederholen und Priorität
-- **Zwischenablage-Überwachung** — kopiere einen YouTube-Link und Arroxy füllt die URL automatisch aus, wenn du die App wieder fokussierst (in den erweiterten Einstellungen umschaltbar)
-- **URLs automatisch bereinigen** — entfernt Tracking-Parameter (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) und löst `youtube.com/redirect`-Links auf
-- **Tray-Modus** — das Schließen des Fensters lässt Downloads im Hintergrund weiterlaufen
-- **30 Sprachen** – erkennt automatisch das Systemgebietsschema und kann jederzeit umgeschaltet werden
-- **Playlist-Sync** — scannt eine Playlist erneut gegen einen lokalen Ordner, um bereits heruntergeladene Videos zu überspringen; erzeugt eine `.m3u`-Playlistdatei, die nach jedem Video aktualisiert wird
-- **Geschwindigkeits- und Pacing-Kontrollen** — begrenze die Download-Bandbreite, lege fest, wie viele Teile eines Videos gleichzeitig geladen werden, und füge Anfragepausen mit Presets hinzu (*Aus · Ausgewogen · Vorsichtig · Benutzerdefiniert*)
-- **Dateinamenvorlagen** — benenne Downloads nach deinen Regeln mit `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` und `{playlist_index}`, global oder pro Download-Profil
-- **Gleichzeitige Downloads und automatische Wiederholung** — wähle, wie viele Einträge der Warteschlange gleichzeitig laufen, und lass Arroxy einen Download nach einem Netzwerk- oder Serverproblem erneut versuchen, mit längerer Wartezeit vor jedem Versuch
-- **Profile pro Playlist-Eintrag** — weisen Sie jedem Video in einer Playlist ein eigenes Download-Profil zu statt einer Einstellung für die ganze Liste, sodass ein Durchlauf manche in voller Qualität archivieren und den Rest als MP3 holen kann
-
-### Untertitel & Nachbearbeitung
-
-- **Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache
-- Neben dem Video speichern, in `.mkv` einbetten oder in einem `Subtitles/`-Unterordner organisieren
-- **Nur-Untertitel-Stapel** — eine Liste von URLs einfügen oder eine Playlist öffnen, Untertitel wählen und für jedes Video nur die Untertiteldateien erhalten
-- **SponsorBlock** — Sponsoren, Intros, Outros, Eigenwerbung überspringen oder als Kapitel markieren
-- **Eingebettete Metadaten** — Titel, Upload-Datum, Kanal, Beschreibung, Thumbnail und Kapitelmarkierungen in die Datei geschrieben
-
-### YouTube + 2000 Seiten
-
-- **YouTube, vollständig** — Videos, Shorts, Kanäle, Playlists, YouTube Music und Podcasts werden als erstklassige Quellen behandelt
-- **2000+ weitere Seiten** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org und viele mehr
-- **Nur Audio und Untertitel** funktionieren auf jeder unterstützten Seite, nicht nur auf YouTube
-- Ändert sich eine Seite, liefert yt-dlp wöchentlich Fixes und Arroxy aktualisiert das Binary beim Start automatisch
-
-<table align="center" width="100%">
-  <tr>
-    <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Globaler Download-Hotkey von Arroxy — Ctrl+Shift+D unter Windows und Linux, Cmd+Shift+D unter macOS, schickt den kopierten Link direkt in die Download-Warteschlange" width="760" /></picture><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Globaler Download-Hotkey</b><br/>Link irgendwo kopieren, einmal drücken — er landet in der Warteschlange und der Download startet</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/Per-item-playlist-profiles-screenshot.png" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profile pro Playlist-Eintrag</b><br/>Jedem Video ein eigenes Profil geben – manche in 4K archivieren, den Rest als MP3 holen</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick-Download-Startseite</b><br/>URL einfügen und sofort mit deinem aktiven Profil herunterladen</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Download-profiles-screenshot.png" alt="Arroxy — Download profiles" /><br/><sub><b>Wiederverwendbare Download-Profile</b><br/>Format, Qualität und Ausgabe als Voreinstellung speichern – pro Download wiederverwenden</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Multi-lang-audio-support-screenshot.png" alt="Arroxy — Multi-language audio" /><br/><sub><b>Mehrsprachige Audiospuren</b><br/>Genau die Audiosprache wählen, die ein Video mitbringt</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Dolby-audio-support-screenshot.png" alt="Arroxy — Surround / Dolby audio" /><br/><sub><b>Surround-/Dolby-Audio</b><br/>5.1- und Dolby-Spuren erkannt und erhalten</sub></td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top" align="center"><img src="build/Bulk-urls-mode-screenshot.png" alt="Arroxy — Bulk URL mode" /><br/><sub><b>Massen-URL-Modus</b><br/>Liste einfügen, automatisch entdoppeln, alle auf einmal einreihen</sub></td>
-    <td width="50%" valign="top" align="center"><img src="build/Downloading-in-parallel-screenshot.png" alt="Arroxy — Parallel download queue" /><br/><sub><b>Paralleler Download-Verlauf</b><br/>Mehrere Downloads gleichzeitig mit Live-Fortschritt</sub></td>
-  </tr>
-</table>
+Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten. Kein Upselling, keine Datensammlung.
 
 ---
 
@@ -307,6 +323,8 @@ Arroxy ist für eine Sache gebaut: URL einfügen, saubere lokale Datei erhalten.
 Downloads werden direkt über [yt-dlp](https://github.com/yt-dlp/yt-dlp) von YouTube in den von dir gewählten Ordner geholt — nichts wird über einen Drittanbieter-Server geleitet. Verlauf, Download-Historie, URLs und Dateiinhalte bleiben auf deinem Gerät.
 
 Arroxy sendet anonyme, aggregierte Telemetrie über [OpenPanel](https://openpanel.dev) — gerade genug, um Fehler, Abstürze, Feedback, OS und App-Versionen zu verstehen. Keine URLs, Video-Titel, Dateipfade, Kontodaten, Fingerprinting oder personenbezogenen Daten. Die ID pro Installation ist zufällig und nicht mit deiner Identität verknüpft. Du kannst das in den Einstellungen deaktivieren.
+
+Explore hat eine eigene Anmeldung, getrennt von deinem Browser, und Arroxy liest oder füllt das Anmeldeformular nie aus – du tippst auf Googles eigener Seite. Downloads laufen abgemeldet; nur wenn einer auf eine Weise scheitert, die ein Konto beheben kann, liest Arroxy die Anmeldung frisch aus, hält sie für diesen Download in einer temporären Datei und löscht die Datei danach. Wenn du dich in den Einstellungen von Explore abmeldest, wird sie vergessen.
 
 ---
 
@@ -321,11 +339,11 @@ Alles, was YouTube anbietet: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plu
 **Kann ich nur den Audio-Track als MP3 extrahieren?**
 Ja. Wähle im Formatmenü *nur Audio* und dann MP3, M4A/AAC, Opus oder WAV.
 
-**Brauche ich ein YouTube-Konto oder Cookies?**
-Standardmäßig nein — Arroxy funktioniert ohne YouTube-Konto, Login oder Cookie-Export. Optionale Cookie-Unterstützung steht in den erweiterten Einstellungen zur Verfügung (Cookies source: file or browser) für Inhalte, die eine Authentifizierung erfordern, etwa altersbeschränkte oder Mitglieder-only-Videos. Sie ist standardmäßig deaktiviert. Wenn du sie aktivierst, weist das yt-dlp-Wiki darauf hin, dass [Cookie-basierte Automatisierung ein Google-Konto markieren kann](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); ein Wegwerf-Konto ist in dem Fall die sicherere Wahl.
+**Wie lade ich Videos herunter, für die ein YouTube-Konto nötig ist?**
+Melde dich einmal im Explore-Tab an. Arroxy kann dann private und Mitglieder-Videos laden, die dein Konto ansehen darf, altersbeschränkte Videos, wenn das Konto altersverifiziert ist, sowie deine Listen „Später ansehen“ und „Gefällt mir“. Die Anmeldung wird nur genutzt, wenn ein Download auf eine Weise scheitert, die ein Konto beheben kann; alles andere lädt wie bisher. Das ist die Option **Explore-Anmeldung**, die in den Cookie-Einstellungen als Erste steht und als Empfohlen markiert ist, und Arroxy wählt sie beim ersten Öffnen von Explore für dich. Das yt-dlp-Wiki weist darauf hin, dass [angemeldete Automatisierung ein Google-Konto markieren kann](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), daher ist ein Zweitkonto die sicherere Wahl.
 
 **Funktioniert es weiter, wenn YouTube etwas ändert?**
-yt-dlp wird beim Start automatisch aktualisiert, und Arroxy liefert zügig Fixes, sobald YouTube etwas ändert. Falls du doch einmal auf ein Problem stößt, steht in den erweiterten Einstellungen optionale Cookie-Unterstützung als Fallback bereit.
+yt-dlp wird beim Start automatisch aktualisiert, und Arroxy liefert zügig Fixes, sobald YouTube etwas ändert. Wenn YouTube verlangt zu bestätigen, dass du kein Bot bist, probiert Arroxy außerdem deine Explore-Anmeldung, falls du dich dort angemeldet hast; Cookies aus einer Datei oder deinem Browser stehen in den Cookie-Einstellungen bereit.
 
 **In welchen Sprachen ist Arroxy verfügbar?**
 30 Sprachen sind sofort verfügbar: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy erkennt beim ersten Start automatisch die Sprache deines Betriebssystems, und du kannst jederzeit über die Sprachauswahl in der Symbolleiste wechseln. Runtime-Locale-JSON liegt in src/shared/i18n/locales/, die PO-Kataloge für Übersetzer liegen in i18n/locales/ — öffne einen PR auf GitHub, um beizutragen.
@@ -352,8 +370,6 @@ Weiter geplant — grob nach Priorität sortiert:
 | ---------------- | ---------------- |
 | **Playlist- & Kanal-Filter** | Datumsfilter beim Einlesen einer Playlist oder eines Kanals |
 | **YouTube-Audiospur-Präferenzen** | App-weite bevorzugte Sprachspur festlegen, mit Überschreibungen pro Profil, wenn YouTube mehrere Audiospuren anbietet |
-| **Browser-Anmeldung in der App** | Browserfenster in Arroxy öffnen, damit du dich anmelden und Website-Cookies nutzen kannst, ohne sie manuell zu exportieren |
-| **Video-Download mit einem Klick** | Einen Video-Download mit deinem aktiven Profil per Klick aus einer erkannten oder eingefügten URL starten |
 | **Stärkere Wiederaufnahme nach Fehlern** | Ein neuer Retry-Pfad für Downloads, die durch unzuverlässige oder problematische Internetverbindungen unterbrochen werden |
 | **Vollwertiger Download-Manager-Drawer** | Den Queue-Drawer zu einem volleren Manager ausbauen, inklusive Zielordner-Wechsel für eingereihte Elemente |
 | **Geplante Downloads** | Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs) |
