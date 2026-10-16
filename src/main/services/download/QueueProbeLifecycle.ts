@@ -110,7 +110,7 @@ export class QueueProbeLifecycle {
 		if (!admission.ok) return admission
 		const {admitted, skippedAlreadyQueued} = admission.data
 		this.deps.commitRemove(itemId)
-		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued: 0})
+		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
 		const queued = withPlaceholderId(itemId, items, admitted)
 		this.deps.commitAdd(queued)
 		logger.info('replaceProbing', {itemId, replacedBy: queued.map(i => i.id), skippedAlreadyQueued})

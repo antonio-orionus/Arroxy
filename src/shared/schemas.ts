@@ -623,7 +623,7 @@ const commonSettingsSchema = z.object({
 	// Main owns it: written by the view host (which checks every URL before
 	// storing and again before reopening it), never by a renderer update.
 	exploreLastUrl: z.string().optional(),
-	// The Explore ad blocker; absent means off.
+	// The Explore ad blocker; absent means on (see isExploreAdBlockOn), only false turns it off.
 	exploreAdBlock: z.boolean().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	limitRate: limitRateSchema.optional(),

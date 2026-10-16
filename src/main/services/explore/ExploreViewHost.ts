@@ -490,7 +490,7 @@ export class ExploreViewHost {
 			void this.load(url)
 			return
 		}
-		logger.info('explore view blocked a popup without user input', {host: new URL(url).hostname})
+		logger.info('explore view blocked a popup without user input', {host: hostOf(url)})
 	}
 
 	private decide(url: string, how: {userGesture: boolean; isRedirect: boolean}): NavigationDecision {
