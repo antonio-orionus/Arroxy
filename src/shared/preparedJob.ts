@@ -1,5 +1,5 @@
 // Type aliases live here. Runtime zod schemas live in `./schemas` so that
-// `schemas.ts` (which depends on these types via `queueItemSchema` and
+// `schemas.ts` (which depends on these types via `preparedJobSchema` and
 // `startDownloadSchema`) does not import a sibling that would re-import
 // it — keeps module init free of circular hazards.
 import type {AudioConvert, MediaIntent, Preset, SponsorBlockCategory, SubtitleFormat, SubtitleMode} from './schemas.js'

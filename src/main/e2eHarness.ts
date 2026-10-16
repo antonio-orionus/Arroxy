@@ -1,7 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type {DownloadRetryPolicy} from 'yt-dlp-bridge'
+import {z} from 'zod'
 import type {AppSettings} from '@shared/types.js'
+import type {ExploreCookie} from '@shared/sites/types.js'
 
 interface HarnessGate {
 	isPackaged: boolean
@@ -22,6 +24,16 @@ export interface E2eHarnessMode {
 	applySpawnEnv: (env: NodeJS.ProcessEnv) => NodeJS.ProcessEnv
 	ytDlpArgs: (opts: YtDlpHarnessArgsOptions) => string[]
 	downloadRetryPolicy?: DownloadRetryPolicy
+	// Fixture cookies seeded into the Explore partition (ARROXY_E2E_EXPLORE_COOKIES).
+	exploreCookies?: ExploreCookie[]
+	// Start spacing for signed-in spawns; unset keeps the production pacing.
+	exploreSpawnSpacingMs?: number
+	// Where the Explore view opens instead of YouTube (ARROXY_E2E_EXPLORE_HOME), so tests never reach the internet.
+	exploreHomeUrl?: string
+	// A filter list the Explore ad blocker is built from instead of the prebuilt
+	// lists (ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS), so tests never fetch them.
+	// Never in a packaged build, even with the harness enabled there.
+	exploreAdBlockFilters?: string
 }
 
 const E2E_COMMAND_LINE_SWITCHES = ['disable-background-networking', 'disable-component-update', 'disable-domain-reliability', 'no-pings'] as const
@@ -65,6 +77,57 @@ function validatePluginRoot(pluginRoot: string | undefined): string {
 	return pluginRoot
 }
 
+const exploreCookieSchema = z.object({name: z.string(), value: z.string(), domain: z.string(), hostOnly: z.boolean(), path: z.string(), secure: z.boolean(), httpOnly: z.boolean(), session: z.boolean(), expirationDate: z.number().optional()})
+
+const EXPLORE_COOKIES_VAR = 'ARROXY_E2E_EXPLORE_COOKIES'
+
+// The seed file is untrusted input: parse it into ExploreCookie[] or fail the
+// launch, the same way a bad plugin dir does.
+function readExploreCookies(file: string | undefined): ExploreCookie[] | undefined {
+	if (file === undefined) return undefined
+	if (!path.isAbsolute(file)) {
+		throw new Error(`${EXPLORE_COOKIES_VAR} must be an absolute path`)
+	}
+	let raw: unknown
+	try {
+		raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+	} catch (err) {
+		throw new Error(`${EXPLORE_COOKIES_VAR} could not be read as JSON: ${file}`, {cause: err})
+	}
+	const parsed = z.array(exploreCookieSchema).safeParse(raw)
+	if (!parsed.success) {
+		throw new Error(`${EXPLORE_COOKIES_VAR} is not a valid cookie array: ${file}`, {cause: parsed.error})
+	}
+	return parsed.data
+}
+
+const EXPLORE_HOME_VAR = 'ARROXY_E2E_EXPLORE_HOME'
+const exploreHomeSchema = z.url({protocol: /^https?$/})
+
+// An absolute http(s) URL or the launch fails; the view's allowlist widens to its origin.
+function readExploreHome(value: string | undefined): string | undefined {
+	if (value === undefined) return undefined
+	const parsed = exploreHomeSchema.safeParse(value)
+	if (!parsed.success) {
+		throw new Error(`${EXPLORE_HOME_VAR} must be an absolute http(s) URL`, {cause: parsed.error})
+	}
+	return new URL(parsed.data).href
+}
+
+const EXPLORE_ADBLOCK_FILTERS_VAR = 'ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS'
+
+function readExploreAdBlockFilters(file: string | undefined, gate: HarnessGate): string | undefined {
+	if (file === undefined || gate.isPackaged) return undefined
+	if (!path.isAbsolute(file)) {
+		throw new Error(`${EXPLORE_ADBLOCK_FILTERS_VAR} must be an absolute path`)
+	}
+	try {
+		return fs.readFileSync(file, 'utf8')
+	} catch (err) {
+		throw new Error(`${EXPLORE_ADBLOCK_FILTERS_VAR} could not be read: ${file}`, {cause: err})
+	}
+}
+
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
 		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], downloadRetryPolicy: undefined}
@@ -76,6 +139,9 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 	// each child. The env var names the trusted plugin root, so pass its parent.
 	const pluginContainer = path.dirname(pluginRoot)
 	const denyProxyUrl = env.ARROXY_E2E_DENY_PROXY_URL
+	const exploreCookies = readExploreCookies(env[EXPLORE_COOKIES_VAR])
+	const exploreHomeUrl = readExploreHome(env[EXPLORE_HOME_VAR])
+	const exploreAdBlockFilters = readExploreAdBlockFilters(env[EXPLORE_ADBLOCK_FILTERS_VAR], gate)
 
 	return {
 		enabled: true,
@@ -91,6 +157,11 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 			if (!isProbe) args.push('--newline')
 			return args
 		},
-		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0', socketTimeout: 5}
+		downloadRetryPolicy: {retries: 1, fragmentRetries: 1, retrySleep: 'fragment:0', socketTimeout: 5},
+		exploreCookies,
+		// The fixture site is local: pacing protects a real account, and here it only slows the suite.
+		exploreSpawnSpacingMs: 0,
+		exploreHomeUrl,
+		exploreAdBlockFilters
 	}
 }

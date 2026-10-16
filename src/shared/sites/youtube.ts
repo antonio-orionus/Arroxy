@@ -7,7 +7,7 @@
 // identifiers; see refs/yt-dlp/yt_dlp/extractor/youtube/_video.py for the
 // full taxonomy. When yt-dlp adds new id types, update both predicates below.
 
-import type {PlaylistEntryHint, Site} from './types.js'
+import type {ExploreCookie, PlaylistEntryHint, Site} from './types.js'
 
 // Returns a category-prefixed display label for an entry whose title is
 // missing. Mirrors the pre-seam `youtubeIdHint` logic exactly so the playlist
@@ -46,4 +46,79 @@ function youtubeIsNested(entry: PlaylistEntryHint): boolean {
 	return isYouTubeContainerId(entry.id ?? '')
 }
 
-export const youtubeSite: Site = {id: 'youtube', needsPotToken: true, supportsSponsorBlock: true, needsAutoCaptionDedupe: true, autoCaptionRequiresOrigSuffix: true, hintForPlaylistId: youtubeHintForId, isNestedContainer: youtubeIsNested}
+const YOUTUBE_AUTH_PAIR = ['SAPISID', '__Secure-1PAPISID', '__Secure-3PAPISID'] as const
+
+function onYouTube(cookie: ExploreCookie): boolean {
+	const host = cookie.domain.replace(/^\./, '').toLowerCase()
+	return host === 'youtube.com' || host.endsWith('.youtube.com')
+}
+
+// yt-dlp's own rule (_has_auth_cookies): LOGIN_INFO plus one SAPISID-family cookie.
+function youtubeIsSignedIn(cookies: readonly ExploreCookie[]): boolean {
+	const names = new Set(cookies.filter(onYouTube).map(c => c.name))
+	return names.has('LOGIN_INFO') && YOUTUBE_AUTH_PAIR.some(name => names.has(name))
+}
+
+function youtubeSearchUrl(query: string): string {
+	const url = new URL('https://www.youtube.com/results')
+	url.searchParams.set('search_query', query)
+	return url.href
+}
+
+// youtu.be/<id> is the watch page; its start time and list come along, its
+// share-tracking `si` does not.
+const SHORT_LINK_KEPT_PARAMS = ['t', 'list'] as const
+
+function youtubeCanonicalAddress(url: URL): URL {
+	if (url.hostname !== 'youtu.be') return url
+	const id = url.pathname.split('/').find(Boolean)
+	if (!id) return new URL('https://www.youtube.com/')
+	const watch = new URL('https://www.youtube.com/watch')
+	watch.searchParams.set('v', id)
+	for (const name of SHORT_LINK_KEPT_PARAMS) {
+		const value = url.searchParams.get(name)
+		if (value !== null) watch.searchParams.set(name, value)
+	}
+	return watch
+}
+
+export const youtubeSite: Site = {
+	id: 'youtube',
+	needsPotToken: true,
+	supportsSponsorBlock: true,
+	needsAutoCaptionDedupe: true,
+	autoCaptionRequiresOrigSuffix: true,
+	hintForPlaylistId: youtubeHintForId,
+	isNestedContainer: youtubeIsNested,
+	explore: {
+		homeUrl: 'https://www.youtube.com/',
+		cookieDomains: ['youtube.com'],
+		navigationHosts: [
+			{kind: 'suffix', domain: 'youtube.com'},
+			{kind: 'exact', host: 'youtu.be'},
+			{kind: 'exact', host: 'accounts.google.com'},
+			{kind: 'exact', host: 'accounts.youtube.com'},
+			{kind: 'pattern', pattern: 'google-accounts-cctld'},
+			{kind: 'exact', host: 'consent.youtube.com'},
+			{kind: 'exact', host: 'consent.google.com'}
+		],
+		contentHosts: [
+			{kind: 'suffix', domain: 'youtube.com'},
+			{kind: 'exact', host: 'youtu.be'}
+		],
+		consentHosts: [
+			{kind: 'exact', host: 'consent.youtube.com'},
+			{kind: 'exact', host: 'consent.google.com'},
+			{kind: 'pattern', pattern: 'google-consent-cctld'}
+		],
+		signInHosts: [
+			{kind: 'exact', host: 'accounts.google.com'},
+			{kind: 'pattern', pattern: 'google-accounts-cctld'},
+			{kind: 'exact', host: 'accounts.youtube.com'},
+			{kind: 'exact', host: 'myaccount.google.com'}
+		],
+		isSignedIn: youtubeIsSignedIn,
+		searchUrl: youtubeSearchUrl,
+		canonicalAddress: youtubeCanonicalAddress
+	}
+}

@@ -1,21 +1,62 @@
 import {compileFilenameTemplate, DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
+import {STATUS_KEY} from '@shared/schemas.js'
+import type {SiteId} from '@shared/sites/types.js'
+import type {LocalizedError} from '@shared/types.js'
 import type {YtDlpSignal} from '../YtDlp.js'
-import type {ActiveJob, PhaseContext} from './types.js'
+import {forgetOnExit} from '../download/processControl.js'
+import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
+
+// An escalated job runs on the Explore session or not at all: before each of
+// its spawns the gate is asked again, so signing out, leaving explore mode or
+// the kill switch stop it instead of letting it run anonymously. A sign-out
+// the site itself confirmed earlier in the job stops it too, whatever cookies
+// the partition still holds. Anonymous jobs pass without a lookup.
+export async function canSpawnSignedIn(ctx: PhaseContext, siteId: SiteId): Promise<boolean> {
+	if (ctx.active.input.auth !== 'exploreSession') return true
+	if ((await ctx.active.exploreSessionCheck) === 'signedOut') return false
+	return ctx.exploreGate.canEscalate(siteId)
+}
+
+// The outcome of a pause or cancel that landed on the job, else null. Pause wins
+// over cancel, like everywhere else a phase checks both; a paused job parks
+// rather than failing because its session is gone.
+export function interruptedOutcome(active: ActiveJob): PhaseOutcome | null {
+	return active.pauseRequested ? {kind: 'paused'} : active.cancelRequested ? {kind: 'cancelled'} : null
+}
+
+// The hard failure for an escalated job whose Explore session is gone.
+export function exploreSignedOut(ctx: PhaseContext): PhaseOutcome {
+	const error: LocalizedError = {kind: 'loginRequired', raw: 'Signed out of the Explore session'}
+	ctx.emitStatus('error', STATUS_KEY.exploreSignedOut, undefined, error)
+	return {kind: 'hard-failed', error}
+}
+
+// Single-spawn phases: the failed outcome when the spawn may not run, else null.
+export async function guardSignedInSpawn(ctx: PhaseContext, siteId: SiteId): Promise<PhaseOutcome | null> {
+	return (await canSpawnSignedIn(ctx, siteId)) ? null : exploreSignedOut(ctx)
+}
 
 // Shared yt-dlp signal handlers used by every phase that spawns yt-dlp:
-//   - assign `active.ytDlpProcess` on spawn
+//   - assign `active.ytDlpProcess` on spawn, and clear it when the child exits
 //   - SIGKILL immediately if cancel was requested before spawn returned
 //   - register SIGKILL disposable for finalize-time drain
 //   - pipe stdout/stderr into ctx.safeConsume
+//   - cancel through the job's signal; pause stops a run that has not spawned
+//     yet (a running process is paused by DownloadService)
 //
 // Phases can override or extend any handler via `extra`. When both this helper
 // and `extra` define `onSpawn`, the default runs first and then `extra.onSpawn`.
 export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Omit<YtDlpSignal, 'onStdout' | 'onStderr'> & {onStdout?: YtDlpSignal['onStdout']; onStderr?: YtDlpSignal['onStderr']} = {}): YtDlpSignal {
 	const {onSpawn: extraOnSpawn, onStdout: extraOnStdout, onStderr: extraOnStderr, ...rest} = extra
 	return {
+		abortSignal: active.signal,
+		pauseSignal: active.pauseController?.signal,
 		...rest,
 		onSpawn: proc => {
 			active.ytDlpProcess = proc
+			forgetOnExit(proc, () => {
+				if (active.ytDlpProcess === proc) active.ytDlpProcess = undefined
+			})
 			if (active.cancelRequested) proc.kill('SIGKILL')
 			ctx.register(() => {
 				proc.kill('SIGKILL')

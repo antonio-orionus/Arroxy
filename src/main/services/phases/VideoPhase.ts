@@ -5,15 +5,17 @@ import {dirname, join} from 'node:path'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import {siteForJob, type Site} from '@shared/sites/index.js'
-import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
+import type {RunIdentity, YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight, type QualityLimit} from '../download/formatLimitSignals.js'
 import {QueueResumeLifecycle} from '../download/QueueResumeLifecycle.js'
 import {TEMP_DIR_NAME} from '../download/cleanup.js'
 import {hideTempDirRoot, normalizeCreatedPath} from '../download/tempDirVisibility.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, exploreSignedOut} from './phaseHelpers.js'
 import {buildMediaRequest} from './mediaRequest.js'
+import {identityFor} from '../exploreGate.js'
+import {settleWithExploreSession} from './signedInFlow.js'
 
 const logger = log.scope('downloads')
 
@@ -57,7 +59,7 @@ async function detectCachedInfoJson(tempDir: string | undefined): Promise<string
 	}
 }
 
-function isSkippableSponsorBlockApiFailure(result: Exclude<YtDlpResult, {kind: 'success'}>, req: YtDlpRequest): boolean {
+function isSkippableSponsorBlockApiFailure(result: YtDlpResult, req: YtDlpRequest): boolean {
 	if (result.kind !== 'exit-error') return false
 	if (req.kind !== 'media' || req.sponsorBlock === undefined || req.sponsorBlock.categories.length === 0) return false
 	return /Unable to communicate with SponsorBlock API/i.test([result.rawError, result.stderr].filter(Boolean).join('\n'))
@@ -76,12 +78,17 @@ async function detectQualityLimit(job: ResolvedStartDownloadInput['job'], tempDi
 const INFO_JSON_NAME = '_arroxy.info.json'
 
 interface MediaRunMode {
-	withoutCookies: boolean
+	identity: RunIdentity
 	stopIfLimited: boolean
 }
 
-const WITH_COOKIES: MediaRunMode = {withoutCookies: false, stopIfLimited: false}
-const WITHOUT_COOKIES: MediaRunMode = {withoutCookies: true, stopIfLimited: false}
+const WITHOUT_COOKIES: MediaRunMode = {identity: 'none', stopIfLimited: false}
+const SIGNED_IN: MediaRunMode = {identity: 'exploreSession', stopIfLimited: false}
+
+// Stands in for a spawn the pre-spawn guard refused; the phase reports it as signed out.
+function refusedSignedInRun(req: YtDlpRequest): MediaRun {
+	return {req, result: {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''}, formatsWithheld: false, stoppedLimited: false, alreadyDownloaded: false}
+}
 
 interface MediaRun {
 	req: YtDlpRequest
@@ -179,12 +186,18 @@ export function VideoPhase(embed: boolean): Phase {
 			const site = siteForJob(preparedJob.extractor, input.url)
 			const buildRequest = (infoJsonPath: string | undefined): YtDlpRequest => buildMediaRequest({url: input.url, job: preparedJob, outputDir: job.outputDir, tempDir, embed, infoJsonPath})
 
+			// Set when the pre-spawn guard refused an escalated job's spawn.
+			let signedOut = false
 			// Don't preemptively emit downloadingMedia on spawn — yt-dlp spends
 			// a few seconds on extractor work and thumbnail conversion first.
 			// The first `[download] Destination:` line in consumeProgress emits
 			// the accurate status when the actual data download begins.
 			const runMedia = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
 				const req = buildRequest(infoJsonPath)
+				if (!(await canSpawnSignedIn(ctx, site.id))) {
+					signedOut = true
+					return refusedSignedInRun(req)
+				}
 				// yt-dlp prints the withheld-formats warning during extraction, so a run
 				// that loads the probe's info-json inherits the probe's observation.
 				// A resumed run loading its own saved info-json inherits the earlier run's.
@@ -229,9 +242,9 @@ export function VideoPhase(embed: boolean): Phase {
 					},
 					onStdout: consume,
 					onStderr: consume,
-					abortSignal: stop.signal
+					abortSignal: AbortSignal.any([active.signal, stop.signal])
 				})
-				const result = await ytDlp.run(req, signal, {withoutCookies: mode.withoutCookies})
+				const result = await ytDlp.run(req, signal, {identity: mode.identity, jobKey: job.id})
 				// yt-dlp can finish a small file before the stop reaches it. The run
 				// then did complete — at the limited quality — and is kept as it is.
 				return {req, result, formatsWithheld, stoppedLimited: stoppedLimited && result.kind !== 'success', alreadyDownloaded}
@@ -239,7 +252,7 @@ export function VideoPhase(embed: boolean): Phase {
 
 			const runWithInfoJsonFallback = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
 				const first = await runMedia(infoJsonPath, mode)
-				if (active.pauseRequested || active.cancelRequested || first.stoppedLimited) return first
+				if (active.pauseRequested || active.cancelRequested || first.stoppedLimited || signedOut) return first
 				if (!infoJsonPath || first.result.kind === 'success' || hasMediaTransferStarted(active) || isSkippableSponsorBlockApiFailure(first.result, first.req)) return first
 				// Dropping the info-json re-extracts, but extraction runs under the
 				// same session identity — and YouTube keys the googlevideo edge host
@@ -259,7 +272,8 @@ export function VideoPhase(embed: boolean): Phase {
 
 			const interrupted = (): PhaseOutcome | null => (active.pauseRequested ? {kind: 'paused'} : active.cancelRequested ? {kind: 'cancelled'} : null)
 			const retry = ctx.cookielessRetry
-			const cookielessEligible = preparedJob.kind === 'ranged-format' && site.id === 'youtube' && tempDir !== undefined && resumeInfoJsonPath === undefined && retry.current !== 'no-help' && (await ytDlp.usesCookies())
+			// D4: an escalated job never runs without cookies, so it never takes the cookieless retry.
+			const cookielessEligible = input.auth !== 'exploreSession' && preparedJob.kind === 'ranged-format' && site.id === 'youtube' && tempDir !== undefined && resumeInfoJsonPath === undefined && retry.current !== 'no-help' && (await ytDlp.usesCookies())
 			const probeWithheld = input.probeInfoJsonPath !== undefined && input.probeFormatsWithheld === true
 			// Starting without cookies re-extracts, so it is only worth it when there
 			// is no probe info-json to load or that info-json is itself limited.
@@ -267,6 +281,8 @@ export function VideoPhase(embed: boolean): Phase {
 			// way; before that, only one the probe already shows as limited does.
 			const startWithoutCookies = cookielessEligible && (input.probeInfoJsonPath === undefined || probeWithheld) && (retry.startWithoutCookies() || (retry.stopLimitedRun() && probeWithheld && input.probeInfoJsonPath !== undefined && (await probePredictsLimit(input.probeInfoJsonPath, preparedJob))))
 
+			// An escalated job runs signed in wherever an anonymous one would use the configured cookies.
+			const withCookies: MediaRunMode = {identity: identityFor(input.auth), stopIfLimited: false}
 			let run: MediaRun
 			let triedWithoutCookies = startWithoutCookies
 			if (startWithoutCookies) {
@@ -274,7 +290,7 @@ export function VideoPhase(embed: boolean): Phase {
 			} else {
 				// Without a probe info-json the limit only shows during extraction, so
 				// the signed-in run is watched and stopped once formats are chosen.
-				run = await runWithInfoJsonFallback(loadInfoJsonPath, {withoutCookies: false, stopIfLimited: cookielessEligible && retry.stopLimitedRun() && loadInfoJsonPath === undefined})
+				run = await runWithInfoJsonFallback(loadInfoJsonPath, {...withCookies, stopIfLimited: cookielessEligible && retry.stopLimitedRun() && loadInfoJsonPath === undefined})
 				const stoppedFirst = interrupted()
 				if (stoppedFirst) return stoppedFirst
 				if (run.stoppedLimited && tempDir) {
@@ -295,10 +311,26 @@ export function VideoPhase(embed: boolean): Phase {
 				retry.record('failed')
 				triedWithoutCookies = false
 				logger.info('Download without cookies failed; using cookies again', {jobId: job.id})
-				run = await runWithInfoJsonFallback(loadInfoJsonPath, WITH_COOKIES)
+				run = await runWithInfoJsonFallback(loadInfoJsonPath, withCookies)
 				const stoppedAgain = interrupted()
 				if (stoppedAgain) return stoppedAgain
 			}
+			if (signedOut) return exploreSignedOut(ctx)
+
+			const settled = await settleWithExploreSession(ctx, run, {
+				site,
+				escalates: ({result, req}) => !isSkippableSponsorBlockApiFailure(result, req),
+				// Re-runs signed in, re-extracting: an anonymous info-json is never replayed
+				// on the account, and the cleared temp dir holds no partial file to splice.
+				runSignedIn: async () => {
+					if (tempDir) await clearTempDir(tempDir)
+					const signedInRun = await runMedia(undefined, SIGNED_IN)
+					return signedOut ? null : signedInRun
+				}
+			})
+			if (settled.kind === 'stopped') return settled.outcome
+			if (settled.kind === 'signedOut') return exploreSignedOut(ctx)
+			run = settled.run
 			const {req, result} = run
 
 			if (result.kind !== 'success') {

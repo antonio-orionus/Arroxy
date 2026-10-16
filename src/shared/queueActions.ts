@@ -6,10 +6,10 @@ export type QueuePlannableAction = QueueSelectionAction | QueueOutputTargetActio
 const VALID_STATUSES: Record<QueueSelectionAction, ReadonlySet<QueueItemStatus>> = {
 	pause: new Set(['pending', 'running']),
 	resume: new Set(['paused-held', 'paused-active']),
-	// A probing item is a live placeholder — cancelling it aborts its probe.
-	cancel: new Set(['probing', 'pending', 'running', 'paused-held', 'paused-active']),
+	// A placeholder row is live — cancelling it aborts its probe and removes it.
+	cancel: new Set(['probing', 'needs-choice', 'pending', 'running', 'paused-held', 'paused-active']),
 	retry: new Set(['error', 'cancelled']),
-	remove: new Set(['probing', 'pending', 'paused-held', 'paused-active', 'done', 'error', 'cancelled']),
+	remove: new Set(['probing', 'needs-choice', 'pending', 'paused-held', 'paused-active', 'done', 'error', 'cancelled']),
 	'pull-now': new Set(['pending'])
 }
 
@@ -19,13 +19,33 @@ export function isLiveQueueItem(item: QueueItem): boolean {
 	return !TERMINAL_STATUSES.has(item.status)
 }
 
-export function findLiveQueueDuplicate(items: readonly QueueItem[], existing: readonly QueueItem[]): QueueItem | undefined {
+// What a batch adds to the queue: each video once, and none already live.
+// Rows whose video is live in `existing` are left out and counted; a video
+// repeated within the batch is queued once, and the repeat is not counted,
+// since nothing about it was already queued. A batch with only already-live
+// rows is refused, naming the first of them.
+export type LiveAdmission = {ok: true; admitted: QueueItem[]; skippedAlreadyQueued: number} | {ok: false; duplicate: QueueItem}
+
+export function admitAgainstLive(items: readonly QueueItem[], existing: readonly QueueItem[]): LiveAdmission {
 	const liveUrls = new Set(existing.filter(isLiveQueueItem).map(item => item.url))
+	const batchUrls = new Set<string>()
+	const admitted: QueueItem[] = []
+	let duplicate: QueueItem | undefined
+	let skippedAlreadyQueued = 0
 	for (const item of items) {
-		if (liveUrls.has(item.url)) return item
-		if (isLiveQueueItem(item)) liveUrls.add(item.url)
+		if (liveUrls.has(item.url)) {
+			duplicate ??= item
+			skippedAlreadyQueued += 1
+			continue
+		}
+		if (isLiveQueueItem(item)) {
+			if (batchUrls.has(item.url)) continue
+			batchUrls.add(item.url)
+		}
+		admitted.push(item)
 	}
-	return undefined
+	if (duplicate && admitted.length === 0) return {ok: false, duplicate}
+	return {ok: true, admitted, skippedAlreadyQueued}
 }
 
 export interface QueueActionPlan {

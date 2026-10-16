@@ -13,6 +13,47 @@ export interface PlaylistEntryHint {
 	ie_key?: string
 }
 
+// Owned cookie shape so src/shared stays Electron-free; the desktop adapter
+// maps Electron's Cookie onto it.
+export interface ExploreCookie {
+	name: string
+	value: string
+	domain: string
+	hostOnly: boolean
+	path: string
+	secure: boolean
+	httpOnly: boolean
+	session: boolean
+	expirationDate?: number
+}
+
+// A hostname rule for an Explore view (where it may navigate, which hosts are sign-in). `pattern` names a built-in matcher.
+export type HostRule = {kind: 'exact'; host: string} | {kind: 'suffix'; domain: string} | {kind: 'pattern'; pattern: 'google-accounts-cctld' | 'google-consent-cctld'}
+
+export interface SiteExplore {
+	// Where the Explore tab opens for this site.
+	readonly homeUrl: string
+	// A job's jar contains only cookies on these registrable domains (and their subdomains).
+	readonly cookieDomains: readonly string[]
+	// Hosts the view may navigate to (sign-in and consent flows included); anything else is refused.
+	readonly navigationHosts: readonly HostRule[]
+	// The site's own content hosts: the only ones an address typed in the bar
+	// may open (sign-in and account hosts are reached by clicking, never typed).
+	readonly contentHosts: readonly HostRule[]
+	// The account provider's sign-in and account hosts: the ad blocker never acts on them.
+	readonly signInHosts: readonly HostRule[]
+	// Cookie-consent hops on the way to the site: reached by the site's own
+	// redirects, never as an address typed in the bar.
+	readonly consentHosts: readonly HostRule[]
+	// Presence check only (cheap, synchronous); validity is ExploreSessionService.verifySignedIn.
+	isSignedIn(cookies: readonly ExploreCookie[]): boolean
+	// The site's own search page for text typed in the address bar.
+	searchUrl(query: string): string
+	// A typed link on a site host in the form the site serves it (a short
+	// link as its full page, say); absent when every form loads as it is.
+	canonicalAddress?(url: URL): URL
+}
+
 export interface Site {
 	readonly id: SiteId
 
@@ -45,4 +86,8 @@ export interface Site {
 	// YouTube can return a mix of videos and nested playlists/channels. Generic
 	// sites don't have this issue.
 	isNestedContainer?(entry: PlaylistEntryHint): boolean
+
+	// In-app browser (Explore) capability. Absent for sites that cannot escalate
+	// a download onto a signed-in session.
+	readonly explore?: SiteExplore
 }

@@ -1,6 +1,8 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
+import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
 import {createStreamTextReader, spawnYtDlp} from '@main/utils/process.js'
+import {killProcessTree} from './download/processControl.js'
 import {classifyYtDlpStderr, extractLastError} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {planWorkflow, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
@@ -10,12 +12,15 @@ import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
 import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
 import {siteForUrl} from '@shared/sites/index.js'
+import type {SiteId} from '@shared/sites/types.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import type {E2eHarnessMode} from '@main/e2eHarness.js'
 import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
+import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
+import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
@@ -44,14 +49,18 @@ export interface YtDlpSignal {
 	// Caller-driven cancellation. When aborted, in-flight yt-dlp processes are
 	// SIGKILLed and the run resolves with an exit-error (rawError: 'Cancelled').
 	abortSignal?: AbortSignal
+	// Pause: a run that has not spawned yet (binary setup, token mint, waiting
+	// for a signed-in spawn slot) resolves Cancelled without spawning. A process
+	// already running is left to the caller.
+	pauseSignal?: AbortSignal
 	// Per-call timeout override (ms) for probes. Background hydration passes a
 	// longer budget; undefined keeps the default policy below.
 	timeoutMs?: number
 }
 
 export type YtDlpResult =
-	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat}
-	| {kind: 'spawn-error'; error: Error; stdout: string; stderr: string}
+	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat; accountCookiesRejected?: true}
+	| {kind: 'spawn-error'; error: Error; stdout: string; stderr: string; accountCookiesRejected?: true}
 	| {
 			kind: 'exit-error'
 			exitCode: number
@@ -62,6 +71,9 @@ export type YtDlpResult =
 			rawError: string | null
 			stdout: string
 			stderr: string
+			// yt-dlp warned that the account cookies it was given are no longer
+			// valid (the session was rotated or signed out in the browser).
+			accountCookiesRejected?: true
 	  }
 
 export interface YtDlpInvocationSummary {
@@ -88,6 +100,17 @@ type RetryStrategy = {kind: 'pot'; reMint: boolean} | {kind: 'fallback'} | {kind
 // one retry — keep the literal in sync if this ever changes.
 export const PROBE_TIMEOUT_MESSAGE = 'Probe timed out'
 
+const ACCOUNT_COOKIES_REJECTED = /provided YouTube account cookies are no longer valid/i
+
+// How long a stopped signed-in run waits for its killed tree to close before
+// it settles (and its jar is deleted) anyway.
+const STOPPED_SESSION_EXIT_GRACE_MS = 5000
+
+// Which identity a run uses. `configured`: the selected cookie mode (anonymous
+// under `explore`). `none`: no cookies this run (the quality fallback).
+// `exploreSession`: the escalated Explore session.
+export type RunIdentity = 'configured' | 'none' | 'exploreSession'
+
 interface InvokeOptions {
 	url: string
 	ytDlpPath: string
@@ -97,6 +120,7 @@ interface InvokeOptions {
 	args: string[]
 	tokenService: TokenService
 	cookies?: ResolvedCookies | null
+	sessionJars?: SessionCookieJarPort
 	proxyUrl?: string
 	/** Credential-free form of the proxy setting for logs. */
 	proxyForLog?: string | null
@@ -109,7 +133,64 @@ interface InvokeOptions {
 	onInvocation?: (summary: YtDlpInvocationSummary) => void
 }
 
+const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
+
+// A new object per call: results are handed to callers that may annotate them.
+function exploreSessionUnavailable(): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: ''}
+}
+
+function spawnCapExceeded(): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Too many signed-in attempts for this download', stdout: '', stderr: ''}
+}
+
+function cancelledResult(): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''}
+}
+
+function probeTimedOut(): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout: '', stderr: ''}
+}
+
+// Cancelled or paused before a spawn: nothing may start.
+function stoppedBeforeSpawn(signal: YtDlpSignal | undefined): boolean {
+	return signal?.abortSignal?.aborted === true || signal?.pauseSignal?.aborted === true
+}
+
 async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise<YtDlpResult> {
+	const cookies = opts.cookies
+	if (cookies?.kind === 'session') {
+		const jars = opts.sessionJars
+		if (!jars) throw new Error('invariant: session cookies resolved without a session jar port')
+		// A run cancelled or paused before it started must not put cookies on disk.
+		if (stoppedBeforeSpawn(opts.signal)) return cancelledResult()
+		// Only the port's own failure (the jar could not be written) maps to
+		// "unavailable"; whatever the spawn itself did is reported as before.
+		const spawned: {result?: YtDlpResult; failure?: {error: unknown}} = {}
+		try {
+			// One jar per spawn: the port deletes it as soon as this spawn settles.
+			return await jars.withJar(cookies.siteId, async jarPath => {
+				try {
+					spawned.result = await spawnCollect(opts, strategy, ['--cookies', jarPath])
+					return spawned.result
+				} catch (error) {
+					spawned.failure = {error}
+					throw error
+				}
+			})
+		} catch (error) {
+			if (spawned.result) return spawned.result
+			if (spawned.failure) throw spawned.failure.error
+			// Deliberately no error text: it can carry the jar path.
+			ytDlpLog.warn('Explore session jar unavailable', {errorName: error instanceof Error ? error.name : typeof error})
+			return exploreSessionUnavailable()
+		}
+	}
+	const cookiesArgs = cookies?.kind === 'file' ? ['--cookies', cookies.path] : cookies?.kind === 'browser' ? ['--cookies-from-browser', cookies.browser] : []
+	return spawnCollect(opts, strategy, cookiesArgs)
+}
+
+async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookiesArgs: string[]): Promise<YtDlpResult> {
 	const extractorArgsArr: string[] = []
 	if (strategy.kind === 'pot') {
 		if (strategy.reMint) opts.tokenService.invalidateCache()
@@ -122,7 +203,6 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	// 'noExtractorArgs' → no --extractor-args flag at all. yt-dlp runs vanilla
 	// for non-YouTube extractors.
 
-	const cookiesArgs = opts.cookies?.kind === 'file' ? ['--cookies', opts.cookies.path] : opts.cookies?.kind === 'browser' ? ['--cookies-from-browser', opts.cookies.browser] : []
 	const proxyArgs = opts.proxyUrl ? ['--proxy', opts.proxyUrl] : []
 	// Bandwidth cap (anti-bot lever): only applied to media downloads via the
 	// caller — never on probes (we want format JSON instantly) or subtitle
@@ -158,8 +238,9 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 	ytDlpLog.info('spawn', {attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : undefined, binary: opts.ytDlpPath, ffmpeg: opts.ffmpegPath, ...jsRuntimeSummary, cookies: opts.cookies?.kind ?? null, proxy: opts.proxyForLog ?? null, args: redactArgs(args)})
 
 	const abortSignal = opts.signal?.abortSignal
-	if (abortSignal?.aborted) {
-		return Promise.resolve({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''})
+	// The token mint above can take a while; a pause landing during it stops the run here.
+	if (stoppedBeforeSpawn(opts.signal)) {
+		return Promise.resolve(cancelledResult())
 	}
 	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
@@ -183,50 +264,59 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 			if (err.lines) opts.signal?.onStderr?.(err.lines)
 		}
 
+		// A signed-in run's jar must not outlive its process tree: yt-dlp writes
+		// cookies back into the jar, and a PyInstaller build's leader leaves its
+		// Python child running when only the leader is killed. So a stopped
+		// session run kills the whole tree and settles (releasing the jar) only
+		// once the child has closed — bounded, in case close never comes.
+		const sessionRun = opts.cookies?.kind === 'session'
+		let stopped: YtDlpResult | null = null
+		let exitGrace: NodeJS.Timeout | null = null
+
 		const finish = (result: YtDlpResult): void => {
 			if (settled) return
 			settled = true
 			if (timer) clearTimeout(timer)
+			if (exitGrace) clearTimeout(exitGrace)
 			if (abortSignal && onAbort) abortSignal.removeEventListener('abort', onAbort)
-			resolve(result)
+			resolve(ACCOUNT_COOKIES_REJECTED.test(result.stderr) ? {...result, accountCookiesRejected: true} : result)
+		}
+
+		const stop = (result: () => YtDlpResult): void => {
+			if (settled || stopped) return
+			if (sessionRun) {
+				killProcessTree(proc, 'SIGKILL')
+			} else {
+				try {
+					proc.kill('SIGKILL')
+				} catch {
+					/* already exited */
+				}
+			}
+			drainStreams()
+			// Detach buffered listeners — the dead proc will eventually fire
+			// 'close' (the settled guard absorbs it), but until GC the closure
+			// captures stdout/stderr buffers we no longer need.
+			proc.stdout.removeAllListeners('data')
+			proc.stderr.removeAllListeners('data')
+			if (!sessionRun) {
+				finish(result())
+				return
+			}
+			stopped = result()
+			const pending = stopped
+			exitGrace = setTimeout(() => finish(pending), STOPPED_SESSION_EXIT_GRACE_MS)
 		}
 
 		// Force-kill if the process exceeds opts.timeoutMs. SIGKILL on win32 is
 		// implemented by node as TerminateProcess — the close event still fires,
 		// which the `settled` guard absorbs as a no-op.
-		const timer = opts.timeoutMs
-			? setTimeout(() => {
-					try {
-						proc.kill('SIGKILL')
-					} catch {
-						/* already exited */
-					}
-					drainStreams()
-					// Detach buffered listeners — the dead proc will eventually fire
-					// 'close' (the settled guard absorbs it), but until GC the closure
-					// captures stdout/stderr buffers we no longer need.
-					proc.stdout.removeAllListeners('data')
-					proc.stderr.removeAllListeners('data')
-					finish({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout, stderr})
-				}, opts.timeoutMs)
-			: null
+		const timer = opts.timeoutMs ? setTimeout(() => stop(() => ({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout, stderr})), opts.timeoutMs) : null
 
 		// Caller-driven cancel — kill the child and resolve with a Cancelled
 		// exit-error so the wider probe pipeline can categorize and exit cleanly
 		// rather than waiting for natural completion.
-		const onAbort = abortSignal
-			? (): void => {
-					try {
-						proc.kill('SIGKILL')
-					} catch {
-						/* already exited */
-					}
-					drainStreams()
-					proc.stdout.removeAllListeners('data')
-					proc.stderr.removeAllListeners('data')
-					finish({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout, stderr})
-				}
-			: null
+		const onAbort = abortSignal ? (): void => stop(() => ({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout, stderr})) : null
 		if (abortSignal && onAbort) abortSignal.addEventListener('abort', onAbort, {once: true})
 
 		opts.signal?.onSpawn?.(proc)
@@ -245,10 +335,14 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 
 		proc.on('error', error => {
 			drainStreams()
-			finish({kind: 'spawn-error', error, stdout, stderr})
+			finish(stopped ?? {kind: 'spawn-error', error, stdout, stderr})
 		})
 
 		proc.on('close', code => {
+			if (stopped) {
+				finish(stopped)
+				return
+			}
 			drainStreams()
 			if (code === 0) {
 				finish({
@@ -274,6 +368,9 @@ function finalFallbackStrategy(opts: InvokeOptions): RetryStrategy {
 }
 
 function shouldUsePotLadder(opts: InvokeOptions): boolean {
+	// An escalated run is the user's signed-in session; the anonymous token would
+	// contradict it, so such runs never get one.
+	if (opts.cookies?.kind === 'session') return false
 	if (!siteForUrl(opts.url).needsPotToken) return false
 	if (opts.isProbe !== true) return true
 	return (opts.probePlaylistMode ?? 'auto') === 'video'
@@ -332,13 +429,21 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 }
 
 export interface YtDlpRunOptions {
-	// Leave out the configured cookies for this run only. The quality fallback
-	// uses it when a signed-in session got withheld formats.
-	withoutCookies?: boolean
+	identity?: RunIdentity
+	// The download attempt this run belongs to: signed-in spawns are capped per
+	// key. A run without one (a probe) gets a budget of its own.
+	jobKey?: string
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
 export type SettingsSource = Pick<SettingsStore, 'get'>
+
+// Whether a run may use the Explore session right now (explore mode, the kill
+// switch, a signed-in partition), read live. Structural so this module does not
+// import the gate, which imports it.
+export interface SessionAuthorization {
+	canEscalate(siteId: SiteId): Promise<boolean>
+}
 
 export class YtDlp {
 	private _ytDlpPath: string | null = null
@@ -351,7 +456,7 @@ export class YtDlp {
 		private readonly binaryManager: BinaryManager,
 		private readonly tokenService: TokenService,
 		private readonly settingsStore: SettingsSource,
-		private readonly opts: {e2eMode?: E2eHarnessMode} = {}
+		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization} = {}
 	) {}
 
 	// Call once at job start to emit binary-setup status events.
@@ -399,15 +504,24 @@ export class YtDlp {
 	}
 
 	async usesCookies(): Promise<boolean> {
-		return resolveCookies(await this.settingsStore.get()) !== null
+		return resolveCookies(await this.settingsStore.get(), 'anonymous', 'youtube') !== null
 	}
 
 	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
+		// A job paused (or cancelled) with no live process stops at its next run.
+		if (stoppedBeforeSpawn(signal)) return cancelledResult()
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []
 		const settings = await this.settingsStore.get()
-		const cookies = options.withoutCookies ? null : resolveCookies(settings)
+		const identity = options.identity ?? 'configured'
+		const siteId = siteForUrl(req.url).id
+		const cookies = identity === 'none' ? null : resolveCookies(settings, identity === 'exploreSession' ? 'exploreSession' : 'anonymous', siteId)
+		// An escalated job must never fall back to running anonymously, nor run unpaced.
+		if (identity === 'exploreSession' && (cookies?.kind !== 'session' || !this.opts.sessionJars || !this.opts.spawnGate || !this.opts.sessionAuth)) {
+			ytDlpLog.warn('escalated run refused: Explore session unavailable', {resolved: cookies?.kind ?? null, hasJarPort: this.opts.sessionJars !== undefined, hasSpawnGate: this.opts.spawnGate !== undefined, hasSessionAuth: this.opts.sessionAuth !== undefined})
+			return exploreSessionUnavailable()
+		}
 		// The normalized URL, so yt-dlp and the token window read the setting the
 		// same way. An unusable value is still handed to yt-dlp as typed: its own
 		// error names the problem better than silently dropping the proxy would.
@@ -431,28 +545,34 @@ export class YtDlp {
 		// arming a nonsense timer.
 		const timeoutOverride = signal?.timeoutMs
 		const validOverride = timeoutOverride !== undefined && Number.isInteger(timeoutOverride) && timeoutOverride > 0 ? timeoutOverride : undefined
-		const result = await invokeWithRetry({
-			url: req.url,
-			ytDlpPath: this._ytDlpPath!,
-			ffmpegPath: this._ffmpegPath,
-			jsRuntime: this._jsRuntime,
-			e2eMode: this.opts.e2eMode,
-			args: plan.args,
-			tokenService: this.tokenService,
-			cookies,
-			proxyUrl,
-			proxyForLog: proxyForLog(proxySetting),
-			limitRate,
-			timeoutMs: validOverride ?? (isProbe ? PROBE_TIMEOUT_MS : undefined),
-			isProbe,
-			probePlaylistMode,
-			hasExplicitYoutubePlayerClient,
-			signal,
-			onInvocation: summary => {
-				this._lastInvocation = summary
-				this._lastInvocations.push(summary)
-			}
-		})
+		const invoke = (): Promise<YtDlpResult> =>
+			invokeWithRetry({
+				url: req.url,
+				ytDlpPath: this._ytDlpPath!,
+				ffmpegPath: this._ffmpegPath,
+				jsRuntime: this._jsRuntime,
+				e2eMode: this.opts.e2eMode,
+				args: plan.args,
+				tokenService: this.tokenService,
+				cookies,
+				sessionJars: this.opts.sessionJars,
+				proxyUrl,
+				proxyForLog: proxyForLog(proxySetting),
+				limitRate,
+				timeoutMs: validOverride ?? (isProbe ? PROBE_TIMEOUT_MS : undefined),
+				isProbe,
+				probePlaylistMode,
+				hasExplicitYoutubePlayerClient,
+				signal,
+				onInvocation: summary => {
+					this._lastInvocation = summary
+					this._lastInvocations.push(summary)
+				}
+			})
+		const spawnGate = this.opts.spawnGate
+		// A signed-in probe waits for a slot no longer than its own timeout (R21):
+		// it shares the gate with signed-in downloads, which can hold a slot for long.
+		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke()
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
@@ -470,5 +590,47 @@ export class YtDlp {
 			return {...result, effectiveSubtitleFormat: plan.facts.effectiveSubtitleFormat}
 		}
 		return result
+	}
+
+	// A signed-in run can wait minutes for a slot. The user may have left explore
+	// mode, flipped the kill switch or signed out meanwhile, so the decision is
+	// taken again right before the jar is written.
+	private async invokeIfStillAuthorized(siteId: SiteId, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
+		const authorized = await this.opts.sessionAuth?.canEscalate(siteId).catch(() => false)
+		if (authorized === true) return invoke()
+		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {siteId})
+		return exploreSessionUnavailable()
+	}
+
+	// `waitBudgetMs` bounds only the wait for a slot; a run that got one is
+	// bounded by its own timer as usual.
+	private async runGated(gate: Pick<ExploreSpawnGate, 'run' | 'resetJob'>, jobKey: string | undefined, signal: YtDlpSignal | undefined, waitBudgetMs: number | undefined, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
+		const key = jobKey ?? `run:${randomUUID()}`
+		const waitExpired = new AbortController()
+		const waitTimer = waitBudgetMs === undefined ? undefined : setTimeout(() => waitExpired.abort(), waitBudgetMs)
+		const gateSignal = AbortSignal.any([signal?.abortSignal, signal?.pauseSignal, waitExpired.signal].filter(s => s !== undefined))
+		try {
+			const gated = await gate.run(
+				key,
+				() => {
+					clearTimeout(waitTimer)
+					return invoke()
+				},
+				gateSignal
+			)
+			if (gated.kind === 'cap-exceeded') {
+				ytDlpLog.warn('escalated run refused: signed-in spawn cap reached', {jobKey: key})
+				return spawnCapExceeded()
+			}
+			if (gated.kind !== 'cancelled') return gated
+			if (waitExpired.signal.aborted && !stoppedBeforeSpawn(signal)) {
+				ytDlpLog.warn('signed-in probe timed out waiting for a spawn slot', {waitBudgetMs})
+				return probeTimedOut()
+			}
+			return cancelledResult()
+		} finally {
+			clearTimeout(waitTimer)
+			if (jobKey === undefined) gate.resetJob(key)
+		}
 	}
 }

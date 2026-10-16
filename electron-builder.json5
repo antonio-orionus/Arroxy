@@ -66,6 +66,9 @@
       { "from": "build/embedded/darwin-${arch}/ffprobe", "to": "ffprobe" }
     ],
     "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }],
+    "extendInfo": {
+      "NSBluetoothAlwaysUsageDescription": "Arroxy uses Bluetooth so you can sign in to Explore with a security key (passkey)."
+    },
     "artifactName": "${productName}-mac-${arch}.${ext}"
   },
   "linux": {

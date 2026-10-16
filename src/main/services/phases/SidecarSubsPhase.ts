@@ -3,7 +3,12 @@ import {DEFAULTS} from '@shared/constants.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, interruptedOutcome} from './phaseHelpers.js'
+import {identityFor} from '../exploreGate.js'
+import {forgetOnExit} from '../download/processControl.js'
+import {siteForJob} from '@shared/sites/index.js'
+import type {YtDlpResult} from '../YtDlp.js'
+import {settleWithExploreSession} from './signedInFlow.js'
 
 async function runEmbedMux(ctx: PhaseContext): Promise<boolean> {
 	const {active, ytDlp} = ctx
@@ -34,6 +39,9 @@ async function runEmbedMux(ctx: PhaseContext): Promise<boolean> {
 			keepCoverArt: preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail,
 			onSpawn: proc => {
 				active.ffmpegProcess = proc
+				forgetOnExit(proc, () => {
+					if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
+				})
 				if (active.cancelRequested) proc.kill('SIGKILL')
 				ctx.register(() => {
 					proc.kill('SIGKILL')
@@ -70,20 +78,46 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 				throw new Error('invariant: SidecarSubsPhase reached with no subtitles in job')
 			}
 
+			// A pause or cancel wins over a lost session: the job parks (or ends) as the user asked.
+			const interrupted = interruptedOutcome(active)
+			if (interrupted) return interrupted
+
+			// An escalated job never fetches subtitles anonymously. The video is
+			// already saved, so a lost Explore session soft-fails this phase like
+			// any other subtitle failure instead of failing the download.
+			const site = siteForJob(preparedJob.extractor, input.url)
+			if (!(await canSpawnSignedIn(ctx, site.id))) {
+				logger.warn('Subtitles skipped — Explore session no longer available for this signed-in job; video already saved', {jobId: job.id})
+				return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
+			}
+
 			ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
 
-			const subResult = await ytDlp.run(
-				{
-					kind: 'subtitles',
-					url: input.url,
-					output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-					subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto, ...(subs.autoOnly ? {autoOnly: true} : {})}
-				},
-				buildYtDlpSignal(ctx, active)
-			)
+			const fetchSubtitles = async (): Promise<{result: YtDlpResult}> => ({
+				result: await ytDlp.run(
+					{
+						kind: 'subtitles',
+						url: input.url,
+						output: {directory: input.outputDir!, subtitleMode: subs.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
+						subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto, ...(subs.autoOnly ? {autoOnly: true} : {})}
+					},
+					buildYtDlpSignal(ctx, active),
+					{identity: identityFor(input.auth), jobKey: job.id}
+				)
+			})
 
-			if (active.pauseRequested) return {kind: 'paused'}
-			if (active.cancelRequested) return {kind: 'cancelled'}
+			const first = await fetchSubtitles()
+			const stopped = interruptedOutcome(active)
+			if (stopped) return stopped
+			// Never escalates (the video is saved; a subtitle failure is soft), but an
+			// escalated job's rejected cookies are checked like any signed-in run's.
+			const settled = await settleWithExploreSession(ctx, first, {site, runSignedIn: async () => ((await canSpawnSignedIn(ctx, site.id)) ? fetchSubtitles() : null)})
+			if (settled.kind === 'stopped') return settled.outcome
+			if (settled.kind === 'signedOut') {
+				logger.warn('Subtitles skipped — the Explore session is signed out; video already saved', {jobId: job.id})
+				return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
+			}
+			const subResult = settled.run.result
 			if (subResult.kind !== 'success') {
 				logger.warn('Subtitle fetch failed — video already saved', {jobId: job.id, kind: subResult.kind, ...(subResult.kind === 'exit-error' ? {code: subResult.exitCode, errorKind: subResult.errorKind} : {})})
 				return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}

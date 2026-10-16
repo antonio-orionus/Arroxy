@@ -1,6 +1,7 @@
 import {z} from 'zod'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {queueArraySchema, queueLaneSchema, queueSelectionActionSchema, localizedErrorSchemaShape} from '@shared/schemas.js'
+import {queueChoiceSchema, queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
+import {localizedErrorSchemaShape, queueArraySchema} from '@shared/queueItemSchema.js'
 import {ok} from '@shared/result.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
@@ -14,6 +15,7 @@ const applySelectionActionInputSchema = z.object({action: queueSelectionActionSc
 const changeOutputTargetInputSchema = z.object({itemIds: z.array(z.string()), outputDir: z.string().trim().min(1)})
 const probeFailedInputSchema = z.object({itemId: z.string().min(1), error: localizedErrorSchemaShape})
 const replaceProbingInputSchema = z.object({itemId: z.string().min(1), items: queueArraySchema})
+const needsChoiceInputSchema = z.object({itemId: z.string().min(1), choice: queueChoiceSchema, title: z.string()})
 
 export function registerQueueHandlers(queueService: QueueService, probeService: ProbeService): void {
 	// A probing item's cancellation aborts exactly its own probe — never the
@@ -22,8 +24,9 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 	// Deferred title backfill: placeholder rows resolve their real title via a
 	// full video probe on the pinned 180s budget (slow-link probes need it).
 	// Non-video results and blank titles resolve nothing — the row keeps its flag.
+	// Always anonymous: a cosmetic title lookup never spends the Explore session.
 	queueService.setTitleBackfillProbe(async url => {
-		const result = await probeService.probe(url, {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS})
+		const result = await probeService.probe(url, {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false})
 		if (!result.ok || result.data.kind !== 'video') return null
 		const title = result.data.title.trim()
 		return title === '' ? null : title
@@ -45,8 +48,24 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 		}
 	})
 
-	// Atomic probe-stage swap for the hotkey placeholder — refuses (enqueueing
-	// nothing) unless the placeholder is still probing.
+	handle(IPC_CHANNELS.queueCmdNeedsChoice, needsChoiceInputSchema, ({itemId, choice, title}) => {
+		try {
+			return Promise.resolve(queueService.needsChoice(itemId, choice, title))
+		} catch (err) {
+			return Promise.resolve(toUnknownFailure(err))
+		}
+	})
+
+	handle(IPC_CHANNELS.queueCmdReprobe, itemIdSchema, ({itemId}) => {
+		try {
+			return Promise.resolve(queueService.reprobe(itemId))
+		} catch (err) {
+			return Promise.resolve(toUnknownFailure(err))
+		}
+	})
+
+	// Atomic probe-stage swap for a quick download's placeholder — refuses
+	// (enqueueing nothing) once the placeholder is gone.
 	handle(IPC_CHANNELS.queueCmdReplaceProbing, replaceProbingInputSchema, ({itemId, items}) => {
 		try {
 			return Promise.resolve(queueService.replaceProbing(itemId, items))

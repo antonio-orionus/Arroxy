@@ -8,7 +8,7 @@
 import {isYouTubeExtractor} from '../ytdlp/extractorPredicates.js'
 import {genericSite} from './generic.js'
 import {youtubeSite} from './youtube.js'
-import type {Site} from './types.js'
+import type {Site, SiteId} from './types.js'
 
 export type {Site} from './types.js'
 
@@ -19,6 +19,11 @@ function isYouTubeHost(url: string): boolean {
 	} catch {
 		return false
 	}
+}
+
+// Resolve a Site adapter from its id (what a job or session already carries).
+export function siteById(id: SiteId): Site {
+	return id === 'youtube' ? youtubeSite : genericSite
 }
 
 // Resolve a Site adapter from a URL. Used by the unified probe pipeline before

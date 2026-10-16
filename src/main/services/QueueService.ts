@@ -28,7 +28,7 @@ import log from 'electron-log/main.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
-import {QUEUE_STATUS, STATUS_KEY, type QueueLane, type StatusKey} from '@shared/schemas.js'
+import {QUEUE_STATUS, STATUS_KEY, type QueueChoice, type QueueLane, type StatusKey} from '@shared/schemas.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {ProgressFormatter} from '@shared/progressFormat.js'
 import {ProgressNormalizer} from '@shared/progressNormalizer.js'
@@ -36,7 +36,7 @@ import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from 
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
-import {findInadmissibleQueueItem, findLiveDuplicate} from './download/queueAdmission.js'
+import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queueAdmission.js'
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
@@ -52,6 +52,9 @@ import {FinalArtifactTargets} from './finalArtifactTargets.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {changeQueueOutputTarget} from './queueOutputTargetMove.js'
 import {QueueArtifactCleanup} from './download/queueArtifactCleanup.js'
+import {commitPhaseStatus} from './download/queuePhaseStatus.js'
+import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
+import {resolveStartIdentity} from './download/queueStartIdentity.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
 const logger = log.scope('queue')
@@ -85,14 +88,9 @@ export class QueueService extends EventEmitter {
 	// One ProgressNormalizer per running jobId — keeps yt-dlp percent quirks out
 	// of the queue state machine.
 	private readonly progressNormalizers = new Map<string, ProgressNormalizer>()
-	// Progress-event coalescing seam. yt-dlp emits many progress lines per second
-	// per job; un-throttled, the renderer queue projection (290+ items) cannot
-	// keep up with the IPC fan-out. Progress is lossy (latest wins per item),
-	// transitions (started/completed/failed/phase patch) are not — they bypass
-	// the buffer via emitImmediate and drop any in-flight progress for that item.
-	private pendingProgress = new Map<string, QueueItem>()
-	private flushTimer: NodeJS.Timeout | null = null
-	private static readonly PROGRESS_FLUSH_MS = 100
+	// Progress is lossy (latest wins per item, flushed every 100 ms); transitions
+	// bypass it via emitImmediate. See QueueProgressCoalescer.
+	private readonly progress = new QueueProgressCoalescer(item => this.emit('updated', {item}), 100)
 	// Bulk-command depth. While > 0, per-commit persist() and scheduler recompute
 	// are deferred to the outermost inBulk() exit, so a multi-item command writes
 	// queue.json once and cannot spawn a download it is about to cancel. A counter,
@@ -108,6 +106,7 @@ export class QueueService extends EventEmitter {
 		items: () => this.items,
 		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
 		commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt}),
+		abortProbe: itemId => this.probeAbortHook(itemId),
 		commitRemove: itemId => this.commit({kind: 'remove', itemId}),
 		commitAdd: items => this.commit({kind: 'add', items})
 	})
@@ -175,32 +174,35 @@ export class QueueService extends EventEmitter {
 		return {items: this.snapshot(), schedulerPaused: this.schedulerPaused}
 	}
 
-	// Terminal state for a probe: the item's probe finished without a job.
-	// The renderer reports it after its hotkey probe fails; only a probing
-	// item accepts the transition (guarded by illegalTransition).
+	// Probe-stage commands for a placeholder row, whose probe the renderer runs. See QueueProbeLifecycle.
 	probeFailed(itemId: string, error: LocalizedError): Result<void> {
-		if (!this.findItem(itemId)) return fail(createAppError('validation', `queue item ${itemId} not found`))
-		if (!this.probeLifecycle.probeFailed(itemId, error)) {
-			return fail(createAppError('validation', `probeFailed is a stale signal for item ${itemId}`))
-		}
-		return ok(undefined)
+		return this.probeLifecycle.probeFailed(itemId, error)
+	}
+
+	needsChoice(itemId: string, choice: QueueChoice, title: string): Result<void> {
+		return this.probeLifecycle.needsChoice(itemId, choice, title)
+	}
+
+	reprobe(itemId: string): Result<void> {
+		return this.probeLifecycle.reprobe(itemId)
 	}
 
 	// commands ---------------------------------------------------------------
 
-	add(toAdd: QueueItem[]): Result<{ids: string[]}> {
-		if (toAdd.length === 0) return ok({ids: []})
+	add(toAdd: QueueItem[]): Result<{ids: string[]; skippedAlreadyQueued: number}> {
+		if (toAdd.length === 0) return ok({ids: [], skippedAlreadyQueued: 0})
 		const rejected = findInadmissibleQueueItem(toAdd)
 		if (rejected) return fail(createAppError('validation', rejected.message))
-		const duplicate = findLiveDuplicate(toAdd, this.items)
-		if (duplicate) return fail(createAppError('conflict', duplicate.message))
-		this.commit({kind: 'add', items: toAdd})
-		return ok({ids: toAdd.map(i => i.id)})
+		const admission = admitAgainstLiveQueue(toAdd, this.items)
+		if (!admission.ok) return admission
+		const {admitted, skippedAlreadyQueued} = admission.data
+		this.commit({kind: 'add', items: admitted})
+		return ok({ids: admitted.map(i => i.id), skippedAlreadyQueued})
 	}
 
 	// Probe-stage swap: remove + add commit back-to-back inside one bulk scope,
 	// so the swap persists once and schedules once.
-	replaceProbing(itemId: string, items: QueueItem[]): Promise<Result<{ids: string[]}>> {
+	replaceProbing(itemId: string, items: QueueItem[]): Promise<Result<{ids: string[]; skippedAlreadyQueued: number}>> {
 		return this.inBulk(() => this.probeLifecycle.replaceProbing(itemId, items))
 	}
 
@@ -337,6 +339,11 @@ export class QueueService extends EventEmitter {
 				this.commit({kind: 'event', itemId, evt: {kind: 'resumed'}})
 				return ok(undefined)
 			}
+			// The wait can be long: a cancel, remove or another resume may have moved the item on.
+			const current = this.findItem(itemId)
+			if (current?.status !== QUEUE_STATUS.pausedActive || current.lastJobId !== item.lastJobId) return ok(undefined)
+			// The old job still exists: a fresh start now would leave it running or parked as an orphan.
+			if (resumeResult.ok && resumeResult.data.jobLive) return fail(createAppError('conflict', 'The download is still pausing; resume it again in a moment'))
 		}
 
 		const tempDir = await QueueResumeLifecycle.validateTempDir(item.tempDir)
@@ -347,7 +354,7 @@ export class QueueService extends EventEmitter {
 	async cancel(itemId: string | null): Promise<Result<void>> {
 		if (itemId === null) {
 			await this.downloadService.cancel()
-			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.probing || i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
+			const ids = this.items.flatMap(i => (i.status === QUEUE_STATUS.probing || i.status === QUEUE_STATUS.needsChoice || i.status === QUEUE_STATUS.running || i.status === QUEUE_STATUS.pausedActive || i.status === QUEUE_STATUS.pausedHeld || i.status === QUEUE_STATUS.pending ? [i.id] : []))
 			logger.info('cancelAll', {ids: ids.length, snapshot: this.statusSummary()})
 			// Suppress scheduler during the sweep. Without this guard the FIRST per-item commit fires
 			// recomputeSchedule and spawns a fresh download, which the loop then cancels while its
@@ -360,8 +367,8 @@ export class QueueService extends EventEmitter {
 				try {
 					for (const id of ids) {
 						const item = this.findItem(id)
+						if (item && this.probeLifecycle.discard(item)) continue
 						if (item) await this.artifactCleanup.cleanup(item)
-						if (this.findItem(id)?.status === QUEUE_STATUS.probing) this.probeAbortHook(id)
 						const jobId = item?.lastJobId
 						if (jobId) this.forgetProgressState(jobId)
 						this.commit({kind: 'event', itemId: id, evt: {kind: 'cancelled'}})
@@ -378,8 +385,7 @@ export class QueueService extends EventEmitter {
 		}
 
 		const item = this.findItem(itemId)
-		if (!item) return ok(undefined)
-		if (this.findItem(itemId)?.status === QUEUE_STATUS.probing) this.probeAbortHook(itemId)
+		if (!item || this.probeLifecycle.discard(item)) return ok(undefined)
 		this.autoRetry.clear(itemId)
 
 		if (item.status === QUEUE_STATUS.pending || item.status === QUEUE_STATUS.pausedHeld) {
@@ -464,8 +470,7 @@ export class QueueService extends EventEmitter {
 
 	async remove(itemId: string): Promise<Result<void>> {
 		const item = this.findItem(itemId)
-		if (!item) return ok(undefined)
-		if (this.findItem(itemId)?.status === QUEUE_STATUS.probing) this.probeAbortHook(itemId)
+		if (!item || this.probeLifecycle.discard(item)) return ok(undefined)
 		if (item.status === QUEUE_STATUS.running) {
 			return fail(createAppError('validation', 'cannot remove a running item — cancel it first'))
 		}
@@ -513,7 +518,7 @@ export class QueueService extends EventEmitter {
 		// Phase transition — non-status update for "Merging…", "Embedding…", etc.
 		// Skip for terminal states to avoid stale events mutating cancelled/done.
 		if (item.status === QUEUE_STATUS.cancelled || item.status === QUEUE_STATUS.done) return
-		this.commit({kind: 'patch', itemId: item.id, reason: `phase:${event.statusKey}`, patcher: prev => ({...prev, lastStatus: {key: event.statusKey, params: event.params}, progressDetail: null})})
+		commitPhaseStatus({patch: (reason, patcher) => this.commit({kind: 'patch', itemId: item.id, reason, patcher}), persistNow: () => this.persist(true)}, event)
 	}
 
 	private forgetProgressState(jobId: string): void {
@@ -537,7 +542,7 @@ export class QueueService extends EventEmitter {
 		// racing progress event could have re-enqueued before this guard ran.
 		const lastKey = item.lastStatus?.key
 		if (lastKey && QueueService.POST_DOWNLOAD_PHASES.has(lastKey)) {
-			this.pendingProgress.delete(item.id)
+			this.progress.drop(item.id)
 			return
 		}
 		let formatter = this.progressFormatters.get(event.jobId)
@@ -567,33 +572,14 @@ export class QueueService extends EventEmitter {
 	// 47%". Dropping is safe because progress fields ride along on every
 	// QueueItem and the transition's `next` already carries the latest values.
 	private emitImmediate(item: QueueItem): void {
-		this.pendingProgress.delete(item.id)
+		this.progress.drop(item.id)
 		this.emit('updated', {item})
-	}
-
-	// Latest-wins per itemId, flushed at PROGRESS_FLUSH_MS. setTimeout (not
-	// setImmediate) so the renderer event loop can drain between bursts.
-	private emitProgress(item: QueueItem): void {
-		this.pendingProgress.set(item.id, item)
-		if (this.flushTimer) return
-		this.flushTimer = setTimeout(() => {
-			this.flushTimer = null
-			const batch = this.pendingProgress
-			this.pendingProgress = new Map()
-			for (const it of batch.values()) this.emit('updated', {item: it})
-		}, QueueService.PROGRESS_FLUSH_MS)
 	}
 
 	// Test seam — synchronously drain pending progress. Production code never
 	// calls this; the timer flushes naturally.
 	flushPendingProgressForTests(): void {
-		if (this.flushTimer) {
-			clearTimeout(this.flushTimer)
-			this.flushTimer = null
-		}
-		const batch = this.pendingProgress
-		this.pendingProgress = new Map()
-		for (const it of batch.values()) this.emit('updated', {item: it})
+		this.progress.flushNow()
 	}
 
 	private commit(mutation: Mutation): void {
@@ -635,7 +621,7 @@ export class QueueService extends EventEmitter {
 						logger.error('Failed to write playlist M3U', {playlistGroupId: groupId, error: err instanceof Error ? err.message : String(err)})
 					})
 				}
-				if (mutation.evt.kind === 'progress') this.emitProgress(next)
+				if (mutation.evt.kind === 'progress') this.progress.enqueue(next)
 				else this.emitImmediate(next)
 				break
 			}
@@ -653,7 +639,7 @@ export class QueueService extends EventEmitter {
 				if (idx < 0) return
 				this.items.splice(idx, 1)
 				this.persist()
-				this.pendingProgress.delete(mutation.itemId)
+				this.progress.drop(mutation.itemId)
 				this.emit('removed', {itemId: mutation.itemId})
 				break
 			}
@@ -727,12 +713,13 @@ export class QueueService extends EventEmitter {
 		}
 		const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
 		const resumeContextForImmediateFailure = item.resumeContext
-		const probeInfoJsonPath = item.probeInfoJsonRef && this.probeInfoJsonCache ? await this.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
+		const {auth, replayProbeInfoJson} = resolveStartIdentity(item)
+		const probeInfoJsonPath = replayProbeInfoJson && item.probeInfoJsonRef && this.probeInfoJsonCache ? await this.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
 		if (item.probeInfoJsonRef) {
 			logger.info('probe info-json resolved', {itemId, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
 		}
 		try {
-			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})})
+			const result = await this.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(auth === 'exploreSession' ? {auth} : {}), ...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})})
 			if (!result.ok) {
 				this.commit({kind: 'event', itemId, evt: {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: resumeContextForImmediateFailure}})
 				return fail(result.error)
@@ -775,8 +762,8 @@ export class QueueService extends EventEmitter {
 	// Persist gate: deferred while any bulk command is in flight — the outermost
 	// inBulk() exit writes once. Each commit() call site invokes persist()
 	// unconditionally for clarity; the guard here is the single chokepoint.
-	private persist(): void {
-		if (this.bulkDepth > 0) return
+	private persist(force = false): void {
+		if (this.bulkDepth > 0 && !force) return
 		void this.queueStore.save(this.items, this.schedulerPaused).catch(err => {
 			logger.error('Queue persist failed', {error: err instanceof Error ? err.message : String(err)})
 		})

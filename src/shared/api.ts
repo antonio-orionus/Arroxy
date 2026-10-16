@@ -8,6 +8,9 @@ import type {
 	DependencyId,
 	DownloadJob,
 	DownloadProfilesPrefs,
+	ExploreNavigateCommand,
+	ExploreViewBounds,
+	ExploreViewState,
 	FeedbackDiagnosticUpload,
 	GraphicsPolicy,
 	HotkeyOutcomeEvent,
@@ -41,6 +44,7 @@ import type {
 	WizardStepSnapshot
 } from './types.js'
 import type {PlaylistManifest} from './playlistManifest.js'
+import type {QueueChoice} from './schemas.js'
 
 export interface SettingsPatch {
 	common?: Partial<CommonSettings>
@@ -91,9 +95,14 @@ export interface AppApi {
 	}
 	queue: {
 		cmd: {
-			add(items: QueueItem[]): Promise<Result<{ids: string[]}>>
+			// `skippedAlreadyQueued`: rows left out because their video is already live.
+			add(items: QueueItem[]): Promise<Result<{ids: string[]; skippedAlreadyQueued: number}>>
 			getSnapshot(): Promise<Result<QueueSnapshotPayload>>
 			probeFailed(input: {itemId: string; error: LocalizedError}): Promise<Result<void>>
+			// A probing placeholder waits for the user's choice (see QueueProbeLifecycle).
+			needsChoice(input: {itemId: string; choice: QueueChoice; title: string}): Promise<Result<void>>
+			// A probe-error or needs-choice placeholder goes back to probing.
+			reprobe(input: {itemId: string}): Promise<Result<void>>
 			start(input: {itemId: string}): Promise<Result<void>>
 			pause(input: {itemId: string}): Promise<Result<void>>
 			resume(input: {itemId: string}): Promise<Result<void>>
@@ -101,10 +110,11 @@ export interface AppApi {
 			retry(input: {itemId: string}): Promise<Result<void>>
 			clearCompleted(): Promise<Result<void>>
 			remove(input: {itemId: string}): Promise<Result<void>>
-			// Atomic probe-stage swap: replaces a still-probing hotkey placeholder
-			// with the prepared items, or refuses (enqueueing nothing) when the
-			// placeholder is no longer probing. See QueueProbeLifecycle.
-			replaceProbing(input: {itemId: string; items: QueueItem[]}): Promise<Result<{ids: string[]}>>
+			// Atomic probe-stage swap: replaces a live placeholder (probing or
+			// needs-choice) with the prepared items, or refuses (enqueueing
+			// nothing) once it is gone. See QueueProbeLifecycle.
+			// `skippedAlreadyQueued`: rows left out because their video is already live.
+			replaceProbing(input: {itemId: string; items: QueueItem[]}): Promise<Result<{ids: string[]; skippedAlreadyQueued: number}>>
 			setLane(input: {itemId: string; lane: QueueLane}): Promise<Result<void>>
 			applySelectionAction(input: {action: QueueSelectionAction; itemIds: string[]}): Promise<Result<QueueSelectionCommandResult>>
 			changeOutputTarget(input: {itemIds: string[]; outputDir: string}): Promise<Result<QueueOutputTargetChangeResult>>
@@ -118,6 +128,19 @@ export interface AppApi {
 			onRemoved(listener: (event: {itemId: string}) => void): () => void
 			onScheduler(listener: (event: QueueSchedulerEventPayload) => void): () => void
 		}
+	}
+	explore: {
+		navigate(command: ExploreNavigateCommand): Promise<Result<void>>
+		setBounds(rect: ExploreViewBounds): Promise<Result<void>>
+		setVisible(visible: boolean): Promise<Result<void>>
+		setActive(active: boolean): Promise<Result<void>>
+		signOut(): Promise<Result<void>>
+		getState(): Promise<Result<ExploreViewState>>
+		// A JPEG data URL of the shown page, or null when there is none to take.
+		capture(): Promise<Result<string | null>>
+		onStateChanged(listener: (state: ExploreViewState) => void): () => void
+		// The pointer entered the native view (it never reports the toolbar's mouseleave).
+		onPointerInView(listener: () => void): () => void
 	}
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}
 	analytics: {track(name: string, props?: Record<string, string | number | boolean>): void}

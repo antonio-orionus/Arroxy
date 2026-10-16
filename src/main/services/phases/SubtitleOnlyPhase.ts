@@ -4,7 +4,11 @@ import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import {postProcessSubtitleFiles, resolveConvertedSubtitlePaths, logger} from '../subtitlePostProcess.js'
 import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, compiledOutputTemplate} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome} from './phaseHelpers.js'
+import {identityFor} from '../exploreGate.js'
+import {siteForJob} from '@shared/sites/index.js'
+import type {YtDlpResult} from '../YtDlp.js'
+import {settleWithExploreSession} from './signedInFlow.js'
 
 export const SubtitleOnlyPhase: Phase = {
 	kind: 'subtitle-only',
@@ -19,25 +23,43 @@ export const SubtitleOnlyPhase: Phase = {
 
 		const {subtitles} = preparedJob
 
-		const result = await ytDlp.run(
-			{
-				kind: 'subtitles',
-				url: input.url,
-				output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
-				subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto, ...(subtitles.autoOnly ? {autoOnly: true} : {})}
-			},
-			buildYtDlpSignal(ctx, active, {
-				onMinting: attempt => {
-					ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
-				},
-				onSpawn: () => {
-					ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
-				}
-			})
-		)
+		// A pause or cancel wins over a lost session: the job parks (or ends) as the user asked.
+		const interrupted = interruptedOutcome(active)
+		if (interrupted) return interrupted
 
-		if (active.pauseRequested) return {kind: 'paused'}
-		if (active.cancelRequested) return {kind: 'cancelled'}
+		const site = siteForJob(preparedJob.extractor, input.url)
+		const refused = await guardSignedInSpawn(ctx, site.id)
+		if (refused) return refused
+
+		// The identity is read per run: an escalation switches the job to the Explore session.
+		const fetchSubtitles = async (): Promise<{result: YtDlpResult}> => ({
+			result: await ytDlp.run(
+				{
+					kind: 'subtitles',
+					url: input.url,
+					output: {directory: input.outputDir!, subtitleMode: subtitles.mode, ...(compiledOutputTemplate(preparedJob.filenameTemplate) ? {template: compiledOutputTemplate(preparedJob.filenameTemplate)} : {})},
+					subtitles: {languages: ytDlpSubtitleLanguages(subtitles), format: subtitles.format ?? DEFAULTS.subtitleFormat, writeAuto: subtitles.writeAuto, ...(subtitles.autoOnly ? {autoOnly: true} : {})}
+				},
+				buildYtDlpSignal(ctx, active, {
+					onMinting: attempt => {
+						ctx.emitStatus('token', attempt === 0 ? STATUS_KEY.mintingToken : STATUS_KEY.remintingToken)
+					},
+					onSpawn: () => {
+						ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
+					}
+				}),
+				{identity: identityFor(active.input.auth), jobKey: job.id}
+			)
+		})
+
+		const first = await fetchSubtitles()
+		const stopped = interruptedOutcome(active)
+		if (stopped) return stopped
+
+		const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx, site.id)) ? fetchSubtitles() : null)})
+		if (settled.kind === 'stopped') return settled.outcome
+		if (settled.kind === 'signedOut') return exploreSignedOut(ctx)
+		const {result} = settled.run
 
 		if (result.kind !== 'success') {
 			logger.warn('subtitle-only fetch failed', {jobId: job.id, kind: result.kind})

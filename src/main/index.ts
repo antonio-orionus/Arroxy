@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import os from 'node:os'
-import {app, BrowserWindow, dialog, nativeTheme} from 'electron'
+import {app, BrowserWindow, dialog, nativeTheme, shell} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -15,6 +15,15 @@ import {detectInstallChannel} from '@main/installChannel.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
 import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 import {DownloadService} from '@main/services/DownloadService.js'
+import {ExploreSessionService} from '@main/services/ExploreSessionService.js'
+import {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
+import {ExploreEventBridge} from '@main/services/explore/ExploreEventBridge.js'
+import {ExploreAdBlocker} from '@main/services/explore/ExploreAdBlocker.js'
+import {loadFilterListEngine, loadPrebuiltEngine, refreshPrebuiltEngine} from '@main/services/explore/exploreAdBlockEngine.js'
+import {EXPLORE_ADBLOCK_PRELOAD_FILE} from '@main/services/explore/exploreAdBlockPreload.js'
+import {siteById} from '@shared/sites/index.js'
+import {createExploreGate} from '@main/services/exploreGate.js'
+import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
@@ -308,9 +317,22 @@ if (hasSingleInstanceLock) {
 		const tokenService = new TokenService(tokenProvider)
 		contextSources = {settingsStore, tokenService}
 		log.info('Session context', sessionContext())
-		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode})
-		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend)
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache)
+		// Live settings on every read: a changed proxy or UA token is applied the next time the Explore session is requested, no restart needed.
+		const exploreSession = new ExploreSessionService(() => {
+			const {exploreUserAgent, proxyUrl} = settingsStore.getSync().common
+			return {uaToken: exploreUserAgent, proxyUrl}
+		})
+		// Jars never outlive their spawn; anything left is from a crashed session.
+		// Awaited (it never rejects and is cheap) so the sweep is over before the
+		// queue's boot-time spawn pass can write a live jar it would delete.
+		await exploreSession.sweepJars()
+		if (e2eMode.exploreCookies) await exploreSession.seedForE2e(e2eMode.exploreCookies)
+		// One gate for the whole app: it paces every signed-in spawn, probes and downloads alike.
+		const spawnGate = new ExploreSpawnGate(e2eMode.exploreSpawnSpacingMs === undefined ? {} : {minSpacingMs: e2eMode.exploreSpawnSpacingMs})
+		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession})
+		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, spawnGate, sessionAuth: exploreGate})
+		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, spawnGate})
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
@@ -369,6 +391,35 @@ if (hasSingleInstanceLock) {
 		mainWindow.on('closed', stopThemeWatch)
 
 		contextMenu({window: mainWindow.webContents, showSaveImageAs: true, showCopyImageAddress: true, showInspectElement: !app.isPackaged})
+
+		// Off unless the user turns it on: nothing is loaded or fetched before then.
+		const {exploreAdBlockFilters} = e2eMode
+		const prebuiltLists = {session: exploreSession, cachePath: path.join(app.getPath('userData'), 'explore-adblock', 'engine.bin')}
+		const exploreAdBlocker = new ExploreAdBlocker({
+			session: () => exploreSession.getSession(),
+			preloadPath: path.join(import.meta.dirname, EXPLORE_ADBLOCK_PRELOAD_FILE),
+			signInHosts: siteById('youtube').explore?.signInHosts ?? [],
+			// The E2E harness's fixed filter list is never refreshed.
+			...(exploreAdBlockFilters === undefined ? {loadEngine: () => loadPrebuiltEngine(prebuiltLists), refreshEngine: () => refreshPrebuiltEngine(prebuiltLists)} : {loadEngine: () => loadFilterListEngine(exploreAdBlockFilters)})
+		})
+		// Created lazily on first show; state changes reach the renderer through the event bridge.
+		const exploreEvents = new ExploreEventBridge(mainWindow)
+		const exploreView = new ExploreViewHost({
+			window: mainWindow,
+			session: exploreSession,
+			settings: () => settingsStore.getSync().common,
+			saveLastPage: url => void settingsStore.update({common: {exploreLastUrl: url}}),
+			adBlock: exploreAdBlocker,
+			homeUrlOverride: e2eMode.exploreHomeUrl,
+			isPackaged: app.isPackaged,
+			openExternal: url => shell.openExternal(url),
+			emit: state => exploreEvents.emit(state),
+			pointerEntered: () => exploreEvents.pointerInView()
+		})
+		// Only a sign-out the site confirmed during a download or a probe marks the view; gate refusals do not.
+		downloadService.onExploreVerifiedSignedOut(() => exploreView.markSignedOutAfterVerify())
+		probeService.onExploreVerifiedSignedOut(() => exploreView.markSignedOutAfterVerify())
+		exploreView.readSignedIn()
 
 		app.on('second-instance', () => {
 			if (mainWindow.isDestroyed()) return
@@ -506,13 +557,17 @@ if (hasSingleInstanceLock) {
 		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
 		hotkeyService.onStateChange(syncHotkeyTrayItem)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, graphicsPolicyProvider})
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
 		}
 
 		app.on('render-process-gone', (_event, webContents, details) => {
+			// An Explore page crash is the open web's, not the app's: the view shows
+			// its own error and logs it, and it must not use up the once-per-session
+			// crash report as an auxiliary window.
+			if (exploreView.ownsWebContents(webContents)) return
 			log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`)
 			if (details.reason === 'clean-exit') return
 			const isMainWindow = webContents === mainWindow.webContents

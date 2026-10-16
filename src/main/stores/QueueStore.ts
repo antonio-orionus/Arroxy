@@ -1,9 +1,13 @@
 import Store from 'electron-store'
+import log from 'electron-log/main.js'
 import type {QueueItem} from '@shared/types.js'
-import {queueArraySchema, QUEUE_STATUS} from '@shared/schemas.js'
+import {QUEUE_STATUS} from '@shared/schemas.js'
+import {queueArraySchema, queueItemSchema} from '@shared/queueItemSchema.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
 import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
+
+const logger = log.scope('queue')
 
 interface QueueData {
 	items: QueueItem[]
@@ -14,8 +18,7 @@ interface QueueData {
 }
 
 // Pre-validation migrators for upgrades across schema breaks. Each migrator
-// is per-row so a single corrupted entry can be dropped without losing the
-// rest of the queue.
+// is per-row, like load()'s validation.
 //
 // Beta-shape error: `{ key, rawMessage }` → new `{ kind, raw }`.
 function migrateLegacyError(raw: Record<string, unknown>): Record<string, unknown> {
@@ -59,8 +62,7 @@ function migrateLegacyStatus(raw: Record<string, unknown>): Record<string, unkno
 
 // Queue items persisted before filename templates carry a compiled yt-dlp
 // output template under `job.outputTemplate`. `ranged-format` jobs *require* a
-// template, and load() validates the whole array at once — so a single legacy
-// playlist item would fail the parse and wipe the user's entire queue on
+// template, so without this every legacy playlist item would be dropped on
 // upgrade. Only two shapes were ever emitted, so map them back exactly;
 // anything else falls through to the default rather than being trusted as
 // Arroxy syntax.
@@ -114,16 +116,23 @@ export class QueueStore {
 		await Promise.resolve()
 	}
 
+	// Each row is migrated and validated on its own: a row this version cannot
+	// read (a newer shape after a downgrade, a placeholder saved before rows
+	// kept their probe mode, damage on disk) is dropped and counted, and the
+	// rest of the queue loads. Only a payload that is not a list fails.
 	async load(): Promise<Result<{items: QueueItem[]; schedulerPaused: boolean}>> {
-		const raw = this.store.get('items')
-		const migrated = Array.isArray(raw) ? raw.map(migrateRow) : raw
-		const validated = queueArraySchema.safeParse(migrated)
-		if (!validated.success) {
-			const issue = validated.error.issues[0]?.message ?? 'schema mismatch'
-			return fail({code: 'validation', message: `Queue file is corrupted: ${issue}`})
+		const raw: unknown = this.store.get('items')
+		if (!Array.isArray(raw)) return fail({code: 'validation', message: 'Queue file is corrupted: the queue is not a list'})
+		const items: QueueItem[] = []
+		const issues: string[] = []
+		for (const row of raw) {
+			const validated = queueItemSchema.safeParse(migrateRow(row))
+			if (validated.success) items.push(validated.data)
+			else issues.push(validated.error.issues[0]?.message ?? 'schema mismatch')
 		}
+		if (issues.length > 0) logger.warn('Dropped queue rows that failed validation', {rejected: issues.length, kept: items.length, firstIssue: issues[0]})
 		const schedulerPaused = this.store.get('schedulerPaused') === true
 		await Promise.resolve()
-		return ok({items: validated.data, schedulerPaused})
+		return ok({items, schedulerPaused})
 	}
 }

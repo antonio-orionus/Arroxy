@@ -3,6 +3,9 @@ import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
+import type {ExploreGate} from '../exploreGate.js'
+import type {SiteId} from '@shared/sites/types.js'
+import type {ExploreSignInState} from '@shared/schemas.js'
 
 export type Disposable = () => Promise<void> | void
 
@@ -43,6 +46,9 @@ export interface ActiveJobInput {
 	// active processes get SIGTERM, and the phase returns 'paused'. Cancel,
 	// by contrast, calls controller.abort() and triggers the disposable drain.
 	pauseRequested: boolean
+	// Aborted by pause(). A spawned process is paused by signal instead; this
+	// only stops a run still waiting for a signed-in spawn slot.
+	pauseController?: AbortController
 	disposables: AsyncStack
 	ytDlpProcess?: ChildProcessWithoutNullStreams
 	ffmpegProcess?: ChildProcessWithoutNullStreams
@@ -62,6 +68,10 @@ export interface ActiveJobInput {
 	// still knows.
 	formatsWithheld?: boolean
 	tempDir?: string
+	// The sign-in check started after a finished run whose cookies yt-dlp
+	// rejected. Not awaited by that run; the job's next signed-in spawn waits
+	// for it and stays off a session the site confirmed signed out.
+	exploreSessionCheck?: Promise<ExploreSignInState>
 	resumeContext?: QueueResumeContext
 	postProcEmitted?: Partial<Record<'extractingAudio' | 'convertingVideo' | 'embeddingMetadata' | 'movingFiles', true>>
 	// 10% step of the last progress line written to the log for the current
@@ -89,6 +99,10 @@ export interface Phase {
 	run(ctx: PhaseContext): Promise<PhaseOutcome>
 }
 
+export interface ExploreSignInCheck {
+	verifySignedIn(siteId: SiteId): Promise<ExploreSignInState>
+}
+
 // PhaseContext — minimal surface a phase needs. Everything cleanup-related
 // flows through `register()`; everything error-related stays inside the
 // phase (it returns a hard-failed outcome with a LocalizedError when needed).
@@ -102,6 +116,10 @@ export interface PhaseContext {
 	// Session-wide: whether retrying YouTube-limited downloads without cookies
 	// has helped so far. Owned by DownloadService, shared by every job.
 	cookielessRetry: CookielessRetry
+	// Live: whether a job may run on the user's Explore session right now.
+	exploreGate: ExploreGate
+	// Loads the site in a hidden window to confirm the session is still signed in.
+	exploreSession: ExploreSignInCheck
 	emitStatus(stage: StatusEvent['stage'], statusKey: StatusKey, params?: Record<string, string | number>, error?: LocalizedError, resumeContext?: QueueResumeContext): void
 	register(disposable: Disposable): void
 	safeConsume(text: string): void

@@ -39,6 +39,7 @@ export type {
 	AudioSelection,
 	CloseBehavior,
 	CookiesMode,
+	JobAuth,
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
@@ -59,7 +60,9 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-export type {StatusKey} from './schemas.js'
+import type {ProbePlaylistMode} from './schemas.js'
+export type {ProbePlaylistMode, StatusKey} from './schemas.js'
+export type {ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
@@ -80,6 +83,7 @@ import type {
 	GraphicsPolicyBackdropReason,
 	StatusKey,
 	CookiesMode,
+	JobAuth,
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
@@ -130,6 +134,14 @@ export interface CommonSettings {
 	cookiesMode?: CookiesMode
 	cookiesBrowser?: CookiesBrowser
 	proxyUrl?: string
+	exploreEnabled?: boolean
+	exploreUserAgent?: string
+	exploreNoticeSeen?: boolean
+	exploreModeAutoSwitched?: boolean
+	exploreModeNudgeDismissedFor?: CookiesMode
+	// Main-owned: the last site page the Explore view showed (see schemas.ts).
+	exploreLastUrl?: string
+	exploreAdBlock?: boolean
 	nativeAudioPreference?: NativeAudioPreference
 	limitRate?: string
 	playlistProbeLimit?: number
@@ -319,7 +331,12 @@ export interface QueueItem {
 	retryCount: number
 	retryAt?: string
 	probeInfoJsonRef?: ProbeInfoJsonRef
+	// `exploreSession` once a probe escalated; sticky for the job's whole life.
+	auth?: JobAuth
 	artifacts: QueueArtifact[]
+	// Placeholder rows only: the probe's playlist mode, and the open decision.
+	probeMode?: ProbePlaylistMode
+	choice?: import('./schemas.js').QueueChoice
 	job: PreparedJob
 }
 
@@ -353,6 +370,8 @@ export interface PlaylistEntry {
 	playlistIndex: number
 	videoId: string | null // raw yt-dlp %(id)s; null when extractor yields none
 	probeInfoJsonRef?: ProbeInfoJsonRef
+	// Inherited from the playlist probe, or set by this row's own hydration probe.
+	auth?: JobAuth
 	// Filename templates can name directories after {uploader} / {date}, and
 	// Arroxy renders those itself because it needs the path before downloading.
 	// Sparse on flat playlist probes — an absent value collapses the folder.
@@ -376,8 +395,6 @@ export interface PlaylistEntry {
 	// placeholder, and does not set this flag.
 	titleIsPlaceholder?: true
 }
-
-export type ProbePlaylistMode = 'auto' | 'video' | 'playlist'
 
 export interface ProbeInput {
 	url: string
@@ -408,6 +425,9 @@ interface ProbeCommon {
 	// wizard to audio-only mode without making the user override the format
 	// picker every time. See `isAudioOnlySource()` in shared/ytdlp.
 	isAudioOnlySource: boolean
+	// Set when the probe only succeeded with the Explore session; the jobs it
+	// produces must run signed in too.
+	auth?: JobAuth
 }
 
 export interface VideoProbeResult extends ProbeCommon {
@@ -448,6 +468,9 @@ export interface ProbeInfoJsonRef {
 	// The probe saw YouTube list formats without download URLs (yt-dlp's
 	// "missing a URL" warning), which can cap the download's quality.
 	formatsWithheld?: true
+	// The probe that wrote it ran with the Explore session, so only a signed-in
+	// run may replay it.
+	auth?: JobAuth
 }
 
 export interface ProbeProgressEvent {
@@ -577,6 +600,7 @@ export interface StartDownloadInput {
 	outputDir?: string
 	cookiesMode?: CookiesMode
 	job: PreparedJob
+	auth?: JobAuth
 	tempDir?: string
 	// Main-process-only resolved path for an opaque QueueItem.probeInfoJsonRef.
 	// The IPC start schema intentionally does not accept this from the renderer.

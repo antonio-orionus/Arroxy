@@ -8,9 +8,26 @@
 // On Windows we shell out to `taskkill /T /F`.
 
 import {spawn, type ChildProcessWithoutNullStreams} from 'node:child_process'
-import type {ActiveDownload} from '../phases/types.js'
+import log from 'electron-log/main.js'
 
-function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
+const logger = log.scope('download')
+
+// The processes a download job may hold. Structural, so YtDlp can use the
+// tree kill without depending on the phase types.
+interface JobProcesses {
+	ytDlpProcess?: ChildProcessWithoutNullStreams
+	ffmpegProcess?: ChildProcessWithoutNullStreams
+}
+
+// A child node has reaped: its pid is free for the OS to hand to anything else.
+function hasExited(proc: ChildProcessWithoutNullStreams): boolean {
+	return (proc.exitCode ?? null) !== null || (proc.signalCode ?? null) !== null
+}
+
+export function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
+	// Never signal a reaped pid — `taskkill /T /F` or `kill(-pid)` would reach
+	// whatever process tree has since been given that number.
+	if (hasExited(proc)) return
 	if (proc.pid == null) {
 		proc.kill(signal)
 		return
@@ -19,7 +36,8 @@ function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Si
 		// /T tree, /F force. Failure modes are silent (already-exited PID, race
 		// with natural close); the child's own 'close' will still fire if it was
 		// alive — `settled` guards in invokeOnce absorb the duplicate.
-		spawn('taskkill', ['/pid', String(proc.pid), '/T', '/F'], {windowsHide: true})
+		// An 'error' (taskkill missing from PATH, EAGAIN) is only worth a log line: with no listener it would crash main.
+		spawn('taskkill', ['/pid', String(proc.pid), '/T', '/F'], {windowsHide: true}).on('error', error => logger.warn('taskkill failed to start', {pid: proc.pid, message: error.message}))
 		return
 	}
 	// Unix: child is its own process-group leader. -pid hits the leader plus
@@ -33,7 +51,14 @@ function killProcessTree(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Si
 	}
 }
 
-export function killActiveProcesses(active: ActiveDownload, signal: NodeJS.Signals): void {
+// Drops the job's reference once the child exits, so pause and cancel see a
+// job with no live process instead of signalling a stale pid.
+export function forgetOnExit(proc: ChildProcessWithoutNullStreams, forget: () => void): void {
+	proc.once('exit', forget)
+	proc.once('close', forget)
+}
+
+export function killActiveProcesses(active: JobProcesses, signal: NodeJS.Signals): void {
 	if (active.ytDlpProcess) killProcessTree(active.ytDlpProcess, signal)
 	if (active.ffmpegProcess) killProcessTree(active.ffmpegProcess, signal)
 }

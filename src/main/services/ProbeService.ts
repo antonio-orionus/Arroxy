@@ -5,17 +5,20 @@ import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import {sortFormatsByQuality} from '@shared/qualitySorter.js'
-import {humanSize} from '@shared/format.js'
-import {audioTrackLabel, audioTrackQuality, isDefaultAudio, isOriginalAudio} from '@shared/audioTrackMeta.js'
-import type {FormatOption, PlaylistEntry, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef} from '@shared/types.js'
+import type {CookiesMode, JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoProbeResult} from '@shared/types.js'
+import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
-import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
+import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
-import {PROBE_TIMEOUT_MESSAGE, YtDlp} from './YtDlp.js'
+import {PROBE_TIMEOUT_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
+import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
+import type {ExploreGate} from './exploreGate.js'
+import type {ExploreSignInCheck} from './phases/types.js'
+import {mapFormats} from './probeFormatMapping.js'
+import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {sabrSkippedClient} from './download/formatLimitSignals.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
@@ -58,11 +61,25 @@ interface ProbeAttemptSuccess {
 
 type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 'failure'; error: ProbeError; errorCategory: ProbeFailureCategory}
 
+// Who a probe runs as, and whether yt-dlp rejected that identity's cookies on any of its spawns.
+interface ProbeRunAs {
+	readonly identity: RunIdentity
+	cookiesRejected: boolean
+}
+
+const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}, errorCategory: 'cancelled'} as const satisfies ProbeAttemptResult
+
 // Options bag so unit tests can inject a deterministic parent-page fetcher;
 // production leaves it undefined and gets the real HTTP fetcher.
 export interface ProbeServiceOptions {
 	vhxTitleFetcher?: VhxTitleFetcher
+	// Absent: probes never escalate to the Explore session.
+	exploreGate?: ExploreGate
+	// Absent: a check after rejected cookies cannot tell (see afterCookiesRejected).
+	exploreSession?: ExploreSignInCheck
 }
+
+const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
 function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefined, opts: {isAutomaticCaptions: boolean; site: Site}): SubtitleMap {
 	if (!raw) return {}
@@ -79,80 +96,6 @@ function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefin
 		if (valid.length > 0) result[lang] = valid
 	}
 	return result
-}
-
-function friendlyCodec(acodec: string): string {
-	if (acodec === 'opus') return 'Opus'
-	if (acodec.startsWith('mp4a')) return 'AAC'
-	return acodec
-}
-
-function isDrcAudio(format: YtDlpFormat): boolean {
-	return /(?:^|[-_\s])drc(?:$|[-_\s])/i.test(format.format_id ?? '') || /\bdrc\b/i.test(format.format_note ?? '')
-}
-
-function channelLabel(channels: number | undefined): string | null {
-	if (!channels || channels === 2) return null
-	return `${Math.round(channels)}ch`
-}
-
-function sampleRateLabel(sampleRateHz: number | undefined): string | null {
-	if (!sampleRateHz || sampleRateHz === 44_100 || sampleRateHz === 48_000) return null
-	const khz = sampleRateHz / 1_000
-	return `${Number.isInteger(khz) ? khz.toFixed(0) : khz.toFixed(2)} kHz`
-}
-
-export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
-	const mapped = formats.flatMap((item): FormatOption[] => {
-		if (!item.format_id || item.ext === 'mhtml' || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
-		const isAudioOnly = item.vcodec === 'none'
-		const ext = item.ext ?? 'unknown'
-		const filesize = item.filesize ?? item.filesize_approx
-		const formatId = item.format_id ?? ''
-
-		if (isAudioOnly) {
-			const abr = item.abr
-			const audioCodec = item.acodec
-			const isDrc = isDrcAudio(item)
-			const codec = friendlyCodec(item.acodec ?? '')
-			const trackLabel = audioTrackLabel(item)
-			const trackQuality = audioTrackQuality(item)
-			const defaultAudio = isDefaultAudio(item)
-			const originalAudio = isOriginalAudio(item)
-			const details = [trackLabel, ext, codec, channelLabel(item.audio_channels), isDrc ? 'DRC' : null, sampleRateLabel(item.asr), abr ? `${Math.round(abr)} kbps` : null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' · ')
-			return [
-				{
-					formatId,
-					label: details,
-					ext,
-					resolution: 'audio only',
-					abr,
-					audioCodec,
-					isDrc,
-					...(item.language ? {audioLanguage: item.language} : {}),
-					...(typeof item.language_preference === 'number' ? {audioLanguagePreference: item.language_preference} : {}),
-					...(trackLabel ? {audioTrackLabel: trackLabel} : {}),
-					...(trackQuality ? {audioTrackQuality: trackQuality} : {}),
-					isDefaultAudio: defaultAudio,
-					isOriginalAudio: originalAudio,
-					filesize,
-					isVideoOnly: false,
-					isAudioOnly: true,
-					dynamicRange: undefined
-				} satisfies FormatOption
-			]
-		}
-
-		const resolution = item.resolution ?? item.format_note ?? 'unknown'
-		const fps = item.fps
-		const isVideoOnly = item.acodec === 'none'
-		const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined
-		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
-
-		return [{formatId, label: details, ext, resolution, fps, filesize, isVideoOnly, isAudioOnly: false, dynamicRange} satisfies FormatOption]
-	})
-
-	return sortFormatsByQuality(mapped)
 }
 
 // Probe-specific operational categories that aren't a yt-dlp stderr kind:
@@ -405,7 +348,7 @@ function resolveTimestamp(source: {timestamp?: number}): number | undefined {
 	return typeof source.timestamp === 'number' && Number.isFinite(source.timestamp) && Number.isInteger(source.timestamp) && source.timestamp > 0 ? source.timestamp : undefined
 }
 
-function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): ProbeResult {
+function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): VideoProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
 	return {
@@ -433,7 +376,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 	}
 }
 
-function buildPlaylistProbeResult(info: PlaylistInfo | MultiVideoInfo, jobUrl: string): ProbeResult {
+function buildPlaylistProbeResult(info: PlaylistInfo | MultiVideoInfo, jobUrl: string): PlaylistProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
 	return {
@@ -449,15 +392,45 @@ function buildPlaylistProbeResult(info: PlaylistInfo | MultiVideoInfo, jobUrl: s
 	}
 }
 
+type ProbeOutcome = Extract<ProbeAttemptResult, {kind: 'failure'}> | {kind: 'playlist'; result: PlaylistProbeResult} | {kind: 'video'; result: VideoProbeResult; video: VideoInfo; final: ProbeAttemptSuccess}
+
+// Valid extractor output that still holds nothing to download is a failure too.
+// Deciding it before escalation lets an empty Watch Later retry signed in.
+function mapProbeAttempt(attempt: ProbeAttemptResult, url: string, logContext: Record<string, unknown>): ProbeOutcome {
+	if (attempt.kind === 'failure') return attempt
+	const final = attempt.data
+	const info = final.info
+	if (isPlaylistLike(info)) {
+		const result = buildPlaylistProbeResult(info, url)
+		if (result.entries.length > 0) return {kind: 'playlist', result}
+		// Not a JSON parse failure: the extractor produced a valid container with
+		// no entries (private, members-only, geo-blocked, exhausted page).
+		logger.warn('Playlist probe returned no entries', {url, ...logContext})
+		return {kind: 'failure', error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}, errorCategory: 'content_unavailable'}
+	}
+	// Hit the redirect-depth cap. Surface the URL error rather than guess.
+	if (isUrlRedirect(info)) return {kind: 'failure', error: {kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'}, errorCategory: 'redirect_loop'}
+	const result = buildVideoProbeResult(info, url, deriveDegraded(final.degradationSignals))
+	// Zero formats + zero subs + zero auto-captions: geo-block, age-gate,
+	// members-only, or live-not-yet. The JSON shape itself was fine.
+	if (result.formats.length === 0 && Object.keys(result.subtitles).length === 0 && Object.keys(result.automaticCaptions).length === 0) {
+		return {kind: 'failure', error: {kind: 'other', code: 'no_formats', message: 'Probe returned no formats'}, errorCategory: 'content_unavailable'}
+	}
+	return {kind: 'video', result, video: info, final}
+}
+
 export class ProbeService extends EventEmitter {
-	// Tracks every in-flight probe's controller so cancelInFlight() can abort
+	// The unkeyed (wizard) probes' controllers, so cancelInFlight() can abort
 	// them all at once. probe() registers + deregisters its controller.
 	private inFlight = new Set<AbortController>()
-	// Keyed views for owners that cancel only their own probe (hotkey probing
-	// items key on the queue item id). At most one probe per key.
+	// Keyed probes, apart from the set above: owners that cancel only their own
+	// probe (a quick download's placeholder row keys on its queue item id). At
+	// most one probe per key; only cancelProbe(ownerKey) aborts one.
 	private inFlightByKey = new Map<string, AbortController>()
 
 	private readonly vhxTitleFetcher: VhxTitleFetcher
+	private readonly exploreGate: ExploreGate | undefined
+	private readonly exploreSession: ExploreSignInCheck | undefined
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -467,11 +440,22 @@ export class ProbeService extends EventEmitter {
 	) {
 		super()
 		this.vhxTitleFetcher = options?.vhxTitleFetcher ?? defaultVhxTitleFetcher
+		this.exploreGate = options?.exploreGate
+		this.exploreSession = options?.exploreSession
 	}
 
-	// Abort every in-flight probe. Renderer calls this when the user changes the
-	// wizard URL, navigates away, or otherwise abandons a slow fetch — without
-	// it, a stalled YouTube fallback chain (~180s) keeps the UI spinner blocked.
+	// The site itself said the Explore session is signed out, during a signed-in
+	// probe whose cookies yt-dlp rejected. The composition root tells the view.
+	onExploreVerifiedSignedOut(listener: () => void): () => void {
+		this.on(EXPLORE_VERIFIED_SIGNED_OUT, listener)
+		return () => this.off(EXPLORE_VERIFIED_SIGNED_OUT, listener)
+	}
+
+	// Abort every unkeyed in-flight probe (the wizard's). Renderer calls this when
+	// the user changes the wizard URL, navigates away, or otherwise abandons a slow
+	// fetch — without it, a stalled YouTube fallback chain (~180s) keeps the UI
+	// spinner blocked. A keyed probe belongs to a Downloads placeholder row and is
+	// never in this set: only cancelProbe(ownerKey) aborts it.
 	cancelInFlight(): void {
 		if (this.inFlight.size === 0) return
 		logger.info('Cancelling in-flight probes', {count: this.inFlight.size})
@@ -485,73 +469,73 @@ export class ProbeService extends EventEmitter {
 		this.inFlight.clear()
 	}
 
-	async probe(url: string, opts: {cookiesMode?: 'off' | 'file' | 'browser'; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number} = {}): Promise<Result<ProbeResult, ProbeError>> {
-		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey, timeoutMs} = opts
+	// `escalate: false` keeps the probe anonymous even when the Explore session could
+	// rescue it — for lookups that must not spend the user's account (title backfill).
+	async probe(url: string, opts: {cookiesMode?: CookiesMode; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number; escalate?: boolean} = {}): Promise<Result<ProbeResult, ProbeError>> {
+		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey, timeoutMs, escalate = true} = opts
 		const startMs = Date.now()
 		const emitSuccess = (result: ProbeResult): void => {
 			trackMain('format_probed', {duration_bucket: probeDurationBucket(Date.now() - startMs), bot_wall: result.kind === 'video' && result.degraded?.reasons.includes('botWall') === true, cookies_mode: cookiesMode, result_kind: result.kind})
 		}
+		// At most one escalation per probe; a signed-in failure is the answer.
+		let auth: JobAuth | undefined
 		const emitFailure = (errorCategory: ProbeFailureCategory): void => {
-			trackMain('probe_failed', {duration_bucket: probeDurationBucket(Date.now() - startMs), error_category: errorCategory, cookies_mode: cookiesMode})
+			trackMain('probe_failed', {duration_bucket: probeDurationBucket(Date.now() - startMs), error_category: errorCategory, cookies_mode: cookiesMode, escalated: auth === 'exploreSession'})
 		}
 
 		const controller = new AbortController()
-		this.inFlight.add(controller)
 		if (ownerKey) {
 			// At most one live probe per owner: a duplicate probe supersedes the
 			// in-flight one. Without this, the old controller becomes unreachable
 			// through cancelProbe(ownerKey) and keeps running untracked.
 			this.inFlightByKey.get(ownerKey)?.abort()
 			this.inFlightByKey.set(ownerKey, controller)
+		} else {
+			this.inFlight.add(controller)
 		}
 		try {
 			if (this.mockMode) return ok(buildMockProbeResult(url))
 
-			logger.info('Probe started', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
+			const logContext = {playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)}
+			logger.info('Probe started', {url, ...logContext})
 
-			const probeResult = await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal, timeoutMs)
-			if (probeResult.kind === 'failure') {
-				emitFailure(probeResult.errorCategory)
-				return fail(probeResult.error)
+			let cookiesRejected = false
+			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
+				const as: ProbeRunAs = {identity, cookiesRejected: false}
+				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, controller.signal, as, timeoutMs), url, logContext)
+				cookiesRejected = as.cookiesRejected
+				return mappedOutcome
+			}
+			// Whether a playlist's items need the account too (R20): main decides and stamps them.
+			let itemsNeedAccount = false
+			let outcome = await runAs('configured')
+			const reason = escalate && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, controller.signal) : null
+			if (reason) {
+				logger.info('Probe escalated to the Explore session', {url})
+				auth = 'exploreSession'
+				itemsNeedAccount = reachesPlaylistItems(reason)
+				outcome = await runAs('exploreSession')
+				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), controller.signal)
+			}
+			if (outcome.kind === 'failure') {
+				emitFailure(outcome.errorCategory)
+				return fail(outcome.error)
 			}
 
-			const final = probeResult.data
-			const info = final.info
 			let mapped: ProbeResult
-
-			if (isPlaylistLike(info)) {
-				mapped = buildPlaylistProbeResult(info, url)
-				if (mapped.kind === 'playlist' && mapped.entries.length === 0) {
-					// Empty playlist isn't a JSON parse failure — extractor produced a
-					// valid container with no entries (private playlist, members-only,
-					// geo-blocked, exhausted page). Categorize accordingly so analytics
-					// and any user-facing copy can distinguish the cause.
-					logger.warn('Playlist probe returned no entries', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
-					emitFailure('content_unavailable')
-					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'})
-				}
-			} else if (isUrlRedirect(info)) {
-				// Hit redirect-depth cap. Surface the URL error rather than guess.
-				emitFailure('redirect_loop')
-				return fail<ProbeResult, ProbeError>({kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'})
+			if (outcome.kind === 'playlist') {
+				// A bot-walled playlist was only enumerated signed in; its items start anonymous.
+				mapped = auth && itemsNeedAccount ? {...outcome.result, entries: outcome.result.entries.map(entry => ({...entry, auth}))} : outcome.result
 			} else {
-				const video = info
-				const degraded = deriveDegraded(final.degradationSignals)
-				mapped = buildVideoProbeResult(video, url, degraded)
-				if (mapped.kind === 'video' && mapped.formats.length === 0 && mapped.subtitles && Object.keys(mapped.subtitles).length === 0 && Object.keys(mapped.automaticCaptions).length === 0) {
-					// Valid extractor response with zero formats + zero subs + zero
-					// auto-captions — geo-block, age-gate, members-only, or live-not-yet.
-					// Not a parse failure; the JSON shape was fine.
-					emitFailure('content_unavailable')
-					return fail<ProbeResult, ProbeError>({kind: 'other', code: 'no_formats', message: 'Probe returned no formats'})
-				}
+				const {final, video} = outcome
+				let result = outcome.result
 				// VHX (Vimeo OTT) embeds surface the literal 'Untitled' sentinel and
 				// yt-dlp's GenericIE merge keeps the embed's fields over the parent
 				// page's, so the real page title is lost. Recover it from the parent
 				// page's curated preview title (og:title / twitter:title). Any miss
 				// keeps the sentinel — the download proceeds exactly as before.
 				let rawForCache = final.raw
-				if (mapped.kind === 'video' && isVhxSentinelTitle(mapped.title) && isVhxEmbedExtractor(mapped.extractor, mapped.extractorKey)) {
+				if (isVhxSentinelTitle(result.title) && isVhxEmbedExtractor(result.extractor, result.extractorKey)) {
 					const parentUrl = smuggledRefererOf(video.webpage_url) ?? (isLikelyParentPage(url) ? url : null)
 					if (parentUrl) {
 						let recovered: string | null = null
@@ -561,20 +545,26 @@ export class ProbeService extends EventEmitter {
 						} catch {
 							// Fetcher failure is non-fatal — the sentinel title stays.
 						}
-						if (recovered && recovered !== mapped.title) {
-							mapped = {...mapped, title: recovered}
+						if (recovered && recovered !== result.title) {
+							result = {...result, title: recovered}
 							rawForCache = patchInfoJsonTitle(final.raw, recovered)
 							logger.info('Recovered VHX title from parent page', {url, parentUrl, title: recovered})
 						}
 					}
 				}
-				const probeInfoJsonRef = playlistMode === 'video' ? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null, ...(final.stderr.split(/\r?\n/).some(line => sabrSkippedClient(line) !== null) ? {formatsWithheld: true} : {})}) : undefined
+				// A signed-in result whose cookies yt-dlp dropped ran anonymously: its info-json is never replayed as signed in.
+				const probeInfoJsonRef =
+					playlistMode === 'video' && !(auth && cookiesRejected)
+						? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null, ...(final.stderr.split(/\r?\n/).some(line => sabrSkippedClient(line) !== null) ? {formatsWithheld: true} : {}), ...(auth ? {auth} : {})})
+						: undefined
 				if (probeInfoJsonRef) {
 					const probeInfoJsonPath = await this.probeInfoJsonCache?.resolve(probeInfoJsonRef)
 					logger.info('Probe info-json cached', {url, videoId: probeInfoJsonRef.videoId ?? null, probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
-					if (mapped.kind === 'video') mapped = {...mapped, probeInfoJsonRef}
+					result = {...result, probeInfoJsonRef}
 				}
+				mapped = result
 			}
+			if (auth) mapped = {...mapped, auth}
 
 			emitSuccess(mapped)
 			logger.info('Probe result', {...summarizeProbeResult(mapped), playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
@@ -590,9 +580,41 @@ export class ProbeService extends EventEmitter {
 		}
 	}
 
+	// Why an account would fix this failure, while the user is signed in to
+	// Explore; null otherwise. A gate that cannot answer counts as "no": the
+	// anonymous failure stands.
+	private async escalationFor(url: string, error: ProbeError, signal: AbortSignal): Promise<EscalationReason | null> {
+		const reason = escalationReason({stage: 'probe', url, error})
+		if (signal.aborted || !this.exploreGate || reason === null) return null
+		try {
+			return (await this.exploreGate.canEscalate(siteForUrl(url).id)) ? reason : null
+		} catch (err) {
+			logger.warn('Explore escalation check failed', {url, error: err instanceof Error ? err.message : String(err)})
+			return null
+		}
+	}
+
+	// yt-dlp dropped the session's cookies as rotated or signed out, whatever the
+	// exit status. One page load tells which: still signed in → one retry with a
+	// fresh jar; signed out → the view is told and the probe fails signed out,
+	// never as an anonymous result; a check that cannot tell → a failure becomes
+	// a retryable one, a success is kept.
+	private async afterCookiesRejected(url: string, outcome: ProbeOutcome, retry: () => Promise<ProbeOutcome>, signal: AbortSignal): Promise<ProbeOutcome> {
+		const state: ExploreSignInState = this.exploreSession ? await this.exploreSession.verifySignedIn(siteForUrl(url).id) : 'unknown'
+		if (signal.aborted) return PROBE_CANCELLED
+		logger.info('yt-dlp rejected the Explore cookies on a signed-in probe', {url, state})
+		if (state === 'signedIn') return retry()
+		if (state === 'signedOut') {
+			this.emit(EXPLORE_VERIFIED_SIGNED_OUT)
+			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'Signed out of the Explore session'}}, errorCategory: 'loginRequired'}
+		}
+		return outcome.kind === 'failure' ? {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}, errorCategory: 'network'} : outcome
+	}
+
 	// Abort one keyed probe without touching any other in-flight probe. Used by
 	// the probing-queue-item path: cancelling a Downloads row must not kill the
-	// wizard's probe (and vice versa). Unknown keys are a no-op.
+	// wizard's probe, and cancelInFlight never reaches a keyed one. Unknown keys
+	// are a no-op.
 	cancelProbe(ownerKey: string): void {
 		const controller = this.inFlightByKey.get(ownerKey)
 		if (!controller) return
@@ -607,11 +629,11 @@ export class ProbeService extends EventEmitter {
 	// Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
 	// follow extractor redirects (e.g. Bandcamp track → resolved video). Anything
 	// deeper is a misbehaving extractor — bail rather than loop.
-	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
+	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		let currentUrl = url
 		for (let depth = 0; depth <= 1; depth++) {
-			if (signal.aborted) return {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
-			const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, timeoutMs)
+			if (signal.aborted) return PROBE_CANCELLED
+			const attempt = await this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, as, timeoutMs)
 			if (attempt.kind === 'failure') return attempt
 			const info = attempt.data.info
 			if (!isUrlRedirect(info)) return attempt
@@ -622,17 +644,17 @@ export class ProbeService extends EventEmitter {
 		}
 		// Fell through both attempts; return whatever we got — caller surfaces as
 		// 'redirected too many times' if still a url_redirect.
-		return this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, timeoutMs)
+		return this.runProbeWithDegradationRetry(currentUrl, playlistMode, playlistScope, signal, as, timeoutMs)
 	}
 
-	private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
-		let initial = await this.runProbeAttempt(url, 'initial', playlistMode, playlistScope, signal, timeoutMs)
+	private async runProbeWithDegradationRetry(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
+		let initial = await this.runProbeAttempt(url, 'initial', playlistMode, playlistScope, signal, as, timeoutMs)
 		// A timed-out probe usually means a slow link, not a dead one: the very
 		// next attempt often succeeds (observed repeatedly on throttled routes).
 		// Exactly one retry — a second timeout is reported as the failure.
 		if (initial.kind === 'failure' && isProbeTimeoutFailure(initial) && !signal.aborted) {
 			logger.info('Probe timed out — retrying once', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
-			const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal, timeoutMs)
+			const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal, as, timeoutMs)
 			if (retry.kind === 'failure') {
 				logger.info('Probe timeout retry failed; reporting failure', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 				return retry
@@ -645,7 +667,7 @@ export class ProbeService extends EventEmitter {
 
 		logger.info('Probe degraded-success — retrying', {url, degradationSignals: initial.data.degradationSignals})
 
-		const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal)
+		const retry = await this.runProbeAttempt(url, 'retry', playlistMode, playlistScope, signal, as)
 		if (retry.kind === 'failure') {
 			logger.info('Probe retry failed; using initial degraded result', {url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			return initial
@@ -658,7 +680,7 @@ export class ProbeService extends EventEmitter {
 		return retryFormatCount > initialFormatCount ? retry : initial
 	}
 
-	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, timeoutMs?: number): Promise<ProbeAttemptResult> {
+	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe'
 		const youtubePlayerClient = playlistMode === 'video' && siteForUrl(url).id === 'youtube' ? [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS] : undefined
 		const extractor = youtubePlayerClient ? {youtube: {playerClient: youtubePlayerClient}} : undefined
@@ -684,8 +706,10 @@ export class ProbeService extends EventEmitter {
 						logger.info(line, {source})
 					}
 				}
-			}
+			},
+			{identity: as.identity}
 		)
+		if (result.accountCookiesRejected === true) as.cookiesRejected = true
 
 		if (result.kind !== 'success') {
 			const code = result.kind === 'exit-error' ? result.exitCode : null
@@ -693,7 +717,7 @@ export class ProbeService extends EventEmitter {
 			// Distinguish caller-driven cancellation from a genuine yt-dlp failure
 			// so analytics + UI don't treat it as an error.
 			if (signal.aborted || rawError === 'Cancelled') {
-				return {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'} satisfies ProbeError, errorCategory: 'cancelled'}
+				return PROBE_CANCELLED
 			}
 			// yt-dlp's exit-error kind is anchored to its stderr classifier; for
 			// probe-time failures we additionally recognize 'unsupportedUrl' which
@@ -771,26 +795,4 @@ function summarizeProbeResult(r: ProbeResult): Record<string, unknown> {
 		}
 	}
 	return {kind: r.kind, extractor: r.extractor, extractorKey: r.extractorKey, webpageUrl: r.webpageUrl, isAudioOnlySource: r.isAudioOnlySource, isMultiVideo: r.isMultiVideo, playlistId: r.playlistId, playlistTitle: r.playlistTitle, entryCount: r.entries.length, firstEntryUrl: r.entries[0]?.url ?? null}
-}
-
-function buildMockProbeResult(url: string): ProbeResult {
-	return {
-		kind: 'video',
-		extractor: 'youtube',
-		extractorKey: 'Youtube',
-		webpageUrl: url,
-		isAudioOnlySource: false,
-		formats: [
-			{formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '22', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 400_000_000, isVideoOnly: false, isAudioOnly: false},
-			{formatId: '18', label: '360p | mp4 | 30fps', ext: 'mp4', resolution: '360p', fps: 30, filesize: 150_000_000, isVideoOnly: false, isAudioOnly: false}
-		],
-		title: 'Mock Video Title',
-		thumbnail: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-		duration: 212,
-		subtitles: {en: [{ext: 'vtt', name: 'English'}], es: [{ext: 'vtt'}]},
-		automaticCaptions: {de: [{ext: 'vtt'}], ja: [{ext: 'vtt', name: '日本語'}]},
-		isLive: false,
-		hasDrm: false
-	}
 }

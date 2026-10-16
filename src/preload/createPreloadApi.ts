@@ -1,6 +1,7 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {HotkeyOutcomeEvent, HotkeyTriggerPayload, LocalizedError, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, LocalizedError, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {QueueChoice} from '@shared/schemas.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
 export interface PreloadIpcRenderer {
@@ -105,6 +106,8 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				add: (items: QueueItem[]) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdAdd, items),
 				getSnapshot: () => ipcRenderer.invoke(IPC_CHANNELS.queueCmdGetSnapshot),
 				probeFailed: (input: {itemId: string; error: LocalizedError}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdProbeFailed, input),
+				needsChoice: (input: {itemId: string; choice: QueueChoice; title: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdNeedsChoice, input),
+				reprobe: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdReprobe, input),
 				start: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdStart, input),
 				pause: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdPause, input),
 				resume: (input: {itemId: string}) => ipcRenderer.invoke(IPC_CHANNELS.queueCmdResume, input),
@@ -155,6 +158,26 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 						ipcRenderer.removeListener(IPC_CHANNELS.queueEventScheduler, wrapped)
 					}
 				}
+			}
+		},
+		explore: {
+			navigate: command => ipcRenderer.invoke(IPC_CHANNELS.exploreNavigate, command),
+			setBounds: rect => ipcRenderer.invoke(IPC_CHANNELS.exploreSetBounds, rect),
+			setVisible: visible => ipcRenderer.invoke(IPC_CHANNELS.exploreSetVisible, {visible}),
+			setActive: active => ipcRenderer.invoke(IPC_CHANNELS.exploreSetActive, {active}),
+			signOut: () => ipcRenderer.invoke(IPC_CHANNELS.exploreSignOut),
+			getState: () => ipcRenderer.invoke(IPC_CHANNELS.exploreGetState),
+			capture: () => ipcRenderer.invoke(IPC_CHANNELS.exploreCapture),
+			onStateChanged: listener => {
+				const wrapped = (_: unknown, state: ExploreViewState): void => listener(state)
+				ipcRenderer.on(IPC_CHANNELS.exploreStateChanged, wrapped)
+				return () => ipcRenderer.removeListener(IPC_CHANNELS.exploreStateChanged, wrapped)
+			},
+			// The signal carries nothing; whatever the sender put in it is not passed on.
+			onPointerInView: listener => {
+				const wrapped = (): void => listener()
+				ipcRenderer.on(IPC_CHANNELS.explorePointerInView, wrapped)
+				return () => ipcRenderer.removeListener(IPC_CHANNELS.explorePointerInView, wrapped)
 			}
 		},
 		updater: {

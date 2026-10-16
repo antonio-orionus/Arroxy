@@ -2,8 +2,10 @@ Arroxy — Third-party software notices
 ======================================
 
 Arroxy itself is licensed under the MIT license. The third-party tools
-listed below are used by Arroxy. Each tool is invoked as a separate
-subprocess; their licenses do not propagate to Arroxy's source code.
+listed below are used by Arroxy. Tools 1 and 2 are invoked as separate
+subprocesses; their licenses do not propagate to Arroxy's source code.
+Libraries 3 to 5 are bundled, unmodified, into Arroxy for its optional
+Explore ad blocker.
 
 -----------------------------------------------------------------------
 1. FFmpeg + FFprobe (https://ffmpeg.org/)
@@ -33,6 +35,61 @@ yt-dlp is downloaded at runtime from https://github.com/yt-dlp/yt-dlp
 (nightly channel). It is not bundled with Arroxy's installer.
 
 Full Unlicense text: https://unlicense.org/
+
+-----------------------------------------------------------------------
+3. Ghostery adblocker (https://github.com/ghostery/adblocker)
+-----------------------------------------------------------------------
+License: Mozilla Public License 2.0 (MPL-2.0)
+
+Used by the optional Explore ad blocker, bundled unmodified:
+  - @ghostery/adblocker, @ghostery/adblocker-electron,
+    @ghostery/adblocker-extended-selectors
+  - @ghostery/adblocker-electron-preload and @ghostery/adblocker-content,
+    which ship as a preload script that also runs inside Explore pages
+    while the ad blocker is on
+  - @ghostery/url-parser (https://github.com/ghostery/url-parser)
+
+Source code is available at:
+  - https://github.com/ghostery/adblocker
+  - https://github.com/ghostery/url-parser
+
+Full MPL-2.0 license text: https://mozilla.org/MPL/2.0/
+
+-----------------------------------------------------------------------
+4. remusao packages (https://github.com/remusao/mono)
+-----------------------------------------------------------------------
+License: Mozilla Public License 2.0 (MPL-2.0)
+
+Dependencies of the Ghostery adblocker, bundled unmodified:
+@remusao/guess-url-type, @remusao/small, @remusao/smaz,
+@remusao/smaz-compress, @remusao/smaz-decompress, @remusao/trie.
+
+Source code is available at:
+  - https://github.com/remusao/mono
+
+Full MPL-2.0 license text: https://mozilla.org/MPL/2.0/
+
+-----------------------------------------------------------------------
+5. tldts (https://github.com/remusao/tldts)
+-----------------------------------------------------------------------
+License: MIT
+
+Dependencies of the Ghostery adblocker, bundled unmodified:
+tldts-experimental and tldts-core.
+
+Copyright (c) 2017 Thomas Parisot, 2018 Rémi Berson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -----------------------------------------------------------------------
 Arroxy License (MIT)

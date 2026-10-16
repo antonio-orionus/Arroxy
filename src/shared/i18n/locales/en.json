@@ -1,5 +1,5 @@
 {
-	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "startOver": "Start over"},
+	"common": {"back": "Back", "cancel": "Cancel", "continue": "Continue", "loading": "Loading", "retry": "Retry", "dismiss": "Dismiss", "startOver": "Start over"},
 	"app": {
 		"feedback": "Feedback",
 		"logs": "Logs",
@@ -229,6 +229,11 @@
 				"sourceOff": "Off",
 				"sourceFile": "File",
 				"sourceBrowser": "Browser",
+				"sourceExplore": "Explore sign-in",
+				"recommended": "Recommended",
+				"exploreDescription": "Uses your Explore sign-in only when a download needs it.",
+				"exploreDisabled": "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below.",
+				"openExplore": "Open Explore",
 				"toggleDescription": "Helps with age-restricted, members-only, and account-private videos.",
 				"risk": "Risk: a cookies.txt contains every logged-in session for that browser — keep it private.",
 				"fileLabel": "Cookies file",
@@ -373,6 +378,7 @@
 				"bodyUnconfigured": "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry.",
 				"bodyDisabled": "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry.",
 				"bodyEnabled": "Even with cookies, YouTube limited this probe. Try again later or switch network.",
+				"bodyExplore": "YouTube limited this request. Try again later or switch network.",
 				"retryCta": "Retry",
 				"enableRetryCta": "Enable cookies and retry"
 			},
@@ -381,9 +387,15 @@
 				"currentModeLabel": "Cookies source",
 				"currentModeFile": "File",
 				"currentModeBrowser": "Browser",
+				"currentModeExplore": "Explore sign-in",
 				"explanationFile": "Your cookies file might be empty, expired, or in the wrong format (yt-dlp expects Netscape cookies.txt). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off.",
 				"explanationBrowser": "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off.",
 				"openSettingsCta": "Open cookies settings",
+				"exploreSignIn": {"heading": "This video may need a YouTube account", "body": "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it.", "cta": "Sign in in Explore"},
+				"exploreSignedIn": {"heading": "Signed in to Explore", "body": "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."},
+				"exploreOffer": {"heading": "This video may need a YouTube account", "body": "Sign in with Explore and Arroxy will retry it.", "cta": "Sign in with Explore"},
+				"exploreReuse": {"heading": "This video may need a YouTube account", "body": "You're signed in to Explore, but downloads aren't using that sign-in right now.", "cta": "Use my Explore sign-in and retry"},
+				"otherCookiesCta": "Use a cookies file or browser instead…",
 				"needsCookies": {"heading": "This site requires sign-in", "body": "yt-dlp couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."},
 				"dpapi": {
 					"heading": "Chrome cookies blocked by Windows encryption",
@@ -522,6 +534,17 @@
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",
+		"attentionBadge_one": "{{count}} download needs your attention",
+		"attentionBadge_other": "{{count}} downloads need your attention",
+		"choice": {
+			"cappedBody_one": "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review.",
+			"cappedBody_other": "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review.",
+			"reviewBody_one": "This link is a list of {{count}} video. Review it to pick what to download.",
+			"reviewBody_other": "This link is a list of {{count}} videos. Review it to pick what to download.",
+			"all": "All videos",
+			"first": "First {{count}}",
+			"review": "Review"
+		},
 		"tabTip": "Downloads live in the Downloads tab now — open it anytime to track progress.",
 		"empty": "Queued downloads will appear here",
 		"filtersLabel": "Queue status filters",
@@ -567,6 +590,7 @@
 			"remove": "Remove",
 			"pullNow": "Pull now — skip the queue",
 			"statusProbing": "Fetching details",
+			"statusNeedsChoice": "Needs your choice",
 			"statusPending": "Waiting",
 			"statusRunning": "Downloading",
 			"statusHeld": "Held",
@@ -616,13 +640,18 @@
 		"outputNotWritable": "Can't save to {{dir}} — Arroxy isn't allowed to write there",
 		"fetchingSponsorBlock": "Contacting SponsorBlock…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
-		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…"
+		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…",
+		"signingInWithExplore": "Signing in with your Explore account…",
+		"exploreSignedOut": "Signed out of Explore — sign in again"
 	},
 	"notifications": {
 		"settingsSaveFailed": "Could not save your settings.",
 		"warmupFailed": "Setup did not finish. Some downloads may fail until it does.",
 		"shellActionFailed": "Could not open that.",
 		"folderSelectFailed": "Could not open the folder picker.",
+		"exploreSignInRetrying_one": "Signed in with Explore — retrying 1 link",
+		"exploreSignInRetrying_other": "Signed in with Explore — retrying {{count}} links",
+		"exploreSignOutFailed": "Could not sign out of Explore. Try again.",
 		"playlistFolderRejected": "That folder can't be used for this playlist.",
 		"filenameFolderTooDeep": "This folder is too deep for your system. The download may still fail — pick a shorter folder.",
 		"filenameTemplateCannotFit": "This video's name can't fit every part of your template, so the default name was used.",
@@ -631,11 +660,25 @@
 			"alreadyQueued": "Already in the queue — no copy added",
 			"invalidClipboard": "No link on your clipboard — copy one first",
 			"multipleUrls": "Multiple links copied — use Bulk URLs in Arroxy",
-			"needsReview": "That link needs a quick review — open Arroxy and paste it again",
-			"busy": "Still working on the previous link",
+			"needsReview": "That link needs your choice — see Downloads in Arroxy",
+			"cookiesSetup": "Finish setting up cookies in Arroxy, then try again",
+			"busy": "Arroxy is still starting — try again in a moment",
 			"submissionFailed": "Could not add that link — try again in Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video is already in the queue — skipped", "skippedAlreadyQueued_other": "{{count}} videos are already in the queue — skipped"}
+		"queue": {"skippedAlreadyQueued_one": "{{count}} video is already in the queue — skipped", "skippedAlreadyQueued_other": "{{count}} videos are already in the queue — skipped"},
+		"quickDownload": {
+			"added": "Added: {{title}}",
+			"alreadyQueued": "Already in the queue",
+			"failed": "Couldn't prepare {{title}}",
+			"notAdded": "Couldn't add that link — try again",
+			"chooseHowMany_one": "{{count}}+ video — choose how many",
+			"chooseHowMany_other": "{{count}}+ videos — choose how many",
+			"review_one": "{{count}} video in this list — review to pick",
+			"review_other": "{{count}} videos in this list — review to pick",
+			"reviewCapped_one": "{{count}}+ video in this list — review to pick",
+			"reviewCapped_other": "{{count}}+ videos in this list — review to pick",
+			"view": "View"
+		}
 	},
 	"errors": {
 		"ytdlp": {
@@ -654,7 +697,7 @@
 			"parse": "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships.",
 			"network": "Network error. Check your connection and retry.",
 			"drmProtected": "This video is DRM-protected. yt-dlp can't strip DRM, so the file can't be downloaded.",
-			"loginRequired": "This video requires a signed-in account. Set up a cookies.txt (Settings → Cookies) and retry.",
+			"loginRequired": "This video needs a signed-in account.",
 			"unknown": "Download failed. See the raw output below."
 		}
 	},
@@ -724,5 +767,53 @@
 			"invalid-segment": "That folder name isn't allowed. Avoid . and .. and reserved names like CON.",
 			"resolution-in-dir": "{resolution} can't name a folder — the quality isn't known until the download starts."
 		}
+	},
+	"explore": {
+		"tabLabel": "Explore",
+		"newBadge": "New",
+		"notice": {
+			"title": "Browse YouTube right inside Arroxy",
+			"body": "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account.",
+			"riskTitle": "Sign in with a secondary account",
+			"riskBody": "YouTube may flag — and sometimes ban — accounts used with download tools like yt-dlp. Use an account you can afford to lose, not your main one.",
+			"continue": "Continue"
+		},
+		"nudge": {"off": "Cookies are off, so downloads don't use your Explore sign-in.", "file": "Downloads use your cookies file, not your Explore sign-in.", "browser": "Downloads use your browser's cookies, not your Explore sign-in.", "useExplore": "Use Explore sign-in", "notNow": "Not now"},
+		"toolbar": {
+			"aria": "Explore browser controls",
+			"back": "Back",
+			"forward": "Forward",
+			"reload": "Reload",
+			"home": "YouTube home",
+			"addressAria": "Address",
+			"addressPlaceholder": "Search YouTube or paste a YouTube link",
+			"offsiteHint": "Explore only browses YouTube.",
+			"offsiteDownload": "Download this link",
+			"offsiteHintHost": "Explore only browses YouTube. {{host}}",
+			"searchTooLong": "That search is too long.",
+			"downloadWithProfile": "Download · {{profileName}}",
+			"interactiveHint": "Choose format, subtitles and more…",
+			"grabUnavailable": "Open a video, playlist, or channel to download it",
+			"adBlock": {
+				"aria": "Ad blocker",
+				"off": "Ad blocker: off — click to turn on",
+				"starting": "Ad blocker: starting — click to turn off",
+				"on": "Ad blocker: on — click to turn off",
+				"unavailable": "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off",
+				"accountNote": "YouTube may push back on ad blockers for signed-in accounts."
+			}
+		},
+		"settings": {
+			"title": "Explore",
+			"description": "Browse YouTube inside Arroxy and sign in for videos that need an account.",
+			"showTab": "Show the Explore tab",
+			"showTabDescription": "Turning it off also stops downloads from using your Explore sign-in.",
+			"signOut": "Sign out of Explore",
+			"signOutDescription": "Clears your YouTube sign-in and browsing data in Explore.",
+			"signOutConfirmTitle": "Sign out of Explore?",
+			"signOutConfirmBody": "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again.",
+			"signOutConfirm": "Sign out"
+		},
+		"error": {"proxyTitle": "Explore can't connect through your proxy", "proxyBody": "Check the proxy in Settings, then try again.", "loadTitle": "This page didn't load", "loadBody": "Check your connection, then try again.", "retry": "Retry", "openSettings": "Open Settings"}
 	}
 }

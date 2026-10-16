@@ -1,4 +1,6 @@
 import {z} from 'zod'
+import {validateUaToken} from './exploreUserAgent.js'
+import {EXPLORE_ADDRESS_MAX} from './sites/exploreAddress.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from 'ytdlp-errors'
@@ -219,7 +221,7 @@ export type HotkeyAccelerator = z.infer<typeof hotkeyAcceleratorSchema>
 // Every hotkey trigger attempt ends in exactly one of these outcomes — no
 // silent paths (the OmniGet #198 lesson). The renderer derives the outcome
 // and reports it back so main can notify on hidden windows.
-export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'busy'])
+export const hotkeyOutcomeSchema = z.enum(['queued', 'already-queued', 'invalid-clipboard', 'multiple-urls', 'submission-failed', 'needs-review', 'cookies-setup', 'busy'])
 export type HotkeyOutcome = z.infer<typeof hotkeyOutcomeSchema>
 
 // The schema validates the renderer→main report payload; main decorates the
@@ -280,8 +282,44 @@ export type BulkUrlKind = z.infer<typeof bulkUrlKindSchema>
 export const bulkUrlRejectReasonSchema = z.enum(['duplicate'])
 export type BulkUrlRejectReason = z.infer<typeof bulkUrlRejectReasonSchema>
 
-export const cookiesModeSchema = z.enum(['off', 'file', 'browser'])
+export const cookiesModeSchema = z.enum(['off', 'file', 'browser', 'explore'])
 export type CookiesMode = z.infer<typeof cookiesModeSchema>
+export const COOKIES_MODES = cookiesModeSchema.options
+
+// A download's identity for yt-dlp. `exploreSession` is set only by main when a
+// run failed in a way an account can fix (escalation), and sticks to the job.
+export const jobAuthSchema = z.enum(['anonymous', 'exploreSession'])
+export type JobAuth = z.infer<typeof jobAuthSchema>
+export const JOB_AUTHS = jobAuthSchema.options
+
+// Why a failed run was retried with the Explore session. Every reason but a
+// bot wall is something only the account unlocks, so it reaches a playlist's
+// items too; a bot wall signs in only the request that hit it.
+const escalationReasonSchema = z.enum(['loginRequired', 'ageRestricted', 'accountOnlyVideo', 'accountOnlyPlaylist', 'playlistMissing', 'botBlock'])
+export type EscalationReason = z.infer<typeof escalationReasonSchema>
+
+// What a page load on the Explore partition says about the session. `unknown`:
+// the check could not tell (proxy, timeout, load failure, off the site).
+const exploreSignInStateSchema = z.enum(['signedIn', 'signedOut', 'unknown'])
+export type ExploreSignInState = z.infer<typeof exploreSignInStateSchema>
+
+// Why the Explore view shows its error surface: `proxy` — the proxy setting is
+// not usable, so nothing was loaded (fail closed); `load` — the page failed to load.
+const exploreViewErrorSchema = z.enum(['proxy', 'load'])
+export type ExploreViewError = z.infer<typeof exploreViewErrorSchema>
+
+// The Explore ad blocker as it stands: `off` (the setting is off), `starting`
+// (filter lists loading), `on` (blocking), `unavailable` (on, but no filter
+// lists could be fetched and none are cached: nothing is blocked).
+const exploreAdBlockStatusSchema = z.enum(['off', 'starting', 'on', 'unavailable'])
+export type ExploreAdBlockStatus = z.infer<typeof exploreAdBlockStatusSchema>
+
+// What the renderer is told about the Explore view. Carries no cookie data:
+// `signedIn` is a presence flag, never the cookies behind it. The schema is
+// also the outbound filter, so a field added to the host's state cannot reach
+// the renderer until it is listed here.
+export const exploreViewStateSchema = z.object({url: z.string(), title: z.string(), canGoBack: z.boolean(), canGoForward: z.boolean(), loading: z.boolean(), signedIn: z.boolean(), error: exploreViewErrorSchema.nullable(), adBlock: exploreAdBlockStatusSchema})
+export type ExploreViewState = z.infer<typeof exploreViewStateSchema>
 
 export const cookiesBrowserSchema = z.enum(['firefox', 'chromium', 'chrome', 'brave', 'edge', 'safari', 'vivaldi'])
 export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>
@@ -350,12 +388,21 @@ export type RuntimeBinaryManifestEntry = z.infer<typeof runtimeBinaryManifestEnt
 export const runtimeBinaryIndexSchema = z.object({schemaVersion: z.literal(1), generatedAt: z.iso.datetime({offset: true}), entries: z.array(runtimeBinaryManifestEntrySchema).min(1)})
 export type RuntimeBinaryIndex = z.infer<typeof runtimeBinaryIndexSchema>
 
-// QueueItemStatus is now a 7-value union with paused split. paused-held is
+// QueueItemStatus splits paused in two. paused-held is
 // "queued + waiting + never spawned a job" (resume = transition to pending).
 // paused-active is "had a running job, user paused it" (resume = re-spawn,
 // possibly across an app restart via persisted tempDir + lastJobId).
-export const queueItemStatusSchema = z.enum(['probing', 'pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
+// `probing` and `needs-choice` are a quick download's placeholder row before
+// it has a job: its probe is running, or its probe found something only the
+// user can decide (a playlist over the load limit, or one to review).
+export const queueItemStatusSchema = z.enum(['probing', 'needs-choice', 'pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
 export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>
+
+// What a needs-choice row asks. `playlist-cap`: the probe stopped at the load
+// limit with `loaded` videos (All / First N / Review). `playlist-review`: a link
+// that was not obviously a collection turned out to be one (Review).
+export const queueChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('playlist-cap'), loaded: z.number().int().positive()}), z.object({kind: z.literal('playlist-review'), count: z.number().int().nonnegative()})])
+export type QueueChoice = z.infer<typeof queueChoiceSchema>
 
 // Lane controls how the scheduler treats an item. `normal` items respect the
 // single-slot cap and the inter-job sleep window — typical queue flow.
@@ -380,10 +427,10 @@ export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPerc
 export type QueueTableColumnId = z.infer<typeof queueTableColumnIdSchema>
 export const QUEUE_TABLE_COLUMN_IDS = queueTableColumnIdSchema.options
 
-const ytDlpErrorKindSchema = z.enum(YT_DLP_ERROR_KINDS)
+export const ytDlpErrorKindSchema = z.enum(YT_DLP_ERROR_KINDS)
 
 // Reified queue-status names for use in equality checks. Exact mirror of the schema.
-export const QUEUE_STATUS = {probing: 'probing', pending: 'pending', running: 'running', pausedHeld: 'paused-held', pausedActive: 'paused-active', done: 'done', error: 'error', cancelled: 'cancelled'} as const satisfies Record<string, QueueItemStatus>
+export const QUEUE_STATUS = {probing: 'probing', needsChoice: 'needs-choice', pending: 'pending', running: 'running', pausedHeld: 'paused-held', pausedActive: 'paused-active', done: 'done', error: 'error', cancelled: 'cancelled'} as const satisfies Record<string, QueueItemStatus>
 
 // Status keys emitted by DownloadService and consumed by the renderer for i18n.
 // Defined as a const object so call-sites can reference STATUS_KEY.X — typos
@@ -415,11 +462,13 @@ export const STATUS_KEY = {
 	outputNotWritable: 'outputNotWritable',
 	fetchingSponsorBlock: 'fetchingSponsorBlock',
 	retryingSponsorBlock: 'retryingSponsorBlock',
-	retryingTransfer: 'retryingTransfer'
+	retryingTransfer: 'retryingTransfer',
+	signingInWithExplore: 'signingInWithExplore',
+	exploreSignedOut: 'exploreSignedOut'
 } as const
 export type StatusKey = (typeof STATUS_KEY)[keyof typeof STATUS_KEY]
 
-const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...StatusKey[]])
+export const statusKeySchema = z.enum(Object.values(STATUS_KEY) as [StatusKey, ...StatusKey[]])
 
 // Zoom bounds — kept here so the schema constraint and the renderer clamp share one source.
 export const ZOOM_MIN = 0.7
@@ -430,6 +479,35 @@ export const ZOOM_STEP = 0.05
 // by host — yt-dlp itself decides whether the URL is supported (via extractor
 // match) and surfaces "Unsupported URL" via stderr if not.
 const webUrlSchema = z.url('URL must be valid').refine(value => /^https?:\/\//i.test(value), {message: 'Only http/https URLs are supported'})
+
+// Largest pixel extent the Explore view may be asked to cover; matches the compositor's texture ceiling.
+const EXPLORE_BOUNDS_MAX = 16384
+const exploreBoundsValueSchema = z.number().min(0).max(EXPLORE_BOUNDS_MAX)
+export const exploreViewBoundsSchema = z.object({x: exploreBoundsValueSchema, y: exploreBoundsValueSchema, width: exploreBoundsValueSchema, height: exploreBoundsValueSchema})
+export type ExploreViewBounds = z.infer<typeof exploreViewBoundsSchema>
+// `address`: what the user typed in the address bar, normalised by the
+// renderer; main loads it only on the site (exploreHandlers, P2-R45).
+export const exploreNavigateCommandSchema = z.discriminatedUnion('kind', [
+	z.strictObject({kind: z.literal('back')}),
+	z.strictObject({kind: z.literal('forward')}),
+	z.strictObject({kind: z.literal('reload')}),
+	z.strictObject({kind: z.literal('home')}),
+	z.strictObject({kind: z.literal('address'), url: z.string().min(1).max(EXPLORE_ADDRESS_MAX)})
+])
+export type ExploreNavigateCommand = z.infer<typeof exploreNavigateCommandSchema>
+export const exploreSetVisibleSchema = z.object({visible: z.boolean()})
+// Whether the Explore tab is the active tab (the view is muted while it is not).
+export const exploreSetActiveSchema = z.object({active: z.boolean()})
+// A snapshot of the Explore view, shown in its place while an overlay hides it
+// (P2-R35): a base64 JPEG data URL and nothing else (an SVG could carry
+// script). Main encodes it at full device resolution, quality 85; the cap
+// keeps one IPC reply bounded yet fits a noise-heavy page on a 5K display
+// (~15M chars; a typical page is well under 1M).
+export const EXPLORE_SNAPSHOT_MAX_CHARS = 16 * 1024 * 1024
+export const exploreSnapshotSchema = z
+	.string()
+	.max(EXPLORE_SNAPSHOT_MAX_CHARS)
+	.regex(/^data:image\/jpeg;base64,[A-Za-z0-9+/]+={0,2}$/)
 
 const playlistScopeItemsSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('app-limit')}),
@@ -444,7 +522,10 @@ export type PlaylistScope = z.infer<typeof playlistScopeSchema>
 // hung-overridden probe; background hydration pins 180s. The interactive
 // default (180s) applies when the field is absent.
 const probeTimeoutMsSchema = z.number().int().min(1000).max(300_000)
-export const probeSchema = z.object({url: webUrlSchema, playlistMode: z.enum(['auto', 'video', 'playlist']).optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
+export const probePlaylistModeSchema = z.enum(['auto', 'video', 'playlist'])
+export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
+
+export const probeSchema = z.object({url: webUrlSchema, playlistMode: probePlaylistModeSchema.optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
 
 // PreparedJob discriminated-union schema. Type aliases live in
 // `./preparedJob`; the runtime validator lives here so callers that already
@@ -497,7 +578,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 	z.object({kind: z.literal('unresolved'), extractor: z.literal(''), extractorKey: z.literal('')})
 ])
 
-export const startDownloadSchema = z.object({url: webUrlSchema, outputDir: z.string().min(1).optional(), cookiesMode: cookiesModeSchema.optional(), job: preparedJobSchema})
+export const startDownloadSchema = z.object({url: webUrlSchema, outputDir: z.string().min(1).optional(), cookiesMode: cookiesModeSchema.optional(), job: preparedJobSchema, auth: jobAuthSchema.optional()})
 
 export const cancelDownloadSchema = z.object({jobId: z.string().optional()})
 
@@ -532,6 +613,18 @@ const commonSettingsSchema = z.object({
 	cookiesMode: cookiesModeSchema.optional(),
 	cookiesBrowser: cookiesBrowserSchema.optional(),
 	proxyUrl: z.string().optional(),
+	// Absent means enabled.
+	exploreEnabled: z.boolean().optional(),
+	exploreUserAgent: z.string().max(64).optional(),
+	exploreNoticeSeen: z.boolean().optional(),
+	exploreModeAutoSwitched: z.boolean().optional(),
+	exploreModeNudgeDismissedFor: cookiesModeSchema.optional(),
+	// The last site page the Explore view showed, reopened at its next start.
+	// Main owns it: written by the view host (which checks every URL before
+	// storing and again before reopening it), never by a renderer update.
+	exploreLastUrl: z.string().optional(),
+	// The Explore ad blocker; absent means off.
+	exploreAdBlock: z.boolean().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
 	limitRate: limitRateSchema.optional(),
 	playlistProbeLimit: playlistProbeLimitSchema.optional(),
@@ -580,10 +673,23 @@ const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSc
 
 export const appSettingsSchema = z.object({common: commonSettingsSchema, single: singlePrefsSchema, playlist: playlistPrefsSchema, profiles: downloadProfilesPrefsSchema})
 
-// Common paths are derived from the OS and installId is internal; neither is
-// accepted from renderer settings updates. Deriving the rest keeps the patch
-// contract in lockstep with the persisted settings contract.
-const commonSettingsPatchSchema = commonSettingsSchema.partial().omit({commonPaths: true, installId: true})
+// Common paths are derived from the OS, installId is internal, and the last
+// Explore page is the view host's; none is accepted from renderer settings
+// updates. Deriving the rest keeps the patch contract in lockstep with the
+// persisted settings contract.
+// The UA token is validated on write only: a stored value the validator later
+// rejects must not invalidate the whole persisted `common` section, because the
+// reader (ExploreSessionService) already falls back to the default token.
+const commonSettingsPatchSchema = commonSettingsSchema
+	.partial()
+	.omit({commonPaths: true, installId: true, exploreLastUrl: true})
+	.extend({
+		exploreUserAgent: z
+			.string()
+			.max(64)
+			.refine(v => validateUaToken(v) !== null, {message: 'exploreUserAgent must be a bland Name/version token'})
+			.optional()
+	})
 
 // Convention for *patch* schemas: every field is `.optional()` only — never
 // `.nullable()`. A patch is "fields the caller wants to change"; "absent" is
@@ -612,93 +718,12 @@ export const updateSettingsSchema = z.object({common: commonSettingsPatchSchema.
 	{message: 'settings:update payload must contain at least one defined field'}
 )
 
-// Queue item schema — used by both queueSave IPC handler and queueStore.load
-// to reject corrupted persistence (manual edits, partial writes).
-// Exported for IPC input validation (queue:cmd:probeFailed) — same shape the
-// queue persistence schema uses below.
-export const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string()})
-
-const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
-
-const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
-const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional(), formatsWithheld: z.literal(true).optional()})
-const queueArtifactSchema = z.object({id: z.string().min(1), kind: queueArtifactKindSchema, path: z.string().min(1), fileName: z.string().min(1), sizeBytes: z.number().int().nonnegative().optional(), discoveredAt: z.string().min(1), missing: z.boolean().optional(), internal: z.boolean().optional()})
-
-export const queueItemSchema = z
-	.object({
-		id: z.string(),
-		url: z.string(),
-		title: z.string(),
-		// Fabricated flat-playlist row title (`Untitled · #N`) — see QueueItem.
-		titleIsPlaceholder: z.literal(true).optional(),
-		thumbnail: z.string(),
-		outputDir: z.string(),
-		formatLabel: z.string(),
-		status: queueItemStatusSchema,
-		lane: queueLaneSchema.default('normal'),
-		progressPercent: z.number(),
-		progressDetail: z.string().nullable(),
-		lastStatus: statusSnapshotSchema.nullable(),
-		error: localizedErrorSchemaShape.nullable(),
-		addedAt: z.string().nullable().default(null),
-		finishedAt: z.string().nullable(),
-		playlistGroupId: z.string().min(1).optional(),
-		// Per-item opt-out for the playlist `.m3u` artifact. Defaults true so
-		// pre-existing persisted items (and single-mode items, which ignore it)
-		// keep the historical always-on behavior; only an explicit `false` set by
-		// the wizard suppresses the write. Consulted in playlist mode only.
-		writeM3u: z.boolean().default(true),
-		// Persisted resume context. `lastJobId` is set iff status ∈ {running,
-		// paused-active}; `tempDir` is set iff status === 'paused-active' and the
-		// job was paused mid-download. `tempDir` survives app restart so the
-		// resumed yt-dlp run can target the same .part files. Both undefined for
-		// paused-held items (they never spawned a job yet).
-		tempDir: z.string().min(1).optional(),
-		lastJobId: z.string().min(1).optional(),
-		resumeContext: queueResumeContextSchema.optional(),
-		// Automatic-retry bookkeeping. `retryCount` is how many automatic
-		// retries this item has already consumed; `retryAt` is set only while
-		// one is scheduled, so a restart can re-arm the timer instead of
-		// stranding the item in error.
-		retryCount: z.number().int().min(0).default(0),
-		retryAt: z.string().optional(),
-		probeInfoJsonRef: probeInfoJsonRefSchema.optional(),
-		artifacts: z.array(queueArtifactSchema).default([]),
-		job: preparedJobSchema
-	})
-	.superRefine((item, ctx) => {
-		// An unresolved job is the probe stage's signature. It is legal only on
-		// a live `probing` row or on a terminal probe-error row (probe-failed
-		// finalizes the error but never mints a real job). Everywhere else the
-		// pair is a half-built row that must not persist.
-		const unresolved = item.job.kind === 'unresolved'
-		const legalUnresolved = item.status === QUEUE_STATUS.probing || (item.status === QUEUE_STATUS.error && unresolved)
-		if (unresolved !== legalUnresolved) {
-			ctx.addIssue({code: 'custom', path: ['job'], message: 'probing status and unresolved job must appear together'})
-		}
-		if (!item.resumeContext) return
-
-		if (item.status !== QUEUE_STATUS.error && item.status !== QUEUE_STATUS.pending) {
-			ctx.addIssue({code: 'custom', path: ['resumeContext'], message: 'resumeContext is only valid on error or pending queue items'})
-		}
-		if (item.status === QUEUE_STATUS.error && item.error == null) {
-			ctx.addIssue({code: 'custom', path: ['resumeContext'], message: 'resumeContext on an error item requires an error payload'})
-		}
-		if (item.error && item.error.kind !== item.resumeContext.failureKind) {
-			ctx.addIssue({code: 'custom', path: ['resumeContext', 'failureKind'], message: 'resumeContext.failureKind must match error.kind when error is present'})
-		}
-		if (item.tempDir && item.tempDir !== item.resumeContext.tempDir) {
-			ctx.addIssue({code: 'custom', path: ['resumeContext', 'tempDir'], message: 'resumeContext.tempDir must match top-level tempDir when both are present'})
-		}
-	})
-
-export const queueArraySchema = z.array(queueItemSchema)
-
 const playlistManifestItemSchema = z.object({videoId: z.string().nullable(), title: z.string(), duration: z.number().optional()})
 
 export const playlistManifestSchema = z.object({playlistGroupId: z.string().min(1), playlistTitle: z.string(), outputDir: z.string().min(1), items: z.array(playlistManifestItemSchema)})
 
 // yt-dlp info_dict shape lives in `./ytdlp/infoDict.ts` — the spec port that
 // validates `--dump-single-json` output. Schemas here are app-internal contracts
-// (settings, prefs, queue items); yt-dlp's contract is its own thing.
+// (settings, prefs, queue items — the item contract is in `./queueItemSchema.ts`);
+// yt-dlp's contract is its own thing.
 export {infoDictSchema, type InfoDict} from './ytdlp/infoDict.js'

@@ -144,6 +144,13 @@ export function resolveActiveDownloadProfile(prefs: DownloadProfilesPrefs | unde
 	return {profile: fallback, ref: {kind: 'builtin', id: fallback.id}}
 }
 
+// A profile chosen earlier, as it is now: the active one if it was deleted or
+// disabled since.
+export function resolveChosenDownloadProfile(ref: DownloadProfileRef, prefs: DownloadProfilesPrefs | undefined): {profile: DownloadProfile; ref: DownloadProfileRef} {
+	const chosen = findDownloadProfile(ref, prefs)
+	return chosen?.enabled ? {profile: chosen, ref} : resolveActiveDownloadProfile(prefs)
+}
+
 export function downloadProfileOrigin(profile: DownloadProfile, prefs: DownloadProfilesPrefs | undefined): DownloadProfileOrigin {
 	if (!isBuiltinDownloadProfileId(profile.id)) return {kind: 'custom'}
 	const normalized = normalizeDownloadProfilesPrefs(prefs)

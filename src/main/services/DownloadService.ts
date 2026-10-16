@@ -14,6 +14,9 @@ import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {YtDlp} from './YtDlp.js'
 import {AsyncStack} from './phases/index.js'
 import type {ActiveDownload, PausedDownload} from './phases/index.js'
+import type {ExploreSignInCheck} from './phases/types.js'
+import type {ExploreGate} from './exploreGate.js'
+import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import {killActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
@@ -31,20 +34,40 @@ const logger = log.scope('downloads')
 // the queue scheduler intended. Defaults to the shared ceiling so the
 // queue's priority-lane bypass isn't rejected here. Tunable for tests.
 const DEFAULT_MAX_CONCURRENT_DOWNLOADS = MAX_CONCURRENT_DOWNLOADS
+// How long resume() waits for a flagged pause to park before answering "still parking".
+const PARK_WAIT_MS = 10_000
+
+// The Explore session as the download phases see it, from the composition root.
+export interface DownloadExploreDeps {
+	exploreGate: ExploreGate
+	exploreSession: ExploreSignInCheck
+	// Releases a finished attempt's signed-in spawn budget.
+	spawnGate: Pick<ExploreSpawnGate, 'resetJob'>
+}
+
+// Without the composition root's wiring nothing escalates and an escalated job is refused.
+const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve(false)}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, spawnGate: {resetJob: () => undefined}}
+
+const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
 export class DownloadService extends EventEmitter {
 	private activeJobs = new Map<string, ActiveDownload>()
 	private pausedJobs = new Map<string, PausedDownload>()
+	// Per-job resolvers for a resume() that arrived while its pause had not parked yet.
+	private parkWaiters = new Map<string, Set<() => void>>()
 	private maxConcurrent: number
 	private readonly progressParser: ProgressParser
 	private readonly lifecycle: JobLifecycle
 	private readonly cookielessRetry = new CookielessRetry()
+	// The phases' session check, reporting each verified sign-out on the way back.
+	private readonly exploreSession: ExploreSignInCheck
 
 	constructor(
 		private readonly ytDlp: YtDlp,
 		private readonly recentJobsStore: RecentJobsStore,
 		private readonly mockMode = false,
-		maxConcurrent: number = DEFAULT_MAX_CONCURRENT_DOWNLOADS
+		maxConcurrent: number = DEFAULT_MAX_CONCURRENT_DOWNLOADS,
+		private readonly explore: DownloadExploreDeps = EXPLORE_UNAVAILABLE
 	) {
 		super()
 		this.maxConcurrent = Math.max(1, maxConcurrent)
@@ -54,6 +77,13 @@ export class DownloadService extends EventEmitter {
 			event => this.emit('artifact', event)
 		)
 		this.lifecycle = new JobLifecycle(this.recentJobsStore)
+		this.exploreSession = {
+			verifySignedIn: async siteId => {
+				const state = await this.explore.exploreSession.verifySignedIn(siteId)
+				if (state === 'signedOut') this.emit(EXPLORE_VERIFIED_SIGNED_OUT)
+				return state
+			}
+		}
 	}
 
 	// Raised/lowered in lockstep with the queue scheduler's ceiling when the
@@ -64,8 +94,22 @@ export class DownloadService extends EventEmitter {
 		logger.info('Max concurrent downloads changed', {maxConcurrent: this.maxConcurrent})
 	}
 
+	// The site itself said the Explore session is signed out: a phase's session
+	// check answered `signedOut`. Not the exploreSignedOut status, which a gate
+	// refusal (mode switched away, kill switch, cookies gone) emits as well. The
+	// composition root tells the Explore view; phases never see it.
+	onExploreVerifiedSignedOut(listener: () => void): () => void {
+		this.on(EXPLORE_VERIFIED_SIGNED_OUT, listener)
+		return () => this.off(EXPLORE_VERIFIED_SIGNED_OUT, listener)
+	}
+
 	get activeCount(): number {
 		return this.activeJobs.size
+	}
+
+	// Pauses that parked and await a resume or cancel.
+	get pausedCount(): number {
+		return this.pausedJobs.size
 	}
 
 	get runningJobCount(): number {
@@ -95,7 +139,20 @@ export class DownloadService extends EventEmitter {
 		const expectedBytes = preparedJob.kind === 'single-format' ? preparedJob.expectedBytes : undefined
 		const job: DownloadJob = {id: randomUUID(), url: input.url, outputDir: input.outputDir, expectedBytes, status: 'running', createdAt: now, updatedAt: now}
 		const controller = new AbortController()
-		const active: ActiveDownload = {job, input: input as ResolvedStartDownloadInput, controller, signal: controller.signal, cancelRequested: false, pauseRequested: false, subtitlePaths: [], mediaDownloadStarted: false, mediaComponentPaths: [], tempDir: input.tempDir, disposables: new AsyncStack()}
+		const active: ActiveDownload = {
+			job,
+			input: input as ResolvedStartDownloadInput,
+			controller,
+			signal: controller.signal,
+			cancelRequested: false,
+			pauseRequested: false,
+			pauseController: new AbortController(),
+			subtitlePaths: [],
+			mediaDownloadStarted: false,
+			mediaComponentPaths: [],
+			tempDir: input.tempDir,
+			disposables: new AsyncStack()
+		}
 		this.registerInputTempDirCleanup(active)
 		this.activeJobs.set(job.id, active)
 		logger.info('Download job created', {jobId: job.id, url: job.url, outputDir: job.outputDir, kind: preparedJob.kind})
@@ -103,15 +160,30 @@ export class DownloadService extends EventEmitter {
 		const hasSponsorBlock = preparedJob.kind !== 'subtitle-only' && preparedJob.sponsorBlock.mode !== 'off'
 		const embedMetadata = preparedJob.kind !== 'subtitle-only' && preparedJob.embed.metadata
 		const embedThumbnail = preparedJob.kind !== 'subtitle-only' && preparedJob.embed.thumbnail
-		trackMain('download_started', {preset: preparedJob.kind, has_subtitles: hasSubs, has_sponsorblock: hasSponsorBlock, cookies_mode: input.cookiesMode ?? 'off', embed_metadata: embedMetadata, embed_thumbnail: embedThumbnail})
+		trackMain('download_started', {preset: preparedJob.kind, has_subtitles: hasSubs, has_sponsorblock: hasSponsorBlock, cookies_mode: input.cookiesMode ?? 'off', embed_metadata: embedMetadata, embed_thumbnail: embedThumbnail, escalated: input.auth === 'exploreSession'})
 		return this.runJob(active)
 	}
 
-	async resume(jobId: string): Promise<Result<{resumed: boolean; job?: DownloadJob}>> {
+	// `jobLive`: nothing was resumed, but the job still exists — its pause has not
+	// parked yet, or another resume already restarted it. The caller must not
+	// start a replacement: the old job would run or park as an orphan beside it.
+	async resume(jobId: string): Promise<Result<{resumed: boolean; job?: DownloadJob; jobLive?: true}>> {
+		// A pause of a job with no live process only flags it: it parks at its next
+		// run point (a slow token mint can hold it there). Resuming inside that
+		// window waits for the park, up to a bound.
+		const isParking = (): boolean => {
+			const pending = this.activeJobs.get(jobId)
+			return pending !== undefined && pending.pauseRequested && !pending.cancelRequested && !this.pausedJobs.has(jobId)
+		}
+		if (isParking()) {
+			logger.info('resume() waiting for a pause to park', {jobId})
+			await this.waitUntilParked(jobId)
+		}
 		const paused = this.pausedJobs.get(jobId)
 		if (!paused) {
-			logger.info('resume() called but no paused job found', {jobId})
-			return ok({resumed: false})
+			const live = this.activeJobs.has(jobId)
+			logger.info(live ? 'resume() found the job still live (parking or already resumed)' : 'resume() called but no paused job found', {jobId})
+			return ok(live ? {resumed: false, jobLive: true} : {resumed: false})
 		}
 
 		this.pausedJobs.delete(jobId)
@@ -126,6 +198,7 @@ export class DownloadService extends EventEmitter {
 			signal: controller.signal,
 			cancelRequested: false,
 			pauseRequested: false,
+			pauseController: new AbortController(),
 			subtitlePaths: [],
 			mediaDownloadStarted: false,
 			mediaComponentPaths: [],
@@ -147,6 +220,26 @@ export class DownloadService extends EventEmitter {
 			return fail(result.error)
 		}
 		return ok({resumed: true, job: result.data.job})
+	}
+
+	// Resolves when the job parks, ends, or PARK_WAIT_MS passes, whichever is first.
+	private waitUntilParked(jobId: string): Promise<void> {
+		return new Promise(resolve => {
+			const waiters = this.parkWaiters.get(jobId) ?? new Set<() => void>()
+			this.parkWaiters.set(jobId, waiters)
+			const done = (): void => {
+				clearTimeout(timer)
+				waiters.delete(done)
+				if (waiters.size === 0) this.parkWaiters.delete(jobId)
+				resolve()
+			}
+			const timer = setTimeout(done, PARK_WAIT_MS)
+			waiters.add(done)
+		})
+	}
+
+	private releaseParkWaiters(jobId: string): void {
+		for (const release of [...(this.parkWaiters.get(jobId) ?? [])]) release()
 	}
 
 	private async runJob(active: ActiveDownload): Promise<Result<StartDownloadOutput>> {
@@ -196,6 +289,8 @@ export class DownloadService extends EventEmitter {
 			signal: active.signal,
 			ytDlp: this.ytDlp,
 			cookielessRetry: this.cookielessRetry,
+			exploreGate: this.explore.exploreGate,
+			exploreSession: this.exploreSession,
 			emitStatus: (stage, statusKey, params?, error?, resumeContext?) => this.emitStatus(job.id, stage, statusKey, params, error, resumeContext),
 			register: disposable =>
 				active.disposables.defer(async () => {
@@ -236,7 +331,10 @@ export class DownloadService extends EventEmitter {
 					return
 				}
 				this.activeJobs.delete(job.id)
+				// A paused attempt ends here; resume starts a fresh signed-in spawn budget.
+				this.explore.spawnGate.resetJob(job.id)
 				this.pausedJobs.set(job.id, {job, input, tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
+				this.releaseParkWaiters(job.id)
 				logger.info('Download paused — temp dir preserved', {jobId: job.id, tempDir: active.tempDir})
 				return
 			case 'continue':
@@ -271,6 +369,7 @@ export class DownloadService extends EventEmitter {
 			if (paused) {
 				logger.info('Cancelling paused job — cleaning up temp dir and .part files', {jobId, outputDir: paused.job.outputDir})
 				this.pausedJobs.delete(jobId)
+				this.explore.spawnGate.resetJob(jobId)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
 				await this.cleanupPartFiles(paused.job.outputDir)
 				return ok({cancelled: true})
@@ -285,6 +384,7 @@ export class DownloadService extends EventEmitter {
 		await Promise.all([...this.activeJobs.values()].map(a => this.cancelOne(a)))
 		await Promise.all(
 			[...this.pausedJobs.values()].map(async paused => {
+				this.explore.spawnGate.resetJob(paused.job.id)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
 				await this.cleanupPartFiles(paused.job.outputDir)
 			})
@@ -307,17 +407,20 @@ export class DownloadService extends EventEmitter {
 			clearInterval(active.mockTimer)
 			active.mockTimer = undefined
 			this.activeJobs.delete(active.job.id)
+			this.explore.spawnGate.resetJob(active.job.id)
 			this.pausedJobs.set(active.job.id, {job: active.job, input: active.input})
 			logger.info('Mock download paused', {jobId: active.job.id})
 			return ok({paused: true, jobId: active.job.id})
 		}
 
-		if (!active.ytDlpProcess && !active.ffmpegProcess) {
-			logger.info('pause() called but job has no process yet', {jobId: active.job.id})
-			return ok({paused: false})
-		}
-
 		active.pauseRequested = true
+		active.pauseController?.abort()
+		if (!active.ytDlpProcess && !active.ffmpegProcess) {
+			// Binary setup, a token mint, a wait for a signed-in slot: the run sees
+			// the pause before it spawns, and the phase parks the job as paused.
+			logger.info('Pausing a job with no live process — it parks before its next spawn', {jobId: active.job.id})
+			return ok({paused: true, tempDir: active.tempDir, jobId: active.job.id})
+		}
 		// killActiveProcesses tree-kills both yt-dlp and ffmpeg (when present)
 		// via process-group on Unix and taskkill /T on Windows. Pause may land
 		// mid-mux (SidecarSubsPhase.runEmbedMux); without killing ffmpeg too, the
@@ -379,11 +482,14 @@ export class DownloadService extends EventEmitter {
 		const active = this.activeJobs.get(job.id)
 		if (active && status === 'completed') this.emitFinalArtifacts(active)
 		this.activeJobs.delete(job.id)
+		this.releaseParkWaiters(job.id)
+		this.explore.spawnGate.resetJob(job.id)
 		// Drain LIFO disposables (process kills, tempDir removals, watchdog
 		// timers) before writing the RecentJob entry. Per-disposable failures
 		// log + continue; a stuck cleanup can't block finalize.
 		if (active) await this.lifecycle.drain(active)
-		await this.lifecycle.finalize(job, status, error)
+		// An escalation mid-run rewrites the active input's auth, so this reads the final identity.
+		await this.lifecycle.finalize(job, status, error, {escalated: active?.input.auth === 'exploreSession'})
 	}
 
 	private emitFinalArtifacts(active: ActiveDownload): void {

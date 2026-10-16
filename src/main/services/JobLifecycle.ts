@@ -23,7 +23,8 @@ export class JobLifecycle {
 		await active.disposables[Symbol.asyncDispose]()
 	}
 
-	async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError): Promise<void> {
+	// `escalated`: the job ran on the Explore session (analytics only).
+	async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError, {escalated = false}: {escalated?: boolean} = {}): Promise<void> {
 		logger.info('Job finalized', {jobId: job.id, status, ...(error && {error})})
 
 		job.status = status
@@ -35,7 +36,7 @@ export class JobLifecycle {
 		} else if (status === 'cancelled') {
 			trackMain('download_cancelled', {duration_bucket: downloadDurationBucket(durationMs)})
 		} else {
-			trackMain('download_failed', {duration_bucket: downloadDurationBucket(durationMs), error_category: error?.kind ?? 'unknown', ...(job.expectedBytes != null ? {size_bucket: sizeBucket(job.expectedBytes)} : {})})
+			trackMain('download_failed', {duration_bucket: downloadDurationBucket(durationMs), error_category: error?.kind ?? 'unknown', escalated, ...(job.expectedBytes != null ? {size_bucket: sizeBucket(job.expectedBytes)} : {})})
 		}
 
 		const recent: RecentJob = {id: job.id, url: job.url, outputDir: job.outputDir, formatId: job.formatId, status, finishedAt: job.updatedAt, error}

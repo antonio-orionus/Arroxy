@@ -1,10 +1,12 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import {createRequire} from 'node:module'
 import {defineConfig, loadEnv} from 'electron-vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import Icons from 'unplugin-icons/vite'
-import type {PluginOption} from 'vite'
+import type {Plugin, PluginOption} from 'vite'
+import {EXPLORE_ADBLOCK_PRELOAD_FILE} from './src/main/services/explore/exploreAdBlockPreload.js'
 
 const require = createRequire(import.meta.url)
 const {version} = require('./package.json') as {version: string}
@@ -46,6 +48,34 @@ export function isExternalPreloadBuildImport(id: string): boolean {
 	return true
 }
 
+const GHOSTERY_PRELOAD_PATH_MODULE = '\0arroxy:ghostery-preload-path'
+const GHOSTERY_ELECTRON_DIR = /[\\/]@ghostery[\\/]adblocker-electron[\\/]/
+
+// @ghostery/adblocker-electron finds its cosmetic preload with
+// createRequire(import.meta.url).resolve(...) as its module loads. That needs
+// node_modules, which the packaged app does not ship, and check:main-bundle
+// cannot see it (it is no import). Its preload_path module is swapped for one
+// pointing at a copy of the preload emitted next to the main bundle, the file
+// the Explore ad blocker registers.
+export function exploreAdBlockPreloadPlugin(): Plugin {
+	return {
+		name: 'arroxy-explore-adblock-preload',
+		// Before Vite's own resolver, which would resolve the relative import first.
+		enforce: 'pre',
+		resolveId(source, importer) {
+			return source === './preload_path.js' && importer !== undefined && GHOSTERY_ELECTRON_DIR.test(importer) ? GHOSTERY_PRELOAD_PATH_MODULE : null
+		},
+		load(id) {
+			if (id !== GHOSTERY_PRELOAD_PATH_MODULE) return null
+			return `import {fileURLToPath} from 'node:url'\nexport const PRELOAD_PATH = fileURLToPath(new URL(${JSON.stringify(`./${EXPLORE_ADBLOCK_PRELOAD_FILE}`)}, import.meta.url))\n`
+		},
+		generateBundle() {
+			const preload = createRequire(require.resolve('@ghostery/adblocker-electron')).resolve('@ghostery/adblocker-electron-preload')
+			this.emitFile({type: 'asset', fileName: EXPLORE_ADBLOCK_PRELOAD_FILE, source: fs.readFileSync(preload, 'utf8')})
+		}
+	}
+}
+
 export default defineConfig(({mode}) => {
 	// Inline OpenPanel credentials from .env at build time. Without this,
 	// process.env.OPENPANEL_CLIENT_ID is undefined in the packaged app (no
@@ -59,6 +89,7 @@ export default defineConfig(({mode}) => {
 
 	return {
 		main: {
+			plugins: [exploreAdBlockPreloadPlugin()],
 			define: {'process.env.OPENPANEL_CLIENT_ID': JSON.stringify(openpanelClientId), 'process.env.OPENPANEL_CLIENT_SECRET': JSON.stringify(openpanelClientSecret), 'process.env.ARROXY_ANALYTICS_DEBUG': JSON.stringify(arroxyAnalyticsDebug)},
 			resolve: {
 				alias: [

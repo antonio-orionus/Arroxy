@@ -11,6 +11,7 @@ import type {QueueService} from '@main/services/QueueService.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
+import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
@@ -26,6 +27,7 @@ import {registerQueueHandlers} from './queueHandlers.js'
 import {registerAnalyticsHandlers} from './analyticsHandlers.js'
 import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
 import {registerPlaylistHandlers} from './playlistHandlers.js'
+import {registerExploreHandlers} from './exploreHandlers.js'
 
 export interface IpcDependencies {
 	mainWindow: BrowserWindow
@@ -40,6 +42,7 @@ export interface IpcDependencies {
 	hotkeyService: HotkeyService
 	hotkeyOsNotifier: HotkeyOsNotifier | null
 	playlistManifestStore: PlaylistManifestStore
+	exploreView: ExploreViewHost
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 }
 
@@ -48,19 +51,20 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, graphicsPolicyProvider} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)
 	registerAnalyticsHandlers()
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
+	registerExploreHandlers({exploreView})
 
 	activeDownloadBridge?.detach()
 	activeDownloadBridge = new DownloadEventBridge(downloadService, mainWindow)

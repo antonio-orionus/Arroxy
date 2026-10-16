@@ -7,7 +7,7 @@
 // renderer-side projection can call it identically.
 
 import type {LocalizedError, QueueItem, QueueResumeContext} from './types.js'
-import {QUEUE_STATUS} from './schemas.js'
+import {QUEUE_STATUS, type QueueChoice} from './schemas.js'
 
 // Closed union of state-change signals. Mapped 1:1 from DownloadService /
 // QueueService events.
@@ -23,6 +23,8 @@ export type QueueEvent =
 	| {kind: 'resumed'}
 	| {kind: 'failed'; error: LocalizedError; resumeContext?: QueueResumeContext; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>}
 	| {kind: 'probe-failed'; error: LocalizedError}
+	| {kind: 'needs-choice'; choice: QueueChoice; title: string}
+	| {kind: 'probe-restarted'}
 	| {kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string}
 	| {kind: 'cancelled'}
 	| {kind: 'retry-reset'}
@@ -30,6 +32,17 @@ export type QueueEvent =
 function withoutProbeInfoJsonRef(item: QueueItem): QueueItem {
 	const {probeInfoJsonRef: _probeInfoJsonRef, ...rest} = item
 	return rest
+}
+
+function withoutChoice(item: QueueItem): QueueItem {
+	const {choice: _choice, ...rest} = item
+	return rest
+}
+
+// A placeholder's probe can run again: after it failed, or once the user picked
+// an answer that needs a fresh probe.
+function canRestartProbe(item: QueueItem): boolean {
+	return item.status === QUEUE_STATUS.needsChoice || (item.status === QUEUE_STATUS.error && item.job.kind === 'unresolved')
 }
 
 // Pure (item, event) -> item. No I/O, no IPC, no logging.
@@ -52,6 +65,10 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 			// just an error row the user can cancel or remove. The unresolved
 			// job stays: the row remains schema-valid as a terminal probe-error.
 			return {...item, status: QUEUE_STATUS.error, error: evt.error, progressPercent: 0, progressDetail: null}
+		case 'needs-choice':
+			return {...item, status: QUEUE_STATUS.needsChoice, choice: evt.choice, title: evt.title, progressPercent: 0, progressDetail: null}
+		case 'probe-restarted':
+			return {...withoutChoice(item), status: QUEUE_STATUS.probing, error: null, progressPercent: 0, progressDetail: null, finishedAt: null}
 		case 'completed':
 			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'cancelled':
@@ -69,13 +86,21 @@ export function illegalTransition(item: QueueItem, evt: QueueEvent): string | nu
 	if (evt.kind === 'probe-failed' && item.status !== QUEUE_STATUS.probing) {
 		return `event probe-failed on ${item.status} item is a stale signal`
 	}
-	// A probing item has no job yet: only its own failure or a cancellation
+	if (evt.kind === 'needs-choice' && item.status !== QUEUE_STATUS.probing) {
+		return `event needs-choice on ${item.status} item is a stale signal`
+	}
+	if (evt.kind === 'probe-restarted') return canRestartProbe(item) ? null : `event probe-restarted on ${item.status} item with a ${item.job.kind} job`
+	// A probing item has no job yet: only its own outcome or a cancellation
 	// may touch it. Everything else (started/progress/…) is a stale download
 	// signal that must never resurrect the placeholder.
 	if (item.status === QUEUE_STATUS.probing) {
-		if (evt.kind !== 'probe-failed' && evt.kind !== 'cancelled') {
+		if (evt.kind !== 'probe-failed' && evt.kind !== 'needs-choice' && evt.kind !== 'cancelled') {
 			return `event ${evt.kind} on probing item is a stale signal`
 		}
+	}
+	// A needs-choice row waits for the user; only a cancellation touches it.
+	if (item.status === QUEUE_STATUS.needsChoice && evt.kind !== 'cancelled') {
+		return `event ${evt.kind} on needs-choice item is a stale signal`
 	}
 	if (item.status === QUEUE_STATUS.cancelled) {
 		if (evt.kind !== 'cancelled' && evt.kind !== 'retry-reset') {
