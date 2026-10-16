@@ -8,7 +8,7 @@
         "@base-ui/react": "1.8.0",
         "@fontsource/jetbrains-mono": "5.3.0",
         "@fontsource/poppins": "5.3.0",
-        "@ghostery/adblocker-electron": "2.18.2",
+        "@ghostery/adblocker-electron": "2.20.1",
         "@openpanel/sdk": "1.3.1",
         "@tanstack/react-table": "9.2.6",
         "@tanstack/react-virtual": "3.14.13",
@@ -344,15 +344,15 @@
 
     "@gar/promise-retry": ["@gar/promise-retry@1.0.3", "", {}, "sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA=="],
 
-    "@ghostery/adblocker": ["@ghostery/adblocker@2.18.2", "", { "dependencies": { "@ghostery/adblocker-content": "^2.18.2", "@ghostery/adblocker-extended-selectors": "^2.18.2", "@ghostery/url-parser": "^1.3.1", "@remusao/guess-url-type": "^2.1.0", "@remusao/small": "^2.1.0", "@remusao/smaz": "^2.2.0", "tldts-experimental": "^7.4.9" } }, "sha512-x6zEkf1dHSN0t4ExLmuN6nIgH0oAi6laoKe5yGsiIB4jkEvutea1PJgxgRUIjWfNbDRmkf4GjUtuqQFZgvQG1w=="],
+    "@ghostery/adblocker": ["@ghostery/adblocker@2.20.1", "", { "dependencies": { "@ghostery/adblocker-content": "^2.20.1", "@ghostery/adblocker-extended-selectors": "^2.20.1", "@ghostery/url-parser": "^1.3.1", "@remusao/guess-url-type": "^2.1.0", "@remusao/small": "^2.1.0", "@remusao/smaz": "^2.2.0", "tldts-experimental": "^7.4.10" } }, "sha512-1ghCrMnWRf/CWQ5PMw7ZxL4W0U390gmko8kPXhwm7zi+4GDOR49JlHVvmCke90E2hCpBIoNdS5jtNlIKalp2Ww=="],
 
-    "@ghostery/adblocker-content": ["@ghostery/adblocker-content@2.18.2", "", { "dependencies": { "@ghostery/adblocker-extended-selectors": "^2.18.2" } }, "sha512-TOe/b4KOBFEc9OjLG+wvgamGcSTIPSDBAL5YSa8lzjBsoSl8IDnfOjeJDldlLacsC/JEUMLkZIDDNknEolJVqg=="],
+    "@ghostery/adblocker-content": ["@ghostery/adblocker-content@2.20.1", "", { "dependencies": { "@ghostery/adblocker-extended-selectors": "^2.20.1" } }, "sha512-1vBDzEzoi4ZE9xjL3akAn0PiIA2KIeQ1K0JCpRIjPPWy8GoqN1saV2Md2jRSZPuXv9iENMKRPn1TetEE0MbUXw=="],
 
-    "@ghostery/adblocker-electron": ["@ghostery/adblocker-electron@2.18.2", "", { "dependencies": { "@ghostery/adblocker": "^2.18.2", "@ghostery/adblocker-electron-preload": "^2.18.2", "tldts-experimental": "^7.4.9" }, "peerDependencies": { "electron": ">11" } }, "sha512-lpPh7EmFLDIW+OyUKaYCUUUHwVfVXpwlwfxzo6Ilc+oH6N+rCTViT08olX4jXsfxezZ6zfyCG5SL9iLBU1wrng=="],
+    "@ghostery/adblocker-electron": ["@ghostery/adblocker-electron@2.20.1", "", { "dependencies": { "@ghostery/adblocker": "^2.20.1", "@ghostery/adblocker-electron-preload": "^2.20.1", "tldts-experimental": "^7.4.10" }, "peerDependencies": { "electron": ">11" } }, "sha512-5qv0MXty2y0FglyLV4Y91RXhOZsdlT2nBCKrm4v5eJG60IBngIv2xUSOz5oD9r74zpAezlQD4I3vMnO2f8w0aA=="],
 
-    "@ghostery/adblocker-electron-preload": ["@ghostery/adblocker-electron-preload@2.18.2", "", { "dependencies": { "@ghostery/adblocker-content": "^2.18.2" }, "peerDependencies": { "electron": ">11" } }, "sha512-l941hNABXsUMx1oqVSHjRMQXWFCmlC/DF8rHBBOH+A0uxLjL6r62Fl6KsL7F4hxlg3dyWrDPEIcKzaxWqRdfOg=="],
+    "@ghostery/adblocker-electron-preload": ["@ghostery/adblocker-electron-preload@2.20.1", "", { "dependencies": { "@ghostery/adblocker-content": "^2.20.1" }, "peerDependencies": { "electron": ">11" } }, "sha512-izaawVEEifm1+dL1yUcOoOhehg6FBkCWJkoTsoftIq++Zi61wMQIYcgKalnB7SQrnVfSBfloe9U9iyZUetFhUg=="],
 
-    "@ghostery/adblocker-extended-selectors": ["@ghostery/adblocker-extended-selectors@2.18.2", "", {}, "sha512-doKNShBk3+czQL08UkrysHkCPeG/kNPlXvz3DH7SXxD9Y78ovWkEAhjeR+upoan3fomJJuK3dD+IrlofnjckYw=="],
+    "@ghostery/adblocker-extended-selectors": ["@ghostery/adblocker-extended-selectors@2.20.1", "", {}, "sha512-PCnELdIoylSQ8hsRXQUkiSnch6WwHTNYxu8iAthmbOD+44WoXnmjR+Zfgdut3Lh3xUZmvv1uojslNIhYrJX9rA=="],
 
     "@ghostery/url-parser": ["@ghostery/url-parser@1.3.1", "", { "dependencies": { "tldts-experimental": "^7.0.8" } }, "sha512-QKqGi+7aDQ4RcyHyCwgEk6B9vWnsBP4Q7htaN0zPJV3ATqTKEQDtSTb9c/AN586oJUDs24YXKcwFYwNweY/YjQ=="],
 
