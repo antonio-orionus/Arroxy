@@ -173,7 +173,8 @@ describe('QueueService — download-time escalation', () => {
 
 		qs.add([makeItem({id: 'a', status: 'pending', outputDir: dir})])
 
-		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('done'))
+		// Two runs plus a queue.json write and reload: slow Windows runners need more than the 1 s default.
+		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('done'), {timeout: 10_000})
 		expect(run.mock.calls.map(call => call[2]?.identity)).toEqual(['configured', 'exploreSession'])
 		expect(persistedAuthAtEscalatedRun).toEqual(['exploreSession'])
 		// The attempt is over, so its signed-in spawn budget is released.
