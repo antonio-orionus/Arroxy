@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "Надсилати щоденний сигнал"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Жодної телеметрії. Раз на день анонімний сигнал передає версію застосунку, ОС, мову та країну, щоб ми могли порахувати активних користувачів. Без ID, URL, назв відео чи імен файлів."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Жодної телеметрії. Раз на день анонімний сигнал передає версію застосунку, спосіб встановлення, ОС, мову та країну, щоб ми могли порахувати активних користувачів. Без ID, URL, назв відео чи імен файлів."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -38,8 +38,18 @@ export interface HeartbeatDeps {
 // Release builds report to the production collector; dev, mock, smoke and E2E
 // sessions report nowhere unless a collector is named explicitly.
 export function heartbeatUrl({isDev, envUrl}: {isDev: boolean; envUrl: string | undefined}): string | undefined {
-	if (envUrl) return envUrl
+	if (envUrl) return isAllowedCollector(envUrl) ? envUrl : undefined
 	return isDev ? undefined : HEARTBEAT_URL
+}
+
+const LOOPBACK_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]'])
+
+// An override is environment input: HTTPS anywhere, plain HTTP only to a local
+// test collector, so a heartbeat never crosses the network unencrypted.
+function isAllowedCollector(raw: string): boolean {
+	if (!URL.canParse(raw)) return false
+	const url = new URL(raw)
+	return url.protocol === 'https:' || (url.protocol === 'http:' && LOOPBACK_HOSTS.has(url.hostname))
 }
 
 // Windows 11 still reports 10.0; build 22000 is the first Windows 11 build.

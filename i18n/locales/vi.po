@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "Gửi tín hiệu hằng ngày"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Không có telemetry. Mỗi ngày một lần, một tín hiệu ẩn danh gửi phiên bản ứng dụng, hệ điều hành, ngôn ngữ và quốc gia để chúng tôi đếm số người dùng đang hoạt động. Không có ID, URL, tiêu đề video hay tên tệp."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Không có telemetry. Mỗi ngày một lần, một tín hiệu ẩn danh gửi phiên bản ứng dụng, kênh cài đặt, hệ điều hành, ngôn ngữ và quốc gia để chúng tôi đếm số người dùng đang hoạt động. Không có ID, URL, tiêu đề video hay tên tệp."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

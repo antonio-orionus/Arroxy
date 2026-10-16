@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "Αποστολή ημερήσιου σήματος"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Χωρίς τηλεμετρία. Μία φορά την ημέρα, ένα ανώνυμο σήμα στέλνει την έκδοση της εφαρμογής, το λειτουργικό σύστημα, τη γλώσσα και τη χώρα, για να μετράμε τους ενεργούς χρήστες. Χωρίς αναγνωριστικά, URL, τίτλους βίντεο ή ονόματα αρχείων."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Χωρίς τηλεμετρία. Μία φορά την ημέρα, ένα ανώνυμο σήμα στέλνει την έκδοση της εφαρμογής, το κανάλι εγκατάστασης, το λειτουργικό σύστημα, τη γλώσσα και τη χώρα, για να μετράμε τους ενεργούς χρήστες. Χωρίς αναγνωριστικά, URL, τίτλους βίντεο ή ονόματα αρχείων."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

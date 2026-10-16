@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "إرسال نبضة يومية"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "بلا قياس عن بُعد. مرة واحدة يوميًا، ترسل نبضة مجهولة إصدار التطبيق ونظام التشغيل واللغة والبلد لنتمكن من عدّ المستخدمين النشطين. بلا معرّفات أو عناوين URL أو أسماء فيديوهات أو أسماء ملفات."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "بلا قياس عن بُعد. مرة واحدة يوميًا، ترسل نبضة مجهولة إصدار التطبيق وقناة التثبيت ونظام التشغيل واللغة والبلد لنتمكن من عدّ المستخدمين النشطين. بلا معرّفات أو عناوين URL أو أسماء فيديوهات أو أسماء ملفات."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -61,7 +61,7 @@ No global "Don't ask again". Per-surface × dismisses gate `wizard-card` (`share
 const shareCardVisible = !(settings?.common?.shareInlineCardDismissed ?? false);
 ```
 
-Card body click fires `share_inline_card_clicked` then opens the dialog with `wizard-card`. × dismiss fires `share_inline_card_dismissed` and persists `shareInlineCardDismissed`. First-time appearance fires `share_inline_card_impression` (deduped via `useRef` so re-renders don't re-fire).
+Card body click opens the dialog with `openShareDialog()`. × dismiss persists `shareInlineCardDismissed`.
 
 Visual: `[Share2 icon] [body text] [×]` — single share icon on the left as the affordance signal, no trailing arrow. (Earlier iterations used `Sparkles` + `ArrowRight`; both were dropped because the chevron implied "open detail panel" rather than "open share dialog".)
 
@@ -79,7 +79,7 @@ const showShareBanner = hasHighValueCompletion && !shareHighValueBannerDismissed
 - `item.status === 'done'` AND
 - any of: `playlistGroupId` set, `job.kind` is `audio-convert` / `subtitle-only` / `playlist-preset`, OR (kind `single-format` AND any of: subtitle languages selected, SponsorBlock mode `mark|remove`, `formatLabel` matches `/2160|4K|3840/i`).
 
-Banner appears compact above the queue list inside the drawer body. First appearance fires `share_prompt_impression { via: 'high-value-inline' }`. The whole text row is one clickable button — opens the dialog with `high-value-inline`. × dismiss (separate trailing button) fires `share_prompt_dismissed { via: 'high-value-inline' }` and persists `shareHighValueBannerDismissed`.
+Banner appears compact above the queue list inside the drawer body. The whole text row is one clickable button — opens the dialog with `openShareDialog()`. × dismiss (separate trailing button) persists `shareHighValueBannerDismissed`.
 
 Visual: `[Share2 icon] [body text] [×]` — same single-icon layout as the wizard card. No trailing chevron.
 
@@ -167,14 +167,14 @@ Uses `navigator.clipboard.writeText(WEBSITE_URL)`. Renders `Copy` ↔ `CopyCheck
 
 ## 4. Entry Points (5 manual surfaces + 1 automatic modal)
 
-| Surface                                           | File                | `data-testid`                    | Trigger               | Kind                           |
-| ------------------------------------------------- | ------------------- | -------------------------------- | --------------------- | ------------------------------ |
-| Footer icon + label                               | `App.tsx`           | `btn-share`                      | `'footer'`            | manual                         |
-| Title-bar icon (`WebkitAppRegion: no-drag`)       | `TitleBar.tsx`      | `btn-share-titlebar`             | `'titlebar'`          | manual                         |
-| About dialog Share button (closes About on click) | `AboutDialog.tsx`   | `about-link-share`               | `'about'`             | manual                         |
-| Wizard URL inline card body                       | `StepUrlInput.tsx`  | `share-inline-card-body`         | `'wizard-card'`       | manual click on passive card   |
-| SmartDrawer high-value banner action button       | `SmartDrawer.tsx`   | `share-high-value-banner-action` | `'high-value-inline'` | manual click on passive banner |
-| Milestone modal (3rd / 25th / 100th download)     | `systemSlice.ts`    | (dialog renders directly)        | `'milestone'`         | automatic                      |
+| Surface                                           | File                | `data-testid`                    | Kind                           |
+| ------------------------------------------------- | ------------------- | -------------------------------- | ------------------------------ |
+| Footer icon + label                               | `App.tsx`           | `btn-share`                      | manual                         |
+| Title-bar icon (`WebkitAppRegion: no-drag`)       | `TitleBar.tsx`      | `btn-share-titlebar`             | manual                         |
+| About dialog Share button (closes About on click) | `AboutDialog.tsx`   | `about-link-share`               | manual                         |
+| Wizard URL inline card body                       | `StepUrlInput.tsx`  | `share-inline-card-body`         | manual click on passive card   |
+| SmartDrawer high-value banner action button       | `SmartDrawer.tsx`   | `share-high-value-banner-action` | manual click on passive banner |
+| Milestone modal (3rd / 25th / 100th download)     | `systemSlice.ts`    | (dialog renders directly)        | automatic                      |
 
 The previous per-completed-item Share2 icon button (`btn-share-item` in `QueueItemCard.tsx`) was removed — visually adjacent to a downloaded file, the share icon read as "share this file" rather than "share Arroxy". Manual share access remains via the four other surfaces.
 
@@ -229,7 +229,6 @@ When keys change, edit English first, run `bun run i18n:sync`, translate the fuz
 - **Settings race.** `commonPatch()` does an optimistic local `set()` and a fire-and-forget `settings.update()`. If the update fails, local state stays ahead of disk. Acceptable trade-off for share fields — no critical data loss, and `notify.settingsSaveFailed('share', err)` logs the failure.
 - **`window.open` vs `shell.openExternal`.** Renderer `window.open` doesn't trigger Electron's external browser by default. All destinations route through IPC. The explicit `browser-mock` dev mode in `src/renderer/src/browserMock.ts` polyfills `shell.openExternal` to call `window.open`, so dev-server testing still works.
 - **Mock state in dev.** The renderer dev server uses `browserMock.ts` to stub `window.appApi` only when Vite runs with `--mode browser-mock`. Settings mutations there don't survive page reload — full Electron run is required to verify persistence.
-- **Impression dedup.** All `_impression` events use a component-local `useRef<boolean>` so React StrictMode double-invokes and re-renders don't cause double-counting. A new mount of the component (drawer collapse/expand, queue-item unmount) re-arms the ref, which is intentional — a re-mounted card is a fresh visual exposure.
 - **High-value detection narrowness.** `isHighValueDownload` returns `false` for plain single-format SD/HD downloads with no subs/SponsorBlock — so the banner does NOT spam the drawer after every successful pull. It only surfaces after the user has actually exercised a feature beyond the default path.
 
 ---
@@ -251,12 +250,12 @@ bun run doctor
 
 Drive in a browser via the Playwright MCP tools or manually:
 
-1. Click footer share → dialog opens, no Don't-ask button, telemetry `share_dialog_opened { via: 'footer' }`. Close without clicking → `share_dialog_closed { via: 'footer', clicked: false }`. Reopen, click Copy → close → `share_dialog_closed { via: 'footer', clicked: true }`.
-2. Click title-bar icon → telemetry `via: 'titlebar'`.
-3. Open About → click Share → About closes, dialog opens, telemetry `via: 'about'`.
-4. Drive a download to completion → confirm the queue-item card renders no `Share2` icon (only `FolderOpen` for `done` items). No `share_queue_item_button_impression` event fires (event removed).
-5. Wizard URL step → first paint of the card fires `share_inline_card_impression`. Confirm the card layout is `[Share2] [body text] [×]` — single share icon left, no trailing `ArrowRight`. Click body → fires `share_inline_card_clicked` then opens dialog `via: 'wizard-card'`. Click × → card hides, telemetry `share_inline_card_dismissed`, `shareInlineCardDismissed: true` in store.
-6. Edit `browserMock.ts` to push a queue item with high-value attributes (e.g. `subtitles.languages = ['en']` or `formatLabel` containing `2160`). On completion, the SmartDrawer banner appears at the top of the drawer body. Confirm layout is `[Share2] [body text] [×]` — no trailing chevron. First appearance fires `share_prompt_impression { via: 'high-value-inline' }`. Click body → opens dialog `via: 'high-value-inline'`. Click × → banner hides, telemetry `share_prompt_dismissed { via: 'high-value-inline' }`, `shareHighValueBannerDismissed: true`.
-7. Drive 3 mock completions → on the 3rd success, dialog opens with telemetry `via: 'milestone'`. No "Don't ask again" button. Close the dialog. Confirm 4th–24th completions do **not** re-open the dialog. Drive completion #25 → modal re-opens. Same again at #100. After #100 the modal never fires again.
-8. Click each social destination → `share_destination_clicked` event with the right `destination` value, `shell.openExternal` called with correctly-encoded URL.
+1. Click footer share → dialog opens, no Don't-ask button. Close it, reopen, click Copy → the icon swaps to a check for ~1.5 s.
+2. Click title-bar icon → dialog opens.
+3. Open About → click Share → About closes, dialog opens.
+4. Drive a download to completion → confirm the queue-item card renders no `Share2` icon (only `FolderOpen` for `done` items).
+5. Wizard URL step → confirm the card layout is `[Share2] [body text] [×]` — single share icon left, no trailing `ArrowRight`. Click body → dialog opens. Click × → card hides, `shareInlineCardDismissed: true` in store.
+6. Edit `browserMock.ts` to push a queue item with high-value attributes (e.g. `subtitles.languages = ['en']` or `formatLabel` containing `2160`). On completion, the SmartDrawer banner appears at the top of the drawer body. Confirm layout is `[Share2] [body text] [×]` — no trailing chevron. Click body → dialog opens. Click × → banner hides, `shareHighValueBannerDismissed: true`.
+7. Drive 3 mock completions → on the 3rd success, the dialog opens. No "Don't ask again" button. Close the dialog. Confirm 4th–24th completions do **not** re-open the dialog. Drive completion #25 → modal re-opens. Same again at #100. After #100 the modal never fires again.
+8. Click each social destination → `shell.openExternal` called with a correctly-encoded URL.
 9. Resize browser to 360 / 640 / 900 / 1200 px widths → confirm the destination grid reflows (3 / 5 / 6 / 7 columns).

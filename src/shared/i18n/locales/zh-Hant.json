@@ -301,7 +301,7 @@
 				"units": {"seconds": "秒"}
 			},
 			"closeToTray": {"toggle": "關閉時隱藏到系統匣", "toggleDescription": "關閉視窗後繼續在背景下載。"},
-			"analytics": {"toggle": "傳送每日心跳訊號", "toggleDescription": "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、作業系統、語言和國家/地區，用來統計活躍使用者。不包含 ID、URL、影片標題或檔名。"}
+			"analytics": {"toggle": "傳送每日心跳訊號", "toggleDescription": "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言和國家/地區，用來統計活躍使用者。不包含 ID、URL、影片標題或檔名。"}
 		},
 		"quickProgress": {
 			"title": "正在準備快速下載",

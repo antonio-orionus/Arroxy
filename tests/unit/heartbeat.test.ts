@@ -122,6 +122,18 @@ describe('heartbeatUrl', () => {
 		expect(heartbeatUrl({isDev: false, envUrl: 'http://127.0.0.1:3005/collect'})).toBe('http://127.0.0.1:3005/collect')
 	})
 
+	it('accepts plain HTTP only for a loopback collector', () => {
+		expect(heartbeatUrl({isDev: true, envUrl: 'http://localhost:3005/collect'})).toBe('http://localhost:3005/collect')
+		expect(heartbeatUrl({isDev: true, envUrl: 'http://[::1]:3005/collect'})).toBe('http://[::1]:3005/collect')
+		expect(heartbeatUrl({isDev: false, envUrl: 'https://stats.example.test/collect'})).toBe('https://stats.example.test/collect')
+	})
+
+	it('sends nowhere when the override is plain HTTP to a remote host or not a URL', () => {
+		expect(heartbeatUrl({isDev: false, envUrl: 'http://stats.example.test/collect'})).toBeUndefined()
+		expect(heartbeatUrl({isDev: false, envUrl: 'ftp://stats.example.test/collect'})).toBeUndefined()
+		expect(heartbeatUrl({isDev: false, envUrl: 'not a url'})).toBeUndefined()
+	})
+
 	it('treats an empty override as unset', () => {
 		expect(heartbeatUrl({isDev: false, envUrl: ''})).toBe(HEARTBEAT_URL)
 		expect(heartbeatUrl({isDev: true, envUrl: ''})).toBeUndefined()

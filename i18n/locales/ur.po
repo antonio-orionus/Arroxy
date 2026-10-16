@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "روزانہ سگنل بھیجیں"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "کوئی ٹیلی میٹری نہیں۔ دن میں ایک بار ایک گمنام سگنل ایپ ورژن، OS، زبان اور ملک بھیجتا ہے تاکہ ہم فعال صارفین گن سکیں۔ کوئی ID، URL، ویڈیو عنوان یا فائل نام نہیں۔"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "کوئی ٹیلی میٹری نہیں۔ دن میں ایک بار ایک گمنام سگنل ایپ ورژن، انسٹال چینل، OS، زبان اور ملک بھیجتا ہے تاکہ ہم فعال صارفین گن سکیں۔ کوئی ID، URL، ویڈیو عنوان یا فائل نام نہیں۔"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

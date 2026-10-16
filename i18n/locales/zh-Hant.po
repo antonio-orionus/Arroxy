@@ -2946,8 +2946,8 @@ msgid "Send daily heartbeat"
 msgstr "傳送每日心跳訊號"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、作業系統、語言和國家/地區，用來統計活躍使用者。不包含 ID、URL、影片標題或檔名。"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言和國家/地區，用來統計活躍使用者。不包含 ID、URL、影片標題或檔名。"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

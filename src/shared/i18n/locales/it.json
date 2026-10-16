@@ -315,7 +315,7 @@
 				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Nascondi nell'area di notifica alla chiusura", "toggleDescription": "Continua i download in background dopo aver chiuso la finestra."},
-			"analytics": {"toggle": "Invia segnale giornaliero", "toggleDescription": "Nessuna telemetria. Una volta al giorno, un segnale anonimo invia versione dell'app, sistema operativo, lingua e paese, per contare gli utenti attivi. Nessun ID, URL, titolo video o nome file."}
+			"analytics": {"toggle": "Invia segnale giornaliero", "toggleDescription": "Nessuna telemetria. Una volta al giorno, un segnale anonimo invia versione dell'app, canale di installazione, sistema operativo, lingua e paese, per contare gli utenti attivi. Nessun ID, URL, titolo video o nome file."}
 		},
 		"quickProgress": {
 			"title": "Preparazione del Download rapido",

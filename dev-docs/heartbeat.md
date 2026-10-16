@@ -13,7 +13,7 @@ Arroxy has no telemetry. The only thing it reports is one anonymous heartbeat pe
 
 One `GET <collector>/collect?...` built by `@counterscale/tracker/server`. No install ID, no IP-derived data from the app, no URLs, titles, or paths. Country is added by Cloudflare at the collector from the request; Counterscale stores the country code, never the IP.
 
-The heartbeat is skipped when **Send daily heartbeat** is off (`analyticsEnabled`; the key predates this design and is kept so existing opt-outs stay opted out), in dev/mock/smoke/E2E sessions unless `ARROXY_HEARTBEAT_URL` names a collector, and on any day already recorded in `lastHeartbeatDay`. The day is recorded before the request goes out: a lost heartbeat beats a day counted twice. A session left running in the tray re-checks hourly and sends once on each new UTC day.
+The heartbeat is skipped when **Send daily heartbeat** is off (`analyticsEnabled`; the key predates this design and is kept so existing opt-outs stay opted out), always in E2E sessions (test runs must never reach a collector), in dev, mock and smoke sessions unless `ARROXY_HEARTBEAT_URL` names one (HTTPS, or plain HTTP only to localhost), and on any day already recorded in `lastHeartbeatDay`. The day is recorded before the request goes out: a lost heartbeat beats a day counted twice. A session left running in the tray re-checks hourly and sends once on each new UTC day.
 
 The heartbeat cannot fail loudly. Network errors and timeouts (5 s) are swallowed by the tracker; any local failure (settings write, snapshot) is logged once at warn as `Heartbeat skipped for today` and not retried until the next UTC day. `lastHeartbeatDay` is read leniently, so a malformed value can never reset the user's settings section.
 

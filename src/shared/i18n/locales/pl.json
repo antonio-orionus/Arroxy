@@ -323,7 +323,7 @@
 				"units": {"seconds": "s"}
 			},
 			"closeToTray": {"toggle": "Ukrywaj w zasobniku przy zamykaniu", "toggleDescription": "Kontynuuj pobieranie w tle po zamknięciu okna."},
-			"analytics": {"toggle": "Wysyłaj codzienny sygnał", "toggleDescription": "Bez telemetrii. Raz dziennie anonimowy sygnał przesyła wersję aplikacji, system, język i kraj, abyśmy mogli policzyć aktywnych użytkowników. Bez identyfikatorów, adresów URL, tytułów filmów i nazw plików."}
+			"analytics": {"toggle": "Wysyłaj codzienny sygnał", "toggleDescription": "Bez telemetrii. Raz dziennie anonimowy sygnał przesyła wersję aplikacji, kanał instalacji, system, język i kraj, abyśmy mogli policzyć aktywnych użytkowników. Bez identyfikatorów, adresów URL, tytułów filmów i nazw plików."}
 		},
 		"quickProgress": {
 			"title": "Przygotowywanie Szybkiego pobierania",
