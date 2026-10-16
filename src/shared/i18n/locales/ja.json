@@ -315,7 +315,7 @@
 				"units": {"seconds": "秒"}
 			},
 			"closeToTray": {"toggle": "閉じるときにトレイに格納", "toggleDescription": "ウィンドウを閉じた後もバックグラウンドでダウンロードを続けます。"},
-			"analytics": {"toggle": "匿名の使用統計を送信", "toggleDescription": "クラッシュ、障害、フィードバックを匿名で報告します。URL、動画タイトル、ファイル名は含まれません。"}
+			"analytics": {"toggle": "毎日のハートビートを送信", "toggleDescription": "テレメトリはありません。1日1回、匿名のハートビートでアプリのバージョン、インストール方法、OS、言語、国を送信し、アクティブユーザー数を数えます。ID、URL、動画タイトル、ファイル名は含まれません。"}
 		},
 		"quickProgress": {
 			"title": "クイックダウンロードを準備中",

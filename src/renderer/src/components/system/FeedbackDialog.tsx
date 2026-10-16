@@ -41,12 +41,11 @@ export function FeedbackDialog({open, onOpenChange}: FeedbackDialogProps): null 
 				wizardStep: state.wizardStep
 			}),
 			onSubmit: () => {
-				window.appApi.analytics.track('feedback_submitted', {report_id: reportId, diagnostic_report_created: true})
 				void uploadDiagnostic(reportId)
 			}
 		})
 			.catch(error => {
-				window.appApi.analytics.track('feedback_open_failed', {report_id: reportId, message: errorMessage(error).slice(0, 160)})
+				logger.warn('Tally feedback popup failed to open', {reportId, message: errorMessage(error)})
 			})
 			.finally(() => {
 				openingRef.current = false
@@ -61,12 +60,12 @@ async function uploadDiagnostic(reportId: string): Promise<void> {
 	try {
 		const result = await window.appApi.logs.uploadFeedbackDiagnostic({reportId})
 		if (result.ok) {
-			window.appApi.analytics.track('feedback_diagnostic_uploaded', {report_id: reportId, raw_bytes: result.data.rawBytes, compressed_bytes: result.data.compressedBytes, truncated: result.data.truncated})
+			logger.info('Feedback diagnostic uploaded', {reportId, rawBytes: result.data.rawBytes, compressedBytes: result.data.compressedBytes, truncated: result.data.truncated})
 			return
 		}
-		window.appApi.analytics.track('feedback_diagnostic_upload_failed', {report_id: reportId, message: result.error.message.slice(0, 160)})
+		logger.warn('Feedback diagnostic upload failed', {reportId, message: result.error.message})
 	} catch (error) {
-		window.appApi.analytics.track('feedback_diagnostic_upload_failed', {report_id: reportId, message: errorMessage(error).slice(0, 160)})
+		logger.warn('Feedback diagnostic upload failed', {reportId, message: errorMessage(error)})
 	}
 }
 

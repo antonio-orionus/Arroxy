@@ -31,9 +31,10 @@ Public landing site (`orionus.dev/arroxy/`) lives in a separate repo: [`antonio-
 - [release-runbook.md](release-runbook.md) — Manual maintainer checklist for beta validation and stable tagging, both cut from `main`.
 - [runtime-binaries.md](runtime-binaries.md) — Signed runtime-binary manifest model for yt-dlp nightly/stable selection, immutable artifact validation, local dev commands, and runtime fallback order.
 - [section-download.md](section-download.md) — **Deferred** trim/section-download feature. Preserves the omniget + yt-dlp research (mechanism, validation gaps, scope rules, bridge `downloadSections` integration, v1 slice) so it can be built without re-deriving it.
-- [share-feature.md](share-feature.md) — Share button + periodic prompts + telemetry. Covers the dialog, all 5 manual entry points, the time/milestone triggers, persisted settings, and i18n.
+- [share-feature.md](share-feature.md) — Share button + periodic prompts. Covers the dialog, all 5 manual entry points, the milestone trigger, persisted settings, and i18n.
 - [startup-performance.md](startup-performance.md) — Why startup takes as long as it does. Warm vs cold measurements, the ~15s PyInstaller/security-scan probe and why it recurs on every yt-dlp bump, what 0.4.8 changed, how to read the warmup log lines, and how to reproduce any of it.
 - [startup-verification.md](startup-verification.md) — Startup-verification program: current tier status, the nine design decisions and their rationale, open defects, and incidents.
 - [test-ownership-audit.md](test-ownership-audit.md) — Risk-owned test strategy audit. Maps current tests to the right layer and lists duplicate acceptance coverage to refactor.
 - [tooling-contract.md](tooling-contract.md) — The root-owned tooling contract behind `bun run check` (`vp check`, tests, knip, package gates). Do not add package-local formatter/linter configs.
 - [tooling-migration-audit.md](tooling-migration-audit.md) — Tailwind, ESLint, Prettier, Biome, and Oxlint audit. Includes measured Biome coverage loss and replacement options for lost rules.
+- [heartbeat.md](heartbeat.md) — Anonymous daily heartbeat to a self-hosted Counterscale on Cloudflare: what is sent, how app fields map onto the dashboard, deploy steps, and the local end-to-end test.

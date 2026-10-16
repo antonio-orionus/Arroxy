@@ -8,11 +8,21 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
-## 0.5.2
+## 0.5.3
 
 ## Under the hood
 
 - **Ad blocker update.** Explore's ad blocker now runs on Ghostery adblocker 2.20.1, which stops a filter from running inside embedded frames on sites it's meant to skip. Explore downloads its filter lists once more after this update.
+
+---
+
+## 0.5.2
+
+Arroxy now reports less: no telemetry, just one anonymous heartbeat a day.
+
+## Highlights
+
+- **No telemetry, just a daily heartbeat.** Arroxy used to report failures and crashes anonymously. Now it sends only one anonymous heartbeat a day — app version, OS, language, install channel and country — so we can count how many people use it. No IDs, URLs, video titles or file names. The switch in Settings is now called **Send daily heartbeat**, and if you had turned reporting off, it stays off.
 
 ---
 

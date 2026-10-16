@@ -10,7 +10,7 @@ import {mainT, pluralKey} from '@main/i18n.js'
 import {pickLanguage} from '@shared/i18n/index.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
-import {setupAnalytics, setAnalyticsEnabled, trackCrashDetectedOncePerSession, trackMain} from '@main/services/analytics.js'
+import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl} from '@main/services/heartbeat.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
 import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
@@ -168,6 +168,7 @@ if (!hasSingleInstanceLock) {
 }
 
 const GPU_INFO_BUDGET_MS = 2_500
+const HEARTBEAT_CHECK_INTERVAL_MS = 60 * 60 * 1000
 
 // Attach now so an early `gpu-info-update` cannot be missed; the budget only
 // starts at app-ready (see whenReady below) so it measures Chromium's reporting
@@ -277,16 +278,7 @@ if (hasSingleInstanceLock) {
 		if (e2eMode.enabled && (e2eShouldDisableClipboardWatch || initialSettings.common.analyticsEnabled !== false)) {
 			initialSettings = await settingsStore.update({common: {clipboardWatchEnabled: e2eMode.allowClipboardWatch ? initialSettings.common.clipboardWatchEnabled : false, analyticsEnabled: false}})
 		}
-		// installId is stamped lazily by SettingsStore on first launch — guaranteed
-		// present after `get()`. Empty string fallback keeps TS happy without
-		// weakening the type elsewhere.
-		const installId = initialSettings.common.installId ?? ''
 		const isDev = !!process.env.ELECTRON_RENDERER_URL || isMockBackend || e2eMode.enabled || !!process.env.ARROXY_SMOKE_URL || readRuntimeSmokeEnabled()
-		const cpuModel = os.cpus()[0]?.model ?? 'unknown'
-		const osLocale = app.getLocale()
-		if (!e2eMode.disableAnalytics) {
-			setupAnalytics(process.env.OPENPANEL_CLIENT_ID, process.env.OPENPANEL_CLIENT_SECRET, isDev, installId, {appVersion: app.getVersion(), platform: process.platform, architecture: process.arch, systemVersion: os.release(), modelName: cpuModel, osLocale, appLocale: initialSettings.common.language ?? osLocale})
-		}
 		const languageRef: {current: ReturnType<typeof pickLanguage>} = {current: pickLanguage(initialSettings.common.language ?? app.getLocale())}
 		const recentJobsStore = new RecentJobsStore(userDataPath)
 		const queueStore = new QueueStore(userDataPath)
@@ -362,14 +354,22 @@ if (hasSingleInstanceLock) {
 			return
 		}
 
-		const launch = await settingsStore.recordLaunch()
-		if (!e2eMode.disableAnalytics) {
-			// Enable analytics now that we know it's a real (non-smoke) session.
-			setAnalyticsEnabled(initialSettings.common.analyticsEnabled ?? true)
-			const arch: string = process.arch === 'arm64' ? 'arm64' : 'x64'
-			trackMain('app_started', {install_channel: detectInstallChannel(app.getName()), platform_arch: `${process.platform}-${arch}`, is_first_run: launch.isFirstRun})
-		} else {
-			void launch
+		await settingsStore.recordLaunch()
+		const collectorUrl = heartbeatUrl({isDev, envUrl: process.env.ARROXY_HEARTBEAT_URL})
+		if (collectorUrl && !e2eMode.disableAnalytics) {
+			const installChannel = detectInstallChannel(app.getName())
+			const heartbeat = createHeartbeat({
+				send: counterscaleSender(collectorUrl, HEARTBEAT_SITE_ID),
+				now: () => new Date(),
+				isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
+				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: app.getLocale()}),
+				lastDay: () => settingsStore.getSync().common.lastHeartbeatDay,
+				recordDay: day => settingsStore.recordHeartbeatDay(day),
+				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)})
+			})
+			void heartbeat.maybeSend()
+			// Hourly re-check: a session left running in the tray is counted on each new UTC day.
+			setInterval(() => void heartbeat.maybeSend(), HEARTBEAT_CHECK_INTERVAL_MS).unref()
 		}
 
 		const mainWindow = createMainWindow(resolveMainWindowBackgroundColor(initialSettings.common.uiTheme, nativeTheme.shouldUseDarkColors))
@@ -516,7 +516,6 @@ if (hasSingleInstanceLock) {
 					if (checkboxChecked) {
 						await settingsStore.update({common: {closeBehavior: choice}})
 					}
-					trackMain('tray_close_chosen', {choice, remember: checkboxChecked})
 					if (choice === 'tray') {
 						mainWindow.hide()
 					} else {
@@ -565,14 +564,12 @@ if (hasSingleInstanceLock) {
 
 		app.on('render-process-gone', (_event, webContents, details) => {
 			// An Explore page crash is the open web's, not the app's: the view shows
-			// its own error and logs it, and it must not use up the once-per-session
-			// crash report as an auxiliary window.
+			// its own error and logs it.
 			if (exploreView.ownsWebContents(webContents)) return
 			log.error(`Renderer process gone: reason=${details.reason} exitCode=${details.exitCode}`)
 			if (details.reason === 'clean-exit') return
 			const isMainWindow = webContents === mainWindow.webContents
 			if (isMainWindow) hotkeyService.setRendererReady(false)
-			trackCrashDetectedOncePerSession({kind: 'renderer', windowRole: isMainWindow ? 'main-window' : 'auxiliary-window', reason: details.reason})
 			if (!isMainWindow) return
 			const lang = languageRef.current
 			const opts = {type: 'error' as const, buttons: [mainT(lang, 'dialogs.rendererCrashed.reload'), mainT(lang, 'dialogs.rendererCrashed.quit')], defaultId: 0, cancelId: 1, message: mainT(lang, 'dialogs.rendererCrashed.message'), detail: mainT(lang, 'dialogs.rendererCrashed.detail', {reason: details.reason})}
@@ -586,7 +583,6 @@ if (hasSingleInstanceLock) {
 		app.on('child-process-gone', (_event, details) => {
 			if (details.reason === 'clean-exit') return
 			log.warn(`Child process gone: type=${details.type} reason=${details.reason} exitCode=${details.exitCode} name=${details.name ?? 'unknown'} serviceName=${details.serviceName ?? 'unknown'}`)
-			trackCrashDetectedOncePerSession({kind: 'child', type: details.type, reason: details.reason, name: details.name, serviceName: details.serviceName})
 		})
 
 		if (process.platform !== 'darwin') {

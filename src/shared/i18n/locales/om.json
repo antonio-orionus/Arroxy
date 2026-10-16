@@ -327,7 +327,10 @@
 				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Cufuun dura tiiree dhoksi", "toggleDescription": "Daawniloodii booda gubbaan cufamuu itti fufi."},
-			"analytics": {"toggle": "Tilastoo faayidaa maqaa-malee ergaa", "toggleDescription": "Dogoggora, kufaatii fi deebiiwwan maqaa hin beekamin galmeessa. URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."}
+			"analytics": {
+				"toggle": "Mallattoo guyyaa guyyaan ergi",
+				"toggleDescription": "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan fi biyya erga, akka fayyadamtoota hojii irra jiran lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
+			}
 		},
 		"quickProgress": {
 			"title": "Buufata saffisaa qopheessaa jira",

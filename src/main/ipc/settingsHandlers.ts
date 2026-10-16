@@ -7,7 +7,6 @@ import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import {DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
-import {setAnalyticsEnabled} from '@main/services/analytics.js'
 import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
 
 interface SettingsHandlerDeps {
@@ -39,9 +38,6 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		clipboardWatcher.setEnabled(updated.common.clipboardWatchEnabled)
 		if (data.common?.hotkeyEnabled !== undefined || data.common?.hotkeyAccelerator !== undefined) {
 			hotkeyService.apply(updated.common.hotkeyEnabled, updated.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
-		}
-		if (data.common?.analyticsEnabled !== undefined) {
-			setAnalyticsEnabled(updated.common.analyticsEnabled ?? true)
 		}
 		if (data.common?.concurrentDownloads !== undefined) {
 			queueService.setConcurrentDownloads(updated.common.concurrentDownloads ?? NORMAL_LANE_CAP)

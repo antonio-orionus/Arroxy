@@ -315,7 +315,7 @@
 				"units": {"seconds": "detik"}
 			},
 			"closeToTray": {"toggle": "Sembunyikan ke baki saat ditutup", "toggleDescription": "Lanjutkan pengunduhan di latar belakang setelah menutup jendela."},
-			"analytics": {"toggle": "Kirim statistik penggunaan anonim", "toggleDescription": "Melaporkan kegagalan, kerusakan, dan umpan balik secara anonim. Tidak ada URL, judul video, atau nama file."}
+			"analytics": {"toggle": "Kirim sinyal harian", "toggleDescription": "Tanpa telemetri. Sekali sehari, sinyal anonim mengirim versi aplikasi, saluran instalasi, OS, bahasa, dan negara agar kami bisa menghitung pengguna aktif. Tanpa ID, URL, judul video, atau nama file."}
 		},
 		"quickProgress": {
 			"title": "Mempersiapkan Unduhan Cepat",

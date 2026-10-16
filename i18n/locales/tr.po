@@ -2942,12 +2942,12 @@ msgid "Advanced"
 msgstr "Gelişmiş"
 
 msgctxt "wizard.url.analytics.toggle"
-msgid "Send anonymous usage stats"
-msgstr "Anonim kullanım istatistikleri gönder"
+msgid "Send daily heartbeat"
+msgstr "Günlük sinyal gönder"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
-msgstr "Uygulama çökmelerini, hataları ve geri bildirimleri anonim olarak bildirir. URL, video başlığı veya dosya adı yok."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "Telemetri yok. Etkin kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili ve ülkeyi gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

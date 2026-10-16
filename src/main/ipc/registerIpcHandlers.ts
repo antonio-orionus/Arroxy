@@ -24,7 +24,6 @@ import {registerSettingsHandlers} from './settingsHandlers.js'
 import {registerFileHandlers} from './fileHandlers.js'
 import {registerHotkeyHandlers} from './hotkeyHandlers.js'
 import {registerQueueHandlers} from './queueHandlers.js'
-import {registerAnalyticsHandlers} from './analyticsHandlers.js'
 import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
 import {registerPlaylistHandlers} from './playlistHandlers.js'
 import {registerExploreHandlers} from './exploreHandlers.js'
@@ -61,7 +60,6 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)
-	registerAnalyticsHandlers()
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
 	registerExploreHandlers({exploreView})

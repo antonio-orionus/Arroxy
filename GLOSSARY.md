@@ -230,6 +230,12 @@ _Avoid_: fallback, login retry, upgrade
 The identity a job runs as: anonymous, or the Explore session after escalation. It is fixed for the rest of that job.
 _Avoid_: login state, credentials
 
+### Heartbeat
+
+**Heartbeat**:
+The one anonymous signal an install sends per day, unless turned off: app version, OS, language, install channel. It carries no identifier; the country is added where it is received. It only counts active installs, and is the only thing Arroxy reports.
+_Avoid_: telemetry, analytics event, usage ping, tracking
+
 ### Architecture
 
 **Core**:

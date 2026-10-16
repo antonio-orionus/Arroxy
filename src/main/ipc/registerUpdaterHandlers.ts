@@ -6,7 +6,6 @@ import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {resolveUpdateFeed} from '@main/updateFeed.js'
-import {trackMain} from '@main/services/analytics.js'
 import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '@shared/types.js'
 
 // Channels where the in-app installer should not run — either because an
@@ -73,7 +72,6 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 		if (mainWindow.isDestroyed()) return
 		const payload: UpdateAvailablePayload = {version: info.version, currentVersion: app.getVersion(), installChannel}
 		mainWindow.webContents.send(IPC_CHANNELS.updaterAvailable, payload)
-		trackMain('update_available', {to_version: info.version, install_channel: installChannel})
 	})
 
 	autoUpdater.on('update-downloaded', () => {
@@ -94,8 +92,6 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 
 	ipcMain.removeHandler(IPC_CHANNELS.updaterInstall)
 	ipcMain.handle(IPC_CHANNELS.updaterInstall, async (): Promise<UpdateInstallResult> => {
-		trackMain('update_install_clicked', {install_channel: installChannel})
-
 		// Defense-in-depth: the renderer never exposes the install button on these
 		// channels, but a stray invoke must not clobber the external install.
 		if (NON_INSTALLABLE.has(installChannel)) {

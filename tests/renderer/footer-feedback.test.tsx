@@ -80,7 +80,6 @@ const mockAppApi = {
 		onPointerInView: vi.fn().mockReturnValue(() => undefined)
 	},
 	updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue(undefined)},
-	analytics: {track: vi.fn()},
 	diagnostics: {logWizardStep: vi.fn()},
 	playlist: {scanFolder: vi.fn().mockResolvedValue({ok: true, data: {matchedIds: []}}), registerManifest: vi.fn().mockResolvedValue({ok: true, data: undefined})}
 }
@@ -214,8 +213,6 @@ describe('Footer feedback controls', () => {
 		await waitFor(() => {
 			expect(mockUploadFeedbackDiagnostic).toHaveBeenCalledWith({reportId})
 		})
-		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_submitted', {report_id: reportId, diagnostic_report_created: true})
-		expect(mockAppApi.analytics.track).toHaveBeenCalledWith('feedback_diagnostic_uploaded', {report_id: reportId, raw_bytes: 42, compressed_bytes: 31, truncated: false})
 	})
 
 	it('Settings Logs button opens the log directory', async () => {

@@ -322,7 +322,7 @@ Arroxy tek bir şey için yapılmıştır: URL yapıştır, temiz bir yerel dosy
 
 İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.
 
-Arroxy [OpenPanel](https://openpanel.dev) üzerinden anonim, toplu telemetri gönderir — bağımsız bir projenin hataları, çökmeleri, geri bildirimleri, işletim sistemlerini ve uygulama sürümlerini anlamasına yetecek kadar. URL, video başlığı, dosya yolu, hesap bilgisi, parmak izi veya kişisel veri yoktur. Kurulum başına kimlik rastgeledir ve kimliğinle bağlantılı değildir. Ayarlar'dan çıkabilirsin.
+Telemetri yok — günde yalnızca bir anonim sinyal: uygulama sürümü, işletim sistemi, dil, kurulum kanalı ve ülke; böylece etkin kullanıcıları sayabiliriz. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. Ayarlar'dan kapatabilirsin.
 
 Explore, tarayıcından ayrı kendi girişini tutar ve Arroxy giriş formunu asla okumaz ya da doldurmaz — Google'ın kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişi unutturur.
 

@@ -586,8 +586,6 @@ export const pauseResumeSchema = z.object({jobId: z.string().optional()})
 
 export const resumeSchema = z.object({jobId: z.string().min(1)})
 
-export const analyticsTrackSchema = z.object({name: z.string().min(1).max(64), props: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional()})
-
 // yt-dlp `--limit-rate` syntax: integer or decimal followed by K (KB/s) or M (MB/s).
 // e.g. "500K", "1.5M". Case-insensitive. Stored verbatim — passed straight to yt-dlp.
 // Empty string is the "off" representation (same pattern as proxyUrl). YtDlp.run()
@@ -603,7 +601,9 @@ const commonSettingsSchema = z.object({
 	rememberLastOutputDir: z.boolean(),
 	lastSubfolderEnabled: z.boolean().optional(),
 	lastSubfolder: subfolderNameSchema.optional(),
-	installId: z.string().min(1).optional(),
+	// Lenient on read: a malformed value only means "not sent today", and a strict
+	// check here would reset the whole common section to defaults.
+	lastHeartbeatDay: z.string().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
 	backdropRenderMode: backdropRenderModeSchema.optional(),
@@ -673,7 +673,7 @@ const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSc
 
 export const appSettingsSchema = z.object({common: commonSettingsSchema, single: singlePrefsSchema, playlist: playlistPrefsSchema, profiles: downloadProfilesPrefsSchema})
 
-// Common paths are derived from the OS, installId is internal, and the last
+// Common paths are derived from the OS, the heartbeat day is internal, and the last
 // Explore page is the view host's; none is accepted from renderer settings
 // updates. Deriving the rest keeps the patch contract in lockstep with the
 // persisted settings contract.
@@ -682,7 +682,7 @@ export const appSettingsSchema = z.object({common: commonSettingsSchema, single:
 // reader (ExploreSessionService) already falls back to the default token.
 const commonSettingsPatchSchema = commonSettingsSchema
 	.partial()
-	.omit({commonPaths: true, installId: true, exploreLastUrl: true})
+	.omit({commonPaths: true, lastHeartbeatDay: true, exploreLastUrl: true})
 	.extend({
 		exploreUserAgent: z
 			.string()

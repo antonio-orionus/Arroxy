@@ -1,4 +1,3 @@
-import {randomUUID} from 'node:crypto'
 import Store from 'electron-store'
 import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
@@ -49,7 +48,7 @@ const COMMON_FLAT_KEYS = [
 	'analyticsEnabled',
 	'firstRunCompleted',
 	'launchCount',
-	'installId',
+	'lastHeartbeatDay',
 	'lastSubfolderEnabled',
 	'lastSubfolder'
 ] as const
@@ -277,22 +276,11 @@ export class SettingsStore {
 		this.settings = loaded.settings
 		for (const section of loaded.invalidSections) logger.warn('Invalid persisted settings section; using defaults', {section})
 		if (loaded.shouldPersist) this.persist()
-		this.ensureInstallId()
 		this.logProfileSummary()
 	}
 
 	private persist(): void {
 		this.store.store = rawSettings(this.settings)
-	}
-
-	// Guarantee a per-install UUID for telemetry (OpenPanel `profileId`).
-	// electron-store's `defaults` is shallow-merged at the top level, so an
-	// existing user whose on-disk `common` predates this field would never
-	// receive the default. Stamp lazily here after migration.
-	private ensureInstallId(): void {
-		if (this.settings.common.installId) return
-		this.settings = {...this.settings, common: {...this.settings.common, installId: randomUUID()}}
-		this.persist()
 	}
 
 	// Startup snapshot of the settings that shape a download but never appear in
@@ -336,6 +324,13 @@ export class SettingsStore {
 		this.persist()
 		await Promise.resolve()
 		return this.settings
+	}
+
+	// Internal field outside the renderer patch contract, so it bypasses update().
+	async recordHeartbeatDay(day: string): Promise<void> {
+		this.settings = {...this.settings, common: {...this.settings.common, lastHeartbeatDay: day}}
+		this.persist()
+		await Promise.resolve()
 	}
 
 	async recordLaunch(): Promise<{settings: AppSettings; isFirstRun: boolean; launchCount: number}> {

@@ -3,11 +3,10 @@ import type {SettingsPatch} from '@shared/api.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, normalizeDownloadProfilesPrefs, removeDownloadProfileFromPrefs, saveDownloadProfileToPrefs, setDownloadProfileEnabled as setProfileEnabledInPrefs} from '@shared/downloadProfiles.js'
 import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
-import type {GetState, SetState, ShareTrigger, SystemSlice} from './types.js'
+import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {notify} from '../lib/notify.js'
-import {track} from '../lib/analytics.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
@@ -27,7 +26,7 @@ function handleCompletedDownloadMilestones(doneIncrements: number, prevMilestone
 	commonPatch(get, set, {successfulDownloadCount: nextCount})
 	for (let c = prevMilestoneCount + 1; c <= nextCount; c++) {
 		if (SHARE_MILESTONE_SET.has(c)) {
-			openShareDialogInternal(set, 'milestone')
+			set({shareDialogOpen: true})
 			break
 		}
 	}
@@ -183,11 +182,6 @@ function currentProfiles(settings: AppSettings | null): AppSettings['profiles'] 
 	return normalizeDownloadProfilesPrefs(settings?.profiles ?? DEFAULT_DOWNLOAD_PROFILES_PREFS)
 }
 
-function openShareDialogInternal(set: SetState, trigger: ShareTrigger): void {
-	set({shareDialogOpen: true, shareDialogTrigger: trigger})
-	track('share_dialog_opened', {via: trigger})
-}
-
 const OVERRIDE_KEY: Record<DependencyId, 'ytDlp' | 'ffmpeg' | 'ffprobe'> = {'yt-dlp': 'ytDlp', ffmpeg: 'ffmpeg', ffprobe: 'ffprobe'}
 
 function makeBinaryOverridePatch(id: DependencyId, path: string | undefined): {common: {binaryOverrides: Record<string, string | undefined>}} {
@@ -213,7 +207,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		language: typeof navigator !== 'undefined' ? pickLanguage(navigator.language) : pickLanguage('en'),
 		commonPaths: undefined,
 		shareDialogOpen: false,
-		shareDialogTrigger: null,
 		exploreView: null,
 		explorePointerEntries: 0,
 
@@ -605,21 +598,19 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyProfilesPatchAsync(get, set, 'downloadProfile.enabled', profiles)
 		},
 
-		openShareDialog: trigger => {
-			openShareDialogInternal(set, trigger)
+		openShareDialog: () => {
+			set({shareDialogOpen: true})
 		},
 
 		closeShareDialog: () => {
-			set({shareDialogOpen: false, shareDialogTrigger: null})
+			set({shareDialogOpen: false})
 		},
 
 		setShareInlineCardDismissed: async () => {
-			track('share_inline_card_dismissed')
 			await applyCommonPatchAsync(get, set, 'shareInlineCardDismissed', {shareInlineCardDismissed: true})
 		},
 
 		setShareHighValueBannerDismissed: async () => {
-			track('share_prompt_dismissed', {via: 'high-value-inline'})
 			await applyCommonPatchAsync(get, set, 'shareHighValueBannerDismissed', {shareHighValueBannerDismissed: true})
 		},
 

@@ -315,7 +315,10 @@
 				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Masquer dans la barre des tâches à la fermeture", "toggleDescription": "Continuer les téléchargements en arrière-plan après la fermeture de la fenêtre."},
-			"analytics": {"toggle": "Envoyer des statistiques d'utilisation anonymes", "toggleDescription": "Signale de manière anonyme les pannes, les plantages et les retours. Aucune URL, aucun titre de vidéo ni nom de fichier."}
+			"analytics": {
+				"toggle": "Envoyer un signal quotidien",
+				"toggleDescription": "Aucune télémétrie. Une fois par jour, un signal anonyme envoie la version de l'app, le canal d'installation, le système, la langue et le pays pour compter les utilisateurs actifs. Aucun identifiant, URL, titre de vidéo ni nom de fichier."
+			}
 		},
 		"quickProgress": {
 			"title": "Préparation du téléchargement rapide",

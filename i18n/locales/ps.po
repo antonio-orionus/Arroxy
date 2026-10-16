@@ -2942,12 +2942,12 @@ msgid "Advanced"
 msgstr "پرمختللي"
 
 msgctxt "wizard.url.analytics.toggle"
-msgid "Send anonymous usage stats"
-msgstr "د ناپیژندل شوي کارونې احصائیې واستوئ"
+msgid "Send daily heartbeat"
+msgstr "ورځنی سیګنال واستوئ"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "Reports crashes, failures, and feedback anonymously. No URLs, video titles, or filenames."
-msgstr "د ناکامیو، سقوط او نظرونو ناشناس راپور ورکوي. هیڅ URL، د ویډیو سرلیکونه یا د فایل نومونه نشته."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
+msgstr "هیڅ ټیلي‌میټري نشته. په ورځ کې یو ځل یو ناپیژندل شوی سیګنال د اپ نسخه، د نصب چینل، OS، ژبه او هېواد لېږي، ترڅو موږ فعال کاروونکي وشمېرو. هیڅ ID، URL، د ویډیو سرلیکونه یا د فایل نومونه نشته."
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

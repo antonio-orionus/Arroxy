@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {createRequire} from 'node:module'
-import {defineConfig, loadEnv} from 'electron-vite'
+import {defineConfig} from 'electron-vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import Icons from 'unplugin-icons/vite'
@@ -76,21 +76,12 @@ export function exploreAdBlockPreloadPlugin(): Plugin {
 	}
 }
 
-export default defineConfig(({mode}) => {
-	// Inline OpenPanel credentials from .env at build time. Without this,
-	// process.env.OPENPANEL_CLIENT_ID is undefined in the packaged app (no
-	// shell env to read from) and analytics silently never initialize.
-	// Empty-string prefix loads all keys regardless of VITE_/MAIN_VITE_ prefix.
-	const env = loadEnv(mode, '.', '')
-	const openpanelClientId = env.OPENPANEL_CLIENT_ID ?? process.env.OPENPANEL_CLIENT_ID ?? ''
-	const openpanelClientSecret = env.OPENPANEL_CLIENT_SECRET ?? process.env.OPENPANEL_CLIENT_SECRET ?? ''
-	const arroxyAnalyticsDebug = env.ARROXY_ANALYTICS_DEBUG ?? process.env.ARROXY_ANALYTICS_DEBUG ?? ''
+export default defineConfig(() => {
 	const rendererDevServerPort = readRendererDevServerPort()
 
 	return {
 		main: {
 			plugins: [exploreAdBlockPreloadPlugin()],
-			define: {'process.env.OPENPANEL_CLIENT_ID': JSON.stringify(openpanelClientId), 'process.env.OPENPANEL_CLIENT_SECRET': JSON.stringify(openpanelClientSecret), 'process.env.ARROXY_ANALYTICS_DEBUG': JSON.stringify(arroxyAnalyticsDebug)},
 			resolve: {
 				alias: [
 					{find: '@main', replacement: path.resolve('src/main')},

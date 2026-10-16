@@ -110,7 +110,6 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			onPointerInView: vi.fn().mockReturnValue(() => undefined)
 		},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue({ok: true})},
-		analytics: {track: vi.fn()},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}
 	}

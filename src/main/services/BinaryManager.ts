@@ -4,12 +4,11 @@ import path from 'node:path'
 import {app} from 'electron'
 import log from 'electron-log/main.js'
 
-import {trackMain} from '@main/services/analytics.js'
 import {isEnvironmentFatalFailure} from '@shared/dependencyPolicy.js'
-import {FAILURE_CODE, type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type RuntimeBinaryManifestEntry, type StatusKey} from '@shared/types.js'
+import {type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type RuntimeBinaryManifestEntry, type StatusKey} from '@shared/types.js'
 import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, fallbackPathCandidates, type ProbeBudget} from './binary/BinaryProbe.js'
 import {ProbeVerdictCache, type ProbeVerdictStore} from './binary/ProbeVerdictCache.js'
-import {classifyDownloadError, downloadErrorDetails, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
+import {classifyDownloadError, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
 import {installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
 import {installYtDlpWithWinget} from './binary/WingetRepair.js'
 import {normalizeRuntimeExecutablePath, runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
@@ -186,21 +185,7 @@ function makeDownloadProgress(id: DependencyId, source: DependencySource, onProg
 }
 
 const logger = log.scope('binary')
-// Deliberately independent of the probe timeout. Pinning the two together meant
-// a probe had to outlast its own deadline to be reported slow, so 'slow_success'
-// could never fire and the 30s macOS probes stayed invisible until a user
-// reported the app looping.
-const SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS = 5_000
 export type RuntimeBinaryMaterializerPort = Pick<RuntimeBinaryMaterializer, 'materialize'>
-
-function binaryTelemetryId(id: DependencyId): string {
-	return id === 'yt-dlp' ? 'ytdlp' : id
-}
-
-function sourceTelemetry(source: DependencySource): {source_kind: string; source_channel?: string; source_provider?: string} {
-	if (source.kind !== 'managed' && source.kind !== 'managedCache') return {source_kind: source.kind}
-	return {source_kind: source.kind, source_channel: source.channel, source_provider: source.provider}
-}
 
 function artifactSetupStep(code: ArtifactErrorCode): 'download' | 'checksum_verify' | 'extract' | 'install' | 'unknown' {
 	switch (code) {
@@ -227,15 +212,6 @@ function artifactSetupStep(code: ArtifactErrorCode): 'download' | 'checksum_veri
 
 function managedFailureSetupStep(err: unknown): 'download' | 'checksum_verify' | 'extract' | 'install' | 'unknown' {
 	return err instanceof ArtifactMaterializeError ? artifactSetupStep(err.code) : 'unknown'
-}
-
-function trackBinaryProbeAnomaly(id: DependencyId, source: DependencySource, outcome: 'failed' | 'slow_success' | 'environment_fatal', elapsedMs: number, timeoutMs: number, attemptIndex: number, failure?: DependencyFailure): void {
-	const props: Record<string, string | number | boolean> = {binary: binaryTelemetryId(id), outcome, ...sourceTelemetry(source), elapsed_ms: elapsedMs, timeout_ms: timeoutMs, attempt_index: attemptIndex}
-	if (failure) {
-		props.failure_kind = failure.kind
-		props.code = FAILURE_CODE[failure.kind]
-	}
-	trackMain('binary_probe_anomaly', props)
 }
 
 // Resolve absolute path to a build-time-embedded ffmpeg/ffprobe binary.
@@ -369,12 +345,8 @@ export class BinaryManager {
 		const startedAt = Date.now()
 		const probe = await probeBinary(candidatePath, args, timeoutMs, signal)
 		const elapsedMs = Date.now() - startedAt
-		const attemptIndex = attempts.length
 		if (probe.ok) {
 			logger.info(`${id} probe ok`, {source, path: candidatePath, args, elapsedMs, version: probe.output.split('\n')[0]})
-			if (elapsedMs > SLOW_BINARY_PROBE_ANALYTICS_THRESHOLD_MS) {
-				trackBinaryProbeAnomaly(id, source, 'slow_success', elapsedMs, timeoutMs, attemptIndex)
-			}
 			await this.probeVerdicts.record(candidatePath, probe.output)
 			return {kind: 'accepted', diagnostic: this.acceptCandidate(id, source, candidatePath, attempts, probe.output, onProgress)}
 		}
@@ -392,7 +364,6 @@ export class BinaryManager {
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: probe.failure.kind})
 		logger.warn(`${id} probe failed`, {source, path: candidatePath, args, timeoutMs, elapsedMs, budget, failureKind: probe.failure.kind, message: probe.failure.message})
 		const environmentFatal = isEnvironmentFatalFailure(probe.failure.kind, source)
-		trackBinaryProbeAnomaly(id, source, environmentFatal ? 'environment_fatal' : 'failed', elapsedMs, timeoutMs, attemptIndex, probe.failure)
 		return environmentFatal ? {kind: 'environmentFatal'} : {kind: 'rejected'}
 	}
 
@@ -507,8 +478,6 @@ export class BinaryManager {
 		const setupStep = managedFailureSetupStep(cause)
 		attempts.push(makeAttempt(source, failure))
 		onProgress?.({binary: id, phase: 'failed', source, failureKind: failure.kind})
-		const tracked = id === 'yt-dlp' ? 'ytdlp' : id
-		trackMain('binary_setup_failed', {binary: tracked, phase: failure.kind, code: FAILURE_CODE[failure.kind], operation: 'managed-download', setup_step: setupStep, ...sourceTelemetry(source), elapsed_ms: elapsedMs, ...downloadErrorDetails(cause)})
 		logger.warn(`${id} managed download failed`, {source, setupStep, elapsedMs, error: failure.message})
 	}
 

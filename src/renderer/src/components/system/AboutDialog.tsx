@@ -22,7 +22,7 @@ export function AboutDialog(): ReactNode {
 
 	function handleShare(): void {
 		setAboutDialogOpen(false)
-		openShareDialog('about')
+		openShareDialog()
 	}
 
 	return (

@@ -59,8 +59,6 @@ jobs:
       - name: Build Windows artifacts
         shell: bash
         env:
-          OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
-          OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
           BTBN_GITHUB_TOKEN: ${{ github.token }}
           # Lets a maintainer rebuild Windows against a different ffmpeg from the
           # Actions UI. Without it the only way off a bad binary was editing the

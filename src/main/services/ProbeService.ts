@@ -1,11 +1,10 @@
 import {EventEmitter} from 'node:events'
 import log from 'electron-log/main.js'
-import {trackMain, probeDurationBucket} from '@main/services/analytics.js'
 import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import type {CookiesMode, JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoProbeResult} from '@shared/types.js'
+import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
@@ -59,7 +58,7 @@ interface ProbeAttemptSuccess {
 	degradationSignals: ProbeSignal[]
 }
 
-type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 'failure'; error: ProbeError; errorCategory: ProbeFailureCategory}
+type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 'failure'; error: ProbeError}
 
 // Who a probe runs as, and whether yt-dlp rejected that identity's cookies on any of its spawns.
 interface ProbeRunAs {
@@ -67,7 +66,7 @@ interface ProbeRunAs {
 	cookiesRejected: boolean
 }
 
-const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}, errorCategory: 'cancelled'} as const satisfies ProbeAttemptResult
+const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}} as const satisfies ProbeAttemptResult
 
 // Options bag so unit tests can inject a deterministic parent-page fetcher;
 // production leaves it undefined and gets the real HTTP fetcher.
@@ -97,13 +96,6 @@ function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefin
 	}
 	return result
 }
-
-// Probe-specific operational categories that aren't a yt-dlp stderr kind:
-// 'cancelled' (user-driven), 'content_unavailable' (zero formats / empty
-// playlist), 'redirect_loop' (extractor redirected too many times). All other
-// failures carry a `YtDlpErrorKind`. This union is the analytics
-// `error_category` value.
-type ProbeFailureCategory = YtDlpErrorKind | 'cancelled' | 'content_unavailable' | 'redirect_loop'
 
 // `Unsupported URL` is emitted by yt-dlp before any extraction begins; it
 // doesn't match any of the post-extraction stderr patterns. Detect it here so
@@ -406,15 +398,15 @@ function mapProbeAttempt(attempt: ProbeAttemptResult, url: string, logContext: R
 		// Not a JSON parse failure: the extractor produced a valid container with
 		// no entries (private, members-only, geo-blocked, exhausted page).
 		logger.warn('Playlist probe returned no entries', {url, ...logContext})
-		return {kind: 'failure', error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}, errorCategory: 'content_unavailable'}
+		return {kind: 'failure', error: {kind: 'other', code: 'playlist_empty', message: 'Playlist returned no entries'}}
 	}
 	// Hit the redirect-depth cap. Surface the URL error rather than guess.
-	if (isUrlRedirect(info)) return {kind: 'failure', error: {kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'}, errorCategory: 'redirect_loop'}
+	if (isUrlRedirect(info)) return {kind: 'failure', error: {kind: 'other', code: 'redirect_loop', message: 'Probe redirected too many times'}}
 	const result = buildVideoProbeResult(info, url, deriveDegraded(final.degradationSignals))
 	// Zero formats + zero subs + zero auto-captions: geo-block, age-gate,
 	// members-only, or live-not-yet. The JSON shape itself was fine.
 	if (result.formats.length === 0 && Object.keys(result.subtitles).length === 0 && Object.keys(result.automaticCaptions).length === 0) {
-		return {kind: 'failure', error: {kind: 'other', code: 'no_formats', message: 'Probe returned no formats'}, errorCategory: 'content_unavailable'}
+		return {kind: 'failure', error: {kind: 'other', code: 'no_formats', message: 'Probe returned no formats'}}
 	}
 	return {kind: 'video', result, video: info, final}
 }
@@ -471,17 +463,10 @@ export class ProbeService extends EventEmitter {
 
 	// `escalate: false` keeps the probe anonymous even when the Explore session could
 	// rescue it — for lookups that must not spend the user's account (title backfill).
-	async probe(url: string, opts: {cookiesMode?: CookiesMode; playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number; escalate?: boolean} = {}): Promise<Result<ProbeResult, ProbeError>> {
-		const {cookiesMode = 'off', playlistMode = 'auto', playlistScope, ownerKey, timeoutMs, escalate = true} = opts
-		const startMs = Date.now()
-		const emitSuccess = (result: ProbeResult): void => {
-			trackMain('format_probed', {duration_bucket: probeDurationBucket(Date.now() - startMs), bot_wall: result.kind === 'video' && result.degraded?.reasons.includes('botWall') === true, cookies_mode: cookiesMode, result_kind: result.kind})
-		}
+	async probe(url: string, opts: {playlistMode?: ProbePlaylistMode; playlistScope?: PlaylistScope; ownerKey?: string; timeoutMs?: number; escalate?: boolean} = {}): Promise<Result<ProbeResult, ProbeError>> {
+		const {playlistMode = 'auto', playlistScope, ownerKey, timeoutMs, escalate = true} = opts
 		// At most one escalation per probe; a signed-in failure is the answer.
 		let auth: JobAuth | undefined
-		const emitFailure = (errorCategory: ProbeFailureCategory): void => {
-			trackMain('probe_failed', {duration_bucket: probeDurationBucket(Date.now() - startMs), error_category: errorCategory, cookies_mode: cookiesMode, escalated: auth === 'exploreSession'})
-		}
 
 		const controller = new AbortController()
 		if (ownerKey) {
@@ -517,10 +502,7 @@ export class ProbeService extends EventEmitter {
 				outcome = await runAs('exploreSession')
 				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), controller.signal)
 			}
-			if (outcome.kind === 'failure') {
-				emitFailure(outcome.errorCategory)
-				return fail(outcome.error)
-			}
+			if (outcome.kind === 'failure') return fail(outcome.error)
 
 			let mapped: ProbeResult
 			if (outcome.kind === 'playlist') {
@@ -566,13 +548,11 @@ export class ProbeService extends EventEmitter {
 			}
 			if (auth) mapped = {...mapped, auth}
 
-			emitSuccess(mapped)
 			logger.info('Probe result', {...summarizeProbeResult(mapped), playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			return ok(mapped)
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unknown probing error'
 			logger.error('Probe failure', {message, url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
-			emitFailure(controller.signal.aborted ? 'cancelled' : classifyProbeFailure(message))
 			return fail<ProbeResult, ProbeError>({kind: 'other', code: controller.signal.aborted ? 'cancelled' : 'unknown', message})
 		} finally {
 			this.inFlight.delete(controller)
@@ -606,9 +586,9 @@ export class ProbeService extends EventEmitter {
 		if (state === 'signedIn') return retry()
 		if (state === 'signedOut') {
 			this.emit(EXPLORE_VERIFIED_SIGNED_OUT)
-			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'Signed out of the Explore session'}}, errorCategory: 'loginRequired'}
+			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'Signed out of the Explore session'}}}
 		}
-		return outcome.kind === 'failure' ? {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}, errorCategory: 'network'} : outcome
+		return outcome.kind === 'failure' ? {kind: 'failure', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}} : outcome
 	}
 
 	// Abort one keyed probe without touching any other in-flight probe. Used by
@@ -715,7 +695,7 @@ export class ProbeService extends EventEmitter {
 			const code = result.kind === 'exit-error' ? result.exitCode : null
 			const rawError = result.kind === 'exit-error' ? result.rawError : result.error.message
 			// Distinguish caller-driven cancellation from a genuine yt-dlp failure
-			// so analytics + UI don't treat it as an error.
+			// so the UI doesn't treat it as an error.
 			if (signal.aborted || rawError === 'Cancelled') {
 				return PROBE_CANCELLED
 			}
@@ -724,7 +704,7 @@ export class ProbeService extends EventEmitter {
 			// yt-dlp emits before extraction begins.
 			const probeKind = classifyProbeFailure(rawError ?? '')
 			logger.error('yt-dlp probe failed', {attempt, code, url, kind: probeKind, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
-			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: probeKind, raw: rawError ?? 'Probing failed'}} satisfies ProbeError, errorCategory: probeKind}
+			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: probeKind, raw: rawError ?? 'Probing failed'}} satisfies ProbeError}
 		}
 
 		let raw: unknown
@@ -733,14 +713,14 @@ export class ProbeService extends EventEmitter {
 		} catch (error) {
 			const message = error instanceof Error ? error.message : 'Unknown JSON parse error'
 			logger.error('Probe JSON parse failed', {attempt, message, url})
-			return {kind: 'failure', error: {kind: 'other', code: 'parse', message: 'Failed to parse probe output', details: message} satisfies ProbeError, errorCategory: 'parse'}
+			return {kind: 'failure', error: {kind: 'other', code: 'parse', message: 'Failed to parse probe output', details: message} satisfies ProbeError}
 		}
 
 		const parseResult = infoDictSchema.safeParse(raw)
 		if (!parseResult.success) {
 			const message = parseResult.error.issues[0]?.message ?? 'yt-dlp output failed schema validation'
 			logger.error('Probe schema validation failed', {attempt, message, url})
-			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected yt-dlp output shape', details: message} satisfies ProbeError, errorCategory: 'parse'}
+			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected yt-dlp output shape', details: message} satisfies ProbeError}
 		}
 
 		const info = parseResult.data

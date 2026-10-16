@@ -54,8 +54,6 @@ jobs:
         shell: bash
         env:
           BUILD_CMD: ${{ matrix.build_cmd }}
-          OPENPANEL_CLIENT_ID: ${{ secrets.OPENPANEL_CLIENT_ID }}
-          OPENPANEL_CLIENT_SECRET: ${{ secrets.OPENPANEL_CLIENT_SECRET }}
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
           BTBN_GITHUB_TOKEN: ${{ github.token }}
         run: bash -c "$BUILD_CMD"
