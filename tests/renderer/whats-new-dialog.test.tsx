@@ -1,23 +1,49 @@
 import {render, screen, fireEvent} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {WhatsNewDialog} from '@renderer/components/system/WhatsNewDialog.js'
-import type {ReleaseNotes, ReleaseNotesDigest} from '@shared/releaseNotes.js'
+import type {ReleaseNotes, ReleaseNotesBlock, ReleaseNotesDigest} from '@shared/releaseNotes.js'
+
+const plain = (text: string): ReleaseNotesBlock => [{kind: 'text', text}]
 
 const CURRENT: ReleaseNotes = {
 	version: '1.2.0',
-	intro: ['This release makes updates easier to understand.'],
+	intro: [plain('This release makes updates easier to understand.')],
 	sections: [
-		{title: 'Update Notes', body: [], bullets: ["Shows a What's New popup after updating.", 'Keeps the changelog as the source of truth.']},
-		{title: 'Reliability', body: [], bullets: ['Avoids network fetches while opening the popup.']}
+		{title: 'Update Notes', body: [], bullets: [plain("Shows a What's New popup after updating."), plain('Keeps the changelog as the source of truth.')]},
+		{title: 'Reliability', body: [], bullets: [plain('Avoids network fetches while opening the popup.')]}
 	]
 }
 
-const PREVIOUS: ReleaseNotes = {version: '1.1.0', intro: ['Older release the user never saw.'], sections: [{title: 'Playlists', body: [], bullets: ['Adds per-item profiles.']}]}
+const PREVIOUS: ReleaseNotes = {version: '1.1.0', intro: [plain('Older release the user never saw.')], sections: [{title: 'Playlists', body: [], bullets: [plain('Adds per-item profiles.')]}]}
 
 const SINGLE: ReleaseNotesDigest = {version: '1.2.0', releases: [CURRENT]}
 const MULTI: ReleaseNotesDigest = {version: '1.2.0', releases: [CURRENT, PREVIOUS]}
 
 describe('WhatsNewDialog', () => {
+	it('renders changelog emphasis as elements, never as literal markers', () => {
+		const notes: ReleaseNotes = {
+			version: '1.3.0',
+			intro: [
+				[
+					{
+						kind: 'strong',
+						children: [
+							{kind: 'text', text: 'Download · '},
+							{kind: 'em', children: [{kind: 'text', text: 'your profile'}]}
+						]
+					},
+					{kind: 'text', text: ' queues it.'}
+				]
+			],
+			sections: []
+		}
+		render(<WhatsNewDialog open digest={{version: '1.3.0', releases: [notes]}} onClose={vi.fn()} onOpenFullNotes={vi.fn()} />)
+
+		const strong = screen.getByText((_content, element) => element?.tagName === 'STRONG' && element.textContent === 'Download · your profile')
+		expect(strong.querySelector('em')).toHaveTextContent('your profile')
+		expect(screen.getByTestId('whats-new-dialog')).not.toHaveTextContent('*')
+	})
+
 	it('renders release notes in a scrollable dialog', () => {
 		render(<WhatsNewDialog open digest={SINGLE} onClose={vi.fn()} onOpenFullNotes={vi.fn()} />)
 

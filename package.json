@@ -133,6 +133,7 @@
 		"i18next": "26.4.2",
 		"lucide-react": "1.52.0",
 		"make-fetch-happen": "16.0.1",
+		"marked": "18.1.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
 		"react-i18next": "17.0.16",

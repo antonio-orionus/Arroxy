@@ -1,7 +1,7 @@
 import {ExternalLink, Sparkles} from 'lucide-react'
-import {type ReactNode} from 'react'
+import {Fragment, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import type {ReleaseNotes, ReleaseNotesDigest} from '@shared/releaseNotes.js'
+import {releaseNotesText, type ReleaseNotes, type ReleaseNotesBlock, type ReleaseNotesDigest} from '@shared/releaseNotes.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
@@ -82,7 +82,9 @@ function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersio
 			{release.intro.length > 0 && (
 				<div className="flex flex-col gap-2 text-sm leading-6 text-foreground/85">
 					{release.intro.map(paragraph => (
-						<p key={paragraph}>{paragraph}</p>
+						<p key={releaseNotesText(paragraph)}>
+							<InlineNotes block={paragraph} />
+						</p>
 					))}
 				</div>
 			)}
@@ -93,16 +95,20 @@ function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersio
 					{section.body.length > 0 && (
 						<div className="mt-2 flex flex-col gap-2 text-sm leading-5 text-muted-foreground">
 							{section.body.map(paragraph => (
-								<p key={paragraph}>{paragraph}</p>
+								<p key={releaseNotesText(paragraph)}>
+									<InlineNotes block={paragraph} />
+								</p>
 							))}
 						</div>
 					)}
 					{section.bullets.length > 0 && (
 						<ul className="mt-2 flex flex-col gap-1.5 text-sm leading-5 text-muted-foreground">
 							{section.bullets.map(bullet => (
-								<li key={bullet} className="flex gap-2">
+								<li key={releaseNotesText(bullet)} className="flex gap-2">
 									<span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
-									<span>{bullet}</span>
+									<span>
+										<InlineNotes block={bullet} />
+									</span>
 								</li>
 							))}
 						</ul>
@@ -111,4 +117,40 @@ function ReleaseBlock({release, showVersion}: {release: ReleaseNotes; showVersio
 			))}
 		</div>
 	)
+}
+
+// The changelog's emphasis rendered as elements, never as HTML. Links keep only
+// their text: the dialog already offers the full release notes.
+function InlineNotes({block}: {block: ReleaseNotesBlock}): ReactNode {
+	return block.map((node, index) => {
+		const key = `${index}:${node.kind}`
+		switch (node.kind) {
+			case 'text':
+				return <Fragment key={key}>{node.text}</Fragment>
+			case 'strong':
+				return (
+					<strong key={key} className="font-semibold text-foreground">
+						<InlineNotes block={node.children} />
+					</strong>
+				)
+			case 'em':
+				return (
+					<em key={key}>
+						<InlineNotes block={node.children} />
+					</em>
+				)
+			case 'code':
+				return (
+					<code key={key} className="font-mono">
+						{node.text}
+					</code>
+				)
+			case 'link':
+				return (
+					<Fragment key={key}>
+						<InlineNotes block={node.children} />
+					</Fragment>
+				)
+		}
+	})
 }

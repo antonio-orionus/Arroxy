@@ -1,5 +1,10 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {extractReleaseNotesMarkdown, listChangelogVersions, parseReleaseNotes, releaseNotesForVersion, releaseNotesSince, shouldShowWhatsNew} from '@shared/releaseNotes.js'
+import {extractReleaseNotesMarkdown, listChangelogVersions, parseReleaseNotes, releaseNotesForVersion, releaseNotesSince, releaseNotesText, shouldShowWhatsNew, type ReleaseNotes} from '@shared/releaseNotes.js'
+
+// The notes as the plain text a reader sees, for comparing structure-free.
+function asText(notes: ReleaseNotes): unknown {
+	return {version: notes.version, intro: notes.intro.map(releaseNotesText), sections: notes.sections.map(section => ({title: section.title, body: section.body.map(releaseNotesText), bullets: section.bullets.map(releaseNotesText)}))}
+}
 
 const CHANGELOG = `# Changelog
 
@@ -76,7 +81,7 @@ describe('release notes', () => {
 
 		const notes = parseReleaseNotes('1.2.0', markdown!)
 
-		expect(notes).toEqual({
+		expect(asText(notes)).toEqual({
 			version: '1.2.0',
 			intro: ['This release makes updates easier to understand.'],
 			sections: [
@@ -84,6 +89,36 @@ describe('release notes', () => {
 				{title: 'Reliability', body: [], bullets: ['Avoids network fetches while opening the popup.']}
 			]
 		})
+	})
+
+	it('keeps nested emphasis as structure: bold that wraps italics, triple stars, code', () => {
+		const notes = parseReleaseNotes('0.5.0', ['- **Explore tab.** **Download · *your profile*** queues it; hide it with **Show the Explore tab** in Settings.', '- An *italic* word, a ***bold italic*** one, and `a & b`.', '- Keeps 2 * 3 * 4 and snake_case_names as they are.'].join('\n'))
+
+		expect(notes.intro[0]).toEqual([
+			{kind: 'strong', children: [{kind: 'text', text: 'Explore tab.'}]},
+			{kind: 'text', text: ' '},
+			{
+				kind: 'strong',
+				children: [
+					{kind: 'text', text: 'Download · '},
+					{kind: 'em', children: [{kind: 'text', text: 'your profile'}]}
+				]
+			},
+			{kind: 'text', text: ' queues it; hide it with '},
+			{kind: 'strong', children: [{kind: 'text', text: 'Show the Explore tab'}]},
+			{kind: 'text', text: ' in Settings.'}
+		])
+		expect(notes.intro.map(releaseNotesText)).toEqual(['Explore tab. Download · your profile queues it; hide it with Show the Explore tab in Settings.', 'An italic word, a bold italic one, and a & b.', 'Keeps 2 * 3 * 4 and snake_case_names as they are.'])
+	})
+
+	it('reads every shipped changelog section without leaking Markdown markers', async () => {
+		const {readFile} = await import('node:fs/promises')
+		const changelog = await readFile(new URL('../../CHANGELOG.md', import.meta.url), 'utf8')
+		for (const version of listChangelogVersions(changelog)) {
+			const notes = releaseNotesForVersion(changelog, version)
+			const text = notes ? [...notes.intro, ...notes.sections.flatMap(section => [...section.body, ...section.bullets])].map(releaseNotesText) : []
+			for (const line of text) expect(line, `${version}: ${line.slice(0, 80)}`).not.toMatch(/\*\*|(^|\s)\*\S|`/)
+		}
 	})
 
 	it('combines extraction and parsing for an app version', () => {
@@ -208,7 +243,7 @@ describe('release notes digest', () => {
 		const digest = releaseNotesSince(MULTI_CHANGELOG, {appVersion: '1.4.0', lastShownVersion: '1.2.0'})
 
 		expect(digest?.releases[0]?.sections.map(section => section.title)).toEqual(['Alpha'])
-		expect(digest?.releases[1]?.intro).toEqual(['Third.'])
-		expect(digest?.releases[1]?.sections[0]?.bullets).toEqual(['Bravo bullet.'])
+		expect(digest?.releases[1]?.intro.map(releaseNotesText)).toEqual(['Third.'])
+		expect(digest?.releases[1]?.sections[0]?.bullets.map(releaseNotesText)).toEqual(['Bravo bullet.'])
 	})
 })

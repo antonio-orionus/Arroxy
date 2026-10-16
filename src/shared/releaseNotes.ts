@@ -1,12 +1,23 @@
+import {lexer, type Token, type Tokens} from 'marked'
+
+/**
+ * Inline content of one paragraph or bullet, parsed by a real Markdown lexer so
+ * nested emphasis (`**Download · *profile***`) survives intact. Only these
+ * shapes reach the UI; raw HTML in the changelog becomes plain text.
+ */
+export type ReleaseNotesInline = {kind: 'text'; text: string} | {kind: 'strong'; children: ReleaseNotesInline[]} | {kind: 'em'; children: ReleaseNotesInline[]} | {kind: 'code'; text: string} | {kind: 'link'; href: string; children: ReleaseNotesInline[]}
+
+export type ReleaseNotesBlock = ReleaseNotesInline[]
+
 export interface ReleaseNotesSection {
 	title: string
-	body: string[]
-	bullets: string[]
+	body: ReleaseNotesBlock[]
+	bullets: ReleaseNotesBlock[]
 }
 
 export interface ReleaseNotes {
 	version: string
-	intro: string[]
+	intro: ReleaseNotesBlock[]
 	sections: ReleaseNotesSection[]
 }
 
@@ -50,32 +61,132 @@ export function extractReleaseNotesMarkdown(changelog: string, version: string):
 }
 
 export function parseReleaseNotes(version: string, markdown: string): ReleaseNotes {
-	const intro: string[] = []
+	const intro: ReleaseNotesBlock[] = []
 	const sections: ReleaseNotesSection[] = []
 	let current: ReleaseNotesSection | null = null
+	const addParagraph = (block: ReleaseNotesBlock): void => {
+		if (block.length === 0) return
+		if (current) current.body.push(block)
+		else intro.push(block)
+	}
+	const addBullet = (block: ReleaseNotesBlock): void => {
+		if (block.length === 0) return
+		if (current) current.bullets.push(block)
+		else intro.push(block)
+	}
 
-	for (const rawLine of markdown.split(/\r?\n/)) {
-		const line = rawLine.trim()
-		if (!line || line === '---') continue
-		if (line.startsWith('## ')) continue
-		if (line.startsWith('### ')) {
-			current = {title: cleanInlineMarkdown(line.slice(4)), body: [], bullets: []}
-			sections.push(current)
-			continue
+	for (const token of lexer(markdown)) {
+		switch (token.type) {
+			case 'space':
+			case 'hr':
+				break
+			case 'heading': {
+				// Level 1-2 headings name the version or a group ("Highlights"); level 3+ open a section.
+				if (headingDepth(token) < 3) break
+				current = {title: releaseNotesText(inlineOf(childTokens(token))), body: [], bullets: []}
+				sections.push(current)
+				break
+			}
+			case 'list':
+				for (const item of listItems(token)) collectListItem(item, addBullet)
+				break
+			default:
+				addParagraph(inlineOf(childTokens(token).length > 0 ? childTokens(token) : [token]))
 		}
-		if (line.startsWith('- ')) {
-			const bullet = cleanInlineMarkdown(line.slice(2))
-			if (current) current.bullets.push(bullet)
-			else intro.push(bullet)
-			continue
-		}
-
-		const paragraph = cleanInlineMarkdown(line)
-		if (current) current.body.push(paragraph)
-		else intro.push(paragraph)
 	}
 
 	return {version: normalizeVersion(version), intro, sections: sections.filter(section => section.title.length > 0 && (section.body.length > 0 || section.bullets.length > 0))}
+}
+
+/** Plain text of an inline block, for keys, titles and accessible names. */
+export function releaseNotesText(block: ReleaseNotesBlock): string {
+	return block
+		.map(node => (node.kind === 'text' || node.kind === 'code' ? node.text : releaseNotesText(node.children)))
+		.join('')
+		.replace(/\s+/g, ' ')
+		.trim()
+}
+
+function collectListItem(item: Tokens.ListItem, add: (block: ReleaseNotesBlock) => void): void {
+	const own: Token[] = []
+	const nested: Tokens.ListItem[] = []
+	for (const child of item.tokens) {
+		if (child.type === 'list') nested.push(...listItems(child))
+		else own.push(child)
+	}
+	add(inlineOf(own))
+	for (const sub of nested) collectListItem(sub, add)
+}
+
+function inlineOf(tokens: Token[]): ReleaseNotesBlock {
+	const out: ReleaseNotesBlock = []
+	const pushText = (text: string): void => {
+		if (!text) return
+		const last = out[out.length - 1]
+		if (last?.kind === 'text') last.text += text
+		else out.push({kind: 'text', text})
+	}
+	for (const token of tokens) {
+		switch (token.type) {
+			case 'strong':
+				out.push({kind: 'strong', children: inlineOf(childTokens(token))})
+				break
+			case 'em':
+				out.push({kind: 'em', children: inlineOf(childTokens(token))})
+				break
+			case 'codespan':
+				out.push({kind: 'code', text: decodeEntities(tokenText(token))})
+				break
+			case 'link':
+				out.push({kind: 'link', href: 'href' in token && typeof token.href === 'string' ? token.href : '', children: inlineOf(childTokens(token))})
+				break
+			case 'br':
+				pushText(' ')
+				break
+			case 'space':
+				pushText(' ')
+				break
+			default: {
+				const nested = childTokens(token)
+				if (nested.length > 0) {
+					// A paragraph inside a loose list item, or a text run with emphasis.
+					if (out.length > 0 && (token.type === 'paragraph' || token.type === 'text')) pushText(' ')
+					for (const node of inlineOf(nested)) {
+						if (node.kind === 'text') pushText(node.text)
+						else out.push(node)
+					}
+				} else pushText(decodeEntities(tokenText(token)))
+			}
+		}
+	}
+	return out
+}
+
+function childTokens(token: Token): Token[] {
+	return 'tokens' in token && Array.isArray(token.tokens) ? token.tokens : []
+}
+
+function listItems(token: Token): Tokens.ListItem[] {
+	if (token.type !== 'list' || !('items' in token)) return []
+	const items: unknown = token.items
+	return Array.isArray(items) ? items.filter(isListItem) : []
+}
+
+function isListItem(value: unknown): value is Tokens.ListItem {
+	return typeof value === 'object' && value !== null && 'type' in value && value.type === 'list_item' && 'tokens' in value && Array.isArray(value.tokens)
+}
+
+function headingDepth(token: Token): number {
+	return 'depth' in token && typeof token.depth === 'number' ? token.depth : 0
+}
+
+function tokenText(token: Token): string {
+	return 'text' in token && typeof token.text === 'string' ? token.text : token.raw
+}
+
+// The lexer keeps character references as written; the dialog shows text.
+function decodeEntities(text: string): string {
+	return text.replace(/&(amp|lt|gt|quot|#39);/g, (_match, name: string) => ({amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'"})[name] ?? _match)
 }
 
 export function releaseNotesForVersion(changelog: string, version: string): ReleaseNotes | null {
@@ -137,14 +248,6 @@ function normalizeVersion(version: string): string {
 function isIgnorableEdgeLine(line: string): boolean {
 	const trimmed = line.trim()
 	return trimmed.length === 0 || trimmed === '---'
-}
-
-function cleanInlineMarkdown(value: string): string {
-	return value
-		.trim()
-		.replace(/`([^`]+)`/g, '$1')
-		.replace(/\*\*([^*]+)\*\*/g, '$1')
-		.replace(/\[([^\]]+)]\([^)]*\)/g, '$1')
 }
 
 function isPreRelease(version: string): boolean {
