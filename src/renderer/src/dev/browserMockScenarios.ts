@@ -1,14 +1,17 @@
 import {defaultAppSettings, DEFAULT_PLAYLIST_PROBE_LIMIT} from '@shared/constants.js'
 import {YT_DLP_ERROR_KINDS} from '@shared/schemas.js'
-import type {AppSettings, DownloadProfileRef, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, ExploreViewState, ProbeResult, QueueItem, UpdateAvailablePayload, WarmUpOutput} from '@shared/types.js'
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState} from '../store/types.js'
 import {bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
 import {bilibiliHydrationVideo, buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
-import {buildQueueItems} from './scenarios/queueScenarios.js'
+import {ATTENTION_SCENARIO_FAILED_URL, ATTENTION_SCENARIO_ROWS, buildQueueItems, QUICK_DOWNLOAD_SCENARIO_ROWS} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
 import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
+import {buildExploreView, exploreProfilesPatch, exploreSettingsPatch} from './scenarios/exploreScenarios.js'
+import {replaceHash} from '@renderer/lib/navigation.js'
+import {notify} from '@renderer/lib/notify.js'
 
 export const BROWSER_MOCK_LAUNCH_MODES = ['ready', 'cold-loading', 'cold-error'] as const
 export type BrowserMockLaunchMode = (typeof BROWSER_MOCK_LAUNCH_MODES)[number]
@@ -66,17 +69,27 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'queue-notices',
 	'queue-columns',
 	'queue-large',
+	'queue-quick-download',
+	'queue-attention',
 	'diagnostics-all-ok',
 	'diagnostics-ytdlp-missing',
 	'diagnostics-ffmpeg-broken',
 	'diagnostics-ffprobe-broken',
 	'diagnostics-all-missing',
-	'diagnostics-warmup-running'
+	'diagnostics-warmup-running',
+	'explore-notice',
+	'explore-browsing',
+	'explore-long-profile',
+	'explore-nudge',
+	'explore-proxy-error',
+	'explore-adblock-off',
+	'explore-adblock-unavailable',
+	'explore-address-offsite'
 ] as const
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
-export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics'
-type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state'
+export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics' | 'Explore'
+type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state' | 'explore'
 const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
 export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
 
@@ -103,6 +116,7 @@ export interface BrowserMockState {
 	schedulerPaused: boolean
 	update: UpdateAvailablePayload | null
 	warmUp: WarmUpOutput
+	explore: ExploreViewState
 	appVersion: string
 }
 
@@ -118,6 +132,9 @@ export interface ScenarioWorkbenchStore {
 	setWizardUrl: AppState['setWizardUrl']
 	submitUrl: AppState['submitUrl']
 	quickDownload: AppState['quickDownload']
+	showQueueItem: AppState['showQueueItem']
+	retryQuickDownloadRow: AppState['retryQuickDownloadRow']
+	openExploreSignIn: AppState['openExploreSignIn']
 	// Scenarios only ever merge plain patches into the store.
 	setState: (patch: Partial<AppState>) => void
 }
@@ -197,13 +214,23 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'queue-errors', group: 'Queue', title: 'Queue errors', description: 'Failed and cancelled rows for retry/remove states.', kind: 'queue'},
 	{id: 'queue-notices', group: 'Queue', title: 'Queue completion notices', description: 'Finished rows carrying a quality-limit, subtitle, or combined notice.', kind: 'queue'},
 	{id: 'queue-columns', group: 'Queue', title: 'Queue columns', description: 'Rows with varied timestamps for sorting and column visibility review.', kind: 'queue'},
+	{id: 'queue-quick-download', group: 'Queue', title: 'Queue quick download', description: 'Quick download rows: probing with Cancel, a failed probe with its guidance, a capped playlist and a link to review waiting for a choice, and the toasts with actions.', kind: 'queue'},
+	{id: 'queue-attention', group: 'Queue', title: 'Queue needs attention', description: 'Background quick downloads: one preparing, a private video that offers Sign in in Explore, a capped playlist waiting for a choice, the attention badge on the Downloads tab, and a failure toast with View and Retry.', kind: 'queue'},
 	{id: 'queue-large', group: 'Queue', title: 'Queue large', description: '5,000 queued rows for virtualization and scroll performance review.', kind: 'queue'},
 	{id: 'diagnostics-all-ok', group: 'Diagnostics', title: 'All OK', description: 'Runnable dependency diagnostics.', kind: 'diagnostics'},
 	{id: 'diagnostics-ytdlp-missing', group: 'Diagnostics', title: 'yt-dlp missing', description: 'Blocking yt-dlp setup failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffmpeg-broken', group: 'Diagnostics', title: 'ffmpeg broken', description: 'Blocking ffmpeg setup failure.', kind: 'diagnostics'},
 	{id: 'diagnostics-ffprobe-broken', group: 'Diagnostics', title: 'ffprobe broken', description: 'Blocking ffprobe probe failure (bad exit code).', kind: 'diagnostics'},
 	{id: 'diagnostics-all-missing', group: 'Diagnostics', title: 'All missing', description: 'Fresh-install state - all setup dependencies failed; all are blocking.', kind: 'diagnostics'},
-	{id: 'diagnostics-warmup-running', group: 'Diagnostics', title: 'Warmup running', description: 'Setup is still running without blocking failures.', kind: 'diagnostics'}
+	{id: 'diagnostics-warmup-running', group: 'Diagnostics', title: 'Warmup running', description: 'Setup is still running without blocking failures.', kind: 'diagnostics'},
+	{id: 'explore-notice', group: 'Explore', title: 'Explore first-run notice', description: 'First open of the Explore tab: an illustrated preview of Explore (toolbar with the Download split over an abstract video page) and the ban-risk notice show before any view exists.', kind: 'explore'},
+	{id: 'explore-browsing', group: 'Explore', title: 'Explore browsing', description: 'Notice acknowledged and signed in: toolbar plus a loaded page (a neutral placeholder stands in for the native view).', kind: 'explore'},
+	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download split truncates the name and keeps it whole in the native tooltip.', kind: 'explore'},
+	{id: 'explore-nudge', group: 'Explore', title: 'Explore mode nudge', description: 'Cookies mode is not Explore, so the mode nudge sits above the toolbar.', kind: 'explore'},
+	{id: 'explore-proxy-error', group: 'Explore', title: 'Explore proxy error', description: 'The view refuses to load because the proxy setting is invalid: the error surface replaces the page.', kind: 'explore'},
+	{id: 'explore-adblock-off', group: 'Explore', title: 'Explore ad blocker on', description: 'The shield in the toolbar is pressed: the ad blocker is on for Explore pages.', kind: 'explore'},
+	{id: 'explore-adblock-unavailable', group: 'Explore', title: 'Explore ad blocker unavailable', description: "The ad blocker is on but its filter lists couldn't be downloaded: the shield warns and nothing is blocked.", kind: 'explore'},
+	{id: 'explore-address-offsite', group: 'Explore', title: 'Explore off-site address', description: 'A link on another site was typed in the address bar: the hint under the toolbar says Explore only browses YouTube and offers to download the link.', kind: 'explore'}
 ] as const
 
 const SCENARIOS_BY_ID = new Map<string, BrowserMockScenario>(BROWSER_MOCK_SCENARIOS.map(scenario => [scenario.id, scenario]))
@@ -246,7 +273,18 @@ export function mockStepsForScenario(scenario: Pick<BrowserMockScenario, 'id'>):
 export function buildScenarioAppApiState(scenario: BrowserMockScenario, params?: BrowserMockUrlParams, knobs?: BrowserMockKnobs): BrowserMockState {
 	const settings = buildSettings(scenario, knobs)
 	const hotkeyRegistered = scenario.id === 'hotkey-conflict' ? false : null
-	return {scenario, settings, hotkeyRegistered, probeResult: buildProbeResult(scenario, params), queueItems: buildQueueItems(scenario), schedulerPaused: scenario.id === 'queue-scheduler-paused', update: buildUpdate(scenario), warmUp: buildWarmUp(scenario), appVersion: buildAppVersion(scenario)}
+	return {
+		scenario,
+		settings,
+		hotkeyRegistered,
+		probeResult: buildProbeResult(scenario, params),
+		queueItems: buildQueueItems(scenario),
+		schedulerPaused: scenario.id === 'queue-scheduler-paused',
+		update: buildUpdate(scenario),
+		warmUp: buildWarmUp(scenario),
+		explore: buildExploreView(scenario),
+		appVersion: buildAppVersion(scenario)
+	}
 }
 
 function buildAppVersion(scenario: BrowserMockScenario): string {
@@ -309,6 +347,25 @@ function playlistLoadingState(): Partial<AppState> {
 	}
 }
 
+// Runs `then` once `selector` is in the document (checked each frame, for up to ~5 s).
+function whenRendered(selector: string, then: () => void): Promise<void> {
+	return new Promise(resolve => {
+		let frames = 0
+		const check = (): void => {
+			if (document.querySelector(selector) !== null || ++frames > 300) {
+				then()
+				resolve()
+				return
+			}
+			requestAnimationFrame(check)
+		}
+		requestAnimationFrame(check)
+	})
+}
+
+// The link the off-site address scenario typed (no request is ever made for it).
+const EXPLORE_OFFSITE_SAMPLE_URL = 'https://videos.example.com/watch/42'
+
 const MULTI_PROFILE_AUDIO_ONLY_REF: DownloadProfileRef = {kind: 'builtin', id: 'audio-only'}
 const MULTI_PROFILE_HD_1080_REF: DownloadProfileRef = {kind: 'builtin', id: 'hd-1080'}
 // Deviations only — a playlist item with no entry here implicitly uses the
@@ -360,8 +417,8 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (params.probeErrorKind !== null) {
 		store.reset()
 		if (params.probeErrorTarget === 'quick-download') {
-			store.setWizardUrl(withMockProbeError(PROFILE_SINGLE_URL, params.probeErrorKind))
-			await store.quickDownload()
+			// The failure lands on the row in Downloads, with its guidance.
+			await store.quickDownload({url: withMockProbeError(PROFILE_SINGLE_URL, params.probeErrorKind), entry: 'url-tab'})
 			return
 		}
 		store.setWizardUrl(withMockProbeError(`https://example.com/${scenario.id}`, params.probeErrorKind))
@@ -393,6 +450,24 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 		else if (scenario.id === 'playlist-multi-profile-scale') store.setState(playlistMultiProfileScaleState())
 		return
 	}
+	if (scenario.kind === 'explore') {
+		store.reset()
+		replaceHash('explore')
+		// Leaving the Explore tab clears the hint, and StrictMode's mount-unmount-mount
+		// in dev would too: the hint lands once the tab has mounted.
+		if (scenario.id === 'explore-address-offsite') await whenRendered('[data-testid="explore-toolbar"]', () => store.setState({exploreAddressHint: {kind: 'offsite', downloadUrl: EXPLORE_OFFSITE_SAMPLE_URL}}))
+		return
+	}
+	if (scenario.id === 'queue-quick-download') {
+		announceQuickDownloadScenario(store)
+		return
+	}
+	if (scenario.id === 'queue-attention') {
+		// Signed out of Explore at home: the toast for an account-only failure offers the sign-in, as in the app.
+		const {failed} = ATTENTION_SCENARIO_ROWS
+		notify.quickDownloadFailed(failed, ATTENTION_SCENARIO_FAILED_URL, {kind: 'sign-in', run: store.openExploreSignIn}, () => store.showQueueItem(failed))
+		return
+	}
 	if (scenario.kind === 'dialog') {
 		if (scenario.id === 'dialog-mixed-url') {
 			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ\nhttps://www.youtube.com/watch?v=jNQXAC9IVRw'})
@@ -400,6 +475,13 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 			store.setState({cookiesConfigDialogIssue: 'file-missing-path'})
 		}
 	}
+}
+
+// The toasts a quick download raises, with their actions, over the rows they name.
+function announceQuickDownloadScenario(store: ScenarioWorkbenchStore): void {
+	const {probing, failed} = QUICK_DOWNLOAD_SCENARIO_ROWS
+	notify.quickDownloadAdded('https://www.youtube.com/watch?v=jNQXAC9IVRw', () => store.showQueueItem(probing))
+	notify.quickDownloadFailed(failed, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', {kind: 'retry', run: () => void store.retryQuickDownloadRow(failed)}, () => store.showQueueItem(failed))
 }
 
 function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs): AppSettings {
@@ -421,7 +503,11 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
+			...exploreSettingsPatch(scenario),
+			// Explore is set up but signed out, so the private video's row offers Sign in in Explore.
+			...(scenario.id === 'queue-attention' ? {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true} : {}),
 			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {})
-		}
+		},
+		profiles: {...base.profiles, ...exploreProfilesPatch(scenario)}
 	}
 }

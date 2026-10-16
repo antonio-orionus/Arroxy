@@ -33,8 +33,20 @@ export interface BulkExpansion {
 
 type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, ProbeError>>
 
+// `auth` is the entry's own: main sets it only where the account is needed for the item itself.
 function seedFor(entry: PlaylistEntry): BulkEntrySeed {
-	return {title: entry.title, thumbnail: entry.thumbnail, duration: entry.duration, videoId: entry.videoId, uploader: entry.uploader, uploadDate: entry.uploadDate, timestamp: entry.timestamp, ...(entry.isContainer === true ? {isContainer: true as const} : {}), ...placeholderTitleFlag(entry.titleIsPlaceholder)}
+	return {
+		title: entry.title,
+		thumbnail: entry.thumbnail,
+		duration: entry.duration,
+		videoId: entry.videoId,
+		uploader: entry.uploader,
+		uploadDate: entry.uploadDate,
+		timestamp: entry.timestamp,
+		...(entry.isContainer === true ? {isContainer: true as const} : {}),
+		...placeholderTitleFlag(entry.titleIsPlaceholder),
+		...(entry.auth ? {auth: entry.auth} : {})
+	}
 }
 
 export function hasCollectionUrl(urls: readonly string[]): boolean {

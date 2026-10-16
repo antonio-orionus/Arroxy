@@ -30,7 +30,7 @@ export interface BulkStartProjection {
  * it. Rows expanded out of a collection URL arrive with real values, so they
  * skip hydration entirely instead of re-probing every entry one at a time.
  */
-export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'timestamp' | 'isContainer' | 'titleIsPlaceholder'>
+export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'timestamp' | 'isContainer' | 'titleIsPlaceholder' | 'auth'>
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatch {
 	return {
@@ -82,6 +82,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardExtractorKey: '',
 			wizardWebpageUrl: '',
 			wizardProbeInfoJsonRef: undefined,
+			wizardProbeAuth: undefined,
 			multiProfileMode: false,
 			playlistSortMode: 'api' as const,
 			playlistProfileAssignments: {},
@@ -120,6 +121,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 		wizardExtractorKey: probe.extractorKey,
 		wizardWebpageUrl: probe.webpageUrl,
 		wizardProbeInfoJsonRef: probe.probeInfoJsonRef,
+		wizardProbeAuth: probe.auth,
 		wizardTitle: title,
 		wizardThumbnail: thumbnail,
 		wizardDuration: duration,
@@ -165,6 +167,8 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 	const playlistLimit = visiblePlaylistProbeLimit(state)
 	const hasSentinel = probe.entries.length > playlistLimit
 	const playlistLikelyCapped = hasSentinel && state.playlistScope.items.kind === 'app-limit'
+	// Entries carry their own `auth`: main stamps it on those that need the
+	// Explore session, and a playlist enumerated past a bot wall leaves them anonymous.
 	const playlistItems = hasSentinel ? probe.entries.slice(0, playlistLimit) : probe.entries
 	const persistedSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION
 	const computedSelection: PlaylistSelection = probe.isAudioOnlySource ? {kind: 'audio', format: 'best'} : persistedSelection
@@ -176,6 +180,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		wizardExtractorKey: probe.extractorKey,
 		wizardWebpageUrl: probe.webpageUrl,
 		wizardProbeInfoJsonRef: undefined,
+		wizardProbeAuth: undefined,
 		playlistItems,
 		// Container rows (channel/playlist/album) stay visible so an all-container
 		// result still renders a picker, but they start unselected: they cannot be
@@ -240,6 +245,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
 			...(seed?.timestamp === undefined ? {} : {timestamp: seed.timestamp}),
 			...(seed?.isContainer === true ? {isContainer: true as const} : {}),
+			...(seed?.auth ? {auth: seed.auth} : {}),
 			...placeholderTitleFlag(seed?.titleIsPlaceholder)
 		}
 	})
@@ -275,6 +281,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardExtractorKey: allYouTubeVideos ? 'Youtube' : '',
 			wizardWebpageUrl: '',
 			wizardProbeInfoJsonRef: undefined,
+			wizardProbeAuth: undefined,
 			formatsLoading: false,
 			playlistProbeLoading: false,
 			wizardError: null,

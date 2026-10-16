@@ -1,16 +1,15 @@
 import {lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Inbox, Link2, ListPlus, PenLine, Plus, RefreshCw, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import {Check, ChevronRight, Compass, Inbox, Link2, ListPlus, PenLine, Plus, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
 import {cn} from '@renderer/lib/utils.js'
-import {formatProbeError} from '../../store/helpers.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useDownloadHomeView, type DownloadInputType, type QuickDownloadFailureMessage} from '../../store/downloadHomeView.js'
+import {useDownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -25,18 +24,18 @@ import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
 import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {QueueManagerTab} from '../queue/QueueManagerTab.js'
+import {needsAttention} from '../queue/queueAttention.js'
+import {ExploreTab} from '../explore/ExploreTab.js'
 import {buildClipboardCandidate, resolveClipboardIntake, type ClipboardCandidate} from './clipboardIntake.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
-import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
-import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
-import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
+import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 import {IconTile} from '../shared/IconTile.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
 
-type ProfilesTab = 'download' | 'queue' | 'profiles' | 'settings'
-const PROFILE_TABS = ['download', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
+type ProfilesTab = 'download' | 'explore' | 'queue' | 'profiles' | 'settings'
+const PROFILE_TABS = ['download', 'explore', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
 const DownloadProfileEditor = lazy(() => import('./DownloadProfileEditor.js').then(module => ({default: module.DownloadProfileEditor})))
 const QUEUE_TAB_TIP_STORAGE_KEY = 'arroxy_seen_queue_tab_tip'
 const QUEUE_TAB_TIP_VISIBLE_MS = 5_000
@@ -44,6 +43,7 @@ const QUEUE_TAB_TIP_VISIBLE_MS = 5_000
 function tabFromHash(hash = window.location.hash): ProfilesTab {
 	const value = hash.replace(/^#/, '').toLowerCase()
 	if (value === 'profile' || value === 'profiles') return 'profiles'
+	if (value === 'explore') return 'explore'
 	if (value === 'queue') return 'queue'
 	if (value === 'setting' || value === 'settings') return 'settings'
 	return 'download'
@@ -103,6 +103,7 @@ function isProfilesTab(value: unknown): value is ProfilesTab {
 
 function tabHash(tab: ProfilesTab): string {
 	if (tab === 'profiles') return '#profiles'
+	if (tab === 'explore') return '#explore'
 	if (tab === 'queue') return '#queue'
 	if (tab === 'settings') return '#settings'
 	return '#download'
@@ -183,48 +184,6 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
 }
 
-function quickDownloadFailureText(t: TFunction, message: QuickDownloadFailureMessage | null): string {
-	if (!message) return ''
-	switch (message.kind) {
-		case 'i18n':
-			return t(message.key)
-		case 'text':
-			return message.text
-		case 'bulk-probe': {
-			const probeText = formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
-			return `${t('wizard.url.quickBulkAllFailed')}: ${probeText}`
-		}
-		case 'probe':
-			return formatProbeError(message.error) || t('wizard.url.quickProbeFailed')
-	}
-	const exhaustive: never = message
-	return exhaustive
-}
-
-function QuickDownloadErrorAlert({experience, message, onEnableCookiesAndRetry, onOpenCookiesSettings, onRetry, t}: {experience: ProbeErrorExperience | null; message: string; onEnableCookiesAndRetry: () => void; onOpenCookiesSettings: () => void; onRetry: () => void; t: TFunction}): ReactNode {
-	const showBotWallGuidance = experience?.botWall.variant !== undefined && experience.botWall.variant !== 'hidden'
-	const showCookiesGuidance = experience?.cookies.variant !== undefined && experience.cookies.variant !== 'hidden'
-	return (
-		<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
-			<AlertDescription className="flex flex-col gap-2">
-				<span>{t('wizard.url.quickFailed', {error: message})}</span>
-				<div className="flex flex-wrap gap-2">
-					<Button type="button" size="sm" variant="outline" onClick={() => onRetry()} data-testid="quick-download-retry">
-						<RefreshCw data-icon="inline-start" />
-						{t('common.retry')}
-					</Button>
-				</div>
-				{experience && (showBotWallGuidance || showCookiesGuidance) ? (
-					<div className="flex flex-col gap-1.5">
-						<BotWallGuidanceAlert guidance={experience.botWall} density="compact" showRetryAction={false} onEnableCookiesAndRetry={onEnableCookiesAndRetry} onRetry={onRetry} enableTestId="quick-download-enable-cookies-retry" />
-						<CookiesGuidanceAlert guidance={experience.cookies} density="compact" onOpenSettings={onOpenCookiesSettings} openSettingsTestId="quick-download-cookies-settings" />
-					</div>
-				) : null}
-			</AlertDescription>
-		</Alert>
-	)
-}
-
 function QueueTabFirstRunCue({onDismiss, persistent = false}: {onDismiss: () => void; persistent?: boolean}): ReactNode {
 	const {t} = useTranslation()
 
@@ -260,6 +219,9 @@ export function DownloadProfilesHome(): ReactNode {
 		hasInput,
 		inputType,
 		openCookiesSettings,
+		openExploreSignIn,
+		signInWithExploreThenRetry,
+		retryWithExploreSignIn,
 		profiles,
 		profilesPrefs,
 		quickDownload,
@@ -267,7 +229,6 @@ export function DownloadProfilesHome(): ReactNode {
 		quickDownloadProbeExperience,
 		quickDownloadProgressFailed,
 		quickDownloadStatus,
-		quickPreparing,
 		removeDownloadProfile,
 		retryQuickDownloadFailure,
 		retryQuickDownloadWithCookies,
@@ -282,7 +243,11 @@ export function DownloadProfilesHome(): ReactNode {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const bulkOpenRef = useRef(false)
 	const initialBrowserMockScenario = browserMockScenarioId()
-	const activeTab = useSyncExternalStore(subscribeProfileTabHash, profileTabSnapshot, profileTabSnapshot)
+	const hashTab = useSyncExternalStore(subscribeProfileTabHash, profileTabSnapshot, profileTabSnapshot)
+	const exploreEnabled = useAppStore(state => state.settings?.common?.exploreEnabled !== false)
+	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
+	// With the kill switch on, a stale #explore lands on the URL tab.
+	const activeTab: ProfilesTab = hashTab === 'explore' && !exploreEnabled ? 'download' : hashTab
 	const [bulkOpen, setBulkOpen] = useState(() => isBrowserMockBulkDialogScenario(initialBrowserMockScenario))
 	const [bulkInitialRaw, setBulkInitialRaw] = useState(() => browserMockBulkInitialRaw(initialBrowserMockScenario))
 	const [pendingClipboard, setPendingClipboard] = useState<ClipboardCandidate | null>(null)
@@ -290,10 +255,10 @@ export function DownloadProfilesHome(): ReactNode {
 	const [editorSessionId, setEditorSessionId] = useState(0)
 	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
 	const queueCount = useAppStore(state => state.queue.length)
+	const attentionCount = useAppStore(state => state.queue.filter(needsAttention).length)
 	const queueIsActive = useAppStore(state => state.queue.some(item => item.status === 'running' || item.lastStatus?.key === 'movingFiles'))
 	const previousQueueCountRef = useRef(queueCount)
 	const [showQueueTabTip, setShowQueueTabTip] = useState(() => initialBrowserMockScenario === 'queue-tab-tip' || (queueCount > 0 && !hasSeenQueueTabTip()))
-	const quickErrorText = quickDownloadFailureText(t, quickDownloadFailureMessage)
 	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
 	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
@@ -310,10 +275,14 @@ export function DownloadProfilesHome(): ReactNode {
 		bulkOpenRef.current = bulkOpen
 	}, [bulkOpen])
 
+	// The cue floats below the tab bar, where Explore's native view would paint
+	// over it: hold it (unseen) until another tab is active.
+	const queueTabTipVisible = showQueueTabTip && activeTab !== 'explore'
+
 	useEffect(() => {
-		if (!showQueueTabTip || initialBrowserMockScenario === 'queue-tab-tip') return
+		if (!queueTabTipVisible || initialBrowserMockScenario === 'queue-tab-tip') return
 		markQueueTabTipSeen()
-	}, [initialBrowserMockScenario, showQueueTabTip])
+	}, [initialBrowserMockScenario, queueTabTipVisible])
 
 	useEffect(() => {
 		const previousQueueCount = previousQueueCountRef.current
@@ -394,7 +363,7 @@ export function DownloadProfilesHome(): ReactNode {
 	}
 
 	function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
-		if (event.key === 'Enter' && urlReady && !quickPreparing) {
+		if (event.key === 'Enter' && urlReady) {
 			void submitUrl()
 		}
 	}
@@ -419,33 +388,49 @@ export function DownloadProfilesHome(): ReactNode {
 					if (value !== 'download') setPendingClipboard(null)
 					selectProfilesTab(value)
 				}}
-				className="gap-4"
+				// Explore's browser fills the remaining height; the other tabs size to their content.
+				className={cn('gap-4', activeTab === 'explore' && 'flex-1')}
 			>
-				<div className="relative z-30 mx-auto flex justify-center">
+				<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
 					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-testid="profiles-tabs">
-						<TabsTrigger value="download" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
+						<TabsTrigger value="download" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
 							<Link2 data-icon="inline-start" aria-hidden />
 							{t('wizard.steps.url')}
 						</TabsTrigger>
-						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 flex-[1.22_1_0] rounded-full border-0 px-3 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+						{exploreEnabled ? (
+							<TabsTrigger value="explore" className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
+								<Compass data-icon="inline-start" aria-hidden />
+								{t('explore.tabLabel')}
+								{exploreNoticeSeen ? null : (
+									<Badge variant="info" size="sm">
+										{t('explore.newBadge')}
+									</Badge>
+								)}
+							</TabsTrigger>
+						) : null}
+						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
 							<Inbox data-icon="inline-start" aria-hidden />
 							{t('queue.tabLabel')}
-							{queueCount > 0 ? (
+							{attentionCount > 0 ? (
+								<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" title={t('queue.attentionBadge', {count: attentionCount})} aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
+									{attentionCount}
+								</Badge>
+							) : queueCount > 0 ? (
 								<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
 									{queueCount}
 								</Badge>
 							) : null}
 						</TabsTrigger>
-						<TabsTrigger value="profiles" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
+						<TabsTrigger value="profiles" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
 							<Users data-icon="inline-start" aria-hidden />
 							{t('wizard.url.tabs.profiles')}
 						</TabsTrigger>
-						<TabsTrigger value="settings" className="h-12 flex-1 rounded-full border-0 px-4 text-sm data-active:border-transparent">
+						<TabsTrigger value="settings" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
 							<Settings data-icon="inline-start" aria-hidden />
 							{t('wizard.url.tabs.settings')}
 						</TabsTrigger>
 					</TabsList>
-					{showQueueTabTip ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
+					{queueTabTipVisible ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
 				</div>
 
 				<TabsContent value="download" className="flex flex-col gap-4">
@@ -482,10 +467,9 @@ export function DownloadProfilesHome(): ReactNode {
 								defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
 								destination={activeProfileDestination}
 								destinationDetail={activeProfileDestinationDetail}
-								disabled={!urlReady || quickPreparing}
-								preparing={quickPreparing}
+								disabled={!urlReady}
 								onChangeGlobalDestination={() => void chooseWizardFolder()}
-								onDownload={() => void quickDownload()}
+								onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}
 								onEditProfile={openEditor}
 								onManageProfiles={() => selectProfilesTab('profiles')}
 								onNewProfile={() => openEditor(null)}
@@ -493,7 +477,19 @@ export function DownloadProfilesHome(): ReactNode {
 								profilesPrefs={profilesPrefs}
 							/>
 
-							{quickDownloadStatus === 'error' ? <QuickDownloadErrorAlert experience={quickDownloadProbeExperience} message={quickErrorText} onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()} onOpenCookiesSettings={openCookiesSettings} onRetry={() => void retryQuickDownloadFailure()} t={t} /> : null}
+							{quickDownloadStatus === 'error' ? (
+								<QuickDownloadErrorAlert
+									className="mt-2"
+									experience={quickDownloadProbeExperience}
+									message={quickDownloadFailureMessage}
+									onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
+									onOpenCookiesSettings={openCookiesSettings}
+									onSignInWithExplore={openExploreSignIn}
+									onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'home'})}
+									onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'home'})}
+									onRetry={() => void retryQuickDownloadFailure()}
+								/>
+							) : null}
 							{showQuickPartialWarning ? (
 								<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
 									<AlertDescription>{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
@@ -501,12 +497,18 @@ export function DownloadProfilesHome(): ReactNode {
 							) : null}
 
 							<div className="mt-3 grid w-full gap-2 lg:grid-cols-[repeat(2,minmax(0,35rem))] lg:justify-start" data-testid="profiles-action-rows">
-								<ActionRow disabled={!urlReady || quickPreparing} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
+								<ActionRow disabled={!urlReady} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
 								<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={openManualBulkDialog} testId="profiles-bulk-urls" />
 							</div>
 						</CardContent>
 					</Card>
 				</TabsContent>
+
+				{exploreEnabled ? (
+					<TabsContent value="explore" className="flex min-h-0 flex-col">
+						<ExploreTab onEditProfile={openEditor} onNewProfile={() => openEditor(null)} onManageProfiles={() => selectProfilesTab('profiles')} />
+					</TabsContent>
+				) : null}
 
 				<TabsContent value="queue">
 					<QueueManagerTab />

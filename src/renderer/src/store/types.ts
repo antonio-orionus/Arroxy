@@ -12,20 +12,24 @@ import type {
 	DependencyId,
 	DownloadProfile,
 	DownloadProfileRef,
+	ExploreViewState,
 	FormatOption,
 	GraphicsPolicy,
 	HotkeyAccelerator,
 	HotkeyRegistrationStatus,
 	NativeAudioPreference,
 	PlaylistEntry,
+	PlaylistProbeResult,
 	PlaylistScope,
 	PlaylistSelection,
 	PlaylistSortMode,
 	Preset,
 	ProbeError,
+	ProbePlaylistMode,
 	ProbeProgressEvent,
 	ProbeInfoJsonRef,
 	ProbeDegradationReason,
+	JobAuth,
 	QueueItem,
 	QueueLane,
 	QueueOutputTargetChangeResult,
@@ -54,7 +58,10 @@ export type {BulkMetadataCancelReason, BulkMetadataItemStatus, BulkMetadataStatu
 // since every renderer file already imports it as WizardStep.
 export type WizardStep = WizardStepName
 export type AdvancedSettingsTarget = 'cookies' | 'network' | 'hotkey'
-export type MixedUrlPromptSource = 'wizard' | 'quick-download'
+// `url-tab` / `explore`: a quick download asked, and its answer places the row.
+export type MixedUrlPromptSource = 'wizard' | 'url-tab' | 'explore'
+// The home tab a wizard run started from, and lands back on when it ends.
+export type WizardOrigin = 'download' | 'explore'
 
 // Explicit mode tag so consumers don't re-derive intent from
 // `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
@@ -71,6 +78,7 @@ export type GetState = StoreApi<AppState>['getState']
 // playlist enumeration. Owns wizardStep (the canonical "where am I").
 export interface ProbeOrchestratorSlice {
 	wizardStep: WizardStep
+	wizardOrigin: WizardOrigin
 	wizardMode: WizardMode
 	wizardUrl: string
 	wizardTitle: string
@@ -93,6 +101,8 @@ export interface ProbeOrchestratorSlice {
 	// dynamically. Empty pre-probe.
 	wizardWebpageUrl: string
 	wizardProbeInfoJsonRef?: ProbeInfoJsonRef
+	// The single-video probe's auth; the queued item inherits it.
+	wizardProbeAuth?: JobAuth
 	formatsLoading: boolean
 	wizardError: ProbeError | null
 	wizardErrorOrigin: 'formats' | null
@@ -138,6 +148,12 @@ export interface ProbeOrchestratorSlice {
 	quickDownloadProgressCurrent: string | null
 	quickDownloadProgressTitle: string | null
 	quickDownloadProgressRunId: number | null
+	// The needs-choice row this wizard run is the review of (P2-R40). The row
+	// stays until the run queues, which then replaces it. It lives exactly as
+	// long as the run: retries keep it; a new run (a URL submitted, a Bulk run,
+	// another Review) and every exit (Back home, Start over, cookie settings,
+	// Explore sign-in) clear it and leave the row waiting.
+	reviewSourceRowId: string | null
 
 	// videoIds matched on disk by the last folder scan
 	syncedDownloadedIds: string[]
@@ -146,13 +162,14 @@ export interface ProbeOrchestratorSlice {
 	syncScanState: 'idle' | 'scanning' | 'done'
 
 	setWizardUrl: (url: string) => void
-	submitUrl: () => Promise<void>
-	quickDownload: () => Promise<void>
+	submitUrl: (origin?: WizardOrigin) => Promise<void>
 	quickDownloadUrls: (urls: string[]) => Promise<void>
+	// Bulk URLs' failure alert on the URL tab.
 	retryQuickDownloadFailure: () => Promise<void>
 	retryQuickPlaylistCap: () => Promise<void>
 	retryQuickDownloadWithCookies: () => Promise<void>
 	cancelQuickDownload: () => void
+	dismissQuickDownloadFailure: () => void
 	startBulkUrls: (urls: string[]) => void
 	cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void
 	dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>
@@ -182,7 +199,43 @@ export interface ProbeOrchestratorSlice {
 	retryFormatProbe: () => Promise<void>
 	retryProbeWithCookies: () => Promise<void>
 	openCookiesSettings: () => void
+	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore tab.
+	openExploreSignIn: () => void
+	// A needs-choice row's Review: the wizard's playlist step for the link,
+	// from the row's kept probe when there is one, else from a fresh probe.
+	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult) => Promise<void>
 }
+
+// QuickDownload — the in-app ends of the background quick download (P2-R37/R38).
+export interface QuickDownloadSlice {
+	// The URL tab's Quick Download and Explore's Download. `playlistMode` is the
+	// answer to the mixed-URL prompt; without it the intake policy decides.
+	quickDownload: (request: {url: string; entry: Exclude<InAppQuickDownloadEntry, 'downloads'>; title?: string; playlistMode?: Extract<ProbePlaylistMode, 'video' | 'playlist'>}) => Promise<void>
+	// The Downloads tab's resolution of a placeholder row.
+	retryQuickDownloadRow: (itemId: string) => Promise<void>
+	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>
+	chooseQuickDownloadRow: (itemId: string, answer: QuickDownloadRowAnswer) => Promise<void>
+	// "Sign in with Explore" (P2-R51): the failed items waiting for the Explore
+	// sign-in, retried once it is reported. Memory only: a restart forgets them.
+	exploreRetryTargets: readonly ExploreRetryTarget[]
+	// Switches the cookie mode to `explore`, opens Explore, and remembers the
+	// target until Explore reports the sign-in.
+	signInWithExploreThenRetry: (target: ExploreRetryTarget) => Promise<void>
+	// "Use my Explore sign-in and retry": switches the cookie mode to `explore`, then retries now.
+	retryWithExploreSignIn: (target: ExploreRetryTarget) => Promise<void>
+}
+
+// What a failure waiting for the Explore sign-in retries: a probe-error row
+// (probes again), a failed download (downloads again), the wizard's link (only
+// while the URL tab still holds it), or the URL tab's failed quick download.
+export type ExploreRetryTarget = {kind: 'row'; itemId: string} | {kind: 'download'; itemId: string} | {kind: 'wizard'; url: string} | {kind: 'home'}
+
+// Where an in-app quick download started. `downloads`: a Retry or a choice on
+// the row itself, which needs no "Added" toast.
+export type InAppQuickDownloadEntry = 'url-tab' | 'explore' | 'downloads'
+
+// A needs-choice row's answers: all of the collection, the first N loaded, or the wizard's review.
+export type QuickDownloadRowAnswer = 'all' | 'first' | 'review'
 
 // FormatPicker — formats / audio / subtitles / preset state, post-probe.
 export interface FormatPickerSlice {
@@ -278,6 +331,9 @@ export interface QueueSlice {
 	// (e.g. a 290-entry playlist mid-add) doesn't double-submit and produce
 	// duplicate queue items.
 	isSubmittingToQueue: boolean
+	// A one-shot command for the Downloads tab, raised by a toast's View: show
+	// this row. The tab consumes it once the row is on screen.
+	queueFocus: QueueFocus | null
 
 	addToQueue: () => Promise<void>
 	addAndDownloadImmediately: () => Promise<void>
@@ -288,6 +344,8 @@ export interface QueueSlice {
 	resumeItemDownload: (itemId: string) => Promise<void>
 	removeQueueItem: (itemId: string) => Promise<void>
 	retryQueueItem: (itemId: string) => Promise<void>
+	// The Explore offer's "Enable cookies and retry" on a failed download: the stored cookies on, then download again.
+	retryDownloadWithCookies: (itemId: string) => Promise<void>
 	applyQueueSelectionAction: (action: QueueSelectionAction, itemIds: string[]) => Promise<Result<QueueSelectionCommandResult>>
 	changeQueueOutputTarget: (itemIds: string[], outputDir: string) => Promise<Result<QueueOutputTargetChangeResult>>
 	clearCompleted: () => Promise<void>
@@ -296,19 +354,37 @@ export interface QueueSlice {
 	cancelAll: () => Promise<void>
 	openItemFolder: (itemId: string) => Promise<void>
 	openItemUrl: (itemId: string) => void
+	// Opens the Downloads tab (leaving an open wizard) and asks it to show the
+	// row; null when the row is not known yet, which just opens the tab.
+	showQueueItem: (itemId: string | null) => void
+	// Consumes the command `seq` only, so a newer View is never dropped.
+	clearQueueFocus: (seq: number) => void
 }
+
+// `seq` makes a repeated View on the same row a new command.
+export interface QueueFocus {
+	itemId: string
+	seq: number
+}
+
+// Under Explore's address bar after Enter on something the view will not
+// load (P2-R45): a web link on another site (which can be downloaded
+// instead), an address refused outright, or a search over the length cap.
+export type ExploreAddressHint = {kind: 'offsite'; downloadUrl: string} | {kind: 'refused'} | {kind: 'search-too-long'}
 
 export interface UiSlice {
 	uiZoom: number
 	uiTheme: UiTheme
 	aboutDialogOpen: boolean
+	exploreAddressHint: ExploreAddressHint | null
 
 	setUiZoom: (zoom: number) => void
 	setUiTheme: (theme: UiTheme) => void
 	setAboutDialogOpen: (open: boolean) => void
+	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 }
 
-export type ShareTrigger = 'footer' | 'titlebar' | 'about' | 'wizard-card' | 'milestone' | 'high-value-inline'
+export type ShareTrigger = 'footer' | 'about' | 'wizard-card' | 'milestone' | 'high-value-inline'
 
 export interface SystemSlice {
 	initialized: boolean
@@ -326,7 +402,13 @@ export interface SystemSlice {
 	commonPaths: AppSettings['common']['commonPaths']
 	shareDialogOpen: boolean
 	shareDialogTrigger: ShareTrigger | null
+	// The Explore view as main last reported it (no cookies); null until main first answers.
+	exploreView: ExploreViewState | null
+	// Counts the pointer's entries into the native view; a toolbar tooltip opened before the latest one is closed.
+	explorePointerEntries: number
 	initialize: () => Promise<void>
+	// (Re)binds the renderer's one subscription to the Explore view state.
+	bindExploreView: () => void
 	setSplashDismissed: (dismissed: boolean) => void
 	repairWarmup: () => Promise<void>
 	repairYtDlpWithHomebrew: () => Promise<void>
@@ -343,6 +425,7 @@ export interface SystemSlice {
 	setCookiesMode: (mode: CookiesMode) => Promise<void>
 	setCookiesBrowser: (browser: CookiesBrowser) => Promise<void>
 	setProxyUrl: (url: string) => Promise<void>
+	setExploreAdBlock: (enabled: boolean) => Promise<void>
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setBackdropRenderMode: (value: BackdropRenderMode) => Promise<void>
@@ -370,6 +453,15 @@ export interface SystemSlice {
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>
 	dismissMultiProfileHint: () => Promise<void>
+	acknowledgeExploreNotice: () => Promise<void>
+	// Marks the first Explore open done; switches `off` to `explore` only if that is the mode right now. One write.
+	markExploreFirstOpen: () => Promise<void>
+	// The cookie mode to `explore`, the first open marked done (so the open's own
+	// switch has nothing left to do). One write; resolves false when it failed.
+	switchToExploreCookiesMode: () => Promise<boolean>
+	dismissExploreModeNudge: (mode: CookiesMode) => Promise<void>
+	setExploreEnabled: (enabled: boolean) => Promise<void>
+	signOutOfExplore: () => Promise<void>
 }
 
-export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & UiSlice & SystemSlice
+export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice

@@ -1,18 +1,13 @@
-import type {ProbeError, ProbePlaylistMode, QueueItem, QuickDownloadProgressPhase, QuickDownloadStatus} from '@shared/types.js'
+import type {ProbeError, QueueItem, QuickDownloadProgressPhase, QuickDownloadStatus} from '@shared/types.js'
 import {QUEUE_STATUS, type QueueItemStatus} from '@shared/schemas.js'
 
-export type QuickDownloadFailureMessageKey = 'wizard.url.quickProbeFailed' | 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed'
-export type QuickDownloadRetryPlaylistMode = Extract<ProbePlaylistMode, 'video' | 'playlist'>
+// The feedback of a Bulk URLs quick download, prepared in one modal run. A
+// single link's quick download is a placeholder row in Downloads instead.
 
-interface QuickDownloadRetryContext {
-	retryPlaylistMode?: QuickDownloadRetryPlaylistMode
-}
+export type QuickDownloadFailureMessageKey = 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed'
 
-export type QuickDownloadFailure =
-	| ({kind: 'probe'; error: ProbeError} & QuickDownloadRetryContext)
-	| {kind: 'bulk-probe'; error: ProbeError; urls: string[]; failedCount: number}
-	| ({kind: 'prepare'; messageKey: QuickDownloadFailureMessageKey} & QuickDownloadRetryContext)
-	| ({kind: 'queue' | 'exception'; message: string} & QuickDownloadRetryContext)
+// `urls`: what Retry runs again.
+export type QuickDownloadFailure = {kind: 'bulk-probe'; error: ProbeError; urls: string[]; failedCount: number} | {kind: 'prepare'; messageKey: QuickDownloadFailureMessageKey; urls: string[]} | {kind: 'queue' | 'exception'; message: string; urls: string[]}
 
 export interface QuickDownloadFeedbackState {
 	quickDownloadStatus: QuickDownloadStatus

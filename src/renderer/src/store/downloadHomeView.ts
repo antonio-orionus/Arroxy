@@ -10,7 +10,7 @@ import {buildProbeErrorExperience, type ProbeErrorExperience} from './wizard/pro
 import type {QuickDownloadFailure, QuickDownloadFailureMessageKey} from './wizard/quickDownloadFeedback.js'
 
 export type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'Mixed URL' | 'URL' | 'Unsupported URL' | 'Unknown URL'
-export type QuickDownloadFailureMessage = {kind: 'i18n'; key: QuickDownloadFailureMessageKey} | {kind: 'text'; text: string} | {kind: 'probe'; error: ProbeError} | {kind: 'bulk-probe'; error: ProbeError}
+export type QuickDownloadFailureMessage = {kind: 'i18n'; key: QuickDownloadFailureMessageKey} | {kind: 'text'; text: string} | {kind: 'bulk-probe'; error: ProbeError}
 
 export interface DownloadHomeView {
 	activeProfileDestination: string
@@ -25,6 +25,9 @@ export interface DownloadHomeView {
 	hasInput: boolean
 	inputType: DownloadInputType | null
 	openCookiesSettings: ReturnType<typeof useAppStore.getState>['openCookiesSettings']
+	openExploreSignIn: ReturnType<typeof useAppStore.getState>['openExploreSignIn']
+	signInWithExploreThenRetry: ReturnType<typeof useAppStore.getState>['signInWithExploreThenRetry']
+	retryWithExploreSignIn: ReturnType<typeof useAppStore.getState>['retryWithExploreSignIn']
 	profiles: DownloadProfile[]
 	profilesPrefs: DownloadProfilesPrefs | undefined
 	quickDownload: ReturnType<typeof useAppStore.getState>['quickDownload']
@@ -33,7 +36,6 @@ export interface DownloadHomeView {
 	quickDownloadProbeExperience: ProbeErrorExperience | null
 	quickDownloadProgressFailed: ReturnType<typeof useAppStore.getState>['quickDownloadProgressFailed']
 	quickDownloadStatus: ReturnType<typeof useAppStore.getState>['quickDownloadStatus']
-	quickPreparing: boolean
 	removeDownloadProfile: ReturnType<typeof useAppStore.getState>['removeDownloadProfile']
 	retryQuickDownloadFailure: ReturnType<typeof useAppStore.getState>['retryQuickDownloadFailure']
 	retryQuickDownloadWithCookies: ReturnType<typeof useAppStore.getState>['retryQuickDownloadWithCookies']
@@ -47,12 +49,11 @@ export interface DownloadHomeView {
 }
 
 function quickDownloadProbeFailure(failure: QuickDownloadFailure | null): ProbeError | null {
-	return failure?.kind === 'probe' || failure?.kind === 'bulk-probe' ? failure.error : null
+	return failure?.kind === 'bulk-probe' ? failure.error : null
 }
 
 function quickDownloadFailureMessage(failure: QuickDownloadFailure | null): QuickDownloadFailureMessage | null {
 	if (!failure) return null
-	if (failure.kind === 'probe') return {kind: 'probe', error: failure.error}
 	if (failure.kind === 'bulk-probe') return {kind: 'bulk-probe', error: failure.error}
 	if (failure.kind === 'prepare') return {kind: 'i18n', key: failure.messageKey}
 	return {kind: 'text', text: failure.message}
@@ -84,7 +85,11 @@ export function useDownloadHomeView(): DownloadHomeView {
 			dismissCookiesConfigDialog: s.dismissCookiesConfigDialog,
 			hasActiveDownloads: s.queue.some(item => item.status === 'running'),
 			openCookiesSettings: s.openCookiesSettings,
+			openExploreSignIn: s.openExploreSignIn,
+			signInWithExploreThenRetry: s.signInWithExploreThenRetry,
+			retryWithExploreSignIn: s.retryWithExploreSignIn,
 			commonSettings: s.settings?.common,
+			exploreSignedIn: s.exploreView?.signedIn ?? null,
 			chooseWizardFolder: s.chooseWizardFolder,
 			profilesPrefs: s.settings?.profiles,
 			quickDownload: s.quickDownload,
@@ -119,9 +124,9 @@ export function useDownloadHomeView(): DownloadHomeView {
 	const inputType = useMemo(() => detectUrlType(state.wizardUrl), [state.wizardUrl])
 	const quickDownloadFailureText = useMemo(() => quickDownloadFailureMessage(state.quickDownloadFailure), [state.quickDownloadFailure])
 	const quickDownloadProbeFailureError = useMemo(() => quickDownloadProbeFailure(state.quickDownloadFailure), [state.quickDownloadFailure])
-	const quickDownloadProbeExperience = useMemo(() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, commonSettings}) : null), [quickDownloadProbeFailureError, commonSettings])
+	const exploreSignedIn = state.exploreSignedIn
+	const quickDownloadProbeExperience = useMemo(() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, commonSettings, exploreSignedIn}) : null), [quickDownloadProbeFailureError, commonSettings, exploreSignedIn])
 	const hasInput = state.wizardUrl.trim().length > 0
-	const quickPreparing = state.quickDownloadStatus === 'preparing'
 
 	return {
 		...state,
@@ -135,7 +140,6 @@ export function useDownloadHomeView(): DownloadHomeView {
 		profiles,
 		quickDownloadFailureMessage: quickDownloadFailureText,
 		quickDownloadProbeExperience,
-		quickPreparing,
 		urlReady: inputType !== null && inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	}
 }

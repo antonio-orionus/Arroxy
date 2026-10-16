@@ -11,7 +11,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '../
 import {showcasePlaylistEntry, showcaseWatchUrl} from './showcaseContent.js'
 import type {AppState} from '../store/types.js'
 
-const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics']
+const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics', 'Explore']
 const PLAYLIST_PRESETS = [99, 100, 101] as const
 
 function activeScenario(): BrowserMockScenario {
@@ -176,7 +176,7 @@ export function ScenarioGallery(): ReactNode {
 		void applyScenarioWorkbenchState({
 			scenario,
 			params: {playlistCount: urlParams.playlistCount, probeErrorKind: urlParams.probeErrorKind, probeErrorTarget: urlParams.probeErrorTarget, mockStep: urlParams.mockStep},
-			store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, quickDownload: store.quickDownload, setState: setScenarioState}
+			store: {reset: store.reset, setWizardUrl: store.setWizardUrl, submitUrl: store.submitUrl, quickDownload: store.quickDownload, showQueueItem: store.showQueueItem, retryQuickDownloadRow: store.retryQuickDownloadRow, openExploreSignIn: store.openExploreSignIn, setState: setScenarioState}
 		})
 	}, [initialized, scenario, scenario.id, scenario.kind, urlParams.mockStep, urlParams.playlistCount, urlParams.probeErrorKind, urlParams.probeErrorTarget])
 

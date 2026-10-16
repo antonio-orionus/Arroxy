@@ -28,7 +28,11 @@ export function applyQueueProjectionBatch(state: QueueProjectionState, batch: Qu
 	const removes = new Set(batch.removes)
 	const adds = [...batch.adds]
 
-	for (const id of removes) updates.delete(id)
+	// A removed row's update is stale — unless the same id came back in this
+	// batch (a placeholder swap keeps its id), whose updates the bind loop
+	// already ordered after the add.
+	const readded = new Set(adds.flatMap(({items}) => items.map(item => item.id)))
+	for (const id of removes) if (!readded.has(id)) updates.delete(id)
 
 	const prevById = new Map<string, QueueItem>()
 	for (const item of state.queue) prevById.set(item.id, item)
@@ -113,7 +117,10 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		if (!active || get().schedulerPaused === paused) return
 		set(() => ({schedulerPaused: paused}) as Partial<State>)
 	})
+	// Events arrive in order; a remove or an add supersedes the updates queued
+	// before it for that id, so only updates after the newest add survive.
 	const unbindAdded = events.onAdded(evt => {
+		for (const item of evt.items) pendingQueueUpdates.delete(item.id)
 		pendingQueueAdded.push(evt)
 		scheduleFlush()
 	})
@@ -122,6 +129,12 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		scheduleFlush()
 	})
 	const unbindRemoved = events.onRemoved(({itemId}) => {
+		pendingQueueUpdates.delete(itemId)
+		// An add still pending for this id is undone rather than applied after the removal.
+		pendingQueueAdded = pendingQueueAdded.flatMap(evt => {
+			const items = evt.items.filter(item => item.id !== itemId)
+			return items.length > 0 ? [{...evt, items}] : []
+		})
 		pendingQueueRemoved.add(itemId)
 		scheduleFlush()
 	})

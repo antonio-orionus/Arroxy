@@ -1,46 +1,38 @@
 import {parseBulkUrls} from '@shared/bulkUrls.js'
-import i18next from 'i18next'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
-import {QUEUE_STATUS} from '@shared/schemas.js'
-import {isLiveQueueItem} from '@shared/queueActions.js'
-import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
-import type {HotkeyOutcome, HotkeyTriggerPayload, LocalizedError, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem, QuickDownloadStatus} from '@shared/types.js'
+import type {HotkeyOutcome, HotkeyTriggerPayload, ProbeError, ProbePlaylistMode} from '@shared/types.js'
 import type {GetState} from '../types.js'
-import {generateId} from '../helpers.js'
+import {placeQuickDownload, type QuickDownloadFeedback} from '../quickDownload/quickDownloadPipeline.js'
+import {detach} from '../quickDownload/detachedTask.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
 
-// Renderer-side hotkey orchestration. Main presses the bell (a pre-classified
-// trigger); this module runs the same active-profile quick-download pipeline
-// the omnibox uses — probe → prepare → queue — and derives exactly one outcome
-// for every attempt so main can notify on hidden windows.
+// The global hotkey's end of the background quick download. Main presses the
+// bell (a pre-classified trigger); this module takes the link in and hands it
+// to the same pipeline the URL tab and Explore use, then reports the outcome
+// of every attempt so main can notify on a hidden window: one when the row is
+// placed or refused, and a second when the probe leaves the row needing the user.
 //
-// Immediate acknowledgment: a valid single URL is added to the queue as a
-// `probing` placeholder row and the outcome fires right away, before the probe
-// starts. The probe then runs in the background; on success the placeholder is
-// swapped for the real prepared items, on failure it becomes an error row.
-// The user thus sees the attempt land instantly instead of waiting out a
-// ~20s yt-dlp probe in silence.
+// Immediate acknowledgment: a valid single URL lands in Downloads as a
+// placeholder row and `queued` fires at once, before the ~20s probe. A probe
+// that ends as a probe-error or needs-choice row reports a second outcome;
+// the row itself carries the way forward.
 //
-// Hidden-window constraints shape the flow: the renderer cannot read the
+// Hidden-window constraints shape the intake: the renderer cannot read the
 // clipboard (main already did), must not open dialogs or pop the window, and
-// must never touch the omnibox or wizard state. Anything needing user review —
-// playlists that want the review step, incomplete cookies setup — ends as
-// `needs-review` instead of navigating the UI.
+// must never touch the URL tab or the wizard. So the hotkey never asks (ADR
+// 0007): a mixed URL resolves to its video, and an incomplete cookies setup
+// surfaces as the probe's own failure rather than a dialog.
 //
-// Parallel presses: probes are keyed per queue item, so a second hotkey on a
-// DIFFERENT URL starts its own probing row (no `busy`). Only a collision with
-// the in-app quick-download pipeline (`quickDownloadStatus === 'preparing'`)
-// reports `busy`. A second press on the SAME URL hits the live-dedupe
-// (`probing` counts as live) and reports `already-queued`.
+// Parallel presses: probes are keyed per row, so a press on another link
+// starts its own row. A press on a link already live in the queue (a
+// placeholder counts) is `already-queued`. `busy` is left for the moment
+// before the renderer has its settings.
 
 export type HotkeyIntake = {kind: 'run'; url: string; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
 
-// Pure: trigger + the two store fields that gate it → run or outcome.
-export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quickDownloadStatus: QuickDownloadStatus; queue: QueueItem[]}): HotkeyIntake {
-	if (state.quickDownloadStatus === 'preparing') return {kind: 'outcome', outcome: 'busy'}
+// Pure: trigger → run or outcome.
+export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload): HotkeyIntake {
 	if (trigger.kind === 'empty') return {kind: 'outcome', outcome: 'invalid-clipboard'}
 	if (trigger.kind === 'multiple') return {kind: 'outcome', outcome: 'multiple-urls'}
 
@@ -52,138 +44,65 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload, state: {quick
 	if (!candidate) return {kind: 'outcome', outcome: 'invalid-clipboard'}
 	const url = rewriteYouTubeChannelRoot(candidate)
 
-	// Dedupe against live queue items only — completed/failed/cancelled
-	// downloads never block a fresh hotkey request. Probing placeholders are
-	// live: a second press on the same URL is already-queued, not busy.
-	const live = state.queue.some(item => isLiveQueueItem(item) && item.url === url)
-	if (live) return {kind: 'outcome', outcome: 'already-queued'}
-
-	// One shared rule with the omnibox, read at the `hotkey` entry point: it
-	// resolves a mixed URL to its video rather than bouncing the press back to
-	// the app. "Unknown" is every non-YouTube site — the wizard probes those
-	// happily, so the hotkey does too; only an unparseable URL is invalid.
+	// One shared rule with the in-app entry points, read at the `hotkey` entry
+	// point: it resolves a mixed URL to its video rather than bouncing the press
+	// back to the app. "Unknown" is every non-YouTube site — the wizard probes
+	// those happily, so the hotkey does too.
 	const action = policyForUrlIntent(classifyUrlIntent(url), 'hotkey')
 	if (!('playlistMode' in action)) return {kind: 'outcome', outcome: 'needs-review'}
 	return {kind: 'run', url, playlistMode: action.playlistMode}
 }
 
-// Outcome for a failed probe. Cookies-config failures need the settings
-// dialog (a human), everything else is a plain submission failure.
-export function outcomeForProbeError(error: ProbeError): HotkeyOutcome {
-	if (error.kind === 'other' && error.code === 'cookies_config') return 'needs-review'
+// Outcome for a failed preparation. A cookies-config failure needs the
+// cookie settings finished first; any other failure is plain, and its row
+// offers Retry.
+export function outcomeForProbeError(error: ProbeError | null): HotkeyOutcome {
+	if (error?.kind === 'other' && error.code === 'cookies_config') return 'cookies-setup'
 	return 'submission-failed'
 }
 
-export function outcomeForProbe(probe: ProbeResult): HotkeyOutcome | null {
-	return probe.kind === 'playlist' ? 'needs-review' : null
-}
-
-// LocalizedError for a failed probe, reported onto the probing row. Prefers
-// the ytdlp classifier's verbatim stderr; falls back to the generic probe
-// failure message. The kind always maps to the probe-stage error template.
-function errorForOutcome(outcome: HotkeyOutcome): LocalizedError {
-	return {kind: 'unknown', raw: i18next.t(HOTKEY_OUTCOME_COPY[outcome].key)}
-}
-
-function probeErrorForQueueItem(error: ProbeError, outcome: HotkeyOutcome): LocalizedError {
-	if (error.kind === 'ytdlp') return error.error
-	return errorForOutcome(outcome)
-}
-
-// The probing placeholder. Title is the URL until the probe resolves the real
-// one; thumbnail empty renders the existing shimmer. The active download
-// profile supplies format label and output target so the row never lies about
-// where the download will land. `job` is the unresolved placeholder — the
-// scheduler cannot start it (schema + DownloadService both refuse).
-function hotkeyProbingItem(url: string, get: GetState): QueueItem {
-	const {profile} = resolveActiveDownloadProfile(get().settings?.profiles)
-	return {
-		id: generateId(),
-		url,
-		title: url,
-		thumbnail: '',
-		outputDir: resolveDownloadProfileOutputDir(profile, {currentOutputDir: '', defaultOutputDir: get().settings?.common?.defaultOutputDir ?? ''}),
-		formatLabel: downloadProfileLabel(profile),
-		status: QUEUE_STATUS.probing,
-		lane: 'normal',
-		progressPercent: 0,
-		progressDetail: null,
-		lastStatus: null,
-		error: null,
-		addedAt: new Date().toISOString(),
-		finishedAt: null,
-		artifacts: [],
-		writeM3u: false,
-		retryCount: 0,
-		job: {kind: 'unresolved', extractor: '', extractorKey: ''}
+function hotkeyFeedback(report: (outcome: HotkeyOutcome) => void): QuickDownloadFeedback {
+	return event => {
+		switch (event.kind) {
+			case 'added':
+				report('queued')
+				return
+			case 'already-queued':
+			case 'nothing-new':
+				report('already-queued')
+				return
+			case 'not-added':
+				report('submission-failed')
+				return
+			case 'failed':
+				report(outcomeForProbeError(event.probeError))
+				return
+			case 'needs-choice':
+				report('needs-review')
+				return
+			case 'queued':
+				return
+		}
 	}
 }
 
 export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: GetState): Promise<void> {
-	const report = (outcome: HotkeyOutcome, url?: string): void => {
-		void window.appApi.hotkey.reportOutcome({outcome, ...(url ? {url} : {})})
+	const triggerUrl = trigger.kind === 'single' ? trigger.url : undefined
+	const report = (outcome: HotkeyOutcome, url = triggerUrl): void => {
+		detach(window.appApi.hotkey.reportOutcome({outcome, ...(url ? {url} : {})}), 'hotkey outcome report')
 	}
 	if (!get().settings) {
-		report('busy', trigger.kind === 'single' ? trigger.url : undefined)
+		report('busy')
 		return
 	}
-
-	const intake = intakeHotkeyTrigger(trigger, {quickDownloadStatus: get().quickDownloadStatus, queue: get().queue})
+	const intake = intakeHotkeyTrigger(trigger)
 	if (intake.kind === 'outcome') {
-		report(intake.outcome, trigger.kind === 'single' ? trigger.url : undefined)
+		report(intake.outcome)
 		return
 	}
-
-	// Add the placeholder FIRST, then acknowledge. The row reaches the
-	// Downloads view via the ordinary queue snapshot/added events.
-	const placeholder = hotkeyProbingItem(intake.url, get)
-	const addResult = await window.appApi.queue.cmd.add([placeholder])
-	if (!addResult.ok) {
-		report(addResult.error.code === 'conflict' ? 'already-queued' : 'submission-failed', intake.url)
-		return
-	}
-	// Immediate acknowledgment — the press is now visible in Downloads.
-	report('queued', intake.url)
-
-	// Probe in the background, keyed by item id so cancel/remove of this row
-	// aborts exactly this probe. No probeCancel() here: the wizard's probes
-	// are unrelated and must survive.
-	const itemId = placeholder.id
-	try {
-		const result = await window.appApi.downloads.probe({url: intake.url, playlistMode: intake.playlistMode, ownerKey: itemId})
-		if (!result.ok) {
-			const outcome = outcomeForProbeError(result.error)
-			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: probeErrorForQueueItem(result.error, outcome)})
-			if (failed.ok) report(outcome, intake.url)
-			return
-		}
-		const review = outcomeForProbe(result.data)
-		// Background hotkeys never open or mutate wizard review state. Playlist
-		// preparation can require cap/selection UI, so leave it as a terminal
-		// needs-review row instead of calling the interactive quick-download path.
-		if (review) {
-			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('needs-review')})
-			if (failed.ok) report('needs-review', intake.url)
-			return
-		}
-		// Prepare directly from the active profile. Reusing the interactive quick-
-		// download orchestrator here would leak failures into wizard state.
-		const prepared = prepareActiveProfileQueueSubmission(result.data, get(), 'normal')
-		if (!prepared || prepared.items.length === 0) {
-			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
-			if (failed.ok) report('submission-failed', intake.url)
-			return
-		}
-		// The main-process swap is the commit point. A stale placeholder means the
-		// user already cancelled/removed the attempt, so do not emit a late error.
-		const replaced = await window.appApi.queue.cmd.replaceProbing({itemId, items: prepared.items})
-		if (!replaced.ok) {
-			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
-			if (failed.ok) report('submission-failed', intake.url)
-		}
-	} catch (error) {
-		console.error('[hotkey] submission failed', error)
-		const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: errorForOutcome('submission-failed')})
-		if (failed.ok) report('submission-failed', intake.url)
-	}
+	await placeQuickDownload(
+		{url: intake.url, playlistMode: intake.playlistMode},
+		get,
+		hotkeyFeedback(outcome => report(outcome, intake.url))
+	)
 }

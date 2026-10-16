@@ -1,7 +1,7 @@
 import {useMemo, type ReactNode} from 'react'
 import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
-import {Ban, Captions, CheckCircle2, ChevronDown, Clock, Loader2, Pause, PauseCircle, XCircle} from 'lucide-react'
+import {Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clock, Loader2, Pause, PauseCircle, X, XCircle} from 'lucide-react'
 import type {StatusKey} from '@shared/schemas.js'
 import type {QueueItem, QueueItemStatus} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
@@ -17,10 +17,11 @@ const STATUS_META: Record<
 	{
 		variant: 'secondary' | 'info' | 'warning' | 'success' | 'destructive'
 		icon: ReactNode
-		labelKey: 'queue.item.statusProbing' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'
+		labelKey: 'queue.item.statusProbing' | 'queue.item.statusNeedsChoice' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'
 	}
 > = {
 	probing: {variant: 'secondary', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusProbing'},
+	'needs-choice': {variant: 'warning', icon: <CircleHelp size={12} aria-hidden />, labelKey: 'queue.item.statusNeedsChoice'},
 	pending: {variant: 'secondary', icon: <Clock size={12} aria-hidden />, labelKey: 'queue.item.statusPending'},
 	running: {variant: 'info', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusRunning'},
 	'paused-held': {variant: 'warning', icon: <PauseCircle size={12} aria-hidden />, labelKey: 'queue.item.statusHeld'},
@@ -87,7 +88,8 @@ function doneNotice(item: QueueItem): DoneNotice | undefined {
 	return item.status === 'done' && item.lastStatus ? DONE_NOTICES[item.lastStatus.key] : undefined
 }
 
-export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; t: TFunction}): ColumnDef<QueueTableFeatures, QueueItem>[] {
+// `onCancelProbing`: a probing row's own Cancel, which aborts its probe and drops the row.
+export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelProbing, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; onCancelProbing: (itemId: string) => void; t: TFunction}): ColumnDef<QueueTableFeatures, QueueItem>[] {
 	return useMemo(
 		() =>
 			columnHelper.columns([
@@ -117,11 +119,32 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 						const meta = STATUS_META[item.status]
 						const detail = rowStatusDetail(item, t)
 						return (
-							<div className="flex min-w-[8rem] flex-col gap-1">
-								<Badge variant={meta.variant} size="sm" className="w-fit uppercase tracking-wide">
-									{meta.icon}
-									{statusText(item, t)}
-								</Badge>
+							<div className="flex min-w-0 flex-col gap-1">
+								<div className="flex min-w-0 flex-nowrap items-center gap-1">
+									{/* A status wider than its column wraps at a word boundary: shown whole, never cut. */}
+									<Badge variant={meta.variant} size="sm" className="h-auto min-h-4.5 max-w-full min-w-0 shrink justify-start whitespace-normal py-0.5 text-start leading-tight uppercase tracking-wide">
+										{meta.icon}
+										<span data-slot="badge-label" className="min-w-0">
+											{statusText(item, t)}
+										</span>
+									</Badge>
+									{item.status === 'probing' ? (
+										<Button
+											type="button"
+											variant="ghost"
+											size="icon-xs"
+											aria-label={t('queue.item.cancel')}
+											title={t('queue.item.cancel')}
+											onClick={event => {
+												event.stopPropagation()
+												onCancelProbing(item.id)
+											}}
+											data-testid={`queue-cancel-probing-${item.id}`}
+										>
+											<X aria-hidden />
+										</Button>
+									) : null}
+								</div>
 								{detail ? (
 									<span
 										data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId}
@@ -194,6 +217,6 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, t}: {expa
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
 				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
 			]),
-		[expandedIds, onToggleExpanded, t]
+		[expandedIds, onCancelProbing, onToggleExpanded, t]
 	)
 }

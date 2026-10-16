@@ -19,7 +19,7 @@ export function MixedUrlPromptDialog(): ReactNode {
 	const {mixedUrlPromptOpen, mixedUrlPromptSource, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore()
 	const playlistButtonRef = useRef<HTMLButtonElement>(null)
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
-	const isQuickDownload = mixedUrlPromptSource === 'quick-download'
+	const isQuickDownload = mixedUrlPromptSource === 'url-tab' || mixedUrlPromptSource === 'explore'
 
 	return (
 		<Dialog open={mixedUrlPromptOpen} onOpenChange={open => !open && cancelMixedPrompt()}>
