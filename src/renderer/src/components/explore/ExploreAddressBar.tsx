@@ -36,6 +36,8 @@ export function ExploreAddressBar({url, onSubmit, onEdit}: ExploreAddressBarProp
 	function onKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
 		keepSelectionRef.current = false
 		if (event.key === 'Enter') {
+			// Enter while an input method is composing confirms the candidate (CJK), not the address.
+			if (event.nativeEvent.isComposing) return
 			event.preventDefault()
 			submit(event.currentTarget)
 		} else if (event.key === 'Escape') {
