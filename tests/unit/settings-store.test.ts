@@ -55,7 +55,7 @@ describe('settings and recent stores', () => {
 
 		const updated = await store.update({common: {exploreNoticeSeen: true, exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: 'browser'}})
 		expect(updated.common).toMatchObject({exploreNoticeSeen: true, exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: 'browser'})
-		expect((await store.get()).common.exploreModeNudgeDismissedFor).toBe('browser')
+		expect((await new SettingsStore(userData, baseDefaults).get()).common).toMatchObject({exploreNoticeSeen: true, exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: 'browser'})
 	})
 
 	it('leaves the Explore ad blocker setting unset (unset means on) and persists an explicit choice', async () => {
