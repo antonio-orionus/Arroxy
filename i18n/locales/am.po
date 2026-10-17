@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "የYouTube መነሻ"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "ቅርጸት፣ ንዑስ ርዕሶች እና ሌሎችን ምረጥ…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "በይነተገናኝ ማውረድ፦ ቅርጸት፣ ንዑስ ርዕሶች እና ሌሎችን ምረጥ…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

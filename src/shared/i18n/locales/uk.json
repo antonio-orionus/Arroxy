@@ -844,7 +844,7 @@
 			"offsiteHintHost": "Explore відкриває лише YouTube. {{host}}",
 			"searchTooLong": "Запит задовгий.",
 			"downloadWithProfile": "Завантажити · {{profileName}}",
-			"interactiveHint": "Вибрати формат, субтитри та інше…",
+			"interactiveHint": "Інтерактивне завантаження: вибрати формат, субтитри та інше…",
 			"grabUnavailable": "Відкрий відео, плейлист або канал, щоб завантажити його",
 			"compactLayout": "Компактний вигляд",
 			"fullLayout": "Показати повний вигляд",

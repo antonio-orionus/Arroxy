@@ -848,7 +848,7 @@
 			"offsiteHintHost": "Explore durchstöbert nur YouTube. {{host}}",
 			"searchTooLong": "Diese Suche ist zu lang.",
 			"downloadWithProfile": "Download · {{profileName}}",
-			"interactiveHint": "Format, Untertitel und mehr wählen…",
+			"interactiveHint": "Interaktiver Download: Format, Untertitel und mehr wählen…",
 			"grabUnavailable": "Öffne ein Video, eine Playlist oder einen Kanal, um herunterzuladen",
 			"compactLayout": "Kompaktes Layout",
 			"fullLayout": "Volles Layout anzeigen",

@@ -773,7 +773,7 @@
 			"offsiteHintHost": "Explore 只瀏覽 YouTube。{{host}}",
 			"searchTooLong": "搜尋內容太長。",
 			"downloadWithProfile": "下載 · {{profileName}}",
-			"interactiveHint": "選擇格式、字幕等…",
+			"interactiveHint": "互動式下載：選擇格式、字幕等…",
 			"grabUnavailable": "開啟影片、播放清單或頻道即可下載",
 			"compactLayout": "精簡版面",
 			"fullLayout": "顯示完整版面",

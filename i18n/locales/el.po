@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "Αρχική του YouTube"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "Επίλεξε μορφή, υπότιτλους και άλλα…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Διαδραστική λήψη: επίλεξε μορφή, υπότιτλους και άλλα…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

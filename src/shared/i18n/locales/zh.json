@@ -755,7 +755,7 @@
 			"offsiteHintHost": "Explore 只浏览 YouTube。{{host}}",
 			"searchTooLong": "搜索内容太长。",
 			"downloadWithProfile": "下载 · {{profileName}}",
-			"interactiveHint": "选择格式、字幕等…",
+			"interactiveHint": "交互式下载：选择格式、字幕等…",
 			"grabUnavailable": "打开视频、播放列表或频道即可下载",
 			"compactLayout": "紧凑布局",
 			"fullLayout": "显示完整布局",

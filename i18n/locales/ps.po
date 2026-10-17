@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "د YouTube کور"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "فارمټ، ساب ټایټلونه او نور وټاکئ…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "تعاملي ډاونلوډ: فارمټ، ساب ټایټلونه او نور وټاکئ…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

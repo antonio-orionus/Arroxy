@@ -778,7 +778,7 @@
 			"offsiteHintHost": "Explore सिर्फ़ YouTube ब्राउज़ करता है। {{host}}",
 			"searchTooLong": "वह खोज बहुत लंबी है।",
 			"downloadWithProfile": "डाउनलोड · {{profileName}}",
-			"interactiveHint": "फ़ॉर्मैट, उपशीर्षक वगैरह चुनें…",
+			"interactiveHint": "इंटरैक्टिव डाउनलोड: फ़ॉर्मैट, उपशीर्षक वगैरह चुनें…",
 			"grabUnavailable": "डाउनलोड करने के लिए कोई वीडियो, प्लेलिस्ट या चैनल खोलें",
 			"compactLayout": "कॉम्पैक्ट लेआउट",
 			"fullLayout": "पूरा लेआउट दिखाएँ",

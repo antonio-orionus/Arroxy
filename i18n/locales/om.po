@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "Mana YouTube"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "Formaata, barruu jalaa fi kkf filadhu…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Buufata walnaqqee: formaata, barruu jalaa fi kkf filadhu…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

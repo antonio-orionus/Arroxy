@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "YouTube 首頁"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "選擇格式、字幕等…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "互動式下載：選擇格式、字幕等…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

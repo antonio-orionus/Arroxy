@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "YouTube почетна"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "Изабери формат, титлове и још тога…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Интерактивно преузимање: изабери формат, титлове и још тога…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

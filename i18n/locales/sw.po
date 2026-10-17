@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "Mwanzo wa YouTube"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "Chagua fomati, manukuu na zaidi…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Upakuaji shirikishi: chagua fomati, manukuu na zaidi…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

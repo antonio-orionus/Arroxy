@@ -391,7 +391,7 @@ msgid "YouTube home"
 msgstr ""
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
+msgid "Interactive Download: choose format, subtitles and more…"
 msgstr ""
 
 msgctxt "explore.toolbar.offsiteDownload"

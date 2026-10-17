@@ -392,8 +392,8 @@ msgid "YouTube home"
 msgstr "Trang chủ YouTube"
 
 msgctxt "explore.toolbar.interactiveHint"
-msgid "Choose format, subtitles and more…"
-msgstr "Chọn định dạng, phụ đề và hơn thế…"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Tải tương tác: chọn định dạng, phụ đề và hơn thế…"
 
 msgctxt "explore.toolbar.offsiteDownload"
 msgid "Download this link"

@@ -822,7 +822,7 @@
 			"offsiteHintHost": "Explore が閲覧できるのは YouTube だけです。{{host}}",
 			"searchTooLong": "検索語が長すぎます。",
 			"downloadWithProfile": "ダウンロード · {{profileName}}",
-			"interactiveHint": "形式や字幕などを選択…",
+			"interactiveHint": "インタラクティブダウンロード：形式や字幕などを選択…",
 			"grabUnavailable": "動画、プレイリスト、チャンネルを開くとダウンロードできます",
 			"compactLayout": "コンパクト表示",
 			"fullLayout": "通常の表示に戻す",

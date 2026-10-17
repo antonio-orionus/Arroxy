@@ -23,7 +23,7 @@ vi.mock('@tanstack/react-virtual', () => ({
 const INITIAL_STORE = useAppStore.getState()
 const HOME: ExploreViewState = {url: 'https://www.youtube.com/', title: 'YouTube', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'}
 const WATCH_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-const INTERACTIVE_HINT = 'Choose format, subtitles and more…'
+const INTERACTIVE_HINT = 'Interactive Download: choose format, subtitles and more…'
 
 function activeProfileName(): string {
 	return resolveActiveDownloadProfile(useAppStore.getState().settings?.profiles).profile.name

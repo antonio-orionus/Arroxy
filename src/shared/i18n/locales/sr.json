@@ -824,7 +824,7 @@
 			"offsiteHintHost": "Explore прегледа само YouTube. {{host}}",
 			"searchTooLong": "Тај упит је предугачак.",
 			"downloadWithProfile": "Преузми · {{profileName}}",
-			"interactiveHint": "Изабери формат, титлове и још тога…",
+			"interactiveHint": "Интерактивно преузимање: изабери формат, титлове и још тога…",
 			"grabUnavailable": "Отвори видео, плејлисту или канал за преузимање",
 			"compactLayout": "Компактан распоред",
 			"fullLayout": "Прикажи пун распоред",
