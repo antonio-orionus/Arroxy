@@ -607,6 +607,7 @@
 			"format": "Μορφή",
 			"outputTarget": "Προορισμός εξόδου",
 			"artifacts": "Αρχεία εξόδου",
+			"size": "Μέγεθος",
 			"added": "Προστέθηκε",
 			"finished": "Ολοκληρώθηκε",
 			"notAvailable": "—",

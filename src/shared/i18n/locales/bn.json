@@ -563,6 +563,7 @@
 			"format": "ফরম্যাট",
 			"outputTarget": "আউটপুট গন্তব্য",
 			"artifacts": "আউটপুট ফাইলগুলি",
+			"size": "আকার",
 			"added": "যোগ করা হয়েছে",
 			"finished": "শেষ হয়েছে",
 			"notAvailable": "—",

@@ -592,6 +592,7 @@
 			"format": "Формат",
 			"outputTarget": "Излазно одредиште",
 			"artifacts": "Излазне датотеке",
+			"size": "Величина",
 			"added": "Додато",
 			"finished": "Завршено",
 			"notAvailable": "—",

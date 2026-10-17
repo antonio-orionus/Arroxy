@@ -584,6 +584,7 @@
 			"format": "Định dạng",
 			"outputTarget": "Đích đầu ra",
 			"artifacts": "Tệp đầu ra",
+			"size": "Kích thước",
 			"added": "Đã thêm",
 			"finished": "Đã hoàn tất",
 			"notAvailable": "—",

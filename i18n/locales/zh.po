@@ -1039,6 +1039,10 @@ msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "显示 {{title}} 的文件"
 
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "大小"
+
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
 msgstr "按 {{label}} 排序"

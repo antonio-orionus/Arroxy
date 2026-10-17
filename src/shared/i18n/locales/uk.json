@@ -612,6 +612,7 @@
 			"format": "Формат",
 			"outputTarget": "Папка виводу",
 			"artifacts": "Вихідні файли",
+			"size": "Розмір",
 			"added": "Додано",
 			"finished": "Завершено",
 			"notAvailable": "—",

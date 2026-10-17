@@ -554,6 +554,7 @@
 			"format": "格式",
 			"outputTarget": "輸出目的地",
 			"artifacts": "產出檔案",
+			"size": "大小",
 			"added": "加入時間",
 			"finished": "完成時間",
 			"notAvailable": "—",

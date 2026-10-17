@@ -554,6 +554,7 @@
 			"format": "ቅርጸት",
 			"outputTarget": "የውጤት መድረሻ",
 			"artifacts": "የውጤት ፋይሎች",
+			"size": "መጠን",
 			"added": "ታክሏል",
 			"finished": "ተጠናቋል",
 			"notAvailable": "—",

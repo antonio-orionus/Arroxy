@@ -591,6 +591,7 @@
 			"format": "Formato",
 			"outputTarget": "Destino de saída",
 			"artifacts": "Arquivos gerados",
+			"size": "Tamanho",
 			"added": "Adicionado",
 			"finished": "Concluído",
 			"notAvailable": "—",

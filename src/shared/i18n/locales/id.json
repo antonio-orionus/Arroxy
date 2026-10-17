@@ -604,6 +604,7 @@
 			"format": "Format",
 			"outputTarget": "Sasaran keluaran",
 			"artifacts": "Artefak",
+			"size": "Ukuran",
 			"added": "Ditambahkan",
 			"finished": "Selesai",
 			"notAvailable": "—",

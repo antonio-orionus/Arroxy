@@ -604,6 +604,7 @@
 			"format": "Формат",
 			"outputTarget": "Папка назначения",
 			"artifacts": "Файлы",
+			"size": "Размер",
 			"added": "Добавлено",
 			"finished": "Завершено",
 			"notAvailable": "—",

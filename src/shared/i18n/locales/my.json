@@ -570,6 +570,7 @@
 			"format": "ဖော်မတ်",
 			"outputTarget": "ထုတ်လွှတ်မည့်နေရာ",
 			"artifacts": "ထွက်လာသော ဖိုင်များ",
+			"size": "အရွယ်အစား",
 			"added": "ထည့်ခဲ့သည်",
 			"finished": "ပြီးဆုံး",
 			"notAvailable": "—",

@@ -599,6 +599,7 @@
 			"format": "Format",
 			"outputTarget": "Miejsce docelowe",
 			"artifacts": "Artefakty",
+			"size": "Rozmiar",
 			"added": "Dodano",
 			"finished": "Ukończono",
 			"notAvailable": "—",

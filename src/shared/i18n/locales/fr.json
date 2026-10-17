@@ -607,6 +607,7 @@
 			"format": "Format",
 			"outputTarget": "Destination de sortie",
 			"artifacts": "Fichiers créés",
+			"size": "Taille",
 			"added": "Ajouté",
 			"finished": "Terminé",
 			"notAvailable": "—",

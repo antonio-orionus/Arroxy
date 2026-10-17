@@ -592,6 +592,7 @@
 			"format": "التنسيق",
 			"outputTarget": "وجهة الإخراج",
 			"artifacts": "الملفات الناتجة",
+			"size": "الحجم",
 			"added": "أُضيف",
 			"finished": "انتهى",
 			"notAvailable": "—",

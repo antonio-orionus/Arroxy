@@ -591,6 +591,7 @@
 			"format": "形式",
 			"outputTarget": "出力先",
 			"artifacts": "生成ファイル",
+			"size": "サイズ",
 			"added": "追加日時",
 			"finished": "完了",
 			"notAvailable": "—",

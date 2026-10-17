@@ -1039,6 +1039,10 @@ msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "{{title}}의 결과물 표시"
 
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "크기"
+
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
 msgstr "{{label}} 기준 정렬"

@@ -604,6 +604,7 @@
 			"format": "Format",
 			"outputTarget": "Ausgabeziel",
 			"artifacts": "Ausgabedateien",
+			"size": "Größe",
 			"added": "Hinzugefügt",
 			"finished": "Abgeschlossen",
 			"notAvailable": "—",

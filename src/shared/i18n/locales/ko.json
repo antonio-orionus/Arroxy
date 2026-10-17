@@ -575,6 +575,7 @@
 			"format": "형식",
 			"outputTarget": "출력 대상",
 			"artifacts": "결과물",
+			"size": "크기",
 			"added": "추가됨",
 			"finished": "완료 시간",
 			"notAvailable": "—",

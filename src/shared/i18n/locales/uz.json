@@ -619,6 +619,7 @@
 			"format": "Format",
 			"outputTarget": "Natija manzili",
 			"artifacts": "Natija fayllari",
+			"size": "Hajm",
 			"added": "Qo‘shilgan",
 			"finished": "Tugagan",
 			"notAvailable": "—",

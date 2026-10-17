@@ -554,6 +554,7 @@
 			"format": "รูปแบบ",
 			"outputTarget": "ปลายทางผลลัพธ์",
 			"artifacts": "ไฟล์ผลลัพธ์",
+			"size": "ขนาด",
 			"added": "เพิ่มเมื่อ",
 			"finished": "เสร็จเมื่อ",
 			"notAvailable": "—",

@@ -546,6 +546,7 @@
 			"format": "格式",
 			"outputTarget": "输出目标",
 			"artifacts": "输出文件",
+			"size": "大小",
 			"added": "已添加",
 			"finished": "已完成",
 			"notAvailable": "—",

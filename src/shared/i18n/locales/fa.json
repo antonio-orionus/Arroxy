@@ -584,6 +584,7 @@
 			"format": "قالب",
 			"outputTarget": "مقصد خروجی",
 			"artifacts": "فایل‌های خروجی",
+			"size": "اندازه",
 			"added": "افزوده‌شده",
 			"finished": "پایان‌یافته",
 			"notAvailable": "—",
