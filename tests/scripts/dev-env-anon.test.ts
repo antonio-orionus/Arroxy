@@ -25,6 +25,8 @@ async function readSettings(userData: string): Promise<{common: Record<string, u
 }
 
 afterEach(async () => {
+	// Before the cleanup reads: a stubbed fs call must not outlive its test.
+	vi.restoreAllMocks()
 	await Promise.all(temps.splice(0).map(dir => fs.rm(dir, {recursive: true, force: true})))
 })
 
@@ -76,10 +78,10 @@ describe('anonymous dev profile', () => {
 		// The read fails, the overwrite would not. Stubbed rather than chmod'ed:
 		// Windows has no write-only file mode.
 		const denied = Object.assign(new Error('EACCES: permission denied'), {code: 'EACCES'})
-		const readFile = vi.spyOn(fs, 'readFile').mockRejectedValueOnce(denied)
+		vi.spyOn(fs, 'readFile').mockRejectedValueOnce(denied)
 
 		await expect(prepareAnonymousDevProfile(userData)).rejects.toMatchObject({code: 'EACCES'})
-		readFile.mockRestore()
+		vi.restoreAllMocks()
 		expect(JSON.parse(await fs.readFile(file, 'utf8'))).toEqual({common: {uiTheme: 'dark'}})
 	})
 
