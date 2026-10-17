@@ -15,8 +15,6 @@ Descarga videos, Shorts, música, canales, podcasts o pistas de audio de **YouTu
 
 [![Únete a la comunidad de Discord](https://img.shields.io/badge/%C3%9Anete%20a%20la%20comunidad%20de%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Demo de Arroxy" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.

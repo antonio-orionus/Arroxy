@@ -15,8 +15,6 @@
 
 [![Discord hamjamiyatiga qo'shiling](https://img.shields.io/badge/Discord%20hamjamiyatiga%20qo%27shiling-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Arroxy demosi" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.

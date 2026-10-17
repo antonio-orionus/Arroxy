@@ -99,7 +99,6 @@ export const tr = {
     "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 4K HDR'a kadar ya da MP3 / AAC / Opus olarak. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
-  demo_alt: "Arroxy demosu",
   star_cta:
     "Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yardım eder.",
   ai_notice:

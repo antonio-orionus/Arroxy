@@ -15,8 +15,6 @@
 
 [![Εγγραφείτε στην κοινότητα Discord](https://img.shields.io/badge/%CE%95%CE%B3%CE%B3%CF%81%CE%B1%CF%86%CE%B5%CE%AF%CF%84%CE%B5%20%CF%83%CF%84%CE%B7%CE%BD%20%CE%BA%CE%BF%CE%B9%CE%BD%CF%8C%CF%84%CE%B7%CF%84%CE%B1%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Demo του Arroxy" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Αν το Arroxy σας εξοικονομεί χρόνο, ένα ⭐ βοηθά άλλους να το βρουν.

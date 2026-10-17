@@ -99,7 +99,6 @@ export const sw = {
     "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 4K HDR kwa fps 60, au kama MP3 / AAC / Opus. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
-  demo_alt: "Demo ya Arroxy",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
   ai_notice: "",
   toc_heading: "Yaliyomo",

@@ -99,7 +99,6 @@ export const zh = {
     "从 **YouTube 和 2000+ 个支持的网站**下载视频、Shorts、音乐、频道、播客或音轨 — 最高 4K HDR 60 fps，或导出为 MP3 / AAC / Opus。在 Windows、macOS 和 Linux 本地运行。**无广告、无冗余、无追加销售。**",
   cta_latest: "↓ 下载最新版本",
   cta_website: "官网",
-  demo_alt: "Arroxy 演示",
   star_cta: "如果 Arroxy 帮你节省了时间，点个 ⭐ 让更多人发现它。",
   ai_notice:
     "> 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。",

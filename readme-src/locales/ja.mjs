@@ -100,7 +100,6 @@ export const ja = {
     "**YouTube と 2000 以上の対応サイト**から動画・Shorts・音楽・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 4K HDR 60fps、または MP3 / AAC / Opus として。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**",
   cta_latest: "↓ 最新リリースをダウンロード",
   cta_website: "ウェブサイト",
-  demo_alt: "Arroxy デモ",
   star_cta:
     "Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助けてください。",
   ai_notice:

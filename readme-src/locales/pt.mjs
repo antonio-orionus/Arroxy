@@ -99,7 +99,6 @@ export const pt = {
     "Baixe vídeos, Shorts, músicas, canais, podcasts ou faixas de áudio do **YouTube e de mais de 2000 sites compatíveis** — até 4K HDR a 60 fps, ou como MP3 / AAC / Opus. Roda localmente no Windows, no macOS e no Linux. **Sem anúncios, sem bloatware, sem vendas empurradas.**",
   cta_latest: "↓ Instalar a versão mais recente",
   cta_website: "Site",
-  demo_alt: "Demonstração do Arroxy",
   star_cta:
     "Se o Arroxy economiza seu tempo, uma ⭐ ajuda outras pessoas a encontrá-lo.",
   ai_notice:

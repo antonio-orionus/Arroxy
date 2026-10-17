@@ -12,7 +12,6 @@ export const id = {
   "hero_desc": "Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 4K HDR pada 60 fps, atau sebagai MP3 / AAC / Opus. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**",
   "cta_latest": "↓ Instal Rilis Terbaru",
   "cta_website": "Situs web",
-  "demo_alt": "Demo Arroxy",
   "star_cta": "Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.",
   "ai_notice": "> 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).",
   "toc_heading": "Isi",

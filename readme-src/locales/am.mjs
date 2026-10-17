@@ -100,7 +100,6 @@ export const am = {
     "ቪዲዮዎች፣ Shorts፣ ሙዚቃ፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ ተደገፉ ጣቢያዎች** ያውርዱ — እስከ 4K HDR በ60 fps፣ ወይም MP3 / AAC / Opus። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**",
   cta_latest: "↓ የቅርብ ጊዜ ስሪት አውርድ",
   cta_website: "ድር ጣቢያ",
-  demo_alt: "የ Arroxy ማሳያ",
   star_cta: "Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።",
   ai_notice: "",
   toc_heading: "ዝርዝር",

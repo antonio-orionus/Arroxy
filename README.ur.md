@@ -15,8 +15,6 @@
 
 [![Discord کمیونٹی میں شامل ہوں](https://img.shields.io/badge/Discord%20%DA%A9%D9%85%DB%8C%D9%88%D9%86%D9%B9%DB%8C%20%D9%85%DB%8C%DA%BA%20%D8%B4%D8%A7%D9%85%D9%84%20%DB%81%D9%88%DA%BA-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Arroxy ڈیمو" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 اگر Arroxy آپ کا وقت بچاتا ہے، تو ایک ⭐ دوسروں کو اسے ڈھونڈنے میں مدد کرتا ہے۔

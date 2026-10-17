@@ -97,7 +97,6 @@ export const it = {
   hero_desc: "Scarica video, Shorts, musica, canali, podcast o tracce audio da **YouTube e oltre 2000 siti supportati** — fino a 4K HDR a 60 fps oppure in MP3 / AAC / Opus. Funziona localmente su Windows, macOS e Linux. **Niente pubblicità, niente software superfluo, niente upselling.**",
   cta_latest: "↓ Installa l'ultima versione",
   cta_website: "Sito web",
-  demo_alt: "Demo di Arroxy",
   star_cta: "Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.",
   ai_notice: "> 🌐 Questa traduzione è stata realizzata con assistenza IA. Il [README in inglese](README.md) è la fonte autorevole. Hai trovato un errore? [Apri una PR](../../pulls).",
   toc_heading: "Indice",

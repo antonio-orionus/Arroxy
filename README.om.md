@@ -15,8 +15,6 @@ Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi s
 
 [![Hawaasa Discord itti makami](https://img.shields.io/badge/Hawaasa%20Discord%20itti%20makami-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Arroxy demo" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.

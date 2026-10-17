@@ -15,8 +15,6 @@ Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **Y
 
 [![Dołącz do społeczności Discord](https://img.shields.io/badge/Do%C5%82%C4%85cz%20do%20spo%C5%82eczno%C5%9Bci%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Prezentacja Arroxy" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.

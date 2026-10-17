@@ -15,8 +15,6 @@
 
 [![Discord 커뮤니티 참여](https://img.shields.io/badge/Discord%20%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0%20%EC%B0%B8%EC%97%AC-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Arroxy 데모" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 있게 해 주세요.

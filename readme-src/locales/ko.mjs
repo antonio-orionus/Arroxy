@@ -97,7 +97,6 @@ export const ko = {
   hero_desc: "**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 4K HDR까지, 또는 MP3 / AAC / Opus로 저장할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**",
   cta_latest: "↓ 최신 릴리스 설치",
   cta_website: "웹사이트",
-  demo_alt: "Arroxy 데모",
   star_cta: "Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 있게 해 주세요.",
   ai_notice: "> 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../pulls).",
   toc_heading: "목차",

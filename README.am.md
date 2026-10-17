@@ -15,8 +15,6 @@
 
 [![የDiscord ማህበረሰብን ይቀላቀሉ](https://img.shields.io/badge/%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="የ Arroxy ማሳያ" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።

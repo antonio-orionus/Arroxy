@@ -15,8 +15,6 @@
 
 [![Придружите се Discord заједници](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D0%B5%20%D1%81%D0%B5%20Discord%20%D0%B7%D0%B0%D1%98%D0%B5%D0%B4%D0%BD%D0%B8%D1%86%D0%B8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Arroxy демонстрација" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Ако вам Arroxy уштеди времена, ⭐ помаже другима да га пронађу.

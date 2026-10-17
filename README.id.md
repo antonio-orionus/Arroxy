@@ -15,8 +15,6 @@ Unduh video, Shorts, musik, saluran, podcast, atau trek audio dari **YouTube dan
 
 [![Bergabunglah dengan Komunitas Discord](https://img.shields.io/badge/Bergabunglah%20dengan%20Komunitas%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
-<img src="build/demo.gif" alt="Demo Arroxy" width="720" />
-
 <img src="build/Main-screenshot.png" alt="Arroxy — Quick Download home" width="720" />
 
 Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.

@@ -99,7 +99,6 @@ export const uz = {
     "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha yoki MP3 / AAC / Opus sifatida. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
-  demo_alt: "Arroxy demosi",
   star_cta:
     "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
   ai_notice: "",

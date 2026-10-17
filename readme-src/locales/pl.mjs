@@ -97,7 +97,6 @@ export const pl = {
   hero_desc: "Pobieraj filmy, Shorts, muzykę, kanały, podcasty i ścieżki dźwiękowe z **YouTube oraz ponad 2000 obsługiwanych serwisów** — nawet w 4K HDR przy 60 kl./s albo jako MP3 / AAC / Opus. Działa lokalnie na Windows, macOS i Linux. **Bez reklam, zbędnych dodatków i płatnych zachęt.**",
   cta_latest: "↓ Zainstaluj najnowsze wydanie",
   cta_website: "Witryna",
-  demo_alt: "Prezentacja Arroxy",
   star_cta: "Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.",
   ai_notice: "> 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../pulls).",
   toc_heading: "Spis treści",

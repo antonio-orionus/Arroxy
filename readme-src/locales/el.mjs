@@ -100,7 +100,6 @@ export const el = {
     "Κατεβάστε βίντεο, Shorts, μουσική, κανάλια, podcasts ή ηχητικά κομμάτια από το **YouTube και 2000+ υποστηριζόμενους ιστοτόπους** — έως 4K HDR στα 60 fps, ή ως MP3 / AAC / Opus. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς bloat, χωρίς upsells.**",
   cta_latest: "↓ Λήψη Τελευταίας Έκδοσης",
   cta_website: "Ιστότοπος",
-  demo_alt: "Demo του Arroxy",
   star_cta:
     "Αν το Arroxy σας εξοικονομεί χρόνο, ένα ⭐ βοηθά άλλους να το βρουν.",
   ai_notice: "",

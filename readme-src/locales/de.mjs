@@ -99,7 +99,6 @@ export const de = {
     "Lade Videos, Shorts, Musik, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 4K HDR mit 60 fps, oder als MP3 / AAC / Opus. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**",
   cta_latest: "↓ Neueste Version herunterladen",
   cta_website: "Webseite",
-  demo_alt: "Arroxy Demo",
   star_cta: "Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.",
   ai_notice:
     "> 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).",
