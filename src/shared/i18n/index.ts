@@ -20,6 +20,7 @@ import ps from './locales/ps.json' with {type: 'json'}
 import bn from './locales/bn.json' with {type: 'json'}
 import hi from './locales/hi.json' with {type: 'json'}
 import my from './locales/my.json' with {type: 'json'}
+import km from './locales/km.json' with {type: 'json'}
 import el from './locales/el.json' with {type: 'json'}
 import ru from './locales/ru.json' with {type: 'json'}
 import sr from './locales/sr.json' with {type: 'json'}
@@ -36,7 +37,7 @@ export {SUPPORTED_LANGS, LANGUAGE_NATIVE_NAMES} from './types.js'
 export type {SupportedLang} from './types.js'
 export {isRtl} from './rtl.js'
 
-const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, it, sw, uz, pl, pt, vi, tr, am, ar, ur, ps, fa, bn, hi, th, my, el, ru, sr, uk, zh, ja, ko, 'zh-Hant': zhHant}
+const RESOURCES: Record<SupportedLang, LocaleResource> = {om, id, de, en, es, fr, it, sw, uz, pl, pt, vi, tr, am, ar, ur, ps, fa, bn, hi, th, my, km, el, ru, sr, uk, zh, ja, ko, 'zh-Hant': zhHant}
 
 export function pickLanguage(raw: string | undefined | null): SupportedLang {
 	if (!raw) return 'en'

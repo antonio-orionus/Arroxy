@@ -31,6 +31,7 @@ import { bn } from "./locales/bn.mjs";
 import { hi } from "./locales/hi.mjs";
 import { th } from "./locales/th.mjs";
 import { my } from "./locales/my.mjs";
+import { km } from "./locales/km.mjs";
 import { el } from "./locales/el.mjs";
 import { ru } from "./locales/ru.mjs";
 import { sr } from "./locales/sr.mjs";
@@ -63,6 +64,7 @@ export const LOCALES = [
   { code: "hi", filename: "README.hi.md", name: "हिन्दी", strings: hi },
   { code: "th", filename: "README.th.md", name: "ไทย", strings: th },
   { code: "my", filename: "README.my.md", name: "မြန်မာဘာသာ", strings: my },
+  { code: "km", filename: "README.km.md", name: "ខ្មែរ", strings: km },
   { code: "el", filename: "README.el.md", name: "Ελληνικά", strings: el },
   { code: "ru", filename: "README.ru.md", name: "Русский", strings: ru },
   { code: "sr", filename: "README.sr.md", name: "Српски", strings: sr },

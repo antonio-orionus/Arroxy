@@ -5,14 +5,19 @@
 @import '@fontsource/poppins/700.css';
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/noto-sans-khmer/400.css';
+@import '@fontsource/noto-sans-khmer/500.css';
+@import '@fontsource/noto-sans-khmer/600.css';
+@import '@fontsource/noto-sans-khmer/700.css';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-	--font-sans: 'Poppins', sans-serif;
-	--font-mono: 'JetBrains Mono', monospace;
+	/* Poppins and JetBrains Mono have no Khmer glyphs, so Khmer text falls through to Noto Sans Khmer. */
+	--font-sans: 'Poppins', 'Noto Sans Khmer', sans-serif;
+	--font-mono: 'JetBrains Mono', 'Noto Sans Khmer', monospace;
 	--text-display: 1.5rem;
 	--text-display--line-height: 1.2;
 	--text-display--letter-spacing: -0.02em;

@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**อ่านในภาษา:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **ไทย** · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
+**อ่านในภาษา:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **ไทย** · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
-[![รุ่น](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![บิลด์](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![เว็บไซต์](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![สัญญาอนุญาต](https://img.shields.io/badge/license-MIT-green) ![แพลตฟอร์ม](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ภาษา](https://img.shields.io/badge/i18n-30_languages-blue)
+[![รุ่น](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![บิลด์](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![เว็บไซต์](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![สัญญาอนุญาต](https://img.shields.io/badge/license-MIT-green) ![แพลตฟอร์ม](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ภาษา](https://img.shields.io/badge/i18n-31_languages-blue)
 
 ดาวน์โหลดวิดีโอ Shorts เพลง ช่อง พอดแคสต์ หรือแทร็กเสียงจาก **YouTube และเว็บไซต์ที่รองรับกว่า 2000 แห่ง** — สูงสุด 4K HDR ที่ 60 fps หรือเป็น MP3 / AAC / Opus ทำงานภายในเครื่องบน Windows, macOS และ Linux **ไม่มีโฆษณา ไม่มีส่วนเกิน และไม่มีการขายเพิ่ม**
 
@@ -109,7 +109,7 @@
 - **เฝ้าดูคลิปบอร์ด** — คัดลอกลิงก์ YouTube แล้ว Arroxy จะกรอก URL ให้อัตโนมัติเมื่อคุณกลับมาโฟกัสแอป (เปิดปิดได้ในการตั้งค่าขั้นสูง)
 - **ล้าง URL อัตโนมัติ** — ตัดพารามิเตอร์ติดตาม (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) และแกะลิงก์ `youtube.com/redirect`
 - **โหมดถาดระบบ** — ปิดหน้าต่างแล้วการดาวน์โหลดยังทำงานเบื้องหลัง
-- **30 ภาษา** — ตรวจหาภาษาระบบอัตโนมัติและเปลี่ยนได้ทุกเมื่อ
+- **31 ภาษา** — ตรวจหาภาษาระบบอัตโนมัติและเปลี่ยนได้ทุกเมื่อ
 - **ซิงก์เพลย์ลิสต์** — สแกนเพลย์ลิสต์เทียบกับโฟลเดอร์ในเครื่องอีกครั้งเพื่อข้ามวิดีโอที่ดาวน์โหลดแล้ว พร้อมสร้างไฟล์เพลย์ลิสต์ `.m3u` ที่อัปเดตเมื่อดาวน์โหลดแต่ละวิดีโอ
 - **ควบคุมความเร็วและจังหวะ** — จำกัดแบนด์วิดท์ กำหนดจำนวนส่วนของวิดีโอที่ดาวน์โหลดพร้อมกัน และหน่วงคำขอด้วยค่าล่วงหน้า (*ปิด · สมดุล · ระมัดระวัง · กำหนดเอง*)
 - **แม่แบบชื่อไฟล์** — ตั้งชื่อด้วย `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` และ `{playlist_index}` ได้ทั้งส่วนกลางหรือแยกตามโปรไฟล์
@@ -347,7 +347,7 @@ Explore เก็บการเข้าสู่ระบบของตัว
 yt-dlp อัปเดตอัตโนมัติเมื่อเปิดแอป และ Arroxy ออกการแก้ไขอย่างรวดเร็วเมื่อ YouTube เปลี่ยน เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต Arroxy จะลองใช้การเข้าสู่ระบบ Explore ด้วยหากคุณเข้าสู่ระบบไว้ และในการตั้งค่าคุกกี้ยังใช้คุกกี้จากไฟล์หรือเบราว์เซอร์ได้
 
 **Arroxy มีภาษาใดบ้าง**
-พร้อมใช้ 30 ภาษา: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文 Arroxy ตรวจหาภาษาระบบปฏิบัติการในการเปิดครั้งแรกและเปลี่ยนได้ทุกเมื่อจากตัวเลือกภาษาบนแถบเครื่องมือ JSON ภาษาที่ใช้ขณะทำงานอยู่ใน src/shared/i18n/locales/ และแค็ตตาล็อก PO สำหรับผู้แปลอยู่ใน i18n/locales/ — เปิด PR บน GitHub เพื่อร่วมพัฒนา
+พร้อมใช้ 31 ภาษา: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文 Arroxy ตรวจหาภาษาระบบปฏิบัติการในการเปิดครั้งแรกและเปลี่ยนได้ทุกเมื่อจากตัวเลือกภาษาบนแถบเครื่องมือ JSON ภาษาที่ใช้ขณะทำงานอยู่ใน src/shared/i18n/locales/ และแค็ตตาล็อก PO สำหรับผู้แปลอยู่ใน i18n/locales/ — เปิด PR บน GitHub เพื่อร่วมพัฒนา
 
 **ต้องติดตั้งอย่างอื่นอีกหรือไม่**
 ไม่ต้อง yt-dlp จะดาวน์โหลดอัตโนมัติเมื่อเปิดครั้งแรกและเก็บแคชในเครื่อง ส่วน ffmpeg และ ffprobe มากับแอป หลังจากนั้นไม่ต้องตั้งค่าเพิ่ม

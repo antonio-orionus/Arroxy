@@ -7,7 +7,7 @@
 	},
 	"ignore": ["src/renderer/src/components/ui/**"],
 	"ignoreExportsUsedInFile": {"interface": true, "type": true},
-	"ignoreDependencies": ["@fontsource/jetbrains-mono", "@fontsource/poppins", "@iconify-json/logos", "@iconify-json/simple-icons", "shadcn", "tw-animate-css", "tailwindcss", "@svgr/plugin-jsx"],
+	"ignoreDependencies": ["@fontsource/jetbrains-mono", "@fontsource/noto-sans-khmer", "@fontsource/poppins", "@iconify-json/logos", "@iconify-json/simple-icons", "shadcn", "tw-animate-css", "tailwindcss", "@svgr/plugin-jsx"],
 	"ignoreBinaries": ["msgmerge", "taskkill", "ditto", "robocopy", "hdiutil", "terminal-notifier", "shellcheck"],
 	"ignoreUnresolved": ["~icons/.*"]
 }

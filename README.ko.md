@@ -5,9 +5,9 @@
 
 **4K · 1080p60 · HDR · Surround/Dolby audio · Playlists · MP3 · Shorts · Music · Channels · Subtitles · SponsorBlock · +2000 sites**
 
-**다른 언어로 읽기:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · **한국어** · [繁體中文](README.zh-Hant.md)
+**다른 언어로 읽기:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Deutsch](README.de.md) · [English](README.md) · [Español](README.es.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · **한국어** · [繁體中文](README.zh-Hant.md)
 
-[![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![라이선스](https://img.shields.io/badge/license-MIT-green) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-30_languages-blue)
+[![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![라이선스](https://img.shields.io/badge/license-MIT-green) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-31_languages-blue)
 
 **YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 4K HDR까지, 또는 MP3 / AAC / Opus로 저장할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
 
@@ -109,7 +109,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **클립보드 감시** — YouTube 링크를 복사하고 앱으로 돌아오면 Arroxy가 URL을 자동으로 입력합니다(고급 설정에서 전환)
 - **URL 자동 정리** — 추적 매개변수(`si`, `pp`, `utm_*`, `fbclid`, `gclid`)를 제거하고 `youtube.com/redirect` 링크를 해제
 - **트레이 모드** — 창을 닫아도 다운로드가 백그라운드에서 계속 실행
-- **30개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
+- **31개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
 - **재생목록 동기화** — 재생목록을 로컬 폴더와 다시 비교해 이미 받은 동영상을 건너뛰고, 동영상이 내려받아질 때마다 갱신되는 `.m3u` 재생목록 파일을 생성
 - **속도 및 간격 제어** — 다운로드 대역폭과 동시에 받는 동영상 조각 수를 제한하고, 요청 지연을 프리셋(*끄기 · 균형 · 주의 · 사용자 지정*)으로 설정
 - **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
@@ -347,7 +347,7 @@ Explore 탭에서 한 번 로그인하세요. 그러면 Arroxy가 계정으로 �
 yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 신속하게 수정 사항을 배포합니다. YouTube가 봇이 아닌지 확인을 요구하면, Explore에 로그인해 둔 경우 Arroxy가 그 로그인도 시도하며, 쿠키 설정에서는 파일이나 브라우저의 쿠키도 사용할 수 있습니다.
 
 **Arroxy는 어떤 언어를 지원하나요?**
-설치 즉시 30개 언어를 사용할 수 있습니다: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy는 처음 실행할 때 운영 체제 언어를 자동 감지하며 도구 모음의 언어 선택기에서 언제든 변경할 수 있습니다. 런타임 로캘 JSON은 src/shared/i18n/locales/에, 번역자용 PO 카탈로그는 i18n/locales/에 있습니다. 기여하려면 GitHub에서 PR을 열어 주세요.
+설치 즉시 31개 언어를 사용할 수 있습니다: Afaan Oromoo · Bahasa Indonesia · Deutsch · English · Español · Français · Italiano · Kiswahili · O'zbekcha · Polski · Português · Tiếng Việt · Türkçe · አማርኛ · العربية · اردو · پښتو · فارسی · বাংলা · हिन्दी · ไทย · မြန်မာဘာသာ · ខ្មែរ · Ελληνικά · Русский · Српски · Українська · 中文 · 日本語 · 한국어 · 繁體中文. Arroxy는 처음 실행할 때 운영 체제 언어를 자동 감지하며 도구 모음의 언어 선택기에서 언제든 변경할 수 있습니다. 런타임 로캘 JSON은 src/shared/i18n/locales/에, 번역자용 PO 카탈로그는 i18n/locales/에 있습니다. 기여하려면 GitHub에서 PR을 열어 주세요.
 
 **다른 것을 설치해야 하나요?**
 아니요. yt-dlp는 처음 실행할 때 자동으로 다운로드되어 컴퓨터에 캐시되고 ffmpeg와 ffprobe는 앱에 포함됩니다. 그 뒤에는 추가 설정이 필요 없습니다.

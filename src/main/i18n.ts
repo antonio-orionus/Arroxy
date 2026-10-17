@@ -18,6 +18,7 @@ import bn from '@shared/i18n/locales/bn.json' with {type: 'json'}
 import ar from '@shared/i18n/locales/ar.json' with {type: 'json'}
 import uz from '@shared/i18n/locales/uz.json' with {type: 'json'}
 import my from '@shared/i18n/locales/my.json' with {type: 'json'}
+import km from '@shared/i18n/locales/km.json' with {type: 'json'}
 import ps from '@shared/i18n/locales/ps.json' with {type: 'json'}
 import sw from '@shared/i18n/locales/sw.json' with {type: 'json'}
 import am from '@shared/i18n/locales/am.json' with {type: 'json'}
@@ -30,7 +31,7 @@ import tr from '@shared/i18n/locales/tr.json' with {type: 'json'}
 import pt from '@shared/i18n/locales/pt.json' with {type: 'json'}
 import type {SupportedLang} from '@shared/i18n/types.js'
 
-const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, it, ko, fa, pl, th, de, ru, uk, ja, zh, 'zh-Hant': zhHant, hi, bn, ar, uz, my, ps, sw, am, om, el, sr, ur, vi, tr, pt}
+const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, it, ko, fa, pl, th, de, ru, uk, ja, zh, 'zh-Hant': zhHant, hi, bn, ar, uz, my, km, ps, sw, am, om, el, sr, ur, vi, tr, pt}
 
 function lookup(tree: unknown, dottedKey: string): string | undefined {
 	const parts = dottedKey.split('.')

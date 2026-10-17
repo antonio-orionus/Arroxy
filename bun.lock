@@ -8,6 +8,7 @@
         "@base-ui/react": "1.8.0",
         "@counterscale/tracker": "3.4.1",
         "@fontsource/jetbrains-mono": "5.3.0",
+        "@fontsource/noto-sans-khmer": "5.3.0",
         "@fontsource/poppins": "5.3.0",
         "@ghostery/adblocker-electron": "2.20.1",
         "@tanstack/react-table": "9.2.6",
@@ -341,6 +342,8 @@
     "@floating-ui/utils": ["@floating-ui/utils@0.2.12", "", {}, "sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww=="],
 
     "@fontsource/jetbrains-mono": ["@fontsource/jetbrains-mono@5.3.0", "", {}, "sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A=="],
+
+    "@fontsource/noto-sans-khmer": ["@fontsource/noto-sans-khmer@5.3.0", "", {}, "sha512-gdbZkSmmMa7up92bksz5uKkjt70hCmLr9Q9B/Bxu4qYfXr+BvRLvf7NDAO4WP64coTdCcrzmHFciXirbdJEToQ=="],
 
     "@fontsource/poppins": ["@fontsource/poppins@5.3.0", "", {}, "sha512-cms1nM7U6SN8epIV1WMVOV8VsA645aSm3wHfzIQnkk188U341ThbJGSl2Sv54V29gnDbT2arMPfLzvVIIVCceQ=="],
 

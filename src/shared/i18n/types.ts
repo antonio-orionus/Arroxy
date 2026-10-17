@@ -33,6 +33,7 @@ export const LANGUAGE_NATIVE_NAMES: Record<SupportedLang, string> = {
 	hi: 'हिन्दी',
 	th: 'ไทย',
 	my: 'မြန်မာဘာသာ',
+	km: 'ខ្មែរ',
 	el: 'Ελληνικά',
 	ru: 'Русский',
 	sr: 'Српски',
