@@ -547,6 +547,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'autoRetryAttempts', {autoRetryAttempts: value})
 		},
 
+		setAutoRemoveCompleted: async enabled => {
+			await applyCommonPatchAsync(get, set, 'autoRemoveCompleted', {autoRemoveCompleted: enabled})
+		},
+
 		setClipboardWatchEnabled: async enabled => {
 			await applyCommonPatchAsync(get, set, 'clipboardWatchEnabled', {clipboardWatchEnabled: enabled})
 		},

@@ -108,6 +108,11 @@ export const INTER_JOB_SLEEP_MS = 500
 // the priority lane out.
 export const PRIORITY_LANE_HEADROOM = MAX_CONCURRENT_DOWNLOADS - NORMAL_LANE_CAP
 
+// How long a finished download stays in the list before "remove completed
+// downloads automatically" takes it out: long enough to see it succeed and reach
+// for Open folder, short enough that the list stays clear.
+export const AUTO_REMOVE_COMPLETED_DELAY_MS = 5_000
+
 // Per-probe wall-clock budget for metadata probes (--dump-json), shared by the
 // interactive wizard probe, renderer-side bulk/playlist hydration, and the
 // main-process queue title backfill. Probes should never legitimately take this

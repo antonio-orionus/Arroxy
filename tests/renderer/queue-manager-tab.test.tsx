@@ -4,6 +4,7 @@ import {QueueManagerTab} from '@renderer/components/queue/QueueManagerTab.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {i18next} from '@shared/i18n/index.js'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
+import {defaultAppSettings} from '@shared/constants.js'
 import {ok} from '@shared/result.js'
 import {makeItem} from '../shared/fixtures.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
@@ -38,6 +39,7 @@ const actions = {
 	resumeAll: vi.fn(),
 	cancelAll: vi.fn(),
 	clearCompleted: vi.fn(),
+	setAutoRemoveCompleted: vi.fn(),
 	setItemLane: vi.fn(),
 	cancelItemDownload: vi.fn(),
 	pauseItemDownload: vi.fn(),
@@ -590,6 +592,32 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('btn-pause-all').textContent).toBe('')
 		expect(screen.getByTestId('btn-resume-first')).toHaveAccessibleName('Resume paused downloads and let the queue keep going')
 		expect(screen.getByTestId('btn-clear-completed')).toHaveAccessibleName('Clear completed downloads')
+	})
+
+	it('offers a switch that removes finished downloads automatically, off by default', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})], settings: defaultAppSettings('/tmp')})
+
+		render(<QueueManagerTab />)
+
+		const toggle = screen.getByTestId('queue-auto-remove-toggle')
+		expect(toggle).toHaveAccessibleName('Auto-clear done')
+		expect(toggle).not.toBeChecked()
+
+		fireEvent.click(toggle)
+		expect(actions.setAutoRemoveCompleted).toHaveBeenCalledWith(true)
+	})
+
+	it('shows the auto-remove switch on when the setting is on, and turns it off on click', () => {
+		const base = defaultAppSettings('/tmp')
+		useAppStore.setState({queue: [], settings: {...base, common: {...base.common, autoRemoveCompleted: true}}})
+
+		render(<QueueManagerTab />)
+
+		const toggle = screen.getByTestId('queue-auto-remove-toggle')
+		expect(toggle).toBeChecked()
+
+		fireEvent.click(toggle)
+		expect(actions.setAutoRemoveCompleted).toHaveBeenCalledWith(false)
 	})
 
 	it('shows the paused-queue banner with a resume action while the scheduler is paused and items are waiting', () => {

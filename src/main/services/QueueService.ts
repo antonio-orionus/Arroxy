@@ -34,6 +34,7 @@ import {ProgressFormatter} from '@shared/progressFormat.js'
 import {ProgressNormalizer} from '@shared/progressNormalizer.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
+import {QueueAutoRemove} from './download/QueueAutoRemove.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queueAdmission.js'
@@ -102,6 +103,8 @@ export class QueueService extends EventEmitter {
 	private readonly finalArtifactTargets = new FinalArtifactTargets()
 	// Owns the automatic-retry budget and timers. Writes only through commit().
 	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
+	// Takes a finished download out of the list after a short delay, when on.
+	private readonly autoRemove = new QueueAutoRemove({findItem: itemId => this.findItem(itemId), remove: itemId => this.remove(itemId)})
 	private probeAbortHook: (itemId: string) => void = () => undefined
 	private readonly probeLifecycle = new QueueProbeLifecycle({
 		items: () => this.items,
@@ -319,6 +322,10 @@ export class QueueService extends EventEmitter {
 		this.autoRetry.setAttempts(value, this.items)
 	}
 
+	setAutoRemoveCompleted(value: boolean): void {
+		this.autoRemove.setEnabled(value)
+	}
+
 	// Best-effort artifact cleanup — see ./download/queueArtifactCleanup.
 	private readonly artifactCleanup: QueueArtifactCleanup
 
@@ -484,6 +491,7 @@ export class QueueService extends EventEmitter {
 			this.forgetProgressState(item.lastJobId)
 		}
 		this.autoRetry.clear(itemId)
+		this.autoRemove.clear(itemId)
 		await this.artifactCleanup.cleanup(item)
 		this.commit({kind: 'remove', itemId})
 		return ok(undefined)
@@ -503,6 +511,7 @@ export class QueueService extends EventEmitter {
 			// after they wrap.
 			if (item.lane === 'normal') this.sleep.arm()
 			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'completed', finishedAt: nowIso(), lastStatusKey: event.statusKey, params: event.params}})
+			this.autoRemove.schedule(item.id)
 			return
 		}
 		if (event.stage === 'error') {

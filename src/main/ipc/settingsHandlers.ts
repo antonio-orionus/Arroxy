@@ -47,6 +47,9 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		if (data.common?.autoRetryAttempts !== undefined) {
 			queueService.setAutoRetryAttempts(updated.common.autoRetryAttempts ?? 0)
 		}
+		if (data.common?.autoRemoveCompleted !== undefined) {
+			queueService.setAutoRemoveCompleted(updated.common.autoRemoveCompleted ?? false)
+		}
 		if (data.common?.exploreEnabled !== undefined && updated.common.exploreEnabled === false) {
 			exploreView.destroy()
 		}

@@ -50,6 +50,8 @@ export function QueueManagerTab(): ReactNode {
 	const resumeAll = useAppStore(state => state.resumeAll)
 	const cancelAll = useAppStore(state => state.cancelAll)
 	const clearCompleted = useAppStore(state => state.clearCompleted)
+	const autoRemoveCompleted = useAppStore(state => state.settings?.common.autoRemoveCompleted ?? false)
+	const setAutoRemoveCompleted = useAppStore(state => state.setAutoRemoveCompleted)
 	const cancelItemDownload = useAppStore(state => state.cancelItemDownload)
 	const queueFocus = useAppStore(state => state.queueFocus)
 	const clearQueueFocus = useAppStore(state => state.clearQueueFocus)
@@ -245,6 +247,8 @@ export function QueueManagerTab(): ReactNode {
 				onResumeAll={() => void resumeAll()}
 				onCancelAll={() => void cancelAll()}
 				onClearCompleted={() => void clearCompleted()}
+				autoRemoveCompleted={autoRemoveCompleted}
+				onAutoRemoveCompletedChange={enabled => void setAutoRemoveCompleted(enabled)}
 			/>
 
 			{schedulerPaused && hasWaitingItems && (

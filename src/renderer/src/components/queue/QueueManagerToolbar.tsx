@@ -7,7 +7,10 @@ import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Checkbox} from '../ui/checkbox.js'
+import {Label} from '../ui/label.js'
+import {Separator} from '../ui/separator.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
+import {Switch} from '../ui/switch.js'
 import {QueueActionButton, TooltipIconButton} from './QueueManagerButtons.js'
 import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisabled, queueStatusFilterCount, type QueueSelectedAction} from './queueManagerActions.js'
 import type {QueueStatusFilter} from './queueManagerState.js'
@@ -32,9 +35,11 @@ interface QueueManagerToolbarProps {
 	onResumeAll: () => void
 	onCancelAll: () => void
 	onClearCompleted: () => void
+	autoRemoveCompleted: boolean
+	onAutoRemoveCompletedChange: (enabled: boolean) => void
 }
 
-export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, schedulerPaused, onPauseAll, onResumeAll, onCancelAll, onClearCompleted}: QueueManagerToolbarProps): ReactNode {
+export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, filter, columns, onFilterChange, onSelectedAction, schedulerPaused, onPauseAll, onResumeAll, onCancelAll, onClearCompleted, autoRemoveCompleted, onAutoRemoveCompletedChange}: QueueManagerToolbarProps): ReactNode {
 	return (
 		<>
 			<div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/70 pb-3">
@@ -48,6 +53,13 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 							{t('queue.selectionSummary', {selected: selectedCount, total: queue.length})}
 						</p>
 					</div>
+					<Separator orientation="vertical" className="mx-1 h-6" />
+					<Hint label={t('queue.autoRemoveCompleted.hint')}>
+						<Label htmlFor="queue-auto-remove-completed" className="cursor-pointer gap-1.5 text-caption font-normal text-muted-foreground">
+							<Switch id="queue-auto-remove-completed" size="sm" checked={autoRemoveCompleted} onCheckedChange={onAutoRemoveCompletedChange} data-testid="queue-auto-remove-toggle" />
+							{t('queue.autoRemoveCompleted.label')}
+						</Label>
+					</Hint>
 				</div>
 				<div className={cn('flex flex-wrap items-center justify-end gap-1 rounded-xl border border-border/70 bg-background/25 p-1.5 transition-opacity', selectedCount === 0 && 'opacity-55')} data-testid="queue-selected-actions">
 					<ButtonGroup className="flex-wrap justify-end" aria-label={t('queue.selectedActionsLabel')}>

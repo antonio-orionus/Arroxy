@@ -650,6 +650,7 @@ const commonSettingsSchema = z.object({
 	downloadConnections: downloadConnectionsSchema.optional(),
 	concurrentDownloads: concurrentDownloadsSchema.optional(),
 	autoRetryAttempts: autoRetryAttemptsSchema.optional(),
+	autoRemoveCompleted: z.boolean().optional(),
 	clipboardWatchEnabled: z.boolean(),
 	hotkeyEnabled: z.boolean(),
 	hotkeyAccelerator: hotkeyAcceleratorSchema.optional(),

@@ -287,6 +287,7 @@
 			},
 			"nativeAudioPreference": {"label": "Native audio preference", "description": "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
 			"autoRetry": {"label": "Retry failed downloads", "description": "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically.", "unit": "times"},
+			"autoRemoveCompleted": {"label": "Remove finished downloads", "description": "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."},
 			"concurrentDownloads": {"label": "Downloads at once", "description": "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you.", "unit": "downloads"},
 			"downloadConnections": {"label": "Download connections", "description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.", "unit": "connections"},
 			"networkPacing": {
@@ -564,6 +565,7 @@
 		"globalActionsLabel": "All items",
 		"selectionSummary": "{{selected}} selected · {{total}} total",
 		"clearTitle": "Clear completed downloads",
+		"autoRemoveCompleted": {"label": "Auto-clear done", "hint": "Remove each download from the list a few seconds after it finishes. Files stay in your folder."},
 		"pauseAllTitle": "Pause every active download and stop new ones from starting",
 		"resumeAllTitle": "Resume paused downloads and let the queue keep going",
 		"pausedBanner": "The queue is paused — waiting items won't start until you resume it",

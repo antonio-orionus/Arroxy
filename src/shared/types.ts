@@ -150,6 +150,7 @@ export interface CommonSettings {
 	downloadConnections?: number
 	concurrentDownloads?: number
 	autoRetryAttempts?: number
+	autoRemoveCompleted?: boolean
 	clipboardWatchEnabled: boolean
 	hotkeyEnabled: boolean
 	hotkeyAccelerator?: HotkeyAccelerator

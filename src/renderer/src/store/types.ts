@@ -466,6 +466,7 @@ export interface SystemSlice {
 	setDownloadConnections: (value: number) => Promise<void>
 	setConcurrentDownloads: (value: number) => Promise<void>
 	setAutoRetryAttempts: (value: number) => Promise<void>
+	setAutoRemoveCompleted: (enabled: boolean) => Promise<void>
 	setClipboardWatchEnabled: (enabled: boolean) => Promise<void>
 	setHotkeyEnabled: (enabled: boolean) => Promise<void>
 	setHotkeyAccelerator: (accelerator: HotkeyAccelerator) => Promise<void>

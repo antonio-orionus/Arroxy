@@ -335,6 +335,7 @@ if (hasSingleInstanceLock) {
 		// Must precede init() too — init re-arms retries persisted across the
 		// restart, and does nothing unless auto-retry is already configured.
 		queueService.setAutoRetryAttempts(initialSettings.common.autoRetryAttempts ?? 0)
+		queueService.setAutoRemoveCompleted(initialSettings.common.autoRemoveCompleted ?? false)
 		await queueService.init()
 
 		// Reclaim scratch directories a crashed or force-quit session left behind.

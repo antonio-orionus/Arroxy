@@ -33,6 +33,7 @@ const COMMON_FLAT_KEYS = [
 	'downloadConnections',
 	'concurrentDownloads',
 	'autoRetryAttempts',
+	'autoRemoveCompleted',
 	'clipboardWatchEnabled',
 	'hotkeyEnabled',
 	'hotkeyAccelerator',
