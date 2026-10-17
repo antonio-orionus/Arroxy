@@ -114,6 +114,27 @@ describe('ProbeResultProjection', () => {
 		expect(projectVideoProbeResult(VIDEO_PROBE, edited, false).selectedVideoFormatId).toBe('137')
 	})
 
+	it('lands a new video with the whole video picked, its chapters, and the link start offered', () => {
+		const chapters = [{title: 'Intro', startSeconds: 0, endSeconds: 20}]
+		const patch = projectVideoProbeResult({...VIDEO_PROBE, chapters}, appState({wizardUrl: 'https://youtu.be/abc?t=12', wizardPart: {start: '0:01', end: '0:02', exactCut: false}}), true)
+
+		expect(patch).toMatchObject({wizardChapters: chapters, wizardUrlStartSeconds: 12, wizardPart: null})
+	})
+
+	it('keeps the part when the same run probes again', () => {
+		const first = projectVideoProbeResult(VIDEO_PROBE, appState(), true)
+		const part = {start: '0:10', end: '0:20', exactCut: true}
+		expect(projectVideoProbeResult(VIDEO_PROBE, appState({...first, wizardPart: part}), false).wizardPart).toEqual(part)
+	})
+
+	it('clears the part for a new link and for a playlist, but not for a retry', () => {
+		const part = {start: '0:10', end: '0:20', exactCut: false}
+		expect(projectProbeStart(appState({wizardPart: part}), 'https://example.com/other', 'video').patch.wizardPart).toBeNull()
+		expect(projectProbeStart(appState({wizardPart: part}), 'https://example.com/same', 'video', true).patch).not.toHaveProperty('wizardPart')
+		expect(projectPlaylistProbeResult(PLAYLIST_PROBE, appState({wizardPart: part}), true)).toMatchObject({wizardPart: null, wizardChapters: []})
+		expect(projectBulkStart(['https://youtu.be/a'], appState({wizardPart: part})).patch).toMatchObject({wizardPart: null})
+	})
+
 	it('trims playlist sentinels and marks app-limit caps', () => {
 		const patch = projectPlaylistProbeResult(PLAYLIST_PROBE, appState({playlistScope: {items: {kind: 'app-limit'}}, settings: {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, playlistProbeLimit: 2}}}), true)
 

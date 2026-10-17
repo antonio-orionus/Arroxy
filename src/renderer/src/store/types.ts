@@ -44,6 +44,7 @@ import type {
 	SupportedLang,
 	UiStyle,
 	UiTheme,
+	VideoChapter,
 	WizardMode,
 	WizardStepName
 } from '@shared/types.js'
@@ -51,6 +52,7 @@ import type {Result} from '@shared/result.js'
 import type {AudioSelection, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
+import type {VideoPartFields} from '@shared/videoPart.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './wizard/profileApplication.js'
 import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
@@ -295,6 +297,24 @@ export interface FormatPickerSlice {
 	saveWizardAsProfile: (name: string) => Promise<boolean>
 }
 
+// VideoPart — the single-video "Part of video" range on the Format screen.
+export interface VideoPartSlice {
+	wizardChapters: VideoChapter[]
+	// The start time the link carries in `t`, offered (never applied) as the
+	// part's start: a shared link's `t` is often just a resume point.
+	wizardUrlStartSeconds: number | null
+	// What the user typed; null downloads the whole video.
+	wizardPart: VideoPartFields | null
+
+	setWizardPartEnabled: (enabled: boolean) => void
+	setWizardPartStart: (start: string) => void
+	setWizardPartEnd: (end: string) => void
+	setWizardPartExactCut: (exactCut: boolean) => void
+	// Chapter chips and the range bar set both ends at once.
+	setWizardPartRange: (startSeconds: number, endSeconds: number) => void
+	useUrlStartForPart: () => void
+}
+
 // OutputConfig — output dir / subfolder / SponsorBlock / output artifact flags.
 export interface OutputConfigSlice {
 	wizardOutputDir: string
@@ -507,4 +527,4 @@ export interface SystemSlice {
 	signOutOfExplore: () => Promise<void>
 }
 
-export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice
+export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & VideoPartSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice

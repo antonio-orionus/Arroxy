@@ -13,6 +13,7 @@ import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, Downlo
 import type {GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
+import {RESET_VIDEO_PART_STATE} from './videoPart.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied
 // in one set() call so the UI never sees a half-reset wizard. Per-slice reset
@@ -81,6 +82,8 @@ export const RESET_WIZARD_STATE = {
 	wizardFileTypeReset: null,
 	wizardSubtitleMode: DEFAULTS.subtitleMode,
 	wizardSubtitleFormat: DEFAULTS.subtitleFormat,
+	// videoPart
+	...RESET_VIDEO_PART_STATE,
 	// outputConfig
 	wizardSponsorBlockMode: DEFAULTS.sponsorBlockMode,
 	wizardSponsorBlockCategories: DEFAULTS.sponsorBlockCategories,

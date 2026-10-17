@@ -11,6 +11,8 @@ import type {BulkMetadataTarget} from './bulkMetadataHydration.js'
 import {profilePatch, snapshotPatch, wizardSnapshot} from './wizardProfileState.js'
 import type {WizardSettingsSnapshot} from './profileApplication.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
+import {urlStartSeconds} from '@shared/videoPart.js'
+import {RESET_VIDEO_PART_STATE} from './videoPart.js'
 
 type CommonPrefsPatch = Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'>
 
@@ -68,7 +70,8 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardAutomaticCaptions: {},
 			// The picked languages are the user's; the probe that lands keeps or
 			// drops each one against its own tracks.
-			...(sameRun ? {} : {wizardSubtitleLanguages: []}),
+			// So is the part of the video; a new link starts on the whole video.
+			...(sameRun ? {} : {wizardSubtitleLanguages: [], ...RESET_VIDEO_PART_STATE}),
 			playlistItems: [],
 			selectedPlaylistItemIds: [],
 			playlistTitle: '',
@@ -126,6 +129,9 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 		wizardTitle: title,
 		wizardThumbnail: thumbnail,
 		wizardDuration: duration,
+		wizardChapters: probe.chapters ?? [],
+		wizardUrlStartSeconds: urlStartSeconds(state.wizardUrl),
+		wizardPart: keepEdits ? state.wizardPart : null,
 		wizardVideoId: probe.videoId ?? '',
 		wizardUploader: probe.uploader ?? '',
 		wizardUploadDate: probe.uploadDate ?? '',
@@ -198,6 +204,8 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		formatsLoading: false,
 		wizardFormats: [],
 		wizardFormatsDegraded: null,
+		// A part is single-video only: a link that turns out to be a playlist drops it.
+		...RESET_VIDEO_PART_STATE,
 		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
 		playlistSelection,
 		// A first probe is a new list: reset the view sort to api order. Scope
@@ -263,6 +271,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardStep: 'playlistItems',
 			wizardMode: 'bulk',
 			wizardUrl: '',
+			...RESET_VIDEO_PART_STATE,
 			wizardTitle: '',
 			wizardThumbnail: '',
 			wizardDuration: undefined,

@@ -2,6 +2,7 @@ import {create} from 'zustand'
 import {createProbeOrchestratorSlice} from './wizard/probeOrchestrator.js'
 import {createFormatPickerSlice} from './wizard/formatPicker.js'
 import {createOutputConfigSlice} from './wizard/outputConfig.js'
+import {createVideoPartSlice} from './wizard/videoPart.js'
 import {createWizardDialogsSlice} from './wizard/wizardDialogs.js'
 import {createQueueSlice} from './queueSlice.js'
 import {createQuickDownloadSlice} from './quickDownload/quickDownloadSlice.js'
@@ -18,6 +19,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
 	...createUiSlice(set, get),
 	...createProbeOrchestratorSlice(set, get),
 	...createFormatPickerSlice(set, get),
+	...createVideoPartSlice(set, get),
 	...createOutputConfigSlice(set, get),
 	...createWizardDialogsSlice(set, get),
 	...createQueueSlice(set, get),

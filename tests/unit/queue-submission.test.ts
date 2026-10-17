@@ -181,6 +181,24 @@ describe('QueueSubmission', () => {
 		}
 	})
 
+	it('queues a part of the video: the range, a suffixed file name, a scaled size and no SponsorBlock', () => {
+		const prepared = prepareManualQueueSubmission(state({wizardDuration: 60, wizardPart: {start: '0:10', end: '0:40', exactCut: true}, wizardSponsorBlockMode: 'remove', wizardSponsorBlockCategories: ['sponsor']}), 'priority')
+		const job = prepared?.items[0]?.job
+		if (job?.kind !== 'single-format') throw new Error('expected a single-format job')
+		expect(job.videoPart).toEqual({startSeconds: 10, endSeconds: 40, exactCut: true})
+		expect(job.filenameTemplate).toMatch(/ \[10s-40s\]$/)
+		expect(job.expectedBytes).toBe(600)
+		expect(job.sponsorBlock).toEqual({mode: 'off'})
+	})
+
+	it('downloads the whole video when the part is invalid or the kind is Subtitles', () => {
+		for (const overrides of [{wizardPart: {start: '0:50', end: '0:40', exactCut: false}}, {wizardMediaKind: 'subtitles' as const, selectedVideoFormatId: '', wizardPart: {start: '0:10', end: '0:40', exactCut: false}}]) {
+			const job = prepareManualQueueSubmission(state({wizardDuration: 60, ...overrides}), 'priority')?.items[0]?.job
+			expect(job).not.toHaveProperty('videoPart')
+			expect(job && 'filenameTemplate' in job ? job.filenameTemplate : '').not.toMatch(/s\]$/)
+		}
+	})
+
 	it('prepares playlist manual items and a full manifest payload', () => {
 		const prepared = prepareManualQueueSubmission(state({wizardMode: 'playlist', selectedPlaylistItemIds: ['a']}), 'normal')
 
