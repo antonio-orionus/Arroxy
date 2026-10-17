@@ -313,6 +313,10 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	appendCallerSponsorBlockArgs(args, input.sponsorBlock)
 	appendCallerSectionArgs(args, input)
 	if (input.embed?.chapters) args.push('--embed-chapters')
+	// yt-dlp turns chapter embedding on with --add-metadata unless told
+	// otherwise, so an explicit "no chapters" has to be said. SponsorBlock mark
+	// is itself chapters and keeps them.
+	else if (input.embed?.chapters === false && input.sponsorBlock?.mode !== 'mark') args.push('--no-embed-chapters')
 
 	const embedPolicy = resolveEmbedPolicy({metadata: input.embed?.metadata, thumbnail: input.embed?.thumbnail, audioConvert})
 	if (embedPolicy.metadata) args.push('--add-metadata')

@@ -51,6 +51,7 @@ Requires Node.js >= 22.13 and ESM.
 ## Unreleased
 
 - `CallerMediaWorkflowInput` gains `downloadSections` (yt-dlp `--download-sections` values such as `*220-435`) and `forceKeyframesAtCuts`. A plan with sections lists ffmpeg as required and reports the cut as a side effect; an exact cut also reports the re-encode as a risk.
+- `embed.chapters: false` now passes `--no-embed-chapters` (unless SponsorBlock marks segments as chapters). yt-dlp otherwise embeds chapters whenever `--add-metadata` is on.
 
 ## What changed in 0.4.0
 

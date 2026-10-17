@@ -194,6 +194,18 @@ describe('planWorkflow — media', () => {
 		expect(plan.facts.risks.join(' ')).toMatch(/re-encod/i)
 	})
 
+	it('turns chapters off explicitly, since yt-dlp embeds them with metadata otherwise', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, embed: {chapters: false, metadata: true}})
+		expect(plan.args).toContain('--no-embed-chapters')
+		expect(plan.args).not.toContain('--embed-chapters')
+	})
+
+	it('leaves chapters to yt-dlp when SponsorBlock marks segments as chapters, or when unspecified', () => {
+		const marked = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, embed: {chapters: false}, sponsorBlock: {mode: 'mark', categories: ['sponsor']}})
+		expect(marked.args).not.toContain('--no-embed-chapters')
+		expect(planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}}).args).not.toContain('--no-embed-chapters')
+	})
+
 	it('ignores forceKeyframesAtCuts without sections', () => {
 		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, downloadSections: [], forceKeyframesAtCuts: true})
 
