@@ -4,6 +4,7 @@
 
 import {stat} from 'node:fs/promises'
 import {nowIso} from '@main/utils/clock.js'
+import {artifactKindForPath} from '@shared/queueArtifacts.js'
 import type {QueueArtifactKind} from '@shared/schemas.js'
 import type {QueueArtifactEvent} from '@shared/types.js'
 import type {ActiveDownload} from '../phases/index.js'
@@ -11,19 +12,22 @@ import type {ActiveDownload} from '../phases/index.js'
 export interface FinalArtifact {
 	path: string
 	kind: QueueArtifactKind
+	// Reported only when the file is still on disk at completion.
+	sidecar?: true
 }
 
 export function finalArtifactsOf(active: ActiveDownload): FinalArtifact[] {
 	const artifacts: FinalArtifact[] = []
-	const add = (path: string | undefined, kind: QueueArtifactKind): void => {
+	const add = (path: string | undefined, kind: QueueArtifactKind, sidecar = false): void => {
 		if (!path || artifacts.some(artifact => artifact.path === path)) return
-		artifacts.push({path, kind})
+		artifacts.push({path, kind, ...(sidecar ? {sidecar: true as const} : {})})
 	}
 	add(active.mediaPath, 'media')
 	const embedsSubtitlesIntoMedia = active.input.job.kind !== 'subtitle-only' && active.input.job.subtitles?.mode === 'embed'
 	if (!embedsSubtitlesIntoMedia) {
 		for (const subtitlePath of active.subtitlePaths) add(subtitlePath, 'subtitle')
 	}
+	for (const sidecarPath of active.sidecarPaths ?? []) add(sidecarPath, artifactKindForPath(sidecarPath), true)
 	return artifacts
 }
 
@@ -41,16 +45,13 @@ export async function fileOnDisk(path: string): Promise<FileOnDisk> {
 	}
 }
 
-async function fileSizeBytes(path: string): Promise<number | undefined> {
-	const file = await fileOnDisk(path)
-	return file.kind === 'file' ? file.sizeBytes : undefined
-}
-
 export async function finalArtifactEvents(jobId: string, artifacts: readonly FinalArtifact[]): Promise<QueueArtifactEvent[]> {
-	return Promise.all(
-		artifacts.map(async ({path, kind}) => {
-			const sizeBytes = await fileSizeBytes(path)
-			return {jobId, path, kind, at: nowIso(), ...(sizeBytes !== undefined ? {sizeBytes} : {})}
+	const events = await Promise.all(
+		artifacts.map(async ({path, kind, sidecar}): Promise<QueueArtifactEvent | null> => {
+			const file = await fileOnDisk(path)
+			if (sidecar && file.kind === 'missing') return null
+			return {jobId, path, kind, at: nowIso(), ...(file.kind === 'file' ? {sizeBytes: file.sizeBytes} : {})}
 		})
 	)
+	return events.filter(event => event !== null)
 }

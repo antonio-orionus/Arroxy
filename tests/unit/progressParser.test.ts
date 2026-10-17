@@ -246,19 +246,21 @@ describe('ProgressParser — subtitle-only progress', () => {
 		expect(emitArtifact).toHaveBeenCalledWith({jobId: 'job-1', path: '/tmp/video.en.srt', kind: 'subtitle', fromPath: '/tmp/.arroxy-temp/job/video.en.srt', at: '2024-01-01T00:00:00.000Z'})
 	})
 
-	it('emits artifact events for generated sidecar files', () => {
+	it('records generated sidecar files for completion instead of emitting them early', () => {
 		const emitArtifact = vi.fn()
 		const parser = new ProgressParser(vi.fn(), vi.fn(), emitArtifact)
 		const active = makeActive(BASE_INPUT_SINGLE_FORMAT)
 
 		parser.consume(active, '[info] Writing video description to: /tmp/video.description')
 		parser.consume(active, '[info] Writing video metadata as JSON to: /tmp/video.info.json')
-		parser.consume(active, '[info] Writing video thumbnail 41 to: /tmp/video.webp')
+		parser.consume(active, '[info] Writing video thumbnail 41 to: /tmp/.arroxy-temp/video.webp')
+		parser.consume(active, '[MoveFiles] Moving file "/tmp/.arroxy-temp/video.webp" to "/tmp/video.webp"')
 
-		expect(emitArtifact).toHaveBeenCalledTimes(3)
-		expect(emitArtifact).toHaveBeenNthCalledWith(1, {jobId: 'job-1', path: '/tmp/video.description', kind: 'description', at: '2024-01-01T00:00:00.000Z'})
-		expect(emitArtifact).toHaveBeenNthCalledWith(2, {jobId: 'job-1', path: '/tmp/video.info.json', kind: 'companion', at: '2024-01-01T00:00:00.000Z'})
-		expect(emitArtifact).toHaveBeenNthCalledWith(3, {jobId: 'job-1', path: '/tmp/video.webp', kind: 'thumbnail', at: '2024-01-01T00:00:00.000Z'})
+		// A thumbnail can be written and then deleted by an embed, so sidecars
+		// are reported at completion, once it is known they are still on disk.
+		expect(emitArtifact).toHaveBeenCalledTimes(1)
+		expect(emitArtifact).toHaveBeenCalledWith(expect.objectContaining({path: '/tmp/video.webp', fromPath: '/tmp/.arroxy-temp/video.webp'}))
+		expect(active.sidecarPaths).toEqual(['/tmp/video.description', '/tmp/video.info.json', '/tmp/video.webp'])
 	})
 
 	it('marks cached probe info-json artifact events as internal', () => {

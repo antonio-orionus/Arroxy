@@ -99,13 +99,17 @@ export class ProgressParser {
 				if (active.mediaPath === event.from) active.mediaPath = event.to
 				active.mediaComponentPaths = replacePath(active.mediaComponentPaths, event.from, event.to)
 				active.subtitlePaths = replacePath(active.subtitlePaths, event.from, event.to) ?? active.subtitlePaths
+				active.sidecarPaths = replacePath(active.sidecarPaths, event.from, event.to)
 				this.emitArtifact?.({jobId, path: event.to, kind: artifactKindForPath(event.to), fromPath: event.from, at: nowIso()})
 				this.emitPostProcStatus(active, 'movingFiles')
 				continue
 			}
 
 			if (event.kind === 'artifact') {
-				this.emitArtifact?.({jobId, path: event.path, kind: artifactKindForPath(event.path), at: nowIso(), ...(active.input.probeInfoJsonPath === event.path ? {internal: true} : {})})
+				// Sidecars are reported once the job completes, and only if still on
+				// disk: an embedded thumbnail is written here, then deleted by yt-dlp.
+				if (active.input.probeInfoJsonPath === event.path) this.emitArtifact?.({jobId, path: event.path, kind: artifactKindForPath(event.path), at: nowIso(), internal: true})
+				else if (!active.sidecarPaths?.includes(event.path)) active.sidecarPaths = [...(active.sidecarPaths ?? []), event.path]
 				continue
 			}
 
