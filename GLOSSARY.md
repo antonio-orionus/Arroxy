@@ -110,6 +110,10 @@ _Avoid_: preset, mode, type
 The streams and settings a download profile gives one particular video, shown pre-selected in the wizard. Changing anything is a per-download edit; keeping it is Save as profile.
 _Avoid_: default, preset, remembered choice
 
+**Part of video**:
+A time range of one video, picked on the Format screen and downloaded on its own instead of the whole video. Its file name ends in the range (`[3m40s-7m15s]`) after the video id. Never part of a download profile.
+_Avoid_: clip, trim, section, cut
+
 **Fit notice**:
 A warning that a video can't honour part of the download profile (a resolution, MP4, subtitle languages), naming what was picked instead.
 _Avoid_: fallback, mismatch error

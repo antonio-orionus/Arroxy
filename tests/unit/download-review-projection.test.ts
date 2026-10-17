@@ -35,6 +35,7 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		wizardTitle: 'Video',
 		wizardThumbnail: '',
 		wizardDuration: 60,
+		wizardPart: null,
 		wizardWebpageUrl: 'https://example.com/video',
 		wizardOutputDir: '/downloads',
 		wizardSubfolderEnabled: false,

@@ -1,6 +1,6 @@
 # Interactive Download: Format + Review, profile-first, with clips
 
-**Status: Format + Review built (PR 1); part of video not built yet.** The single-video Interactive
+**Status: built.** Format + Review (PR 1) and part of video (PR 2). The single-video Interactive
 Download flow goes from up to seven screens to two, starts from a download
 profile instead of the preset strip, and gains "part of video" downloads.
 Workflow context: [download-workflows.md](download-workflows.md). Clip
@@ -185,9 +185,15 @@ comes first.
   templates included.
 - Subtitles mode disables Part (subtitles always cover the whole video);
   with Video or Audio, subtitles stay full-length and the row says so.
-- SponsorBlock is not offered for a part. Embedded chapters on a part are
-  verified in the clip E2E; if yt-dlp does not shift them, chapters are
-  turned off for parts too.
+- SponsorBlock is not offered for a part. yt-dlp does not shift embedded
+  chapters to a part (verified in the clip E2E: a 3 s part got the whole
+  video's 0–8 s chapters), so a part embeds none. yt-dlp also embeds
+  chapters with `--add-metadata` unless told not to, so the bridge passes
+  `--no-embed-chapters` for an explicit `chapters: false`.
+- A part never replays its own saved info-json on Retry or resume: yt-dlp
+  writes it after applying the section (`section_start`, shortened
+  `duration`), and loading it with the same section cuts a second time. It
+  loads the probe's info-json instead.
 - The range is cleared on a new URL and when the link resolves to a
   playlist; it is stored on the job so Retry and restart keep it.
 - Clipped downloads go through yt-dlp's ffmpeg downloader, so download

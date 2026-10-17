@@ -95,8 +95,10 @@ Step list: `wizardStepNameSchema` in `src/shared/schemas.ts`. Visibility:
   Review screen). Format lists every stream the probe found, pre-selected from
   the active download profile, with the Video / Audio / Subtitles switch;
   Review holds subtitles, SponsorBlock, extras, folder and file name as rows
-  that open in place. Download works from both. Spec:
-  [interactive-download.md](interactive-download.md).
+  that open in place. Download works from both. A part of the video (a time
+  range) is picked on the Format screen and travels on the job as
+  `videoPart`; `buildMediaRequest` turns it into yt-dlp `--download-sections`.
+  Spec: [interactive-download.md](interactive-download.md).
 - **Playlist / bulk:** url → playlistItems → playlistPresets (subtitles are
   picked inside it) → sponsorblock → output → folder → confirm.
 - **Multi-profile (batch only):** url → playlistItems → playlistProfiles →
@@ -148,15 +150,14 @@ Known duplication between the two:
 The app sends the bridge only `probe` requests and *caller* `media` /
 `subtitles` requests (`CallerMediaWorkflowInput` in
 `packages/yt-dlp-bridge/src/workflow.ts`). The managed planner supports
-`downloadSections`, `dateAfter`, `matchFilters`, `downloadArchive`,
-`breakOnExisting` and more, but the caller request type has no fields for
-them, and `src/` sets none. Clips, filters, and archive-based sync each need
-the field added to the caller request first. `section-download.md`'s note
-that the bridge "already supports `downloadSections`, no argv plumbing
-needed" is true only for the managed planner.
+`dateAfter`, `matchFilters`, `downloadArchive`, `breakOnExisting` and more,
+but the caller request type has no fields for them, and `src/` sets none.
+Filters and archive-based sync each need the field added to the caller
+request first. `downloadSections` and `forceKeyframesAtCuts` are on the caller
+request (part of video).
 
 ## Next
 
 Spec: [interactive-download.md](interactive-download.md). The single-video
-Format + Review flow is built; "part of video" is the next piece, and moving
-the batch `playlistPresets` step to profiles is a follow-up.
+Format + Review flow and "part of video" are built; moving the batch
+`playlistPresets` step to profiles is a follow-up.

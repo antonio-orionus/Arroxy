@@ -34,7 +34,7 @@ export function wizardVideoPart(state: PartState): VideoPart | null {
 	return validation?.ok ? validation.part : null
 }
 
-export function partFieldsForRange(startSeconds: number, endSeconds: number, exactCut: boolean): VideoPartFields {
+function partFieldsForRange(startSeconds: number, endSeconds: number, exactCut: boolean): VideoPartFields {
 	return {start: formatPartTime(startSeconds), end: formatPartTime(endSeconds), exactCut}
 }
 

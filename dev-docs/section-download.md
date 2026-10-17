@@ -1,6 +1,6 @@
 # Section Download (Trim) — Research
 
-**Status: scheduled** as "part of video" in
+**Status: built** as "part of video" in
 [interactive-download.md](interactive-download.md), which decides the UX and
 overrides this doc where they differ (single mode only, `t=` offered rather
 than prefilled, SponsorBlock off for a part). This doc keeps the
