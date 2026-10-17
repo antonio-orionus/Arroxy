@@ -9,6 +9,7 @@ import {Alert, AlertAction, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
 import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
+import {Hint} from '../shared/Hint.js'
 
 function quickDownloadFailureText(t: TFunction, message: QuickDownloadFailureMessage | null): string {
 	if (!message) return ''
@@ -73,9 +74,11 @@ export function QuickDownloadErrorAlert({experience, message, onEnableCookiesAnd
 			</AlertDescription>
 			{onDismiss ? (
 				<AlertAction>
-					<Button type="button" size="icon-xs" variant="ghost" aria-label={t('common.dismiss')} title={t('common.dismiss')} onClick={onDismiss} data-testid="quick-download-dismiss">
-						<X aria-hidden />
-					</Button>
+					<Hint label={t('common.dismiss')}>
+						<Button type="button" size="icon-xs" variant="ghost" aria-label={t('common.dismiss')} onClick={onDismiss} data-testid="quick-download-dismiss">
+							<X aria-hidden />
+						</Button>
+					</Hint>
 				</AlertAction>
 			) : null}
 		</Alert>

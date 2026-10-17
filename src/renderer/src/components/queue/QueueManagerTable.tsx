@@ -59,7 +59,7 @@ function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction:
 						<ContextMenuItem
 							aria-disabled={disabled ? 'true' : undefined}
 							disabled={disabled && !softDisabled}
-							title={disabledTooltip}
+							aria-description={disabledTooltip}
 							variant={action.destructive ? 'destructive' : 'default'}
 							className={cn(softDisabled && 'opacity-50 focus:bg-transparent focus:text-muted-foreground')}
 							onClick={() => (disabled ? undefined : onAction(action.id, items))}

@@ -509,6 +509,8 @@
 				"setOverrideShort": "Set override",
 				"useGlobalDefault": "Use global default",
 				"reset": "Reset profile",
+				"resetHint": "Restore the built-in profile settings",
+				"resetDisabledHint": "This profile already uses built-in settings",
 				"save": "Save profile"
 			},
 			"placeholder": {"folder": "Choose a folder for this profile"},

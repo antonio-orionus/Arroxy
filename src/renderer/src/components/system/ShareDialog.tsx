@@ -30,6 +30,7 @@ import IconSkype from '~icons/logos/skype'
 import IconPocket from '~icons/simple-icons/pocket'
 import IconBuffer from '~icons/simple-icons/buffer'
 import IconDiaspora from '~icons/simple-icons/diaspora'
+import {Hint} from '../shared/Hint.js'
 
 // Viber dropped: viber://forward URL is rejected by shell.openExternal's
 // http(s)-only allowlist (fileHandlers.ts), so the button silently did nothing.
@@ -134,12 +135,14 @@ export function ShareDialog(): ReactNode {
 					{sortedDestinations.map(dest => {
 						const Icon = dest.Icon
 						return (
-							<Button key={dest.id} type="button" variant="outline" onClick={() => handleSocial(dest)} className="h-auto min-w-0 flex-col gap-1 p-2" data-testid={`share-dest-${dest.id}`} title={dest.label}>
-								<span className="flex size-7 items-center justify-center text-foreground" style={dest.color ? {color: dest.color} : undefined}>
-									<Icon width={20} height={20} />
-								</span>
-								<span className="w-full truncate text-center text-caption text-muted-foreground">{dest.label}</span>
-							</Button>
+							<Hint key={dest.id} label={dest.label} reveal>
+								<Button type="button" variant="outline" onClick={() => handleSocial(dest)} className="h-auto min-w-0 flex-col gap-1 p-2" data-testid={`share-dest-${dest.id}`}>
+									<span className="flex size-7 items-center justify-center text-foreground" style={dest.color ? {color: dest.color} : undefined}>
+										<Icon width={20} height={20} />
+									</span>
+									<span className="w-full truncate text-center text-caption text-muted-foreground">{dest.label}</span>
+								</Button>
+							</Hint>
 						)
 					})}
 				</div>

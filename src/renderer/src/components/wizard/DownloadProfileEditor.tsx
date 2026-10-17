@@ -38,6 +38,7 @@ import {OptionCard} from '../shared/OptionCard.js'
 import {PanelSection} from '../shared/PanelSection.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
+import {Hint} from '../shared/Hint.js'
 
 interface SelectOption<T extends string> {
 	value: T
@@ -396,10 +397,12 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 													{PROFILE_ICON_OPTIONS.map(option => {
 														const Icon = option.icon
 														return (
-															<ToggleGroupItem key={option.value} value={option.value} title={t(option.labelKey)} size="lg" data-testid={`profiles-editor-icon-${option.value}`}>
-																<Icon aria-hidden />
-																<span className="sr-only">{t(option.labelKey)}</span>
-															</ToggleGroupItem>
+															<Hint key={option.value} label={t(option.labelKey)}>
+																<ToggleGroupItem value={option.value} size="lg" data-testid={`profiles-editor-icon-${option.value}`}>
+																	<Icon aria-hidden />
+																	<span className="sr-only">{t(option.labelKey)}</span>
+																</ToggleGroupItem>
+															</Hint>
 														)
 													})}
 												</ToggleGroup>
@@ -551,15 +554,17 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 												<span className="text-xs font-semibold">{t('wizard.profileEditor.destination.global')}</span>
 												<Badge variant={hasDestinationOverride ? 'outline' : 'secondary'}>{hasDestinationOverride ? 'Inherited' : 'Active'}</Badge>
 											</div>
-											<p className="mt-1 truncate font-mono text-xs text-subtle-foreground" title={globalDestinationRoot || undefined}>
-												{readablePath(globalDestinationRoot, commonPaths)}
-											</p>
+											<Hint label={globalDestinationRoot} reveal>
+												<p className="mt-1 truncate font-mono text-xs text-subtle-foreground">{readablePath(globalDestinationRoot, commonPaths)}</p>
+											</Hint>
 										</div>
 										<div className="mt-2 flex flex-wrap gap-2">
-											<Button type="button" variant="outline" size="sm" aria-label={t('wizard.url.profile.changeGlobalDestination')} title={t('wizard.url.profile.changeGlobalDestination')} onClick={() => void changeGlobalDestination()} disabled={!onChangeGlobalDestination} className="shrink-0">
-												<FolderCog data-icon="inline-start" aria-hidden />
-												{t('wizard.profileEditor.action.changeGlobalShort')}
-											</Button>
+											<Hint label={t('wizard.url.profile.changeGlobalDestination')}>
+												<Button type="button" variant="outline" size="sm" aria-label={t('wizard.url.profile.changeGlobalDestination')} onClick={() => void changeGlobalDestination()} disabled={!onChangeGlobalDestination} focusableWhenDisabled className="shrink-0">
+													<FolderCog data-icon="inline-start" aria-hidden />
+													{t('wizard.profileEditor.action.changeGlobalShort')}
+												</Button>
+											</Hint>
 										</div>
 									</div>
 
@@ -574,10 +579,12 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 										</div>
 										{!showDestinationOverride ? (
 											<div className="mt-2 flex flex-wrap gap-2">
-												<Button type="button" variant="outline" size="sm" aria-label={t('wizard.profileEditor.action.setOverride')} title={t('wizard.profileEditor.action.setOverride')} onClick={() => void chooseDestinationFolder()} className="shrink-0">
-													<Folder data-icon="inline-start" aria-hidden />
-													{t('wizard.profileEditor.action.setOverrideShort')}
-												</Button>
+												<Hint label={t('wizard.profileEditor.action.setOverride')}>
+													<Button type="button" variant="outline" size="sm" aria-label={t('wizard.profileEditor.action.setOverride')} onClick={() => void chooseDestinationFolder()} className="shrink-0">
+														<Folder data-icon="inline-start" aria-hidden />
+														{t('wizard.profileEditor.action.setOverrideShort')}
+													</Button>
+												</Hint>
 											</div>
 										) : null}
 
@@ -604,9 +611,9 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 
 									<div className="rounded-lg border border-border-strong bg-background/35 px-3 py-2" data-testid="profiles-editor-final-destination">
 										<p className="text-caption font-medium text-subtle-foreground">{t('wizard.profileEditor.destination.resolved')}</p>
-										<p className="mt-1 truncate font-mono text-xs text-foreground" title={resolvedDestination || resolvedDestinationLabel}>
-											{resolvedDestinationLabel}
-										</p>
+										<Hint label={resolvedDestination || resolvedDestinationLabel} reveal>
+											<p className="mt-1 truncate font-mono text-xs text-foreground">{resolvedDestinationLabel}</p>
+										</Hint>
 									</div>
 								</div>
 
@@ -675,9 +682,9 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 												className="grid w-full grid-cols-3"
 											>
 												{SPONSOR_BLOCK_OPTIONS.map(option => (
-													<ToggleGroupItem key={option.value} value={option.value} title={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
-														{t(option.labelKey)}
-													</ToggleGroupItem>
+													<Hint key={option.value} label={t(SPONSOR_BLOCK_HINT_KEYS[option.value])}>
+														<ToggleGroupItem value={option.value}>{t(option.labelKey)}</ToggleGroupItem>
+													</Hint>
 												))}
 											</ToggleGroup>
 											{sponsorBlockMode !== 'off' ? (
@@ -711,10 +718,12 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 				<DialogFooter className="sm:justify-between">
 					<div className="flex min-w-0 flex-1">
 						{resetProfile ? (
-							<Button type="button" variant="ghost" onClick={() => void resetProfileOverride()} disabled={!resetProfile.enabled} title={resetProfile.enabled ? 'Restore the built-in profile settings' : 'This profile already uses built-in settings'}>
-								<RotateCcw data-icon="inline-start" aria-hidden />
-								{t('wizard.profileEditor.action.reset')}
-							</Button>
+							<Hint label={t(resetProfile.enabled ? 'wizard.profileEditor.action.resetHint' : 'wizard.profileEditor.action.resetDisabledHint')}>
+								<Button type="button" variant="ghost" onClick={() => void resetProfileOverride()} disabled={!resetProfile.enabled} focusableWhenDisabled>
+									<RotateCcw data-icon="inline-start" aria-hidden />
+									{t('wizard.profileEditor.action.reset')}
+								</Button>
+							</Hint>
 						) : null}
 					</div>
 					<div className="flex flex-col-reverse gap-2 sm:flex-row">

@@ -444,13 +444,13 @@ describe('Download — subtitles-only safeguards', () => {
 	it('is disabled in Subtitles with no language', () => {
 		singleState({wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
 		render(<StepReview />)
-		expect(screen.getByTestId<HTMLButtonElement>('btn-download').disabled).toBe(true)
+		expect(screen.getByTestId('btn-download')).toHaveAttribute('aria-disabled', 'true')
 		expect(screen.getByTestId<HTMLButtonElement>('btn-download-menu').disabled).toBe(true)
 	})
 
 	it('is enabled in Subtitles with at least one language', () => {
 		singleState({wizardMediaKind: 'subtitles', selectedVideoFormatId: '', wizardSubtitleLanguages: ['en']})
 		render(<StepReview />)
-		expect(screen.getByTestId<HTMLButtonElement>('btn-download').disabled).toBe(false)
+		expect(screen.getByTestId('btn-download')).not.toHaveAttribute('aria-disabled', 'true')
 	})
 })

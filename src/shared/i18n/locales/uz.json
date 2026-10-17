@@ -553,6 +553,8 @@
 				"setOverrideShort": "Almashtirishni belgilash",
 				"useGlobalDefault": "Umumiy standartdan foydalanish",
 				"reset": "Profilni tiklash",
+				"resetHint": "Ichki profil sozlamalarini tiklash",
+				"resetDisabledHint": "Bu profil allaqachon ichki sozlamalardan foydalanmoqda",
 				"save": "Profilni saqlash"
 			},
 			"placeholder": {"folder": "Bu profil uchun jild tanlang"},

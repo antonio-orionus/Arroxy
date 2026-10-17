@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "প্রোফাইল রিসেট করুন"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "এই প্রোফাইল ইতিমধ্যে বিল্ট-ইন সেটিংস ব্যবহার করছে"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "বিল্ট-ইন প্রোফাইল সেটিংস ফিরিয়ে আনুন"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "প্রোফাইল সংরক্ষণ করুন"

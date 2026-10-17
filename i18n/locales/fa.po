@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "بازنشانی نمایه"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "این نمایه از قبل از تنظیمات داخلی استفاده می‌کند"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "بازگرداندن تنظیمات داخلی نمایه"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "ذخیرهٔ نمایه"

@@ -533,6 +533,8 @@
 				"setOverrideShort": "Ustaw zastąpienie",
 				"useGlobalDefault": "Użyj wartości globalnej",
 				"reset": "Zresetuj profil",
+				"resetHint": "Przywróć wbudowane ustawienia profilu",
+				"resetDisabledHint": "Ten profil już używa wbudowanych ustawień",
 				"save": "Zapisz profil"
 			},
 			"placeholder": {"folder": "Wybierz folder dla tego profilu"},

@@ -34,6 +34,7 @@ import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 import {IconTile} from '../shared/IconTile.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
+import {Hint} from '../shared/Hint.js'
 
 type ProfilesTab = 'download' | 'explore' | 'queue' | 'profiles' | 'settings'
 const PROFILE_TABS = ['download', 'explore', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
@@ -206,42 +207,53 @@ function HomeTabsList({compact, exploreEnabled, exploreNoticeSeen, queueCount, a
 	const {t} = useTranslation()
 	return (
 		<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-compact={compact ? 'true' : undefined} data-testid="profiles-tabs">
-			<TabsTrigger value="download" title={compact ? t('wizard.steps.url') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-				<Link2 data-icon="inline-start" aria-hidden />
-				<TabLabel compact={compact}>{t('wizard.steps.url')}</TabLabel>
-			</TabsTrigger>
-			{exploreEnabled ? (
-				<TabsTrigger value="explore" title={compact ? t('explore.tabLabel') : undefined} className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
-					<Compass data-icon="inline-start" aria-hidden />
-					<TabLabel compact={compact}>{t('explore.tabLabel')}</TabLabel>
-					{exploreNoticeSeen ? null : (
-						<Badge variant="info" size="sm">
-							{t('explore.newBadge')}
-						</Badge>
-					)}
+			<Hint label={compact ? t('wizard.steps.url') : undefined}>
+				<TabsTrigger value="download" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+					<Link2 data-icon="inline-start" aria-hidden />
+					<TabLabel compact={compact}>{t('wizard.steps.url')}</TabLabel>
 				</TabsTrigger>
+			</Hint>
+			{exploreEnabled ? (
+				<Hint label={compact ? t('explore.tabLabel') : undefined}>
+					<TabsTrigger value="explore" className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
+						<Compass data-icon="inline-start" aria-hidden />
+						<TabLabel compact={compact}>{t('explore.tabLabel')}</TabLabel>
+						{exploreNoticeSeen ? null : (
+							<Badge variant="info" size="sm">
+								{t('explore.newBadge')}
+							</Badge>
+						)}
+					</TabsTrigger>
+				</Hint>
 			) : null}
-			<TabsTrigger value="queue" title={compact ? t('queue.tabLabel') : undefined} data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
-				<Inbox data-icon="inline-start" aria-hidden />
-				<TabLabel compact={compact}>{t('queue.tabLabel')}</TabLabel>
-				{attentionCount > 0 ? (
-					<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" title={t('queue.attentionBadge', {count: attentionCount})} aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
-						{attentionCount}
-					</Badge>
-				) : queueCount > 0 ? (
-					<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
-						{queueCount}
-					</Badge>
-				) : null}
-			</TabsTrigger>
-			<TabsTrigger value="profiles" title={compact ? t('wizard.url.tabs.profiles') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-				<Users data-icon="inline-start" aria-hidden />
-				<TabLabel compact={compact}>{t('wizard.url.tabs.profiles')}</TabLabel>
-			</TabsTrigger>
-			<TabsTrigger value="settings" title={compact ? t('wizard.url.tabs.settings') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-				<Settings data-icon="inline-start" aria-hidden />
-				<TabLabel compact={compact}>{t('wizard.url.tabs.settings')}</TabLabel>
-			</TabsTrigger>
+			{/* One hint for the tab and its attention badge: nested hints would open together. */}
+			<Hint label={[compact ? t('queue.tabLabel') : null, attentionCount > 0 ? t('queue.attentionBadge', {count: attentionCount}) : null].filter(Boolean).join(' · ')}>
+				<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+					<Inbox data-icon="inline-start" aria-hidden />
+					<TabLabel compact={compact}>{t('queue.tabLabel')}</TabLabel>
+					{attentionCount > 0 ? (
+						<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
+							{attentionCount}
+						</Badge>
+					) : queueCount > 0 ? (
+						<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
+							{queueCount}
+						</Badge>
+					) : null}
+				</TabsTrigger>
+			</Hint>
+			<Hint label={compact ? t('wizard.url.tabs.profiles') : undefined}>
+				<TabsTrigger value="profiles" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+					<Users data-icon="inline-start" aria-hidden />
+					<TabLabel compact={compact}>{t('wizard.url.tabs.profiles')}</TabLabel>
+				</TabsTrigger>
+			</Hint>
+			<Hint label={compact ? t('wizard.url.tabs.settings') : undefined}>
+				<TabsTrigger value="settings" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+					<Settings data-icon="inline-start" aria-hidden />
+					<TabLabel compact={compact}>{t('wizard.url.tabs.settings')}</TabLabel>
+				</TabsTrigger>
+			</Hint>
 		</TabsList>
 	)
 }

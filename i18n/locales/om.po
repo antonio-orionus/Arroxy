@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Piroofaayilii haaromsi"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Piroofaayiliin kun duraanuu qindaa'ina keessaa jiru fayyadamaa jira"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Qindaa'ina piroofaayilii keessaa jiru deebisi"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Piroofaayilii olkaa'i"

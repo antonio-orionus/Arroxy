@@ -11,8 +11,9 @@ function Tooltip({...props}: TooltipPrimitive.Root.Props): ReactNode {
 	return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 }
 
+// A rendered child keeps its own slot (`tabs-trigger`, `button`): styles key on it.
 function TooltipTrigger({...props}: TooltipPrimitive.Trigger.Props): ReactNode {
-	return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+	return <TooltipPrimitive.Trigger {...(props.render ? {} : {'data-slot': 'tooltip-trigger'})} {...props} />
 }
 
 function TooltipContent({

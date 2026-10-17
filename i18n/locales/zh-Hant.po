@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "重設設定檔"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "此設定檔已使用內建設定"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "還原內建設定檔設定"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "儲存設定檔"

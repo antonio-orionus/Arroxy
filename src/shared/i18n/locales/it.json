@@ -525,6 +525,8 @@
 				"setOverrideShort": "Imposta sostituzione",
 				"useGlobalDefault": "Usa predefinito globale",
 				"reset": "Reimposta profilo",
+				"resetHint": "Ripristina le impostazioni integrate del profilo",
+				"resetDisabledHint": "Questo profilo usa già le impostazioni integrate",
 				"save": "Salva profilo"
 			},
 			"placeholder": {"folder": "Scegli una cartella per questo profilo"},

@@ -11,6 +11,7 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {normalizeSubtitleLanguageCode} from '@renderer/lib/subtitleLanguageCatalog.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {OptionCard} from '../shared/OptionCard.js'
+import {Hint} from '../shared/Hint.js'
 
 type PlaylistSelectionKind = PlaylistSelection['kind']
 const SELECTION_KINDS: readonly PlaylistSelectionKind[] = ['video', 'audio', 'subtitles']
@@ -212,9 +213,11 @@ export function StepPlaylistPresets(): ReactNode {
 			</ScrollArea>
 
 			<WizardStepFooterActions onBack={back} onContinue={advance} continueDisabled={subtitlesIncomplete}>
-				<Button variant="outline" type="button" onClick={skipToConfirm} disabled={subtitlesIncomplete} title={t('wizard.formats.skipToConfirmTooltip')}>
-					{t('wizard.formats.skipToConfirm')}
-				</Button>
+				<Hint label={t('wizard.formats.skipToConfirmTooltip')}>
+					<Button variant="outline" type="button" onClick={skipToConfirm} disabled={subtitlesIncomplete} focusableWhenDisabled>
+						{t('wizard.formats.skipToConfirm')}
+					</Button>
+				</Hint>
 			</WizardStepFooterActions>
 		</div>
 	)

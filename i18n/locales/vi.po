@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Đặt lại hồ sơ"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Hồ sơ này đã dùng cài đặt tích hợp"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Khôi phục cài đặt hồ sơ tích hợp"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Lưu hồ sơ"

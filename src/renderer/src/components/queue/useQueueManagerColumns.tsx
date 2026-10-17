@@ -11,6 +11,7 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Progress} from '../ui/progress.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
+import {Hint} from '../shared/Hint.js'
 
 const STATUS_META: Record<
 	QueueItemStatus,
@@ -129,30 +130,29 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 										</span>
 									</Badge>
 									{item.status === 'probing' ? (
-										<Button
-											type="button"
-											variant="ghost"
-											size="icon-xs"
-											aria-label={t('queue.item.cancel')}
-											title={t('queue.item.cancel')}
-											onClick={event => {
-												event.stopPropagation()
-												onCancelProbing(item.id)
-											}}
-											data-testid={`queue-cancel-probing-${item.id}`}
-										>
-											<X aria-hidden />
-										</Button>
+										<Hint label={t('queue.item.cancel')}>
+											<Button
+												type="button"
+												variant="ghost"
+												size="icon-xs"
+												aria-label={t('queue.item.cancel')}
+												onClick={event => {
+													event.stopPropagation()
+													onCancelProbing(item.id)
+												}}
+												data-testid={`queue-cancel-probing-${item.id}`}
+											>
+												<X aria-hidden />
+											</Button>
+										</Hint>
 									) : null}
 								</div>
 								{detail ? (
-									<span
-										data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId}
-										className={cn('max-w-48 truncate text-caption', item.status === 'error' ? 'text-destructive' : doneNotice(item) ? 'text-warning' : 'text-subtle-foreground')}
-										title={doneNotice(item) ? formatStatus(item.lastStatus) : detail}
-									>
-										{detail}
-									</span>
+									<Hint label={doneNotice(item) ? formatStatus(item.lastStatus) : detail} reveal={!doneNotice(item)}>
+										<span data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId} className={cn('max-w-48 truncate text-caption', item.status === 'error' ? 'text-destructive' : doneNotice(item) ? 'text-warning' : 'text-subtle-foreground')}>
+											{detail}
+										</span>
+									</Hint>
 								) : null}
 							</div>
 						)
@@ -173,17 +173,17 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 				columnHelper.accessor('formatLabel', {
 					header: ({column}) => sortableHeader(t('queue.table.format'), column, t),
 					cell: info => (
-						<span className="block truncate text-xs text-muted-foreground" title={info.getValue()}>
-							{info.getValue()}
-						</span>
+						<Hint label={info.getValue()} reveal>
+							<span className="block truncate text-xs text-muted-foreground">{info.getValue()}</span>
+						</Hint>
 					)
 				}),
 				columnHelper.accessor('outputDir', {
 					header: ({column}) => sortableHeader(t('queue.table.outputTarget'), column, t),
 					cell: info => (
-						<span className="block max-w-56 truncate font-mono text-caption text-muted-foreground" title={info.getValue()}>
-							{info.getValue()}
-						</span>
+						<Hint label={info.getValue()} reveal>
+							<span className="block max-w-56 truncate font-mono text-caption text-muted-foreground">{info.getValue()}</span>
+						</Hint>
 					)
 				}),
 				columnHelper.accessor('artifacts', {

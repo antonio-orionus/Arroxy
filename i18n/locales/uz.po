@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Profilni tiklash"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Bu profil allaqachon ichki sozlamalardan foydalanmoqda"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Ichki profil sozlamalarini tiklash"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Profilni saqlash"

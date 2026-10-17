@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "កំណត់ប្រវត្តិរូបឡើងវិញ"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "ប្រវត្តិរូបនេះប្រើការកំណត់ដែលមានស្រាប់រួចហើយ"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "ស្ដារការកំណត់ប្រវត្តិរូបដែលមានស្រាប់"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "រក្សាទុកប្រវត្តិរូប"

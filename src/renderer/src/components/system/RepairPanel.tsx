@@ -7,6 +7,7 @@ import {useAppStore} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
+import {Hint} from '../shared/Hint.js'
 
 interface Props {
 	diagnostics: Record<DependencyId, DependencyDiagnostic>
@@ -77,9 +78,11 @@ export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 							<div className="flex items-center justify-between gap-2">
 								<span className="font-medium">{t(DEPENDENCY_LABEL_KEY[id])}</span>
 								{code ? (
-									<Badge variant="warning" size="sm" className="font-mono" title={technicalDetail}>
-										{code}
-									</Badge>
+									<Hint label={technicalDetail}>
+										<Badge variant="warning" size="sm" className="font-mono">
+											{code}
+										</Badge>
+									</Hint>
 								) : (
 									<span className="text-xs text-muted-foreground">failed</span>
 								)}

@@ -493,6 +493,8 @@
 				"setOverrideShort": "ተሻሪ አዘጋጅ",
 				"useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም",
 				"reset": "መገለጫ ዳግም አስጀምር",
+				"resetHint": "አብሮገነብ የመገለጫ ቅንብሮችን ወደነበሩበት መልስ",
+				"resetDisabledHint": "ይህ መገለጫ አስቀድሞ አብሮገነብ ቅንብሮችን ይጠቀማል",
 				"save": "መገለጫ አስቀምጥ"
 			},
 			"placeholder": {"folder": "ለዚህ መገለጫ አቃፊ ይምረጡ"},

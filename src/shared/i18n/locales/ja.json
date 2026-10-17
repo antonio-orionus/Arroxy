@@ -525,6 +525,8 @@
 				"setOverrideShort": "個別設定を指定",
 				"useGlobalDefault": "全体の既定値を使う",
 				"reset": "プロフィールをリセット",
+				"resetHint": "組み込みのプロフィール設定に戻す",
+				"resetDisabledHint": "このプロフィールはすでに組み込みの設定を使用しています",
 				"save": "プロフィールを保存"
 			},
 			"placeholder": {"folder": "このプロフィール用のフォルダーを選択"},

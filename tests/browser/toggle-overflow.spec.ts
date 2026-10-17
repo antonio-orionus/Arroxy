@@ -570,7 +570,7 @@ async function cutFormatLabels(page: Page): Promise<string[]> {
 	return page.evaluate(() => {
 		const cut: string[] = []
 		for (const row of document.querySelectorAll<HTMLElement>('[data-testid^="queue-manager-row-"]')) {
-			const label = [...row.querySelectorAll<HTMLElement>('td span[title]')].find(span => (span.textContent ?? '').includes('|'))
+			const label = [...row.querySelectorAll<HTMLElement>('td span.truncate')].find(span => (span.textContent ?? '').includes('|'))
 			if (label && label.scrollWidth > label.clientWidth + 1) cut.push(label.textContent ?? '')
 		}
 		return cut

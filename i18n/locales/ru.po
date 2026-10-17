@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Сбросить профиль"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Этот профиль уже использует встроенные настройки"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Восстановить встроенные настройки профиля"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Сохранить профиль"

@@ -53,7 +53,6 @@ export function ExploreAddressBar({url, onSubmit, onEdit}: ExploreAddressBarProp
 			value={draft ?? url}
 			placeholder={t('explore.toolbar.addressPlaceholder')}
 			aria-label={t('explore.toolbar.addressAria')}
-			title={url}
 			dir="ltr"
 			spellCheck={false}
 			autoComplete="off"

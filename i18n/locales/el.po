@@ -2445,6 +2445,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Επαναφορά προφίλ"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Αυτό το προφίλ χρησιμοποιεί ήδη τις ενσωματωμένες ρυθμίσεις"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Επαναφορά των ενσωματωμένων ρυθμίσεων προφίλ"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Αποθήκευση προφίλ"

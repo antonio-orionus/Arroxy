@@ -2,6 +2,7 @@ import type {ReactNode} from 'react'
 import {cn} from '@renderer/lib/utils.js'
 import {Field, FieldLabel, FieldTitle} from '../ui/field.js'
 import {RadioGroupItem} from '../ui/radio-group.js'
+import {Hint} from './Hint.js'
 
 // One option in a RadioGroup list (format rows, audio tracks): radio, label,
 // and right-aligned metadata on a choice surface. The whole row is the label,
@@ -18,16 +19,16 @@ export function ChoiceRow({id, value, label, adornment, tag, meta, disabled, cla
 				{/* The label grows and shrinks at the base rate; the details shrink four times faster, so the label keeps its room first. */}
 				<FieldTitle id={`${id}-label`} className="w-auto min-w-0 flex-auto gap-1.5">
 					{adornment}
-					<span className="min-w-0 truncate" title={label}>
-						{label}
-					</span>
+					<Hint label={label} reveal>
+						<span className="min-w-0 truncate">{label}</span>
+					</Hint>
 					{tag}
 				</FieldTitle>
 				{/* Long track details (codec, channels, bitrate, size) truncate rather than overflow the row. */}
 				{meta ? (
-					<span className="max-w-[65%] min-w-0 shrink-4 truncate text-end text-xs text-subtle-foreground" title={meta}>
-						{meta}
-					</span>
+					<Hint label={meta} reveal>
+						<span className="max-w-[65%] min-w-0 shrink-4 truncate text-end text-xs text-subtle-foreground">{meta}</span>
+					</Hint>
 				) : null}
 			</Field>
 		</FieldLabel>

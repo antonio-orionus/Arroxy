@@ -538,6 +538,8 @@
 				"setOverrideShort": "Atur penggantian",
 				"useGlobalDefault": "Gunakan default global",
 				"reset": "Setel ulang profil",
+				"resetHint": "Pulihkan pengaturan profil bawaan",
+				"resetDisabledHint": "Profil ini sudah menggunakan pengaturan bawaan",
 				"save": "Simpan profil"
 			},
 			"placeholder": {"folder": "Pilih folder untuk profil ini"},
