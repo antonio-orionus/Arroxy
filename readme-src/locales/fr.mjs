@@ -381,8 +381,6 @@ export const fr = {
     "Transformer le tiroir de file en gestionnaire plus complet, avec changement de dossier de destination pour les éléments en file",
   plan_r5_name: "**Téléchargements programmés**",
   plan_r5_desc: "Démarre une file à une heure définie (lancements nocturnes)",
-  plan_r7_name: "**Découpe de clips**",
-  plan_r7_desc: "Télécharge uniquement un segment par heure de début/fin",
   plan_r9_name: "**Paquet AUR**",
   plan_r9_desc: "Installation sur Arch Linux et Omarchy avec `yay -S arroxy-bin`",
   plan_cta:

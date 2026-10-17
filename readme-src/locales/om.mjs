@@ -380,8 +380,6 @@ export const om = {
     "Queue drawer gara manager guutuutti guddisuu, items queue keessa jiranif destination folder jijjiiruu dabalatee",
   plan_r5_name: "**Buufannoo yeroo qabamee**",
   plan_r5_desc: "Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti)",
-  plan_r7_name: "**Muraa Clip**",
-  plan_r7_desc: "Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi",
   plan_r9_name: "**Paakeejii AUR**",
   plan_r9_desc: "Arch Linux fi Omarchy irratti `yay -S arroxy-bin` fayyadamuun fe'i",
   plan_cta:

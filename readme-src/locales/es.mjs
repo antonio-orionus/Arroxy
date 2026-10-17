@@ -381,9 +381,6 @@ export const es = {
     "Convertir el cajón de cola en un gestor más completo, incluido cambiar carpetas de destino para elementos en cola",
   plan_r5_name: "**Descargas programadas**",
   plan_r5_desc: "Inicia una cola a una hora fijada (ejecuciones nocturnas)",
-  plan_r7_name: "**Recorte de clips**",
-  plan_r7_desc:
-    "Descarga solo un segmento especificando tiempo de inicio y fin",
   plan_r9_name: "**Paquete AUR**",
   plan_r9_desc: "Instalación en Arch Linux y Omarchy con `yay -S arroxy-bin`",
   plan_cta:

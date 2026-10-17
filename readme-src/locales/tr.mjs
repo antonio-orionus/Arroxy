@@ -377,8 +377,6 @@ export const tr = {
     "Kuyruk çekmecesini, kuyruktaki öğelerin hedef klasörlerini değiştirme dahil daha kapsamlı bir yöneticisine dönüştür",
   plan_r5_name: "**Zamanlanmış indirmeler**",
   plan_r5_desc: "Bir kuyruğu belirli saatte başlat (gece çalıştırmaları)",
-  plan_r7_name: "**Klip kırpma**",
-  plan_r7_desc: "Yalnızca başlangıç/bitiş zamanıyla belirli bir segmenti indir",
   plan_r9_name: "**AUR paketi**",
   plan_r9_desc: "Arch Linux ve Omarchy'ye `yay -S arroxy-bin` ile kurulum",
   plan_cta:

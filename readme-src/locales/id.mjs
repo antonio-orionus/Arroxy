@@ -206,8 +206,6 @@ export const id = {
   "plan_r4_desc": "Ubah laci antrean menjadi pengelola yang lebih lengkap, termasuk mengubah folder tujuan untuk item antrean",
   "plan_r5_name": "**Unduhan terjadwal**",
   "plan_r5_desc": "Memulai antrian pada waktu yang ditentukan (berjalan semalaman)",
-  "plan_r7_name": "**Pemangkasan klip**",
-  "plan_r7_desc": "Unduh hanya satu segmen berdasarkan waktu mulai/berakhir",
   "plan_r9_name": "**Paket AUR**",
   "plan_r9_desc": "Instal di Arch Linux dan Omarchy dengan `yay -S arroxy-bin`",
   "plan_cta": "Punya ide fitur? [Buka permintaan](../../issues) — masukan komunitas membantu menentukan prioritas.",

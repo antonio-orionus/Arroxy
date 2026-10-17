@@ -375,7 +375,6 @@ Hâlâ planlananlar — yaklaşık öncelik sırasıyla:
 | **Daha güçlü yeniden deneme kurtarması** | Güvenilmez veya sorunlu internet bağlantılarıyla kesilen indirmeler için yeni bir yeniden deneme yolu |
 | **Tam indirme yöneticisi çekmecesi** | Kuyruk çekmecesini, kuyruktaki öğelerin hedef klasörlerini değiştirme dahil daha kapsamlı bir yöneticisine dönüştür |
 | **Zamanlanmış indirmeler** | Bir kuyruğu belirli saatte başlat (gece çalıştırmaları) |
-| **Klip kırpma** | Yalnızca başlangıç/bitiş zamanıyla belirli bir segmenti indir |
 | **AUR paketi** | Arch Linux ve Omarchy'ye `yay -S arroxy-bin` ile kurulum |
 
 Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi önceliği şekillendirir.

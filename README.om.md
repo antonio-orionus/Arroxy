@@ -373,7 +373,6 @@ Amma iyyuu karoorfame — tilmaamaan tartiiba dursaatiin:
 | **Deebisanii yaaluun deebisuu cimaa** | Buufannoowwan walitti hidhamiinsa internetii hin tasgabboofne ykn rakkoo qabuun citeef karaa retry haaraa |
 | **Drawer download manager guutuu** | Queue drawer gara manager guutuutti guddisuu, items queue keessa jiranif destination folder jijjiiruu dabalatee |
 | **Buufannoo yeroo qabamee** | Queue yeroo qindaawaa irratti eegali (halkaniidhumaan hojeti) |
-| **Muraa Clip** | Tokkicha kutaa yeroo eegaluu/dhumu irratti buusi |
 | **Paakeejii AUR** | Arch Linux fi Omarchy irratti `yay -S arroxy-bin` fayyadamuun fe'i |
 
 Amala yaaddetee jirtaa? [Gaaffii bani](../../issues) — galchiin hawaasaa dursa murteessa.

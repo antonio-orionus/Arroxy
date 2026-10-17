@@ -377,8 +377,6 @@ export const de = {
     "Den Queue-Drawer zu einem volleren Manager ausbauen, inklusive Zielordner-Wechsel für eingereihte Elemente",
   plan_r5_name: "**Geplante Downloads**",
   plan_r5_desc: "Warteschlange zu einer bestimmten Zeit starten (Nacht-Runs)",
-  plan_r7_name: "**Clip-Trimming**",
-  plan_r7_desc: "Nur ein Segment per Start-/Endzeit herunterladen",
   plan_r9_name: "**AUR-Paket**",
   plan_r9_desc: "Installation unter Arch Linux und Omarchy mit `yay -S arroxy-bin`",
   plan_cta:

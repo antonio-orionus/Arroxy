@@ -391,8 +391,6 @@ export const vi = {
     "Biến queue drawer thành manager đầy đủ hơn, bao gồm đổi thư mục đích cho các mục đang chờ",
   plan_r5_name: "**Tải xuống theo lịch**",
   plan_r5_desc: "Bắt đầu hàng đợi vào thời điểm đặt trước (chạy qua đêm)",
-  plan_r7_name: "**Cắt đoạn clip**",
-  plan_r7_desc: "Chỉ tải xuống một đoạn theo thời gian bắt đầu/kết thúc",
   plan_r9_name: "**Gói AUR**",
   plan_r9_desc: "Cài đặt trên Arch Linux và Omarchy bằng `yay -S arroxy-bin`",
   plan_cta:

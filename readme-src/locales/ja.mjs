@@ -390,8 +390,6 @@ export const ja = {
     "キュードロワーをより完全なマネージャーへ拡張し、キュー内アイテムの保存先フォルダー変更にも対応",
   plan_r5_name: "**スケジュールダウンロード**",
   plan_r5_desc: "設定した時刻にキューを開始（夜間実行など）",
-  plan_r7_name: "**クリップトリミング**",
-  plan_r7_desc: "開始・終了時刻でセグメントのみをダウンロード",
   plan_r9_name: "**AUR パッケージ**",
   plan_r9_desc: "Arch Linux と Omarchy に `yay -S arroxy-bin` でインストール",
   plan_cta:

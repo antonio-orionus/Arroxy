@@ -366,8 +366,6 @@ export const zh = {
   plan_r4_desc: "将队列抽屉扩展为更完整的管理器，包括为排队项目更改目标文件夹",
   plan_r5_name: "**定时下载**",
   plan_r5_desc: "在设定时间启动队列（适合连夜批量下载）",
-  plan_r7_name: "**片段裁剪**",
-  plan_r7_desc: "按起止时间只下载视频的某一段",
   plan_r9_name: "**AUR 软件包**",
   plan_r9_desc: "在 Arch Linux 和 Omarchy 上用 `yay -S arroxy-bin` 安装",
   plan_cta: "有想法？[提交请求](../../issues) — 社区意见决定优先级。",

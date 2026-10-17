@@ -375,7 +375,6 @@ Funzionalità ancora previste, grosso modo in ordine di priorità:
 | **Ripristino più robusto dei tentativi** | Un nuovo percorso di ripetizione per i download interrotti da connessioni Internet instabili o problematiche |
 | **Pannello completo di gestione download** | Trasforma il pannello della coda in un gestore più completo, inclusa la modifica delle cartelle di destinazione degli elementi in attesa |
 | **Download pianificati** | Avvia una coda a un orario stabilito, per esempio durante la notte |
-| **Ritaglio dei clip** | Scarica solo un segmento indicando il tempo iniziale e finale |
 | **Pacchetto AUR** | Installazione su Arch Linux e Omarchy con `yay -S arroxy-bin` |
 
 Hai in mente una funzionalità? [Apri una richiesta](../../issues): il contributo della community orienta le priorità.

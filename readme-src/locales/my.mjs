@@ -394,8 +394,6 @@ export const my = {
     "queue drawer ကို ပိုမိုပြည့်စုံသော manager အဖြစ် ပြောင်းလဲပြီး queued items များအတွက် destination folder ပြောင်းလဲနိုင်ရန်",
   plan_r5_name: "**ဒေါင်းလုဒ်ချိန်သတ်မှတ်ခြင်း**",
   plan_r5_desc: "သတ်မှတ်ချိန်တွင် queue ကို စတင်ပါ (ညဘက် runs)",
-  plan_r7_name: "**Clip ဖြတ်တောက်ခြင်း**",
-  plan_r7_desc: "start/end time ဖြင့် segment တစ်ခုသာ ဒေါင်းလုဒ်ဆွဲပါ",
   plan_r9_name: "**AUR package**",
   plan_r9_desc: "Arch Linux နှင့် Omarchy တွင် `yay -S arroxy-bin` ဖြင့် ထည့်သွင်းပါ",
   plan_cta:

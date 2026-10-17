@@ -375,7 +375,6 @@ Todavía planeado — aproximadamente por orden de prioridad:
 | **Recuperación de reintentos más fuerte** | Una nueva ruta de reintento para descargas interrumpidas por conexiones de internet inestables o problemáticas |
 | **Cajón de gestor de descargas completo** | Convertir el cajón de cola en un gestor más completo, incluido cambiar carpetas de destino para elementos en cola |
 | **Descargas programadas** | Inicia una cola a una hora fijada (ejecuciones nocturnas) |
-| **Recorte de clips** | Descarga solo un segmento especificando tiempo de inicio y fin |
 | **Paquete AUR** | Instalación en Arch Linux y Omarchy con `yay -S arroxy-bin` |
 
 ¿Tienes alguna función en mente? [Abre una solicitud](../../issues) — la opinión de la comunidad guía la prioridad.

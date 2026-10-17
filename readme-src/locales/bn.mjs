@@ -391,8 +391,6 @@ export const bn = {
     "কিউ ড্রয়ারকে আরও পূর্ণ ম্যানেজারে পরিণত করা, queued আইটেমের destination folder বদলানোসহ",
   plan_r5_name: "**নির্ধারিত সময়ে ডাউনলোড**",
   plan_r5_desc: "নির্দিষ্ট সময়ে কিউ শুরু করুন (রাতভর রান)",
-  plan_r7_name: "**ক্লিপ ট্রিমিং**",
-  plan_r7_desc: "শুরু/শেষ সময় দিয়ে শুধু একটি অংশ ডাউনলোড করুন",
   plan_r9_name: "**AUR প্যাকেজ**",
   plan_r9_desc: "`yay -S arroxy-bin` দিয়ে Arch Linux ও Omarchy-তে ইনস্টল করুন",
   plan_cta:

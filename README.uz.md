@@ -373,7 +373,6 @@ Hali rejalashtirilgan — taxminan ustuvorlik tartibida:
 | **Kuchliroq retry recovery** | Ishonchsiz yoki muammoli internet connection sabab uzilgan yuklab olishlar uchun yangi retry yo'li |
 | **To'liq download manager drawer** | Queue drawerni to'liqroq managerga aylantirish, queued items uchun destination folderlarni o'zgartirish bilan |
 | **Rejalashtirilgan yuklab olishlar** | Navbatni belgilangan vaqtda boshlash (tunda ishlash) |
-| **Klip qirqish** | Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish |
 | **AUR paketi** | Arch Linux va Omarchy'ga `yay -S arroxy-bin` orqali o'rnatish |
 
 Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.

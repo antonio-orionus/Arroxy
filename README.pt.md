@@ -375,7 +375,6 @@ Ainda planejado — mais ou menos em ordem de prioridade:
 | **Recuperação de tentativas mais robusta** | Um novo caminho de nova tentativa para downloads interrompidos por conexões instáveis ou problemáticas |
 | **Gaveta completa de gerenciamento de downloads** | Transformar a gaveta da fila em um gerenciador mais completo, incluindo a troca da pasta de destino dos itens enfileirados |
 | **Downloads agendados** | Iniciar uma fila em um horário definido (execuções durante a madrugada) |
-| **Corte de trechos** | Baixar apenas um trecho, por horário de início e fim |
 | **Pacote AUR** | Instalação no Arch Linux e no Omarchy com `yay -S arroxy-bin` |
 
 Tem um recurso em mente? [Abra um pedido](../../issues) — a participação da comunidade define as prioridades.

@@ -380,8 +380,6 @@ export const pt = {
   plan_r5_name: "**Downloads agendados**",
   plan_r5_desc:
     "Iniciar uma fila em um horário definido (execuções durante a madrugada)",
-  plan_r7_name: "**Corte de trechos**",
-  plan_r7_desc: "Baixar apenas um trecho, por horário de início e fim",
   plan_r9_name: "**Pacote AUR**",
   plan_r9_desc: "Instalação no Arch Linux e no Omarchy com `yay -S arroxy-bin`",
   plan_cta:

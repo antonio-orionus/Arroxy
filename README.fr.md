@@ -375,7 +375,6 @@ Toujours prévu — approximativement par ordre de priorité :
 | **Reprise par nouvel essai renforcée** | Un nouveau chemin de relance pour les téléchargements interrompus par des connexions internet instables ou problématiques |
 | **Tiroir de gestionnaire de téléchargements complet** | Transformer le tiroir de file en gestionnaire plus complet, avec changement de dossier de destination pour les éléments en file |
 | **Téléchargements programmés** | Démarre une file à une heure définie (lancements nocturnes) |
-| **Découpe de clips** | Télécharge uniquement un segment par heure de début/fin |
 | **Paquet AUR** | Installation sur Arch Linux et Omarchy avec `yay -S arroxy-bin` |
 
 Tu as une fonctionnalité en tête ? [Ouvre une demande](../../issues) — les retours de la communauté orientent les priorités.

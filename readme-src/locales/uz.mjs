@@ -378,9 +378,6 @@ export const uz = {
     "Queue drawerni to'liqroq managerga aylantirish, queued items uchun destination folderlarni o'zgartirish bilan",
   plan_r5_name: "**Rejalashtirilgan yuklab olishlar**",
   plan_r5_desc: "Navbatni belgilangan vaqtda boshlash (tunda ishlash)",
-  plan_r7_name: "**Klip qirqish**",
-  plan_r7_desc:
-    "Boshlash/tugash vaqti bo'yicha faqat bir segmentni yuklab olish",
   plan_r9_name: "**AUR paketi**",
   plan_r9_desc: "Arch Linux va Omarchy'ga `yay -S arroxy-bin` orqali o'rnatish",
   plan_cta:

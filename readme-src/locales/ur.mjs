@@ -393,8 +393,6 @@ export const ur = {
     "queue drawer کو زیادہ مکمل manager میں بدلنا، queued items کے لیے destination folder تبدیل کرنے سمیت",
   plan_r5_name: "**شیڈیولڈ ڈاؤن لوڈز**",
   plan_r5_desc: "مقررہ وقت پر قطار شروع کریں (رات بھر کے رنز)",
-  plan_r7_name: "**کلپ ٹرمنگ**",
-  plan_r7_desc: "شروع/اختتام کے وقت سے صرف ایک سیگمنٹ ڈاؤن لوڈ کریں",
   plan_r9_name: "**AUR پیکج**",
   plan_r9_desc: "`yay -S arroxy-bin` کے ذریعے Arch Linux اور Omarchy پر انسٹال کریں",
   plan_cta:

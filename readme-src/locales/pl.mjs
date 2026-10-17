@@ -263,8 +263,6 @@ export const pl = {
   plan_r4_desc: "Rozbudowanie panelu kolejki o pełniejsze zarządzanie, w tym zmianę folderów docelowych zadań oczekujących",
   plan_r5_name: "**Zaplanowane pobieranie**",
   plan_r5_desc: "Uruchamianie kolejki o ustawionej porze, na przykład w nocy",
-  plan_r7_name: "**Przycinanie klipów**",
-  plan_r7_desc: "Pobieranie tylko fragmentu między czasem początkowym a końcowym",
   plan_r9_name: "**Pakiet AUR**",
   plan_r9_desc: "Instalacja w Arch Linux i Omarchy przez `yay -S arroxy-bin`",
   plan_cta: "Masz pomysł na funkcję? [Otwórz propozycję](../../issues) — opinie społeczności kształtują priorytety.",

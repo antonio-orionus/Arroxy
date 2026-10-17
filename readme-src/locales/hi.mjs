@@ -392,8 +392,6 @@ export const hi = {
     "क्यू ड्रॉअर को अधिक पूर्ण मैनेजर में बदलना, queued आइटमों के destination folder बदलने सहित",
   plan_r5_name: "**शेड्यूल्ड डाउनलोड**",
   plan_r5_desc: "निर्धारित समय पर क़तार शुरू करें (रात भर के रन)",
-  plan_r7_name: "**क्लिप ट्रिमिंग**",
-  plan_r7_desc: "शुरू/अंत समय से सिर्फ़ एक सेगमेंट डाउनलोड करें",
   plan_r9_name: "**AUR पैकेज**",
   plan_r9_desc: "`yay -S arroxy-bin` से Arch Linux और Omarchy पर इंस्टॉल करें",
   plan_cta:

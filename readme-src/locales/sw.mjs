@@ -378,8 +378,6 @@ export const sw = {
     "Kubadilisha queue drawer kuwa manager kamili zaidi, ikijumuisha kubadilisha folder za destination kwa vipengee vilivyo kwenye foleni",
   plan_r5_name: "**Upakuaji uliopangwa**",
   plan_r5_desc: "Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku)",
-  plan_r7_name: "**Kukata sehemu**",
-  plan_r7_desc: "Pakua sehemu pekee kwa wakati wa kuanza/kumalizia",
   plan_r9_name: "**Kifurushi cha AUR**",
   plan_r9_desc: "Sakinisha kwenye Arch Linux na Omarchy kwa `yay -S arroxy-bin`",
   plan_cta:

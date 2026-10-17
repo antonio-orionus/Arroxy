@@ -373,7 +373,6 @@ Bado imepangwa — takriban kwa mpangilio wa kipaumbele:
 | **Urejeshaji imara kwa retry** | Njia mpya ya retry kwa upakuaji uliokatizwa na miunganisho ya internet isiyotegemeka au yenye matatizo |
 | **Drawer kamili ya msimamizi wa upakuaji** | Kubadilisha queue drawer kuwa manager kamili zaidi, ikijumuisha kubadilisha folder za destination kwa vipengee vilivyo kwenye foleni |
 | **Upakuaji uliopangwa** | Anza foleni kwa wakati uliowekwa (uendeshaji wa usiku) |
-| **Kukata sehemu** | Pakua sehemu pekee kwa wakati wa kuanza/kumalizia |
 | **Kifurushi cha AUR** | Sakinisha kwenye Arch Linux na Omarchy kwa `yay -S arroxy-bin` |
 
 Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huathiri kipaumbele.

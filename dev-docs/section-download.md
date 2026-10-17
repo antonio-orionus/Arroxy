@@ -8,6 +8,16 @@ omniget/yt-dlp research (verified 2026-09-05) and its constraints.
 
 Workflow context: [download-workflows.md](download-workflows.md).
 
+**As built:** `downloadSections` and `forceKeyframesAtCuts` are on
+`CallerMediaWorkflowInput` and planned in `planCallerMediaWorkflow`; the job
+carries `videoPart`; `buildMediaRequest` maps it to the section. Sections 1 and
+5 and the first bullet list's bridge note below are the original plan, kept
+as the research record. Two things the plan did not foresee, found by the clip
+E2E: yt-dlp embeds the whole video's chapters into a part unshifted (a part
+embeds none, and the bridge passes `--no-embed-chapters` for an explicit
+`chapters: false`), and a part must never replay its own saved info-json on
+Retry, since yt-dlp writes it after applying the section.
+
 Download only a time range of a video (`START-END`), via yt-dlp
 `--download-sections "*START-END"` (`*` = time-range mode; without it yt-dlp
 reads the value as a chapter-title regex; `inf` = open end).
@@ -23,7 +33,7 @@ Arroxy-side code lives in:
 - `src/shared/filenameTemplate.ts` — `{title} [{id}]` output template (`:67`)
 - `src/shared/playlistMedia.ts` — `findPlayableFileName` (`:14`), consumed by `src/main/services/playlistM3u.ts:28` and `src/main/ipc/playlistHandlers.ts`
 - `src/main/stores/QueueStore.ts` — job persistence (retry must preserve the new fields)
-- `packages/yt-dlp-bridge/src/workflow.ts` (`CallerMediaWorkflowInput`, ~`:65-76`) — the app only sends the bridge "caller" media requests, and that input has **no `downloadSections` field**. `downloadSections: string[]` exists only on the managed-download input (`packages/yt-dlp-bridge/src/schemas.ts:87`, argv at `workflow.ts:512`), as does `forceKeyframesAtCuts` (`schemas.ts:142`, argv at `workflow.ts:569`). Clips need the bridge change below first
+- `packages/yt-dlp-bridge/src/workflow.ts` (`CallerMediaWorkflowInput`, ~`:65-76`) — the app only sends the bridge "caller" media requests, and that input had **no `downloadSections` field** when this was researched (it existed only on the managed-download input, `packages/yt-dlp-bridge/src/schemas.ts:87`, as did `forceKeyframesAtCuts`). Both are now on the caller input
 
 Reference implementations (outside this repo, paths may rot):
 
@@ -32,7 +42,7 @@ Reference implementations (outside this repo, paths may rot):
 
 ---
 
-## 1. Mechanism
+## 1. Mechanism (original plan; built as described)
 
 Two argv entries: `--download-sections "*START-END"`. Omniget builds the range
 in `buildTimeRange()` (`+page.svelte:324-331`, defaults `0`/`inf`) and prepends
@@ -95,7 +105,7 @@ duration/`inf`.
   but run one real section download and watch `ProgressParser` before trusting
   it.
 
-## 5. Suggested v1 (when un-deferred)
+## 5. Suggested v1 (original plan; see "As built" above)
 
 Single + quick download, both ends optional (default `0`/`inf`), "cuts are
 approximate" hint, suffixed filenames, full-length subs documented.

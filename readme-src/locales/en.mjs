@@ -391,8 +391,6 @@ export const en = {
     "Turn the queue drawer into a fuller manager, including changing destination folders for queued items",
   plan_r5_name: "**Scheduled downloads**",
   plan_r5_desc: "Start a queue at a set time (overnight runs)",
-  plan_r7_name: "**Clip trimming**",
-  plan_r7_desc: "Download only a segment by start/end time",
   plan_r9_name: "**AUR package**",
   plan_r9_desc: "Install on Arch Linux and Omarchy with `yay -S arroxy-bin`",
   plan_cta:
