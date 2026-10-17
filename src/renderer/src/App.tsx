@@ -7,6 +7,7 @@ import {useShallow} from 'zustand/react/shallow'
 import {DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
+import {subscribeMenuActions} from './lib/menuAction.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
 import type {BackdropColorScheme} from './components/layout/background/types.js'
 import {TitleBar} from './components/layout/TitleBar.js'
@@ -170,7 +171,7 @@ export function App(): ReactNode {
 	// The native application menu (macOS) asks for the same things the footer does.
 	useEffect(
 		() =>
-			window.appApi.events.onMenuAction(action => {
+			subscribeMenuActions(action => {
 				switch (action.kind) {
 					case 'about':
 						setAboutDialogOpen(true)

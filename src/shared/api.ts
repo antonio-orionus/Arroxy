@@ -19,7 +19,6 @@ import type {
 	HotkeyState,
 	HotkeyTriggerPayload,
 	LocalizedError,
-	MenuAction,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -91,7 +90,8 @@ export interface AppApi {
 		onClipboardUrl(listener: (url: string) => void): () => void
 		onHotkeyTrigger(listener: (trigger: HotkeyTriggerPayload) => void): () => void
 		onHotkeyOutcome(listener: (event: HotkeyOutcomeEvent) => void): () => void
-		onMenuAction(listener: (action: MenuAction) => void): () => void
+		// Untrusted until parsed with `menuActionSchema`.
+		onMenuAction(listener: (payload: unknown) => void): () => void
 		onWarmupProgress(listener: (event: WarmupProgressEvent) => void): () => void
 	}
 	queue: {

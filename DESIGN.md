@@ -334,7 +334,7 @@ Arroxy ships more than one **style**, Aurora and Minimal, and each style comes i
    - *Surfaces*: `--surface-stage` (the one stage per view), `--surface-tile` (fields and rows inside a stage), `--surface-raised` (popovers, the active-profile half), `--surface-bar` (sticky bars, a gradient image), `--surface-filter` (the stage's backdrop filter, `none` for no blur; applied only while a hardware backdrop runs).
    - *Edges*: `--line` (field and control rings), `--edge-soft` (resting edge paint), `--edge` (stage and tile edge), `--edge-hot` (primary control edge), `--edge-selected` (selected-option edge). All are gradient images; a flat style repeats one colour.
    - *Light*: `--tint-start` and `--tint-end` (the two hues glass catches), `--sheen` (highlight), `--glow` (bloom hue), `--shade` (shadow hue). A flat style sets all four to `transparent`, which erases every sheen, tint and bloom derived from them.
-   - *Fills*: `--primary-fill` (paint of the primary action) and `--selected-fill` (paint of a selected option or tab), `--hover-brightness` (the filter an action row takes on hover; `1` for none).
+   - *Fills*: `--primary-fill` (paint of the primary action) and `--selected-fill` (paint of a selected option or tab), `--hover-brightness` (the brightness an action row takes on hover; below `1` darkens, above lifts).
 3. **Component tokens: derived, never styled.** `--quick-*`, `--wizard-*`, `--tabs-*`, `--field-*`, `--queue-*`, `--glass-*`, `--brand-glow`, `--panel-glow` and other per-component tokens are computed from the contract once, in `styles.css`, with `color-mix` over contract colours. A style never sets one.
 
 ### Named Rules
