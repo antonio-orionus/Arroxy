@@ -97,8 +97,9 @@ never in the download path.
   full ladder. On the Format screen the Profile tag gets a `HelpTip` saying
   which rules decided this pick ("1080p: your limit · 60 fps: highest
   offered · VP9: ranked above H.264 · Stereo AAC: from Settings").
-- **D6. Show the result before downloading.** The Format footer and the
-  Review format strip show **Saves as .mkv** with a `VP9 · Opus` tag and a
+- **D6. Show the result before downloading.** The Format footer (as a
+  per-download choice, see Interactive Download) and the Review format
+  strip show **Saves as .mkv** with a `VP9 · Opus` tag and a
   tooltip on where it plays. `resolveContainer` already computes it.
 - **D7. One tier.** `tiers: PlaylistVideoTier[]` becomes
   `tier: PlaylistVideoTier`.
@@ -203,15 +204,72 @@ user's profiles. No other compatibility layer.
   **Advanced** disclosure with File type and Native audio ("Use app
   setting" first). Below them, the summary line that expands into the
   ladder.
-- **Format screen:** the `HelpTip` on the Profile tag (D5); fit notices as
-  today plus the WebM-fit one; the "Saves as" line in the footer (D6).
-  Manual picks in the lists still win: the ladder explains the
-  pre-selection, it never fights an edit.
+- **Format screen:** see Interactive Download below.
 - **Review:** the format strip shows "Saves as" with tags; conflict
   warnings for embedded subtitles or thumbnails against an explicit file
   type.
 - **Save as profile:** a manual pick saves as the closest goal and tier, as
   today; the file type saves as picked.
+
+## Interactive Download
+
+The Format screen keeps its layout (interactive-download.md, Screen 1).
+This spec adds two controls and one word, nothing else.
+
+**Must keep**, checked against the shipped screen:
+
+1. "Pre-selected from **[profile ▾]**" stays a dropdown.
+2. The Video / Audio / Subtitles only switch.
+3. The list filter chips (`HDR10 · SDR · mp4 · webm`, `webm · m4a`).
+4. Video rows as today: `1920x1080` and `mp4 · 60fps · HDR10 · 235.9 MB`.
+   Audio rows as today: quality bars, `webm · Opus · DRC · 134 kbps · 5.6 MB`.
+5. The Profile badge stays on the row the profile picked, also after a
+   manual edit.
+6. The "Also from *profile*: …" summary line with Review all.
+7. The footer: Total, Back, Review & options, split Download ▾.
+8. The "Changed from *profile*" bar stays on Review, not Format.
+
+**Added:**
+
+- **Why this one.** A `HelpTip` on the existing Profile badge lists the
+  ranks that decided the profile's pick ("1920x1080 · your limit, 60 fps ·
+  highest offered, HDR · ranked above SDR, AV1 · ranked above VP9, Stereo
+  Opus · from Settings"). No panel, no permanent text. It explains the
+  profile's pick, never the user's.
+- **Codec in the video meta.** `mp4 · AV1 · 60fps · HDR10 · 235.9 MB`.
+  Audio rows already show the codec; video rows don't, so two
+  `3840x2160` rows differ only by `mp4` vs `webm` and "AV1 ranked above
+  VP9" can't be matched to a row. One word in the technical layer, not a
+  new tag.
+- **Saves as.** `Saves as .mkv ▾` in the footer after Total, with a
+  `AV1 · Opus` tag. Options: Auto (.mkv), MP4, MKV, WebM; the profile's
+  value is marked "Profile".
+  - It starts on the profile's file type.
+  - Options follow the picked streams with the File type rules: picking
+    H.264 or Dolby disables WebM, with the reason in the option.
+  - The newer action wins. File type WebM, then an H.264 pick: the file
+    type goes back to Auto with a one-line note ("WebM can't hold H.264,
+    so the file type went back to Auto."). A stream pick is never changed
+    behind the user's back.
+  - It is a per-download edit: listed in the Changed bar on Review, kept
+    by Save as profile.
+  - At the minimum window (720 px) or in long locales, if the footer can't
+    hold it next to Back, Review & options and Download, it moves into the
+    summary line ("… · saves as .mkv ▾"). Decided in the Scenario
+    Workbench, not guessed.
+- **Why this matters today:** the `mp4` filter chip reads as "I'll get an
+  .mp4 file". In the screenshot this spec was checked against, the mp4
+  video merges with webm audio into an .mkv. Saves as removes that guess.
+
+## Open question: HDR
+
+Best picture follows yt-dlp's default sort, which ranks HDR above SDR. On
+the 4K HDR test video the profile picks a 1080p mp4 HDR10 stream (AV1 on YouTube). Many players show
+HDR washed out on an SDR display, and an average user can't tell why. The
+"Why this one" tip makes it visible, but the default may still be wrong
+for most people. Options: keep yt-dlp's order; rank SDR first unless the
+profile asks for HDR (an Advanced switch); or follow the display's HDR
+capability. Decide before PR 2, separately from this spec.
 
 ## Out of scope
 
@@ -237,7 +295,9 @@ user's profiles. No other compatibility layer.
   matching yt-dlp's own pick (parity); file-type validity and conflict
   rules; stored-profile parsing from the old shape; effective native audio.
 - Renderer: editor goal cards, Advanced section, disabled combinations with
-  reasons, summary line and ladder; Format `HelpTip` and "Saves as".
+  reasons, summary line and ladder; Format `HelpTip`, codec in the video
+  meta, "Saves as" options and the newer-action-wins reset; the Must keep
+  list above.
 - Scenario Workbench: Format with a Best picture pick, a Smart TV fallback,
   and a WebM-fit notice; editor with Advanced open, in long locales at the
   minimum window size.
@@ -252,7 +312,8 @@ user's profiles. No other compatibility layer.
    Behaviour stays identical; the derived `-S` strings match today's.
 2. **PR 2, profile model and editor.** Goal, file type, native audio
    override, stored-profile parsing, renamed built-ins, editor UI, glossary.
-3. **PR 3, show it.** Profile-tag `HelpTip`, "Saves as" on Format and
-   Review, conflict warnings, E2E.
+3. **PR 3, show it.** Profile-badge `HelpTip`, codec in the video meta,
+   the Saves as choice on Format and its line on Review, conflict
+   warnings, E2E.
 
 Translations happen once, right before PR 2 and PR 3.
