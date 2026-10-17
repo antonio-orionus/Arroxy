@@ -649,9 +649,18 @@ const EXPLORE_PARTITION_DIR = path.join('Partitions', 'arroxy-explore')
 // to use the Explore sign-in already dismissed for that mode).
 const ANONYMOUS_EXPLORE_COMMON = {exploreEnabled: true, exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'off', exploreModeNudgeDismissedFor: 'off'} as const
 
+// A missing or broken file starts over; any other read failure throws, so the
+// settings are never overwritten after a read that did not happen.
 async function readSettingsRecord(file: string): Promise<Record<string, unknown>> {
+	let raw: string
 	try {
-		const parsed: unknown = JSON.parse(await fs.readFile(file, 'utf8'))
+		raw = await fs.readFile(file, 'utf8')
+	} catch (error) {
+		if (isRecord(error) && error.code === 'ENOENT') return {}
+		throw error
+	}
+	try {
+		const parsed: unknown = JSON.parse(raw)
 		return isRecord(parsed) && !Array.isArray(parsed) ? parsed : {}
 	} catch {
 		return {}

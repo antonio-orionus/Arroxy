@@ -67,6 +67,20 @@ describe('anonymous dev profile', () => {
 		expect(settings.profiles).toEqual({active: {kind: 'builtin', id: 'audio-only'}})
 	})
 
+	// Only a missing or broken file starts over: a read that failed for another
+	// reason must not be answered by overwriting the settings.
+	it('stops, leaving the settings alone, when they cannot be read', async () => {
+		const userData = await tempDir()
+		const file = path.join(userData, 'settings.json')
+		await fs.writeFile(file, JSON.stringify({common: {uiTheme: 'dark'}}))
+		// Writable but not readable: the overwrite would succeed.
+		await fs.chmod(file, 0o200)
+
+		await expect(prepareAnonymousDevProfile(userData)).rejects.toMatchObject({code: 'EACCES'})
+		await fs.chmod(file, 0o600)
+		expect(JSON.parse(await fs.readFile(file, 'utf8'))).toEqual({common: {uiTheme: 'dark'}})
+	})
+
 	it('starts the settings over when the file is not readable JSON', async () => {
 		const userData = await tempDir()
 		await fs.writeFile(path.join(userData, 'settings.json'), '{not json')

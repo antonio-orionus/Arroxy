@@ -5,6 +5,7 @@ import {exploreLinkMenuTemplate, type ExploreLinkMenuDeps} from '@main/services/
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
 import type {ExploreLinkAction} from '@shared/schemas.js'
+import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
 
 // Right-clicking a link in the Explore page: the bar's Download, profile
 // switch and Interactive, for the link instead of the page. Only links the
@@ -119,6 +120,14 @@ describe('Explore link menu', () => {
 
 		expect(sent).toEqual([{kind: 'interactive', url: WATCH}])
 		expect(copy).toHaveBeenCalledWith(shared)
+	})
+
+	// A pick over the length the IPC schema takes would be dropped on the way to the renderer.
+	it('only copies a link too long for a download pick', () => {
+		const {deps} = harness()
+		const long = `${WATCH}&list=${'x'.repeat(EXPLORE_ADDRESS_MAX)}`
+
+		expect(exploreLinkMenuTemplate(long, deps)?.map(entry => entry.label)).toEqual(['Copy link'])
 	})
 
 	it('offers playlists and channels as well as videos', () => {

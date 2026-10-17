@@ -4,7 +4,7 @@ import {TooltipProvider} from '@renderer/components/ui/tooltip.js'
 import {DownloadProfilesHome} from '@renderer/components/wizard/DownloadProfilesHome.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {ok} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import type {SettingsPatch} from '@shared/api.js'
 import type {ExploreLinkAction} from '@shared/schemas.js'
 import type {ExploreViewState} from '@shared/types.js'
@@ -88,6 +88,23 @@ describe('Explore link menu picks', () => {
 		expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({profiles: expect.objectContaining({active: {kind: 'builtin', id: 'audio-only'}})}))
 		expect(activeAtQueue).toEqual([{kind: 'builtin', id: 'audio-only'}])
 		await waitFor(() => expect(screen.getByTestId('explore-download')).toHaveTextContent('Download · Audio only'))
+	})
+
+	// The pick named the profile to download with: queuing with the old one instead would be a silent wrong download.
+	it('queues nothing when the picked profile could not be made active', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		vi.mocked(window.appApi.settings.update).mockResolvedValue(fail({code: 'unknown', message: 'disk full'}))
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'download', url: WATCH_URL, profile: {kind: 'builtin', id: 'audio-only'}})
+
+		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalled())
+		await act(async () => {
+			await Promise.resolve()
+		})
+		expect(quickDownload).not.toHaveBeenCalled()
 	})
 
 	it('Interactive opens the step-by-step flow for the link from Explore', async () => {

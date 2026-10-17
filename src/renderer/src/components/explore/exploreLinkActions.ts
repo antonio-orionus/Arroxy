@@ -20,8 +20,9 @@ async function runLinkAction(action: ExploreLinkAction): Promise<void> {
 			openExploreInteractive(action.url)
 			return
 		case 'download':
-			// A profile pick is the bar's pick: it becomes the active profile, then the link is queued with it.
-			if (action.profile) await useAppStore.getState().setActiveDownloadProfile(action.profile)
+			// A profile pick is the bar's pick: it becomes the active profile, then the
+			// link is queued with it. A failed save queues nothing: the old profile is not what was picked.
+			if (action.profile && !(await useAppStore.getState().setActiveDownloadProfile(action.profile))) return
 			await useAppStore.getState().quickDownload({url: action.url, entry: 'explore'})
 	}
 }

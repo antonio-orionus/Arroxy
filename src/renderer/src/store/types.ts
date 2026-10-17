@@ -465,7 +465,8 @@ export interface SystemSlice {
 	setHotkeyAccelerator: (accelerator: HotkeyAccelerator) => Promise<void>
 	setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>
 	setAnalyticsEnabled: (enabled: boolean) => Promise<void>
-	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<void>
+	// False when the save failed (the active profile is then rolled back).
+	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<boolean>
 	saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<void>
 	removeDownloadProfile: (id: string) => Promise<void>
 	setDownloadProfileEnabled: (id: string, enabled: boolean) => Promise<void>

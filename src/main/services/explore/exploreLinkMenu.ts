@@ -4,6 +4,7 @@ import {cleanUrl} from '@shared/cleanUrl.js'
 import {downloadProfileRefFor, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
 import type {DownloadProfilesPrefs, ExploreLinkAction} from '@shared/types.js'
 
 export interface ExploreLinkMenuDeps {
@@ -41,7 +42,8 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	const lang = deps.lang()
 	const copy: MenuItemConstructorOptions = {label: mainT(lang, 'explore.linkMenu.copyLink'), click: () => deps.copy(link)}
 	const url = cleanUrl(link)
-	if (!isExploreGrabbable(url)) return [copy]
+	// Longer than a pick may carry (exploreLinkActionSchema): it would be dropped on the way.
+	if (url.length > EXPLORE_ADDRESS_MAX || !isExploreGrabbable(url)) return [copy]
 	const prefs = deps.profiles()
 	const active = resolveActiveDownloadProfile(prefs)
 	const profiles = enabledDownloadProfiles(prefs).map((profile): MenuItemConstructorOptions => {
