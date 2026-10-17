@@ -116,6 +116,8 @@ Top to bottom:
 
 A new pure resolver replaces `applyPreset` / `restoreFormatSelection`: given
 the profile and the probe, return the selection plus the fit notices.
+The ranking it follows is specified in
+[source-priority.md](source-priority.md).
 
 - Video: the highest group at or below the profile's tier; if none, the
   lowest group above it, with a fit notice. `mp4` profiles prefer

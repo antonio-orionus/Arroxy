@@ -294,6 +294,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Do** use big rounding (16-28px) on hero panels for the friendly, approachable read.
 - **Do** honor `prefers-reduced-motion`: glows stay (they're static state), but slide/float/shimmer/pulse animations collapse to instant or crossfade.
 - **Do** keep copy human and plain ("Pull it! ↓", "Fetch formats →"), verb + object on every button.
+- **Do** name every option for both audiences (the Two-Audience Rule). Arroxy is feature rich but intuitive, so each choice carries three layers: a **name** of two or three plain words saying what the user gets ("Smart TV", "Small file"); a **tag** chip with the technical facts for power users (`MP4 · H.264 · ≤1080p`); and a **tooltip or description** with the reason and the catch ("Plays on TVs, phones and editors. YouTube only offers H.264 up to 1080p."). Keep names laconic: specs go in the tag, explanations in the tooltip, never both crammed into the name.
 
 ### Don't:
 - **Don't** let it look like a **sketchy downloader site**: no ad-shaped blocks, no fake-button bait, no upsell chrome. The clean glass surface is the proof of trust.

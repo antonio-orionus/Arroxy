@@ -152,6 +152,22 @@ _Avoid_: mix, autoplay queue, station
 A saved, reusable set of download settings the user applies in one click, without walking the wizard.
 _Avoid_: preset, template, config
 
+**Selection order**:
+The ranked rules a download profile uses to choose one video and one audio stream out of everything a video offers, best first: resolution limit, codec, frame rate, HDR, file size, then the audio language and track. The same order drives Quick and Interactive Download, and the app shows it.
+_Avoid_: priority, hierarchy, ranking, sort
+
+**Profile goal**:
+What a download profile's video is for, which decides the codec its selection order prefers: Best picture (the newest, most efficient codecs) or Smart TV (the codec every device plays).
+_Avoid_: codec, compatibility, native
+
+**File type**:
+The kind of file a download is saved as, such as MP4, MKV or WebM. Auto lets the chosen streams decide.
+_Avoid_: container, extension, format
+
+**Remux**:
+Copying streams into another file type without re-encoding them: fast and lossless, but only possible when the file type can hold those codecs.
+_Avoid_: convert, transcode, re-encode
+
 **Quick download**:
 Starting a download straight from a saved profile, skipping the wizard steps. A single link prepares in the background as a placeholder row in Downloads, so several can prepare at once and nothing waits on the window.
 _Avoid_: instant download, one-click download
