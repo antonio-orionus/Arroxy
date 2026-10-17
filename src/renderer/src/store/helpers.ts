@@ -48,7 +48,7 @@ export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: 
 // untranslated sentinel `'audio-only'`; the confirm view shows a translated string.
 export function resolveVideoResolution(selectedVideoFormatId: string, formats: FormatOption[], audioOnlyFallback: string): string {
 	if (selectedVideoFormatId === '') return audioOnlyFallback
-	return groupVideoFormats(formats).find(g => g.formatId === selectedVideoFormatId)?.resolution ?? selectedVideoFormatId
+	return formats.find(f => f.formatId === selectedVideoFormatId && !f.isAudioOnly)?.resolution ?? selectedVideoFormatId
 }
 
 export function buildFormatLabel(videoFormatId: string, videoResolution: string, audioSelection: AudioSelection, audioFormats: FormatOption[]): string {
@@ -57,20 +57,18 @@ export function buildFormatLabel(videoFormatId: string, videoResolution: string,
 	return i18next.t('formatLabel.videoDot', {resolution: videoResolution, audio: audioLabel})
 }
 
-export function groupVideoFormats(formats: FormatOption[]): GroupedVideoFormat[] {
-	const seen = new Set<string>()
-	const grouped: GroupedVideoFormat[] = []
-
+// One row per resolution and dynamic range. The first stream in quality order
+// represents its group unless one of `preferIds` (the user's pick, the
+// profile's pick) is in it: that stream must stay visible and selectable.
+export function groupVideoFormats(formats: FormatOption[], preferIds: readonly string[] = []): GroupedVideoFormat[] {
+	const groups = new Map<string, FormatOption>()
 	for (const f of formats) {
 		if (f.isAudioOnly) continue
 		const key = `${f.resolution}|${f.dynamicRange ?? ''}`
-		if (!seen.has(key)) {
-			seen.add(key)
-			grouped.push({resolution: f.resolution, formatId: f.formatId, label: f.label, dynamicRange: f.dynamicRange})
-		}
+		const current = groups.get(key)
+		if (!current || (preferIds.includes(f.formatId) && !preferIds.includes(current.formatId))) groups.set(key, f)
 	}
-
-	return grouped
+	return [...groups.values()].map(f => ({resolution: f.resolution, formatId: f.formatId, label: f.label, dynamicRange: f.dynamicRange}))
 }
 
 export function generateId(): string {

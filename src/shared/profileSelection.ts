@@ -58,14 +58,49 @@ function nativeAudio(audioFormats: readonly FormatOption[], preference: NativeAu
 	return id === null ? NO_AUDIO : {kind: 'native', formatId: id}
 }
 
-// Highest stream at or below the tier; else the smallest one above it.
+// yt-dlp's default vcodec preference (`-S vcodec`), best first.
+const VIDEO_CODEC_RANK = ['av01', 'vp09', 'vp9', 'hev1', 'hvc1', 'h265', 'avc1', 'h264', 'vp8', 'h263', 'theora']
+
+function codecRank(format: FormatOption): number {
+	const codec = format.videoCodec?.toLowerCase() ?? ''
+	const index = VIDEO_CODEC_RANK.findIndex(prefix => codec.startsWith(prefix))
+	return index < 0 ? VIDEO_CODEC_RANK.length : index
+}
+
+// The rest of yt-dlp's default sort once the resolution is fixed:
+// fps, then HDR, then codec, then size.
+function compareSameHeight(a: FormatOption, b: FormatOption): number {
+	return (b.fps ?? 0) - (a.fps ?? 0) || Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined) || codecRank(a) - codecRank(b) || (b.filesize ?? 0) - (a.filesize ?? 0)
+}
+
+// The tallest stream at or below the tier (any height for "best"), else the
+// shortest one above it; ties broken like yt-dlp's default sort.
 function pickVideo(videos: readonly FormatOption[], tier: PlaylistVideoTier): FormatOption | undefined {
-	if (tier === 'best') return videos[0]
-	const limit = Number(tier)
-	const atOrBelow = videos.find(f => videoHeight(f.resolution) <= limit)
-	if (atOrBelow) return atOrBelow
-	const smallest = Math.min(...videos.map(f => videoHeight(f.resolution)))
-	return videos.find(f => videoHeight(f.resolution) === smallest)
+	const heights = videos.map(f => videoHeight(f.resolution))
+	const fitting = tier === 'best' ? heights : heights.filter(height => height <= Number(tier))
+	const target = fitting.length > 0 ? Math.max(...fitting) : Math.min(...heights)
+	return videos.filter(f => videoHeight(f.resolution) === target).toSorted(compareSameHeight)[0]
+}
+
+// What the profile path's format selector may pick from, narrowed the way its
+// sort is ordered: MP4 profiles sort `vcodec:h264,ext:mp4` before resolution;
+// `bestvideo` (video-only and MP4 profiles) skips muxed streams, falling back
+// to them only when nothing else exists.
+function videoCandidates(videos: readonly FormatOption[], media: Extract<DownloadProfile['media'], {kind: 'video-audio' | 'video-only'}>, notices: FitNotice[]): readonly FormatOption[] {
+	let pool = videos
+	if (media.codec === 'mp4') {
+		const h264 = pool.filter(isH264)
+		const h264Mp4 = h264.filter(f => f.ext === 'mp4')
+		// Without H.264 the profile can't be honoured anyway: pick by resolution
+		// across every codec so the notice can say what was chosen and why.
+		if (h264.length === 0) notices.push({kind: 'mp4-unavailable'})
+		else pool = h264Mp4.length > 0 ? h264Mp4 : h264
+	}
+	if (media.kind === 'video-only' || media.codec === 'mp4') {
+		const separate = pool.filter(f => f.isVideoOnly)
+		if (separate.length > 0) pool = separate
+	}
+	return pool
 }
 
 function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; bitrateKbps?: AudioBitrate}, audioFormats: readonly FormatOption[], preference: NativeAudioPreference): AudioSelection {
@@ -91,13 +126,7 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): Media
 		return {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, audioFormats, nativeAudioPreference)}
 	}
 
-	let candidates = videos
-	if (media.codec === 'mp4') {
-		const h264 = videos.filter(isH264)
-		if (h264.length > 0) candidates = h264
-		else notices.push({kind: 'mp4-unavailable'})
-	}
-
+	const candidates = videoCandidates(videos, media, notices)
 	const tier = media.tiers[0] ?? 'best'
 	const picked = pickVideo(candidates, tier)
 	if (!picked) return {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}
@@ -105,9 +134,11 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): Media
 	if (tier !== 'best' && pickedHeight !== Number(tier)) notices.push({kind: 'video-tier-fallback', wanted: tier, picked: pickedHeight})
 
 	if (media.kind === 'video-only' || !picked.isVideoOnly) return {kind: 'video', videoFormatId: picked.formatId, audioSelection: NO_AUDIO}
+	// M4A profiles select `bestaudio[ext=m4a]` sorted by `acodec:m4a`: AAC, so
+	// Dolby (also .m4a) is never their pick whatever the native preference.
 	const m4a = audioFormats.filter(f => f.ext === 'm4a')
-	const pool = media.audio.format === 'm4a' && m4a.length > 0 ? m4a : audioFormats
-	return {kind: 'video', videoFormatId: picked.formatId, audioSelection: nativeAudio(pool, nativeAudioPreference)}
+	if (media.audio.format === 'm4a' && m4a.length > 0) return {kind: 'video', videoFormatId: picked.formatId, audioSelection: nativeAudio(m4a, 'compatible')}
+	return {kind: 'video', videoFormatId: picked.formatId, audioSelection: nativeAudio(audioFormats, nativeAudioPreference)}
 }
 
 function baseLanguage(trackKey: string): string {
@@ -126,7 +157,10 @@ function resolveSubtitles(input: ProfileSelectionInput, notices: FitNotice[]): s
 	const missing: string[] = []
 	for (const code of wanted) {
 		const manual = source === 'auto-only' ? [] : matchingKeys(code, subtitles)
-		const auto = source === 'manual-only' || manual.length > 0 ? [] : matchingKeys(code, automaticCaptions)
+		// Manual tracks win per track, not per language: an auto-generated
+		// regional variant the manual tracks lack is still picked, as yt-dlp does.
+		const manualBases = new Set(manual.map(baseLanguage))
+		const auto = source === 'manual-only' ? [] : matchingKeys(code, automaticCaptions).filter(key => !manualBases.has(baseLanguage(key)))
 		const keys = [...manual, ...auto]
 		if (keys.length === 0) missing.push(code)
 		for (const key of keys) if (!picked.includes(key)) picked.push(key)

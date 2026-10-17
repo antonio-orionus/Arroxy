@@ -1,6 +1,7 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
-import {DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import {DEFAULT_AUDIO_BITRATE, DEFAULT_PLAYLIST_SELECTION} from '@shared/schemas.js'
+import type {AudioSelection} from '@shared/schemas.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
@@ -8,6 +9,8 @@ import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId,
 import type {AppState, WizardStep} from '../types.js'
 import type {BulkMetadataTarget} from './bulkMetadataHydration.js'
 import {profilePatch, snapshotPatch, wizardSnapshot} from './wizardProfileState.js'
+import type {WizardSettingsSnapshot} from './profileApplication.js'
+import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 
 type CommonPrefsPatch = Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'>
 
@@ -45,7 +48,7 @@ function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatc
 	}
 }
 
-export function projectProbeStart(state: AppState, url: string, playlistMode: ProbePlaylistMode): ProbeStartProjection {
+export function projectProbeStart(state: AppState, url: string, playlistMode: ProbePlaylistMode, sameRun = false): ProbeStartProjection {
 	const initialStep: WizardStep = playlistMode === 'playlist' ? 'playlistItems' : 'formats'
 	return {
 		fromStep: state.wizardStep,
@@ -63,7 +66,9 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardFormatsDegraded: null,
 			wizardSubtitles: {},
 			wizardAutomaticCaptions: {},
-			wizardSubtitleLanguages: [],
+			// The picked languages are the user's; the probe that lands keeps or
+			// drops each one against its own tracks.
+			...(sameRun ? {} : {wizardSubtitleLanguages: []}),
 			playlistItems: [],
 			selectedPlaylistItemIds: [],
 			playlistTitle: '',
@@ -106,7 +111,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 	const keepEdits = !firstProbe && state.wizardProfile !== null
 	const profile = keepEdits && state.wizardProfile ? state.wizardProfile : resolveActiveDownloadProfile(state.settings?.profiles).profile
 	const applied = profilePatch(profile, {...state, ...probeFields})
-	const selection = keepEdits ? {...applied, ...snapshotPatch(wizardSnapshot(state)), ...(selectionStillOffered(state, formats) ? {} : mediaFields(applied))} : applied
+	const selection = keepEdits ? {...applied, ...snapshotPatch(keptSelection(wizardSnapshot(state), probe, state))} : applied
 	return {
 		wizardStep: 'formats',
 		wizardMode: 'single',
@@ -135,15 +140,20 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 	}
 }
 
-function selectionStillOffered(state: AppState, formats: readonly FormatOption[]): boolean {
-	const offered = (id: string): boolean => formats.some(f => f.formatId === id)
-	const videoOk = state.wizardMediaKind !== 'video' || offered(state.selectedVideoFormatId)
-	const audioOk = state.audioSelection.kind !== 'native' || offered(state.audioSelection.formatId)
-	return videoOk && audioOk
-}
-
-function mediaFields(patch: Partial<AppState>): Partial<AppState> {
-	return {wizardMediaKind: patch.wizardMediaKind, selectedVideoFormatId: patch.selectedVideoFormatId, audioSelection: patch.audioSelection}
+// The user's picks, checked one by one against the new probe: the media kind
+// stays, a stream the probe no longer offers is replaced by the closest valid
+// one, and only subtitle languages it still has are kept.
+function keptSelection(kept: WizardSettingsSnapshot, probe: Extract<ProbeResult, {kind: 'video'}>, state: AppState): WizardSettingsSnapshot {
+	const offered = (id: string): FormatOption | undefined => probe.formats.find(f => f.formatId === id)
+	const videos = probe.formats.filter(f => !f.isAudioOnly)
+	const audios = probe.formats.filter(f => f.isAudioOnly)
+	const mediaKind = kept.mediaKind === 'video' && videos.length === 0 ? 'audio' : kept.mediaKind
+	const video = mediaKind === 'video' ? (offered(kept.videoFormatId) ?? videos[0]) : undefined
+	const bestAudioId = preferredNativeAudioId(audios, state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
+	const replacementAudio: AudioSelection = mediaKind === 'audio' && audios.length === 0 ? {kind: 'convert-lossy', target: 'mp3', bitrateKbps: DEFAULT_AUDIO_BITRATE} : bestAudioId === null ? {kind: 'none'} : {kind: 'native', formatId: bestAudioId}
+	const audioSelection: AudioSelection = video && !video.isVideoOnly ? {kind: 'none'} : kept.audioSelection.kind === 'native' && !offered(kept.audioSelection.formatId) ? replacementAudio : kept.audioSelection
+	const tracks = {...probe.subtitles, ...probe.automaticCaptions}
+	return {...kept, mediaKind, videoFormatId: video?.formatId ?? '', audioSelection, subtitleLanguages: kept.subtitleLanguages.filter(lang => lang in tracks)}
 }
 
 function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'settings'>): number {

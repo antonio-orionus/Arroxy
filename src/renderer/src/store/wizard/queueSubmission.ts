@@ -15,6 +15,7 @@ import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, Nativ
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
+import {subtitleSourceOptions} from '@shared/subtitleLanguages.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
@@ -79,13 +80,27 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const expectedBytes = !audioConvert && selectedIds.length > 0 && selectedSizes.every((s): s is number => s !== undefined) ? selectedSizes.reduce((a, b) => a + b, 0) : undefined
 
 	const subtitleLanguages = state.wizardSubtitleLanguages
-	const writeAutoSubs = subtitleLanguages.some(l => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l])
+	// Untouched subtitles keep the profile's source (an auto-only profile must
+	// not fetch an uploaded track that shares the key); edited ones follow
+	// which section each picked track came from.
+	const profile = state.wizardProfile
+	const baseline = state.wizardProfileBaseline
+	const subtitlesUntouched = profile && baseline ? baseline.subtitleLanguages.length === subtitleLanguages.length && baseline.subtitleLanguages.every(lang => subtitleLanguages.includes(lang)) : false
+	const subtitleSource = subtitlesUntouched && profile ? subtitleSourceOptions(profile.subtitles.source) : {writeAuto: subtitleLanguages.some(l => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l])}
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
 	const resolvedContainer = resolveOutputContainer(selectedVideoFormatId, effectiveAudio, state.wizardSubtitleMode, wizardFormats, wizardMediaKind, state.wizardEmbedThumbnail)
-	const {overrides} = sanitizeJobOptions({isSubtitleOnly: wizardMediaKind === 'subtitles', hasVideoTrack: selectedVideoFormatId !== '', resolvedOutputContainer: resolvedContainer, subtitleMode: state.wizardSubtitleMode, subtitleLanguages, embed, sponsorBlockMode: state.wizardSponsorBlockMode})
+	const {overrides} = sanitizeJobOptions({
+		isSubtitleOnly: wizardMediaKind === 'subtitles',
+		hasVideoTrack: selectedVideoFormatId !== '',
+		resolvedOutputContainer: resolvedContainer,
+		subtitleMode: state.wizardSubtitleMode,
+		subtitleLanguages,
+		embed,
+		sponsorBlockMode: wizardMediaKind === 'video' ? state.wizardSponsorBlockMode : 'off'
+	})
 
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat, writeAuto: writeAutoSubs} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {languages: subtitleLanguages, mode: overrides.subtitleMode, format: state.wizardSubtitleFormat, ...subtitleSource} : undefined
 
 	const job = prepareJob({
 		mode: 'single',

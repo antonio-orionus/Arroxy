@@ -120,10 +120,11 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 	void hydrateBulkMetadata(targets, set, runId)
 }
 
-function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState): void {
+// `sameRun`: a retry inside the current run keeps the user's picks.
+function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, sameRun = false): void {
 	nextBulkMetadataRunId()
 	void window.appApi.downloads.probeCancel()
-	const startProjection = projectProbeStart(get(), url, playlistMode)
+	const startProjection = projectProbeStart(get(), url, playlistMode, sameRun)
 	set(startProjection.patch)
 	logStep('submitUrl', startProjection.fromStep, startProjection.initialStep, pickWizardSnapshot(get()))
 }
@@ -137,7 +138,9 @@ function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetSt
 }
 
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
-	startProbe(url, playlistMode, set, get)
+	// A new run starts from the active profile, never an abandoned run's.
+	if (firstProbe) set({wizardProfile: null, wizardProfileBaseline: null, wizardFitNotices: []})
+	startProbe(url, playlistMode, set, get, !firstProbe)
 	await finishProbe(url, playlistMode, set, get, firstProbe)
 }
 
@@ -157,8 +160,9 @@ async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: Se
 }
 
 // The interactive submission of `wizardUrl`, shared by a new submission and a
-// retry within the same run (which keeps the run's review source row).
-async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetState): Promise<void> {
+// retry within the same run (`sameRun`: keeps the run's review source row,
+// profile and edits).
+async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetState, sameRun = false): Promise<void> {
 	const cleaned = rewriteYouTubeChannelRoot(cleanUrl(get().wizardUrl.trim()))
 	if (!cleaned) return
 	set({wizardOrigin: origin})
@@ -169,7 +173,7 @@ async function submitWizardUrl(origin: WizardOrigin, set: SetState, get: GetStat
 	}
 	if (action.kind === 'open-bulk-review' || action.kind === 'show-label') return
 	if (maybeBlockIncompleteCookiesConfig(cleaned, set, get)) return
-	await runProbe(cleaned, action.playlistMode, set, get)
+	await runProbe(cleaned, action.playlistMode, set, get, !sameRun)
 }
 
 async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get: GetState): Promise<void> {
@@ -559,7 +563,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		setWizardReviewRow: row => set({wizardReviewRow: row}),
 
+		// Steps the user already passed within the run. Leaving the run (the URL
+		// step) is Back's job: it restores the folder and returns to Explore.
 		goToStep: step => {
+			if (step === 'url') return
 			const state = get()
 			const graph = buildWizardStepGraph(state)
 			const targetIndex = graph.steps.indexOf(step as (typeof graph.steps)[number])
@@ -592,7 +599,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				set({wizardStep: 'formats', formatsLoading: true, wizardError: null})
 				logStep('retry', wizardStep, 'formats', pickWizardSnapshot(get()))
 				// The same run: it keeps the tab it started from, and the row it reviews.
-				await submitWizardUrl(get().wizardOrigin, set, get)
+				await submitWizardUrl(get().wizardOrigin, set, get, true)
 			}
 		},
 

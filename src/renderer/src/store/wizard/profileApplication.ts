@@ -91,6 +91,10 @@ export interface SaveProfileContext {
 	now: string
 	defaultOutputDir: string
 	globalFilenameTemplate: string | undefined
+	// The probe's tracks, to tell which picked subtitles are uploaded and which
+	// auto-generated (YouTube marks auto keys with `-orig`; other sites don't).
+	subtitles: SubtitleMap
+	automaticCaptions: SubtitleMap
 }
 
 const NUMERIC_TIERS = PLAYLIST_VIDEO_TIERS.filter((tier): tier is Exclude<PlaylistVideoTier, 'best'> => tier !== 'best')
@@ -107,46 +111,64 @@ function audioOnlyMedia(selection: AudioSelection): Extract<DownloadProfile['med
 	return {kind: 'audio-only', audio: {format: 'best'}}
 }
 
-function mediaFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, formats: readonly FormatOption[]): DownloadProfile['media'] {
+// A concrete stream only approximates a profile's intent ("up to 1080p" on a
+// video that tops out at 480p; the top stream standing in for "best"), so the
+// video and audio halves are each rebuilt only when the user changed them.
+function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot, snapshot: WizardSettingsSnapshot, formats: readonly FormatOption[]): DownloadProfile['media'] {
 	if (snapshot.mediaKind === 'subtitles') return {kind: 'subtitles-only'}
 	if (snapshot.mediaKind === 'audio') return audioOnlyMedia(snapshot.audioSelection)
 	const video = formats.find(f => f.formatId === snapshot.videoFormatId)
 	if (!video) return base.media
-	const baseCodec = base.media.kind === 'video-audio' || base.media.kind === 'video-only' ? base.media.codec : 'best'
-	const codec = baseCodec === 'mp4' && isH264(video) ? 'mp4' : 'best'
-	const tiers = [tierFor(video, formats)]
+	const baseVideo = base.media.kind === 'video-audio' || base.media.kind === 'video-only' ? base.media : null
+	const videoChanged = baseVideo === null || baseline.mediaKind !== 'video' || baseline.videoFormatId !== snapshot.videoFormatId
+	const codec = !videoChanged && baseVideo ? baseVideo.codec : baseVideo?.codec === 'mp4' && isH264(video) ? 'mp4' : 'best'
+	const tiers = !videoChanged && baseVideo ? [...baseVideo.tiers] : [tierFor(video, formats)]
 	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', codec, tiers}
+	const audioChanged = !sameAudio(baseline.audioSelection, snapshot.audioSelection)
+	if (!audioChanged && base.media.kind === 'video-audio') return {kind: 'video-audio', codec, tiers, audio: {...base.media.audio}}
 	const audioId = snapshot.audioSelection.kind === 'native' ? snapshot.audioSelection.formatId : null
 	const pickedM4a = audioId !== null && formats.find(f => f.formatId === audioId)?.ext === 'm4a'
-	const baseM4a = base.media.kind === 'video-audio' && base.media.audio.format === 'm4a'
-	return {kind: 'video-audio', codec, tiers, audio: {format: baseM4a && pickedM4a ? 'm4a' : 'best'}}
+	return {kind: 'video-audio', codec, tiers, audio: {format: pickedM4a ? 'm4a' : 'best'}}
 }
 
 function baseLanguageCode(trackKey: string): string {
 	return trackKey.endsWith('-orig') ? trackKey.slice(0, -'-orig'.length) : trackKey
 }
 
-// `formatChanged` false keeps the base profile's media: a concrete stream pick
-// only ever approximates the profile's intent ("up to 1080p" on a video that
-// tops out at 480p, or the best stream standing in for "best"), so it is only
-// turned back into media when the user actually changed the format.
-export function profileFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, formats: readonly FormatOption[], context: SaveProfileContext, formatChanged = true): DownloadProfile {
+// Where the picked tracks come from decides the saved source, so reapplying
+// the profile finds the same tracks again.
+function subtitleSourceFor(keys: readonly string[], base: DownloadProfile['subtitles']['source'], context: SaveProfileContext): DownloadProfile['subtitles']['source'] {
+	const isManual = (key: string): boolean => key in context.subtitles && !key.endsWith('-orig')
+	const manual = keys.filter(isManual).length
+	if (keys.length === 0) return base
+	if (manual === keys.length) return base === 'auto-only' ? 'manual-first' : base
+	if (manual === 0) return base === 'manual-only' ? 'auto-only' : base
+	return 'manual-first'
+}
+
+function subtitlesFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, context: SaveProfileContext): DownloadProfile['subtitles'] {
 	const languages = [...new Set(snapshot.subtitleLanguages.map(baseLanguageCode))]
-	const pickedAuto = snapshot.subtitleLanguages.some(key => key.endsWith('-orig'))
-	const source = pickedAuto && base.subtitles.source === 'manual-only' ? 'manual-first' : base.subtitles.source
+	return {enabled: languages.length > 0, languages, source: subtitleSourceFor(snapshot.subtitleLanguages, base.subtitles.source, context), mode: snapshot.subtitleMode, format: snapshot.subtitleFormat}
+}
+
+// The run's settings as a new profile. Every area the user left alone keeps
+// the base profile's own value, which may say more than this one video could
+// honour (languages it lacks, a tier above its best stream).
+export function profileFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot, snapshot: WizardSettingsSnapshot, formats: readonly FormatOption[], context: SaveProfileContext): DownloadProfile {
+	const changed = new Set(changedFromProfile(baseline, snapshot))
 	const defaultTemplate = resolveFilenameTemplate(undefined, context.globalFilenameTemplate)
 	return {
 		id: context.id,
 		name: context.name,
 		icon: base.icon,
 		enabled: true,
-		media: formatChanged ? mediaFromWizard(base, snapshot, formats) : base.media,
-		subtitles: {enabled: languages.length > 0, languages, source, mode: snapshot.subtitleMode, format: snapshot.subtitleFormat},
-		sponsorBlock: {mode: snapshot.sponsorBlockMode, categories: [...snapshot.sponsorBlockCategories]},
-		embed: {...snapshot.embed},
-		output: snapshot.outputDir === context.defaultOutputDir ? {kind: 'default'} : {kind: 'fixed', dir: snapshot.outputDir},
-		filename: snapshot.filenameTemplate === defaultTemplate ? {kind: 'default'} : {kind: 'custom', template: snapshot.filenameTemplate},
-		subfolder: {enabled: snapshot.subfolderEnabled, name: snapshot.subfolderName},
+		media: changed.has('format') ? mediaFromWizard(base, baseline, snapshot, formats) : base.media,
+		subtitles: changed.has('subtitles') ? subtitlesFromWizard(base, snapshot, context) : {...base.subtitles, languages: [...base.subtitles.languages]},
+		sponsorBlock: changed.has('sponsorBlock') ? {mode: snapshot.sponsorBlockMode, categories: [...snapshot.sponsorBlockCategories]} : {...base.sponsorBlock, categories: [...base.sponsorBlock.categories]},
+		embed: changed.has('extras') ? {...snapshot.embed} : {...base.embed},
+		output: !changed.has('saveTo') ? base.output : snapshot.outputDir === context.defaultOutputDir ? {kind: 'default'} : {kind: 'fixed', dir: snapshot.outputDir},
+		subfolder: changed.has('saveTo') ? {enabled: snapshot.subfolderEnabled, name: snapshot.subfolderName} : {...base.subfolder},
+		filename: !changed.has('fileName') ? base.filename : snapshot.filenameTemplate === defaultTemplate ? {kind: 'default'} : {kind: 'custom', template: snapshot.filenameTemplate},
 		createdAt: context.now,
 		updatedAt: context.now
 	}

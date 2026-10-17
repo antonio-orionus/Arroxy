@@ -132,7 +132,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const videoExtOptions = [...new Set(videoOnlyFormats.map(f => f.ext))]
 	const dynamicRangeOptions = [...new Set(videoOnlyFormats.map(f => f.dynamicRange ?? 'SDR'))]
 	const filteredVideoFormats = wizardFormats.filter(f => (!filters.videoExt || f.ext === filters.videoExt) && (!filters.dynamicRange || (filters.dynamicRange === 'SDR' ? !f.dynamicRange : f.dynamicRange === filters.dynamicRange)))
-	const groupedVideo = groupVideoFormats(filteredVideoFormats)
+	const groupedVideo = groupVideoFormats(filteredVideoFormats, [selectedVideoFormatId, profileVideoId ?? ''])
 	const formatById = new Map(filteredVideoFormats.map(format => [format.formatId, format]))
 	const maxFilesize = Math.max(...groupedVideo.map(group => formatById.get(group.formatId)?.filesize ?? 0), 1)
 	const videoRows = groupedVideo.map(group => {
