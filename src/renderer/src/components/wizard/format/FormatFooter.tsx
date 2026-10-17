@@ -8,7 +8,7 @@ import {SingleDownloadActions} from '../SingleDownloadActions.js'
 import {SavesAsControl} from './SavesAsControl.js'
 
 interface FormatFooterProps {
-	view: Pick<FormatSelectionView, 'mode' | 'selectedFilesize'>
+	view: Pick<FormatSelectionView, 'mode' | 'selectedFilesize' | 'sizesScaledToPart'>
 	onBack: () => void
 	onReview: () => void
 }
@@ -20,7 +20,7 @@ export function FormatFooter({view, onBack, onReview}: FormatFooterProps): React
 			t('wizard.formats.kind.subtitles')
 		) : view.selectedFilesize ? (
 			<>
-				{t('wizard.formats.total')} <span className="text-headline font-bold text-primary">~{humanSize(view.selectedFilesize)}</span>
+				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-headline font-bold text-primary">~{humanSize(view.selectedFilesize)}</span>
 			</>
 		) : view.mode === 'audio-only' ? (
 			t('wizard.formats.audioOnly')

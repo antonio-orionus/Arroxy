@@ -13,6 +13,7 @@ import {FormatFooter} from './format/FormatFooter.js'
 import {WizardProfileLine} from './format/WizardProfileLine.js'
 import {FitNotices} from './format/FitNotices.js'
 import {ProfileSummary} from './format/ProfileSummary.js'
+import {UrlStartOffer, VideoPartPanel, VideoPartSwitch} from './format/VideoPartControls.js'
 import {SubtitleFields} from './SubtitleFields.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
 
@@ -20,7 +21,7 @@ import {SpeechBubble} from '../shared/SpeechBubble.js'
 // the download profile only decides what starts selected.
 export function StepFormatSelect(): ReactNode {
 	const {t} = useTranslation()
-	const {formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardMediaKind, selectedVideoFormatId, audioSelection, setSelectedVideoFormatId, setAudioSelection, back, openReview} = useAppStore(
+	const {formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardMediaKind, chapterCount, selectedVideoFormatId, audioSelection, setSelectedVideoFormatId, setAudioSelection, back, openReview} = useAppStore(
 		useShallow(state => ({
 			formatsLoading: state.formatsLoading,
 			wizardTitle: state.wizardTitle,
@@ -28,6 +29,7 @@ export function StepFormatSelect(): ReactNode {
 			wizardDuration: state.wizardDuration,
 			wizardWebpageUrl: state.wizardWebpageUrl,
 			wizardMediaKind: state.wizardMediaKind,
+			chapterCount: state.wizardChapters.length,
 			selectedVideoFormatId: state.selectedVideoFormatId,
 			audioSelection: state.audioSelection,
 			setSelectedVideoFormatId: state.setSelectedVideoFormatId,
@@ -61,7 +63,11 @@ export function StepFormatSelect(): ReactNode {
 
 	return (
 		<div className="wizard-step flex flex-col gap-3" data-testid="step-formats">
-			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} />
+			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
+
+			<UrlStartOffer />
+
+			<VideoPartPanel />
 
 			<WizardProfileLine />
 

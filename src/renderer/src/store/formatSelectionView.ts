@@ -5,9 +5,12 @@ import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import {videoCodecName} from '@shared/fileTypeFit.js'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
 import type {AudioTrackQuality, WizardMediaKind} from '@shared/schemas.js'
+import type {VideoPart} from '@shared/preparedJob.js'
+import {scaleBytesToPart} from '@shared/videoPart.js'
 import type {AudioSelection} from './types.js'
 import {useAppStore} from './useAppStore.js'
 import {groupVideoFormats, resolveVideoResolution} from './helpers.js'
+import {wizardVideoPart} from './wizard/videoPart.js'
 
 export type ConvertTooltipKey = 'wizard.formats.convert.requiresLossy'
 
@@ -44,6 +47,8 @@ export interface FormatSelectionView {
 	canDownload: boolean
 	currentResolutionLabel: string
 	selectedFilesize: number | undefined
+	// Sizes are linear estimates for the part of the video being downloaded.
+	sizesScaledToPart: boolean
 	// `profilePickIsFallback`: the video can't honour the profile's tier, so its
 	// tagged row is the closest stream rather than an exact match.
 	video: {disabled: boolean; dynamicRangeOptions: string[]; extOptions: string[]; rows: VideoFormatRow[]; profilePickIsFallback: boolean}
@@ -65,9 +70,24 @@ export interface FormatSelectionView {
 
 const DEFAULT_FILTERS: FormatSelectionFilters = {audioExt: null, dynamicRange: null, videoExt: null}
 
-function nativeAudioRow(format: FormatOption, profileAudioId: string | null): NativeAudioRow {
+// Sizes for the whole video, or estimates for the part (`~`, scaled linearly).
+interface SizeScale {
+	bytes: (bytes: number | undefined) => number | undefined
+	text: (bytes: number) => string
+	scaled: boolean
+}
+
+function sizeScale(videoPart: SelectViewInput['videoPart']): SizeScale {
+	if (!videoPart) return {bytes: bytes => bytes, text: humanSize, scaled: false}
+	return {bytes: bytes => scaleBytesToPart(bytes, videoPart.part, videoPart.durationSeconds), text: bytes => `~${humanSize(bytes)}`, scaled: true}
+}
+
+function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): NativeAudioRow {
 	const title = format.audioTrackLabel ?? format.audioLanguage ?? (format.audioTrackQuality ? '' : format.ext)
-	const meta = format.audioTrackLabel ? format.label.replace(`${format.audioTrackLabel} · `, '') : format.label
+	const label = format.audioTrackLabel ? format.label.replace(`${format.audioTrackLabel} · `, '') : format.label
+	// The probe's label ends in the whole-video size; a part swaps in its estimate.
+	const scaledSize = scale.scaled && format.filesize ? scale.bytes(format.filesize) : undefined
+	const meta = format.filesize && scaledSize !== undefined ? label.replace(humanSize(format.filesize), scale.text(scaledSize)) : label
 	return {ext: format.ext, formatId: format.formatId, label: format.label, meta, quality: format.audioTrackQuality ?? null, title, isProfilePick: format.formatId === profileAudioId}
 }
 
@@ -80,6 +100,8 @@ export interface SelectViewInput {
 	// What the download profile picked, to tag those rows. Null outside single mode.
 	profilePick?: {videoFormatId: string; audioSelection: AudioSelection} | null
 	profileVideoFallback?: boolean
+	// Part of video: sizes scale to the range. Null for the whole video.
+	videoPart?: {part: VideoPart; durationSeconds: number} | null
 	filters?: Partial<FormatSelectionFilters>
 }
 
@@ -88,6 +110,7 @@ export interface SelectViewInput {
 export function selectView(state: SelectViewInput): FormatSelectionView {
 	const {selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats} = state
 	const filters = {...DEFAULT_FILTERS, ...state.filters}
+	const scale = sizeScale(state.videoPart)
 	const pickedVideo = state.profilePick?.videoFormatId
 	const profileVideoId = pickedVideo !== undefined && pickedVideo !== '' ? pickedVideo : null
 	const profileAudio = state.profilePick?.audioSelection
@@ -113,7 +136,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	// Video plus its native audio track; a conversion's size isn't known ahead.
 	const nativeAudioId = audioSelection.kind === 'native' ? audioSelection.formatId : null
 	const sizes = [isAudioOnly ? null : selectedVideoFormatId, nativeAudioId].flatMap(id => (id ? [wizardFormats.find(f => f.formatId === id)?.filesize] : []))
-	const selectedFilesize = isSubtitleOnly || sizes.length === 0 || sizes.some(size => size === undefined) ? undefined : sizes.reduce<number>((total, size) => total + (size ?? 0), 0)
+	const selectedFilesize = isSubtitleOnly || sizes.length === 0 || sizes.some(size => size === undefined) ? undefined : scale.bytes(sizes.reduce<number>((total, size) => total + (size ?? 0), 0))
 
 	// Conversions belong to Audio mode; with a video pick they'd be merged with
 	// video, which yt-dlp's `-x` can't do. A muxed-only source keeps them, since
@@ -138,9 +161,10 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const maxFilesize = Math.max(...groupedVideo.map(group => formatById.get(group.formatId)?.filesize ?? 0), 1)
 	const videoRows = groupedVideo.map(group => {
 		const rawFormat = formatById.get(group.formatId)
-		const filesize = rawFormat?.filesize
-		const meta = [rawFormat?.ext, videoCodecName(rawFormat?.videoCodec), rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].flatMap(part => (part ? [part] : [])).join(' · ')
-		return {barWidth: filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0, filesize, formatId: group.formatId, meta, resolution: group.resolution, isProfilePick: group.formatId === profileVideoId}
+		const filesize = scale.bytes(rawFormat?.filesize)
+		const meta = [rawFormat?.ext, videoCodecName(rawFormat?.videoCodec), rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? scale.text(filesize) : null].flatMap(part => (part ? [part] : [])).join(' · ')
+		const wholeSize = rawFormat?.filesize
+		return {barWidth: wholeSize ? Math.max(2, (wholeSize / maxFilesize) * 100) : 0, filesize, formatId: group.formatId, meta, resolution: group.resolution, isProfilePick: group.formatId === profileVideoId}
 	})
 	const nativeAudios = wizardFormats.filter(f => f.isAudioOnly)
 	const nativeExts = [...new Set(nativeAudios.map(f => f.ext))]
@@ -148,7 +172,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const nativeExtSet = new Set(nativeExts)
 	const audioExtOptions = convertDisabled ? nativeExts : [...nativeExts, ...convertTargets.filter(ext => !nativeExtSet.has(ext))]
 	const matchesAudioExt = (ext: string): boolean => !filters.audioExt || ext === filters.audioExt
-	const nativeRows = nativeAudios.flatMap(format => (matchesAudioExt(format.ext) ? [nativeAudioRow(format, profileAudioId)] : []))
+	const nativeRows = nativeAudios.flatMap(format => (matchesAudioExt(format.ext) ? [nativeAudioRow(format, profileAudioId, scale)] : []))
 	const filteredConvertTargets = convertDisabled ? [] : convertTargets.filter(matchesAudioExt)
 
 	return {
@@ -156,6 +180,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		canDownload,
 		currentResolutionLabel,
 		selectedFilesize,
+		sizesScaledToPart: scale.scaled,
 		video: {disabled: isSubtitleOnly, dynamicRangeOptions, extOptions: videoExtOptions, rows: videoRows, profilePickIsFallback: state.profileVideoFallback === true},
 		audio: {audioExtOptions, convertTargets: filteredConvertTargets, nativeRows, noAudioDisabled, selectedVideoIsMuxed, bitrateStrip: {hidden: convertDisabled, blocked: bitrateBlocked, value: bitrateValue, tooltipKey: bitrateBlocked ? 'wizard.formats.convert.requiresLossy' : null}}
 	}
@@ -169,6 +194,12 @@ export function useFormatSelectionView(filters?: Partial<FormatSelectionFilters>
 	const wizardFormats = useAppStore(s => s.wizardFormats)
 	const baseline = useAppStore(s => s.wizardProfileBaseline)
 	const profileVideoFallback = useAppStore(s => s.wizardFitNotices.some(notice => notice.kind === 'video-tier-fallback'))
+	const wizardPart = useAppStore(s => s.wizardPart)
+	const wizardDuration = useAppStore(s => s.wizardDuration)
 
-	return useMemo(() => selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, filters}), [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, filters])
+	return useMemo(() => {
+		const part = wizardVideoPart({wizardPart, wizardDuration, wizardMediaKind: mediaKind})
+		const videoPart = part && wizardDuration !== undefined ? {part, durationSeconds: wizardDuration} : null
+		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, profilePick: baseline, profileVideoFallback, videoPart, filters})
+	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, baseline, profileVideoFallback, wizardPart, wizardDuration, filters])
 }

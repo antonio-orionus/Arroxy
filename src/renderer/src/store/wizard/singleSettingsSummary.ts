@@ -6,6 +6,8 @@ import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import type {AppState} from '../types.js'
+import {videoPartSuffix} from '@shared/videoPart.js'
+import {wizardVideoPart} from './videoPart.js'
 
 type Translate = (key: string, params?: Record<string, unknown>) => string
 
@@ -28,20 +30,27 @@ const EXTRA_LABEL_KEYS = [
 	['wizardWriteThumbnail', 'wizard.output.writeThumbnail.label']
 ] as const
 
-export function sponsorBlockApplies(state: Pick<AppState, 'wizardExtractor' | 'wizardMediaKind'>): boolean {
-	return isYouTubeExtractor(state.wizardExtractor) && state.wizardMediaKind === 'video'
+// Not for a part of the video: SponsorBlock's segments are timed against the
+// whole video.
+export function sponsorBlockApplies(state: Pick<AppState, 'wizardExtractor' | 'wizardMediaKind' | 'wizardPart'>): boolean {
+	return isYouTubeExtractor(state.wizardExtractor) && state.wizardMediaKind === 'video' && state.wizardPart === null
 }
 
 export function buildSingleSettingsSummary(state: AppState, ctx: {t: Translate; language: string}): SingleSettingsSummary {
 	const {t} = ctx
 	const languages = state.wizardSubtitleLanguages
 	const subtitlesAvailable = Object.keys(state.wizardSubtitles).length + Object.keys(state.wizardAutomaticCaptions).filter(code => !state.wizardSubtitles[code]).length
+	// Subtitles are never cut: with a part they still cover the whole video.
+	const fullLength = state.wizardMediaKind !== 'subtitles' && state.wizardPart !== null ? t('wizard.part.subtitlesFullLength') : null
 	const subtitles =
 		languages.length === 0
 			? t('wizard.review.value.subtitlesOff')
-			: [languages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', '), state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode])].filter(Boolean).join(' · ')
+			: [languages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', '), state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode]), fullLength].filter(Boolean).join(' · ')
 	const sponsorBlock = sponsorBlockApplies(state) ? (state.wizardSponsorBlockMode === 'off' ? t('wizard.review.value.sponsorBlockOff') : t(`wizard.sponsorblock.mode.${state.wizardSponsorBlockMode}`)) : null
 	const extras = EXTRA_LABEL_KEYS.filter(([field]) => state[field]).map(([, key]) => t(key))
 	const saveTo = formatHomeRelativePath(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), state.commonPaths)
-	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'), saveTo, fileName: state.wizardFilenameTemplate}
+	// A part's file name ends in its range, appended when the job is queued.
+	const part = wizardVideoPart(state)
+	const fileName = part ? `${state.wizardFilenameTemplate} ${videoPartSuffix(part)}` : state.wizardFilenameTemplate
+	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'), saveTo, fileName}
 }

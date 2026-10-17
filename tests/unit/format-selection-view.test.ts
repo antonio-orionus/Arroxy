@@ -61,6 +61,15 @@ describe('selectView — media kinds', () => {
 		expect(selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS}).selectedFilesize).toBeUndefined()
 	})
 
+	it('scales every size to the part and marks them as estimates', () => {
+		const formats = SEPARATE_FORMATS.map(f => ({...f, filesize: f.formatId === '137' ? 1_000_000 : f.formatId === '140' ? 200_000 : 50_000, label: f.formatId === '140' ? 'm4a audio · 195.3 KB' : f.label}))
+		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoPart: {part: {startSeconds: 0, endSeconds: 25, exactCut: false}, durationSeconds: 100}})
+		expect(view.selectedFilesize).toBe(300_000)
+		expect(view.sizesScaledToPart).toBe(true)
+		expect(view.video.rows.find(row => row.formatId === '137')).toMatchObject({filesize: 250_000, meta: expect.stringContaining('~244.1 KB')})
+		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.meta).toBe('m4a audio · ~48.8 KB')
+	})
+
 	it('shows the picked stream as its resolution row even when another stream leads that group', () => {
 		const formats: FormatOption[] = [
 			{formatId: '399', label: 'av1', ext: 'mp4', resolution: '1080p', fps: 60, videoCodec: 'av01.0.09M.08', isVideoOnly: true, isAudioOnly: false},

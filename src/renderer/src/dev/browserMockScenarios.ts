@@ -25,6 +25,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'single-subtitles-kind',
 	'single-profile-misfit',
 	'single-codec-mix',
+	'single-part',
 	'playlist-normal',
 	'playlist-loading',
 	'playlist-multi-profile',
@@ -100,6 +101,7 @@ export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 	if (id === 'single-review-subtitles') store.openReview('subtitles')
 	if (id === 'single-subtitles-kind') store.setWizardMediaKind('subtitles')
+	if (id === 'single-part') store.setState({wizardPart: {start: '1:35', end: '5:52', exactCut: false}})
 	if (id === 'single-codec-mix') {
 		const fullHd = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'hd-1080')
 		if (fullHd) store.setState(profilePatch(fullHd, store.getState()))
@@ -193,6 +195,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'single-subtitles-kind', group: 'General', title: 'Subtitles only', description: 'Format screen switched to Subtitles: the language picker replaces the stream lists.', kind: 'probe'},
 	{id: 'single-codec-mix', group: 'General', title: 'Codecs and file type', description: 'A 4K HDR video offered as AV1, VP9 and H.264: the codec in each row, the Why this one tip on the Profile badge, and the Saves as menu following the picked streams.', kind: 'probe'},
 	{id: 'single-profile-misfit', group: 'General', title: 'Profile does not fit', description: 'A Full HD profile with English subtitles on a 480p video without subtitles: the fit notices and "Closest to profile" pick.', kind: 'probe'},
+	{id: 'single-part', group: 'General', title: 'Part of video', description: 'A chaptered talk opened from a link with t=3:52: the Part panel with range bar, chapter marks and chips, Start/End, exact cut, and the offered link start.', kind: 'probe'},
 	{id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Screen preset for a playlist with thumbnails, durations, and default preset selection.', kind: 'probe'},
 	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},
 	{id: 'playlist-multi-profile', group: 'Playlist', title: 'Playlist multi-profile', description: 'Playlist profiles step landing directly, with 17 items already split across the baseline, audio-only, and Full HD 1080p profiles.', kind: 'state'},
@@ -456,7 +459,8 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	}
 	if (scenario.kind === 'probe' || params.playlistCount !== null) {
 		store.reset()
-		store.setWizardUrl(`https://example.com/${scenario.id}`)
+		// The Part scenario's link carries a start time, which the Format screen offers.
+		store.setWizardUrl(`https://example.com/${scenario.id}${scenario.id === 'single-part' ? '?t=232' : ''}`)
 		await store.submitUrl()
 		const targetStep = mockStepForScenario(scenario, params.mockStep)
 		if (targetStep !== null) store.setState({wizardStep: targetStep})

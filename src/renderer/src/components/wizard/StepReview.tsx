@@ -24,6 +24,8 @@ import {SponsorBlockFields} from './StepSponsorBlock.js'
 import {OutputFields} from './StepOutput.js'
 import {FolderFields} from './StepFolderConfirm.js'
 import {Hint} from '../shared/Hint.js'
+import {wizardVideoPart} from '../../store/wizard/videoPart.js'
+import {formatPartTime} from '@shared/videoPart.js'
 
 const AREA_LABEL_KEYS = {format: 'wizard.review.areas.format', subtitles: 'wizard.review.areas.subtitles', sponsorBlock: 'wizard.review.areas.sponsorBlock', extras: 'wizard.review.areas.extras', saveTo: 'wizard.review.areas.saveTo', fileName: 'wizard.review.areas.fileName'} as const satisfies Record<
 	ChangedArea,
@@ -148,7 +150,9 @@ export function StepReview(): ReactNode {
 
 	const caveat = mp4CaveatCodec(state)
 	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
-	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
+	const part = wizardVideoPart(state)
+	const partLabel = part ? t('wizard.part.summary', {start: formatPartTime(part.startSeconds), end: formatPartTime(part.endSeconds)}) : null
+	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
 	return (

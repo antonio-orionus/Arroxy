@@ -19,7 +19,7 @@ export function SingleDownloadActions(): ReactNode {
 
 	return (
 		<ButtonGroup aria-label={t('wizard.formats.footer.download')}>
-			<Hint label={blocker === 'subtitles' ? t('wizard.formats.footer.subtitlesRequired') : undefined}>
+			<Hint label={blocker === 'subtitles' ? t('wizard.formats.footer.subtitlesRequired') : blocker === 'part' ? t('wizard.part.downloadBlocked') : undefined}>
 				<Button variant="glow" type="button" onClick={() => void addAndDownloadImmediately()} disabled={disabled} focusableWhenDisabled data-testid="btn-download">
 					<Download data-icon="inline-start" />
 					{t('wizard.formats.footer.download')}

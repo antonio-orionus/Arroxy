@@ -11,6 +11,9 @@ interface Props {
 	// the meta line's first chunk. Empty pre-probe (e.g. queue items restored
 	// before extractor identity was tracked) drops the chunk.
 	webpageUrl?: string
+	chapterCount?: number
+	// A control at the card's end, e.g. the Format screen's Whole video / Part switch.
+	action?: ReactNode
 }
 
 function safeHost(url: string | undefined): string | null {
@@ -22,10 +25,10 @@ function safeHost(url: string | undefined): string | null {
 	}
 }
 
-export function VideoSummaryCard({thumbnail, title, duration, resolution, webpageUrl}: Props): ReactNode {
+export function VideoSummaryCard({thumbnail, title, duration, resolution, webpageUrl, chapterCount = 0, action}: Props): ReactNode {
 	const {t} = useTranslation()
 	const host = safeHost(webpageUrl)
-	const meta = [host, duration !== undefined ? formatDuration(duration) : null, resolution ?? null].filter(Boolean).join(' · ')
+	const meta = [host, duration !== undefined ? formatDuration(duration) : null, resolution ?? null, chapterCount > 0 ? t('videoCard.chapters', {count: chapterCount}) : null].filter(Boolean).join(' · ')
 
 	return (
 		<div data-slot="video-summary-card" className="wizard-summary-surface flex shrink-0 items-center gap-[10px] rounded-lg px-[12px] py-[9px]">
@@ -36,6 +39,7 @@ export function VideoSummaryCard({thumbnail, title, duration, resolution, webpag
 				<p className="truncate text-sm leading-snug font-bold text-foreground">{title || t('videoCard.titlePlaceholder')}</p>
 				<p className="text-xs text-subtle-foreground">{meta}</p>
 			</div>
+			{action}
 		</div>
 	)
 }

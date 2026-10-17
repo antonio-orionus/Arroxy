@@ -1,4 +1,5 @@
 import {humanSize} from '@shared/format.js'
+import {scaleBytesToPart} from '@shared/videoPart.js'
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
@@ -12,6 +13,7 @@ import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState, AudioSelection} from '../types.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {profileAssignmentCounts} from './playlistProfileAssignments.js'
+import {wizardVideoPart} from './videoPart.js'
 
 type Translate = (key: string, params?: Record<string, unknown>) => string
 
@@ -152,7 +154,8 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 
 	const nativeAudioId = audio.kind === 'native' ? audio.formatId : null
 	const sizes = [videoId, nativeAudioId].flatMap(id => (id ? [state.wizardFormats.find(f => f.formatId === id)?.filesize] : []))
-	const totalSize = sizes.length > 0 && sizes.every((size): size is number => size !== undefined) ? sizes.reduce((a, b) => a + b, 0) : undefined
+	const wholeSize = sizes.length > 0 && sizes.every((size): size is number => size !== undefined) ? sizes.reduce((a, b) => a + b, 0) : undefined
+	const totalSize = scaleBytesToPart(wholeSize, inBatch ? null : wizardVideoPart(state), state.wizardDuration)
 	const estimatedSize = totalSize ? `~${humanSize(totalSize)}` : ctx.t('wizard.confirm.sizeUnknown')
 
 	const finalDir = effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)

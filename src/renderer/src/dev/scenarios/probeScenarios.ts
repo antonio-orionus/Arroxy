@@ -48,6 +48,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return lowResVideoProbe()
 		case 'single-codec-mix':
 			return codecMixVideoProbe()
+		case 'single-part':
+			return partVideoProbe()
 		case 'probe-no-formats':
 			return noFormatsProbe()
 		case 'probe-live-stream':
@@ -119,6 +121,19 @@ export function normalVideoProbe(options: {webpageUrl?: string; degraded?: Video
 		subtitles: {en: [{ext: 'vtt', name: 'English'}], es: [{ext: 'vtt', name: 'Espanol'}]},
 		automaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (auto)'}]}
 	}
+}
+
+// A 25-minute talk with chapters, for the Part of video panel.
+function partVideoProbe(): VideoProbeResult {
+	const chapters = [
+		{title: 'Intro', startSeconds: 0, endSeconds: 95},
+		{title: 'Why clips matter', startSeconds: 95, endSeconds: 352},
+		{title: 'Keyframes and exact cuts', startSeconds: 352, endSeconds: 760},
+		{title: 'Live demo', startSeconds: 760, endSeconds: 1240},
+		{title: '', startSeconds: 1240, endSeconds: 1415},
+		{title: 'Questions', startSeconds: 1415, endSeconds: 1502}
+	]
+	return {...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-part'}), duration: 1502, title: 'Mock Talk - Cutting video without re-encoding', chapters}
 }
 
 function audioOnlyProbe(): ProbeResult {
