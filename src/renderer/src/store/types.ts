@@ -334,6 +334,7 @@ export interface WizardDialogsSlice {
 	cancelMixedPrompt: () => void
 	dismissCookiesConfigDialog: () => void
 	dismissQuickPlaylistCapDialog: () => void
+	openSettings: () => void
 	openAdvancedSettings: (target: AdvancedSettingsTarget) => void
 }
 

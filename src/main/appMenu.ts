@@ -49,6 +49,8 @@ export function buildAppMenuTemplate({appName, t, style, theme, limitRate, send,
 				{role: 'quit'}
 			]
 		},
+		// Close Window (Cmd+W) lives here; Electron's default menu has it.
+		{role: 'fileMenu'},
 		{role: 'editMenu'},
 		{
 			label: 'View',

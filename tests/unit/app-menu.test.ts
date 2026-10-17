@@ -23,7 +23,7 @@ function find(items: MenuItemConstructorOptions[], label: string): MenuItemConst
 describe('buildAppMenuTemplate', () => {
 	it('keeps the standard macOS menus around the app-specific ones', () => {
 		const template = buildAppMenuTemplate(makeDeps())
-		expect(template.map(item => item.label ?? item.role)).toEqual(['Arroxy', 'editMenu', 'View', 'windowMenu', 'Help'])
+		expect(template.map(item => item.label ?? item.role)).toEqual(['Arroxy', 'fileMenu', 'editMenu', 'View', 'windowMenu', 'Help'])
 	})
 
 	it('opens the in-app About dialog from the app menu', () => {
