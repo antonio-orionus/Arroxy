@@ -508,8 +508,8 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an."
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
-msgstr "Bakka hundumaatti jechuun ni taphata. VP9 ykn AV1 MP4 keessa jiru Mac moofaa irratti QuickTime keessatti hin banamu."
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Bakka hundumaatti jechuun ni taphata. VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu."
 
 msgctxt "fileType.description.webm"
 msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
@@ -523,9 +523,13 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr "MP4"
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
-msgstr "{{codecs}} MP4 keessa jiru QuickTime, gulaaltota tokko tokkoo fi TV tokko tokko keessatti banamuu dhiisuu danda'a. H.264 bakka hundatti ni taphata."
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 MP4 keessa jiru QuickTime keessatti taphachuuf Mac haaraa barbaada. H.264 bakka hundatti ni taphata."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu. H.264 bakka hundatti ni taphata."
 
 msgctxt "fileType.profileMark"
 msgid "Profile"
@@ -554,6 +558,22 @@ msgstr "Sagalee qofa · {{audio}}"
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr "HDR iskiriinii idilee irratti halluun isaa dhabamee mul'achuu danda'a. Yoo kana hin banne, SDR filatama."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "Viidiyoo HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
 
 msgctxt "language.label"
 msgid "Language"
@@ -1267,13 +1287,21 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr "meeshaa hunda irratti ni taphata"
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr "HDR SDR dura"
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
-msgstr "tartiiba baramaa"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "iskiriinii HDR irratti halluu badhaadhaa"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR HDR dura"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "iskiriinii kamiyyuu irratti sirriitti mul'ata"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"
@@ -2681,6 +2709,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr "Ammayyaa"
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Qindaaʼina appii fayyadami ({{value}})"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "Gaarii"
@@ -2892,10 +2924,6 @@ msgstr "Viidiyoo sagalee hin qabne qofa"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "Viidiyoo, sagalee malee"
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
-msgstr "Qindaaʼina appii fayyadami ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."

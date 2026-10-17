@@ -49,16 +49,15 @@ export function webmBlocker(video: FormatOption | undefined, audio: FormatOption
 	return null
 }
 
-// Codecs an MP4 file can hold but players often can't open: QuickTime on older
-// Macs, some editors and some TVs. H.264 video with AAC audio is the safe pair.
-const MP4_RISKY_VIDEO = new Set(['VP9', 'AV1'])
-const MP4_RISKY_AUDIO = new Set(['Opus', 'Vorbis'])
+// The video codec that makes an MP4 risky to play in QuickTime, or null.
+// Tested on a Mac with AV1 hardware (macOS 27): VP9 in an MP4 failed to decode
+// its video, while AV1 and Opus played. AV1 needs the chip to decode it, so it
+// is worth a warning too; Opus audio in an MP4 is not.
+export type Mp4Caveat = 'VP9' | 'AV1'
 
-export function mp4Caveat(video: FormatOption | undefined, audio: FormatOption | undefined): string[] {
-	const videoCodec = video ? videoCodecName(video.videoCodec) : null
-	const audioSource = audio ?? (video && !video.isVideoOnly ? video : undefined)
-	const audioCodec = audioSource ? audioCodecName(audioSource.audioCodec) : null
-	return [videoCodec !== null && MP4_RISKY_VIDEO.has(videoCodec) ? videoCodec : null, audioCodec !== null && MP4_RISKY_AUDIO.has(audioCodec) ? audioCodec : null].filter((codec): codec is string => codec !== null)
+export function mp4Caveat(video: FormatOption | undefined): Mp4Caveat | null {
+	const codec = video ? videoCodecName(video.videoCodec) : null
+	return codec === 'VP9' || codec === 'AV1' ? codec : null
 }
 
 export function fileTypeFits(fileType: VideoFileType, video: FormatOption | undefined, audio: FormatOption | undefined): boolean {

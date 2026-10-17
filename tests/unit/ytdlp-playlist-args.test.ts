@@ -43,12 +43,12 @@ function argsFor(sel: PlaylistSelection): string[] {
 }
 
 describe('Video · Best codec', () => {
-	it('tier=best → bestvideo* selector, no -S, no --merge-output-format', () => {
+	it('tier=best → bestvideo* selector, SDR-first -S, no --merge-output-format', () => {
 		const args = argsFor({kind: 'video', tier: 'best', codec: 'best'})
 		expect(args).toContain('-f')
 		const fIdx = args.indexOf('-f')
 		expect(args[fIdx + 1]).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
-		expect(args).not.toContain('-S')
+		expect(args[args.indexOf('-S') + 1]).toBe('res,fps,hdr:sdr')
 		expect(args).not.toContain('--merge-output-format')
 	})
 
@@ -59,7 +59,7 @@ describe('Video · Best codec', () => {
 		expect(args[fIdx + 1]).not.toContain('height<=')
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toBe(`res:${tier},fps`)
+		expect(args[sIdx + 1]).toBe(`res:${tier},fps,hdr:sdr`)
 		expect(args).not.toContain('--merge-output-format')
 	})
 })
@@ -79,7 +79,7 @@ describe('Video · MP4 codec', () => {
 		// resolution within the compatible candidates.
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
+		expect(args[sIdx + 1]).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
 		// container override
 		const mIdx = args.indexOf('--merge-output-format')
 		expect(mIdx).toBeGreaterThan(-1)

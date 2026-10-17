@@ -568,7 +568,7 @@
 				"bestPicture": {"name": "En iyi görüntü", "tag": "AV1 · VP9", "description": "Aynı boyutta en net olanı. Eski TV’ler, QuickTime ve bazı düzenleyiciler oynatamaz."},
 				"smartTv": {"name": "Akıllı TV", "tag": "MP4 · H.264", "description": "TV’lerde, telefonlarda, WhatsApp’ta, QuickTime’da ve video düzenleyicilerde oynar. YouTube H.264’ü yalnızca 1080p’ye kadar sunar."}
 			},
-			"nativeAudio": {"default": "Uygulama ayarını kullan ({{value}})"}
+			"appSetting": "Uygulama ayarını kullan ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yükleniyor…"},
@@ -860,11 +860,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "Dosya türünü seçilen akışlar belirler.", "mp4": "Hemen her yerde oynar. MP4 içindeki VP9 veya AV1, eski Mac’lerde QuickTime’da açılmaz.", "mkv": "Her kodeği barındırır. Bazı TV’ler ve telefonlar açamaz.", "webm": "Tarayıcılar için açık biçim. Yalnızca VP9 veya AV1 ile Opus barındırır."},
+		"description": {"auto": "Dosya türünü seçilen akışlar belirler.", "mp4": "Neredeyse her yerde oynatılır. MP4 içindeki VP9, QuickTime’da görüntü oynatmaz.", "mkv": "Her kodeği barındırır. Bazı TV’ler ve telefonlar açamaz.", "webm": "Tarayıcılar için açık biçim. Yalnızca VP9 veya AV1 ile Opus barındırır."},
 		"webmBlocked": "WebM, {{codec}} barındıramaz. MKV veya MP4 seçin.",
 		"profileMark": "Profil",
 		"smartTvNoWebm": "WebM, Akıllı TV ile sunulmaz: H.264’ü barındıramaz.",
-		"mp4Caveat": "MP4 içindeki {{codecs}}, QuickTime’da, bazı düzenleyicilerde ve bazı TV’lerde açılmayabilir. H.264 her yerde oynar."
+		"mp4CaveatVp9": "MP4 içindeki VP9, QuickTime’da görüntü oynatmaz. H.264 her yerde oynatılır.",
+		"mp4CaveatAv1": "MP4 içindeki AV1’i QuickTime’da oynatmak için yeni bir Mac gerekir. H.264 her yerde oynatılır."
 	},
 	"selectionOrder": {
 		"editorTitle": "Bu profil nasıl seçer",
@@ -876,7 +877,6 @@
 			"resolutionBest": {"label": "En yüksek çözünürlük", "reason": "sınır yok"},
 			"resolution": {"label": "{{tier}}p’ye kadar", "reason": "sınırınız"},
 			"fps": {"label": "En yüksek kare hızı", "reason": "daha akıcı hareket"},
-			"hdr": {"label": "SDR’den önce HDR", "reason": "olağan sıra"},
 			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
 			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
 			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},
@@ -884,8 +884,11 @@
 			"opus": {"label": "Opus ses", "reason": "WebM’e uyar"},
 			"nativeCompatible": {"label": "Stereo ses"},
 			"nativeSurround": {"label": "Varsa surround ses"},
-			"nativeSource": {"settings": "Ayarlar’dan", "profile": "bu profil"}
+			"nativeSource": {"settings": "Ayarlar’dan", "profile": "bu profil"},
+			"hdrSdrFirst": {"label": "SDR, HDR’den önce", "reason": "her ekranda doğru görünür"},
+			"hdrFirst": {"label": "HDR, SDR’den önce", "reason": "HDR ekranlarda daha zengin renkler"}
 		},
 		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR video", "description": "HDR, normal ekranlarda soluk görünebilir. Bu seçeneği açmazsanız SDR seçilir.", "sdr": "SDR", "hdr": "HDR"}
 }

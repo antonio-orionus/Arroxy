@@ -7,7 +7,7 @@
 // Download pick the same streams.
 
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {AudioBitrate, AudioSelection, DownloadProfile, DownloadProfileAudioFormat, NativeAudioPreference, PlaylistVideoTier, WizardMediaKind} from './schemas.js'
+import type {AudioBitrate, AudioSelection, DownloadProfile, DownloadProfileAudioFormat, HdrPreference, NativeAudioPreference, PlaylistVideoTier, WizardMediaKind} from './schemas.js'
 import type {FormatOption, SubtitleMap} from './types.js'
 import {preferredNativeAudioId} from './nativeAudioPreference.js'
 import {selectionOrder, type AudioRank, type SelectionOrder, type VideoRank} from './selectionOrder.js'
@@ -20,6 +20,8 @@ export interface ProfileSelectionInput {
 	automaticCaptions: SubtitleMap
 	isAudioOnlySource: boolean
 	nativeAudioPreference: NativeAudioPreference
+	// The app-wide HDR choice; the profile may override it. Absent reads as the app default.
+	hdrPreference?: HdrPreference
 }
 
 export interface MediaSelection {
@@ -72,12 +74,14 @@ function codecRank(format: FormatOption): number {
 }
 
 // The ranks after resolution compare streams of one height, best first.
-function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption): number {
+function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption, order: SelectionOrder): number {
 	switch (rank.kind) {
 		case 'fps':
 			return (b.fps ?? 0) - (a.fps ?? 0)
-		case 'hdr':
-			return Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined)
+		case 'hdr': {
+			const hdrFirst = Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined)
+			return order.hdr.preference === 'hdr' ? hdrFirst : -hdrFirst
+		}
 		case 'codec':
 			return codecRank(a) - codecRank(b)
 		case 'size':
@@ -125,7 +129,7 @@ function pickVideo(videos: readonly FormatOption[], order: SelectionOrder, notic
 		.filter(f => videoHeight(f.resolution) === height)
 		.toSorted((a, b) => {
 			for (const rank of tieBreakers) {
-				const result = compareByRank(rank, a, b)
+				const result = compareByRank(rank, a, b, order)
 				if (result !== 0) return result
 			}
 			return 0
@@ -170,7 +174,7 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	if (media.kind === 'subtitles-only') return {media: {kind: 'subtitles', videoFormatId: '', audioSelection: NO_AUDIO}, order: null}
 	if (media.kind === 'audio-only') return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection(media.audio, audioFormats, nativeAudioPreference)}, order: null}
 
-	const order = selectionOrder(media, nativeAudioPreference)
+	const order = selectionOrder(media, nativeAudioPreference, input.hdrPreference)
 	if (input.isAudioOnlySource || videos.length === 0) {
 		notices.push({kind: 'no-video'})
 		return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, audioFormats, nativeAudioPreference)}, order}

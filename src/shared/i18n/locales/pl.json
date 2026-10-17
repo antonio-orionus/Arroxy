@@ -570,7 +570,7 @@
 				"bestPicture": {"name": "Najlepszy obraz", "tag": "AV1 · VP9", "description": "Najostrzejszy przy danym rozmiarze. Starsze telewizory, QuickTime i niektóre edytory go nie odtworzą."},
 				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Działa na telewizorach, telefonach, w WhatsApp, QuickTime i edytorach wideo. YouTube oferuje H.264 tylko do 1080p."}
 			},
-			"nativeAudio": {"default": "Użyj ustawienia aplikacji ({{value}})"}
+			"appSetting": "Użyj ustawienia aplikacji ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Wczytywanie…"},
@@ -887,16 +887,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {
-			"auto": "O typie pliku decydują wybrane strumienie.",
-			"mp4": "Działa prawie wszędzie. VP9 lub AV1 w MP4 nie otworzy się w QuickTime na starszych Macach.",
-			"mkv": "Obsługuje dowolny kodek. Niektóre telewizory i telefony go nie otworzą.",
-			"webm": "Otwarty format dla przeglądarek. Obsługuje tylko VP9 lub AV1 z Opus."
-		},
+		"description": {"auto": "O typie pliku decydują wybrane strumienie.", "mp4": "Działa prawie wszędzie. VP9 w pliku MP4 nie odtworzy obrazu w QuickTime.", "mkv": "Obsługuje dowolny kodek. Niektóre telewizory i telefony go nie otworzą.", "webm": "Otwarty format dla przeglądarek. Obsługuje tylko VP9 lub AV1 z Opus."},
 		"webmBlocked": "WebM nie obsługuje {{codec}}. Wybierz MKV lub MP4.",
 		"profileMark": "Profil",
 		"smartTvNoWebm": "WebM nie jest dostępny dla Smart TV: nie obsługuje H.264.",
-		"mp4Caveat": "{{codecs}} w MP4 mogą nie otworzyć się w QuickTime, niektórych edytorach i telewizorach. H.264 działa wszędzie."
+		"mp4CaveatVp9": "VP9 w pliku MP4 nie odtworzy obrazu w QuickTime. H.264 działa wszędzie.",
+		"mp4CaveatAv1": "AV1 w pliku MP4 wymaga nowszego Maca, aby odtworzyć go w QuickTime. H.264 działa wszędzie."
 	},
 	"selectionOrder": {
 		"editorTitle": "Jak ten profil wybiera",
@@ -908,7 +904,6 @@
 			"resolutionBest": {"label": "Najwyższa rozdzielczość", "reason": "brak limitu"},
 			"resolution": {"label": "Do {{tier}}p", "reason": "twój limit"},
 			"fps": {"label": "Najwyższa liczba klatek", "reason": "płynniejszy ruch"},
-			"hdr": {"label": "HDR przed SDR", "reason": "zwykła kolejność"},
 			"codec": {"label": "AV1, potem VP9, potem H.264", "reason": "najostrzejszy przy danym rozmiarze"},
 			"size": {"label": "Większy plik", "reason": "więcej szczegółów przy tych samych ustawieniach"},
 			"aacSmartTv": {"label": "Dźwięk AAC", "reason": "działa wszędzie"},
@@ -916,8 +911,11 @@
 			"opus": {"label": "Dźwięk Opus", "reason": "pasuje do WebM"},
 			"nativeCompatible": {"label": "Dźwięk stereo"},
 			"nativeSurround": {"label": "Dźwięk przestrzenny, gdy dostępny"},
-			"nativeSource": {"settings": "z Ustawień", "profile": "ten profil"}
+			"nativeSource": {"settings": "z Ustawień", "profile": "ten profil"},
+			"hdrSdrFirst": {"label": "SDR przed HDR", "reason": "wygląda dobrze na każdym ekranie"},
+			"hdrFirst": {"label": "HDR przed SDR", "reason": "bogatsze kolory na ekranach HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "najlepszy obraz", "smartTv": "działa na każdym urządzeniu"}, "fileType": {"auto": "typ pliku ze strumieni", "explicit": "zapis jako .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "Wideo HDR", "description": "HDR może wyglądać blado na zwykłych ekranach. SDR jest wybierany, dopóki nie włączysz tej opcji.", "sdr": "SDR", "hdr": "HDR"}
 }

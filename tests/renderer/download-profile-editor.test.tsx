@@ -122,6 +122,50 @@ describe('DownloadProfileEditor', () => {
 		})
 	})
 
+	it('offers an HDR video override and names what the app setting means', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalHdrPreference="hdr" />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-hdr')).toHaveTextContent('Use app setting (HDR)')
+		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent('HDR can look washed out on regular screens.')
+		fireEvent.click(screen.getByTestId('profiles-editor-hdr'))
+		fireEvent.click(await screen.findByTestId('profiles-editor-hdr-option-sdr'))
+		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: expect.objectContaining({hdr: {kind: 'custom', preference: 'sdr'}})}))
+		})
+	})
+
+	it('stores no HDR choice while the profile follows the app setting', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+		const onSave = vi.fn<(saved: DownloadProfile) => void>()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} />)
+
+		fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}))
+
+		await waitFor(() => {
+			expect(onSave).toHaveBeenCalled()
+		})
+		expect(onSave.mock.calls[0]?.[0].media).not.toHaveProperty('hdr')
+	})
+
+	it('says SDR is first in the list of how the profile picks', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} globalHdrPreference="sdr" />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-selection-order-toggle'))
+		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent('SDR before HDR · looks right on any screen')
+	})
+
 	it('lists how the profile picks, with the app setting named as the audio source', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-720')
 		expect(profile).toBeDefined()

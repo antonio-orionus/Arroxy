@@ -508,8 +508,8 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr "ផ្ទុក codec បានគ្រប់ប្រភេទ។ ទូរទស្សន៍ និងទូរស័ព្ទមួយចំនួនមិនអាចបើកវាបានទេ។"
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
-msgstr "ចាក់បានស្ទើរតែគ្រប់ទីកន្លែង។ VP9 ឬ AV1 ក្នុង MP4 មិនបើកក្នុង QuickTime លើ Mac ចាស់ៗទេ។"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "ចាក់បានស្ទើរតែគ្រប់ទីកន្លែង។ VP9 ក្នុង MP4 មិនបង្ហាញវីដេអូក្នុង QuickTime ទេ។"
 
 msgctxt "fileType.description.webm"
 msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
@@ -523,9 +523,13 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr "MP4"
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
-msgstr "{{codecs}} ក្នុង MP4 អាចមិនបើកក្នុង QuickTime កម្មវិធីកែសម្រួលមួយចំនួន និងទូរទស្សន៍មួយចំនួនទេ។ H.264 ចាក់បានគ្រប់ទីកន្លែង។"
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 ក្នុង MP4 ត្រូវការ Mac ថ្មីៗ ដើម្បីចាក់ក្នុង QuickTime។ H.264 ចាក់បានគ្រប់ទីកន្លែង។"
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 ក្នុង MP4 មិនបង្ហាញវីដេអូក្នុង QuickTime ទេ។ H.264 ចាក់បានគ្រប់ទីកន្លែង។"
 
 msgctxt "fileType.profileMark"
 msgid "Profile"
@@ -554,6 +558,22 @@ msgstr "តែសំឡេង · {{audio}}"
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr "HDR អាចមើលទៅស្លេកលើអេក្រង់ធម្មតា។ SDR ត្រូវបានជ្រើសរើស លុះត្រាតែអ្នកបើកជម្រើសនេះ។"
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "វីដេអូ HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
 
 msgctxt "language.label"
 msgid "Language"
@@ -1267,13 +1287,21 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr "ចាក់បានលើគ្រប់ឧបករណ៍"
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr "HDR មុន SDR"
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
-msgstr "លំដាប់ធម្មតា"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "ពណ៌សម្បូរជាងលើអេក្រង់ HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR មុន HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "មើលទៅត្រឹមត្រូវលើគ្រប់អេក្រង់"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"
@@ -2681,6 +2709,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr "កម្រិតខ្ពស់"
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "ប្រើការកំណត់កម្មវិធី ({{value}})"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "ល្អបំផុត"
@@ -2892,10 +2924,6 @@ msgstr "តែវីដេអូស្ងាត់"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "វីដេអូ គ្មានសំឡេង"
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
-msgstr "ប្រើការកំណត់កម្មវិធី ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."

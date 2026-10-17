@@ -64,6 +64,7 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 		automaticCaptions: state.wizardAutomaticCaptions,
 		isAudioOnlySource: state.wizardIsAudioOnlySource,
 		nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference,
+		hdrPreference: common?.hdrPreference ?? DEFAULTS.hdrPreference,
 		baseOutputDir: globalDir !== undefined && globalDir !== '' ? globalDir : state.wizardOutputDir,
 		globalFilenameTemplate: common?.filenameTemplate
 	})

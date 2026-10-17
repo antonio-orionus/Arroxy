@@ -514,7 +514,7 @@
 			"sponsorBlockHint": {"off": "不使用 SponsorBlock — 视频按上传原样播放。", "mark": "将赞助片段标记为章节（不修改文件）。", "remove": "使用 FFmpeg 从视频中剪除赞助片段。"},
 			"advanced": "高级",
 			"goal": {"bestPicture": {"name": "最佳画质", "tag": "AV1 · VP9", "description": "相同大小下最清晰。较旧的电视、QuickTime 和部分编辑器无法播放。"}, "smartTv": {"name": "智能电视", "tag": "MP4 · H.264", "description": "可在电视、手机、WhatsApp、QuickTime 和视频编辑器中播放。YouTube 仅在 1080p 及以下提供 H.264。"}},
-			"nativeAudio": {"default": "使用应用设置（{{value}}）"}
+			"appSetting": "使用应用设置（{{value}}）"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "加载中…"},
@@ -789,11 +789,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "由所选的流决定文件类型。", "mp4": "几乎所有设备都能播放。MP4 中的 VP9 或 AV1 无法在较旧 Mac 的 QuickTime 中打开。", "mkv": "可容纳任何编码。部分电视和手机无法打开。", "webm": "面向浏览器的开放格式。只能容纳 VP9 或 AV1 搭配 Opus。"},
+		"description": {"auto": "由所选的流决定文件类型。", "mp4": "几乎在所有设备上都能播放。MP4 中的 VP9 在 QuickTime 中无法播放画面。", "mkv": "可容纳任何编码。部分电视和手机无法打开。", "webm": "面向浏览器的开放格式。只能容纳 VP9 或 AV1 搭配 Opus。"},
 		"webmBlocked": "WebM 无法容纳 {{codec}}。请选择 MKV 或 MP4。",
 		"profileMark": "配置",
 		"smartTvNoWebm": "智能电视不提供 WebM：它无法容纳 H.264。",
-		"mp4Caveat": "MP4 中的 {{codecs}} 可能无法在 QuickTime、部分编辑器和部分电视上打开。H.264 随处可播放。"
+		"mp4CaveatVp9": "MP4 中的 VP9 在 QuickTime 中无法播放画面。H.264 在任何地方都能播放。",
+		"mp4CaveatAv1": "MP4 中的 AV1 需要较新的 Mac 才能在 QuickTime 中播放。H.264 在任何地方都能播放。"
 	},
 	"selectionOrder": {
 		"editorTitle": "此配置的选择方式",
@@ -805,7 +806,6 @@
 			"resolutionBest": {"label": "最高分辨率", "reason": "未设上限"},
 			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
 			"fps": {"label": "最高帧率", "reason": "动作更流畅"},
-			"hdr": {"label": "HDR 优先于 SDR", "reason": "常规顺序"},
 			"codec": {"label": "先 AV1，再 VP9，最后 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "更大的文件", "reason": "相同设置下细节更多"},
 			"aacSmartTv": {"label": "AAC 音频", "reason": "随处可播放"},
@@ -813,8 +813,11 @@
 			"opus": {"label": "Opus 音频", "reason": "适配 WebM"},
 			"nativeCompatible": {"label": "立体声音频"},
 			"nativeSurround": {"label": "环绕声音频（如有）"},
-			"nativeSource": {"settings": "来自设置", "profile": "此配置"}
+			"nativeSource": {"settings": "来自设置", "profile": "此配置"},
+			"hdrSdrFirst": {"label": "SDR 优先于 HDR", "reason": "在任何屏幕上都显示正常"},
+			"hdrFirst": {"label": "HDR 优先于 SDR", "reason": "在 HDR 屏幕上色彩更丰富"}
 		},
 		"summary": {"goal": {"bestPicture": "最佳画质", "smartTv": "所有设备都能播放"}, "fileType": {"auto": "文件类型由流决定", "explicit": "保存为 .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR 视频", "description": "HDR 在普通屏幕上可能显得发灰。除非开启此项，否则会选择 SDR。", "sdr": "SDR", "hdr": "HDR"}
 }

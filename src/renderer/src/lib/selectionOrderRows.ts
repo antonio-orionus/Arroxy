@@ -11,7 +11,7 @@ export interface SelectionOrderRow {
 	reason: string
 }
 
-function videoRow(t: TFunction, rank: VideoRank): SelectionOrderRow {
+function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): SelectionOrderRow {
 	switch (rank.kind) {
 		case 'h264':
 			return {label: t('selectionOrder.rank.h264.label'), reason: t('selectionOrder.rank.h264.reason')}
@@ -22,7 +22,7 @@ function videoRow(t: TFunction, rank: VideoRank): SelectionOrderRow {
 		case 'fps':
 			return {label: t('selectionOrder.rank.fps.label'), reason: t('selectionOrder.rank.fps.reason')}
 		case 'hdr':
-			return {label: t('selectionOrder.rank.hdr.label'), reason: t('selectionOrder.rank.hdr.reason')}
+			return order.hdr.preference === 'sdr' ? {label: t('selectionOrder.rank.hdrSdrFirst.label'), reason: t('selectionOrder.rank.hdrSdrFirst.reason')} : {label: t('selectionOrder.rank.hdrFirst.label'), reason: t('selectionOrder.rank.hdrFirst.reason')}
 		case 'codec':
 			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
 		case 'size':
@@ -48,7 +48,7 @@ function audioRow(t: TFunction, rank: AudioRank, order: SelectionOrder): Selecti
 // no H.264 at all; it is left out of the list rather than contradict the first row.
 export function selectionOrderRows(t: TFunction, order: SelectionOrder): SelectionOrderRow[] {
 	const video = order.video.filter(rank => !(order.goal === 'smart-tv' && rank.kind === 'codec'))
-	return [...video.map(rank => videoRow(t, rank)), ...(order.audio ?? []).map(rank => audioRow(t, rank, order))]
+	return [...video.map(rank => videoRow(t, rank, order)), ...(order.audio ?? []).map(rank => audioRow(t, rank, order))]
 }
 
 export function selectionOrderSummary(t: TFunction, order: SelectionOrder): string {

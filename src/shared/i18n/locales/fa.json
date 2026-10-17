@@ -555,7 +555,7 @@
 				"bestPicture": {"name": "بهترین تصویر", "tag": "AV1 · VP9", "description": "واضح‌ترین در حجم یکسان. تلویزیون‌های قدیمی، QuickTime و برخی ویرایشگرها نمی‌توانند آن را پخش کنند."},
 				"smartTv": {"name": "تلویزیون هوشمند", "tag": "MP4 · H.264", "description": "روی تلویزیون، گوشی، WhatsApp، QuickTime و ویرایشگرهای ویدیو پخش می‌شود. YouTube کدک H.264 را فقط تا 1080p ارائه می‌دهد."}
 			},
-			"nativeAudio": {"default": "استفاده از تنظیم برنامه ({{value}})"}
+			"appSetting": "استفاده از تنظیم برنامه ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "در حال بارگیری…"},
@@ -854,14 +854,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "جریان‌های انتخاب‌شده نوع فایل را تعیین می‌کنند.",
-			"mp4": "تقریباً همه‌جا پخش می‌شود. VP9 یا AV1 در MP4 در QuickTime مک‌های قدیمی باز نمی‌شود.",
+			"mp4": "تقریباً همه‌جا پخش می‌شود. ویدیوی VP9 در MP4 در QuickTime پخش نمی‌شود.",
 			"mkv": "هر کدکی را در خود جا می‌دهد. برخی تلویزیون‌ها و گوشی‌ها نمی‌توانند آن را باز کنند.",
 			"webm": "قالبی باز برای مرورگرها. فقط VP9 یا AV1 همراه با Opus را در خود جا می‌دهد."
 		},
 		"webmBlocked": "WebM نمی‌تواند {{codec}} را در خود جا دهد. MKV یا MP4 را انتخاب کنید.",
 		"profileMark": "نمایه",
 		"smartTvNoWebm": "WebM برای تلویزیون هوشمند ارائه نمی‌شود: نمی‌تواند H.264 را در خود جا دهد.",
-		"mp4Caveat": "{{codecs}} در MP4 ممکن است در QuickTime، برخی ویرایشگرها و برخی تلویزیون‌ها باز نشود. H.264 همه‌جا پخش می‌شود."
+		"mp4CaveatVp9": "ویدیوی VP9 در MP4 در QuickTime پخش نمی‌شود. H.264 همه‌جا پخش می‌شود.",
+		"mp4CaveatAv1": "پخش AV1 در MP4 با QuickTime به یک Mac جدید نیاز دارد. H.264 همه‌جا پخش می‌شود."
 	},
 	"selectionOrder": {
 		"editorTitle": "این نمایه چگونه انتخاب می‌کند",
@@ -873,7 +874,6 @@
 			"resolutionBest": {"label": "بیشترین وضوح", "reason": "بدون محدودیت"},
 			"resolution": {"label": "تا {{tier}}p", "reason": "محدودیت شما"},
 			"fps": {"label": "بیشترین نرخ فریم", "reason": "حرکت روان‌تر"},
-			"hdr": {"label": "HDR پیش از SDR", "reason": "ترتیب معمول"},
 			"codec": {"label": "AV1، سپس VP9، سپس H.264", "reason": "واضح‌ترین در حجم یکسان"},
 			"size": {"label": "فایل بزرگ‌تر", "reason": "جزئیات بیشتر با همان تنظیمات"},
 			"aacSmartTv": {"label": "صدای AAC", "reason": "همه‌جا پخش می‌شود"},
@@ -881,8 +881,11 @@
 			"opus": {"label": "صدای Opus", "reason": "مناسب WebM"},
 			"nativeCompatible": {"label": "صدای استریو"},
 			"nativeSurround": {"label": "صدای فراگیر در صورت وجود"},
-			"nativeSource": {"settings": "از تنظیمات", "profile": "این نمایه"}
+			"nativeSource": {"settings": "از تنظیمات", "profile": "این نمایه"},
+			"hdrSdrFirst": {"label": "SDR پیش از HDR", "reason": "در هر صفحه‌نمایشی درست دیده می‌شود"},
+			"hdrFirst": {"label": "HDR پیش از SDR", "reason": "رنگ‌های غنی‌تر در صفحه‌نمایش‌های HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "بهترین تصویر", "smartTv": "روی هر دستگاهی پخش می‌شود"}, "fileType": {"auto": "نوع فایل بر اساس جریان‌ها", "explicit": "ذخیره به‌صورت .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "ویدیوی HDR", "description": "HDR ممکن است در صفحه‌نمایش‌های معمولی رنگ‌پریده دیده شود. تا این گزینه را روشن نکنید، SDR انتخاب می‌شود.", "sdr": "SDR", "hdr": "HDR"}
 }

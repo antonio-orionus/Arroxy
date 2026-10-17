@@ -508,8 +508,8 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr "모든 코덱을 담을 수 있습니다. 일부 TV와 휴대폰에서는 열리지 않습니다."
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
-msgstr "거의 어디서나 재생됩니다. MP4에 담긴 VP9 또는 AV1은 오래된 Mac의 QuickTime에서 열리지 않습니다."
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "거의 모든 곳에서 재생됩니다. MP4 안의 VP9는 QuickTime에서 영상이 재생되지 않습니다."
 
 msgctxt "fileType.description.webm"
 msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
@@ -523,9 +523,13 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr "MP4"
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
-msgstr "MP4에 담긴 {{codecs}}은(는) QuickTime, 일부 편집기, 일부 TV에서 열리지 않을 수 있습니다. H.264는 어디서나 재생됩니다."
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "MP4 안의 AV1을 QuickTime에서 재생하려면 최신 Mac이 필요합니다. H.264는 어디서나 재생됩니다."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "MP4 안의 VP9는 QuickTime에서 영상이 재생되지 않습니다. H.264는 어디서나 재생됩니다."
 
 msgctxt "fileType.profileMark"
 msgid "Profile"
@@ -554,6 +558,22 @@ msgstr "오디오만 · {{audio}}"
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr "HDR은 일반 화면에서 색이 바래 보일 수 있습니다. 켜지 않으면 SDR이 선택됩니다."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR 영상"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
 
 msgctxt "language.label"
 msgid "Language"
@@ -1267,13 +1287,21 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr "모든 기기에서 재생"
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr "SDR보다 HDR 우선"
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
-msgstr "일반적인 순서"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "HDR 화면에서 더 풍부한 색상"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "HDR보다 SDR 우선"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "어떤 화면에서도 자연스럽게 보임"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"
@@ -2681,6 +2709,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr "고급"
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "앱 설정 사용 ({{value}})"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "최상"
@@ -2892,10 +2924,6 @@ msgstr "오디오 없는 동영상만"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "동영상, 오디오 없음"
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
-msgstr "앱 설정 사용 ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."

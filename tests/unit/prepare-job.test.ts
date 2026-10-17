@@ -77,7 +77,7 @@ describe('prepareJob', () => {
 				extractorKey: 'Youtube',
 				intent: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
 				formatSelector: COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR,
-				formatSort: 'res:1080,fps',
+				formatSort: 'res:1080,fps,hdr:sdr',
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
 				filenameTemplate: '01 - {title}',
@@ -116,7 +116,7 @@ describe('prepareJob', () => {
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
 			expect(job.formatSelector).toBe('bestvideo')
-			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps')
+			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr')
 		})
 
 		// yt-dlp remuxes a merged WebM to MKV for cover art, but a single native

@@ -97,13 +97,14 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 	const profile = config.profileId ? allDownloadProfiles(settings.profiles).find(p => p.id === config.profileId) : resolveActiveDownloadProfile(settings.profiles).profile
 	const report = initialReport(config, settings, profile?.id ?? config.profileId ?? '')
 	const nativeAudioPreference = settings.common.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const hdrPreference = settings.common.hdrPreference ?? DEFAULTS.hdrPreference
 	const tempRoot = await mkdtemp(join(tmpdir(), 'arroxy-download-smoke-'))
 	try {
 		if (!profile) {
 			report.error = `unknown profile "${config.profileId}"`
 			return finish(report, started)
 		}
-		const {intent, embed} = resolveDownloadProfile(profile, undefined, nativeAudioPreference)
+		const {intent, embed} = resolveDownloadProfile(profile, undefined, nativeAudioPreference, hdrPreference)
 		if (!intent) {
 			report.error = `profile "${profile.id}" has no media intent (subtitles-only?)`
 			return finish(report, started)
@@ -111,7 +112,7 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 		// The playlist/profile path, as in the report that motivated this tool.
 		// Subtitles and SponsorBlock are separate phases or post-processing and do
 		// not affect format selection, so they stay off.
-		const job = prepareJob({mode: 'playlist', extractor: 'youtube', extractorKey: 'Youtube', mediaIntent: intent, nativeAudioPreference, filenameTemplate: '{title} [{id}]', sponsorBlockMode: 'off', sponsorBlockCategories: [], embed})
+		const job = prepareJob({mode: 'playlist', extractor: 'youtube', extractorKey: 'Youtube', mediaIntent: intent, nativeAudioPreference, hdrPreference, filenameTemplate: '{title} [{id}]', sponsorBlockMode: 'off', sponsorBlockCategories: [], embed})
 		if (job.kind !== 'ranged-format') throw new Error(`invariant: playlist prepareJob returned ${job.kind}`)
 		report.effective.formatSelector = job.formatSelector ?? null
 		report.effective.formatSort = job.formatSort ?? null

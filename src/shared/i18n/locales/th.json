@@ -522,7 +522,7 @@
 			"sponsorBlockHint": {"off": "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา", "mark": "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)", "remove": "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"},
 			"advanced": "ขั้นสูง",
 			"goal": {"bestPicture": {"name": "ภาพดีที่สุด", "tag": "AV1 · VP9", "description": "คมชัดที่สุดในขนาดเท่ากัน ทีวีรุ่นเก่า QuickTime และโปรแกรมตัดต่อบางตัวเล่นไม่ได้"}, "smartTv": {"name": "สมาร์ททีวี", "tag": "MP4 · H.264", "description": "เล่นได้บนทีวี โทรศัพท์ WhatsApp QuickTime และโปรแกรมตัดต่อวิดีโอ YouTube มี H.264 ถึง 1080p เท่านั้น"}},
-			"nativeAudio": {"default": "ใช้การตั้งค่าของแอป ({{value}})"}
+			"appSetting": "ใช้การตั้งค่าของแอป ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "กำลังโหลด…"},
@@ -807,11 +807,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "ประเภทไฟล์จะขึ้นอยู่กับสตรีมที่เลือก", "mp4": "เล่นได้เกือบทุกที่ แต่ VP9 หรือ AV1 ใน MP4 จะเปิดใน QuickTime บน Mac รุ่นเก่าไม่ได้", "mkv": "รองรับทุกโคเดก แต่ทีวีและโทรศัพท์บางรุ่นเปิดไม่ได้", "webm": "รูปแบบเปิดสำหรับเบราว์เซอร์ รองรับเฉพาะ VP9 หรือ AV1 คู่กับ Opus"},
+		"description": {"auto": "ประเภทไฟล์จะขึ้นอยู่กับสตรีมที่เลือก", "mp4": "เล่นได้เกือบทุกที่ แต่ VP9 ใน MP4 จะไม่เล่นภาพใน QuickTime", "mkv": "รองรับทุกโคเดก แต่ทีวีและโทรศัพท์บางรุ่นเปิดไม่ได้", "webm": "รูปแบบเปิดสำหรับเบราว์เซอร์ รองรับเฉพาะ VP9 หรือ AV1 คู่กับ Opus"},
 		"webmBlocked": "WebM รองรับ {{codec}} ไม่ได้ เลือก MKV หรือ MP4 แทน",
 		"profileMark": "โปรไฟล์",
 		"smartTvNoWebm": "สมาร์ททีวีไม่มีตัวเลือก WebM เพราะ WebM รองรับ H.264 ไม่ได้",
-		"mp4Caveat": "{{codecs}} ใน MP4 อาจเปิดไม่ได้ใน QuickTime, โปรแกรมตัดต่อบางตัว และทีวีบางรุ่น ส่วน H.264 เล่นได้ทุกที่"
+		"mp4CaveatVp9": "VP9 ใน MP4 จะไม่เล่นภาพใน QuickTime ส่วน H.264 เล่นได้ทุกที่",
+		"mp4CaveatAv1": "AV1 ใน MP4 ต้องใช้ Mac รุ่นใหม่จึงจะเล่นใน QuickTime ได้ ส่วน H.264 เล่นได้ทุกที่"
 	},
 	"selectionOrder": {
 		"editorTitle": "โปรไฟล์นี้เลือกอย่างไร",
@@ -823,7 +824,6 @@
 			"resolutionBest": {"label": "ความละเอียดสูงสุด", "reason": "ไม่จำกัด"},
 			"resolution": {"label": "สูงสุด {{tier}}p", "reason": "ขีดจำกัดของคุณ"},
 			"fps": {"label": "เฟรมเรตสูงสุด", "reason": "ภาพเคลื่อนไหวลื่นกว่า"},
-			"hdr": {"label": "HDR ก่อน SDR", "reason": "ลำดับปกติ"},
 			"codec": {"label": "AV1 ก่อน แล้ว VP9 แล้ว H.264", "reason": "คมชัดที่สุดในขนาดเท่ากัน"},
 			"size": {"label": "ไฟล์ใหญ่กว่า", "reason": "รายละเอียดมากกว่าในการตั้งค่าเดียวกัน"},
 			"aacSmartTv": {"label": "เสียง AAC", "reason": "เล่นได้ทุกที่"},
@@ -831,8 +831,11 @@
 			"opus": {"label": "เสียง Opus", "reason": "เข้ากับ WebM"},
 			"nativeCompatible": {"label": "เสียงสเตอริโอ"},
 			"nativeSurround": {"label": "เสียงเซอร์ราวด์ถ้ามี"},
-			"nativeSource": {"settings": "จากการตั้งค่า", "profile": "โปรไฟล์นี้"}
+			"nativeSource": {"settings": "จากการตั้งค่า", "profile": "โปรไฟล์นี้"},
+			"hdrSdrFirst": {"label": "SDR มาก่อน HDR", "reason": "ดูถูกต้องบนทุกหน้าจอ"},
+			"hdrFirst": {"label": "HDR มาก่อน SDR", "reason": "สีสดและลึกกว่าบนหน้าจอ HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "ภาพดีที่สุด", "smartTv": "เล่นได้ในทุกอุปกรณ์"}, "fileType": {"auto": "ประเภทไฟล์ตามสตรีม", "explicit": "บันทึกเป็น .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "วิดีโอ HDR", "description": "HDR อาจดูซีดบนหน้าจอทั่วไป หากไม่เปิดตัวเลือกนี้ ระบบจะเลือก SDR", "sdr": "SDR", "hdr": "HDR"}
 }

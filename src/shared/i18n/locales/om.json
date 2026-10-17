@@ -585,7 +585,7 @@
 				"bestPicture": {"name": "Suuraa isa caalu", "tag": "AV1 · VP9", "description": "Hamma walfakkaatuun baay'ee ifa. TV moofaan, QuickTime fi gulaaltonni tokko tokko taphachiisuu hin danda'an."},
 				"smartTv": {"name": "TV smart", "tag": "MP4 · H.264", "description": "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa."}
 			},
-			"nativeAudio": {"default": "Qindaaʼina appii fayyadami ({{value}})"}
+			"appSetting": "Qindaaʼina appii fayyadami ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Fe'amaa jira…"},
@@ -906,14 +906,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "Tarreessaawwan filataman gosa faayilii murteessu.",
-			"mp4": "Bakka hundumaatti jechuun ni taphata. VP9 ykn AV1 MP4 keessa jiru Mac moofaa irratti QuickTime keessatti hin banamu.",
+			"mp4": "Bakka hundumaatti jechuun ni taphata. VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu.",
 			"mkv": "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an.",
 			"webm": "Foormaatii banaa browser'iif. VP9 ykn AV1 Opus waliin qofa qabata."
 		},
 		"webmBlocked": "WebM {{codec}} qabachuu hin danda'u. MKV ykn MP4 filadhu.",
 		"profileMark": "Piroofaayilii",
 		"smartTvNoWebm": "WebM TV smart waliin hin dhiyaatu: H.264 qabachuu hin danda'u.",
-		"mp4Caveat": "{{codecs}} MP4 keessa jiru QuickTime, gulaaltota tokko tokkoo fi TV tokko tokko keessatti banamuu dhiisuu danda'a. H.264 bakka hundatti ni taphata."
+		"mp4CaveatVp9": "VP9 MP4 keessa jiru QuickTime keessatti viidiyoo hin agarsiisu. H.264 bakka hundatti ni taphata.",
+		"mp4CaveatAv1": "AV1 MP4 keessa jiru QuickTime keessatti taphachuuf Mac haaraa barbaada. H.264 bakka hundatti ni taphata."
 	},
 	"selectionOrder": {
 		"editorTitle": "Piroofaayiliin kun akkamitti filata",
@@ -925,7 +926,6 @@
 			"resolutionBest": {"label": "Ifa bal'ina isa ol'aanaa", "reason": "daangaan hin kaa'amne"},
 			"resolution": {"label": "Hanga {{tier}}p", "reason": "daangaa kee"},
 			"fps": {"label": "Saffisa fireemii isa ol'aanaa", "reason": "sochii daran lallaafaa"},
-			"hdr": {"label": "HDR SDR dura", "reason": "tartiiba baramaa"},
 			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
 			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
 			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},
@@ -933,8 +933,11 @@
 			"opus": {"label": "Sagalee Opus", "reason": "WebM waliin wal sima"},
 			"nativeCompatible": {"label": "Sagalee isteeriyoo"},
 			"nativeSurround": {"label": "Sagalee surround yoo jiraate"},
-			"nativeSource": {"settings": "Qindaaʼinoota irraa", "profile": "piroofaayilii kana"}
+			"nativeSource": {"settings": "Qindaaʼinoota irraa", "profile": "piroofaayilii kana"},
+			"hdrSdrFirst": {"label": "SDR HDR dura", "reason": "iskiriinii kamiyyuu irratti sirriitti mul'ata"},
+			"hdrFirst": {"label": "HDR SDR dura", "reason": "iskiriinii HDR irratti halluu badhaadhaa"}
 		},
 		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
-	}
+	},
+	"hdrPreference": {"label": "Viidiyoo HDR", "description": "HDR iskiriinii idilee irratti halluun isaa dhabamee mul'achuu danda'a. Yoo kana hin banne, SDR filatama.", "sdr": "SDR", "hdr": "HDR"}
 }

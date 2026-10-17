@@ -320,6 +320,7 @@ export function DownloadProfilesHome(): ReactNode {
 	const hashTab = useSyncExternalStore(subscribeProfileTabHash, profileTabSnapshot, profileTabSnapshot)
 	const exploreEnabled = useAppStore(state => state.settings?.common?.exploreEnabled !== false)
 	const nativeAudioPreference = useAppStore(state => state.settings?.common?.nativeAudioPreference)
+	const hdrPreference = useAppStore(state => state.settings?.common?.hdrPreference)
 	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
 	// With the kill switch on, a stale #explore lands on the URL tab.
 	const activeTab: ProfilesTab = hashTab === 'explore' && !exploreEnabled ? 'download' : hashTab
@@ -581,6 +582,7 @@ export function DownloadProfilesHome(): ReactNode {
 						commonPaths={commonPaths}
 						globalDestination={globalDestinationRoot}
 						globalNativeAudioPreference={nativeAudioPreference}
+						globalHdrPreference={hdrPreference}
 						initialProfile={editingProfile}
 						onChangeGlobalDestination={() => chooseWizardFolder()}
 						open={editorOpen}

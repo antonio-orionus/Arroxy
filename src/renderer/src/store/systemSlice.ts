@@ -511,6 +511,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'nativeAudioPreference', {nativeAudioPreference: value})
 		},
 
+		setHdrPreference: async value => {
+			await applyCommonPatchAsync(get, set, 'hdrPreference', {hdrPreference: value})
+		},
+
 		setFilenameTemplate: async template => {
 			await applyCommonPatchAsync(get, set, 'filenameTemplate', {filenameTemplate: template})
 		},

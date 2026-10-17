@@ -6,7 +6,8 @@
 //   - the Interactive Download pick over a probe (`profileSelection.ts`),
 //   - the "Why this one" explanation the UI shows (the ranks themselves).
 
-import type {NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
+import {DEFAULTS} from './constants.js'
+import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
 
 export type VideoRank =
 	// Smart TV: H.264 before anything else, then streams already in MP4.
@@ -39,6 +40,8 @@ export interface SelectionOrder {
 	video: readonly VideoRank[]
 	// Null for a video-only download.
 	audio: readonly AudioRank[] | null
+	// SDR or HDR first when a height offers both, and where that choice comes from.
+	hdr: EffectiveHdr
 	// Stereo or surround among native tracks, and where that choice comes from.
 	// Also breaks ties inside the AAC and Opus ranks. Null for video-only.
 	nativeAudio: EffectiveNativeAudio | null
@@ -51,6 +54,15 @@ export interface SelectionOrder {
 export interface EffectiveNativeAudio {
 	preference: NativeAudioPreference
 	source: NativeAudioSource
+}
+
+export interface EffectiveHdr {
+	preference: HdrPreference
+	source: NativeAudioSource
+}
+
+function effectiveHdr(choice: HdrChoice | undefined, globalPreference: HdrPreference): EffectiveHdr {
+	return choice?.kind === 'custom' ? {preference: choice.preference, source: 'profile'} : {preference: globalPreference, source: 'settings'}
 }
 
 export function effectiveNativeAudio(choice: NativeAudioChoice, globalPreference: NativeAudioPreference): EffectiveNativeAudio {
@@ -80,7 +92,7 @@ function audioRank(goal: VideoGoal, fileType: VideoFileType): AudioRank {
 	return {kind: 'native'}
 }
 
-export function selectionOrder(intent: VideoMediaIntent, globalPreference: NativeAudioPreference): SelectionOrder {
+export function selectionOrder(intent: VideoMediaIntent, globalPreference: NativeAudioPreference, globalHdr: HdrPreference = DEFAULTS.hdrPreference): SelectionOrder {
 	const fileType = effectiveFileType(intent.goal, intent.fileType)
 	const withAudio = intent.kind === 'video-audio'
 	return {
@@ -88,6 +100,7 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 		tier: intent.tier,
 		fileType,
 		video: videoRanks(intent.goal, intent.tier),
+		hdr: effectiveHdr(intent.hdr, globalHdr),
 		audio: withAudio ? [audioRank(intent.goal, fileType)] : null,
 		nativeAudio: withAudio ? effectiveNativeAudio(intent.audio.native, globalPreference) : null,
 		separateVideoStream: intent.kind === 'video-only' || intent.goal === 'smart-tv'
@@ -95,20 +108,26 @@ export function selectionOrder(intent: VideoMediaIntent, globalPreference: Nativ
 }
 
 // yt-dlp puts `-S` fields before its own defaults (res, fps, hdr, vcodec, …),
-// so only the ranks that differ from that default are spelled out. `fps` is
-// restated after an explicit `res:N` to keep the frame rate ahead of the
-// fields yt-dlp would otherwise compare next.
-function videoSortToken(rank: VideoRank, tier: PlaylistVideoTier): string | undefined {
+// so only the ranks that differ from that default are spelled out; its default
+// already takes HDR first. `fps` is restated after an explicit `res:N` to keep
+// the frame rate ahead of the fields yt-dlp would otherwise compare next.
+// SDR first is `hdr:sdr`, and a field named in `-S` outranks every default, so
+// it needs `res` and `fps` named before it or it would pick a lower height to
+// avoid HDR. A height only offered as HDR is still taken (checked with yt-dlp).
+function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefined {
+	const sdrFirst = order.hdr.preference === 'sdr'
 	switch (rank.kind) {
 		case 'h264':
 			return 'vcodec:h264'
 		case 'mp4-streams':
 			return 'ext:mp4'
 		case 'resolution':
-			return rank.tier === 'best' ? undefined : `res:${rank.tier}`
+			if (rank.tier !== 'best') return `res:${rank.tier}`
+			return sdrFirst ? 'res' : undefined
 		case 'fps':
-			return tier === 'best' ? undefined : 'fps'
+			return order.tier === 'best' && !sdrFirst ? undefined : 'fps'
 		case 'hdr':
+			return sdrFirst ? 'hdr:sdr' : undefined
 		case 'codec':
 		case 'size':
 			return undefined
@@ -127,7 +146,7 @@ function audioSortToken(rank: AudioRank): string | undefined {
 }
 
 export function formatSortFor(order: SelectionOrder): string | undefined {
-	const tokens = [...order.video.map(rank => videoSortToken(rank, order.tier)), ...(order.audio ?? []).map(audioSortToken)].filter((token): token is string => token !== undefined)
+	const tokens = [...order.video.map(rank => videoSortToken(rank, order)), ...(order.audio ?? []).map(audioSortToken)].filter((token): token is string => token !== undefined)
 	return tokens.length > 0 ? tokens.join(',') : undefined
 }
 

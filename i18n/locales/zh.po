@@ -508,8 +508,8 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr "可容纳任何编码。部分电视和手机无法打开。"
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
-msgstr "几乎所有设备都能播放。MP4 中的 VP9 或 AV1 无法在较旧 Mac 的 QuickTime 中打开。"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "几乎在所有设备上都能播放。MP4 中的 VP9 在 QuickTime 中无法播放画面。"
 
 msgctxt "fileType.description.webm"
 msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
@@ -523,9 +523,13 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr "MP4"
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
-msgstr "MP4 中的 {{codecs}} 可能无法在 QuickTime、部分编辑器和部分电视上打开。H.264 随处可播放。"
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "MP4 中的 AV1 需要较新的 Mac 才能在 QuickTime 中播放。H.264 在任何地方都能播放。"
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "MP4 中的 VP9 在 QuickTime 中无法播放画面。H.264 在任何地方都能播放。"
 
 msgctxt "fileType.profileMark"
 msgid "Profile"
@@ -554,6 +558,22 @@ msgstr "仅音频 · {{audio}}"
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr "HDR 在普通屏幕上可能显得发灰。除非开启此项，否则会选择 SDR。"
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR 视频"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
 
 msgctxt "language.label"
 msgid "Language"
@@ -1267,13 +1287,21 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr "所有设备都能播放"
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr "HDR 优先于 SDR"
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
-msgstr "常规顺序"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "在 HDR 屏幕上色彩更丰富"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR 优先于 HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "在任何屏幕上都显示正常"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"
@@ -2681,6 +2709,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr "高级"
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "使用应用设置（{{value}}）"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "最佳"
@@ -2892,10 +2924,6 @@ msgstr "仅无声视频"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "视频，无音频"
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
-msgstr "使用应用设置（{{value}}）"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."

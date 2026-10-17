@@ -508,8 +508,8 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr "Подржава било који кодек. Неки телевизори и телефони га не могу отворити."
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
-msgstr "Ради скоро свуда. VP9 или AV1 у MP4 формату се неће отворити у QuickTime-у на старијим Mac рачунарима."
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Репродукује се скоро свуда. VP9 у MP4 датотеци неће приказати видео у QuickTime-у."
 
 msgctxt "fileType.description.webm"
 msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
@@ -523,9 +523,13 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr "MP4"
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
-msgstr "{{codecs}} у MP4 формату се можда неће отворити у QuickTime-у, неким уређивачима и неким телевизорима. H.264 ради свуда."
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 у MP4 датотеци у QuickTime-у ради само на новијем Mac-у. H.264 ради свуда."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 у MP4 датотеци неће приказати видео у QuickTime-у. H.264 ради свуда."
 
 msgctxt "fileType.profileMark"
 msgid "Profile"
@@ -554,6 +558,22 @@ msgstr "Само звук · {{audio}}"
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr "HDR може изгледати бледо на обичним екранима. SDR се бира осим ако не укључите ову опцију."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR видео"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
 
 msgctxt "language.label"
 msgid "Language"
@@ -1267,13 +1287,21 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr "ради на сваком уређају"
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr "HDR пре SDR"
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
-msgstr "уобичајен редослед"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "богатије боје на HDR екранима"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR пре HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "изгледа добро на сваком екрану"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"
@@ -2681,6 +2709,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr "Напредно"
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Користи подешавање апликације ({{value}})"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "Најбоље"
@@ -2892,10 +2924,6 @@ msgstr "Само видео без звука"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "Видео, без аудија"
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
-msgstr "Користи подешавање апликације ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."

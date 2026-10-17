@@ -507,7 +507,7 @@ msgid "Holds any codec. Some TVs and phones can't open it."
 msgstr ""
 
 msgctxt "fileType.description.mp4"
-msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
 msgstr ""
 
 msgctxt "fileType.description.webm"
@@ -522,8 +522,12 @@ msgctxt "fileType.mp4"
 msgid "MP4"
 msgstr ""
 
-msgctxt "fileType.mp4Caveat"
-msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr ""
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
 msgstr ""
 
 msgctxt "fileType.profileMark"
@@ -552,6 +556,22 @@ msgstr ""
 
 msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
+msgstr ""
+
+msgctxt "hdrPreference.description"
+msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
+msgstr ""
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr ""
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr ""
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
 msgstr ""
 
 msgctxt "language.label"
@@ -1266,12 +1286,20 @@ msgctxt "selectionOrder.rank.h264.reason"
 msgid "plays on every device"
 msgstr ""
 
-msgctxt "selectionOrder.rank.hdr.label"
+msgctxt "selectionOrder.rank.hdrFirst.label"
 msgid "HDR before SDR"
 msgstr ""
 
-msgctxt "selectionOrder.rank.hdr.reason"
-msgid "the usual order"
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr ""
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr ""
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
 msgstr ""
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
@@ -2675,6 +2703,10 @@ msgctxt "wizard.profileEditor.advanced"
 msgid "Advanced"
 msgstr ""
 
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr ""
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr ""
@@ -2885,10 +2917,6 @@ msgstr ""
 
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
-msgstr ""
-
-msgctxt "wizard.profileEditor.nativeAudio.default"
-msgid "Use app setting ({{value}})"
 msgstr ""
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"

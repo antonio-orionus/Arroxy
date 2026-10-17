@@ -11,10 +11,10 @@ function specFor(selection: PlaylistSelection) {
 
 describe('mediaIntentSpec', () => {
 	describe('video · best codec', () => {
-		it('tier=best → uncapped bestvideo* selector, no sort, no merge', () => {
+		it('tier=best → uncapped bestvideo* selector, SDR-first sort (resolution and fps named first), no merge', () => {
 			const spec = specFor({kind: 'video', tier: 'best', codec: 'best'})
 			expect(spec.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
-			expect(spec.formatSort).toBeUndefined()
+			expect(spec.formatSort).toBe('res,fps,hdr:sdr')
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -24,7 +24,7 @@ describe('mediaIntentSpec', () => {
 			const spec = specFor({kind: 'video', tier, codec: 'best'})
 			expect(spec.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
 			expect(spec.formatSelector).not.toContain('height<=')
-			expect(spec.formatSort).toBe(`res:${tier},fps`)
+			expect(spec.formatSort).toBe(`res:${tier},fps,hdr:sdr`)
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
 		})
@@ -38,7 +38,7 @@ describe('mediaIntentSpec', () => {
 			// video-only H.264 when compatibility fields sort first.
 			expect(spec.formatSelector).not.toContain('bv*')
 			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
-			expect(spec.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
+			expect(spec.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -51,7 +51,7 @@ describe('mediaIntentSpec', () => {
 			const spec = mediaIntentSpec(intent)
 
 			expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
-			expect(spec.formatSort).toBe('res:1440,fps,acodec:m4a')
+			expect(spec.formatSort).toBe('res:1440,fps,hdr:sdr,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.remuxVideo).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
@@ -64,7 +64,7 @@ describe('mediaIntentSpec', () => {
 			const spec = mediaIntentSpec(intent)
 
 			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
-			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
+			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)

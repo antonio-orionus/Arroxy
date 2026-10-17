@@ -531,7 +531,7 @@
 			"sponsorBlockHint": {"off": "SponsorBlock নেই — ভিডিও যেমন আপলোড হয়েছে তেমনই চলবে।", "mark": "স্পনসর অংশগুলোকে অধ্যায় হিসেবে চিহ্নিত করে (ফাইল বদলায় না)।", "remove": "FFmpeg দিয়ে ভিডিও থেকে স্পনসর অংশ কেটে দেয়।"},
 			"advanced": "উন্নত",
 			"goal": {"bestPicture": {"name": "সেরা ছবি", "tag": "AV1 · VP9", "description": "একই আকারে সবচেয়ে স্পষ্ট। পুরোনো টিভি, QuickTime ও কিছু এডিটর এটি চালাতে পারে না।"}, "smartTv": {"name": "স্মার্ট TV", "tag": "MP4 · H.264", "description": "টিভি, ফোন, WhatsApp, QuickTime ও ভিডিও এডিটরে চলে। YouTube শুধু ১০৮০p পর্যন্ত H.264 দেয়।"}},
-			"nativeAudio": {"default": "অ্যাপের সেটিং ব্যবহার করুন ({{value}})"}
+			"appSetting": "অ্যাপের সেটিং ব্যবহার করুন ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "লোড হচ্ছে…"},
@@ -823,11 +823,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "বেছে নেওয়া স্ট্রিম ফাইলের ধরন ঠিক করে।", "mp4": "প্রায় সব জায়গায় চলে। MP4-এ VP9 বা AV1 পুরোনো Mac-এর QuickTime-এ খুলবে না।", "mkv": "যেকোনো কোডেক রাখতে পারে। কিছু টিভি ও ফোন এটি খুলতে পারে না।", "webm": "ব্রাউজারের জন্য উন্মুক্ত ফরম্যাট। শুধু Opus সহ VP9 বা AV1 রাখতে পারে।"},
+		"description": {"auto": "বেছে নেওয়া স্ট্রিম ফাইলের ধরন ঠিক করে।", "mp4": "প্রায় সব জায়গায় চলে। MP4-এ VP9 থাকলে QuickTime-এ ভিডিও চলবে না।", "mkv": "যেকোনো কোডেক রাখতে পারে। কিছু টিভি ও ফোন এটি খুলতে পারে না।", "webm": "ব্রাউজারের জন্য উন্মুক্ত ফরম্যাট। শুধু Opus সহ VP9 বা AV1 রাখতে পারে।"},
 		"webmBlocked": "WebM {{codec}} রাখতে পারে না। MKV বা MP4 বেছে নিন।",
 		"profileMark": "প্রোফাইল",
 		"smartTvNoWebm": "স্মার্ট TV-তে WebM দেওয়া হয় না: এটি H.264 রাখতে পারে না।",
-		"mp4Caveat": "MP4-এ {{codecs}} QuickTime, কিছু এডিটর ও কিছু টিভিতে না-ও খুলতে পারে। H.264 সব জায়গায় চলে।"
+		"mp4CaveatVp9": "MP4-এ VP9 থাকলে QuickTime-এ ভিডিও চলবে না। H.264 সব জায়গায় চলে।",
+		"mp4CaveatAv1": "MP4-এ AV1 QuickTime-এ চালাতে নতুন Mac লাগবে। H.264 সব জায়গায় চলে।"
 	},
 	"selectionOrder": {
 		"editorTitle": "এই প্রোফাইল কীভাবে বাছাই করে",
@@ -839,7 +840,6 @@
 			"resolutionBest": {"label": "সর্বোচ্চ রেজোলিউশন", "reason": "কোনো সীমা দেওয়া নেই"},
 			"resolution": {"label": "{{tier}}p পর্যন্ত", "reason": "আপনার সীমা"},
 			"fps": {"label": "সর্বোচ্চ ফ্রেম রেট", "reason": "আরও মসৃণ গতি"},
-			"hdr": {"label": "SDR-এর আগে HDR", "reason": "সাধারণ ক্রম"},
 			"codec": {"label": "AV1, তারপর VP9, তারপর H.264", "reason": "একই আকারে সবচেয়ে স্পষ্ট"},
 			"size": {"label": "বড় ফাইল", "reason": "একই সেটিংসে আরও বেশি ডিটেইল"},
 			"aacSmartTv": {"label": "AAC অডিও", "reason": "সব জায়গায় চলে"},
@@ -847,8 +847,11 @@
 			"opus": {"label": "Opus অডিও", "reason": "WebM-এ মানানসই"},
 			"nativeCompatible": {"label": "স্টেরিও অডিও"},
 			"nativeSurround": {"label": "পাওয়া গেলে সারাউন্ড অডিও"},
-			"nativeSource": {"settings": "সেটিংস থেকে", "profile": "এই প্রোফাইল"}
+			"nativeSource": {"settings": "সেটিংস থেকে", "profile": "এই প্রোফাইল"},
+			"hdrSdrFirst": {"label": "HDR-এর আগে SDR", "reason": "যেকোনো স্ক্রিনে ঠিকঠাক দেখায়"},
+			"hdrFirst": {"label": "SDR-এর আগে HDR", "reason": "HDR স্ক্রিনে আরও সমৃদ্ধ রং"}
 		},
 		"summary": {"goal": {"bestPicture": "সেরা ছবি", "smartTv": "যেকোনো ডিভাইসে চলে"}, "fileType": {"auto": "স্ট্রিম অনুযায়ী ফাইলের ধরন", "explicit": ".{{ext}} হিসেবে সেভ হয়"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR ভিডিও", "description": "সাধারণ স্ক্রিনে HDR ফ্যাকাশে দেখাতে পারে। এটি চালু না করলে SDR বেছে নেওয়া হয়।", "sdr": "SDR", "hdr": "HDR"}
 }

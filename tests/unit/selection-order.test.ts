@@ -35,7 +35,7 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		if (folded) continue
 		it(`matches ${label}`, () => {
 			const upgraded = mediaIntentSchema.parse(intent)
-			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref)})).toEqual(legacyCase.spec)
+			expect(withoutNewFields({...mediaIntentSpec(upgraded, pref, 'hdr')})).toEqual(legacyCase.spec)
 		})
 	}
 
@@ -43,13 +43,13 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		const recordedAac = CASES.find(c => c.intent.codec === 'mp4' && c.intent.tiers?.[0] === '720' && c.intent.audio?.format === 'm4a' && c.pref === 'compatible')
-		expect(mediaIntentSpec(upgraded, 'compatible')).toEqual({...recordedAac?.spec, fileType: 'auto'})
+		expect(mediaIntentSpec(upgraded, 'compatible', 'hdr')).toEqual({...recordedAac?.spec, fileType: 'auto'})
 	})
 
 	it('reads an old native profile with AAC audio as Best picture saved as MP4', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
-		const spec = mediaIntentSpec(upgraded, 'compatible')
+		const spec = mediaIntentSpec(upgraded, 'compatible', 'hdr')
 		expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
 		expect(spec.formatSort).toBe('res:1080,fps,acodec:m4a')
 		expect(spec.mergeOutputFormat).toBe('mp4')
@@ -100,9 +100,9 @@ describe('selectionOrder', () => {
 	})
 
 	it('derives the sort for the new combinations', () => {
-		expect(formatSortFor(selectionOrder(video('best-picture', 'webm'), 'compatible'))).toBe('res:1080,fps,acodec:opus')
-		expect(formatSortFor(selectionOrder(video('best-picture', 'mkv', 'best'), 'compatible'))).toBeUndefined()
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'webm'), 'compatible'))).toBe('res:1080,fps,hdr:sdr,acodec:opus')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'mkv', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:sdr,acodec:m4a')
 	})
 })
 
@@ -121,5 +121,43 @@ describe('container args', () => {
 	it('never embeds a thumbnail into a file kept as WebM', () => {
 		expect(canEmbedThumbnail(mediaIntentSpec(video('best-picture', 'webm'), 'compatible'))).toBe(false)
 		expect(canEmbedThumbnail(mediaIntentSpec(video('best-picture', 'mkv'), 'compatible'))).toBe(true)
+	})
+})
+
+describe('HDR preference', () => {
+	it('defaults to SDR first, and names resolution and fps before hdr so it never trades height for SDR', () => {
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible'))).toBe('res:1080,fps,hdr:sdr')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe('vcodec:h264,ext:mp4,res:720,fps,hdr:sdr,acodec:m4a')
+	})
+
+	it("leaves yt-dlp's own order, HDR first, when the app setting is HDR", () => {
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible', 'hdr'))).toBeUndefined()
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible', 'hdr'))).toBe('res:1080,fps')
+	})
+
+	it('lets a profile override the app setting either way', () => {
+		const sdrProfile = {...video('best-picture', 'auto', '1080'), hdr: {kind: 'custom' as const, preference: 'sdr' as const}}
+		const hdrProfile = {...video('best-picture', 'auto', '1080'), hdr: {kind: 'custom' as const, preference: 'hdr' as const}}
+
+		expect(selectionOrder(sdrProfile, 'compatible', 'hdr').hdr).toEqual({preference: 'sdr', source: 'profile'})
+		expect(formatSortFor(selectionOrder(sdrProfile, 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:sdr')
+		expect(selectionOrder(hdrProfile, 'compatible', 'sdr').hdr).toEqual({preference: 'hdr', source: 'profile'})
+		expect(formatSortFor(selectionOrder(hdrProfile, 'compatible', 'sdr'))).toBe('res:1080,fps')
+	})
+
+	it('follows the app setting when the profile says nothing, and says so', () => {
+		expect(selectionOrder(video('best-picture', 'auto'), 'compatible', 'hdr').hdr).toEqual({preference: 'hdr', source: 'settings'})
+		expect(selectionOrder({...video('best-picture', 'auto'), hdr: {kind: 'default'}}, 'compatible', 'sdr').hdr).toEqual({preference: 'sdr', source: 'settings'})
+	})
+
+	it('applies to a video-only profile too', () => {
+		expect(formatSortFor(selectionOrder({kind: 'video-only', goal: 'best-picture', tier: '1440', fileType: 'auto'}, 'compatible'))).toBe('res:1440,fps,hdr:sdr')
+	})
+
+	it('survives parsing: a stored profile choice stays, an absent one reads as the app setting', () => {
+		const stored = {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto', hdr: {kind: 'custom', preference: 'hdr'}}
+		expect(mediaIntentSchema.parse(stored)).toEqual(stored)
+		expect(mediaIntentSchema.parse({kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'})).not.toHaveProperty('hdr')
 	})
 })

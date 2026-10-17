@@ -11,7 +11,7 @@ import {
 	type DownloadProfileOutputContext,
 	type ResolvedDownloadProfile
 } from '@shared/downloadProfiles.js'
-import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
+import type {AudioSelection, DownloadProfile, DownloadProfileRef, JobAuth, HdrPreference, NativeAudioPreference, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
@@ -176,7 +176,8 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, nativeAudioPreference, filenameTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
+	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
+	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, nativeAudioPreference, hdrPreference, filenameTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
 	// An .m3u lists media files; a subtitles batch writes none.
 	const writeM3u = state.wizardMode === 'playlist' && playlistSelection.kind !== 'subtitles' && state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate)
 
@@ -307,12 +308,13 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 	const profiles = allDownloadProfiles(state.settings?.profiles)
 	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
 	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
 	const items = selected.map((entry, index) => {
 		const profile = resolveAssignedProfile(entry.id, state.playlistProfileAssignments, profiles, baseline)
 		const ref = downloadProfileRefFor(profile, state.settings?.profiles)
-		const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
+		const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference, hdrPreference)
 		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
 		const templateMeta = playlistEntryTemplateMeta(entry, state.playlistTitle, state.playlistId, index + 1)
 		const outputDir = templateOutputDir(resolveDownloadProfileOutputDir(profile, outputContext), template, templateMeta)
@@ -327,6 +329,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 			profile,
 			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir),
 			nativeAudioPreference,
+			hdrPreference,
 			// No playlistGroupId: QueueService only writes an .m3u for grouped items,
 			// and a playlist file cannot describe videos spread across profile dirs.
 			writeM3u: false,
@@ -341,7 +344,7 @@ function downloadProfileRefLabel(ref: DownloadProfileRef): string {
 	return `${ref.kind}:${ref.id}`
 }
 
-function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference): PreparedJob {
+function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extractorKey: string, filenameTemplate: string, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): PreparedJob {
 	if (resolved.isSubtitleOnly) {
 		return prepareJob({mode: 'single', extractor, extractorKey, subtitleOnly: true, filenameTemplate, subtitles: resolved.subtitles, sponsorBlockMode: 'off', sponsorBlockCategories: [], embed: resolved.embed})
 	}
@@ -353,6 +356,7 @@ function profileJob(resolved: ResolvedDownloadProfile, extractor: string, extrac
 		extractorKey,
 		mediaIntent: resolved.intent,
 		nativeAudioPreference,
+		hdrPreference,
 		filenameTemplate,
 		subtitles: resolved.subtitles,
 		sponsorBlockMode: resolved.sponsorBlock.mode,
@@ -372,6 +376,7 @@ function buildProfileEntryQueueItem(params: {
 	profile: DownloadProfile
 	filenameTemplate: string
 	nativeAudioPreference: NativeAudioPreference
+	hdrPreference: HdrPreference
 	playlistGroupId?: string
 	writeM3u: boolean
 	lane: QueueLane
@@ -398,7 +403,7 @@ function buildProfileEntryQueueItem(params: {
 		...(params.auth ? {auth: params.auth} : {}),
 		writeM3u: params.writeM3u,
 		retryCount: 0,
-		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference)
+		job: profileJob(params.resolved, params.extractor, params.extractorKey, params.filenameTemplate, params.nativeAudioPreference, params.hdrPreference)
 	}
 }
 
@@ -424,7 +429,8 @@ export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile
 export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane, source: {url: string; playlistTitle: string}, pinned: PinnedDownloadProfile = pinActiveDownloadProfile(state)): PreparedQueueSubmission | null {
 	const {profile, ref} = resolveChosenDownloadProfile(pinned.ref, state.settings?.profiles)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference)
+	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
+	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference, hdrPreference)
 	const {outputContext} = pinned
 	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
@@ -443,6 +449,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			profile,
 			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, templateOutputDir(singleOutputDir, template, templateMeta)),
 			nativeAudioPreference,
+			hdrPreference,
 			writeM3u: false,
 			lane
 		})
@@ -479,6 +486,7 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 			profile,
 			filenameTemplate: bindJobFilenameTemplate(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot),
 			nativeAudioPreference,
+			hdrPreference,
 			playlistGroupId,
 			writeM3u,
 			lane

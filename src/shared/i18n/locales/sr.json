@@ -563,7 +563,7 @@
 				"bestPicture": {"name": "Најбоља слика", "tag": "AV1 · VP9", "description": "Најоштрије при истој величини. Старији телевизори, QuickTime и неки уређивачи га не могу пустити."},
 				"smartTv": {"name": "Паметни TV", "tag": "MP4 · H.264", "description": "Ради на телевизорима, телефонима, у WhatsApp-у, QuickTime-у и видео уређивачима. YouTube нуди H.264 само до 1080p."}
 			},
-			"nativeAudio": {"default": "Користи подешавање апликације ({{value}})"}
+			"appSetting": "Користи подешавање апликације ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Учитавање…"},
@@ -870,14 +870,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "Тип датотеке одређују изабрани токови.",
-			"mp4": "Ради скоро свуда. VP9 или AV1 у MP4 формату се неће отворити у QuickTime-у на старијим Mac рачунарима.",
+			"mp4": "Репродукује се скоро свуда. VP9 у MP4 датотеци неће приказати видео у QuickTime-у.",
 			"mkv": "Подржава било који кодек. Неки телевизори и телефони га не могу отворити.",
 			"webm": "Отворени формат за прегледаче. Подржава само VP9 или AV1 са Opus-ом."
 		},
 		"webmBlocked": "WebM не подржава {{codec}}. Изаберите MKV или MP4.",
 		"profileMark": "Профил",
 		"smartTvNoWebm": "WebM није доступан за Паметни TV: не подржава H.264.",
-		"mp4Caveat": "{{codecs}} у MP4 формату се можда неће отворити у QuickTime-у, неким уређивачима и неким телевизорима. H.264 ради свуда."
+		"mp4CaveatVp9": "VP9 у MP4 датотеци неће приказати видео у QuickTime-у. H.264 ради свуда.",
+		"mp4CaveatAv1": "AV1 у MP4 датотеци у QuickTime-у ради само на новијем Mac-у. H.264 ради свуда."
 	},
 	"selectionOrder": {
 		"editorTitle": "Како овај профил бира",
@@ -889,7 +890,6 @@
 			"resolutionBest": {"label": "Највећа резолуција", "reason": "без ограничења"},
 			"resolution": {"label": "До {{tier}}p", "reason": "ваше ограничење"},
 			"fps": {"label": "Највећа брзина кадрова", "reason": "глаткији покрет"},
-			"hdr": {"label": "HDR пре SDR", "reason": "уобичајен редослед"},
 			"codec": {"label": "AV1, па VP9, па H.264", "reason": "најоштрије при истој величини"},
 			"size": {"label": "Већа датотека", "reason": "више детаља при истим подешавањима"},
 			"aacSmartTv": {"label": "AAC звук", "reason": "ради свуда"},
@@ -897,8 +897,11 @@
 			"opus": {"label": "Opus звук", "reason": "одговара WebM-у"},
 			"nativeCompatible": {"label": "Стерео звук"},
 			"nativeSurround": {"label": "Просторни звук када је доступан"},
-			"nativeSource": {"settings": "из Подешавања", "profile": "овај профил"}
+			"nativeSource": {"settings": "из Подешавања", "profile": "овај профил"},
+			"hdrSdrFirst": {"label": "SDR пре HDR", "reason": "изгледа добро на сваком екрану"},
+			"hdrFirst": {"label": "HDR пре SDR", "reason": "богатије боје на HDR екранима"}
 		},
 		"summary": {"goal": {"bestPicture": "најбоља слика", "smartTv": "ради на сваком уређају"}, "fileType": {"auto": "тип датотеке према токовима", "explicit": "чува се као .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR видео", "description": "HDR може изгледати бледо на обичним екранима. SDR се бира осим ако не укључите ову опцију.", "sdr": "SDR", "hdr": "HDR"}
 }

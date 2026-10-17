@@ -108,7 +108,7 @@ describe('download profiles', () => {
 
 			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
 			expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
-			expect(resolved.spec?.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,acodec:m4a`)
+			expect(resolved.spec?.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
 			expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
 		}
 	})
@@ -119,7 +119,7 @@ describe('download profiles', () => {
 
 		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'small-file'})
 		expect(resolved.spec?.formatSelector).toBe(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR)
-		expect(resolved.spec?.formatSort).toBe('res:480,fps')
+		expect(resolved.spec?.formatSort).toBe('res:480,fps,hdr:sdr')
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
 
@@ -237,7 +237,7 @@ describe('download profiles', () => {
 
 		expect(resolved.intent).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(resolved.spec?.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
-		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
+		expect(resolved.spec?.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
 		expect(resolved.subtitles).toEqual({languages: ['en', 'uk'], mode: 'sidecar', format: 'srt', writeAuto: true, includeRegionalVariants: true})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})

@@ -430,6 +430,49 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.overrides[0]?.media).toMatchObject({goal: 'best-picture', tier: '720'})
 	})
 
+	describe('HDR preference for installs that already have settings', () => {
+		const savedWithoutIt = (extra: Record<string, unknown> = {}) => {
+			const {hdrPreference: _drop, ...common} = baseDefaults.common
+			return JSON.stringify({...baseDefaults, common: {...common, ...extra}})
+		}
+
+		it('a fresh install starts on SDR', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-fresh-'))
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().common.hdrPreference).toBe('sdr')
+		})
+
+		it('an install saved before the setting existed keeps HDR first, so no download changes', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-existing-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt(), 'utf-8')
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().common.hdrPreference).toBe('hdr')
+			expect(JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).common.hdrPreference).toBe('hdr')
+		})
+
+		it('a user who turned it off is not flipped back on the next launch', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-off-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt(), 'utf-8')
+			const first = new SettingsStore(userData, baseDefaults)
+			await first.update({common: {hdrPreference: 'sdr'}})
+
+			const second = new SettingsStore(userData, baseDefaults)
+
+			expect(second.getSync().common.hdrPreference).toBe('sdr')
+		})
+
+		it('keeps a saved choice as it is', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-saved-'))
+			await fs.writeFile(path.join(userData, 'settings.json'), savedWithoutIt({hdrPreference: 'sdr'}), 'utf-8')
+
+			expect(new SettingsStore(userData, baseDefaults).getSync().common.hdrPreference).toBe('sdr')
+		})
+	})
+
 	describe('backup before profiles are converted', () => {
 		const legacyMedia = {kind: 'video-audio', codec: 'mp4', tiers: ['720'], audio: {format: 'm4a'}}
 		const BACKUP = 'settings.before-selection-order.json'

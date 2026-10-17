@@ -44,9 +44,9 @@ describe('DownloadProfileDraft', () => {
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
 
-		expect(draftSelectionOrder(draft, 'surround')?.nativeAudio).toEqual({preference: 'surround', source: 'settings'})
+		expect(draftSelectionOrder(draft, 'surround', 'sdr')?.nativeAudio).toEqual({preference: 'surround', source: 'settings'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'audio-only'})
-		expect(draftSelectionOrder(draft, 'surround')).toBeNull()
+		expect(draftSelectionOrder(draft, 'surround', 'sdr')).toBeNull()
 	})
 
 	it('caps Smart TV H.264 MP4 profiles at 1080p when codec changes', () => {

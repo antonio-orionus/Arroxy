@@ -525,7 +525,7 @@
 				"bestPicture": {"name": "ምርጥ ምስል", "tag": "AV1 · VP9", "description": "በተመሳሳይ መጠን በጣም ጥርት ያለ። የቆዩ ቲቪዎች፣ QuickTime እና አንዳንድ አርታዒዎች ሊያጫውቱት አይችሉም።"},
 				"smartTv": {"name": "ስማርት TV", "tag": "MP4 · H.264", "description": "በቲቪዎች፣ በስልኮች፣ በWhatsApp፣ በQuickTime እና በቪዲዮ አርታዒዎች ይጫወታል። YouTube H.264ን የሚያቀርበው እስከ 1080p ብቻ ነው።"}
 			},
-			"nativeAudio": {"default": "የመተግበሪያውን ቅንብር ተጠቀም ({{value}})"}
+			"appSetting": "የመተግበሪያውን ቅንብር ተጠቀም ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "በመጫን ላይ…"},
@@ -810,11 +810,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "የተመረጡት ዥረቶች የፋይሉን አይነት ይወስናሉ።", "mp4": "በሁሉም ቦታ ማለት ይቻላል ይጫወታል። በMP4 ውስጥ ያለ VP9 ወይም AV1 በቆዩ Mac ኮምፒውተሮች ላይ በQuickTime አይከፈትም።", "mkv": "ማንኛውንም codec ይይዛል። አንዳንድ ቲቪዎችና ስልኮች ሊከፍቱት አይችሉም።", "webm": "ለአሳሾች የተዘጋጀ ክፍት ቅርጸት። VP9 ወይም AV1 ከOpus ጋር ብቻ ይይዛል።"},
+		"description": {"auto": "የተመረጡት ዥረቶች የፋይሉን አይነት ይወስናሉ።", "mp4": "በሁሉም ቦታ ማለት ይቻላል ይጫወታል። በMP4 ውስጥ ያለ VP9 በQuickTime ውስጥ ቪዲዮ አያሳይም።", "mkv": "ማንኛውንም codec ይይዛል። አንዳንድ ቲቪዎችና ስልኮች ሊከፍቱት አይችሉም።", "webm": "ለአሳሾች የተዘጋጀ ክፍት ቅርጸት። VP9 ወይም AV1 ከOpus ጋር ብቻ ይይዛል።"},
 		"webmBlocked": "WebM {{codec}} መያዝ አይችልም። MKV ወይም MP4 ይምረጡ።",
 		"profileMark": "መገለጫ",
 		"smartTvNoWebm": "WebM ከስማርት TV ጋር አይቀርብም፦ H.264 መያዝ አይችልም።",
-		"mp4Caveat": "በMP4 ውስጥ ያለ {{codecs}} በQuickTime፣ በአንዳንድ አርታዒዎችና በአንዳንድ ቲቪዎች ላይከፈት ይችላል። H.264 በሁሉም ቦታ ይጫወታል።"
+		"mp4CaveatVp9": "በMP4 ውስጥ ያለ VP9 በQuickTime ውስጥ ቪዲዮ አያሳይም። H.264 በሁሉም ቦታ ይጫወታል።",
+		"mp4CaveatAv1": "በMP4 ውስጥ ያለ AV1 በQuickTime ለመጫወት አዲስ Mac ያስፈልገዋል። H.264 በሁሉም ቦታ ይጫወታል።"
 	},
 	"selectionOrder": {
 		"editorTitle": "ይህ መገለጫ እንዴት እንደሚመርጥ",
@@ -826,7 +827,6 @@
 			"resolutionBest": {"label": "ከፍተኛው ጥራት መጠን", "reason": "ገደብ አልተቀመጠም"},
 			"resolution": {"label": "እስከ {{tier}}p", "reason": "የእርስዎ ገደብ"},
 			"fps": {"label": "ከፍተኛው የፍሬም መጠን", "reason": "ይበልጥ ለስላሳ እንቅስቃሴ"},
-			"hdr": {"label": "HDR ከSDR በፊት", "reason": "የተለመደው ቅደም ተከተል"},
 			"codec": {"label": "AV1፣ ከዚያ VP9፣ ከዚያ H.264", "reason": "በተመሳሳይ መጠን በጣም ጥርት ያለ"},
 			"size": {"label": "ትልቅ ፋይል", "reason": "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"},
 			"aacSmartTv": {"label": "AAC ድምጽ", "reason": "በሁሉም ቦታ ይጫወታል"},
@@ -834,8 +834,11 @@
 			"opus": {"label": "Opus ድምጽ", "reason": "ለWebM ተስማሚ"},
 			"nativeCompatible": {"label": "ስቴሪዮ ድምጽ"},
 			"nativeSurround": {"label": "ሲገኝ surround ድምጽ"},
-			"nativeSource": {"settings": "ከቅንብሮች", "profile": "ይህ መገለጫ"}
+			"nativeSource": {"settings": "ከቅንብሮች", "profile": "ይህ መገለጫ"},
+			"hdrSdrFirst": {"label": "SDR ከHDR በፊት", "reason": "በማንኛውም ስክሪን ላይ ትክክል ይመስላል"},
+			"hdrFirst": {"label": "HDR ከSDR በፊት", "reason": "በHDR ስክሪኖች ላይ የበለጸገ ቀለም"}
 		},
 		"summary": {"goal": {"bestPicture": "ምርጥ ምስል", "smartTv": "በማንኛውም መሣሪያ ይጫወታል"}, "fileType": {"auto": "የፋይል አይነት ከዥረቶቹ", "explicit": "እንደ .{{ext}} ይቀመጣል"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR ቪዲዮ", "description": "HDR በተራ ስክሪኖች ላይ የደበዘዘ ሊመስል ይችላል። ይህን ካላበሩት SDR ይመረጣል።", "sdr": "SDR", "hdr": "HDR"}
 }

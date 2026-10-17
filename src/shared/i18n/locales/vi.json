@@ -555,7 +555,7 @@
 				"bestPicture": {"name": "Hình ảnh đẹp nhất", "tag": "AV1 · VP9", "description": "Nét nhất ở cùng dung lượng. TV đời cũ, QuickTime và một số trình chỉnh sửa không phát được."},
 				"smartTv": {"name": "TV thông minh", "tag": "MP4 · H.264", "description": "Phát được trên TV, điện thoại, WhatsApp, QuickTime và trình chỉnh sửa video. YouTube chỉ có H.264 đến 1080p."}
 			},
-			"nativeAudio": {"default": "Dùng cài đặt của ứng dụng ({{value}})"}
+			"appSetting": "Dùng cài đặt của ứng dụng ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Đang tải…"},
@@ -853,16 +853,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {
-			"auto": "Các luồng đã chọn quyết định loại tệp.",
-			"mp4": "Phát được gần như ở mọi nơi. VP9 hoặc AV1 trong MP4 sẽ không mở được trong QuickTime trên Mac đời cũ.",
-			"mkv": "Chứa được mọi codec. Một số TV và điện thoại không mở được.",
-			"webm": "Định dạng mở cho trình duyệt. Chỉ chứa VP9 hoặc AV1 với Opus."
-		},
+		"description": {"auto": "Các luồng đã chọn quyết định loại tệp.", "mp4": "Phát được trên hầu hết mọi nơi. VP9 trong MP4 sẽ không phát được hình trong QuickTime.", "mkv": "Chứa được mọi codec. Một số TV và điện thoại không mở được.", "webm": "Định dạng mở cho trình duyệt. Chỉ chứa VP9 hoặc AV1 với Opus."},
 		"webmBlocked": "WebM không chứa được {{codec}}. Hãy chọn MKV hoặc MP4.",
 		"profileMark": "Hồ sơ",
 		"smartTvNoWebm": "WebM không có cho TV thông minh: nó không chứa được H.264.",
-		"mp4Caveat": "{{codecs}} trong MP4 có thể không mở được trong QuickTime, một số trình chỉnh sửa và một số TV. H.264 phát được ở mọi nơi."
+		"mp4CaveatVp9": "VP9 trong MP4 sẽ không phát được hình trong QuickTime. H.264 phát được ở mọi nơi.",
+		"mp4CaveatAv1": "AV1 trong MP4 cần Mac đời mới để phát trong QuickTime. H.264 phát được ở mọi nơi."
 	},
 	"selectionOrder": {
 		"editorTitle": "Cách hồ sơ này chọn",
@@ -874,7 +870,6 @@
 			"resolutionBest": {"label": "Độ phân giải cao nhất", "reason": "không đặt giới hạn"},
 			"resolution": {"label": "Tối đa {{tier}}p", "reason": "giới hạn của bạn"},
 			"fps": {"label": "Tốc độ khung hình cao nhất", "reason": "chuyển động mượt hơn"},
-			"hdr": {"label": "HDR trước SDR", "reason": "thứ tự thường dùng"},
 			"codec": {"label": "AV1, rồi VP9, rồi H.264", "reason": "nét nhất ở cùng dung lượng"},
 			"size": {"label": "Tệp lớn hơn", "reason": "nhiều chi tiết hơn với cùng cài đặt"},
 			"aacSmartTv": {"label": "Âm thanh AAC", "reason": "phát được ở mọi nơi"},
@@ -882,8 +877,11 @@
 			"opus": {"label": "Âm thanh Opus", "reason": "hợp với WebM"},
 			"nativeCompatible": {"label": "Âm thanh stereo"},
 			"nativeSurround": {"label": "Âm thanh vòm nếu có"},
-			"nativeSource": {"settings": "từ Cài đặt", "profile": "hồ sơ này"}
+			"nativeSource": {"settings": "từ Cài đặt", "profile": "hồ sơ này"},
+			"hdrSdrFirst": {"label": "SDR trước HDR", "reason": "hiển thị đúng trên mọi màn hình"},
+			"hdrFirst": {"label": "HDR trước SDR", "reason": "màu sắc rực rỡ hơn trên màn hình HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "Video HDR", "description": "HDR có thể trông nhạt màu trên màn hình thường. SDR được chọn trừ khi bạn bật tùy chọn này.", "sdr": "SDR", "hdr": "HDR"}
 }

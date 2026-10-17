@@ -590,7 +590,7 @@
 				"bestPicture": {"name": "Eng yaxshi tasvir", "tag": "AV1 · VP9", "description": "Bir xil hajmda eng tiniq. Eski televizorlar, QuickTime va ba'zi muharrirlar uni ijro eta olmaydi."},
 				"smartTv": {"name": "Aqlli TV", "tag": "MP4 · H.264", "description": "Televizorlar, telefonlar, WhatsApp, QuickTime va video muharrirlarida ijro etiladi. YouTube H.264 ni faqat 1080p gacha taklif qiladi."}
 			},
-			"nativeAudio": {"default": "Ilova sozlamasidan foydalanish ({{value}})"}
+			"appSetting": "Ilova sozlamasidan foydalanish ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yuklanmoqda…"},
@@ -904,14 +904,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "Fayl turini tanlangan oqimlar belgilaydi.",
-			"mp4": "Deyarli hamma joyda ijro etiladi. MP4 ichidagi VP9 yoki AV1 eski Mac'larda QuickTime'da ochilmaydi.",
+			"mp4": "Deyarli hamma joyda ijro etiladi. QuickTime MP4 ichidagi VP9 videoni ijro etmaydi.",
 			"mkv": "Har qanday kodekni sig'diradi. Ba'zi televizorlar va telefonlar uni ocha olmaydi.",
 			"webm": "Brauzerlar uchun ochiq format. Faqat VP9 yoki AV1 va Opus'ni sig'diradi."
 		},
 		"webmBlocked": "WebM {{codec}} ni sig'dira olmaydi. MKV yoki MP4 ni tanlang.",
 		"profileMark": "Profil",
 		"smartTvNoWebm": "Aqlli TV bilan WebM taklif qilinmaydi: u H.264 ni sig'dira olmaydi.",
-		"mp4Caveat": "MP4 ichidagi {{codecs}} QuickTime, ba'zi muharrirlar va ba'zi televizorlarda ochilmasligi mumkin. H.264 hamma joyda ijro etiladi."
+		"mp4CaveatVp9": "QuickTime MP4 ichidagi VP9 videoni ijro etmaydi. H.264 hamma joyda ijro etiladi.",
+		"mp4CaveatAv1": "MP4 ichidagi AV1 QuickTime'da ijro etilishi uchun yangi Mac kerak. H.264 hamma joyda ijro etiladi."
 	},
 	"selectionOrder": {
 		"editorTitle": "Bu profil qanday tanlaydi",
@@ -923,7 +924,6 @@
 			"resolutionBest": {"label": "Eng yuqori ruxsat", "reason": "chegara belgilanmagan"},
 			"resolution": {"label": "{{tier}}p gacha", "reason": "sizning chegarangiz"},
 			"fps": {"label": "Eng yuqori kadr tezligi", "reason": "silliqroq harakat"},
-			"hdr": {"label": "SDR dan oldin HDR", "reason": "odatiy tartib"},
 			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
 			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
 			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
@@ -931,8 +931,11 @@
 			"opus": {"label": "Opus audio", "reason": "WebM ga mos"},
 			"nativeCompatible": {"label": "Stereo audio"},
 			"nativeSurround": {"label": "Mavjud bo'lsa surround audio"},
-			"nativeSource": {"settings": "Sozlamalardan", "profile": "shu profil"}
+			"nativeSource": {"settings": "Sozlamalardan", "profile": "shu profil"},
+			"hdrSdrFirst": {"label": "HDR'dan oldin SDR", "reason": "har qanday ekranda to'g'ri ko'rinadi"},
+			"hdrFirst": {"label": "SDR'dan oldin HDR", "reason": "HDR ekranlarda boyroq ranglar"}
 		},
 		"summary": {"goal": {"bestPicture": "eng yaxshi tasvir", "smartTv": "har qanday qurilmada ijro etiladi"}, "fileType": {"auto": "fayl turi oqimlardan", "explicit": ".{{ext}} sifatida saqlanadi"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR video", "description": "Oddiy ekranlarda HDR xira ko'rinishi mumkin. Buni yoqmasangiz, SDR tanlanadi.", "sdr": "SDR", "hdr": "HDR"}
 }

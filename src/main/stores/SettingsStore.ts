@@ -25,6 +25,7 @@ const COMMON_FLAT_KEYS = [
 	'cookiesBrowser',
 	'proxyUrl',
 	'nativeAudioPreference',
+	'hdrPreference',
 	'limitRate',
 	'playlistProbeLimit',
 	'networkPacingPreset',
@@ -269,6 +270,25 @@ function hasLegacyProfileMedia(raw: Record<string, unknown>): boolean {
 
 const PRE_SELECTION_ORDER_BACKUP = 'settings.before-selection-order.json'
 
+// The settings file as an earlier version left it, or null on a first launch
+// (or a file that cannot be read). Read before the store opens, because the
+// store fills in defaults and would hide which keys were really saved.
+function readPriorSettings(userDataPath: string): Record<string, unknown> | null {
+	try {
+		return asRecord(JSON.parse(fs.readFileSync(path.join(userDataPath, 'settings.json'), 'utf-8')))
+	} catch {
+		return null
+	}
+}
+
+// SDR is the default for new installs, but an install that already had settings
+// was getting HDR-first picks from yt-dlp's own order: it keeps them, so no
+// download changes. Settings can turn it off.
+function savedBeforeHdrPreference(prior: Record<string, unknown> | null): boolean {
+	if (!prior) return false
+	return asRecord(prior.common)?.hdrPreference === undefined && prior.hdrPreference === undefined
+}
+
 export class SettingsStore {
 	// electron-store exposes unvalidated JSON. Keep its generic honest and parse
 	// the payload before storing or returning the trusted AppSettings value.
@@ -277,12 +297,13 @@ export class SettingsStore {
 	private settings: AppSettings
 
 	constructor(userDataPath: string, defaults: AppSettings) {
+		const priorSettings = readPriorSettings(userDataPath)
 		this.store = new Store<Record<string, unknown>>({name: 'settings', cwd: userDataPath, defaults: rawSettings(defaults), clearInvalidConfig: true})
 		this.defaults = defaults
 		const loaded = parsePersistedSettings(this.store.store, this.defaults)
-		this.settings = loaded.settings
+		this.settings = savedBeforeHdrPreference(priorSettings) ? {...loaded.settings, common: {...loaded.settings.common, hdrPreference: 'hdr'}} : loaded.settings
 		for (const section of loaded.invalidSections) logger.warn('Invalid persisted settings section; using defaults', {section})
-		if (loaded.shouldPersist) {
+		if (loaded.shouldPersist || this.settings !== loaded.settings) {
 			this.backUpLegacyProfiles(userDataPath)
 			this.persist()
 		}

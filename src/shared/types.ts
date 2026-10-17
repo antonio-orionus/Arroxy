@@ -45,6 +45,7 @@ export type {
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
+	HdrPreference,
 	QuickDownloadStatus,
 	QuickDownloadProgressPhase,
 	ProbeOtherErrorCode,
@@ -85,6 +86,7 @@ import type {
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
+	HdrPreference,
 	QueueArtifactKind,
 	QueueSelectionAction,
 	QueueActionSkippedItem as SchemaQueueActionSkippedItem,
@@ -141,6 +143,7 @@ export interface CommonSettings {
 	exploreAdBlock?: boolean
 	exploreCompactChrome?: boolean
 	nativeAudioPreference?: NativeAudioPreference
+	hdrPreference?: HdrPreference
 	limitRate?: string
 	playlistProbeLimit?: number
 	networkPacingPreset?: NetworkPacingPreset

@@ -1,7 +1,7 @@
 import {DEFAULTS} from './constants.js'
 import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent, playlistSubtitleOptions} from './mediaIntent.js'
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
-import type {AudioConvert, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
+import type {AudioConvert, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
 import type {ContainerArgs} from './selectionOrder.js'
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
@@ -25,6 +25,7 @@ export interface PrepareJobInput extends ExtractorIdentity {
 	playlistSelection?: PlaylistSelection | null
 	mediaIntent?: MediaIntent | null
 	nativeAudioPreference?: NativeAudioPreference
+	hdrPreference?: HdrPreference
 	filenameTemplate?: string
 	// shared
 	subtitles?: SubtitleOptions
@@ -48,7 +49,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
 		if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent')
 		if (!input.filenameTemplate) throw new Error('prepareJob: playlist mode requires filenameTemplate')
-		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference)
+		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference, input.hdrPreference ?? DEFAULTS.hdrPreference)
 		return {
 			kind: 'ranged-format',
 			...identity,

@@ -2,11 +2,11 @@ import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import {ChevronDown, ListOrdered} from 'lucide-react'
-import {PLAYLIST_VIDEO_TIERS, VIDEO_FILE_TYPES, VIDEO_GOALS} from '@shared/schemas.js'
-import type {NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '@shared/types.js'
+import {HDR_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_FILE_TYPES, VIDEO_GOALS} from '@shared/schemas.js'
+import type {HdrPreference, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {selectionOrderRows, selectionOrderSummary} from '@renderer/lib/selectionOrderRows.js'
-import {draftSelectionOrder, SMART_TV_MP4_BLOCKED_TIERS, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileNativeAudio} from '../../store/wizard/downloadProfileDraft.js'
+import {draftSelectionOrder, SMART_TV_MP4_BLOCKED_TIERS, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileHdr, type DownloadProfileNativeAudio} from '../../store/wizard/downloadProfileDraft.js'
 import {Button} from '../ui/button.js'
 import {FieldDescription, Field, FieldGroup, FieldTitle} from '../ui/field.js'
 import {ToggleGroup} from '../ui/toggle-group.js'
@@ -25,6 +25,8 @@ const GOAL_META = {
 const FILE_TYPE_LABEL_KEYS = {auto: 'fileType.auto', mp4: 'fileType.mp4', mkv: 'fileType.mkv', webm: 'fileType.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 const FILE_TYPE_DESCRIPTION_KEYS = {auto: 'fileType.description.auto', mp4: 'fileType.description.mp4', mkv: 'fileType.description.mkv', webm: 'fileType.description.webm'} as const satisfies Record<VideoFileType, ParseKeys>
 
+const HDR_LABEL_KEYS = {sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrPreference, ParseKeys>
+
 const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
 const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_TIERS.has(option.value))
 
@@ -32,25 +34,28 @@ interface ProfileVideoPanelProps {
 	draft: DownloadProfileDraft
 	// Stereo or surround from Settings, shown as what "Use app setting" means.
 	globalNativeAudioPreference: NativeAudioPreference
+	// SDR or HDR from Settings, shown as what "Use app setting" means.
+	globalHdrPreference: HdrPreference
 	onAction: (action: DownloadProfileDraftAction) => void
 }
 
 // The profile editor's Video panel: what the video is for (goal), how tall,
 // and, under Advanced, the file type and native audio override, followed by
 // the order the profile picks streams by.
-export function ProfileVideoPanel({draft, globalNativeAudioPreference, onAction}: ProfileVideoPanelProps): ReactNode {
+export function ProfileVideoPanel({draft, globalNativeAudioPreference, globalHdrPreference, onAction}: ProfileVideoPanelProps): ReactNode {
 	const {t} = useTranslation()
-	const {goal, resolution, fileType, nativeAudio, mediaMode} = draft
-	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default')
+	const {goal, resolution, fileType, nativeAudio, hdr, mediaMode} = draft
+	const [advancedOpen, setAdvancedOpen] = useState(() => fileType !== 'auto' || nativeAudio !== 'default' || hdr !== 'default')
 	const [orderOpen, setOrderOpen] = useState(false)
-	const order = draftSelectionOrder(draft, globalNativeAudioPreference)
+	const order = draftSelectionOrder(draft, globalNativeAudioPreference, globalHdrPreference)
 	const resolutionOptions = goal === 'smart-tv' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
 	const fileTypeOptions: SelectOption<VideoFileType>[] = VIDEO_FILE_TYPES.map(value => ({value, labelKey: FILE_TYPE_LABEL_KEYS[value], disabled: goal === 'smart-tv' && value === 'webm'}))
 	const nativeAudioOptions: SelectOption<DownloadProfileNativeAudio>[] = [
-		{value: 'default', labelKey: 'wizard.profileEditor.nativeAudio.default', labelValues: {value: t(`wizard.url.nativeAudioPreference.${globalNativeAudioPreference}`)}},
+		{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(`wizard.url.nativeAudioPreference.${globalNativeAudioPreference}`)}},
 		{value: 'compatible', labelKey: 'wizard.url.nativeAudioPreference.compatible'},
 		{value: 'surround', labelKey: 'wizard.url.nativeAudioPreference.surround'}
 	]
+	const hdrOptions: SelectOption<DownloadProfileHdr>[] = [{value: 'default', labelKey: 'wizard.profileEditor.appSetting', labelValues: {value: t(HDR_LABEL_KEYS[globalHdrPreference])}}, ...HDR_PREFERENCES.map(value => ({value, labelKey: HDR_LABEL_KEYS[value]}))]
 	const fileTypeDescription = t(FILE_TYPE_DESCRIPTION_KEYS[fileType])
 
 	return (
@@ -86,6 +91,10 @@ export function ProfileVideoPanel({draft, globalNativeAudioPreference, onAction}
 							<div className="flex flex-col gap-1">
 								<ProfileSelect label={t('wizard.profileEditor.field.fileType')} value={fileType} options={fileTypeOptions} onValueChange={next => onAction({type: 'set-file-type', fileType: next})} testId="profiles-editor-video-file-type" />
 								<FieldDescription>{goal === 'smart-tv' ? `${fileTypeDescription} ${t('fileType.smartTvNoWebm')}` : fileTypeDescription}</FieldDescription>
+							</div>
+							<div className="flex flex-col gap-1">
+								<ProfileSelect label={t('hdrPreference.label')} value={hdr} options={hdrOptions} onValueChange={next => onAction({type: 'set-hdr', hdr: next})} testId="profiles-editor-hdr" />
+								<FieldDescription>{t('hdrPreference.description')}</FieldDescription>
 							</div>
 							{mediaMode === 'video-audio' ? <ProfileSelect label={t('wizard.profileEditor.field.nativeAudio')} value={nativeAudio} options={nativeAudioOptions} onValueChange={next => onAction({type: 'set-native-audio', nativeAudio: next})} testId="profiles-editor-native-audio" /> : null}
 						</FieldGroup>

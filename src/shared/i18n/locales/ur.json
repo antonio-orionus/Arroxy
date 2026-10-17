@@ -562,7 +562,7 @@
 				"bestPicture": {"name": "بہترین تصویر", "tag": "AV1 · VP9", "description": "ایک ہی سائز میں سب سے واضح۔ پرانے ٹی وی، QuickTime اور کچھ ایڈیٹرز اسے نہیں چلا سکتے۔"},
 				"smartTv": {"name": "سمارٹ TV", "tag": "MP4 · H.264", "description": "ٹی وی، فون، WhatsApp، QuickTime اور ویڈیو ایڈیٹرز پر چلتی ہے۔ YouTube صرف 1080p تک H.264 فراہم کرتا ہے۔"}
 			},
-			"nativeAudio": {"default": "ایپ کی ترتیب استعمال کریں ({{value}})"}
+			"appSetting": "ایپ کی ترتیب استعمال کریں ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…"},
@@ -874,11 +874,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "منتخب اسٹریمز فائل کی قسم طے کرتی ہیں۔", "mp4": "تقریباً ہر جگہ چلتی ہے۔ MP4 میں VP9 یا AV1 پرانے Mac پر QuickTime میں نہیں کھلتا۔", "mkv": "کوئی بھی کوڈیک رکھ سکتی ہے۔ کچھ ٹی وی اور فون اسے نہیں کھول سکتے۔", "webm": "براؤزرز کے لیے اوپن فارمیٹ۔ صرف Opus کے ساتھ VP9 یا AV1 رکھ سکتی ہے۔"},
+		"description": {"auto": "منتخب اسٹریمز فائل کی قسم طے کرتی ہیں۔", "mp4": "تقریباً ہر جگہ چلتی ہے۔ MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔", "mkv": "کوئی بھی کوڈیک رکھ سکتی ہے۔ کچھ ٹی وی اور فون اسے نہیں کھول سکتے۔", "webm": "براؤزرز کے لیے اوپن فارمیٹ۔ صرف Opus کے ساتھ VP9 یا AV1 رکھ سکتی ہے۔"},
 		"webmBlocked": "WebM میں {{codec}} نہیں آ سکتا۔ MKV یا MP4 منتخب کریں۔",
 		"profileMark": "پروفائل",
 		"smartTvNoWebm": "سمارٹ TV کے ساتھ WebM دستیاب نہیں: یہ H.264 نہیں رکھ سکتی۔",
-		"mp4Caveat": "MP4 میں {{codecs}} شاید QuickTime، کچھ ایڈیٹرز اور کچھ ٹی وی پر نہ کھلے۔ H.264 ہر جگہ چلتا ہے۔"
+		"mp4CaveatVp9": "MP4 میں VP9 کی ویڈیو QuickTime میں نہیں چلتی۔ H.264 ہر جگہ چلتا ہے۔",
+		"mp4CaveatAv1": "MP4 میں AV1 کو QuickTime میں چلانے کے لیے نیا Mac چاہیے۔ H.264 ہر جگہ چلتا ہے۔"
 	},
 	"selectionOrder": {
 		"editorTitle": "یہ پروفائل کیسے چنتی ہے",
@@ -890,7 +891,6 @@
 			"resolutionBest": {"label": "سب سے زیادہ ریزولوشن", "reason": "کوئی حد مقرر نہیں"},
 			"resolution": {"label": "{{tier}}p تک", "reason": "آپ کی حد"},
 			"fps": {"label": "سب سے زیادہ فریم ریٹ", "reason": "زیادہ ہموار حرکت"},
-			"hdr": {"label": "SDR سے پہلے HDR", "reason": "معمول کی ترتیب"},
 			"codec": {"label": "AV1، پھر VP9، پھر H.264", "reason": "ایک ہی سائز میں سب سے واضح"},
 			"size": {"label": "بڑی فائل", "reason": "انہی ترتیبات میں زیادہ تفصیل"},
 			"aacSmartTv": {"label": "AAC آڈیو", "reason": "ہر جگہ چلتی ہے"},
@@ -898,8 +898,11 @@
 			"opus": {"label": "Opus آڈیو", "reason": "WebM کے لیے موزوں"},
 			"nativeCompatible": {"label": "اسٹیریو آڈیو"},
 			"nativeSurround": {"label": "دستیاب ہو تو سراؤنڈ آڈیو"},
-			"nativeSource": {"settings": "ترتیبات سے", "profile": "یہ پروفائل"}
+			"nativeSource": {"settings": "ترتیبات سے", "profile": "یہ پروفائل"},
+			"hdrSdrFirst": {"label": "HDR سے پہلے SDR", "reason": "ہر اسکرین پر درست دکھتی ہے"},
+			"hdrFirst": {"label": "SDR سے پہلے HDR", "reason": "HDR اسکرینوں پر زیادہ بھرپور رنگ"}
 		},
 		"summary": {"goal": {"bestPicture": "بہترین تصویر", "smartTv": "ہر ڈیوائس پر چلتی ہے"}, "fileType": {"auto": "فائل کی قسم اسٹریمز سے", "explicit": ".{{ext}} کے طور پر محفوظ"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR ویڈیو", "description": "عام اسکرینوں پر HDR پھیکا لگ سکتا ہے۔ جب تک آپ اسے آن نہ کریں، SDR منتخب ہوتا ہے۔", "sdr": "SDR", "hdr": "HDR"}
 }

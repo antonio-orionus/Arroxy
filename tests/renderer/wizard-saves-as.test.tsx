@@ -185,7 +185,14 @@ describe('MP4 playback caveat', () => {
 		useAppStore.setState({wizardFileType: 'mp4'})
 		showSummary()
 
-		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('VP9 + Opus in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere.')
+		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent("VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere.")
+	})
+
+	it('says nothing for Opus audio in an MP4 with H.264 video', () => {
+		useAppStore.setState({wizardFileType: 'mp4', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '251'}})
+		showSummary()
+
+		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
 	})
 
 	it('says nothing for the safe pair, H.264 with AAC', () => {
@@ -213,6 +220,6 @@ describe('MP4 playback caveat', () => {
 		useAppStore.setState({wizardFormats: [{formatId: '399', label: '1080p av1', ext: 'mp4', resolution: '1920x1080', videoCodec: 'av01.0.08M.08', isVideoOnly: true, isAudioOnly: false}, FORMATS[3]], selectedVideoFormatId: '399', audioSelection: {kind: 'native', formatId: '140'}, wizardFileType: 'auto'})
 		showSummary()
 
-		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('AV1 in an MP4')
+		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere.')
 	})
 })

@@ -562,7 +562,7 @@
 				"bestPicture": {"name": "最高画質", "tag": "AV1 · VP9", "description": "同じサイズで最も鮮明です。古いテレビ、QuickTime、一部の編集ソフトでは再生できません。"},
 				"smartTv": {"name": "スマートTV", "tag": "MP4 · H.264", "description": "テレビ、スマホ、WhatsApp、QuickTime、動画編集ソフトで再生できます。YouTube が H.264 を提供するのは 1080p までです。"}
 			},
-			"nativeAudio": {"default": "アプリの設定を使う ({{value}})"}
+			"appSetting": "アプリの設定を使う ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "読み込み中…"},
@@ -868,14 +868,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "選ばれたストリームに合わせてファイル形式が決まります。",
-			"mp4": "ほとんどの環境で再生できます。VP9 や AV1 の MP4 は古い Mac の QuickTime では開けません。",
+			"mp4": "ほとんどの環境で再生できます。MP4 内の VP9 は QuickTime で映像が再生されません。",
 			"mkv": "どのコーデックも格納できます。一部のテレビやスマホでは開けません。",
 			"webm": "ブラウザ向けのオープン形式です。VP9 または AV1 と Opus のみ格納できます。"
 		},
 		"webmBlocked": "WebM では {{codec}} を格納できません。MKV か MP4 を選んでください。",
 		"profileMark": "プロフィール",
 		"smartTvNoWebm": "スマートTVでは WebM は選べません。H.264 を格納できないためです。",
-		"mp4Caveat": "MP4 に入った {{codecs}} は、QuickTime や一部の編集ソフト、一部のテレビで開けないことがあります。H.264 ならどこでも再生できます。"
+		"mp4CaveatVp9": "MP4 内の VP9 は QuickTime で映像が再生されません。H.264 ならどこでも再生できます。",
+		"mp4CaveatAv1": "MP4 内の AV1 を QuickTime で再生するには、比較的新しい Mac が必要です。H.264 ならどこでも再生できます。"
 	},
 	"selectionOrder": {
 		"editorTitle": "このプロフィールの選び方",
@@ -887,7 +888,6 @@
 			"resolutionBest": {"label": "最高解像度", "reason": "上限なし"},
 			"resolution": {"label": "最大 {{tier}}p", "reason": "指定した上限"},
 			"fps": {"label": "最高フレームレート", "reason": "動きがなめらか"},
-			"hdr": {"label": "SDR より HDR を優先", "reason": "通常の順序"},
 			"codec": {"label": "AV1、次に VP9、次に H.264", "reason": "同じサイズで最も鮮明"},
 			"size": {"label": "大きいファイル", "reason": "同じ設定でより高精細"},
 			"aacSmartTv": {"label": "AAC 音声", "reason": "どこでも再生可能"},
@@ -895,8 +895,11 @@
 			"opus": {"label": "Opus 音声", "reason": "WebM に対応"},
 			"nativeCompatible": {"label": "ステレオ音声"},
 			"nativeSurround": {"label": "サラウンド音声 (提供されている場合)"},
-			"nativeSource": {"settings": "設定から", "profile": "このプロフィール"}
+			"nativeSource": {"settings": "設定から", "profile": "このプロフィール"},
+			"hdrSdrFirst": {"label": "HDR より SDR を優先", "reason": "どの画面でも自然に見える"},
+			"hdrFirst": {"label": "SDR より HDR を優先", "reason": "HDR 対応の画面でより豊かな色"}
 		},
 		"summary": {"goal": {"bestPicture": "最高画質", "smartTv": "どの端末でも再生可能"}, "fileType": {"auto": "ファイル形式はストリームに合わせる", "explicit": ".{{ext}} で保存"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR 動画", "description": "HDR は通常の画面では色あせて見えることがあります。オンにしない限り SDR が選ばれます。", "sdr": "SDR", "hdr": "HDR"}
 }

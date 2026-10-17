@@ -575,7 +575,7 @@
 				"bestPicture": {"name": "غوره انځور", "tag": "AV1 · VP9", "description": "په ورته اندازه تر ټولو روښانه. زاړه تلویزیونونه، QuickTime او ځینې اډیټرونه یې نشي چلولی."},
 				"smartTv": {"name": "سمارټ TV", "tag": "MP4 · H.264", "description": "په تلویزیونونو، تلیفونونو، WhatsApp، QuickTime او ویډیو اډیټرونو کې چلیږي. YouTube یوازې تر 1080p پورې H.264 وړاندې کوي."}
 			},
-			"nativeAudio": {"default": "د اپ امستنه وکاروئ ({{value}})"}
+			"appSetting": "د اپ امستنه وکاروئ ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "بارول…"},
@@ -874,16 +874,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {
-			"auto": "غوره شوي سټریمونه د فایل ډول ټاکي.",
-			"mp4": "نږدې هر ځای چلیږي. په MP4 کې VP9 یا AV1 په زړو Mac کمپیوټرونو کې په QuickTime کې نه پرانیستل کیږي.",
-			"mkv": "هر codec ساتلی شي. ځینې تلویزیونونه او تلیفونونه یې نشي پرانیستلی.",
-			"webm": "د براوزرونو لپاره خلاص فارمټ. یوازې VP9 یا AV1 له Opus سره ساتي."
-		},
+		"description": {"auto": "غوره شوي سټریمونه د فایل ډول ټاکي.", "mp4": "نږدې هر ځای چلیږي. په MP4 کې VP9 په QuickTime کې ویډیو نه ښيي.", "mkv": "هر codec ساتلی شي. ځینې تلویزیونونه او تلیفونونه یې نشي پرانیستلی.", "webm": "د براوزرونو لپاره خلاص فارمټ. یوازې VP9 یا AV1 له Opus سره ساتي."},
 		"webmBlocked": "WebM نشي کولی {{codec}} وساتي. MKV یا MP4 غوره کړئ.",
 		"profileMark": "پروفایل",
 		"smartTvNoWebm": "WebM له سمارټ TV سره نه وړاندې کیږي: H.264 نشي ساتلی.",
-		"mp4Caveat": "په MP4 کې {{codecs}} ښايي په QuickTime، ځینو اډیټرونو او ځینو تلویزیونونو کې پرانیستل نشي. H.264 هر ځای چلیږي."
+		"mp4CaveatVp9": "په MP4 کې VP9 په QuickTime کې ویډیو نه ښيي. H.264 هر ځای چلیږي.",
+		"mp4CaveatAv1": "په MP4 کې AV1 په QuickTime کې د چلولو لپاره نوی Mac ته اړتیا لري. H.264 هر ځای چلیږي."
 	},
 	"selectionOrder": {
 		"editorTitle": "دا پروفایل څنګه غوره کوي",
@@ -895,7 +891,6 @@
 			"resolutionBest": {"label": "تر ټولو لوړ ریزولوشن", "reason": "هیڅ حد نه دی ټاکل شوی"},
 			"resolution": {"label": "تر {{tier}}p پورې", "reason": "ستاسو حد"},
 			"fps": {"label": "تر ټولو لوړ فریم ریټ", "reason": "نرم حرکت"},
-			"hdr": {"label": "HDR له SDR مخکې", "reason": "عادي ترتیب"},
 			"codec": {"label": "AV1، بیا VP9، بیا H.264", "reason": "په ورته اندازه تر ټولو روښانه"},
 			"size": {"label": "لوی فایل", "reason": "په ورته امستنو کې ډېر جزئیات"},
 			"aacSmartTv": {"label": "AAC غږ", "reason": "هر ځای چلیږي"},
@@ -903,8 +898,11 @@
 			"opus": {"label": "Opus غږ", "reason": "له WebM سره برابر"},
 			"nativeCompatible": {"label": "سټېریو غږ"},
 			"nativeSurround": {"label": "surround غږ کله چې موجود وي"},
-			"nativeSource": {"settings": "له امستنو", "profile": "دا پروفایل"}
+			"nativeSource": {"settings": "له امستنو", "profile": "دا پروفایل"},
+			"hdrSdrFirst": {"label": "SDR تر HDR مخکې", "reason": "په هره سکرین کې سم ښکاري"},
+			"hdrFirst": {"label": "HDR تر SDR مخکې", "reason": "په HDR سکرینونو کې بډایه رنګونه"}
 		},
 		"summary": {"goal": {"bestPicture": "غوره انځور", "smartTv": "په هره وسیله چلیږي"}, "fileType": {"auto": "د فایل ډول له سټریمونو", "explicit": "د .{{ext}} په توګه خوندي کیږي"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR ویډیو", "description": "HDR ښايي په عادي سکرینونو کې کمرنګه ښکاره شي. تر هغه چې دا فعال نه کړئ، SDR غوره کیږي.", "sdr": "SDR", "hdr": "HDR"}
 }

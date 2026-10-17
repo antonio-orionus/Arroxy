@@ -50,6 +50,13 @@ export const nativeAudioPreferenceSchema = z.enum(['compatible', 'surround'])
 export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
 export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
 
+// Whether a profile takes HDR video over SDR when a height offers both. SDR is
+// the app default: HDR looks washed out on a screen that isn't HDR. A height
+// only offered as HDR is still taken, so the choice never costs resolution.
+export const hdrPreferenceSchema = z.enum(['sdr', 'hdr'])
+export type HdrPreference = z.infer<typeof hdrPreferenceSchema>
+export const HDR_PREFERENCES = hdrPreferenceSchema.options
+
 // Global + profile override, like the save folder and the file name: `default`
 // follows Settings, `custom` is this profile's own choice.
 export const nativeAudioChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), preference: nativeAudioPreferenceSchema})])
@@ -142,7 +149,12 @@ export const PLAYLIST_SORT_MODES = playlistSortModeSchema.options
 
 const downloadProfileAudioSchema = z.object({format: downloadProfileAudioFormatSchema, bitrateKbps: audioBitrateSchema.optional()})
 
-const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema}
+export const hdrChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), preference: hdrPreferenceSchema})])
+export type HdrChoice = z.infer<typeof hdrChoiceSchema>
+
+// `hdr` absent means `default`: profiles saved before the choice existed follow
+// the app setting, which upgrades to HDR for existing installs.
+const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema, hdr: hdrChoiceSchema.optional()}
 const videoAudioMediaSchema = z.object({kind: z.literal('video-audio'), ...videoMediaFields, audio: z.object({native: nativeAudioChoiceSchema})})
 const videoOnlyMediaSchema = z.object({kind: z.literal('video-only'), ...videoMediaFields})
 const audioOnlyMediaSchema = z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})
@@ -665,6 +677,7 @@ const commonSettingsSchema = z.object({
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.
 	exploreCompactChrome: z.boolean().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
+	hdrPreference: hdrPreferenceSchema.optional(),
 	limitRate: limitRateSchema.optional(),
 	playlistProbeLimit: playlistProbeLimitSchema.optional(),
 	networkPacingPreset: networkPacingPresetSchema.optional(),

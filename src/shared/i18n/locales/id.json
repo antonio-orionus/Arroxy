@@ -575,7 +575,7 @@
 				"bestPicture": {"name": "Gambar terbaik", "tag": "AV1 · VP9", "description": "Paling tajam pada ukuran yang sama. TV lama, QuickTime, dan sebagian editor tidak bisa memutarnya."},
 				"smartTv": {"name": "TV Pintar", "tag": "MP4 · H.264", "description": "Bisa diputar di TV, ponsel, WhatsApp, QuickTime, dan editor video. YouTube hanya menyediakan H.264 hingga 1080p."}
 			},
-			"nativeAudio": {"default": "Gunakan pengaturan aplikasi ({{value}})"}
+			"appSetting": "Gunakan pengaturan aplikasi ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Memuat…"},
@@ -876,14 +876,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "Stream yang dipilih menentukan jenis file.",
-			"mp4": "Bisa diputar hampir di mana saja. VP9 atau AV1 dalam MP4 tidak bisa dibuka di QuickTime pada Mac lama.",
+			"mp4": "Bisa diputar di hampir semua perangkat. VP9 dalam MP4 tidak akan menampilkan video di QuickTime.",
 			"mkv": "Mendukung codec apa pun. Sebagian TV dan ponsel tidak bisa membukanya.",
 			"webm": "Format terbuka untuk browser. Hanya mendukung VP9 atau AV1 dengan Opus."
 		},
 		"webmBlocked": "WebM tidak mendukung {{codec}}. Pilih MKV atau MP4.",
 		"profileMark": "Profil",
 		"smartTvNoWebm": "WebM tidak tersedia untuk TV Pintar: tidak mendukung H.264.",
-		"mp4Caveat": "{{codecs}} dalam MP4 mungkin tidak bisa dibuka di QuickTime, sebagian editor, dan sebagian TV. H.264 bisa diputar di mana saja."
+		"mp4CaveatVp9": "VP9 dalam MP4 tidak akan menampilkan video di QuickTime. H.264 bisa diputar di mana saja.",
+		"mp4CaveatAv1": "AV1 dalam MP4 memerlukan Mac yang cukup baru agar bisa diputar di QuickTime. H.264 bisa diputar di mana saja."
 	},
 	"selectionOrder": {
 		"editorTitle": "Cara profil ini memilih",
@@ -895,7 +896,6 @@
 			"resolutionBest": {"label": "Resolusi tertinggi", "reason": "tanpa batas"},
 			"resolution": {"label": "Hingga {{tier}}p", "reason": "batas Anda"},
 			"fps": {"label": "Frame rate tertinggi", "reason": "gerakan lebih halus"},
-			"hdr": {"label": "HDR sebelum SDR", "reason": "urutan yang lazim"},
 			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
 			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
 			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},
@@ -903,8 +903,11 @@
 			"opus": {"label": "Audio Opus", "reason": "cocok untuk WebM"},
 			"nativeCompatible": {"label": "Audio stereo"},
 			"nativeSurround": {"label": "Audio surround jika tersedia"},
-			"nativeSource": {"settings": "dari Pengaturan", "profile": "profil ini"}
+			"nativeSource": {"settings": "dari Pengaturan", "profile": "profil ini"},
+			"hdrSdrFirst": {"label": "SDR sebelum HDR", "reason": "tampil baik di layar apa pun"},
+			"hdrFirst": {"label": "HDR sebelum SDR", "reason": "warna lebih kaya di layar HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "Video HDR", "description": "HDR bisa terlihat pucat di layar biasa. SDR dipilih kecuali Anda mengaktifkan ini.", "sdr": "SDR", "hdr": "HDR"}
 }

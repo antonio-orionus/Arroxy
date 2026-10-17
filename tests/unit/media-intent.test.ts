@@ -55,6 +55,6 @@ describe('mediaIntentSpec native audio preference', () => {
 		const spec = mediaIntentSpec({kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'mp4', audio: {native: {kind: 'default'}}}, 'surround')
 
 		expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
-		expect(spec.formatSort).toBe('acodec:m4a')
+		expect(spec.formatSort).toBe('res,fps,hdr:sdr,acodec:m4a')
 	})
 })

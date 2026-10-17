@@ -546,7 +546,7 @@
 				"bestPicture": {"name": "최고 화질", "tag": "AV1 · VP9", "description": "같은 크기에서 가장 선명합니다. 오래된 TV, QuickTime, 일부 편집기에서는 재생되지 않습니다."},
 				"smartTv": {"name": "스마트 TV", "tag": "MP4 · H.264", "description": "TV, 휴대폰, WhatsApp, QuickTime, 영상 편집기에서 재생됩니다. YouTube는 H.264를 1080p까지만 제공합니다."}
 			},
-			"nativeAudio": {"default": "앱 설정 사용 ({{value}})"}
+			"appSetting": "앱 설정 사용 ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "불러오는 중…"},
@@ -845,14 +845,15 @@
 		"webm": "WebM",
 		"description": {
 			"auto": "선택된 스트림에 따라 파일 형식이 정해집니다.",
-			"mp4": "거의 어디서나 재생됩니다. MP4에 담긴 VP9 또는 AV1은 오래된 Mac의 QuickTime에서 열리지 않습니다.",
+			"mp4": "거의 모든 곳에서 재생됩니다. MP4 안의 VP9는 QuickTime에서 영상이 재생되지 않습니다.",
 			"mkv": "모든 코덱을 담을 수 있습니다. 일부 TV와 휴대폰에서는 열리지 않습니다.",
 			"webm": "브라우저용 오픈 형식입니다. VP9 또는 AV1과 Opus만 담을 수 있습니다."
 		},
 		"webmBlocked": "WebM에는 {{codec}}을(를) 담을 수 없습니다. MKV 또는 MP4를 선택하세요.",
 		"profileMark": "프로필",
 		"smartTvNoWebm": "스마트 TV에서는 WebM을 선택할 수 없습니다. H.264를 담을 수 없기 때문입니다.",
-		"mp4Caveat": "MP4에 담긴 {{codecs}}은(는) QuickTime, 일부 편집기, 일부 TV에서 열리지 않을 수 있습니다. H.264는 어디서나 재생됩니다."
+		"mp4CaveatVp9": "MP4 안의 VP9는 QuickTime에서 영상이 재생되지 않습니다. H.264는 어디서나 재생됩니다.",
+		"mp4CaveatAv1": "MP4 안의 AV1을 QuickTime에서 재생하려면 최신 Mac이 필요합니다. H.264는 어디서나 재생됩니다."
 	},
 	"selectionOrder": {
 		"editorTitle": "이 프로필이 고르는 방식",
@@ -864,7 +865,6 @@
 			"resolutionBest": {"label": "최고 해상도", "reason": "한도 없음"},
 			"resolution": {"label": "최대 {{tier}}p", "reason": "설정한 한도"},
 			"fps": {"label": "가장 높은 프레임 속도", "reason": "더 부드러운 움직임"},
-			"hdr": {"label": "SDR보다 HDR 우선", "reason": "일반적인 순서"},
 			"codec": {"label": "AV1, 그다음 VP9, 그다음 H.264", "reason": "같은 크기에서 가장 선명"},
 			"size": {"label": "더 큰 파일", "reason": "같은 설정에서 더 세밀함"},
 			"aacSmartTv": {"label": "AAC 오디오", "reason": "어디서나 재생"},
@@ -872,8 +872,11 @@
 			"opus": {"label": "Opus 오디오", "reason": "WebM과 호환"},
 			"nativeCompatible": {"label": "스테레오 오디오"},
 			"nativeSurround": {"label": "서라운드 오디오 (제공되는 경우)"},
-			"nativeSource": {"settings": "설정에서", "profile": "이 프로필"}
+			"nativeSource": {"settings": "설정에서", "profile": "이 프로필"},
+			"hdrSdrFirst": {"label": "HDR보다 SDR 우선", "reason": "어떤 화면에서도 자연스럽게 보임"},
+			"hdrFirst": {"label": "SDR보다 HDR 우선", "reason": "HDR 화면에서 더 풍부한 색상"}
 		},
 		"summary": {"goal": {"bestPicture": "최고 화질", "smartTv": "모든 기기에서 재생"}, "fileType": {"auto": "스트림에 따라 파일 형식 결정", "explicit": ".{{ext}}로 저장"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR 영상", "description": "HDR은 일반 화면에서 색이 바래 보일 수 있습니다. 켜지 않으면 SDR이 선택됩니다.", "sdr": "SDR", "hdr": "HDR"}
 }

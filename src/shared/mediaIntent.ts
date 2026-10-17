@@ -1,4 +1,5 @@
-import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, VideoFileType, VideoMediaIntent} from './schemas.js'
+import type {AudioConvert, DownloadProfileMedia, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, VideoFileType, VideoMediaIntent} from './schemas.js'
+import {DEFAULTS} from './constants.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
@@ -81,13 +82,13 @@ export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaI
 // Maps media intent to yt-dlp arguments per URL.
 // Uses -S (sort) for resolution, codec, and container preferences so yt-dlp can
 // degrade gracefully to the closest available format.
-export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: NativeAudioPreference = 'compatible'): MediaIntentSpec {
+export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: NativeAudioPreference = 'compatible', hdrPreference: HdrPreference = DEFAULTS.hdrPreference): MediaIntentSpec {
 	switch (intent.kind) {
 		case 'audio-only':
 			return audioOnlyIntentSpec(intent, nativeAudioPreference)
 		case 'video-audio':
 		case 'video-only':
-			return videoIntentSpec(intent, nativeAudioPreference)
+			return videoIntentSpec(intent, nativeAudioPreference, hdrPreference)
 		default:
 			return unreachableMediaIntent(intent)
 	}
@@ -132,8 +133,8 @@ function videoSelector(order: SelectionOrder, audio: AudioRank | undefined): str
 	return order.separateVideoStream ? pairWithBestNativeAudio('bestvideo', preference, MP4_WITH_AUDIO_SELECTOR) : pairWithBestNativeAudio('bestvideo*', preference, VIDEO_WITH_AUDIO_SELECTOR)
 }
 
-function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference): MediaIntentSpec {
-	const order = selectionOrder(intent, nativeAudioPreference)
+function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): MediaIntentSpec {
+	const order = selectionOrder(intent, nativeAudioPreference, hdrPreference)
 	const audio = order.audio?.[0]
 	const container = containerArgsFor(order)
 	return {formatSelector: videoSelector(order, audio), formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}

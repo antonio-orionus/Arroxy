@@ -412,6 +412,25 @@ describe('the Format screen file type reaches the queued job', () => {
 	})
 })
 
+describe('the HDR preference reaches the queued job', () => {
+	function sortFor(hdrPreference: 'sdr' | 'hdr' | undefined): string | undefined {
+		const settings = defaultAppSettings('/downloads')
+		if (hdrPreference === undefined) delete settings.common.hdrPreference
+		else settings.common.hdrPreference = hdrPreference
+		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
+		return job?.kind === 'ranged-format' ? job.formatSort : undefined
+	}
+
+	it('asks for SDR first by default', () => {
+		expect(sortFor('sdr')).toBe('res:720,fps,hdr:sdr')
+		expect(sortFor(undefined)).toBe('res:720,fps,hdr:sdr')
+	})
+
+	it("leaves yt-dlp's HDR-first order alone when the app setting is HDR", () => {
+		expect(sortFor('hdr')).toBe('res:720,fps')
+	})
+})
+
 describe('a profile file type reaches the quick download job', () => {
 	it('an MP4 profile pairs AAC and remuxes to MP4', () => {
 		const base = BUILTIN_DOWNLOAD_PROFILES.find(p => p.id === 'hd-1080')
@@ -423,7 +442,7 @@ describe('a profile file type reaches the quick download job', () => {
 		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
 
 		expect(job).toMatchObject({kind: 'ranged-format', mergeOutputFormat: 'mp4', remuxVideo: 'mp4'})
-		if (job?.kind === 'ranged-format') expect(job.formatSort).toBe('res:1080,fps,acodec:m4a')
+		if (job?.kind === 'ranged-format') expect(job.formatSort).toBe('res:1080,fps,hdr:sdr,acodec:m4a')
 	})
 })
 

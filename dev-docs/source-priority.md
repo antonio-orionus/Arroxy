@@ -242,7 +242,7 @@ This spec adds two controls and one word, nothing else.
 
 - **Why this one.** A `HelpTip` on the existing Profile badge lists the
   ranks that decided the profile's pick ("1920x1080 · your limit, 60 fps ·
-  highest offered, HDR · ranked above SDR, AV1 · ranked above VP9, Stereo
+  highest offered, SDR · before HDR, AV1 · ranked above VP9, Stereo
   Opus · from Settings"). No panel, no permanent text. It explains the
   profile's pick, never the user's.
 - **Codec in the video meta.** `mp4 · AV1 · 60fps · HDR10 · 235.9 MB`.
@@ -270,15 +270,39 @@ This spec adds two controls and one word, nothing else.
   .mp4 file". In the screenshot this spec was checked against, the mp4
   video merges with webm audio into an .mkv. Saves as removes that guess.
 
-## Open question: HDR
+## HDR: SDR first, a setting, and old installs keep HDR
 
-Best picture follows yt-dlp's default sort, which ranks HDR above SDR. On
-the 4K HDR test video the profile picks a 1080p mp4 HDR10 stream (AV1 on YouTube). Many players show
-HDR washed out on an SDR display, and an average user can't tell why. The
-"Why this one" tip makes it visible, but the default may still be wrong
-for most people. Options: keep yt-dlp's order; rank SDR first unless the
-profile asks for HDR (an Advanced switch); or follow the display's HDR
-capability. Decide before PR 2, separately from this spec.
+Best picture used to follow yt-dlp's default sort, which ranks HDR above SDR.
+On a normal screen HDR looks washed out and nobody can tell why, so SDR is
+now the default. It is a global setting with a profile override, like native
+audio:
+
+- **Settings:** "HDR video", a switch, off by default. Off means SDR before
+  HDR; on leaves yt-dlp's own HDR-first order.
+- **Profile, Advanced:** "HDR video": Use app setting (SDR or HDR), SDR, HDR.
+  Only a profile's own choice is stored; absent means the app setting.
+- **Order:** resolution, frame rate, then the HDR choice, then codec. A height
+  only offered as HDR is still taken, so the choice never costs resolution.
+  SDR first is the yt-dlp sort field `hdr:sdr`, written after `res` and `fps`
+  because a field named in `-S` outranks every default; checked against
+  yt-dlp on a synthetic format list (SDR at each height, HDR when that is all
+  a height has).
+- **Existing installs:** a settings file saved before the setting existed gets
+  HDR switched on when it is first read, so nothing they download changes. A
+  first launch starts on SDR. The check reads the file before the store fills
+  in defaults.
+- **The tip** says "SDR before HDR · looks right on any screen" or "HDR before
+  SDR · richer colour on HDR screens".
+
+## MP4 playback, measured
+
+A Mac with AV1 hardware (M5 Pro, macOS 27) opened MP4 files built the way the
+app builds them (streams copied, nothing re-encoded). QuickTime's player stack
+could not decode **VP9** video in an MP4 (audio played, video "Cannot Decode"),
+while H.264, **AV1** and **Opus** played. Chromium, mpv and ffmpeg played all of
+them. So the Format summary and Review warn on VP9 ("won't play video in
+QuickTime") and AV1 ("needs a recent Mac"), and not on Opus. Not tested: Safari
+itself, Windows players, TVs, editors, Macs without AV1 hardware.
 
 ## Out of scope
 

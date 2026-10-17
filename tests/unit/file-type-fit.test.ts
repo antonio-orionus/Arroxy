@@ -63,18 +63,23 @@ describe('WebM fit', () => {
 })
 
 describe('MP4 playback caveat', () => {
-	it('names the codecs QuickTime, editors and TVs often cannot open inside an MP4', () => {
-		expect(mp4Caveat(video('vp9'), audio('mp4a.40.2'))).toEqual(['VP9'])
-		expect(mp4Caveat(video('av01.0.08M.08'), audio('opus'))).toEqual(['AV1', 'Opus'])
-		expect(mp4Caveat(video('avc1.640028'), audio('opus'))).toEqual(['Opus'])
+	it('names the video codec QuickTime cannot play inside an MP4', () => {
+		expect(mp4Caveat(video('vp9'))).toBe('VP9')
+		expect(mp4Caveat(video('vp09.00.40.08'))).toBe('VP9')
+		expect(mp4Caveat(video('av01.0.08M.08'))).toBe('AV1')
 	})
 
-	it('is empty for H.264 video with AAC audio, the safe pair', () => {
-		expect(mp4Caveat(video('avc1.640028'), audio('mp4a.40.2'))).toEqual([])
-		expect(mp4Caveat(video('hev1.1.6.L93.B0'), audio('mp4a.40.2'))).toEqual([])
+	it('says nothing for H.264 or HEVC, which QuickTime plays', () => {
+		expect(mp4Caveat(video('avc1.640028'))).toBeNull()
+		expect(mp4Caveat(video('hev1.1.6.L93.B0'))).toBeNull()
 	})
 
-	it('reads the built-in audio of a muxed stream', () => {
-		expect(mp4Caveat(video('avc1.640028', {isVideoOnly: false, audioCodec: 'opus'}), undefined)).toEqual(['Opus'])
+	it('does not blame the audio: Opus in an MP4 played in QuickTime', () => {
+		expect(mp4Caveat(video('avc1.640028', {isVideoOnly: false, audioCodec: 'opus'}))).toBeNull()
+	})
+
+	it('has no opinion while no video is picked or its codec is unknown', () => {
+		expect(mp4Caveat(undefined)).toBeNull()
+		expect(mp4Caveat(video('weird'))).toBeNull()
 	})
 })

@@ -1,5 +1,5 @@
 import {DEFAULTS} from '@shared/constants.js'
-import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, VideoGoal} from '@shared/types.js'
+import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, VideoGoal} from '@shared/types.js'
 import {effectiveFileType, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
@@ -10,6 +10,8 @@ export type DownloadProfileMediaMode = DownloadProfile['media']['kind']
 export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
 // The editor's Native audio select: follow Settings, or this profile's own.
 export type DownloadProfileNativeAudio = 'default' | NativeAudioPreference
+// The editor's HDR video select: follow Settings, or this profile's own.
+export type DownloadProfileHdr = 'default' | HdrPreference
 
 export interface DownloadProfileDraft {
 	profileId: string | null
@@ -22,6 +24,7 @@ export interface DownloadProfileDraft {
 	resolution: PlaylistVideoTier
 	fileType: VideoFileType
 	nativeAudio: DownloadProfileNativeAudio
+	hdr: DownloadProfileHdr
 	audioFormat: DownloadProfileAudioFormat
 	audioQuality: DownloadProfileAudioQuality
 	subtitleEnabled: boolean
@@ -51,6 +54,7 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-resolution'; resolution: PlaylistVideoTier}
 	| {type: 'set-file-type'; fileType: VideoFileType}
 	| {type: 'set-native-audio'; nativeAudio: DownloadProfileNativeAudio}
+	| {type: 'set-hdr'; hdr: DownloadProfileHdr}
 	| {type: 'set-audio-format'; audioFormat: DownloadProfileAudioFormat}
 	| {type: 'set-audio-quality'; audioQuality: DownloadProfileAudioQuality}
 	| {type: 'set-subtitle-enabled'; subtitleEnabled: boolean}
@@ -110,6 +114,11 @@ function initialNativeAudio(profile: DownloadProfile | null): DownloadProfileNat
 	return media?.kind === 'video-audio' && media.audio.native.kind === 'custom' ? media.audio.native.preference : 'default'
 }
 
+function initialHdr(profile: DownloadProfile | null): DownloadProfileHdr {
+	const media = profile?.media
+	return (media?.kind === 'video-audio' || media?.kind === 'video-only') && media.hdr?.kind === 'custom' ? media.hdr.preference : 'default'
+}
+
 function nativeAudioChoice(nativeAudio: DownloadProfileNativeAudio): NativeAudioChoice {
 	return nativeAudio === 'default' ? {kind: 'default'} : {kind: 'custom', preference: nativeAudio}
 }
@@ -130,6 +139,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		resolution,
 		fileType: effectiveFileType(goal, video?.fileType ?? 'auto'),
 		nativeAudio: initialNativeAudio(initialProfile),
+		hdr: initialHdr(initialProfile),
 		audioFormat: initialAudioFormat(initialProfile),
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
@@ -171,6 +181,8 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, fileType: effectiveFileType(draft.goal, action.fileType)}
 		case 'set-native-audio':
 			return {...draft, nativeAudio: action.nativeAudio}
+		case 'set-hdr':
+			return {...draft, hdr: action.hdr}
 		case 'set-audio-format':
 			return {...draft, audioFormat: action.audioFormat}
 		case 'set-audio-quality':
@@ -227,16 +239,17 @@ function initialSponsorBlockCategories(initialProfile: DownloadProfile | null): 
 function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['media'] {
 	if (draft.mediaMode === 'audio-only') return {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}
 	if (draft.mediaMode === 'subtitles-only') return {kind: 'subtitles-only'}
-	const video = {goal: draft.goal, tier: draft.resolution, fileType: effectiveFileType(draft.goal, draft.fileType)}
+	// Absent `hdr` follows the app setting, so only a profile's own choice is stored.
+	const video = {goal: draft.goal, tier: draft.resolution, fileType: effectiveFileType(draft.goal, draft.fileType), ...(draft.hdr === 'default' ? {} : {hdr: {kind: 'custom' as const, preference: draft.hdr}})}
 	if (draft.mediaMode === 'video-audio') return {kind: draft.mediaMode, ...video, audio: {native: nativeAudioChoice(draft.nativeAudio)}}
 	return {kind: draft.mediaMode, ...video}
 }
 
 // The order the draft would pick streams by, for the editor's summary and list.
 // Null when the draft has no video.
-export function draftSelectionOrder(draft: DownloadProfileDraft, globalPreference: NativeAudioPreference): SelectionOrder | null {
+export function draftSelectionOrder(draft: DownloadProfileDraft, globalNativeAudio: NativeAudioPreference, globalHdr: HdrPreference): SelectionOrder | null {
 	const media = profileMediaFromDraft(draft)
-	return media.kind === 'video-audio' || media.kind === 'video-only' ? selectionOrder(media, globalPreference) : null
+	return media.kind === 'video-audio' || media.kind === 'video-only' ? selectionOrder(media, globalNativeAudio, globalHdr) : null
 }
 
 export function canDraftEmbedThumbnail(draft: DownloadProfileDraft): boolean {

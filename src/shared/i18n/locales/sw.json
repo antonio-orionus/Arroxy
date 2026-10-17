@@ -565,7 +565,7 @@
 				"bestPicture": {"name": "Picha bora", "tag": "AV1 · VP9", "description": "Kali zaidi kwa ukubwa uleule. Runinga za zamani, QuickTime na baadhi ya vihariri haviwezi kuicheza."},
 				"smartTv": {"name": "Runinga janja", "tag": "MP4 · H.264", "description": "Hucheza kwenye runinga, simu, WhatsApp, QuickTime na vihariri vya video. YouTube hutoa H.264 hadi 1080p tu."}
 			},
-			"nativeAudio": {"default": "Tumia mpangilio wa programu ({{value}})"}
+			"appSetting": "Tumia mpangilio wa programu ({{value}})"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Inapakia…"},
@@ -870,16 +870,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {
-			"auto": "Mikondo iliyochaguliwa huamua aina ya faili.",
-			"mp4": "Hucheza karibu kila mahali. VP9 au AV1 ndani ya MP4 haifunguki katika QuickTime kwenye Mac za zamani.",
-			"mkv": "Hubeba kodeki yoyote. Baadhi ya runinga na simu haziwezi kuifungua.",
-			"webm": "Umbizo huria kwa vivinjari. Hubeba VP9 au AV1 pamoja na Opus tu."
-		},
+		"description": {"auto": "Mikondo iliyochaguliwa huamua aina ya faili.", "mp4": "Hucheza karibu kila mahali. VP9 ndani ya MP4 haichezi video katika QuickTime.", "mkv": "Hubeba kodeki yoyote. Baadhi ya runinga na simu haziwezi kuifungua.", "webm": "Umbizo huria kwa vivinjari. Hubeba VP9 au AV1 pamoja na Opus tu."},
 		"webmBlocked": "WebM haiwezi kubeba {{codec}}. Chagua MKV au MP4.",
 		"profileMark": "Wasifu",
 		"smartTvNoWebm": "WebM haitolewi kwa Runinga janja: haiwezi kubeba H.264.",
-		"mp4Caveat": "{{codecs}} ndani ya MP4 huenda isifunguke katika QuickTime, baadhi ya vihariri na baadhi ya runinga. H.264 hucheza kila mahali."
+		"mp4CaveatVp9": "VP9 ndani ya MP4 haichezi video katika QuickTime. H.264 hucheza kila mahali.",
+		"mp4CaveatAv1": "AV1 ndani ya MP4 inahitaji Mac mpya ili icheze katika QuickTime. H.264 hucheza kila mahali."
 	},
 	"selectionOrder": {
 		"editorTitle": "Jinsi wasifu huu unavyochagua",
@@ -891,7 +887,6 @@
 			"resolutionBest": {"label": "Azimio la juu zaidi", "reason": "hakuna kikomo kilichowekwa"},
 			"resolution": {"label": "Hadi {{tier}}p", "reason": "kikomo chako"},
 			"fps": {"label": "Kasi ya juu zaidi ya fremu", "reason": "mwendo laini zaidi"},
-			"hdr": {"label": "HDR kabla ya SDR", "reason": "mpangilio wa kawaida"},
 			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
 			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
 			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
@@ -899,8 +894,11 @@
 			"opus": {"label": "Sauti ya Opus", "reason": "inafaa WebM"},
 			"nativeCompatible": {"label": "Sauti ya stereo"},
 			"nativeSurround": {"label": "Sauti ya surround inapopatikana"},
-			"nativeSource": {"settings": "kutoka Mipangilio", "profile": "wasifu huu"}
+			"nativeSource": {"settings": "kutoka Mipangilio", "profile": "wasifu huu"},
+			"hdrSdrFirst": {"label": "SDR kabla ya HDR", "reason": "huonekana sawa kwenye skrini yoyote"},
+			"hdrFirst": {"label": "HDR kabla ya SDR", "reason": "rangi angavu zaidi kwenye skrini za HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "Video ya HDR", "description": "HDR inaweza kuonekana imefifia kwenye skrini za kawaida. SDR huchaguliwa usipowasha hiki.", "sdr": "SDR", "hdr": "HDR"}
 }

@@ -122,6 +122,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 		setConcurrentDownloads,
 		setAutoRetryAttempts,
 		setNativeAudioPreference,
+		setHdrPreference,
 		setFilenameTemplate,
 		setCloseBehavior,
 		setAnalyticsEnabled
@@ -379,6 +380,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 							))}
 						</ToggleGroup>
 					</Field>
+
+					<SettingSwitch id="profiles-settings-hdr" label={t('hdrPreference.label')} description={t('hdrPreference.description')} checked={(common?.hdrPreference ?? DEFAULTS.hdrPreference) === 'hdr'} onCheckedChange={checked => void setHdrPreference(checked ? 'hdr' : 'sdr')} testId="hdr-preference" />
 
 					<FilenameTemplateField value={filenameTemplate} onChange={value => void setFilenameTemplate(value)} error={filenameTemplateError} label={t('filenameTemplate.label')} description={t('filenameTemplate.description')} placeholder={DEFAULTS.filenameTemplate} testId="filename-template-input" />
 

@@ -9,7 +9,7 @@ import {audioCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, DownloadProfile, HdrPreference, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
 export interface WizardSettingsSnapshot {
@@ -36,6 +36,7 @@ export interface ProfileApplicationInput {
 	automaticCaptions: SubtitleMap
 	isAudioOnlySource: boolean
 	nativeAudioPreference: NativeAudioPreference
+	hdrPreference?: HdrPreference
 	// Folder a `default`-output profile saves into: the global download folder.
 	baseOutputDir: string
 	globalFilenameTemplate: string | undefined
@@ -154,8 +155,10 @@ function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot
 	const pickedAac = audioId !== null && audioCodecName(formats.find(f => f.formatId === audioId)?.audioCodec) === 'AAC'
 	const audioChanged = !sameAudio(baseline.audioSelection, snapshot.audioSelection)
 	const fileType = chosenFileType === 'auto' && goal === 'best-picture' && audioChanged && pickedAac ? 'mp4' : chosenFileType
-	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType}
-	return {kind: 'video-audio', goal, tier, fileType, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
+	// A concrete pick doesn't say whether HDR was wanted, so the profile's own choice stays.
+	const hdr = baseVideo?.hdr ? {hdr: baseVideo.hdr} : {}
+	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType, ...hdr}
+	return {kind: 'video-audio', goal, tier, fileType, ...hdr, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
 }
 
 function baseLanguageCode(trackKey: string): string {

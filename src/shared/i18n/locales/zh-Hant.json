@@ -525,7 +525,7 @@
 				"bestPicture": {"name": "最佳畫質", "tag": "AV1 · VP9", "description": "相同大小下最清晰。較舊的電視、QuickTime 和部分編輯軟體無法播放。"},
 				"smartTv": {"name": "智慧型電視", "tag": "MP4 · H.264", "description": "可在電視、手機、WhatsApp、QuickTime 和影片編輯軟體中播放。YouTube 僅在 1080p 以下提供 H.264。"}
 			},
-			"nativeAudio": {"default": "使用應用程式設定（{{value}}）"}
+			"appSetting": "使用應用程式設定（{{value}}）"
 		}
 	},
 	"videoCard": {"titlePlaceholder": "載入中…"},
@@ -810,11 +810,12 @@
 		"mp4": "MP4",
 		"mkv": "MKV",
 		"webm": "WebM",
-		"description": {"auto": "由所選的串流決定檔案類型。", "mp4": "幾乎所有裝置都能播放。MP4 中的 VP9 或 AV1 無法在較舊 Mac 的 QuickTime 中開啟。", "mkv": "可容納任何編碼。部分電視和手機無法開啟。", "webm": "適用於瀏覽器的開放格式。只能容納 VP9 或 AV1 搭配 Opus。"},
+		"description": {"auto": "由所選的串流決定檔案類型。", "mp4": "幾乎在所有裝置上都能播放。MP4 中的 VP9 在 QuickTime 中無法播放畫面。", "mkv": "可容納任何編碼。部分電視和手機無法開啟。", "webm": "適用於瀏覽器的開放格式。只能容納 VP9 或 AV1 搭配 Opus。"},
 		"webmBlocked": "WebM 無法容納 {{codec}}。請選擇 MKV 或 MP4。",
 		"profileMark": "設定檔",
 		"smartTvNoWebm": "智慧型電視不提供 WebM：它無法容納 H.264。",
-		"mp4Caveat": "MP4 中的 {{codecs}} 可能無法在 QuickTime、部分編輯軟體和部分電視上開啟。H.264 隨處都能播放。"
+		"mp4CaveatVp9": "MP4 中的 VP9 在 QuickTime 中無法播放畫面。H.264 在任何地方都能播放。",
+		"mp4CaveatAv1": "MP4 中的 AV1 需要較新的 Mac 才能在 QuickTime 中播放。H.264 在任何地方都能播放。"
 	},
 	"selectionOrder": {
 		"editorTitle": "此設定檔的選擇方式",
@@ -826,7 +827,6 @@
 			"resolutionBest": {"label": "最高解析度", "reason": "未設上限"},
 			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
 			"fps": {"label": "最高影格率", "reason": "動作更流暢"},
-			"hdr": {"label": "HDR 優先於 SDR", "reason": "一般順序"},
 			"codec": {"label": "先 AV1，再 VP9，最後 H.264", "reason": "相同大小下最清晰"},
 			"size": {"label": "較大的檔案", "reason": "相同設定下細節更多"},
 			"aacSmartTv": {"label": "AAC 音訊", "reason": "隨處都能播放"},
@@ -834,8 +834,11 @@
 			"opus": {"label": "Opus 音訊", "reason": "適用於 WebM"},
 			"nativeCompatible": {"label": "立體聲音訊"},
 			"nativeSurround": {"label": "環繞音訊（若有提供）"},
-			"nativeSource": {"settings": "來自設定", "profile": "此設定檔"}
+			"nativeSource": {"settings": "來自設定", "profile": "此設定檔"},
+			"hdrSdrFirst": {"label": "SDR 優先於 HDR", "reason": "在任何螢幕上都顯示正常"},
+			"hdrFirst": {"label": "HDR 優先於 SDR", "reason": "在 HDR 螢幕上色彩更豐富"}
 		},
 		"summary": {"goal": {"bestPicture": "最佳畫質", "smartTv": "所有裝置都能播放"}, "fileType": {"auto": "檔案類型由串流決定", "explicit": "儲存為 .{{ext}}"}}
-	}
+	},
+	"hdrPreference": {"label": "HDR 影片", "description": "HDR 在一般螢幕上可能顯得偏灰。除非開啟此項，否則會選擇 SDR。", "sdr": "SDR", "hdr": "HDR"}
 }

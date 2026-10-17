@@ -17,6 +17,7 @@ import type {
 	HotkeyAccelerator,
 	HotkeyRegistrationStatus,
 	NativeAudioPreference,
+	HdrPreference,
 	PlaylistEntry,
 	PlaylistProbeResult,
 	PlaylistScope,
@@ -466,6 +467,7 @@ export interface SystemSlice {
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
+	setHdrPreference: (value: HdrPreference) => Promise<void>
 	setFilenameTemplate: (template: string) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
 	setPacingSleepRequests: (value: number | undefined) => Promise<void>

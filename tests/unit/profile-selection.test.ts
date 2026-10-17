@@ -253,3 +253,47 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(result.order?.nativeAudio).toBeNull()
 	})
 })
+
+describe('resolveProfileSelection: SDR or HDR first', () => {
+	const HDR_FORMATS: FormatOption[] = [
+		video('h2160', '3840x2160', {videoCodec: 'vp09.02.51.10', dynamicRange: 'HDR10', ext: 'webm'}),
+		video('s2160', '3840x2160', {videoCodec: 'vp09.00.51.08', ext: 'webm'}),
+		video('h1080', '1920x1080', {videoCodec: 'av01.0.09M.10', dynamicRange: 'HDR10', ext: 'mp4'}),
+		video('s1080', '1920x1080', {videoCodec: 'avc1.64002a', ext: 'mp4'}),
+		video('h720', '1280x720', {videoCodec: 'vp09.02.31.10', dynamicRange: 'HDR10'}),
+		audio('140')
+	]
+	const best = (tier: '2160' | '1080' | '720' | 'best', extra: Partial<Extract<DownloadProfile['media'], {kind: 'video-audio'}>> = {}) => withMedia('balanced', {kind: 'video-audio', goal: 'best-picture', tier, fileType: 'auto', audio: {native: {kind: 'default'}}, ...extra})
+
+	it('takes the SDR stream at the height by default', () => {
+		expect(resolve(best('best'), HDR_FORMATS).media.videoFormatId).toBe('s2160')
+		expect(resolve(best('1080'), HDR_FORMATS).media.videoFormatId).toBe('s1080')
+	})
+
+	it('takes the HDR stream first when the app setting is HDR, like yt-dlp does', () => {
+		expect(resolve(best('best'), HDR_FORMATS, {hdrPreference: 'hdr'}).media.videoFormatId).toBe('h2160')
+		expect(resolve(best('1080'), HDR_FORMATS, {hdrPreference: 'hdr'}).media.videoFormatId).toBe('h1080')
+	})
+
+	it('never gives up a height to avoid HDR: a height only offered as HDR is taken', () => {
+		expect(resolve(best('720'), HDR_FORMATS).media.videoFormatId).toBe('h720')
+		const noSdr2160 = HDR_FORMATS.filter(f => f.formatId !== 's2160')
+		expect(resolve(best('best'), noSdr2160).media.videoFormatId).toBe('h2160')
+	})
+
+	it('lets a profile override the app setting, and the order says where the choice came from', () => {
+		const hdrProfile = best('1080', {hdr: {kind: 'custom', preference: 'hdr'}})
+		const result = resolve(hdrProfile, HDR_FORMATS, {hdrPreference: 'sdr'})
+		expect(result.media.videoFormatId).toBe('h1080')
+		expect(result.order?.hdr).toEqual({preference: 'hdr', source: 'profile'})
+
+		const sdrProfile = best('1080', {hdr: {kind: 'custom', preference: 'sdr'}})
+		expect(resolve(sdrProfile, HDR_FORMATS, {hdrPreference: 'hdr'}).media.videoFormatId).toBe('s1080')
+		expect(resolve(best('1080'), HDR_FORMATS, {hdrPreference: 'hdr'}).order?.hdr).toEqual({preference: 'hdr', source: 'settings'})
+	})
+
+	it('Smart TV keeps taking H.264 first; SDR only breaks ties after it', () => {
+		const smartTv = withMedia('balanced', {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(resolve(smartTv, HDR_FORMATS).media.videoFormatId).toBe('s1080')
+	})
+})
