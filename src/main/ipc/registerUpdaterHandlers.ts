@@ -75,8 +75,12 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	// Prereleases are excluded because the cask is stable-only: the force-install
 	// would downgrade a beta user to the previous stable release.
 	let homebrewOnMac = false
+	// The version the banner announced. Homebrew runs must reach it before the app
+	// relaunches: a stale tap or an already-current cask also exits 0.
+	let announcedVersion = ''
 
 	async function announceUpdate(version: string): Promise<void> {
+		announcedVersion = version
 		// A failed probe only withholds the offer; it must never swallow the update notice.
 		if (installChannel === 'direct' && !allowPrerelease) homebrewOnMac = await canMoveUnderHomebrew().catch(() => false)
 		if (mainWindow.isDestroyed()) return
@@ -108,21 +112,23 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	// version from the same path. A second invoke mid-upgrade must not start a
 	// second `brew`, which would just fight over Homebrew's lock.
 	let homebrewUpgradeRunning = false
-	async function updateWithHomebrew(runBrew: () => Promise<void>): Promise<UpdateInstallResult> {
+	async function updateWithHomebrew(runBrew: (expectedVersion: string) => Promise<void>): Promise<UpdateInstallResult> {
+		if (!announcedVersion) return {ok: false, error: 'No update has been announced.'}
 		if (homebrewUpgradeRunning) return {ok: false, error: 'An upgrade is already running.'}
 		homebrewUpgradeRunning = true
 		try {
-			await runBrew()
+			await runBrew(announcedVersion)
 		} catch (err) {
+			homebrewUpgradeRunning = false
 			const message = err instanceof Error ? err.message : String(err)
 			log.error('[updater] brew update failed', message)
 			return {ok: false, error: message}
-		} finally {
-			homebrewUpgradeRunning = false
 		}
 		app.relaunch()
 		// quit(), not exit(): exit() skips `before-quit`, which cancels running
-		// downloads and disposes the tray, hotkeys and token service.
+		// downloads and disposes the tray, hotkeys and token service. With running
+		// downloads quit() finishes asynchronously, and the renderer re-enables its
+		// button as soon as this resolves, so the guard stays set after a success.
 		app.quit()
 		return {ok: true}
 	}

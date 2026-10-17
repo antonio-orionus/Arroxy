@@ -328,7 +328,9 @@ describe('registerUpdaterHandlers', () => {
 
 			await expect(install()).resolves.toEqual({ok: true})
 
-			expect(installArroxyWithHomebrew).toHaveBeenCalledOnce()
+			// The announced version rides along so main can refuse to relaunch into an
+			// older cask when Homebrew's tap lags the release.
+			expect(installArroxyWithHomebrew).toHaveBeenCalledExactlyOnceWith('2.0.0')
 			expect(app.relaunch).toHaveBeenCalledOnce()
 			// quit(), not exit(): exit() skips `before-quit`, which cancels running
 			// downloads and disposes the tray, hotkeys and token service.
@@ -394,7 +396,14 @@ describe('registerUpdaterHandlers', () => {
 			vi.mocked(scopedIpcMain.handle).mockImplementation((name: string, fn: any) => {
 				if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
 			})
+			const handlers: HandlerMap = {}
+			vi.mocked(scopedAutoUpdater.on).mockImplementation((event: string, fn: any) => {
+				handlers[event as EventName] = fn
+				return scopedAutoUpdater
+			})
 			register(makeWindow())
+			// The banner only exists once an update was announced; install acts on that version.
+			await fireUpdateAvailable(handlers, {version: '2.0.0'})
 			return {install: installHandler!, upgradeArroxyWithHomebrew, scopedApp, scopedAutoUpdater}
 		}
 
@@ -411,7 +420,7 @@ describe('registerUpdaterHandlers', () => {
 
 			await expect(install()).resolves.toEqual({ok: true})
 
-			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledOnce()
+			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledExactlyOnceWith('2.0.0')
 			expect(scopedApp.relaunch).toHaveBeenCalledOnce()
 			expect(scopedApp.quit).toHaveBeenCalledOnce()
 			expect(scopedApp.exit).not.toHaveBeenCalled()
@@ -427,6 +436,30 @@ describe('registerUpdaterHandlers', () => {
 
 			expect(scopedApp.relaunch).not.toHaveBeenCalled()
 			expect(scopedApp.quit).not.toHaveBeenCalled()
+		})
+
+		// With running downloads quit() cancels them asynchronously and the app lives
+		// on for a moment; the renderer re-enables the button the instant the IPC
+		// resolves, so a clearing guard would let a second brew start mid-shutdown.
+		it('updater:install stays refused after a successful upgrade, while the app shuts down', async () => {
+			const {install, upgradeArroxyWithHomebrew} = await registerForHomebrew(async () => undefined)
+
+			await expect(install()).resolves.toEqual({ok: true})
+			await expect(install()).resolves.toMatchObject({ok: false})
+
+			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledOnce()
+		})
+
+		it('updater:install allows a retry after a failed upgrade', async () => {
+			let attempts = 0
+			const {install, upgradeArroxyWithHomebrew} = await registerForHomebrew(async () => {
+				if (attempts++ === 0) throw new Error('Homebrew has 0.5.2 but 2.0.0 was announced.')
+			})
+
+			await expect(install()).resolves.toMatchObject({ok: false})
+			await expect(install()).resolves.toEqual({ok: true})
+
+			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledTimes(2)
 		})
 
 		it('updater:install ignores a second invoke while an upgrade is already running', async () => {
