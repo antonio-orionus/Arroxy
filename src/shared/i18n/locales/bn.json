@@ -848,10 +848,10 @@
 			"nativeCompatible": {"label": "স্টেরিও অডিও"},
 			"nativeSurround": {"label": "পাওয়া গেলে সারাউন্ড অডিও"},
 			"nativeSource": {"settings": "সেটিংস থেকে", "profile": "এই প্রোফাইল"},
-			"hdrSdrFirst": {"label": "HDR-এর আগে SDR", "reason": "যেকোনো স্ক্রিনে ঠিকঠাক দেখায়"},
-			"hdrFirst": {"label": "SDR-এর আগে HDR", "reason": "HDR স্ক্রিনে আরও সমৃদ্ধ রং"}
+			"hdrSdrFirst": {"label": "HDR-এর আগে SDR", "reason": "যেকোনো স্ক্রিনে ঠিকঠাক দেখায়", "reasonScreen": "এই স্ক্রিনে HDR নেই"},
+			"hdrFirst": {"label": "SDR-এর আগে HDR", "reason": "HDR স্ক্রিনে আরও সমৃদ্ধ রং", "reasonScreen": "এই স্ক্রিন HDR দেখায়"}
 		},
 		"summary": {"goal": {"bestPicture": "সেরা ছবি", "smartTv": "যেকোনো ডিভাইসে চলে"}, "fileType": {"auto": "স্ট্রিম অনুযায়ী ফাইলের ধরন", "explicit": ".{{ext}} হিসেবে সেভ হয়"}}
 	},
-	"hdrPreference": {"label": "HDR ভিডিও", "description": "সাধারণ স্ক্রিনে HDR ফ্যাকাশে দেখাতে পারে। এটি চালু না করলে SDR বেছে নেওয়া হয়।", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR ভিডিও", "description": "এই স্ক্রিন HDR দেখাতে পারলে অটো HDR বেছে নেয়, নইলে SDR। সাধারণ স্ক্রিনে HDR ফ্যাকাশে দেখায়।", "sdr": "SDR", "hdr": "HDR", "auto": "অটো"}
 }

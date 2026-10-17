@@ -847,10 +847,10 @@
 			"nativeCompatible": {"label": "स्टीरियो ऑडियो"},
 			"nativeSurround": {"label": "उपलब्ध होने पर सराउंड ऑडियो"},
 			"nativeSource": {"settings": "सेटिंग्स से", "profile": "यह प्रोफ़ाइल"},
-			"hdrSdrFirst": {"label": "HDR से पहले SDR", "reason": "किसी भी स्क्रीन पर सही दिखता है"},
-			"hdrFirst": {"label": "SDR से पहले HDR", "reason": "HDR स्क्रीन पर गहरे रंग"}
+			"hdrSdrFirst": {"label": "HDR से पहले SDR", "reason": "किसी भी स्क्रीन पर सही दिखता है", "reasonScreen": "यह स्क्रीन HDR नहीं है"},
+			"hdrFirst": {"label": "SDR से पहले HDR", "reason": "HDR स्क्रीन पर गहरे रंग", "reasonScreen": "यह स्क्रीन HDR दिखा सकती है"}
 		},
 		"summary": {"goal": {"bestPicture": "सबसे साफ़ तस्वीर", "smartTv": "किसी भी डिवाइस पर चलता है"}, "fileType": {"auto": "स्ट्रीम के हिसाब से फ़ाइल प्रकार", "explicit": ".{{ext}} में सेव होता है"}}
 	},
-	"hdrPreference": {"label": "HDR वीडियो", "description": "सामान्य स्क्रीन पर HDR फीका दिख सकता है। इसे चालू किए बिना SDR चुना जाता है।", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR वीडियो", "description": "स्वतः विकल्प तब HDR चुनता है जब यह स्क्रीन उसे दिखा सके, वरना SDR। सामान्य स्क्रीन पर HDR फीका दिखता है।", "sdr": "SDR", "hdr": "HDR", "auto": "स्वतः"}
 }

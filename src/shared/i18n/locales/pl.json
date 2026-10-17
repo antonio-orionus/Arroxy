@@ -912,10 +912,10 @@
 			"nativeCompatible": {"label": "Dźwięk stereo"},
 			"nativeSurround": {"label": "Dźwięk przestrzenny, gdy dostępny"},
 			"nativeSource": {"settings": "z Ustawień", "profile": "ten profil"},
-			"hdrSdrFirst": {"label": "SDR przed HDR", "reason": "wygląda dobrze na każdym ekranie"},
-			"hdrFirst": {"label": "HDR przed SDR", "reason": "bogatsze kolory na ekranach HDR"}
+			"hdrSdrFirst": {"label": "SDR przed HDR", "reason": "wygląda dobrze na każdym ekranie", "reasonScreen": "ten ekran nie wyświetla HDR"},
+			"hdrFirst": {"label": "HDR przed SDR", "reason": "bogatsze kolory na ekranach HDR", "reasonScreen": "ten ekran wyświetla HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "najlepszy obraz", "smartTv": "działa na każdym urządzeniu"}, "fileType": {"auto": "typ pliku ze strumieni", "explicit": "zapis jako .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Wideo HDR", "description": "HDR może wyglądać blado na zwykłych ekranach. SDR jest wybierany, dopóki nie włączysz tej opcji.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Wideo HDR", "description": "Automatycznie wybiera HDR, jeśli ten ekran potrafi go wyświetlić, a w przeciwnym razie SDR. HDR wygląda blado na zwykłych ekranach.", "sdr": "SDR", "hdr": "HDR", "auto": "Automatycznie"}
 }

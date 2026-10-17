@@ -842,10 +842,10 @@
 			"nativeCompatible": {"label": "សំឡេង Stereo"},
 			"nativeSurround": {"label": "សំឡេង Surround នៅពេលមាន"},
 			"nativeSource": {"settings": "ពីការកំណត់", "profile": "ប្រវត្តិរូបនេះ"},
-			"hdrSdrFirst": {"label": "SDR មុន HDR", "reason": "មើលទៅត្រឹមត្រូវលើគ្រប់អេក្រង់"},
-			"hdrFirst": {"label": "HDR មុន SDR", "reason": "ពណ៌សម្បូរជាងលើអេក្រង់ HDR"}
+			"hdrSdrFirst": {"label": "SDR មុន HDR", "reason": "មើលទៅត្រឹមត្រូវលើគ្រប់អេក្រង់", "reasonScreen": "អេក្រង់នេះមិនបង្ហាញ HDR"},
+			"hdrFirst": {"label": "HDR មុន SDR", "reason": "ពណ៌សម្បូរជាងលើអេក្រង់ HDR", "reasonScreen": "អេក្រង់នេះបង្ហាញ HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "រូបភាពល្អបំផុត", "smartTv": "ចាក់បានលើគ្រប់ឧបករណ៍"}, "fileType": {"auto": "ប្រភេទឯកសារតាមស្ទ្រីម", "explicit": "រក្សាទុកជា .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "វីដេអូ HDR", "description": "HDR អាចមើលទៅស្លេកលើអេក្រង់ធម្មតា។ SDR ត្រូវបានជ្រើសរើស លុះត្រាតែអ្នកបើកជម្រើសនេះ។", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "វីដេអូ HDR", "description": "ស្វ័យប្រវត្តិជ្រើស HDR នៅពេលអេក្រង់នេះអាចបង្ហាញវាបាន បើមិនដូច្នោះទេ SDR។ HDR មើលទៅស្លេកលើអេក្រង់ធម្មតា។", "sdr": "SDR", "hdr": "HDR", "auto": "ស្វ័យប្រវត្តិ"}
 }

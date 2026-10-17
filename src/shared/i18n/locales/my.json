@@ -858,10 +858,10 @@
 			"nativeCompatible": {"label": "စတီရီယို အသံ"},
 			"nativeSurround": {"label": "ရနိုင်လျှင် surround အသံ"},
 			"nativeSource": {"settings": "ဆက်တင်များမှ", "profile": "ဤပရိုဖိုင်"},
-			"hdrSdrFirst": {"label": "SDR ကို HDR ထက် ဦးစားပေး", "reason": "မည်သည့် မျက်နှာပြင်တွင်မဆို မှန်ကန်စွာ ပြသ"},
-			"hdrFirst": {"label": "HDR ကို SDR ထက် ဦးစားပေး", "reason": "HDR မျက်နှာပြင်တွင် အရောင်ပိုစုံ"}
+			"hdrSdrFirst": {"label": "SDR ကို HDR ထက် ဦးစားပေး", "reason": "မည်သည့် မျက်နှာပြင်တွင်မဆို မှန်ကန်စွာ ပြသ", "reasonScreen": "ဤမျက်နှာပြင်က HDR မပြနိုင်"},
+			"hdrFirst": {"label": "HDR ကို SDR ထက် ဦးစားပေး", "reason": "HDR မျက်နှာပြင်တွင် အရောင်ပိုစုံ", "reasonScreen": "ဤမျက်နှာပြင်က HDR ပြနိုင်"}
 		},
 		"summary": {"goal": {"bestPicture": "အကောင်းဆုံး ရုပ်ထွက်", "smartTv": "မည်သည့်စက်တွင်မဆို ဖွင့်နိုင်"}, "fileType": {"auto": "stream များမှ ဖိုင်အမျိုးအစား", "explicit": ".{{ext}} အဖြစ် သိမ်းမည်"}}
 	},
-	"hdrPreference": {"label": "HDR ဗီဒီယို", "description": "HDR သည် ပုံမှန် မျက်နှာပြင်များတွင် အရောင်မှိန်နေသလို ထင်ရနိုင်သည်။ ဤအရာကို မဖွင့်ပါက SDR ကို ရွေးပါမည်။", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR ဗီဒီယို", "description": "ဤမျက်နှာပြင်က HDR ပြနိုင်လျှင် အလိုအလျောက်သည် HDR ကို ရွေးပြီး မပြနိုင်လျှင် SDR ကို ရွေးသည်။ ပုံမှန်မျက်နှာပြင်များတွင် HDR သည် အရောင်မှိန်ဖျော့နေသည်။", "sdr": "SDR", "hdr": "HDR", "auto": "အလိုအလျောက်"}
 }

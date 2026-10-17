@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "자동"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "HDR은 일반 화면에서 색이 바래 보일 수 있습니다. 켜지 않으면 SDR이 선택됩니다."
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "자동은 이 화면이 HDR을 표시할 수 있으면 HDR을, 아니면 SDR을 선택합니다. HDR은 일반 화면에서는 색이 바래 보입니다."
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "HDR 화면에서 더 풍부한 색상"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "이 화면이 HDR을 표시함"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "HDR보다 SDR 우선"
@@ -1302,6 +1310,10 @@ msgstr "HDR보다 SDR 우선"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "어떤 화면에서도 자연스럽게 보임"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "이 화면이 HDR이 아님"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

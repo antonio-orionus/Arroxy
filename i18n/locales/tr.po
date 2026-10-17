@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Otomatik"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "HDR, normal ekranlarda soluk görünebilir. Bu seçeneği açmazsanız SDR seçilir."
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür."
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "HDR ekranlarda daha zengin renkler"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "bu ekran HDR gösteriyor"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "SDR, HDR’den önce"
@@ -1302,6 +1310,10 @@ msgstr "SDR, HDR’den önce"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "her ekranda doğru görünür"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "bu ekran HDR göstermiyor"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

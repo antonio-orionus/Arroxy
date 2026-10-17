@@ -873,10 +873,10 @@
 			"nativeCompatible": {"label": "스테레오 오디오"},
 			"nativeSurround": {"label": "서라운드 오디오 (제공되는 경우)"},
 			"nativeSource": {"settings": "설정에서", "profile": "이 프로필"},
-			"hdrSdrFirst": {"label": "HDR보다 SDR 우선", "reason": "어떤 화면에서도 자연스럽게 보임"},
-			"hdrFirst": {"label": "SDR보다 HDR 우선", "reason": "HDR 화면에서 더 풍부한 색상"}
+			"hdrSdrFirst": {"label": "HDR보다 SDR 우선", "reason": "어떤 화면에서도 자연스럽게 보임", "reasonScreen": "이 화면이 HDR이 아님"},
+			"hdrFirst": {"label": "SDR보다 HDR 우선", "reason": "HDR 화면에서 더 풍부한 색상", "reasonScreen": "이 화면이 HDR을 표시함"}
 		},
 		"summary": {"goal": {"bestPicture": "최고 화질", "smartTv": "모든 기기에서 재생"}, "fileType": {"auto": "스트림에 따라 파일 형식 결정", "explicit": ".{{ext}}로 저장"}}
 	},
-	"hdrPreference": {"label": "HDR 영상", "description": "HDR은 일반 화면에서 색이 바래 보일 수 있습니다. 켜지 않으면 SDR이 선택됩니다.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR 영상", "description": "자동은 이 화면이 HDR을 표시할 수 있으면 HDR을, 아니면 SDR을 선택합니다. HDR은 일반 화면에서는 색이 바래 보입니다.", "sdr": "SDR", "hdr": "HDR", "auto": "자동"}
 }

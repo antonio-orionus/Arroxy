@@ -2,6 +2,7 @@
 // one input varied (cookies / proxy / profile / player clients), stops once
 // yt-dlp has chosen formats, and prints a JSON report. Triggered by
 // ARROXY_SMOKE_KIND=download. Never persists settings.
+import {resolveHdrSetting} from '@shared/hdrSetting.js'
 import {readFileSync} from 'node:fs'
 import {mkdir, mkdtemp, readFile, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -97,7 +98,8 @@ export async function runDownloadSmokeMode(deps: {config: DownloadSmokeConfig; b
 	const profile = config.profileId ? allDownloadProfiles(settings.profiles).find(p => p.id === config.profileId) : resolveActiveDownloadProfile(settings.profiles).profile
 	const report = initialReport(config, settings, profile?.id ?? config.profileId ?? '')
 	const nativeAudioPreference = settings.common.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const hdrPreference = settings.common.hdrPreference ?? DEFAULTS.hdrPreference
+	// A headless smoke run has no screen, so Auto reads as SDR.
+	const hdrPreference = resolveHdrSetting(settings.common.hdrPreference ?? DEFAULTS.hdrPreference, false).preference
 	const tempRoot = await mkdtemp(join(tmpdir(), 'arroxy-download-smoke-'))
 	try {
 		if (!profile) {

@@ -885,10 +885,10 @@
 			"nativeCompatible": {"label": "Stereo ses"},
 			"nativeSurround": {"label": "Varsa surround ses"},
 			"nativeSource": {"settings": "Ayarlar’dan", "profile": "bu profil"},
-			"hdrSdrFirst": {"label": "SDR, HDR’den önce", "reason": "her ekranda doğru görünür"},
-			"hdrFirst": {"label": "HDR, SDR’den önce", "reason": "HDR ekranlarda daha zengin renkler"}
+			"hdrSdrFirst": {"label": "SDR, HDR’den önce", "reason": "her ekranda doğru görünür", "reasonScreen": "bu ekran HDR göstermiyor"},
+			"hdrFirst": {"label": "HDR, SDR’den önce", "reason": "HDR ekranlarda daha zengin renkler", "reasonScreen": "bu ekran HDR gösteriyor"}
 		},
 		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
 	},
-	"hdrPreference": {"label": "HDR video", "description": "HDR, normal ekranlarda soluk görünebilir. Bu seçeneği açmazsanız SDR seçilir.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR video", "description": "Otomatik, bu ekran HDR gösterebiliyorsa HDR’yi, değilse SDR’yi seçer. HDR, normal ekranlarda soluk görünür.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatik"}
 }

@@ -918,10 +918,10 @@
 			"nativeCompatible": {"label": "Στερεοφωνικός ήχος"},
 			"nativeSurround": {"label": "Ήχος surround όταν προσφέρεται"},
 			"nativeSource": {"settings": "από τις Ρυθμίσεις", "profile": "αυτό το προφίλ"},
-			"hdrSdrFirst": {"label": "SDR πριν από HDR", "reason": "φαίνεται σωστό σε κάθε οθόνη"},
-			"hdrFirst": {"label": "HDR πριν από SDR", "reason": "πιο πλούσια χρώματα σε οθόνες HDR"}
+			"hdrSdrFirst": {"label": "SDR πριν από HDR", "reason": "φαίνεται σωστό σε κάθε οθόνη", "reasonScreen": "αυτή η οθόνη δεν είναι HDR"},
+			"hdrFirst": {"label": "HDR πριν από SDR", "reason": "πιο πλούσια χρώματα σε οθόνες HDR", "reasonScreen": "αυτή η οθόνη εμφανίζει HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "καλύτερη εικόνα", "smartTv": "παίζει σε κάθε συσκευή"}, "fileType": {"auto": "τύπος αρχείου από τις ροές", "explicit": "αποθήκευση ως .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Βίντεο HDR", "description": "Το HDR μπορεί να δείχνει ξεθωριασμένο σε κανονικές οθόνες. Επιλέγεται το SDR, εκτός αν το ενεργοποιήσετε.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Βίντεο HDR", "description": "Το Αυτόματο επιλέγει HDR όταν αυτή η οθόνη μπορεί να το εμφανίσει, αλλιώς SDR. Το HDR φαίνεται ξεθωριασμένο σε συνηθισμένες οθόνες.", "sdr": "SDR", "hdr": "HDR", "auto": "Αυτόματο"}
 }

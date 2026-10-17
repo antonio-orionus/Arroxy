@@ -582,7 +582,7 @@ export function DownloadProfilesHome(): ReactNode {
 						commonPaths={commonPaths}
 						globalDestination={globalDestinationRoot}
 						globalNativeAudioPreference={nativeAudioPreference}
-						globalHdrPreference={hdrPreference}
+						globalHdrSetting={hdrPreference}
 						initialProfile={editingProfile}
 						onChangeGlobalDestination={() => chooseWizardFolder()}
 						open={editorOpen}

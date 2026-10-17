@@ -7,9 +7,10 @@
 // Download pick the same streams.
 
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {AudioBitrate, AudioSelection, DownloadProfile, DownloadProfileAudioFormat, HdrPreference, NativeAudioPreference, PlaylistVideoTier, WizardMediaKind} from './schemas.js'
+import type {AudioBitrate, AudioSelection, DownloadProfile, DownloadProfileAudioFormat, NativeAudioPreference, PlaylistVideoTier, WizardMediaKind} from './schemas.js'
 import type {FormatOption, SubtitleMap} from './types.js'
 import {preferredNativeAudioId} from './nativeAudioPreference.js'
+import type {GlobalHdr} from './hdrSetting.js'
 import {selectionOrder, type AudioRank, type SelectionOrder, type VideoRank} from './selectionOrder.js'
 import {matchesSubtitleLanguage} from './subtitleLanguages.js'
 
@@ -21,7 +22,7 @@ export interface ProfileSelectionInput {
 	isAudioOnlySource: boolean
 	nativeAudioPreference: NativeAudioPreference
 	// The app-wide HDR choice; the profile may override it. Absent reads as the app default.
-	hdrPreference?: HdrPreference
+	hdrPreference?: GlobalHdr
 }
 
 export interface MediaSelection {

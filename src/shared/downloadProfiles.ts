@@ -1,4 +1,5 @@
 import {DEFAULTS} from './constants.js'
+import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
@@ -211,7 +212,7 @@ export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: stri
 	return {...next, active: resolved.ref}
 }
 
-export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference, hdrPreference: HdrPreference = DEFAULTS.hdrPreference): ResolvedDownloadProfile {
+export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference, hdrPreference: HdrPreference = DEFAULT_HDR_PREFERENCE): ResolvedDownloadProfile {
 	const intent = mediaIntentFromProfileMedia(profile.media)
 	const spec = intent ? mediaIntentSpec(intent, nativeAudioPreference, hdrPreference) : null
 	const isSubtitleOnly = profile.media.kind === 'subtitles-only'

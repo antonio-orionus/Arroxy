@@ -932,10 +932,10 @@
 			"nativeCompatible": {"label": "Stereo audio"},
 			"nativeSurround": {"label": "Mavjud bo'lsa surround audio"},
 			"nativeSource": {"settings": "Sozlamalardan", "profile": "shu profil"},
-			"hdrSdrFirst": {"label": "HDR'dan oldin SDR", "reason": "har qanday ekranda to'g'ri ko'rinadi"},
-			"hdrFirst": {"label": "SDR'dan oldin HDR", "reason": "HDR ekranlarda boyroq ranglar"}
+			"hdrSdrFirst": {"label": "HDR'dan oldin SDR", "reason": "har qanday ekranda to'g'ri ko'rinadi", "reasonScreen": "bu ekranda HDR yo'q"},
+			"hdrFirst": {"label": "SDR'dan oldin HDR", "reason": "HDR ekranlarda boyroq ranglar", "reasonScreen": "bu ekran HDR'ni ko'rsatadi"}
 		},
 		"summary": {"goal": {"bestPicture": "eng yaxshi tasvir", "smartTv": "har qanday qurilmada ijro etiladi"}, "fileType": {"auto": "fayl turi oqimlardan", "explicit": ".{{ext}} sifatida saqlanadi"}}
 	},
-	"hdrPreference": {"label": "HDR video", "description": "Oddiy ekranlarda HDR xira ko'rinishi mumkin. Buni yoqmasangiz, SDR tanlanadi.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR video", "description": "Avto rejim bu ekran HDR'ni ko'rsata olsa HDR'ni, aks holda SDR'ni tanlaydi. Oddiy ekranlarda HDR xira ko'rinadi.", "sdr": "SDR", "hdr": "HDR", "auto": "Avto"}
 }

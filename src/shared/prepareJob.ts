@@ -1,4 +1,5 @@
 import {DEFAULTS} from './constants.js'
+import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent, playlistSubtitleOptions} from './mediaIntent.js'
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import type {AudioConvert, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
@@ -49,7 +50,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 		const intent = input.mediaIntent ?? (input.playlistSelection ? playlistSelectionToMediaIntent(input.playlistSelection) : null)
 		if (!intent) throw new Error('prepareJob: playlist mode requires mediaIntent')
 		if (!input.filenameTemplate) throw new Error('prepareJob: playlist mode requires filenameTemplate')
-		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference, input.hdrPreference ?? DEFAULTS.hdrPreference)
+		const spec = mediaIntentSpec(intent, input.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference, input.hdrPreference ?? DEFAULT_HDR_PREFERENCE)
 		return {
 			kind: 'ranged-format',
 			...identity,

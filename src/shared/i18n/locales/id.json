@@ -904,10 +904,10 @@
 			"nativeCompatible": {"label": "Audio stereo"},
 			"nativeSurround": {"label": "Audio surround jika tersedia"},
 			"nativeSource": {"settings": "dari Pengaturan", "profile": "profil ini"},
-			"hdrSdrFirst": {"label": "SDR sebelum HDR", "reason": "tampil baik di layar apa pun"},
-			"hdrFirst": {"label": "HDR sebelum SDR", "reason": "warna lebih kaya di layar HDR"}
+			"hdrSdrFirst": {"label": "SDR sebelum HDR", "reason": "tampil baik di layar apa pun", "reasonScreen": "layar ini bukan HDR"},
+			"hdrFirst": {"label": "HDR sebelum SDR", "reason": "warna lebih kaya di layar HDR", "reasonScreen": "layar ini menampilkan HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Video HDR", "description": "HDR bisa terlihat pucat di layar biasa. SDR dipilih kecuali Anda mengaktifkan ini.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Video HDR", "description": "Otomatis memilih HDR jika layar ini bisa menampilkannya, jika tidak memakai SDR. HDR tampak pucat di layar biasa.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatis"}
 }

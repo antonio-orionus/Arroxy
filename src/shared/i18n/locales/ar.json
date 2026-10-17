@@ -880,10 +880,10 @@
 			"nativeCompatible": {"label": "صوت ستيريو"},
 			"nativeSurround": {"label": "صوت محيطي عند توفره"},
 			"nativeSource": {"settings": "من الإعدادات", "profile": "ملف التعريف هذا"},
-			"hdrSdrFirst": {"label": "SDR قبل HDR", "reason": "يبدو سليمًا على أي شاشة"},
-			"hdrFirst": {"label": "HDR قبل SDR", "reason": "ألوان أغنى على شاشات HDR"}
+			"hdrSdrFirst": {"label": "SDR قبل HDR", "reason": "يبدو سليمًا على أي شاشة", "reasonScreen": "هذه الشاشة لا تدعم HDR"},
+			"hdrFirst": {"label": "HDR قبل SDR", "reason": "ألوان أغنى على شاشات HDR", "reasonScreen": "هذه الشاشة تعرض HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "أفضل صورة", "smartTv": "يعمل على أي جهاز"}, "fileType": {"auto": "نوع الملف حسب التدفقات", "explicit": "يُحفظ بصيغة .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "فيديو HDR", "description": "قد يبدو HDR باهت الألوان على الشاشات العادية. يُختار SDR ما لم تفعّل هذا الخيار.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "فيديو HDR", "description": "يختار الوضع التلقائي HDR عندما تستطيع هذه الشاشة عرضه، وإلا يختار SDR. يبدو HDR باهتًا على الشاشات العادية.", "sdr": "SDR", "hdr": "HDR", "auto": "تلقائي"}
 }

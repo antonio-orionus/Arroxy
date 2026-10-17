@@ -3,6 +3,7 @@
 // profile to the probe the wizard currently holds.
 
 import {DEFAULTS} from '@shared/constants.js'
+import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import type {DownloadProfile} from '@shared/types.js'
 import type {AppState} from '../types.js'
 import {applyProfileToWizard, changedFromProfile, profileFromWizard, type ChangedArea, type WizardSettingsSnapshot} from './profileApplication.js'
@@ -64,7 +65,7 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 		automaticCaptions: state.wizardAutomaticCaptions,
 		isAudioOnlySource: state.wizardIsAudioOnlySource,
 		nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference,
-		hdrPreference: common?.hdrPreference ?? DEFAULTS.hdrPreference,
+		hdrPreference: resolveAppHdr(common?.hdrPreference),
 		baseOutputDir: globalDir !== undefined && globalDir !== '' ? globalDir : state.wizardOutputDir,
 		globalFilenameTemplate: common?.filenameTemplate
 	})

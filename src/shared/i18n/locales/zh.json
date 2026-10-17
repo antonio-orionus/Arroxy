@@ -814,10 +814,10 @@
 			"nativeCompatible": {"label": "立体声音频"},
 			"nativeSurround": {"label": "环绕声音频（如有）"},
 			"nativeSource": {"settings": "来自设置", "profile": "此配置"},
-			"hdrSdrFirst": {"label": "SDR 优先于 HDR", "reason": "在任何屏幕上都显示正常"},
-			"hdrFirst": {"label": "HDR 优先于 SDR", "reason": "在 HDR 屏幕上色彩更丰富"}
+			"hdrSdrFirst": {"label": "SDR 优先于 HDR", "reason": "在任何屏幕上都显示正常", "reasonScreen": "此屏幕不支持 HDR"},
+			"hdrFirst": {"label": "HDR 优先于 SDR", "reason": "在 HDR 屏幕上色彩更丰富", "reasonScreen": "此屏幕支持显示 HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "最佳画质", "smartTv": "所有设备都能播放"}, "fileType": {"auto": "文件类型由流决定", "explicit": "保存为 .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "HDR 视频", "description": "HDR 在普通屏幕上可能显得发灰。除非开启此项，否则会选择 SDR。", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR 视频", "description": "自动模式会在此屏幕能显示 HDR 时选择 HDR，否则选择 SDR。HDR 在普通屏幕上看起来会发灰。", "sdr": "SDR", "hdr": "HDR", "auto": "自动"}
 }

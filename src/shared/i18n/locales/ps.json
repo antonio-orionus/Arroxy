@@ -899,10 +899,10 @@
 			"nativeCompatible": {"label": "سټېریو غږ"},
 			"nativeSurround": {"label": "surround غږ کله چې موجود وي"},
 			"nativeSource": {"settings": "له امستنو", "profile": "دا پروفایل"},
-			"hdrSdrFirst": {"label": "SDR تر HDR مخکې", "reason": "په هره سکرین کې سم ښکاري"},
-			"hdrFirst": {"label": "HDR تر SDR مخکې", "reason": "په HDR سکرینونو کې بډایه رنګونه"}
+			"hdrSdrFirst": {"label": "SDR تر HDR مخکې", "reason": "په هره سکرین کې سم ښکاري", "reasonScreen": "دا سکرین HDR نه ښیي"},
+			"hdrFirst": {"label": "HDR تر SDR مخکې", "reason": "په HDR سکرینونو کې بډایه رنګونه", "reasonScreen": "دا سکرین HDR ښیي"}
 		},
 		"summary": {"goal": {"bestPicture": "غوره انځور", "smartTv": "په هره وسیله چلیږي"}, "fileType": {"auto": "د فایل ډول له سټریمونو", "explicit": "د .{{ext}} په توګه خوندي کیږي"}}
 	},
-	"hdrPreference": {"label": "HDR ویډیو", "description": "HDR ښايي په عادي سکرینونو کې کمرنګه ښکاره شي. تر هغه چې دا فعال نه کړئ، SDR غوره کیږي.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR ویډیو", "description": "اتوماتیک HDR غوره کوي کله چې دا سکرین یې ښودلی شي، که نه نو SDR. HDR په عادي سکرینونو کې کمرنګه ښکاري.", "sdr": "SDR", "hdr": "HDR", "auto": "اتوماتیک"}
 }

@@ -934,10 +934,10 @@
 			"nativeCompatible": {"label": "Sagalee isteeriyoo"},
 			"nativeSurround": {"label": "Sagalee surround yoo jiraate"},
 			"nativeSource": {"settings": "Qindaaʼinoota irraa", "profile": "piroofaayilii kana"},
-			"hdrSdrFirst": {"label": "SDR HDR dura", "reason": "iskiriinii kamiyyuu irratti sirriitti mul'ata"},
-			"hdrFirst": {"label": "HDR SDR dura", "reason": "iskiriinii HDR irratti halluu badhaadhaa"}
+			"hdrSdrFirst": {"label": "SDR HDR dura", "reason": "iskiriinii kamiyyuu irratti sirriitti mul'ata", "reasonScreen": "iskiriinii kun HDR hin agarsiisu"},
+			"hdrFirst": {"label": "HDR SDR dura", "reason": "iskiriinii HDR irratti halluu badhaadhaa", "reasonScreen": "iskiriinii kun HDR ni agarsiisa"}
 		},
 		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
 	},
-	"hdrPreference": {"label": "Viidiyoo HDR", "description": "HDR iskiriinii idilee irratti halluun isaa dhabamee mul'achuu danda'a. Yoo kana hin banne, SDR filatama.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Viidiyoo HDR", "description": "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata.", "sdr": "SDR", "hdr": "HDR", "auto": "Ofumaa"}
 }

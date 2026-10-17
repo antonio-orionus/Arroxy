@@ -899,10 +899,10 @@
 			"nativeCompatible": {"label": "اسٹیریو آڈیو"},
 			"nativeSurround": {"label": "دستیاب ہو تو سراؤنڈ آڈیو"},
 			"nativeSource": {"settings": "ترتیبات سے", "profile": "یہ پروفائل"},
-			"hdrSdrFirst": {"label": "HDR سے پہلے SDR", "reason": "ہر اسکرین پر درست دکھتی ہے"},
-			"hdrFirst": {"label": "SDR سے پہلے HDR", "reason": "HDR اسکرینوں پر زیادہ بھرپور رنگ"}
+			"hdrSdrFirst": {"label": "HDR سے پہلے SDR", "reason": "ہر اسکرین پر درست دکھتی ہے", "reasonScreen": "یہ اسکرین HDR والی نہیں"},
+			"hdrFirst": {"label": "SDR سے پہلے HDR", "reason": "HDR اسکرینوں پر زیادہ بھرپور رنگ", "reasonScreen": "یہ اسکرین HDR دکھاتی ہے"}
 		},
 		"summary": {"goal": {"bestPicture": "بہترین تصویر", "smartTv": "ہر ڈیوائس پر چلتی ہے"}, "fileType": {"auto": "فائل کی قسم اسٹریمز سے", "explicit": ".{{ext}} کے طور پر محفوظ"}}
 	},
-	"hdrPreference": {"label": "HDR ویڈیو", "description": "عام اسکرینوں پر HDR پھیکا لگ سکتا ہے۔ جب تک آپ اسے آن نہ کریں، SDR منتخب ہوتا ہے۔", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR ویڈیو", "description": "اگر یہ اسکرین HDR دکھا سکے تو آٹو HDR چنتا ہے، ورنہ SDR۔ عام اسکرینوں پر HDR پھیکا دکھتا ہے۔", "sdr": "SDR", "hdr": "HDR", "auto": "آٹو"}
 }

@@ -895,10 +895,10 @@
 			"nativeCompatible": {"label": "Sauti ya stereo"},
 			"nativeSurround": {"label": "Sauti ya surround inapopatikana"},
 			"nativeSource": {"settings": "kutoka Mipangilio", "profile": "wasifu huu"},
-			"hdrSdrFirst": {"label": "SDR kabla ya HDR", "reason": "huonekana sawa kwenye skrini yoyote"},
-			"hdrFirst": {"label": "HDR kabla ya SDR", "reason": "rangi angavu zaidi kwenye skrini za HDR"}
+			"hdrSdrFirst": {"label": "SDR kabla ya HDR", "reason": "huonekana sawa kwenye skrini yoyote", "reasonScreen": "skrini hii haina HDR"},
+			"hdrFirst": {"label": "HDR kabla ya SDR", "reason": "rangi angavu zaidi kwenye skrini za HDR", "reasonScreen": "skrini hii inaonyesha HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Video ya HDR", "description": "HDR inaweza kuonekana imefifia kwenye skrini za kawaida. SDR huchaguliwa usipowasha hiki.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Video ya HDR", "description": "Otomatiki huchagua HDR wakati skrini hii inaweza kuionyesha, vinginevyo SDR. HDR huonekana imefifia kwenye skrini za kawaida.", "sdr": "SDR", "hdr": "HDR", "auto": "Otomatiki"}
 }

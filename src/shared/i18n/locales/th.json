@@ -832,10 +832,10 @@
 			"nativeCompatible": {"label": "เสียงสเตอริโอ"},
 			"nativeSurround": {"label": "เสียงเซอร์ราวด์ถ้ามี"},
 			"nativeSource": {"settings": "จากการตั้งค่า", "profile": "โปรไฟล์นี้"},
-			"hdrSdrFirst": {"label": "SDR มาก่อน HDR", "reason": "ดูถูกต้องบนทุกหน้าจอ"},
-			"hdrFirst": {"label": "HDR มาก่อน SDR", "reason": "สีสดและลึกกว่าบนหน้าจอ HDR"}
+			"hdrSdrFirst": {"label": "SDR มาก่อน HDR", "reason": "ดูถูกต้องบนทุกหน้าจอ", "reasonScreen": "หน้าจอนี้ไม่รองรับ HDR"},
+			"hdrFirst": {"label": "HDR มาก่อน SDR", "reason": "สีสดและลึกกว่าบนหน้าจอ HDR", "reasonScreen": "หน้าจอนี้แสดง HDR ได้"}
 		},
 		"summary": {"goal": {"bestPicture": "ภาพดีที่สุด", "smartTv": "เล่นได้ในทุกอุปกรณ์"}, "fileType": {"auto": "ประเภทไฟล์ตามสตรีม", "explicit": "บันทึกเป็น .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "วิดีโอ HDR", "description": "HDR อาจดูซีดบนหน้าจอทั่วไป หากไม่เปิดตัวเลือกนี้ ระบบจะเลือก SDR", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "วิดีโอ HDR", "description": "อัตโนมัติจะเลือก HDR เมื่อหน้าจอนี้แสดง HDR ได้ มิฉะนั้นจะเลือก SDR โดย HDR จะดูซีดบนหน้าจอทั่วไป", "sdr": "SDR", "hdr": "HDR", "auto": "อัตโนมัติ"}
 }

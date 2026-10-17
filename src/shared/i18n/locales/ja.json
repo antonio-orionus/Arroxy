@@ -896,10 +896,10 @@
 			"nativeCompatible": {"label": "ステレオ音声"},
 			"nativeSurround": {"label": "サラウンド音声 (提供されている場合)"},
 			"nativeSource": {"settings": "設定から", "profile": "このプロフィール"},
-			"hdrSdrFirst": {"label": "HDR より SDR を優先", "reason": "どの画面でも自然に見える"},
-			"hdrFirst": {"label": "SDR より HDR を優先", "reason": "HDR 対応の画面でより豊かな色"}
+			"hdrSdrFirst": {"label": "HDR より SDR を優先", "reason": "どの画面でも自然に見える", "reasonScreen": "この画面が HDR 非対応"},
+			"hdrFirst": {"label": "SDR より HDR を優先", "reason": "HDR 対応の画面でより豊かな色", "reasonScreen": "この画面が HDR に対応"}
 		},
 		"summary": {"goal": {"bestPicture": "最高画質", "smartTv": "どの端末でも再生可能"}, "fileType": {"auto": "ファイル形式はストリームに合わせる", "explicit": ".{{ext}} で保存"}}
 	},
-	"hdrPreference": {"label": "HDR 動画", "description": "HDR は通常の画面では色あせて見えることがあります。オンにしない限り SDR が選ばれます。", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR 動画", "description": "「自動」は、この画面が HDR を表示できる場合は HDR、そうでなければ SDR を選びます。HDR は通常の画面では色あせて見えます。", "sdr": "SDR", "hdr": "HDR", "auto": "自動"}
 }

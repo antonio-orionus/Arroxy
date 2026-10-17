@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "ራስ-ሰር"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "HDR በተራ ስክሪኖች ላይ የደበዘዘ ሊመስል ይችላል። ይህን ካላበሩት SDR ይመረጣል።"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "ራስ-ሰር ይህ ስክሪን HDR ማሳየት ከቻለ HDRን ይመርጣል፣ ካልቻለ ደግሞ SDRን። HDR በተለመዱ ስክሪኖች ላይ የደበዘዘ ይመስላል።"
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "በHDR ስክሪኖች ላይ የበለጸገ ቀለም"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "ይህ ስክሪን HDR ያሳያል"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "SDR ከHDR በፊት"
@@ -1302,6 +1310,10 @@ msgstr "SDR ከHDR በፊት"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "በማንኛውም ስክሪን ላይ ትክክል ይመስላል"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "ይህ ስክሪን HDR አያሳይም"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

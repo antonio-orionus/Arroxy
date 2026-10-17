@@ -270,29 +270,39 @@ This spec adds two controls and one word, nothing else.
   .mp4 file". In the screenshot this spec was checked against, the mp4
   video merges with webm audio into an .mkv. Saves as removes that guess.
 
-## HDR: SDR first, a setting, and old installs keep HDR
+## HDR: Auto, a setting, and old installs keep HDR
 
-Best picture used to follow yt-dlp's default sort, which ranks HDR above SDR.
-On a normal screen HDR looks washed out and nobody can tell why, so SDR is
-now the default. It is a global setting with a profile override, like native
-audio:
+Best picture used to follow yt-dlp's default sort, which ranks HDR above SDR
+at the same height and frame rate. yt-dlp has no smart rule here: it reads the
+format's dynamic range label and ranks DV, HDR12, HDR10+, HDR10, HLG, SDR in
+that order (Dolby Vision is held back by `hdr:12`). It knows nothing about the
+screen, and HDR looks washed out on one that isn't HDR, so the order is now a
+setting with a profile override, like native audio:
 
-- **Settings:** "HDR video", a switch, off by default. Off means SDR before
-  HDR; on leaves yt-dlp's own HDR-first order.
-- **Profile, Advanced:** "HDR video": Use app setting (SDR or HDR), SDR, HDR.
-  Only a profile's own choice is stored; absent means the app setting.
+- **Settings, "HDR video":** Auto (default for new installs), SDR, HDR. Auto
+  picks HDR first only when the screen the app is on shows HDR, otherwise SDR
+  first. The check is the `dynamic-range: high` media query, per window, so it
+  follows the monitor the window sits on (true on the built-in XDR display of
+  the test Mac). A window that cannot answer reads as SDR.
+- **Profile, Advanced, "HDR video":** Use app setting (Auto, SDR or HDR), SDR,
+  HDR. Only a profile's own choice is stored; absent means the app setting.
 - **Order:** resolution, frame rate, then the HDR choice, then codec. A height
   only offered as HDR is still taken, so the choice never costs resolution.
   SDR first is the yt-dlp sort field `hdr:sdr`, written after `res` and `fps`
-  because a field named in `-S` outranks every default; checked against
-  yt-dlp on a synthetic format list (SDR at each height, HDR when that is all
-  a height has).
+  because a field named in `-S` outranks every default; HDR first is yt-dlp's
+  own order, so no field is written. Checked against yt-dlp on a synthetic
+  format list.
+- **Resolved when a job is built,** in the renderer, so Auto follows the screen
+  at that moment. A headless smoke run has no screen and reads Auto as SDR.
 - **Existing installs:** a settings file saved before the setting existed gets
-  HDR switched on when it is first read, so nothing they download changes. A
-  first launch starts on SDR. The check reads the file before the store fills
-  in defaults.
-- **The tip** says "SDR before HDR · looks right on any screen" or "HDR before
-  SDR · richer colour on HDR screens".
+  explicit HDR when it is first read, so nothing they download changes. They
+  can switch to Auto or SDR in Settings. A first launch starts on Auto.
+- **The tip** names the reason: "this screen shows HDR" or "this screen isn't
+  HDR" under Auto; "looks right on any screen" or "richer colour on HDR
+  screens" for an explicit choice.
+- **Limits:** Auto reads the screen the download happens on, not where the file
+  will be watched, and the same link can give a different file on another
+  monitor.
 
 ## MP4 playback, measured
 

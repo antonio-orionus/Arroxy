@@ -898,10 +898,10 @@
 			"nativeCompatible": {"label": "Стерео звук"},
 			"nativeSurround": {"label": "Просторни звук када је доступан"},
 			"nativeSource": {"settings": "из Подешавања", "profile": "овај профил"},
-			"hdrSdrFirst": {"label": "SDR пре HDR", "reason": "изгледа добро на сваком екрану"},
-			"hdrFirst": {"label": "HDR пре SDR", "reason": "богатије боје на HDR екранима"}
+			"hdrSdrFirst": {"label": "SDR пре HDR", "reason": "изгледа добро на сваком екрану", "reasonScreen": "овај екран не приказује HDR"},
+			"hdrFirst": {"label": "HDR пре SDR", "reason": "богатије боје на HDR екранима", "reasonScreen": "овај екран приказује HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "најбоља слика", "smartTv": "ради на сваком уређају"}, "fileType": {"auto": "тип датотеке према токовима", "explicit": "чува се као .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "HDR видео", "description": "HDR може изгледати бледо на обичним екранима. SDR се бира осим ако не укључите ову опцију.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR видео", "description": "Аутоматски бира HDR ако овај екран може да га прикаже, иначе SDR. HDR изгледа бледо на обичним екранима.", "sdr": "SDR", "hdr": "HDR", "auto": "Аутоматски"}
 }

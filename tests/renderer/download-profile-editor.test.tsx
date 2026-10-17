@@ -127,11 +127,11 @@ describe('DownloadProfileEditor', () => {
 		expect(profile).toBeDefined()
 		const onSave = vi.fn<(saved: DownloadProfile) => void>()
 
-		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalHdrPreference="hdr" />)
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} onSave={onSave} globalHdrSetting="hdr" />)
 
 		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
 		expect(await screen.findByTestId('profiles-editor-hdr')).toHaveTextContent('Use app setting (HDR)')
-		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent('HDR can look washed out on regular screens.')
+		expect(screen.getByTestId('profiles-editor-video-advanced')).toHaveTextContent('HDR looks washed out on regular screens.')
 		fireEvent.click(screen.getByTestId('profiles-editor-hdr'))
 		fireEvent.click(await screen.findByTestId('profiles-editor-hdr-option-sdr'))
 		fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
@@ -139,6 +139,19 @@ describe('DownloadProfileEditor', () => {
 		await waitFor(() => {
 			expect(onSave).toHaveBeenCalledWith(expect.objectContaining({media: expect.objectContaining({hdr: {kind: 'custom', preference: 'sdr'}})}))
 		})
+	})
+
+	it('names Auto as the app setting by default, and lists the screen as the reason', async () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
+		expect(profile).toBeDefined()
+
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		fireEvent.click(await screen.findByTestId('profiles-editor-video-advanced-toggle'))
+		expect(await screen.findByTestId('profiles-editor-hdr')).toHaveTextContent('Use app setting (Auto)')
+		fireEvent.click(screen.getByTestId('profiles-editor-selection-order-toggle'))
+		// Auto reads the screen; this test window has none that shows HDR.
+		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent("SDR before HDR · this screen isn't HDR")
 	})
 
 	it('stores no HDR choice while the profile follows the app setting', async () => {
@@ -160,7 +173,7 @@ describe('DownloadProfileEditor', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-1440')
 		expect(profile).toBeDefined()
 
-		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} globalHdrPreference="sdr" />)
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} globalHdrSetting="sdr" />)
 
 		fireEvent.click(await screen.findByTestId('profiles-editor-selection-order-toggle'))
 		expect(await screen.findByTestId('profiles-editor-selection-order-list')).toHaveTextContent('SDR before HDR · looks right on any screen')

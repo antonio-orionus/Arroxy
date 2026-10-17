@@ -878,10 +878,10 @@
 			"nativeCompatible": {"label": "Âm thanh stereo"},
 			"nativeSurround": {"label": "Âm thanh vòm nếu có"},
 			"nativeSource": {"settings": "từ Cài đặt", "profile": "hồ sơ này"},
-			"hdrSdrFirst": {"label": "SDR trước HDR", "reason": "hiển thị đúng trên mọi màn hình"},
-			"hdrFirst": {"label": "HDR trước SDR", "reason": "màu sắc rực rỡ hơn trên màn hình HDR"}
+			"hdrSdrFirst": {"label": "SDR trước HDR", "reason": "hiển thị đúng trên mọi màn hình", "reasonScreen": "màn hình này không phải HDR"},
+			"hdrFirst": {"label": "HDR trước SDR", "reason": "màu sắc rực rỡ hơn trên màn hình HDR", "reasonScreen": "màn hình này hiển thị được HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Video HDR", "description": "HDR có thể trông nhạt màu trên màn hình thường. SDR được chọn trừ khi bạn bật tùy chọn này.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Video HDR", "description": "Tự động sẽ chọn HDR khi màn hình này hiển thị được HDR, nếu không thì chọn SDR. HDR trông bị nhạt trên màn hình thông thường.", "sdr": "SDR", "hdr": "HDR", "auto": "Tự động"}
 }

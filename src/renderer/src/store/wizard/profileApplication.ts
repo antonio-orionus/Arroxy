@@ -6,10 +6,11 @@
 
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import {audioCodecName, webmBlocker} from '@shared/fileTypeFit.js'
+import type {GlobalHdr} from '@shared/hdrSetting.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import type {AudioSelection, DownloadProfile, HdrPreference, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
 export interface WizardSettingsSnapshot {
@@ -36,7 +37,7 @@ export interface ProfileApplicationInput {
 	automaticCaptions: SubtitleMap
 	isAudioOnlySource: boolean
 	nativeAudioPreference: NativeAudioPreference
-	hdrPreference?: HdrPreference
+	hdrPreference?: GlobalHdr
 	// Folder a `default`-output profile saves into: the global download folder.
 	baseOutputDir: string
 	globalFilenameTemplate: string | undefined

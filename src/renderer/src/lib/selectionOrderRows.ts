@@ -22,12 +22,20 @@ function videoRow(t: TFunction, rank: VideoRank, order: SelectionOrder): Selecti
 		case 'fps':
 			return {label: t('selectionOrder.rank.fps.label'), reason: t('selectionOrder.rank.fps.reason')}
 		case 'hdr':
-			return order.hdr.preference === 'sdr' ? {label: t('selectionOrder.rank.hdrSdrFirst.label'), reason: t('selectionOrder.rank.hdrSdrFirst.reason')} : {label: t('selectionOrder.rank.hdrFirst.label'), reason: t('selectionOrder.rank.hdrFirst.reason')}
+			return hdrRow(t, order)
 		case 'codec':
 			return {label: t('selectionOrder.rank.codec.label'), reason: t('selectionOrder.rank.codec.reason')}
 		case 'size':
 			return {label: t('selectionOrder.rank.size.label'), reason: t('selectionOrder.rank.size.reason')}
 	}
+}
+
+// The reason says where the choice came from: this screen (Auto), or just why
+// that order is better for the setting or profile that asked for it.
+function hdrRow(t: TFunction, order: SelectionOrder): SelectionOrderRow {
+	const fromScreen = order.hdr.source === 'display'
+	if (order.hdr.preference === 'sdr') return {label: t('selectionOrder.rank.hdrSdrFirst.label'), reason: fromScreen ? t('selectionOrder.rank.hdrSdrFirst.reasonScreen') : t('selectionOrder.rank.hdrSdrFirst.reason')}
+	return {label: t('selectionOrder.rank.hdrFirst.label'), reason: fromScreen ? t('selectionOrder.rank.hdrFirst.reasonScreen') : t('selectionOrder.rank.hdrFirst.reason')}
 }
 
 function audioRow(t: TFunction, rank: AudioRank, order: SelectionOrder): SelectionOrderRow {

@@ -925,10 +925,10 @@
 			"nativeCompatible": {"label": "Audio stéréo"},
 			"nativeSurround": {"label": "Audio surround si disponible"},
 			"nativeSource": {"settings": "depuis les Réglages", "profile": "ce profil"},
-			"hdrSdrFirst": {"label": "SDR avant HDR", "reason": "s'affiche bien sur tous les écrans"},
-			"hdrFirst": {"label": "HDR avant SDR", "reason": "couleurs plus riches sur les écrans HDR"}
+			"hdrSdrFirst": {"label": "SDR avant HDR", "reason": "s'affiche bien sur tous les écrans", "reasonScreen": "cet écran n'affiche pas le HDR"},
+			"hdrFirst": {"label": "HDR avant SDR", "reason": "couleurs plus riches sur les écrans HDR", "reasonScreen": "cet écran affiche le HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "meilleure image", "smartTv": "se lit sur tous les appareils"}, "fileType": {"auto": "type de fichier selon les flux", "explicit": "enregistré en .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Vidéo HDR", "description": "Le HDR peut paraître délavé sur les écrans classiques. Le SDR est choisi sauf si vous activez cette option.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Vidéo HDR", "description": "Auto choisit HDR si cet écran peut l'afficher, sinon SDR. Le HDR paraît délavé sur les écrans classiques.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

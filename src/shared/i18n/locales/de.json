@@ -929,10 +929,10 @@
 			"nativeCompatible": {"label": "Stereo-Audio"},
 			"nativeSurround": {"label": "Surround-Audio, wenn verfügbar"},
 			"nativeSource": {"settings": "aus den Einstellungen", "profile": "dieses Profil"},
-			"hdrSdrFirst": {"label": "SDR vor HDR", "reason": "wirkt auf jedem Bildschirm richtig"},
-			"hdrFirst": {"label": "HDR vor SDR", "reason": "satteres Bild auf HDR-Bildschirmen"}
+			"hdrSdrFirst": {"label": "SDR vor HDR", "reason": "wirkt auf jedem Bildschirm richtig", "reasonScreen": "dieser Bildschirm zeigt kein HDR"},
+			"hdrFirst": {"label": "HDR vor SDR", "reason": "satteres Bild auf HDR-Bildschirmen", "reasonScreen": "dieser Bildschirm zeigt HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "bestes Bild", "smartTv": "läuft auf jedem Gerät"}, "fileType": {"auto": "Dateityp aus den Streams", "explicit": "speichert als .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "HDR-Video", "description": "HDR kann auf normalen Bildschirmen blass wirken. SDR wird gewählt, solange du das nicht aktivierst.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR-Video", "description": "Auto wählt HDR, wenn dieser Bildschirm es darstellen kann, sonst SDR. HDR wirkt auf normalen Bildschirmen blass.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

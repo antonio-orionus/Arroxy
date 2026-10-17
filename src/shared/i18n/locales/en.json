@@ -863,10 +863,10 @@
 			"nativeCompatible": {"label": "Stereo audio"},
 			"nativeSurround": {"label": "Surround audio when offered"},
 			"nativeSource": {"settings": "from Settings", "profile": "this profile"},
-			"hdrSdrFirst": {"label": "SDR before HDR", "reason": "looks right on any screen"},
-			"hdrFirst": {"label": "HDR before SDR", "reason": "richer colour on HDR screens"}
+			"hdrSdrFirst": {"label": "SDR before HDR", "reason": "looks right on any screen", "reasonScreen": "this screen isn't HDR"},
+			"hdrFirst": {"label": "HDR before SDR", "reason": "richer colour on HDR screens", "reasonScreen": "this screen shows HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "best picture", "smartTv": "plays on any device"}, "fileType": {"auto": "file type from the streams", "explicit": "saves as .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "HDR video", "description": "HDR can look washed out on regular screens. SDR is picked unless you turn this on.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR video", "description": "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens.", "sdr": "SDR", "hdr": "HDR", "auto": "Auto"}
 }

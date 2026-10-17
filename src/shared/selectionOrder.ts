@@ -6,7 +6,7 @@
 //   - the Interactive Download pick over a probe (`profileSelection.ts`),
 //   - the "Why this one" explanation the UI shows (the ranks themselves).
 
-import {DEFAULTS} from './constants.js'
+import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr, type HdrSource} from './hdrSetting.js'
 import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
 
 export type VideoRank =
@@ -58,11 +58,11 @@ export interface EffectiveNativeAudio {
 
 export interface EffectiveHdr {
 	preference: HdrPreference
-	source: NativeAudioSource
+	source: HdrSource
 }
 
-function effectiveHdr(choice: HdrChoice | undefined, globalPreference: HdrPreference): EffectiveHdr {
-	return choice?.kind === 'custom' ? {preference: choice.preference, source: 'profile'} : {preference: globalPreference, source: 'settings'}
+function effectiveHdr(choice: HdrChoice | undefined, global: GlobalHdr): EffectiveHdr {
+	return choice?.kind === 'custom' ? {preference: choice.preference, source: 'profile'} : asResolvedHdr(global)
 }
 
 export function effectiveNativeAudio(choice: NativeAudioChoice, globalPreference: NativeAudioPreference): EffectiveNativeAudio {
@@ -92,7 +92,7 @@ function audioRank(goal: VideoGoal, fileType: VideoFileType): AudioRank {
 	return {kind: 'native'}
 }
 
-export function selectionOrder(intent: VideoMediaIntent, globalPreference: NativeAudioPreference, globalHdr: HdrPreference = DEFAULTS.hdrPreference): SelectionOrder {
+export function selectionOrder(intent: VideoMediaIntent, globalPreference: NativeAudioPreference, globalHdr: GlobalHdr = DEFAULT_HDR_PREFERENCE): SelectionOrder {
 	const fileType = effectiveFileType(intent.goal, intent.fileType)
 	const withAudio = intent.kind === 'video-audio'
 	return {

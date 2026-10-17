@@ -913,10 +913,10 @@
 			"nativeCompatible": {"label": "Стереозвук"},
 			"nativeSurround": {"label": "Об’ємний звук, якщо доступний"},
 			"nativeSource": {"settings": "з Налаштувань", "profile": "цей профіль"},
-			"hdrSdrFirst": {"label": "SDR перед HDR", "reason": "виглядає правильно на будь-якому екрані"},
-			"hdrFirst": {"label": "HDR перед SDR", "reason": "насиченіші кольори на екранах HDR"}
+			"hdrSdrFirst": {"label": "SDR перед HDR", "reason": "виглядає правильно на будь-якому екрані", "reasonScreen": "цей екран не показує HDR"},
+			"hdrFirst": {"label": "HDR перед SDR", "reason": "насиченіші кольори на екранах HDR", "reasonScreen": "цей екран показує HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "найкраща картинка", "smartTv": "грає на будь-якому пристрої"}, "fileType": {"auto": "тип файлу за потоками", "explicit": "збережеться як .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Відео HDR", "description": "HDR може виглядати блякло на звичайних екранах. SDR обирається, доки ви не ввімкнете цю опцію.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Відео HDR", "description": "Авто вибирає HDR, якщо цей екран може його показати, інакше SDR. На звичайних екранах HDR виглядає блідим.", "sdr": "SDR", "hdr": "HDR", "auto": "Авто"}
 }

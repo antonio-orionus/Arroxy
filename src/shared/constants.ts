@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, UiStyle, NetworkPacingPreset, NativeAudioPreference, HdrPreference, HotkeyAccelerator} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, UiStyle, NetworkPacingPreset, NativeAudioPreference, HdrSetting, HotkeyAccelerator} from './schemas.js'
 import type {AppSettings} from './types.js'
 import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
@@ -27,7 +27,7 @@ export const DEFAULTS: {
 	uiTheme: UiTheme
 	uiStyle: UiStyle
 	nativeAudioPreference: NativeAudioPreference
-	hdrPreference: HdrPreference
+	hdrPreference: HdrSetting
 	hotkeyEnabled: boolean
 	hotkeyAccelerator: HotkeyAccelerator
 	embedChapters: boolean
@@ -46,7 +46,7 @@ export const DEFAULTS: {
 	uiTheme: 'system',
 	uiStyle: 'aurora',
 	nativeAudioPreference: 'compatible',
-	hdrPreference: 'sdr',
+	hdrPreference: 'auto',
 	embedChapters: true,
 	embedMetadata: true,
 	embedThumbnail: false,

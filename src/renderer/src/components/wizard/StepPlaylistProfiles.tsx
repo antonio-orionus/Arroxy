@@ -270,7 +270,7 @@ export function StepPlaylistProfiles(): ReactNode {
 					commonPaths={settings?.common?.commonPaths}
 					globalDestination={globalDestinationRoot}
 					globalNativeAudioPreference={settings?.common?.nativeAudioPreference}
-					globalHdrPreference={settings?.common?.hdrPreference}
+					globalHdrSetting={settings?.common?.hdrPreference}
 					initialProfile={editingProfile}
 					onChangeGlobalDestination={() => chooseWizardFolder()}
 					onOpenChange={open => {

@@ -4,7 +4,7 @@ import type {ParseKeys} from 'i18next'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, RotateCcw, Scissors, SlidersHorizontal, type LucideIcon} from 'lucide-react'
 import {DOWNLOAD_PROFILE_ICONS, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
-import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, HdrPreference, NativeAudioPreference, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, HdrSetting, NativeAudioPreference, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {canDraftEmbedThumbnail, createDownloadProfileDraft, defaultProfileSubfolderName, downloadProfileFromDraft, type DownloadProfileAudioQuality, type DownloadProfileDraftAction, type DownloadProfileMediaMode, updateDownloadProfileDraft, validateDownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
@@ -42,7 +42,7 @@ interface DownloadProfileEditorProps {
 	globalFilenameTemplate?: string
 	// Stereo or surround from Settings, shown as what "Use app setting" means.
 	globalNativeAudioPreference?: NativeAudioPreference
-	globalHdrPreference?: HdrPreference
+	globalHdrSetting?: HdrSetting
 	initialProfile?: DownloadProfile | null
 	onChangeGlobalDestination?: () => Promise<void> | void
 	onOpenChange: (open: boolean) => void
@@ -159,7 +159,7 @@ export function DownloadProfileEditor({
 	globalDestination = '',
 	globalFilenameTemplate = DEFAULTS.filenameTemplate,
 	globalNativeAudioPreference = DEFAULTS.nativeAudioPreference,
-	globalHdrPreference = DEFAULTS.hdrPreference,
+	globalHdrSetting = DEFAULTS.hdrPreference,
 	initialProfile = null,
 	onChangeGlobalDestination,
 	onOpenChange,
@@ -371,7 +371,7 @@ export function DownloadProfileEditor({
 							</Panel>
 
 							<div className="grid gap-3 sm:grid-cols-2">
-								{showVideo ? <ProfileVideoPanel draft={draft} globalNativeAudioPreference={globalNativeAudioPreference} globalHdrPreference={globalHdrPreference} onAction={updateDraft} /> : null}
+								{showVideo ? <ProfileVideoPanel draft={draft} globalNativeAudioPreference={globalNativeAudioPreference} globalHdrSetting={globalHdrSetting} onAction={updateDraft} /> : null}
 
 								{showAudio ? (
 									<Panel title={t('formatLabel.audioFallback')}>

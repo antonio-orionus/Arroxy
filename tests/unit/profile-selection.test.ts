@@ -292,6 +292,12 @@ describe('resolveProfileSelection: SDR or HDR first', () => {
 		expect(resolve(best('1080'), HDR_FORMATS, {hdrPreference: 'hdr'}).order?.hdr).toEqual({preference: 'hdr', source: 'settings'})
 	})
 
+	it('says the choice came from the screen when the app setting is Auto', () => {
+		const result = resolve(best('1080'), HDR_FORMATS, {hdrPreference: {preference: 'hdr', source: 'display'}})
+		expect(result.media.videoFormatId).toBe('h1080')
+		expect(result.order?.hdr).toEqual({preference: 'hdr', source: 'display'})
+	})
+
 	it('Smart TV keeps taking H.264 first; SDR only breaks ties after it', () => {
 		const smartTv = withMedia('balanced', {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		expect(resolve(smartTv, HDR_FORMATS).media.videoFormatId).toBe('s1080')

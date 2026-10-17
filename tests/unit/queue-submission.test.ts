@@ -413,7 +413,7 @@ describe('the Format screen file type reaches the queued job', () => {
 })
 
 describe('the HDR preference reaches the queued job', () => {
-	function sortFor(hdrPreference: 'sdr' | 'hdr' | undefined): string | undefined {
+	function sortFor(hdrPreference: 'auto' | 'sdr' | 'hdr' | undefined): string | undefined {
 		const settings = defaultAppSettings('/downloads')
 		if (hdrPreference === undefined) delete settings.common.hdrPreference
 		else settings.common.hdrPreference = hdrPreference
@@ -421,7 +421,7 @@ describe('the HDR preference reaches the queued job', () => {
 		return job?.kind === 'ranged-format' ? job.formatSort : undefined
 	}
 
-	it('asks for SDR first by default', () => {
+	it('asks for SDR first by default: Auto reads as SDR where there is no HDR screen', () => {
 		expect(sortFor('sdr')).toBe('res:720,fps,hdr:sdr')
 		expect(sortFor(undefined)).toBe('res:720,fps,hdr:sdr')
 	})

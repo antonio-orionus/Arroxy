@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "အလိုအလျောက်"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "HDR သည် ပုံမှန် မျက်နှာပြင်များတွင် အရောင်မှိန်နေသလို ထင်ရနိုင်သည်။ ဤအရာကို မဖွင့်ပါက SDR ကို ရွေးပါမည်။"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "ဤမျက်နှာပြင်က HDR ပြနိုင်လျှင် အလိုအလျောက်သည် HDR ကို ရွေးပြီး မပြနိုင်လျှင် SDR ကို ရွေးသည်။ ပုံမှန်မျက်နှာပြင်များတွင် HDR သည် အရောင်မှိန်ဖျော့နေသည်။"
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "HDR မျက်နှာပြင်တွင် အရောင်ပိုစုံ"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "ဤမျက်နှာပြင်က HDR ပြနိုင်"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "SDR ကို HDR ထက် ဦးစားပေး"
@@ -1302,6 +1310,10 @@ msgstr "SDR ကို HDR ထက် ဦးစားပေး"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "မည်သည့် မျက်နှာပြင်တွင်မဆို မှန်ကန်စွာ ပြသ"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "ဤမျက်နှာပြင်က HDR မပြနိုင်"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

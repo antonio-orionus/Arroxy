@@ -899,10 +899,10 @@
 			"nativeCompatible": {"label": "Áudio estéreo"},
 			"nativeSurround": {"label": "Áudio surround quando disponível"},
 			"nativeSource": {"settings": "das Configurações", "profile": "este perfil"},
-			"hdrSdrFirst": {"label": "SDR antes de HDR", "reason": "fica certo em qualquer tela"},
-			"hdrFirst": {"label": "HDR antes de SDR", "reason": "cores mais ricas em telas HDR"}
+			"hdrSdrFirst": {"label": "SDR antes de HDR", "reason": "fica certo em qualquer tela", "reasonScreen": "esta tela não exibe HDR"},
+			"hdrFirst": {"label": "HDR antes de SDR", "reason": "cores mais ricas em telas HDR", "reasonScreen": "esta tela exibe HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Vídeo HDR", "description": "O HDR pode parecer desbotado em telas comuns. O SDR é escolhido, a menos que você ative esta opção.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Vídeo HDR", "description": "Automática escolhe HDR se esta tela puder exibi-lo; caso contrário, SDR. O HDR fica desbotado em telas comuns.", "sdr": "SDR", "hdr": "HDR", "auto": "Automática"}
 }

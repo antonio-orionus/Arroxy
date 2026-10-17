@@ -1,5 +1,6 @@
 import {DEFAULTS} from '@shared/constants.js'
 import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, VideoGoal} from '@shared/types.js'
+import type {GlobalHdr} from '@shared/hdrSetting.js'
 import {effectiveFileType, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
@@ -247,7 +248,7 @@ function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['me
 
 // The order the draft would pick streams by, for the editor's summary and list.
 // Null when the draft has no video.
-export function draftSelectionOrder(draft: DownloadProfileDraft, globalNativeAudio: NativeAudioPreference, globalHdr: HdrPreference): SelectionOrder | null {
+export function draftSelectionOrder(draft: DownloadProfileDraft, globalNativeAudio: NativeAudioPreference, globalHdr: GlobalHdr): SelectionOrder | null {
 	const media = profileMediaFromDraft(draft)
 	return media.kind === 'video-audio' || media.kind === 'video-only' ? selectionOrder(media, globalNativeAudio, globalHdr) : null
 }

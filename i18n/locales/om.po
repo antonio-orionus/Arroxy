@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Ofumaa"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "HDR iskiriinii idilee irratti halluun isaa dhabamee mul'achuu danda'a. Yoo kana hin banne, SDR filatama."
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Ofumaa yoo iskiriinii kun HDR agarsiisuu danda'e HDR filata, yoo hin dandeenye SDR filata. HDR iskiriinii idilee irratti halluu dhabee mul'ata."
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "iskiriinii HDR irratti halluu badhaadhaa"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "iskiriinii kun HDR ni agarsiisa"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "SDR HDR dura"
@@ -1302,6 +1310,10 @@ msgstr "SDR HDR dura"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "iskiriinii kamiyyuu irratti sirriitti mul'ata"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "iskiriinii kun HDR hin agarsiisu"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

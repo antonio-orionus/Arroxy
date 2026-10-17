@@ -1,5 +1,5 @@
 import type {AudioConvert, DownloadProfileMedia, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, VideoFileType, VideoMediaIntent} from './schemas.js'
-import {DEFAULTS} from './constants.js'
+import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
@@ -82,7 +82,7 @@ export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaI
 // Maps media intent to yt-dlp arguments per URL.
 // Uses -S (sort) for resolution, codec, and container preferences so yt-dlp can
 // degrade gracefully to the closest available format.
-export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: NativeAudioPreference = 'compatible', hdrPreference: HdrPreference = DEFAULTS.hdrPreference): MediaIntentSpec {
+export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: NativeAudioPreference = 'compatible', hdrPreference: HdrPreference = DEFAULT_HDR_PREFERENCE): MediaIntentSpec {
 	switch (intent.kind) {
 		case 'audio-only':
 			return audioOnlyIntentSpec(intent, nativeAudioPreference)

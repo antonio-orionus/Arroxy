@@ -28,6 +28,7 @@ import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
 import {resolveOutputContainer} from './resolveContainer.js'
+import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolveJobFilenameTemplate, singleTemplateMeta, templateOwnsDirs} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
@@ -176,7 +177,7 @@ function buildPlaylistQueueItem(entry: PlaylistEntry, state: AppState, playlistG
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
+	const hdrPreference = resolveAppHdr(state.settings?.common?.hdrPreference).preference
 	const job = prepareJob({mode: 'playlist', extractor: state.wizardExtractor, extractorKey: state.wizardExtractorKey, playlistSelection, nativeAudioPreference, hdrPreference, filenameTemplate, sponsorBlockMode: state.wizardSponsorBlockMode, sponsorBlockCategories: state.wizardSponsorBlockCategories, embed})
 	// An .m3u lists media files; a subtitles batch writes none.
 	const writeM3u = state.wizardMode === 'playlist' && playlistSelection.kind !== 'subtitles' && state.wizardWriteM3u && canWriteM3u(undefined, state.settings?.common?.filenameTemplate)
@@ -308,7 +309,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 	const profiles = allDownloadProfiles(state.settings?.profiles)
 	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
+	const hdrPreference = resolveAppHdr(state.settings?.common?.hdrPreference).preference
 	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
 	const items = selected.map((entry, index) => {
@@ -429,7 +430,7 @@ export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile
 export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane, source: {url: string; playlistTitle: string}, pinned: PinnedDownloadProfile = pinActiveDownloadProfile(state)): PreparedQueueSubmission | null {
 	const {profile, ref} = resolveChosenDownloadProfile(pinned.ref, state.settings?.profiles)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const hdrPreference = state.settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
+	const hdrPreference = resolveAppHdr(state.settings?.common?.hdrPreference).preference
 	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference, hdrPreference)
 	const {outputContext} = pinned
 	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)

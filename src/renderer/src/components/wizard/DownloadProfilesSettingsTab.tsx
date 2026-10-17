@@ -2,9 +2,9 @@ import {useEffect, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, FileArchive, FileText, Gauge} from 'lucide-react'
 import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
-import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, NATIVE_AUDIO_PREFERENCES, UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
+import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, HDR_SETTINGS, NATIVE_AUDIO_PREFERENCES, UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
-import type {CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
+import type {CookiesBrowser, CookiesMode, HdrSetting, NativeAudioPreference} from '@shared/types.js'
 import {BASE_STYLE, STYLES} from '../../styles/registry.js'
 import {selectBackdropAvailability} from '../../store/uiSlice.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
@@ -48,6 +48,8 @@ const COOKIES_FIREFOX_URL = 'https://addons.mozilla.org/en-US/firefox/addon/cook
 const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc'
 
 const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
+
+const HDR_LABEL_KEYS = {auto: 'hdrPreference.auto', sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrSetting, string>
 
 // Shared shape for the two numeric transport settings. Keeps its own draft so
 // typing is not fought by the persisted value; on blur an out-of-range entry
@@ -143,6 +145,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	const showMissingBrowserWarning = cookiesMode === 'browser' && !cookiesBrowser
 	const limitRate = common?.limitRate?.trim() ? common.limitRate : undefined
 	const nativeAudioPreference = common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
+	const hdrPreference = common?.hdrPreference ?? DEFAULTS.hdrPreference
 	const backdropAvailability = useAppStore(selectBackdropAvailability)
 	const styleFallsBack = STYLES[uiStyle].backdrop !== null && backdropAvailability === 'blocked'
 
@@ -381,7 +384,29 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 						</ToggleGroup>
 					</Field>
 
-					<SettingSwitch id="profiles-settings-hdr" label={t('hdrPreference.label')} description={t('hdrPreference.description')} checked={(common?.hdrPreference ?? DEFAULTS.hdrPreference) === 'hdr'} onCheckedChange={checked => void setHdrPreference(checked ? 'hdr' : 'sdr')} testId="hdr-preference" />
+					<Field className="gap-2" data-testid="hdr-preference">
+						<FieldContent className="gap-0.5">
+							<FieldTitle id="profiles-settings-hdr">{t('hdrPreference.label')}</FieldTitle>
+							<FieldDescription>{t('hdrPreference.description')}</FieldDescription>
+						</FieldContent>
+						<ToggleGroup
+							size="sm"
+							variant="outline"
+							value={[hdrPreference]}
+							onValueChange={value => {
+								if (value[0]) void setHdrPreference(value[0] as HdrSetting)
+							}}
+							spacing={1}
+							className="flex w-full flex-wrap gap-1"
+							aria-labelledby="profiles-settings-hdr"
+						>
+							{HDR_SETTINGS.map(option => (
+								<ToggleGroupItem key={option} value={option} data-testid={`hdr-preference-${option}`}>
+									{t(HDR_LABEL_KEYS[option])}
+								</ToggleGroupItem>
+							))}
+						</ToggleGroup>
+					</Field>
 
 					<FilenameTemplateField value={filenameTemplate} onChange={value => void setFilenameTemplate(value)} error={filenameTemplateError} label={t('filenameTemplate.label')} description={t('filenameTemplate.description')} placeholder={DEFAULTS.filenameTemplate} testId="filename-template-input" />
 

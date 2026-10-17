@@ -835,10 +835,10 @@
 			"nativeCompatible": {"label": "ስቴሪዮ ድምጽ"},
 			"nativeSurround": {"label": "ሲገኝ surround ድምጽ"},
 			"nativeSource": {"settings": "ከቅንብሮች", "profile": "ይህ መገለጫ"},
-			"hdrSdrFirst": {"label": "SDR ከHDR በፊት", "reason": "በማንኛውም ስክሪን ላይ ትክክል ይመስላል"},
-			"hdrFirst": {"label": "HDR ከSDR በፊት", "reason": "በHDR ስክሪኖች ላይ የበለጸገ ቀለም"}
+			"hdrSdrFirst": {"label": "SDR ከHDR በፊት", "reason": "በማንኛውም ስክሪን ላይ ትክክል ይመስላል", "reasonScreen": "ይህ ስክሪን HDR አያሳይም"},
+			"hdrFirst": {"label": "HDR ከSDR በፊት", "reason": "በHDR ስክሪኖች ላይ የበለጸገ ቀለም", "reasonScreen": "ይህ ስክሪን HDR ያሳያል"}
 		},
 		"summary": {"goal": {"bestPicture": "ምርጥ ምስል", "smartTv": "በማንኛውም መሣሪያ ይጫወታል"}, "fileType": {"auto": "የፋይል አይነት ከዥረቶቹ", "explicit": "እንደ .{{ext}} ይቀመጣል"}}
 	},
-	"hdrPreference": {"label": "HDR ቪዲዮ", "description": "HDR በተራ ስክሪኖች ላይ የደበዘዘ ሊመስል ይችላል። ይህን ካላበሩት SDR ይመረጣል።", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "HDR ቪዲዮ", "description": "ራስ-ሰር ይህ ስክሪን HDR ማሳየት ከቻለ HDRን ይመርጣል፣ ካልቻለ ደግሞ SDRን። HDR በተለመዱ ስክሪኖች ላይ የደበዘዘ ይመስላል።", "sdr": "SDR", "hdr": "HDR", "auto": "ራስ-ሰር"}
 }

@@ -436,12 +436,12 @@ describe('settings and recent stores', () => {
 			return JSON.stringify({...baseDefaults, common: {...common, ...extra}})
 		}
 
-		it('a fresh install starts on SDR', async () => {
+		it('a fresh install starts on Auto', async () => {
 			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-hdr-fresh-'))
 
 			const store = new SettingsStore(userData, baseDefaults)
 
-			expect(store.getSync().common.hdrPreference).toBe('sdr')
+			expect(store.getSync().common.hdrPreference).toBe('auto')
 		})
 
 		it('an install saved before the setting existed keeps HDR first, so no download changes', async () => {

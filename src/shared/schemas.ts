@@ -57,6 +57,11 @@ export const hdrPreferenceSchema = z.enum(['sdr', 'hdr'])
 export type HdrPreference = z.infer<typeof hdrPreferenceSchema>
 export const HDR_PREFERENCES = hdrPreferenceSchema.options
 
+// The app-wide setting adds `auto`: HDR first only when this screen shows HDR.
+export const hdrSettingSchema = z.enum(['auto', 'sdr', 'hdr'])
+export type HdrSetting = z.infer<typeof hdrSettingSchema>
+export const HDR_SETTINGS = hdrSettingSchema.options
+
 // Global + profile override, like the save folder and the file name: `default`
 // follows Settings, `custom` is this profile's own choice.
 export const nativeAudioChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), preference: nativeAudioPreferenceSchema})])
@@ -677,7 +682,7 @@ const commonSettingsSchema = z.object({
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.
 	exploreCompactChrome: z.boolean().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),
-	hdrPreference: hdrPreferenceSchema.optional(),
+	hdrPreference: hdrSettingSchema.optional(),
 	limitRate: limitRateSchema.optional(),
 	playlistProbeLimit: playlistProbeLimitSchema.optional(),
 	networkPacingPreset: networkPacingPresetSchema.optional(),

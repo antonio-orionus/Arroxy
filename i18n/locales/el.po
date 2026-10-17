@@ -559,9 +559,13 @@ msgctxt "formatLabel.videoDot"
 msgid "{{resolution}} · {{audio}}"
 msgstr "{{resolution}} · {{audio}}"
 
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Αυτόματο"
+
 msgctxt "hdrPreference.description"
-msgid "HDR can look washed out on regular screens. SDR is picked unless you turn this on."
-msgstr "Το HDR μπορεί να δείχνει ξεθωριασμένο σε κανονικές οθόνες. Επιλέγεται το SDR, εκτός αν το ενεργοποιήσετε."
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Το Αυτόματο επιλέγει HDR όταν αυτή η οθόνη μπορεί να το εμφανίσει, αλλιώς SDR. Το HDR φαίνεται ξεθωριασμένο σε συνηθισμένες οθόνες."
 
 msgctxt "hdrPreference.hdr"
 msgid "HDR"
@@ -1295,6 +1299,10 @@ msgctxt "selectionOrder.rank.hdrFirst.reason"
 msgid "richer colour on HDR screens"
 msgstr "πιο πλούσια χρώματα σε οθόνες HDR"
 
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "αυτή η οθόνη εμφανίζει HDR"
+
 msgctxt "selectionOrder.rank.hdrSdrFirst.label"
 msgid "SDR before HDR"
 msgstr "SDR πριν από HDR"
@@ -1302,6 +1310,10 @@ msgstr "SDR πριν από HDR"
 msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
 msgid "looks right on any screen"
 msgstr "φαίνεται σωστό σε κάθε οθόνη"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "αυτή η οθόνη δεν είναι HDR"
 
 msgctxt "selectionOrder.rank.mp4Streams.label"
 msgid "MP4 streams"

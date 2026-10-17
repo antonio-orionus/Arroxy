@@ -905,10 +905,10 @@
 			"nativeCompatible": {"label": "Стереозвук"},
 			"nativeSurround": {"label": "Объёмный звук, если доступен"},
 			"nativeSource": {"settings": "из настроек", "profile": "этот профиль"},
-			"hdrSdrFirst": {"label": "SDR перед HDR", "reason": "выглядит правильно на любом экране"},
-			"hdrFirst": {"label": "HDR перед SDR", "reason": "более насыщенные цвета на экранах HDR"}
+			"hdrSdrFirst": {"label": "SDR перед HDR", "reason": "выглядит правильно на любом экране", "reasonScreen": "этот экран не показывает HDR"},
+			"hdrFirst": {"label": "HDR перед SDR", "reason": "более насыщенные цвета на экранах HDR", "reasonScreen": "этот экран показывает HDR"}
 		},
 		"summary": {"goal": {"bestPicture": "лучшая картинка", "smartTv": "играет на любом устройстве"}, "fileType": {"auto": "тип файла по потокам", "explicit": "сохранится как .{{ext}}"}}
 	},
-	"hdrPreference": {"label": "Видео HDR", "description": "HDR может выглядеть блёклым на обычных экранах. SDR выбирается, пока вы не включите эту опцию.", "sdr": "SDR", "hdr": "HDR"}
+	"hdrPreference": {"label": "Видео HDR", "description": "Авто выбирает HDR, если этот экран может его показать, иначе SDR. На обычных экранах HDR выглядит блёклым.", "sdr": "SDR", "hdr": "HDR", "auto": "Авто"}
 }
