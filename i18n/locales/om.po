@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Haaromsaa jira…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "Boqonnaa {{count}}"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "Boqonnaalee {{count}}"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Fe'amaa jira…"
@@ -2392,6 +2400,106 @@ msgstr "Thumbnail .jpg faayilii suuraa ta'ee daawniloodii cinaa ni kuusa."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail kuusi"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Boqonnaalee"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Boqonnaa {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Kutaan ffmpeg-n buufata, kanaaf walitti hidhamiinsi buufataa fi qindaa'inni saffisaa isaaf hin hojjetu."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Dura jalqaba fi xumura kutaa sirreessi."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Xumura"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Viidiyoon {{duration}} irratti xumurama."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Xumura akka h:mm:ss, m:ss ykn sekoondiitti galchi."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Jalqaba akka h:mm:ss, m:ss ykn sekoondiitti galchi."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Jalqabni xumura dura ta'uu qaba."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Cufaa: muruun hunduu keyframe isa dhiyoo irratti kufa, kunis yeroo ati barreessite irraa sekoondii muraasa fagaachuu danda'a."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Muruu sirrii (deebisee koodii godha, suuta)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} kan {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Kutaa"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Kutaa viidiyoo"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Jalqaba"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "viidiyoo guutuu"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Kutaa {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Viidiyoo kan hammam"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss ykn sekoondii"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Kutaa, tilmaamaan"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Viidiyoon kun dheerina isaa hin mul'isu, kanaaf guutuu isaa qofa buufachuun danda'ama."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Axxiinniin yeroo hunda viidiyoo guutuu haguuga."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Liinkiin kee {{time}} irratti jalqaba"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Akka jalqabaatti fayyadami"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Viidiyoo guutuu"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

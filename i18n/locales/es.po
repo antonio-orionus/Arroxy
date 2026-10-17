@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Actualizando…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} capítulo"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} capítulos"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Cargando…"
@@ -2392,6 +2400,106 @@ msgstr "Guarda la miniatura como archivo .jpg junto a la descarga."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Guardar miniatura"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Capítulos"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Capítulo {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Una parte se descarga con ffmpeg, así que tus conexiones de descarga y los ajustes de ritmo no se aplican."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Primero corrige el inicio y el fin de la parte."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Fin"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "El vídeo termina en {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Escribe el fin como h:mm:ss, m:ss o segundos."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Escribe el inicio como h:mm:ss, m:ss o segundos."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "El inicio debe ser anterior al fin."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Desactivado: cada corte cae en el fotograma clave más cercano, que puede estar a unos segundos del tiempo que escribiste."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Corte exacto (recodifica, más lento)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} de {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Parte"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Parte del vídeo"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Inicio"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "vídeo completo"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Parte {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Qué parte del vídeo"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss o segundos"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Parte, estimado"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Este vídeo no indica su duración, así que solo se puede descargar completo."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Los subtítulos siempre abarcan todo el vídeo."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Tu enlace empieza en {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Usar como inicio"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Vídeo completo"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

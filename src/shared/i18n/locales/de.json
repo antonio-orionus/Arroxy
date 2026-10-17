@@ -579,9 +579,32 @@
 				"smartTv": {"name": "Smart-TV", "tag": "MP4 · H.264", "description": "Läuft auf Fernsehern, Handys, WhatsApp, QuickTime und Videoeditoren. YouTube bietet H.264 nur bis 1080p."}
 			},
 			"appSetting": "App-Einstellung verwenden ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Wie viel vom Video",
+			"whole": "Ganzes Video",
+			"part": "Ausschnitt",
+			"unavailableSubtitles": "Untertitel decken immer das ganze Video ab.",
+			"unavailableDuration": "Dieses Video meldet seine Länge nicht, daher kann es nur komplett heruntergeladen werden.",
+			"rangeLabel": "Ausschnitt des Videos",
+			"start": "Start",
+			"end": "Ende",
+			"timeHint": "h:mm:ss, m:ss oder Sekunden",
+			"length": "{{length}} von {{duration}}",
+			"chapters": "Kapitel",
+			"chapterUntitled": "Kapitel {{number}}",
+			"exactCut": {"label": "Exakter Schnitt (neu kodiert, langsamer)", "hint": "Aus: Jeder Schnitt landet am nächstgelegenen Keyframe, der einige Sekunden von der eingegebenen Zeit entfernt sein kann."},
+			"connectionsNote": "Ein Ausschnitt wird über ffmpeg heruntergeladen, daher gelten deine Download-Verbindungen und Pausen-Einstellungen dafür nicht.",
+			"urlStart": "Dein Link beginnt bei {{time}}",
+			"useUrlStart": "Als Start verwenden",
+			"error": {"startInvalid": "Gib den Start als h:mm:ss, m:ss oder Sekunden ein.", "endInvalid": "Gib das Ende als h:mm:ss, m:ss oder Sekunden ein.", "startNotBeforeEnd": "Der Start muss vor dem Ende liegen.", "endBeyondDuration": "Das Video endet bei {{duration}}."},
+			"downloadBlocked": "Korrigiere zuerst Start und Ende des Ausschnitts.",
+			"totalEstimate": "Ausschnitt, geschätzt",
+			"summary": "Ausschnitt {{start}}–{{end}}",
+			"subtitlesFullLength": "ganzes Video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Wird geladen…"},
+	"videoCard": {"titlePlaceholder": "Wird geladen…", "chapters_one": "{{count}} Kapitel", "chapters_other": "{{count}} Kapitel"},
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",

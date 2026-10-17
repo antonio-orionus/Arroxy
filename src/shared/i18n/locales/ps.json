@@ -579,9 +579,32 @@
 				"smartTv": {"name": "سمارټ TV", "tag": "MP4 · H.264", "description": "په تلویزیونونو، تلیفونونو، WhatsApp، QuickTime او ویډیو اډیټرونو کې چلیږي. YouTube یوازې تر 1080p پورې H.264 وړاندې کوي."}
 			},
 			"appSetting": "د اپ امستنه وکاروئ ({{value}})"
+		},
+		"part": {
+			"switchLabel": "د ویډیو څومره برخه",
+			"whole": "ټوله ویډیو",
+			"part": "برخه",
+			"unavailableSubtitles": "ژباړلیکونه تل ټوله ویډیو پوښي.",
+			"unavailableDuration": "دا ویډیو خپل اوږدوالی نه راپور کوي، نو یوازې ټوله ډاونلوډ کېدی شي.",
+			"rangeLabel": "د ویډیو برخه",
+			"start": "پیل",
+			"end": "پای",
+			"timeHint": "h:mm:ss، m:ss یا ثانیې",
+			"length": "{{length}} له {{duration}} څخه",
+			"chapters": "فصلونه",
+			"chapterUntitled": "فصل {{number}}",
+			"exactCut": {"label": "دقیق پرې کول (بیا کوډ کوي، ورو)", "hint": "بند: هر پرې کول نږدې کیفریم ته رسېږي، چې ممکن له هغه وخت څخه څو ثانیې لرې وي چې تاسو لیکلی."},
+			"connectionsNote": "یوه برخه د ffmpeg له لارې ډاونلوډېږي، نو ستاسو د ډاونلوډ ارتباطات او د سرعت تنظیمات پرې نه تطبیقېږي.",
+			"urlStart": "ستاسو لینک په {{time}} پیلېږي",
+			"useUrlStart": "د پیل په توګه یې وکاروه",
+			"error": {"startInvalid": "پیل د h:mm:ss، m:ss یا ثانیو په بڼه ولیکئ.", "endInvalid": "پای د h:mm:ss، m:ss یا ثانیو په بڼه ولیکئ.", "startNotBeforeEnd": "پیل باید له پای مخکې وي.", "endBeyondDuration": "ویډیو په {{duration}} کې پای ته رسېږي."},
+			"downloadBlocked": "لومړی د برخې پیل او پای سم کړئ.",
+			"totalEstimate": "برخه، اټکل شوی",
+			"summary": "برخه {{start}}–{{end}}",
+			"subtitlesFullLength": "ټوله ویډیو"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "بارول…"},
+	"videoCard": {"titlePlaceholder": "بارول…", "chapters_one": "{{count}} فصل", "chapters_other": "{{count}} فصلونه"},
 	"queue": {
 		"header": "ډاونلوډونه",
 		"tabLabel": "ډاونلوډونه",

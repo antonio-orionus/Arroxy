@@ -579,9 +579,32 @@
 				"smartTv": {"name": "Смарт-ТВ", "tag": "MP4 · H.264", "description": "Играет на телевизорах, телефонах, в WhatsApp, QuickTime и видеоредакторах. YouTube отдаёт H.264 только до 1080p."}
 			},
 			"appSetting": "Настройка приложения ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Какая часть видео",
+			"whole": "Всё видео",
+			"part": "Фрагмент",
+			"unavailableSubtitles": "Субтитры всегда охватывают всё видео.",
+			"unavailableDuration": "Это видео не сообщает свою длительность, поэтому его можно скачать только целиком.",
+			"rangeLabel": "Фрагмент видео",
+			"start": "Начало",
+			"end": "Конец",
+			"timeHint": "h:mm:ss, m:ss или секунды",
+			"length": "{{length}} из {{duration}}",
+			"chapters": "Главы",
+			"chapterUntitled": "Глава {{number}}",
+			"exactCut": {"label": "Точная обрезка (перекодирование, медленнее)", "hint": "Выкл.: каждый разрез приходится на ближайший ключевой кадр, который может отстоять на несколько секунд от введённого времени."},
+			"connectionsNote": "Фрагмент скачивается через ffmpeg, поэтому настройки подключений загрузки и темпа на него не действуют.",
+			"urlStart": "Ваша ссылка начинается с {{time}}",
+			"useUrlStart": "Использовать как начало",
+			"error": {"startInvalid": "Укажите начало в формате h:mm:ss, m:ss или секундами.", "endInvalid": "Укажите конец в формате h:mm:ss, m:ss или секундами.", "startNotBeforeEnd": "Начало должно быть раньше конца.", "endBeyondDuration": "Видео заканчивается на {{duration}}."},
+			"downloadBlocked": "Сначала исправьте начало и конец фрагмента.",
+			"totalEstimate": "Фрагмент, оценка",
+			"summary": "Фрагмент {{start}}–{{end}}",
+			"subtitlesFullLength": "всё видео"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Загрузка…"},
+	"videoCard": {"titlePlaceholder": "Загрузка…", "chapters_one": "{{count}} глава", "chapters_other": "{{count}} глав"},
 	"queue": {
 		"header": "Загрузки",
 		"tabLabel": "Загрузки",

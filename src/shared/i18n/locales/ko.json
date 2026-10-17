@@ -550,9 +550,32 @@
 				"smartTv": {"name": "스마트 TV", "tag": "MP4 · H.264", "description": "TV, 휴대폰, WhatsApp, QuickTime, 영상 편집기에서 재생됩니다. YouTube는 H.264를 1080p까지만 제공합니다."}
 			},
 			"appSetting": "앱 설정 사용 ({{value}})"
+		},
+		"part": {
+			"switchLabel": "동영상 범위",
+			"whole": "전체 동영상",
+			"part": "일부",
+			"unavailableSubtitles": "자막은 항상 전체 동영상에 적용됩니다.",
+			"unavailableDuration": "이 동영상은 길이 정보를 제공하지 않아 전체만 다운로드할 수 있습니다.",
+			"rangeLabel": "동영상의 일부",
+			"start": "시작",
+			"end": "종료",
+			"timeHint": "h:mm:ss, m:ss 또는 초",
+			"length": "{{duration}} 중 {{length}}",
+			"chapters": "챕터",
+			"chapterUntitled": "챕터 {{number}}",
+			"exactCut": {"label": "정확한 자르기(재인코딩, 느림)", "hint": "꺼짐: 각 자르기는 가장 가까운 키프레임에서 이루어지므로 입력한 시간과 몇 초 차이가 날 수 있습니다."},
+			"connectionsNote": "일부 다운로드는 ffmpeg를 통해 진행되므로 다운로드 연결 및 속도 조절 설정이 적용되지 않습니다.",
+			"urlStart": "링크는 {{time}}에서 시작합니다",
+			"useUrlStart": "시작 시간으로 사용",
+			"error": {"startInvalid": "시작 시간을 h:mm:ss, m:ss 또는 초로 입력하세요.", "endInvalid": "종료 시간을 h:mm:ss, m:ss 또는 초로 입력하세요.", "startNotBeforeEnd": "시작은 종료보다 앞이어야 합니다.", "endBeyondDuration": "동영상은 {{duration}}에 끝납니다."},
+			"downloadBlocked": "먼저 일부의 시작과 종료를 수정하세요.",
+			"totalEstimate": "일부, 예상",
+			"summary": "일부 {{start}}–{{end}}",
+			"subtitlesFullLength": "전체 동영상"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "불러오는 중…"},
+	"videoCard": {"titlePlaceholder": "불러오는 중…", "chapters_one": "{{count}}개 챕터", "chapters_other": "{{count}}개 챕터"},
 	"queue": {
 		"header": "다운로드",
 		"tabLabel": "다운로드",

@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "アップグレード中…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} チャプター"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} チャプター"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "読み込み中…"
@@ -2392,6 +2400,106 @@ msgstr "サムネイルを .jpg 画像ファイルとしてダウンロードの
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "サムネイルを保存"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "チャプター"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "チャプター {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "一部のダウンロードは ffmpeg を使うため、ダウンロード接続数とペース設定は適用されません。"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "先に一部の開始と終了を修正してください。"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "終了"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "この動画は {{duration}} で終わります。"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "終了時刻を h:mm:ss、m:ss、または秒数で入力してください。"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "開始時刻を h:mm:ss、m:ss、または秒数で入力してください。"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "開始は終了より前にしてください。"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "オフ：各カットは最も近いキーフレームで切られるため、入力した時刻から数秒ずれることがあります。"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "正確なカット（再エンコード、低速）"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}}のうち{{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "一部"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "動画の一部"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "開始"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "動画全体"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "一部 {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "動画の範囲"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss、m:ss、または秒数"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "一部（推定）"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "この動画は長さの情報がないため、全体のみダウンロードできます。"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "字幕は常に動画全体が対象です。"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "リンクの開始位置は {{time}} です"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "開始位置に使う"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "動画全体"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

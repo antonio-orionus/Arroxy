@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "အဆင့်မြှင့်နေသည်…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "အခန်းကန့် {{count}} ခု"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "အခန်းကန့် {{count}} ခု"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "ဖွင့်နေသည်…"
@@ -2392,6 +2400,106 @@ msgstr "Thumbnail ကို ဒေါင်းလုဒ်နဘေးတွင�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Thumbnail သိမ်းမည်"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "အခန်းကန့်များ"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "အခန်းကန့် {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "အပိုင်းတစ်ခုကို ffmpeg ဖြင့် ဒေါင်းလုဒ်လုပ်သဖြင့် သင်၏ ဒေါင်းလုဒ် ချိတ်ဆက်မှုများနှင့် အရှိန်ထိန်း ဆက်တင်များ မသက်ရောက်ပါ။"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "အပိုင်း၏ စတင်ချိန်နှင့် ပြီးဆုံးချိန်ကို အရင်ပြင်ပါ။"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "ပြီးဆုံးချိန်"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "ဗီဒီယိုသည် {{duration}} တွင် ပြီးဆုံးသည်။"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "ပြီးဆုံးချိန်ကို h:mm:ss၊ m:ss သို့မဟုတ် စက္ကန့်ဖြင့် ထည့်ပါ။"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "စတင်ချိန်ကို h:mm:ss၊ m:ss သို့မဟုတ် စက္ကန့်ဖြင့် ထည့်ပါ။"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "စတင်ချိန်သည် ပြီးဆုံးချိန်ထက် ရှေ့တွင်ရှိရမည်။"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "ပိတ်ထားလျှင်: ဖြတ်တောက်မှုတိုင်းသည် အနီးဆုံး keyframe တွင် ကျသဖြင့် သင်ရိုက်ထည့်သည့်အချိန်နှင့် စက္ကန့်အနည်းငယ် ကွာနိုင်သည်။"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "တိကျစွာဖြတ်ခြင်း (ပြန်လည် encode လုပ်သည်၊ ပိုနှေးသည်)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}} မှ {{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "အပိုင်း"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "ဗီဒီယို၏ အပိုင်း"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "စတင်ချိန်"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "ဗီဒီယိုတစ်ခုလုံး"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "အပိုင်း {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "ဗီဒီယိုမည်မျှ"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss၊ m:ss သို့မဟုတ် စက္ကန့်"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "အပိုင်း၊ ခန့်မှန်း"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "ဤဗီဒီယိုသည် ၎င်း၏ကြာချိန်ကို မပြောပြသဖြင့် တစ်ခုလုံးကိုသာ ဒေါင်းလုဒ်လုပ်နိုင်သည်။"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "စာတန်းထိုးများသည် ဗီဒီယိုတစ်ခုလုံးကို အမြဲကာမိသည်။"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "သင့်လင့်ခ်သည် {{time}} မှ စတင်သည်"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "စတင်ချိန်အဖြစ် သုံးမည်"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "ဗီဒီယိုတစ်ခုလုံး"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

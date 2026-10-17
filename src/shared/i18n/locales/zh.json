@@ -518,9 +518,32 @@
 			"advanced": "高级",
 			"goal": {"bestPicture": {"name": "最佳画质", "tag": "AV1 · VP9", "description": "相同大小下最清晰。较旧的电视、QuickTime 和部分编辑器无法播放。"}, "smartTv": {"name": "智能电视", "tag": "MP4 · H.264", "description": "可在电视、手机、WhatsApp、QuickTime 和视频编辑器中播放。YouTube 仅在 1080p 及以下提供 H.264。"}},
 			"appSetting": "使用应用设置（{{value}}）"
+		},
+		"part": {
+			"switchLabel": "下载多少视频",
+			"whole": "整个视频",
+			"part": "片段",
+			"unavailableSubtitles": "字幕始终覆盖整个视频。",
+			"unavailableDuration": "此视频未提供时长，因此只能整个下载。",
+			"rangeLabel": "视频片段",
+			"start": "开始",
+			"end": "结束",
+			"timeHint": "h:mm:ss、m:ss 或秒数",
+			"length": "{{duration}} 中的 {{length}}",
+			"chapters": "章节",
+			"chapterUntitled": "章节 {{number}}",
+			"exactCut": {"label": "精确剪辑（重新编码，较慢）", "hint": "关闭时，每个剪辑点会落在最近的关键帧上，可能与您输入的时间相差几秒。"},
+			"connectionsNote": "片段通过 ffmpeg 下载，因此您的下载连接数和节奏设置不适用于片段。",
+			"urlStart": "您的链接从 {{time}} 开始",
+			"useUrlStart": "用作开始时间",
+			"error": {"startInvalid": "请以 h:mm:ss、m:ss 或秒数输入开始时间。", "endInvalid": "请以 h:mm:ss、m:ss 或秒数输入结束时间。", "startNotBeforeEnd": "开始时间必须早于结束时间。", "endBeyondDuration": "视频在 {{duration}} 结束。"},
+			"downloadBlocked": "请先修正片段的开始和结束时间。",
+			"totalEstimate": "片段，预估",
+			"summary": "片段 {{start}}–{{end}}",
+			"subtitlesFullLength": "整个视频"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "加载中…"},
+	"videoCard": {"titlePlaceholder": "加载中…", "chapters_one": "{{count}} 个章节", "chapters_other": "{{count}} 个章节"},
 	"queue": {
 		"header": "下载",
 		"tabLabel": "下载",

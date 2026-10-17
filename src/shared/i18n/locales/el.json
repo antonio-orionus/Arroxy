@@ -582,9 +582,32 @@
 				"smartTv": {"name": "Έξυπνη TV", "tag": "MP4 · H.264", "description": "Παίζει σε τηλεοράσεις, κινητά, WhatsApp, QuickTime και προγράμματα επεξεργασίας βίντεο. Το YouTube προσφέρει H.264 μόνο έως 1080p."}
 			},
 			"appSetting": "Χρήση ρύθμισης εφαρμογής ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Πόσο από το βίντεο",
+			"whole": "Ολόκληρο βίντεο",
+			"part": "Τμήμα",
+			"unavailableSubtitles": "Οι υπότιτλοι καλύπτουν πάντα ολόκληρο το βίντεο.",
+			"unavailableDuration": "Αυτό το βίντεο δεν αναφέρει τη διάρκειά του, οπότε μπορεί να ληφθεί μόνο ολόκληρο.",
+			"rangeLabel": "Τμήμα του βίντεο",
+			"start": "Αρχή",
+			"end": "Τέλος",
+			"timeHint": "h:mm:ss, m:ss ή δευτερόλεπτα",
+			"length": "{{length}} από {{duration}}",
+			"chapters": "Κεφάλαια",
+			"chapterUntitled": "Κεφάλαιο {{number}}",
+			"exactCut": {"label": "Ακριβής κοπή (επανακωδικοποίηση, πιο αργή)", "hint": "Ανενεργό: κάθε κοπή καταλήγει στο πλησιέστερο keyframe, που μπορεί να απέχει μερικά δευτερόλεπτα από την ώρα που πληκτρολόγησες."},
+			"connectionsNote": "Ένα τμήμα λαμβάνεται μέσω ffmpeg, οπότε οι συνδέσεις λήψης και οι ρυθμίσεις ρυθμού αιτημάτων δεν ισχύουν γι' αυτό.",
+			"urlStart": "Ο σύνδεσμός σου ξεκινά στο {{time}}",
+			"useUrlStart": "Χρήση ως αρχή",
+			"error": {"startInvalid": "Εισήγαγε την αρχή ως h:mm:ss, m:ss ή δευτερόλεπτα.", "endInvalid": "Εισήγαγε το τέλος ως h:mm:ss, m:ss ή δευτερόλεπτα.", "startNotBeforeEnd": "Η αρχή πρέπει να προηγείται του τέλους.", "endBeyondDuration": "Το βίντεο τελειώνει στο {{duration}}."},
+			"downloadBlocked": "Διόρθωσε πρώτα την αρχή και το τέλος του τμήματος.",
+			"totalEstimate": "Τμήμα, εκτίμηση",
+			"summary": "Τμήμα {{start}}–{{end}}",
+			"subtitlesFullLength": "ολόκληρο βίντεο"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Φόρτωση…"},
+	"videoCard": {"titlePlaceholder": "Φόρτωση…", "chapters_one": "{{count}} κεφάλαιο", "chapters_other": "{{count}} κεφάλαια"},
 	"queue": {
 		"header": "Λήψεις",
 		"tabLabel": "Λήψεις",

@@ -534,9 +534,32 @@
 				"smartTv": {"name": "स्मार्ट TV", "tag": "MP4 · H.264", "description": "टीवी, फ़ोन, WhatsApp, QuickTime और वीडियो एडिटर पर चलता है। YouTube H.264 केवल 1080p तक देता है।"}
 			},
 			"appSetting": "ऐप सेटिंग इस्तेमाल करें ({{value}})"
+		},
+		"part": {
+			"switchLabel": "वीडियो का कितना हिस्सा",
+			"whole": "पूरा वीडियो",
+			"part": "हिस्सा",
+			"unavailableSubtitles": "उपशीर्षक हमेशा पूरे वीडियो को कवर करते हैं।",
+			"unavailableDuration": "यह वीडियो अपनी लंबाई नहीं बताता, इसलिए इसे केवल पूरा डाउनलोड किया जा सकता है।",
+			"rangeLabel": "वीडियो का हिस्सा",
+			"start": "शुरू",
+			"end": "अंत",
+			"timeHint": "h:mm:ss, m:ss या सेकंड",
+			"length": "{{duration}} में से {{length}}",
+			"chapters": "चैप्टर",
+			"chapterUntitled": "चैप्टर {{number}}",
+			"exactCut": {"label": "सटीक कट (दोबारा एन्कोड होता है, धीमा)", "hint": "बंद: हर कट सबसे नज़दीकी कीफ़्रेम पर होता है, जो आपके डाले समय से कुछ सेकंड दूर हो सकता है।"},
+			"connectionsNote": "हिस्सा ffmpeg के ज़रिए डाउनलोड होता है, इसलिए आपके डाउनलोड कनेक्शन और गति की सेटिंग उस पर लागू नहीं होतीं।",
+			"urlStart": "आपका लिंक {{time}} से शुरू होता है",
+			"useUrlStart": "शुरुआत के रूप में उपयोग करें",
+			"error": {"startInvalid": "शुरू का समय h:mm:ss, m:ss या सेकंड में दर्ज करें।", "endInvalid": "अंत का समय h:mm:ss, m:ss या सेकंड में दर्ज करें।", "startNotBeforeEnd": "शुरू का समय अंत से पहले होना चाहिए।", "endBeyondDuration": "वीडियो {{duration}} पर समाप्त होता है।"},
+			"downloadBlocked": "पहले हिस्से का शुरू और अंत ठीक करें।",
+			"totalEstimate": "हिस्सा, अनुमानित",
+			"summary": "हिस्सा {{start}}–{{end}}",
+			"subtitlesFullLength": "पूरा वीडियो"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "लोड हो रहा है…"},
+	"videoCard": {"titlePlaceholder": "लोड हो रहा है…", "chapters_one": "{{count}} चैप्टर", "chapters_other": "{{count}} चैप्टर"},
 	"queue": {
 		"header": "डाउनलोड",
 		"tabLabel": "डाउनलोड",

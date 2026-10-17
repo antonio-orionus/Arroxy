@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Ажурирање…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} поглавље"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} поглавља"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Учитавање…"
@@ -2392,6 +2400,106 @@ msgstr "Чува сличицу као .jpg датотеку слике поре
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Сачувај сличицу"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Поглавља"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Поглавље {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Део се преузима преко ffmpeg-а, па се на њега не примењују твоје везе за преузимање и подешавања темпа."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Прво исправи почетак и крај дела."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Крај"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Видео се завршава на {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Унеси крај као h:mm:ss, m:ss или секунде."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Унеси почетак као h:mm:ss, m:ss или секунде."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Почетак мора бити пре краја."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Искључено: сваки рез пада на најближи кључни кадар, што може бити неколико секунди од времена које си унео."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Прецизан рез (поново кодира, спорије)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} од {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Део"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Део видеа"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Почетак"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "цео видео"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Део {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Колико видеа"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss или секунде"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Део, процењено"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Овај видео не пријављује своје трајање, па се може преузети само цео."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Титлови увек покривају цео видео."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Твој линк почиње на {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Користи као почетак"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Цео видео"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

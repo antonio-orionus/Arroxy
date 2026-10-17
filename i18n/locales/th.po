@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "กำลังอัปเกรด…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} บท"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} บท"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "กำลังโหลด…"
@@ -2392,6 +2400,106 @@ msgstr "บันทึกภาพขนาดย่อเป็นไฟล์
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "บันทึกภาพขนาดย่อ"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "บท"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "บทที่ {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "การดาวน์โหลดบางส่วนทำผ่าน ffmpeg จึงไม่ใช้การเชื่อมต่อดาวน์โหลดและการตั้งค่าจังหวะที่คุณกำหนด"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "แก้จุดเริ่มและจุดสิ้นสุดของส่วนที่เลือกก่อน"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "สิ้นสุด"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "วิดีโอจบที่ {{duration}}"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "ป้อนจุดสิ้นสุดเป็น h:mm:ss, m:ss หรือวินาที"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "ป้อนจุดเริ่มเป็น h:mm:ss, m:ss หรือวินาที"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "จุดเริ่มต้องมาก่อนจุดสิ้นสุด"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "ปิด: การตัดแต่ละจุดจะอยู่ที่คีย์เฟรมที่ใกล้ที่สุด ซึ่งอาจต่างจากเวลาที่คุณพิมพ์ไปไม่กี่วินาที"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "ตัดแม่นยำ (เข้ารหัสใหม่ ช้ากว่า)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} จาก {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "บางส่วน"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "ส่วนของวิดีโอ"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "เริ่ม"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "ทั้งวิดีโอ"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "บางส่วน {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "ต้องการวิดีโอแค่ไหน"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss หรือวินาที"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "บางส่วน (ประมาณ)"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "วิดีโอนี้ไม่ระบุความยาว จึงดาวน์โหลดได้เฉพาะทั้งวิดีโอ"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "คำบรรยายจะครอบคลุมทั้งวิดีโอเสมอ"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "ลิงก์ของคุณเริ่มที่ {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "ใช้เป็นจุดเริ่ม"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "ทั้งวิดีโอ"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

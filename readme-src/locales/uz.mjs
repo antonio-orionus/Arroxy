@@ -165,6 +165,8 @@ export const uz = {
     "**Har bir video uchun pleylist profillari** — pleylistdagi har bir videoga butun ro'yxat uchun bitta sozlama o'rniga o'z yuklash profilini bering, shunda bitta bosqichda ba'zilarini to'liq sifatda saqlab, qolganlarini MP3 sifatida olish mumkin",
   feat_workflow_13: "**Quick Download fonda ishlaydi** — havola darhol Yuklamalarda paydo bo'lib, o'sha yerda tayyorlanadi, **Ko'rish** tugmali xabar buni tasdiqlaydi va URL maydoni keyingi havola uchun tozalanadi. Oldingilari tayyorlanayotganda xohlagancha boshlang",
   feat_workflow_14: "**Yuklamalar nimaga e'tibor kerakligini aytadi** — Arroxy havolani o'qiy olmasa, uning qatori sababini aytadi va yechimni taklif qiladi: Qayta urinish, kukilarni yoqish yoki Explore'da kirish. Kukilar o'chiq bo'lsa, **Explore orqali kirish** tizimga kirganingizdan keyin buni siz uchun qayta urinadi. Yuklash limitingizdan uzun pleylist o'z qatorida kutadi, siz hammasini, birinchilarini yoki ko'rib chiqishni tanlaysiz. Yuklamalar bo'limi sizni kutayotgan qatorlarni sanaydi",
+  feat_workflow_15:
+    "**Videoning faqat bir qismini yuklab oling** — Format ekranida boshi va oxirini yoki bobni tanlang, Arroxy faqat shu oraliqni saqlaydi, fayl nomida video ID dan keyin oraliq ko'rsatiladi. Kesimlar eng yaqin keyframega tushadi; buning o'rniga qayta kodlash uchun aniq kesishni yoqing",
   feat_post_h3: "Subtitrlar va keyingi qayta ishlash",
   feat_post_1:
     "**Subtitrlar** SRT, VTT yoki ASS formatida — qo'lda yoki avtomatik yaratilgan, istalgan mavjud tilda",

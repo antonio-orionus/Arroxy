@@ -566,9 +566,32 @@
 				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Toca em TVs, celulares, WhatsApp, QuickTime e editores de vídeo. O YouTube oferece H.264 apenas até 1080p."}
 			},
 			"appSetting": "Usar a configuração do app ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Quanto do vídeo",
+			"whole": "Vídeo inteiro",
+			"part": "Trecho",
+			"unavailableSubtitles": "As legendas sempre cobrem o vídeo inteiro.",
+			"unavailableDuration": "Este vídeo não informa sua duração, por isso só pode ser baixado inteiro.",
+			"rangeLabel": "Trecho do vídeo",
+			"start": "Início",
+			"end": "Fim",
+			"timeHint": "h:mm:ss, m:ss ou segundos",
+			"length": "{{length}} de {{duration}}",
+			"chapters": "Capítulos",
+			"chapterUntitled": "Capítulo {{number}}",
+			"exactCut": {"label": "Corte exato (recodifica, mais lento)", "hint": "Desativado: cada corte cai no keyframe mais próximo, que pode ficar alguns segundos distante do tempo digitado."},
+			"connectionsNote": "Um trecho é baixado pelo ffmpeg, então suas conexões de download e as configurações de ritmo não se aplicam a ele.",
+			"urlStart": "Seu link começa em {{time}}",
+			"useUrlStart": "Usar como início",
+			"error": {"startInvalid": "Informe o início como h:mm:ss, m:ss ou segundos.", "endInvalid": "Informe o fim como h:mm:ss, m:ss ou segundos.", "startNotBeforeEnd": "O início deve vir antes do fim.", "endBeyondDuration": "O vídeo termina em {{duration}}."},
+			"downloadBlocked": "Corrija primeiro o início e o fim do trecho.",
+			"totalEstimate": "Trecho, estimado",
+			"summary": "Trecho {{start}}–{{end}}",
+			"subtitlesFullLength": "vídeo inteiro"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Carregando…"},
+	"videoCard": {"titlePlaceholder": "Carregando…", "chapters_one": "{{count}} capítulo", "chapters_other": "{{count}} capítulos"},
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",

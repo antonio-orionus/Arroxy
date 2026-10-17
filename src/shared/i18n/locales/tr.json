@@ -572,9 +572,32 @@
 				"smartTv": {"name": "Akıllı TV", "tag": "MP4 · H.264", "description": "TV’lerde, telefonlarda, WhatsApp’ta, QuickTime’da ve video düzenleyicilerde oynar. YouTube H.264’ü yalnızca 1080p’ye kadar sunar."}
 			},
 			"appSetting": "Uygulama ayarını kullan ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Videonun ne kadarı",
+			"whole": "Tüm video",
+			"part": "Kısım",
+			"unavailableSubtitles": "Altyazılar her zaman videonun tamamını kapsar.",
+			"unavailableDuration": "Bu video süresini bildirmiyor, bu yüzden yalnızca tamamı indirilebilir.",
+			"rangeLabel": "Videonun bir kısmı",
+			"start": "Başlangıç",
+			"end": "Bitiş",
+			"timeHint": "h:mm:ss, m:ss veya saniye",
+			"length": "{{duration}} içinden {{length}}",
+			"chapters": "Bölümler",
+			"chapterUntitled": "Bölüm {{number}}",
+			"exactCut": {"label": "Tam kesim (yeniden kodlar, daha yavaş)", "hint": "Kapalı: her kesim en yakın anahtar kareye denk gelir; bu, yazdığın zamandan birkaç saniye farklı olabilir."},
+			"connectionsNote": "Bir kısım ffmpeg ile indirilir, bu yüzden indirme bağlantıların ve hız ayarların ona uygulanmaz.",
+			"urlStart": "Bağlantın {{time}} noktasında başlıyor",
+			"useUrlStart": "Başlangıç olarak kullan",
+			"error": {"startInvalid": "Başlangıcı h:mm:ss, m:ss veya saniye olarak gir.", "endInvalid": "Bitişi h:mm:ss, m:ss veya saniye olarak gir.", "startNotBeforeEnd": "Başlangıç, bitişten önce olmalı.", "endBeyondDuration": "Video {{duration}} noktasında bitiyor."},
+			"downloadBlocked": "Önce kısmın başlangıç ve bitişini düzelt.",
+			"totalEstimate": "Kısım, tahmini",
+			"summary": "Kısım {{start}}–{{end}}",
+			"subtitlesFullLength": "tüm video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Yükleniyor…"},
+	"videoCard": {"titlePlaceholder": "Yükleniyor…", "chapters_one": "{{count}} bölüm", "chapters_other": "{{count}} bölüm"},
 	"queue": {
 		"header": "İndirmeler",
 		"tabLabel": "İndirmeler",

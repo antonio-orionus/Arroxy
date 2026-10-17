@@ -117,6 +117,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - **Profil per item dalam daftar putar** — beri setiap video dalam daftar putar profil unduhannya sendiri, bukan satu pengaturan untuk semuanya, sehingga satu proses bisa mengarsipkan sebagian dalam kualitas penuh dan mengambil sisanya sebagai MP3
 - **Unduh Cepat berjalan di latar belakang** — tautan langsung muncul di Unduhan dan disiapkan di sana, catatan dengan **Lihat** mengonfirmasinya, dan kolom URL dikosongkan untuk tautan berikutnya. Mulai sebanyak yang Anda mau selagi yang sebelumnya disiapkan
 - **Unduhan memberi tahu apa yang butuh perhatian Anda** — jika Arroxy tidak bisa membaca tautan, barisnya menjelaskan alasannya dan menawarkan solusi: Coba lagi, aktifkan cookie, atau masuk di Explore. Saat cookie nonaktif, **Masuk dengan Explore** mencobanya lagi untuk Anda setelah Anda masuk. Playlist yang lebih panjang dari batas muat Anda menunggu di barisnya sampai Anda memilih semuanya, beberapa yang pertama, atau meninjau. Tab Unduhan menghitung baris yang menunggu Anda
+- **Unduh hanya sebagian video** — pilih waktu mulai dan selesai, atau sebuah bab, di layar Format dan Arroxy hanya menyimpan rentang itu, dengan rentangnya dicantumkan pada nama setelah id video. Potongan jatuh di keyframe terdekat; aktifkan potongan tepat untuk encode ulang
 
 ### Subtitle & pasca-pemrosesan
 

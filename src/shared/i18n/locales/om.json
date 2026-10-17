@@ -589,9 +589,32 @@
 				"smartTv": {"name": "TV smart", "tag": "MP4 · H.264", "description": "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa."}
 			},
 			"appSetting": "Qindaaʼina appii fayyadami ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Viidiyoo kan hammam",
+			"whole": "Viidiyoo guutuu",
+			"part": "Kutaa",
+			"unavailableSubtitles": "Axxiinniin yeroo hunda viidiyoo guutuu haguuga.",
+			"unavailableDuration": "Viidiyoon kun dheerina isaa hin mul'isu, kanaaf guutuu isaa qofa buufachuun danda'ama.",
+			"rangeLabel": "Kutaa viidiyoo",
+			"start": "Jalqaba",
+			"end": "Xumura",
+			"timeHint": "h:mm:ss, m:ss ykn sekoondii",
+			"length": "{{length}} kan {{duration}}",
+			"chapters": "Boqonnaalee",
+			"chapterUntitled": "Boqonnaa {{number}}",
+			"exactCut": {"label": "Muruu sirrii (deebisee koodii godha, suuta)", "hint": "Cufaa: muruun hunduu keyframe isa dhiyoo irratti kufa, kunis yeroo ati barreessite irraa sekoondii muraasa fagaachuu danda'a."},
+			"connectionsNote": "Kutaan ffmpeg-n buufata, kanaaf walitti hidhamiinsi buufataa fi qindaa'inni saffisaa isaaf hin hojjetu.",
+			"urlStart": "Liinkiin kee {{time}} irratti jalqaba",
+			"useUrlStart": "Akka jalqabaatti fayyadami",
+			"error": {"startInvalid": "Jalqaba akka h:mm:ss, m:ss ykn sekoondiitti galchi.", "endInvalid": "Xumura akka h:mm:ss, m:ss ykn sekoondiitti galchi.", "startNotBeforeEnd": "Jalqabni xumura dura ta'uu qaba.", "endBeyondDuration": "Viidiyoon {{duration}} irratti xumurama."},
+			"downloadBlocked": "Dura jalqaba fi xumura kutaa sirreessi.",
+			"totalEstimate": "Kutaa, tilmaamaan",
+			"summary": "Kutaa {{start}}–{{end}}",
+			"subtitlesFullLength": "viidiyoo guutuu"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Fe'amaa jira…"},
+	"videoCard": {"titlePlaceholder": "Fe'amaa jira…", "chapters_one": "Boqonnaa {{count}}", "chapters_other": "Boqonnaalee {{count}}"},
 	"queue": {
 		"header": "Buufata",
 		"tabLabel": "Buufata",

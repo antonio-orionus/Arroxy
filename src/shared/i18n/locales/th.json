@@ -526,9 +526,32 @@
 			"advanced": "ขั้นสูง",
 			"goal": {"bestPicture": {"name": "ภาพดีที่สุด", "tag": "AV1 · VP9", "description": "คมชัดที่สุดในขนาดเท่ากัน ทีวีรุ่นเก่า QuickTime และโปรแกรมตัดต่อบางตัวเล่นไม่ได้"}, "smartTv": {"name": "สมาร์ททีวี", "tag": "MP4 · H.264", "description": "เล่นได้บนทีวี โทรศัพท์ WhatsApp QuickTime และโปรแกรมตัดต่อวิดีโอ YouTube มี H.264 ถึง 1080p เท่านั้น"}},
 			"appSetting": "ใช้การตั้งค่าของแอป ({{value}})"
+		},
+		"part": {
+			"switchLabel": "ต้องการวิดีโอแค่ไหน",
+			"whole": "ทั้งวิดีโอ",
+			"part": "บางส่วน",
+			"unavailableSubtitles": "คำบรรยายจะครอบคลุมทั้งวิดีโอเสมอ",
+			"unavailableDuration": "วิดีโอนี้ไม่ระบุความยาว จึงดาวน์โหลดได้เฉพาะทั้งวิดีโอ",
+			"rangeLabel": "ส่วนของวิดีโอ",
+			"start": "เริ่ม",
+			"end": "สิ้นสุด",
+			"timeHint": "h:mm:ss, m:ss หรือวินาที",
+			"length": "{{length}} จาก {{duration}}",
+			"chapters": "บท",
+			"chapterUntitled": "บทที่ {{number}}",
+			"exactCut": {"label": "ตัดแม่นยำ (เข้ารหัสใหม่ ช้ากว่า)", "hint": "ปิด: การตัดแต่ละจุดจะอยู่ที่คีย์เฟรมที่ใกล้ที่สุด ซึ่งอาจต่างจากเวลาที่คุณพิมพ์ไปไม่กี่วินาที"},
+			"connectionsNote": "การดาวน์โหลดบางส่วนทำผ่าน ffmpeg จึงไม่ใช้การเชื่อมต่อดาวน์โหลดและการตั้งค่าจังหวะที่คุณกำหนด",
+			"urlStart": "ลิงก์ของคุณเริ่มที่ {{time}}",
+			"useUrlStart": "ใช้เป็นจุดเริ่ม",
+			"error": {"startInvalid": "ป้อนจุดเริ่มเป็น h:mm:ss, m:ss หรือวินาที", "endInvalid": "ป้อนจุดสิ้นสุดเป็น h:mm:ss, m:ss หรือวินาที", "startNotBeforeEnd": "จุดเริ่มต้องมาก่อนจุดสิ้นสุด", "endBeyondDuration": "วิดีโอจบที่ {{duration}}"},
+			"downloadBlocked": "แก้จุดเริ่มและจุดสิ้นสุดของส่วนที่เลือกก่อน",
+			"totalEstimate": "บางส่วน (ประมาณ)",
+			"summary": "บางส่วน {{start}}–{{end}}",
+			"subtitlesFullLength": "ทั้งวิดีโอ"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "กำลังโหลด…"},
+	"videoCard": {"titlePlaceholder": "กำลังโหลด…", "chapters_one": "{{count}} บท", "chapters_other": "{{count}} บท"},
 	"queue": {
 		"header": "ดาวน์โหลด",
 		"tabLabel": "ดาวน์โหลด",

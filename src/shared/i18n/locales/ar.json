@@ -567,9 +567,32 @@
 				"smartTv": {"name": "تلفاز ذكي", "tag": "MP4 · H.264", "description": "يعمل على أجهزة التلفاز والهواتف وWhatsApp وQuickTime ومحررات الفيديو. يوفر YouTube ترميز H.264 حتى 1080p فقط."}
 			},
 			"appSetting": "استخدم إعداد التطبيق ({{value}})"
+		},
+		"part": {
+			"switchLabel": "مقدار الفيديو",
+			"whole": "الفيديو كاملاً",
+			"part": "جزء",
+			"unavailableSubtitles": "الترجمات تغطي الفيديو كاملاً دائمًا.",
+			"unavailableDuration": "لا يُبلغ هذا الفيديو عن مدته، لذا لا يمكن تنزيله إلا كاملاً.",
+			"rangeLabel": "جزء من الفيديو",
+			"start": "البداية",
+			"end": "النهاية",
+			"timeHint": "h:mm:ss, m:ss أو ثوانٍ",
+			"length": "{{length}} من {{duration}}",
+			"chapters": "الفصول",
+			"chapterUntitled": "الفصل {{number}}",
+			"exactCut": {"label": "قص دقيق (يعيد الترميز، أبطأ)", "hint": "متوقف: يقع كل قص عند أقرب إطار رئيسي (keyframe)، وقد يبعد بضع ثوانٍ عن الوقت الذي أدخلته."},
+			"connectionsNote": "يُنزَّل الجزء عبر ffmpeg، لذلك لا تنطبق عليه إعدادات اتصالات التنزيل وإيقاع الطلبات.",
+			"urlStart": "يبدأ رابطك عند {{time}}",
+			"useUrlStart": "استخدمه كبداية",
+			"error": {"startInvalid": "أدخل البداية بصيغة h:mm:ss, m:ss أو ثوانٍ.", "endInvalid": "أدخل النهاية بصيغة h:mm:ss, m:ss أو ثوانٍ.", "startNotBeforeEnd": "يجب أن تسبق البداية النهاية.", "endBeyondDuration": "ينتهي الفيديو عند {{duration}}."},
+			"downloadBlocked": "صحّح بداية الجزء ونهايته أولاً.",
+			"totalEstimate": "الجزء، تقديري",
+			"summary": "الجزء {{start}}–{{end}}",
+			"subtitlesFullLength": "الفيديو كاملاً"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "جارٍ التحميل…"},
+	"videoCard": {"titlePlaceholder": "جارٍ التحميل…", "chapters_one": "{{count}} فصل", "chapters_other": "{{count}} فصول"},
 	"queue": {
 		"header": "التنزيلات",
 		"tabLabel": "التنزيلات",

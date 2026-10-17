@@ -579,9 +579,32 @@
 				"smartTv": {"name": "TV Pintar", "tag": "MP4 · H.264", "description": "Bisa diputar di TV, ponsel, WhatsApp, QuickTime, dan editor video. YouTube hanya menyediakan H.264 hingga 1080p."}
 			},
 			"appSetting": "Gunakan pengaturan aplikasi ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Seberapa banyak video",
+			"whole": "Seluruh video",
+			"part": "Bagian",
+			"unavailableSubtitles": "Subtitle selalu mencakup seluruh video.",
+			"unavailableDuration": "Video ini tidak melaporkan durasinya, jadi hanya bisa diunduh utuh.",
+			"rangeLabel": "Bagian video",
+			"start": "Mulai",
+			"end": "Selesai",
+			"timeHint": "h:mm:ss, m:ss, atau detik",
+			"length": "{{length}} dari {{duration}}",
+			"chapters": "Bab",
+			"chapterUntitled": "Bab {{number}}",
+			"exactCut": {"label": "Potongan tepat (encode ulang, lebih lambat)", "hint": "Nonaktif: setiap potongan jatuh di keyframe terdekat, yang bisa berselisih beberapa detik dari waktu yang Anda ketik."},
+			"connectionsNote": "Sebuah bagian diunduh melalui ffmpeg, jadi koneksi unduhan dan pengaturan kecepatan Anda tidak berlaku.",
+			"urlStart": "Tautan Anda dimulai pada {{time}}",
+			"useUrlStart": "Gunakan sebagai awal",
+			"error": {"startInvalid": "Masukkan waktu mulai sebagai h:mm:ss, m:ss, atau detik.", "endInvalid": "Masukkan waktu selesai sebagai h:mm:ss, m:ss, atau detik.", "startNotBeforeEnd": "Waktu mulai harus sebelum waktu selesai.", "endBeyondDuration": "Video berakhir pada {{duration}}."},
+			"downloadBlocked": "Perbaiki dulu waktu mulai dan selesai bagian tersebut.",
+			"totalEstimate": "Bagian, perkiraan",
+			"summary": "Bagian {{start}}–{{end}}",
+			"subtitlesFullLength": "seluruh video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Memuat…"},
+	"videoCard": {"titlePlaceholder": "Memuat…", "chapters_one": "{{count}} bab", "chapters_other": "{{count}} bab"},
 	"queue": {
 		"header": "Unduhan",
 		"tabLabel": "Unduhan",

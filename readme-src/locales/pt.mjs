@@ -167,6 +167,8 @@ export const pt = {
     "**Perfis por item da playlist** — atribua a cada vídeo de uma playlist o seu próprio perfil de download, em vez de uma única configuração para a lista inteira, para arquivar alguns em qualidade máxima e pegar o restante como MP3 em uma só passada",
   feat_workflow_13: "**O Quick Download funciona em segundo plano** — o link aparece na hora em Downloads e é preparado ali, uma nota com **Ver** confirma, e o campo de URL é limpo para o próximo link. Inicie quantos quiser enquanto os anteriores são preparados",
   feat_workflow_14: "**Downloads mostra o que precisa de você** — se o Arroxy não consegue ler um link, a linha dele diz o motivo e oferece a solução: Tentar novamente, ativar os cookies ou entrar no Explore. Com os cookies desativados, **Entrar com o Explore** tenta de novo por você assim que você entrar. Uma playlist maior que o seu limite de carregamento espera na própria linha até você escolher toda ela, os primeiros vídeos ou uma revisão. A aba Downloads conta as linhas que esperam por você",
+  feat_workflow_15:
+    "**Baixe apenas um trecho do vídeo** — escolha um início e um fim, ou um capítulo, na tela Formato e o Arroxy salva só esse intervalo, com o intervalo no nome depois do id do vídeo. Os cortes caem no keyframe mais próximo; ative o corte exato para recodificar em vez disso",
   feat_post_h3: "Legendas e pós-processamento",
   feat_post_1:
     "**Legendas** em SRT, VTT ou ASS — manuais ou geradas automaticamente, em qualquer idioma disponível",

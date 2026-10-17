@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "升级中…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} 个章节"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} 个章节"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "加载中…"
@@ -2392,6 +2400,106 @@ msgstr "将缩略图保存为 .jpg 图片文件，放在下载文件旁边。"
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "保存缩略图"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "章节"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "章节 {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "片段通过 ffmpeg 下载，因此您的下载连接数和节奏设置不适用于片段。"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "请先修正片段的开始和结束时间。"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "结束"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "视频在 {{duration}} 结束。"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "请以 h:mm:ss、m:ss 或秒数输入结束时间。"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "请以 h:mm:ss、m:ss 或秒数输入开始时间。"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "开始时间必须早于结束时间。"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "关闭时，每个剪辑点会落在最近的关键帧上，可能与您输入的时间相差几秒。"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "精确剪辑（重新编码，较慢）"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}} 中的 {{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "片段"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "视频片段"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "开始"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "整个视频"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "片段 {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "下载多少视频"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss、m:ss 或秒数"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "片段，预估"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "此视频未提供时长，因此只能整个下载。"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "字幕始终覆盖整个视频。"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "您的链接从 {{time}} 开始"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "用作开始时间"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "整个视频"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

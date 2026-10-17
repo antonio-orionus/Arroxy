@@ -582,9 +582,32 @@
 				"smartTv": {"name": "TV connectée", "tag": "MP4 · H.264", "description": "Se lit sur les téléviseurs, les téléphones, WhatsApp, QuickTime et les éditeurs vidéo. YouTube ne propose le H.264 que jusqu'à 1080p."}
 			},
 			"appSetting": "Utiliser le réglage de l'appli ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Quelle partie de la vidéo",
+			"whole": "Vidéo entière",
+			"part": "Partie",
+			"unavailableSubtitles": "Les sous-titres couvrent toujours la vidéo entière.",
+			"unavailableDuration": "Cette vidéo n'indique pas sa durée, elle ne peut donc être téléchargée qu'en entier.",
+			"rangeLabel": "Partie de la vidéo",
+			"start": "Début",
+			"end": "Fin",
+			"timeHint": "h:mm:ss, m:ss ou secondes",
+			"length": "{{length}} sur {{duration}}",
+			"chapters": "Chapitres",
+			"chapterUntitled": "Chapitre {{number}}",
+			"exactCut": {"label": "Coupe exacte (réencode, plus lent)", "hint": "Désactivé : chaque coupe tombe sur l'image clé la plus proche, qui peut se trouver à quelques secondes du temps saisi."},
+			"connectionsNote": "Une partie se télécharge via ffmpeg : vos connexions de téléchargement et vos réglages de cadence ne s'appliquent donc pas.",
+			"urlStart": "Votre lien commence à {{time}}",
+			"useUrlStart": "Utiliser comme début",
+			"error": {"startInvalid": "Saisissez le début au format h:mm:ss, m:ss ou en secondes.", "endInvalid": "Saisissez la fin au format h:mm:ss, m:ss ou en secondes.", "startNotBeforeEnd": "Le début doit précéder la fin.", "endBeyondDuration": "La vidéo se termine à {{duration}}."},
+			"downloadBlocked": "Corrigez d'abord le début et la fin de la partie.",
+			"totalEstimate": "Partie, estimée",
+			"summary": "Partie {{start}}–{{end}}",
+			"subtitlesFullLength": "vidéo entière"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Chargement…"},
+	"videoCard": {"titlePlaceholder": "Chargement…", "chapters_one": "{{count}} chapitre", "chapters_other": "{{count}} chapitres"},
 	"queue": {
 		"header": "Téléchargements",
 		"tabLabel": "Téléchargements",

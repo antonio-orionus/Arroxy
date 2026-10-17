@@ -559,9 +559,32 @@
 				"smartTv": {"name": "TV thông minh", "tag": "MP4 · H.264", "description": "Phát được trên TV, điện thoại, WhatsApp, QuickTime và trình chỉnh sửa video. YouTube chỉ có H.264 đến 1080p."}
 			},
 			"appSetting": "Dùng cài đặt của ứng dụng ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Tải bao nhiêu video",
+			"whole": "Toàn bộ video",
+			"part": "Một đoạn",
+			"unavailableSubtitles": "Phụ đề luôn áp dụng cho toàn bộ video.",
+			"unavailableDuration": "Video này không cho biết độ dài, nên chỉ có thể tải toàn bộ.",
+			"rangeLabel": "Đoạn của video",
+			"start": "Bắt đầu",
+			"end": "Kết thúc",
+			"timeHint": "h:mm:ss, m:ss hoặc giây",
+			"length": "{{length}} trên {{duration}}",
+			"chapters": "Chương",
+			"chapterUntitled": "Chương {{number}}",
+			"exactCut": {"label": "Cắt chính xác (mã hóa lại, chậm hơn)", "hint": "Tắt: mỗi điểm cắt rơi vào keyframe gần nhất, có thể lệch vài giây so với thời gian bạn nhập."},
+			"connectionsNote": "Một đoạn được tải qua ffmpeg, nên số kết nối tải xuống và cài đặt nhịp độ của bạn không áp dụng cho nó.",
+			"urlStart": "Liên kết của bạn bắt đầu từ {{time}}",
+			"useUrlStart": "Dùng làm điểm bắt đầu",
+			"error": {"startInvalid": "Nhập thời điểm bắt đầu theo dạng h:mm:ss, m:ss hoặc giây.", "endInvalid": "Nhập thời điểm kết thúc theo dạng h:mm:ss, m:ss hoặc giây.", "startNotBeforeEnd": "Điểm bắt đầu phải trước điểm kết thúc.", "endBeyondDuration": "Video kết thúc ở {{duration}}."},
+			"downloadBlocked": "Hãy sửa điểm bắt đầu và kết thúc của đoạn trước.",
+			"totalEstimate": "Đoạn, ước tính",
+			"summary": "Đoạn {{start}}–{{end}}",
+			"subtitlesFullLength": "toàn bộ video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Đang tải…"},
+	"videoCard": {"titlePlaceholder": "Đang tải…", "chapters_one": "{{count}} chương", "chapters_other": "{{count}} chương"},
 	"queue": {
 		"header": "Tải xuống",
 		"tabLabel": "Tải xuống",

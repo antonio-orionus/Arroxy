@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Обновление…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} глава"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} глав"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Загрузка…"
@@ -2392,6 +2400,106 @@ msgstr "Сохраняет превью как файл .jpg рядом с за�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Сохранить превью"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Главы"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Глава {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Фрагмент скачивается через ffmpeg, поэтому настройки подключений загрузки и темпа на него не действуют."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Сначала исправьте начало и конец фрагмента."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Конец"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Видео заканчивается на {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Укажите конец в формате h:mm:ss, m:ss или секундами."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Укажите начало в формате h:mm:ss, m:ss или секундами."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Начало должно быть раньше конца."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Выкл.: каждый разрез приходится на ближайший ключевой кадр, который может отстоять на несколько секунд от введённого времени."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Точная обрезка (перекодирование, медленнее)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} из {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Фрагмент"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Фрагмент видео"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Начало"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "всё видео"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Фрагмент {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Какая часть видео"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss или секунды"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Фрагмент, оценка"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Это видео не сообщает свою длительность, поэтому его можно скачать только целиком."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Субтитры всегда охватывают всё видео."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Ваша ссылка начинается с {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Использовать как начало"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Всё видео"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

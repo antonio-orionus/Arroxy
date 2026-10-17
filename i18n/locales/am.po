@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "በማዘመን ላይ…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} ምዕራፍ"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} ምዕራፎች"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "በመጫን ላይ…"
@@ -2392,6 +2400,106 @@ msgstr "ድንክ ምስሉን እንደ .jpg ምስል ፋይል ከዳውን�
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "ድንክ ምስል አስቀምጥ"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "ምዕራፎች"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "ምዕራፍ {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "ክፍል የሚወርደው በffmpeg በኩል ነው፣ ስለዚህ የዳውንሎድ ግንኙነቶችዎ እና የጥያቄ እረፍት ቅንብሮች አይመለከቱትም።"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "መጀመሪያ የክፍሉን መጀመሪያና መጨረሻ ያስተካክሉ።"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "መጨረሻ"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "ቪዲዮው የሚያበቃው በ{{duration}} ነው።"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "መጨረሻውን እንደ h:mm:ss, m:ss ወይም ሰከንዶች ያስገቡ።"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "መጀመሪያውን እንደ h:mm:ss, m:ss ወይም ሰከንዶች ያስገቡ።"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "መጀመሪያው ከመጨረሻው በፊት መሆን አለበት።"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "ጠፍቶ ሲሆን፦ እያንዳንዱ ቁረጣ በቅርቡ ባለው ቁልፍ ፍሬም ላይ ያርፋል፤ ይህም ከጻፉት ጊዜ ጥቂት ሰከንዶች ሊርቅ ይችላል።"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "ትክክለኛ ቁረጣ (ዳግም ኮድ ያደርጋል፣ ቀርፋፋ)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} ከ{{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "ክፍል"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "የቪዲዮው ክፍል"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "መጀመሪያ"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "ሙሉ ቪዲዮ"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "ክፍል {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "ከቪዲዮው ምን ያህል"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss ወይም ሰከንዶች"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "ክፍል፣ ግምት"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "ይህ ቪዲዮ ርዝመቱን አይነግርም፣ ስለዚህ ሙሉውን ብቻ ማውረድ ይቻላል።"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "ንዑስ ርዕሶች ሁልጊዜ ሙሉውን ቪዲዮ ይሸፍናሉ።"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "አገናኝዎ የሚጀምረው በ{{time}} ነው"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "እንደ መጀመሪያ ተጠቀም"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "ሙሉ ቪዲዮ"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

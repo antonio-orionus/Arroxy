@@ -569,9 +569,32 @@
 				"smartTv": {"name": "Runinga janja", "tag": "MP4 · H.264", "description": "Hucheza kwenye runinga, simu, WhatsApp, QuickTime na vihariri vya video. YouTube hutoa H.264 hadi 1080p tu."}
 			},
 			"appSetting": "Tumia mpangilio wa programu ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Kiasi cha video",
+			"whole": "Video nzima",
+			"part": "Sehemu",
+			"unavailableSubtitles": "Manukuu daima hujumuisha video nzima.",
+			"unavailableDuration": "Video hii haitoi urefu wake, kwa hiyo inaweza kupakuliwa nzima tu.",
+			"rangeLabel": "Sehemu ya video",
+			"start": "Mwanzo",
+			"end": "Mwisho",
+			"timeHint": "h:mm:ss, m:ss au sekunde",
+			"length": "{{length}} kati ya {{duration}}",
+			"chapters": "Sura",
+			"chapterUntitled": "Sura ya {{number}}",
+			"exactCut": {"label": "Ukataji kamili (husimba upya, polepole zaidi)", "hint": "Imezimwa: kila ukataji hutua kwenye fremu kuu iliyo karibu zaidi, ambayo inaweza kuwa sekunde chache kutoka muda uliouandika."},
+			"connectionsNote": "Sehemu hupakuliwa kupitia ffmpeg, kwa hiyo miunganisho yako ya upakuaji na mipangilio ya kasi haitumiki kwake.",
+			"urlStart": "Kiungo chako kinaanzia {{time}}",
+			"useUrlStart": "Tumia kama mwanzo",
+			"error": {"startInvalid": "Weka mwanzo kama h:mm:ss, m:ss au sekunde.", "endInvalid": "Weka mwisho kama h:mm:ss, m:ss au sekunde.", "startNotBeforeEnd": "Mwanzo lazima uwe kabla ya mwisho.", "endBeyondDuration": "Video inaisha kwenye {{duration}}."},
+			"downloadBlocked": "Rekebisha kwanza mwanzo na mwisho wa sehemu.",
+			"totalEstimate": "Sehemu, makadirio",
+			"summary": "Sehemu {{start}}–{{end}}",
+			"subtitlesFullLength": "video nzima"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Inapakia…"},
+	"videoCard": {"titlePlaceholder": "Inapakia…", "chapters_one": "Sura {{count}}", "chapters_other": "Sura {{count}}"},
 	"queue": {
 		"header": "Vipakuliwa",
 		"tabLabel": "Vipakuliwa",

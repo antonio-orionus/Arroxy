@@ -529,9 +529,32 @@
 				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "ចាក់បានលើទូរទស្សន៍ ទូរស័ព្ទ WhatsApp QuickTime និងកម្មវិធីកែសម្រួលវីដេអូ។ YouTube ផ្តល់ H.264 តែរហូតដល់ 1080p ប៉ុណ្ណោះ។"}
 			},
 			"appSetting": "ប្រើការកំណត់កម្មវិធី ({{value}})"
+		},
+		"part": {
+			"switchLabel": "វីដេអូប៉ុន្មាន",
+			"whole": "វីដេអូទាំងមូល",
+			"part": "ផ្នែក",
+			"unavailableSubtitles": "អក្សររត់គ្របដណ្តប់វីដេអូទាំងមូលជានិច្ច។",
+			"unavailableDuration": "វីដេអូនេះមិនបានរាយការណ៍ប្រវែងរបស់វាទេ ដូច្នេះអាចទាញយកបានតែទាំងមូលប៉ុណ្ណោះ។",
+			"rangeLabel": "ផ្នែកនៃវីដេអូ",
+			"start": "ចាប់ផ្តើម",
+			"end": "បញ្ចប់",
+			"timeHint": "h:mm:ss, m:ss ឬវិនាទី",
+			"length": "{{length}} ក្នុងចំណោម {{duration}}",
+			"chapters": "ជំពូក",
+			"chapterUntitled": "ជំពូកទី {{number}}",
+			"exactCut": {"label": "កាត់ឱ្យត្រឹមត្រូវ (អ៊ិនកូដឡើងវិញ យឺតជាង)", "hint": "បិទ៖ ការកាត់នីមួយៗនឹងចុះលើ keyframe ដែលនៅជិតបំផុត ដែលអាចខុសពីពេលវេលាដែលអ្នកបានវាយចំនួនប៉ុន្មានវិនាទី។"},
+			"connectionsNote": "ផ្នែកមួយត្រូវបានទាញយកតាមរយៈ ffmpeg ដូច្នេះការតភ្ជាប់ទាញយក និងការកំណត់ល្បឿនរបស់អ្នកមិនអនុវត្តចំពោះវាទេ។",
+			"urlStart": "តំណរបស់អ្នកចាប់ផ្តើមនៅ {{time}}",
+			"useUrlStart": "ប្រើជាចំណុចចាប់ផ្តើម",
+			"error": {"startInvalid": "បញ្ចូលចំណុចចាប់ផ្តើមជា h:mm:ss, m:ss ឬវិនាទី។", "endInvalid": "បញ្ចូលចំណុចបញ្ចប់ជា h:mm:ss, m:ss ឬវិនាទី។", "startNotBeforeEnd": "ចំណុចចាប់ផ្តើមត្រូវមកមុនចំណុចបញ្ចប់។", "endBeyondDuration": "វីដេអូបញ្ចប់នៅ {{duration}}។"},
+			"downloadBlocked": "សូមកែចំណុចចាប់ផ្តើម និងបញ្ចប់នៃផ្នែកជាមុនសិន។",
+			"totalEstimate": "ផ្នែក ប៉ាន់ស្មាន",
+			"summary": "ផ្នែក {{start}}–{{end}}",
+			"subtitlesFullLength": "វីដេអូទាំងមូល"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "កំពុងផ្ទុក…"},
+	"videoCard": {"titlePlaceholder": "កំពុងផ្ទុក…", "chapters_one": "{{count}} ជំពូក", "chapters_other": "{{count}} ជំពូក"},
 	"queue": {
 		"header": "ការទាញយក",
 		"tabLabel": "ការទាញយក",

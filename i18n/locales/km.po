@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "កំពុងដំឡើងកំណែ…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} ជំពូក"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} ជំពូក"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "កំពុងផ្ទុក…"
@@ -2392,6 +2400,106 @@ msgstr "រក្សាទុករូបភាពតូចជាឯកសារ
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "រក្សាទុករូបភាពតូច"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "ជំពូក"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "ជំពូកទី {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "ផ្នែកមួយត្រូវបានទាញយកតាមរយៈ ffmpeg ដូច្នេះការតភ្ជាប់ទាញយក និងការកំណត់ល្បឿនរបស់អ្នកមិនអនុវត្តចំពោះវាទេ។"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "សូមកែចំណុចចាប់ផ្តើម និងបញ្ចប់នៃផ្នែកជាមុនសិន។"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "បញ្ចប់"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "វីដេអូបញ្ចប់នៅ {{duration}}។"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "បញ្ចូលចំណុចបញ្ចប់ជា h:mm:ss, m:ss ឬវិនាទី។"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "បញ្ចូលចំណុចចាប់ផ្តើមជា h:mm:ss, m:ss ឬវិនាទី។"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "ចំណុចចាប់ផ្តើមត្រូវមកមុនចំណុចបញ្ចប់។"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "បិទ៖ ការកាត់នីមួយៗនឹងចុះលើ keyframe ដែលនៅជិតបំផុត ដែលអាចខុសពីពេលវេលាដែលអ្នកបានវាយចំនួនប៉ុន្មានវិនាទី។"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "កាត់ឱ្យត្រឹមត្រូវ (អ៊ិនកូដឡើងវិញ យឺតជាង)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} ក្នុងចំណោម {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "ផ្នែក"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "ផ្នែកនៃវីដេអូ"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "ចាប់ផ្តើម"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "វីដេអូទាំងមូល"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "ផ្នែក {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "វីដេអូប៉ុន្មាន"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss ឬវិនាទី"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "ផ្នែក ប៉ាន់ស្មាន"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "វីដេអូនេះមិនបានរាយការណ៍ប្រវែងរបស់វាទេ ដូច្នេះអាចទាញយកបានតែទាំងមូលប៉ុណ្ណោះ។"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "អក្សររត់គ្របដណ្តប់វីដេអូទាំងមូលជានិច្ច។"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "តំណរបស់អ្នកចាប់ផ្តើមនៅ {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "ប្រើជាចំណុចចាប់ផ្តើម"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "វីដេអូទាំងមូល"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

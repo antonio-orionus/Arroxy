@@ -566,9 +566,32 @@
 				"smartTv": {"name": "スマートTV", "tag": "MP4 · H.264", "description": "テレビ、スマホ、WhatsApp、QuickTime、動画編集ソフトで再生できます。YouTube が H.264 を提供するのは 1080p までです。"}
 			},
 			"appSetting": "アプリの設定を使う ({{value}})"
+		},
+		"part": {
+			"switchLabel": "動画の範囲",
+			"whole": "動画全体",
+			"part": "一部",
+			"unavailableSubtitles": "字幕は常に動画全体が対象です。",
+			"unavailableDuration": "この動画は長さの情報がないため、全体のみダウンロードできます。",
+			"rangeLabel": "動画の一部",
+			"start": "開始",
+			"end": "終了",
+			"timeHint": "h:mm:ss、m:ss、または秒数",
+			"length": "{{duration}}のうち{{length}}",
+			"chapters": "チャプター",
+			"chapterUntitled": "チャプター {{number}}",
+			"exactCut": {"label": "正確なカット（再エンコード、低速）", "hint": "オフ：各カットは最も近いキーフレームで切られるため、入力した時刻から数秒ずれることがあります。"},
+			"connectionsNote": "一部のダウンロードは ffmpeg を使うため、ダウンロード接続数とペース設定は適用されません。",
+			"urlStart": "リンクの開始位置は {{time}} です",
+			"useUrlStart": "開始位置に使う",
+			"error": {"startInvalid": "開始時刻を h:mm:ss、m:ss、または秒数で入力してください。", "endInvalid": "終了時刻を h:mm:ss、m:ss、または秒数で入力してください。", "startNotBeforeEnd": "開始は終了より前にしてください。", "endBeyondDuration": "この動画は {{duration}} で終わります。"},
+			"downloadBlocked": "先に一部の開始と終了を修正してください。",
+			"totalEstimate": "一部（推定）",
+			"summary": "一部 {{start}}–{{end}}",
+			"subtitlesFullLength": "動画全体"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "読み込み中…"},
+	"videoCard": {"titlePlaceholder": "読み込み中…", "chapters_one": "{{count}} チャプター", "chapters_other": "{{count}} チャプター"},
 	"queue": {
 		"header": "ダウンロード",
 		"tabLabel": "ダウンロード",

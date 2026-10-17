@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "تازه کېږي…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} فصل"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} فصلونه"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "بارول…"
@@ -2392,6 +2400,106 @@ msgstr "تھمبنیل د ډاونلوډ سره یوځای د .jpg انځور ف
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "تھمبنیل خوندي کړه"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "فصلونه"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "فصل {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "یوه برخه د ffmpeg له لارې ډاونلوډېږي، نو ستاسو د ډاونلوډ ارتباطات او د سرعت تنظیمات پرې نه تطبیقېږي."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "لومړی د برخې پیل او پای سم کړئ."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "پای"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "ویډیو په {{duration}} کې پای ته رسېږي."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "پای د h:mm:ss، m:ss یا ثانیو په بڼه ولیکئ."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "پیل د h:mm:ss، m:ss یا ثانیو په بڼه ولیکئ."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "پیل باید له پای مخکې وي."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "بند: هر پرې کول نږدې کیفریم ته رسېږي، چې ممکن له هغه وخت څخه څو ثانیې لرې وي چې تاسو لیکلی."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "دقیق پرې کول (بیا کوډ کوي، ورو)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} له {{duration}} څخه"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "برخه"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "د ویډیو برخه"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "پیل"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "ټوله ویډیو"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "برخه {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "د ویډیو څومره برخه"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss، m:ss یا ثانیې"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "برخه، اټکل شوی"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "دا ویډیو خپل اوږدوالی نه راپور کوي، نو یوازې ټوله ډاونلوډ کېدی شي."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "ژباړلیکونه تل ټوله ویډیو پوښي."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "ستاسو لینک په {{time}} پیلېږي"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "د پیل په توګه یې وکاروه"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "ټوله ویډیو"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

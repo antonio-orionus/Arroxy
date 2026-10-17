@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Yükseltiliyor…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} bölüm"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} bölüm"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Yükleniyor…"
@@ -2392,6 +2400,106 @@ msgstr "Küçük resmi indirmenin yanına .jpg görüntü dosyası olarak kayded
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Küçük resmi kaydet"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Bölümler"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Bölüm {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Bir kısım ffmpeg ile indirilir, bu yüzden indirme bağlantıların ve hız ayarların ona uygulanmaz."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Önce kısmın başlangıç ve bitişini düzelt."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Bitiş"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video {{duration}} noktasında bitiyor."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Bitişi h:mm:ss, m:ss veya saniye olarak gir."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Başlangıcı h:mm:ss, m:ss veya saniye olarak gir."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Başlangıç, bitişten önce olmalı."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Kapalı: her kesim en yakın anahtar kareye denk gelir; bu, yazdığın zamandan birkaç saniye farklı olabilir."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Tam kesim (yeniden kodlar, daha yavaş)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}} içinden {{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Kısım"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Videonun bir kısmı"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Başlangıç"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "tüm video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Kısım {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Videonun ne kadarı"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss veya saniye"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Kısım, tahmini"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Bu video süresini bildirmiyor, bu yüzden yalnızca tamamı indirilebilir."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Altyazılar her zaman videonun tamamını kapsar."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Bağlantın {{time}} noktasında başlıyor"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Başlangıç olarak kullan"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Tüm video"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

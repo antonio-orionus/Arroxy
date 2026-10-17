@@ -567,9 +567,32 @@
 				"smartTv": {"name": "Паметни TV", "tag": "MP4 · H.264", "description": "Ради на телевизорима, телефонима, у WhatsApp-у, QuickTime-у и видео уређивачима. YouTube нуди H.264 само до 1080p."}
 			},
 			"appSetting": "Користи подешавање апликације ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Колико видеа",
+			"whole": "Цео видео",
+			"part": "Део",
+			"unavailableSubtitles": "Титлови увек покривају цео видео.",
+			"unavailableDuration": "Овај видео не пријављује своје трајање, па се може преузети само цео.",
+			"rangeLabel": "Део видеа",
+			"start": "Почетак",
+			"end": "Крај",
+			"timeHint": "h:mm:ss, m:ss или секунде",
+			"length": "{{length}} од {{duration}}",
+			"chapters": "Поглавља",
+			"chapterUntitled": "Поглавље {{number}}",
+			"exactCut": {"label": "Прецизан рез (поново кодира, спорије)", "hint": "Искључено: сваки рез пада на најближи кључни кадар, што може бити неколико секунди од времена које си унео."},
+			"connectionsNote": "Део се преузима преко ffmpeg-а, па се на њега не примењују твоје везе за преузимање и подешавања темпа.",
+			"urlStart": "Твој линк почиње на {{time}}",
+			"useUrlStart": "Користи као почетак",
+			"error": {"startInvalid": "Унеси почетак као h:mm:ss, m:ss или секунде.", "endInvalid": "Унеси крај као h:mm:ss, m:ss или секунде.", "startNotBeforeEnd": "Почетак мора бити пре краја.", "endBeyondDuration": "Видео се завршава на {{duration}}."},
+			"downloadBlocked": "Прво исправи почетак и крај дела.",
+			"totalEstimate": "Део, процењено",
+			"summary": "Део {{start}}–{{end}}",
+			"subtitlesFullLength": "цео видео"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Учитавање…"},
+	"videoCard": {"titlePlaceholder": "Учитавање…", "chapters_one": "{{count}} поглавље", "chapters_other": "{{count}} поглавља"},
 	"queue": {
 		"header": "Преузимања",
 		"tabLabel": "Преузимања",

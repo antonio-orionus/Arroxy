@@ -529,9 +529,32 @@
 				"smartTv": {"name": "ስማርት TV", "tag": "MP4 · H.264", "description": "በቲቪዎች፣ በስልኮች፣ በWhatsApp፣ በQuickTime እና በቪዲዮ አርታዒዎች ይጫወታል። YouTube H.264ን የሚያቀርበው እስከ 1080p ብቻ ነው።"}
 			},
 			"appSetting": "የመተግበሪያውን ቅንብር ተጠቀም ({{value}})"
+		},
+		"part": {
+			"switchLabel": "ከቪዲዮው ምን ያህል",
+			"whole": "ሙሉ ቪዲዮ",
+			"part": "ክፍል",
+			"unavailableSubtitles": "ንዑስ ርዕሶች ሁልጊዜ ሙሉውን ቪዲዮ ይሸፍናሉ።",
+			"unavailableDuration": "ይህ ቪዲዮ ርዝመቱን አይነግርም፣ ስለዚህ ሙሉውን ብቻ ማውረድ ይቻላል።",
+			"rangeLabel": "የቪዲዮው ክፍል",
+			"start": "መጀመሪያ",
+			"end": "መጨረሻ",
+			"timeHint": "h:mm:ss, m:ss ወይም ሰከንዶች",
+			"length": "{{length}} ከ{{duration}}",
+			"chapters": "ምዕራፎች",
+			"chapterUntitled": "ምዕራፍ {{number}}",
+			"exactCut": {"label": "ትክክለኛ ቁረጣ (ዳግም ኮድ ያደርጋል፣ ቀርፋፋ)", "hint": "ጠፍቶ ሲሆን፦ እያንዳንዱ ቁረጣ በቅርቡ ባለው ቁልፍ ፍሬም ላይ ያርፋል፤ ይህም ከጻፉት ጊዜ ጥቂት ሰከንዶች ሊርቅ ይችላል።"},
+			"connectionsNote": "ክፍል የሚወርደው በffmpeg በኩል ነው፣ ስለዚህ የዳውንሎድ ግንኙነቶችዎ እና የጥያቄ እረፍት ቅንብሮች አይመለከቱትም።",
+			"urlStart": "አገናኝዎ የሚጀምረው በ{{time}} ነው",
+			"useUrlStart": "እንደ መጀመሪያ ተጠቀም",
+			"error": {"startInvalid": "መጀመሪያውን እንደ h:mm:ss, m:ss ወይም ሰከንዶች ያስገቡ።", "endInvalid": "መጨረሻውን እንደ h:mm:ss, m:ss ወይም ሰከንዶች ያስገቡ።", "startNotBeforeEnd": "መጀመሪያው ከመጨረሻው በፊት መሆን አለበት።", "endBeyondDuration": "ቪዲዮው የሚያበቃው በ{{duration}} ነው።"},
+			"downloadBlocked": "መጀመሪያ የክፍሉን መጀመሪያና መጨረሻ ያስተካክሉ።",
+			"totalEstimate": "ክፍል፣ ግምት",
+			"summary": "ክፍል {{start}}–{{end}}",
+			"subtitlesFullLength": "ሙሉ ቪዲዮ"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "በመጫን ላይ…"},
+	"videoCard": {"titlePlaceholder": "በመጫን ላይ…", "chapters_one": "{{count}} ምዕራፍ", "chapters_other": "{{count}} ምዕራፎች"},
 	"queue": {
 		"header": "ዳውንሎዶች",
 		"tabLabel": "ዳውንሎዶች",

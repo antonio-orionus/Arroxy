@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Memperbarui…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} bab"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} bab"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Memuat…"
@@ -2392,6 +2400,106 @@ msgstr "Menyimpan thumbnail sebagai file gambar .jpg di sebelah unduhan."
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Simpan gambar kecil"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Bab"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Bab {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Sebuah bagian diunduh melalui ffmpeg, jadi koneksi unduhan dan pengaturan kecepatan Anda tidak berlaku."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Perbaiki dulu waktu mulai dan selesai bagian tersebut."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Selesai"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video berakhir pada {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Masukkan waktu selesai sebagai h:mm:ss, m:ss, atau detik."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Masukkan waktu mulai sebagai h:mm:ss, m:ss, atau detik."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Waktu mulai harus sebelum waktu selesai."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Nonaktif: setiap potongan jatuh di keyframe terdekat, yang bisa berselisih beberapa detik dari waktu yang Anda ketik."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Potongan tepat (encode ulang, lebih lambat)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} dari {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Bagian"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Bagian video"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Mulai"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "seluruh video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Bagian {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Seberapa banyak video"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss, atau detik"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Bagian, perkiraan"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Video ini tidak melaporkan durasinya, jadi hanya bisa diunduh utuh."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Subtitle selalu mencakup seluruh video."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Tautan Anda dimulai pada {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Gunakan sebagai awal"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Seluruh video"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

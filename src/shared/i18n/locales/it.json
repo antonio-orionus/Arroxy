@@ -566,9 +566,32 @@
 				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Si riproduce su TV, telefoni, WhatsApp, QuickTime ed editor video. YouTube offre H.264 solo fino a 1080p."}
 			},
 			"appSetting": "Usa l'impostazione dell'app ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Quanta parte del video",
+			"whole": "Video intero",
+			"part": "Parte",
+			"unavailableSubtitles": "I sottotitoli coprono sempre l'intero video.",
+			"unavailableDuration": "Questo video non indica la sua durata, quindi può essere scaricato solo per intero.",
+			"rangeLabel": "Parte del video",
+			"start": "Inizio",
+			"end": "Fine",
+			"timeHint": "h:mm:ss, m:ss o secondi",
+			"length": "{{length}} di {{duration}}",
+			"chapters": "Capitoli",
+			"chapterUntitled": "Capitolo {{number}}",
+			"exactCut": {"label": "Taglio preciso (ricodifica, più lento)", "hint": "Disattivato: ogni taglio cade sul keyframe più vicino, che può distare alcuni secondi dall'ora inserita."},
+			"connectionsNote": "Una parte viene scaricata tramite ffmpeg, quindi le connessioni di download e le impostazioni di ritmo non si applicano.",
+			"urlStart": "Il tuo link inizia da {{time}}",
+			"useUrlStart": "Usa come inizio",
+			"error": {"startInvalid": "Inserisci l'inizio come h:mm:ss, m:ss o secondi.", "endInvalid": "Inserisci la fine come h:mm:ss, m:ss o secondi.", "startNotBeforeEnd": "L'inizio deve precedere la fine.", "endBeyondDuration": "Il video termina a {{duration}}."},
+			"downloadBlocked": "Correggi prima l'inizio e la fine della parte.",
+			"totalEstimate": "Parte, stima",
+			"summary": "Parte {{start}}–{{end}}",
+			"subtitlesFullLength": "video intero"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Caricamento…"},
+	"videoCard": {"titlePlaceholder": "Caricamento…", "chapters_one": "{{count}} capitolo", "chapters_other": "{{count}} capitoli"},
 	"queue": {
 		"header": "Download",
 		"tabLabel": "Download",

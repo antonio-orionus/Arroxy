@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "अपग्रेड हो रहा है…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} चैप्टर"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} चैप्टर"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
@@ -2392,6 +2400,106 @@ msgstr "थंबनेल को डाउनलोड के पास .jpg �
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "थंबनेल सहेजें"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "चैप्टर"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "चैप्टर {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "हिस्सा ffmpeg के ज़रिए डाउनलोड होता है, इसलिए आपके डाउनलोड कनेक्शन और गति की सेटिंग उस पर लागू नहीं होतीं।"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "पहले हिस्से का शुरू और अंत ठीक करें।"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "अंत"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "वीडियो {{duration}} पर समाप्त होता है।"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "अंत का समय h:mm:ss, m:ss या सेकंड में दर्ज करें।"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "शुरू का समय h:mm:ss, m:ss या सेकंड में दर्ज करें।"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "शुरू का समय अंत से पहले होना चाहिए।"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "बंद: हर कट सबसे नज़दीकी कीफ़्रेम पर होता है, जो आपके डाले समय से कुछ सेकंड दूर हो सकता है।"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "सटीक कट (दोबारा एन्कोड होता है, धीमा)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}} में से {{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "हिस्सा"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "वीडियो का हिस्सा"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "शुरू"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "पूरा वीडियो"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "हिस्सा {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "वीडियो का कितना हिस्सा"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss या सेकंड"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "हिस्सा, अनुमानित"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "यह वीडियो अपनी लंबाई नहीं बताता, इसलिए इसे केवल पूरा डाउनलोड किया जा सकता है।"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "उपशीर्षक हमेशा पूरे वीडियो को कवर करते हैं।"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "आपका लिंक {{time}} से शुरू होता है"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "शुरुआत के रूप में उपयोग करें"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "पूरा वीडियो"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

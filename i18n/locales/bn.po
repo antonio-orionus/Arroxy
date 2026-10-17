@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "আপগ্রেড হচ্ছে…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}}টি চ্যাপ্টার"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}}টি চ্যাপ্টার"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "লোড হচ্ছে…"
@@ -2392,6 +2400,106 @@ msgstr "থাম্বনেইল ডাউনলোডের পাশে .jp
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "থাম্বনেইল সেভ করুন"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "চ্যাপ্টার"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "চ্যাপ্টার {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "একটি অংশ ffmpeg দিয়ে ডাউনলোড হয়, তাই আপনার ডাউনলোড সংযোগ ও রিকোয়েস্ট পেসিং সেটিংস এতে প্রযোজ্য নয়।"
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "আগে অংশের শুরু ও শেষ ঠিক করুন।"
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "শেষ"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "ভিডিওটি {{duration}}-এ শেষ হয়।"
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "শেষ h:mm:ss, m:ss অথবা সেকেন্ডে লিখুন।"
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "শুরু h:mm:ss, m:ss অথবা সেকেন্ডে লিখুন।"
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "শুরু অবশ্যই শেষের আগে হতে হবে।"
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "বন্ধ থাকলে: প্রতিটি কাট নিকটতম কীফ্রেমে পড়ে, যা আপনার লেখা সময় থেকে কয়েক সেকেন্ড দূরে হতে পারে।"
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "নিখুঁত কাট (পুনরায় encode করে, ধীর)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{duration}}-এর মধ্যে {{length}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "অংশ"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "ভিডিওর অংশ"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "শুরু"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "পুরো ভিডিও"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "অংশ {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "ভিডিওর কতটুকু"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss অথবা সেকেন্ড"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "অংশ, আনুমানিক"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "এই ভিডিও তার দৈর্ঘ্য জানায় না, তাই এটি শুধু পুরোটা ডাউনলোড করা যায়।"
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "সাবটাইটেল সবসময় পুরো ভিডিওকে কভার করে।"
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "আপনার লিংক শুরু হয় {{time}} থেকে"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "শুরু হিসেবে ব্যবহার করুন"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "পুরো ভিডিও"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

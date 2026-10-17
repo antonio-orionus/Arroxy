@@ -115,6 +115,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 - **Wasifu kwa kila kipengele cha orodha ya kucheza** — mpe kila video katika orodha ya kucheza wasifu wake wa upakuaji badala ya mpangilio mmoja kwa orodha nzima, ili pasi moja iweze kuhifadhi baadhi kwa ubora kamili na kupata zilizobaki kama MP3
 - **Quick Download hufanya kazi chinichini** — kiungo huonekana mara moja katika Vipakuliwa na kuandaliwa huko, ujumbe wenye **Tazama** unathibitisha, na sehemu ya URL husafishwa kwa kiungo kinachofuata. Anzisha nyingi upendavyo huku zile za awali zikiandaliwa
 - **Vipakuliwa hukuambia kinachokuhitaji** — ikiwa Arroxy haiwezi kusoma kiungo, safu yake inaeleza sababu na kutoa suluhisho: Jaribu tena, washa vidakuzi, au ingia katika Explore. Vidakuzi vikiwa vimezimwa, **Ingia kwa Explore** hujaribu tena kwa ajili yako ukishaingia. Playlist ndefu kuliko kikomo chako cha kupakia husubiri kwenye safu yake ili uchague yote, za kwanza, au ukaguzi. Kichupo cha Vipakuliwa kinahesabu safu zinazokusubiri
+- **Pakua sehemu tu ya video** — chagua mwanzo na mwisho, au sura, kwenye skrini ya Umbizo na Arroxy huhifadhi kipindi hicho tu, kikiwa na jina lenye kipindi baada ya kitambulisho cha video. Ukataji hutua kwenye fremu kuu iliyo karibu zaidi; washa ukataji kamili ili kusimba upya badala yake
 
 ### Manukuu na usindikaji wa baada ya kupakua
 

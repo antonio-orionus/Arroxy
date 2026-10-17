@@ -117,6 +117,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 - **Profili per singolo elemento della playlist** — assegna a ogni video un profilo diverso invece di un'unica impostazione per l'intero elenco, così puoi archiviare alcuni video alla massima qualità e scaricare gli altri in MP3 in un solo passaggio
 - **Il Download rapido funziona in background** — il link compare subito in Download e viene preparato lì, una nota con **Visualizza** lo conferma e il campo URL si svuota per il link successivo. Avviane quanti vuoi mentre i precedenti si preparano
 - **Download ti mostra cosa richiede il tuo intervento** — se Arroxy non riesce a leggere un link, la sua riga ne spiega il motivo e propone la soluzione: Riprova, attivare i cookie o accedere in Explore. Con i cookie disattivati, **Accedi con Explore** riprova per te una volta effettuato l'accesso. Una playlist più lunga del tuo limite di caricamento attende sulla sua riga che tu scelga tutta, i primi video o una revisione. La scheda Download conta le righe che aspettano te
+- **Scarica solo una parte di un video** — scegli un inizio e una fine, o un capitolo, nella schermata Formato e Arroxy salva solo quell'intervallo, nominato con l'intervallo dopo l'id del video. I tagli cadono sul keyframe più vicino; attiva il taglio preciso per ricodificare invece
 
 ### Sottotitoli e post-elaborazione
 

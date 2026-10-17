@@ -594,9 +594,32 @@
 				"smartTv": {"name": "Aqlli TV", "tag": "MP4 · H.264", "description": "Televizorlar, telefonlar, WhatsApp, QuickTime va video muharrirlarida ijro etiladi. YouTube H.264 ni faqat 1080p gacha taklif qiladi."}
 			},
 			"appSetting": "Ilova sozlamasidan foydalanish ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Videoning qancha qismi",
+			"whole": "Butun video",
+			"part": "Qism",
+			"unavailableSubtitles": "Subtitrlar doim butun videoga tegishli bo'ladi.",
+			"unavailableDuration": "Bu video davomiyligini bildirmaydi, shuning uchun uni faqat butunligicha yuklab olish mumkin.",
+			"rangeLabel": "Videoning qismi",
+			"start": "Boshi",
+			"end": "Oxiri",
+			"timeHint": "h:mm:ss, m:ss yoki soniya",
+			"length": "{{duration}} dan {{length}}",
+			"chapters": "Boblar",
+			"chapterUntitled": "{{number}}-bob",
+			"exactCut": {"label": "Aniq kesish (qayta kodlanadi, sekinroq)", "hint": "O'chiq bo'lsa, har bir kesim eng yaqin keyframega tushadi, u siz kiritgan vaqtdan bir necha soniya farq qilishi mumkin."},
+			"connectionsNote": "Qism ffmpeg orqali yuklab olinadi, shuning uchun yuklab olish ulanishlari va pauza sozlamalari unga tatbiq etilmaydi.",
+			"urlStart": "Havolangiz {{time}} dan boshlanadi",
+			"useUrlStart": "Boshi sifatida ishlatish",
+			"error": {"startInvalid": "Boshini h:mm:ss, m:ss yoki soniyada kiriting.", "endInvalid": "Oxirini h:mm:ss, m:ss yoki soniyada kiriting.", "startNotBeforeEnd": "Boshi oxiridan oldin bo'lishi kerak.", "endBeyondDuration": "Video {{duration}} da tugaydi."},
+			"downloadBlocked": "Avval qismning boshi va oxirini to'g'rilang.",
+			"totalEstimate": "Qism, taxminiy",
+			"summary": "Qism {{start}}–{{end}}",
+			"subtitlesFullLength": "butun video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Yuklanmoqda…"},
+	"videoCard": {"titlePlaceholder": "Yuklanmoqda…", "chapters_one": "{{count}} ta bob", "chapters_other": "{{count}} ta bob"},
 	"queue": {
 		"header": "Yuklamalar",
 		"tabLabel": "Yuklamalar",

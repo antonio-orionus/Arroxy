@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Оновлення…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} розділ"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} розділів"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Завантаження…"
@@ -2392,6 +2400,106 @@ msgstr "Зберігає мініатюру як файл .jpg поруч із �
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Зберегти мініатюру"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Розділи"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Розділ {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Частина завантажується через ffmpeg, тому твої з'єднання для завантаження та налаштування темпу на неї не поширюються."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Спочатку виправ початок і кінець частини."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Кінець"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Відео закінчується на {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Введи кінець у форматі h:mm:ss, m:ss або секунди."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Введи початок у форматі h:mm:ss, m:ss або секунди."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Початок має бути раніше за кінець."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Вимкнено: кожен розріз припадає на найближчий ключовий кадр, що може відрізнятися від введеного часу на кілька секунд."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Точне вирізання (перекодовує, повільніше)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} із {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Частина"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Частина відео"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Початок"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "усе відео"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Частина {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Яка частина відео"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss або секунди"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Частина, орієнтовно"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Це відео не повідомляє свою тривалість, тому його можна завантажити лише повністю."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Субтитри завжди охоплюють усе відео."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Твоє посилання починається з {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Використати як початок"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Усе відео"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

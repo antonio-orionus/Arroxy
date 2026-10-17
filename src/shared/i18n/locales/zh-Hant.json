@@ -529,9 +529,32 @@
 				"smartTv": {"name": "智慧型電視", "tag": "MP4 · H.264", "description": "可在電視、手機、WhatsApp、QuickTime 和影片編輯軟體中播放。YouTube 僅在 1080p 以下提供 H.264。"}
 			},
 			"appSetting": "使用應用程式設定（{{value}}）"
+		},
+		"part": {
+			"switchLabel": "要下載多少影片",
+			"whole": "整部影片",
+			"part": "片段",
+			"unavailableSubtitles": "字幕一律涵蓋整部影片。",
+			"unavailableDuration": "這部影片未回報長度，因此只能整部下載。",
+			"rangeLabel": "影片片段",
+			"start": "開始",
+			"end": "結束",
+			"timeHint": "h:mm:ss、m:ss 或秒數",
+			"length": "{{duration}} 中的 {{length}}",
+			"chapters": "章節",
+			"chapterUntitled": "章節 {{number}}",
+			"exactCut": {"label": "精確剪輯（重新編碼，較慢）", "hint": "關閉時，每個剪輯點會落在最近的關鍵影格上，可能與您輸入的時間相差幾秒。"},
+			"connectionsNote": "片段會透過 ffmpeg 下載，因此您的下載連線數與節奏設定不適用於片段。",
+			"urlStart": "您的連結從 {{time}} 開始",
+			"useUrlStart": "用作開始時間",
+			"error": {"startInvalid": "請以 h:mm:ss、m:ss 或秒數輸入開始時間。", "endInvalid": "請以 h:mm:ss、m:ss 或秒數輸入結束時間。", "startNotBeforeEnd": "開始時間必須早於結束時間。", "endBeyondDuration": "影片在 {{duration}} 結束。"},
+			"downloadBlocked": "請先修正片段的開始與結束時間。",
+			"totalEstimate": "片段，預估",
+			"summary": "片段 {{start}}–{{end}}",
+			"subtitlesFullLength": "整部影片"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "載入中…"},
+	"videoCard": {"titlePlaceholder": "載入中…", "chapters_one": "{{count}} 個章節", "chapters_other": "{{count}} 個章節"},
 	"queue": {
 		"header": "下載",
 		"tabLabel": "下載",

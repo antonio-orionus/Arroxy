@@ -559,9 +559,32 @@
 				"smartTv": {"name": "تلویزیون هوشمند", "tag": "MP4 · H.264", "description": "روی تلویزیون، گوشی، WhatsApp، QuickTime و ویرایشگرهای ویدیو پخش می‌شود. YouTube کدک H.264 را فقط تا 1080p ارائه می‌دهد."}
 			},
 			"appSetting": "استفاده از تنظیم برنامه ({{value}})"
+		},
+		"part": {
+			"switchLabel": "چه مقدار از ویدیو",
+			"whole": "کل ویدیو",
+			"part": "بخش",
+			"unavailableSubtitles": "زیرنویس‌ها همیشه کل ویدیو را پوشش می‌دهند.",
+			"unavailableDuration": "این ویدیو طول خود را اعلام نمی‌کند، بنابراین فقط به‌صورت کامل قابل دانلود است.",
+			"rangeLabel": "بخشی از ویدیو",
+			"start": "شروع",
+			"end": "پایان",
+			"timeHint": "h:mm:ss، m:ss یا ثانیه",
+			"length": "{{length}} از {{duration}}",
+			"chapters": "فصل‌ها",
+			"chapterUntitled": "فصل {{number}}",
+			"exactCut": {"label": "برش دقیق (دوباره کدگذاری می‌شود، کندتر)", "hint": "خاموش: هر برش روی نزدیک‌ترین کی‌فریم قرار می‌گیرد که ممکن است چند ثانیه با زمانی که وارد کرده‌اید فاصله داشته باشد."},
+			"connectionsNote": "یک بخش از طریق ffmpeg دانلود می‌شود، بنابراین اتصال‌های دانلود و تنظیمات سرعت شما برای آن اعمال نمی‌شوند.",
+			"urlStart": "پیوند شما از {{time}} شروع می‌شود",
+			"useUrlStart": "استفاده به‌عنوان شروع",
+			"error": {"startInvalid": "شروع را به‌صورت h:mm:ss، m:ss یا ثانیه وارد کنید.", "endInvalid": "پایان را به‌صورت h:mm:ss، m:ss یا ثانیه وارد کنید.", "startNotBeforeEnd": "شروع باید قبل از پایان باشد.", "endBeyondDuration": "ویدیو در {{duration}} تمام می‌شود."},
+			"downloadBlocked": "ابتدا شروع و پایان بخش را اصلاح کنید.",
+			"totalEstimate": "بخش، تخمینی",
+			"summary": "بخش {{start}}–{{end}}",
+			"subtitlesFullLength": "کل ویدیو"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "در حال بارگیری…"},
+	"videoCard": {"titlePlaceholder": "در حال بارگیری…", "chapters_one": "{{count}} فصل", "chapters_other": "{{count}} فصل"},
 	"queue": {
 		"header": "دانلودها",
 		"tabLabel": "دانلودها",

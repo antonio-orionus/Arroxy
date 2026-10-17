@@ -535,9 +535,32 @@
 			"advanced": "উন্নত",
 			"goal": {"bestPicture": {"name": "সেরা ছবি", "tag": "AV1 · VP9", "description": "একই আকারে সবচেয়ে স্পষ্ট। পুরোনো টিভি, QuickTime ও কিছু এডিটর এটি চালাতে পারে না।"}, "smartTv": {"name": "স্মার্ট TV", "tag": "MP4 · H.264", "description": "টিভি, ফোন, WhatsApp, QuickTime ও ভিডিও এডিটরে চলে। YouTube শুধু ১০৮০p পর্যন্ত H.264 দেয়।"}},
 			"appSetting": "অ্যাপের সেটিং ব্যবহার করুন ({{value}})"
+		},
+		"part": {
+			"switchLabel": "ভিডিওর কতটুকু",
+			"whole": "পুরো ভিডিও",
+			"part": "অংশ",
+			"unavailableSubtitles": "সাবটাইটেল সবসময় পুরো ভিডিওকে কভার করে।",
+			"unavailableDuration": "এই ভিডিও তার দৈর্ঘ্য জানায় না, তাই এটি শুধু পুরোটা ডাউনলোড করা যায়।",
+			"rangeLabel": "ভিডিওর অংশ",
+			"start": "শুরু",
+			"end": "শেষ",
+			"timeHint": "h:mm:ss, m:ss অথবা সেকেন্ড",
+			"length": "{{duration}}-এর মধ্যে {{length}}",
+			"chapters": "চ্যাপ্টার",
+			"chapterUntitled": "চ্যাপ্টার {{number}}",
+			"exactCut": {"label": "নিখুঁত কাট (পুনরায় encode করে, ধীর)", "hint": "বন্ধ থাকলে: প্রতিটি কাট নিকটতম কীফ্রেমে পড়ে, যা আপনার লেখা সময় থেকে কয়েক সেকেন্ড দূরে হতে পারে।"},
+			"connectionsNote": "একটি অংশ ffmpeg দিয়ে ডাউনলোড হয়, তাই আপনার ডাউনলোড সংযোগ ও রিকোয়েস্ট পেসিং সেটিংস এতে প্রযোজ্য নয়।",
+			"urlStart": "আপনার লিংক শুরু হয় {{time}} থেকে",
+			"useUrlStart": "শুরু হিসেবে ব্যবহার করুন",
+			"error": {"startInvalid": "শুরু h:mm:ss, m:ss অথবা সেকেন্ডে লিখুন।", "endInvalid": "শেষ h:mm:ss, m:ss অথবা সেকেন্ডে লিখুন।", "startNotBeforeEnd": "শুরু অবশ্যই শেষের আগে হতে হবে।", "endBeyondDuration": "ভিডিওটি {{duration}}-এ শেষ হয়।"},
+			"downloadBlocked": "আগে অংশের শুরু ও শেষ ঠিক করুন।",
+			"totalEstimate": "অংশ, আনুমানিক",
+			"summary": "অংশ {{start}}–{{end}}",
+			"subtitlesFullLength": "পুরো ভিডিও"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "লোড হচ্ছে…"},
+	"videoCard": {"titlePlaceholder": "লোড হচ্ছে…", "chapters_one": "{{count}}টি চ্যাপ্টার", "chapters_other": "{{count}}টি চ্যাপ্টার"},
 	"queue": {
 		"header": "ডাউনলোড",
 		"tabLabel": "ডাউনলোড",

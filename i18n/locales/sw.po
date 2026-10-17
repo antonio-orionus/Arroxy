@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Inasasisha…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "Sura {{count}}"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "Sura {{count}}"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Inapakia…"
@@ -2392,6 +2400,106 @@ msgstr "Inahifadhi picha ndogo kama faili ya picha ya .jpg karibu na kipakuliwa.
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Hifadhi picha ndogo"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Sura"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Sura ya {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Sehemu hupakuliwa kupitia ffmpeg, kwa hiyo miunganisho yako ya upakuaji na mipangilio ya kasi haitumiki kwake."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Rekebisha kwanza mwanzo na mwisho wa sehemu."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Mwisho"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video inaisha kwenye {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Weka mwisho kama h:mm:ss, m:ss au sekunde."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Weka mwanzo kama h:mm:ss, m:ss au sekunde."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Mwanzo lazima uwe kabla ya mwisho."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Imezimwa: kila ukataji hutua kwenye fremu kuu iliyo karibu zaidi, ambayo inaweza kuwa sekunde chache kutoka muda uliouandika."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Ukataji kamili (husimba upya, polepole zaidi)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} kati ya {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Sehemu"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Sehemu ya video"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Mwanzo"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "video nzima"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Sehemu {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Kiasi cha video"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss au sekunde"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Sehemu, makadirio"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Video hii haitoi urefu wake, kwa hiyo inaweza kupakuliwa nzima tu."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Manukuu daima hujumuisha video nzima."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Kiungo chako kinaanzia {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Tumia kama mwanzo"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Video nzima"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

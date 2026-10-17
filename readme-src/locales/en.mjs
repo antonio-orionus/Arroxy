@@ -172,6 +172,8 @@ export const en = {
     "**Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare",
   feat_workflow_14:
     "**Downloads tells you what needs you** — if Arroxy can't read a link, its row says why and offers the fix: Retry, turn on cookies, or sign in in Explore. With cookies off, **Sign in with Explore** retries it for you once you're signed in. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review. The Downloads tab counts the rows waiting for you",
+  feat_workflow_15:
+    "**Download just part of a video** — pick a start and end, or a chapter, on the Format screen and Arroxy saves only that range, named with the range after the video id. Cuts land on the nearest keyframe; turn on exact cut to re-encode instead",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",

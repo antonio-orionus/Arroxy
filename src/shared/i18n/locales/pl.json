@@ -574,9 +574,32 @@
 				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Działa na telewizorach, telefonach, w WhatsApp, QuickTime i edytorach wideo. YouTube oferuje H.264 tylko do 1080p."}
 			},
 			"appSetting": "Użyj ustawienia aplikacji ({{value}})"
+		},
+		"part": {
+			"switchLabel": "Jaka część filmu",
+			"whole": "Cały film",
+			"part": "Fragment",
+			"unavailableSubtitles": "Napisy zawsze obejmują cały film.",
+			"unavailableDuration": "Ten film nie podaje swojej długości, więc można go pobrać tylko w całości.",
+			"rangeLabel": "Fragment filmu",
+			"start": "Początek",
+			"end": "Koniec",
+			"timeHint": "h:mm:ss, m:ss lub sekundy",
+			"length": "{{length}} z {{duration}}",
+			"chapters": "Rozdziały",
+			"chapterUntitled": "Rozdział {{number}}",
+			"exactCut": {"label": "Dokładne cięcie (ponowne kodowanie, wolniej)", "hint": "Wyłączone: każde cięcie trafia w najbliższą klatkę kluczową, co może być kilka sekund od wpisanego czasu."},
+			"connectionsNote": "Fragment jest pobierany przez ffmpeg, więc ustawienia połączeń pobierania i tempa go nie dotyczą.",
+			"urlStart": "Twój link zaczyna się od {{time}}",
+			"useUrlStart": "Użyj jako początku",
+			"error": {"startInvalid": "Podaj początek jako h:mm:ss, m:ss lub sekundy.", "endInvalid": "Podaj koniec jako h:mm:ss, m:ss lub sekundy.", "startNotBeforeEnd": "Początek musi być przed końcem.", "endBeyondDuration": "Film kończy się w {{duration}}."},
+			"downloadBlocked": "Najpierw popraw początek i koniec fragmentu.",
+			"totalEstimate": "Fragment, szacunkowo",
+			"summary": "Fragment {{start}}–{{end}}",
+			"subtitlesFullLength": "cały film"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Wczytywanie…"},
+	"videoCard": {"titlePlaceholder": "Wczytywanie…", "chapters_one": "{{count}} rozdział", "chapters_other": "{{count}} rozdziałów"},
 	"queue": {
 		"header": "Pobieranie",
 		"tabLabel": "Pobieranie",

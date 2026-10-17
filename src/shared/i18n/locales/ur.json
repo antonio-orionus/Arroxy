@@ -566,9 +566,32 @@
 				"smartTv": {"name": "سمارٹ TV", "tag": "MP4 · H.264", "description": "ٹی وی، فون، WhatsApp، QuickTime اور ویڈیو ایڈیٹرز پر چلتی ہے۔ YouTube صرف 1080p تک H.264 فراہم کرتا ہے۔"}
 			},
 			"appSetting": "ایپ کی ترتیب استعمال کریں ({{value}})"
+		},
+		"part": {
+			"switchLabel": "ویڈیو کا کتنا حصہ",
+			"whole": "پوری ویڈیو",
+			"part": "حصہ",
+			"unavailableSubtitles": "سب ٹائٹلز ہمیشہ پوری ویڈیو کے ہوتے ہیں۔",
+			"unavailableDuration": "یہ ویڈیو اپنا دورانیہ نہیں بتاتی، اس لیے اسے صرف پوری ڈاؤن لوڈ کیا جا سکتا ہے۔",
+			"rangeLabel": "ویڈیو کا حصہ",
+			"start": "آغاز",
+			"end": "اختتام",
+			"timeHint": "h:mm:ss، m:ss یا سیکنڈ",
+			"length": "{{duration}} میں سے {{length}}",
+			"chapters": "چیپٹرز",
+			"chapterUntitled": "چیپٹر {{number}}",
+			"exactCut": {"label": "درست کٹ (دوبارہ انکوڈ ہوتا ہے، سست)", "hint": "بند ہو تو ہر کٹ قریب ترین کی فریم پر لگتا ہے، جو آپ کے لکھے وقت سے چند سیکنڈ دور ہو سکتا ہے۔"},
+			"connectionsNote": "حصہ ffmpeg کے ذریعے ڈاؤن لوڈ ہوتا ہے، اس لیے آپ کے ڈاؤن لوڈ کنکشنز اور وقفے کی ترتیبات اس پر لاگو نہیں ہوتیں۔",
+			"urlStart": "آپ کا لنک {{time}} سے شروع ہوتا ہے",
+			"useUrlStart": "آغاز کے طور پر استعمال کریں",
+			"error": {"startInvalid": "آغاز کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔", "endInvalid": "اختتام کو h:mm:ss، m:ss یا سیکنڈ میں درج کریں۔", "startNotBeforeEnd": "آغاز اختتام سے پہلے ہونا چاہیے۔", "endBeyondDuration": "ویڈیو {{duration}} پر ختم ہوتی ہے۔"},
+			"downloadBlocked": "پہلے حصے کا آغاز اور اختتام درست کریں۔",
+			"totalEstimate": "حصہ، تخمینی",
+			"summary": "حصہ {{start}}–{{end}}",
+			"subtitlesFullLength": "پوری ویڈیو"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…"},
+	"videoCard": {"titlePlaceholder": "لوڈ ہو رہا ہے…", "chapters_one": "{{count}} چیپٹر", "chapters_other": "{{count}} چیپٹرز"},
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",

@@ -1711,6 +1711,14 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Đang nâng cấp…"
 
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} chương"
+
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} chương"
+
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
 msgstr "Đang tải…"
@@ -2392,6 +2400,106 @@ msgstr "Lưu hình thu nhỏ dưới dạng tệp ảnh .jpg cạnh tệp tải 
 msgctxt "wizard.output.writeThumbnail.label"
 msgid "Save thumbnail"
 msgstr "Lưu hình thu nhỏ"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Chương"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Chương {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Một đoạn được tải qua ffmpeg, nên số kết nối tải xuống và cài đặt nhịp độ của bạn không áp dụng cho nó."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Hãy sửa điểm bắt đầu và kết thúc của đoạn trước."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Kết thúc"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video kết thúc ở {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Nhập thời điểm kết thúc theo dạng h:mm:ss, m:ss hoặc giây."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Nhập thời điểm bắt đầu theo dạng h:mm:ss, m:ss hoặc giây."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Điểm bắt đầu phải trước điểm kết thúc."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Tắt: mỗi điểm cắt rơi vào keyframe gần nhất, có thể lệch vài giây so với thời gian bạn nhập."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Cắt chính xác (mã hóa lại, chậm hơn)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} trên {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Một đoạn"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Đoạn của video"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Bắt đầu"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "toàn bộ video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Đoạn {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Tải bao nhiêu video"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss hoặc giây"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Đoạn, ước tính"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Video này không cho biết độ dài, nên chỉ có thể tải toàn bộ."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Phụ đề luôn áp dụng cho toàn bộ video."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Liên kết của bạn bắt đầu từ {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Dùng làm điểm bắt đầu"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Toàn bộ video"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."
