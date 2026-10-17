@@ -201,6 +201,9 @@ export const zh = {
   shot8_cap: "<b>Explore</b><br/>在 Arroxy 内浏览 YouTube，用当前配置下载你正在查看的页面",
   shot9_cap: "<b>Explore 首屏</b><br/>快速了解 Explore，以及为什么用备用账号登录更安全",
   shot10_cap: "<b>“下载”告诉你哪些需要处理</b><br/>链接在后台准备；失败的会给出解决办法，较长的播放列表则等你选择",
+  shot11_cap: "<b>只下载视频的一部分</b><br/>选择开始和结束时间，或某个章节 — Arroxy 只保存该范围",
+  shot12_cap: "<b>配置文件编辑器</b><br/>精细调整配置文件：文件类型、分辨率、字幕、保存位置、文件名模板等",
+  shot13_cap: "<b>深色或浅色，玻璃或纯色</b><br/>四种外观任你选：动态天空上的玻璃面板，或安静的纯色界面，均支持深色和浅色",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_oneline_note:

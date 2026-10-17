@@ -204,6 +204,9 @@ export const sw = {
   shot8_cap: "<b>Explore</b><br/>Vinjari YouTube ndani ya Arroxy na upakue ukurasa ulioko kwa wasifu wako unaotumika",
   shot9_cap: "<b>Skrini ya kwanza ya Explore</b><br/>Mtazamo wa haraka wa Explore, na kwa nini akaunti ya pili ndiyo njia salama zaidi ya kuingia",
   shot10_cap: "<b>Vipakuliwa hukuambia kinachokuhitaji</b><br/>Viungo huandaliwa chinichini; kilichoshindwa hutoa suluhisho lake, playlist ndefu husubiri chaguo lako",
+  shot11_cap: "<b>Pakua sehemu tu ya video</b><br/>Chagua mwanzo na mwisho, au sura — Arroxy huhifadhi sehemu hiyo pekee",
+  shot12_cap: "<b>Kihariri cha wasifu</b><br/>Rekebisha wasifu: aina ya faili, ubora, manukuu, mahali pa kuhifadhi, kiolezo cha jina la faili na mengineyo",
+  shot13_cap: "<b>Giza au mwanga, kioo au imara</b><br/>Mionekano minne ya kuchagua: paneli za kioo juu ya anga linalosonga au nyuso imara tulivu, kila mmoja katika giza na mwanga",
   dl_platform_col: "Jukwaa",
   dl_format_col: "Fomati",
   dl_oneline_note:

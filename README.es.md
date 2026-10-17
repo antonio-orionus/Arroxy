@@ -60,6 +60,15 @@ Si Arroxy te ahorra tiempo, una ⭐ ayuda a que otros lo encuentren.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descargas te avisa de lo que necesita tu atención</b><br/>Los enlaces se preparan en segundo plano; uno fallido ofrece su solución, una playlist larga espera tu decisión</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Descarga solo una parte del vídeo</b><br/>Elige un inicio y un final, o un capítulo — Arroxy guarda solo ese tramo</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor de perfiles</b><br/>Ajusta un perfil: tipo de archivo, resolución, subtítulos, destino, plantilla de nombre de archivo y más</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Oscuro o claro, cristal o sólido</b><br/>Cuatro aspectos a elegir: paneles de cristal sobre un cielo en movimiento o superficies sólidas y tranquilas, cada uno en oscuro y claro</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Atajo de descarga global de Arroxy — Ctrl+Shift+D en Windows y Linux, Cmd+Shift+D en macOS, que envía el enlace copiado directamente a la cola de descargas" width="760" /></picture><br/><sub><b>Atajo de descarga global</b><br/>Copia un enlace donde sea y pulsa una vez — entra en la cola y empieza a descargarse</sub></td>
   </tr>
   <tr>

@@ -58,6 +58,15 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Buufata maal akka si barbaaduu sitti hima</b><br/>Hidhaawwan duubatti qophaa'u; kan hin milkoofne furmaata dhiyeessa, playlist dheeraan filannoo kee eega</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Kutaa viidiyoo tokko qofa buusi</b><br/>Jalqabaa fi dhumaa, yookaan boqonnaa filadhu — Arroxy kutaa sana qofa kuusa</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Gulaalaa piroofayilii</b><br/>Piroofayilii sirreessi: gosa faayilii, gulaalummaa, hiikkaa jalqabaa, bakka kuusaa, qophii maqaa faayilii fi kkf</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Dukkana moo ifa, galaasaa moo cimaa</b><br/>Mul'ata afur filachuu dandeessu: paanaalii galaasaa samii socho'u irra jiru yookaan fuula cimaa callisaa, tokkoon tokkoon isaanii dukkanaa fi ifaan</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Qabduu ariifachiisaa buufannaa waliigalaa Arroxy — Windows fi Linux irratti Ctrl+Shift+D, macOS irratti Cmd+Shift+D, hidhaa waraabame kallattiin tarree buufannaatti erga" width="760" /></picture><br/><sub><b>Qabduu ariifachiisaa buufannaa waliigalaa</b><br/>Bakka kamiyyuu hidhaa waraabi, altokko tuqi — tarree seenee buufamuu jalqaba</sub></td>
   </tr>
   <tr>

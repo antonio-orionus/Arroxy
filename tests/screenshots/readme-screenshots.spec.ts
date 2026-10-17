@@ -22,6 +22,8 @@ interface Shot {
 	ready: string
 	// A taller window than the default, for a screen whose story does not fit in 760 px.
 	height?: number
+	// A wider window than the default, for a dialog that does not fit in 900 px.
+	width?: number
 	prepare?: (page: Page) => Promise<void>
 }
 
@@ -51,6 +53,8 @@ const SHOTS: readonly Shot[] = [
 			await page.getByTestId('bulk-url-textarea').fill([...SAMPLE_URLS, SAMPLE_URLS[0]].join('\n'))
 		}
 	},
+	{name: 'Profile editor', file: 'Profile-editor-screenshot.png', query: 'scenario=profiles-editor', width: 1100, height: 1000, ready: '[data-testid="profiles-editor-dialog"]', prepare: page => page.getByRole('button', {name: 'Advanced'}).click()},
+	{name: 'Part of video', file: 'Part-of-video-screenshot.png', query: 'scenario=single-part', height: 1000, ready: '[data-testid="video-part-panel"]'},
 	{name: 'Explore', file: 'Explore-screenshot.png', query: 'scenario=explore-notice', ready: '[data-testid="explore-notice"]'},
 	{name: 'Explore browsing', file: 'Explore-browsing-screenshot.png', query: 'scenario=explore-browsing', ready: '[data-testid="explore-mock-page"] img'},
 	{name: 'Downloads attention', file: 'Downloads-attention-screenshot.png', query: 'scenario=queue-attention', height: 980, ready: '[data-testid="queue-attention-qa-capped"]', prepare: page => openTab(page, 'Downloads')},
@@ -58,7 +62,7 @@ const SHOTS: readonly Shot[] = [
 ]
 
 // Chrome that belongs to the workbench or to first-run moments, not to the feature being shown.
-const HIDE = ['[data-testid="scenario-gallery"]', '[data-testid="queue-tab-first-run-cue"]', '[data-testid="feedback-nudge"]']
+const HIDE = ['[data-testid="scenario-gallery"]', '[data-testid="queue-tab-first-run-cue"]', '[data-testid="feedback-nudge"]', '[data-testid="style-hint"]']
 
 async function openTab(page: Page, name: string): Promise<void> {
 	await page
@@ -67,22 +71,51 @@ async function openTab(page: Page, name: string): Promise<void> {
 		.click()
 }
 
+// Opens a scenario with showcase content and waits until it has settled.
+async function settle(page: Page, query: string, ready: string, options: {theme?: 'dark' | 'light'; style?: 'aurora' | 'minimal'; prepare?: Shot['prepare']} = {}): Promise<void> {
+	const {theme = 'dark', style, prepare} = options
+	await page.goto(`/?${query}&theme=${theme}${style ? `&style=${style}` : ''}&showcase=1&backdropSoftware=1`)
+	await page.waitForSelector('[data-testid="app-root"]')
+	await page.addStyleTag({content: `${HIDE.join(',')}{display:none!important}`})
+	// Minimal draws no backdrop, so only Aurora has a WebGL scene to wait for.
+	if (style !== 'minimal') await page.waitForSelector('body.backdrop-webgl-active')
+	if (prepare) {
+		// Probe scenarios land on their step only after the mock's probe delay.
+		await page.waitForSelector('[data-testid="profiles-tabs"], [data-testid="wizard-panel"] [data-testid^="step-"]')
+		await prepare(page)
+	}
+	await page.waitForSelector(ready)
+	await page.waitForFunction(() => [...document.images].every(image => image.complete))
+	// Let entrance transitions finish so nothing is caught mid-fade.
+	await page.waitForTimeout(600)
+}
+
 for (const shot of SHOTS) {
 	test(shot.name, async ({page}) => {
-		if (shot.height) await page.setViewportSize({width: 900, height: shot.height})
-		await page.goto(`/?${shot.query}&theme=dark&showcase=1&backdropSoftware=1`)
-		await page.waitForSelector('[data-testid="app-root"]')
-		await page.addStyleTag({content: `${HIDE.join(',')}{display:none!important}`})
-		await page.waitForSelector('body.backdrop-webgl-active')
-		if (shot.prepare) {
-			// Probe scenarios land on their step only after the mock's probe delay.
-			await page.waitForSelector('[data-testid="profiles-tabs"], [data-testid="wizard-panel"] [data-testid^="step-"]')
-			await shot.prepare(page)
-		}
-		await page.waitForSelector(shot.ready)
-		await page.waitForFunction(() => [...document.images].every(image => image.complete))
-		// Let entrance transitions finish so nothing is caught mid-fade.
-		await page.waitForTimeout(600)
+		if (shot.height || shot.width) await page.setViewportSize({width: shot.width ?? 900, height: shot.height ?? 760})
+		await settle(page, shot.query, shot.ready, {prepare: shot.prepare})
 		await page.screenshot({path: `build/${shot.file}`})
 	})
 }
+
+// The main screen in both themes and both styles, captured one by one and laid out as a 2x2 grid:
+// Aurora on the top row, Minimal below; dark on the left, light on the right.
+const LOOKS = [
+	{style: 'aurora', theme: 'dark'},
+	{style: 'aurora', theme: 'light'},
+	{style: 'minimal', theme: 'dark'},
+	{style: 'minimal', theme: 'light'}
+] as const
+
+test('Themes and styles', async ({page, context}) => {
+	const frames: string[] = []
+	for (const look of LOOKS) {
+		await settle(page, 'scenario=profiles-home-clipboard-single', '[data-testid="profiles-quick-download"]:not([disabled])', look)
+		frames.push((await page.screenshot({omitBackground: true})).toString('base64'))
+	}
+	const grid = await context.newPage()
+	await grid.setViewportSize({width: 1000, height: 800})
+	await grid.setContent(`<body style="margin:0;display:grid;grid-template-columns:repeat(2,480px);gap:20px;width:max-content;background:transparent">${frames.map(frame => `<img src="data:image/png;base64,${frame}" style="width:480px;display:block;border-radius:14px">`).join('')}</body>`)
+	await grid.waitForFunction(() => [...document.images].every(image => image.complete))
+	await grid.locator('body').screenshot({path: 'build/Themes-and-styles-screenshot.png', omitBackground: true})
+})

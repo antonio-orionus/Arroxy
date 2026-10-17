@@ -58,6 +58,15 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Vipakuliwa hukuambia kinachokuhitaji</b><br/>Viungo huandaliwa chinichini; kilichoshindwa hutoa suluhisho lake, playlist ndefu husubiri chaguo lako</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Pakua sehemu tu ya video</b><br/>Chagua mwanzo na mwisho, au sura — Arroxy huhifadhi sehemu hiyo pekee</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Kihariri cha wasifu</b><br/>Rekebisha wasifu: aina ya faili, ubora, manukuu, mahali pa kuhifadhi, kiolezo cha jina la faili na mengineyo</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Giza au mwanga, kioo au imara</b><br/>Mionekano minne ya kuchagua: paneli za kioo juu ya anga linalosonga au nyuso imara tulivu, kila mmoja katika giza na mwanga</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Njia ya mkato ya kupakua kwa mfumo mzima ya Arroxy — Ctrl+Shift+D kwenye Windows na Linux, Cmd+Shift+D kwenye macOS, hupeleka kiungo kilichonakiliwa moja kwa moja kwenye foleni ya upakuaji" width="760" /></picture><br/><sub><b>Njia ya mkato ya kupakua kwa mfumo mzima</b><br/>Nakili kiungo popote, bonyeza mara moja — huingia kwenye foleni na upakuaji huanza</sub></td>
   </tr>
   <tr>

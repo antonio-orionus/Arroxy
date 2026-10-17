@@ -205,6 +205,9 @@ export const uz = {
   shot8_cap: "<b>Explore</b><br/>YouTube'ni Arroxy ichida ko'ring va turgan sahifangizni faol profilingiz bilan yuklab oling",
   shot9_cap: "<b>Explore'ning birinchi ekrani</b><br/>Explore'ga qisqa nazar va nega qo'shimcha hisob xavfsizroq kirish ekani",
   shot10_cap: "<b>Yuklamalar nimaga e'tibor kerakligini aytadi</b><br/>Havolalar fonda tayyorlanadi; muvaffaqiyatsizi yechimini taklif qiladi, uzun pleylist esa tanlovingizni kutadi",
+  shot11_cap: "<b>Videoning faqat bir qismini yuklab oling</b><br/>Boshlanish va tugash yoki bobni tanlang — Arroxy faqat shu oraliqni saqlaydi",
+  shot12_cap: "<b>Profil muharriri</b><br/>Profilni sozlang: fayl turi, ruxsat, taglavhalar, saqlash joyi, fayl nomi shabloni va boshqalar",
+  shot13_cap: "<b>Qorong'i yoki yorug', shisha yoki oddiy</b><br/>Tanlash uchun to'rt ko'rinish: harakatlanuvchi osmon ustidagi shisha panellar yoki sokin oddiy sirtlar, har biri qorong'i va yorug' rejimda",
   dl_platform_col: "Platforma",
   dl_format_col: "Format",
   dl_oneline_note:

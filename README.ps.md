@@ -58,6 +58,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ډاونلوډونه درته وايي څه ستاسو سره اړتیا لري</b><br/>لینکونه په شاليد کې چمتو کېږي؛ ناکام لینک حل وړاندې کوي، اوږد playlist ستاسو انتخاب ته انتظار باسي</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د ویډیو یوازې یوه برخه ډاونلوډ کړئ</b><br/>پیل او پای، یا یو فصل وټاکئ — Arroxy یوازې همدا برخه ساتي</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>د پروفایل مدیر</b><br/>یو پروفایل برابر کړئ: د فایل ډول، ریزولیشن، فرعي سرلیکونه، منزل، د فایل نوم کينه او نور</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>تور یا روښانه، شیشه‌ای یا ساده</b><br/>د ټاکلو لپاره څلور بڼې: په خوځنده اسمان د شیشې پینلونه یا آرام ساده سطحې، هره یوه په تور او روښانه حالت کې</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="د Arroxy عمومي د ډاونلوډ هاټکي — په Windows او Linux کې Ctrl+Shift+D، په macOS کې Cmd+Shift+D، کاپي شوی لینک مستقیم د ډاونلوډ کتار ته لېږي" width="760" /></picture><br/><sub><b>عمومي د ډاونلوډ هاټکي</b><br/>هر چېرې لینک کاپي کړئ، یو ځل کېکاږئ — کتار ته ننوځي او ډاونلوډ پیلېږي</sub></td>
   </tr>
   <tr>

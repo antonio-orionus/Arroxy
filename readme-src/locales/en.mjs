@@ -217,6 +217,12 @@ export const en = {
     "<b>Explore's first screen</b><br/>A quick look at Explore, and why a secondary account is the safer sign-in",
   shot10_cap:
     "<b>Downloads tells you what needs you</b><br/>Links prepare in the background; a failed one offers its fix, a long playlist waits for your choice",
+  shot11_cap:
+    "<b>Download just part of a video</b><br/>Pick a start and end, or a chapter — Arroxy saves only that range",
+  shot12_cap:
+    "<b>Profile editor</b><br/>Tune a profile: file type, resolution, subtitles, destination, filename template and more",
+  shot13_cap:
+    "<b>Dark or light, glass or solid</b><br/>Four looks to choose from: glass panels over a moving sky or quiet solid surfaces, each in dark and light",
   dl_platform_col: "Platform",
   dl_format_col: "Direct download",
   dl_oneline_note:

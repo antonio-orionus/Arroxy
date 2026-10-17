@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>“下载”告诉你哪些需要处理</b><br/>链接在后台准备；失败的会给出解决办法，较长的播放列表则等你选择</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>只下载视频的一部分</b><br/>选择开始和结束时间，或某个章节 — Arroxy 只保存该范围</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>配置文件编辑器</b><br/>精细调整配置文件：文件类型、分辨率、字幕、保存位置、文件名模板等</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>深色或浅色，玻璃或纯色</b><br/>四种外观任你选：动态天空上的玻璃面板，或安静的纯色界面，均支持深色和浅色</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 全局下载快捷键 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把复制的链接直接送入下载队列" width="760" /></picture><br/><sub><b>全局下载快捷键</b><br/>随处复制链接，按一次——即刻进入队列并开始下载</sub></td>
   </tr>
   <tr>

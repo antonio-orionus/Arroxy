@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>डाउनलोड टैब बताता है कि किसे आपकी ज़रूरत है</b><br/>लिंक बैकग्राउंड में तैयार होते हैं; फ़ेल हुआ लिंक उपाय सुझाता है, और लंबी प्लेलिस्ट आपके चुनाव का इंतज़ार करती है</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>वीडियो का सिर्फ़ एक हिस्सा डाउनलोड करें</b><br/>शुरुआत और अंत, या कोई चैप्टर चुनें — Arroxy सिर्फ़ वही हिस्सा सहेजता है</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>प्रोफ़ाइल एडिटर</b><br/>प्रोफ़ाइल को अपने हिसाब से ढालें: फ़ाइल प्रकार, रेज़ोल्यूशन, सबटाइटल, गंतव्य, फ़ाइल नाम टेम्पलेट और बहुत कुछ</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>डार्क या लाइट, ग्लास या सॉलिड</b><br/>चुनने के लिए चार लुक: चलते आसमान पर काँच के पैनल या शांत सॉलिड सतहें, दोनों डार्क और लाइट में</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy की ग्लोबल डाउनलोड हॉटकी — Windows और Linux पर Ctrl+Shift+D, macOS पर Cmd+Shift+D, कॉपी किया गया लिंक सीधे डाउनलोड कतार में भेजती है" width="760" /></picture><br/><sub><b>ग्लोबल डाउनलोड हॉटकी</b><br/>कहीं भी लिंक कॉपी करें, एक बार दबाएँ — वह कतार में आकर डाउनलोड होने लगता है</sub></td>
   </tr>
   <tr>

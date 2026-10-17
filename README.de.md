@@ -60,6 +60,15 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads zeigt, was dich braucht</b><br/>Links werden im Hintergrund vorbereitet; ein fehlgeschlagener bietet seine Lösung an, eine lange Playlist wartet auf deine Wahl</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Nur einen Teil eines Videos laden</b><br/>Wähle Start und Ende oder ein Kapitel — Arroxy speichert nur diesen Abschnitt</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil-Editor</b><br/>Ein Profil feinjustieren: Dateityp, Auflösung, Untertitel, Zielordner, Dateinamenvorlage und mehr</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Dunkel oder hell, Glas oder schlicht</b><br/>Vier Looks zur Wahl: Glasflächen über einem bewegten Himmel oder ruhige, einfarbige Flächen – jeweils dunkel und hell</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Globaler Download-Hotkey von Arroxy — Ctrl+Shift+D unter Windows und Linux, Cmd+Shift+D unter macOS, schickt den kopierten Link direkt in die Download-Warteschlange" width="760" /></picture><br/><sub><b>Globaler Download-Hotkey</b><br/>Link irgendwo kopieren, einmal drücken — er landet in der Warteschlange und der Download startet</sub></td>
   </tr>
   <tr>

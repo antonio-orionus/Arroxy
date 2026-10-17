@@ -201,6 +201,9 @@ export const zhHant = {
   shot8_cap: "<b>Explore</b><br/>在 Arroxy 內瀏覽 YouTube，用目前設定下載你正在看的頁面",
   shot9_cap: "<b>Explore 首屏</b><br/>快速了解 Explore，以及為什麼用備用帳號登入更安全",
   shot10_cap: "<b>「下載」告訴你哪些需要處理</b><br/>連結在背景準備；失敗的會提供解決辦法，較長的播放清單則等你選擇",
+  shot11_cap: "<b>只下載影片的一部分</b><br/>選擇開始與結束時間，或某個章節 — Arroxy 只會儲存該範圍",
+  shot12_cap: "<b>設定檔編輯器</b><br/>細部調整設定檔：檔案類型、解析度、字幕、儲存位置、檔名範本等",
+  shot13_cap: "<b>深色或淺色，玻璃或純色</b><br/>四種外觀任你選：動態天空上的玻璃面板，或安靜的純色介面，皆提供深色與淺色",
   dl_platform_col: "平台",
   dl_format_col: "格式",
   dl_oneline_note:

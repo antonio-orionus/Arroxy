@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>دانلودها نشان می‌دهند چه چیزی به شما نیاز دارد</b><br/>پیوندها در پس‌زمینه آماده می‌شوند؛ پیوند ناموفق راه‌حلش را پیشنهاد می‌دهد و فهرست پخش بلند منتظر انتخاب شما می‌ماند</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>فقط بخشی از ویدیو را دانلود کنید</b><br/>شروع و پایان یا یک فصل را انتخاب کنید — Arroxy فقط همان بازه را ذخیره می‌کند</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ویرایشگر پروفایل</b><br/>یک پروفایل را تنظیم کنید: نوع فایل، وضوح، زیرنویس، مقصد، الگوی نام فایل و موارد دیگر</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>تیره یا روشن، شیشه‌ای یا ساده</b><br/>چهار ظاهر برای انتخاب: پنل‌های شیشه‌ای روی آسمانی متحرک یا سطوح ساده و آرام، هرکدام در حالت تیره و روشن</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="میان‌بر سراسری دانلود Arroxy — Ctrl+Shift+D در Windows و Linux و Cmd+Shift+D در macOS که پیوند کپی‌شده را مستقیم به صف می‌فرستد" width="760" /></picture><br/><sub><b>میان‌بر سراسری دانلود</b><br/>هرجا پیوندی را کپی و یک بار کلیدها را بزنید؛ به صف می‌رود و دانلود آغاز می‌شود</sub></td>
   </tr>
   <tr>

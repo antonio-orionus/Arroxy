@@ -58,6 +58,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Οι Λήψεις σας λένε τι χρειάζεται εσάς</b><br/>Οι σύνδεσμοι προετοιμάζονται στο παρασκήνιο· ένας αποτυχημένος προτείνει τη λύση, μια μεγάλη playlist περιμένει την επιλογή σας</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Κατεβάστε μόνο ένα μέρος του βίντεο</b><br/>Επιλέξτε αρχή και τέλος ή ένα κεφάλαιο — το Arroxy αποθηκεύει μόνο αυτό το τμήμα</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Επεξεργαστής προφίλ</b><br/>Ρυθμίστε ένα προφίλ: τύπο αρχείου, ανάλυση, υπότιτλους, προορισμό, πρότυπο ονόματος αρχείου και άλλα</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Σκούρο ή φωτεινό, γυαλί ή απλό</b><br/>Τέσσερις εμφανίσεις: γυάλινα πάνελ πάνω από κινούμενο ουρανό ή ήρεμες συμπαγείς επιφάνειες, και οι δύο σε σκούρο και φωτεινό</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Καθολική συντόμευση λήψης του Arroxy — Ctrl+Shift+D σε Windows και Linux, Cmd+Shift+D σε macOS, στέλνει τον αντιγραμμένο σύνδεσμο απευθείας στην ουρά λήψεων" width="760" /></picture><br/><sub><b>Καθολική συντόμευση λήψης</b><br/>Αντίγραψε έναν σύνδεσμο οπουδήποτε, πάτα μία φορά — μπαίνει στην ουρά και ξεκινά η λήψη</sub></td>
   </tr>
   <tr>

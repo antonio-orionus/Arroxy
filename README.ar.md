@@ -58,6 +58,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>التنزيلات تخبرك بما يحتاج إليك</b><br/>تُجهَّز الروابط في الخلفية؛ والرابط الفاشل يقترح حله، وقائمة التشغيل الطويلة تنتظر اختيارك</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>نزّل جزءًا فقط من الفيديو</b><br/>حدّد البداية والنهاية أو فصلًا — وسيحفظ Arroxy هذا النطاق فقط</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>محرّر الملفات الشخصية</b><br/>اضبط ملفًا شخصيًا: نوع الملف والدقة والترجمات والوجهة وقالب اسم الملف وغير ذلك</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>داكن أو فاتح، زجاجي أو صلب</b><br/>أربعة أشكال للاختيار: ألواح زجاجية فوق سماء متحركة أو أسطح صلبة هادئة، كلٌّ منها بالوضع الداكن والفاتح</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="اختصار التنزيل العام في Arroxy — Ctrl+Shift+D على Windows وLinux، وCmd+Shift+D على macOS، يرسل الرابط المنسوخ مباشرة إلى طابور التنزيل" width="760" /></picture><br/><sub><b>اختصار تنزيل عام</b><br/>انسخ رابطاً في أي مكان واضغط مرة واحدة — يدخل الطابور ويبدأ التنزيل</sub></td>
   </tr>
   <tr>

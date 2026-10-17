@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>แท็บดาวน์โหลดบอกว่าอะไรต้องให้คุณจัดการ</b><br/>ลิงก์เตรียมข้อมูลเบื้องหลัง ลิงก์ที่ล้มเหลวจะเสนอวิธีแก้ และเพลย์ลิสต์ยาวจะรอให้คุณเลือก</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ดาวน์โหลดเฉพาะบางส่วนของวิดีโอ</b><br/>เลือกจุดเริ่มต้นและจุดสิ้นสุด หรือเลือกบท — Arroxy จะบันทึกเฉพาะช่วงนั้น</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ตัวแก้ไขโปรไฟล์</b><br/>ปรับแต่งโปรไฟล์: ชนิดไฟล์ ความละเอียด คำบรรยาย ปลายทาง เทมเพลตชื่อไฟล์ และอื่น ๆ</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>มืดหรือสว่าง กระจกหรือเรียบ</b><br/>สี่รูปลักษณ์ให้เลือก: แผงกระจกบนท้องฟ้าที่เคลื่อนไหว หรือพื้นผิวเรียบสงบ ทั้งแบบมืดและสว่าง</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="ปุ่มลัดดาวน์โหลดทั่วระบบของ Arroxy — Ctrl+Shift+D บน Windows และ Linux, Cmd+Shift+D บน macOS เพื่อส่งลิงก์ที่คัดลอกเข้าคิวโดยตรง" width="760" /></picture><br/><sub><b>ปุ่มลัดดาวน์โหลดทั่วระบบ</b><br/>คัดลอกลิงก์ที่ไหนก็ได้ กดครั้งเดียว แล้วลิงก์จะเข้าคิวและเริ่มดาวน์โหลด</sub></td>
   </tr>
   <tr>

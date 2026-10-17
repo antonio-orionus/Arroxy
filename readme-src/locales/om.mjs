@@ -207,6 +207,9 @@ export const om = {
   shot8_cap: "<b>Explore</b><br/>YouTube Arroxy keessatti ilaali, fuula irra jirtu piroofaayilii hojiirra jiruun buufadhu",
   shot9_cap: "<b>Fuula jalqabaa Explore</b><br/>Explore ilaalcha gabaabaa, akkasumas maaliif akkaawuntiin lammaffaan seensa nageenya qabeessa ta'e",
   shot10_cap: "<b>Buufata maal akka si barbaaduu sitti hima</b><br/>Hidhaawwan duubatti qophaa'u; kan hin milkoofne furmaata dhiyeessa, playlist dheeraan filannoo kee eega",
+  shot11_cap: "<b>Kutaa viidiyoo tokko qofa buusi</b><br/>Jalqabaa fi dhumaa, yookaan boqonnaa filadhu — Arroxy kutaa sana qofa kuusa",
+  shot12_cap: "<b>Gulaalaa piroofayilii</b><br/>Piroofayilii sirreessi: gosa faayilii, gulaalummaa, hiikkaa jalqabaa, bakka kuusaa, qophii maqaa faayilii fi kkf",
+  shot13_cap: "<b>Dukkana moo ifa, galaasaa moo cimaa</b><br/>Mul'ata afur filachuu dandeessu: paanaalii galaasaa samii socho'u irra jiru yookaan fuula cimaa callisaa, tokkoon tokkoon isaanii dukkanaa fi ifaan",
   dl_platform_col: "Platform",
   dl_format_col: "Format",
   dl_oneline_note:

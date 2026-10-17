@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Downloads بتاتا ہے کہ کس چیز کو آپ کی ضرورت ہے</b><br/>لنکس پس منظر میں تیار ہوتے ہیں؛ ناکام لنک حل پیش کرتا ہے، لمبی پلے لسٹ آپ کے انتخاب کا انتظار کرتی ہے</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ویڈیو کا صرف ایک حصہ ڈاؤن لوڈ کریں</b><br/>آغاز اور اختتام، یا کوئی باب چنیں — Arroxy صرف وہی حصہ محفوظ کرتا ہے</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>پروفائل ایڈیٹر</b><br/>پروفائل کو ترتیب دیں: فائل کی قسم، ریزولوشن، سب ٹائٹلز، منزل، فائل نام کا سانچہ اور مزید</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>گہرا یا روشن، شیشہ یا سادہ</b><br/>منتخب کرنے کے لیے چار انداز: چلتے آسمان پر شیشے کے پینل یا پرسکون سادہ سطحیں، ہر ایک گہرے اور روشن موڈ میں</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy کی عالمی ڈاؤن لوڈ ہاٹ کی — Windows اور Linux پر Ctrl+Shift+D، macOS پر Cmd+Shift+D، کاپی کیا گیا لنک سیدھا ڈاؤن لوڈ قطار میں بھیجتی ہے" width="760" /></picture><br/><sub><b>عالمی ڈاؤن لوڈ ہاٹ کی</b><br/>کہیں بھی لنک کاپی کریں، ایک بار دبائیں — یہ قطار میں آ جاتا ہے اور ڈاؤن لوڈ شروع ہو جاتا ہے</sub></td>
   </tr>
   <tr>

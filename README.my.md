@@ -58,6 +58,15 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ဒေါင်းလုဒ်များက သင့်အကူအညီလိုသည်ကို ပြောပြသည်</b><br/>လင့်ခ်များကို နောက်ခံတွင် ပြင်ဆင်သည်၊ မအောင်မြင်သည့်လင့်ခ်က ဖြေရှင်းနည်းပေးပြီး ရှည်သော playlist က သင့်ရွေးချယ်မှုကို စောင့်သည်</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ဗီဒီယိုရဲ့ တစ်စိတ်တစ်ပိုင်းကိုသာ ဒေါင်းလုဒ်လုပ်ပါ</b><br/>အစနဲ့ အဆုံး ဒါမှမဟုတ် အခန်းတစ်ခုကို ရွေးပါ — Arroxy က ထိုအပိုင်းကိုသာ သိမ်းပေးပါတယ်</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ပရိုဖိုင် တည်းဖြတ်ကိရိယာ</b><br/>ပရိုဖိုင်ကို ညှိပါ- ဖိုင်အမျိုးအစား၊ ရီဇိုလူးရှင်း၊ စာတန်းထိုး၊ သိမ်းဆည်းမည့်နေရာ၊ ဖိုင်အမည်ပုံစံနှင့် အခြားများ</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>မှောင် သို့မဟုတ် လင်း၊ မှန် သို့မဟုတ် ရိုးရိုး</b><br/>ရွေးချယ်စရာ ပုံစံလေးမျိုး- ရွေ့လျားနေသော ကောင်းကင်ပေါ်ရှိ မှန်အကန့်များ သို့မဟုတ် တည်ငြိမ်သော ရိုးရိုးမျက်နှာပြင်များ၊ တစ်ခုချင်းစီ မှောင်နှင့် လင်းနှစ်မျိုးလုံးဖြင့်</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy ၏ စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ် — Windows နှင့် Linux တွင် Ctrl+Shift+D၊ macOS တွင် Cmd+Shift+D ဖြင့် ကူးယူထားသောလင့်ခ်ကို ဒေါင်းလုဒ်စာရင်းသို့ တိုက်ရိုက်ပို့သည်" width="760" /></picture><br/><sub><b>စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်</b><br/>ဘယ်နေရာမှာမဆို လင့်ခ်ကူးပြီး တစ်ချက်နှိပ်လိုက်ရုံ — စာရင်းထဲရောက်ပြီး ဒေါင်းလုဒ်စတင်</sub></td>
   </tr>
   <tr>

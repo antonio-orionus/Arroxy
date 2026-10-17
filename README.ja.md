@@ -60,6 +60,15 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>対応が必要なものをダウンロードが知らせます</b><br/>リンクはバックグラウンドで準備され、失敗したものは対処法を提示し、長いプレイリストは選択を待ちます</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>動画の一部だけをダウンロード</b><br/>開始と終了、またはチャプターを選ぶだけ — Arroxy はその範囲だけを保存します</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>プロファイルエディター</b><br/>プロファイルを細かく調整：ファイル形式、解像度、字幕、保存先、ファイル名テンプレートなど</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ダークかライトか、ガラスかソリッドか</b><br/>選べる4つのデザイン：動く空に浮かぶガラスのパネル、または落ち着いたソリッドな画面。それぞれダークとライトに対応</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy のグローバルダウンロードホットキー — Windows と Linux では Ctrl+Shift+D、macOS では Cmd+Shift+D で、コピーしたリンクをそのままダウンロードキューへ送ります" width="760" /></picture><br/><sub><b>グローバルダウンロードホットキー</b><br/>どこでもリンクをコピーして一度押すだけ——キューに入りダウンロードが始まります</sub></td>
   </tr>
   <tr>

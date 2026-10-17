@@ -58,6 +58,15 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Tải xuống cho bạn biết điều gì cần bạn xử lý</b><br/>Liên kết được chuẩn bị ở chế độ nền; liên kết lỗi sẽ đề xuất cách khắc phục, danh sách phát dài chờ bạn lựa chọn</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Chỉ tải một phần của video</b><br/>Chọn điểm bắt đầu và kết thúc, hoặc một chương — Arroxy chỉ lưu đoạn đó</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Trình chỉnh sửa hồ sơ</b><br/>Tinh chỉnh một hồ sơ: loại tệp, độ phân giải, phụ đề, nơi lưu, mẫu tên tệp và nhiều hơn nữa</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Tối hoặc sáng, kính hoặc đơn sắc</b><br/>Bốn giao diện để chọn: các khung kính trên bầu trời chuyển động hoặc bề mặt đơn sắc yên tĩnh, mỗi kiểu đều có tối và sáng</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Phím tắt tải xuống toàn cục của Arroxy — Ctrl+Shift+D trên Windows và Linux, Cmd+Shift+D trên macOS, đưa liên kết đã sao chép thẳng vào hàng đợi tải xuống" width="760" /></picture><br/><sub><b>Phím tắt tải xuống toàn cục</b><br/>Sao chép liên kết ở bất cứ đâu, nhấn một lần — nó vào hàng đợi và bắt đầu tải</sub></td>
   </tr>
   <tr>

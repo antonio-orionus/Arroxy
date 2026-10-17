@@ -218,6 +218,12 @@ export const vi = {
     "<b>Màn hình đầu tiên của Explore</b><br/>Giới thiệu nhanh về Explore, và lý do tài khoản phụ là cách đăng nhập an toàn hơn",
   shot10_cap:
     "<b>Tải xuống cho bạn biết điều gì cần bạn xử lý</b><br/>Liên kết được chuẩn bị ở chế độ nền; liên kết lỗi sẽ đề xuất cách khắc phục, danh sách phát dài chờ bạn lựa chọn",
+  shot11_cap:
+    "<b>Chỉ tải một phần của video</b><br/>Chọn điểm bắt đầu và kết thúc, hoặc một chương — Arroxy chỉ lưu đoạn đó",
+  shot12_cap:
+    "<b>Trình chỉnh sửa hồ sơ</b><br/>Tinh chỉnh một hồ sơ: loại tệp, độ phân giải, phụ đề, nơi lưu, mẫu tên tệp và nhiều hơn nữa",
+  shot13_cap:
+    "<b>Tối hoặc sáng, kính hoặc đơn sắc</b><br/>Bốn giao diện để chọn: các khung kính trên bầu trời chuyển động hoặc bề mặt đơn sắc yên tĩnh, mỗi kiểu đều có tối và sáng",
   dl_platform_col: "Nền tảng",
   dl_format_col: "Định dạng",
   dl_oneline_note:

@@ -58,6 +58,15 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ዳውንሎዶች ምን እንደሚያስፈልግዎ ይነግርዎታል</b><br/>ሊንኮች በጀርባ ይዘጋጃሉ፤ የወደቀው መፍትሔ ያቀርባል፣ ረጅም playlist ምርጫዎን ይጠብቃል</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>የቪዲዮውን የተወሰነ ክፍል ብቻ ያውርዱ</b><br/>መጀመሪያና መጨረሻ ወይም ምዕራፍ ይምረጡ — Arroxy ያንን ክልል ብቻ ያስቀምጣል</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>የመገለጫ አርታዒ</b><br/>መገለጫን ያስተካክሉ፦ የፋይል ዓይነት፣ ጥራት፣ ንዑስ ርዕሶች፣ መድረሻ፣ የፋይል ስም አብነት እና ሌሎችም</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ጨለማ ወይም ብርሃን፣ መስታወት ወይም ጠንካራ</b><br/>የሚመረጡ አራት ገጽታዎች፦ በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች ወይም ጸጥ ያሉ ጠንካራ ገጽታዎች፣ እያንዳንዳቸው በጨለማና በብርሃን</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="የArroxy አጠቃላይ የማውረድ አቋራጭ — በWindows እና Linux ላይ Ctrl+Shift+D፣ በmacOS ላይ Cmd+Shift+D፣ የተቀዳውን አገናኝ በቀጥታ ወደ ማውረጃ ወረፋ ይልካል" width="760" /></picture><br/><sub><b>አጠቃላይ የማውረድ አቋራጭ</b><br/>የትም ቦታ አገናኝ ይቅዱ፣ አንድ ጊዜ ይጫኑ — ወደ ወረፋ ገብቶ ማውረድ ይጀምራል</sub></td>
   </tr>
   <tr>

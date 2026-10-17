@@ -58,6 +58,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ការទាញយកប្រាប់អ្នកពីអ្វីដែលត្រូវការអ្នក</b><br/>តំណរៀបចំនៅផ្ទៃខាងក្រោយ; តំណដែលបរាជ័យផ្តល់ដំណោះស្រាយ បញ្ជីចាក់វែងរង់ចាំជម្រើសរបស់អ្នក</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>ទាញយកតែផ្នែកមួយនៃវីដេអូ</b><br/>ជ្រើសរើសចំណុចចាប់ផ្តើមនិងចុងបញ្ចប់ ឬជំពូកមួយ — Arroxy រក្សាទុកតែផ្នែកនោះប៉ុណ្ណោះ</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>កម្មវិធីកែប្រូហ្វាល់</b><br/>កែសម្រួលប្រូហ្វាល់៖ ប្រភេទឯកសារ គុណភាព ចំណងជើងរង ទីតាំងរក្សាទុក ទម្រង់ឈ្មោះឯកសារ និងផ្សេងទៀត</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>ងងឹត ឬភ្លឺ កញ្ចក់ ឬរាបស្មើ</b><br/>រូបរាងបួនឲ្យជ្រើសរើស៖ ផ្ទាំងកញ្ចក់លើមេឃដែលកំពុងរំកិល ឬផ្ទៃរាបស្មើស្ងប់ស្ងាត់ ម្យ៉ាងៗមានទាំងងងឹត និងភ្លឺ</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="គ្រាប់ចុចផ្លូវកាត់ទាញយកសកលរបស់ Arroxy — Ctrl+Shift+D លើ Windows និង Linux, Cmd+Shift+D លើ macOS ផ្ញើតំណដែលបានចម្លងដោយផ្ទាល់ទៅជួរទាញយក" width="760" /></picture><br/><sub><b>គ្រាប់ចុចផ្លូវកាត់ទាញយកសកល</b><br/>ចម្លងតំណពីកន្លែងណាក៏ដោយ ចុចម្តង — វាចូលជួរ ហើយចាប់ផ្តើមទាញយក</sub></td>
   </tr>
   <tr>

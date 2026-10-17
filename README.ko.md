@@ -60,6 +60,15 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>다운로드 탭이 도움이 필요한 항목을 알려 줍니다</b><br/>링크는 백그라운드에서 준비되고, 실패한 항목은 해결 방법을 제시하며, 긴 재생목록은 선택을 기다립니다</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>영상의 일부만 다운로드</b><br/>시작과 끝, 또는 챕터를 고르면 — Arroxy가 그 구간만 저장합니다</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>프로필 편집기</b><br/>프로필을 세밀하게 조정하세요: 파일 형식, 해상도, 자막, 저장 위치, 파일 이름 템플릿 등</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>다크 또는 라이트, 글래스 또는 솔리드</b><br/>고를 수 있는 네 가지 룩: 움직이는 하늘 위의 유리 패널 또는 차분한 솔리드 화면, 각각 다크와 라이트 지원</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
   </tr>
   <tr>

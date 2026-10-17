@@ -58,6 +58,15 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Yuklamalar nimaga e'tibor kerakligini aytadi</b><br/>Havolalar fonda tayyorlanadi; muvaffaqiyatsizi yechimini taklif qiladi, uzun pleylist esa tanlovingizni kutadi</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Videoning faqat bir qismini yuklab oling</b><br/>Boshlanish va tugash yoki bobni tanlang — Arroxy faqat shu oraliqni saqlaydi</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Profil muharriri</b><br/>Profilni sozlang: fayl turi, ruxsat, taglavhalar, saqlash joyi, fayl nomi shabloni va boshqalar</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Qorong'i yoki yorug', shisha yoki oddiy</b><br/>Tanlash uchun to'rt ko'rinish: harakatlanuvchi osmon ustidagi shisha panellar yoki sokin oddiy sirtlar, har biri qorong'i va yorug' rejimda</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global yuklab olish tezkor tugmasi — Windows va Linux'da Ctrl+Shift+D, macOS'da Cmd+Shift+D, nusxalangan havolani to'g'ridan-to'g'ri yuklab olish navbatiga yuboradi" width="760" /></picture><br/><sub><b>Global yuklab olish tezkor tugmasi</b><br/>Istalgan joyda havolani nusxalang, bir marta bosing — u navbatga tushadi va yuklab olina boshlaydi</sub></td>
   </tr>
   <tr>

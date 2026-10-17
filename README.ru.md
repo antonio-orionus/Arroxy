@@ -60,6 +60,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Загрузки подсказывают, что ждёт вас</b><br/>Ссылки готовятся в фоне; неудавшаяся предлагает решение, длинный плейлист ждёт вашего выбора</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Скачайте только часть видео</b><br/>Выберите начало и конец или главу — Arroxy сохранит только этот фрагмент</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Редактор профилей</b><br/>Тонкая настройка профиля: тип файла, разрешение, субтитры, папка, шаблон имени файла и не только</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Тёмная или светлая, стекло или без эффектов</b><br/>Четыре вида на выбор: стеклянные панели на движущемся небе или спокойные однотонные поверхности, каждый в тёмной и светлой теме</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобальная горячая клавиша загрузки Arroxy — Ctrl+Shift+D в Windows и Linux, Cmd+Shift+D в macOS, отправляет скопированную ссылку прямо в очередь загрузок" width="760" /></picture><br/><sub><b>Глобальная горячая клавиша загрузки</b><br/>Скопируйте ссылку где угодно и нажмите один раз — она попадёт в очередь и начнёт скачиваться</sub></td>
   </tr>
   <tr>

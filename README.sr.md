@@ -58,6 +58,15 @@
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Преузимања вам показују шта чека вас</b><br/>Линкови се припремају у позадини; неуспели нуди решење, дугачка плејлиста чека ваш избор</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Преузмите само део видеа</b><br/>Изаберите почетак и крај или поглавље — Arroxy чува само тај опсег</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Уређивач профила</b><br/>Подесите профил: тип фајла, резолуцију, титлове, одредиште, шаблон назива фајла и још много тога</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Тамно или светло, стакло или једноставно</b><br/>Четири изгледа за избор: стаклени панели преко покретног неба или мирне једнобојне површине, сваки у тамној и светлој теми</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Глобална пречица за преузимање у Arroxy — Ctrl+Shift+D на Windows и Linux, Cmd+Shift+D на macOS, шаље копирани линк право у ред за преузимање" width="760" /></picture><br/><sub><b>Глобална пречица за преузимање</b><br/>Копирајте линк било где, притисните једном — улази у ред и преузимање почиње</sub></td>
   </tr>
   <tr>

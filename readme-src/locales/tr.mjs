@@ -206,6 +206,9 @@ export const tr = {
   shot8_cap: "<b>Explore</b><br/>YouTube'a Arroxy içinden göz at ve bulunduğun sayfayı aktif profilinle indir",
   shot9_cap: "<b>Explore'un ilk ekranı</b><br/>Explore'a kısa bir bakış ve ikincil hesabın neden daha güvenli giriş olduğu",
   shot10_cap: "<b>İndirmeler sana neye ihtiyaç olduğunu söyler</b><br/>Bağlantılar arka planda hazırlanır; başarısız olan çözümünü sunar, uzun bir oynatma listesi seçimini bekler",
+  shot11_cap: "<b>Videonun yalnızca bir bölümünü indirin</b><br/>Başlangıç ve bitiş ya da bir bölüm seçin — Arroxy yalnızca o aralığı kaydeder",
+  shot12_cap: "<b>Profil düzenleyici</b><br/>Bir profili ayarlayın: dosya türü, çözünürlük, altyazılar, hedef, dosya adı şablonu ve daha fazlası",
+  shot13_cap: "<b>Koyu ya da açık, cam ya da sade</b><br/>Seçebileceğiniz dört görünüm: hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler, her biri koyu ve açık temada",
   dl_platform_col: "Platform",
   dl_format_col: "Doğrudan indirme",
   dl_oneline_note:

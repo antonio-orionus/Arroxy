@@ -205,6 +205,12 @@ export const de = {
   shot8_cap: "<b>Explore</b><br/>Durchstöbere YouTube direkt in Arroxy und lade die aktuelle Seite mit deinem aktiven Profil herunter",
   shot9_cap: "<b>Der erste Bildschirm von Explore</b><br/>Ein kurzer Blick auf Explore – und warum ein Zweitkonto die sicherere Anmeldung ist",
   shot10_cap: "<b>Downloads zeigt, was dich braucht</b><br/>Links werden im Hintergrund vorbereitet; ein fehlgeschlagener bietet seine Lösung an, eine lange Playlist wartet auf deine Wahl",
+  shot11_cap:
+    "<b>Nur einen Teil eines Videos laden</b><br/>Wähle Start und Ende oder ein Kapitel — Arroxy speichert nur diesen Abschnitt",
+  shot12_cap:
+    "<b>Profil-Editor</b><br/>Ein Profil feinjustieren: Dateityp, Auflösung, Untertitel, Zielordner, Dateinamenvorlage und mehr",
+  shot13_cap:
+    "<b>Dunkel oder hell, Glas oder schlicht</b><br/>Vier Looks zur Wahl: Glasflächen über einem bewegten Himmel oder ruhige, einfarbige Flächen – jeweils dunkel und hell",
   dl_platform_col: "Plattform",
   dl_format_col: "Format",
   dl_oneline_note:

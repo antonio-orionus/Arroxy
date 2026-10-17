@@ -60,6 +60,15 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
     <td width="50%" valign="top" align="center"><img src="build/Downloads-attention-screenshot.png" alt="Arroxy — Downloads with a link preparing, a failed link offering Sign in in Explore, and a playlist waiting for a choice" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Unduhan memberi tahu apa yang butuh perhatian Anda</b><br/>Tautan disiapkan di latar belakang; yang gagal menawarkan solusinya, playlist panjang menunggu pilihan Anda</sub></td>
   </tr>
   <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Part-of-video-screenshot.png" alt="Arroxy — Part of a video: a range bar with start and end times, chapter chips and an exact-cut option" width="560" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Unduh hanya sebagian video</b><br/>Pilih awal dan akhir, atau satu bab — Arroxy hanya menyimpan rentang itu</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Profile-editor-screenshot.png" alt="Arroxy — Profile editor with file type, resolution, subtitles, destination, filename template and output options" width="680" /><br/><img src="https://img.shields.io/badge/NEW-blueviolet?style=flat-square" alt="New" /> <sub><b>Editor profil</b><br/>Atur profil: jenis file, resolusi, subtitel, tujuan, templat nama file, dan lainnya</sub></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" align="center"><img src="build/Themes-and-styles-screenshot.png" alt="Arroxy — the main screen in dark and light, with the Aurora glass style on top and the Minimal solid style below" width="760" /><br/><sub><b>Gelap atau terang, kaca atau polos</b><br/>Empat tampilan untuk dipilih: panel kaca di atas langit bergerak atau permukaan polos yang tenang, masing-masing dalam mode gelap dan terang</sub></td>
+  </tr>
+  <tr>
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Pintasan unduh global Arroxy — Ctrl+Shift+D di Windows dan Linux, Cmd+Shift+D di macOS, mengirim tautan yang disalin langsung ke antrean unduhan" width="760" /></picture><br/><sub><b>Pintasan unduh global</b><br/>Salin tautan di mana saja, tekan sekali — langsung masuk antrean dan mulai diunduh</sub></td>
   </tr>
   <tr>
