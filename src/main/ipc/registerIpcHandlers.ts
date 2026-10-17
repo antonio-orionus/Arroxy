@@ -43,7 +43,7 @@ export interface IpcDependencies {
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
-	// Rebuilds the native application menu (macOS) after a language, style, or theme change.
+	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
 	refreshAppMenu?: () => void
 }
 
@@ -58,7 +58,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onAppearanceChanged: refreshAppMenu})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged: refreshAppMenu})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)

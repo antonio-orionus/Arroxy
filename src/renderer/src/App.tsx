@@ -7,6 +7,7 @@ import {useShallow} from 'zustand/react/shallow'
 import {DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
+import {replaceHash} from './lib/navigation.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
 import type {BackdropColorScheme} from './components/layout/background/types.js'
 import {TitleBar} from './components/layout/TitleBar.js'
@@ -100,8 +101,20 @@ export function App(): ReactNode {
 			setBackdropFailed: state.setBackdropFailed
 		}))
 	)
-	const {uiZoom, setUiZoom, uiTheme, setUiTheme, setUiStyle, setAboutDialogOpen, openShareDialog, shareDialogOpen} = useAppStore(
-		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setUiTheme: state.setUiTheme, setUiStyle: state.setUiStyle, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
+	const {uiZoom, setUiZoom, uiTheme, setUiTheme, setUiStyle, setAboutDialogOpen, openShareDialog, shareDialogOpen, openLogs, saveDiagnostics, setLimitRate} = useAppStore(
+		useShallow(state => ({
+			uiZoom: state.uiZoom,
+			setUiZoom: state.setUiZoom,
+			uiTheme: state.uiTheme,
+			setUiTheme: state.setUiTheme,
+			setUiStyle: state.setUiStyle,
+			setAboutDialogOpen: state.setAboutDialogOpen,
+			openShareDialog: state.openShareDialog,
+			shareDialogOpen: state.shareDialogOpen,
+			openLogs: state.openLogs,
+			saveDiagnostics: state.saveDiagnostics,
+			setLimitRate: state.setLimitRate
+		}))
 	)
 	const update = useUpdateChannel()
 	// While browsing in Explore's compact layout the footer drops its labels and slims down.
@@ -168,6 +181,18 @@ export function App(): ReactNode {
 					case 'feedback':
 						setFeedbackDialogOpen(true)
 						break
+					case 'settings':
+						replaceHash('settings')
+						break
+					case 'logs':
+						void openLogs()
+						break
+					case 'diagnostics':
+						void saveDiagnostics()
+						break
+					case 'speedLimit':
+						void setLimitRate(action.limitRate)
+						break
 					case 'style':
 						setUiStyle(action.style)
 						break
@@ -176,7 +201,7 @@ export function App(): ReactNode {
 						break
 				}
 			}),
-		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme]
+		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate]
 	)
 
 	useEffect(() => {

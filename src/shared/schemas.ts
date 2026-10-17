@@ -250,12 +250,6 @@ export const uiStyleSchema = z.enum(['aurora', 'minimal'])
 export type UiStyle = z.infer<typeof uiStyleSchema>
 export const UI_STYLES = uiStyleSchema.options
 
-// What the native application menu asks the renderer to do. The renderer owns
-// UI state, so a menu pick is a request, applied through the same store actions
-// as the footer controls.
-export const menuActionSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('about')}), z.object({kind: z.literal('share')}), z.object({kind: z.literal('feedback')}), z.object({kind: z.literal('style'), style: uiStyleSchema}), z.object({kind: z.literal('theme'), theme: uiThemeSchema})])
-export type MenuAction = z.infer<typeof menuActionSchema>
-
 export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
 export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
 
@@ -593,6 +587,22 @@ export const resumeSchema = z.object({jobId: z.string().min(1)})
 // Empty string is the "off" representation (same pattern as proxyUrl). YtDlp.run()
 // applies `nonEmpty(value.trim())` so empty / whitespace yields no flag.
 export const limitRateSchema = z.string().regex(/^(|\s*|\d+(\.\d+)?[KM])$/i, 'Use a number followed by K or M (e.g. 500K, 1.5M)')
+
+// What the native application menu asks the renderer to do. The renderer owns
+// UI state, so a menu pick is a request, applied through the same store actions
+// as the footer controls. A speed limit left out means no limit.
+export const menuActionSchema = z.discriminatedUnion('kind', [
+	z.object({kind: z.literal('about')}),
+	z.object({kind: z.literal('share')}),
+	z.object({kind: z.literal('feedback')}),
+	z.object({kind: z.literal('settings')}),
+	z.object({kind: z.literal('logs')}),
+	z.object({kind: z.literal('diagnostics')}),
+	z.object({kind: z.literal('speedLimit'), limitRate: limitRateSchema.optional()}),
+	z.object({kind: z.literal('style'), style: uiStyleSchema}),
+	z.object({kind: z.literal('theme'), theme: uiThemeSchema})
+])
+export type MenuAction = z.infer<typeof menuActionSchema>
 
 const commonPathsSchema = z.object({downloads: z.string().nullable(), videos: z.string().nullable(), desktop: z.string().nullable(), music: z.string().nullable(), documents: z.string().nullable(), pictures: z.string().nullable(), home: z.string().nullable()})
 

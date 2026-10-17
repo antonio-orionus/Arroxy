@@ -6,6 +6,7 @@ import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {STYLES} from '../../styles/registry.js'
+import {Hint} from '../shared/Hint.js'
 
 const STYLE_ICONS = {aurora: Sparkles, minimal: Square} as const satisfies Record<UiStyle, typeof Sparkles>
 const HINT_DELAY_MS = 1500
@@ -51,9 +52,11 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 					{uiStyleSchema.options.map(style => {
 						const Icon = STYLE_ICONS[style]
 						return (
-							<ToggleGroupItem key={style} value={style} aria-label={t(STYLES[style].labelKey)} data-testid={`footer-style-${style}`}>
-								<Icon className="size-3" />
-							</ToggleGroupItem>
+							<Hint key={style} label={t(STYLES[style].labelKey)}>
+								<ToggleGroupItem value={style} aria-label={t(STYLES[style].labelKey)} data-testid={`footer-style-${style}`}>
+									<Icon className="size-3" />
+								</ToggleGroupItem>
+							</Hint>
 						)
 					})}
 				</ToggleGroup>

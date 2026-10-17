@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {type UiTheme, uiThemeSchema} from '@shared/schemas.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {Hint} from '../shared/Hint.js'
 
 const UI_THEMES = new Set<string>(uiThemeSchema.options)
 
@@ -39,15 +40,21 @@ export function ThemeToggle(): React.JSX.Element {
 			}}
 			size="sm"
 		>
-			<ToggleGroupItem value="light" aria-label={t('theme.light')}>
-				<Sun className="size-3" />
-			</ToggleGroupItem>
-			<ToggleGroupItem value="system" aria-label={t('theme.system')}>
-				<Monitor className="size-3" />
-			</ToggleGroupItem>
-			<ToggleGroupItem value="dark" aria-label={t('theme.dark')}>
-				<Moon className="size-3" />
-			</ToggleGroupItem>
+			<Hint label={t('theme.light')}>
+				<ToggleGroupItem value="light" aria-label={t('theme.light')}>
+					<Sun className="size-3" />
+				</ToggleGroupItem>
+			</Hint>
+			<Hint label={t('theme.system')}>
+				<ToggleGroupItem value="system" aria-label={t('theme.system')}>
+					<Monitor className="size-3" />
+				</ToggleGroupItem>
+			</Hint>
+			<Hint label={t('theme.dark')}>
+				<ToggleGroupItem value="dark" aria-label={t('theme.dark')}>
+					<Moon className="size-3" />
+				</ToggleGroupItem>
+			</Hint>
 		</ToggleGroup>
 	)
 }

@@ -19,12 +19,12 @@ interface SettingsHandlerDeps {
 	// The kill switch: turning Explore off tears the native view down. A new
 	// proxy setting, or a toggled ad blocker, is applied to an open view at once.
 	exploreView: Pick<ExploreViewHost, 'destroy' | 'applyProxySetting' | 'applyAdBlockSetting'>
-	// The native menu mirrors the style and theme; macOS only, so absent elsewhere.
-	onAppearanceChanged?: () => void
+	// The native menu mirrors the style, theme, and speed limit; macOS only, so absent elsewhere.
+	onMenuStateChanged?: () => void
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onAppearanceChanged} = deps
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged} = deps
 
 	handleRaw(IPC_CHANNELS.settingsGet, async () => {
 		try {
@@ -58,8 +58,8 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 			// Not awaited: the blocker's status reaches the toolbar through the view state.
 			void exploreView.applyAdBlockSetting()
 		}
-		if (data.common?.uiStyle !== undefined || data.common?.uiTheme !== undefined) {
-			onAppearanceChanged?.()
+		if (data.common?.uiStyle !== undefined || data.common?.uiTheme !== undefined || data.common?.limitRate !== undefined) {
+			onMenuStateChanged?.()
 		}
 		return ok(updated)
 	})

@@ -6,7 +6,7 @@ import {useAppStore} from '../../store/useAppStore.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Input} from '../ui/input.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {LIMIT_RATE_PRESETS, formatLimitRateLabel, isLimitRatePreset} from './limitRateFormat.js'
+import {LIMIT_RATE_PRESETS, formatLimitRateLabel, isLimitRatePreset} from '@shared/limitRate.js'
 import {FieldError} from '../ui/field.js'
 
 interface Props {
