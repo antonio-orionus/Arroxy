@@ -131,11 +131,12 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
             for warning in video.get('warnings', []):
                 self.report_warning(warning, video_id)
 
-        return {
+        info = {
             'id': video_id,
             'title': title,
             'description': f'Deterministic Arroxy E2E fixture for {video_id}',
-            'duration': 42,
+            # A chaptered entry states its real length, so a part of it can be cut.
+            'duration': video.get('duration', 42),
             'uploader': 'Arroxy Fixtures',
             'channel': 'Arroxy Fixtures',
             'webpage_url': url,
@@ -175,6 +176,9 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
             },
             'formats': _fixture_formats(catalog, base_url, video_id, signed_in),
         }
+        if video.get('chapters'):
+            info['chapters'] = video['chapters']
+        return info
 
 
 class ArroxyFixtureYoutubeTabIE(YoutubeTabIE, plugin_name='arroxyfixture'):

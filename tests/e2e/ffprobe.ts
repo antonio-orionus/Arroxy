@@ -54,3 +54,38 @@ export function probeStreams(file: string): ProbedStream[] {
 	if (!isRecord(parsed) || !Array.isArray(parsed.streams)) throw new Error(`unexpected ffprobe output: ${out}`)
 	return parsed.streams.map(parseStream)
 }
+
+export interface ProbedChapter {
+	startSeconds: number
+	endSeconds: number
+	title: string | undefined
+}
+
+export interface ProbedContainer {
+	durationSeconds: number
+	chapters: ProbedChapter[]
+}
+
+function seconds(record: Record<string, unknown>, key: string): number {
+	const value = Number(record[key])
+	if (!Number.isFinite(value)) throw new Error(`unexpected ffprobe ${key}: ${JSON.stringify(record[key])}`)
+	return value
+}
+
+function parseChapter(raw: unknown): ProbedChapter {
+	if (!isRecord(raw)) throw new Error(`unexpected ffprobe chapter: ${JSON.stringify(raw)}`)
+	return {startSeconds: seconds(raw, 'start_time'), endSeconds: seconds(raw, 'end_time'), title: optionalString(isRecord(raw.tags) ? raw.tags : undefined, 'title')}
+}
+
+/** The file's length and the chapters embedded in it. */
+export function probeContainer(file: string): ProbedContainer {
+	const ffprobe = bundledFfprobePath()
+	const dir = path.dirname(ffprobe)
+	const env: NodeJS.ProcessEnv = {...process.env}
+	if (process.platform === 'linux') env.LD_LIBRARY_PATH = `${dir}${path.delimiter}${process.env.LD_LIBRARY_PATH ?? ''}`
+	const out = execFileSync(ffprobe, ['-v', 'error', '-show_entries', 'format=duration', '-show_chapters', '-of', 'json', file], {env, encoding: 'utf8'})
+	const parsed: unknown = JSON.parse(out)
+	if (!isRecord(parsed) || !isRecord(parsed.format)) throw new Error(`unexpected ffprobe output: ${out}`)
+	const chapters = Array.isArray(parsed.chapters) ? parsed.chapters.map(parseChapter) : []
+	return {durationSeconds: seconds(parsed.format, 'duration'), chapters}
+}

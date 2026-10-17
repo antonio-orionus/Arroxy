@@ -48,6 +48,12 @@ describe('buildMediaRequest', () => {
 		expect(req.sponsorBlock).toBeUndefined()
 	})
 
+	it('embeds no chapters into a part, since yt-dlp would not shift them', () => {
+		const job: MediaJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', sponsorBlock: {mode: 'off'}, embed: {...EMBED_OFF, chapters: true, metadata: true}, videoPart: {startSeconds: 3, endSeconds: 6, exactCut: false}}
+		const req = buildMediaRequest({url: 'https://www.youtube.com/watch?v=x', job, outputDir: '/out', embed: false})
+		expect(req.embed).toMatchObject({chapters: false, metadata: true})
+	})
+
 	it('asks for an exact cut when the part says so', () => {
 		const job: MediaJob = {kind: 'audio-convert', extractor: 'vimeo', extractorKey: 'Vimeo', audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF, videoPart: {startSeconds: 0, endSeconds: 30, exactCut: true}}
 		const req = buildMediaRequest({url: 'https://vimeo.com/1', job, outputDir: '/out', embed: false})

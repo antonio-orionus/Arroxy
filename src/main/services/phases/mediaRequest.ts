@@ -66,7 +66,9 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 		...(sbConfig ? {sponsorBlock: sbConfig} : {}),
 		...(videoPart ? {downloadSections: [downloadSection(videoPart)], forceKeyframesAtCuts: videoPart.exactCut} : {}),
 		...(extractor ? {extractor} : {}),
-		embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},
+		// yt-dlp embeds the whole video's chapters into a part unshifted, so they
+		// would point past its end: a part gets none.
+		embed: {chapters: embedOpts.chapters && !videoPart, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},
 		...(infoJsonPath ? {resume: {loadInfoJsonPath: infoJsonPath}} : {})
 	}
 }

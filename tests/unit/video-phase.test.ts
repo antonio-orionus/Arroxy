@@ -607,6 +607,20 @@ describe('VideoPhase — temp dir lifecycle (real fs)', () => {
 		expect(req.resume?.loadInfoJsonPath).toBe(infoJsonPath)
 	})
 
+	it('a part never replays its own saved info-json: yt-dlp wrote it after cutting, so the range would apply twice', async () => {
+		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))
+		await mkdir(expectedTempDir, {recursive: true})
+		await writeFile(join(expectedTempDir, '_arroxy.info.json'), '{"section_start": 3, "duration": 3}')
+		const job: PreparedJob = {...BASE_JOB, videoPart: {startSeconds: 3, endSeconds: 6, exactCut: false}}
+
+		const ctx = makeRealCtx({tempDir: expectedTempDir, input: {...BASE_INPUT, job, probeInfoJsonPath: '/cache/probe.info.json'}})
+		await VideoPhase(false).run(ctx)
+
+		const [req] = ctx.runMock.mock.calls[0]
+		expect(req.resume?.loadInfoJsonPath).toBe('/cache/probe.info.json')
+		expect(req.downloadSections).toEqual(['*3-6'])
+	})
+
 	it('resume w/o cached info.json → loadInfoJsonPath undefined', async () => {
 		const expectedTempDir = join(outputDir, '.arroxy-temp', 'job-1'.slice(0, 8))
 		await mkdir(expectedTempDir, {recursive: true})

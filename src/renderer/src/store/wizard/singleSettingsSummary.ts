@@ -47,7 +47,9 @@ export function buildSingleSettingsSummary(state: AppState, ctx: {t: Translate; 
 			? t('wizard.review.value.subtitlesOff')
 			: [languages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', '), state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode]), fullLength].filter(Boolean).join(' · ')
 	const sponsorBlock = sponsorBlockApplies(state) ? (state.wizardSponsorBlockMode === 'off' ? t('wizard.review.value.sponsorBlockOff') : t(`wizard.sponsorblock.mode.${state.wizardSponsorBlockMode}`)) : null
-	const extras = EXTRA_LABEL_KEYS.filter(([field]) => state[field]).map(([, key]) => t(key))
+	// A part never gets chapters embedded (yt-dlp would not shift them), so the
+	// summary doesn't promise them.
+	const extras = EXTRA_LABEL_KEYS.filter(([field]) => state[field] && !(field === 'wizardEmbedChapters' && state.wizardPart !== null)).map(([, key]) => t(key))
 	const saveTo = formatHomeRelativePath(effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName), state.commonPaths)
 	// A part's file name ends in its range, appended when the job is queued.
 	const part = wizardVideoPart(state)

@@ -180,7 +180,13 @@ export function VideoPhase(embed: boolean): Phase {
 			// preserved tempDir, feed it to yt-dlp so extraction is skipped on
 			// resume (signed-URL / format-ID / session-cookie drift cause spurious
 			// "Requested format is not available" failures otherwise).
-			const resumeInfoJsonPath = await detectCachedInfoJson(isResume ? tempDir : undefined)
+			//
+			// Not for a part of the video: yt-dlp writes that info-json after
+			// applying the section (`section_start`, a shortened `duration`), so
+			// replaying it with the same section offsets the cut a second time.
+			// The probe's info-json predates any section and stays safe to load.
+			const isPart = preparedJob.kind !== 'ranged-format' && preparedJob.videoPart !== undefined
+			const resumeInfoJsonPath = await detectCachedInfoJson(isResume && !isPart ? tempDir : undefined)
 			const loadInfoJsonPath = resumeInfoJsonPath ?? input.probeInfoJsonPath
 
 			const site = siteForJob(preparedJob.extractor, input.url)

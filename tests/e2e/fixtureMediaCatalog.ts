@@ -50,6 +50,10 @@ function requiresSignIn(video: (typeof catalog.videos)[number]): boolean {
 	return (video as {requiresSignIn?: boolean}).requiresSignIn === true
 }
 
+function hasChapters(video: (typeof catalog.videos)[number]): boolean {
+	return ((video as {chapters?: unknown[]}).chapters?.length ?? 0) > 0
+}
+
 function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 	const limits = sessionLimits(video)
 	return limits.withheldFormatIds.length > 0 || limits.warnings.length > 0
@@ -58,7 +62,7 @@ function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')
 // Ordinary fixture videos only. A video carrying an awkward title is addressed
 // through its own export, so tests that just need "some video" never draw one.
-export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video) && !requiresSignIn(video)).map(video => video.id)
+export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video) && !requiresSignIn(video) && !hasChapters(video)).map(video => video.id)
 const splitMediaVideo = catalog.videos.find(video => video.formatSet === 'split')
 if (!splitMediaVideo) throw new Error('fixture-media-catalog.json must define a split fixture video')
 export const SPLIT_MEDIA_VIDEO_ID = splitMediaVideo.id
@@ -83,6 +87,10 @@ export const COOKIE_LIMITED_VIDEO_ID = cookieLimitedVideo.id
 const signInVideo = catalog.videos.find(requiresSignIn)
 if (!signInVideo) throw new Error('fixture-media-catalog.json must define a video that requires sign-in')
 export const SIGN_IN_VIDEO_ID = signInVideo.id
+// States its real 8-second length and three chapters, for part-of-video downloads.
+const chapteredVideo = catalog.videos.find(hasChapters)
+if (!chapteredVideo) throw new Error('fixture-media-catalog.json must define a chaptered fixture video')
+export const CHAPTERED_VIDEO_ID = chapteredVideo.id
 
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds

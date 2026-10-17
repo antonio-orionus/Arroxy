@@ -189,9 +189,11 @@ async function generateMuxedMediaBuffer(): Promise<Buffer> {
 	try {
 		// Sized to clear the >200KB plausibility oracle in expectMp4Count: 8s of
 		// 400kbps 640x360 video + 96kbps audio lands ~324KB regardless of build.
+		// A keyframe every second, like real streams, so a part of the video cut
+		// on keyframes still holds roughly the range asked for.
 		await execFileAsync(
 			ffmpegPath,
-			['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc=size=640x360:rate=30', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=44100', '-t', '8', '-c:v', 'libx264', '-b:v', '400k', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', '-shortest', outPath],
+			['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc=size=640x360:rate=30', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=44100', '-t', '8', '-c:v', 'libx264', '-b:v', '400k', '-g', '30', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', '-shortest', outPath],
 			{env, timeout: 30_000}
 		)
 		return await fsPromises.readFile(outPath)
