@@ -20,7 +20,8 @@ function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings
 function mount(common: Partial<AppSettings['common']> = {}): void {
 	const settings = buildSettings(common)
 	mockApi = buildMockAppApi()
-	mockApi.settings.update = vi.fn().mockResolvedValue(ok(settings))
+	// Main answers with the settings it saved, patch merged in.
+	mockApi.settings.update = vi.fn(async (patch: {common?: Partial<AppSettings['common']>}) => ok({...settings, common: {...settings.common, ...patch.common}}))
 	Object.defineProperty(window, 'appApi', {writable: true, value: mockApi})
 	useAppStore.setState({initialized: true, initializing: false, settings})
 	render(
@@ -49,5 +50,6 @@ describe('remove finished downloads setting', () => {
 		mount()
 		fireEvent.click(screen.getByTestId('auto-remove-completed-switch'))
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {autoRemoveCompleted: true}}))
+		await waitFor(() => expect(screen.getByTestId('auto-remove-completed-switch')).toBeChecked())
 	})
 })
