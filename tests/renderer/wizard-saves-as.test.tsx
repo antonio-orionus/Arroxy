@@ -96,8 +96,16 @@ describe('SavesAsControl', () => {
 		expect(screen.getByTestId('saves-as-option-mp4')).not.toHaveTextContent('Profile')
 	})
 
-	it('is hidden for audio and subtitles downloads', () => {
-		useAppStore.setState({wizardMediaKind: 'audio', selectedVideoFormatId: ''})
+	it('says which file an audio download makes, with nothing to choose', () => {
+		useAppStore.setState({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}})
+		render(<SavesAsControl />)
+
+		expect(screen.getByTestId('saves-as')).toHaveTextContent('Saves as.webm')
+		expect(screen.queryByTestId('saves-as-trigger')).not.toBeInTheDocument()
+	})
+
+	it('is hidden for subtitles downloads', () => {
+		useAppStore.setState({wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
 		const {container} = render(<SavesAsControl />)
 
 		expect(container).toBeEmptyDOMElement()

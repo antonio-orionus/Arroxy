@@ -7,7 +7,7 @@ type ItemProps = Omit<ComponentProps<typeof ToggleGroupItem>, 'children' | 'titl
 
 // One option in a single-select ToggleGroup laid out as cards (download type,
 // quick preset, destination folder, background mode). Shares the choice
-// surface with ChoiceRow so every selectable card or row reads the same.
+// surface with CheckRow so every selectable card or row reads the same.
 //   vertical:   icon over title over description (tiles in a grid)
 //   horizontal: icon, title, then `meta` at the end (list-like cards)
 // `hint` is a tooltip for options whose label needs a longer explanation.

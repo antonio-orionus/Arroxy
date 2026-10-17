@@ -2,7 +2,7 @@ import type {FormatOption} from '@shared/types.js'
 import type {YtDlpFormat} from '@shared/ytdlp/infoDict.js'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
-import {audioTrackLabel, audioTrackQuality, isDefaultAudio, isOriginalAudio} from '@shared/audioTrackMeta.js'
+import {audioTrackLabel, audioTrackQuality, channelLabel, isDefaultAudio, isOriginalAudio, sampleRateLabel} from '@shared/audioTrackMeta.js'
 
 // yt-dlp formats → the labelled, quality-sorted options the format picker shows.
 
@@ -16,21 +16,17 @@ function isDrcAudio(format: YtDlpFormat): boolean {
 	return /(?:^|[-_\s])drc(?:$|[-_\s])/i.test(format.format_id ?? '') || /\bdrc\b/i.test(format.format_note ?? '')
 }
 
-function channelLabel(channels: number | undefined): string | null {
-	if (!channels || channels === 2) return null
-	return `${Math.round(channels)}ch`
-}
-
-function sampleRateLabel(sampleRateHz: number | undefined): string | null {
-	if (!sampleRateHz || sampleRateHz === 44_100 || sampleRateHz === 48_000) return null
-	const khz = sampleRateHz / 1_000
-	return `${Number.isInteger(khz) ? khz.toFixed(0) : khz.toFixed(2)} kHz`
+// No video track: yt-dlp says so (`vcodec: none`), or some clients leave the
+// video codec out entirely, and then a stream with audio and no picture size is audio.
+function isAudioOnlyFormat(format: YtDlpFormat): boolean {
+	if (format.vcodec === 'none') return true
+	return format.vcodec === undefined && !format.width && !format.height && format.acodec !== undefined && format.acodec !== 'none'
 }
 
 export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
 	const mapped = formats.flatMap((item): FormatOption[] => {
 		if (!item.format_id || item.ext === 'mhtml' || (item.vcodec === 'none' && (!item.acodec || item.acodec === 'none'))) return []
-		const isAudioOnly = item.vcodec === 'none'
+		const isAudioOnly = isAudioOnlyFormat(item)
 		const ext = item.ext ?? 'unknown'
 		const filesize = item.filesize ?? item.filesize_approx
 		const formatId = item.format_id ?? ''
@@ -53,6 +49,8 @@ export function mapFormats(formats: readonly YtDlpFormat[]): FormatOption[] {
 					resolution: 'audio only',
 					abr,
 					audioCodec,
+					...(item.audio_channels ? {audioChannels: Math.round(item.audio_channels)} : {}),
+					...(item.asr ? {sampleRateHz: item.asr} : {}),
 					isDrc,
 					...(item.language ? {audioLanguage: item.language} : {}),
 					...(typeof item.language_preference === 'number' ? {audioLanguagePreference: item.language_preference} : {}),

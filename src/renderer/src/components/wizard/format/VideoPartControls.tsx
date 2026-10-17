@@ -28,7 +28,7 @@ type PartScope = 'whole' | 'part'
 // hint, where a part can't apply (Subtitles mode, no known length).
 export function VideoPartSwitch(): ReactNode {
 	const {t} = useTranslation()
-	const {partOn, unavailable, setEnabled} = useAppStore(useShallow(state => ({partOn: state.wizardPart !== null, unavailable: partUnavailableReason(state), setEnabled: state.setWizardPartEnabled})))
+	const {partOn, unavailable, setEnabled, audioSource} = useAppStore(useShallow(state => ({partOn: state.wizardPart !== null, unavailable: partUnavailableReason(state), setEnabled: state.setWizardPartEnabled, audioSource: state.wizardIsAudioOnlySource})))
 	const scope: PartScope = partOn && unavailable === null ? 'part' : 'whole'
 	return (
 		<Hint label={unavailable ? t(UNAVAILABLE_KEYS[unavailable]) : undefined}>
@@ -46,7 +46,7 @@ export function VideoPartSwitch(): ReactNode {
 				data-testid="video-part-switch"
 			>
 				<ToggleGroupItem value="whole" data-testid="video-part-whole">
-					{t('wizard.part.whole')}
+					{t(audioSource ? 'wizard.part.wholeTrack' : 'wizard.part.whole')}
 				</ToggleGroupItem>
 				<ToggleGroupItem value="part" data-testid="video-part-part">
 					{t('wizard.part.part')}

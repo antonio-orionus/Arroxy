@@ -8,9 +8,10 @@ import {buildSingleSettingsSummary} from '../../../store/wizard/singleSettingsSu
 import {Button} from '../../ui/button.js'
 import {createTranslationPort} from '../../../lib/translation.js'
 
-// Everything the Review screen holds, in one line, so Download from the Format
-// screen never hides what will happen. Conflicts show here too: Download can
-// skip Review.
+// Everything the Review screen holds, in one line of the sticky footer, so
+// Download from the Format screen never hides what will happen. The line cuts
+// with an ellipsis and its hint holds the rest. Conflicts show here too:
+// Download can skip Review.
 export function ProfileSummary(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const state = useAppStore()
@@ -23,10 +24,12 @@ export function ProfileSummary(): ReactNode {
 	const showSubtitles = state.wizardMediaKind !== 'subtitles'
 
 	return (
-		<div className="flex flex-col gap-2 rounded-lg border border-border bg-card/60 px-3.5 py-2.5 text-sm text-muted-foreground" data-testid="profile-summary">
-			<div className="flex items-start gap-3">
-				<p className="min-w-0 flex-1 leading-relaxed">
-					<span className="font-semibold text-foreground">{t('wizard.formats.summary.lead', {profile: profileName})}</span>{' '}
+		<div className="flex flex-col gap-1 pt-2.5 text-sm text-muted-foreground" data-testid="profile-summary">
+			<div className="flex items-center gap-3">
+				<p className="min-w-0 flex-1 truncate">
+					<span className="font-semibold text-foreground">{t('wizard.formats.summary.lead', {profile: profileName})}</span> {/* The folder first: when the line runs out of room, it is the last thing to lose. */}
+					<span className="text-foreground">{summary.saveTo}</span>
+					{showSubtitles || summary.sponsorBlock ? ' · ' : null}
 					{showSubtitles ? (
 						<>
 							{summary.subtitlesOn ? summary.subtitles : t('wizard.formats.summary.subtitlesOff')}
@@ -42,9 +45,9 @@ export function ProfileSummary(): ReactNode {
 							{' · '}
 						</>
 					) : null}
-					{summary.sponsorBlock ? `${t('wizard.review.rows.sponsorBlock')}: ${summary.sponsorBlock} · ` : null}
-					{state.wizardMediaKind === 'subtitles' ? null : `${summary.extras} · `}
-					<span className="text-foreground">{summary.saveTo}</span>
+					{summary.sponsorBlock ? `${t('wizard.review.rows.sponsorBlock')}: ${summary.sponsorBlock}` : null}
+					{summary.sponsorBlock && state.wizardMediaKind !== 'subtitles' ? ' · ' : null}
+					{state.wizardMediaKind === 'subtitles' ? null : summary.extras}
 				</p>
 				<Button type="button" variant="link" size="inline" className="shrink-0" onClick={() => openReview(null)} data-testid="summary-review-all">
 					{t('wizard.formats.summary.reviewAll')}

@@ -1,60 +1,52 @@
 import {expect, test} from '@playwright/test'
 import type {Page} from '@playwright/test'
 
-interface AudioListBox {
-	listHeight: number
-	viewportBottom: number
-	rootBottom: number
-	stripTop: number
-	listScrolls: boolean
+interface FormatBox {
+	hasScrollArea: boolean
 	pageScrolls: boolean
+	pageScrollsSideways: boolean
+	chipsPastEdge: number
 }
 
-async function openAudioMode(page: Page): Promise<void> {
-	await page.goto('/?scenario=single-normal&mockStep=formats&theme=dark')
-	await page.waitForSelector('[data-testid="step-formats"]')
-	await page.getByRole('button', {name: 'Audio', exact: true}).click()
-	await page.waitForSelector('[data-testid="audio-bitrate-strip"]')
+async function openFormats(page: Page, scenario: string): Promise<void> {
+	await page.goto(`/?scenario=${scenario}&mockStep=formats&theme=light&style=minimal`)
+	await page.waitForSelector('[data-testid="step-formats"] [data-slot="radio-group-chip"]')
 }
 
-async function audioListBox(page: Page): Promise<AudioListBox | null> {
+async function formatBox(page: Page): Promise<FormatBox | null> {
 	return page.evaluate(() => {
-		const root = document.querySelector('[data-testid="step-formats"] [data-slot="scroll-area"]')
-		const viewport = root?.querySelector('[data-slot="scroll-area-viewport"]')
-		const strip = document.querySelector('[data-testid="audio-bitrate-strip"]')
+		const step = document.querySelector('[data-testid="step-formats"]')
 		const panel = document.querySelector('[data-testid="wizard-panel"]')?.parentElement
-		if (!root || !viewport || !strip || !panel) return null
-		return {
-			listHeight: root.getBoundingClientRect().height,
-			viewportBottom: viewport.getBoundingClientRect().bottom,
-			rootBottom: root.getBoundingClientRect().bottom,
-			stripTop: strip.getBoundingClientRect().top,
-			listScrolls: viewport.scrollHeight > viewport.clientHeight,
-			pageScrolls: panel.scrollHeight > panel.clientHeight
-		}
+		if (!step || !panel) return null
+		const edge = panel.getBoundingClientRect().right
+		const chips = [...step.querySelectorAll('[data-slot="radio-group-chip"]')]
+		return {hasScrollArea: step.querySelector('[data-slot="scroll-area"]') !== null, pageScrolls: panel.scrollHeight > panel.clientHeight, pageScrollsSideways: panel.scrollWidth > panel.clientWidth, chipsPastEdge: chips.filter(chip => chip.getBoundingClientRect().right > edge + 0.5).length}
 	})
 }
 
-test('in Audio mode the list takes the free height of the default window', async ({page}) => {
+// The lists are as tall as their streams: no box of their own scrolls ahead of
+// time, and the default window holds a whole two-column video with room to spare.
+test('in Audio mode the list grows with its streams instead of scrolling inside a box', async ({page}) => {
 	await page.setViewportSize({width: 1024, height: 860})
-	await openAudioMode(page)
+	await openFormats(page, 'single-normal')
+	await page.getByRole('button', {name: 'Audio', exact: true}).click()
 
-	const box = await audioListBox(page)
+	const box = await formatBox(page)
 	expect(box).not.toBeNull()
-	expect(box?.listHeight).toBeGreaterThan(240)
-	expect(box?.listScrolls).toBe(false)
+	expect(box?.hasScrollArea).toBe(false)
 	expect(box?.pageScrolls).toBe(false)
 })
 
-test('in a short window the Audio list scrolls inside its box instead of spilling over the rows below', async ({page}) => {
-	await page.setViewportSize({width: 720, height: 560})
-	await openAudioMode(page)
+// The narrowest window stacks each chip's size under its label, so HDR and SDR
+// columns beside a column of codecs still fit without scrolling sideways.
+test('at the minimum window, HDR and SDR columns fit without sideways scrolling', async ({page}) => {
+	await page.setViewportSize({width: 720, height: 760})
+	await openFormats(page, 'single-codec-mix')
 
-	const box = await audioListBox(page)
+	const box = await formatBox(page)
 	expect(box).not.toBeNull()
-	expect(box?.listScrolls).toBe(true)
-	expect(box?.viewportBottom).toBeLessThanOrEqual((box?.rootBottom ?? 0) + 0.5)
-	expect(box?.viewportBottom).toBeLessThanOrEqual((box?.stripTop ?? 0) + 0.5)
+	expect(box?.pageScrollsSideways).toBe(false)
+	expect(box?.chipsPastEdge).toBe(0)
 })
 
 test('the Review format strip centres its thumbnail instead of treating it as a card cover', async ({page}) => {

@@ -102,27 +102,24 @@ async function overflowingGroups(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
-// Radio rows (ChoiceRow): every row stays inside its group, and the title and
-// track details stay inside the row, in both directions.
-async function overflowingRadioTitles(page: Page): Promise<OverflowReport[]> {
+// Format chips: every chip stays inside its line, and its label, tags and size
+// stay inside the chip, in both directions.
+async function overflowingRadioChips(page: Page): Promise<OverflowReport[]> {
 	return page.evaluate(() => {
 		const found: {label: string; overflowPx: number; spillPx: number}[] = []
 		const spill = (inner: DOMRect, outer: DOMRect): number => Math.round(Math.max(inner.right - outer.right, outer.left - inner.left))
-		for (const group of document.querySelectorAll<HTMLElement>('[data-slot="radio-group"]')) {
-			const groupRect = group.getBoundingClientRect()
-			if (groupRect.width === 0) continue
-			for (const row of group.querySelectorAll<HTMLElement>('[data-slot="field-label"]:has([data-slot="radio-group-item"])')) {
-				const rowRect = row.getBoundingClientRect()
-				if (rowRect.width === 0) continue
-				const rowSpill = spill(rowRect, groupRect)
-				if (rowSpill > 1) found.push({label: (row.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: rowSpill})
-				// Skip Base UI's visually hidden native input, which is positioned off-row by design.
-				for (const part of row.querySelectorAll<HTMLElement>('[data-slot="field"] > :not(input)')) {
-					const partRect = part.getBoundingClientRect()
-					if (partRect.width === 0) continue
-					const partSpill = spill(partRect, rowRect)
-					if (partSpill > 1) found.push({label: (part.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: partSpill})
-				}
+		for (const chip of document.querySelectorAll<HTMLElement>('[data-slot="radio-group-chip"]')) {
+			const chipRect = chip.getBoundingClientRect()
+			const line = chip.parentElement?.getBoundingClientRect()
+			if (chipRect.width === 0 || !line) continue
+			const chipSpill = spill(chipRect, line)
+			if (chipSpill > 1) found.push({label: (chip.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: chipSpill})
+			// Skip Base UI's visually hidden native input, and the profile dot that sits on the chip's corner by design.
+			for (const part of chip.querySelectorAll<HTMLElement>(':scope > :not(input):not([aria-hidden])')) {
+				const partRect = part.getBoundingClientRect()
+				if (partRect.width === 0) continue
+				const partSpill = spill(partRect, chipRect)
+				if (partSpill > 1) found.push({label: (part.textContent ?? '').trim().slice(0, 32), overflowPx: 0, spillPx: partSpill})
 			}
 		}
 		return found
@@ -181,14 +178,14 @@ async function railOutsideBounds(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
-// Radio rows (ChoiceRow): anything clipped inside a row must be plain text cut
-// with an ellipsis. Overflow clips an inline box (badge + name wrapper) mid-word
-// with no ellipsis, which the spill checks above cannot see.
+// Format chips: anything clipped inside a chip must be plain text cut with an
+// ellipsis. Overflow clips an inline box mid-word with no ellipsis, which the
+// spill checks above cannot see.
 async function clippedWithoutEllipsis(page: Page): Promise<OverflowReport[]> {
 	return page.evaluate(() => {
 		const found: {label: string; overflowPx: number; spillPx: number}[] = []
-		for (const row of document.querySelectorAll<HTMLElement>('[data-slot="radio-group"] [data-slot="field"]')) {
-			for (const el of row.querySelectorAll<HTMLElement>('*')) {
+		for (const chip of document.querySelectorAll<HTMLElement>('[data-slot="radio-group-chip"]')) {
+			for (const el of chip.querySelectorAll<HTMLElement>('*')) {
 				const overflowPx = el.scrollWidth - el.clientWidth
 				if (overflowPx <= 1 || el.clientWidth === 0) continue
 				const style = getComputedStyle(el)
@@ -372,7 +369,7 @@ for (const viewport of VIEWPORTS) {
 				if ('zoom' in viewport) await applyUiZoomToWrapper(page, viewport.zoom)
 				expect(await overflowingToggles(page)).toEqual([])
 				expect(await overflowingGroups(page)).toEqual([])
-				expect(await overflowingRadioTitles(page)).toEqual([])
+				expect(await overflowingRadioChips(page)).toEqual([])
 				expect(await clippedWithoutEllipsis(page)).toEqual([])
 				expect(await overflowingTabs(page)).toEqual([])
 			})

@@ -28,3 +28,20 @@ export function isDefaultAudio(format: YtDlpFormat): boolean {
 export function isOriginalAudio(format: YtDlpFormat): boolean {
 	return /\boriginal\b/i.test(format.format_note ?? '')
 }
+
+// Channel layout and sample rate worth naming: stereo and the usual 44.1/48 kHz
+// are the baseline and stay unsaid.
+// Surround reads by its common name (5.1, 7.1), the reason anyone picks it.
+const CHANNEL_NAMES: Readonly<Record<number, string>> = {1: 'Mono', 6: '5.1', 8: '7.1'}
+
+export function channelLabel(channels: number | undefined): string | null {
+	if (!channels || channels === 2) return null
+	const count = Math.round(channels)
+	return CHANNEL_NAMES[count] ?? `${count}ch`
+}
+
+export function sampleRateLabel(sampleRateHz: number | undefined): string | null {
+	if (!sampleRateHz || sampleRateHz === 44_100 || sampleRateHz === 48_000) return null
+	const khz = sampleRateHz / 1_000
+	return `${Number.isInteger(khz) ? khz.toFixed(0) : khz.toFixed(2)} kHz`
+}

@@ -226,8 +226,8 @@ function audioSurroundProbe(): ProbeResult {
 		formats: [
 			{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
 			{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '380', label: 'm4a · ac-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
-			{formatId: '328', label: 'm4a · ec-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '380', label: 'm4a · ac-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '328', label: 'm4a · ec-3 · 6ch · 384 kbps · 49.2 MB', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioChannels: 6, audioTrackQuality: 'high', filesize: 49_200_000, isVideoOnly: false, isAudioOnly: true},
 			{formatId: '140', label: 'm4a · AAC · DRC · 129 kbps · 16.6 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isDrc: true, audioTrackQuality: 'medium', filesize: 16_600_000, isVideoOnly: false, isAudioOnly: true},
 			{formatId: '251', label: 'webm · Opus · 122 kbps · 15.6 MB', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackQuality: 'medium', filesize: 15_600_000, isVideoOnly: false, isAudioOnly: true}
 		]

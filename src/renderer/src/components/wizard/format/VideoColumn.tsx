@@ -1,60 +1,60 @@
-import type {ReactNode} from 'react'
+import {Fragment, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import type {FormatSelectionView} from '../../../store/formatSelectionView.js'
-import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
+import type {FormatSelectionView, VideoFormatRow, VideoLine} from '../../../store/formatSelectionView.js'
 import {RadioGroup} from '../../ui/radio-group.js'
-import {ChoiceRow} from '../../shared/ChoiceRow.js'
-import {ScrollArea} from '../../ui/scroll-area.js'
 import {SectionLabel} from '../../shared/SectionLabel.js'
-import {ProfileTag} from './ProfileTag.js'
+import {FormatChip, FormatLineName} from './FormatLine.js'
 
 interface VideoColumnProps {
 	view: FormatSelectionView['video']
 	selectedVideoFormatId: string
-	videoExtFilter: string | null
-	dynamicRangeFilter: string | null
-	onVideoExtFilterChange: (value: string | null) => void
-	onDynamicRangeFilterChange: (value: string | null) => void
 	onSelect: (formatId: string) => void
 }
 
-export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynamicRangeFilter, onVideoExtFilterChange, onDynamicRangeFilterChange, onSelect}: VideoColumnProps): ReactNode {
+// Every fact about the stream, for its spoken name and hover hint.
+function streamName(line: VideoLine, row: VideoFormatRow, profileLabel: string | null): string {
+	const resolution = line.alias ? `${line.name} ${line.alias}` : line.name
+	return [resolution, row.codec, row.ext, row.fps ? `${row.fps} fps` : null, row.range, row.size, profileLabel].flatMap(part => (part ? [part] : [])).join(' · ')
+}
+
+// One row per resolution, one column per dynamic range (HDR formats, then SDR):
+// a resolution offers at most one stream of each, so every cell is one chip and
+// HDR or SDR reads down a column instead of as a tag on every chip. Columns are
+// as wide as their widest chip and pack to the start, so an SDR-only video is one
+// compact column rather than chips stretched across the screen.
+export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumnProps): ReactNode {
 	const {t} = useTranslation()
+	const profileLabel = t(view.profilePickIsFallback ? 'wizard.formats.profile.closestTag' : 'wizard.formats.profile.tag')
+	const columns = {gridTemplateColumns: `auto repeat(${view.ranges.length}, auto)`}
 
 	return (
-		<div className="flex flex-col gap-0 h-full">
-			<div className="mb-1.5 flex items-center justify-between">
+		<div className="flex min-w-0 flex-col">
+			{/* Same height as the Audio header, which may hold the language picker, so both lists start level. */}
+			<div className="mb-1.5 flex min-h-8 items-center">
 				<SectionLabel>{t('wizard.formats.video')}</SectionLabel>
-				<div className="flex items-center gap-1.5">
-					{view.dynamicRangeOptions.length > 1 && (
-						<ToggleGroup size="xs" variant="outline" value={dynamicRangeFilter ? [dynamicRangeFilter] : []} onValueChange={vals => onDynamicRangeFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-1">
-							{view.dynamicRangeOptions.map(dr => (
-								<ToggleGroupItem key={dr} value={dr} shape="chip">
-									{dr}
-								</ToggleGroupItem>
-							))}
-						</ToggleGroup>
-					)}
-					{view.extOptions.length > 1 && (
-						<ToggleGroup size="xs" variant="outline" value={videoExtFilter ? [videoExtFilter] : []} onValueChange={vals => onVideoExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-1">
-							{view.extOptions.map(ext => (
-								<ToggleGroupItem key={ext} value={ext} shape="chip">
-									{ext}
-								</ToggleGroupItem>
-							))}
-						</ToggleGroup>
-					)}
-				</div>
 			</div>
 
-			<ScrollArea className="flex-1 min-h-0">
-				{/* A disabled column shows nothing as chosen, even though the store keeps a selection. */}
-				<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="gap-1">
-					{view.rows.map(row => (
-						<ChoiceRow key={row.formatId} id={`video-format-${row.formatId}`} value={row.formatId} label={row.resolution} tag={row.isProfilePick ? <ProfileTag closest={view.profilePickIsFallback} /> : null} meta={row.meta} disabled={view.disabled} fixedLabel />
-					))}
-				</RadioGroup>
-			</ScrollArea>
+			{/* No scroll area of its own: the step scrolls, and a scroller would hide the list's width from the layout.
+			    A disabled column shows nothing as chosen, even though the store keeps a selection.
+			    The range header shares the chips' grid, so each header sits over its own column. It shows
+			    even for SDR alone, so the first chips sit level with Audio's under its codec header. */}
+			<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="items-center justify-start gap-x-2 gap-y-1.5 pt-1 pe-1.5" style={columns}>
+				<span aria-hidden />
+				{view.ranges.map(range => (
+					<span key={range} aria-hidden className="px-3 text-caption text-subtle-foreground">
+						{range}
+					</span>
+				))}
+				{view.lines.map(line => (
+					<Fragment key={line.resolution}>
+						<FormatLineName name={line.name} alias={line.alias} />
+						{view.ranges.map(range => {
+							const row = line.variants.find(variant => variant.range === range)
+							return row ? <FormatChip key={range} value={row.formatId} name={streamName(line, row, row.isProfilePick ? profileLabel : null)} label={row.chipLabel} tags={row.chipTags} size={row.size} profilePick={row.isProfilePick} disabled={view.disabled} narrowStack={view.ranges.length >= 2} /> : <span key={range} />
+						})}
+					</Fragment>
+				))}
+			</RadioGroup>
 		</div>
 	)
 }

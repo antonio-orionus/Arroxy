@@ -111,27 +111,35 @@ test('screen preset scenarios land on their natural screens', async ({page}) => 
 	await expect(page.getByTestId('step-playlist-items')).toBeVisible({timeout: 6_000})
 })
 
-test('audio track quality scenarios render icon badges and tooltips', async ({page}) => {
+test('audio track quality scenarios render quality bars, languages and channel layouts', async ({page}) => {
+	// A chip's quality bars are decoration; its spoken name and hint say the grade.
+	const chipWith = (quality: string) =>
+		page
+			.getByRole('radio')
+			.filter({has: page.getByTestId(`audio-quality-${quality}`)})
+			.first()
+
 	await openScenario(page, 'probe-audio-multilingual')
 	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
-	await expect(page.getByText('English original (default)').first()).toBeVisible()
-	await expect(page.getByText('Klingon').first()).toBeVisible()
-	await expect(page.getByTestId('audio-quality-medium').first()).toBeVisible()
+	// One language at a time, picked from a list that says how many there are.
+	await expect(page.getByTestId('audio-language')).toContainText('English original (default)')
+	await expect(page.getByText(/^\d+ languages$/)).toBeVisible()
+	await expect(chipWith('medium')).toHaveAttribute('aria-label', /Medium quality/)
+	await expect(page.getByRole('radio', {name: /^Klingon/})).toHaveCount(0)
+	await page.getByTestId('audio-language').click()
+	await page.getByRole('option', {name: 'Klingon'}).click()
 	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
-	await page.getByTestId('audio-quality-medium').first().hover()
-	await expect(page.locator('[data-slot="tooltip-content"]')).toContainText('Medium quality')
+	await expect(page.getByRole('radio', {name: /^English/})).toHaveCount(0)
 
 	await openScenario(page, 'probe-audio-surround')
 	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
-	await expect(page.getByText('6ch').first()).toBeVisible()
-	await expect(page.getByTestId('audio-quality-high').first()).toBeVisible()
-	await page.getByTestId('audio-quality-high').first().hover()
-	await expect(page.locator('[data-slot="tooltip-content"]')).toContainText('High quality')
+	await expect(page.getByText('5.1', {exact: true}).first()).toBeVisible()
+	await expect(chipWith('high')).toHaveAttribute('aria-label', /High quality/)
 
 	await openScenario(page, 'probe-audio-stereo')
 	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
-	await expect(page.getByText('Klingon')).toHaveCount(0)
-	await expect(page.getByText('6ch')).toHaveCount(0)
+	await expect(page.getByTestId('audio-language')).toHaveCount(0)
+	await expect(page.getByText('5.1', {exact: true})).toHaveCount(0)
 	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
 })
 

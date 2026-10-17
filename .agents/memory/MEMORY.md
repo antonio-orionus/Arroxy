@@ -20,6 +20,7 @@
 - [shadcn CLI writes a bogus cn import](shadcn-cli-cn-import.md) — `shadcn add` imports from "cn" and installs an unrelated package; revert deps, fix the import.
 - [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`; code still goes through a PR.
 - [Download workflow map](download-workflow-map.md) — read `dev-docs/download-workflows.md` before changing how downloads start; update it with the change.
+- [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; write and run tests only after the user approves the design.
 - [Translate at the final stage](translate-at-final-stage.md) — app PO + README locales are translated once, right before the PR; during development en only, `check:i18n` red is accepted.
 - [Ship means merge, not release](ship-means-merge-not-release.md) — stop after the merge; release only on an explicit "release", since a pulled immutable release burns its tag and the Flatpak repo cannot roll back.
 - [macOS ffmpeg cannot verify HTTPS](macos-ffmpeg-cannot-verify-https.md) — embedded macOS ffmpeg has a dead CA path; fixed via SSL_CERT_FILE; the HTTP-only fixture E2E cannot see TLS bugs, so live-smoke anything where ffmpeg opens a URL.

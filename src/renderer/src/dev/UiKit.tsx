@@ -1,7 +1,7 @@
 import {useState, type ReactNode} from 'react'
 import {AlertTriangle, CheckCircle2, Clapperboard, Download, FolderOpen, Info, Inbox, Link2, Music, Pause, Play, Search, Trash2, XCircle} from 'lucide-react'
 import {CheckRow} from '../components/shared/CheckRow.js'
-import {ChoiceRow} from '../components/shared/ChoiceRow.js'
+import {FormatChip, FormatLine} from '../components/wizard/format/FormatLine.js'
 import {IconTile} from '../components/shared/IconTile.js'
 import {OptionCard} from '../components/shared/OptionCard.js'
 import {Panel} from '../components/shared/Panel.js'
@@ -427,11 +427,16 @@ export function UiKit({onExit}: {onExit: () => void}): ReactNode {
 					</Section>
 
 					<Section title="Composites: choices">
-						<SectionLabel>ChoiceRow (radio list)</SectionLabel>
-						<RadioGroup value={choice} onValueChange={value => setChoice(String(value))} className="gap-1">
-							<ChoiceRow id="kit-choice-2160" value="2160" label="2160p" meta="webm · 30fps · 2.2 GB" />
-							<ChoiceRow id="kit-choice-1080" value="1080" label="1080p" meta="mp4 · 30fps · 515 MB" />
-							<ChoiceRow id="kit-choice-mp3" value="mp3" label="mp3" meta="Convert" disabled />
+						<SectionLabel>FormatLine + FormatChip (lines of radio chips)</SectionLabel>
+						<RadioGroup value={choice} onValueChange={value => setChoice(String(value))} className="block">
+							<FormatLine name="2160p" alias="4K">
+								<FormatChip value="2160" name="2160p 4K · AV1 · mp4 · HDR10 · 2.2 GB" label="AV1" tags={['HDR10']} size="2.2 GB" profilePick />
+								<FormatChip value="2160-vp9" name="2160p 4K · VP9 · webm · 1.1 GB" label="VP9" size="1.1 GB" />
+							</FormatLine>
+							<FormatLine name="1080p">
+								<FormatChip value="1080" name="1080p · H.264 · mp4 · 30 fps · 515 MB" label="H.264" tags={['30 fps']} size="515 MB" />
+								<FormatChip value="mp3" name="Convert · mp3" label="mp3" disabled />
+							</FormatLine>
 						</RadioGroup>
 						<SectionLabel>CheckRow (multi-select grid)</SectionLabel>
 						<div className="grid grid-cols-3 gap-1">

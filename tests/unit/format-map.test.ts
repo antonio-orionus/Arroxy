@@ -19,6 +19,18 @@ describe('mapFormats', () => {
 		expect(mapped[2].isVideoOnly).toBe(false)
 	})
 
+	it('keeps the channel count and sample rate of an audio stream as data, not only in its label', () => {
+		const mapped = mapFormats([
+			{format_id: '380', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'ac-3', audio_channels: 6, asr: 48_000},
+			{format_id: '139', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.5', asr: 22_050},
+			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'}
+		])
+		expect(mapped.find(f => f.formatId === '380')).toEqual(expect.objectContaining({audioChannels: 6, sampleRateHz: 48_000}))
+		expect(mapped.find(f => f.formatId === '139')?.sampleRateHz).toBe(22_050)
+		expect(mapped.find(f => f.formatId === '139')?.audioChannels).toBeUndefined()
+		expect(mapped.find(f => f.formatId === '137')).not.toHaveProperty('audioChannels')
+	})
+
 	it('keeps the video codec on video streams so MP4 profiles can prefer H.264', () => {
 		const mapped = mapFormats([
 			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},
@@ -70,7 +82,7 @@ describe('mapFormats', () => {
 		expect(mapped.find(format => format.formatId === '140')?.label).not.toContain('2ch')
 		expect(mapped.find(format => format.formatId === '140')?.label).not.toContain('44.1 kHz')
 		expect(mapped.find(format => format.formatId === '139')?.label).toContain('22.05 kHz')
-		expect(mapped.find(format => format.formatId === '380')?.label).toContain('6ch')
+		expect(mapped.find(format => format.formatId === '380')?.label).toContain('5.1')
 		expect(mapped.find(format => format.formatId === '380')?.label).not.toContain('48 kHz')
 	})
 
@@ -97,7 +109,7 @@ describe('mapFormats', () => {
 		const medium = mapped.find(format => format.formatId === '251')
 		const low = mapped.find(format => format.formatId === '139')
 
-		expect(high).toEqual(expect.objectContaining({audioTrackQuality: 'high', label: 'm4a · ac-3 · 6ch · 384 kbps'}))
+		expect(high).toEqual(expect.objectContaining({audioTrackQuality: 'high', label: 'm4a · ac-3 · 5.1 · 384 kbps'}))
 		expect(medium).toEqual(expect.objectContaining({audioTrackQuality: 'medium', label: 'webm · Opus · 122 kbps'}))
 		expect(low).toEqual(expect.objectContaining({audioTrackQuality: 'low', label: 'm4a · AAC · 49 kbps'}))
 		expect(high).not.toHaveProperty('audioTrackLabel')

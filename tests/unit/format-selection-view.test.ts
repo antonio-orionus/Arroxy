@@ -23,7 +23,6 @@ describe('selectView — media kinds', () => {
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS})
 		expect(view.audio.convertTargets).toEqual([])
 		expect(view.audio.bitrateStrip.hidden).toBe(true)
-		expect(view.audio.audioExtOptions).toEqual(['m4a', 'webm'])
 		expect(view.canDownload).toBe(true)
 	})
 
@@ -66,8 +65,8 @@ describe('selectView — media kinds', () => {
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoPart: {part: {startSeconds: 0, endSeconds: 25, exactCut: false}, durationSeconds: 100}})
 		expect(view.selectedFilesize).toBe(300_000)
 		expect(view.sizesScaledToPart).toBe(true)
-		expect(view.video.rows.find(row => row.formatId === '137')).toMatchObject({filesize: 250_000, meta: expect.stringContaining('~244.1 KB')})
-		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.meta).toBe('m4a audio · ~48.8 KB')
+		expect(view.video.rows.find(row => row.formatId === '137')).toMatchObject({filesize: 250_000, size: '~244.1 KB'})
+		expect(view.audio.nativeRows.find(row => row.formatId === '140')?.size).toBe('~48.8 KB')
 	})
 
 	it('shows the picked stream as its resolution row even when another stream leads that group', () => {
@@ -88,33 +87,7 @@ describe('selectView — media kinds', () => {
 		expect(view.audio.nativeRows.filter(row => row.isProfilePick).map(row => row.formatId)).toEqual(['140'])
 	})
 
-	it('returns filtered video rows and filter options from one derived view', () => {
-		const formats: FormatOption[] = [
-			{formatId: '137', label: '1080p mp4 video-only', ext: 'mp4', resolution: '1080p', fps: 30, dynamicRange: 'HDR', filesize: 100, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '248', label: '1080p webm video-only', ext: 'webm', resolution: '1080p', fps: 60, filesize: 50, isVideoOnly: true, isAudioOnly: false},
-			{formatId: '140', label: 'm4a audio', ext: 'm4a', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true}
-		]
-
-		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, filters: {videoExt: 'mp4', dynamicRange: 'HDR', audioExt: null}})
-
-		expect(view.video.extOptions).toEqual(['mp4', 'webm'])
-		expect(view.video.dynamicRangeOptions).toEqual(['HDR', 'SDR'])
-		// No "Audio only" row: the Video / Audio / Subtitles switch owns that choice.
-		expect(view.video.rows).toEqual([expect.objectContaining({formatId: '137', resolution: '1080p', meta: 'mp4 · 30fps · HDR · 100 B', barWidth: 100})])
-	})
-
-	it('returns filtered audio rows and convert targets from one derived view', () => {
-		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 128, mediaKind: 'audio', wizardFormats: SEPARATE_FORMATS, filters: {videoExt: null, dynamicRange: null, audioExt: 'webm'}})
-		const unfiltered = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 128, mediaKind: 'audio', wizardFormats: SEPARATE_FORMATS})
-
-		expect(view.audio.audioExtOptions).toContain('webm')
-		expect(unfiltered.audio.convertTargets).toContain('mp3')
-		expect(view.audio.convertTargets).toEqual([])
-		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '251', ext: 'webm'})])
-		expect(view.audio.bitrateStrip.value).toBe(192)
-	})
-
-	it('puts audio track language in the native row title and keeps codec details in meta', () => {
+	it('puts audio track language in the native row track and keeps codec details in their own fields', () => {
 		const formats: FormatOption[] = [
 			{
 				formatId: '140-drc',
@@ -136,7 +109,10 @@ describe('selectView — media kinds', () => {
 
 		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-drc'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
 
-		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-drc', title: 'English original (default)', quality: null, meta: 'm4a · AAC · DRC · 130 kbps'}), expect.objectContaining({formatId: '140-0', title: 'Klingon', quality: null, meta: 'm4a · AAC · 130 kbps'})])
+		expect(view.audio.nativeRows).toEqual([
+			expect.objectContaining({formatId: '140-drc', track: 'English original (default)', quality: null, ext: 'm4a', codec: 'AAC', bitrate: '130 kbps', details: ['DRC']}),
+			expect.objectContaining({formatId: '140-0', track: 'Klingon', quality: null, ext: 'm4a', codec: 'AAC', bitrate: '130 kbps', details: []})
+		])
 	})
 
 	it('keeps same-container same-bitrate language variants visually distinct', () => {
@@ -147,7 +123,7 @@ describe('selectView — media kinds', () => {
 
 		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-1'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
 
-		expect(view.audio.nativeRows.map(row => `${row.title} | ${row.meta}`)).toEqual(['English original (default) | m4a · AAC · 130 kbps', 'Klingon | m4a · AAC · 130 kbps'])
+		expect(view.audio.nativeRows.map(row => `${row.track} | ${row.ext} ${row.codec} ${row.bitrate}`)).toEqual(['English original (default) | m4a AAC 130 kbps', 'Klingon | m4a AAC 130 kbps'])
 	})
 
 	it('keeps language label, codec metadata, and quality tier separate', () => {
@@ -172,26 +148,131 @@ describe('selectView — media kinds', () => {
 
 		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-1'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
 
-		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-1', title: 'English original (default)', quality: 'medium', meta: 'm4a · AAC · 130 kbps'}), expect.objectContaining({formatId: '251', title: '', quality: 'low', meta: 'webm · Opus · 122 kbps'})])
+		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-1', track: 'English original (default)', quality: 'medium', ext: 'm4a', codec: 'AAC', bitrate: '130 kbps'}), expect.objectContaining({formatId: '251', track: '', quality: 'low', ext: 'webm', codec: 'Opus', bitrate: '122 kbps'})])
+	})
+
+	it('lists what sets a track apart beyond codec and bitrate: DRC, channel layout, an unusual sample rate', () => {
+		const formats: FormatOption[] = [
+			{formatId: '380', label: 'm4a · Dolby', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioChannels: 6, sampleRateHz: 48_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '139-drc', label: 'm4a · AAC', ext: 'm4a', resolution: 'audio only', abr: 49, audioCodec: 'mp4a.40.5', audioChannels: 2, sampleRateHz: 22_050, isDrc: true, isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '380'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.nativeRows.map(row => [row.codec, row.details])).toEqual([
+			['Dolby', ['E-AC-3', '5.1']],
+			['AAC', ['DRC', '22.05 kHz']]
+		])
+	})
+
+	it('puts Dolby Digital Plus before Dolby Digital at the same bitrate', () => {
+		const formats: FormatOption[] = [
+			{formatId: '328', label: 'ac-3', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ac-3', audioChannels: 6, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '380', label: 'ec-3', ext: 'm4a', resolution: 'audio only', abr: 384, audioCodec: 'ec-3', audioChannels: 6, isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '380'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.nativeRows.map(row => [row.formatId, row.chipTags])).toEqual([
+			['380', ['E-AC-3', '5.1']],
+			['328', ['AC-3', '5.1']]
+		])
+	})
+
+	it('groups audio into one line per codec, each chip a bitrate with what else sets it apart', () => {
+		const formats: FormatOption[] = [
+			{formatId: '251-drc', label: 'opus drc', ext: 'webm', resolution: 'audio only', abr: 134, audioCodec: 'opus', isDrc: true, filesize: 5_300_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', abr: 134, audioCodec: 'opus', filesize: 5_300_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140', label: 'aac', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isVideoOnly: false, isAudioOnly: true},
+			{formatId: '250', label: 'opus small', ext: 'webm', resolution: 'audio only', abr: 68, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.lines.map(line => [line.name, line.variants.map(row => [row.formatId, row.chipLabel, row.chipTags, row.twinId])])).toEqual([
+			[
+				'Opus',
+				[
+					['251-drc', '134 kbps', [], '251'],
+					['251', '134 kbps', [], '251-drc'],
+					['250', '68 kbps', [], null]
+				]
+			],
+			['AAC', [['140', '129 kbps', [], null]]]
+		])
+		expect(view.audio.hasDrcTwins).toBe(true)
+		expect(view.audio.sourceKbps).toBe(134)
+	})
+
+	it('keeps one line per codec across tracks and lists the tracks to pick from', () => {
+		const formats: FormatOption[] = [
+			{formatId: '140-1', label: 'English · m4a', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioTrackLabel: 'English original (default)', isDrc: true, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '251-1', label: 'English · webm', ext: 'webm', resolution: 'audio only', abr: 122, audioCodec: 'opus', audioTrackLabel: 'English original (default)', isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140-0', label: 'Klingon · m4a', ext: 'm4a', resolution: 'audio only', abr: 130, audioCodec: 'mp4a.40.2', audioTrackLabel: 'Klingon', isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140-1'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: formats})
+
+		expect(view.audio.tracks).toEqual(['English original (default)', 'Klingon'])
+		// A DRC stream with no plain twin on its own track keeps its tag.
+		expect(view.audio.lines.map(line => [line.name, line.variants.map(row => [row.track, row.chipLabel, row.chipTags])])).toEqual([
+			[
+				'AAC',
+				[
+					['English original (default)', '130 kbps', ['DRC']],
+					['Klingon', '130 kbps', []]
+				]
+			],
+			['Opus', [['English original (default)', '122 kbps', []]]]
+		])
+	})
+
+	it('offers no track picker when the streams name one track or none', () => {
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: SEPARATE_FORMATS})
+
+		expect(view.audio.tracks).toEqual([])
+	})
+
+	it('names a line after the file type when the codec is unknown', () => {
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: SEPARATE_FORMATS})
+
+		expect(view.audio.lines.map(line => [line.name, line.variants.map(row => row.chipLabel)])).toEqual([
+			['M4A', ['128 kbps']],
+			['WEBM', ['160 kbps']]
+		])
 	})
 })
 
-describe('selectView — video row meta', () => {
+describe('selectView — video rows', () => {
 	const CODEC_FORMATS: FormatOption[] = [
 		{formatId: '401', label: '2160p av1', ext: 'mp4', resolution: '3840x2160', fps: 60, dynamicRange: 'HDR10', filesize: 1_100_000_000, videoCodec: 'av01.0.12M.10', isVideoOnly: true, isAudioOnly: false},
 		{formatId: '313', label: '2160p vp9', ext: 'webm', resolution: '3840x2160', fps: 60, videoCodec: 'vp09.00.51.08', isVideoOnly: true, isAudioOnly: false},
 		{formatId: '135', label: '480p', ext: 'mp4', resolution: '854x480', fps: 30, isVideoOnly: true, isAudioOnly: false}
 	]
 
-	it('names the video codec after the container, so rows that differ only by codec can be told apart', () => {
-		const view = selectView({selectedVideoFormatId: '401', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: CODEC_FORMATS})
+	const view = (): ReturnType<typeof selectView> => selectView({selectedVideoFormatId: '401', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: CODEC_FORMATS})
 
-		expect(view.video.rows.map(row => row.meta)).toEqual(['mp4 · AV1 · 60fps · HDR10 · 1.0 GB', 'webm · VP9 · 60fps', 'mp4 · 30fps'])
+	it('groups streams into one line per resolution, best first, named the way people say it', () => {
+		expect(view().video.lines.map(line => [line.name, line.alias, line.variants.map(row => row.formatId)])).toEqual([
+			['2160p', '4K', ['401', '313']],
+			['480p', null, ['135']]
+		])
 	})
 
-	it('leaves a stream whose codec is unknown as it was', () => {
-		const view = selectView({selectedVideoFormatId: '135', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: CODEC_FORMATS})
+	it('keeps each stream as fields, so the chip and its spoken name can say every fact', () => {
+		expect(view().video.rows.map(row => [row.ext, row.codec, row.fps, row.dynamicRange, row.size])).toEqual([
+			['mp4', 'AV1', 60, 'HDR10', '1.0 GB'],
+			['webm', 'VP9', 60, null, null],
+			['mp4', null, 30, null, null]
+		])
+	})
 
-		expect(view.video.rows.find(row => row.formatId === '135')?.meta).toBe('mp4 · 30fps')
+	it('names a chip by its codec, or by its file type when the codec is unknown', () => {
+		expect(view().video.rows.map(row => row.chipLabel)).toEqual(['AV1', 'VP9', 'mp4'])
+	})
+
+	it('tags a chip only with a frame rate other than the one most streams have', () => {
+		expect(view().video.rows.map(row => row.chipTags)).toEqual([[], [], ['30 fps']])
+	})
+
+	it('puts each stream in its dynamic range column, HDR before SDR', () => {
+		expect(view().video.rows.map(row => row.range)).toEqual(['HDR10', 'SDR', 'SDR'])
+		expect(view().video.ranges).toEqual(['HDR10', 'SDR'])
 	})
 })

@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {formatDuration} from '@renderer/lib/formatDuration.js'
 
@@ -28,12 +28,15 @@ function safeHost(url: string | undefined): string | null {
 export function VideoSummaryCard({thumbnail, title, duration, resolution, webpageUrl, chapterCount = 0, action}: Props): ReactNode {
 	const {t} = useTranslation()
 	const host = safeHost(webpageUrl)
+	// A thumbnail URL that fails to load shows the placeholder, not a broken-image glyph.
+	const [failedThumbnail, setFailedThumbnail] = useState<string | null>(null)
+	const showThumbnail = thumbnail !== '' && thumbnail !== failedThumbnail
 	const meta = [host, duration !== undefined ? formatDuration(duration) : null, resolution ?? null, chapterCount > 0 ? t('videoCard.chapters', {count: chapterCount}) : null].filter(Boolean).join(' · ')
 
 	return (
 		<div data-slot="video-summary-card" className="wizard-summary-surface flex shrink-0 items-center gap-[10px] rounded-lg px-[12px] py-[9px]">
 			<div className="aspect-video w-[68px] flex-shrink-0 overflow-hidden rounded-sm border border-border-strong bg-muted">
-				{thumbnail ? <img src={thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="block h-full w-full object-cover" /> : <div className="thumb-shimmer h-full w-full" aria-hidden />}
+				{showThumbnail ? <img src={thumbnail} alt="" aria-hidden referrerPolicy="no-referrer" onError={() => setFailedThumbnail(thumbnail)} className="block h-full w-full object-cover" /> : <div className="thumb-shimmer h-full w-full" aria-hidden />}
 			</div>
 			<div className="flex flex-col gap-[2px] flex-1 min-w-0">
 				<p className="truncate text-sm leading-snug font-bold text-foreground">{title || t('videoCard.titlePlaceholder')}</p>

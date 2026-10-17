@@ -1,6 +1,6 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {TriangleAlert} from 'lucide-react'
+import {Info, TriangleAlert} from 'lucide-react'
 import type {FitNotice} from '@shared/profileSelection.js'
 import {resolveSubtitleLabel} from '../../../lib/subtitleLabel.js'
 import {useAppStore} from '../../../store/useAppStore.js'
@@ -29,9 +29,11 @@ export function FitNotices(): ReactNode {
 		}
 	}
 
+	// "No video, so audio" is a fact, not a problem: it alone gets the calm notice.
+	const neutral = !fileTypeReset && notices.every(notice => notice.kind === 'no-video')
 	return (
-		<Alert variant="warning" data-testid="fit-notices">
-			<TriangleAlert aria-hidden />
+		<Alert variant={neutral ? 'info' : 'warning'} data-testid="fit-notices">
+			{neutral ? <Info aria-hidden /> : <TriangleAlert aria-hidden />}
 			<AlertDescription className="flex flex-col gap-1">
 				{notices.map(notice => (
 					<p key={notice.kind} data-testid={`fit-notice-${notice.kind}`}>

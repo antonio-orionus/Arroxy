@@ -215,6 +215,8 @@ export interface FormatOption {
 	videoCodec?: string
 	abr?: number
 	audioCodec?: string
+	audioChannels?: number
+	sampleRateHz?: number
 	isDrc?: boolean
 	audioLanguage?: string
 	audioLanguagePreference?: number

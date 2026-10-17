@@ -27,4 +27,24 @@ function RadioGroupItem({className, ...props}: RadioPrimitive.Root.Props): React
 	)
 }
 
-export {RadioGroup, RadioGroupItem}
+// A radio drawn as a chip: the chip is the control, so a dense grid of options
+// needs no circles. Quiet at rest (a faint fill, no edge) so a screen of chips
+// does not read as a wall of pills; the chosen one gets a blue fill and edge. Its
+// label brightens rather than turning blue (Electric Blue is ~3:1 on either sky).
+function RadioGroupChip({className, ...props}: RadioPrimitive.Root.Props): ReactNode {
+	return (
+		<RadioPrimitive.Root
+			data-slot="radio-group-chip"
+			className={cn(
+				'group/radio-chip relative inline-flex h-9 max-w-full min-w-0 shrink-0 items-center gap-2 rounded-lg border border-transparent bg-foreground/5 px-3 text-sm text-foreground/85 outline-none cursor-pointer select-none transition-[background-color,border-color,color] duration-150',
+				'hover:bg-foreground/9 focus-visible:ring-3 focus-visible:ring-ring/50',
+				'data-checked:border-primary/55 data-checked:bg-primary/12 data-checked:text-selected-foreground data-checked:hover:bg-primary/16',
+				'data-disabled:pointer-events-none data-disabled:opacity-45',
+				className
+			)}
+			{...props}
+		/>
+	)
+}
+
+export {RadioGroup, RadioGroupChip, RadioGroupItem}

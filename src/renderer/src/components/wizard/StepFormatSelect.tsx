@@ -1,8 +1,8 @@
-import {useMemo, useState, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useFormatSelectionView, type FormatSelectionFilters} from '../../store/formatSelectionView.js'
+import {useFormatSelectionView} from '../../store/formatSelectionView.js'
 import {VideoSummaryCard} from '../shared/VideoSummaryCard.js'
 import {Spinner} from '../ui/spinner.js'
 import downloadingImg from '../../assets/Downloading.png'
@@ -12,7 +12,6 @@ import {AudioColumn} from './format/AudioColumn.js'
 import {FormatFooter} from './format/FormatFooter.js'
 import {WizardProfileLine} from './format/WizardProfileLine.js'
 import {FitNotices} from './format/FitNotices.js'
-import {ProfileSummary} from './format/ProfileSummary.js'
 import {UrlStartOffer, VideoPartPanel, VideoPartSwitch} from './format/VideoPartControls.js'
 import {SubtitleFields} from './SubtitleFields.js'
 import {SpeechBubble} from '../shared/SpeechBubble.js'
@@ -38,11 +37,7 @@ export function StepFormatSelect(): ReactNode {
 			openReview: state.openReview
 		}))
 	)
-	const [videoExtFilter, setVideoExtFilter] = useState<string | null>(null)
-	const [dynamicRangeFilter, setDynamicRangeFilter] = useState<string | null>(null)
-	const [audioExtFilter, setAudioExtFilter] = useState<string | null>(null)
-	const filters = useMemo<FormatSelectionFilters>(() => ({audioExt: audioExtFilter, dynamicRange: dynamicRangeFilter, videoExt: videoExtFilter}), [audioExtFilter, dynamicRangeFilter, videoExtFilter])
-	const view = useFormatSelectionView(filters)
+	const view = useFormatSelectionView()
 
 	if (formatsLoading) {
 		return (
@@ -63,30 +58,32 @@ export function StepFormatSelect(): ReactNode {
 
 	return (
 		<div className="wizard-step flex flex-col gap-3" data-testid="step-formats">
-			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
+			{/* Capped so a wide window keeps related controls (the mode switch, Whole video / Part) near what they act on. */}
+			<div className="flex w-full max-w-6xl flex-col gap-3">
+				<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
 
-			<UrlStartOffer />
+				<UrlStartOffer />
 
-			<VideoPartPanel />
+				<VideoPartPanel />
 
-			<WizardProfileLine />
+				<WizardProfileLine />
 
-			<FitNotices />
+				<FitNotices />
 
-			<BotWallNotice />
+				<BotWallNotice />
 
-			{wizardMediaKind === 'subtitles' ? (
-				<SubtitleFields withMedia={false} />
-			) : wizardMediaKind === 'audio' ? (
-				<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} audioExtFilter={audioExtFilter} onAudioExtFilterChange={setAudioExtFilter} onSelect={setAudioSelection} />
-			) : (
-				<div className="grid grid-cols-2 gap-[20px]">
-					<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} videoExtFilter={videoExtFilter} dynamicRangeFilter={dynamicRangeFilter} onVideoExtFilterChange={setVideoExtFilter} onDynamicRangeFilterChange={setDynamicRangeFilter} onSelect={setSelectedVideoFormatId} />
-					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} audioExtFilter={audioExtFilter} onAudioExtFilterChange={setAudioExtFilter} onSelect={setAudioSelection} />
-				</div>
-			)}
-
-			<ProfileSummary />
+				{wizardMediaKind === 'subtitles' ? (
+					<SubtitleFields withMedia={false} />
+				) : wizardMediaKind === 'audio' ? (
+					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
+				) : (
+					// Halves while the window is narrow; from lg both lists sit at their own width, so a wide window adds no gap between them.
+					<div className="grid grid-cols-2 gap-5 lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
+						<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
+						<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
+					</div>
+				)}
+			</div>
 
 			<FormatFooter view={view} onBack={back} onReview={() => openReview(null)} />
 		</div>

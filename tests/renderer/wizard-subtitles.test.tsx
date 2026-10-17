@@ -416,28 +416,29 @@ describe('Format screen — Subtitles kind', () => {
 		expect(screen.getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')).toHaveLength(2)
 	})
 
-	it('maps each format row to its store selection, with conversions only in Audio', () => {
+	it('maps each format chip to its store selection, with conversions only in Audio', () => {
 		singleState({wizardStep: 'formats', audioSelection: {kind: 'native', formatId: '140'}})
 		const {rerender} = render(<StepFormatSelect />)
-		const radio = (name: string, index = 0): HTMLElement => {
-			const match = screen.getAllByRole('radio', {name})[index]
-			if (!match) throw new Error(`no radio named ${name}`)
+		// A chip's spoken name lists every fact about its stream; these match its start or end.
+		const radio = (name: RegExp): HTMLElement => {
+			const match = screen.getAllByRole('radio', {name})[0]
+			if (!match) throw new Error(`no radio named ${String(name)}`)
 			return match
 		}
 
-		fireEvent.click(radio('Keep as-is'))
+		fireEvent.click(radio(/^Keep as-is/))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
-		fireEvent.click(radio('opus'))
+		fireEvent.click(radio(/^opus · 128 kbps/))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '140'})
-		expect(screen.queryByRole('radio', {name: 'mp3'})).toBeNull()
+		expect(screen.queryByRole('radio', {name: /mp3$/})).toBeNull()
 
 		useAppStore.getState().setWizardMediaKind('audio')
 		rerender(<StepFormatSelect />)
-		fireEvent.click(radio('mp3'))
+		fireEvent.click(radio(/mp3$/))
 		expect(useAppStore.getState().audioSelection).toMatchObject({kind: 'convert-lossy', target: 'mp3'})
-		fireEvent.click(radio('wav'))
+		fireEvent.click(radio(/^WAV/))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
-		expect(radio('wav').getAttribute('aria-checked')).toBe('true')
+		expect(radio(/^WAV/).getAttribute('aria-checked')).toBe('true')
 	})
 })
 

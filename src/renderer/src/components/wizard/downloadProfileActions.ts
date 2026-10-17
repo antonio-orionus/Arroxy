@@ -41,15 +41,19 @@ export function quickProfileSummary(profile: DownloadProfile): string {
 	}
 }
 
-export function buildDownloadProfileActionModel(profilesPrefs: DownloadProfilesPrefs | undefined): DownloadProfileActionModel {
-	const profiles = enabledDownloadProfiles(profilesPrefs)
-	const resolved = resolveActiveDownloadProfile(profilesPrefs)
-	const activeRef = downloadProfileRefFor(resolved.profile, profilesPrefs)
+// `current` is the profile to mark as chosen instead of the app's active one: a
+// download that started from another profile shows that one. A profile turned
+// off since then still shows, first.
+export function buildDownloadProfileActionModel(profilesPrefs: DownloadProfilesPrefs | undefined, current?: DownloadProfile): DownloadProfileActionModel {
+	const enabled = enabledDownloadProfiles(profilesPrefs)
+	const activeProfile = current ?? resolveActiveDownloadProfile(profilesPrefs).profile
+	const profiles = current && !enabled.some(profile => profile.id === current.id) ? [current, ...enabled] : enabled
+	const activeRef = downloadProfileRefFor(activeProfile, profilesPrefs)
 	return {
-		activeProfile: resolved.profile,
+		activeProfile,
 		activeRef,
-		ActiveIcon: PROFILE_ICONS[resolved.profile.icon],
-		activeSummary: quickProfileSummary(resolved.profile),
-		options: profiles.map(profile => ({profile, ref: downloadProfileRefFor(profile, profilesPrefs), Icon: PROFILE_ICONS[profile.icon], label: downloadProfileLabel(profile), active: profile.id === resolved.profile.id}))
+		ActiveIcon: PROFILE_ICONS[activeProfile.icon],
+		activeSummary: quickProfileSummary(activeProfile),
+		options: profiles.map(profile => ({profile, ref: downloadProfileRefFor(profile, profilesPrefs), Icon: PROFILE_ICONS[profile.icon], label: downloadProfileLabel(profile), active: profile.id === activeProfile.id}))
 	}
 }

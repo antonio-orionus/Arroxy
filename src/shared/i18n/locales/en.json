@@ -343,7 +343,20 @@
 		},
 		"formats": {
 			"kind": {"label": "What to download", "video": "Video", "audio": "Audio", "subtitles": "Subtitles only"},
-			"profile": {"preselected": "Pre-selected from", "tag": "Profile", "closestTag": "Closest to profile", "switchTitle": "Switch profile?", "switchBody": "Your changes to this download will be replaced by the settings of the profile you pick.", "switchAction": "Switch"},
+			"profile": {
+				"preselected": "Pre-selected from",
+				"tag": "Profile",
+				"closestTag": "Closest to profile",
+				"switchTitle": "Switch profile?",
+				"switchBody": "Your changes to this download will be replaced by the settings of the profile you pick.",
+				"switchAction": "Switch",
+				"edit": "Edit {{name}}",
+				"updatedTitle": "Use the updated profile?",
+				"updatedBody": "Your changes to this download will be replaced by the profile's new settings.",
+				"updatedAction": "Use it",
+				"updatedKeep": "Keep my changes",
+				"menuDescription": "For this download only. Your default profile stays as it is."
+			},
 			"fit": {
 				"tierBelow": "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected.",
 				"tierAbove": "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected.",
@@ -369,7 +382,11 @@
 			"skipToConfirm": "Skip to confirm",
 			"skipToConfirmTooltip": "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time.",
 			"quality": {"high": "High quality", "medium": "Medium quality", "low": "Low quality"},
-			"convert": {"label": "Convert", "uncompressed": "Convert · uncompressed", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."},
+			"drc": {"label": "Even out loudness (DRC)", "description": "Quieter loud parts and louder quiet ones, for speakers and noisy rooms.", "tag": "Even loudness"},
+			"audioLanguage": "Audio language",
+			"audioLanguageCount_one": "{{count}} language",
+			"audioLanguageCount_other": "{{count}} languages",
+			"convert": {"label": "Convert", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Source is {{kbps}} kbps"},
 			"botWall": {
 				"heading": "Probe was limited",
 				"bodyUnconfigured": "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry.",
@@ -554,6 +571,7 @@
 		"part": {
 			"switchLabel": "How much of the video",
 			"whole": "Whole video",
+			"wholeTrack": "Whole track",
 			"part": "Part",
 			"unavailableSubtitles": "Subtitles always cover the whole video.",
 			"unavailableDuration": "This video doesn't report its length, so it can only be downloaded whole.",

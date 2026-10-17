@@ -16,6 +16,20 @@ describe('download profile action model', () => {
 		expect(model.options.every(option => option.label.length > 0)).toBe(true)
 	})
 
+	it("marks a download's own profile instead of the app's active one, listing it first when it is turned off", () => {
+		const prefs: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'audio-only'}, overrides: [], custom: [], enabledOverrides: {}}
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		const low = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'low-240')
+		if (!balanced || !low) throw new Error('expected built-in profiles')
+
+		const model = buildDownloadProfileActionModel(prefs, balanced)
+		expect(model.activeProfile.id).toBe('balanced')
+		expect(model.options.filter(option => option.active).map(option => option.profile.id)).toEqual(['balanced'])
+
+		const turnedOff = buildDownloadProfileActionModel(prefs, low)
+		expect(turnedOff.options[0]).toMatchObject({active: true, profile: {id: 'low-240'}})
+	})
+
 	it('hides disabled low-data profiles until they are enabled', () => {
 		const prefs: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'audio-only'}, overrides: [], custom: [], enabledOverrides: {}}
 		expect(buildDownloadProfileActionModel(prefs).options.some(option => option.profile.id === 'low-240')).toBe(false)

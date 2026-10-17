@@ -115,7 +115,7 @@ Navigation lives in a horizontal tab bar at the top (URL / Profiles / Settings),
 - One electric-blue brand signal; color = state, not decoration.
 - Glass surfaces float above an aurora-lit navy void.
 - Generous rounding (16-28px on panels) reads soft, modern, approachable.
-- Poppins throughout; JetBrains Mono for sizes, codes, byte counts.
+- Poppins throughout; JetBrains Mono for live numbers and codes (progress, ETA, codec tags). Static sizes in choice chips stay Poppins with `tabular-nums`.
 - Friendly, human copy ("Pull it! ↓", "Fetch formats →"), never corporate.
 
 ## 2. Colors
@@ -252,7 +252,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 ### Choice Surfaces (signature)
 
 - **One look for "selectable", one for "selected", everywhere.** The `choice-surface` utility: a dark glass fill with a soft lit edge at rest; selected adds the blue tint and the full glow-gradient edge. Selection is driven by the control's own state (a checked radio or checkbox inside, a pressed toggle, or `data-selected`), never by per-screen classes. Selected text uses `text-selected-foreground` (icy blue in dark, deep blue in light), never `text-primary`: Electric Blue is ~3:1 on either sky, so a blue label made the chosen option read as the muted one. The blue lives in the fill, edge, and control; the label gets brighter, not dimmer.
-- **ChoiceRow:** a row in a `RadioGroup` (format and audio rows): radio, label, end-aligned metadata. The whole row selects; arrow keys move through the group.
+- **Format chips:** the Format screen's Video and Audio lists, as grids of `RadioGroupChip`s held by one `RadioGroup`, so arrow keys move across both. Video is one row per resolution tier ("2160p 4K", rounded from the probe's size) by one column per dynamic range (HDR formats, then SDR); Audio is one column per codec, best bitrate first, with a language picker and its count when a video has several tracks, and DRC twins folded into one "Even out loudness" switch. Columns are as wide as their widest chip and pack to the start; from `lg` the two lists sit side by side at their own width, and below it a grid of two or more columns stacks each chip's size under its label. A chip says only what sets it apart (codec, an odd frame rate, 5.1, E-AC-3); its hover hint and spoken name carry every fact. The chosen chip is a flat blue tint and edge, the profile's pick a small blue dot explained once on the "Pre-selected from" line. Sizes in chips are Poppins with `tabular-nums`: static values that line up by column, not live numbers. The audio quality meter takes the chip's ink, never status colours.
 - **CheckRow:** the checkbox sibling for multi-select grids (SponsorBlock categories, subtitle languages).
 - **OptionCard:** a `ToggleGroupItem` card, vertical (icon over title over description: download type, playlist tiers) or horizontal (icon, title, end meta: save location).
 - **Profile cards** use the same surface with `data-selected`.
@@ -311,7 +311,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ## 7. Implementation Contract
 
-- **Primitives** live in `src/renderer/src/components/ui/` (shadcn base-nova, customised there and only there). **Composites** live in `components/shared/`: `SectionLabel`, `SettingRow`, `SettingSwitch`, `HelpTip`, `Hint`, `Panel`, `PanelSection`, `ChoiceRow`, `CheckRow`, `OptionCard`, `IconTile`, `SpeechBubble`, `MascotBubble`.
+- **Primitives** live in `src/renderer/src/components/ui/` (shadcn base-nova, customised there and only there). **Composites** live in `components/shared/`: `SectionLabel`, `SettingRow`, `SettingSwitch`, `HelpTip`, `Hint`, `Panel`, `PanelSection`, `CheckRow`, `OptionCard`, `IconTile`, `SpeechBubble`, `MascotBubble`.
 - Screens compose these; they do not restate sizes, colours, radii, or shadows. `tests/unit/ui-consistency-ratchet.test.ts` counts one-off values per file and only lets the count go down.
 - Review any primitive or composite change in the UI Kit (`bun run dev:mock`, then `/?kit`), in both skies and in RTL.
 - **Tokens and variants, never arbitrary values.** Express a need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), not `shadow-[…]`, `text-[9px]`, `border-[1.5px]` or raw Tailwind palette colours. The ratchet counts those, plus raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>`, outside `components/ui/` and `dev/` against `tests/unit/ui-consistency-baseline.json`. After a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vp test run --project node tests/unit/ui-consistency-ratchet.test.ts`; never raise it.

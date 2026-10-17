@@ -6,6 +6,7 @@ import {Button} from '../../ui/button.js'
 import {WizardFooter} from '../WizardFooter.js'
 import {SingleDownloadActions} from '../SingleDownloadActions.js'
 import {SavesAsControl} from './SavesAsControl.js'
+import {ProfileSummary} from './ProfileSummary.js'
 
 interface FormatFooterProps {
 	view: Pick<FormatSelectionView, 'mode' | 'selectedFilesize' | 'sizesScaledToPart'>
@@ -20,7 +21,7 @@ export function FormatFooter({view, onBack, onReview}: FormatFooterProps): React
 			t('wizard.formats.kind.subtitles')
 		) : view.selectedFilesize ? (
 			<>
-				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-headline font-bold text-primary">~{humanSize(view.selectedFilesize)}</span>
+				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-title font-semibold text-foreground tabular-nums">~{humanSize(view.selectedFilesize)}</span>
 			</>
 		) : view.mode === 'audio-only' ? (
 			t('wizard.formats.audioOnly')
@@ -29,8 +30,10 @@ export function FormatFooter({view, onBack, onReview}: FormatFooterProps): React
 		)
 	return (
 		<WizardFooter
+			extraAbove={<ProfileSummary />}
+			contentClassName="max-w-6xl"
 			info={
-				<span className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+				<span className="flex flex-wrap items-center gap-x-4 gap-y-1.5 max-lg:flex-nowrap max-lg:gap-x-3">
 					<span>{total}</span>
 					<SavesAsControl />
 				</span>

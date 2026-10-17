@@ -35,6 +35,17 @@ export function SavesAsControl(): ReactNode {
 			setFileType: state.setWizardFileType
 		}))
 	)
+	if (mediaKind === 'audio') {
+		// An audio download has no file type to choose: it is the stream's own, or the conversion's.
+		const audioExt = resolveOutputContainer('', audioSelection, subtitleMode, formats, mediaKind, embedThumbnail, 'auto')
+		if (audioExt === 'unknown') return null
+		return (
+			<span className="inline-flex items-center gap-x-2" data-testid="saves-as">
+				<span>{t('wizard.formats.savesAs.label')}</span>
+				<span className="font-medium text-foreground">.{audioExt}</span>
+			</span>
+		)
+	}
 	if (mediaKind !== 'video' || videoId === '') return null
 
 	const video = formats.find(f => f.formatId === videoId)
@@ -51,7 +62,8 @@ export function SavesAsControl(): ReactNode {
 
 	return (
 		<span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="saves-as">
-			<span>{t('wizard.formats.savesAs.label')}</span>
+			{/* A narrow footer keeps Total and the file type on one line: the label is still read aloud. */}
+			<span className="max-lg:sr-only">{t('wizard.formats.savesAs.label')}</span>
 			<Select
 				value={fileType}
 				onValueChange={next => {
@@ -81,7 +93,7 @@ export function SavesAsControl(): ReactNode {
 				<Tooltip>
 					<TooltipTrigger
 						render={props => (
-							<Badge {...props} variant="outline" size="sm" className="font-mono" tabIndex={0} data-testid="saves-as-codecs">
+							<Badge {...props} variant="outline" size="sm" className="font-mono max-lg:hidden" tabIndex={0} data-testid="saves-as-codecs">
 								{codecs.join(' · ')}
 							</Badge>
 						)}
