@@ -174,3 +174,43 @@ describe('resolveProfileSelection: subtitles', () => {
 		expect(result.notices).toEqual([{kind: 'subtitle-languages-missing', languages: ['en']}])
 	})
 })
+
+describe('resolveProfileSelection: parity with the profile path yt-dlp sort', () => {
+	it('prefers the better codec at the same resolution and fps, like yt-dlp vcodec sorting', () => {
+		const formats = [video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', filesize: 900}), video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4', filesize: 500}), audio('140')]
+		expect(resolve(builtin('best-quality'), formats).media.videoFormatId).toBe('399')
+		expect(resolve(builtin('hd-1080'), formats).media.videoFormatId).toBe('399')
+	})
+
+	it('MP4 profiles put the MP4 container before resolution, like vcodec:h264,ext:mp4,res', () => {
+		const formats = [video('mov', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mov'}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
+		const result = resolve(builtin('mp4-1080'), formats)
+		expect(result.media.videoFormatId).toBe('136')
+	})
+
+	it('video-only and MP4 profiles take a separate video stream over a muxed one, like bestvideo', () => {
+		const formats = [video('22', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', isVideoOnly: false}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
+		expect(resolve(withMedia('hd-1080', {kind: 'video-only', codec: 'best', tiers: ['1080']}), formats).media).toEqual({kind: 'video', videoFormatId: '136', audioSelection: {kind: 'none'}})
+		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('136')
+		// A plain profile may take the muxed stream (bestvideo* includes it).
+		expect(resolve(builtin('hd-1080'), formats).media).toEqual({kind: 'video', videoFormatId: '22', audioSelection: {kind: 'none'}})
+	})
+
+	it('falls back to a muxed stream when there is no separate video', () => {
+		const formats = [video('22', '1280x720', {videoCodec: 'avc1.640028', ext: 'mp4', isVideoOnly: false}), audio('140')]
+		expect(resolve(withMedia('balanced', {kind: 'video-only', codec: 'best', tiers: ['720']}), formats).media.videoFormatId).toBe('22')
+	})
+
+	it('M4A audio profiles take AAC over Dolby even with the surround preference', () => {
+		const formats = [...YOUTUBE, audio('328', {audioCodec: 'ec-3', abr: 384})]
+		expect(resolve(builtin('mp4-720'), formats, {nativeAudioPreference: 'surround'}).media.audioSelection).toEqual({kind: 'native', formatId: '140'})
+	})
+})
+
+describe('resolveProfileSelection: subtitle precedence per track', () => {
+	it('manual-first keeps an auto-generated regional variant the manual tracks lack', () => {
+		const profile = withSubtitles(builtin('balanced'), {languages: ['en'], source: 'manual-first'})
+		const result = resolve(profile, YOUTUBE, {subtitles: {'en-US': [{ext: 'vtt'}]}, automaticCaptions: {'en-GB': [{ext: 'vtt'}], 'en-US': [{ext: 'vtt'}]}})
+		expect(result.subtitleLanguages).toEqual(['en-US', 'en-GB'])
+	})
+})

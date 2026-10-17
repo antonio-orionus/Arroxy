@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {applyProfileToWizard, changedFromProfile, profileFromWizard, type WizardSettingsSnapshot} from '@renderer/store/wizard/profileApplication.js'
+import {applyProfileToWizard, changedFromProfile, profileFromWizard, type SaveProfileContext, type WizardSettingsSnapshot} from '@renderer/store/wizard/profileApplication.js'
 import type {DownloadProfile, FormatOption} from '@shared/types.js'
 
 function builtin(id: string): DownloadProfile {
@@ -72,53 +72,65 @@ describe('changedFromProfile', () => {
 })
 
 describe('profileFromWizard', () => {
-	const context = {id: 'custom-1', name: 'My 1080p', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/home/me/Downloads', globalFilenameTemplate: undefined}
+	const MANUAL = {en: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}
+	const AUTO = {'ja-orig': [{ext: 'vtt'}]}
+	const context: SaveProfileContext = {id: 'custom-1', name: 'My 1080p', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/home/me/Downloads', globalFilenameTemplate: undefined, subtitles: MANUAL, automaticCaptions: AUTO}
 
-	it('round-trips an unchanged profile', () => {
-		const profile = builtin('mp4-720')
-		const saved = profileFromWizard(profile, apply(profile).snapshot, FORMATS, context)
+	function save(base: DownloadProfile, edit: (snapshot: WizardSettingsSnapshot) => WizardSettingsSnapshot, formats: FormatOption[] = FORMATS, ctx = context): DownloadProfile {
+		const baseline = applyProfileToWizard({profile: base, formats, subtitles: ctx.subtitles, automaticCaptions: ctx.automaticCaptions, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: ctx.defaultOutputDir, globalFilenameTemplate: undefined}).snapshot
+		return profileFromWizard(base, baseline, edit(baseline), formats, ctx)
+	}
+
+	it('keeps every area the user did not change, exactly as the base had it', () => {
+		const profile = {...builtin('hd-1080'), subtitles: {...builtin('hd-1080').subtitles, enabled: true, languages: ['en', 'fr']}}
+		const saved = save(profile, snapshot => ({...snapshot, filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual(profile.media)
 		expect(saved.subtitles).toEqual(profile.subtitles)
-		expect(saved.output).toEqual({kind: 'default'})
-		expect(saved.filename).toEqual({kind: 'default'})
+		expect(saved.output).toEqual(profile.output)
+		expect(saved.subfolder).toEqual(profile.subfolder)
+		expect(saved.embed).toEqual(profile.embed)
+		expect(saved.sponsorBlock).toEqual(profile.sponsorBlock)
+		expect(saved.filename).toEqual({kind: 'custom', template: '{title}'})
 		expect(saved).toMatchObject({id: 'custom-1', name: 'My 1080p', enabled: true, icon: profile.icon, createdAt: context.now, updatedAt: context.now})
 	})
 
-	it('turns a picked stream into the tier it sits in', () => {
-		const base = builtin('balanced')
-		const snapshot = {...apply(base).snapshot, videoFormatId: '137'}
-		expect(profileFromWizard(base, snapshot, FORMATS, context).media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}})
+	it('turns a picked video stream into the tier it sits in, keeping the audio intent', () => {
+		const saved = save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '137'}))
+		expect(saved.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}})
 	})
 
-	it('keeps "best" when the best stream is picked', () => {
-		const base = builtin('best-quality')
-		expect(profileFromWizard(base, apply(base).snapshot, FORMATS, context).media).toEqual(base.media)
+	it('saves "best" only when the user picks the top stream themselves', () => {
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '399'})).media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}})
 	})
 
-	it('keeps the base media when the format did not change', () => {
-		// A 1080p profile on a video whose best stream is 1080p: the pick is the
-		// top stream, which would otherwise be saved as "best".
-		const fullHd = builtin('hd-1080')
-		const snapshot = {...apply(fullHd).snapshot, filenameTemplate: '{title}'}
-		expect(profileFromWizard(fullHd, snapshot, FORMATS, context, false).media).toEqual(fullHd.media)
-		expect(profileFromWizard(fullHd, snapshot, FORMATS, context).media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}})
+	it('an audio-only edit keeps the video tier and records an AAC pick as M4A', () => {
+		const saved = save(builtin('balanced'), snapshot => ({...snapshot, audioSelection: {kind: 'native', formatId: '140'}}))
+		expect(saved.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'm4a'}})
 	})
 
-	it('saves audio conversions, subtitles, folder and file name', () => {
-		const base = builtin('balanced')
-		const snapshot: WizardSettingsSnapshot = {...apply(base).snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, subtitleLanguages: ['en', 'ja-orig'], outputDir: '/music', filenameTemplate: '{title}'}
-		const saved = profileFromWizard(base, snapshot, FORMATS, context)
+	it('keeps languages the video lacked when subtitles were not edited', () => {
+		const profile = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en', 'pt']}}
+		expect(save(profile, snapshot => ({...snapshot, outputDir: '/music'})).subtitles).toEqual(profile.subtitles)
+	})
+
+	it('derives the subtitle source from the tracks actually picked', () => {
+		const autoOnly = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['ja'], source: 'auto-only' as const}}
+		expect(save(autoOnly, snapshot => ({...snapshot, subtitleLanguages: ['de']})).subtitles).toMatchObject({languages: ['de'], source: 'manual-first'})
+		const manualOnly = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], source: 'manual-only' as const}}
+		const bareAuto = {...context, subtitles: {}, automaticCaptions: {fr: [{ext: 'vtt'}]}}
+		expect(save(manualOnly, snapshot => ({...snapshot, subtitleLanguages: ['fr']}), FORMATS, bareAuto).subtitles).toMatchObject({languages: ['fr'], source: 'auto-only'})
+		expect(save(manualOnly, snapshot => ({...snapshot, subtitleLanguages: ['en', 'ja-orig']})).subtitles).toMatchObject({languages: ['en', 'ja'], source: 'manual-first'})
+	})
+
+	it('saves audio conversions, folder and file name', () => {
+		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})
-		expect(saved.subtitles).toMatchObject({enabled: true, languages: ['en', 'ja']})
 		expect(saved.output).toEqual({kind: 'fixed', dir: '/music'})
 		expect(saved.filename).toEqual({kind: 'custom', template: '{title}'})
 	})
 
 	it('saves subtitles-only and video without audio', () => {
-		const base = builtin('balanced')
-		const subs = profileFromWizard(base, {...apply(base).snapshot, mediaKind: 'subtitles', videoFormatId: '', audioSelection: {kind: 'none'}, subtitleLanguages: ['de']}, FORMATS, context)
-		expect(subs.media).toEqual({kind: 'subtitles-only'})
-		const silent = profileFromWizard(base, {...apply(base).snapshot, audioSelection: {kind: 'none'}}, FORMATS, context)
-		expect(silent.media).toEqual({kind: 'video-only', codec: 'best', tiers: ['720']})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'subtitles', videoFormatId: '', audioSelection: {kind: 'none'}, subtitleLanguages: ['de']})).media).toEqual({kind: 'subtitles-only'})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, audioSelection: {kind: 'none'}})).media).toEqual({kind: 'video-only', codec: 'best', tiers: ['720']})
 	})
 })

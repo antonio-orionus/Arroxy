@@ -61,6 +61,18 @@ describe('selectView — media kinds', () => {
 		expect(selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS}).selectedFilesize).toBeUndefined()
 	})
 
+	it('shows the picked stream as its resolution row even when another stream leads that group', () => {
+		const formats: FormatOption[] = [
+			{formatId: '399', label: 'av1', ext: 'mp4', resolution: '1080p', fps: 60, videoCodec: 'av01.0.09M.08', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '137', label: 'h264', ext: 'mp4', resolution: '1080p', fps: 30, videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '140', label: 'm4a', ext: 'm4a', resolution: 'audio only', abr: 128, isVideoOnly: false, isAudioOnly: true}
+		]
+		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, profilePick: {videoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}}})
+		expect(view.video.rows.map(row => row.formatId)).toEqual(['137'])
+		expect(view.video.rows[0]?.isProfilePick).toBe(true)
+		expect(view.currentResolutionLabel).toBe('1080p')
+	})
+
 	it('tags the streams the profile picked', () => {
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '251'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS, profilePick: {videoFormatId: '136', audioSelection: {kind: 'native', formatId: '140'}}})
 		expect(view.video.rows.filter(row => row.isProfilePick).map(row => row.formatId)).toEqual(['136'])
