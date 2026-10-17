@@ -20,6 +20,7 @@ import {spawnYtDlp} from '@main/utils/process.js'
 import type {QueueArtifactEvent} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'
+import {writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 
@@ -48,5 +49,26 @@ describe('DownloadService — final artifact sizes', () => {
 		expect(recentJobsStore.push.mock.calls[0][0].status).toBe('completed')
 		expect(artifacts).toEqual([expect.objectContaining({path: HUNG_PATH, kind: 'media'})])
 		expect(artifacts[0].sizeBytes).toBeUndefined()
+	})
+
+	it('does not raise an unhandled rejection when an artifact listener throws on the sized event', async () => {
+		const unhandled = vi.fn()
+		process.on('unhandledRejection', unhandled)
+		try {
+			const videoPath = join(tmpdir(), 'listener-video.mp4')
+			vi.mocked(spawnYtDlp).mockImplementation((() => createTranscriptProcess([{stream: 'stderr', data: `[download] Destination: ${videoPath}\n`}, {close: 0}], {beforeStart: () => writeFileSync(videoPath, 'v'.repeat(8))})) as never)
+			const {service, recentJobsStore} = makeService()
+			service.on('artifact', event => {
+				if (event.sizeBytes !== undefined) throw new Error('listener failed')
+			})
+
+			await service.start({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', outputDir: tmpdir(), job: JOB})
+			await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+			await new Promise(resolve => setTimeout(resolve, 50))
+
+			expect(unhandled).not.toHaveBeenCalled()
+		} finally {
+			process.off('unhandledRejection', unhandled)
+		}
 	})
 })

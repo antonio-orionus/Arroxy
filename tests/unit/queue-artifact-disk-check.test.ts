@@ -82,4 +82,23 @@ describe('artifact disk check on queue load', () => {
 		await vi.waitFor(() => expect(qs.snapshot()[0].artifacts[0].sizeBytes).toBe(7))
 		expect(qs.snapshot()[0].artifacts[0].missing).toBeUndefined()
 	})
+
+	it('survives a failing disk check without an unhandled rejection', async () => {
+		const unhandled = vi.fn()
+		process.on('unhandledRejection', unhandled)
+		try {
+			const done = makeItem({id: 'bad-patch', status: 'done', artifacts: [queueArtifactFromPath(join(workDir, 'Gone.mp4'), {discoveredAt: AT})]})
+			const qs = new QueueService(storeWith([done]), new FakeDownloadService() as unknown as DownloadService)
+			qs.on('updated', () => {
+				throw new Error('listener failed')
+			})
+
+			await qs.init()
+			await new Promise(resolve => setTimeout(resolve, 100))
+
+			expect(unhandled).not.toHaveBeenCalled()
+		} finally {
+			process.off('unhandledRejection', unhandled)
+		}
+	})
 })

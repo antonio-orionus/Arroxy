@@ -481,7 +481,9 @@ export class DownloadService extends EventEmitter {
 		this.releaseParkWaiters(job.id)
 		this.explore.spawnGate.resetJob(job.id)
 		// Best-effort: completion never waits on a size read (a hung mount).
-		void sizedArtifactEvents(job.id, finalArtifacts).then(events => events.forEach(event => this.emit('artifact', event)))
+		void sizedArtifactEvents(job.id, finalArtifacts)
+			.then(events => events.forEach(event => this.emit('artifact', event)))
+			.catch(err => logger.warn('final artifact size events failed', {jobId: job.id, message: err instanceof Error ? err.message : String(err)}))
 		// Drain LIFO disposables (process kills, tempDir removals, watchdog
 		// timers) before writing the RecentJob entry. Per-disposable failures
 		// log + continue; a stuck cleanup can't block finalize.
