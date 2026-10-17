@@ -84,15 +84,6 @@ export function videoPartSuffix(part: VideoPart): string {
 	return `[${compactTime(part.startSeconds)}-${compactTime(part.endSeconds)}]`
 }
 
-/**
- * The filename template with the range appended at the very end, after the
- * `[id]`. Playlist sync and M3U writing match `[id]` directly before the
- * extension, so a part is never mistaken for the whole video.
- */
-export function withVideoPartSuffix(template: string, part: VideoPart): string {
-	return `${template} ${videoPartSuffix(part)}`
-}
-
 /** yt-dlp `--download-sections` value: `*` makes it a time range, not a chapter regex. */
 export function downloadSection(part: VideoPart): string {
 	return `*${part.startSeconds}-${part.endSeconds}`

@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
-import {canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
+import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
 import type {PlaylistEntry} from '@shared/types.js'
 
 const ENTRY: PlaylistEntry = {id: '7::e1', url: 'https://example.com/e1', title: 'First', thumbnail: '', playlistIndex: 7, videoId: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803'}
@@ -111,5 +111,19 @@ describe('canScanPlaylistFolder', () => {
 
 	it('still blocks the scan when {id} is missing, as before', () => {
 		expect(canScanPlaylistFolder(undefined, '{title}')).toBe(false)
+	})
+})
+
+describe('bindJobFilenameTemplate with a part-of-video suffix', () => {
+	const META = {title: 'Clip', id: 'abc'}
+	const SUFFIX = '[3s-6s]'
+
+	it('ends the bound name with the suffix', () => {
+		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp', SUFFIX)).toBe('Clip [abc] [3s-6s]')
+		expect(bindJobFilenameTemplate('{title} [{id}]', META, '/tmp')).toBe('Clip [abc]')
+	})
+
+	it('keeps the suffix when a template it cannot use falls back to the default', () => {
+		expect(bindJobFilenameTemplate('{not-a-token}', META, '/tmp', SUFFIX)).toBe('Clip [abc] [3s-6s]')
 	})
 })

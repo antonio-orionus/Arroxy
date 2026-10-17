@@ -294,6 +294,36 @@ describe('templateOutputDir', () => {
 })
 
 describe('bindFilenameTemplate', () => {
+	describe('with a part-of-video suffix', () => {
+		const SUFFIX = '[3m40s-7m15s]'
+
+		it('ends the name with the suffix, after the id', () => {
+			expect(bound('{title} [{id}]', SINGLE_META)).toBe('Big Buck Bunny [YE7VzlLtp-4]')
+			const result = bindFilenameTemplate('{title} [{id}]', SINGLE_META, LINUX, SUFFIX)
+			expect(result).toMatchObject({ok: true, template: `Big Buck Bunny [YE7VzlLtp-4] ${SUFFIX}`})
+		})
+
+		it('works for a template at the typed-length limit, which the suffix would push past it', () => {
+			const template = `{title}${'x'.repeat(FILENAME_TEMPLATE_MAX - '{title}'.length - ' [{id}]'.length)} [{id}]`
+			expect(template).toHaveLength(FILENAME_TEMPLATE_MAX)
+			const result = bindFilenameTemplate(template, SINGLE_META, LINUX, SUFFIX)
+			expect(result.ok && result.template.endsWith(` [YE7VzlLtp-4] ${SUFFIX}`)).toBe(true)
+		})
+
+		it('keeps the suffix whole and shrinks the title to make room for it', () => {
+			const meta = {...SINGLE_META, title: 'T'.repeat(300)}
+			const result = bindFilenameTemplate('{title} [{id}]', meta, LINUX, SUFFIX)
+			expect(result.ok && result.template.endsWith(` [YE7VzlLtp-4] ${SUFFIX}`)).toBe(true)
+			expect(result.ok && result.truncated).toEqual(['title'])
+		})
+
+		it('reports a name that cannot fit with the suffix instead of dropping it', () => {
+			const windows: BindContext = {outputDir: `C:\\${'d'.repeat(214)}`, platform: 'win32'}
+			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows)).toMatchObject({ok: true})
+			expect(bindFilenameTemplate('{title} [{id}]', {...SINGLE_META, title: 'Title'}, windows, SUFFIX)).toMatchObject({ok: false})
+		})
+	})
+
 	// Every token but {resolution} becomes literal text here. yt-dlp cannot be
 	// trusted to cap what it expands: `%(title).120B` truncates to 120 bytes and
 	// *then* sanitizes, and sanitizing grows the string — ':' becomes ' -', and

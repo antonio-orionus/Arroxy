@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {findPlayableFileName} from '@shared/playlistMedia.js'
-import {downloadSection, formatPartTime, parsePartTime, scaleBytesToPart, urlStartSeconds, validateVideoPart, videoPartSuffix, withVideoPartSuffix} from '@shared/videoPart.js'
+import {downloadSection, formatPartTime, parsePartTime, scaleBytesToPart, urlStartSeconds, validateVideoPart, videoPartSuffix} from '@shared/videoPart.js'
 
 describe('parsePartTime', () => {
 	it.each([
@@ -84,11 +84,6 @@ describe('videoPartSuffix', () => {
 		[{startSeconds: 3723, endSeconds: 7200}, '[1h2m3s-2h]']
 	])('names %j as %s', (range, suffix) => {
 		expect(videoPartSuffix({...range, exactCut: false})).toBe(suffix)
-	})
-
-	it('goes after the id, at the end of the filename template', () => {
-		expect(withVideoPartSuffix('{title} [{id}]', {startSeconds: 220, endSeconds: 435, exactCut: false})).toBe('{title} [{id}] [3m40s-7m15s]')
-		expect(withVideoPartSuffix('{uploader}/{date} {title}', {startSeconds: 0, endSeconds: 5, exactCut: false})).toBe('{uploader}/{date} {title} [0s-5s]')
 	})
 
 	it('never lets playlist sync mistake a part for the whole video', () => {

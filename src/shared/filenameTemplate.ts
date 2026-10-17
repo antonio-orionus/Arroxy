@@ -351,11 +351,13 @@ export type BoundFilename = {ok: true; template: string; truncated: FilenameToke
  * `%(title).NB` truncates before yt-dlp sanitizes, and sanitizing grows the
  * string, so any cap handed to yt-dlp can be overrun after the fact.
  */
-export function bindFilenameTemplate(template: string, meta: TemplateMetadata, ctx: BindContext): BoundFilename {
+export function bindFilenameTemplate(template: string, meta: TemplateMetadata, ctx: BindContext, suffix?: string): BoundFilename {
 	const parsed = parse(template)
 	// An unparseable template is not this function's error to report — the
 	// validator owns that — so hand it back and let the caller fall back.
-	if (!parsed.ok) return {ok: true, template, truncated: []}
+	// With a suffix it is not handed back as-is: main would fall back to the
+	// default and the suffix would be lost, so the default is bound with it.
+	if (!parsed.ok) return suffix ? bindFilenameTemplate(DEFAULT_FILENAME_TEMPLATE, meta, ctx, suffix) : {ok: true, template, truncated: []}
 
 	const pieces: BudgetPiece[] = parsed.file.map(segment => {
 		if (segment.kind === 'literal') return {kind: 'literal' as const, text: segment.text}
@@ -370,6 +372,11 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 		if (value === '' && !arroxyOwned) return {kind: 'placeholder' as const, text: `{${segment.token}}`, reserve: LATE_TOKEN_RESERVE[segment.token]}
 		return {kind: 'token' as const, token: segment.token, text: value}
 	})
+
+	// A generated suffix (a part's range) is a literal the budget measures and
+	// never shrinks. Appending it to the template text instead would count it
+	// against the typed-length limit and hide it from directory resolution.
+	if (suffix) pieces.push({kind: 'literal', text: ` ${suffix}`})
 
 	const fitted = fitName({pieces, outputDir: ctx.outputDir, limits: limitsFor(ctx.platform)})
 	if (!fitted.ok) return fitted

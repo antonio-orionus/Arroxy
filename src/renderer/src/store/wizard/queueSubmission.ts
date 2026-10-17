@@ -34,7 +34,7 @@ import {bindJobFilenameTemplate, canWriteM3u, playlistEntryTemplateMeta, resolve
 import {sortPlaylistEntries} from './playlistSort.js'
 import {playlistTitleFallback} from './playlistTitle.js'
 import {wizardVideoPart} from './videoPart.js'
-import {scaleBytesToPart, withVideoPartSuffix} from '@shared/videoPart.js'
+import {scaleBytesToPart, videoPartSuffix} from '@shared/videoPart.js'
 import {resolveAssignedProfile} from './playlistProfileAssignments.js'
 
 export interface PlaylistManifestPayload {
@@ -64,15 +64,15 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const selectedVideoFormatId = wizardMediaKind === 'video' ? state.selectedVideoFormatId : ''
 	const effectiveAudio: AudioSelection = wizardMediaKind === 'subtitles' ? {kind: 'none'} : audioSelection
 	const videoPart = wizardVideoPart(state)
-	// The range goes after the `[id]`, so playlist sync never takes a part for
-	// the whole video.
-	const template = videoPart ? withVideoPartSuffix(state.wizardFilenameTemplate, videoPart) : state.wizardFilenameTemplate
+	const template = state.wizardFilenameTemplate
 	const templateMeta = singleTemplateMeta(state)
 	// A nesting template renders its directories below the subfolder root; a flat
 	// one leaves the root as-is. The job then carries the filename segment alone,
 	// with the tokens yt-dlp cannot know already bound.
 	const outputDir = templateOutputDir(effectiveOutputDir(wizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName), template, templateMeta)
-	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir)
+	// The range goes after the `[id]`, so playlist sync never takes a part for
+	// the whole video; it is bound with the name, not typed into the template.
+	const filenameTemplate = bindJobFilenameTemplate(template, templateMeta, outputDir, videoPart ? videoPartSuffix(videoPart) : undefined)
 
 	const audioFormats = wizardFormats.filter(f => f.isAudioOnly)
 	const videoResolution = resolveVideoResolution(selectedVideoFormatId, wizardFormats, 'audio-only')

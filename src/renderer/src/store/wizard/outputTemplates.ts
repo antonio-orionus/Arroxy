@@ -73,16 +73,18 @@ export function canWriteM3u(profile: DownloadProfile | undefined, globalTemplate
  * rescue it — the write will fail with yt-dlp's own error, and the notify line
  * says why.
  */
-export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata, outputDir: string): string {
+export function bindJobFilenameTemplate(template: string, meta: TemplateMetadata, outputDir: string, suffix?: string): string {
 	const ctx = {outputDir, platform: hostPlatform()}
-	const bound = bindFilenameTemplate(template, meta, ctx)
+	const bound = bindFilenameTemplate(template, meta, ctx, suffix)
 	if (bound.ok) {
 		if (bound.truncated.length > 0) notify.filenameShortened(meta.title ?? '', bound.truncated)
 		return bound.template
 	}
 	notify.filenameBudgetFailed(bound.reason, outputDir)
-	const fallback = bindFilenameTemplate(DEFAULT_FILENAME_TEMPLATE, meta, ctx)
-	return fallback.ok ? fallback.template : DEFAULT_FILENAME_TEMPLATE
+	const fallback = bindFilenameTemplate(DEFAULT_FILENAME_TEMPLATE, meta, ctx, suffix)
+	// The suffix survives even a name that cannot fit: a part must never be
+	// written under the whole video's name.
+	return fallback.ok ? fallback.template : suffix ? `${DEFAULT_FILENAME_TEMPLATE} ${suffix}` : DEFAULT_FILENAME_TEMPLATE
 }
 
 /** Drop blanks so an absent field collapses its folder rather than emptying it. */
