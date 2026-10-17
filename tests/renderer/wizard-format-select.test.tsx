@@ -181,6 +181,18 @@ describe('wizard slice — profiles', () => {
 		expect(useAppStore.getState().settings?.profiles).toEqual(DEFAULT_DOWNLOAD_PROFILES_PREFS)
 	})
 
+	it("Save as profile keeps the profile's media when only other settings changed", async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const lowRes: FormatOption[] = [FORMATS[1], FORMATS[2]]
+		useAppStore.setState({wizardFormats: lowRes, saveDownloadProfile})
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardFilenameTemplate: '{title}'})
+
+		await useAppStore.getState().saveWizardAsProfile('Mine')
+
+		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({media: builtin('hd-1080').media}), false)
+	})
+
 	it('Save as profile refuses an empty name or no edits', async () => {
 		const saveDownloadProfile = vi.fn()
 		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})

@@ -66,6 +66,7 @@ describe('changedFromProfile', () => {
 
 	it('treats a different audio track or media kind as a format change', () => {
 		expect(changedFromProfile(baseline, {...baseline, audioSelection: {kind: 'native', formatId: '140'}})).toEqual(['format'])
+		expect(changedFromProfile(baseline, {...baseline, mediaKind: 'audio'})).toEqual(['format'])
 		expect(changedFromProfile(baseline, {...baseline, sponsorBlockMode: 'remove'})).toEqual(['sponsorBlock'])
 	})
 })
@@ -92,6 +93,15 @@ describe('profileFromWizard', () => {
 	it('keeps "best" when the best stream is picked', () => {
 		const base = builtin('best-quality')
 		expect(profileFromWizard(base, apply(base).snapshot, FORMATS, context).media).toEqual(base.media)
+	})
+
+	it('keeps the base media when the format did not change', () => {
+		// A 1080p profile on a video whose best stream is 1080p: the pick is the
+		// top stream, which would otherwise be saved as "best".
+		const fullHd = builtin('hd-1080')
+		const snapshot = {...apply(fullHd).snapshot, filenameTemplate: '{title}'}
+		expect(profileFromWizard(fullHd, snapshot, FORMATS, context, false).media).toEqual(fullHd.media)
+		expect(profileFromWizard(fullHd, snapshot, FORMATS, context).media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}})
 	})
 
 	it('saves audio conversions, subtitles, folder and file name', () => {
