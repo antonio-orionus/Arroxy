@@ -12,10 +12,10 @@
 
 | Workflow                             | File                           | Trigger                                 | Owns                                                                                                             |
 | ------------------------------------ | ------------------------------ | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| CI                                   | `ci.yml`                       | push (all branches, `v*` ignored) + PRs | `check` gate, windows tests                                                                                      |
+| CI                                   | `ci.yml`                       | push `main` + PRs                       | `check` gate, windows tests                                                                                      |
 | Dev Smoke                            | `dev-smoke.yml`                | PR/push `main` + dispatch               | packaged-app boot smoke (`MOCK_BACKEND`), preload/context isolation                                              |
 | E2E Cold Start                       | `e2e-cold-start.yml`           | PR/push `main` + dispatch               | **PR-tier startup verification** (journey harness) + packaged runtime smoke; Linux only                          |
-| E2E Fixtures                         | `e2e-fixtures.yml`             | PR/push `main` + dispatch               | fixture product E2E — acceptance for real user workflows                                                         |
+| E2E Fixtures                         | `e2e-fixtures.yml`             | PR/push `main` + dispatch               | fixture product E2E — acceptance for real user workflows; sharded across 4 runners                               |
 | Windows Installer                    | `installer-smoke.yml`          | PR/push `main`, `v*` tags + dispatch    | Windows installer build, cold-state install, install/uninstall cycle; builds the release's Windows artifacts     |
 | Flatpak Bundle                       | `flatpak.yml`                  | PR/push + dispatch                      | Flatpak build validation                                                                                         |
 | Deps vuln gate                       | `deps-vuln-gate.yml`           | PRs                                     | dependency vulnerability audit                                                                                   |

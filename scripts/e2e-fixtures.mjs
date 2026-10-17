@@ -31,7 +31,10 @@ if (specs.length === 0) {
 	process.exit(1)
 }
 
-const PLAYWRIGHT_ARGS = ['playwright', 'test', ...specs, '--config', 'playwright.config.ts', '--workers=1']
+// Extra arguments are forwarded so CI can split the suite across runners with
+// `--shard=i/n`. Without forwarding, every shard would silently run the whole
+// suite.
+const PLAYWRIGHT_ARGS = ['playwright', 'test', ...specs, '--config', 'playwright.config.ts', '--workers=1', ...process.argv.slice(2)]
 
 function hasDisplay() {
 	if (process.platform !== 'linux') return true
