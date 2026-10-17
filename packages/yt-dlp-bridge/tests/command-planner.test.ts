@@ -175,6 +175,31 @@ describe('planWorkflow — media', () => {
 		expect(plan.args).not.toContain('--remux-video')
 		expect(plan.args.join(' ')).not.toMatch(/--merge-output-format mp4/)
 	})
+
+	it('plans a time-range section download through ffmpeg', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatId: '137+140'}, downloadSections: ['*220-435']})
+
+		expect(adjacent(plan.args, '--download-sections', '*220-435')).toBe(true)
+		expect(plan.args).not.toContain('--force-keyframes-at-cuts')
+		expect(plan.facts.dependencies.required.map(dependency => dependency.name)).toContain('ffmpeg')
+		expect(plan.facts.sideEffects).toContain('cut media to the requested sections')
+	})
+
+	it('repeats --download-sections per range and forces keyframes for an exact cut', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, downloadSections: ['*0-10', '*20-inf'], forceKeyframesAtCuts: true})
+
+		expect(adjacent(plan.args, '--download-sections', '*0-10')).toBe(true)
+		expect(adjacent(plan.args, '--download-sections', '*20-inf')).toBe(true)
+		expect(plan.args).toContain('--force-keyframes-at-cuts')
+		expect(plan.facts.risks.join(' ')).toMatch(/re-encod/i)
+	})
+
+	it('ignores forceKeyframesAtCuts without sections', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, downloadSections: [], forceKeyframesAtCuts: true})
+
+		expect(plan.args).not.toContain('--download-sections')
+		expect(plan.args).not.toContain('--force-keyframes-at-cuts')
+	})
 })
 
 describe('planWorkflow — subtitles', () => {

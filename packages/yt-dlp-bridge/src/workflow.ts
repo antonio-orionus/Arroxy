@@ -73,6 +73,11 @@ export interface CallerMediaWorkflowInput {
 	audio?: {convert?: AudioConvert}
 	subtitles?: {embed?: boolean; languages: string[]; writeAuto?: boolean; autoOnly?: boolean}
 	sponsorBlock?: SponsorBlockPlan
+	// yt-dlp `--download-sections` values, e.g. `*220-435` (time range) or a
+	// chapter-title regex. Any section reroutes the download through ffmpeg,
+	// whose cuts land on keyframes unless `forceKeyframesAtCuts` re-encodes.
+	downloadSections?: string[]
+	forceKeyframesAtCuts?: boolean
 	extractor?: {youtube?: {playerClient?: string[]}}
 	embed?: {chapters?: boolean; metadata?: boolean; thumbnail?: boolean; description?: boolean; thumbnailSidecar?: boolean}
 	resume?: {loadInfoJsonPath?: string; writeInfoJson?: boolean; infoJsonBaseName?: string}
@@ -306,6 +311,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 	}
 
 	appendCallerSponsorBlockArgs(args, input.sponsorBlock)
+	appendCallerSectionArgs(args, input)
 	if (input.embed?.chapters) args.push('--embed-chapters')
 
 	const embedPolicy = resolveEmbedPolicy({metadata: input.embed?.metadata, thumbnail: input.embed?.thumbnail, audioConvert})
@@ -634,6 +640,16 @@ function appendCallerOutputArgs(args: string[], input: CallerMediaWorkflowInput,
 	}
 }
 
+function hasCallerSections(input: CallerMediaWorkflowInput): boolean {
+	return (input.downloadSections?.length ?? 0) > 0
+}
+
+function appendCallerSectionArgs(args: string[], input: CallerMediaWorkflowInput): void {
+	if (!hasCallerSections(input)) return
+	pushRepeated(args, '--download-sections', input.downloadSections ?? [])
+	if (input.forceKeyframesAtCuts) args.push('--force-keyframes-at-cuts')
+}
+
 function appendCallerSponsorBlockArgs(args: string[], sponsorBlock: SponsorBlockPlan | undefined): void {
 	if (!sponsorBlock || sponsorBlock.categories.length === 0) return
 	const categories = sponsorBlock.categories.join(',')
@@ -828,6 +844,7 @@ function callerMediaDependencyReasons(input: CallerMediaWorkflowInput, audioConv
 	if (embedSubs) addReason(deps, 'ffmpeg', 'asset or metadata embedding requested')
 	if (input.embed?.thumbnail) addReason(deps, 'ffmpeg', 'thumbnail conversion or embedding requested')
 	if (input.sponsorBlock?.mode === 'remove') addReason(deps, 'ffmpeg', 'SponsorBlock segment removal requested')
+	if (hasCallerSections(input)) addReason(deps, 'ffmpeg', 'section download/cutting requested')
 	return deps
 }
 
@@ -877,6 +894,7 @@ function callerMediaRisks(input: CallerMediaWorkflowInput): string[] {
 	const risks: string[] = []
 	if (input.sponsorBlock?.mode === 'remove') risks.push('SponsorBlock removal changes media content and requires ffmpeg.')
 	if (input.audio?.convert) risks.push('Audio extraction/conversion can be lossy depending on target and bitrate.')
+	if (hasCallerSections(input) && input.forceKeyframesAtCuts) risks.push('Exact section cuts re-encode the media, which is slow and lossy.')
 	return risks
 }
 
@@ -909,6 +927,7 @@ function callerMediaSideEffects(input: CallerMediaWorkflowInput, audioConvert: A
 	if (input.selection?.mergeOutputFormat || input.selection?.remuxVideo) sideEffects.push('remux media container')
 	if (embedSubs || input.embed?.metadata || input.embed?.thumbnail) sideEffects.push('embed assets/metadata')
 	if (input.sponsorBlock?.mode === 'remove') sideEffects.push('remove SponsorBlock segments')
+	if (hasCallerSections(input)) sideEffects.push('cut media to the requested sections')
 	return sideEffects
 }
 
