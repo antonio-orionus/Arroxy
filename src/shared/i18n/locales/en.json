@@ -575,6 +575,7 @@
 			"format": "Format",
 			"outputTarget": "Output target",
 			"artifacts": "Artifacts",
+			"size": "Size",
 			"added": "Added",
 			"finished": "Finished",
 			"notAvailable": "—",

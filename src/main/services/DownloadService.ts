@@ -6,9 +6,9 @@ import type {PhaseContext, PhaseOutcome} from './phases/index.js'
 import {nowIso} from '@main/utils/clock.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {fail, ok, type Result} from '@shared/result.js'
-import {STATUS_KEY, type QueueArtifactKind} from '@shared/schemas.js'
+import {STATUS_KEY} from '@shared/schemas.js'
 import {MAX_CONCURRENT_DOWNLOADS} from '@shared/constants.js'
-import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, QueueArtifactEvent, QueueResumeContext, RecentJob, ResolvedStartDownloadInput, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
+import type {CancelDownloadOutput, DownloadJob, LocalizedError, PauseDownloadOutput, QueueResumeContext, RecentJob, ResolvedStartDownloadInput, StartDownloadInput, StartDownloadOutput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {YtDlp} from './YtDlp.js'
 import {AsyncStack} from './phases/index.js'
@@ -20,6 +20,7 @@ import {killActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
+import {finalArtifactEvents, finalArtifactsOf} from './download/finalArtifacts.js'
 import {JobLifecycle} from './JobLifecycle.js'
 import {CookielessRetry} from './download/cookielessRetry.js'
 
@@ -474,29 +475,16 @@ export class DownloadService extends EventEmitter {
 
 	private async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError): Promise<void> {
 		const active = this.activeJobs.get(job.id)
-		if (active && status === 'completed') this.emitFinalArtifacts(active)
+		const finalArtifacts = active && status === 'completed' ? finalArtifactsOf(active) : []
 		this.activeJobs.delete(job.id)
 		this.releaseParkWaiters(job.id)
 		this.explore.spawnGate.resetJob(job.id)
+		for (const event of await finalArtifactEvents(job.id, finalArtifacts)) this.emit('artifact', event)
 		// Drain LIFO disposables (process kills, tempDir removals, watchdog
 		// timers) before writing the RecentJob entry. Per-disposable failures
 		// log + continue; a stuck cleanup can't block finalize.
 		if (active) await this.lifecycle.drain(active)
 		await this.lifecycle.finalize(job, status, error)
-	}
-
-	private emitFinalArtifacts(active: ActiveDownload): void {
-		const emitted = new Set<string>()
-		const emitArtifact = (path: string | undefined, kind: QueueArtifactKind): void => {
-			if (!path || emitted.has(path)) return
-			emitted.add(path)
-			this.emit('artifact', {jobId: active.job.id, path, kind, at: nowIso()} satisfies QueueArtifactEvent)
-		}
-		emitArtifact(active.mediaPath, 'media')
-		const embedsSubtitlesIntoMedia = active.input.job.kind !== 'subtitle-only' && active.input.job.subtitles?.mode === 'embed'
-		if (!embedsSubtitlesIntoMedia) {
-			for (const subtitlePath of active.subtitlePaths) emitArtifact(subtitlePath, 'subtitle')
-		}
 	}
 
 	private startMockDownload(jobId: string): void {

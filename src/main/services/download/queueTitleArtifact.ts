@@ -29,7 +29,7 @@ function findTarget(host: QueueArtifactIngestHost, jobId: string): QueueItem | u
 export function ingestQueueArtifactEvent(host: QueueArtifactIngestHost, event: QueueArtifactEvent): void {
 	const item = findTarget(host, event.jobId)
 	if (!item) return
-	const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal})
+	const artifact = queueArtifactFromPath(event.path, {kind: event.kind, discoveredAt: event.at, internal: event.internal, sizeBytes: event.sizeBytes})
 	// A media file landing on a still-flagged row proves the real title via
 	// its basename — but only for default-shape templates, where the title
 	// portion is unambiguous. Subtitle-only jobs emit no media artifact and

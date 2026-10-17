@@ -55,7 +55,7 @@ The live percentage and detail line within the current phase. Distinct from stat
 _Avoid_: percent
 
 **Artifact**:
-A file produced by a queue item, such as media, sidecar subtitles, a thumbnail, a description, or a companion file.
+A file produced by a queue item, such as media, sidecar subtitles, a thumbnail, a description, or a companion file. An artifact is **missing** when it is no longer on disk, for example after being moved or deleted outside the app; the queue checks this each time it loads and clears the mark when the file is back.
 _Avoid_: payload, attachment
 
 ### Queue

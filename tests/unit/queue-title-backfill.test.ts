@@ -104,6 +104,17 @@ describe('Layer 2 — artifact backstop', () => {
 		expect(item.artifacts).toEqual([expect.objectContaining({kind: 'media', fileName: 'Uploader - Real Title.mp4'})])
 		expect(ok(true).ok).toBe(true)
 	})
+
+	it('records the size a final artifact event carries', () => {
+		const ds = new FakeDownloadService()
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'q-size', status: 'running', lastJobId: 'job-size'})])
+
+		ds.emit('artifact', {...artifactEvent('job-size', '/downloads/Sized.mp4'), sizeBytes: 4096})
+
+		const [item] = qs.snapshot()
+		expect(item.artifacts).toEqual([expect.objectContaining({fileName: 'Sized.mp4', sizeBytes: 4096})])
+	})
 })
 
 describe('Layer 1 — deferred background fill', () => {

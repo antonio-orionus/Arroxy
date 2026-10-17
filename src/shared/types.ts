@@ -493,6 +493,7 @@ export interface QueueArtifactEvent {
 	at: string
 	fromPath?: string
 	internal?: boolean
+	sizeBytes?: number
 }
 
 export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const

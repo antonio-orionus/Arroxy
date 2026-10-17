@@ -38,13 +38,14 @@ export const STATUS_FILTERS: {id: QueueStatusFilter; labelKey: 'queue.filterAll'
 	{id: 'cancelled', labelKey: 'queue.item.statusCancelled'}
 ]
 
-export const COLUMN_LABEL_KEYS: Record<QueueTableColumnId, 'queue.table.title' | 'queue.table.status' | 'queue.table.progress' | 'queue.table.format' | 'queue.table.outputTarget' | 'queue.table.artifacts' | 'queue.table.added' | 'queue.table.finished'> = {
+export const COLUMN_LABEL_KEYS: Record<QueueTableColumnId, 'queue.table.title' | 'queue.table.status' | 'queue.table.progress' | 'queue.table.format' | 'queue.table.outputTarget' | 'queue.table.artifacts' | 'queue.table.size' | 'queue.table.added' | 'queue.table.finished'> = {
 	title: 'queue.table.title',
 	status: 'queue.table.status',
 	progressPercent: 'queue.table.progress',
 	formatLabel: 'queue.table.format',
 	outputDir: 'queue.table.outputTarget',
 	artifacts: 'queue.table.artifacts',
+	fileSize: 'queue.table.size',
 	addedAt: 'queue.table.added',
 	finishedAt: 'queue.table.finished'
 }

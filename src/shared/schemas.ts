@@ -423,7 +423,7 @@ const queueActionSkippedFailureReasonSchema = z.enum(['invalid-status', 'failed'
 const queueActionSkippedItemSchema = z.union([z.object({itemId: z.string().min(1), reason: z.literal('not-found')}), z.object({itemId: z.string().min(1), status: queueItemStatusSchema, reason: queueActionSkippedFailureReasonSchema})])
 export type QueueActionSkippedItem = z.infer<typeof queueActionSkippedItemSchema>
 
-export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'addedAt', 'finishedAt'])
+export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt', 'finishedAt'])
 export type QueueTableColumnId = z.infer<typeof queueTableColumnIdSchema>
 export const QUEUE_TABLE_COLUMN_IDS = queueTableColumnIdSchema.options
 

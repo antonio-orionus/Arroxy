@@ -94,6 +94,30 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('queue-manager-row-running')).toHaveAttribute('data-status', 'running')
 	})
 
+	it('gives every default column a fixed width share that adds up to the whole table', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByRole('columnheader', {name: /size/i})).toBeInTheDocument()
+		// The table uses a fixed layout: a header without a width collapses to
+		// nothing and its label spills over the next column.
+		const widths = screen.getAllByRole('columnheader').map(header => Number(/\bw-\[(\d+)%\]/.exec(header.className)?.[1] ?? Number.NaN))
+		expect(widths.every(width => width > 0)).toBe(true)
+		expect(widths.reduce((sum, width) => sum + width, 0)).toBe(100)
+	})
+
+	it('flags a finished row whose files are all gone in its size cell', () => {
+		const file = {id: 'artifact:/d/gone.mp4', kind: 'media' as const, path: '/d/gone.mp4', fileName: 'gone.mp4', discoveredAt: '2026-10-01T10:00:00.000Z'}
+		useAppStore.setState({queue: [makeItem({id: 'gone', status: 'done', artifacts: [{...file, missing: true}]}), makeItem({id: 'sized', status: 'done', artifacts: [{...file, id: 'artifact:/d/kept.mp4', path: '/d/kept.mp4', sizeBytes: 2048}]})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-manager-row-gone')).toHaveTextContent('Missing')
+		expect(screen.getByTestId('queue-manager-row-sized')).toHaveTextContent('2.0 KiB')
+		expect(screen.getByTestId('queue-manager-row-sized')).not.toHaveTextContent('Missing')
+	})
+
 	it('virtualizes large queues instead of rendering every row', () => {
 		useAppStore.setState({queue: makeLargeQueue(5000)})
 

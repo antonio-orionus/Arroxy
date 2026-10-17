@@ -4,7 +4,7 @@ import {DEFAULT_QUEUE_TABLE_PREFERENCES, sanitizeQueueTablePreferences} from '@r
 describe('queue table preferences', () => {
 	it('defaults Added visible and Finished hidden', () => {
 		expect(DEFAULT_QUEUE_TABLE_PREFERENCES.columnVisibility).toMatchObject({title: true, status: true, addedAt: true, finishedAt: false})
-		expect(DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder).toEqual(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'addedAt', 'finishedAt'])
+		expect(DEFAULT_QUEUE_TABLE_PREFERENCES.columnOrder).toEqual(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt', 'finishedAt'])
 		expect(DEFAULT_QUEUE_TABLE_PREFERENCES.sorting).toEqual([{id: 'addedAt', desc: true}])
 	})
 
@@ -22,8 +22,8 @@ describe('queue table preferences', () => {
 		).toEqual({
 			version: 1,
 			sorting: [{id: 'finishedAt', desc: true}],
-			columnOrder: ['finishedAt', 'title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'addedAt'],
-			columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: false, outputDir: true, artifacts: true, addedAt: true, finishedAt: false}
+			columnOrder: ['finishedAt', 'title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt'],
+			columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: false, outputDir: true, artifacts: true, fileSize: true, addedAt: true, finishedAt: false}
 		})
 	})
 })

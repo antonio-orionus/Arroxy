@@ -22,7 +22,7 @@ import {Card} from '../ui/card.js'
 // How long a row shown by a View command stays highlighted.
 const FOCUS_HIGHLIGHT_MS = 2_400
 
-const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, addedAt: 900, finishedAt: 900}
+const RESPONSIVE_COLUMN_HIDE_MAX_WIDTH: Partial<Record<QueueTableColumnId, number>> = {formatLabel: 820, outputDir: 1040, fileSize: 960, addedAt: 900, finishedAt: 900}
 
 function resolveUpdater<T>(updater: Updater<T>, previous: T): T {
 	if (typeof updater !== 'function') return updater

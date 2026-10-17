@@ -1,7 +1,7 @@
 import {useMemo, type ReactNode} from 'react'
 import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
-import {Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clock, Loader2, Pause, PauseCircle, X, XCircle} from 'lucide-react'
+import {AlertTriangle, Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clock, Loader2, Pause, PauseCircle, X, XCircle} from 'lucide-react'
 import type {StatusKey} from '@shared/schemas.js'
 import type {QueueItem, QueueItemStatus} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
@@ -11,6 +11,7 @@ import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Progress} from '../ui/progress.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
+import {formatQueueByteSize, queueItemFilesMissing, queueItemSizeBytes} from './queueFileSize.js'
 
 const STATUS_META: Record<
 	QueueItemStatus,
@@ -212,6 +213,24 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 								<ChevronDown size={12} className={cn('transition-transform', expanded && 'rotate-180')} aria-hidden />
 							</Button>
 						)
+					}
+				}),
+				columnHelper.accessor(row => queueItemSizeBytes(row.artifacts), {
+					id: 'fileSize',
+					header: ({column}) => sortableHeader(t('queue.table.size'), column, t),
+					// Rows without a known size sort below the smallest file.
+					sortFn: (rowA, rowB) => (rowA.getValue<number | null>('fileSize') ?? -1) - (rowB.getValue<number | null>('fileSize') ?? -1),
+					cell: info => {
+						const sizeBytes = info.getValue()
+						if (sizeBytes === null && queueItemFilesMissing(info.row.original.artifacts)) {
+							return (
+								<span className="flex min-w-0 items-center gap-1 text-caption text-destructive">
+									<AlertTriangle size={11} className="shrink-0" aria-hidden />
+									<span className="truncate">{t('queue.artifact.missing')}</span>
+								</span>
+							)
+						}
+						return <span className="block truncate whitespace-nowrap font-mono text-caption text-muted-foreground">{sizeBytes === null ? t('queue.table.notAvailable') : formatQueueByteSize(sizeBytes)}</span>
 					}
 				}),
 				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),

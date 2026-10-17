@@ -89,6 +89,8 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 			{path: videoPath, kind: 'media'},
 			{path: subPath, kind: 'subtitle'}
 		])
+		// Neither file exists on disk here, so no size is reported.
+		expect(artifacts.every(artifact => artifact.sizeBytes === undefined)).toBe(true)
 	})
 
 	it('emits subtitlesFailed and records the job as completed when sidecar subtitle fetch fails', async () => {
@@ -270,6 +272,8 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		expect(() => readFileSync(videoPath)).toThrow()
 		expect(() => readFileSync(subPath)).toThrow()
 		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([{path: finalMkv, kind: 'media'}])
+		// The final artifact carries its on-disk size, read after the mux.
+		expect(artifacts[0].sizeBytes).toBe('muxed-bytes'.length)
 	})
 
 	it('emits mergingFormats status when the mux phase starts', async () => {

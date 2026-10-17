@@ -6,6 +6,7 @@ import type {QueueArtifact, QueueItem} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {Badge} from '../ui/badge.js'
 import {TableCell, TableRow} from '../ui/table.js'
+import {formatQueueByteSize} from './queueFileSize.js'
 
 type QueueArtifactLabelKey = 'queue.artifact.media' | 'queue.artifact.subtitle' | 'queue.artifact.thumbnail' | 'queue.artifact.description' | 'queue.artifact.companion' | 'queue.artifact.unknown'
 
@@ -18,20 +19,6 @@ function artifactKindLabel(kind: QueueArtifact['kind'], t: TFunction): string {
 	return t(ARTIFACT_KIND_LABELS[kind])
 }
 
-function formatArtifactSize(sizeBytes: number | undefined): string | null {
-	if (sizeBytes === undefined) return null
-	if (sizeBytes < 1024) return `${sizeBytes} B`
-	const units = ['KiB', 'MiB', 'GiB']
-	let value = sizeBytes / 1024
-	let unit = units[0]
-	for (const nextUnit of units.slice(1)) {
-		if (value < 1024) break
-		value /= 1024
-		unit = nextUnit
-	}
-	return `${value.toFixed(value >= 10 ? 0 : 1)} ${unit}`
-}
-
 export function QueueArtifactsRow({columnsLength, item}: {columnsLength: number; item: QueueItem}): ReactNode {
 	const {t} = useTranslation()
 	const artifacts = visibleQueueArtifacts(item.artifacts)
@@ -40,7 +27,7 @@ export function QueueArtifactsRow({columnsLength, item}: {columnsLength: number;
 			<TableCell colSpan={columnsLength} className="min-w-0 overflow-hidden whitespace-normal px-3 py-2">
 				<div className="ms-8 grid min-w-0 max-w-full gap-1 overflow-hidden border-s border-border-strong ps-3 sm:ms-11">
 					{artifacts.map(artifact => {
-						const size = formatArtifactSize(artifact.sizeBytes)
+						const size = artifact.sizeBytes === undefined ? null : formatQueueByteSize(artifact.sizeBytes)
 						return (
 							<div key={artifact.id} className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2 text-xs text-muted-foreground">
 								<Badge variant="secondary" size="sm" className="shrink-0 uppercase tracking-wide">

@@ -12,6 +12,7 @@ import {QueueArtifactsRow} from './QueueArtifactsRow.js'
 import {DownloadErrorGuidanceRow, QueueAttentionRow} from './QueueAttentionRow.js'
 import {isDownloadErrorRow, needsAttention} from './queueAttention.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
+import type {QueueTableColumnId} from './queueTablePreferences.js'
 import {SELECTED_ACTIONS, actionButtonDisabled, actionDisabledTooltip, type QueueSelectedAction} from './queueManagerActions.js'
 
 interface QueueManagerTableProps {
@@ -32,16 +33,23 @@ interface QueueManagerTableProps {
 	onContextAction: (action: QueueSelectedAction, items: QueueItem[]) => void
 }
 
+// The table has a fixed layout, so every column needs a width share: one
+// without collapses to nothing and its header spills over its neighbour.
+// The default visible set (all but Finished) adds up to 100%.
+const COLUMN_CLASS_NAMES: Record<QueueTableColumnId, string> = {
+	title: 'w-[21%] min-w-0',
+	status: 'w-[17%]',
+	progressPercent: 'w-[9%]',
+	formatLabel: 'w-[13%] max-[820px]:hidden',
+	outputDir: 'w-[13%] max-[1040px]:hidden',
+	artifacts: 'w-[8%] text-center',
+	fileSize: 'w-[10%] max-[960px]:hidden',
+	addedAt: 'w-[9%] max-[900px]:hidden',
+	finishedAt: 'w-[9%] max-[900px]:hidden'
+}
+
 function columnClassName(columnId: string): string {
-	if (columnId === 'title') return 'w-[25%] min-w-0'
-	if (columnId === 'status') return 'w-[18%]'
-	if (columnId === 'progressPercent') return 'w-[10%]'
-	if (columnId === 'formatLabel') return 'w-[15%] max-[820px]:hidden'
-	if (columnId === 'outputDir') return 'w-[15%] max-[1040px]:hidden'
-	if (columnId === 'artifacts') return 'w-[7%] text-center'
-	if (columnId === 'addedAt') return 'w-[10%] max-[900px]:hidden'
-	if (columnId === 'finishedAt') return 'w-[10%] max-[900px]:hidden'
-	return ''
+	return columnId in COLUMN_CLASS_NAMES ? COLUMN_CLASS_NAMES[columnId as QueueTableColumnId] : ''
 }
 
 function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction: (action: QueueSelectedAction, items: QueueItem[]) => void}): ReactNode {
