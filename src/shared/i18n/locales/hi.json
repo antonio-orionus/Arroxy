@@ -251,16 +251,14 @@
 				"extensionChrome": "cookies.txt स्थानीय रूप से प्राप्त करें (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "प्रॉक्सी के माध्यम से ट्रैफ़िक रूट करें — भू-प्रतिबंधित सामग्री के लिए उपयोगी।", "placeholder": "http://host:port", "clear": "साफ़ करें"},
-			"backdrop": {
-				"panelTitle": "रूप और प्रदर्शन",
-				"panelDescription": "चुनें कि Arroxy एनिमेटेड बैकड्रॉप के लिए कितनी गति इस्तेमाल करे।",
-				"modeLabel": "बैकड्रॉप गुणवत्ता",
-				"modeDescription": "सबसे अधिक एनिमेटेड रूप से सर्वश्रेष्ठ प्रदर्शन तक जाएं।",
-				"cssOnlyLabel": "सर्वश्रेष्ठ प्रदर्शन",
-				"cssOnlyDescription": "केवल CSS, कोई canvas रेंडरिंग नहीं।",
-				"gpuLabel": "सबसे सुंदर",
-				"gpuDescription": "समर्थित होने पर एनिमेटेड WebGL बैकड्रॉप।",
-				"runtimeFallbackNotice": "इस डिवाइस पर हार्डवेयर WebGL उपलब्ध नहीं है, इसलिए Arroxy प्रदर्शन बैकड्रॉप का उपयोग कर रहा है।"
+			"style": {
+				"panelTitle": "दिखावट",
+				"panelDescription": "Arroxy कैसा दिखता है। फ़ुटर में लाइट और डार्क के बीच बदलें।",
+				"modeLabel": "स्टाइल",
+				"modeDescription": "दोनों स्टाइल लाइट और डार्क में उपलब्ध हैं।",
+				"aurora": {"label": "ऑरोरा", "description": "चलते आसमान पर काँच जैसे पैनल। ग्राफ़िक्स एक्सेलेरेशन ज़रूरी है।"},
+				"minimal": {"label": "मिनिमल", "description": "ठोस और शांत सतहें। किसी भी कंप्यूटर पर हल्का चलता है।"},
+				"unavailableNotice": "{{style}} के लिए ग्राफ़िक्स एक्सेलेरेशन चाहिए, जो अभी उपलब्ध नहीं है, इसलिए Arroxy {{fallback}} दिखा रहा है।"
 			},
 			"limitRate": {
 				"label": "डाउनलोड गति सीमा",

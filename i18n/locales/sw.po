@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "mara"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS pekee, hakuna uchoraji wa canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Utendaji bora"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Mandhari ya WebGL yenye mwendo ikisaidiwa."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Nzuri zaidi"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Badili kutoka mwonekano wenye mwendo mwingi hadi utendaji bora."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Ubora wa mandhari"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Chagua kiasi cha mwendo ambacho Arroxy hutumia kwa mandhari yenye mwendo."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Mwonekano na utendaji"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL ya maunzi haipatikani kwenye kifaa hiki, kwa hivyo Arroxy inatumia mandharinyuma ya utendaji."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL nyingi"
@@ -3776,6 +3740,42 @@ msgstr "Tabia ya kupakua"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Ingizo"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Paneli za kioo juu ya anga linalosogea. Zinahitaji uongezaji kasi wa michoro."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Nyuso imara na tulivu. Inafanya kazi kwa wepesi kwenye kompyuta yoyote."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Rahisi"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Mitindo yote miwili ina toleo la mwanga na la giza."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Mtindo"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Jinsi Arroxy inavyoonekana. Badilisha kati ya mwanga na giza chini ya dirisha."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Mwonekano"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} inahitaji uongezaji kasi wa michoro, ambao haupatikani sasa hivi, kwa hiyo Arroxy inaonyesha {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

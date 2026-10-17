@@ -251,16 +251,14 @@
 				"extensionChrome": "Get cookies.txt LOCALLY (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Route traffic through a proxy — useful for geo-restricted content.", "placeholder": "http://host:port", "clear": "Clear"},
-			"backdrop": {
-				"panelTitle": "Appearance and performance",
-				"panelDescription": "Choose how much motion Arroxy uses for the animated backdrop.",
-				"modeLabel": "Backdrop quality",
-				"modeDescription": "Move from the most animated look to best performance.",
-				"cssOnlyLabel": "Best performance",
-				"cssOnlyDescription": "CSS only, no canvas rendering.",
-				"gpuLabel": "Most beautiful",
-				"gpuDescription": "Animated WebGL backdrop when supported.",
-				"runtimeFallbackNotice": "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+			"style": {
+				"panelTitle": "Appearance",
+				"panelDescription": "How Arroxy looks. Switch between light and dark in the footer.",
+				"modeLabel": "Style",
+				"modeDescription": "Both styles come in light and dark.",
+				"aurora": {"label": "Aurora", "description": "Glass panels over a moving sky. Needs graphics acceleration."},
+				"minimal": {"label": "Minimal", "description": "Solid, quiet surfaces. Runs light on any computer."},
+				"unavailableNotice": "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Download speed limit",

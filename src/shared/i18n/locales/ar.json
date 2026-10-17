@@ -273,16 +273,14 @@
 				"extensionChrome": "احصل على cookies.txt محلياً (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "توجيه حركة البيانات عبر وكيل — مفيد للمحتوى المقيّد جغرافياً.", "placeholder": "http://host:port", "clear": "مسح"},
-			"backdrop": {
-				"panelTitle": "المظهر والأداء",
-				"panelDescription": "اختر مقدار الحركة التي يستخدمها Arroxy للخلفية المتحركة.",
-				"modeLabel": "جودة الخلفية",
-				"modeDescription": "انتقل من المظهر الأكثر حركة إلى أفضل أداء.",
-				"cssOnlyLabel": "أفضل أداء",
-				"cssOnlyDescription": "CSS فقط، بلا عرض canvas.",
-				"gpuLabel": "الأجمل",
-				"gpuDescription": "خلفية WebGL متحركة عند توفر الدعم.",
-				"runtimeFallbackNotice": "لا يتوفر WebGL عبر العتاد على هذا الجهاز، لذلك يستخدم Arroxy خلفية الأداء."
+			"style": {
+				"panelTitle": "المظهر",
+				"panelDescription": "هكذا يبدو Arroxy. بدّل بين الفاتح والداكن من أسفل النافذة.",
+				"modeLabel": "النمط",
+				"modeDescription": "كلا النمطين متاح بالوضع الفاتح والداكن.",
+				"aurora": {"label": "Aurora", "description": "ألواح زجاجية فوق سماء متحركة. تحتاج إلى تسريع الرسومات."},
+				"minimal": {"label": "بسيط", "description": "أسطح صلبة وهادئة. تعمل بخفة على أي جهاز كمبيوتر."},
+				"unavailableNotice": "يحتاج {{style}} إلى تسريع الرسومات وهو غير متاح الآن، لذلك يعرض Arroxy {{fallback}}."
 			},
 			"limitRate": {
 				"label": "حد سرعة التنزيل",

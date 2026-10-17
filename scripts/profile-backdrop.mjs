@@ -278,11 +278,9 @@ function runFrameSample({durationMs}) {
 
 	const info = webglInfo()
 	const bodyClass = document.body.className
-	const canvas = document.querySelector('canvas[data-backdrop-mode]')
-	const scene = canvas?.getAttribute('data-backdrop-scene') ?? (bodyClass.includes('backdrop-dark-aurora') ? 'dark-aurora' : bodyClass.includes('backdrop-light-ocean') ? 'light-ocean' : 'unknown')
-	const mode = canvas?.getAttribute('data-backdrop-mode') ?? (bodyClass.includes('backdrop-static-fallback') ? 'css-fallback' : 'unknown')
-	const cssBeforeAnimation = getComputedStyle(document.body, '::before').animationName
-	const cssAfterAnimation = getComputedStyle(document.body, '::after').animationName
+	const canvas = document.querySelector('canvas[data-backdrop-layer]')
+	const scene = canvas?.getAttribute('data-backdrop-scene') ?? 'none'
+	const mode = canvas ? 'webgl' : 'base-style'
 
 	return new Promise(resolve => {
 		const frames = []
@@ -299,21 +297,7 @@ function runFrameSample({durationMs}) {
 			}
 			if (now - start < durationMs) requestAnimationFrame(tick)
 			else {
-				resolve({
-					elapsedMs: now - start,
-					frameDeltasMs: frames,
-					mode,
-					scene,
-					bodyClass,
-					hasCanvas: Boolean(canvas),
-					cssBeforeAnimation,
-					cssAfterAnimation,
-					renderer: info.renderer,
-					vendor: info.vendor,
-					devicePixelRatio: window.devicePixelRatio,
-					hardwareConcurrency: navigator.hardwareConcurrency,
-					userAgent: navigator.userAgent
-				})
+				resolve({elapsedMs: now - start, frameDeltasMs: frames, mode, scene, bodyClass, hasCanvas: Boolean(canvas), renderer: info.renderer, vendor: info.vendor, devicePixelRatio: window.devicePixelRatio, hardwareConcurrency: navigator.hardwareConcurrency, userAgent: navigator.userAgent})
 			}
 		}
 
@@ -360,8 +344,6 @@ function summarizeSample(presetName, preset, sample, beforeMetrics, afterMetrics
 		mainThreadPct,
 		frameCount: frames,
 		elapsedMs: sample.elapsedMs,
-		cssBeforeAnimation: sample.cssBeforeAnimation,
-		cssAfterAnimation: sample.cssAfterAnimation,
 		bodyClass: sample.bodyClass,
 		userAgent: sample.userAgent
 	}

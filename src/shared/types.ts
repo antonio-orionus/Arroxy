@@ -25,7 +25,7 @@ export type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	BackdropRenderMode,
+	UiStyle,
 	GraphicsPolicyBackdropReason,
 	QueueItemStatus,
 	QueueLane,
@@ -75,7 +75,7 @@ import type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	BackdropRenderMode,
+	UiStyle,
 	GraphicsPolicyBackdropReason,
 	StatusKey,
 	CookiesMode,
@@ -107,7 +107,7 @@ export interface AppError {
 export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
 
 export interface GraphicsPolicy {
-	backdrop: {forceRenderMode: BackdropRenderMode | null; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
+	backdrop: {webglBlocked: boolean; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
 }
 
 // Mode-independent prefs and infrastructure config. Anything that applies
@@ -122,7 +122,7 @@ export interface CommonSettings {
 	lastHeartbeatDay?: string
 	uiZoom?: number
 	uiTheme?: UiTheme
-	backdropRenderMode?: BackdropRenderMode
+	uiStyle?: UiStyle
 	language?: SupportedLang
 	commonPaths?: {downloads: string | null; videos: string | null; desktop: string | null; music: string | null; documents: string | null; pictures: string | null; home: string | null}
 	cookiesPath?: string

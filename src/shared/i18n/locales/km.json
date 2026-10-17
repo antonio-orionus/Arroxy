@@ -251,16 +251,14 @@
 				"extensionChrome": "ទាញយក cookies.txt ក្នុងម៉ាស៊ីន (Chrome)"
 			},
 			"proxy": {"label": "URL ប្រូកស៊ី", "description": "បញ្ជូនចរាចរណ៍តាមប្រូកស៊ី — មានប្រយោជន៍សម្រាប់មាតិកាដែលកំណត់តាមតំបន់។", "placeholder": "http://host:port", "clear": "សម្អាត"},
-			"backdrop": {
-				"panelTitle": "រូបរាង និងដំណើរការ",
-				"panelDescription": "ជ្រើសរើសកម្រិតចលនាដែល Arroxy ប្រើសម្រាប់ផ្ទៃខាងក្រោយមានចលនា។",
-				"modeLabel": "គុណភាពផ្ទៃខាងក្រោយ",
-				"modeDescription": "ផ្លាស់ប្តូរពីរូបរាងមានចលនាច្រើនបំផុត ទៅដំណើរការល្អបំផុត។",
-				"cssOnlyLabel": "ដំណើរការល្អបំផុត",
-				"cssOnlyDescription": "CSS តែប៉ុណ្ណោះ គ្មានការគូរ canvas។",
-				"gpuLabel": "ស្អាតបំផុត",
-				"gpuDescription": "ផ្ទៃខាងក្រោយ WebGL មានចលនានៅពេលគាំទ្រ។",
-				"runtimeFallbackNotice": "Hardware WebGL មិនមាននៅលើឧបករណ៍នេះទេ ដូច្នេះ Arroxy កំពុងប្រើផ្ទៃខាងក្រោយសម្រាប់ដំណើរការ។"
+			"style": {
+				"panelTitle": "រូបរាង",
+				"panelDescription": "របៀបដែល Arroxy មើលទៅ។ ប្តូររវាងភ្លឺ និងងងឹតនៅផ្នែកខាងក្រោម។",
+				"modeLabel": "រចនាប័ទ្ម",
+				"modeDescription": "រចនាប័ទ្មទាំងពីរមានទាំងភ្លឺ និងងងឹត។",
+				"aurora": {"label": "អូរ៉ូរ៉ា", "description": "បន្ទះកញ្ចក់លើមេឃដែលកំពុងផ្លាស់ទី។ ត្រូវការការបង្កើនល្បឿនក្រាហ្វិក។"},
+				"minimal": {"label": "សាមញ្ញ", "description": "ផ្ទៃរឹង និងស្ងប់ស្ងាត់។ ដំណើរការស្រាលលើកុំព្យូទ័រណាក៏បាន។"},
+				"unavailableNotice": "{{style}} ត្រូវការការបង្កើនល្បឿនក្រាហ្វិក ដែលមិនមាននៅពេលនេះ ដូច្នេះ Arroxy កំពុងបង្ហាញ {{fallback}}។"
 			},
 			"limitRate": {
 				"label": "ដែនកំណត់ល្បឿនទាញយក",

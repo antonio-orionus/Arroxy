@@ -1,4 +1,4 @@
-import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, BackdropRenderMode, NetworkPacingPreset, NativeAudioPreference, HotkeyAccelerator} from './schemas.js'
+import type {SubtitleMode, SubtitleFormat, SponsorBlockMode, SponsorBlockCategory, UiTheme, UiStyle, NetworkPacingPreset, NativeAudioPreference, HotkeyAccelerator} from './schemas.js'
 import type {AppSettings} from './types.js'
 import {DEFAULT_FILENAME_TEMPLATE} from './filenameTemplate.js'
 
@@ -25,7 +25,7 @@ export const DEFAULTS: {
 	sponsorBlockCategories: SponsorBlockCategory[]
 	uiZoom: number
 	uiTheme: UiTheme
-	backdropRenderMode: BackdropRenderMode
+	uiStyle: UiStyle
 	nativeAudioPreference: NativeAudioPreference
 	hotkeyEnabled: boolean
 	hotkeyAccelerator: HotkeyAccelerator
@@ -43,7 +43,7 @@ export const DEFAULTS: {
 	sponsorBlockCategories: ['sponsor', 'selfpromo'],
 	uiZoom: 1,
 	uiTheme: 'system',
-	backdropRenderMode: 'gpu',
+	uiStyle: 'aurora',
 	nativeAudioPreference: 'compatible',
 	embedChapters: true,
 	embedMetadata: true,
@@ -75,7 +75,7 @@ export function defaultAppSettings(downloadsDir: string): AppSettings {
 			hotkeyAccelerator: DEFAULTS.hotkeyAccelerator,
 			analyticsEnabled: true,
 			filenameTemplate: DEFAULTS.filenameTemplate,
-			backdropRenderMode: DEFAULTS.backdropRenderMode,
+			uiStyle: DEFAULTS.uiStyle,
 			nativeAudioPreference: DEFAULTS.nativeAudioPreference
 		},
 		playlist: {},

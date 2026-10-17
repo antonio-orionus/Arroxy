@@ -273,16 +273,14 @@
 				"extensionChrome": "Obtenir cookies.txt EN LOCAL (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Acheminer le trafic via un proxy — utile pour les contenus géo-restreints.", "placeholder": "http://host:port", "clear": "Effacer"},
-			"backdrop": {
-				"panelTitle": "Apparence et performances",
-				"panelDescription": "Choisissez la quantité de mouvement utilisée par Arroxy pour l’arrière-plan animé.",
-				"modeLabel": "Qualité de l’arrière-plan",
-				"modeDescription": "Passez de l’apparence la plus animée aux meilleures performances.",
-				"cssOnlyLabel": "Meilleures performances",
-				"cssOnlyDescription": "CSS uniquement, sans rendu canvas.",
-				"gpuLabel": "Le plus beau",
-				"gpuDescription": "Arrière-plan WebGL animé lorsque pris en charge.",
-				"runtimeFallbackNotice": "WebGL matériel n’est pas disponible sur cet appareil, Arroxy utilise donc l’arrière-plan de performance."
+			"style": {
+				"panelTitle": "Apparence",
+				"panelDescription": "L’apparence d’Arroxy. Passez du clair au sombre depuis le pied de page.",
+				"modeLabel": "Style",
+				"modeDescription": "Les deux styles existent en clair et en sombre.",
+				"aurora": {"label": "Aurora", "description": "Des panneaux de verre sur un ciel animé. Nécessite l’accélération graphique."},
+				"minimal": {"label": "Minimaliste", "description": "Des surfaces unies et discrètes. Fonctionne tout en légèreté sur n’importe quel ordinateur."},
+				"unavailableNotice": "{{style}} nécessite l’accélération graphique, qui n’est pas disponible pour le moment. Arroxy affiche donc {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Limite de vitesse de téléchargement",

@@ -306,7 +306,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage})
+				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}
@@ -505,10 +505,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		setPlaylistProbeLimit: async value => {
 			await applyCommonPatchAsync(get, set, 'playlistProbeLimit', {playlistProbeLimit: value})
-		},
-
-		setBackdropRenderMode: async value => {
-			await applyCommonPatchAsync(get, set, 'backdropRenderMode', {backdropRenderMode: value})
 		},
 
 		setNativeAudioPreference: async value => {

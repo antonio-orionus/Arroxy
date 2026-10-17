@@ -15,7 +15,7 @@ const SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
 let mockApi: AppApi
 
-const CSS_FORCED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {forceRenderMode: 'css-only', softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
+const WEBGL_BLOCKED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {webglBlocked: true, softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
 
 function buildSettings(common: Partial<AppSettings['common']> = {}): AppSettings {
 	const base = defaultAppSettings('/tmp')
@@ -81,7 +81,9 @@ function resetStore(settings: AppSettings): void {
 		quickDownloadProgressTitle: null,
 		quickDownloadProgressRunId: null,
 		queue: [],
-		graphicsPolicy: null
+		graphicsPolicy: null,
+		uiStyle: 'aurora',
+		backdropFailed: false
 	})
 }
 
@@ -212,48 +214,39 @@ describe('advanced network settings', () => {
 		})
 	})
 
-	it('saves the backdrop performance mode slider', async () => {
+	it('lists every style and saves the one picked', async () => {
 		render(<StepUrlInput />)
 		openSettingsTab()
 
-		expect(screen.getByTestId('profiles-settings-backdrop-mode')).toHaveTextContent('Best performance')
-		expect(screen.getByTestId('profiles-settings-backdrop-mode')).toHaveTextContent('Most beautiful')
-		expect(screen.getByTestId('profiles-settings-backdrop-mode')).not.toHaveTextContent('Balanced')
-		const options = within(screen.getByTestId('profiles-settings-backdrop-mode')).getAllByRole('button')
-		expect(options[0]).toHaveTextContent('Most beautiful')
-		expect(options[1]).toHaveTextContent('Best performance')
-		expect(options).toHaveLength(2)
-		expect(screen.queryByTestId('profiles-settings-backdrop-mode-fallback')).not.toBeInTheDocument()
+		const options = within(screen.getByTestId('profiles-settings-style')).getAllByRole('button')
+		expect(options.map(option => option.textContent)).toEqual([expect.stringContaining('Aurora'), expect.stringContaining('Minimal')])
+		expect(screen.getByTestId('profiles-settings-style-aurora')).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.queryByTestId('profiles-settings-style-fallback')).not.toBeInTheDocument()
 
-		fireEvent.click(screen.getByTestId('profiles-settings-backdrop-mode-css-only'))
+		fireEvent.click(screen.getByTestId('profiles-settings-style-minimal'))
 		await waitFor(() => {
-			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'css-only'}})
+			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {uiStyle: 'minimal'}})
 		})
-
-		fireEvent.click(screen.getByTestId('profiles-settings-backdrop-mode-gpu'))
-		await waitFor(() => {
-			expect(mockApi.settings.update).toHaveBeenCalledWith({common: {backdropRenderMode: 'gpu'}})
-		})
+		expect(useAppStore.getState().uiStyle).toBe('minimal')
 	})
 
-	it('shows when runtime graphics policy forces the performance backdrop', async () => {
-		resetStore(buildSettings({backdropRenderMode: 'gpu'}))
-		useAppStore.setState({graphicsPolicy: CSS_FORCED_GRAPHICS_POLICY})
+	it('explains why a style that needs the GPU is showing the base style instead', async () => {
+		useAppStore.setState({graphicsPolicy: WEBGL_BLOCKED_GRAPHICS_POLICY})
 
 		render(<StepUrlInput />)
 		openSettingsTab()
 
-		expect(screen.getByTestId('profiles-settings-backdrop-mode-fallback')).toHaveTextContent('Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop.')
+		expect(screen.getByTestId('profiles-settings-style-fallback')).toHaveTextContent("Aurora needs graphics acceleration, which isn't available right now, so Arroxy is showing Minimal.")
+		expect(screen.getByTestId('profiles-settings-style-aurora')).toHaveAttribute('aria-pressed', 'true')
 	})
 
-	it('does not show a runtime fallback notice when the user selected CSS-only', async () => {
-		resetStore(buildSettings({backdropRenderMode: 'css-only'}))
-		useAppStore.setState({graphicsPolicy: CSS_FORCED_GRAPHICS_POLICY})
+	it('shows no fallback notice for a style that needs no GPU', async () => {
+		useAppStore.setState({graphicsPolicy: WEBGL_BLOCKED_GRAPHICS_POLICY, uiStyle: 'minimal'})
 
 		render(<StepUrlInput />)
 		openSettingsTab()
 
-		expect(screen.queryByTestId('profiles-settings-backdrop-mode-fallback')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('profiles-settings-style-fallback')).not.toBeInTheDocument()
 	})
 
 	it('mixed URL dialog shows the current playlist cap and changes it inline', async () => {

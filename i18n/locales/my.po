@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "ကြိမ်"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS သာအသုံးပြုမည်၊ canvas rendering မရှိပါ။"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "အကောင်းဆုံး စွမ်းဆောင်ရည်"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "ထောက်ပံ့ပါက လှုပ်ရှားနေသော WebGL နောက်ခံ။"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "အလှဆုံး"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "အလှုပ်ရှားဆုံး အသွင်အပြင်မှ အကောင်းဆုံး စွမ်းဆောင်ရည်သို့ ရွှေ့ပါ။"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "နောက်ခံ အရည်အသွေး"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Arroxy သည် လှုပ်ရှားနောက်ခံအတွက် လှုပ်ရှားမှုမည်မျှ အသုံးပြုမည်ကို ရွေးပါ။"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "အသွင်အပြင်နှင့် စွမ်းဆောင်ရည်"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "ဤစက်တွင် hardware WebGL မရရှိနိုင်သောကြောင့် Arroxy သည် စွမ်းဆောင်ရည် နောက်ခံကို အသုံးပြုနေသည်။"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL အများအပြား"
@@ -3776,6 +3740,42 @@ msgstr "ဒေါင်းလုတ် အပြုအမူ"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "ထည့်သွင်းမှု"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "လှုပ်ရှားနေသော ကောင်းကင်ပေါ်က ဖန်သားပြား အလွှာများ။ ဂရပ်ဖစ် အရှိန်မြှင့်မှု လိုအပ်သည်။"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "အောရိုရာ"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "ခိုင်မာပြီး တိတ်ဆိတ်သော မျက်နှာပြင်များ။ ကွန်ပျူတာအားလုံးတွင် ပေါ့ပါးစွာ အလုပ်လုပ်သည်။"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "ရိုးရှင်း"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "စတိုင်နှစ်မျိုးလုံးတွင် အလင်းနှင့် အမှောင် နှစ်မျိုးလုံး ပါသည်။"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "စတိုင်"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy ၏ ပုံစံ။ အလင်းနှင့် အမှောင်ကို အောက်ခြေဘားတွင် ပြောင်းနိုင်သည်။"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "အသွင်အပြင်"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} သည် ဂရပ်ဖစ် အရှိန်မြှင့်မှု လိုအပ်သော်လည်း ယခု မရနိုင်သဖြင့် Arroxy က {{fallback}} ကို ပြထားသည်။"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

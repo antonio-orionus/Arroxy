@@ -1,0 +1,80 @@
+/* Aurora: glass over an animated sky, lit along its edges (DESIGN.md §1–§4).
+   Sets the full style contract defined in minimal.css, in both schemes. */
+
+:root[data-style='aurora'] {
+	--background: hsl(216 78% 98%);
+	--foreground: hsl(226 48% 11%);
+	--card: hsl(208 100% 98%);
+	--card-foreground: hsl(226 48% 11%);
+	--popover: hsl(0 0% 100%);
+	--popover-foreground: hsl(226 48% 11%);
+	--secondary: hsl(220 30% 97%);
+	--secondary-foreground: hsl(226 48% 11%);
+	--muted: hsl(220 30% 97%);
+	--muted-foreground: hsl(225 22% 35%);
+	--accent: hsl(220 20% 92%);
+	--accent-foreground: hsl(226 48% 11%);
+	--border: hsl(220 18% 88%);
+	--border-strong: hsl(220 18% 80%);
+	--input: hsl(220 18% 88%);
+	--text-subtle: hsl(225 22% 38%);
+	--selected-foreground: hsl(224 92% 40%);
+	--line: hsl(206 82% 62% / 0.52);
+	/* Frosted, not opaque: the sky's shapes still read through a stage. */
+	--surface-stage: hsl(205 100% 98% / 0.42);
+	--surface-tile: hsl(205 100% 97% / 0.64);
+	--surface-raised: hsl(212 100% 98% / 0.78);
+	--surface-bar: linear-gradient(180deg, hsl(205 100% 98% / 0.86), hsl(214 100% 96% / 0.72));
+	--surface-filter: blur(14px) saturate(165%);
+	--edge-soft: linear-gradient(135deg, hsl(205 100% 58% / 0.46), hsl(220 100% 56% / 0.16) 48%, hsl(268 88% 64% / 0.32));
+	--edge: linear-gradient(135deg, hsl(198 100% 58% / 0.68), hsl(220 100% 56% / 0.26) 48%, hsl(266 85% 62% / 0.54));
+	--edge-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.86), hsl(220 100% 56% / 0.52) 50%, hsl(268 88% 60% / 0.72));
+	--edge-selected: linear-gradient(135deg, hsl(198 100% 58% / 0.68), hsl(220 100% 56% / 0.26) 48%, hsl(266 85% 62% / 0.54));
+	--tint-start: hsl(198 100% 60%);
+	--tint-end: hsl(272 90% 62%);
+	--sheen: hsl(0 0% 100%);
+	--glow: hsl(214 100% 56%);
+	--shade: hsl(225 60% 26%);
+	--primary-fill: linear-gradient(135deg, hsl(202 100% 49%), hsl(226 100% 41%) 55%, hsl(282 92% 47%));
+	/* Selected must differ from the near-white rest fill at a glance, not just by its radio dot. */
+	--selected-fill: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 88% / 0.9));
+}
+
+:root[data-style='aurora'].dark {
+	/* The void: near-black navy, so the aurora has something to tint. */
+	--background: hsl(228 56% 3%);
+	--foreground: hsl(240 40% 96%);
+	--card: hsl(226 44% 7%);
+	--card-foreground: hsl(240 40% 96%);
+	--popover: hsl(226 38% 9%);
+	--popover-foreground: hsl(240 40% 96%);
+	--secondary: hsl(226 30% 9%);
+	--secondary-foreground: hsl(240 40% 96%);
+	--muted: hsl(226 30% 9%);
+	--muted-foreground: hsl(228 30% 79%);
+	--accent: hsl(226 28% 11%);
+	--accent-foreground: hsl(240 40% 96%);
+	--border: hsl(0 0% 100% / 0.08);
+	--border-strong: hsl(0 0% 100% / 0.13);
+	--input: hsl(0 0% 100% / 0.08);
+	--text-subtle: hsl(228 20% 71%);
+	--selected-foreground: hsl(205 100% 82%);
+	--line: hsl(205 100% 78% / 0.28);
+	/* The most see-through stage that keeps muted text at 4.5:1 over the brightest aurora behind it. */
+	--surface-stage: hsl(228 68% 4% / 0.58);
+	--surface-tile: hsl(226 62% 6% / 0.84);
+	--surface-raised: hsl(226 58% 6% / 0.78);
+	--surface-bar: linear-gradient(180deg, hsl(228 68% 4% / 0.88), hsl(226 68% 3% / 0.78));
+	--surface-filter: blur(14px) saturate(165%);
+	--edge-soft: linear-gradient(135deg, hsl(205 100% 82% / 0.26), hsl(220 100% 62% / 0.1) 48%, hsl(268 96% 76% / 0.24));
+	--edge: linear-gradient(135deg, hsl(192 100% 82% / 0.76), hsl(214 100% 68% / 0.34) 46%, hsl(268 96% 76% / 0.62));
+	--edge-hot: linear-gradient(120deg, hsl(188 100% 82% / 0.86), hsl(210 100% 70% / 0.62) 48%, hsl(278 98% 76% / 0.78));
+	--edge-selected: linear-gradient(135deg, hsl(192 100% 82% / 0.76), hsl(214 100% 68% / 0.34) 46%, hsl(268 96% 76% / 0.62));
+	--tint-start: hsl(194 100% 70%);
+	--tint-end: hsl(278 96% 64%);
+	--sheen: hsl(205 100% 86%);
+	--glow: hsl(214 100% 54%);
+	--shade: hsl(228 90% 2%);
+	--primary-fill: linear-gradient(135deg, hsl(203 100% 43%), hsl(224 100% 34%) 52%, hsl(280 90% 38%));
+	--selected-fill: linear-gradient(180deg, hsl(214 100% 52% / 0.18), hsl(268 96% 52% / 0.1));
+}

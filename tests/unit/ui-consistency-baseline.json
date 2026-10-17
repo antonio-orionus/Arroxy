@@ -1,5 +1,5 @@
 {
-	"App.tsx": {"arbitrary-shadow": 1, "raw-control": 2},
+	"App.tsx": {"raw-control": 1},
 	"components/layout/TitleBar.tsx": {"arbitrary-color": 1, "raw-control": 3},
 	"components/queue/QueueManagerToolbar.tsx": {"raw-control": 1},
 	"components/queue/useQueueManagerColumns.tsx": {"raw-control": 1},

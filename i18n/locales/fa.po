@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "بار"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "فقط CSS، بدون رندر canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "بهترین کارایی"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "در صورت پشتیبانی، پس‌زمینهٔ پویای WebGL."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "زیباترین"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "از پویاترین ظاهر تا بهترین کارایی انتخاب کنید."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "کیفیت پس‌زمینه"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "میزان پویایی پس‌زمینهٔ Arroxy را انتخاب کنید."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "ظاهر و کارایی"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL سخت‌افزاری در این دستگاه در دسترس نیست، بنابراین Arroxy از پس‌زمینهٔ بهینه برای کارایی استفاده می‌کند."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URLهای گروهی"
@@ -3776,6 +3740,42 @@ msgstr "رفتار دانلود"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "ورودی"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "پنل‌های شیشه‌ای روی آسمانی متحرک. به شتاب‌دهی گرافیکی نیاز دارد."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "آرورا"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "سطح‌های ساده و آرام. روی هر رایانه‌ای سبک اجرا می‌شود."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "مینیمال"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "هر دو سبک در حالت روشن و تیره موجودند."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "سبک"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "ظاهر Arroxy. در پایین پنجره می‌توانید بین حالت روشن و تیره جابه‌جا شوید."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "ظاهر"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} به شتاب‌دهی گرافیکی نیاز دارد که اکنون در دسترس نیست، برای همین Arroxy از {{fallback}} استفاده می‌کند."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

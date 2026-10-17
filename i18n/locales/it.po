@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "volte"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Solo CSS, senza rendering canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Prestazioni migliori"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Sfondo WebGL animato quando supportato."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Aspetto migliore"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Passa dall'aspetto più animato alle prestazioni migliori."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Qualità dello sfondo"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Scegli quanta animazione usare per lo sfondo di Arroxy."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Aspetto e prestazioni"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL hardware non è disponibile su questo dispositivo, quindi Arroxy usa lo sfondo ottimizzato per le prestazioni."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL multipli"
@@ -3776,6 +3740,42 @@ msgstr "Comportamento dei download"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Inserimento"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Pannelli di vetro su un cielo in movimento. Richiede l'accelerazione grafica."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Superfici piene e discrete. Leggero su qualsiasi computer."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimale"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Entrambi gli stili sono disponibili in chiaro e scuro."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stile"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Come appare Arroxy. Passa dal chiaro allo scuro dal piè di pagina."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Aspetto"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} richiede l'accelerazione grafica, che al momento non è disponibile, quindi Arroxy mostra {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

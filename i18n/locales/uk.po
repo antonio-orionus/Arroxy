@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "разів"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Лише CSS, без рендерингу canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Найкраща продуктивність"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Анімоване тло WebGL, якщо підтримується."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Найгарніше"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Від найанімованішого вигляду до найкращої продуктивності."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Якість тла"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Виберіть, скільки руху Arroxy використовує для анімованого тла."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Вигляд і продуктивність"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Апаратний WebGL недоступний на цьому пристрої, тому Arroxy використовує фон для кращої продуктивності."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Масові URL"
@@ -3776,6 +3740,42 @@ msgstr "Поведінка завантаження"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Введення"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Скляні панелі на тлі рухомого неба. Потрібне графічне прискорення."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Суцільні, спокійні поверхні. Легко працює на будь-якому комп'ютері."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Мінімалістичний"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Обидва стилі доступні у світлому й темному варіантах."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Стиль"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Як виглядає Arroxy. Перемикайте світлу й темну тему внизу вікна."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Зовнішній вигляд"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} потребує графічного прискорення, яке зараз недоступне, тому Arroxy показує {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

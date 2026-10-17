@@ -273,16 +273,14 @@
 				"extensionChrome": "cookies.txt LOCALLY argadhu (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Geejjiba proxy darbii ergi — qabiyyee mootummaan dhorge argachuuf gargaara.", "placeholder": "http://host:port", "clear": "Haquu"},
-			"backdrop": {
-				"panelTitle": "Mul’ata fi raawwii",
-				"panelDescription": "Arroxy duubbee socho’uuf sochii hammam akka fayyadamu filadhu.",
-				"modeLabel": "Qulqullina duubbee",
-				"modeDescription": "Mul’ata sochii baay’ee qabu irraa gara raawwii gaariitti deemaa.",
-				"cssOnlyLabel": "Raawwii gaarii",
-				"cssOnlyDescription": "CSS qofa, canvas hin agarsiisu.",
-				"gpuLabel": "Bareedina olaanaa",
-				"gpuDescription": "Duubbee WebGL socho’u yoo deeggarame.",
-				"runtimeFallbackNotice": "WebGL meeshaa kana irratti haardweerii hin argamu, kanaaf Arroxy duubbee raawwii fayyadamaa jira."
+			"style": {
+				"panelTitle": "Mul'ata",
+				"panelDescription": "Akkaataa Arroxy itti mul'atu. Haala iftoomaa fi gurraachaa gara jalaatti jijjiiruu dandeessa.",
+				"modeLabel": "Taatee",
+				"modeDescription": "Taateewwan lamaanuu haala iftoomaa fi gurraachaa qabu.",
+				"aurora": {"label": "Aurora", "description": "Paanaloonni calaqqee samii socho'u irra jiran. Saffisiisaa girafiksii barbaada."},
+				"minimal": {"label": "Salphaa", "description": "Fuulli cimaa fi callisaa. Kompiitara kamittuu irratti salphaatti hojjeta."},
+				"unavailableNotice": "{{style}} saffisiisaa girafiksii barbaada, garuu amma hin argamu, kanaaf Arroxy {{fallback}} agarsiisaa jira."
 			},
 			"limitRate": {
 				"label": "Daangaa saffisa buusuu",

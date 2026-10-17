@@ -273,16 +273,14 @@
 				"extensionChrome": "cookies.txt dosyasını YEREL olarak al (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL’si", "description": "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır.", "placeholder": "http://host:port", "clear": "Temizle"},
-			"backdrop": {
-				"panelTitle": "Görünüm ve performans",
-				"panelDescription": "Arroxy’nin animasyonlu arka plan için ne kadar hareket kullanacağını seç.",
-				"modeLabel": "Arka plan kalitesi",
-				"modeDescription": "En animasyonlu görünümden en iyi performansa geç.",
-				"cssOnlyLabel": "En iyi performans",
-				"cssOnlyDescription": "Yalnızca CSS, canvas çizimi yok.",
-				"gpuLabel": "En güzel görünüm",
-				"gpuDescription": "Destekleniyorsa animasyonlu WebGL arka planı.",
-				"runtimeFallbackNotice": "Bu cihazda donanımsal WebGL kullanılamıyor, bu yüzden Arroxy performans arka planını kullanıyor."
+			"style": {
+				"panelTitle": "Görünüm",
+				"panelDescription": "Arroxy'nin görünümü. Açık ve koyu mod arasında alt bilgi alanından geçiş yapabilirsiniz.",
+				"modeLabel": "Stil",
+				"modeDescription": "İki stil de açık ve koyu modda gelir.",
+				"aurora": {"label": "Aurora", "description": "Hareket eden bir gökyüzünün üzerinde cam paneller. Grafik hızlandırma gerekir."},
+				"minimal": {"label": "Minimal", "description": "Düz, sakin yüzeyler. Her bilgisayarda hafif çalışır."},
+				"unavailableNotice": "{{style}} grafik hızlandırma gerektirir, ama şu an kullanılamıyor; bu yüzden Arroxy {{fallback}} gösteriyor."
 			},
 			"limitRate": {
 				"label": "İndirme hızı sınırı",

@@ -1,5 +1,5 @@
-import {SUPPORTED_LANGS} from '@shared/schemas.js'
-import type {SupportedLang, UiTheme} from '@shared/schemas.js'
+import {SUPPORTED_LANGS, uiStyleSchema} from '@shared/schemas.js'
+import type {SupportedLang, UiStyle, UiTheme} from '@shared/schemas.js'
 
 export type MockPlatform = 'win32' | 'darwin' | 'linux'
 export const MOCK_PLATFORMS: readonly MockPlatform[] = ['win32', 'darwin', 'linux'] as const
@@ -15,6 +15,10 @@ export interface BrowserMockKnobs {
 	showcase: boolean
 	// Allow the software (SwiftShader) WebGL backdrop (`?backdropSoftware=1`), so headless captures show the GPU look.
 	backdropSoftware: boolean
+	// The saved style (`?style=minimal`).
+	style: UiStyle | null
+	// The graphics policy blocks hardware WebGL (`?gpu=blocked`), to preview the base-style fallback.
+	gpuBlocked: boolean
 }
 
 function getParams(location: Pick<Location, 'search'> | URL): URLSearchParams {
@@ -33,7 +37,9 @@ export function readKnobs(location: Pick<Location, 'search'> | URL): BrowserMock
 	const rawPlatform = params.get('platform')
 	const platform: MockPlatform | null = (MOCK_PLATFORMS as readonly string[]).includes(rawPlatform ?? '') ? (rawPlatform as MockPlatform) : null
 
-	return {theme, locale, platform, showcase: params.get('showcase') === '1', backdropSoftware: params.get('backdropSoftware') === '1'}
+	const style = uiStyleSchema.safeParse(params.get('style'))
+
+	return {theme, locale, platform, showcase: params.get('showcase') === '1', backdropSoftware: params.get('backdropSoftware') === '1', style: style.success ? style.data : null, gpuBlocked: params.get('gpu') === 'blocked'}
 }
 
 export function knobUrl(updates: Partial<BrowserMockKnobs>, base: Pick<Location, 'href'>): string {

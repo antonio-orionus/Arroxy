@@ -9,7 +9,7 @@ describe('graphics policy', () => {
 	it('forces CSS in packaged production when critical GPU features are software or off', () => {
 		const policy = buildGraphicsPolicy({isPackaged: true, env: {}, featureStatus: {...HEALTHY_FEATURES, gpu_compositing: 'disabled_software', webgl: 'disabled_off'}, gpuInfo: {}})
 
-		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.webglBlocked).toBe(true)
 		expect(policy.backdrop.softwareWebglAllowed).toBe(false)
 		expect(policy.backdrop.fallbackReason).toBe('gpu-feature-disabled')
 	})
@@ -17,7 +17,7 @@ describe('graphics policy', () => {
 	it('forces CSS in packaged production for virtual or software GPU devices', () => {
 		const policy = buildGraphicsPolicy({isPackaged: true, env: {}, featureStatus: HEALTHY_FEATURES, gpuInfo: {gpuDevice: [{deviceString: 'VMware SVGA 3D'}, {deviceString: 'Microsoft Basic Render Driver'}, {deviceString: 'WARP'}]}})
 
-		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.webglBlocked).toBe(true)
 		expect(policy.backdrop.fallbackReason).toBe('virtual-or-software-renderer')
 		expect(policy.backdrop.renderer).toContain('VMware SVGA 3D')
 	})
@@ -35,7 +35,7 @@ describe('graphics policy', () => {
 			}
 		})
 
-		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.webglBlocked).toBe(true)
 		expect(policy.backdrop.renderer).toBe('WARP')
 	})
 
@@ -52,7 +52,7 @@ describe('graphics policy', () => {
 			}
 		})
 
-		expect(policy.backdrop.forceRenderMode).toBeNull()
+		expect(policy.backdrop.webglBlocked).toBe(false)
 		expect(policy.backdrop.fallbackReason).toBeUndefined()
 	})
 
@@ -71,21 +71,21 @@ describe('graphics policy', () => {
 			}
 		})
 
-		expect(policy.backdrop.forceRenderMode).toBeNull()
+		expect(policy.backdrop.webglBlocked).toBe(false)
 		expect(policy.backdrop.fallbackReason).toBeUndefined()
 	})
 
 	it('ignores the software WebGL override in packaged production', () => {
 		const policy = buildGraphicsPolicy({isPackaged: true, env: {ARROXY_BACKDROP_SOFTWARE: '1'}, featureStatus: {...HEALTHY_FEATURES, webgl: 'disabled_off'}, gpuInfo: {gpuDevice: [{deviceString: 'Google SwiftShader'}]}})
 
-		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.webglBlocked).toBe(true)
 		expect(policy.backdrop.softwareWebglAllowed).toBe(false)
 	})
 
 	it('allows software WebGL only for explicit non-packaged dev runs', () => {
 		const policy = buildGraphicsPolicy({isPackaged: false, env: {ARROXY_BACKDROP_SOFTWARE: '1'}, featureStatus: {...HEALTHY_FEATURES, gpu_compositing: 'disabled_software', webgl: 'disabled_off'}, gpuInfo: {gpuDevice: [{deviceString: 'Google SwiftShader'}]}})
 
-		expect(policy.backdrop.forceRenderMode).toBeNull()
+		expect(policy.backdrop.webglBlocked).toBe(false)
 		expect(policy.backdrop.softwareWebglAllowed).toBe(true)
 		expect(policy.backdrop.fallbackReason).toBeUndefined()
 	})
@@ -93,7 +93,7 @@ describe('graphics policy', () => {
 	it('uses production-like fallback in normal non-packaged dev runs', () => {
 		const policy = buildGraphicsPolicy({isPackaged: false, env: {}, featureStatus: {...HEALTHY_FEATURES, gpu_compositing: 'disabled_software'}, gpuInfo: {}})
 
-		expect(policy.backdrop.forceRenderMode).toBe('css-only')
+		expect(policy.backdrop.webglBlocked).toBe(true)
 		expect(policy.backdrop.softwareWebglAllowed).toBe(false)
 	})
 })

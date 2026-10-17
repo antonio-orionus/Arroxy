@@ -617,9 +617,9 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			</IconTile>
 			<span className="flex min-w-0 flex-1 flex-col items-start">
 				<span className="text-title">{title}</span>
-				<span className="glass-muted-text text-xs font-normal">{description}</span>
+				<span className="text-xs font-normal text-muted-foreground">{description}</span>
 			</span>
-			<ChevronRight className="glass-muted-text ms-auto" aria-hidden />
+			<ChevronRight className="ms-auto text-muted-foreground" aria-hidden />
 		</Button>
 	)
 }

@@ -244,6 +244,16 @@ _Avoid_: login state, credentials
 The one anonymous signal an install sends per day, unless turned off: app version, OS, language, install channel. It carries no identifier; the country is added where it is received. It only counts active installs, and is the only thing Arroxy reports.
 _Avoid_: telemetry, analytics event, usage ping, tracking
 
+### Appearance
+
+**Style**:
+The overall look of the app — how surfaces, edges and the background are painted. Aurora (glass over a moving sky) and Minimal (solid, quiet surfaces) are styles. Every style comes in both color schemes; switching style never moves anything or changes what the app does.
+_Avoid_: theme, skin, look, visual mode
+
+**Color scheme**:
+Light, dark, or following the system. Chosen independently of the style.
+_Avoid_: theme, mode, sky (sky is design-doc shorthand for one style in one scheme)
+
 ### Architecture
 
 **Core**:

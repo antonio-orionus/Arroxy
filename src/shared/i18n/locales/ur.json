@@ -260,16 +260,14 @@
 				"extensionChrome": "cookies.txt مقامی طور پر حاصل کریں (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافیائی پابندی والے مواد کے لیے مفید۔", "placeholder": "http://host:port", "clear": "صاف کریں"},
-			"backdrop": {
-				"panelTitle": "ظاہری شکل اور کارکردگی",
-				"panelDescription": "منتخب کریں کہ Arroxy متحرک پس منظر کے لیے کتنی حرکت استعمال کرے۔",
-				"modeLabel": "پس منظر کا معیار",
-				"modeDescription": "سب سے زیادہ متحرک انداز سے بہترین کارکردگی تک جائیں۔",
-				"cssOnlyLabel": "بہترین کارکردگی",
-				"cssOnlyDescription": "صرف CSS، کوئی canvas رینڈرنگ نہیں۔",
-				"gpuLabel": "سب سے خوبصورت",
-				"gpuDescription": "سپورٹ ہونے پر متحرک WebGL پس منظر۔",
-				"runtimeFallbackNotice": "اس ڈیوائس پر ہارڈویئر WebGL دستیاب نہیں ہے، اس لیے Arroxy کارکردگی والا پس منظر استعمال کر رہا ہے۔"
+			"style": {
+				"panelTitle": "ظاہری شکل",
+				"panelDescription": "Arroxy کیسا دکھتا ہے۔ نیچے والی پٹی میں لائٹ اور ڈارک کے درمیان بدلیں۔",
+				"modeLabel": "اسٹائل",
+				"modeDescription": "دونوں اسٹائل لائٹ اور ڈارک میں دستیاب ہیں۔",
+				"aurora": {"label": "Aurora", "description": "حرکت کرتے آسمان پر شیشے جیسے پینل۔ گرافکس ایکسلریشن درکار ہے۔"},
+				"minimal": {"label": "سادہ", "description": "ٹھوس، پرسکون سطحیں۔ ہر کمپیوٹر پر ہلکا چلتا ہے۔"},
+				"unavailableNotice": "{{style}} کو گرافکس ایکسلریشن درکار ہے جو اس وقت دستیاب نہیں، اس لیے Arroxy {{fallback}} دکھا رہا ہے۔"
 			},
 			"limitRate": {
 				"label": "ڈاؤن لوڈ رفتار حد",

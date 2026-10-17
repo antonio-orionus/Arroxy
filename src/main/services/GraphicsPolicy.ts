@@ -87,11 +87,11 @@ function virtualOrSoftwareRenderer(diagnostics: GpuRendererDiagnostics): string 
 	return softwareDevices[0].name
 }
 
-function makePolicy(input: GraphicsPolicyInput, forceRenderMode: GraphicsPolicy['backdrop']['forceRenderMode'], fallbackReason?: GraphicsPolicyBackdropReason, renderer?: string): GraphicsPolicy {
+function makePolicy(input: GraphicsPolicyInput, webglBlocked: boolean, fallbackReason?: GraphicsPolicyBackdropReason, renderer?: string): GraphicsPolicy {
 	const devices = collectRendererStrings(input.gpuInfo)
 	return {
 		backdrop: {
-			forceRenderMode,
+			webglBlocked,
 			softwareWebglAllowed: !input.isPackaged && input.env.ARROXY_BACKDROP_SOFTWARE === '1',
 			...(fallbackReason ? {fallbackReason} : {}),
 			...(renderer ? {renderer} : {}),
@@ -115,15 +115,15 @@ export function buildGraphicsPolicy(input: GraphicsPolicyInput): GraphicsPolicy 
 	const rendererDiagnostics = collectRendererDiagnostics(input.gpuInfo)
 	const featureStatusUsable = input.featureStatusUsable ?? true
 
-	if (softwareWebglAllowed) return makePolicy(input, null)
+	if (softwareWebglAllowed) return makePolicy(input, false)
 
 	const failedFeature = featureStatusUsable ? featureFailure(input.featureStatus) : null
-	if (failedFeature) return makePolicy(input, 'css-only', failedFeature)
+	if (failedFeature) return makePolicy(input, true, failedFeature)
 
 	const softwareRenderer = virtualOrSoftwareRenderer(rendererDiagnostics)
-	if (softwareRenderer) return makePolicy(input, 'css-only', 'virtual-or-software-renderer', softwareRenderer)
+	if (softwareRenderer) return makePolicy(input, true, 'virtual-or-software-renderer', softwareRenderer)
 
-	if (input.gpuInfoUnavailable) return makePolicy(input, 'css-only', 'gpu-info-unavailable')
+	if (input.gpuInfoUnavailable) return makePolicy(input, true, 'gpu-info-unavailable')
 
-	return makePolicy(input, null)
+	return makePolicy(input, false)
 }

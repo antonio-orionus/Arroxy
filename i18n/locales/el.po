@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "φορές"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Μόνο CSS, χωρίς απόδοση canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Καλύτερη απόδοση"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Κινούμενο φόντο WebGL όταν υποστηρίζεται."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Πιο όμορφο"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Μετακινηθείτε από την πιο κινούμενη εμφάνιση στην καλύτερη απόδοση."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Ποιότητα φόντου"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Επίλεξε πόση κίνηση χρησιμοποιεί το Arroxy για το κινούμενο φόντο."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Εμφάνιση και απόδοση"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Το WebGL μέσω υλικού δεν είναι διαθέσιμο σε αυτήν τη συσκευή, οπότε το Arroxy χρησιμοποιεί το φόντο επιδόσεων."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Μαζικά URL"
@@ -3776,6 +3740,42 @@ msgstr "Συμπεριφορά λήψης"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Είσοδος"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Γυάλινα πάνελ πάνω από έναν κινούμενο ουρανό. Απαιτεί επιτάχυνση γραφικών."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Συμπαγείς, ήρεμες επιφάνειες. Τρέχει ελαφριά σε κάθε υπολογιστή."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Μινιμαλιστικό"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Και τα δύο στιλ διατίθενται σε ανοιχτόχρωμη και σκούρα εμφάνιση."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Στιλ"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Πώς φαίνεται το Arroxy. Εναλλάξου μεταξύ ανοιχτόχρωμης και σκούρας εμφάνισης στο υποσέλιδο."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "Το {{style}} χρειάζεται επιτάχυνση γραφικών, που δεν είναι διαθέσιμη αυτή τη στιγμή, γι' αυτό το Arroxy δείχνει {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

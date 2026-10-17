@@ -260,16 +260,14 @@
 				"extensionChrome": "cookies.txt স্থানীয়ভাবে পান (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "প্রক্সির মাধ্যমে ট্র্যাফিক রাউট করুন — ভৌগোলিকভাবে সীমাবদ্ধ কন্টেন্টের জন্য উপযোগী।", "placeholder": "http://host:port", "clear": "মুছুন"},
-			"backdrop": {
-				"panelTitle": "চেহারা ও পারফরম্যান্স",
-				"panelDescription": "অ্যানিমেটেড ব্যাকড্রপে Arroxy কতটা মুভমেন্ট ব্যবহার করবে তা বেছে নিন।",
-				"modeLabel": "ব্যাকড্রপের মান",
-				"modeDescription": "সবচেয়ে অ্যানিমেটেড চেহারা থেকে সেরা পারফরম্যান্সে যান।",
-				"cssOnlyLabel": "সেরা পারফরম্যান্স",
-				"cssOnlyDescription": "শুধু CSS, কোনো canvas রেন্ডারিং নয়।",
-				"gpuLabel": "সবচেয়ে সুন্দর",
-				"gpuDescription": "সমর্থিত হলে অ্যানিমেটেড WebGL ব্যাকড্রপ।",
-				"runtimeFallbackNotice": "এই ডিভাইসে হার্ডওয়্যার WebGL উপলব্ধ নয়, তাই Arroxy পারফরম্যান্স ব্যাকড্রপ ব্যবহার করছে।"
+			"style": {
+				"panelTitle": "চেহারা",
+				"panelDescription": "Arroxy দেখতে কেমন হবে। নিচের ফুটারে লাইট ও ডার্কের মধ্যে বদলান।",
+				"modeLabel": "স্টাইল",
+				"modeDescription": "দুটি স্টাইলই লাইট ও ডার্ক মোডে পাওয়া যায়।",
+				"aurora": {"label": "Aurora", "description": "চলমান আকাশের ওপর কাচের মতো প্যানেল। গ্রাফিক্স অ্যাক্সেলারেশন লাগে।"},
+				"minimal": {"label": "মিনিমাল", "description": "নিরেট, শান্ত পৃষ্ঠতল। যেকোনো কম্পিউটারে হালকাভাবে চলে।"},
+				"unavailableNotice": "{{style}}-এর জন্য গ্রাফিক্স অ্যাক্সেলারেশন দরকার, যা এখন পাওয়া যাচ্ছে না, তাই Arroxy {{fallback}} দেখাচ্ছে।"
 			},
 			"limitRate": {
 				"label": "ডাউনলোড গতিসীমা",

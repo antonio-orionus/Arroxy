@@ -243,16 +243,14 @@
 				"extensionChrome": "本地获取 cookies.txt (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
-			"backdrop": {
-				"panelTitle": "外观与性能",
-				"panelDescription": "选择 Arroxy 在动画背景中使用多少动态效果。",
-				"modeLabel": "背景质量",
-				"modeDescription": "从最丰富的动画效果切换到最佳性能。",
-				"cssOnlyLabel": "最佳性能",
-				"cssOnlyDescription": "仅使用 CSS，不进行 canvas 渲染。",
-				"gpuLabel": "最美观",
-				"gpuDescription": "支持时使用动画 WebGL 背景。",
-				"runtimeFallbackNotice": "此设备不支持硬件 WebGL，因此 Arroxy 正在使用性能背景。"
+			"style": {
+				"panelTitle": "外观",
+				"panelDescription": "Arroxy 的外观。可在底部栏切换浅色和深色。",
+				"modeLabel": "风格",
+				"modeDescription": "两种风格都有浅色和深色。",
+				"aurora": {"label": "Aurora", "description": "动态天空上的玻璃面板。需要图形加速。"},
+				"minimal": {"label": "极简", "description": "纯色、安静的界面。在任何电脑上都运行流畅。"},
+				"unavailableNotice": "{{style}} 需要图形加速，但目前不可用，所以 Arroxy 正在显示{{fallback}}。"
 			},
 			"limitRate": {
 				"label": "下载速度限制",

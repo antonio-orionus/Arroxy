@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "ដង"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS តែប៉ុណ្ណោះ គ្មានការគូរ canvas។"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "ដំណើរការល្អបំផុត"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "ផ្ទៃខាងក្រោយ WebGL មានចលនានៅពេលគាំទ្រ។"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "ស្អាតបំផុត"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "ផ្លាស់ប្តូរពីរូបរាងមានចលនាច្រើនបំផុត ទៅដំណើរការល្អបំផុត។"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "គុណភាពផ្ទៃខាងក្រោយ"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "ជ្រើសរើសកម្រិតចលនាដែល Arroxy ប្រើសម្រាប់ផ្ទៃខាងក្រោយមានចលនា។"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "រូបរាង និងដំណើរការ"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Hardware WebGL មិនមាននៅលើឧបករណ៍នេះទេ ដូច្នេះ Arroxy កំពុងប្រើផ្ទៃខាងក្រោយសម្រាប់ដំណើរការ។"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL ច្រើន"
@@ -3776,6 +3740,42 @@ msgstr "ឥរិយាបថទាញយក"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "ការបញ្ចូល"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "បន្ទះកញ្ចក់លើមេឃដែលកំពុងផ្លាស់ទី។ ត្រូវការការបង្កើនល្បឿនក្រាហ្វិក។"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "អូរ៉ូរ៉ា"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "ផ្ទៃរឹង និងស្ងប់ស្ងាត់។ ដំណើរការស្រាលលើកុំព្យូទ័រណាក៏បាន។"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "សាមញ្ញ"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "រចនាប័ទ្មទាំងពីរមានទាំងភ្លឺ និងងងឹត។"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "រចនាប័ទ្ម"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "របៀបដែល Arroxy មើលទៅ។ ប្តូររវាងភ្លឺ និងងងឹតនៅផ្នែកខាងក្រោម។"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "រូបរាង"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} ត្រូវការការបង្កើនល្បឿនក្រាហ្វិក ដែលមិនមាននៅពេលនេះ ដូច្នេះ Arroxy កំពុងបង្ហាញ {{fallback}}។"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

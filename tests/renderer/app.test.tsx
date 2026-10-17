@@ -3,14 +3,16 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
-import {defaultAppSettings} from '@shared/constants.js'
+import {installCanvasMocks} from '../shared/mockWebgl.js'
+import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
+import {BASE_STYLE} from '@renderer/styles/registry.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {ok} from '@shared/result.js'
 import type {GraphicsPolicy} from '@shared/types.js'
 
 const mockAppApi = buildMockAppApi()
 
-const CSS_FORCED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {forceRenderMode: 'css-only', softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
+const WEBGL_BLOCKED_GRAPHICS_POLICY: GraphicsPolicy = {backdrop: {webglBlocked: true, softwareWebglAllowed: false, fallbackReason: 'gpu-feature-disabled'}}
 
 async function openProfileMenu(): Promise<void> {
 	const profileMenuTrigger = await screen.findByRole('button', {name: 'Switch download profile: Balanced 720p'})
@@ -51,7 +53,9 @@ describe('App renderer', () => {
 			quickDownloadFailure: null,
 			quickDownloadQueueIds: [],
 			queue: [],
-			graphicsPolicy: null
+			graphicsPolicy: null,
+			uiStyle: DEFAULTS.uiStyle,
+			backdropFailed: false
 		})
 
 		window.appApi = mockAppApi
@@ -94,19 +98,39 @@ describe('App renderer', () => {
 		expect(document.querySelector('canvas[data-backdrop-layer="webgl"]')).toBeNull()
 
 		await act(async () => {
-			resolveGraphicsPolicy(ok(CSS_FORCED_GRAPHICS_POLICY))
+			resolveGraphicsPolicy(ok(WEBGL_BLOCKED_GRAPHICS_POLICY))
 		})
 	})
 
-	it('uses the CSS fallback when runtime graphics policy forces it', async () => {
+	it('paints the chosen style over its backdrop while the graphics policy allows WebGL', async () => {
+		installCanvasMocks()
+
+		render(<App />)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(document.documentElement.dataset.style).toBe(DEFAULTS.uiStyle)
+		expect(useAppStore.getState().backdropFailed).toBe(false)
+		vi.restoreAllMocks()
+	})
+
+	it('paints the base style without a backdrop when the graphics policy blocks WebGL', async () => {
 		const api = buildMockAppApi()
-		vi.mocked(api.app.getGraphicsPolicy).mockResolvedValue(ok(CSS_FORCED_GRAPHICS_POLICY))
+		vi.mocked(api.app.getGraphicsPolicy).mockResolvedValue(ok(WEBGL_BLOCKED_GRAPHICS_POLICY))
 		window.appApi = api
 
 		render(<App />)
 
-		await waitFor(() => expect(document.body).toHaveClass('backdrop-static-fallback'))
+		await waitFor(() => expect(document.documentElement.dataset.style).toBe(BASE_STYLE))
 		expect(document.querySelector('canvas[data-backdrop-layer="webgl"]')).toBeNull()
+		expect(useAppStore.getState().uiStyle).toBe(DEFAULTS.uiStyle)
+	})
+
+	it('paints the base style once the backdrop cannot draw, keeping the saved choice', async () => {
+		render(<App />)
+
+		await waitFor(() => expect(useAppStore.getState().backdropFailed).toBe(true))
+		expect(document.documentElement.dataset.style).toBe(BASE_STYLE)
+		expect(useAppStore.getState().uiStyle).toBe(DEFAULTS.uiStyle)
 	})
 
 	it('renders the backdrop isolation stage from the browser-mock query param', async () => {
@@ -118,40 +142,8 @@ describe('App renderer', () => {
 		expect(screen.queryByTestId('title-bar')).not.toBeInTheDocument()
 	})
 
-	it('switches backdrop isolation render paths and explains each mode', async () => {
-		window.history.replaceState(null, '', '/?backdrop=1')
-
-		render(<App />)
-
-		expect(await screen.findByTestId('backdrop-preview-controls')).toBeInTheDocument()
-		expect(screen.getByTestId('backdrop-preview-gpu')).toHaveAttribute('aria-pressed', 'true')
-		expect(screen.getByTestId('backdrop-preview-description')).toHaveTextContent('WebGL shader preview: hardware when available, software allowed in this stage.')
-		expect(screen.queryByTestId('backdrop-preview-canvas2d')).not.toBeInTheDocument()
-
-		fireEvent.click(screen.getByTestId('backdrop-preview-css'))
-		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBe('css')
-		expect(screen.getByTestId('backdrop-preview-css')).toHaveAttribute('aria-pressed', 'true')
-		expect(screen.getByTestId('backdrop-preview-description')).toHaveTextContent('CSS emergency: no canvas, body gradients only.')
-
-		fireEvent.click(screen.getByTestId('backdrop-preview-gpu'))
-		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBeNull()
-		expect(screen.getByTestId('backdrop-preview-gpu')).toHaveAttribute('aria-pressed', 'true')
-	})
-
-	it('resolves the removed Canvas2D isolation preview mode to GPU', async () => {
-		window.history.replaceState(null, '', '/?backdrop=1&backdropForceFallback=canvas2d')
-
-		render(<App />)
-
-		expect(await screen.findByTestId('backdrop-preview-gpu')).toHaveAttribute('aria-pressed', 'true')
-		expect(screen.queryByTestId('backdrop-preview-canvas2d')).not.toBeInTheDocument()
-
-		fireEvent.click(screen.getByTestId('backdrop-preview-gpu'))
-		expect(new URL(window.location.href).searchParams.get('backdropForceFallback')).toBeNull()
-	})
-
 	it('syncs backdrop isolation theme changes into the URL', async () => {
-		window.history.replaceState(null, '', '/?backdrop=1&backdropForceFallback=css')
+		window.history.replaceState(null, '', '/?backdrop=1')
 
 		render(<App />)
 
@@ -159,7 +151,6 @@ describe('App renderer', () => {
 		let url = new URL(window.location.href)
 		expect(url.searchParams.get('theme')).toBe('dark')
 		expect(url.searchParams.get('backdrop')).toBe('1')
-		expect(url.searchParams.get('backdropForceFallback')).toBe('css')
 
 		fireEvent.click(screen.getByRole('button', {name: 'Light mode'}))
 		url = new URL(window.location.href)

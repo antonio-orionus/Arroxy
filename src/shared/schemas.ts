@@ -245,8 +245,10 @@ export type HotkeyState = z.infer<typeof hotkeyStateSchema>
 export const hotkeyRegistrationStatusSchema = z.enum(['off', 'pending', 'registered', 'conflict'])
 export type HotkeyRegistrationStatus = z.infer<typeof hotkeyRegistrationStatusSchema>
 
-export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
-export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
+// How surfaces are painted (DESIGN.md §8). Independent of the light/dark color scheme.
+export const uiStyleSchema = z.enum(['aurora', 'minimal'])
+export type UiStyle = z.infer<typeof uiStyleSchema>
+export const UI_STYLES = uiStyleSchema.options
 
 export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
 export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
@@ -594,7 +596,7 @@ const commonSettingsSchema = z.object({
 	lastHeartbeatDay: z.string().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
-	backdropRenderMode: backdropRenderModeSchema.optional(),
+	uiStyle: uiStyleSchema.optional(),
 	language: supportedLangSchema.optional(),
 	commonPaths: commonPathsSchema.optional(),
 	cookiesPath: z.string().optional(),

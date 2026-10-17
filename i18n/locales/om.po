@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "yeroo"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS qofa, canvas hin agarsiisu."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Raawwii gaarii"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Duubbee WebGL socho’u yoo deeggarame."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Bareedina olaanaa"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Mul’ata sochii baay’ee qabu irraa gara raawwii gaariitti deemaa."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Qulqullina duubbee"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Arroxy duubbee socho’uuf sochii hammam akka fayyadamu filadhu."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Mul’ata fi raawwii"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL meeshaa kana irratti haardweerii hin argamu, kanaaf Arroxy duubbee raawwii fayyadamaa jira."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL hedduu"
@@ -3776,6 +3740,42 @@ msgstr "Amala ga’umsa"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Seensa"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Paanaloonni calaqqee samii socho'u irra jiran. Saffisiisaa girafiksii barbaada."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Fuulli cimaa fi callisaa. Kompiitara kamittuu irratti salphaatti hojjeta."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Salphaa"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Taateewwan lamaanuu haala iftoomaa fi gurraachaa qabu."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Taatee"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Akkaataa Arroxy itti mul'atu. Haala iftoomaa fi gurraachaa gara jalaatti jijjiiruu dandeessa."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Mul'ata"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} saffisiisaa girafiksii barbaada, garuu amma hin argamu, kanaaf Arroxy {{fallback}} agarsiisaa jira."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

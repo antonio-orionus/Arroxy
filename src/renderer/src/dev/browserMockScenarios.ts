@@ -528,7 +528,8 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			...exploreSettingsPatch(scenario),
 			// Explore is set up but signed out, so the private video's row offers Sign in in Explore.
 			...(scenario.id === 'queue-attention' ? {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true} : {}),
-			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {})
+			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {}),
+			...(knobs?.style ? {uiStyle: knobs.style} : {})
 		},
 		profiles: {...base.profiles, ...exploreProfilesPatch(scenario)}
 	}

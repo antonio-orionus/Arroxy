@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "次"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "仅使用 CSS，不进行 canvas 渲染。"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "最佳性能"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "支持时使用动画 WebGL 背景。"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "最美观"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "从最丰富的动画效果切换到最佳性能。"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "背景质量"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "选择 Arroxy 在动画背景中使用多少动态效果。"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "外观与性能"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "此设备不支持硬件 WebGL，因此 Arroxy 正在使用性能背景。"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "批量 URL"
@@ -3776,6 +3740,42 @@ msgstr "下载行为"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "输入"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "动态天空上的玻璃面板。需要图形加速。"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "纯色、安静的界面。在任何电脑上都运行流畅。"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "极简"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "两种风格都有浅色和深色。"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "风格"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy 的外观。可在底部栏切换浅色和深色。"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "外观"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} 需要图形加速，但目前不可用，所以 Arroxy 正在显示{{fallback}}。"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

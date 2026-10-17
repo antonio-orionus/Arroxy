@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "пута"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Само CSS, без canvas рендеровања."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Најбоље перформансе"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Анимирана WebGL позадина када је подржана."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Најлепше"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Померите од најанимиранијег изгледа ка најбољим перформансама."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Квалитет позадине"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Изаберите колико покрета Arroxy користи за анимирану позадину."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Изглед и перформансе"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Хардверски WebGL није доступан на овом уређају, па Arroxy користи позадину за боље перформансе."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Групни URL-ови"
@@ -3776,6 +3740,42 @@ msgstr "Понашање преузимања"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Улаз"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Стаклени панели преко неба у покрету. Потребно је графичко убрзање."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Чврсте, мирне површине. Лагано ради на сваком рачунару."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Минималистички"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Оба стила постоје у светлој и тамној верзији."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Стил"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Како Arroxy изгледа. Пребацујте између светле и тамне теме у подножју."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Изглед"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} захтева графичко убрзање, које тренутно није доступно, па Arroxy приказује {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

@@ -251,16 +251,14 @@
 				"extensionChrome": "รับ cookies.txt ในเครื่อง (Chrome)"
 			},
 			"proxy": {"label": "URL พร็อกซี", "description": "ส่งทราฟฟิกผ่านพร็อกซี — มีประโยชน์สำหรับเนื้อหาที่จำกัดภูมิภาค", "placeholder": "http://host:port", "clear": "ล้าง"},
-			"backdrop": {
-				"panelTitle": "รูปลักษณ์และประสิทธิภาพ",
-				"panelDescription": "เลือกปริมาณการเคลื่อนไหวที่ Arroxy ใช้กับฉากหลังแบบเคลื่อนไหว",
-				"modeLabel": "คุณภาพฉากหลัง",
-				"modeDescription": "ปรับจากภาพเคลื่อนไหวมากที่สุดไปจนถึงประสิทธิภาพดีที่สุด",
-				"cssOnlyLabel": "ประสิทธิภาพดีที่สุด",
-				"cssOnlyDescription": "ใช้เฉพาะ CSS ไม่มีการเรนเดอร์ canvas",
-				"gpuLabel": "สวยที่สุด",
-				"gpuDescription": "ฉากหลัง WebGL แบบเคลื่อนไหวเมื่อรองรับ",
-				"runtimeFallbackNotice": "ฮาร์ดแวร์ WebGL ใช้งานไม่ได้บนอุปกรณ์นี้ Arroxy จึงใช้ฉากหลังที่เน้นประสิทธิภาพ"
+			"style": {
+				"panelTitle": "รูปลักษณ์",
+				"panelDescription": "หน้าตาของ Arroxy สลับระหว่างโหมดสว่างและโหมดมืดได้ที่ส่วนท้าย",
+				"modeLabel": "สไตล์",
+				"modeDescription": "ทั้งสองสไตล์มีให้เลือกทั้งโหมดสว่างและโหมดมืด",
+				"aurora": {"label": "Aurora", "description": "แผงกระจกเหนือท้องฟ้าที่เคลื่อนไหว ต้องใช้การเร่งความเร็วกราฟิก"},
+				"minimal": {"label": "มินิมอล", "description": "พื้นผิวเรียบสงบ ทำงานเบาบนคอมพิวเตอร์ทุกเครื่อง"},
+				"unavailableNotice": "{{style}} ต้องใช้การเร่งความเร็วกราฟิก ซึ่งตอนนี้ยังใช้ไม่ได้ Arroxy จึงแสดง {{fallback}} แทน"
 			},
 			"limitRate": {
 				"label": "ขีดจำกัดความเร็วดาวน์โหลด",

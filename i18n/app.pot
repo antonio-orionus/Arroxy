@@ -3111,42 +3111,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr ""
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr ""
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr ""
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr ""
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr ""
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr ""
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr ""
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr ""
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr ""
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr ""
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr ""
@@ -3769,6 +3733,42 @@ msgstr ""
 
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
+msgstr ""
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr ""
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr ""
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr ""
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr ""
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr ""
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr ""
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr ""
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr ""
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
 msgstr ""
 
 msgctxt "wizard.url.tabs.profiles"

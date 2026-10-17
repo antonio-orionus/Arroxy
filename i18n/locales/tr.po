@@ -3117,42 +3117,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "kez"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Yalnızca CSS, canvas çizimi yok."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "En iyi performans"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Destekleniyorsa animasyonlu WebGL arka planı."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "En güzel görünüm"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "En animasyonlu görünümden en iyi performansa geç."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Arka plan kalitesi"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Arroxy’nin animasyonlu arka plan için ne kadar hareket kullanacağını seç."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Görünüm ve performans"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Bu cihazda donanımsal WebGL kullanılamıyor, bu yüzden Arroxy performans arka planını kullanıyor."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Toplu URL’ler"
@@ -3776,6 +3740,42 @@ msgstr "İndirme davranışı"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Giriş"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Hareket eden bir gökyüzünün üzerinde cam paneller. Grafik hızlandırma gerekir."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Düz, sakin yüzeyler. Her bilgisayarda hafif çalışır."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "İki stil de açık ve koyu modda gelir."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stil"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy'nin görünümü. Açık ve koyu mod arasında alt bilgi alanından geçiş yapabilirsiniz."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Görünüm"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} grafik hızlandırma gerektirir, ama şu an kullanılamıyor; bu yüzden Arroxy {{fallback}} gösteriyor."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

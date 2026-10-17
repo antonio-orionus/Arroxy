@@ -1,11 +1,11 @@
 import {type ReactNode} from 'react'
-import type {BackdropRenderMode} from '@shared/types.js'
-import {darkAuroraScene} from './darkAurora/scene.js'
-import {lightOceanScene} from './lightOcean/scene.js'
 import {CanvasSceneHost} from './CanvasSceneHost.js'
-import type {BackdropColorScheme} from './types.js'
+import type {BackdropColorScheme, BackdropScene} from './types.js'
 
-export function AppBackdrop({colorScheme, renderMode = 'gpu', softwareWebglAllowed = false}: {colorScheme: BackdropColorScheme; renderMode?: BackdropRenderMode; softwareWebglAllowed?: boolean}): ReactNode {
-	const scene = colorScheme === 'dark' ? darkAuroraScene : lightOceanScene
-	return <CanvasSceneHost key={`${scene.id}-${renderMode}-${softwareWebglAllowed ? 'software' : 'hardware'}`} scene={scene} renderMode={renderMode} softwareWebglAllowed={softwareWebglAllowed} />
+// The animated sky behind a style that has one. `scenes` is null when the
+// painted style has no backdrop or hardware WebGL is not available.
+export function AppBackdrop({scenes, colorScheme, softwareWebglAllowed = false, onUnavailable}: {scenes: Readonly<Record<BackdropColorScheme, BackdropScene>> | null; colorScheme: BackdropColorScheme; softwareWebglAllowed?: boolean; onUnavailable: (reason: string) => void}): ReactNode {
+	if (!scenes) return null
+	const scene = scenes[colorScheme]
+	return <CanvasSceneHost key={`${scene.id}-${softwareWebglAllowed ? 'software' : 'hardware'}`} scene={scene} softwareWebglAllowed={softwareWebglAllowed} onUnavailable={onUnavailable} />
 }
