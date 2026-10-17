@@ -122,6 +122,8 @@ export const en = {
   feat_explore_h3: "Explore: browse YouTube inside Arroxy",
   feat_explore_1:
     "**Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more",
+  feat_explore_6:
+    "**Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first",
   feat_explore_2:
     "**Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click",
   feat_explore_3:

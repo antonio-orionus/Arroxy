@@ -835,6 +835,7 @@
 			"useExplore": "Explore-Anmeldung nutzen",
 			"notNow": "Nicht jetzt"
 		},
+		"linkMenu": {"downloadWith": "Download mit", "copyLink": "Link kopieren"},
 		"toolbar": {
 			"aria": "Explore-Browsersteuerung",
 			"back": "Zurück",

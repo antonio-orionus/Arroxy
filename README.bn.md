@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 ---
 
@@ -80,6 +80,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 ### Explore: Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন
 
 - **Explore ট্যাব** — Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন এবং লিংক কপি না করেই যা পান তা ডাউনলোড করুন। **ডাউনলোড · *আপনার প্রোফাইল*** আপনি যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন সেটি সারিতে যোগ করে; পাশের তীর প্রোফাইল বদলায়, আর জাদুদণ্ড ফরম্যাট, সাবটাইটেল ইত্যাদি বেছে নিতে ধাপে ধাপে ডাউনলোড খোলে
+- **ডান-ক্লিকে ডাউনলোড** — Explore-এ যেকোনো ভিডিও, প্লেলিস্ট বা চ্যানেলের লিংকে ডান-ক্লিক করে আপনার প্রোফাইলে ডাউনলোড করুন, **প্রোফাইল দিয়ে ডাউনলোড** থেকে অন্য প্রোফাইল বেছে নিন, ধাপে ধাপে ডাউনলোড খুলুন, অথবা লিংক কপি করুন। প্রতিটি ভিডিও আগে খোলার দরকার নেই
 - **অ্যাড্রেস বার** — YouTube-এ খুঁজতে টাইপ করুন বা একটি YouTube লিংক পেস্ট করুন। Explore শুধু YouTube ব্রাউজ করে, তাই অন্য সাইটের লিংক সেখানে খোলে না, তবে এক ক্লিকেই সেটি ডাউনলোড করা যায়
 - **অ্যাকাউন্ট লাগে এমন ডাউনলোড** — Explore-এ একবার সাইন ইন করলে Arroxy আপনার অ্যাকাউন্টে দেখা যায় এমন প্রাইভেট ও শুধু-সদস্যদের ভিডিও, বয়স যাচাই করা অ্যাকাউন্ট হলে বয়স-সীমাবদ্ধ ভিডিও, এবং আপনার Watch Later ও Liked তালিকা ডাউনলোড করতে পারে। Arroxy এখনও সাইন-আউট অবস্থাতেই ডাউনলোড করে এবং অ্যাকাউন্ট দিয়ে সমাধান করা যায় এমন কারণে ডাউনলোড ব্যর্থ হলেই কেবল আপনার Explore সাইন-ইন ব্যবহার করে। YouTube যখন আপনি যে বট নন তা নিশ্চিত করতে বলে, তখনও Arroxy আপনার Explore সাইন-ইন চেষ্টা করে
 - **সেকেন্ডারি অ্যাকাউন্ট ব্যবহার করুন** — Explore-এর প্রথম স্ক্রিনে কারণটা বলা আছে: অ্যাকাউন্ট দিয়ে ডাউনলোড করলে সেই অ্যাকাউন্ট সীমাবদ্ধ হওয়ার কিছুটা ঝুঁকি থাকে। সাইন-ইন ভুলিয়ে দিতে চাইলে যেকোনো সময় সেটিংস থেকে Explore থেকে সাইন আউট করুন

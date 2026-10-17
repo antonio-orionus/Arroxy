@@ -8,6 +8,7 @@ import type {
 	DependencyId,
 	DownloadJob,
 	DownloadProfilesPrefs,
+	ExploreLinkAction,
 	ExploreNavigateCommand,
 	ExploreViewBounds,
 	ExploreViewState,
@@ -139,6 +140,8 @@ export interface AppApi {
 		onStateChanged(listener: (state: ExploreViewState) => void): () => void
 		// The pointer entered the native view (it never reports the toolbar's mouseleave).
 		onPointerInView(listener: () => void): () => void
+		// A pick in the page's link menu (main builds and shows the menu).
+		onLinkAction(listener: (action: ExploreLinkAction) => void): () => void
 	}
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}
 	diagnostics: {logWizardStep(snapshot: WizardStepSnapshot): void}

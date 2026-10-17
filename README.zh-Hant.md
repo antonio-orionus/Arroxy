@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。
 
@@ -82,6 +82,7 @@
 ### Explore：在 Arroxy 內瀏覽 YouTube
 
 - **Explore 分頁** — 在 Arroxy 內瀏覽 YouTube，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等
+- **按右鍵下載** — 在 Explore 中對任何影片、播放清單或頻道連結按右鍵，即可用你的設定下載、從 **使用設定檔下載** 選擇其他設定、開啟逐步下載，或複製連結。不必先逐一開啟影片
 - **位址列** — 輸入文字即可搜尋 YouTube，或貼上 YouTube 連結。Explore 只瀏覽 YouTube，其他網站的連結不會在其中開啟，但你可以一鍵下載
 - **需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。Arroxy 仍以未登入狀態下載，只有在下載因帳號可解決的原因失敗時，才會使用你在 Explore 的登入。當 YouTube 要求確認你不是機器人時，Arroxy 也會嘗試使用你在 Explore 的登入
 - **建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除登入時，隨時可在設定中登出 Explore

@@ -498,6 +498,12 @@ export type ExploreNavigateCommand = z.infer<typeof exploreNavigateCommandSchema
 export const exploreSetVisibleSchema = z.object({visible: z.boolean()})
 // Whether the Explore tab is the active tab (the view is muted while it is not).
 export const exploreSetActiveSchema = z.object({active: z.boolean()})
+// A pick in the Explore page's link menu, for the link right-clicked (main
+// builds and shows the menu): `download` queues it with `profile` made the
+// active profile first, or with the active one; `interactive` opens the wizard.
+const exploreLinkUrlSchema = z.string().min(1).max(EXPLORE_ADDRESS_MAX)
+export const exploreLinkActionSchema = z.discriminatedUnion('kind', [z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}), z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})])
+export type ExploreLinkAction = z.infer<typeof exploreLinkActionSchema>
 // A snapshot of the Explore view, shown in its place while an overlay hides it
 // (P2-R35): a base64 JPEG data URL and nothing else (an SVG could carry
 // script). Main encodes it at full device resolution, quality 85; the cap

@@ -838,6 +838,7 @@
 			"useExplore": "Utiliser la connexion Explore",
 			"notNow": "Pas maintenant"
 		},
+		"linkMenu": {"downloadWith": "Télécharger avec", "copyLink": "Copier le lien"},
 		"toolbar": {
 			"aria": "Commandes du navigateur Explore",
 			"back": "Retour",

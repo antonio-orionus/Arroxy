@@ -817,6 +817,7 @@
 			"useExplore": "Usar login do Explore",
 			"notNow": "Agora não"
 		},
+		"linkMenu": {"downloadWith": "Baixar com", "copyLink": "Copiar link"},
 		"toolbar": {
 			"aria": "Controles do navegador do Explore",
 			"back": "Voltar",

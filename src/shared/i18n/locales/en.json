@@ -781,6 +781,7 @@
 			"continue": "Continue"
 		},
 		"nudge": {"off": "Cookies are off, so downloads don't use your Explore sign-in.", "file": "Downloads use your cookies file, not your Explore sign-in.", "browser": "Downloads use your browser's cookies, not your Explore sign-in.", "useExplore": "Use Explore sign-in", "notNow": "Not now"},
+		"linkMenu": {"downloadWith": "Download with", "copyLink": "Copy link"},
 		"toolbar": {
 			"aria": "Explore browser controls",
 			"back": "Back",

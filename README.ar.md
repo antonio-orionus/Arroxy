@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 ---
 
@@ -80,6 +80,7 @@
 ### Explore: تصفّح YouTube داخل Arroxy
 
 - **تبويب Explore** — تصفّح YouTube داخل Arroxy ونزّل ما تجده دون نسخ الروابط. زر **تنزيل · *ملف تعريفك*** يضيف إلى قائمة الانتظار الفيديو أو قائمة التشغيل أو القناة التي تشاهدها؛ والسهم المجاور يبدّل ملفات التعريف، وعصا السحر تفتح التنزيل خطوة بخطوة لاختيار الصيغ والترجمات وغير ذلك
+- **انقر بزر الفأرة الأيمن للتنزيل** — انقر بزر الفأرة الأيمن على أي رابط فيديو أو قائمة تشغيل أو قناة في Explore لتنزيله بملف تعريفك، أو اختر ملف تعريف آخر من **تنزيل باستخدام**، أو افتح التنزيل خطوة بخطوة، أو انسخ الرابط. لا حاجة لفتح كل فيديو أولًا
 - **شريط العناوين** — اكتب للبحث في YouTube أو الصق رابط YouTube. يتصفّح Explore موقع YouTube فقط، لذا لا يُفتح فيه رابط من موقع آخر، لكن يمكنك تنزيله بنقرة واحدة
 - **تنزيلات تحتاج إلى حساب** — سجّل الدخول مرة واحدة في Explore ويستطيع Arroxy تنزيل الفيديوهات الخاصة وفيديوهات الأعضاء فقط التي يمكن لحسابك مشاهدتها، والفيديوهات المقيَّدة بالعمر إذا كان عمر الحساب موثَّقاً، وقائمتَي «المشاهدة لاحقاً» و«الإعجابات». ما يزال Arroxy ينزّل دون تسجيل دخول ولا يستخدم تسجيل دخولك في Explore إلا عندما يفشل تنزيل لسبب يمكن لحساب إصلاحه. وعندما يطلب YouTube تأكيد أنك لست روبوتاً، يجرّب Arroxy أيضاً تسجيل دخولك في Explore
 - **استخدم حساباً ثانوياً** — تشرح الشاشة الأولى في Explore السبب: التنزيل بحساب ينطوي على بعض مخاطر تقييد ذلك الحساب. سجّل الخروج من Explore من الإعدادات متى شئت لنسيان تسجيل الدخول

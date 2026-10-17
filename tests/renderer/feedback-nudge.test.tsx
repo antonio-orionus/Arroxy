@@ -76,7 +76,8 @@ const mockAppApi = {
 		getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
 		capture: vi.fn().mockResolvedValue(ok(null)),
 		onStateChanged: vi.fn().mockReturnValue(() => undefined),
-		onPointerInView: vi.fn().mockReturnValue(() => undefined)
+		onPointerInView: vi.fn().mockReturnValue(() => undefined),
+		onLinkAction: vi.fn().mockReturnValue(() => undefined)
 	},
 	updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue(undefined)},
 	diagnostics: {logWizardStep: vi.fn()},

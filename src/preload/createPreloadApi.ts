@@ -1,6 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, LocalizedError, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, LocalizedError, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {QueueChoice} from '@shared/schemas.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.
@@ -178,6 +178,11 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				const wrapped = (): void => listener()
 				ipcRenderer.on(IPC_CHANNELS.explorePointerInView, wrapped)
 				return () => ipcRenderer.removeListener(IPC_CHANNELS.explorePointerInView, wrapped)
+			},
+			onLinkAction: listener => {
+				const wrapped = (_: unknown, action: ExploreLinkAction): void => listener(action)
+				ipcRenderer.on(IPC_CHANNELS.exploreLinkAction, wrapped)
+				return () => ipcRenderer.removeListener(IPC_CHANNELS.exploreLinkAction, wrapped)
 			}
 		},
 		updater: {

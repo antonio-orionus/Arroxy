@@ -796,6 +796,7 @@
 			"useExplore": "Dùng đăng nhập Explore",
 			"notNow": "Để sau"
 		},
+		"linkMenu": {"downloadWith": "Tải xuống với", "copyLink": "Sao chép liên kết"},
 		"toolbar": {
 			"aria": "Điều khiển trình duyệt Explore",
 			"back": "Quay lại",

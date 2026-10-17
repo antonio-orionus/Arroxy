@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Tentar novamente"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Copiar link"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Baixar com"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Novo"

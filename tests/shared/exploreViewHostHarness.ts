@@ -54,12 +54,13 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 	}
 	const emit = vi.fn<(state: ExploreViewState) => void>()
 	const pointerEntered = vi.fn<() => void>()
+	const linkMenu = vi.fn<(linkURL: string) => void>()
 	const openExternal = vi.fn((_url: string): Promise<void> => Promise.resolve())
 	// Main stores the last page in the settings; the fake keeps it where settings() reads it.
 	const saveLastPage = vi.fn((url: string | undefined) => {
 		settings = {...settings, exploreLastUrl: url}
 	})
-	const deps: ExploreViewHostDeps = {window: window as unknown as BrowserWindow, session, settings: () => settings, saveLastPage, adBlock, isPackaged: opts.isPackaged ?? false, openExternal, emit, pointerEntered, ...(opts.homeUrlOverride === undefined ? {} : {homeUrlOverride: opts.homeUrlOverride})}
+	const deps: ExploreViewHostDeps = {window: window as unknown as BrowserWindow, session, settings: () => settings, saveLastPage, adBlock, isPackaged: opts.isPackaged ?? false, openExternal, emit, pointerEntered, linkMenu, ...(opts.homeUrlOverride === undefined ? {} : {homeUrlOverride: opts.homeUrlOverride})}
 	const host = new ExploreViewHost(deps)
 	return {
 		host,
@@ -67,6 +68,7 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 		session,
 		emit,
 		pointerEntered,
+		linkMenu,
 		openExternal,
 		saveLastPage,
 		fakeSession,

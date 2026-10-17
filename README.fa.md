@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 > 🌐 این ترجمه با کمک هوش مصنوعی تهیه شده است. [README انگلیسی](README.md) منبع معتبر است. خطایی پیدا کردید؟ [یک PR باز کنید](../../pulls).
 
@@ -82,6 +82,7 @@
 ### Explore: مرور YouTube داخل Arroxy
 
 - **زبانهٔ Explore** — YouTube را داخل Arroxy مرور کنید و هرچه پیدا کردید بدون کپی‌کردن پیوند دانلود کنید. **دانلود · *نمایهٔ شما*** ویدیو، فهرست پخش یا کانالی را که می‌بینید در صف می‌گذارد؛ پیکان کنارش نمایه را عوض می‌کند و چوب جادو دانلود مرحله‌به‌مرحله را برای انتخاب قالب‌ها، زیرنویس و موارد دیگر باز می‌کند
+- **دانلود با کلیک راست** — روی هر پیوند ویدیو، فهرست پخش یا کانال در Explore کلیک راست کنید تا آن را با نمایهٔ خود دانلود کنید، از **دانلود با** نمایهٔ دیگری انتخاب کنید، دانلود مرحله‌به‌مرحله را باز کنید یا پیوند را کپی کنید. لازم نیست اول هر ویدیو را باز کنید
 - **نوار نشانی** — برای جست‌وجو در YouTube تایپ کنید یا پیوند YouTube را بچسبانید. Explore فقط YouTube را مرور می‌کند، پس پیوند سایت دیگر آنجا باز نمی‌شود، اما با یک کلیک می‌توانید آن را دانلود کنید
 - **دانلودهایی که حساب لازم دارند** — یک بار در Explore وارد شوید تا Arroxy بتواند ویدیوهای خصوصی و ویژهٔ اعضا را که حسابتان می‌تواند ببیند، ویدیوهای دارای محدودیت سنی (اگر سن حساب تأیید شده باشد) و فهرست‌های «تماشا در آینده» و «پسندیده‌ها» را دانلود کند. Arroxy همچنان بدون ورود دانلود می‌کند و ورود شما در Explore را فقط وقتی به کار می‌برد که دانلودی به شکلی شکست بخورد که حساب بتواند آن را رفع کند. وقتی YouTube می‌خواهد تأیید کنید ربات نیستید، Arroxy ورود شما در Explore را هم امتحان می‌کند
 - **از حساب ثانویه استفاده کنید** — صفحهٔ اول Explore دلیلش را توضیح می‌دهد: دانلود با حساب کمی خطر محدود شدن آن حساب را دارد. هر زمان خواستید ورود را فراموش کند، از Explore در تنظیمات خارج شوید

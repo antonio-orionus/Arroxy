@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "ထပ်မံကြိုးစားမည်"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "လင့်ကိုကူးယူရန်"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "အသစ်"

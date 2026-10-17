@@ -786,6 +786,7 @@
 			"continue": "계속"
 		},
 		"nudge": {"off": "쿠키가 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다.", "file": "다운로드에는 Explore 로그인이 아니라 쿠키 파일이 사용됩니다.", "browser": "다운로드에는 Explore 로그인이 아니라 브라우저의 쿠키가 사용됩니다.", "useExplore": "Explore 로그인 사용", "notNow": "나중에"},
+		"linkMenu": {"downloadWith": "프로필로 다운로드", "copyLink": "링크 복사"},
 		"toolbar": {
 			"aria": "현재 페이지",
 			"back": "뒤로",

@@ -10,6 +10,10 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## 0.5.3
 
+## Highlights
+
+- **Download straight from Explore's video grids.** Right-click any video, playlist or channel link in Explore to download it with your active profile, pick another profile from **Download with**, open the step-by-step flow, or copy the link — no need to open each video first.
+
 ## Under the hood
 
 - **Ad blocker update.** Explore's ad blocker now runs on Ghostery adblocker 2.20.1, which stops a filter from running inside embedded frames on sites it's meant to skip. Explore downloads its filter lists once more after this update.

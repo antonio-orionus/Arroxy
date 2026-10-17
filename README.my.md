@@ -25,7 +25,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 ---
 
@@ -80,6 +80,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 ### Explore: Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပါ
 
 - **Explore tab** — Arroxy အတွင်းမှာပင် YouTube ကို ကြည့်ရှုပြီး လင့်ခ်မကူးဘဲ တွေ့သည့်အရာကို ဒေါင်းလုဒ်လုပ်ပါ။ **ဒေါင်းလုဒ် · *သင့်ပရိုဖိုင်*** သည် သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို စာရင်းထဲထည့်ပေးသည်၊ ဘေးရှိ မြှားက ပရိုဖိုင်ပြောင်းပေးပြီး မှော်လှံတံက format၊ subtitle စသည်တို့ကို ရွေးရန် အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပေးသည်
+- **Right-click ဖြင့် ဒေါင်းလုဒ်** — Explore ရှိ မည်သည့် ဗီဒီယို၊ playlist သို့မဟုတ် channel လင့်ခ်ကိုမဆို right-click နှိပ်ပြီး သင့်ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်လုပ်ပါ၊ **ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်** မှ အခြားပရိုဖိုင်ကို ရွေးပါ၊ အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပါ သို့မဟုတ် လင့်ခ်ကို ကူးယူပါ။ ဗီဒီယိုတစ်ခုချင်းစီကို အရင်ဖွင့်ရန် မလိုပါ
 - **လိပ်စာဘား** — YouTube တွင် ရှာဖွေရန် ရိုက်ထည့်ပါ သို့မဟုတ် YouTube လင့်ခ်ကို ကူးထည့်ပါ။ Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သဖြင့် အခြားဝက်ဘ်ဆိုက်မှ လင့်ခ်ကို ထိုနေရာတွင် မဖွင့်ပေးသော်လည်း တစ်ချက်နှိပ်ရုံဖြင့် ဒေါင်းလုဒ်လုပ်နိုင်သည်
 - **အကောင့်လိုသော ဒေါင်းလုဒ်များ** — Explore တွင် တစ်ကြိမ် sign in လုပ်ထားလျှင် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ Arroxy သည် sign out အခြေအနေတွင်ပင် ဒေါင်းလုဒ်လုပ်ပြီး အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ သင်၏ Explore sign-in ကို အသုံးပြုသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါတွင်လည်း Arroxy က သင်၏ Explore sign-in ကို စမ်းကြည့်သည်
 - **အရန်အကောင့် သုံးပါ** — Explore ၏ ပထမဆုံးမျက်နှာပြင်က အကြောင်းရင်းကို ရှင်းပြထားသည် - အကောင့်ဖြင့် ဒေါင်းလုဒ်လုပ်ခြင်းသည် ထိုအကောင့် ကန့်သတ်ခံရနိုင်သည့် အန္တရာယ် အနည်းငယ်ရှိသည်။ sign-in ကို မေ့စေလိုသည့်အခါ ဆက်တင်များမှ Explore ကို အချိန်မရွေး sign out လုပ်ပါ

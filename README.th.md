@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../pulls) ได้เลย
 
@@ -82,6 +82,7 @@
 ### Explore: เรียกดู YouTube ใน Arroxy
 
 - **แท็บ Explore** — เรียกดู YouTube ภายใน Arroxy และดาวน์โหลดสิ่งที่พบโดยไม่ต้องคัดลอกลิงก์ **ดาวน์โหลด · *โปรไฟล์ของคุณ*** จะเข้าคิววิดีโอ เพลย์ลิสต์ หรือช่องที่กำลังดูอยู่ ลูกศรข้างปุ่มใช้สลับโปรไฟล์ ส่วนไม้กายสิทธิ์เปิดการดาวน์โหลดทีละขั้นเพื่อเลือกรูปแบบ คำบรรยาย และอื่น ๆ
+- **คลิกขวาเพื่อดาวน์โหลด** — คลิกขวาที่ลิงก์วิดีโอ เพลย์ลิสต์ หรือช่องใดก็ได้ใน Explore เพื่อดาวน์โหลดด้วยโปรไฟล์ของคุณ เลือกโปรไฟล์อื่นจาก **ดาวน์โหลดด้วย** เปิดการดาวน์โหลดทีละขั้น หรือคัดลอกลิงก์ ไม่ต้องเปิดวิดีโอทีละรายการก่อน
 - **แถบที่อยู่** — พิมพ์เพื่อค้นหาใน YouTube หรือวางลิงก์ YouTube Explore เรียกดูได้เฉพาะ YouTube จึงไม่เปิดลิงก์จากเว็บไซต์อื่นที่นั่น แต่คุณดาวน์โหลดลิงก์นั้นได้ด้วยการคลิกครั้งเดียว
 - **ดาวน์โหลดที่ต้องใช้บัญชี** — เข้าสู่ระบบใน Explore เพียงครั้งเดียว Arroxy ก็ดาวน์โหลดวิดีโอส่วนตัวและวิดีโอเฉพาะสมาชิกที่บัญชีของคุณดูได้ วิดีโอจำกัดอายุหากบัญชียืนยันอายุแล้ว รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณได้ โดย Arroxy ยังคงดาวน์โหลดแบบไม่เข้าสู่ระบบ และใช้การเข้าสู่ระบบ Explore ของคุณเฉพาะเมื่อการดาวน์โหลดล้มเหลวด้วยเหตุที่บัญชีแก้ได้ เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต Arroxy ก็จะลองใช้การเข้าสู่ระบบ Explore ของคุณด้วย
 - **ใช้บัญชีสำรอง** — หน้าแรกของ Explore อธิบายเหตุผลไว้ การดาวน์โหลดด้วยบัญชีมีความเสี่ยงอยู่บ้างที่บัญชีนั้นจะถูกจำกัด ออกจากระบบ Explore ได้จากการตั้งค่าทุกเมื่อที่ต้องการให้ลืมการเข้าสู่ระบบ

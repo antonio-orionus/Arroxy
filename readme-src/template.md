@@ -82,6 +82,7 @@
 ### {{feat_explore_h3}}
 
 - {{feat_explore_1}}
+- {{feat_explore_6}}
 - {{feat_explore_2}}
 - {{feat_explore_3}}
 - {{feat_explore_4}}

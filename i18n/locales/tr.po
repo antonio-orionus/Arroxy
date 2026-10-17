@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Tekrar dene"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Bağlantıyı kopyala"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Profille indir"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Yeni"

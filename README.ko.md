@@ -25,7 +25,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../pulls).
 
@@ -82,6 +82,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 ### Explore: Arroxy 안에서 YouTube 탐색
 
 - **Explore 탭** — Arroxy 안에서 YouTube를 둘러보고, 링크를 복사하지 않고도 찾은 영상을 바로 다운로드합니다. **다운로드 · *내 프로필*** 은 보고 있는 동영상, 재생목록 또는 채널을 대기열에 추가하고, 옆의 화살표로 프로필을 바꾸며, 마법봉은 형식·자막 등을 고르는 단계별 다운로드를 엽니다
+- **우클릭으로 다운로드** — Explore에서 동영상, 재생목록, 채널 링크를 우클릭하면 내 프로필로 다운로드하거나, **프로필로 다운로드**에서 다른 프로필을 고르거나, 단계별 다운로드를 열거나, 링크를 복사할 수 있습니다. 영상을 하나씩 열 필요가 없습니다
 - **주소창** — 입력해서 YouTube를 검색하거나 YouTube 링크를 붙여 넣습니다. Explore는 YouTube만 탐색하므로 다른 사이트의 링크는 여기서 열리지 않지만, 클릭 한 번으로 다운로드할 수 있습니다
 - **계정이 필요한 다운로드** — Explore에서 한 번 로그인하면 Arroxy가 계정으로 볼 수 있는 비공개·멤버 전용 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. Arroxy는 여전히 로그아웃 상태로 다운로드하며, 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 Explore 로그인을 사용합니다. YouTube가 봇이 아닌지 확인을 요구할 때도 Arroxy는 Explore 로그인을 시도합니다
 - **보조 계정을 사용하세요** — Explore 첫 화면에서 이유를 설명합니다. 계정으로 다운로드하면 해당 계정이 제한될 위험이 어느 정도 있습니다. 로그인 정보를 지우고 싶다면 언제든 설정에서 Explore 로그아웃을 하세요

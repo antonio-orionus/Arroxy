@@ -823,6 +823,7 @@
 			"useExplore": "Użyj logowania w Explore",
 			"notNow": "Nie teraz"
 		},
+		"linkMenu": {"downloadWith": "Pobierz z profilem", "copyLink": "Kopiuj link"},
 		"toolbar": {
 			"aria": "Elementy sterujące przeglądarki Explore",
 			"back": "Wstecz",

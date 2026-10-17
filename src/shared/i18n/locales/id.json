@@ -817,6 +817,7 @@
 			"continue": "Lanjutkan"
 		},
 		"nudge": {"off": "Cookie nonaktif, jadi unduhan tidak memakai login Explore Anda.", "file": "Unduhan memakai berkas cookie Anda, bukan login Explore.", "browser": "Unduhan memakai cookie peramban Anda, bukan login Explore.", "useExplore": "Pakai login Explore", "notNow": "Nanti saja"},
+		"linkMenu": {"downloadWith": "Unduh dengan", "copyLink": "Salin tautan"},
 		"toolbar": {
 			"aria": "Kontrol peramban Explore",
 			"back": "Kembali",

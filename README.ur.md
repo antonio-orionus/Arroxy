@@ -25,7 +25,7 @@
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). MIT licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> _Last updated: 2026-10-16._
+> _Last updated: 2026-10-17._
 
 > 🌐 یہ AI کی مدد سے کیا گیا ترجمہ ہے۔ [انگریزی README](README.md) سچائی کا ماخذ ہے۔ کوئی غلطی نظر آئی؟ [PR کا خیر مقدم ہے](../../pulls)۔
 
@@ -82,6 +82,7 @@
 ### Explore: Arroxy کے اندر YouTube براؤز کریں
 
 - **Explore ٹیب** — Arroxy کے اندر YouTube براؤز کریں اور جو ملے اسے لنک کاپی کیے بغیر ڈاؤن لوڈ کریں۔ **ڈاؤن لوڈ · *آپ کا پروفائل*** وہ ویڈیو، پلے لسٹ یا چینل قطار میں لگاتا ہے جو آپ دیکھ رہے ہیں؛ اس کے ساتھ والا تیر پروفائل بدلتا ہے، اور جادوئی چھڑی فارمیٹس، سب ٹائٹلز اور مزید چننے کے لیے مرحلہ وار ڈاؤن لوڈ کھولتی ہے
+- **رائٹ کلک سے ڈاؤن لوڈ** — Explore میں کسی بھی ویڈیو، پلے لسٹ یا چینل کے لنک پر رائٹ کلک کریں اور اسے اپنے پروفائل سے ڈاؤن لوڈ کریں، **پروفائل سے ڈاؤن لوڈ** سے کوئی اور پروفائل چنیں، مرحلہ وار ڈاؤن لوڈ کھولیں، یا لنک کاپی کریں۔ ہر ویڈیو پہلے کھولنے کی ضرورت نہیں
 - **ایڈریس بار** — YouTube پر تلاش کے لیے ٹائپ کریں یا YouTube کا لنک پیسٹ کریں۔ Explore صرف YouTube براؤز کرتا ہے، اس لیے کسی دوسری سائٹ کا لنک وہاں نہیں کھلتا، لیکن آپ اسے ایک کلک میں ڈاؤن لوڈ کر سکتے ہیں
 - **وہ ڈاؤن لوڈز جنہیں اکاؤنٹ چاہیے** — Explore میں ایک بار سائن ان کریں اور Arroxy وہ نجی اور صرف ممبران کے ویڈیوز ڈاؤن لوڈ کر سکتا ہے جو آپ کا اکاؤنٹ دیکھ سکتا ہے، عمر کی پابندی والے ویڈیوز اگر اکاؤنٹ کی عمر کی توثیق ہو چکی ہو، اور آپ کی Watch Later اور Liked فہرستیں۔ Arroxy اب بھی سائن آؤٹ حالت میں ڈاؤن لوڈ کرتا ہے اور آپ کا Explore سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ ایسی وجہ سے ناکام ہو جسے اکاؤنٹ ٹھیک کر سکے۔ جب YouTube تصدیق مانگے کہ آپ بوٹ نہیں ہیں، تو Arroxy آپ کا Explore سائن ان بھی آزماتا ہے
 - **ثانوی اکاؤنٹ استعمال کریں** — Explore کی پہلی اسکرین وجہ بتاتی ہے: اکاؤنٹ کے ساتھ ڈاؤن لوڈ کرنے میں اس اکاؤنٹ پر پابندی لگنے کا کچھ خطرہ ہوتا ہے۔ سائن ان بھلانا چاہیں تو جب چاہیں Settings سے Explore سے سائن آؤٹ کر لیں
