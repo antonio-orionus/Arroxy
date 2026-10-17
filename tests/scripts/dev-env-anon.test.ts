@@ -25,6 +25,8 @@ async function readSettings(userData: string): Promise<{common: Record<string, u
 }
 
 afterEach(async () => {
+	// Before the cleanup reads: a stubbed fs call must not outlive its test.
+	vi.restoreAllMocks()
 	await Promise.all(temps.splice(0).map(dir => fs.rm(dir, {recursive: true, force: true})))
 })
 
@@ -73,11 +75,13 @@ describe('anonymous dev profile', () => {
 		const userData = await tempDir()
 		const file = path.join(userData, 'settings.json')
 		await fs.writeFile(file, JSON.stringify({common: {uiTheme: 'dark'}}))
-		// Writable but not readable: the overwrite would succeed.
-		await fs.chmod(file, 0o200)
+		// The read fails, the overwrite would not. Stubbed rather than chmod'ed:
+		// Windows has no write-only file mode.
+		const denied = Object.assign(new Error('EACCES: permission denied'), {code: 'EACCES'})
+		vi.spyOn(fs, 'readFile').mockRejectedValueOnce(denied)
 
 		await expect(prepareAnonymousDevProfile(userData)).rejects.toMatchObject({code: 'EACCES'})
-		await fs.chmod(file, 0o600)
+		vi.restoreAllMocks()
 		expect(JSON.parse(await fs.readFile(file, 'utf8'))).toEqual({common: {uiTheme: 'dark'}})
 	})
 
