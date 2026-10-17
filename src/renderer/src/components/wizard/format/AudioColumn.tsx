@@ -22,6 +22,9 @@ interface AudioColumnProps {
 	onSelect: (sel: AudioSelection) => void
 }
 
+// About the row count at which a list outgrows the 240px (`max-h-60`) cap.
+const LONG_LIST_ROWS = 6
+
 const QUALITY_ICON_CLASS: Record<AudioTrackQuality, string> = {high: 'text-success', medium: 'text-info', low: 'text-warning'}
 const QUALITY_BAR_COUNT: Record<AudioTrackQuality, number> = {high: 3, medium: 2, low: 1}
 const QUALITY_LABEL_KEY: Record<AudioTrackQuality, 'wizard.formats.quality.high' | 'wizard.formats.quality.medium' | 'wizard.formats.quality.low'> = {high: 'wizard.formats.quality.high', medium: 'wizard.formats.quality.medium', low: 'wizard.formats.quality.low'}
@@ -52,8 +55,11 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 	// Alone on the screen, the list takes the step's free height. A zero basis
 	// keeps its rows out of the step's content size, so it grows into the space
 	// the footer leaves instead of pushing the page into scrolling; the floor
-	// holds in short windows. Beside the Video column it keeps a fixed cap.
+	// holds in short windows. Beside the Video column a short list sizes to its
+	// rows; one long enough to be cropped at the old 240px cap grows into the grid
+	// row the Video list sets, so a tall window shows as many audio rows as video.
 	const fill = mode === 'audio-only'
+	const longList = view.nativeRows.length + view.convertTargets.length >= LONG_LIST_ROWS
 
 	// The radio group speaks strings; these encode and decode the three selection kinds.
 	const selectedValue = audioSelection.kind === 'none' ? 'none' : audioSelection.kind === 'native' ? `native:${audioSelection.formatId}` : `convert:${audioSelection.target}`
@@ -111,7 +117,7 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 				)}
 			</div>
 
-			<ScrollArea className={fill ? 'min-h-0 flex-1' : 'max-h-[240px]'}>
+			<ScrollArea className={fill ? 'min-h-0 flex-1' : longList ? 'min-h-60 grow basis-0' : 'max-h-60'}>
 				<RadioGroup value={selectedRowDisabled ? null : selectedValue} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="gap-1">
 					{/* Muxed-video sources surface "Keep as-is" first because it's the
             zero-cost default — embedded audio stays in the file, no extraction

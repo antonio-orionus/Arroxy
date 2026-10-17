@@ -622,9 +622,9 @@ function ActionRow({description, disabled = false, icon: Icon, onClick, testId, 
 			disabled={disabled}
 			onClick={onClick}
 			data-testid={testId}
-			className="glow-tile group/row h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-lg border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-[1.12] active:translate-y-px"
+			className="glow-tile h-auto min-h-14 justify-start gap-3 whitespace-normal rounded-lg border-transparent px-4 py-2 text-left transition-[filter,transform] duration-200 hover:bg-transparent hover:brightness-(--hover-brightness) active:translate-y-px"
 		>
-			<IconTile tone="lit" className="transition-transform duration-200 group-hover/row:scale-105">
+			<IconTile tone="lit">
 				<Icon />
 			</IconTile>
 			<span className="flex min-w-0 flex-1 flex-col items-start">

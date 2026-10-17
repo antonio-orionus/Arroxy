@@ -1,4 +1,4 @@
-import {useEffect, useState, type ReactNode} from 'react'
+import {useCallback, useEffect, useState, type ReactNode} from 'react'
 import {Sparkles, Square} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {type UiStyle, uiStyleSchema} from '@shared/schemas.js'
@@ -22,22 +22,29 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 	const setUiStyle = useAppStore(state => state.setUiStyle)
 	const dismissStyleHint = useAppStore(state => state.dismissStyleHint)
 	const hintPending = useAppStore(state => state.settings !== null && state.settings.common?.styleHintDismissed !== true)
-	const [hintShown, setHintShown] = useState(false)
+	// `done` is local on purpose: if saving the dismissal fails, the store rolls
+	// the flag back, and the hint must still not come back during this session.
+	const [hint, setHint] = useState<'idle' | 'shown' | 'done'>('idle')
+
+	const finishHint = useCallback((): void => {
+		setHint('done')
+		void dismissStyleHint()
+	}, [dismissStyleHint])
 
 	useEffect(() => {
-		if (!hintReady || !hintPending) return
-		const show = setTimeout(() => setHintShown(true), HINT_DELAY_MS)
+		if (hint !== 'idle' || !hintReady || !hintPending) return
+		const show = setTimeout(() => setHint('shown'), HINT_DELAY_MS)
 		return () => clearTimeout(show)
-	}, [hintReady, hintPending])
+	}, [hint, hintReady, hintPending])
 
 	useEffect(() => {
-		if (!hintShown) return
-		const hide = setTimeout(() => void dismissStyleHint(), HINT_VISIBLE_MS)
+		if (hint !== 'shown') return
+		const hide = setTimeout(finishHint, HINT_VISIBLE_MS)
 		return () => clearTimeout(hide)
-	}, [hintShown, dismissStyleHint])
+	}, [hint, finishHint])
 
 	return (
-		<Tooltip open={hintShown && hintPending}>
+		<Tooltip open={hint === 'shown' && hintPending}>
 			<TooltipTrigger render={<div className="inline-flex" data-testid="footer-style-toggle" />}>
 				<ToggleGroup
 					value={[uiStyle]}
@@ -45,7 +52,7 @@ export function StyleToggle({hintReady}: {hintReady: boolean}): ReactNode {
 						const next = uiStyleSchema.safeParse(values[0])
 						if (!next.success) return
 						setUiStyle(next.data)
-						void dismissStyleHint()
+						finishHint()
 					}}
 					size="sm"
 				>

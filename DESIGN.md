@@ -294,6 +294,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 - **Do** use big rounding (16-28px) on hero panels for the friendly, approachable read.
 - **Do** honor `prefers-reduced-motion`: glows stay (they're static state), but slide/float/shimmer/pulse animations collapse to instant or crossfade.
 - **Do** keep copy human and plain ("Pull it! ↓", "Fetch formats →"), verb + object on every button.
+- **Do** name every option for both audiences (the Two-Audience Rule). Arroxy is feature rich but intuitive, so each choice carries three layers: a **name** of two or three plain words saying what the user gets ("Smart TV", "Small file"); a **tag** chip with the technical facts for power users (`MP4 · H.264 · ≤1080p`); and a **tooltip or description** with the reason and the catch ("Plays on TVs, phones and editors. YouTube only offers H.264 up to 1080p."). Keep names laconic: specs go in the tag, explanations in the tooltip, never both crammed into the name.
 
 ### Don't:
 - **Don't** let it look like a **sketchy downloader site**: no ad-shaped blocks, no fake-button bait, no upsell chrome. The clean glass surface is the proof of trust.
@@ -333,7 +334,7 @@ Arroxy ships more than one **style**, Aurora and Minimal, and each style comes i
    - *Surfaces*: `--surface-stage` (the one stage per view), `--surface-tile` (fields and rows inside a stage), `--surface-raised` (popovers, the active-profile half), `--surface-bar` (sticky bars, a gradient image), `--surface-filter` (the stage's backdrop filter, `none` for no blur; applied only while a hardware backdrop runs).
    - *Edges*: `--line` (field and control rings), `--edge-soft` (resting edge paint), `--edge` (stage and tile edge), `--edge-hot` (primary control edge), `--edge-selected` (selected-option edge). All are gradient images; a flat style repeats one colour.
    - *Light*: `--tint-start` and `--tint-end` (the two hues glass catches), `--sheen` (highlight), `--glow` (bloom hue), `--shade` (shadow hue). A flat style sets all four to `transparent`, which erases every sheen, tint and bloom derived from them.
-   - *Fills*: `--primary-fill` (paint of the primary action) and `--selected-fill` (paint of a selected option or tab).
+   - *Fills*: `--primary-fill` (paint of the primary action) and `--selected-fill` (paint of a selected option or tab), `--hover-brightness` (the filter an action row takes on hover; `1` for none).
 3. **Component tokens: derived, never styled.** `--quick-*`, `--wizard-*`, `--tabs-*`, `--field-*`, `--queue-*`, `--glass-*`, `--brand-glow`, `--panel-glow` and other per-component tokens are computed from the contract once, in `styles.css`, with `color-mix` over contract colours. A style never sets one.
 
 ### Named Rules

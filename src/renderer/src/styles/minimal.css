@@ -38,6 +38,7 @@
 	--shade: transparent;
 	--primary-fill: linear-gradient(hsl(221 92% 45%), hsl(221 92% 45%));
 	--selected-fill: linear-gradient(transparent, transparent);
+	--hover-brightness: 1;
 }
 
 .dark {
@@ -75,4 +76,5 @@
 	--shade: transparent;
 	--primary-fill: linear-gradient(hsl(221 92% 45%), hsl(221 92% 45%));
 	--selected-fill: linear-gradient(transparent, transparent);
+	--hover-brightness: 1;
 }

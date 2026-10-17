@@ -71,4 +71,20 @@ describe('StyleToggle', () => {
 		expect(update).toHaveBeenCalledWith({common: {styleHintDismissed: true}})
 		expect(screen.queryByTestId('style-hint')).not.toBeInTheDocument()
 	})
+
+	it('stays gone for the session when saving the dismissal fails', async () => {
+		update.mockImplementationOnce(() => Promise.resolve({ok: false as const, error: {code: 'save-failed', message: 'nope'}}) as never)
+		seedSettings()
+		// What main still has on disk after the failed write: the hint not yet dismissed.
+		const canonical = useAppStore.getState().settings
+		window.appApi = {settings: {update, get: vi.fn(() => ok(canonical))}} as unknown as typeof window.appApi
+		render(<StyleToggle hintReady />)
+		await act(() => vi.advanceTimersByTimeAsync(2_000))
+		expect(screen.getByTestId('style-hint')).toBeInTheDocument()
+
+		await act(() => vi.advanceTimersByTimeAsync(13_000))
+		expect(screen.queryByTestId('style-hint')).not.toBeInTheDocument()
+		await act(() => vi.advanceTimersByTimeAsync(30_000))
+		expect(screen.queryByTestId('style-hint')).not.toBeInTheDocument()
+	})
 })
