@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "គំរូឈ្មោះឯកសារ"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "ស្វ័យប្រវត្តិ"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "ស្វ័យប្រវត្តិ (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "ស្ទ្រីមដែលបានជ្រើសរើសកំណត់ប្រភេទឯកសារ។"
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "ផ្ទុក codec បានគ្រប់ប្រភេទ។ ទូរទស្សន៍ និងទូរស័ព្ទមួយចំនួនមិនអាចបើកវាបានទេ។"
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "ចាក់បានស្ទើរតែគ្រប់ទីកន្លែង។ VP9 ឬ AV1 ក្នុង MP4 មិនបើកក្នុង QuickTime លើ Mac ចាស់ៗទេ។"
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "ទម្រង់បើកចំហសម្រាប់កម្មវិធីរុករក។ ផ្ទុកតែ VP9 ឬ AV1 ជាមួយ Opus ប៉ុណ្ណោះ។"
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "{{codecs}} ក្នុង MP4 អាចមិនបើកក្នុង QuickTime កម្មវិធីកែសម្រួលមួយចំនួន និងទូរទស្សន៍មួយចំនួនទេ។ H.264 ចាក់បានគ្រប់ទីកន្លែង។"
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "ប្រវត្តិរូប"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM មិនមានជាមួយ Smart TV ទេ: វាមិនអាចផ្ទុក H.264 បានទេ។"
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM មិនអាចផ្ទុក {{codec}} បានទេ។ សូមជ្រើស MKV ឬ MP4។"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "សំឡេង"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "ការរៀបចំត្រូវការជំនួយពីអ្នក"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "របៀបដែលប្រវត្តិរូបនេះជ្រើសរើស"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "សំឡេង AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "សមនឹងកម្មវិធីចាក់ MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "សំឡេង AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "ចាក់បានគ្រប់ទីកន្លែង"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1 បន្ទាប់មក VP9 បន្ទាប់មក H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "ច្បាស់បំផុតក្នុងទំហំដូចគ្នា"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "អត្រាស៊ុមខ្ពស់បំផុត"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "ចលនារលូនជាង"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "វីដេអូ H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "ចាក់បានលើគ្រប់ឧបករណ៍"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "HDR មុន SDR"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "លំដាប់ធម្មតា"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "ស្ទ្រីម MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "រួចរាល់សម្រាប់ឯកសារ MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "សំឡេង Stereo"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "ប្រវត្តិរូបនេះ"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "ពីការកំណត់"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "សំឡេង Surround នៅពេលមាន"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "សំឡេង Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "សមនឹង WebM"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "រហូតដល់ {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "ដែនកំណត់របស់អ្នក"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "គុណភាពបង្ហាញខ្ពស់បំផុត"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "មិនបានកំណត់ដែនកំណត់"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "ឯកសារធំជាង"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "លម្អិតជាងនៅការកំណត់ដូចគ្នា"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "ប្រភេទឯកសារតាមស្ទ្រីម"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "រក្សាទុកជា .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "រូបភាពល្អបំផុត"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "ចាក់បានលើគ្រប់ឧបករណ៍"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "ហេតុអ្វីជាមួយនេះ?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "ហេតុអ្វីប្រវត្តិរូបជ្រើសរើសមួយនេះ"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "បានចម្លង!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "ការបង្កប់អក្សររត់ត្រូវបានប្តូរទៅឯកសារដាច់ដោយឡែក — បទសំឡេងមិនគាំទ្រស្ទ្រីមអក្សររត់បង្កប់ទេ។"
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "អក្សររត់ក្នុងវីដេអូត្រូវការឯកសារ MKV ដូច្នេះការទាញយកនេះរក្សាទុកជា .mkv។"
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "ប្រើឯកសារ cookies ឬកម្មវិធីរុករកជំនួសវិញ…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "ប្រវត្តិរូបរបស់អ្នកស្នើសុំ MP4 (H.264)។ វីដេអូនេះមិនផ្តល់វាទេ ដូច្នេះស្ទ្រីមដែលជិតបំផុតត្រូវបានជ្រើសរើស។"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "ប្រវត្តិរូបរបស់អ្នកគឺ Smart TV (H.264)។ វីដេអូនេះមិនផ្តល់ H.264 ទេ ដូច្នេះស្ទ្រីមដែលជិតបំផុតត្រូវបានជ្រើសរើស។"
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "ប្រវត្តិរូបរបស់អ្នកស្នើស
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "ប្រវត្តិរូបរបស់អ្នកស្នើសុំ {{wanted}}p។ វីដេអូនេះមានត្រឹមតែ {{picked}}p ដូច្នេះ {{picked}}p ត្រូវបានជ្រើសរើស។"
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "ប្រវត្តិរូបរបស់អ្នកស្នើសុំ WebM។ ស្ទ្រីមដែលបានជ្រើសរើសរបស់វីដេអូនេះមាន {{codec}} ដែល WebM មិនអាចផ្ទុកបាន ដូច្នេះប្រភេទឯកសារគឺស្វ័យប្រវត្តិ។"
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "គុណភាពទាប"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "គុណភាពមធ្យម"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "រក្សាទុកជា"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM មិនអាចផ្ទុក {{codec}} បាន ដូច្នេះប្រភេទឯកសារបានត្រឡប់ទៅស្វ័យប្រវត្តិវិញ។"
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "ប្រើលេខកូដភាសា “{{code}}”"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "កម្រិតខ្ពស់"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "ល្អបំផុត"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "មិនអាចរក្សាទុកការកំណត់ប្រវត្តិរូបបានទេ។"
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "ភាពត្រូវគ្នា"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "របៀបរក្សាទុក"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "ប្រភេទឯកសារ"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "ផ្តោតលើ"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "ឈ្មោះប្រវត្តិរូប"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "ឈ្មោះ និងរូបតំណាងប្រវត្តិរូប"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "សំឡេងដើម"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "ការទាញយកអក្សររត់"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "ប្រវត្តិរូបស្នើសុំលេខកូដភាសា; ភាពអាចរកបានត្រូវបានកំណត់សម្រាប់ URL នីមួយៗ។"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "ច្បាស់បំផុតក្នុងទំហំដូចគ្នា។ ទូរទស្សន៍ចាស់ៗ QuickTime និងកម្មវិធីកែសម្រួលមួយចំនួនមិនអាចចាក់វាបានទេ។"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "រូបភាពល្អបំផុត"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "ចាក់បានលើទូរទស្សន៍ ទូរស័ព្ទ WhatsApp QuickTime និងកម្មវិធីកែសម្រួលវីដេអូ។ YouTube ផ្តល់ H.264 តែរហូតដល់ 1080p ប៉ុណ្ណោះ។"
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "តែវីដេអូស្ងាត់"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "វីដេអូ គ្មានសំឡេង"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "ប្រើការកំណត់កម្មវិធី ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "ដោយដៃមុន បន្ទាប់មកស្វ័យប�
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "តែដោយដៃ"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "Stereo ដែលត្រូវគ្នា"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "គ្រប់គ្រងអ្វីដែល ល្អបំផុតដើម ជ្រើសរើស។ ជួរសំឡេងដោយដៃ និង M4A/AAC នៅតែច្បាស់លាស់។"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo ឬ Surround នៅពេលប្រវត្តិរូបជ្រើសសំឡេងដើម។ ប្រវត្តិរូបអាចកំណត់ជំនួសវាបាន។"
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

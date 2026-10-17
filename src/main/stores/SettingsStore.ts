@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import Store from 'electron-store'
 import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
@@ -257,6 +259,16 @@ function normalizePersistedProfiles(source: unknown): DownloadProfilesPrefs {
 	return {active, custom, overrides, enabledOverrides}
 }
 
+// Profiles saved before goals and file types carry `codec` and `tiers` in their
+// media. Loading reads them into the new shape, and the next save writes that
+// shape, which an older app version cannot read (it drops such profiles).
+function hasLegacyProfileMedia(raw: Record<string, unknown>): boolean {
+	const profiles = asRecord(raw.profiles)
+	return [profiles?.custom, profiles?.overrides].some(bucket => Array.isArray(bucket) && bucket.some(item => asRecord(asRecord(item)?.media)?.codec !== undefined))
+}
+
+const PRE_SELECTION_ORDER_BACKUP = 'settings.before-selection-order.json'
+
 export class SettingsStore {
 	// electron-store exposes unvalidated JSON. Keep its generic honest and parse
 	// the payload before storing or returning the trusted AppSettings value.
@@ -270,8 +282,26 @@ export class SettingsStore {
 		const loaded = parsePersistedSettings(this.store.store, this.defaults)
 		this.settings = loaded.settings
 		for (const section of loaded.invalidSections) logger.warn('Invalid persisted settings section; using defaults', {section})
-		if (loaded.shouldPersist) this.persist()
+		if (loaded.shouldPersist) {
+			this.backUpLegacyProfiles(userDataPath)
+			this.persist()
+		}
 		this.logProfileSummary()
+	}
+
+	// Once, before profiles saved in the old shape are rewritten: keep the file
+	// as it was, so going back to an older build loses nothing. Never blocks
+	// startup, and never overwrites an earlier backup.
+	private backUpLegacyProfiles(userDataPath: string): void {
+		if (!hasLegacyProfileMedia(this.store.store)) return
+		const backupPath = path.join(userDataPath, PRE_SELECTION_ORDER_BACKUP)
+		try {
+			if (fs.existsSync(backupPath)) return
+			fs.copyFileSync(this.store.path, backupPath)
+			logger.info('Backed up settings before converting profiles', {file: PRE_SELECTION_ORDER_BACKUP})
+		} catch (error) {
+			logger.warn('Could not back up settings before converting profiles', {error: error instanceof Error ? error.message : String(error)})
+		}
 	}
 
 	private persist(): void {

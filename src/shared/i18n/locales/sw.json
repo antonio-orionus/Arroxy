@@ -292,7 +292,7 @@
 				"invalid": "Tumia nambari nzima kutoka 1 hadi 5000",
 				"tooltip": "Inalingana na yt-dlp --playlist-end: Arroxy inauliza idadi hii tu ya maingizo ya playlist, kituo, au utafutaji wakati wa kujenga kichaguzi."
 			},
-			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
+			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Stereo au surround wasifu unapochagua sauti asili. Wasifu unaweza kubatilisha hili.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
 			"autoRetry": {"label": "Jaribu tena upakuaji ulioshindwa", "description": "Hujaribu tena kiotomatiki baada ya hitilafu ya mtandao au seva, ikisubiri muda mrefu zaidi kabla ya kila jaribio. Upakuaji uliozuiwa na tovuti haujaribiwi tena kiotomatiki.", "unit": "mara"},
 			"concurrentDownloads": {"label": "Upakuaji kwa wakati mmoja", "description": "Ni vipengee vingapi vya foleni vinapakuliwa kwa wakati mmoja. Vingi kwa wakati mmoja humaliza foleni ndefu haraka, lakini huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "upakuaji"},
 			"downloadConnections": {"label": "Miunganisho ya upakuaji", "description": "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "miunganisho"},
@@ -356,9 +356,10 @@
 			"fit": {
 				"tierBelow": "Wasifu wako unaomba {{wanted}}p. Video hii inafika {{picked}}p tu, kwa hivyo {{picked}}p imechaguliwa.",
 				"tierAbove": "Wasifu wako unaomba {{wanted}}p. Video hii haina kitu kidogo hivyo, kwa hivyo {{picked}}p imechaguliwa.",
-				"mp4Unavailable": "Wasifu wako unaomba MP4 (H.264). Video hii haina, kwa hivyo mtiririko wa karibu zaidi umechaguliwa.",
+				"mp4Unavailable": "Wasifu wako ni Runinga janja (H.264). Video hii haitoi H.264, kwa hivyo mkondo ulio karibu zaidi umechaguliwa.",
 				"noVideo": "Kiungo hiki hakina video, kwa hivyo sauti imechaguliwa.",
-				"subtitlesMissing": "Wasifu wako unaomba manukuu katika {{languages}}. Video hii haina."
+				"subtitlesMissing": "Wasifu wako unaomba manukuu katika {{languages}}. Video hii haina.",
+				"webmUnavailable": "Wasifu wako unaomba WebM. Mikondo iliyochaguliwa ya video hii ina {{codec}}, ambayo WebM haiwezi kubeba, kwa hivyo aina ya faili ni Otomatiki."
 			},
 			"summary": {"lead": "Pia kutoka {{profile}}:", "subtitlesOff": "manukuu yamezimwa", "subtitlesAdd_one": "Lugha {{count}} inapatikana, ongeza", "subtitlesAdd_other": "Lugha {{count}} zinapatikana, ongeza", "reviewAll": "Kagua yote"},
 			"footer": {"reviewOptions": "Kagua na chaguo", "download": "Pakua", "moreActions": "Chaguo zaidi za upakuaji", "addToQueue": "Ongeza kwenye foleni bila kuanza", "subtitlesRequired": "Chagua angalau lugha moja ya manukuu."},
@@ -413,7 +414,8 @@
 					"fixUnsafeBody": "Ongeza --disable-features=LockProfileCookieDatabase kwenye mkato wa kuzindua Chrome. Onyo: hii inabatilisha vidakuzi vilivyosimbwa fiche hapo awali, kwa hivyo utaondolewa katika kila tovuti na itabidi uingie tena.",
 					"docsLinkLabel": "yt-dlp nyaraka (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Huhifadhiwa kama", "reset": "WebM haiwezi kubeba {{codec}}, kwa hivyo aina ya faili imerudi kuwa Otomatiki."}
 		},
 		"folder": {
 			"heading": "Hifadhi kwenye",
@@ -488,7 +490,8 @@
 			"itemsValueBulk_other": "{{count}} kati ya {{total}} URL",
 			"profileBreakdownHeading": "Wasifu katika kundi hili",
 			"profileBreakdownCount_one": "{{count}} kipande",
-			"profileBreakdownCount_other": "{{count}} vipande"
+			"profileBreakdownCount_other": "{{count}} vipande",
+			"subtitleEmbedForcesMkv": "Manukuu ndani ya video yanahitaji faili ya MKV, kwa hivyo upakuaji huu unahifadhiwa kama .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Wasifu wa upakuaji",
@@ -504,7 +507,6 @@
 			"field": {
 				"nameAndIcon": "Jina na aikoni ya wasifu",
 				"icon": "Aikoni ya wasifu",
-				"compatibility": "Uoanifu",
 				"resolution": "Azimio",
 				"quality": "Ubora",
 				"source": "Chanzo",
@@ -514,7 +516,10 @@
 				"subtitleDownloadsDescription": "Wasifu huomba misimbo ya lugha; upatikanaji huamuliwa kwa kila URL.",
 				"languages": "Lugha",
 				"delivery": "Njia ya kuhifadhi",
-				"overridePath": "Njia ya ubatilishaji wa wasifu"
+				"overridePath": "Njia ya ubatilishaji wa wasifu",
+				"goal": "Boresha kwa",
+				"fileType": "Aina ya faili",
+				"nativeAudio": "Sauti asili"
 			},
 			"action": {
 				"chooseIcon": "Chagua aikoni ya wasifu",
@@ -551,11 +556,16 @@
 			},
 			"icon": {"controls": "Vidhibiti", "download": "Pakua", "video": "Video", "captions": "Manukuu", "audio": "Sauti", "music": "Muziki", "podcast": "Podikasti", "classes": "Masomo", "clip": "Kipande", "archive": "Kumbukumbu"},
 			"audioFormat": {"best": "Bora", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "Hadi 128K", "192": "Hadi 192K", "320": "Hadi 320K", "best": "Ubora bora"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Kwanza kwa mkono, kisha kiotomatiki", "manualOnly": "Kwa mkono pekee", "autoOnly": "Zilizotengenezwa kiotomatiki pekee"},
-			"sponsorBlockHint": {"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.", "mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).", "remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."}
+			"sponsorBlockHint": {"off": "Hakuna SponsorBlock — video hucheza kama ilivyopakiwa.", "mark": "Huweka alama sehemu za wadhamini kama sura (bila kubadilisha faili).", "remove": "Hukata sehemu za wadhamini kutoka kwa video kwa kutumia FFmpeg."},
+			"advanced": "Hali ya juu",
+			"goal": {
+				"bestPicture": {"name": "Picha bora", "tag": "AV1 · VP9", "description": "Kali zaidi kwa ukubwa uleule. Runinga za zamani, QuickTime na baadhi ya vihariri haviwezi kuicheza."},
+				"smartTv": {"name": "Runinga janja", "tag": "MP4 · H.264", "description": "Hucheza kwenye runinga, simu, WhatsApp, QuickTime na vihariri vya video. YouTube hutoa H.264 hadi 1080p tu."}
+			},
+			"nativeAudio": {"default": "Tumia mpangilio wa programu ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Inapakia…"},
@@ -853,5 +863,44 @@
 			"signOutConfirm": "Toka"
 		},
 		"error": {"proxyTitle": "Explore haiwezi kuunganisha kupitia proksi yako", "proxyBody": "Angalia proksi katika Mipangilio, kisha jaribu tena.", "loadTitle": "Ukurasa huu haukupakia", "loadBody": "Angalia muunganisho wako, kisha jaribu tena.", "retry": "Jaribu tena", "openSettings": "Fungua Mipangilio"}
+	},
+	"fileType": {
+		"auto": "Otomatiki",
+		"autoValue": "Otomatiki (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Mikondo iliyochaguliwa huamua aina ya faili.",
+			"mp4": "Hucheza karibu kila mahali. VP9 au AV1 ndani ya MP4 haifunguki katika QuickTime kwenye Mac za zamani.",
+			"mkv": "Hubeba kodeki yoyote. Baadhi ya runinga na simu haziwezi kuifungua.",
+			"webm": "Umbizo huria kwa vivinjari. Hubeba VP9 au AV1 pamoja na Opus tu."
+		},
+		"webmBlocked": "WebM haiwezi kubeba {{codec}}. Chagua MKV au MP4.",
+		"profileMark": "Wasifu",
+		"smartTvNoWebm": "WebM haitolewi kwa Runinga janja: haiwezi kubeba H.264.",
+		"mp4Caveat": "{{codecs}} ndani ya MP4 huenda isifunguke katika QuickTime, baadhi ya vihariri na baadhi ya runinga. H.264 hucheza kila mahali."
+	},
+	"selectionOrder": {
+		"editorTitle": "Jinsi wasifu huu unavyochagua",
+		"whyTitle": "Kwa nini wasifu ulichagua hii",
+		"whyLabel": "Kwa nini hii?",
+		"rank": {
+			"h264": {"label": "Video ya H.264", "reason": "hucheza kwenye kila kifaa"},
+			"mp4Streams": {"label": "Mikondo ya MP4", "reason": "tayari kwa faili ya MP4"},
+			"resolutionBest": {"label": "Azimio la juu zaidi", "reason": "hakuna kikomo kilichowekwa"},
+			"resolution": {"label": "Hadi {{tier}}p", "reason": "kikomo chako"},
+			"fps": {"label": "Kasi ya juu zaidi ya fremu", "reason": "mwendo laini zaidi"},
+			"hdr": {"label": "HDR kabla ya SDR", "reason": "mpangilio wa kawaida"},
+			"codec": {"label": "AV1, kisha VP9, kisha H.264", "reason": "kali zaidi kwa ukubwa uleule"},
+			"size": {"label": "Faili kubwa zaidi", "reason": "maelezo zaidi kwa mipangilio ileile"},
+			"aacSmartTv": {"label": "Sauti ya AAC", "reason": "hucheza kila mahali"},
+			"aacFileType": {"label": "Sauti ya AAC", "reason": "inafaa vichezaji vya MP4"},
+			"opus": {"label": "Sauti ya Opus", "reason": "inafaa WebM"},
+			"nativeCompatible": {"label": "Sauti ya stereo"},
+			"nativeSurround": {"label": "Sauti ya surround inapopatikana"},
+			"nativeSource": {"settings": "kutoka Mipangilio", "profile": "wasifu huu"}
+		},
+		"summary": {"goal": {"bestPicture": "picha bora", "smartTv": "hucheza kwenye kifaa chochote"}, "fileType": {"auto": "aina ya faili kutoka kwa mikondo", "explicit": "huhifadhiwa kama .{{ext}}"}}
 	}
 }

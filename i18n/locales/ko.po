@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "파일 이름 템플릿"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "자동"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "자동 (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "선택된 스트림에 따라 파일 형식이 정해집니다."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "모든 코덱을 담을 수 있습니다. 일부 TV와 휴대폰에서는 열리지 않습니다."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "거의 어디서나 재생됩니다. MP4에 담긴 VP9 또는 AV1은 오래된 Mac의 QuickTime에서 열리지 않습니다."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "브라우저용 오픈 형식입니다. VP9 또는 AV1과 Opus만 담을 수 있습니다."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "MP4에 담긴 {{codecs}}은(는) QuickTime, 일부 편집기, 일부 TV에서 열리지 않을 수 있습니다. H.264는 어디서나 재생됩니다."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "프로필"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "스마트 TV에서는 WebM을 선택할 수 없습니다. H.264를 담을 수 없기 때문입니다."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM에는 {{codec}}을(를) 담을 수 없습니다. MKV 또는 MP4를 선택하세요."
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "오디오"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "설정에 도움이 필요합니다"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "이 프로필이 고르는 방식"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC 오디오"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "MP4 플레이어와 호환"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC 오디오"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "어디서나 재생"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, 그다음 VP9, 그다음 H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "같은 크기에서 가장 선명"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "가장 높은 프레임 속도"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "더 부드러운 움직임"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 비디오"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "모든 기기에서 재생"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "SDR보다 HDR 우선"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "일반적인 순서"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 스트림"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "MP4 파일에 적합"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "스테레오 오디오"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "이 프로필"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "설정에서"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "서라운드 오디오 (제공되는 경우)"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus 오디오"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "WebM과 호환"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "최대 {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "설정한 한도"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "최고 해상도"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "한도 없음"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "더 큰 파일"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "같은 설정에서 더 세밀함"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "스트림에 따라 파일 형식 결정"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr ".{{ext}}로 저장"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "최고 화질"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "모든 기기에서 재생"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "왜 이것일까요?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "프로필이 이것을 고른 이유"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "복사됨!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "오디오 트랙은 내장 자막 스트림을 지원하지 않아 자막 포함 방식이 별도 파일로 변경되었습니다."
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "영상 안에 자막을 넣으려면 MKV 파일이 필요하므로 .mkv로 저장됩니다."
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "대신 쿠키 파일 또는 브라우저 사용…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "프로필에서 MP4(H.264)를 요청했지만 이 동영상에는 없어서 가장 가까운 스트림을 선택했습니다."
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "프로필이 스마트 TV(H.264)입니다. 이 영상에는 H.264가 없어 가장 가까운 스트림이 선택되었습니다."
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "프로필에서 {{wanted}}p를 요청했지만 이 동영상에는 그�
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "프로필에서 {{wanted}}p를 요청했지만 이 동영상은 최대 {{picked}}p까지만 제공되어 {{picked}}p를 선택했습니다."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "프로필이 WebM을 요청합니다. 이 영상에서 선택된 스트림에 WebM에 담을 수 없는 {{codec}}이(가) 포함되어 있어 파일 형식은 자동으로 설정됩니다."
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "저품질"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "중간 품질"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "저장 형식"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM에는 {{codec}}을(를) 담을 수 없어 파일 형식을 자동으로 되돌렸습니다."
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "언어 코드 “{{code}}” 사용"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "고급"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "최상"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "프로필 설정을 저장할 수 없습니다."
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "호환성"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "전달 방식"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "파일 형식"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "최적화 대상"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "프로필 이름"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "프로필 이름 및 아이콘"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "원본 오디오"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "자막 다운로드"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "프로필은 언어 코드를 요청하며, 사용 가능 여부는 URL마다 확인됩니다."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "같은 크기에서 가장 선명합니다. 오래된 TV, QuickTime, 일부 편집기에서는 재생되지 않습니다."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "최고 화질"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "TV, 휴대폰, WhatsApp, QuickTime, 영상 편집기에서 재생됩니다. YouTube는 H.264를 1080p까지만 제공합니다."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "스마트 TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "오디오 없는 동영상만"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "동영상, 오디오 없음"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "앱 설정 사용 ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "수동 우선, 이후 자동"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "수동만"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "호환 스테레오"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "최상의 원본이 선택할 항목을 제어합니다. 수동 오디오 행과 M4A/AAC는 명시적으로 유지됩니다."
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "프로필이 원본 오디오를 고를 때의 스테레오 또는 서라운드 설정입니다. 프로필에서 따로 지정할 수 있습니다."
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

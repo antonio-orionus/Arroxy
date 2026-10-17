@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "ファイル名テンプレート"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "自動"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "自動 (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "選ばれたストリームに合わせてファイル形式が決まります。"
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "どのコーデックも格納できます。一部のテレビやスマホでは開けません。"
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "ほとんどの環境で再生できます。VP9 や AV1 の MP4 は古い Mac の QuickTime では開けません。"
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "ブラウザ向けのオープン形式です。VP9 または AV1 と Opus のみ格納できます。"
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "MP4 に入った {{codecs}} は、QuickTime や一部の編集ソフト、一部のテレビで開けないことがあります。H.264 ならどこでも再生できます。"
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "プロフィール"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "スマートTVでは WebM は選べません。H.264 を格納できないためです。"
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM では {{codec}} を格納できません。MKV か MP4 を選んでください。"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "音声"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "セットアップにサポートが必要です"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "このプロフィールの選び方"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC 音声"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "MP4 プレーヤーに対応"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC 音声"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "どこでも再生可能"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1、次に VP9、次に H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "同じサイズで最も鮮明"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "最高フレームレート"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "動きがなめらか"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 映像"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "どの端末でも再生可能"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "SDR より HDR を優先"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "通常の順序"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 ストリーム"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "MP4 ファイル向け"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "ステレオ音声"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "このプロフィール"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "設定から"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "サラウンド音声 (提供されている場合)"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus 音声"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "WebM に対応"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "最大 {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "指定した上限"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "最高解像度"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "上限なし"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "大きいファイル"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "同じ設定でより高精細"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "ファイル形式はストリームに合わせる"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr ".{{ext}} で保存"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "最高画質"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "どの端末でも再生可能"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "なぜこれ?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "プロフィールがこれを選んだ理由"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "コピーしました！"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "Subtitle embed を sidecar に変更しました — 音声トラックには字幕ストリームの埋め込みをサポートしていません。"
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "動画内に字幕を埋め込むには MKV ファイルが必要なので、.mkv で保存されます。"
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "代わりに Cookie ファイルまたはブラウザーを使う…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "プロフィールでは MP4（H.264）が指定されていますが、この動画にはありません。最も近いストリームを選択しました。"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "プロフィールはスマートTV (H.264) です。この動画には H.264 がないため、最も近いストリームが選ばれています。"
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "プロフィールでは {{wanted}}p が指定されていますが、�
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "プロフィールでは {{wanted}}p が指定されていますが、この動画は最大 {{picked}}p のため、{{picked}}p を選択しました。"
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "プロフィールは WebM を指定しています。この動画で選ばれたストリームには WebM に格納できない {{codec}} が含まれるため、ファイル形式は自動になります。"
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "低品質"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "中品質"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "保存形式"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM では {{codec}} を格納できないため、ファイル形式を自動に戻しました。"
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "言語コード「{{code}}」を使用"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "詳細設定"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "最高"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "プロフィール設定を保存できませんでした。"
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "互換性"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "保存方法"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "ファイル形式"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "最適化の対象"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "プロフィール名"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "プロフィール名とアイコン"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "ネイティブ音声"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "字幕のダウンロード"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "プロファイルは言語コードで指定します。利用できるかは URL ごとに判定されます。"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "同じサイズで最も鮮明です。古いテレビ、QuickTime、一部の編集ソフトでは再生できません。"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "最高画質"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "テレビ、スマホ、WhatsApp、QuickTime、動画編集ソフトで再生できます。YouTube が H.264 を提供するのは 1080p までです。"
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "スマートTV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "音声なしの動画のみ"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "動画、音声なし"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "アプリの設定を使う ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "まず手動、次に自動"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "手動のみ"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "互換性重視のステレオ"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "プロフィールがネイティブ音声を選ぶときのステレオまたはサラウンドです。プロフィールごとに上書きできます。"
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

@@ -283,7 +283,7 @@
 				"invalid": "1 से 5000 के बीच कोई पूर्ण संख्या उपयोग करें",
 				"tooltip": "yt-dlp --playlist-end से मैप होता है: Arroxy पिकर बनाते समय केवल इतनी प्लेलिस्ट, चैनल या सर्च प्रविष्टियाँ मांगता है।"
 			},
-			"nativeAudioPreference": {"label": "नेटिव ऑडियो प्राथमिकता", "description": "यह नियंत्रित करता है कि “Best native” क्या चुने। मैन्युअल ऑडियो पंक्तियाँ और M4A/AAC स्पष्ट विकल्प बने रहते हैं।", "compatible": "संगत स्टीरियो", "surround": "सराउंड / Dolby को प्राथमिकता दें"},
+			"nativeAudioPreference": {"label": "नेटिव ऑडियो प्राथमिकता", "description": "जब प्रोफ़ाइल नेटिव ऑडियो चुने, तब स्टीरियो या सराउंड। प्रोफ़ाइल इसे बदल सकती है।", "compatible": "संगत स्टीरियो", "surround": "सराउंड / Dolby को प्राथमिकता दें"},
 			"autoRetry": {"label": "विफल डाउनलोड दोबारा आज़माएँ", "description": "नेटवर्क या सर्वर की गड़बड़ी के बाद अपने आप दोबारा कोशिश करता है, हर प्रयास के बीच ज़्यादा इंतज़ार करते हुए। साइट द्वारा ब्लॉक किए गए डाउनलोड कभी भी अपने आप दोबारा नहीं आज़माए जाते।", "unit": "बार"},
 			"concurrentDownloads": {"label": "एक साथ डाउनलोड", "description": "कतार के कितने आइटम एक ही समय पर डाउनलोड हों। एक साथ ज़्यादा से लंबी कतार जल्दी पूरी होती है, पर साइट द्वारा सीमित किए जाने की संभावना बढ़ती है।", "unit": "डाउनलोड"},
 			"downloadConnections": {"label": "डाउनलोड कनेक्शन", "description": "एक साथ वीडियो के कई हिस्से लाकर बड़े डाउनलोड तेज़ करता है। ज़्यादा मान से साइट द्वारा सीमित किए जाने की संभावना बढ़ती है।", "unit": "कनेक्शन"},
@@ -339,9 +339,10 @@
 			"fit": {
 				"tierBelow": "आपकी प्रोफ़ाइल {{wanted}}p माँगती है। यह वीडियो केवल {{picked}}p तक जाता है, इसलिए {{picked}}p चुना गया है।",
 				"tierAbove": "आपकी प्रोफ़ाइल {{wanted}}p माँगती है। इस वीडियो में इतनी कम क्वालिटी नहीं है, इसलिए {{picked}}p चुना गया है।",
-				"mp4Unavailable": "आपकी प्रोफ़ाइल MP4 (H.264) माँगती है। यह वीडियो इसे उपलब्ध नहीं कराता, इसलिए सबसे नज़दीकी स्ट्रीम चुनी गई है।",
+				"mp4Unavailable": "आपकी प्रोफ़ाइल स्मार्ट TV (H.264) है। यह वीडियो H.264 नहीं देता, इसलिए सबसे नज़दीकी स्ट्रीम चुनी गई है।",
 				"noVideo": "इस लिंक में वीडियो नहीं है, इसलिए ऑडियो चुना गया है।",
-				"subtitlesMissing": "आपकी प्रोफ़ाइल {{languages}} में उपशीर्षक माँगती है। इस वीडियो में वे नहीं हैं।"
+				"subtitlesMissing": "आपकी प्रोफ़ाइल {{languages}} में उपशीर्षक माँगती है। इस वीडियो में वे नहीं हैं।",
+				"webmUnavailable": "आपकी प्रोफ़ाइल WebM माँगती है। इस वीडियो की चुनी स्ट्रीम में {{codec}} है, जिसे WebM नहीं रख सकता, इसलिए फ़ाइल प्रकार स्वतः है।"
 			},
 			"summary": {"lead": "{{profile}} से अन्य:", "subtitlesOff": "उपशीर्षक बंद", "subtitlesAdd_one": "{{count}} भाषा उपलब्ध, जोड़ें", "subtitlesAdd_other": "{{count}} भाषाएँ उपलब्ध, जोड़ें", "reviewAll": "सभी की समीक्षा करें"},
 			"footer": {"reviewOptions": "समीक्षा और विकल्प", "download": "डाउनलोड", "moreActions": "और डाउनलोड विकल्प", "addToQueue": "शुरू किए बिना कतार में जोड़ें", "subtitlesRequired": "कम से कम एक उपशीर्षक भाषा चुनें।"},
@@ -396,7 +397,8 @@
 					"fixUnsafeBody": "Chrome के लॉन्च शॉर्टकट में --disable-features=LockProfileCookieDatabase जोड़ें। चेतावनी: इससे पहले से एन्क्रिप्टेड कुकी अमान्य हो जाएंगी, इसलिए आप हर साइट से साइन आउट हो जाएंगे और फिर से लॉग इन करना होगा।",
 					"docsLinkLabel": "yt-dlp दस्तावेज़ (समस्या #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "इस रूप में सेव करें", "reset": "WebM में {{codec}} नहीं रह सकता, इसलिए फ़ाइल प्रकार वापस स्वतः हो गया।"}
 		},
 		"folder": {"heading": "यहाँ सेव करें", "downloads": "डाउनलोड", "videos": "मूवीज़", "desktop": "डेस्कटॉप", "music": "संगीत", "documents": "दस्तावेज़", "pictures": "चित्र", "home": "होम फ़ोल्डर", "custom": "कस्टम…", "subfolder": {"toggle": "सबफ़ोल्डर में सहेजें", "placeholder": "जैसे lo-fi rips", "invalid": "फ़ोल्डर नाम में अमान्य अक्षर हैं"}},
 		"output": {
@@ -453,7 +455,8 @@
 			"itemsValueBulk_other": "{{total}} URLs में से {{count}}",
 			"profileBreakdownHeading": "इस बैच में प्रोफ़ाइलें",
 			"profileBreakdownCount_one": "{{count}} आइटम",
-			"profileBreakdownCount_other": "{{count}} आइटम"
+			"profileBreakdownCount_other": "{{count}} आइटम",
+			"subtitleEmbedForcesMkv": "वीडियो के अंदर उपशीर्षक के लिए MKV फ़ाइल चाहिए, इसलिए यह डाउनलोड .mkv में सेव होगा।"
 		},
 		"profileEditor": {
 			"dialogTitle": "डाउनलोड प्रोफ़ाइल",
@@ -469,7 +472,6 @@
 			"field": {
 				"nameAndIcon": "प्रोफ़ाइल नाम और आइकन",
 				"icon": "प्रोफ़ाइल आइकन",
-				"compatibility": "संगतता",
 				"resolution": "रिज़ॉल्यूशन",
 				"quality": "गुणवत्ता",
 				"source": "स्रोत",
@@ -479,7 +481,10 @@
 				"subtitleDownloadsDescription": "प्रोफ़ाइल भाषा कोड माँगती हैं; उपलब्धता हर URL के लिए अलग से तय होती है।",
 				"languages": "भाषाएँ",
 				"delivery": "सहेजने का तरीका",
-				"overridePath": "प्रोफ़ाइल ओवरराइड पथ"
+				"overridePath": "प्रोफ़ाइल ओवरराइड पथ",
+				"goal": "इसके लिए ऑप्टिमाइज़ करें",
+				"fileType": "फ़ाइल प्रकार",
+				"nativeAudio": "नेटिव ऑडियो"
 			},
 			"action": {
 				"chooseIcon": "प्रोफ़ाइल आइकन चुनें",
@@ -516,11 +521,16 @@
 			},
 			"icon": {"controls": "नियंत्रण", "download": "डाउनलोड", "video": "वीडियो", "captions": "कैप्शन", "audio": "ऑडियो", "music": "संगीत", "podcast": "पॉडकास्ट", "classes": "कक्षाएँ", "clip": "क्लिप", "archive": "संग्रह"},
 			"audioFormat": {"best": "सर्वोत्तम", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "128K तक", "192": "192K तक", "320": "320K तक", "best": "सर्वोत्तम गुणवत्ता"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "पहले मैनुअल, फिर स्वतः", "manualOnly": "केवल मैनुअल", "autoOnly": "केवल स्वतः निर्मित"},
-			"sponsorBlockHint": {"off": "SponsorBlock नहीं — वीडियो जैसा अपलोड हुआ वैसा ही चलेगा।", "mark": "प्रायोजित खंडों को अध्यायों के रूप में चिह्नित करता है (फ़ाइल नहीं बदलती)।", "remove": "FFmpeg से वीडियो में से प्रायोजित खंड काट देता है।"}
+			"sponsorBlockHint": {"off": "SponsorBlock नहीं — वीडियो जैसा अपलोड हुआ वैसा ही चलेगा।", "mark": "प्रायोजित खंडों को अध्यायों के रूप में चिह्नित करता है (फ़ाइल नहीं बदलती)।", "remove": "FFmpeg से वीडियो में से प्रायोजित खंड काट देता है।"},
+			"advanced": "उन्नत",
+			"goal": {
+				"bestPicture": {"name": "सबसे साफ़ तस्वीर", "tag": "AV1 · VP9", "description": "समान आकार पर सबसे साफ़। पुराने टीवी, QuickTime और कुछ एडिटर इसे नहीं चला पाते।"},
+				"smartTv": {"name": "स्मार्ट TV", "tag": "MP4 · H.264", "description": "टीवी, फ़ोन, WhatsApp, QuickTime और वीडियो एडिटर पर चलता है। YouTube H.264 केवल 1080p तक देता है।"}
+			},
+			"nativeAudio": {"default": "ऐप सेटिंग इस्तेमाल करें ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "लोड हो रहा है…"},
@@ -805,5 +815,39 @@
 			"signOutConfirm": "साइन आउट"
 		},
 		"error": {"proxyTitle": "Explore आपके प्रॉक्सी से कनेक्ट नहीं हो पा रहा", "proxyBody": "सेटिंग्स में प्रॉक्सी जाँचें, फिर दोबारा कोशिश करें।", "loadTitle": "यह पेज लोड नहीं हुआ", "loadBody": "अपना कनेक्शन जाँचें, फिर दोबारा कोशिश करें।", "retry": "फिर से कोशिश करें", "openSettings": "सेटिंग्स खोलें"}
+	},
+	"fileType": {
+		"auto": "स्वतः",
+		"autoValue": "स्वतः (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "चुनी गई स्ट्रीम तय करती हैं कि फ़ाइल किस प्रकार की होगी।", "mp4": "लगभग हर जगह चलता है। पुराने Mac पर QuickTime में MP4 के अंदर VP9 या AV1 नहीं खुलेगा।", "mkv": "कोई भी कोडेक रख सकता है। कुछ टीवी और फ़ोन इसे नहीं खोल पाते।", "webm": "ब्राउज़र के लिए खुला फ़ॉर्मैट। इसमें Opus के साथ केवल VP9 या AV1 रह सकता है।"},
+		"webmBlocked": "WebM में {{codec}} नहीं रह सकता। MKV या MP4 चुनें।",
+		"profileMark": "प्रोफ़ाइल",
+		"smartTvNoWebm": "स्मार्ट TV के साथ WebM उपलब्ध नहीं है: इसमें H.264 नहीं रह सकता।",
+		"mp4Caveat": "MP4 में {{codecs}} QuickTime, कुछ एडिटर और कुछ टीवी पर शायद न खुले। H.264 हर जगह चलता है।"
+	},
+	"selectionOrder": {
+		"editorTitle": "यह प्रोफ़ाइल कैसे चुनती है",
+		"whyTitle": "प्रोफ़ाइल ने इसे क्यों चुना",
+		"whyLabel": "यही क्यों?",
+		"rank": {
+			"h264": {"label": "वीडियो H.264", "reason": "हर डिवाइस पर चलता है"},
+			"mp4Streams": {"label": "MP4 स्ट्रीम", "reason": "MP4 फ़ाइल के लिए तैयार"},
+			"resolutionBest": {"label": "सबसे ऊँचा रिज़ॉल्यूशन", "reason": "कोई सीमा तय नहीं"},
+			"resolution": {"label": "{{tier}}p तक", "reason": "आपकी सीमा"},
+			"fps": {"label": "सबसे ऊँचा फ़्रेम रेट", "reason": "ज़्यादा सहज मोशन"},
+			"hdr": {"label": "SDR से पहले HDR", "reason": "आम क्रम"},
+			"codec": {"label": "AV1, फिर VP9, फिर H.264", "reason": "समान आकार पर सबसे साफ़"},
+			"size": {"label": "बड़ी फ़ाइल", "reason": "समान सेटिंग्स पर ज़्यादा विवरण"},
+			"aacSmartTv": {"label": "ऑडियो AAC", "reason": "हर जगह चलता है"},
+			"aacFileType": {"label": "ऑडियो AAC", "reason": "MP4 प्लेयर के लिए सही"},
+			"opus": {"label": "ऑडियो Opus", "reason": "WebM में फ़िट"},
+			"nativeCompatible": {"label": "स्टीरियो ऑडियो"},
+			"nativeSurround": {"label": "उपलब्ध होने पर सराउंड ऑडियो"},
+			"nativeSource": {"settings": "सेटिंग्स से", "profile": "यह प्रोफ़ाइल"}
+		},
+		"summary": {"goal": {"bestPicture": "सबसे साफ़ तस्वीर", "smartTv": "किसी भी डिवाइस पर चलता है"}, "fileType": {"auto": "स्ट्रीम के हिसाब से फ़ाइल प्रकार", "explicit": ".{{ext}} में सेव होता है"}}
 	}
 }

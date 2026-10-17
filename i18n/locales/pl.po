@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "Szablon nazwy pliku"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automatycznie"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automatycznie (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "O typie pliku decydują wybrane strumienie."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Obsługuje dowolny kodek. Niektóre telewizory i telefony go nie otworzą."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "Działa prawie wszędzie. VP9 lub AV1 w MP4 nie otworzy się w QuickTime na starszych Macach."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Otwarty format dla przeglądarek. Obsługuje tylko VP9 lub AV1 z Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "{{codecs}} w MP4 mogą nie otworzyć się w QuickTime, niektórych edytorach i telewizorach. H.264 działa wszędzie."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM nie jest dostępny dla Smart TV: nie obsługuje H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM nie obsługuje {{codec}}. Wybierz MKV lub MP4."
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Dźwięk"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "Konfiguracja wymaga Twojej pomocy"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Jak ten profil wybiera"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Dźwięk AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "pasuje do odtwarzaczy MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Dźwięk AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "działa wszędzie"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, potem VP9, potem H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "najostrzejszy przy danym rozmiarze"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Najwyższa liczba klatek"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "płynniejszy ruch"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Wideo H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "działa na każdym urządzeniu"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "HDR przed SDR"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "zwykła kolejność"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Strumienie MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "gotowe do pliku MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Dźwięk stereo"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "ten profil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "z Ustawień"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Dźwięk przestrzenny, gdy dostępny"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Dźwięk Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "pasuje do WebM"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Do {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "twój limit"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Najwyższa rozdzielczość"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "brak limitu"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Większy plik"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "więcej szczegółów przy tych samych ustawieniach"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "typ pliku ze strumieni"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "zapis jako .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "najlepszy obraz"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "działa na każdym urządzeniu"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Dlaczego ten?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Dlaczego profil wybrał to"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "Skopiowano!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "Zmieniono osadzanie napisów na osobne pliki — ścieżki dźwiękowe nie obsługują osadzonych strumieni napisów."
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Napisy w wideo wymagają pliku MKV, więc to pobranie zapisze się jako .mkv."
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "Użyj zamiast tego pliku cookie lub przeglądarki…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "Twój profil wymaga MP4 (H.264). To wideo go nie oferuje, więc wybrano najbliższy strumień."
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Twój profil to Smart TV (H.264). Ten film nie oferuje H.264, więc wybrano najbliższy strumień."
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "Twój profil wymaga {{wanted}}p. To wideo nie ma niczego tak małego, wi
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "Twój profil wymaga {{wanted}}p. To wideo dochodzi tylko do {{picked}}p, więc wybrano {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Twój profil wymaga WebM. Wybrane strumienie tego filmu zawierają {{codec}}, którego WebM nie obsługuje, więc typ pliku to Automatycznie."
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "Niska jakość"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Średnia jakość"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Zapisz jako"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM nie obsługuje {{codec}}, więc typ pliku wrócił do Automatycznie."
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "Użyj kodu języka „{{code}}”"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Zaawansowane"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "Najlepszy"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "Nie udało się zapisać ustawień profilu."
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "Zgodność"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "Dostarczanie"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Typ pliku"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optymalizuj pod kątem"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "Nazwa profilu"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "Nazwa i ikona profilu"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Dźwięk źródłowy"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "Pobieranie napisów"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "Profile żądają kodów języków; dostępność jest ustalana osobno dla każdego adresu URL."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Najostrzejszy przy danym rozmiarze. Starsze telewizory, QuickTime i niektóre edytory go nie odtworzą."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Najlepszy obraz"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Działa na telewizorach, telefonach, w WhatsApp, QuickTime i edytorach wideo. YouTube oferuje H.264 tylko do 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "Tylko nieme wideo"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "Wideo bez dźwięku"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "Użyj ustawienia aplikacji ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "Najpierw ręczne, potem automatyczne"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "Tylko ręczne"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "Zgodne stereo"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "Określa wybór opcji Najlepszy format źródłowy. Ręcznie wybrane ścieżki dźwiękowe i M4A/AAC pozostają bez zmian."
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo lub przestrzenny, gdy profil wybiera dźwięk źródłowy. Profil może to zmienić."
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

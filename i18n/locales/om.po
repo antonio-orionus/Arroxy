@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "Bocquu maqaa faayilii"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Ofumaa"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Ofumaa (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Tarreessaawwan filataman gosa faayilii murteessu."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "Bakka hundumaatti jechuun ni taphata. VP9 ykn AV1 MP4 keessa jiru Mac moofaa irratti QuickTime keessatti hin banamu."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Foormaatii banaa browser'iif. VP9 ykn AV1 Opus waliin qofa qabata."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "{{codecs}} MP4 keessa jiru QuickTime, gulaaltota tokko tokkoo fi TV tokko tokko keessatti banamuu dhiisuu danda'a. H.264 bakka hundatti ni taphata."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Piroofaayilii"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM TV smart waliin hin dhiyaatu: H.264 qabachuu hin danda'u."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM {{codec}} qabachuu hin danda'u. MKV ykn MP4 filadhu."
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Sagalee"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "Qindaa'inni gargaarsa kee gaafata"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Piroofaayiliin kun akkamitti filata"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Sagalee AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "taphattoota MP4 waliin wal sima"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Sagalee AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "bakka hundatti ni taphata"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, itti aansee VP9, itti aansee H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "hamma walfakkaatuun baay'ee ifa"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Saffisa fireemii isa ol'aanaa"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "sochii daran lallaafaa"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Viidiyoo H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "meeshaa hunda irratti ni taphata"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "HDR SDR dura"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "tartiiba baramaa"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Tarreessaawwan MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "faayilii MP4f qophaa'aa"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Sagalee isteeriyoo"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "piroofaayilii kana"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "Qindaaʼinoota irraa"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Sagalee surround yoo jiraate"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Sagalee Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "WebM waliin wal sima"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Hanga {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "daangaa kee"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Ifa bal'ina isa ol'aanaa"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "daangaan hin kaa'amne"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Faayilii guddaa"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "qindaaʼina walfakkaataan qulqullina dabalataa"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "gosa faayilii tarreessaawwan irraa"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "akka .{{ext}}tti kuufama"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "suuraa isa caalu"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "meeshaa kamiyyuu irratti ni taphata"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Maaliif kana?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Piroofaayiliin maaliif kana filate"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "Garagalfame!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "Subtitle embed gara sidecar jijjiirameera — tarreewwan sagalee tartiiba subtitle embed hin deeggaran."
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Axxiinni viidiyoo keessatti makaman faayilii MKV barbaadu, kanaaf buufannaan kun akka .mkv tti kuufama."
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "Faayilii cookies ykn browser fayyadami…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "Piroofaayiliin kee MP4 (H.264) gaafata. Viidiyoon kun hin qabu, kanaaf isa dhiyoo filatameera."
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Piroofaayiliin kee TV smart (H.264) dha. Viidiyoon kun H.264 hin dhiyeessu, kanaaf tarreessi isa dhihoo filatameera."
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun kan akka kanatti x
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun hanga {{picked}}p qofa deema, kanaaf {{picked}}p filatameera."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Piroofaayiliin kee WebM gaafata. Tarreessaawwan viidiyoo kanaa filataman {{codec}} of keessaa qabu, kan WebM qabachuu hin dandeenye, kanaaf gosti faayilii Ofumaa dha."
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "Qulqullina gadi aanaa"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Qulqullina giddugaleessaa"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Akka kanaatti kuufama"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera."
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "Koodii afaanii “{{code}}” fayyadami"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Ammayyaa"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "Gaarii"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "Qindaa'inni piroofaayilii olkaa'uun hin danda'amne."
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "Waliisimuu"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "Karaa olkaa'uu"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Gosa faayilii"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Kan dursa argatu"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "Maqaa piroofaayilii"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "Maqaa fi mallattoo piroofaayilii"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Sagalee dhalootaa"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "Buufata ergaa gadii"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Hamma walfakkaatuun baay'ee ifa. TV moofaan, QuickTime fi gulaaltonni tokko tokko taphachiisuu hin danda'an."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Suuraa isa caalu"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "TV smart"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "Viidiyoo sagalee hin qabne qofa"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "Viidiyoo, sagalee malee"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "Qindaaʼina appii fayyadami ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "Duraa harkaan, sana booda ofumaan"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "Harkaan qofa"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "Isteeriyoo walsimu"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu."
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Isteeriyoo ykn surround yeroo piroofaayiliin sagalee dhalootaa filatu. Piroofaayiliin kana jijjiiruu danda'a."
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

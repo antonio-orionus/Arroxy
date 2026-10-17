@@ -313,7 +313,7 @@
 				"invalid": "1 dan 5000 gacha bo'lgan butun son kiriting",
 				"tooltip": "yt-dlp --playlist-end ga to'g'ri keladi: Arroxy tanlagichni qurishdan oldin faqat shu miqdordagi pleylist, kanal yoki qidiruv yozuvlarini so'raydi."
 			},
-			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
+			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "Profil asl audioni tanlaganda stereo yoki surround. Profil buni o'zgartirishi mumkin.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
 			"autoRetry": {"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish", "description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.", "unit": "marta"},
 			"concurrentDownloads": {"label": "Bir vaqtda yuklamalar", "description": "Navbatdagi nechta element bir vaqtda yuklab olinadi. Bir vaqtda ko'proq bo'lsa uzun navbat tezroq tugaydi, lekin sayt sizni cheklash ehtimoli ortadi.", "unit": "yuklama"},
 			"downloadConnections": {"label": "Yuklab olish ulanishlari", "description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.", "unit": "ulanish"},
@@ -374,9 +374,10 @@
 			"fit": {
 				"tierBelow": "Profilingiz {{wanted}}p so'raydi. Bu video faqat {{picked}}p gacha, shuning uchun {{picked}}p tanlandi.",
 				"tierAbove": "Profilingiz {{wanted}}p so'raydi. Bu videoda bunchalik past sifat yo'q, shuning uchun {{picked}}p tanlandi.",
-				"mp4Unavailable": "Profilingiz MP4 (H.264) so'raydi. Bu videoda u yo'q, shuning uchun eng yaqin oqim tanlandi.",
+				"mp4Unavailable": "Profilingiz Aqlli TV (H.264). Bu video H.264 taklif qilmaydi, shuning uchun eng yaqin oqim tanlandi.",
 				"noVideo": "Bu havolada video yo'q, shuning uchun audio tanlandi.",
-				"subtitlesMissing": "Profilingiz quyidagi tillarda subtitr so'raydi: {{languages}}. Bu videoda ular yo'q."
+				"subtitlesMissing": "Profilingiz quyidagi tillarda subtitr so'raydi: {{languages}}. Bu videoda ular yo'q.",
+				"webmUnavailable": "Profilingiz WebM so'raydi. Bu videoning tanlangan oqimlarida {{codec}} bor, uni WebM sig'dira olmaydi, shuning uchun fayl turi Avto."
 			},
 			"summary": {"lead": "Shuningdek, {{profile}} profilidan:", "subtitlesOff": "subtitrlar o'chiq", "subtitlesAdd_one": "{{count}} ta til mavjud, qo'shish", "subtitlesAdd_other": "{{count}} ta til mavjud, qo'shish", "reviewAll": "Hammasini ko'rib chiqish"},
 			"footer": {"reviewOptions": "Ko'rib chiqish va sozlamalar", "download": "Yuklab olish", "moreActions": "Yuklab olishning boshqa variantlari", "addToQueue": "Boshlamasdan navbatga qo'shish", "subtitlesRequired": "Kamida bitta subtitr tilini tanlang."},
@@ -438,7 +439,8 @@
 					"fixUnsafeBody": "Chrome ishga tushirish yorlig'iga --disable-features=LockProfileCookieDatabase qo'shing. Ogohlantirish: bu oldindan shifrlangan cookies ni bekor qiladi, shuning uchun siz barcha saytlardan chiqib ketasiz va qayta kirishingiz kerak bo'ladi.",
 					"docsLinkLabel": "yt-dlp hujjatlar (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Saqlash formati", "reset": "WebM {{codec}} ni sig'dira olmaydi, shuning uchun fayl turi Avto ga qaytdi."}
 		},
 		"folder": {
 			"heading": "Saqlash joyi",
@@ -513,7 +515,8 @@
 			"itemsValueBulk_other": "{{total}} URLdan {{count}} tasi",
 			"profileBreakdownHeading": "Ushbu partiyadagi profillar",
 			"profileBreakdownCount_one": "{{count}} ta element",
-			"profileBreakdownCount_other": "{{count}} ta element"
+			"profileBreakdownCount_other": "{{count}} ta element",
+			"subtitleEmbedForcesMkv": "Video ichidagi subtitrlar uchun MKV fayl kerak, shuning uchun bu yuklab olish .mkv sifatida saqlanadi."
 		},
 		"profileEditor": {
 			"dialogTitle": "Yuklab olish profili",
@@ -529,7 +532,6 @@
 			"field": {
 				"nameAndIcon": "Profil nomi va belgisi",
 				"icon": "Profil belgisi",
-				"compatibility": "Moslik",
 				"resolution": "Ruxsat",
 				"quality": "Sifat",
 				"source": "Manba",
@@ -539,7 +541,10 @@
 				"subtitleDownloadsDescription": "Profillar til kodlarini so'raydi; mavjudligi har bir URL uchun alohida aniqlanadi.",
 				"languages": "Tillar",
 				"delivery": "Saqlash usuli",
-				"overridePath": "Profil almashtirish yo'li"
+				"overridePath": "Profil almashtirish yo'li",
+				"goal": "Optimallash maqsadi",
+				"fileType": "Fayl turi",
+				"nativeAudio": "Asl audio"
 			},
 			"action": {
 				"chooseIcon": "Profil belgisini tanlang",
@@ -576,11 +581,16 @@
 			},
 			"icon": {"controls": "Boshqaruvlar", "download": "Yuklab olish", "video": "Video", "captions": "Taglavhalar", "audio": "Audio", "music": "Musiqa", "podcast": "Podkast", "classes": "Darslar", "clip": "Klip", "archive": "Arxiv"},
 			"audioFormat": {"best": "Eng yaxshi", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "128K gacha", "192": "192K gacha", "320": "320K gacha", "best": "Eng yaxshi sifat"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Avval qo'lda, keyin avtomatik", "manualOnly": "Faqat qo'lda", "autoOnly": "Faqat avtomatik yaratilgan"},
-			"sponsorBlockHint": {"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.", "mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).", "remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."}
+			"sponsorBlockHint": {"off": "SponsorBlock yo'q — video yuklangan holicha ijro etiladi.", "mark": "Homiy qismlarini boblar sifatida belgilaydi (faylni o'zgartirmaydi).", "remove": "FFmpeg yordamida homiy qismlarini videodan kesib tashlaydi."},
+			"advanced": "Kengaytirilgan",
+			"goal": {
+				"bestPicture": {"name": "Eng yaxshi tasvir", "tag": "AV1 · VP9", "description": "Bir xil hajmda eng tiniq. Eski televizorlar, QuickTime va ba'zi muharrirlar uni ijro eta olmaydi."},
+				"smartTv": {"name": "Aqlli TV", "tag": "MP4 · H.264", "description": "Televizorlar, telefonlar, WhatsApp, QuickTime va video muharrirlarida ijro etiladi. YouTube H.264 ni faqat 1080p gacha taklif qiladi."}
+			},
+			"nativeAudio": {"default": "Ilova sozlamasidan foydalanish ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yuklanmoqda…"},
@@ -885,5 +895,44 @@
 			"signOutConfirm": "Chiqish"
 		},
 		"error": {"proxyTitle": "Explore proxy orqali ulana olmaydi", "proxyBody": "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring.", "loadTitle": "Bu sahifa yuklanmadi", "loadBody": "Ulanishni tekshiring, so'ng qayta urinib ko'ring.", "retry": "Qayta urinish", "openSettings": "Sozlamalarni ochish"}
+	},
+	"fileType": {
+		"auto": "Avto",
+		"autoValue": "Avto (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Fayl turini tanlangan oqimlar belgilaydi.",
+			"mp4": "Deyarli hamma joyda ijro etiladi. MP4 ichidagi VP9 yoki AV1 eski Mac'larda QuickTime'da ochilmaydi.",
+			"mkv": "Har qanday kodekni sig'diradi. Ba'zi televizorlar va telefonlar uni ocha olmaydi.",
+			"webm": "Brauzerlar uchun ochiq format. Faqat VP9 yoki AV1 va Opus'ni sig'diradi."
+		},
+		"webmBlocked": "WebM {{codec}} ni sig'dira olmaydi. MKV yoki MP4 ni tanlang.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "Aqlli TV bilan WebM taklif qilinmaydi: u H.264 ni sig'dira olmaydi.",
+		"mp4Caveat": "MP4 ichidagi {{codecs}} QuickTime, ba'zi muharrirlar va ba'zi televizorlarda ochilmasligi mumkin. H.264 hamma joyda ijro etiladi."
+	},
+	"selectionOrder": {
+		"editorTitle": "Bu profil qanday tanlaydi",
+		"whyTitle": "Profil nega buni tanladi",
+		"whyLabel": "Nega aynan shu?",
+		"rank": {
+			"h264": {"label": "H.264 video", "reason": "har qanday qurilmada ijro etiladi"},
+			"mp4Streams": {"label": "MP4 oqimlari", "reason": "MP4 fayl uchun tayyor"},
+			"resolutionBest": {"label": "Eng yuqori ruxsat", "reason": "chegara belgilanmagan"},
+			"resolution": {"label": "{{tier}}p gacha", "reason": "sizning chegarangiz"},
+			"fps": {"label": "Eng yuqori kadr tezligi", "reason": "silliqroq harakat"},
+			"hdr": {"label": "SDR dan oldin HDR", "reason": "odatiy tartib"},
+			"codec": {"label": "AV1, keyin VP9, keyin H.264", "reason": "bir xil hajmda eng tiniq"},
+			"size": {"label": "Kattaroq fayl", "reason": "bir xil sozlamalarda ko'proq tafsilot"},
+			"aacSmartTv": {"label": "AAC audio", "reason": "hamma joyda ijro etiladi"},
+			"aacFileType": {"label": "AAC audio", "reason": "MP4 pleyerlariga mos"},
+			"opus": {"label": "Opus audio", "reason": "WebM ga mos"},
+			"nativeCompatible": {"label": "Stereo audio"},
+			"nativeSurround": {"label": "Mavjud bo'lsa surround audio"},
+			"nativeSource": {"settings": "Sozlamalardan", "profile": "shu profil"}
+		},
+		"summary": {"goal": {"bestPicture": "eng yaxshi tasvir", "smartTv": "har qanday qurilmada ijro etiladi"}, "fileType": {"auto": "fayl turi oqimlardan", "explicit": ".{{ext}} sifatida saqlanadi"}}
 	}
 }

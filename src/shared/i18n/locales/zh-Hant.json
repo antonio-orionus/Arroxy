@@ -283,7 +283,7 @@
 				"invalid": "請使用 1 到 5000 之間的整數",
 				"tooltip": "對應 yt-dlp 的 --playlist-end：Arroxy 建立選取器時只會要求這麼多播放清單、頻道或搜尋項目。"
 			},
-			"nativeAudioPreference": {"label": "原生音訊偏好", "description": "控制「最佳原生格式」的選擇。手動音訊列與 M4A/AAC 仍維持明確選擇。", "compatible": "相容立體聲", "surround": "優先使用環繞音效／Dolby"},
+			"nativeAudioPreference": {"label": "原生音訊偏好", "description": "設定檔選擇原生音訊時使用立體聲還是環繞聲。設定檔可個別覆寫。", "compatible": "相容立體聲", "surround": "優先使用環繞音效／Dolby"},
 			"autoRetry": {"label": "重試失敗的下載", "description": "網路或伺服器發生短暫問題後會自動重試，且每次嘗試之間等待更久。遭網站封鎖的下載絕不會自動重試。", "unit": "次"},
 			"concurrentDownloads": {"label": "同時下載數", "description": "同時下載的佇列項目數。一次下載越多，長佇列完成得越快，但也更可能遭網站限制。", "unit": "個下載"},
 			"downloadConnections": {"label": "下載連線數", "description": "同時擷取影片的多個部分以加快大型下載。數值越高，越可能遭網站限制。", "unit": "個連線"},
@@ -339,9 +339,10 @@
 			"fit": {
 				"tierBelow": "設定檔要求 {{wanted}}p，但此影片最高只有 {{picked}}p，已選取 {{picked}}p。",
 				"tierAbove": "設定檔要求 {{wanted}}p，但此影片沒有這麼低的畫質，已選取 {{picked}}p。",
-				"mp4Unavailable": "設定檔要求 MP4（H.264），但此影片不提供，已選取最接近的串流。",
+				"mp4Unavailable": "你的設定檔是智慧型電視 (H.264)。此影片不提供 H.264，因此選擇了最接近的串流。",
 				"noVideo": "此連結沒有影片，已選取音訊。",
-				"subtitlesMissing": "設定檔要求 {{languages}} 字幕，但此影片沒有。"
+				"subtitlesMissing": "設定檔要求 {{languages}} 字幕，但此影片沒有。",
+				"webmUnavailable": "你的設定檔要求 WebM。此影片所選的串流包含 WebM 無法容納的 {{codec}}，因此檔案類型為自動。"
 			},
 			"summary": {"lead": "{{profile}} 的其他設定：", "subtitlesOff": "字幕已關閉", "subtitlesAdd_one": "有 {{count}} 種語言可用，新增", "subtitlesAdd_other": "有 {{count}} 種語言可用，新增", "reviewAll": "檢視全部"},
 			"footer": {"reviewOptions": "檢視與選項", "download": "下載", "moreActions": "更多下載選項", "addToQueue": "加入佇列但不開始", "subtitlesRequired": "請至少選擇一種字幕語言。"},
@@ -396,7 +397,8 @@
 					"fixUnsafeBody": "將 --disable-features=LockProfileCookieDatabase 加入 Chrome 的啟動捷徑。警告：這會使先前加密的 Cookie 失效，因此所有網站都會將你登出，且必須重新登入。",
 					"docsLinkLabel": "yt-dlp 文件（issue #10927）"
 				}
-			}
+			},
+			"savesAs": {"label": "儲存為", "reset": "WebM 無法容納 {{codec}}，因此檔案類型已改回自動。"}
 		},
 		"folder": {"heading": "儲存至", "downloads": "下載", "videos": "影片", "desktop": "桌面", "music": "音樂", "documents": "文件", "pictures": "圖片", "home": "個人資料夾", "custom": "自訂…", "subfolder": {"toggle": "儲存到子資料夾", "placeholder": "例如 lo-fi 擷取", "invalid": "資料夾名稱含有無效字元"}},
 		"output": {
@@ -453,7 +455,8 @@
 			"itemsValueBulk_other": "{{count}}／{{total}} 個 URL",
 			"profileBreakdownHeading": "此批次中的設定檔",
 			"profileBreakdownCount_one": "{{count}} 個項目",
-			"profileBreakdownCount_other": "{{count}} 個項目"
+			"profileBreakdownCount_other": "{{count}} 個項目",
+			"subtitleEmbedForcesMkv": "將字幕嵌入影片需要 MKV 檔案，因此此下載會儲存為 .mkv。"
 		},
 		"profileEditor": {
 			"dialogTitle": "下載設定檔",
@@ -469,7 +472,6 @@
 			"field": {
 				"nameAndIcon": "設定檔名稱與圖示",
 				"icon": "設定檔圖示",
-				"compatibility": "相容性",
 				"resolution": "解析度",
 				"quality": "畫質",
 				"source": "來源",
@@ -479,7 +481,10 @@
 				"subtitleDownloadsDescription": "設定檔依語言代碼要求字幕；是否可用會針對每個 URL 個別判斷。",
 				"languages": "語言",
 				"delivery": "交付方式",
-				"overridePath": "設定檔覆寫路徑"
+				"overridePath": "設定檔覆寫路徑",
+				"goal": "最佳化目標",
+				"fileType": "檔案類型",
+				"nativeAudio": "原生音訊"
 			},
 			"action": {
 				"chooseIcon": "選擇設定檔圖示",
@@ -511,11 +516,16 @@
 			"mediaMode": {"videoAudio": {"label": "影片 + 音訊", "description": "一般影片檔案"}, "videoOnly": {"label": "影片，無音訊", "description": "僅無聲影片"}, "audioOnly": {"label": "僅音訊", "description": "音樂或 Podcast"}, "subtitlesOnly": {"label": "僅字幕", "description": "僅字幕檔案"}},
 			"icon": {"controls": "控制項", "download": "下載", "video": "影片", "captions": "字幕", "audio": "音訊", "music": "音樂", "podcast": "Podcast", "classes": "課程", "clip": "短片", "archive": "封存"},
 			"audioFormat": {"best": "最佳", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "最高 128K", "192": "最高 192K", "320": "最高 320K", "best": "最佳畫質"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "手動優先，其次自動", "manualOnly": "僅手動", "autoOnly": "僅自動產生"},
-			"sponsorBlockHint": {"off": "不使用 SponsorBlock——影片會依上傳時的內容播放。", "mark": "將贊助片段標示為章節（不修改內容）。", "remove": "使用 FFmpeg 從影片中剪除贊助片段。"}
+			"sponsorBlockHint": {"off": "不使用 SponsorBlock——影片會依上傳時的內容播放。", "mark": "將贊助片段標示為章節（不修改內容）。", "remove": "使用 FFmpeg 從影片中剪除贊助片段。"},
+			"advanced": "進階",
+			"goal": {
+				"bestPicture": {"name": "最佳畫質", "tag": "AV1 · VP9", "description": "相同大小下最清晰。較舊的電視、QuickTime 和部分編輯軟體無法播放。"},
+				"smartTv": {"name": "智慧型電視", "tag": "MP4 · H.264", "description": "可在電視、手機、WhatsApp、QuickTime 和影片編輯軟體中播放。YouTube 僅在 1080p 以下提供 H.264。"}
+			},
+			"nativeAudio": {"default": "使用應用程式設定（{{value}}）"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "載入中…"},
@@ -793,5 +803,39 @@
 			"signOutConfirm": "登出"
 		},
 		"error": {"proxyTitle": "Explore 無法透過你的代理伺服器連線", "proxyBody": "請在設定中檢查代理伺服器，然後再試一次。", "loadTitle": "此頁面無法載入", "loadBody": "請檢查網路連線，然後再試一次。", "retry": "重試", "openSettings": "開啟設定"}
+	},
+	"fileType": {
+		"auto": "自動",
+		"autoValue": "自動 (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "由所選的串流決定檔案類型。", "mp4": "幾乎所有裝置都能播放。MP4 中的 VP9 或 AV1 無法在較舊 Mac 的 QuickTime 中開啟。", "mkv": "可容納任何編碼。部分電視和手機無法開啟。", "webm": "適用於瀏覽器的開放格式。只能容納 VP9 或 AV1 搭配 Opus。"},
+		"webmBlocked": "WebM 無法容納 {{codec}}。請選擇 MKV 或 MP4。",
+		"profileMark": "設定檔",
+		"smartTvNoWebm": "智慧型電視不提供 WebM：它無法容納 H.264。",
+		"mp4Caveat": "MP4 中的 {{codecs}} 可能無法在 QuickTime、部分編輯軟體和部分電視上開啟。H.264 隨處都能播放。"
+	},
+	"selectionOrder": {
+		"editorTitle": "此設定檔的選擇方式",
+		"whyTitle": "設定檔為什麼選了這個",
+		"whyLabel": "為什麼選這個？",
+		"rank": {
+			"h264": {"label": "H.264 影片", "reason": "所有裝置都能播放"},
+			"mp4Streams": {"label": "MP4 串流", "reason": "適合 MP4 檔案"},
+			"resolutionBest": {"label": "最高解析度", "reason": "未設上限"},
+			"resolution": {"label": "最高 {{tier}}p", "reason": "你的上限"},
+			"fps": {"label": "最高影格率", "reason": "動作更流暢"},
+			"hdr": {"label": "HDR 優先於 SDR", "reason": "一般順序"},
+			"codec": {"label": "先 AV1，再 VP9，最後 H.264", "reason": "相同大小下最清晰"},
+			"size": {"label": "較大的檔案", "reason": "相同設定下細節更多"},
+			"aacSmartTv": {"label": "AAC 音訊", "reason": "隨處都能播放"},
+			"aacFileType": {"label": "AAC 音訊", "reason": "適用於 MP4 播放器"},
+			"opus": {"label": "Opus 音訊", "reason": "適用於 WebM"},
+			"nativeCompatible": {"label": "立體聲音訊"},
+			"nativeSurround": {"label": "環繞音訊（若有提供）"},
+			"nativeSource": {"settings": "來自設定", "profile": "此設定檔"}
+		},
+		"summary": {"goal": {"bestPicture": "最佳畫質", "smartTv": "所有裝置都能播放"}, "fileType": {"auto": "檔案類型由串流決定", "explicit": "儲存為 .{{ext}}"}}
 	}
 }

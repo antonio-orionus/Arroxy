@@ -430,6 +430,58 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.overrides[0]?.media).toMatchObject({goal: 'best-picture', tier: '720'})
 	})
 
+	describe('backup before profiles are converted', () => {
+		const legacyMedia = {kind: 'video-audio', codec: 'mp4', tiers: ['720'], audio: {format: 'm4a'}}
+		const BACKUP = 'settings.before-selection-order.json'
+
+		async function writeSettings(userData: string, media: unknown): Promise<string> {
+			const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+			const text = JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'mine'}, custom: [{...base, id: 'mine', name: 'Mine', media, createdAt: NOW, updatedAt: NOW}], overrides: []}})
+			await fs.writeFile(path.join(userData, 'settings.json'), text, 'utf-8')
+			return text
+		}
+
+		it('keeps the settings file as it was before rewriting old-shape profiles', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-'))
+			const original = await writeSettings(userData, legacyMedia)
+
+			const store = new SettingsStore(userData, baseDefaults)
+
+			expect(store.getSync().profiles.custom[0]?.media).toMatchObject({goal: 'smart-tv', tier: '720'})
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+			expect(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).not.toContain('"codec"')
+		})
+
+		it('never overwrites an earlier backup', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-keep-'))
+			await fs.writeFile(path.join(userData, BACKUP), 'first backup', 'utf-8')
+			await writeSettings(userData, legacyMedia)
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe('first backup')
+		})
+
+		it('makes no backup when every profile is already in the new shape', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-none-'))
+			await writeSettings(userData, {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
+
+			new SettingsStore(userData, baseDefaults)
+
+			await expect(fs.access(path.join(userData, BACKUP))).rejects.toThrow()
+		})
+
+		it('makes a second backup of nothing: a store opened again after the conversion leaves the first one alone', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-twice-'))
+			const original = await writeSettings(userData, legacyMedia)
+			new SettingsStore(userData, baseDefaults)
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+		})
+	})
+
 	// One unparseable profile must not cost the user every other profile they
 	// built. Whole-object validation would reset the entire bucket, including
 	// the active selection, with nothing on disk or in the log to explain it.

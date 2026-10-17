@@ -283,7 +283,7 @@
 				"invalid": "1부터 5000까지의 정수를 사용하세요",
 				"tooltip": "yt-dlp --playlist-end에 해당합니다. Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
 			},
-			"nativeAudioPreference": {"label": "원본 오디오 환경설정", "description": "최상의 원본이 선택할 항목을 제어합니다. 수동 오디오 행과 M4A/AAC는 명시적으로 유지됩니다.", "compatible": "호환 스테레오", "surround": "서라운드 / Dolby 선호"},
+			"nativeAudioPreference": {"label": "원본 오디오 환경설정", "description": "프로필이 원본 오디오를 고를 때의 스테레오 또는 서라운드 설정입니다. 프로필에서 따로 지정할 수 있습니다.", "compatible": "호환 스테레오", "surround": "서라운드 / Dolby 선호"},
 			"autoRetry": {"label": "실패한 다운로드 재시도", "description": "네트워크나 서버 문제가 발생하면 재시도 간격을 늘려 자동으로 다시 시도합니다. 사이트에서 차단한 다운로드는 자동으로 재시도하지 않습니다.", "unit": "회"},
 			"concurrentDownloads": {"label": "동시 다운로드", "description": "대기열에서 동시에 다운로드할 항목 수입니다. 동시에 더 많이 받으면 긴 대기열이 빨리 끝나지만 사이트에서 제한할 가능성이 커집니다.", "unit": "다운로드"},
 			"downloadConnections": {"label": "다운로드 연결", "description": "동영상의 여러 부분을 동시에 받아 대용량 다운로드 속도를 높입니다. 값이 높을수록 사이트에서 제한할 가능성이 커집니다.", "unit": "연결"},
@@ -344,9 +344,10 @@
 			"fit": {
 				"tierBelow": "프로필에서 {{wanted}}p를 요청했지만 이 동영상은 최대 {{picked}}p까지만 제공되어 {{picked}}p를 선택했습니다.",
 				"tierAbove": "프로필에서 {{wanted}}p를 요청했지만 이 동영상에는 그보다 낮은 화질이 없어 {{picked}}p를 선택했습니다.",
-				"mp4Unavailable": "프로필에서 MP4(H.264)를 요청했지만 이 동영상에는 없어서 가장 가까운 스트림을 선택했습니다.",
+				"mp4Unavailable": "프로필이 스마트 TV(H.264)입니다. 이 영상에는 H.264가 없어 가장 가까운 스트림이 선택되었습니다.",
 				"noVideo": "이 링크에는 영상이 없어 오디오를 선택했습니다.",
-				"subtitlesMissing": "프로필에서 {{languages}} 자막을 요청했지만 이 동영상에는 없습니다."
+				"subtitlesMissing": "프로필에서 {{languages}} 자막을 요청했지만 이 동영상에는 없습니다.",
+				"webmUnavailable": "프로필이 WebM을 요청합니다. 이 영상에서 선택된 스트림에 WebM에 담을 수 없는 {{codec}}이(가) 포함되어 있어 파일 형식은 자동으로 설정됩니다."
 			},
 			"summary": {"lead": "{{profile}}의 다른 설정:", "subtitlesOff": "자막 끄기", "subtitlesAdd_one": "{{count}}개 언어 사용 가능, 추가", "subtitlesAdd_other": "{{count}}개 언어 사용 가능, 추가", "reviewAll": "모두 검토"},
 			"footer": {"reviewOptions": "검토 및 옵션", "download": "다운로드", "moreActions": "다운로드 옵션 더 보기", "addToQueue": "시작하지 않고 대기열에 추가", "subtitlesRequired": "자막 언어를 하나 이상 선택하세요."},
@@ -401,7 +402,8 @@
 					"fixUnsafeBody": "Chrome 실행 바로 가기에 --disable-features=LockProfileCookieDatabase를 추가하세요. 경고: 기존에 암호화된 쿠키가 무효화되어 모든 사이트에서 로그아웃되며 다시 로그인해야 합니다.",
 					"docsLinkLabel": "yt-dlp 문서(이슈 #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "저장 형식", "reset": "WebM에는 {{codec}}을(를) 담을 수 없어 파일 형식을 자동으로 되돌렸습니다."}
 		},
 		"folder": {
 			"heading": "저장 위치",
@@ -469,7 +471,8 @@
 			"itemsValueBulk_other": "{{total}}개 URL 중 {{count}}개",
 			"profileBreakdownHeading": "이 일괄 작업의 프로필",
 			"profileBreakdownCount_one": "{{count}}개 항목",
-			"profileBreakdownCount_other": "{{count}}개 항목"
+			"profileBreakdownCount_other": "{{count}}개 항목",
+			"subtitleEmbedForcesMkv": "영상 안에 자막을 넣으려면 MKV 파일이 필요하므로 .mkv로 저장됩니다."
 		},
 		"profileEditor": {
 			"dialogTitle": "다운로드 프로필",
@@ -485,7 +488,6 @@
 			"field": {
 				"nameAndIcon": "프로필 이름 및 아이콘",
 				"icon": "프로필 아이콘",
-				"compatibility": "호환성",
 				"resolution": "해상도",
 				"quality": "화질",
 				"source": "소스",
@@ -495,7 +497,10 @@
 				"subtitleDownloadsDescription": "프로필은 언어 코드를 요청하며, 사용 가능 여부는 URL마다 확인됩니다.",
 				"languages": "언어",
 				"delivery": "전달 방식",
-				"overridePath": "프로필 재정의 경로"
+				"overridePath": "프로필 재정의 경로",
+				"goal": "최적화 대상",
+				"fileType": "파일 형식",
+				"nativeAudio": "원본 오디오"
 			},
 			"action": {
 				"chooseIcon": "프로필 아이콘 선택",
@@ -532,11 +537,16 @@
 			},
 			"icon": {"controls": "컨트롤", "download": "다운로드", "video": "동영상", "captions": "캡션", "audio": "오디오", "music": "음악", "podcast": "팟캐스트", "classes": "강의", "clip": "클립", "archive": "보관"},
 			"audioFormat": {"best": "최상", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "최대 128K", "192": "최대 192K", "320": "최대 320K", "best": "최고 화질"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "수동 우선, 이후 자동", "manualOnly": "수동만", "autoOnly": "자동 생성만"},
-			"sponsorBlockHint": {"off": "SponsorBlock 없음 — 동영상이 업로드된 그대로 재생됩니다.", "mark": "스폰서 구간을 챕터로 표시합니다(비파괴).", "remove": "FFmpeg로 동영상에서 스폰서 구간을 잘라냅니다."}
+			"sponsorBlockHint": {"off": "SponsorBlock 없음 — 동영상이 업로드된 그대로 재생됩니다.", "mark": "스폰서 구간을 챕터로 표시합니다(비파괴).", "remove": "FFmpeg로 동영상에서 스폰서 구간을 잘라냅니다."},
+			"advanced": "고급",
+			"goal": {
+				"bestPicture": {"name": "최고 화질", "tag": "AV1 · VP9", "description": "같은 크기에서 가장 선명합니다. 오래된 TV, QuickTime, 일부 편집기에서는 재생되지 않습니다."},
+				"smartTv": {"name": "스마트 TV", "tag": "MP4 · H.264", "description": "TV, 휴대폰, WhatsApp, QuickTime, 영상 편집기에서 재생됩니다. YouTube는 H.264를 1080p까지만 제공합니다."}
+			},
+			"nativeAudio": {"default": "앱 설정 사용 ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "불러오는 중…"},
@@ -826,5 +836,44 @@
 			"signOutConfirm": "로그아웃"
 		},
 		"error": {"proxyTitle": "Explore가 프록시를 통해 연결할 수 없습니다", "proxyBody": "설정에서 프록시를 확인한 다음 다시 시도하세요.", "loadTitle": "이 페이지를 불러오지 못했습니다", "loadBody": "연결을 확인한 다음 다시 시도하세요.", "retry": "다시 시도", "openSettings": "설정 열기"}
+	},
+	"fileType": {
+		"auto": "자동",
+		"autoValue": "자동 (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "선택된 스트림에 따라 파일 형식이 정해집니다.",
+			"mp4": "거의 어디서나 재생됩니다. MP4에 담긴 VP9 또는 AV1은 오래된 Mac의 QuickTime에서 열리지 않습니다.",
+			"mkv": "모든 코덱을 담을 수 있습니다. 일부 TV와 휴대폰에서는 열리지 않습니다.",
+			"webm": "브라우저용 오픈 형식입니다. VP9 또는 AV1과 Opus만 담을 수 있습니다."
+		},
+		"webmBlocked": "WebM에는 {{codec}}을(를) 담을 수 없습니다. MKV 또는 MP4를 선택하세요.",
+		"profileMark": "프로필",
+		"smartTvNoWebm": "스마트 TV에서는 WebM을 선택할 수 없습니다. H.264를 담을 수 없기 때문입니다.",
+		"mp4Caveat": "MP4에 담긴 {{codecs}}은(는) QuickTime, 일부 편집기, 일부 TV에서 열리지 않을 수 있습니다. H.264는 어디서나 재생됩니다."
+	},
+	"selectionOrder": {
+		"editorTitle": "이 프로필이 고르는 방식",
+		"whyTitle": "프로필이 이것을 고른 이유",
+		"whyLabel": "왜 이것일까요?",
+		"rank": {
+			"h264": {"label": "H.264 비디오", "reason": "모든 기기에서 재생"},
+			"mp4Streams": {"label": "MP4 스트림", "reason": "MP4 파일에 적합"},
+			"resolutionBest": {"label": "최고 해상도", "reason": "한도 없음"},
+			"resolution": {"label": "최대 {{tier}}p", "reason": "설정한 한도"},
+			"fps": {"label": "가장 높은 프레임 속도", "reason": "더 부드러운 움직임"},
+			"hdr": {"label": "SDR보다 HDR 우선", "reason": "일반적인 순서"},
+			"codec": {"label": "AV1, 그다음 VP9, 그다음 H.264", "reason": "같은 크기에서 가장 선명"},
+			"size": {"label": "더 큰 파일", "reason": "같은 설정에서 더 세밀함"},
+			"aacSmartTv": {"label": "AAC 오디오", "reason": "어디서나 재생"},
+			"aacFileType": {"label": "AAC 오디오", "reason": "MP4 플레이어와 호환"},
+			"opus": {"label": "Opus 오디오", "reason": "WebM과 호환"},
+			"nativeCompatible": {"label": "스테레오 오디오"},
+			"nativeSurround": {"label": "서라운드 오디오 (제공되는 경우)"},
+			"nativeSource": {"settings": "설정에서", "profile": "이 프로필"}
+		},
+		"summary": {"goal": {"bestPicture": "최고 화질", "smartTv": "모든 기기에서 재생"}, "fileType": {"auto": "스트림에 따라 파일 형식 결정", "explicit": ".{{ext}}로 저장"}}
 	}
 }

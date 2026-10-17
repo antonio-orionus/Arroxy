@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "Πρότυπο ονόματος αρχείου"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Αυτόματο"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Αυτόματο (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Οι επιλεγμένες ροές καθορίζουν τον τύπο αρχείου."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Υποστηρίζει οποιονδήποτε κωδικοποιητή. Ορισμένες τηλεοράσεις και κινητά δεν μπορούν να το ανοίξουν."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "Παίζει σχεδόν παντού. Το VP9 ή AV1 σε MP4 δεν ανοίγει στο QuickTime σε παλαιότερα Mac."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Ανοιχτή μορφή για προγράμματα περιήγησης. Υποστηρίζει μόνο VP9 ή AV1 με Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "Το {{codecs}} σε MP4 μπορεί να μην ανοίγει στο QuickTime, σε ορισμένους επεξεργαστές και σε ορισμένες τηλεοράσεις. Το H.264 παίζει παντού."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Προφίλ"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "Το WebM δεν προσφέρεται με Έξυπνη TV: δεν υποστηρίζει H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "Το WebM δεν υποστηρίζει {{codec}}. Επιλέξτε MKV ή MP4."
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "Ήχος"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "Η ρύθμιση χρειάζεται τη βοήθειά σου"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Πώς επιλέγει αυτό το προφίλ"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Ήχος AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "ταιριάζει σε προγράμματα αναπαραγωγής MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Ήχος AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "παίζει παντού"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, μετά VP9, μετά H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "η πιο καθαρή εικόνα στο ίδιο μέγεθος"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Μέγιστος ρυθμός καρέ"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "πιο ομαλή κίνηση"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Βίντεο H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "παίζει σε κάθε συσκευή"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "HDR πριν από SDR"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "η συνήθης σειρά"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Ροές MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "έτοιμες για αρχείο MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Στερεοφωνικός ήχος"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "αυτό το προφίλ"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "από τις Ρυθμίσεις"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Ήχος surround όταν προσφέρεται"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Ήχος Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "ταιριάζει στο WebM"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Έως {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "το όριό σας"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Μέγιστη ανάλυση"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "χωρίς όριο"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Μεγαλύτερο αρχείο"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "περισσότερη λεπτομέρεια με τις ίδιες ρυθμίσεις"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "τύπος αρχείου από τις ροές"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "αποθήκευση ως .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "καλύτερη εικόνα"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "παίζει σε κάθε συσκευή"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Γιατί αυτό;"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Γιατί το προφίλ επέλεξε αυτό"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "Αντιγράφηκε!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "Το embed υποτίτλων άλλαξε σε sidecar — τα κομμάτια ήχου δεν υποστηρίζουν ενσωματωμένες ροές υποτίτλων."
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Οι υπότιτλοι μέσα στο βίντεο απαιτούν αρχείο MKV, οπότε αυτή η λήψη αποθηκεύεται ως .mkv."
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "Χρήση αρχείου cookies ή προγράμματος περιήγησης…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "Το προφίλ σας ζητά MP4 (H.264). Αυτό το βίντεο δεν το προσφέρει, γι' αυτό επιλέγεται η πλησιέστερη ροή."
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Το προφίλ σας είναι Έξυπνη TV (H.264). Αυτό το βίντεο δεν προσφέρει H.264, οπότε επιλέχθηκε η πλησιέστερη ροή."
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "Το προφίλ σας ζητά {{wanted}}p. Αυτό το βίντε�
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "Το προφίλ σας ζητά {{wanted}}p. Αυτό το βίντεο φτάνει μόνο έως {{picked}}p, γι' αυτό επιλέγεται το {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Το προφίλ σας ζητά WebM. Οι επιλεγμένες ροές αυτού του βίντεο περιλαμβάνουν {{codec}}, που το WebM δεν υποστηρίζει, οπότε ο τύπος αρχείου είναι Αυτόματο."
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "Χαμηλή ποιότητα"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "Μεσαία ποιότητα"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Αποθήκευση ως"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "Το WebM δεν υποστηρίζει {{codec}}, οπότε ο τύπος αρχείου επανήλθε σε Αυτόματο."
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "Χρήση του κωδικού γλώσσας «{{code}}»"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Για προχωρημένους"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "Καλύτερο"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "Δεν ήταν δυνατή η αποθήκευση των ρυθμίσεων προφίλ."
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "Συμβατότητα"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "Τρόπος αποθήκευσης"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Τύπος αρχείου"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Βελτιστοποίηση για"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "Όνομα προφίλ"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "Όνομα και εικονίδιο προφίλ"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Εγγενής ήχος"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "Λήψεις υποτίτλων"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "Τα προφίλ ζητούν κωδικούς γλώσσας· η διαθεσιμότητα ελέγχεται για κάθε URL ξεχωριστά."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Η πιο καθαρή εικόνα στο ίδιο μέγεθος. Παλαιότερες τηλεοράσεις, το QuickTime και ορισμένοι επεξεργαστές δεν μπορούν να το αναπαραγάγουν."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Καλύτερη εικόνα"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Παίζει σε τηλεοράσεις, κινητά, WhatsApp, QuickTime και προγράμματα επεξεργασίας βίντεο. Το YouTube προσφέρει H.264 μόνο έως 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Έξυπνη TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "Μόνο βίντεο χωρίς ήχο"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "Βίντεο, χωρίς ήχο"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "Χρήση ρύθμισης εφαρμογής ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "Πρώτα χειροκίνητα, μετά αυτόματα"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "Μόνο χειροκίνητα"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "Συμβατό στερεοφωνικό"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "Ελέγχει τι επιλέγει το «Καλύτερο εγγενές». Οι χειροκίνητες γραμμές ήχου και τα M4A/AAC παραμένουν ρητές επιλογές."
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Στερεοφωνικός ή surround ήχος όταν ένα προφίλ επιλέγει εγγενή ήχο. Ένα προφίλ μπορεί να την αντικαταστήσει."
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

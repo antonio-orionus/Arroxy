@@ -305,7 +305,7 @@
 				"invalid": "استخدم عدداً صحيحاً من 1 إلى 5000",
 				"tooltip": "يُعيَّن إلى yt-dlp --playlist-end: يطلب Arroxy هذا العدد فقط من إدخالات القائمة أو القناة أو البحث عند بناء أداة الاختيار."
 			},
-			"nativeAudioPreference": {"label": "تفضيل الصوت الأصلي", "description": "يتحكم فيما يختاره «أفضل أصلي». تبقى صفوف الصوت اليدوية وM4A/AAC اختيارات صريحة.", "compatible": "ستيريو متوافق", "surround": "تفضيل المحيطي / Dolby"},
+			"nativeAudioPreference": {"label": "تفضيل الصوت الأصلي", "description": "ستيريو أو محيطي عندما يختار ملف التعريف الصوت الأصلي. يمكن لملف التعريف تجاوزه.", "compatible": "ستيريو متوافق", "surround": "تفضيل المحيطي / Dolby"},
 			"autoRetry": {"label": "إعادة محاولة التنزيلات الفاشلة", "description": "يحاول تلقائيًا مرة أخرى بعد عطل في الشبكة أو الخادم، مع انتظار أطول بين كل محاولة. التنزيلات التي يحظرها الموقع لا يُعاد محاولتها تلقائيًا أبدًا.", "unit": "مرات"},
 			"concurrentDownloads": {"label": "التنزيلات في وقت واحد", "description": "كم عدد العناصر في قائمة الانتظار التي تُنزَّل في الوقت نفسه. المزيد دفعة واحدة ينهي قائمة طويلة أسرع، لكنه يزيد احتمال أن يقيّدك الموقع.", "unit": "تنزيلات"},
 			"downloadConnections": {"label": "اتصالات التنزيل", "description": "يسرّع التنزيلات الكبيرة عبر جلب عدة أجزاء من الفيديو في وقت واحد. القيم الأعلى تزيد احتمال أن يقيّدك الموقع.", "unit": "اتصالات"},
@@ -366,9 +366,10 @@
 			"fit": {
 				"tierBelow": "يطلب ملف التعريف الخاص بك {{wanted}}p. يصل هذا الفيديو إلى {{picked}}p فقط، لذا تم اختيار {{picked}}p.",
 				"tierAbove": "يطلب ملف التعريف الخاص بك {{wanted}}p. لا يوجد في هذا الفيديو ما هو بهذا الحجم الصغير، لذا تم اختيار {{picked}}p.",
-				"mp4Unavailable": "يطلب ملف التعريف الخاص بك MP4 (H.264). هذا الفيديو لا يوفره، لذا تم اختيار أقرب صيغة.",
+				"mp4Unavailable": "ملف التعريف لديك هو التلفاز الذكي (H.264). لا يوفر هذا الفيديو H.264، لذا حُدد أقرب تدفق.",
 				"noVideo": "لا يحتوي هذا الرابط على فيديو، لذا تم اختيار الصوت.",
-				"subtitlesMissing": "يطلب ملف التعريف الخاص بك ترجمات بلغة {{languages}}. هذا الفيديو لا يحتويها."
+				"subtitlesMissing": "يطلب ملف التعريف الخاص بك ترجمات بلغة {{languages}}. هذا الفيديو لا يحتويها.",
+				"webmUnavailable": "يطلب ملف التعريف لديك WebM. تتضمن التدفقات المختارة لهذا الفيديو {{codec}} ولا يدعمه WebM، لذا أصبح نوع الملف تلقائيًا."
 			},
 			"summary": {"lead": "أيضًا من {{profile}}:", "subtitlesOff": "الترجمات متوقفة", "subtitlesAdd_one": "{{count}} لغة متاحة، أضِف", "subtitlesAdd_other": "{{count}} لغات متاحة، أضِف", "reviewAll": "مراجعة الكل"},
 			"footer": {"reviewOptions": "المراجعة والخيارات", "download": "تنزيل", "moreActions": "المزيد من خيارات التنزيل", "addToQueue": "إضافة إلى قائمة الانتظار دون بدء", "subtitlesRequired": "اختر لغة ترجمة واحدة على الأقل."},
@@ -423,7 +424,8 @@
 					"fixUnsafeBody": "أضف --disable-features=LockProfileCookieDatabase إلى اختصار تشغيل Chrome. تحذير: سيؤدي ذلك إلى إبطال الكوكيز المشفّرة مسبقاً، وستُسجَّل خارجاً من جميع المواقع وستحتاج إلى تسجيل الدخول من جديد.",
 					"docsLinkLabel": "وثائق yt-dlp (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "يُحفظ كـ", "reset": "لا يدعم WebM الترميز {{codec}}، لذا عاد نوع الملف إلى تلقائي."}
 		},
 		"folder": {
 			"heading": "الحفظ في",
@@ -491,7 +493,8 @@
 			"itemsValueBulk_other": "{{count}} من {{total}} روابط",
 			"profileBreakdownHeading": "ملفات التنزيل في هذه الدفعة",
 			"profileBreakdownCount_one": "{{count}} عنصر",
-			"profileBreakdownCount_other": "{{count}} عناصر"
+			"profileBreakdownCount_other": "{{count}} عناصر",
+			"subtitleEmbedForcesMkv": "الترجمات داخل الفيديو تحتاج ملف MKV، لذا يُحفظ هذا التنزيل بصيغة .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "ملف التنزيل",
@@ -507,7 +510,6 @@
 			"field": {
 				"nameAndIcon": "اسم الملف وأيقونته",
 				"icon": "أيقونة الملف",
-				"compatibility": "التوافق",
 				"resolution": "الدقة",
 				"quality": "الجودة",
 				"source": "المصدر",
@@ -517,7 +519,10 @@
 				"subtitleDownloadsDescription": "تطلب الملفات الشخصية رموز اللغات؛ ويُحدَّد توفّرها لكل رابط على حدة.",
 				"languages": "اللغات",
 				"delivery": "طريقة الحفظ",
-				"overridePath": "مسار تجاوز الملف"
+				"overridePath": "مسار تجاوز الملف",
+				"goal": "تحسين من أجل",
+				"fileType": "نوع الملف",
+				"nativeAudio": "الصوت الأصلي"
 			},
 			"action": {
 				"chooseIcon": "اختيار أيقونة الملف",
@@ -549,11 +554,16 @@
 			"mediaMode": {"videoAudio": {"label": "فيديو + صوت", "description": "ملفات فيديو عادية"}, "videoOnly": {"label": "فيديو، بدون صوت", "description": "فيديو صامت فقط"}, "audioOnly": {"label": "صوت فقط", "description": "موسيقى أو بودكاست"}, "subtitlesOnly": {"label": "ترجمات فقط", "description": "ملفات ترجمة فقط"}},
 			"icon": {"controls": "أدوات التحكم", "download": "تنزيل", "video": "فيديو", "captions": "ترجمات", "audio": "صوت", "music": "موسيقى", "podcast": "بودكاست", "classes": "دروس", "clip": "مقطع", "archive": "أرشيف"},
 			"audioFormat": {"best": "الأفضل", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "حتى 128K", "192": "حتى 192K", "320": "حتى 320K", "best": "أفضل جودة"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "يدوية أولاً ثم تلقائية", "manualOnly": "يدوية فقط", "autoOnly": "تلقائية فقط"},
-			"sponsorBlockHint": {"off": "بدون SponsorBlock — يُشغَّل الفيديو كما رُفع.", "mark": "يضع علامات على المقاطع الإعلانية كفصول (دون تعديل الملف).", "remove": "يقصّ المقاطع الإعلانية من الفيديو باستخدام FFmpeg."}
+			"sponsorBlockHint": {"off": "بدون SponsorBlock — يُشغَّل الفيديو كما رُفع.", "mark": "يضع علامات على المقاطع الإعلانية كفصول (دون تعديل الملف).", "remove": "يقصّ المقاطع الإعلانية من الفيديو باستخدام FFmpeg."},
+			"advanced": "متقدم",
+			"goal": {
+				"bestPicture": {"name": "أفضل صورة", "tag": "AV1 · VP9", "description": "الأوضح عند الحجم نفسه. لا تشغّله أجهزة التلفاز الأقدم وQuickTime وبعض المحررات."},
+				"smartTv": {"name": "تلفاز ذكي", "tag": "MP4 · H.264", "description": "يعمل على أجهزة التلفاز والهواتف وWhatsApp وQuickTime ومحررات الفيديو. يوفر YouTube ترميز H.264 حتى 1080p فقط."}
+			},
+			"nativeAudio": {"default": "استخدم إعداد التطبيق ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "جارٍ التحميل…"},
@@ -838,5 +848,39 @@
 			"signOutConfirm": "تسجيل الخروج"
 		},
 		"error": {"proxyTitle": "لا يمكن لـ Explore الاتصال عبر الوكيل الخاص بك", "proxyBody": "تحقق من الوكيل في الإعدادات ثم حاول مرة أخرى.", "loadTitle": "تعذّر تحميل هذه الصفحة", "loadBody": "تحقق من اتصالك ثم حاول مرة أخرى.", "retry": "إعادة المحاولة", "openSettings": "افتح الإعدادات"}
+	},
+	"fileType": {
+		"auto": "تلقائي",
+		"autoValue": "تلقائي (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "تحدد التدفقات المختارة نوع الملف.", "mp4": "يعمل تقريبًا على كل الأجهزة. لن يُفتح VP9 أو AV1 داخل MP4 في QuickTime على أجهزة Mac الأقدم.", "mkv": "يدعم أي ترميز. قد لا تفتحه بعض أجهزة التلفاز والهواتف.", "webm": "يناسب المتصفحات وهو صيغة مفتوحة. يدعم VP9 أو AV1 مع Opus فقط."},
+		"webmBlocked": "لا يدعم WebM الترميز {{codec}}. اختر MKV أو MP4.",
+		"profileMark": "ملف التعريف",
+		"smartTvNoWebm": "لا يتوفر WebM مع التلفاز الذكي لأنه لا يدعم H.264.",
+		"mp4Caveat": "قد لا يُفتح {{codecs}} داخل MP4 في QuickTime وبعض المحررات وأجهزة التلفاز. يعمل H.264 على كل الأجهزة."
+	},
+	"selectionOrder": {
+		"editorTitle": "كيف يختار ملف التعريف هذا",
+		"whyTitle": "لماذا اختار ملف التعريف هذا",
+		"whyLabel": "لماذا هذا؟",
+		"rank": {
+			"h264": {"label": "فيديو H.264", "reason": "يعمل على كل الأجهزة"},
+			"mp4Streams": {"label": "تدفقات MP4", "reason": "جاهزة لملف MP4"},
+			"resolutionBest": {"label": "أعلى دقة", "reason": "بلا حد محدد"},
+			"resolution": {"label": "حتى {{tier}}p", "reason": "حدّك المحدد"},
+			"fps": {"label": "أعلى معدل إطارات", "reason": "حركة أكثر سلاسة"},
+			"hdr": {"label": "HDR قبل SDR", "reason": "الترتيب المعتاد"},
+			"codec": {"label": "AV1، ثم VP9، ثم H.264", "reason": "الأوضح عند الحجم نفسه"},
+			"size": {"label": "ملف أكبر", "reason": "تفاصيل أكثر بالإعدادات نفسها"},
+			"aacSmartTv": {"label": "صوت AAC", "reason": "يعمل في كل مكان"},
+			"aacFileType": {"label": "صوت AAC", "reason": "مناسب لمشغلات MP4"},
+			"opus": {"label": "صوت Opus", "reason": "مناسب لـ WebM"},
+			"nativeCompatible": {"label": "صوت ستيريو"},
+			"nativeSurround": {"label": "صوت محيطي عند توفره"},
+			"nativeSource": {"settings": "من الإعدادات", "profile": "ملف التعريف هذا"}
+		},
+		"summary": {"goal": {"bestPicture": "أفضل صورة", "smartTv": "يعمل على أي جهاز"}, "fileType": {"auto": "نوع الملف حسب التدفقات", "explicit": "يُحفظ بصيغة .{{ext}}"}}
 	}
 }

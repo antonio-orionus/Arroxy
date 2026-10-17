@@ -292,7 +292,7 @@
 				"invalid": "Nhập số nguyên từ 1 đến 5000",
 				"tooltip": "Tương ứng với yt-dlp --playlist-end: Arroxy chỉ yêu cầu số mục này từ playlist, kênh hoặc kết quả tìm kiếm khi tạo bộ chọn."
 			},
-			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
+			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Stereo hoặc vòm khi hồ sơ chọn âm thanh gốc. Hồ sơ có thể ghi đè.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
 			"autoRetry": {"label": "Thử lại các mục tải thất bại", "description": "Tự động thử lại sau sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử. Các mục bị trang web chặn sẽ không bao giờ được tự động thử lại.", "unit": "lần"},
 			"concurrentDownloads": {"label": "Tải cùng lúc", "description": "Bao nhiêu mục trong hàng đợi được tải cùng lúc. Nhiều hơn giúp hàng đợi dài xong sớm hơn, nhưng làm tăng khả năng trang web giới hạn bạn.", "unit": "mục"},
 			"downloadConnections": {"label": "Kết nối tải xuống", "description": "Tăng tốc các tệp tải lớn bằng cách lấy nhiều phần của video cùng lúc. Giá trị cao hơn làm tăng khả năng trang web giới hạn bạn.", "unit": "kết nối"},
@@ -353,9 +353,10 @@
 			"fit": {
 				"tierBelow": "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này chỉ có tối đa {{picked}}p nên {{picked}}p được chọn.",
 				"tierAbove": "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này không có độ phân giải thấp như vậy nên {{picked}}p được chọn.",
-				"mp4Unavailable": "Hồ sơ của bạn yêu cầu MP4 (H.264). Video này không có định dạng đó nên luồng gần nhất được chọn.",
+				"mp4Unavailable": "Hồ sơ của bạn là TV thông minh (H.264). Video này không có H.264, nên luồng gần nhất được chọn.",
 				"noVideo": "Liên kết này không có video nên âm thanh được chọn.",
-				"subtitlesMissing": "Hồ sơ của bạn yêu cầu phụ đề bằng: {{languages}}. Video này không có phụ đề đó."
+				"subtitlesMissing": "Hồ sơ của bạn yêu cầu phụ đề bằng: {{languages}}. Video này không có phụ đề đó.",
+				"webmUnavailable": "Hồ sơ của bạn yêu cầu WebM. Các luồng đã chọn của video này có {{codec}}, mà WebM không chứa được, nên loại tệp là Tự động."
 			},
 			"summary": {"lead": "Cũng từ {{profile}}:", "subtitlesOff": "tắt phụ đề", "subtitlesAdd_one": "Có {{count}} ngôn ngữ, thêm", "subtitlesAdd_other": "Có {{count}} ngôn ngữ, thêm", "reviewAll": "Xem lại tất cả"},
 			"footer": {"reviewOptions": "Xem lại & tùy chọn", "download": "Tải xuống", "moreActions": "Thêm tùy chọn tải xuống", "addToQueue": "Thêm vào hàng đợi mà không bắt đầu", "subtitlesRequired": "Chọn ít nhất một ngôn ngữ phụ đề."},
@@ -410,7 +411,8 @@
 					"fixUnsafeBody": "Thêm --disable-features=LockProfileCookieDatabase vào shortcut khởi chạy Chrome. Cảnh báo: điều này sẽ làm mất hiệu lực các cookies đã mã hóa trước đó, khiến bạn bị đăng xuất khỏi mọi trang web và cần đăng nhập lại.",
 					"docsLinkLabel": "Tài liệu yt-dlp (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Lưu thành", "reset": "WebM không chứa được {{codec}}, nên loại tệp đã quay về Tự động."}
 		},
 		"folder": {
 			"heading": "Lưu vào",
@@ -478,7 +480,8 @@
 			"itemsValueBulk_other": "{{count}} trên {{total}} URL",
 			"profileBreakdownHeading": "Hồ sơ trong lô này",
 			"profileBreakdownCount_one": "{{count}} mục",
-			"profileBreakdownCount_other": "{{count}} mục"
+			"profileBreakdownCount_other": "{{count}} mục",
+			"subtitleEmbedForcesMkv": "Phụ đề nằm trong video cần tệp MKV, nên bản tải này được lưu thành .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Hồ sơ tải xuống",
@@ -494,7 +497,6 @@
 			"field": {
 				"nameAndIcon": "Tên và biểu tượng hồ sơ",
 				"icon": "Biểu tượng hồ sơ",
-				"compatibility": "Tương thích",
 				"resolution": "Độ phân giải",
 				"quality": "Chất lượng",
 				"source": "Nguồn",
@@ -504,7 +506,10 @@
 				"subtitleDownloadsDescription": "Hồ sơ yêu cầu mã ngôn ngữ; khả năng có sẵn được xác định cho từng URL.",
 				"languages": "Ngôn ngữ",
 				"delivery": "Cách lưu",
-				"overridePath": "Đường dẫn ghi đè hồ sơ"
+				"overridePath": "Đường dẫn ghi đè hồ sơ",
+				"goal": "Tối ưu cho",
+				"fileType": "Loại tệp",
+				"nativeAudio": "Âm thanh gốc"
 			},
 			"action": {
 				"chooseIcon": "Chọn biểu tượng hồ sơ",
@@ -541,11 +546,16 @@
 			},
 			"icon": {"controls": "Điều khiển", "download": "Tải xuống", "video": "Video", "captions": "Phụ đề", "audio": "Âm thanh", "music": "Nhạc", "podcast": "Podcast", "classes": "Lớp học", "clip": "Đoạn phim", "archive": "Lưu trữ"},
 			"audioFormat": {"best": "Tốt nhất", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "Tối đa 128K", "192": "Tối đa 192K", "320": "Tối đa 320K", "best": "Chất lượng tốt nhất"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Thủ công trước, rồi tự động", "manualOnly": "Chỉ thủ công", "autoOnly": "Chỉ tự động tạo"},
-			"sponsorBlockHint": {"off": "Không dùng SponsorBlock — video phát nguyên như khi tải lên.", "mark": "Đánh dấu đoạn tài trợ thành chương (không sửa tệp).", "remove": "Cắt các đoạn tài trợ khỏi video bằng FFmpeg."}
+			"sponsorBlockHint": {"off": "Không dùng SponsorBlock — video phát nguyên như khi tải lên.", "mark": "Đánh dấu đoạn tài trợ thành chương (không sửa tệp).", "remove": "Cắt các đoạn tài trợ khỏi video bằng FFmpeg."},
+			"advanced": "Nâng cao",
+			"goal": {
+				"bestPicture": {"name": "Hình ảnh đẹp nhất", "tag": "AV1 · VP9", "description": "Nét nhất ở cùng dung lượng. TV đời cũ, QuickTime và một số trình chỉnh sửa không phát được."},
+				"smartTv": {"name": "TV thông minh", "tag": "MP4 · H.264", "description": "Phát được trên TV, điện thoại, WhatsApp, QuickTime và trình chỉnh sửa video. YouTube chỉ có H.264 đến 1080p."}
+			},
+			"nativeAudio": {"default": "Dùng cài đặt của ứng dụng ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Đang tải…"},
@@ -836,5 +846,44 @@
 			"signOutConfirm": "Đăng xuất"
 		},
 		"error": {"proxyTitle": "Explore không thể kết nối qua proxy của bạn", "proxyBody": "Hãy kiểm tra proxy trong Cài đặt rồi thử lại.", "loadTitle": "Trang này không tải được", "loadBody": "Hãy kiểm tra kết nối của bạn rồi thử lại.", "retry": "Thử lại", "openSettings": "Mở Cài đặt"}
+	},
+	"fileType": {
+		"auto": "Tự động",
+		"autoValue": "Tự động (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Các luồng đã chọn quyết định loại tệp.",
+			"mp4": "Phát được gần như ở mọi nơi. VP9 hoặc AV1 trong MP4 sẽ không mở được trong QuickTime trên Mac đời cũ.",
+			"mkv": "Chứa được mọi codec. Một số TV và điện thoại không mở được.",
+			"webm": "Định dạng mở cho trình duyệt. Chỉ chứa VP9 hoặc AV1 với Opus."
+		},
+		"webmBlocked": "WebM không chứa được {{codec}}. Hãy chọn MKV hoặc MP4.",
+		"profileMark": "Hồ sơ",
+		"smartTvNoWebm": "WebM không có cho TV thông minh: nó không chứa được H.264.",
+		"mp4Caveat": "{{codecs}} trong MP4 có thể không mở được trong QuickTime, một số trình chỉnh sửa và một số TV. H.264 phát được ở mọi nơi."
+	},
+	"selectionOrder": {
+		"editorTitle": "Cách hồ sơ này chọn",
+		"whyTitle": "Vì sao hồ sơ chọn cái này",
+		"whyLabel": "Vì sao chọn cái này?",
+		"rank": {
+			"h264": {"label": "Video H.264", "reason": "phát được trên mọi thiết bị"},
+			"mp4Streams": {"label": "Luồng MP4", "reason": "sẵn sàng cho tệp MP4"},
+			"resolutionBest": {"label": "Độ phân giải cao nhất", "reason": "không đặt giới hạn"},
+			"resolution": {"label": "Tối đa {{tier}}p", "reason": "giới hạn của bạn"},
+			"fps": {"label": "Tốc độ khung hình cao nhất", "reason": "chuyển động mượt hơn"},
+			"hdr": {"label": "HDR trước SDR", "reason": "thứ tự thường dùng"},
+			"codec": {"label": "AV1, rồi VP9, rồi H.264", "reason": "nét nhất ở cùng dung lượng"},
+			"size": {"label": "Tệp lớn hơn", "reason": "nhiều chi tiết hơn với cùng cài đặt"},
+			"aacSmartTv": {"label": "Âm thanh AAC", "reason": "phát được ở mọi nơi"},
+			"aacFileType": {"label": "Âm thanh AAC", "reason": "hợp với trình phát MP4"},
+			"opus": {"label": "Âm thanh Opus", "reason": "hợp với WebM"},
+			"nativeCompatible": {"label": "Âm thanh stereo"},
+			"nativeSurround": {"label": "Âm thanh vòm nếu có"},
+			"nativeSource": {"settings": "từ Cài đặt", "profile": "hồ sơ này"}
+		},
+		"summary": {"goal": {"bestPicture": "hình ảnh đẹp nhất", "smartTv": "phát được trên mọi thiết bị"}, "fileType": {"auto": "loại tệp theo các luồng", "explicit": "lưu thành .{{ext}}"}}
 	}
 }

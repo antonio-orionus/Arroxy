@@ -292,7 +292,7 @@
 				"invalid": "Use um número inteiro de 1 a 5000",
 				"tooltip": "Equivale ao --playlist-end do yt-dlp: o Arroxy só solicita essa quantidade de entradas ao montar a seleção."
 			},
-			"nativeAudioPreference": {"label": "Preferência de áudio nativo", "description": "Controla o que a opção 'Melhor nativo' escolhe. As opções manuais de áudio e M4A/AAC permanecem explícitas.", "compatible": "Estéreo compatível", "surround": "Preferir surround / Dolby"},
+			"nativeAudioPreference": {"label": "Preferência de áudio nativo", "description": "Estéreo ou surround quando um perfil escolhe o áudio nativo. Um perfil pode substituí-la.", "compatible": "Estéreo compatível", "surround": "Preferir surround / Dolby"},
 			"autoRetry": {"label": "Tentar novamente downloads com falha", "description": "Tenta novamente de forma automática após falhas de rede ou do servidor, aguardando mais tempo entre cada tentativa. Downloads bloqueados pelo site nunca são repetidos automaticamente.", "unit": "vezes"},
 			"concurrentDownloads": {"label": "Downloads simultâneos", "description": "Quantos itens da fila baixam ao mesmo tempo. Mais downloads simultâneos terminam filas longas mais rápido, mas aumentam a chance de o site limitar você.", "unit": "downloads"},
 			"downloadConnections": {"label": "Conexões por download", "description": "Acelera downloads grandes baixando várias partes de um vídeo simultaneamente. Valores mais altos aumentam a chance de o site limitar você.", "unit": "conexões"},
@@ -353,9 +353,10 @@
 			"fit": {
 				"tierBelow": "Seu perfil pede {{wanted}}p. Este vídeo só vai até {{picked}}p, então {{picked}}p foi selecionado.",
 				"tierAbove": "Seu perfil pede {{wanted}}p. Este vídeo não tem nada tão pequeno, então {{picked}}p foi selecionado.",
-				"mp4Unavailable": "Seu perfil pede MP4 (H.264). Este vídeo não oferece isso, então o stream mais próximo foi selecionado.",
+				"mp4Unavailable": "Seu perfil é Smart TV (H.264). Este vídeo não oferece H.264, então o fluxo mais próximo é selecionado.",
 				"noVideo": "Este link não tem vídeo, então o áudio foi selecionado.",
-				"subtitlesMissing": "Seu perfil pede legendas em {{languages}}. Este vídeo não tem nenhuma."
+				"subtitlesMissing": "Seu perfil pede legendas em {{languages}}. Este vídeo não tem nenhuma.",
+				"webmUnavailable": "Seu perfil pede WebM. Os fluxos escolhidos deste vídeo incluem {{codec}}, que o WebM não aceita, então o tipo de arquivo é Automático."
 			},
 			"summary": {"lead": "Também de {{profile}}:", "subtitlesOff": "legendas desativadas", "subtitlesAdd_one": "{{count}} idioma disponível, adicionar", "subtitlesAdd_other": "{{count}} idiomas disponíveis, adicionar", "reviewAll": "Revisar tudo"},
 			"footer": {"reviewOptions": "Revisar e opções", "download": "Baixar", "moreActions": "Mais opções de download", "addToQueue": "Adicionar à fila sem iniciar", "subtitlesRequired": "Escolha pelo menos um idioma de legenda."},
@@ -410,7 +411,8 @@
 					"fixUnsafeBody": "Adicione --disable-features=LockProfileCookieDatabase ao atalho de inicialização do Chrome. Atenção: isso invalida cookies criptografados anteriormente, deslogando você de todos os sites.",
 					"docsLinkLabel": "Documentação do yt-dlp (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Salvar como", "reset": "WebM não aceita {{codec}}, então o tipo de arquivo voltou para Automático."}
 		},
 		"folder": {
 			"heading": "Salvar em",
@@ -485,7 +487,8 @@
 			"itemsValueBulk_other": "{{count}} de {{total}} URLs",
 			"profileBreakdownHeading": "Perfis neste lote",
 			"profileBreakdownCount_one": "{{count}} item",
-			"profileBreakdownCount_other": "{{count}} itens"
+			"profileBreakdownCount_other": "{{count}} itens",
+			"subtitleEmbedForcesMkv": "Legendas dentro do vídeo exigem um arquivo MKV, então este download é salvo como .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Perfil de Download",
@@ -501,7 +504,6 @@
 			"field": {
 				"nameAndIcon": "Nome e ícone do perfil",
 				"icon": "Ícone do perfil",
-				"compatibility": "Compatibilidade",
 				"resolution": "Resolução",
 				"quality": "Qualidade",
 				"source": "Origem",
@@ -511,7 +513,10 @@
 				"subtitleDownloadsDescription": "Os perfis pedem códigos de idioma; a disponibilidade é verificada para cada URL.",
 				"languages": "Idiomas",
 				"delivery": "Entrega",
-				"overridePath": "Caminho específico do perfil"
+				"overridePath": "Caminho específico do perfil",
+				"goal": "Otimizar para",
+				"fileType": "Tipo de arquivo",
+				"nativeAudio": "Áudio nativo"
 			},
 			"action": {
 				"chooseIcon": "Escolher ícone do perfil",
@@ -548,11 +553,16 @@
 			},
 			"icon": {"controls": "Controles", "download": "Download", "video": "Vídeo", "captions": "Legendas", "audio": "Áudio", "music": "Música", "podcast": "Podcast", "classes": "Aulas", "clip": "Clipe", "archive": "Arquivo"},
 			"audioFormat": {"best": "Melhor", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "Até 128K", "192": "Até 192K", "320": "Até 320K", "best": "Melhor qualidade"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Manual primeiro, depois automática", "manualOnly": "Apenas manual", "autoOnly": "Apenas automática"},
-			"sponsorBlockHint": {"off": "Sem SponsorBlock — o vídeo toca exatamente como foi enviado.", "mark": "Marca segmentos de patrocinadores como capítulos (não destrutivo).", "remove": "Corta segmentos de patrocinadores do vídeo usando o FFmpeg."}
+			"sponsorBlockHint": {"off": "Sem SponsorBlock — o vídeo toca exatamente como foi enviado.", "mark": "Marca segmentos de patrocinadores como capítulos (não destrutivo).", "remove": "Corta segmentos de patrocinadores do vídeo usando o FFmpeg."},
+			"advanced": "Avançado",
+			"goal": {
+				"bestPicture": {"name": "Melhor imagem", "tag": "AV1 · VP9", "description": "O mais nítido no mesmo tamanho. TVs mais antigas, QuickTime e alguns editores não conseguem reproduzir."},
+				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Toca em TVs, celulares, WhatsApp, QuickTime e editores de vídeo. O YouTube oferece H.264 apenas até 1080p."}
+			},
+			"nativeAudio": {"default": "Usar a configuração do app ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Carregando…"},
@@ -857,5 +867,44 @@
 			"signOutConfirm": "Sair"
 		},
 		"error": {"proxyTitle": "O Explore não consegue se conectar pelo seu proxy", "proxyBody": "Verifique o proxy em Configurações e tente novamente.", "loadTitle": "Esta página não carregou", "loadBody": "Verifique sua conexão e tente novamente.", "retry": "Tentar novamente", "openSettings": "Abrir Configurações"}
+	},
+	"fileType": {
+		"auto": "Automático",
+		"autoValue": "Automático (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Os fluxos escolhidos definem o tipo de arquivo.",
+			"mp4": "Toca em quase todo lugar. VP9 ou AV1 em MP4 não abrem no QuickTime em Macs mais antigos.",
+			"mkv": "Aceita qualquer codec. Algumas TVs e celulares não conseguem abri-lo.",
+			"webm": "Formato aberto para navegadores. Aceita apenas VP9 ou AV1 com Opus."
+		},
+		"webmBlocked": "WebM não aceita {{codec}}. Escolha MKV ou MP4.",
+		"profileMark": "Perfil",
+		"smartTvNoWebm": "WebM não é oferecido com Smart TV: ele não aceita H.264.",
+		"mp4Caveat": "{{codecs}} em MP4 pode não abrir no QuickTime, em alguns editores e em algumas TVs. O H.264 toca em qualquer lugar."
+	},
+	"selectionOrder": {
+		"editorTitle": "Como este perfil escolhe",
+		"whyTitle": "Por que o perfil escolheu isto",
+		"whyLabel": "Por que este?",
+		"rank": {
+			"h264": {"label": "Vídeo H.264", "reason": "toca em qualquer dispositivo"},
+			"mp4Streams": {"label": "Fluxos MP4", "reason": "prontos para um arquivo MP4"},
+			"resolutionBest": {"label": "Maior resolução", "reason": "nenhum limite definido"},
+			"resolution": {"label": "Até {{tier}}p", "reason": "seu limite"},
+			"fps": {"label": "Maior taxa de quadros", "reason": "movimento mais suave"},
+			"hdr": {"label": "HDR antes de SDR", "reason": "a ordem usual"},
+			"codec": {"label": "AV1, depois VP9, depois H.264", "reason": "mais nítido no mesmo tamanho"},
+			"size": {"label": "Arquivo maior", "reason": "mais detalhes com as mesmas configurações"},
+			"aacSmartTv": {"label": "Áudio AAC", "reason": "toca em qualquer lugar"},
+			"aacFileType": {"label": "Áudio AAC", "reason": "serve para players MP4"},
+			"opus": {"label": "Áudio Opus", "reason": "serve para WebM"},
+			"nativeCompatible": {"label": "Áudio estéreo"},
+			"nativeSurround": {"label": "Áudio surround quando disponível"},
+			"nativeSource": {"settings": "das Configurações", "profile": "este perfil"}
+		},
+		"summary": {"goal": {"bestPicture": "melhor imagem", "smartTv": "toca em qualquer dispositivo"}, "fileType": {"auto": "tipo de arquivo vindo dos fluxos", "explicit": "salva como .{{ext}}"}}
 	}
 }

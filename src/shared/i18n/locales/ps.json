@@ -305,7 +305,7 @@
 				"invalid": "د 1 نه تر 5000 پورې بشپړ عدد وکاروئ",
 				"tooltip": "yt-dlp --playlist-end ته د لارښوونې لپاره: Arroxy د انتخاب جوړولو پرمهال یوازې د playlist، چینل، یا لټون له ننوتونو دومره غواړي."
 			},
-			"nativeAudioPreference": {"label": "د اصلي آډیو غوره توب", "description": "دا کنټرولوي چې “Best native” څه ټاکي. لاسي آډیو کرښې او M4A/AAC ښکاره انتخابونه پاتې کېږي.", "compatible": "سازګار سټېریو", "surround": "surround / Dolby ته لومړیتوب ورکړئ"},
+			"nativeAudioPreference": {"label": "د اصلي آډیو غوره توب", "description": "سټېریو یا surround کله چې یو پروفایل اصلي آډیو غوره کړي. پروفایل کولی شي دا بدل کړي.", "compatible": "سازګار سټېریو", "surround": "surround / Dolby ته لومړیتوب ورکړئ"},
 			"autoRetry": {"label": "ناکام ډاونلوډونه بیا هڅه کړئ", "description": "د شبکې یا سرور ستونزې وروسته په اتوماتيک ډول بیا هڅه کوي، د هرې هڅې تر منځ اوږد انتظار کوي. هغه ډاونلوډونه چې سایټ یې بندوي هیڅکله په اتوماتيک ډول بیا نه هڅول کیږي.", "unit": "ځله"},
 			"concurrentDownloads": {"label": "یو ځای ډاونلوډونه", "description": "د کتار څو توکي په یو وخت کې ډاونلوډ شي. په یو وخت کې ډیر د اوږد کتار ژر پای ته رسوي، خو دا چانس زیاتوي چې سایټ مو محدود کړي.", "unit": "ډاونلوډونه"},
 			"downloadConnections": {"label": "د ډاونلوډ اتصالونه", "description": "د ویډیو څو برخې په یو وخت کې راښکته کوي او لوی ډاونلوډونه ګړندي کوي. لوړ ارزښتونه دا چانس زیاتوي چې سایټ مو محدود کړي.", "unit": "اتصالونه"},
@@ -366,9 +366,10 @@
 			"fit": {
 				"tierBelow": "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو یوازې تر {{picked}}p پورې ځي، نو {{picked}}p غوره شو.",
 				"tierAbove": "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو دومره کوچنی څه نلري، نو {{picked}}p غوره شو.",
-				"mp4Unavailable": "ستاسو پروفایل MP4 (H.264) غواړي. دا ویډیو یې نه وړاندې کوي، نو تر ټولو نږدې جریان غوره شو.",
+				"mp4Unavailable": "ستاسو پروفایل سمارټ TV (H.264) دی. دا ویډیو H.264 نه وړاندې کوي، نو تر ټولو نږدې سټریم غوره شوی.",
 				"noVideo": "دا لینک ویډیو نلري، نو غږ غوره شو.",
-				"subtitlesMissing": "ستاسو پروفایل په {{languages}} کې ژباړلیکونه غواړي. دا ویډیو یې نلري."
+				"subtitlesMissing": "ستاسو پروفایل په {{languages}} کې ژباړلیکونه غواړي. دا ویډیو یې نلري.",
+				"webmUnavailable": "ستاسو پروفایل WebM غواړي. د دې ویډیو غوره شوي سټریمونه {{codec}} لري، چې WebM یې نشي ساتلی، نو د فایل ډول اتوماتیک دی."
 			},
 			"summary": {"lead": "همدا شان له {{profile}} څخه:", "subtitlesOff": "ژباړلیکونه بند", "subtitlesAdd_one": "{{count}} ژبه شته، زیاته کړئ", "subtitlesAdd_other": "{{count}} ژبې شته، زیاتې کړئ", "reviewAll": "ټولو بیاکتنه"},
 			"footer": {"reviewOptions": "بیاکتنه او انتخابونه", "download": "ښکته کول", "moreActions": "نور د ښکته کولو انتخابونه", "addToQueue": "پرته له پیل کولو قطار ته زیاتول", "subtitlesRequired": "لږ تر لږه یوه د ژباړلیک ژبه غوره کړئ."},
@@ -423,7 +424,8 @@
 					"fixUnsafeBody": "د Chrome د پیل شارټ کټ کې --disable-features=LockProfileCookieDatabase اضافه کړئ. خبرداری: دا مخکې کوډ شوي کوکیز باطلوي، نو تاسو به له هر سایټ وتلئ او بیا ننوتل ضروري دي.",
 					"docsLinkLabel": "yt-dlp اسناد (مسئله #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "د خوندي کولو بڼه", "reset": "WebM نشي کولی {{codec}} وساتي، نو د فایل ډول بېرته اتوماتیک ته واوښت."}
 		},
 		"folder": {
 			"heading": "خوندي کولو ځای",
@@ -498,7 +500,8 @@
 			"itemsValueBulk_other": "{{count}} له {{total}} URLونو",
 			"profileBreakdownHeading": "په دې ډله کې پروفایلونه",
 			"profileBreakdownCount_one": "{{count}} توکی",
-			"profileBreakdownCount_other": "{{count}} توکي"
+			"profileBreakdownCount_other": "{{count}} توکي",
+			"subtitleEmbedForcesMkv": "په ویډیو کې دننه ژباړلیکونه MKV فایل ته اړتیا لري، نو دا ډاونلوډ د .mkv په توګه خوندي کیږي."
 		},
 		"profileEditor": {
 			"dialogTitle": "د ښکته کولو پروفایل",
@@ -514,7 +517,6 @@
 			"field": {
 				"nameAndIcon": "د پروفایل نوم او نښه",
 				"icon": "د پروفایل نښه",
-				"compatibility": "برابروالی",
 				"resolution": "ریزولوشن",
 				"quality": "کیفیت",
 				"source": "سرچینه",
@@ -524,7 +526,10 @@
 				"subtitleDownloadsDescription": "پروفایلونه د ژبې کوډونه غواړي؛ شتون یې د هر URL لپاره جلا ټاکل کېږي.",
 				"languages": "ژبې",
 				"delivery": "د خوندي کولو لاره",
-				"overridePath": "د پروفایل د بدیل لاره"
+				"overridePath": "د پروفایل د بدیل لاره",
+				"goal": "لومړیتوب",
+				"fileType": "د فایل ډول",
+				"nativeAudio": "اصلي آډیو"
 			},
 			"action": {
 				"chooseIcon": "د پروفایل نښه وټاکئ",
@@ -561,11 +566,16 @@
 			},
 			"icon": {"controls": "کنټرولونه", "download": "ښکته کول", "video": "ویډیو", "captions": "سرلیکونه", "audio": "غږ", "music": "موسیقي", "podcast": "پډکاست", "classes": "ټولګي", "clip": "ټوټه", "archive": "آرشیف"},
 			"audioFormat": {"best": "غوره", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "تر ۱۲۸K پورې", "192": "تر ۱۹۲K پورې", "320": "تر ۳۲۰K پورې", "best": "غوره کیفیت"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "لومړی لاسي، بیا خودکار", "manualOnly": "یوازې لاسي", "autoOnly": "یوازې په خودکار ډول جوړ شوي"},
-			"sponsorBlockHint": {"off": "SponsorBlock نشته — ویډیو لکه څنګه چې پورته شوې همداسې غږېږي.", "mark": "سپانسر برخې د څپرکو په توګه په نښه کوي (دوتنه نه بدلوي).", "remove": "د FFmpeg په مرسته سپانسر برخې له ویډیو څخه پرې کوي."}
+			"sponsorBlockHint": {"off": "SponsorBlock نشته — ویډیو لکه څنګه چې پورته شوې همداسې غږېږي.", "mark": "سپانسر برخې د څپرکو په توګه په نښه کوي (دوتنه نه بدلوي).", "remove": "د FFmpeg په مرسته سپانسر برخې له ویډیو څخه پرې کوي."},
+			"advanced": "پرمختللي",
+			"goal": {
+				"bestPicture": {"name": "غوره انځور", "tag": "AV1 · VP9", "description": "په ورته اندازه تر ټولو روښانه. زاړه تلویزیونونه، QuickTime او ځینې اډیټرونه یې نشي چلولی."},
+				"smartTv": {"name": "سمارټ TV", "tag": "MP4 · H.264", "description": "په تلویزیونونو، تلیفونونو، WhatsApp، QuickTime او ویډیو اډیټرونو کې چلیږي. YouTube یوازې تر 1080p پورې H.264 وړاندې کوي."}
+			},
+			"nativeAudio": {"default": "د اپ امستنه وکاروئ ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "بارول…"},
@@ -857,5 +867,44 @@
 			"signOutConfirm": "وتل"
 		},
 		"error": {"proxyTitle": "Explore ستاسو د پراکسي له لارې نه شي نښلېدای", "proxyBody": "په امستنو کې پراکسي وګورئ، ورپسې بیا هڅه وکړئ.", "loadTitle": "دا پاڼه بار نه شوه", "loadBody": "خپل اتصال وګورئ، ورپسې بیا هڅه وکړئ.", "retry": "بیا هڅه وکړه", "openSettings": "امستنې پرانیزئ"}
+	},
+	"fileType": {
+		"auto": "اتوماتیک",
+		"autoValue": "اتوماتیک (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "غوره شوي سټریمونه د فایل ډول ټاکي.",
+			"mp4": "نږدې هر ځای چلیږي. په MP4 کې VP9 یا AV1 په زړو Mac کمپیوټرونو کې په QuickTime کې نه پرانیستل کیږي.",
+			"mkv": "هر codec ساتلی شي. ځینې تلویزیونونه او تلیفونونه یې نشي پرانیستلی.",
+			"webm": "د براوزرونو لپاره خلاص فارمټ. یوازې VP9 یا AV1 له Opus سره ساتي."
+		},
+		"webmBlocked": "WebM نشي کولی {{codec}} وساتي. MKV یا MP4 غوره کړئ.",
+		"profileMark": "پروفایل",
+		"smartTvNoWebm": "WebM له سمارټ TV سره نه وړاندې کیږي: H.264 نشي ساتلی.",
+		"mp4Caveat": "په MP4 کې {{codecs}} ښايي په QuickTime، ځینو اډیټرونو او ځینو تلویزیونونو کې پرانیستل نشي. H.264 هر ځای چلیږي."
+	},
+	"selectionOrder": {
+		"editorTitle": "دا پروفایل څنګه غوره کوي",
+		"whyTitle": "پروفایل ولې دا غوره کړ",
+		"whyLabel": "ولې دا؟",
+		"rank": {
+			"h264": {"label": "H.264 ویډیو", "reason": "په هره وسیله چلیږي"},
+			"mp4Streams": {"label": "MP4 سټریمونه", "reason": "د MP4 فایل لپاره چمتو"},
+			"resolutionBest": {"label": "تر ټولو لوړ ریزولوشن", "reason": "هیڅ حد نه دی ټاکل شوی"},
+			"resolution": {"label": "تر {{tier}}p پورې", "reason": "ستاسو حد"},
+			"fps": {"label": "تر ټولو لوړ فریم ریټ", "reason": "نرم حرکت"},
+			"hdr": {"label": "HDR له SDR مخکې", "reason": "عادي ترتیب"},
+			"codec": {"label": "AV1، بیا VP9، بیا H.264", "reason": "په ورته اندازه تر ټولو روښانه"},
+			"size": {"label": "لوی فایل", "reason": "په ورته امستنو کې ډېر جزئیات"},
+			"aacSmartTv": {"label": "AAC غږ", "reason": "هر ځای چلیږي"},
+			"aacFileType": {"label": "AAC غږ", "reason": "د MP4 پلیرونو سره برابر"},
+			"opus": {"label": "Opus غږ", "reason": "له WebM سره برابر"},
+			"nativeCompatible": {"label": "سټېریو غږ"},
+			"nativeSurround": {"label": "surround غږ کله چې موجود وي"},
+			"nativeSource": {"settings": "له امستنو", "profile": "دا پروفایل"}
+		},
+		"summary": {"goal": {"bestPicture": "غوره انځور", "smartTv": "په هره وسیله چلیږي"}, "fileType": {"auto": "د فایل ډول له سټریمونو", "explicit": "د .{{ext}} په توګه خوندي کیږي"}}
 	}
 }

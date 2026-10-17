@@ -283,7 +283,7 @@
 				"invalid": "ใช้จำนวนเต็มตั้งแต่ 1 ถึง 5000",
 				"tooltip": "ตรงกับ --playlist-end ของ yt-dlp: Arroxy จะขอรายการเพลย์ลิสต์ ช่อง หรือผลการค้นหาเพียงเท่านี้ขณะสร้างตัวเลือก"
 			},
-			"nativeAudioPreference": {"label": "การตั้งค่าเสียงต้นฉบับ", "description": "ควบคุมสิ่งที่ต้นฉบับดีที่สุดเลือก แถวเสียงแบบกำหนดเองและ M4A/AAC ยังคงเลือกไว้อย่างชัดเจน", "compatible": "สเตอริโอที่รองรับกว้าง", "surround": "เลือกเสียงรอบทิศทาง / Dolby"},
+			"nativeAudioPreference": {"label": "การตั้งค่าเสียงต้นฉบับ", "description": "สเตอริโอหรือเซอร์ราวด์เมื่อโปรไฟล์เลือกเสียงต้นฉบับ โปรไฟล์สามารถกำหนดเองได้", "compatible": "สเตอริโอที่รองรับกว้าง", "surround": "เลือกเสียงรอบทิศทาง / Dolby"},
 			"autoRetry": {"label": "ลองดาวน์โหลดที่ล้มเหลวใหม่", "description": "ลองใหม่อัตโนมัติหลังเครือข่ายหรือเซิร์ฟเวอร์สะดุด โดยรอนานขึ้นระหว่างแต่ละครั้ง การดาวน์โหลดที่เว็บไซต์บล็อกจะไม่ถูกลองใหม่อัตโนมัติ", "unit": "ครั้ง"},
 			"concurrentDownloads": {"label": "ดาวน์โหลดพร้อมกัน", "description": "จำนวนรายการในคิวที่ดาวน์โหลดพร้อมกัน การดาวน์โหลดพร้อมกันมากขึ้นช่วยให้คิวยาวเสร็จเร็ว แต่เพิ่มโอกาสที่เว็บไซต์จะจำกัดคุณ", "unit": "ดาวน์โหลด"},
 			"downloadConnections": {"label": "การเชื่อมต่อดาวน์โหลด", "description": "เร่งการดาวน์โหลดขนาดใหญ่โดยดึงหลายส่วนของวิดีโอพร้อมกัน ค่าที่สูงขึ้นเพิ่มโอกาสที่เว็บไซต์จะจำกัดคุณ", "unit": "การเชื่อมต่อ"},
@@ -339,9 +339,10 @@
 			"fit": {
 				"tierBelow": "โปรไฟล์ของคุณต้องการ {{wanted}}p แต่วิดีโอนี้มีสูงสุดเพียง {{picked}}p จึงเลือก {{picked}}p",
 				"tierAbove": "โปรไฟล์ของคุณต้องการ {{wanted}}p แต่วิดีโอนี้ไม่มีความละเอียดที่ต่ำขนาดนั้น จึงเลือก {{picked}}p",
-				"mp4Unavailable": "โปรไฟล์ของคุณต้องการ MP4 (H.264) แต่วิดีโอนี้ไม่มี จึงเลือกสตรีมที่ใกล้เคียงที่สุดให้",
+				"mp4Unavailable": "โปรไฟล์ของคุณคือสมาร์ททีวี (H.264) วิดีโอนี้ไม่มี H.264 จึงเลือกสตรีมที่ใกล้เคียงที่สุดให้",
 				"noVideo": "ลิงก์นี้ไม่มีวิดีโอ จึงเลือกเสียงให้",
-				"subtitlesMissing": "โปรไฟล์ของคุณต้องการคำบรรยายภาษา {{languages}} แต่วิดีโอนี้ไม่มี"
+				"subtitlesMissing": "โปรไฟล์ของคุณต้องการคำบรรยายภาษา {{languages}} แต่วิดีโอนี้ไม่มี",
+				"webmUnavailable": "โปรไฟล์ของคุณต้องการ WebM แต่สตรีมที่เลือกของวิดีโอนี้มี {{codec}} ซึ่ง WebM รองรับไม่ได้ ประเภทไฟล์จึงเป็นอัตโนมัติ"
 			},
 			"summary": {"lead": "จาก {{profile}} ด้วย:", "subtitlesOff": "ปิดคำบรรยาย", "subtitlesAdd_one": "มี {{count}} ภาษาให้เลือก เพิ่ม", "subtitlesAdd_other": "มี {{count}} ภาษาให้เลือก เพิ่ม", "reviewAll": "ตรวจดูทั้งหมด"},
 			"footer": {"reviewOptions": "ตรวจดูและตัวเลือก", "download": "ดาวน์โหลด", "moreActions": "ตัวเลือกดาวน์โหลดเพิ่มเติม", "addToQueue": "เพิ่มลงคิวโดยไม่เริ่ม", "subtitlesRequired": "เลือกภาษาคำบรรยายอย่างน้อยหนึ่งภาษา"},
@@ -396,7 +397,8 @@
 					"fixUnsafeBody": "เพิ่ม --disable-features=LockProfileCookieDatabase ในทางลัดเปิด Chrome คำเตือน: การทำเช่นนี้จะทำให้คุกกี้ที่เข้ารหัสไว้ก่อนหน้านี้ใช้ไม่ได้ คุณจึงจะออกจากระบบทุกเว็บไซต์และต้องลงชื่อเข้าใช้อีกครั้ง",
 					"docsLinkLabel": "เอกสาร yt-dlp (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "บันทึกเป็น", "reset": "WebM รองรับ {{codec}} ไม่ได้ ประเภทไฟล์จึงกลับไปเป็นอัตโนมัติ"}
 		},
 		"folder": {"heading": "บันทึกไปยัง", "downloads": "ดาวน์โหลด", "videos": "ภาพยนตร์", "desktop": "เดสก์ท็อป", "music": "เพลง", "documents": "เอกสาร", "pictures": "รูปภาพ", "home": "โฮม", "custom": "กำหนดเอง…", "subfolder": {"toggle": "บันทึกในโฟลเดอร์ย่อย", "placeholder": "เช่น lo-fi rips", "invalid": "ชื่อโฟลเดอร์มีอักขระที่ใช้ไม่ได้"}},
 		"output": {
@@ -453,7 +455,8 @@
 			"itemsValueBulk_other": "URL {{count}} จาก {{total}}",
 			"profileBreakdownHeading": "โปรไฟล์ในชุดงานนี้",
 			"profileBreakdownCount_one": "{{count}} รายการ",
-			"profileBreakdownCount_other": "{{count}} รายการ"
+			"profileBreakdownCount_other": "{{count}} รายการ",
+			"subtitleEmbedForcesMkv": "การฝังคำบรรยายในวิดีโอต้องใช้ไฟล์ MKV ดังนั้นการดาวน์โหลดนี้จะบันทึกเป็น .mkv"
 		},
 		"profileEditor": {
 			"dialogTitle": "โปรไฟล์ดาวน์โหลด",
@@ -469,7 +472,6 @@
 			"field": {
 				"nameAndIcon": "ชื่อและไอคอนโปรไฟล์",
 				"icon": "ไอคอนโปรไฟล์",
-				"compatibility": "ความเข้ากันได้",
 				"resolution": "ความละเอียด",
 				"quality": "คุณภาพ",
 				"source": "แหล่งที่มา",
@@ -479,7 +481,10 @@
 				"subtitleDownloadsDescription": "โปรไฟล์จะขอรหัสภาษา ส่วนจะมีให้หรือไม่จะตรวจสอบแยกตามแต่ละ URL",
 				"languages": "ภาษา",
 				"delivery": "การส่งมอบ",
-				"overridePath": "เส้นทางแทนที่ของโปรไฟล์"
+				"overridePath": "เส้นทางแทนที่ของโปรไฟล์",
+				"goal": "ปรับให้เหมาะกับ",
+				"fileType": "ประเภทไฟล์",
+				"nativeAudio": "เสียงต้นฉบับ"
 			},
 			"action": {
 				"chooseIcon": "เลือกไอคอนโปรไฟล์",
@@ -511,11 +516,13 @@
 			"mediaMode": {"videoAudio": {"label": "วิดีโอ + เสียง", "description": "ไฟล์วิดีโอปกติ"}, "videoOnly": {"label": "วิดีโอ ไม่มีเสียง", "description": "เฉพาะวิดีโอไม่มีเสียง"}, "audioOnly": {"label": "เฉพาะเสียง", "description": "เพลงหรือพอดแคสต์"}, "subtitlesOnly": {"label": "เฉพาะคำบรรยาย", "description": "เฉพาะไฟล์คำบรรยาย"}},
 			"icon": {"controls": "การควบคุม", "download": "ดาวน์โหลด", "video": "วิดีโอ", "captions": "คำบรรยาย", "audio": "เสียง", "music": "เพลง", "podcast": "พอดแคสต์", "classes": "ชั้นเรียน", "clip": "คลิป", "archive": "ไฟล์เก็บถาวร"},
 			"audioFormat": {"best": "ดีที่สุด", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "สูงสุด 128K", "192": "สูงสุด 192K", "320": "สูงสุด 320K", "best": "คุณภาพดีที่สุด"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "คำบรรยายที่ทำเองก่อน แล้วจึงอัตโนมัติ", "manualOnly": "เฉพาะที่ทำเอง", "autoOnly": "เฉพาะที่สร้างอัตโนมัติ"},
-			"sponsorBlockHint": {"off": "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา", "mark": "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)", "remove": "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"}
+			"sponsorBlockHint": {"off": "ไม่ใช้ SponsorBlock — วิดีโอเล่นตามที่อัปโหลดมา", "mark": "ทำเครื่องหมายช่วงสปอนเซอร์เป็นบท (ไม่แก้ไขวิดีโอ)", "remove": "ตัดช่วงสปอนเซอร์ออกจากวิดีโอด้วย FFmpeg"},
+			"advanced": "ขั้นสูง",
+			"goal": {"bestPicture": {"name": "ภาพดีที่สุด", "tag": "AV1 · VP9", "description": "คมชัดที่สุดในขนาดเท่ากัน ทีวีรุ่นเก่า QuickTime และโปรแกรมตัดต่อบางตัวเล่นไม่ได้"}, "smartTv": {"name": "สมาร์ททีวี", "tag": "MP4 · H.264", "description": "เล่นได้บนทีวี โทรศัพท์ WhatsApp QuickTime และโปรแกรมตัดต่อวิดีโอ YouTube มี H.264 ถึง 1080p เท่านั้น"}},
+			"nativeAudio": {"default": "ใช้การตั้งค่าของแอป ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "กำลังโหลด…"},
@@ -793,5 +800,39 @@
 			"signOutConfirm": "ออกจากระบบ"
 		},
 		"error": {"proxyTitle": "Explore เชื่อมต่อผ่านพร็อกซีของคุณไม่ได้", "proxyBody": "ตรวจสอบพร็อกซีในการตั้งค่า แล้วลองอีกครั้ง", "loadTitle": "โหลดหน้านี้ไม่สำเร็จ", "loadBody": "ตรวจสอบการเชื่อมต่อของคุณ แล้วลองอีกครั้ง", "retry": "ลองอีกครั้ง", "openSettings": "เปิดการตั้งค่า"}
+	},
+	"fileType": {
+		"auto": "อัตโนมัติ",
+		"autoValue": "อัตโนมัติ (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "ประเภทไฟล์จะขึ้นอยู่กับสตรีมที่เลือก", "mp4": "เล่นได้เกือบทุกที่ แต่ VP9 หรือ AV1 ใน MP4 จะเปิดใน QuickTime บน Mac รุ่นเก่าไม่ได้", "mkv": "รองรับทุกโคเดก แต่ทีวีและโทรศัพท์บางรุ่นเปิดไม่ได้", "webm": "รูปแบบเปิดสำหรับเบราว์เซอร์ รองรับเฉพาะ VP9 หรือ AV1 คู่กับ Opus"},
+		"webmBlocked": "WebM รองรับ {{codec}} ไม่ได้ เลือก MKV หรือ MP4 แทน",
+		"profileMark": "โปรไฟล์",
+		"smartTvNoWebm": "สมาร์ททีวีไม่มีตัวเลือก WebM เพราะ WebM รองรับ H.264 ไม่ได้",
+		"mp4Caveat": "{{codecs}} ใน MP4 อาจเปิดไม่ได้ใน QuickTime, โปรแกรมตัดต่อบางตัว และทีวีบางรุ่น ส่วน H.264 เล่นได้ทุกที่"
+	},
+	"selectionOrder": {
+		"editorTitle": "โปรไฟล์นี้เลือกอย่างไร",
+		"whyTitle": "เหตุผลที่โปรไฟล์เลือกอันนี้",
+		"whyLabel": "ทำไมเลือกอันนี้",
+		"rank": {
+			"h264": {"label": "วิดีโอ H.264", "reason": "เล่นได้ในทุกอุปกรณ์"},
+			"mp4Streams": {"label": "สตรีม MP4", "reason": "พร้อมสำหรับไฟล์ MP4"},
+			"resolutionBest": {"label": "ความละเอียดสูงสุด", "reason": "ไม่จำกัด"},
+			"resolution": {"label": "สูงสุด {{tier}}p", "reason": "ขีดจำกัดของคุณ"},
+			"fps": {"label": "เฟรมเรตสูงสุด", "reason": "ภาพเคลื่อนไหวลื่นกว่า"},
+			"hdr": {"label": "HDR ก่อน SDR", "reason": "ลำดับปกติ"},
+			"codec": {"label": "AV1 ก่อน แล้ว VP9 แล้ว H.264", "reason": "คมชัดที่สุดในขนาดเท่ากัน"},
+			"size": {"label": "ไฟล์ใหญ่กว่า", "reason": "รายละเอียดมากกว่าในการตั้งค่าเดียวกัน"},
+			"aacSmartTv": {"label": "เสียง AAC", "reason": "เล่นได้ทุกที่"},
+			"aacFileType": {"label": "เสียง AAC", "reason": "เข้ากับเครื่องเล่น MP4"},
+			"opus": {"label": "เสียง Opus", "reason": "เข้ากับ WebM"},
+			"nativeCompatible": {"label": "เสียงสเตอริโอ"},
+			"nativeSurround": {"label": "เสียงเซอร์ราวด์ถ้ามี"},
+			"nativeSource": {"settings": "จากการตั้งค่า", "profile": "โปรไฟล์นี้"}
+		},
+		"summary": {"goal": {"bestPicture": "ภาพดีที่สุด", "smartTv": "เล่นได้ในทุกอุปกรณ์"}, "fileType": {"auto": "ประเภทไฟล์ตามสตรีม", "explicit": "บันทึกเป็น .{{ext}}"}}
 	}
 }

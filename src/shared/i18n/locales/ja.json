@@ -292,7 +292,7 @@
 				"invalid": "1 から 5000 の整数を入力してください",
 				"tooltip": "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 			},
-			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
+			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "プロフィールがネイティブ音声を選ぶときのステレオまたはサラウンドです。プロフィールごとに上書きできます。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
 			"autoRetry": {"label": "失敗したダウンロードを再試行", "description": "ネットワークやサーバーの一時的な問題のあと、自動的に再試行します。試行ごとに待ち時間が長くなります。サイトにブロックされたダウンロードは自動再試行されません。", "unit": "回"},
 			"concurrentDownloads": {"label": "同時ダウンロード数", "description": "キュー内の項目を同時にいくつダウンロードするか。同時数を増やすと長いキューが早く終わりますが、サイトから制限される可能性が高まります。", "unit": "件"},
 			"downloadConnections": {"label": "ダウンロード接続数", "description": "動画の複数の部分を同時に取得して、大きなダウンロードを高速化します。値を大きくすると、サイトから制限される可能性が高まります。", "unit": "接続"},
@@ -353,9 +353,10 @@
 			"fit": {
 				"tierBelow": "プロフィールでは {{wanted}}p が指定されていますが、この動画は最大 {{picked}}p のため、{{picked}}p を選択しました。",
 				"tierAbove": "プロフィールでは {{wanted}}p が指定されていますが、この動画にはそれより小さいものがないため、{{picked}}p を選択しました。",
-				"mp4Unavailable": "プロフィールでは MP4（H.264）が指定されていますが、この動画にはありません。最も近いストリームを選択しました。",
+				"mp4Unavailable": "プロフィールはスマートTV (H.264) です。この動画には H.264 がないため、最も近いストリームが選ばれています。",
 				"noVideo": "このリンクには映像がないため、音声を選択しました。",
-				"subtitlesMissing": "プロフィールでは {{languages}} の字幕が指定されていますが、この動画にはありません。"
+				"subtitlesMissing": "プロフィールでは {{languages}} の字幕が指定されていますが、この動画にはありません。",
+				"webmUnavailable": "プロフィールは WebM を指定しています。この動画で選ばれたストリームには WebM に格納できない {{codec}} が含まれるため、ファイル形式は自動になります。"
 			},
 			"summary": {"lead": "{{profile}} のその他の設定:", "subtitlesOff": "字幕オフ", "subtitlesAdd_one": "{{count}} 言語から追加できます", "subtitlesAdd_other": "{{count}} 言語から追加できます", "reviewAll": "すべて確認"},
 			"footer": {"reviewOptions": "確認とオプション", "download": "ダウンロード", "moreActions": "その他のダウンロードオプション", "addToQueue": "開始せずにキューに追加", "subtitlesRequired": "字幕の言語を1つ以上選択してください。"},
@@ -410,7 +411,8 @@
 					"fixUnsafeBody": "Chromeの起動ショートカットに --disable-features=LockProfileCookieDatabase を追加してください。警告: これにより以前に暗号化されたCookieが無効になり、すべてのサイトからサインアウトされるため、再度ログインが必要になります。",
 					"docsLinkLabel": "yt-dlp ドキュメント (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "保存形式", "reset": "WebM では {{codec}} を格納できないため、ファイル形式を自動に戻しました。"}
 		},
 		"folder": {
 			"heading": "保存先",
@@ -485,7 +487,8 @@
 			"itemsValueBulk_other": "{{count}} / {{total}} URL",
 			"profileBreakdownHeading": "このバッチのプロファイル",
 			"profileBreakdownCount_one": "{{count}} 件",
-			"profileBreakdownCount_other": "{{count}} 件"
+			"profileBreakdownCount_other": "{{count}} 件",
+			"subtitleEmbedForcesMkv": "動画内に字幕を埋め込むには MKV ファイルが必要なので、.mkv で保存されます。"
 		},
 		"profileEditor": {
 			"dialogTitle": "ダウンロードプロフィール",
@@ -501,7 +504,6 @@
 			"field": {
 				"nameAndIcon": "プロフィール名とアイコン",
 				"icon": "プロフィールアイコン",
-				"compatibility": "互換性",
 				"resolution": "解像度",
 				"quality": "品質",
 				"source": "ソース",
@@ -511,7 +513,10 @@
 				"subtitleDownloadsDescription": "プロファイルは言語コードで指定します。利用できるかは URL ごとに判定されます。",
 				"languages": "言語",
 				"delivery": "保存方法",
-				"overridePath": "プロフィール個別設定のパス"
+				"overridePath": "プロフィール個別設定のパス",
+				"goal": "最適化の対象",
+				"fileType": "ファイル形式",
+				"nativeAudio": "ネイティブ音声"
 			},
 			"action": {
 				"chooseIcon": "プロフィールアイコンを選択",
@@ -548,11 +553,16 @@
 			},
 			"icon": {"controls": "コントロール", "download": "ダウンロード", "video": "動画", "captions": "字幕", "audio": "音声", "music": "音楽", "podcast": "ポッドキャスト", "classes": "講座", "clip": "クリップ", "archive": "アーカイブ"},
 			"audioFormat": {"best": "最高", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "最大 128K", "192": "最大 192K", "320": "最大 320K", "best": "最高品質"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "まず手動、次に自動", "manualOnly": "手動のみ", "autoOnly": "自動生成のみ"},
-			"sponsorBlockHint": {"off": "SponsorBlock なし — 動画はアップロードされたまま再生されます。", "mark": "スポンサー区間をチャプターとして記録します（ファイルは変更しません）。", "remove": "FFmpeg でスポンサー区間を動画から切り取ります。"}
+			"sponsorBlockHint": {"off": "SponsorBlock なし — 動画はアップロードされたまま再生されます。", "mark": "スポンサー区間をチャプターとして記録します（ファイルは変更しません）。", "remove": "FFmpeg でスポンサー区間を動画から切り取ります。"},
+			"advanced": "詳細設定",
+			"goal": {
+				"bestPicture": {"name": "最高画質", "tag": "AV1 · VP9", "description": "同じサイズで最も鮮明です。古いテレビ、QuickTime、一部の編集ソフトでは再生できません。"},
+				"smartTv": {"name": "スマートTV", "tag": "MP4 · H.264", "description": "テレビ、スマホ、WhatsApp、QuickTime、動画編集ソフトで再生できます。YouTube が H.264 を提供するのは 1080p までです。"}
+			},
+			"nativeAudio": {"default": "アプリの設定を使う ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "読み込み中…"},
@@ -849,5 +859,44 @@
 			"signOutConfirm": "ログアウト"
 		},
 		"error": {"proxyTitle": "Exploreはプロキシ経由で接続できません", "proxyBody": "設定でプロキシを確認して、もう一度お試しください。", "loadTitle": "このページを読み込めませんでした", "loadBody": "接続を確認して、もう一度お試しください。", "retry": "再試行", "openSettings": "設定を開く"}
+	},
+	"fileType": {
+		"auto": "自動",
+		"autoValue": "自動 (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "選ばれたストリームに合わせてファイル形式が決まります。",
+			"mp4": "ほとんどの環境で再生できます。VP9 や AV1 の MP4 は古い Mac の QuickTime では開けません。",
+			"mkv": "どのコーデックも格納できます。一部のテレビやスマホでは開けません。",
+			"webm": "ブラウザ向けのオープン形式です。VP9 または AV1 と Opus のみ格納できます。"
+		},
+		"webmBlocked": "WebM では {{codec}} を格納できません。MKV か MP4 を選んでください。",
+		"profileMark": "プロフィール",
+		"smartTvNoWebm": "スマートTVでは WebM は選べません。H.264 を格納できないためです。",
+		"mp4Caveat": "MP4 に入った {{codecs}} は、QuickTime や一部の編集ソフト、一部のテレビで開けないことがあります。H.264 ならどこでも再生できます。"
+	},
+	"selectionOrder": {
+		"editorTitle": "このプロフィールの選び方",
+		"whyTitle": "プロフィールがこれを選んだ理由",
+		"whyLabel": "なぜこれ?",
+		"rank": {
+			"h264": {"label": "H.264 映像", "reason": "どの端末でも再生可能"},
+			"mp4Streams": {"label": "MP4 ストリーム", "reason": "MP4 ファイル向け"},
+			"resolutionBest": {"label": "最高解像度", "reason": "上限なし"},
+			"resolution": {"label": "最大 {{tier}}p", "reason": "指定した上限"},
+			"fps": {"label": "最高フレームレート", "reason": "動きがなめらか"},
+			"hdr": {"label": "SDR より HDR を優先", "reason": "通常の順序"},
+			"codec": {"label": "AV1、次に VP9、次に H.264", "reason": "同じサイズで最も鮮明"},
+			"size": {"label": "大きいファイル", "reason": "同じ設定でより高精細"},
+			"aacSmartTv": {"label": "AAC 音声", "reason": "どこでも再生可能"},
+			"aacFileType": {"label": "AAC 音声", "reason": "MP4 プレーヤーに対応"},
+			"opus": {"label": "Opus 音声", "reason": "WebM に対応"},
+			"nativeCompatible": {"label": "ステレオ音声"},
+			"nativeSurround": {"label": "サラウンド音声 (提供されている場合)"},
+			"nativeSource": {"settings": "設定から", "profile": "このプロフィール"}
+		},
+		"summary": {"goal": {"bestPicture": "最高画質", "smartTv": "どの端末でも再生可能"}, "fileType": {"auto": "ファイル形式はストリームに合わせる", "explicit": ".{{ext}} で保存"}}
 	}
 }

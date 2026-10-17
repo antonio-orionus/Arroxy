@@ -491,6 +491,58 @@ msgctxt "filenameTemplate.profileOverrideLabel"
 msgid "Filename template"
 msgstr "የፋይል ስም አብነት"
 
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "ራስ-ሰር"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "ራስ-ሰር (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "የተመረጡት ዥረቶች የፋይሉን አይነት ይወስናሉ።"
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "ማንኛውንም codec ይይዛል። አንዳንድ ቲቪዎችና ስልኮች ሊከፍቱት አይችሉም።"
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs."
+msgstr "በሁሉም ቦታ ማለት ይቻላል ይጫወታል። በMP4 ውስጥ ያለ VP9 ወይም AV1 በቆዩ Mac ኮምፒውተሮች ላይ በQuickTime አይከፈትም።"
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "ለአሳሾች የተዘጋጀ ክፍት ቅርጸት። VP9 ወይም AV1 ከOpus ጋር ብቻ ይይዛል።"
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4Caveat"
+msgid "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
+msgstr "በMP4 ውስጥ ያለ {{codecs}} በQuickTime፣ በአንዳንድ አርታዒዎችና በአንዳንድ ቲቪዎች ላይከፈት ይችላል። H.264 በሁሉም ቦታ ይጫወታል።"
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "መገለጫ"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM ከስማርት TV ጋር አይቀርብም፦ H.264 መያዝ አይችልም።"
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM {{codec}} መያዝ አይችልም። MKV ወይም MP4 ይምረጡ።"
+
 msgctxt "formatLabel.audioFallback"
 msgid "Audio"
 msgstr "ድምጽ"
@@ -1171,6 +1223,138 @@ msgctxt "repair.title"
 msgid "Setup needs your help"
 msgstr "ማዋቀሩ እርዳታዎን ይፈልጋል"
 
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "ይህ መገለጫ እንዴት እንደሚመርጥ"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC ድምጽ"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "ለMP4 ማጫወቻዎች ተስማሚ"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC ድምጽ"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "በሁሉም ቦታ ይጫወታል"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1፣ ከዚያ VP9፣ ከዚያ H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "በተመሳሳይ መጠን በጣም ጥርት ያለ"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "ከፍተኛው የፍሬም መጠን"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "ይበልጥ ለስላሳ እንቅስቃሴ"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 ቪዲዮ"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "በሁሉም መሣሪያ ላይ ይጫወታል"
+
+msgctxt "selectionOrder.rank.hdr.label"
+msgid "HDR before SDR"
+msgstr "HDR ከSDR በፊት"
+
+msgctxt "selectionOrder.rank.hdr.reason"
+msgid "the usual order"
+msgstr "የተለመደው ቅደም ተከተል"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 ዥረቶች"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "ለMP4 ፋይል ዝግጁ"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "ስቴሪዮ ድምጽ"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "ይህ መገለጫ"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "ከቅንብሮች"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "ሲገኝ surround ድምጽ"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus ድምጽ"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "ለWebM ተስማሚ"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "እስከ {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "የእርስዎ ገደብ"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "ከፍተኛው ጥራት መጠን"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "ገደብ አልተቀመጠም"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "ትልቅ ፋይል"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "የፋይል አይነት ከዥረቶቹ"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "እንደ .{{ext}} ይቀመጣል"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "ምርጥ ምስል"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "በማንኛውም መሣሪያ ይጫወታል"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "ለምን ይህ?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "መገለጫው ይህን ለምን መረጠ"
+
 msgctxt "share.copied"
 msgid "Copied!"
 msgstr "ተቀድቷል!"
@@ -1625,6 +1809,10 @@ msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
 msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
 msgstr "Subtitle embed ወደ sidecar ተቀይሯል — የድምጽ ትራኮች ውስጣዊ subtitle ዥረቶችን አይደግፉም።"
 
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "በቪዲዮው ውስጥ የሚካተቱ ንዑስ ርዕሶች MKV ፋይል ያስፈልጋቸዋል፣ ስለዚህ ይህ ማውረድ እንደ .mkv ይቀመጣል።"
+
 msgctxt "wizard.confirm.subtitlesNone"
 msgid "—"
 msgstr "—"
@@ -1866,8 +2054,8 @@ msgid "Use a cookies file or browser instead…"
 msgstr "በምትኩ የCookies ፋይል ወይም አሳሽ ይጠቀሙ…"
 
 msgctxt "wizard.formats.fit.mp4Unavailable"
-msgid "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected."
-msgstr "መገለጫዎ MP4 (H.264) ይጠይቃል። ይህ ቪዲዮ አይሰጥም፣ ስለዚህ በጣም ቅርብ የሆነው ዥረት ተመርጧል።"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "መገለጫዎ ስማርት TV (H.264) ነው። ይህ ቪዲዮ H.264 አያቀርብም፣ ስለዚህ በጣም ቅርብ የሆነው ዥረት ተመርጧል።"
 
 msgctxt "wizard.formats.fit.noVideo"
 msgid "This link has no video, so audio is selected."
@@ -1884,6 +2072,10 @@ msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ይህ�
 msgctxt "wizard.formats.fit.tierBelow"
 msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
 msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ እስከ {{picked}}p ብቻ ነው የሚደርሰው፣ ስለዚህ {{picked}}p ተመርጧል።"
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "መገለጫዎ WebM ይጠይቃል። የዚህ ቪዲዮ የተመረጡ ዥረቶች WebM ሊይዘው የማይችለውን {{codec}} ያካትታሉ፣ ስለዚህ የፋይሉ አይነት ራስ-ሰር ነው።"
 
 msgctxt "wizard.formats.footer.addToQueue"
 msgid "Add to queue without starting"
@@ -1976,6 +2168,14 @@ msgstr "ዝቅተኛ ጥራት"
 msgctxt "wizard.formats.quality.medium"
 msgid "Medium quality"
 msgstr "መካከለኛ ጥራት"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "የሚቀመጠው እንደ"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM {{codec}} መያዝ ስለማይችል የፋይሉ አይነት ወደ ራስ-ሰር ተመልሷል።"
 
 msgctxt "wizard.formats.sizeUnknown"
 msgid "Size unknown"
@@ -2477,6 +2677,10 @@ msgctxt "wizard.profileEditor.action.useLanguageCode"
 msgid "Use language code “{{code}}”"
 msgstr "“{{code}}” የቋንቋ ኮድ ተጠቀም"
 
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "ከፍተኛ"
+
 msgctxt "wizard.profileEditor.audioFormat.best"
 msgid "Best"
 msgstr "ምርጥ"
@@ -2533,13 +2737,17 @@ msgctxt "wizard.profileEditor.error.save"
 msgid "Could not save profile settings."
 msgstr "የመገለጫ ቅንብሮችን ማስቀመጥ አልተቻለም።"
 
-msgctxt "wizard.profileEditor.field.compatibility"
-msgid "Compatibility"
-msgstr "ተኳኋኝነት"
-
 msgctxt "wizard.profileEditor.field.delivery"
 msgid "Delivery"
 msgstr "የማስቀመጫ መንገድ"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "የፋይል አይነት"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "ቅድሚያ የሚሰጠው"
 
 msgctxt "wizard.profileEditor.field.icon"
 msgid "Profile icon"
@@ -2556,6 +2764,10 @@ msgstr "የመገለጫ ስም"
 msgctxt "wizard.profileEditor.field.nameAndIcon"
 msgid "Profile name and icon"
 msgstr "የመገለጫ ስም እና አዶ"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "የተፈጥሯዊ ድምፅ"
 
 msgctxt "wizard.profileEditor.field.overridePath"
 msgid "Profile override path"
@@ -2584,6 +2796,30 @@ msgstr "የትርጉም ጽሑፍ ማውረዶች"
 msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
 msgid "Profiles request language codes; availability is resolved for each URL."
 msgstr "መገለጫዎች የቋንቋ ኮዶችን ይጠይቃሉ፤ መገኘታቸው ለእያንዳንዱ URL ይወሰናል።"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "በተመሳሳይ መጠን በጣም ጥርት ያለ። የቆዩ ቲቪዎች፣ QuickTime እና አንዳንድ አርታዒዎች ሊያጫውቱት አይችሉም።"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "ምርጥ ምስል"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "በቲቪዎች፣ በስልኮች፣ በWhatsApp፣ በQuickTime እና በቪዲዮ አርታዒዎች ይጫወታል። YouTube H.264ን የሚያቀርበው እስከ 1080p ብቻ ነው።"
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "ስማርት TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
 
 msgctxt "wizard.profileEditor.icon.archive"
 msgid "Archive"
@@ -2656,6 +2892,10 @@ msgstr "ድምፅ የሌለው ቪዲዮ ብቻ"
 msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
 msgid "Video, no audio"
 msgstr "ቪዲዮ፣ ያለ ድምፅ"
+
+msgctxt "wizard.profileEditor.nativeAudio.default"
+msgid "Use app setting ({{value}})"
+msgstr "የመተግበሪያውን ቅንብር ተጠቀም ({{value}})"
 
 msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
 msgid "Auto-captions will be saved as SRT instead of ASS."
@@ -2772,10 +3012,6 @@ msgstr "መጀመሪያ በእጅ፣ ከዚያ ራስ-ሰር"
 msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
 msgid "Manual only"
 msgstr "በእጅ ብቻ"
-
-msgctxt "wizard.profileEditor.videoAudioFormat.m4a"
-msgid "M4A / AAC"
-msgstr "M4A / AAC"
 
 msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
@@ -3466,8 +3702,8 @@ msgid "Compatible stereo"
 msgstr "ተኳኋኝ ስቴሪዮ"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
-msgid "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit."
-msgstr "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "መገለጫ የተፈጥሯዊ ድምፅ ሲመርጥ ስቴሪዮ ወይም surround። መገለጫ ይህን ሊሽረው ይችላል።"
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"

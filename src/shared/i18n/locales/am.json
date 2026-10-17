@@ -283,7 +283,7 @@
 				"invalid": "ከ1 እስከ 5000 ሙሉ ቁጥር ይጠቀሙ",
 				"tooltip": "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 			},
-			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "“Best native” ምን እንደሚመርጥ ይቆጣጠራል። በእጅ የሚመረጡ የድምፅ ረድፎች እና M4A/AAC ግልጽ ምርጫዎች ሆነው ይቀራሉ።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
+			"nativeAudioPreference": {"label": "የተፈጥሯዊ ድምፅ ምርጫ", "description": "መገለጫ የተፈጥሯዊ ድምፅ ሲመርጥ ስቴሪዮ ወይም surround። መገለጫ ይህን ሊሽረው ይችላል።", "compatible": "ተኳኋኝ ስቴሪዮ", "surround": "surround / Dolby ን ይመርጡ"},
 			"autoRetry": {"label": "ያልተሳኩ ዳውንሎዶችን እንደገና ሞክር", "description": "ከኔትወርክ ወይም ከሰርቨር ችግር በኋላ በራስ-ሰር እንደገና ይሞክራል፣ በእያንዳንዱ ሙከራ መካከል ረዘም ብሎ ይጠብቃል። በጣቢያው የታገዱ ዳውንሎዶች በራስ-ሰር አይሞከሩም።", "unit": "ጊዜ"},
 			"concurrentDownloads": {"label": "በአንድ ጊዜ ዳውንሎዶች", "description": "በተመሳሳይ ጊዜ ስንት የተሰለፉ ንጥሎች እንደሚወርዱ። ብዙ በአንድ ጊዜ ረጅም ሰልፍን ቶሎ ይጨርሳል፣ ነገር ግን ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።", "unit": "ዳውንሎዶች"},
 			"downloadConnections": {"label": "የዳውንሎድ ግንኙነቶች", "description": "የቪዲዮን በርካታ ክፍሎች በአንድ ጊዜ በማውረድ ትላልቅ ዳውንሎዶችን ያፋጥናል። ከፍ ያለ ዋጋ ጣቢያው እንዲገድብዎ ዕድሉን ይጨምራል።", "unit": "ግንኙነቶች"},
@@ -339,9 +339,10 @@
 			"fit": {
 				"tierBelow": "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ እስከ {{picked}}p ብቻ ነው የሚደርሰው፣ ስለዚህ {{picked}}p ተመርጧል።",
 				"tierAbove": "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ይህን ያህል ትንሽ ነገር የለውም፣ ስለዚህ {{picked}}p ተመርጧል።",
-				"mp4Unavailable": "መገለጫዎ MP4 (H.264) ይጠይቃል። ይህ ቪዲዮ አይሰጥም፣ ስለዚህ በጣም ቅርብ የሆነው ዥረት ተመርጧል።",
+				"mp4Unavailable": "መገለጫዎ ስማርት TV (H.264) ነው። ይህ ቪዲዮ H.264 አያቀርብም፣ ስለዚህ በጣም ቅርብ የሆነው ዥረት ተመርጧል።",
 				"noVideo": "ይህ አገናኝ ቪዲዮ የለውም፣ ስለዚህ ድምጽ ተመርጧል።",
-				"subtitlesMissing": "መገለጫዎ በ{{languages}} ንዑስ ርዕሶችን ይጠይቃል። ይህ ቪዲዮ የለውም።"
+				"subtitlesMissing": "መገለጫዎ በ{{languages}} ንዑስ ርዕሶችን ይጠይቃል። ይህ ቪዲዮ የለውም።",
+				"webmUnavailable": "መገለጫዎ WebM ይጠይቃል። የዚህ ቪዲዮ የተመረጡ ዥረቶች WebM ሊይዘው የማይችለውን {{codec}} ያካትታሉ፣ ስለዚህ የፋይሉ አይነት ራስ-ሰር ነው።"
 			},
 			"summary": {"lead": "ከ{{profile}} ደግሞ፦", "subtitlesOff": "ንዑስ ርዕሶች ጠፍተዋል", "subtitlesAdd_one": "{{count}} ቋንቋ አለ፣ ጨምር", "subtitlesAdd_other": "{{count}} ቋንቋዎች አሉ፣ ጨምር", "reviewAll": "ሁሉንም ገምግም"},
 			"footer": {"reviewOptions": "ግምገማ እና አማራጮች", "download": "ማውረድ", "moreActions": "ተጨማሪ የማውረድ አማራጮች", "addToQueue": "ሳይጀምር ወደ ወረፋ ጨምር", "subtitlesRequired": "ቢያንስ አንድ የንዑስ ርዕስ ቋንቋ ይምረጡ።"},
@@ -396,7 +397,8 @@
 					"fixUnsafeBody": "Chrome ን ለማስጀምር --disable-features=LockProfileCookieDatabase ወደ ቅርበት አክል። ማስጠንቀቂያ: ይህ ቀደም ሲል የተመሰጠሩ cookies ን ስለሚያወድም ከሁሉም ጣቢያዎች ይወጣሉ እና ዳግም መግባት ይኖርብዎታል።",
 					"docsLinkLabel": "yt-dlp ሰነዶች (ጉዳይ #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "የሚቀመጠው እንደ", "reset": "WebM {{codec}} መያዝ ስለማይችል የፋይሉ አይነት ወደ ራስ-ሰር ተመልሷል።"}
 		},
 		"folder": {"heading": "አስቀምጥ ወደ", "downloads": "ዳውንሎዶች", "videos": "ፊልሞች", "desktop": "ዴስክቶፕ", "music": "ሙዚቃ", "documents": "ሰነዶች", "pictures": "ስዕሎች", "home": "መነሻ", "custom": "ብጁ…", "subfolder": {"toggle": "ውስጥ ንዑስ አቃፊ አስቀምጥ", "placeholder": "ለምሳሌ lo-fi ቅጂዎች", "invalid": "የአቃፊ ስም ልቅ ቁምፊዎች አሉ"}},
 		"output": {
@@ -453,7 +455,8 @@
 			"itemsValueBulk_other": "{{count}} ከ{{total}} URLዎች",
 			"profileBreakdownHeading": "በዚህ ስብስብ ውስጥ ያሉ መገለጫዎች",
 			"profileBreakdownCount_one": "{{count}} ንጥል",
-			"profileBreakdownCount_other": "{{count}} ንጥሎች"
+			"profileBreakdownCount_other": "{{count}} ንጥሎች",
+			"subtitleEmbedForcesMkv": "በቪዲዮው ውስጥ የሚካተቱ ንዑስ ርዕሶች MKV ፋይል ያስፈልጋቸዋል፣ ስለዚህ ይህ ማውረድ እንደ .mkv ይቀመጣል።"
 		},
 		"profileEditor": {
 			"dialogTitle": "የማውረድ መገለጫ",
@@ -469,7 +472,6 @@
 			"field": {
 				"nameAndIcon": "የመገለጫ ስም እና አዶ",
 				"icon": "የመገለጫ አዶ",
-				"compatibility": "ተኳኋኝነት",
 				"resolution": "ጥራት መጠን",
 				"quality": "ጥራት",
 				"source": "ምንጭ",
@@ -479,7 +481,10 @@
 				"subtitleDownloadsDescription": "መገለጫዎች የቋንቋ ኮዶችን ይጠይቃሉ፤ መገኘታቸው ለእያንዳንዱ URL ይወሰናል።",
 				"languages": "ቋንቋዎች",
 				"delivery": "የማስቀመጫ መንገድ",
-				"overridePath": "የመገለጫ ተሻሪ መንገድ"
+				"overridePath": "የመገለጫ ተሻሪ መንገድ",
+				"goal": "ቅድሚያ የሚሰጠው",
+				"fileType": "የፋይል አይነት",
+				"nativeAudio": "የተፈጥሯዊ ድምፅ"
 			},
 			"action": {
 				"chooseIcon": "የመገለጫ አዶ ይምረጡ",
@@ -511,11 +516,16 @@
 			"mediaMode": {"videoAudio": {"label": "ቪዲዮ + ድምፅ", "description": "መደበኛ የቪዲዮ ፋይሎች"}, "videoOnly": {"label": "ቪዲዮ፣ ያለ ድምፅ", "description": "ድምፅ የሌለው ቪዲዮ ብቻ"}, "audioOnly": {"label": "ድምፅ ብቻ", "description": "ሙዚቃ ወይም ፖድካስት"}, "subtitlesOnly": {"label": "ትርጉም ጽሑፎች ብቻ", "description": "የመግለጫ ጽሑፍ ፋይሎች ብቻ"}},
 			"icon": {"controls": "መቆጣጠሪያዎች", "download": "ማውረድ", "video": "ቪዲዮ", "captions": "መግለጫ ጽሑፎች", "audio": "ድምፅ", "music": "ሙዚቃ", "podcast": "ፖድካስት", "classes": "ትምህርቶች", "clip": "ቁራጭ", "archive": "መዝገብ"},
 			"audioFormat": {"best": "ምርጥ", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "እስከ 128K", "192": "እስከ 192K", "320": "እስከ 320K", "best": "ምርጥ ጥራት"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "መጀመሪያ በእጅ፣ ከዚያ ራስ-ሰር", "manualOnly": "በእጅ ብቻ", "autoOnly": "ራስ-ሰር የተፈጠሩ ብቻ"},
-			"sponsorBlockHint": {"off": "SponsorBlock የለም — ቪዲዮው እንደተጫነ ይጫወታል።", "mark": "የስፖንሰር ክፍሎችን እንደ ምዕራፎች ምልክት ያደርጋል (ፋይሉን አይለውጥም)።", "remove": "በFFmpeg የስፖንሰር ክፍሎችን ከቪዲዮው ይቆርጣል።"}
+			"sponsorBlockHint": {"off": "SponsorBlock የለም — ቪዲዮው እንደተጫነ ይጫወታል።", "mark": "የስፖንሰር ክፍሎችን እንደ ምዕራፎች ምልክት ያደርጋል (ፋይሉን አይለውጥም)።", "remove": "በFFmpeg የስፖንሰር ክፍሎችን ከቪዲዮው ይቆርጣል።"},
+			"advanced": "ከፍተኛ",
+			"goal": {
+				"bestPicture": {"name": "ምርጥ ምስል", "tag": "AV1 · VP9", "description": "በተመሳሳይ መጠን በጣም ጥርት ያለ። የቆዩ ቲቪዎች፣ QuickTime እና አንዳንድ አርታዒዎች ሊያጫውቱት አይችሉም።"},
+				"smartTv": {"name": "ስማርት TV", "tag": "MP4 · H.264", "description": "በቲቪዎች፣ በስልኮች፣ በWhatsApp፣ በQuickTime እና በቪዲዮ አርታዒዎች ይጫወታል። YouTube H.264ን የሚያቀርበው እስከ 1080p ብቻ ነው።"}
+			},
+			"nativeAudio": {"default": "የመተግበሪያውን ቅንብር ተጠቀም ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "በመጫን ላይ…"},
@@ -793,5 +803,39 @@
 			"signOutConfirm": "ውጣ"
 		},
 		"error": {"proxyTitle": "Explore በፕሮክሲዎ በኩል መገናኘት አልቻለም", "proxyBody": "በቅንብሮች ውስጥ ፕሮክሲውን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።", "loadTitle": "ይህ ገጽ አልተጫነም", "loadBody": "ግንኙነትዎን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።", "retry": "እንደገና ሞክር", "openSettings": "ቅንብሮችን ክፈት"}
+	},
+	"fileType": {
+		"auto": "ራስ-ሰር",
+		"autoValue": "ራስ-ሰር (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "የተመረጡት ዥረቶች የፋይሉን አይነት ይወስናሉ።", "mp4": "በሁሉም ቦታ ማለት ይቻላል ይጫወታል። በMP4 ውስጥ ያለ VP9 ወይም AV1 በቆዩ Mac ኮምፒውተሮች ላይ በQuickTime አይከፈትም።", "mkv": "ማንኛውንም codec ይይዛል። አንዳንድ ቲቪዎችና ስልኮች ሊከፍቱት አይችሉም።", "webm": "ለአሳሾች የተዘጋጀ ክፍት ቅርጸት። VP9 ወይም AV1 ከOpus ጋር ብቻ ይይዛል።"},
+		"webmBlocked": "WebM {{codec}} መያዝ አይችልም። MKV ወይም MP4 ይምረጡ።",
+		"profileMark": "መገለጫ",
+		"smartTvNoWebm": "WebM ከስማርት TV ጋር አይቀርብም፦ H.264 መያዝ አይችልም።",
+		"mp4Caveat": "በMP4 ውስጥ ያለ {{codecs}} በQuickTime፣ በአንዳንድ አርታዒዎችና በአንዳንድ ቲቪዎች ላይከፈት ይችላል። H.264 በሁሉም ቦታ ይጫወታል።"
+	},
+	"selectionOrder": {
+		"editorTitle": "ይህ መገለጫ እንዴት እንደሚመርጥ",
+		"whyTitle": "መገለጫው ይህን ለምን መረጠ",
+		"whyLabel": "ለምን ይህ?",
+		"rank": {
+			"h264": {"label": "H.264 ቪዲዮ", "reason": "በሁሉም መሣሪያ ላይ ይጫወታል"},
+			"mp4Streams": {"label": "MP4 ዥረቶች", "reason": "ለMP4 ፋይል ዝግጁ"},
+			"resolutionBest": {"label": "ከፍተኛው ጥራት መጠን", "reason": "ገደብ አልተቀመጠም"},
+			"resolution": {"label": "እስከ {{tier}}p", "reason": "የእርስዎ ገደብ"},
+			"fps": {"label": "ከፍተኛው የፍሬም መጠን", "reason": "ይበልጥ ለስላሳ እንቅስቃሴ"},
+			"hdr": {"label": "HDR ከSDR በፊት", "reason": "የተለመደው ቅደም ተከተል"},
+			"codec": {"label": "AV1፣ ከዚያ VP9፣ ከዚያ H.264", "reason": "በተመሳሳይ መጠን በጣም ጥርት ያለ"},
+			"size": {"label": "ትልቅ ፋይል", "reason": "በተመሳሳይ ቅንብሮች ተጨማሪ ዝርዝር"},
+			"aacSmartTv": {"label": "AAC ድምጽ", "reason": "በሁሉም ቦታ ይጫወታል"},
+			"aacFileType": {"label": "AAC ድምጽ", "reason": "ለMP4 ማጫወቻዎች ተስማሚ"},
+			"opus": {"label": "Opus ድምጽ", "reason": "ለWebM ተስማሚ"},
+			"nativeCompatible": {"label": "ስቴሪዮ ድምጽ"},
+			"nativeSurround": {"label": "ሲገኝ surround ድምጽ"},
+			"nativeSource": {"settings": "ከቅንብሮች", "profile": "ይህ መገለጫ"}
+		},
+		"summary": {"goal": {"bestPicture": "ምርጥ ምስል", "smartTv": "በማንኛውም መሣሪያ ይጫወታል"}, "fileType": {"auto": "የፋይል አይነት ከዥረቶቹ", "explicit": "እንደ .{{ext}} ይቀመጣል"}}
 	}
 }

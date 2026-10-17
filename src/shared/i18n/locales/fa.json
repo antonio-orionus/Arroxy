@@ -292,7 +292,7 @@
 				"invalid": "یک عدد صحیح از ۱ تا ۵۰۰۰ وارد کنید",
 				"tooltip": "معادل --playlist-end در yt-dlp است: Arroxy هنگام ساخت انتخابگر فقط همین تعداد مورد از فهرست پخش، کانال یا جستجو درخواست می‌کند."
 			},
-			"nativeAudioPreference": {"label": "ترجیح صدای اصلی", "description": "انتخاب «بهترین نسخهٔ اصلی» را کنترل می‌کند. ردیف‌های صدای دستی و M4A/AAC همچنان صریح باقی می‌مانند.", "compatible": "استریوی سازگار", "surround": "ترجیح صدای فراگیر / Dolby"},
+			"nativeAudioPreference": {"label": "ترجیح صدای اصلی", "description": "استریو یا فراگیر، وقتی نمایه صدای اصلی را انتخاب می‌کند. نمایه می‌تواند آن را تغییر دهد.", "compatible": "استریوی سازگار", "surround": "ترجیح صدای فراگیر / Dolby"},
 			"autoRetry": {"label": "تلاش دوباره برای دانلودهای ناموفق", "description": "پس از اختلال شبکه یا سرور، با فاصلهٔ بیشتر میان تلاش‌ها خودکار دوباره تلاش می‌کند. دانلودهایی که سایت مسدود کرده هرگز خودکار تکرار نمی‌شوند.", "unit": "بار"},
 			"concurrentDownloads": {"label": "دانلودهای هم‌زمان", "description": "تعداد موارد صف که هم‌زمان دانلود می‌شوند. دانلودهای هم‌زمان بیشتر صف طولانی را زودتر تمام می‌کنند، اما احتمال محدودشدن از سوی سایت را افزایش می‌دهند.", "unit": "دانلود"},
 			"downloadConnections": {"label": "اتصال‌های دانلود", "description": "با دریافت هم‌زمان چند بخش ویدیو، دانلودهای بزرگ را سریع‌تر می‌کند. مقدار بیشتر احتمال محدودشدن از سوی سایت را بالا می‌برد.", "unit": "اتصال"},
@@ -353,9 +353,10 @@
 			"fit": {
 				"tierBelow": "نمایهٔ شما {{wanted}}p را می‌خواهد. این ویدیو فقط تا {{picked}}p می‌رسد، پس {{picked}}p انتخاب شد.",
 				"tierAbove": "نمایهٔ شما {{wanted}}p را می‌خواهد. این ویدیو چیزی به این کوچکی ندارد، پس {{picked}}p انتخاب شد.",
-				"mp4Unavailable": "نمایهٔ شما MP4 (H.264) را می‌خواهد. این ویدیو آن را ندارد، پس نزدیک‌ترین گزینه انتخاب شد.",
+				"mp4Unavailable": "نمایهٔ شما تلویزیون هوشمند (H.264) است. این ویدیو H.264 ارائه نمی‌دهد، پس نزدیک‌ترین جریان انتخاب شد.",
 				"noVideo": "این پیوند ویدیو ندارد، پس صدا انتخاب شد.",
-				"subtitlesMissing": "نمایهٔ شما زیرنویس را به زبان {{languages}} می‌خواهد. این ویدیو آن را ندارد."
+				"subtitlesMissing": "نمایهٔ شما زیرنویس را به زبان {{languages}} می‌خواهد. این ویدیو آن را ندارد.",
+				"webmUnavailable": "نمایهٔ شما WebM می‌خواهد. جریان‌های انتخاب‌شدهٔ این ویدیو شامل {{codec}} هستند که WebM نمی‌تواند آن را در خود جا دهد، پس نوع فایل خودکار است."
 			},
 			"summary": {"lead": "همچنین از {{profile}}:", "subtitlesOff": "زیرنویس خاموش", "subtitlesAdd_one": "{{count}} زبان موجود است، افزودن", "subtitlesAdd_other": "{{count}} زبان موجود است، افزودن", "reviewAll": "مرور همه"},
 			"footer": {"reviewOptions": "مرور و گزینه‌ها", "download": "دانلود", "moreActions": "گزینه‌های بیشتر دانلود", "addToQueue": "افزودن به صف بدون شروع", "subtitlesRequired": "حداقل یک زبان زیرنویس انتخاب کنید."},
@@ -410,7 +411,8 @@
 					"fixUnsafeBody": "--disable-features=LockProfileCookieDatabase را به میان‌بر اجرای Chrome اضافه کنید. هشدار: این کار کوکی‌های رمزگذاری‌شدهٔ پیشین را نامعتبر می‌کند، بنابراین از همهٔ سایت‌ها خارج می‌شوید و باید دوباره وارد شوید.",
 					"docsLinkLabel": "مستندات yt-dlp (issue شمارهٔ 10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "ذخیره به‌صورت", "reset": "WebM نمی‌تواند {{codec}} را در خود جا دهد، پس نوع فایل به خودکار برگشت."}
 		},
 		"folder": {
 			"heading": "ذخیره در",
@@ -478,7 +480,8 @@
 			"itemsValueBulk_other": "{{count}} از {{total}} URL",
 			"profileBreakdownHeading": "نمایه‌های این گروه",
 			"profileBreakdownCount_one": "{{count}} مورد",
-			"profileBreakdownCount_other": "{{count}} مورد"
+			"profileBreakdownCount_other": "{{count}} مورد",
+			"subtitleEmbedForcesMkv": "زیرنویس داخل ویدیو به فایل MKV نیاز دارد، پس این دانلود با قالب .mkv ذخیره می‌شود."
 		},
 		"profileEditor": {
 			"dialogTitle": "نمایهٔ دانلود",
@@ -494,7 +497,6 @@
 			"field": {
 				"nameAndIcon": "نام و نماد نمایه",
 				"icon": "نماد نمایه",
-				"compatibility": "سازگاری",
 				"resolution": "وضوح",
 				"quality": "کیفیت",
 				"source": "منبع",
@@ -504,7 +506,10 @@
 				"subtitleDownloadsDescription": "پروفایل‌ها کدهای زبان را درخواست می‌کنند؛ دسترس‌پذیری برای هر URL جداگانه بررسی می‌شود.",
 				"languages": "زبان‌ها",
 				"delivery": "تحویل",
-				"overridePath": "مسیر جایگزین نمایه"
+				"overridePath": "مسیر جایگزین نمایه",
+				"goal": "بهینه‌سازی برای",
+				"fileType": "نوع فایل",
+				"nativeAudio": "صدای اصلی"
 			},
 			"action": {
 				"chooseIcon": "انتخاب نماد نمایه",
@@ -541,11 +546,16 @@
 			},
 			"icon": {"controls": "کنترل‌ها", "download": "دانلود", "video": "ویدیو", "captions": "زیرنویس‌ها", "audio": "صدا", "music": "موسیقی", "podcast": "پادکست", "classes": "کلاس‌ها", "clip": "کلیپ", "archive": "بایگانی"},
 			"audioFormat": {"best": "بهترین", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "تا 128K", "192": "تا 192K", "320": "تا 320K", "best": "بهترین کیفیت"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "ابتدا دستی، سپس خودکار", "manualOnly": "فقط دستی", "autoOnly": "فقط تولیدشدهٔ خودکار"},
-			"sponsorBlockHint": {"off": "بدون SponsorBlock — ویدیو همان‌طور که بارگذاری شده پخش می‌شود.", "mark": "بخش‌های اسپانسری را به‌عنوان فصل علامت می‌زند (بدون تغییر محتوا).", "remove": "بخش‌های اسپانسری را با FFmpeg از ویدیو می‌بُرد."}
+			"sponsorBlockHint": {"off": "بدون SponsorBlock — ویدیو همان‌طور که بارگذاری شده پخش می‌شود.", "mark": "بخش‌های اسپانسری را به‌عنوان فصل علامت می‌زند (بدون تغییر محتوا).", "remove": "بخش‌های اسپانسری را با FFmpeg از ویدیو می‌بُرد."},
+			"advanced": "پیشرفته",
+			"goal": {
+				"bestPicture": {"name": "بهترین تصویر", "tag": "AV1 · VP9", "description": "واضح‌ترین در حجم یکسان. تلویزیون‌های قدیمی، QuickTime و برخی ویرایشگرها نمی‌توانند آن را پخش کنند."},
+				"smartTv": {"name": "تلویزیون هوشمند", "tag": "MP4 · H.264", "description": "روی تلویزیون، گوشی، WhatsApp، QuickTime و ویرایشگرهای ویدیو پخش می‌شود. YouTube کدک H.264 را فقط تا 1080p ارائه می‌دهد."}
+			},
+			"nativeAudio": {"default": "استفاده از تنظیم برنامه ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "در حال بارگیری…"},
@@ -835,5 +845,44 @@
 			"signOutConfirm": "خروج"
 		},
 		"error": {"proxyTitle": "Explore نمی‌تواند از طریق پروکسی شما متصل شود", "proxyBody": "پروکسی را در تنظیمات بررسی کنید و دوباره تلاش کنید.", "loadTitle": "این صفحه بارگیری نشد", "loadBody": "اتصال خود را بررسی کنید و دوباره تلاش کنید.", "retry": "تلاش دوباره", "openSettings": "باز کردن تنظیمات"}
+	},
+	"fileType": {
+		"auto": "خودکار",
+		"autoValue": "خودکار (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "جریان‌های انتخاب‌شده نوع فایل را تعیین می‌کنند.",
+			"mp4": "تقریباً همه‌جا پخش می‌شود. VP9 یا AV1 در MP4 در QuickTime مک‌های قدیمی باز نمی‌شود.",
+			"mkv": "هر کدکی را در خود جا می‌دهد. برخی تلویزیون‌ها و گوشی‌ها نمی‌توانند آن را باز کنند.",
+			"webm": "قالبی باز برای مرورگرها. فقط VP9 یا AV1 همراه با Opus را در خود جا می‌دهد."
+		},
+		"webmBlocked": "WebM نمی‌تواند {{codec}} را در خود جا دهد. MKV یا MP4 را انتخاب کنید.",
+		"profileMark": "نمایه",
+		"smartTvNoWebm": "WebM برای تلویزیون هوشمند ارائه نمی‌شود: نمی‌تواند H.264 را در خود جا دهد.",
+		"mp4Caveat": "{{codecs}} در MP4 ممکن است در QuickTime، برخی ویرایشگرها و برخی تلویزیون‌ها باز نشود. H.264 همه‌جا پخش می‌شود."
+	},
+	"selectionOrder": {
+		"editorTitle": "این نمایه چگونه انتخاب می‌کند",
+		"whyTitle": "چرا نمایه این را انتخاب کرد",
+		"whyLabel": "چرا این؟",
+		"rank": {
+			"h264": {"label": "ویدیوی H.264", "reason": "روی هر دستگاهی پخش می‌شود"},
+			"mp4Streams": {"label": "جریان‌های MP4", "reason": "آماده برای فایل MP4"},
+			"resolutionBest": {"label": "بیشترین وضوح", "reason": "بدون محدودیت"},
+			"resolution": {"label": "تا {{tier}}p", "reason": "محدودیت شما"},
+			"fps": {"label": "بیشترین نرخ فریم", "reason": "حرکت روان‌تر"},
+			"hdr": {"label": "HDR پیش از SDR", "reason": "ترتیب معمول"},
+			"codec": {"label": "AV1، سپس VP9، سپس H.264", "reason": "واضح‌ترین در حجم یکسان"},
+			"size": {"label": "فایل بزرگ‌تر", "reason": "جزئیات بیشتر با همان تنظیمات"},
+			"aacSmartTv": {"label": "صدای AAC", "reason": "همه‌جا پخش می‌شود"},
+			"aacFileType": {"label": "صدای AAC", "reason": "مناسب پخش‌کننده‌های MP4"},
+			"opus": {"label": "صدای Opus", "reason": "مناسب WebM"},
+			"nativeCompatible": {"label": "صدای استریو"},
+			"nativeSurround": {"label": "صدای فراگیر در صورت وجود"},
+			"nativeSource": {"settings": "از تنظیمات", "profile": "این نمایه"}
+		},
+		"summary": {"goal": {"bestPicture": "بهترین تصویر", "smartTv": "روی هر دستگاهی پخش می‌شود"}, "fileType": {"auto": "نوع فایل بر اساس جریان‌ها", "explicit": "ذخیره به‌صورت .{{ext}}"}}
 	}
 }

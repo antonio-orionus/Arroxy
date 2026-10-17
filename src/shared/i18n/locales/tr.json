@@ -305,7 +305,7 @@
 				"invalid": "1 ile 5000 arasında bir tam sayı kullan",
 				"tooltip": "yt-dlp --playlist-end seçeneğine karşılık gelir: Arroxy seçiciyi oluştururken yalnızca bu kadar oynatma listesi, kanal veya arama kaydı ister."
 			},
-			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "En iyi yerel seçeneğinin neyi seçeceğini belirler. Manuel ses satırları ve M4A/AAC açık seçim olarak kalır.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
+			"nativeAudioPreference": {"label": "Yerel ses tercihi", "description": "Profil yerel sesi seçtiğinde stereo veya surround. Profil bunu değiştirebilir.", "compatible": "Uyumlu stereo", "surround": "Surround / Dolby tercih et"},
 			"autoRetry": {"label": "Başarısız indirmeleri yeniden dene", "description": "Ağ veya sunucu kaynaklı bir aksaklıktan sonra otomatik olarak yeniden dener ve her denemeden önce daha uzun bekler. Sitenin engellediği indirmeler asla otomatik olarak yeniden denenmez.", "unit": "kez"},
 			"concurrentDownloads": {"label": "Aynı anda indirme", "description": "Kuyruktaki kaç öğenin aynı anda indirileceği. Aynı anda daha fazlası uzun bir kuyruğu daha çabuk bitirir, ancak sitenin sizi sınırlama ihtimalini artırır.", "unit": "indirme"},
 			"downloadConnections": {"label": "İndirme bağlantıları", "description": "Bir videonun birkaç parçasını aynı anda alarak büyük indirmeleri hızlandırır. Yüksek değerler sitenin sizi sınırlama ihtimalini artırır.", "unit": "bağlantı"},
@@ -366,9 +366,10 @@
 			"fit": {
 				"tierBelow": "Profiliniz {{wanted}}p istiyor. Bu video en fazla {{picked}}p sunuyor, bu yüzden {{picked}}p seçildi.",
 				"tierAbove": "Profiliniz {{wanted}}p istiyor. Bu videoda bu kadar düşük çözünürlük yok, bu yüzden {{picked}}p seçildi.",
-				"mp4Unavailable": "Profiliniz MP4 (H.264) istiyor. Bu video bunu sunmuyor, bu yüzden en yakın akış seçildi.",
+				"mp4Unavailable": "Profiliniz Akıllı TV (H.264). Bu videoda H.264 yok, bu yüzden en yakın akış seçildi.",
 				"noVideo": "Bu bağlantıda video yok, bu yüzden ses seçildi.",
-				"subtitlesMissing": "Profiliniz şu dillerde altyazı istiyor: {{languages}}. Bu videoda bunlar yok."
+				"subtitlesMissing": "Profiliniz şu dillerde altyazı istiyor: {{languages}}. Bu videoda bunlar yok.",
+				"webmUnavailable": "Profiliniz WebM istiyor. Bu videoda seçilen akışlar WebM’in barındıramadığı {{codec}} içeriyor, bu yüzden dosya türü Otomatik."
 			},
 			"summary": {"lead": "Ayrıca bu profilden ({{profile}}):", "subtitlesOff": "altyazılar kapalı", "subtitlesAdd_one": "{{count}} dil mevcut, ekle", "subtitlesAdd_other": "{{count}} dil mevcut, ekle", "reviewAll": "Tümünü gözden geçir"},
 			"footer": {"reviewOptions": "Gözden geçir ve seçenekler", "download": "İndir", "moreActions": "Diğer indirme seçenekleri", "addToQueue": "Başlatmadan kuyruğa ekle", "subtitlesRequired": "En az bir altyazı dili seçin."},
@@ -423,7 +424,8 @@
 					"fixUnsafeBody": "Chrome başlatma kısayoluna --disable-features=LockProfileCookieDatabase ekle. Uyarı: bu, daha önce şifrelenmiş çerezleri geçersiz kılar; tüm sitelerden çıkış yapılır ve yeniden giriş yapman gerekir.",
 					"docsLinkLabel": "yt-dlp belgeleri (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Şu olarak kaydedilir", "reset": "WebM, {{codec}} barındıramadığı için dosya türü Otomatik’e döndü."}
 		},
 		"folder": {
 			"heading": "Şuraya kaydet",
@@ -491,7 +493,8 @@
 			"itemsValueBulk_other": "{{total}} URL’den {{count}} tanesi",
 			"profileBreakdownHeading": "Bu gruptaki profiller",
 			"profileBreakdownCount_one": "{{count}} öğe",
-			"profileBreakdownCount_other": "{{count}} öğe"
+			"profileBreakdownCount_other": "{{count}} öğe",
+			"subtitleEmbedForcesMkv": "Video içindeki altyazılar MKV dosyası gerektirir, bu yüzden bu indirme .mkv olarak kaydedilir."
 		},
 		"profileEditor": {
 			"dialogTitle": "İndirme profili",
@@ -507,7 +510,6 @@
 			"field": {
 				"nameAndIcon": "Profil adı ve simgesi",
 				"icon": "Profil simgesi",
-				"compatibility": "Uyumluluk",
 				"resolution": "Çözünürlük",
 				"quality": "Kalite",
 				"source": "Kaynak",
@@ -517,7 +519,10 @@
 				"subtitleDownloadsDescription": "Profiller dil kodları ister; kullanılabilirlik her URL için ayrı belirlenir.",
 				"languages": "Diller",
 				"delivery": "Kaydetme biçimi",
-				"overridePath": "Profil geçersiz kılma yolu"
+				"overridePath": "Profil geçersiz kılma yolu",
+				"goal": "Şunun için optimize et",
+				"fileType": "Dosya türü",
+				"nativeAudio": "Yerel ses"
 			},
 			"action": {
 				"chooseIcon": "Profil simgesini seç",
@@ -554,11 +559,16 @@
 			},
 			"icon": {"controls": "Denetimler", "download": "İndirme", "video": "Video", "captions": "Altyazı", "audio": "Ses", "music": "Müzik", "podcast": "Podcast", "classes": "Dersler", "clip": "Klip", "archive": "Arşiv"},
 			"audioFormat": {"best": "En iyi", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "128K'ya kadar", "192": "192K'ya kadar", "320": "320K'ya kadar", "best": "En iyi kalite"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Önce elle, sonra otomatik", "manualOnly": "Yalnızca elle", "autoOnly": "Yalnızca otomatik oluşturulan"},
-			"sponsorBlockHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.", "mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).", "remove": "Sponsor bölümlerini FFmpeg ile videodan keser."}
+			"sponsorBlockHint": {"off": "SponsorBlock yok — video yüklendiği gibi oynatılır.", "mark": "Sponsor bölümlerini bölüm olarak işaretler (dosyayı değiştirmez).", "remove": "Sponsor bölümlerini FFmpeg ile videodan keser."},
+			"advanced": "Gelişmiş",
+			"goal": {
+				"bestPicture": {"name": "En iyi görüntü", "tag": "AV1 · VP9", "description": "Aynı boyutta en net olanı. Eski TV’ler, QuickTime ve bazı düzenleyiciler oynatamaz."},
+				"smartTv": {"name": "Akıllı TV", "tag": "MP4 · H.264", "description": "TV’lerde, telefonlarda, WhatsApp’ta, QuickTime’da ve video düzenleyicilerde oynar. YouTube H.264’ü yalnızca 1080p’ye kadar sunar."}
+			},
+			"nativeAudio": {"default": "Uygulama ayarını kullan ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Yükleniyor…"},
@@ -843,5 +853,39 @@
 			"signOutConfirm": "Çıkış yap"
 		},
 		"error": {"proxyTitle": "Explore, proxy'n üzerinden bağlanamıyor", "proxyBody": "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene.", "loadTitle": "Bu sayfa yüklenmedi", "loadBody": "Bağlantını kontrol et, sonra tekrar dene.", "retry": "Tekrar dene", "openSettings": "Ayarları aç"}
+	},
+	"fileType": {
+		"auto": "Otomatik",
+		"autoValue": "Otomatik (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "Dosya türünü seçilen akışlar belirler.", "mp4": "Hemen her yerde oynar. MP4 içindeki VP9 veya AV1, eski Mac’lerde QuickTime’da açılmaz.", "mkv": "Her kodeği barındırır. Bazı TV’ler ve telefonlar açamaz.", "webm": "Tarayıcılar için açık biçim. Yalnızca VP9 veya AV1 ile Opus barındırır."},
+		"webmBlocked": "WebM, {{codec}} barındıramaz. MKV veya MP4 seçin.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM, Akıllı TV ile sunulmaz: H.264’ü barındıramaz.",
+		"mp4Caveat": "MP4 içindeki {{codecs}}, QuickTime’da, bazı düzenleyicilerde ve bazı TV’lerde açılmayabilir. H.264 her yerde oynar."
+	},
+	"selectionOrder": {
+		"editorTitle": "Bu profil nasıl seçer",
+		"whyTitle": "Profil bunu neden seçti",
+		"whyLabel": "Neden bu?",
+		"rank": {
+			"h264": {"label": "H.264 video", "reason": "her cihazda oynar"},
+			"mp4Streams": {"label": "MP4 akışları", "reason": "MP4 dosyasına hazır"},
+			"resolutionBest": {"label": "En yüksek çözünürlük", "reason": "sınır yok"},
+			"resolution": {"label": "{{tier}}p’ye kadar", "reason": "sınırınız"},
+			"fps": {"label": "En yüksek kare hızı", "reason": "daha akıcı hareket"},
+			"hdr": {"label": "SDR’den önce HDR", "reason": "olağan sıra"},
+			"codec": {"label": "AV1, sonra VP9, sonra H.264", "reason": "aynı boyutta en net"},
+			"size": {"label": "Daha büyük dosya", "reason": "aynı ayarlarda daha fazla ayrıntı"},
+			"aacSmartTv": {"label": "AAC ses", "reason": "her yerde oynar"},
+			"aacFileType": {"label": "AAC ses", "reason": "MP4 oynatıcılara uyar"},
+			"opus": {"label": "Opus ses", "reason": "WebM’e uyar"},
+			"nativeCompatible": {"label": "Stereo ses"},
+			"nativeSurround": {"label": "Varsa surround ses"},
+			"nativeSource": {"settings": "Ayarlar’dan", "profile": "bu profil"}
+		},
+		"summary": {"goal": {"bestPicture": "en iyi görüntü", "smartTv": "her cihazda oynar"}, "fileType": {"auto": "akışlardan dosya türü", "explicit": ".{{ext}} olarak kaydeder"}}
 	}
 }

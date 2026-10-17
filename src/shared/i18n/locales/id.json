@@ -305,7 +305,7 @@
 				"invalid": "Gunakan bilangan bulat dari 1 hingga 5000",
 				"tooltip": "Memetakan ke yt-dlp --playlist-end: Arroxy hanya meminta entri daftar putar, saluran, atau pencarian sebanyak ini saat membuat alat pilih."
 			},
-			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Mengontrol apa yang dipilih oleh penduduk asli Terbaik. Baris audio manual dan M4A/AAC tetap eksplisit.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
+			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Stereo atau surround saat profil memilih audio asli. Profil bisa menimpanya.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
 			"autoRetry": {"label": "Coba lagi unduhan yang gagal", "description": "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis.", "unit": "kali"},
 			"concurrentDownloads": {"label": "Unduhan sekaligus", "description": "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda.", "unit": "unduhan"},
 			"downloadConnections": {"label": "Koneksi unduhan", "description": "Mempercepat unduhan besar dengan mengambil beberapa bagian video sekaligus. Nilai lebih tinggi meningkatkan kemungkinan situs membatasi Anda.", "unit": "koneksi"},
@@ -366,9 +366,10 @@
 			"fit": {
 				"tierBelow": "Profil Anda meminta {{wanted}}p. Video ini hanya sampai {{picked}}p, jadi {{picked}}p dipilih.",
 				"tierAbove": "Profil Anda meminta {{wanted}}p. Video ini tidak punya yang sekecil itu, jadi {{picked}}p dipilih.",
-				"mp4Unavailable": "Profil Anda meminta MP4 (H.264). Video ini tidak menyediakannya, jadi aliran terdekat dipilih.",
+				"mp4Unavailable": "Profil Anda adalah TV Pintar (H.264). Video ini tidak menyediakan H.264, jadi stream terdekat yang dipilih.",
 				"noVideo": "Tautan ini tidak memiliki video, jadi audio dipilih.",
-				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya."
+				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya.",
+				"webmUnavailable": "Profil Anda meminta WebM. Stream terpilih video ini mencakup {{codec}}, yang tidak didukung WebM, jadi jenis file diatur ke Otomatis."
 			},
 			"summary": {"lead": "Juga dari {{profile}}:", "subtitlesOff": "subtitle mati", "subtitlesAdd_one": "{{count}} bahasa tersedia, tambahkan", "subtitlesAdd_other": "{{count}} bahasa tersedia, tambahkan", "reviewAll": "Tinjau semua"},
 			"footer": {"reviewOptions": "Tinjau & opsi", "download": "Unduh", "moreActions": "Opsi unduhan lainnya", "addToQueue": "Tambahkan ke antrean tanpa memulai", "subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."},
@@ -423,7 +424,8 @@
 					"fixUnsafeBody": "Tambahkan --disable-features=LockProfileCookieDatabase ke pintasan peluncuran Chrome. Peringatan: ini akan membatalkan cookie yang dienkripsi sebelumnya, jadi Anda akan keluar dari setiap situs dan harus masuk lagi.",
 					"docsLinkLabel": "Dokumen yt-dlp (terbitan #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Simpan sebagai", "reset": "WebM tidak mendukung {{codec}}, jadi jenis file kembali ke Otomatis."}
 		},
 		"folder": {
 			"heading": "Simpan ke",
@@ -498,7 +500,8 @@
 			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
 			"profileBreakdownHeading": "Profil dalam batch ini",
 			"profileBreakdownCount_one": "item {{count}}",
-			"profileBreakdownCount_other": "item {{count}}"
+			"profileBreakdownCount_other": "item {{count}}",
+			"subtitleEmbedForcesMkv": "Subtitle di dalam video memerlukan file MKV, jadi unduhan ini disimpan sebagai .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Profil unduhan",
@@ -514,7 +517,6 @@
 			"field": {
 				"nameAndIcon": "Nama dan ikon profil",
 				"icon": "Ikon profil",
-				"compatibility": "Kompatibilitas",
 				"resolution": "Resolusi",
 				"quality": "Kualitas",
 				"source": "Sumber",
@@ -524,7 +526,10 @@
 				"subtitleDownloadsDescription": "Profil meminta kode bahasa; ketersediaannya ditentukan untuk setiap URL.",
 				"languages": "Bahasa",
 				"delivery": "Cara penyimpanan",
-				"overridePath": "Jalur penggantian profil"
+				"overridePath": "Jalur penggantian profil",
+				"goal": "Optimalkan untuk",
+				"fileType": "Jenis file",
+				"nativeAudio": "Audio asli"
 			},
 			"action": {
 				"chooseIcon": "Pilih ikon profil",
@@ -561,11 +566,16 @@
 			},
 			"icon": {"controls": "Kontrol", "download": "Unduh", "video": "Video", "captions": "Teks", "audio": "Audio", "music": "Musik", "podcast": "Podcast", "classes": "Kelas", "clip": "Klip", "archive": "Arsip"},
 			"audioFormat": {"best": "Terbaik", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "Hingga 128K", "192": "Hingga 192K", "320": "Hingga 320K", "best": "Kualitas terbaik"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Manual dulu, lalu otomatis", "manualOnly": "Hanya manual", "autoOnly": "Hanya hasil otomatis"},
-			"sponsorBlockHint": {"off": "Tanpa SponsorBlock — video diputar apa adanya.", "mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."}
+			"sponsorBlockHint": {"off": "Tanpa SponsorBlock — video diputar apa adanya.", "mark": "Menandai segmen sponsor sebagai bab (tanpa mengubah berkas).", "remove": "Memotong segmen sponsor dari video menggunakan FFmpeg."},
+			"advanced": "Canggih",
+			"goal": {
+				"bestPicture": {"name": "Gambar terbaik", "tag": "AV1 · VP9", "description": "Paling tajam pada ukuran yang sama. TV lama, QuickTime, dan sebagian editor tidak bisa memutarnya."},
+				"smartTv": {"name": "TV Pintar", "tag": "MP4 · H.264", "description": "Bisa diputar di TV, ponsel, WhatsApp, QuickTime, dan editor video. YouTube hanya menyediakan H.264 hingga 1080p."}
+			},
+			"nativeAudio": {"default": "Gunakan pengaturan aplikasi ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Memuat…"},
@@ -857,5 +867,44 @@
 			"signOutConfirm": "Keluar"
 		},
 		"error": {"proxyTitle": "Explore tidak dapat terhubung melalui proxy Anda", "proxyBody": "Periksa proxy di Pengaturan, lalu coba lagi.", "loadTitle": "Halaman ini tidak termuat", "loadBody": "Periksa koneksi Anda, lalu coba lagi.", "retry": "Mencoba kembali", "openSettings": "Buka Pengaturan"}
+	},
+	"fileType": {
+		"auto": "Otomatis",
+		"autoValue": "Otomatis (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Stream yang dipilih menentukan jenis file.",
+			"mp4": "Bisa diputar hampir di mana saja. VP9 atau AV1 dalam MP4 tidak bisa dibuka di QuickTime pada Mac lama.",
+			"mkv": "Mendukung codec apa pun. Sebagian TV dan ponsel tidak bisa membukanya.",
+			"webm": "Format terbuka untuk browser. Hanya mendukung VP9 atau AV1 dengan Opus."
+		},
+		"webmBlocked": "WebM tidak mendukung {{codec}}. Pilih MKV atau MP4.",
+		"profileMark": "Profil",
+		"smartTvNoWebm": "WebM tidak tersedia untuk TV Pintar: tidak mendukung H.264.",
+		"mp4Caveat": "{{codecs}} dalam MP4 mungkin tidak bisa dibuka di QuickTime, sebagian editor, dan sebagian TV. H.264 bisa diputar di mana saja."
+	},
+	"selectionOrder": {
+		"editorTitle": "Cara profil ini memilih",
+		"whyTitle": "Mengapa profil memilih ini",
+		"whyLabel": "Mengapa ini?",
+		"rank": {
+			"h264": {"label": "Video H.264", "reason": "bisa diputar di semua perangkat"},
+			"mp4Streams": {"label": "Stream MP4", "reason": "siap untuk file MP4"},
+			"resolutionBest": {"label": "Resolusi tertinggi", "reason": "tanpa batas"},
+			"resolution": {"label": "Hingga {{tier}}p", "reason": "batas Anda"},
+			"fps": {"label": "Frame rate tertinggi", "reason": "gerakan lebih halus"},
+			"hdr": {"label": "HDR sebelum SDR", "reason": "urutan yang lazim"},
+			"codec": {"label": "AV1, lalu VP9, lalu H.264", "reason": "paling tajam pada ukuran yang sama"},
+			"size": {"label": "File lebih besar", "reason": "detail lebih banyak pada pengaturan yang sama"},
+			"aacSmartTv": {"label": "Audio AAC", "reason": "bisa diputar di mana saja"},
+			"aacFileType": {"label": "Audio AAC", "reason": "cocok untuk pemutar MP4"},
+			"opus": {"label": "Audio Opus", "reason": "cocok untuk WebM"},
+			"nativeCompatible": {"label": "Audio stereo"},
+			"nativeSurround": {"label": "Audio surround jika tersedia"},
+			"nativeSource": {"settings": "dari Pengaturan", "profile": "profil ini"}
+		},
+		"summary": {"goal": {"bestPicture": "gambar terbaik", "smartTv": "bisa diputar di perangkat apa pun"}, "fileType": {"auto": "jenis file mengikuti stream", "explicit": "disimpan sebagai .{{ext}}"}}
 	}
 }

@@ -305,7 +305,7 @@
 				"invalid": "Lakkoofsa guutuu 1 hanga 5000 fayyadami",
 				"tooltip": "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 			},
-			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
+			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Isteeriyoo ykn surround yeroo piroofaayiliin sagalee dhalootaa filatu. Piroofaayiliin kana jijjiiruu danda'a.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
 			"autoRetry": {"label": "Buufata kufe irra deebi'ii yaali", "description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.", "unit": "yeroo"},
 			"concurrentDownloads": {"label": "Buufata yeroo tokkotti", "description": "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala.", "unit": "buufata"},
 			"downloadConnections": {"label": "Walqunnamtii buufataa", "description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.", "unit": "walqunnamtii"},
@@ -369,9 +369,10 @@
 			"fit": {
 				"tierBelow": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun hanga {{picked}}p qofa deema, kanaaf {{picked}}p filatameera.",
 				"tierAbove": "Piroofaayiliin kee {{wanted}}p gaafata. Viidiyoon kun kan akka kanatti xiqqaate hin qabu, kanaaf {{picked}}p filatameera.",
-				"mp4Unavailable": "Piroofaayiliin kee MP4 (H.264) gaafata. Viidiyoon kun hin qabu, kanaaf isa dhiyoo filatameera.",
+				"mp4Unavailable": "Piroofaayiliin kee TV smart (H.264) dha. Viidiyoon kun H.264 hin dhiyeessu, kanaaf tarreessi isa dhihoo filatameera.",
 				"noVideo": "Hidhaan kun viidiyoo hin qabu, kanaaf sagaleen filatameera.",
-				"subtitlesMissing": "Piroofaayiliin kee afaan {{languages}} keessaa axxiinni gaafata. Viidiyoon kun hin qabu."
+				"subtitlesMissing": "Piroofaayiliin kee afaan {{languages}} keessaa axxiinni gaafata. Viidiyoon kun hin qabu.",
+				"webmUnavailable": "Piroofaayiliin kee WebM gaafata. Tarreessaawwan viidiyoo kanaa filataman {{codec}} of keessaa qabu, kan WebM qabachuu hin dandeenye, kanaaf gosti faayilii Ofumaa dha."
 			},
 			"summary": {"lead": "{{profile}} irraa kanas:", "subtitlesOff": "axxiinni dhaabbateera", "subtitlesAdd_one": "Afaan {{count}} jira, dabali", "subtitlesAdd_other": "Afaanonni {{count}} jiru, dabali", "reviewAll": "Hunda sakatta'i"},
 			"footer": {"reviewOptions": "Sakatta'i fi filannoo", "download": "Buufata", "moreActions": "Filannoo buufataa dabalataa", "addToQueue": "Osoo hin jalqabin tarreetti dabali", "subtitlesRequired": "Yoo xiqqaate afaan axxiinnii tokko filadhu."},
@@ -433,7 +434,8 @@
 					"fixUnsafeBody": "--disable-features=LockProfileCookieDatabase gabaabduu jalqabbii Chrome'tti dabaluu. Akeekkachiisa: kunis cookies duraan farsimaman haquu waan taasiseef gareewwan hundarraa ba'uuf fi deebisanii seenuuf dirqisiifama.",
 					"docsLinkLabel": "yt-dlp sanadoota (dhimma #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Akka kanaatti kuufama", "reset": "WebM {{codec}} qabachuu waan hin dandeenyeef, gosti faayilii gara Ofumaatti deebi'eera."}
 		},
 		"folder": {
 			"heading": "Kuusi gara",
@@ -508,7 +510,8 @@
 			"itemsValueBulk_other": "{{count}} URL keessaa {{total}}",
 			"profileBreakdownHeading": "Piroofaayiloota kuma kana keessatti",
 			"profileBreakdownCount_one": "{{count}} wanta",
-			"profileBreakdownCount_other": "{{count}} wantota"
+			"profileBreakdownCount_other": "{{count}} wantota",
+			"subtitleEmbedForcesMkv": "Axxiinni viidiyoo keessatti makaman faayilii MKV barbaadu, kanaaf buufannaan kun akka .mkv tti kuufama."
 		},
 		"profileEditor": {
 			"dialogTitle": "Piroofaayilii buufataa",
@@ -524,7 +527,6 @@
 			"field": {
 				"nameAndIcon": "Maqaa fi mallattoo piroofaayilii",
 				"icon": "Mallattoo piroofaayilii",
-				"compatibility": "Waliisimuu",
 				"resolution": "Ifa bal'ina",
 				"quality": "Qulqullina",
 				"source": "Madda",
@@ -534,7 +536,10 @@
 				"subtitleDownloadsDescription": "Piroofaayiloonni koodii afaanii gaafatu; argamuun isaa URL tokkoon tokkoof murtaa'a.",
 				"languages": "Afaanota",
 				"delivery": "Karaa olkaa'uu",
-				"overridePath": "Daandii bakka bu'iinsa piroofaayilii"
+				"overridePath": "Daandii bakka bu'iinsa piroofaayilii",
+				"goal": "Kan dursa argatu",
+				"fileType": "Gosa faayilii",
+				"nativeAudio": "Sagalee dhalootaa"
 			},
 			"action": {
 				"chooseIcon": "Mallattoo piroofaayilii filadhu",
@@ -571,11 +576,16 @@
 			},
 			"icon": {"controls": "To'annoo", "download": "Buufata", "video": "Viidiyoo", "captions": "Ergaa gadii", "audio": "Sagalee", "music": "Muuziqaa", "podcast": "Poodkaastii", "classes": "Barnoota", "clip": "Muraa", "archive": "Kuusaa"},
 			"audioFormat": {"best": "Gaarii", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "Hanga 128K", "192": "Hanga 192K", "320": "Hanga 320K", "best": "Qulqullina gaarii"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Duraa harkaan, sana booda ofumaan", "manualOnly": "Harkaan qofa", "autoOnly": "Kan ofumaan uumaman qofa"},
-			"sponsorBlockHint": {"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.", "mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).", "remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."}
+			"sponsorBlockHint": {"off": "SponsorBlock hin jiru — viidiyoon akkuma olkaa'ametti taphata.", "mark": "Kutaa ispoonsarii akka boqonnaatti mallatteessa (faayilii hin jijjiiru).", "remove": "FFmpeg fayyadamuun kutaa ispoonsarii viidiyoo irraa muura."},
+			"advanced": "Ammayyaa",
+			"goal": {
+				"bestPicture": {"name": "Suuraa isa caalu", "tag": "AV1 · VP9", "description": "Hamma walfakkaatuun baay'ee ifa. TV moofaan, QuickTime fi gulaaltonni tokko tokko taphachiisuu hin danda'an."},
+				"smartTv": {"name": "TV smart", "tag": "MP4 · H.264", "description": "TV, bilbila, WhatsApp, QuickTime fi gulaaltota viidiyoo irratti ni taphata. YouTube H.264 hanga 1080p qofa dhiyeessa."}
+			},
+			"nativeAudio": {"default": "Qindaaʼina appii fayyadami ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Fe'amaa jira…"},
@@ -887,5 +897,44 @@
 			"retry": "Irra deebi'i",
 			"openSettings": "Qindaa'inoota bani"
 		}
+	},
+	"fileType": {
+		"auto": "Ofumaa",
+		"autoValue": "Ofumaa (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Tarreessaawwan filataman gosa faayilii murteessu.",
+			"mp4": "Bakka hundumaatti jechuun ni taphata. VP9 ykn AV1 MP4 keessa jiru Mac moofaa irratti QuickTime keessatti hin banamu.",
+			"mkv": "Codec kamiyyuu qabata. TV fi bilbilootni tokko tokko banuu hin danda'an.",
+			"webm": "Foormaatii banaa browser'iif. VP9 ykn AV1 Opus waliin qofa qabata."
+		},
+		"webmBlocked": "WebM {{codec}} qabachuu hin danda'u. MKV ykn MP4 filadhu.",
+		"profileMark": "Piroofaayilii",
+		"smartTvNoWebm": "WebM TV smart waliin hin dhiyaatu: H.264 qabachuu hin danda'u.",
+		"mp4Caveat": "{{codecs}} MP4 keessa jiru QuickTime, gulaaltota tokko tokkoo fi TV tokko tokko keessatti banamuu dhiisuu danda'a. H.264 bakka hundatti ni taphata."
+	},
+	"selectionOrder": {
+		"editorTitle": "Piroofaayiliin kun akkamitti filata",
+		"whyTitle": "Piroofaayiliin maaliif kana filate",
+		"whyLabel": "Maaliif kana?",
+		"rank": {
+			"h264": {"label": "Viidiyoo H.264", "reason": "meeshaa hunda irratti ni taphata"},
+			"mp4Streams": {"label": "Tarreessaawwan MP4", "reason": "faayilii MP4f qophaa'aa"},
+			"resolutionBest": {"label": "Ifa bal'ina isa ol'aanaa", "reason": "daangaan hin kaa'amne"},
+			"resolution": {"label": "Hanga {{tier}}p", "reason": "daangaa kee"},
+			"fps": {"label": "Saffisa fireemii isa ol'aanaa", "reason": "sochii daran lallaafaa"},
+			"hdr": {"label": "HDR SDR dura", "reason": "tartiiba baramaa"},
+			"codec": {"label": "AV1, itti aansee VP9, itti aansee H.264", "reason": "hamma walfakkaatuun baay'ee ifa"},
+			"size": {"label": "Faayilii guddaa", "reason": "qindaaʼina walfakkaataan qulqullina dabalataa"},
+			"aacSmartTv": {"label": "Sagalee AAC", "reason": "bakka hundatti ni taphata"},
+			"aacFileType": {"label": "Sagalee AAC", "reason": "taphattoota MP4 waliin wal sima"},
+			"opus": {"label": "Sagalee Opus", "reason": "WebM waliin wal sima"},
+			"nativeCompatible": {"label": "Sagalee isteeriyoo"},
+			"nativeSurround": {"label": "Sagalee surround yoo jiraate"},
+			"nativeSource": {"settings": "Qindaaʼinoota irraa", "profile": "piroofaayilii kana"}
+		},
+		"summary": {"goal": {"bestPicture": "suuraa isa caalu", "smartTv": "meeshaa kamiyyuu irratti ni taphata"}, "fileType": {"auto": "gosa faayilii tarreessaawwan irraa", "explicit": "akka .{{ext}}tti kuufama"}}
 	}
 }

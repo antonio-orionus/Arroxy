@@ -292,7 +292,7 @@
 				"invalid": "১ থেকে ৫০০০ পর্যন্ত একটি পূর্ণ সংখ্যা ব্যবহার করুন",
 				"tooltip": "yt-dlp --playlist-end-এর সাথে ম্যাপ করে: Arroxy পিকার তৈরির সময় শুধুমাত্র এতটি প্লেলিস্ট, চ্যানেল বা সার্চ এন্ট্রি চায়।"
 			},
-			"nativeAudioPreference": {"label": "নেটিভ অডিও পছন্দ", "description": "“Best native” কী বেছে নেবে তা নিয়ন্ত্রণ করে। ম্যানুয়াল অডিও সারি এবং M4A/AAC স্পষ্ট পছন্দ হিসেবেই থাকে।", "compatible": "সামঞ্জস্যপূর্ণ স্টেরিও", "surround": "সারাউন্ড / Dolby অগ্রাধিকার দিন"},
+			"nativeAudioPreference": {"label": "নেটিভ অডিও পছন্দ", "description": "প্রোফাইল নেটিভ অডিও বেছে নিলে স্টেরিও বা সারাউন্ড। প্রোফাইল এটি বদলে দিতে পারে।", "compatible": "সামঞ্জস্যপূর্ণ স্টেরিও", "surround": "সারাউন্ড / Dolby অগ্রাধিকার দিন"},
 			"autoRetry": {"label": "ব্যর্থ ডাউনলোড আবার চেষ্টা করুন", "description": "নেটওয়ার্ক বা সার্ভারে সমস্যা হলে স্বয়ংক্রিয়ভাবে আবার চেষ্টা করে, প্রতিটি চেষ্টার মাঝে আরও বেশি অপেক্ষা করে। সাইট দ্বারা ব্লক করা ডাউনলোড কখনোই স্বয়ংক্রিয়ভাবে আবার চেষ্টা করা হয় না।", "unit": "বার"},
 			"concurrentDownloads": {"label": "একসাথে ডাউনলোড", "description": "সারিতে থাকা কতগুলো আইটেম একসাথে ডাউনলোড হবে। বেশি একসাথে দিলে লম্বা সারি দ্রুত শেষ হয়, তবে সাইট সীমা আরোপ করার সম্ভাবনা বাড়ে।", "unit": "ডাউনলোড"},
 			"downloadConnections": {"label": "ডাউনলোড সংযোগ", "description": "একসাথে ভিডিওর কয়েকটি অংশ ডাউনলোড করে বড় ফাইলের গতি বাড়ায়। বেশি মান দিলে সাইট সীমা আরোপ করার সম্ভাবনা বাড়ে।", "unit": "সংযোগ"},
@@ -348,9 +348,10 @@
 			"fit": {
 				"tierBelow": "আপনার প্রোফাইল {{wanted}}p চায়। এই ভিডিও শুধু {{picked}}p পর্যন্ত যায়, তাই {{picked}}p বেছে নেওয়া হয়েছে।",
 				"tierAbove": "আপনার প্রোফাইল {{wanted}}p চায়। এই ভিডিওতে এত ছোট কিছু নেই, তাই {{picked}}p বেছে নেওয়া হয়েছে।",
-				"mp4Unavailable": "আপনার প্রোফাইল MP4 (H.264) চায়। এই ভিডিওতে তা নেই, তাই সবচেয়ে কাছের স্ট্রিম বেছে নেওয়া হয়েছে।",
+				"mp4Unavailable": "আপনার প্রোফাইল স্মার্ট TV (H.264)। এই ভিডিওতে H.264 নেই, তাই সবচেয়ে কাছের স্ট্রিম বেছে নেওয়া হয়েছে।",
 				"noVideo": "এই লিংকে কোনো ভিডিও নেই, তাই অডিও বেছে নেওয়া হয়েছে।",
-				"subtitlesMissing": "আপনার প্রোফাইল {{languages}} ভাষায় সাবটাইটেল চায়। এই ভিডিওতে সেগুলো নেই।"
+				"subtitlesMissing": "আপনার প্রোফাইল {{languages}} ভাষায় সাবটাইটেল চায়। এই ভিডিওতে সেগুলো নেই।",
+				"webmUnavailable": "আপনার প্রোফাইল WebM চায়। এই ভিডিওর বেছে নেওয়া স্ট্রিমে {{codec}} আছে, যা WebM রাখতে পারে না, তাই ফাইলের ধরন অটো।"
 			},
 			"summary": {"lead": "{{profile}} থেকেও:", "subtitlesOff": "সাবটাইটেল বন্ধ", "subtitlesAdd_one": "{{count}}টি ভাষা আছে, যোগ করুন", "subtitlesAdd_other": "{{count}}টি ভাষা আছে, যোগ করুন", "reviewAll": "সব পর্যালোচনা করুন"},
 			"footer": {"reviewOptions": "পর্যালোচনা ও বিকল্প", "download": "ডাউনলোড", "moreActions": "আরও ডাউনলোড বিকল্প", "addToQueue": "শুরু না করে কিউতে যোগ করুন", "subtitlesRequired": "অন্তত একটি সাবটাইটেল ভাষা বেছে নিন।"},
@@ -405,7 +406,8 @@
 					"fixUnsafeBody": "Chrome-এর লঞ্চ শর্টকাটে --disable-features=LockProfileCookieDatabase যোগ করুন। সতর্কতা: এটি আগে এনক্রিপ্ট করা কুকিজ অকার্যকর করে দেয়, তাই আপনি প্রতিটি সাইট থেকে লগ আউট হয়ে যাবেন এবং আবার লগ ইন করতে হবে।",
 					"docsLinkLabel": "yt-dlp ডকস (ইস্যু #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "সেভ হবে", "reset": "WebM {{codec}} রাখতে পারে না, তাই ফাইলের ধরন আবার অটো হয়েছে।"}
 		},
 		"folder": {"heading": "সেভ করুন", "downloads": "ডাউনলোড", "videos": "মুভিজ", "desktop": "ডেস্কটপ", "music": "মিউজিক", "documents": "ডকুমেন্টস", "pictures": "ছবি", "home": "হোম", "custom": "কাস্টম…", "subfolder": {"toggle": "সাবফোল্ডারে সেভ করুন", "placeholder": "যেমন lo-fi rips", "invalid": "ফোল্ডার নামে অবৈধ অক্ষর আছে"}},
 		"output": {
@@ -462,7 +464,8 @@
 			"itemsValueBulk_other": "{{total}} URL-এর মধ্যে {{count}}",
 			"profileBreakdownHeading": "এই ব্যাচের প্রোফাইলগুলি",
 			"profileBreakdownCount_one": "{{count}}টি আইটেম",
-			"profileBreakdownCount_other": "{{count}}টি আইটেম"
+			"profileBreakdownCount_other": "{{count}}টি আইটেম",
+			"subtitleEmbedForcesMkv": "ভিডিওর ভেতরে সাবটাইটেলের জন্য MKV ফাইল দরকার, তাই এই ডাউনলোড .mkv হিসেবে সেভ হবে।"
 		},
 		"profileEditor": {
 			"dialogTitle": "ডাউনলোড প্রোফাইল",
@@ -478,7 +481,6 @@
 			"field": {
 				"nameAndIcon": "প্রোফাইলের নাম ও আইকন",
 				"icon": "প্রোফাইল আইকন",
-				"compatibility": "সামঞ্জস্য",
 				"resolution": "রেজোলিউশন",
 				"quality": "মান",
 				"source": "উৎস",
@@ -488,7 +490,10 @@
 				"subtitleDownloadsDescription": "প্রোফাইল ভাষার কোড অনুরোধ করে; প্রতিটি URL-এর জন্য প্রাপ্যতা আলাদাভাবে নির্ধারিত হয়।",
 				"languages": "ভাষা",
 				"delivery": "সংরক্ষণের ধরন",
-				"overridePath": "প্রোফাইল ওভাররাইড পথ"
+				"overridePath": "প্রোফাইল ওভাররাইড পথ",
+				"goal": "লক্ষ্য",
+				"fileType": "ফাইলের ধরন",
+				"nativeAudio": "নেটিভ অডিও"
 			},
 			"action": {
 				"chooseIcon": "প্রোফাইল আইকন বাছুন",
@@ -520,11 +525,13 @@
 			"mediaMode": {"videoAudio": {"label": "ভিডিও + অডিও", "description": "সাধারণ ভিডিও ফাইল"}, "videoOnly": {"label": "ভিডিও, অডিও ছাড়া", "description": "শুধু শব্দহীন ভিডিও"}, "audioOnly": {"label": "শুধু অডিও", "description": "সংগীত বা পডকাস্ট"}, "subtitlesOnly": {"label": "শুধু সাবটাইটেল", "description": "শুধু ক্যাপশন ফাইল"}},
 			"icon": {"controls": "নিয়ন্ত্রণ", "download": "ডাউনলোড", "video": "ভিডিও", "captions": "ক্যাপশন", "audio": "অডিও", "music": "সংগীত", "podcast": "পডকাস্ট", "classes": "ক্লাস", "clip": "ক্লিপ", "archive": "আর্কাইভ"},
 			"audioFormat": {"best": "সেরা", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "১২৮K পর্যন্ত", "192": "১৯২K পর্যন্ত", "320": "৩২০K পর্যন্ত", "best": "সেরা মান"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "আগে ম্যানুয়াল, পরে স্বয়ংক্রিয়", "manualOnly": "শুধু ম্যানুয়াল", "autoOnly": "শুধু স্বয়ংক্রিয়"},
-			"sponsorBlockHint": {"off": "SponsorBlock নেই — ভিডিও যেমন আপলোড হয়েছে তেমনই চলবে।", "mark": "স্পনসর অংশগুলোকে অধ্যায় হিসেবে চিহ্নিত করে (ফাইল বদলায় না)।", "remove": "FFmpeg দিয়ে ভিডিও থেকে স্পনসর অংশ কেটে দেয়।"}
+			"sponsorBlockHint": {"off": "SponsorBlock নেই — ভিডিও যেমন আপলোড হয়েছে তেমনই চলবে।", "mark": "স্পনসর অংশগুলোকে অধ্যায় হিসেবে চিহ্নিত করে (ফাইল বদলায় না)।", "remove": "FFmpeg দিয়ে ভিডিও থেকে স্পনসর অংশ কেটে দেয়।"},
+			"advanced": "উন্নত",
+			"goal": {"bestPicture": {"name": "সেরা ছবি", "tag": "AV1 · VP9", "description": "একই আকারে সবচেয়ে স্পষ্ট। পুরোনো টিভি, QuickTime ও কিছু এডিটর এটি চালাতে পারে না।"}, "smartTv": {"name": "স্মার্ট TV", "tag": "MP4 · H.264", "description": "টিভি, ফোন, WhatsApp, QuickTime ও ভিডিও এডিটরে চলে। YouTube শুধু ১০৮০p পর্যন্ত H.264 দেয়।"}},
+			"nativeAudio": {"default": "অ্যাপের সেটিং ব্যবহার করুন ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "লোড হচ্ছে…"},
@@ -809,5 +816,39 @@
 			"signOutConfirm": "সাইন আউট"
 		},
 		"error": {"proxyTitle": "Explore আপনার প্রক্সির মাধ্যমে সংযোগ করতে পারছে না", "proxyBody": "সেটিংসে প্রক্সি পরীক্ষা করুন, তারপর আবার চেষ্টা করুন।", "loadTitle": "এই পৃষ্ঠাটি লোড হয়নি", "loadBody": "আপনার সংযোগ পরীক্ষা করুন, তারপর আবার চেষ্টা করুন।", "retry": "আবার চেষ্টা করুন", "openSettings": "সেটিংস খুলুন"}
+	},
+	"fileType": {
+		"auto": "অটো",
+		"autoValue": "অটো (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "বেছে নেওয়া স্ট্রিম ফাইলের ধরন ঠিক করে।", "mp4": "প্রায় সব জায়গায় চলে। MP4-এ VP9 বা AV1 পুরোনো Mac-এর QuickTime-এ খুলবে না।", "mkv": "যেকোনো কোডেক রাখতে পারে। কিছু টিভি ও ফোন এটি খুলতে পারে না।", "webm": "ব্রাউজারের জন্য উন্মুক্ত ফরম্যাট। শুধু Opus সহ VP9 বা AV1 রাখতে পারে।"},
+		"webmBlocked": "WebM {{codec}} রাখতে পারে না। MKV বা MP4 বেছে নিন।",
+		"profileMark": "প্রোফাইল",
+		"smartTvNoWebm": "স্মার্ট TV-তে WebM দেওয়া হয় না: এটি H.264 রাখতে পারে না।",
+		"mp4Caveat": "MP4-এ {{codecs}} QuickTime, কিছু এডিটর ও কিছু টিভিতে না-ও খুলতে পারে। H.264 সব জায়গায় চলে।"
+	},
+	"selectionOrder": {
+		"editorTitle": "এই প্রোফাইল কীভাবে বাছাই করে",
+		"whyTitle": "প্রোফাইল কেন এটি বেছে নিল",
+		"whyLabel": "এটি কেন?",
+		"rank": {
+			"h264": {"label": "H.264 ভিডিও", "reason": "সব ডিভাইসে চলে"},
+			"mp4Streams": {"label": "MP4 স্ট্রিম", "reason": "MP4 ফাইলের জন্য প্রস্তুত"},
+			"resolutionBest": {"label": "সর্বোচ্চ রেজোলিউশন", "reason": "কোনো সীমা দেওয়া নেই"},
+			"resolution": {"label": "{{tier}}p পর্যন্ত", "reason": "আপনার সীমা"},
+			"fps": {"label": "সর্বোচ্চ ফ্রেম রেট", "reason": "আরও মসৃণ গতি"},
+			"hdr": {"label": "SDR-এর আগে HDR", "reason": "সাধারণ ক্রম"},
+			"codec": {"label": "AV1, তারপর VP9, তারপর H.264", "reason": "একই আকারে সবচেয়ে স্পষ্ট"},
+			"size": {"label": "বড় ফাইল", "reason": "একই সেটিংসে আরও বেশি ডিটেইল"},
+			"aacSmartTv": {"label": "AAC অডিও", "reason": "সব জায়গায় চলে"},
+			"aacFileType": {"label": "AAC অডিও", "reason": "MP4 প্লেয়ারে মানানসই"},
+			"opus": {"label": "Opus অডিও", "reason": "WebM-এ মানানসই"},
+			"nativeCompatible": {"label": "স্টেরিও অডিও"},
+			"nativeSurround": {"label": "পাওয়া গেলে সারাউন্ড অডিও"},
+			"nativeSource": {"settings": "সেটিংস থেকে", "profile": "এই প্রোফাইল"}
+		},
+		"summary": {"goal": {"bestPicture": "সেরা ছবি", "smartTv": "যেকোনো ডিভাইসে চলে"}, "fileType": {"auto": "স্ট্রিম অনুযায়ী ফাইলের ধরন", "explicit": ".{{ext}} হিসেবে সেভ হয়"}}
 	}
 }

@@ -300,7 +300,7 @@
 				"invalid": "Унеси цео број од 1 до 5000",
 				"tooltip": "Одговара yt-dlp опцији --playlist-end: Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
 			},
-			"nativeAudioPreference": {"label": "Postavka izvornog zvuka", "description": "Određuje šta bira „Najbolji izvorni“. Ručni audio redovi i M4A/AAC ostaju izričit izbor.", "compatible": "Kompatibilni stereo", "surround": "Daj prednost surround / Dolby"},
+			"nativeAudioPreference": {"label": "Postavka izvornog zvuka", "description": "Стерео или просторни звук када профил бира изворни звук. Профил то може променити.", "compatible": "Kompatibilni stereo", "surround": "Daj prednost surround / Dolby"},
 			"autoRetry": {"label": "Понови неуспела преузимања", "description": "Аутоматски покушава поново након проблема са мрежом или сервером, чекајући дуже пре сваког покушаја. Преузимања која сајт блокира никада се не понављају аутоматски.", "unit": "пута"},
 			"concurrentDownloads": {"label": "Истовремена преузимања", "description": "Колико ставки из реда се преузима истовремено. Више одједном брже завршава дугачак ред, али повећава шансу да вас сајт ограничи.", "unit": "преузимања"},
 			"downloadConnections": {"label": "Везе за преузимање", "description": "Убрзава велика преузимања преузимањем више делова видеа истовремено. Више вредности повећавају шансу да вас сајт ограничи.", "unit": "везе"},
@@ -361,9 +361,10 @@
 			"fit": {
 				"tierBelow": "Ваш профил тражи {{wanted}}p. Овај видео иде само до {{picked}}p, па је изабрано {{picked}}p.",
 				"tierAbove": "Ваш профил тражи {{wanted}}p. Овај видео нема тако низак квалитет, па је изабрано {{picked}}p.",
-				"mp4Unavailable": "Ваш профил тражи MP4 (H.264). Овај видео то не нуди, па је изабран најближи ток.",
+				"mp4Unavailable": "Ваш профил је Паметни TV (H.264). Овај видео не нуди H.264, па је изабран најближи ток.",
 				"noVideo": "Ова веза нема видео, па је изабран звук.",
-				"subtitlesMissing": "Ваш профил тражи титлове на језицима: {{languages}}. Овај видео их нема."
+				"subtitlesMissing": "Ваш профил тражи титлове на језицима: {{languages}}. Овај видео их нема.",
+				"webmUnavailable": "Ваш профил тражи WebM. Изабрани токови овог видеа садрже {{codec}}, који WebM не подржава, па је тип датотеке Аутоматски."
 			},
 			"summary": {"lead": "Такође из профила {{profile}}:", "subtitlesOff": "титлови искључени", "subtitlesAdd_one": "{{count}} језик доступан, додај", "subtitlesAdd_other": "Доступно језика: {{count}}, додај", "reviewAll": "Прегледај све"},
 			"footer": {"reviewOptions": "Преглед и опције", "download": "Преузми", "moreActions": "Више опција преузимања", "addToQueue": "Додај у ред без покретања", "subtitlesRequired": "Изаберите бар један језик титлова."},
@@ -418,7 +419,8 @@
 					"fixUnsafeBody": "Додај --disable-features=LockProfileCookieDatabase пречици за покретање Chrome-а. Упозорење: ово поништава претходно шифроване cookies, тако да ћеш бити одјављен са сваке странице и морати поново да се пријавиш.",
 					"docsLinkLabel": "yt-dlp документација (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Чува се као", "reset": "WebM не подржава {{codec}}, па се тип датотеке вратио на Аутоматски."}
 		},
 		"folder": {
 			"heading": "Сачувај у",
@@ -486,7 +488,8 @@
 			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова",
 			"profileBreakdownHeading": "Профили у овој серији",
 			"profileBreakdownCount_one": "{{count}} ставка",
-			"profileBreakdownCount_other": "{{count}} ставке"
+			"profileBreakdownCount_other": "{{count}} ставке",
+			"subtitleEmbedForcesMkv": "Титлови унутар видеа захтевају MKV датотеку, па се ово преузимање чува као .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Профил преузимања",
@@ -502,7 +505,6 @@
 			"field": {
 				"nameAndIcon": "Назив и икона профила",
 				"icon": "Икона профила",
-				"compatibility": "Компатибилност",
 				"resolution": "Резолуција",
 				"quality": "Квалитет",
 				"source": "Извор",
@@ -512,7 +514,10 @@
 				"subtitleDownloadsDescription": "Профили траже кодове језика; доступност се утврђује за сваки URL посебно.",
 				"languages": "Језици",
 				"delivery": "Начин чувања",
-				"overridePath": "Путања замене профила"
+				"overridePath": "Путања замене профила",
+				"goal": "Оптимизуј за",
+				"fileType": "Тип датотеке",
+				"nativeAudio": "Изворни звук"
 			},
 			"action": {
 				"chooseIcon": "Изабери икону профила",
@@ -549,11 +554,16 @@
 			},
 			"icon": {"controls": "Контроле", "download": "Преузимање", "video": "Видео", "captions": "Титлови", "audio": "Аудио", "music": "Музика", "podcast": "Подкаст", "classes": "Часови", "clip": "Исечак", "archive": "Архива"},
 			"audioFormat": {"best": "Најбоље", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"128": "До 128K", "192": "До 192K", "320": "До 320K", "best": "Најбољи квалитет"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Прво ручни, затим аутоматски", "manualOnly": "Само ручни", "autoOnly": "Само аутоматски генерисани"},
-			"sponsorBlockHint": {"off": "Без SponsorBlock-а — видео се пушта како је отпремљен.", "mark": "Означава спонзорисане сегменте као поглавља (без измене датотеке).", "remove": "Исеца спонзорисане сегменте из видеа помоћу FFmpeg-а."}
+			"sponsorBlockHint": {"off": "Без SponsorBlock-а — видео се пушта како је отпремљен.", "mark": "Означава спонзорисане сегменте као поглавља (без измене датотеке).", "remove": "Исеца спонзорисане сегменте из видеа помоћу FFmpeg-а."},
+			"advanced": "Напредно",
+			"goal": {
+				"bestPicture": {"name": "Најбоља слика", "tag": "AV1 · VP9", "description": "Најоштрије при истој величини. Старији телевизори, QuickTime и неки уређивачи га не могу пустити."},
+				"smartTv": {"name": "Паметни TV", "tag": "MP4 · H.264", "description": "Ради на телевизорима, телефонима, у WhatsApp-у, QuickTime-у и видео уређивачима. YouTube нуди H.264 само до 1080p."}
+			},
+			"nativeAudio": {"default": "Користи подешавање апликације ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Учитавање…"},
@@ -851,5 +861,44 @@
 			"signOutConfirm": "Одјави се"
 		},
 		"error": {"proxyTitle": "Explore не може да се повеже преко твог проксија", "proxyBody": "Провери прокси у подешавањима, па покушај поново.", "loadTitle": "Страница се није учитала", "loadBody": "Провери везу, па покушај поново.", "retry": "Покушај поново", "openSettings": "Отвори подешавања"}
+	},
+	"fileType": {
+		"auto": "Аутоматски",
+		"autoValue": "Аутоматски (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {
+			"auto": "Тип датотеке одређују изабрани токови.",
+			"mp4": "Ради скоро свуда. VP9 или AV1 у MP4 формату се неће отворити у QuickTime-у на старијим Mac рачунарима.",
+			"mkv": "Подржава било који кодек. Неки телевизори и телефони га не могу отворити.",
+			"webm": "Отворени формат за прегледаче. Подржава само VP9 или AV1 са Opus-ом."
+		},
+		"webmBlocked": "WebM не подржава {{codec}}. Изаберите MKV или MP4.",
+		"profileMark": "Профил",
+		"smartTvNoWebm": "WebM није доступан за Паметни TV: не подржава H.264.",
+		"mp4Caveat": "{{codecs}} у MP4 формату се можда неће отворити у QuickTime-у, неким уређивачима и неким телевизорима. H.264 ради свуда."
+	},
+	"selectionOrder": {
+		"editorTitle": "Како овај профил бира",
+		"whyTitle": "Зашто је профил ово изабрао",
+		"whyLabel": "Зашто овај?",
+		"rank": {
+			"h264": {"label": "H.264 видео", "reason": "ради на сваком уређају"},
+			"mp4Streams": {"label": "MP4 токови", "reason": "спремни за MP4 датотеку"},
+			"resolutionBest": {"label": "Највећа резолуција", "reason": "без ограничења"},
+			"resolution": {"label": "До {{tier}}p", "reason": "ваше ограничење"},
+			"fps": {"label": "Највећа брзина кадрова", "reason": "глаткији покрет"},
+			"hdr": {"label": "HDR пре SDR", "reason": "уобичајен редослед"},
+			"codec": {"label": "AV1, па VP9, па H.264", "reason": "најоштрије при истој величини"},
+			"size": {"label": "Већа датотека", "reason": "више детаља при истим подешавањима"},
+			"aacSmartTv": {"label": "AAC звук", "reason": "ради свуда"},
+			"aacFileType": {"label": "AAC звук", "reason": "одговара MP4 плејерима"},
+			"opus": {"label": "Opus звук", "reason": "одговара WebM-у"},
+			"nativeCompatible": {"label": "Стерео звук"},
+			"nativeSurround": {"label": "Просторни звук када је доступан"},
+			"nativeSource": {"settings": "из Подешавања", "profile": "овај профил"}
+		},
+		"summary": {"goal": {"bestPicture": "најбоља слика", "smartTv": "ради на сваком уређају"}, "fileType": {"auto": "тип датотеке према токовима", "explicit": "чува се као .{{ext}}"}}
 	}
 }
