@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {audioCodecName, fileTypeFits, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
+import {audioCodecName, fileTypeFits, mp4Caveat, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import type {FormatOption} from '@shared/types.js'
 
 function video(videoCodec: string, extra: Partial<FormatOption> = {}): FormatOption {
@@ -59,5 +59,22 @@ describe('WebM fit', () => {
 
 	it('has no objection while nothing is picked', () => {
 		expect(webmBlocker(undefined, undefined)).toBeNull()
+	})
+})
+
+describe('MP4 playback caveat', () => {
+	it('names the codecs QuickTime, editors and TVs often cannot open inside an MP4', () => {
+		expect(mp4Caveat(video('vp9'), audio('mp4a.40.2'))).toEqual(['VP9'])
+		expect(mp4Caveat(video('av01.0.08M.08'), audio('opus'))).toEqual(['AV1', 'Opus'])
+		expect(mp4Caveat(video('avc1.640028'), audio('opus'))).toEqual(['Opus'])
+	})
+
+	it('is empty for H.264 video with AAC audio, the safe pair', () => {
+		expect(mp4Caveat(video('avc1.640028'), audio('mp4a.40.2'))).toEqual([])
+		expect(mp4Caveat(video('hev1.1.6.L93.B0'), audio('mp4a.40.2'))).toEqual([])
+	})
+
+	it('reads the built-in audio of a muxed stream', () => {
+		expect(mp4Caveat(video('avc1.640028', {isVideoOnly: false, audioCodec: 'opus'}), undefined)).toEqual(['Opus'])
 	})
 })

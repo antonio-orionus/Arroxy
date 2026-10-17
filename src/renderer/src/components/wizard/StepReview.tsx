@@ -7,7 +7,7 @@ import type {ChangedArea, ReviewRow} from '../../store/wizard/profileApplication
 import {buildDownloadReview, conflictLabelKey} from '../../store/wizard/downloadReviewProjection.js'
 import {buildSingleSettingsSummary, sponsorBlockApplies} from '../../store/wizard/singleSettingsSummary.js'
 import {wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
-import {resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
+import {mp4CaveatCodecs, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
 import {createTranslationPort} from '../../lib/translation.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -146,6 +146,7 @@ export function StepReview(): ReactNode {
 		{row: 'fileName', value: summary.fileName, fields: <FileNameFields />}
 	]
 
+	const caveat = mp4CaveatCodecs(state)
 	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
 	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
@@ -191,10 +192,11 @@ export function StepReview(): ReactNode {
 				</div>
 			) : null}
 
-			{review.conflictWarnings.length > 0 ? (
+			{review.conflictWarnings.length > 0 || caveat.length > 0 ? (
 				<Alert variant="warning">
 					<TriangleAlert aria-hidden />
 					<AlertDescription className="flex flex-col gap-1">
+						{caveat.length > 0 ? <p data-testid="review-mp4-caveat">{t('fileType.mp4Caveat', {codecs: caveat.join(' + ')})}</p> : null}
 						{review.conflictWarnings.map(conflict => (
 							<p key={conflict.code} data-testid={`review-conflict-${conflict.code}`}>
 								{t(conflictLabelKey(conflict.code))}

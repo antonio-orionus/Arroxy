@@ -4,6 +4,7 @@ import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {SavesAsControl} from '@renderer/components/wizard/format/SavesAsControl.js'
 import {ProfileTag} from '@renderer/components/wizard/format/ProfileTag.js'
 import {FitNotices} from '@renderer/components/wizard/format/FitNotices.js'
+import {ProfileSummary} from '@renderer/components/wizard/format/ProfileSummary.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
@@ -172,5 +173,46 @@ describe('ProfileTag: why this one', () => {
 
 		expect(screen.getByTestId('profile-pick-tag')).toHaveTextContent('Closest to profile')
 		expect(screen.getByTestId('profile-pick-tag')).not.toHaveAttribute('tabindex')
+	})
+})
+
+describe('MP4 playback caveat', () => {
+	function showSummary(): void {
+		render(<ProfileSummary />)
+	}
+
+	it('warns on the Format summary when an MP4 holds VP9 and Opus', () => {
+		useAppStore.setState({wizardFileType: 'mp4'})
+		showSummary()
+
+		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('VP9 + Opus in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere.')
+	})
+
+	it('says nothing for the safe pair, H.264 with AAC', () => {
+		useAppStore.setState({wizardFileType: 'mp4', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
+		showSummary()
+
+		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
+	})
+
+	it('says nothing when the file is not an MP4', () => {
+		useAppStore.setState({wizardFileType: 'mkv'})
+		showSummary()
+
+		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
+	})
+
+	it('says nothing when embedded subtitles turn the file into an MKV', () => {
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: ['en']})
+		showSummary()
+
+		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
+	})
+
+	it('also follows an Auto file type that ends as an MP4 with AV1', () => {
+		useAppStore.setState({wizardFormats: [{formatId: '399', label: '1080p av1', ext: 'mp4', resolution: '1920x1080', videoCodec: 'av01.0.08M.08', isVideoOnly: true, isAudioOnly: false}, FORMATS[3]], selectedVideoFormatId: '399', audioSelection: {kind: 'native', formatId: '140'}, wizardFileType: 'auto'})
+		showSummary()
+
+		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('AV1 in an MP4')
 	})
 })

@@ -1,6 +1,7 @@
 import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
-import {fileTypeFits} from '@shared/fileTypeFit.js'
+import {fileTypeFits, mp4Caveat} from '@shared/fileTypeFit.js'
 import type {FormatOption} from '@shared/types.js'
+import type {AppState} from '../types.js'
 
 /**
  * Resolves the expected output file container extension from wizard format selection.
@@ -48,4 +49,17 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	if (videoExt === 'webm' && audioExt === 'webm') return embedThumbnail ? 'mkv' : 'webm'
 	if (videoExt === 'mp4' && (!audioExt || audioExt === 'm4a' || audioExt === 'mp4')) return 'mp4'
 	return 'mkv'
+}
+
+// The codecs that make an MP4 risky to play, when this download ends as an MP4
+// holding any (VP9, AV1 or Opus); empty otherwise, and always empty when
+// embedded subtitles turn the file into an MKV.
+export function mp4CaveatCodecs(state: Pick<AppState, 'wizardMediaKind' | 'selectedVideoFormatId' | 'audioSelection' | 'wizardSubtitleMode' | 'wizardFormats' | 'wizardEmbedThumbnail' | 'wizardFileType'>): string[] {
+	if (state.wizardMediaKind !== 'video' || state.selectedVideoFormatId === '') return []
+	const container = resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, state.wizardMediaKind, state.wizardEmbedThumbnail, state.wizardFileType)
+	if (container !== 'mp4') return []
+	const video = state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId)
+	const audioSelection = state.audioSelection
+	const audio = audioSelection.kind === 'native' ? state.wizardFormats.find(f => f.formatId === audioSelection.formatId) : undefined
+	return mp4Caveat(video, audio)
 }

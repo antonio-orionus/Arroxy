@@ -49,6 +49,18 @@ export function webmBlocker(video: FormatOption | undefined, audio: FormatOption
 	return null
 }
 
+// Codecs an MP4 file can hold but players often can't open: QuickTime on older
+// Macs, some editors and some TVs. H.264 video with AAC audio is the safe pair.
+const MP4_RISKY_VIDEO = new Set(['VP9', 'AV1'])
+const MP4_RISKY_AUDIO = new Set(['Opus', 'Vorbis'])
+
+export function mp4Caveat(video: FormatOption | undefined, audio: FormatOption | undefined): string[] {
+	const videoCodec = video ? videoCodecName(video.videoCodec) : null
+	const audioSource = audio ?? (video && !video.isVideoOnly ? video : undefined)
+	const audioCodec = audioSource ? audioCodecName(audioSource.audioCodec) : null
+	return [videoCodec !== null && MP4_RISKY_VIDEO.has(videoCodec) ? videoCodec : null, audioCodec !== null && MP4_RISKY_AUDIO.has(audioCodec) ? audioCodec : null].filter((codec): codec is string => codec !== null)
+}
+
 export function fileTypeFits(fileType: VideoFileType, video: FormatOption | undefined, audio: FormatOption | undefined): boolean {
 	return fileType !== 'webm' || webmBlocker(video, audio) === null
 }

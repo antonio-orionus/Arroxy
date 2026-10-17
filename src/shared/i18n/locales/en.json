@@ -841,7 +841,8 @@
 		"description": {"auto": "The picked streams decide the file type.", "mp4": "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs.", "mkv": "Holds any codec. Some TVs and phones can't open it.", "webm": "Open format for browsers. Holds only VP9 or AV1 with Opus."},
 		"webmBlocked": "WebM can't hold {{codec}}. Choose MKV or MP4.",
 		"profileMark": "Profile",
-		"smartTvNoWebm": "WebM isn't offered with Smart TV: it can't hold H.264."
+		"smartTvNoWebm": "WebM isn't offered with Smart TV: it can't hold H.264.",
+		"mp4Caveat": "{{codecs}} in an MP4 may not open in QuickTime, some editors and some TVs. H.264 plays everywhere."
 	},
 	"selectionOrder": {
 		"editorTitle": "How this profile picks",
