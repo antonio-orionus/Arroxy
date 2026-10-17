@@ -251,16 +251,14 @@
 				"extensionChrome": "로컬에서 cookies.txt 받기(Chrome)"
 			},
 			"proxy": {"label": "프록시 URL", "description": "프록시를 통해 트래픽을 라우팅합니다. 지역 제한 콘텐츠에 유용합니다.", "placeholder": "http://host:port", "clear": "지우기"},
-			"backdrop": {
-				"panelTitle": "모양 및 성능",
-				"panelDescription": "Arroxy의 움직이는 배경에 사용할 동작 수준을 선택하세요.",
-				"modeLabel": "배경 품질",
-				"modeDescription": "가장 역동적인 모양에서 최고 성능까지 조절합니다.",
-				"cssOnlyLabel": "최고 성능",
-				"cssOnlyDescription": "CSS만 사용하며 캔버스 렌더링은 없습니다.",
-				"gpuLabel": "가장 아름답게",
-				"gpuDescription": "지원되는 경우 움직이는 WebGL 배경을 사용합니다.",
-				"runtimeFallbackNotice": "이 기기에서 하드웨어 WebGL을 사용할 수 없어 Arroxy가 성능 배경을 사용합니다."
+			"style": {
+				"panelTitle": "화면 스타일",
+				"panelDescription": "Arroxy의 모양을 설정합니다. 라이트와 다크는 하단 바에서 바꿀 수 있습니다.",
+				"modeLabel": "스타일",
+				"modeDescription": "두 스타일 모두 라이트와 다크를 지원합니다.",
+				"aurora": {"label": "오로라", "description": "움직이는 하늘 위에 유리 패널이 떠 있는 스타일입니다. 그래픽 가속이 필요합니다."},
+				"minimal": {"label": "미니멀", "description": "단단하고 차분한 화면입니다. 어떤 컴퓨터에서도 가볍게 실행됩니다."},
+				"unavailableNotice": "{{style}}에는 그래픽 가속이 필요한데 지금은 사용할 수 없어서, Arroxy가 {{fallback}}을(를) 표시하고 있습니다."
 			},
 			"limitRate": {
 				"label": "다운로드 속도 제한",
@@ -509,6 +507,8 @@
 				"setOverrideShort": "재정의 설정",
 				"useGlobalDefault": "전역 기본값 사용",
 				"reset": "프로필 재설정",
+				"resetHint": "기본 제공 프로필 설정 복원",
+				"resetDisabledHint": "이 프로필은 이미 기본 제공 설정을 사용합니다",
 				"save": "프로필 저장"
 			},
 			"placeholder": {"folder": "이 프로필의 폴더 선택"},
@@ -575,6 +575,7 @@
 			"format": "형식",
 			"outputTarget": "출력 대상",
 			"artifacts": "결과물",
+			"size": "크기",
 			"added": "추가됨",
 			"finished": "완료 시간",
 			"notAvailable": "—",
@@ -786,6 +787,7 @@
 			"continue": "계속"
 		},
 		"nudge": {"off": "쿠키가 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다.", "file": "다운로드에는 Explore 로그인이 아니라 쿠키 파일이 사용됩니다.", "browser": "다운로드에는 Explore 로그인이 아니라 브라우저의 쿠키가 사용됩니다.", "useExplore": "Explore 로그인 사용", "notNow": "나중에"},
+		"linkMenu": {"downloadWith": "프로필로 다운로드", "copyLink": "링크 복사"},
 		"toolbar": {
 			"aria": "현재 페이지",
 			"back": "뒤로",

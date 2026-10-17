@@ -58,6 +58,9 @@ export interface ActiveJobInput {
 	mediaDownloadStarted?: boolean
 	mediaComponentPaths?: string[]
 	mediaPath?: string
+	// Thumbnail, description and other sidecar files yt-dlp reported writing,
+	// at their final paths; sized and reported again once the job completes.
+	sidecarPaths?: string[]
 	mediaPostprocessStarted?: boolean
 	usedExtractorFallback?: boolean
 	// Set when YouTube withheld format URLs and the saved file came out below

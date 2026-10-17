@@ -278,8 +278,10 @@ export type HotkeyState = z.infer<typeof hotkeyStateSchema>
 export const hotkeyRegistrationStatusSchema = z.enum(['off', 'pending', 'registered', 'conflict'])
 export type HotkeyRegistrationStatus = z.infer<typeof hotkeyRegistrationStatusSchema>
 
-export const backdropRenderModeSchema = z.enum(['css-only', 'gpu'])
-export type BackdropRenderMode = z.infer<typeof backdropRenderModeSchema>
+// How surfaces are painted (DESIGN.md §8). Independent of the light/dark color scheme.
+export const uiStyleSchema = z.enum(['aurora', 'minimal'])
+export type UiStyle = z.infer<typeof uiStyleSchema>
+export const UI_STYLES = uiStyleSchema.options
 
 export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
 export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
@@ -452,7 +454,7 @@ const queueActionSkippedFailureReasonSchema = z.enum(['invalid-status', 'failed'
 const queueActionSkippedItemSchema = z.union([z.object({itemId: z.string().min(1), reason: z.literal('not-found')}), z.object({itemId: z.string().min(1), status: queueItemStatusSchema, reason: queueActionSkippedFailureReasonSchema})])
 export type QueueActionSkippedItem = z.infer<typeof queueActionSkippedItemSchema>
 
-export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'addedAt', 'finishedAt'])
+export const queueTableColumnIdSchema = z.enum(['title', 'status', 'progressPercent', 'formatLabel', 'outputDir', 'artifacts', 'fileSize', 'addedAt', 'finishedAt'])
 export type QueueTableColumnId = z.infer<typeof queueTableColumnIdSchema>
 export const QUEUE_TABLE_COLUMN_IDS = queueTableColumnIdSchema.options
 
@@ -527,6 +529,12 @@ export type ExploreNavigateCommand = z.infer<typeof exploreNavigateCommandSchema
 export const exploreSetVisibleSchema = z.object({visible: z.boolean()})
 // Whether the Explore tab is the active tab (the view is muted while it is not).
 export const exploreSetActiveSchema = z.object({active: z.boolean()})
+// A pick in the Explore page's link menu, for the link right-clicked (main
+// builds and shows the menu): `download` queues it with `profile` made the
+// active profile first, or with the active one; `interactive` opens the wizard.
+const exploreLinkUrlSchema = z.string().min(1).max(EXPLORE_ADDRESS_MAX)
+export const exploreLinkActionSchema = z.discriminatedUnion('kind', [z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}), z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})])
+export type ExploreLinkAction = z.infer<typeof exploreLinkActionSchema>
 // A snapshot of the Explore view, shown in its place while an overlay hides it
 // (P2-R35): a base64 JPEG data URL and nothing else (an SVG could carry
 // script). Main encodes it at full device resolution, quality 85; the cap
@@ -635,7 +643,7 @@ const commonSettingsSchema = z.object({
 	lastHeartbeatDay: z.string().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
-	backdropRenderMode: backdropRenderModeSchema.optional(),
+	uiStyle: uiStyleSchema.optional(),
 	language: supportedLangSchema.optional(),
 	commonPaths: commonPathsSchema.optional(),
 	cookiesPath: z.string().optional(),

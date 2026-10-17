@@ -273,16 +273,14 @@
 				"extensionChrome": "cookies.txt dosyasını YEREL olarak al (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL’si", "description": "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır.", "placeholder": "http://host:port", "clear": "Temizle"},
-			"backdrop": {
-				"panelTitle": "Görünüm ve performans",
-				"panelDescription": "Arroxy’nin animasyonlu arka plan için ne kadar hareket kullanacağını seç.",
-				"modeLabel": "Arka plan kalitesi",
-				"modeDescription": "En animasyonlu görünümden en iyi performansa geç.",
-				"cssOnlyLabel": "En iyi performans",
-				"cssOnlyDescription": "Yalnızca CSS, canvas çizimi yok.",
-				"gpuLabel": "En güzel görünüm",
-				"gpuDescription": "Destekleniyorsa animasyonlu WebGL arka planı.",
-				"runtimeFallbackNotice": "Bu cihazda donanımsal WebGL kullanılamıyor, bu yüzden Arroxy performans arka planını kullanıyor."
+			"style": {
+				"panelTitle": "Görünüm",
+				"panelDescription": "Arroxy'nin görünümü. Açık ve koyu mod arasında alt bilgi alanından geçiş yapabilirsiniz.",
+				"modeLabel": "Stil",
+				"modeDescription": "İki stil de açık ve koyu modda gelir.",
+				"aurora": {"label": "Aurora", "description": "Hareket eden bir gökyüzünün üzerinde cam paneller. Grafik hızlandırma gerekir."},
+				"minimal": {"label": "Minimal", "description": "Düz, sakin yüzeyler. Her bilgisayarda hafif çalışır."},
+				"unavailableNotice": "{{style}} grafik hızlandırma gerektirir, ama şu an kullanılamıyor; bu yüzden Arroxy {{fallback}} gösteriyor."
 			},
 			"limitRate": {
 				"label": "İndirme hızı sınırı",
@@ -531,6 +529,8 @@
 				"setOverrideShort": "Geçersiz kılmayı ayarla",
 				"useGlobalDefault": "Genel varsayılanı kullan",
 				"reset": "Profili sıfırla",
+				"resetHint": "Yerleşik profil ayarlarını geri yükle",
+				"resetDisabledHint": "Bu profil zaten yerleşik ayarları kullanıyor",
 				"save": "Profili kaydet"
 			},
 			"placeholder": {"folder": "Bu profil için bir klasör seçin"},
@@ -597,6 +597,7 @@
 			"format": "Biçim",
 			"outputTarget": "Çıktı hedefi",
 			"artifacts": "Çıktılar",
+			"size": "Boyut",
 			"added": "Eklendi",
 			"finished": "Bitti",
 			"notAvailable": "—",
@@ -803,6 +804,7 @@
 			"continue": "Devam et"
 		},
 		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz.", "file": "İndirmeler Explore oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Explore oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Explore oturumunu kullan", "notNow": "Şimdi değil"},
+		"linkMenu": {"downloadWith": "Profille indir", "copyLink": "Bağlantıyı kopyala"},
 		"toolbar": {
 			"aria": "Explore tarayıcı denetimleri",
 			"back": "Geri",

@@ -152,7 +152,7 @@ A single electric blue carries identity across two skies, a deep aurora-navy voi
 - **Error Red** (`#ff385d`, `hsl(349 100% 61%)`): Failed jobs, destructive actions, invalid input. Always paired with an icon and text; never color-alone.
 
 ### Named Rules
-**The Two-Sky Rule.** There are exactly two skies: the dark **void** and the light **field**. The electric-blue signal and the status colors are identical in both; only the neutrals flip. Toggling mode must feel like the same product lit differently, never a recolored second app. The light field is cool-blue, never warm cream/sand/beige.
+**The Two-Sky Rule.** Every style (§8) has exactly two skies, dark and light; for Aurora they are the dark **void** and the light **field**. The electric-blue signal and the status colors are identical in both, and in every style; only the neutrals and the material flip. Toggling mode must feel like the same product lit differently, never a recolored second app. The light field is cool-blue, never warm cream/sand/beige.
 
 **The Lit-Edge Rule.** Glass panels catch the blue light along their edges: a luminous gradient edge is the *default* panel finish, not an exception. This is the Aurora Console look. What's rationed is **intensity**, not presence: secondary panels get a soft edge gradient; the primary split control gets the hottest edge plus a real outer bloom. Two things may both glow; only one may glow *brightest*.
 
@@ -209,7 +209,7 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 **The One-Blur Rule.** Exactly one element in any nested stack owns the backdrop blur (the `glow-panel`); tiles inside it use `glow-tile` or quick-profile classes (no blur). Never stack backdrop-blurs, blurring already-blurred glass turns it to mud and costs frames. Edge gradients and glow may nest freely; blur may not.
 
-**The No-GPU-No-Blur Rule.** Backdrop blur is only free when hardware WebGL draws the sky. Without it (CSS or static fallback, software renderer) the blur re-composites the animated backdrop on the CPU every frame, which measured 38 fps without it against 21 fps with it. On those paths (`body:not(.backdrop-webgl-active)`) glass drops its blur and gets a denser fill so text keeps 4.5:1 over the unblurred sky.
+**The No-GPU-No-Blur Rule.** Backdrop blur is only free when hardware WebGL draws the sky. Without it (software renderer) the blur re-composites the animated backdrop on the CPU every frame, which measured 38 fps without it against 21 fps with it. So blur applies only while a hardware backdrop is running, and a style that needs one falls back to Minimal without it (the Hardware-Or-Base Rule, §8).
 
 **The Bloom-Is-Rationed Rule.** The soft edge gradient is the default and may appear on every glass surface. The bright *outer bloom* is rationed: one primary split control per view, plus genuine live/focused states. If three things on a screen have a strong outer bloom, two are wrong, dial them back to the edge gradient.
 
@@ -311,10 +311,61 @@ Glow carries meaning at two intensities: the soft edge gradient says "this is a 
 
 ## 7. Implementation Contract
 
-- **Primitives** live in `src/renderer/src/components/ui/` (shadcn base-nova, customised there and only there). **Composites** live in `components/shared/`: `SectionLabel`, `SettingRow`, `SettingSwitch`, `HelpTip`, `Panel`, `PanelSection`, `ChoiceRow`, `CheckRow`, `OptionCard`, `IconTile`, `SpeechBubble`, `MascotBubble`.
+- **Primitives** live in `src/renderer/src/components/ui/` (shadcn base-nova, customised there and only there). **Composites** live in `components/shared/`: `SectionLabel`, `SettingRow`, `SettingSwitch`, `HelpTip`, `Hint`, `Panel`, `PanelSection`, `ChoiceRow`, `CheckRow`, `OptionCard`, `IconTile`, `SpeechBubble`, `MascotBubble`.
 - Screens compose these; they do not restate sizes, colours, radii, or shadows. `tests/unit/ui-consistency-ratchet.test.ts` counts one-off values per file and only lets the count go down.
 - Review any primitive or composite change in the UI Kit (`bun run dev:mock`, then `/?kit`), in both skies and in RTL.
 - **Tokens and variants, never arbitrary values.** Express a need as a primitive variant or token (`variant="glow"`, `Badge size="sm"`, `text-caption`, `text-subtle-foreground`, `bg-primary/12`, `shadow-glow`, `text-success`), not `shadow-[…]`, `text-[9px]`, `border-[1.5px]` or raw Tailwind palette colours. The ratchet counts those, plus raw `<button>`/`<input>`/`<select>`/`<textarea>`/`<label>`, outside `components/ui/` and `dev/` against `tests/unit/ui-consistency-baseline.json`. After a cleanup lower the baseline with `UPDATE_UI_RATCHET=1 bunx vp test run --project node tests/unit/ui-consistency-ratchet.test.ts`; never raise it.
+- **One hint, one bubble.** Every hover/focus hint goes through the `Hint` composite (the app tooltip), never the native `title` attribute: `title` draws a second, unstyled bubble beside the tooltip, or a lone one that matches nothing else. An icon-only control carries `aria-label` and the same name in its `Hint`. A button whose hint explains why it is disabled takes `focusableWhenDisabled`, because the browser sends no hover to a disabled button. The full text of a truncated label uses `<Hint reveal>`, which waits before opening so sweeping across a list flashes nothing. A hint inside a menu is `aria-description`, not a tooltip. `tests/unit/no-native-title.test.ts` fails the build on a native `title` hint.
 - **Segmented controls own their own layout.** `toggleVariants` already provides pressed-state brand styling, `min-w-0`, `wrap-anywhere` and `min-h-*` sizing, so a `ToggleGroupItem` never needs `whitespace-*`, `shrink-*`, `min-w-*`, a fixed `h-*`, or any `aria-pressed:` / `data-[state=on]:` colour at the call site. Pass `shape="chip"` when a short token (bitrate, extension, file format) must stay on one line, and give that group `flex-wrap`: `ToggleGroup` is a non-wrapping flex row and unshrinkable chips would overflow it.
 - **`wrap-anywhere`, not `break-words`.** `overflow-wrap: break-word` does not shrink a flex/grid item's intrinsic min-content width, so a single long word still overflows its track.
 - **Size for translations.** Localized labels run 1.5–2x longer than English (`el`, `fr` and `my` are the worst measured), so English-only review will not surface an overflow. `tests/unit/toggle-styling-invariants.test.ts` fails the build if pressed-state styling reappears outside `components/ui/`; `tests/browser/toggle-overflow.spec.ts` sweeps every toggle group on the real screens at the minimum window size and at 150% zoom.
+
+## 8. Styles
+
+Arroxy ships more than one **style**, Aurora and Minimal, and each style comes in both **color schemes**, light and dark. The user picks both independently. A style is a set of values for one shared token contract; switching style changes how surfaces are painted and nothing else: not layout, not copy, not behavior.
+
+*Status: implemented ([ADR 0009](docs/adr/0009-styles-are-token-layers-over-a-minimal-base.md)). Style stylesheets live in `src/renderer/src/styles/`, the registry in `styles/registry.ts`, and the rules below are enforced by `tests/unit/style-contract.test.ts`.*
+
+### Three token tiers
+
+1. **Identity: the same in every style.** Brand blue (`--primary`, `--brand`, `--brand-hover`, `--brand-dim`), status hues (`--success`, `--warning`, `--destructive`, `--info`), fonts and type scale, spacing, radii, border widths and motion durations. A style cannot change them; changing one is a brand decision, not a new style.
+2. **The style contract: what every style must define, for light and dark.**
+   - *Ink and surface* (shadcn names): `--background`, `--foreground`, `--card`, `--card-foreground`, `--popover`, `--popover-foreground`, `--secondary`, `--secondary-foreground`, `--muted`, `--muted-foreground`, `--accent`, `--accent-foreground`, `--border`, `--border-strong`, `--input`, `--ring`, `--text-subtle`, `--selected-foreground`.
+   - *Surfaces*: `--surface-stage` (the one stage per view), `--surface-tile` (fields and rows inside a stage), `--surface-raised` (popovers, the active-profile half), `--surface-bar` (sticky bars, a gradient image), `--surface-filter` (the stage's backdrop filter, `none` for no blur; applied only while a hardware backdrop runs).
+   - *Edges*: `--line` (field and control rings), `--edge-soft` (resting edge paint), `--edge` (stage and tile edge), `--edge-hot` (primary control edge), `--edge-selected` (selected-option edge). All are gradient images; a flat style repeats one colour.
+   - *Light*: `--tint-start` and `--tint-end` (the two hues glass catches), `--sheen` (highlight), `--glow` (bloom hue), `--shade` (shadow hue). A flat style sets all four to `transparent`, which erases every sheen, tint and bloom derived from them.
+   - *Fills*: `--primary-fill` (paint of the primary action) and `--selected-fill` (paint of a selected option or tab).
+3. **Component tokens: derived, never styled.** `--quick-*`, `--wizard-*`, `--tabs-*`, `--field-*`, `--queue-*`, `--glass-*`, `--brand-glow`, `--panel-glow` and other per-component tokens are computed from the contract once, in `styles.css`, with `color-mix` over contract colours. A style never sets one.
+
+### Named Rules
+
+**The One-Contract Rule.** Every style defines every contract token, in both schemes, and nothing else. A style's stylesheet contains only custom-property declarations under `:root[data-style="<id>"]` and `:root[data-style="<id>"].dark`: no component selectors, no keyframes, no pseudo-elements. When a style needs a value the contract lacks, add a contract token and give every style a value for it; never reach past the contract into a component.
+
+**The Minimal-Is-Base Rule.** `styles/minimal.css` holds Minimal's values under `:root` and `.dark`, and its token set is the contract. Every other style is a layer over Minimal, so a missing or unknown style renders as Minimal, never unstyled. Minimal is solid fills, hairline edges, no sheen, no bloom, no blur, no backdrop, and the one blue as a flat fill.
+
+**The Ask-Capabilities Rule.** Code never asks which style is active. No `[data-style]` selector outside style stylesheets and no comparison against a style id in TypeScript. What differs in behavior, such as a backdrop scene per scheme and whether it needs hardware WebGL, is declared in the style registry and read as a capability.
+
+**The Hardware-Or-Base Rule.** A style whose backdrop needs hardware WebGL renders as Minimal when there is none: a software renderer, a GPU the graphics policy rejects, or a lost WebGL context. The user's choice is kept, and Settings says why it is not showing. There is no CSS imitation of a WebGL backdrop. `--surface-blur` takes effect only while a hardware backdrop is running.
+
+**The Same-Layout Rule.** Switching style never moves a pixel of layout. No contract token sets a size, spacing, radius, border width or font (`--radius` is identity, set in `styles.css`). Screenshot, overflow and translation-width tests therefore run once, not once per style.
+
+**The Every-Pair-Passes Rule.** Every style in both schemes meets WCAG AA (body 4.5:1, large 3:1) and the One Voice Rule (electric blue is the only saturated non-status hue). The contrast test iterates the style registry, so a style is gated the moment it is registered.
+
+### Adding a style
+
+1. Add the id to the style enum in `src/shared/schemas.ts`.
+2. Add its registry entry: label key, and a backdrop scene per scheme or none. Type checking fails until the entry exists.
+3. Add its stylesheet with the full contract for light and dark.
+4. Add the label string in every locale (`translate-arroxy-i18n`).
+5. Review it in the UI Kit (`/?kit`) in both schemes and RTL.
+
+Nothing else changes: the Settings picker, persistence, the hardware fallback and the contrast gate all read the registry.
+
+### Enforcement
+
+These tests land with the implementation and gate every later style:
+
+- **Contract completeness:** each style stylesheet declares exactly the contract tokens for each scheme; a missing or extra property fails.
+- **Style isolation:** `[data-style` appears only in style stylesheets, and those contain only custom-property declarations.
+- **Contrast:** every style × scheme pair from the registry meets the ratios above.
+- The existing UI consistency ratchet (§7) still applies unchanged to every component.

@@ -260,16 +260,14 @@
 				"extensionChrome": "دریافت محلی cookies.txt (Chrome)"
 			},
 			"proxy": {"label": "URL پراکسی", "description": "ترافیک را از پراکسی عبور می‌دهد — برای محتوای دارای محدودیت جغرافیایی مفید است.", "placeholder": "http://host:port", "clear": "پاک کردن"},
-			"backdrop": {
-				"panelTitle": "ظاهر و کارایی",
-				"panelDescription": "میزان پویایی پس‌زمینهٔ Arroxy را انتخاب کنید.",
-				"modeLabel": "کیفیت پس‌زمینه",
-				"modeDescription": "از پویاترین ظاهر تا بهترین کارایی انتخاب کنید.",
-				"cssOnlyLabel": "بهترین کارایی",
-				"cssOnlyDescription": "فقط CSS، بدون رندر canvas.",
-				"gpuLabel": "زیباترین",
-				"gpuDescription": "در صورت پشتیبانی، پس‌زمینهٔ پویای WebGL.",
-				"runtimeFallbackNotice": "WebGL سخت‌افزاری در این دستگاه در دسترس نیست، بنابراین Arroxy از پس‌زمینهٔ بهینه برای کارایی استفاده می‌کند."
+			"style": {
+				"panelTitle": "ظاهر",
+				"panelDescription": "ظاهر Arroxy. در پایین پنجره می‌توانید بین حالت روشن و تیره جابه‌جا شوید.",
+				"modeLabel": "سبک",
+				"modeDescription": "هر دو سبک در حالت روشن و تیره موجودند.",
+				"aurora": {"label": "آرورا", "description": "پنل‌های شیشه‌ای روی آسمانی متحرک. به شتاب‌دهی گرافیکی نیاز دارد."},
+				"minimal": {"label": "مینیمال", "description": "سطح‌های ساده و آرام. روی هر رایانه‌ای سبک اجرا می‌شود."},
+				"unavailableNotice": "{{style}} به شتاب‌دهی گرافیکی نیاز دارد که اکنون در دسترس نیست، برای همین Arroxy از {{fallback}} استفاده می‌کند."
 			},
 			"limitRate": {
 				"label": "محدودیت سرعت دانلود",
@@ -518,6 +516,8 @@
 				"setOverrideShort": "تنظیم جایگزینی",
 				"useGlobalDefault": "استفاده از پیش‌فرض سراسری",
 				"reset": "بازنشانی نمایه",
+				"resetHint": "بازگرداندن تنظیمات داخلی نمایه",
+				"resetDisabledHint": "این نمایه از قبل از تنظیمات داخلی استفاده می‌کند",
 				"save": "ذخیرهٔ نمایه"
 			},
 			"placeholder": {"folder": "انتخاب پوشه برای این نمایه"},
@@ -584,6 +584,7 @@
 			"format": "قالب",
 			"outputTarget": "مقصد خروجی",
 			"artifacts": "فایل‌های خروجی",
+			"size": "اندازه",
 			"added": "افزوده‌شده",
 			"finished": "پایان‌یافته",
 			"notAvailable": "—",
@@ -795,6 +796,7 @@
 			"continue": "ادامه"
 		},
 		"nudge": {"off": "کوکی‌ها خاموش‌اند، پس دانلودها از ورود Explore استفاده نمی‌کنند.", "file": "دانلودها از فایل کوکی شما استفاده می‌کنند، نه ورود Explore.", "browser": "دانلودها از کوکی‌های مرورگر شما استفاده می‌کنند، نه ورود Explore.", "useExplore": "استفاده از ورود Explore", "notNow": "حالا نه"},
+		"linkMenu": {"downloadWith": "دانلود با", "copyLink": "کپی پیوند"},
 		"toolbar": {
 			"aria": "کنترل‌های مرورگر Explore",
 			"back": "بازگشت",

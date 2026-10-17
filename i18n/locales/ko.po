@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "다시 시도"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "링크 복사"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "프로필로 다운로드"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "새 기능"
@@ -1038,6 +1046,10 @@ msgstr "진행률"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "{{title}}의 결과물 표시"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "크기"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "프로필 재설정"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "이 프로필은 이미 기본 제공 설정을 사용합니다"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "기본 제공 프로필 설정 복원"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "프로필 저장"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "회"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS만 사용하며 캔버스 렌더링은 없습니다."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "최고 성능"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "지원되는 경우 움직이는 WebGL 배경을 사용합니다."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "가장 아름답게"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "가장 역동적인 모양에서 최고 성능까지 조절합니다."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "배경 품질"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Arroxy의 움직이는 배경에 사용할 동작 수준을 선택하세요."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "모양 및 성능"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "이 기기에서 하드웨어 WebGL을 사용할 수 없어 Arroxy가 성능 배경을 사용합니다."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL 일괄 추가"
@@ -3776,6 +3760,42 @@ msgstr "다운로드 동작"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "입력"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "움직이는 하늘 위에 유리 패널이 떠 있는 스타일입니다. 그래픽 가속이 필요합니다."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "오로라"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "단단하고 차분한 화면입니다. 어떤 컴퓨터에서도 가볍게 실행됩니다."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "미니멀"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "두 스타일 모두 라이트와 다크를 지원합니다."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "스타일"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy의 모양을 설정합니다. 라이트와 다크는 하단 바에서 바꿀 수 있습니다."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "화면 스타일"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}}에는 그래픽 가속이 필요한데 지금은 사용할 수 없어서, Arroxy가 {{fallback}}을(를) 표시하고 있습니다."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

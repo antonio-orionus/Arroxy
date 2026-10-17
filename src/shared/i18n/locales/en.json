@@ -251,16 +251,14 @@
 				"extensionChrome": "Get cookies.txt LOCALLY (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Route traffic through a proxy — useful for geo-restricted content.", "placeholder": "http://host:port", "clear": "Clear"},
-			"backdrop": {
-				"panelTitle": "Appearance and performance",
-				"panelDescription": "Choose how much motion Arroxy uses for the animated backdrop.",
-				"modeLabel": "Backdrop quality",
-				"modeDescription": "Move from the most animated look to best performance.",
-				"cssOnlyLabel": "Best performance",
-				"cssOnlyDescription": "CSS only, no canvas rendering.",
-				"gpuLabel": "Most beautiful",
-				"gpuDescription": "Animated WebGL backdrop when supported.",
-				"runtimeFallbackNotice": "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
+			"style": {
+				"panelTitle": "Appearance",
+				"panelDescription": "How Arroxy looks. Switch between light and dark in the footer.",
+				"modeLabel": "Style",
+				"modeDescription": "Both styles come in light and dark.",
+				"aurora": {"label": "Aurora", "description": "Glass panels over a moving sky. Needs graphics acceleration."},
+				"minimal": {"label": "Minimal", "description": "Solid, quiet surfaces. Runs light on any computer."},
+				"unavailableNotice": "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Download speed limit",
@@ -514,6 +512,8 @@
 				"setOverrideShort": "Set override",
 				"useGlobalDefault": "Use global default",
 				"reset": "Reset profile",
+				"resetHint": "Restore the built-in profile settings",
+				"resetDisabledHint": "This profile already uses built-in settings",
 				"save": "Save profile"
 			},
 			"placeholder": {"folder": "Choose a folder for this profile"},
@@ -585,6 +585,7 @@
 			"format": "Format",
 			"outputTarget": "Output target",
 			"artifacts": "Artifacts",
+			"size": "Size",
 			"added": "Added",
 			"finished": "Finished",
 			"notAvailable": "—",
@@ -791,6 +792,7 @@
 			"continue": "Continue"
 		},
 		"nudge": {"off": "Cookies are off, so downloads don't use your Explore sign-in.", "file": "Downloads use your cookies file, not your Explore sign-in.", "browser": "Downloads use your browser's cookies, not your Explore sign-in.", "useExplore": "Use Explore sign-in", "notNow": "Not now"},
+		"linkMenu": {"downloadWith": "Download with", "copyLink": "Copy link"},
 		"toolbar": {
 			"aria": "Explore browser controls",
 			"back": "Back",

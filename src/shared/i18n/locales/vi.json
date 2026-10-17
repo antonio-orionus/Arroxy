@@ -260,16 +260,14 @@
 				"extensionChrome": "Lấy cookies.txt TRÊN MÁY (Chrome)"
 			},
 			"proxy": {"label": "URL Proxy", "description": "Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực.", "placeholder": "http://host:port", "clear": "Xóa"},
-			"backdrop": {
-				"panelTitle": "Giao diện và hiệu năng",
-				"panelDescription": "Chọn mức chuyển động Arroxy dùng cho nền động.",
-				"modeLabel": "Chất lượng nền",
-				"modeDescription": "Chuyển từ giao diện nhiều chuyển động nhất sang hiệu năng tốt nhất.",
-				"cssOnlyLabel": "Hiệu năng tốt nhất",
-				"cssOnlyDescription": "Chỉ dùng CSS, không kết xuất canvas.",
-				"gpuLabel": "Đẹp nhất",
-				"gpuDescription": "Nền WebGL động khi được hỗ trợ.",
-				"runtimeFallbackNotice": "WebGL phần cứng không khả dụng trên thiết bị này, nên Arroxy đang dùng phông nền hiệu năng."
+			"style": {
+				"panelTitle": "Giao diện",
+				"panelDescription": "Giao diện của Arroxy. Chuyển giữa sáng và tối ở chân trang.",
+				"modeLabel": "Kiểu giao diện",
+				"modeDescription": "Cả hai kiểu giao diện đều có bản sáng và tối.",
+				"aurora": {"label": "Aurora", "description": "Các bảng kính trên bầu trời chuyển động. Cần tăng tốc đồ họa."},
+				"minimal": {"label": "Tối giản", "description": "Bề mặt đặc, yên tĩnh. Chạy nhẹ trên mọi máy tính."},
+				"unavailableNotice": "{{style}} cần tăng tốc đồ họa, hiện không khả dụng nên Arroxy đang hiển thị {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Giới hạn tốc độ tải",
@@ -518,6 +516,8 @@
 				"setOverrideShort": "Đặt ghi đè",
 				"useGlobalDefault": "Dùng mặc định chung",
 				"reset": "Đặt lại hồ sơ",
+				"resetHint": "Khôi phục cài đặt hồ sơ tích hợp",
+				"resetDisabledHint": "Hồ sơ này đã dùng cài đặt tích hợp",
 				"save": "Lưu hồ sơ"
 			},
 			"placeholder": {"folder": "Chọn một thư mục cho hồ sơ này"},
@@ -584,6 +584,7 @@
 			"format": "Định dạng",
 			"outputTarget": "Đích đầu ra",
 			"artifacts": "Tệp đầu ra",
+			"size": "Kích thước",
 			"added": "Đã thêm",
 			"finished": "Đã hoàn tất",
 			"notAvailable": "—",
@@ -796,6 +797,7 @@
 			"useExplore": "Dùng đăng nhập Explore",
 			"notNow": "Để sau"
 		},
+		"linkMenu": {"downloadWith": "Tải xuống với", "copyLink": "Sao chép liên kết"},
 		"toolbar": {
 			"aria": "Điều khiển trình duyệt Explore",
 			"back": "Quay lại",

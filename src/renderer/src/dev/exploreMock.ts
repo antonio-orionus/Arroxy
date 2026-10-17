@@ -113,7 +113,9 @@ export function createExploreMock(initial: ExploreViewState): {api: AppApi['expl
 			}
 		},
 		// The mock page is renderer DOM: the pointer never enters a native view.
-		onPointerInView: () => () => undefined
+		onPointerInView: () => () => undefined,
+		// The mock page has no native link menu to pick from.
+		onLinkAction: () => () => undefined
 	}
 	return {api, setAdBlock}
 }

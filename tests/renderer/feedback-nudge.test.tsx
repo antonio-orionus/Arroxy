@@ -12,7 +12,7 @@ const mockAppApi = {
 	app: {
 		warmUp: vi.fn().mockResolvedValue(ok({completed: true, dependencies: {}, blockingFailures: [], cancelled: false})),
 		cancelWarmup: vi.fn().mockResolvedValue(undefined),
-		getGraphicsPolicy: vi.fn().mockResolvedValue(ok({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}})),
+		getGraphicsPolicy: vi.fn().mockResolvedValue(ok({backdrop: {webglBlocked: false, softwareWebglAllowed: false}})),
 		installYtDlpWithHomebrew: vi.fn().mockResolvedValue(ok({installedPath: '/opt/homebrew/bin/yt-dlp'})),
 		installYtDlpWithWinget: vi.fn().mockResolvedValue(ok({installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe'})),
 		setLanguage: vi.fn().mockResolvedValue(undefined)
@@ -76,7 +76,8 @@ const mockAppApi = {
 		getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})),
 		capture: vi.fn().mockResolvedValue(ok(null)),
 		onStateChanged: vi.fn().mockReturnValue(() => undefined),
-		onPointerInView: vi.fn().mockReturnValue(() => undefined)
+		onPointerInView: vi.fn().mockReturnValue(() => undefined),
+		onLinkAction: vi.fn().mockReturnValue(() => undefined)
 	},
 	updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn().mockResolvedValue(undefined)},
 	diagnostics: {logWizardStep: vi.fn()},

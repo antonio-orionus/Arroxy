@@ -1,12 +1,11 @@
-import {lazy, Suspense, useEffect, useState, type ReactNode} from 'react'
+import {lazy, Suspense, useEffect, useLayoutEffect, useState, type ReactNode} from 'react'
 import log from 'electron-log/renderer.js'
-import {Cpu, Info, MessageCircle, Paintbrush, Share2} from 'lucide-react'
+import {Info, MessageCircle, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
 import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
-import {DEFAULTS, DISCORD_URL} from '@shared/constants.js'
+import {DISCORD_URL} from '@shared/constants.js'
 import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
-import type {BackdropRenderMode, GraphicsPolicy} from '@shared/types.js'
 import {useAppStore} from './store/useAppStore.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
 import type {BackdropColorScheme} from './components/layout/background/types.js'
@@ -29,8 +28,10 @@ import {Button} from './components/ui/button.js'
 import {ButtonGroup} from './components/ui/button-group.js'
 import {TooltipProvider} from './components/ui/tooltip.js'
 import {cn} from './lib/utils.js'
-import {selectCompactChrome} from './store/uiSlice.js'
+import {selectBackdropAvailability, selectCompactChrome, selectEffectiveStyle} from './store/uiSlice.js'
+import {STYLES} from './styles/registry.js'
 import changelogText from '../../../CHANGELOG.md?raw'
+import {Hint} from './components/shared/Hint.js'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
@@ -41,13 +42,7 @@ const UiKit = import.meta.env.MODE === 'browser-mock' ? lazy(() => import('./dev
 const FOOTER_ACTION_BUTTON_CLASS = 'footer-action-button h-6 rounded-md px-1.5 text-sm text-muted-foreground max-sm:size-6 max-sm:px-0'
 const FOOTER_COMPACT_LABEL_CLASS = 'max-sm:sr-only'
 const feedbackLogger = log.scope('feedback')
-type BackdropPreviewMode = 'gpu' | 'css'
 const DEFAULT_FEEDBACK_NUDGE_DELAY_MS = 45_000
-
-const BACKDROP_PREVIEW_MODES = [
-	{description: 'WebGL shader preview: hardware when available, software allowed in this stage.', icon: Cpu, id: 'gpu', label: 'WebGL shader'},
-	{description: 'CSS emergency: no canvas, body gradients only.', icon: Paintbrush, id: 'css', label: 'CSS emergency'}
-] as const satisfies readonly {description: string; icon: typeof Cpu; id: BackdropPreviewMode; label: string}[]
 
 // Design-system sheet (browser-mock only): every primitive in every variant. Reach it via `?kit`.
 function isUiKitStage(): boolean {
@@ -64,22 +59,8 @@ function isBackdropOnlyStage(): boolean {
 	return (import.meta.env.MODE === 'browser-mock' || import.meta.env.MODE === 'test') && new URLSearchParams(window.location.search).has('backdrop')
 }
 
-function backdropPreviewModeFromUrl(): BackdropPreviewMode {
-	try {
-		const forcedMode = new URLSearchParams(window.location.search).get('backdropForceFallback')
-		return forcedMode === 'css' ? forcedMode : 'gpu'
-	} catch {
-		return 'gpu'
-	}
-}
-
 function resolveColorScheme(uiTheme: UiTheme, systemPrefersDark: boolean): BackdropColorScheme {
 	return uiTheme === 'dark' || (uiTheme === 'system' && systemPrefersDark) ? 'dark' : 'light'
-}
-
-function previewModeToRenderMode(mode: BackdropPreviewMode): 'css-only' | 'gpu' {
-	if (mode === 'css') return 'css-only'
-	return 'gpu'
 }
 
 function openDiscord(): void {
@@ -97,18 +78,13 @@ function shouldRenderStartupSplash(): boolean {
 	return window.__arroxyBrowserMockShowStartupSplash === true
 }
 
-function effectiveBackdropRenderMode(preferredMode: BackdropRenderMode | null, graphicsPolicy: GraphicsPolicy | null): BackdropRenderMode {
-	if (!preferredMode || !graphicsPolicy) return 'css-only'
-	return graphicsPolicy.backdrop.forceRenderMode ?? preferredMode
-}
-
 function resolveFeedbackNudgeDelay(injectedDelay: number | undefined): number {
 	return typeof injectedDelay === 'number' && Number.isFinite(injectedDelay) && injectedDelay >= 0 ? injectedDelay : DEFAULT_FEEDBACK_NUDGE_DELAY_MS
 }
 
 export function App(): ReactNode {
 	const {t} = useTranslation()
-	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy} = useAppStore(
+	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy, setBackdropFailed} = useAppStore(
 		useShallow(state => ({
 			initialized: state.initialized,
 			initialize: state.initialize,
@@ -119,7 +95,8 @@ export function App(): ReactNode {
 			warmupDiagnostics: state.warmupDiagnostics,
 			warmupProgress: state.warmupProgress,
 			settings: state.settings,
-			graphicsPolicy: state.graphicsPolicy
+			graphicsPolicy: state.graphicsPolicy,
+			setBackdropFailed: state.setBackdropFailed
 		}))
 	)
 	const {uiZoom, setUiZoom, uiTheme, setAboutDialogOpen, openShareDialog, shareDialogOpen} = useAppStore(
@@ -135,12 +112,18 @@ export function App(): ReactNode {
 	const [showNudge, setShowNudge] = useState(false)
 	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
 	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
-	const [backdropPreviewMode, setBackdropPreviewMode] = useState<BackdropPreviewMode>(() => backdropPreviewModeFromUrl())
 	const showStartupSplash = shouldRenderStartupSplash()
 	const whatsNew = useWhatsNewDialog(changelogText, {startupReady: !showStartupSplash || splashDismissed})
-	const preferredBackdropRenderMode = settings ? (settings.common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode) : null
-	const backdropRenderMode = effectiveBackdropRenderMode(preferredBackdropRenderMode, graphicsPolicy)
+	const effectiveStyle = useAppStore(selectEffectiveStyle)
+	const backdropAvailability = useAppStore(selectBackdropAvailability)
+	const backdropScenes = backdropAvailability === 'available' ? STYLES[effectiveStyle].backdrop : null
 	const softwareWebglAllowed = graphicsPolicy?.backdrop.softwareWebglAllowed ?? false
+	const markBackdropFailed = (): void => setBackdropFailed(true)
+
+	// Before paint, so a style switch never shows a frame of the old paint.
+	useLayoutEffect(() => {
+		document.documentElement.dataset.style = effectiveStyle
+	}, [effectiveStyle])
 
 	useEffect(() => {
 		void initialize()
@@ -180,7 +163,7 @@ export function App(): ReactNode {
 		return (
 			<TooltipProvider>
 				<div className="relative h-screen w-screen overflow-hidden">
-					<AppBackdrop key={`${colorScheme}-${backdropRenderMode}`} colorScheme={colorScheme} renderMode={backdropRenderMode} softwareWebglAllowed={softwareWebglAllowed} />
+					<AppBackdrop scenes={backdropScenes} colorScheme={colorScheme} softwareWebglAllowed={softwareWebglAllowed} onUnavailable={markBackdropFailed} />
 					<Suspense fallback={null}>
 						<UiKit onExit={exitUiKitStage} />
 					</Suspense>
@@ -192,42 +175,11 @@ export function App(): ReactNode {
 	// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
 	// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.
 	if (isBackdropOnlyStage()) {
-		const activeBackdropPreview = BACKDROP_PREVIEW_MODES.find(mode => mode.id === backdropPreviewMode) ?? BACKDROP_PREVIEW_MODES[0]
-		const applyBackdropPreviewMode = (mode: BackdropPreviewMode): void => {
-			const url = new URL(window.location.href)
-			if (mode === 'gpu') url.searchParams.delete('backdropForceFallback')
-			else url.searchParams.set('backdropForceFallback', mode)
-			window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
-			setBackdropPreviewMode(mode)
-		}
 		return (
 			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
-				<AppBackdrop key={`${colorScheme}-${backdropPreviewMode}`} colorScheme={colorScheme} renderMode={previewModeToRenderMode(backdropPreviewMode)} softwareWebglAllowed={backdropPreviewMode === 'gpu'} />
+				<AppBackdrop scenes={STYLES.aurora.backdrop} colorScheme={colorScheme} softwareWebglAllowed onUnavailable={markBackdropFailed} />
 				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-border-strong bg-background/80 px-2 py-1.5 backdrop-blur">
 					<ThemeToggle />
-					<div className="h-5 w-px bg-border" aria-hidden />
-					<div className="flex items-center gap-1 rounded-md border border-border bg-muted/30 p-0.5" data-testid="backdrop-preview-controls" aria-label="Backdrop render path">
-						{BACKDROP_PREVIEW_MODES.map(mode => {
-							const Icon = mode.icon
-							const active = mode.id === backdropPreviewMode
-							return (
-								<button
-									key={mode.id}
-									type="button"
-									onClick={() => applyBackdropPreviewMode(mode.id)}
-									aria-pressed={active}
-									className={cn('inline-flex h-7 items-center gap-1 rounded px-2 text-caption font-medium transition-colors', active ? 'bg-primary text-primary-foreground shadow-[0_4px_14px_var(--brand-glow)]' : 'text-muted-foreground hover:bg-accent hover:text-foreground')}
-									data-testid={`backdrop-preview-${mode.id}`}
-								>
-									<Icon size={12} aria-hidden />
-									{mode.label}
-								</button>
-							)
-						})}
-					</div>
-					<p className="max-w-[min(30rem,calc(100vw-2rem))] text-caption leading-4 text-muted-foreground" data-testid="backdrop-preview-description">
-						{activeBackdropPreview.description}
-					</p>
 					<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
 						← exit
 					</button>
@@ -239,7 +191,7 @@ export function App(): ReactNode {
 	return (
 		<TooltipProvider>
 			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
-				<AppBackdrop key={`${colorScheme}-${backdropRenderMode}-${softwareWebglAllowed ? 'software' : 'hardware'}`} colorScheme={colorScheme} renderMode={backdropRenderMode} softwareWebglAllowed={softwareWebglAllowed} />
+				<AppBackdrop scenes={backdropScenes} colorScheme={colorScheme} softwareWebglAllowed={softwareWebglAllowed} onUnavailable={markBackdropFailed} />
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -271,22 +223,28 @@ export function App(): ReactNode {
 						</div>
 					</div>
 					<div className="flex shrink-0 items-center gap-0.5 sm:gap-1" data-testid="footer-actions">
-						<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
-							<Info data-icon="inline-start" aria-hidden />
-							<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
-						</Button>
-						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} title={t('share.footerTooltip')} data-testid="btn-share">
-							<Share2 data-icon="inline-start" aria-hidden />
-							<span className={footerLabelClass} data-testid="btn-share-label">
-								{t('share.footerLabel')}
-							</span>
-						</Button>
-						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} title="Discord" aria-label="Discord" data-testid="btn-discord">
-							<IconDiscord data-icon="inline-start" aria-hidden />
-							<span className={footerLabelClass} data-testid="btn-discord-label">
-								Discord
-							</span>
-						</Button>
+						<Hint label={t('about.openTitle')}>
+							<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} data-testid="btn-about">
+								<Info data-icon="inline-start" aria-hidden />
+								<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
+							</Button>
+						</Hint>
+						<Hint label={t('share.footerTooltip')}>
+							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} data-testid="btn-share">
+								<Share2 data-icon="inline-start" aria-hidden />
+								<span className={footerLabelClass} data-testid="btn-share-label">
+									{t('share.footerLabel')}
+								</span>
+							</Button>
+						</Hint>
+						<Hint label="Discord">
+							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} aria-label="Discord" data-testid="btn-discord">
+								<IconDiscord data-icon="inline-start" aria-hidden />
+								<span className={footerLabelClass} data-testid="btn-discord-label">
+									Discord
+								</span>
+							</Button>
+						</Hint>
 						<div className="relative inline-flex h-6 items-center">
 							<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
 							<Button

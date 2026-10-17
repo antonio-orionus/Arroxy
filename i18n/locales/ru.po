@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Повторить"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Скопировать ссылку"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Скачать с профилем"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Новое"
@@ -1038,6 +1046,10 @@ msgstr "Прогресс"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "Показать файлы для {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Размер"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Сбросить профиль"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Этот профиль уже использует встроенные настройки"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Восстановить встроенные настройки профиля"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Сохранить профиль"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "раз"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Только CSS, без рендеринга canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Лучшая производительность"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Анимированный фон WebGL, если поддерживается."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Самый красивый"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "От самого анимированного вида к лучшей производительности."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Качество фона"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Выберите, сколько движения Arroxy использует для анимированного фона."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Внешний вид и производительность"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "Аппаратный WebGL недоступен на этом устройстве, поэтому Arroxy использует фон для лучшей производительности."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "Массовые URL"
@@ -3776,6 +3760,42 @@ msgstr "Поведение загрузки"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Ввод"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Стеклянные панели на фоне движущегося неба. Нужно графическое ускорение."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Однотонные спокойные поверхности. Легко работает на любом компьютере."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Минимализм"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Оба стиля есть в светлом и тёмном варианте."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Стиль"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Как выглядит Arroxy. Переключайтесь между светлой и тёмной темой внизу окна."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Внешний вид"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "Для {{style}} нужно графическое ускорение, которое сейчас недоступно, поэтому Arroxy показывает {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

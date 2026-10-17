@@ -40,6 +40,7 @@ import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queue
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
+import {checkQueueArtifactsOnDisk} from './download/queueArtifactDiskCheck.js'
 import {describeMutation, isProgressOnlyMutation, statusSummary, type Mutation} from './download/queueMutation.js'
 import type {ProgressEvent, QueueArtifactEvent, QueueItem, QueueOutputTargetChangeResult, QueueSelectionAction, QueueSelectionCommandResult, QueueSnapshotPayload, StatusEvent, LocalizedError} from '@shared/types.js'
 
@@ -158,6 +159,9 @@ export class QueueService extends EventEmitter {
 		logger.info('Queue loaded', {count: this.items.length, schedulerPaused: this.schedulerPaused})
 		this.probeLifecycle.promoteStaleProbes(this.items)
 		this.autoRetry.rearmPersisted(this.items)
+		void checkQueueArtifactsOnDisk(this.items)
+			.then(patches => this.inBulk(() => patches.forEach(({itemId, patcher}) => this.commit({kind: 'patch', itemId, reason: 'artifact:disk-check', patcher}))))
+			.catch(err => logger.warn('artifact disk check failed', {error: err instanceof Error ? err.message : String(err)}))
 		// Boot-time spawn pass: respects maxConcurrent so persisted priority
 		// items never trigger a storm. Anything beyond the ceiling stays pending.
 		// Skipped if the user quit with the queue paused (flag persisted).

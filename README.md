@@ -80,6 +80,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 ### Explore: browse YouTube inside Arroxy
 
 - **Explore tab** — browse YouTube inside Arroxy and download what you find without copying links. **Download · *your profile*** queues the video, playlist, or channel you're looking at; the arrow next to it switches profiles, and the wand opens the step-by-step download for picking formats, subtitles, and more
+- **Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first
 - **Address bar** — type to search YouTube or paste a YouTube link. Explore only browses YouTube, so a link from another site isn't opened there, but you can download it with one click
 - **Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Arroxy still downloads signed out and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in
 - **Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget the sign-in

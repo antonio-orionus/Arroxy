@@ -7,6 +7,7 @@ import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {ok} from '@shared/result.js'
 import {makeItem} from '../shared/fixtures.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {expectHint} from '../shared/hint.js'
 
 const virtualRange = vi.hoisted(() => ({start: 0, count: 12, estimateSize: 62}))
 const scrollToIndex = vi.hoisted(() => vi.fn())
@@ -94,6 +95,30 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('queue-manager-row-running')).toHaveAttribute('data-status', 'running')
 	})
 
+	it('gives every default column a fixed width share that adds up to the whole table', () => {
+		useAppStore.setState({queue: [makeItem({id: 'done', status: 'done'})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByRole('columnheader', {name: /size/i})).toBeInTheDocument()
+		// The table uses a fixed layout: a header without a width collapses to
+		// nothing and its label spills over the next column.
+		const widths = screen.getAllByRole('columnheader').map(header => Number(/\bw-\[(\d+)%\]/.exec(header.className)?.[1] ?? Number.NaN))
+		expect(widths.every(width => width > 0)).toBe(true)
+		expect(widths.reduce((sum, width) => sum + width, 0)).toBe(100)
+	})
+
+	it('flags a finished row whose files are all gone in its size cell', () => {
+		const file = {id: 'artifact:/d/gone.mp4', kind: 'media' as const, path: '/d/gone.mp4', fileName: 'gone.mp4', discoveredAt: '2026-10-01T10:00:00.000Z'}
+		useAppStore.setState({queue: [makeItem({id: 'gone', status: 'done', artifacts: [{...file, missing: true}]}), makeItem({id: 'sized', status: 'done', artifacts: [{...file, id: 'artifact:/d/kept.mp4', path: '/d/kept.mp4', sizeBytes: 2048}]})]})
+
+		render(<QueueManagerTab />)
+
+		expect(screen.getByTestId('queue-manager-row-gone')).toHaveTextContent('Missing')
+		expect(screen.getByTestId('queue-manager-row-sized')).toHaveTextContent('2.0 KiB')
+		expect(screen.getByTestId('queue-manager-row-sized')).not.toHaveTextContent('Missing')
+	})
+
 	it('virtualizes large queues instead of rendering every row', () => {
 		useAppStore.setState({queue: makeLargeQueue(5000)})
 
@@ -125,7 +150,7 @@ describe('QueueManagerTab', () => {
 		expect(screen.queryByTestId('queue-manager-row-item-5000')).not.toBeInTheDocument()
 	})
 
-	it('labels a quality-limited finished row briefly and explains it in the tooltip', () => {
+	it('labels a quality-limited finished row briefly and explains it in the tooltip', async () => {
 		useAppStore.setState({queue: [makeItem({id: 'limited', title: 'Limited video', status: 'done', progressPercent: 100, lastStatus: {key: 'qualityLimited', params: {height: 360}}}), makeItem({id: 'plain', title: 'Plain video', status: 'done', progressPercent: 100, lastStatus: {key: 'complete'}})]})
 
 		render(<QueueManagerTab />)
@@ -133,10 +158,11 @@ describe('QueueManagerTab', () => {
 		const notices = screen.getAllByTestId('queue-quality-warning')
 		expect(notices).toHaveLength(1)
 		expect(notices[0]).toHaveTextContent('Limited to 360p')
-		expect(notices[0].getAttribute('title')).toMatch(/360p[\s\S]*another network/i)
+		expect(notices[0]).not.toHaveAttribute('title')
+		await expectHint(notices[0], /360p[\s\S]*another network/i)
 	})
 
-	it('shows one notice covering both a quality limit and failed subtitles', () => {
+	it('shows one notice covering both a quality limit and failed subtitles', async () => {
 		useAppStore.setState({queue: [makeItem({id: 'both', title: 'Both video', status: 'done', progressPercent: 100, lastStatus: {key: 'qualityLimitedSubtitlesFailed', params: {height: 360}}})]})
 
 		render(<QueueManagerTab />)
@@ -144,7 +170,7 @@ describe('QueueManagerTab', () => {
 		const notice = screen.getByTestId('queue-quality-warning')
 		expect(notice).toHaveTextContent('Limited to 360p')
 		expect(notice.textContent).toMatch(/subtitles/i)
-		expect(notice.getAttribute('title')).toMatch(/subtitles[\s\S]*another network/i)
+		await expectHint(notice, /subtitles[\s\S]*another network/i)
 	})
 
 	it('filters by queue status', () => {
@@ -209,7 +235,7 @@ describe('QueueManagerTab', () => {
 		expect(screen.getByTestId('queue-selection-summary')).toHaveTextContent('1 selected')
 	})
 
-	it('renders selected actions as compact icon buttons with disabled location explanation', () => {
+	it('renders selected actions as compact icon buttons with disabled location explanation', async () => {
 		useAppStore.setState({queue: [makeItem({id: 'done', title: 'Finished video', status: 'done', outputDir: '/downloads'})]})
 
 		render(<QueueManagerTab />)
@@ -219,8 +245,9 @@ describe('QueueManagerTab', () => {
 		expect(within(toolbar).getByTestId('queue-action-pause')).toHaveAccessibleName('Pause')
 		expect(within(toolbar).getByTestId('queue-action-pause').textContent).toBe('')
 		const setLocation = within(toolbar).getByTestId('queue-action-change-output-target')
-		expect(setLocation).toBeDisabled()
-		expect(setLocation).toHaveAttribute('title', 'Select pending items to set location.')
+		expect(setLocation).toHaveAttribute('aria-disabled', 'true')
+		expect(setLocation).not.toHaveAttribute('title')
+		await expectHint(setLocation, 'Select pending items to set location.')
 	})
 
 	it('promotes selected pending rows with Pull now', () => {
@@ -441,23 +468,23 @@ describe('QueueManagerTab', () => {
 
 		render(<QueueManagerTab />)
 		fireEvent.click(screen.getByTestId('queue-manager-row-pending'))
-		expect(screen.getByRole('button', {name: /set location/i})).toBeEnabled()
+		expect(screen.getByRole('button', {name: /set location/i})).not.toHaveAttribute('aria-disabled', 'true')
 		fireEvent.click(screen.getByTestId('queue-action-change-output-target'))
 
 		await waitFor(() => expect(actions.changeQueueOutputTarget).toHaveBeenCalledWith(['pending'], '/archive'))
 		expect(window.appApi.dialog.chooseFolder).toHaveBeenCalledWith('/downloads')
 	})
 
-	it('disables Set location and shows the pending-only hint for ineligible selection', () => {
+	it('disables Set location and shows the pending-only hint for ineligible selection', async () => {
 		useAppStore.setState({queue: [makeItem({id: 'done', title: 'Finished video', status: 'done', outputDir: '/downloads'})]})
 
 		render(<QueueManagerTab />)
 		fireEvent.click(screen.getByTestId('queue-manager-row-done'))
 
 		const setLocation = screen.getByRole('button', {name: /set location/i})
-		expect(setLocation).toBeDisabled()
-		expect(setLocation).toHaveAttribute('title', 'Select pending items to set location.')
+		expect(setLocation).toHaveAttribute('aria-disabled', 'true')
 		expect(screen.getByTestId('queue-selected-actions')).not.toHaveTextContent('Select pending items to set location.')
+		await expectHint(setLocation, 'Select pending items to set location.')
 	})
 
 	it('explains disabled Set location in the context menu', async () => {
@@ -468,7 +495,7 @@ describe('QueueManagerTab', () => {
 
 		const setLocation = await screen.findByRole('menuitem', {name: /set location/i})
 		expect(setLocation).toHaveAttribute('aria-disabled', 'true')
-		expect(setLocation).toHaveAttribute('title', 'Select pending items to set location.')
+		expect(setLocation).toHaveAttribute('aria-description', 'Select pending items to set location.')
 		expect(setLocation).toHaveTextContent('Pending only')
 	})
 
@@ -588,8 +615,8 @@ describe('QueueManagerTab', () => {
 
 		render(<QueueManagerTab />)
 
-		expect(screen.getByTestId('btn-pause-all')).toBeDisabled()
-		expect(screen.getByTestId('btn-resume-first')).toBeEnabled()
+		expect(screen.getByTestId('btn-pause-all')).toHaveAttribute('aria-disabled', 'true')
+		expect(screen.getByTestId('btn-resume-first')).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
 	it('persists sorting across remounts', () => {

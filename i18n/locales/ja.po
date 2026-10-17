@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "再試行"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "リンクをコピー"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "プロファイルでダウンロード"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "新着"
@@ -1038,6 +1046,10 @@ msgstr "進行状況"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "{{title}} のファイルを表示"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "サイズ"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "プロフィールをリセット"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "このプロフィールはすでに組み込みの設定を使用しています"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "組み込みのプロフィール設定に戻す"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "プロフィールを保存"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "回"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS のみ、canvas レンダリングなし。"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "最高のパフォーマンス"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "対応環境ではアニメーション WebGL 背景を使用します。"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "最も美しい"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "最も動きのある表示から最高のパフォーマンスへ調整します。"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "背景の品質"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "アニメーション背景で Arroxy が使用する動きの量を選びます。"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "外観とパフォーマンス"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "このデバイスではハードウェア WebGL を利用できないため、Arroxy はパフォーマンス用の背景を使用しています。"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "一括 URL"
@@ -3776,6 +3760,42 @@ msgstr "ダウンロードの動作"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "入力"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "動く空の上にガラスのパネルが浮かびます。グラフィックスアクセラレーションが必要です。"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "オーロラ"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "ソリッドで落ち着いた画面。どのパソコンでも軽く動きます。"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "ミニマル"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "どちらのスタイルもライトとダークに対応しています。"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "スタイル"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxyの見た目です。ライトとダークはフッターで切り替えられます。"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "外観"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}}にはグラフィックスアクセラレーションが必要ですが、今は使えないため、Arroxyは{{fallback}}を表示しています。"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

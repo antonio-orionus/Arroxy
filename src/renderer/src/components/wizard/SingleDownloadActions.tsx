@@ -7,6 +7,7 @@ import {singleDownloadBlocker} from '../../store/wizard/singleDownloadReadiness.
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
+import {Hint} from '../shared/Hint.js'
 
 // The single-video split button: Download starts now (the priority lane), the
 // menu adds to the queue without starting. Shared by Format and Review.
@@ -18,10 +19,12 @@ export function SingleDownloadActions(): ReactNode {
 
 	return (
 		<ButtonGroup aria-label={t('wizard.formats.footer.download')}>
-			<Button variant="glow" type="button" onClick={() => void addAndDownloadImmediately()} disabled={disabled} title={blocker === 'subtitles' ? t('wizard.formats.footer.subtitlesRequired') : undefined} data-testid="btn-download">
-				<Download data-icon="inline-start" />
-				{t('wizard.formats.footer.download')}
-			</Button>
+			<Hint label={blocker === 'subtitles' ? t('wizard.formats.footer.subtitlesRequired') : undefined}>
+				<Button variant="glow" type="button" onClick={() => void addAndDownloadImmediately()} disabled={disabled} focusableWhenDisabled data-testid="btn-download">
+					<Download data-icon="inline-start" />
+					{t('wizard.formats.footer.download')}
+				</Button>
+			</Hint>
 			<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 				<PopoverTrigger
 					render={

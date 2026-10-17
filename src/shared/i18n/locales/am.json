@@ -251,16 +251,14 @@
 				"extensionChrome": "cookies.txt በቦታህ ላይ ሰበሰብ (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።", "placeholder": "http://host:port", "clear": "አጽዳ"},
-			"backdrop": {
-				"panelTitle": "መልክ እና አፈጻጸም",
-				"panelDescription": "Arroxy ለሚንቀሳቀሰው ዳራ ምን ያህል እንቅስቃሴ እንደሚጠቀም ይምረጡ።",
-				"modeLabel": "የዳራ ጥራት",
-				"modeDescription": "ከበጣም እንቅስቃሴ ያለው መልክ ወደ ምርጥ አፈጻጸም ይሂዱ።",
-				"cssOnlyLabel": "ምርጥ አፈጻጸም",
-				"cssOnlyDescription": "CSS ብቻ፣ የcanvas ማቅረብ የለም።",
-				"gpuLabel": "በጣም ቆንጆ",
-				"gpuDescription": "ሲደገፍ የሚንቀሳቀስ WebGL ዳራ።",
-				"runtimeFallbackNotice": "የሃርድዌር WebGL በዚህ መሣሪያ ላይ አይገኝም፣ ስለዚህ Arroxy የአፈጻጸም ዳራን እየተጠቀመ ነው።"
+			"style": {
+				"panelTitle": "ገጽታ",
+				"panelDescription": "Arroxy እንዴት እንደሚታይ። በግርጌው ውስጥ በብርሃን እና በጨለማ መካከል ይቀያይሩ።",
+				"modeLabel": "ዘይቤ",
+				"modeDescription": "ሁለቱም ዘይቤዎች በብርሃን እና በጨለማ ይገኛሉ።",
+				"aurora": {"label": "Aurora", "description": "በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች። የግራፊክስ ማፍጠኛ ያስፈልጋል።"},
+				"minimal": {"label": "ቀላል", "description": "ጠንካራና ጸጥ ያሉ ገጽታዎች። በማንኛውም ኮምፒውተር ላይ ቀላል ሆኖ ይሰራል።"},
+				"unavailableNotice": "{{style}} የግራፊክስ ማፍጠኛ ያስፈልገዋል፣ እሱ ግን አሁን አይገኝም። ስለዚህ Arroxy {{fallback}}ን እያሳየ ነው።"
 			},
 			"limitRate": {
 				"label": "የማውረድ ፍጥነት ገደብ",
@@ -493,6 +491,8 @@
 				"setOverrideShort": "ተሻሪ አዘጋጅ",
 				"useGlobalDefault": "አጠቃላይ ነባሪን ተጠቀም",
 				"reset": "መገለጫ ዳግም አስጀምር",
+				"resetHint": "አብሮገነብ የመገለጫ ቅንብሮችን ወደነበሩበት መልስ",
+				"resetDisabledHint": "ይህ መገለጫ አስቀድሞ አብሮገነብ ቅንብሮችን ይጠቀማል",
 				"save": "መገለጫ አስቀምጥ"
 			},
 			"placeholder": {"folder": "ለዚህ መገለጫ አቃፊ ይምረጡ"},
@@ -554,6 +554,7 @@
 			"format": "ቅርጸት",
 			"outputTarget": "የውጤት መድረሻ",
 			"artifacts": "የውጤት ፋይሎች",
+			"size": "መጠን",
 			"added": "ታክሏል",
 			"finished": "ተጠናቋል",
 			"notAvailable": "—",
@@ -760,6 +761,7 @@
 			"continue": "ቀጥል"
 		},
 		"nudge": {"off": "Cookies ጠፍተዋል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም።", "file": "ውርዶች የcookies ፋይልዎን ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "browser": "ውርዶች የአሳሽዎን cookies ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "useExplore": "የExplore መግቢያ ተጠቀም", "notNow": "አሁን አይደለም"},
+		"linkMenu": {"downloadWith": "በመገለጫ አውርድ", "copyLink": "ሊንክ ቅዳ"},
 		"toolbar": {
 			"aria": "የExplore አሳሽ መቆጣጠሪያዎች",
 			"back": "ተመለስ",

@@ -260,16 +260,14 @@
 				"extensionChrome": "Ottieni cookies.txt LOCALMENTE (Chrome)"
 			},
 			"proxy": {"label": "URL proxy", "description": "Instrada il traffico tramite un proxy: utile per contenuti con restrizioni geografiche.", "placeholder": "http://host:port", "clear": "Cancella"},
-			"backdrop": {
-				"panelTitle": "Aspetto e prestazioni",
-				"panelDescription": "Scegli quanta animazione usare per lo sfondo di Arroxy.",
-				"modeLabel": "Qualità dello sfondo",
-				"modeDescription": "Passa dall'aspetto più animato alle prestazioni migliori.",
-				"cssOnlyLabel": "Prestazioni migliori",
-				"cssOnlyDescription": "Solo CSS, senza rendering canvas.",
-				"gpuLabel": "Aspetto migliore",
-				"gpuDescription": "Sfondo WebGL animato quando supportato.",
-				"runtimeFallbackNotice": "WebGL hardware non è disponibile su questo dispositivo, quindi Arroxy usa lo sfondo ottimizzato per le prestazioni."
+			"style": {
+				"panelTitle": "Aspetto",
+				"panelDescription": "Come appare Arroxy. Passa dal chiaro allo scuro dal piè di pagina.",
+				"modeLabel": "Stile",
+				"modeDescription": "Entrambi gli stili sono disponibili in chiaro e scuro.",
+				"aurora": {"label": "Aurora", "description": "Pannelli di vetro su un cielo in movimento. Richiede l'accelerazione grafica."},
+				"minimal": {"label": "Minimale", "description": "Superfici piene e discrete. Leggero su qualsiasi computer."},
+				"unavailableNotice": "{{style}} richiede l'accelerazione grafica, che al momento non è disponibile, quindi Arroxy mostra {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Limite velocità di download",
@@ -525,6 +523,8 @@
 				"setOverrideShort": "Imposta sostituzione",
 				"useGlobalDefault": "Usa predefinito globale",
 				"reset": "Reimposta profilo",
+				"resetHint": "Ripristina le impostazioni integrate del profilo",
+				"resetDisabledHint": "Questo profilo usa già le impostazioni integrate",
 				"save": "Salva profilo"
 			},
 			"placeholder": {"folder": "Scegli una cartella per questo profilo"},
@@ -591,6 +591,7 @@
 			"format": "Formato",
 			"outputTarget": "Destinazione",
 			"artifacts": "File risultanti",
+			"size": "Dimensione",
 			"added": "Aggiunto",
 			"finished": "Terminato",
 			"notAvailable": "—",
@@ -822,6 +823,7 @@
 			"continue": "Continua"
 		},
 		"nudge": {"off": "I cookie sono disattivati, quindi i download non usano l'accesso a Explore.", "file": "I download usano il tuo file di cookie, non l'accesso a Explore.", "browser": "I download usano i cookie del tuo browser, non l'accesso a Explore.", "useExplore": "Usa l'accesso a Explore", "notNow": "Non ora"},
+		"linkMenu": {"downloadWith": "Scarica con", "copyLink": "Copia link"},
 		"toolbar": {
 			"aria": "Controlli del browser di Explore",
 			"back": "Indietro",

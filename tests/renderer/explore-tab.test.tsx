@@ -309,9 +309,11 @@ describe('Explore compact layout', () => {
 		expect(screen.getByTestId('explore-toolbar')).toContainElement(tabsRail())
 		expect(screen.getAllByRole('tablist')).toHaveLength(1)
 		expect(screen.getByTestId('explore-compact-toggle')).toHaveAttribute('aria-pressed', 'true')
-		// Labels leave the screen, not the accessibility tree; the icon's title names the tab.
+		// Labels leave the screen, not the accessibility tree; the icon's hint names the tab.
 		const exploreTab = screen.getByRole('tab', {name: /^explore/i})
-		expect(exploreTab).toHaveAttribute('title', 'Explore')
+		expect(exploreTab).not.toHaveAttribute('title')
+		fireEvent.mouseEnter(exploreTab)
+		expect(await findTip()).toHaveTextContent('Explore')
 		expect(within(exploreTab).getByText('Explore')).toHaveClass('sr-only')
 	})
 

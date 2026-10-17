@@ -260,16 +260,14 @@
 				"extensionChrome": "Obtener cookies.txt LOCALMENTE (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Enruta el tráfico a través de un proxy — útil para contenido con restricciones geográficas.", "placeholder": "http://host:port", "clear": "Borrar"},
-			"backdrop": {
-				"panelTitle": "Apariencia y rendimiento",
-				"panelDescription": "Elige cuánto movimiento usa Arroxy para el fondo animado.",
-				"modeLabel": "Calidad del fondo",
-				"modeDescription": "Pasa del aspecto más animado al mejor rendimiento.",
-				"cssOnlyLabel": "Mejor rendimiento",
-				"cssOnlyDescription": "Solo CSS, sin renderizado de canvas.",
-				"gpuLabel": "Más bonito",
-				"gpuDescription": "Fondo WebGL animado cuando es compatible.",
-				"runtimeFallbackNotice": "WebGL por hardware no está disponible en este dispositivo, así que Arroxy usa el fondo de mejor rendimiento."
+			"style": {
+				"panelTitle": "Apariencia",
+				"panelDescription": "Cómo se ve Arroxy. Cambia entre claro y oscuro en el pie de página.",
+				"modeLabel": "Estilo",
+				"modeDescription": "Los dos estilos tienen versión clara y oscura.",
+				"aurora": {"label": "Aurora", "description": "Paneles de cristal sobre un cielo en movimiento. Necesita aceleración gráfica."},
+				"minimal": {"label": "Minimalista", "description": "Superficies sólidas y tranquilas. Funciona con fluidez en cualquier ordenador."},
+				"unavailableNotice": "{{style}} necesita aceleración gráfica, que no está disponible ahora, así que Arroxy muestra {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Límite de velocidad de descarga",
@@ -525,6 +523,8 @@
 				"setOverrideShort": "Definir anulación",
 				"useGlobalDefault": "Usar el valor global",
 				"reset": "Restablecer perfil",
+				"resetHint": "Restaurar la configuración integrada del perfil",
+				"resetDisabledHint": "Este perfil ya usa la configuración integrada",
 				"save": "Guardar perfil"
 			},
 			"placeholder": {"folder": "Elegir una carpeta para este perfil"},
@@ -591,6 +591,7 @@
 			"format": "Formato",
 			"outputTarget": "Destino de salida",
 			"artifacts": "Archivos generados",
+			"size": "Tamaño",
 			"added": "Añadido",
 			"finished": "Finalizado",
 			"notAvailable": "—",
@@ -815,6 +816,7 @@
 			"useExplore": "Usar sesión de Explore",
 			"notNow": "Ahora no"
 		},
+		"linkMenu": {"downloadWith": "Descargar con", "copyLink": "Copiar enlace"},
 		"toolbar": {
 			"aria": "Controles del navegador de Explore",
 			"back": "Atrás",

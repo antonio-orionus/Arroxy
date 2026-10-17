@@ -273,16 +273,14 @@
 				"extensionChrome": "cookies.txt LOKAL holen (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Datenverkehr über einen Proxy leiten — nützlich für geo-gesperrte Inhalte.", "placeholder": "http://host:port", "clear": "Löschen"},
-			"backdrop": {
-				"panelTitle": "Darstellung und Leistung",
-				"panelDescription": "Wähle, wie viel Bewegung Arroxy für den animierten Hintergrund verwendet.",
-				"modeLabel": "Hintergrundqualität",
-				"modeDescription": "Von der stärksten Animation zur besten Leistung.",
-				"cssOnlyLabel": "Beste Leistung",
-				"cssOnlyDescription": "Nur CSS, kein canvas-Rendering.",
-				"gpuLabel": "Am schönsten",
-				"gpuDescription": "Animierter WebGL-Hintergrund, wenn unterstützt.",
-				"runtimeFallbackNotice": "Hardware-WebGL ist auf diesem Gerät nicht verfügbar, daher verwendet Arroxy den Performance-Hintergrund."
+			"style": {
+				"panelTitle": "Aussehen",
+				"panelDescription": "So sieht Arroxy aus. Wechsle in der Fußzeile zwischen Hell und Dunkel.",
+				"modeLabel": "Stil",
+				"modeDescription": "Beide Stile gibt es in Hell und Dunkel.",
+				"aurora": {"label": "Aurora", "description": "Glaspaneele über einem bewegten Himmel. Braucht Grafikbeschleunigung."},
+				"minimal": {"label": "Minimal", "description": "Ruhige, einfarbige Flächen. Läuft auf jedem Computer flüssig."},
+				"unavailableNotice": "{{style}} braucht Grafikbeschleunigung, die gerade nicht verfügbar ist. Deshalb zeigt Arroxy {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Download-Geschwindigkeitslimit",
@@ -538,6 +536,8 @@
 				"setOverrideShort": "Überschreibung festlegen",
 				"useGlobalDefault": "Globalen Standard verwenden",
 				"reset": "Profil zurücksetzen",
+				"resetHint": "Integrierte Profileinstellungen wiederherstellen",
+				"resetDisabledHint": "Dieses Profil verwendet bereits die integrierten Einstellungen",
 				"save": "Profil speichern"
 			},
 			"placeholder": {"folder": "Ordner für dieses Profil wählen"},
@@ -604,6 +604,7 @@
 			"format": "Format",
 			"outputTarget": "Ausgabeziel",
 			"artifacts": "Ausgabedateien",
+			"size": "Größe",
 			"added": "Hinzugefügt",
 			"finished": "Abgeschlossen",
 			"notAvailable": "—",
@@ -835,6 +836,7 @@
 			"useExplore": "Explore-Anmeldung nutzen",
 			"notNow": "Nicht jetzt"
 		},
+		"linkMenu": {"downloadWith": "Download mit", "copyLink": "Link kopieren"},
 		"toolbar": {
 			"aria": "Explore-Browsersteuerung",
 			"back": "Zurück",

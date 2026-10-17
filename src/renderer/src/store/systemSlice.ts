@@ -306,7 +306,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, language: nextLanguage})
+				set({settings: settingsResult.data, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}
@@ -507,10 +507,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'playlistProbeLimit', {playlistProbeLimit: value})
 		},
 
-		setBackdropRenderMode: async value => {
-			await applyCommonPatchAsync(get, set, 'backdropRenderMode', {backdropRenderMode: value})
-		},
-
 		setNativeAudioPreference: async value => {
 			await applyCommonPatchAsync(get, set, 'nativeAudioPreference', {nativeAudioPreference: value})
 		},
@@ -571,9 +567,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'analyticsEnabled', {analyticsEnabled: enabled})
 		},
 
-		setActiveDownloadProfile: async (ref: DownloadProfileRef) => {
+		setActiveDownloadProfile: (ref: DownloadProfileRef) => {
 			const profiles = {...currentProfiles(get().settings), active: ref}
-			await applyProfilesPatchAsync(get, set, 'downloadProfile.active', profiles)
+			return applyProfilesPatchAsync(get, set, 'downloadProfile.active', profiles)
 		},
 
 		saveDownloadProfile: async (profile: DownloadProfile, activate = true) => {

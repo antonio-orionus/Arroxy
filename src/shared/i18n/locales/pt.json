@@ -260,16 +260,14 @@
 				"extensionChrome": "Obter cookies.txt LOCALMENTE (Chrome)"
 			},
 			"proxy": {"label": "URL do proxy", "description": "Roteia o tráfego por um proxy — útil para conteúdo com restrição geográfica.", "placeholder": "http://host:port", "clear": "Limpar"},
-			"backdrop": {
-				"panelTitle": "Aparência e desempenho",
-				"panelDescription": "Escolha o nível de animação que o Arroxy usa no fundo animado.",
-				"modeLabel": "Qualidade do fundo",
-				"modeDescription": "Varie do visual mais fluido ao melhor desempenho.",
-				"cssOnlyLabel": "Melhor desempenho",
-				"cssOnlyDescription": "Apenas CSS, sem renderização em canvas.",
-				"gpuLabel": "Mais bonito",
-				"gpuDescription": "Fundo animado em WebGL quando suportado.",
-				"runtimeFallbackNotice": "WebGL via hardware não está disponível neste dispositivo, então o Arroxy está usando o fundo de alto desempenho."
+			"style": {
+				"panelTitle": "Aparência",
+				"panelDescription": "Como o Arroxy se parece. Alterne entre claro e escuro no rodapé.",
+				"modeLabel": "Estilo",
+				"modeDescription": "Os dois estilos têm versão clara e escura.",
+				"aurora": {"label": "Aurora", "description": "Painéis de vidro sobre um céu em movimento. Precisa de aceleração gráfica."},
+				"minimal": {"label": "Minimalista", "description": "Superfícies sólidas e discretas. Roda leve em qualquer computador."},
+				"unavailableNotice": "{{style}} precisa de aceleração gráfica, que não está disponível agora, então o Arroxy está mostrando {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Limite de velocidade de download",
@@ -525,6 +523,8 @@
 				"setOverrideShort": "Definir específica",
 				"useGlobalDefault": "Usar padrão global",
 				"reset": "Redefinir perfil",
+				"resetHint": "Restaurar as configurações integradas do perfil",
+				"resetDisabledHint": "Este perfil já usa as configurações integradas",
 				"save": "Salvar perfil"
 			},
 			"placeholder": {"folder": "Escolha uma pasta para este perfil"},
@@ -591,6 +591,7 @@
 			"format": "Formato",
 			"outputTarget": "Destino de saída",
 			"artifacts": "Arquivos gerados",
+			"size": "Tamanho",
 			"added": "Adicionado",
 			"finished": "Concluído",
 			"notAvailable": "—",
@@ -817,6 +818,7 @@
 			"useExplore": "Usar login do Explore",
 			"notNow": "Agora não"
 		},
+		"linkMenu": {"downloadWith": "Baixar com", "copyLink": "Copiar link"},
 		"toolbar": {
 			"aria": "Controles do navegador do Explore",
 			"back": "Voltar",

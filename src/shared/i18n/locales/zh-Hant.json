@@ -251,16 +251,14 @@
 				"extensionChrome": "在本機取得 cookies.txt（Chrome）"
 			},
 			"proxy": {"label": "Proxy URL", "description": "透過 Proxy 路由流量——適合有地區限制的內容。", "placeholder": "http://host:port", "clear": "清除"},
-			"backdrop": {
-				"panelTitle": "外觀與效能",
-				"panelDescription": "選擇 Arroxy 動態背景要使用多少動畫效果。",
-				"modeLabel": "背景品質",
-				"modeDescription": "從最豐富的動畫效果調整至最佳效能。",
-				"cssOnlyLabel": "最佳效能",
-				"cssOnlyDescription": "僅使用 CSS，不進行畫布轉譯。",
-				"gpuLabel": "最精美",
-				"gpuDescription": "支援時使用動態 WebGL 背景。",
-				"runtimeFallbackNotice": "此裝置無法使用硬體 WebGL，因此 Arroxy 正使用效能優先的背景。"
+			"style": {
+				"panelTitle": "外觀",
+				"panelDescription": "Arroxy 的外觀。可在底部列切換淺色和深色。",
+				"modeLabel": "風格",
+				"modeDescription": "兩種風格都有淺色和深色。",
+				"aurora": {"label": "Aurora", "description": "動態天空上的玻璃面板。需要圖形加速。"},
+				"minimal": {"label": "極簡", "description": "純色、安靜的介面。在任何電腦上都能流暢執行。"},
+				"unavailableNotice": "{{style}} 需要圖形加速，但目前無法使用，所以 Arroxy 正在顯示{{fallback}}。"
 			},
 			"limitRate": {
 				"label": "下載速度限制",
@@ -493,6 +491,8 @@
 				"setOverrideShort": "設定覆寫",
 				"useGlobalDefault": "使用全域預設值",
 				"reset": "重設設定檔",
+				"resetHint": "還原內建設定檔設定",
+				"resetDisabledHint": "此設定檔已使用內建設定",
 				"save": "儲存設定檔"
 			},
 			"placeholder": {"folder": "選擇此設定檔的資料夾"},
@@ -554,6 +554,7 @@
 			"format": "格式",
 			"outputTarget": "輸出目的地",
 			"artifacts": "產出檔案",
+			"size": "大小",
 			"added": "加入時間",
 			"finished": "完成時間",
 			"notAvailable": "—",
@@ -760,6 +761,7 @@
 			"continue": "繼續"
 		},
 		"nudge": {"off": "Cookie 已關閉，因此下載不會使用你的 Explore 登入。", "file": "下載使用的是你的 Cookie 檔案，而不是你的 Explore 登入。", "browser": "下載使用的是瀏覽器的 Cookie，而不是你的 Explore 登入。", "useExplore": "使用 Explore 登入", "notNow": "暫時不要"},
+		"linkMenu": {"downloadWith": "使用設定檔下載", "copyLink": "複製連結"},
 		"toolbar": {
 			"aria": "目前頁面",
 			"back": "上一頁",

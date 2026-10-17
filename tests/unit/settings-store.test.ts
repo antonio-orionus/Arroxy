@@ -4,9 +4,9 @@ import path from 'node:path'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
-import {defaultAppSettings} from '@shared/constants.js'
+import {DEFAULTS, defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {appSettingsSchema, updateSettingsSchema} from '@shared/schemas.js'
+import {appSettingsSchema, UI_STYLES, updateSettingsSchema} from '@shared/schemas.js'
 import type {AppSettings} from '@shared/types.js'
 import {z} from 'zod'
 
@@ -87,17 +87,19 @@ describe('settings and recent stores', () => {
 		expect((await new SettingsStore(userData, baseDefaults).get()).common.exploreAdBlock).toBe(false)
 	})
 
-	it('defaults and persists the remaining backdrop render modes', async () => {
-		expect(baseDefaults.common.backdropRenderMode).toBe('gpu')
+	it('defaults and persists the style', async () => {
+		expect(baseDefaults.common.uiStyle).toBe(DEFAULTS.uiStyle)
 
-		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-backdrop-'))
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-style-'))
 		const store = new SettingsStore(userData, baseDefaults)
+		const other = UI_STYLES.find(style => style !== DEFAULTS.uiStyle)
+		if (!other) throw new Error('expected a second style')
 
-		const updated = await store.update({common: {backdropRenderMode: 'css-only'}})
-		expect(updated.common.backdropRenderMode).toBe('css-only')
+		const updated = await store.update({common: {uiStyle: other}})
+		expect(updated.common.uiStyle).toBe(other)
 
 		const readBack = await store.get()
-		expect(readBack.common.backdropRenderMode).toBe('css-only')
+		expect(readBack.common.uiStyle).toBe(other)
 	})
 
 	it('defaults, validates, and persists native audio preference', async () => {
@@ -339,7 +341,7 @@ describe('settings and recent stores', () => {
 		const settings = await store.get()
 
 		expect(settings.common.defaultOutputDir).toBe('/persisted/downloads')
-		expect(settings.common.backdropRenderMode).toBe('gpu')
+		expect(settings.common.uiStyle).toBe(DEFAULTS.uiStyle)
 		expect(settings.common.nativeAudioPreference).toBe('compatible')
 	})
 

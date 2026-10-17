@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Mencoba kembali"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Salin tautan"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Unduh dengan"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Baru"
@@ -1038,6 +1046,10 @@ msgstr "Kemajuan"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "Tampilkan artefak untuk {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Ukuran"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Setel ulang profil"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Profil ini sudah menggunakan pengaturan bawaan"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Pulihkan pengaturan profil bawaan"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Simpan profil"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "kali"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Hanya CSS, tidak ada rendering kanvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Performa terbaik"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Latar belakang WebGL animasi bila didukung."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Paling indah"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Beralih dari tampilan paling beranimasi ke performa terbaik."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Kualitas latar belakang"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Pilih seberapa banyak gerakan yang digunakan Arroxy untuk latar belakang animasi."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Penampilan dan kinerja"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL perangkat keras tidak tersedia di perangkat ini, jadi Arroxy menggunakan latar belakang kinerja."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL massal"
@@ -3776,6 +3760,42 @@ msgstr "Perilaku unduhan"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Masukan"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Panel kaca di atas langit yang bergerak. Butuh akselerasi grafis."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Permukaan polos yang tenang. Ringan dijalankan di komputer apa pun."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimalis"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Kedua gaya tersedia dalam mode terang dan gelap."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Gaya"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Tampilan Arroxy. Beralih antara terang dan gelap di footer."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Tampilan"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} butuh akselerasi grafis, yang saat ini tidak tersedia, jadi Arroxy menampilkan {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

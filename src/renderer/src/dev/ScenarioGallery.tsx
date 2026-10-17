@@ -42,7 +42,7 @@ function activeKnobs(): ReturnType<typeof readKnobs> {
 	try {
 		return readKnobs(window.location)
 	} catch {
-		return {theme: null, locale: null, platform: null, showcase: false, backdropSoftware: false}
+		return {theme: null, locale: null, platform: null, showcase: false, backdropSoftware: false, style: null, gpuBlocked: false}
 	}
 }
 

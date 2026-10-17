@@ -68,6 +68,7 @@ export const IPC_CHANNELS = {
 	exploreCapture: 'explore:capture',
 	exploreStateChanged: 'explore:stateChanged',
 	explorePointerInView: 'explore:pointerInView',
+	exploreLinkAction: 'explore:linkAction',
 	updaterAvailable: 'updater:available',
 	updaterInstall: 'updater:install',
 	eventsClipboardUrl: 'events:clipboardUrl',

@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "ሊንክ ቅዳ"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "በመገለጫ አውርድ"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "አዲስ"
@@ -1038,6 +1046,10 @@ msgstr "ሂደት"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "የ{{title}} ፋይሎችን አሳይ"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "መጠን"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "መገለጫ ዳግም አስጀምር"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "ይህ መገለጫ አስቀድሞ አብሮገነብ ቅንብሮችን ይጠቀማል"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "አብሮገነብ የመገለጫ ቅንብሮችን ወደነበሩበት መልስ"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "መገለጫ አስቀምጥ"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "ጊዜ"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "CSS ብቻ፣ የcanvas ማቅረብ የለም።"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "ምርጥ አፈጻጸም"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "ሲደገፍ የሚንቀሳቀስ WebGL ዳራ።"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "በጣም ቆንጆ"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "ከበጣም እንቅስቃሴ ያለው መልክ ወደ ምርጥ አፈጻጸም ይሂዱ።"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "የዳራ ጥራት"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Arroxy ለሚንቀሳቀሰው ዳራ ምን ያህል እንቅስቃሴ እንደሚጠቀም ይምረጡ።"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "መልክ እና አፈጻጸም"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "የሃርድዌር WebGL በዚህ መሣሪያ ላይ አይገኝም፣ ስለዚህ Arroxy የአፈጻጸም ዳራን እየተጠቀመ ነው።"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "ብዙ URLዎች"
@@ -3776,6 +3760,42 @@ msgstr "የዳውንሎድ ባህሪ"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "ግብዓት"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "በሚንቀሳቀስ ሰማይ ላይ የመስታወት ፓነሎች። የግራፊክስ ማፍጠኛ ያስፈልጋል።"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "ጠንካራና ጸጥ ያሉ ገጽታዎች። በማንኛውም ኮምፒውተር ላይ ቀላል ሆኖ ይሰራል።"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "ቀላል"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "ሁለቱም ዘይቤዎች በብርሃን እና በጨለማ ይገኛሉ።"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "ዘይቤ"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy እንዴት እንደሚታይ። በግርጌው ውስጥ በብርሃን እና በጨለማ መካከል ይቀያይሩ።"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "ገጽታ"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} የግራፊክስ ማፍጠኛ ያስፈልገዋል፣ እሱ ግን አሁን አይገኝም። ስለዚህ Arroxy {{fallback}}ን እያሳየ ነው።"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

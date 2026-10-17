@@ -89,6 +89,8 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 			{path: videoPath, kind: 'media'},
 			{path: subPath, kind: 'subtitle'}
 		])
+		// Neither file exists on disk here, so no size is reported.
+		expect(artifacts.every(artifact => artifact.sizeBytes === undefined)).toBe(true)
 	})
 
 	it('emits subtitlesFailed and records the job as completed when sidecar subtitle fetch fails', async () => {
@@ -137,6 +139,58 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 			})
 		}
 	}
+
+	it('reports thumbnail and description sidecars with their sizes when the job completes', async () => {
+		const videoPath = join(workDir, 'Title.mp4')
+		const tempThumbPath = join(workDir, '.arroxy-temp', 'Title.webp')
+		const thumbPath = join(workDir, 'Title.webp')
+		const descriptionPath = join(workDir, 'Title.description')
+		vi.mocked(spawnYtDlp).mockImplementation((() =>
+			createTranscriptProcess([{stream: 'stderr', data: `[info] Writing video description to: ${descriptionPath}\n[info] Writing video thumbnail 1 to: ${tempThumbPath}\n[download] Destination: ${videoPath}\n[MoveFiles] Moving file "${tempThumbPath}" to "${thumbPath}"\n`}, {close: 0}], {
+				beforeStart: () => {
+					writeFileSync(videoPath, 'v'.repeat(30))
+					writeFileSync(thumbPath, 't'.repeat(20))
+					writeFileSync(descriptionPath, 'd'.repeat(10))
+				}
+			})) as never)
+
+		const {service, recentJobsStore} = makeService()
+		const artifacts: QueueArtifactEvent[] = []
+		service.on('artifact', event => artifacts.push(event))
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+
+		await vi.waitFor(() => {
+			const sized = new Map(artifacts.filter(artifact => artifact.sizeBytes !== undefined).map(artifact => [artifact.path, artifact.sizeBytes]))
+			expect(sized).toEqual(
+				new Map([
+					[videoPath, 30],
+					[thumbPath, 20],
+					[descriptionPath, 10]
+				])
+			)
+		})
+	})
+
+	it('leaves out a thumbnail yt-dlp deleted after embedding it', async () => {
+		const videoPath = join(workDir, 'Title.mp4')
+		const embeddedThumbPath = join(workDir, 'Title.webp')
+		vi.mocked(spawnYtDlp).mockImplementation((() =>
+			createTranscriptProcess([{stream: 'stderr', data: `[info] Writing video thumbnail 1 to: ${embeddedThumbPath}\n[download] Destination: ${videoPath}\n`}, {close: 0}], {
+				beforeStart: () => {
+					writeFileSync(videoPath, 'v'.repeat(30))
+				}
+			})) as never)
+
+		const {service, recentJobsStore} = makeService()
+		const artifacts: QueueArtifactEvent[] = []
+		service.on('artifact', event => artifacts.push(event))
+		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
+		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
+
+		await vi.waitFor(() => expect(artifacts.some(artifact => artifact.sizeBytes === 30)).toBe(true))
+		expect(new Set(artifacts.map(artifact => artifact.path))).toEqual(new Set([videoPath]))
+	})
 
 	it('passes the post-MoveFiles final path to ffmpeg, not the .arroxy-temp Merger path', async () => {
 		const tempVideoPath = join(workDir, '.arroxy-temp', 'abc1234', 'Title.mkv')
@@ -269,7 +323,13 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		expect(readFileSync(finalMkv, 'utf8')).toBe('muxed-bytes')
 		expect(() => readFileSync(videoPath)).toThrow()
 		expect(() => readFileSync(subPath)).toThrow()
-		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([{path: finalMkv, kind: 'media'}])
+		// Announced at completion, then sent again with its size read after the mux.
+		await vi.waitFor(() =>
+			expect(artifacts.map(({path, kind, sizeBytes}) => ({path, kind, sizeBytes}))).toEqual([
+				{path: finalMkv, kind: 'media', sizeBytes: undefined},
+				{path: finalMkv, kind: 'media', sizeBytes: 'muxed-bytes'.length}
+			])
+		)
 	})
 
 	it('emits mergingFormats status when the mux phase starts', async () => {

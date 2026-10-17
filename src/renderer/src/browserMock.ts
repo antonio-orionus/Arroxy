@@ -389,7 +389,7 @@ export function installBrowserMock(): void {
 			},
 			getGraphicsPolicy: async () => {
 				await Promise.resolve()
-				return {ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: knobs.backdropSoftware}}}
+				return {ok: true, data: {backdrop: {webglBlocked: knobs.gpuBlocked, softwareWebglAllowed: knobs.backdropSoftware}}}
 			},
 			installYtDlpWithHomebrew: async () => {
 				await delay(800)

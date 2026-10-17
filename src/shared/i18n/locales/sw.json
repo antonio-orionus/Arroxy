@@ -260,16 +260,14 @@
 				"extensionChrome": "Pata cookies.txt NDANI YA KOMPYUTA (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia.", "placeholder": "http://host:port", "clear": "Futa"},
-			"backdrop": {
-				"panelTitle": "Mwonekano na utendaji",
-				"panelDescription": "Chagua kiasi cha mwendo ambacho Arroxy hutumia kwa mandhari yenye mwendo.",
-				"modeLabel": "Ubora wa mandhari",
-				"modeDescription": "Badili kutoka mwonekano wenye mwendo mwingi hadi utendaji bora.",
-				"cssOnlyLabel": "Utendaji bora",
-				"cssOnlyDescription": "CSS pekee, hakuna uchoraji wa canvas.",
-				"gpuLabel": "Nzuri zaidi",
-				"gpuDescription": "Mandhari ya WebGL yenye mwendo ikisaidiwa.",
-				"runtimeFallbackNotice": "WebGL ya maunzi haipatikani kwenye kifaa hiki, kwa hivyo Arroxy inatumia mandharinyuma ya utendaji."
+			"style": {
+				"panelTitle": "Mwonekano",
+				"panelDescription": "Jinsi Arroxy inavyoonekana. Badilisha kati ya mwanga na giza chini ya dirisha.",
+				"modeLabel": "Mtindo",
+				"modeDescription": "Mitindo yote miwili ina toleo la mwanga na la giza.",
+				"aurora": {"label": "Aurora", "description": "Paneli za kioo juu ya anga linalosogea. Zinahitaji uongezaji kasi wa michoro."},
+				"minimal": {"label": "Rahisi", "description": "Nyuso imara na tulivu. Inafanya kazi kwa wepesi kwenye kompyuta yoyote."},
+				"unavailableNotice": "{{style}} inahitaji uongezaji kasi wa michoro, ambao haupatikani sasa hivi, kwa hiyo Arroxy inaonyesha {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Kikomo cha kasi ya kupakua",
@@ -528,6 +526,8 @@
 				"setOverrideShort": "Weka ubatilishaji",
 				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
 				"reset": "Weka upya wasifu",
+				"resetHint": "Rejesha mipangilio ya wasifu iliyojengwa ndani",
+				"resetDisabledHint": "Wasifu huu tayari unatumia mipangilio iliyojengwa ndani",
 				"save": "Hifadhi wasifu"
 			},
 			"placeholder": {"folder": "Chagua folda kwa wasifu huu"},
@@ -594,6 +594,7 @@
 			"format": "Umbizo",
 			"outputTarget": "Lengo la matokeo",
 			"artifacts": "Faili za matokeo",
+			"size": "Ukubwa",
 			"added": "Imeongezwa",
 			"finished": "Imekamilika",
 			"notAvailable": "—",
@@ -813,6 +814,7 @@
 			"useExplore": "Tumia kuingia kwa Explore",
 			"notNow": "Si sasa"
 		},
+		"linkMenu": {"downloadWith": "Pakua kwa", "copyLink": "Nakili kiungo"},
 		"toolbar": {
 			"aria": "Vidhibiti vya kivinjari cha Explore",
 			"back": "Rudi",

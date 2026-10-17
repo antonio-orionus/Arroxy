@@ -13,6 +13,7 @@ import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileMenuContent, type DownloadProfileMenuTestIdPrefix} from './DownloadProfileMenu.js'
+import {Hint} from '../shared/Hint.js'
 
 // The URL tab and the Bulk dialog; Explore opens the same menu from its own toolbar.
 type QuickProfileTestIdPrefix = Exclude<DownloadProfileMenuTestIdPrefix, 'explore'>
@@ -182,30 +183,31 @@ function ProfileMenu({
 				data-testid={`${testIdPrefix}-active-profile-card`}
 			>
 				<div className="relative flex min-w-0 items-center gap-2">
-					<PopoverTrigger
-						render={
-							<Button
-								type="button"
-								variant="ghost"
-								aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})}
-								title={switchProfileTitle}
-								className={cn('quick-profile-selector-trigger h-auto min-w-0 flex-1 justify-start whitespace-normal rounded-xl bg-transparent text-left hover:bg-transparent', compact ? 'gap-3 px-1.5 py-1.5' : 'gap-2 px-1.5 py-1.5 md:gap-3')}
-								data-testid={`${testIdPrefix}-active-profile-trigger`}
-							>
-								<span className={cn('icon-tile grid shrink-0 place-items-center rounded-xl', compact ? 'size-10 [&_svg]:size-5' : 'size-11 md:size-14 [&_svg]:size-5 md:[&_svg]:size-7')}>
-									<ActiveIcon aria-hidden />
-								</span>
-								<span className="min-w-0 flex-1">
-									<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
-									<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{activeProfile.name}</span>
-									<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
-								</span>
-								<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>
-									<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />
-								</span>
-							</Button>
-						}
-					/>
+					<Hint label={switchProfileTitle}>
+						<PopoverTrigger
+							render={
+								<Button
+									type="button"
+									variant="ghost"
+									aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})}
+									className={cn('quick-profile-selector-trigger h-auto min-w-0 flex-1 justify-start whitespace-normal rounded-xl bg-transparent text-left hover:bg-transparent', compact ? 'gap-3 px-1.5 py-1.5' : 'gap-2 px-1.5 py-1.5 md:gap-3')}
+									data-testid={`${testIdPrefix}-active-profile-trigger`}
+								>
+									<span className={cn('icon-tile grid shrink-0 place-items-center rounded-xl', compact ? 'size-10 [&_svg]:size-5' : 'size-11 md:size-14 [&_svg]:size-5 md:[&_svg]:size-7')}>
+										<ActiveIcon aria-hidden />
+									</span>
+									<span className="min-w-0 flex-1">
+										<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
+										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{activeProfile.name}</span>
+										<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
+									</span>
+									<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>
+										<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />
+									</span>
+								</Button>
+							}
+						/>
+					</Hint>
 					<Tooltip>
 						<TooltipTrigger
 							render={props => (
@@ -230,12 +232,12 @@ function ProfileMenu({
 					<div className="quick-profile-destination relative mt-2 flex min-w-0 items-center gap-2 rounded-xl px-2 py-2" data-testid={`${testIdPrefix}-profile-destination`}>
 						<Folder className="size-4 shrink-0 text-quick-selector-muted" aria-hidden />
 						<span className="min-w-0 flex-1">
-							<span className="block truncate text-caption font-medium leading-snug text-quick-selector-muted" title={destinationDetailLabel}>
-								{destinationDetailLabel}
-							</span>
-							<span className="mt-1 block truncate font-mono text-xs leading-tight text-quick-selector-ink" title={destinationLabel}>
-								{destinationLabel}
-							</span>
+							<Hint label={destinationDetailLabel} reveal>
+								<span className="block truncate text-caption font-medium leading-snug text-quick-selector-muted">{destinationDetailLabel}</span>
+							</Hint>
+							<Hint label={destinationLabel} reveal>
+								<span className="mt-1 block truncate font-mono text-xs leading-tight text-quick-selector-ink">{destinationLabel}</span>
+							</Hint>
 						</span>
 						{onChangeGlobalDestination ? (
 							<Tooltip>

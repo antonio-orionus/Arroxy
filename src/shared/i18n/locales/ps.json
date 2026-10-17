@@ -273,16 +273,14 @@
 				"extensionChrome": "cookies.txt ځایی ترلاسه کړئ (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "د پراکسي له لارې ترافیک لیږدول — د جغرافیایي محدودیتونو لرونکي مینځپانګې لپاره ګټور.", "placeholder": "http://host:port", "clear": "پاکول"},
-			"backdrop": {
-				"panelTitle": "بڼه او کړنه",
-				"panelDescription": "وټاکئ چې Arroxy د خوځنده شالید لپاره څومره حرکت وکاروي.",
-				"modeLabel": "د شالید کیفیت",
-				"modeDescription": "له تر ټولو خوځنده بڼې څخه غوره کړنې ته ولاړ شئ.",
-				"cssOnlyLabel": "غوره کړنه",
-				"cssOnlyDescription": "یوازې CSS، د canvas وړاندې کول نشته.",
-				"gpuLabel": "تر ټولو ښکلی",
-				"gpuDescription": "که ملاتړ ولري، خوځنده WebGL شالید.",
-				"runtimeFallbackNotice": "په دې وسیله کې د هارډویر WebGL شتون نه لري، نو Arroxy د غوره کړنې شالید کاروي."
+			"style": {
+				"panelTitle": "بڼه",
+				"panelDescription": "Arroxy څنګه ښکاري. رڼا او تیاره حالت د ښکتنۍ پټې په برخه کې بدل کړئ.",
+				"modeLabel": "ډول",
+				"modeDescription": "دواړه ډولونه رڼا او تیاره حالت لري.",
+				"aurora": {"label": "اورورا", "description": "د خوځېدونکي اسمان پر سر د شیشې پټې. د ګرافیک چټکتیا ته اړتیا لري."},
+				"minimal": {"label": "ساده", "description": "جامد او آرامې سطحې. په هر کمپیوټر کې سپک چلېږي."},
+				"unavailableNotice": "{{style}} ته د ګرافیک چټکتیا اړینه ده، چې همدا اوس شتون نلري، نو Arroxy {{fallback}} ښیي."
 			},
 			"limitRate": {
 				"label": "د ډاونلوډ سرعت حد",
@@ -538,6 +536,8 @@
 				"setOverrideShort": "بدیل وټاکئ",
 				"useGlobalDefault": "ټولیزه اصلي ارزښت وکاروئ",
 				"reset": "پروفایل بیا تنظیمول",
+				"resetHint": "د پروفایل دننه جوړې ترتیبات بیرته راوګرځوئ",
+				"resetDisabledHint": "دا پروفایل دمخه دننه جوړې ترتیبات کاروي",
 				"save": "پروفایل خوندي کول"
 			},
 			"placeholder": {"folder": "د دې پروفایل لپاره یوه پوښۍ وټاکئ"},
@@ -604,6 +604,7 @@
 			"format": "بڼه",
 			"outputTarget": "د وتلو هدف",
 			"artifacts": "وتلې فایلونه",
+			"size": "اندازه",
 			"added": "زیات شو",
 			"finished": "بشپړ شو",
 			"notAvailable": "—",
@@ -817,6 +818,7 @@
 			"continue": "دوام ورکړه"
 		},
 		"nudge": {"off": "کوکیز بند دي، نو ښکته کول ستاسو د Explore ننوتل نه کاروي.", "file": "ښکته کول ستاسو د کوکیز فایل کاروي، نه ستاسو د Explore ننوتل.", "browser": "ښکته کول ستاسو د براوزر کوکیز کاروي، نه ستاسو د Explore ننوتل.", "useExplore": "د Explore ننوتل وکاروئ", "notNow": "اوس نه"},
+		"linkMenu": {"downloadWith": "په پروفایل ډاونلوډ", "copyLink": "لینک کاپي کړئ"},
 		"toolbar": {
 			"aria": "د Explore د براوزر کنټرولونه",
 			"back": "شاته",

@@ -268,16 +268,14 @@
 				"extensionChrome": "Преузми cookies.txt ЛОКАЛНО (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.", "placeholder": "http://host:port", "clear": "Обриши"},
-			"backdrop": {
-				"panelTitle": "Изглед и перформансе",
-				"panelDescription": "Изаберите колико покрета Arroxy користи за анимирану позадину.",
-				"modeLabel": "Квалитет позадине",
-				"modeDescription": "Померите од најанимиранијег изгледа ка најбољим перформансама.",
-				"cssOnlyLabel": "Најбоље перформансе",
-				"cssOnlyDescription": "Само CSS, без canvas рендеровања.",
-				"gpuLabel": "Најлепше",
-				"gpuDescription": "Анимирана WebGL позадина када је подржана.",
-				"runtimeFallbackNotice": "Хардверски WebGL није доступан на овом уређају, па Arroxy користи позадину за боље перформансе."
+			"style": {
+				"panelTitle": "Изглед",
+				"panelDescription": "Како Arroxy изгледа. Пребацујте између светле и тамне теме у подножју.",
+				"modeLabel": "Стил",
+				"modeDescription": "Оба стила постоје у светлој и тамној верзији.",
+				"aurora": {"label": "Aurora", "description": "Стаклени панели преко неба у покрету. Потребно је графичко убрзање."},
+				"minimal": {"label": "Минималистички", "description": "Чврсте, мирне површине. Лагано ради на сваком рачунару."},
+				"unavailableNotice": "{{style}} захтева графичко убрзање, које тренутно није доступно, па Arroxy приказује {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Ограничение скорости загрузки",
@@ -526,6 +524,8 @@
 				"setOverrideShort": "Постави замену",
 				"useGlobalDefault": "Користи општу подразумевану вредност",
 				"reset": "Ресетуј профил",
+				"resetHint": "Врати уграђена подешавања профила",
+				"resetDisabledHint": "Овај профил већ користи уграђена подешавања",
 				"save": "Сачувај профил"
 			},
 			"placeholder": {"folder": "Изаберите фасциклу за овај профил"},
@@ -592,6 +592,7 @@
 			"format": "Формат",
 			"outputTarget": "Излазно одредиште",
 			"artifacts": "Излазне датотеке",
+			"size": "Величина",
 			"added": "Додато",
 			"finished": "Завршено",
 			"notAvailable": "—",
@@ -811,6 +812,7 @@
 			"useExplore": "Користи Explore пријаву",
 			"notNow": "Не сада"
 		},
+		"linkMenu": {"downloadWith": "Преузми са профилом", "copyLink": "Копирај линк"},
 		"toolbar": {
 			"aria": "Контроле прегледача Explore",
 			"back": "Назад",

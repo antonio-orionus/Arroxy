@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Tentar novamente"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Copiar link"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Baixar com"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Novo"
@@ -1038,6 +1046,10 @@ msgstr "Progresso"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "Mostrar arquivos gerados para {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Tamanho"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Redefinir perfil"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Este perfil já usa as configurações integradas"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Restaurar as configurações integradas do perfil"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Salvar perfil"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "vezes"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Apenas CSS, sem renderização em canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Melhor desempenho"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Fundo animado em WebGL quando suportado."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Mais bonito"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Varie do visual mais fluido ao melhor desempenho."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Qualidade do fundo"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Escolha o nível de animação que o Arroxy usa no fundo animado."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Aparência e desempenho"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL via hardware não está disponível neste dispositivo, então o Arroxy está usando o fundo de alto desempenho."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URLs em lote"
@@ -3776,6 +3760,42 @@ msgstr "Comportamento de download"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Entrada"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Painéis de vidro sobre um céu em movimento. Precisa de aceleração gráfica."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Superfícies sólidas e discretas. Roda leve em qualquer computador."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimalista"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Os dois estilos têm versão clara e escura."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Estilo"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Como o Arroxy se parece. Alterne entre claro e escuro no rodapé."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Aparência"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} precisa de aceleração gráfica, que não está disponível agora, então o Arroxy está mostrando {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

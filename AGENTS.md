@@ -157,6 +157,7 @@ The root-owned tooling contract lives in `dev-docs/tooling-contract.md`. Do not 
 ```bash
 bun run dev        # normal dev start
 bun run dev:fresh  # clear main.log then start (cross-platform)
+bun run dev:anon   # own profile (<userData>-anon): Explore signed out every launch, no first-run gates, no cookies
 bun run doctor     # inspect checkout readiness and selected dev paths/ports
 ```
 

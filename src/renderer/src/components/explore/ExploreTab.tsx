@@ -2,18 +2,19 @@ import {useEffect, useRef, type ReactNode, type RefObject} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
+import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Card} from '../ui/card.js'
 import {ExploreAddressHint, ExploreAddressHintLive} from './ExploreAddressHint.js'
+import {openExploreInteractive, useExploreLinkActions} from './exploreLinkActions.js'
 import {ExploreModeNudge, type NudgeMode} from './ExploreModeNudge.js'
 import {submitExploreAddress} from './exploreAddress.js'
 import {ExploreNotice} from './ExploreNotice.js'
 import {buildDownloadProfileActionModel} from '../wizard/downloadProfileActions.js'
 import {ExploreToolbar, type ExploreProfileMenuActions} from './ExploreToolbar.js'
 import {ExploreViewport} from './ExploreViewport.js'
-import {isExploreGrabbable} from './exploreGrab.js'
 
 const NO_PAGE: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'}
 
@@ -53,6 +54,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 	const profiles = buildDownloadProfileActionModel(profilesPrefs)
 	const mountedRef = useExploreTabActive()
 	const nudgeMode = useExploreModeNudge()
+	useExploreLinkActions()
 	const {setCookiesMode, dismissExploreModeNudge} = useAppStore(useShallow(s => ({setCookiesMode: s.setCookiesMode, dismissExploreModeNudge: s.dismissExploreModeNudge})))
 
 	// A Download prepares in the background as a row in Downloads; the page
@@ -75,14 +77,6 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 		void useAppStore.getState().quickDownload({url, entry: 'explore'})
 	}
 
-	// Interactive works off `wizardUrl`, set just before; the run starts in
-	// Explore, so the wizard lands back here.
-	function openInteractive(): void {
-		const {setWizardUrl, submitUrl} = useAppStore.getState()
-		setWizardUrl(state.url)
-		void submitUrl('explore')
-	}
-
 	return (
 		<Card variant="glass" size="sm" className="@container min-h-0 flex-1 px-3" data-testid="explore-tab">
 			{nudgeMode ? <ExploreModeNudge mode={nudgeMode} onUseExplore={() => void setCookiesMode('explore')} onDismiss={() => void dismissExploreModeNudge(nudgeMode)} /> : null}
@@ -96,7 +90,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				onSubmitAddress={submitAddress}
 				onAddressEdit={() => setAddressHint(null)}
 				onDownload={grab}
-				onInteractive={openInteractive}
+				onInteractive={() => openExploreInteractive(state.url)}
 				onToggleAdBlock={enabled => void setExploreAdBlock(enabled)}
 				compact={compact}
 				leading={compactTabs}

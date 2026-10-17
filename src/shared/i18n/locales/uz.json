@@ -281,16 +281,14 @@
 				"extensionChrome": "cookies.txt ni LOKAL olish (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "Trafikni proksi orqali yo'naltirish — geo-cheklangan kontent uchun foydali.", "placeholder": "http://host:port", "clear": "Tozalash"},
-			"backdrop": {
-				"panelTitle": "Ko‘rinish va unumdorlik",
-				"panelDescription": "Arroxy animatsiyali fon uchun qancha harakat ishlatishini tanlang.",
-				"modeLabel": "Fon sifati",
-				"modeDescription": "Eng animatsiyali ko‘rinishdan eng yaxshi unumdorlikka o‘ting.",
-				"cssOnlyLabel": "Eng yaxshi unumdorlik",
-				"cssOnlyDescription": "Faqat CSS, canvas render qilinmaydi.",
-				"gpuLabel": "Eng chiroyli",
-				"gpuDescription": "Qo‘llab-quvvatlansa, animatsiyali WebGL fon.",
-				"runtimeFallbackNotice": "Bu qurilmada apparat WebGL mavjud emas, shuning uchun Arroxy unumdorlik fonidan foydalanmoqda."
+			"style": {
+				"panelTitle": "Ko'rinish",
+				"panelDescription": "Arroxy ko'rinishini sozlang. Yorug' va qorong'i rejim o'rtasida pastki qatorda almashtiring.",
+				"modeLabel": "Uslub",
+				"modeDescription": "Ikkala uslub ham yorug' va qorong'i variantda mavjud.",
+				"aurora": {"label": "Aurora", "description": "Harakatlanuvchi osmon ustidagi shishasimon panellar. Grafik tezlatish kerak."},
+				"minimal": {"label": "Minimalistik", "description": "Zich, sokin yuzalar. Istalgan kompyuterda yengil ishlaydi."},
+				"unavailableNotice": "{{style}} uchun grafik tezlatish kerak, hozir u mavjud emas, shuning uchun Arroxy {{fallback}} uslubini ko'rsatmoqda."
 			},
 			"limitRate": {
 				"label": "Yuklab olish tezligi chegarasi",
@@ -553,6 +551,8 @@
 				"setOverrideShort": "Almashtirishni belgilash",
 				"useGlobalDefault": "Umumiy standartdan foydalanish",
 				"reset": "Profilni tiklash",
+				"resetHint": "Ichki profil sozlamalarini tiklash",
+				"resetDisabledHint": "Bu profil allaqachon ichki sozlamalardan foydalanmoqda",
 				"save": "Profilni saqlash"
 			},
 			"placeholder": {"folder": "Bu profil uchun jild tanlang"},
@@ -619,6 +619,7 @@
 			"format": "Format",
 			"outputTarget": "Natija manzili",
 			"artifacts": "Natija fayllari",
+			"size": "Hajm",
 			"added": "Qo‘shilgan",
 			"finished": "Tugagan",
 			"notAvailable": "—",
@@ -845,6 +846,7 @@
 			"useExplore": "Explore orqali kirishdan foydalanish",
 			"notNow": "Hozir emas"
 		},
+		"linkMenu": {"downloadWith": "Profil bilan yuklab olish", "copyLink": "Havolani nusxalash"},
 		"toolbar": {
 			"aria": "Explore brauzer boshqaruvlari",
 			"back": "Orqaga",

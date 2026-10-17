@@ -27,7 +27,7 @@ export type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	BackdropRenderMode,
+	UiStyle,
 	GraphicsPolicyBackdropReason,
 	QueueItemStatus,
 	QueueLane,
@@ -64,7 +64,7 @@ export type {
 
 import type {ProbePlaylistMode} from './schemas.js'
 export type {ProbePlaylistMode, StatusKey} from './schemas.js'
-export type {ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
+export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
@@ -77,7 +77,7 @@ import type {
 	SponsorBlockCategory,
 	SupportedLang,
 	UiTheme,
-	BackdropRenderMode,
+	UiStyle,
 	GraphicsPolicyBackdropReason,
 	StatusKey,
 	CookiesMode,
@@ -109,7 +109,7 @@ export interface AppError {
 export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
 
 export interface GraphicsPolicy {
-	backdrop: {forceRenderMode: BackdropRenderMode | null; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
+	backdrop: {webglBlocked: boolean; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
 }
 
 // Mode-independent prefs and infrastructure config. Anything that applies
@@ -124,7 +124,7 @@ export interface CommonSettings {
 	lastHeartbeatDay?: string
 	uiZoom?: number
 	uiTheme?: UiTheme
-	backdropRenderMode?: BackdropRenderMode
+	uiStyle?: UiStyle
 	language?: SupportedLang
 	commonPaths?: {downloads: string | null; videos: string | null; desktop: string | null; music: string | null; documents: string | null; pictures: string | null; home: string | null}
 	cookiesPath?: string
@@ -495,6 +495,7 @@ export interface QueueArtifactEvent {
 	at: string
 	fromPath?: string
 	internal?: boolean
+	sizeBytes?: number
 }
 
 export const DEPENDENCY_IDS = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const

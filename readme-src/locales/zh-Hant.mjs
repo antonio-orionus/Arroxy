@@ -123,6 +123,7 @@ export const zhHant = {
   feat_explore_h3: "Explore：在 Arroxy 內瀏覽 YouTube",
   feat_explore_1:
     "**Explore 分頁** — 在 Arroxy 內瀏覽 YouTube，不必複製連結就能下載你找到的內容。**下載 · *你的設定*** 會把你正在看的影片、播放清單或頻道加入佇列；旁邊的箭頭可切換設定，魔術棒則開啟逐步下載，讓你選擇格式、字幕等",
+  feat_explore_6: "**按右鍵下載** — 在 Explore 中對任何影片、播放清單或頻道連結按右鍵，即可用你的設定下載、從 **使用設定檔下載** 選擇其他設定、開啟逐步下載，或複製連結。不必先逐一開啟影片",
   feat_explore_2:
     "**位址列** — 輸入文字即可搜尋 YouTube，或貼上 YouTube 連結。Explore 只瀏覽 YouTube，其他網站的連結不會在其中開啟，但你可以一鍵下載",
   feat_explore_3:

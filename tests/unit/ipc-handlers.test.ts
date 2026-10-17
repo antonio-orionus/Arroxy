@@ -82,7 +82,7 @@ function makeDeps() {
 		hotkeyOsNotifier: null,
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn()} as never,
-		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}),
+		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}),
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher}
 	}
 }
@@ -274,7 +274,7 @@ describe('registerIpcHandlers', () => {
 			const handler = findCall(IPC_CHANNELS.appGetGraphicsPolicy)!.fn
 			const result = await handler(null, undefined)
 
-			expect(result).toEqual({ok: true, data: {backdrop: {forceRenderMode: null, softwareWebglAllowed: false}}})
+			expect(result).toEqual({ok: true, data: {backdrop: {webglBlocked: false, softwareWebglAllowed: false}}})
 		})
 
 		it('app:installYtDlpWinget invokes the binary manager repair action', async () => {

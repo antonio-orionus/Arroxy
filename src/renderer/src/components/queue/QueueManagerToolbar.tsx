@@ -13,6 +13,7 @@ import {COLUMN_LABEL_KEYS, SELECTED_ACTIONS, STATUS_FILTERS, actionButtonDisable
 import type {QueueStatusFilter} from './queueManagerState.js'
 import type {QueueTableColumnId} from './queueTablePreferences.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
+import {Hint} from '../shared/Hint.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {IconTile} from '../shared/IconTile.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
@@ -79,13 +80,15 @@ export function QueueManagerToolbar({t, queue, selectedItems, selectedCount, fil
 				</ToggleGroup>
 				<div className="flex flex-wrap items-center gap-2">
 					<Popover>
-						<PopoverTrigger
-							render={
-								<Button type="button" variant="ghost" size="icon-sm" aria-label={t('queue.table.columns')} title={t('queue.table.columns')}>
-									<Columns3 size={13} aria-hidden />
-								</Button>
-							}
-						/>
+						<Hint label={t('queue.table.columns')}>
+							<PopoverTrigger
+								render={
+									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('queue.table.columns')}>
+										<Columns3 size={13} aria-hidden />
+									</Button>
+								}
+							/>
+						</Hint>
 						<PopoverContent className="w-48 gap-1.5 p-2" align="end">
 							{columns.map(column => {
 								const columnId = column.id as QueueTableColumnId

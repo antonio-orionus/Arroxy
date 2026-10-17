@@ -15,7 +15,7 @@ const COMMON_FLAT_KEYS = [
 	'rememberLastOutputDir',
 	'uiZoom',
 	'uiTheme',
-	'backdropRenderMode',
+	'uiStyle',
 	'language',
 	'commonPaths',
 	'cookiesPath',

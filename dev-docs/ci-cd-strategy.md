@@ -12,10 +12,10 @@
 
 | Workflow                             | File                           | Trigger                                 | Owns                                                                                                             |
 | ------------------------------------ | ------------------------------ | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| CI                                   | `ci.yml`                       | push (all branches, `v*` ignored) + PRs | `check` gate, windows tests                                                                                      |
+| CI                                   | `ci.yml`                       | push `main` + PRs                       | `check` gate, windows tests                                                                                      |
 | Dev Smoke                            | `dev-smoke.yml`                | PR/push `main` + dispatch               | packaged-app boot smoke (`MOCK_BACKEND`), preload/context isolation                                              |
 | E2E Cold Start                       | `e2e-cold-start.yml`           | PR/push `main` + dispatch               | **PR-tier startup verification** (journey harness) + packaged runtime smoke; Linux only                          |
-| E2E Fixtures                         | `e2e-fixtures.yml`             | PR/push `main` + dispatch               | fixture product E2E — acceptance for real user workflows                                                         |
+| E2E Fixtures                         | `e2e-fixtures.yml`             | PR/push `main` + dispatch               | fixture product E2E — acceptance for real user workflows; sharded across 4 runners                               |
 | Windows Installer                    | `installer-smoke.yml`          | PR/push `main`, `v*` tags + dispatch    | Windows installer build, cold-state install, install/uninstall cycle; builds the release's Windows artifacts     |
 | Flatpak Bundle                       | `flatpak.yml`                  | PR/push + dispatch                      | Flatpak build validation                                                                                         |
 | Deps vuln gate                       | `deps-vuln-gate.yml`           | PRs                                     | dependency vulnerability audit                                                                                   |
@@ -37,7 +37,7 @@ Required checks: `check`, `Cold start (linux)`, `Cold-state install`, `1x instal
 
 - Required contexts must match what PR workflows actually report. Never require a context only produced by tag-only or scheduled workflows — it would block every PR forever.
 - Renaming or moving a job → update protection in the same PR.
-- Do **not** add `startup-gate` to protection when wiring it into `prepare-release` — it only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
+- Do **not** add `startup-gate` to branch protection — it gates `publish-release` and only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
 
 ## Release flow
 

@@ -2,9 +2,11 @@ import {useEffect, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, FileArchive, FileText, Gauge} from 'lucide-react'
 import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
-import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
+import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, NATIVE_AUDIO_PREFERENCES, UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
-import type {BackdropRenderMode, CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
+import type {CookiesBrowser, CookiesMode, NativeAudioPreference} from '@shared/types.js'
+import {BASE_STYLE, STYLES} from '../../styles/registry.js'
+import {selectBackdropAvailability} from '../../store/uiSlice.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -44,11 +46,6 @@ const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?
 const COOKIES_HELP_URL = 'https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp'
 const COOKIES_FIREFOX_URL = 'https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/'
 const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc'
-
-const BACKDROP_RENDER_OPTIONS = [
-	{value: 'gpu', labelKey: 'wizard.url.backdrop.gpuLabel', descriptionKey: 'wizard.url.backdrop.gpuDescription'},
-	{value: 'css-only', labelKey: 'wizard.url.backdrop.cssOnlyLabel', descriptionKey: 'wizard.url.backdrop.cssOnlyDescription'}
-] as const satisfies readonly {value: BackdropRenderMode; labelKey: string; descriptionKey: string}[]
 
 const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
 
@@ -110,7 +107,8 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 		advancedAutoOpen,
 		advancedAutoTarget,
 		settings,
-		graphicsPolicy,
+		uiStyle,
+		setUiStyle,
 		openLogs,
 		saveDiagnostics,
 		setAdvancedAutoOpen,
@@ -123,7 +121,6 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 		setDownloadConnections,
 		setConcurrentDownloads,
 		setAutoRetryAttempts,
-		setBackdropRenderMode,
 		setNativeAudioPreference,
 		setFilenameTemplate,
 		setCloseBehavior,
@@ -144,9 +141,9 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 	const showMissingFileWarning = cookiesMode === 'file' && !cookiesPath.trim()
 	const showMissingBrowserWarning = cookiesMode === 'browser' && !cookiesBrowser
 	const limitRate = common?.limitRate?.trim() ? common.limitRate : undefined
-	const backdropRenderMode = common?.backdropRenderMode ?? DEFAULTS.backdropRenderMode
 	const nativeAudioPreference = common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const showBackdropRuntimeFallback = backdropRenderMode === 'gpu' && graphicsPolicy?.backdrop.forceRenderMode === 'css-only'
+	const backdropAvailability = useAppStore(selectBackdropAvailability)
+	const styleFallsBack = STYLES[uiStyle].backdrop !== null && backdropAvailability === 'blocked'
 
 	useEffect(() => {
 		if (!advancedAutoOpen) return
@@ -406,32 +403,32 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				</FieldGroup>
 			</Panel>
 
-			<Panel title={t('wizard.url.backdrop.panelTitle')} description={t('wizard.url.backdrop.panelDescription')}>
+			<Panel title={t('wizard.url.style.panelTitle')} description={t('wizard.url.style.panelDescription')}>
 				<Field className="gap-2">
 					<FieldContent className="gap-0.5">
-						<FieldTitle id="profiles-settings-backdrop-mode-label">{t('wizard.url.backdrop.modeLabel')}</FieldTitle>
-						<FieldDescription>{t('wizard.url.backdrop.modeDescription')}</FieldDescription>
+						<FieldTitle id="profiles-settings-style-label">{t('wizard.url.style.modeLabel')}</FieldTitle>
+						<FieldDescription>{t('wizard.url.style.modeDescription')}</FieldDescription>
 					</FieldContent>
-					<div className="rounded-lg border border-border bg-muted/20 p-1" data-testid="profiles-settings-backdrop-mode">
-						<ToggleGroup
-							variant="outline"
-							value={[backdropRenderMode]}
-							onValueChange={value => {
-								if (value[0]) void setBackdropRenderMode(value[0] as BackdropRenderMode)
-							}}
-							spacing={1}
-							className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-2"
-							aria-labelledby="profiles-settings-backdrop-mode-label"
-						>
-							{BACKDROP_RENDER_OPTIONS.map(option => (
-								<OptionCard key={option.value} value={option.value} title={t(option.labelKey)} description={t(option.descriptionKey)} className="w-full" data-testid={`profiles-settings-backdrop-mode-${option.value}`} />
-							))}
-						</ToggleGroup>
-					</div>
-					{showBackdropRuntimeFallback ? (
-						<Alert size="sm" data-testid="profiles-settings-backdrop-mode-fallback">
+					<ToggleGroup
+						variant="outline"
+						value={[uiStyle]}
+						onValueChange={value => {
+							const next = uiStyleSchema.safeParse(value[0])
+							if (next.success) setUiStyle(next.data)
+						}}
+						spacing={1}
+						className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-2"
+						aria-labelledby="profiles-settings-style-label"
+						data-testid="profiles-settings-style"
+					>
+						{UI_STYLES.map(style => (
+							<OptionCard key={style} value={style} title={t(STYLES[style].labelKey)} description={t(STYLES[style].descriptionKey)} className="w-full" data-testid={`profiles-settings-style-${style}`} />
+						))}
+					</ToggleGroup>
+					{styleFallsBack ? (
+						<Alert size="sm" data-testid="profiles-settings-style-fallback">
 							<AlertTriangle className="size-4" aria-hidden />
-							<AlertDescription>{t('wizard.url.backdrop.runtimeFallbackNotice')}</AlertDescription>
+							<AlertDescription>{t('wizard.url.style.unavailableNotice', {style: t(STYLES[uiStyle].labelKey), fallback: t(STYLES[BASE_STYLE].labelKey)})}</AlertDescription>
 						</Alert>
 					) : null}
 				</Field>

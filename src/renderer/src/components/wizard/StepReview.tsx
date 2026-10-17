@@ -23,6 +23,7 @@ import {SubtitleFields} from './SubtitleFields.js'
 import {SponsorBlockFields} from './StepSponsorBlock.js'
 import {OutputFields} from './StepOutput.js'
 import {FolderFields} from './StepFolderConfirm.js'
+import {Hint} from '../shared/Hint.js'
 
 const AREA_LABEL_KEYS = {format: 'wizard.review.areas.format', subtitles: 'wizard.review.areas.subtitles', sponsorBlock: 'wizard.review.areas.sponsorBlock', extras: 'wizard.review.areas.extras', saveTo: 'wizard.review.areas.saveTo', fileName: 'wizard.review.areas.fileName'} as const satisfies Record<
 	ChangedArea,
@@ -62,9 +63,9 @@ function ReviewRowItem({row, value, open, onToggle, children}: ReviewRowItemProp
 		<div className={cn('border-t border-border first:border-t-0', open && 'bg-primary/5')} data-testid={`review-row-${row}`}>
 			<Button type="button" variant="ghost" className="h-auto w-full justify-start gap-3 rounded-none px-4 py-3 text-start" aria-expanded={open} aria-controls={panelId} onClick={onToggle} data-testid={`review-row-${row}-toggle`}>
 				<span className="w-28 shrink-0 text-sm font-semibold text-foreground">{t(ROW_LABEL_KEYS[row])}</span>
-				<span className="min-w-0 flex-1 truncate text-sm font-normal text-muted-foreground" title={value}>
-					{value}
-				</span>
+				<Hint label={value} reveal>
+					<span className="min-w-0 flex-1 truncate text-sm font-normal text-muted-foreground">{value}</span>
+				</Hint>
 				<Chevron className="shrink-0 text-subtle-foreground" aria-hidden />
 			</Button>
 			{open ? (
@@ -152,7 +153,12 @@ export function StepReview(): ReactNode {
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
 			<Card className="flex-row items-center gap-3 px-3.5 py-2.5" data-testid="review-format-strip">
-				{state.wizardThumbnail ? <img src={state.wizardThumbnail} alt="" aria-hidden className="h-9 w-16 shrink-0 rounded-md object-cover" /> : null}
+				{/* Wrapped: Card styles a first-child <img> as a cover image. */}
+				{state.wizardThumbnail ? (
+					<div className="h-9 w-16 shrink-0 overflow-hidden rounded-md">
+						<img src={state.wizardThumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="size-full object-cover" />
+					</div>
+				) : null}
 				<div className="min-w-0 flex-1">
 					<p className="truncate text-sm font-semibold text-foreground">{state.wizardTitle}</p>
 					<p className="truncate text-caption text-subtle-foreground">{formatLine}</p>

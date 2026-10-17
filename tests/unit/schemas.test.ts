@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {queueArraySchema} from '@shared/queueItemSchema.js'
-import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
+import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}
@@ -279,13 +279,13 @@ describe('updateSettingsSchema — common.filenameTemplate', () => {
 	})
 })
 
-describe('updateSettingsSchema — common.backdropRenderMode', () => {
-	it.each(['gpu', 'css-only'])('accepts backdropRenderMode=%s', value => {
-		expect(updateSettingsSchema.safeParse({common: {backdropRenderMode: value}}).success).toBe(true)
+describe('updateSettingsSchema — common.uiStyle', () => {
+	it.each(UI_STYLES)('accepts uiStyle=%s', value => {
+		expect(updateSettingsSchema.safeParse({common: {uiStyle: value}}).success).toBe(true)
 	})
 
-	it('rejects the removed Canvas2D fallback mode', () => {
-		expect(updateSettingsSchema.safeParse({common: {backdropRenderMode: 'fallback'}}).success).toBe(false)
+	it('rejects an unknown style', () => {
+		expect(updateSettingsSchema.safeParse({common: {uiStyle: 'neon'}}).success).toBe(false)
 	})
 })
 

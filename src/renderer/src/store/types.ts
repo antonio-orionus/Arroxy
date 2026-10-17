@@ -2,7 +2,6 @@ import type {StoreApi} from 'zustand'
 import type {
 	AppSettings,
 	AudioBitrate,
-	BackdropRenderMode,
 	BulkMetadataCancelReason,
 	BulkMetadataItemStatus,
 	BulkMetadataStatus,
@@ -42,6 +41,7 @@ import type {
 	SponsorBlockMode,
 	SponsorBlockCategory,
 	SupportedLang,
+	UiStyle,
 	UiTheme,
 	WizardMode,
 	WizardStepName
@@ -406,6 +406,10 @@ export type ExploreAddressHint = {kind: 'offsite'; downloadUrl: string} | {kind:
 export interface UiSlice {
 	uiZoom: number
 	uiTheme: UiTheme
+	uiStyle: UiStyle
+	// The hardware backdrop failed at runtime (context lost, shader rejected), so
+	// a style that needs it renders as the base style until restart.
+	backdropFailed: boolean
 	aboutDialogOpen: boolean
 	exploreAddressHint: ExploreAddressHint | null
 	// The Explore browser is on screen (its tab is active, past the first-run notice).
@@ -413,6 +417,8 @@ export interface UiSlice {
 
 	setUiZoom: (zoom: number) => void
 	setUiTheme: (theme: UiTheme) => void
+	setUiStyle: (style: UiStyle) => void
+	setBackdropFailed: (failed: boolean) => void
 	setAboutDialogOpen: (open: boolean) => void
 	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 	setExploreBrowsing: (browsing: boolean) => void
@@ -459,7 +465,6 @@ export interface SystemSlice {
 	setExploreAdBlock: (enabled: boolean) => Promise<void>
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
-	setBackdropRenderMode: (value: BackdropRenderMode) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
 	setFilenameTemplate: (template: string) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
@@ -475,7 +480,8 @@ export interface SystemSlice {
 	setHotkeyAccelerator: (accelerator: HotkeyAccelerator) => Promise<void>
 	setCloseBehavior: (value: 'tray' | 'quit') => Promise<void>
 	setAnalyticsEnabled: (enabled: boolean) => Promise<void>
-	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<void>
+	// False when the save failed (the active profile is then rolled back).
+	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<boolean>
 	saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<void>
 	removeDownloadProfile: (id: string) => Promise<void>
 	setDownloadProfileEnabled: (id: string, enabled: boolean) => Promise<void>

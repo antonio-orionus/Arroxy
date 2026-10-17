@@ -268,16 +268,14 @@
 				"extensionChrome": "Uzyskaj cookies.txt LOKALNIE (Chrome)"
 			},
 			"proxy": {"label": "Adres URL proxy", "description": "Kieruj ruch przez serwer proxy — przydatne dla treści z ograniczeniami regionalnymi.", "placeholder": "http://host:port", "clear": "Wyczyść"},
-			"backdrop": {
-				"panelTitle": "Wygląd i wydajność",
-				"panelDescription": "Wybierz intensywność ruchu animowanego tła Arroxy.",
-				"modeLabel": "Jakość tła",
-				"modeDescription": "Przejdź od najbardziej animowanego wyglądu do najlepszej wydajności.",
-				"cssOnlyLabel": "Najlepsza wydajność",
-				"cssOnlyDescription": "Tylko CSS, bez renderowania na płótnie.",
-				"gpuLabel": "Najpiękniejszy wygląd",
-				"gpuDescription": "Animowane tło WebGL, gdy jest obsługiwane.",
-				"runtimeFallbackNotice": "Sprzętowy WebGL jest niedostępny na tym urządzeniu, więc Arroxy używa tła zoptymalizowanego pod kątem wydajności."
+			"style": {
+				"panelTitle": "Wygląd",
+				"panelDescription": "Jak wygląda Arroxy. Przełączaj między jasnym a ciemnym w stopce.",
+				"modeLabel": "Styl",
+				"modeDescription": "Oba style są dostępne w wersji jasnej i ciemnej.",
+				"aurora": {"label": "Aurora", "description": "Szklane panele na ruchomym niebie. Wymaga akceleracji grafiki."},
+				"minimal": {"label": "Minimalistyczny", "description": "Jednolite, spokojne powierzchnie. Działa płynnie na każdym komputerze."},
+				"unavailableNotice": "Styl {{style}} wymaga akceleracji grafiki, która jest teraz niedostępna, więc Arroxy pokazuje styl {{fallback}}."
 			},
 			"limitRate": {
 				"label": "Limit prędkości pobierania",
@@ -533,6 +531,8 @@
 				"setOverrideShort": "Ustaw zastąpienie",
 				"useGlobalDefault": "Użyj wartości globalnej",
 				"reset": "Zresetuj profil",
+				"resetHint": "Przywróć wbudowane ustawienia profilu",
+				"resetDisabledHint": "Ten profil już używa wbudowanych ustawień",
 				"save": "Zapisz profil"
 			},
 			"placeholder": {"folder": "Wybierz folder dla tego profilu"},
@@ -599,6 +599,7 @@
 			"format": "Format",
 			"outputTarget": "Miejsce docelowe",
 			"artifacts": "Artefakty",
+			"size": "Rozmiar",
 			"added": "Dodano",
 			"finished": "Ukończono",
 			"notAvailable": "—",
@@ -823,6 +824,7 @@
 			"useExplore": "Użyj logowania w Explore",
 			"notNow": "Nie teraz"
 		},
+		"linkMenu": {"downloadWith": "Pobierz z profilem", "copyLink": "Kopiuj link"},
 		"toolbar": {
 			"aria": "Elementy sterujące przeglądarki Explore",
 			"back": "Wstecz",

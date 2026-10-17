@@ -1,0 +1,78 @@
+/* Minimal: the base style and the style contract (DESIGN.md §8).
+   Every token declared here is a contract token: every other style must set
+   each of them, in both schemes, and nothing else. Solid fills, hairline
+   edges, no tint, sheen, glow or blur, and the one blue as a flat fill. */
+
+:root {
+	--background: hsl(225 16% 96%);
+	--foreground: hsl(228 28% 11%);
+	--card: hsl(0 0% 100%);
+	--card-foreground: hsl(228 28% 11%);
+	--popover: hsl(0 0% 100%);
+	--popover-foreground: hsl(228 28% 11%);
+	--secondary: hsl(225 16% 94%);
+	--secondary-foreground: hsl(228 28% 11%);
+	--muted: hsl(225 16% 94%);
+	--muted-foreground: hsl(226 12% 36%);
+	--accent: hsl(225 16% 92%);
+	--accent-foreground: hsl(228 28% 11%);
+	--border: hsl(225 14% 88%);
+	--border-strong: hsl(225 12% 79%);
+	--input: hsl(225 14% 86%);
+	--text-subtle: hsl(226 10% 39%);
+	--selected-foreground: hsl(224 92% 40%);
+	--line: hsl(225 12% 80%);
+	--surface-stage: hsl(0 0% 100%);
+	--surface-tile: hsl(225 16% 97%);
+	--surface-raised: hsl(0 0% 100%);
+	--surface-bar: linear-gradient(hsl(0 0% 100%), hsl(0 0% 100%));
+	--surface-filter: none;
+	--edge-soft: linear-gradient(hsl(225 14% 88%), hsl(225 14% 88%));
+	--edge: linear-gradient(hsl(225 14% 88%), hsl(225 14% 88%));
+	--edge-hot: linear-gradient(hsl(225 12% 79%), hsl(225 12% 79%));
+	--edge-selected: linear-gradient(hsl(225 14% 88%), hsl(225 14% 88%));
+	--tint-start: transparent;
+	--tint-end: transparent;
+	--sheen: transparent;
+	--glow: transparent;
+	--shade: transparent;
+	--primary-fill: linear-gradient(hsl(221 92% 45%), hsl(221 92% 45%));
+	--selected-fill: linear-gradient(transparent, transparent);
+}
+
+.dark {
+	--background: hsl(225 14% 7%);
+	--foreground: hsl(225 25% 94%);
+	--card: hsl(225 13% 10%);
+	--card-foreground: hsl(225 25% 94%);
+	--popover: hsl(225 12% 13%);
+	--popover-foreground: hsl(225 25% 94%);
+	--secondary: hsl(225 12% 13%);
+	--secondary-foreground: hsl(225 25% 94%);
+	--muted: hsl(225 12% 13%);
+	--muted-foreground: hsl(225 12% 70%);
+	--accent: hsl(225 12% 16%);
+	--accent-foreground: hsl(225 25% 94%);
+	--border: hsl(0 0% 100% / 0.08);
+	--border-strong: hsl(0 0% 100% / 0.15);
+	--input: hsl(0 0% 100% / 0.1);
+	--text-subtle: hsl(225 9% 64%);
+	--selected-foreground: hsl(214 100% 80%);
+	--line: hsl(0 0% 100% / 0.14);
+	--surface-stage: hsl(225 13% 10%);
+	--surface-tile: hsl(225 14% 7%);
+	--surface-raised: hsl(225 12% 13%);
+	--surface-bar: linear-gradient(hsl(225 13% 10%), hsl(225 13% 10%));
+	--surface-filter: none;
+	--edge-soft: linear-gradient(hsl(0 0% 100% / 0.08), hsl(0 0% 100% / 0.08));
+	--edge: linear-gradient(hsl(0 0% 100% / 0.08), hsl(0 0% 100% / 0.08));
+	--edge-hot: linear-gradient(hsl(0 0% 100% / 0.15), hsl(0 0% 100% / 0.15));
+	--edge-selected: linear-gradient(hsl(220 100% 56%), hsl(220 100% 56%));
+	--tint-start: transparent;
+	--tint-end: transparent;
+	--sheen: transparent;
+	--glow: transparent;
+	--shade: transparent;
+	--primary-fill: linear-gradient(hsl(221 92% 45%), hsl(221 92% 45%));
+	--selected-fill: linear-gradient(transparent, transparent);
+}

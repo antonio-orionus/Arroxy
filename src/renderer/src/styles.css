@@ -11,6 +11,10 @@
 @import '@fontsource/noto-sans-khmer/700.css';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+/* Styles (DESIGN.md §8): Minimal is the base and defines the contract; every
+   other style overrides exactly that contract, scoped to its own style id. */
+@import './styles/minimal.css';
+@import './styles/aurora.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -45,9 +49,6 @@
 	--brand: var(--primary);
 	--brand-dim: hsl(220 100% 56% / 0.12);
 	--brand-hover: hsl(220, 100%, 65%);
-	--icon-tile-ink: hsl(220 100% 94%);
-	--text-glass-muted: hsl(229 36% 78%);
-	/* --brand-glow and --glow-border are mode-aware; defined per sky in :root / .dark */
 	/* Queue status aliases over the semantic status tokens (`--success`,
 	   `--warning`, `--destructive`, defined per sky). */
 	--color-status-done: var(--success);
@@ -86,229 +87,6 @@ body {
 		min-height: 100vh;
 	}
 
-	/* ── Backdrop: dark aurora over the void / cool ocean field in light.
-		   Fixed, behind all content, never blurred — it is the canvas the glass floats on. */
-	body::before {
-		content: '';
-		position: fixed;
-		inset: 0;
-		z-index: 0;
-		pointer-events: none;
-		background: var(--backdrop);
-	}
-
-	/* Backdrop accent: dark uses the aurora ribbon; light uses cloud/horizon haze. */
-	body::after {
-		content: '';
-		position: fixed;
-		inset: 1rem 1.5rem auto auto;
-		width: min(80rem, 88vw);
-		height: 15rem;
-		z-index: 0;
-		pointer-events: none;
-		background: var(--backdrop-accent);
-		filter: blur(10px) saturate(135%);
-		mask-image: radial-gradient(120% 150% at 56% 128%, transparent 0 38%, black 56% 84%, transparent 96%);
-		-webkit-mask-image: radial-gradient(120% 150% at 56% 128%, transparent 0 38%, black 56% 84%, transparent 96%);
-		mix-blend-mode: screen;
-		opacity: var(--backdrop-accent-opacity);
-		transform: rotate(5deg) skewX(-12deg);
-		transform-origin: 70% 30%;
-	}
-	body.backdrop-webgl-active::before,
-	body.backdrop-webgl-active::after {
-		content: none;
-		animation: none;
-	}
-	body.backdrop-static-fallback::before,
-	body.backdrop-static-fallback::after {
-		animation: none;
-	}
-	body.backdrop-light-ocean::after {
-		inset: 0;
-		width: 100vw;
-		height: 100vh;
-		filter: blur(8px) saturate(118%);
-		mask-image: none;
-		-webkit-mask-image: none;
-		opacity: var(--backdrop-accent-opacity);
-		transform: none;
-		transform-origin: center;
-	}
-	@media (prefers-reduced-motion: no-preference) {
-		body:not(.backdrop-static-fallback).backdrop-light-ocean::after {
-			animation-name: backdrop-ocean-drift;
-		}
-	}
-
-	body.backdrop-static-fallback.backdrop-dark-aurora::before {
-		/* edge vignette over the reference aurora photo, then the photo itself */
-		background:
-			radial-gradient(132% 110% at 50% 34%, transparent 50%, hsl(238 80% 4% / 0.5) 100%),
-			url('./assets/backdrop/dark-aurora.webp') center center / cover no-repeat hsl(236 74% 4%);
-		filter: saturate(110%);
-		transform: scale(1.05);
-		transform-origin: 52% 42%;
-	}
-	body.backdrop-static-fallback.backdrop-dark-aurora::after {
-		inset: 0;
-		width: 100vw;
-		height: 100vh;
-		/* gentle depth only: brighten the aurora core, darken edges so glass panels read. No moving streak. */
-		background: radial-gradient(58% 46% at 56% 32%, hsl(214 100% 70% / 0.08), transparent 70%), radial-gradient(130% 110% at 50% 36%, transparent 46%, hsl(238 78% 4% / 0.55) 100%);
-		mask-image: none;
-		-webkit-mask-image: none;
-		mix-blend-mode: normal;
-		opacity: 1;
-		transform: none;
-		transform-origin: center;
-	}
-
-	body.backdrop-static-fallback.backdrop-light-ocean::before {
-		/* soft foreground/edge easing over the reference ocean photo, then the photo */
-		background:
-			radial-gradient(130% 120% at 56% 38%, transparent 60%, hsl(206 70% 40% / 0.16) 100%),
-			url('./assets/backdrop/light-ocean.webp') center center / cover no-repeat hsl(202 90% 86%);
-		filter: saturate(104%);
-		transform: scale(1.04);
-		transform-origin: 56% 44%;
-	}
-	body.backdrop-static-fallback.backdrop-light-ocean::after {
-		inset: 0;
-		width: 100vw;
-		height: 100vh;
-		/* thin warm sun gloss that glides across the water (background-position animated) */
-		background: linear-gradient(106deg, transparent 48%, hsl(48 100% 96% / 0.3) 49.6%, hsl(0 0% 100% / 0.46) 50%, hsl(48 100% 96% / 0.3) 50.4%, transparent 52%);
-		background-size: 300% 100%;
-		background-repeat: no-repeat;
-		background-position: -50% 0;
-		mask-image: none;
-		-webkit-mask-image: none;
-		mix-blend-mode: screen;
-		opacity: 0.85;
-		transform: none;
-		transform-origin: center;
-	}
-
-	/* ── Living fallback: cheap compositor drift while WebGL is unavailable.
-		   Compositor-only transforms (+ a small hue shimmer on the bloom layer). Frozen
-		   under reduced-motion — the static look above is the default, motion enhances it. */
-	@media (prefers-reduced-motion: no-preference) {
-		body:not(.backdrop-static-fallback)::before {
-			will-change: transform, filter;
-			transform-origin: 68% 0%;
-			animation: backdrop-bloom 34s ease-in-out infinite;
-		}
-		body:not(.backdrop-static-fallback)::after {
-			will-change: transform, opacity;
-			animation: backdrop-accent-drift 23s ease-in-out infinite;
-		}
-		body.backdrop-static-fallback.backdrop-dark-aurora::before {
-			will-change: transform, filter;
-			animation: backdrop-css-aurora-field 54s ease-in-out infinite;
-		}
-		body.backdrop-static-fallback.backdrop-dark-aurora::after {
-			will-change: opacity, filter;
-			animation: backdrop-css-aurora-horizon 40s ease-in-out infinite;
-		}
-		body.backdrop-static-fallback.backdrop-light-ocean::before {
-			will-change: transform, filter;
-			animation: backdrop-css-ocean-field 52s ease-in-out infinite;
-		}
-		body.backdrop-static-fallback.backdrop-light-ocean::after {
-			will-change: background-position, opacity;
-			animation: backdrop-css-ocean-ripples 19s linear infinite;
-		}
-	}
-	@keyframes backdrop-bloom {
-		0%,
-		100% {
-			transform: scale(1) translate3d(0, 0, 0);
-			filter: hue-rotate(0deg);
-		}
-		33% {
-			transform: scale(1.07) translate3d(-1.6%, 0.8%, 0);
-			filter: hue-rotate(-10deg);
-		}
-		66% {
-			transform: scale(1.04) translate3d(1.4%, 1.4%, 0);
-			filter: hue-rotate(8deg);
-		}
-	}
-	@keyframes backdrop-accent-drift {
-		0%,
-		100% {
-			transform: rotate(5deg) skewX(-12deg) translate3d(0, 0, 0) scaleX(1);
-			opacity: var(--backdrop-accent-opacity);
-		}
-		50% {
-			transform: rotate(8.5deg) skewX(-17deg) translate3d(-5%, 1.5%, 0) scaleX(1.08);
-			opacity: calc(var(--backdrop-accent-opacity) * 0.66);
-		}
-	}
-	@keyframes backdrop-ocean-drift {
-		0%,
-		100% {
-			transform: translate3d(0, 0, 0);
-			opacity: var(--backdrop-accent-opacity);
-		}
-		50% {
-			transform: translate3d(-1.5%, 0.5%, 0) scale(1.015);
-			opacity: calc(var(--backdrop-accent-opacity) * 0.82);
-		}
-	}
-	/* Ken Burns: slow drift + breathe across the reference photo, relaxed and smooth. */
-	@keyframes backdrop-css-aurora-field {
-		0%,
-		100% {
-			transform: scale(1.05) translate3d(0, 0, 0);
-			filter: saturate(1.08) brightness(1);
-		}
-		50% {
-			transform: scale(1.12) translate3d(-1.8%, 0.9%, 0);
-			filter: saturate(1.2) brightness(1.07);
-		}
-	}
-	/* Aurora breathe: the whole curtain glow softly swells and settles. No moving band. */
-	@keyframes backdrop-css-aurora-horizon {
-		0%,
-		100% {
-			opacity: 1;
-			filter: saturate(1) brightness(1);
-		}
-		50% {
-			opacity: 0.92;
-			filter: saturate(1.08) brightness(1.06);
-		}
-	}
-	@keyframes backdrop-css-ocean-field {
-		0%,
-		100% {
-			transform: scale(1.04) translate3d(0, 0, 0);
-			filter: saturate(1.04);
-		}
-		50% {
-			transform: scale(1.11) translate3d(-1.4%, 0.7%, 0);
-			filter: saturate(1.12);
-		}
-	}
-	@keyframes backdrop-css-ocean-ripples {
-		0% {
-			background-position: -50% 0;
-			opacity: 0;
-		}
-		20% {
-			opacity: 0.9;
-		}
-		80% {
-			opacity: 0.9;
-		}
-		100% {
-			background-position: 150% 0;
-			opacity: 0;
-		}
-	}
-
 	::-webkit-scrollbar {
 		width: 4px;
 	}
@@ -330,49 +108,43 @@ body {
 	}
 }
 
-/* ── Glass surface: frosted panel material that floats above the canvas.
-   Dark sky = translucent navy; light sky = frosted white. Two layers max. */
+/* ── Glass surface: the stage material that floats above the canvas. Its
+   blur is applied further down, only while a hardware backdrop is running. */
 @utility glass {
-	background: var(--glass-panel) !important;
-	backdrop-filter: blur(var(--glass-blur)) saturate(160%);
-	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+	background: var(--surface-stage) !important;
 }
 
 /* ── Glow panel: lit-from-within glass for OUTERMOST / standalone surfaces.
-   The edge is a true GRADIENT border (cyan→blue→violet) painted via border-box,
-   not a uniform ring — that is what reads as neon edge-lighting. Plus a diagonal
-   inner sheen (padding-box), a top highlight, an inset floor bloom, and a soft
-   outer bloom. Owns the backdrop blur. The Aurora Console surface. */
+   The edge is a true GRADIENT border painted via border-box, plus tints, an
+   inner sheen, a top highlight and a soft outer bloom. Every layer reads
+   style tokens, so a style without tints or glow gets a plain solid panel. */
 @utility glow-panel {
 	position: relative;
 	border: 1px solid transparent;
 	background:
-		linear-gradient(180deg, var(--glass-surface-veil), var(--glass-surface-veil)) padding-box,
-		radial-gradient(90% 120% at 4% 10%, var(--glass-cyan), transparent 48%) padding-box,
-		radial-gradient(100% 120% at 104% 112%, var(--glass-violet), transparent 52%) padding-box,
-		linear-gradient(145deg, hsl(212 100% 56% / 0.18), transparent 58%) padding-box,
-		linear-gradient(var(--glass-panel), var(--glass-panel)) padding-box,
-		var(--glow-gradient) border-box !important;
-	backdrop-filter: blur(var(--glass-blur)) saturate(165%);
-	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(165%);
+		linear-gradient(180deg, var(--glass-veil), var(--glass-veil)) padding-box,
+		radial-gradient(90% 120% at 4% 10%, var(--glass-tint-start), transparent 48%) padding-box,
+		radial-gradient(100% 120% at 104% 112%, var(--glass-tint-end), transparent 52%) padding-box,
+		linear-gradient(145deg, color-mix(in srgb, var(--glow) 18%, transparent), transparent 58%) padding-box,
+		linear-gradient(var(--surface-stage), var(--surface-stage)) padding-box,
+		var(--edge) border-box !important;
 	box-shadow:
 		inset 0 1px 0 0 var(--glass-sheen),
 		inset 0 -34px 74px -36px var(--inner-bloom),
 		var(--panel-glow);
 }
-/* ── Glow tile: same lit gradient edge, but NO backdrop blur. For tiles that
-   live INSIDE a glow-panel — the parent already blurred the canvas; re-blurring
-   blurred content only muddies it. Keeps the stack at one blur layer. */
+/* ── Glow tile: the same lit edge, never its own blur. For tiles that live
+   INSIDE a glow-panel: one blur layer per stack. */
 @utility glow-tile {
 	position: relative;
 	border: 1px solid transparent;
 	background:
 		linear-gradient(180deg, var(--glass-control-veil), var(--glass-control-veil)) padding-box,
-		radial-gradient(120% 150% at 0% 0%, var(--glass-cyan), transparent 44%) padding-box,
-		radial-gradient(120% 150% at 100% 110%, var(--glass-violet), transparent 48%) padding-box,
-		linear-gradient(145deg, hsl(212 100% 56% / 0.17), transparent 58%) padding-box,
-		linear-gradient(var(--glass-tile), var(--glass-tile)) padding-box,
-		var(--glow-gradient) border-box !important;
+		radial-gradient(120% 150% at 0% 0%, var(--glass-tint-start), transparent 44%) padding-box,
+		radial-gradient(120% 150% at 100% 110%, var(--glass-tint-end), transparent 48%) padding-box,
+		linear-gradient(145deg, color-mix(in srgb, var(--glow) 17%, transparent), transparent 58%) padding-box,
+		linear-gradient(var(--surface-tile), var(--surface-tile)) padding-box,
+		var(--edge) border-box !important;
 	box-shadow:
 		inset 0 1px 0 0 var(--glass-sheen),
 		inset 0 -28px 60px -34px var(--inner-bloom),
@@ -382,29 +154,30 @@ body {
 	&[data-slot='input-group'] {
 		background:
 			linear-gradient(180deg, var(--field-glow-veil), var(--field-glow-veil)) padding-box,
-			radial-gradient(120% 150% at 0% 0%, var(--field-glow-cyan), transparent 44%) padding-box,
-			radial-gradient(120% 150% at 100% 110%, var(--field-glow-violet), transparent 48%) padding-box,
+			radial-gradient(120% 150% at 0% 0%, var(--field-glow-tint-start), transparent 44%) padding-box,
+			radial-gradient(120% 150% at 100% 110%, var(--field-glow-tint-end), transparent 48%) padding-box,
 			linear-gradient(var(--field-glow-bg), var(--field-glow-bg)) padding-box,
-			var(--glow-gradient) border-box !important;
+			var(--edge) border-box !important;
 		box-shadow: var(--field-glow-shadow);
 	}
 }
 
-/* ── Icon tile: small dimensional gradient chip. A diagonal blue fill, a cyan
-   top-left radial sheen, a violet floor, a top highlight, and a soft glow ring.
-   Reads as a lit object, not a flat box. */
+/* ── Icon tile: a small chip on the brand tint. Aurora lights it (tinted
+   radials, a top highlight, a soft glow ring); without tints it stays a flat
+   brand-tinted square. */
 @utility icon-tile {
 	position: relative;
 	overflow: hidden;
 	border: 1px solid var(--glow-border);
 	background:
-		radial-gradient(105% 105% at 28% 18%, hsl(194 100% 78% / 0.46), transparent 44%) padding-box,
-		radial-gradient(110% 125% at 72% 108%, hsl(276 94% 64% / 0.42), transparent 48%) padding-box,
-		linear-gradient(145deg, hsl(214 100% 58% / 0.42), hsl(238 82% 42% / 0.18) 52%, var(--brand-dim)) padding-box !important;
+		radial-gradient(105% 105% at 28% 18%, color-mix(in srgb, var(--tint-start) 46%, transparent), transparent 44%) padding-box,
+		radial-gradient(110% 125% at 72% 108%, color-mix(in srgb, var(--tint-end) 42%, transparent), transparent 48%) padding-box,
+		linear-gradient(145deg, color-mix(in srgb, var(--glow) 42%, transparent), color-mix(in srgb, var(--tint-end) 14%, transparent) 52%, transparent) padding-box,
+		linear-gradient(var(--brand-dim), var(--brand-dim)) padding-box !important;
 	box-shadow:
-		inset 0 1px 0 0 hsl(0 0% 100% / 0.42),
-		inset 0 -13px 28px -14px hsl(272 96% 64% / 0.62),
-		0 0 0 1px hsl(208 100% 74% / 0.18),
+		inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 42%, transparent),
+		inset 0 -13px 28px -14px color-mix(in srgb, var(--tint-end) 62%, transparent),
+		0 0 0 1px color-mix(in srgb, var(--tint-start) 18%, transparent),
 		0 0 28px -5px var(--brand-glow);
 	color: var(--icon-tile-ink);
 }
@@ -414,21 +187,23 @@ body {
 	inset: 1px;
 	border-radius: inherit;
 	pointer-events: none;
-	background: linear-gradient(160deg, hsl(0 0% 100% / 0.28), transparent 38%);
+	background: linear-gradient(160deg, color-mix(in srgb, var(--sheen) 28%, transparent), transparent 38%);
 }
 .icon-tile > svg {
 	position: relative;
 	z-index: 1;
-	filter: drop-shadow(0 0 8px hsl(213 100% 76% / 0.72));
+	filter: drop-shadow(0 0 8px color-mix(in srgb, var(--tint-start) 72%, transparent));
 	stroke-width: 2.2;
 }
 
 .quick-icon-tile {
 	color: var(--quick-icon-ink);
+	border-color: var(--quick-icon-border);
 	background:
-		radial-gradient(105% 105% at 26% 18%, var(--quick-icon-cyan), transparent 44%) padding-box,
-		radial-gradient(110% 125% at 72% 108%, var(--quick-icon-violet), transparent 48%) padding-box,
-		var(--quick-icon-fill) padding-box !important;
+		radial-gradient(105% 105% at 26% 18%, var(--quick-icon-tint-start), transparent 44%) padding-box,
+		radial-gradient(110% 125% at 72% 108%, var(--quick-icon-tint-end), transparent 48%) padding-box,
+		var(--quick-icon-fill) padding-box,
+		linear-gradient(var(--quick-icon-plate), var(--quick-icon-plate)) padding-box !important;
 	box-shadow: var(--quick-icon-shadow);
 }
 
@@ -442,10 +217,10 @@ body {
 	border: 1px solid transparent;
 	background:
 		linear-gradient(180deg, var(--quick-cluster-veil), var(--quick-cluster-veil)) padding-box,
-		radial-gradient(95% 130% at 4% 4%, var(--quick-card-cyan), transparent 42%) padding-box,
-		radial-gradient(95% 130% at 96% 104%, var(--quick-card-violet), transparent 50%) padding-box,
-		linear-gradient(var(--quick-cluster-fill), var(--quick-cluster-fill)) padding-box,
-		var(--glow-gradient-hot) border-box;
+		radial-gradient(95% 130% at 4% 4%, var(--quick-card-tint-start), transparent 42%) padding-box,
+		radial-gradient(95% 130% at 96% 104%, var(--quick-card-tint-end), transparent 50%) padding-box,
+		linear-gradient(var(--surface-tile), var(--surface-tile)) padding-box,
+		var(--edge-hot) border-box;
 	box-shadow: var(--quick-cluster-shadow);
 	color: var(--quick-card-ink);
 }
@@ -461,7 +236,7 @@ body {
 .quick-profile-action {
 	border: 0;
 	border-radius: calc(1.25rem - 1px);
-	background: radial-gradient(120% 140% at 0% 0%, var(--quick-card-cyan), transparent 48%), radial-gradient(105% 130% at 100% 100%, var(--quick-card-violet), transparent 54%), var(--quick-card-fill);
+	background: radial-gradient(120% 140% at 0% 0%, var(--quick-card-tint-start), transparent 48%), radial-gradient(105% 130% at 100% 100%, var(--quick-card-tint-end), transparent 54%), var(--primary-fill);
 	color: var(--quick-card-ink);
 	box-shadow: var(--quick-action-shadow);
 }
@@ -469,7 +244,7 @@ body {
 	position: relative;
 	border: 0 !important;
 	color: var(--quick-selector-ink);
-	background: linear-gradient(180deg, var(--quick-selector-veil), transparent 82%), linear-gradient(var(--quick-selector-fill), var(--quick-selector-fill)) !important;
+	background: linear-gradient(180deg, var(--quick-selector-veil), transparent 82%), linear-gradient(var(--surface-raised), var(--surface-raised)) !important;
 	box-shadow: var(--quick-selector-shadow);
 }
 .quick-profile-selector::before {
@@ -502,7 +277,7 @@ body {
 }
 .quick-profile-destination {
 	border: 1px solid var(--quick-chevron-border);
-	background: color-mix(in oklab, var(--quick-selector-fill) 70%, transparent);
+	background: color-mix(in oklab, var(--surface-raised) 70%, transparent);
 }
 .quick-profile-action:focus-visible,
 .quick-profile-selector:focus-visible,
@@ -520,19 +295,13 @@ body {
 	color: var(--quick-chevron-ink);
 }
 
-.glass-muted-text {
-	color: var(--text-glass-muted);
-}
-
 .footer-action-button:hover {
 	background: var(--brand-dim);
 	color: var(--foreground);
 }
 
 .chrome-glass {
-	background: linear-gradient(180deg, hsl(214 100% 56% / 0.08), transparent 64%), color-mix(in srgb, var(--background) 82%, transparent);
-	backdrop-filter: blur(20px) saturate(150%);
-	-webkit-backdrop-filter: blur(20px) saturate(150%);
+	background: linear-gradient(180deg, color-mix(in srgb, var(--glow) 8%, transparent), transparent 64%), color-mix(in srgb, var(--background) 82%, transparent);
 	box-shadow: inset 0 1px 0 var(--glass-sheen);
 }
 
@@ -547,8 +316,6 @@ body {
 	background:
 		var(--tabs-rail-bg) padding-box,
 		var(--tabs-rail-border) border-box !important;
-	backdrop-filter: blur(22px) saturate(145%);
-	-webkit-backdrop-filter: blur(22px) saturate(145%);
 	box-shadow: var(--tabs-rail-shadow);
 }
 .download-home-tabs::before {
@@ -569,7 +336,7 @@ body {
 	padding-inline: 0.75rem;
 	height: 3.45rem !important;
 	gap: 0.7rem;
-	color: var(--text-glass-muted);
+	color: var(--muted-foreground);
 	font-weight: 500;
 	transition:
 		color 180ms ease,
@@ -729,8 +496,6 @@ body {
 	background:
 		var(--wizard-footer-fill) padding-box,
 		var(--wizard-footer-edge) border-box !important;
-	backdrop-filter: blur(22px) saturate(145%);
-	-webkit-backdrop-filter: blur(22px) saturate(145%);
 	box-shadow: var(--wizard-footer-shadow);
 }
 
@@ -791,7 +556,7 @@ body {
 			var(--wizard-choice-selected-fill) padding-box,
 			linear-gradient(var(--brand-dim), var(--brand-dim)) padding-box,
 			var(--wizard-choice-fill) padding-box,
-			var(--glow-gradient) border-box !important;
+			var(--edge-selected) border-box !important;
 		/* !important: a pressed toggle's own inset-ring is also a box-shadow and
 		   would otherwise replace this, leaving option cards without the ring. */
 		box-shadow: var(--wizard-choice-selected-shadow) !important;
@@ -1167,270 +932,180 @@ body {
 	--radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ── Per-scheme tokens. Two kinds live here, never style contract tokens:
+   identity (the same in every style: brand blue, status hues, radius) and
+   recipes derived from the contract once, so no style ever sets a component
+   token. `m(x, n)` below is spelled `color-mix(in srgb, var(--x) n%, transparent)`:
+   a style that sets a contract colour to transparent erases every recipe built on it. */
 :root {
 	color-scheme: light;
-	--background: hsl(216, 78%, 98%);
-	--foreground: hsl(226, 48%, 11%);
-	--card: hsl(208, 100%, 98%);
-	--card-foreground: hsl(226, 48%, 11%);
-	--popover: hsl(0, 0%, 100%);
-	--popover-foreground: hsl(226, 48%, 11%);
 	--primary: hsl(220, 100%, 56%);
 	--primary-foreground: hsl(240, 40%, 96%);
-	--secondary: hsl(220, 30%, 97%);
-	--secondary-foreground: hsl(226, 48%, 11%);
-	--muted: hsl(220, 30%, 97%);
-	--muted-foreground: hsl(225, 22%, 35%);
-	--accent: hsl(220, 20%, 92%);
-	--accent-foreground: hsl(226, 48%, 11%);
 	--destructive: hsl(349, 100%, 55%);
-	/* Status hues darkened in the light sky so text and icons clear 4.5:1 on the field. */
+	/* Status hues darkened in the light scheme so text and icons clear 4.5:1. */
 	--success: hsl(155, 80%, 29%);
 	--warning: hsl(32, 95%, 36%);
 	--info: var(--primary);
-	--border: hsl(220, 18%, 88%);
-	--border-strong: hsl(220, 18%, 80%);
-	--input: hsl(220, 18%, 88%);
-	/* Off switch track. A solid slate, so off reads as a choice (thumb and
-	   track ≥3:1 against the sky) and stays distinct from disabled. */
+	/* Off switch track: a solid slate, so off reads as a choice and stays distinct from disabled. */
 	--switch-off: hsl(222, 20%, 64%);
 	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(225, 22%, 38%);
-	/* Text on a selected option. Brand-tinted but stronger than plain text, so
-	   the chosen option never reads as the muted one (the brand blue itself
-	   is ~3:1 on either sky). */
-	--selected-foreground: hsl(224, 92%, 40%);
-	--text-glass-muted: hsl(225 30% 34%);
-	--icon-tile-ink: hsl(220 100% 48%);
-	--field-bg: hsl(205 100% 99% / 0.78);
-	--field-border: hsl(206 82% 62% / 0.52);
-	--field-disabled-bg: hsl(205 58% 92% / 0.62);
-	--field-disabled-border: hsl(206 42% 72% / 0.5);
-	--field-placeholder: hsl(224 18% 42%);
-	--field-addon: hsl(224 26% 34%);
-	--field-highlight: hsl(0 0% 100% / 0.9);
-	/* The URL field is the page's one input: a near-white well that stands off
-	   the pastel stage, not another tint of it. */
-	--field-glow-bg: hsl(0 0% 100% / 0.96);
-	--field-glow-veil: transparent;
-	--field-glow-cyan: transparent;
-	--field-glow-violet: transparent;
-	--field-glow-shadow: inset 0 1px 2px 0 hsl(220 60% 40% / 0.12), 0 0 0 1px hsl(214 80% 60% / 0.45), 0 6px 20px -12px hsl(218 90% 45% / 0.45);
-	/* Light sky — cool ocean field: frosted-white glass, lit blue edges, cloud + water wash */
-	--glass: hsl(205 100% 98% / 0.72);
-	--glass-panel: hsl(205 100% 98% / 0.42);
-	/* Frosted, not opaque: the aurora's shapes should still read through a stage. */
-	--glass-blur: 14px;
-	--glass-tile: hsl(205 100% 97% / 0.64);
-	--glass-surface-veil: hsl(202 100% 93% / 0.18);
-	--glass-control-veil: hsl(202 100% 92% / 0.16);
-	--glass-cyan: hsl(198 100% 62% / 0.26);
-	--glass-violet: hsl(266 88% 66% / 0.18);
-	--glass-sheen: hsl(0 0% 100% / 0.9);
-	--glow-border: hsl(210 100% 55% / 0.44);
-	/* Lighter edge gradient over the field — same hue arc, lower alpha */
-	--glow-gradient: linear-gradient(135deg, hsl(198 100% 58% / 0.68), hsl(220 100% 56% / 0.26) 48%, hsl(266 85% 62% / 0.54));
-	--glow-gradient-hot: linear-gradient(120deg, hsl(198 100% 56% / 0.86), hsl(220 100% 56% / 0.52) 50%, hsl(268 88% 60% / 0.72));
-	--inner-bloom: hsl(214 100% 64% / 0.24);
-	--brand-glow: hsl(214 100% 56% / 0.32);
-	--splash-progress-track: hsl(220 18% 58% / 0.24);
-	--panel-glow: 0 0 34px -13px hsl(210 100% 56% / 0.34), 0 10px 30px -18px hsl(225 60% 26% / 0.28);
-	--backdrop-accent:
-		radial-gradient(30% 18% at 20% 23%, hsl(0 0% 100% / 0.72), transparent 72%), radial-gradient(42% 20% at 78% 21%, hsl(206 100% 96% / 0.78), transparent 74%), radial-gradient(38% 22% at 55% 35%, hsl(198 100% 92% / 0.44), transparent 70%),
-		linear-gradient(180deg, transparent 0 47%, hsl(190 100% 82% / 0.44) 51%, hsl(199 100% 70% / 0.24) 68%, transparent 100%);
-	--backdrop-accent-opacity: 0.94;
-	--quick-card-ink: hsl(240 40% 96%);
-	--quick-card-muted: hsl(226 52% 88%);
-	--quick-card-focus: hsl(214 100% 45% / 0.42);
-	--quick-card-cyan: hsl(190 100% 70% / 0.34);
-	--quick-card-violet: hsl(287 98% 66% / 0.48);
-	--quick-card-fill: linear-gradient(135deg, hsl(202 100% 49%), hsl(226 100% 41%) 55%, hsl(282 92% 47%));
-	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, hsl(190 100% 76% / 0.16), transparent 52%), radial-gradient(110% 120% at 100% 120%, hsl(288 96% 62% / 0.2), transparent 50%);
-	--quick-card-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 0 0 1px hsl(0 0% 100% / 0.08), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.48), 0 0 0 1px hsl(205 100% 80% / 0.18), 0 0 48px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.35);
-	--quick-cluster-fill: hsl(208 100% 97% / 0.72);
-	--quick-cluster-veil: hsl(0 0% 100% / 0.38);
-	--quick-cluster-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.72), inset 0 0 0 1px hsl(205 100% 64% / 0.12), 0 0 40px -20px hsl(212 100% 52% / 0.34), 0 16px 38px -28px hsl(225 62% 34% / 0.28);
-	--quick-action-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.36), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.54), 0 0 44px -17px hsl(210 100% 54% / 0.5);
-	--quick-selector-fill: hsl(212 100% 98% / 0.78);
-	--quick-selector-veil: hsl(216 100% 94% / 0.36);
-	--quick-selector-sheen: linear-gradient(145deg, hsl(198 100% 78% / 0.24), transparent 38%), radial-gradient(120% 90% at 88% 100%, hsl(282 96% 62% / 0.14), transparent 62%);
-	--quick-selector-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.86), inset 0 0 0 1px hsl(207 100% 58% / 0.22), inset 0 -28px 58px -42px hsl(274 96% 58% / 0.26);
-	--quick-selector-ink: hsl(226 48% 13%);
-	--quick-selector-kicker: hsl(220 92% 36%);
-	--quick-selector-muted: hsl(226 24% 38%);
-	--quick-focus-glow: 0 0 30px -10px hsl(212 100% 54% / 0.48);
-	--quick-chevron-border: hsl(210 100% 56% / 0.24);
-	--quick-chevron-fill: linear-gradient(180deg, hsl(214 100% 98% / 0.9), hsl(222 100% 95% / 0.72));
-	--quick-chevron-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.82), 0 0 18px -12px hsl(218 100% 56% / 0.42);
-	--quick-chevron-ink: hsl(226 40% 26%);
-	--quick-icon-ink: hsl(240 40% 96%);
-	--quick-icon-cyan: hsl(199 100% 82% / 0.34);
-	--quick-icon-violet: hsl(302 94% 68% / 0.44);
-	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.62), hsl(239 90% 44% / 0.36) 52%, hsl(278 100% 52% / 0.34));
-	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.4), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.5), 0 0 0 1px hsl(205 100% 82% / 0.22), 0 0 28px -8px hsl(207 100% 66% / 0.5);
-	--wizard-divider: linear-gradient(90deg, transparent, hsl(202 100% 58% / 0.32) 18%, hsl(220 100% 56% / 0.24) 52%, hsl(268 96% 64% / 0.28) 82%, transparent);
-	--wizard-footer-fill: linear-gradient(180deg, hsl(205 100% 98% / 0.86), hsl(214 100% 96% / 0.72));
-	--wizard-footer-edge: linear-gradient(90deg, hsl(198 100% 58% / 0.48), hsl(220 100% 56% / 0.2) 52%, hsl(268 96% 64% / 0.44));
-	--wizard-footer-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 18px 42px -34px hsl(197 100% 60% / 0.28), 0 -18px 38px -34px hsl(218 100% 48% / 0.32);
-	--wizard-summary-fill: linear-gradient(180deg, hsl(206 100% 98% / 0.84), hsl(216 100% 96% / 0.68));
-	--wizard-summary-edge: linear-gradient(135deg, hsl(198 100% 58% / 0.48), hsl(220 100% 56% / 0.2) 48%, hsl(268 92% 64% / 0.4));
-	--wizard-summary-sheen: linear-gradient(110deg, hsl(0 0% 100% / 0.46), transparent 34%), radial-gradient(90% 130% at 100% 120%, hsl(268 96% 66% / 0.12), transparent 58%);
-	--wizard-summary-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -18px 42px -30px hsl(266 88% 66% / 0.2), 0 0 28px -20px var(--brand-glow);
-	--wizard-choice-fill: linear-gradient(180deg, hsl(205 100% 99% / 0.86), hsl(215 100% 98% / 0.74));
-	--wizard-choice-edge: linear-gradient(135deg, hsl(205 100% 58% / 0.46), hsl(220 100% 56% / 0.16) 48%, hsl(268 88% 64% / 0.32));
-	--wizard-choice-hover-fill: linear-gradient(180deg, hsl(204 100% 98% / 0.9), hsl(216 100% 94% / 0.68));
-	--wizard-choice-hover-edge: linear-gradient(135deg, hsl(198 100% 56% / 0.62), hsl(220 100% 56% / 0.3) 48%, hsl(268 88% 60% / 0.52));
-	/* Selected must differ from the near-white rest fill at a glance, not just by
-	   its radio dot: a clear blue tint plus a brand ring inside the glow edge. */
-	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 88% / 0.9));
-	--wizard-choice-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.72), inset 0 -14px 34px -30px hsl(268 96% 66% / 0.2);
-	--wizard-choice-hover-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.8), inset 0 -16px 36px -30px hsl(268 96% 64% / 0.24), 0 0 24px -18px var(--brand-glow);
-	--wizard-choice-selected-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 4px 18px -10px var(--brand-glow);
-	--queue-row-selected-fill: linear-gradient(90deg, hsl(213 100% 94% / 0.78), hsl(220 100% 92% / 0.56)), var(--brand-dim);
-	--queue-row-selected-shadow: inset 0 0 0 1px hsl(210 100% 58% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.62), 0 0 24px -18px var(--brand-glow);
-	--tabs-rail-bg: linear-gradient(180deg, hsl(205 100% 96% / 0.8), hsl(216 100% 94% / 0.58));
-	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 58% / 0.34), hsl(222 100% 62% / 0.14) 44%, hsl(268 96% 64% / 0.32));
-	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 70% / 0.18), transparent 36% 62%, hsl(268 96% 72% / 0.14));
-	--tabs-rail-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.52), inset 0 -18px 38px -34px hsl(268 96% 66% / 0.28), 0 14px 34px -28px hsl(207 100% 52% / 0.38), 0 0 34px -26px var(--brand-glow);
-	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 91% / 0.96), hsl(220 100% 87% / 0.92));
-	--tabs-active-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 hsl(0 0% 100% / 0.6), 0 8px 14px -14px var(--brand-glow);
-	--tabs-hover-bg: hsl(0 0% 100% / 0.72);
-	--tabs-hover-shadow: inset 0 0 0 1px hsl(220 60% 62% / 0.45), 0 4px 8px -8px hsl(220 60% 40% / 0.35);
-	--tabs-hover-ink: hsl(226 56% 16%);
-	--tabs-active-ink: var(--selected-foreground);
-	--tabs-active-text-shadow: 0 0 14px hsl(213 100% 72% / 0.18);
-	--backdrop:
-		radial-gradient(42% 30% at 64% 44%, hsl(194 100% 72% / 0.3), transparent 62%), radial-gradient(34% 24% at 92% 8%, hsl(266 86% 74% / 0.2), transparent 66%), radial-gradient(54% 26% at 18% 23%, hsl(0 0% 100% / 0.5), transparent 72%),
-		linear-gradient(180deg, hsl(209 94% 75%) 0%, hsl(201 100% 88%) 31%, hsl(195 100% 95%) 47%, hsl(190 100% 97%) 53%, hsl(188 92% 86%) 54%, hsl(191 73% 66%) 72%, hsl(198 70% 41%) 100%);
 	--radius: 1rem;
+	--splash-progress-track: hsl(220 18% 58% / 0.24);
+	--icon-tile-ink: var(--selected-foreground);
+
+	--brand-glow: color-mix(in srgb, var(--glow) 32%, transparent);
+	--glow-border: color-mix(in srgb, var(--glow) 44%, transparent);
+	--inner-bloom: color-mix(in srgb, var(--glow) 24%, transparent);
+	--panel-glow: 0 0 34px -13px color-mix(in srgb, var(--glow) 34%, transparent), 0 10px 30px -18px color-mix(in srgb, var(--shade) 28%, transparent);
+	--glass-veil: color-mix(in srgb, var(--sheen) 18%, transparent);
+	--glass-control-veil: color-mix(in srgb, var(--sheen) 16%, transparent);
+	--glass-tint-start: color-mix(in srgb, var(--tint-start) 26%, transparent);
+	--glass-tint-end: color-mix(in srgb, var(--tint-end) 18%, transparent);
+	--glass-sheen: color-mix(in srgb, var(--sheen) 90%, transparent);
+
+	--field-bg: color-mix(in srgb, var(--popover) 78%, transparent);
+	--field-border: var(--line);
+	--field-disabled-bg: color-mix(in srgb, var(--muted) 62%, transparent);
+	--field-disabled-border: var(--border);
+	--field-placeholder: var(--text-subtle);
+	--field-addon: var(--muted-foreground);
+	--field-highlight: color-mix(in srgb, var(--sheen) 90%, transparent);
+	/* The URL field is the page's one input: a near-white well that stands off the stage. */
+	--field-glow-bg: color-mix(in srgb, var(--popover) 96%, transparent);
+	--field-glow-veil: transparent;
+	--field-glow-tint-start: transparent;
+	--field-glow-tint-end: transparent;
+	--field-glow-shadow: inset 0 1px 2px 0 color-mix(in srgb, var(--shade) 12%, transparent), 0 0 0 1px color-mix(in srgb, var(--glow) 45%, transparent), 0 6px 20px -12px color-mix(in srgb, var(--glow) 45%, transparent);
+
+	--quick-card-ink: var(--primary-foreground);
+	--quick-card-muted: color-mix(in oklab, var(--primary-foreground) 86%, var(--primary));
+	--quick-card-focus: color-mix(in srgb, var(--ring) 42%, transparent);
+	--quick-card-tint-start: color-mix(in srgb, var(--tint-start) 34%, transparent);
+	--quick-card-tint-end: color-mix(in srgb, var(--tint-end) 48%, transparent);
+	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, var(--tint-start) 16%, transparent), transparent 52%), radial-gradient(110% 120% at 100% 120%, color-mix(in srgb, var(--tint-end) 20%, transparent), transparent 50%);
+	--quick-cluster-veil: color-mix(in srgb, var(--sheen) 38%, transparent);
+	--quick-cluster-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 72%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--glow) 12%, transparent), 0 0 40px -20px color-mix(in srgb, var(--glow) 34%, transparent), 0 16px 38px -28px color-mix(in srgb, var(--shade) 28%, transparent);
+	--quick-action-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 36%, transparent), inset 0 -34px 76px -34px color-mix(in srgb, var(--tint-end) 54%, transparent), 0 0 44px -17px color-mix(in srgb, var(--glow) 50%, transparent);
+	--quick-selector-veil: color-mix(in srgb, var(--sheen) 36%, transparent);
+	--quick-selector-sheen: linear-gradient(145deg, color-mix(in srgb, var(--tint-start) 24%, transparent), transparent 38%), radial-gradient(120% 90% at 88% 100%, color-mix(in srgb, var(--tint-end) 14%, transparent), transparent 62%);
+	--quick-selector-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 86%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--glow) 22%, transparent), inset 0 -28px 58px -42px color-mix(in srgb, var(--tint-end) 26%, transparent);
+	--quick-selector-ink: var(--foreground);
+	--quick-selector-kicker: var(--selected-foreground);
+	--quick-selector-muted: var(--muted-foreground);
+	--quick-focus-glow: 0 0 30px -10px color-mix(in srgb, var(--glow) 48%, transparent);
+	--quick-chevron-border: var(--line);
+	--quick-chevron-fill: linear-gradient(180deg, var(--surface-raised), color-mix(in srgb, var(--surface-raised) 80%, transparent));
+	--quick-chevron-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 82%, transparent), 0 0 18px -12px color-mix(in srgb, var(--glow) 42%, transparent);
+	--quick-chevron-ink: color-mix(in oklab, var(--foreground) 70%, var(--muted-foreground));
+	--quick-icon-ink: var(--primary-foreground);
+	--quick-icon-border: color-mix(in srgb, var(--primary-foreground) 24%, transparent);
+	--quick-icon-plate: color-mix(in srgb, var(--primary-foreground) 10%, transparent);
+	--quick-icon-tint-start: color-mix(in srgb, var(--tint-start) 34%, transparent);
+	--quick-icon-tint-end: color-mix(in srgb, var(--tint-end) 44%, transparent);
+	--quick-icon-fill: linear-gradient(145deg, color-mix(in srgb, var(--glow) 62%, transparent), color-mix(in srgb, var(--tint-end) 30%, transparent) 52%, color-mix(in srgb, var(--tint-end) 34%, transparent));
+	--quick-icon-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 40%, transparent), inset 0 -14px 28px -13px color-mix(in srgb, var(--tint-end) 50%, transparent), 0 0 0 1px color-mix(in srgb, var(--tint-start) 22%, transparent), 0 0 28px -8px color-mix(in srgb, var(--glow) 50%, transparent);
+
+	--wizard-divider: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tint-start) 32%, transparent) 18%, color-mix(in srgb, var(--glow) 24%, transparent) 52%, color-mix(in srgb, var(--tint-end) 28%, transparent) 82%, transparent), linear-gradient(90deg, transparent, var(--border) 18% 82%, transparent);
+	--wizard-footer-fill: var(--surface-bar);
+	--wizard-footer-edge: var(--edge);
+	--wizard-footer-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 72%, transparent), inset 0 18px 42px -34px color-mix(in srgb, var(--tint-start) 28%, transparent), 0 -18px 38px -34px color-mix(in srgb, var(--glow) 32%, transparent);
+	--wizard-summary-fill: linear-gradient(180deg, var(--surface-raised), var(--surface-tile));
+	--wizard-summary-edge: var(--edge);
+	--wizard-summary-sheen: linear-gradient(110deg, color-mix(in srgb, var(--sheen) 46%, transparent), transparent 34%), radial-gradient(90% 130% at 100% 120%, color-mix(in srgb, var(--tint-end) 12%, transparent), transparent 58%);
+	--wizard-summary-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 72%, transparent), inset 0 -18px 42px -30px color-mix(in srgb, var(--tint-end) 20%, transparent), 0 0 28px -20px var(--brand-glow);
+	--wizard-choice-fill: linear-gradient(180deg, color-mix(in srgb, var(--popover) 86%, transparent), color-mix(in srgb, var(--popover) 74%, transparent));
+	--wizard-choice-edge: var(--edge-soft);
+	--wizard-choice-hover-fill: linear-gradient(180deg, color-mix(in srgb, var(--popover) 92%, transparent), color-mix(in srgb, var(--accent) 70%, transparent));
+	--wizard-choice-hover-edge: var(--edge);
+	--wizard-choice-selected-fill: var(--selected-fill);
+	--wizard-choice-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 72%, transparent), inset 0 -14px 34px -30px color-mix(in srgb, var(--tint-end) 20%, transparent);
+	--wizard-choice-hover-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 80%, transparent), inset 0 -16px 36px -30px color-mix(in srgb, var(--tint-end) 24%, transparent), 0 0 24px -18px var(--brand-glow);
+	/* A brand ring inside the edge, so selection never rests on the radio dot alone. */
+	--wizard-choice-selected-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 color-mix(in srgb, var(--sheen) 60%, transparent), 0 4px 18px -10px var(--brand-glow);
+	--queue-row-selected-fill: var(--selected-fill), var(--brand-dim);
+	--queue-row-selected-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent), inset 0 1px 0 color-mix(in srgb, var(--sheen) 62%, transparent), 0 0 24px -18px var(--brand-glow);
+
+	--tabs-rail-bg: linear-gradient(180deg, var(--surface-raised), var(--surface-stage));
+	--tabs-rail-border: var(--edge-soft);
+	--tabs-rail-sheen: linear-gradient(90deg, color-mix(in srgb, var(--tint-start) 18%, transparent), transparent 36% 62%, color-mix(in srgb, var(--tint-end) 14%, transparent));
+	--tabs-rail-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 52%, transparent), inset 0 -18px 38px -34px color-mix(in srgb, var(--tint-end) 28%, transparent), 0 14px 34px -28px color-mix(in srgb, var(--glow) 38%, transparent), 0 0 34px -26px var(--brand-glow);
+	--tabs-active-bg: var(--selected-fill), var(--brand-dim);
+	--tabs-active-shadow: inset 0 0 0 1.5px var(--primary), inset 0 2px 0 color-mix(in srgb, var(--sheen) 60%, transparent), 0 8px 14px -14px var(--brand-glow);
+	--tabs-hover-bg: color-mix(in srgb, var(--popover) 72%, transparent);
+	--tabs-hover-shadow: inset 0 0 0 1px var(--border-strong), 0 4px 8px -8px color-mix(in srgb, var(--shade) 35%, transparent);
+	--tabs-hover-ink: var(--foreground);
+	--tabs-active-ink: var(--selected-foreground);
+	--tabs-active-text-shadow: 0 0 14px color-mix(in srgb, var(--tint-start) 18%, transparent);
 }
 
 .dark {
 	color-scheme: dark;
-	/* Dark sky — the void: near-black navy (225 hue) so the aurora has something to tint */
-	--background: hsl(228, 56%, 3%);
-	--foreground: hsl(240, 40%, 96%);
-	--card: hsl(226, 44%, 7%);
-	--card-foreground: hsl(240, 40%, 96%);
-	--popover: hsl(226, 38%, 9%);
-	--popover-foreground: hsl(240, 40%, 96%);
-	--primary: hsl(220, 100%, 56%);
-	--primary-foreground: hsl(240, 40%, 96%);
-	--secondary: hsl(226, 30%, 9%);
-	--secondary-foreground: hsl(240, 40%, 96%);
-	--muted: hsl(226, 30%, 9%);
-	--muted-foreground: hsl(228, 30%, 79%);
-	--accent: hsl(226, 28%, 11%);
-	--accent-foreground: hsl(240, 40%, 96%);
 	--destructive: hsl(349, 100%, 61%);
 	--success: hsl(153, 74%, 45%);
 	--warning: hsl(40, 100%, 63%);
-	--info: var(--primary);
-	--border: hsla(0, 0%, 100%, 0.08);
-	--border-strong: hsla(0, 0%, 100%, 0.13);
-	--input: hsla(0, 0%, 100%, 0.08);
 	--switch-off: hsla(0, 0%, 100%, 0.2);
-	--ring: hsl(220, 100%, 56%);
-	--text-subtle: hsl(228, 20%, 71%);
-	--selected-foreground: hsl(205, 100%, 82%);
-	--text-glass-muted: hsl(228 34% 78%);
-	--icon-tile-ink: hsl(220 100% 94%);
-	--field-bg: hsl(226 54% 8% / 0.72);
-	--field-border: hsl(205 100% 78% / 0.28);
-	--field-disabled-bg: hsl(226 44% 8% / 0.48);
-	--field-disabled-border: hsl(0 0% 100% / 0.08);
-	--field-placeholder: hsl(228 24% 70%);
-	--field-addon: hsl(228 28% 76%);
-	--field-highlight: hsl(205 100% 84% / 0.18);
-	--field-glow-bg: hsl(226 62% 6% / 0.88);
-	--field-glow-veil: hsl(228 82% 2% / 0.64);
-	--field-glow-cyan: var(--glass-cyan);
-	--field-glow-violet: var(--glass-violet);
-	--field-glow-shadow: inset 0 1px 0 0 var(--field-highlight), inset 0 -18px 44px -28px hsl(274 96% 46% / 0.24), 0 0 0 1px hsl(205 100% 80% / 0.12), 0 0 30px -18px var(--brand-glow);
-	/* Dark sky surfaces + signal — lit-from-within glass over a bright nebula */
-	--glass: hsl(226 58% 8% / 0.78);
-	/* Stage glass: the most see-through pair that keeps muted text at 4.5:1 over
-	   the brightest aurora behind it (measured), so the blurred sky reads through. */
-	--glass-panel: hsl(228 68% 4% / 0.58);
-	--glass-tile: hsl(226 62% 6% / 0.84);
-	--glass-surface-veil: hsl(228 82% 2% / 0.24);
-	--glass-control-veil: hsl(228 82% 2% / 0.58);
-	--glass-cyan: hsl(196 100% 62% / 0.18);
-	--glass-violet: hsl(270 96% 62% / 0.15);
-	--glass-sheen: hsl(205 100% 84% / 0.2);
-	--glow-border: hsl(200 100% 78% / 0.72);
-	/* Neon edge gradient: cyan → blue → violet, painted on border-box */
-	--glow-gradient: linear-gradient(135deg, hsl(192 100% 82% / 0.76), hsl(214 100% 68% / 0.34) 46%, hsl(268 96% 76% / 0.62));
-	--glow-gradient-hot: linear-gradient(120deg, hsl(188 100% 82% / 0.86), hsl(210 100% 70% / 0.62) 48%, hsl(278 98% 76% / 0.78));
-	--inner-bloom: hsl(212 100% 52% / 0.26);
-	--brand-glow: hsl(218 100% 55% / 0.34);
 	--splash-progress-track: hsl(0 0% 100% / 0.09);
-	--panel-glow: 0 0 42px -16px hsl(212 100% 54% / 0.36), 0 18px 54px -20px hsl(228 92% 2% / 0.96);
-	--quick-card-ink: hsl(240 40% 96%);
-	--quick-card-muted: hsl(226 52% 88%);
-	--quick-card-focus: hsl(206 100% 86% / 0.58);
-	--quick-card-cyan: hsl(190 100% 70% / 0.28);
-	--quick-card-violet: hsl(287 98% 66% / 0.36);
-	--quick-card-fill: linear-gradient(135deg, hsl(203 100% 43%), hsl(224 100% 34%) 52%, hsl(280 90% 38%));
-	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, hsl(190 100% 76% / 0.24), transparent 52%), radial-gradient(110% 120% at 100% 120%, hsl(288 96% 62% / 0.28), transparent 50%);
-	--quick-card-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 0 0 1px hsl(0 0% 100% / 0.08), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.48), 0 0 0 1px hsl(205 100% 80% / 0.18), 0 0 48px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.78);
-	--quick-cluster-fill: hsl(226 62% 6% / 0.78);
-	--quick-cluster-veil: hsl(228 82% 2% / 0.52);
-	--quick-cluster-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.26), inset 0 0 0 1px hsl(0 0% 100% / 0.06), 0 0 50px -18px hsl(212 100% 48% / 0.48), 0 18px 54px -18px hsl(224 100% 3% / 0.78);
-	--quick-action-shadow: inset 0 1px 0 0 hsl(205 100% 88% / 0.34), inset 0 -34px 76px -34px hsl(274 96% 46% / 0.52), 0 0 46px -17px hsl(210 100% 54% / 0.52);
-	--quick-selector-fill: hsl(226 58% 6% / 0.78);
-	--quick-selector-veil: hsl(228 76% 2% / 0.38);
-	--quick-selector-sheen: linear-gradient(145deg, hsl(198 100% 78% / 0.1), transparent 38%), radial-gradient(120% 90% at 88% 100%, hsl(282 96% 52% / 0.18), transparent 62%);
-	--quick-selector-shadow: inset 0 1px 0 0 hsl(205 100% 84% / 0.12), inset 0 -30px 64px -38px hsl(274 96% 46% / 0.32);
-	--quick-selector-ink: hsl(240 40% 96%);
-	--quick-selector-kicker: hsl(210 100% 76%);
-	--quick-selector-muted: hsl(226 38% 76%);
-	--quick-focus-glow: 0 0 34px -10px hsl(210 100% 66% / 0.5);
-	--quick-chevron-border: hsl(205 100% 82% / 0.18);
-	--quick-chevron-fill: linear-gradient(180deg, hsl(220 80% 18% / 0.58), hsl(232 82% 10% / 0.46));
-	--quick-chevron-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.18), 0 0 24px -14px hsl(218 100% 56% / 0.52);
-	--quick-chevron-ink: hsl(226 52% 88%);
-	--quick-icon-ink: hsl(240 40% 96%);
-	--quick-icon-cyan: hsl(199 100% 82% / 0.3);
-	--quick-icon-violet: hsl(302 94% 68% / 0.42);
-	--quick-icon-fill: linear-gradient(145deg, hsl(211 100% 58% / 0.38), hsl(239 90% 38% / 0.2) 52%, hsl(278 100% 50% / 0.24));
-	--quick-icon-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.38), inset 0 -14px 28px -13px hsl(300 96% 58% / 0.56), 0 0 0 1px hsl(205 100% 82% / 0.18), 0 0 28px -8px hsl(207 100% 66% / 0.58);
-	--wizard-divider: linear-gradient(90deg, transparent, hsl(196 100% 76% / 0.24) 18%, hsl(220 100% 64% / 0.18) 52%, hsl(268 96% 72% / 0.22) 82%, transparent);
-	--wizard-footer-fill: linear-gradient(180deg, hsl(228 68% 4% / 0.88), hsl(226 68% 3% / 0.78));
-	--wizard-footer-edge: linear-gradient(90deg, hsl(192 100% 82% / 0.44), hsl(214 100% 68% / 0.18) 52%, hsl(268 96% 76% / 0.38));
-	--wizard-footer-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 18px 42px -34px hsl(196 100% 58% / 0.18), 0 -18px 42px -32px hsl(226 92% 2% / 0.92);
-	--wizard-summary-fill: linear-gradient(180deg, hsl(228 66% 5% / 0.84), hsl(226 62% 4% / 0.74));
-	--wizard-summary-edge: linear-gradient(135deg, hsl(192 100% 82% / 0.52), hsl(214 100% 68% / 0.22) 48%, hsl(268 96% 76% / 0.42));
-	--wizard-summary-sheen: linear-gradient(110deg, hsl(205 100% 84% / 0.12), transparent 34%), radial-gradient(90% 130% at 100% 120%, hsl(268 96% 64% / 0.14), transparent 58%);
-	--wizard-summary-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 -22px 46px -34px hsl(274 96% 46% / 0.22), 0 0 34px -22px var(--brand-glow);
-	--wizard-choice-fill: linear-gradient(180deg, hsl(226 58% 7% / 0.74), hsl(228 64% 5% / 0.62));
-	--wizard-choice-edge: linear-gradient(135deg, hsl(205 100% 82% / 0.26), hsl(220 100% 62% / 0.1) 48%, hsl(268 96% 76% / 0.24));
-	--wizard-choice-hover-fill: linear-gradient(180deg, hsl(226 56% 9% / 0.86), hsl(228 62% 6% / 0.72));
-	--wizard-choice-hover-edge: linear-gradient(135deg, hsl(198 100% 78% / 0.48), hsl(220 100% 64% / 0.2) 48%, hsl(268 96% 72% / 0.42));
-	--wizard-choice-selected-fill: linear-gradient(180deg, hsl(214 100% 52% / 0.18), hsl(268 96% 52% / 0.1));
-	--wizard-choice-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.12), inset 0 -16px 36px -32px hsl(274 96% 46% / 0.16);
-	--wizard-choice-hover-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.16), inset 0 -18px 40px -32px hsl(274 96% 46% / 0.22), 0 0 24px -18px var(--brand-glow);
-	--wizard-choice-selected-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.18), inset 0 0 0 1px hsl(205 100% 78% / 0.12), 0 0 30px -18px var(--brand-glow);
-	--queue-row-selected-fill: linear-gradient(90deg, hsl(214 100% 52% / 0.24), hsl(268 96% 52% / 0.14)), hsl(226 62% 8% / 0.94);
-	--queue-row-selected-shadow: inset 0 0 0 1px hsl(205 100% 78% / 0.34), inset 0 1px 0 hsl(205 100% 84% / 0.14), 0 0 28px -18px var(--brand-glow);
-	--tabs-rail-bg: linear-gradient(180deg, hsl(224 64% 6% / 0.86), hsl(228 70% 4% / 0.72));
-	--tabs-rail-border: linear-gradient(135deg, hsl(196 100% 76% / 0.22), hsl(222 100% 62% / 0.08) 44%, hsl(268 96% 72% / 0.22));
-	--tabs-rail-sheen: linear-gradient(90deg, hsl(196 100% 78% / 0.08), transparent 36% 62%, hsl(268 96% 74% / 0.08));
-	--tabs-rail-shadow: inset 0 1px 0 hsl(205 100% 84% / 0.2), inset 0 -22px 42px -34px hsl(268 96% 66% / 0.55), 0 18px 44px -34px hsl(225 90% 2% / 0.88), 0 0 36px -27px var(--brand-glow);
-	--tabs-active-bg: linear-gradient(180deg, hsl(214 100% 52% / 0.16), hsl(268 96% 52% / 0.1)), color-mix(in srgb, var(--background) 72%, transparent);
-	--tabs-active-shadow: inset 0 0 0 1px hsl(202 100% 78% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 6px 18px -18px var(--brand-glow);
-	--tabs-hover-bg: hsl(214 100% 70% / 0.1);
-	--tabs-hover-shadow: inset 0 0 0 1px hsl(205 100% 78% / 0.22);
-	--tabs-hover-ink: hsl(224 48% 88%);
-	--tabs-active-ink: hsl(220 100% 96%);
-	--tabs-active-text-shadow: 0 0 12px hsl(213 100% 72% / 0.22), 0 0 18px hsl(268 95% 70% / 0.14);
-	--backdrop-accent: linear-gradient(100deg, transparent 0 6%, hsl(194 100% 72% / 0.34) 20%, hsl(150 100% 80% / 0.2) 31%, hsl(189 100% 86% / 0.68) 42%, hsl(207 100% 76% / 0.6) 52%, hsl(226 100% 66% / 0.5) 62%, hsl(272 96% 70% / 0.6) 74%, transparent 92%);
-	--backdrop-accent-opacity: 0.74;
-	/* Defined bright bloom across the top-center-right; left + bottom stay near-black
-	   for contrast so the glass panels and the cyan ribbon pop. */
-	--backdrop:
-		radial-gradient(54% 48% at 52% -14%, hsl(190 100% 58% / 0.38), transparent 54%), radial-gradient(48% 46% at 82% -6%, hsl(288 98% 58% / 0.34), transparent 56%), radial-gradient(40% 40% at 68% 4%, hsl(214 100% 54% / 0.24), transparent 58%),
-		radial-gradient(34% 34% at 28% -6%, hsl(154 100% 70% / 0.12), transparent 60%), radial-gradient(46% 42% at 100% 22%, hsl(300 96% 56% / 0.2), transparent 60%), radial-gradient(120% 90% at 102% 104%, hsl(222 92% 20% / 0.38), transparent 60%), var(--background);
+	--icon-tile-ink: var(--foreground);
+
+	--brand-glow: color-mix(in srgb, var(--glow) 34%, transparent);
+	--glow-border: color-mix(in srgb, var(--tint-start) 72%, transparent);
+	--inner-bloom: color-mix(in srgb, var(--glow) 26%, transparent);
+	--panel-glow: 0 0 42px -16px color-mix(in srgb, var(--glow) 36%, transparent), 0 18px 54px -20px color-mix(in srgb, var(--shade) 96%, transparent);
+	--glass-veil: color-mix(in srgb, var(--shade) 24%, transparent);
+	--glass-control-veil: color-mix(in srgb, var(--shade) 58%, transparent);
+	--glass-tint-start: color-mix(in srgb, var(--tint-start) 18%, transparent);
+	--glass-tint-end: color-mix(in srgb, var(--tint-end) 15%, transparent);
+	--glass-sheen: color-mix(in srgb, var(--sheen) 20%, transparent);
+
+	--field-bg: color-mix(in srgb, var(--popover) 72%, transparent);
+	--field-disabled-bg: color-mix(in srgb, var(--muted) 48%, transparent);
+	--field-highlight: color-mix(in srgb, var(--sheen) 18%, transparent);
+	--field-glow-bg: var(--surface-tile);
+	--field-glow-veil: color-mix(in srgb, var(--shade) 64%, transparent);
+	--field-glow-tint-start: var(--glass-tint-start);
+	--field-glow-tint-end: var(--glass-tint-end);
+	--field-glow-shadow: inset 0 1px 0 0 var(--field-highlight), inset 0 -18px 44px -28px color-mix(in srgb, var(--tint-end) 24%, transparent), 0 0 0 1px color-mix(in srgb, var(--sheen) 12%, transparent), 0 0 30px -18px var(--brand-glow);
+
+	--quick-card-focus: color-mix(in srgb, var(--selected-foreground) 58%, transparent);
+	--quick-card-tint-start: color-mix(in srgb, var(--tint-start) 28%, transparent);
+	--quick-card-tint-end: color-mix(in srgb, var(--tint-end) 36%, transparent);
+	--quick-card-overlay: radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, var(--tint-start) 24%, transparent), transparent 52%), radial-gradient(110% 120% at 100% 120%, color-mix(in srgb, var(--tint-end) 28%, transparent), transparent 50%);
+	--quick-cluster-veil: color-mix(in srgb, var(--shade) 52%, transparent);
+	--quick-cluster-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 26%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--sheen) 6%, transparent), 0 0 50px -18px color-mix(in srgb, var(--glow) 48%, transparent), 0 18px 54px -18px color-mix(in srgb, var(--shade) 78%, transparent);
+	--quick-action-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 34%, transparent), inset 0 -34px 76px -34px color-mix(in srgb, var(--tint-end) 52%, transparent), 0 0 46px -17px color-mix(in srgb, var(--glow) 52%, transparent);
+	--quick-selector-veil: color-mix(in srgb, var(--shade) 38%, transparent);
+	--quick-selector-sheen: linear-gradient(145deg, color-mix(in srgb, var(--tint-start) 10%, transparent), transparent 38%), radial-gradient(120% 90% at 88% 100%, color-mix(in srgb, var(--tint-end) 18%, transparent), transparent 62%);
+	--quick-selector-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 12%, transparent), inset 0 -30px 64px -38px color-mix(in srgb, var(--tint-end) 32%, transparent);
+	--quick-focus-glow: 0 0 34px -10px color-mix(in srgb, var(--glow) 50%, transparent);
+	--quick-chevron-fill: linear-gradient(180deg, color-mix(in srgb, var(--glow) 18%, var(--surface-raised)), var(--surface-raised));
+	--quick-chevron-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 18%, transparent), 0 0 24px -14px color-mix(in srgb, var(--glow) 52%, transparent);
+	--quick-chevron-ink: color-mix(in oklab, var(--foreground) 80%, var(--muted-foreground));
+	--quick-icon-tint-start: color-mix(in srgb, var(--tint-start) 30%, transparent);
+	--quick-icon-tint-end: color-mix(in srgb, var(--tint-end) 42%, transparent);
+	--quick-icon-fill: linear-gradient(145deg, color-mix(in srgb, var(--glow) 38%, transparent), color-mix(in srgb, var(--tint-end) 20%, transparent) 52%, color-mix(in srgb, var(--tint-end) 24%, transparent));
+	--quick-icon-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--sheen) 38%, transparent), inset 0 -14px 28px -13px color-mix(in srgb, var(--tint-end) 56%, transparent), 0 0 0 1px color-mix(in srgb, var(--tint-start) 18%, transparent), 0 0 28px -8px color-mix(in srgb, var(--glow) 58%, transparent);
+
+	--wizard-divider: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tint-start) 24%, transparent) 18%, color-mix(in srgb, var(--glow) 18%, transparent) 52%, color-mix(in srgb, var(--tint-end) 22%, transparent) 82%, transparent), linear-gradient(90deg, transparent, var(--border) 18% 82%, transparent);
+	--wizard-footer-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 16%, transparent), inset 0 18px 42px -34px color-mix(in srgb, var(--tint-start) 18%, transparent), 0 -18px 42px -32px color-mix(in srgb, var(--shade) 92%, transparent);
+	--wizard-summary-sheen: linear-gradient(110deg, color-mix(in srgb, var(--sheen) 12%, transparent), transparent 34%), radial-gradient(90% 130% at 100% 120%, color-mix(in srgb, var(--tint-end) 14%, transparent), transparent 58%);
+	--wizard-summary-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 16%, transparent), inset 0 -22px 46px -34px color-mix(in srgb, var(--tint-end) 22%, transparent), 0 0 34px -22px var(--brand-glow);
+	--wizard-choice-fill: linear-gradient(180deg, color-mix(in srgb, var(--popover) 74%, transparent), color-mix(in srgb, var(--popover) 62%, transparent));
+	--wizard-choice-hover-fill: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, transparent), color-mix(in srgb, var(--popover) 72%, transparent));
+	--wizard-choice-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 12%, transparent), inset 0 -16px 36px -32px color-mix(in srgb, var(--tint-end) 16%, transparent);
+	--wizard-choice-hover-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 16%, transparent), inset 0 -18px 40px -32px color-mix(in srgb, var(--tint-end) 22%, transparent), 0 0 24px -18px var(--brand-glow);
+	--wizard-choice-selected-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 18%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--sheen) 12%, transparent), 0 0 30px -18px var(--brand-glow);
+	--queue-row-selected-fill: var(--selected-fill), linear-gradient(var(--brand-dim), var(--brand-dim)), color-mix(in srgb, var(--card) 94%, transparent);
+	--queue-row-selected-shadow: inset 0 0 0 1px color-mix(in srgb, var(--selected-foreground) 34%, transparent), inset 0 1px 0 color-mix(in srgb, var(--sheen) 14%, transparent), 0 0 28px -18px var(--brand-glow);
+
+	--tabs-rail-sheen: linear-gradient(90deg, color-mix(in srgb, var(--tint-start) 8%, transparent), transparent 36% 62%, color-mix(in srgb, var(--tint-end) 8%, transparent));
+	--tabs-rail-shadow: inset 0 1px 0 color-mix(in srgb, var(--sheen) 20%, transparent), inset 0 -22px 42px -34px color-mix(in srgb, var(--tint-end) 55%, transparent), 0 18px 44px -34px color-mix(in srgb, var(--shade) 88%, transparent), 0 0 36px -27px var(--brand-glow);
+	--tabs-active-bg: var(--selected-fill), linear-gradient(var(--brand-dim), var(--brand-dim)), color-mix(in srgb, var(--background) 72%, transparent);
+	--tabs-active-shadow: inset 0 0 0 1px color-mix(in srgb, var(--selected-foreground) 24%, transparent), inset 0 1px 0 color-mix(in srgb, var(--sheen) 8%, transparent), 0 6px 18px -18px var(--brand-glow);
+	--tabs-hover-bg: color-mix(in srgb, var(--selected-foreground) 10%, transparent);
+	--tabs-hover-shadow: inset 0 0 0 1px color-mix(in srgb, var(--selected-foreground) 22%, transparent);
+	--tabs-hover-ink: color-mix(in oklab, var(--foreground) 88%, var(--muted-foreground));
+	--tabs-active-ink: var(--foreground);
+	--tabs-active-text-shadow: 0 0 12px color-mix(in srgb, var(--glow) 22%, transparent), 0 0 18px color-mix(in srgb, var(--tint-end) 14%, transparent);
 }
 
 /* Warmup verification has no byte count to report, so the bar carries the fact
@@ -1463,28 +1138,19 @@ body {
 	color: var(--foreground);
 }
 
-/* Without hardware WebGL (CSS or static fallback, software renderer) the
-   stage blur re-composites the animated backdrop on the CPU every frame:
-   measured 38 fps without it vs 21 fps with it on a throttled software run.
-   Drop the blur there and make the glass denser so text keeps 4.5:1 over the
-   unblurred sky. Hardware-WebGL machines keep the blurred aurora. */
-body:not(.backdrop-webgl-active) .glow-panel,
-body:not(.backdrop-webgl-active) .glass {
-	backdrop-filter: none;
-	-webkit-backdrop-filter: none;
-}
-body:not(.backdrop-webgl-active) {
-	--glass-panel: hsl(205 100% 98% / 0.72);
-}
-.dark body:not(.backdrop-webgl-active) {
-	--glass-panel: hsl(228 68% 4% / 0.84);
+/* Backdrop blur only while a hardware backdrop draws the sky (the
+   No-GPU-No-Blur Rule): over a solid canvas it costs frames and shows nothing.
+   A style without a backdrop sets --surface-filter to none anyway. */
+body.backdrop-webgl-active :is(.glass, .glow-panel, .chrome-glass, .download-home-tabs, .wizard-footer-surface) {
+	backdrop-filter: var(--surface-filter);
+	-webkit-backdrop-filter: var(--surface-filter);
 }
 
 /* Inside the wizard stage the footer is the stage's bottom bar: the stage's
    rounded corners and no blur of its own (One-Blur Rule). It keeps its own
    near-opaque fill on purpose: the footer is sticky and long steps scroll
    beneath it, so a see-through footer would show content behind the buttons. */
-[data-wizard-stage] .wizard-footer-surface {
+body [data-wizard-stage] .wizard-footer-surface {
 	border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
 	backdrop-filter: none;
 	-webkit-backdrop-filter: none;

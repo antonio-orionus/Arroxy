@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "আবার চেষ্টা করুন"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "লিঙ্ক কপি করুন"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "প্রোফাইল দিয়ে ডাউনলোড"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "নতুন"
@@ -1038,6 +1046,10 @@ msgstr "অগ্রগতি"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "{{title}}-এর ফাইল দেখান"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "আকার"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "প্রোফাইল রিসেট করুন"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "এই প্রোফাইল ইতিমধ্যে বিল্ট-ইন সেটিংস ব্যবহার করছে"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "বিল্ট-ইন প্রোফাইল সেটিংস ফিরিয়ে আনুন"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "প্রোফাইল সংরক্ষণ করুন"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "বার"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "শুধু CSS, কোনো canvas রেন্ডারিং নয়।"
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "সেরা পারফরম্যান্স"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "সমর্থিত হলে অ্যানিমেটেড WebGL ব্যাকড্রপ।"
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "সবচেয়ে সুন্দর"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "সবচেয়ে অ্যানিমেটেড চেহারা থেকে সেরা পারফরম্যান্সে যান।"
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "ব্যাকড্রপের মান"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "অ্যানিমেটেড ব্যাকড্রপে Arroxy কতটা মুভমেন্ট ব্যবহার করবে তা বেছে নিন।"
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "চেহারা ও পারফরম্যান্স"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "এই ডিভাইসে হার্ডওয়্যার WebGL উপলব্ধ নয়, তাই Arroxy পারফরম্যান্স ব্যাকড্রপ ব্যবহার করছে।"
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "বাল্ক URL"
@@ -3776,6 +3760,42 @@ msgstr "ডাউনলোড আচরণ"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "ইনপুট"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "চলমান আকাশের ওপর কাচের মতো প্যানেল। গ্রাফিক্স অ্যাক্সেলারেশন লাগে।"
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "নিরেট, শান্ত পৃষ্ঠতল। যেকোনো কম্পিউটারে হালকাভাবে চলে।"
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "মিনিমাল"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "দুটি স্টাইলই লাইট ও ডার্ক মোডে পাওয়া যায়।"
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "স্টাইল"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy দেখতে কেমন হবে। নিচের ফুটারে লাইট ও ডার্কের মধ্যে বদলান।"
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "চেহারা"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}}-এর জন্য গ্রাফিক্স অ্যাক্সেলারেশন দরকার, যা এখন পাওয়া যাচ্ছে না, তাই Arroxy {{fallback}} দেখাচ্ছে।"
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Thử lại"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Sao chép liên kết"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Tải xuống với"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Mới"
@@ -1038,6 +1046,10 @@ msgstr "Tiến trình"
 msgctxt "queue.table.showArtifactsFor"
 msgid "Show artifacts for {{title}}"
 msgstr "Hiện tệp của {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Kích thước"
 
 msgctxt "queue.table.sortBy"
 msgid "Sort by {{label}}"
@@ -2437,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "Đặt lại hồ sơ"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Hồ sơ này đã dùng cài đặt tích hợp"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Khôi phục cài đặt hồ sơ tích hợp"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "Lưu hồ sơ"
@@ -3117,42 +3137,6 @@ msgctxt "wizard.url.autoRetry.unit"
 msgid "times"
 msgstr "lần"
 
-msgctxt "wizard.url.backdrop.cssOnlyDescription"
-msgid "CSS only, no canvas rendering."
-msgstr "Chỉ dùng CSS, không kết xuất canvas."
-
-msgctxt "wizard.url.backdrop.cssOnlyLabel"
-msgid "Best performance"
-msgstr "Hiệu năng tốt nhất"
-
-msgctxt "wizard.url.backdrop.gpuDescription"
-msgid "Animated WebGL backdrop when supported."
-msgstr "Nền WebGL động khi được hỗ trợ."
-
-msgctxt "wizard.url.backdrop.gpuLabel"
-msgid "Most beautiful"
-msgstr "Đẹp nhất"
-
-msgctxt "wizard.url.backdrop.modeDescription"
-msgid "Move from the most animated look to best performance."
-msgstr "Chuyển từ giao diện nhiều chuyển động nhất sang hiệu năng tốt nhất."
-
-msgctxt "wizard.url.backdrop.modeLabel"
-msgid "Backdrop quality"
-msgstr "Chất lượng nền"
-
-msgctxt "wizard.url.backdrop.panelDescription"
-msgid "Choose how much motion Arroxy uses for the animated backdrop."
-msgstr "Chọn mức chuyển động Arroxy dùng cho nền động."
-
-msgctxt "wizard.url.backdrop.panelTitle"
-msgid "Appearance and performance"
-msgstr "Giao diện và hiệu năng"
-
-msgctxt "wizard.url.backdrop.runtimeFallbackNotice"
-msgid "Hardware WebGL is unavailable on this device, so Arroxy is using the performance backdrop."
-msgstr "WebGL phần cứng không khả dụng trên thiết bị này, nên Arroxy đang dùng phông nền hiệu năng."
-
 msgctxt "wizard.url.bulkButton"
 msgid "Bulk URLs"
 msgstr "URL hàng loạt"
@@ -3776,6 +3760,42 @@ msgstr "Hành vi tải xuống"
 msgctxt "wizard.url.settings.inputHeading"
 msgid "Input"
 msgstr "Đầu vào"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Các bảng kính trên bầu trời chuyển động. Cần tăng tốc đồ họa."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Bề mặt đặc, yên tĩnh. Chạy nhẹ trên mọi máy tính."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Tối giản"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Cả hai kiểu giao diện đều có bản sáng và tối."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Kiểu giao diện"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Giao diện của Arroxy. Chuyển giữa sáng và tối ở chân trang."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Giao diện"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} cần tăng tốc đồ họa, hiện không khả dụng nên Arroxy đang hiển thị {{fallback}}."
 
 msgctxt "wizard.url.tabs.profiles"
 msgid "Profiles"

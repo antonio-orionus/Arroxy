@@ -49,6 +49,11 @@ function QualityBadge({quality, label}: {quality: AudioTrackQuality; label: stri
 export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudioExtFilterChange, onSelect}: AudioColumnProps): ReactNode {
 	const {t} = useTranslation()
 	const subtitleOnly = mode === 'subtitle-only'
+	// Alone on the screen, the list takes the step's free height. A zero basis
+	// keeps its rows out of the step's content size, so it grows into the space
+	// the footer leaves instead of pushing the page into scrolling; the floor
+	// holds in short windows. Beside the Video column it keeps a fixed cap.
+	const fill = mode === 'audio-only'
 
 	// The radio group speaks strings; these encode and decode the three selection kinds.
 	const selectedValue = audioSelection.kind === 'none' ? 'none' : audioSelection.kind === 'native' ? `native:${audioSelection.formatId}` : `convert:${audioSelection.target}`
@@ -92,8 +97,8 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 	const bitrateTooltipMsg = view.bitrateStrip.tooltipKey ? t(view.bitrateStrip.tooltipKey) : null
 
 	return (
-		<div className="flex flex-col gap-0">
-			<div className="mb-1.5 flex items-center justify-between">
+		<div className={cn('flex flex-col gap-0', fill && 'min-h-72 grow basis-0')}>
+			<div className="mb-1.5 flex shrink-0 items-center justify-between">
 				<SectionLabel>{t('wizard.formats.audio')}</SectionLabel>
 				{view.audioExtOptions.length > 1 && (
 					<ToggleGroup size="xs" variant="outline" value={audioExtFilter ? [audioExtFilter] : []} onValueChange={vals => onAudioExtFilterChange(vals[0] ?? null)} spacing={1} className="flex-wrap justify-end gap-1">
@@ -106,7 +111,7 @@ export function AudioColumn({view, mode, audioSelection, audioExtFilter, onAudio
 				)}
 			</div>
 
-			<ScrollArea className="max-h-[240px]">
+			<ScrollArea className={fill ? 'min-h-0 flex-1' : 'max-h-[240px]'}>
 				<RadioGroup value={selectedRowDisabled ? null : selectedValue} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="gap-1">
 					{/* Muxed-video sources surface "Keep as-is" first because it's the
             zero-cost default — embedded audio stays in the file, no extraction

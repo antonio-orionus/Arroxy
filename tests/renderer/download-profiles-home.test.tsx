@@ -11,6 +11,7 @@ import {ok} from '@shared/result.js'
 import type {AppSettings} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {makeItem} from '../shared/fixtures.js'
+import {expectHint} from '../shared/hint.js'
 
 vi.mock('@tanstack/react-virtual', () => ({
 	useVirtualizer: ({count, estimateSize}: {count: number; estimateSize: () => number}) => {
@@ -41,6 +42,13 @@ describe('DownloadProfilesHome downloads tab', () => {
 		expect(await screen.findByTestId('queue-manager-row-queued-video')).toHaveTextContent('Queued video')
 	})
 
+	// The rail's styling keys on the trigger's slot; a hint wrapper must not replace it.
+	it('keeps every home tab a tabs-trigger slot', () => {
+		render(<DownloadProfilesHome />)
+
+		for (const tab of within(screen.getByTestId('profiles-tabs')).getAllByRole('tab')) expect(tab).toHaveAttribute('data-slot', 'tabs-trigger')
+	})
+
 	it('uses the localized Downloads tab label', () => {
 		i18next.addResource('en', 'translation', 'queue.tabLabel', 'Lineup')
 
@@ -51,7 +59,7 @@ describe('DownloadProfilesHome downloads tab', () => {
 
 	// The badge counts the rows only the user can move on: a failed
 	// preparation or an open choice. Otherwise it shows how many rows there are.
-	it('turns the Downloads badge into the count of rows that need attention', () => {
+	it('turns the Downloads badge into the count of rows that need attention', async () => {
 		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
 		render(<DownloadProfilesHome />)
 		const tab = screen.getByRole('tab', {name: /^downloads/i})
@@ -71,7 +79,8 @@ describe('DownloadProfilesHome downloads tab', () => {
 		)
 		const badge = within(tab).getByTestId('downloads-attention-badge')
 		expect(badge).toHaveTextContent('2')
-		expect(badge).toHaveAttribute('title', '2 downloads need your attention')
+		expect(badge).toHaveAccessibleName('2 downloads need your attention')
+		await expectHint(tab, '2 downloads need your attention')
 	})
 
 	it('marks the Downloads tab active only while queue work is running or moving files', () => {

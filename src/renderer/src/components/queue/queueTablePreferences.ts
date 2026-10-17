@@ -22,7 +22,7 @@ export const DEFAULT_QUEUE_TABLE_PREFERENCES: QueueTablePreferences = {
 	version: 1,
 	sorting: [{id: 'addedAt', desc: true}],
 	columnOrder: [...QUEUE_TABLE_COLUMN_IDS],
-	columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: true, outputDir: true, artifacts: true, addedAt: true, finishedAt: false}
+	columnVisibility: {title: true, status: true, progressPercent: true, formatLabel: true, outputDir: true, artifacts: true, fileSize: true, addedAt: true, finishedAt: false}
 }
 
 function isColumnId(value: unknown): value is QueueTableColumnId {

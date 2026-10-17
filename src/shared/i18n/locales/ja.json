@@ -260,16 +260,14 @@
 				"extensionChrome": "cookies.txt をローカルで取得 (Chrome)"
 			},
 			"proxy": {"label": "Proxy URL", "description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。", "placeholder": "http://host:port", "clear": "クリア"},
-			"backdrop": {
-				"panelTitle": "外観とパフォーマンス",
-				"panelDescription": "アニメーション背景で Arroxy が使用する動きの量を選びます。",
-				"modeLabel": "背景の品質",
-				"modeDescription": "最も動きのある表示から最高のパフォーマンスへ調整します。",
-				"cssOnlyLabel": "最高のパフォーマンス",
-				"cssOnlyDescription": "CSS のみ、canvas レンダリングなし。",
-				"gpuLabel": "最も美しい",
-				"gpuDescription": "対応環境ではアニメーション WebGL 背景を使用します。",
-				"runtimeFallbackNotice": "このデバイスではハードウェア WebGL を利用できないため、Arroxy はパフォーマンス用の背景を使用しています。"
+			"style": {
+				"panelTitle": "外観",
+				"panelDescription": "Arroxyの見た目です。ライトとダークはフッターで切り替えられます。",
+				"modeLabel": "スタイル",
+				"modeDescription": "どちらのスタイルもライトとダークに対応しています。",
+				"aurora": {"label": "オーロラ", "description": "動く空の上にガラスのパネルが浮かびます。グラフィックスアクセラレーションが必要です。"},
+				"minimal": {"label": "ミニマル", "description": "ソリッドで落ち着いた画面。どのパソコンでも軽く動きます。"},
+				"unavailableNotice": "{{style}}にはグラフィックスアクセラレーションが必要ですが、今は使えないため、Arroxyは{{fallback}}を表示しています。"
 			},
 			"limitRate": {
 				"label": "ダウンロード速度制限",
@@ -525,6 +523,8 @@
 				"setOverrideShort": "個別設定を指定",
 				"useGlobalDefault": "全体の既定値を使う",
 				"reset": "プロフィールをリセット",
+				"resetHint": "組み込みのプロフィール設定に戻す",
+				"resetDisabledHint": "このプロフィールはすでに組み込みの設定を使用しています",
 				"save": "プロフィールを保存"
 			},
 			"placeholder": {"folder": "このプロフィール用のフォルダーを選択"},
@@ -591,6 +591,7 @@
 			"format": "形式",
 			"outputTarget": "出力先",
 			"artifacts": "生成ファイル",
+			"size": "サイズ",
 			"added": "追加日時",
 			"finished": "完了",
 			"notAvailable": "—",
@@ -809,6 +810,7 @@
 			"continue": "続行"
 		},
 		"nudge": {"off": "Cookieがオフのため、ダウンロードにExploreのログインは使われません。", "file": "ダウンロードにはExploreのログインではなく、Cookieファイルが使われます。", "browser": "ダウンロードにはExploreのログインではなく、ブラウザのCookieが使われます。", "useExplore": "Exploreログインを使う", "notNow": "後で"},
+		"linkMenu": {"downloadWith": "プロファイルでダウンロード", "copyLink": "リンクをコピー"},
 		"toolbar": {
 			"aria": "現在のページ",
 			"back": "戻る",

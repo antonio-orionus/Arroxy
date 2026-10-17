@@ -1,7 +1,7 @@
 import http from 'node:http'
 import {expect, test, type ElectronApplication, type Page} from '@playwright/test'
 import {toastItemName} from '../../src/renderer/src/lib/toastItemName.js'
-import type {AppSettings, ExploreViewState} from '../../src/shared/types.js'
+import type {AppSettings, ExploreLinkAction, ExploreViewState} from '../../src/shared/types.js'
 import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 
@@ -164,6 +164,51 @@ test('Download from Explore places a probing row at once and finishes in the bac
 			await expect(row).toHaveAttribute('data-status', 'probing')
 			await expect(row).toContainText(pageTitle)
 			await expect(row).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+		})
+	} finally {
+		await home.close()
+	}
+})
+
+// A pick in the page's native link menu, as main sends it once the user right-
+// clicked a link and chose; the native menu itself cannot be driven from a test.
+async function pickFromLinkMenu(app: ElectronApplication, action: ExploreLinkAction): Promise<void> {
+	await app.evaluate(({BrowserWindow}, next) => {
+		const win = BrowserWindow.getAllWindows().find(candidate => candidate.webContents.getURL().startsWith('file:'))
+		if (!win) throw new Error('main window not found')
+		win.webContents.send('explore:linkAction', next)
+	}, action)
+}
+
+// Actions: on the home feed (the bar has nothing to grab), right-click a video
+// and pick another profile in Download with.
+// Milestones: the picked profile becomes the active one; the toast; done.
+// Oracles: Explore stays the tab, no modal, one mp4 on disk.
+test('a link menu profile pick on the home feed makes it the active profile and downloads the link in the background', async () => {
+	test.setTimeout(150_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+	if (!videoId) throw new Error('fixture catalog needs an eighth video')
+	const home = await startExploreHome()
+	try {
+		await withFixtureProductApp({exploreHomeUrl: home.url, settings: exploreReady, userDataPrefix: 'arroxy-fixture-bg-quick-link-menu-user-', outputPrefix: 'arroxy-fixture-bg-quick-link-menu-out-'}, async ({app, page, urls, files}) => {
+			await page.locator('.explore-tab-trigger').click()
+			await expect(page.getByTestId('explore-address')).toHaveValue(home.url, {timeout: 30_000})
+			const download = page.getByTestId('explore-download')
+			await expect(download).toHaveAttribute('aria-disabled', 'true')
+
+			const url = urls.video(videoId)
+			await pickFromLinkMenu(app, {kind: 'download', url, profile: {kind: 'builtin', id: 'best-quality'}})
+
+			await expect(download).toHaveText('Download · Best available', {timeout: 10_000})
+			await expect(toast(page, `Added: ${toastItemName(url)}`)).toBeVisible({timeout: 10_000})
+			await expectNoModal(page)
+			await expect(page.getByTestId('explore-tab')).toBeVisible()
+
+			await viewFromToast(page, `Added: ${toastItemName(url)}`)
+			const row = rows(page).first()
+			await expect(row).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+			await expect(rows(page)).toHaveCount(1)
 			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
 		})
 	} finally {

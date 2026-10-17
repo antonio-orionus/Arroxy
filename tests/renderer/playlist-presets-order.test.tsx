@@ -33,6 +33,6 @@ describe('StepPlaylistPresets', () => {
 
 		await waitFor(() => expect(useAppStore.getState().playlistSelection).toEqual(DEFAULT_PLAYLIST_SELECTION))
 		expect(screen.getByRole('button', {name: 'Continue'})).toBeEnabled()
-		expect(screen.getByRole('button', {name: 'Skip to confirm'})).toBeEnabled()
+		expect(screen.getByRole('button', {name: 'Skip to confirm'})).not.toHaveAttribute('aria-disabled', 'true')
 	})
 })
