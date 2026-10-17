@@ -541,6 +541,8 @@
 				"setOverrideShort": "Définir une dérogation",
 				"useGlobalDefault": "Utiliser la valeur globale",
 				"reset": "Réinitialiser le profil",
+				"resetHint": "Restaurer les paramètres intégrés du profil",
+				"resetDisabledHint": "Ce profil utilise déjà les paramètres intégrés",
 				"save": "Enregistrer le profil"
 			},
 			"placeholder": {"folder": "Choisir un dossier pour ce profil"},

@@ -273,7 +273,7 @@ describe('StepPlaylistProfiles', () => {
 		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
 		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
 		await screen.findByTestId('profiles-editor-dialog')
-		expect(screen.getByRole('button', {name: 'Change global destination'})).toBeEnabled()
+		expect(screen.getByRole('button', {name: 'Change global destination'})).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
 	it('ignores the Delete shortcut while the profile editor dialog is open (I2)', async () => {

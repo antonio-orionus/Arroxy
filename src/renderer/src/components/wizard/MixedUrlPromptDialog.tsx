@@ -8,6 +8,7 @@ import {Alert, AlertDescription} from '../ui/alert.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
+import {Hint} from '../shared/Hint.js'
 
 // Mixed YouTube URLs (?v=X&list=Y) are ambiguous: yt-dlp's default routes
 // Radio/Mix lists to playlist enumeration, which rarely matches user intent
@@ -30,9 +31,11 @@ export function MixedUrlPromptDialog(): ReactNode {
 				<DialogDescription>{t(isQuickDownload ? 'wizard.mixedPrompt.quickBody' : 'wizard.mixedPrompt.body')}</DialogDescription>
 				<Alert variant="info" size="sm" className="mt-3" data-testid="mixed-playlist-cap">
 					<Info />
-					<AlertDescription title={t('wizard.url.playlistProbeLimit.tooltip')}>
-						{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})} · {t(isQuickDownload ? 'wizard.mixedPrompt.quickLimitDescription' : 'wizard.url.playlistProbeLimit.description')}
-					</AlertDescription>
+					<Hint label={t('wizard.url.playlistProbeLimit.tooltip')}>
+						<AlertDescription>
+							{t('wizard.mixedPrompt.playlistLimit', {count: playlistLimit})} · {t(isQuickDownload ? 'wizard.mixedPrompt.quickLimitDescription' : 'wizard.url.playlistProbeLimit.description')}
+						</AlertDescription>
+					</Hint>
 					<div className="col-start-2 mt-1.5">
 						<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} className="w-36" />
 					</div>

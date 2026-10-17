@@ -1,9 +1,11 @@
 name: CI
 
+# Feature branches are covered by the pull_request run; pushing them as well
+# ran the same suite twice per commit. main still runs on push because
+# scripts/release.sh verifies the required checks on the main commit.
 on:
   push:
-    branches: ['**']
-    tags-ignore: ['v*']
+    branches: [main]
   pull_request:
 
 concurrency:

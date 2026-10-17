@@ -31,6 +31,7 @@ import {TooltipProvider} from './components/ui/tooltip.js'
 import {cn} from './lib/utils.js'
 import {selectCompactChrome} from './store/uiSlice.js'
 import changelogText from '../../../CHANGELOG.md?raw'
+import {Hint} from './components/shared/Hint.js'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
 const ShareDialog = lazy(() => import('./components/system/ShareDialog.js').then(module => ({default: module.ShareDialog})))
@@ -271,22 +272,28 @@ export function App(): ReactNode {
 						</div>
 					</div>
 					<div className="flex shrink-0 items-center gap-0.5 sm:gap-1" data-testid="footer-actions">
-						<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
-							<Info data-icon="inline-start" aria-hidden />
-							<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
-						</Button>
-						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} title={t('share.footerTooltip')} data-testid="btn-share">
-							<Share2 data-icon="inline-start" aria-hidden />
-							<span className={footerLabelClass} data-testid="btn-share-label">
-								{t('share.footerLabel')}
-							</span>
-						</Button>
-						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} title="Discord" aria-label="Discord" data-testid="btn-discord">
-							<IconDiscord data-icon="inline-start" aria-hidden />
-							<span className={footerLabelClass} data-testid="btn-discord-label">
-								Discord
-							</span>
-						</Button>
+						<Hint label={t('about.openTitle')}>
+							<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} data-testid="btn-about">
+								<Info data-icon="inline-start" aria-hidden />
+								<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
+							</Button>
+						</Hint>
+						<Hint label={t('share.footerTooltip')}>
+							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} data-testid="btn-share">
+								<Share2 data-icon="inline-start" aria-hidden />
+								<span className={footerLabelClass} data-testid="btn-share-label">
+									{t('share.footerLabel')}
+								</span>
+							</Button>
+						</Hint>
+						<Hint label="Discord">
+							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} aria-label="Discord" data-testid="btn-discord">
+								<IconDiscord data-icon="inline-start" aria-hidden />
+								<span className={footerLabelClass} data-testid="btn-discord-label">
+									Discord
+								</span>
+							</Button>
+						</Hint>
 						<div className="relative inline-flex h-6 items-center">
 							<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
 							<Button

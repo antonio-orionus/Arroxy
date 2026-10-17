@@ -538,6 +538,8 @@
 				"setOverrideShort": "Überschreibung festlegen",
 				"useGlobalDefault": "Globalen Standard verwenden",
 				"reset": "Profil zurücksetzen",
+				"resetHint": "Integrierte Profileinstellungen wiederherstellen",
+				"resetDisabledHint": "Dieses Profil verwendet bereits die integrierten Einstellungen",
 				"save": "Profil speichern"
 			},
 			"placeholder": {"folder": "Ordner für dieses Profil wählen"},

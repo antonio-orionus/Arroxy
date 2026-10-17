@@ -39,7 +39,7 @@ describe('StepPlaylistPresets · subtitles batch', () => {
 
 		expect(screen.getByText('Choose at least one language to continue.')).toBeInTheDocument()
 		expect(screen.getByRole('button', {name: 'Continue'})).toBeDisabled()
-		expect(screen.getByRole('button', {name: 'Skip to confirm'})).toBeDisabled()
+		expect(screen.getByRole('button', {name: 'Skip to confirm'})).toHaveAttribute('aria-disabled', 'true')
 
 		// Base UI only opens the list for input events that carry an `inputType`.
 		fireEvent.input(screen.getByLabelText('Languages'), {target: {value: 'polish'}, inputType: 'insertText'})

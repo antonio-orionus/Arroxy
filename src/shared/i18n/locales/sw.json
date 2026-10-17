@@ -528,6 +528,8 @@
 				"setOverrideShort": "Weka ubatilishaji",
 				"useGlobalDefault": "Tumia chaguo-msingi la jumla",
 				"reset": "Weka upya wasifu",
+				"resetHint": "Rejesha mipangilio ya wasifu iliyojengwa ndani",
+				"resetDisabledHint": "Wasifu huu tayari unatumia mipangilio iliyojengwa ndani",
 				"save": "Hifadhi wasifu"
 			},
 			"placeholder": {"folder": "Chagua folda kwa wasifu huu"},

@@ -7,6 +7,7 @@ import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {Badge} from '../ui/badge.js'
 import {TableCell, TableRow} from '../ui/table.js'
 import {formatQueueByteSize} from './queueFileSize.js'
+import {Hint} from '../shared/Hint.js'
 
 type QueueArtifactLabelKey = 'queue.artifact.media' | 'queue.artifact.subtitle' | 'queue.artifact.thumbnail' | 'queue.artifact.description' | 'queue.artifact.companion' | 'queue.artifact.unknown'
 
@@ -33,9 +34,9 @@ export function QueueArtifactsRow({columnsLength, item}: {columnsLength: number;
 								<Badge variant="secondary" size="sm" className="shrink-0 uppercase tracking-wide">
 									{artifactKindLabel(artifact.kind, t)}
 								</Badge>
-								<span className="block min-w-0 truncate font-mono text-foreground" title={artifact.path}>
-									{artifact.fileName}
-								</span>
+								<Hint label={artifact.path} reveal>
+									<span className="block min-w-0 truncate font-mono text-foreground">{artifact.fileName}</span>
+								</Hint>
 								{size ? <span className="shrink-0 text-subtle-foreground">{size}</span> : null}
 								{artifact.missing ? (
 									<span className="inline-flex shrink-0 items-center gap-1 text-destructive">

@@ -525,6 +525,8 @@
 				"setOverrideShort": "Definir específica",
 				"useGlobalDefault": "Usar padrão global",
 				"reset": "Redefinir perfil",
+				"resetHint": "Restaurar as configurações integradas do perfil",
+				"resetDisabledHint": "Este perfil já usa as configurações integradas",
 				"save": "Salvar perfil"
 			},
 			"placeholder": {"folder": "Escolha uma pasta para este perfil"},

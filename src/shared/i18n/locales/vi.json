@@ -518,6 +518,8 @@
 				"setOverrideShort": "Đặt ghi đè",
 				"useGlobalDefault": "Dùng mặc định chung",
 				"reset": "Đặt lại hồ sơ",
+				"resetHint": "Khôi phục cài đặt hồ sơ tích hợp",
+				"resetDisabledHint": "Hồ sơ này đã dùng cài đặt tích hợp",
 				"save": "Lưu hồ sơ"
 			},
 			"placeholder": {"folder": "Chọn một thư mục cho hồ sơ này"},

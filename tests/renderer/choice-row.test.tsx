@@ -3,6 +3,7 @@ import {fireEvent, render, screen} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {ChoiceRow} from '@renderer/components/shared/ChoiceRow.js'
 import {RadioGroup} from '@renderer/components/ui/radio-group.js'
+import {expectHint} from '../shared/hint.js'
 
 function renderGroup(onValueChange = vi.fn(), value = 'a'): ReturnType<typeof vi.fn> {
 	render(
@@ -45,14 +46,14 @@ describe('ChoiceRow', () => {
 })
 
 describe('ChoiceRow label truncation', () => {
-	it('keeps the full label and details reachable when they are cut with an ellipsis', () => {
+	it('keeps the full label and details reachable when they are cut with an ellipsis', async () => {
 		render(
 			<RadioGroup value="en">
 				<ChoiceRow id="row-en" value="en" adornment={<span data-testid="badge" />} label="English original (default)" meta="m4a · AAC · 130 kbps · 1.4 MB" />
 			</RadioGroup>
 		)
-		expect(screen.getByText('English original (default)')).toHaveAttribute('title', 'English original (default)')
-		expect(screen.getByText('m4a · AAC · 130 kbps · 1.4 MB')).toHaveAttribute('title', 'm4a · AAC · 130 kbps · 1.4 MB')
+		await expectHint(screen.getByText('English original (default)'), 'English original (default)')
+		await expectHint(screen.getByText('m4a · AAC · 130 kbps · 1.4 MB'), 'm4a · AAC · 130 kbps · 1.4 MB')
 		expect(screen.getByRole('radio', {name: 'English original (default)'})).toBeInTheDocument()
 	})
 

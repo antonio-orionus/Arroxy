@@ -26,9 +26,17 @@ permissions:
 
 jobs:
   fixtures:
-    name: Fixture product E2E
+    name: Fixture product E2E (${{ matrix.shard }}/${{ strategy.job-total }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # Split across runners rather than Playwright workers: each runner gets its
+    # own xvfb display, so focus-dependent specs (clipboard, hotkey) never
+    # compete for one window manager. Serial on one runner this took ~10 min
+    # and set the wall-clock of every PR.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -56,18 +64,19 @@ jobs:
       - name: Install xvfb
         run: sudo apt-get update && sudo apt-get install -y xvfb
 
-      # Fetches embedded ffmpeg/ffprobe for the host, builds, then runs every
-      # fixture spec serially under a virtual display.
+      # Fetches embedded ffmpeg/ffprobe for the host, builds, then runs this
+      # runner's shard of the fixture specs serially under a virtual display.
       - name: Run fixture product E2E
         env:
           BTBN_GITHUB_TOKEN: ${{ github.token }}
-        run: bun run test:e2e:fixtures:ci
+          SHARD: ${{ matrix.shard }}/${{ strategy.job-total }}
+        run: bun run test:e2e:fixtures:ci --shard="$SHARD"
 
       - name: Upload Playwright artifacts
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: fixture-e2e-playwright
+          name: fixture-e2e-playwright-${{ matrix.shard }}
           path: test-results
           if-no-files-found: ignore
           retention-days: 7

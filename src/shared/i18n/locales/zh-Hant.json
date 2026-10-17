@@ -493,6 +493,8 @@
 				"setOverrideShort": "設定覆寫",
 				"useGlobalDefault": "使用全域預設值",
 				"reset": "重設設定檔",
+				"resetHint": "還原內建設定檔設定",
+				"resetDisabledHint": "此設定檔已使用內建設定",
 				"save": "儲存設定檔"
 			},
 			"placeholder": {"folder": "選擇此設定檔的資料夾"},

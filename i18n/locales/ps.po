@@ -2449,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "پروفایل بیا تنظیمول"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "دا پروفایل دمخه دننه جوړې ترتیبات کاروي"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "د پروفایل دننه جوړې ترتیبات بیرته راوګرځوئ"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "پروفایل خوندي کول"

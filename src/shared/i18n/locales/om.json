@@ -548,6 +548,8 @@
 				"setOverrideShort": "Bakka bu'iinsa qindeessi",
 				"useGlobalDefault": "Durtii waliigalaa fayyadami",
 				"reset": "Piroofaayilii haaromsi",
+				"resetHint": "Qindaa'ina piroofaayilii keessaa jiru deebisi",
+				"resetDisabledHint": "Piroofaayiliin kun duraanuu qindaa'ina keessaa jiru fayyadamaa jira",
 				"save": "Piroofaayilii olkaa'i"
 			},
 			"placeholder": {"folder": "Piroofaayilii kanaaf galee filadhu"},

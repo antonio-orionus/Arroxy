@@ -531,6 +531,8 @@
 				"setOverrideShort": "Geçersiz kılmayı ayarla",
 				"useGlobalDefault": "Genel varsayılanı kullan",
 				"reset": "Profili sıfırla",
+				"resetHint": "Yerleşik profil ayarlarını geri yükle",
+				"resetDisabledHint": "Bu profil zaten yerleşik ayarları kullanıyor",
 				"save": "Profili kaydet"
 			},
 			"placeholder": {"folder": "Bu profil için bir klasör seçin"},

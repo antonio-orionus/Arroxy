@@ -2449,6 +2449,14 @@ msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
 msgstr "ပရိုဖိုင်ကို ပြန်လည်သတ်မှတ်ရန်"
 
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "ဤပရိုဖိုင်သည် မူလပါရှိသည့် ဆက်တင်များကို အသုံးပြုနေပြီးဖြစ်သည်"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "မူလပါရှိသည့် ပရိုဖိုင်ဆက်တင်များကို ပြန်ယူရန်"
+
 msgctxt "wizard.profileEditor.action.save"
 msgid "Save profile"
 msgstr "ပရိုဖိုင် သိမ်းရန်"

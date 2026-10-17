@@ -1,4 +1,4 @@
-import {createContext, useContext, useState, type ReactElement, type ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ArrowLeft, ArrowRight, ChevronDown, House, Maximize2, Minimize2, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
 import type {ExploreAdBlockStatus} from '@shared/schemas.js'
@@ -10,9 +10,10 @@ import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
+import {Hint} from '../shared/Hint.js'
+import {NativeViewPointerEntries} from '../shared/nativeViewPointerEntries.js'
 import {Spinner} from '../ui/spinner.js'
 import {Toggle} from '../ui/toggle.js'
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {ExploreAddressBar} from './ExploreAddressBar.js'
 
 // What the profile menu's picks and actions do; the home owns the editor and the tabs.
@@ -47,28 +48,6 @@ interface ExploreToolbarProps {
 const AD_BLOCK_ICONS: Record<ExploreAdBlockStatus, LucideIcon> = {off: ShieldOff, starting: ShieldEllipsis, on: ShieldCheck, unavailable: ShieldAlert}
 const AD_BLOCK_STATUS_KEY = {off: 'explore.toolbar.adBlock.off', starting: 'explore.toolbar.adBlock.starting', on: 'explore.toolbar.adBlock.on', unavailable: 'explore.toolbar.adBlock.unavailable'} as const satisfies Record<ExploreAdBlockStatus, string>
 
-// The native view sits below the toolbar and paints over any DOM under it, so a
-// toolbar tooltip must open above its button: `side: 'shift'` keeps it on top
-// (it slides, never flips down into the view). Tooltips are no overlay for the
-// view (see `hasBlockingOverlay`): they float over the tab bar, not the page.
-// Controlled: the pointer can leave a button straight onto the native view,
-// and the renderer then never sees its mouseleave. Main reports each entry
-// into the view; a tooltip opened before the latest one is closed.
-const PointerEntries = createContext(0)
-
-function ToolbarTip({label, children}: {label: ReactNode; children: ReactElement}): ReactNode {
-	const pointerEntries = useContext(PointerEntries)
-	const [openedAt, setOpenedAt] = useState<number | null>(null)
-	return (
-		<Tooltip open={openedAt === pointerEntries} onOpenChange={open => setOpenedAt(open ? pointerEntries : null)}>
-			<TooltipTrigger render={children} />
-			<TooltipContent side="top" collisionAvoidance={{side: 'shift', align: 'shift', fallbackAxisSide: 'none'}} collisionPadding={8}>
-				{label}
-			</TooltipContent>
-		</Tooltip>
-	)
-}
-
 // P2-R36: pressed while the setting is on, whatever came of it; the icon and
 // the tooltip say which.
 function AdBlockToggle({status, onToggle}: {status: ExploreAdBlockStatus; onToggle: (enabled: boolean) => void}): ReactNode {
@@ -76,7 +55,7 @@ function AdBlockToggle({status, onToggle}: {status: ExploreAdBlockStatus; onTogg
 	const Icon = AD_BLOCK_ICONS[status]
 	const enabled = status !== 'off'
 	return (
-		<ToolbarTip
+		<Hint
 			label={
 				<div className="flex flex-col gap-0.5">
 					<span>{t(AD_BLOCK_STATUS_KEY[status])}</span>
@@ -87,7 +66,7 @@ function AdBlockToggle({status, onToggle}: {status: ExploreAdBlockStatus; onTogg
 			<Toggle variant="outline" size="icon-sm" pressed={enabled} onPressedChange={onToggle} aria-label={t('explore.toolbar.adBlock.aria')} data-adblock={status} data-testid="explore-adblock">
 				<Icon className={status === 'unavailable' ? 'text-warning' : undefined} aria-hidden />
 			</Toggle>
-		</ToolbarTip>
+		</Hint>
 	)
 }
 
@@ -97,11 +76,11 @@ function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compac
 	const label = compact ? t('explore.toolbar.fullLayout') : t('explore.toolbar.compactLayout')
 	const Icon = compact ? Maximize2 : Minimize2
 	return (
-		<ToolbarTip label={label}>
+		<Hint label={label}>
 			<Toggle variant="outline" size="icon-sm" pressed={compact} onPressedChange={onToggle} aria-label={t('explore.toolbar.compactLayout')} data-testid="explore-compact-toggle">
 				<Icon aria-hidden />
 			</Toggle>
-		</ToolbarTip>
+		</Hint>
 	)
 }
 
@@ -119,7 +98,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 	const downloadLabel = t('explore.toolbar.downloadWithProfile', {profileName: activeProfile.name})
 	const interactiveHint = t('explore.toolbar.interactiveHint')
 	return (
-		<PointerEntries value={pointerEntries}>
+		<NativeViewPointerEntries value={pointerEntries}>
 			{/* Compact keeps one row wherever it fits (the address bar and the Download label shrink first); a very narrow or zoomed card still wraps. */}
 			<div role="toolbar" aria-label={t('explore.toolbar.aria')} className={cn('flex min-w-0 flex-wrap items-center gap-2', compact && '@xl:flex-nowrap')} data-testid="explore-toolbar">
 				{leading ? (
@@ -129,26 +108,26 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 					</>
 				) : null}
 				<ButtonGroup>
-					<ToolbarTip label={t('explore.toolbar.back')}>
+					<Hint label={t('explore.toolbar.back')}>
 						<Button type="button" variant="outline" size="icon-sm" aria-label={t('explore.toolbar.back')} disabled={!state.canGoBack} focusableWhenDisabled onClick={() => onNavigate({kind: 'back'})}>
 							<ArrowLeft className="rtl:rotate-180" aria-hidden />
 						</Button>
-					</ToolbarTip>
-					<ToolbarTip label={t('explore.toolbar.forward')}>
+					</Hint>
+					<Hint label={t('explore.toolbar.forward')}>
 						<Button type="button" variant="outline" size="icon-sm" aria-label={t('explore.toolbar.forward')} disabled={!state.canGoForward} focusableWhenDisabled onClick={() => onNavigate({kind: 'forward'})}>
 							<ArrowRight className="rtl:rotate-180" aria-hidden />
 						</Button>
-					</ToolbarTip>
-					<ToolbarTip label={t('explore.toolbar.reload')}>
+					</Hint>
+					<Hint label={t('explore.toolbar.reload')}>
 						<Button type="button" variant="outline" size="icon-sm" aria-label={t('explore.toolbar.reload')} onClick={() => onNavigate({kind: 'reload'})}>
 							{state.loading ? <Spinner aria-hidden /> : <RotateCw aria-hidden />}
 						</Button>
-					</ToolbarTip>
-					<ToolbarTip label={t('explore.toolbar.home')}>
+					</Hint>
+					<Hint label={t('explore.toolbar.home')}>
 						<Button type="button" variant="outline" size="icon-sm" aria-label={t('explore.toolbar.home')} onClick={() => onNavigate({kind: 'home'})}>
 							<House aria-hidden />
 						</Button>
-					</ToolbarTip>
+					</Hint>
 				</ButtonGroup>
 				<ExploreAddressBar url={state.url} onSubmit={onSubmitAddress} onEdit={onAddressEdit} />
 				<AdBlockToggle status={state.adBlock} onToggle={onToggleAdBlock} />
@@ -156,13 +135,13 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 				<div className="flex min-w-0 max-w-full items-center gap-2" data-testid="explore-download-cluster">
 					<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 						<ButtonGroup className="min-w-0">
-							<ToolbarTip label={grabHint ?? downloadLabel}>
+							<Hint label={grabHint ?? downloadLabel}>
 								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} onClick={onDownload} className="min-w-8 shrink" data-testid="explore-download">
 									<ActiveIcon data-icon="inline-start" aria-hidden />
 									<span className="min-w-0 truncate">{downloadLabel}</span>
 								</Button>
-							</ToolbarTip>
-							<ToolbarTip label={grabHint ?? t('wizard.url.profile.switchTitle')}>
+							</Hint>
+							<Hint label={grabHint ?? t('wizard.url.profile.switchTitle')}>
 								<PopoverTrigger
 									render={
 										<Button type="button" size="icon-sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} aria-label={t('wizard.url.profile.switchAria', {profileName: activeProfile.name})} className="border-s-primary-foreground/25" data-testid="explore-profile-trigger">
@@ -170,18 +149,18 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 										</Button>
 									}
 								/>
-							</ToolbarTip>
+							</Hint>
 						</ButtonGroup>
 						<DownloadProfileMenuContent model={profiles} onClose={() => setMenuOpen(false)} testIdPrefix="explore" {...profileMenu} />
 					</Popover>
-					<ToolbarTip label={grabHint ?? interactiveHint}>
+					<Hint label={grabHint ?? interactiveHint}>
 						<Button type="button" size="icon-sm" variant="outline" aria-label={interactiveHint} aria-description={grabHint} disabled={blocked} focusableWhenDisabled onClick={onInteractive} data-testid="explore-interactive">
 							<WandSparkles aria-hidden />
 						</Button>
-					</ToolbarTip>
+					</Hint>
 				</div>
 				<CompactToggle compact={compact} onToggle={onToggleCompact} />
 			</div>
-		</PointerEntries>
+		</NativeViewPointerEntries>
 	)
 }

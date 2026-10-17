@@ -525,6 +525,8 @@
 				"setOverrideShort": "Definir anulación",
 				"useGlobalDefault": "Usar el valor global",
 				"reset": "Restablecer perfil",
+				"resetHint": "Restaurar la configuración integrada del perfil",
+				"resetDisabledHint": "Este perfil ya usa la configuración integrada",
 				"save": "Guardar perfil"
 			},
 			"placeholder": {"folder": "Elegir una carpeta para este perfil"},

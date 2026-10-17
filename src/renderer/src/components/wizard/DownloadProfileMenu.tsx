@@ -6,6 +6,7 @@ import {Button} from '../ui/button.js'
 import {PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
 import type {DownloadProfileActionModel} from './downloadProfileActions.js'
+import {Hint} from '../shared/Hint.js'
 
 export type DownloadProfileMenuTestIdPrefix = 'profiles' | 'bulk' | 'explore'
 
@@ -52,24 +53,24 @@ export function DownloadProfileMenuContent({model, onPickProfile, onEditProfile,
 			<Separator />
 			<div className="grid grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2" data-testid={`${testIdPrefix}-profile-menu-grid`}>
 				{options.map(({profile, ref, Icon, active, label}) => (
-					<Button
-						key={profile.id}
-						type="button"
-						variant="outline"
-						onClick={() => closeAndRun(() => onPickProfile(ref))}
-						aria-pressed={active}
-						title={`${profile.name}: ${label}`}
-						data-selected={active || undefined}
-						className="choice-surface h-auto min-h-12 w-full justify-start gap-2.5 rounded-md px-2.5 py-2 text-start whitespace-normal"
-						data-testid={`${testIdPrefix}-profile-option-${profile.id}`}
-					>
-						<Icon className="shrink-0 text-primary" aria-hidden />
-						<span className="min-w-0 flex-1">
-							<span className="block truncate text-sm font-semibold text-foreground">{profile.name}</span>
-							<span className="block truncate text-caption font-normal leading-tight text-subtle-foreground">{label}</span>
-						</span>
-						{active ? <Check className="shrink-0 text-primary" aria-hidden /> : null}
-					</Button>
+					<Hint key={profile.id} label={`${profile.name}: ${label}`} reveal>
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => closeAndRun(() => onPickProfile(ref))}
+							aria-pressed={active}
+							data-selected={active || undefined}
+							className="choice-surface h-auto min-h-12 w-full justify-start gap-2.5 rounded-md px-2.5 py-2 text-start whitespace-normal"
+							data-testid={`${testIdPrefix}-profile-option-${profile.id}`}
+						>
+							<Icon className="shrink-0 text-primary" aria-hidden />
+							<span className="min-w-0 flex-1">
+								<span className="block truncate text-sm font-semibold text-foreground">{profile.name}</span>
+								<span className="block truncate text-caption font-normal leading-tight text-subtle-foreground">{label}</span>
+							</span>
+							{active ? <Check className="shrink-0 text-primary" aria-hidden /> : null}
+						</Button>
+					</Hint>
 				))}
 			</div>
 			<Separator />

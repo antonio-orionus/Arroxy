@@ -485,6 +485,8 @@
 				"setOverrideShort": "设置覆盖",
 				"useGlobalDefault": "使用全局默认值",
 				"reset": "重置配置",
+				"resetHint": "恢复内置配置设置",
+				"resetDisabledHint": "此配置已使用内置设置",
 				"save": "保存配置"
 			},
 			"placeholder": {"folder": "为此配置选择一个文件夹"},
