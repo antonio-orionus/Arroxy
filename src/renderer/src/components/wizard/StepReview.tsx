@@ -150,7 +150,12 @@ export function StepReview(): ReactNode {
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
 			<Card className="flex-row items-center gap-3 px-3.5 py-2.5" data-testid="review-format-strip">
-				{state.wizardThumbnail ? <img src={state.wizardThumbnail} alt="" aria-hidden className="h-9 w-16 shrink-0 rounded-md object-cover" /> : null}
+				{/* Wrapped: Card styles a first-child <img> as a cover image. */}
+				{state.wizardThumbnail ? (
+					<div className="h-9 w-16 shrink-0 overflow-hidden rounded-md">
+						<img src={state.wizardThumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="size-full object-cover" />
+					</div>
+				) : null}
 				<div className="min-w-0 flex-1">
 					<p className="truncate text-sm font-semibold text-foreground">{state.wizardTitle}</p>
 					<p className="truncate text-caption text-subtle-foreground">{formatLine}</p>
