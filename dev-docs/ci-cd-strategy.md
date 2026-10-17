@@ -37,7 +37,7 @@ Required checks: `check`, `Cold start (linux)`, `Cold-state install`, `1x instal
 
 - Required contexts must match what PR workflows actually report. Never require a context only produced by tag-only or scheduled workflows — it would block every PR forever.
 - Renaming or moving a job → update protection in the same PR.
-- Do **not** add `startup-gate` to protection when wiring it into `prepare-release` — it only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
+- Do **not** add `startup-gate` to branch protection — it gates `publish-release` and only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
 
 ## Release flow
 

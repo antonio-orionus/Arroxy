@@ -24,8 +24,8 @@ start. Tag-only and scheduled jobs must never become required PR contexts —
 including `startup-gate` itself once it is wired into `prepare-release`.
 
 This decision's own argument — "the release gate will catch it anyway before
-anything can publish" — is a promise, not yet a fact: `startup-gate` is in no
-job's `needs:`, so a red gate currently stops nothing. Until it is wired,
-automated Windows and macOS startup coverage is the nightly alone. Wiring it is
-the precondition that makes this ADR true; the criterion and review date live
-in the NOTE above `startup-gate` in `release.yml`.
+anything can publish" — holds because `publish-release` needs `startup-gate`:
+a red gate leaves the release a draft, so nothing reaches users or package
+managers. For its first months the gate ran advisory (in no job's `needs:`),
+and automated Windows and macOS startup coverage was the nightly alone; it was
+wired after passing on all three platforms for six consecutive tags.
