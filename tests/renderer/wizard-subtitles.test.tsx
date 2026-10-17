@@ -5,8 +5,8 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {ProbeResult, StatusEvent} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
 import {buildAppSettings} from '../shared/settingsFixtures.js'
-import {StepSubtitles} from '@renderer/components/wizard/StepSubtitles.js'
-import {StepConfirm} from '@renderer/components/wizard/StepConfirm.js'
+import {SubtitleFields} from '@renderer/components/wizard/SubtitleFields.js'
+import {StepReview} from '@renderer/components/wizard/StepReview.js'
 import {StepFormatSelect} from '@renderer/components/wizard/StepFormatSelect.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
@@ -87,14 +87,13 @@ function resetStore() {
 		wizardFormats: [],
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: [],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSponsorBlockMode: 'off' as const,
@@ -108,27 +107,28 @@ beforeEach(() => {
 	vi.clearAllMocks()
 })
 
-describe('Subtitle-only preset', () => {
-	it('setPreset("subtitle-only") clears video and audio selections', async () => {
+describe('Subtitles kind', () => {
+	it('the Subtitles switch clears video and audio selections', async () => {
 		window.appApi = buildMockApi() as never
 		await useAppStore.getState().initialize()
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 		await useAppStore.getState().submitUrl()
 
-		useAppStore.getState().setPreset('subtitle-only')
+		useAppStore.getState().setWizardMediaKind('subtitles')
 
 		const state = useAppStore.getState()
-		expect(state.activePreset).toBe('subtitle-only')
+		expect(state.wizardMediaKind).toBe('subtitles')
 		expect(state.selectedVideoFormatId).toBe('')
 		expect(state.audioSelection).toEqual({kind: 'none'})
 	})
 
-	it('subtitle-only preset produces undefined formatId in queue item', async () => {
+	it('the Subtitles kind queues a subtitle-only job', async () => {
 		window.appApi = buildMockApi() as never
 		await useAppStore.getState().initialize()
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 		await useAppStore.getState().submitUrl()
-		useAppStore.getState().setPreset('subtitle-only')
+		useAppStore.getState().setWizardMediaKind('subtitles')
+		useAppStore.getState().clearSubtitleLanguages()
 		useAppStore.getState().toggleSubtitleLanguage('en')
 
 		await useAppStore.getState().addToQueue()
@@ -153,15 +153,16 @@ describe('Wizard subtitle step — store behavior', () => {
 		expect(state.wizardSubtitleLanguages).toEqual([])
 	})
 
-	it('restores last-used subtitle languages from settings on submitUrl', async () => {
-		window.appApi = buildMockApi({lastSubtitleLanguages: ['en', 'es']}) as never
+	it('takes subtitle languages from the active profile, matching regional and auto tracks', async () => {
+		const balanced = (await import('@shared/downloadProfiles.js')).BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const withSubs = {...balanced, id: 'subs', name: 'Subs', subtitles: {...balanced.subtitles, enabled: true, languages: ['es', 'ja']}}
+		window.appApi = buildMockApi({profiles: {active: {kind: 'custom', id: 'subs'}, custom: [withSubs], overrides: [], enabledOverrides: {}}}) as never
 		await useAppStore.getState().initialize()
 
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 		await useAppStore.getState().submitUrl()
 
-		const state = useAppStore.getState()
-		expect(state.wizardSubtitleLanguages).toEqual(['en', 'es'])
+		expect(useAppStore.getState().wizardSubtitleLanguages).toEqual(['es', 'ja-orig'])
 	})
 
 	it('toggleSubtitleLanguage adds and removes a language', () => {
@@ -184,7 +185,7 @@ describe('Wizard subtitle step — store behavior', () => {
 			wizardOutputDir: '/tmp',
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
+			wizardMediaKind: 'video',
 			wizardFormats: PROBE_RESULT.formats,
 			wizardSubtitles: PROBE_RESULT.subtitles,
 			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
@@ -212,7 +213,7 @@ describe('Wizard subtitle step — store behavior', () => {
 			wizardOutputDir: '/tmp',
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
+			wizardMediaKind: 'video',
 			wizardFormats: PROBE_RESULT.formats,
 			wizardSubtitles: PROBE_RESULT.subtitles,
 			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
@@ -225,39 +226,6 @@ describe('Wizard subtitle step — store behavior', () => {
 
 		const queue = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0]?.[0] ?? []
 		expect((queue[0].job as Extract<(typeof queue)[0]['job'], {kind: 'single-format'}>).subtitles?.writeAuto).toBe(true)
-	})
-
-	it('persistFormatPrefs saves subtitle language prefs to settings', async () => {
-		const updateMock = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
-		window.appApi = {...buildMockApi(), settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false})), update: updateMock}} as never
-		await useAppStore.getState().initialize()
-
-		useAppStore.setState({
-			wizardUrl: YOUTUBE_URL,
-			wizardTitle: 'Test',
-			wizardThumbnail: '',
-			wizardOutputDir: '/tmp',
-			selectedVideoFormatId: '22',
-			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
-			wizardFormats: PROBE_RESULT.formats,
-			wizardSubtitles: PROBE_RESULT.subtitles,
-			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-			wizardSubtitleLanguages: ['en', 'es'],
-			wizardStep: 'confirm',
-			wizardExtractor: 'youtube'
-		})
-
-		await useAppStore.getState().addToQueue()
-
-		const updateCalls = updateMock.mock.calls
-		const subtitleUpdateCall = updateCalls.find((args: unknown[]) => {
-			const patch = args[0] as {single?: Record<string, unknown>}
-			return !!patch.single && 'lastSubtitleLanguages' in patch.single
-		})
-		expect(subtitleUpdateCall).toBeDefined()
-		expect(subtitleUpdateCall![0]).toMatchObject({single: {lastSubtitleLanguages: ['en', 'es']}})
-		expect((subtitleUpdateCall![0] as {single?: Record<string, unknown>}).single).not.toHaveProperty('lastWriteAutoSubs')
 	})
 
 	it('wizardSubtitleMode defaults to sidecar and wizardSubtitleFormat to srt', () => {
@@ -286,7 +254,7 @@ describe('Wizard subtitle step — store behavior', () => {
 			wizardOutputDir: '/tmp',
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
+			wizardMediaKind: 'video',
 			wizardFormats: PROBE_RESULT.formats,
 			wizardSubtitles: PROBE_RESULT.subtitles,
 			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
@@ -304,51 +272,6 @@ describe('Wizard subtitle step — store behavior', () => {
 		expect((item.job as Extract<typeof item.job, {kind: 'single-format'}>).subtitles?.format).toBe('vtt')
 	})
 
-	it('persistFormatPrefs saves lastSubtitleMode and lastSubtitleFormat', async () => {
-		const updateMock = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
-		window.appApi = {...buildMockApi(), settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false})), update: updateMock}} as never
-		await useAppStore.getState().initialize()
-
-		useAppStore.setState({
-			wizardUrl: YOUTUBE_URL,
-			wizardTitle: 'Test',
-			wizardThumbnail: '',
-			wizardOutputDir: '/tmp',
-			selectedVideoFormatId: '22',
-			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
-			wizardFormats: PROBE_RESULT.formats,
-			wizardSubtitles: PROBE_RESULT.subtitles,
-			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-			wizardSubtitleLanguages: ['en'],
-			wizardSubtitleMode: 'subfolder',
-			wizardSubtitleFormat: 'vtt',
-			wizardStep: 'confirm',
-			wizardExtractor: 'youtube'
-		})
-
-		await useAppStore.getState().addToQueue()
-
-		const updateCalls = updateMock.mock.calls
-		const subtitleCall = updateCalls.find((args: unknown[]) => {
-			const patch = args[0] as {single?: Record<string, unknown>}
-			return !!patch.single && 'lastSubtitleLanguages' in patch.single
-		})
-		expect(subtitleCall).toBeDefined()
-		expect(subtitleCall![0]).toMatchObject({single: {lastSubtitleMode: 'subfolder', lastSubtitleFormat: 'vtt'}})
-	})
-
-	it('submitUrl restores lastSubtitleMode and lastSubtitleFormat from settings', async () => {
-		window.appApi = buildMockApi({lastSubtitleMode: 'embed', lastSubtitleFormat: 'ass'}) as never
-		await useAppStore.getState().initialize()
-
-		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
-		await useAppStore.getState().submitUrl()
-
-		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
-		expect(useAppStore.getState().wizardSubtitleFormat).toBe('ass')
-	})
-
 	it('reset() clears subtitle state and resets mode/format to defaults', () => {
 		useAppStore.setState({wizardSubtitleLanguages: ['en'], wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {de: [{ext: 'vtt'}]}, wizardSubtitleMode: 'embed', wizardSubtitleFormat: 'vtt'})
 
@@ -363,10 +286,10 @@ describe('Wizard subtitle step — store behavior', () => {
 	})
 })
 
-describe('StepSubtitles — save mode UI', () => {
+describe('SubtitleFields — save mode UI', () => {
 	function renderStep(subtitleMode = 'sidecar') {
-		useAppStore.setState({wizardStep: 'subtitles', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
-		return render(<StepSubtitles />)
+		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
+		return render(<SubtitleFields withMedia />)
 	}
 
 	it('renders save-mode radio options', () => {
@@ -393,7 +316,7 @@ describe('StepSubtitles — save mode UI', () => {
 		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
 
 		useAppStore.setState({wizardSubtitleMode: 'embed'})
-		rerender(<StepSubtitles />)
+		rerender(<SubtitleFields withMedia />)
 		const note = screen.getByTestId('subtitle-embed-note')
 		expect(note).toBeInTheDocument()
 		expect(note.textContent).toMatch(/\.mkv/)
@@ -407,109 +330,94 @@ describe('StepSubtitles — save mode UI', () => {
 	})
 
 	it('shows the auto-caption ASS-fallback note only when an auto language is selected and format is ASS', () => {
-		useAppStore.setState({wizardStep: 'subtitles', wizardSubtitles: {}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'ass'})
-		const {rerender} = render(<StepSubtitles />)
+		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'ass'})
+		const {rerender} = render(<SubtitleFields withMedia />)
 		expect(screen.getByTestId('subtitle-auto-ass-note')).toBeInTheDocument()
 
 		// Switch format away from ASS — note should disappear
 		useAppStore.setState({wizardSubtitleFormat: 'srt'})
-		rerender(<StepSubtitles />)
+		rerender(<SubtitleFields withMedia />)
 		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
 
 		// ASS again, but only manual sub selected — also no note
 		useAppStore.setState({wizardSubtitleFormat: 'ass', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: ['en']})
-		rerender(<StepSubtitles />)
+		rerender(<SubtitleFields withMedia />)
 		expect(screen.queryByTestId('subtitle-auto-ass-note')).not.toBeInTheDocument()
 	})
 })
 
-describe('StepConfirm — subtitle summary', () => {
-	function renderConfirm(opts: {mode: string; format: string; languages: string[]}) {
-		window.appApi = buildMockApi() as never
-		useAppStore.setState({
-			wizardStep: 'confirm',
-			wizardUrl: YOUTUBE_URL,
-			wizardTitle: 'Test',
-			wizardThumbnail: '',
-			wizardOutputDir: '/tmp',
-			selectedVideoFormatId: '22',
-			audioSelection: {kind: 'native', formatId: '140'},
-			activePreset: null,
-			wizardFormats: PROBE_RESULT.formats,
-			wizardSubtitles: PROBE_RESULT.subtitles,
-			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-			wizardSubtitleLanguages: opts.languages,
-			wizardSubtitleMode: opts.mode as never,
-			wizardSubtitleFormat: opts.format as never
-		})
-		return render(<StepConfirm />)
-	}
+function singleState(overrides: Record<string, unknown> = {}): void {
+	window.appApi = buildMockApi() as never
+	useAppStore.setState({
+		wizardStep: 'confirm',
+		wizardMode: 'single',
+		wizardUrl: YOUTUBE_URL,
+		wizardTitle: 'Test',
+		wizardThumbnail: '',
+		wizardOutputDir: '/tmp',
+		wizardFilenameTemplate: '{title} [{id}]',
+		selectedVideoFormatId: '22',
+		audioSelection: {kind: 'none'},
+		wizardMediaKind: 'video',
+		wizardFormats: PROBE_RESULT.formats,
+		wizardSubtitles: PROBE_RESULT.subtitles,
+		wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
+		wizardSubtitleLanguages: [],
+		wizardSubtitleMode: 'sidecar',
+		wizardSubtitleFormat: 'srt',
+		...overrides
+	})
+}
 
+describe('Review — subtitle row', () => {
 	it('shows language + format + mode for sidecar', () => {
-		renderConfirm({mode: 'sidecar', format: 'srt', languages: ['en']})
-		const cell = screen.getByTestId('confirm-subtitles')
-		expect(cell.textContent).toContain('SRT')
-		expect(cell.textContent).toContain('Next to video')
+		singleState({wizardSubtitleLanguages: ['en']})
+		render(<StepReview />)
+		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
+		expect(value).toContain('SRT')
+		expect(value).toContain('Next to video')
 	})
 
 	it('shows language + mode for embed (no format)', () => {
-		renderConfirm({mode: 'embed', format: 'srt', languages: ['en']})
-		const cell = screen.getByTestId('confirm-subtitles')
-		expect(cell.textContent).toContain('Embed into video')
-		expect(cell.textContent).not.toContain('SRT')
+		singleState({wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'embed'})
+		render(<StepReview />)
+		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
+		expect(value).toContain('Embed into video')
+		expect(value).not.toContain('SRT')
 	})
 
-	it('shows — when no languages selected', () => {
-		renderConfirm({mode: 'sidecar', format: 'srt', languages: []})
-		expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—')
+	it('shows Off when no languages are selected, and opens the picker in place', () => {
+		singleState()
+		render(<StepReview />)
+		expect(screen.getByTestId('review-row-subtitles').textContent).toContain('Off')
+		fireEvent.click(screen.getByTestId('review-row-subtitles-toggle'))
+		expect(screen.getByTestId('subtitle-fields')).toBeTruthy()
 	})
 })
 
-describe('StepFormatSelect — subtitle-only preset disables format columns', () => {
-	function renderFormats(preset: 'best-quality' | 'subtitle-only') {
-		window.appApi = buildMockApi() as never
-		useAppStore.setState({
-			wizardStep: 'formats',
-			wizardUrl: YOUTUBE_URL,
-			wizardTitle: 'Test',
-			wizardThumbnail: '',
-			wizardOutputDir: '/tmp',
-			selectedVideoFormatId: preset === 'subtitle-only' ? '' : '22',
-			audioSelection: preset === 'subtitle-only' ? {kind: 'none'} : {kind: 'native', formatId: '140'},
-			activePreset: preset,
-			wizardFormats: PROBE_RESULT.formats,
-			wizardSubtitles: PROBE_RESULT.subtitles,
-			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-			wizardSubtitleLanguages: [],
-			wizardSubtitleMode: 'sidecar',
-			wizardSubtitleFormat: 'srt'
-		})
-		return render(<StepFormatSelect />)
-	}
-
-	it('marks every video and audio radio as aria-disabled when subtitle-only preset is active', () => {
-		renderFormats('subtitle-only')
-		const radios = screen.getAllByRole('radio')
-		expect(radios.length).toBeGreaterThan(0)
-		for (const r of radios) {
-			expect(r.getAttribute('aria-disabled')).toBe('true')
-		}
+describe('Format screen — Subtitles kind', () => {
+	it('swaps the stream lists for the language picker', () => {
+		singleState({wizardStep: 'formats', wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
+		render(<StepFormatSelect />)
+		expect(screen.getByTestId('subtitle-fields')).toBeTruthy()
+		expect(screen.queryAllByRole('radio')).toEqual([])
 	})
 
-	it('shows no format as selected while every row is disabled in subtitle-only mode', () => {
-		renderFormats('subtitle-only')
-		// The store keeps '' / {kind: 'none'} as the selection, which match the
-		// "Audio only" and "No audio" rows; a disabled row must never read as chosen.
-		expect(screen.getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')).toEqual([])
+	it('drops "embed" when there is no media file to embed into', () => {
+		singleState({wizardStep: 'formats', wizardMediaKind: 'subtitles', selectedVideoFormatId: '', wizardSubtitleLanguages: ['en']})
+		render(<StepFormatSelect />)
+		expect(screen.queryByText('Embed into video')).toBeNull()
 	})
 
-	it('keeps exactly one video and one audio row selected for a normal preset', () => {
-		renderFormats('best-quality')
+	it('keeps exactly one video and one audio row selected in Video', () => {
+		singleState({wizardStep: 'formats', audioSelection: {kind: 'native', formatId: '140'}})
+		render(<StepFormatSelect />)
 		expect(screen.getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')).toHaveLength(2)
 	})
 
-	it('maps each format row to its store selection', () => {
-		renderFormats('best-quality')
+	it('maps each format row to its store selection, with conversions only in Audio', () => {
+		singleState({wizardStep: 'formats', audioSelection: {kind: 'native', formatId: '140'}})
+		const {rerender} = render(<StepFormatSelect />)
 		const radio = (name: string, index = 0): HTMLElement => {
 			const match = screen.getAllByRole('radio', {name})[index]
 			if (!match) throw new Error(`no radio named ${name}`)
@@ -518,82 +426,31 @@ describe('StepFormatSelect — subtitle-only preset disables format columns', ()
 
 		fireEvent.click(radio('Keep as-is'))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
-
 		fireEvent.click(radio('opus'))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '140'})
+		expect(screen.queryByRole('radio', {name: 'mp3'})).toBeNull()
 
-		// Converting audio needs an audio-only pick; the convert rows unlock with it.
-		fireEvent.click(radio('Audio only'))
-		expect(useAppStore.getState().selectedVideoFormatId).toBe('')
+		useAppStore.getState().setWizardMediaKind('audio')
+		rerender(<StepFormatSelect />)
 		fireEvent.click(radio('mp3'))
 		expect(useAppStore.getState().audioSelection).toMatchObject({kind: 'convert-lossy', target: 'mp3'})
 		fireEvent.click(radio('wav'))
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
 		expect(radio('wav').getAttribute('aria-checked')).toBe('true')
 	})
-
-	it('disables only the audio-convert radios for non-subtitle-only presets with a video pick', () => {
-		renderFormats('best-quality')
-		const radios = screen.getAllByRole('radio')
-		const disabledCount = radios.filter(r => r.getAttribute('aria-disabled') === 'true').length
-		// best-quality picks a video → audio-convert rows (mp3/m4a/opus/wav) are
-		// disabled because yt-dlp's -x is mutually exclusive with video+audio merging.
-		// Native video and native audio rows stay enabled.
-		expect(disabledCount).toBe(4)
-	})
 })
 
-describe('StepConfirm — subtitle-only safeguards', () => {
-	function renderConfirmSubtitleOnly(languages: string[], skipped = false) {
-		window.appApi = buildMockApi() as never
-		useAppStore.setState({
-			wizardStep: 'confirm',
-			wizardUrl: YOUTUBE_URL,
-			wizardTitle: 'Test',
-			wizardThumbnail: '',
-			wizardOutputDir: '/tmp',
-			selectedVideoFormatId: '',
-			audioSelection: {kind: 'none'},
-			activePreset: 'subtitle-only',
-			wizardFormats: PROBE_RESULT.formats,
-			wizardSubtitles: PROBE_RESULT.subtitles,
-			wizardAutomaticCaptions: PROBE_RESULT.automaticCaptions,
-			wizardSubtitleLanguages: languages,
-			wizardSubtitleSkipped: skipped,
-			wizardSubtitleMode: 'sidecar',
-			wizardSubtitleFormat: 'srt'
-		})
-		return render(<StepConfirm />)
-	}
-
-	it('disables download buttons when nothing is selected (no media + no subs)', () => {
-		renderConfirmSubtitleOnly([])
-		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
-		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
-		expect(download.disabled).toBe(true)
-		expect(queue.disabled).toBe(true)
+describe('Download — subtitles-only safeguards', () => {
+	it('is disabled in Subtitles with no language', () => {
+		singleState({wizardMediaKind: 'subtitles', selectedVideoFormatId: ''})
+		render(<StepReview />)
+		expect(screen.getByTestId<HTMLButtonElement>('btn-download').disabled).toBe(true)
+		expect(screen.getByTestId<HTMLButtonElement>('btn-download-menu').disabled).toBe(true)
 	})
 
-	it('enables download buttons when subtitle-only with at least one language', () => {
-		renderConfirmSubtitleOnly(['en'])
-		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
-		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
-		expect(download.disabled).toBe(false)
-		expect(queue.disabled).toBe(false)
-	})
-
-	it('disables download buttons when subtitle-only with languages but subtitles were skipped', () => {
-		// skipSubtitles() sets wizardSubtitleSkipped=true without clearing wizardSubtitleLanguages.
-		// The effective languages are [] so there is nothing to download.
-		renderConfirmSubtitleOnly(['en'], true)
-		const download = screen.getByTestId<HTMLButtonElement>('btn-download-now')
-		const queue = screen.getByTestId<HTMLButtonElement>('btn-add-to-queue')
-		expect(download.disabled).toBe(true)
-		expect(queue.disabled).toBe(true)
-	})
-
-	it('shows — for subtitles row when languages were skipped', () => {
-		renderConfirmSubtitleOnly(['en'], true)
-		expect(screen.getByTestId('confirm-subtitles').textContent).toBe('—')
+	it('is enabled in Subtitles with at least one language', () => {
+		singleState({wizardMediaKind: 'subtitles', selectedVideoFormatId: '', wizardSubtitleLanguages: ['en']})
+		render(<StepReview />)
+		expect(screen.getByTestId<HTMLButtonElement>('btn-download').disabled).toBe(false)
 	})
 })

@@ -298,7 +298,7 @@ describe('settings update tears the Explore view down when it is switched off', 
 	function setup(updatedExploreEnabled: boolean | undefined) {
 		handlers.clear()
 		const host = makeHost()
-		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, exploreEnabled: updatedExploreEnabled}, single: {}, playlist: {}, profiles: {}})}
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, exploreEnabled: updatedExploreEnabled}, playlist: {}, profiles: {}})}
 		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {setConcurrentDownloads: vi.fn(), setAutoRetryAttempts: vi.fn()} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: host})
 		return host
 	}
@@ -333,7 +333,7 @@ describe('settings update re-applies a changed proxy to the Explore view', () =>
 	function setup() {
 		handlers.clear()
 		const host = makeHost()
-		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, proxyUrl: 'http://proxy.example:8080'}, single: {}, playlist: {}, profiles: {}})}
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, proxyUrl: 'http://proxy.example:8080'}, playlist: {}, profiles: {}})}
 		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {setConcurrentDownloads: vi.fn(), setAutoRetryAttempts: vi.fn()} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: host})
 		return host
 	}
@@ -355,7 +355,7 @@ describe('settings update applies a toggled ad blocker to the Explore view', () 
 	function setup() {
 		handlers.clear()
 		const host = makeHost()
-		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, exploreAdBlock: true}, single: {}, playlist: {}, profiles: {}})}
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, exploreAdBlock: true}, playlist: {}, profiles: {}})}
 		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {setConcurrentDownloads: vi.fn(), setAutoRetryAttempts: vi.fn()} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: host})
 		return host
 	}

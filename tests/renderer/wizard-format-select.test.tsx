@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
-import {beforeEach, describe, expect, it} from 'vite-plus/test'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILES_PREFS} from '@shared/downloadProfiles.js'
+import {defaultAppSettings} from '@shared/constants.js'
+import type {AppSettings, DownloadProfile, FormatOption} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
-import type {FormatOption} from '@shared/types.js'
+import {profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false},
@@ -17,95 +20,174 @@ const DOLBY_FIRST_FORMATS: FormatOption[] = [
 	{formatId: '251', label: 'opus 143kbps', ext: 'webm', resolution: 'audio only', abr: 143, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true}
 ]
 
+function builtin(id: string): DownloadProfile {
+	const profile = BUILTIN_DOWNLOAD_PROFILES.find(p => p.id === id)
+	if (!profile) throw new Error(`no builtin ${id}`)
+	return profile
+}
+
+const SETTINGS: AppSettings = {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, language: 'es'}}
+
 beforeEach(() => {
-	useAppStore.setState({wizardFormats: FORMATS, selectedVideoFormatId: '', audioSelection: {kind: 'none'}, activePreset: null})
+	useAppStore.setState({
+		settings: SETTINGS,
+		wizardMode: 'single',
+		wizardFormats: FORMATS,
+		wizardSubtitles: {},
+		wizardAutomaticCaptions: {},
+		wizardIsAudioOnlySource: false,
+		selectedVideoFormatId: '',
+		audioSelection: {kind: 'none'},
+		wizardMediaKind: 'video',
+		wizardSubtitleLanguages: [],
+		wizardSubtitleMode: 'sidecar',
+		wizardProfile: null,
+		wizardProfileBaseline: null,
+		wizardOutputDir: '/downloads'
+	})
 })
 
 describe('wizard slice — invariant: video + convert audio is unreachable', () => {
-	it('switching from audio-only to a video format while audio is convert resets audio to best native', () => {
-		useAppStore.setState({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, activePreset: 'audio-only'})
-
-		useAppStore.getState().setSelectedVideoFormatId('22')
-
-		const {selectedVideoFormatId, audioSelection, activePreset} = useAppStore.getState()
-		expect(selectedVideoFormatId).toBe('22')
-		expect(audioSelection).toEqual({kind: 'native', formatId: '140'})
-		expect(activePreset).toBeNull()
-	})
-
-	it('switching to video while audio is wav-convert also resets to best native', () => {
-		useAppStore.setState({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossless', target: 'wav'}})
+	it('picking a video while audio is converting resets audio to best native and switches to Video', () => {
+		useAppStore.setState({audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, wizardMediaKind: 'audio'})
 
 		useAppStore.getState().setSelectedVideoFormatId('137')
 
-		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '140'})
+		const {selectedVideoFormatId, audioSelection, wizardMediaKind} = useAppStore.getState()
+		expect(selectedVideoFormatId).toBe('137')
+		expect(audioSelection).toEqual({kind: 'native', formatId: '140'})
+		expect(wizardMediaKind).toBe('video')
 	})
 
-	it('switching to video skips Dolby formats when choosing the reset native audio', () => {
-		useAppStore.setState({wizardFormats: DOLBY_FIRST_FORMATS, selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, activePreset: 'audio-only'})
+	it('skips Dolby when choosing the reset native audio', () => {
+		useAppStore.setState({wizardFormats: DOLBY_FIRST_FORMATS, audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, wizardMediaKind: 'audio'})
 
 		useAppStore.getState().setSelectedVideoFormatId('337')
 
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '251'})
 	})
 
-	it('falls back to {kind: none} when no native audio formats exist', () => {
-		useAppStore.setState({wizardFormats: FORMATS.filter(f => !f.isAudioOnly), selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}})
+	it('a muxed stream keeps its own audio ("Keep as-is")', () => {
+		useAppStore.setState({audioSelection: {kind: 'native', formatId: '140'}})
 
 		useAppStore.getState().setSelectedVideoFormatId('22')
 
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
 	})
 
-	it('switching between video formats does not touch a native audio selection', () => {
-		useAppStore.setState({selectedVideoFormatId: '22', audioSelection: {kind: 'native', formatId: '249'}})
+	it('switching between video-only streams keeps a native audio pick', () => {
+		useAppStore.setState({wizardFormats: [...FORMATS, {formatId: '136', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: true, isAudioOnly: false}], selectedVideoFormatId: '136', audioSelection: {kind: 'native', formatId: '249'}})
 
 		useAppStore.getState().setSelectedVideoFormatId('137')
 
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'native', formatId: '249'})
 	})
 
-	it('selecting convert audio while a video is selected clears the video to audio-only', () => {
-		useAppStore.setState({selectedVideoFormatId: '22', audioSelection: {kind: 'native', formatId: '140'}, activePreset: null})
-
-		useAppStore.getState().setAudioSelection({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
-
-		const {selectedVideoFormatId, audioSelection, activePreset} = useAppStore.getState()
-		expect(selectedVideoFormatId).toBe('')
-		expect(audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
-		expect(activePreset).toBe('audio-only')
-	})
-
-	it('selecting native audio while a video is selected does NOT clear the video', () => {
-		useAppStore.setState({selectedVideoFormatId: '22', audioSelection: {kind: 'none'}, activePreset: 'best-quality'})
-
-		useAppStore.getState().setAudioSelection({kind: 'native', formatId: '140'})
-
-		expect(useAppStore.getState().selectedVideoFormatId).toBe('22')
-		expect(useAppStore.getState().activePreset).toBeNull()
-	})
-
-	it('clearing the video selection syncs activePreset to audio-only', () => {
-		useAppStore.setState({selectedVideoFormatId: '22', audioSelection: {kind: 'native', formatId: '140'}, activePreset: null})
+	it('ignores a stream id the probe does not offer', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
 
 		useAppStore.getState().setSelectedVideoFormatId('')
 
-		expect(useAppStore.getState().activePreset).toBe('audio-only')
+		expect(useAppStore.getState().selectedVideoFormatId).toBe('137')
 	})
 
-	it('selecting a video format clears an existing audio-only preset', () => {
-		useAppStore.setState({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, activePreset: 'audio-only'})
+	it('picking a conversion while a video is selected switches to Audio', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}, wizardMediaKind: 'video'})
 
-		useAppStore.getState().setSelectedVideoFormatId('137')
+		useAppStore.getState().setAudioSelection({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
 
-		expect(useAppStore.getState().activePreset).toBeNull()
+		const {selectedVideoFormatId, audioSelection, wizardMediaKind} = useAppStore.getState()
+		expect(selectedVideoFormatId).toBe('')
+		expect(audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
+		expect(wizardMediaKind).toBe('audio')
 	})
 
-	it('selecting audio while no video is selected preserves the audio-only preset', () => {
-		useAppStore.setState({selectedVideoFormatId: '', audioSelection: {kind: 'none'}, activePreset: 'audio-only'})
+	it('picking native audio keeps the video', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'none'}, wizardMediaKind: 'video'})
 
-		useAppStore.getState().setAudioSelection({kind: 'native', formatId: '249'})
+		useAppStore.getState().setAudioSelection({kind: 'native', formatId: '140'})
 
-		expect(useAppStore.getState().activePreset).toBe('audio-only')
+		expect(useAppStore.getState()).toMatchObject({selectedVideoFormatId: '137', wizardMediaKind: 'video'})
+	})
+})
+
+describe('wizard slice — Video / Audio / Subtitles switch', () => {
+	it('Audio drops the video and keeps the audio track', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
+
+		useAppStore.getState().setWizardMediaKind('audio')
+
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '249'}})
+	})
+
+	it('Audio on a muxed-only source converts to mp3 at the remembered bitrate', () => {
+		useAppStore.setState({wizardFormats: FORMATS.filter(f => !f.isAudioOnly), lastConvertBitrate: 256})
+
+		useAppStore.getState().setWizardMediaKind('audio')
+
+		expect(useAppStore.getState().audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 256})
+	})
+
+	it('Video returns to the profile pick', () => {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.getState().setWizardMediaKind('audio')
+
+		useAppStore.getState().setWizardMediaKind('video')
+
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
+	})
+
+	it('Subtitles drops the media, starts from the app language and never embeds', () => {
+		useAppStore.setState({wizardSubtitles: {es: [{ext: 'vtt'}], de: [{ext: 'vtt'}]}, wizardSubtitleMode: 'embed', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '140'}})
+
+		useAppStore.getState().setWizardMediaKind('subtitles')
+
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'subtitles', selectedVideoFormatId: '', audioSelection: {kind: 'none'}, wizardSubtitleLanguages: ['es'], wizardSubtitleMode: 'sidecar'})
+	})
+})
+
+describe('wizard slice — profiles', () => {
+	it('choosing another profile re-applies every setting and drops edits', () => {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual(['sponsorBlock'])
+
+		useAppStore.getState().chooseWizardProfile({kind: 'builtin', id: 'audio-only'})
+
+		const state = useAppStore.getState()
+		expect(state.wizardProfile?.id).toBe('audio-only')
+		expect(state).toMatchObject({wizardMediaKind: 'audio', wizardSponsorBlockMode: 'off'})
+		expect(wizardChangedAreas(state)).toEqual([])
+	})
+
+	it('reset puts the profile back', () => {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardEmbedThumbnail: true, selectedVideoFormatId: '22'})
+
+		useAppStore.getState().resetWizardToProfile()
+
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual([])
+	})
+
+	it('Save as profile stores the edits as a new profile without changing the active one', async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
+
+		await expect(useAppStore.getState().saveWizardAsProfile('My 1080p')).resolves.toBe(true)
+
+		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({name: 'My 1080p', sponsorBlock: expect.objectContaining({mode: 'remove'})}), false)
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual([])
+		expect(useAppStore.getState().settings?.profiles).toEqual(DEFAULT_DOWNLOAD_PROFILES_PREFS)
+	})
+
+	it('Save as profile refuses an empty name or no edits', async () => {
+		const saveDownloadProfile = vi.fn()
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+
+		await expect(useAppStore.getState().saveWizardAsProfile('Name')).resolves.toBe(false)
+		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
+		await expect(useAppStore.getState().saveWizardAsProfile('  ')).resolves.toBe(false)
+		expect(saveDownloadProfile).not.toHaveBeenCalled()
 	})
 })

@@ -75,7 +75,7 @@ describe('queue artifacts', () => {
 			finishedAt: '2026-06-18T10:00:00.000Z',
 			writeM3u: true,
 			artifacts: [{...queueArtifactFromPath('/tmp/video.mkv', {discoveredAt: '2026-06-18T10:00:00.000Z', sizeBytes: 42}), internal: true}],
-			job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+			job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 		})
 
 		expect(parsed.artifacts).toHaveLength(1)

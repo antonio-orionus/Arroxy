@@ -62,7 +62,7 @@ function installApi(): AppApi {
 	const api = buildMockAppApi()
 	api.settings.update = vi.fn(async (input: SettingsPatch) => {
 		const current = useAppStore.getState().settings ?? settings(50)
-		return ok({common: {...current.common, ...(input.common ?? {})}, single: {...current.single, ...(input.single ?? {})}, playlist: {...current.playlist, ...(input.playlist ?? {})}, profiles: {...current.profiles, ...(input.profiles ?? {})}})
+		return ok({common: {...current.common, ...(input.common ?? {})}, playlist: {...current.playlist, ...(input.playlist ?? {})}, profiles: {...current.profiles, ...(input.profiles ?? {})}})
 	})
 	vi.mocked(api.downloads.probe).mockResolvedValue(ok(playlistProbe(2)))
 	window.appApi = api

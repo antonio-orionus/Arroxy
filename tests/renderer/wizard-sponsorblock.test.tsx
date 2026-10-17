@@ -2,6 +2,7 @@
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {render, screen, fireEvent, act} from '@testing-library/react'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {ProbeResult, StatusEvent} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
 import {buildAppSettings} from '../shared/settingsFixtures.js'
@@ -85,7 +86,7 @@ function resetStore() {
 		wizardFormats: [],
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
@@ -148,22 +149,16 @@ describe('SponsorBlock wizard slice — state', () => {
 	})
 })
 
-describe('SponsorBlock wizard slice — settings restoration', () => {
-	it('submitUrl restores lastSponsorBlockMode from settings', async () => {
-		window.appApi = buildMockApi({lastSponsorBlockMode: 'mark', lastSponsorBlockCategories: ['sponsor', 'intro']}) as never
+describe('SponsorBlock wizard slice — starts from the profile', () => {
+	it('submitUrl takes SponsorBlock from the active profile, not the last run', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const marking = {...balanced, id: 'marking', name: 'Marking', sponsorBlock: {mode: 'mark' as const, categories: ['outro' as const, 'filler' as const]}}
+		window.appApi = buildMockApi({lastSponsorBlockMode: 'remove', lastSponsorBlockCategories: ['intro'], profiles: {active: {kind: 'custom', id: 'marking'}, custom: [marking], overrides: [], enabledOverrides: {}}}) as never
 		await useAppStore.getState().initialize()
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 		await useAppStore.getState().submitUrl()
 
 		expect(useAppStore.getState().wizardSponsorBlockMode).toBe('mark')
-	})
-
-	it('submitUrl restores lastSponsorBlockCategories from settings', async () => {
-		window.appApi = buildMockApi({lastSponsorBlockMode: 'remove', lastSponsorBlockCategories: ['outro', 'filler']}) as never
-		await useAppStore.getState().initialize()
-		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
-		await useAppStore.getState().submitUrl()
-
 		expect(useAppStore.getState().wizardSponsorBlockCategories).toEqual(['outro', 'filler'])
 	})
 })
@@ -190,7 +185,7 @@ describe('SponsorBlock wizard slice — queue serialization', () => {
 		expect(sb && 'categories' in sb ? sb.categories : []).toEqual(['sponsor', 'outro'])
 	})
 
-	it('addToQueue persists lastSponsorBlockMode and lastSponsorBlockCategories to settings', async () => {
+	it('a single download leaves the saved SponsorBlock choice alone', async () => {
 		const api = buildMockApi()
 		window.appApi = api as never
 		await useAppStore.getState().initialize()
@@ -203,8 +198,7 @@ describe('SponsorBlock wizard slice — queue serialization', () => {
 			await useAppStore.getState().addToQueue()
 		})
 
-		const updateCall = api.settings.update.mock.calls.at(-1)?.[0]
-		expect(updateCall).toMatchObject({common: {lastSponsorBlockMode: 'mark', lastSponsorBlockCategories: ['intro']}})
+		expect(api.settings.update).not.toHaveBeenCalled()
 	})
 })
 

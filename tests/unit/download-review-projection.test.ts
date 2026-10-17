@@ -42,14 +42,13 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		commonPaths: {downloads: '/downloads', videos: null, desktop: null, music: null, documents: null, pictures: null, home: '/home/me'},
 		selectedVideoFormatId: '137',
 		audioSelection: {kind: 'native', formatId: '251'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardFormats: FORMATS,
 		wizardSubtitleLanguages: ['en'],
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSubtitles: {en: [{ext: 'vtt'}]},
 		wizardAutomaticCaptions: {},
-		wizardSubtitleSkipped: false,
 		playlistItems: PLAYLIST_ITEMS,
 		selectedPlaylistItemIds: ['a', 'b'],
 		playlistSelection: {kind: 'video', tier: '1080', codec: 'best'},
@@ -91,20 +90,14 @@ describe('DownloadReviewProjection', () => {
 		expect(review.playlistPresetLabel).toBe('Localized MP4 · playlistPresets.tier.1080')
 	})
 
-	it('reports skipped subtitles as none', () => {
-		const review = buildDownloadReview(state({wizardSubtitleSkipped: true}), {t, language: 'en', commonPaths: state().commonPaths})
-
-		expect(review.subtitleValue).toBe('wizard.confirm.subtitlesNone')
-	})
-
 	it('filters conflicts to warnings visible to the user', () => {
-		const review = buildDownloadReview(state({selectedVideoFormatId: '', activePreset: 'subtitle-only', wizardSubtitleMode: 'embed', wizardEmbedThumbnail: true, wizardSponsorBlockMode: 'remove'}), {t, language: 'en', commonPaths: state().commonPaths})
+		const review = buildDownloadReview(state({selectedVideoFormatId: '', wizardMediaKind: 'subtitles', wizardSubtitleMode: 'embed', wizardEmbedThumbnail: true, wizardSponsorBlockMode: 'remove'}), {t, language: 'en', commonPaths: state().commonPaths})
 
 		expect(review.conflictWarnings).toEqual([])
 	})
 
 	it('surfaces visible audio-only subtitle embed conflicts', () => {
-		const review = buildDownloadReview(state({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}, activePreset: 'audio-only', wizardSubtitleMode: 'embed'}), {t, language: 'en', commonPaths: state().commonPaths})
+		const review = buildDownloadReview(state({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}, wizardMediaKind: 'audio', wizardSubtitleMode: 'embed'}), {t, language: 'en', commonPaths: state().commonPaths})
 
 		expect(review.conflictWarnings.map(conflict => conflict.code)).toEqual(['subtitleEmbedAudioOnly'])
 	})
@@ -123,7 +116,7 @@ describe('subtitles-only batch review', () => {
 	it('summarizes the preset as subtitles with languages and format', () => {
 		const review = buildDownloadReview(state({wizardMode: 'bulk', playlistSelection: SUBS}), {t, language: 'en', commonPaths: state().commonPaths})
 
-		expect(review.playlistPresetLabel).toBe('presets.subtitle-only.label · English, Polish · SRT')
+		expect(review.playlistPresetLabel).toBe('wizard.formats.kind.subtitles · English, Polish · SRT')
 		expect(review.itemCountLabel).toEqual({key: 'wizard.confirm.itemsValueBulk', params: {count: 2, total: '2'}})
 		expect(review.hasNothingSelected).toBe(false)
 	})

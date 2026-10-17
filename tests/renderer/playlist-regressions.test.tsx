@@ -75,14 +75,13 @@ beforeEach(() => {
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
 		lastConvertBitrate: 192,
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: [],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSponsorBlockMode: 'off',
@@ -125,7 +124,8 @@ describe('playlist regressions', () => {
 			wizardFormats: [{formatId: '22', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: false, isAudioOnly: false}],
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'none'},
-			activePreset: null
+			wizardMediaKind: 'video',
+			wizardFilenameTemplate: '{title} [{id}]'
 		} as never)
 
 		await act(async () => {
@@ -141,7 +141,7 @@ describe('playlist regressions', () => {
 		expect(item.job.filenameTemplate).toBe('Single Video [{id}]')
 	})
 
-	it('single downloads carry a custom global filename template', async () => {
+	it('single downloads carry the file name template the profile resolved', async () => {
 		window.appApi = buildMockApi({filenameTemplate: '{title}'}) as never
 
 		useAppStore.setState({
@@ -157,7 +157,8 @@ describe('playlist regressions', () => {
 			wizardFormats: [{formatId: '22', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: false, isAudioOnly: false}],
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'none'},
-			activePreset: null
+			wizardMediaKind: 'video',
+			wizardFilenameTemplate: '{title}'
 		} as never)
 
 		await act(async () => {

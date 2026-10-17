@@ -78,7 +78,7 @@ function makeYtDlp(gate: ExploreSpawnGate, opts: {common?: () => Record<string, 
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue(undefined), forgetProbeVerdict: vi.fn()}
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	// Read on every call, so a test can change the settings or the sign-in while a run waits.
-	const settingsStore = {get: vi.fn(() => Promise.resolve({common: opts.common?.() ?? {cookiesMode: 'explore'}, single: {}, playlist: {}}) as never)}
+	const settingsStore = {get: vi.fn(() => Promise.resolve({common: opts.common?.() ?? {cookiesMode: 'explore'}, playlist: {}}) as never)}
 	const sessionAuth = createExploreGate({settings: settingsStore, session: {hasAuthCookies: () => Promise.resolve(opts.signedIn?.() ?? true)}})
 	return {ytDlp: new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: jars, spawnGate: gate, sessionAuth}), withJar}
 }

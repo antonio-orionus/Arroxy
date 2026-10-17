@@ -26,7 +26,19 @@ describe('browser mock scenarios', () => {
 	it('builds a reviewable global hotkey conflict scenario', async () => {
 		const scenario = getScenario('hotkey-conflict')
 		const conflict = buildScenarioAppApiState(scenario)
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		expect(conflict.scenario.id).toBe('hotkey-conflict')
 		expect(conflict.settings.common.hotkeyEnabled).toBe(true)
@@ -41,7 +53,7 @@ describe('browser mock scenarios', () => {
 		expect(readUrlParams(new URL('http://localhost:5173/?scenario=single-normal&mockStep=nope')).mockStep).toBeNull()
 		expect(readUrlParams(new URL('http://localhost:5173/')).mockStep).toBeNull()
 
-		expect(mockStepForScenario(getScenario('single-normal'), 'subtitles')).toBe('subtitles')
+		expect(mockStepForScenario(getScenario('single-normal'), 'formats')).toBe('formats')
 		expect(mockStepForScenario(getScenario('single-normal'), 'playlistPresets')).toBeNull()
 		expect(mockStepForScenario(getScenario('playlist-normal'), 'playlistPresets')).toBe('playlistPresets')
 		expect(mockStepForScenario(getScenario('playlist-scope-empty-reload'), 'playlistItems')).toBe('playlistItems')
@@ -129,7 +141,19 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies scenario workbench state through one interface', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('bulk-stress'), params: readUrlParams(new URL('http://localhost:5173/?scenario=bulk-stress')), store})
 
@@ -150,7 +174,19 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies the playlist loading scaffold scenario directly', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('playlist-loading'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-loading')), store})
 
@@ -162,7 +198,19 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies the playlist multi-profile scenario directly, with deviations only for non-baseline items', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('playlist-multi-profile'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-multi-profile')), store})
 
@@ -184,7 +232,19 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies the playlist multi-profile scale scenario with 500 mixed-assignment items', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('playlist-multi-profile-scale'), params: readUrlParams(new URL('http://localhost:5173/?scenario=playlist-multi-profile-scale')), store})
 
@@ -202,7 +262,19 @@ describe('browser mock scenarios', () => {
 	})
 
 	it('applies profile scenario states through the workbench interface', async () => {
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		await applyScenarioWorkbenchState({scenario: getScenario('profiles-home-clipboard-single'), params: readUrlParams(new URL('http://localhost:5173/?scenario=profiles-home-clipboard-single')), store})
 
@@ -238,7 +310,19 @@ describe('browser mock scenarios', () => {
 		const paramsRate = readUrlParams(new URL('http://localhost:5173/?probeError=rateLimit'))
 		const paramsInvalid = readUrlParams(new URL('http://localhost:5173/?probeError=notAKind'))
 		const paramsNone = readUrlParams(new URL('http://localhost:5173/'))
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		expect(paramsBot.probeErrorKind).toBe('botBlock')
 		expect(paramsBot.probeErrorTarget).toBe('wizard')
@@ -261,7 +345,19 @@ describe('browser mock scenarios', () => {
 	it('targets quick download probe errors via ?probeErrorTarget=quick-download', async () => {
 		const paramsQuick = readUrlParams(new URL('http://localhost:5173/?probeError=rateLimit&probeErrorTarget=quick-download'))
 		const paramsInvalid = readUrlParams(new URL('http://localhost:5173/?probeError=botBlock&probeErrorTarget=nope'))
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 
 		expect(paramsQuick.probeErrorKind).toBe('rateLimit')
 		expect(paramsQuick.probeErrorTarget).toBe('quick-download')
@@ -345,7 +441,19 @@ describe('browser mock scenarios', () => {
 	it('raises the quick download toasts with their actions', async () => {
 		const sink = vi.fn()
 		setNotificationSink(sink)
-		const store: ScenarioWorkbenchStore = {reset: vi.fn(), setWizardUrl: vi.fn(), submitUrl: vi.fn().mockResolvedValue(undefined), quickDownload: vi.fn().mockResolvedValue(undefined), showQueueItem: vi.fn(), retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined), openExploreSignIn: vi.fn(), setState: vi.fn()}
+		const store: ScenarioWorkbenchStore = {
+			reset: vi.fn(),
+			setWizardUrl: vi.fn(),
+			submitUrl: vi.fn().mockResolvedValue(undefined),
+			quickDownload: vi.fn().mockResolvedValue(undefined),
+			showQueueItem: vi.fn(),
+			retryQuickDownloadRow: vi.fn().mockResolvedValue(undefined),
+			openExploreSignIn: vi.fn(),
+			openReview: vi.fn(),
+			setWizardMediaKind: vi.fn(),
+			getState: vi.fn(),
+			setState: vi.fn()
+		}
 		try {
 			await applyScenarioWorkbenchState({scenario: getScenario('queue-quick-download'), params: readUrlParams(new URL('http://localhost:5173/?scenario=queue-quick-download')), store})
 		} finally {

@@ -11,27 +11,26 @@ const BASE: Pick<PrepareJobInput, 'extractor' | 'extractorKey' | 'sponsorBlockMo
 describe('prepareJob', () => {
 	describe('single-format kind', () => {
 		it('builds with formatId + custom preset', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '137+140', activePreset: null, filenameTemplate: '{title} [{id}]'})
-			expect(job).toEqual({kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+140', preset: 'custom', filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF, expectedBytes: undefined})
+			const job = prepareJob({...BASE, mode: 'single', formatId: '137+140', filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+140', filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF, expectedBytes: undefined})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
-		it('preserves activePreset when set', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '22', activePreset: 'best-quality', expectedBytes: 1234})
+		it('keeps the expected size', () => {
+			const job = prepareJob({...BASE, mode: 'single', formatId: '22', expectedBytes: 1234})
 			expect(job.kind).toBe('single-format')
 			if (job.kind !== 'single-format') throw new Error('unreachable')
-			expect(job.preset).toBe('best-quality')
 			expect(job.expectedBytes).toBe(1234)
 		})
 
 		it('attaches subtitles when languages non-empty', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '22', activePreset: null, subtitles: {languages: ['en', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({...BASE, mode: 'single', formatId: '22', subtitles: {languages: ['en', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: false}})
 			if (job.kind !== 'single-format') throw new Error('unreachable')
 			expect(job.subtitles).toEqual({languages: ['en', 'ja'], mode: 'sidecar', format: 'srt', writeAuto: false})
 		})
 
 		it('drops empty subtitles bundle', () => {
-			const job = prepareJob({...BASE, mode: 'single', formatId: '22', activePreset: null, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})
+			const job = prepareJob({...BASE, mode: 'single', formatId: '22', subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})
 			if (job.kind !== 'single-format') throw new Error('unreachable')
 			expect(job.subtitles).toBeUndefined()
 		})
@@ -39,32 +38,32 @@ describe('prepareJob', () => {
 
 	describe('audio-convert kind', () => {
 		it('builds when audioConvert present and formatId absent', () => {
-			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, activePreset: 'audio-only', filenameTemplate: '{title} [{id}]'})
-			expect(job).toEqual({kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, preset: 'audio-only', filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF})
+			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, filenameTemplate: '{title} [{id}]'})
+			expect(job).toEqual({kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, filenameTemplate: '{title} [{id}]', subtitles: undefined, sponsorBlock: {mode: 'off'}, embed: EMBED_OFF})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
 		it('handles wav (lossless) target', () => {
-			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'wav'}, activePreset: null})
+			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'wav'}})
 			if (job.kind !== 'audio-convert') throw new Error('unreachable')
 			expect(job.audioConvert).toEqual({target: 'wav'})
 		})
 	})
 
 	describe('subtitle-only kind', () => {
-		it('triggers via activePreset', () => {
-			const job = prepareJob({...BASE, mode: 'single', activePreset: 'subtitle-only', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, filenameTemplate: '{title} [{id}]'})
+		it('triggers via the Subtitles kind', () => {
+			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, filenameTemplate: '{title} [{id}]'})
 			expect(job).toEqual({kind: 'subtitle-only', extractor: 'youtube', extractorKey: 'Youtube', filenameTemplate: '{title} [{id}]', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}})
 			expect(preparedJobSchema.safeParse(job).success).toBe(true)
 		})
 
 		it('triggers via implicit "subs only, no media" intent', () => {
-			const job = prepareJob({...BASE, mode: 'single', activePreset: null, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true}})
+			const job = prepareJob({...BASE, mode: 'single', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: true}})
 			expect(job.kind).toBe('subtitle-only')
 		})
 
 		it('throws when subtitle-only requested with empty languages', () => {
-			expect(() => prepareJob({...BASE, mode: 'single', activePreset: 'subtitle-only', subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toThrow(/subtitle-only/)
+			expect(() => prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: [], mode: 'sidecar', format: 'srt', writeAuto: false}})).toThrow(/subtitle-only/)
 		})
 	})
 
@@ -182,7 +181,7 @@ describe('prepareJob', () => {
 
 	describe('errors', () => {
 		it('throws when single-format requested with no formatId and no audioConvert', () => {
-			expect(() => prepareJob({...BASE, mode: 'single', activePreset: null})).toThrow(/formatId/)
+			expect(() => prepareJob({...BASE, mode: 'single'})).toThrow(/formatId/)
 		})
 	})
 })

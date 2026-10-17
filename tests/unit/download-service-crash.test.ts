@@ -17,7 +17,7 @@ import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/prepa
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
-const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'x', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF}
+const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'x', sponsorBlock: SB_OFF, embed: EMBED_OFF}
 
 function makeStubs() {
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null)} as unknown as BinaryManager

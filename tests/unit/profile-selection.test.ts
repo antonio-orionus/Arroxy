@@ -1,0 +1,176 @@
+import {describe, expect, it} from 'vite-plus/test'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {resolveProfileSelection, videoHeight} from '@shared/profileSelection.js'
+import type {DownloadProfile, FormatOption, SubtitleMap} from '@shared/types.js'
+
+function builtin(id: string): DownloadProfile {
+	const profile = BUILTIN_DOWNLOAD_PROFILES.find(p => p.id === id)
+	if (!profile) throw new Error(`no builtin ${id}`)
+	return profile
+}
+
+function withMedia(id: string, media: DownloadProfile['media']): DownloadProfile {
+	return {...builtin(id), media}
+}
+
+function withSubtitles(profile: DownloadProfile, subtitles: Partial<DownloadProfile['subtitles']>): DownloadProfile {
+	return {...profile, subtitles: {...profile.subtitles, enabled: true, ...subtitles}}
+}
+
+function video(formatId: string, resolution: string, extra: Partial<FormatOption> = {}): FormatOption {
+	return {formatId, label: resolution, ext: 'webm', resolution, fps: 30, isVideoOnly: true, isAudioOnly: false, ...extra}
+}
+
+function audio(formatId: string, extra: Partial<FormatOption> = {}): FormatOption {
+	return {formatId, label: formatId, ext: 'm4a', resolution: 'audio only', abr: 128, audioCodec: 'mp4a.40.2', isVideoOnly: false, isAudioOnly: true, ...extra}
+}
+
+// Already in probe order: video best-first, then audio by bitrate.
+const YOUTUBE: FormatOption[] = [
+	video('401', '3840x2160', {videoCodec: 'av01.0.12M.08'}),
+	video('400', '2560x1440', {videoCodec: 'av01.0.12M.08'}),
+	video('399', '1920x1080', {videoCodec: 'av01.0.08M.08', ext: 'mp4'}),
+	video('137', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4'}),
+	video('247', '1280x720', {videoCodec: 'vp9'}),
+	video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}),
+	video('244', '854x480', {videoCodec: 'vp9'}),
+	video('135', '854x480', {videoCodec: 'avc1.4d401e', ext: 'mp4'}),
+	audio('251', {ext: 'webm', audioCodec: 'opus', abr: 160}),
+	audio('140', {abr: 130}),
+	audio('139', {abr: 48})
+]
+
+const NO_SUBS: SubtitleMap = {}
+
+function resolve(profile: DownloadProfile, formats: FormatOption[] = YOUTUBE, extra: Partial<Parameters<typeof resolveProfileSelection>[0]> = {}) {
+	return resolveProfileSelection({profile, formats, subtitles: NO_SUBS, automaticCaptions: NO_SUBS, isAudioOnlySource: false, nativeAudioPreference: 'compatible', ...extra})
+}
+
+describe('videoHeight', () => {
+	it('reads WxH, NNNp and labels with extras', () => {
+		expect(videoHeight('1920x1080')).toBe(1080)
+		expect(videoHeight('1080x1920')).toBe(1080)
+		expect(videoHeight('720p')).toBe(720)
+		expect(videoHeight('2160p HDR')).toBe(2160)
+		expect(videoHeight('audio only')).toBe(0)
+	})
+})
+
+describe('resolveProfileSelection: video tiers', () => {
+	it('best takes the first video stream and the preferred native audio', () => {
+		const result = resolve(builtin('best-quality'))
+		expect(result.media).toEqual({kind: 'video', videoFormatId: '401', audioSelection: {kind: 'native', formatId: '251'}})
+		expect(result.notices).toEqual([])
+	})
+
+	it('a tier takes the best stream at or below it', () => {
+		expect(resolve(builtin('balanced')).media.videoFormatId).toBe('247')
+		expect(resolve(builtin('hd-1080')).media.videoFormatId).toBe('399')
+		expect(resolve(builtin('best-1440')).media.videoFormatId).toBe('400')
+	})
+
+	it('falls back to the smallest stream above the tier, with a notice', () => {
+		const result = resolve(builtin('low-144'))
+		expect(result.media.videoFormatId).toBe('244')
+		expect(result.notices).toEqual([{kind: 'video-tier-fallback', wanted: '144', picked: 480}])
+	})
+
+	it('notes when the video tops out below the tier', () => {
+		const result = resolve(
+			builtin('best-2160'),
+			YOUTUBE.filter(f => f.isAudioOnly || videoHeight(f.resolution) <= 720)
+		)
+		expect(result.media.videoFormatId).toBe('247')
+		expect(result.notices).toEqual([{kind: 'video-tier-fallback', wanted: '2160', picked: 720}])
+	})
+
+	it('mp4 profiles prefer H.264 at the tier, like yt-dlp vcodec:h264 sorting', () => {
+		expect(resolve(builtin('mp4-1080')).media.videoFormatId).toBe('137')
+		expect(resolve(builtin('mp4-720')).media.videoFormatId).toBe('136')
+		expect(resolve(builtin('mp4-720')).notices).toEqual([])
+	})
+
+	it('mp4 profiles fall back to any codec with a notice when there is no H.264', () => {
+		const formats = YOUTUBE.filter(f => f.isAudioOnly || !f.videoCodec?.startsWith('avc1'))
+		const result = resolve(builtin('mp4-720'), formats)
+		expect(result.media.videoFormatId).toBe('247')
+		expect(result.notices).toEqual([{kind: 'mp4-unavailable'}])
+	})
+
+	it('m4a-audio profiles prefer m4a among the source-preferred tracks', () => {
+		expect(resolve(builtin('mp4-720')).media.audioSelection).toEqual({kind: 'native', formatId: '140'})
+	})
+
+	it('video-only profiles pick no audio', () => {
+		const result = resolve(withMedia('balanced', {kind: 'video-only', codec: 'best', tiers: ['720']}))
+		expect(result.media).toEqual({kind: 'video', videoFormatId: '247', audioSelection: {kind: 'none'}})
+	})
+
+	it('keeps the built-in audio of a muxed stream instead of adding a second track', () => {
+		const formats = [video('22', '1280x720', {isVideoOnly: false, ext: 'mp4'}), audio('140')]
+		expect(resolve(builtin('balanced'), formats).media.audioSelection).toEqual({kind: 'none'})
+	})
+
+	it('honours the surround preference', () => {
+		const formats = [...YOUTUBE, audio('328', {audioCodec: 'ec-3', abr: 384})]
+		expect(resolve(builtin('balanced'), formats, {nativeAudioPreference: 'surround'}).media.audioSelection).toEqual({kind: 'native', formatId: '328'})
+		expect(resolve(builtin('balanced'), formats, {nativeAudioPreference: 'compatible'}).media.audioSelection).toEqual({kind: 'native', formatId: '251'})
+	})
+})
+
+describe('resolveProfileSelection: audio and subtitles-only media', () => {
+	it('audio best picks the preferred native track', () => {
+		expect(resolve(builtin('audio-only')).media).toEqual({kind: 'audio', videoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}})
+	})
+
+	it('converting profiles map to convert selections with the profile bitrate', () => {
+		expect(resolve(withMedia('audio-only', {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})).media.audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320})
+		expect(resolve(withMedia('audio-only', {kind: 'audio-only', audio: {format: 'opus'}})).media.audioSelection).toEqual({kind: 'convert-lossy', target: 'opus', bitrateKbps: 192})
+		expect(resolve(withMedia('audio-only', {kind: 'audio-only', audio: {format: 'wav'}})).media.audioSelection).toEqual({kind: 'convert-lossless', target: 'wav'})
+	})
+
+	it('audio best on a muxed-only source converts to mp3 at 192', () => {
+		const formats = [video('18', '640x360', {isVideoOnly: false, ext: 'mp4'})]
+		expect(resolve(builtin('audio-only'), formats).media.audioSelection).toEqual({kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192})
+	})
+
+	it('subtitles-only selects no media', () => {
+		expect(resolve(builtin('subtitles-only')).media).toEqual({kind: 'subtitles', videoFormatId: '', audioSelection: {kind: 'none'}})
+	})
+
+	it('an audio-only source switches a video profile to audio, with a notice', () => {
+		const formats = [audio('251', {ext: 'webm', audioCodec: 'opus', abr: 160}), audio('140')]
+		const result = resolve(builtin('balanced'), formats, {isAudioOnlySource: true})
+		expect(result.media).toEqual({kind: 'audio', videoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}})
+		expect(result.notices).toEqual([{kind: 'no-video'}])
+	})
+})
+
+describe('resolveProfileSelection: subtitles', () => {
+	const manual: SubtitleMap = {en: [{ext: 'vtt'}], 'pt-BR': [{ext: 'vtt'}], 'de-en': [{ext: 'vtt'}]}
+	const auto: SubtitleMap = {'en-orig': [{ext: 'vtt'}], 'ja-orig': [{ext: 'vtt'}]}
+
+	it('selects nothing when the profile has subtitles off', () => {
+		expect(resolve(builtin('balanced'), YOUTUBE, {subtitles: manual}).subtitleLanguages).toEqual([])
+	})
+
+	it('manual-first takes manual tracks, regional variants included, then auto', () => {
+		const profile = withSubtitles(builtin('balanced'), {languages: ['en', 'pt', 'ja', 'de'], source: 'manual-first'})
+		const result = resolve(profile, YOUTUBE, {subtitles: manual, automaticCaptions: auto})
+		expect(result.subtitleLanguages).toEqual(['en', 'pt-BR', 'ja-orig'])
+		expect(result.notices).toEqual([{kind: 'subtitle-languages-missing', languages: ['de']}])
+	})
+
+	it('manual-only ignores auto-captions and auto-only ignores manual tracks', () => {
+		const manualOnly = withSubtitles(builtin('balanced'), {languages: ['en', 'ja'], source: 'manual-only'})
+		expect(resolve(manualOnly, YOUTUBE, {subtitles: manual, automaticCaptions: auto}).subtitleLanguages).toEqual(['en'])
+		const autoOnly = withSubtitles(builtin('balanced'), {languages: ['en'], source: 'auto-only'})
+		expect(resolve(autoOnly, YOUTUBE, {subtitles: manual, automaticCaptions: auto}).subtitleLanguages).toEqual(['en-orig'])
+	})
+
+	it('reports every language when the video has no subtitles', () => {
+		const result = resolve(builtin('subtitles-only'))
+		expect(result.subtitleLanguages).toEqual([])
+		expect(result.notices).toEqual([{kind: 'subtitle-languages-missing', languages: ['en']}])
+	})
+})

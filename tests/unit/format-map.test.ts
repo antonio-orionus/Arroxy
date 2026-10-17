@@ -19,6 +19,15 @@ describe('mapFormats', () => {
 		expect(mapped[2].isVideoOnly).toBe(false)
 	})
 
+	it('keeps the video codec on video streams so MP4 profiles can prefer H.264', () => {
+		const mapped = mapFormats([
+			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},
+			{format_id: '140', resolution: 'audio only', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2'}
+		])
+		expect(mapped.find(f => f.formatId === '137')?.videoCodec).toBe('avc1.640028')
+		expect(mapped.find(f => f.formatId === '140')?.videoCodec).toBeUndefined()
+	})
+
 	it('includes audio-only formats (vcodec === none) with isAudioOnly flag', () => {
 		const mapped = mapFormats([
 			{format_id: '22', resolution: '720p', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'},

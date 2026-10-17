@@ -20,7 +20,7 @@ function installSettingsApi(initial: AppSettings): ReturnType<typeof buildMockAp
 	const api = buildMockAppApi({settings})
 	vi.mocked(api.settings.get).mockImplementation(async () => ok(settings))
 	vi.mocked(api.settings.update).mockImplementation(async patch => {
-		settings = {...settings, common: {...settings.common, ...(patch.common ?? {})}, single: {...settings.single, ...(patch.single ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
+		settings = {...settings, common: {...settings.common, ...(patch.common ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
 		return ok(settings)
 	})
 	window.appApi = api

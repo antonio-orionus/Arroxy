@@ -96,7 +96,7 @@ function resetStore() {
 		wizardFormats: [],
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,

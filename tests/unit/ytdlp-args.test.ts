@@ -45,7 +45,7 @@ function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; vi
 	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
-	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, single: {}, playlist: {}})}
+	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, playlist: {}})}
 	lastTokenService = tokenService
 	// Escalated runs need both the jar port and the spawn gate; a test that injects jars gets an unpaced gate unless it says otherwise.
 	const spawnGate = opts.spawnGate === null ? undefined : (opts.spawnGate ?? (opts.sessionJars ? new ExploreSpawnGate({minSpacingMs: 0}) : undefined))
@@ -1126,7 +1126,7 @@ describe('YtDlp — run identity', () => {
 		const ytDlp = new YtDlp(
 			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
 			{mintTokenForUrl: vi.fn(), invalidateCache: vi.fn()} as never,
-			{get: vi.fn().mockResolvedValue({common: exploreSettings, single: {}, playlist: {}})},
+			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
 			{sessionJars: {withJar}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate: () => Promise.resolve(false)}}
 		)
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})

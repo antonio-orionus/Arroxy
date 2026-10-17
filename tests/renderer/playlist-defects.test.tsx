@@ -86,7 +86,7 @@ function resetStore() {
 		wizardFormats: [],
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '/tmp',
 		wizardSubfolderEnabled: false,
 		wizardSubfolderName: '',
@@ -95,7 +95,6 @@ function resetStore() {
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: [],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSponsorBlockMode: 'off',
@@ -288,7 +287,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
 		expect(patch).not.toHaveProperty('single')
 	})
 
-	it('single mode writes lastPreset/lastSubfolder, NOT lastPlaylist* keys', async () => {
+	it('single mode writes nothing: its edits belong to that download', async () => {
 		const update = vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))
 		window.appApi = buildMockApi(update) as never
 
@@ -299,7 +298,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
 			wizardFormats: [{formatId: '22', label: '720p', ext: 'mp4', resolution: '720p', isVideoOnly: false, isAudioOnly: false}],
 			selectedVideoFormatId: '22',
 			audioSelection: {kind: 'none'},
-			activePreset: 'best-quality',
+			wizardMediaKind: 'video',
 			wizardSubfolderEnabled: true,
 			wizardSubfolderName: 'SingleFolder',
 			wizardOutputDir: '/tmp'
@@ -307,11 +306,7 @@ describe('D2 — persistFormatPrefs mode-keyed', () => {
 
 		await useAppStore.getState().addToQueue()
 
-		expect(update).toHaveBeenCalledOnce()
-		const patch = update.mock.calls[0][0]
-		expect(patch.single).toMatchObject({lastPreset: 'best-quality'})
-		expect(patch.common).toMatchObject({lastSubfolder: 'SingleFolder', lastSubfolderEnabled: true})
-		expect(patch).not.toHaveProperty('playlist')
+		expect(update).not.toHaveBeenCalled()
 	})
 })
 

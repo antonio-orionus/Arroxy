@@ -27,7 +27,7 @@ function mount(common: Partial<AppSettings['common']> = {}, hotkeyOverrides: {re
 	let settings = buildSettings(common)
 	mockApi = buildMockAppApi()
 	mockApi.settings.update = vi.fn(patch => {
-		settings = {...settings, common: {...settings.common, ...(patch.common ?? {})}, single: {...settings.single, ...(patch.single ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
+		settings = {...settings, common: {...settings.common, ...(patch.common ?? {})}, playlist: {...settings.playlist, ...(patch.playlist ?? {})}, profiles: {...settings.profiles, ...(patch.profiles ?? {})}}
 		return Promise.resolve(ok(settings))
 	})
 	mockApi.hotkey.getState = hotkeyOverrides.getState ?? vi.fn(() => Promise.resolve(ok({accelerator: settings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator, registered: hotkeyOverrides.registered ?? true})))

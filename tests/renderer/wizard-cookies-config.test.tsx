@@ -45,14 +45,13 @@ function resetStore(settings: AppSettings): void {
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
 		lastConvertBitrate: 192,
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: [],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSubfolderEnabled: false,
@@ -91,7 +90,7 @@ beforeEach(() => {
 	mockApi = buildMockAppApi()
 	mockApi.settings.update = vi.fn(async (input: SettingsPatch) => {
 		const current = useAppStore.getState().settings ?? buildSettings()
-		const next: AppSettings = {common: {...current.common, ...(input.common ?? {})}, single: {...current.single, ...(input.single ?? {})}, playlist: {...current.playlist, ...(input.playlist ?? {})}, profiles: {...current.profiles, ...(input.profiles ?? {})}}
+		const next: AppSettings = {common: {...current.common, ...(input.common ?? {})}, playlist: {...current.playlist, ...(input.playlist ?? {})}, profiles: {...current.profiles, ...(input.profiles ?? {})}}
 		return ok(next)
 	})
 	window.appApi = mockApi
