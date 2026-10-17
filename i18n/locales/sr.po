@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "Звук"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Језик звука"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "Језика: {{count}}"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "Језика: {{count}}"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "Само звук"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "Изабран је нативни стрим — битрејт се примењује само при конверзији у mp3, m4a или opus."
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "Конвертуј · некомпресовано"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Извор је {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "Користи cookies датотеку или прегледач…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Утишава гласне делове и појачава тихе, за звучнике и бучне просторије."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Уједначи јачину звука (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Уједначена јачина"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "Ваш профил је Паметни TV (H.264). Овај видео не нуди H.264, па је изабран најближи ток."
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Најближе профилу"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Измени {{name}}"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Само за ово преузимање. Ваш подразумевани профил остаје исти."
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Унапред изабрано из"
@@ -2232,6 +2260,22 @@ msgstr "Променити профил?"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Профил"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "Користи"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "Ваше измене за ово преузимање биће замењене новим подешавањима профила."
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "Задржи моје измене"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Користити ажурирани профил?"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "Користи као почетак"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "Цео видео"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Цела нумера"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

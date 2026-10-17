@@ -352,7 +352,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Cosa scaricare", "video": "Video", "audio": "Audio", "subtitles": "Solo sottotitoli"},
-			"profile": {"preselected": "Preselezionato da", "tag": "Profilo", "closestTag": "Più vicino al profilo", "switchTitle": "Cambiare profilo?", "switchBody": "Le tue modifiche a questo download saranno sostituite dalle impostazioni del profilo scelto.", "switchAction": "Cambia"},
+			"profile": {
+				"preselected": "Preselezionato da",
+				"tag": "Profilo",
+				"closestTag": "Più vicino al profilo",
+				"switchTitle": "Cambiare profilo?",
+				"switchBody": "Le tue modifiche a questo download saranno sostituite dalle impostazioni del profilo scelto.",
+				"switchAction": "Cambia",
+				"edit": "Modifica {{name}}",
+				"updatedTitle": "Usare il profilo aggiornato?",
+				"updatedBody": "Le tue modifiche a questo download saranno sostituite dalle nuove impostazioni del profilo.",
+				"updatedAction": "Usalo",
+				"updatedKeep": "Mantieni le mie modifiche",
+				"menuDescription": "Solo per questo download. Il tuo profilo predefinito resta com'è."
+			},
 			"fit": {
 				"tierBelow": "Il tuo profilo richiede {{wanted}}p. Questo video arriva solo a {{picked}}p, quindi è selezionato {{picked}}p.",
 				"tierAbove": "Il tuo profilo richiede {{wanted}}p. Questo video non ha nulla di così piccolo, quindi è selezionato {{picked}}p.",
@@ -378,7 +391,11 @@
 			"skipToConfirm": "Vai alla conferma",
 			"skipToConfirmTooltip": "Usa le preferenze salvate per tutti i passaggi rimanenti. Per modificare un'impostazione, procedi invece passo dopo passo: la scelta verrà salvata per la prossima volta.",
 			"quality": {"high": "Alta qualità", "medium": "Qualità media", "low": "Bassa qualità"},
-			"convert": {"label": "Converti", "uncompressed": "Converti · non compresso", "bitrate": "Bitrate", "wavLabel": "WAV (non compresso)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "È selezionato un flusso originale: il bitrate si applica solo durante la conversione in mp3, m4a o opus."},
+			"drc": {"label": "Uniforma il volume (DRC)", "description": "Abbassa i passaggi forti e alza quelli deboli, per altoparlanti e ambienti rumorosi.", "tag": "Volume uniforme"},
+			"audioLanguage": "Lingua dell'audio",
+			"audioLanguageCount_one": "{{count}} lingua",
+			"audioLanguageCount_other": "{{count}} lingue",
+			"convert": {"label": "Converti", "bitrate": "Bitrate", "wavLabel": "WAV (non compresso)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "La sorgente è a {{kbps}} kbps"},
 			"botWall": {
 				"heading": "L'analisi è stata limitata",
 				"bodyUnconfigured": "L'elenco dei formati potrebbe essere incompleto. Configura i cookie nelle impostazioni avanzate oppure cambia rete e riprova.",
@@ -570,6 +587,7 @@
 		"part": {
 			"switchLabel": "Quanta parte del video",
 			"whole": "Video intero",
+			"wholeTrack": "Traccia intera",
 			"part": "Parte",
 			"unavailableSubtitles": "I sottotitoli coprono sempre l'intero video.",
 			"unavailableDuration": "Questo video non indica la sua durata, quindi può essere scaricato solo per intero.",

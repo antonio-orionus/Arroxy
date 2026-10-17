@@ -365,7 +365,20 @@
 		},
 		"formats": {
 			"kind": {"label": "څه ښکته کړو", "video": "ویډیو", "audio": "غږ", "subtitles": "یوازې ژباړلیکونه"},
-			"profile": {"preselected": "مخکې غوره شوی، سرچینه:", "tag": "پروفایل", "closestTag": "پروفایل ته نږدې", "switchTitle": "پروفایل بدل کړو؟", "switchBody": "پدې ښکته کولو کې ستاسو بدلونونه به د هغه پروفایل په تنظیماتو بدل شي چې تاسو یې غوره کوئ.", "switchAction": "بدلول"},
+			"profile": {
+				"preselected": "مخکې غوره شوی، سرچینه:",
+				"tag": "پروفایل",
+				"closestTag": "پروفایل ته نږدې",
+				"switchTitle": "پروفایل بدل کړو؟",
+				"switchBody": "پدې ښکته کولو کې ستاسو بدلونونه به د هغه پروفایل په تنظیماتو بدل شي چې تاسو یې غوره کوئ.",
+				"switchAction": "بدلول",
+				"edit": "{{name}} سمول",
+				"updatedTitle": "تازه شوی پروفایل وکاروئ؟",
+				"updatedBody": "پدې ښکته کولو کې ستاسو بدلونونه به د پروفایل په نویو تنظیماتو بدل شي.",
+				"updatedAction": "یې وکاروئ",
+				"updatedKeep": "زما بدلونونه وساتئ",
+				"menuDescription": "یوازې د دې ښکته کولو لپاره. ستاسو اصلي پروفایل همداسې پاتې کیږي."
+			},
 			"fit": {
 				"tierBelow": "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو یوازې تر {{picked}}p پورې ځي، نو {{picked}}p غوره شو.",
 				"tierAbove": "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو دومره کوچنی څه نلري، نو {{picked}}p غوره شو.",
@@ -391,7 +404,11 @@
 			"skipToConfirm": "تایید ته پریږدئ",
 			"skipToConfirmTooltip": "ستاسو خوندي کړل شوي غوره توبونه د ټولو پاتې مرحلو لپاره کاروي. د ترتیب بدلولو لپاره، پرځای یې ګام پر ګام دوام وکړئ — ستاسو انتخاب به د راتلونکي ځل لپاره خوندي شي.",
 			"quality": {"high": "لوړ کیفیت", "medium": "منځنی کیفیت", "low": "ټیټ کیفیت"},
-			"convert": {"label": "بدلول", "uncompressed": "بدلول · غیر فشارشوی", "bitrate": "بټ ریټ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "یو اصلي سټریم غوره شوی — بټ ریټ یوازې د mp3, m4a, یا opus ته د بدلولو پر وخت پلي کیږي."},
+			"drc": {"label": "د غږ کچه برابره کړئ (DRC)", "description": "لوړې برخې ورو او ورو برخې لوړې کوي، د سپیکرونو او شور لرونکو ځایونو لپاره.", "tag": "برابر غږ"},
+			"audioLanguage": "د غږ ژبه",
+			"audioLanguageCount_one": "{{count}} ژبه",
+			"audioLanguageCount_other": "{{count}} ژبې",
+			"convert": {"label": "بدلول", "bitrate": "بټ ریټ", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "سرچینه {{kbps}} kbps ده"},
 			"botWall": {
 				"heading": "YouTube دا پلټنه محدوده کړه",
 				"bodyUnconfigured": "د بڼو لیست ممکن نامکمل وي. د پرمختللو تنظیماتو کې کوکیز تنظیم کړئ، یا شبکه بدله کړئ او بیا هڅه وکړئ.",
@@ -583,6 +600,7 @@
 		"part": {
 			"switchLabel": "د ویډیو څومره برخه",
 			"whole": "ټوله ویډیو",
+			"wholeTrack": "ټول ټریک",
 			"part": "برخه",
 			"unavailableSubtitles": "ژباړلیکونه تل ټوله ویډیو پوښي.",
 			"unavailableDuration": "دا ویډیو خپل اوږدوالی نه راپور کوي، نو یوازې ټوله ډاونلوډ کېدی شي.",

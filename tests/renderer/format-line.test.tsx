@@ -49,7 +49,7 @@ describe('FormatLine and FormatChip', () => {
 		expect(screen.getByRole('radio', {name: /VP9/})).not.toHaveAttribute('data-profile-pick')
 	})
 
-	it('shows the full description, file type included, only after a five-second hover', () => {
+	it('shows the full description, file type included, only after a five-second hover', async () => {
 		vi.useFakeTimers()
 		try {
 			renderLines()
@@ -58,10 +58,10 @@ describe('FormatLine and FormatChip', () => {
 			fireEvent.mouseEnter(chip)
 			fireEvent.mouseMove(chip)
 
-			act(() => vi.advanceTimersByTime(4900))
+			await act(() => vi.advanceTimersByTimeAsync(4900))
 			expect(openHints()).toEqual([])
 
-			act(() => vi.advanceTimersByTime(200))
+			await act(() => vi.advanceTimersByTimeAsync(200))
 			expect(openHints().some(tip => tip.includes('2160p 4K · VP9 · webm · 520 MB'))).toBe(true)
 		} finally {
 			vi.useRealTimers()

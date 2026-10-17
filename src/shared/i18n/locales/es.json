@@ -352,7 +352,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Qué descargar", "video": "Vídeo", "audio": "Audio", "subtitles": "Solo subtítulos"},
-			"profile": {"preselected": "Preseleccionado de", "tag": "Perfil", "closestTag": "Más cercano al perfil", "switchTitle": "¿Cambiar de perfil?", "switchBody": "Tus cambios en esta descarga se sustituirán por los ajustes del perfil que elijas.", "switchAction": "Cambiar"},
+			"profile": {
+				"preselected": "Preseleccionado de",
+				"tag": "Perfil",
+				"closestTag": "Más cercano al perfil",
+				"switchTitle": "¿Cambiar de perfil?",
+				"switchBody": "Tus cambios en esta descarga se sustituirán por los ajustes del perfil que elijas.",
+				"switchAction": "Cambiar",
+				"edit": "Editar {{name}}",
+				"updatedTitle": "¿Usar el perfil actualizado?",
+				"updatedBody": "Tus cambios en esta descarga se sustituirán por los nuevos ajustes del perfil.",
+				"updatedAction": "Usarlo",
+				"updatedKeep": "Conservar mis cambios",
+				"menuDescription": "Solo para esta descarga. Tu perfil predeterminado no cambia."
+			},
 			"fit": {
 				"tierBelow": "Tu perfil pide {{wanted}}p. Este vídeo solo llega a {{picked}}p, así que se selecciona {{picked}}p.",
 				"tierAbove": "Tu perfil pide {{wanted}}p. Este vídeo no tiene nada tan pequeño, así que se selecciona {{picked}}p.",
@@ -378,7 +391,11 @@
 			"skipToConfirm": "Saltar a confirmar",
 			"skipToConfirmTooltip": "Usa tus preferencias guardadas para todos los pasos restantes. Para cambiar una opción, continúa paso a paso — tu elección se guardará para la próxima vez.",
 			"quality": {"high": "Calidad alta", "medium": "Calidad media", "low": "Calidad baja"},
-			"convert": {"label": "Convertir", "uncompressed": "Convertir · sin compresión", "bitrate": "Tasa de bits", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Se ha seleccionado una transmisión nativa — la tasa de bits solo se aplica al convertir a mp3, m4a u opus."},
+			"drc": {"label": "Igualar el volumen (DRC)", "description": "Baja las partes fuertes y sube las suaves, para altavoces y sitios ruidosos.", "tag": "Volumen igualado"},
+			"audioLanguage": "Idioma del audio",
+			"audioLanguageCount_one": "{{count}} idioma",
+			"audioLanguageCount_other": "{{count}} idiomas",
+			"convert": {"label": "Convertir", "bitrate": "Tasa de bits", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "La fuente es de {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTube ha limitado esta consulta",
 				"bodyUnconfigured": "La lista de formatos puede estar incompleta. Configura las cookies en los ajustes avanzados, o cambia de red e inténtalo de nuevo.",
@@ -570,6 +587,7 @@
 		"part": {
 			"switchLabel": "Qué parte del vídeo",
 			"whole": "Vídeo completo",
+			"wholeTrack": "Pista completa",
 			"part": "Parte",
 			"unavailableSubtitles": "Los subtítulos siempre abarcan todo el vídeo.",
 			"unavailableDuration": "Este vídeo no indica su duración, así que solo se puede descargar completo.",

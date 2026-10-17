@@ -355,7 +355,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Cha kupakua", "video": "Video", "audio": "Sauti", "subtitles": "Manukuu peke yake"},
-			"profile": {"preselected": "Imechaguliwa awali kutoka", "tag": "Wasifu", "closestTag": "Karibu zaidi na wasifu", "switchTitle": "Badilisha wasifu?", "switchBody": "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio ya wasifu utakaochagua.", "switchAction": "Badilisha"},
+			"profile": {
+				"preselected": "Imechaguliwa awali kutoka",
+				"tag": "Wasifu",
+				"closestTag": "Karibu zaidi na wasifu",
+				"switchTitle": "Badilisha wasifu?",
+				"switchBody": "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio ya wasifu utakaochagua.",
+				"switchAction": "Badilisha",
+				"edit": "Hariri {{name}}",
+				"updatedTitle": "Tumia wasifu uliosasishwa?",
+				"updatedBody": "Mabadiliko yako kwenye upakuaji huu yatabadilishwa na mipangilio mipya ya wasifu.",
+				"updatedAction": "Tumia",
+				"updatedKeep": "Hifadhi mabadiliko yangu",
+				"menuDescription": "Kwa upakuaji huu tu. Wasifu wako chaguomsingi unabaki kama ulivyo."
+			},
 			"fit": {
 				"tierBelow": "Wasifu wako unaomba {{wanted}}p. Video hii inafika {{picked}}p tu, kwa hivyo {{picked}}p imechaguliwa.",
 				"tierAbove": "Wasifu wako unaomba {{wanted}}p. Video hii haina kitu kidogo hivyo, kwa hivyo {{picked}}p imechaguliwa.",
@@ -381,7 +394,11 @@
 			"skipToConfirm": "Ruka hadi uthibitisho",
 			"skipToConfirmTooltip": "Inatumia mapendeleo yako yaliyohifadhiwa kwa hatua zote zilizobaki. Ili kubadilisha mipangilio, endelea hatua kwa hatua badala yake — chaguo lako litahifadhiwa kwa wakati ujao.",
 			"quality": {"high": "Ubora wa juu", "medium": "Ubora wa kati", "low": "Ubora wa chini"},
-			"convert": {"label": "Badilisha", "uncompressed": "Badilisha · isiyoshinikizwa", "bitrate": "Kiwango cha biti", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Mkondo wa asili umechaguliwa — kiwango cha biti kinatumika tu unapobadilisha kuwa mp3, m4a, au opus."},
+			"drc": {"label": "Sawazisha sauti (DRC)", "description": "Hupunguza sehemu zenye sauti kubwa na kuongeza zenye sauti ndogo, kwa spika na vyumba vyenye kelele.", "tag": "Sauti sawa"},
+			"audioLanguage": "Lugha ya sauti",
+			"audioLanguageCount_one": "Lugha {{count}}",
+			"audioLanguageCount_other": "Lugha {{count}}",
+			"convert": {"label": "Badilisha", "bitrate": "Kiwango cha biti", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Chanzo ni {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTube ilipunguza uchunguzi huu",
 				"bodyUnconfigured": "Orodha ya maumbo inaweza kuwa haikamilika. Sanidi vidakuzi katika mipangilio ya hali ya juu, au badilisha mtandao na ujaribu tena.",
@@ -573,6 +590,7 @@
 		"part": {
 			"switchLabel": "Kiasi cha video",
 			"whole": "Video nzima",
+			"wholeTrack": "Wimbo mzima",
 			"part": "Sehemu",
 			"unavailableSubtitles": "Manukuu daima hujumuisha video nzima.",
 			"unavailableDuration": "Video hii haitoi urefu wake, kwa hiyo inaweza kupakuliwa nzima tu.",

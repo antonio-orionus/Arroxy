@@ -338,7 +338,20 @@
 		},
 		"formats": {
 			"kind": {"label": "ምን ማውረድ ይፈልጋሉ", "video": "ቪዲዮ", "audio": "ድምጽ", "subtitles": "ንዑስ ርዕሶች ብቻ"},
-			"profile": {"preselected": "አስቀድሞ የተመረጠ፣ ምንጭ፦", "tag": "መገለጫ", "closestTag": "ለመገለጫው ቅርብ", "switchTitle": "መገለጫ ይቀየር?", "switchBody": "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በሚመርጡት መገለጫ ቅንብሮች ይተካሉ።", "switchAction": "ቀይር"},
+			"profile": {
+				"preselected": "አስቀድሞ የተመረጠ፣ ምንጭ፦",
+				"tag": "መገለጫ",
+				"closestTag": "ለመገለጫው ቅርብ",
+				"switchTitle": "መገለጫ ይቀየር?",
+				"switchBody": "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በሚመርጡት መገለጫ ቅንብሮች ይተካሉ።",
+				"switchAction": "ቀይር",
+				"edit": "{{name}} አርትዕ",
+				"updatedTitle": "የተዘመነውን መገለጫ ይጠቀሙ?",
+				"updatedBody": "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በመገለጫው አዲስ ቅንብሮች ይተካሉ።",
+				"updatedAction": "ተጠቀም",
+				"updatedKeep": "ለውጦቼን አቆይ",
+				"menuDescription": "ለዚህ ማውረድ ብቻ። ነባሪ መገለጫዎ እንዳለ ይቆያል።"
+			},
 			"fit": {
 				"tierBelow": "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ እስከ {{picked}}p ብቻ ነው የሚደርሰው፣ ስለዚህ {{picked}}p ተመርጧል።",
 				"tierAbove": "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ይህን ያህል ትንሽ ነገር የለውም፣ ስለዚህ {{picked}}p ተመርጧል።",
@@ -364,7 +377,11 @@
 			"skipToConfirm": "ወደ ማረጋገጫ ዝለል",
 			"skipToConfirmTooltip": "ለቀሩት ሁሉም ደረጃዎች የተቀመጡ ምርጫዎችዎን ይጠቀማል። አንድ ቅንብር ለመለወጥ ደረጃ በደረጃ ቀጥሉ — ምርጫዎ ለሚቀጥለው ጊዜ ይቀመጣል።",
 			"quality": {"high": "ከፍተኛ ጥራት", "medium": "መካከለኛ ጥራት", "low": "ዝቅተኛ ጥራት"},
-			"convert": {"label": "ቀይር", "uncompressed": "ቀይር · ያልተጨመቀ", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "የቀጥታ ዥረት ተመርጧል — ቢትሬት የሚሰራው ወደ mp3፣ m4a፣ ወይም opus ሲቀይሩ ብቻ ነው።"},
+			"drc": {"label": "የድምፅ መጠንን አስተካክል (DRC)", "description": "ጮክ ያሉ ክፍሎችን ያለዝባል፣ ዝቅተኛዎቹን ያጎላል፤ ለስፒከሮችና ጫጫታ ላለባቸው ክፍሎች።", "tag": "እኩል የድምፅ መጠን"},
+			"audioLanguage": "የድምፅ ቋንቋ",
+			"audioLanguageCount_one": "{{count}} ቋንቋ",
+			"audioLanguageCount_other": "{{count}} ቋንቋዎች",
+			"convert": {"label": "ቀይር", "bitrate": "ቢትሬት", "wavLabel": "WAV (ያልተጨመቀ)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ምንጩ {{kbps}} kbps ነው"},
 			"botWall": {
 				"heading": "YouTube ይህን ምርምር ገደበ",
 				"bodyUnconfigured": "የቅርጸት ዝርዝሩ ሙሉ ላይሆን ይችላል። Cookies በከፍተኛ ቅንብሮች ያዘጋጁ፣ ወይም አውታረ መረብ ቀይሩ እና እንደገና ሞክሩ።",
@@ -533,6 +550,7 @@
 		"part": {
 			"switchLabel": "ከቪዲዮው ምን ያህል",
 			"whole": "ሙሉ ቪዲዮ",
+			"wholeTrack": "ሙሉ ትራክ",
 			"part": "ክፍል",
 			"unavailableSubtitles": "ንዑስ ርዕሶች ሁልጊዜ ሙሉውን ቪዲዮ ይሸፍናሉ።",
 			"unavailableDuration": "ይህ ቪዲዮ ርዝመቱን አይነግርም፣ ስለዚህ ሙሉውን ብቻ ማውረድ ይቻላል።",

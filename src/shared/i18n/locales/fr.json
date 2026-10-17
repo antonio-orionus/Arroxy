@@ -368,7 +368,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Que télécharger", "video": "Vidéo", "audio": "Audio", "subtitles": "Sous-titres uniquement"},
-			"profile": {"preselected": "Présélectionné d’après", "tag": "Profil", "closestTag": "Le plus proche du profil", "switchTitle": "Changer de profil ?", "switchBody": "Vos modifications de ce téléchargement seront remplacées par les réglages du profil choisi.", "switchAction": "Changer"},
+			"profile": {
+				"preselected": "Présélectionné d’après",
+				"tag": "Profil",
+				"closestTag": "Le plus proche du profil",
+				"switchTitle": "Changer de profil ?",
+				"switchBody": "Vos modifications de ce téléchargement seront remplacées par les réglages du profil choisi.",
+				"switchAction": "Changer",
+				"edit": "Modifier {{name}}",
+				"updatedTitle": "Utiliser le profil mis à jour ?",
+				"updatedBody": "Vos modifications de ce téléchargement seront remplacées par les nouveaux réglages du profil.",
+				"updatedAction": "L'utiliser",
+				"updatedKeep": "Garder mes modifications",
+				"menuDescription": "Pour ce téléchargement uniquement. Votre profil par défaut reste inchangé."
+			},
 			"fit": {
 				"tierBelow": "Votre profil demande du {{wanted}}p. Cette vidéo ne dépasse pas {{picked}}p, {{picked}}p est donc sélectionné.",
 				"tierAbove": "Votre profil demande du {{wanted}}p. Cette vidéo n’a rien d’aussi petit, {{picked}}p est donc sélectionné.",
@@ -394,7 +407,11 @@
 			"skipToConfirm": "Passer à la confirmation",
 			"skipToConfirmTooltip": "Utilise tes préférences enregistrées pour toutes les étapes restantes. Pour modifier un réglage, continue étape par étape — ton choix sera sauvegardé pour la prochaine fois.",
 			"quality": {"high": "Haute qualité", "medium": "Qualité moyenne", "low": "Basse qualité"},
-			"convert": {"label": "Convertir", "uncompressed": "Convertir · non compressé", "bitrate": "Débit", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Un flux natif est sélectionné — le débit ne s'applique que lors de la conversion en mp3, m4a ou opus."},
+			"drc": {"label": "Égaliser le volume (DRC)", "description": "Atténue les passages forts et renforce les passages faibles, pour les haut-parleurs et les pièces bruyantes.", "tag": "Volume égalisé"},
+			"audioLanguage": "Langue audio",
+			"audioLanguageCount_one": "{{count}} langue",
+			"audioLanguageCount_other": "{{count}} langues",
+			"convert": {"label": "Convertir", "bitrate": "Débit", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Source : {{kbps}} kbit/s"},
 			"botWall": {
 				"heading": "YouTube a limité cette analyse",
 				"bodyUnconfigured": "La liste des formats est peut-être incomplète. Configurez les cookies dans les paramètres avancés, ou changez de réseau et réessayez.",
@@ -586,6 +603,7 @@
 		"part": {
 			"switchLabel": "Quelle partie de la vidéo",
 			"whole": "Vidéo entière",
+			"wholeTrack": "Piste entière",
 			"part": "Partie",
 			"unavailableSubtitles": "Les sous-titres couvrent toujours la vidéo entière.",
 			"unavailableDuration": "Cette vidéo n'indique pas sa durée, elle ne peut donc être téléchargée qu'en entier.",

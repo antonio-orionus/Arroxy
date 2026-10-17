@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "Ήχος"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Γλώσσα ήχου"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} γλώσσα"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} γλώσσες"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "Μόνο ήχος"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "Επιλέχθηκε εγγενής ροή — ο ρυθμός bit ισχύει μόνο κατά τη μετατροπή σε mp3, m4a ή opus."
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "Μετατροπή · αμετάβλητο"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Η πηγή είναι {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "Χρήση αρχείου cookies ή προγράμματος περιήγησης…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Χαμηλώνει τα δυνατά σημεία και δυναμώνει τα σιγανά, για ηχεία και θορυβώδεις χώρους."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Εξίσωση έντασης (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Εξισωμένη ένταση"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "Το προφίλ σας είναι Έξυπνη TV (H.264). Αυτό το βίντεο δεν προσφέρει H.264, οπότε επιλέχθηκε η πλησιέστερη ροή."
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Πλησιέστερο στο προφίλ"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Επεξεργασία: {{name}}"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Μόνο για αυτή τη λήψη. Το προεπιλεγμένο προφίλ σας μένει ως έχει."
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Προεπιλεγμένο από"
@@ -2232,6 +2260,22 @@ msgstr "Αλλαγή προφίλ;"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Προφίλ"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "Χρήση"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "Οι αλλαγές σας σε αυτή τη λήψη θα αντικατασταθούν από τις νέες ρυθμίσεις του προφίλ."
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "Διατήρηση των αλλαγών μου"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Χρήση του ενημερωμένου προφίλ;"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "Χρήση ως αρχή"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "Ολόκληρο βίντεο"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Ολόκληρο κομμάτι"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

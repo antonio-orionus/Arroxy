@@ -373,7 +373,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Nimani yuklab olish", "video": "Video", "audio": "Audio", "subtitles": "Faqat subtitrlar"},
-			"profile": {"preselected": "Oldindan tanlangan:", "tag": "Profil", "closestTag": "Profilga eng yaqin", "switchTitle": "Profil almashtirilsinmi?", "switchBody": "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz tanlagan profilingiz sozlamalari bilan almashtiriladi.", "switchAction": "Almashtirish"},
+			"profile": {
+				"preselected": "Oldindan tanlangan:",
+				"tag": "Profil",
+				"closestTag": "Profilga eng yaqin",
+				"switchTitle": "Profil almashtirilsinmi?",
+				"switchBody": "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz tanlagan profilingiz sozlamalari bilan almashtiriladi.",
+				"switchAction": "Almashtirish",
+				"edit": "Tahrirlash: {{name}}",
+				"updatedTitle": "Yangilangan profildan foydalanilsinmi?",
+				"updatedBody": "Ushbu yuklab olish uchun qilgan o'zgarishlaringiz profilning yangi sozlamalari bilan almashtiriladi.",
+				"updatedAction": "Foydalanish",
+				"updatedKeep": "O'zgarishlarimni saqlash",
+				"menuDescription": "Faqat shu yuklab olish uchun. Standart profilingiz o'zgarmaydi."
+			},
 			"fit": {
 				"tierBelow": "Profilingiz {{wanted}}p so'raydi. Bu video faqat {{picked}}p gacha, shuning uchun {{picked}}p tanlandi.",
 				"tierAbove": "Profilingiz {{wanted}}p so'raydi. Bu videoda bunchalik past sifat yo'q, shuning uchun {{picked}}p tanlandi.",
@@ -399,14 +412,11 @@
 			"skipToConfirm": "Tasdiqlashga o'tish",
 			"skipToConfirmTooltip": "Qolgan barcha qadamlar uchun saqlangan sozlamalaringizdan foydalanadi. Biror sozlamani o'zgartirish uchun, qadamma-qadam davom eting — tanlovingiz keyingi safar saqlanadi.",
 			"quality": {"high": "Yuqori sifat", "medium": "O'rtacha sifat", "low": "Past sifat"},
-			"convert": {
-				"label": "Konvertatsiya qilish",
-				"uncompressed": "Konvertatsiya · siqilmagan",
-				"bitrate": "Bit tezligi",
-				"wavLabel": "WAV (uncompressed)",
-				"lossyLabel": "{{target}} {{bitrate}} kbps",
-				"requiresLossy": "Mahalliy oqim tanlangan — bit tezligi faqat mp3, m4a yoki opus ga konvertatsiya qilishda qo'llaniladi."
-			},
+			"drc": {"label": "Ovoz balandligini tekislash (DRC)", "description": "Baland joylarni pasaytiradi, past joylarni ko'taradi — karnaylar va shovqinli xonalar uchun.", "tag": "Tekis ovoz"},
+			"audioLanguage": "Audio tili",
+			"audioLanguageCount_one": "{{count}} ta til",
+			"audioLanguageCount_other": "{{count}} ta til",
+			"convert": {"label": "Konvertatsiya qilish", "bitrate": "Bit tezligi", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Manba {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTube bu tekshiruvni chekladi",
 				"bodyUnconfigured": "Format ro'yxati to'liq bo'lmasligi mumkin. Kengaytirilgan sozlamalarda cookiesni sozlang yoki tarmoqni o'zgartiring va qayta urinib ko'ring.",
@@ -598,6 +608,7 @@
 		"part": {
 			"switchLabel": "Videoning qancha qismi",
 			"whole": "Butun video",
+			"wholeTrack": "Butun trek",
 			"part": "Qism",
 			"unavailableSubtitles": "Subtitrlar doim butun videoga tegishli bo'ladi.",
 			"unavailableDuration": "Bu video davomiyligini bildirmaydi, shuning uchun uni faqat butunligicha yuklab olish mumkin.",

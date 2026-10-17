@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "音频"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "音频语言"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} 种语言"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} 种语言"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "仅音频"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "已选择原生流——比特率仅在转换为 mp3、m4a 或 opus 时适用。"
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "转换 · 无损"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "源为 {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "改用 Cookie 文件或浏览器…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "压低响亮的部分、提升安静的部分，适合扬声器和嘈杂环境。"
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "均衡音量（DRC）"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "音量均衡"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "你的配置是智能电视 (H.264)。此视频不提供 H.264，因此选择了最接近的流。"
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "最接近配置"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "编辑“{{name}}”"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "仅用于本次下载。你的默认配置保持不变。"
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "预选自"
@@ -2232,6 +2260,22 @@ msgstr "切换配置？"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "配置"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "使用"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "你对本次下载所做的更改将被该配置的新设置替换。"
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "保留我的更改"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "使用更新后的配置？"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "用作开始时间"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "整个视频"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "整个音轨"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

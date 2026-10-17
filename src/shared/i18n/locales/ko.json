@@ -343,7 +343,20 @@
 		},
 		"formats": {
 			"kind": {"label": "다운로드할 항목", "video": "동영상", "audio": "오디오", "subtitles": "자막만"},
-			"profile": {"preselected": "미리 선택됨:", "tag": "프로필", "closestTag": "프로필과 가장 가까움", "switchTitle": "프로필을 전환할까요?", "switchBody": "이 다운로드에서 변경한 내용은 선택한 프로필의 설정으로 바뀝니다.", "switchAction": "전환"},
+			"profile": {
+				"preselected": "미리 선택됨:",
+				"tag": "프로필",
+				"closestTag": "프로필과 가장 가까움",
+				"switchTitle": "프로필을 전환할까요?",
+				"switchBody": "이 다운로드에서 변경한 내용은 선택한 프로필의 설정으로 바뀝니다.",
+				"switchAction": "전환",
+				"edit": "{{name}} 편집",
+				"updatedTitle": "업데이트된 프로필을 사용할까요?",
+				"updatedBody": "이 다운로드에서 변경한 내용은 프로필의 새 설정으로 바뀝니다.",
+				"updatedAction": "사용",
+				"updatedKeep": "변경 내용 유지",
+				"menuDescription": "이 다운로드에만 적용됩니다. 기본 프로필은 그대로 유지됩니다."
+			},
 			"fit": {
 				"tierBelow": "프로필에서 {{wanted}}p를 요청했지만 이 동영상은 최대 {{picked}}p까지만 제공되어 {{picked}}p를 선택했습니다.",
 				"tierAbove": "프로필에서 {{wanted}}p를 요청했지만 이 동영상에는 그보다 낮은 화질이 없어 {{picked}}p를 선택했습니다.",
@@ -369,7 +382,11 @@
 			"skipToConfirm": "확인으로 건너뛰기",
 			"skipToConfirmTooltip": "남은 모든 단계에 저장된 환경설정을 사용합니다. 설정을 바꾸려면 단계별로 계속 진행하세요. 선택은 다음 사용을 위해 저장됩니다.",
 			"quality": {"high": "고품질", "medium": "중간 품질", "low": "저품질"},
-			"convert": {"label": "변환", "uncompressed": "변환 · 비압축", "bitrate": "비트레이트", "wavLabel": "WAV(비압축)", "lossyLabel": "{{target}} {{bitrate}}kbps", "requiresLossy": "원본 스트림이 선택되었습니다. 비트레이트는 mp3, m4a 또는 opus로 변환할 때만 적용됩니다."},
+			"drc": {"label": "음량 고르게 하기 (DRC)", "description": "큰 소리는 줄이고 작은 소리는 키워 스피커나 시끄러운 곳에서 듣기 좋게 합니다.", "tag": "음량 균일"},
+			"audioLanguage": "오디오 언어",
+			"audioLanguageCount_one": "언어 {{count}}개",
+			"audioLanguageCount_other": "언어 {{count}}개",
+			"convert": {"label": "변환", "bitrate": "비트레이트", "wavLabel": "WAV(비압축)", "lossyLabel": "{{target}} {{bitrate}}kbps", "sourceKbps": "원본 {{kbps}} kbps"},
 			"botWall": {
 				"heading": "분석이 제한됨",
 				"bodyUnconfigured": "형식 목록이 불완전할 수 있습니다. 고급 설정에서 쿠키를 설정하거나 네트워크를 바꿔 다시 시도하세요.",
@@ -554,6 +571,7 @@
 		"part": {
 			"switchLabel": "동영상 범위",
 			"whole": "전체 동영상",
+			"wholeTrack": "전체 트랙",
 			"part": "일부",
 			"unavailableSubtitles": "자막은 항상 전체 동영상에 적용됩니다.",
 			"unavailableDuration": "이 동영상은 길이 정보를 제공하지 않아 전체만 다운로드할 수 있습니다.",

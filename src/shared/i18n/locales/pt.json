@@ -352,7 +352,20 @@
 		},
 		"formats": {
 			"kind": {"label": "O que baixar", "video": "Vídeo", "audio": "Áudio", "subtitles": "Somente legendas"},
-			"profile": {"preselected": "Pré-selecionado de", "tag": "Perfil", "closestTag": "Mais próximo do perfil", "switchTitle": "Trocar de perfil?", "switchBody": "Suas alterações neste download serão substituídas pelas configurações do perfil escolhido.", "switchAction": "Trocar"},
+			"profile": {
+				"preselected": "Pré-selecionado de",
+				"tag": "Perfil",
+				"closestTag": "Mais próximo do perfil",
+				"switchTitle": "Trocar de perfil?",
+				"switchBody": "Suas alterações neste download serão substituídas pelas configurações do perfil escolhido.",
+				"switchAction": "Trocar",
+				"edit": "Editar {{name}}",
+				"updatedTitle": "Usar o perfil atualizado?",
+				"updatedBody": "Suas alterações neste download serão substituídas pelas novas configurações do perfil.",
+				"updatedAction": "Usar",
+				"updatedKeep": "Manter minhas alterações",
+				"menuDescription": "Só para este download. Seu perfil padrão continua como está."
+			},
 			"fit": {
 				"tierBelow": "Seu perfil pede {{wanted}}p. Este vídeo só vai até {{picked}}p, então {{picked}}p foi selecionado.",
 				"tierAbove": "Seu perfil pede {{wanted}}p. Este vídeo não tem nada tão pequeno, então {{picked}}p foi selecionado.",
@@ -378,7 +391,11 @@
 			"skipToConfirm": "Pular para confirmação",
 			"skipToConfirmTooltip": "Usa suas preferências salvas para todas as etapas restantes. Para alterar uma configuração, continue passo a passo — sua escolha será salva para a próxima vez.",
 			"quality": {"high": "Alta qualidade", "medium": "Qualidade média", "low": "Baixa qualidade"},
-			"convert": {"label": "Converter", "uncompressed": "Converter · não comprimido", "bitrate": "Taxa de bits", "wavLabel": "WAV (não comprimido)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Um fluxo nativo está selecionado — a taxa de bits só se aplica ao converter para mp3, m4a ou opus."},
+			"drc": {"label": "Equalizar o volume (DRC)", "description": "Abaixa as partes altas e aumenta as baixas, para alto-falantes e lugares barulhentos.", "tag": "Volume equalizado"},
+			"audioLanguage": "Idioma do áudio",
+			"audioLanguageCount_one": "{{count}} idioma",
+			"audioLanguageCount_other": "{{count}} idiomas",
+			"convert": {"label": "Converter", "bitrate": "Taxa de bits", "wavLabel": "WAV (não comprimido)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "A fonte tem {{kbps}} kbps"},
 			"botWall": {
 				"heading": "A análise foi limitada",
 				"bodyUnconfigured": "A lista de formatos pode estar incompleta. Configure cookies nas opções avançadas ou troque de rede e tente novamente.",
@@ -570,6 +587,7 @@
 		"part": {
 			"switchLabel": "Quanto do vídeo",
 			"whole": "Vídeo inteiro",
+			"wholeTrack": "Faixa inteira",
 			"part": "Trecho",
 			"unavailableSubtitles": "As legendas sempre cobrem o vídeo inteiro.",
 			"unavailableDuration": "Este vídeo não informa sua duração, por isso só pode ser baixado inteiro.",

@@ -365,7 +365,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Ne indirilsin", "video": "Video", "audio": "Ses", "subtitles": "Yalnızca altyazılar"},
-			"profile": {"preselected": "Şuradan önceden seçildi:", "tag": "Profil", "closestTag": "Profile en yakın", "switchTitle": "Profil değiştirilsin mi?", "switchBody": "Bu indirmede yaptığınız değişiklikler, seçeceğiniz profilin ayarlarıyla değiştirilecek.", "switchAction": "Değiştir"},
+			"profile": {
+				"preselected": "Şuradan önceden seçildi:",
+				"tag": "Profil",
+				"closestTag": "Profile en yakın",
+				"switchTitle": "Profil değiştirilsin mi?",
+				"switchBody": "Bu indirmede yaptığınız değişiklikler, seçeceğiniz profilin ayarlarıyla değiştirilecek.",
+				"switchAction": "Değiştir",
+				"edit": "Düzenle: {{name}}",
+				"updatedTitle": "Güncellenen profil kullanılsın mı?",
+				"updatedBody": "Bu indirmede yaptığınız değişiklikler, profilin yeni ayarlarıyla değiştirilecek.",
+				"updatedAction": "Kullan",
+				"updatedKeep": "Değişikliklerimi koru",
+				"menuDescription": "Yalnızca bu indirme için. Varsayılan profiliniz olduğu gibi kalır."
+			},
 			"fit": {
 				"tierBelow": "Profiliniz {{wanted}}p istiyor. Bu video en fazla {{picked}}p sunuyor, bu yüzden {{picked}}p seçildi.",
 				"tierAbove": "Profiliniz {{wanted}}p istiyor. Bu videoda bu kadar düşük çözünürlük yok, bu yüzden {{picked}}p seçildi.",
@@ -391,7 +404,11 @@
 			"skipToConfirm": "Onaya atla",
 			"skipToConfirmTooltip": "Kalan tüm adımlar için kayıtlı tercihlerini kullanır. Bir ayarı değiştirmek için adım adım devam et — seçimin bir sonraki sefer için kaydedilir.",
 			"quality": {"high": "Yüksek kalite", "medium": "Orta kalite", "low": "Düşük kalite"},
-			"convert": {"label": "Dönüştür", "uncompressed": "Dönüştür · sıkıştırılmamış", "bitrate": "Bit hızı", "wavLabel": "WAV (sıkıştırılmamış)", "lossyLabel": "{{target}} {{bitrate}} kb/sn", "requiresLossy": "Yerel bir akış seçili — bit hızı yalnızca mp3, m4a veya opus’a dönüştürürken uygulanır."},
+			"drc": {"label": "Ses düzeyini eşitle (DRC)", "description": "Yüksek yerleri kısar, alçak yerleri açar; hoparlörler ve gürültülü ortamlar için.", "tag": "Eşit ses"},
+			"audioLanguage": "Ses dili",
+			"audioLanguageCount_one": "{{count}} dil",
+			"audioLanguageCount_other": "{{count}} dil",
+			"convert": {"label": "Dönüştür", "bitrate": "Bit hızı", "wavLabel": "WAV (sıkıştırılmamış)", "lossyLabel": "{{target}} {{bitrate}} kb/sn", "sourceKbps": "Kaynak {{kbps}} kbps"},
 			"botWall": {
 				"heading": "Denetim sınırlandı",
 				"bodyUnconfigured": "Biçim listesi eksik olabilir. Gelişmiş ayarlarda çerezleri kur veya ağı değiştirip tekrar dene.",
@@ -576,6 +593,7 @@
 		"part": {
 			"switchLabel": "Videonun ne kadarı",
 			"whole": "Tüm video",
+			"wholeTrack": "Tüm parça",
 			"part": "Kısım",
 			"unavailableSubtitles": "Altyazılar her zaman videonun tamamını kapsar.",
 			"unavailableDuration": "Bu video süresini bildirmiyor, bu yüzden yalnızca tamamı indirilebilir.",

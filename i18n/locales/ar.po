@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "صوت"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "لغة الصوت"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "عدد اللغات: {{count}}"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "عدد اللغات: {{count}}"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "صوت فقط"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "تم اختيار مقطع صوتي أصلي — معدل البت لا ينطبق إلا عند التحويل إلى mp3 أو m4a أو opus."
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "تحويل · غير مضغوط"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "المصدر {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "استخدم ملف كوكيز أو متصفحًا بدلًا من ذلك…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "يخفّض المقاطع العالية ويرفع الهادئة، لمكبرات الصوت والأماكن الصاخبة."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "توحيد مستوى الصوت (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "صوت متوازن"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "ملف التعريف لديك هو التلفاز الذكي (H.264). لا يوفر هذا الفيديو H.264، لذا حُدد أقرب تدفق."
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "الأقرب إلى ملف التعريف"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "تعديل {{name}}"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "لهذا التنزيل فقط. يبقى ملف التعريف الافتراضي كما هو."
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "محدد مسبقًا من"
@@ -2232,6 +2260,22 @@ msgstr "تبديل ملف التعريف؟"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "ملف التعريف"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "استخدامه"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "ستُستبدل تغييراتك على هذا التنزيل بالإعدادات الجديدة لملف التعريف."
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "الإبقاء على تغييراتي"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "استخدام ملف التعريف المحدَّث؟"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "استخدمه كبداية"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "الفيديو كاملاً"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "المقطع الصوتي كاملاً"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

@@ -352,7 +352,20 @@
 		},
 		"formats": {
 			"kind": {"label": "ダウンロードする内容", "video": "動画", "audio": "音声", "subtitles": "字幕のみ"},
-			"profile": {"preselected": "事前選択元:", "tag": "プロフィール", "closestTag": "プロフィールに最も近い", "switchTitle": "プロフィールを切り替えますか?", "switchBody": "このダウンロードに加えた変更は、選んだプロフィールの設定で置き換えられます。", "switchAction": "切り替え"},
+			"profile": {
+				"preselected": "事前選択元:",
+				"tag": "プロフィール",
+				"closestTag": "プロフィールに最も近い",
+				"switchTitle": "プロフィールを切り替えますか?",
+				"switchBody": "このダウンロードに加えた変更は、選んだプロフィールの設定で置き換えられます。",
+				"switchAction": "切り替え",
+				"edit": "{{name}} を編集",
+				"updatedTitle": "更新したプロフィールを使いますか?",
+				"updatedBody": "このダウンロードに加えた変更は、プロフィールの新しい設定で置き換えられます。",
+				"updatedAction": "使う",
+				"updatedKeep": "変更を残す",
+				"menuDescription": "このダウンロードだけに適用されます。デフォルトのプロフィールは変わりません。"
+			},
 			"fit": {
 				"tierBelow": "プロフィールでは {{wanted}}p が指定されていますが、この動画は最大 {{picked}}p のため、{{picked}}p を選択しました。",
 				"tierAbove": "プロフィールでは {{wanted}}p が指定されていますが、この動画にはそれより小さいものがないため、{{picked}}p を選択しました。",
@@ -378,7 +391,11 @@
 			"skipToConfirm": "確認へスキップ",
 			"skipToConfirmTooltip": "残りのすべてのステップに保存済みの設定を使用します。設定を変更するには、ステップごとに進んでください — 選択内容は次回のために保存されます。",
 			"quality": {"high": "高品質", "medium": "中品質", "low": "低品質"},
-			"convert": {"label": "変換", "uncompressed": "変換 · 非圧縮", "bitrate": "ビットレート", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "ネイティブストリームが選択されています — ビットレートは mp3、m4a、または opus に変換する場合にのみ適用されます。"},
+			"drc": {"label": "音量を均一にする（DRC）", "description": "大きな音を抑え、小さな音を持ち上げます。スピーカーや騒がしい場所向けです。", "tag": "音量均一"},
+			"audioLanguage": "音声の言語",
+			"audioLanguageCount_one": "{{count}} 言語",
+			"audioLanguageCount_other": "{{count}} 言語",
+			"convert": {"label": "変換", "bitrate": "ビットレート", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "元の音声は {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTubeがこの取得を制限しました",
 				"bodyUnconfigured": "フォーマット一覧が不完全な可能性があります。詳細設定でCookieを設定するか、ネットワークを変えて再試行してください。",
@@ -570,6 +587,7 @@
 		"part": {
 			"switchLabel": "動画の範囲",
 			"whole": "動画全体",
+			"wholeTrack": "トラック全体",
 			"part": "一部",
 			"unavailableSubtitles": "字幕は常に動画全体が対象です。",
 			"unavailableDuration": "この動画は長さの情報がないため、全体のみダウンロードできます。",

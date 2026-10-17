@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "Audio"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Langue audio"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} langue"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} langues"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "Audio seul"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "Un flux natif est sélectionné — le débit ne s'applique que lors de la conversion en mp3, m4a ou opus."
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "Convertir · non compressé"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Source : {{kbps}} kbit/s"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "Utiliser plutôt un fichier de cookies ou un navigateur…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Atténue les passages forts et renforce les passages faibles, pour les haut-parleurs et les pièces bruyantes."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Égaliser le volume (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Volume égalisé"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "Ton profil est TV connectée (H.264). Cette vidéo ne propose pas de H.264, le flux le plus proche est donc sélectionné."
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "Le plus proche du profil"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Modifier {{name}}"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Pour ce téléchargement uniquement. Votre profil par défaut reste inchangé."
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "Présélectionné d’après"
@@ -2232,6 +2260,22 @@ msgstr "Changer de profil ?"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "Profil"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "L'utiliser"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "Vos modifications de ce téléchargement seront remplacées par les nouveaux réglages du profil."
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "Garder mes modifications"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Utiliser le profil mis à jour ?"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "Utiliser comme début"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "Vidéo entière"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Piste entière"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

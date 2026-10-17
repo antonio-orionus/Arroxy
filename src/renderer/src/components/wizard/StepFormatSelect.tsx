@@ -59,7 +59,7 @@ export function StepFormatSelect(): ReactNode {
 	return (
 		<div className="wizard-step flex flex-col gap-3" data-testid="step-formats">
 			{/* Capped so a wide window keeps related controls (the mode switch, Whole video / Part) near what they act on. */}
-			<div className="flex w-full max-w-6xl flex-col gap-3">
+			<div className="@container flex w-full max-w-6xl flex-col gap-3">
 				<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} resolution={view.currentResolutionLabel} webpageUrl={wizardWebpageUrl} chapterCount={chapterCount} action={<VideoPartSwitch />} />
 
 				<UrlStartOffer />
@@ -77,8 +77,8 @@ export function StepFormatSelect(): ReactNode {
 				) : wizardMediaKind === 'audio' ? (
 					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 				) : (
-					// Halves while the window is narrow; from lg both lists sit at their own width, so a wide window adds no gap between them.
-					<div className="grid grid-cols-2 gap-5 lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
+					// Stacked while the step is under 36rem wide (a zoomed minimum window), halves up to lg; from lg both lists sit at their own width, so a wide window adds no gap between them. The container is this wrapper, never a column: a size-contained column could not take its chips' width.
+					<div className="grid grid-cols-1 gap-5 @xl:grid-cols-2 lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
 						<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
 						<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 					</div>

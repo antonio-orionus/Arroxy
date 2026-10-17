@@ -1943,6 +1943,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr ""
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr ""
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr ""
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr ""
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr ""
@@ -1987,12 +1999,8 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr ""
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr ""
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
 msgstr ""
 
 msgctxt "wizard.formats.convert.wavLabel"
@@ -2123,6 +2131,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr ""
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr ""
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr ""
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr ""
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr ""
@@ -2207,6 +2227,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr ""
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr ""
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr ""
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr ""
@@ -2225,6 +2253,22 @@ msgstr ""
 
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
+msgstr ""
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr ""
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr ""
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr ""
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
 msgstr ""
 
 msgctxt "wizard.formats.quality.high"
@@ -2493,6 +2537,10 @@ msgstr ""
 
 msgctxt "wizard.part.whole"
 msgid "Whole video"
+msgstr ""
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
 msgstr ""
 
 msgctxt "wizard.playlist.allRemovedDescription"

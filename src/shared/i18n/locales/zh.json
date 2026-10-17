@@ -330,7 +330,20 @@
 		},
 		"formats": {
 			"kind": {"label": "下载内容", "video": "视频", "audio": "音频", "subtitles": "仅字幕"},
-			"profile": {"preselected": "预选自", "tag": "配置", "closestTag": "最接近配置", "switchTitle": "切换配置？", "switchBody": "你对本次下载所做的更改将被所选配置的设置替换。", "switchAction": "切换"},
+			"profile": {
+				"preselected": "预选自",
+				"tag": "配置",
+				"closestTag": "最接近配置",
+				"switchTitle": "切换配置？",
+				"switchBody": "你对本次下载所做的更改将被所选配置的设置替换。",
+				"switchAction": "切换",
+				"edit": "编辑“{{name}}”",
+				"updatedTitle": "使用更新后的配置？",
+				"updatedBody": "你对本次下载所做的更改将被该配置的新设置替换。",
+				"updatedAction": "使用",
+				"updatedKeep": "保留我的更改",
+				"menuDescription": "仅用于本次下载。你的默认配置保持不变。"
+			},
 			"fit": {
 				"tierBelow": "配置要求 {{wanted}}p，但此视频最高只有 {{picked}}p，已选择 {{picked}}p。",
 				"tierAbove": "配置要求 {{wanted}}p，但此视频没有这么低的画质，已选择 {{picked}}p。",
@@ -356,7 +369,11 @@
 			"skipToConfirm": "跳至确认",
 			"skipToConfirmTooltip": "使用您保存的偏好设置完成所有剩余步骤。若要更改某项设置，请逐步继续操作——您的选择将在下次保存。",
 			"quality": {"high": "高质量", "medium": "中等质量", "low": "低质量"},
-			"convert": {"label": "转换", "uncompressed": "转换 · 无损", "bitrate": "比特率", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "已选择原生流——比特率仅在转换为 mp3、m4a 或 opus 时适用。"},
+			"drc": {"label": "均衡音量（DRC）", "description": "压低响亮的部分、提升安静的部分，适合扬声器和嘈杂环境。", "tag": "音量均衡"},
+			"audioLanguage": "音频语言",
+			"audioLanguageCount_one": "{{count}} 种语言",
+			"audioLanguageCount_other": "{{count}} 种语言",
+			"convert": {"label": "转换", "bitrate": "比特率", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "源为 {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTube 限制了本次探测",
 				"bodyUnconfigured": "格式列表可能不完整。请在高级设置中配置 cookies，或更换网络后重试。",
@@ -522,6 +539,7 @@
 		"part": {
 			"switchLabel": "下载多少视频",
 			"whole": "整个视频",
+			"wholeTrack": "整个音轨",
 			"part": "片段",
 			"unavailableSubtitles": "字幕始终覆盖整个视频。",
 			"unavailableDuration": "此视频未提供时长，因此只能整个下载。",

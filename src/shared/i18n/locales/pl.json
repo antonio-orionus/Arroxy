@@ -360,7 +360,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Co pobrać", "video": "Wideo", "audio": "Dźwięk", "subtitles": "Tylko napisy"},
-			"profile": {"preselected": "Wstępnie wybrano z", "tag": "Profil", "closestTag": "Najbliższy profilowi", "switchTitle": "Przełączyć profil?", "switchBody": "Twoje zmiany w tym pobraniu zostaną zastąpione ustawieniami wybranego profilu.", "switchAction": "Przełącz"},
+			"profile": {
+				"preselected": "Wstępnie wybrano z",
+				"tag": "Profil",
+				"closestTag": "Najbliższy profilowi",
+				"switchTitle": "Przełączyć profil?",
+				"switchBody": "Twoje zmiany w tym pobraniu zostaną zastąpione ustawieniami wybranego profilu.",
+				"switchAction": "Przełącz",
+				"edit": "Edytuj {{name}}",
+				"updatedTitle": "Użyć zaktualizowanego profilu?",
+				"updatedBody": "Twoje zmiany w tym pobraniu zostaną zastąpione nowymi ustawieniami profilu.",
+				"updatedAction": "Użyj",
+				"updatedKeep": "Zachowaj moje zmiany",
+				"menuDescription": "Tylko dla tego pobrania. Twój domyślny profil pozostaje bez zmian."
+			},
 			"fit": {
 				"tierBelow": "Twój profil wymaga {{wanted}}p. To wideo dochodzi tylko do {{picked}}p, więc wybrano {{picked}}p.",
 				"tierAbove": "Twój profil wymaga {{wanted}}p. To wideo nie ma niczego tak małego, więc wybrano {{picked}}p.",
@@ -386,7 +399,11 @@
 			"skipToConfirm": "Przejdź do potwierdzenia",
 			"skipToConfirmTooltip": "Używa zapisanych preferencji we wszystkich pozostałych krokach. Aby zmienić ustawienie, przejdź kolejne kroki — wybór zostanie zapisany na przyszłość.",
 			"quality": {"high": "Wysoka jakość", "medium": "Średnia jakość", "low": "Niska jakość"},
-			"convert": {"label": "Konwertuj", "uncompressed": "Konwertuj · bez kompresji", "bitrate": "Przepływność", "wavLabel": "WAV (bez kompresji)", "lossyLabel": "{{target}} {{bitrate}} kb/s", "requiresLossy": "Wybrano strumień źródłowy — przepływność ma zastosowanie tylko podczas konwersji do mp3, m4a lub opus."},
+			"drc": {"label": "Wyrównaj głośność (DRC)", "description": "Ścisza głośne fragmenty i pogłaśnia ciche, do głośników i hałaśliwych miejsc.", "tag": "Wyrównana głośność"},
+			"audioLanguage": "Język dźwięku",
+			"audioLanguageCount_one": "Języki: {{count}}",
+			"audioLanguageCount_other": "Języki: {{count}}",
+			"convert": {"label": "Konwertuj", "bitrate": "Przepływność", "wavLabel": "WAV (bez kompresji)", "lossyLabel": "{{target}} {{bitrate}} kb/s", "sourceKbps": "Źródło: {{kbps}} kb/s"},
 			"botWall": {
 				"heading": "Sprawdzanie zostało ograniczone",
 				"bodyUnconfigured": "Lista formatów może być niepełna. Skonfiguruj pliki cookie w ustawieniach zaawansowanych albo zmień sieć i spróbuj ponownie.",
@@ -578,6 +595,7 @@
 		"part": {
 			"switchLabel": "Jaka część filmu",
 			"whole": "Cały film",
+			"wholeTrack": "Cała ścieżka",
 			"part": "Fragment",
 			"unavailableSubtitles": "Napisy zawsze obejmują cały film.",
 			"unavailableDuration": "Ten film nie podaje swojej długości, więc można go pobrać tylko w całości.",

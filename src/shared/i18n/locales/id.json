@@ -365,7 +365,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Yang diunduh", "video": "Video", "audio": "Audio", "subtitles": "Hanya subtitle"},
-			"profile": {"preselected": "Dipilih sebelumnya dari", "tag": "Profil", "closestTag": "Terdekat dengan profil", "switchTitle": "Ganti profil?", "switchBody": "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan profil yang Anda pilih.", "switchAction": "Ganti"},
+			"profile": {
+				"preselected": "Dipilih sebelumnya dari",
+				"tag": "Profil",
+				"closestTag": "Terdekat dengan profil",
+				"switchTitle": "Ganti profil?",
+				"switchBody": "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan profil yang Anda pilih.",
+				"switchAction": "Ganti",
+				"edit": "Edit {{name}}",
+				"updatedTitle": "Gunakan profil yang diperbarui?",
+				"updatedBody": "Perubahan Anda pada unduhan ini akan diganti dengan pengaturan baru profil.",
+				"updatedAction": "Gunakan",
+				"updatedKeep": "Simpan perubahan saya",
+				"menuDescription": "Hanya untuk unduhan ini. Profil default Anda tetap seperti semula."
+			},
 			"fit": {
 				"tierBelow": "Profil Anda meminta {{wanted}}p. Video ini hanya sampai {{picked}}p, jadi {{picked}}p dipilih.",
 				"tierAbove": "Profil Anda meminta {{wanted}}p. Video ini tidak punya yang sekecil itu, jadi {{picked}}p dipilih.",
@@ -391,7 +404,11 @@
 			"skipToConfirm": "Lewati untuk mengonfirmasi",
 			"skipToConfirmTooltip": "Menggunakan preferensi tersimpan Anda untuk semua langkah selanjutnya. Untuk mengubah pengaturan, lanjutkan langkah demi langkah — pilihan Anda akan disimpan untuk waktu berikutnya.",
 			"quality": {"high": "Kualitas tinggi", "medium": "Kualitas sedang", "low": "Kualitas rendah"},
-			"convert": {"label": "Mengubah", "uncompressed": "Konversi · tidak terkompresi", "bitrate": "Kecepatan bit", "wavLabel": "WAV (tidak terkompresi)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Aliran asli dipilih — kecepatan bit hanya berlaku saat mengonversi ke mp3, m4a, atau karya."},
+			"drc": {"label": "Ratakan volume (DRC)", "description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.", "tag": "Volume rata"},
+			"audioLanguage": "Bahasa audio",
+			"audioLanguageCount_one": "{{count}} bahasa",
+			"audioLanguageCount_other": "{{count}} bahasa",
+			"convert": {"label": "Mengubah", "bitrate": "Kecepatan bit", "wavLabel": "WAV (tidak terkompresi)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Sumber {{kbps}} kbps"},
 			"botWall": {
 				"heading": "Penyelidikan terbatas",
 				"bodyUnconfigured": "Daftar format mungkin tidak lengkap. Siapkan cookie di pengaturan lanjutan, atau ubah jaringan dan coba lagi.",
@@ -583,6 +600,7 @@
 		"part": {
 			"switchLabel": "Seberapa banyak video",
 			"whole": "Seluruh video",
+			"wholeTrack": "Seluruh trek",
 			"part": "Bagian",
 			"unavailableSubtitles": "Subtitle selalu mencakup seluruh video.",
 			"unavailableDuration": "Video ini tidak melaporkan durasinya, jadi hanya bisa diunduh utuh.",

@@ -365,7 +365,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Was herunterladen", "video": "Video", "audio": "Audio", "subtitles": "Nur Untertitel"},
-			"profile": {"preselected": "Vorausgewählt aus", "tag": "Profil", "closestTag": "Dem Profil am nächsten", "switchTitle": "Profil wechseln?", "switchBody": "Ihre Änderungen an diesem Download werden durch die Einstellungen des gewählten Profils ersetzt.", "switchAction": "Wechseln"},
+			"profile": {
+				"preselected": "Vorausgewählt aus",
+				"tag": "Profil",
+				"closestTag": "Dem Profil am nächsten",
+				"switchTitle": "Profil wechseln?",
+				"switchBody": "Ihre Änderungen an diesem Download werden durch die Einstellungen des gewählten Profils ersetzt.",
+				"switchAction": "Wechseln",
+				"edit": "{{name}} bearbeiten",
+				"updatedTitle": "Aktualisiertes Profil verwenden?",
+				"updatedBody": "Ihre Änderungen an diesem Download werden durch die neuen Einstellungen des Profils ersetzt.",
+				"updatedAction": "Verwenden",
+				"updatedKeep": "Meine Änderungen behalten",
+				"menuDescription": "Nur für diesen Download. Ihr Standardprofil bleibt unverändert."
+			},
 			"fit": {
 				"tierBelow": "Ihr Profil verlangt {{wanted}}p. Dieses Video geht nur bis {{picked}}p, deshalb wurde {{picked}}p gewählt.",
 				"tierAbove": "Ihr Profil verlangt {{wanted}}p. So niedrig ist dieses Video nicht verfügbar, deshalb wurde {{picked}}p gewählt.",
@@ -391,7 +404,11 @@
 			"skipToConfirm": "Zur Bestätigung überspringen",
 			"skipToConfirmTooltip": "Verwendet deine gespeicherten Einstellungen für alle verbleibenden Schritte. Um eine Einstellung zu ändern, fahre stattdessen Schritt für Schritt fort – deine Wahl wird für das nächste Mal gespeichert.",
 			"quality": {"high": "Hohe Qualität", "medium": "Mittlere Qualität", "low": "Niedrige Qualität"},
-			"convert": {"label": "Konvertieren", "uncompressed": "Konvertieren · unkomprimiert", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Ein nativer Stream ist ausgewählt — Bitrate gilt nur bei der Konvertierung zu mp3, m4a oder opus."},
+			"drc": {"label": "Lautstärke angleichen (DRC)", "description": "Laute Stellen leiser, leise Stellen lauter – für Lautsprecher und laute Umgebungen.", "tag": "Angeglichene Lautstärke"},
+			"audioLanguage": "Audiosprache",
+			"audioLanguageCount_one": "{{count}} Sprache",
+			"audioLanguageCount_other": "{{count}} Sprachen",
+			"convert": {"label": "Konvertieren", "bitrate": "Bitrate", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Quelle: {{kbps}} kbit/s"},
 			"botWall": {
 				"heading": "YouTube hat diese Abfrage eingeschränkt",
 				"bodyUnconfigured": "Die Formatliste ist möglicherweise unvollständig. Cookies in den erweiterten Einstellungen einrichten oder Netzwerk wechseln und erneut versuchen.",
@@ -583,6 +600,7 @@
 		"part": {
 			"switchLabel": "Wie viel vom Video",
 			"whole": "Ganzes Video",
+			"wholeTrack": "Ganze Spur",
 			"part": "Ausschnitt",
 			"unavailableSubtitles": "Untertitel decken immer das ganze Video ab.",
 			"unavailableDuration": "Dieses Video meldet seine Länge nicht, daher kann es nur komplett heruntergeladen werden.",

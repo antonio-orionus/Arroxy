@@ -1949,6 +1949,18 @@ msgctxt "wizard.formats.audio"
 msgid "Audio"
 msgstr "ድምጽ"
 
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "የድምፅ ቋንቋ"
+
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} ቋንቋ"
+
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} ቋንቋዎች"
+
 msgctxt "wizard.formats.audioOnly"
 msgid "Audio only"
 msgstr "ድምጽ ብቻ"
@@ -1993,13 +2005,9 @@ msgctxt "wizard.formats.convert.lossyLabel"
 msgid "{{target}} {{bitrate}} kbps"
 msgstr "{{target}} {{bitrate}} kbps"
 
-msgctxt "wizard.formats.convert.requiresLossy"
-msgid "A native stream is selected — bitrate only applies when converting to mp3, m4a, or opus."
-msgstr "የቀጥታ ዥረት ተመርጧል — ቢትሬት የሚሰራው ወደ mp3፣ m4a፣ ወይም opus ሲቀይሩ ብቻ ነው።"
-
-msgctxt "wizard.formats.convert.uncompressed"
-msgid "Convert · uncompressed"
-msgstr "ቀይር · ያልተጨመቀ"
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "ምንጩ {{kbps}} kbps ነው"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
@@ -2129,6 +2137,18 @@ msgctxt "wizard.formats.cookiesError.otherCookiesCta"
 msgid "Use a cookies file or browser instead…"
 msgstr "በምትኩ የCookies ፋይል ወይም አሳሽ ይጠቀሙ…"
 
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "ጮክ ያሉ ክፍሎችን ያለዝባል፣ ዝቅተኛዎቹን ያጎላል፤ ለስፒከሮችና ጫጫታ ላለባቸው ክፍሎች።"
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "የድምፅ መጠንን አስተካክል (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "እኩል የድምፅ መጠን"
+
 msgctxt "wizard.formats.fit.mp4Unavailable"
 msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
 msgstr "መገለጫዎ ስማርት TV (H.264) ነው። ይህ ቪዲዮ H.264 አያቀርብም፣ ስለዚህ በጣም ቅርብ የሆነው ዥረት ተመርጧል።"
@@ -2213,6 +2233,14 @@ msgctxt "wizard.formats.profile.closestTag"
 msgid "Closest to profile"
 msgstr "ለመገለጫው ቅርብ"
 
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "{{name}} አርትዕ"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "ለዚህ ማውረድ ብቻ። ነባሪ መገለጫዎ እንዳለ ይቆያል።"
+
 msgctxt "wizard.formats.profile.preselected"
 msgid "Pre-selected from"
 msgstr "አስቀድሞ የተመረጠ፣ ምንጭ፦"
@@ -2232,6 +2260,22 @@ msgstr "መገለጫ ይቀየር?"
 msgctxt "wizard.formats.profile.tag"
 msgid "Profile"
 msgstr "መገለጫ"
+
+msgctxt "wizard.formats.profile.updatedAction"
+msgid "Use it"
+msgstr "ተጠቀም"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "Your changes to this download will be replaced by the profile's new settings."
+msgstr "በዚህ ማውረድ ላይ ያደረጉት ለውጦች በመገለጫው አዲስ ቅንብሮች ይተካሉ።"
+
+msgctxt "wizard.formats.profile.updatedKeep"
+msgid "Keep my changes"
+msgstr "ለውጦቼን አቆይ"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "የተዘመነውን መገለጫ ይጠቀሙ?"
 
 msgctxt "wizard.formats.quality.high"
 msgid "High quality"
@@ -2500,6 +2544,10 @@ msgstr "እንደ መጀመሪያ ተጠቀም"
 msgctxt "wizard.part.whole"
 msgid "Whole video"
 msgstr "ሙሉ ቪዲዮ"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "ሙሉ ትራክ"
 
 msgctxt "wizard.playlist.allRemovedDescription"
 msgid "Restore them to continue."

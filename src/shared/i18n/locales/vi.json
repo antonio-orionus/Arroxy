@@ -352,7 +352,20 @@
 		},
 		"formats": {
 			"kind": {"label": "Tải gì", "video": "Video", "audio": "Âm thanh", "subtitles": "Chỉ phụ đề"},
-			"profile": {"preselected": "Chọn sẵn từ", "tag": "Hồ sơ", "closestTag": "Gần nhất với hồ sơ", "switchTitle": "Đổi hồ sơ?", "switchBody": "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt của hồ sơ bạn chọn.", "switchAction": "Đổi"},
+			"profile": {
+				"preselected": "Chọn sẵn từ",
+				"tag": "Hồ sơ",
+				"closestTag": "Gần nhất với hồ sơ",
+				"switchTitle": "Đổi hồ sơ?",
+				"switchBody": "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt của hồ sơ bạn chọn.",
+				"switchAction": "Đổi",
+				"edit": "Sửa {{name}}",
+				"updatedTitle": "Dùng hồ sơ đã cập nhật?",
+				"updatedBody": "Các thay đổi của bạn cho lượt tải này sẽ được thay bằng cài đặt mới của hồ sơ.",
+				"updatedAction": "Dùng",
+				"updatedKeep": "Giữ thay đổi của tôi",
+				"menuDescription": "Chỉ cho lượt tải này. Hồ sơ mặc định của bạn vẫn giữ nguyên."
+			},
 			"fit": {
 				"tierBelow": "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này chỉ có tối đa {{picked}}p nên {{picked}}p được chọn.",
 				"tierAbove": "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này không có độ phân giải thấp như vậy nên {{picked}}p được chọn.",
@@ -378,7 +391,11 @@
 			"skipToConfirm": "Bỏ qua đến xác nhận",
 			"skipToConfirmTooltip": "Sử dụng tùy chọn đã lưu của bạn cho tất cả các bước còn lại. Để thay đổi một cài đặt, hãy tiếp tục từng bước — lựa chọn của bạn sẽ được lưu cho lần sau.",
 			"quality": {"high": "Chất lượng cao", "medium": "Chất lượng trung bình", "low": "Chất lượng thấp"},
-			"convert": {"label": "Chuyển đổi", "uncompressed": "Chuyển đổi · không nén", "bitrate": "Tốc độ bit", "wavLabel": "WAV (không nén)", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "Đang chọn luồng gốc — tốc độ bit chỉ áp dụng khi chuyển đổi sang mp3, m4a hoặc opus."},
+			"drc": {"label": "Cân bằng âm lượng (DRC)", "description": "Giảm đoạn to, tăng đoạn nhỏ, hợp với loa ngoài và nơi ồn ào.", "tag": "Âm lượng đều"},
+			"audioLanguage": "Ngôn ngữ âm thanh",
+			"audioLanguageCount_one": "{{count}} ngôn ngữ",
+			"audioLanguageCount_other": "{{count}} ngôn ngữ",
+			"convert": {"label": "Chuyển đổi", "bitrate": "Tốc độ bit", "wavLabel": "WAV (không nén)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Nguồn là {{kbps}} kbps"},
 			"botWall": {
 				"heading": "YouTube đã giới hạn lần kiểm tra này",
 				"bodyUnconfigured": "Danh sách định dạng có thể không đầy đủ. Thiết lập cookies trong cài đặt nâng cao, hoặc đổi mạng và thử lại.",
@@ -563,6 +580,7 @@
 		"part": {
 			"switchLabel": "Tải bao nhiêu video",
 			"whole": "Toàn bộ video",
+			"wholeTrack": "Toàn bộ âm thanh",
 			"part": "Một đoạn",
 			"unavailableSubtitles": "Phụ đề luôn áp dụng cho toàn bộ video.",
 			"unavailableDuration": "Video này không cho biết độ dài, nên chỉ có thể tải toàn bộ.",

@@ -338,7 +338,20 @@
 		},
 		"formats": {
 			"kind": {"label": "下載內容", "video": "影片", "audio": "音訊", "subtitles": "僅字幕"},
-			"profile": {"preselected": "預先選取自", "tag": "設定檔", "closestTag": "最接近設定檔", "switchTitle": "切換設定檔？", "switchBody": "你對這次下載所做的變更，將被所選設定檔的設定取代。", "switchAction": "切換"},
+			"profile": {
+				"preselected": "預先選取自",
+				"tag": "設定檔",
+				"closestTag": "最接近設定檔",
+				"switchTitle": "切換設定檔？",
+				"switchBody": "你對這次下載所做的變更，將被所選設定檔的設定取代。",
+				"switchAction": "切換",
+				"edit": "編輯「{{name}}」",
+				"updatedTitle": "要使用更新後的設定檔嗎？",
+				"updatedBody": "你對這次下載所做的變更，將被設定檔的新設定取代。",
+				"updatedAction": "使用",
+				"updatedKeep": "保留我的變更",
+				"menuDescription": "只套用於這次下載。你的預設設定檔維持不變。"
+			},
 			"fit": {
 				"tierBelow": "設定檔要求 {{wanted}}p，但此影片最高只有 {{picked}}p，已選取 {{picked}}p。",
 				"tierAbove": "設定檔要求 {{wanted}}p，但此影片沒有這麼低的畫質，已選取 {{picked}}p。",
@@ -364,7 +377,11 @@
 			"skipToConfirm": "跳至確認",
 			"skipToConfirmTooltip": "將已儲存的偏好套用至所有剩餘步驟。若要變更設定，請改為逐步繼續——你的選擇會儲存供下次使用。",
 			"quality": {"high": "高品質", "medium": "中等品質", "low": "低品質"},
-			"convert": {"label": "轉換", "uncompressed": "轉換 · 未壓縮", "bitrate": "位元率", "wavLabel": "WAV（未壓縮）", "lossyLabel": "{{target}} {{bitrate}} kbps", "requiresLossy": "已選擇原生串流——位元率只適用於轉換成 mp3、m4a 或 opus。"},
+			"drc": {"label": "平衡音量（DRC）", "description": "讓大聲的部分變小、小聲的部分變大，適合喇叭和吵雜環境。", "tag": "音量平衡"},
+			"audioLanguage": "音訊語言",
+			"audioLanguageCount_one": "{{count}} 種語言",
+			"audioLanguageCount_other": "{{count}} 種語言",
+			"convert": {"label": "轉換", "bitrate": "位元率", "wavLabel": "WAV（未壓縮）", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "來源為 {{kbps}} kbps"},
 			"botWall": {
 				"heading": "探查受到限制",
 				"bodyUnconfigured": "格式清單可能不完整。請在進階設定中設定 Cookie，或切換網路後重試。",
@@ -533,6 +550,7 @@
 		"part": {
 			"switchLabel": "要下載多少影片",
 			"whole": "整部影片",
+			"wholeTrack": "整個音軌",
 			"part": "片段",
 			"unavailableSubtitles": "字幕一律涵蓋整部影片。",
 			"unavailableDuration": "這部影片未回報長度，因此只能整部下載。",
