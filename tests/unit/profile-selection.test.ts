@@ -102,7 +102,7 @@ describe('resolveProfileSelection: video tiers', () => {
 	})
 
 	it('video-only profiles pick no audio', () => {
-		const result = resolve(withMedia('balanced', {kind: 'video-only', codec: 'best', tiers: ['720']}))
+		const result = resolve(withMedia('balanced', {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'}))
 		expect(result.media).toEqual({kind: 'video', videoFormatId: '247', audioSelection: {kind: 'none'}})
 	})
 
@@ -190,7 +190,7 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 
 	it('video-only and MP4 profiles take a separate video stream over a muxed one, like bestvideo', () => {
 		const formats = [video('22', '1920x1080', {videoCodec: 'avc1.640028', ext: 'mp4', isVideoOnly: false}), video('136', '1280x720', {videoCodec: 'avc1.4d401f', ext: 'mp4'}), audio('140')]
-		expect(resolve(withMedia('hd-1080', {kind: 'video-only', codec: 'best', tiers: ['1080']}), formats).media).toEqual({kind: 'video', videoFormatId: '136', audioSelection: {kind: 'none'}})
+		expect(resolve(withMedia('hd-1080', {kind: 'video-only', goal: 'best-picture', tier: '1080', fileType: 'auto'}), formats).media).toEqual({kind: 'video', videoFormatId: '136', audioSelection: {kind: 'none'}})
 		expect(resolve(builtin('mp4-1080'), formats).media.videoFormatId).toBe('136')
 		// A plain profile may take the muxed stream (bestvideo* includes it).
 		expect(resolve(builtin('hd-1080'), formats).media).toEqual({kind: 'video', videoFormatId: '22', audioSelection: {kind: 'none'}})
@@ -198,7 +198,7 @@ describe('resolveProfileSelection: parity with the profile path yt-dlp sort', ()
 
 	it('falls back to a muxed stream when there is no separate video', () => {
 		const formats = [video('22', '1280x720', {videoCodec: 'avc1.640028', ext: 'mp4', isVideoOnly: false}), audio('140')]
-		expect(resolve(withMedia('balanced', {kind: 'video-only', codec: 'best', tiers: ['720']}), formats).media.videoFormatId).toBe('22')
+		expect(resolve(withMedia('balanced', {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'}), formats).media.videoFormatId).toBe('22')
 	})
 
 	it('M4A audio profiles take AAC over Dolby even with the surround preference', () => {
@@ -212,5 +212,44 @@ describe('resolveProfileSelection: subtitle precedence per track', () => {
 		const profile = withSubtitles(builtin('balanced'), {languages: ['en'], source: 'manual-first'})
 		const result = resolve(profile, YOUTUBE, {subtitles: {'en-US': [{ext: 'vtt'}]}, automaticCaptions: {'en-GB': [{ext: 'vtt'}], 'en-US': [{ext: 'vtt'}]}})
 		expect(result.subtitleLanguages).toEqual(['en-US', 'en-GB'])
+	})
+})
+
+describe('resolveProfileSelection: selection order and file type', () => {
+	it('returns the order that made the pick, for the Why this one tip', () => {
+		const smartTv = resolve(builtin('mp4-720')).order
+		expect(smartTv?.goal).toBe('smart-tv')
+		expect(smartTv?.video.map(rank => rank.kind)).toEqual(['h264', 'mp4-streams', 'resolution', 'fps', 'hdr', 'codec', 'size'])
+		expect(resolve(builtin('balanced')).order?.audio).toEqual([{kind: 'native'}])
+		expect(resolve(builtin('audio-only')).order).toBeNull()
+		expect(resolve(builtin('subtitles-only')).order).toBeNull()
+	})
+
+	it('names the profile native audio choice as its own source', () => {
+		const profile = withMedia('balanced', {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'auto', audio: {native: {kind: 'custom', preference: 'surround'}}})
+		expect(resolve(profile).order?.nativeAudio).toEqual({preference: 'surround', source: 'profile'})
+		expect(resolve(builtin('balanced')).order?.nativeAudio).toEqual({preference: 'compatible', source: 'settings'})
+	})
+
+	it('a profile saved as MP4 takes AAC audio even when Opus ranks first', () => {
+		const profile = withMedia('balanced', {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'mp4', audio: {native: {kind: 'default'}}})
+		expect(resolve(profile).media.audioSelection).toEqual({kind: 'native', formatId: '140'})
+	})
+
+	it('a profile saved as WebM takes Opus audio', () => {
+		const profile = withMedia('balanced', {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'webm', audio: {native: {kind: 'default'}}})
+		expect(resolve(profile, YOUTUBE, {nativeAudioPreference: 'compatible'}).media.audioSelection).toEqual({kind: 'native', formatId: '251'})
+	})
+
+	it('Smart TV keeps taking a separate stream and AAC audio, whatever the native preference', () => {
+		const result = resolve(builtin('mp4-1080'), YOUTUBE, {nativeAudioPreference: 'surround'})
+		expect(result.media.videoFormatId).toBe('137')
+		expect(result.media.audioSelection).toEqual({kind: 'native', formatId: '140'})
+	})
+
+	it('a video-only profile picks no audio and has no native audio order', () => {
+		const result = resolve(withMedia('balanced', {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'}))
+		expect(result.media.audioSelection).toEqual({kind: 'none'})
+		expect(result.order?.nativeAudio).toBeNull()
 	})
 })

@@ -39,7 +39,8 @@ describe('applyProfileToWizard', () => {
 			outputDir: '/home/me/Downloads',
 			subfolderEnabled: true,
 			subfolderName: 'Balanced 720p',
-			filenameTemplate: '{title} [{id}]'
+			filenameTemplate: '{title} [{id}]',
+			fileType: 'auto'
 		} satisfies WizardSettingsSnapshot)
 	})
 
@@ -96,16 +97,16 @@ describe('profileFromWizard', () => {
 
 	it('turns a picked video stream into the tier it sits in, keeping the audio intent', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '137'}))
-		expect(saved.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}})
+		expect(saved.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
 	})
 
 	it('saves "best" only when the user picks the top stream themselves', () => {
-		expect(save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '399'})).media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, videoFormatId: '399'})).media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}})
 	})
 
 	it('an audio-only edit keeps the video tier and records an AAC pick as M4A', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, audioSelection: {kind: 'native', formatId: '140'}}))
-		expect(saved.media).toEqual({kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'm4a'}})
+		expect(saved.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 	})
 
 	it('keeps languages the video lacked when subtitles were not edited', () => {
@@ -131,6 +132,69 @@ describe('profileFromWizard', () => {
 
 	it('saves subtitles-only and video without audio', () => {
 		expect(save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'subtitles', videoFormatId: '', audioSelection: {kind: 'none'}, subtitleLanguages: ['de']})).media).toEqual({kind: 'subtitles-only'})
-		expect(save(builtin('balanced'), snapshot => ({...snapshot, audioSelection: {kind: 'none'}})).media).toEqual({kind: 'video-only', codec: 'best', tiers: ['720']})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, audioSelection: {kind: 'none'}})).media).toEqual({kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'})
+	})
+
+	describe('file type in the wizard', () => {
+		const WEBM_FORMATS: FormatOption[] = [
+			{formatId: '248', label: '1080', ext: 'webm', resolution: '1920x1080', videoCodec: 'vp9', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '137', label: '1080', ext: 'mp4', resolution: '1920x1080', videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', audioCodec: 'opus', abr: 160, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140', label: 'm4a', ext: 'm4a', resolution: 'audio only', audioCodec: 'mp4a.40.2', abr: 130, isVideoOnly: false, isAudioOnly: true}
+		]
+		const profileWith = (fileType: 'auto' | 'mp4' | 'mkv' | 'webm', goal: 'best-picture' | 'smart-tv' = 'best-picture'): DownloadProfile => ({...builtin('hd-1080'), media: {kind: 'video-audio', goal, tier: '1080', fileType, audio: {native: {kind: 'default'}}}})
+		const applyTo = (profile: DownloadProfile, formats: FormatOption[]) => applyProfileToWizard({profile, formats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: 'compatible', baseOutputDir: '/d', globalFilenameTemplate: undefined})
+
+		it("starts from the profile's file type", () => {
+			expect(applyTo(profileWith('mkv'), WEBM_FORMATS).snapshot.fileType).toBe('mkv')
+			expect(applyTo(profileWith('auto'), WEBM_FORMATS).snapshot.fileType).toBe('auto')
+		})
+
+		it('keeps a WebM profile on WebM when its picked streams fit', () => {
+			const {snapshot, notices} = applyTo(profileWith('webm'), WEBM_FORMATS)
+			expect(snapshot).toMatchObject({videoFormatId: '248', fileType: 'webm'})
+			expect(notices).toEqual([])
+		})
+
+		it('starts a WebM profile on Auto, with a notice, when the video has no WebM-ready pick', () => {
+			const h264Only = WEBM_FORMATS.filter(f => f.formatId !== '248')
+			const {snapshot, notices} = applyTo(profileWith('webm'), h264Only)
+			expect(snapshot.fileType).toBe('auto')
+			expect(notices).toContainEqual({kind: 'webm-unavailable', blocker: 'H.264'})
+		})
+
+		it('has no file type for audio and subtitles runs', () => {
+			const audioProfile = {...builtin('audio-only')}
+			expect(applyTo(audioProfile, WEBM_FORMATS).snapshot.fileType).toBe('auto')
+		})
+
+		it('treats a changed file type as a format change, but only for video', () => {
+			const {snapshot} = applyTo(profileWith('auto'), WEBM_FORMATS)
+			expect(changedFromProfile(snapshot, {...snapshot, fileType: 'mp4'})).toEqual(['format'])
+			expect(changedFromProfile({...snapshot, mediaKind: 'audio'}, {...snapshot, mediaKind: 'audio', fileType: 'mp4'})).toEqual([])
+		})
+
+		it('saves the file type the user chose', () => {
+			const base = profileWith('auto')
+			const baseline = applyTo(base, WEBM_FORMATS).snapshot
+			const saved = profileFromWizard(base, baseline, {...baseline, fileType: 'mkv'}, WEBM_FORMATS, {id: 'x', name: 'Mine', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/d', globalFilenameTemplate: undefined, subtitles: {}, automaticCaptions: {}})
+			expect(saved.media).toMatchObject({kind: 'video-audio', fileType: 'mkv'})
+		})
+
+		it('keeps asking for WebM when the profile fell back to Auto on one video and nothing changed', () => {
+			const base = profileWith('webm')
+			const h264Only = WEBM_FORMATS.filter(f => f.formatId !== '248')
+			const baseline = applyTo(base, h264Only).snapshot
+			const saved = profileFromWizard(base, baseline, {...baseline, filenameTemplate: '{title}'}, h264Only, {id: 'x', name: 'Mine', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/d', globalFilenameTemplate: undefined, subtitles: {}, automaticCaptions: {}})
+			expect(saved.media).toEqual(base.media)
+		})
+
+		it('saves an explicit Smart TV profile as Smart TV only while the pick stays H.264', () => {
+			const base = profileWith('auto', 'smart-tv')
+			const baseline = applyTo(base, WEBM_FORMATS).snapshot
+			const ctx = {id: 'x', name: 'Mine', now: '2026-10-17T00:00:00.000Z', defaultOutputDir: '/d', globalFilenameTemplate: undefined, subtitles: {}, automaticCaptions: {}}
+			expect(profileFromWizard(base, baseline, {...baseline, videoFormatId: '248'}, WEBM_FORMATS, ctx).media).toMatchObject({goal: 'best-picture'})
+			expect(profileFromWizard(base, baseline, {...baseline, videoFormatId: '137'}, WEBM_FORMATS, ctx).media).toMatchObject({goal: 'smart-tv'})
+		})
 	})
 })

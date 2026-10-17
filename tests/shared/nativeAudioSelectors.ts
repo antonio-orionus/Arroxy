@@ -23,7 +23,6 @@ const COMPATIBLE_BEST_AUDIO_SELECTOR = [
 ].join('/')
 export const COMPATIBLE_AUDIO_ONLY_SELECTOR = `${COMPATIBLE_BEST_AUDIO_SELECTOR}/best`
 export const COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR = pairWithCompatibleNativeAudio('bestvideo*', 'bestvideo*+bestaudio/best')
-export const COMPATIBLE_MP4_VIDEO_AUDIO_SELECTOR = pairWithCompatibleNativeAudio('bestvideo', 'bestvideo+bestaudio/best[ext=mp4]/best')
 export const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...sourcePreferredAudioWith(), `bestaudio${NON_DRC_AUDIO_FILTERS}`, 'bestaudio', 'best'].join('/')
 
 function pairWithCompatibleNativeAudio(videoSelector: string, fallback: string): string {

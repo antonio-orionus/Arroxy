@@ -21,7 +21,8 @@ export function wizardSnapshot(state: AppState): WizardSettingsSnapshot {
 		outputDir: state.wizardOutputDir,
 		subfolderEnabled: state.wizardSubfolderEnabled,
 		subfolderName: state.wizardSubfolderName,
-		filenameTemplate: state.wizardFilenameTemplate
+		filenameTemplate: state.wizardFilenameTemplate,
+		fileType: state.wizardFileType
 	}
 }
 
@@ -43,7 +44,9 @@ export function snapshotPatch(snapshot: WizardSettingsSnapshot): Partial<AppStat
 		wizardOutputDir: snapshot.outputDir,
 		wizardSubfolderEnabled: snapshot.subfolderEnabled,
 		wizardSubfolderName: snapshot.subfolderName,
-		wizardFilenameTemplate: snapshot.filenameTemplate
+		wizardFilenameTemplate: snapshot.filenameTemplate,
+		wizardFileType: snapshot.fileType,
+		wizardFileTypeReset: null
 	}
 }
 
@@ -54,7 +57,7 @@ type ProbeFields = Pick<AppState, 'wizardFormats' | 'wizardSubtitles' | 'wizardA
 export function profilePatch(profile: DownloadProfile, state: ProbeFields): Partial<AppState> {
 	const common = state.settings?.common
 	const globalDir = common?.defaultOutputDir?.trim()
-	const {snapshot, notices} = applyProfileToWizard({
+	const {snapshot, notices, order} = applyProfileToWizard({
 		profile,
 		formats: state.wizardFormats,
 		subtitles: state.wizardSubtitles,
@@ -64,7 +67,7 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 		baseOutputDir: globalDir !== undefined && globalDir !== '' ? globalDir : state.wizardOutputDir,
 		globalFilenameTemplate: common?.filenameTemplate
 	})
-	return {...snapshotPatch(snapshot), wizardProfile: profile, wizardProfileBaseline: snapshot, wizardFitNotices: notices}
+	return {...snapshotPatch(snapshot), wizardProfile: profile, wizardProfileBaseline: snapshot, wizardFitNotices: notices, wizardSelectionOrder: order}
 }
 
 export function wizardChangedAreas(state: AppState): ChangedArea[] {

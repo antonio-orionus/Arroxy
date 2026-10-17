@@ -151,6 +151,30 @@ describe('planWorkflow — media', () => {
 		expect(plan.args).toContain('--write-auto-subs')
 		expect(plan.args).not.toContain('--embed-thumbnail')
 	})
+
+	it('plans a lossless container change for an exact format id', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatId: '399+251', mergeOutputFormat: 'webm/mkv', remuxVideo: 'webm>webm/mkv'}})
+
+		expect(adjacent(plan.args, '-f', '399+251')).toBe(true)
+		expect(adjacent(plan.args, '--merge-output-format', 'webm/mkv')).toBe(true)
+		expect(adjacent(plan.args, '--remux-video', 'webm>webm/mkv')).toBe(true)
+		expect(plan.args).not.toContain('--recode-video')
+	})
+
+	it('plans remux after a format selector', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatSelector: 'bestvideo*+bestaudio/best', mergeOutputFormat: 'mp4', remuxVideo: 'mp4'}})
+
+		expect(adjacent(plan.args, '--merge-output-format', 'mp4')).toBe(true)
+		expect(adjacent(plan.args, '--remux-video', 'mp4')).toBe(true)
+	})
+
+	it('lets embedded subtitles override a requested remux', () => {
+		const plan = planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, selection: {formatId: '399+251', mergeOutputFormat: 'mp4', remuxVideo: 'mp4'}, subtitles: {embed: true, languages: ['en']}})
+
+		expect(adjacent(plan.args, '--merge-output-format', EMBED_SUBTITLE_CONTAINER_EXT)).toBe(true)
+		expect(plan.args).not.toContain('--remux-video')
+		expect(plan.args.join(' ')).not.toMatch(/--merge-output-format mp4/)
+	})
 })
 
 describe('planWorkflow — subtitles', () => {

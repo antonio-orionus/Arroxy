@@ -1,6 +1,6 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, NativeAudioPreference, PlaylistVideoTier} from './schemas.js'
+import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
@@ -11,11 +11,12 @@ const BUILTIN_PROFILE_EMBED = {chapters: true, metadata: true, thumbnail: false,
 
 type VideoAudioProfileMedia = Extract<DownloadProfile['media'], {kind: 'video-audio'}>
 
-function videoAudio(codec: 'best' | 'mp4', tiers: PlaylistVideoTier[]): VideoAudioProfileMedia {
-	return {kind: 'video-audio', codec, tiers, audio: {format: codec === 'mp4' ? 'm4a' : 'best'}}
+function videoAudio(goal: VideoGoal, tier: PlaylistVideoTier): VideoAudioProfileMedia {
+	return {kind: 'video-audio', goal, tier, fileType: 'auto', audio: {native: {kind: 'default'}}}
 }
 
-function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon'], enabled = true): DownloadProfile {
+// `subfolderName` keeps a built-in's existing download folder when its display name changes.
+function baseProfile(id: string, name: string, media: DownloadProfile['media'], icon: DownloadProfile['icon'], enabled = true, subfolderName = name): DownloadProfile {
 	return {
 		id,
 		name,
@@ -29,7 +30,7 @@ function baseProfile(id: string, name: string, media: DownloadProfile['media'], 
 		updatedAt: BUILTIN_TIMESTAMP,
 		output: {kind: 'default'},
 		filename: {kind: 'default'},
-		subfolder: {enabled: true, name: safeFolderName(name)}
+		subfolder: {enabled: true, name: safeFolderName(subfolderName)}
 	}
 }
 
@@ -40,33 +41,32 @@ function subtitlesOnlyProfile(): DownloadProfile {
 	return {...base, subtitles: {...base.subtitles, enabled: true, languages: ['en']}}
 }
 
-function videoCompatibilityLabel(codec: 'best' | 'mp4'): string {
-	return codec === 'mp4' ? 'MP4/H.264' : 'Native formats'
+function videoGoalLabel(goal: VideoGoal): string {
+	return goal === 'smart-tv' ? 'Smart TV' : 'Best picture'
 }
 
-function videoTierLabel(tiers: readonly PlaylistVideoTier[]): string {
-	const tier = tiers[0] ?? 'best'
+function videoTierLabel(tier: PlaylistVideoTier): string {
 	return tier === 'best' ? 'Best available' : `Up to ${tier}p`
 }
 
-function videoAudioLabel(format: 'best' | 'm4a'): string {
-	return format === 'm4a' ? 'AAC audio' : 'Native audio'
+function videoFileTypeLabel(fileType: VideoFileType): string[] {
+	return fileType === 'auto' ? [] : [fileType.toUpperCase()]
 }
 
 export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
-	baseProfile('best-quality', 'Best available', videoAudio('best', ['best']), 'video'),
-	baseProfile('best-2160', '4K UHD 2160p', videoAudio('best', ['2160']), 'video'),
-	baseProfile('best-1440', 'QHD 1440p', videoAudio('best', ['1440']), 'video'),
-	baseProfile('hd-1080', 'Full HD 1080p', videoAudio('best', ['1080']), 'video'),
-	baseProfile('balanced', 'Balanced 720p', videoAudio('best', ['720']), 'controls'),
-	baseProfile('small-file', 'Small file 480p', videoAudio('best', ['480']), 'clip'),
-	baseProfile('mp4-1080', 'Smart TV MP4 Full HD 1080p', videoAudio('mp4', ['1080']), 'video'),
-	baseProfile('mp4-720', 'Smart TV MP4 HD 720p', videoAudio('mp4', ['720']), 'video'),
-	baseProfile('mp4-480', 'Smart TV MP4 SD 480p', videoAudio('mp4', ['480']), 'video'),
+	baseProfile('best-quality', 'Best available', videoAudio('best-picture', 'best'), 'video'),
+	baseProfile('best-2160', '4K UHD 2160p', videoAudio('best-picture', '2160'), 'video'),
+	baseProfile('best-1440', 'QHD 1440p', videoAudio('best-picture', '1440'), 'video'),
+	baseProfile('hd-1080', 'Full HD 1080p', videoAudio('best-picture', '1080'), 'video'),
+	baseProfile('balanced', 'Balanced 720p', videoAudio('best-picture', '720'), 'controls'),
+	baseProfile('small-file', 'Small file 480p', videoAudio('best-picture', '480'), 'clip'),
+	baseProfile('mp4-1080', 'Smart TV 1080p', videoAudio('smart-tv', '1080'), 'video', true, 'Smart TV MP4 Full HD 1080p'),
+	baseProfile('mp4-720', 'Smart TV 720p', videoAudio('smart-tv', '720'), 'video', true, 'Smart TV MP4 HD 720p'),
+	baseProfile('mp4-480', 'Smart TV 480p', videoAudio('smart-tv', '480'), 'video', true, 'Smart TV MP4 SD 480p'),
 	baseProfile('audio-only', 'Audio only', {kind: 'audio-only', audio: {format: 'best'}}, 'audio'),
 	subtitlesOnlyProfile(),
-	baseProfile('low-240', 'Low data 240p', videoAudio('best', ['240']), 'clip', false),
-	baseProfile('low-144', 'Lowest 144p', videoAudio('best', ['144']), 'clip', false)
+	baseProfile('low-240', 'Low data 240p', videoAudio('best-picture', '240'), 'clip', false),
+	baseProfile('low-144', 'Lowest 144p', videoAudio('best-picture', '144'), 'clip', false)
 ] as const
 
 export const DEFAULT_DOWNLOAD_PROFILE_REF: DownloadProfileRef = {kind: 'builtin', id: 'balanced'}
@@ -260,9 +260,9 @@ export function resolveFilenameTemplate(profile: DownloadProfile | undefined, gl
 export function downloadProfileLabel(profile: DownloadProfile): string {
 	switch (profile.media.kind) {
 		case 'video-audio':
-			return `${videoTierLabel(profile.media.tiers)} · ${videoCompatibilityLabel(profile.media.codec)} · ${videoAudioLabel(profile.media.audio.format)}`
+			return [videoTierLabel(profile.media.tier), videoGoalLabel(profile.media.goal), ...videoFileTypeLabel(profile.media.fileType)].join(' · ')
 		case 'video-only':
-			return `${videoTierLabel(profile.media.tiers)} · ${videoCompatibilityLabel(profile.media.codec)} · No audio`
+			return [videoTierLabel(profile.media.tier), videoGoalLabel(profile.media.goal), ...videoFileTypeLabel(profile.media.fileType), 'No audio'].join(' · ')
 		case 'audio-only':
 			if (profile.media.audio.format === 'best') return 'Audio only · best'
 			if (profile.media.audio.format === 'wav') return 'Audio only · WAV'

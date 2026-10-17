@@ -46,6 +46,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return videoWithSubtitlesProbe()
 		case 'single-profile-misfit':
 			return lowResVideoProbe()
+		case 'single-codec-mix':
+			return codecMixVideoProbe()
 		case 'probe-no-formats':
 			return noFormatsProbe()
 		case 'probe-live-stream':
@@ -79,25 +81,25 @@ export function buildProbeErrorForKind(kind: YtDlpErrorKind): ProbeError {
 }
 
 const MOCK_FORMATS = [
-	{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, isVideoOnly: false, isAudioOnly: true},
-	{formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true}
+	{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, videoCodec: 'avc1.640028', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, videoCodec: 'avc1.4d401f', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true},
+	{formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, audioCodec: 'mp4a.40.2', isVideoOnly: false, isAudioOnly: true}
 ] as const
 
 const NORMAL_VIDEO_FORMATS = [
-	{formatId: '313', label: '2160p | webm | 30fps | 2.2 GB', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '271', label: '1440p | webm | 30fps | 906.2 MB', ext: 'webm', resolution: '1440p', fps: 30, filesize: 950_000_000, isVideoOnly: true, isAudioOnly: false},
+	{formatId: '313', label: '2160p | webm | 30fps | 2.2 GB', ext: 'webm', resolution: '2160p', fps: 30, filesize: 2_400_000_000, videoCodec: 'vp09.00.51.08', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '271', label: '1440p | webm | 30fps | 906.2 MB', ext: 'webm', resolution: '1440p', fps: 30, filesize: 950_000_000, videoCodec: 'vp09.00.40.08', isVideoOnly: true, isAudioOnly: false},
 	{formatId: '137', label: '1080p | mp4 | 30fps | 515.0 MB', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 540_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '248', label: '1080p | webm | 30fps | 400.5 MB', ext: 'webm', resolution: '1080p', fps: 30, filesize: 420_000_000, isVideoOnly: true, isAudioOnly: false},
+	{formatId: '248', label: '1080p | webm | 30fps | 400.5 MB', ext: 'webm', resolution: '1080p', fps: 30, filesize: 420_000_000, videoCodec: 'vp09.00.40.08', isVideoOnly: true, isAudioOnly: false},
 	{formatId: '136', label: '720p | mp4 | 30fps | 209.8 MB', ext: 'mp4', resolution: '720p', fps: 30, filesize: 220_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '247', label: '720p | webm | 30fps | 171.7 MB', ext: 'webm', resolution: '720p', fps: 30, filesize: 180_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '135', label: '480p | mp4 | 30fps | 104.9 MB', ext: 'mp4', resolution: '480p', fps: 30, filesize: 110_000_000, isVideoOnly: true, isAudioOnly: false},
-	{formatId: '134', label: '360p | mp4 | 30fps | 62.0 MB', ext: 'mp4', resolution: '360p', fps: 30, filesize: 65_000_000, isVideoOnly: true, isAudioOnly: false},
+	{formatId: '247', label: '720p | webm | 30fps | 171.7 MB', ext: 'webm', resolution: '720p', fps: 30, filesize: 180_000_000, videoCodec: 'vp09.00.31.08', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '135', label: '480p | mp4 | 30fps | 104.9 MB', ext: 'mp4', resolution: '480p', fps: 30, filesize: 110_000_000, videoCodec: 'avc1.4d401e', isVideoOnly: true, isAudioOnly: false},
+	{formatId: '134', label: '360p | mp4 | 30fps | 62.0 MB', ext: 'mp4', resolution: '360p', fps: 30, filesize: 65_000_000, videoCodec: 'avc1.4d401e', isVideoOnly: true, isAudioOnly: false},
 	{formatId: '251', label: 'webm · Opus · 132 kbps · 5.0 MB', ext: 'webm', resolution: 'audio only', abr: 132, filesize: 5_200_000, isVideoOnly: false, isAudioOnly: true},
 	{formatId: '140', label: 'm4a · AAC · 129 kbps · 4.8 MB', ext: 'm4a', resolution: 'audio only', abr: 129, filesize: 5_000_000, isVideoOnly: false, isAudioOnly: true},
-	{formatId: '249', label: 'webm · Opus · 50 kbps · 2.0 MB', ext: 'webm', resolution: 'audio only', abr: 50, filesize: 2_000_000, isVideoOnly: false, isAudioOnly: true},
-	{formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, isVideoOnly: false, isAudioOnly: true}
+	{formatId: '249', label: 'webm · Opus · 50 kbps · 2.0 MB', ext: 'webm', resolution: 'audio only', abr: 50, filesize: 2_000_000, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true},
+	{formatId: '139', label: 'm4a · AAC · 48 kbps · 1.8 MB', ext: 'm4a', resolution: 'audio only', abr: 48, filesize: 1_900_000, audioCodec: 'mp4a.40.5', isVideoOnly: false, isAudioOnly: true}
 ] as const
 
 export function normalVideoProbe(options: {webpageUrl?: string; degraded?: VideoProbeResult['degraded']} = {}): VideoProbeResult {
@@ -269,6 +271,41 @@ function lowResVideoProbe(): ProbeResult {
 			{formatId: '135', label: '480p | mp4 | 30fps', ext: 'mp4', resolution: '854x480', fps: 30, videoCodec: 'avc1.4d401e', filesize: 38_000_000, isVideoOnly: true, isAudioOnly: false},
 			{formatId: '134', label: '360p | mp4 | 30fps', ext: 'mp4', resolution: '640x360', fps: 30, videoCodec: 'avc1.4d401e', filesize: 22_000_000, isVideoOnly: true, isAudioOnly: false},
 			{formatId: '140', label: 'm4a · AAC · 128 kbps', ext: 'm4a', resolution: 'audio only', abr: 128, audioCodec: 'mp4a.40.2', filesize: 4_400_000, isVideoOnly: false, isAudioOnly: true}
+		]
+	}
+}
+
+// A 4K HDR upload the way YouTube lists it: the same height offered as AV1 in
+// MP4 and as VP9 in WebM, HDR and SDR side by side, and Opus and AAC audio with
+// and without DRC. Shows the codec in each row, the Profile tip and Saves as.
+function codecMixVideoProbe(): ProbeResult {
+	return {
+		kind: 'video',
+		extractor: 'youtube',
+		extractorKey: 'Youtube',
+		webpageUrl: 'https://www.youtube.com/watch?v=codecmix',
+		isAudioOnlySource: false,
+		isLive: false,
+		hasDrm: false,
+		duration: 352,
+		title: 'Mock Video - 4K HDR Demo (AV1, VP9 and H.264)',
+		thumbnail: 'https://i.ytimg.com/vi/jfKfPfyJRdk/hqdefault.jpg',
+		subtitles: {},
+		automaticCaptions: {},
+		formats: [
+			{formatId: '701', label: '2160p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '3840x2160', fps: 60, dynamicRange: 'HDR10', videoCodec: 'av01.0.12M.10', filesize: 1_100_000_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '315', label: '2160p | webm | VP9', ext: 'webm', resolution: '3840x2160', fps: 60, videoCodec: 'vp09.00.51.08', filesize: 545_400_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '700', label: '1440p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '2560x1440', fps: 60, dynamicRange: 'HDR10', videoCodec: 'av01.0.12M.10', filesize: 668_500_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '308', label: '1440p | webm | VP9', ext: 'webm', resolution: '2560x1440', fps: 60, videoCodec: 'vp09.00.40.08', filesize: 280_400_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '699', label: '1080p | mp4 | AV1 | HDR10', ext: 'mp4', resolution: '1920x1080', fps: 60, dynamicRange: 'HDR10', videoCodec: 'av01.0.09M.10', filesize: 235_900_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '299', label: '1080p | mp4 | H.264', ext: 'mp4', resolution: '1920x1080', fps: 60, videoCodec: 'avc1.64002a', filesize: 150_800_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '298', label: '720p | mp4 | H.264', ext: 'mp4', resolution: '1280x720', fps: 60, videoCodec: 'avc1.4d4020', filesize: 86_900_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '135', label: '480p | mp4 | H.264', ext: 'mp4', resolution: '854x480', fps: 30, videoCodec: 'avc1.4d401e', filesize: 31_400_000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '251-drc', label: 'webm · Opus · DRC · 134 kbps · 5.6 MB', ext: 'webm', resolution: 'audio only', abr: 134, audioCodec: 'opus', isDrc: true, audioTrackQuality: 'high', filesize: 5_600_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '251', label: 'webm · Opus · 134 kbps · 5.6 MB', ext: 'webm', resolution: 'audio only', abr: 134, audioCodec: 'opus', audioTrackQuality: 'high', filesize: 5_600_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140-drc', label: 'm4a · AAC · DRC · 129 kbps · 5.4 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', isDrc: true, audioTrackQuality: 'medium', filesize: 5_400_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '140', label: 'm4a · AAC · 129 kbps · 5.4 MB', ext: 'm4a', resolution: 'audio only', abr: 129, audioCodec: 'mp4a.40.2', audioTrackQuality: 'medium', filesize: 5_400_000, isVideoOnly: false, isAudioOnly: true},
+			{formatId: '249', label: 'webm · Opus · 68 kbps · 2.9 MB', ext: 'webm', resolution: 'audio only', abr: 68, audioCodec: 'opus', audioTrackQuality: 'low', filesize: 2_900_000, isVideoOnly: false, isAudioOnly: true}
 		]
 	}
 }

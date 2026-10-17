@@ -1,0 +1,600 @@
+[
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["best"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["best"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["best"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["2160"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:2160,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["2160"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:2160,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["2160"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:2160,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1440"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:1440,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1440"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:1440,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["1440"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:1440,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1080"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:1080,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1080"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:1080,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["1080"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:1080,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["720"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:720,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["720"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:720,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["720"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:720,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["480"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:480,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["480"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:480,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["480"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:480,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["360"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:360,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["360"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:360,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["360"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:360,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["240"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:240,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["240"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:240,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["240"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:240,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["144"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:144,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["144"], "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:144,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["144"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "res:144,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["best"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["best"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["best"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["2160"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:2160,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["2160"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:2160,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["2160"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:2160,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1440"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:1440,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1440"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:1440,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["1440"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:1440,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1080"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:1080,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1080"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["1080"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:1080,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["720"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:720,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["720"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:720,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["720"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:720,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["480"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:480,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["480"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:480,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["480"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:480,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["360"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:360,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["360"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:360,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["360"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:360,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["240"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:240,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["240"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:240,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["240"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:240,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["144"], "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:144,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["144"], "audio": {"format": "m4a"}},
+		"pref": "compatible",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:144,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["144"]}, "pref": "compatible", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:144,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best"}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best", "bitrateKbps": 128}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best", "bitrateKbps": 320}},
+		"pref": "compatible",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3"}}, "pref": "compatible", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3", "bitrateKbps": 128}}, "pref": "compatible", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3", "bitrateKbps": 320}}, "pref": "compatible", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a"}}, "pref": "compatible", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a", "bitrateKbps": 128}}, "pref": "compatible", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a", "bitrateKbps": 320}}, "pref": "compatible", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus"}}, "pref": "compatible", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus", "bitrateKbps": 128}}, "pref": "compatible", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus", "bitrateKbps": 320}}, "pref": "compatible", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav"}}, "pref": "compatible", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav", "bitrateKbps": 128}}, "pref": "compatible", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav", "bitrateKbps": 320}}, "pref": "compatible", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["best"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["best"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["best"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["2160"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:2160,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["2160"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:2160,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["2160"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:2160,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1440"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:1440,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1440"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:1440,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["1440"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:1440,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1080"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:1080,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["1080"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:1080,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["1080"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:1080,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["720"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:720,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["720"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:720,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["720"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:720,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["480"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:480,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["480"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:480,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["480"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:480,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["360"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:360,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["360"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:360,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["360"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:360,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["240"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:240,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["240"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:240,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["240"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:240,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "best", "tiers": ["144"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[language_preference>0]/bestvideo*+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo*+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo*+bestaudio/bestvideo*+bestaudio/best",
+			"formatSort": "res:144,fps",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "video-audio", "codec": "best", "tiers": ["144"], "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"formatSelector": "bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best", "formatSort": "res:144,fps,acodec:m4a", "producesVideo": true, "producesAudio": true}},
+	{"intent": {"kind": "video-only", "codec": "best", "tiers": ["144"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "res:144,fps", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["best"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["best"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["best"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["2160"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:2160,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["2160"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:2160,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["2160"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:2160,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1440"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:1440,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1440"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:1440,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["1440"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:1440,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1080"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:1080,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["1080"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["1080"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:1080,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["720"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:720,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["720"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:720,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["720"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:720,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["480"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:480,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["480"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:480,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["480"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:480,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["360"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:360,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["360"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:360,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["360"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:360,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["240"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:240,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["240"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:240,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["240"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:240,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["144"], "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[language_preference>0]/bestvideo+bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestvideo+bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestvideo+bestaudio/bestvideo+bestaudio/best[ext=mp4]/best",
+			"formatSort": "vcodec:h264,ext:mp4,res:144,fps",
+			"mergeOutputFormat": "mp4",
+			"producesVideo": true,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "video-audio", "codec": "mp4", "tiers": ["144"], "audio": {"format": "m4a"}},
+		"pref": "surround",
+		"spec": {"formatSelector": "bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best", "formatSort": "vcodec:h264,ext:mp4,res:144,fps,acodec:m4a", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": true}
+	},
+	{"intent": {"kind": "video-only", "codec": "mp4", "tiers": ["144"]}, "pref": "surround", "spec": {"formatSelector": "bestvideo", "formatSort": "vcodec:h264,ext:mp4,res:144,fps", "mergeOutputFormat": "mp4", "producesVideo": true, "producesAudio": false}},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best"}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best", "bitrateKbps": 128}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{
+		"intent": {"kind": "audio-only", "audio": {"format": "best", "bitrateKbps": 320}},
+		"pref": "surround",
+		"spec": {
+			"formatSelector": "bestaudio[language_preference>0][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:e-?ac-?3|ec-3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec~=?'^(?:ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[language_preference>0][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[format_note~=?'(?i)\\boriginal\\b'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[language_preference>0]/bestaudio[format_note~=?'(?i)\\boriginal\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$'][format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']/bestaudio[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']/bestaudio/best",
+			"producesVideo": false,
+			"producesAudio": true
+		}
+	},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3"}}, "pref": "surround", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3", "bitrateKbps": 128}}, "pref": "surround", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "mp3", "bitrateKbps": 320}}, "pref": "surround", "spec": {"audioConvert": {"target": "mp3", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a"}}, "pref": "surround", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a", "bitrateKbps": 128}}, "pref": "surround", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "m4a", "bitrateKbps": 320}}, "pref": "surround", "spec": {"audioConvert": {"target": "m4a", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus"}}, "pref": "surround", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 192}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus", "bitrateKbps": 128}}, "pref": "surround", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 128}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "opus", "bitrateKbps": 320}}, "pref": "surround", "spec": {"audioConvert": {"target": "opus", "bitrateKbps": 320}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav"}}, "pref": "surround", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav", "bitrateKbps": 128}}, "pref": "surround", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}},
+	{"intent": {"kind": "audio-only", "audio": {"format": "wav", "bitrateKbps": 320}}, "pref": "surround", "spec": {"audioConvert": {"target": "wav"}, "producesVideo": false, "producesAudio": true}}
+]

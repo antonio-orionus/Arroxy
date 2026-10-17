@@ -134,4 +134,23 @@ describe('sanitizeJobOptions', () => {
 			expect(result.overrides.sponsorBlockMode).toBe('off')
 		})
 	})
+
+	describe('embedded subtitles against a chosen file type', () => {
+		const embedSubs = {subtitleMode: 'embed' as const, subtitleLanguages: ['en'], resolvedOutputContainer: 'mkv'}
+
+		it('warns that MP4 or WebM becomes MKV', () => {
+			expect(sanitizeJobOptions(makeInput({...embedSubs, requestedFileType: 'mp4'})).conflicts).toEqual([{code: 'subtitleEmbedForcesMkv'}])
+			expect(sanitizeJobOptions(makeInput({...embedSubs, requestedFileType: 'webm'})).conflicts).toEqual([{code: 'subtitleEmbedForcesMkv'}])
+		})
+
+		it('stays quiet for Auto and MKV, which already end as MKV', () => {
+			expect(sanitizeJobOptions(makeInput({...embedSubs, requestedFileType: 'auto'})).conflicts).toEqual([])
+			expect(sanitizeJobOptions(makeInput({...embedSubs, requestedFileType: 'mkv'})).conflicts).toEqual([])
+			expect(sanitizeJobOptions(makeInput(embedSubs)).conflicts).toEqual([])
+		})
+
+		it('does not change the subtitle mode: embedding goes ahead as MKV', () => {
+			expect(sanitizeJobOptions(makeInput({...embedSubs, requestedFileType: 'mp4'})).overrides.subtitleMode).toBe('embed')
+		})
+	})
 })

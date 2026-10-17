@@ -1,4 +1,5 @@
-import type {AudioSelection, SubtitleMode, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import {fileTypeFits} from '@shared/fileTypeFit.js'
 import type {FormatOption} from '@shared/types.js'
 
 /**
@@ -10,11 +11,13 @@ import type {FormatOption} from '@shared/types.js'
  * - audio convert → target format ('mp3', 'm4a', 'opus', 'wav')
  * - audio-only native → format's own ext (often 'webm' for YouTube opus)
  * - video + subtitle embed → mkv (forced by --merge-output-format mkv)
+ * - video + a chosen file type → that type (WebM only when the streams fit,
+ *   else the MKV fallback the remux rule names)
  * - video + same-container audio → that container, except a WebM merge that
  *   embeds a thumbnail, which yt-dlp switches to mkv to hold the cover art
  * - video + mixed-container audio → mkv (yt-dlp default merge)
  */
-export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], mediaKind: WizardMediaKind, embedThumbnail = false): string {
+export function resolveOutputContainer(selectedVideoFormatId: string, audioSelection: AudioSelection, subtitleMode: SubtitleMode, wizardFormats: FormatOption[], mediaKind: WizardMediaKind, embedThumbnail = false, fileType: VideoFileType = 'auto'): string {
 	if (mediaKind === 'subtitles') return 'subtitle-only'
 
 	if (audioSelection.kind === 'convert-lossless') return 'wav'
@@ -38,6 +41,8 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	const audioExt = audioFmt?.ext
 
 	if (!videoExt) return 'unknown'
+	if (fileType === 'webm') return fileTypeFits('webm', videoFmt, audioFmt ?? undefined) ? 'webm' : 'mkv'
+	if (fileType !== 'auto') return fileType
 
 	if (videoExt === 'webm' && !audioExt) return 'webm'
 	if (videoExt === 'webm' && audioExt === 'webm') return embedThumbnail ? 'mkv' : 'webm'

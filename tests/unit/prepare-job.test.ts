@@ -75,7 +75,7 @@ describe('prepareJob', () => {
 				kind: 'ranged-format',
 				extractor: 'youtube',
 				extractorKey: 'Youtube',
-				intent: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+				intent: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
 				formatSelector: COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR,
 				formatSort: 'res:1080,fps',
 				mergeOutputFormat: undefined,
@@ -107,11 +107,11 @@ describe('prepareJob', () => {
 			const sel = {kind: 'video' as const, tier: '720' as const, codec: 'best' as const}
 			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: sel, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
-			expect(job.intent).toEqual({kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}})
+			expect(job.intent).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
 		})
 
 		it('accepts profile media intent directly', () => {
-			const intent = {kind: 'video-only' as const, codec: 'mp4' as const, tiers: ['1080' as const, '720' as const]}
+			const intent = {kind: 'video-only' as const, goal: 'smart-tv' as const, tier: '1080' as const, fileType: 'auto' as const}
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
@@ -123,8 +123,8 @@ describe('prepareJob', () => {
 		// stream (video-only, "best" audio) fails postprocessing and WAV has no slot.
 		it('keeps thumbnail embedding for merged video and lossy audio conversions', () => {
 			const intents = [
-				{kind: 'video-audio' as const, codec: 'best' as const, tiers: ['1080' as const], audio: {format: 'best' as const}},
-				{kind: 'video-audio' as const, codec: 'mp4' as const, tiers: ['720' as const], audio: {format: 'm4a' as const}},
+				{kind: 'video-audio' as const, goal: 'best-picture' as const, tier: '1080' as const, fileType: 'auto' as const, audio: {native: {kind: 'default' as const}}},
+				{kind: 'video-audio' as const, goal: 'smart-tv' as const, tier: '720' as const, fileType: 'auto' as const, audio: {native: {kind: 'default' as const}}},
 				{kind: 'audio-only' as const, audio: {format: 'mp3' as const, bitrateKbps: 192 as const}},
 				{kind: 'audio-only' as const, audio: {format: 'm4a' as const, bitrateKbps: 192 as const}},
 				{kind: 'audio-only' as const, audio: {format: 'opus' as const, bitrateKbps: 128 as const}}
@@ -138,8 +138,8 @@ describe('prepareJob', () => {
 
 		it('drops thumbnail embedding where the output cannot hold cover art', () => {
 			const intents = [
-				{kind: 'video-only' as const, codec: 'best' as const, tiers: ['1080' as const]},
-				{kind: 'video-only' as const, codec: 'mp4' as const, tiers: ['1080' as const]},
+				{kind: 'video-only' as const, goal: 'best-picture' as const, tier: '1080' as const, fileType: 'auto' as const},
+				{kind: 'video-only' as const, goal: 'smart-tv' as const, tier: '1080' as const, fileType: 'auto' as const},
 				{kind: 'audio-only' as const, audio: {format: 'best' as const}},
 				{kind: 'audio-only' as const, audio: {format: 'wav' as const}}
 			]

@@ -8,15 +8,16 @@ import {RadioGroupItem} from '../ui/radio-group.js'
 // so clicking anywhere selects; arrow keys move through the group.
 // `adornment` (an icon or badge) sits before the label and never shrinks, so the
 // label stays plain text that truncates with an ellipsis. `tag` (a short badge)
-// follows the label and never shrinks either.
-export function ChoiceRow({id, value, label, adornment, tag, meta, disabled, className}: {id: string; value: string; label: string; adornment?: ReactNode; tag?: ReactNode; meta?: string; disabled?: boolean; className?: string}): ReactNode {
+// follows the label and never shrinks either. `fixedLabel` keeps a short label
+// (a resolution) whole and lets the metadata give way first.
+export function ChoiceRow({id, value, label, adornment, tag, meta, disabled, fixedLabel = false, className}: {id: string; value: string; label: string; adornment?: ReactNode; tag?: ReactNode; meta?: string; disabled?: boolean; fixedLabel?: boolean; className?: string}): ReactNode {
 	return (
 		<FieldLabel htmlFor={id} className={cn('w-full min-w-0 rounded-md *:data-[slot=field]:px-2 *:data-[slot=field]:py-1.5', className)}>
 			<Field orientation="horizontal" className="min-w-0 items-center gap-2">
 				{/* base-ui gives `id` to its hidden input, so name the visible radio explicitly. */}
 				<RadioGroupItem id={id} value={value} disabled={disabled} aria-labelledby={`${id}-label`} />
 				{/* The label grows and shrinks at the base rate; the details shrink four times faster, so the label keeps its room first. */}
-				<FieldTitle id={`${id}-label`} className="w-auto min-w-0 flex-auto gap-1.5">
+				<FieldTitle id={`${id}-label`} className={cn('w-auto gap-1.5', fixedLabel ? 'flex-none' : 'min-w-0 flex-auto')}>
 					{adornment}
 					<span className="min-w-0 truncate" title={label}>
 						{label}

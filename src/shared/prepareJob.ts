@@ -2,6 +2,7 @@ import {DEFAULTS} from './constants.js'
 import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent, playlistSubtitleOptions} from './mediaIntent.js'
 import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import type {AudioConvert, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
+import type {ContainerArgs} from './selectionOrder.js'
 
 // Pure builder. Lives in `src/shared/` (not renderer) so future QueueStore
 // migrations in main can synthesize jobs without a renderer dependency.
@@ -14,6 +15,8 @@ export interface PrepareJobInput extends ExtractorIdentity {
 	mode: 'single' | 'playlist'
 	// single-mode inputs (set when mode === 'single')
 	formatId?: string
+	// The file type the user picked on the Format screen, as yt-dlp flags.
+	container?: ContainerArgs
 	audioConvert?: AudioConvert
 	// The single-video Subtitles kind: subtitle files only, no media.
 	subtitleOnly?: boolean
@@ -53,6 +56,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 			formatSelector: spec.formatSelector,
 			formatSort: spec.formatSort,
 			mergeOutputFormat: spec.mergeOutputFormat,
+			remuxVideo: spec.remuxVideo,
 			audioConvert: spec.audioConvert,
 			filenameTemplate: input.filenameTemplate,
 			subtitles,
@@ -74,7 +78,7 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 	}
 
 	if (!input.formatId) throw new Error('prepareJob: single-format requires formatId')
-	return {kind: 'single-format', ...identity, formatId: input.formatId, ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed, expectedBytes: input.expectedBytes}
+	return {kind: 'single-format', ...identity, formatId: input.formatId, ...input.container, ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed, expectedBytes: input.expectedBytes}
 }
 
 function toSponsorBlockOptions(mode: SponsorBlockMode, categories: SponsorBlockCategory[]): SponsorBlockOptions {

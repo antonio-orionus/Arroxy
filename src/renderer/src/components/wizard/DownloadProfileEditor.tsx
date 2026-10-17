@@ -1,24 +1,13 @@
-import {useId, useState, type ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import type {ParseKeys, TFunction} from 'i18next'
+import type {ParseKeys} from 'i18next'
 import {Archive, BookOpen, Captions, ChevronDown, Clapperboard, Download, FileAudio, Film, Folder, FolderCog, Headphones, Music, RotateCcw, Scissors, SlidersHorizontal, type LucideIcon} from 'lucide-react'
-import {DOWNLOAD_PROFILE_ICONS, PLAYLIST_VIDEO_TIERS, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
+import {DOWNLOAD_PROFILE_ICONS, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
-import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import type {CommonSettings, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, NativeAudioPreference, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
 import {effectiveOutputDir} from '@shared/subfolder.js'
 import {cn, formatHomeRelativePath} from '@renderer/lib/utils.js'
-import {
-	canDraftEmbedThumbnail,
-	createDownloadProfileDraft,
-	defaultProfileSubfolderName,
-	downloadProfileFromDraft,
-	SMART_TV_MP4_BLOCKED_TIERS,
-	type DownloadProfileAudioQuality,
-	type DownloadProfileDraftAction,
-	type DownloadProfileMediaMode,
-	updateDownloadProfileDraft,
-	validateDownloadProfileDraft
-} from '../../store/wizard/downloadProfileDraft.js'
+import {canDraftEmbedThumbnail, createDownloadProfileDraft, defaultProfileSubfolderName, downloadProfileFromDraft, type DownloadProfileAudioQuality, type DownloadProfileDraftAction, type DownloadProfileMediaMode, updateDownloadProfileDraft, validateDownloadProfileDraft} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
@@ -28,7 +17,6 @@ import {Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldTitle}
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
 import {ScrollArea} from '../ui/scroll-area.js'
-import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
 import {CheckRow} from '../shared/CheckRow.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
@@ -37,12 +25,10 @@ import {Panel} from '../shared/Panel.js'
 import {OptionCard} from '../shared/OptionCard.js'
 import {PanelSection} from '../shared/PanelSection.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
+import {ProfileSelect} from './ProfileSelect.js'
+import {optionLabel, type SelectOption} from './profileSelectOptions.js'
+import {ProfileVideoPanel} from './ProfileVideoPanel.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
-
-interface SelectOption<T extends string> {
-	value: T
-	labelKey: ParseKeys
-}
 
 interface ResetProfileAction {
 	enabled: boolean
@@ -53,6 +39,8 @@ interface DownloadProfileEditorProps {
 	commonPaths?: CommonSettings['commonPaths']
 	globalDestination?: string
 	globalFilenameTemplate?: string
+	// Stereo or surround from Settings, shown as what "Use app setting" means.
+	globalNativeAudioPreference?: NativeAudioPreference
 	initialProfile?: DownloadProfile | null
 	onChangeGlobalDestination?: () => Promise<void> | void
 	onOpenChange: (open: boolean) => void
@@ -97,17 +85,6 @@ function createProfileId(): string {
 	return `profile-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 }
 
-// Reuses the playlist preset vocabulary so the same codec choice reads the
-// same way in the wizard and here.
-const VIDEO_COMPATIBILITY_OPTIONS = [
-	{value: 'best', labelKey: 'playlistPresets.videoFormat.best'},
-	{value: 'mp4', labelKey: 'playlistPresets.videoFormat.mp4'}
-] as const satisfies readonly SelectOption<PlaylistVideoCodec>[]
-
-const RESOLUTION_OPTIONS = PLAYLIST_VIDEO_TIERS.map(tier => ({value: tier, labelKey: `playlistPresets.tier.${tier}` as const})) satisfies readonly SelectOption<PlaylistVideoTier>[]
-
-const SMART_TV_MP4_RESOLUTION_OPTIONS = RESOLUTION_OPTIONS.filter(option => !SMART_TV_MP4_BLOCKED_TIERS.has(option.value))
-
 const AUDIO_FORMAT_OPTIONS = [
 	{value: 'best', labelKey: 'wizard.profileEditor.audioFormat.best'},
 	{value: 'mp3', labelKey: 'playlistPresets.audioFormat.mp3'},
@@ -115,11 +92,6 @@ const AUDIO_FORMAT_OPTIONS = [
 	{value: 'opus', labelKey: 'playlistPresets.audioFormat.opus'},
 	{value: 'wav', labelKey: 'wizard.profileEditor.audioFormat.wav'}
 ] as const satisfies readonly SelectOption<DownloadProfileAudioFormat>[]
-
-const VIDEO_AUDIO_FORMAT_OPTIONS = [
-	{value: 'best', labelKey: 'playlistPresets.videoFormat.best'},
-	{value: 'm4a', labelKey: 'wizard.profileEditor.videoAudioFormat.m4a'}
-] as const satisfies readonly SelectOption<Extract<DownloadProfileAudioFormat, 'best' | 'm4a'>>[]
 
 const AUDIO_QUALITY_OPTIONS = [
 	{value: 'best', labelKey: 'wizard.profileEditor.audioQuality.best'},
@@ -168,43 +140,6 @@ const SPONSOR_BLOCK_OPTIONS = [
 
 const SPONSOR_BLOCK_HINT_KEYS = {off: 'wizard.profileEditor.sponsorBlockHint.off', mark: 'wizard.profileEditor.sponsorBlockHint.mark', remove: 'wizard.profileEditor.sponsorBlockHint.remove'} as const satisfies Record<SponsorBlockMode, ParseKeys>
 
-function optionLabel<T extends string>(t: TFunction, options: readonly SelectOption<T>[], value: unknown): string {
-	const selected = options.find(option => option.value === value)
-	if (selected) return t(selected.labelKey)
-	return typeof value === 'string' ? value : ''
-}
-
-function ProfileSelect<T extends string>({label, value, options, onValueChange, testId, disabled = false}: {label: string; value: T; options: readonly SelectOption<T>[]; onValueChange: (value: T) => void; testId?: string; disabled?: boolean}): ReactNode {
-	const {t} = useTranslation()
-	const generatedId = useId()
-	const triggerId = testId ? `${testId}-trigger` : generatedId
-
-	return (
-		<Field className="gap-1.5">
-			<FieldLabel htmlFor={triggerId}>{label}</FieldLabel>
-			<Select
-				value={value}
-				onValueChange={next => {
-					if (typeof next === 'string') onValueChange(next)
-				}}
-			>
-				<SelectTrigger id={triggerId} className="w-full" data-testid={testId} disabled={disabled}>
-					<SelectValue>{selected => optionLabel(t, options, selected)}</SelectValue>
-				</SelectTrigger>
-				<SelectContent align="start">
-					<SelectGroup>
-						{options.map(option => (
-							<SelectItem key={option.value} value={option.value} onClick={() => onValueChange(option.value)} data-testid={testId ? `${testId}-option-${option.value}` : undefined}>
-								{t(option.labelKey)}
-							</SelectItem>
-						))}
-					</SelectGroup>
-				</SelectContent>
-			</Select>
-		</Field>
-	)
-}
-
 function readablePath(path: string, commonPaths: CommonSettings['commonPaths']): string {
 	const trimmed = path.trim()
 	if (!trimmed) return 'Default downloads folder'
@@ -217,7 +152,18 @@ function fallbackFinalPath(subfolderName: string): string {
 }
 
 // react-doctor-disable-next-line react-doctor/no-giant-component react-doctor/prefer-useReducer -- this dense profile form needs a focused decomposition outside the mechanical React Doctor cleanup
-export function DownloadProfileEditor({commonPaths, globalDestination = '', globalFilenameTemplate = DEFAULTS.filenameTemplate, initialProfile = null, onChangeGlobalDestination, onOpenChange, onSave, open, resetProfile}: DownloadProfileEditorProps): ReactNode {
+export function DownloadProfileEditor({
+	commonPaths,
+	globalDestination = '',
+	globalFilenameTemplate = DEFAULTS.filenameTemplate,
+	globalNativeAudioPreference = DEFAULTS.nativeAudioPreference,
+	initialProfile = null,
+	onChangeGlobalDestination,
+	onOpenChange,
+	onSave,
+	open,
+	resetProfile
+}: DownloadProfileEditorProps): ReactNode {
 	const {t} = useTranslation()
 	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
@@ -228,8 +174,6 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 		profileName,
 		profileIcon,
 		mediaMode,
-		codec,
-		resolution,
 		audioFormat,
 		audioQuality,
 		subtitleEnabled,
@@ -250,16 +194,14 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 		sponsorBlockCategories
 	} = draft
 	const showVideo = mediaMode === 'video-audio' || mediaMode === 'video-only'
-	const showAudio = mediaMode === 'video-audio' || mediaMode === 'audio-only'
+	const showAudio = mediaMode === 'audio-only'
 	const subtitlesOnly = mediaMode === 'subtitles-only'
 	const effectiveSubtitleEnabled = subtitlesOnly || subtitleEnabled
 	const showEmbedThumbnail = canDraftEmbedThumbnail(draft)
 	const outputEnabledCount = [embedMetadata, embedChapters, showEmbedThumbnail && embedThumbnail, saveDescription, saveThumbnail].filter(Boolean).length
 	const SelectedProfileIcon = PROFILE_ICON_OPTIONS.find(option => option.value === profileIcon)?.icon ?? Captions
 	const {subfolderInvalid, filenameTemplateError, subtitleLanguagesMissing} = validateDownloadProfileDraft(draft)
-	const videoAudioFormat: Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> = audioFormat === 'm4a' ? 'm4a' : 'best'
 	const audioQualityDisabled = audioFormat === 'best' || audioFormat === 'wav'
-	const videoResolutionOptions = codec === 'mp4' ? SMART_TV_MP4_RESOLUTION_OPTIONS : RESOLUTION_OPTIONS
 	const destinationOverride = destination.trim()
 	const hasDestinationOverride = destinationOverride.length > 0
 	const showDestinationOverride = destinationOverrideOpen || hasDestinationOverride
@@ -293,10 +235,6 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 
 	function setProfileMediaMode(nextMode: DownloadProfileMediaMode): void {
 		updateDraft({type: 'set-media-mode', mediaMode: nextMode})
-	}
-
-	function setProfileCodec(nextCodec: PlaylistVideoCodec): void {
-		updateDraft({type: 'set-codec', codec: nextCodec})
 	}
 
 	async function chooseDestinationFolder(): Promise<void> {
@@ -428,26 +366,13 @@ export function DownloadProfileEditor({commonPaths, globalDestination = '', glob
 							</Panel>
 
 							<div className="grid gap-3 sm:grid-cols-2">
-								{showVideo ? (
-									<Panel title={t('playlistPresets.type.video')}>
-										<FieldGroup className="gap-3">
-											<ProfileSelect label={t('wizard.profileEditor.field.compatibility')} value={codec} options={VIDEO_COMPATIBILITY_OPTIONS} onValueChange={setProfileCodec} testId="profiles-editor-video-codec" />
-											<ProfileSelect label={t('wizard.profileEditor.field.resolution')} value={resolution} options={videoResolutionOptions} onValueChange={next => updateDraft({type: 'set-resolution', resolution: next})} testId="profiles-editor-video-resolution" />
-										</FieldGroup>
-									</Panel>
-								) : null}
+								{showVideo ? <ProfileVideoPanel draft={draft} globalNativeAudioPreference={globalNativeAudioPreference} onAction={updateDraft} /> : null}
 
 								{showAudio ? (
 									<Panel title={t('formatLabel.audioFallback')}>
 										<FieldGroup className="gap-3">
-											{mediaMode === 'audio-only' ? (
-												<>
-													<ProfileSelect label={t('queue.table.format')} value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
-													<ProfileSelect label={t('wizard.profileEditor.field.quality')} value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-quality', audioQuality: next})} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
-												</>
-											) : (
-												<ProfileSelect label={t('queue.table.format')} value={videoAudioFormat} options={VIDEO_AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
-											)}
+											<ProfileSelect label={t('queue.table.format')} value={audioFormat} options={AUDIO_FORMAT_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-format', audioFormat: next})} testId="profiles-editor-audio-format" />
+											<ProfileSelect label={t('wizard.profileEditor.field.quality')} value={audioQuality} options={AUDIO_QUALITY_OPTIONS} onValueChange={next => updateDraft({type: 'set-audio-quality', audioQuality: next})} testId="profiles-editor-audio-quality" disabled={audioQualityDisabled} />
 										</FieldGroup>
 									</Panel>
 								) : null}

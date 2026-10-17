@@ -24,6 +24,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'single-review-subtitles',
 	'single-subtitles-kind',
 	'single-profile-misfit',
+	'single-codec-mix',
 	'playlist-normal',
 	'playlist-loading',
 	'playlist-multi-profile',
@@ -98,6 +99,10 @@ export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 	if (id === 'single-review-subtitles') store.openReview('subtitles')
 	if (id === 'single-subtitles-kind') store.setWizardMediaKind('subtitles')
+	if (id === 'single-codec-mix') {
+		const fullHd = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'hd-1080')
+		if (fullHd) store.setState(profilePatch(fullHd, store.getState()))
+	}
 	if (id === 'single-profile-misfit') {
 		const fullHd = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'hd-1080')
 		if (fullHd) store.setState(profilePatch({...fullHd, name: 'Full HD + English subs', subtitles: {...fullHd.subtitles, enabled: true, languages: ['en']}}, store.getState()))
@@ -185,6 +190,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'single-normal', group: 'General', title: 'Single video normal', description: 'A YouTube video on the Format screen, pre-selected from the active profile; mockStep=confirm opens the Review.', kind: 'probe'},
 	{id: 'single-review-subtitles', group: 'General', title: 'Review: subtitles row open', description: 'Review screen with the Subtitles row open in place: search, uploaded and auto-generated languages.', kind: 'probe'},
 	{id: 'single-subtitles-kind', group: 'General', title: 'Subtitles only', description: 'Format screen switched to Subtitles: the language picker replaces the stream lists.', kind: 'probe'},
+	{id: 'single-codec-mix', group: 'General', title: 'Codecs and file type', description: 'A 4K HDR video offered as AV1, VP9 and H.264: the codec in each row, the Why this one tip on the Profile badge, and the Saves as menu following the picked streams.', kind: 'probe'},
 	{id: 'single-profile-misfit', group: 'General', title: 'Profile does not fit', description: 'A Full HD profile with English subtitles on a 480p video without subtitles: the fit notices and "Closest to profile" pick.', kind: 'probe'},
 	{id: 'playlist-normal', group: 'Playlist', title: 'Playlist normal', description: 'Screen preset for a playlist with thumbnails, durations, and default preset selection.', kind: 'probe'},
 	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},

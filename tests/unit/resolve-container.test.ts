@@ -141,4 +141,35 @@ describe('resolveOutputContainer', () => {
 			}
 		})
 	})
+
+	describe('chosen file type', () => {
+		const VP9_WEBM: FormatOption = {...fmt('248', 'webm', true, false), videoCodec: 'vp9'}
+		const OPUS: FormatOption = {...fmt('251', 'webm', false, true), audioCodec: 'opus'}
+		const H264_MP4: FormatOption = {...fmt('137', 'mp4', true, false), videoCodec: 'avc1.640028'}
+		const OPUS_PICK: AudioSelection = {kind: 'native', formatId: '251'}
+		const formats = [VP9_WEBM, OPUS, H264_MP4]
+
+		it('a chosen MP4 or MKV is the container whatever the streams are', () => {
+			expect(resolveOutputContainer('248', OPUS_PICK, sidecar, formats, 'video', false, 'mp4')).toBe('mp4')
+			expect(resolveOutputContainer('137', OPUS_PICK, sidecar, formats, 'video', false, 'mkv')).toBe('mkv')
+		})
+
+		it('a chosen WebM is kept only when the streams fit it, else MKV', () => {
+			expect(resolveOutputContainer('248', OPUS_PICK, sidecar, formats, 'video', false, 'webm')).toBe('webm')
+			expect(resolveOutputContainer('137', OPUS_PICK, sidecar, formats, 'video', false, 'webm')).toBe('mkv')
+		})
+
+		it('Auto still lets the streams decide', () => {
+			expect(resolveOutputContainer('248', OPUS_PICK, sidecar, formats, 'video', false, 'auto')).toBe('webm')
+		})
+
+		it('embedded subtitles still force MKV over a chosen file type', () => {
+			expect(resolveOutputContainer('248', OPUS_PICK, embed, formats, 'video', false, 'mp4')).toBe('mkv')
+		})
+
+		it('a file type is ignored for audio and subtitles downloads', () => {
+			expect(resolveOutputContainer('', {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, sidecar, formats, 'audio', false, 'mkv')).toBe('mp3')
+			expect(resolveOutputContainer('', NONE, sidecar, formats, 'subtitles', false, 'mkv')).toBe('subtitle-only')
+		})
+	})
 })

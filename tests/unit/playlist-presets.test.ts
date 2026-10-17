@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
-import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, COMPATIBLE_MP4_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
+import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR} from '../shared/nativeAudioSelectors.js'
 
 function specFor(selection: PlaylistSelection) {
 	const intent = playlistSelectionToMediaIntent(selection)
@@ -46,24 +46,25 @@ describe('mediaIntentSpec', () => {
 	})
 
 	describe('video profile audio preference', () => {
-		it('best codec can prefer native M4A audio without forcing MP4 video', () => {
-			const intent: MediaIntent = {kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: {format: 'm4a'}}
+		it('a Best picture profile saved as MP4 pairs AAC audio and remuxes to MP4', () => {
+			const intent: MediaIntent = {kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'mp4', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
 			expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
 			expect(spec.formatSort).toBe('res:1440,fps,acodec:m4a')
-			expect(spec.mergeOutputFormat).toBeUndefined()
+			expect(spec.mergeOutputFormat).toBe('mp4')
+			expect(spec.remuxVideo).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
 			expect(spec.producesAudio).toBe(true)
 		})
 
-		it('MP4 video can keep best native audio when the profile does not prefer M4A', () => {
-			const intent: MediaIntent = {kind: 'video-audio', codec: 'mp4', tiers: ['1080'], audio: {format: 'best'}}
+		it('Smart TV always pairs AAC audio, whatever the native audio choice', () => {
+			const intent: MediaIntent = {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe(COMPATIBLE_MP4_VIDEO_AUDIO_SELECTOR)
-			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps')
+			expect(spec.formatSelector).toBe('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')
+			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)

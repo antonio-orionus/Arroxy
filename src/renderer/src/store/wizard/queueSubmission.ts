@@ -20,6 +20,7 @@ import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
+import {fileTypeContainerArgs} from '@shared/selectionOrder.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
@@ -89,8 +90,10 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 	const subtitleSource = subtitlesUntouched && profile ? subtitleSourceOptions(profile.subtitles.source) : {writeAuto: subtitleLanguages.some(l => !!state.wizardAutomaticCaptions[l] && !state.wizardSubtitles[l])}
 	const embed: EmbedOptions = {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail}
 
-	const resolvedContainer = resolveOutputContainer(selectedVideoFormatId, effectiveAudio, state.wizardSubtitleMode, wizardFormats, wizardMediaKind, state.wizardEmbedThumbnail)
+	const fileType = wizardMediaKind === 'video' ? state.wizardFileType : 'auto'
+	const resolvedContainer = resolveOutputContainer(selectedVideoFormatId, effectiveAudio, state.wizardSubtitleMode, wizardFormats, wizardMediaKind, state.wizardEmbedThumbnail, fileType)
 	const {overrides} = sanitizeJobOptions({
+		requestedFileType: fileType,
 		isSubtitleOnly: wizardMediaKind === 'subtitles',
 		hasVideoTrack: selectedVideoFormatId !== '',
 		resolvedOutputContainer: resolvedContainer,
@@ -107,6 +110,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		extractor: state.wizardExtractor,
 		extractorKey: state.wizardExtractorKey,
 		formatId,
+		...(fileType !== 'auto' && formatId ? {container: fileTypeContainerArgs(fileType)} : {}),
 		audioConvert,
 		subtitleOnly: wizardMediaKind === 'subtitles',
 		expectedBytes,

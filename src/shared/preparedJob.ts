@@ -44,9 +44,9 @@ export interface EmbedOptions {
 // probe-stage placeholder: carried by a `probing` queue item until the probe
 // produces a real job — never startable (DownloadService refuses it).
 export type PreparedJob =
-	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number})
+	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; mergeOutputFormat?: string; remuxVideo?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number})
 	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
-	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; audioConvert?: AudioConvert; filenameTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
+	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; remuxVideo?: string; audioConvert?: AudioConvert; filenameTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}
 

@@ -1,20 +1,21 @@
-import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, PlaylistVideoTier} from './schemas.js'
+import type {AudioConvert, DownloadProfileMedia, MediaIntent, NativeAudioPreference, PlaylistSelection, PlaylistSubtitleSelection, VideoFileType, VideoMediaIntent} from './schemas.js'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
+import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
 import {subtitleSourceOptions} from './subtitleLanguages.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
 	// -S sort string — never fails, picks closest match. Used for MP4 (H.264 preferred).
 	formatSort?: string
-	// --merge-output-format container override. Only set when formatSort targets a codec.
+	// Container flags from the file type (and Smart TV's MP4 merge).
 	mergeOutputFormat?: string
+	remuxVideo?: string
+	fileType?: VideoFileType
 	audioConvert?: AudioConvert
 	producesVideo: boolean
 	producesAudio: boolean
 }
-
-type VideoMediaIntent = Extract<MediaIntent, {kind: 'video-audio' | 'video-only'}>
 
 const VIDEO_WITH_AUDIO_SELECTOR = 'bestvideo*+bestaudio/best'
 const VIDEO_WITH_M4A_AUDIO_SELECTOR = 'bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'
@@ -60,7 +61,7 @@ export function playlistSelectionToMediaIntent(selection: PlaylistSelection): Me
 	if (selection.kind === 'audio') {
 		return {kind: 'audio-only', audio: {format: selection.format, bitrateKbps: selection.bitrateKbps}}
 	}
-	return {kind: 'video-audio', codec: selection.codec, tiers: [selection.tier], audio: {format: selection.codec === 'mp4' ? 'm4a' : 'best'}}
+	return {kind: 'video-audio', goal: selection.codec === 'mp4' ? 'smart-tv' : 'best-picture', tier: selection.tier, fileType: 'auto', audio: {native: {kind: 'default'}}}
 }
 
 export function playlistSelectionProducesVideo(selection: PlaylistSelection): boolean {
@@ -75,10 +76,6 @@ export function playlistSubtitleOptions(selection: PlaylistSubtitleSelection): S
 export function mediaIntentFromProfileMedia(media: DownloadProfileMedia): MediaIntent | null {
 	if (media.kind === 'subtitles-only') return null
 	return media
-}
-
-function primaryVideoTier(tiers: readonly PlaylistVideoTier[]): PlaylistVideoTier {
-	return tiers[0] ?? 'best'
 }
 
 // Maps media intent to yt-dlp arguments per URL.
@@ -99,9 +96,10 @@ export function mediaIntentSpec(intent: MediaIntent, nativeAudioPreference: Nati
 // yt-dlp embeds cover art into mp3/m4a/opus and into a merged video (it remuxes
 // a WebM merge to MKV for it). A single native stream — video-only, or "best"
 // audio, often WebM/opus — fails postprocessing instead, and WAV has no slot.
+// A file the user asked to keep as WebM can't hold one either.
 export function canEmbedThumbnail(spec: MediaIntentSpec): boolean {
 	if (spec.audioConvert) return spec.audioConvert.target !== 'wav'
-	return spec.producesVideo && spec.producesAudio
+	return spec.producesVideo && spec.producesAudio && spec.fileType !== 'webm'
 }
 
 function bestNativeAudioSelector(preference: NativeAudioPreference): string {
@@ -127,40 +125,18 @@ function audioOnlyIntentSpec(intent: Extract<MediaIntent, {kind: 'audio-only'}>,
 	return {audioConvert: {target: intent.audio.format, bitrateKbps}, producesVideo: false, producesAudio: true}
 }
 
-function formatSort(...parts: (string | undefined)[]): string | undefined {
-	const value = parts.filter((part): part is string => !!part).join(',')
-	return value || undefined
-}
-
-function resolutionSort(tier: PlaylistVideoTier): string | undefined {
-	return tier === 'best' ? undefined : `res:${tier},fps`
+function videoSelector(order: SelectionOrder, audio: AudioRank | undefined): string {
+	if (!audio) return 'bestvideo'
+	if (audio.kind === 'aac') return order.separateVideoStream ? MP4_WITH_M4A_AUDIO_SELECTOR : VIDEO_WITH_M4A_AUDIO_SELECTOR
+	const preference = order.nativeAudio?.preference ?? 'compatible'
+	return order.separateVideoStream ? pairWithBestNativeAudio('bestvideo', preference, MP4_WITH_AUDIO_SELECTOR) : pairWithBestNativeAudio('bestvideo*', preference, VIDEO_WITH_AUDIO_SELECTOR)
 }
 
 function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference): MediaIntentSpec {
-	const tier = primaryVideoTier(intent.tiers)
-	const withAudio = intent.kind === 'video-audio'
-	const audioFormat = withAudio ? intent.audio.format : 'best'
-	const preferM4aAudio = withAudio && audioFormat === 'm4a'
-	const resSort = resolutionSort(tier)
-
-	if (intent.codec === 'mp4') {
-		if (!withAudio) {
-			return {formatSelector: 'bestvideo', formatSort: formatSort('vcodec:h264', 'ext:mp4', resSort), mergeOutputFormat: 'mp4', producesVideo: true, producesAudio: false}
-		}
-		return {
-			formatSelector: preferM4aAudio ? MP4_WITH_M4A_AUDIO_SELECTOR : pairWithBestNativeAudio('bestvideo', nativeAudioPreference, MP4_WITH_AUDIO_SELECTOR),
-			formatSort: formatSort('vcodec:h264', 'ext:mp4', resSort, preferM4aAudio ? 'acodec:m4a' : undefined),
-			mergeOutputFormat: 'mp4',
-			producesVideo: true,
-			producesAudio: true
-		}
-	}
-
-	if (!withAudio) {
-		return {formatSelector: 'bestvideo', formatSort: resSort, producesVideo: true, producesAudio: false}
-	}
-
-	return {formatSelector: preferM4aAudio ? VIDEO_WITH_M4A_AUDIO_SELECTOR : pairWithBestNativeAudio('bestvideo*', nativeAudioPreference, VIDEO_WITH_AUDIO_SELECTOR), formatSort: formatSort(resSort, preferM4aAudio ? 'acodec:m4a' : undefined), producesVideo: true, producesAudio: true}
+	const order = selectionOrder(intent, nativeAudioPreference)
+	const audio = order.audio?.[0]
+	const container = containerArgsFor(order)
+	return {formatSelector: videoSelector(order, audio), formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}
 }
 
 function unreachableMediaIntent(intent: never): never {

@@ -108,7 +108,7 @@ function multiProfileVideoProfile(): DownloadProfile {
 		name: 'Video first',
 		icon: 'video',
 		enabled: true,
-		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+		media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'fixed', dir: '/multi/video'},
 		filename: {kind: 'default'},
@@ -241,7 +241,7 @@ describe('QueueSubmission', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardOutputDir: '/profile-downloads'}), 'normal', NO_SOURCE)
 
 		expect(prepared?.items).toHaveLength(1)
-		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Up to 720p · Native formats · Native audio', job: {kind: 'ranged-format'}})
+		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/profile-downloads/Balanced 720p', formatLabel: 'Up to 720p · Best picture', job: {kind: 'ranged-format'}})
 		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual(VIDEO_PROBE.probeInfoJsonRef)
 	})
 
@@ -374,6 +374,58 @@ describe('prepareMultiProfileQueueSubmission', () => {
 // fallback) addresses a whole set. Queueing one would hand yt-dlp a collection
 // URL under a single pre-bound filename, so every submission seam drops it.
 const CONTAINER_ITEM: PlaylistEntry = {id: 'c', title: 'Greatest Hits', url: 'https://music.youtube.com/browse/VLPLxyz', thumbnail: '', playlistIndex: 3, videoId: 'VLPLxyz', isContainer: true}
+
+describe('the Format screen file type reaches the queued job', () => {
+	function singleJob(overrides: Partial<AppState> = {}): PreparedJob | undefined {
+		return prepareManualQueueSubmission(state(overrides), 'priority')?.items[0]?.job
+	}
+
+	it('carries a chosen file type as a lossless remux, never a recode', () => {
+		const job = singleJob({wizardFileType: 'mkv'})
+
+		expect(job).toMatchObject({kind: 'single-format', formatId: '137+251', mergeOutputFormat: 'mkv', remuxVideo: 'mkv'})
+		expect(JSON.stringify(job)).not.toContain('recode')
+	})
+
+	it('lets WebM fall back to MKV instead of failing when the streams do not fit', () => {
+		expect(singleJob({wizardFileType: 'webm'})).toMatchObject({mergeOutputFormat: 'webm/mkv', remuxVideo: 'webm>webm/mkv'})
+	})
+
+	it('sends nothing for Auto, so the streams decide as before', () => {
+		const job = singleJob({wizardFileType: 'auto'})
+
+		expect(job).toMatchObject({kind: 'single-format', formatId: '137+251'})
+		expect(job).not.toHaveProperty('mergeOutputFormat')
+		expect(job).not.toHaveProperty('remuxVideo')
+	})
+
+	it('ignores the file type for audio and subtitles downloads', () => {
+		const job = singleJob({wizardMediaKind: 'audio', selectedVideoFormatId: '', wizardFileType: 'mkv'})
+
+		expect(job).not.toHaveProperty('remuxVideo')
+	})
+
+	it('still says what was asked when embedded subtitles will override it (the bridge drops the remux)', () => {
+		const job = singleJob({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: ['en']})
+
+		expect(job).toMatchObject({kind: 'single-format', remuxVideo: 'mp4'})
+	})
+})
+
+describe('a profile file type reaches the quick download job', () => {
+	it('an MP4 profile pairs AAC and remuxes to MP4', () => {
+		const base = BUILTIN_DOWNLOAD_PROFILES.find(p => p.id === 'hd-1080')
+		if (!base) throw new Error('no hd-1080')
+		const profile: DownloadProfile = {...base, id: 'mp4-profile', media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}}}
+		const settings = defaultAppSettings('/downloads')
+		settings.profiles = {active: {kind: 'custom', id: profile.id}, custom: [profile], overrides: [], enabledOverrides: {}}
+
+		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
+
+		expect(job).toMatchObject({kind: 'ranged-format', mergeOutputFormat: 'mp4', remuxVideo: 'mp4'})
+		if (job?.kind === 'ranged-format') expect(job.formatSort).toBe('res:1080,fps,acodec:m4a')
+	})
+})
 
 describe('container rows are never queued', () => {
 	it('prepareManualQueueSubmission drops them', () => {

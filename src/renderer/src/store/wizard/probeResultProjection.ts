@@ -277,6 +277,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardProfile: null,
 			wizardProfileBaseline: null,
 			wizardFitNotices: [],
+			wizardSelectionOrder: null,
 			wizardSubtitles: {},
 			wizardAutomaticCaptions: {},
 			wizardSubtitleLanguages: [],

@@ -135,7 +135,7 @@ describe('VideoPhase(embed=false)', () => {
 			kind: 'ranged-format',
 			extractor: 'youtube',
 			extractorKey: 'Youtube',
-			intent: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+			intent: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
 			formatSelector: 'bestvideo*+bestaudio/best',
 			formatSort: 'res:1080,fps',
 			mergeOutputFormat: undefined,

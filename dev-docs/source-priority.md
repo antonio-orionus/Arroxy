@@ -1,6 +1,8 @@
 # Source priority: how a profile picks streams
 
-**Status: decided, not built.** A download profile picks one video and one
+**Status: built on `feat/source-priority`, not merged.** The three delivery
+steps below landed together; the English copy awaits approval and the 33
+locales are not translated yet. A download profile picks one video and one
 audio stream out of everything a video offers by ranking them in a fixed
 order of rules. Today that order is spread over two labels and a global
 setting, and nobody can see it. This spec makes the order one owned
@@ -179,9 +181,9 @@ pinned test-first against yt-dlp, not guessed here.
 
 ```ts
 media:
-  | {kind: 'video-audio'; goal: 'best-picture' | 'smart-tv'; tier: PlaylistVideoTier; fileType: 'auto' | 'mp4' | 'mkv' | 'webm'; audio: {nativePreference: {kind: 'default'} | {kind: 'custom'; value: NativeAudioPreference}}}
-  | {kind: 'video-only'; goal: ...; tier: ...; fileType: ...}
-  | {kind: 'audio-only'; audio: {format: ...; bitrateKbps?: ...}}
+  | {kind: 'video-audio'; goal: 'best-picture' | 'smart-tv'; tier: PlaylistVideoTier; fileType: 'auto' | 'mp4' | 'mkv' | 'webm'; audio: {native: {kind: 'default'} | {kind: 'custom'; preference: NativeAudioPreference}}}
+  | {kind: 'video-only'; goal; tier; fileType}
+  | {kind: 'audio-only'; audio: {format; bitrateKbps?}}
   | {kind: 'subtitles-only'}
 ```
 
@@ -190,12 +192,17 @@ the goal and the file type (Selection order). Field names are settled in
 PR 2; the domain terms (selection order, profile goal, file type, remux) are
 in `GLOSSARY.md`.
 
-Stored profiles: custom profiles and built-in overrides already on disk use
-`codec` and `tiers`. The profile schema maps them once at parse time
-(`codec: 'mp4'` → `goal: 'smart-tv'`, `best` → `best-picture`, `tiers[0]` →
-`tier`, `fileType: 'auto'`, native audio `default`), the same way
-`filename` and `enabled` use `.default` today, so an upgrade never drops a
-user's profiles. No other compatibility layer.
+Stored profiles: custom profiles, built-in overrides and queued jobs already
+on disk use `codec` and `tiers`. The media schema maps them once at parse
+time (a `z.preprocess`): `codec: 'mp4'` → `goal: 'smart-tv'`, `best` →
+`best-picture`, `tiers[0]` → `tier`, native audio `default`. A `best` profile
+whose audio was `m4a` becomes Best picture saved as **MP4**, the only way a
+profile can still ask for AAC. A Smart TV profile with native audio now takes
+AAC like the built-ins always did. No other compatibility layer.
+
+The three Smart TV built-ins keep their old download folders ("Smart TV MP4
+Full HD 1080p", ...) although their names are shorter, so files already
+downloaded stay where playlist sync looks for them.
 
 ## UI
 

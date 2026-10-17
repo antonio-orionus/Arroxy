@@ -1,11 +1,11 @@
-import type {SponsorBlockMode, SubtitleMode} from './schemas.js'
+import type {SponsorBlockMode, SubtitleMode, VideoFileType} from './schemas.js'
 import type {EmbedOptions} from './preparedJob.js'
 
 // Containers that support --embed-thumbnail per yt-dlp.
 // Source: "Supported filetypes for thumbnail embedding are: mp3, mkv/mka, ogg/opus/flac, m4a/mp4/m4v/mov"
 const THUMBNAIL_EMBED_SUPPORTED = new Set(['mp3', 'mkv', 'mka', 'ogg', 'opus', 'flac', 'm4a', 'mp4', 'm4v', 'mov'])
 
-export type ConflictCode = 'thumbnailEmbedNotSupported' | 'subtitleEmbedNoMedia' | 'subtitleEmbedAudioOnly' | 'embedOptionsNoMedia' | 'sponsorBlockNoMedia'
+export type ConflictCode = 'thumbnailEmbedNotSupported' | 'subtitleEmbedNoMedia' | 'subtitleEmbedAudioOnly' | 'subtitleEmbedForcesMkv' | 'embedOptionsNoMedia' | 'sponsorBlockNoMedia'
 
 export interface SanitizeConflict {
 	code: ConflictCode
@@ -20,6 +20,8 @@ export interface SanitizeInput {
 	subtitleLanguages: string[]
 	embed: EmbedOptions
 	sponsorBlockMode: SponsorBlockMode
+	/** The file type the user chose; embedded subtitles override MP4 and WebM with MKV. */
+	requestedFileType?: VideoFileType
 }
 
 export interface SanitizeOverrides {
@@ -64,6 +66,9 @@ export function sanitizeJobOptions(input: SanitizeInput): SanitizeResult {
 		if (!hasVideoTrack && subtitleMode === 'embed' && subtitleLanguages.length > 0) {
 			conflicts.push({code: 'subtitleEmbedAudioOnly'})
 			outSubtitleMode = 'sidecar'
+		}
+		if (hasVideoTrack && subtitleMode === 'embed' && subtitleLanguages.length > 0 && (input.requestedFileType === 'mp4' || input.requestedFileType === 'webm')) {
+			conflicts.push({code: 'subtitleEmbedForcesMkv'})
 		}
 	}
 

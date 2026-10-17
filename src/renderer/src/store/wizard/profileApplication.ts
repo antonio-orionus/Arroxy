@@ -5,9 +5,11 @@
 // store slices only call it and `set()` the result.
 
 import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
-import {isH264, resolveProfileSelection, videoHeight, type FitNotice} from '@shared/profileSelection.js'
+import {audioCodecName, webmBlocker} from '@shared/fileTypeFit.js'
+import type {SelectionOrder} from '@shared/selectionOrder.js'
+import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
 export interface WizardSettingsSnapshot {
@@ -24,6 +26,7 @@ export interface WizardSettingsSnapshot {
 	subfolderEnabled: boolean
 	subfolderName: string
 	filenameTemplate: string
+	fileType: VideoFileType
 }
 
 export interface ProfileApplicationInput {
@@ -38,9 +41,26 @@ export interface ProfileApplicationInput {
 	globalFilenameTemplate: string | undefined
 }
 
-export function applyProfileToWizard(input: ProfileApplicationInput): {snapshot: WizardSettingsSnapshot; notices: FitNotice[]} {
+// The profile's file type for this pick. WebM the picked streams can't fill
+// (no VP9/AV1 with Opus on this video) starts on Auto with a fit notice.
+function pickFileType(selection: MediaSelection, fileType: VideoFileType | null, formats: readonly FormatOption[], notices: FitNotice[]): VideoFileType {
+	if (fileType === null || selection.kind !== 'video') return 'auto'
+	if (fileType !== 'webm') return fileType
+	const video = formats.find(f => f.formatId === selection.videoFormatId)
+	const audioSelection = selection.audioSelection
+	const audio = audioSelection.kind === 'native' ? formats.find(f => f.formatId === audioSelection.formatId) : undefined
+	const blocker = video ? webmBlocker(video, audio) : null
+	if (!blocker) return 'webm'
+	notices.push({kind: 'webm-unavailable', blocker})
+	return 'auto'
+}
+
+export function applyProfileToWizard(input: ProfileApplicationInput): {snapshot: WizardSettingsSnapshot; notices: FitNotice[]; order: SelectionOrder | null} {
 	const {profile} = input
 	const selection = resolveProfileSelection(input)
+	const notices = [...selection.notices]
+	const profileFileType = selection.order?.fileType ?? null
+	const fileType = pickFileType(selection.media, profileFileType, input.formats, notices)
 	const outputDir = profile.output.kind === 'fixed' ? profile.output.dir : input.baseOutputDir
 	return {
 		snapshot: {
@@ -56,9 +76,11 @@ export function applyProfileToWizard(input: ProfileApplicationInput): {snapshot:
 			outputDir,
 			subfolderEnabled: profile.subfolder.enabled,
 			subfolderName: profile.subfolder.name,
-			filenameTemplate: resolveFilenameTemplate(profile, input.globalFilenameTemplate)
+			filenameTemplate: resolveFilenameTemplate(profile, input.globalFilenameTemplate),
+			fileType
 		},
-		notices: selection.notices
+		notices,
+		order: selection.order
 	}
 }
 
@@ -76,7 +98,7 @@ function sameAudio(a: AudioSelection, b: AudioSelection): boolean {
 
 export function changedFromProfile(baseline: WizardSettingsSnapshot, current: WizardSettingsSnapshot): ChangedArea[] {
 	const changed: ChangedArea[] = []
-	if (baseline.mediaKind !== current.mediaKind || baseline.videoFormatId !== current.videoFormatId || !sameAudio(baseline.audioSelection, current.audioSelection)) changed.push('format')
+	if (baseline.mediaKind !== current.mediaKind || baseline.videoFormatId !== current.videoFormatId || !sameAudio(baseline.audioSelection, current.audioSelection) || (current.mediaKind === 'video' && baseline.fileType !== current.fileType)) changed.push('format')
 	if (!sameSet(baseline.subtitleLanguages, current.subtitleLanguages) || baseline.subtitleMode !== current.subtitleMode || baseline.subtitleFormat !== current.subtitleFormat) changed.push('subtitles')
 	if (baseline.sponsorBlockMode !== current.sponsorBlockMode || !sameSet(baseline.sponsorBlockCategories, current.sponsorBlockCategories)) changed.push('sponsorBlock')
 	if (JSON.stringify(baseline.embed) !== JSON.stringify(current.embed)) changed.push('extras')
@@ -121,14 +143,19 @@ function mediaFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot
 	if (!video) return base.media
 	const baseVideo = base.media.kind === 'video-audio' || base.media.kind === 'video-only' ? base.media : null
 	const videoChanged = baseVideo === null || baseline.mediaKind !== 'video' || baseline.videoFormatId !== snapshot.videoFormatId
-	const codec = !videoChanged && baseVideo ? baseVideo.codec : baseVideo?.codec === 'mp4' && isH264(video) ? 'mp4' : 'best'
-	const tiers = !videoChanged && baseVideo ? [...baseVideo.tiers] : [tierFor(video, formats)]
-	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', codec, tiers}
-	const audioChanged = !sameAudio(baseline.audioSelection, snapshot.audioSelection)
-	if (!audioChanged && base.media.kind === 'video-audio') return {kind: 'video-audio', codec, tiers, audio: {...base.media.audio}}
+	const goal = !videoChanged && baseVideo ? baseVideo.goal : baseVideo?.goal === 'smart-tv' && isH264(video) ? 'smart-tv' : 'best-picture'
+	const tier = !videoChanged && baseVideo ? baseVideo.tier : tierFor(video, formats)
+	// The file type the user ended on, unless it is the Auto a WebM profile fell
+	// back to on this one video: then the profile keeps asking for WebM.
+	const chosenFileType = snapshot.fileType === baseline.fileType && baseVideo ? baseVideo.fileType : snapshot.fileType
+	// A profile can only express "AAC audio" through its file type (MP4 pairs
+	// AAC), so an AAC pick on a Best picture profile is saved as MP4.
 	const audioId = snapshot.audioSelection.kind === 'native' ? snapshot.audioSelection.formatId : null
-	const pickedM4a = audioId !== null && formats.find(f => f.formatId === audioId)?.ext === 'm4a'
-	return {kind: 'video-audio', codec, tiers, audio: {format: pickedM4a ? 'm4a' : 'best'}}
+	const pickedAac = audioId !== null && audioCodecName(formats.find(f => f.formatId === audioId)?.audioCodec) === 'AAC'
+	const audioChanged = !sameAudio(baseline.audioSelection, snapshot.audioSelection)
+	const fileType = chosenFileType === 'auto' && goal === 'best-picture' && audioChanged && pickedAac ? 'mp4' : chosenFileType
+	if (snapshot.audioSelection.kind === 'none' && video.isVideoOnly) return {kind: 'video-only', goal, tier, fileType}
+	return {kind: 'video-audio', goal, tier, fileType, audio: base.media.kind === 'video-audio' ? {native: {...base.media.audio.native}} : {native: {kind: 'default'}}}
 }
 
 function baseLanguageCode(trackKey: string): string {

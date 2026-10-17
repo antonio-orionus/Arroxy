@@ -139,7 +139,7 @@ function landPlaylistProbe(probe: PlaylistProbeResult, set: SetState, get: GetSt
 
 async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe = true): Promise<void> {
 	// A new run starts from the active profile, never an abandoned run's.
-	if (firstProbe) set({wizardProfile: null, wizardProfileBaseline: null, wizardFitNotices: []})
+	if (firstProbe) set({wizardProfile: null, wizardProfileBaseline: null, wizardFitNotices: [], wizardSelectionOrder: null})
 	startProbe(url, playlistMode, set, get, !firstProbe)
 	await finishProbe(url, playlistMode, set, get, firstProbe)
 }

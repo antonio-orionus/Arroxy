@@ -33,7 +33,7 @@ function coverArtProfile(id: string, name: string, media: DownloadProfile['media
 
 const CASES = [
 	{label: 'MP3 audio', videoIndex: 8, extension: '.mp3', profile: coverArtProfile('cover-mp3', 'Cover MP3', {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})},
-	{label: 'MP4 video', videoIndex: 9, extension: '.mp4', profile: coverArtProfile('cover-mp4', 'Cover MP4', {kind: 'video-audio', codec: 'mp4', tiers: ['480'], audio: {format: 'm4a'}})}
+	{label: 'MP4 video', videoIndex: 9, extension: '.mp4', profile: coverArtProfile('cover-mp4', 'Cover MP4', {kind: 'video-audio', goal: 'smart-tv', tier: '480', fileType: 'auto', audio: {native: {kind: 'default'}}})}
 ] as const
 
 for (const {label, videoIndex, extension, profile} of CASES) {

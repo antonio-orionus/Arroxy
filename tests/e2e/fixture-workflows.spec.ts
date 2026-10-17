@@ -63,6 +63,35 @@ test('Electron quick download applies the active Download Profile to a fixture v
 	)
 })
 
+// Risk: a profile's file type is stored but never reaches yt-dlp. A profile
+// saved as MKV must remux its Quick Download into an .mkv, losslessly.
+test('Electron quick download remuxes into the profile file type', async () => {
+	test.setTimeout(140_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-profile-file-type-user-',
+			outputPrefix: 'arroxy-fixture-profile-file-type-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+				const [profile] = settings.profiles.overrides
+				if (profile?.media.kind !== 'video-audio') throw new Error('small-file profile is not video + audio')
+				settings.profiles.overrides = [{...profile, media: {...profile.media, fileType: 'mkv'}}]
+			}
+		},
+		async ({page, outputDir, urls, queue, files}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+
+			const profileDir = smallFileProfileDir(outputDir)
+			await expect.poll(() => files.mediaFiles('.mkv', profileDir)).toHaveLength(1)
+			expect(files.mediaFiles('.mp4', profileDir)).toHaveLength(0)
+		}
+	)
+})
+
 // Risk: Interactive Download drifts from Quick Download. Pressing Download on
 // the Format screen without changes must fetch exactly what the same profile's
 // Quick Download fetches (format 18 above), into the profile's folder.
@@ -82,6 +111,37 @@ test('Electron Interactive Download from the Format screen matches the profile Q
 		files.expectMp4Count(1, smallFileProfileDir(outputDir))
 		const mediaRequest = fixtureServer.telemetry().requests.find(request => request.kind === 'media' && request.videoId === videoId && request.status === 200)
 		expect(mediaRequest).toMatchObject({kind: 'media', videoId, formatId: '18', status: 200})
+	})
+})
+
+// Risk: the Saves as choice is cosmetic: the label says MKV but yt-dlp writes
+// the file as it always did. Choosing a file type on the Format screen must
+// remux the download (stream copy) into that file type, and only for this
+// download.
+test('Electron Interactive Download saves as the file type chosen on the Format screen', async () => {
+	test.setTimeout(140_000)
+	const videoId = FIXTURE_VIDEO_IDS[7]
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-saves-as-user-', outputPrefix: 'arroxy-fixture-saves-as-out-', settings: configureSmallFileQuickProfile}, async ({page, userDataDir, outputDir, urls, queue, files}) => {
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+		await page.locator('[data-testid="profiles-interactive-download"]').click()
+		await expect(page.locator('[data-testid="step-formats"]')).toBeVisible({timeout: 60_000})
+		await expect(page.locator('[data-testid="saves-as-trigger"]')).toContainText('.mp4')
+
+		await page.locator('[data-testid="saves-as-trigger"]').click()
+		await page.locator('[data-testid="saves-as-option-mkv"]').click()
+		await expect(page.locator('[data-testid="saves-as-trigger"]')).toContainText('MKV')
+
+		await page.locator('[data-testid="btn-download"]').click()
+		await queue.expectStatus('Fixture Video 8', 'done', 120_000)
+
+		const profileDir = smallFileProfileDir(outputDir)
+		await expect.poll(() => files.mediaFiles('.mkv', profileDir).map(file => path.basename(file))).toHaveLength(1)
+		expect(files.mediaFiles('.mp4', profileDir)).toHaveLength(0)
+
+		// A per-download choice: the active profile is untouched.
+		const settings = JSON.parse(fs.readFileSync(path.join(userDataDir, 'settings.json'), 'utf8')) as AppSettings
+		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'small-file'})
 	})
 })
 

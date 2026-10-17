@@ -4,7 +4,7 @@ import type {MediaIntent, PlaylistVideoTier} from '@shared/schemas.js'
 
 const SABR_WARNING = 'WARNING: [youtube] z1NNgSu8hTI: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details'
 
-const video = (tiers: PlaylistVideoTier[]): MediaIntent => ({kind: 'video-audio', codec: 'best', tiers, audio: {format: 'best'}})
+const video = (tier: PlaylistVideoTier): MediaIntent => ({kind: 'video-audio', goal: 'best-picture', tier, fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 const AUDIO_ONLY: MediaIntent = {kind: 'audio-only', audio: {format: 'best'}}
 
@@ -39,25 +39,25 @@ describe('parseSelectedFormats / selectedMaxHeight', () => {
 
 describe('assessQualityLimit', () => {
 	it('flags a SABR-limited download that landed below the profile cap', () => {
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: video(['720'])})).toEqual({height: 360})
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: video('720')})).toEqual({height: 360})
 	})
 
 	it('does not flag without the SABR warning — the video may simply be low resolution', () => {
-		expect(assessQualityLimit({sabrSkipped: false, selectedHeight: 360, intent: video(['720'])})).toBeNull()
+		expect(assessQualityLimit({sabrSkipped: false, selectedHeight: 360, intent: video('720')})).toBeNull()
 	})
 
 	it('does not flag a download that reached the cap', () => {
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 480, intent: video(['480'])})).toBeNull()
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 480, intent: video('480')})).toBeNull()
 	})
 
 	it('treats "best" and caps above 720p as expecting at least 720p', () => {
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 1080, intent: video(['best'])})).toBeNull()
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: video(['best'])})).toEqual({height: 360})
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 720, intent: video(['2160'])})).toBeNull()
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 1080, intent: video('best')})).toBeNull()
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: video('best')})).toEqual({height: 360})
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 720, intent: video('2160')})).toBeNull()
 	})
 
 	it('never flags audio-only intents or unknown heights', () => {
-		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: null, intent: video(['720'])})).toBeNull()
+		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: null, intent: video('720')})).toBeNull()
 		expect(assessQualityLimit({sabrSkipped: true, selectedHeight: 360, intent: AUDIO_ONLY})).toBeNull()
 	})
 })

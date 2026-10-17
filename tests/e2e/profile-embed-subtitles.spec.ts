@@ -36,7 +36,7 @@ function embedSubtitlesProfile(): DownloadProfile {
 		...base,
 		id: 'embed-subs',
 		name: 'Embed Subs',
-		media: {kind: 'video-audio', codec: 'mp4', tiers: ['480'], audio: {format: 'm4a'}},
+		media: {kind: 'video-audio', goal: 'smart-tv', tier: '480', fileType: 'auto', audio: {native: {kind: 'default'}}},
 		subtitles: {enabled: true, languages: ['en', 'es'], source: 'manual-only', mode: 'embed', format: 'srt'},
 		subfolder: {enabled: true, name: 'Embed Subs'},
 		sponsorBlock: {mode: 'off', categories: []},

@@ -49,11 +49,11 @@ export interface DownloadReview {
 	allowedActions: {addToQueue: boolean; downloadNow: boolean}
 }
 
-const USER_VISIBLE_CONFLICT_CODES = ['thumbnailEmbedNotSupported', 'subtitleEmbedAudioOnly'] as const satisfies readonly ConflictCode[]
+const USER_VISIBLE_CONFLICT_CODES = ['thumbnailEmbedNotSupported', 'subtitleEmbedAudioOnly', 'subtitleEmbedForcesMkv'] as const satisfies readonly ConflictCode[]
 type UserVisibleConflictCode = (typeof USER_VISIBLE_CONFLICT_CODES)[number]
 type UserVisibleConflict = SanitizeConflict & {code: UserVisibleConflictCode}
 
-const CONFLICT_LABEL_KEYS = {thumbnailEmbedNotSupported: 'wizard.confirm.thumbnailEmbedNotSupported', subtitleEmbedAudioOnly: 'wizard.confirm.subtitleEmbedAudioOnly'} as const satisfies Record<UserVisibleConflictCode, string>
+const CONFLICT_LABEL_KEYS = {thumbnailEmbedNotSupported: 'wizard.confirm.thumbnailEmbedNotSupported', subtitleEmbedAudioOnly: 'wizard.confirm.subtitleEmbedAudioOnly', subtitleEmbedForcesMkv: 'wizard.confirm.subtitleEmbedForcesMkv'} as const satisfies Record<UserVisibleConflictCode, string>
 
 const USER_VISIBLE_CONFLICTS: ReadonlySet<ConflictCode> = new Set(USER_VISIBLE_CONFLICT_CODES)
 
@@ -194,7 +194,8 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 		? sanitizeJobOptions({
 				isSubtitleOnly: kind === 'subtitles',
 				hasVideoTrack: videoId !== '',
-				resolvedOutputContainer: resolveOutputContainer(videoId, audio, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail),
+				resolvedOutputContainer: resolveOutputContainer(videoId, audio, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, kind === 'video' ? state.wizardFileType : 'auto'),
+				requestedFileType: kind === 'video' ? state.wizardFileType : 'auto',
 				subtitleMode: state.wizardSubtitleMode,
 				subtitleLanguages: effectiveSubtitleLanguages,
 				embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},

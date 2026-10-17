@@ -30,7 +30,7 @@ function profile(id: string, name: string, icon: DownloadProfile['icon']): Downl
 		name,
 		icon,
 		enabled: true,
-		media: {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'best'}},
+		media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
 		subtitles: {enabled: false, languages: [], source: 'manual-first', mode: 'sidecar', format: 'srt'},
 		output: {kind: 'default'},
 		filename: {kind: 'default'},

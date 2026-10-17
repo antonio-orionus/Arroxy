@@ -6,7 +6,8 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolveChosenDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
-import type {AudioSelection, FormatOption, SubtitleMap, WizardMediaKind} from '@shared/types.js'
+import type {AudioSelection, FormatOption, SubtitleMap, VideoFileType, WizardMediaKind} from '@shared/types.js'
+import {webmBlocker} from '@shared/fileTypeFit.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {matchesSubtitleLanguage} from '@shared/subtitleLanguages.js'
 import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
@@ -56,6 +57,16 @@ function appLanguageTracks(state: AppState): string[] {
 	return manual.length > 0 ? manual : pick(state.wizardAutomaticCaptions)
 }
 
+// A stream pick the file type can't hold sends the file type back to Auto:
+// the newer action wins, and the stream the user picked is never swapped.
+function fileTypeAfterPick(state: AppState, videoFormatId: string, audio: AudioSelection): Pick<AppState, 'wizardFileType' | 'wizardFileTypeReset'> | Record<string, never> {
+	if (state.wizardFileType !== 'webm') return {}
+	const video = state.wizardFormats.find(f => f.formatId === videoFormatId)
+	const audioFormat = audio.kind === 'native' ? state.wizardFormats.find(f => f.formatId === audio.formatId) : undefined
+	const blocker = video ? webmBlocker(video, audioFormat) : null
+	return blocker ? {wizardFileType: 'auto', wizardFileTypeReset: {from: 'webm', blocker}} : {}
+}
+
 function mediaKindPatch(kind: WizardMediaKind, state: AppState): Partial<AppState> {
 	if (kind === 'subtitles') {
 		// Nothing to embed subtitles into without a media file.
@@ -68,7 +79,8 @@ function mediaKindPatch(kind: WizardMediaKind, state: AppState): Partial<AppStat
 	const baseline = state.wizardProfileBaseline
 	const videoId = baseline?.mediaKind === 'video' && hasFormat(videos, baseline.videoFormatId) ? baseline.videoFormatId : videos[0].formatId
 	const video = videos.find(f => f.formatId === videoId)
-	return {wizardMediaKind: kind, selectedVideoFormatId: videoId, audioSelection: audioForVideo(video, state)}
+	const audioSelection = audioForVideo(video, state)
+	return {wizardMediaKind: kind, selectedVideoFormatId: videoId, audioSelection, ...fileTypeAfterPick(state, videoId, audioSelection)}
 }
 
 export function createFormatPickerSlice(set: SetState, get: GetState): FormatPickerSlice {
@@ -86,8 +98,11 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		wizardProfile: null,
 		wizardProfileBaseline: null,
 		wizardFitNotices: [],
+		wizardSelectionOrder: null,
 		wizardFilenameTemplate: DEFAULTS.filenameTemplate,
 		wizardIsAudioOnlySource: false,
+		wizardFileType: 'auto',
+		wizardFileTypeReset: null,
 
 		// Invariant: a video stream and a convert target are mutually exclusive —
 		// convert (-x) can't be merged with video. Reconcile here instead of
@@ -97,8 +112,11 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 				const video = state.wizardFormats.find(f => f.formatId === id)
 				if (!video) return {}
 				const keepAudio = !isConvert(state.audioSelection) && video.isVideoOnly
-				return {wizardMediaKind: 'video', selectedVideoFormatId: id, audioSelection: keepAudio ? state.audioSelection : audioForVideo(video, state)}
+				const audioSelection = keepAudio ? state.audioSelection : audioForVideo(video, state)
+				return {wizardMediaKind: 'video', selectedVideoFormatId: id, audioSelection, ...fileTypeAfterPick(state, id, audioSelection)}
 			}),
+
+		setWizardFileType: (fileType: VideoFileType) => set({wizardFileType: fileType, wizardFileTypeReset: null}),
 
 		setAudioSelection: sel =>
 			set(state => {
@@ -107,7 +125,7 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 				const toAudio = isConvert(sel) && state.selectedVideoFormatId !== ''
 				return {
 					audioSelection: sel,
-					...(toAudio ? {selectedVideoFormatId: '', wizardMediaKind: 'audio' as const} : {}),
+					...(toAudio ? {selectedVideoFormatId: '', wizardMediaKind: 'audio' as const} : fileTypeAfterPick(state, state.selectedVideoFormatId, sel)),
 					// Keep the user's bitrate choice sticky across mp3/m4a/opus toggles.
 					lastConvertBitrate: sel.kind === 'convert-lossy' ? sel.bitrateKbps : state.lastConvertBitrate
 				}

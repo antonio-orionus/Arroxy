@@ -260,7 +260,14 @@ describe('QueueStore — filename template migration', () => {
 		return {id, url: `https://yt/${id}`, title: id, thumbnail: '', outputDir: '/tmp', formatLabel: 'Best', status: 'pending', progressPercent: 0, progressDetail: null, lastStatus: null, error: null, finishedAt: null, job}
 	}
 
-	const RANGED = {kind: 'ranged-format', extractor: 'youtube', extractorKey: 'Youtube', intent: {kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}}, sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+	const RANGED = {
+		kind: 'ranged-format',
+		extractor: 'youtube',
+		extractorKey: 'Youtube',
+		intent: {kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}},
+		sponsorBlock: {mode: 'off'},
+		embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
+	}
 
 	it('maps a legacy compiled outputTemplate back to the equivalent app template', async () => {
 		const [store, dir] = await tempStore()

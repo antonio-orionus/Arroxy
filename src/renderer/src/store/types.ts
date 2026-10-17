@@ -47,8 +47,9 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
+import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './wizard/profileApplication.js'
 import type {IncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {QuickDownloadFailure} from './wizard/quickDownloadFeedback.js'
@@ -266,10 +267,19 @@ export interface FormatPickerSlice {
 	wizardProfile: DownloadProfile | null
 	wizardProfileBaseline: WizardSettingsSnapshot | null
 	wizardFitNotices: FitNotice[]
+	// The order the profile picked this video's streams by, for the Profile
+	// badge's "Why this one?" tip. Null when the profile has no video.
+	wizardSelectionOrder: SelectionOrder | null
 	wizardFilenameTemplate: string
 	wizardIsAudioOnlySource: boolean
+	// The file type this download is saved as (Format screen's "Saves as").
+	// Starts from the profile; a stream pick it can't hold sends it back to
+	// Auto, and `wizardFileTypeReset` says why until the next file type pick.
+	wizardFileType: VideoFileType
+	wizardFileTypeReset: {from: VideoFileType; blocker: string} | null
 
 	setSelectedVideoFormatId: (id: string) => void
+	setWizardFileType: (fileType: VideoFileType) => void
 	setAudioSelection: (sel: AudioSelection) => void
 	setWizardMediaKind: (kind: WizardMediaKind) => void
 	toggleSubtitleLanguage: (lang: string) => void

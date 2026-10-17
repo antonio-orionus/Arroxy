@@ -31,8 +31,29 @@ export type PlaylistVideoTier = z.infer<typeof playlistVideoTierSchema>
 // reordered by JavaScript property ordering. Keep the intended UI order here.
 export const PLAYLIST_VIDEO_TIERS: readonly PlaylistVideoTier[] = PLAYLIST_VIDEO_TIER_VALUES
 
-export const playlistVideoCodecSchema = z.enum(['best', 'mp4'])
-export type PlaylistVideoCodec = z.infer<typeof playlistVideoCodecSchema>
+const playlistVideoCodecSchema = z.enum(['best', 'mp4'])
+
+// What a profile's video is for. Decides the codec the selection order prefers:
+// Best picture keeps yt-dlp's own codec order (AV1, VP9, HEVC, H.264); Smart TV
+// puts H.264 in MP4 first, which YouTube offers only up to 1080p.
+export const videoGoalSchema = z.enum(['best-picture', 'smart-tv'])
+export type VideoGoal = z.infer<typeof videoGoalSchema>
+export const VIDEO_GOALS = videoGoalSchema.options
+
+// The kind of file a video download is saved as. `auto` lets the picked
+// streams decide; the others remux (copy streams, never re-encode).
+export const videoFileTypeSchema = z.enum(['auto', 'mp4', 'mkv', 'webm'])
+export type VideoFileType = z.infer<typeof videoFileTypeSchema>
+export const VIDEO_FILE_TYPES = videoFileTypeSchema.options
+
+export const nativeAudioPreferenceSchema = z.enum(['compatible', 'surround'])
+export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
+export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
+
+// Global + profile override, like the save folder and the file name: `default`
+// follows Settings, `custom` is this profile's own choice.
+export const nativeAudioChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('default')}), z.object({kind: z.literal('custom'), preference: nativeAudioPreferenceSchema})])
+export type NativeAudioChoice = z.infer<typeof nativeAudioChoiceSchema>
 
 export const playlistAudioFormatSchema = z.enum(['best', 'mp3', 'm4a', 'opus'])
 export type PlaylistAudioFormat = z.infer<typeof playlistAudioFormatSchema>
@@ -121,22 +142,34 @@ export const PLAYLIST_SORT_MODES = playlistSortModeSchema.options
 
 const downloadProfileAudioSchema = z.object({format: downloadProfileAudioFormatSchema, bitrateKbps: audioBitrateSchema.optional()})
 
-const downloadProfileVideoAudioSchema = z.object({format: z.enum(['best', 'm4a'])})
+const videoMediaFields = {goal: videoGoalSchema, tier: playlistVideoTierSchema, fileType: videoFileTypeSchema}
+const videoAudioMediaSchema = z.object({kind: z.literal('video-audio'), ...videoMediaFields, audio: z.object({native: nativeAudioChoiceSchema})})
+const videoOnlyMediaSchema = z.object({kind: z.literal('video-only'), ...videoMediaFields})
+const audioOnlyMediaSchema = z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})
 
-export const downloadProfileMediaSchema = z.discriminatedUnion('kind', [
-	z.object({kind: z.literal('video-audio'), codec: playlistVideoCodecSchema, tiers: z.array(playlistVideoTierSchema).min(1), audio: downloadProfileVideoAudioSchema}),
-	z.object({kind: z.literal('video-only'), codec: playlistVideoCodecSchema, tiers: z.array(playlistVideoTierSchema).min(1)}),
-	z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema}),
-	z.object({kind: z.literal('subtitles-only')})
-])
+// Profiles and queued jobs saved before the selection order existed carry
+// `codec` + `tiers` (and an `audio.format` of best/m4a). Read them once into
+// the new shape so an upgrade never drops a saved profile or a queued job:
+// mp4 → Smart TV; an AAC pick on native video → Best picture saved as MP4,
+// the file type that keeps AAC.
+const legacyVideoMediaSchema = z.looseObject({kind: z.enum(['video-audio', 'video-only']), codec: playlistVideoCodecSchema, tiers: z.array(z.string()).optional(), audio: z.object({format: z.string()}).optional()})
+
+function upgradeLegacyVideoMedia(raw: unknown): unknown {
+	const legacy = legacyVideoMediaSchema.safeParse(raw)
+	if (!legacy.success) return raw
+	const {codec, tiers, audio, ...rest} = legacy.data
+	const goal = codec === 'mp4' ? 'smart-tv' : 'best-picture'
+	const fileType = goal === 'best-picture' && audio?.format === 'm4a' ? 'mp4' : 'auto'
+	const upgraded = {...rest, goal, tier: tiers?.[0] ?? 'best', fileType}
+	return rest.kind === 'video-audio' ? {...upgraded, audio: {native: {kind: 'default'}}} : upgraded
+}
+
+export const downloadProfileMediaSchema = z.preprocess(upgradeLegacyVideoMedia, z.discriminatedUnion('kind', [videoAudioMediaSchema, videoOnlyMediaSchema, audioOnlyMediaSchema, z.object({kind: z.literal('subtitles-only')})]))
 export type DownloadProfileMedia = z.infer<typeof downloadProfileMediaSchema>
 
-export const mediaIntentSchema = z.discriminatedUnion('kind', [
-	z.object({kind: z.literal('video-audio'), codec: playlistVideoCodecSchema, tiers: z.array(playlistVideoTierSchema).min(1), audio: downloadProfileVideoAudioSchema}),
-	z.object({kind: z.literal('video-only'), codec: playlistVideoCodecSchema, tiers: z.array(playlistVideoTierSchema).min(1)}),
-	z.object({kind: z.literal('audio-only'), audio: downloadProfileAudioSchema})
-])
+export const mediaIntentSchema = z.preprocess(upgradeLegacyVideoMedia, z.discriminatedUnion('kind', [videoAudioMediaSchema, videoOnlyMediaSchema, audioOnlyMediaSchema]))
 export type MediaIntent = z.infer<typeof mediaIntentSchema>
+export type VideoMediaIntent = Extract<MediaIntent, {kind: 'video-audio' | 'video-only'}>
 
 const downloadProfileSubtitlesSchema = z.object({enabled: z.boolean(), languages: z.array(z.string()).max(MAX_SUBTITLE_LANGUAGES), source: downloadProfileSubtitleSourceSchema, mode: subtitleModeSchema, format: subtitleFormatSchema})
 
@@ -326,10 +359,6 @@ export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>
 
 export const networkPacingPresetSchema = z.enum(['off', 'balanced', 'careful', 'custom'])
 export type NetworkPacingPreset = z.infer<typeof networkPacingPresetSchema>
-
-export const nativeAudioPreferenceSchema = z.enum(['compatible', 'surround'])
-export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
-export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
 
 export const pacingSleepSecondsSchema = z.number().min(0).max(120)
 // Parallel connections for one video's media transfer (yt-dlp
@@ -547,7 +576,18 @@ const embedOptionsSchema = z.object({chapters: z.boolean(), metadata: z.boolean(
 const extractorIdentitySchema = {extractor: z.string(), extractorKey: z.string()}
 
 export const preparedJobSchema = z.discriminatedUnion('kind', [
-	z.object({kind: z.literal('single-format'), ...extractorIdentitySchema, formatId: z.string().min(1), filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema, expectedBytes: z.number().positive().optional()}),
+	z.object({
+		kind: z.literal('single-format'),
+		...extractorIdentitySchema,
+		formatId: z.string().min(1),
+		mergeOutputFormat: z.string().min(1).optional(),
+		remuxVideo: z.string().min(1).optional(),
+		filenameTemplate: z.string().min(1).optional(),
+		subtitles: subtitleOptionsSchema.optional(),
+		sponsorBlock: sponsorBlockOptionsSchema,
+		embed: embedOptionsSchema,
+		expectedBytes: z.number().positive().optional()
+	}),
 	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema}),
 	z.object({
 		kind: z.literal('ranged-format'),
@@ -556,6 +596,7 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		formatSelector: z.string().min(1).optional(),
 		formatSort: z.string().min(1).optional(),
 		mergeOutputFormat: z.string().min(1).optional(),
+		remuxVideo: z.string().min(1).optional(),
 		audioConvert: audioConvertSchema.optional(),
 		filenameTemplate: z.string().min(1),
 		subtitles: subtitleOptionsSchema.optional(),

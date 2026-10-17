@@ -2,6 +2,7 @@ import {useMemo} from 'react'
 import {i18next} from '@shared/i18n/index.js'
 import {humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
+import {videoCodecName} from '@shared/fileTypeFit.js'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
 import type {AudioTrackQuality, WizardMediaKind} from '@shared/schemas.js'
 import type {AudioSelection} from './types.js'
@@ -138,7 +139,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 	const videoRows = groupedVideo.map(group => {
 		const rawFormat = formatById.get(group.formatId)
 		const filesize = rawFormat?.filesize
-		const meta = [rawFormat?.ext, rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].flatMap(part => (part ? [part] : [])).join(' · ')
+		const meta = [rawFormat?.ext, videoCodecName(rawFormat?.videoCodec), rawFormat?.fps ? `${rawFormat.fps}fps` : null, rawFormat?.dynamicRange ?? null, filesize ? humanSize(filesize) : null].flatMap(part => (part ? [part] : [])).join(' · ')
 		return {barWidth: filesize ? Math.max(2, (filesize / maxFilesize) * 100) : 0, filesize, formatId: group.formatId, meta, resolution: group.resolution, isProfilePick: group.formatId === profileVideoId}
 	})
 	const nativeAudios = wizardFormats.filter(f => f.isAudioOnly)

@@ -7,6 +7,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
+import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './profileApplication.js'
 import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
 import type {GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
@@ -73,8 +74,11 @@ export const RESET_WIZARD_STATE = {
 	wizardProfile: null as DownloadProfile | null,
 	wizardProfileBaseline: null as WizardSettingsSnapshot | null,
 	wizardFitNotices: [] as FitNotice[],
+	wizardSelectionOrder: null as SelectionOrder | null,
 	wizardFilenameTemplate: DEFAULTS.filenameTemplate,
 	wizardIsAudioOnlySource: false,
+	wizardFileType: 'auto' as const,
+	wizardFileTypeReset: null,
 	wizardSubtitleMode: DEFAULTS.subtitleMode,
 	wizardSubtitleFormat: DEFAULTS.subtitleFormat,
 	// outputConfig

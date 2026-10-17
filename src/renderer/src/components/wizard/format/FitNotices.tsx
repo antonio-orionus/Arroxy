@@ -11,7 +11,8 @@ import {Alert, AlertDescription} from '../../ui/alert.js'
 export function FitNotices(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const notices = useAppStore(state => state.wizardFitNotices)
-	if (notices.length === 0) return null
+	const fileTypeReset = useAppStore(state => state.wizardFileTypeReset)
+	if (notices.length === 0 && !fileTypeReset) return null
 
 	function message(notice: FitNotice): string {
 		switch (notice.kind) {
@@ -19,6 +20,8 @@ export function FitNotices(): ReactNode {
 				return t(notice.picked < Number(notice.wanted) ? 'wizard.formats.fit.tierBelow' : 'wizard.formats.fit.tierAbove', {wanted: notice.wanted, picked: notice.picked})
 			case 'mp4-unavailable':
 				return t('wizard.formats.fit.mp4Unavailable')
+			case 'webm-unavailable':
+				return t('wizard.formats.fit.webmUnavailable', {codec: notice.blocker})
 			case 'no-video':
 				return t('wizard.formats.fit.noVideo')
 			case 'subtitle-languages-missing':
@@ -35,6 +38,7 @@ export function FitNotices(): ReactNode {
 						{message(notice)}
 					</p>
 				))}
+				{fileTypeReset ? <p data-testid="file-type-reset-notice">{t('wizard.formats.savesAs.reset', {codec: fileTypeReset.blocker})}</p> : null}
 			</AlertDescription>
 		</Alert>
 	)

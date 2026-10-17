@@ -2,14 +2,15 @@
 // Format screen. The profile describes intent ("up to 720p, MP4"); the probe
 // lists what this video has. The result names exact format ids so sizes and
 // the review are exact, plus fit notices for every part of the profile this
-// video can't honour. Mirrors the yt-dlp format sort the profile path uses
-// (`mediaIntentSpec`: `vcodec:h264` before `res:N`), so Interactive and Quick
+// video can't honour. Walks the same selection order the queued download's
+// yt-dlp sort is derived from (`selectionOrder.ts`), so Interactive and Quick
 // Download pick the same streams.
 
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {AudioBitrate, AudioSelection, DownloadProfile, DownloadProfileAudioFormat, NativeAudioPreference, PlaylistVideoTier, WizardMediaKind} from './schemas.js'
 import type {FormatOption, SubtitleMap} from './types.js'
 import {preferredNativeAudioId} from './nativeAudioPreference.js'
+import {selectionOrder, type AudioRank, type SelectionOrder, type VideoRank} from './selectionOrder.js'
 import {matchesSubtitleLanguage} from './subtitleLanguages.js'
 
 export interface ProfileSelectionInput {
@@ -27,12 +28,15 @@ export interface MediaSelection {
 	audioSelection: AudioSelection
 }
 
-export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number} | {kind: 'mp4-unavailable'} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
+export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
 
 export interface ProfileSelection {
 	media: MediaSelection
 	subtitleLanguages: string[]
 	notices: FitNotice[]
+	// The order that made the pick, for the "Why this one" explanation. Null
+	// when the profile has no video (audio or subtitles only).
+	order: SelectionOrder | null
 }
 
 const AUTO_CAPTION_SUFFIX = '-orig'
@@ -67,40 +71,85 @@ function codecRank(format: FormatOption): number {
 	return index < 0 ? VIDEO_CODEC_RANK.length : index
 }
 
-// The rest of yt-dlp's default sort once the resolution is fixed:
-// fps, then HDR, then codec, then size.
-function compareSameHeight(a: FormatOption, b: FormatOption): number {
-	return (b.fps ?? 0) - (a.fps ?? 0) || Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined) || codecRank(a) - codecRank(b) || (b.filesize ?? 0) - (a.filesize ?? 0)
+// The ranks after resolution compare streams of one height, best first.
+function compareByRank(rank: VideoRank, a: FormatOption, b: FormatOption): number {
+	switch (rank.kind) {
+		case 'fps':
+			return (b.fps ?? 0) - (a.fps ?? 0)
+		case 'hdr':
+			return Number(b.dynamicRange !== undefined) - Number(a.dynamicRange !== undefined)
+		case 'codec':
+			return codecRank(a) - codecRank(b)
+		case 'size':
+			return (b.filesize ?? 0) - (a.filesize ?? 0)
+		case 'h264':
+		case 'mp4-streams':
+		case 'resolution':
+			return 0
+	}
 }
 
 // The tallest stream at or below the tier (any height for "best"), else the
-// shortest one above it; ties broken like yt-dlp's default sort.
-function pickVideo(videos: readonly FormatOption[], tier: PlaylistVideoTier): FormatOption | undefined {
+// shortest one above it.
+function targetHeight(videos: readonly FormatOption[], tier: PlaylistVideoTier): number {
 	const heights = videos.map(f => videoHeight(f.resolution))
 	const fitting = tier === 'best' ? heights : heights.filter(height => height <= Number(tier))
-	const target = fitting.length > 0 ? Math.max(...fitting) : Math.min(...heights)
-	return videos.filter(f => videoHeight(f.resolution) === target).toSorted(compareSameHeight)[0]
+	return fitting.length > 0 ? Math.max(...fitting) : Math.min(...heights)
 }
 
-// What the profile path's format selector may pick from, narrowed the way its
-// sort is ordered: MP4 profiles sort `vcodec:h264,ext:mp4` before resolution;
-// `bestvideo` (video-only and MP4 profiles) skips muxed streams, falling back
-// to them only when nothing else exists.
-function videoCandidates(videos: readonly FormatOption[], media: Extract<DownloadProfile['media'], {kind: 'video-audio' | 'video-only'}>, notices: FitNotice[]): readonly FormatOption[] {
+// Narrows the pool rank by rank, the way the yt-dlp sort orders them: the
+// ranks before resolution filter (H.264, then MP4 streams; a rank no stream
+// meets is skipped), resolution fixes the height, the rest break ties.
+// Smart TV and video-only take a separate video stream (`bestvideo`), falling
+// back to a muxed one only when nothing else exists.
+function pickVideo(videos: readonly FormatOption[], order: SelectionOrder, notices: FitNotice[]): FormatOption | undefined {
 	let pool = videos
-	if (media.codec === 'mp4') {
-		const h264 = pool.filter(isH264)
-		const h264Mp4 = h264.filter(f => f.ext === 'mp4')
+	const resolutionAt = order.video.findIndex(rank => rank.kind === 'resolution')
+	for (const rank of order.video.slice(0, resolutionAt)) {
+		const narrowed = pool.filter(f => (rank.kind === 'h264' ? isH264(f) : rank.kind === 'mp4-streams' ? f.ext === 'mp4' : true))
 		// Without H.264 the profile can't be honoured anyway: pick by resolution
 		// across every codec so the notice can say what was chosen and why.
-		if (h264.length === 0) notices.push({kind: 'mp4-unavailable'})
-		else pool = h264Mp4.length > 0 ? h264Mp4 : h264
+		if (narrowed.length === 0 && rank.kind === 'h264') {
+			notices.push({kind: 'mp4-unavailable'})
+			break
+		}
+		if (narrowed.length > 0) pool = narrowed
 	}
-	if (media.kind === 'video-only' || media.codec === 'mp4') {
+	if (order.separateVideoStream) {
 		const separate = pool.filter(f => f.isVideoOnly)
 		if (separate.length > 0) pool = separate
 	}
+	const height = targetHeight(pool, order.tier)
+	const tieBreakers = order.video.slice(resolutionAt + 1)
 	return pool
+		.filter(f => videoHeight(f.resolution) === height)
+		.toSorted((a, b) => {
+			for (const rank of tieBreakers) {
+				const result = compareByRank(rank, a, b)
+				if (result !== 0) return result
+			}
+			return 0
+		})[0]
+}
+
+function isOpus(format: FormatOption): boolean {
+	return (format.audioCodec?.toLowerCase() ?? '').startsWith('opus') || format.ext === 'webm'
+}
+
+// AAC and Opus profiles pick inside their codec when the video has it: AAC
+// selects `bestaudio[ext=m4a]` sorted by `acodec:m4a`, so Dolby (also .m4a) is
+// never its pick whatever the native preference.
+function videoAudioSelection(rank: AudioRank, audioFormats: readonly FormatOption[], preference: NativeAudioPreference): AudioSelection {
+	if (rank.kind === 'aac') {
+		const m4a = audioFormats.filter(f => f.ext === 'm4a')
+		if (m4a.length > 0) return nativeAudio(m4a, 'compatible')
+		return nativeAudio(audioFormats, preference)
+	}
+	if (rank.kind === 'opus') {
+		const opus = audioFormats.filter(isOpus)
+		return nativeAudio(opus.length > 0 ? opus : audioFormats, preference)
+	}
+	return nativeAudio(audioFormats, preference)
 }
 
 function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; bitrateKbps?: AudioBitrate}, audioFormats: readonly FormatOption[], preference: NativeAudioPreference): AudioSelection {
@@ -112,33 +161,29 @@ function audioOnlySelection(profileAudio: {format: DownloadProfileAudioFormat; b
 	return nativeAudio(audioFormats, preference)
 }
 
-function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): MediaSelection {
+function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {
 	const {profile, formats, nativeAudioPreference} = input
 	const media = profile.media
 	const videos = formats.filter(f => !f.isAudioOnly)
 	const audioFormats = formats.filter(f => f.isAudioOnly)
 
-	if (media.kind === 'subtitles-only') return {kind: 'subtitles', videoFormatId: '', audioSelection: NO_AUDIO}
-	if (media.kind === 'audio-only') return {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection(media.audio, audioFormats, nativeAudioPreference)}
+	if (media.kind === 'subtitles-only') return {media: {kind: 'subtitles', videoFormatId: '', audioSelection: NO_AUDIO}, order: null}
+	if (media.kind === 'audio-only') return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection(media.audio, audioFormats, nativeAudioPreference)}, order: null}
 
+	const order = selectionOrder(media, nativeAudioPreference)
 	if (input.isAudioOnlySource || videos.length === 0) {
 		notices.push({kind: 'no-video'})
-		return {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, audioFormats, nativeAudioPreference)}
+		return {media: {kind: 'audio', videoFormatId: '', audioSelection: audioOnlySelection({format: 'best'}, audioFormats, nativeAudioPreference)}, order}
 	}
 
-	const candidates = videoCandidates(videos, media, notices)
-	const tier = media.tiers[0] ?? 'best'
-	const picked = pickVideo(candidates, tier)
-	if (!picked) return {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}
+	const picked = pickVideo(videos, order, notices)
+	if (!picked) return {media: {kind: 'video', videoFormatId: '', audioSelection: NO_AUDIO}, order}
 	const pickedHeight = videoHeight(picked.resolution)
-	if (tier !== 'best' && pickedHeight !== Number(tier)) notices.push({kind: 'video-tier-fallback', wanted: tier, picked: pickedHeight})
+	if (order.tier !== 'best' && pickedHeight !== Number(order.tier)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
 
-	if (media.kind === 'video-only' || !picked.isVideoOnly) return {kind: 'video', videoFormatId: picked.formatId, audioSelection: NO_AUDIO}
-	// M4A profiles select `bestaudio[ext=m4a]` sorted by `acodec:m4a`: AAC, so
-	// Dolby (also .m4a) is never their pick whatever the native preference.
-	const m4a = audioFormats.filter(f => f.ext === 'm4a')
-	if (media.audio.format === 'm4a' && m4a.length > 0) return {kind: 'video', videoFormatId: picked.formatId, audioSelection: nativeAudio(m4a, 'compatible')}
-	return {kind: 'video', videoFormatId: picked.formatId, audioSelection: nativeAudio(audioFormats, nativeAudioPreference)}
+	const audioRank = order.audio?.[0]
+	if (!audioRank || !picked.isVideoOnly) return {media: {kind: 'video', videoFormatId: picked.formatId, audioSelection: NO_AUDIO}, order}
+	return {media: {kind: 'video', videoFormatId: picked.formatId, audioSelection: videoAudioSelection(audioRank, audioFormats, order.nativeAudio?.preference ?? nativeAudioPreference)}, order}
 }
 
 function baseLanguage(trackKey: string): string {
@@ -171,7 +216,7 @@ function resolveSubtitles(input: ProfileSelectionInput, notices: FitNotice[]): s
 
 export function resolveProfileSelection(input: ProfileSelectionInput): ProfileSelection {
 	const notices: FitNotice[] = []
-	const media = resolveMedia(input, notices)
+	const {media, order} = resolveMedia(input, notices)
 	const subtitleLanguages = resolveSubtitles(input, notices)
-	return {media, subtitleLanguages, notices}
+	return {media, subtitleLanguages, notices, order}
 }

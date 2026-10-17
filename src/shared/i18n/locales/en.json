@@ -285,7 +285,7 @@
 				"invalid": "Use a whole number from 1 to 5000",
 				"tooltip": "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 			},
-			"nativeAudioPreference": {"label": "Native audio preference", "description": "Controls what Best native chooses. Manual audio rows and M4A/AAC stay explicit.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
+			"nativeAudioPreference": {"label": "Native audio preference", "description": "Stereo or surround when a profile picks native audio. A profile can override it.", "compatible": "Compatible stereo", "surround": "Prefer surround / Dolby"},
 			"autoRetry": {"label": "Retry failed downloads", "description": "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically.", "unit": "times"},
 			"concurrentDownloads": {"label": "Downloads at once", "description": "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you.", "unit": "downloads"},
 			"downloadConnections": {"label": "Download connections", "description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.", "unit": "connections"},
@@ -346,9 +346,10 @@
 			"fit": {
 				"tierBelow": "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected.",
 				"tierAbove": "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected.",
-				"mp4Unavailable": "Your profile asks for MP4 (H.264). This video doesn't offer it, so the closest stream is selected.",
+				"mp4Unavailable": "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected.",
 				"noVideo": "This link has no video, so audio is selected.",
-				"subtitlesMissing": "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+				"subtitlesMissing": "Your profile asks for subtitles in {{languages}}. This video doesn't have them.",
+				"webmUnavailable": "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
 			},
 			"summary": {"lead": "Also from {{profile}}:", "subtitlesOff": "subtitles off", "subtitlesAdd_one": "{{count}} language available, add", "subtitlesAdd_other": "{{count}} languages available, add", "reviewAll": "Review all"},
 			"footer": {"reviewOptions": "Review & options", "download": "Download", "moreActions": "More download options", "addToQueue": "Add to queue without starting", "subtitlesRequired": "Choose at least one subtitle language."},
@@ -403,7 +404,8 @@
 					"fixUnsafeBody": "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again.",
 					"docsLinkLabel": "yt-dlp docs (issue #10927)"
 				}
-			}
+			},
+			"savesAs": {"label": "Saves as", "reset": "WebM can't hold {{codec}}, so the file type went back to Auto."}
 		},
 		"folder": {
 			"heading": "Save to",
@@ -471,7 +473,8 @@
 			"itemsValueBulk_other": "{{count}} of {{total}} URLs",
 			"profileBreakdownHeading": "Profiles in this batch",
 			"profileBreakdownCount_one": "{{count}} item",
-			"profileBreakdownCount_other": "{{count}} items"
+			"profileBreakdownCount_other": "{{count}} items",
+			"subtitleEmbedForcesMkv": "Subtitles inside the video need an MKV file, so this download saves as .mkv."
 		},
 		"profileEditor": {
 			"dialogTitle": "Download Profile",
@@ -487,7 +490,6 @@
 			"field": {
 				"nameAndIcon": "Profile name and icon",
 				"icon": "Profile icon",
-				"compatibility": "Compatibility",
 				"resolution": "Resolution",
 				"quality": "Quality",
 				"source": "Source",
@@ -497,7 +499,10 @@
 				"subtitleDownloadsDescription": "Profiles request language codes; availability is resolved for each URL.",
 				"languages": "Languages",
 				"delivery": "Delivery",
-				"overridePath": "Profile override path"
+				"overridePath": "Profile override path",
+				"goal": "Optimize for",
+				"fileType": "File type",
+				"nativeAudio": "Native audio"
 			},
 			"action": {
 				"chooseIcon": "Choose profile icon",
@@ -532,11 +537,16 @@
 			},
 			"icon": {"controls": "Controls", "download": "Download", "video": "Video", "captions": "Captions", "audio": "Audio", "music": "Music", "podcast": "Podcast", "classes": "Classes", "clip": "Clip", "archive": "Archive"},
 			"audioFormat": {"best": "Best", "wav": "WAV"},
-			"videoAudioFormat": {"m4a": "M4A / AAC"},
 			"audioQuality": {"best": "Best quality", "320": "Up to 320K", "192": "Up to 192K", "128": "Up to 128K"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},
 			"subtitleSource": {"manualFirst": "Manual first, then auto", "manualOnly": "Manual only", "autoOnly": "Auto-generated only"},
-			"sponsorBlockHint": {"off": "No SponsorBlock — video plays as uploaded.", "mark": "Marks sponsor segments as chapters (non-destructive).", "remove": "Cuts sponsor segments from the video using FFmpeg."}
+			"sponsorBlockHint": {"off": "No SponsorBlock — video plays as uploaded.", "mark": "Marks sponsor segments as chapters (non-destructive).", "remove": "Cuts sponsor segments from the video using FFmpeg."},
+			"advanced": "Advanced",
+			"goal": {
+				"bestPicture": {"name": "Best picture", "tag": "AV1 · VP9", "description": "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."},
+				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."}
+			},
+			"nativeAudio": {"default": "Use app setting ({{value}})"}
 		}
 	},
 	"videoCard": {"titlePlaceholder": "Loading…"},
@@ -819,5 +829,38 @@
 			"signOutConfirm": "Sign out"
 		},
 		"error": {"proxyTitle": "Explore can't connect through your proxy", "proxyBody": "Check the proxy in Settings, then try again.", "loadTitle": "This page didn't load", "loadBody": "Check your connection, then try again.", "retry": "Retry", "openSettings": "Open Settings"}
+	},
+	"fileType": {
+		"auto": "Auto",
+		"autoValue": "Auto (.{{ext}})",
+		"mp4": "MP4",
+		"mkv": "MKV",
+		"webm": "WebM",
+		"description": {"auto": "The picked streams decide the file type.", "mp4": "Plays almost everywhere. VP9 or AV1 in MP4 won't open in QuickTime on older Macs.", "mkv": "Holds any codec. Some TVs and phones can't open it.", "webm": "Open format for browsers. Holds only VP9 or AV1 with Opus."},
+		"webmBlocked": "WebM can't hold {{codec}}. Choose MKV or MP4.",
+		"profileMark": "Profile",
+		"smartTvNoWebm": "WebM isn't offered with Smart TV: it can't hold H.264."
+	},
+	"selectionOrder": {
+		"editorTitle": "How this profile picks",
+		"whyTitle": "Why the profile picked this",
+		"whyLabel": "Why this one?",
+		"rank": {
+			"h264": {"label": "H.264 video", "reason": "plays on every device"},
+			"mp4Streams": {"label": "MP4 streams", "reason": "ready for an MP4 file"},
+			"resolutionBest": {"label": "Highest resolution", "reason": "no limit set"},
+			"resolution": {"label": "Up to {{tier}}p", "reason": "your limit"},
+			"fps": {"label": "Highest frame rate", "reason": "smoother motion"},
+			"hdr": {"label": "HDR before SDR", "reason": "the usual order"},
+			"codec": {"label": "AV1, then VP9, then H.264", "reason": "sharpest at a given size"},
+			"size": {"label": "Larger file", "reason": "more detail at the same settings"},
+			"aacSmartTv": {"label": "AAC audio", "reason": "plays everywhere"},
+			"aacFileType": {"label": "AAC audio", "reason": "fits MP4 players"},
+			"opus": {"label": "Opus audio", "reason": "fits WebM"},
+			"nativeCompatible": {"label": "Stereo audio"},
+			"nativeSurround": {"label": "Surround audio when offered"},
+			"nativeSource": {"settings": "from Settings", "profile": "this profile"}
+		},
+		"summary": {"goal": {"bestPicture": "best picture", "smartTv": "plays on any device"}, "fileType": {"auto": "file type from the streams", "explicit": "saves as .{{ext}}"}}
 	}
 }

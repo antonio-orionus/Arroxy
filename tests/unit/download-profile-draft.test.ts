@@ -3,7 +3,7 @@ import {DEFAULTS} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {downloadProfileSchema, MAX_SUBTITLE_LANGUAGES} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
-import {canDraftEmbedThumbnail, createDownloadProfileDraft, downloadProfileFromDraft, type DownloadProfileDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
+import {canDraftEmbedThumbnail, createDownloadProfileDraft, downloadProfileFromDraft, draftSelectionOrder, type DownloadProfileDraft, updateDownloadProfileDraft, validateDownloadProfileDraft} from '@renderer/store/wizard/downloadProfileDraft.js'
 
 const NOW = '2026-06-10T12:00:00.000Z'
 
@@ -11,18 +11,42 @@ describe('DownloadProfileDraft', () => {
 	it('initializes from a built-in profile', () => {
 		const draft = createDownloadProfileDraft(BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!)
 
-		expect(draft).toMatchObject({profileId: 'balanced', profileName: 'Balanced 720p', profileIcon: 'controls', mediaMode: 'video-audio', codec: 'best', resolution: '720', audioFormat: 'best', subfolderName: 'Balanced 720p'})
+		expect(draft).toMatchObject({profileId: 'balanced', profileName: 'Balanced 720p', profileIcon: 'controls', mediaMode: 'video-audio', goal: 'best-picture', resolution: '720', fileType: 'auto', nativeAudio: 'default', subfolderName: 'Balanced 720p'})
 	})
 
-	it('keeps codec and video-audio format coupled', () => {
+	it('never keeps Smart TV as a WebM file', () => {
 		let draft = createDownloadProfileDraft(null)
 
-		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
-		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'mp4'})
-		expect(draft.audioFormat).toBe('m4a')
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'webm'})
+		expect(draft.fileType).toBe('webm')
 
-		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'best'})
-		expect(draft.audioFormat).toBe('best')
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'})
+		expect(draft.fileType).toBe('auto')
+		draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'webm'})
+		expect(draft.fileType).toBe('auto')
+	})
+
+	it('saves the goal, file type and native audio choice into the profile media', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '2160'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-file-type', fileType: 'mp4'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-native-audio', nativeAudio: 'surround'})
+
+		const profile = downloadProfileFromDraft(draft, '2026-10-17T00:00:00.000Z', () => 'id-1')
+		expect(profile.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '2160', fileType: 'mp4', audio: {native: {kind: 'custom', preference: 'surround'}}})
+	})
+
+	it('describes the order a draft would pick by, with the settings audio choice', () => {
+		let draft = createDownloadProfileDraft(null)
+		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'best-picture'})
+
+		expect(draftSelectionOrder(draft, 'surround')?.nativeAudio).toEqual({preference: 'surround', source: 'settings'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'audio-only'})
+		expect(draftSelectionOrder(draft, 'surround')).toBeNull()
 	})
 
 	it('caps Smart TV H.264 MP4 profiles at 1080p when codec changes', () => {
@@ -30,27 +54,26 @@ describe('DownloadProfileDraft', () => {
 
 		draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'video-audio'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '2160'})
-		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'mp4'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'})
 
 		expect(draft.resolution).toBe('1080')
-		expect(draft.audioFormat).toBe('m4a')
 	})
 
 	it('caps newly selected Smart TV H.264 MP4 resolutions above 1080p', () => {
 		let draft = createDownloadProfileDraft(null)
 
-		draft = updateDownloadProfileDraft(draft, {type: 'set-codec', codec: 'mp4'})
+		draft = updateDownloadProfileDraft(draft, {type: 'set-goal', goal: 'smart-tv'})
 		draft = updateDownloadProfileDraft(draft, {type: 'set-resolution', resolution: '1440'})
 
 		expect(draft.resolution).toBe('1080')
 	})
 
 	it('normalizes legacy custom Smart TV H.264 MP4 profiles above 1080p when editing', () => {
-		const legacyProfile: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'custom-mp4-2160', name: 'Custom MP4 2160p', media: {kind: 'video-audio', codec: 'mp4', tiers: ['2160'], audio: {format: 'm4a'}}}
+		const legacyProfile: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, id: 'custom-mp4-2160', name: 'Custom MP4 2160p', media: {kind: 'video-audio', goal: 'smart-tv', tier: '2160', fileType: 'auto', audio: {native: {kind: 'default'}}}}
 
 		const draft = createDownloadProfileDraft(legacyProfile)
 
-		expect(draft.codec).toBe('mp4')
+		expect(draft.goal).toBe('smart-tv')
 		expect(draft.resolution).toBe('1080')
 	})
 

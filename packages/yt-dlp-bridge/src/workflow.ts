@@ -66,7 +66,10 @@ export interface CallerMediaWorkflowInput {
 	kind: 'media'
 	url: string
 	output: CallerOutput
-	selection?: {formatId?: string; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; skipDownload?: boolean}
+	// `mergeOutputFormat` and `remuxVideo` pass through as yt-dlp's
+	// `--merge-output-format` / `--remux-video` (lossless container change).
+	// Embedded subtitles force MKV and win over both.
+	selection?: {formatId?: string; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; remuxVideo?: string; skipDownload?: boolean}
 	audio?: {convert?: AudioConvert}
 	subtitles?: {embed?: boolean; languages: string[]; writeAuto?: boolean; autoOnly?: boolean}
 	sponsorBlock?: SponsorBlockPlan
@@ -611,10 +614,12 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 	if (selection?.formatSelector) {
 		args.push('-f', selection.formatSelector)
 		if (selection.formatSort) args.push('-S', selection.formatSort)
-		if (selection.mergeOutputFormat && !embedSubs) args.push('--merge-output-format', selection.mergeOutputFormat)
-		return
+	} else if (selection?.formatId) {
+		args.push('-f', selection.formatId)
 	}
-	if (selection?.formatId) args.push('-f', selection.formatId)
+	if (embedSubs) return
+	if (selection?.mergeOutputFormat) args.push('--merge-output-format', selection.mergeOutputFormat)
+	if (selection?.remuxVideo) args.push('--remux-video', selection.remuxVideo)
 }
 
 function appendCallerOutputArgs(args: string[], input: CallerMediaWorkflowInput, skipDownload: boolean): void {
@@ -819,7 +824,7 @@ function callerMediaDependencyReasons(input: CallerMediaWorkflowInput, audioConv
 		addReason(deps, 'ffprobe', 'audio extraction/conversion needs stream probing')
 	}
 	if (input.selection?.formatSelector?.includes('+') || input.selection?.formatId?.includes('+')) addReason(deps, 'ffmpeg', 'selected formats may require audio/video merge')
-	if (input.selection?.mergeOutputFormat) addReason(deps, 'ffmpeg', 'remux requested')
+	if (input.selection?.mergeOutputFormat || input.selection?.remuxVideo) addReason(deps, 'ffmpeg', 'remux requested')
 	if (embedSubs) addReason(deps, 'ffmpeg', 'asset or metadata embedding requested')
 	if (input.embed?.thumbnail) addReason(deps, 'ffmpeg', 'thumbnail conversion or embedding requested')
 	if (input.sponsorBlock?.mode === 'remove') addReason(deps, 'ffmpeg', 'SponsorBlock segment removal requested')
@@ -901,7 +906,7 @@ function postprocessSideEffects(input: NormalizedPostprocessInput): string[] {
 function callerMediaSideEffects(input: CallerMediaWorkflowInput, audioConvert: AudioConvert | undefined, embedSubs: boolean, skipDownload: boolean): string[] {
 	const sideEffects = skipDownload ? ['write requested sidecar data'] : ['create output files', 'create temporary files']
 	if (audioConvert) sideEffects.push('extract audio with ffmpeg')
-	if (input.selection?.mergeOutputFormat) sideEffects.push('remux media container')
+	if (input.selection?.mergeOutputFormat || input.selection?.remuxVideo) sideEffects.push('remux media container')
 	if (embedSubs || input.embed?.metadata || input.embed?.thumbnail) sideEffects.push('embed assets/metadata')
 	if (input.sponsorBlock?.mode === 'remove') sideEffects.push('remove SponsorBlock segments')
 	return sideEffects

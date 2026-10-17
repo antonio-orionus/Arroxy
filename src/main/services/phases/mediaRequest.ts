@@ -44,7 +44,7 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 	const formatId = job.kind === 'single-format' ? job.formatId : undefined
 	const formatSelector = job.kind === 'ranged-format' ? job.formatSelector : undefined
 	const formatSort = job.kind === 'ranged-format' ? job.formatSort : undefined
-	const mergeOutputFormat = job.kind === 'ranged-format' ? job.mergeOutputFormat : undefined
+	const {mergeOutputFormat, remuxVideo} = job.kind === 'ranged-format' || job.kind === 'single-format' ? job : {mergeOutputFormat: undefined, remuxVideo: undefined}
 	const audioConvert = job.kind === 'audio-convert' ? job.audioConvert : job.kind === 'ranged-format' ? job.audioConvert : undefined
 	const bridgeConvert = audioConvert ? bridgeAudioConvert(audioConvert) : undefined
 	const outputTemplate = compiledOutputTemplate(job.filenameTemplate)
@@ -56,7 +56,7 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 		kind: 'media',
 		url,
 		output: {directory: outputDir, ...(tempDir ? {tempDirectory: tempDir} : {}), ...(outputTemplate ? {template: outputTemplate} : {})},
-		selection: {formatId, formatSelector, formatSort, mergeOutputFormat},
+		selection: {formatId, formatSelector, formatSort, mergeOutputFormat, remuxVideo},
 		...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
 		...(embed && (job.subtitles?.languages.length ?? 0) > 0 && job.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(job.subtitles), writeAuto: job.subtitles.writeAuto, ...(job.subtitles.autoOnly ? {autoOnly: true} : {})}} : {}),
 		...(sbConfig ? {sponsorBlock: sbConfig} : {}),

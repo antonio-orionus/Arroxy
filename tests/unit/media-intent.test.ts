@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec} from '@shared/mediaIntent.js'
 import type {MediaIntent} from '@shared/schemas.js'
 
-const BEST_VIDEO: MediaIntent = {kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'best'}}
+const BEST_VIDEO: MediaIntent = {kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}}
 const BEST_AUDIO: MediaIntent = {kind: 'audio-only', audio: {format: 'best'}}
 const NON_DRC_AUDIO_FILTERS = "[format_id!~=?'(?i)(?:^|[-_\\s])drc(?:$|[-_\\s])'][format_note!~=?'(?i)\\bdrc\\b']"
 const COMPATIBLE_AUDIO_CODEC_FILTER = "[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']"
@@ -52,7 +52,7 @@ describe('mediaIntentSpec native audio preference', () => {
 	})
 
 	it('explicit m4a/aac selectors stay unchanged', () => {
-		const spec = mediaIntentSpec({kind: 'video-audio', codec: 'best', tiers: ['best'], audio: {format: 'm4a'}}, 'surround')
+		const spec = mediaIntentSpec({kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'mp4', audio: {native: {kind: 'default'}}}, 'surround')
 
 		expect(spec.formatSelector).toBe('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best')
 		expect(spec.formatSort).toBe('acodec:m4a')

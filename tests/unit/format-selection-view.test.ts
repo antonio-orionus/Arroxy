@@ -166,3 +166,23 @@ describe('selectView — media kinds', () => {
 		expect(view.audio.nativeRows).toEqual([expect.objectContaining({formatId: '140-1', title: 'English original (default)', quality: 'medium', meta: 'm4a · AAC · 130 kbps'}), expect.objectContaining({formatId: '251', title: '', quality: 'low', meta: 'webm · Opus · 122 kbps'})])
 	})
 })
+
+describe('selectView — video row meta', () => {
+	const CODEC_FORMATS: FormatOption[] = [
+		{formatId: '401', label: '2160p av1', ext: 'mp4', resolution: '3840x2160', fps: 60, dynamicRange: 'HDR10', filesize: 1_100_000_000, videoCodec: 'av01.0.12M.10', isVideoOnly: true, isAudioOnly: false},
+		{formatId: '313', label: '2160p vp9', ext: 'webm', resolution: '3840x2160', fps: 60, videoCodec: 'vp09.00.51.08', isVideoOnly: true, isAudioOnly: false},
+		{formatId: '135', label: '480p', ext: 'mp4', resolution: '854x480', fps: 30, isVideoOnly: true, isAudioOnly: false}
+	]
+
+	it('names the video codec after the container, so rows that differ only by codec can be told apart', () => {
+		const view = selectView({selectedVideoFormatId: '401', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: CODEC_FORMATS})
+
+		expect(view.video.rows.map(row => row.meta)).toEqual(['mp4 · AV1 · 60fps · HDR10 · 1.0 GB', 'webm · VP9 · 60fps', 'mp4 · 30fps'])
+	})
+
+	it('leaves a stream whose codec is unknown as it was', () => {
+		const view = selectView({selectedVideoFormatId: '135', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: CODEC_FORMATS})
+
+		expect(view.video.rows.find(row => row.formatId === '135')?.meta).toBe('mp4 · 30fps')
+	})
+})

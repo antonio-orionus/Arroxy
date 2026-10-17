@@ -80,8 +80,7 @@ export function availableMaxHeight(infoJsonText: string): number | null {
 
 function requestedCap(intent: MediaIntent): number | null {
 	if (intent.kind === 'audio-only') return null
-	const numeric = intent.tiers.flatMap(tier => (tier === 'best' ? [] : [Number(tier)]))
-	return intent.tiers.includes('best') || numeric.length === 0 ? Number.POSITIVE_INFINITY : Math.max(...numeric)
+	return intent.tier === 'best' ? Number.POSITIVE_INFINITY : Number(intent.tier)
 }
 
 export interface QualityLimit {

@@ -1,5 +1,6 @@
 import {DEFAULTS} from '@shared/constants.js'
-import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, PlaylistVideoCodec, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import type {AudioBitrate, DownloadProfile, DownloadProfileAudioFormat, DownloadProfileIcon, DownloadProfileSubtitleSource, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, VideoGoal} from '@shared/types.js'
+import {effectiveFileType, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
 import {isValidSubfolder, safeFolderName} from '@shared/subfolder.js'
@@ -7,6 +8,8 @@ import {type FilenameTemplateFailure, validateFilenameTemplate} from '@shared/fi
 
 export type DownloadProfileMediaMode = DownloadProfile['media']['kind']
 export type DownloadProfileAudioQuality = 'best' | '320' | '192' | '128'
+// The editor's Native audio select: follow Settings, or this profile's own.
+export type DownloadProfileNativeAudio = 'default' | NativeAudioPreference
 
 export interface DownloadProfileDraft {
 	profileId: string | null
@@ -15,8 +18,10 @@ export interface DownloadProfileDraft {
 	profileName: string
 	profileIcon: DownloadProfileIcon
 	mediaMode: DownloadProfileMediaMode
-	codec: PlaylistVideoCodec
+	goal: VideoGoal
 	resolution: PlaylistVideoTier
+	fileType: VideoFileType
+	nativeAudio: DownloadProfileNativeAudio
 	audioFormat: DownloadProfileAudioFormat
 	audioQuality: DownloadProfileAudioQuality
 	subtitleEnabled: boolean
@@ -42,8 +47,10 @@ export type DownloadProfileDraftAction =
 	| {type: 'set-profile-name'; profileName: string}
 	| {type: 'set-profile-icon'; profileIcon: DownloadProfileIcon}
 	| {type: 'set-media-mode'; mediaMode: DownloadProfileMediaMode}
-	| {type: 'set-codec'; codec: PlaylistVideoCodec}
+	| {type: 'set-goal'; goal: VideoGoal}
 	| {type: 'set-resolution'; resolution: PlaylistVideoTier}
+	| {type: 'set-file-type'; fileType: VideoFileType}
+	| {type: 'set-native-audio'; nativeAudio: DownloadProfileNativeAudio}
 	| {type: 'set-audio-format'; audioFormat: DownloadProfileAudioFormat}
 	| {type: 'set-audio-quality'; audioQuality: DownloadProfileAudioQuality}
 	| {type: 'set-subtitle-enabled'; subtitleEnabled: boolean}
@@ -78,8 +85,8 @@ export function defaultProfileSubfolderName(name: string): string {
 	return safeFolderName(name.trim() || 'Download Profile')
 }
 
-function smartTvCompatibleResolution(codec: PlaylistVideoCodec, resolution: PlaylistVideoTier): PlaylistVideoTier {
-	return codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(resolution) ? SMART_TV_MP4_MAX_TIER : resolution
+function smartTvCompatibleResolution(goal: VideoGoal, resolution: PlaylistVideoTier): PlaylistVideoTier {
+	return goal === 'smart-tv' && SMART_TV_MP4_BLOCKED_TIERS.has(resolution) ? SMART_TV_MP4_MAX_TIER : resolution
 }
 
 function bitrateToQuality(bitrateKbps: number | undefined): DownloadProfileAudioQuality {
@@ -88,31 +95,30 @@ function bitrateToQuality(bitrateKbps: number | undefined): DownloadProfileAudio
 	return bitrateKbps === undefined ? 'best' : '192'
 }
 
-function initialCodec(profile: DownloadProfile | null): PlaylistVideoCodec {
+function videoMedia(profile: DownloadProfile | null): Extract<DownloadProfile['media'], {kind: 'video-audio' | 'video-only'}> | null {
 	const media = profile?.media
-	return media?.kind === 'video-audio' || media?.kind === 'video-only' ? media.codec : 'mp4'
-}
-
-function initialResolution(profile: DownloadProfile | null): PlaylistVideoTier {
-	const media = profile?.media
-	return media?.kind === 'video-audio' || media?.kind === 'video-only' ? (media.tiers[0] ?? '1080') : '1080'
+	return media?.kind === 'video-audio' || media?.kind === 'video-only' ? media : null
 }
 
 function initialAudioFormat(profile: DownloadProfile | null): DownloadProfileAudioFormat {
 	const media = profile?.media
-	if (media?.kind === 'audio-only') return media.audio.format
-	if (media?.kind === 'video-audio') return media.audio.format
-	return 'm4a'
+	return media?.kind === 'audio-only' ? media.audio.format : 'best'
 }
 
-function nextVideoAudioFormat(codec: PlaylistVideoCodec): Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> {
-	return codec === 'mp4' ? 'm4a' : 'best'
+function initialNativeAudio(profile: DownloadProfile | null): DownloadProfileNativeAudio {
+	const media = profile?.media
+	return media?.kind === 'video-audio' && media.audio.native.kind === 'custom' ? media.audio.native.preference : 'default'
+}
+
+function nativeAudioChoice(nativeAudio: DownloadProfileNativeAudio): NativeAudioChoice {
+	return nativeAudio === 'default' ? {kind: 'default'} : {kind: 'custom', preference: nativeAudio}
 }
 
 export function createDownloadProfileDraft(initialProfile: DownloadProfile | null): DownloadProfileDraft {
 	const profileName = initialProfile?.name ?? 'Study Captions'
-	const codec = initialCodec(initialProfile)
-	const resolution = smartTvCompatibleResolution(codec, initialResolution(initialProfile))
+	const video = videoMedia(initialProfile)
+	const goal = video?.goal ?? 'smart-tv'
+	const resolution = smartTvCompatibleResolution(goal, video?.tier ?? '1080')
 	return {
 		profileId: initialProfile?.id ?? null,
 		createdAt: initialProfile?.createdAt ?? null,
@@ -120,8 +126,10 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		profileName,
 		profileIcon: initialProfile?.icon ?? 'captions',
 		mediaMode: initialProfile?.media.kind ?? 'video-audio',
-		codec,
+		goal,
 		resolution,
+		fileType: effectiveFileType(goal, video?.fileType ?? 'auto'),
+		nativeAudio: initialNativeAudio(initialProfile),
 		audioFormat: initialAudioFormat(initialProfile),
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
@@ -154,11 +162,15 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 			return {...draft, profileIcon: action.profileIcon}
 		case 'set-media-mode':
 			if (action.mediaMode === 'audio-only') return {...draft, mediaMode: action.mediaMode, audioFormat: 'best', audioQuality: 'best'}
-			return {...draft, mediaMode: action.mediaMode, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled, audioFormat: nextVideoAudioFormat(draft.codec), audioQuality: 'best'}
-		case 'set-codec':
-			return {...draft, codec: action.codec, resolution: smartTvCompatibleResolution(action.codec, draft.resolution), audioFormat: draft.mediaMode === 'video-audio' ? nextVideoAudioFormat(action.codec) : draft.audioFormat}
+			return {...draft, mediaMode: action.mediaMode, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled}
+		case 'set-goal':
+			return {...draft, goal: action.goal, resolution: smartTvCompatibleResolution(action.goal, draft.resolution), fileType: effectiveFileType(action.goal, draft.fileType)}
 		case 'set-resolution':
-			return {...draft, resolution: smartTvCompatibleResolution(draft.codec, action.resolution)}
+			return {...draft, resolution: smartTvCompatibleResolution(draft.goal, action.resolution)}
+		case 'set-file-type':
+			return {...draft, fileType: effectiveFileType(draft.goal, action.fileType)}
+		case 'set-native-audio':
+			return {...draft, nativeAudio: action.nativeAudio}
 		case 'set-audio-format':
 			return {...draft, audioFormat: action.audioFormat}
 		case 'set-audio-quality':
@@ -215,8 +227,16 @@ function initialSponsorBlockCategories(initialProfile: DownloadProfile | null): 
 function profileMediaFromDraft(draft: DownloadProfileDraft): DownloadProfile['media'] {
 	if (draft.mediaMode === 'audio-only') return {kind: 'audio-only', audio: draft.audioFormat === 'best' || draft.audioFormat === 'wav' ? {format: draft.audioFormat} : {format: draft.audioFormat, bitrateKbps: audioBitrateFromQuality(draft.audioQuality)}}
 	if (draft.mediaMode === 'subtitles-only') return {kind: 'subtitles-only'}
-	if (draft.mediaMode === 'video-audio') return {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution], audio: {format: videoAudioFormat(draft)}}
-	return {kind: draft.mediaMode, codec: draft.codec, tiers: [draft.resolution]}
+	const video = {goal: draft.goal, tier: draft.resolution, fileType: effectiveFileType(draft.goal, draft.fileType)}
+	if (draft.mediaMode === 'video-audio') return {kind: draft.mediaMode, ...video, audio: {native: nativeAudioChoice(draft.nativeAudio)}}
+	return {kind: draft.mediaMode, ...video}
+}
+
+// The order the draft would pick streams by, for the editor's summary and list.
+// Null when the draft has no video.
+export function draftSelectionOrder(draft: DownloadProfileDraft, globalPreference: NativeAudioPreference): SelectionOrder | null {
+	const media = profileMediaFromDraft(draft)
+	return media.kind === 'video-audio' || media.kind === 'video-only' ? selectionOrder(media, globalPreference) : null
 }
 
 export function canDraftEmbedThumbnail(draft: DownloadProfileDraft): boolean {
@@ -237,10 +257,6 @@ function audioBitrateFromQuality(audioQuality: DownloadProfileAudioQuality): Aud
 
 function effectiveSubtitleEnabled(draft: DownloadProfileDraft): boolean {
 	return draft.mediaMode === 'subtitles-only' || draft.subtitleEnabled
-}
-
-function videoAudioFormat(draft: DownloadProfileDraft): Extract<DownloadProfileAudioFormat, 'best' | 'm4a'> {
-	return draft.audioFormat === 'm4a' ? 'm4a' : 'best'
 }
 
 export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: string, idFactory: () => string): DownloadProfile {

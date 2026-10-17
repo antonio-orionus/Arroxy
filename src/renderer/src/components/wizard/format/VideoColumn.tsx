@@ -51,7 +51,7 @@ export function VideoColumn({view, selectedVideoFormatId, videoExtFilter, dynami
 				{/* A disabled column shows nothing as chosen, even though the store keeps a selection. */}
 				<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="gap-1">
 					{view.rows.map(row => (
-						<ChoiceRow key={row.formatId} id={`video-format-${row.formatId}`} value={row.formatId} label={row.resolution} tag={row.isProfilePick ? <ProfileTag closest={view.profilePickIsFallback} /> : null} meta={row.meta} disabled={view.disabled} />
+						<ChoiceRow key={row.formatId} id={`video-format-${row.formatId}`} value={row.formatId} label={row.resolution} tag={row.isProfilePick ? <ProfileTag closest={view.profilePickIsFallback} /> : null} meta={row.meta} disabled={view.disabled} fixedLabel />
 					))}
 				</RadioGroup>
 			</ScrollArea>

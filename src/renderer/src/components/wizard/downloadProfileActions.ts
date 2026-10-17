@@ -23,13 +23,13 @@ export interface DownloadProfileActionModel {
 export function quickProfileSummary(profile: DownloadProfile): string {
 	switch (profile.media.kind) {
 		case 'video-audio': {
-			const tier = profile.media.tiers[0] ?? 'best'
+			const {tier, goal} = profile.media
 			const video = tier === 'best' ? 'best video' : `${tier}p`
-			const audio = profile.media.audio.format === 'm4a' ? 'AAC audio' : 'best audio'
+			const audio = goal === 'smart-tv' || profile.media.fileType === 'mp4' ? 'AAC audio' : 'best audio'
 			return `${video} · ${audio}`
 		}
 		case 'video-only': {
-			const tier = profile.media.tiers[0] ?? 'best'
+			const {tier} = profile.media
 			return tier === 'best' ? 'best video · no audio' : `${tier}p · no audio`
 		}
 		case 'audio-only':

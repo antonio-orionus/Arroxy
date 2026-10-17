@@ -34,7 +34,7 @@ const RANGED_720: MediaJob = {
 	kind: 'ranged-format',
 	extractor: 'youtube',
 	extractorKey: 'Youtube',
-	intent: {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}},
+	intent: {kind: 'video-audio', goal: 'best-picture', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}},
 	formatSelector: 'bestvideo*+bestaudio/best',
 	formatSort: 'res:720,fps',
 	filenameTemplate: '{title} [{id}]',

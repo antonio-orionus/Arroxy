@@ -402,6 +402,32 @@ describe('settings and recent stores', () => {
 		expect(reloaded.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
 	})
 
+	it('reads profiles saved with a codec and a tiers list into goal, tier and file type', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-goal-migrate-'))
+		const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const legacy = (id: string, media: unknown) => ({...base, id, name: id, media, createdAt: NOW, updatedAt: NOW})
+		const custom = [
+			legacy('old-smart-tv', {kind: 'video-audio', codec: 'mp4', tiers: ['720'], audio: {format: 'm4a'}}),
+			legacy('old-native', {kind: 'video-audio', codec: 'best', tiers: ['1440'], audio: {format: 'best'}}),
+			legacy('old-native-aac', {kind: 'video-audio', codec: 'best', tiers: ['1080'], audio: {format: 'm4a'}}),
+			legacy('old-video-only', {kind: 'video-only', codec: 'mp4', tiers: ['480']}),
+			legacy('old-audio', {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
+		]
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'old-smart-tv'}, custom, overrides: [legacy('balanced', {kind: 'video-audio', codec: 'best', tiers: ['720'], audio: {format: 'best'}})]}}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		const media = Object.fromEntries(settings.profiles.custom.map(profile => [profile.id, profile.media]))
+
+		expect(settings.profiles.custom).toHaveLength(5)
+		expect(settings.profiles.active).toEqual({kind: 'custom', id: 'old-smart-tv'})
+		expect(media['old-smart-tv']).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '720', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(media['old-native']).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'auto', audio: {native: {kind: 'default'}}})
+		expect(media['old-native-aac']).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
+		expect(media['old-video-only']).toEqual({kind: 'video-only', goal: 'smart-tv', tier: '480', fileType: 'auto'})
+		expect(media['old-audio']).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}})
+		expect(settings.profiles.overrides[0]?.media).toMatchObject({goal: 'best-picture', tier: '720'})
+	})
+
 	// One unparseable profile must not cost the user every other profile they
 	// built. Whole-object validation would reset the entire bucket, including
 	// the active selection, with nothing on disk or in the log to explain it.
