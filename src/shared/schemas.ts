@@ -595,6 +595,8 @@ const subtitleOptionsSchema = z.object({languages: z.array(z.string()), mode: su
 
 const sponsorBlockOptionsSchema = z.discriminatedUnion('mode', [z.object({mode: z.literal('off')}), z.object({mode: z.enum(['mark', 'remove']), categories: z.array(sponsorBlockCategorySchema)})])
 
+const videoPartSchema = z.object({startSeconds: z.number().int().min(0), endSeconds: z.number().int().positive(), exactCut: z.boolean()}).refine(part => part.startSeconds < part.endSeconds, {message: 'startSeconds must be before endSeconds'})
+
 const embedOptionsSchema = z.object({chapters: z.boolean(), metadata: z.boolean(), thumbnail: z.boolean(), description: z.boolean(), thumbnailSidecar: z.boolean()})
 
 // Each variant carries the yt-dlp `extractor` + `extractor_key` strings that
@@ -613,9 +615,10 @@ export const preparedJobSchema = z.discriminatedUnion('kind', [
 		subtitles: subtitleOptionsSchema.optional(),
 		sponsorBlock: sponsorBlockOptionsSchema,
 		embed: embedOptionsSchema,
-		expectedBytes: z.number().positive().optional()
+		expectedBytes: z.number().positive().optional(),
+		videoPart: videoPartSchema.optional()
 	}),
-	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema}),
+	z.object({kind: z.literal('audio-convert'), ...extractorIdentitySchema, audioConvert: audioConvertSchema, filenameTemplate: z.string().min(1).optional(), subtitles: subtitleOptionsSchema.optional(), sponsorBlock: sponsorBlockOptionsSchema, embed: embedOptionsSchema, videoPart: videoPartSchema.optional()}),
 	z.object({
 		kind: z.literal('ranged-format'),
 		...extractorIdentitySchema,

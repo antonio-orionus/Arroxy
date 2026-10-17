@@ -571,6 +571,39 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 	})
 })
 
+describe('ProbeService — chapters for part of video', () => {
+	async function probeVideo(fields: Record<string, unknown>) {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', duration: 600, extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}], ...fields})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		if (!r.ok || r.data.kind !== 'video') throw new Error('expected a video probe result')
+		return r.data
+	}
+
+	it("carries yt-dlp's chapters in whole seconds", async () => {
+		const result = await probeVideo({
+			chapters: [
+				{start_time: 0, end_time: 220.4, title: 'Intro'},
+				{start_time: 220.4, end_time: 600, title: 'Main'}
+			]
+		})
+		expect(result.chapters).toEqual([
+			{title: 'Intro', startSeconds: 0, endSeconds: 220},
+			{title: 'Main', startSeconds: 220, endSeconds: 600}
+		])
+	})
+
+	it('drops malformed chapters instead of failing the probe', async () => {
+		const result = await probeVideo({chapters: [{start_time: 10, end_time: 5, title: 'Backwards'}, {start_time: 'x', title: 'Junk'}, null, {start_time: 0, end_time: 30}]})
+		expect(result.chapters).toEqual([{title: '', startSeconds: 0, endSeconds: 30}])
+	})
+
+	it('has no chapters when yt-dlp reports none', async () => {
+		expect((await probeVideo({chapters: null})).chapters).toEqual([])
+		expect((await probeVideo({})).chapters).toEqual([])
+	})
+})
+
 describe('ProbeService — Explore session escalation', () => {
 	const VIDEO_URL = 'https://www.youtube.com/watch?v=abc'
 	const AGE_GATE = 'ERROR: [youtube] abc: Sign in to confirm your age. This video may be inappropriate for some users.'

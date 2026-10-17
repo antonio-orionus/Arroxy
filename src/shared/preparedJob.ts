@@ -39,13 +39,21 @@ export interface EmbedOptions {
 	thumbnailSidecar: boolean
 }
 
+// Part of video: a time range of one video, in whole seconds. `exactCut`
+// re-encodes so the cuts land exactly; otherwise they land on keyframes.
+export interface VideoPart {
+	startSeconds: number
+	endSeconds: number
+	exactCut: boolean
+}
+
 // Discriminated on `kind`. Adding a new mode = new arm + new switch arm in
 // every consumer (compiler-enforced exhaustiveness). `unresolved` is the
 // probe-stage placeholder: carried by a `probing` queue item until the probe
 // produces a real job — never startable (DownloadService refuses it).
 export type PreparedJob =
-	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; mergeOutputFormat?: string; remuxVideo?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number})
-	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
+	| (ExtractorIdentity & {kind: 'single-format'; formatId: string; mergeOutputFormat?: string; remuxVideo?: string; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; expectedBytes?: number; videoPart?: VideoPart})
+	| (ExtractorIdentity & {kind: 'audio-convert'; audioConvert: AudioConvert; filenameTemplate?: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions; videoPart?: VideoPart})
 	| (ExtractorIdentity & {kind: 'ranged-format'; intent: MediaIntent; formatSelector?: string; formatSort?: string; mergeOutputFormat?: string; remuxVideo?: string; audioConvert?: AudioConvert; filenameTemplate: string; subtitles?: SubtitleOptions; sponsorBlock: SponsorBlockOptions; embed: EmbedOptions})
 	| (ExtractorIdentity & {kind: 'subtitle-only'; filenameTemplate?: string; subtitles: SubtitleOptions})
 	| {kind: 'unresolved'; extractor: ''; extractorKey: ''}

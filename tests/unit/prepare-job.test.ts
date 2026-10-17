@@ -36,6 +36,34 @@ describe('prepareJob', () => {
 		})
 	})
 
+	describe('part of video', () => {
+		const PART = {startSeconds: 220, endSeconds: 435, exactCut: false}
+
+		it('keeps the part on a single-format job and drops SponsorBlock for it', () => {
+			const job = prepareJob({...BASE, sponsorBlockMode: 'remove', sponsorBlockCategories: ['sponsor'], mode: 'single', formatId: '22', videoPart: PART})
+			if (job.kind !== 'single-format') throw new Error('unreachable')
+			expect(job.videoPart).toEqual(PART)
+			expect(job.sponsorBlock).toEqual({mode: 'off'})
+			expect(preparedJobSchema.safeParse(job).success).toBe(true)
+		})
+
+		it('keeps the part on an audio-convert job', () => {
+			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, videoPart: {...PART, exactCut: true}})
+			if (job.kind !== 'audio-convert') throw new Error('unreachable')
+			expect(job.videoPart).toEqual({...PART, exactCut: true})
+		})
+
+		it('never puts a part on a subtitles-only job', () => {
+			const job = prepareJob({...BASE, mode: 'single', subtitleOnly: true, subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}, videoPart: PART})
+			expect(job).not.toHaveProperty('videoPart')
+		})
+
+		it('rejects a persisted part whose start is not before its end', () => {
+			const job = prepareJob({...BASE, mode: 'single', formatId: '22', videoPart: PART})
+			expect(preparedJobSchema.safeParse({...job, videoPart: {startSeconds: 435, endSeconds: 220, exactCut: false}}).success).toBe(false)
+		})
+	})
+
 	describe('audio-convert kind', () => {
 		it('builds when audioConvert present and formatId absent', () => {
 			const job = prepareJob({...BASE, mode: 'single', audioConvert: {target: 'mp3', bitrateKbps: 192}, filenameTemplate: '{title} [{id}]'})

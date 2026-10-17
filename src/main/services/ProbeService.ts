@@ -4,7 +4,7 @@ import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoProbeResult} from '@shared/types.js'
+import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, SubtitleMap, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
@@ -340,6 +340,25 @@ function resolveTimestamp(source: {timestamp?: number}): number | undefined {
 	return typeof source.timestamp === 'number' && Number.isFinite(source.timestamp) && Number.isInteger(source.timestamp) && source.timestamp > 0 ? source.timestamp : undefined
 }
 
+function chapterTime(value: unknown): number | undefined {
+	return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.round(value) : undefined
+}
+
+// yt-dlp's `chapters`: `{start_time, end_time, title}` dicts. Anything that
+// does not describe a forward range is dropped rather than trusted.
+function resolveChapters(raw: unknown[] | undefined): VideoChapter[] {
+	const chapters: VideoChapter[] = []
+	for (const entry of raw ?? []) {
+		if (typeof entry !== 'object' || entry === null) continue
+		const {start_time: start, end_time: end, title} = entry as Record<string, unknown>
+		const startSeconds = chapterTime(start)
+		const endSeconds = chapterTime(end)
+		if (startSeconds === undefined || endSeconds === undefined || endSeconds <= startSeconds) continue
+		chapters.push({title: typeof title === 'string' ? title.trim() : '', startSeconds, endSeconds})
+	}
+	return chapters
+}
+
 function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, probeInfoJsonRef?: ProbeInfoJsonRef): VideoProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
@@ -355,6 +374,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		title: info.title ?? '',
 		thumbnail: upgradeThumbnailScheme(info.thumbnail ?? ''),
 		duration: typeof info.duration === 'number' ? Math.round(info.duration) : undefined,
+		chapters: resolveChapters(info.chapters),
 		subtitles: sanitizeSubtitleMap(info.subtitles, {isAutomaticCaptions: false, site}),
 		automaticCaptions: sanitizeSubtitleMap(info.automatic_captions, {isAutomaticCaptions: true, site}),
 		isLive: info.is_live === true || info.live_status === 'is_live' || info.live_status === 'is_upcoming',

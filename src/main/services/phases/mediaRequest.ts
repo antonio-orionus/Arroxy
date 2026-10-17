@@ -1,6 +1,7 @@
 import type {AudioConvert as BridgeAudioConvert, CallerMediaWorkflowInput} from 'yt-dlp-bridge'
 import {isAudioConvertTargetLossy} from '@shared/audioTargets.js'
 import {siteForJob} from '@shared/sites/index.js'
+import {downloadSection} from '@shared/videoPart.js'
 import {ytDlpSubtitleLanguages} from '@shared/subtitleLanguages.js'
 import type {AudioConvert, ResolvedStartDownloadInput} from '@shared/types.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
@@ -39,7 +40,10 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 	// strand the YouTube rows on the generic adapter. The URL belongs to
 	// this one job, so it decides correctly per item.
 	const site = siteForJob(job.extractor, url)
-	const sbConfig = site.supportsSponsorBlock && job.sponsorBlock.mode !== 'off' ? {mode: job.sponsorBlock.mode, categories: job.sponsorBlock.categories} : undefined
+	const videoPart = job.kind === 'ranged-format' ? undefined : job.videoPart
+	// A part never takes SponsorBlock (prepareJob drops it); this is the same
+	// defense-in-depth gate as the site check.
+	const sbConfig = site.supportsSponsorBlock && job.sponsorBlock.mode !== 'off' && !videoPart ? {mode: job.sponsorBlock.mode, categories: job.sponsorBlock.categories} : undefined
 
 	const formatId = job.kind === 'single-format' ? job.formatId : undefined
 	const formatSelector = job.kind === 'ranged-format' ? job.formatSelector : undefined
@@ -60,6 +64,7 @@ export function buildMediaRequest(params: MediaRequestParams): CallerMediaWorkfl
 		...(bridgeConvert ? {audio: {convert: bridgeConvert}} : {}),
 		...(embed && (job.subtitles?.languages.length ?? 0) > 0 && job.subtitles ? {subtitles: {embed: true, languages: ytDlpSubtitleLanguages(job.subtitles), writeAuto: job.subtitles.writeAuto, ...(job.subtitles.autoOnly ? {autoOnly: true} : {})}} : {}),
 		...(sbConfig ? {sponsorBlock: sbConfig} : {}),
+		...(videoPart ? {downloadSections: [downloadSection(videoPart)], forceKeyframesAtCuts: videoPart.exactCut} : {}),
 		...(extractor ? {extractor} : {}),
 		embed: {chapters: embedOpts.chapters, metadata: embedOpts.metadata, thumbnail: embedOpts.thumbnail, description: embedOpts.description, thumbnailSidecar: embedOpts.thumbnailSidecar},
 		...(infoJsonPath ? {resume: {loadInfoJsonPath: infoJsonPath}} : {})

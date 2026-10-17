@@ -1,7 +1,7 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {canEmbedThumbnail, mediaIntentSpec, playlistSelectionToMediaIntent, playlistSubtitleOptions} from './mediaIntent.js'
-import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
+import type {EmbedOptions, ExtractorIdentity, PreparedJob, SponsorBlockOptions, SubtitleOptions, VideoPart} from './preparedJob.js'
 import type {AudioConvert, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistSelection, SponsorBlockCategory, SponsorBlockMode} from './schemas.js'
 import type {ContainerArgs} from './selectionOrder.js'
 
@@ -22,6 +22,8 @@ export interface PrepareJobInput extends ExtractorIdentity {
 	// The single-video Subtitles kind: subtitle files only, no media.
 	subtitleOnly?: boolean
 	expectedBytes?: number
+	// Part of video: only this range is downloaded. Single mode only.
+	videoPart?: VideoPart
 	// playlist-mode inputs (set when mode === 'playlist')
 	playlistSelection?: PlaylistSelection | null
 	mediaIntent?: MediaIntent | null
@@ -75,12 +77,16 @@ export function prepareJob(input: PrepareJobInput): PreparedJob {
 		return {kind: 'subtitle-only', ...identity, ...filenameTemplate, subtitles}
 	}
 
+	// SponsorBlock is not offered for a part: its segments are timed against
+	// the whole video, and removing them would cut the part a second time.
+	const part = input.videoPart ? {videoPart: input.videoPart, sponsorBlock: {mode: 'off'} as const} : {sponsorBlock}
+
 	if (input.audioConvert) {
-		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed}
+		return {kind: 'audio-convert', ...identity, audioConvert: input.audioConvert, ...filenameTemplate, subtitles, embed: input.embed, ...part}
 	}
 
 	if (!input.formatId) throw new Error('prepareJob: single-format requires formatId')
-	return {kind: 'single-format', ...identity, formatId: input.formatId, ...input.container, ...filenameTemplate, subtitles, sponsorBlock, embed: input.embed, expectedBytes: input.expectedBytes}
+	return {kind: 'single-format', ...identity, formatId: input.formatId, ...input.container, ...filenameTemplate, subtitles, embed: input.embed, expectedBytes: input.expectedBytes, ...part}
 }
 
 function toSponsorBlockOptions(mode: SponsorBlockMode, categories: SponsorBlockCategory[]): SponsorBlockOptions {

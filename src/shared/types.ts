@@ -423,6 +423,13 @@ interface ProbeCommon {
 	auth?: JobAuth
 }
 
+// A chapter of a video, in whole seconds, as the probe reports it.
+export interface VideoChapter {
+	title: string
+	startSeconds: number
+	endSeconds: number
+}
+
 export interface VideoProbeResult extends ProbeCommon {
 	kind: 'video'
 	videoId?: string | null
@@ -431,6 +438,8 @@ export interface VideoProbeResult extends ProbeCommon {
 	title: string
 	thumbnail: string
 	duration?: number
+	// Absent on results built outside ProbeService (mocks, older fixtures).
+	chapters?: VideoChapter[]
 	subtitles: SubtitleMap
 	automaticCaptions: SubtitleMap
 	isLive: boolean

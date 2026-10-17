@@ -107,6 +107,9 @@ const videoFieldsSchema = z.object({
 	creator: optStr,
 	uploader_id: optStr,
 	upload_date: optStr,
+	// Chapter dicts are read through ProbeService's own parser; a malformed list
+	// must never fail the probe, so it is carried unchecked.
+	chapters: z.preprocess(nullToUndef, z.array(z.unknown()).optional()).catch(undefined),
 	// Epoch seconds. Sparse on flat playlist probes — rows without it sort last
 	// until hydration fills it in. Validated by resolveTimestamp in ProbeService.
 	timestamp: optNum
