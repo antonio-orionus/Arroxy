@@ -8,8 +8,8 @@ import type {ProbeResult} from '@shared/types.js'
 
 // Probe payloads used to drive the audio-only-source detection through the
 // real wizard pipeline. Two extractor families:
-//   - bandcamp: known audio-only host → preset must default to audio-only
-//   - youtube:  generic video host → preset must respect persisted state
+//   - bandcamp: known audio-only host → the wizard switches to Audio
+//   - youtube:  generic video host → the active profile decides
 
 function buildVideoProbe(extractor: string, isAudioOnlySource: boolean): ProbeResult {
 	return {
@@ -56,14 +56,13 @@ function resetStore(): void {
 		wizardWebpageUrl: '',
 		selectedVideoFormatId: '',
 		audioSelection: {kind: 'none'},
-		activePreset: null,
+		wizardMediaKind: 'video',
 		wizardOutputDir: '',
 		wizardError: null,
 		wizardErrorOrigin: null,
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: [],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardSponsorBlockMode: 'off',
@@ -85,8 +84,8 @@ beforeEach(() => {
 })
 
 describe('audio-only source UI propagation — single video', () => {
-	it('forces preset=audio-only when extractor isAudioOnlySource:true (bandcamp)', async () => {
-		const api = buildMockAppApi({settings: buildAppSettings({lastPreset: 'best-quality'})})
+	it('switches to Audio when extractor isAudioOnlySource:true (bandcamp)', async () => {
+		const api = buildMockAppApi({settings: buildAppSettings()})
 		api.downloads.probe = vi.fn().mockResolvedValue(ok(buildVideoProbe('bandcamp', true)))
 		window.appApi = api
 
@@ -95,13 +94,13 @@ describe('audio-only source UI propagation — single video', () => {
 		await useAppStore.getState().submitUrl()
 
 		const state = useAppStore.getState()
-		expect(state.activePreset).toBe('audio-only')
+		expect(state.wizardMediaKind).toBe('audio')
 		expect(state.selectedVideoFormatId).toBe('')
 		expect(state.audioSelection.kind).toBe('native')
 	})
 
-	it('respects persisted preset when isAudioOnlySource:false (youtube)', async () => {
-		const api = buildMockAppApi({settings: buildAppSettings({lastPreset: 'best-quality'})})
+	it('pre-selects from the active profile when isAudioOnlySource:false (youtube)', async () => {
+		const api = buildMockAppApi({settings: buildAppSettings()})
 		api.downloads.probe = vi.fn().mockResolvedValue(ok(buildVideoProbe('youtube', false)))
 		window.appApi = api
 
@@ -110,7 +109,7 @@ describe('audio-only source UI propagation — single video', () => {
 		await useAppStore.getState().submitUrl()
 
 		const state = useAppStore.getState()
-		expect(state.activePreset).toBe('best-quality')
+		expect(state.wizardMediaKind).toBe('video')
 		expect(state.selectedVideoFormatId).toBe('mp4-720')
 	})
 })

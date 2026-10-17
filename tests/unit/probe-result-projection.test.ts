@@ -66,37 +66,30 @@ describe('ProbeResultProjection', () => {
 		expect(projection.patch.wizardSubtitles).toEqual({})
 	})
 
-	it('projects video probe results and restores YouTube-scoped preferences', () => {
+	it('pre-selects a video probe from the active download profile', () => {
 		const settings = defaultAppSettings('/downloads')
-		settings.single = {...settings.single, lastVideoResolution: '1080p', lastSubtitleLanguages: ['en']}
+		settings.profiles = {...settings.profiles, active: {kind: 'builtin', id: 'best-quality'}}
 		const patch = projectVideoProbeResult(VIDEO_PROBE, appState({settings}), true)
 
-		expect(patch).toMatchObject({wizardStep: 'formats', wizardMode: 'single', wizardTitle: 'Video', wizardExtractor: 'youtube', selectedVideoFormatId: '137', wizardSubtitleLanguages: ['en'], formatsLoading: false})
+		expect(patch).toMatchObject({wizardStep: 'formats', wizardMode: 'single', wizardTitle: 'Video', wizardExtractor: 'youtube', wizardMediaKind: 'video', selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '251'}, wizardSubtitleLanguages: [], formatsLoading: false})
+		expect(patch.wizardProfile?.id).toBe('best-quality')
+		expect(patch.wizardProfileBaseline?.videoFormatId).toBe('137')
 		expect(patch.wizardProbeInfoJsonRef).toEqual(VIDEO_PROBE.probeInfoJsonRef)
 	})
 
-	it('does not revive a persisted Dolby audio id when a YouTube probe has Opus available', () => {
+	it('applies the profile on every site, not only YouTube', () => {
 		const settings = defaultAppSettings('/downloads')
-		settings.single = {...settings.single, lastPreset: 'best-quality', lastVideoResolution: '2160p HDR', lastAudioSelection: {kind: 'native', formatId: '328'}}
-		const patch = projectVideoProbeResult({...VIDEO_PROBE, formats: DOLBY_FIRST_FORMATS}, appState({settings}), true)
-
-		expect(patch).toMatchObject({selectedVideoFormatId: '337', audioSelection: {kind: 'native', formatId: '251'}})
-	})
-
-	it('does not leak YouTube format preferences into non-YouTube probes', () => {
-		const settings = defaultAppSettings('/downloads')
-		settings.single = {...settings.single, lastVideoResolution: 'missing-youtube-resolution', lastPreset: 'audio-only'}
+		settings.profiles = {...settings.profiles, active: {kind: 'builtin', id: 'audio-only'}}
 		const patch = projectVideoProbeResult({...VIDEO_PROBE, extractor: 'vimeo', extractorKey: 'Vimeo', webpageUrl: 'https://vimeo.com/1'}, appState({settings}), true)
 
-		expect(patch.selectedVideoFormatId).toBe('137')
-		expect(patch.activePreset).toBe('best-quality')
+		expect(patch).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}})
 	})
 
-	it('defaults audio-only sources to the audio-only preset', () => {
+	it('defaults audio-only sources to Audio and says so', () => {
 		const patch = projectVideoProbeResult({...VIDEO_PROBE, isAudioOnlySource: true}, appState(), true)
 
-		expect(patch.selectedVideoFormatId).toBe('')
-		expect(patch.activePreset).toBe('audio-only')
+		expect(patch).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: ''})
+		expect(patch.wizardFitNotices).toEqual([{kind: 'no-video'}])
 	})
 
 	it('uses the saved native-audio preference for audio-only sources', () => {
@@ -104,9 +97,21 @@ describe('ProbeResultProjection', () => {
 		settings.common.nativeAudioPreference = 'surround'
 		const patch = projectVideoProbeResult({...VIDEO_PROBE, formats: DOLBY_FIRST_FORMATS, isAudioOnlySource: true}, appState({settings}), true)
 
-		expect(patch.selectedVideoFormatId).toBe('')
-		expect(patch.audioSelection).toEqual({kind: 'native', formatId: '328'})
-		expect(patch.activePreset).toBe('audio-only')
+		expect(patch).toMatchObject({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '328'}})
+	})
+
+	it("keeps the user's edits when the same run probes again", () => {
+		const first = projectVideoProbeResult(VIDEO_PROBE, appState(), true)
+		const edited = appState({...first, wizardSubtitleLanguages: ['en'], wizardSponsorBlockMode: 'remove'})
+		const retried = projectVideoProbeResult(VIDEO_PROBE, edited, false)
+
+		expect(retried).toMatchObject({wizardSubtitleLanguages: ['en'], wizardSponsorBlockMode: 'remove', selectedVideoFormatId: '137'})
+	})
+
+	it('falls back to the profile pick when a retry no longer offers the chosen stream', () => {
+		const first = projectVideoProbeResult(VIDEO_PROBE, appState(), true)
+		const edited = appState({...first, selectedVideoFormatId: 'gone'})
+		expect(projectVideoProbeResult(VIDEO_PROBE, edited, false).selectedVideoFormatId).toBe('137')
 	})
 
 	it('trims playlist sentinels and marks app-limit caps', () => {

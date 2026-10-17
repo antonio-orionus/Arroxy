@@ -7,7 +7,7 @@ import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle
 import type {DownloadJob, QueueItem} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 
-const PREPARED_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+const PREPARED_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 
 function makeDownloadJob(): DownloadJob {
 	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: '2026-06-10T00:00:00.000Z', updatedAt: '2026-06-10T00:00:00.000Z'}

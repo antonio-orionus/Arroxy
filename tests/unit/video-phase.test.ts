@@ -28,7 +28,7 @@ function makeJob(): DownloadJob {
 	return {id: 'job-1', url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 }
 
-const BASE_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en', 'ja'], mode: 'embed', format: 'vtt', writeAuto: false}}
+const BASE_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: 'bv+ba', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en', 'ja'], mode: 'embed', format: 'vtt', writeAuto: false}}
 
 const BASE_INPUT: ResolvedStartDownloadInput = {url: 'https://www.youtube.com/watch?v=test', outputDir: '/tmp', job: BASE_JOB}
 
@@ -441,9 +441,7 @@ describe('VideoPhase(embed=true)', () => {
 	})
 
 	it('audio-convert jobs keep audioConvert when subtitles are embedded', async () => {
-		const ctx = makeCtx(SUCCESS, {
-			input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, preset: 'audio-only', sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'embed', format: 'vtt', writeAuto: false}}}
-		})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: SB_OFF, embed: EMBED_OFF, subtitles: {languages: ['en'], mode: 'embed', format: 'vtt', writeAuto: false}}}})
 		await VideoPhase(true).run(ctx)
 		const [req] = ctx.runMock.mock.calls[0]
 		expect(req.kind).toBe('media')
@@ -452,7 +450,7 @@ describe('VideoPhase(embed=true)', () => {
 	})
 
 	it('marks wav audio conversion as lossless for the bridge planner', async () => {
-		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'wav'}, preset: 'audio-only', sponsorBlock: SB_OFF, embed: EMBED_OFF}}})
+		const ctx = makeCtx(SUCCESS, {input: {...BASE_INPUT, job: {kind: 'audio-convert', extractor: 'youtube', extractorKey: 'Youtube', audioConvert: {target: 'wav'}, sponsorBlock: SB_OFF, embed: EMBED_OFF}}})
 
 		await VideoPhase(false).run(ctx)
 

@@ -7,7 +7,7 @@ import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {canApplyQueueAction, isLiveQueueItem} from '@shared/queueActions.js'
 import {makeItem} from '../shared/fixtures.js'
 
-const REAL_JOB: QueueItem['job'] = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+const REAL_JOB: QueueItem['job'] = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 const UNRESOLVED: QueueItem['job'] = {kind: 'unresolved', extractor: '', extractorKey: ''}
 
 function probingItem(overrides: Partial<QueueItem> = {}): QueueItem {

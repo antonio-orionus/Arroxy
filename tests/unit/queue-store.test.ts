@@ -178,7 +178,7 @@ describe('QueueStore — beta migration', () => {
 					error: null,
 					finishedAt: null,
 					downloadJobId: 'job-old',
-					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 				}
 			]
 		}
@@ -217,7 +217,7 @@ describe('QueueStore — beta migration', () => {
 					error: null,
 					finishedAt: null,
 					downloadJobId: 'job-stale',
-					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 				}
 			]
 		}
@@ -245,7 +245,7 @@ describe('QueueStore — beta migration', () => {
 					lastStatus: null,
 					error: {key: 'botBlock', rawMessage: 'sign in to confirm'},
 					finishedAt: null,
-					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+					job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '22', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 				}
 			]
 		}

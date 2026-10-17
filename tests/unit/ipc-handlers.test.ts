@@ -61,7 +61,7 @@ function makeDeps() {
 		snapshotPayload: vi.fn().mockReturnValue({items: [], schedulerPaused: false})
 	})
 	const settingsStore = {
-		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, single: {}, playlist: {}}),
+		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, playlist: {}}),
 		getSync: vi.fn().mockReturnValue({common: {cookiesMode: 'off'}, profiles: {active: {kind: 'builtin', id: 'balanced'}}}),
 		update: vi.fn()
 	}
@@ -315,7 +315,7 @@ describe('registerIpcHandlers', () => {
 				lastStatus: null,
 				error: null,
 				finishedAt: null,
-				job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+				job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 			}
 			const result = (await handler(null, [validItem])) as {ok: boolean}
 			expect(result.ok).toBe(true)
@@ -394,7 +394,7 @@ describe('registerIpcHandlers', () => {
 
 		it('downloads:probe rejects incomplete cookies config before probing', async () => {
 			const deps = makeDeps()
-			deps._raw.settingsStore.get.mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'file', cookiesPath: '   '}, single: {}, playlist: {}})
+			deps._raw.settingsStore.get.mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'file', cookiesPath: '   '}, playlist: {}})
 			registerIpcHandlers(deps)
 
 			const handler = findCall(IPC_CHANNELS.downloadsProbe)!.fn
@@ -407,14 +407,14 @@ describe('registerIpcHandlers', () => {
 
 		it('downloads:start rejects incomplete cookies config before starting downloads', async () => {
 			const deps = makeDeps()
-			deps._raw.settingsStore.get.mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'browser'}, single: {}, playlist: {}})
+			deps._raw.settingsStore.get.mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'browser'}, playlist: {}})
 			registerIpcHandlers(deps)
 
 			const handler = findCall(IPC_CHANNELS.downloadsStart)!.fn
 			const result = (await handler(null, {
 				url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 				outputDir: '/tmp',
-				job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+				job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 			})) as {ok: boolean; error?: {code: string; message: string}}
 
 			expect(result.ok).toBe(false)

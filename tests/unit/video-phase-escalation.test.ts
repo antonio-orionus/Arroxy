@@ -29,7 +29,7 @@ vi.mock('@main/services/subtitlePostProcess', () => ({
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=abc'
 const EMBED_OFF = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
-const YOUTUBE_JOB: ResolvedStartDownloadInput['job'] = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: EMBED_OFF}
+const YOUTUBE_JOB: ResolvedStartDownloadInput['job'] = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', sponsorBlock: {mode: 'off'}, embed: EMBED_OFF}
 
 const SUCCESS: YtDlpResult = {kind: 'success', stdout: '', stderr: '', usedExtractorFallback: false}
 const LOGIN_REQUIRED: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'loginRequired', rawError: 'ERROR: [youtube] abc: Sign in to confirm your age', stdout: '', stderr: ''}

@@ -1012,26 +1012,6 @@ describe('reset', () => {
 	})
 })
 
-describe('skipSubtitles', () => {
-	it('marks subtitles skipped and advances past subtitles step', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		window.appApi = api
-
-		useAppStore.setState({wizardUrl: YOUTUBE_URL})
-		await useAppStore.getState().submitUrl()
-
-		// Navigate to subtitles step manually
-		useAppStore.setState({wizardStep: 'subtitles', wizardSubtitleSkipped: false})
-
-		useAppStore.getState().skipSubtitles()
-
-		const state = useAppStore.getState()
-		expect(state.wizardSubtitleSkipped).toBe(true)
-		expect(state.wizardStep).not.toBe('subtitles')
-	})
-})
-
 describe('bulk URL mode — collection URLs', () => {
 	// A collection URL must never become one bulk row: the job would carry a
 	// single pre-bound filename while yt-dlp downloaded the whole set under it.

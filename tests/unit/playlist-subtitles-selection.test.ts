@@ -66,7 +66,7 @@ describe('playlist subtitles selection', () => {
 
 	describe('wizard step graph', () => {
 		function state(overrides: Partial<WizardStepGraphInput> = {}): WizardStepGraphInput {
-			return {wizardStep: 'playlistPresets', activePreset: null, wizardMode: 'bulk', playlistSelection: SUBS, wizardExtractor: 'youtube', wizardSubtitles: {}, wizardAutomaticCaptions: {}, wizardSubtitleSkipped: false, multiProfileMode: false, ...overrides}
+			return {wizardStep: 'playlistPresets', wizardMode: 'bulk', playlistSelection: SUBS, wizardExtractor: 'youtube', multiProfileMode: false, ...overrides}
 		}
 
 		it('skips SponsorBlock and output for a subtitles batch', () => {

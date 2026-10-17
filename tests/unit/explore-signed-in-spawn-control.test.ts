@@ -47,7 +47,7 @@ import type {JobAuth, StatusEvent} from '@shared/types.js'
 import {STATUS_KEY, type ExploreSignInState} from '@shared/schemas.js'
 
 const URL = 'https://www.youtube.com/watch?v=abc'
-const JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+const JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 const LOGIN_REQUIRED_STDERR = 'ERROR: [youtube] abc: This video is only available for registered users.\n'
 
 // A yt-dlp stand-in: `exitCode` closes it on its own; null keeps it running
@@ -105,7 +105,7 @@ function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token
 	}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue(undefined), forgetProbeVerdict: vi.fn()}
 	const tokenService = {mintTokenForUrl: vi.fn(opts.mintToken ?? (() => Promise.resolve({token: 'tok', visitorData: 'vd'}))), invalidateCache: vi.fn(), resetSession: vi.fn()}
-	const settingsStore = {get: vi.fn().mockResolvedValue({common: {cookiesMode: 'explore'}, single: {}, playlist: {}})}
+	const settingsStore = {get: vi.fn().mockResolvedValue({common: {cookiesMode: 'explore'}, playlist: {}})}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: {withJar}, spawnGate: gate, sessionAuth: {canEscalate: () => Promise.resolve(true)}})
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve(opts.canEscalate ?? true)}, exploreSession: {verifySignedIn: () => Promise.resolve(opts.verified ?? 'signedIn')}, spawnGate: gate})

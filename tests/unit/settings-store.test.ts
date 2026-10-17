@@ -58,7 +58,7 @@ describe('settings and recent stores', () => {
 
 	it('keeps every other common setting when a stored Explore user-agent token is no longer valid', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-ua-stored-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {...baseDefaults.common, exploreUserAgent: 'Gecko/1', defaultOutputDir: '/home/test/keep', hotkeyEnabled: false}, single: baseDefaults.single, playlist: baseDefaults.playlist, profiles: baseDefaults.profiles}))
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {...baseDefaults.common, exploreUserAgent: 'Gecko/1', defaultOutputDir: '/home/test/keep', hotkeyEnabled: false}, playlist: baseDefaults.playlist, profiles: baseDefaults.profiles}))
 		const store = new SettingsStore(userData, baseDefaults)
 
 		const loaded = await store.get()
@@ -143,15 +143,15 @@ describe('settings and recent stores', () => {
 		expect(readBack.common.hotkeyAccelerator).toBe('CommandOrControl+Alt+H')
 	})
 
-	it('persists subtitle language preferences', async () => {
-		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-subs-'))
-		const store = new SettingsStore(userData, baseDefaults)
+	it('drops the retired single-video section from an existing settings file', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-single-'))
+		const settingsPath = path.join(userData, 'settings.json')
+		await fs.writeFile(settingsPath, JSON.stringify({...baseDefaults, single: {lastPreset: 'best-quality', lastSubtitleLanguages: ['en']}}), 'utf-8')
 
-		const updated = await store.update({single: {lastSubtitleLanguages: ['en', 'es']}})
-		expect(updated.single.lastSubtitleLanguages).toEqual(['en', 'es'])
+		const settings = await new SettingsStore(userData, baseDefaults).get()
 
-		const readBack = await store.get()
-		expect(readBack.single.lastSubtitleLanguages).toEqual(['en', 'es'])
+		expect(settings).not.toHaveProperty('single')
+		expect(JSON.parse(await fs.readFile(settingsPath, 'utf-8'))).not.toHaveProperty('single')
 	})
 
 	it('records launch count so only the second launch is marked welcome-back eligible', async () => {
@@ -174,7 +174,7 @@ describe('settings and recent stores', () => {
 
 	it('treats existing installs without launch history as past the welcome-back launch', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-existing-launch-count-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {...baseDefaults.common, firstRunCompleted: true}, single: {}, playlist: {}}), 'utf-8')
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {...baseDefaults.common, firstRunCompleted: true}, playlist: {}}), 'utf-8')
 		const store = new SettingsStore(userData, baseDefaults)
 
 		const launch = await store.recordLaunch()
@@ -229,14 +229,13 @@ describe('settings and recent stores', () => {
 
 	it('keeps valid settings sections when the common section is malformed', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-invalid-section-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: 42, language: 'fr'}, single: {lastPreset: 'best-quality'}, profiles: {...baseDefaults.profiles, active: {kind: 'builtin', id: 'audio-only'}}}), 'utf-8')
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: 42, language: 'fr'}, profiles: {...baseDefaults.profiles, active: {kind: 'builtin', id: 'audio-only'}}}), 'utf-8')
 
 		const store = new SettingsStore(userData, baseDefaults)
 		const settings = await store.get()
 
 		expect(settings.common.defaultOutputDir).toBe('/tmp')
 		expect(settings.common.language).toBeUndefined()
-		expect(settings.single.lastPreset).toBe('best-quality')
 		expect(settings.profiles.active).toEqual({kind: 'builtin', id: 'audio-only'})
 	})
 
@@ -334,7 +333,7 @@ describe('settings and recent stores', () => {
 
 	it('backfills newly introduced defaults when the persisted common object is partial', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-partial-common-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {defaultOutputDir: '/persisted/downloads', rememberLastOutputDir: true, clipboardWatchEnabled: true, hotkeyEnabled: false}, single: {}, playlist: {}, profiles: baseDefaults.profiles}), 'utf-8')
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({common: {defaultOutputDir: '/persisted/downloads', rememberLastOutputDir: true, clipboardWatchEnabled: true, hotkeyEnabled: false}, playlist: {}, profiles: baseDefaults.profiles}), 'utf-8')
 
 		const store = new SettingsStore(userData, baseDefaults)
 		const settings = await store.get()
@@ -360,7 +359,6 @@ describe('settings and recent stores', () => {
 		// Legacy `cookiesEnabled: true` + non-empty path migrates to `cookiesMode: 'file'`.
 		expect(settings.common.cookiesMode).toBe('file')
 		expect((settings.common as unknown as {cookiesEnabled?: boolean}).cookiesEnabled).toBeUndefined()
-		expect(settings.single.lastPreset).toBe('best-quality')
 		expect(settings.common.lastSubfolder).toBe('old-subfolder')
 		// Legacy flat `lastPlaylistPreset` has no mapping in the new schema — dropped on migration.
 		expect((settings.playlist as Record<string, unknown>).lastPlaylistPreset).toBeUndefined()
@@ -370,7 +368,7 @@ describe('settings and recent stores', () => {
 		expect(persisted).not.toHaveProperty('lastPreset')
 		expect(persisted).not.toHaveProperty('defaultOutputDir')
 		expect(persisted.common).toBeDefined()
-		expect(persisted.single).toBeDefined()
+		expect(persisted).not.toHaveProperty('single')
 		expect(persisted.playlist).toBeDefined()
 		expect(persisted.profiles).toBeDefined()
 	})

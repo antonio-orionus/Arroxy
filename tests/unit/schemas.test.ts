@@ -9,12 +9,12 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	const BASE_EMBED = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 
 	it('accepts non-YouTube URLs (multi-site)', () => {
-		const result = startDownloadSchema.safeParse({url: 'https://vimeo.com/12345', job: {kind: 'single-format', ...IDENTITY, formatId: '137', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
+		const result = startDownloadSchema.safeParse({url: 'https://vimeo.com/12345', job: {kind: 'single-format', ...IDENTITY, formatId: '137', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(true)
 	})
 
 	it('rejects non-http/https URLs', () => {
-		const result = startDownloadSchema.safeParse({url: 'ftp://example.com/file.mp4', job: {kind: 'single-format', ...IDENTITY, formatId: '137', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
+		const result = startDownloadSchema.safeParse({url: 'ftp://example.com/file.mp4', job: {kind: 'single-format', ...IDENTITY, formatId: '137', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(false)
 	})
 
@@ -24,12 +24,12 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 	})
 
 	it('accepts single-format job', () => {
-		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
+		const result = startDownloadSchema.safeParse({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', filenameTemplate: '{title} [{id}]', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}})
 		expect(result.success).toBe(true)
 	})
 
 	it('carries a known job auth and rejects anything else', () => {
-		const base = {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}}
+		const base = {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', job: {kind: 'single-format', ...IDENTITY, formatId: '137', sponsorBlock: {mode: 'off'}, embed: BASE_EMBED}}
 		const parsed = startDownloadSchema.safeParse({...base, auth: 'exploreSession'})
 		expect(parsed.success && parsed.data.auth).toBe('exploreSession')
 		expect(startDownloadSchema.safeParse({...base, auth: 'admin'}).success).toBe(false)
@@ -146,7 +146,7 @@ describe('audioConvertSchema', () => {
 	it('threads audioConvert through startDownloadSchema via job', () => {
 		const parsed = startDownloadSchema.safeParse({
 			url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-			job: {kind: 'audio-convert', ...IDENTITY, audioConvert: {target: 'mp3', bitrateKbps: 192}, preset: 'audio-only', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
+			job: {kind: 'audio-convert', ...IDENTITY, audioConvert: {target: 'mp3', bitrateKbps: 192}, sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}}
 		})
 		expect(parsed.success).toBe(true)
 		if (parsed.success) {
@@ -174,7 +174,7 @@ describe('queueArraySchema', () => {
 		error: null,
 		finishedAt: null,
 		downloadJobId: null,
-		job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: EMBED_OFF}
+		job: {kind: 'single-format', ...IDENTITY, formatId: '137+251', sponsorBlock: {mode: 'off'}, embed: EMBED_OFF}
 	}
 
 	it('accepts an empty array', () => {

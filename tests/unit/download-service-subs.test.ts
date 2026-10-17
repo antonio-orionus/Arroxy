@@ -42,7 +42,6 @@ function makeJob(opts: {formatId?: string; subtitles?: {languages: string[]; wri
 		extractor: 'youtube',
 		extractorKey: 'Youtube',
 		formatId: opts.formatId ?? '137+251',
-		preset: 'custom',
 		sponsorBlock: SB_OFF,
 		embed: EMBED_OFF,
 		subtitles: opts.subtitles ? {languages: opts.subtitles.languages, mode: opts.subtitles.mode ?? 'sidecar', format: opts.subtitles.format ?? 'srt', writeAuto: opts.subtitles.writeAuto ?? false} : undefined

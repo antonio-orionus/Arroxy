@@ -5,6 +5,8 @@ import type {DownloadProfile, FormatOption, PlaylistEntry, PlaylistSelection, Pr
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {AppState} from '@renderer/store/types.js'
 import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p', ext: 'mp4', resolution: '1080p', fps: 30, isVideoOnly: true, isAudioOnly: false, filesize: 1000},
@@ -48,12 +50,12 @@ function state(overrides: Partial<AppState> = {}): AppState {
 		wizardSubfolderName: '',
 		selectedVideoFormatId: '137',
 		audioSelection: {kind: 'native', formatId: '251'},
-		activePreset: null,
+		wizardMediaKind: 'video',
+		wizardFilenameTemplate: '{title} [{id}]',
 		wizardFormats: FORMATS,
 		wizardSubtitles: {en: [{ext: 'vtt'}]},
 		wizardAutomaticCaptions: {},
 		wizardSubtitleLanguages: ['en'],
-		wizardSubtitleSkipped: false,
 		wizardSubtitleMode: 'sidecar',
 		wizardSubtitleFormat: 'srt',
 		wizardExtractor: 'youtube',
@@ -160,6 +162,23 @@ describe('QueueSubmission', () => {
 		expect(prepared?.manifest).toBeUndefined()
 		expect(prepared?.items[0]).toMatchObject({url: 'https://www.youtube.com/watch?v=abc', title: 'Video', outputDir: '/downloads', lane: 'priority', writeM3u: true, job: {kind: 'single-format', formatId: '137+251', subtitles: {languages: ['en'], mode: 'sidecar', format: 'srt', writeAuto: false}}})
 		expect(prepared?.items[0]?.probeInfoJsonRef).toEqual({id: '00000000-0000-4000-8000-000000000001', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'abc'})
+	})
+
+	it("keeps an auto-only profile's subtitle source when subtitles were not edited", () => {
+		const autoOnly = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, subtitles: {enabled: true, languages: ['en'], source: 'auto-only' as const, mode: 'sidecar' as const, format: 'srt' as const}}
+		// A non-YouTube site keys both tracks plain `en`, so the key alone can't say which one.
+		const both = {wizardExtractor: 'vimeo', wizardSubtitles: {en: [{ext: 'vtt'}]}, wizardAutomaticCaptions: {en: [{ext: 'vtt'}]}}
+		const applied = profilePatch(autoOnly, {...state(both), settings: defaultAppSettings('/downloads')})
+		const prepared = prepareManualQueueSubmission(state({...both, ...applied}), 'priority')
+		expect(prepared?.items[0]?.job).toMatchObject({subtitles: {languages: ['en'], writeAuto: true, autoOnly: true}})
+	})
+
+	it('never sends SponsorBlock with an audio or subtitles download', () => {
+		for (const kind of ['audio', 'subtitles'] as const) {
+			const prepared = prepareManualQueueSubmission(state({wizardMediaKind: kind, selectedVideoFormatId: '', wizardSponsorBlockMode: 'remove', wizardSponsorBlockCategories: ['sponsor']}), 'priority')
+			const job = prepared?.items[0]?.job
+			expect(job && 'sponsorBlock' in job ? job.sponsorBlock : {mode: 'off'}).toEqual({mode: 'off'})
+		}
 	})
 
 	it('prepares playlist manual items and a full manifest payload', () => {

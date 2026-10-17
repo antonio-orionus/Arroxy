@@ -9,7 +9,7 @@ import {explorePorts} from '../helpers/explorePorts.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const SB_OFF: SponsorBlockOptions = {mode: 'off'}
-const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', sponsorBlock: SB_OFF, embed: EMBED_OFF}
+const DEFAULT_JOB: PreparedJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', sponsorBlock: SB_OFF, embed: EMBED_OFF}
 
 vi.mock('@main/utils/diskSpace', () => ({checkDiskSpace: vi.fn()}))
 vi.mock('@main/utils/writableDirectory', () => ({checkWritableDirectory: vi.fn()}))

@@ -163,7 +163,7 @@ describe('VideoPhase quality limit detection', () => {
 	})
 
 	it('never records a limit for a format the user picked explicitly', async () => {
-		const single: MediaJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: RANGED_720.embed}
+		const single: MediaJob = {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '18', sponsorBlock: {mode: 'off'}, embed: RANGED_720.embed}
 		const {ctx} = makeCtx({runs: [{withheld: true, infoJson: INFO_360}], input: {job: single}})
 		await VideoPhase(false).run(ctx)
 		expect(ctx.active.qualityLimit).toBeUndefined()

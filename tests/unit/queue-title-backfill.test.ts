@@ -26,7 +26,7 @@ const SB_OFF = {mode: 'off'} as const
 const EMBED_OFF = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 
 function jobWithTemplate(filenameTemplate: string): PreparedJob {
-	return {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', preset: 'custom', filenameTemplate, sponsorBlock: SB_OFF, embed: EMBED_OFF}
+	return {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '137+251', filenameTemplate, sponsorBlock: SB_OFF, embed: EMBED_OFF}
 }
 
 function artifactEvent(jobId: string, path: string, kind: QueueArtifactEvent['kind'] = 'media'): QueueArtifactEvent {

@@ -14,7 +14,7 @@ const BASE_INPUT_SUBTITLE_ONLY: ResolvedStartDownloadInput = {url: 'https://www.
 const BASE_INPUT_SINGLE_FORMAT: ResolvedStartDownloadInput = {
 	url: 'https://www.youtube.com/watch?v=test',
 	outputDir: '/tmp',
-	job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '248+251', preset: 'custom', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}} satisfies PreparedJob
+	job: {kind: 'single-format', extractor: 'youtube', extractorKey: 'Youtube', formatId: '248+251', sponsorBlock: {mode: 'off'}, embed: {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}} satisfies PreparedJob
 }
 
 function makeJob(): DownloadJob {
