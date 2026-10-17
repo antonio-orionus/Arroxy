@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "Preferenza audio originale", "description": "Determina cosa sceglie Migliore originale. Le righe audio manuali e M4A/AAC restano esplicite.", "compatible": "Stereo compatibile", "surround": "Preferisci surround / Dolby"},
 			"autoRetry": {"label": "Riprova i download non riusciti", "description": "Dopo un problema di rete o del server riprova automaticamente, attendendo più a lungo fra i tentativi. I download bloccati dal sito non vengono mai riprovati automaticamente.", "unit": "volte"},
+			"autoRemoveCompleted": {"label": "Rimuovi automaticamente i download completati", "description": "Toglie un download dall'elenco Download pochi secondi dopo il completamento. I file restano nella tua cartella; i download falliti e annullati restano nell'elenco."},
 			"concurrentDownloads": {"label": "Download simultanei", "description": "Numero di elementi in coda scaricati contemporaneamente. Più download insieme completano prima una lunga coda, ma aumentano il rischio che il sito imponga limiti.", "unit": "download"},
 			"downloadConnections": {"label": "Connessioni di download", "description": "Accelera i download più grandi recuperando contemporaneamente varie parti del video. Valori più alti aumentano il rischio di limitazioni da parte del sito.", "unit": "connessioni"},
 			"networkPacing": {
@@ -580,6 +581,7 @@
 		"globalActionsLabel": "Tutti gli elementi",
 		"selectionSummary": "{{selected}} selezionati · {{total}} totali",
 		"clearTitle": "Rimuovi i download completati",
+		"autoRemoveCompleted": {"label": "Rimozione automatica", "hint": "Rimuove ogni download dall'elenco pochi secondi dopo il completamento. I file restano nella tua cartella."},
 		"pauseAllTitle": "Metti in pausa ogni download attivo e impedisci l'avvio di quelli nuovi",
 		"resumeAllTitle": "Riprendi i download in pausa e lascia proseguire la coda",
 		"pausedBanner": "La coda è in pausa: gli elementi in attesa non inizieranno finché non la riprendi",

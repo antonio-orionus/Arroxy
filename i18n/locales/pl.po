@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Pobrania wymagające Twojej uwagi: {{count}}"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Usuwa każde pobieranie z listy kilka sekund po zakończeniu. Pliki zostają w Twoim folderze."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Czyść po ukończeniu"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Anuluj wszystkie aktywne i oczekujące pobierania"
@@ -3132,6 +3140,14 @@ msgstr "Wysyłaj codzienny sygnał"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Bez telemetrii. Raz dziennie anonimowy sygnał przesyła wersję aplikacji, kanał instalacji, system, język i kraj, abyśmy mogli policzyć aktywnych użytkowników. Bez identyfikatorów, adresów URL, tytułów filmów i nazw plików."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Usuwa pobieranie z listy Pobierania kilka sekund po jego zakończeniu. Pliki zostają w Twoim folderze; nieudane i anulowane pobierania zostają na liście."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Usuwaj ukończone pobierania"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} Downloads brauchen deine Aufmerksamkeit"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Jeden Download wenige Sekunden nach dem Abschluss aus der Liste entfernen. Die Dateien bleiben in deinem Ordner."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Fertige automatisch entfernen"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Alle aktiven und ausstehenden Downloads abbrechen"
@@ -3132,6 +3140,14 @@ msgstr "Tägliches Lebenszeichen senden"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Keine Telemetrie. Einmal am Tag sendet ein anonymes Lebenszeichen App-Version, Installationskanal, Betriebssystem, Sprache und Land, damit wir aktive Nutzer zählen können. Keine IDs, URLs, Videotitel oder Dateinamen."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Nimmt einen Download wenige Sekunden nach dem Abschluss aus der Downloads-Liste. Die Dateien bleiben in deinem Ordner; fehlgeschlagene und abgebrochene Downloads bleiben in der Liste."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Fertige Downloads automatisch entfernen"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

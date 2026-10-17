@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Траже пажњу: {{count}}"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Уклања свако преузимање са листе неколико секунди након завршетка. Датотеке остају у вашем фолдеру."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Чисти по завршетку"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Откажи сва активна и чекајућа преузимања"
@@ -3132,6 +3140,14 @@ msgstr "Шаљи дневни сигнал"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Без телеметрије. Једном дневно анониман сигнал шаље верзију апликације, начин инсталације, ОС, језик и земљу, да бисмо могли да пребројимо активне кориснике. Без ID ознака, URL адреса, наслова видео записа или имена датотека."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Уклања преузимање са листе Преузимања неколико секунди након завршетка. Датотеке остају у вашем фолдеру; неуспела и отказана преузимања остају на листи."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Уклањај завршена преузимања"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -304,6 +304,7 @@
 			},
 			"nativeAudioPreference": {"label": "Preferencje dźwięku źródłowego", "description": "Określa wybór opcji Najlepszy format źródłowy. Ręcznie wybrane ścieżki dźwiękowe i M4A/AAC pozostają bez zmian.", "compatible": "Zgodne stereo", "surround": "Preferuj dźwięk przestrzenny / Dolby"},
 			"autoRetry": {"label": "Ponawiaj nieudane pobierania", "description": "Automatycznie ponawia po problemie z siecią lub serwerem, czekając coraz dłużej między próbami. Pobierania zablokowane przez witrynę nigdy nie są ponawiane automatycznie.", "unit": "razy"},
+			"autoRemoveCompleted": {"label": "Usuwaj ukończone pobierania", "description": "Usuwa pobieranie z listy Pobierania kilka sekund po jego zakończeniu. Pliki zostają w Twoim folderze; nieudane i anulowane pobierania zostają na liście."},
 			"concurrentDownloads": {"label": "Równoczesne pobierania", "description": "Liczba elementów kolejki pobieranych jednocześnie. Więcej równoległych pobierań szybciej kończy długą kolejkę, ale zwiększa ryzyko ograniczeń ze strony witryny.", "unit": "pobrań"},
 			"downloadConnections": {"label": "Połączenia pobierania", "description": "Przyspiesza duże pobierania, pobierając kilka części filmu jednocześnie. Wyższe wartości zwiększają ryzyko ograniczeń ze strony witryny.", "unit": "połączeń"},
 			"networkPacing": {
@@ -588,6 +589,7 @@
 		"globalActionsLabel": "Wszystkie elementy",
 		"selectionSummary": "Wybrano {{selected}} · łącznie {{total}}",
 		"clearTitle": "Wyczyść ukończone pobierania",
+		"autoRemoveCompleted": {"label": "Czyść po ukończeniu", "hint": "Usuwa każde pobieranie z listy kilka sekund po zakończeniu. Pliki zostają w Twoim folderze."},
 		"pauseAllTitle": "Wstrzymaj wszystkie aktywne pobierania i nie uruchamiaj nowych",
 		"resumeAllTitle": "Wznów wstrzymane pobierania i pozwól kolejce działać dalej",
 		"pausedBanner": "Kolejka jest wstrzymana — oczekujące elementy nie rozpoczną się, dopóki jej nie wznowisz",

@@ -309,6 +309,7 @@
 			},
 			"nativeAudioPreference": {"label": "Preferensi audio asli", "description": "Mengontrol apa yang dipilih oleh penduduk asli Terbaik. Baris audio manual dan M4A/AAC tetap eksplisit.", "compatible": "Stereo yang kompatibel", "surround": "Lebih suka surround / Dolby"},
 			"autoRetry": {"label": "Coba lagi unduhan yang gagal", "description": "Otomatis mencoba lagi setelah gangguan jaringan atau server, menunggu lebih lama sebelum tiap percobaan. Unduhan yang diblokir situs tidak pernah dicoba ulang otomatis.", "unit": "kali"},
+			"autoRemoveCompleted": {"label": "Hapus otomatis unduhan yang selesai", "description": "Menghapus unduhan dari daftar Unduhan beberapa detik setelah selesai. File tetap ada di folder Anda; unduhan yang gagal dan dibatalkan tetap ada di daftar."},
 			"concurrentDownloads": {"label": "Unduhan sekaligus", "description": "Berapa banyak item antrean yang diunduh bersamaan. Lebih banyak sekaligus menyelesaikan antrean panjang lebih cepat, tetapi meningkatkan kemungkinan situs membatasi Anda.", "unit": "unduhan"},
 			"downloadConnections": {"label": "Koneksi unduhan", "description": "Mempercepat unduhan besar dengan mengambil beberapa bagian video sekaligus. Nilai lebih tinggi meningkatkan kemungkinan situs membatasi Anda.", "unit": "koneksi"},
 			"networkPacing": {
@@ -593,6 +594,7 @@
 		"globalActionsLabel": "Semua item",
 		"selectionSummary": "{{selected}} dipilih · {{total}} total",
 		"clearTitle": "Hapus unduhan yang sudah selesai",
+		"autoRemoveCompleted": {"label": "Bersihkan otomatis", "hint": "Menghapus setiap unduhan dari daftar beberapa detik setelah selesai. File tetap ada di folder Anda."},
 		"pauseAllTitle": "Jeda setiap pengunduhan aktif dan hentikan pengunduhan baru",
 		"resumeAllTitle": "Lanjutkan unduhan yang dijeda dan biarkan antrean terus berjalan",
 		"pausedBanner": "Antrean dijeda — item yang menunggu tidak akan dimulai sampai Anda melanjutkannya",

@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} 个下载需要你处理"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "每个下载完成几秒后，自动从列表中移除。文件仍保留在你的文件夹中。"
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "完成后自动清除"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "取消所有正在进行和等待中的下载"
@@ -3132,6 +3140,14 @@ msgstr "发送每日心跳"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "不收集遥测数据。每天一次，匿名心跳会发送应用版本、安装渠道、操作系统、语言和国家/地区，用于统计活跃用户。不包含 ID、URL、视频标题或文件名。"
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "下载完成几秒后，将其从“下载”列表中移除。文件仍保留在你的文件夹中；失败和已取消的下载会留在列表中。"
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "自动移除已完成的下载"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

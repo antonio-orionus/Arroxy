@@ -287,6 +287,7 @@
 			},
 			"nativeAudioPreference": {"label": "原生音訊偏好", "description": "控制「最佳原生格式」的選擇。手動音訊列與 M4A/AAC 仍維持明確選擇。", "compatible": "相容立體聲", "surround": "優先使用環繞音效／Dolby"},
 			"autoRetry": {"label": "重試失敗的下載", "description": "網路或伺服器發生短暫問題後會自動重試，且每次嘗試之間等待更久。遭網站封鎖的下載絕不會自動重試。", "unit": "次"},
+			"autoRemoveCompleted": {"label": "自動移除已完成的下載", "description": "下載完成幾秒後，將其從「下載」清單中移除。檔案仍保留在你的資料夾中；失敗和已取消的下載會留在清單中。"},
 			"concurrentDownloads": {"label": "同時下載數", "description": "同時下載的佇列項目數。一次下載越多，長佇列完成得越快，但也更可能遭網站限制。", "unit": "個下載"},
 			"downloadConnections": {"label": "下載連線數", "description": "同時擷取影片的多個部分以加快大型下載。數值越高，越可能遭網站限制。", "unit": "個連線"},
 			"networkPacing": {
@@ -543,6 +544,7 @@
 		"globalActionsLabel": "所有項目",
 		"selectionSummary": "已選 {{selected}} 個 · 共 {{total}} 個",
 		"clearTitle": "清除已完成的下載",
+		"autoRemoveCompleted": {"label": "完成後自動清除", "hint": "每個下載完成幾秒後，自動從清單中移除。檔案仍保留在你的資料夾中。"},
 		"pauseAllTitle": "暫停所有進行中的下載，並阻止新下載開始",
 		"resumeAllTitle": "繼續已暫停的下載，並讓佇列繼續處理",
 		"pausedBanner": "佇列已暫停——在你繼續佇列前，等待中的項目不會開始",

@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} 件のダウンロードで確認が必要です"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "各ダウンロードを完了の数秒後に一覧から外します。ファイルはフォルダーに残ります。"
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "完了後に自動クリア"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "すべてのアクティブおよび保留中のダウンロードをキャンセル"
@@ -3132,6 +3140,14 @@ msgstr "毎日のハートビートを送信"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "テレメトリはありません。1日1回、匿名のハートビートでアプリのバージョン、インストール方法、OS、言語、国を送信し、アクティブユーザー数を数えます。ID、URL、動画タイトル、ファイル名は含まれません。"
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "ダウンロードが完了して数秒後に、「ダウンロード」の一覧から外します。ファイルはフォルダーに残ります。失敗または取り消されたダウンロードは一覧に残ります。"
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "完了したダウンロードを自動で削除"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

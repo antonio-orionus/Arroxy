@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Upakuaji {{count}} unahitaji umakini wako"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Huondoa kila kipakuzi kwenye orodha sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Futa kiotomatiki ikikamilika"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Ghairi vipakuzi vyote vinavyoendelea na vinavyosubiri"
@@ -3132,6 +3140,14 @@ msgstr "Tuma ishara ya kila siku"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha na nchi ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Huondoa kipakuzi kwenye orodha ya Vipakuliwa sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako; vipakuzi vilivyoshindwa na vilivyoghairiwa hubaki kwenye orodha."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Ondoa kiotomatiki vipakuzi vilivyokamilika"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

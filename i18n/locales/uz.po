@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} ta yuklab olish e'tiboringizni kutmoqda"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Har bir yuklamani tugagach, bir necha soniyadan so‘ng ro‘yxatdan olib tashlaydi. Fayllar jildingizda qoladi."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Tugagach avtomatik tozalash"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Barcha faol va kutayotgan yuklamalarni bekor qilish"
@@ -3132,6 +3140,14 @@ msgstr "Kunlik signal yuborish"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Telemetriya yo'q. Kuniga bir marta anonim signal ilova versiyasi, o'rnatish kanali, OT, til va mamlakatni yuboradi — shunda faol foydalanuvchilarni sanay olamiz. ID, URL, video sarlavhalari yoki fayl nomlari yo'q."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Yuklama tugagach, bir necha soniyadan so‘ng uni Yuklamalar ro‘yxatidan olib tashlaydi. Fayllar jildingizda qoladi; muvaffaqiyatsiz va bekor qilingan yuklamalar ro‘yxatda qoladi."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Tugallangan yuklamalarni avtomatik olib tashlash"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} unduhan memerlukan perhatian Anda"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Menghapus setiap unduhan dari daftar beberapa detik setelah selesai. File tetap ada di folder Anda."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Bersihkan otomatis"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Batalkan semua unduhan yang aktif dan tertunda"
@@ -3132,6 +3140,14 @@ msgstr "Kirim sinyal harian"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Tanpa telemetri. Sekali sehari, sinyal anonim mengirim versi aplikasi, saluran instalasi, OS, bahasa, dan negara agar kami bisa menghitung pengguna aktif. Tanpa ID, URL, judul video, atau nama file."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Menghapus unduhan dari daftar Unduhan beberapa detik setelah selesai. File tetap ada di folder Anda; unduhan yang gagal dan dibatalkan tetap ada di daftar."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Hapus otomatis unduhan yang selesai"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

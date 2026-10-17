@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "ดาวน์โหลด {{count}} รายการต้องให้คุณดู"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "นำการดาวน์โหลดแต่ละรายการออกจากรายการไม่กี่วินาทีหลังเสร็จสิ้น ไฟล์ยังอยู่ในโฟลเดอร์ของคุณ"
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "ล้างอัตโนมัติเมื่อเสร็จ"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "ยกเลิกการดาวน์โหลดที่กำลังทำงานและรออยู่ทั้งหมด"
@@ -3132,6 +3140,14 @@ msgstr "ส่งสัญญาณรายวัน"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "ไม่มีการเก็บข้อมูลเทเลเมทรี วันละครั้ง สัญญาณแบบไม่ระบุตัวตนจะส่งเวอร์ชันแอป ช่องทางการติดตั้ง ระบบปฏิบัติการ ภาษา และประเทศ เพื่อให้เรานับจำนวนผู้ใช้ที่ใช้งานอยู่ได้ โดยไม่มี ID URL ชื่อวิดีโอ หรือชื่อไฟล์"
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "นำการดาวน์โหลดออกจากรายการดาวน์โหลดไม่กี่วินาทีหลังเสร็จสิ้น ไฟล์ยังอยู่ในโฟลเดอร์ของคุณ ส่วนการดาวน์โหลดที่ล้มเหลวและที่ยกเลิกจะอยู่ในรายการต่อ"
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "ลบการดาวน์โหลดที่เสร็จแล้วอัตโนมัติ"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

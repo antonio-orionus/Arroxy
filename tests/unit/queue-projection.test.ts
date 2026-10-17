@@ -84,6 +84,41 @@ describe('QueueProjection', () => {
 		expect(onDoneIncrements).toHaveBeenCalledWith(1, 2)
 	})
 
+	// Auto-remove takes a finished row out five seconds after it completes; a
+	// hidden window holds the flush back longer than that, so the done update and
+	// the removal reach one batch and the removal discards the update.
+	it('still counts a download that finished and was removed before the batch flushed', () => {
+		const listeners: Partial<{updated: (event: {item: QueueItem}) => void; removed: (event: {itemId: string}) => void}> = {}
+		const events: QueueProjectionBindings = {
+			onSnapshot: () => vi.fn(),
+			onAdded: () => vi.fn(),
+			onUpdated: listener => {
+				listeners.updated = listener
+				return vi.fn()
+			},
+			onRemoved: listener => {
+				listeners.removed = listener
+				return vi.fn()
+			},
+			onScheduler: () => vi.fn()
+		}
+		let current = {...state([makeItem({id: 'q1', status: 'running'}), makeItem({id: 'q2', status: 'done'})]), settings: {common: {successfulDownloadCount: 2}}}
+		const scheduled: (() => void)[] = []
+		const onDoneIncrements = vi.fn()
+
+		bindQueueProjection({events, get: () => current, set: patcher => (current = {...current, ...patcher(current)}), schedule: callback => scheduled.push(callback), readSuccessfulDownloadCount: () => current.settings.common.successfulDownloadCount, onDoneIncrements})
+
+		listeners.updated?.({item: {...current.queue[0], status: 'done', progressPercent: 100}})
+		listeners.removed?.({itemId: 'q1'})
+		// A row that was already done when it left is not a new success.
+		listeners.removed?.({itemId: 'q2'})
+		scheduled[0]()
+
+		expect(current.queue).toHaveLength(0)
+		expect(onDoneIncrements).toHaveBeenCalledOnce()
+		expect(onDoneIncrements).toHaveBeenCalledWith(1, 2)
+	})
+
 	it('binds scheduler events to the schedulerPaused state field', () => {
 		const listeners: Partial<{scheduler: (event: QueueSchedulerEventPayload) => void}> = {}
 		const events: QueueProjectionBindings = {

@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "Preferência de áudio nativo", "description": "Controla o que a opção 'Melhor nativo' escolhe. As opções manuais de áudio e M4A/AAC permanecem explícitas.", "compatible": "Estéreo compatível", "surround": "Preferir surround / Dolby"},
 			"autoRetry": {"label": "Tentar novamente downloads com falha", "description": "Tenta novamente de forma automática após falhas de rede ou do servidor, aguardando mais tempo entre cada tentativa. Downloads bloqueados pelo site nunca são repetidos automaticamente.", "unit": "vezes"},
+			"autoRemoveCompleted": {"label": "Remover downloads concluídos automaticamente", "description": "Remove um download da lista de Downloads alguns segundos depois de concluído. Os arquivos ficam na sua pasta; downloads com falha e cancelados continuam na lista."},
 			"concurrentDownloads": {"label": "Downloads simultâneos", "description": "Quantos itens da fila baixam ao mesmo tempo. Mais downloads simultâneos terminam filas longas mais rápido, mas aumentam a chance de o site limitar você.", "unit": "downloads"},
 			"downloadConnections": {"label": "Conexões por download", "description": "Acelera downloads grandes baixando várias partes de um vídeo simultaneamente. Valores mais altos aumentam a chance de o site limitar você.", "unit": "conexões"},
 			"networkPacing": {
@@ -580,6 +581,7 @@
 		"globalActionsLabel": "Todos os itens",
 		"selectionSummary": "{{selected}} selecionados · {{total}} total",
 		"clearTitle": "Limpar downloads concluídos",
+		"autoRemoveCompleted": {"label": "Limpar ao concluir", "hint": "Remove cada download da lista alguns segundos depois de concluído. Os arquivos ficam na sua pasta."},
 		"pauseAllTitle": "Pausar todos os downloads ativos e impedir que novos iniciem",
 		"resumeAllTitle": "Retomar downloads pausados e continuar a fila",
 		"pausedBanner": "A fila está pausada — os itens em espera não começam até você retomá-la",

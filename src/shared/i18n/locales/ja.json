@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "ネイティブ音声の設定", "description": "「最高のネイティブ」が選ぶ音声を制御します。手動の音声行と M4A/AAC は明示的な選択のままです。", "compatible": "互換性重視のステレオ", "surround": "サラウンド / Dolby を優先"},
 			"autoRetry": {"label": "失敗したダウンロードを再試行", "description": "ネットワークやサーバーの一時的な問題のあと、自動的に再試行します。試行ごとに待ち時間が長くなります。サイトにブロックされたダウンロードは自動再試行されません。", "unit": "回"},
+			"autoRemoveCompleted": {"label": "完了したダウンロードを自動で削除", "description": "ダウンロードが完了して数秒後に、「ダウンロード」の一覧から外します。ファイルはフォルダーに残ります。失敗または取り消されたダウンロードは一覧に残ります。"},
 			"concurrentDownloads": {"label": "同時ダウンロード数", "description": "キュー内の項目を同時にいくつダウンロードするか。同時数を増やすと長いキューが早く終わりますが、サイトから制限される可能性が高まります。", "unit": "件"},
 			"downloadConnections": {"label": "ダウンロード接続数", "description": "動画の複数の部分を同時に取得して、大きなダウンロードを高速化します。値を大きくすると、サイトから制限される可能性が高まります。", "unit": "接続"},
 			"networkPacing": {
@@ -580,6 +581,7 @@
 		"globalActionsLabel": "すべての項目",
 		"selectionSummary": "{{selected}} 件選択 · 合計 {{total}} 件",
 		"clearTitle": "完了したダウンロードをクリア",
+		"autoRemoveCompleted": {"label": "完了後に自動クリア", "hint": "各ダウンロードを完了の数秒後に一覧から外します。ファイルはフォルダーに残ります。"},
 		"pauseAllTitle": "すべてのアクティブなダウンロードを一時停止",
 		"resumeAllTitle": "一時停止中のダウンロードを再開し、キューを続行します",
 		"pausedBanner": "キューは一時停止中です — 待機中の項目は再開するまで開始されません",

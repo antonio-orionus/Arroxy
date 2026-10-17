@@ -83,6 +83,10 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 	let pendingQueueUpdates = new Map<string, QueueItem>()
 	let pendingQueueAdded: {items: QueueItem[]; atIdx: number}[] = []
 	let pendingQueueRemoved = new Set<string>()
+	// Completions whose row was removed before the batch flushed (auto-remove fires
+	// while a hidden window holds the flush back): the removal drops the update,
+	// but the download still finished and still counts.
+	let removedDoneIncrements = 0
 	let queueFlushScheduled = false
 
 	const scheduleFlush = (): void => {
@@ -103,9 +107,11 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		pendingQueueRemoved = new Set()
 		const previousSuccessfulDownloadCount = readSuccessfulDownloadCount()
 		const result = applyQueueProjectionBatch(get(), {updates, adds, removes})
+		const doneIncrements = result.doneIncrements + removedDoneIncrements
+		removedDoneIncrements = 0
 		set(() => result.patch as Partial<State>)
-		if (result.doneIncrements > 0) {
-			onDoneIncrements(result.doneIncrements, previousSuccessfulDownloadCount)
+		if (doneIncrements > 0) {
+			onDoneIncrements(doneIncrements, previousSuccessfulDownloadCount)
 		}
 	}
 
@@ -129,6 +135,8 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 		scheduleFlush()
 	})
 	const unbindRemoved = events.onRemoved(({itemId}) => {
+		const pending = pendingQueueUpdates.get(itemId)
+		if (pending?.status === QUEUE_STATUS.done && get().queue.find(item => item.id === itemId)?.status !== QUEUE_STATUS.done) removedDoneIncrements++
 		pendingQueueUpdates.delete(itemId)
 		// An add still pending for this id is undone rather than applied after the removal.
 		pendingQueueAdded = pendingQueueAdded.flatMap(evt => {

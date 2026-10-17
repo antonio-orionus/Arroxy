@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "نیازمند توجه شما: {{count}}"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "هر دانلود را چند ثانیه پس از پایان از فهرست برمی‌دارد. فایل‌ها در پوشه‌ی شما می‌مانند."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "پاک‌سازی خودکار پس از پایان"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "لغو همهٔ دانلودهای فعال و در انتظار"
@@ -3132,6 +3140,14 @@ msgstr "ارسال سیگنال روزانه"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "بدون تله‌متری. روزی یک بار، یک سیگنال ناشناس نسخهٔ برنامه، کانال نصب، سیستم‌عامل، زبان و کشور را می‌فرستد تا بتوانیم کاربران فعال را بشماریم. هیچ شناسه، URL، عنوان ویدیو یا نام فایلی فرستاده نمی‌شود."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "چند ثانیه پس از پایان، دانلود را از فهرست دانلودها برمی‌دارد. فایل‌ها در پوشه‌ی شما می‌مانند؛ دانلودهای ناموفق و لغوشده در فهرست باقی می‌مانند."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "حذف خودکار دانلودهای کامل‌شده"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} indirme dikkatini bekliyor"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Her indirmeyi bittikten birkaç saniye sonra listeden kaldırır. Dosyalar klasörünüzde kalır."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Bitenleri otomatik temizle"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Tüm etkin ve bekleyen indirmeleri iptal et"
@@ -3132,6 +3140,14 @@ msgstr "Günlük sinyal gönder"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Telemetri yok. Etkin kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili ve ülkeyi gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Bir indirmeyi bittikten birkaç saniye sonra İndirmeler listesinden kaldırır. Dosyalar klasörünüzde kalır; başarısız ve iptal edilen indirmeler listede kalır."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Biten indirmeleri otomatik kaldır"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "Upendeleo wa sauti asili", "description": "Hudhibiti kile ambacho Best native huchagua. Safu za sauti za mkono na M4A/AAC hubaki chaguo wazi.", "compatible": "Stereo inayooendana", "surround": "Pendelea surround / Dolby"},
 			"autoRetry": {"label": "Jaribu tena upakuaji ulioshindwa", "description": "Hujaribu tena kiotomatiki baada ya hitilafu ya mtandao au seva, ikisubiri muda mrefu zaidi kabla ya kila jaribio. Upakuaji uliozuiwa na tovuti haujaribiwi tena kiotomatiki.", "unit": "mara"},
+			"autoRemoveCompleted": {"label": "Ondoa kiotomatiki vipakuzi vilivyokamilika", "description": "Huondoa kipakuzi kwenye orodha ya Vipakuliwa sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako; vipakuzi vilivyoshindwa na vilivyoghairiwa hubaki kwenye orodha."},
 			"concurrentDownloads": {"label": "Upakuaji kwa wakati mmoja", "description": "Ni vipengee vingapi vya foleni vinapakuliwa kwa wakati mmoja. Vingi kwa wakati mmoja humaliza foleni ndefu haraka, lakini huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "upakuaji"},
 			"downloadConnections": {"label": "Miunganisho ya upakuaji", "description": "Huharakisha upakuaji mkubwa kwa kupakua sehemu kadhaa za video kwa wakati mmoja. Thamani kubwa huongeza uwezekano wa tovuti kukuwekea mipaka.", "unit": "miunganisho"},
 			"networkPacing": {
@@ -583,6 +584,7 @@
 		"globalActionsLabel": "Vipengee vyote",
 		"selectionSummary": "{{selected}} zimechaguliwa · jumla {{total}}",
 		"clearTitle": "Futa vipakuzi vilivyokamilika",
+		"autoRemoveCompleted": {"label": "Futa kiotomatiki ikikamilika", "hint": "Huondoa kila kipakuzi kwenye orodha sekunde chache baada ya kukamilika. Faili hubaki kwenye folda yako."},
 		"pauseAllTitle": "Simamisha vipakuzi vyote vinavyoendelea",
 		"resumeAllTitle": "Endeleza vipakuliwa vilivyosimamishwa na ruhusu foleni iendelee",
 		"pausedBanner": "Foleni imesimamishwa — vipakuzi vinavyosubiri havitaanza hadi ukiendeleza",

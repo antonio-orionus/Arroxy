@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "Tùy chọn âm thanh gốc", "description": "Kiểm soát lựa chọn của “Best native”. Các hàng âm thanh thủ công và M4A/AAC vẫn là lựa chọn rõ ràng.", "compatible": "Stereo tương thích", "surround": "Ưu tiên surround / Dolby"},
 			"autoRetry": {"label": "Thử lại các mục tải thất bại", "description": "Tự động thử lại sau sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử. Các mục bị trang web chặn sẽ không bao giờ được tự động thử lại.", "unit": "lần"},
+			"autoRemoveCompleted": {"label": "Tự động gỡ các mục tải xuống đã xong", "description": "Gỡ một mục tải xuống khỏi danh sách Tải xuống vài giây sau khi hoàn tất. Tệp vẫn nằm trong thư mục của bạn; các mục thất bại và đã hủy vẫn ở lại danh sách."},
 			"concurrentDownloads": {"label": "Tải cùng lúc", "description": "Bao nhiêu mục trong hàng đợi được tải cùng lúc. Nhiều hơn giúp hàng đợi dài xong sớm hơn, nhưng làm tăng khả năng trang web giới hạn bạn.", "unit": "mục"},
 			"downloadConnections": {"label": "Kết nối tải xuống", "description": "Tăng tốc các tệp tải lớn bằng cách lấy nhiều phần của video cùng lúc. Giá trị cao hơn làm tăng khả năng trang web giới hạn bạn.", "unit": "kết nối"},
 			"networkPacing": {
@@ -573,6 +574,7 @@
 		"globalActionsLabel": "Tất cả mục",
 		"selectionSummary": "Đã chọn {{selected}} · tổng {{total}}",
 		"clearTitle": "Xóa các tải xuống đã hoàn tất",
+		"autoRemoveCompleted": {"label": "Tự xóa khi xong", "hint": "Gỡ từng mục tải xuống khỏi danh sách vài giây sau khi hoàn tất. Tệp vẫn nằm trong thư mục của bạn."},
 		"pauseAllTitle": "Tạm dừng tất cả các tải xuống đang hoạt động",
 		"resumeAllTitle": "Tiếp tục các tải xuống đã tạm dừng và cho hàng đợi chạy tiếp",
 		"pausedBanner": "Hàng đợi đang tạm dừng — các mục đang chờ sẽ không bắt đầu cho đến khi bạn tiếp tục",

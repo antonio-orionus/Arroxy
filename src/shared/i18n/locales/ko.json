@@ -287,6 +287,7 @@
 			},
 			"nativeAudioPreference": {"label": "원본 오디오 환경설정", "description": "최상의 원본이 선택할 항목을 제어합니다. 수동 오디오 행과 M4A/AAC는 명시적으로 유지됩니다.", "compatible": "호환 스테레오", "surround": "서라운드 / Dolby 선호"},
 			"autoRetry": {"label": "실패한 다운로드 재시도", "description": "네트워크나 서버 문제가 발생하면 재시도 간격을 늘려 자동으로 다시 시도합니다. 사이트에서 차단한 다운로드는 자동으로 재시도하지 않습니다.", "unit": "회"},
+			"autoRemoveCompleted": {"label": "완료된 다운로드 자동 제거", "description": "다운로드가 끝나고 몇 초 뒤에 다운로드 목록에서 제거합니다. 파일은 폴더에 그대로 남으며, 실패하거나 취소된 다운로드는 목록에 남습니다."},
 			"concurrentDownloads": {"label": "동시 다운로드", "description": "대기열에서 동시에 다운로드할 항목 수입니다. 동시에 더 많이 받으면 긴 대기열이 빨리 끝나지만 사이트에서 제한할 가능성이 커집니다.", "unit": "다운로드"},
 			"downloadConnections": {"label": "다운로드 연결", "description": "동영상의 여러 부분을 동시에 받아 대용량 다운로드 속도를 높입니다. 값이 높을수록 사이트에서 제한할 가능성이 커집니다.", "unit": "연결"},
 			"networkPacing": {
@@ -564,6 +565,7 @@
 		"globalActionsLabel": "모든 항목",
 		"selectionSummary": "{{selected}}개 선택 · 총 {{total}}개",
 		"clearTitle": "완료된 다운로드 지우기",
+		"autoRemoveCompleted": {"label": "완료 시 자동 지우기", "hint": "각 다운로드를 끝나고 몇 초 뒤에 목록에서 제거합니다. 파일은 폴더에 그대로 남습니다."},
 		"pauseAllTitle": "모든 진행 중인 다운로드를 일시 중지하고 새 다운로드가 시작되지 않게 합니다",
 		"resumeAllTitle": "일시 중지된 다운로드를 다시 시작하고 대기열을 계속 진행합니다",
 		"pausedBanner": "대기열이 일시 중지되었습니다. 다시 시작할 때까지 대기 항목은 시작되지 않습니다",

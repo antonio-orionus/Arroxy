@@ -296,6 +296,7 @@
 			},
 			"nativeAudioPreference": {"label": "Preferencia de audio nativo", "description": "Controla lo que elige «Mejor nativo». Las filas de audio manuales y M4A/AAC siguen siendo explícitas.", "compatible": "Estéreo compatible", "surround": "Preferir surround / Dolby"},
 			"autoRetry": {"label": "Reintentar descargas fallidas", "description": "Vuelve a intentarlo automáticamente tras un fallo de red o del servidor, esperando más entre cada intento. Las descargas bloqueadas por el sitio nunca se reintentan automáticamente.", "unit": "veces"},
+			"autoRemoveCompleted": {"label": "Quitar descargas terminadas", "description": "Quita una descarga de la lista de Descargas unos segundos después de terminar. Los archivos se quedan en tu carpeta; las descargas fallidas y canceladas siguen en la lista."},
 			"concurrentDownloads": {"label": "Descargas a la vez", "description": "Cuántos elementos de la cola se descargan al mismo tiempo. Más a la vez termina antes una cola larga, pero aumenta la probabilidad de que el sitio te limite.", "unit": "descargas"},
 			"downloadConnections": {"label": "Conexiones de descarga", "description": "Acelera las descargas grandes obteniendo varias partes de un vídeo a la vez. Los valores altos aumentan la probabilidad de que el sitio te limite.", "unit": "conexiones"},
 			"networkPacing": {
@@ -580,6 +581,7 @@
 		"globalActionsLabel": "Todos los elementos",
 		"selectionSummary": "{{selected}} seleccionados · {{total}} en total",
 		"clearTitle": "Limpiar descargas completadas",
+		"autoRemoveCompleted": {"label": "Limpiar al terminar", "hint": "Quita cada descarga de la lista unos segundos después de terminar. Los archivos se quedan en tu carpeta."},
 		"pauseAllTitle": "Pausar todas las descargas activas",
 		"resumeAllTitle": "Reanudar descargas pausadas y dejar que la cola continúe",
 		"pausedBanner": "La cola está en pausa — los elementos en espera no empezarán hasta que la reanudes",

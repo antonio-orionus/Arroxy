@@ -309,6 +309,7 @@
 			},
 			"nativeAudioPreference": {"label": "Filannoo sagalee dhalootaa", "description": "Best native maal akka filatu to’ata. Tarreewwan sagalee harkaan filataman fi M4A/AAC filannoo ifa ta’anii hafu.", "compatible": "Isteeriyoo walsimu", "surround": "Surround / Dolby filadhu"},
 			"autoRetry": {"label": "Buufata kufe irra deebi'ii yaali", "description": "Rakkoo networkii yookaan saarvarii booda ofumaan irra deebi'ee yaala, yaalii tokkoo fi kan biraa gidduutti dheeraa eega. Buufanni marsariitiin ugguramee ofumaan hin yaalamu.", "unit": "yeroo"},
+			"autoRemoveCompleted": {"label": "Buufata xumuraman ofumaan haqi", "description": "Buufanni erga xumuramee sekondii muraasa booda tarree Buufata irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu; buufanni kufe fi dhiisame tarree keessa ni turu."},
 			"concurrentDownloads": {"label": "Buufata yeroo tokkotti", "description": "Wantoota tarree keessaa meeqa yeroo tokkotti akka buufaman. Yeroo tokkotti baay'achuun tarree dheeraa dafee xumura, garuu carraa marsariitiin si daangessu dabala.", "unit": "buufata"},
 			"downloadConnections": {"label": "Walqunnamtii buufataa", "description": "Kutaalee viidiyoo hedduu yeroo tokkotti fiduun buufata gurguddaa saffisiisa. Gatiin ol'aanaan carraa marsariitiin si daangessu dabala.", "unit": "walqunnamtii"},
 			"networkPacing": {
@@ -603,6 +604,7 @@
 		"globalActionsLabel": "Wantoota hunda",
 		"selectionSummary": "{{selected}} filatame · waliigala {{total}}",
 		"clearTitle": "Daawniloodoonni xumuraman haquu",
+		"autoRemoveCompleted": {"label": "Xumurametti ofumaan qulqulleessi", "hint": "Buufanni tokkoon tokkoon isaa erga xumuramee sekondii muraasa booda tarree irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu."},
 		"pauseAllTitle": "Daawniloodoonni hunda qabsoo jiran gidduu dhabi",
 		"resumeAllTitle": "Buusuu dhaabbate itti fufi; tarreenis haa deemuu",
 		"pausedBanner": "Tarreen dhaabbate — kan eeggaa tarreen itti hin fufin akka hin jalqabin dhaaba",

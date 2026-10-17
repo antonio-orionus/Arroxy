@@ -309,6 +309,7 @@
 			},
 			"nativeAudioPreference": {"label": "Native Audioeinstellung", "description": "Steuert, was „Bestes nativ“ auswählt. Manuelle Audiozeilen und M4A/AAC bleiben explizit.", "compatible": "Kompatibles Stereo", "surround": "Surround / Dolby bevorzugen"},
 			"autoRetry": {"label": "Fehlgeschlagene Downloads wiederholen", "description": "Versucht es nach einem Netzwerk- oder Serverproblem automatisch erneut und wartet vor jedem Versuch länger. Von der Seite blockierte Downloads werden nie automatisch wiederholt.", "unit": "mal"},
+			"autoRemoveCompleted": {"label": "Fertige Downloads automatisch entfernen", "description": "Nimmt einen Download wenige Sekunden nach dem Abschluss aus der Downloads-Liste. Die Dateien bleiben in deinem Ordner; fehlgeschlagene und abgebrochene Downloads bleiben in der Liste."},
 			"concurrentDownloads": {"label": "Gleichzeitige Downloads", "description": "Wie viele Einträge der Warteschlange gleichzeitig geladen werden. Mehr auf einmal leert eine lange Warteschlange schneller, erhöht aber die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Downloads"},
 			"downloadConnections": {"label": "Download-Verbindungen", "description": "Beschleunigt große Downloads, indem mehrere Teile eines Videos gleichzeitig geladen werden. Höhere Werte erhöhen die Wahrscheinlichkeit, dass eine Seite dich drosselt.", "unit": "Verbindungen"},
 			"networkPacing": {
@@ -593,6 +594,7 @@
 		"globalActionsLabel": "Alle Elemente",
 		"selectionSummary": "{{selected}} ausgewählt · {{total}} gesamt",
 		"clearTitle": "Abgeschlossene Downloads entfernen",
+		"autoRemoveCompleted": {"label": "Fertige automatisch entfernen", "hint": "Jeden Download wenige Sekunden nach dem Abschluss aus der Liste entfernen. Die Dateien bleiben in deinem Ordner."},
 		"pauseAllTitle": "Alle aktiven Downloads pausieren",
 		"resumeAllTitle": "Pausierte Downloads fortsetzen und die Warteschlange weiterlaufen lassen",
 		"pausedBanner": "Die Warteschlange ist pausiert — wartende Downloads starten erst, wenn du sie fortsetzt",

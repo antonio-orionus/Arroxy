@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "ဒေါင်းလုဒ်တစ်ခုချင်းစီကို ပြီးဆုံးပြီး စက္ကန့်အနည်းငယ်အကြာတွင် စာရင်းမှ ဖယ်ရှားပေးသည်။ ဖိုင်များသည် သင့်ဖိုလ်ဒါထဲတွင် ဆက်ရှိနေမည်။"
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "ပြီးလျှင် အလိုအလျောက်ရှင်းရန်"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "လုပ်ဆောင်နေသောနှင့် ဆိုင်းငံ့ထားသောဒေါင်းလုဒ်အားလုံး ဖျက်သိမ်းမည်"
@@ -3132,6 +3140,14 @@ msgstr "နေ့စဉ် အချက်ပြမှု ပေးပို့�
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Telemetry မစုဆောင်းပါ။ တစ်နေ့တစ်ကြိမ် အမည်မဖော်သော အချက်ပြမှုတစ်ခုက အက်ပ်ဗားရှင်း၊ install channel၊ OS၊ ဘာသာစကားနှင့် နိုင်ငံကို ပေးပို့ပြီး အသုံးပြုနေသူ အရေအတွက်ကို ရေတွက်နိုင်စေပါသည်။ ID၊ URL၊ ဗီဒီယိုခေါင်းစဉ်များ သို့မဟုတ် ဖိုင်အမည်များ မပါဝင်ပါ။"
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "ဒေါင်းလုဒ် ပြီးဆုံးပြီး စက္ကန့်အနည်းငယ်အကြာတွင် ဒေါင်းလုဒ်စာရင်းမှ ဖယ်ရှားပေးသည်။ ဖိုင်များသည် သင့်ဖိုလ်ဒါထဲတွင် ဆက်ရှိနေပြီး မအောင်မြင်သော၊ ပယ်ဖျက်ထားသော ဒေါင်းလုဒ်များ စာရင်းထဲတွင် ကျန်ရှိနေမည်။"
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "ပြီးဆုံးသော ဒေါင်းလုဒ်များကို အလိုအလျောက် ဖယ်ရှားရန်"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

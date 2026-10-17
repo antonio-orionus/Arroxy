@@ -317,6 +317,7 @@
 			},
 			"nativeAudioPreference": {"label": "Asl audio afzalligi", "description": "“Best native” nimani tanlashini boshqaradi. Qo‘lda tanlangan audio qatorlari va M4A/AAC aniq tanlov bo‘lib qoladi.", "compatible": "Mos stereo", "surround": "Surround / Dolbyni afzal ko‘rish"},
 			"autoRetry": {"label": "Muvaffaqiyatsiz yuklamalarni qayta urinish", "description": "Tarmoq yoki server nosozligidan so'ng avtomatik qayta urinadi va har urinishdan oldin uzoqroq kutadi. Sayt tomonidan bloklangan yuklamalar hech qachon avtomatik qayta urinilmaydi.", "unit": "marta"},
+			"autoRemoveCompleted": {"label": "Tugallangan yuklamalarni avtomatik olib tashlash", "description": "Yuklama tugagach, bir necha soniyadan so‘ng uni Yuklamalar ro‘yxatidan olib tashlaydi. Fayllar jildingizda qoladi; muvaffaqiyatsiz va bekor qilingan yuklamalar ro‘yxatda qoladi."},
 			"concurrentDownloads": {"label": "Bir vaqtda yuklamalar", "description": "Navbatdagi nechta element bir vaqtda yuklab olinadi. Bir vaqtda ko'proq bo'lsa uzun navbat tezroq tugaydi, lekin sayt sizni cheklash ehtimoli ortadi.", "unit": "yuklama"},
 			"downloadConnections": {"label": "Yuklab olish ulanishlari", "description": "Videoning bir nechta qismini bir vaqtda olib, katta yuklamalarni tezlashtiradi. Yuqori qiymatlar sayt sizni cheklash ehtimolini oshiradi.", "unit": "ulanish"},
 			"networkPacing": {
@@ -608,6 +609,7 @@
 		"globalActionsLabel": "Barcha elementlar",
 		"selectionSummary": "{{selected}} tanlangan · jami {{total}}",
 		"clearTitle": "Tugallangan yuklamalarni tozalash",
+		"autoRemoveCompleted": {"label": "Tugagach avtomatik tozalash", "hint": "Har bir yuklamani tugagach, bir necha soniyadan so‘ng ro‘yxatdan olib tashlaydi. Fayllar jildingizda qoladi."},
 		"pauseAllTitle": "Barcha faol yuklamalarni to'xtatib turish",
 		"resumeAllTitle": "Pauzadagi yuklab olishlarni davom ettirib, navbatni yurgizish",
 		"pausedBanner": "Navbat pauzada — kutayotgan yuklamalar navbat davom ettirilmaguncha boshlanmaydi",

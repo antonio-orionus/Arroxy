@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "ትኩረት የሚሹ፦ {{count}}"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "እያንዳንዱን ዳውንሎድ ከተጠናቀቀ ከጥቂት ሰከንዶች በኋላ ከዝርዝሩ ያስወግደዋል። ፋይሎቹ በአቃፊዎ ውስጥ ይቀራሉ።"
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "ሲጠናቀቅ በራስ-ሰር አጽዳ"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "ሁሉንም ንቁ እና በመጠባበቅ ላይ ያሉ ዳውንሎዶችን ሰርዝ"
@@ -3132,6 +3140,14 @@ msgstr "ዕለታዊ ምልክት ላክ"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "ቴሌሜትሪ የለም። በቀን አንድ ጊዜ ስም-አልባ ምልክት የመተግበሪያውን ስሪት፣ የመጫኛ ቻናል፣ OS፣ ቋንቋ እና ሀገር ይልካል፤ ንቁ ተጠቃሚዎችን ለመቁጠር ብቻ። ምንም መታወቂያ፣ URL፣ የቪዲዮ ርዕሶች ወይም የፋይል ስሞች የሉም።"
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "ዳውንሎድ ከተጠናቀቀ ከጥቂት ሰከንዶች በኋላ ከዳውንሎዶች ዝርዝር ያስወግደዋል። ፋይሎቹ በአቃፊዎ ውስጥ ይቀራሉ፤ ያልተሳኩና የተሰረዙ ዳውንሎዶች በዝርዝሩ ውስጥ ይቆያሉ።"
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "የተጠናቀቁ ዳውንሎዶችን በራስ-ሰር አስወግድ"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

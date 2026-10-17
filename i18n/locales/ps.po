@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} ډاونلوډونه ستاسو پاملرنې ته اړتیا لري"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "هر ډاونلوډ د بشپړېدو څو ثانیې وروسته له لېست څخه لرې کوي. فایلونه ستاسو په فولډر کې پاتې کېږي."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "د بشپړېدو پر مهال اتوماتيک پاکول"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "ټول فعال او انتظار کې ډاونلوډونه لغوه کړئ"
@@ -3132,6 +3140,14 @@ msgstr "ورځنی سیګنال واستوئ"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "هیڅ ټیلي‌میټري نشته. په ورځ کې یو ځل یو ناپیژندل شوی سیګنال د اپ نسخه، د نصب چینل، OS، ژبه او هېواد لېږي، ترڅو موږ فعال کاروونکي وشمېرو. هیڅ ID، URL، د ویډیو سرلیکونه یا د فایل نومونه نشته."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "د بشپړېدو څو ثانیې وروسته ډاونلوډ د ډاونلوډونو له لېست څخه لرې کوي. فایلونه ستاسو په فولډر کې پاتې کېږي؛ ناکام او لغوه شوي ډاونلوډونه په لېست کې پاتې کېږي."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "بشپړ شوي ډاونلوډونه په اتوماتيک ډول لرې کړئ"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."

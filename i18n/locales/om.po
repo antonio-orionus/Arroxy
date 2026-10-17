@@ -839,6 +839,14 @@ msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Buufannaan {{count}} xiyyeeffannoo kee barbaada"
 
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Buufanni tokkoon tokkoon isaa erga xumuramee sekondii muraasa booda tarree irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Xumurametti ofumaan qulqulleessi"
+
 msgctxt "queue.cancelAllTitle"
 msgid "Cancel all active and pending downloads"
 msgstr "Daawniloodoonni hunda qabsoo jiran fi eegaa jiran addaan kuti"
@@ -3132,6 +3140,14 @@ msgstr "Mallattoo guyyaa guyyaan ergi"
 msgctxt "wizard.url.analytics.toggleDescription"
 msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
 msgstr "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan fi biyya erga, akka fayyadamtoota hojii irra jiran lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Buufanni erga xumuramee sekondii muraasa booda tarree Buufata irraa ni haqama. Faayiloonni galmee keessan keessa ni hafu; buufanni kufe fi dhiisame tarree keessa ni turu."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Buufata xumuraman ofumaan haqi"
 
 msgctxt "wizard.url.autoRetry.description"
 msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
