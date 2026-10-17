@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Günlükleri ve uygulama bilgilerini İndirilenler klasöründe tek bir dosyada toplar; dosya bir GitHub issue'suna eklenmeye hazırdır. Kullanıcı klasörünüzün adı kaldırılır; video bağlantıları ve başlıkları korunur.",
 		"feedbackNudge": "Arroxy hoşuna gidiyor mu? Senden haber almak isterim! 💬",
 		"zoomIn": "Yakınlaştır",
-		"zoomOut": "Uzaklaştır"
+		"zoomOut": "Uzaklaştır",
+		"theme": "Tema",
+		"styleHint": "Yeni: Aurora veya Minimal'i buradan seçin"
 	},
 	"about": {"button": "Hakkında", "openTitle": "Arroxy Hakkında", "tagline": "YouTube ve 2000+ diğer site için hızlı, dost canlısı indirici.", "websiteLink": "Web sitesi", "githubLink": "GitHub", "licenseLine": "MIT Lisansı · Antonio Orionus tarafından", "thirdPartyNotices": "Üçüncü taraf bildirimlerini görüntüle"},
 	"titleBar": {"close": "Kapat", "minimize": "Simge durumuna küçült", "maximize": "Büyüt", "restore": "Geri yükle"},

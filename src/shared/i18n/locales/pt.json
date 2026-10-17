@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Reúne os logs e os detalhes do app em um único arquivo na pasta Downloads, pronto para anexar a uma issue no GitHub. O nome da pasta de usuário é removido; os links e títulos dos vídeos são mantidos.",
 		"feedbackNudge": "Gostando do Arroxy? Adoraria ouvir sua opinião! 💬",
 		"zoomIn": "Aumentar zoom",
-		"zoomOut": "Diminuir zoom"
+		"zoomOut": "Diminuir zoom",
+		"theme": "Tema",
+		"styleHint": "Novidade: escolha Aurora ou Minimalista aqui"
 	},
 	"about": {"button": "Sobre", "openTitle": "Sobre o Arroxy", "tagline": "Baixador rápido e amigável para o YouTube e mais de 2000 outros sites.", "websiteLink": "Site", "githubLink": "GitHub", "licenseLine": "Licença MIT · por Antonio Orionus", "thirdPartyNotices": "Ver avisos de terceiros"},
 	"titleBar": {"close": "Fechar", "minimize": "Minimizar", "maximize": "Maximizar", "restore": "Restaurar"},

@@ -480,6 +480,7 @@ export interface SystemSlice {
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>
 	dismissMultiProfileHint: () => Promise<void>
+	dismissStyleHint: () => Promise<void>
 	acknowledgeExploreNotice: () => Promise<void>
 	setExploreCompactChrome: (compact: boolean) => Promise<void>
 	// Marks the first Explore open done; switches `off` to `explore` only if that is the mode right now. One write.

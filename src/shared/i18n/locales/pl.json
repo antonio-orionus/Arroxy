@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Umieszcza dzienniki i informacje o aplikacji w jednym pliku w folderze Pobrane, gotowym do dołączenia do zgłoszenia w GitHub. Nazwa folderu użytkownika zostaje usunięta; linki i tytuły filmów pozostają.",
 		"feedbackNudge": "Podoba Ci się Arroxy? Chętnie poznam Twoją opinię! 💬",
 		"zoomIn": "Powiększ",
-		"zoomOut": "Pomniejsz"
+		"zoomOut": "Pomniejsz",
+		"theme": "Motyw",
+		"styleHint": "Nowość: wybierz tutaj Aurora lub Minimalistyczny"
 	},
 	"about": {
 		"button": "Informacje",

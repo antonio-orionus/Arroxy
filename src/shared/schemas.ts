@@ -250,6 +250,12 @@ export const uiStyleSchema = z.enum(['aurora', 'minimal'])
 export type UiStyle = z.infer<typeof uiStyleSchema>
 export const UI_STYLES = uiStyleSchema.options
 
+// What the native application menu asks the renderer to do. The renderer owns
+// UI state, so a menu pick is a request, applied through the same store actions
+// as the footer controls.
+export const menuActionSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('about')}), z.object({kind: z.literal('share')}), z.object({kind: z.literal('feedback')}), z.object({kind: z.literal('style'), style: uiStyleSchema}), z.object({kind: z.literal('theme'), theme: uiThemeSchema})])
+export type MenuAction = z.infer<typeof menuActionSchema>
+
 export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
 export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
 
@@ -655,7 +661,8 @@ const commonSettingsSchema = z.object({
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
-	multiProfileHintDismissed: z.boolean().optional()
+	multiProfileHintDismissed: z.boolean().optional(),
+	styleHintDismissed: z.boolean().optional()
 })
 
 const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})

@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "将日志和应用信息汇总到“下载”文件夹中的一个文件里，可直接附加到 GitHub issue。你的用户文件夹名称会被移除；视频链接和标题会保留。",
 		"feedbackNudge": "喜欢 Arroxy 吗?我很想听听你的想法! 💬",
 		"zoomIn": "放大",
-		"zoomOut": "缩小"
+		"zoomOut": "缩小",
+		"theme": "主题",
+		"styleHint": "新功能：在这里选择 Aurora 或极简"
 	},
 	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},

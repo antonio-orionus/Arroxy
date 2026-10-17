@@ -7,6 +7,7 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
 import {TrayManager} from '@main/services/TrayManager.js'
 import {mainT, pluralKey} from '@main/i18n.js'
+import {installAppMenu} from '@main/installAppMenu.js'
 import {pickLanguage} from '@shared/i18n/index.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
@@ -569,7 +570,9 @@ if (hasSingleInstanceLock) {
 		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
 		hotkeyService.onStateChange(syncHotkeyTrayItem)
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider})
+		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
+
+		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider, refreshAppMenu: appMenu.refresh})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)

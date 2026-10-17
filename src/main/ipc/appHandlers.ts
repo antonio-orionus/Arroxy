@@ -14,12 +14,14 @@ interface AppHandlerDeps {
 	binaryManager: BinaryManager
 	languageRef: {current: SupportedLang}
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
+	// The native menu is labelled in the app language; macOS only, so absent elsewhere.
+	onLanguageChanged?: () => void
 }
 
 const warmUpInputSchema = z.object({force: z.boolean().optional()}).optional()
 
 export function registerAppHandlers(deps: AppHandlerDeps): void {
-	const {warmupService, binaryManager, languageRef, graphicsPolicyProvider} = deps
+	const {warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged} = deps
 
 	handleRaw(IPC_CHANNELS.appWarmUp, (_, payload: unknown) => {
 		const parsed = warmUpInputSchema.safeParse(payload)
@@ -64,6 +66,7 @@ export function registerAppHandlers(deps: AppHandlerDeps): void {
 		const parsed = supportedLangSchema.safeParse(payload)
 		if (parsed.success) {
 			languageRef.current = parsed.data
+			onLanguageChanged?.()
 		} else {
 			log.warn('app:setLanguage rejected — invalid language', {payload})
 		}

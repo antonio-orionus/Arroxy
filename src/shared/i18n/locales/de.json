@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Fasst Protokolle und App-Details in einer Datei im Downloads-Ordner zusammen, bereit zum Anhängen an ein GitHub-Issue. Der Name des Benutzerordners wird entfernt; Videolinks und -titel bleiben erhalten.",
 		"feedbackNudge": "Gefällt dir Arroxy? Ich freue mich über dein Feedback! 💬",
 		"zoomIn": "Vergrößern",
-		"zoomOut": "Verkleinern"
+		"zoomOut": "Verkleinern",
+		"theme": "Farbschema",
+		"styleHint": "Neu: Aurora oder Minimal hier auswählen"
 	},
 	"about": {"button": "Info", "openTitle": "Über Arroxy", "tagline": "Schneller, freundlicher Downloader für YouTube und über 2000 weitere Seiten.", "websiteLink": "Website", "githubLink": "GitHub", "licenseLine": "MIT-Lizenz · von Antonio Orionus", "thirdPartyNotices": "Drittanbieter-Hinweise anzeigen"},
 	"titleBar": {"close": "Schließen", "minimize": "Minimieren", "maximize": "Maximieren", "restore": "Wiederherstellen"},

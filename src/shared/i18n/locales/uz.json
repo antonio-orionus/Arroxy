@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Jurnallar va ilova ma'lumotlarini Yuklanmalar jildidagi bitta faylga to'playdi, uni GitHub issue'ga biriktirish mumkin. Foydalanuvchi jildingiz nomi olib tashlanadi; video havolalari va sarlavhalari qoladi.",
 		"feedbackNudge": "Arroxy yoqdimi? Fikringizni bilmoqchiman! 💬",
 		"zoomIn": "Kattalashtirish",
-		"zoomOut": "Kichraytirish"
+		"zoomOut": "Kichraytirish",
+		"theme": "Mavzu",
+		"styleHint": "Yangi: bu yerda Aurora yoki Minimalistik uslubini tanlang"
 	},
 	"about": {
 		"button": "Dastur haqida",
