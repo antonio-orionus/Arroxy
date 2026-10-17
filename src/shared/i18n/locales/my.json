@@ -150,7 +150,7 @@
 			"heading": "URL မှ ဒေါင်းလုဒ်လုပ်ရန်",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "ပရိုဖိုင်များ", "settings": "ဆက်တင်များ"},
-			"interactiveDownload": "ဖော်မတ်များရယူမည်",
+			"interactiveDownload": "အပြန်အလှန်ဒေါင်းလုဒ်",
 			"fetchFormatsTooltip": "အဆင့်လိုက် wizard။ ဖော်မတ်၊ အရည်အသွေးနှင့် အခြားအရာများကို ရွေးပါ။",
 			"quickDownload": "အမြန်ဒေါင်းလုဒ်",
 			"quickDownloadTooltip": "{{profileName}} ကို အသုံးပြု၍ ဒေါင်းလုဒ်လုပ်မည်",
@@ -791,6 +791,8 @@
 			"downloadWithProfile": "ဒေါင်းလုဒ် · {{profileName}}",
 			"interactiveHint": "format၊ စာတန်းထိုး စသည်တို့ကို ရွေးပါ…",
 			"grabUnavailable": "ဒေါင်းလုဒ်လုပ်ရန် ဗီဒီယို၊ ပလေးလစ် သို့မဟုတ် ချန်နယ်တစ်ခု ဖွင့်ပါ",
+			"compactLayout": "ကျစ်လစ်သော အပြင်အဆင်",
+			"fullLayout": "အပြင်အဆင် အပြည့်အစုံ ပြရန်",
 			"adBlock": {
 				"aria": "ကြော်ငြာပိတ်ဆို့ကိရိယာ",
 				"off": "ကြော်ငြာပိတ်ဆို့ကိရိယာ- ပိတ်ထားသည် — ဖွင့်ရန် နှိပ်ပါ",

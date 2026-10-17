@@ -180,7 +180,7 @@
 			"heading": "Завантажити з URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Профілі", "settings": "Налаштування"},
-			"interactiveDownload": "Отримати формати",
+			"interactiveDownload": "Інтерактивне завантаження",
 			"fetchFormatsTooltip": "Покроковий майстер. Виберіть формат, якість та інші параметри.",
 			"quickDownload": "Швидке завантаження",
 			"quickDownloadTooltip": "Буде завантажено через: {{profileName}}",
@@ -846,6 +846,8 @@
 			"downloadWithProfile": "Завантажити · {{profileName}}",
 			"interactiveHint": "Вибрати формат, субтитри та інше…",
 			"grabUnavailable": "Відкрий відео, плейлист або канал, щоб завантажити його",
+			"compactLayout": "Компактний вигляд",
+			"fullLayout": "Показати повний вигляд",
 			"adBlock": {
 				"aria": "Блокувальник реклами",
 				"off": "Блокувальник реклами: вимкнено — натисни, щоб увімкнути",

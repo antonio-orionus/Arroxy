@@ -150,7 +150,7 @@
 			"heading": "URL से डाउनलोड करें",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "प्रोफाइल", "settings": "सेटिंग्स"},
-			"interactiveDownload": "फ़ॉर्मेट लाएँ",
+			"interactiveDownload": "इंटरैक्टिव डाउनलोड",
 			"fetchFormatsTooltip": "चरण-दर-चरण विज़ार्ड। फ़ॉर्मैट, गुणवत्ता और अन्य विकल्प चुनें।",
 			"quickDownload": "क्विक डाउनलोड",
 			"quickDownloadTooltip": "{{profileName}} का उपयोग करके डाउनलोड होगा",
@@ -780,6 +780,8 @@
 			"downloadWithProfile": "डाउनलोड · {{profileName}}",
 			"interactiveHint": "फ़ॉर्मैट, उपशीर्षक वगैरह चुनें…",
 			"grabUnavailable": "डाउनलोड करने के लिए कोई वीडियो, प्लेलिस्ट या चैनल खोलें",
+			"compactLayout": "कॉम्पैक्ट लेआउट",
+			"fullLayout": "पूरा लेआउट दिखाएँ",
 			"adBlock": {
 				"aria": "ऐड ब्लॉकर",
 				"off": "ऐड ब्लॉकर: बंद — चालू करने के लिए क्लिक करें",

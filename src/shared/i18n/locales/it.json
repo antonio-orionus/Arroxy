@@ -837,6 +837,8 @@
 			"downloadWithProfile": "Scarica · {{profileName}}",
 			"interactiveHint": "Scegli formato, sottotitoli e altro…",
 			"grabUnavailable": "Apri un video, una playlist o un canale per scaricarlo",
+			"compactLayout": "Layout compatto",
+			"fullLayout": "Mostra layout completo",
 			"adBlock": {
 				"aria": "Blocco annunci",
 				"off": "Blocco annunci: disattivato — clic per attivarlo",

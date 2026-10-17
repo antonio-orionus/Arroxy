@@ -172,7 +172,7 @@
 			"heading": "له URL څخه ډاونلوډ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "پروفایلونه", "settings": "امستنې"},
-			"interactiveDownload": "بڼې ترلاسه کړه",
+			"interactiveDownload": "تعاملي ډاونلوډ",
 			"fetchFormatsTooltip": "ګام په ګام لارښود. بڼه، کیفیت او نور وټاکئ.",
 			"quickDownload": "چټک ډاونلوډ",
 			"quickDownloadTooltip": "د {{profileName}} په کارولو سره به ډاونلوډ شي",
@@ -832,6 +832,8 @@
 			"downloadWithProfile": "ډاونلوډ · {{profileName}}",
 			"interactiveHint": "فارمټ، ساب ټایټلونه او نور وټاکئ…",
 			"grabUnavailable": "د ښکته کولو لپاره یو ویډیو، پلې‌لېست یا چینل پرانیزئ",
+			"compactLayout": "کمپیکټ ترتیب",
+			"fullLayout": "بشپړ ترتیب ښکاره کړئ",
 			"adBlock": {
 				"aria": "د اعلان بلاکر",
 				"off": "د اعلان بلاکر: بند — د چالانولو لپاره کلیک وکړئ",

@@ -167,7 +167,7 @@
 			"heading": "Преузми са URL-а",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Профили", "settings": "Подешавања"},
-			"interactiveDownload": "Учитај формате",
+			"interactiveDownload": "Интерактивно преузимање",
 			"fetchFormatsTooltip": "Водич корак по корак. Изабери формат, квалитет и још опција.",
 			"quickDownload": "Брзо преузимање",
 			"quickDownloadTooltip": "Преузимаће помоћу: {{profileName}}",
@@ -826,6 +826,8 @@
 			"downloadWithProfile": "Преузми · {{profileName}}",
 			"interactiveHint": "Изабери формат, титлове и још тога…",
 			"grabUnavailable": "Отвори видео, плејлисту или канал за преузимање",
+			"compactLayout": "Компактан распоред",
+			"fullLayout": "Прикажи пун распоред",
 			"adBlock": {
 				"aria": "Блокатор огласа",
 				"off": "Блокатор огласа: искључен — кликни да укључиш",

@@ -159,7 +159,7 @@
 			"heading": "Descargar desde URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Perfiles", "settings": "Ajustes"},
-			"interactiveDownload": "Obtener formatos",
+			"interactiveDownload": "Descarga interactiva",
 			"fetchFormatsTooltip": "Asistente paso a paso. Elige formato, calidad y más.",
 			"quickDownload": "Descarga rápida",
 			"quickDownloadTooltip": "Se descargará con: {{profileName}}",
@@ -830,6 +830,8 @@
 			"downloadWithProfile": "Descargar · {{profileName}}",
 			"interactiveHint": "Elige formato, subtítulos y más…",
 			"grabUnavailable": "Abre un vídeo, una lista de reproducción o un canal para descargarlo",
+			"compactLayout": "Diseño compacto",
+			"fullLayout": "Mostrar diseño completo",
 			"adBlock": {
 				"aria": "Bloqueador de anuncios",
 				"off": "Bloqueador de anuncios: desactivado — haz clic para activarlo",

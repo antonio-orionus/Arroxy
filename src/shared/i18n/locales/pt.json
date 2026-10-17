@@ -832,6 +832,8 @@
 			"downloadWithProfile": "Baixar · {{profileName}}",
 			"interactiveHint": "Escolha formato, legendas e mais…",
 			"grabUnavailable": "Abra um vídeo, uma playlist ou um canal para baixá-lo",
+			"compactLayout": "Layout compacto",
+			"fullLayout": "Mostrar layout completo",
 			"adBlock": {
 				"aria": "Bloqueador de anúncios",
 				"off": "Bloqueador de anúncios: desativado — clique para ativar",

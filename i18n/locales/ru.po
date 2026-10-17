@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "Назад"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Компактный вид"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Скачать · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "Скачать · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "Вперёд"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Показать полный вид"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "Нажмите сочетание клавиш, когда в буфер
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "Получить форматы"
+msgstr "Интерактивная загрузка"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

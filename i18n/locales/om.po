@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "Duubatti"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Qindaa'ina gabaabaa"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Buusi · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "Buusi · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "Fuuldura"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Qindaa'ina guutuu agarsiisi"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "Buufamaa keessa hidha viidiyoo yoo jiru, hotkey cuqaasi."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "Foormaatii fidi"
+msgstr "Buufata walnaqqee"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

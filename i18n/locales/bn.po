@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "পেছনে"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "কমপ্যাক্ট লেআউট"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ডাউনলোড · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "ডাউনলোড · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "সামনে"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "পূর্ণ লেআউট দেখান"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "ক্লিপবোর্ডে ভিডিও লিংক থাক
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "ফরম্যাট আনুন"
+msgstr "ইন্টারঅ্যাকটিভ ডাউনলোড"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

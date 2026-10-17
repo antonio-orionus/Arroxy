@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "뒤로"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "컴팩트 레이아웃"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "다운로드 · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "다운로드 · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "앞으로"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "전체 레이아웃 표시"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"

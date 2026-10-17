@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "شاته"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "کمپیکټ ترتیب"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ډاونلوډ · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "ډاونلوډ · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "مخکې"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "بشپړ ترتیب ښکاره کړئ"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "کله چې په کاپي بورد کې د ویډیو لینک وي، ش
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "بڼې ترلاسه کړه"
+msgstr "تعاملي ډاونلوډ"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

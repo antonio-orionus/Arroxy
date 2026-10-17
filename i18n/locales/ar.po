@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "رجوع"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "تخطيط مضغوط"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "تنزيل · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "تنزيل · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "للأمام"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "إظهار التخطيط الكامل"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "اضغط الاختصار مع وجود رابط فيديو في الح�
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "جلب الصيغ"
+msgstr "تنزيل تفاعلي"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

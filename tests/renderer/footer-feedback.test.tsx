@@ -1,7 +1,8 @@
-import {render, screen, fireEvent, waitFor} from '@testing-library/react'
+import {act, render, screen, fireEvent, waitFor} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {defaultAppSettings} from '@shared/constants.js'
 
 function ok<T>(data: T) {
 	return Promise.resolve({ok: true as const, data})
@@ -128,6 +129,23 @@ describe('Footer feedback controls', () => {
 		expect(screen.getByTestId('btn-discord')).toBeInTheDocument()
 		expect(screen.getByTestId('btn-feedback')).toBeInTheDocument()
 		expect(screen.queryByTestId('btn-logs')).not.toBeInTheDocument()
+	})
+
+	it('goes compact while Explore is browsing in compact layout', async () => {
+		render(<App />)
+		const footer = await screen.findByTestId('app-footer')
+		expect(footer).not.toHaveAttribute('data-compact')
+
+		act(() => {
+			const settings = defaultAppSettings('/tmp')
+			useAppStore.setState({exploreBrowsing: true, settings: {...settings, common: {...settings.common, exploreCompactChrome: true}}})
+		})
+
+		expect(footer).toHaveAttribute('data-compact', 'true')
+		expect(screen.getByTestId('btn-feedback-label')).toHaveClass('sr-only')
+
+		act(() => useAppStore.setState({exploreBrowsing: false}))
+		expect(footer).not.toHaveAttribute('data-compact')
 	})
 
 	it('uses compact footer classes so mobile widths do not clip utility actions', async () => {

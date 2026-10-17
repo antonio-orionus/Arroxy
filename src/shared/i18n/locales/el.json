@@ -172,7 +172,7 @@
 			"heading": "Λήψη από URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Προφίλ", "settings": "Ρυθμίσεις"},
-			"interactiveDownload": "Φόρτωση μορφών",
+			"interactiveDownload": "Διαδραστική λήψη",
 			"fetchFormatsTooltip": "Οδηγός βήμα προς βήμα. Επίλεξε μορφή, ποιότητα και περισσότερα.",
 			"quickDownload": "Γρήγορη λήψη",
 			"quickDownloadTooltip": "Θα γίνει λήψη με: {{profileName}}",
@@ -846,6 +846,8 @@
 			"downloadWithProfile": "Λήψη · {{profileName}}",
 			"interactiveHint": "Επίλεξε μορφή, υπότιτλους και άλλα…",
 			"grabUnavailable": "Άνοιξε ένα βίντεο, μια λίστα αναπαραγωγής ή ένα κανάλι για λήψη",
+			"compactLayout": "Συμπαγής διάταξη",
+			"fullLayout": "Εμφάνιση πλήρους διάταξης",
 			"adBlock": {
 				"aria": "Φραγή διαφημίσεων",
 				"off": "Φραγή διαφημίσεων: ανενεργή — κάνε κλικ για ενεργοποίηση",

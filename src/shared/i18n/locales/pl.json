@@ -838,6 +838,8 @@
 			"downloadWithProfile": "Pobierz · {{profileName}}",
 			"interactiveHint": "Wybierz format, napisy i więcej…",
 			"grabUnavailable": "Otwórz film, playlistę lub kanał, aby pobrać",
+			"compactLayout": "Układ kompaktowy",
+			"fullLayout": "Pokaż pełny układ",
 			"adBlock": {
 				"aria": "Blokowanie reklam",
 				"off": "Blokowanie reklam: wyłączone — kliknij, aby włączyć",

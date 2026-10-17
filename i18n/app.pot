@@ -366,12 +366,20 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr ""
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr ""
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr ""
 
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
+msgstr ""
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
 msgstr ""
 
 msgctxt "explore.toolbar.grabUnavailable"

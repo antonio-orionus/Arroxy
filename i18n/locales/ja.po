@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "戻る"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "コンパクト表示"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ダウンロード · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "ダウンロード · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "進む"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "通常の表示に戻す"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "クリップボードに動画リンクがある状態でショートカ
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "形式を取得"
+msgstr "インタラクティブダウンロード"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

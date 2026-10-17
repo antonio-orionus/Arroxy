@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "ተመለስ"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "የታመቀ አቀማመጥ"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "አውርድ · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "አውርድ · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "ወደፊት"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "ሙሉ አቀማመጥ አሳይ"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "በቅጂ ሰሌዳው ላይ የቪዲዮ አገናኝ ሲኖር አቋ
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "ቅርጸቶችን ጫን"
+msgstr "በይነተገናኝ ማውረድ"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

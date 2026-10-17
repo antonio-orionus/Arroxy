@@ -159,7 +159,7 @@
 			"heading": "URL থেকে ডাউনলোড করুন",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "প্রোফাইল", "settings": "সেটিংস"},
-			"interactiveDownload": "ফরম্যাট আনুন",
+			"interactiveDownload": "ইন্টারঅ্যাকটিভ ডাউনলোড",
 			"fetchFormatsTooltip": "ধাপে ধাপে উইজার্ড। ফরম্যাট, মান এবং আরও কিছু বেছে নিন।",
 			"quickDownload": "দ্রুত ডাউনলোড",
 			"quickDownloadTooltip": "{{profileName}} ব্যবহার করে ডাউনলোড হবে",
@@ -784,6 +784,8 @@
 			"downloadWithProfile": "ডাউনলোড · {{profileName}}",
 			"interactiveHint": "ফরম্যাট, সাবটাইটেল ও আরও বেছে নিন…",
 			"grabUnavailable": "ডাউনলোড করতে একটি ভিডিও, প্লেলিস্ট বা চ্যানেল খুলুন",
+			"compactLayout": "কমপ্যাক্ট লেআউট",
+			"fullLayout": "পূর্ণ লেআউট দেখান",
 			"adBlock": {
 				"aria": "অ্যাড ব্লকার",
 				"off": "অ্যাড ব্লকার: বন্ধ — চালু করতে ক্লিক করুন",

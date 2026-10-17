@@ -159,7 +159,7 @@
 			"heading": "Pakua kutoka URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Wasifu", "settings": "Mipangilio"},
-			"interactiveDownload": "Pata maumbo",
+			"interactiveDownload": "Upakuaji shirikishi",
 			"fetchFormatsTooltip": "Mchawi wa hatua kwa hatua. Chagua umbizo, ubora na mengine.",
 			"quickDownload": "Upakuaji wa haraka",
 			"quickDownloadTooltip": "Itapakua kwa kutumia: {{profileName}}",
@@ -828,6 +828,8 @@
 			"downloadWithProfile": "Pakua · {{profileName}}",
 			"interactiveHint": "Chagua fomati, manukuu na zaidi…",
 			"grabUnavailable": "Fungua video, orodha ya kucheza au kituo ili kupakua",
+			"compactLayout": "Mpangilio mshikamano",
+			"fullLayout": "Onyesha mpangilio kamili",
 			"adBlock": {
 				"aria": "Kizuia matangazo",
 				"off": "Kizuia matangazo: kimezimwa — bofya ili kukiwasha",

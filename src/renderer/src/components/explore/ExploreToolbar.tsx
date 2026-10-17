@@ -1,13 +1,15 @@
 import {createContext, useContext, useState, type ReactElement, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ArrowLeft, ArrowRight, ChevronDown, House, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
+import {ArrowLeft, ArrowRight, ChevronDown, House, Maximize2, Minimize2, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
 import type {ExploreAdBlockStatus} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import type {DownloadProfileActionModel} from '../wizard/downloadProfileActions.js'
 import {DownloadProfileMenuContent} from '../wizard/DownloadProfileMenu.js'
+import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
+import {Separator} from '../ui/separator.js'
 import {Spinner} from '../ui/spinner.js'
 import {Toggle} from '../ui/toggle.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
@@ -35,6 +37,11 @@ interface ExploreToolbarProps {
 	onDownload: () => void
 	onInteractive: () => void
 	onToggleAdBlock: (enabled: boolean) => void
+	// Compact app chrome: an icon-only tab bar and a slim footer, for more page.
+	compact: boolean
+	// Shown first in the row (the home's compact tab list).
+	leading?: ReactNode
+	onToggleCompact: (compact: boolean) => void
 }
 
 const AD_BLOCK_ICONS: Record<ExploreAdBlockStatus, LucideIcon> = {off: ShieldOff, starting: ShieldEllipsis, on: ShieldCheck, unavailable: ShieldAlert}
@@ -84,12 +91,26 @@ function AdBlockToggle({status, onToggle}: {status: ExploreAdBlockStatus; onTogg
 	)
 }
 
+// Pressed while the app chrome is compact; the icon shows what a press does.
+function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compact: boolean) => void}): ReactNode {
+	const {t} = useTranslation()
+	const label = compact ? t('explore.toolbar.fullLayout') : t('explore.toolbar.compactLayout')
+	const Icon = compact ? Maximize2 : Minimize2
+	return (
+		<ToolbarTip label={label}>
+			<Toggle variant="outline" size="icon-sm" pressed={compact} onPressedChange={onToggle} aria-label={t('explore.toolbar.compactLayout')} data-testid="explore-compact-toggle">
+				<Icon aria-hidden />
+			</Toggle>
+		</ToolbarTip>
+	)
+}
+
 // The profile menu is a DOM popup, so the view hides while it is open (the
 // viewport's overlay rule), like for any dialog. A button that cannot act yet
 // stays focusable (`focusableWhenDisabled`, so aria-disabled instead of
 // disabled): the browser fires no hover on a disabled button, and that is when
 // its tooltip has to say why.
-export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock}: ExploreToolbarProps): ReactNode {
+export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
 	const {t} = useTranslation()
 	const [menuOpen, setMenuOpen] = useState(false)
 	const {activeProfile, ActiveIcon} = profiles
@@ -99,7 +120,14 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 	const interactiveHint = t('explore.toolbar.interactiveHint')
 	return (
 		<PointerEntries value={pointerEntries}>
-			<div role="toolbar" aria-label={t('explore.toolbar.aria')} className="flex min-w-0 flex-wrap items-center gap-2" data-testid="explore-toolbar">
+			{/* Compact keeps one row wherever it fits (the address bar and the Download label shrink first); a very narrow or zoomed card still wraps. */}
+			<div role="toolbar" aria-label={t('explore.toolbar.aria')} className={cn('flex min-w-0 flex-wrap items-center gap-2', compact && '@xl:flex-nowrap')} data-testid="explore-toolbar">
+				{leading ? (
+					<>
+						{leading}
+						<Separator orientation="vertical" className="my-1.5" />
+					</>
+				) : null}
 				<ButtonGroup>
 					<ToolbarTip label={t('explore.toolbar.back')}>
 						<Button type="button" variant="outline" size="icon-sm" aria-label={t('explore.toolbar.back')} disabled={!state.canGoBack} focusableWhenDisabled onClick={() => onNavigate({kind: 'back'})}>
@@ -129,7 +157,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 					<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 						<ButtonGroup className="min-w-0">
 							<ToolbarTip label={grabHint ?? downloadLabel}>
-								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} onClick={onDownload} className="min-w-0 shrink" data-testid="explore-download">
+								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint} onClick={onDownload} className="min-w-8 shrink" data-testid="explore-download">
 									<ActiveIcon data-icon="inline-start" aria-hidden />
 									<span className="min-w-0 truncate">{downloadLabel}</span>
 								</Button>
@@ -152,6 +180,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 						</Button>
 					</ToolbarTip>
 				</div>
+				<CompactToggle compact={compact} onToggle={onToggleCompact} />
 			</div>
 		</PointerEntries>
 	)

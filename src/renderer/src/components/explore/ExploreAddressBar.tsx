@@ -77,7 +77,7 @@ export function ExploreAddressBar({url, onSubmit, onEdit}: ExploreAddressBarProp
 				onEdit()
 			}}
 			onKeyDown={onKeyDown}
-			className="h-7 min-w-0 flex-1 basis-40 font-mono text-xs text-muted-foreground focus:text-foreground md:text-xs"
+			className="h-7 min-w-16 flex-1 basis-40 font-mono text-xs text-muted-foreground focus:text-foreground md:text-xs"
 			data-testid="explore-address"
 		/>
 	)

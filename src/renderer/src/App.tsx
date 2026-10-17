@@ -29,6 +29,7 @@ import {Button} from './components/ui/button.js'
 import {ButtonGroup} from './components/ui/button-group.js'
 import {TooltipProvider} from './components/ui/tooltip.js'
 import {cn} from './lib/utils.js'
+import {selectCompactChrome} from './store/uiSlice.js'
 import changelogText from '../../../CHANGELOG.md?raw'
 
 const SHOW_SCENARIO_GALLERY = import.meta.env.MODE === 'browser-mock'
@@ -125,6 +126,10 @@ export function App(): ReactNode {
 		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
 	)
 	const update = useUpdateChannel()
+	// While browsing in Explore's compact layout the footer drops its labels and slims down.
+	const compactChrome = useAppStore(selectCompactChrome)
+	const footerLabelClass = compactChrome ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
+	const footerActionClass = cn(FOOTER_ACTION_BUTTON_CLASS, compactChrome && 'size-6 px-0')
 	// Routes notify.ts to the toast surface for as long as the app is mounted.
 	useToastSink()
 	const [showNudge, setShowNudge] = useState(false)
@@ -247,7 +252,7 @@ export function App(): ReactNode {
 					</div>
 				</div>
 
-				<footer className="chrome-glass shrink-0 flex h-8 min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2" data-testid="app-footer">
+				<footer className={cn('chrome-glass shrink-0 flex min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2', compactChrome ? 'h-7' : 'h-8')} data-compact={compactChrome ? 'true' : undefined} data-testid="app-footer">
 					<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden" data-testid="footer-left-controls">
 						<ButtonGroup>
 							<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
@@ -266,19 +271,19 @@ export function App(): ReactNode {
 						</div>
 					</div>
 					<div className="flex shrink-0 items-center gap-0.5 sm:gap-1" data-testid="footer-actions">
-						<Button type="button" variant="ghost" size="xs" className={cn(FOOTER_ACTION_BUTTON_CLASS, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
+						<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} title={t('about.openTitle')} data-testid="btn-about">
 							<Info data-icon="inline-start" aria-hidden />
-							{t('about.button')}
+							<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
 						</Button>
-						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={() => openShareDialog()} title={t('share.footerTooltip')} data-testid="btn-share">
+						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} title={t('share.footerTooltip')} data-testid="btn-share">
 							<Share2 data-icon="inline-start" aria-hidden />
-							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-share-label">
+							<span className={footerLabelClass} data-testid="btn-share-label">
 								{t('share.footerLabel')}
 							</span>
 						</Button>
-						<Button type="button" variant="ghost" size="xs" className={FOOTER_ACTION_BUTTON_CLASS} onClick={openDiscord} title="Discord" aria-label="Discord" data-testid="btn-discord">
+						<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} title="Discord" aria-label="Discord" data-testid="btn-discord">
 							<IconDiscord data-icon="inline-start" aria-hidden />
-							<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-discord-label">
+							<span className={footerLabelClass} data-testid="btn-discord-label">
 								Discord
 							</span>
 						</Button>
@@ -288,7 +293,7 @@ export function App(): ReactNode {
 								type="button"
 								variant="ghost"
 								size="xs"
-								className={cn(FOOTER_ACTION_BUTTON_CLASS, showNudge && 'feedback-btn-nudging')}
+								className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')}
 								onClick={() => {
 									feedbackLogger.info('Feedback button clicked', {source: 'footer', nudgeVisible: showNudge})
 									setShowNudge(false)
@@ -298,7 +303,7 @@ export function App(): ReactNode {
 								data-testid="btn-feedback"
 							>
 								<MessageCircle data-icon="inline-start" aria-hidden />
-								<span className={FOOTER_COMPACT_LABEL_CLASS} data-testid="btn-feedback-label">
+								<span className={footerLabelClass} data-testid="btn-feedback-label">
 									{t('app.feedback')}
 								</span>
 							</Button>

@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "Retour"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Disposition compacte"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Télécharger · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "Télécharger · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "Avancer"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Afficher la disposition complète"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "Appuyez sur le raccourci avec un lien vidéo dans le presse-papiers."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "Récupérer les formats"
+msgstr "Téléchargement interactif"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

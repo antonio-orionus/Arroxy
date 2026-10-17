@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "ย้อนกลับ"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "เลย์เอาต์แบบกะทัดรัด"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ดาวน์โหลด · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "ดาวน์โหลด · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "ไปข้างหน้า"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "แสดงเลย์เอาต์แบบเต็ม"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"

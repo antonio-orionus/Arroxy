@@ -142,7 +142,7 @@
 			"heading": "从 URL 下载",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "配置", "settings": "设置"},
-			"interactiveDownload": "获取格式",
+			"interactiveDownload": "交互式下载",
 			"fetchFormatsTooltip": "分步向导。选择格式、质量等选项。",
 			"quickDownload": "快速下载",
 			"quickDownloadTooltip": "将使用以下配置下载：{{profileName}}",
@@ -757,6 +757,8 @@
 			"downloadWithProfile": "下载 · {{profileName}}",
 			"interactiveHint": "选择格式、字幕等…",
 			"grabUnavailable": "打开视频、播放列表或频道即可下载",
+			"compactLayout": "紧凑布局",
+			"fullLayout": "显示完整布局",
 			"adBlock": {"aria": "广告拦截", "off": "广告拦截：已关闭 — 点击开启", "starting": "广告拦截：启动中 — 点击关闭", "on": "广告拦截：已开启 — 点击关闭", "unavailable": "广告拦截：不可用，无法下载其过滤列表 — 点击关闭", "accountNote": "对于已登录的账号，YouTube 可能会抵制广告拦截。"}
 		},
 		"settings": {

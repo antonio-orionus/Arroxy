@@ -8,6 +8,7 @@ import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {notify} from '@renderer/lib/notify.js'
 import {cn} from '@renderer/lib/utils.js'
+import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useDownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -184,6 +185,67 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
 }
 
+// A compact tab bar shows icons only: the label stays for screen readers, and
+// the trigger's title names it on hover.
+function TabLabel({compact, children}: {compact: boolean; children: string}): ReactNode {
+	return <span className={cn(compact && 'sr-only')}>{children}</span>
+}
+
+interface HomeTabsListProps {
+	compact: boolean
+	exploreEnabled: boolean
+	exploreNoticeSeen: boolean
+	queueCount: number
+	attentionCount: number
+	queueIsActive: boolean
+}
+
+// The home's tab triggers. Compact (while browsing in Explore) shows icons only,
+// and the home hands the list to Explore's toolbar instead of the row above.
+function HomeTabsList({compact, exploreEnabled, exploreNoticeSeen, queueCount, attentionCount, queueIsActive}: HomeTabsListProps): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-compact={compact ? 'true' : undefined} data-testid="profiles-tabs">
+			<TabsTrigger value="download" title={compact ? t('wizard.steps.url') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+				<Link2 data-icon="inline-start" aria-hidden />
+				<TabLabel compact={compact}>{t('wizard.steps.url')}</TabLabel>
+			</TabsTrigger>
+			{exploreEnabled ? (
+				<TabsTrigger value="explore" title={compact ? t('explore.tabLabel') : undefined} className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
+					<Compass data-icon="inline-start" aria-hidden />
+					<TabLabel compact={compact}>{t('explore.tabLabel')}</TabLabel>
+					{exploreNoticeSeen ? null : (
+						<Badge variant="info" size="sm">
+							{t('explore.newBadge')}
+						</Badge>
+					)}
+				</TabsTrigger>
+			) : null}
+			<TabsTrigger value="queue" title={compact ? t('queue.tabLabel') : undefined} data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
+				<Inbox data-icon="inline-start" aria-hidden />
+				<TabLabel compact={compact}>{t('queue.tabLabel')}</TabLabel>
+				{attentionCount > 0 ? (
+					<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" title={t('queue.attentionBadge', {count: attentionCount})} aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
+						{attentionCount}
+					</Badge>
+				) : queueCount > 0 ? (
+					<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
+						{queueCount}
+					</Badge>
+				) : null}
+			</TabsTrigger>
+			<TabsTrigger value="profiles" title={compact ? t('wizard.url.tabs.profiles') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+				<Users data-icon="inline-start" aria-hidden />
+				<TabLabel compact={compact}>{t('wizard.url.tabs.profiles')}</TabLabel>
+			</TabsTrigger>
+			<TabsTrigger value="settings" title={compact ? t('wizard.url.tabs.settings') : undefined} className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
+				<Settings data-icon="inline-start" aria-hidden />
+				<TabLabel compact={compact}>{t('wizard.url.tabs.settings')}</TabLabel>
+			</TabsTrigger>
+		</TabsList>
+	)
+}
+
 function QueueTabFirstRunCue({onDismiss, persistent = false}: {onDismiss: () => void; persistent?: boolean}): ReactNode {
 	const {t} = useTranslation()
 
@@ -248,6 +310,9 @@ export function DownloadProfilesHome(): ReactNode {
 	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
 	// With the kill switch on, a stale #explore lands on the URL tab.
 	const activeTab: ProfilesTab = hashTab === 'explore' && !exploreEnabled ? 'download' : hashTab
+	// Icon-only tabs while browsing in compact layout; the tab check covers the
+	// render between leaving Explore and its browser unmounting.
+	const compact = useAppStore(selectCompactChrome) && activeTab === 'explore'
 	const [bulkOpen, setBulkOpen] = useState(() => isBrowserMockBulkDialogScenario(initialBrowserMockScenario))
 	const [bulkInitialRaw, setBulkInitialRaw] = useState(() => browserMockBulkInitialRaw(initialBrowserMockScenario))
 	const [pendingClipboard, setPendingClipboard] = useState<ClipboardCandidate | null>(null)
@@ -379,8 +444,10 @@ export function DownloadProfilesHome(): ReactNode {
 		setWizardUrl(wizardUrl.slice(0, start) + cleaned + wizardUrl.slice(end))
 	}
 
+	const tabsList = <HomeTabsList compact={compact} exploreEnabled={exploreEnabled} exploreNoticeSeen={exploreNoticeSeen} queueCount={queueCount} attentionCount={attentionCount} queueIsActive={queueIsActive} />
+
 	return (
-		<div className="wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4 pb-5" data-testid="download-profiles-home">
+		<div className={cn('wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
 			<Tabs
 				value={activeTab}
 				onValueChange={value => {
@@ -391,47 +458,12 @@ export function DownloadProfilesHome(): ReactNode {
 				// Explore's browser fills the remaining height; the other tabs size to their content.
 				className={cn('gap-4', activeTab === 'explore' && 'flex-1')}
 			>
-				<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
-					<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-testid="profiles-tabs">
-						<TabsTrigger value="download" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-							<Link2 data-icon="inline-start" aria-hidden />
-							{t('wizard.steps.url')}
-						</TabsTrigger>
-						{exploreEnabled ? (
-							<TabsTrigger value="explore" className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
-								<Compass data-icon="inline-start" aria-hidden />
-								{t('explore.tabLabel')}
-								{exploreNoticeSeen ? null : (
-									<Badge variant="info" size="sm">
-										{t('explore.newBadge')}
-									</Badge>
-								)}
-							</TabsTrigger>
-						) : null}
-						<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
-							<Inbox data-icon="inline-start" aria-hidden />
-							{t('queue.tabLabel')}
-							{attentionCount > 0 ? (
-								<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" title={t('queue.attentionBadge', {count: attentionCount})} aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
-									{attentionCount}
-								</Badge>
-							) : queueCount > 0 ? (
-								<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
-									{queueCount}
-								</Badge>
-							) : null}
-						</TabsTrigger>
-						<TabsTrigger value="profiles" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-							<Users data-icon="inline-start" aria-hidden />
-							{t('wizard.url.tabs.profiles')}
-						</TabsTrigger>
-						<TabsTrigger value="settings" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-							<Settings data-icon="inline-start" aria-hidden />
-							{t('wizard.url.tabs.settings')}
-						</TabsTrigger>
-					</TabsList>
-					{queueTabTipVisible ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
-				</div>
+				{compact ? null : (
+					<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
+						{tabsList}
+						{queueTabTipVisible ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
+					</div>
+				)}
 
 				<TabsContent value="download" className="flex flex-col gap-4">
 					<Card variant="glass" data-testid="profiles-download-panel">
@@ -506,7 +538,7 @@ export function DownloadProfilesHome(): ReactNode {
 
 				{exploreEnabled ? (
 					<TabsContent value="explore" className="flex min-h-0 flex-col">
-						<ExploreTab onEditProfile={openEditor} onNewProfile={() => openEditor(null)} onManageProfiles={() => selectProfilesTab('profiles')} />
+						<ExploreTab compactTabs={compact ? tabsList : null} onEditProfile={openEditor} onNewProfile={() => openEditor(null)} onManageProfiles={() => selectProfilesTab('profiles')} />
 					</TabsContent>
 				) : null}
 

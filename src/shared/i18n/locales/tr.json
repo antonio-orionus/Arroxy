@@ -818,6 +818,8 @@
 			"downloadWithProfile": "İndir · {{profileName}}",
 			"interactiveHint": "Biçim, altyazı ve daha fazlasını seç…",
 			"grabUnavailable": "İndirmek için bir video, oynatma listesi veya kanal aç",
+			"compactLayout": "Kompakt düzen",
+			"fullLayout": "Tam düzeni göster",
 			"adBlock": {
 				"aria": "Reklam engelleyici",
 				"off": "Reklam engelleyici: kapalı — açmak için tıkla",

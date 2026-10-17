@@ -3,6 +3,7 @@ import {useShallow} from 'zustand/react/shallow'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
+import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Card} from '../ui/card.js'
 import {ExploreAddressHint, ExploreAddressHintLive} from './ExploreAddressHint.js'
@@ -18,8 +19,9 @@ const NO_PAGE: ExploreViewState = {url: '', title: '', canGoBack: false, canGoFo
 
 const NO_PAGE_AD_BLOCK_ON: ExploreViewState = {...NO_PAGE, adBlock: 'starting'}
 
-// Edit, New and Manage in the profile menu belong to the home (its editor and tabs).
-type ExploreTabProps = Omit<ExploreProfileMenuActions, 'onPickProfile'>
+// Edit, New and Manage in the profile menu belong to the home (its editor and
+// tabs). In compact layout the home's icon-only tab list rides in the toolbar.
+type ExploreTabProps = Omit<ExploreProfileMenuActions, 'onPickProfile'> & {compactTabs: ReactNode}
 
 export function ExploreTab(props: ExploreTabProps): ReactNode {
 	const noticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
@@ -36,7 +38,7 @@ function navigate(command: ExploreNavigateCommand): void {
 	void window.appApi.explore.navigate(command)
 }
 
-function ExploreBrowser({onEditProfile, onNewProfile, onManageProfiles}: ExploreTabProps): ReactNode {
+function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfiles}: ExploreTabProps): ReactNode {
 	const view = useAppStore(s => s.exploreView)
 	const adBlockOn = useAppStore(s => isExploreAdBlockOn(s.settings?.common ?? {}))
 	// Until main reports the view, the shield follows the setting (on unless turned off).
@@ -45,6 +47,8 @@ function ExploreBrowser({onEditProfile, onNewProfile, onManageProfiles}: Explore
 	const profilesPrefs = useAppStore(s => s.settings?.profiles)
 	const setActiveDownloadProfile = useAppStore(s => s.setActiveDownloadProfile)
 	const setExploreAdBlock = useAppStore(s => s.setExploreAdBlock)
+	const compact = useAppStore(selectCompactChrome)
+	const setExploreCompactChrome = useAppStore(s => s.setExploreCompactChrome)
 	const {addressHint, setAddressHint} = useAppStore(useShallow(s => ({addressHint: s.exploreAddressHint, setAddressHint: s.setExploreAddressHint})))
 	const profiles = buildDownloadProfileActionModel(profilesPrefs)
 	const mountedRef = useExploreTabActive()
@@ -80,7 +84,7 @@ function ExploreBrowser({onEditProfile, onNewProfile, onManageProfiles}: Explore
 	}
 
 	return (
-		<Card variant="glass" size="sm" className="min-h-0 flex-1 px-3" data-testid="explore-tab">
+		<Card variant="glass" size="sm" className="@container min-h-0 flex-1 px-3" data-testid="explore-tab">
 			{nudgeMode ? <ExploreModeNudge mode={nudgeMode} onUseExplore={() => void setCookiesMode('explore')} onDismiss={() => void dismissExploreModeNudge(nudgeMode)} /> : null}
 			<ExploreToolbar
 				state={state}
@@ -94,6 +98,9 @@ function ExploreBrowser({onEditProfile, onNewProfile, onManageProfiles}: Explore
 				onDownload={grab}
 				onInteractive={openInteractive}
 				onToggleAdBlock={enabled => void setExploreAdBlock(enabled)}
+				compact={compact}
+				leading={compactTabs}
+				onToggleCompact={next => void setExploreCompactChrome(next)}
 			/>
 			{addressHint ? <ExploreAddressHint hint={addressHint} onDownload={downloadLink} onDismiss={() => setAddressHint(null)} /> : null}
 			<ExploreAddressHintLive hint={addressHint} />
@@ -106,16 +113,19 @@ function ExploreBrowser({onEditProfile, onNewProfile, onManageProfiles}: Explore
 // This component is mounted exactly then: leaving the tab, or the wizard
 // replacing the home, unmounts it. A dialog over the page only hides the view.
 // Leaving also drops the address bar's off-site hint (P2-R45); an edit in
-// progress lives in the bar itself and goes with it.
+// progress lives in the bar itself and goes with it. While mounted, the app
+// chrome may go compact (`selectCompactChrome`).
 // Answers whether the tab is still mounted, for results that land late.
 function useExploreTabActive(): RefObject<boolean> {
 	const mountedRef = useRef(false)
 	useEffect(() => {
 		mountedRef.current = true
 		void window.appApi.explore.setActive(true)
+		useAppStore.getState().setExploreBrowsing(true)
 		return () => {
 			mountedRef.current = false
 			void window.appApi.explore.setActive(false)
+			useAppStore.getState().setExploreBrowsing(false)
 			useAppStore.getState().setExploreAddressHint(null)
 		}
 	}, [])

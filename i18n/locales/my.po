@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "နောက်သို့"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "ကျစ်လစ်သော အပြင်အဆင်"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ဒေါင်းလုဒ် · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "ဒေါင်းလုဒ် · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "ရှေ့သို့"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "အပြင်အဆင် အပြည့်အစုံ ပြရန်"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "ကလစ်ဘုတ်တွင် ဗီဒီယို လင့်�
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "ဖော်မတ်များရယူမည်"
+msgstr "အပြန်အလှန်ဒေါင်းလုဒ်"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

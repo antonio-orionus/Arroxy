@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "后退"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "紧凑布局"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "下载 · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "下载 · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "前进"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "显示完整布局"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "剪贴板中有视频链接时按下快捷键。"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "获取格式"
+msgstr "交互式下载"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

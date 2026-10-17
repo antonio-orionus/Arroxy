@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "Orqaga"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Ixcham ko'rinish"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Yuklab olish · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "Yuklab olish · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "Oldinga"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "To'liq ko'rinishni ko'rsatish"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"
@@ -3431,7 +3439,7 @@ msgstr "Buferda video havolasi bo‘lganda tez tugmani bosing."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
-msgstr "Formatlarni olish"
+msgstr "Interaktiv yuklab olish"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."

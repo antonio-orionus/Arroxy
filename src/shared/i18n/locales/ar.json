@@ -172,7 +172,7 @@
 			"heading": "تنزيل من رابط",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "الملفات الشخصية", "settings": "الإعدادات"},
-			"interactiveDownload": "جلب الصيغ",
+			"interactiveDownload": "تنزيل تفاعلي",
 			"fetchFormatsTooltip": "معالج خطوة بخطوة. اختر الصيغة والجودة والمزيد.",
 			"quickDownload": "تنزيل سريع",
 			"quickDownloadTooltip": "سيتم التنزيل باستخدام: {{profileName}}",
@@ -813,6 +813,8 @@
 			"downloadWithProfile": "تنزيل · {{profileName}}",
 			"interactiveHint": "اختر الصيغة والترجمات وغير ذلك…",
 			"grabUnavailable": "افتح فيديو أو قائمة تشغيل أو قناة لتنزيلها",
+			"compactLayout": "تخطيط مضغوط",
+			"fullLayout": "إظهار التخطيط الكامل",
 			"adBlock": {
 				"aria": "مانع الإعلانات",
 				"off": "مانع الإعلانات: متوقف — انقر للتشغيل",

@@ -29,7 +29,7 @@ function activeProfileName(): string {
 	return resolveActiveDownloadProfile(useAppStore.getState().settings?.profiles).profile.name
 }
 
-type ExploreCommon = Pick<AppSettings['common'], 'exploreEnabled' | 'exploreNoticeSeen' | 'exploreModeAutoSwitched' | 'exploreModeNudgeDismissedFor' | 'cookiesMode' | 'exploreAdBlock'>
+type ExploreCommon = Pick<AppSettings['common'], 'exploreEnabled' | 'exploreNoticeSeen' | 'exploreModeAutoSwitched' | 'exploreModeNudgeDismissedFor' | 'cookiesMode' | 'exploreAdBlock' | 'exploreCompactChrome'>
 
 let stateListener: ((state: ExploreViewState) => void) | null = null
 let viewportRect = {x: 24, y: 180, width: 640, height: 360}
@@ -287,6 +287,64 @@ describe('Explore cookie mode', () => {
 
 		expect(screen.getByTestId('explore-notice')).toBeInTheDocument()
 		expect(screen.queryByTestId('explore-mode-nudge')).not.toBeInTheDocument()
+	})
+})
+
+describe('Explore compact layout', () => {
+	function tabsRail(): HTMLElement {
+		return screen.getByTestId('profiles-tabs')
+	}
+
+	it('shrinks the tab bar to icons from the toolbar toggle and remembers the choice', async () => {
+		renderExplore()
+		expect(tabsRail()).not.toHaveAttribute('data-compact')
+
+		const toggle = screen.getByTestId('explore-compact-toggle')
+		expect(toggle).toHaveAttribute('aria-pressed', 'false')
+		fireEvent.click(toggle)
+
+		await waitFor(() => expect(tabsRail()).toHaveAttribute('data-compact', 'true'))
+		expect(settingsWrites()).toContainEqual({common: {exploreCompactChrome: true}})
+		// The icons join Explore's toolbar; the row above goes away.
+		expect(screen.getByTestId('explore-toolbar')).toContainElement(tabsRail())
+		expect(screen.getAllByRole('tablist')).toHaveLength(1)
+		expect(screen.getByTestId('explore-compact-toggle')).toHaveAttribute('aria-pressed', 'true')
+		// Labels leave the screen, not the accessibility tree; the icon's title names the tab.
+		const exploreTab = screen.getByRole('tab', {name: /^explore/i})
+		expect(exploreTab).toHaveAttribute('title', 'Explore')
+		expect(within(exploreTab).getByText('Explore')).toHaveClass('sr-only')
+	})
+
+	it('expands again from the same toggle', async () => {
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreCompactChrome: true})
+		renderExplore()
+		expect(tabsRail()).toHaveAttribute('data-compact', 'true')
+
+		fireEvent.click(screen.getByTestId('explore-compact-toggle'))
+
+		await waitFor(() => expect(tabsRail()).not.toHaveAttribute('data-compact'))
+		expect(screen.getByTestId('explore-toolbar')).not.toContainElement(tabsRail())
+		expect(settingsWrites()).toContainEqual({common: {exploreCompactChrome: false}})
+		expect(screen.getByRole('tab', {name: /^explore/i})).not.toHaveAttribute('title')
+	})
+
+	it('applies only on the Explore tab', () => {
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreCompactChrome: true})
+		render(<DownloadProfilesHome />)
+		expect(tabsRail()).not.toHaveAttribute('data-compact')
+
+		fireEvent.click(screen.getByRole('tab', {name: /^explore/i}))
+		expect(tabsRail()).toHaveAttribute('data-compact', 'true')
+
+		fireEvent.click(screen.getByRole('tab', {name: /^downloads/i}))
+		expect(tabsRail()).not.toHaveAttribute('data-compact')
+		expect(useAppStore.getState().exploreBrowsing).toBe(false)
+	})
+
+	it('keeps the full bar over the first-run notice', () => {
+		seedSettings({exploreNoticeSeen: false, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreCompactChrome: true})
+		renderExplore()
+		expect(tabsRail()).not.toHaveAttribute('data-compact')
 	})
 })
 

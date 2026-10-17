@@ -159,7 +159,7 @@
 			"heading": "Tải xuống từ URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Hồ sơ", "settings": "Cài đặt"},
-			"interactiveDownload": "Tải định dạng",
+			"interactiveDownload": "Tải tương tác",
 			"fetchFormatsTooltip": "Trình hướng dẫn từng bước. Chọn định dạng, chất lượng và hơn nữa.",
 			"quickDownload": "Tải nhanh",
 			"quickDownloadTooltip": "Sẽ tải xuống bằng: {{profileName}}",
@@ -811,6 +811,8 @@
 			"downloadWithProfile": "Tải xuống · {{profileName}}",
 			"interactiveHint": "Chọn định dạng, phụ đề và hơn thế…",
 			"grabUnavailable": "Mở một video, danh sách phát hoặc kênh để tải xuống",
+			"compactLayout": "Bố cục thu gọn",
+			"fullLayout": "Hiện bố cục đầy đủ",
 			"adBlock": {
 				"aria": "Trình chặn quảng cáo",
 				"off": "Trình chặn quảng cáo: tắt — nhấp để bật",

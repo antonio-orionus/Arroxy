@@ -832,6 +832,8 @@
 			"downloadWithProfile": "Unduh · {{profileName}}",
 			"interactiveHint": "Pilih format, subtitle, dan lainnya…",
 			"grabUnavailable": "Buka video, playlist, atau kanal untuk mengunduhnya",
+			"compactLayout": "Tata letak ringkas",
+			"fullLayout": "Tampilkan tata letak penuh",
 			"adBlock": {
 				"aria": "Pemblokir iklan",
 				"off": "Pemblokir iklan: nonaktif — klik untuk mengaktifkan",

@@ -159,7 +159,7 @@
 			"heading": "URL سے ڈاؤن لوڈ کریں",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "پروفائلز", "settings": "ترتیبات"},
-			"interactiveDownload": "فارمیٹس لائیں",
+			"interactiveDownload": "انٹرایکٹو ڈاؤن لوڈ",
 			"fetchFormatsTooltip": "مرحلہ وار وزرڈ۔ فارمیٹ، معیار اور مزید چیزیں منتخب کریں۔",
 			"quickDownload": "فوری ڈاؤن لوڈ",
 			"quickDownloadTooltip": "{{profileName}} استعمال کرتے ہوئے ڈاؤن لوڈ ہوگا",
@@ -832,6 +832,8 @@
 			"downloadWithProfile": "ڈاؤن لوڈ · {{profileName}}",
 			"interactiveHint": "فارمیٹ، سب ٹائٹلز اور مزید چنیں…",
 			"grabUnavailable": "ڈاؤن لوڈ کرنے کے لیے کوئی ویڈیو، پلے لسٹ یا چینل کھولیں",
+			"compactLayout": "مختصر لے آؤٹ",
+			"fullLayout": "مکمل لے آؤٹ دکھائیں",
 			"adBlock": {
 				"aria": "اشتہار بلاکر",
 				"off": "اشتہار بلاکر: بند — آن کرنے کے لیے کلک کریں",

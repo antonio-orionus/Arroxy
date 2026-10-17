@@ -172,7 +172,7 @@
 			"heading": "URL irraa buusi",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profaayilota", "settings": "Qindaaʼinoota"},
-			"interactiveDownload": "Foormaatii fidi",
+			"interactiveDownload": "Buufata walnaqqee",
 			"fetchFormatsTooltip": "Wizard tarkaanfii-tarkaanfiin. Foormaatii, qulqullina fi kan biroo fili.",
 			"quickDownload": "Buufata saffisaa",
 			"quickDownloadTooltip": "{{profileName}} fayyadamuun ni buufata",
@@ -855,6 +855,8 @@
 			"downloadWithProfile": "Buusi · {{profileName}}",
 			"interactiveHint": "Formaata, barruu jalaa fi kkf filadhu…",
 			"grabUnavailable": "Buufachuuf viidiyoo, tarree taphachiisaa ykn channel bani",
+			"compactLayout": "Qindaa'ina gabaabaa",
+			"fullLayout": "Qindaa'ina guutuu agarsiisi",
 			"adBlock": {
 				"aria": "Dhorkaa beeksisaa",
 				"off": "Dhorkaa beeksisaa: cufaa — banuuf tuqi",

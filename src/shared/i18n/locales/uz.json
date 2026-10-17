@@ -180,7 +180,7 @@
 			"heading": "URL orqali yuklab olish",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profillar", "settings": "Sozlamalar"},
-			"interactiveDownload": "Formatlarni olish",
+			"interactiveDownload": "Interaktiv yuklab olish",
 			"fetchFormatsTooltip": "Bosqichma-bosqich yordamchi. Format, sifat va boshqalarni tanlang.",
 			"quickDownload": "Tez yuklab olish",
 			"quickDownloadTooltip": "{{profileName}} orqali yuklab olinadi",
@@ -860,6 +860,8 @@
 			"downloadWithProfile": "Yuklab olish · {{profileName}}",
 			"interactiveHint": "Format, subtitr va boshqalarni tanlang…",
 			"grabUnavailable": "Yuklab olish uchun video, pleylist yoki kanalni oching",
+			"compactLayout": "Ixcham ko'rinish",
+			"fullLayout": "To'liq ko'rinishni ko'rsatish",
 			"adBlock": {
 				"aria": "Reklama blokeri",
 				"off": "Reklama blokeri: o'chiq — yoqish uchun bosing",

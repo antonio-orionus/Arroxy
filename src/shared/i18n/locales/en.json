@@ -796,6 +796,8 @@
 			"downloadWithProfile": "Download · {{profileName}}",
 			"interactiveHint": "Choose format, subtitles and more…",
 			"grabUnavailable": "Open a video, playlist, or channel to download it",
+			"compactLayout": "Compact layout",
+			"fullLayout": "Show full layout",
 			"adBlock": {
 				"aria": "Ad blocker",
 				"off": "Ad blocker: off — click to turn on",

@@ -598,6 +598,23 @@ body {
 		display: none;
 	}
 }
+/* Compact layout (while browsing in Explore): the rail moves into Explore's
+   toolbar as a content-wide row of icons, as tall as the toolbar's buttons. */
+.download-home-tabs[data-compact] {
+	width: auto !important;
+	height: 2.25rem !important;
+	gap: 0.1rem !important;
+	padding: 0.2rem !important;
+}
+.download-home-tabs[data-compact]::before {
+	inset: 0.2rem;
+}
+.download-home-tabs[data-compact] [data-slot='tabs-trigger'] {
+	flex: 0 0 auto;
+	height: 1.85rem !important;
+	padding-inline: 0.55rem;
+	gap: 0.3rem;
+}
 .download-home-tabs .download-count-badge {
 	justify-content: center;
 	line-height: 1;

@@ -367,6 +367,10 @@ msgctxt "explore.toolbar.back"
 msgid "Back"
 msgstr "上一頁"
 
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "精簡版面"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "下載 · {{profileName}}"
@@ -374,6 +378,10 @@ msgstr "下載 · {{profileName}}"
 msgctxt "explore.toolbar.forward"
 msgid "Forward"
 msgstr "下一頁"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "顯示完整版面"
 
 msgctxt "explore.toolbar.grabUnavailable"
 msgid "Open a video, playlist, or channel to download it"

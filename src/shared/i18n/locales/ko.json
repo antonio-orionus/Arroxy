@@ -801,6 +801,8 @@
 			"downloadWithProfile": "다운로드 · {{profileName}}",
 			"interactiveHint": "형식, 자막 등을 선택…",
 			"grabUnavailable": "동영상, 재생목록 또는 채널을 열면 다운로드할 수 있습니다",
+			"compactLayout": "컴팩트 레이아웃",
+			"fullLayout": "전체 레이아웃 표시",
 			"adBlock": {
 				"aria": "광고 차단",
 				"off": "광고 차단: 꺼짐 — 클릭하여 켜기",

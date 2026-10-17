@@ -172,7 +172,7 @@
 			"heading": "Скачать по URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Профили", "settings": "Настройки"},
-			"interactiveDownload": "Получить форматы",
+			"interactiveDownload": "Интерактивная загрузка",
 			"fetchFormatsTooltip": "Пошаговый мастер. Выберите формат, качество и другое.",
 			"quickDownload": "Быстрая загрузка",
 			"quickDownloadTooltip": "Будет скачано с профилем: {{profileName}}",
@@ -838,6 +838,8 @@
 			"downloadWithProfile": "Скачать · {{profileName}}",
 			"interactiveHint": "Выбрать формат, субтитры и другое…",
 			"grabUnavailable": "Открой видео, плейлист или канал, чтобы скачать его",
+			"compactLayout": "Компактный вид",
+			"fullLayout": "Показать полный вид",
 			"adBlock": {
 				"aria": "Блокировщик рекламы",
 				"off": "Блокировщик рекламы: выкл. — нажми, чтобы включить",

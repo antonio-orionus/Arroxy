@@ -150,7 +150,7 @@
 			"heading": "ከURL አውርድ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "መገለጫዎች", "settings": "ቅንብሮች"},
-			"interactiveDownload": "ቅርጸቶችን ጫን",
+			"interactiveDownload": "በይነተገናኝ ማውረድ",
 			"fetchFormatsTooltip": "ደረጃ-በደረጃ አጋዥ። ቅርጸት፣ ጥራት እና ሌሎችን ይምረጡ።",
 			"quickDownload": "ፈጣን ማውረድ",
 			"quickDownloadTooltip": "{{profileName}} በመጠቀም ይወርዳል",
@@ -775,6 +775,8 @@
 			"downloadWithProfile": "አውርድ · {{profileName}}",
 			"interactiveHint": "ቅርጸት፣ ንዑስ ርዕሶች እና ሌሎችን ምረጥ…",
 			"grabUnavailable": "ለማውረድ ቪዲዮ፣ የቪዲዮ ዝርዝር ወይም ቻናል ይክፈቱ",
+			"compactLayout": "የታመቀ አቀማመጥ",
+			"fullLayout": "ሙሉ አቀማመጥ አሳይ",
 			"adBlock": {"aria": "የማስታወቂያ ማገጃ", "off": "የማስታወቂያ ማገጃ፦ ጠፍቷል — ለማብራት ጠቅ ያድርጉ", "starting": "የማስታወቂያ ማገጃ፦ በመጀመር ላይ — ለማጥፋት ጠቅ ያድርጉ", "on": "የማስታወቂያ ማገጃ፦ በርቷል — ለማጥፋት ጠቅ ያድርጉ", "unavailable": "የማስታወቂያ ማገጃ፦ አይገኝም፣ የማጣሪያ ዝርዝሮቹ ሊወርዱ አልቻሉም — ለማጥፋት ጠቅ ያድርጉ", "accountNote": "YouTube ለገቡ መለያዎች የማስታወቂያ ማገጃዎችን ሊቋቋም ይችላል።"}
 		},
 		"settings": {
