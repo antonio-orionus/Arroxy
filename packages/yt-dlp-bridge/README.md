@@ -48,6 +48,10 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
+## Unreleased
+
+- `CallerMediaWorkflowInput` gains `downloadSections` (yt-dlp `--download-sections` values such as `*220-435`) and `forceKeyframesAtCuts`. A plan with sections lists ffmpeg as required and reports the cut as a side effect; an exact cut also reports the re-encode as a risk.
+
 ## What changed in 0.4.0
 
 - Requires `ytdlp-errors` 1.2.0. `toStructuredError` can now return `kind: 'outputNotWritable'` when the output folder refuses writes (permission denied, read-only drive, or a privacy-protected folder), with a suggested fix to grant write access or choose another output root.
