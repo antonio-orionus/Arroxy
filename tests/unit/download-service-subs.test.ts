@@ -160,14 +160,16 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
-		const sized = new Map(artifacts.filter(artifact => artifact.sizeBytes !== undefined).map(artifact => [artifact.path, artifact.sizeBytes]))
-		expect(sized).toEqual(
-			new Map([
-				[videoPath, 30],
-				[thumbPath, 20],
-				[descriptionPath, 10]
-			])
-		)
+		await vi.waitFor(() => {
+			const sized = new Map(artifacts.filter(artifact => artifact.sizeBytes !== undefined).map(artifact => [artifact.path, artifact.sizeBytes]))
+			expect(sized).toEqual(
+				new Map([
+					[videoPath, 30],
+					[thumbPath, 20],
+					[descriptionPath, 10]
+				])
+			)
+		})
 	})
 
 	it('leaves out a thumbnail yt-dlp deleted after embedding it', async () => {
@@ -186,7 +188,8 @@ describe('DownloadService — sidecar mux after Merger + MoveFiles regressions',
 		await service.start({url: YOUTUBE_URL, outputDir: workDir, job: makeJob({formatId: '22'})})
 		await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 
-		expect(artifacts.map(artifact => artifact.path)).toEqual([videoPath])
+		await vi.waitFor(() => expect(artifacts.some(artifact => artifact.sizeBytes === 30)).toBe(true))
+		expect(new Set(artifacts.map(artifact => artifact.path))).toEqual(new Set([videoPath]))
 	})
 
 	it('passes the post-MoveFiles final path to ffmpeg, not the .arroxy-temp Merger path', async () => {
@@ -320,9 +323,13 @@ describe('DownloadService — embed+auto muxing after subtitle dedupe', () => {
 		expect(readFileSync(finalMkv, 'utf8')).toBe('muxed-bytes')
 		expect(() => readFileSync(videoPath)).toThrow()
 		expect(() => readFileSync(subPath)).toThrow()
-		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([{path: finalMkv, kind: 'media'}])
-		// The final artifact carries its on-disk size, read after the mux.
-		expect(artifacts[0].sizeBytes).toBe('muxed-bytes'.length)
+		// Announced at completion, then sent again with its size read after the mux.
+		await vi.waitFor(() =>
+			expect(artifacts.map(({path, kind, sizeBytes}) => ({path, kind, sizeBytes}))).toEqual([
+				{path: finalMkv, kind: 'media', sizeBytes: undefined},
+				{path: finalMkv, kind: 'media', sizeBytes: 'muxed-bytes'.length}
+			])
+		)
 	})
 
 	it('emits mergingFormats status when the mux phase starts', async () => {

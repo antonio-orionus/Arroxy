@@ -15,6 +15,10 @@ describe('queueItemSizeBytes', () => {
 		expect(queueItemSizeBytes([artifact({path: '/d/a.mp4', sizeBytes: 1000}), artifact({path: '/d/_arroxy.info.json', fileName: '_arroxy.info.json', kind: 'companion', sizeBytes: 50}), artifact({path: '/d/gone.srt', kind: 'subtitle', sizeBytes: 7, missing: true})])).toBe(1000)
 	})
 
+	it('is null rather than a partial sum when a file on disk has no known size', () => {
+		expect(queueItemSizeBytes([artifact({path: '/d/a.mp4'}), artifact({path: '/d/a.en.srt', kind: 'subtitle', sizeBytes: 24})])).toBeNull()
+	})
+
 	it('is null when no file has a known size', () => {
 		expect(queueItemSizeBytes([])).toBeNull()
 		expect(queueItemSizeBytes([artifact({})])).toBeNull()

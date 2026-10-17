@@ -1,6 +1,7 @@
 // The files a completed job leaves in its output folder, reported to the
-// queue as artifact events with their on-disk size. The paths are taken while
-// the job is still active; sizes are read afterwards, once the files are final.
+// queue as artifact events. The paths are taken while the job is still active.
+// Media and subtitles are announced at once; sizes are read afterwards and sent
+// as a second event, best-effort, so a slow disk never holds up completion.
 
 import {stat} from 'node:fs/promises'
 import {nowIso} from '@main/utils/clock.js'
@@ -45,12 +46,18 @@ export async function fileOnDisk(path: string): Promise<FileOnDisk> {
 	}
 }
 
-export async function finalArtifactEvents(jobId: string, artifacts: readonly FinalArtifact[]): Promise<QueueArtifactEvent[]> {
+export function announcedArtifactEvents(jobId: string, artifacts: readonly FinalArtifact[]): QueueArtifactEvent[] {
+	return artifacts.filter(artifact => artifact.sidecar !== true).map(({path, kind}) => ({jobId, path, kind, at: nowIso()}))
+}
+
+// Media and subtitles come back only when a size was read (they were already
+// announced); a sidecar comes back unless it is gone from disk.
+export async function sizedArtifactEvents(jobId: string, artifacts: readonly FinalArtifact[]): Promise<QueueArtifactEvent[]> {
 	const events = await Promise.all(
 		artifacts.map(async ({path, kind, sidecar}): Promise<QueueArtifactEvent | null> => {
 			const file = await fileOnDisk(path)
-			if (sidecar && file.kind === 'missing') return null
-			return {jobId, path, kind, at: nowIso(), ...(file.kind === 'file' ? {sizeBytes: file.sizeBytes} : {})}
+			if (file.kind === 'file') return {jobId, path, kind, at: nowIso(), sizeBytes: file.sizeBytes}
+			return sidecar && file.kind === 'unknown' ? {jobId, path, kind, at: nowIso()} : null
 		})
 	)
 	return events.filter(event => event !== null)

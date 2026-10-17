@@ -20,7 +20,7 @@ import {killActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
-import {finalArtifactEvents, finalArtifactsOf} from './download/finalArtifacts.js'
+import {announcedArtifactEvents, finalArtifactsOf, sizedArtifactEvents} from './download/finalArtifacts.js'
 import {JobLifecycle} from './JobLifecycle.js'
 import {CookielessRetry} from './download/cookielessRetry.js'
 
@@ -476,10 +476,12 @@ export class DownloadService extends EventEmitter {
 	private async finalize(job: DownloadJob, status: RecentJob['status'], error?: LocalizedError): Promise<void> {
 		const active = this.activeJobs.get(job.id)
 		const finalArtifacts = active && status === 'completed' ? finalArtifactsOf(active) : []
+		for (const event of announcedArtifactEvents(job.id, finalArtifacts)) this.emit('artifact', event)
 		this.activeJobs.delete(job.id)
 		this.releaseParkWaiters(job.id)
 		this.explore.spawnGate.resetJob(job.id)
-		for (const event of await finalArtifactEvents(job.id, finalArtifacts)) this.emit('artifact', event)
+		// Best-effort: completion never waits on a size read (a hung mount).
+		void sizedArtifactEvents(job.id, finalArtifacts).then(events => events.forEach(event => this.emit('artifact', event)))
 		// Drain LIFO disposables (process kills, tempDir removals, watchdog
 		// timers) before writing the RecentJob entry. Per-disposable failures
 		// log + continue; a stuck cleanup can't block finalize.
