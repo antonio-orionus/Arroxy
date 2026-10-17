@@ -1,8 +1,8 @@
 # Source priority: how a profile picks streams
 
 **Status: built on `feat/source-priority`, not merged.** The three delivery
-steps below landed together; the English copy awaits approval and the 33
-locales are not translated yet. A download profile picks one video and one
+steps below landed together; the English copy is approved and all 30
+non-English locales are translated. A download profile picks one video and one
 audio stream out of everything a video offers by ranking them in a fixed
 order of rules. Today that order is spread over two labels and a global
 setting, and nobody can see it. This spec makes the order one owned

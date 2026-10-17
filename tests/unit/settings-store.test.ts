@@ -495,6 +495,17 @@ describe('settings and recent stores', () => {
 			expect(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')).not.toContain('"codec"')
 		})
 
+		it('backs up the original bytes, not the file with defaults merged in', async () => {
+			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-bytes-'))
+			const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+			const original = JSON.stringify({profiles: {active: {kind: 'custom', id: 'mine'}, custom: [{...base, id: 'mine', name: 'Mine', media: legacyMedia, createdAt: NOW, updatedAt: NOW}], overrides: []}})
+			await fs.writeFile(path.join(userData, 'settings.json'), original, 'utf-8')
+
+			new SettingsStore(userData, baseDefaults)
+
+			expect(await fs.readFile(path.join(userData, BACKUP), 'utf-8')).toBe(original)
+		})
+
 		it('never overwrites an earlier backup', async () => {
 			const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-backup-keep-'))
 			await fs.writeFile(path.join(userData, BACKUP), 'first backup', 'utf-8')

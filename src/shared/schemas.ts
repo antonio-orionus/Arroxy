@@ -50,9 +50,11 @@ export const nativeAudioPreferenceSchema = z.enum(['compatible', 'surround'])
 export type NativeAudioPreference = z.infer<typeof nativeAudioPreferenceSchema>
 export const NATIVE_AUDIO_PREFERENCES = nativeAudioPreferenceSchema.options
 
-// Whether a profile takes HDR video over SDR when a height offers both. SDR is
-// the app default: HDR looks washed out on a screen that isn't HDR. A height
-// only offered as HDR is still taken, so the choice never costs resolution.
+// Whether a profile takes HDR video over SDR when a height offers both. The app
+// default is Auto (see below); SDR is the fallback when the screen doesn't show
+// HDR or nothing is known, because HDR looks washed out on a screen that isn't
+// HDR. A height only offered as HDR is still taken, so the choice never costs
+// resolution.
 export const hdrPreferenceSchema = z.enum(['sdr', 'hdr'])
 export type HdrPreference = z.infer<typeof hdrPreferenceSchema>
 export const HDR_PREFERENCES = hdrPreferenceSchema.options

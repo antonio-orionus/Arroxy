@@ -270,12 +270,21 @@ function hasLegacyProfileMedia(raw: Record<string, unknown>): boolean {
 
 const PRE_SELECTION_ORDER_BACKUP = 'settings.before-selection-order.json'
 
+interface PriorSettings {
+	// The file's exact bytes, kept so a backup is the file as it was.
+	text: string
+	data: Record<string, unknown>
+}
+
 // The settings file as an earlier version left it, or null on a first launch
 // (or a file that cannot be read). Read before the store opens, because the
-// store fills in defaults and would hide which keys were really saved.
-function readPriorSettings(userDataPath: string): Record<string, unknown> | null {
+// store writes its defaults into the file at construction and would hide which
+// keys were really saved.
+function readPriorSettings(userDataPath: string): PriorSettings | null {
 	try {
-		return asRecord(JSON.parse(fs.readFileSync(path.join(userDataPath, 'settings.json'), 'utf-8')))
+		const text = fs.readFileSync(path.join(userDataPath, 'settings.json'), 'utf-8')
+		const data = asRecord(JSON.parse(text))
+		return data ? {text, data} : null
 	} catch {
 		return null
 	}
@@ -284,9 +293,9 @@ function readPriorSettings(userDataPath: string): Record<string, unknown> | null
 // SDR is the default for new installs, but an install that already had settings
 // was getting HDR-first picks from yt-dlp's own order: it keeps them, so no
 // download changes. Settings can turn it off.
-function savedBeforeHdrPreference(prior: Record<string, unknown> | null): boolean {
+function savedBeforeHdrPreference(prior: PriorSettings | null): boolean {
 	if (!prior) return false
-	return asRecord(prior.common)?.hdrPreference === undefined && prior.hdrPreference === undefined
+	return asRecord(prior.data.common)?.hdrPreference === undefined && prior.data.hdrPreference === undefined
 }
 
 export class SettingsStore {
@@ -304,7 +313,7 @@ export class SettingsStore {
 		this.settings = savedBeforeHdrPreference(priorSettings) ? {...loaded.settings, common: {...loaded.settings.common, hdrPreference: 'hdr'}} : loaded.settings
 		for (const section of loaded.invalidSections) logger.warn('Invalid persisted settings section; using defaults', {section})
 		if (loaded.shouldPersist || this.settings !== loaded.settings) {
-			this.backUpLegacyProfiles(userDataPath)
+			this.backUpLegacyProfiles(userDataPath, priorSettings)
 			this.persist()
 		}
 		this.logProfileSummary()
@@ -313,14 +322,15 @@ export class SettingsStore {
 	// Once, before profiles saved in the old shape are rewritten: keep the file
 	// as it was, so going back to an older build loses nothing. Never blocks
 	// startup, and never overwrites an earlier backup.
-	private backUpLegacyProfiles(userDataPath: string): void {
-		if (!hasLegacyProfileMedia(this.store.store)) return
+	private backUpLegacyProfiles(userDataPath: string, prior: PriorSettings | null): void {
+		if (!prior || !hasLegacyProfileMedia(prior.data)) return
 		const backupPath = path.join(userDataPath, PRE_SELECTION_ORDER_BACKUP)
 		try {
-			if (fs.existsSync(backupPath)) return
-			fs.copyFileSync(this.store.path, backupPath)
+			// `wx` fails if a backup already exists, so an earlier one is never overwritten.
+			fs.writeFileSync(backupPath, prior.text, {encoding: 'utf-8', flag: 'wx'})
 			logger.info('Backed up settings before converting profiles', {file: PRE_SELECTION_ORDER_BACKUP})
 		} catch (error) {
+			if (error instanceof Error && 'code' in error && error.code === 'EEXIST') return
 			logger.warn('Could not back up settings before converting profiles', {error: error instanceof Error ? error.message : String(error)})
 		}
 	}
