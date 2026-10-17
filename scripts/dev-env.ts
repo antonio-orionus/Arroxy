@@ -589,8 +589,8 @@ async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void>
 	console.log(`Temp dir: ${env.tmpDir}`)
 }
 
-function parseElectronLauncherOptions(args: string[]): LauncherEnvOptions & {fresh: boolean} {
-	const options: LauncherEnvOptions & {fresh: boolean} = {fresh: false}
+function parseElectronLauncherOptions(args: string[]): LauncherEnvOptions & {fresh: boolean; anon: boolean} {
+	const options: LauncherEnvOptions & {fresh: boolean; anon: boolean} = {fresh: false, anon: false}
 	for (const arg of args) {
 		if (arg === '--sandbox') {
 			options.sandbox = true
@@ -598,6 +598,10 @@ function parseElectronLauncherOptions(args: string[]): LauncherEnvOptions & {fre
 		}
 		if (arg === '--fresh') {
 			options.fresh = true
+			continue
+		}
+		if (arg === '--anon') {
+			options.anon = true
 			continue
 		}
 		if (arg === '--gpu=force') {
@@ -631,6 +635,42 @@ export function applyElectronLauncherEnv(env: NodeJS.ProcessEnv, options: Launch
 	return childEnv
 }
 
+// `dev:anon`: its own profile next to the dev one, so a sign-in there is never touched.
+export function anonymousDevUserData(electronUserData: string): string {
+	return path.join(path.dirname(electronUserData), `${path.basename(electronUserData)}-anon`)
+}
+
+// The Explore partition's folder (EXPLORE_PARTITION, `persist:arroxy-explore`).
+// Hardcoded: this script runs before dependencies exist and imports no app code.
+const EXPLORE_PARTITION_DIR = path.join('Partitions', 'arroxy-explore')
+
+// Explore opens straight onto YouTube: the first-run notice and the first-open
+// cookie-mode switch are marked done, and downloads use no cookies (the nudge
+// to use the Explore sign-in already dismissed for that mode).
+const ANONYMOUS_EXPLORE_COMMON = {exploreEnabled: true, exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'off', exploreModeNudgeDismissedFor: 'off'} as const
+
+async function readSettingsRecord(file: string): Promise<Record<string, unknown>> {
+	try {
+		const parsed: unknown = JSON.parse(await fs.readFile(file, 'utf8'))
+		return isRecord(parsed) && !Array.isArray(parsed) ? parsed : {}
+	} catch {
+		return {}
+	}
+}
+
+// Every launch starts signed out: the Explore partition (its cookies and
+// storage) is wiped. The rest of the profile stays, the yt-dlp download
+// included. The settings file is merged, not replaced: the app fills in its
+// defaults on load, and settings changed in an earlier anonymous run stay.
+export async function prepareAnonymousDevProfile(userData: string): Promise<void> {
+	await fs.rm(path.join(userData, EXPLORE_PARTITION_DIR), {recursive: true, force: true})
+	const file = path.join(userData, 'settings.json')
+	const settings = await readSettingsRecord(file)
+	const common = isRecord(settings.common) ? settings.common : {}
+	await fs.mkdir(userData, {recursive: true})
+	await fs.writeFile(file, `${JSON.stringify({...settings, common: {...common, ...ANONYMOUS_EXPLORE_COMMON}}, null, '\t')}\n`)
+}
+
 async function clearFreshMainLog(env: DevEnvPaths): Promise<void> {
 	await fs.rm(path.join(env.electronUserData, 'logs', 'main.log'), {force: true})
 }
@@ -639,13 +679,18 @@ async function runLauncher(args: string[]): Promise<void> {
 	const [launcher, ...launcherArgs] = args
 	if (!isLauncherName(launcher)) throw new Error('usage: bun scripts/dev-env.ts run <electron|mock|browser-test|browser-smoke|screenshots>')
 	const repoRoot = await findRepoRoot(process.cwd())
-	const env = await resolveRuntimeDevEnv(repoRoot)
+	const runtimeEnv = await resolveRuntimeDevEnv(repoRoot)
+	const options = launcher === 'electron' ? parseElectronLauncherOptions(launcherArgs) : null
+	const env = options?.anon ? {...runtimeEnv, electronUserData: anonymousDevUserData(runtimeEnv.electronUserData)} : runtimeEnv
 	await assertLauncherPortAvailable(env, launcher)
 	await ensureDevDirs(env)
 	const baseEnv = buildChildEnv(env)
 
-	if (launcher === 'electron') {
-		const options = parseElectronLauncherOptions(launcherArgs)
+	if (options) {
+		if (options.anon) {
+			await prepareAnonymousDevProfile(env.electronUserData)
+			console.log(`Anonymous Explore profile (signed out): ${env.electronUserData}`)
+		}
 		if (options.fresh) await clearFreshMainLog(env)
 		await ensureEmbeddedHostBinaries(repoRoot, baseEnv)
 		await spawnChecked(commandName('bun'), ['run', 'electron-vite', 'dev'], {cwd: repoRoot, env: applyElectronLauncherEnv(baseEnv, options)})
