@@ -114,6 +114,7 @@ describe('Footer feedback controls', () => {
 		window.appApi = mockAppApi
 		window.appVersion = '1.2.3'
 		window.platform = 'linux'
+		window.runtimeInfo = {arch: 'arm64', osVersion: '7.0.0-38-generic', installChannel: 'flatpak'}
 		;(window as unknown as {Tally?: {openPopup: typeof mockTallyOpenPopup}}).Tally = {openPopup: mockTallyOpenPopup}
 		vi.clearAllMocks()
 	})
@@ -208,13 +209,16 @@ describe('Footer feedback controls', () => {
 					yt_dlp_error_kind: 'none',
 					error_code: 'none',
 					source: 'app-footer',
-					diagnostic_mode: 'automatic',
+					architecture: 'arm64',
+					system_version: '7.0.0-38-generic',
+					install_channel: 'flatpak',
 					report_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
 				})
 			})
 		)
 		const hiddenFields = mockTallyOpenPopup.mock.calls[0][1].hiddenFields as Record<string, string>
 		expect(Object.values(hiddenFields)).not.toContain('')
+		expect(hiddenFields).not.toHaveProperty('diagnostic_mode')
 		expect(hiddenFields).not.toHaveProperty('diagnostic_upload_status')
 		expect(hiddenFields).not.toHaveProperty('diagnostic_raw_bytes')
 	})

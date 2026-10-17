@@ -195,7 +195,7 @@ describe('Feedback nudge', () => {
 		})
 
 		expect(mockOpenExternal).not.toHaveBeenCalled()
-		expect(mockTallyOpenPopup).toHaveBeenCalledWith('Ek6M8B', expect.objectContaining({hiddenFields: expect.objectContaining({source: 'app-footer', diagnostic_mode: 'automatic'})}))
+		expect(mockTallyOpenPopup).toHaveBeenCalledWith('Ek6M8B', expect.objectContaining({hiddenFields: expect.objectContaining({source: 'app-footer', report_id: expect.any(String)})}))
 
 		// After exit animation completes
 		act(() => {

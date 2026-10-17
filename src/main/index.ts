@@ -13,6 +13,7 @@ import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl} from '@main/services/heartbeat.js'
 import {detectInstallChannel} from '@main/installChannel.js'
+import {installChannelArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
 import {buildGraphicsPolicy, isGpuAccessDenied} from '@main/services/GraphicsPolicy.js'
 import {DownloadService} from '@main/services/DownloadService.js'
@@ -205,7 +206,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 		autoHideMenuBar: true,
 		backgroundColor,
 		show: !headless,
-		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless)}
+		webPreferences: {preload: preloadPath, contextIsolation: true, nodeIntegration: false, backgroundThrottling: !(e2eMode.enabled || headless), additionalArguments: [installChannelArg(detectInstallChannel(app.getName()))]}
 	})
 
 	registerPreloadDiagnostics(mainWindow, preloadPath)

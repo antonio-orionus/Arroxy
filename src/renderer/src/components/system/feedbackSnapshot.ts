@@ -1,4 +1,5 @@
 import type {AppSettings, ProbeError, QueueItem, SupportedLang} from '@shared/types.js'
+import type {RuntimeInfo} from '@shared/runtimeInfo.js'
 
 type FeedbackSettings = Pick<AppSettings, 'common'> | {common?: Pick<AppSettings['common'], 'cookiesMode' | 'language'>} | null
 
@@ -9,26 +10,28 @@ export interface FeedbackHiddenFieldsInput {
 	platform: string
 	queue: QueueItem[]
 	reportId: string
+	runtime: RuntimeInfo
 	settings: FeedbackSettings
 	wizardError: ProbeError | null
 	wizardExtractor: string
-	wizardStep: string
 }
 
-export function buildFeedbackHiddenFields({appMode, appVersion, language, platform, queue, reportId, settings, wizardError, wizardExtractor, wizardStep}: FeedbackHiddenFieldsInput): Record<string, string> {
+// Keys must match the hidden fields declared on the Tally form: Tally silently
+// drops any key the form does not declare.
+export function buildFeedbackHiddenFields({appMode, appVersion, language, platform, queue, reportId, runtime, settings, wizardError, wizardExtractor}: FeedbackHiddenFieldsInput): Record<string, string> {
 	return {
 		app_version: hiddenValue(appVersion, 'unknown'),
 		platform: hiddenValue(platform, 'unknown'),
-		operating_system: hiddenValue(platform, 'unknown'),
+		architecture: hiddenValue(runtime.arch, 'unknown'),
+		system_version: hiddenValue(runtime.osVersion, 'unknown'),
+		install_channel: hiddenValue(runtime.installChannel, 'unknown'),
 		app_locale: hiddenValue(settings?.common?.language ?? language, 'unknown'),
 		cookies_mode: hiddenValue(settings?.common?.cookiesMode, 'unknown'),
 		extractor: hiddenValue(wizardExtractor, 'none'),
-		wizard_step: hiddenValue(wizardStep, 'unknown'),
 		queue_status: summarizeQueueStatus(queue),
 		app_mode: hiddenValue(appMode, 'unknown'),
 		source: 'app-footer',
 		report_id: reportId,
-		diagnostic_mode: 'automatic',
 		yt_dlp_error_kind: wizardError?.kind === 'ytdlp' ? hiddenValue(wizardError.error.kind, 'unknown') : 'none',
 		error_code: wizardError?.kind === 'other' ? hiddenValue(wizardError.code, 'unknown') : 'none'
 	}

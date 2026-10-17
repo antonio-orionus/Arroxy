@@ -2,9 +2,9 @@ import {useEffect, useRef} from 'react'
 import log from 'electron-log/renderer.js'
 import {openTallyPopup} from '../../lib/tallyWidget.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import {feedbackFormId} from './feedbackForms.js'
 import {buildFeedbackHiddenFields} from './feedbackSnapshot.js'
 
-const TALLY_FEEDBACK_FORM_ID = 'Ek6M8B'
 const logger = log.scope('feedback')
 
 interface FeedbackDialogProps {
@@ -22,24 +22,13 @@ export function FeedbackDialog({open, onOpenChange}: FeedbackDialogProps): null 
 		const state = useAppStore.getState()
 		logger.info('Opening Tally feedback popup', {reportId, source: 'footer'})
 
-		void openTallyPopup(TALLY_FEEDBACK_FORM_ID, {
+		void openTallyPopup(feedbackFormId(state.language), {
 			key: `arroxy-feedback-${reportId}`,
 			layout: 'modal',
 			width: 720,
 			overlay: true,
 			autoClose: 3000,
-			hiddenFields: buildFeedbackHiddenFields({
-				appMode: import.meta.env.MODE,
-				appVersion: window.appVersion,
-				language: state.language,
-				platform: window.platform,
-				queue: state.queue,
-				reportId,
-				settings: state.settings,
-				wizardError: state.wizardError,
-				wizardExtractor: state.wizardExtractor,
-				wizardStep: state.wizardStep
-			}),
+			hiddenFields: buildFeedbackHiddenFields({appMode: import.meta.env.MODE, appVersion: window.appVersion, language: state.language, platform: window.platform, queue: state.queue, reportId, runtime: window.runtimeInfo, settings: state.settings, wizardError: state.wizardError, wizardExtractor: state.wizardExtractor}),
 			onSubmit: () => {
 				void uploadDiagnostic(reportId)
 			}

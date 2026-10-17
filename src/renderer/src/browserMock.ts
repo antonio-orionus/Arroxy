@@ -132,6 +132,7 @@ export function installBrowserMock(): void {
 	// Expose mock platform so UpdateBanner, TitleBar, etc. behave as if running
 	// on the selected OS. Falls back to 'linux' so browser-mock always has a value.
 	window.platform = knobs.platform ?? 'linux'
+	window.runtimeInfo = {arch: 'x64', osVersion: 'browser-mock', installChannel: 'direct'}
 
 	// RTL direction for locale knob.
 	if (knobs.locale !== null) {
