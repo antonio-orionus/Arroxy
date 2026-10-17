@@ -812,6 +812,7 @@
 			"useExplore": "Користи Explore пријаву",
 			"notNow": "Не сада"
 		},
+		"linkMenu": {"downloadWith": "Преузми са профилом", "copyLink": "Копирај линк"},
 		"toolbar": {
 			"aria": "Контроле прегледача Explore",
 			"back": "Назад",

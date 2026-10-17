@@ -818,6 +818,7 @@
 			"useExplore": "Explore سائن ان استعمال کریں",
 			"notNow": "ابھی نہیں"
 		},
+		"linkMenu": {"downloadWith": "پروفائل سے ڈاؤن لوڈ", "copyLink": "لنک کاپی کریں"},
 		"toolbar": {
 			"aria": "Explore براؤزر کنٹرولز",
 			"back": "واپس",

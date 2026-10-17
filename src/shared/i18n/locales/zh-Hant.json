@@ -761,6 +761,7 @@
 			"continue": "繼續"
 		},
 		"nudge": {"off": "Cookie 已關閉，因此下載不會使用你的 Explore 登入。", "file": "下載使用的是你的 Cookie 檔案，而不是你的 Explore 登入。", "browser": "下載使用的是瀏覽器的 Cookie，而不是你的 Explore 登入。", "useExplore": "使用 Explore 登入", "notNow": "暫時不要"},
+		"linkMenu": {"downloadWith": "使用設定檔下載", "copyLink": "複製連結"},
 		"toolbar": {
 			"aria": "目前頁面",
 			"back": "上一頁",

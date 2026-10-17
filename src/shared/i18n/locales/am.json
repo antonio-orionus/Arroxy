@@ -761,6 +761,7 @@
 			"continue": "ቀጥል"
 		},
 		"nudge": {"off": "Cookies ጠፍተዋል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም።", "file": "ውርዶች የcookies ፋይልዎን ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "browser": "ውርዶች የአሳሽዎን cookies ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።", "useExplore": "የExplore መግቢያ ተጠቀም", "notNow": "አሁን አይደለም"},
+		"linkMenu": {"downloadWith": "በመገለጫ አውርድ", "copyLink": "ሊንክ ቅዳ"},
 		"toolbar": {
 			"aria": "የExplore አሳሽ መቆጣጠሪያዎች",
 			"back": "ተመለስ",

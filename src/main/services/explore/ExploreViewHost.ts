@@ -69,6 +69,8 @@ export interface ExploreViewHostDeps {
 	emit: (state: ExploreViewState) => void
 	// The pointer just entered the view: the renderer may never see the toolbar's mouseleave.
 	pointerEntered: () => void
+	// A right-click in the page, with the link under the pointer ('' for none).
+	linkMenu: (linkURL: string) => void
 }
 
 // Electron's navigation events, as far as the policy needs them.
@@ -424,6 +426,10 @@ export class ExploreViewHost {
 		})
 		wc.on('input-event', (_event, input) => {
 			if (ACTIVATING_INPUT.has(input.type)) this.lastActivationAt = performance.now()
+		})
+		// Only the link's address crosses: the page's text and media stay out of it.
+		wc.on('context-menu', (_event, params) => {
+			if (!this.proxyRefused) this.deps.linkMenu(params.linkURL)
 		})
 		// will-frame-navigate fires first for a main frame; when it lets a
 		// navigation through, will-navigate re-asks and gets the same answer.

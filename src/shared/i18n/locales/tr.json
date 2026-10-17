@@ -804,6 +804,7 @@
 			"continue": "Devam et"
 		},
 		"nudge": {"off": "Çerezler kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz.", "file": "İndirmeler Explore oturumunu değil, çerez dosyanı kullanır.", "browser": "İndirmeler Explore oturumunu değil, tarayıcının çerezlerini kullanır.", "useExplore": "Explore oturumunu kullan", "notNow": "Şimdi değil"},
+		"linkMenu": {"downloadWith": "Profille indir", "copyLink": "Bağlantıyı kopyala"},
 		"toolbar": {
 			"aria": "Explore tarayıcı denetimleri",
 			"back": "Geri",

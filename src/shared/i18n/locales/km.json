@@ -761,6 +761,7 @@
 			"continue": "បន្ត"
 		},
 		"nudge": {"off": "Cookies ត្រូវបានបិទ ដូច្នេះការទាញយកមិនប្រើការចូលគណនី Explore របស់អ្នកទេ។", "file": "ការទាញយកប្រើឯកសារ cookies របស់អ្នក មិនមែនការចូលគណនី Explore ទេ។", "browser": "ការទាញយកប្រើ cookies របស់កម្មវិធីរុករក មិនមែនការចូលគណនី Explore ទេ។", "useExplore": "ប្រើការចូលគណនី Explore", "notNow": "មិនមែនឥឡូវទេ"},
+		"linkMenu": {"downloadWith": "ទាញយកដោយប្រើ", "copyLink": "ចម្លងតំណ"},
 		"toolbar": {
 			"aria": "ការគ្រប់គ្រងកម្មវិធីរុករក Explore",
 			"back": "ថយក្រោយ",

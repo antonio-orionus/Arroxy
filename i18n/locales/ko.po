@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "다시 시도"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "링크 복사"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "프로필로 다운로드"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "새 기능"

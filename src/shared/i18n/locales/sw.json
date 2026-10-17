@@ -814,6 +814,7 @@
 			"useExplore": "Tumia kuingia kwa Explore",
 			"notNow": "Si sasa"
 		},
+		"linkMenu": {"downloadWith": "Pakua kwa", "copyLink": "Nakili kiungo"},
 		"toolbar": {
 			"aria": "Vidhibiti vya kivinjari cha Explore",
 			"back": "Rudi",

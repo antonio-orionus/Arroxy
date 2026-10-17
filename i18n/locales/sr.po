@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Покушај поново"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Копирај линк"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Преузми са профилом"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Ново"

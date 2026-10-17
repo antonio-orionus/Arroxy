@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import os from 'node:os'
-import {app, BrowserWindow, dialog, nativeTheme, shell} from 'electron'
+import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme, shell} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -18,6 +18,7 @@ import {DownloadService} from '@main/services/DownloadService.js'
 import {ExploreSessionService} from '@main/services/ExploreSessionService.js'
 import {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import {ExploreEventBridge} from '@main/services/explore/ExploreEventBridge.js'
+import {exploreLinkMenuTemplate} from '@main/services/explore/exploreLinkMenu.js'
 import {ExploreAdBlocker} from '@main/services/explore/ExploreAdBlocker.js'
 import {loadFilterListEngine, loadPrebuiltEngine, refreshPrebuiltEngine} from '@main/services/explore/exploreAdBlockEngine.js'
 import {EXPLORE_ADBLOCK_PRELOAD_FILE} from '@main/services/explore/exploreAdBlockPreload.js'
@@ -414,7 +415,19 @@ if (hasSingleInstanceLock) {
 			isPackaged: app.isPackaged,
 			openExternal: url => shell.openExternal(url),
 			emit: state => exploreEvents.emit(state),
-			pointerEntered: () => exploreEvents.pointerInView()
+			pointerEntered: () => exploreEvents.pointerInView(),
+			// Native, so it paints over the page; a link the flow cannot take only copies.
+			linkMenu: linkURL => {
+				const template = exploreLinkMenuTemplate(linkURL, {
+					profiles: () => settingsStore.getSync().profiles,
+					lang: () => languageRef.current,
+					send: action => exploreEvents.linkAction(action),
+					copy: text => {
+						clipboard.writeText(text).catch((err: unknown) => log.warn('explore link menu could not copy the link', {error: err instanceof Error ? err.name : 'unknown'}))
+					}
+				})
+				if (template && !mainWindow.isDestroyed()) Menu.buildFromTemplate(template).popup({window: mainWindow})
+			}
 		})
 		// Only a sign-out the site confirmed during a download or a probe marks the view; gate refusals do not.
 		downloadService.onExploreVerifiedSignedOut(() => exploreView.markSignedOutAfterVerify())

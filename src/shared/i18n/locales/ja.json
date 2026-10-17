@@ -810,6 +810,7 @@
 			"continue": "続行"
 		},
 		"nudge": {"off": "Cookieがオフのため、ダウンロードにExploreのログインは使われません。", "file": "ダウンロードにはExploreのログインではなく、Cookieファイルが使われます。", "browser": "ダウンロードにはExploreのログインではなく、ブラウザのCookieが使われます。", "useExplore": "Exploreログインを使う", "notNow": "後で"},
+		"linkMenu": {"downloadWith": "プロファイルでダウンロード", "copyLink": "リンクをコピー"},
 		"toolbar": {
 			"aria": "現在のページ",
 			"back": "戻る",

@@ -571,9 +571,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'analyticsEnabled', {analyticsEnabled: enabled})
 		},
 
-		setActiveDownloadProfile: async (ref: DownloadProfileRef) => {
+		setActiveDownloadProfile: (ref: DownloadProfileRef) => {
 			const profiles = {...currentProfiles(get().settings), active: ref}
-			await applyProfilesPatchAsync(get, set, 'downloadProfile.active', profiles)
+			return applyProfilesPatchAsync(get, set, 'downloadProfile.active', profiles)
 		},
 
 		saveDownloadProfile: async (profile: DownloadProfile, activate = true) => {

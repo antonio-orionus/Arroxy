@@ -832,6 +832,7 @@
 			"useExplore": "Χρήση σύνδεσης Explore",
 			"notNow": "Όχι τώρα"
 		},
+		"linkMenu": {"downloadWith": "Λήψη με", "copyLink": "Αντιγραφή συνδέσμου"},
 		"toolbar": {
 			"aria": "Στοιχεία ελέγχου του προγράμματος περιήγησης Explore",
 			"back": "Πίσω",

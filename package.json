@@ -26,6 +26,7 @@
 		"dev:swiftshader": "bun scripts/dev-env.ts run electron --gpu=swiftshader",
 		"dev:sandbox": "bun scripts/dev-env.ts run electron --sandbox",
 		"dev:fresh": "bun scripts/dev-env.ts run electron --fresh",
+		"dev:anon": "bun scripts/dev-env.ts run electron --anon",
 		"dev:mock": "bun scripts/dev-env.ts run mock",
 		"gpu:probe": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/electron-gpu-probe.mjs",
 		"gpu:probe:force": "ELECTRON_DISABLE_SANDBOX=1 electron scripts/electron-gpu-probe.mjs --mode=force",

@@ -28,6 +28,8 @@ graph TD
   PICK[Profile picker] -.-> QBTN
   EXD[Explore Download profile] --> QD
   EXW[Explore wand] --> SU
+  EXL[Explore link menu] --> QD
+  EXL --> SU
   HK[Hotkey, tray, test press] --> PLC
   QBTN --> QD[quickDownload intake]
   QD --> MIX[Mixed URL prompt] --> QD
@@ -74,6 +76,7 @@ picker edge sets the active profile that Quick Download uses.
 | CLIP | Clipboard watch only fills the field, never queues | — | `DownloadProfilesHome`, `clipboardIntake.ts`, `ClipboardWatcher` |
 | QBTN, PICK | Quick Download with the active profile; the arrow switches it | active profile | `DownloadProfilesHome`, `systemSlice.setActiveDownloadProfile` |
 | EXD, EXW | Explore's Download button (quick) and wand (`submitUrl('explore')`, returns to Explore) | active profile / wizard | `ExploreTab`, `probeOrchestrator` |
+| EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |
 | HK | Hotkey chord, tray item, or Settings test press; a mixed URL is forced to its video | active profile | `HotkeyService`, `hotkeyTrigger.ts`, `urlIntentPolicy.ts` |
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks video-or-list for mixed URLs | — | `quickDownloadSlice.quickDownload` |
 | PLC → SWAP | Pins the active profile on a placeholder row, probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `quickDownloadPipeline.ts`, `quickProbeResolution.ts` |

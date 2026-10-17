@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "Qayta urinish"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Havolani nusxalash"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Profil bilan yuklab olish"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "Yangi"

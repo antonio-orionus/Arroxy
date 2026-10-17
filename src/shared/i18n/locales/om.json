@@ -841,6 +841,7 @@
 			"useExplore": "Seensa Explore fayyadami",
 			"notNow": "Amma miti"
 		},
+		"linkMenu": {"downloadWith": "Profaayiliin buusi", "copyLink": "Hidhata garagalchi"},
 		"toolbar": {
 			"aria": "To'annoo browser Explore",
 			"back": "Duubatti",

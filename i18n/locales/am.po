@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "ሊንክ ቅዳ"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "በመገለጫ አውርድ"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "አዲስ"

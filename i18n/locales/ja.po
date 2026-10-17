@@ -243,6 +243,14 @@ msgctxt "explore.error.retry"
 msgid "Retry"
 msgstr "再試行"
 
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "リンクをコピー"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "プロファイルでダウンロード"
+
 msgctxt "explore.newBadge"
 msgid "New"
 msgstr "新着"

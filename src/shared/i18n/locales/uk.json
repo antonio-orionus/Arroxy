@@ -832,6 +832,7 @@
 			"useExplore": "Використовувати вхід через Explore",
 			"notNow": "Не зараз"
 		},
+		"linkMenu": {"downloadWith": "Завантажити з профілем", "copyLink": "Скопіювати посилання"},
 		"toolbar": {
 			"aria": "Елементи керування браузера Explore",
 			"back": "Назад",

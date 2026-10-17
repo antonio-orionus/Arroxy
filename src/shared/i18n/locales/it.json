@@ -823,6 +823,7 @@
 			"continue": "Continua"
 		},
 		"nudge": {"off": "I cookie sono disattivati, quindi i download non usano l'accesso a Explore.", "file": "I download usano il tuo file di cookie, non l'accesso a Explore.", "browser": "I download usano i cookie del tuo browser, non l'accesso a Explore.", "useExplore": "Usa l'accesso a Explore", "notNow": "Non ora"},
+		"linkMenu": {"downloadWith": "Scarica con", "copyLink": "Copia link"},
 		"toolbar": {
 			"aria": "Controlli del browser di Explore",
 			"back": "Indietro",

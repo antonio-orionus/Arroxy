@@ -12,6 +12,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Highlights
 
+- **Download straight from Explore's video grids.** Right-click any video, playlist or channel link in Explore to download it with your active profile, pick another profile from **Download with**, open the step-by-step flow, or copy the link — no need to open each video first.
 - **File sizes in Downloads.** A new **Size** column shows how much space each finished download takes on disk, and you can sort by it. Downloads finished before this update get their sizes when Arroxy starts.
 - **Moved or deleted files are flagged.** If a finished download's files were moved or deleted outside Arroxy, its row now says **Missing**. When the files come back, for example after you reconnect a drive, the mark clears the next time Arroxy starts.
 

@@ -743,6 +743,7 @@
 			"continue": "继续"
 		},
 		"nudge": {"off": "Cookies 已关闭，因此下载不会使用你的 Explore 登录。", "file": "下载使用的是你的 Cookies 文件，而不是你的 Explore 登录。", "browser": "下载使用的是浏览器的 Cookies，而不是你的 Explore 登录。", "useExplore": "使用 Explore 登录", "notNow": "暂不"},
+		"linkMenu": {"downloadWith": "使用配置文件下载", "copyLink": "复制链接"},
 		"toolbar": {
 			"aria": "当前页面",
 			"back": "后退",

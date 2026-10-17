@@ -824,6 +824,7 @@
 			"useExplore": "Использовать вход через Explore",
 			"notNow": "Не сейчас"
 		},
+		"linkMenu": {"downloadWith": "Скачать с профилем", "copyLink": "Скопировать ссылку"},
 		"toolbar": {
 			"aria": "Элементы управления браузера Explore",
 			"back": "Назад",

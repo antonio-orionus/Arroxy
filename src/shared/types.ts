@@ -62,7 +62,7 @@ export type {
 
 import type {ProbePlaylistMode} from './schemas.js'
 export type {ProbePlaylistMode, StatusKey} from './schemas.js'
-export type {ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
+export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
