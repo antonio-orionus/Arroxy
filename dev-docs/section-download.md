@@ -18,6 +18,15 @@ embeds none, and the bridge passes `--no-embed-chapters` for an explicit
 `chapters: false`), and a part must never replay its own saved info-json on
 Retry, since yt-dlp writes it after applying the section.
 
+A third one only real YouTube showed: a part makes ffmpeg open the googlevideo
+HTTPS URL itself, and the macOS embedded ffmpeg (a static OpenSSL build) could
+not verify any certificate, so every part failed there. The fixture server is
+plain HTTP, so no E2E can see it. yt-dlp is now spawned with `SSL_CERT_FILE`
+pointing at `/etc/ssl/cert.pem` on macOS (`withCaBundle` in
+`src/main/utils/process.ts`); Windows' build uses Schannel and Linux's finds the
+distro bundle (both checked on the test VMs). Verified live: a 5–12 s part of
+`jNQXAC9IVRw` (separate video and audio streams) came out as a 7.01 s file.
+
 Download only a time range of a video (`START-END`), via yt-dlp
 `--download-sections "*START-END"` (`*` = time-range mode; without it yt-dlp
 reads the value as a chapter-title regex; `inf` = open end).
