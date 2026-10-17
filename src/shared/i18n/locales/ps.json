@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "ستاسو لاګونه او د اپ جزئیات د Downloads په فولډر کې په یوه فایل کې راټولوي، چې GitHub issue ته د ضمیمه کولو لپاره چمتو وي. ستاسو د کارن فولډر نوم لرې کیږي؛ د ویډیو لینکونه او سرلیکونه پاتې کیږي.",
 		"feedbackNudge": "ایا Arroxy خوند درکوي؟ ستاسو د اورولو شوق لرم! 💬",
 		"zoomIn": "لویول",
-		"zoomOut": "کوچنیول"
+		"zoomOut": "کوچنیول",
+		"theme": "تم",
+		"styleHint": "نوی: دلته اورورا یا ساده غوره کړئ"
 	},
 	"about": {"button": "د اړوند", "openTitle": "د Arroxy اړوند", "tagline": "د YouTube او 2000+ نورو سایټونو لپاره چټک او اسانه ډاونلوډر.", "websiteLink": "ویب پاڼه", "githubLink": "GitHub", "licenseLine": "MIT جواز · د Antonio Orionus لخوا", "thirdPartyNotices": "د دریم ډلې خبرتیاوې وګورئ"},
 	"titleBar": {"close": "تړل", "minimize": "کوچنی کول", "maximize": "لوی کول", "restore": "بیرته راوستل"},

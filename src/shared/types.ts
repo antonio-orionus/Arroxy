@@ -67,6 +67,7 @@ export type {
 import type {ProbePlaylistMode} from './schemas.js'
 export type {ProbePlaylistMode, StatusKey} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
+export type {MenuAction} from './schemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
 
@@ -177,6 +178,7 @@ export interface CommonSettings {
 	shareInlineCardDismissed?: boolean
 	shareHighValueBannerDismissed?: boolean
 	multiProfileHintDismissed?: boolean
+	styleHintDismissed?: boolean
 }
 
 export interface BinaryOverrides {

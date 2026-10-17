@@ -536,6 +536,7 @@ export function installBrowserMock(): void {
 				return () => hotkeyTriggerListeners.delete(listener)
 			},
 			onHotkeyOutcome: () => () => undefined,
+			onMenuAction: () => () => undefined,
 			onWarmupProgress: listener => {
 				warmupProgressListeners.add(listener)
 				return () => warmupProgressListeners.delete(listener)

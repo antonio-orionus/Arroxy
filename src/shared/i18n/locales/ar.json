@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "يجمع السجلات وتفاصيل التطبيق في ملف واحد داخل مجلد التنزيلات، جاهز لإرفاقه ببلاغ على GitHub. يُحذف اسم مجلد المستخدم الخاص بك، وتبقى روابط الفيديوهات وعناوينها.",
 		"feedbackNudge": "هل تستمتع بـ Arroxy؟ يسعدني سماع رأيك! 💬",
 		"zoomIn": "تكبير",
-		"zoomOut": "تصغير"
+		"zoomOut": "تصغير",
+		"theme": "المظهر",
+		"styleHint": "جديد: اختر Aurora أو بسيط من هنا"
 	},
 	"about": {"button": "حول", "openTitle": "حول Arroxy", "tagline": "محمّل سريع وسهل الاستخدام لـ YouTube وأكثر من 2000 موقع آخر.", "websiteLink": "موقع الويب", "githubLink": "GitHub", "licenseLine": "ترخيص MIT · بواسطة Antonio Orionus", "thirdPartyNotices": "عرض إشعارات الطرف الثالث"},
 	"titleBar": {"close": "إغلاق", "minimize": "تصغير", "maximize": "تكبير", "restore": "استعادة"},

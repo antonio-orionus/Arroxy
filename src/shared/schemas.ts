@@ -646,6 +646,22 @@ export const resumeSchema = z.object({jobId: z.string().min(1)})
 // applies `nonEmpty(value.trim())` so empty / whitespace yields no flag.
 export const limitRateSchema = z.string().regex(/^(|\s*|\d+(\.\d+)?[KM])$/i, 'Use a number followed by K or M (e.g. 500K, 1.5M)')
 
+// What the native application menu asks the renderer to do. The renderer owns
+// UI state, so a menu pick is a request, applied through the same store actions
+// as the footer controls. A speed limit left out means no limit.
+export const menuActionSchema = z.discriminatedUnion('kind', [
+	z.object({kind: z.literal('about')}),
+	z.object({kind: z.literal('share')}),
+	z.object({kind: z.literal('feedback')}),
+	z.object({kind: z.literal('settings')}),
+	z.object({kind: z.literal('logs')}),
+	z.object({kind: z.literal('diagnostics')}),
+	z.object({kind: z.literal('speedLimit'), limitRate: limitRateSchema.optional()}),
+	z.object({kind: z.literal('style'), style: uiStyleSchema}),
+	z.object({kind: z.literal('theme'), theme: uiThemeSchema})
+])
+export type MenuAction = z.infer<typeof menuActionSchema>
+
 const commonPathsSchema = z.object({downloads: z.string().nullable(), videos: z.string().nullable(), desktop: z.string().nullable(), music: z.string().nullable(), documents: z.string().nullable(), pictures: z.string().nullable(), home: z.string().nullable()})
 
 const binaryOverridesSchema = z.object({ytDlp: z.string().min(1).optional(), ffmpeg: z.string().min(1).optional(), ffprobe: z.string().min(1).optional()}).partial()
@@ -714,7 +730,8 @@ const commonSettingsSchema = z.object({
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
-	multiProfileHintDismissed: z.boolean().optional()
+	multiProfileHintDismissed: z.boolean().optional(),
+	styleHintDismissed: z.boolean().optional()
 })
 
 const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSchema.optional()})

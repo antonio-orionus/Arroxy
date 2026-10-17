@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "ដាក់កំណត់ហេតុ និងព័ត៌មានកម្មវិធីរបស់អ្នកទៅក្នុងឯកសារតែមួយក្នុង Downloads ដែលរួចរាល់សម្រាប់ភ្ជាប់ទៅ GitHub issue។ ឈ្មោះថតអ្នកប្រើរបស់អ្នកត្រូវបានលុបចេញ ប៉ុន្តែតំណ និងចំណងជើងវីដេអូនៅដដែល។",
 		"feedbackNudge": "ចូលចិត្ត Arroxy ទេ? ខ្ញុំចង់ឮពីអ្នកណាស់! 💬",
 		"zoomIn": "ពង្រីក",
-		"zoomOut": "បង្រួម"
+		"zoomOut": "បង្រួម",
+		"theme": "ធីម",
+		"styleHint": "ថ្មី៖ ជ្រើសរើស អូរ៉ូរ៉ា ឬ សាមញ្ញ នៅទីនេះ"
 	},
 	"about": {"button": "អំពី", "openTitle": "អំពី Arroxy", "tagline": "កម្មវិធីទាញយកលឿន និងងាយស្រួលសម្រាប់ YouTube និងគេហទំព័រជាង 2000 ផ្សេងទៀត។", "websiteLink": "គេហទំព័រ", "githubLink": "GitHub", "licenseLine": "អាជ្ញាប័ណ្ណ MIT · ដោយ Antonio Orionus", "thirdPartyNotices": "មើលសេចក្តីជូនដំណឹងភាគីទីបី"},
 	"titleBar": {"close": "បិទ", "minimize": "បង្រួមអប្បបរមា", "maximize": "ពង្រីកអតិបរមា", "restore": "ស្តារ"},

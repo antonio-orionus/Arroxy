@@ -17,6 +17,7 @@ import {UpdateBanner} from './components/system/UpdateBanner.js'
 import {Toaster} from './components/ui/sonner.js'
 import {useToastSink} from './lib/toastSink.js'
 import {ThemeToggle} from './components/system/ThemeToggle.js'
+import {StyleToggle} from './components/system/StyleToggle.js'
 import {LanguagePicker} from './components/system/LanguagePicker.js'
 import {AboutDialog} from './components/system/AboutDialog.js'
 import {FeedbackDialog} from './components/system/FeedbackDialog.js'
@@ -99,8 +100,21 @@ export function App(): ReactNode {
 			setBackdropFailed: state.setBackdropFailed
 		}))
 	)
-	const {uiZoom, setUiZoom, uiTheme, setAboutDialogOpen, openShareDialog, shareDialogOpen} = useAppStore(
-		useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, uiTheme: state.uiTheme, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, shareDialogOpen: state.shareDialogOpen}))
+	const {uiZoom, setUiZoom, uiTheme, setUiTheme, setUiStyle, setAboutDialogOpen, openShareDialog, shareDialogOpen, openLogs, saveDiagnostics, setLimitRate, openSettings} = useAppStore(
+		useShallow(state => ({
+			uiZoom: state.uiZoom,
+			setUiZoom: state.setUiZoom,
+			uiTheme: state.uiTheme,
+			setUiTheme: state.setUiTheme,
+			setUiStyle: state.setUiStyle,
+			setAboutDialogOpen: state.setAboutDialogOpen,
+			openShareDialog: state.openShareDialog,
+			shareDialogOpen: state.shareDialogOpen,
+			openLogs: state.openLogs,
+			saveDiagnostics: state.saveDiagnostics,
+			setLimitRate: state.setLimitRate,
+			openSettings: state.openSettings
+		}))
 	)
 	const update = useUpdateChannel()
 	// While browsing in Explore's compact layout the footer drops its labels and slims down.
@@ -152,6 +166,43 @@ export function App(): ReactNode {
 		const t = setTimeout(() => setShowNudge(true), delay)
 		return () => clearTimeout(t)
 	}, [])
+
+	// The native application menu (macOS) asks for the same things the footer does.
+	useEffect(
+		() =>
+			window.appApi.events.onMenuAction(action => {
+				switch (action.kind) {
+					case 'about':
+						setAboutDialogOpen(true)
+						break
+					case 'share':
+						openShareDialog()
+						break
+					case 'feedback':
+						setFeedbackDialogOpen(true)
+						break
+					case 'settings':
+						openSettings()
+						break
+					case 'logs':
+						void openLogs()
+						break
+					case 'diagnostics':
+						void saveDiagnostics()
+						break
+					case 'speedLimit':
+						void setLimitRate(action.limitRate)
+						break
+					case 'style':
+						setUiStyle(action.style)
+						break
+					case 'theme':
+						setUiTheme(action.theme)
+						break
+				}
+			}),
+		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings]
+	)
 
 	useEffect(() => {
 		if (!showNudge) return
@@ -217,6 +268,7 @@ export function App(): ReactNode {
 						<span className="w-8 text-center text-sm text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
 						<ThemeToggle />
+						<StyleToggle hintReady={(!showStartupSplash || splashDismissed) && !whatsNew.open} />
 						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
 						<div className="min-w-0 [&_[data-slot=select-trigger]]:max-w-[6rem] [&_[data-slot=select-value]]:truncate sm:[&_[data-slot=select-trigger]]:max-w-none" data-testid="footer-language-picker">
 							<LanguagePicker />

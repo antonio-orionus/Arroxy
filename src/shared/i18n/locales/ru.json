@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "Собирает журналы и сведения о приложении в один файл в папке «Загрузки», готовый к прикреплению к issue на GitHub. Имя папки пользователя удаляется; ссылки и названия видео сохраняются.",
 		"feedbackNudge": "Нравится Arroxy? Я бы хотел услышать твой отзыв! 💬",
 		"zoomIn": "Увеличить",
-		"zoomOut": "Уменьшить"
+		"zoomOut": "Уменьшить",
+		"theme": "Тема",
+		"styleHint": "Новое: выберите Aurora или Минимализм здесь"
 	},
 	"about": {"button": "О программе", "openTitle": "О программе Arroxy", "tagline": "Быстрый и удобный загрузчик для YouTube и ещё 2000+ сайтов.", "websiteLink": "Сайт", "githubLink": "GitHub", "licenseLine": "Лицензия MIT · by Antonio Orionus", "thirdPartyNotices": "Просмотреть уведомления о сторонних компонентах"},
 	"titleBar": {"close": "Закрыть", "minimize": "Свернуть", "maximize": "Развернуть", "restore": "Восстановить"},

@@ -74,6 +74,7 @@ export const IPC_CHANNELS = {
 	eventsClipboardUrl: 'events:clipboardUrl',
 	eventsHotkeyTrigger: 'events:hotkeyTrigger',
 	eventsHotkeyOutcome: 'events:hotkeyOutcome',
+	eventsMenuAction: 'events:menuAction',
 	hotkeyReportOutcome: 'cmd:hotkeyReportOutcome',
 	hotkeyGetState: 'cmd:hotkeyGetState',
 	hotkeyTestPress: 'cmd:hotkeyTestPress',

@@ -55,6 +55,14 @@ msgctxt "app.saveDiagnosticsDescription"
 msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
 msgstr "Günlükleri ve uygulama bilgilerini İndirilenler klasöründe tek bir dosyada toplar; dosya bir GitHub issue'suna eklenmeye hazırdır. Kullanıcı klasörünüzün adı kaldırılır; video bağlantıları ve başlıkları korunur."
 
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Yeni: Aurora veya Minimal'i buradan seçin"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Tema"
+
 msgctxt "app.zoomIn"
 msgid "Zoom in"
 msgstr "Yakınlaştır"

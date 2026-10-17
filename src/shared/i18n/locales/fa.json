@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "گزارش‌ها و جزئیات برنامه را در یک فایل در پوشهٔ Downloads قرار می‌دهد تا آمادهٔ پیوست به یک issue در GitHub باشد. نام پوشهٔ کاربری شما حذف می‌شود؛ پیوندها و عنوان‌های ویدیو باقی می‌مانند.",
 		"feedbackNudge": "از Arroxy لذت می‌برید؟ خوشحال می‌شوم نظرتان را بدانم! 💬",
 		"zoomIn": "بزرگ‌نمایی",
-		"zoomOut": "کوچک‌نمایی"
+		"zoomOut": "کوچک‌نمایی",
+		"theme": "پوسته",
+		"styleHint": "جدید: اینجا آرورا یا مینیمال را انتخاب کنید"
 	},
 	"about": {"button": "درباره", "openTitle": "دربارهٔ Arroxy", "tagline": "دانلودری سریع و ساده برای YouTube و بیش از ۲۰۰۰ سایت دیگر.", "websiteLink": "وب‌سایت", "githubLink": "GitHub", "licenseLine": "مجوز MIT · ساختهٔ Antonio Orionus", "thirdPartyNotices": "مشاهدهٔ اعلان‌های شخص ثالث"},
 	"titleBar": {"close": "بستن", "minimize": "کمینه کردن", "maximize": "بیشینه کردن", "restore": "بازگردانی"},

@@ -7,7 +7,9 @@
 		"saveDiagnosticsDescription": "로그와 앱 정보를 다운로드 폴더의 파일 하나로 모아 GitHub 이슈에 바로 첨부할 수 있게 합니다. 사용자 폴더 이름은 제거되지만 동영상 링크와 제목은 유지됩니다.",
 		"feedbackNudge": "Arroxy가 마음에 드시나요? 의견을 들려주세요! 💬",
 		"zoomIn": "확대",
-		"zoomOut": "축소"
+		"zoomOut": "축소",
+		"theme": "테마",
+		"styleHint": "새 기능: 여기서 오로라 또는 미니멀을 선택하세요"
 	},
 	"about": {"button": "정보", "openTitle": "Arroxy 정보", "tagline": "YouTube 및 2000개 이상의 사이트를 위한 빠르고 편리한 다운로더입니다.", "websiteLink": "웹사이트", "githubLink": "GitHub", "licenseLine": "MIT 라이선스 · Antonio Orionus 제작", "thirdPartyNotices": "타사 고지 사항 보기"},
 	"titleBar": {"close": "닫기", "minimize": "최소화", "maximize": "최대화", "restore": "복원"},

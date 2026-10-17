@@ -612,6 +612,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'multiProfileHintDismissed', {multiProfileHintDismissed: true})
 		},
 
+		dismissStyleHint: async () => {
+			await applyCommonPatchAsync(get, set, 'styleHintDismissed', {styleHintDismissed: true})
+		},
+
 		acknowledgeExploreNotice: async () => {
 			await applyCommonPatchAsync(get, set, 'exploreNoticeSeen', {exploreNoticeSeen: true})
 		},

@@ -43,6 +43,8 @@ export interface IpcDependencies {
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
+	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
+	refreshAppMenu?: () => void
 }
 
 let activeDownloadBridge: DownloadEventBridge | null = null
@@ -50,13 +52,13 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider, refreshAppMenu} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
-	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider})
+	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged: refreshAppMenu})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)
