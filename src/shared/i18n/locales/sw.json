@@ -630,9 +630,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} inapatikana — una {{currentVersion}}.", "homebrew": "Arroxy {{version}} inapatikana — sasisha kwa Homebrew.", "macosDirect": "Arroxy {{version}} inapatikana — pakua DMG mpya.", "portable": "Arroxy {{version}} inapatikana — pakua build mpya."},
+		"message": {
+			"generic": "Arroxy {{version}} inapatikana — una {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} inapatikana — sasisha kwa Homebrew.",
+			"macosDirect": "Arroxy {{version}} inapatikana — pakua DMG mpya.",
+			"macosDirectHomebrew": "Arroxy {{version}} inapatikana — pakua DMG au hamia Homebrew.",
+			"portable": "Arroxy {{version}} inapatikana — pakua build mpya."
+		},
 		"install": "Sakinisha na Uanzishe Upya",
 		"downloading": "Inapakua…",
+		"runAndRestart": "Endesha na Uanzishe Upya",
+		"upgrading": "Inasasisha…",
 		"download": "Download ↗",
 		"downloadDmg": "Pakua DMG ↗",
 		"dismiss": "Funga bango la sasisho",

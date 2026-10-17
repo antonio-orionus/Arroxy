@@ -640,9 +640,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}.", "homebrew": "Arroxy {{version}} tersedia — perbarui dengan Homebrew.", "macosDirect": "Arroxy {{version}} tersedia — unduh DMG baru.", "portable": "Arroxy {{version}} tersedia — unduh build baru."},
+		"message": {
+			"generic": "Arroxy {{version}} tersedia — Anda memiliki {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} tersedia — perbarui dengan Homebrew.",
+			"macosDirect": "Arroxy {{version}} tersedia — unduh DMG baru.",
+			"macosDirectHomebrew": "Arroxy {{version}} tersedia — unduh DMG atau beralih ke Homebrew.",
+			"portable": "Arroxy {{version}} tersedia — unduh build baru."
+		},
 		"install": "Instal & Mulai Ulang",
 		"downloading": "Mengunduh…",
+		"runAndRestart": "Jalankan & Mulai Ulang",
+		"upgrading": "Memperbarui…",
 		"download": "Unduh ↗",
 		"downloadDmg": "Unduh DMG ↗",
 		"dismiss": "Tutup spanduk pembaruan",

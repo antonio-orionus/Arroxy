@@ -633,9 +633,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var.", "homebrew": "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle.", "macosDirect": "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir.", "portable": "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."},
+		"message": {
+			"generic": "Arroxy {{version}} kullanılabilir — sende {{currentVersion}} var.",
+			"homebrew": "Arroxy {{version}} kullanılabilir — Homebrew ile güncelle.",
+			"macosDirect": "Arroxy {{version}} kullanılabilir — yeni DMG’yi indir.",
+			"macosDirectHomebrew": "Arroxy {{version}} kullanılabilir — DMG’yi indir veya Homebrew’a geç.",
+			"portable": "Arroxy {{version}} kullanılabilir — yeni derlemeyi indir."
+		},
 		"install": "Yükle ve Yeniden Başlat",
 		"downloading": "İndiriliyor…",
+		"runAndRestart": "Çalıştır ve Yeniden Başlat",
+		"upgrading": "Yükseltiliyor…",
 		"download": "İndir ↗",
 		"downloadDmg": "DMG indir ↗",
 		"dismiss": "Güncelleme bandını kapat",

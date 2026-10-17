@@ -631,10 +631,13 @@
 			"generic": "Arroxy {{version}} が利用可能です — 現在は {{currentVersion}} です。",
 			"homebrew": "Arroxy {{version}} が利用可能です — Homebrew で更新してください。",
 			"macosDirect": "Arroxy {{version}} が利用可能です — 新しい DMG をダウンロードしてください。",
+			"macosDirectHomebrew": "Arroxy {{version}} が利用可能です — DMG をダウンロードするか、Homebrew に切り替えてください。",
 			"portable": "Arroxy {{version}} が利用可能です — 新しいビルドをダウンロードしてください。"
 		},
 		"install": "インストールして再起動",
 		"downloading": "ダウンロード中…",
+		"runAndRestart": "実行して再起動",
+		"upgrading": "アップグレード中…",
 		"download": "ダウンロード ↗",
 		"downloadDmg": "DMG をダウンロード ↗",
 		"dismiss": "更新通知を閉じる",

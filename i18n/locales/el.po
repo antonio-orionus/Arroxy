@@ -1451,6 +1451,10 @@ msgctxt "update.message.macosDirect"
 msgid "Arroxy {{version}} is available — download the new DMG."
 msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε το νέο DMG."
 
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε το DMG ή άλλαξε σε Homebrew."
+
 msgctxt "update.message.portable"
 msgid "Arroxy {{version}} is available — download the new build."
 msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασε τη νέα έκδοση."
@@ -1458,6 +1462,14 @@ msgstr "Το Arroxy {{version}} είναι διαθέσιμο — κατέβασ
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "Επανάληψη"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Εκτέλεση & Επανεκκίνηση"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Αναβάθμιση…"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"

@@ -648,9 +648,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} доступна — у вас {{currentVersion}}.", "homebrew": "Arroxy {{version}} доступна — оновіть через Homebrew.", "macosDirect": "Arroxy {{version}} доступна — завантажте новий DMG.", "portable": "Arroxy {{version}} доступна — завантажте нову збірку."},
+		"message": {
+			"generic": "Arroxy {{version}} доступна — у вас {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} доступна — оновіть через Homebrew.",
+			"macosDirect": "Arroxy {{version}} доступна — завантажте новий DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} доступна — завантажте DMG або перейдіть на Homebrew.",
+			"portable": "Arroxy {{version}} доступна — завантажте нову збірку."
+		},
 		"install": "Встановити й перезапустити",
 		"downloading": "Завантаження…",
+		"runAndRestart": "Виконати й перезапустити",
+		"upgrading": "Оновлення…",
 		"download": "Завантажити ↗",
 		"downloadDmg": "Завантажити DMG ↗",
 		"dismiss": "Закрити сповіщення про оновлення",

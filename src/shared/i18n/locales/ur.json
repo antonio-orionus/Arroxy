@@ -627,9 +627,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔", "homebrew": "Arroxy {{version}} دستیاب ہے — Homebrew سے اپ ڈیٹ کریں۔", "macosDirect": "Arroxy {{version}} دستیاب ہے — نیا DMG ڈاؤن لوڈ کریں۔", "portable": "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ کریں۔"},
+		"message": {
+			"generic": "Arroxy {{version}} دستیاب ہے — آپ کے پاس {{currentVersion}} ہے۔",
+			"homebrew": "Arroxy {{version}} دستیاب ہے — Homebrew سے اپ ڈیٹ کریں۔",
+			"macosDirect": "Arroxy {{version}} دستیاب ہے — نیا DMG ڈاؤن لوڈ کریں۔",
+			"macosDirectHomebrew": "Arroxy {{version}} دستیاب ہے — DMG ڈاؤن لوڈ کریں یا Homebrew پر منتقل ہوں۔",
+			"portable": "Arroxy {{version}} دستیاب ہے — نئی build ڈاؤن لوڈ کریں۔"
+		},
 		"install": "انسٹال اور ری اسٹارٹ",
 		"downloading": "ڈاؤن لوڈ ہو رہا ہے…",
+		"runAndRestart": "چلائیں اور ری اسٹارٹ کریں",
+		"upgrading": "اپ گریڈ ہو رہا ہے…",
 		"download": "ڈاؤن لوڈ ↗",
 		"downloadDmg": "DMG ڈاؤن لوڈ کریں ↗",
 		"dismiss": "اپ ڈیٹ بینر برخاست کریں",

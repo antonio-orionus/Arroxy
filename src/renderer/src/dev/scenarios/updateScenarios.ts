@@ -5,8 +5,8 @@ interface ScenarioLike {
 }
 
 export function buildUpdate(scenario: ScenarioLike): UpdateAvailablePayload | null {
-	const channelByScenario: Partial<Record<string, InstallChannel>> = {'update-direct': 'direct', 'update-darwin-dmg': 'direct', 'update-winget': 'winget', 'update-homebrew': 'homebrew', 'update-scoop': 'scoop', 'update-portable': 'portable', 'update-flatpak': 'flatpak'}
+	const channelByScenario: Partial<Record<string, InstallChannel>> = {'update-direct': 'direct', 'update-darwin-dmg': 'direct', 'update-darwin-dmg-homebrew': 'direct', 'update-winget': 'winget', 'update-homebrew': 'homebrew', 'update-scoop': 'scoop', 'update-portable': 'portable', 'update-flatpak': 'flatpak'}
 	if (scenario.id === 'update-none') return null
 	const installChannel = channelByScenario[scenario.id]
-	return installChannel ? {version: '1.2.0', currentVersion: '0.0.1', installChannel} : null
+	return installChannel ? {version: '1.2.0', currentVersion: '0.0.1', installChannel, homebrewAvailable: scenario.id === 'update-darwin-dmg-homebrew'} : null
 }

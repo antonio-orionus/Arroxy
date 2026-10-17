@@ -590,9 +590,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} พร้อมใช้งานแล้ว — คุณมีเวอร์ชัน {{currentVersion}}", "homebrew": "Arroxy {{version}} พร้อมใช้งานแล้ว — อัปเดตด้วย Homebrew", "macosDirect": "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลด DMG ใหม่", "portable": "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลดบิลด์ใหม่"},
+		"message": {
+			"generic": "Arroxy {{version}} พร้อมใช้งานแล้ว — คุณมีเวอร์ชัน {{currentVersion}}",
+			"homebrew": "Arroxy {{version}} พร้อมใช้งานแล้ว — อัปเดตด้วย Homebrew",
+			"macosDirect": "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลด DMG ใหม่",
+			"macosDirectHomebrew": "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลด DMG หรือเปลี่ยนไปใช้ Homebrew",
+			"portable": "Arroxy {{version}} พร้อมใช้งานแล้ว — ดาวน์โหลดบิลด์ใหม่"
+		},
 		"install": "ติดตั้งและเริ่มใหม่",
 		"downloading": "กำลังดาวน์โหลด…",
+		"runAndRestart": "รันและเริ่มใหม่",
+		"upgrading": "กำลังอัปเกรด…",
 		"download": "ดาวน์โหลด ↗",
 		"downloadDmg": "ดาวน์โหลด DMG ↗",
 		"dismiss": "ปิดแบนเนอร์อัปเดต",

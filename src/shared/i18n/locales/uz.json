@@ -655,9 +655,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor.", "homebrew": "Arroxy {{version}} mavjud — Homebrew orqali yangilang.", "macosDirect": "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling.", "portable": "Arroxy {{version}} mavjud — yangi build ni yuklab oling."},
+		"message": {
+			"generic": "Arroxy {{version}} mavjud — sizda {{currentVersion}} bor.",
+			"homebrew": "Arroxy {{version}} mavjud — Homebrew orqali yangilang.",
+			"macosDirect": "Arroxy {{version}} mavjud — yangi DMG ni yuklab oling.",
+			"macosDirectHomebrew": "Arroxy {{version}} mavjud — DMG ni yuklab oling yoki Homebrew'ga o'ting.",
+			"portable": "Arroxy {{version}} mavjud — yangi build ni yuklab oling."
+		},
 		"install": "O'rnatish va qayta ishga tushirish",
 		"downloading": "Yuklanmoqda…",
+		"runAndRestart": "Bajarish va qayta ishga tushirish",
+		"upgrading": "Yangilanmoqda…",
 		"download": "Download ↗",
 		"downloadDmg": "DMG yuklab olish ↗",
 		"dismiss": "Yangilanish bannerini yopish",

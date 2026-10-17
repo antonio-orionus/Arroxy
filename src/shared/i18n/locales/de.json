@@ -644,10 +644,13 @@
 			"generic": "Arroxy {{version}} ist verfügbar — du hast {{currentVersion}}.",
 			"homebrew": "Arroxy {{version}} ist verfügbar — mit Homebrew aktualisieren.",
 			"macosDirect": "Arroxy {{version}} ist verfügbar — lade die neue DMG herunter.",
+			"macosDirectHomebrew": "Arroxy {{version}} ist verfügbar — lade die DMG herunter oder wechsle zu Homebrew.",
 			"portable": "Arroxy {{version}} ist verfügbar — lade den neuen Build herunter."
 		},
 		"install": "Installieren & neu starten",
 		"downloading": "Wird heruntergeladen…",
+		"runAndRestart": "Ausführen & neu starten",
+		"upgrading": "Wird aktualisiert…",
 		"download": "Herunterladen ↗",
 		"downloadDmg": "DMG herunterladen ↗",
 		"dismiss": "Update-Banner schließen",

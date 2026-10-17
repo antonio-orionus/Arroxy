@@ -628,9 +628,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "يتوفر Arroxy {{version}} — لديك {{currentVersion}}.", "homebrew": "يتوفر Arroxy {{version}} — حدّث عبر Homebrew.", "macosDirect": "يتوفر Arroxy {{version}} — نزّل ملف DMG الجديد.", "portable": "يتوفر Arroxy {{version}} — نزّل البناء الجديد."},
+		"message": {
+			"generic": "يتوفر Arroxy {{version}} — لديك {{currentVersion}}.",
+			"homebrew": "يتوفر Arroxy {{version}} — حدّث عبر Homebrew.",
+			"macosDirect": "يتوفر Arroxy {{version}} — نزّل ملف DMG الجديد.",
+			"macosDirectHomebrew": "يتوفر Arroxy {{version}} — نزّل ملف DMG أو انتقل إلى Homebrew.",
+			"portable": "يتوفر Arroxy {{version}} — نزّل البناء الجديد."
+		},
 		"install": "تثبيت وإعادة التشغيل",
 		"downloading": "جارٍ التنزيل…",
+		"runAndRestart": "تشغيل وإعادة التشغيل",
+		"upgrading": "جارٍ الترقية…",
 		"download": "Download ↗",
 		"downloadDmg": "تنزيل DMG ↗",
 		"dismiss": "إخفاء شريط التحديث",

@@ -620,9 +620,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} đã có — bạn đang dùng {{currentVersion}}.", "homebrew": "Arroxy {{version}} đã có — cập nhật bằng Homebrew.", "macosDirect": "Arroxy {{version}} đã có — tải DMG mới.", "portable": "Arroxy {{version}} đã có — tải bản dựng mới."},
+		"message": {
+			"generic": "Arroxy {{version}} đã có — bạn đang dùng {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} đã có — cập nhật bằng Homebrew.",
+			"macosDirect": "Arroxy {{version}} đã có — tải DMG mới.",
+			"macosDirectHomebrew": "Arroxy {{version}} đã có — tải DMG hoặc chuyển sang Homebrew.",
+			"portable": "Arroxy {{version}} đã có — tải bản dựng mới."
+		},
 		"install": "Cài đặt & Khởi động lại",
 		"downloading": "Đang tải xuống…",
+		"runAndRestart": "Chạy & Khởi động lại",
+		"upgrading": "Đang nâng cấp…",
 		"download": "Tải xuống ↗",
 		"downloadDmg": "Tải DMG ↗",
 		"dismiss": "Ẩn thông báo cập nhật",

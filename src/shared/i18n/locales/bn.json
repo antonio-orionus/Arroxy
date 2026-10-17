@@ -599,9 +599,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} পাওয়া যাচ্ছে — আপনার কাছে {{currentVersion}} আছে।", "homebrew": "Arroxy {{version}} পাওয়া যাচ্ছে — Homebrew দিয়ে আপডেট করুন।", "macosDirect": "Arroxy {{version}} পাওয়া যাচ্ছে — নতুন DMG ডাউনলোড করুন।", "portable": "Arroxy {{version}} পাওয়া যাচ্ছে — নতুন build ডাউনলোড করুন।"},
+		"message": {
+			"generic": "Arroxy {{version}} পাওয়া যাচ্ছে — আপনার কাছে {{currentVersion}} আছে।",
+			"homebrew": "Arroxy {{version}} পাওয়া যাচ্ছে — Homebrew দিয়ে আপডেট করুন।",
+			"macosDirect": "Arroxy {{version}} পাওয়া যাচ্ছে — নতুন DMG ডাউনলোড করুন।",
+			"macosDirectHomebrew": "Arroxy {{version}} পাওয়া যাচ্ছে — DMG ডাউনলোড করুন বা Homebrew-এ স্যুইচ করুন।",
+			"portable": "Arroxy {{version}} পাওয়া যাচ্ছে — নতুন build ডাউনলোড করুন।"
+		},
 		"install": "ইনস্টল ও রিস্টার্ট",
 		"downloading": "ডাউনলোড হচ্ছে…",
+		"runAndRestart": "চালান ও রিস্টার্ট",
+		"upgrading": "আপগ্রেড হচ্ছে…",
 		"download": "Download ↗",
 		"downloadDmg": "DMG ডাউনলোড করুন ↗",
 		"dismiss": "আপডেট ব্যানার বন্ধ করুন",

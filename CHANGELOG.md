@@ -14,6 +14,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 - **Download straight from Explore's video grids.** Right-click any video, playlist or channel link in Explore to download it with your active profile, pick another profile from **Download with**, open the step-by-step flow, or copy the link — no need to open each video first.
 - **File sizes in Downloads.** A new **Size** column shows how much space each finished download takes on disk, and you can sort by it. Downloads finished before this update get their sizes when Arroxy starts.
+- **Update from the banner if you use Homebrew.** On a Homebrew install, the update banner now has a **Run & Restart** button next to the upgrade command, so you don't need to open a terminal. If you installed from the DMG into Applications and Homebrew is on your Mac, the banner also offers to switch to Homebrew while it updates, so later updates work the same way.
 - **Moved or deleted files are flagged.** If a finished download's files were moved or deleted outside Arroxy, its row now says **Missing**. When the files come back, for example after you reconnect a drive, the mark clears the next time Arroxy starts.
 
 ## Under the hood

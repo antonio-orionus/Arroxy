@@ -8,6 +8,11 @@ export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 // earlier releases keep working.
 export const WEBSITE_URL = 'https://orionus.dev/arroxy/'
 
+// The cask lives in Arroxy's own tap, not in Homebrew's official one. The fully
+// qualified name lets `brew install` tap it on the fly; the short name `arroxy`
+// only resolves once the tap is already added.
+export const HOMEBREW_CASK = 'antonio-orionus/arroxy/arroxy'
+
 // Windows AppUserModelID. Must stay identical to `appId` in electron-builder.json5:
 // the NSIS installer stamps that value onto the Start Menu shortcut, and Windows
 // only renders a toast whose declared AUMID matches a registered shortcut. A

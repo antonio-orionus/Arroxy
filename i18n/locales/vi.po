@@ -1451,6 +1451,10 @@ msgctxt "update.message.macosDirect"
 msgid "Arroxy {{version}} is available — download the new DMG."
 msgstr "Arroxy {{version}} đã có — tải DMG mới."
 
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} đã có — tải DMG hoặc chuyển sang Homebrew."
+
 msgctxt "update.message.portable"
 msgid "Arroxy {{version}} is available — download the new build."
 msgstr "Arroxy {{version}} đã có — tải bản dựng mới."
@@ -1458,6 +1462,14 @@ msgstr "Arroxy {{version}} đã có — tải bản dựng mới."
 msgctxt "update.retry"
 msgid "Retry"
 msgstr "Thử lại"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Chạy & Khởi động lại"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Đang nâng cấp…"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"

@@ -18,7 +18,7 @@ interface Props {
 
 export function UpdateBanner({info, installing, installError, onInstall, onDownload, onDismiss}: Props): ReactNode {
 	const {t} = useTranslation()
-	const action = resolveAction(info.installChannel, window.platform)
+	const action = resolveAction(info.installChannel, window.platform, info.homebrewAvailable)
 	const copy = resolveBannerCopy(info, window.platform)
 	const [copied, setCopied] = useState(false)
 
@@ -26,6 +26,26 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 		await navigator.clipboard.writeText(cmd)
 		setCopied(true)
 		setTimeout(() => setCopied(false), 2_000)
+	}
+
+	// Next to a download the Run button is secondary: Download stays the primary action.
+	function renderCommand(cmd: string, runnable: boolean, runVariant: 'default' | 'outline'): ReactNode {
+		return (
+			<>
+				<code className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-foreground" data-testid="update-command">
+					{cmd}
+				</code>
+				<Button type="button" variant="ghost" size="icon-xs" onClick={() => void handleCopy(cmd)} aria-label={copied ? t('update.copied') : t('update.copy')}>
+					{copied ? <CopyCheck aria-hidden /> : <Copy aria-hidden />}
+				</Button>
+				{runnable && (
+					<Button type="button" variant={runVariant} onClick={onInstall} disabled={installing} size="sm">
+						{installing ? <Spinner data-icon="inline-start" /> : null}
+						{installing ? t('update.upgrading') : installError ? t('update.retry') : t('update.runAndRestart')}
+					</Button>
+				)}
+			</>
+		)
 	}
 
 	return (
@@ -49,21 +69,15 @@ export function UpdateBanner({info, installing, installError, onInstall, onDownl
 				)}
 
 				{action.kind === 'download' && (
-					<Button type="button" onClick={onDownload} size="sm">
-						{t(copy.buttonKey ?? 'update.download')}
-					</Button>
-				)}
-
-				{action.kind === 'command' && (
 					<>
-						<code className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-foreground" data-testid="update-command">
-							{action.cmd}
-						</code>
-						<Button type="button" variant="ghost" size="icon-xs" onClick={() => void handleCopy(action.cmd)} aria-label={copied ? t('update.copied') : t('update.copy')}>
-							{copied ? <CopyCheck aria-hidden /> : <Copy aria-hidden />}
+						{action.homebrewCommand && renderCommand(action.homebrewCommand, true, 'outline')}
+						<Button type="button" onClick={onDownload} size="sm">
+							{t(copy.buttonKey ?? 'update.download')}
 						</Button>
 					</>
 				)}
+
+				{action.kind === 'command' && renderCommand(action.cmd, action.runnable, 'default')}
 
 				<Button type="button" variant="ghost" size="icon-xs" onClick={onDismiss} aria-label={t('update.dismiss')}>
 					<X aria-hidden />

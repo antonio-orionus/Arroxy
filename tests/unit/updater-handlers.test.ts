@@ -1,7 +1,7 @@
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 
 // Must mock electron and electron-updater before importing the module under test
-vi.mock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
+vi.mock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy'), relaunch: vi.fn(), quit: vi.fn(), exit: vi.fn()}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
 
 vi.mock('electron-updater', () => {
 	const au = {autoDownload: true, autoInstallOnAppQuit: true, on: vi.fn(), removeAllListeners: vi.fn(), setFeedURL: vi.fn(), checkForUpdates: vi.fn().mockResolvedValue(undefined), downloadUpdate: vi.fn().mockResolvedValue(undefined), quitAndInstall: vi.fn()}
@@ -10,7 +10,10 @@ vi.mock('electron-updater', () => {
 
 vi.mock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue('direct')}))
 
+vi.mock('@main/services/binary/HomebrewRepair.js', () => ({canMoveUnderHomebrew: vi.fn().mockResolvedValue(false), upgradeArroxyWithHomebrew: vi.fn(), installArroxyWithHomebrew: vi.fn()}))
+
 import {app, ipcMain} from 'electron'
+import {canMoveUnderHomebrew, installArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
 import {autoUpdater} from 'electron-updater'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
@@ -30,6 +33,13 @@ function captureUpdaterHandlers(): HandlerMap {
 		return autoUpdater
 	})
 	return handlers
+}
+
+// The listener is fire-and-forget (it probes for brew before notifying), so
+// flush the microtask queue instead of awaiting its return value.
+async function fireUpdateAvailable(handlers: HandlerMap, info: {version: string}): Promise<void> {
+	handlers['update-available']!(info)
+	await vi.advanceTimersByTimeAsync(0)
 }
 
 describe('registerUpdaterHandlers', () => {
@@ -57,12 +67,12 @@ describe('registerUpdaterHandlers', () => {
 		expect(registeredEvents).toContain('error')
 	})
 
-	it('sends updater:available IPC with correct payload on update-available', () => {
+	it('sends updater:available IPC with correct payload on update-available', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()
 		registerUpdaterHandlers(win)
 
-		handlers['update-available']!({version: '2.0.0'})
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({version: '2.0.0', currentVersion: '1.0.0', installChannel: expect.any(String)}))
 	})
@@ -85,7 +95,7 @@ describe('registerUpdaterHandlers', () => {
 		})
 		const win = makeWindow()
 		registerWithScoop(win)
-		handlers['update-available']!({version: '2.0.0'})
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({installChannel: 'scoop'}))
 
@@ -114,7 +124,7 @@ describe('registerUpdaterHandlers', () => {
 		const win = makeWindow()
 		registerWithFlatpak(win)
 		vi.runAllTimers()
-		handlers['update-available']!({version: '2.0.0'})
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		// The Linux updater refuses to check without $APPIMAGE; Flatpak has none.
 		expect(scopedAutoUpdater.forceDevUpdateConfig).toBe(true)
@@ -162,12 +172,12 @@ describe('registerUpdaterHandlers', () => {
 		}
 	})
 
-	it('does not send IPC if window is destroyed', () => {
+	it('does not send IPC if window is destroyed', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow(true)
 		registerUpdaterHandlers(win)
 
-		handlers['update-available']!({version: '2.0.0'})
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		expect(win.webContents.send).not.toHaveBeenCalled()
 	})
@@ -257,7 +267,7 @@ describe('registerUpdaterHandlers', () => {
 	})
 
 	it('updater:install rejects with ok:false on non-installable channels', async () => {
-		for (const channel of ['scoop', 'homebrew', 'portable', 'flatpak'] as const) {
+		for (const channel of ['scoop', 'portable', 'flatpak'] as const) {
 			vi.resetModules()
 			vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue(channel)}))
 			vi.doMock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
@@ -286,6 +296,152 @@ describe('registerUpdaterHandlers', () => {
 		vi.resetModules()
 	})
 
+	describe('direct install on a Mac with Homebrew', () => {
+		async function announceUpdate(): Promise<{install: () => Promise<unknown>; win: Electron.BrowserWindow}> {
+			let installHandler: (() => Promise<unknown>) | null = null
+			vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
+				if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
+			})
+			const handlers = captureUpdaterHandlers()
+			const win = makeWindow()
+			registerUpdaterHandlers(win)
+			await fireUpdateAvailable(handlers, {version: '2.0.0'})
+			return {install: installHandler!, win}
+		}
+
+		it('tells the renderer Homebrew is available, so it can offer the switch', async () => {
+			vi.mocked(canMoveUnderHomebrew).mockResolvedValueOnce(true)
+			const {win} = await announceUpdate()
+
+			expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({installChannel: 'direct', homebrewAvailable: true}))
+		})
+
+		it('tells the renderer Homebrew is not available when brew is missing', async () => {
+			const {win} = await announceUpdate()
+
+			expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({installChannel: 'direct', homebrewAvailable: false}))
+		})
+
+		it('updater:install force-installs the cask through Homebrew, then relaunches', async () => {
+			vi.mocked(canMoveUnderHomebrew).mockResolvedValueOnce(true)
+			const {install} = await announceUpdate()
+
+			await expect(install()).resolves.toEqual({ok: true})
+
+			expect(installArroxyWithHomebrew).toHaveBeenCalledOnce()
+			expect(app.relaunch).toHaveBeenCalledOnce()
+			// quit(), not exit(): exit() skips `before-quit`, which cancels running
+			// downloads and disposes the tray, hotkeys and token service.
+			expect(app.quit).toHaveBeenCalledOnce()
+			expect(app.exit).not.toHaveBeenCalled()
+			expect(autoUpdater.downloadUpdate).not.toHaveBeenCalled()
+		})
+
+		it('updater:install reports a failed brew install and keeps the app running', async () => {
+			vi.mocked(canMoveUnderHomebrew).mockResolvedValueOnce(true)
+			vi.mocked(installArroxyWithHomebrew).mockRejectedValueOnce(new Error('Error: Cask arroxy exited with 1'))
+			const {install} = await announceUpdate()
+
+			await expect(install()).resolves.toEqual({ok: false, error: 'Error: Cask arroxy exited with 1'})
+
+			expect(app.relaunch).not.toHaveBeenCalled()
+			expect(app.quit).not.toHaveBeenCalled()
+		})
+
+		// Betas are never published to Homebrew (the cask is stable-only), so the
+		// force-install would downgrade a beta user to the previous stable release.
+		it('does not offer the Homebrew switch to a prerelease build', async () => {
+			vi.mocked(app.getVersion).mockReturnValue('1.1.0-beta.2')
+			try {
+				vi.mocked(canMoveUnderHomebrew).mockResolvedValue(true)
+				const {install, win} = await announceUpdate()
+
+				expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({installChannel: 'direct', homebrewAvailable: false}))
+				void install()
+				await vi.waitFor(() => expect(autoUpdater.downloadUpdate).toHaveBeenCalledOnce())
+				expect(installArroxyWithHomebrew).not.toHaveBeenCalled()
+			} finally {
+				vi.mocked(app.getVersion).mockReturnValue('1.0.0')
+				vi.mocked(canMoveUnderHomebrew).mockResolvedValue(false)
+			}
+		})
+
+		it('updater:install keeps the electron-updater download when brew is missing', async () => {
+			const {install} = await announceUpdate()
+
+			void install()
+			await vi.waitFor(() => expect(autoUpdater.downloadUpdate).toHaveBeenCalledOnce())
+			expect(installArroxyWithHomebrew).not.toHaveBeenCalled()
+		})
+	})
+
+	describe('homebrew channel', () => {
+		async function registerForHomebrew(upgrade: () => Promise<void>) {
+			vi.resetModules()
+			vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue('homebrew')}))
+			vi.doMock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy'), relaunch: vi.fn(), quit: vi.fn(), exit: vi.fn()}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
+			vi.doMock('electron-updater', () => {
+				const au = {autoDownload: true, autoInstallOnAppQuit: true, on: vi.fn(), removeAllListeners: vi.fn(), setFeedURL: vi.fn(), checkForUpdates: vi.fn().mockResolvedValue(undefined), downloadUpdate: vi.fn().mockResolvedValue(undefined), quitAndInstall: vi.fn()}
+				return {default: {autoUpdater: au}, autoUpdater: au}
+			})
+			const upgradeArroxyWithHomebrew = vi.fn(upgrade)
+			vi.doMock('@main/services/binary/HomebrewRepair.js', () => ({upgradeArroxyWithHomebrew, canMoveUnderHomebrew: vi.fn().mockResolvedValue(false), installArroxyWithHomebrew: vi.fn()}))
+			const {registerUpdaterHandlers: register} = await import('@main/ipc/registerUpdaterHandlers.js')
+			const {autoUpdater: scopedAutoUpdater} = await import('electron-updater')
+			const {app: scopedApp, ipcMain: scopedIpcMain} = await import('electron')
+
+			let installHandler: (() => Promise<unknown>) | null = null
+			vi.mocked(scopedIpcMain.handle).mockImplementation((name: string, fn: any) => {
+				if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
+			})
+			register(makeWindow())
+			return {install: installHandler!, upgradeArroxyWithHomebrew, scopedApp, scopedAutoUpdater}
+		}
+
+		afterEach(() => {
+			vi.doUnmock('@main/installChannel')
+			vi.doUnmock('electron')
+			vi.doUnmock('electron-updater')
+			vi.doUnmock('@main/services/binary/HomebrewRepair.js')
+			vi.resetModules()
+		})
+
+		it('updater:install upgrades through Homebrew, then relaunches into the new bundle', async () => {
+			const {install, upgradeArroxyWithHomebrew, scopedApp, scopedAutoUpdater} = await registerForHomebrew(async () => undefined)
+
+			await expect(install()).resolves.toEqual({ok: true})
+
+			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledOnce()
+			expect(scopedApp.relaunch).toHaveBeenCalledOnce()
+			expect(scopedApp.quit).toHaveBeenCalledOnce()
+			expect(scopedApp.exit).not.toHaveBeenCalled()
+			expect(scopedAutoUpdater.downloadUpdate).not.toHaveBeenCalled()
+		})
+
+		it('updater:install reports the failure and stays running when the upgrade fails', async () => {
+			const {install, scopedApp} = await registerForHomebrew(async () => {
+				throw new Error('Homebrew was not found.')
+			})
+
+			await expect(install()).resolves.toEqual({ok: false, error: 'Homebrew was not found.'})
+
+			expect(scopedApp.relaunch).not.toHaveBeenCalled()
+			expect(scopedApp.quit).not.toHaveBeenCalled()
+		})
+
+		it('updater:install ignores a second invoke while an upgrade is already running', async () => {
+			const {promise: gate, resolve: release} = Promise.withResolvers<void>()
+			const {install, upgradeArroxyWithHomebrew} = await registerForHomebrew(() => gate)
+
+			const first = install()
+			await expect(install()).resolves.toMatchObject({ok: false})
+			release()
+			await expect(first).resolves.toEqual({ok: true})
+
+			expect(upgradeArroxyWithHomebrew).toHaveBeenCalledOnce()
+		})
+	})
+
 	it('calls checkForUpdates after 5 second delay', () => {
 		captureUpdaterHandlers()
 		registerUpdaterHandlers(makeWindow())
@@ -303,13 +459,13 @@ describe('registerUpdaterHandlers', () => {
 		expect(autoUpdater.checkForUpdates).not.toHaveBeenCalled()
 	})
 
-	it('includes currentVersion from app.getVersion()', () => {
+	it('includes currentVersion from app.getVersion()', async () => {
 		vi.mocked(app.getVersion).mockReturnValue('0.5.3')
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()
 		registerUpdaterHandlers(win)
 
-		handlers['update-available']!({version: '1.0.0'})
+		await fireUpdateAvailable(handlers, {version: '1.0.0'})
 
 		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({currentVersion: '0.5.3'}))
 	})

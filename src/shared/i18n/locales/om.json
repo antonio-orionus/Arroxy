@@ -650,9 +650,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} ni jira — ati {{currentVersion}} qabda.", "homebrew": "Arroxy {{version}} ni jira — Homebrew-n haaromsi.", "macosDirect": "Arroxy {{version}} ni jira — DMG haaraa buusi.", "portable": "Arroxy {{version}} ni jira — build haaraa buusi."},
+		"message": {
+			"generic": "Arroxy {{version}} ni jira — ati {{currentVersion}} qabda.",
+			"homebrew": "Arroxy {{version}} ni jira — Homebrew-n haaromsi.",
+			"macosDirect": "Arroxy {{version}} ni jira — DMG haaraa buusi.",
+			"macosDirectHomebrew": "Arroxy {{version}} ni jira — DMG buusi yookaan gara Homebrew-tti jijjiiri.",
+			"portable": "Arroxy {{version}} ni jira — build haaraa buusi."
+		},
 		"install": "Facaalikee fi Deebi'i jalqabi",
 		"downloading": "Buufamaa jira…",
+		"runAndRestart": "Hojii'isi fi Deebi'i jalqabi",
+		"upgrading": "Haaromsaa jira…",
 		"download": "Download ↗",
 		"downloadDmg": "DMG buusi ↗",
 		"dismiss": "Baanara haaraa cufii",

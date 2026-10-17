@@ -640,9 +640,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} شته — تاسو {{currentVersion}} لرئ.", "homebrew": "Arroxy {{version}} شته — د Homebrew له لارې يې تازه کړئ.", "macosDirect": "Arroxy {{version}} شته — نوی DMG ډاونلوډ کړئ.", "portable": "Arroxy {{version}} شته — نوې build ډاونلوډ کړئ."},
+		"message": {
+			"generic": "Arroxy {{version}} شته — تاسو {{currentVersion}} لرئ.",
+			"homebrew": "Arroxy {{version}} شته — د Homebrew له لارې يې تازه کړئ.",
+			"macosDirect": "Arroxy {{version}} شته — نوی DMG ډاونلوډ کړئ.",
+			"macosDirectHomebrew": "Arroxy {{version}} شته — DMG ډاونلوډ کړئ یا Homebrew ته واوړئ.",
+			"portable": "Arroxy {{version}} شته — نوې build ډاونلوډ کړئ."
+		},
 		"install": "نصب کړه او بیا پیل کړه",
 		"downloading": "ډاونلوډیږي…",
+		"runAndRestart": "چلوه او بیا پیل کړه",
+		"upgrading": "تازه کېږي…",
 		"download": "Download ↗",
 		"downloadDmg": "DMG ډاونلوډ کړئ ↗",
 		"dismiss": "د تازه کولو بنر وتړئ",

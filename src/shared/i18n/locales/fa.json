@@ -624,10 +624,13 @@
 			"generic": "Arroxy {{version}} در دسترس است — نسخهٔ شما {{currentVersion}} است.",
 			"homebrew": "Arroxy {{version}} در دسترس است — با Homebrew به‌روزرسانی کنید.",
 			"macosDirect": "Arroxy {{version}} در دسترس است — DMG جدید را دانلود کنید.",
+			"macosDirectHomebrew": "Arroxy {{version}} در دسترس است — DMG را دانلود کنید یا به Homebrew بروید.",
 			"portable": "Arroxy {{version}} در دسترس است — ساخت جدید را دانلود کنید."
 		},
 		"install": "نصب و راه‌اندازی دوباره",
 		"downloading": "در حال دانلود…",
+		"runAndRestart": "اجرا و راه‌اندازی دوباره",
+		"upgrading": "در حال ارتقا…",
 		"download": "دانلود ↗",
 		"downloadDmg": "دانلود DMG ↗",
 		"dismiss": "بستن اعلان به‌روزرسانی",

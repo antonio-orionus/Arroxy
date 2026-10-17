@@ -5,18 +5,41 @@ import {resolveAction} from '@renderer/components/system/updateBannerAction.js'
 import type {UpdateAvailablePayload} from '@shared/types.js'
 
 function makeInfo(overrides: Partial<UpdateAvailablePayload> = {}): UpdateAvailablePayload {
-	return {version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct', ...overrides}
+	return {version: '1.2.0', currentVersion: '0.0.1', installChannel: 'direct', homebrewAvailable: false, ...overrides}
 }
 
 describe('resolveAction', () => {
-	it('scoop → command regardless of platform', () => {
-		expect(resolveAction('scoop', 'win32')).toEqual({kind: 'command', cmd: 'scoop update arroxy'})
-		expect(resolveAction('scoop', 'darwin')).toEqual({kind: 'command', cmd: 'scoop update arroxy'})
+	it('scoop → copy-only command regardless of platform', () => {
+		expect(resolveAction('scoop', 'win32')).toEqual({kind: 'command', cmd: 'scoop update arroxy', runnable: false})
+		expect(resolveAction('scoop', 'darwin')).toEqual({kind: 'command', cmd: 'scoop update arroxy', runnable: false})
 	})
 
-	it('homebrew → command regardless of platform', () => {
-		expect(resolveAction('homebrew', 'darwin')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy'})
-		expect(resolveAction('homebrew', 'linux')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy'})
+	// Homebrew is the one package manager the app can drive itself: replacing
+	// the .app bundle of a running macOS app is safe, then the app relaunches.
+	it('homebrew → runnable command regardless of platform', () => {
+		expect(resolveAction('homebrew', 'darwin')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy', runnable: true})
+		expect(resolveAction('homebrew', 'linux')).toEqual({kind: 'command', cmd: 'brew upgrade --cask arroxy', runnable: true})
+	})
+
+	// `brew install --cask --adopt` cannot work here: adopt demands the installed
+	// app be identical to the cask's, and an update is by definition pending.
+	// --force overwrites the old bundle and registers the cask in one go. The cask
+	// lives in Arroxy's own tap, which a DMG user has not tapped: only the fully
+	// qualified name makes Homebrew tap it on the fly (the short name would fail
+	// with "No Cask with this name exists").
+	it('direct on darwin with Homebrew present → download plus a runnable force-install command', () => {
+		expect(resolveAction('direct', 'darwin', true)).toEqual({kind: 'download', homebrewCommand: 'brew install --cask --force antonio-orionus/arroxy/arroxy'})
+	})
+
+	it('direct on darwin without Homebrew → plain download', () => {
+		expect(resolveAction('direct', 'darwin', false)).toEqual({kind: 'download'})
+		expect(resolveAction('direct', 'darwin')).toEqual({kind: 'download'})
+	})
+
+	it('Homebrew presence changes nothing off macOS', () => {
+		expect(resolveAction('direct', 'linux', true)).toEqual({kind: 'install'})
+		expect(resolveAction('direct', 'win32', true)).toEqual({kind: 'install'})
+		expect(resolveAction('portable', 'win32', true)).toEqual({kind: 'download'})
 	})
 
 	it('winget → install regardless of platform', () => {
@@ -37,7 +60,7 @@ describe('resolveAction', () => {
 	// Flatpak installs update from Arroxy's Flatpak repo; the app cannot replace
 	// its own sandboxed files, so the banner hands the user the command.
 	it('flatpak → copy-command for flatpak update', () => {
-		expect(resolveAction('flatpak', 'linux')).toEqual({kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy'})
+		expect(resolveAction('flatpak', 'linux')).toEqual({kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy', runnable: false})
 	})
 })
 
@@ -70,6 +93,42 @@ describe('UpdateBanner', () => {
 		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — download the new DMG.')
 		expect(screen.getByRole('button', {name: 'Download DMG ↗'})).toBeInTheDocument()
 		expect(screen.queryByRole('button', {name: 'Install & Restart'})).not.toBeInTheDocument()
+	})
+
+	it('offers to move a DMG install to Homebrew when brew is on the Mac, keeping Download DMG', () => {
+		window.platform = 'darwin'
+		const onInstall = vi.fn()
+		const onDownload = vi.fn()
+		render(<UpdateBanner info={makeInfo({installChannel: 'direct', homebrewAvailable: true})} installing={false} installError={null} onInstall={onInstall} onDownload={onDownload} onDismiss={vi.fn()} />)
+
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('Arroxy 1.2.0 is available — download the DMG or switch to Homebrew.')
+		expect(screen.getByTestId('update-command')).toHaveTextContent('brew install --cask --force antonio-orionus/arroxy/arroxy')
+		expect(screen.getByRole('button', {name: /Copy command/i})).toBeInTheDocument()
+
+		fireEvent.click(screen.getByRole('button', {name: 'Run & Restart'}))
+		expect(onInstall).toHaveBeenCalledOnce()
+		fireEvent.click(screen.getByRole('button', {name: 'Download DMG ↗'}))
+		expect(onDownload).toHaveBeenCalledOnce()
+	})
+
+	it('copies the force-install command for a DMG install', async () => {
+		window.platform = 'darwin'
+		render(<UpdateBanner info={makeInfo({installChannel: 'direct', homebrewAvailable: true})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		await act(async () => {
+			fireEvent.click(screen.getByRole('button', {name: /Copy command/i}))
+		})
+
+		expect(navigator.clipboard.writeText).toHaveBeenCalledWith('brew install --cask --force antonio-orionus/arroxy/arroxy')
+	})
+
+	it('shows no Homebrew controls for a DMG install without brew', () => {
+		window.platform = 'darwin'
+		render(<UpdateBanner info={makeInfo({installChannel: 'direct', homebrewAvailable: false})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		expect(screen.queryByTestId('update-command')).not.toBeInTheDocument()
+		expect(screen.queryByRole('button', {name: 'Run & Restart'})).not.toBeInTheDocument()
+		expect(screen.getByTestId('update-banner-message')).toHaveTextContent('download the new DMG.')
 	})
 
 	it('shows manual build copy for portable channel', () => {
@@ -112,6 +171,45 @@ describe('UpdateBanner', () => {
 		})
 
 		expect(navigator.clipboard.writeText).toHaveBeenCalledWith('brew upgrade --cask arroxy')
+	})
+
+	it('offers Run & Restart next to Copy for homebrew; clicking it calls onInstall', () => {
+		window.platform = 'darwin'
+		const onInstall = vi.fn()
+		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={false} installError={null} onInstall={onInstall} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		expect(screen.getByRole('button', {name: /Copy command/i})).toBeInTheDocument()
+		fireEvent.click(screen.getByRole('button', {name: 'Run & Restart'}))
+
+		expect(onInstall).toHaveBeenCalledOnce()
+	})
+
+	it('disables the homebrew Run button and shows Upgrading… while the upgrade runs', () => {
+		window.platform = 'darwin'
+		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={true} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		const btn = screen.getByRole('button', {name: /Upgrading/})
+		expect(btn).toBeDisabled()
+		expect(btn).toHaveTextContent('Upgrading…')
+	})
+
+	it('keeps the homebrew command visible and offers Retry after a failed upgrade', () => {
+		window.platform = 'darwin'
+		const onInstall = vi.fn()
+		render(<UpdateBanner info={makeInfo({installChannel: 'homebrew'})} installing={false} installError={'Homebrew was not found.'} onInstall={onInstall} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		expect(screen.getByTestId('update-banner-message').textContent).toMatch(/Update failed.*Homebrew was not found/)
+		expect(screen.getByTestId('update-command')).toHaveTextContent('brew upgrade --cask arroxy')
+		fireEvent.click(screen.getByRole('button', {name: 'Retry'}))
+		expect(onInstall).toHaveBeenCalledOnce()
+	})
+
+	it.each(['scoop', 'flatpak'] as const)('does not offer a Run button for %s (copy only)', channel => {
+		window.platform = 'linux'
+		render(<UpdateBanner info={makeInfo({installChannel: channel})} installing={false} installError={null} onInstall={vi.fn()} onDownload={vi.fn()} onDismiss={vi.fn()} />)
+
+		expect(screen.getByRole('button', {name: /Copy command/i})).toBeInTheDocument()
+		expect(screen.queryByRole('button', {name: 'Run & Restart'})).not.toBeInTheDocument()
 	})
 
 	it('copy button swaps icon to CopyCheck for ~2 s, then reverts', async () => {

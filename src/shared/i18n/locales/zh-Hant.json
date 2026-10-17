@@ -590,9 +590,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} 已推出——你目前使用 {{currentVersion}}。", "homebrew": "Arroxy {{version}} 已推出——請使用 Homebrew 更新。", "macosDirect": "Arroxy {{version}} 已推出——請下載新的 DMG。", "portable": "Arroxy {{version}} 已推出——請下載新的組建版本。"},
+		"message": {
+			"generic": "Arroxy {{version}} 已推出——你目前使用 {{currentVersion}}。",
+			"homebrew": "Arroxy {{version}} 已推出——請使用 Homebrew 更新。",
+			"macosDirect": "Arroxy {{version}} 已推出——請下載新的 DMG。",
+			"macosDirectHomebrew": "Arroxy {{version}} 已推出——請下載 DMG，或改用 Homebrew。",
+			"portable": "Arroxy {{version}} 已推出——請下載新的組建版本。"
+		},
 		"install": "安裝並重新啟動",
 		"downloading": "正在下載…",
+		"runAndRestart": "執行並重新啟動",
+		"upgrading": "正在升級…",
 		"download": "下載 ↗",
 		"downloadDmg": "下載 DMG ↗",
 		"dismiss": "關閉更新橫幅",

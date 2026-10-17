@@ -628,9 +628,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} је доступан — имате {{currentVersion}}.", "homebrew": "Arroxy {{version}} је доступан — ажурирајте преко Homebrew-а.", "macosDirect": "Arroxy {{version}} је доступан — преузмите нови DMG.", "portable": "Arroxy {{version}} је доступан — преузмите нову верзију."},
+		"message": {
+			"generic": "Arroxy {{version}} је доступан — имате {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} је доступан — ажурирајте преко Homebrew-а.",
+			"macosDirect": "Arroxy {{version}} је доступан — преузмите нови DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} је доступан — преузмите DMG или пређите на Homebrew.",
+			"portable": "Arroxy {{version}} је доступан — преузмите нову верзију."
+		},
 		"install": "Инсталирај и Поново покрени",
 		"downloading": "Преузимање…",
+		"runAndRestart": "Изврши и поново покрени",
+		"upgrading": "Ажурирање…",
 		"download": "Download ↗",
 		"downloadDmg": "Преузми DMG ↗",
 		"dismiss": "Одбаци обавештење о ажурирању",

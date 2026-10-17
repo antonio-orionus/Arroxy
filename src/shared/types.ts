@@ -634,6 +634,9 @@ export interface UpdateAvailablePayload {
 	version: string
 	currentVersion: string
 	installChannel: InstallChannel
+	// True only for a direct macOS install with `brew` on the Mac: the banner can
+	// then offer to move the app under Homebrew while updating.
+	homebrewAvailable: boolean
 }
 
 export type UpdateInstallResult = {ok: true} | {ok: false; error: string}

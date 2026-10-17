@@ -606,9 +606,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} ရနိုင်ပါပြီ — သင့်တွင် {{currentVersion}} ရှိသည်။", "homebrew": "Arroxy {{version}} ရနိုင်ပါပြီ — Homebrew ဖြင့် အပ်ဒိတ်လုပ်ပါ။", "macosDirect": "Arroxy {{version}} ရနိုင်ပါပြီ — DMG အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။", "portable": "Arroxy {{version}} ရနိုင်ပါပြီ — build အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။"},
+		"message": {
+			"generic": "Arroxy {{version}} ရနိုင်ပါပြီ — သင့်တွင် {{currentVersion}} ရှိသည်။",
+			"homebrew": "Arroxy {{version}} ရနိုင်ပါပြီ — Homebrew ဖြင့် အပ်ဒိတ်လုပ်ပါ။",
+			"macosDirect": "Arroxy {{version}} ရနိုင်ပါပြီ — DMG အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။",
+			"macosDirectHomebrew": "Arroxy {{version}} ရနိုင်ပါပြီ — DMG ကို ဒေါင်းလုဒ်လုပ်ပါ သို့မဟုတ် Homebrew သို့ ပြောင်းပါ။",
+			"portable": "Arroxy {{version}} ရနိုင်ပါပြီ — build အသစ်ကို ဒေါင်းလုဒ်လုပ်ပါ။"
+		},
 		"install": "တပ်ဆင်ပြီး ပြန်စမည်",
 		"downloading": "ဒေါင်းလုဒ်လုပ်နေသည်…",
+		"runAndRestart": "လုပ်ဆောင်ပြီး ပြန်စမည်",
+		"upgrading": "အဆင့်မြှင့်နေသည်…",
 		"download": "Download ↗",
 		"downloadDmg": "DMG ဒေါင်းလုဒ် ↗",
 		"dismiss": "အပ်ဒိတ်ကြော်ငြာပိတ်မည်",

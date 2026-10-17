@@ -611,9 +611,17 @@
 		}
 	},
 	"update": {
-		"message": {"generic": "Arroxy {{version}} is available — you have {{currentVersion}}.", "homebrew": "Arroxy {{version}} is available — update with Homebrew.", "macosDirect": "Arroxy {{version}} is available — download the new DMG.", "portable": "Arroxy {{version}} is available — download the new build."},
+		"message": {
+			"generic": "Arroxy {{version}} is available — you have {{currentVersion}}.",
+			"homebrew": "Arroxy {{version}} is available — update with Homebrew.",
+			"macosDirect": "Arroxy {{version}} is available — download the new DMG.",
+			"macosDirectHomebrew": "Arroxy {{version}} is available — download the DMG or switch to Homebrew.",
+			"portable": "Arroxy {{version}} is available — download the new build."
+		},
 		"install": "Install & Restart",
 		"downloading": "Downloading…",
+		"runAndRestart": "Run & Restart",
+		"upgrading": "Upgrading…",
 		"download": "Download ↗",
 		"downloadDmg": "Download DMG ↗",
 		"dismiss": "Dismiss update banner",
