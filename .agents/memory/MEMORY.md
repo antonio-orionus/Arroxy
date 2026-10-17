@@ -21,3 +21,4 @@
 - [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`; code still goes through a PR.
 - [Download workflow map](download-workflow-map.md) — read `dev-docs/download-workflows.md` before changing how downloads start; update it with the change.
 - [Translate at the final stage](translate-at-final-stage.md) — app PO + README locales are translated once, right before the PR; during development en only, `check:i18n` red is accepted.
+- [Ship means merge, not release](ship-means-merge-not-release.md) — stop after the merge; release only on an explicit "release", since a pulled immutable release burns its tag and the Flatpak repo cannot roll back.

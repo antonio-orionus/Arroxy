@@ -128,7 +128,7 @@ Built per profile, best first. `≤ tier` means the tallest stream at or
 under the tier, else the shortest above it with a fit notice (today's rule).
 
 **Best picture:** resolution ≤ tier · fps · HDR · codec (AV1, VP9, HEVC,
-H.264) · file-type fit (only when a file type is set, see below) · size.
+H.264) · size.
 
 **Smart TV:** H.264 · MP4 container · resolution ≤ tier · fps · HDR · size.
 No H.264 on the video: the codec rank falls back to Best picture's order
@@ -160,9 +160,11 @@ So:
 - **Best picture + MP4** is allowed. The ladder adds "AAC audio" so the
   file stays playable in more places, and the tooltip warns that VP9 and
   AV1 in MP4 won't open in QuickTime on older Macs.
-- **Best picture + WebM** adds a WebM-fit rank after codec, so the pick
-  prefers VP9 or AV1 with Opus. A video with no WebM-compatible pair gets
-  a fit notice and lands as MKV.
+- **Best picture + WebM** prefers Opus audio. The video ranks stay as they
+  are, because VP9 and AV1 already rank above H.264. When the picked streams
+  can't go into WebM (H.264, AAC or Dolby among them), the Format screen
+  starts on Auto with a fit notice, and the yt-dlp rule falls back to MKV
+  (`webm/mkv`) so the download never fails on the container.
 - **MKV** holds anything; it never changes the pick.
 - **Embedded subtitles keep forcing MKV** (`EMBED_SUBTITLE_CONTAINER_EXT`,
   ADR 0002), as Review already says. With a file type of MP4 or WebM this
@@ -174,7 +176,7 @@ yt-dlp mechanism: Auto keeps today's arguments. MP4, MKV or WebM pass
 `--merge-output-format <type>` (merged downloads) and `--remux-video <type>`
 (a single muxed stream). yt-dlp ignores `--remux-video` when
 `--recode-video` is present, and Arroxy never passes `--recode-video` in
-this design. The exact `-S` strings for the WebM-fit and AAC ranks are
+this design. The exact `-S` strings for the Opus and AAC ranks are
 pinned test-first against yt-dlp, not guessed here.
 
 ## Profile model
