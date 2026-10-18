@@ -1,9 +1,8 @@
 import {useMemo, useState} from 'react'
 import {useShallow} from 'zustand/react/shallow'
+import {RELEASES_URL} from '@shared/constants.js'
 import {releaseNotesSince, shouldShowWhatsNew, type ReleaseNotesDigest} from '@shared/releaseNotes.js'
 import {useAppStore} from '../../store/useAppStore.js'
-
-const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases'
 
 interface UseWhatsNewDialogOptions {
 	startupReady?: boolean

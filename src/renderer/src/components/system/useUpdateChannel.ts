@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
-import {WEBSITE_URL} from '@shared/constants.js'
 import type {UpdateAvailablePayload} from '@shared/types.js'
+import {resolveDownloadUrl} from './updateBannerAction.js'
 
 export interface UpdateChannelState {
 	info: UpdateAvailablePayload | null
@@ -30,7 +30,7 @@ export function useUpdateChannel(): UpdateChannelState {
 	}
 
 	function download(): void {
-		void window.appApi.shell.openExternal(WEBSITE_URL)
+		if (info) void window.appApi.shell.openExternal(resolveDownloadUrl(info))
 		setInfo(null)
 	}
 

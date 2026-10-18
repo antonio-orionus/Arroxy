@@ -1,4 +1,4 @@
-import {HOMEBREW_CASK} from '@shared/constants.js'
+import {HOMEBREW_CASK, RELEASES_URL, WEBSITE_URL} from '@shared/constants.js'
 import type {InstallChannel, UpdateAvailablePayload} from '@shared/types.js'
 
 // `runnable` commands also get a Run button: the main process executes the
@@ -24,8 +24,8 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 		case 'winget':
 			return {kind: 'install'}
 		case 'portable':
-		// electron-updater is inactive outside an AppImage, so a tarball install
-		// is sent to the download page.
+		// electron-updater cannot replace a tar.gz install, so it is sent to the
+		// release (see resolveDownloadUrl).
 		case 'tarball':
 			return {kind: 'download'}
 		case 'appimage':
@@ -44,6 +44,14 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 			return {kind: 'download'}
 		}
 	}
+}
+
+// Where a download action points. The tarball has no installer to send people
+// to, so it opens the GitHub release it was told about: that release's own
+// page, since /releases/latest resolves to the newest stable and would show a
+// beta install an older version.
+export function resolveDownloadUrl(info: UpdateAvailablePayload): string {
+	return info.installChannel === 'tarball' ? `${RELEASES_URL}/tag/v${info.version}` : WEBSITE_URL
 }
 
 export function resolveBannerCopy(info: UpdateAvailablePayload, platform: NodeJS.Platform): BannerCopy {

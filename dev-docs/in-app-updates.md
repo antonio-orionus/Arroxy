@@ -23,7 +23,7 @@ How the update banner works: the check, the per-channel action, and the Linux Ap
   - `--adopt` cannot work: it requires the installed app to be identical to the cask's, and an update is by definition pending. It also conflicts with `--force`. `--force` overwrites the old bundle and registers the cask, so later updates take the `homebrew` path above.
   - /Applications only: brew always installs there, so a copy running from Downloads or `~/Applications` would be left behind and the relaunch would reopen it.
   - Stable only: betas are never published to Homebrew, so the force-install would downgrade a beta user.
-- `tarball` → "Download ↗" link to https://orionus.dev/arroxy/ (electron-updater cannot replace a tar.gz install; see the AppImage gate below)
+- `tarball` → "Download ↗" link to the announced version's GitHub release, `releases/tag/v<version>` (`resolveDownloadUrl`), where the `Arroxy-linux-x64.tar.gz` asset lives. Not `/releases/latest`: that resolves to the newest stable, older than a beta's update. electron-updater cannot replace a tar.gz install; see the AppImage gate below
 - `appimage`, `direct` on win32 (and `winget`) → "Install & Restart" → `updater:install` → main calls `downloadUpdate()`, then `quitAndInstall(false, true)` on `update-downloaded`
 
 ## Linux: the AppImage gate

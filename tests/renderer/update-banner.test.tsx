@@ -1,7 +1,9 @@
-import {render, screen, fireEvent, act} from '@testing-library/react'
+import {render, renderHook, screen, fireEvent, act} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {UpdateBanner} from '@renderer/components/system/UpdateBanner.js'
-import {resolveAction} from '@renderer/components/system/updateBannerAction.js'
+import {resolveAction, resolveDownloadUrl} from '@renderer/components/system/updateBannerAction.js'
+import {useUpdateChannel} from '@renderer/components/system/useUpdateChannel.js'
+import {WEBSITE_URL} from '@shared/constants.js'
 import type {UpdateAvailablePayload} from '@shared/types.js'
 
 function makeInfo(overrides: Partial<UpdateAvailablePayload> = {}): UpdateAvailablePayload {
@@ -72,6 +74,54 @@ describe('resolveAction', () => {
 	// its own sandboxed files, so the banner hands the user the command.
 	it('flatpak → copy-command for flatpak update', () => {
 		expect(resolveAction('flatpak', 'linux')).toEqual({kind: 'command', cmd: 'flatpak update io.github.antonio_orionus.Arroxy', runnable: false})
+	})
+})
+
+describe('resolveDownloadUrl', () => {
+	// The release page of the announced version, not /releases/latest: GitHub
+	// resolves that to the newest stable, which is older than a beta's update.
+	it('sends a tarball install to the GitHub release of the announced version', () => {
+		expect(resolveDownloadUrl(makeInfo({installChannel: 'tarball', version: '0.7.0'}))).toBe('https://github.com/antonio-orionus/Arroxy/releases/tag/v0.7.0')
+		expect(resolveDownloadUrl(makeInfo({installChannel: 'tarball', version: '0.7.0-beta.2'}))).toBe('https://github.com/antonio-orionus/Arroxy/releases/tag/v0.7.0-beta.2')
+	})
+
+	it('sends every other download to the website', () => {
+		expect(resolveDownloadUrl(makeInfo({installChannel: 'portable'}))).toBe(WEBSITE_URL)
+		expect(resolveDownloadUrl(makeInfo({installChannel: 'direct'}))).toBe(WEBSITE_URL)
+	})
+})
+
+describe('useUpdateChannel', () => {
+	afterEach(() => {
+		vi.unstubAllGlobals()
+	})
+
+	function stubAppApi(): {announce: (info: UpdateAvailablePayload) => void; openExternal: ReturnType<typeof vi.fn>} {
+		let listener: ((info: UpdateAvailablePayload) => void) | undefined
+		const openExternal = vi.fn().mockResolvedValue(undefined)
+		vi.stubGlobal('appApi', {...window.appApi, updater: {...window.appApi?.updater, onUpdateAvailable: (fn: (info: UpdateAvailablePayload) => void) => ((listener = fn), () => undefined), install: vi.fn()}, shell: {...window.appApi?.shell, openExternal}})
+		return {announce: info => act(() => listener?.(info)), openExternal}
+	}
+
+	it('opens the announced release for a tarball install and closes the banner', () => {
+		const api = stubAppApi()
+		const {result} = renderHook(() => useUpdateChannel())
+		api.announce(makeInfo({installChannel: 'tarball', version: '0.7.0'}))
+
+		act(() => result.current.download())
+
+		expect(api.openExternal).toHaveBeenCalledWith('https://github.com/antonio-orionus/Arroxy/releases/tag/v0.7.0')
+		expect(result.current.info).toBeNull()
+	})
+
+	it('opens the website for a portable install', () => {
+		const api = stubAppApi()
+		const {result} = renderHook(() => useUpdateChannel())
+		api.announce(makeInfo({installChannel: 'portable'}))
+
+		act(() => result.current.download())
+
+		expect(api.openExternal).toHaveBeenCalledWith(WEBSITE_URL)
 	})
 })
 

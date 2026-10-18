@@ -8,6 +8,9 @@ export const DISCORD_URL = 'https://discord.gg/ueGvXwQH8y'
 // earlier releases keep working.
 export const WEBSITE_URL = 'https://orionus.dev/arroxy/'
 
+// GitHub Releases; one release's page is `${RELEASES_URL}/tag/v<version>`.
+export const RELEASES_URL = 'https://github.com/antonio-orionus/Arroxy/releases'
+
 // Donation addresses. DONATE.md is the canonical source and
 // scripts/check-donation-addresses.mjs pins them in CI: a changed character
 // silently redirects real money, so edit all three together or not at all.

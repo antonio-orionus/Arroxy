@@ -248,7 +248,7 @@ Subtitles are a soft second phase (ADR 0002): phase 1 downloads media with `--no
 
 ## In-App Update Notifications
 
-`electron-updater` checks 5 s after launch and every 6 h after, announcing each version once; auto-download is **off**, the user starts every update. Every install channel must hear of a release. `resolveAction(channel, platform)` picks the banner's action per install channel (copy-command for Scoop/Homebrew/Flatpak, download link for portable, macOS and the Linux tarball, "Install & Restart" otherwise). Channel table, IPC and the Linux AppImage gate: [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
+`electron-updater` checks 5 s after launch and every 6 h after, announcing each version once; auto-download is **off**, the user starts every update. Every install channel must hear of a release. `resolveAction(channel, platform)` picks the banner's action per install channel (copy-command for Scoop/Homebrew/Flatpak, download link for portable and macOS, the GitHub release for the Linux tarball, "Install & Restart" otherwise). Channel table, IPC and the Linux AppImage gate: [`dev-docs/in-app-updates.md`](dev-docs/in-app-updates.md).
 
 ---
 
