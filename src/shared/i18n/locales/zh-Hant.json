@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "指派下載設定檔",
 			"selectedSummary": "已選 {{selected}}／{{total}} 個",
-			"assignTrigger": "指派給選取項目",
+			"assignTriggerEmpty": "指派設定檔",
+			"assignTrigger_one": "指派給 {{count}} 部影片",
+			"assignTrigger_other": "指派給 {{count}} 部影片",
+			"menuDescription_one": "為這部影片選擇設定檔。",
+			"menuDescription_other": "為這 {{count}} 部影片選擇設定檔。",
 			"assignAria": "指派 {{profileName}}",
 			"editProfile": "編輯 {{name}}",
 			"filtersLabel": "設定檔篩選器",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "設定檔",
 			"columnDuration": "長度",
-			"empty": "沒有符合此篩選器的項目",
-			"hintTitle": "一次替多部影片指派設定檔",
-			"hintBody": "按住 Shift 點按可選取範圍，按住 {{modifier}} 點按可加入單一項目，或拖曳跨過多列。接著選擇上方的設定檔，或在選取項目上按右鍵。"
+			"empty": "沒有符合此篩選器的項目"
 		},
 		"playlist": {
 			"heading": "播放清單項目",

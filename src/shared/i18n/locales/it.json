@@ -56,16 +56,18 @@
 		"playlistProfiles": {
 			"heading": "Assegna profili di download",
 			"selectedSummary": "{{selected}} di {{total}} selezionati",
-			"assignTrigger": "Assegna alla selezione",
+			"assignTriggerEmpty": "Assegna profilo",
+			"assignTrigger_one": "Assegna a {{count}} video",
+			"assignTrigger_other": "Assegna a {{count}} video",
+			"menuDescription_one": "Scegli il profilo per questo video.",
+			"menuDescription_other": "Scegli il profilo per questi {{count}} video.",
 			"assignAria": "Assegna {{profileName}}",
 			"editProfile": "Modifica {{name}}",
 			"filtersLabel": "Filtri dei profili",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profilo",
 			"columnDuration": "Durata",
-			"empty": "Nessun elemento corrisponde al filtro",
-			"hintTitle": "Assegna profili a più video insieme",
-			"hintBody": "Fai Maiusc-clic per un intervallo, {{modifier}}-clic per aggiungere un elemento oppure trascina sulle righe. Poi scegli un profilo sopra o fai clic destro sulla selezione."
+			"empty": "Nessun elemento corrisponde al filtro"
 		},
 		"playlist": {
 			"heading": "Elementi della playlist",

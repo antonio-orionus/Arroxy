@@ -64,16 +64,18 @@
 		"playlistProfiles": {
 			"heading": "Przypisz profile pobierania",
 			"selectedSummary": "Wybrano {{selected}} z {{total}}",
-			"assignTrigger": "Przypisz do zaznaczenia",
+			"assignTriggerEmpty": "Przypisz profil",
+			"assignTrigger_one": "Przypisz do {{count}} filmu",
+			"assignTrigger_other": "Przypisz do filmów ({{count}})",
+			"menuDescription_one": "Wybierz profil dla tego filmu.",
+			"menuDescription_other": "Wybierz profil dla zaznaczonych filmów ({{count}}).",
 			"assignAria": "Przypisz {{profileName}}",
 			"editProfile": "Edytuj {{name}}",
 			"filtersLabel": "Filtry profili",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Czas trwania",
-			"empty": "Żaden element nie pasuje do tego filtra",
-			"hintTitle": "Przypisz profile do kilku filmów naraz",
-			"hintBody": "Kliknij z Shiftem, aby wybrać zakres, z {{modifier}}, aby dodać element, albo przeciągnij po wierszach. Następnie wybierz profil powyżej lub kliknij zaznaczenie prawym przyciskiem."
+			"empty": "Żaden element nie pasuje do tego filtra"
 		},
 		"playlist": {
 			"heading": "Elementy playlisty",

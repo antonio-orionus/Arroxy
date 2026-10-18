@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ",
 			"selectedSummary": "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်",
-			"assignTrigger": "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ",
+			"assignTriggerEmpty": "ပရိုဖိုင် သတ်မှတ်ပါ",
+			"assignTrigger_one": "ဗီဒီယို {{count}} ခုကို သတ်မှတ်ပါ",
+			"assignTrigger_other": "ဗီဒီယို {{count}} ခုကို သတ်မှတ်ပါ",
+			"menuDescription_one": "ဤဗီဒီယိုအတွက် ပရိုဖိုင်ကို ရွေးပါ။",
+			"menuDescription_other": "ဤဗီဒီယို {{count}} ခုအတွက် ပရိုဖိုင်ကို ရွေးပါ။",
 			"assignAria": "{{profileName}} ကို သတ်မှတ်ပါ",
 			"editProfile": "{{name}} ကို ပြင်ဆင်ပါ",
 			"filtersLabel": "ပရိုဖိုင်စစ်ထုတ်ကိရိယာများ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "ပရိုဖိုင်",
 			"columnDuration": "ကြာချိန်",
-			"empty": "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ",
-			"hintTitle": "ဗီဒီယိုများစွာအား တစ်ပြိုင်နက် ပရိုဖိုင်များ သတ်မှတ်ပါ",
-			"hintBody": "အပိုင်းအခြားတစ်ခုအတွက် Shift-နှိပ်ပါ၊ တစ်ခုထည့်ရန် {{modifier}}-နှိပ်ပါ၊ သို့မဟုတ် အတန်းများပေါ်တွင် ဆွဲယူပါ။ ထို့နောက် အထက်မှ ပရိုဖိုင်တစ်ခုရွေးပါ၊ သို့မဟုတ် ရွေးချယ်ထားသည်ကို right-click နှိပ်ပါ။"
+			"empty": "ဤစစ်ထုတ်ကိရိယာနှင့် ကိုက်ညီသော အရာမရှိပါ"
 		},
 		"playlist": {
 			"heading": "Playlist အကြောင်းအရာများ",

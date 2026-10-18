@@ -56,16 +56,18 @@
 		"playlistProfiles": {
 			"heading": "اختصاص نمایه‌های دانلود",
 			"selectedSummary": "{{selected}} از {{total}} انتخاب‌شده",
-			"assignTrigger": "اختصاص به انتخاب‌شده‌ها",
+			"assignTriggerEmpty": "اختصاص نمایه",
+			"assignTrigger_one": "اختصاص به {{count}} ویدیو",
+			"assignTrigger_other": "اختصاص به {{count}} ویدیو",
+			"menuDescription_one": "نمایهٔ این ویدیو را انتخاب کنید.",
+			"menuDescription_other": "نمایهٔ این {{count}} ویدیو را انتخاب کنید.",
 			"assignAria": "اختصاص {{profileName}}",
 			"editProfile": "ویرایش {{name}}",
 			"filtersLabel": "فیلترهای نمایه",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "نمایه",
 			"columnDuration": "مدت",
-			"empty": "هیچ موردی با این فیلتر مطابقت ندارد",
-			"hintTitle": "اختصاص هم‌زمان نمایه به چند ویدیو",
-			"hintBody": "برای انتخاب بازه Shift-کلیک کنید، برای افزودن یک مورد {{modifier}}-کلیک کنید یا روی ردیف‌ها بکشید. سپس نمایه‌ای از بالا انتخاب کنید یا روی انتخاب راست‌کلیک کنید."
+			"empty": "هیچ موردی با این فیلتر مطابقت ندارد"
 		},
 		"playlist": {
 			"heading": "موارد فهرست پخش",

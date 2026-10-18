@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "กำหนดโปรไฟล์ดาวน์โหลด",
 			"selectedSummary": "เลือก {{selected}} จาก {{total}}",
-			"assignTrigger": "กำหนดให้รายการที่เลือก",
+			"assignTriggerEmpty": "กำหนดโปรไฟล์",
+			"assignTrigger_one": "กำหนดให้วิดีโอ {{count}} รายการ",
+			"assignTrigger_other": "กำหนดให้วิดีโอ {{count}} รายการ",
+			"menuDescription_one": "เลือกโปรไฟล์สำหรับวิดีโอนี้",
+			"menuDescription_other": "เลือกโปรไฟล์สำหรับวิดีโอ {{count}} รายการนี้",
 			"assignAria": "กำหนด {{profileName}}",
 			"editProfile": "แก้ไข {{name}}",
 			"filtersLabel": "ตัวกรองโปรไฟล์",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "โปรไฟล์",
 			"columnDuration": "ระยะเวลา",
-			"empty": "ไม่มีรายการตรงกับตัวกรองนี้",
-			"hintTitle": "กำหนดโปรไฟล์ให้หลายวิดีโอพร้อมกัน",
-			"hintBody": "Shift-click เพื่อเลือกช่วง, {{modifier}}-click เพื่อเพิ่มหนึ่งรายการ หรือลากผ่านแถว จากนั้นเลือกโปรไฟล์ด้านบนหรือคลิกขวาที่รายการที่เลือก"
+			"empty": "ไม่มีรายการตรงกับตัวกรองนี้"
 		},
 		"playlist": {
 			"heading": "รายการในเพลย์ลิสต์",

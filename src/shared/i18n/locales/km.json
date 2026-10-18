@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "កំណត់ប្រវត្តិរូបទាញយក",
 			"selectedSummary": "បានជ្រើសរើស {{selected}} ក្នុងចំណោម {{total}}",
-			"assignTrigger": "កំណត់ទៅលើការជ្រើសរើស",
+			"assignTriggerEmpty": "កំណត់ប្រវត្តិរូប",
+			"assignTrigger_one": "កំណត់ទៅ {{count}} វីដេអូ",
+			"assignTrigger_other": "កំណត់ទៅ {{count}} វីដេអូ",
+			"menuDescription_one": "ជ្រើសរើសប្រវត្តិរូបសម្រាប់វីដេអូនេះ។",
+			"menuDescription_other": "ជ្រើសរើសប្រវត្តិរូបសម្រាប់វីដេអូ {{count}} ទាំងនេះ។",
 			"assignAria": "កំណត់ {{profileName}}",
 			"editProfile": "កែសម្រួល {{name}}",
 			"filtersLabel": "តម្រងប្រវត្តិរូប",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "ប្រវត្តិរូប",
 			"columnDuration": "រយៈពេល",
-			"empty": "គ្មានធាតុណាត្រូវនឹងតម្រងនេះទេ",
-			"hintTitle": "កំណត់ប្រវត្តិរូបទៅវីដេអូច្រើនក្នុងពេលតែមួយ",
-			"hintBody": "Shift-ចុច ដើម្បីជ្រើសជាជួរ, {{modifier}}-ចុច ដើម្បីបន្ថែមមួយ ឬអូសកាត់ជួរដេក។ បន្ទាប់មកជ្រើសរើសប្រវត្តិរូបខាងលើ ឬចុចកណ្តុរស្តាំលើការជ្រើសរើស។"
+			"empty": "គ្មានធាតុណាត្រូវនឹងតម្រងនេះទេ"
 		},
 		"playlist": {
 			"heading": "ធាតុក្នុងបញ្ជីចាក់",

@@ -56,16 +56,18 @@
 		"playlistProfiles": {
 			"heading": "Gán hồ sơ tải xuống",
 			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
-			"assignTrigger": "Gán cho lựa chọn",
+			"assignTriggerEmpty": "Gán hồ sơ",
+			"assignTrigger_one": "Gán cho {{count}} video",
+			"assignTrigger_other": "Gán cho {{count}} video",
+			"menuDescription_one": "Chọn hồ sơ cho video này.",
+			"menuDescription_other": "Chọn hồ sơ cho {{count}} video này.",
 			"assignAria": "Gán {{profileName}}",
 			"editProfile": "Sửa {{name}}",
 			"filtersLabel": "Bộ lọc hồ sơ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Hồ sơ",
 			"columnDuration": "Thời lượng",
-			"empty": "Không có mục nào khớp với bộ lọc này",
-			"hintTitle": "Gán hồ sơ cho nhiều video cùng lúc",
-			"hintBody": "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, hoặc nhấp chuột phải vào vùng đã chọn."
+			"empty": "Không có mục nào khớp với bộ lọc này"
 		},
 		"playlist": {
 			"heading": "Các mục Playlist",

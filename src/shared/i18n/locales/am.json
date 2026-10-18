@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "የማውረድ መገለጫዎችን መድብ",
 			"selectedSummary": "ከ{{total}} ውስጥ {{selected}} ተመርጠዋል",
-			"assignTrigger": "ለተመረጡት መድብ",
+			"assignTriggerEmpty": "መገለጫ መድብ",
+			"assignTrigger_one": "ለ{{count}} ቪዲዮ መድብ",
+			"assignTrigger_other": "ለ{{count}} ቪዲዮዎች መድብ",
+			"menuDescription_one": "ለዚህ ቪዲዮ መገለጫውን ይምረጡ።",
+			"menuDescription_other": "ለእነዚህ {{count}} ቪዲዮዎች መገለጫውን ይምረጡ።",
 			"assignAria": "{{profileName}}ን መድብ",
 			"editProfile": "{{name}}ን አርትዕ",
 			"filtersLabel": "የመገለጫ ማጣሪያዎች",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "መገለጫ",
 			"columnDuration": "ቆይታ",
-			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም",
-			"hintTitle": "ለብዙ ቪዲዮዎች በአንድ ጊዜ መገለጫ መድብ",
-			"hintBody": "ለክልል Shift-ጠቅ ያድርጉ፣ አንድ ለመጨመር {{modifier}}-ጠቅ ያድርጉ፣ ወይም በረድፎች ላይ ይጎትቱ። ከዚያ ከላይ መገለጫ ይምረጡ፣ ወይም በተመረጠው ላይ በቀኝ-ጠቅ ያድርጉ።"
+			"empty": "ከዚህ ማጣሪያ ጋር የሚዛመድ ንጥል የለም"
 		},
 		"playlist": {
 			"heading": "የ Playlist ቪዲዮዎች",

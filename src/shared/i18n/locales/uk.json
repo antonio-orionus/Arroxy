@@ -77,16 +77,18 @@
 		"playlistProfiles": {
 			"heading": "Призначити профілі завантаження",
 			"selectedSummary": "Вибрано {{selected}} з {{total}}",
-			"assignTrigger": "Призначити вибраним",
+			"assignTriggerEmpty": "Призначити профіль",
+			"assignTrigger_one": "Призначити для {{count}} відео",
+			"assignTrigger_other": "Призначити для {{count}} відео",
+			"menuDescription_one": "Виберіть профіль для цього відео.",
+			"menuDescription_other": "Виберіть профіль для вибраних відео ({{count}}).",
 			"assignAria": "Призначити {{profileName}}",
 			"editProfile": "Редагувати {{name}}",
 			"filtersLabel": "Фільтри профілів",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Профіль",
 			"columnDuration": "Тривалість",
-			"empty": "Немає елементів, що відповідають цьому фільтру",
-			"hintTitle": "Призначити профілі декільком відео одразу",
-			"hintBody": "Shift-клік для діапазону, {{modifier}}-клік, щоб додати один, або перетягніть по рядках. Потім виберіть профіль вище або клацніть правою кнопкою миші на виділенні."
+			"empty": "Немає елементів, що відповідають цьому фільтру"
 		},
 		"playlist": {
 			"heading": "Елементи Playlist",

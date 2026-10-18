@@ -69,16 +69,18 @@
 		"playlistProfiles": {
 			"heading": "Piroofaayilii buufannaa ramaduu",
 			"selectedSummary": "{{total}} keessaa {{selected}} filatameera",
-			"assignTrigger": "Filannoo ramaduu",
+			"assignTriggerEmpty": "Profaayilii ramaduu",
+			"assignTrigger_one": "Viidiyoo {{count}}f ramaduu",
+			"assignTrigger_other": "Viidiyoowwan {{count}}f ramaduu",
+			"menuDescription_one": "Viidiyoo kanaaf profaayilii filadhu.",
+			"menuDescription_other": "Viidiyoowwan {{count}} kanneeniif profaayilii filadhu.",
 			"assignAria": "{{profileName}} ramaduu",
 			"editProfile": "{{name}} gulaali",
 			"filtersLabel": "Calaltuu piroofaayilii",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Piroofaayilii",
 			"columnDuration": "Turtii",
-			"empty": "Calaltuu kanaan wal simu hin jiru",
-			"hintTitle": "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu",
-			"hintBody": "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, ykn filannoo irratti mirga-cuqaasi."
+			"empty": "Calaltuu kanaan wal simu hin jiru"
 		},
 		"playlist": {
 			"heading": "Wantoota Playlist",

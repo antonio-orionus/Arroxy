@@ -69,16 +69,18 @@
 		"playlistProfiles": {
 			"heading": "İndirme profillerini ata",
 			"selectedSummary": "{{total}} öğeden {{selected}} tanesi seçildi",
-			"assignTrigger": "Seçime ata",
+			"assignTriggerEmpty": "Profil ata",
+			"assignTrigger_one": "{{count}} videoya ata",
+			"assignTrigger_other": "{{count}} videoya ata",
+			"menuDescription_one": "Bu video için profili seçin.",
+			"menuDescription_other": "Bu {{count}} video için profili seçin.",
 			"assignAria": "{{profileName}} ata",
 			"editProfile": "{{name}} düzenle",
 			"filtersLabel": "Profil filtreleri",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Süre",
-			"empty": "Bu filtreyle eşleşen öğe yok",
-			"hintTitle": "Birden çok videoya aynı anda profil ata",
-			"hintBody": "Bir aralık için Shift-tıkla, birini eklemek için {{modifier}}-tıkla ya da satırların üzerine sürükle. Ardından yukarıdan bir profil seç ya da seçime sağ tıkla."
+			"empty": "Bu filtreyle eşleşen öğe yok"
 		},
 		"playlist": {
 			"heading": "Oynatma listesi öğeleri",

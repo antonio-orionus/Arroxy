@@ -69,16 +69,18 @@
 		"playlistProfiles": {
 			"heading": "Attribuer des profils de téléchargement",
 			"selectedSummary": "{{selected}} sur {{total}} sélectionné(s)",
-			"assignTrigger": "Attribuer à la sélection",
+			"assignTriggerEmpty": "Attribuer un profil",
+			"assignTrigger_one": "Attribuer à {{count}} vidéo",
+			"assignTrigger_other": "Attribuer à {{count}} vidéos",
+			"menuDescription_one": "Choisissez le profil de cette vidéo.",
+			"menuDescription_other": "Choisissez le profil de ces {{count}} vidéos.",
 			"assignAria": "Attribuer {{profileName}}",
 			"editProfile": "Modifier {{name}}",
 			"filtersLabel": "Filtres de profil",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profil",
 			"columnDuration": "Durée",
-			"empty": "Aucun élément ne correspond à ce filtre",
-			"hintTitle": "Attribuer des profils à plusieurs vidéos à la fois",
-			"hintBody": "Shift-clic pour une plage, {{modifier}}-clic pour en ajouter une, ou faites glisser sur les lignes. Choisissez ensuite un profil ci-dessus, ou faites un clic droit sur la sélection."
+			"empty": "Aucun élément ne correspond à ce filtre"
 		},
 		"playlist": {
 			"heading": "Éléments de la Playlist",

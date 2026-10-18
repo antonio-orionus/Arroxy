@@ -56,16 +56,18 @@
 		"playlistProfiles": {
 			"heading": "Weka wasifu wa upakuaji",
 			"selectedSummary": "{{selected}} kati ya {{total}} zimechaguliwa",
-			"assignTrigger": "Weka kwenye uteuzi",
+			"assignTriggerEmpty": "Weka wasifu",
+			"assignTrigger_one": "Weka kwa video {{count}}",
+			"assignTrigger_other": "Weka kwa video {{count}}",
+			"menuDescription_one": "Chagua wasifu wa video hii.",
+			"menuDescription_other": "Chagua wasifu wa video hizi {{count}}.",
 			"assignAria": "Weka {{profileName}}",
 			"editProfile": "Hariri {{name}}",
 			"filtersLabel": "Vichujio vya wasifu",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Wasifu",
 			"columnDuration": "Muda",
-			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki",
-			"hintTitle": "Weka wasifu kwa video kadhaa kwa wakati mmoja",
-			"hintBody": "Bofya ukiwa umeshikilia Shift kwa masafa, bofya ukiwa umeshikilia {{modifier}} kuongeza moja, au buruta kwenye safu mlalo. Kisha chagua wasifu hapo juu, au bofya kulia kwenye uteuzi."
+			"empty": "Hakuna vipengele vinavyolingana na kichujio hiki"
 		},
 		"playlist": {
 			"heading": "Vipande vya Playlist",

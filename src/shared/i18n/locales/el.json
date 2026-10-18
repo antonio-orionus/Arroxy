@@ -69,16 +69,18 @@
 		"playlistProfiles": {
 			"heading": "Εκχώρηση προφίλ λήψης",
 			"selectedSummary": "Επιλέχθηκαν {{selected}} από {{total}}",
-			"assignTrigger": "Εκχώρηση στην επιλογή",
+			"assignTriggerEmpty": "Εκχώρηση προφίλ",
+			"assignTrigger_one": "Εκχώρηση σε {{count}} βίντεο",
+			"assignTrigger_other": "Εκχώρηση σε {{count}} βίντεο",
+			"menuDescription_one": "Επιλέξτε το προφίλ για αυτό το βίντεο.",
+			"menuDescription_other": "Επιλέξτε το προφίλ για αυτά τα {{count}} βίντεο.",
 			"assignAria": "Εκχώρηση {{profileName}}",
 			"editProfile": "Επεξεργασία {{name}}",
 			"filtersLabel": "Φίλτρα προφίλ",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Προφίλ",
 			"columnDuration": "Διάρκεια",
-			"empty": "Κανένα στοιχείο δεν ταιριάζει με αυτό το φίλτρο",
-			"hintTitle": "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα",
-			"hintBody": "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσθήκη ενός, ή σύρετε στις γραμμές. Έπειτα επιλέξτε προφίλ παραπάνω, ή κάντε δεξί κλικ στην επιλογή."
+			"empty": "Κανένα στοιχείο δεν ταιριάζει με αυτό το φίλτρο"
 		},
 		"playlist": {
 			"heading": "Στοιχεία playlist",

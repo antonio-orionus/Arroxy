@@ -64,16 +64,18 @@
 		"playlistProfiles": {
 			"heading": "Додели профиле преузимања",
 			"selectedSummary": "Изабрано {{selected}} од {{total}}",
-			"assignTrigger": "Додели избору",
+			"assignTriggerEmpty": "Додели профил",
+			"assignTrigger_one": "Додели за {{count}} видео",
+			"assignTrigger_other": "Додели за видео снимке ({{count}})",
+			"menuDescription_one": "Изаберите профил за овај видео.",
+			"menuDescription_other": "Изаберите профил за изабране видео снимке ({{count}}).",
 			"assignAria": "Додели {{profileName}}",
 			"editProfile": "Измени {{name}}",
 			"filtersLabel": "Филтери профила",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Профил",
 			"columnDuration": "Трајање",
-			"empty": "Ниједна ставка не одговара овом филтеру",
-			"hintTitle": "Додели профиле за неколико видео снимака одједном",
-			"hintBody": "Shift-клик за опсег, {{modifier}}-клик да додате један, или превуците преко редова. Затим изаберите профил изнад, или кликните десним тастером миша на избор."
+			"empty": "Ниједна ставка не одговара овом филтеру"
 		},
 		"playlist": {
 			"heading": "Ставке плејлисте",
