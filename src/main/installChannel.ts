@@ -29,5 +29,7 @@ export function detectInstallChannel(appName: string): InstallChannel {
 		return 'direct'
 	}
 
-	return 'direct'
+	// Linux, past the Flatpak check. The AppImage runtime sets APPIMAGE (the same
+	// signal electron-updater gates on); a Linux install without it is the tar.gz.
+	return process.env.APPIMAGE ? 'appimage' : 'tarball'
 }

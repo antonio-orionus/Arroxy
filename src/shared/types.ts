@@ -647,9 +647,9 @@ export interface PauseDownloadOutput {
 	jobId?: string
 }
 
-export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak' | 'portable'
+export type InstallChannel = 'direct' | 'winget' | 'scoop' | 'homebrew' | 'flatpak' | 'portable' | 'appimage' | 'tarball'
 
-export const INSTALL_CHANNELS: readonly InstallChannel[] = ['direct', 'winget', 'scoop', 'homebrew', 'flatpak', 'portable'] as const
+export const INSTALL_CHANNELS: readonly InstallChannel[] = ['direct', 'winget', 'scoop', 'homebrew', 'flatpak', 'portable', 'appimage', 'tarball'] as const
 
 export interface UpdateAvailablePayload {
 	version: string

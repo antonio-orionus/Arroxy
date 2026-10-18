@@ -53,6 +53,17 @@ describe('resolveAction', () => {
 		expect(resolveAction('direct', 'darwin')).toEqual({kind: 'download'})
 	})
 
+	// An AppImage is the one Linux package electron-updater can replace itself.
+	it('appimage → install', () => {
+		expect(resolveAction('appimage', 'linux')).toEqual({kind: 'install'})
+	})
+
+	// electron-updater is inactive outside an AppImage, so the tarball install is
+	// told to fetch the new archive itself.
+	it('tarball → download', () => {
+		expect(resolveAction('tarball', 'linux')).toEqual({kind: 'download'})
+	})
+
 	it('portable → download (NSIS install would clobber the portable layout)', () => {
 		expect(resolveAction('portable', 'win32')).toEqual({kind: 'download'})
 	})

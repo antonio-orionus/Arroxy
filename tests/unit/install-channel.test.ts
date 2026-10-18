@@ -3,6 +3,7 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 const ORIGINAL_PLATFORM = Object.getOwnPropertyDescriptor(process, 'platform')!
 const ORIGINAL_EXEC_PATH = Object.getOwnPropertyDescriptor(process, 'execPath')!
 const ORIGINAL_PORTABLE_ENV = process.env.PORTABLE_EXECUTABLE_FILE
+const ORIGINAL_APPIMAGE_ENV = process.env.APPIMAGE
 
 function setPlatform(value: NodeJS.Platform): void {
 	Object.defineProperty(process, 'platform', {value, configurable: true})
@@ -16,6 +17,7 @@ describe('detectInstallChannel', () => {
 	beforeEach(() => {
 		vi.resetModules()
 		delete process.env.PORTABLE_EXECUTABLE_FILE
+		delete process.env.APPIMAGE
 	})
 
 	afterEach(() => {
@@ -25,6 +27,11 @@ describe('detectInstallChannel', () => {
 			delete process.env.PORTABLE_EXECUTABLE_FILE
 		} else {
 			process.env.PORTABLE_EXECUTABLE_FILE = ORIGINAL_PORTABLE_ENV
+		}
+		if (ORIGINAL_APPIMAGE_ENV === undefined) {
+			delete process.env.APPIMAGE
+		} else {
+			process.env.APPIMAGE = ORIGINAL_APPIMAGE_ENV
 		}
 		vi.restoreAllMocks()
 	})
@@ -91,11 +98,38 @@ describe('detectInstallChannel', () => {
 		vi.doUnmock('node:fs')
 	})
 
-	it('returns direct on linux when not running under Flatpak', async () => {
+	it('detects an AppImage on linux when the runtime sets APPIMAGE', async () => {
+		setPlatform('linux')
+		process.env.APPIMAGE = '/home/tester/Arroxy-linux-x64.AppImage'
+		vi.doMock('node:fs', () => ({default: {existsSync: () => false}}))
+		const {detectInstallChannel} = await import('@main/installChannel.js')
+		expect(detectInstallChannel('arroxy')).toBe('appimage')
+		vi.doUnmock('node:fs')
+	})
+
+	it('treats a linux install that is neither Flatpak nor an AppImage as the tarball', async () => {
 		setPlatform('linux')
 		vi.doMock('node:fs', () => ({default: {existsSync: () => false}}))
 		const {detectInstallChannel} = await import('@main/installChannel.js')
-		expect(detectInstallChannel('arroxy')).toBe('direct')
+		expect(detectInstallChannel('arroxy')).toBe('tarball')
+		vi.doUnmock('node:fs')
+	})
+
+	it('ignores an empty APPIMAGE value', async () => {
+		setPlatform('linux')
+		process.env.APPIMAGE = ''
+		vi.doMock('node:fs', () => ({default: {existsSync: () => false}}))
+		const {detectInstallChannel} = await import('@main/installChannel.js')
+		expect(detectInstallChannel('arroxy')).toBe('tarball')
+		vi.doUnmock('node:fs')
+	})
+
+	it('flatpak wins over APPIMAGE', async () => {
+		setPlatform('linux')
+		process.env.APPIMAGE = '/home/tester/Arroxy-linux-x64.AppImage'
+		vi.doMock('node:fs', () => ({default: {existsSync: (p: string) => p === '/.flatpak-info'}}))
+		const {detectInstallChannel} = await import('@main/installChannel.js')
+		expect(detectInstallChannel('arroxy')).toBe('flatpak')
 		vi.doUnmock('node:fs')
 	})
 

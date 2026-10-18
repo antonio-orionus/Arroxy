@@ -10,11 +10,12 @@ import {canMoveUnderHomebrew, installArroxyWithHomebrew, upgradeArroxyWithHomebr
 import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '@shared/types.js'
 
 // Channels where the in-app installer should not run — either because an
-// external package manager owns updates (scoop/flatpak) or because the
-// install layout can't accept an NSIS overwrite (portable). The renderer
-// still gets a banner so the user can copy the upgrade command. Homebrew is
+// external package manager owns updates (scoop/flatpak), because the
+// install layout can't accept an NSIS overwrite (portable), or because
+// electron-updater is inactive there (tarball). Where a check still runs, the
+// renderer gets a banner with a command or download link instead. Homebrew is
 // handled separately: the app runs `brew upgrade` itself, then relaunches.
-const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'portable', 'flatpak'])
+const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'portable', 'flatpak', 'tarball'])
 
 // Map the running version's semver prerelease tag to an electron-updater
 // release channel. Stable versions follow `latest` and must never see beta

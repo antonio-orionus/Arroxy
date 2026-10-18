@@ -24,7 +24,12 @@ export function resolveAction(channel: InstallChannel, platform: NodeJS.Platform
 		case 'winget':
 			return {kind: 'install'}
 		case 'portable':
+		// electron-updater is inactive outside an AppImage, so a tarball install
+		// is sent to the download page.
+		case 'tarball':
 			return {kind: 'download'}
+		case 'appimage':
+			return {kind: 'install'}
 		case 'direct':
 			if (platform !== 'darwin') return {kind: 'install'}
 			return homebrewAvailable ? {kind: 'download', homebrewCommand: `brew install --cask --force ${HOMEBREW_CASK}`} : {kind: 'download'}

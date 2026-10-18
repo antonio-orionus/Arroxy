@@ -267,7 +267,7 @@ describe('registerUpdaterHandlers', () => {
 	})
 
 	it('updater:install rejects with ok:false on non-installable channels', async () => {
-		for (const channel of ['scoop', 'portable', 'flatpak'] as const) {
+		for (const channel of ['scoop', 'portable', 'flatpak', 'tarball'] as const) {
 			vi.resetModules()
 			vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue(channel)}))
 			vi.doMock('electron', () => ({app: {getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
