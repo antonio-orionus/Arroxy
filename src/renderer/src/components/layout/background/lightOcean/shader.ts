@@ -113,9 +113,10 @@ float oceanSwells(vec2 p, float depth) {
   return (broad + mid * distanceFade + chop * 0.16 * distanceFade) * (0.5 + depth * 0.62);
 }
 
-vec3 seaNormal(vec2 p, float depth) {
+// Also hands back the swell height at p, which the normal needs anyway.
+vec3 seaNormal(vec2 p, float depth, out float h) {
   float e = mix(0.042, 0.014, smoothstep(0.0, 1.0, depth));
-  float h = oceanSwells(p, depth);
+  h = oceanSwells(p, depth);
   float hx = oceanSwells(p + vec2(e, 0.0), depth) - h;
   float hy = oceanSwells(p + vec2(0.0, e), depth) - h;
   return normalize(vec3(-hx * 1.55, 0.58, -hy * 2.05));
@@ -163,13 +164,13 @@ vec3 waterColor(vec2 q, float aspect, float horizon, float haze) {
   float projectedY = depth * depth * 8.4 + depth * 1.55;
   vec2 seaUv = vec2((q.x - 0.5) * aspect * mix(7.2, 2.35, easedDepth), projectedY);
 
-  vec3 n = seaNormal(seaUv, depth);
+  float height;
+  vec3 n = seaNormal(seaUv, depth, height);
   vec3 lightDir = normalize(vec3(-0.42, 0.82, 0.38));
   vec3 viewDir = normalize(vec3(0.0, 0.42, 0.9));
   float facing = clamp(dot(n, lightDir), 0.0, 1.0);
   float spec = pow(max(dot(reflect(-lightDir, n), viewDir), 0.0), mix(28.0, 78.0, depth));
   float fresnel = pow(1.0 - clamp(dot(n, viewDir), 0.0, 1.0), 2.0);
-  float height = oceanSwells(seaUv, depth);
   float slope = clamp(length(n.xz), 0.0, 1.0);
 
   vec3 shallow = vec3(0.42, 0.78, 0.88);
@@ -202,11 +203,17 @@ void main() {
   float horizon = 0.45;
   float haze = atmosphericHaze(q, horizon);
 
-  float clouds = cloudVolume(q, aspect, horizon, uTime);
-  vec3 sky = skyColor(q, clouds, horizon, aspect);
-  vec3 water = waterColor(q, aspect, horizon, haze);
-
+  // Sky and sea are each worked out only where they show: both are costly, and
+  // only the band around the horizon blends the two.
   float waterMask = 1.0 - smoothstep(horizon - 0.075, horizon + 0.055, q.y);
+  vec3 sky = vec3(0.0);
+  vec3 water = vec3(0.0);
+  if (waterMask < 1.0) {
+    float clouds = cloudVolume(q, aspect, horizon, uTime);
+    sky = skyColor(q, clouds, horizon, aspect);
+  }
+  if (waterMask > 0.0) water = waterColor(q, aspect, horizon, haze);
+
   vec3 horizonLight = vec3(0.82, 0.96, 1.0) * haze * 0.24;
   vec3 col = mix(sky, water, waterMask);
   col = mix(col, vec3(0.84, 0.96, 1.0), haze * 0.08) + horizonLight;

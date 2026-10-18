@@ -14,6 +14,8 @@ export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext
 	const gl = {
 		ARRAY_BUFFER: 0x8892,
 		COMPILE_STATUS: 0x8b81,
+		RGBA: 0x1908,
+		UNSIGNED_BYTE: 0x1401,
 		FLOAT: 0x1406,
 		FRAGMENT_SHADER: 0x8b30,
 		LINK_STATUS: 0x8b82,
@@ -53,6 +55,7 @@ export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext
 		getShaderParameter: vi.fn(() => options.compileOk ?? true),
 		getUniformLocation: vi.fn(() => ({})),
 		linkProgram: vi.fn(),
+		readPixels: vi.fn(),
 		shaderSource: vi.fn(),
 		uniform1f: vi.fn(),
 		uniform2f: vi.fn(),

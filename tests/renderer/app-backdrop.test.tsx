@@ -1,3 +1,4 @@
+import {StrictMode} from 'react'
 import {act, cleanup, render, waitFor} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {AppBackdrop} from '@renderer/components/layout/background/AppBackdrop.js'
@@ -75,7 +76,7 @@ describe('AppBackdrop', () => {
 
 		unmount()
 
-		expect(productionGl.loseContext).not.toHaveBeenCalled()
+		expect(productionGl.loseContext).toHaveBeenCalledOnce()
 	})
 
 	it('does not touch the production WebGL canvas when scratch shader validation fails', async () => {
@@ -117,8 +118,31 @@ describe('AppBackdrop', () => {
 
 		unmount()
 
-		expect(productionGl.loseContext).not.toHaveBeenCalled()
+		expect(productionGl.loseContext).toHaveBeenCalledOnce()
 		expect(document.body).not.toHaveClass('backdrop-webgl-active')
+	})
+
+	// StrictMode re-runs the effect on the same canvas, and a lost context
+	// cannot be revived there: releasing it then would fail the backdrop.
+	it('keeps the production WebGL context through a StrictMode effect re-run', async () => {
+		const scratchGl = mockWebgl()
+		const productionGl = mockWebgl()
+		installCanvasMocks({productionGl, scratchGl})
+		const onUnavailable = vi.fn()
+
+		const {unmount} = render(
+			<StrictMode>
+				<AppBackdrop scenes={SCENES} colorScheme="dark" onUnavailable={onUnavailable} />
+			</StrictMode>
+		)
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(productionGl.loseContext).not.toHaveBeenCalled()
+		expect(onUnavailable).not.toHaveBeenCalled()
+
+		unmount()
+
+		expect(productionGl.loseContext).toHaveBeenCalledOnce()
 	})
 
 	it('paints one WebGL frame while initially unfocused without starting the animation loop', async () => {
@@ -131,7 +155,8 @@ describe('AppBackdrop', () => {
 		renderBackdrop()
 
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
-		expect(productionGl.drawArrays).toHaveBeenCalledOnce()
+		// One warm-up and three timed frames measure the GPU; no loop follows.
+		expect(productionGl.drawArrays).toHaveBeenCalledTimes(4)
 
 		const requestCallsAfterInitialPaint = request.mock.calls.length
 		await act(async () => {
@@ -194,6 +219,67 @@ describe('AppBackdrop', () => {
 		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-context-lost'))
 		expect(document.body).not.toHaveClass('backdrop-webgl-active')
 		expectCanvas2dUnused(getContext)
+	})
+
+	// A GPU too slow for the scene saturates and stalls the whole window, so the
+	// backdrop times its first frames and falls back to the base style.
+	it('reports unavailable when the GPU cannot draw the scene inside the frame budget', async () => {
+		const productionGl = mockWebgl()
+		installCanvasMocks({productionGl})
+		let gpuClock = 0
+		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
+		vi.mocked(productionGl.readPixels).mockImplementation(() => {
+			gpuClock += 120
+		})
+
+		const {onUnavailable} = renderBackdrop('light')
+
+		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-too-slow'))
+		expect(document.body).not.toHaveClass('backdrop-webgl-active')
+		expect(productionGl.loseContext).not.toHaveBeenCalled()
+	})
+
+	it('keeps the backdrop when its frames fit the budget', async () => {
+		const productionGl = mockWebgl()
+		installCanvasMocks({productionGl})
+		let gpuClock = 0
+		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
+		vi.mocked(productionGl.readPixels).mockImplementation(() => {
+			gpuClock += 4
+		})
+
+		const {onUnavailable} = renderBackdrop('light')
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(productionGl.readPixels).toHaveBeenCalledTimes(4)
+		expect(onUnavailable).not.toHaveBeenCalled()
+	})
+
+	it('falls back when the window grows past what the measured GPU can draw', async () => {
+		const productionGl = mockWebgl()
+		installCanvasMocks({productionGl})
+		vi.spyOn(document, 'hasFocus').mockReturnValue(true)
+		let gpuClock = 0
+		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
+		vi.mocked(productionGl.readPixels).mockImplementation(() => {
+			gpuClock += 10
+		})
+		const {innerWidth, innerHeight} = window
+
+		try {
+			const {onUnavailable} = renderBackdrop()
+			await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+			expect(onUnavailable).not.toHaveBeenCalled()
+
+			// Ten times the pixels at the measured 10 ms frame is far past the budget.
+			Object.assign(window, {innerWidth: innerWidth * 4, innerHeight: innerHeight * 3})
+			// The animation loop reads the same clock: move it so the next frame is due.
+			gpuClock += 1_000
+			await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-too-slow'))
+			expect(document.body).not.toHaveClass('backdrop-webgl-active')
+		} finally {
+			Object.assign(window, {innerWidth, innerHeight})
+		}
 	})
 
 	it('runs the light ocean WebGL scene at 30 FPS', () => {

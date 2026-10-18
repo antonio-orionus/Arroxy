@@ -1,5 +1,6 @@
 import {useEffect, useLayoutEffect, useRef, type ReactNode} from 'react'
-import {logBackdrop} from './backdropLogger.js'
+import {logBackdrop, reportBackdropFallback} from './backdropLogger.js'
+import {fitsFrameBudget, measureFrameCost} from './frameBudget.js'
 import type {BackdropScene} from './types.js'
 import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
 
@@ -84,11 +85,28 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 		const staticRender = (): boolean => reduceMotion.matches
 
+		let raf = 0
+		let lastFrame = 0
+		let webglActive = false
+		let failed = false
+		// GPU time per canvas pixel, measured once the first frames draw.
+		let msPerPixel: number | null = null
+		const start = performance.now()
+		const syncPixel = new Uint8Array(4)
+
+		const rejectSlowGpu = (pixels: number, measuredMs: number): void => {
+			const details = {renderer: productionRendererName || probeRendererName, pixels, measuredMs: Math.round(measuredMs)}
+			reportBackdropFallback(scene.id, 'production-webgl-too-slow', details)
+			failAtRuntime('production-webgl-too-slow', details)
+		}
+
 		const resize = (): void => {
 			const dpr = Math.min(window.devicePixelRatio || 1, scene.maxDevicePixelRatio) * scene.renderScale
 			const w = Math.max(1, Math.floor((webglCanvas.clientWidth || window.innerWidth || 1) * dpr))
 			const h = Math.max(1, Math.floor((webglCanvas.clientHeight || window.innerHeight || 1) * dpr))
 			if (webglCanvas.width !== w || webglCanvas.height !== h) {
+				// A bigger window costs proportionally more: predict it rather than stall to find out.
+				if (msPerPixel !== null && !fitsFrameBudget(msPerPixel, w * h)) return rejectSlowGpu(w * h, msPerPixel * w * h)
 				webglCanvas.width = w
 				webglCanvas.height = h
 				gl.viewport(0, 0, w, h)
@@ -96,16 +114,16 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			gl.uniform2f(uRes, w, h)
 		}
 
-		let raf = 0
-		let lastFrame = 0
-		let webglActive = false
-		let failed = false
-		const start = performance.now()
-
 		const draw = (now: number): void => {
 			resize()
+			if (failed) return
 			gl.uniform1f(uTime, (now - start) / 1000)
 			gl.drawArrays(gl.TRIANGLES, 0, 3)
+		}
+		// Reading one pixel back blocks until the GPU has finished the frame.
+		const drawAndWait = (): void => {
+			draw(performance.now())
+			gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, syncPixel)
 		}
 		const activateWebglBackdrop = (reason: string): void => {
 			if (webglActive) return
@@ -115,9 +133,15 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 		}
 		const drawInitialFrame = (reason: string): boolean => {
 			if (webglActive || failed || document.hidden) return webglActive
-			const now = performance.now()
-			draw(now)
-			lastFrame = now
+			resize()
+			const pixels = webglCanvas.width * webglCanvas.height
+			const cost = measureFrameCost(drawAndWait, pixels)
+			if (!fitsFrameBudget(cost.msPerPixel, pixels)) {
+				rejectSlowGpu(pixels, cost.medianMs)
+				return false
+			}
+			msPerPixel = cost.msPerPixel
+			lastFrame = performance.now()
 			activateWebglBackdrop(reason)
 			return true
 		}
@@ -196,6 +220,10 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			document.body.classList.remove('backdrop-webgl-active')
 			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
+			// Free the GPU context now rather than whenever the canvas is collected.
+			// Only once the canvas has left the page: StrictMode re-runs this effect
+			// on the same canvas, and a lost context cannot be revived there.
+			if (!webglCanvas.isConnected) releaseWebglContext(gl)
 		}
 	}, [scene, softwareWebglAllowed])
 
