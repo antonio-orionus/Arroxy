@@ -4,6 +4,7 @@ import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {AppBackdrop} from '@renderer/components/layout/background/AppBackdrop.js'
 import {darkAuroraScene} from '@renderer/components/layout/background/darkAurora/scene.js'
 import {lightOceanScene} from '@renderer/components/layout/background/lightOcean/scene.js'
+import {BACKDROP_CONFIRM_DELAY_MS} from '@renderer/components/layout/background/frameBudget.js'
 import type {BackdropColorScheme} from '@renderer/components/layout/background/types.js'
 import {installCanvasMocks, mockWebgl} from '../shared/mockWebgl.js'
 
@@ -222,31 +223,111 @@ describe('AppBackdrop', () => {
 	})
 
 	// A GPU too slow for the scene saturates and stalls the whole window, so the
-	// backdrop times its first frames and falls back to the base style.
-	it('reports unavailable when the GPU cannot draw the scene inside the frame budget', async () => {
+	// backdrop times its first frames, lowers its resolution, confirms, and only
+	// then falls back to the base style.
+	function fakeGpu(productionGl: ReturnType<typeof mockWebgl>, frameMs: (pixels: number, call: number) => number) {
+		let clock = 0
+		let call = 0
+		vi.spyOn(performance, 'now').mockImplementation(() => clock)
+		vi.mocked(productionGl.readPixels).mockImplementation(() => {
+			const canvas = document.querySelector<HTMLCanvasElement>('canvas[data-backdrop-layer="webgl"]')
+			clock += frameMs((canvas?.width ?? 0) * (canvas?.height ?? 0), call++)
+		})
+		return {advance: (ms: number) => (clock += ms)}
+	}
+
+	function webglCanvas(): HTMLCanvasElement {
+		const canvas = document.querySelector<HTMLCanvasElement>('canvas[data-backdrop-layer="webgl"]')
+		if (!canvas) throw new Error('no backdrop canvas')
+		return canvas
+	}
+
+	it('falls back when the GPU misses the frame budget at every scale, twice', () => {
+		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
+		try {
+			const productionGl = mockWebgl()
+			installCanvasMocks({productionGl})
+			fakeGpu(productionGl, () => 120)
+
+			const {onUnavailable} = renderBackdrop('light')
+			expect(onUnavailable).not.toHaveBeenCalled()
+			expect(document.body).not.toHaveClass('backdrop-webgl-active')
+
+			act(() => {
+				vi.advanceTimersByTime(BACKDROP_CONFIRM_DELAY_MS)
+			})
+
+			expect(onUnavailable).toHaveBeenCalledWith('production-webgl-too-slow')
+			expect(document.body).not.toHaveClass('backdrop-webgl-active')
+			expect(productionGl.loseContext).not.toHaveBeenCalled()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('keeps the backdrop when a slow first measurement does not repeat', () => {
+		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
+		try {
+			const productionGl = mockWebgl()
+			installCanvasMocks({productionGl})
+			// Eight slow frames: both measurements of the first calibration, at idle clocks.
+			fakeGpu(productionGl, (_pixels, call) => (call < 8 ? 120 : 4))
+
+			const {onUnavailable} = renderBackdrop('light')
+			act(() => {
+				vi.advanceTimersByTime(BACKDROP_CONFIRM_DELAY_MS)
+			})
+
+			expect(onUnavailable).not.toHaveBeenCalled()
+			expect(document.body).toHaveClass('backdrop-webgl-active')
+			expect(webglCanvas().width).toBe(Math.floor(window.innerWidth * lightOceanScene.renderScale))
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('returns to full resolution once a slow moment passes', () => {
+		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
+		try {
+			const productionGl = mockWebgl()
+			installCanvasMocks({productionGl})
+			// Slow for the first measurement only: the lower scale fits at once.
+			fakeGpu(productionGl, (_pixels, call) => (call < 4 ? 120 : 3))
+			const fullWidth = Math.floor(window.innerWidth * lightOceanScene.renderScale)
+
+			const {onUnavailable} = renderBackdrop('light')
+			expect(document.body).toHaveClass('backdrop-webgl-active')
+			expect(webglCanvas().width).toBeLessThan(fullWidth)
+
+			act(() => {
+				vi.advanceTimersByTime(BACKDROP_CONFIRM_DELAY_MS)
+			})
+
+			expect(webglCanvas().width).toBe(fullWidth)
+			expect(onUnavailable).not.toHaveBeenCalled()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('lowers its resolution instead of falling back when that fits the budget', async () => {
 		const productionGl = mockWebgl()
 		installCanvasMocks({productionGl})
-		let gpuClock = 0
-		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
-		vi.mocked(productionGl.readPixels).mockImplementation(() => {
-			gpuClock += 120
-		})
+		// 100 ms for a frame at the scene's own scale, proportional to pixels.
+		const fullScalePixels = Math.floor(window.innerWidth * darkAuroraScene.renderScale) * Math.floor(window.innerHeight * darkAuroraScene.renderScale)
+		fakeGpu(productionGl, pixels => (pixels / fullScalePixels) * 100)
 
-		const {onUnavailable} = renderBackdrop('light')
+		const {onUnavailable} = renderBackdrop()
 
-		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-too-slow'))
-		expect(document.body).not.toHaveClass('backdrop-webgl-active')
-		expect(productionGl.loseContext).not.toHaveBeenCalled()
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(onUnavailable).not.toHaveBeenCalled()
+		expect(webglCanvas().width * webglCanvas().height).toBeLessThan(fullScalePixels / 2)
 	})
 
 	it('keeps the backdrop when its frames fit the budget', async () => {
 		const productionGl = mockWebgl()
 		installCanvasMocks({productionGl})
-		let gpuClock = 0
-		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
-		vi.mocked(productionGl.readPixels).mockImplementation(() => {
-			gpuClock += 4
-		})
+		fakeGpu(productionGl, () => 4)
 
 		const {onUnavailable} = renderBackdrop('light')
 
@@ -255,28 +336,27 @@ describe('AppBackdrop', () => {
 		expect(onUnavailable).not.toHaveBeenCalled()
 	})
 
-	it('falls back when the window grows past what the measured GPU can draw', async () => {
+	it('lowers its resolution when the window grows past what the measured GPU can draw', async () => {
 		const productionGl = mockWebgl()
 		installCanvasMocks({productionGl})
 		vi.spyOn(document, 'hasFocus').mockReturnValue(true)
-		let gpuClock = 0
-		vi.spyOn(performance, 'now').mockImplementation(() => gpuClock)
-		vi.mocked(productionGl.readPixels).mockImplementation(() => {
-			gpuClock += 10
-		})
+		const gpu = fakeGpu(productionGl, () => 10)
 		const {innerWidth, innerHeight} = window
 
 		try {
 			const {onUnavailable} = renderBackdrop()
 			await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
-			expect(onUnavailable).not.toHaveBeenCalled()
+			const widthBefore = webglCanvas().width
 
-			// Ten times the pixels at the measured 10 ms frame is far past the budget.
+			// Twelve times the area at the measured 10 ms frame is past the budget at the scene's scale.
 			Object.assign(window, {innerWidth: innerWidth * 4, innerHeight: innerHeight * 3})
 			// The animation loop reads the same clock: move it so the next frame is due.
-			gpuClock += 1_000
-			await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-too-slow'))
-			expect(document.body).not.toHaveClass('backdrop-webgl-active')
+			gpu.advance(1_000)
+			await waitFor(() => expect(webglCanvas().width).toBeGreaterThan(widthBefore))
+
+			expect(webglCanvas().width).toBeLessThan(widthBefore * 4)
+			expect(onUnavailable).not.toHaveBeenCalled()
+			expect(document.body).toHaveClass('backdrop-webgl-active')
 		} finally {
 			Object.assign(window, {innerWidth, innerHeight})
 		}

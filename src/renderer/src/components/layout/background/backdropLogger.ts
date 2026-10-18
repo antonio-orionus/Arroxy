@@ -32,10 +32,10 @@ export function logBackdrop(level: 'debug' | 'info' | 'warn', sceneId: BackdropS
 	console[level]('[backdrop]', payload)
 }
 
-// Always logged, unlike the opt-in diagnostics above: a backdrop the GPU cannot
-// keep up with is what a "the app froze" report needs to show.
-export function reportBackdropFallback(sceneId: BackdropSceneId, reason: string, data: Record<string, unknown> = {}): void {
-	const payload = {event: 'fallback', sceneId, reason, ...data}
+// Always logged, unlike the opt-in diagnostics above: a backdrop that had to
+// lower its resolution or give up is what a "the app froze" report needs to show.
+export function reportBackdrop(sceneId: BackdropSceneId, event: 'rescaled' | 'fallback', data: Record<string, unknown> = {}): void {
+	const payload = {event, sceneId, ...data}
 	if (canWriteToElectronLog()) {
 		backdropLogger.info(payload)
 		return
