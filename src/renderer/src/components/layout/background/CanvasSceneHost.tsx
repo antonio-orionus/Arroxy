@@ -1,6 +1,6 @@
 import {useEffect, useLayoutEffect, useRef, type ReactNode} from 'react'
-import {logBackdrop, reportBackdropFallback} from './backdropLogger.js'
-import {fitsFrameBudget, measureFrameCost} from './frameBudget.js'
+import {logBackdrop, reportBackdrop} from './backdropLogger.js'
+import {BACKDROP_CONFIRM_DELAY_MS, fitRenderScale, fitsFrameBudget, measureFrameCost, MIN_RENDER_SCALE} from './frameBudget.js'
 import type {BackdropScene} from './types.js'
 import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
 
@@ -89,24 +89,37 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 		let lastFrame = 0
 		let webglActive = false
 		let failed = false
-		// GPU time per canvas pixel, measured once the first frames draw.
+		// Lowered from the scene's own when the GPU cannot keep up at it.
+		let renderScale = scene.renderScale
+		// GPU time per canvas pixel, from the latest measurement.
 		let msPerPixel: number | null = null
+		// A start that was not clean (resolution lowered, or over budget even at the
+		// lowest) is measured once more after a delay. While over budget, nothing draws.
+		let recheckTimer: ReturnType<typeof setTimeout> | null = null
+		let paused = false
 		const start = performance.now()
 		const syncPixel = new Uint8Array(4)
 
-		const rejectSlowGpu = (pixels: number, measuredMs: number): void => {
-			const details = {renderer: productionRendererName || probeRendererName, pixels, measuredMs: Math.round(measuredMs)}
-			reportBackdropFallback(scene.id, 'production-webgl-too-slow', details)
-			failAtRuntime('production-webgl-too-slow', details)
-		}
+		const devicePixels = (): number => Math.min(window.devicePixelRatio || 1, scene.maxDevicePixelRatio)
+		// The canvas area at render scale 1.
+		const cssPixels = (): number => (webglCanvas.clientWidth || window.innerWidth || 1) * (webglCanvas.clientHeight || window.innerHeight || 1) * devicePixels() ** 2
+		const canvasPixels = (): number => webglCanvas.width * webglCanvas.height
 
 		const resize = (): void => {
-			const dpr = Math.min(window.devicePixelRatio || 1, scene.maxDevicePixelRatio) * scene.renderScale
+			const dpr = devicePixels() * renderScale
 			const w = Math.max(1, Math.floor((webglCanvas.clientWidth || window.innerWidth || 1) * dpr))
 			const h = Math.max(1, Math.floor((webglCanvas.clientHeight || window.innerHeight || 1) * dpr))
 			if (webglCanvas.width !== w || webglCanvas.height !== h) {
-				// A bigger window costs proportionally more: predict it rather than stall to find out.
-				if (msPerPixel !== null && !fitsFrameBudget(msPerPixel, w * h)) return rejectSlowGpu(w * h, msPerPixel * w * h)
+				// A bigger window costs proportionally more: predict the scale that fits
+				// rather than stall to find out. A smaller one may afford more again.
+				if (msPerPixel !== null) {
+					const fit = fitRenderScale(msPerPixel, cssPixels(), scene.renderScale)
+					if (fit === null) return recheckLater(true)
+					if (fit !== renderScale) {
+						renderScale = fit
+						return resize()
+					}
+				}
 				webglCanvas.width = w
 				webglCanvas.height = h
 				gl.viewport(0, 0, w, h)
@@ -116,7 +129,7 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 
 		const draw = (now: number): void => {
 			resize()
-			if (failed) return
+			if (failed || paused) return
 			gl.uniform1f(uTime, (now - start) / 1000)
 			gl.drawArrays(gl.TRIANGLES, 0, 3)
 		}
@@ -125,22 +138,66 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			draw(performance.now())
 			gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, syncPixel)
 		}
+		// Times the scene at its own scale and, when that is over budget, once more
+		// at the highest scale predicted to fit.
+		const calibrate = (): {fits: boolean; rescaled: boolean; medianMs: number} => {
+			msPerPixel = null
+			renderScale = scene.renderScale
+			resize()
+			let cost = measureFrameCost(drawAndWait, canvasPixels())
+			if (!fitsFrameBudget(cost.msPerPixel, canvasPixels())) {
+				const fromScale = renderScale
+				renderScale = fitRenderScale(cost.msPerPixel, cssPixels(), scene.renderScale) ?? MIN_RENDER_SCALE
+				if (renderScale !== fromScale) {
+					resize()
+					const before = cost.medianMs
+					cost = measureFrameCost(drawAndWait, canvasPixels())
+					reportBackdrop(scene.id, 'rescaled', {fromScale, toScale: renderScale, measuredMs: Math.round(before), nowMs: Math.round(cost.medianMs)})
+				}
+			}
+			msPerPixel = cost.msPerPixel
+			return {fits: fitsFrameBudget(cost.msPerPixel, canvasPixels()), rescaled: renderScale !== scene.renderScale, medianMs: cost.medianMs}
+		}
 		const activateWebglBackdrop = (reason: string): void => {
 			if (webglActive) return
 			webglActive = true
 			document.body.classList.add('backdrop-webgl-active')
 			logBackdrop('info', scene.id, 'webgl-activate', {mode: 'webgl', reason, renderer: productionRendererName || probeRendererName, softwareRendererAllowed})
 		}
+		// A second look a little later decides: a busy moment or a GPU still at idle
+		// clocks is not a slow GPU. It returns to the scene's own resolution when the
+		// GPU now keeps up, and only a second miss at the lowest scale falls back.
+		const recheckLater = (pause: boolean): void => {
+			if (failed) return
+			if (pause) {
+				paused = true
+				stop()
+			}
+			if (recheckTimer !== null) return
+			recheckTimer = setTimeout(() => {
+				recheckTimer = null
+				paused = false
+				if (failed) return
+				const result = calibrate()
+				if (!result.fits) {
+					const details = {renderer: productionRendererName || probeRendererName, pixels: canvasPixels(), renderScale, measuredMs: Math.round(result.medianMs)}
+					reportBackdrop(scene.id, 'fallback', {reason: 'production-webgl-too-slow', ...details})
+					failAtRuntime('production-webgl-too-slow', details)
+					return
+				}
+				lastFrame = performance.now()
+				activateWebglBackdrop('rechecked')
+				run()
+			}, BACKDROP_CONFIRM_DELAY_MS)
+		}
 		const drawInitialFrame = (reason: string): boolean => {
-			if (webglActive || failed || document.hidden) return webglActive
-			resize()
-			const pixels = webglCanvas.width * webglCanvas.height
-			const cost = measureFrameCost(drawAndWait, pixels)
-			if (!fitsFrameBudget(cost.msPerPixel, pixels)) {
-				rejectSlowGpu(pixels, cost.medianMs)
+			if (webglActive || failed || paused || document.hidden) return webglActive
+			const result = calibrate()
+			if (!result.fits) {
+				recheckLater(true)
 				return false
 			}
-			msPerPixel = cost.msPerPixel
+			if (result.rescaled) recheckLater(false)
 			lastFrame = performance.now()
 			activateWebglBackdrop(reason)
 			return true
@@ -165,8 +222,8 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			giveUp(reason, details)
 		}
 		const run = (): void => {
-			if (failed) return
-			drawInitialFrame('initial')
+			if (failed || paused) return
+			if (!drawInitialFrame('initial') && paused) return
 			if (raf || !isBackdropActive()) return
 			if (staticRender()) {
 				draw(performance.now())
@@ -211,6 +268,7 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 
 		return () => {
 			stop()
+			if (recheckTimer !== null) clearTimeout(recheckTimer)
 			webglCanvas.removeEventListener('webglcontextlost', onContextLost)
 			document.removeEventListener('visibilitychange', onVisibility)
 			window.removeEventListener('focus', onWindowFocus)
