@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end ጋር ይዛመዳል: Arroxy ምርጫ ሲሰራ ከ playlist፣ ቻናል፣ ወይም ፍለጋ ውጤቶች ይህን ያህል ብቻ ይጠይቃል።"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "የመተግበሪያውን ገደብ ተጠቀም፦ {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "ተግብር"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "ያንን የ Playlist ወሰን መተግበር አልተቻለም፦ {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "ተግብር እና ዳግም ጫን"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "ሰርዝ"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "ቀይር"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "Arroxy ለዚህ Playlist yt-dlp ምን እንዲጭን እንደሚጠይቅ ምረጥ።"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "የ Playlist ወሰን"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "በዚህ ወሰን ውስጥ ምንም ቪዲዮ የለም"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "የመጀመሪያ"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "ከ1 እስከ {{max}} ያሉ ሙሉ ቁጥሮችን ተጠቀም፤ ጅምሩ ከመጨረሻው አይበልጥ።"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "የሚጫኑ ንጥሎች"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "የ Playlist ወሰን"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "ክልል"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "ዳግም እየተጫነ ነው..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "ዳግም አስጀምር"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "ንጥሎች {{from}}-{{to}} ጫን"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "እስከ"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "ንቁ መገለጫ"

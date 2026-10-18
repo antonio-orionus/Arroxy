@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Mengantrekan setiap item daftar putar yang dimuat dengan profil Unduhan Cepat yang aktif. Jika pemindaian mencapai batas Anda, Arroxy bertanya sebelum mengantri."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Cakupan daftar putar",
+				"change": "Ubah",
+				"summaryAppLimit": "Muat {{count}} item pertama",
+				"summaryFirst": "Muat {{count}} item pertama",
+				"summaryRange": "Muat item {{from}}-{{to}}",
+				"dialogTitle": "Cakupan daftar putar",
+				"dialogDescription": "Pilih apa yang diminta Arroxy kepada yt-dlp untuk dimuat dari daftar putar ini.",
+				"itemsLabel": "Item yang dimuat",
+				"appLimit": "Gunakan batas aplikasi: {{count}}",
+				"first": "Pertama",
+				"range": "Rentang",
+				"to": "sampai",
+				"invalid": "Gunakan bilangan bulat dari 1 hingga {{max}}, dengan awal tidak lebih besar dari akhir.",
+				"applyError": "Tidak dapat menerapkan cakupan daftar putar itu: {{message}}",
+				"reset": "Atur ulang",
+				"cancel": "Membatalkan",
+				"apply": "Terapkan",
+				"applyReload": "Terapkan dan muat ulang",
+				"reloading": "Memuat ulang...",
+				"emptyTitle": "Tidak ada video dalam cakupan itu"
+			},
 			"heading": "Unduh dari URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Profil", "settings": "Pengaturan"},

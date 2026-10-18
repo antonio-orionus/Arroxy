@@ -166,6 +166,28 @@
 			"quickPlaylistTooltip": "Dodaje każdy wczytany element playlisty do kolejki z aktywnym profilem Szybkie pobieranie. Jeśli skan osiągnie limit, Arroxy zapyta przed dodaniem."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Zakres playlisty",
+				"change": "Zmień",
+				"summaryAppLimit": "Wczytaj pierwsze elementy: {{count}}",
+				"summaryFirst": "Wczytaj pierwsze elementy: {{count}}",
+				"summaryRange": "Wczytaj elementy {{from}}-{{to}}",
+				"dialogTitle": "Zakres playlisty",
+				"dialogDescription": "Wybierz, co Arroxy każe yt-dlp wczytać dla tej playlisty.",
+				"itemsLabel": "Elementy do wczytania",
+				"appLimit": "Użyj limitu aplikacji: {{count}}",
+				"first": "Pierwsze",
+				"range": "Zakres",
+				"to": "do",
+				"invalid": "Użyj liczb całkowitych od 1 do {{max}}; początek nie może być większy od końca.",
+				"applyError": "Nie można zastosować zakresu playlisty: {{message}}",
+				"reset": "Resetuj",
+				"cancel": "Anuluj",
+				"apply": "Zastosuj",
+				"applyReload": "Zastosuj i załaduj ponownie",
+				"reloading": "Ponowne ładowanie...",
+				"emptyTitle": "Brak filmów w tym zakresie"
+			},
 			"heading": "Pobierz z adresu URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Profile", "settings": "Ustawienia"},

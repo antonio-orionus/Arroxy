@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "Aggiunge alla coda ogni elemento della playlist caricato usando il profilo Download rapido attivo. Se l'analisi raggiunge il limite, Arroxy chiede conferma prima di continuare."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Ambito della playlist",
+				"change": "Modifica",
+				"summaryAppLimit": "Carica i primi {{count}} elementi",
+				"summaryFirst": "Carica i primi {{count}} elementi",
+				"summaryRange": "Carica gli elementi {{from}}-{{to}}",
+				"dialogTitle": "Ambito della playlist",
+				"dialogDescription": "Scegli cosa Arroxy chiede a yt-dlp di caricare per questa playlist.",
+				"itemsLabel": "Elementi da caricare",
+				"appLimit": "Usa il limite dell'app: {{count}}",
+				"first": "Primi",
+				"range": "Intervallo",
+				"to": "a",
+				"invalid": "Usa numeri interi da 1 a {{max}}, con l'inizio non superiore alla fine.",
+				"applyError": "Impossibile applicare l'ambito della playlist: {{message}}",
+				"reset": "Reimposta",
+				"cancel": "Annulla",
+				"apply": "Applica",
+				"applyReload": "Applica e ricarica",
+				"reloading": "Ricaricamento...",
+				"emptyTitle": "Nessun video in questo ambito"
+			},
 			"heading": "Scarica da URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Profili", "settings": "Impostazioni"},

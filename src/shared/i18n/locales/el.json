@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Βάζει κάθε φορτωμένο στοιχείο της λίστας στην ουρά με το ενεργό προφίλ Γρήγορης λήψης. Αν η σάρωση φτάσει το όριό σου, το Arroxy θα ρωτήσει πριν βάλει στοιχεία στην ουρά."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Εύρος playlist",
+				"change": "Αλλαγή",
+				"summaryAppLimit": "Φόρτωση των πρώτων {{count}} στοιχείων",
+				"summaryFirst": "Φόρτωση των πρώτων {{count}} στοιχείων",
+				"summaryRange": "Φόρτωση στοιχείων {{from}}-{{to}}",
+				"dialogTitle": "Εύρος playlist",
+				"dialogDescription": "Επιλέξτε τι ζητά το Arroxy από το yt-dlp να φορτώσει για αυτή την playlist.",
+				"itemsLabel": "Στοιχεία για φόρτωση",
+				"appLimit": "Χρήση ορίου εφαρμογής: {{count}}",
+				"first": "Πρώτα",
+				"range": "Εύρος",
+				"to": "έως",
+				"invalid": "Χρησιμοποιήστε ακέραιους αριθμούς από 1 έως {{max}}, με την αρχή όχι μεγαλύτερη από το τέλος.",
+				"applyError": "Δεν ήταν δυνατή η εφαρμογή αυτού του εύρους playlist: {{message}}",
+				"reset": "Επαναφορά",
+				"cancel": "Ακύρωση",
+				"apply": "Εφαρμογή",
+				"applyReload": "Εφαρμογή και επαναφόρτωση",
+				"reloading": "Επαναφόρτωση...",
+				"emptyTitle": "Δεν υπάρχουν βίντεο σε αυτό το εύρος"
+			},
 			"heading": "Λήψη από URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Προφίλ", "settings": "Ρυθμίσεις"},

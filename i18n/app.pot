@@ -4087,6 +4087,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr ""
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr ""
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr ""
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr ""

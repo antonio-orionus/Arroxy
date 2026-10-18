@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Stellt jeden geladenen Playlist-Eintrag mit dem aktiven Schnelldownload-Profil in die Warteschlange. Wenn der Scan dein Limit erreicht, fragt Arroxy vor dem Einreihen nach."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Playlist-Bereich",
+				"change": "Ändern",
+				"summaryAppLimit": "Die ersten {{count}} Einträge laden",
+				"summaryFirst": "Die ersten {{count}} Einträge laden",
+				"summaryRange": "Einträge {{from}}-{{to}} laden",
+				"dialogTitle": "Playlist-Bereich",
+				"dialogDescription": "Lege fest, was Arroxy yt-dlp für diese Playlist laden lässt.",
+				"itemsLabel": "Zu ladende Einträge",
+				"appLimit": "App-Limit verwenden: {{count}}",
+				"first": "Erste",
+				"range": "Bereich",
+				"to": "bis",
+				"invalid": "Verwende ganze Zahlen von 1 bis {{max}}; der Anfang darf nicht größer als das Ende sein.",
+				"applyError": "Dieser Playlist-Bereich konnte nicht angewendet werden: {{message}}",
+				"reset": "Zurücksetzen",
+				"cancel": "Abbrechen",
+				"apply": "Anwenden",
+				"applyReload": "Anwenden und neu laden",
+				"reloading": "Wird neu geladen...",
+				"emptyTitle": "Keine Videos in diesem Bereich"
+			},
 			"heading": "Von URL herunterladen",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profile", "settings": "Einstellungen"},

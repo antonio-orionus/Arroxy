@@ -141,6 +141,28 @@
 			"quickPlaylistTooltip": "使用当前的快速下载配置，将每个已加载的播放列表条目加入队列。如果扫描达到你的上限，Arroxy 会在加入队列前询问。"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "播放列表范围",
+				"change": "更改",
+				"summaryAppLimit": "加载前 {{count}} 个项目",
+				"summaryFirst": "加载前 {{count}} 个项目",
+				"summaryRange": "加载第 {{from}}-{{to}} 个项目",
+				"dialogTitle": "播放列表范围",
+				"dialogDescription": "选择 Arroxy 要求 yt-dlp 为此播放列表加载的内容。",
+				"itemsLabel": "要加载的项目",
+				"appLimit": "使用应用上限：{{count}}",
+				"first": "前",
+				"range": "范围",
+				"to": "至",
+				"invalid": "请使用 1 到 {{max}} 之间的整数项目编号，且起始编号不能大于结束编号。",
+				"applyError": "无法应用该播放列表范围：{{message}}",
+				"reset": "重置",
+				"cancel": "取消",
+				"apply": "应用",
+				"applyReload": "应用并重新加载",
+				"reloading": "正在重新加载...",
+				"emptyTitle": "该范围内没有视频"
+			},
 			"heading": "从 URL 下载",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "配置", "settings": "设置"},

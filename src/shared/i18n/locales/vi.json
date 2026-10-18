@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "Đưa mọi mục playlist đã tải vào hàng đợi bằng hồ sơ Tải nhanh đang hoạt động. Nếu lần quét chạm giới hạn của bạn, Arroxy sẽ hỏi trước khi đưa vào hàng đợi."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Phạm vi danh sách phát",
+				"change": "Thay đổi",
+				"summaryAppLimit": "Tải {{count}} mục đầu tiên",
+				"summaryFirst": "Tải {{count}} mục đầu tiên",
+				"summaryRange": "Tải các mục {{from}}-{{to}}",
+				"dialogTitle": "Phạm vi danh sách phát",
+				"dialogDescription": "Chọn nội dung Arroxy yêu cầu yt-dlp tải cho danh sách phát này.",
+				"itemsLabel": "Mục cần tải",
+				"appLimit": "Dùng giới hạn của ứng dụng: {{count}}",
+				"first": "Đầu tiên",
+				"range": "Khoảng",
+				"to": "đến",
+				"invalid": "Dùng số mục nguyên từ 1 đến {{max}}, với điểm bắt đầu không lớn hơn điểm kết thúc.",
+				"applyError": "Không thể áp dụng phạm vi danh sách phát đó: {{message}}",
+				"reset": "Đặt lại",
+				"cancel": "Hủy",
+				"apply": "Áp dụng",
+				"applyReload": "Áp dụng và tải lại",
+				"reloading": "Đang tải lại...",
+				"emptyTitle": "Không có video trong phạm vi này"
+			},
 			"heading": "Tải xuống từ URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Hồ sơ", "settings": "Cài đặt"},

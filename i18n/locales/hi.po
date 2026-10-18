@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end से मैप होता है: Arroxy पिकर बनाते समय केवल इतनी प्लेलिस्ट, चैनल या सर्च प्रविष्टियाँ मांगता है।"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "ऐप की सीमा उपयोग करें: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "लागू करें"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "वह प्लेलिस्ट दायरा लागू नहीं हो सका: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "लागू करें और रीलोड करें"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "रद्द करें"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "बदलें"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "चुनें कि Arroxy इस प्लेलिस्ट के लिए yt-dlp से क्या लोड करने को कहे।"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "प्लेलिस्ट का दायरा"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "इस दायरे में कोई वीडियो नहीं"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "पहले"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "1 से {{max}} तक पूर्ण संख्याएँ उपयोग करें, शुरुआत अंत से बड़ी न हो।"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "लोड करने वाले आइटम"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "प्लेलिस्ट का दायरा"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "रेंज"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "रीलोड हो रहा है..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "रीसेट करें"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "पहले {{count}} आइटम लोड करें"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "पहले {{count}} आइटम लोड करें"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "आइटम {{from}}-{{to}} लोड करें"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "तक"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "सक्रिय प्रोफ़ाइल"

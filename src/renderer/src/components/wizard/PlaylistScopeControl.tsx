@@ -27,16 +27,8 @@ interface PlaylistScopeControlProps {
 	disabled?: boolean
 }
 
-function copy(t: TFunction, key: string, defaultValue: string, values: Record<string, string | number> = {}): string {
-	return t(key, {defaultValue, ...values})
-}
-
 function scopeSummary(scope: PlaylistScope, appLimit: number, t: TFunction): string {
-	return scope.items.kind === 'app-limit'
-		? copy(t, 'wizard.url.playlistScope.summaryAppLimit', 'Load first {{count}} items', {count: appLimit})
-		: scope.items.kind === 'first'
-			? copy(t, 'wizard.url.playlistScope.summaryFirst', 'Load first {{count}} items', {count: scope.items.count})
-			: copy(t, 'wizard.url.playlistScope.summaryRange', 'Load items {{from}}-{{to}}', {from: scope.items.from, to: scope.items.to})
+	return scope.items.kind === 'app-limit' ? t('wizard.url.playlistScope.summaryAppLimit', {count: appLimit}) : scope.items.kind === 'first' ? t('wizard.url.playlistScope.summaryFirst', {count: scope.items.count}) : t('wizard.url.playlistScope.summaryRange', {from: scope.items.from, to: scope.items.to})
 }
 
 function errorMessage(error: unknown): string {
@@ -92,7 +84,7 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 				await onApplyScope(parsedScope)
 				setOpen(false)
 			} catch (error) {
-				setApplyError(copy(t, 'wizard.url.playlistScope.applyError', 'Could not apply that playlist scope: {{message}}', {message: errorMessage(error)}))
+				setApplyError(t('wizard.url.playlistScope.applyError', {message: errorMessage(error)}))
 			} finally {
 				setApplying(false)
 			}
@@ -106,7 +98,7 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 		<section className="rounded-md border border-border-strong bg-card/40 px-3 py-2.5" data-testid="playlist-scope-control">
 			<div className="flex items-center gap-3">
 				<div className="min-w-0 flex-1">
-					<SectionLabel>{copy(t, 'wizard.url.playlistScope.label', 'Playlist scope')}</SectionLabel>
+					<SectionLabel>{t('wizard.url.playlistScope.label')}</SectionLabel>
 					<p className="mt-1 truncate text-xs text-foreground" data-testid="playlist-scope-summary">
 						{scopeSummary(playlistScope, appLimit, t)}
 					</p>
@@ -123,20 +115,20 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 					disabled={disabled || applying}
 				>
 					<SlidersHorizontal data-icon="inline-start" />
-					{copy(t, 'wizard.url.playlistScope.change', 'Change')}
+					{t('wizard.url.playlistScope.change')}
 				</Button>
 			</div>
 
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent className="sm:max-w-md" data-testid="playlist-scope-dialog">
 					<DialogHeader>
-						<DialogTitle>{copy(t, 'wizard.url.playlistScope.dialogTitle', 'Playlist scope')}</DialogTitle>
-						<DialogDescription>{copy(t, 'wizard.url.playlistScope.dialogDescription', 'Choose what Arroxy asks yt-dlp to load for this playlist.')}</DialogDescription>
+						<DialogTitle>{t('wizard.url.playlistScope.dialogTitle')}</DialogTitle>
+						<DialogDescription>{t('wizard.url.playlistScope.dialogDescription')}</DialogDescription>
 					</DialogHeader>
 
 					<div className="flex flex-col gap-3">
 						<Field className="gap-1.5">
-							<FieldLabel size="sm">{copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}</FieldLabel>
+							<FieldLabel size="sm">{t('wizard.url.playlistScope.itemsLabel')}</FieldLabel>
 							<ToggleGroup
 								size="sm"
 								value={[mode]}
@@ -144,25 +136,25 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 									const next = values[0]
 									if (isItemMode(next)) setMode(next)
 								}}
-								aria-label={copy(t, 'wizard.url.playlistScope.itemsLabel', 'Items to load')}
+								aria-label={t('wizard.url.playlistScope.itemsLabel')}
 								orientation="vertical"
 								spacing={1}
 								className="grid w-full items-stretch"
 							>
 								<ToggleGroupItem value="app-limit" className="justify-start">
-									{copy(t, 'wizard.url.playlistScope.appLimit', 'Use app limit: {{count}}', {count: appLimit})}
+									{t('wizard.url.playlistScope.appLimit', {count: appLimit})}
 								</ToggleGroupItem>
 								<ToggleGroupItem value="first" className="justify-start">
-									{copy(t, 'wizard.url.playlistScope.first', 'First')}
+									{t('wizard.url.playlistScope.first')}
 								</ToggleGroupItem>
 								{mode === 'first' && <Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={firstDraft} onChange={event => setFirstDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-first-input" />}
 								<ToggleGroupItem value="range" className="justify-start">
-									{copy(t, 'wizard.url.playlistScope.range', 'Range')}
+									{t('wizard.url.playlistScope.range')}
 								</ToggleGroupItem>
 								{mode === 'range' && (
 									<div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
 										<Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={fromDraft} onChange={event => setFromDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-from" />
-										<span className="text-caption text-subtle-foreground">{copy(t, 'wizard.url.playlistScope.to', 'to')}</span>
+										<span className="text-caption text-subtle-foreground">{t('wizard.url.playlistScope.to')}</span>
 										<Input type="number" min={PLAYLIST_PROBE_LIMIT_MIN} max={PLAYLIST_PROBE_LIMIT_MAX} value={toDraft} onChange={event => setToDraft(event.target.value)} className="h-8 font-mono" data-testid="playlist-scope-range-to" />
 									</div>
 								)}
@@ -170,7 +162,7 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 						</Field>
 						{!parsedScope && (
 							<Alert variant="warning">
-								<AlertDescription>{copy(t, 'wizard.url.playlistScope.invalid', 'Use whole item numbers from 1 to 5000, with the start no higher than the end.')}</AlertDescription>
+								<AlertDescription>{t('wizard.url.playlistScope.invalid', {max: PLAYLIST_PROBE_LIMIT_MAX})}</AlertDescription>
 							</Alert>
 						)}
 						{applyError ? (
@@ -182,13 +174,13 @@ export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, di
 
 					<DialogFooter>
 						<Button type="button" variant="ghost" onClick={resetDrafts} data-testid="playlist-scope-reset">
-							{copy(t, 'wizard.url.playlistScope.reset', 'Reset')}
+							{t('wizard.url.playlistScope.reset')}
 						</Button>
 						<Button type="button" variant="outline" onClick={() => setOpen(false)}>
-							{copy(t, 'wizard.url.playlistScope.cancel', 'Cancel')}
+							{t('wizard.url.playlistScope.cancel')}
 						</Button>
 						<Button type="button" onClick={() => void applyScope()} disabled={!parsedScope || applying} data-testid="playlist-scope-apply">
-							{applying ? (pendingLabel ?? copy(t, 'wizard.url.playlistScope.reloading', 'Reloading...')) : (applyLabel ?? copy(t, 'wizard.url.playlistScope.apply', 'Apply'))}
+							{applying ? (pendingLabel ?? t('wizard.url.playlistScope.reloading')) : (applyLabel ?? t('wizard.url.playlistScope.apply'))}
 						</Button>
 					</DialogFooter>
 				</DialogContent>

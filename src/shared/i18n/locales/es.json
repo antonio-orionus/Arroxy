@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "Pone en cola cada elemento cargado de la lista con el perfil de Descarga rápida activo. Si el escaneo alcanza tu límite, Arroxy pregunta antes de ponerlos en cola."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Alcance de la lista",
+				"change": "Cambiar",
+				"summaryAppLimit": "Cargar los primeros {{count}} elementos",
+				"summaryFirst": "Cargar los primeros {{count}} elementos",
+				"summaryRange": "Cargar elementos {{from}}-{{to}}",
+				"dialogTitle": "Alcance de la lista",
+				"dialogDescription": "Elige qué le pide Arroxy a yt-dlp que cargue de esta lista.",
+				"itemsLabel": "Elementos que cargar",
+				"appLimit": "Usar el límite de la app: {{count}}",
+				"first": "Primeros",
+				"range": "Rango",
+				"to": "a",
+				"invalid": "Usa números enteros del 1 al {{max}}, con el inicio no mayor que el final.",
+				"applyError": "No se pudo aplicar ese alcance de la lista: {{message}}",
+				"reset": "Restablecer",
+				"cancel": "Cancelar",
+				"apply": "Aplicar",
+				"applyReload": "Aplicar y recargar",
+				"reloading": "Recargando...",
+				"emptyTitle": "No hay vídeos en ese alcance"
+			},
 			"heading": "Descargar desde URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Perfiles", "settings": "Ajustes"},

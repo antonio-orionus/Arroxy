@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp の --playlist-end に対応します：Arroxy はピッカーを構築する際、この件数のプレイリスト・チャンネル・検索エントリのみ取得します。"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "アプリの上限を使用: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "適用"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "プレイリストの範囲を適用できませんでした: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "適用して再読み込み"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "変更"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "このプレイリストでArroxyがyt-dlpに読み込ませる内容を選択します。"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "プレイリストの範囲"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "この範囲に動画はありません"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "最初"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "1〜{{max}}の整数を指定してください。開始は終了以下にしてください。"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "読み込む項目"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "プレイリストの範囲"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "範囲"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "再読み込み中..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "リセット"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "最初の{{count}}件を読み込み"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "最初の{{count}}件を読み込み"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "項目 {{from}}-{{to}} を読み込み"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "〜"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "アクティブなプロファイル"

@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end waliin walsimsiisa: Arroxy filataa ijaarutti wantota playlist, chaanaalii, ykn barbaadaa lakkoofsa kana qofa gaafata."
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Daangaa appii fayyadami: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Hojiirra oolchi"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Bal'ina tarree taphaa sanaa hojiirra oolchuu hin dandeenye: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Hojiirra oolchiitii fe'adhu"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Haqi"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Jijjiiri"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "Arroxy tarree taphaa kanaaf yt-dlp maal akka fe'u gaafatu filadhu."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Bal'ina tarree taphaa"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Bal'ina sana keessa viidiyoon hin jiru"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Jalqaba"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Lakkoofsota guutuu 1 hanga {{max}} fayyadami; jalqabni dhumaa caalaa hin ta'u."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Wantoota fe'amuu qaban"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Bal'ina tarree taphaa"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Daangaa"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Fe'aa jira..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Deebisi"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "Wantoota {{count}} jalqabaa fe'i"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "Wantoota {{count}} jalqabaa fe'i"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Wantoota {{from}}-{{to}} fe'i"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "hanga"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "Profaayilii hojiirra jiru"

@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Ajoute chaque élément chargé de la playlist à la file avec le profil Téléchargement rapide actif. Si l’analyse atteint ta limite, Arroxy demande confirmation avant d’ajouter à la file."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Portée de la liste",
+				"change": "Modifier",
+				"summaryAppLimit": "Charger les {{count}} premiers éléments",
+				"summaryFirst": "Charger les {{count}} premiers éléments",
+				"summaryRange": "Charger les éléments {{from}}-{{to}}",
+				"dialogTitle": "Portée de la liste",
+				"dialogDescription": "Choisissez ce qu’Arroxy demande à yt-dlp de charger pour cette liste.",
+				"itemsLabel": "Éléments à charger",
+				"appLimit": "Utiliser la limite de l’app : {{count}}",
+				"first": "Premiers",
+				"range": "Plage",
+				"to": "à",
+				"invalid": "Utilisez des nombres entiers de 1 à {{max}}, le début ne dépassant pas la fin.",
+				"applyError": "Impossible d’appliquer cette portée de la liste : {{message}}",
+				"reset": "Réinitialiser",
+				"cancel": "Annuler",
+				"apply": "Appliquer",
+				"applyReload": "Appliquer et recharger",
+				"reloading": "Rechargement...",
+				"emptyTitle": "Aucune vidéo dans cette portée"
+			},
 			"heading": "Télécharger depuis une URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profils", "settings": "Réglages"},

@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "فعال فوری ڈاؤن لوڈ پروفائل کے ساتھ لوڈ کی گئی ہر پلے لسٹ آئٹم کو قطار میں شامل کرتا ہے۔ اگر اسکین آپ کی حد تک پہنچ جائے تو Arroxy قطار میں شامل کرنے سے پہلے پوچھے گا۔"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "پلے لسٹ کا دائرہ",
+				"change": "تبدیل کریں",
+				"summaryAppLimit": "پہلے {{count}} آئٹمز لوڈ کریں",
+				"summaryFirst": "پہلے {{count}} آئٹمز لوڈ کریں",
+				"summaryRange": "آئٹمز {{from}}-{{to}} لوڈ کریں",
+				"dialogTitle": "پلے لسٹ کا دائرہ",
+				"dialogDescription": "منتخب کریں کہ Arroxy اس پلے لسٹ کے لیے yt-dlp سے کیا لوڈ کرنے کو کہے۔",
+				"itemsLabel": "لوڈ کرنے کے آئٹمز",
+				"appLimit": "ایپ کی حد استعمال کریں: {{count}}",
+				"first": "پہلے",
+				"range": "رینج",
+				"to": "تا",
+				"invalid": "1 سے {{max}} تک پورے آئٹم نمبر استعمال کریں، شروع کا نمبر آخر سے زیادہ نہ ہو۔",
+				"applyError": "وہ پلے لسٹ دائرہ لاگو نہیں ہو سکا: {{message}}",
+				"reset": "ری سیٹ کریں",
+				"cancel": "منسوخ کریں",
+				"apply": "لاگو کریں",
+				"applyReload": "لاگو کریں اور ری لوڈ کریں",
+				"reloading": "ری لوڈ ہو رہا ہے...",
+				"emptyTitle": "اس دائرے میں کوئی ویڈیو نہیں"
+			},
 			"heading": "URL سے ڈاؤن لوڈ کریں",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "پروفائلز", "settings": "ترتیبات"},

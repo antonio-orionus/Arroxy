@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end နှင့် map ချိတ်ဆက်သည်: Arroxy သည် picker ဆောက်စဉ် ဤမျှ playlist၊ channel သို့မဟုတ် ရှာဖွေမှု entries များကိုသာ တောင်းဆိုသည်။"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "အက်ပ်ကန့်သတ်ချက် သုံးမည်- {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "အသုံးပြုရန်"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "ထိုပလေးလစ် အတိုင်းအတာကို အသုံးမပြုနိုင်ပါ- {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "အသုံးပြုပြီး ပြန်ဖွင့်မည်"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "ပြောင်းမည်"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "ဤပလေးလစ်အတွက် Arroxy က yt-dlp ကို ဘာတွေ ရယူခိုင်းမည်ကို ရွေးပါ။"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "ပလေးလစ် အတိုင်းအတာ"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "ထိုအတိုင်းအတာအတွင်း ဗီဒီယို မရှိပါ"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "ပထမ"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "1 မှ {{max}} အတွင်း ကိန်းပြည့်များကို သုံးပါ၊ စတင်သည့်နံပါတ်သည် ပြီးဆုံးသည့်နံပါတ်ထက် မကြီးရပါ။"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "ရယူမည့် အရာများ"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "ပလေးလစ် အတိုင်းအတာ"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "အပိုင်းအခြား"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "ပြန်ဖွင့်နေသည်..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "ပြန်သတ်မှတ်"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "ပထမဆုံး အရာ {{count}} ခုကို ရယူမည်"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "ပထမဆုံး အရာ {{count}} ခုကို ရယူမည်"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "အရာ {{from}}-{{to}} ကို ရယူမည်"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "အထိ"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "လက်ရှိ ပရိုဖိုင်"

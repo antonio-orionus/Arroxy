@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Yüklenen her oynatma listesi öğesini etkin Hızlı İndirme profiliyle kuyruğa alır. Tarama sınırına ulaşırsa Arroxy kuyruğa almadan önce sorar."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Oynatma listesi kapsamı",
+				"change": "Değiştir",
+				"summaryAppLimit": "İlk {{count}} öğeyi yükle",
+				"summaryFirst": "İlk {{count}} öğeyi yükle",
+				"summaryRange": "{{from}}-{{to}} arası öğeleri yükle",
+				"dialogTitle": "Oynatma listesi kapsamı",
+				"dialogDescription": "Arroxy'nin bu oynatma listesi için yt-dlp'den neyi yüklemesini isteyeceğini seç.",
+				"itemsLabel": "Yüklenecek öğeler",
+				"appLimit": "Uygulama sınırını kullan: {{count}}",
+				"first": "İlk",
+				"range": "Aralık",
+				"to": "ile",
+				"invalid": "1 ile {{max}} arasında tam sayı öğe numaraları kullan; başlangıç bitişten büyük olmasın.",
+				"applyError": "Bu oynatma listesi kapsamı uygulanamadı: {{message}}",
+				"reset": "Sıfırla",
+				"cancel": "İptal",
+				"apply": "Uygula",
+				"applyReload": "Uygula ve yeniden yükle",
+				"reloading": "Yeniden yükleniyor...",
+				"emptyTitle": "Bu kapsamda video yok"
+			},
 			"heading": "URL’den indir",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Profiller", "settings": "Ayarlar"},

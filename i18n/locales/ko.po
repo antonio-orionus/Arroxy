@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end에 해당합니다. Arroxy는 선택 화면을 만들 때 재생목록, 채널 또는 검색 항목을 이 수만큼만 요청합니다."
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "앱 제한 사용: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "적용"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "재생목록 범위를 적용할 수 없습니다: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "적용 후 새로고침"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "취소"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "변경"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "이 재생목록에서 Arroxy가 yt-dlp에 불러오도록 요청할 범위를 선택하세요."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "재생목록 범위"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "해당 범위에 동영상이 없습니다"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "처음"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "1부터 {{max}}까지의 정수를 입력하세요. 시작 번호는 끝 번호보다 클 수 없습니다."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "불러올 항목"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "재생목록 범위"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "범위"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "새로고침 중..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "재설정"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "처음 {{count}}개 항목 불러오기"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "처음 {{count}}개 항목 불러오기"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "항목 {{from}}-{{to}} 불러오기"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "~"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "활성 프로필"

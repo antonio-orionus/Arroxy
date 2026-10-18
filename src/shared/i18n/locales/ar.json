@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "يضيف كل عنصر تم تحميله من قائمة التشغيل إلى قائمة الانتظار باستخدام ملف التنزيل السريع النشط. إذا وصل الفحص إلى حدك، فسيسألك Arroxy قبل الإضافة إلى قائمة الانتظار."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "نطاق قائمة التشغيل",
+				"change": "تغيير",
+				"summaryAppLimit": "تحميل أول {{count}} عنصر",
+				"summaryFirst": "تحميل أول {{count}} عنصر",
+				"summaryRange": "تحميل العناصر {{from}}-{{to}}",
+				"dialogTitle": "نطاق قائمة التشغيل",
+				"dialogDescription": "اختر ما يطلب Arroxy من yt-dlp تحميله لقائمة التشغيل هذه.",
+				"itemsLabel": "العناصر المراد تحميلها",
+				"appLimit": "استخدام حد التطبيق: {{count}}",
+				"first": "الأول",
+				"range": "نطاق",
+				"to": "إلى",
+				"invalid": "استخدم أعدادًا صحيحة من 1 إلى {{max}}، على ألا تتجاوز البداية النهاية.",
+				"applyError": "تعذّر تطبيق نطاق قائمة التشغيل هذا: {{message}}",
+				"reset": "إعادة ضبط",
+				"cancel": "إلغاء",
+				"apply": "تطبيق",
+				"applyReload": "تطبيق وإعادة التحميل",
+				"reloading": "جارٍ إعادة التحميل...",
+				"emptyTitle": "لا توجد فيديوهات في هذا النطاق"
+			},
 			"heading": "تنزيل من رابط",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "الملفات الشخصية", "settings": "الإعدادات"},

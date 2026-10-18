@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "هر بار شوی پلیلېسټ توکی د فعال چټک ډاونلوډ پروفایل سره قطار ته اضافه کوي. که سکین ستا حد ته ورسېږي، Arroxy به د قطار ته اضافه کولو مخکې پوښتنه وکړي."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "د پلې‌لېست ساحه",
+				"change": "بدل کړئ",
+				"summaryAppLimit": "لومړي {{count}} توکي بارول",
+				"summaryFirst": "لومړي {{count}} توکي بارول",
+				"summaryRange": "توکي {{from}}-{{to}} بارول",
+				"dialogTitle": "د پلې‌لېست ساحه",
+				"dialogDescription": "وټاکئ چې Arroxy له yt-dlp څخه د دې پلې‌لېست لپاره څه بار کړي.",
+				"itemsLabel": "د بارولو توکي",
+				"appLimit": "د اپ حد وکاروئ: {{count}}",
+				"first": "لومړي",
+				"range": "ساحه",
+				"to": "تر",
+				"invalid": "له 1 څخه تر {{max}} پورې بشپړې شمېرې وکاروئ، پیل باید له پای څخه لوی نه وي.",
+				"applyError": "د پلې‌لېست ساحه پلي نه شوه: {{message}}",
+				"reset": "بیا تنظیمول",
+				"cancel": "لغوه کړئ",
+				"apply": "پلي کړئ",
+				"applyReload": "پلي کړئ او بیا بار کړئ",
+				"reloading": "بیا بارېږي...",
+				"emptyTitle": "په دې ساحه کې هیڅ ویډیو نشته"
+			},
 			"heading": "له URL څخه ډاونلوډ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "پروفایلونه", "settings": "امستنې"},

@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "Enfileira cada item carregado da playlist usando o perfil ativo de Download Rápido. Se a busca atingir seu limite, o Arroxy pedirá confirmação."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Escopo da playlist",
+				"change": "Alterar",
+				"summaryAppLimit": "Carregar os primeiros {{count}} itens",
+				"summaryFirst": "Carregar os primeiros {{count}} itens",
+				"summaryRange": "Carregar os itens {{from}}-{{to}}",
+				"dialogTitle": "Escopo da playlist",
+				"dialogDescription": "Escolha o que o Arroxy pede ao yt-dlp para carregar nesta playlist.",
+				"itemsLabel": "Itens a carregar",
+				"appLimit": "Usar o limite do app: {{count}}",
+				"first": "Primeiros",
+				"range": "Intervalo",
+				"to": "a",
+				"invalid": "Use números inteiros de 1 a {{max}}, com o início não maior que o fim.",
+				"applyError": "Não foi possível aplicar o escopo da playlist: {{message}}",
+				"reset": "Redefinir",
+				"cancel": "Cancelar",
+				"apply": "Aplicar",
+				"applyReload": "Aplicar e recarregar",
+				"reloading": "Recarregando...",
+				"emptyTitle": "Nenhum vídeo nesse escopo"
+			},
 			"heading": "Baixar por URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Perfis", "settings": "Configurações"},

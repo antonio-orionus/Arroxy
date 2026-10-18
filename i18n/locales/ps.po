@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "yt-dlp --playlist-end ته د لارښوونې لپاره: Arroxy د انتخاب جوړولو پرمهال یوازې د playlist، چینل، یا لټون له ننوتونو دومره غواړي."
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "د اپ حد وکاروئ: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "پلي کړئ"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "د پلې‌لېست ساحه پلي نه شوه: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "پلي کړئ او بیا بار کړئ"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "لغوه کړئ"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "بدل کړئ"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "وټاکئ چې Arroxy له yt-dlp څخه د دې پلې‌لېست لپاره څه بار کړي."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "د پلې‌لېست ساحه"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "په دې ساحه کې هیڅ ویډیو نشته"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "لومړي"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "له 1 څخه تر {{max}} پورې بشپړې شمېرې وکاروئ، پیل باید له پای څخه لوی نه وي."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "د بارولو توکي"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "د پلې‌لېست ساحه"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "ساحه"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "بیا بارېږي..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "بیا تنظیمول"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "لومړي {{count}} توکي بارول"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "لومړي {{count}} توکي بارول"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "توکي {{from}}-{{to}} بارول"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "تر"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "فعال پروفایل"

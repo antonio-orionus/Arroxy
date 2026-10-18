@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "ផ្គូផ្គងទៅ yt-dlp --playlist-end៖ Arroxy ស្នើសុំតែចំនួនធាតុបញ្ជីចាក់ ប៉ុស្តិ៍ ឬការស្វែងរកប៉ុណ្ណេះនៅពេលបង្កើតផ្ទាំងជ្រើសរើស។"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "ប្រើដែនកំណត់កម្មវិធី៖ {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "អនុវត្ត"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "មិនអាចអនុវត្តវិសាលភាពបញ្ជីចាក់នោះបានទេ៖ {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "អនុវត្ត ហើយផ្ទុកឡើងវិញ"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "ផ្លាស់ប្តូរ"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "ជ្រើសរើសអ្វីដែល Arroxy ស្នើឱ្យ yt-dlp ផ្ទុកសម្រាប់បញ្ជីចាក់នេះ។"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "វិសាលភាពបញ្ជីចាក់"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "គ្មានវីដេអូក្នុងវិសាលភាពនោះទេ"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "ដំបូង"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "ប្រើលេខគត់ពី 1 ដល់ {{max}} ដោយលេខចាប់ផ្តើមមិនធំជាងលេខបញ្ចប់។"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "ធាតុដែលត្រូវផ្ទុក"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "វិសាលភាពបញ្ជីចាក់"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "ចន្លោះ"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "កំពុងផ្ទុកឡើងវិញ..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "កំណត់ឡើងវិញ"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "ផ្ទុកធាតុ {{count}} ដំបូង"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "ផ្ទុកធាតុ {{count}} ដំបូង"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "ផ្ទុកធាតុ {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "ដល់"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "ប្រវត្តិរូបសកម្ម"

@@ -171,6 +171,28 @@
 			"quickPlaylistTooltip": "Wantoota tarree taphachiisaa fe’aman hunda piroofaayila Buufata saffisaa hojiirra jiru fayyadamuun gara tarree hojiiitti galcha. Sakatta’iinsi daangaa kee yoo ga’e, Arroxy tarree hojiiitti galchuu dura ni gaafata."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Bal'ina tarree taphaa",
+				"change": "Jijjiiri",
+				"summaryAppLimit": "Wantoota {{count}} jalqabaa fe'i",
+				"summaryFirst": "Wantoota {{count}} jalqabaa fe'i",
+				"summaryRange": "Wantoota {{from}}-{{to}} fe'i",
+				"dialogTitle": "Bal'ina tarree taphaa",
+				"dialogDescription": "Arroxy tarree taphaa kanaaf yt-dlp maal akka fe'u gaafatu filadhu.",
+				"itemsLabel": "Wantoota fe'amuu qaban",
+				"appLimit": "Daangaa appii fayyadami: {{count}}",
+				"first": "Jalqaba",
+				"range": "Daangaa",
+				"to": "hanga",
+				"invalid": "Lakkoofsota guutuu 1 hanga {{max}} fayyadami; jalqabni dhumaa caalaa hin ta'u.",
+				"applyError": "Bal'ina tarree taphaa sanaa hojiirra oolchuu hin dandeenye: {{message}}",
+				"reset": "Deebisi",
+				"cancel": "Haqi",
+				"apply": "Hojiirra oolchi",
+				"applyReload": "Hojiirra oolchiitii fe'adhu",
+				"reloading": "Fe'aa jira...",
+				"emptyTitle": "Bal'ina sana keessa viidiyoon hin jiru"
+			},
 			"heading": "URL irraa buusi",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profaayilota", "settings": "Qindaaʼinoota"},

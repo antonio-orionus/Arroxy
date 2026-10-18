@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "يُعيَّن إلى yt-dlp --playlist-end: يطلب Arroxy هذا العدد فقط من إدخالات القائمة أو القناة أو البحث عند بناء أداة الاختيار."
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "استخدام حد التطبيق: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "تطبيق"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "تعذّر تطبيق نطاق قائمة التشغيل هذا: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "تطبيق وإعادة التحميل"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "تغيير"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "اختر ما يطلب Arroxy من yt-dlp تحميله لقائمة التشغيل هذه."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "نطاق قائمة التشغيل"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "لا توجد فيديوهات في هذا النطاق"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "الأول"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "استخدم أعدادًا صحيحة من 1 إلى {{max}}، على ألا تتجاوز البداية النهاية."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "العناصر المراد تحميلها"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "نطاق قائمة التشغيل"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "نطاق"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "جارٍ إعادة التحميل..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "تحميل أول {{count}} عنصر"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "تحميل أول {{count}} عنصر"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "تحميل العناصر {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "إلى"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "ملف التعريف النشط"

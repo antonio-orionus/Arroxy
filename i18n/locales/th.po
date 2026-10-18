@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "ตรงกับ --playlist-end ของ yt-dlp: Arroxy จะขอรายการเพลย์ลิสต์ ช่อง หรือผลการค้นหาเพียงเท่านี้ขณะสร้างตัวเลือก"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "ใช้ขีดจำกัดของแอป: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "นำไปใช้"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "ไม่สามารถใช้ขอบเขตเพลย์ลิสต์นั้นได้: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "นำไปใช้และโหลดใหม่"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "ยกเลิก"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "เปลี่ยน"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "เลือกสิ่งที่ Arroxy จะขอให้ yt-dlp โหลดสำหรับเพลย์ลิสต์นี้"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "ขอบเขตเพลย์ลิสต์"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "ไม่มีวิดีโอในขอบเขตนี้"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "รายการแรก"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "ใช้ตัวเลขจำนวนเต็มของรายการตั้งแต่ 1 ถึง {{max}} โดยจุดเริ่มต้นต้องไม่มากกว่าจุดสิ้นสุด"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "รายการที่จะโหลด"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "ขอบเขตเพลย์ลิสต์"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "ช่วง"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "กำลังโหลดใหม่..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "รีเซ็ต"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "โหลด {{count}} รายการแรก"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "โหลด {{count}} รายการแรก"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "โหลดรายการที่ {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "ถึง"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "โปรไฟล์ที่ใช้อยู่"

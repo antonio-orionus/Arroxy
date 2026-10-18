@@ -91,12 +91,12 @@ function PlaylistCollectionNotices({busy, playlistLimit, copyKeys}: {busy: boole
 	const retryFormatProbe = useAppStore(s => s.retryFormatProbe)
 	return (
 		<>
-			<PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', {defaultValue: 'Apply and reload'})} pendingLabel={t('wizard.url.playlistScope.reloading', {defaultValue: 'Reloading...'})} disabled={busy} onApplyScope={reloadPlaylistWithScope} />
+			<PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload')} pendingLabel={t('wizard.url.playlistScope.reloading')} disabled={busy} onApplyScope={reloadPlaylistWithScope} />
 
 			{playlistScopeError ? (
 				<Alert variant="warning" data-testid="playlist-scope-error">
 					<Info />
-					<AlertTitle>{t('wizard.url.playlistScope.emptyTitle', {defaultValue: 'No videos in that scope'})}</AlertTitle>
+					<AlertTitle>{t('wizard.url.playlistScope.emptyTitle')}</AlertTitle>
 					<AlertDescription>{playlistScopeError}</AlertDescription>
 				</Alert>
 			) : null}

@@ -149,6 +149,28 @@
 			"quickPlaylistTooltip": "सक्रिय क्विक डाउनलोड प्रोफ़ाइल से लोड की गई हर प्लेलिस्ट प्रविष्टि को कतार में जोड़ता है। अगर स्कैन आपकी सीमा तक पहुँचता है, तो कतार में जोड़ने से पहले Arroxy पूछेगा।"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "प्लेलिस्ट का दायरा",
+				"change": "बदलें",
+				"summaryAppLimit": "पहले {{count}} आइटम लोड करें",
+				"summaryFirst": "पहले {{count}} आइटम लोड करें",
+				"summaryRange": "आइटम {{from}}-{{to}} लोड करें",
+				"dialogTitle": "प्लेलिस्ट का दायरा",
+				"dialogDescription": "चुनें कि Arroxy इस प्लेलिस्ट के लिए yt-dlp से क्या लोड करने को कहे।",
+				"itemsLabel": "लोड करने वाले आइटम",
+				"appLimit": "ऐप की सीमा उपयोग करें: {{count}}",
+				"first": "पहले",
+				"range": "रेंज",
+				"to": "तक",
+				"invalid": "1 से {{max}} तक पूर्ण संख्याएँ उपयोग करें, शुरुआत अंत से बड़ी न हो।",
+				"applyError": "वह प्लेलिस्ट दायरा लागू नहीं हो सका: {{message}}",
+				"reset": "रीसेट करें",
+				"cancel": "रद्द करें",
+				"apply": "लागू करें",
+				"applyReload": "लागू करें और रीलोड करें",
+				"reloading": "रीलोड हो रहा है...",
+				"emptyTitle": "इस दायरे में कोई वीडियो नहीं"
+			},
 			"heading": "URL से डाउनलोड करें",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "प्रोफाइल", "settings": "सेटिंग्स"},

@@ -179,6 +179,28 @@
 			"quickPlaylistTooltip": "Yuklangan har bir pleylist elementini faol Tez yuklab olish profili bilan navbatga qo‘yadi. Skanerlash limitingizga yetsa, Arroxy navbatga qo‘yishdan oldin so‘raydi."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Ijro roʻyxati doirasi",
+				"change": "Oʻzgartirish",
+				"summaryAppLimit": "Dastlabki {{count}} ta elementni yuklash",
+				"summaryFirst": "Dastlabki {{count}} ta elementni yuklash",
+				"summaryRange": "{{from}}-{{to}}-elementlarni yuklash",
+				"dialogTitle": "Ijro roʻyxati doirasi",
+				"dialogDescription": "Arroxy ushbu ijro roʻyxati uchun yt-dlp'dan nimani yuklashni soʻrashini tanlang.",
+				"itemsLabel": "Yuklanadigan elementlar",
+				"appLimit": "Ilova chegarasidan foydalanish: {{count}}",
+				"first": "Birinchi",
+				"range": "Oraliq",
+				"to": "gacha",
+				"invalid": "1 dan {{max}} gacha boʻlgan butun element raqamlarini kiriting; boshlanish oxiridan katta boʻlmasin.",
+				"applyError": "Bu ijro roʻyxati doirasini qoʻllab boʻlmadi: {{message}}",
+				"reset": "Qayta tiklash",
+				"cancel": "Bekor qilish",
+				"apply": "Qoʻllash",
+				"applyReload": "Qoʻllash va qayta yuklash",
+				"reloading": "Qayta yuklanmoqda...",
+				"emptyTitle": "Bu doirada videolar yoʻq"
+			},
 			"heading": "URL orqali yuklab olish",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Profillar", "settings": "Sozlamalar"},

@@ -149,6 +149,28 @@
 			"quickPlaylistTooltip": "使用目前的「快速下載」設定檔，將所有已載入的播放清單項目加入佇列。若掃描達到上限，Arroxy 會先詢問再加入。"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "播放清單範圍",
+				"change": "變更",
+				"summaryAppLimit": "載入前 {{count}} 個項目",
+				"summaryFirst": "載入前 {{count}} 個項目",
+				"summaryRange": "載入第 {{from}}-{{to}} 個項目",
+				"dialogTitle": "播放清單範圍",
+				"dialogDescription": "選擇 Arroxy 要求 yt-dlp 為此播放清單載入的內容。",
+				"itemsLabel": "要載入的項目",
+				"appLimit": "使用應用程式上限：{{count}}",
+				"first": "前",
+				"range": "範圍",
+				"to": "至",
+				"invalid": "請使用 1 到 {{max}} 之間的整數項目編號，且起始編號不可大於結束編號。",
+				"applyError": "無法套用該播放清單範圍：{{message}}",
+				"reset": "重設",
+				"cancel": "取消",
+				"apply": "套用",
+				"applyReload": "套用並重新載入",
+				"reloading": "正在重新載入...",
+				"emptyTitle": "該範圍內沒有影片"
+			},
 			"heading": "從 URL 下載",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "設定檔", "settings": "設定"},

@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "読み込まれた各プレイリスト項目を、有効なクイックダウンロードプロファイルでキューに追加します。スキャンが上限に達した場合、キューに追加する前に Arroxy が確認します。"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "プレイリストの範囲",
+				"change": "変更",
+				"summaryAppLimit": "最初の{{count}}件を読み込み",
+				"summaryFirst": "最初の{{count}}件を読み込み",
+				"summaryRange": "項目 {{from}}-{{to}} を読み込み",
+				"dialogTitle": "プレイリストの範囲",
+				"dialogDescription": "このプレイリストでArroxyがyt-dlpに読み込ませる内容を選択します。",
+				"itemsLabel": "読み込む項目",
+				"appLimit": "アプリの上限を使用: {{count}}",
+				"first": "最初",
+				"range": "範囲",
+				"to": "〜",
+				"invalid": "1〜{{max}}の整数を指定してください。開始は終了以下にしてください。",
+				"applyError": "プレイリストの範囲を適用できませんでした: {{message}}",
+				"reset": "リセット",
+				"cancel": "キャンセル",
+				"apply": "適用",
+				"applyReload": "適用して再読み込み",
+				"reloading": "再読み込み中...",
+				"emptyTitle": "この範囲に動画はありません"
+			},
 			"heading": "URL からダウンロード",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "プロファイル", "settings": "設定"},

@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "Huongeza kila kipengee cha orodha ya kucheza kilichopakiwa kwenye foleni kwa wasifu amilifu wa Upakuaji wa haraka. Ukaguzi ukifika kikomo chako, Arroxy itauliza kabla ya kuongeza kwenye foleni."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Wigo wa orodha ya kucheza",
+				"change": "Badilisha",
+				"summaryAppLimit": "Pakia vipande {{count}} vya kwanza",
+				"summaryFirst": "Pakia vipande {{count}} vya kwanza",
+				"summaryRange": "Pakia vipande {{from}}-{{to}}",
+				"dialogTitle": "Wigo wa orodha ya kucheza",
+				"dialogDescription": "Chagua kile ambacho Arroxy inaomba yt-dlp ipakie kwa orodha hii ya kucheza.",
+				"itemsLabel": "Vipande vya kupakia",
+				"appLimit": "Tumia kikomo cha programu: {{count}}",
+				"first": "Za kwanza",
+				"range": "Masafa",
+				"to": "hadi",
+				"invalid": "Tumia nambari kamili za vipande kuanzia 1 hadi {{max}}, ambapo mwanzo si mkubwa kuliko mwisho.",
+				"applyError": "Haikuweza kutekeleza wigo huo wa orodha ya kucheza: {{message}}",
+				"reset": "Weka upya",
+				"cancel": "Ghairi",
+				"apply": "Tekeleza",
+				"applyReload": "Tekeleza na upakie upya",
+				"reloading": "Inapakia upya...",
+				"emptyTitle": "Hakuna video katika wigo huo"
+			},
 			"heading": "Pakua kutoka URL",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "Wasifu", "settings": "Mipangilio"},

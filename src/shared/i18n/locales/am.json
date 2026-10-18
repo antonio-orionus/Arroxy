@@ -149,6 +149,28 @@
 			"quickPlaylistTooltip": "እያንዳንዱን የተጫነ የፕሌይሊስት ንጥል በንቁው ፈጣን ማውረድ ፕሮፋይል ወደ ወረፋ ያክላል። ቅኝቱ ገደብህን ከደረሰ፣ Arroxy ወደ ወረፋ ከማከሉ በፊት ይጠይቃል።"
 		},
 		"url": {
+			"playlistScope": {
+				"label": "የ Playlist ወሰን",
+				"change": "ቀይር",
+				"summaryAppLimit": "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን",
+				"summaryFirst": "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን",
+				"summaryRange": "ንጥሎች {{from}}-{{to}} ጫን",
+				"dialogTitle": "የ Playlist ወሰን",
+				"dialogDescription": "Arroxy ለዚህ Playlist yt-dlp ምን እንዲጭን እንደሚጠይቅ ምረጥ።",
+				"itemsLabel": "የሚጫኑ ንጥሎች",
+				"appLimit": "የመተግበሪያውን ገደብ ተጠቀም፦ {{count}}",
+				"first": "የመጀመሪያ",
+				"range": "ክልል",
+				"to": "እስከ",
+				"invalid": "ከ1 እስከ {{max}} ያሉ ሙሉ ቁጥሮችን ተጠቀም፤ ጅምሩ ከመጨረሻው አይበልጥ።",
+				"applyError": "ያንን የ Playlist ወሰን መተግበር አልተቻለም፦ {{message}}",
+				"reset": "ዳግም አስጀምር",
+				"cancel": "ሰርዝ",
+				"apply": "ተግብር",
+				"applyReload": "ተግብር እና ዳግም ጫን",
+				"reloading": "ዳግም እየተጫነ ነው...",
+				"emptyTitle": "በዚህ ወሰን ውስጥ ምንም ቪዲዮ የለም"
+			},
 			"heading": "ከURL አውርድ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"tabs": {"profiles": "መገለጫዎች", "settings": "ቅንብሮች"},

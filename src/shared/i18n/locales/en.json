@@ -149,6 +149,28 @@
 			"quickPlaylistTooltip": "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "Playlist scope",
+				"change": "Change",
+				"summaryAppLimit": "Load first {{count}} items",
+				"summaryFirst": "Load first {{count}} items",
+				"summaryRange": "Load items {{from}}-{{to}}",
+				"dialogTitle": "Playlist scope",
+				"dialogDescription": "Choose what Arroxy asks yt-dlp to load for this playlist.",
+				"itemsLabel": "Items to load",
+				"appLimit": "Use app limit: {{count}}",
+				"first": "First",
+				"range": "Range",
+				"to": "to",
+				"invalid": "Use whole item numbers from 1 to {{max}}, with the start no higher than the end.",
+				"applyError": "Could not apply that playlist scope: {{message}}",
+				"reset": "Reset",
+				"cancel": "Cancel",
+				"apply": "Apply",
+				"applyReload": "Apply and reload",
+				"reloading": "Reloading...",
+				"emptyTitle": "No videos in that scope"
+			},
 			"heading": "Download from URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "Profiles", "settings": "Settings"},

@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "معادل --playlist-end در yt-dlp است: Arroxy هنگام ساخت انتخابگر فقط همین تعداد مورد از فهرست پخش، کانال یا جستجو درخواست می‌کند."
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "استفاده از محدودیت برنامه: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "اعمال"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "اعمال این محدوده فهرست پخش ممکن نشد: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "اعمال و بارگیری مجدد"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "لغو"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "تغییر"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "مشخص کنید Arroxy از yt-dlp بخواهد چه چیزی از این فهرست پخش بارگیری کند."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "محدوده فهرست پخش"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "هیچ ویدیویی در این محدوده نیست"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "نخست"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "از اعداد صحیح 1 تا {{max}} استفاده کنید و شروع از پایان بزرگ‌تر نباشد."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "موارد برای بارگیری"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "محدوده فهرست پخش"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "بازه"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "در حال بارگیری مجدد..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "بازنشانی"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "بارگیری {{count}} مورد نخست"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "بارگیری {{count}} مورد نخست"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "بارگیری موارد {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "تا"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "نمایهٔ فعال"

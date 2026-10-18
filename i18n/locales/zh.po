@@ -4093,6 +4093,86 @@ msgctxt "wizard.url.playlistProbeLimit.tooltip"
 msgid "Maps to yt-dlp --playlist-end: Arroxy only asks for this many playlist, channel, or search entries while building the picker."
 msgstr "对应 yt-dlp 的 --playlist-end 参数：Arroxy 在构建选择器时仅请求这么多播放列表、频道或搜索条目。"
 
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "使用应用上限：{{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "应用"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "无法应用该播放列表范围：{{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "应用并重新加载"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "取消"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "更改"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy asks yt-dlp to load for this playlist."
+msgstr "选择 Arroxy 要求 yt-dlp 为此播放列表加载的内容。"
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "播放列表范围"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "该范围内没有视频"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "前"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "请使用 1 到 {{max}} 之间的整数项目编号，且起始编号不能大于结束编号。"
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "要加载的项目"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "播放列表范围"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "范围"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "正在重新加载..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "重置"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first {{count}} items"
+msgstr "加载前 {{count}} 个项目"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first {{count}} items"
+msgstr "加载前 {{count}} 个项目"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "加载第 {{from}}-{{to}} 个项目"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "至"
+
 msgctxt "wizard.url.profile.activeLabel"
 msgid "Active profile"
 msgstr "活动配置文件"

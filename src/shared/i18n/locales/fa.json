@@ -158,6 +158,28 @@
 			"quickPlaylistTooltip": "همهٔ موارد بارگیری‌شدهٔ فهرست پخش را با نمایهٔ فعال «دانلود سریع» به صف می‌افزاید. اگر بررسی به سقف برسد، Arroxy پیش از افزودن سؤال می‌کند."
 		},
 		"url": {
+			"playlistScope": {
+				"label": "محدوده فهرست پخش",
+				"change": "تغییر",
+				"summaryAppLimit": "بارگیری {{count}} مورد نخست",
+				"summaryFirst": "بارگیری {{count}} مورد نخست",
+				"summaryRange": "بارگیری موارد {{from}}-{{to}}",
+				"dialogTitle": "محدوده فهرست پخش",
+				"dialogDescription": "مشخص کنید Arroxy از yt-dlp بخواهد چه چیزی از این فهرست پخش بارگیری کند.",
+				"itemsLabel": "موارد برای بارگیری",
+				"appLimit": "استفاده از محدودیت برنامه: {{count}}",
+				"first": "نخست",
+				"range": "بازه",
+				"to": "تا",
+				"invalid": "از اعداد صحیح 1 تا {{max}} استفاده کنید و شروع از پایان بزرگ‌تر نباشد.",
+				"applyError": "اعمال این محدوده فهرست پخش ممکن نشد: {{message}}",
+				"reset": "بازنشانی",
+				"cancel": "لغو",
+				"apply": "اعمال",
+				"applyReload": "اعمال و بارگیری مجدد",
+				"reloading": "در حال بارگیری مجدد...",
+				"emptyTitle": "هیچ ویدیویی در این محدوده نیست"
+			},
 			"heading": "دانلود از URL",
 			"placeholder": "https://...",
 			"tabs": {"profiles": "نمایه‌ها", "settings": "تنظیمات"},
