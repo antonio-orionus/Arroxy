@@ -245,7 +245,7 @@ msgstr "설정에서 프록시를 확인한 다음 다시 시도하세요."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore가 프록시를 통해 연결할 수 없습니다"
+msgstr "탐색에서 프록시를 통해 연결할 수 없습니다"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Arroxy에서 바로 YouTube 둘러보기"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "다운로드에는 Explore 로그인이 아니라 브라우저의 쿠키가 사용됩니다."
+msgstr "다운로드에는 탐색 로그인이 아니라 브라우저의 쿠키가 사용됩니다."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "다운로드에는 Explore 로그인이 아니라 쿠키 파일이 사용됩니다."
+msgstr "다운로드에는 탐색 로그인이 아니라 쿠키 파일이 사용됩니다."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "나중에"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "쿠키가 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다."
+msgstr "쿠키가 꺼져 있어 다운로드에 탐색 로그인이 사용되지 않습니다."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore 로그인 사용"
+msgstr "탐색 로그인 사용"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Arroxy에서 YouTube를 둘러보고 계정이 필요한 동영상을 �
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore 탭 표시"
+msgstr "탐색 탭 표시"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "끄면 다운로드에도 Explore 로그인이 사용되지 않습니다."
+msgstr "끄면 다운로드에도 탐색 로그인이 사용되지 않습니다."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore에서 로그아웃"
+msgstr "탐색에서 로그아웃"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "로그아웃"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Explore의 YouTube 로그인 정보와 탐색 데이터가 삭제됩니다. 계정이 필요한 다운로드는 다시 로그인할 때까지 실패합니다."
+msgstr "탐색의 YouTube 로그인 정보와 방문 기록이 삭제됩니다. 계정이 필요한 다운로드는 다시 로그인할 때까지 실패합니다."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore에서 로그아웃할까요?"
+msgstr "탐색에서 로그아웃할까요?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore의 YouTube 로그인 정보와 탐색 데이터를 삭제합니다."
+msgstr "탐색의 YouTube 로그인 정보와 방문 기록을 삭제합니다."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "탐색"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "탐색"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -425,11 +425,11 @@ msgstr "이 링크 다운로드"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore는 YouTube만 탐색합니다."
+msgstr "탐색에서는 YouTube만 열 수 있습니다."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore는 YouTube만 탐색합니다. {{host}}"
+msgstr "탐색에서는 YouTube만 열 수 있습니다. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "언어"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore로 로그인함 — 링크 1개 다시 시도 중"
+msgstr "탐색으로 로그인함 — 링크 1개 다시 시도 중"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore로 로그인함 — 링크 {{count}}개 다시 시도 중"
+msgstr "탐색으로 로그인함 — 링크 {{count}}개 다시 시도 중"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore에서 로그아웃하지 못했습니다. 다시 시도하세요."
+msgstr "탐색에서 로그아웃하지 못했습니다. 다시 시도하세요."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "메타데이터 삽입 중…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore에서 로그아웃됨 — 다시 로그인하세요"
+msgstr "탐색에서 로그아웃됨 — 다시 로그인하세요"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "연결이 멈춰 재시도 중({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Explore 계정으로 로그인하는 중…"
+msgstr "탐색 계정으로 로그인하는 중…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "브라우저"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore 로그인"
+msgstr "탐색 로그인"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "쿠키 파일이 비었거나 만료되었거나 형식이 잘못되었�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore로 로그인하면 Arroxy가 다시 시도합니다."
+msgstr "탐색으로 로그인하면 Arroxy가 다시 시도합니다."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore로 로그인"
+msgstr "탐색으로 로그인"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "이 동영상에는 YouTube 계정이 필요할 수 있습니다"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Explore에 로그인되어 있지만 지금은 다운로드에서 그 로그인을 사용하지 않고 있습니다."
+msgstr "탐색에 로그인되어 있지만 지금은 다운로드에서 그 로그인을 사용하지 않고 있습니다."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "내 Explore 로그인으로 다시 시도"
+msgstr "내 탐색 로그인으로 다시 시도"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "이 동영상에는 YouTube 계정이 필요할 수 있습니다"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "이 동영상에 계정이 필요하면 Arroxy가 Explore 로그인을 자동으로 사용합니다. 다른 이유로 사용할 수 없는 것일 수도 있습니다."
+msgstr "이 동영상에 계정이 필요하면 Arroxy가 탐색 로그인을 자동으로 사용합니다. 다른 이유로 사용할 수 없는 것일 수도 있습니다."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore에 로그인됨"
+msgstr "탐색에 로그인됨"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "이 동영상에 YouTube 계정이 필요하면 Explore에서 로그인한 다음 다시 시도하세요. Arroxy는 다운로드에 필요할 때만 그 로그인을 사용합니다."
+msgstr "이 동영상에 YouTube 계정이 필요하면 탐색에서 로그인한 다음 다시 시도하세요. Arroxy는 다운로드에 필요할 때만 그 로그인을 사용합니다."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore에서 로그인"
+msgstr "탐색에서 로그인"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "쿠키 파일 선택"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "다운로드에 필요할 때만 Explore 로그인을 사용합니다."
+msgstr "다운로드에 필요할 때만 탐색 로그인을 사용합니다."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore 탭이 꺼져 있어 다운로드에 Explore 로그인이 사용되지 않습니다. 아래 Explore에서 켜세요."
+msgstr "탐색 탭이 꺼져 있어 다운로드에 탐색 로그인이 사용되지 않습니다. 아래 탐색 섹션에서 켜세요."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "쿠키를 내보내는 방법"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore 열기"
+msgstr "탐색 열기"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "브라우저"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore 로그인"
+msgstr "탐색 로그인"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

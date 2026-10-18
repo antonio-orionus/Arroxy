@@ -245,7 +245,7 @@ msgstr "Ayarlar'daki proxy'yi kontrol et, sonra tekrar dene."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore, proxy'n üzerinden bağlanamıyor"
+msgstr "Keşfet, proxy'n üzerinden bağlanamıyor"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "YouTube'a doğrudan Arroxy içinde göz at"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "İndirmeler Explore oturumunu değil, tarayıcının çerezlerini kullanır."
+msgstr "İndirmeler Keşfet oturumunu değil, tarayıcının çerezlerini kullanır."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "İndirmeler Explore oturumunu değil, çerez dosyanı kullanır."
+msgstr "İndirmeler Keşfet oturumunu değil, çerez dosyanı kullanır."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "Şimdi değil"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Çerezler kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz."
+msgstr "Çerezler kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore oturumunu kullan"
+msgstr "Keşfet oturumunu kullan"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "YouTube'a Arroxy içinde göz at ve hesap gerektiren videolar için otur
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore sekmesini göster"
+msgstr "Keşfet sekmesini göster"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Kapatmak, indirmelerin Explore oturumunu kullanmasını da durdurur."
+msgstr "Kapatmak, indirmelerin Keşfet oturumunu kullanmasını da durdurur."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore'dan çıkış yap"
+msgstr "Keşfet'ten çıkış yap"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "Çıkış yap"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Bu, Explore'daki YouTube oturumunu ve gezinme verilerini temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur."
+msgstr "Bu, Keşfet'teki YouTube oturumunu ve gezinme verilerini temizler. Hesap gerektiren indirmeler, yeniden oturum açana kadar başarısız olur."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore'dan çıkış yapılsın mı?"
+msgstr "Keşfet'ten çıkış yapılsın mı?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore'daki YouTube oturumunu ve gezinme verilerini temizler."
+msgstr "Keşfet'teki YouTube oturumunu ve gezinme verilerini temizler."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Keşfet"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Keşfet"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "YouTube'da ara veya YouTube bağlantısı yapıştır"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore tarayıcı denetimleri"
+msgstr "Keşfet tarayıcı denetimleri"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "Bu bağlantıyı indir"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore yalnızca YouTube'a göz atar."
+msgstr "Keşfet'te yalnızca YouTube'a göz atılabilir."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore yalnızca YouTube'a göz atar. {{host}}"
+msgstr "Keşfet'te yalnızca YouTube'a göz atılabilir. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "Dil"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore ile oturum açıldı — 1 bağlantı yeniden deneniyor"
+msgstr "Keşfet ile oturum açıldı — 1 bağlantı yeniden deneniyor"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore ile oturum açıldı — {{count}} bağlantı yeniden deneniyor"
+msgstr "Keşfet ile oturum açıldı — {{count}} bağlantı yeniden deneniyor"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore'dan çıkış yapılamadı. Tekrar dene."
+msgstr "Keşfet'ten çıkış yapılamadı. Tekrar dene."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "Meta veriler gömülüyor…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore oturumu kapandı — yeniden oturum aç"
+msgstr "Keşfet oturumu kapandı — yeniden oturum aç"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "Bağlantı takıldı, yeniden deneniyor ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Explore hesabınla oturum açılıyor…"
+msgstr "Keşfet hesabınla oturum açılıyor…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "Tarayıcı"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore oturumu"
+msgstr "Keşfet oturumu"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Çerez dosyan boş, süresi dolmuş veya yanlış biçimde olabilir (yt-
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore'da oturum aç, Arroxy yeniden denesin."
+msgstr "Keşfet'te oturum aç, Arroxy yeniden denesin."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore'da oturum aç"
+msgstr "Keşfet'te oturum aç"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "Bu video bir YouTube hesabı gerektirebilir"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Explore'da oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor."
+msgstr "Keşfet'te oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Explore oturumumu kullan ve yeniden dene"
+msgstr "Keşfet oturumumu kullan ve yeniden dene"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "Bu video bir YouTube hesabı gerektirebilir"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Bu video hesap gerektiriyorsa Arroxy, Explore oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir."
+msgstr "Bu video hesap gerektiriyorsa Arroxy, Keşfet oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore'da oturum açıldı"
+msgstr "Keşfet'te oturum açıldı"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Bu video bir YouTube hesabı gerektiriyorsa Explore'da oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır."
+msgstr "Bu video bir YouTube hesabı gerektiriyorsa Keşfet'te oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore'da oturum aç"
+msgstr "Keşfet'te oturum aç"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Çerezleri kullanmak için bir dosya seç"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Explore oturumunu yalnızca bir indirme gerektirdiğinde kullanır."
+msgstr "Keşfet oturumunu yalnızca bir indirme gerektirdiğinde kullanır."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore sekmesi kapalı, bu yüzden indirmeler Explore oturumunu kullanmaz. Aşağıdaki Explore bölümünden aç."
+msgstr "Keşfet sekmesi kapalı, bu yüzden indirmeler Keşfet oturumunu kullanmaz. Aşağıdaki Keşfet bölümünden aç."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Çerezleri nasıl dışa aktarırım?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore'u aç"
+msgstr "Keşfet'i aç"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "Tarayıcı"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore oturumu"
+msgstr "Keşfet oturumu"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

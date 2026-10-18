@@ -245,7 +245,7 @@ msgstr "Проверь прокси в настройках и повтори п
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore не может подключиться через твой прокси"
+msgstr "Обзор не может подключиться через твой прокси"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Просматривай YouTube прямо в Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Для загрузок используются cookies твоего браузера, а не вход через Explore."
+msgstr "Для загрузок используются cookies твоего браузера, а не вход через Обзор."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Для загрузок используется твой файл cookies, а не вход через Explore."
+msgstr "Для загрузок используется твой файл cookies, а не вход через Обзор."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "Не сейчас"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies отключены, поэтому загрузки не используют вход через Explore."
+msgstr "Cookies отключены, поэтому загрузки не используют вход через Обзор."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Использовать вход через Explore"
+msgstr "Использовать вход через Обзор"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Просматривай YouTube в Arroxy и входи, чтобы с�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Показывать вкладку Explore"
+msgstr "Показывать вкладку «Обзор»"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Если отключить, загрузки тоже перестанут использовать вход через Explore."
+msgstr "Если отключить, загрузки тоже перестанут использовать вход через Обзор."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Выйти из Explore"
+msgstr "Выйти из аккаунта в Обзоре"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "Выйти"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Это удалит твой вход в YouTube и данные просмотров в Explore. Загрузки, для которых нужен аккаунт, будут завершаться ошибкой, пока ты снова не войдёшь."
+msgstr "Это удалит твой вход в YouTube и данные просмотров в Обзоре. Загрузки, для которых нужен аккаунт, будут завершаться ошибкой, пока ты снова не войдёшь."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Выйти из Explore?"
+msgstr "Выйти из аккаунта в Обзоре?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Удаляет твой вход в YouTube и данные просмотров в Explore."
+msgstr "Удаляет твой вход в YouTube и данные просмотров в Обзоре."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Обзор"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Обзор"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "Искать на YouTube или вставить ссылку YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Элементы управления браузера Explore"
+msgstr "Элементы управления браузером в Обзоре"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "Скачать эту ссылку"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore открывает только YouTube."
+msgstr "Обзор открывает только YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore открывает только YouTube. {{host}}"
+msgstr "Обзор открывает только YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "Язык"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Вход через Explore выполнен — повторяем 1 ссылку"
+msgstr "Вход через Обзор выполнен — повторяем 1 ссылку"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Вход через Explore выполнен — повторяем ссылки: {{count}}"
+msgstr "Вход через Обзор выполнен — повторяем ссылки: {{count}}"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Не удалось выйти из Explore. Повтори попытку."
+msgstr "Не удалось выйти из аккаунта в Обзоре. Повтори попытку."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "Встраивание метаданных…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Выполнен выход из Explore — войди снова"
+msgstr "Выполнен выход из аккаунта в Обзоре — войди снова"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "Соединение зависло, повтор ({{attempt}}/{{total}}
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Вход через твой аккаунт Explore…"
+msgstr "Вход через твой аккаунт в Обзоре…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "Браузер"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Вход в Explore"
+msgstr "Вход через Обзор"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Файл cookies может быть пустым, устаревшим 
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Войди через Explore, и Arroxy повторит попытку."
+msgstr "Войди через Обзор, и Arroxy повторит попытку."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Войти через Explore"
+msgstr "Войти через Обзор"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "Для этого видео может понадобиться акк�
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Вход в Explore выполнен, но сейчас загрузки не используют этот вход."
+msgstr "Вход в Обзоре выполнен, но сейчас загрузки не используют этот вход."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Использовать вход в Explore и повторить"
+msgstr "Использовать вход через Обзор и повторить"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "Для этого видео может понадобиться акк�
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Если для этого видео нужен аккаунт, Arroxy автоматически использует твой вход через Explore. Возможно, оно недоступно по другой причине."
+msgstr "Если для этого видео нужен аккаунт, Arroxy автоматически использует твой вход через Обзор. Возможно, оно недоступно по другой причине."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Вход в Explore выполнен"
+msgstr "Вход в Обзоре выполнен"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Если для этого видео нужен аккаунт YouTube, войди в Explore и повтори попытку. Arroxy использует этот вход, только когда он нужен для загрузки."
+msgstr "Если для этого видео нужен аккаунт YouTube, войди в Обзоре и повтори попытку. Arroxy использует этот вход, только когда он нужен для загрузки."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Войти в Explore"
+msgstr "Войти в Обзоре"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Выбери файл, чтобы использовать cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Использует твой вход через Explore, только когда он нужен для загрузки."
+msgstr "Использует твой вход через Обзор, только когда он нужен для загрузки."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Вкладка Explore отключена, поэтому загрузки не используют вход через Explore. Включи её в разделе Explore ниже."
+msgstr "Вкладка «Обзор» отключена, поэтому загрузки не используют вход через Обзор. Включи её в разделе «Обзор» ниже."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Как экспортировать cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Открыть Explore"
+msgstr "Открыть Обзор"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "Браузер"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Вход в Explore"
+msgstr "Вход через Обзор"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

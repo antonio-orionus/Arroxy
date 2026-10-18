@@ -245,7 +245,7 @@ msgstr "Sprawdź proxy w Ustawieniach, a potem spróbuj ponownie."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore nie może połączyć się przez twój serwer proxy"
+msgstr "Karta Odkrywaj nie może połączyć się przez twój serwer proxy"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Przeglądaj YouTube prosto w Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Pobieranie używa plików cookie z twojej przeglądarki, a nie logowania w Explore."
+msgstr "Pobieranie używa plików cookie z twojej przeglądarki, a nie logowania z karty Odkrywaj."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Pobieranie używa twojego pliku cookie, a nie logowania w Explore."
+msgstr "Pobieranie używa twojego pliku cookie, a nie logowania z karty Odkrywaj."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "Nie teraz"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Pliki cookie są wyłączone, więc pobieranie nie używa logowania w Explore."
+msgstr "Pliki cookie są wyłączone, więc pobieranie nie używa logowania z karty Odkrywaj."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Użyj logowania w Explore"
+msgstr "Użyj logowania z karty Odkrywaj"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Przeglądaj YouTube w Arroxy i zaloguj się, aby pobierać filmy wymagaj
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Pokaż kartę Explore"
+msgstr "Pokaż kartę Odkrywaj"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania w Explore."
+msgstr "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania z karty Odkrywaj."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Wyloguj się z Explore"
+msgstr "Wyloguj się z karty Odkrywaj"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "Wyloguj"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "To usuwa logowanie do YouTube i dane przeglądania w Explore. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie."
+msgstr "To usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Wylogować się z Explore?"
+msgstr "Wylogować się z karty Odkrywaj?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Usuwa logowanie do YouTube i dane przeglądania w Explore."
+msgstr "Usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Odkrywaj"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Odkrywaj"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "Szukaj w YouTube lub wklej link do YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Elementy sterujące przeglądarki Explore"
+msgstr "Elementy sterujące przeglądarki w karcie Odkrywaj"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "Pobierz ten link"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore przegląda tylko YouTube."
+msgstr "Karta Odkrywaj przegląda tylko YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore przegląda tylko YouTube. {{host}}"
+msgstr "Karta Odkrywaj przegląda tylko YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "Język"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Zalogowano w Explore — ponawiam 1 link"
+msgstr "Zalogowano w karcie Odkrywaj — ponawiam 1 link"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Zalogowano w Explore — ponawiam linki: {{count}}"
+msgstr "Zalogowano w karcie Odkrywaj — ponawiam linki: {{count}}"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Nie udało się wylogować z Explore. Spróbuj ponownie."
+msgstr "Nie udało się wylogować z karty Odkrywaj. Spróbuj ponownie."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "Osadzanie metadanych…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Wylogowano z Explore — zaloguj się ponownie"
+msgstr "Wylogowano z karty Odkrywaj — zaloguj się ponownie"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "Połączenie utknęło, ponawianie ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Logowanie przez twoje konto Explore…"
+msgstr "Logowanie przez twoje konto z karty Odkrywaj…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "Przeglądarka"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Logowanie Explore"
+msgstr "Logowanie z karty Odkrywaj"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Plik cookie może być pusty, wygasły lub mieć niewłaściwy format (y
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Zaloguj się w Explore, a Arroxy spróbuje ponownie."
+msgstr "Zaloguj się w karcie Odkrywaj, a Arroxy spróbuje ponownie."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Zaloguj się w Explore"
+msgstr "Zaloguj się w karcie Odkrywaj"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "Ten film może wymagać konta YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Jesteś zalogowany w Explore, ale pobieranie obecnie nie korzysta z tego logowania."
+msgstr "Jesteś zalogowany w karcie Odkrywaj, ale pobieranie obecnie nie korzysta z tego logowania."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Użyj mojego logowania w Explore i spróbuj ponownie"
+msgstr "Użyj mojego logowania z karty Odkrywaj i spróbuj ponownie"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "Ten film może wymagać konta YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Jeśli ten film wymaga konta, Arroxy automatycznie użyje logowania w Explore. Może być niedostępne z innego powodu."
+msgstr "Jeśli ten film wymaga konta, Arroxy automatycznie użyje logowania z karty Odkrywaj. Może być niedostępne z innego powodu."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Zalogowano w Explore"
+msgstr "Zalogowano w karcie Odkrywaj"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Jeśli ten film wymaga konta YouTube, zaloguj się w Explore i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje."
+msgstr "Jeśli ten film wymaga konta YouTube, zaloguj się w karcie Odkrywaj i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Zaloguj się w Explore"
+msgstr "Zaloguj się w karcie Odkrywaj"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Wybierz plik z plikami cookie"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Używa logowania w Explore tylko wtedy, gdy pobieranie go potrzebuje."
+msgstr "Używa logowania z karty Odkrywaj tylko wtedy, gdy pobieranie go potrzebuje."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Karta Explore jest wyłączona, więc pobieranie nie używa logowania w Explore. Włącz ją poniżej w sekcji Explore."
+msgstr "Karta Odkrywaj jest wyłączona, więc pobieranie nie używa logowania z tej karty. Włącz ją poniżej w sekcji Odkrywaj."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Jak wyeksportować pliki cookie?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Otwórz Explore"
+msgstr "Otwórz kartę Odkrywaj"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "Przeglądarka"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Logowanie Explore"
+msgstr "Logowanie z karty Odkrywaj"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

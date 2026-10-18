@@ -245,7 +245,7 @@ msgstr "সেটিংসে প্রক্সি পরীক্ষা কর
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore আপনার প্রক্সির মাধ্যমে সংযোগ করতে পারছে না"
+msgstr "অন্বেষণ আপনার প্রক্সির মাধ্যমে সংযোগ করতে পারছে না"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Arroxy-এর ভেতরেই YouTube ব্রাউজ করুন
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ডাউনলোডে আপনার ব্রাউজারের কুকিজ ব্যবহার হয়, Explore সাইন-ইন নয়।"
+msgstr "ডাউনলোডে আপনার ব্রাউজারের কুকিজ ব্যবহার হয়, অন্বেষণের সাইন-ইন নয়।"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ডাউনলোডে আপনার কুকিজ ফাইল ব্যবহার হয়, Explore সাইন-ইন নয়।"
+msgstr "ডাউনলোডে আপনার কুকিজ ফাইল ব্যবহার হয়, অন্বেষণের সাইন-ইন নয়।"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "এখন নয়"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "কুকিজ বন্ধ আছে, তাই ডাউনলোডে আপনার Explore সাইন-ইন ব্যবহার হয় না।"
+msgstr "কুকিজ বন্ধ আছে, তাই ডাউনলোডে আপনার অন্বেষণের সাইন-ইন ব্যবহার হয় না।"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore সাইন-ইন ব্যবহার করুন"
+msgstr "অন্বেষণের সাইন-ইন ব্যবহার করুন"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Arroxy-এর ভেতরে YouTube ব্রাউজ করুন �
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore ট্যাব দেখান"
+msgstr "অন্বেষণ ট্যাব দেখান"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "এটি বন্ধ করলে ডাউনলোডেও আপনার Explore সাইন-ইন ব্যবহার হওয়া বন্ধ হয়।"
+msgstr "এটি বন্ধ করলে ডাউনলোডেও আপনার অন্বেষণের সাইন-ইন ব্যবহার হওয়া বন্ধ হয়।"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore থেকে সাইন আউট করুন"
+msgstr "অন্বেষণ থেকে সাইন আউট করুন"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "সাইন আউট"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "এতে Explore-এ আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে যাবে। আবার সাইন ইন না করা পর্যন্ত অ্যাকাউন্ট প্রয়োজন এমন ডাউনলোড ব্যর্থ হবে।"
+msgstr "এতে অন্বেষণে আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে যাবে। আবার সাইন ইন না করা পর্যন্ত অ্যাকাউন্ট প্রয়োজন এমন ডাউনলোড ব্যর্থ হবে।"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore থেকে সাইন আউট করবেন?"
+msgstr "অন্বেষণ থেকে সাইন আউট করবেন?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore-এ আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে দেয়।"
+msgstr "অন্বেষণে আপনার YouTube সাইন-ইন ও ব্রাউজিং ডেটা মুছে দেয়।"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "অন্বেষণ"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "অন্বেষণ"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "YouTube-এ খুঁজুন বা YouTube লিংক পেস্�
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore ব্রাউজার নিয়ন্ত্রণ"
+msgstr "অন্বেষণ ব্রাউজার নিয়ন্ত্রণ"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "এই লিংক ডাউনলোড করুন"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore শুধু YouTube ব্রাউজ করে।"
+msgstr "অন্বেষণ শুধু YouTube ব্রাউজ করে।"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore শুধু YouTube ব্রাউজ করে। {{host}}"
+msgstr "অন্বেষণ শুধু YouTube ব্রাউজ করে। {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "ভাষা"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore দিয়ে সাইন ইন হয়েছে — 1টি লিংক আবার চেষ্টা হচ্ছে"
+msgstr "অন্বেষণ দিয়ে সাইন ইন হয়েছে — 1টি লিংক আবার চেষ্টা হচ্ছে"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore দিয়ে সাইন ইন হয়েছে — {{count}}টি লিংক আবার চেষ্টা হচ্ছে"
+msgstr "অন্বেষণ দিয়ে সাইন ইন হয়েছে — {{count}}টি লিংক আবার চেষ্টা হচ্ছে"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।"
+msgstr "অন্বেষণ থেকে সাইন আউট করা যায়নি। আবার চেষ্টা করুন।"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "মেটাডেটা যুক্ত হচ্ছে…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore থেকে সাইন আউট হয়ে গেছে — আবার সাইন ইন করুন"
+msgstr "অন্বেষণ থেকে সাইন আউট হয়ে গেছে — আবার সাইন ইন করুন"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "সংযোগ আটকে গেছে, আবার চেষ্ট�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "আপনার Explore অ্যাকাউন্ট দিয়ে সাইন ইন করা হচ্ছে…"
+msgstr "অন্বেষণে আপনার অ্যাকাউন্ট দিয়ে সাইন ইন করা হচ্ছে…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "ব্রাউজার"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore সাইন-ইন"
+msgstr "অন্বেষণের সাইন-ইন"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "আপনার কুকিজ ফাইলটি খালি, মে�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore দিয়ে সাইন ইন করুন, Arroxy আবার চেষ্টা করবে।"
+msgstr "অন্বেষণ দিয়ে সাইন ইন করুন, Arroxy আবার চেষ্টা করবে।"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore দিয়ে সাইন ইন করুন"
+msgstr "অন্বেষণ দিয়ে সাইন ইন করুন"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন�
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "আপনি Explore-এ সাইন ইন করা আছেন, কিন্তু ডাউনলোড এখন সেই সাইন-ইন ব্যবহার করছে না।"
+msgstr "আপনি অন্বেষণে সাইন ইন করা আছেন, কিন্তু ডাউনলোড এখন সেই সাইন-ইন ব্যবহার করছে না।"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "আমার Explore সাইন-ইন ব্যবহার করে আবার চেষ্টা করুন"
+msgstr "আমার অন্বেষণের সাইন-ইন ব্যবহার করে আবার চেষ্টা করুন"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন�
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "এই ভিডিওর জন্য অ্যাকাউন্ট প্রয়োজন হলে Arroxy স্বয়ংক্রিয়ভাবে আপনার Explore সাইন-ইন ব্যবহার করে। অন্য কোনো কারণেও এটি অনুপলব্ধ হতে পারে।"
+msgstr "এই ভিডিওর জন্য অ্যাকাউন্ট প্রয়োজন হলে Arroxy স্বয়ংক্রিয়ভাবে আপনার অন্বেষণের সাইন-ইন ব্যবহার করে। অন্য কোনো কারণেও এটি অনুপলব্ধ হতে পারে।"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore-এ সাইন ইন করা আছে"
+msgstr "অন্বেষণে সাইন ইন করা আছে"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট প্রয়োজন হলে Explore-এ সাইন ইন করে আবার চেষ্টা করুন। ডাউনলোডের প্রয়োজন হলেই Arroxy সেই সাইন-ইন ব্যবহার করে।"
+msgstr "এই ভিডিওর জন্য YouTube অ্যাকাউন্ট প্রয়োজন হলে অন্বেষণে সাইন ইন করে আবার চেষ্টা করুন। ডাউনলোডের প্রয়োজন হলেই Arroxy সেই সাইন-ইন ব্যবহার করে।"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore-এ সাইন ইন করুন"
+msgstr "অন্বেষণে সাইন ইন করুন"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "কুকিজ ব্যবহার করতে একটি ফা�
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "ডাউনলোডের প্রয়োজন হলেই Explore সাইন-ইন ব্যবহার করে।"
+msgstr "ডাউনলোডের প্রয়োজন হলেই অন্বেষণের সাইন-ইন ব্যবহার করে।"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore ট্যাব বন্ধ আছে, তাই ডাউনলোডে আপনার Explore সাইন-ইন ব্যবহার হয় না। নিচে Explore-এ এটি চালু করুন।"
+msgstr "অন্বেষণ ট্যাব বন্ধ আছে, তাই ডাউনলোডে আপনার অন্বেষণের সাইন-ইন ব্যবহার হয় না। নিচে অন্বেষণ অংশে এটি চালু করুন।"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "কুকিজ এক্সপোর্ট করব কীভাবে
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore খুলুন"
+msgstr "অন্বেষণ খুলুন"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "ব্রাউজার"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore সাইন-ইন"
+msgstr "অন্বেষণের সাইন-ইন"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

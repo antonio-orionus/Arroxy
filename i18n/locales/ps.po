@@ -245,7 +245,7 @@ msgstr "په امستنو کې پراکسي وګورئ، ورپسې بیا هڅ�
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore ستاسو د پراکسي له لارې نه شي نښلېدای"
+msgstr "سپړنه ستاسو د پراکسي له لارې نه شي نښلېدای"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "YouTube د Arroxy دننه وګورئ"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ښکته کول ستاسو د براوزر کوکیز کاروي، نه ستاسو د Explore ننوتل."
+msgstr "ښکته کول ستاسو د براوزر کوکیز کاروي، نه ستاسو د سپړنې ننوتل."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ښکته کول ستاسو د کوکیز فایل کاروي، نه ستاسو د Explore ننوتل."
+msgstr "ښکته کول ستاسو د کوکیز فایل کاروي، نه ستاسو د سپړنې ننوتل."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "اوس نه"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "کوکیز بند دي، نو ښکته کول ستاسو د Explore ننوتل نه کاروي."
+msgstr "کوکیز بند دي، نو ښکته کول ستاسو د سپړنې ننوتل نه کاروي."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "د Explore ننوتل وکاروئ"
+msgstr "د سپړنې ننوتل وکاروئ"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "YouTube د Arroxy دننه وګورئ او هغو ویډیوګانو ل�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "د Explore ټب ښکاره کړئ"
+msgstr "د سپړنې ټب ښکاره کړئ"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "که یې بند کړئ، ښکته کول به هم ستاسو د Explore ننوتل ونه کاروي."
+msgstr "که یې بند کړئ، ښکته کول به هم ستاسو د سپړنې ننوتل ونه کاروي."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "له Explore څخه وتل"
+msgstr "له سپړنې څخه وتل"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "وتل"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "دا په Explore کې ستاسو د YouTube ننوتل او د کتلو معلومات پاکوي. هغه ښکته کول چې حساب غواړي به تر بیا ننوتلو ناکام وي."
+msgstr "دا په سپړنه کې ستاسو د YouTube ننوتل او د کتلو معلومات پاکوي. هغه ښکته کول چې حساب غواړي به تر بیا ننوتلو ناکام وي."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "له Explore څخه وځئ؟"
+msgstr "له سپړنې څخه وځئ؟"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "په Explore کې ستاسو د YouTube ننوتل او د کتلو معلومات پاکوي."
+msgstr "په سپړنه کې ستاسو د YouTube ننوتل او د کتلو معلومات پاکوي."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "سپړنه"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "سپړنه"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "په YouTube کې لټون وکړئ یا د YouTube لینک پیسټ ک
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "د Explore د براوزر کنټرولونه"
+msgstr "د سپړنې د براوزر کنټرولونه"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "دا لینک ډاونلوډ کړئ"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore یوازې YouTube ګوري."
+msgstr "سپړنه یوازې YouTube ګوري."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore یوازې YouTube ګوري. {{host}}"
+msgstr "سپړنه یوازې YouTube ګوري. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "ژبه"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "د Explore له لارې ننوتل بریالی شو — 1 لینک بیا هڅول کېږي"
+msgstr "د سپړنې له لارې ننوتل بریالی شو — 1 لینک بیا هڅول کېږي"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "د Explore له لارې ننوتل بریالی شو — {{count}} لینکونه بیا هڅول کېږي"
+msgstr "د سپړنې له لارې ننوتل بریالی شو — {{count}} لینکونه بیا هڅول کېږي"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "له Explore څخه نه شوای وتلی. بیا هڅه وکړئ."
+msgstr "له سپړنې څخه نه شوای وتلی. بیا هڅه وکړئ."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "میټاډیټا ځای پر ځای کیږي…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "له Explore څخه وتلي یاست — بیا ننوځئ"
+msgstr "له سپړنې څخه وتلي یاست — بیا ننوځئ"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "اړیکه بنده شوه، بیا هڅه کیږي ({{attempt}}/{{total
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "ستاسو د Explore حساب سره ننوتل روان دي…"
+msgstr "ستاسو د سپړنې حساب سره ننوتل روان دي…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "براوزر"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "د Explore ننوتل"
+msgstr "د سپړنې ننوتل"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "ستاسو د کوکیزو فایل ممکن خالي، پخوانی، �
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "د Explore په مرسته ننوځئ او Arroxy به بیا هڅه وکړي."
+msgstr "د سپړنې په مرسته ننوځئ او Arroxy به بیا هڅه وکړي."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "د Explore په مرسته ننوځئ"
+msgstr "د سپړنې په مرسته ننوځئ"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "کېدای شي دا ویډیو د YouTube اکاونټ ته اړتیا 
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "تاسو په Explore کې ننوتلي یاست، خو ډاونلوډونه همدا اوس دا ننوتل نه کاروي."
+msgstr "تاسو په سپړنه کې ننوتلي یاست، خو ډاونلوډونه همدا اوس دا ننوتل نه کاروي."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "د Explore ننوتل وکاروئ او بیا هڅه وکړئ"
+msgstr "د سپړنې ننوتل وکاروئ او بیا هڅه وکړئ"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "کېدای شي دا ویډیو د YouTube اکاونټ ته اړتیا 
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "که دا ویډیو حساب غواړي، Arroxy ستاسو د Explore ننوتل په اتومات ډول کاروي. ښايي د بل دلیل له امله شتون ونه لري."
+msgstr "که دا ویډیو حساب غواړي، Arroxy ستاسو د سپړنې ننوتل په اتومات ډول کاروي. ښايي د بل دلیل له امله شتون ونه لري."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "په Explore کې ننوتلي یاست"
+msgstr "په سپړنه کې ننوتلي یاست"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "که دا ویډیو د YouTube حساب غواړي، په Explore کې ننوځئ او بیا هڅه وکړئ. Arroxy دا ننوتل یوازې هغه وخت کاروي چې ښکته کول ورته اړتیا ولري."
+msgstr "که دا ویډیو د YouTube حساب غواړي، په سپړنه کې ننوځئ او بیا هڅه وکړئ. Arroxy دا ننوتل یوازې هغه وخت کاروي چې ښکته کول ورته اړتیا ولري."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "په Explore کې ننوځئ"
+msgstr "په سپړنه کې ننوځئ"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "د کوکیزو کارولو لپاره یو فایل غوره کړئ"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "یوازې هغه وخت د Explore ننوتل کاروي چې ښکته کول ورته اړتیا ولري."
+msgstr "یوازې هغه وخت د سپړنې ننوتل کاروي چې ښکته کول ورته اړتیا ولري."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "د Explore ټب بند دی، نو ښکته کول ستاسو د Explore ننوتل نه کاروي. لاندې په Explore کې یې چالان کړئ."
+msgstr "د سپړنې ټب بند دی، نو ښکته کول ستاسو د سپړنې ننوتل نه کاروي. لاندې د سپړنې په برخه کې یې چالان کړئ."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "کوکیز څنګه صادر کړم؟"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore پرانیزئ"
+msgstr "سپړنه پرانیزئ"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "براوزر"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "د Explore ننوتل"
+msgstr "د سپړنې ننوتل"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

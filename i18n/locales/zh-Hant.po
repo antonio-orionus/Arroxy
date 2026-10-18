@@ -245,7 +245,7 @@ msgstr "請在設定中檢查代理伺服器，然後再試一次。"
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore 無法透過你的代理伺服器連線"
+msgstr "「探索」無法透過你的代理伺服器連線"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "在 Arroxy 中直接瀏覽 YouTube"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "下載使用的是瀏覽器的 Cookie，而不是你的 Explore 登入。"
+msgstr "下載使用的是瀏覽器的 Cookie，而不是你在「探索」中的登入。"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "下載使用的是你的 Cookie 檔案，而不是你的 Explore 登入。"
+msgstr "下載使用的是你的 Cookie 檔案，而不是你在「探索」中的登入。"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "暫時不要"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookie 已關閉，因此下載不會使用你的 Explore 登入。"
+msgstr "Cookie 已關閉，因此下載不會使用你在「探索」中的登入。"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "使用 Explore 登入"
+msgstr "使用「探索」中的登入"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "在 Arroxy 中瀏覽 YouTube，並登入以存取需要帳戶的影片�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "顯示 Explore 分頁"
+msgstr "顯示「探索」分頁"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "關閉後，下載也將不再使用你的 Explore 登入。"
+msgstr "關閉後，下載也將不再使用你在「探索」中的登入。"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "登出 Explore"
+msgstr "登出「探索」"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "登出"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "這會清除 Explore 中的 YouTube 登入資訊和瀏覽資料。需要帳戶的下載將會失敗，直到你重新登入。"
+msgstr "這會清除「探索」中的 YouTube 登入資訊和瀏覽資料。需要帳戶的下載將會失敗，直到你重新登入。"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "要登出 Explore 嗎？"
+msgstr "要登出「探索」嗎？"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "清除 Explore 中的 YouTube 登入資訊和瀏覽資料。"
+msgstr "清除「探索」中的 YouTube 登入資訊和瀏覽資料。"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "探索"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "探索"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -425,11 +425,11 @@ msgstr "下載此連結"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore 只瀏覽 YouTube。"
+msgstr "「探索」只瀏覽 YouTube。"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore 只瀏覽 YouTube。{{host}}"
+msgstr "「探索」只瀏覽 YouTube。{{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "語言"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "已使用 Explore 登入 — 正在重試 1 個連結"
+msgstr "已透過「探索」登入 — 正在重試 1 個連結"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "已使用 Explore 登入 — 正在重試 {{count}} 個連結"
+msgstr "已透過「探索」登入 — 正在重試 {{count}} 個連結"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "無法登出 Explore，請再試一次。"
+msgstr "無法登出「探索」，請再試一次。"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "正在嵌入中繼資料…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "已登出 Explore — 請重新登入"
+msgstr "已登出「探索」 — 請重新登入"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "連線停滯，正在重試（{{attempt}}/{{total}}）…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "正在使用你的 Explore 帳戶登入…"
+msgstr "正在使用你在「探索」中的帳戶登入…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "瀏覽器"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore 登入"
+msgstr "「探索」登入"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Cookie 檔案可能是空的、已過期，或格式錯誤（yt-dlp 需�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "使用 Explore 登入後，Arroxy 會重試。"
+msgstr "透過「探索」登入後，Arroxy 會重試。"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "使用 Explore 登入"
+msgstr "透過「探索」登入"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "此影片可能需要 YouTube 帳號"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "你已在 Explore 中登入，但下載目前沒有使用該登入。"
+msgstr "你已在「探索」中登入，但下載目前沒有使用該登入。"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "使用我的 Explore 登入並重試"
+msgstr "使用我在「探索」中的登入並重試"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "此影片可能需要 YouTube 帳號"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "如果此影片需要帳戶，Arroxy 會自動使用你的 Explore 登入。也可能因其他原因而無法使用。"
+msgstr "如果此影片需要帳戶，Arroxy 會自動使用你在「探索」中的登入。也可能因其他原因而無法使用。"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "已登入 Explore"
+msgstr "已在「探索」中登入"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "如果此影片需要 YouTube 帳戶，請在 Explore 中登入後再試一次。Arroxy 僅在下載需要時才使用該登入。"
+msgstr "如果此影片需要 YouTube 帳戶，請在「探索」中登入後再試一次。Arroxy 僅在下載需要時才使用該登入。"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "在 Explore 中登入"
+msgstr "在「探索」中登入"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "選擇要使用 Cookie 的檔案"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "僅在下載需要時才使用你的 Explore 登入。"
+msgstr "僅在下載需要時才使用你在「探索」中的登入。"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore 分頁已關閉，因此下載不會使用你的 Explore 登入。請在下方的 Explore 中開啟。"
+msgstr "「探索」分頁已關閉，因此下載不會使用你在「探索」中的登入。請在下方的「探索」中開啟。"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "如何匯出 Cookie？"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "開啟 Explore"
+msgstr "開啟「探索」"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "瀏覽器"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore 登入"
+msgstr "「探索」登入"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

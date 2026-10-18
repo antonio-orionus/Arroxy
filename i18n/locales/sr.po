@@ -245,7 +245,7 @@ msgstr "Провери прокси у подешавањима, па покуш
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore не може да се повеже преко твог проксија"
+msgstr "Истраживање не може да се повеже преко твог проксија"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Прегледај YouTube директно у апликацији Arro
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Преузимања користе cookies твог прегледача, а не твоју Explore пријаву."
+msgstr "Преузимања користе cookies твог прегледача, а не твоју пријаву у Истраживању."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Преузимања користе твоју датотеку са cookies, а не твоју Explore пријаву."
+msgstr "Преузимања користе твоју датотеку са cookies, а не твоју пријаву у Истраживању."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "Не сада"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies су искључени, па преузимања не користе твоју Explore пријаву."
+msgstr "Cookies су искључени, па преузимања не користе твоју пријаву у Истраживању."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Користи Explore пријаву"
+msgstr "Користи пријаву у Истраживању"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Прегледај YouTube у апликацији Arroxy и прија�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Прикажи картицу Explore"
+msgstr "Прикажи картицу Истраживање"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Искључивање такође спречава да преузимања користе твоју Explore пријаву."
+msgstr "Искључивање такође спречава да преузимања користе твоју пријаву у Истраживању."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Одјави се из Explore"
+msgstr "Одјави се из Истраживања"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "Одјави се"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Ово брише твоју пријаву на YouTube и податке прегледања у Explore. Преузимања за која је потребан налог неће успевати док се поново не пријавиш."
+msgstr "Ово брише твоју пријаву на YouTube и податке прегледања у Истраживању. Преузимања за која је потребан налог неће успевати док се поново не пријавиш."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Одјавити се из Explore?"
+msgstr "Одјавити се из Истраживања?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Брише твоју пријаву на YouTube и податке прегледања у Explore."
+msgstr "Брише твоју пријаву на YouTube и податке прегледања у Истраживању."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Истраживање"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Истраживање"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "Претражи YouTube или налепи YouTube линк"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Контроле прегледача Explore"
+msgstr "Контроле прегледача у Истраживању"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "Преузми овај линк"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore прегледа само YouTube."
+msgstr "У Истраживању можеш да прегледаш само YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore прегледа само YouTube. {{host}}"
+msgstr "У Истраживању можеш да прегледаш само YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "Језик"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Пријава преко Explore је готова — поново покушавам 1 линк"
+msgstr "Пријава у Истраживању је готова — поново покушавам 1 линк"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Пријава преко Explore је готова — поново покушавам линкове: {{count}}"
+msgstr "Пријава у Истраживању је готова — поново покушавам линкове: {{count}}"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Није успела одјава из Explore. Покушај поново."
+msgstr "Није успела одјава из Истраживања. Покушај поново."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "Уградња метаподатака…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Одјава са Explore — пријави се поново"
+msgstr "Одјава из Истраживања — пријави се поново"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "Веза је запела, поновни покушај ({{attempt}}/{
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Пријављивање преко твог Explore налога…"
+msgstr "Пријављивање преко твог налога у Истраживању…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "Прегледач"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore пријава"
+msgstr "Пријава у Истраживању"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Твоја датотека cookies можда је празна, ист
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Пријави се преко Explore и Arroxy ће покушати поново."
+msgstr "Пријави се у Истраживању и Arroxy ће покушати поново."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Пријави се преко Explore"
+msgstr "Пријави се у Истраживању"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "За овај видео је можда потребан YouTube нал
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Пријављен си у Explore, али преузимања тренутно не користе ту пријаву."
+msgstr "Пријављен си у Истраживању, али преузимања тренутно не користе ту пријаву."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Користи Explore пријаву и покушај поново"
+msgstr "Користи пријаву у Истраживању и покушај поново"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "За овај видео је можда потребан YouTube нал
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Ако је за овај видео потребан налог, Arroxy аутоматски користи твоју Explore пријаву. Можда је недоступна из другог разлога."
+msgstr "Ако је за овај видео потребан налог, Arroxy аутоматски користи твоју пријаву у Истраживању. Можда је недоступна из другог разлога."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Пријављен си у Explore"
+msgstr "Пријављен си у Истраживању"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Ако је за овај видео потребан YouTube налог, пријави се у Explore и покушај поново. Arroxy користи ту пријаву само када је потребна за преузимање."
+msgstr "Ако је за овај видео потребан YouTube налог, пријави се у Истраживању и покушај поново. Arroxy користи ту пријаву само када је потребна за преузимање."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Пријави се у Explore"
+msgstr "Пријави се у Истраживању"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Изабери датотеку да би користио/ла cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Користи твоју Explore пријаву само када је потребна за преузимање."
+msgstr "Користи твоју пријаву у Истраживању само када је потребна за преузимање."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Картица Explore је искључена, па преузимања не користе твоју Explore пријаву. Укључи је у одељку Explore испод."
+msgstr "Картица Истраживање је искључена, па преузимања не користе твоју пријаву у Истраживању. Укључи је у одељку Истраживање испод."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Како да извезем cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Отвори Explore"
+msgstr "Отвори Истраживање"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "Прегледач"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore пријава"
+msgstr "Пријава у Истраживању"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

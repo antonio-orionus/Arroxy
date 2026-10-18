@@ -245,7 +245,7 @@ msgstr "設定でプロキシを確認して、もう一度お試しください
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Exploreはプロキシ経由で接続できません"
+msgstr "「探索」はプロキシ経由で接続できません"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "Arroxy内でYouTubeを閲覧"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ダウンロードにはExploreのログインではなく、ブラウザのCookieが使われます。"
+msgstr "ダウンロードには「探索」のログインではなく、ブラウザのCookieが使われます。"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ダウンロードにはExploreのログインではなく、Cookieファイルが使われます。"
+msgstr "ダウンロードには「探索」のログインではなく、Cookieファイルが使われます。"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "後で"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookieがオフのため、ダウンロードにExploreのログインは使われません。"
+msgstr "Cookieがオフのため、ダウンロードに「探索」のログインは使われません。"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Exploreログインを使う"
+msgstr "「探索」のログインを使う"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画の�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Exploreタブを表示"
+msgstr "「探索」タブを表示"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "オフにすると、ダウンロードでもExploreのログインが使われなくなります。"
+msgstr "オフにすると、ダウンロードでも「探索」のログインが使われなくなります。"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Exploreからログアウト"
+msgstr "「探索」からログアウト"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "ログアウト"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Explore内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
+msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Exploreからログアウトしますか?"
+msgstr "「探索」からログアウトしますか?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore内のYouTubeのログイン情報と閲覧データを消去します。"
+msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "探索"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "探索"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -425,11 +425,11 @@ msgstr "このリンクをダウンロード"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore が閲覧できるのは YouTube だけです。"
+msgstr "「探索」が閲覧できるのは YouTube だけです。"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore が閲覧できるのは YouTube だけです。{{host}}"
+msgstr "「探索」が閲覧できるのは YouTube だけです。{{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "言語"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore でサインインしました — 1 件のリンクを再試行中"
+msgstr "「探索」でサインインしました — 1 件のリンクを再試行中"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore でサインインしました — {{count}} 件のリンクを再試行中"
+msgstr "「探索」でサインインしました — {{count}} 件のリンクを再試行中"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Exploreからログアウトできませんでした。もう一度お試しください。"
+msgstr "「探索」からログアウトできませんでした。もう一度お試しください。"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "メタデータを埋め込み中…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore からログアウトしました — もう一度ログインしてください"
+msgstr "「探索」からログアウトしました — もう一度ログインしてください"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "接続が停滞、再試行中 ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Explore アカウントでログインしています…"
+msgstr "「探索」のアカウントでログインしています…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "ブラウザ"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Exploreログイン"
+msgstr "「探索」のログイン"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Cookieファイルが空・期限切れ・または形式が正しくな
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore でサインインすると、Arroxy が再試行します。"
+msgstr "「探索」でサインインすると、Arroxy が再試行します。"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore でサインイン"
+msgstr "「探索」でサインイン"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "この動画には YouTube アカウントが必要かもしれません
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Explore にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。"
+msgstr "「探索」にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Explore のサインインを使って再試行"
+msgstr "「探索」のサインインを使って再試行"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "この動画には YouTube アカウントが必要かもしれません
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "この動画にアカウントが必要な場合、ArroxyはExploreのログインを自動的に使用します。別の理由で利用できない可能性があります。"
+msgstr "この動画にアカウントが必要な場合、Arroxyは「探索」のログインを自動的に使用します。別の理由で利用できない可能性があります。"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Exploreにログイン済み"
+msgstr "「探索」にログイン済み"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "この動画にYouTubeアカウントが必要な場合は、Exploreでログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。"
+msgstr "この動画にYouTubeアカウントが必要な場合は、「探索」でログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Exploreでログイン"
+msgstr "「探索」でログイン"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Cookieを使うにはファイルを選択してください"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "ダウンロードに必要なときだけ、Exploreのログインを使用します。"
+msgstr "ダウンロードに必要なときだけ、「探索」のログインを使用します。"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Exploreタブがオフのため、ダウンロードにExploreのログインは使われません。下のExploreでオンにしてください。"
+msgstr "「探索」タブがオフのため、ダウンロードに「探索」のログインは使われません。下の「探索」でオンにしてください。"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Cookieを書き出す方法は?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Exploreを開く"
+msgstr "「探索」を開く"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "ブラウザ"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Exploreログイン"
+msgstr "「探索」のログイン"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

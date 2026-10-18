@@ -245,7 +245,7 @@ msgstr "Überprüfe den Proxy in den Einstellungen und versuche es dann erneut."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore kann sich nicht über deinen Proxy verbinden"
+msgstr "Entdecken kann sich nicht über deinen Proxy verbinden"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "YouTube direkt in Arroxy durchstöbern"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Downloads verwenden die Cookies deines Browsers, nicht deine Explore-Anmeldung."
+msgstr "Downloads verwenden die Cookies deines Browsers, nicht deine Entdecken-Anmeldung."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Downloads verwenden deine Cookie-Datei, nicht deine Explore-Anmeldung."
+msgstr "Downloads verwenden deine Cookie-Datei, nicht deine Entdecken-Anmeldung."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "Nicht jetzt"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies sind aus, daher verwenden Downloads deine Explore-Anmeldung nicht."
+msgstr "Cookies sind aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore-Anmeldung nutzen"
+msgstr "Entdecken-Anmeldung nutzen"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "Durchstöbere YouTube in Arroxy und melde dich für Videos an, die ein K
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore-Tab anzeigen"
+msgstr "Entdecken-Tab anzeigen"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Wenn du ihn ausschaltest, verwenden Downloads deine Explore-Anmeldung ebenfalls nicht mehr."
+msgstr "Wenn du ihn ausschaltest, verwenden Downloads deine Entdecken-Anmeldung ebenfalls nicht mehr."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Von Explore abmelden"
+msgstr "Von Entdecken abmelden"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "Abmelden"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Dadurch werden deine YouTube-Anmeldung und die Browserdaten in Explore gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest."
+msgstr "Dadurch werden deine YouTube-Anmeldung und die Browserdaten in Entdecken gelöscht. Downloads, die ein Konto erfordern, schlagen fehl, bis du dich erneut anmeldest."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Von Explore abmelden?"
+msgstr "Von Entdecken abmelden?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Löscht deine YouTube-Anmeldung und die Browserdaten in Explore."
+msgstr "Löscht deine YouTube-Anmeldung und die Browserdaten in Entdecken."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Entdecken"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Entdecken"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "YouTube durchsuchen oder YouTube-Link einfügen"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore-Browsersteuerung"
+msgstr "Entdecken-Browsersteuerung"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "Diesen Link herunterladen"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore durchstöbert nur YouTube."
+msgstr "Entdecken zeigt nur YouTube an."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore durchstöbert nur YouTube. {{host}}"
+msgstr "Entdecken zeigt nur YouTube an. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "Sprache"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Mit Explore angemeldet — 1 Link wird erneut versucht"
+msgstr "Mit Entdecken angemeldet — 1 Link wird erneut versucht"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Mit Explore angemeldet — {{count}} Links werden erneut versucht"
+msgstr "Mit Entdecken angemeldet — {{count}} Links werden erneut versucht"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Abmelden von Explore fehlgeschlagen. Versuche es erneut."
+msgstr "Abmelden von Entdecken fehlgeschlagen. Versuche es erneut."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "Metadaten werden eingebettet…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Von Explore abgemeldet — melde dich erneut an"
+msgstr "Von Entdecken abgemeldet — melde dich erneut an"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "Verbindung hängt, erneuter Versuch ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Anmeldung mit deinem Explore-Konto…"
+msgstr "Anmeldung mit deinem Entdecken-Konto…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "Browser"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore-Anmeldung"
+msgstr "Entdecken-Anmeldung"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "Deine Cookies-Datei könnte leer, abgelaufen oder im falschen Format vor
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Melde dich in Explore an, dann versucht Arroxy es erneut."
+msgstr "Melde dich in Entdecken an, dann versucht Arroxy es erneut."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Mit Explore anmelden"
+msgstr "Mit Entdecken anmelden"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "Dieses Video erfordert möglicherweise ein YouTube-Konto"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Du bist in Explore angemeldet, aber Downloads nutzen diese Anmeldung gerade nicht."
+msgstr "Du bist in Entdecken angemeldet, aber Downloads nutzen diese Anmeldung gerade nicht."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Meine Explore-Anmeldung nutzen und erneut versuchen"
+msgstr "Meine Entdecken-Anmeldung nutzen und erneut versuchen"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "Dieses Video erfordert möglicherweise ein YouTube-Konto"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Falls dieses Video ein Konto erfordert, verwendet Arroxy automatisch deine Explore-Anmeldung. Es kann auch einen anderen Grund für die Nichtverfügbarkeit geben."
+msgstr "Falls dieses Video ein Konto erfordert, verwendet Arroxy automatisch deine Entdecken-Anmeldung. Es kann auch einen anderen Grund für die Nichtverfügbarkeit geben."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Bei Explore angemeldet"
+msgstr "In Entdecken angemeldet"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Falls dieses Video ein YouTube-Konto erfordert, melde dich in Explore an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht."
+msgstr "Falls dieses Video ein YouTube-Konto erfordert, melde dich in Entdecken an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "In Explore anmelden"
+msgstr "In Entdecken anmelden"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "Wähle eine Datei aus, um Cookies zu nutzen"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Verwendet deine Explore-Anmeldung nur, wenn ein Download sie braucht."
+msgstr "Verwendet deine Entdecken-Anmeldung nur, wenn ein Download sie braucht."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Der Explore-Tab ist aus, daher verwenden Downloads deine Explore-Anmeldung nicht. Schalte ihn unten unter Explore ein."
+msgstr "Der Entdecken-Tab ist aus, daher verwenden Downloads deine Entdecken-Anmeldung nicht. Schalte ihn unten unter Entdecken ein."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "Wie exportiere ich Cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore öffnen"
+msgstr "Entdecken öffnen"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "Browser"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore-Anmeldung"
+msgstr "Entdecken-Anmeldung"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

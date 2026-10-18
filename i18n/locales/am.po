@@ -245,7 +245,7 @@ msgstr "በቅንብሮች ውስጥ ፕሮክሲውን ያረጋግጡ፣ ከ�
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore በፕሮክሲዎ በኩል መገናኘት አልቻለም"
+msgstr "ዳሰሳ በፕሮክሲዎ በኩል መገናኘት አልቻለም"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -293,11 +293,11 @@ msgstr "YouTubeን በArroxy ውስጥ ያስሱ"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ውርዶች የአሳሽዎን cookies ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።"
+msgstr "ውርዶች የአሳሽዎን cookies ይጠቀማሉ፣ የዳሰሳ መግቢያዎን አይደለም።"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ውርዶች የcookies ፋይልዎን ይጠቀማሉ፣ የExplore መግቢያዎን አይደለም።"
+msgstr "ውርዶች የcookies ፋይልዎን ይጠቀማሉ፣ የዳሰሳ መግቢያዎን አይደለም።"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -305,11 +305,11 @@ msgstr "አሁን አይደለም"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies ጠፍተዋል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም።"
+msgstr "Cookies ጠፍተዋል፣ ስለዚህ ውርዶች የዳሰሳ መግቢያዎን አይጠቀሙም።"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "የExplore መግቢያ ተጠቀም"
+msgstr "የዳሰሳ መግቢያ ተጠቀም"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -317,15 +317,15 @@ msgstr "YouTubeን በArroxy ውስጥ ያስሱ እና መለያ ለሚያስ�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "የExplore ትርን አሳይ"
+msgstr "የዳሰሳ ትርን አሳይ"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "ማጥፋት ውርዶችም የExplore መግቢያዎን እንዳይጠቀሙ ያደርጋል።"
+msgstr "ማጥፋት ውርዶችም የዳሰሳ መግቢያዎን እንዳይጠቀሙ ያደርጋል።"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "ከExplore ውጣ"
+msgstr "ከዳሰሳ ውጣ"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -333,23 +333,23 @@ msgstr "ውጣ"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "ይህ በExplore ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል። መለያ የሚያስፈልጋቸው ውርዶች እንደገና እስኪገቡ ድረስ አይሳኩም።"
+msgstr "ይህ በዳሰሳ ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል። መለያ የሚያስፈልጋቸው ውርዶች እንደገና እስኪገቡ ድረስ አይሳኩም።"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "ከExplore ይውጡ?"
+msgstr "ከዳሰሳ ይውጡ?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "በExplore ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል።"
+msgstr "በዳሰሳ ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል።"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "ዳሰሳ"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "ዳሰሳ"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -385,7 +385,7 @@ msgstr "YouTube ይፈልጉ ወይም የYouTube አገናኝ ይለጥፉ"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "የExplore አሳሽ መቆጣጠሪያዎች"
+msgstr "የዳሰሳ አሳሽ መቆጣጠሪያዎች"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -425,11 +425,11 @@ msgstr "ይህን አገናኝ አውርድ"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore YouTubeን ብቻ ያስሳል።"
+msgstr "ዳሰሳ የሚያሳየው YouTubeን ብቻ ነው።"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore YouTubeን ብቻ ያስሳል። {{host}}"
+msgstr "ዳሰሳ የሚያሳየው YouTubeን ብቻ ነው። {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -601,15 +601,15 @@ msgstr "ቋንቋ"
 
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "በExplore ገብተዋል — 1 አገናኝ እንደገና በመሞከር ላይ"
+msgstr "በዳሰሳ ገብተዋል — 1 አገናኝ እንደገና በመሞከር ላይ"
 
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "በExplore ገብተዋል — {{count}} አገናኞች እንደገና በመሞከር ላይ"
+msgstr "በዳሰሳ ገብተዋል — {{count}} አገናኞች እንደገና በመሞከር ላይ"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "ከExplore መውጣት አልተቻለም። እንደገና ይሞክሩ።"
+msgstr "ከዳሰሳ መውጣት አልተቻለም። እንደገና ይሞክሩ።"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1513,7 +1513,7 @@ msgstr "ሜታዳታ እያካተቱ…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "ከExplore ወጥተዋል — እንደገና ይግቡ"
+msgstr "ከዳሰሳ ወጥተዋል — እንደገና ይግቡ"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1569,7 +1569,7 @@ msgstr "ግንኙነት ተቋርጧል፣ እንደገና በመሞከር ላ�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "በExplore መለያዎ በመግባት ላይ…"
+msgstr "በዳሰሳ መለያዎ በመግባት ላይ…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2027,7 +2027,7 @@ msgstr "አሳሽ"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "የExplore መግቢያ"
+msgstr "የዳሰሳ መግቢያ"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2083,11 +2083,11 @@ msgstr "የ Cookies ፋይልዎ ባዶ፣ ጊዜው ያለፈ፣ ወይም ት�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "በExplore ይግቡ፣ Arroxy ደግሞ እንደገና ይሞክረዋል።"
+msgstr "በዳሰሳ ይግቡ፣ Arroxy ደግሞ እንደገና ይሞክረዋል።"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "በExplore ይግቡ"
+msgstr "በዳሰሳ ይግቡ"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2095,11 +2095,11 @@ msgstr "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "በExplore ገብተዋል፣ ነገር ግን ማውረዶች አሁን ያንን መግቢያ እየተጠቀሙ አይደሉም።"
+msgstr "በዳሰሳ ገብተዋል፣ ነገር ግን ማውረዶች አሁን ያንን መግቢያ እየተጠቀሙ አይደሉም።"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "የExplore መግቢያን ተጠቀም እና እንደገና ሞክር"
+msgstr "የዳሰሳ መግቢያን ተጠቀም እና እንደገና ሞክር"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2107,19 +2107,19 @@ msgstr "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "ይህ ቪዲዮ መለያ የሚያስፈልገው ከሆነ Arroxy የExplore መግቢያዎን በራስ-ሰር ይጠቀማል። በሌላ ምክንያት ላይገኝ ይችላል።"
+msgstr "ይህ ቪዲዮ መለያ የሚያስፈልገው ከሆነ Arroxy የዳሰሳ መግቢያዎን በራስ-ሰር ይጠቀማል። በሌላ ምክንያት ላይገኝ ይችላል።"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "ወደ Explore ገብተዋል"
+msgstr "ወደ ዳሰሳ ገብተዋል"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "ይህ ቪዲዮ የYouTube መለያ የሚያስፈልገው ከሆነ በExplore ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።"
+msgstr "ይህ ቪዲዮ የYouTube መለያ የሚያስፈልገው ከሆነ በዳሰሳ ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "በExplore ውስጥ ይግቡ"
+msgstr "በዳሰሳ ውስጥ ይግቡ"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3727,11 +3727,11 @@ msgstr "cookies ለመጠቀም ፋይል ምረጥ"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "ውርድ ሲፈልገው ብቻ የExplore መግቢያዎን ይጠቀማል።"
+msgstr "ውርድ ሲፈልገው ብቻ የዳሰሳ መግቢያዎን ይጠቀማል።"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "የExplore ትር ጠፍቷል፣ ስለዚህ ውርዶች የExplore መግቢያዎን አይጠቀሙም። ከታች በExplore ውስጥ ያብሩት።"
+msgstr "የዳሰሳ ትር ጠፍቷል፣ ስለዚህ ውርዶች የዳሰሳ መግቢያዎን አይጠቀሙም። ከታች ባለው የዳሰሳ ክፍል ውስጥ ያብሩት።"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3751,7 +3751,7 @@ msgstr "cookies ስዴት እንዴት ነው?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore ክፈት"
+msgstr "ዳሰሳን ክፈት"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3771,7 +3771,7 @@ msgstr "አሳሽ"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "የExplore መግቢያ"
+msgstr "የዳሰሳ መግቢያ"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"
