@@ -1,134 +1,44 @@
-import {lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
+import {useRef, type ClipboardEvent, type KeyboardEvent, type ReactNode} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
-import {Check, ChevronRight, Compass, Inbox, Link2, ListPlus, PenLine, Plus, Settings, Users, Wand2, X, type LucideIcon} from 'lucide-react'
+import {Check, ChevronRight, Link2, ListPlus, PenLine, Plus, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileLabel, downloadProfileOrigin, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
-import {bulkLogger} from '@renderer/lib/bulkLogger.js'
-import {notify} from '@renderer/lib/notify.js'
 import {cn} from '@renderer/lib/utils.js'
-import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {useDownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
+import {useDownloadHomeView, type DownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
 import {Switch} from '../ui/switch.js'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '../ui/tabs.js'
+import {Tabs, TabsContent} from '../ui/tabs.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {Spinner} from '../ui/spinner.js'
 import {BulkUrlDialog} from './BulkUrlDialog.js'
 import {DownloadProfilesSettingsTab} from './DownloadProfilesSettingsTab.js'
 import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {QueueManagerTab} from '../queue/QueueManagerTab.js'
-import {needsAttention} from '../queue/queueAttention.js'
 import {ExploreTab} from '../explore/ExploreTab.js'
-import {buildClipboardCandidate, resolveClipboardIntake, type ClipboardCandidate} from './clipboardIntake.js'
+import type {ClipboardCandidate} from './clipboardIntake.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
+import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
+import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip} from './homeTabRoute.js'
+import {useBulkUrlDialog, useClipboardIntake} from './downloadHomeIntake.js'
+import {ProfileEditorDialog} from './ProfileEditorDialog.js'
+import {useProfileEditor} from './useProfileEditor.js'
 import hiImg from '../../assets/Hi.png'
 import downloadingImg from '../../assets/Downloading.png'
 import {IconTile} from '../shared/IconTile.js'
-import {SpeechBubble} from '../shared/SpeechBubble.js'
-import {Hint} from '../shared/Hint.js'
-
-type ProfilesTab = 'download' | 'explore' | 'queue' | 'profiles' | 'settings'
-const PROFILE_TABS = ['download', 'explore', 'queue', 'profiles', 'settings'] as const satisfies readonly ProfilesTab[]
-const DownloadProfileEditor = lazy(() => import('./DownloadProfileEditor.js').then(module => ({default: module.DownloadProfileEditor})))
-const QUEUE_TAB_TIP_STORAGE_KEY = 'arroxy_seen_queue_tab_tip'
-const QUEUE_TAB_TIP_VISIBLE_MS = 5_000
-
-function tabFromHash(hash = window.location.hash): ProfilesTab {
-	const value = hash.replace(/^#/, '').toLowerCase()
-	if (value === 'profile' || value === 'profiles') return 'profiles'
-	if (value === 'explore') return 'explore'
-	if (value === 'queue') return 'queue'
-	if (value === 'setting' || value === 'settings') return 'settings'
-	return 'download'
-}
 
 function browserMockScenarioId(): string | null {
 	try {
 		return new URLSearchParams(window.location.search).get('scenario')
 	} catch {
 		return null
-	}
-}
-
-function isBrowserMockBulkDialogScenario(scenario: string | null): boolean {
-	return scenario === 'profiles-bulk' || scenario === 'profiles-bulk-huge-input'
-}
-
-function browserMockBulkInitialRaw(scenario: string | null): string {
-	if (scenario !== 'profiles-bulk-huge-input') return ''
-	return [
-		'vite v8.0.16 building ssr environment for development...',
-		'4 modules transformed.',
-		'out/preload/index.cjs  9.02 kB',
-		'',
-		'built in 14ms',
-		'',
-		'electron preload scripts built successfully',
-		'',
-		'-----',
-		'',
-		'dev server running for the electron renderer process at:',
-		'',
-		'  -> Local:   http://localhost:5173/',
-		'  -> Network: use --host to expose',
-		'',
-		'starting electron app...',
-		'',
-		...Array.from({length: 180}, (_, index) => {
-			const seconds = String(index % 60).padStart(2, '0')
-			return `17:20:${seconds}.${String(index).padStart(3, '0')}          > gpu features { 2d_canvas: 'disabled_software', direct_rendering_display_compositor: 'disabled_off_ok', gpu_compositing: 'disabled_software', multiple_raster_threads: 'enabled_on', opengl: 'disabled_off', rasterization: 'disabled_software', video_decode: 'disabled_software', vulkan: 'disabled_off' }`
-		})
-	].join('\n')
-}
-
-function subscribeProfileTabHash(onStoreChange: () => void): () => void {
-	window.addEventListener('hashchange', onStoreChange)
-	return () => window.removeEventListener('hashchange', onStoreChange)
-}
-
-function profileTabSnapshot(): ProfilesTab {
-	return tabFromHash()
-}
-
-function isProfilesTab(value: unknown): value is ProfilesTab {
-	return typeof value === 'string' && PROFILE_TABS.includes(value as ProfilesTab)
-}
-
-function tabHash(tab: ProfilesTab): string {
-	if (tab === 'profiles') return '#profiles'
-	if (tab === 'explore') return '#explore'
-	if (tab === 'queue') return '#queue'
-	if (tab === 'settings') return '#settings'
-	return '#download'
-}
-
-function selectProfilesTab(tab: ProfilesTab): void {
-	window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}${tabHash(tab)}`)
-	window.dispatchEvent(new Event('hashchange'))
-}
-
-function hasSeenQueueTabTip(): boolean {
-	try {
-		return localStorage.getItem(QUEUE_TAB_TIP_STORAGE_KEY) === '1'
-	} catch {
-		return true
-	}
-}
-
-function markQueueTabTipSeen(): void {
-	try {
-		localStorage.setItem(QUEUE_TAB_TIP_STORAGE_KEY, '1')
-	} catch {
-		// Storage may be unavailable in hardened browser contexts; the cue is non-critical.
 	}
 }
 
@@ -186,256 +96,172 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	return {key: 'generic-url', title: 'URL detected', body: t('wizard.url.quickSingleOnly'), points: ['Quick uses the active profile', 'Interactive reviews first'], image: hiImg}
 }
 
-// A compact tab bar shows icons only: the label stays for screen readers, and
-// the trigger's title names it on hover.
-function TabLabel({compact, children}: {compact: boolean; children: string}): ReactNode {
-	return <span className={cn(compact && 'sr-only')}>{children}</span>
-}
+export function DownloadProfilesHome(): ReactNode {
+	const view = useDownloadHomeView()
+	const {activeProfile, cookiesConfigDialogIssue, dismissCookiesConfigDialog, openCookiesSettings, profiles, profilesPrefs, removeDownloadProfile, setActiveDownloadProfile, setDownloadProfileEnabled, setWizardUrl} = view
+	const initialBrowserMockScenario = browserMockScenarioId()
+	const {activeTab, exploreEnabled, compact} = useProfilesTabRoute()
+	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
+	const {queueCount, attentionCount, queueIsActive} = useQueueTabSummary()
+	const bulkDialog = useBulkUrlDialog(initialBrowserMockScenario)
+	const {queueTabTipVisible, dismissQueueTabTip} = useQueueTabTip({activeTab, initialBrowserMockScenario})
+	const clipboard = useClipboardIntake({bulkOpenRef: bulkDialog.bulkOpenRef, setWizardUrl})
+	const editor = useProfileEditor({initialBrowserMockScenario, profilesPrefs, removeDownloadProfile})
+	const {openEditor} = editor
+	const manageProfiles = (): void => selectProfilesTab('profiles')
+	const activateProfile = (profile: DownloadProfile): void => {
+		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
+	}
 
-interface HomeTabsListProps {
-	compact: boolean
-	exploreEnabled: boolean
-	exploreNoticeSeen: boolean
-	queueCount: number
-	attentionCount: number
-	queueIsActive: boolean
-}
+	function openManualBulkDialog(): void {
+		clipboard.setPendingClipboard(null)
+		bulkDialog.openBulkDialog()
+	}
 
-// The home's tab triggers. Compact (while browsing in Explore) shows icons only,
-// and the home hands the list to Explore's toolbar instead of the row above.
-function HomeTabsList({compact, exploreEnabled, exploreNoticeSeen, queueCount, attentionCount, queueIsActive}: HomeTabsListProps): ReactNode {
-	const {t} = useTranslation()
+	function handleTabChange(value: unknown): void {
+		if (!isProfilesTab(value)) return
+		if (value !== 'download') clipboard.setPendingClipboard(null)
+		selectProfilesTab(value)
+	}
+
+	const tabsList = <HomeTabsList compact={compact} exploreEnabled={exploreEnabled} exploreNoticeSeen={exploreNoticeSeen} queueCount={queueCount} attentionCount={attentionCount} queueIsActive={queueIsActive} />
+
 	return (
-		<TabsList variant="line" className="download-home-tabs flex justify-center" aria-label={t('wizard.tabsNavAria')} data-compact={compact ? 'true' : undefined} data-testid="profiles-tabs">
-			<Hint label={compact ? t('wizard.steps.url') : undefined}>
-				<TabsTrigger value="download" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-					<Link2 data-icon="inline-start" aria-hidden />
-					<TabLabel compact={compact}>{t('wizard.steps.url')}</TabLabel>
-				</TabsTrigger>
-			</Hint>
-			{exploreEnabled ? (
-				<Hint label={compact ? t('explore.tabLabel') : undefined}>
-					<TabsTrigger value="explore" className="explore-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent">
-						<Compass data-icon="inline-start" aria-hidden />
-						<TabLabel compact={compact}>{t('explore.tabLabel')}</TabLabel>
-						{exploreNoticeSeen ? null : (
-							<Badge variant="info" size="sm">
-								{t('explore.newBadge')}
-							</Badge>
-						)}
-					</TabsTrigger>
-				</Hint>
-			) : null}
-			{/* One hint for the tab and its attention badge: nested hints would open together. */}
-			<Hint label={[compact ? t('queue.tabLabel') : null, attentionCount > 0 ? t('queue.attentionBadge', {count: attentionCount}) : null].filter(Boolean).join(' · ')}>
-				<TabsTrigger value="queue" data-queue-active={queueIsActive ? 'true' : undefined} className={cn('downloads-tab-trigger h-12 rounded-full border-0 text-sm data-active:border-transparent', queueIsActive && 'queue-tab-working')}>
-					<Inbox data-icon="inline-start" aria-hidden />
-					<TabLabel compact={compact}>{t('queue.tabLabel')}</TabLabel>
-					{attentionCount > 0 ? (
-						<Badge variant="warning" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono" aria-label={t('queue.attentionBadge', {count: attentionCount})} data-testid="downloads-attention-badge">
-							{attentionCount}
-						</Badge>
-					) : queueCount > 0 ? (
-						<Badge variant="secondary" size="sm" className="download-count-badge ms-0.5 min-w-4 px-1 font-mono">
-							{queueCount}
-						</Badge>
-					) : null}
-				</TabsTrigger>
-			</Hint>
-			<Hint label={compact ? t('wizard.url.tabs.profiles') : undefined}>
-				<TabsTrigger value="profiles" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-					<Users data-icon="inline-start" aria-hidden />
-					<TabLabel compact={compact}>{t('wizard.url.tabs.profiles')}</TabLabel>
-				</TabsTrigger>
-			</Hint>
-			<Hint label={compact ? t('wizard.url.tabs.settings') : undefined}>
-				<TabsTrigger value="settings" className="h-12 rounded-full border-0 text-sm data-active:border-transparent">
-					<Settings data-icon="inline-start" aria-hidden />
-					<TabLabel compact={compact}>{t('wizard.url.tabs.settings')}</TabLabel>
-				</TabsTrigger>
-			</Hint>
-		</TabsList>
+		<div className={cn('wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
+			<Tabs
+				value={activeTab}
+				onValueChange={handleTabChange}
+				// Explore's browser fills the remaining height; the other tabs size to their content.
+				className={cn('gap-4', activeTab === 'explore' && 'flex-1')}
+			>
+				{compact ? null : (
+					<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
+						{tabsList}
+						{queueTabTipVisible ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={dismissQueueTabTip} /> : null}
+					</div>
+				)}
+
+				<TabsContent value="download" className="flex flex-col gap-4">
+					<DownloadTabPanel
+						view={view}
+						initialBrowserMockScenario={initialBrowserMockScenario}
+						pendingClipboard={clipboard.pendingClipboard}
+						onConsumeClipboard={clipboard.consumeClipboardCandidate}
+						onDismissClipboard={() => clipboard.setPendingClipboard(null)}
+						onEditProfile={openEditor}
+						onManageProfiles={manageProfiles}
+						onOpenBulk={openManualBulkDialog}
+					/>
+				</TabsContent>
+
+				{exploreEnabled ? (
+					<TabsContent value="explore" className="flex min-h-0 flex-col">
+						<ExploreTab compactTabs={compact ? tabsList : null} onEditProfile={openEditor} onNewProfile={() => openEditor(null)} onManageProfiles={manageProfiles} />
+					</TabsContent>
+				) : null}
+
+				<TabsContent value="queue">
+					<QueueManagerTab />
+				</TabsContent>
+
+				<TabsContent value="profiles">
+					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} onToggleEnabled={(id, enabled) => void setDownloadProfileEnabled(id, enabled)} profiles={profiles} profilesPrefs={profilesPrefs} />
+				</TabsContent>
+				<TabsContent value="settings">
+					<DownloadProfilesSettingsTab />
+				</TabsContent>
+			</Tabs>
+
+			{bulkDialog.bulkOpen ? <BulkUrlDialog open={bulkDialog.bulkOpen} onOpenChange={bulkDialog.handleBulkOpenChange} initialRaw={bulkDialog.bulkInitialRaw} onEditProfile={() => openEditor(activeProfile)} onManageProfiles={manageProfiles} onNewProfile={() => openEditor(null)} /> : null}
+			<ProfileEditorDialog editor={editor} view={view} />
+			<IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />
+		</div>
 	)
 }
 
-function QueueTabFirstRunCue({onDismiss, persistent = false}: {onDismiss: () => void; persistent?: boolean}): ReactNode {
+interface DownloadTabPanelProps {
+	view: DownloadHomeView
+	initialBrowserMockScenario: string | null
+	pendingClipboard: ClipboardCandidate | null
+	onConsumeClipboard: (candidate: ClipboardCandidate) => void
+	onDismissClipboard: () => void
+	onEditProfile: (profile: DownloadProfile | null) => void
+	onManageProfiles: () => void
+	onOpenBulk: () => void
+}
+
+// The URL tab: paste a link, then download it with the active profile, review
+// it in the wizard, or open the bulk dialog.
+function DownloadTabPanel({view, initialBrowserMockScenario, pendingClipboard, onConsumeClipboard, onDismissClipboard, onEditProfile, onManageProfiles, onOpenBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
-
-	useEffect(() => {
-		if (persistent) return undefined
-		const timeout = window.setTimeout(onDismiss, QUEUE_TAB_TIP_VISIBLE_MS)
-		return () => window.clearTimeout(timeout)
-	}, [onDismiss, persistent])
-
+	const {activeProfileDestination, activeProfileDestinationDetail, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
+	const pickProfileRef = (ref: DownloadProfileRef): void => {
+		void setActiveDownloadProfile(ref)
+	}
 	return (
-		<div className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 flex -translate-x-1/2 justify-center px-3" data-testid="queue-tab-first-run-cue">
-			<div className="nudge-in pointer-events-auto flex max-w-[min(20rem,calc(100vw-2rem))] items-end gap-2">
-				<img src={downloadingImg} alt="" aria-hidden draggable={false} className="size-10 shrink-0 object-contain" />
-				<SpeechBubble tail="top">{t('queue.tabTip')}</SpeechBubble>
+		<Card variant="glass" data-testid="profiles-download-panel">
+			<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
+				<div className="min-w-0">
+					<DownloadMascotHeader view={view} />
+					<DownloadUrlInput view={view} pendingClipboard={pendingClipboard} onConsumeClipboard={onConsumeClipboard} />
+					{pendingClipboard ? <ClipboardPendingAction onApply={() => onConsumeClipboard(pendingClipboard)} onDismiss={onDismissClipboard} /> : null}
+				</div>
+			</CardHeader>
+			<CardContent className="px-5 pb-4 md:px-6">
+				<QuickProfileControl
+					defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
+					destination={activeProfileDestination}
+					destinationDetail={activeProfileDestinationDetail}
+					disabled={!urlReady}
+					onChangeGlobalDestination={() => void chooseWizardFolder()}
+					onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}
+					onEditProfile={onEditProfile}
+					onManageProfiles={onManageProfiles}
+					onNewProfile={() => onEditProfile(null)}
+					onPickProfile={pickProfileRef}
+					profilesPrefs={profilesPrefs}
+				/>
+
+				<QuickDownloadFeedback view={view} />
+
+				<div className="mt-3 grid w-full gap-2 lg:grid-cols-[repeat(2,minmax(0,35rem))] lg:justify-start" data-testid="profiles-action-rows">
+					<ActionRow disabled={!urlReady} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
+					<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={onOpenBulk} testId="profiles-bulk-urls" />
+				</div>
+			</CardContent>
+		</Card>
+	)
+}
+
+function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
+	const {t} = useTranslation()
+	const {activeProfile, hasActiveDownloads, hasInput, inputType, quickDownloadStatus} = view
+	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
+	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
+	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
+	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg
+	return (
+		<div className="flex min-w-0 items-start gap-3" data-testid="profiles-mascot-header">
+			<img src={mascotHeaderImage} alt="" aria-hidden className="mt-0.5 size-12 shrink-0 object-contain sm:size-14" draggable={false} />
+			<div className="min-w-0 flex-1">
+				<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
+				<CardDescription className="mt-1.5 text-body text-subtle-foreground" data-testid="profiles-mascot-copy">
+					{mascotHeaderBody}
+				</CardDescription>
 			</div>
 		</div>
 	)
 }
 
-// react-doctor-disable-next-line react-doctor/prefer-useReducer -- these local UI controls update independently and do not share reducer-style transitions
-export function DownloadProfilesHome(): ReactNode {
+function DownloadUrlInput({view, pendingClipboard, onConsumeClipboard}: {view: DownloadHomeView; pendingClipboard: ClipboardCandidate | null; onConsumeClipboard: (candidate: ClipboardCandidate) => void}): ReactNode {
 	const {t} = useTranslation()
-	const {
-		activeProfileDestination,
-		activeProfileDestinationDetail,
-		activeProfile,
-		chooseWizardFolder,
-		commonPaths,
-		cookiesConfigDialogIssue,
-		dismissCookiesConfigDialog,
-		globalDestinationRoot,
-		hasActiveDownloads,
-		hasInput,
-		inputType,
-		openCookiesSettings,
-		openExploreSignIn,
-		signInWithExploreThenRetry,
-		retryWithExploreSignIn,
-		profiles,
-		profilesPrefs,
-		quickDownload,
-		quickDownloadFailureMessage,
-		quickDownloadProbeExperience,
-		quickDownloadProgressFailed,
-		quickDownloadStatus,
-		removeDownloadProfile,
-		retryQuickDownloadFailure,
-		retryQuickDownloadWithCookies,
-		saveDownloadProfile,
-		setActiveDownloadProfile,
-		setDownloadProfileEnabled,
-		setWizardUrl,
-		submitUrl,
-		urlReady,
-		wizardUrl
-	} = useDownloadHomeView()
+	const {hasInput, setWizardUrl, submitUrl, urlReady, wizardUrl} = view
 	const inputRef = useRef<HTMLInputElement>(null)
-	const bulkOpenRef = useRef(false)
-	const initialBrowserMockScenario = browserMockScenarioId()
-	const hashTab = useSyncExternalStore(subscribeProfileTabHash, profileTabSnapshot, profileTabSnapshot)
-	const exploreEnabled = useAppStore(state => state.settings?.common?.exploreEnabled !== false)
-	const nativeAudioPreference = useAppStore(state => state.settings?.common?.nativeAudioPreference)
-	const hdrPreference = useAppStore(state => state.settings?.common?.hdrPreference)
-	const exploreNoticeSeen = useAppStore(state => state.settings?.common?.exploreNoticeSeen === true)
-	// With the kill switch on, a stale #explore lands on the URL tab.
-	const activeTab: ProfilesTab = hashTab === 'explore' && !exploreEnabled ? 'download' : hashTab
-	// Icon-only tabs while browsing in compact layout; the tab check covers the
-	// render between leaving Explore and its browser unmounting.
-	const compact = useAppStore(selectCompactChrome) && activeTab === 'explore'
-	const [bulkOpen, setBulkOpen] = useState(() => isBrowserMockBulkDialogScenario(initialBrowserMockScenario))
-	const [bulkInitialRaw, setBulkInitialRaw] = useState(() => browserMockBulkInitialRaw(initialBrowserMockScenario))
-	const [pendingClipboard, setPendingClipboard] = useState<ClipboardCandidate | null>(null)
-	const [editorOpen, setEditorOpen] = useState(() => initialBrowserMockScenario === 'profiles-editor')
-	const [editorSessionId, setEditorSessionId] = useState(0)
-	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
-	const queueCount = useAppStore(state => state.queue.length)
-	const attentionCount = useAppStore(state => state.queue.filter(needsAttention).length)
-	const queueIsActive = useAppStore(state => state.queue.some(item => item.status === 'running' || item.lastStatus?.key === 'movingFiles'))
-	const previousQueueCountRef = useRef(queueCount)
-	const [showQueueTabTip, setShowQueueTabTip] = useState(() => initialBrowserMockScenario === 'queue-tab-tip' || (queueCount > 0 && !hasSeenQueueTabTip()))
-	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
-	const mascotHelp = downloadMascotHelp({activeProfileName: activeProfile.name, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
-	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
-	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
-	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg
-	const activateProfile = (profile: DownloadProfile): void => {
-		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
-	}
-	const pickProfileRef = (ref: DownloadProfileRef): void => {
-		void setActiveDownloadProfile(ref)
-	}
-
-	useEffect(() => {
-		bulkOpenRef.current = bulkOpen
-	}, [bulkOpen])
-
-	// The cue floats below the tab bar, where Explore's native view would paint
-	// over it: hold it (unseen) until another tab is active.
-	const queueTabTipVisible = showQueueTabTip && activeTab !== 'explore'
-
-	useEffect(() => {
-		if (!queueTabTipVisible || initialBrowserMockScenario === 'queue-tab-tip') return
-		markQueueTabTipSeen()
-	}, [initialBrowserMockScenario, queueTabTipVisible])
-
-	useEffect(() => {
-		const previousQueueCount = previousQueueCountRef.current
-		previousQueueCountRef.current = queueCount
-		if (previousQueueCount !== 0 || queueCount === 0 || hasSeenQueueTabTip()) return
-		setShowQueueTabTip(true)
-	}, [queueCount])
-
-	const consumeClipboardCandidate = useCallback(
-		(candidate: ClipboardCandidate): void => {
-			setPendingClipboard(null)
-
-			const url = candidate.acceptedUrls[0]
-			if (!url) return
-			setWizardUrl(url)
-			notify.clipboard(t('wizard.url.clipboard.autofilledLink'))
-		},
-		[setWizardUrl, t]
-	)
-
-	function openManualBulkDialog(): void {
-		setPendingClipboard(null)
-		setBulkInitialRaw('')
-		setBulkOpen(true)
-	}
-
-	function handleBulkOpenChange(next: boolean): void {
-		setBulkOpen(next)
-		if (!next) setBulkInitialRaw('')
-	}
-
-	useEffect(() => {
-		return window.appApi.events.onClipboardUrl(payload => {
-			const state = useAppStore.getState()
-			const action = resolveClipboardIntake({candidate: buildClipboardCandidate(payload), hasInput: state.wizardUrl.trim().length > 0, formatsLoading: state.formatsLoading, quickPreparing: state.quickDownloadStatus === 'preparing', bulkOpen: bulkOpenRef.current})
-
-			if (action.kind === 'ignore') return
-			if (action.kind === 'store-pending') {
-				setPendingClipboard(action.candidate)
-				if (bulkOpenRef.current) bulkLogger.info('Clipboard URL held while bulk dialog is open', {accepted: action.candidate.count})
-				return
-			}
-			if (action.kind === 'hint-bulk') {
-				notify.clipboard(t('wizard.url.clipboard.bulkHint'))
-				return
-			}
-			consumeClipboardCandidate(action.candidate)
-		})
-	}, [consumeClipboardCandidate, t])
-
-	function openEditor(profile: DownloadProfile | null): void {
-		setEditingProfile(profile)
-		setEditorSessionId(value => value + 1)
-		setEditorOpen(true)
-	}
-
-	const editingProfileOrigin = editingProfile ? downloadProfileOrigin(editingProfile, profilesPrefs) : null
-	const editorResetProfile = useMemo(
-		() =>
-			editingProfile && editingProfileOrigin?.kind === 'builtin'
-				? {
-						enabled: editingProfileOrigin.overridden,
-						onReset: async () => {
-							await removeDownloadProfile(editingProfile.id)
-						}
-					}
-				: undefined,
-		[editingProfile, editingProfileOrigin, removeDownloadProfile]
-	)
 
 	function handleClearUrl(): void {
 		setWizardUrl('')
 		if (pendingClipboard) {
-			consumeClipboardCandidate(pendingClipboard)
+			onConsumeClipboard(pendingClipboard)
 			return
 		}
 		inputRef.current?.focus()
@@ -458,142 +284,48 @@ export function DownloadProfilesHome(): ReactNode {
 		setWizardUrl(wizardUrl.slice(0, start) + cleaned + wizardUrl.slice(end))
 	}
 
-	const tabsList = <HomeTabsList compact={compact} exploreEnabled={exploreEnabled} exploreNoticeSeen={exploreNoticeSeen} queueCount={queueCount} attentionCount={attentionCount} queueIsActive={queueIsActive} />
-
 	return (
-		<div className={cn('wizard-step mx-auto flex w-full max-w-[92rem] flex-col gap-4', compact ? 'pb-2' : 'pb-5')} data-testid="download-profiles-home">
-			<Tabs
-				value={activeTab}
-				onValueChange={value => {
-					if (!isProfilesTab(value)) return
-					if (value !== 'download') setPendingClipboard(null)
-					selectProfilesTab(value)
-				}}
-				// Explore's browser fills the remaining height; the other tabs size to their content.
-				className={cn('gap-4', activeTab === 'explore' && 'flex-1')}
-			>
-				{compact ? null : (
-					<div className="download-home-tabs-frame relative z-30 flex w-full justify-center">
-						{tabsList}
-						{queueTabTipVisible ? <QueueTabFirstRunCue persistent={initialBrowserMockScenario === 'queue-tab-tip'} onDismiss={() => setShowQueueTabTip(false)} /> : null}
-					</div>
-				)}
-
-				<TabsContent value="download" className="flex flex-col gap-4">
-					<Card variant="glass" data-testid="profiles-download-panel">
-						<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
-							<div className="min-w-0">
-								<div className="flex min-w-0 items-start gap-3" data-testid="profiles-mascot-header">
-									<img src={mascotHeaderImage} alt="" aria-hidden className="mt-0.5 size-12 shrink-0 object-contain sm:size-14" draggable={false} />
-									<div className="min-w-0 flex-1">
-										<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
-										<CardDescription className="mt-1.5 text-body text-subtle-foreground" data-testid="profiles-mascot-copy">
-											{mascotHeaderBody}
-										</CardDescription>
-									</div>
-								</div>
-								<InputGroup className="glow-tile mt-4 h-11 rounded-xl border-transparent px-1">
-									<InputGroupAddon align="inline-start">
-										<Link2 aria-hidden />
-									</InputGroupAddon>
-									<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="profiles-main-input" className="text-title" />
-									{hasInput ? (
-										<InputGroupAddon align="inline-end">
-											<InputGroupButton type="button" size="icon-sm" aria-label={t('wizard.url.clearAria')} onClick={handleClearUrl} data-testid="url-clear">
-												<X aria-hidden />
-											</InputGroupButton>
-										</InputGroupAddon>
-									) : null}
-								</InputGroup>
-								{pendingClipboard ? <ClipboardPendingAction onApply={() => consumeClipboardCandidate(pendingClipboard)} onDismiss={() => setPendingClipboard(null)} /> : null}
-							</div>
-						</CardHeader>
-						<CardContent className="px-5 pb-4 md:px-6">
-							<QuickProfileControl
-								defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
-								destination={activeProfileDestination}
-								destinationDetail={activeProfileDestinationDetail}
-								disabled={!urlReady}
-								onChangeGlobalDestination={() => void chooseWizardFolder()}
-								onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}
-								onEditProfile={openEditor}
-								onManageProfiles={() => selectProfilesTab('profiles')}
-								onNewProfile={() => openEditor(null)}
-								onPickProfile={pickProfileRef}
-								profilesPrefs={profilesPrefs}
-							/>
-
-							{quickDownloadStatus === 'error' ? (
-								<QuickDownloadErrorAlert
-									className="mt-2"
-									experience={quickDownloadProbeExperience}
-									message={quickDownloadFailureMessage}
-									onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
-									onOpenCookiesSettings={openCookiesSettings}
-									onSignInWithExplore={openExploreSignIn}
-									onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'home'})}
-									onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'home'})}
-									onRetry={() => void retryQuickDownloadFailure()}
-								/>
-							) : null}
-							{showQuickPartialWarning ? (
-								<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
-									<AlertDescription>{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
-								</Alert>
-							) : null}
-
-							<div className="mt-3 grid w-full gap-2 lg:grid-cols-[repeat(2,minmax(0,35rem))] lg:justify-start" data-testid="profiles-action-rows">
-								<ActionRow disabled={!urlReady} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
-								<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={openManualBulkDialog} testId="profiles-bulk-urls" />
-							</div>
-						</CardContent>
-					</Card>
-				</TabsContent>
-
-				{exploreEnabled ? (
-					<TabsContent value="explore" className="flex min-h-0 flex-col">
-						<ExploreTab compactTabs={compact ? tabsList : null} onEditProfile={openEditor} onNewProfile={() => openEditor(null)} onManageProfiles={() => selectProfilesTab('profiles')} />
-					</TabsContent>
-				) : null}
-
-				<TabsContent value="queue">
-					<QueueManagerTab />
-				</TabsContent>
-
-				<TabsContent value="profiles">
-					<ProfilesTab activeProfile={activeProfile} onEdit={openEditor} onPick={activateProfile} onRemove={profile => void removeDownloadProfile(profile.id)} onToggleEnabled={(id, enabled) => void setDownloadProfileEnabled(id, enabled)} profiles={profiles} profilesPrefs={profilesPrefs} />
-				</TabsContent>
-				<TabsContent value="settings">
-					<DownloadProfilesSettingsTab />
-				</TabsContent>
-			</Tabs>
-
-			{bulkOpen ? <BulkUrlDialog open={bulkOpen} onOpenChange={handleBulkOpenChange} initialRaw={bulkInitialRaw} onEditProfile={() => openEditor(activeProfile)} onManageProfiles={() => selectProfilesTab('profiles')} onNewProfile={() => openEditor(null)} /> : null}
-			{editorOpen ? (
-				<Suspense
-					fallback={
-						<output className="fixed inset-0 z-50 grid place-items-center bg-background/35" aria-label={t('wizard.formats.loadingAria')}>
-							<Spinner className="size-5 text-primary" aria-hidden />
-						</output>
-					}
-				>
-					<DownloadProfileEditor
-						key={editorSessionId}
-						commonPaths={commonPaths}
-						globalDestination={globalDestinationRoot}
-						globalNativeAudioPreference={nativeAudioPreference}
-						globalHdrSetting={hdrPreference}
-						initialProfile={editingProfile}
-						onChangeGlobalDestination={() => chooseWizardFolder()}
-						open={editorOpen}
-						onOpenChange={setEditorOpen}
-						onSave={profile => saveDownloadProfile(profile)}
-						resetProfile={editorResetProfile}
-					/>
-				</Suspense>
+		<InputGroup className="glow-tile mt-4 h-11 rounded-xl border-transparent px-1">
+			<InputGroupAddon align="inline-start">
+				<Link2 aria-hidden />
+			</InputGroupAddon>
+			<InputGroupInput ref={inputRef} type="url" value={wizardUrl} onChange={event => setWizardUrl(event.target.value)} onKeyDown={handleKeyDown} onPaste={handlePaste} placeholder={t('wizard.url.placeholder')} spellCheck={false} data-testid="profiles-main-input" className="text-title" />
+			{hasInput ? (
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton type="button" size="icon-sm" aria-label={t('wizard.url.clearAria')} onClick={handleClearUrl} data-testid="url-clear">
+						<X aria-hidden />
+					</InputGroupButton>
+				</InputGroupAddon>
 			) : null}
-			<IncompleteCookiesConfigDialog issue={cookiesConfigDialogIssue} onDismiss={dismissCookiesConfigDialog} onOpenSettings={openCookiesSettings} />
-		</div>
+		</InputGroup>
+	)
+}
+
+function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
+	const {t} = useTranslation()
+	const {openCookiesSettings, openExploreSignIn, quickDownloadFailureMessage, quickDownloadProbeExperience, quickDownloadProgressFailed, quickDownloadStatus, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryWithExploreSignIn, signInWithExploreThenRetry} = view
+	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
+	return (
+		<>
+			{quickDownloadStatus === 'error' ? (
+				<QuickDownloadErrorAlert
+					className="mt-2"
+					experience={quickDownloadProbeExperience}
+					message={quickDownloadFailureMessage}
+					onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
+					onOpenCookiesSettings={openCookiesSettings}
+					onSignInWithExplore={openExploreSignIn}
+					onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'home'})}
+					onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'home'})}
+					onRetry={() => void retryQuickDownloadFailure()}
+				/>
+			) : null}
+			{showQuickPartialWarning ? (
+				<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
+					<AlertDescription>{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
+				</Alert>
+			) : null}
+		</>
 	)
 }
 

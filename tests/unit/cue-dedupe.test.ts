@@ -11,7 +11,7 @@ describe('dedupeCues — purity', () => {
 			{start: 0, end: 1000, text: 'hello'},
 			{start: 500, end: 1500, text: 'hello world'}
 		]
-		const snapshot = JSON.parse(JSON.stringify(input))
+		const snapshot = structuredClone(input)
 
 		collect(input)
 

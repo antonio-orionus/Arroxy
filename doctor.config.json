@@ -14,6 +14,7 @@
 			{"files": ["src/main/index.ts"], "rules": ["react-doctor/no-unguarded-throwing-parse-call"]},
 			{"files": ["src/main/services/DiagnosticsFile.ts"], "rules": ["react-doctor/path-traversal-risk"]},
 			{"files": ["src/renderer/src/dev/**"], "rules": ["react-doctor/no-giant-component"]},
+			{"files": ["tests/scripts/dev-env.test.ts"], "rules": ["react-doctor/no-json-parse-stringify-clone"]},
 			{
 				"files": [
 					"src/main/services/download/progressParser.ts",

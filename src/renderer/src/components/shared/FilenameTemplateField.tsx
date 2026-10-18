@@ -1,4 +1,4 @@
-import {useCallback, useId, useRef} from 'react'
+import {useCallback, useId, useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {previewFilenameTemplate, templateHasId, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
@@ -29,6 +29,41 @@ export interface FilenameTemplateFieldProps {
 	description: string
 	placeholder?: string
 	testId?: string
+}
+
+function FilenameTemplateError({error}: {error: FilenameTemplateFailure}): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<p className="text-caption text-destructive" data-testid="filename-template-error">
+			{t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})}
+		</p>
+	)
+}
+
+// Rendered only for a valid template.
+function FilenameTemplatePreview({value}: {value: string}): ReactNode {
+	const {t} = useTranslation()
+	const preview = previewFilenameTemplate(value, 'video')
+	const playlistPreview = previewFilenameTemplate(value, 'playlist')
+	// A template can resolve differently in the two cases — folders built from
+	// playlist metadata collapse for a single video. Showing both is the only way
+	// the user sees that before downloading, so label them only when they differ.
+	const previewsDiffer = preview !== null && playlistPreview !== null && preview !== playlistPreview
+	if (!preview) return null
+	return (
+		<div className="flex flex-col gap-0.5">
+			<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview">
+				{previewsDiffer ? `${t('filenameTemplate.previewSingle')}: ` : ''}
+				{preview}
+			</p>
+			{previewsDiffer ? (
+				<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview-playlist">
+					{`${t('filenameTemplate.previewPlaylist')}: `}
+					{playlistPreview}
+				</p>
+			) : null}
+		</div>
+	)
 }
 
 /**
@@ -63,12 +98,6 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 		[onChange, value]
 	)
 
-	const preview = error ? null : previewFilenameTemplate(value, 'video')
-	const playlistPreview = error ? null : previewFilenameTemplate(value, 'playlist')
-	// A template can resolve differently in the two cases — folders built from
-	// playlist metadata collapse for a single video. Showing both is the only way
-	// the user sees that before downloading, so label them only when they differ.
-	const previewsDiffer = preview !== null && playlistPreview !== null && preview !== playlistPreview
 	// Only warn once the template is otherwise valid — an error message plus a
 	// warning about the same input is noise.
 	const showIdWarning = !error && value.trim() !== '' && !templateHasId(value)
@@ -90,24 +119,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 				))}
 			</div>
 
-			{error ? (
-				<p className="text-caption text-destructive" data-testid="filename-template-error">
-					{t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})}
-				</p>
-			) : preview ? (
-				<div className="flex flex-col gap-0.5">
-					<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview">
-						{previewsDiffer ? `${t('filenameTemplate.previewSingle')}: ` : ''}
-						{preview}
-					</p>
-					{previewsDiffer ? (
-						<p className="font-mono text-caption text-subtle-foreground" data-testid="filename-template-preview-playlist">
-							{`${t('filenameTemplate.previewPlaylist')}: `}
-							{playlistPreview}
-						</p>
-					) : null}
-				</div>
-			) : null}
+			{error ? <FilenameTemplateError error={error} /> : <FilenameTemplatePreview value={value} />}
 
 			{showIdWarning ? (
 				<p className="flex items-start gap-1.5 text-caption text-subtle-foreground" data-testid="filename-template-id-warning">

@@ -1,289 +1,33 @@
-import {useEffect, useState, type ReactNode} from 'react'
+import {useEffect, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {AlertTriangle, FileArchive, FileText, Gauge} from 'lucide-react'
-import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
-import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema, HDR_SETTINGS, NATIVE_AUDIO_PREFERENCES, UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
-import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
-import type {CookiesBrowser, CookiesMode, HdrSetting, NativeAudioPreference} from '@shared/types.js'
+import {AlertTriangle} from 'lucide-react'
+import {UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
 import {BASE_STYLE, STYLES} from '../../styles/registry.js'
 import {selectBackdropAvailability} from '../../store/uiSlice.js'
-import {formatHomeRelativePath} from '@renderer/lib/utils.js'
-import {replaceHash} from '@renderer/lib/navigation.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {AdvancedSettingsTarget} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
-import {Badge} from '../ui/badge.js'
-import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
 import {Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
-import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText} from '../ui/input-group.js'
-import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
-import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from '../ui/select.js'
-import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {LimitRatePicker} from '../shared/LimitRatePicker.js'
-import {formatLimitRateLabel} from '@shared/limitRate.js'
-import {NetworkPacingSettings} from './NetworkPacingSettings.js'
+import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
+import {ToggleGroup} from '../ui/toggle-group.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
-import {SettingRow} from '../shared/SettingRow.js'
 import {Panel} from '../shared/Panel.js'
 import {OptionCard} from '../shared/OptionCard.js'
 import {HotkeySettingsSection} from './HotkeySettingsSection.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
-import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
-import {SectionLabel} from '../shared/SectionLabel.js'
 import {ExploreSettingsPanel} from '../explore/ExploreSettingsPanel.js'
+import {BehaviorSettingsPanel} from './BehaviorSettingsPanel.js'
+import {CookiesSettingsFields} from './CookiesSettingsFields.js'
 
-const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?: boolean}[] = [
-	{value: 'firefox', label: 'Firefox'},
-	{value: 'chromium', label: 'Chromium'},
-	{value: 'chrome', label: 'Chrome'},
-	{value: 'brave', label: 'Brave'},
-	{value: 'edge', label: 'Edge'},
-	{value: 'safari', label: 'Safari', macOnly: true},
-	{value: 'vivaldi', label: 'Vivaldi'}
-]
-
-const COOKIES_HELP_URL = 'https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp'
-const COOKIES_FIREFOX_URL = 'https://addons.mozilla.org/en-US/firefox/addon/cookies-txt/'
-const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc'
-
-const NATIVE_AUDIO_LABEL_KEYS = {compatible: 'wizard.url.nativeAudioPreference.compatible', surround: 'wizard.url.nativeAudioPreference.surround'} as const satisfies Record<NativeAudioPreference, string>
-
-const HDR_LABEL_KEYS = {auto: 'hdrPreference.auto', sdr: 'hdrPreference.sdr', hdr: 'hdrPreference.hdr'} as const satisfies Record<HdrSetting, string>
-
-// Shared shape for the two numeric transport settings. Keeps its own draft so
-// typing is not fought by the persisted value; on blur an out-of-range entry
-// reverts to what is stored rather than lingering as invalid text. An empty
-// field commits `emptyValue`, which is how each setting spells "off"/default.
-function NumericSettingRow({
-	id,
-	label,
-	description,
-	unit,
-	value,
-	emptyValue,
-	placeholder,
-	max,
-	schema,
-	onCommit,
-	testId
-}: {
-	id: string
-	label: string
-	description: string
-	unit: string
-	value: number | undefined
-	emptyValue: number
-	placeholder: number
-	max: number
-	schema: {safeParse: (input: unknown) => {success: boolean}}
-	onCommit: (value: number) => void
-	testId: string
-}): ReactNode {
-	const [draft, setDraft] = useState<string | undefined>(undefined)
-
-	function commit(): void {
-		if (draft === undefined) return
-		const parsed = draft.trim() === '' ? emptyValue : Number(draft)
-		setDraft(undefined)
-		if (!schema.safeParse(parsed).success) return
-		if (parsed === (value ?? emptyValue)) return
-		onCommit(parsed)
-	}
-
-	return (
-		<SettingRow id={id} label={label} description={description} testId={`${testId}-row`}>
-			<InputGroup className="w-40 shrink-0">
-				<InputGroupInput type="number" min={0} max={max} value={draft ?? (value ? String(value) : '')} onChange={event => setDraft(event.target.value)} onBlur={() => commit()} placeholder={String(placeholder)} aria-labelledby={id} className="font-mono text-xs" data-testid={testId} />
-				<InputGroupAddon align="inline-end">
-					<InputGroupText className="text-caption">{unit}</InputGroupText>
-				</InputGroupAddon>
-			</InputGroup>
-		</SettingRow>
-	)
-}
+const ADVANCED_SETTINGS_TARGET_TEST_IDS: Record<AdvancedSettingsTarget, string> = {cookies: 'cookies-source', network: 'network-pacing-section', hotkey: 'hotkey-section'}
 
 export function DownloadProfilesSettingsTab(): ReactNode {
 	const {t} = useTranslation()
-	const {
-		advancedAutoOpen,
-		advancedAutoTarget,
-		settings,
-		uiStyle,
-		setUiStyle,
-		openLogs,
-		saveDiagnostics,
-		setAdvancedAutoOpen,
-		setClipboardWatchEnabled,
-		setCookiesPath,
-		setCookiesMode,
-		setCookiesBrowser,
-		setProxyUrl,
-		setLimitRate,
-		setDownloadConnections,
-		setConcurrentDownloads,
-		setAutoRetryAttempts,
-		setAutoRemoveCompleted,
-		setNativeAudioPreference,
-		setHdrPreference,
-		setFilenameTemplate,
-		setCloseBehavior,
-		setAnalyticsEnabled
-	} = useAppStore()
-	const common = settings?.common
-	const filenameTemplate = common?.filenameTemplate ?? DEFAULTS.filenameTemplate
-	const filenameTemplateValidation = validateFilenameTemplate(filenameTemplate)
-	const filenameTemplateError = filenameTemplateValidation.ok ? null : filenameTemplateValidation
-	const cookiesPath = common?.cookiesPath ?? ''
-	const cookiesMode: CookiesMode = common?.cookiesMode ?? 'off'
-	const exploreEnabled = common?.exploreEnabled !== false
-	const cookiesBrowser = common?.cookiesBrowser
-	const proxyUrl = common?.proxyUrl ?? ''
-	const commonPaths = common?.commonPaths
-	const platform = (window as Window & {platform?: NodeJS.Platform}).platform
-	const visibleBrowsers = COOKIES_BROWSERS.filter(browser => !browser.macOnly || platform === 'darwin')
-	const showMissingFileWarning = cookiesMode === 'file' && !cookiesPath.trim()
-	const showMissingBrowserWarning = cookiesMode === 'browser' && !cookiesBrowser
-	const limitRate = common?.limitRate?.trim() ? common.limitRate : undefined
-	const nativeAudioPreference = common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
-	const hdrPreference = common?.hdrPreference ?? DEFAULTS.hdrPreference
-	const backdropAvailability = useAppStore(selectBackdropAvailability)
-	const styleFallsBack = STYLES[uiStyle].backdrop !== null && backdropAvailability === 'blocked'
-
-	useEffect(() => {
-		if (!advancedAutoOpen) return
-		const targetTestIds: Record<AdvancedSettingsTarget, string> = {cookies: 'cookies-source', network: 'network-pacing-section', hotkey: 'hotkey-section'}
-		const targetTestId = targetTestIds[advancedAutoTarget]
-		const target = document.querySelector(`[data-testid="${targetTestId}"]`)
-		if (target instanceof HTMLElement) {
-			target.scrollIntoView?.({block: 'center', behavior: 'smooth'})
-		}
-		setAdvancedAutoOpen(false, advancedAutoTarget)
-	}, [advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen])
-
-	async function chooseCookiesFile(): Promise<void> {
-		const result = await window.appApi.dialog.chooseFile()
-		if (result.ok && result.data.path) await setCookiesPath(result.data.path)
-	}
-
+	useAdvancedSettingsAutoScroll()
 	return (
 		<Card variant="glass" className="mx-auto w-full max-w-2xl gap-4 px-4" data-testid="profiles-settings-tab">
-			<Panel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
-				<FieldGroup className="gap-4">
-					<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
-
-					<Field className="gap-1.5" data-testid="cookies-source">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-cookies-mode">{t('wizard.url.cookies.sourceLabel')}</FieldTitle>
-							<FieldDescription>{t('wizard.url.cookies.toggleDescription')}</FieldDescription>
-						</FieldContent>
-						<ToggleGroup
-							size="sm"
-							variant="outline"
-							value={[cookiesMode]}
-							onValueChange={value => {
-								if (value[0]) void setCookiesMode(value[0] as CookiesMode)
-							}}
-							spacing={1}
-							className="flex w-full flex-wrap gap-1"
-							aria-labelledby="profiles-settings-cookies-mode"
-						>
-							<ToggleGroupItem value="explore">
-								{t('wizard.url.cookies.sourceExplore')} <Badge size="sm">{t('wizard.url.cookies.recommended')}</Badge>
-							</ToggleGroupItem>
-							<ToggleGroupItem value="off">{t('wizard.url.cookies.sourceOff')}</ToggleGroupItem>
-							<ToggleGroupItem value="file">{t('wizard.url.cookies.sourceFile')}</ToggleGroupItem>
-							<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
-						</ToggleGroup>
-						{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} /> : null}
-						<div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-caption">
-							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_HELP_URL)} data-testid="cookies-help-link">
-								{t('wizard.url.cookies.helpLink')}
-							</Button>
-							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_FIREFOX_URL)} data-testid="cookies-firefox-link">
-								{t('wizard.url.cookies.extensionFirefox')}
-							</Button>
-							<Button type="button" variant="link" size="inline" className="text-subtle-foreground hover:text-foreground" onClick={() => void window.appApi.shell.openExternal(COOKIES_CHROME_URL)} data-testid="cookies-chrome-link">
-								{t('wizard.url.cookies.extensionChrome')}
-							</Button>
-						</div>
-						<WarningText text={t('wizard.url.cookies.risk')} />
-						{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
-					</Field>
-
-					{cookiesMode === 'file' ? (
-						<Field className="gap-1.5">
-							<FieldLabel htmlFor="profiles-settings-cookies-path" size="sm">
-								{t('wizard.url.cookies.fileLabel')}
-							</FieldLabel>
-							<InputGroup className="h-9">
-								<InputGroupInput id="profiles-settings-cookies-path" readOnly value={cookiesPath ? formatHomeRelativePath(cookiesPath, commonPaths) : ''} placeholder={t('wizard.url.cookies.placeholder')} className="text-xs font-mono" data-testid="profiles-settings-cookies-path" />
-								<InputGroupAddon align="inline-end">
-									<InputGroupButton type="button" onClick={() => void chooseCookiesFile()}>
-										{t('wizard.url.cookies.choose')}
-									</InputGroupButton>
-									<InputGroupButton type="button" onClick={() => void setCookiesPath('')} disabled={!cookiesPath}>
-										{t('wizard.url.cookies.clear')}
-									</InputGroupButton>
-								</InputGroupAddon>
-							</InputGroup>
-							{showMissingFileWarning ? <WarningText text={t('wizard.url.cookies.enabledButNoFile')} /> : null}
-						</Field>
-					) : null}
-
-					{cookiesMode === 'browser' ? (
-						<Field className="gap-1.5">
-							<FieldLabel htmlFor="profiles-settings-cookies-browser-trigger" size="sm">
-								{t('wizard.url.cookies.browserLabel')}
-							</FieldLabel>
-							<Select
-								value={cookiesBrowser ?? ''}
-								onValueChange={value => {
-									if (value) void setCookiesBrowser(value as CookiesBrowser)
-								}}
-							>
-								<SelectTrigger id="profiles-settings-cookies-browser-trigger" className="w-full" data-testid="profiles-settings-cookies-browser">
-									<SelectValue placeholder={t('wizard.url.cookies.browserPlaceholder')}>{selected => visibleBrowsers.find(browser => browser.value === selected)?.label ?? t('wizard.url.cookies.browserPlaceholder')}</SelectValue>
-								</SelectTrigger>
-								<SelectContent align="start">
-									<SelectGroup>
-										{visibleBrowsers.map(browser => (
-											<SelectItem key={browser.value} value={browser.value}>
-												{browser.label}
-											</SelectItem>
-										))}
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-							<FieldDescription>{t('wizard.url.cookies.browserHelp')}</FieldDescription>
-							{showMissingBrowserWarning ? <WarningText text={t('wizard.url.cookies.enabledButNoBrowser')} /> : null}
-						</Field>
-					) : null}
-
-					<Field className="gap-1.5">
-						<FieldContent className="gap-0.5">
-							<FieldLabel htmlFor="profiles-settings-proxy-url">{t('wizard.url.proxy.label')}</FieldLabel>
-							<FieldDescription>{t('wizard.url.proxy.description')}</FieldDescription>
-						</FieldContent>
-						<InputGroup className="h-9">
-							<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-xs font-mono" data-testid="profiles-settings-proxy-url" />
-							<InputGroupAddon align="inline-end">
-								<InputGroupButton type="button" onClick={() => void setProxyUrl('')} disabled={!proxyUrl}>
-									{t('wizard.url.proxy.clear')}
-								</InputGroupButton>
-							</InputGroupAddon>
-						</InputGroup>
-					</Field>
-
-					<Field orientation="horizontal" className="items-start justify-between gap-3" data-testid="playlist-probe-limit-section">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-playlist-probe-limit">{t('wizard.url.playlistProbeLimit.label')}</FieldTitle>
-							<FieldDescription>{t('wizard.url.playlistProbeLimit.description')}</FieldDescription>
-						</FieldContent>
-						<PlaylistProbeLimitSelector testId="profiles-settings-playlist-probe-limit" className="w-40" showCurrent={false} />
-					</Field>
-				</FieldGroup>
-			</Panel>
+			<InputSettingsPanel />
 
 			<ExploreSettingsPanel />
 
@@ -291,209 +35,110 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 				<HotkeySettingsSection />
 			</Panel>
 
-			<Panel title={t('wizard.url.settings.behaviorHeading')} description={t('wizard.url.settings.behaviorDescription')}>
-				<FieldGroup className="gap-4">
-					<Field orientation="horizontal" className="items-center justify-between gap-3">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-speed-limit">{t('wizard.url.limitRate.label')}</FieldTitle>
-							<FieldDescription>{t('wizard.url.limitRate.description')}</FieldDescription>
-						</FieldContent>
-						<Popover>
-							<PopoverTrigger
-								render={
-									<Button type="button" variant="outline" size="sm" aria-labelledby="profiles-settings-speed-limit" data-testid="profiles-settings-limit-rate-trigger">
-										<Gauge data-icon="inline-start" aria-hidden />
-										{limitRate ? formatLimitRateLabel(limitRate) : t('wizard.url.limitRate.off')}
-									</Button>
-								}
-							/>
-							<PopoverContent align="end" sideOffset={8} className="w-64">
-								<div className="flex flex-col gap-1">
-									<SectionLabel>{t('wizard.url.limitRate.label')}</SectionLabel>
-									<p className="text-caption text-subtle-foreground">{t('wizard.url.limitRate.activeWarning')}</p>
-								</div>
-								<LimitRatePicker value={limitRate} onChange={value => void setLimitRate(value)} />
-							</PopoverContent>
-						</Popover>
-					</Field>
+			<BehaviorSettingsPanel />
 
-					<NumericSettingRow
-						id="profiles-settings-concurrent-downloads"
-						label={t('wizard.url.concurrentDownloads.label')}
-						description={t('wizard.url.concurrentDownloads.description')}
-						unit={t('wizard.url.concurrentDownloads.unit')}
-						value={common?.concurrentDownloads}
-						emptyValue={NORMAL_LANE_CAP}
-						placeholder={NORMAL_LANE_CAP}
-						max={CONCURRENT_DOWNLOADS_MAX}
-						schema={concurrentDownloadsSchema}
-						onCommit={value => void setConcurrentDownloads(value)}
-						testId="concurrent-downloads-input"
-					/>
-
-					<NumericSettingRow
-						id="profiles-settings-auto-retry"
-						label={t('wizard.url.autoRetry.label')}
-						description={t('wizard.url.autoRetry.description')}
-						unit={t('wizard.url.autoRetry.unit')}
-						value={common?.autoRetryAttempts}
-						emptyValue={0}
-						placeholder={RECOMMENDED_AUTO_RETRY_ATTEMPTS}
-						max={AUTO_RETRY_ATTEMPTS_MAX}
-						schema={autoRetryAttemptsSchema}
-						onCommit={value => void setAutoRetryAttempts(value)}
-						testId="auto-retry-input"
-					/>
-
-					<SettingSwitch
-						id="profiles-settings-auto-remove-completed"
-						label={t('wizard.url.autoRemoveCompleted.label')}
-						description={t('wizard.url.autoRemoveCompleted.description')}
-						checked={common?.autoRemoveCompleted ?? false}
-						onCheckedChange={checked => void setAutoRemoveCompleted(checked)}
-						testId="auto-remove-completed-switch"
-					/>
-
-					<NumericSettingRow
-						id="profiles-settings-download-connections"
-						label={t('wizard.url.downloadConnections.label')}
-						description={t('wizard.url.downloadConnections.description')}
-						unit={t('wizard.url.downloadConnections.unit')}
-						value={common?.downloadConnections}
-						emptyValue={0}
-						placeholder={RECOMMENDED_DOWNLOAD_CONNECTIONS}
-						max={DOWNLOAD_CONNECTIONS_MAX}
-						schema={downloadConnectionsSchema}
-						onCommit={value => void setDownloadConnections(value)}
-						testId="download-connections-input"
-					/>
-
-					<NetworkPacingSettings />
-
-					<Field className="gap-2" data-testid="native-audio-preference">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-native-audio">{t('wizard.url.nativeAudioPreference.label')}</FieldTitle>
-							<FieldDescription>{t('wizard.url.nativeAudioPreference.description')}</FieldDescription>
-						</FieldContent>
-						<ToggleGroup
-							size="sm"
-							variant="outline"
-							value={[nativeAudioPreference]}
-							onValueChange={value => {
-								if (value[0]) void setNativeAudioPreference(value[0] as NativeAudioPreference)
-							}}
-							spacing={1}
-							className="flex w-full flex-wrap gap-1"
-							aria-labelledby="profiles-settings-native-audio"
-						>
-							{NATIVE_AUDIO_PREFERENCES.map(option => (
-								<ToggleGroupItem key={option} value={option} data-testid={`native-audio-preference-${option}`}>
-									{t(NATIVE_AUDIO_LABEL_KEYS[option])}
-								</ToggleGroupItem>
-							))}
-						</ToggleGroup>
-					</Field>
-
-					<Field className="gap-2" data-testid="hdr-preference">
-						<FieldContent className="gap-0.5">
-							<FieldTitle id="profiles-settings-hdr">{t('hdrPreference.label')}</FieldTitle>
-							<FieldDescription>{t('hdrPreference.description')}</FieldDescription>
-						</FieldContent>
-						<ToggleGroup
-							size="sm"
-							variant="outline"
-							value={[hdrPreference]}
-							onValueChange={value => {
-								if (value[0]) void setHdrPreference(value[0] as HdrSetting)
-							}}
-							spacing={1}
-							className="flex w-full flex-wrap gap-1"
-							aria-labelledby="profiles-settings-hdr"
-						>
-							{HDR_SETTINGS.map(option => (
-								<ToggleGroupItem key={option} value={option} data-testid={`hdr-preference-${option}`}>
-									{t(HDR_LABEL_KEYS[option])}
-								</ToggleGroupItem>
-							))}
-						</ToggleGroup>
-					</Field>
-
-					<FilenameTemplateField value={filenameTemplate} onChange={value => void setFilenameTemplate(value)} error={filenameTemplateError} label={t('filenameTemplate.label')} description={t('filenameTemplate.description')} placeholder={DEFAULTS.filenameTemplate} testId="filename-template-input" />
-
-					{platform !== 'darwin' ? <SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} /> : null}
-
-					<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.analytics.toggle')} description={t('wizard.url.analytics.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
-
-					<Field>
-						<Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => void openLogs()} data-testid="btn-logs">
-							<FileText data-icon="inline-start" aria-hidden />
-							{t('app.logs')}
-						</Button>
-					</Field>
-
-					<Field>
-						<Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => void saveDiagnostics()} data-testid="btn-save-diagnostics">
-							<FileArchive data-icon="inline-start" aria-hidden />
-							{t('app.saveDiagnostics')}
-						</Button>
-						<FieldDescription>{t('app.saveDiagnosticsDescription')}</FieldDescription>
-					</Field>
-				</FieldGroup>
-			</Panel>
-
-			<Panel title={t('wizard.url.style.panelTitle')} description={t('wizard.url.style.panelDescription')}>
-				<Field className="gap-2">
-					<FieldContent className="gap-0.5">
-						<FieldTitle id="profiles-settings-style-label">{t('wizard.url.style.modeLabel')}</FieldTitle>
-						<FieldDescription>{t('wizard.url.style.modeDescription')}</FieldDescription>
-					</FieldContent>
-					<ToggleGroup
-						variant="outline"
-						value={[uiStyle]}
-						onValueChange={value => {
-							const next = uiStyleSchema.safeParse(value[0])
-							if (next.success) setUiStyle(next.data)
-						}}
-						spacing={1}
-						className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-2"
-						aria-labelledby="profiles-settings-style-label"
-						data-testid="profiles-settings-style"
-					>
-						{UI_STYLES.map(style => (
-							<OptionCard key={style} value={style} title={t(STYLES[style].labelKey)} description={t(STYLES[style].descriptionKey)} className="w-full" data-testid={`profiles-settings-style-${style}`} />
-						))}
-					</ToggleGroup>
-					{styleFallsBack ? (
-						<Alert size="sm" data-testid="profiles-settings-style-fallback">
-							<AlertTriangle className="size-4" aria-hidden />
-							<AlertDescription>{t('wizard.url.style.unavailableNotice', {style: t(STYLES[uiStyle].labelKey), fallback: t(STYLES[BASE_STYLE].labelKey)})}</AlertDescription>
-						</Alert>
-					) : null}
-				</Field>
-			</Panel>
+			<StyleSettingsPanel />
 		</Card>
 	)
 }
 
-// The tab is the only place to sign in, so with it turned off there is nothing to link to.
-function ExploreModeDescription({enabled}: {enabled: boolean}): ReactNode {
+// A request to open the advanced settings at a target scrolls that section into
+// view once the tab has rendered, then clears the request.
+function useAdvancedSettingsAutoScroll(): void {
+	const {advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen} = useAppStore()
+
+	useEffect(() => {
+		if (!advancedAutoOpen) return
+		const targetTestId = ADVANCED_SETTINGS_TARGET_TEST_IDS[advancedAutoTarget]
+		const target = document.querySelector(`[data-testid="${targetTestId}"]`)
+		if (target instanceof HTMLElement) {
+			target.scrollIntoView?.({block: 'center', behavior: 'smooth'})
+		}
+		setAdvancedAutoOpen(false, advancedAutoTarget)
+	}, [advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen])
+}
+
+function InputSettingsPanel(): ReactNode {
 	const {t} = useTranslation()
-	if (!enabled) return <WarningText text={t('wizard.url.cookies.exploreDisabled')} />
+	const {settings, setClipboardWatchEnabled} = useAppStore()
 	return (
-		<FieldDescription className="flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="cookies-explore-description">
-			<span>{t('wizard.url.cookies.exploreDescription')}</span>
-			<Button type="button" variant="link" size="inline" onClick={() => replaceHash('explore')} data-testid="cookies-open-explore">
-				{t('wizard.url.cookies.openExplore')}
-			</Button>
-		</FieldDescription>
+		<Panel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
+			<FieldGroup className="gap-4">
+				<SettingSwitch id="profiles-settings-clipboard" label={t('wizard.url.clipboard.toggle')} description={t('wizard.url.clipboard.toggleDescription')} checked={settings?.common?.clipboardWatchEnabled ?? false} onCheckedChange={checked => void setClipboardWatchEnabled(checked)} />
+
+				<CookiesSettingsFields />
+
+				<ProxyUrlField />
+
+				<Field orientation="horizontal" className="items-start justify-between gap-3" data-testid="playlist-probe-limit-section">
+					<FieldContent className="gap-0.5">
+						<FieldTitle id="profiles-settings-playlist-probe-limit">{t('wizard.url.playlistProbeLimit.label')}</FieldTitle>
+						<FieldDescription>{t('wizard.url.playlistProbeLimit.description')}</FieldDescription>
+					</FieldContent>
+					<PlaylistProbeLimitSelector testId="profiles-settings-playlist-probe-limit" className="w-40" showCurrent={false} />
+				</Field>
+			</FieldGroup>
+		</Panel>
 	)
 }
 
-function WarningText({text}: {text: string}): ReactNode {
+function ProxyUrlField(): ReactNode {
+	const {t} = useTranslation()
+	const {settings, setProxyUrl} = useAppStore()
+	const proxyUrl = settings?.common?.proxyUrl ?? ''
 	return (
-		<Alert variant="warning" size="sm">
-			<AlertTriangle aria-hidden />
-			<AlertDescription>{text}</AlertDescription>
-		</Alert>
+		<Field className="gap-1.5">
+			<FieldContent className="gap-0.5">
+				<FieldLabel htmlFor="profiles-settings-proxy-url">{t('wizard.url.proxy.label')}</FieldLabel>
+				<FieldDescription>{t('wizard.url.proxy.description')}</FieldDescription>
+			</FieldContent>
+			<InputGroup className="h-9">
+				<InputGroupInput id="profiles-settings-proxy-url" type="url" value={proxyUrl} onChange={event => void setProxyUrl(event.target.value)} placeholder={t('wizard.url.proxy.placeholder')} className="text-xs font-mono" data-testid="profiles-settings-proxy-url" />
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton type="button" onClick={() => void setProxyUrl('')} disabled={!proxyUrl}>
+						{t('wizard.url.proxy.clear')}
+					</InputGroupButton>
+				</InputGroupAddon>
+			</InputGroup>
+		</Field>
+	)
+}
+
+function StyleSettingsPanel(): ReactNode {
+	const {t} = useTranslation()
+	const {uiStyle, setUiStyle} = useAppStore()
+	const backdropAvailability = useAppStore(selectBackdropAvailability)
+	const styleFallsBack = STYLES[uiStyle].backdrop !== null && backdropAvailability === 'blocked'
+	return (
+		<Panel title={t('wizard.url.style.panelTitle')} description={t('wizard.url.style.panelDescription')}>
+			<Field className="gap-2">
+				<FieldContent className="gap-0.5">
+					<FieldTitle id="profiles-settings-style-label">{t('wizard.url.style.modeLabel')}</FieldTitle>
+					<FieldDescription>{t('wizard.url.style.modeDescription')}</FieldDescription>
+				</FieldContent>
+				<ToggleGroup
+					variant="outline"
+					value={[uiStyle]}
+					onValueChange={value => {
+						const next = uiStyleSchema.safeParse(value[0])
+						if (next.success) setUiStyle(next.data)
+					}}
+					spacing={1}
+					className="grid w-full grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-2"
+					aria-labelledby="profiles-settings-style-label"
+					data-testid="profiles-settings-style"
+				>
+					{UI_STYLES.map(style => (
+						<OptionCard key={style} value={style} title={t(STYLES[style].labelKey)} description={t(STYLES[style].descriptionKey)} className="w-full" data-testid={`profiles-settings-style-${style}`} />
+					))}
+				</ToggleGroup>
+				{styleFallsBack ? (
+					<Alert size="sm" data-testid="profiles-settings-style-fallback">
+						<AlertTriangle className="size-4" aria-hidden />
+						<AlertDescription>{t('wizard.url.style.unavailableNotice', {style: t(STYLES[uiStyle].labelKey), fallback: t(STYLES[BASE_STYLE].labelKey)})}</AlertDescription>
+					</Alert>
+				) : null}
+			</Field>
+		</Panel>
 	)
 }

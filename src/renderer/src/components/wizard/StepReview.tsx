@@ -3,11 +3,13 @@ import {useTranslation} from 'react-i18next'
 import {ChevronDown, ChevronRight, TriangleAlert} from 'lucide-react'
 import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
+import type {AppState} from '../../store/types.js'
 import type {ChangedArea, ReviewRow} from '../../store/wizard/profileApplication.js'
-import {buildDownloadReview, conflictLabelKey} from '../../store/wizard/downloadReviewProjection.js'
-import {buildSingleSettingsSummary, sponsorBlockApplies} from '../../store/wizard/singleSettingsSummary.js'
+import {buildDownloadReview, conflictLabelKey, type DownloadReview} from '../../store/wizard/downloadReviewProjection.js'
+import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSummary} from '../../store/wizard/singleSettingsSummary.js'
 import {wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
 import {mp4CaveatCodec, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
+import type {Mp4Caveat} from '@shared/fileTypeFit.js'
 import {createTranslationPort} from '../../lib/translation.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -131,6 +133,92 @@ function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 	)
 }
 
+interface ReviewRowEntry {
+	row: ReviewRow
+	value: string
+	fields: ReactNode
+}
+
+// The rows this run has: subtitles only when the video offers some or they are
+// on, SponsorBlock only where it applies, extras only with media.
+function reviewRowEntries(state: AppState, summary: SingleSettingsSummary): ReviewRowEntry[] {
+	const kind = state.wizardMediaKind
+	return [
+		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
+		...(sponsorBlockApplies(state) && summary.sponsorBlock !== null ? [{row: 'sponsorBlock' as const, value: summary.sponsorBlock, fields: <SponsorBlockFields />}] : []),
+		...(kind === 'subtitles' ? [] : [{row: 'extras' as const, value: summary.extras, fields: <OutputFields />}]),
+		{row: 'saveTo', value: summary.saveTo, fields: <FolderFields persist={false} />},
+		{row: 'fileName', value: summary.fileName, fields: <FileNameFields />}
+	]
+}
+
+// The chosen streams in one line: part, video, audio and the file type it saves as.
+function ReviewFormatStrip({state, review}: {state: AppState; review: DownloadReview}): ReactNode {
+	const {t} = useTranslation()
+	const kind = state.wizardMediaKind
+	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
+	const part = wizardVideoPart(state)
+	const partLabel = part ? t('wizard.part.summary', {start: formatPartTime(part.startSeconds), end: formatPartTime(part.endSeconds)}) : null
+	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
+
+	return (
+		<Card className="flex-row items-center gap-3 px-3.5 py-2.5" data-testid="review-format-strip">
+			{/* Wrapped: Card styles a first-child <img> as a cover image. */}
+			{state.wizardThumbnail ? (
+				<div className="h-9 w-16 shrink-0 overflow-hidden rounded-md">
+					<img src={state.wizardThumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="size-full object-cover" />
+				</div>
+			) : null}
+			<div className="min-w-0 flex-1">
+				<p className="truncate text-sm font-semibold text-foreground">{state.wizardTitle}</p>
+				<p className="truncate text-caption text-subtle-foreground">{formatLine}</p>
+			</div>
+			<Button type="button" variant="link" size="inline" className="shrink-0" onClick={() => state.goToStep('formats')} data-testid="review-change-format">
+				{t('wizard.review.changeFormat')}
+			</Button>
+		</Card>
+	)
+}
+
+interface ReviewChangedBarProps {
+	profileName: string
+	changed: readonly ChangedArea[]
+	onSaveAsProfile: () => void
+	onReset: () => void
+}
+
+function ReviewChangedBar({profileName, changed, onSaveAsProfile, onReset}: ReviewChangedBarProps): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-dashed border-border-strong px-3.5 py-2.5 text-sm text-muted-foreground" data-testid="review-changed-bar">
+			<span className="min-w-0 flex-1">{t('wizard.review.changed', {profile: profileName, areas: changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')})}</span>
+			<Button type="button" variant="link" size="inline" onClick={onSaveAsProfile} data-testid="review-save-as-profile">
+				{t('wizard.review.saveAsProfile')}
+			</Button>
+			<Button type="button" variant="link" size="inline" className="text-muted-foreground" onClick={onReset} data-testid="review-reset">
+				{t('wizard.review.reset')}
+			</Button>
+		</div>
+	)
+}
+
+function ReviewWarnings({caveat, conflicts}: {caveat: Mp4Caveat | null; conflicts: DownloadReview['conflictWarnings']}): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<Alert variant="warning">
+			<TriangleAlert aria-hidden />
+			<AlertDescription className="flex flex-col gap-1">
+				{caveat ? <p data-testid="review-mp4-caveat">{t(caveat === 'VP9' ? 'fileType.mp4CaveatVp9' : 'fileType.mp4CaveatAv1')}</p> : null}
+				{conflicts.map(conflict => (
+					<p key={conflict.code} data-testid={`review-conflict-${conflict.code}`}>
+						{t(conflictLabelKey(conflict.code))}
+					</p>
+				))}
+			</AlertDescription>
+		</Alert>
+	)
+}
+
 // Single video, screen 2: everything besides the streams, as rows that open in
 // place, plus what changed from the profile this run started from.
 export function StepReview(): ReactNode {
@@ -142,40 +230,13 @@ export function StepReview(): ReactNode {
 	const summary = buildSingleSettingsSummary(state, {t: translate, language: i18n.language})
 	const review = buildDownloadReview(state, {t: translate, language: i18n.language, commonPaths: state.commonPaths})
 	const changed = wizardChangedAreas(state)
-	const kind = state.wizardMediaKind
-
-	const rows: {row: ReviewRow; value: string; fields: ReactNode}[] = [
-		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
-		...(sponsorBlockApplies(state) && summary.sponsorBlock !== null ? [{row: 'sponsorBlock' as const, value: summary.sponsorBlock, fields: <SponsorBlockFields />}] : []),
-		...(kind === 'subtitles' ? [] : [{row: 'extras' as const, value: summary.extras, fields: <OutputFields />}]),
-		{row: 'saveTo', value: summary.saveTo, fields: <FolderFields persist={false} />},
-		{row: 'fileName', value: summary.fileName, fields: <FileNameFields />}
-	]
-
+	const rows = reviewRowEntries(state, summary)
 	const caveat = mp4CaveatCodec(state)
-	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
-	const part = wizardVideoPart(state)
-	const partLabel = part ? t('wizard.part.summary', {start: formatPartTime(part.startSeconds), end: formatPartTime(part.endSeconds)}) : null
-	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
-			<Card className="flex-row items-center gap-3 px-3.5 py-2.5" data-testid="review-format-strip">
-				{/* Wrapped: Card styles a first-child <img> as a cover image. */}
-				{state.wizardThumbnail ? (
-					<div className="h-9 w-16 shrink-0 overflow-hidden rounded-md">
-						<img src={state.wizardThumbnail} alt="" aria-hidden referrerPolicy="no-referrer" className="size-full object-cover" />
-					</div>
-				) : null}
-				<div className="min-w-0 flex-1">
-					<p className="truncate text-sm font-semibold text-foreground">{state.wizardTitle}</p>
-					<p className="truncate text-caption text-subtle-foreground">{formatLine}</p>
-				</div>
-				<Button type="button" variant="link" size="inline" className="shrink-0" onClick={() => goToStep('formats')} data-testid="review-change-format">
-					{t('wizard.review.changeFormat')}
-				</Button>
-			</Card>
+			<ReviewFormatStrip state={state} review={review} />
 
 			<div className="flex flex-col gap-1.5">
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>
@@ -188,31 +249,9 @@ export function StepReview(): ReactNode {
 				</Card>
 			</div>
 
-			{changed.length > 0 ? (
-				<div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-dashed border-border-strong px-3.5 py-2.5 text-sm text-muted-foreground" data-testid="review-changed-bar">
-					<span className="min-w-0 flex-1">{t('wizard.review.changed', {profile: state.wizardProfile?.name ?? '', areas: changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')})}</span>
-					<Button type="button" variant="link" size="inline" onClick={() => setSaveOpen(true)} data-testid="review-save-as-profile">
-						{t('wizard.review.saveAsProfile')}
-					</Button>
-					<Button type="button" variant="link" size="inline" className="text-muted-foreground" onClick={resetWizardToProfile} data-testid="review-reset">
-						{t('wizard.review.reset')}
-					</Button>
-				</div>
-			) : null}
+			{changed.length > 0 ? <ReviewChangedBar profileName={state.wizardProfile?.name ?? ''} changed={changed} onSaveAsProfile={() => setSaveOpen(true)} onReset={resetWizardToProfile} /> : null}
 
-			{review.conflictWarnings.length > 0 || caveat !== null ? (
-				<Alert variant="warning">
-					<TriangleAlert aria-hidden />
-					<AlertDescription className="flex flex-col gap-1">
-						{caveat ? <p data-testid="review-mp4-caveat">{t(caveat === 'VP9' ? 'fileType.mp4CaveatVp9' : 'fileType.mp4CaveatAv1')}</p> : null}
-						{review.conflictWarnings.map(conflict => (
-							<p key={conflict.code} data-testid={`review-conflict-${conflict.code}`}>
-								{t(conflictLabelKey(conflict.code))}
-							</p>
-						))}
-					</AlertDescription>
-				</Alert>
-			) : null}
+			{review.conflictWarnings.length > 0 || caveat !== null ? <ReviewWarnings caveat={caveat} conflicts={review.conflictWarnings} /> : null}
 
 			<WizardFooter
 				info={

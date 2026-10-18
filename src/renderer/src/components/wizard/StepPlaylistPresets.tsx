@@ -27,6 +27,147 @@ const VIDEO_TIERS = PLAYLIST_VIDEO_TIERS
 const AUDIO_FORMATS: PlaylistAudioFormat[] = ['best', 'mp3', 'm4a', 'opus']
 const LOSSY_AUDIO = new Set<PlaylistAudioFormat>(['mp3', 'm4a', 'opus'])
 
+type PlaylistVideoSelection = Extract<PlaylistSelection, {kind: 'video'}>
+type PlaylistAudioSelection = Extract<PlaylistSelection, {kind: 'audio'}>
+
+interface PresetFieldsProps<Selection> {
+	selection: Selection
+	onChange: (selection: PlaylistSelection) => void
+}
+
+function VideoPresetFields({selection, onChange}: PresetFieldsProps<PlaylistVideoSelection>): ReactNode {
+	const {t} = useTranslation()
+
+	function setVideoCodec(codec: 'best' | 'mp4'): void {
+		if (codec === 'mp4') {
+			const tier = SMART_TV_MP4_BLOCKED_TIERS.has(selection.tier) ? SMART_TV_MP4_MAX_TIER : selection.tier
+			onChange({kind: 'video', tier, codec: 'mp4'})
+		} else {
+			onChange({kind: 'video', tier: selection.tier, codec: 'best'})
+		}
+	}
+
+	function setTier(tier: PlaylistVideoTier): void {
+		const blocked = selection.codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)
+		if (blocked) return
+		onChange({kind: 'video', tier, codec: selection.codec})
+	}
+
+	const currentCodec = selection.codec
+	const currentTier = selection.tier
+	const showMp4Cap = selection.codec === 'mp4'
+
+	return (
+		<>
+			{/* Compatibility toggle */}
+			<div>
+				<SectionLabel className="mb-1.5">{t('playlistPresets.type.video')}</SectionLabel>
+				<ToggleGroup
+					value={[currentCodec]}
+					onValueChange={arr => {
+						const next = (['best', 'mp4'] as const).find(codec => codec === arr[0])
+						if (next) setVideoCodec(next)
+					}}
+					spacing={2}
+					className="grid w-full grid-cols-2 gap-2"
+				>
+					{(['best', 'mp4'] as const).map(codec => (
+						<OptionCard key={codec} value={codec} title={t(`playlistPresets.videoFormat.${codec}`)} description={t(`playlistPresets.videoFormatDesc.${codec}`)} />
+					))}
+				</ToggleGroup>
+			</div>
+
+			{/* Quality / tier grid */}
+			<div>
+				<SectionLabel className="mb-1.5">{t('playlistPresets.tier.best')}</SectionLabel>
+				<ToggleGroup
+					value={[currentTier]}
+					onValueChange={arr => {
+						const next = VIDEO_TIERS.find(tier => tier === arr[0])
+						if (next) setTier(next)
+					}}
+					spacing={2}
+					className="grid w-full grid-cols-2 gap-2 md:grid-cols-3"
+					data-testid="tier-list"
+				>
+					{VIDEO_TIERS.map(tier => (
+						<OptionCard key={tier} value={tier} disabled={currentCodec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)} title={t(`playlistPresets.tier.${tier}`)} description={t(`playlistPresets.tierDesc.${tier}`)} />
+					))}
+				</ToggleGroup>
+				{showMp4Cap && <p className="mt-2 text-caption text-muted-foreground">{t('playlistPresets.mp4Cap')}</p>}
+			</div>
+		</>
+	)
+}
+
+function AudioPresetFields({selection, onChange}: PresetFieldsProps<PlaylistAudioSelection>): ReactNode {
+	const {t} = useTranslation()
+
+	function setAudioFormat(format: PlaylistAudioFormat): void {
+		if (format === 'best') {
+			onChange({kind: 'audio', format: 'best'})
+		} else {
+			const bitrate: (typeof AUDIO_BITRATES)[number] = selection.format !== 'best' ? (selection.bitrateKbps ?? 192) : 192
+			onChange({kind: 'audio', format, bitrateKbps: bitrate})
+		}
+	}
+
+	function setBitrate(kbps: (typeof AUDIO_BITRATES)[number]): void {
+		if (selection.format === 'best') return
+		onChange({kind: 'audio', format: selection.format, bitrateKbps: kbps})
+	}
+
+	const currentAudioFormat = selection.format
+	const currentBitrate = selection.format !== 'best' ? (selection.bitrateKbps ?? 192) : 192
+	const showBitrate = LOSSY_AUDIO.has(selection.format)
+
+	return (
+		<>
+			{/* Audio format cards */}
+			<div>
+				<SectionLabel className="mb-1.5">{t('playlistPresets.type.audio')}</SectionLabel>
+				<ToggleGroup
+					value={[currentAudioFormat]}
+					onValueChange={arr => {
+						const next = AUDIO_FORMATS.find(fmt => fmt === arr[0])
+						if (next) setAudioFormat(next)
+					}}
+					spacing={2}
+					className="grid w-full grid-cols-2 gap-2"
+				>
+					{AUDIO_FORMATS.map(fmt => (
+						<OptionCard key={fmt} value={fmt} title={t(`playlistPresets.audioFormat.${fmt}`)} description={t(`playlistPresets.audioFormatDesc.${fmt}`)} />
+					))}
+				</ToggleGroup>
+			</div>
+
+			{/* Bitrate chips — lossy formats only */}
+			{showBitrate && (
+				<div>
+					<SectionLabel className="mb-1.5">{t('wizard.formats.convert.bitrate')}</SectionLabel>
+					<ToggleGroup
+						size="sm"
+						variant="outline"
+						spacing={1}
+						value={[String(currentBitrate)]}
+						onValueChange={arr => {
+							const next = AUDIO_BITRATES.find(kbps => String(kbps) === arr[0])
+							if (next) setBitrate(next)
+						}}
+						className="flex-wrap gap-1"
+					>
+						{AUDIO_BITRATES.map(kbps => (
+							<ToggleGroupItem key={kbps} value={String(kbps)} shape="chip">
+								{kbps}K
+							</ToggleGroupItem>
+						))}
+					</ToggleGroup>
+				</div>
+			)}
+		</>
+	)
+}
+
 export function StepPlaylistPresets(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const {playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds} = useAppStore()
@@ -50,45 +191,7 @@ export function StepPlaylistPresets(): ReactNode {
 		else setPlaylistSelection(lastSubtitleSelection.current ?? seededSubtitleSelection(i18n.language))
 	}
 
-	function setVideoCodec(codec: 'best' | 'mp4'): void {
-		if (sel.kind !== 'video') return
-		if (codec === 'mp4') {
-			const tier = SMART_TV_MP4_BLOCKED_TIERS.has(sel.tier) ? SMART_TV_MP4_MAX_TIER : sel.tier
-			setPlaylistSelection({kind: 'video', tier, codec: 'mp4'})
-		} else {
-			setPlaylistSelection({kind: 'video', tier: sel.tier, codec: 'best'})
-		}
-	}
-
-	function setTier(tier: PlaylistVideoTier): void {
-		if (sel.kind !== 'video') return
-		const blocked = sel.codec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)
-		if (blocked) return
-		setPlaylistSelection({kind: 'video', tier, codec: sel.codec})
-	}
-
-	function setAudioFormat(format: PlaylistAudioFormat): void {
-		if (sel.kind !== 'audio') return
-		if (format === 'best') {
-			setPlaylistSelection({kind: 'audio', format: 'best'})
-		} else {
-			const bitrate: (typeof AUDIO_BITRATES)[number] = sel.format !== 'best' ? (sel.bitrateKbps ?? 192) : 192
-			setPlaylistSelection({kind: 'audio', format, bitrateKbps: bitrate})
-		}
-	}
-
-	function setBitrate(kbps: (typeof AUDIO_BITRATES)[number]): void {
-		if (sel.kind !== 'audio' || sel.format === 'best') return
-		setPlaylistSelection({kind: 'audio', format: sel.format, bitrateKbps: kbps})
-	}
-
 	const currentKind = sel.kind
-	const currentCodec = sel.kind === 'video' ? sel.codec : 'best'
-	const currentTier = sel.kind === 'video' ? sel.tier : 'best'
-	const currentAudioFormat = sel.kind === 'audio' ? sel.format : 'best'
-	const currentBitrate = sel.kind === 'audio' && sel.format !== 'best' ? (sel.bitrateKbps ?? 192) : 192
-	const showBitrate = sel.kind === 'audio' && LOSSY_AUDIO.has(sel.format)
-	const showMp4Cap = sel.kind === 'video' && sel.codec === 'mp4'
 	const subtitlesIncomplete = sel.kind === 'subtitles' && sel.languages.length === 0
 
 	return (
@@ -120,93 +223,9 @@ export function StepPlaylistPresets(): ReactNode {
 						</ToggleGroup>
 					</div>
 
-					{currentKind === 'video' && (
-						<>
-							{/* Compatibility toggle */}
-							<div>
-								<SectionLabel className="mb-1.5">{t('playlistPresets.type.video')}</SectionLabel>
-								<ToggleGroup
-									value={[currentCodec]}
-									onValueChange={arr => {
-										const next = (['best', 'mp4'] as const).find(codec => codec === arr[0])
-										if (next) setVideoCodec(next)
-									}}
-									spacing={2}
-									className="grid w-full grid-cols-2 gap-2"
-								>
-									{(['best', 'mp4'] as const).map(codec => (
-										<OptionCard key={codec} value={codec} title={t(`playlistPresets.videoFormat.${codec}`)} description={t(`playlistPresets.videoFormatDesc.${codec}`)} />
-									))}
-								</ToggleGroup>
-							</div>
+					{sel.kind === 'video' && <VideoPresetFields selection={sel} onChange={setPlaylistSelection} />}
 
-							{/* Quality / tier grid */}
-							<div>
-								<SectionLabel className="mb-1.5">{t('playlistPresets.tier.best')}</SectionLabel>
-								<ToggleGroup
-									value={[currentTier]}
-									onValueChange={arr => {
-										const next = VIDEO_TIERS.find(tier => tier === arr[0])
-										if (next) setTier(next)
-									}}
-									spacing={2}
-									className="grid w-full grid-cols-2 gap-2 md:grid-cols-3"
-									data-testid="tier-list"
-								>
-									{VIDEO_TIERS.map(tier => (
-										<OptionCard key={tier} value={tier} disabled={currentCodec === 'mp4' && SMART_TV_MP4_BLOCKED_TIERS.has(tier)} title={t(`playlistPresets.tier.${tier}`)} description={t(`playlistPresets.tierDesc.${tier}`)} />
-									))}
-								</ToggleGroup>
-								{showMp4Cap && <p className="mt-2 text-caption text-muted-foreground">{t('playlistPresets.mp4Cap')}</p>}
-							</div>
-						</>
-					)}
-
-					{currentKind === 'audio' && (
-						<>
-							{/* Audio format cards */}
-							<div>
-								<SectionLabel className="mb-1.5">{t('playlistPresets.type.audio')}</SectionLabel>
-								<ToggleGroup
-									value={[currentAudioFormat]}
-									onValueChange={arr => {
-										const next = AUDIO_FORMATS.find(fmt => fmt === arr[0])
-										if (next) setAudioFormat(next)
-									}}
-									spacing={2}
-									className="grid w-full grid-cols-2 gap-2"
-								>
-									{AUDIO_FORMATS.map(fmt => (
-										<OptionCard key={fmt} value={fmt} title={t(`playlistPresets.audioFormat.${fmt}`)} description={t(`playlistPresets.audioFormatDesc.${fmt}`)} />
-									))}
-								</ToggleGroup>
-							</div>
-
-							{/* Bitrate chips — lossy formats only */}
-							{showBitrate && (
-								<div>
-									<SectionLabel className="mb-1.5">{t('wizard.formats.convert.bitrate')}</SectionLabel>
-									<ToggleGroup
-										size="sm"
-										variant="outline"
-										spacing={1}
-										value={[String(currentBitrate)]}
-										onValueChange={arr => {
-											const next = AUDIO_BITRATES.find(kbps => String(kbps) === arr[0])
-											if (next) setBitrate(next)
-										}}
-										className="flex-wrap gap-1"
-									>
-										{AUDIO_BITRATES.map(kbps => (
-											<ToggleGroupItem key={kbps} value={String(kbps)} shape="chip">
-												{kbps}K
-											</ToggleGroupItem>
-										))}
-									</ToggleGroup>
-								</div>
-							)}
-						</>
-					)}
+					{sel.kind === 'audio' && <AudioPresetFields selection={sel} onChange={setPlaylistSelection} />}
 
 					{sel.kind === 'subtitles' && <PlaylistSubtitlesPanel selection={sel} onChange={setPlaylistSelection} />}
 				</div>

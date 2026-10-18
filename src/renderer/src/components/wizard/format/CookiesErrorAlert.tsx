@@ -63,46 +63,81 @@ const EXPLORE_OFFER_COPY = {
 	'explore-reuse': {heading: 'wizard.formats.cookiesError.exploreReuse.heading', body: 'wizard.formats.cookiesError.exploreReuse.body', cta: 'wizard.formats.cookiesError.exploreReuse.cta'}
 } as const
 
+type ExploreOfferGuidance = Extract<CookiesGuidance, {variant: 'explore-offer' | 'explore-reuse'}>
+
+interface ExploreOfferAlertProps extends Pick<CookiesGuidanceAlertProps, 'onOpenSettings' | 'onSignInWithExploreThenRetry' | 'onRetryWithExploreSignIn' | 'onEnableCookiesAndRetry'> {
+	guidance: ExploreOfferGuidance
+	density: GuidanceDensity
+	openSettingsTestId: string
+}
+
+function ExploreOfferAlert({guidance, density, openSettingsTestId, onOpenSettings, onSignInWithExploreThenRetry, onRetryWithExploreSignIn, onEnableCookiesAndRetry}: ExploreOfferAlertProps): ReactNode {
+	const {t} = useTranslation()
+	// P2-R51: Explore first; a cookies file or browser stays the second way.
+	const copy = EXPLORE_OFFER_COPY[guidance.variant]
+	const offer = guidance.variant === 'explore-offer'
+	const size = density === 'compact' ? 'xs' : 'sm'
+	return (
+		<CookiesAlertShell
+			mode="off"
+			variant={guidance.variant}
+			density={density}
+			body={
+				<>
+					<span className="font-semibold">{t(copy.heading)}</span>
+					<span className="leading-snug">{t(copy.body)}</span>
+				</>
+			}
+			footer={
+				<div className="flex flex-wrap gap-2">
+					<Button type="button" size={size} variant="default" onClick={offer ? onSignInWithExploreThenRetry : onRetryWithExploreSignIn} data-testid={offer ? 'cookies-error-explore-offer-cta' : 'cookies-error-explore-reuse-cta'}>
+						{offer ? <Compass data-icon="inline-start" /> : <RefreshCw data-icon="inline-start" />}
+						{t(copy.cta)}
+					</Button>
+					{guidance.secondary === 'enable-cookies' ? (
+						<Button type="button" size={size} variant="outline" onClick={onEnableCookiesAndRetry} data-testid="cookies-error-enable-cookies-retry">
+							<ShieldCheck data-icon="inline-start" />
+							{t('wizard.formats.botWall.enableRetryCta')}
+						</Button>
+					) : (
+						<Button type="button" size={size} variant="outline" onClick={onOpenSettings} data-testid={openSettingsTestId}>
+							<ExternalLink data-icon="inline-start" />
+							{t('wizard.formats.cookiesError.otherCookiesCta')}
+						</Button>
+					)}
+				</div>
+			}
+		/>
+	)
+}
+
+// The three ways around Chromium's app-bound cookie encryption on Windows.
+function DpapiFixSteps({density}: {density: GuidanceDensity}): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<ol className={cn('flex list-decimal flex-col gap-1.5 ps-4 marker:text-warning', density === 'compact' && 'gap-1')}>
+			<li>
+				<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFirefoxLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFirefoxBody')}</span>
+			</li>
+			<li>
+				<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFileLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFileBody')}</span>
+			</li>
+			<li>
+				<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixUnsafeLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixUnsafeBody')}</span>{' '}
+				<Button type="button" variant="link" size="inline" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
+					{t('wizard.formats.cookiesError.dpapi.docsLinkLabel')}
+					<ExternalLink data-icon="inline-end" />
+				</Button>
+			</li>
+		</ol>
+	)
+}
+
 export function CookiesGuidanceAlert({guidance, onOpenSettings, onSignInWithExplore, onSignInWithExploreThenRetry, onRetryWithExploreSignIn, onEnableCookiesAndRetry, density = 'full', openSettingsTestId = 'cookies-error-open-settings-cta'}: CookiesGuidanceAlertProps): ReactNode | null {
 	const {t} = useTranslation()
 	if (guidance.variant === 'hidden') return null
 	if (guidance.variant === 'explore-offer' || guidance.variant === 'explore-reuse') {
-		// P2-R51: Explore first; a cookies file or browser stays the second way.
-		const copy = EXPLORE_OFFER_COPY[guidance.variant]
-		const offer = guidance.variant === 'explore-offer'
-		const size = density === 'compact' ? 'xs' : 'sm'
-		return (
-			<CookiesAlertShell
-				mode="off"
-				variant={guidance.variant}
-				density={density}
-				body={
-					<>
-						<span className="font-semibold">{t(copy.heading)}</span>
-						<span className="leading-snug">{t(copy.body)}</span>
-					</>
-				}
-				footer={
-					<div className="flex flex-wrap gap-2">
-						<Button type="button" size={size} variant="default" onClick={offer ? onSignInWithExploreThenRetry : onRetryWithExploreSignIn} data-testid={offer ? 'cookies-error-explore-offer-cta' : 'cookies-error-explore-reuse-cta'}>
-							{offer ? <Compass data-icon="inline-start" /> : <RefreshCw data-icon="inline-start" />}
-							{t(copy.cta)}
-						</Button>
-						{guidance.secondary === 'enable-cookies' ? (
-							<Button type="button" size={size} variant="outline" onClick={onEnableCookiesAndRetry} data-testid="cookies-error-enable-cookies-retry">
-								<ShieldCheck data-icon="inline-start" />
-								{t('wizard.formats.botWall.enableRetryCta')}
-							</Button>
-						) : (
-							<Button type="button" size={size} variant="outline" onClick={onOpenSettings} data-testid={openSettingsTestId}>
-								<ExternalLink data-icon="inline-start" />
-								{t('wizard.formats.cookiesError.otherCookiesCta')}
-							</Button>
-						)}
-					</div>
-				}
-			/>
-		)
+		return <ExploreOfferAlert guidance={guidance} density={density} openSettingsTestId={openSettingsTestId} onOpenSettings={onOpenSettings} onSignInWithExploreThenRetry={onSignInWithExploreThenRetry} onRetryWithExploreSignIn={onRetryWithExploreSignIn} onEnableCookiesAndRetry={onEnableCookiesAndRetry} />
 	}
 	if (guidance.variant === 'explore-sign-in') {
 		return (
@@ -157,21 +192,7 @@ export function CookiesGuidanceAlert({guidance, onOpenSettings, onSignInWithExpl
 				}
 				footer={
 					<>
-						<ol className={cn('flex list-decimal flex-col gap-1.5 ps-4 marker:text-warning', density === 'compact' && 'gap-1')}>
-							<li>
-								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFirefoxLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFirefoxBody')}</span>
-							</li>
-							<li>
-								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixFileLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixFileBody')}</span>
-							</li>
-							<li>
-								<span className="font-medium">{t('wizard.formats.cookiesError.dpapi.fixUnsafeLabel')}.</span> <span className="leading-snug">{t('wizard.formats.cookiesError.dpapi.fixUnsafeBody')}</span>{' '}
-								<Button type="button" variant="link" size="inline" onClick={() => void window.appApi.shell.openExternal(DPAPI_DOCS_URL)} data-testid="cookies-error-dpapi-docs-link">
-									{t('wizard.formats.cookiesError.dpapi.docsLinkLabel')}
-									<ExternalLink data-icon="inline-end" />
-								</Button>
-							</li>
-						</ol>
+						<DpapiFixSteps density={density} />
 						<OpenCookiesSettingsButton onOpenSettings={onOpenSettings} density={density} testId={openSettingsTestId} />
 					</>
 				}

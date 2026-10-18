@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect, useLayoutEffect, useState, type ReactNode} from 'react'
+import {lazy, Suspense, useEffect, useLayoutEffect, useState, type ComponentType, type Dispatch, type ReactNode, type SetStateAction} from 'react'
 import log from 'electron-log/renderer.js'
 import {Info, MessageCircle, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
@@ -9,7 +9,7 @@ import {ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, type UiTheme} from '@shared/schemas.js'
 import {useAppStore} from './store/useAppStore.js'
 import {subscribeMenuActions} from './lib/menuAction.js'
 import {AppBackdrop} from './components/layout/background/AppBackdrop.js'
-import type {BackdropColorScheme} from './components/layout/background/types.js'
+import type {BackdropColorScheme, BackdropScene} from './components/layout/background/types.js'
 import {TitleBar} from './components/layout/TitleBar.js'
 import {WizardPanel} from './components/layout/WizardPanel.js'
 import {WarmupSplash} from './components/system/WarmupSplash.js'
@@ -84,65 +84,23 @@ function resolveFeedbackNudgeDelay(injectedDelay: number | undefined): number {
 	return typeof injectedDelay === 'number' && Number.isFinite(injectedDelay) && injectedDelay >= 0 ? injectedDelay : DEFAULT_FEEDBACK_NUDGE_DELAY_MS
 }
 
-export function App(): ReactNode {
-	const {t} = useTranslation()
-	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings, graphicsPolicy, setBackdropFailed} = useAppStore(
-		useShallow(state => ({
-			initialized: state.initialized,
-			initialize: state.initialize,
-			setSplashDismissed: state.setSplashDismissed,
-			splashDismissed: state.splashDismissed,
-			cancelWarmup: state.cancelWarmup,
-			warmupBlocking: state.warmupBlocking,
-			warmupDiagnostics: state.warmupDiagnostics,
-			warmupProgress: state.warmupProgress,
-			settings: state.settings,
-			graphicsPolicy: state.graphicsPolicy,
-			setBackdropFailed: state.setBackdropFailed
-		}))
-	)
-	const {uiZoom, setUiZoom, uiTheme, setUiTheme, setUiStyle, setAboutDialogOpen, openShareDialog, shareDialogOpen, openLogs, saveDiagnostics, setLimitRate, openSettings} = useAppStore(
-		useShallow(state => ({
-			uiZoom: state.uiZoom,
-			setUiZoom: state.setUiZoom,
-			uiTheme: state.uiTheme,
-			setUiTheme: state.setUiTheme,
-			setUiStyle: state.setUiStyle,
-			setAboutDialogOpen: state.setAboutDialogOpen,
-			openShareDialog: state.openShareDialog,
-			shareDialogOpen: state.shareDialogOpen,
-			openLogs: state.openLogs,
-			saveDiagnostics: state.saveDiagnostics,
-			setLimitRate: state.setLimitRate,
-			openSettings: state.openSettings
-		}))
-	)
-	const update = useUpdateChannel()
-	// While browsing in Explore's compact layout the footer drops its labels and slims down.
-	const compactChrome = useAppStore(selectCompactChrome)
-	const footerLabelClass = compactChrome ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
-	const footerActionClass = cn(FOOTER_ACTION_BUTTON_CLASS, compactChrome && 'size-6 px-0')
-	// Routes notify.ts to the toast surface for as long as the app is mounted.
-	useToastSink()
-	const [showNudge, setShowNudge] = useState(false)
-	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
-	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
-	const showStartupSplash = shouldRenderStartupSplash()
-	const whatsNew = useWhatsNewDialog(changelogText, {startupReady: !showStartupSplash || splashDismissed})
+interface AppBackdropConfig {
+	scenes: Readonly<Record<BackdropColorScheme, BackdropScene>> | null
+	softwareWebglAllowed: boolean
+	onUnavailable: () => void
+}
+
+function useAppBackdropConfig(): AppBackdropConfig {
+	const graphicsPolicy = useAppStore(state => state.graphicsPolicy)
+	const setBackdropFailed = useAppStore(state => state.setBackdropFailed)
 	const effectiveStyle = useAppStore(selectEffectiveStyle)
 	const backdropAvailability = useAppStore(selectBackdropAvailability)
-	const backdropScenes = backdropAvailability === 'available' ? STYLES[effectiveStyle].backdrop : null
-	const softwareWebglAllowed = graphicsPolicy?.backdrop.softwareWebglAllowed ?? false
-	const markBackdropFailed = (): void => setBackdropFailed(true)
+	return {scenes: backdropAvailability === 'available' ? STYLES[effectiveStyle].backdrop : null, softwareWebglAllowed: graphicsPolicy?.backdrop.softwareWebglAllowed ?? false, onUnavailable: () => setBackdropFailed(true)}
+}
 
-	// Before paint, so a style switch never shows a frame of the old paint.
-	useLayoutEffect(() => {
-		document.documentElement.dataset.style = effectiveStyle
-	}, [effectiveStyle])
-
-	useEffect(() => {
-		void initialize()
-	}, [initialize])
+// Applies the resolved light/dark class to <html> and follows the OS while the theme is 'system'.
+function useDocumentColorScheme(uiTheme: UiTheme): BackdropColorScheme {
+	const [colorScheme, setColorScheme] = useState<BackdropColorScheme>(() => (document.documentElement.classList.contains('dark') ? 'dark' : 'light'))
 
 	useEffect(() => {
 		const html = document.documentElement
@@ -162,13 +120,34 @@ export function App(): ReactNode {
 		}
 	}, [uiTheme])
 
+	return colorScheme
+}
+
+// The feedback nudge appears once after a delay and hides itself again after a few seconds.
+function useFeedbackNudge(): {showNudge: boolean; hideNudge: () => void} {
+	const [showNudge, setShowNudge] = useState(false)
+
 	useEffect(() => {
 		const delay = resolveFeedbackNudgeDelay(window.__NUDGE_DELAY_MS)
 		const t = setTimeout(() => setShowNudge(true), delay)
 		return () => clearTimeout(t)
 	}, [])
 
-	// The native application menu (macOS) asks for the same things the footer does.
+	useEffect(() => {
+		if (!showNudge) return
+		const t = setTimeout(() => setShowNudge(false), 8_000)
+		return () => clearTimeout(t)
+	}, [showNudge])
+
+	return {showNudge, hideNudge: () => setShowNudge(false)}
+}
+
+// The native application menu (macOS) asks for the same things the footer does.
+function useNativeMenuActions(setFeedbackDialogOpen: Dispatch<SetStateAction<boolean>>): void {
+	const {setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings} = useAppStore(
+		useShallow(state => ({setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog, setUiStyle: state.setUiStyle, setUiTheme: state.setUiTheme, openLogs: state.openLogs, saveDiagnostics: state.saveDiagnostics, setLimitRate: state.setLimitRate, openSettings: state.openSettings}))
+	)
+
 	useEffect(
 		() =>
 			subscribeMenuActions(action => {
@@ -202,48 +181,156 @@ export function App(): ReactNode {
 						break
 				}
 			}),
-		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings]
+		[setAboutDialogOpen, openShareDialog, setUiStyle, setUiTheme, openLogs, saveDiagnostics, setLimitRate, openSettings, setFeedbackDialogOpen]
 	)
+}
 
-	useEffect(() => {
-		if (!showNudge) return
-		const t = setTimeout(() => setShowNudge(false), 8_000)
-		return () => clearTimeout(t)
-	}, [showNudge])
+function UiKitStage({kit: Kit, backdrop, colorScheme}: {kit: ComponentType<{onExit: () => void}>; backdrop: AppBackdropConfig; colorScheme: BackdropColorScheme}): ReactNode {
+	return (
+		<TooltipProvider>
+			<div className="relative h-screen w-screen overflow-hidden">
+				<AppBackdrop scenes={backdrop.scenes} colorScheme={colorScheme} softwareWebglAllowed={backdrop.softwareWebglAllowed} onUnavailable={backdrop.onUnavailable} />
+				<Suspense fallback={null}>
+					<Kit onExit={exitUiKitStage} />
+				</Suspense>
+			</div>
+		</TooltipProvider>
+	)
+}
 
-	if (UiKit && isUiKitStage()) {
-		return (
-			<TooltipProvider>
-				<div className="relative h-screen w-screen overflow-hidden">
-					<AppBackdrop scenes={backdropScenes} colorScheme={colorScheme} softwareWebglAllowed={softwareWebglAllowed} onUnavailable={markBackdropFailed} />
-					<Suspense fallback={null}>
-						<UiKit onExit={exitUiKitStage} />
-					</Suspense>
-				</div>
-			</TooltipProvider>
-		)
-	}
+// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
+// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.
+function BackdropStage({colorScheme, onUnavailable}: {colorScheme: BackdropColorScheme; onUnavailable: () => void}): ReactNode {
+	return (
+		<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
+			<AppBackdrop scenes={STYLES.aurora.backdrop} colorScheme={colorScheme} softwareWebglAllowed onUnavailable={onUnavailable} />
+			<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-border-strong bg-background/80 px-2 py-1.5 backdrop-blur">
+				<ThemeToggle />
+				<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
+					← exit
+				</button>
+			</div>
+		</div>
+	)
+}
 
-	// Backdrop isolation stage (browser-mock only): strips all chrome so the animated
-	// background can be tuned on its own. Reach it via `?backdrop=1` or the gallery button.
-	if (isBackdropOnlyStage()) {
-		return (
-			<div className="relative h-screen w-screen overflow-hidden" data-testid="backdrop-stage">
-				<AppBackdrop scenes={STYLES.aurora.backdrop} colorScheme={colorScheme} softwareWebglAllowed onUnavailable={markBackdropFailed} />
-				<div className="fixed bottom-4 left-4 z-10 flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-2 rounded-md border border-border-strong bg-background/80 px-2 py-1.5 backdrop-blur">
-					<ThemeToggle />
-					<button type="button" onClick={exitBackdropStage} className="text-xs font-medium text-muted-foreground hover:text-foreground" data-testid="backdrop-stage-exit">
-						← exit
-					</button>
+function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean; styleHintReady: boolean; onFeedback: () => void}): ReactNode {
+	const {t} = useTranslation()
+	const {uiZoom, setUiZoom, setAboutDialogOpen, openShareDialog} = useAppStore(useShallow(state => ({uiZoom: state.uiZoom, setUiZoom: state.setUiZoom, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog})))
+	// While browsing in Explore's compact layout the footer drops its labels and slims down.
+	const compactChrome = useAppStore(selectCompactChrome)
+	const footerLabelClass = compactChrome ? 'sr-only' : FOOTER_COMPACT_LABEL_CLASS
+	const footerActionClass = cn(FOOTER_ACTION_BUTTON_CLASS, compactChrome && 'size-6 px-0')
+
+	return (
+		<footer className={cn('chrome-glass shrink-0 flex min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2', compactChrome ? 'h-7' : 'h-8')} data-compact={compactChrome ? 'true' : undefined} data-testid="app-footer">
+			<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden" data-testid="footer-left-controls">
+				<ButtonGroup>
+					<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
+						−
+					</Button>
+					<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom + ZOOM_STEP)} disabled={uiZoom >= ZOOM_MAX} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomIn')}>
+						+
+					</Button>
+				</ButtonGroup>
+				<span className="w-8 text-center text-sm text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
+				<div className="mx-1 h-3 w-px bg-border" aria-hidden />
+				<ThemeToggle />
+				<StyleToggle hintReady={styleHintReady} />
+				<div className="mx-1 h-3 w-px bg-border" aria-hidden />
+				<div className="min-w-0 [&_[data-slot=select-trigger]]:max-w-[6rem] [&_[data-slot=select-value]]:truncate sm:[&_[data-slot=select-trigger]]:max-w-none" data-testid="footer-language-picker">
+					<LanguagePicker />
 				</div>
 			</div>
-		)
+			<div className="flex shrink-0 items-center gap-0.5 sm:gap-1" data-testid="footer-actions">
+				<Hint label={t('about.openTitle')}>
+					<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} data-testid="btn-about">
+						<Info data-icon="inline-start" aria-hidden />
+						<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
+					</Button>
+				</Hint>
+				<Hint label={t('share.footerTooltip')}>
+					<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} data-testid="btn-share">
+						<Share2 data-icon="inline-start" aria-hidden />
+						<span className={footerLabelClass} data-testid="btn-share-label">
+							{t('share.footerLabel')}
+						</span>
+					</Button>
+				</Hint>
+				<Hint label="Discord">
+					<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} aria-label="Discord" data-testid="btn-discord">
+						<IconDiscord data-icon="inline-start" aria-hidden />
+						<span className={footerLabelClass} data-testid="btn-discord-label">
+							Discord
+						</span>
+					</Button>
+				</Hint>
+				<div className="relative inline-flex h-6 items-center">
+					<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
+					<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')} onClick={onFeedback} aria-label={t('app.feedback')} data-testid="btn-feedback">
+						<MessageCircle data-icon="inline-start" aria-hidden />
+						<span className={footerLabelClass} data-testid="btn-feedback-label">
+							{t('app.feedback')}
+						</span>
+					</Button>
+				</div>
+			</div>
+		</footer>
+	)
+}
+
+export function App(): ReactNode {
+	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings} = useAppStore(
+		useShallow(state => ({
+			initialized: state.initialized,
+			initialize: state.initialize,
+			setSplashDismissed: state.setSplashDismissed,
+			splashDismissed: state.splashDismissed,
+			cancelWarmup: state.cancelWarmup,
+			warmupBlocking: state.warmupBlocking,
+			warmupDiagnostics: state.warmupDiagnostics,
+			warmupProgress: state.warmupProgress,
+			settings: state.settings
+		}))
+	)
+	const {uiZoom, uiTheme, shareDialogOpen} = useAppStore(useShallow(state => ({uiZoom: state.uiZoom, uiTheme: state.uiTheme, shareDialogOpen: state.shareDialogOpen})))
+	const update = useUpdateChannel()
+	// Routes notify.ts to the toast surface for as long as the app is mounted.
+	useToastSink()
+	const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false)
+	const showStartupSplash = shouldRenderStartupSplash()
+	const startupReady = !showStartupSplash || splashDismissed
+	const whatsNew = useWhatsNewDialog(changelogText, {startupReady})
+	const effectiveStyle = useAppStore(selectEffectiveStyle)
+	const backdrop = useAppBackdropConfig()
+
+	// Before paint, so a style switch never shows a frame of the old paint.
+	useLayoutEffect(() => {
+		document.documentElement.dataset.style = effectiveStyle
+	}, [effectiveStyle])
+
+	useEffect(() => {
+		void initialize()
+	}, [initialize])
+
+	const colorScheme = useDocumentColorScheme(uiTheme)
+	const {showNudge, hideNudge} = useFeedbackNudge()
+	useNativeMenuActions(setFeedbackDialogOpen)
+
+	function openFeedbackFromFooter(): void {
+		feedbackLogger.info('Feedback button clicked', {source: 'footer', nudgeVisible: showNudge})
+		hideNudge()
+		setFeedbackDialogOpen(true)
 	}
+
+	if (UiKit && isUiKitStage()) return <UiKitStage kit={UiKit} backdrop={backdrop} colorScheme={colorScheme} />
+
+	if (isBackdropOnlyStage()) return <BackdropStage colorScheme={colorScheme} onUnavailable={backdrop.onUnavailable} />
 
 	return (
 		<TooltipProvider>
 			<div className="relative flex flex-col h-screen w-screen overflow-hidden" data-testid="app-root">
-				<AppBackdrop scenes={backdropScenes} colorScheme={colorScheme} softwareWebglAllowed={softwareWebglAllowed} onUnavailable={markBackdropFailed} />
+				<AppBackdrop scenes={backdrop.scenes} colorScheme={colorScheme} softwareWebglAllowed={backdrop.softwareWebglAllowed} onUnavailable={backdrop.onUnavailable} />
 				<TitleBar />
 
 				{update.info && <UpdateBanner info={update.info} installing={update.installing} installError={update.error} onInstall={update.install} onDownload={update.download} onDismiss={update.dismiss} />}
@@ -256,71 +343,7 @@ export function App(): ReactNode {
 					</div>
 				</div>
 
-				<footer className={cn('chrome-glass shrink-0 flex min-w-0 items-center justify-between gap-2 border-t border-border px-4 max-sm:px-2', compactChrome ? 'h-7' : 'h-8')} data-compact={compactChrome ? 'true' : undefined} data-testid="app-footer">
-					<div className="flex min-w-0 flex-1 items-center gap-1 overflow-hidden" data-testid="footer-left-controls">
-						<ButtonGroup>
-							<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom - ZOOM_STEP)} disabled={uiZoom <= ZOOM_MIN} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomOut')}>
-								−
-							</Button>
-							<Button type="button" variant="ghost" size="icon-xs" onClick={() => setUiZoom(uiZoom + ZOOM_STEP)} disabled={uiZoom >= ZOOM_MAX} className="size-5 text-base leading-none text-muted-foreground" aria-label={t('app.zoomIn')}>
-								+
-							</Button>
-						</ButtonGroup>
-						<span className="w-8 text-center text-sm text-muted-foreground tabular-nums">{Math.round(uiZoom * 100)}%</span>
-						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
-						<ThemeToggle />
-						<StyleToggle hintReady={(!showStartupSplash || splashDismissed) && !whatsNew.open} />
-						<div className="mx-1 h-3 w-px bg-border" aria-hidden />
-						<div className="min-w-0 [&_[data-slot=select-trigger]]:max-w-[6rem] [&_[data-slot=select-value]]:truncate sm:[&_[data-slot=select-trigger]]:max-w-none" data-testid="footer-language-picker">
-							<LanguagePicker />
-						</div>
-					</div>
-					<div className="flex shrink-0 items-center gap-0.5 sm:gap-1" data-testid="footer-actions">
-						<Hint label={t('about.openTitle')}>
-							<Button type="button" variant="ghost" size="xs" className={cn(footerActionClass, 'max-sm:hidden')} onClick={() => setAboutDialogOpen(true)} data-testid="btn-about">
-								<Info data-icon="inline-start" aria-hidden />
-								<span className={cn(compactChrome && 'sr-only')}>{t('about.button')}</span>
-							</Button>
-						</Hint>
-						<Hint label={t('share.footerTooltip')}>
-							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={() => openShareDialog()} data-testid="btn-share">
-								<Share2 data-icon="inline-start" aria-hidden />
-								<span className={footerLabelClass} data-testid="btn-share-label">
-									{t('share.footerLabel')}
-								</span>
-							</Button>
-						</Hint>
-						<Hint label="Discord">
-							<Button type="button" variant="ghost" size="xs" className={footerActionClass} onClick={openDiscord} aria-label="Discord" data-testid="btn-discord">
-								<IconDiscord data-icon="inline-start" aria-hidden />
-								<span className={footerLabelClass} data-testid="btn-discord-label">
-									Discord
-								</span>
-							</Button>
-						</Hint>
-						<div className="relative inline-flex h-6 items-center">
-							<FeedbackNudge visible={showNudge} message={t('app.feedbackNudge')} />
-							<Button
-								type="button"
-								variant="ghost"
-								size="xs"
-								className={cn(footerActionClass, showNudge && 'feedback-btn-nudging')}
-								onClick={() => {
-									feedbackLogger.info('Feedback button clicked', {source: 'footer', nudgeVisible: showNudge})
-									setShowNudge(false)
-									setFeedbackDialogOpen(true)
-								}}
-								aria-label={t('app.feedback')}
-								data-testid="btn-feedback"
-							>
-								<MessageCircle data-icon="inline-start" aria-hidden />
-								<span className={footerLabelClass} data-testid="btn-feedback-label">
-									{t('app.feedback')}
-								</span>
-							</Button>
-						</div>
-					</div>
-				</footer>
+				<AppFooter showNudge={showNudge} styleHintReady={startupReady && !whatsNew.open} onFeedback={openFeedbackFromFooter} />
 
 				{showStartupSplash && <WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} onCancel={cancelWarmup} />}
 				<AboutDialog />

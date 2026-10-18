@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next'
 import type {AudioBitrate, AudioConvertTarget} from '@shared/types.js'
 import {AUDIO_BITRATES, type AudioTrackQuality} from '@shared/schemas.js'
 import type {AudioSelection} from '../../../store/types.js'
-import type {FormatSelectionView, NativeAudioRow} from '../../../store/formatSelectionView.js'
+import type {AudioLine, FormatSelectionView, NativeAudioRow} from '../../../store/formatSelectionView.js'
 import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {RadioGroup} from '../../ui/radio-group.js'
 import {cn} from '@renderer/lib/utils.js'
@@ -47,10 +47,19 @@ function counterpart(rows: readonly NativeAudioRow[], current: NativeAudioRow | 
 	return pool.toSorted((a, b) => Math.abs((a.kbps ?? 0) - (current?.kbps ?? 0)) - Math.abs((b.kbps ?? 0) - (current?.kbps ?? 0)))[0]
 }
 
-export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnProps): ReactNode {
-	const {t} = useTranslation()
-	const subtitleOnly = mode === 'subtitle-only'
-	const profileLabel = t('wizard.formats.profile.tag')
+type AudioView = FormatSelectionView['audio']
+type LossyConversion = Extract<AudioSelection, {kind: 'convert-lossy'}>
+
+interface AudioStreamFilter {
+	drc: boolean
+	track: string
+	shown: (row: NativeAudioRow) => boolean
+	switchDrc: (next: boolean) => void
+	switchTrack: (next: string) => void
+}
+
+// Which streams the list shows: one of each DRC pair, and one language at a time.
+function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, onSelect: (sel: AudioSelection) => void): AudioStreamFilter {
 	// Which of each DRC pair the list shows; it opens on whatever the selection already is.
 	const selectedNative = audioSelection.kind === 'native' ? view.nativeRows.find(row => row.formatId === audioSelection.formatId) : undefined
 	const [drc, setDrc] = useState(selectedNative?.isDrc === true)
@@ -72,28 +81,53 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 		)
 		if (replacement) onSelect({kind: 'native', formatId: replacement.formatId})
 	}
+	return {drc, track, shown, switchDrc, switchTrack}
+}
 
-	// One column per codec, best bitrate first.
-	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
-	// Two or more codec columns only fit a narrow window with stacked chips.
-	const narrowStack = codecColumns.length >= 2
-	const drcTag = t('wizard.formats.drc.tag')
+// The radio group speaks strings; these encode and decode the three selection kinds.
+function selectionValue(selection: AudioSelection): string {
+	if (selection.kind === 'none') return 'none'
+	return selection.kind === 'native' ? `native:${selection.formatId}` : `convert:${selection.target}`
+}
 
-	// The radio group speaks strings; these encode and decode the three selection kinds.
-	const selectedValue = audioSelection.kind === 'none' ? 'none' : audioSelection.kind === 'native' ? `native:${audioSelection.formatId}` : `convert:${audioSelection.target}`
-	// A disabled chip never reads as chosen, even though the store keeps the selection.
-	const selectedChipDisabled = audioSelection.kind === 'none' ? view.noAudioDisabled : subtitleOnly
-	const selectValue = (value: string): void => {
-		if (value === 'none') return onSelect({kind: 'none'})
-		const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
-		if (native) return onSelect({kind: 'native', formatId: native.formatId})
-		const target = view.convertTargets.find(candidate => `convert:${candidate}` === value)
-		if (target) onSelect(pickConvert(target))
-	}
+function convertSelection(target: AudioConvertTarget, bitrateKbps: AudioBitrate): AudioSelection {
+	return target === 'wav' ? {kind: 'convert-lossless', target: 'wav'} : {kind: 'convert-lossy', target, bitrateKbps}
+}
 
-	const pickConvert = (target: AudioConvertTarget): AudioSelection => (target === 'wav' ? {kind: 'convert-lossless', target: 'wav'} : {kind: 'convert-lossy', target, bitrateKbps: view.bitrateStrip.value})
+function selectionFromValue(value: string, view: AudioView): AudioSelection | null {
+	if (value === 'none') return {kind: 'none'}
+	const native = view.nativeRows.find(row => `native:${row.formatId}` === value)
+	if (native) return {kind: 'native', formatId: native.formatId}
+	const target = view.convertTargets.find(candidate => `convert:${candidate}` === value)
+	return target ? convertSelection(target, view.bitrateStrip.value) : null
+}
 
-	const bitrateStrip = (
+function AudioLanguageSelect({tracks, track, onChange}: {tracks: readonly string[]; track: string; onChange: (next: string) => void}): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<span className="flex max-w-full min-w-0 items-center gap-2">
+			<span className="shrink-0 text-caption text-subtle-foreground">{t('wizard.formats.audioLanguageCount', {count: tracks.length})}</span>
+			<Select value={track} onValueChange={value => value !== null && onChange(value)}>
+				<SelectTrigger size="sm" className="max-w-64 min-w-40" aria-label={t('wizard.formats.audioLanguage')} data-testid="audio-language">
+					<SelectValue>{() => track}</SelectValue>
+				</SelectTrigger>
+				<SelectContent align="end">
+					<SelectGroup>
+						{tracks.map(name => (
+							<SelectItem key={name} value={name}>
+								{name}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
+		</span>
+	)
+}
+
+function BitrateStrip({view, selection, onSelect}: {view: AudioView; selection: LossyConversion; onSelect: (sel: AudioSelection) => void}): ReactNode {
+	const {t} = useTranslation()
+	return (
 		<div className="grid grid-cols-[4.5rem_minmax(0,1fr)] items-center gap-2 pt-1.5" data-testid="audio-bitrate-strip">
 			<FormatLineName name={t('wizard.formats.convert.bitrate')} />
 			<span className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -102,10 +136,9 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 					variant="outline"
 					value={[String(view.bitrateStrip.value)]}
 					onValueChange={vals => {
-						if (audioSelection.kind !== 'convert-lossy') return
 						const next = Number(vals[0]) as AudioBitrate
 						if (!AUDIO_BITRATES.includes(next)) return
-						onSelect({kind: 'convert-lossy', target: audioSelection.target, bitrateKbps: next})
+						onSelect({kind: 'convert-lossy', target: selection.target, bitrateKbps: next})
 					}}
 					spacing={1}
 					className="flex-wrap justify-start gap-1"
@@ -121,19 +154,70 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 			</span>
 		</div>
 	)
+}
 
-	// Keep as-is (a muxed video's own audio) or No audio: one chip that says what it means.
-	const noneChip = view.selectedVideoIsMuxed ? (
+// Keep as-is (a muxed video's own audio) or No audio: one chip that says what it means.
+function NoAudioChip({view}: {view: AudioView}): ReactNode {
+	const {t} = useTranslation()
+	return view.selectedVideoIsMuxed ? (
 		<FormatChip value="none" name={`${t('wizard.formats.keepAudio')} · ${t('wizard.formats.keepAudioMeta')}`} label={t('wizard.formats.keepAudio')} tags={[t('wizard.formats.keepAudioMeta')]} disabled={view.noAudioDisabled} />
 	) : (
 		<FormatChip value="none" name={`${t('wizard.formats.noAudio')} · ${t('wizard.formats.videoOnly')}`} label={t('wizard.formats.noAudio')} disabled={view.noAudioDisabled} />
 	)
+}
 
-	const list = (
-		<RadioGroup value={selectedChipDisabled ? null : selectedValue} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="block">
+function NativeStreamChip({row, disabled, narrowStack}: {row: NativeAudioRow; disabled: boolean; narrowStack: boolean}): ReactNode {
+	const {t} = useTranslation()
+	const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
+	const drcTag = t('wizard.formats.drc.tag')
+	return (
+		<FormatChip
+			value={`native:${row.formatId}`}
+			name={streamName(row, [qualityLabel, row.isProfilePick ? t('wizard.formats.profile.tag') : null])}
+			label={row.chipLabel}
+			tags={row.chipTags.map(tag => (tag === 'DRC' ? drcTag : tag))}
+			size={row.size}
+			adornment={row.quality ? <QualityMeter quality={row.quality} /> : null}
+			profilePick={row.isProfilePick}
+			disabled={disabled}
+			narrowStack={narrowStack}
+		/>
+	)
+}
+
+interface CodecColumn {
+	line: AudioLine
+	rows: NativeAudioRow[]
+}
+
+interface AudioStreamListProps {
+	view: AudioView
+	codecColumns: readonly CodecColumn[]
+	subtitleOnly: boolean
+	audioSelection: AudioSelection
+	onSelect: (sel: AudioSelection) => void
+}
+
+function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSelect}: AudioStreamListProps): ReactNode {
+	const {t} = useTranslation()
+	// Two or more codec columns only fit a narrow window with stacked chips.
+	const narrowStack = codecColumns.length >= 2
+	// A disabled chip never reads as chosen, even though the store keeps the selection.
+	const selectedChipDisabled = audioSelection.kind === 'none' ? view.noAudioDisabled : subtitleOnly
+	const selectValue = (value: string): void => {
+		const next = selectionFromValue(value, view)
+		if (next) onSelect(next)
+	}
+
+	return (
+		<RadioGroup value={selectedChipDisabled ? null : selectionValue(audioSelection)} onValueChange={value => selectValue(String(value))} aria-label={t('wizard.formats.audio')} className="block">
 			{/* A muxed video's own audio comes first: it's the zero-cost default,
 			    the embedded audio stays in the file with no extraction step. */}
-			{view.selectedVideoIsMuxed ? <div className="mb-1.5 flex">{noneChip}</div> : null}
+			{view.selectedVideoIsMuxed ? (
+				<div className="mb-1.5 flex">
+					<NoAudioChip view={view} />
+				</div>
+			) : null}
 
 			{codecColumns.length > 0 ? (
 				// One block per codec, wrapping onto the next line when the column is too narrow for them side by side.
@@ -143,23 +227,9 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 							<span aria-hidden className="px-3 text-caption text-subtle-foreground">
 								{line.name}
 							</span>
-							{rows.map(row => {
-								const qualityLabel = row.quality ? t(QUALITY_LABEL_KEY[row.quality]) : null
-								return (
-									<FormatChip
-										key={row.formatId}
-										value={`native:${row.formatId}`}
-										name={streamName(row, [qualityLabel, row.isProfilePick ? profileLabel : null])}
-										label={row.chipLabel}
-										tags={row.chipTags.map(tag => (tag === 'DRC' ? drcTag : tag))}
-										size={row.size}
-										adornment={row.quality ? <QualityMeter quality={row.quality} /> : null}
-										profilePick={row.isProfilePick}
-										disabled={subtitleOnly}
-										narrowStack={narrowStack}
-									/>
-								)
-							})}
+							{rows.map(row => (
+								<NativeStreamChip key={row.formatId} row={row} disabled={subtitleOnly} narrowStack={narrowStack} />
+							))}
 						</div>
 					))}
 				</div>
@@ -174,42 +244,37 @@ export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnP
 			) : null}
 
 			{/* Audio mode cannot do without audio, so its No audio chip would only ever be disabled. */}
-			{view.selectedVideoIsMuxed || view.noAudioDisabled ? null : <div className="mt-3 flex">{noneChip}</div>}
+			{view.selectedVideoIsMuxed || view.noAudioDisabled ? null : (
+				<div className="mt-3 flex">
+					<NoAudioChip view={view} />
+				</div>
+			)}
 		</RadioGroup>
 	)
+}
+
+export function AudioColumn({view, mode, audioSelection, onSelect}: AudioColumnProps): ReactNode {
+	const {t} = useTranslation()
+	const subtitleOnly = mode === 'subtitle-only'
+	const {drc, track, shown, switchDrc, switchTrack} = useAudioStreamFilter(view, audioSelection, onSelect)
+
+	// One column per codec, best bitrate first.
+	const codecColumns = view.lines.map(line => ({line, rows: line.variants.filter(shown)})).filter(column => column.rows.length > 0)
 
 	return (
 		// As tall as its lines, in every mode: the step scrolls, never this list on its own.
 		<div className="flex min-w-0 flex-col">
 			<div className="mb-1.5 flex min-h-8 shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
 				<SectionLabel>{t('wizard.formats.audio')}</SectionLabel>
-				{view.tracks.length > 0 ? (
-					<span className="flex max-w-full min-w-0 items-center gap-2">
-						<span className="shrink-0 text-caption text-subtle-foreground">{t('wizard.formats.audioLanguageCount', {count: view.tracks.length})}</span>
-						<Select value={track} onValueChange={value => value !== null && switchTrack(value)}>
-							<SelectTrigger size="sm" className="max-w-64 min-w-40" aria-label={t('wizard.formats.audioLanguage')} data-testid="audio-language">
-								<SelectValue>{() => track}</SelectValue>
-							</SelectTrigger>
-							<SelectContent align="end">
-								<SelectGroup>
-									{view.tracks.map(name => (
-										<SelectItem key={name} value={name}>
-											{name}
-										</SelectItem>
-									))}
-								</SelectGroup>
-							</SelectContent>
-						</Select>
-					</span>
-				) : null}
+				{view.tracks.length > 0 ? <AudioLanguageSelect tracks={view.tracks} track={track} onChange={switchTrack} /> : null}
 			</div>
 
 			{/* As wide as the chips: the rows below match the grid instead of the whole column. */}
 			<div className="flex w-fit max-w-full flex-col">
-				{list}
+				<AudioStreamList view={view} codecColumns={codecColumns} subtitleOnly={subtitleOnly} audioSelection={audioSelection} onSelect={onSelect} />
 
 				{/* Bitrate belongs to a lossy conversion, so it shows only once one is picked. */}
-				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? bitrateStrip : null}
+				{audioSelection.kind === 'convert-lossy' && !view.bitrateStrip.hidden ? <BitrateStrip view={view} selection={audioSelection} onSelect={onSelect} /> : null}
 
 				{/* `w-0 min-w-full`: the switch's long description wraps to the grid's width instead of setting it. */}
 				{view.hasDrcTwins ? (

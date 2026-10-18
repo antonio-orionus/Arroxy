@@ -1,32 +1,27 @@
-import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {useVirtualizer} from '@tanstack/react-virtual'
-import {FolderCheck, FolderSearch, Info, Layers, Trash2, X} from 'lucide-react'
+import {Info, Layers} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
-import {Badge} from '../ui/badge.js'
+import type {BulkMetadataItemStatus, WizardMode} from '../../store/types.js'
+import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
-import {cn} from '@renderer/lib/utils.js'
-import {Checkbox} from '../ui/checkbox.js'
-import {Input} from '../ui/input.js'
-import {Alert, AlertAction, AlertDescription, AlertTitle} from '../ui/alert.js'
-import {ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger} from '../ui/context-menu.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {Tooltip, TooltipTrigger, TooltipContent} from '../ui/tooltip.js'
 import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {enabledDownloadProfiles} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
-import {resolvePlaylistDir} from '../../store/wizard/playlistDir.js'
-import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
-import {notify} from '@renderer/lib/notify.js'
-import {hasOpenOverlay, isTypingTarget} from '../shared/isTypingTarget.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 import {PlaylistScopeControl} from './PlaylistScopeControl.js'
 import {PlaylistSortControl} from './PlaylistSortControl.js'
-import {sortPlaylistEntries} from '../../store/wizard/playlistSort.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
-import {IconTile} from '../shared/IconTile.js'
-import {Spinner} from '../ui/spinner.js'
+import {PlaylistProbeLoading} from './PlaylistProbeLoading.js'
+import {PlaylistSelectionToolbar} from './PlaylistSelectionToolbar.js'
+import {PlaylistFolderScanStatus, PlaylistFolderSyncNotices} from './PlaylistFolderSyncNotices.js'
+import {PlaylistItemsList} from './PlaylistItemsList.js'
+import {usePlaylistFolderSync, type PlaylistFolderSync} from './usePlaylistFolderSync.js'
+import {usePlaylistDeleteShortcut} from './usePlaylistDeleteShortcut.js'
+import {usePlaylistItemsView, type PlaylistItemsView} from './usePlaylistItemsView.js'
 
 const PLAYLIST_PROBE_SKELETON_ROWS = [
 	{id: 'first', width: 'w-8/12', metaWide: false},
@@ -59,462 +54,239 @@ function PlaylistProbeSkeletonRows({showThumbnail}: {showThumbnail: boolean}): R
 	)
 }
 
-function PlaylistProbeLoadingStatus({loadingLabel, phaseLabel, progressLabel, progressValue, limitHint}: {loadingLabel: string; phaseLabel: string | null; progressLabel: string | null; progressValue: number | null; limitHint: string | null}): ReactNode {
+const PLAYLIST_COPY_KEYS = {heading: 'wizard.playlist.heading', loadingItems: 'wizard.playlist.loadingItems', probeLimitAlertTitle: 'wizard.playlist.probeLimitAlertTitle', syncNoneDesc: 'wizard.playlist.syncNoneDesc'} as const
+const GENERIC_COLLECTION_COPY_KEYS = {heading: 'wizard.playlist.headingGeneric', loadingItems: 'wizard.playlist.loadingItemsGeneric', probeLimitAlertTitle: 'wizard.playlist.probeLimitAlertTitleGeneric', syncNoneDesc: 'wizard.playlist.syncNoneDescGeneric'} as const
+
+type PlaylistCopyKeys = typeof PLAYLIST_COPY_KEYS | typeof GENERIC_COLLECTION_COPY_KEYS
+
+// Channels and searches aren't playlists, so they get collection-neutral copy.
+function playlistCopyKeys(wizardMode: WizardMode, wizardUrl: string, wizardWebpageUrl: string): PlaylistCopyKeys {
+	const collectionKind = wizardMode === 'playlist' ? collectionKindForWizardUrls(wizardUrl, wizardWebpageUrl) : null
+	return collectionKind === 'channel' || collectionKind === 'search' ? GENERIC_COLLECTION_COPY_KEYS : PLAYLIST_COPY_KEYS
+}
+
+function itemCountKey(isBulk: boolean, extractor: string | null): 'wizard.playlist.itemCountBulk' | 'wizard.playlist.itemCountAudio' | 'wizard.playlist.itemCount' {
+	if (isBulk) return 'wizard.playlist.itemCountBulk'
+	return isAudioOnlySource(extractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount'
+}
+
+function PlaylistItemsHeading({isBulk, copyKeys, itemCount}: {isBulk: boolean; copyKeys: PlaylistCopyKeys; itemCount: number}): ReactNode {
+	const {t} = useTranslation()
+	const playlistTitle = useAppStore(s => s.playlistTitle)
+	const wizardExtractor = useAppStore(s => s.wizardExtractor)
 	return (
-		<div className="rounded-md border border-border-strong bg-card/40 px-3 py-2.5 text-sm" data-testid="playlist-probe-loading" aria-live="polite">
-			<div className="flex items-center justify-between gap-3">
-				<div className="flex min-w-0 items-center gap-3">
-					<IconTile size="sm">
-						<Spinner />
-					</IconTile>
-					<div className="min-w-0">
-						<p className="truncate font-medium text-foreground">{loadingLabel}</p>
-						{phaseLabel ? <p className="truncate text-xs text-muted-foreground">{phaseLabel}</p> : null}
-					</div>
-				</div>
-				{progressLabel ? (
-					<Badge variant="info" className="shrink-0 font-mono tabular-nums" data-testid="playlist-probe-progress-count">
-						{progressLabel}
-					</Badge>
-				) : null}
-			</div>
-			{progressValue !== null ? (
-				<progress className="mt-3 block h-1 w-full overflow-hidden rounded-full bg-secondary [&::-moz-progress-bar]:bg-primary [&::-webkit-progress-bar]:bg-secondary [&::-webkit-progress-value]:bg-primary" value={progressValue} max={100} aria-valuemin={0} aria-valuemax={100} aria-valuenow={progressValue} />
-			) : (
-				<div className="thumb-shimmer mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary" aria-hidden />
-			)}
-			{limitHint ? <p className="mt-2 text-xs text-muted-foreground">{limitHint}</p> : null}
+		<div className="flex items-baseline justify-between gap-2">
+			<h2 className="text-sm font-semibold truncate">{isBulk ? t('wizard.playlist.bulkHeading') : playlistTitle || t(copyKeys.heading)}</h2>
+			<span className="shrink-0 text-xs text-muted-foreground">{t(itemCountKey(isBulk, wizardExtractor), {count: itemCount})}</span>
 		</div>
+	)
+}
+
+// Scope reload + probe-cap notices: a playlist/channel concern, never shown for a bulk intake.
+function PlaylistCollectionNotices({busy, playlistLimit, copyKeys}: {busy: boolean; playlistLimit: number; copyKeys: PlaylistCopyKeys}): ReactNode {
+	const {t} = useTranslation()
+	const playlistScopeError = useAppStore(s => s.playlistScopeError)
+	const playlistLikelyCapped = useAppStore(s => s.playlistLikelyCapped)
+	const reloadPlaylistWithScope = useAppStore(s => s.reloadPlaylistWithScope)
+	const retryFormatProbe = useAppStore(s => s.retryFormatProbe)
+	return (
+		<>
+			<PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', {defaultValue: 'Apply and reload'})} pendingLabel={t('wizard.url.playlistScope.reloading', {defaultValue: 'Reloading...'})} disabled={busy} onApplyScope={reloadPlaylistWithScope} />
+
+			{playlistScopeError ? (
+				<Alert variant="warning" data-testid="playlist-scope-error">
+					<Info />
+					<AlertTitle>{t('wizard.url.playlistScope.emptyTitle', {defaultValue: 'No videos in that scope'})}</AlertTitle>
+					<AlertDescription>{playlistScopeError}</AlertDescription>
+				</Alert>
+			) : null}
+
+			{!busy && playlistLikelyCapped && (
+				<Alert variant="warning" data-testid="playlist-probe-limit-alert">
+					<Info />
+					<AlertTitle>{t(copyKeys.probeLimitAlertTitle)}</AlertTitle>
+					<AlertDescription>{t('wizard.playlist.probeLimitAlertDesc', {count: playlistLimit})}</AlertDescription>
+					<div className="col-start-2 mt-2">
+						<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
+					</div>
+				</Alert>
+			)}
+		</>
+	)
+}
+
+function BulkMetadataProgress(): ReactNode {
+	const {t} = useTranslation()
+	const bulkMetadataStatus = useAppStore(s => s.bulkMetadataStatus)
+	const bulkMetadataCompleted = useAppStore(s => s.bulkMetadataCompleted)
+	const bulkMetadataTotal = useAppStore(s => s.bulkMetadataTotal)
+	if (bulkMetadataStatus !== 'resolving') return null
+	return (
+		<>
+			<p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="bulk-metadata-status">
+				<span className="h-3 w-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
+				{t('wizard.playlist.bulkMetadataResolving', {done: bulkMetadataCompleted, total: bulkMetadataTotal})}
+			</p>
+			<p className="text-xs text-muted-foreground" data-testid="bulk-metadata-optional">
+				{t('wizard.playlist.bulkMetadataOptional')}
+			</p>
+		</>
+	)
+}
+
+function PlaylistItemsEmpty(): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<Empty className="flex-1 py-10" data-testid="playlist-items-empty">
+			<EmptyHeader>
+				<EmptyTitle>{t('wizard.playlist.allRemovedTitle')}</EmptyTitle>
+				<EmptyDescription>{t('wizard.playlist.allRemovedDescription')}</EmptyDescription>
+			</EmptyHeader>
+		</Empty>
+	)
+}
+
+function PlaylistSelectionSummary({selectedCount}: {selectedCount: number}): ReactNode {
+	const {t} = useTranslation()
+	return selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>
+}
+
+interface PlaylistItemsBodyProps {
+	isBulk: boolean
+	view: PlaylistItemsView
+	folderSync: PlaylistFolderSync
+	copyKeys: PlaylistCopyKeys
+	selectedPlaylistItemIds: string[]
+	bulkMetadataById: Record<string, BulkMetadataItemStatus>
+	onSelectedChange: (id: string, selected: boolean) => void
+	onRemove: (ids: string[]) => void
+}
+
+function PlaylistItemsBody({isBulk, view, folderSync, copyKeys, selectedPlaylistItemIds, bulkMetadataById, onSelectedChange, onRemove}: PlaylistItemsBodyProps): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<>
+			{!isBulk && <PlaylistFolderScanStatus sync={folderSync} />}
+
+			<BulkMetadataProgress />
+
+			{!isBulk && <PlaylistFolderSyncNotices sync={folderSync} noneDescKey={copyKeys.syncNoneDesc} />}
+
+			{view.nestedPlaylistCount > 0 && (
+				<Alert variant="info" data-testid="nested-playlist-hint">
+					<Info />
+					<AlertDescription>{t('wizard.playlist.nestedPlaylistHint', {count: view.nestedPlaylistCount})}</AlertDescription>
+				</Alert>
+			)}
+
+			{view.allRemoved ? (
+				<PlaylistItemsEmpty />
+			) : (
+				<>
+					<PlaylistItemsList
+						visibleItems={view.visibleItems}
+						selectedPlaylistItemIds={selectedPlaylistItemIds}
+						selectedIdSet={view.selectedIdSet}
+						syncedIdSet={view.syncedIdSet}
+						bulkMetadataById={bulkMetadataById}
+						isBulk={isBulk}
+						hasAnyThumbnail={view.hasAnyThumbnail}
+						onSelectedChange={onSelectedChange}
+						onRemove={onRemove}
+					/>
+
+					<PlaylistSelectionSummary selectedCount={selectedPlaylistItemIds.length} />
+				</>
+			)}
+		</>
+	)
+}
+
+function PlaylistItemsFooter({canContinue}: {canContinue: boolean}): ReactNode {
+	const {t} = useTranslation()
+	const back = useAppStore(s => s.back)
+	const confirmPlaylistSelection = useAppStore(s => s.confirmPlaylistSelection)
+	const enterMultiProfileMode = useAppStore(s => s.enterMultiProfileMode)
+	const profiles = useAppStore(s => s.settings?.profiles)
+	// The mode is meaningless with a single profile — nothing to route items
+	// between. Builtins alone already clear this bar, so in practice the
+	// button is offered whenever any playlist item is selected.
+	const canOfferMultiProfile = enabledDownloadProfiles(profiles).length >= 2
+	return (
+		<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue}>
+			{canOfferMultiProfile ? (
+				<Tooltip>
+					<TooltipTrigger
+						render={props => (
+							<Button {...props} type="button" variant="outline" size="sm" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
+								<Layers size={14} aria-hidden />
+								{t('wizard.playlist.multiProfileEntry')}
+							</Button>
+						)}
+					/>
+					<TooltipContent>{t('wizard.playlist.multiProfileEntryTooltip')}</TooltipContent>
+				</Tooltip>
+			) : null}
+		</WizardStepFooterActions>
 	)
 }
 
 export function StepPlaylistItems(): ReactNode {
 	const {t} = useTranslation()
-	const store = useAppStore()
 	const {
 		playlistItems,
 		selectedPlaylistItemIds,
 		removedPlaylistItemIds,
-		playlistTitle,
 		playlistProbeLoading,
 		playlistProbeProgress,
 		playlistScopeReloading,
-		playlistScopeError,
-		playlistLikelyCapped,
 		bulkMetadataStatus,
-		bulkMetadataCompleted,
-		bulkMetadataTotal,
 		bulkMetadataById,
 		playlistSortMode,
 		setPlaylistSortMode,
 		syncedDownloadedIds,
-		syncScanState,
 		setPlaylistItemSelected,
-		selectAllPlaylistItems,
-		selectNonePlaylistItems,
-		selectPlaylistRange,
-		confirmPlaylistSelection,
-		enterMultiProfileMode,
 		removePlaylistItems,
-		restoreRemovedPlaylistItems,
-		back,
-		wizardExtractor,
 		wizardUrl,
 		wizardWebpageUrl,
-		scanDownloadedInFolder,
-		applyFolderSync,
-		setPlaylistFolder,
 		settings,
-		reloadPlaylistWithScope,
-		retryFormatProbe,
 		wizardMode
-	} = store
+	} = useAppStore()
 	const isBulk = wizardMode === 'bulk'
 
-	// Effective folder the playlist's files land in (and where the scan looks) —
-	// the same resolver the queue builder + scan use, so display == download == scan.
-	const syncDir = resolvePlaylistDir(store)
+	const folderSync = usePlaylistFolderSync()
+	const view = usePlaylistItemsView({playlistItems, removedPlaylistItemIds, selectedPlaylistItemIds, syncedDownloadedIds, playlistSortMode, bulkMetadataStatus, isBulk})
+	usePlaylistDeleteShortcut(selectedPlaylistItemIds, removePlaylistItems)
 
-	const [rangeFrom, setRangeFrom] = useState('')
-	const [rangeTo, setRangeTo] = useState('')
-	// Lets the user dismiss the sync alert (or hide it after applying) without
-	// re-running the scan. Reset implicitly whenever a new scan completes.
-	const [syncDismissed, setSyncDismissed] = useState(false)
-
-	const foundCount = syncedDownloadedIds.length
-
-	function changeSyncFolder(): void {
-		// Open at the current playlist dir; the pick becomes base+subfolder via
-		// setPlaylistFolder (single SSOT), then we rescan the new location. State
-		// only changes after a successful pick + folder write, so a rejected dialog
-		// or failed settings persist can't leave the sync UI inconsistent.
-		void (async () => {
-			try {
-				const res = await window.appApi.dialog.chooseFolder(syncDir || undefined)
-				if (!res.ok || !res.data.path) return
-				await setPlaylistFolder(res.data.path)
-				setSyncDismissed(false)
-				void scanDownloadedInFolder()
-			} catch (error) {
-				notify.folderSelectFailed(error)
-			}
-		})()
-	}
-
-	// Removed rows (Task 11) drop out of the rendered list entirely — unlike an
-	// unchecked row, which stays visible but excluded from the download.
-	const removedSet = useMemo(() => new Set(removedPlaylistItemIds), [removedPlaylistItemIds])
-	// Sort is a view concern: ids and playlistIndex stay immutable probe-order
-	// identity so selection survives sort changes. Bulk mode keeps intake order.
-	const visibleItems = useMemo(() => {
-		const kept = playlistItems.filter(entry => !removedSet.has(entry.id))
-		return isBulk ? kept : sortPlaylistEntries(kept, playlistSortMode)
-	}, [playlistItems, removedSet, isBulk, playlistSortMode])
-	const sortFetching = bulkMetadataStatus === 'resolving'
-	// Upload-date sort must not unlock mid-hydration. "Some row has a timestamp"
-	// would open it as soon as the first probe lands, and the rows still waiting
-	// sort last — so the user sees a list labelled "Oldest first" that is mostly
-	// intake order. Wait for hydration to settle, then require at least one
-	// timestamp among the sortable (non-container) rows; rows whose probe failed
-	// still sort last, which is the documented fallback rather than a lie.
-	const canSortByUpload = useMemo(() => !sortFetching && playlistItems.some(entry => entry.isContainer !== true && entry.timestamp !== undefined), [playlistItems, sortFetching])
-	const allRemoved = removedPlaylistItemIds.length > 0 && visibleItems.length === 0
-	// Rows that are themselves playlists: visible but not downloadable, so the
-	// list needs to say why rather than leaving three dead checkboxes unexplained.
-	const nestedPlaylistCount = useMemo(() => visibleItems.filter(entry => entry.isContainer === true).length, [visibleItems])
-	// Hoisted once per render instead of `.includes` inside the per-row render
-	// loop / removalTargets — at the design's 1000-item target, an `.includes`
-	// call per visible row against a selection that can itself be 1000 ids long
-	// adds up fast; a Set lookup is O(1) regardless.
-	const selectedIdSet = useMemo(() => new Set(selectedPlaylistItemIds), [selectedPlaylistItemIds])
-	const syncedIdSet = useMemo(() => new Set(syncedDownloadedIds), [syncedDownloadedIds])
-
-	function removalTargets(entryId: string): string[] {
-		// A right-click on a checked row acts on the whole checked set — this
-		// step has no separate highlight-selection, so "the selection" is
-		// whatever is currently included for download. A right-click on an
-		// unchecked row acts on just that row.
-		return selectedIdSet.has(entryId) ? selectedPlaylistItemIds : [entryId]
-	}
-
-	// Window-scoped so Delete works no matter which row or control currently
-	// holds focus, matching the profiles step's shortcut listener. Backspace is
-	// deliberately NOT bound here: it's a common "go back" reflex, and this
-	// listener has no visible affordance warning the user it deletes rows
-	// instead (unlike the context-menu item below, whose label now states the
-	// count). hasOpenOverlay() guards the playlist-scope and probe-limit
-	// dialogs/selects this step can open on top of itself — without it, Delete
-	// pressed while one of those owns focus silently removes the selected rows
-	// behind it (isTypingTarget alone doesn't see a dialog's buttons or a
-	// select's listbox as "typing").
-	useEffect(() => {
-		function onKeyDown(event: KeyboardEvent): void {
-			if (isTypingTarget(event.target)) return
-			if (hasOpenOverlay()) return
-			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
-			if (event.key !== 'Delete') return
-			if (selectedPlaylistItemIds.length === 0) return
-			event.preventDefault()
-			removePlaylistItems(selectedPlaylistItemIds)
-		}
-		window.addEventListener('keydown', onKeyDown)
-		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [selectedPlaylistItemIds, removePlaylistItems])
-
-	const parentRef = useRef<HTMLDivElement>(null)
-	// oxlint-disable-next-line react-hooks-js/incompatible-library
-	const virtualizer = useVirtualizer({count: visibleItems.length, getScrollElement: () => parentRef.current, estimateSize: () => 56, overscan: 5})
-
-	const selectedCount = selectedPlaylistItemIds.length
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
 	const playlistBusy = playlistProbeLoading || playlistScopeReloading
-	const collectionKind = wizardMode === 'playlist' ? collectionKindForWizardUrls(wizardUrl, wizardWebpageUrl) : null
-	const useGenericCollectionCopy = collectionKind === 'channel' || collectionKind === 'search'
-	const playlistHeadingKey = useGenericCollectionCopy ? 'wizard.playlist.headingGeneric' : 'wizard.playlist.heading'
-	const playlistLoadingItemsKey = useGenericCollectionCopy ? 'wizard.playlist.loadingItemsGeneric' : 'wizard.playlist.loadingItems'
-	const playlistProbeLimitAlertTitleKey = useGenericCollectionCopy ? 'wizard.playlist.probeLimitAlertTitleGeneric' : 'wizard.playlist.probeLimitAlertTitle'
-	const playlistSyncNoneDescKey = useGenericCollectionCopy ? 'wizard.playlist.syncNoneDescGeneric' : 'wizard.playlist.syncNoneDesc'
-	const showProbeLimitAlert = !isBulk && !playlistBusy && playlistLikelyCapped
-	const probeLimitDescription = t('wizard.playlist.probeLimitAlertDesc', {count: playlistLimit})
-	const itemProgressTotal = playlistProbeProgress?.phase === 'items' && playlistProbeProgress.total ? Math.min(playlistProbeProgress.total, playlistLimit) : null
-	const itemProgressLoaded = playlistProbeProgress?.phase === 'items' ? Math.min(playlistProbeProgress.loaded, itemProgressTotal ?? playlistProbeProgress.loaded) : null
-	const probeProgressValue = itemProgressTotal && itemProgressLoaded !== null ? Math.min(100, Math.max(0, Math.round((itemProgressLoaded / itemProgressTotal) * 100))) : null
-	const probePhaseLabel = playlistProbeProgress?.phase === 'pages' ? t('wizard.playlist.loadingPhasePages') : playlistProbeProgress?.phase === 'items' ? t('wizard.playlist.loadingPhaseItems') : null
-	const probeProgressLabel = playlistProbeProgress ? (playlistProbeProgress.phase === 'pages' ? t('wizard.playlist.loadingPagesFound', {count: playlistProbeProgress.loaded}) : itemProgressTotal && itemProgressLoaded !== null ? `${itemProgressLoaded} / ${itemProgressTotal}` : String(playlistProbeProgress.loaded)) : null
-	const showProbeLimitHint = playlistProbeProgress?.phase === 'items' && playlistProbeProgress.total !== undefined && playlistProbeProgress.total > playlistLimit
-	const probeLimitHint = showProbeLimitHint ? t('wizard.playlist.loadingLimitHint', {count: playlistLimit}) : null
-	// yt-dlp's --flat-playlist returns thumbnails for some extractors
-	// (YouTube tab) but not others (PornHub paged list, generic). When no
-	// entry has one, hide the thumbnail slot entirely so the list renders
-	// compactly instead of showing 500 empty boxes.
-	const hasAnyThumbnail = useMemo(() => playlistItems.some(e => !!e.thumbnail), [playlistItems])
+	const copyKeys = playlistCopyKeys(wizardMode, wizardUrl, wizardWebpageUrl)
 	// selectedCount is already 0 once every item is removed — removePlaylistItems
 	// prunes the selection — but allRemoved is spelled out here too so Continue's
 	// disabled state doesn't depend on that pruning detail holding forever.
-	const canContinue = selectedCount > 0 && !playlistBusy && !allRemoved
-	// The mode is meaningless with a single profile — nothing to route items
-	// between. Builtins alone already clear this bar, so in practice the
-	// button is offered whenever any playlist item is selected.
-	const canOfferMultiProfile = enabledDownloadProfiles(settings?.profiles).length >= 2
-
-	function applyRange(): void {
-		const from = parseInt(rangeFrom, 10)
-		const to = parseInt(rangeTo, 10)
-		if (!isNaN(from) && !isNaN(to)) selectPlaylistRange(from, to)
-	}
-
-	const liveLabel = t('wizard.playlist.durationUnknown')
+	const canContinue = selectedPlaylistItemIds.length > 0 && !playlistBusy && !view.allRemoved
 
 	return (
 		<div className="wizard-step gap-3" data-testid="step-playlist-items">
 			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
-				<div className="flex items-baseline justify-between gap-2">
-					<h2 className="text-sm font-semibold truncate">{isBulk ? t('wizard.playlist.bulkHeading') : playlistTitle || t(playlistHeadingKey)}</h2>
-					<span className="shrink-0 text-xs text-muted-foreground">{t(isBulk ? 'wizard.playlist.itemCountBulk' : isAudioOnlySource(wizardExtractor) ? 'wizard.playlist.itemCountAudio' : 'wizard.playlist.itemCount', {count: playlistItems.length})}</span>
-				</div>
+				<PlaylistItemsHeading isBulk={isBulk} copyKeys={copyKeys} itemCount={playlistItems.length} />
 
-				{!isBulk ? (
-					<PlaylistScopeControl applyLabel={t('wizard.url.playlistScope.applyReload', {defaultValue: 'Apply and reload'})} pendingLabel={t('wizard.url.playlistScope.reloading', {defaultValue: 'Reloading...'})} disabled={playlistProbeLoading || playlistScopeReloading} onApplyScope={reloadPlaylistWithScope} />
-				) : null}
+				{!isBulk ? <PlaylistCollectionNotices busy={playlistBusy} playlistLimit={playlistLimit} copyKeys={copyKeys} /> : null}
 
-				{!isBulk && playlistScopeError ? (
-					<Alert variant="warning" data-testid="playlist-scope-error">
-						<Info />
-						<AlertTitle>{t('wizard.url.playlistScope.emptyTitle', {defaultValue: 'No videos in that scope'})}</AlertTitle>
-						<AlertDescription>{playlistScopeError}</AlertDescription>
-					</Alert>
-				) : null}
+				{playlistBusy ? <PlaylistProbeLoading loadingLabel={t(copyKeys.loadingItems)} progress={playlistProbeProgress} limit={playlistLimit} /> : null}
 
-				{showProbeLimitAlert && (
-					<Alert variant="warning" data-testid="playlist-probe-limit-alert">
-						<Info />
-						<AlertTitle>{t(playlistProbeLimitAlertTitleKey)}</AlertTitle>
-						<AlertDescription>{probeLimitDescription}</AlertDescription>
-						<div className="col-start-2 mt-2">
-							<PlaylistProbeLimitSelector testId="playlist-alert-probe-limit" showCurrent={false} onLimitChanged={() => retryFormatProbe()} className="w-40" />
-						</div>
-					</Alert>
-				)}
+				<PlaylistSelectionToolbar busy={playlistBusy} />
 
-				{playlistBusy ? <PlaylistProbeLoadingStatus loadingLabel={t(playlistLoadingItemsKey)} phaseLabel={probePhaseLabel} progressLabel={probeProgressLabel} progressValue={probeProgressValue} limitHint={probeLimitHint} /> : null}
-
-				<div className="flex items-center gap-2 flex-wrap">
-					<Button type="button" variant="outline" size="sm" onClick={selectAllPlaylistItems} disabled={playlistBusy}>
-						{t('wizard.playlist.selectAll')}
-					</Button>
-					<Button type="button" variant="outline" size="sm" onClick={selectNonePlaylistItems} disabled={playlistBusy}>
-						{t('wizard.playlist.selectNone')}
-					</Button>
-					{removedPlaylistItemIds.length > 0 ? (
-						<div className="flex items-center gap-2">
-							<span className="text-xs text-muted-foreground" data-testid="removed-playlist-items-count">
-								{t('wizard.playlist.removedCount', {count: removedPlaylistItemIds.length})}
-							</span>
-							<Button type="button" variant="outline" size="sm" onClick={restoreRemovedPlaylistItems} data-testid="restore-removed-playlist-items">
-								{t('wizard.playlist.restore')}
-							</Button>
-						</div>
-					) : null}
-					<div className="ml-auto flex items-center gap-1">
-						<span className="text-xs text-muted-foreground">{t('wizard.playlist.rangeFrom')}</span>
-						<Input className="h-7 w-14 px-2 text-xs" value={rangeFrom} onChange={e => setRangeFrom(e.target.value)} placeholder="1" disabled={playlistBusy} />
-						<span className="text-xs text-muted-foreground">{t('wizard.playlist.rangeTo')}</span>
-						<Input className="h-7 w-14 px-2 text-xs" value={rangeTo} onChange={e => setRangeTo(e.target.value)} placeholder="10" disabled={playlistBusy} />
-						<Button type="button" variant="outline" size="sm" onClick={applyRange} disabled={playlistBusy}>
-							{t('wizard.playlist.rangeApply')}
-						</Button>
-					</div>
-				</div>
-
-				{!isBulk ? <PlaylistSortControl value={playlistSortMode} onChange={setPlaylistSortMode} canSortByUpload={canSortByUpload} isFetching={sortFetching} disabled={playlistBusy} /> : null}
+				{!isBulk ? <PlaylistSortControl value={playlistSortMode} onChange={setPlaylistSortMode} canSortByUpload={view.canSortByUpload} isFetching={view.sortFetching} disabled={playlistBusy} /> : null}
 
 				{playlistBusy ? (
-					<PlaylistProbeSkeletonRows showThumbnail={playlistItems.length === 0 || hasAnyThumbnail} />
+					<PlaylistProbeSkeletonRows showThumbnail={playlistItems.length === 0 || view.hasAnyThumbnail} />
 				) : (
-					<>
-						{!isBulk && syncScanState === 'scanning' && (
-							<p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-								<FolderSearch size={13} />
-								{t('wizard.playlist.syncScanning')}
-							</p>
-						)}
-
-						{bulkMetadataStatus === 'resolving' && (
-							<>
-								<p className="flex items-center gap-1.5 text-xs text-muted-foreground" data-testid="bulk-metadata-status">
-									<span className="h-3 w-3 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden />
-									{t('wizard.playlist.bulkMetadataResolving', {done: bulkMetadataCompleted, total: bulkMetadataTotal})}
-								</p>
-								<p className="text-xs text-muted-foreground" data-testid="bulk-metadata-optional">
-									{t('wizard.playlist.bulkMetadataOptional')}
-								</p>
-							</>
-						)}
-
-						{!isBulk && syncScanState === 'done' && !syncDismissed && foundCount > 0 && (
-							<Alert variant="success">
-								<FolderCheck />
-								<AlertTitle>{t('wizard.playlist.syncFoundTitle')}</AlertTitle>
-								<AlertDescription>{t('wizard.playlist.syncFoundDesc', {n: foundCount, dir: syncDir})}</AlertDescription>
-								<div className="col-start-2 mt-2.5 flex items-center gap-2">
-									<Button
-										type="button"
-										size="sm"
-										onClick={() => {
-											applyFolderSync()
-											setSyncDismissed(true)
-										}}
-									>
-										{t('wizard.playlist.syncApply')}
-									</Button>
-									<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
-										{t('wizard.playlist.syncChange')}
-									</Button>
-								</div>
-								<AlertAction>
-									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
-										<X />
-									</Button>
-								</AlertAction>
-							</Alert>
-						)}
-
-						{!isBulk && syncScanState === 'done' && !syncDismissed && foundCount === 0 && (
-							<Alert variant="info">
-								<Info />
-								<AlertTitle>{t('wizard.playlist.syncNoneTitle')}</AlertTitle>
-								<AlertDescription>{t(playlistSyncNoneDescKey, {dir: syncDir})}</AlertDescription>
-								<div className="col-start-2 mt-2.5">
-									<Button type="button" variant="outline" size="sm" onClick={changeSyncFolder}>
-										{t('wizard.playlist.syncChange')}
-									</Button>
-								</div>
-								<AlertAction>
-									<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => setSyncDismissed(true)}>
-										<X />
-									</Button>
-								</AlertAction>
-							</Alert>
-						)}
-
-						{nestedPlaylistCount > 0 && (
-							<Alert variant="info" data-testid="nested-playlist-hint">
-								<Info />
-								<AlertDescription>{t('wizard.playlist.nestedPlaylistHint', {count: nestedPlaylistCount})}</AlertDescription>
-							</Alert>
-						)}
-
-						{allRemoved ? (
-							<Empty className="flex-1 py-10" data-testid="playlist-items-empty">
-								<EmptyHeader>
-									<EmptyTitle>{t('wizard.playlist.allRemovedTitle')}</EmptyTitle>
-									<EmptyDescription>{t('wizard.playlist.allRemovedDescription')}</EmptyDescription>
-								</EmptyHeader>
-							</Empty>
-						) : (
-							<>
-								<div ref={parentRef} className="min-h-[12rem] flex-1 overflow-y-auto rounded-md border border-border">
-									<div style={{height: virtualizer.getTotalSize(), position: 'relative'}}>
-										{virtualizer.getVirtualItems().map(virtualRow => {
-											const entry = visibleItems[virtualRow.index]
-											const checked = selectedIdSet.has(entry.id)
-											// A row that is itself a playlist/channel/album: shown so the list
-											// isn't empty, but not downloadable — its URL addresses a whole set.
-											const isPlaylistRow = entry.isContainer === true
-											const isAlreadyDownloaded = !!(entry.videoId && syncedIdSet.has(entry.videoId))
-											const bulkRowStatus = bulkMetadataById[entry.id]
-											const bulkRowStatusKey = bulkRowStatus === 'pending' ? 'wizard.playlist.bulkRowWaiting' : bulkRowStatus === 'resolving' ? 'wizard.playlist.bulkRowResolving' : bulkRowStatus === 'failed' ? 'wizard.playlist.bulkRowFailed' : null
-											// Bound once per row instead of calling removalTargets(entry.id) twice
-											// below — both the click handler and the count label must agree on
-											// exactly the same set.
-											const targets = removalTargets(entry.id)
-											return (
-												<ContextMenu key={entry.id}>
-													<ContextMenuTrigger
-														render={
-															// react-doctor-disable-next-line react-doctor/prefer-tag-over-role
-															<div
-																role="checkbox"
-																aria-checked={checked}
-																tabIndex={0}
-																data-index={virtualRow.index}
-																data-testid={`playlist-item-row-${entry.id}`}
-																ref={virtualizer.measureElement}
-																style={{position: 'absolute', top: virtualRow.start, left: 0, right: 0}}
-																aria-disabled={isPlaylistRow}
-																className={cn('flex items-center gap-2 px-3 py-2', isPlaylistRow ? 'cursor-default opacity-70' : 'cursor-pointer hover:bg-muted/50')}
-																onClick={() => setPlaylistItemSelected(entry.id, !checked)}
-																onKeyDown={e => {
-																	if (e.key === ' ' || e.key === 'Enter') {
-																		e.preventDefault()
-																		setPlaylistItemSelected(entry.id, !checked)
-																	}
-																}}
-															>
-																<Checkbox checked={checked} disabled={isPlaylistRow} onCheckedChange={v => setPlaylistItemSelected(entry.id, !!v)} onClick={e => e.stopPropagation()} />
-																{hasAnyThumbnail ? entry.thumbnail ? <img src={entry.thumbnail} alt={t('wizard.playlist.thumbnailAlt')} referrerPolicy="no-referrer" className="h-8 w-[56px] shrink-0 rounded-sm object-cover" loading="lazy" /> : <div className="h-8 w-[56px] shrink-0 rounded-sm bg-muted" /> : null}
-																<span className="min-w-0 flex-1">
-																	<span className="block truncate text-sm">{entry.title}</span>
-																	{isBulk ? (
-																		<span className="block truncate font-mono text-caption text-muted-foreground" data-testid={`bulk-row-url-${entry.id}`}>
-																			{bulkRowStatusKey ? <span className="font-sans">{t(bulkRowStatusKey)} · </span> : null}
-																			{entry.url}
-																		</span>
-																	) : bulkRowStatusKey ? (
-																		<span className="flex items-center gap-1.5 truncate text-caption text-muted-foreground" data-testid={`playlist-row-status-${entry.id}`}>
-																			{bulkRowStatus === 'resolving' ? <span className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-current/20 border-t-current animate-spin" aria-hidden /> : null}
-																			{t(bulkRowStatusKey)}
-																		</span>
-																	) : null}
-																</span>
-																{isPlaylistRow && (
-																	<Badge variant="secondary" size="sm" className="shrink-0 text-muted-foreground">
-																		{t('wizard.playlist.nestedPlaylistBadge')}
-																	</Badge>
-																)}
-																{isAlreadyDownloaded && (
-																	<Badge variant="secondary" size="sm" className="shrink-0 text-muted-foreground">
-																		{t('wizard.playlist.alreadyDownloaded')}
-																	</Badge>
-																)}
-																<span className="shrink-0 text-xs text-muted-foreground">{formatEntryDuration(entry.duration, liveLabel)}</span>
-															</div>
-														}
-													/>
-													<ContextMenuContent className="min-w-48">
-														<ContextMenuItem variant="destructive" onClick={() => removePlaylistItems(targets)}>
-															<Trash2 size={14} aria-hidden />
-															{t('wizard.playlist.removeFromListCount', {count: targets.length})}
-														</ContextMenuItem>
-													</ContextMenuContent>
-												</ContextMenu>
-											)
-										})}
-									</div>
-								</div>
-
-								{selectedCount > 0 ? <p className="text-xs text-muted-foreground">{t('wizard.playlist.selectedCount', {count: selectedCount})}</p> : <p className="text-xs text-destructive">{t('wizard.playlist.noSelection')}</p>}
-							</>
-						)}
-					</>
+					<PlaylistItemsBody isBulk={isBulk} view={view} folderSync={folderSync} copyKeys={copyKeys} selectedPlaylistItemIds={selectedPlaylistItemIds} bulkMetadataById={bulkMetadataById} onSelectedChange={setPlaylistItemSelected} onRemove={removePlaylistItems} />
 				)}
 			</div>
 
-			<WizardStepFooterActions onBack={back} onContinue={() => void confirmPlaylistSelection()} continueDisabled={!canContinue}>
-				{canOfferMultiProfile ? (
-					<Tooltip>
-						<TooltipTrigger
-							render={props => (
-								<Button {...props} type="button" variant="outline" size="sm" disabled={!canContinue} onClick={enterMultiProfileMode} data-testid="enter-multi-profile">
-									<Layers size={14} aria-hidden />
-									{t('wizard.playlist.multiProfileEntry')}
-								</Button>
-							)}
-						/>
-						<TooltipContent>{t('wizard.playlist.multiProfileEntryTooltip')}</TooltipContent>
-					</Tooltip>
-				) : null}
-			</WizardStepFooterActions>
+			<PlaylistItemsFooter canContinue={canContinue} />
 		</div>
 	)
 }
