@@ -513,7 +513,6 @@ export interface SystemSlice {
 	closeShareDialog: () => void
 	setShareInlineCardDismissed: () => Promise<void>
 	setShareHighValueBannerDismissed: () => Promise<void>
-	dismissMultiProfileHint: () => Promise<void>
 	dismissStyleHint: () => Promise<void>
 	dismissVideoPartCallout: () => Promise<void>
 	dismissExploreLinkCallout: () => Promise<void>

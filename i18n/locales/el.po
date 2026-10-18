@@ -247,7 +247,7 @@ msgstr "Έλεγξε το proxy στις Ρυθμίσεις και δοκίμα�
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Το Explore δεν μπορεί να συνδεθεί μέσω του proxy σου"
+msgstr "Η Εξερεύνηση δεν μπορεί να συνδεθεί μέσω του proxy σου"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -295,11 +295,11 @@ msgstr "Περιήγηση στο YouTube μέσα στο Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Οι λήψεις χρησιμοποιούν τα cookies του προγράμματος περιήγησής σου, όχι τη σύνδεσή σου στο Explore."
+msgstr "Οι λήψεις χρησιμοποιούν τα cookies του προγράμματος περιήγησής σου, όχι τη σύνδεσή σου στην Εξερεύνηση."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Οι λήψεις χρησιμοποιούν το αρχείο cookies σου, όχι τη σύνδεσή σου στο Explore."
+msgstr "Οι λήψεις χρησιμοποιούν το αρχείο cookies σου, όχι τη σύνδεσή σου στην Εξερεύνηση."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -307,11 +307,11 @@ msgstr "Όχι τώρα"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Τα cookies είναι απενεργοποιημένα, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στο Explore."
+msgstr "Τα cookies είναι απενεργοποιημένα, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στην Εξερεύνηση."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Χρήση σύνδεσης Explore"
+msgstr "Χρήση σύνδεσης Εξερεύνησης"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -319,15 +319,15 @@ msgstr "Περιηγήσου στο YouTube μέσα στο Arroxy και συν
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Εμφάνιση της καρτέλας Explore"
+msgstr "Εμφάνιση της καρτέλας Εξερεύνηση"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Η απενεργοποίηση σταματά επίσης τις λήψεις από το να χρησιμοποιούν τη σύνδεσή σου στο Explore."
+msgstr "Η απενεργοποίηση σταματά επίσης τις λήψεις από το να χρησιμοποιούν τη σύνδεσή σου στην Εξερεύνηση."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Αποσύνδεση από το Explore"
+msgstr "Αποσύνδεση από την Εξερεύνηση"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -335,23 +335,23 @@ msgstr "Αποσύνδεση"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στο Explore. Οι λήψεις που απαιτούν λογαριασμό θα αποτυγχάνουν μέχρι να συνδεθείς ξανά."
+msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στην Εξερεύνηση. Οι λήψεις που απαιτούν λογαριασμό θα αποτυγχάνουν μέχρι να συνδεθείς ξανά."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Αποσύνδεση από το Explore;"
+msgstr "Αποσύνδεση από την Εξερεύνηση;"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στο Explore."
+msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στην Εξερεύνηση."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Εξερεύνηση"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Εξερεύνηση"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -387,7 +387,7 @@ msgstr "Αναζήτησε στο YouTube ή επικόλλησε έναν σύ�
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Στοιχεία ελέγχου του προγράμματος περιήγησης Explore"
+msgstr "Στοιχεία ελέγχου του προγράμματος περιήγησης της Εξερεύνησης"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -427,11 +427,11 @@ msgstr "Λήψη αυτού του συνδέσμου"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Το Explore περιηγείται μόνο στο YouTube."
+msgstr "Η Εξερεύνηση περιηγείται μόνο στο YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Το Explore περιηγείται μόνο στο YouTube. {{host}}"
+msgstr "Η Εξερεύνηση περιηγείται μόνο στο YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -604,16 +604,16 @@ msgstr "Γλώσσα"
 #. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για 1 σύνδεσμο"
+msgstr "Συνδέθηκες μέσω Εξερεύνησης — νέα προσπάθεια για 1 σύνδεσμο"
 
 #. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για {{count}} συνδέσμους"
+msgstr "Συνδέθηκες μέσω Εξερεύνησης — νέα προσπάθεια για {{count}} συνδέσμους"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Δεν ήταν δυνατή η αποσύνδεση από το Explore. Δοκίμασε ξανά."
+msgstr "Δεν ήταν δυνατή η αποσύνδεση από την Εξερεύνηση. Δοκίμασε ξανά."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1531,7 +1531,7 @@ msgstr "Ενσωμάτωση μεταδεδομένων…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Αποσυνδέθηκες από το Explore — συνδέσου ξανά"
+msgstr "Αποσυνδέθηκες από την Εξερεύνηση — συνδέσου ξανά"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1587,7 +1587,7 @@ msgstr "Η σύνδεση κόλλησε, νέα προσπάθεια ({{attempt
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Σύνδεση με τον λογαριασμό σου στο Explore…"
+msgstr "Σύνδεση με τον λογαριασμό σου στην Εξερεύνηση…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2061,7 +2061,7 @@ msgstr "Πρόγραμμα περιήγησης"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Σύνδεση Explore"
+msgstr "Σύνδεση Εξερεύνησης"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2117,11 +2117,11 @@ msgstr "Το αρχείο cookies μπορεί να είναι κενό, ληγ�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Συνδέσου μέσω Explore και το Arroxy θα το ξαναδοκιμάσει."
+msgstr "Συνδέσου μέσω Εξερεύνησης και το Arroxy θα το ξαναδοκιμάσει."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Σύνδεση μέσω Explore"
+msgstr "Σύνδεση μέσω Εξερεύνησης"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2129,11 +2129,11 @@ msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαρι
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Έχεις συνδεθεί στο Explore, αλλά οι λήψεις δεν χρησιμοποιούν αυτή τη σύνδεση αυτή τη στιγμή."
+msgstr "Έχεις συνδεθεί στην Εξερεύνηση, αλλά οι λήψεις δεν χρησιμοποιούν αυτή τη σύνδεση αυτή τη στιγμή."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Χρήση σύνδεσης Explore και επανάληψη"
+msgstr "Χρήση σύνδεσης Εξερεύνησης και επανάληψη"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2141,19 +2141,19 @@ msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαρι
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό, το Arroxy χρησιμοποιεί αυτόματα τη σύνδεσή σου στο Explore. Μπορεί να μην είναι διαθέσιμο για άλλο λόγο."
+msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό, το Arroxy χρησιμοποιεί αυτόματα τη σύνδεσή σου στην Εξερεύνηση. Μπορεί να μην είναι διαθέσιμο για άλλο λόγο."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Έχεις συνδεθεί στο Explore"
+msgstr "Έχεις συνδεθεί στην Εξερεύνηση"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό YouTube, συνδέσου στο Explore και δοκίμασε ξανά. Το Arroxy χρησιμοποιεί αυτή τη σύνδεση μόνο όταν τη χρειάζεται μια λήψη."
+msgstr "Αν αυτό το βίντεο απαιτεί λογαριασμό YouTube, συνδέσου στην Εξερεύνηση και δοκίμασε ξανά. Το Arroxy χρησιμοποιεί αυτή τη σύνδεση μόνο όταν τη χρειάζεται μια λήψη."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Σύνδεση στο Explore"
+msgstr "Σύνδεση στην Εξερεύνηση"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2887,9 +2887,19 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Εκχώρηση {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Εκχώρηση στην επιλογή"
+#. Plural form "one" for el: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Εκχώρηση σε {{count}} βίντεο"
+
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Εκχώρηση σε {{count}} βίντεο"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Εκχώρηση προφίλ"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2919,13 +2929,15 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Εκχώρηση προφίλ λήψης"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-κλικ για εύρος, {{modifier}}-κλικ για προσθήκη ενός, ή σύρετε στις γραμμές. Έπειτα επιλέξτε προφίλ παραπάνω, ή κάντε δεξί κλικ στην επιλογή."
+#. Plural form "one" for el: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Επιλέξτε το προφίλ για αυτό το βίντεο."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Ανάθεση προφίλ σε πολλά βίντεο ταυτόχρονα"
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Επιλέξτε το προφίλ για αυτά τα {{count}} βίντεο."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3785,11 +3797,11 @@ msgstr "Επέλεξε αρχείο για χρήση cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Χρησιμοποιεί τη σύνδεσή σου στο Explore μόνο όταν τη χρειάζεται μια λήψη."
+msgstr "Χρησιμοποιεί τη σύνδεσή σου στην Εξερεύνηση μόνο όταν τη χρειάζεται μια λήψη."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Η καρτέλα Explore είναι απενεργοποιημένη, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στο Explore. Ενεργοποίησέ την στην ενότητα Explore παρακάτω."
+msgstr "Η καρτέλα Εξερεύνηση είναι απενεργοποιημένη, οπότε οι λήψεις δεν χρησιμοποιούν τη σύνδεσή σου στην Εξερεύνηση. Ενεργοποίησέ την στην ενότητα Εξερεύνηση παρακάτω."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3809,7 +3821,7 @@ msgstr "Πώς εξάγω τα cookies;"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Άνοιγμα του Explore"
+msgstr "Άνοιγμα της Εξερεύνησης"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3829,7 +3841,7 @@ msgstr "Πρόγραμμα περιήγησης"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Σύνδεση Explore"
+msgstr "Σύνδεση Εξερεύνησης"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

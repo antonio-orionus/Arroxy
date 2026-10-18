@@ -9,10 +9,9 @@
 // through the feature-agnostic `row_getVisibleCells`, which honours column
 // visibility when the caller registers it and returns every cell otherwise.
 //
-// The row carries a named `group/row` class so a caller's cell markup (e.g.
-// the playlist-profiles PROFILE cell's quick-edit pencil) can reveal a
-// hover/focus-only control with `group-hover/row:` without this component
-// knowing anything about that control.
+// The row carries a named `group/row` class so a caller's cell markup can
+// reveal a hover/focus-only control with `group-hover/row:` without this
+// component knowing anything about that control.
 
 import {flexRender, type Row, type RowData, type Table as TanstackTable, type TableFeatures} from '@tanstack/react-table'
 import {row_getVisibleCells} from '@tanstack/react-table/static-functions'

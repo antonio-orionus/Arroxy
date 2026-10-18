@@ -242,7 +242,7 @@ msgstr "Periksa proxy di Pengaturan, lalu coba lagi."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore tidak dapat terhubung melalui proxy Anda"
+msgstr "Jelajahi tidak dapat terhubung melalui proxy Anda"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -290,11 +290,11 @@ msgstr "Jelajahi YouTube langsung di dalam Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Unduhan memakai cookie peramban Anda, bukan login Explore."
+msgstr "Unduhan memakai cookie peramban Anda, bukan login Jelajahi."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Unduhan memakai berkas cookie Anda, bukan login Explore."
+msgstr "Unduhan memakai berkas cookie Anda, bukan login Jelajahi."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -302,11 +302,11 @@ msgstr "Nanti saja"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookie nonaktif, jadi unduhan tidak memakai login Explore Anda."
+msgstr "Cookie nonaktif, jadi unduhan tidak memakai login Jelajahi Anda."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Pakai login Explore"
+msgstr "Pakai login Jelajahi"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -314,15 +314,15 @@ msgstr "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan a
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Tampilkan tab Explore"
+msgstr "Tampilkan tab Jelajahi"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Menonaktifkannya juga menghentikan unduhan memakai login Explore Anda."
+msgstr "Menonaktifkannya juga menghentikan unduhan memakai login Jelajahi Anda."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Keluar dari Explore"
+msgstr "Keluar dari Jelajahi"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -330,23 +330,23 @@ msgstr "Keluar"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Ini menghapus login YouTube dan data penjelajahan Anda di Explore. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi."
+msgstr "Ini menghapus login YouTube dan data penjelajahan Anda di Jelajahi. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Keluar dari Explore?"
+msgstr "Keluar dari Jelajahi?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Menghapus login YouTube dan data penjelajahan Anda di Explore."
+msgstr "Menghapus login YouTube dan data penjelajahan Anda di Jelajahi."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Jelajahi"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Jelajahi"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -382,7 +382,7 @@ msgstr "Cari di YouTube atau tempel tautan YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Kontrol peramban Explore"
+msgstr "Kontrol peramban Jelajahi"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -422,11 +422,11 @@ msgstr "Unduh tautan ini"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore hanya menjelajahi YouTube."
+msgstr "Jelajahi hanya bisa membuka YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore hanya menjelajahi YouTube. {{host}}"
+msgstr "Jelajahi hanya bisa membuka YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -599,11 +599,11 @@ msgstr "Bahasa"
 #. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Masuk dengan Explore — mencoba ulang {{count}} tautan"
+msgstr "Masuk dengan Jelajahi — mencoba ulang {{count}} tautan"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Tidak dapat keluar dari Explore. Coba lagi."
+msgstr "Tidak dapat keluar dari Jelajahi. Coba lagi."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1486,7 +1486,7 @@ msgstr "Menyematkan metadata…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Keluar dari Explore — masuk lagi"
+msgstr "Keluar dari Jelajahi — masuk lagi"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1542,7 +1542,7 @@ msgstr "Koneksi macet, mencoba lagi ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Masuk dengan akun Explore Anda…"
+msgstr "Masuk dengan akun Jelajahi Anda…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1976,7 +1976,7 @@ msgstr "Peramban"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Login Explore"
+msgstr "Login Jelajahi"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2032,11 +2032,11 @@ msgstr "File cookie Anda mungkin kosong, kedaluwarsa, atau dalam format yang sal
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Masuk di Explore dan Arroxy akan mencobanya lagi."
+msgstr "Masuk di Jelajahi dan Arroxy akan mencobanya lagi."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Masuk di Explore"
+msgstr "Masuk di Jelajahi"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2044,11 +2044,11 @@ msgstr "Video ini mungkin memerlukan akun YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Anda sudah masuk di Explore, tetapi unduhan sedang tidak memakai login itu."
+msgstr "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Pakai login Explore saya dan coba lagi"
+msgstr "Pakai login Jelajahi saya dan coba lagi"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2056,19 +2056,19 @@ msgstr "Video ini mungkin memerlukan akun YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Jika video ini memerlukan akun, Arroxy otomatis memakai login Explore Anda. Video mungkin juga tidak tersedia karena alasan lain."
+msgstr "Jika video ini memerlukan akun, Arroxy otomatis memakai login Jelajahi Anda. Video mungkin juga tidak tersedia karena alasan lain."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Sudah masuk ke Explore"
+msgstr "Sudah masuk ke Jelajahi"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Jika video ini memerlukan akun YouTube, masuk di Explore lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya."
+msgstr "Jika video ini memerlukan akun YouTube, masuk di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Masuk di Explore"
+msgstr "Masuk di Jelajahi"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2752,9 +2752,14 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Tetapkan {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Tetapkan ke pilihan"
+#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Tetapkan ke {{count}} video"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Tetapkan profil"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2784,13 +2789,10 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Tetapkan profil unduhan"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-klik untuk rentang, {{modifier}}-klik untuk menambah satu, atau seret pada baris. Lalu pilih profil di atas, atau klik kanan pada seleksi."
-
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Tetapkan profil ke beberapa video sekaligus"
+#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Pilih profil untuk {{count}} video ini."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3640,11 +3642,11 @@ msgstr "Pilih file untuk menggunakan cookie"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Memakai login Explore hanya saat unduhan membutuhkannya."
+msgstr "Memakai login Jelajahi hanya saat unduhan membutuhkannya."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Tab Explore nonaktif, jadi unduhan tidak memakai login Explore Anda. Aktifkan di bagian Explore di bawah."
+msgstr "Tab Jelajahi nonaktif, jadi unduhan tidak memakai login Jelajahi Anda. Aktifkan di bagian Jelajahi di bawah."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3664,7 +3666,7 @@ msgstr "Bagaimana cara mengekspor cookie?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Buka Explore"
+msgstr "Buka Jelajahi"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3684,7 +3686,7 @@ msgstr "Peramban"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Login Explore"
+msgstr "Login Jelajahi"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

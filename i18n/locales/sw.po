@@ -247,7 +247,7 @@ msgstr "Angalia proksi katika Mipangilio, kisha jaribu tena."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore haiwezi kuunganisha kupitia proksi yako"
+msgstr "Gundua haiwezi kuunganisha kupitia proksi yako"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -295,11 +295,11 @@ msgstr "Vinjari YouTube ndani ya Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Explore."
+msgstr "Upakuaji hutumia vidakuzi vya kivinjari chako, si kuingia kwako kwenye Gundua."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Explore."
+msgstr "Upakuaji hutumia faili yako ya vidakuzi, si kuingia kwako kwenye Gundua."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -307,11 +307,11 @@ msgstr "Si sasa"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore."
+msgstr "Vidakuzi vimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Tumia kuingia kwa Explore"
+msgstr "Tumia kuingia kwenye Gundua"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -319,15 +319,15 @@ msgstr "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Onyesha kichupo cha Explore"
+msgstr "Onyesha kichupo cha Gundua"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Explore."
+msgstr "Kukizima pia kunazuia upakuaji kutumia kuingia kwako kwenye Gundua."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Toka kwenye Explore"
+msgstr "Toka kwenye Gundua"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -335,23 +335,23 @@ msgstr "Toka"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena."
+msgstr "Hii inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua. Upakuaji unaohitaji akaunti utashindwa hadi uingie tena."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Utoke kwenye Explore?"
+msgstr "Utoke kwenye Gundua?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Explore."
+msgstr "Inafuta kuingia kwako kwenye YouTube na data ya kuvinjari ndani ya Gundua."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Gundua"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Gundua"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -387,7 +387,7 @@ msgstr "Tafuta YouTube au bandika kiungo cha YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Vidhibiti vya kivinjari cha Explore"
+msgstr "Vidhibiti vya kivinjari cha Gundua"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -427,11 +427,11 @@ msgstr "Pakua kiungo hiki"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore huvinjari YouTube pekee."
+msgstr "Ndani ya Gundua unaweza kuvinjari YouTube pekee."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore huvinjari YouTube pekee. {{host}}"
+msgstr "Ndani ya Gundua unaweza kuvinjari YouTube pekee. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -604,16 +604,16 @@ msgstr "Lugha"
 #. Plural form "one" for sw: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Umeingia kwa Explore — inajaribu tena kiungo 1"
+msgstr "Umeingia kwenye Gundua — inajaribu tena kiungo 1"
 
 #. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Umeingia kwa Explore — inajaribu tena viungo {{count}}"
+msgstr "Umeingia kwenye Gundua — inajaribu tena viungo {{count}}"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Imeshindwa kutoka kwenye Explore. Jaribu tena."
+msgstr "Imeshindwa kutoka kwenye Gundua. Jaribu tena."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1531,7 +1531,7 @@ msgstr "Inaingiza metadata…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Umetoka kwenye Explore — ingia tena"
+msgstr "Umetoka kwenye Gundua — ingia tena"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1587,7 +1587,7 @@ msgstr "Muunganisho umekwama, inajaribu tena ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Inaingia kwa akaunti yako ya Explore…"
+msgstr "Inaingia kwa akaunti yako ya Gundua…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2061,7 +2061,7 @@ msgstr "Kivinjari"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Kuingia kwa Explore"
+msgstr "Kuingia kwenye Gundua"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2117,11 +2117,11 @@ msgstr "Faili yako ya vidakuzi inaweza kuwa tupu, imeisha muda wake, au iko kati
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Ingia kwenye Explore na Arroxy itajaribu tena."
+msgstr "Ingia kwenye Gundua na Arroxy itajaribu tena."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Ingia kwenye Explore"
+msgstr "Ingia kwenye Gundua"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2129,11 +2129,11 @@ msgstr "Video hii inaweza kuhitaji akaunti ya YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Umeingia kwenye Explore, lakini upakuaji hautumii kuingia huko kwa sasa."
+msgstr "Umeingia kwenye Gundua, lakini upakuaji hautumii kuingia huko kwa sasa."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Tumia kuingia kwangu kwa Explore na ujaribu tena"
+msgstr "Tumia kuingia kwangu kwenye Gundua na ujaribu tena"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2141,19 +2141,19 @@ msgstr "Video hii inaweza kuhitaji akaunti ya YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Explore kiotomatiki. Huenda isipatikane kwa sababu nyingine."
+msgstr "Ikiwa video hii inahitaji akaunti, Arroxy hutumia kuingia kwako kwenye Gundua kiotomatiki. Huenda isipatikane kwa sababu nyingine."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Umeingia kwenye Explore"
+msgstr "Umeingia kwenye Gundua"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Explore kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji."
+msgstr "Ikiwa video hii inahitaji akaunti ya YouTube, ingia kwenye Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Ingia kwenye Explore"
+msgstr "Ingia kwenye Gundua"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2887,9 +2887,19 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Weka {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Weka kwenye uteuzi"
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Weka kwa video {{count}}"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Weka kwa video {{count}}"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Weka wasifu"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2919,13 +2929,15 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Weka wasifu wa upakuaji"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Bofya ukiwa umeshikilia Shift kwa masafa, bofya ukiwa umeshikilia {{modifier}} kuongeza moja, au buruta kwenye safu mlalo. Kisha chagua wasifu hapo juu, au bofya kulia kwenye uteuzi."
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Chagua wasifu wa video hii."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Weka wasifu kwa video kadhaa kwa wakati mmoja"
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Chagua wasifu wa video hizi {{count}}."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3785,11 +3797,11 @@ msgstr "Chagua faili kutumia vidakuzi"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Hutumia kuingia kwako kwenye Explore tu pale upakuaji unapohitaji."
+msgstr "Hutumia kuingia kwako kwenye Gundua tu pale upakuaji unapohitaji."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Kichupo cha Explore kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Explore. Kiwashe chini ya Explore hapa chini."
+msgstr "Kichupo cha Gundua kimezimwa, kwa hiyo upakuaji hautumii kuingia kwako kwenye Gundua. Kiwashe katika sehemu ya Gundua hapa chini."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3809,7 +3821,7 @@ msgstr "Ninasafirisha vidakuzi vipi?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Fungua Explore"
+msgstr "Fungua Gundua"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3829,7 +3841,7 @@ msgstr "Kivinjari"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Kuingia kwa Explore"
+msgstr "Kuingia kwenye Gundua"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

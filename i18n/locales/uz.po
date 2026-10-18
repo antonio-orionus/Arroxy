@@ -247,7 +247,7 @@ msgstr "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore proxy orqali ulana olmaydi"
+msgstr "Kashfiyot proxy orqali ulana olmaydi"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -295,11 +295,11 @@ msgstr "YouTube'ni Arroxy ichida ko'ring"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Yuklab olishlar Explore orqali kirishni emas, brauzeringiz cookies'idan foydalanadi."
+msgstr "Yuklab olishlar Kashfiyot orqali kirishni emas, brauzeringiz cookies'idan foydalanadi."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Yuklab olishlar Explore orqali kirishni emas, cookies faylingizdan foydalanadi."
+msgstr "Yuklab olishlar Kashfiyot orqali kirishni emas, cookies faylingizdan foydalanadi."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -307,11 +307,11 @@ msgstr "Hozir emas"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi."
+msgstr "Cookies o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore orqali kirishdan foydalanish"
+msgstr "Kashfiyot orqali kirishdan foydalanish"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -319,15 +319,15 @@ msgstr "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore yorlig'ini ko'rsatish"
+msgstr "Kashfiyot yorlig'ini ko'rsatish"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "O'chirsangiz, yuklab olishlar ham Explore orqali kirishdan foydalanmaydi."
+msgstr "O'chirsangiz, yuklab olishlar ham Kashfiyot orqali kirishdan foydalanmaydi."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore'dan chiqish"
+msgstr "Kashfiyotdan chiqish"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -335,23 +335,23 @@ msgstr "Chiqish"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Bu Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi."
+msgstr "Bu Kashfiyotdagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore'dan chiqilsinmi?"
+msgstr "Kashfiyotdan chiqilsinmi?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore'dagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi."
+msgstr "Kashfiyotdagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Kashfiyot"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Kashfiyot"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -387,7 +387,7 @@ msgstr "YouTube'da qidiring yoki YouTube havolasini joylang"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore brauzer boshqaruvlari"
+msgstr "Kashfiyot brauzer boshqaruvlari"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -427,11 +427,11 @@ msgstr "Bu havolani yuklab olish"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore faqat YouTube'ni ko'rsatadi."
+msgstr "Kashfiyot faqat YouTube'ni ko'rsatadi."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore faqat YouTube'ni ko'rsatadi. {{host}}"
+msgstr "Kashfiyot faqat YouTube'ni ko'rsatadi. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -604,16 +604,16 @@ msgstr "Til"
 #. Plural form "one" for uz: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore orqali kirildi — 1 ta havola qayta uriniladi"
+msgstr "Kashfiyot orqali kirildi — 1 ta havola qayta uriniladi"
 
 #. Plural form "other" for uz: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore orqali kirildi — {{count}} ta havola qayta uriniladi"
+msgstr "Kashfiyot orqali kirildi — {{count}} ta havola qayta uriniladi"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore'dan chiqib bo'lmadi. Qayta urinib ko'ring."
+msgstr "Kashfiyotdan chiqib bo'lmadi. Qayta urinib ko'ring."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1531,7 +1531,7 @@ msgstr "Metama'lumotlar joylashtirilmoqda…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore’dan chiqildi — qaytadan kiring"
+msgstr "Kashfiyotdan chiqildi — qaytadan kiring"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1587,7 +1587,7 @@ msgstr "Ulanish to'xtadi, qayta urinilmoqda ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Explore hisobingiz bilan kirilmoqda…"
+msgstr "Kashfiyotdagi hisobingiz bilan kirilmoqda…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2061,7 +2061,7 @@ msgstr "Brauzer"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore kirishi"
+msgstr "Kashfiyot orqali kirish"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2117,11 +2117,11 @@ msgstr "Cookies faylingiz bo'sh, muddati o'tgan yoki noto'g'ri formatda bo'lishi
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore orqali kiring, Arroxy qayta urinib ko'radi."
+msgstr "Kashfiyot orqali kiring, Arroxy qayta urinib ko'radi."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore'ga kirish"
+msgstr "Kashfiyot orqali kirish"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2129,11 +2129,11 @@ msgstr "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Siz Explore'ga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti."
+msgstr "Siz Kashfiyotga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Explore orqali kirishimdan foydalanib, qayta urinish"
+msgstr "Kashfiyot orqali kirishimdan foydalanib, qayta urinish"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2141,19 +2141,19 @@ msgstr "Bu video uchun YouTube hisobi kerak bo'lishi mumkin"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Agar bu video hisob talab qilsa, Arroxy Explore orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."
+msgstr "Agar bu video hisob talab qilsa, Arroxy Kashfiyot orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore'ga kirilgan"
+msgstr "Kashfiyotga kirilgan"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Agar bu video YouTube hisobini talab qilsa, Explore'ga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
+msgstr "Agar bu video YouTube hisobini talab qilsa, Kashfiyotga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore'ga kirish"
+msgstr "Kashfiyotga kirish"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2887,9 +2887,19 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} belgilash"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Tanlovga belgilash"
+#. Plural form "one" for uz: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "{{count}} ta videoga belgilash"
+
+#. Plural form "other" for uz: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "{{count}} ta videoga belgilash"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Profil belgilash"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2919,13 +2929,15 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Yuklab olish profillarini belgilash"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Diapazon uchun Shift-bosing, bittasini qo'shish uchun {{modifier}}-bosing yoki qatorlar bo'ylab suring. Keyin yuqoridagi profilni tanlang yoki tanlovga o'ng tugma bilan bosing."
+#. Plural form "one" for uz: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Bu video uchun profilni tanlang."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Bir vaqtning o'zida bir nechta videoga profil belgilash"
+#. Plural form "other" for uz: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Bu {{count}} ta video uchun profilni tanlang."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3785,11 +3797,11 @@ msgstr "Cookiesdan foydalanish uchun fayl tanlang"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Explore orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
+msgstr "Kashfiyot orqali kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore yorlig'i o'chirilgan, shuning uchun yuklab olishlar Explore orqali kirishdan foydalanmaydi. Uni quyidagi Explore bo'limida yoqing."
+msgstr "Kashfiyot yorlig'i o'chirilgan, shuning uchun yuklab olishlar Kashfiyot orqali kirishdan foydalanmaydi. Uni quyidagi Kashfiyot bo'limida yoqing."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3809,7 +3821,7 @@ msgstr "Cookiesni qanday eksport qilaman?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore'ni ochish"
+msgstr "Kashfiyotni ochish"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3829,7 +3841,7 @@ msgstr "Brauzer"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore kirishi"
+msgstr "Kashfiyot orqali kirish"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

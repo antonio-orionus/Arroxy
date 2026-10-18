@@ -38,7 +38,8 @@ const SHOTS: readonly Shot[] = [
 		query: 'scenario=playlist-multi-profile',
 		ready: '[data-testid^="profile-row-"][aria-selected="true"]',
 		prepare: async page => {
-			await page.locator('[data-testid^="profile-row-"]').nth(1).click()
+			await page.locator('[data-testid^="select-row-"]').nth(1).click()
+			await page.locator('[data-testid^="select-row-"]').nth(2).click()
 		}
 	},
 	{

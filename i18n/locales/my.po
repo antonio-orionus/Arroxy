@@ -242,7 +242,7 @@ msgstr "ဆက်တင်များရှိ ပရောက်စီကိ�
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore သည် သင့်ပရောက်စီမှတစ်ဆင့် ချိတ်ဆက်၍မရပါ"
+msgstr "“စူးစမ်းရန်” သည် သင့်ပရောက်စီမှတစ်ဆင့် ချိတ်ဆက်၍မရပါ"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -290,11 +290,11 @@ msgstr "Arroxy ထဲမှာပင် YouTube ကို ကြည့်ရှ�
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ဒေါင်းလုဒ်များသည် သင့် browser ၏ ကွတ်ကီးကို သုံးပြီး Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+msgstr "ဒေါင်းလုဒ်များသည် သင့် browser ၏ ကွတ်ကီးကို သုံးပြီး “စူးစမ်းရန်” ဝင်ရောက်မှုကို မသုံးပါ။"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ဒေါင်းလုဒ်များသည် သင့်ကွတ်ကီးဖိုင်ကို သုံးပြီး Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+msgstr "ဒေါင်းလုဒ်များသည် သင့်ကွတ်ကီးဖိုင်ကို သုံးပြီး “စူးစမ်းရန်” ဝင်ရောက်မှုကို မသုံးပါ။"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -302,11 +302,11 @@ msgstr "ယခုမလုပ်သေးပါ"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "ကွတ်ကီးပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် Explore ဝင်ရောက်မှုကို မသုံးပါ။"
+msgstr "ကွတ်ကီးပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် “စူးစမ်းရန်” ဝင်ရောက်မှုကို မသုံးပါ။"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore ဝင်ရောက်မှု သုံးမည်"
+msgstr "“စူးစမ်းရန်” ဝင်ရောက်မှု သုံးမည်"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -314,15 +314,15 @@ msgstr "Arroxy ထဲတွင် YouTube ကို ကြည့်ရှုပ�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore တက်ဘ် ပြမည်"
+msgstr "“စူးစမ်းရန်” တက်ဘ် ပြမည်"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "ပိတ်လိုက်လျှင် ဒေါင်းလုဒ်များလည်း သင့် Explore ဝင်ရောက်မှုကို မသုံးတော့ပါ။"
+msgstr "ပိတ်လိုက်လျှင် ဒေါင်းလုဒ်များလည်း သင့် “စူးစမ်းရန်” ဝင်ရောက်မှုကို မသုံးတော့ပါ။"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore မှ ထွက်မည်"
+msgstr "“စူးစမ်းရန်” မှ ထွက်မည်"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -330,23 +330,23 @@ msgstr "ထွက်မည်"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "ဤသည်က Explore ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။ အကောင့်လိုအပ်သော ဒေါင်းလုဒ်များသည် ပြန်ဝင်သည်အထိ မအောင်မြင်ပါ။"
+msgstr "ဤသည်က “စူးစမ်းရန်” ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။ အကောင့်လိုအပ်သော ဒေါင်းလုဒ်များသည် ပြန်ဝင်သည်အထိ မအောင်မြင်ပါ။"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore မှ ထွက်မလား?"
+msgstr "“စူးစမ်းရန်” မှ ထွက်မလား?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။"
+msgstr "“စူးစမ်းရန်” ရှိ သင့် YouTube ဝင်ရောက်မှုနှင့် ကြည့်ရှုမှုဒေတာကို ရှင်းလင်းပေးသည်။"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "စူးစမ်းရန်"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "စူးစမ်းရန်"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -382,7 +382,7 @@ msgstr "YouTube တွင် ရှာပါ သို့မဟုတ် YouTube
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore browser ထိန်းချုပ်မှုများ"
+msgstr "“စူးစမ်းရန်” browser ထိန်းချုပ်မှုများ"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -422,11 +422,11 @@ msgstr "ဤလင့်ခ်ကို ဒေါင်းလုဒ်လုပ�
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။"
+msgstr "“စူးစမ်းရန်” သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။ {{host}}"
+msgstr "“စူးစမ်းရန်” သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။ {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -599,11 +599,11 @@ msgstr "ဘာသာစကား"
 #. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် {{count}} ခုကို ပြန်စမ်းနေသည်"
+msgstr "“စူးစမ်းရန်” ဖြင့် sign in ဝင်ပြီး — လင့်ခ် {{count}} ခုကို ပြန်စမ်းနေသည်"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore မှ မထွက်နိုင်ပါ။ ထပ်ကြိုးစားပါ။"
+msgstr "“စူးစမ်းရန်” မှ မထွက်နိုင်ပါ။ ထပ်ကြိုးစားပါ။"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1486,7 +1486,7 @@ msgstr "Metadata ထည့်သွင်းနေသည်…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore မှ ထွက်သွားပါပြီ — ပြန်ဝင်ပါ"
+msgstr "“စူးစမ်းရန်” မှ ထွက်သွားပါပြီ — ပြန်ဝင်ပါ"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1542,7 +1542,7 @@ msgstr "ချိတ်ဆက်မှု ရပ်တန့်နေသည်�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "သင့် Explore အကောင့်ဖြင့် ဝင်ရောက်နေသည်…"
+msgstr "သင့် “စူးစမ်းရန်” အကောင့်ဖြင့် ဝင်ရောက်နေသည်…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1976,7 +1976,7 @@ msgstr "Browser"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore ဝင်ရောက်မှု"
+msgstr "“စူးစမ်းရန်” ဝင်ရောက်မှု"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2032,11 +2032,11 @@ msgstr "Cookies ဖိုင်သည် ဗလာဖြစ်နေ၊ သက�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore ဖြင့် sign in ဝင်ပါ၊ Arroxy က ပြန်စမ်းပေးပါမည်။"
+msgstr "“စူးစမ်းရန်” ဖြင့် sign in ဝင်ပါ၊ Arroxy က ပြန်စမ်းပေးပါမည်။"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore ဖြင့် sign in ဝင်ပါ"
+msgstr "“စူးစမ်းရန်” ဖြင့် sign in ဝင်ပါ"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2044,11 +2044,11 @@ msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့် �
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Explore တွင် sign in ဝင်ထားသော်လည်း ဒေါင်းလုဒ်များက ထို sign-in ကို ယခု မသုံးနေပါ။"
+msgstr "“စူးစမ်းရန်” တွင် sign in ဝင်ထားသော်လည်း ဒေါင်းလုဒ်များက ထို sign-in ကို ယခု မသုံးနေပါ။"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "ကျွန်ုပ်၏ Explore sign-in ကို သုံးပြီး ပြန်စမ်းပါ"
+msgstr "ကျွန်ုပ်၏ “စူးစမ်းရန်” sign-in ကို သုံးပြီး ပြန်စမ်းပါ"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2056,19 +2056,19 @@ msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့် �
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "ဤဗီဒီယိုအတွက် အကောင့်လိုအပ်ပါက Arroxy သည် သင့် Explore ဝင်ရောက်မှုကို အလိုအလျောက် သုံးသည်။ အခြားအကြောင်းရင်းကြောင့်လည်း မရနိုင်ဖြစ်နိုင်သည်။"
+msgstr "ဤဗီဒီယိုအတွက် အကောင့်လိုအပ်ပါက Arroxy သည် သင့် “စူးစမ်းရန်” ဝင်ရောက်မှုကို အလိုအလျောက် သုံးသည်။ အခြားအကြောင်းရင်းကြောင့်လည်း မရနိုင်ဖြစ်နိုင်သည်။"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore သို့ ဝင်ရောက်ထားသည်"
+msgstr "“စူးစမ်းရန်” သို့ ဝင်ရောက်ထားသည်"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့်လိုအပ်ပါက Explore တွင် ဝင်ရောက်ပြီး ထပ်ကြိုးစားပါ။ ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ Arroxy က ထိုဝင်ရောက်မှုကို သုံးသည်။"
+msgstr "ဤဗီဒီယိုအတွက် YouTube အကောင့်လိုအပ်ပါက “စူးစမ်းရန်” တွင် ဝင်ရောက်ပြီး ထပ်ကြိုးစားပါ။ ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ Arroxy က ထိုဝင်ရောက်မှုကို သုံးသည်။"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore တွင် ဝင်ရောက်မည်"
+msgstr "“စူးစမ်းရန်” တွင် ဝင်ရောက်မည်"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2752,9 +2752,14 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} ကို သတ်မှတ်ပါ"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "ရွေးချယ်မှုသို့ သတ်မှတ်ပါ"
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "ဗီဒီယို {{count}} ခုကို သတ်မှတ်ပါ"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "ပရိုဖိုင် သတ်မှတ်ပါ"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2784,13 +2789,10 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "အပိုင်းအခြားတစ်ခုအတွက် Shift-နှိပ်ပါ၊ တစ်ခုထည့်ရန် {{modifier}}-နှိပ်ပါ၊ သို့မဟုတ် အတန်းများပေါ်တွင် ဆွဲယူပါ။ ထို့နောက် အထက်မှ ပရိုဖိုင်တစ်ခုရွေးပါ၊ သို့မဟုတ် ရွေးချယ်ထားသည်ကို right-click နှိပ်ပါ။"
-
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "ဗီဒီယိုများစွာအား တစ်ပြိုင်နက် ပရိုဖိုင်များ သတ်မှတ်ပါ"
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "ဤဗီဒီယို {{count}} ခုအတွက် ပရိုဖိုင်ကို ရွေးပါ။"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3640,11 +3642,11 @@ msgstr "ကွတ်ကီးသုံးရန် ဖိုင်ရွေး�
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ သင့် Explore ဝင်ရောက်မှုကို သုံးသည်။"
+msgstr "ဒေါင်းလုဒ်တစ်ခုလိုအပ်မှသာ သင့် “စူးစမ်းရန်” ဝင်ရောက်မှုကို သုံးသည်။"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore တက်ဘ်ပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် Explore ဝင်ရောက်မှုကို မသုံးပါ။ အောက်ရှိ Explore တွင် ဖွင့်ပါ။"
+msgstr "“စူးစမ်းရန်” တက်ဘ်ပိတ်ထားသဖြင့် ဒေါင်းလုဒ်များသည် သင့် “စူးစမ်းရန်” ဝင်ရောက်မှုကို မသုံးပါ။ အောက်ရှိ “စူးစမ်းရန်” တွင် ဖွင့်ပါ။"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3664,7 +3666,7 @@ msgstr "ကွတ်ကီးများ ထုတ်ယူနည်းကာ�
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore ဖွင့်မည်"
+msgstr "“စူးစမ်းရန်” ဖွင့်မည်"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3684,7 +3686,7 @@ msgstr "Browser"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore ဝင်ရောက်မှု"
+msgstr "“စူးစမ်းရန်” ဝင်ရောက်မှု"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

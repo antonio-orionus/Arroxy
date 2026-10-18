@@ -1,94 +1,58 @@
-// One labeled dropdown replaces the old icon-only action-bar row. Icon-only
-// buttons worked for the queue tab's SELECTED_ACTIONS (pause/resume/cancel
-// are universal glyphs) but not here: six of the eight builtin profiles are
-// all `video-audio` and render the identical clapperboard icon, so users
-// could not tell them apart by glyph alone. A single trigger opens one list
-// with icon + name for every profile — no more "More…" split, since the
-// whole point was that the icon-only row couldn't hold enough information to
-// be worth keeping compact.
-//
-// Row treatment (icon + name) mirrors PlaylistProfileTable's right-click menu
-// so the two read as the same list. Each row also carries a hover/focus-
-// revealed pencil that reaches the same profile editor QuickProfileControl
-// opens (see StepPlaylistProfiles), so a hasty pick can be corrected without
-// leaving the assignment step.
+// The step's toolbar: "Assign to N videos" opens the same profile menu as the
+// URL tab's profile card and every row's profile, acting on the selected rows,
+// and Reset returns them to the baseline. Both need a selection, so both are
+// disabled without one.
 
-import {useState, type MouseEvent, type ReactNode} from 'react'
+import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ChevronDown, PenLine, RotateCcw} from 'lucide-react'
+import {ChevronDown, RotateCcw} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {Button} from '../ui/button.js'
-import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover.js'
-import type {DownloadProfileActionOption} from './downloadProfileActions.js'
+import {Popover, PopoverTrigger} from '../ui/popover.js'
+import {DownloadProfileMenuContent} from './DownloadProfileMenu.js'
+import type {PlaylistProfileMenuModel} from './playlistProfileMenu.js'
 
 interface PlaylistProfileActionBarProps {
-	options: DownloadProfileActionOption[]
+	menu: PlaylistProfileMenuModel
 	selectedCount: number
 	onAssign: (ref: DownloadProfileRef) => void
 	onEditProfile: (profile: DownloadProfile) => void
+	onNewProfile: () => void
 	onReset: () => void
 }
 
-export function PlaylistProfileActionBar({options, selectedCount, onAssign, onEditProfile, onReset}: PlaylistProfileActionBarProps): ReactNode {
+export function PlaylistProfileActionBar({menu, selectedCount, onAssign, onEditProfile, onNewProfile, onReset}: PlaylistProfileActionBarProps): ReactNode {
 	const {t} = useTranslation()
 	const [open, setOpen] = useState(false)
 	const disabled = selectedCount === 0
 
-	function assign(ref: DownloadProfileRef): void {
-		onAssign(ref)
-		setOpen(false)
-	}
-
-	// Never assigns — stopPropagation runs first so the row button beneath the
-	// pencil can never also fire from the same click.
-	function editProfile(event: MouseEvent<HTMLButtonElement>, profile: DownloadProfile): void {
-		event.stopPropagation()
-		onEditProfile(profile)
-	}
-
 	return (
 		<div className="flex flex-wrap items-center gap-1.5" data-testid="playlist-profile-actions">
-			<Popover open={open} onOpenChange={setOpen}>
-				{/* Never disabled, unlike the row assign buttons inside — the pencil on
-				every row must stay reachable even with nothing selected, since editing
-				a profile has nothing to do with the current selection. */}
+			<Popover open={open && !disabled} onOpenChange={setOpen}>
 				<PopoverTrigger
+					disabled={disabled}
 					render={
 						<Button type="button" variant="outline" size="sm" data-testid="playlist-profile-assign-trigger">
-							{t('wizard.playlistProfiles.assignTrigger')}
-							<ChevronDown size={12} aria-hidden />
+							{disabled ? t('wizard.playlistProfiles.assignTriggerEmpty') : t('wizard.playlistProfiles.assignTrigger', {count: selectedCount})}
+							<ChevronDown className="transition-transform duration-200 group-aria-expanded/button:rotate-180" aria-hidden />
 						</Button>
 					}
 				/>
-				{/* Sized to content (mirrors ContextMenuContent) so the longest builtin
-				name — "Smart TV MP4 Full HD 1080p" — never truncates; max-w caps it
-				against both the viewport (--available-width, set by the positioner)
-				and a hard ceiling so a pathologically long custom name can't blow out
-				the layout. */}
-				<PopoverContent align="start" className="w-max max-w-[min(24rem,var(--available-width))] max-h-72 gap-1 overflow-y-auto p-1.5">
-					{options.map(option => (
-						<div key={option.profile.id} className="group/profile flex items-center gap-1">
-							<Button type="button" variant="ghost" size="sm" disabled={disabled} className="min-w-0 flex-1 justify-start gap-2" data-testid={`assign-profile-${option.profile.id}`} onClick={() => assign(option.ref)}>
-								<option.Icon size={14} className="shrink-0" aria-hidden />
-								<span className="min-w-0 flex-1 truncate text-left">{option.profile.name}</span>
-							</Button>
-							<Button
-								type="button"
-								variant="ghost"
-								size="icon"
-								aria-label={t('wizard.playlistProfiles.editProfile', {name: option.profile.name})}
-								data-testid={`edit-profile-${option.profile.id}`}
-								className="h-8 w-8 shrink-0 opacity-0 transition-opacity duration-150 group-hover/profile:opacity-100 focus-visible:opacity-100"
-								onClick={event => editProfile(event, option.profile)}
-							>
-								<PenLine size={12} aria-hidden />
-							</Button>
-						</div>
-					))}
-				</PopoverContent>
+				<DownloadProfileMenuContent
+					options={menu.options}
+					editProfile={menu.sharedProfile}
+					editLabel={menu.sharedProfile ? t('wizard.playlistProfiles.editProfile', {name: menu.sharedProfile.name}) : undefined}
+					description={t('wizard.playlistProfiles.menuDescription', {count: selectedCount})}
+					align="start"
+					onPickProfile={onAssign}
+					onEditProfile={onEditProfile}
+					onNewProfile={onNewProfile}
+					onClose={() => setOpen(false)}
+					testIdPrefix="playlist"
+				/>
 			</Popover>
-			<Button type="button" variant="outline" size="sm" disabled={disabled} onClick={onReset} className="h-7 gap-1.5 px-2 text-xs" data-testid="playlist-profile-reset">
-				<RotateCcw size={13} aria-hidden />
+			<Button type="button" variant="outline" size="sm" disabled={disabled} onClick={onReset} data-testid="playlist-profile-reset">
+				<RotateCcw data-icon="inline-start" />
 				{t('wizard.url.profile.reset')}
 			</Button>
 		</div>

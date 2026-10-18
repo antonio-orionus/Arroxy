@@ -4,13 +4,18 @@ import {Popover as PopoverPrimitive} from '@base-ui/react/popover'
 
 import {cn} from '@renderer/lib/utils.js'
 
-function Popover({...props}: PopoverPrimitive.Root.Props): ReactNode {
-	return <PopoverPrimitive.Root data-slot="popover" {...props} />
+// Generic over the payload a detached trigger hands its popover (see
+// createPopoverHandle), so one popover can serve many triggers.
+function Popover<Payload = unknown>({...props}: PopoverPrimitive.Root.Props<Payload>): ReactNode {
+	return <PopoverPrimitive.Root<Payload> data-slot="popover" {...props} />
 }
 
-function PopoverTrigger({...props}: PopoverPrimitive.Trigger.Props): ReactNode {
-	return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+function PopoverTrigger<Payload = unknown>({...props}: PopoverPrimitive.Trigger.Props<Payload>): ReactNode {
+	return <PopoverPrimitive.Trigger<Payload> data-slot="popover-trigger" {...props} />
 }
+
+const createPopoverHandle = PopoverPrimitive.createHandle
+type PopoverHandle<Payload> = PopoverPrimitive.Handle<Payload>
 
 function PopoverContent({
 	className,
@@ -52,4 +57,5 @@ function PopoverDescription({className, ...props}: PopoverPrimitive.Description.
 	return <PopoverPrimitive.Description data-slot="popover-description" className={cn('text-muted-foreground', className)} {...props} />
 }
 
-export {Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger}
+export {createPopoverHandle, Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger}
+export type {PopoverHandle}

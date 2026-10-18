@@ -247,7 +247,7 @@ msgstr "Proksii Qindaa'inoota keessatti ilaali, itti aansuun irra deebi'ii yaali
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore proksii keetiin walitti hin hidhamu"
+msgstr "Daawwannaan proksii keetiin walitti hin hidhamu"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -295,11 +295,11 @@ msgstr "YouTube Arroxy keessatti ilaali"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Buufannoon cookies browser keetii fayyadama, seensa Explore hin fayyadamu."
+msgstr "Buufannoon cookies browser keetii fayyadama, seensa Daawwannaa hin fayyadamu."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Buufannoon faayilii cookies keetii fayyadama, seensa Explore hin fayyadamu."
+msgstr "Buufannoon faayilii cookies keetii fayyadama, seensa Daawwannaa hin fayyadamu."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -307,11 +307,11 @@ msgstr "Amma miti"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies cufamaniiru, kanaaf buufannoon seensa Explore hin fayyadamu."
+msgstr "Cookies cufamaniiru, kanaaf buufannoon seensa Daawwannaa hin fayyadamu."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Seensa Explore fayyadami"
+msgstr "Seensa Daawwannaa fayyadami"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -319,15 +319,15 @@ msgstr "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Tab Explore agarsiisi"
+msgstr "Tab Daawwannaa agarsiisi"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Cufuun isaa buufannoon seensa Explore akka hin fayyadamne ni godha."
+msgstr "Cufuun isaa buufannoon seensa Daawwannaa akka hin fayyadamne ni godha."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore irraa ba'i"
+msgstr "Daawwannaa irraa ba'i"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -335,23 +335,23 @@ msgstr "Ba'i"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Kun seensa YouTube fi daataa daawwannaa Explore keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
+msgstr "Kun seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore irraa ba'uu?"
+msgstr "Daawwannaa irraa ba'uu?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Seensa YouTube fi daataa daawwannaa Explore keessaa qulqulleessa."
+msgstr "Seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Daawwannaa"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Daawwannaa"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -387,7 +387,7 @@ msgstr "YouTube barbaadi ykn hidhaa YouTube maxxansi"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "To'annoo browser Explore"
+msgstr "To'annoo browser Daawwannaa"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -427,11 +427,11 @@ msgstr "Hidhaa kana buusi"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore YouTube qofa ilaala."
+msgstr "Daawwannaan YouTube qofa ilaala."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore YouTube qofa ilaala. {{host}}"
+msgstr "Daawwannaan YouTube qofa ilaala. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -604,16 +604,16 @@ msgstr "Afaan"
 #. Plural form "one" for om: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore'n seenameera — hidhaa 1 irra deebi'ee yaalaa jira"
+msgstr "Daawwannaan seenameera — hidhaa 1 irra deebi'ee yaalaa jira"
 
 #. Plural form "other" for om: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore'n seenameera — hidhaawwan {{count}} irra deebi'ee yaalaa jira"
+msgstr "Daawwannaan seenameera — hidhaawwan {{count}} irra deebi'ee yaalaa jira"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore irraa ba'uun hin danda'amne. Irra deebi'ii yaali."
+msgstr "Daawwannaa irraa ba'uun hin danda'amne. Irra deebi'ii yaali."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1531,7 +1531,7 @@ msgstr "Metadata maksamaa jira…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore irraa baatee jirta — irra deebi'ii seeni"
+msgstr "Daawwannaa irraa baatee jirta — irra deebi'ii seeni"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1587,7 +1587,7 @@ msgstr "Walqunnamtiin dhaabate, irra deebi'anii yaalaa jira ({{attempt}}/{{total
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Herrega Explore keetiin seenaa jira…"
+msgstr "Herrega Daawwannaa keetiin seenaa jira…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2061,7 +2061,7 @@ msgstr "Browser"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Seensa Explore"
+msgstr "Seensa Daawwannaa"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2117,11 +2117,11 @@ msgstr "Faayilin cookies kee duwwaa, yeroon darbee, ykn foormaatii dogoggoraa ta
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore keessatti seeni, Arroxyn irra deebi'ee yaala."
+msgstr "Daawwannaa keessatti seeni, Arroxyn irra deebi'ee yaala."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore keessatti seeni"
+msgstr "Daawwannaa keessatti seeni"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2129,11 +2129,11 @@ msgstr "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Explore keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu."
+msgstr "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Seensa Explore koo fayyadamii irra deebi'ii yaali"
+msgstr "Seensa Daawwannaa koo fayyadamii irra deebi'ii yaali"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2141,19 +2141,19 @@ msgstr "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Viidiyoon kun akkaawuntii kan barbaadu yoo ta'e, Arroxy seensa Explore ofumaan fayyadama. Sababa biraatiin hin argamu ta'uu danda'a."
+msgstr "Viidiyoon kun akkaawuntii kan barbaadu yoo ta'e, Arroxy seensa Daawwannaa ofumaan fayyadama. Sababa biraatiin hin argamu ta'uu danda'a."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore keessa seentee jirta"
+msgstr "Daawwannaa keessa seentee jirta"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Explore keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa."
+msgstr "Viidiyoon kun akkaawuntii YouTube kan barbaadu yoo ta'e, Daawwannaa keessatti seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore keessatti seeni"
+msgstr "Daawwannaa keessatti seeni"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2887,9 +2887,19 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} ramaduu"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Filannoo ramaduu"
+#. Plural form "one" for om: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Viidiyoo {{count}}f ramaduu"
+
+#. Plural form "other" for om: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Viidiyoowwan {{count}}f ramaduu"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Profaayilii ramaduu"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2919,13 +2929,15 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Piroofaayilii buufannaa ramaduu"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Daangaa tokkoof Shift-cuqaasi, tokko dabaluuf {{modifier}}-cuqaasi, ykn sarara irratti harkisi. Ergasii piroofaayilii armaan olii filadhu, ykn filannoo irratti mirga-cuqaasi."
+#. Plural form "one" for om: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Viidiyoo kanaaf profaayilii filadhu."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Piroofaayilii yeroo tokkotti viidiyoo hedduuf ramaduu"
+#. Plural form "other" for om: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Viidiyoowwan {{count}} kanneeniif profaayilii filadhu."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3785,11 +3797,11 @@ msgstr "Cookies fayyadamuuf faayilii filadhu"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Buufannoon yoo isa barbaadu qofa seensa Explore fayyadama."
+msgstr "Buufannoon yoo isa barbaadu qofa seensa Daawwannaa fayyadama."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Tab Explore cufameera, kanaaf buufannoon seensa Explore hin fayyadamu. Gadii Explore keessatti banii."
+msgstr "Tab Daawwannaa cufameera, kanaaf buufannoon seensa Daawwannaa hin fayyadamu. Gadii Daawwannaa keessatti banii."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3809,7 +3821,7 @@ msgstr "Akkamitti cookies erga?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore bani"
+msgstr "Daawwannaa bani"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3829,7 +3841,7 @@ msgstr "Browser"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Seensa Explore"
+msgstr "Seensa Daawwannaa"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

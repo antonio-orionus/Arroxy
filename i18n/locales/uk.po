@@ -257,7 +257,7 @@ msgstr "Перевір проксі в налаштуваннях і спроб�
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore не може підключитися через твій проксі"
+msgstr "Огляд не може підключитися через твій проксі"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -305,11 +305,11 @@ msgstr "Переглядай YouTube просто в Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Завантаження використовують cookies твого браузера, а не вхід через Explore."
+msgstr "Завантаження використовують cookies твого браузера, а не вхід через Огляд."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Завантаження використовують твій файл cookies, а не вхід через Explore."
+msgstr "Завантаження використовують твій файл cookies, а не вхід через Огляд."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -317,11 +317,11 @@ msgstr "Не зараз"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies вимкнено, тому завантаження не використовують вхід через Explore."
+msgstr "Cookies вимкнено, тому завантаження не використовують вхід через Огляд."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Використовувати вхід через Explore"
+msgstr "Використовувати вхід через Огляд"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -329,15 +329,15 @@ msgstr "Переглядай YouTube в Arroxy і входь, щоб заван�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Показувати вкладку Explore"
+msgstr "Показувати вкладку Огляд"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Якщо вимкнути, завантаження також перестануть використовувати вхід через Explore."
+msgstr "Якщо вимкнути, завантаження також перестануть використовувати вхід через Огляд."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Вийти з Explore"
+msgstr "Вийти з Огляду"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -345,23 +345,23 @@ msgstr "Вийти"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Це видалить твій вхід у YouTube і дані перегляду в Explore. Завантаження, для яких потрібен акаунт, завершуватимуться помилкою, доки ти знову не ввійдеш."
+msgstr "Це видалить твій вхід у YouTube і дані перегляду в Огляді. Завантаження, для яких потрібен акаунт, завершуватимуться помилкою, доки ти знову не ввійдеш."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Вийти з Explore?"
+msgstr "Вийти з Огляду?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Видаляє твій вхід у YouTube і дані перегляду в Explore."
+msgstr "Видаляє твій вхід у YouTube і дані перегляду в Огляді."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Огляд"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Огляд"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -397,7 +397,7 @@ msgstr "Шукай на YouTube або встав посилання YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Елементи керування браузера Explore"
+msgstr "Елементи керування браузера Огляду"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -437,11 +437,11 @@ msgstr "Завантажити це посилання"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore відкриває лише YouTube."
+msgstr "Огляд відкриває лише YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore відкриває лише YouTube. {{host}}"
+msgstr "Огляд відкриває лише YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -624,16 +624,16 @@ msgstr "Вхід через Explore виконано — повторюємо п
 #. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Вхід через Explore виконано — повторюємо 1 посилання"
+msgstr "Вхід через Огляд виконано — повторюємо 1 посилання"
 
 #. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Вхід через Explore виконано — повторюємо посилання: {{count}}"
+msgstr "Вхід через Огляд виконано — повторюємо посилання: {{count}}"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Не вдалося вийти з Explore. Спробуй ще раз."
+msgstr "Не вдалося вийти з Огляду. Спробуй ще раз."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1621,7 +1621,7 @@ msgstr "Вбудовування метаданих…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Вихід з Explore виконано — увійди знову"
+msgstr "Вихід з Огляду виконано — увійди знову"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1677,7 +1677,7 @@ msgstr "З'єднання зависло, повтор ({{attempt}}/{{total}})�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Вхід через твій обліковий запис Explore…"
+msgstr "Вхід через твій обліковий запис в Огляді…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2231,7 +2231,7 @@ msgstr "Браузер"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Вхід в Explore"
+msgstr "Вхід через Огляд"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2287,11 +2287,11 @@ msgstr "Файл cookies може бути порожнім, застаріли�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Увійди через Explore, і Arroxy повторить спробу."
+msgstr "Увійди через Огляд, і Arroxy повторить спробу."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Увійти через Explore"
+msgstr "Увійти через Огляд"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2299,11 +2299,11 @@ msgstr "Для цього відео може знадобитися акаун�
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Вхід в Explore виконано, але зараз завантаження не використовують цей вхід."
+msgstr "Вхід через Огляд виконано, але зараз завантаження не використовують цей вхід."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Використати вхід в Explore і повторити"
+msgstr "Використати вхід через Огляд і повторити"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2311,19 +2311,19 @@ msgstr "Для цього відео може знадобитися акаун�
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Якщо для цього відео потрібен акаунт, Arroxy автоматично використає твій вхід через Explore. Воно може бути недоступним з іншої причини."
+msgstr "Якщо для цього відео потрібен акаунт, Arroxy автоматично використає твій вхід через Огляд. Воно може бути недоступним з іншої причини."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Вхід в Explore виконано"
+msgstr "Вхід через Огляд виконано"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Якщо для цього відео потрібен акаунт YouTube, увійди в Explore та спробуй ще раз. Arroxy використовує цей вхід, лише коли він потрібен для завантаження."
+msgstr "Якщо для цього відео потрібен акаунт YouTube, увійди через Огляд та спробуй ще раз. Arroxy використовує цей вхід, лише коли він потрібен для завантаження."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Увійти в Explore"
+msgstr "Увійти через Огляд"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3157,9 +3157,29 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Призначити {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Призначити вибраним"
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistProfiles.assignTrigger_few"
+msgid "Assign to {{count}} videos"
+msgstr "Призначити для {{count}} відео"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Призначити для {{count}} відео"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Призначити для {{count}} відео"
+
+#. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Призначити для {{count}} відео"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Призначити профіль"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -3189,13 +3209,25 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Призначити профілі завантаження"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-клік для діапазону, {{modifier}}-клік, щоб додати один, або перетягніть по рядках. Потім виберіть профіль вище або клацніть правою кнопкою миші на виділенні."
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistProfiles.menuDescription_few"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Виберіть профіль для вибраних відео ({{count}})."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Призначити профілі декільком відео одразу"
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Виберіть профіль для вибраних відео ({{count}})."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Виберіть профіль для цього відео."
+
+#. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Виберіть профіль для вибраних відео ({{count}})."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -4075,11 +4107,11 @@ msgstr "Обери файл, щоб використовувати cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Використовує твій вхід через Explore, лише коли він потрібен для завантаження."
+msgstr "Використовує твій вхід через Огляд, лише коли він потрібен для завантаження."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Вкладку Explore вимкнено, тому завантаження не використовують вхід через Explore. Увімкни її в розділі Explore нижче."
+msgstr "Вкладку Огляд вимкнено, тому завантаження не використовують вхід через Огляд. Увімкни її в розділі Огляд нижче."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -4099,7 +4131,7 @@ msgstr "Як експортувати cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Відкрити Explore"
+msgstr "Відкрити Огляд"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -4119,7 +4151,7 @@ msgstr "Браузер"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Вхід в Explore"
+msgstr "Вхід через Огляд"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

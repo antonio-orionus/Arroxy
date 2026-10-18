@@ -252,7 +252,7 @@ msgstr "Revisa el proxy en Ajustes y vuelve a intentarlo."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore no puede conectarse a través de tu proxy"
+msgstr "Explorar no puede conectarse a través de tu proxy"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -300,11 +300,11 @@ msgstr "Explora YouTube dentro de Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Las descargas usan las cookies de tu navegador, no tu sesión de Explore."
+msgstr "Las descargas usan las cookies de tu navegador, no tu sesión de Explorar."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Las descargas usan tu archivo de cookies, no tu sesión de Explore."
+msgstr "Las descargas usan tu archivo de cookies, no tu sesión de Explorar."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -312,11 +312,11 @@ msgstr "Ahora no"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Las cookies están desactivadas, así que las descargas no usan tu sesión de Explore."
+msgstr "Las cookies están desactivadas, así que las descargas no usan tu sesión de Explorar."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Usar sesión de Explore"
+msgstr "Usar sesión de Explorar"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -324,15 +324,15 @@ msgstr "Navega por YouTube dentro de Arroxy e inicia sesión para los vídeos qu
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Mostrar la pestaña Explore"
+msgstr "Mostrar la pestaña Explorar"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Al desactivarla, las descargas también dejan de usar tu sesión de Explore."
+msgstr "Al desactivarla, las descargas también dejan de usar tu sesión de Explorar."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Cerrar sesión en Explore"
+msgstr "Cerrar sesión en Explorar"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -340,23 +340,23 @@ msgstr "Cerrar sesión"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Esto borra tu sesión de YouTube y los datos de navegación en Explore. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión."
+msgstr "Esto borra tu sesión de YouTube y los datos de navegación en Explorar. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "¿Cerrar sesión en Explore?"
+msgstr "¿Cerrar sesión en Explorar?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Borra tu sesión de YouTube y los datos de navegación en Explore."
+msgstr "Borra tu sesión de YouTube y los datos de navegación en Explorar."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Explorar"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Explorar"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -392,7 +392,7 @@ msgstr "Busca en YouTube o pega un enlace de YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Controles del navegador de Explore"
+msgstr "Controles del navegador de Explorar"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -432,11 +432,11 @@ msgstr "Descargar este enlace"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore solo navega por YouTube."
+msgstr "Explorar solo navega por YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore solo navega por YouTube. {{host}}"
+msgstr "Explorar solo navega por YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -614,16 +614,16 @@ msgstr "Sesión iniciada con Explore — reintentando {{count}} de enlaces"
 #. Plural form "one" for es: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Sesión iniciada con Explore — reintentando 1 enlace"
+msgstr "Sesión iniciada con Explorar — reintentando 1 enlace"
 
 #. Plural form "other" for es: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Sesión iniciada con Explore — reintentando {{count}} enlaces"
+msgstr "Sesión iniciada con Explorar — reintentando {{count}} enlaces"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "No se pudo cerrar sesión en Explore. Inténtalo de nuevo."
+msgstr "No se pudo cerrar sesión en Explorar. Inténtalo de nuevo."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1576,7 +1576,7 @@ msgstr "Incrustando metadatos…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Sesión de Explore cerrada — vuelve a iniciar sesión"
+msgstr "Sesión de Explorar cerrada — vuelve a iniciar sesión"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1632,7 +1632,7 @@ msgstr "Conexión estancada, reintentando ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Iniciando sesión con tu cuenta de Explore…"
+msgstr "Iniciando sesión con tu cuenta de Explorar…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2146,7 +2146,7 @@ msgstr "Navegador"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Sesión de Explore"
+msgstr "Sesión de Explorar"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2202,11 +2202,11 @@ msgstr "El archivo de cookies puede estar vacío, caducado o en un formato incor
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Inicia sesión en Explore y Arroxy lo reintentará."
+msgstr "Inicia sesión en Explorar y Arroxy lo reintentará."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Iniciar sesión en Explore"
+msgstr "Iniciar sesión en Explorar"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2214,11 +2214,11 @@ msgstr "Este video puede necesitar una cuenta de YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Has iniciado sesión en Explore, pero las descargas no están usando esa sesión ahora mismo."
+msgstr "Has iniciado sesión en Explorar, pero las descargas no están usando esa sesión ahora mismo."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Usar mi sesión de Explore y reintentar"
+msgstr "Usar mi sesión de Explorar y reintentar"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2226,19 +2226,19 @@ msgstr "Este video puede necesitar una cuenta de YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Si este vídeo requiere una cuenta, Arroxy usa automáticamente tu sesión de Explore. Puede que no esté disponible por otro motivo."
+msgstr "Si este vídeo requiere una cuenta, Arroxy usa automáticamente tu sesión de Explorar. Puede que no esté disponible por otro motivo."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Sesión iniciada en Explore"
+msgstr "Sesión iniciada en Explorar"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Si este vídeo requiere una cuenta de YouTube, inicia sesión en Explore y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita."
+msgstr "Si este vídeo requiere una cuenta de YouTube, inicia sesión en Explorar y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Iniciar sesión en Explore"
+msgstr "Iniciar sesión en Explorar"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3022,9 +3022,24 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Asignar {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Asignar a la selección"
+#. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Asignar a {{count}} videos"
+
+#. Plural form "one" for es: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Asignar a {{count}} video"
+
+#. Plural form "other" for es: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Asignar a {{count}} videos"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Asignar perfil"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -3054,13 +3069,20 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Asignar perfiles de descarga"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-clic para un rango, {{modifier}}-clic para añadir uno, o arrastra sobre las filas. Luego elige un perfil arriba, o haz clic derecho en la selección."
+#. Plural form "many" for es: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Elige el perfil para estos {{count}} videos."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Asignar perfiles a varios vídeos a la vez"
+#. Plural form "one" for es: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Elige el perfil para este video."
+
+#. Plural form "other" for es: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Elige el perfil para estos {{count}} videos."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3930,11 +3952,11 @@ msgstr "Selecciona un archivo para usar cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Usa tu sesión de Explore solo cuando una descarga la necesita."
+msgstr "Usa tu sesión de Explorar solo cuando una descarga la necesita."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "La pestaña Explore está desactivada, así que las descargas no usan tu sesión de Explore. Actívala abajo, en Explore."
+msgstr "La pestaña Explorar está desactivada, así que las descargas no usan tu sesión de Explorar. Actívala abajo, en Explorar."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3954,7 +3976,7 @@ msgstr "¿Cómo exporto las cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Abrir Explore"
+msgstr "Abrir Explorar"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3974,7 +3996,7 @@ msgstr "Navegador"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Sesión de Explore"
+msgstr "Sesión de Explorar"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

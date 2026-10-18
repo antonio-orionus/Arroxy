@@ -242,7 +242,7 @@ msgstr "ពិនិត្យប្រូកស៊ីក្នុងការក
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore មិនអាចតភ្ជាប់តាមប្រូកស៊ីរបស់អ្នកបានទេ"
+msgstr "«រកមើល» មិនអាចតភ្ជាប់តាមប្រូកស៊ីរបស់អ្នកបានទេ"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -290,11 +290,11 @@ msgstr "រុករក YouTube នៅក្នុង Arroxy ផ្ទាល់"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ការទាញយកប្រើ cookies របស់កម្មវិធីរុករក មិនមែនការចូលគណនី Explore ទេ។"
+msgstr "ការទាញយកប្រើ cookies របស់កម្មវិធីរុករក មិនមែនការចូលគណនី «រកមើល» ទេ។"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ការទាញយកប្រើឯកសារ cookies របស់អ្នក មិនមែនការចូលគណនី Explore ទេ។"
+msgstr "ការទាញយកប្រើឯកសារ cookies របស់អ្នក មិនមែនការចូលគណនី «រកមើល» ទេ។"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -302,11 +302,11 @@ msgstr "មិនមែនឥឡូវទេ"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies ត្រូវបានបិទ ដូច្នេះការទាញយកមិនប្រើការចូលគណនី Explore របស់អ្នកទេ។"
+msgstr "Cookies ត្រូវបានបិទ ដូច្នេះការទាញយកមិនប្រើការចូលគណនី «រកមើល» របស់អ្នកទេ។"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "ប្រើការចូលគណនី Explore"
+msgstr "ប្រើការចូលគណនី «រកមើល»"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -314,15 +314,15 @@ msgstr "រុករក YouTube នៅក្នុង Arroxy ហើយចូល�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "បង្ហាញផ្ទាំង Explore"
+msgstr "បង្ហាញផ្ទាំង «រកមើល»"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "ការបិទវាក៏បញ្ឈប់ការទាញយកពីការប្រើការចូលគណនី Explore របស់អ្នកដែរ។"
+msgstr "ការបិទវាក៏បញ្ឈប់ការទាញយកពីការប្រើការចូលគណនី «រកមើល» របស់អ្នកដែរ។"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "ចាកចេញពី Explore"
+msgstr "ចាកចេញពី «រកមើល»"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -330,23 +330,23 @@ msgstr "ចាកចេញ"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "វាសម្អាតការចូលគណនី YouTube និងទិន្នន័យរុករករបស់អ្នកក្នុង Explore។ ការទាញយកដែលត្រូវការគណនីនឹងបរាជ័យរហូតដល់អ្នកចូលគណនីម្តងទៀត។"
+msgstr "វាសម្អាតការចូលគណនី YouTube និងទិន្នន័យរុករករបស់អ្នកក្នុង «រកមើល»។ ការទាញយកដែលត្រូវការគណនីនឹងបរាជ័យរហូតដល់អ្នកចូលគណនីម្តងទៀត។"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "ចាកចេញពី Explore?"
+msgstr "ចាកចេញពី «រកមើល»?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "សម្អាតការចូលគណនី YouTube និងទិន្នន័យរុករករបស់អ្នកក្នុង Explore។"
+msgstr "សម្អាតការចូលគណនី YouTube និងទិន្នន័យរុករករបស់អ្នកក្នុង «រកមើល»។"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "រកមើល"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "រកមើល"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -382,7 +382,7 @@ msgstr "ស្វែងរក YouTube ឬបិទភ្ជាប់តំណ Yo
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "ការគ្រប់គ្រងកម្មវិធីរុករក Explore"
+msgstr "ការគ្រប់គ្រងកម្មវិធីរុករក «រកមើល»"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -422,11 +422,11 @@ msgstr "ទាញយកតំណនេះ"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore រុករកតែ YouTube ប៉ុណ្ណោះ។"
+msgstr "«រកមើល» រុករកតែ YouTube ប៉ុណ្ណោះ។"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore រុករកតែ YouTube ប៉ុណ្ណោះ។ {{host}}"
+msgstr "«រកមើល» រុករកតែ YouTube ប៉ុណ្ណោះ។ {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -599,11 +599,11 @@ msgstr "ភាសា"
 #. Plural form "other" for km: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "បានចូលគណនីជាមួយ Explore — កំពុងព្យាយាមតំណ {{count}} ម្តងទៀត"
+msgstr "បានចូលគណនីជាមួយ «រកមើល» — កំពុងព្យាយាមតំណ {{count}} ម្តងទៀត"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "មិនអាចចាកចេញពី Explore បានទេ។ ព្យាយាមម្តងទៀត។"
+msgstr "មិនអាចចាកចេញពី «រកមើល» បានទេ។ ព្យាយាមម្តងទៀត។"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1486,7 +1486,7 @@ msgstr "កំពុងបង្កប់ទិន្នន័យមេតា…
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "បានចាកចេញពី Explore — ចូលគណនីម្តងទៀត"
+msgstr "បានចាកចេញពី «រកមើល» — ចូលគណនីម្តងទៀត"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1542,7 +1542,7 @@ msgstr "ការតភ្ជាប់បានជាប់គាំង កំ�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "កំពុងចូលគណនីជាមួយគណនី Explore របស់អ្នក…"
+msgstr "កំពុងចូលគណនីជាមួយគណនី «រកមើល» របស់អ្នក…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1976,7 +1976,7 @@ msgstr "កម្មវិធីរុករក"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "ការចូលគណនី Explore"
+msgstr "ការចូលគណនី «រកមើល»"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2032,11 +2032,11 @@ msgstr "ឯកសារ cookies របស់អ្នកអាចទទេ ផ�
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "ចូលគណនីជាមួយ Explore ហើយ Arroxy នឹងព្យាយាមម្តងទៀត។"
+msgstr "ចូលគណនីជាមួយ «រកមើល» ហើយ Arroxy នឹងព្យាយាមម្តងទៀត។"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "ចូលគណនីជាមួយ Explore"
+msgstr "ចូលគណនីជាមួយ «រកមើល»"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2044,11 +2044,11 @@ msgstr "វីដេអូនេះអាចត្រូវការគណនី
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "អ្នកបានចូលគណនី Explore ប៉ុន្តែការទាញយកមិនកំពុងប្រើការចូលគណនីនោះទេឥឡូវនេះ។"
+msgstr "អ្នកបានចូលគណនី «រកមើល» ប៉ុន្តែការទាញយកមិនកំពុងប្រើការចូលគណនីនោះទេឥឡូវនេះ។"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "ប្រើការចូលគណនី Explore របស់ខ្ញុំ ហើយព្យាយាមម្តងទៀត"
+msgstr "ប្រើការចូលគណនី «រកមើល» របស់ខ្ញុំ ហើយព្យាយាមម្តងទៀត"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2056,19 +2056,19 @@ msgstr "វីដេអូនេះអាចត្រូវការគណនី
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "ប្រសិនបើវីដេអូនេះត្រូវការគណនី Arroxy ប្រើការចូលគណនី Explore របស់អ្នកដោយស្វ័យប្រវត្តិ។ វាអាចមិនមានដោយសារមូលហេតុផ្សេង។"
+msgstr "ប្រសិនបើវីដេអូនេះត្រូវការគណនី Arroxy ប្រើការចូលគណនី «រកមើល» របស់អ្នកដោយស្វ័យប្រវត្តិ។ វាអាចមិនមានដោយសារមូលហេតុផ្សេង។"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "បានចូលគណនី Explore"
+msgstr "បានចូលគណនី «រកមើល»"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "ប្រសិនបើវីដេអូនេះត្រូវការគណនី YouTube សូមចូលគណនីក្នុង Explore ហើយព្យាយាមម្តងទៀត។ Arroxy ប្រើការចូលគណនីនោះតែនៅពេលការទាញយកត្រូវការវាប៉ុណ្ណោះ។"
+msgstr "ប្រសិនបើវីដេអូនេះត្រូវការគណនី YouTube សូមចូលគណនីក្នុង «រកមើល» ហើយព្យាយាមម្តងទៀត។ Arroxy ប្រើការចូលគណនីនោះតែនៅពេលការទាញយកត្រូវការវាប៉ុណ្ណោះ។"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "ចូលគណនីក្នុង Explore"
+msgstr "ចូលគណនីក្នុង «រកមើល»"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2752,9 +2752,14 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "កំណត់ {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "កំណត់ទៅលើការជ្រើសរើស"
+#. Plural form "other" for km: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "កំណត់ទៅ {{count}} វីដេអូ"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "កំណត់ប្រវត្តិរូប"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2784,13 +2789,10 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "កំណត់ប្រវត្តិរូបទាញយក"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-ចុច ដើម្បីជ្រើសជាជួរ, {{modifier}}-ចុច ដើម្បីបន្ថែមមួយ ឬអូសកាត់ជួរដេក។ បន្ទាប់មកជ្រើសរើសប្រវត្តិរូបខាងលើ ឬចុចកណ្តុរស្តាំលើការជ្រើសរើស។"
-
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "កំណត់ប្រវត្តិរូបទៅវីដេអូច្រើនក្នុងពេលតែមួយ"
+#. Plural form "other" for km: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "ជ្រើសរើសប្រវត្តិរូបសម្រាប់វីដេអូ {{count}} ទាំងនេះ។"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3640,11 +3642,11 @@ msgstr "ជ្រើសរើសឯកសារដើម្បីប្រើ co
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "ប្រើការចូលគណនី Explore របស់អ្នកតែនៅពេលការទាញយកត្រូវការវាប៉ុណ្ណោះ។"
+msgstr "ប្រើការចូលគណនី «រកមើល» របស់អ្នកតែនៅពេលការទាញយកត្រូវការវាប៉ុណ្ណោះ។"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "ផ្ទាំង Explore ត្រូវបានបិទ ដូច្នេះការទាញយកមិនប្រើការចូលគណនី Explore របស់អ្នកទេ។ បើកវានៅក្រោម Explore ខាងក្រោម។"
+msgstr "ផ្ទាំង «រកមើល» ត្រូវបានបិទ ដូច្នេះការទាញយកមិនប្រើការចូលគណនី «រកមើល» របស់អ្នកទេ។ បើកវានៅផ្នែក «រកមើល» ខាងក្រោម។"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3664,7 +3666,7 @@ msgstr "តើខ្ញុំនាំចេញ cookies យ៉ាងដូចម
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "បើក Explore"
+msgstr "បើក «រកមើល»"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3684,7 +3686,7 @@ msgstr "កម្មវិធីរុករក"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "ការចូលគណនី Explore"
+msgstr "ការចូលគណនី «រកមើល»"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

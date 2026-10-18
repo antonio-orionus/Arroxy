@@ -612,10 +612,6 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'shareHighValueBannerDismissed', {shareHighValueBannerDismissed: true})
 		},
 
-		dismissMultiProfileHint: async () => {
-			await applyCommonPatchAsync(get, set, 'multiProfileHintDismissed', {multiProfileHintDismissed: true})
-		},
-
 		dismissStyleHint: async () => {
 			await applyCommonPatchAsync(get, set, 'styleHintDismissed', {styleHintDismissed: true})
 		},

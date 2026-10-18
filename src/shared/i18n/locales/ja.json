@@ -56,16 +56,16 @@
 		"playlistProfiles": {
 			"heading": "ダウンロードプロファイルを割り当て",
 			"selectedSummary": "{{total}} 件中 {{selected}} 件を選択",
-			"assignTrigger": "選択項目に割り当て",
+			"assignTriggerEmpty": "プロファイルを割り当て",
+			"assignTrigger_other": "{{count}} 本の動画に割り当て",
+			"menuDescription_other": "これら {{count}} 本の動画のプロファイルを選択します。",
 			"assignAria": "{{profileName}} を割り当て",
 			"editProfile": "{{name}} を編集",
 			"filtersLabel": "プロファイルフィルター",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "プロファイル",
 			"columnDuration": "再生時間",
-			"empty": "このフィルターに一致する項目はありません",
-			"hintTitle": "複数の動画にまとめてプロファイルを割り当て",
-			"hintBody": "Shiftクリックで範囲選択、{{modifier}}クリックで1件追加、または行をドラッグします。 上のプロファイルを選ぶか、選択範囲を右クリックしてください。"
+			"empty": "このフィルターに一致する項目はありません"
 		},
 		"playlist": {
 			"heading": "Playlist アイテム",
@@ -253,11 +253,11 @@
 				"sourceOff": "オフ",
 				"sourceFile": "ファイル",
 				"sourceBrowser": "ブラウザ",
-				"sourceExplore": "Exploreログイン",
+				"sourceExplore": "「探索」のログイン",
 				"recommended": "おすすめ",
-				"exploreDescription": "ダウンロードに必要なときだけ、Exploreのログインを使用します。",
-				"exploreDisabled": "Exploreタブがオフのため、ダウンロードにExploreのログインは使われません。下のExploreでオンにしてください。",
-				"openExplore": "Exploreを開く",
+				"exploreDescription": "ダウンロードに必要なときだけ、「探索」のログインを使用します。",
+				"exploreDisabled": "「探索」タブがオフのため、ダウンロードに「探索」のログインは使われません。下の「探索」でオンにしてください。",
+				"openExplore": "「探索」を開く",
 				"toggleDescription": "年齢制限・メンバー限定・アカウント非公開の動画で役立ちます。",
 				"risk": "注意: cookies.txt にはそのブラウザのすべてのログイン情報が含まれます — 取り扱いに注意してください。",
 				"fileLabel": "Cookieファイル",
@@ -423,14 +423,14 @@
 				"currentModeLabel": "Cookieのソース",
 				"currentModeFile": "ファイル",
 				"currentModeBrowser": "ブラウザ",
-				"currentModeExplore": "Exploreログイン",
+				"currentModeExplore": "「探索」のログイン",
 				"explanationFile": "Cookieファイルが空・期限切れ・または形式が正しくない可能性があります (yt-dlp は Netscape cookies.txt を期待しています)。Cookieを再エクスポートするか、別のファイルを選ぶか、ブラウザモードに切り替えるか、Cookieをオフにしてみてください。",
 				"explanationBrowser": "Cookieはブラウザから直接読み込まれます。ブラウザが起動中の場合、Cookieデータベースがロックされている可能性があります (Chromiumファミリー)。ブラウザがYouTubeにサインインしている必要もあります。ブラウザを閉じる、別のブラウザに切り替える、ファイルモードに変更する、またはCookieをオフにしてみてください。",
 				"openSettingsCta": "Cookie設定を開く",
-				"exploreSignIn": {"heading": "この動画にはYouTubeアカウントが必要かもしれません", "body": "この動画にYouTubeアカウントが必要な場合は、Exploreでログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。", "cta": "Exploreでログイン"},
-				"exploreSignedIn": {"heading": "Exploreにログイン済み", "body": "この動画にアカウントが必要な場合、ArroxyはExploreのログインを自動的に使用します。別の理由で利用できない可能性があります。"},
-				"exploreOffer": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "Explore でサインインすると、Arroxy が再試行します。", "cta": "Explore でサインイン"},
-				"exploreReuse": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "Explore にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。", "cta": "Explore のサインインを使って再試行"},
+				"exploreSignIn": {"heading": "この動画にはYouTubeアカウントが必要かもしれません", "body": "この動画にYouTubeアカウントが必要な場合は、「探索」でログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。", "cta": "「探索」でログイン"},
+				"exploreSignedIn": {"heading": "「探索」にログイン済み", "body": "この動画にアカウントが必要な場合、Arroxyは「探索」のログインを自動的に使用します。別の理由で利用できない可能性があります。"},
+				"exploreOffer": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」でサインインすると、Arroxy が再試行します。", "cta": "「探索」でサインイン"},
+				"exploreReuse": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。", "cta": "「探索」のサインインを使って再試行"},
 				"otherCookiesCta": "代わりに Cookie ファイルまたはブラウザーを使う…",
 				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "yt-dlpは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
 				"dpapi": {
@@ -737,16 +737,16 @@
 		"fetchingSponsorBlock": "SponsorBlock に接続中…",
 		"retryingSponsorBlock": "SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…",
 		"retryingTransfer": "接続が停滞、再試行中 ({{attempt}}/{{total}})…",
-		"signingInWithExplore": "Explore アカウントでログインしています…",
-		"exploreSignedOut": "Explore からログアウトしました — もう一度ログインしてください"
+		"signingInWithExplore": "「探索」のアカウントでログインしています…",
+		"exploreSignedOut": "「探索」からログアウトしました — もう一度ログインしてください"
 	},
 	"notifications": {
 		"settingsSaveFailed": "設定を保存できませんでした。",
 		"warmupFailed": "セットアップが完了していません。完了するまで一部のダウンロードが失敗する場合があります。",
 		"shellActionFailed": "開けませんでした。",
 		"folderSelectFailed": "フォルダー選択を開けませんでした。",
-		"exploreSignInRetrying_other": "Explore でサインインしました — {{count}} 件のリンクを再試行中",
-		"exploreSignOutFailed": "Exploreからログアウトできませんでした。もう一度お試しください。",
+		"exploreSignInRetrying_other": "「探索」でサインインしました — {{count}} 件のリンクを再試行中",
+		"exploreSignOutFailed": "「探索」からログアウトできませんでした。もう一度お試しください。",
 		"playlistFolderRejected": "このフォルダーはこのプレイリストには使用できません。",
 		"filenameFolderTooDeep": "このフォルダーはシステムに対して階層が深すぎます。ダウンロードは失敗する可能性があります — もっと短いフォルダーを選んでください。",
 		"filenameTemplateCannotFit": "この動画の名前はテンプレートのすべての部分に収まらないため、既定の名前を使用しました。",
@@ -854,7 +854,7 @@
 		}
 	},
 	"explore": {
-		"tabLabel": "Explore",
+		"tabLabel": "探索",
 		"newBadge": "新着",
 		"notice": {
 			"title": "Arroxy内でYouTubeを閲覧",
@@ -863,7 +863,13 @@
 			"riskBody": "YouTubeは、yt-dlpなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。",
 			"continue": "続行"
 		},
-		"nudge": {"off": "Cookieがオフのため、ダウンロードにExploreのログインは使われません。", "file": "ダウンロードにはExploreのログインではなく、Cookieファイルが使われます。", "browser": "ダウンロードにはExploreのログインではなく、ブラウザのCookieが使われます。", "useExplore": "Exploreログインを使う", "notNow": "後で"},
+		"nudge": {
+			"off": "Cookieがオフのため、ダウンロードに「探索」のログインは使われません。",
+			"file": "ダウンロードには「探索」のログインではなく、Cookieファイルが使われます。",
+			"browser": "ダウンロードには「探索」のログインではなく、ブラウザのCookieが使われます。",
+			"useExplore": "「探索」のログインを使う",
+			"notNow": "後で"
+		},
 		"linkCallout": {"title": "リンクを右クリックしてダウンロード", "body": "ページ内の動画・プレイリスト・チャンネルのリンクを右クリックすると、アクティブなプロファイルでダウンロードしたり、別のプロファイルを選んだり、インタラクティブダウンロードを開いたりできます。"},
 		"linkMenu": {"downloadWith": "プロファイルでダウンロード", "copyLink": "リンクをコピー"},
 		"toolbar": {
@@ -874,9 +880,9 @@
 			"home": "YouTubeホーム",
 			"addressAria": "アドレス",
 			"addressPlaceholder": "YouTube を検索、または YouTube のリンクを貼り付け",
-			"offsiteHint": "Explore が閲覧できるのは YouTube だけです。",
+			"offsiteHint": "「探索」が閲覧できるのは YouTube だけです。",
 			"offsiteDownload": "このリンクをダウンロード",
-			"offsiteHintHost": "Explore が閲覧できるのは YouTube だけです。{{host}}",
+			"offsiteHintHost": "「探索」が閲覧できるのは YouTube だけです。{{host}}",
 			"searchTooLong": "検索語が長すぎます。",
 			"downloadWithProfile": "ダウンロード · {{profileName}}",
 			"interactiveHint": "インタラクティブダウンロード：形式や字幕などを選択…",
@@ -893,17 +899,17 @@
 			}
 		},
 		"settings": {
-			"title": "Explore",
+			"title": "探索",
 			"description": "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画のためにログインできます。",
-			"showTab": "Exploreタブを表示",
-			"showTabDescription": "オフにすると、ダウンロードでもExploreのログインが使われなくなります。",
-			"signOut": "Exploreからログアウト",
-			"signOutDescription": "Explore内のYouTubeのログイン情報と閲覧データを消去します。",
-			"signOutConfirmTitle": "Exploreからログアウトしますか?",
-			"signOutConfirmBody": "Explore内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。",
+			"showTab": "「探索」タブを表示",
+			"showTabDescription": "オフにすると、ダウンロードでも「探索」のログインが使われなくなります。",
+			"signOut": "「探索」からログアウト",
+			"signOutDescription": "「探索」内のYouTubeのログイン情報と閲覧データを消去します。",
+			"signOutConfirmTitle": "「探索」からログアウトしますか?",
+			"signOutConfirmBody": "「探索」内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。",
 			"signOutConfirm": "ログアウト"
 		},
-		"error": {"proxyTitle": "Exploreはプロキシ経由で接続できません", "proxyBody": "設定でプロキシを確認して、もう一度お試しください。", "loadTitle": "このページを読み込めませんでした", "loadBody": "接続を確認して、もう一度お試しください。", "retry": "再試行", "openSettings": "設定を開く"}
+		"error": {"proxyTitle": "「探索」はプロキシ経由で接続できません", "proxyBody": "設定でプロキシを確認して、もう一度お試しください。", "loadTitle": "このページを読み込めませんでした", "loadBody": "接続を確認して、もう一度お試しください。", "retry": "再試行", "openSettings": "設定を開く"}
 	},
 	"fileType": {
 		"auto": "自動",

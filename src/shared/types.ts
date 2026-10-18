@@ -177,7 +177,6 @@ export interface CommonSettings {
 	successfulDownloadCount?: number
 	shareInlineCardDismissed?: boolean
 	shareHighValueBannerDismissed?: boolean
-	multiProfileHintDismissed?: boolean
 	styleHintDismissed?: boolean
 	videoPartCalloutDismissed?: boolean
 	exploreLinkCalloutDismissed?: boolean

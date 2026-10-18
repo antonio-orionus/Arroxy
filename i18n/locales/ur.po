@@ -247,7 +247,7 @@ msgstr "ترتیبات میں پراکسی چیک کریں، پھر دوبارہ
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore آپ کی پراکسی کے ذریعے کنیکٹ نہیں ہو سکتا"
+msgstr "دریافت ٹیب آپ کی پراکسی کے ذریعے کنیکٹ نہیں ہو سکتا"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -295,11 +295,11 @@ msgstr "YouTube کو Arroxy کے اندر ہی براؤز کریں"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "ڈاؤن لوڈز آپ کے براؤزر کی cookies استعمال کرتے ہیں، Explore سائن ان نہیں۔"
+msgstr "ڈاؤن لوڈز آپ کے براؤزر کی cookies استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔"
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "ڈاؤن لوڈز آپ کی cookies فائل استعمال کرتے ہیں، Explore سائن ان نہیں۔"
+msgstr "ڈاؤن لوڈز آپ کی cookies فائل استعمال کرتے ہیں، دریافت کا سائن ان نہیں۔"
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -307,11 +307,11 @@ msgstr "ابھی نہیں"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies بند ہیں، اس لیے ڈاؤن لوڈز Explore سائن ان استعمال نہیں کرتے۔"
+msgstr "Cookies بند ہیں، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔"
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Explore سائن ان استعمال کریں"
+msgstr "دریافت کا سائن ان استعمال کریں"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -319,15 +319,15 @@ msgstr "YouTube کو Arroxy کے اندر براؤز کریں اور اکاؤن�
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Explore ٹیب دکھائیں"
+msgstr "دریافت ٹیب دکھائیں"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "اسے بند کرنے سے ڈاؤن لوڈز بھی Explore سائن ان استعمال نہیں کریں گے۔"
+msgstr "اسے بند کرنے سے ڈاؤن لوڈز بھی دریافت کا سائن ان استعمال نہیں کریں گے۔"
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Explore سے سائن آؤٹ کریں"
+msgstr "دریافت سے سائن آؤٹ کریں"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -335,23 +335,23 @@ msgstr "سائن آؤٹ کریں"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "اس سے Explore میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف ہو جاتا ہے۔ اکاؤنٹ کی ضرورت والے ڈاؤن لوڈز دوبارہ سائن ان کرنے تک ناکام رہیں گے۔"
+msgstr "اس سے دریافت میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف ہو جاتا ہے۔ اکاؤنٹ کی ضرورت والے ڈاؤن لوڈز دوبارہ سائن ان کرنے تک ناکام رہیں گے۔"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Explore سے سائن آؤٹ کریں؟"
+msgstr "دریافت سے سائن آؤٹ کریں؟"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Explore میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف کرتا ہے۔"
+msgstr "دریافت میں آپ کا YouTube سائن ان اور براؤزنگ ڈیٹا صاف کرتا ہے۔"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "دریافت"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "دریافت"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -387,7 +387,7 @@ msgstr "YouTube پر تلاش کریں یا YouTube کا لنک پیسٹ کری�
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Explore براؤزر کنٹرولز"
+msgstr "دریافت براؤزر کنٹرولز"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -427,11 +427,11 @@ msgstr "یہ لنک ڈاؤن لوڈ کریں"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore صرف YouTube براؤز کرتا ہے۔"
+msgstr "دریافت ٹیب صرف YouTube براؤز کرتا ہے۔"
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore صرف YouTube براؤز کرتا ہے۔ {{host}}"
+msgstr "دریافت ٹیب صرف YouTube براؤز کرتا ہے۔ {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -604,16 +604,16 @@ msgstr "زبان"
 #. Plural form "one" for ur: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore کے ساتھ سائن ان ہو گیا — 1 لنک دوبارہ آزمایا جا رہا ہے"
+msgstr "دریافت کے ذریعے سائن ان ہو گیا — 1 لنک دوبارہ آزمایا جا رہا ہے"
 
 #. Plural form "other" for ur: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Explore کے ساتھ سائن ان ہو گیا — {{count}} لنکس دوبارہ آزمائے جا رہے ہیں"
+msgstr "دریافت کے ذریعے سائن ان ہو گیا — {{count}} لنکس دوبارہ آزمائے جا رہے ہیں"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Explore سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔"
+msgstr "دریافت سے سائن آؤٹ نہیں ہو سکا۔ دوبارہ کوشش کریں۔"
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1531,7 +1531,7 @@ msgstr "میٹا ڈیٹا شامل ہو رہا ہے…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Explore سے سائن آؤٹ ہو گیا — دوبارہ سائن ان کریں"
+msgstr "دریافت سے سائن آؤٹ ہو گیا — دوبارہ سائن ان کریں"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1587,7 +1587,7 @@ msgstr "کنکشن رک گیا، دوبارہ کوشش ({{attempt}}/{{total}})�
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "آپ کے Explore اکاؤنٹ سے سائن ان ہو رہا ہے…"
+msgstr "دریافت میں آپ کے اکاؤنٹ سے سائن ان ہو رہا ہے…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2061,7 +2061,7 @@ msgstr "براؤزر"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Explore سائن ان"
+msgstr "دریافت کا سائن ان"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2117,11 +2117,11 @@ msgstr "آپ کی cookies فائل خالی، میعاد ختم، یا غلط ف
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Explore کے ساتھ سائن ان کریں اور Arroxy دوبارہ کوشش کرے گا۔"
+msgstr "دریافت کے ذریعے سائن ان کریں اور Arroxy دوبارہ کوشش کرے گا۔"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Explore کے ساتھ سائن ان کریں"
+msgstr "دریافت کے ذریعے سائن ان کریں"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2129,11 +2129,11 @@ msgstr "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکت�
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "آپ Explore میں سائن ان ہیں، لیکن ڈاؤن لوڈز اس وقت اس سائن ان کو استعمال نہیں کر رہے۔"
+msgstr "آپ دریافت میں سائن ان ہیں، لیکن ڈاؤن لوڈز اس وقت اس سائن ان کو استعمال نہیں کر رہے۔"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Explore سائن ان استعمال کریں اور دوبارہ کوشش کریں"
+msgstr "دریافت کا سائن ان استعمال کریں اور دوبارہ کوشش کریں"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2141,19 +2141,19 @@ msgstr "اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہو سکت�
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "اگر اس ویڈیو کے لیے اکاؤنٹ درکار ہے تو Arroxy خود بخود آپ کا Explore سائن ان استعمال کرتا ہے۔ یہ کسی اور وجہ سے دستیاب نہیں ہو سکتی۔"
+msgstr "اگر اس ویڈیو کے لیے اکاؤنٹ درکار ہے تو Arroxy خود بخود دریافت میں آپ کا سائن ان استعمال کرتا ہے۔ یہ کسی اور وجہ سے دستیاب نہیں ہو سکتی۔"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Explore میں سائن ان ہیں"
+msgstr "دریافت میں سائن ان ہیں"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "اگر اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہے تو Explore میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔"
+msgstr "اگر اس ویڈیو کے لیے YouTube اکاؤنٹ درکار ہے تو دریافت میں سائن ان کریں اور دوبارہ کوشش کریں۔ Arroxy یہ سائن ان صرف تب استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Explore میں سائن ان کریں"
+msgstr "دریافت میں سائن ان کریں"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2887,9 +2887,19 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "{{profileName}} تفویض کریں"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "انتخاب کو تفویض کریں"
+#. Plural form "one" for ur: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "{{count}} ویڈیو کو تفویض کریں"
+
+#. Plural form "other" for ur: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "{{count}} ویڈیوز کو تفویض کریں"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "پروفائل تفویض کریں"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2919,13 +2929,15 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "ڈاؤن لوڈ پروفائلز تفویض کریں"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "حد کے لیے Shift کے ساتھ کلک کریں، ایک شامل کرنے کے لیے {{modifier}} کے ساتھ کلک کریں، یا قطاروں پر گھسیٹیں۔ پھر اوپر سے ایک پروفائل منتخب کریں، یا انتخاب پر دائیں کلک کریں۔"
+#. Plural form "one" for ur: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "اس ویڈیو کے لیے پروفائل منتخب کریں۔"
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "بیک وقت متعدد ویڈیوز کو پروفائل تفویض کریں"
+#. Plural form "other" for ur: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "ان {{count}} ویڈیوز کے لیے پروفائل منتخب کریں۔"
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3785,11 +3797,11 @@ msgstr "cookies استعمال کرنے کے لیے فائل منتخب کریں
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "صرف تب Explore سائن ان استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔"
+msgstr "صرف تب دریافت کا سائن ان استعمال کرتا ہے جب ڈاؤن لوڈ کو اس کی ضرورت ہو۔"
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Explore ٹیب بند ہے، اس لیے ڈاؤن لوڈز Explore سائن ان استعمال نہیں کرتے۔ اسے نیچے Explore میں آن کریں۔"
+msgstr "دریافت ٹیب بند ہے، اس لیے ڈاؤن لوڈز دریافت کا سائن ان استعمال نہیں کرتے۔ اسے نیچے دریافت میں آن کریں۔"
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3809,7 +3821,7 @@ msgstr "cookies کیسے ایکسپورٹ کروں؟"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Explore کھولیں"
+msgstr "دریافت کھولیں"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3829,7 +3841,7 @@ msgstr "براؤزر"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Explore سائن ان"
+msgstr "دریافت کا سائن ان"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

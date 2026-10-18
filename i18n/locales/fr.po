@@ -252,7 +252,7 @@ msgstr "Vérifiez le proxy dans les Réglages, puis réessayez."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore ne peut pas se connecter via votre proxy"
+msgstr "Explorer ne peut pas se connecter via votre proxy"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -300,11 +300,11 @@ msgstr "Parcourez YouTube directement dans Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Les téléchargements utilisent les cookies de votre navigateur, pas votre connexion Explore."
+msgstr "Les téléchargements utilisent les cookies de votre navigateur, pas votre connexion Explorer."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Les téléchargements utilisent votre fichier de cookies, pas votre connexion Explore."
+msgstr "Les téléchargements utilisent votre fichier de cookies, pas votre connexion Explorer."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -312,11 +312,11 @@ msgstr "Pas maintenant"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Les cookies sont désactivés : les téléchargements n’utilisent donc pas votre connexion Explore."
+msgstr "Les cookies sont désactivés : les téléchargements n’utilisent donc pas votre connexion Explorer."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Utiliser la connexion Explore"
+msgstr "Utiliser la connexion Explorer"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -324,15 +324,15 @@ msgstr "Parcourez YouTube dans Arroxy et connectez-vous pour les vidéos qui né
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Afficher l’onglet Explore"
+msgstr "Afficher l’onglet Explorer"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Le désactiver empêche aussi les téléchargements d’utiliser votre connexion Explore."
+msgstr "Le désactiver empêche aussi les téléchargements d’utiliser votre connexion Explorer."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Se déconnecter d’Explore"
+msgstr "Se déconnecter d’Explorer"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -340,23 +340,23 @@ msgstr "Se déconnecter"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Cela efface votre connexion YouTube et vos données de navigation dans Explore. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas."
+msgstr "Cela efface votre connexion YouTube et vos données de navigation dans Explorer. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Se déconnecter d’Explore ?"
+msgstr "Se déconnecter d’Explorer ?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Efface votre connexion YouTube et vos données de navigation dans Explore."
+msgstr "Efface votre connexion YouTube et vos données de navigation dans Explorer."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Explorer"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Explorer"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -392,7 +392,7 @@ msgstr "Rechercher sur YouTube ou coller un lien YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Commandes du navigateur Explore"
+msgstr "Commandes de navigation d’Explorer"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -432,11 +432,11 @@ msgstr "Télécharger ce lien"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore ne parcourt que YouTube."
+msgstr "Explorer ne parcourt que YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore ne parcourt que YouTube. {{host}}"
+msgstr "Explorer ne parcourt que YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -614,16 +614,16 @@ msgstr "Connecté avec Explore — nouvelle tentative pour {{count}} de liens"
 #. Plural form "one" for fr: used for counts like 0, 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
-msgstr "Connecté avec Explore — nouvelle tentative pour 1 lien"
+msgstr "Connecté avec Explorer — nouvelle tentative pour 1 lien"
 
 #. Plural form "other" for fr: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Connecté avec Explore — nouvelle tentative pour {{count}} liens"
+msgstr "Connecté avec Explorer — nouvelle tentative pour {{count}} liens"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Impossible de se déconnecter d’Explore. Réessayez."
+msgstr "Impossible de se déconnecter d’Explorer. Réessayez."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1576,7 +1576,7 @@ msgstr "Intégration des métadonnées…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Déconnexion d’Explore — reconnectez-vous"
+msgstr "Déconnexion d’Explorer — reconnectez-vous"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1632,7 +1632,7 @@ msgstr "Connexion bloquée, nouvelle tentative ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Connexion avec votre compte Explore…"
+msgstr "Connexion avec votre compte Explorer…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -2146,7 +2146,7 @@ msgstr "Navigateur"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Connexion Explore"
+msgstr "Connexion Explorer"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2202,11 +2202,11 @@ msgstr "Votre fichier de cookies est peut-être vide, expiré ou dans un mauvais
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Connectez-vous dans Explore et Arroxy réessaiera."
+msgstr "Connectez-vous dans Explorer et Arroxy réessaiera."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Se connecter dans Explore"
+msgstr "Se connecter dans Explorer"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2214,11 +2214,11 @@ msgstr "Cette vidéo peut nécessiter un compte YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Vous êtes connecté à Explore, mais les téléchargements n'utilisent pas cette connexion pour le moment."
+msgstr "Vous êtes connecté à Explorer, mais les téléchargements n'utilisent pas cette connexion pour le moment."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Utiliser ma connexion Explore et réessayer"
+msgstr "Utiliser ma connexion Explorer et réessayer"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2226,19 +2226,19 @@ msgstr "Cette vidéo peut nécessiter un compte YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Si cette vidéo nécessite un compte, Arroxy utilise automatiquement votre connexion Explore. Elle peut être indisponible pour une autre raison."
+msgstr "Si cette vidéo nécessite un compte, Arroxy utilise automatiquement votre connexion Explorer. Elle peut être indisponible pour une autre raison."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Connecté à Explore"
+msgstr "Connecté à Explorer"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Si cette vidéo nécessite un compte YouTube, connectez-vous dans Explore et réessayez. Arroxy n’utilise cette connexion que lorsqu’un téléchargement en a besoin."
+msgstr "Si cette vidéo nécessite un compte YouTube, connectez-vous dans Explorer et réessayez. Arroxy n’utilise cette connexion que lorsqu’un téléchargement en a besoin."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Se connecter dans Explore"
+msgstr "Se connecter dans Explorer"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -3022,9 +3022,24 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Attribuer {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Attribuer à la sélection"
+#. Plural form "many" for fr: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Attribuer à {{count}} vidéos"
+
+#. Plural form "one" for fr: used for counts like 0, 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Attribuer à {{count}} vidéo"
+
+#. Plural form "other" for fr: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Attribuer à {{count}} vidéos"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Attribuer un profil"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -3054,13 +3069,20 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Attribuer des profils de téléchargement"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-clic pour une plage, {{modifier}}-clic pour en ajouter une, ou faites glisser sur les lignes. Choisissez ensuite un profil ci-dessus, ou faites un clic droit sur la sélection."
+#. Plural form "many" for fr: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Choisissez le profil de ces {{count}} vidéos."
 
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Attribuer des profils à plusieurs vidéos à la fois"
+#. Plural form "one" for fr: used for counts like 0, 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Choisissez le profil de cette vidéo."
+
+#. Plural form "other" for fr: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Choisissez le profil de ces {{count}} vidéos."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3930,11 +3952,11 @@ msgstr "Choisissez un fichier pour utiliser les cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Utilise votre connexion Explore uniquement quand un téléchargement en a besoin."
+msgstr "Utilise votre connexion Explorer uniquement quand un téléchargement en a besoin."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "L’onglet Explore est désactivé : les téléchargements n’utilisent donc pas votre connexion Explore. Activez-le ci-dessous dans Explore."
+msgstr "L’onglet Explorer est désactivé : les téléchargements n’utilisent donc pas votre connexion Explorer. Activez-le ci-dessous dans Explorer."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3954,7 +3976,7 @@ msgstr "Comment exporter les cookies ?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Ouvrir Explore"
+msgstr "Ouvrir Explorer"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3974,7 +3996,7 @@ msgstr "Navigateur"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Connexion Explore"
+msgstr "Connexion Explorer"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"

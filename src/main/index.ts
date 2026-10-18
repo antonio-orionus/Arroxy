@@ -54,6 +54,7 @@ import {cancelQueueBeforeExit} from '@main/shutdown.js'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
 import {applyNativeThemeSource, resolveMainWindowBackgroundColor, watchSystemThemeBackground} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
+import {registerResponsivenessDiagnostics} from '@main/windowResponsiveness.js'
 import {isHeadlessWindowRequested, resolveE2eHarnessMode} from '@main/e2eHarness.js'
 import {watchInitialGpuInfoUpdate} from '@main/gpuInfoReadiness.js'
 import {applyChromiumSwitches, applyChromiumSwitchesFromEnv, chromiumSwitchesForRuntime, chromiumSwitchLogSummary} from '@main/chromiumSwitches.js'
@@ -210,6 +211,7 @@ function createMainWindow(backgroundColor: string): BrowserWindow {
 	})
 
 	registerPreloadDiagnostics(mainWindow, preloadPath)
+	registerResponsivenessDiagnostics(mainWindow, {gpuFeatureStatus: () => app.getGPUFeatureStatus()})
 	winState.manage(mainWindow)
 
 	mainWindow.on('maximize', () => mainWindow.webContents.send(IPC_CHANNELS.windowMaximizedChange, true))

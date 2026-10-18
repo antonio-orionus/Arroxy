@@ -122,7 +122,8 @@ export function WizardProfileLine(): ReactNode {
 							/>
 						</Hint>
 						<DownloadProfileMenuContent
-							model={model}
+							options={model.options}
+							editProfile={activeProfile}
 							align="start"
 							editLabel={editLabel}
 							description={t('wizard.formats.profile.menuDescription')}

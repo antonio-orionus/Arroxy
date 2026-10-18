@@ -4,7 +4,6 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import * as downloadProfilesModule from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {ok} from '@shared/result.js'
 import type {AppState} from '@renderer/store/types.js'
 import {StepPlaylistItems} from '@renderer/components/wizard/StepPlaylistItems.js'
 import {StepPlaylistProfiles} from '@renderer/components/wizard/StepPlaylistProfiles.js'
@@ -71,13 +70,13 @@ vi.mock('@tanstack/react-virtual', () => ({
 	}
 }))
 
+// Stubbed per test where the editor's save matters; restored in beforeEach so
+// a stub never leaks into the next test through the module-level store.
+const ORIGINAL_SAVE_DOWNLOAD_PROFILE = useAppStore.getState().saveDownloadProfile
+
 // The real catalog + downloadProfileActions model is used everywhere below —
-// no mock. With the screen's baseline-then-custom-then-builtin ordering
-// (playlistProfileOrder.ts), the two custom fixture profiles below sort to
-// the front of the action bar, so the click-based tests reach them directly
-// without needing to open "More…". The one test that specifically covers the
-// overflow branch (further down) forces a builtin id, 'audio-only', past the
-// eight visible slots and asserts it's reachable through the popover.
+// no mock. The screen orders profiles baseline, then custom, then builtin
+// (playlistProfileOrder.ts).
 function renderStep(overrides: {common?: Partial<AppSettings['common']>} = {}): ReturnType<typeof render> {
 	if (overrides.common) {
 		useAppStore.setState((state): Partial<AppState> => {
@@ -105,245 +104,305 @@ beforeEach(() => {
 		playlistProfileAssignments: {},
 		// Narrow cast on just this nested object — it's genuinely incomplete
 		// (no common/single/playlist), unlike the rest of this patch.
-		settings: {profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}} as unknown as AppSettings
+		settings: {profiles: {active: ARCHIVE_REF, custom: [ARCHIVE, PODCAST], overrides: []}} as unknown as AppSettings,
+		saveDownloadProfile: ORIGINAL_SAVE_DOWNLOAD_PROFILE
 	} satisfies Partial<AppState>)
 })
+
+function profileCell(rowId: string): HTMLElement {
+	return screen.getByTestId(`profile-cell-${rowId}`)
+}
+
+function check(rowId: string): void {
+	fireEvent.click(screen.getByTestId(`select-row-${rowId}`))
+}
+
+function openToolbarMenu(): void {
+	fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
+}
+
+function pickFromToolbar(profileId: string): void {
+	openToolbarMenu()
+	fireEvent.click(screen.getByTestId(`playlist-profile-option-${profileId}`))
+}
+
+function openRowMenu(rowId: string): void {
+	fireEvent.click(profileCell(rowId))
+}
+
+function pickFromRow(rowId: string, profileId: string): void {
+	openRowMenu(rowId)
+	fireEvent.click(screen.getByTestId(`playlist-row-profile-option-${profileId}`))
+}
+
+function editFromRowMenu(rowId: string, profileName: string): void {
+	openRowMenu(rowId)
+	fireEvent.click(within(screen.getByTestId('playlist-row-profile-menu-actions')).getByRole('button', {name: `Edit ${profileName}`}))
+}
+
+function expectSelected(selected: Record<string, boolean>): void {
+	for (const [rowId, isSelected] of Object.entries(selected)) expect(screen.getByTestId(`profile-row-${rowId}`)).toHaveAttribute('aria-selected', String(isSelected))
+}
 
 describe('StepPlaylistProfiles', () => {
 	it('starts every item on the active profile', () => {
 		renderStep()
-		expect(screen.getAllByText('Archive 4K')).toHaveLength(3)
+		for (const rowId of ['a', 'b', 'c']) expect(profileCell(rowId)).toHaveTextContent('Archive 4K')
 	})
 
-	it('assigns the clicked profile to the selected rows', () => {
+	it('shows no how-to banner: the checkboxes and pickers carry the gestures', () => {
 		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
-	})
-
-	it('extends the selection with shift-click before assigning', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('Under my Spell'))
-		fireEvent.click(screen.getByText('Burn the Witch'), {shiftKey: true})
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		expect(screen.getAllByText('Podcast MP3')).toHaveLength(3)
-	})
-
-	it('filters rows by profile without changing assignments', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
-		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
-	})
-
-	it('resets the filter to "All" once the filtered profile\'s count drops to zero (M2)', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		fireEvent.click(screen.getByTestId('filter-profile-podcast'))
-		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
-
-		// Reassign the only podcast-filtered row back to the baseline — the
-		// podcast chip's count drops to zero and (per PlaylistProfileFilterChips)
-		// the chip itself disappears since it only renders chips with count > 0.
-		// Without the fix, `filter` stays stuck on 'podcast' with no chip left to
-		// click back to "All" and the table sits empty.
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-reset'))
-
-		expect(screen.queryByTestId('filter-profile-podcast')).not.toBeInTheDocument()
-		expect(screen.getByTestId('filter-profile-all')).toHaveAttribute('aria-pressed', 'true')
-		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(3)
-	})
-
-	it('puts the baseline and custom profiles ahead of builtins in the dropdown order', () => {
-		renderStep()
-		// The trigger is disabled with nothing selected; select a row so it's
-		// interactive.
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-
-		// `enabledDownloadProfiles` (and so the unordered catalog model) returns
-		// the enabled builtins before either custom profile — under that order
-		// "archive" and "podcast" would sit after every builtin. This
-		// asserts the screen re-sorts to baseline-then-custom-then-builtin
-		// instead of using catalog order as-is: both customs sort to the front
-		// (slots 1-2) and the media-less builtins — 'audio-only' and
-		// 'subtitles-only', the likeliest picks this reordering exists to
-		// surface — sort behind every other builtin, last of all (the opt-in
-		// low-data built-ins are filtered out of pickers).
-		const rowIds = screen.getAllByTestId(/^assign-profile-/).map(button => button.dataset.testid?.replace('assign-profile-', ''))
-		expect(rowIds.slice(0, 2)).toEqual(['archive', 'podcast'])
-		expect(rowIds.slice(-2)).toEqual(['audio-only', 'subtitles-only'])
-	})
-
-	it('assigns a builtin profile reached far down the dropdown list', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-audio-only'))
-
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Audio only')).toBeInTheDocument()
-		// Untouched rows keep the baseline profile.
-		expect(within(screen.getByTestId('profile-row-a')).getByText('Archive 4K')).toBeInTheDocument()
-		expect(within(screen.getByTestId('profile-row-c')).getByText('Archive 4K')).toBeInTheDocument()
-	})
-
-	it('Ctrl/Cmd+A selects only the currently filtered rows, not every item', () => {
-		renderStep()
-		// Move 'b' onto Podcast first so the "archive" filter chip narrows to just
-		// 'a' and 'c' — and so 'b' ends up on a *third*, distinct profile from the
-		// one the filtered bulk-assign below applies. If Ctrl+A incorrectly
-		// selected every row instead of only the filtered ones, 'b' would also
-		// flip to that third profile and the final assertion on 'b' would fail.
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		fireEvent.click(screen.getByTestId('filter-profile-archive'))
-		expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(2)
-
-		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-best-quality'))
-
-		// Switch back to the unfiltered view to inspect every row: 'a' and 'c'
-		// were selected by Ctrl+A (visible under the "archive" filter) and should
-		// have moved to "Best available"; 'b' was filtered out of view and must
-		// keep "Podcast MP3" untouched.
-		fireEvent.click(screen.getByTestId('filter-profile-all'))
-		expect(within(screen.getByTestId('profile-row-a')).getByText('Best available')).toBeInTheDocument()
-		expect(within(screen.getByTestId('profile-row-c')).getByText('Best available')).toBeInTheDocument()
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
-	})
-
-	it('shows the hint until it is dismissed, and persists the dismissal', async () => {
-		renderStep()
-		expect(screen.getByTestId('multi-profile-hint')).toBeInTheDocument()
-
-		// The default mock echoes back a fixed settings snapshot regardless of
-		// what was patched in. Make it merge the patch instead, the way the real
-		// main-process settings store does — otherwise the final `set({settings:
-		// result.data})` in applyCommonPatchAsync would clobber the optimistic
-		// dismissal and the alert would reappear once the promise resolves.
-		vi.mocked(window.appApi.settings.update).mockImplementation(async patch => {
-			const current = useAppStore.getState().settings
-			return ok({...current, common: {...current?.common, ...patch.common}} as AppSettings)
-		})
-
-		fireEvent.click(within(screen.getByTestId('multi-profile-hint')).getByRole('button', {name: /close/i}))
-		// The dismiss action is async (settings.update round-trip) — flush it
-		// before asserting so the eventual unmount has actually happened.
-		await waitFor(() => expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument())
-
-		// Not just a local dismiss — this must survive app restarts (see task
-		// brief), so assert the persisted store action actually fired rather than
-		// only that the alert unmounted, which a plain useState toggle would also
-		// satisfy.
-		expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({common: expect.objectContaining({multiProfileHintDismissed: true})}))
-	})
-
-	it('stays hidden when already dismissed in settings', () => {
-		renderStep({common: {multiProfileHintDismissed: true}})
 		expect(screen.queryByTestId('multi-profile-hint')).not.toBeInTheDocument()
 	})
 
-	it('opens the profile editor from the profile dropdown, even with nothing selected', async () => {
-		// No row selected — the trigger stays enabled regardless of selection so
-		// the pencil (independent of "assign to selection") is always reachable,
-		// unlike the assign buttons and Reset, which do need a selection.
-		renderStep()
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
-		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
+	describe('checkbox selection', () => {
+		it('checks rows one by one without collapsing the rows already selected', () => {
+			renderStep()
+			check('a')
+			check('c')
+			expectSelected({a: true, b: false, c: true})
+			expect(screen.getByTestId('select-row-a')).toHaveAttribute('aria-checked', 'true')
+			expect(screen.getByTestId('select-row-b')).toHaveAttribute('aria-checked', 'false')
+			expect(screen.getByTestId('playlist-profile-summary')).toHaveTextContent('2 of 3 selected')
+		})
+
+		it('unchecks one row out of a shift-click range', () => {
+			renderStep()
+			fireEvent.click(screen.getByText('Under my Spell'))
+			fireEvent.click(screen.getByText('Burn the Witch'), {shiftKey: true})
+			check('b')
+			expectSelected({a: true, b: false, c: true})
+		})
+
+		it('select-all checks every row, reads as mixed for a partial selection, and clears a full one', () => {
+			renderStep()
+			const selectAll = screen.getByTestId('playlist-profile-select-all')
+			expect(selectAll).toHaveAttribute('aria-checked', 'false')
+
+			check('b')
+			expect(selectAll).toHaveAttribute('aria-checked', 'mixed')
+
+			fireEvent.click(selectAll)
+			expectSelected({a: true, b: true, c: true})
+			expect(selectAll).toHaveAttribute('aria-checked', 'true')
+
+			fireEvent.click(selectAll)
+			expectSelected({a: false, b: false, c: false})
+		})
+
+		it('select-all covers only the rows the filter shows', () => {
+			renderStep()
+			pickFromRow('b', 'podcast')
+			fireEvent.click(screen.getByTestId('filter-profile-archive'))
+			fireEvent.click(screen.getByTestId('playlist-profile-select-all'))
+			fireEvent.click(screen.getByTestId('filter-profile-all'))
+			expectSelected({a: true, b: false, c: true})
+		})
+
+		it('Ctrl/Cmd+A selects only the currently filtered rows, not every item', () => {
+			renderStep()
+			// 'b' moves to a third profile first, so a select-all that wrongly took
+			// every row would also flip it in the final assignment.
+			pickFromRow('b', 'podcast')
+			fireEvent.click(screen.getByTestId('filter-profile-archive'))
+			expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(2)
+
+			fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
+			pickFromToolbar('best-quality')
+
+			fireEvent.click(screen.getByTestId('filter-profile-all'))
+			expect(profileCell('a')).toHaveTextContent('Best available')
+			expect(profileCell('c')).toHaveTextContent('Best available')
+			expect(profileCell('b')).toHaveTextContent('Podcast MP3')
+		})
 	})
 
-	it('wires the global-destination handler so the editor never shows a dead "Change" button', async () => {
-		// DownloadProfileEditor always renders the "Change global destination"
-		// button and only `disabled`s it when `onChangeGlobalDestination` is
-		// missing — unlike `resetProfile`, which is conditionally rendered. This
-		// step is the first call site in the app to open the editor at all, so
-		// nothing previously exercised the case of that prop being left out.
-		renderStep()
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
-		await screen.findByTestId('profiles-editor-dialog')
-		expect(screen.getByRole('button', {name: 'Change global destination'})).not.toHaveAttribute('aria-disabled', 'true')
+	describe('toolbar picker', () => {
+		it('is disabled until a row is selected, then names how many rows it assigns to', () => {
+			renderStep()
+			const trigger = screen.getByTestId('playlist-profile-assign-trigger')
+			expect(trigger).toBeDisabled()
+			expect(trigger).toHaveTextContent('Assign profile')
+			check('a')
+			check('b')
+			expect(trigger).toBeEnabled()
+			expect(trigger).toHaveTextContent('Assign to 2 videos')
+		})
+
+		it('assigns the profile picked in the shared menu to the selected rows', () => {
+			renderStep()
+			check('a')
+			check('c')
+			pickFromToolbar('podcast')
+			expect(profileCell('a')).toHaveTextContent('Podcast MP3')
+			expect(profileCell('b')).toHaveTextContent('Archive 4K')
+			expect(profileCell('c')).toHaveTextContent('Podcast MP3')
+		})
+
+		it('marks the profile every selected row shares, and its Edit opens that profile', async () => {
+			renderStep()
+			check('a')
+			check('b')
+			openToolbarMenu()
+			expect(screen.getByTestId('playlist-profile-option-archive')).toHaveAttribute('aria-pressed', 'true')
+			expect(screen.getByTestId('playlist-profile-option-podcast')).toHaveAttribute('aria-pressed', 'false')
+
+			fireEvent.click(within(screen.getByTestId('playlist-profile-menu-actions')).getByRole('button', {name: 'Edit Archive 4K'}))
+			expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-name')).toHaveValue('Archive 4K')
+		})
+
+		it('marks nothing and offers no Edit when the selected rows use different profiles', () => {
+			renderStep()
+			pickFromRow('b', 'podcast')
+			check('a')
+			check('b')
+			openToolbarMenu()
+			expect(within(screen.getByTestId('playlist-profile-menu-grid')).queryAllByRole('button', {pressed: true})).toHaveLength(0)
+			expect(within(screen.getByTestId('playlist-profile-menu-actions')).queryByRole('button', {name: /^Edit/})).not.toBeInTheDocument()
+		})
+
+		it('puts the baseline and custom profiles ahead of builtins', () => {
+			renderStep()
+			check('b')
+			openToolbarMenu()
+			// Catalog order is builtins first; this screen re-sorts to baseline,
+			// then custom, then builtins, with the media-less builtins last.
+			const ids = within(screen.getByTestId('playlist-profile-menu-grid'))
+				.getAllByTestId(/^playlist-profile-option-/)
+				.map(button => button.dataset.testid?.replace('playlist-profile-option-', ''))
+			expect(ids.slice(0, 2)).toEqual(['archive', 'podcast'])
+			expect(ids.slice(-2)).toEqual(['audio-only', 'subtitles-only'])
+		})
+
+		it('assigns a builtin profile from the end of the menu', () => {
+			renderStep()
+			check('b')
+			pickFromToolbar('audio-only')
+			expect(profileCell('b')).toHaveTextContent('Audio only')
+			expect(profileCell('a')).toHaveTextContent('Archive 4K')
+			expect(profileCell('c')).toHaveTextContent('Archive 4K')
+		})
+
+		it('resets the filter to "All" once the filtered profile\'s count drops to zero', () => {
+			renderStep()
+			pickFromRow('b', 'podcast')
+			fireEvent.click(screen.getByTestId('filter-profile-podcast'))
+			expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(1)
+
+			// Its chip disappears with its last row; a filter left on it would
+			// strand an empty table with nothing to click back to "All".
+			check('b')
+			fireEvent.click(screen.getByTestId('playlist-profile-reset'))
+
+			expect(screen.queryByTestId('filter-profile-podcast')).not.toBeInTheDocument()
+			expect(screen.getByTestId('filter-profile-all')).toHaveAttribute('aria-pressed', 'true')
+			expect(screen.getAllByTestId(/^profile-row-/)).toHaveLength(3)
+		})
 	})
 
-	it('ignores the Delete shortcut while the profile editor dialog is open (I2)', async () => {
-		// The profile editor is a Dialog full of buttons/toggles/selects, none of
-		// which isTypingTarget recognizes as a text field — so without an explicit
-		// `editingProfile` guard, this window-scoped shortcut fires straight
-		// through the open modal and silently mutates the selection behind it.
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
-		await screen.findByTestId('profiles-editor-dialog')
+	describe('row picker', () => {
+		it("opens the shared menu from a row's profile and reassigns just that row", () => {
+			renderStep()
+			check('a')
+			openRowMenu('b')
+			expect(screen.getByTestId('playlist-row-profile-option-archive')).toHaveAttribute('aria-pressed', 'true')
+			fireEvent.click(screen.getByTestId('playlist-row-profile-option-podcast'))
 
-		fireEvent.keyDown(window, {key: 'Delete'})
-		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
-		expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
+			expect(profileCell('b')).toHaveTextContent('Podcast MP3')
+			expect(profileCell('a')).toHaveTextContent('Archive 4K')
+			expect(profileCell('c')).toHaveTextContent('Archive 4K')
+			// Opening the picker is not a row click: the selection stays as it was.
+			expectSelected({a: true, b: false, c: false})
+		})
+
+		it('reassigns the whole selection when the row is part of it', () => {
+			renderStep()
+			check('a')
+			check('b')
+			pickFromRow('b', 'podcast')
+			expect(profileCell('a')).toHaveTextContent('Podcast MP3')
+			expect(profileCell('b')).toHaveTextContent('Podcast MP3')
+			expect(profileCell('c')).toHaveTextContent('Archive 4K')
+		})
+
+		it('edits the profile of the row it was opened from', async () => {
+			renderStep()
+			pickFromRow('b', 'podcast')
+			editFromRowMenu('b', 'Podcast MP3')
+			expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-name')).toHaveValue('Podcast MP3')
+		})
 	})
 
-	it('does not reassign the selection when the pencil is clicked', () => {
-		renderStep()
-		// Select a row first so the assign buttons in the dropdown are live — this
-		// is the exact state in which a bubbled click would silently reassign 'b'.
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('edit-profile-podcast'))
+	describe('profile editing', () => {
+		it("saves an edited profile without making it the app's active profile", async () => {
+			const save = vi.fn(async () => {})
+			useAppStore.setState({saveDownloadProfile: save})
+			renderStep()
+			pickFromRow('b', 'podcast')
+			editFromRowMenu('b', 'Podcast MP3')
+			fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}))
+			// Activating it would move the baseline under every unassigned row.
+			await waitFor(() => expect(save).toHaveBeenCalledWith(expect.objectContaining({id: 'podcast'}), false))
+		})
 
-		// The editor opened (proven by the previous test); the point here is what
-		// did NOT happen: the selected row must still be on the baseline profile,
-		// not the one whose pencil was clicked.
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Archive 4K')).toBeInTheDocument()
-	})
+		it('assigns a profile created from the menu to the rows the menu was opened for', async () => {
+			const save = vi.fn(async (created: DownloadProfile) => {
+				useAppStore.setState((state): Partial<AppState> => {
+					const settings = state.settings
+					if (!settings) return state
+					return {settings: {...settings, profiles: {...settings.profiles, custom: [...settings.profiles.custom, created]}}}
+				})
+			})
+			useAppStore.setState({saveDownloadProfile: save})
+			renderStep()
+			check('a')
+			check('c')
+			openToolbarMenu()
+			fireEvent.click(within(screen.getByTestId('playlist-profile-menu-actions')).getByRole('button', {name: 'New profile'}))
+			fireEvent.change(await screen.findByTestId('profiles-editor-name'), {target: {value: 'Shorts'}})
+			fireEvent.click(screen.getByRole('button', {name: 'Save profile'}))
 
-	it('opens the profile editor from a row pencil without collapsing a multi-row selection', async () => {
-		// Select all three rows via shift-click before touching the pencil — this
-		// is the exact state in which a bubbled click (missing stopPropagation)
-		// would collapse the selection down to just the clicked row, since
-		// SelectableVirtualTable's plain-click handler replaces the selection with
-		// whatever row the click landed on.
-		renderStep()
-		fireEvent.click(screen.getByText('Under my Spell'))
-		fireEvent.click(screen.getByText('Burn the Witch'), {shiftKey: true})
-		expect(screen.getByTestId('profile-row-a')).toHaveAttribute('aria-selected', 'true')
-		expect(screen.getByTestId('profile-row-b')).toHaveAttribute('aria-selected', 'true')
-		expect(screen.getByTestId('profile-row-c')).toHaveAttribute('aria-selected', 'true')
+			await waitFor(() => expect(profileCell('a')).toHaveTextContent('Shorts'))
+			expect(profileCell('c')).toHaveTextContent('Shorts')
+			expect(profileCell('b')).toHaveTextContent('Archive 4K')
+			expect(save).toHaveBeenCalledWith(expect.objectContaining({name: 'Shorts'}), false)
+		})
 
-		fireEvent.click(screen.getByTestId('edit-row-profile-b'))
+		it('wires the global-destination handler so the editor never shows a dead "Change" button', async () => {
+			renderStep()
+			editFromRowMenu('b', 'Archive 4K')
+			await screen.findByTestId('profiles-editor-dialog')
+			expect(screen.getByRole('button', {name: 'Change global destination'})).not.toHaveAttribute('aria-disabled', 'true')
+		})
 
-		expect(await screen.findByTestId('profiles-editor-dialog')).toBeInTheDocument()
-		// The click must not have reached the row's own click handler: all three
-		// rows must still read as selected, not just row 'b'.
-		expect(screen.getByTestId('profile-row-a')).toHaveAttribute('aria-selected', 'true')
-		expect(screen.getByTestId('profile-row-b')).toHaveAttribute('aria-selected', 'true')
-		expect(screen.getByTestId('profile-row-c')).toHaveAttribute('aria-selected', 'true')
-	})
+		it('ignores the Delete shortcut while the profile editor dialog is open', async () => {
+			// The editor is full of non-text controls isTypingTarget does not
+			// recognize, so without a guard the window-scoped shortcut would delete
+			// the selection behind the open dialog.
+			renderStep()
+			check('b')
+			editFromRowMenu('b', 'Archive 4K')
+			await screen.findByTestId('profiles-editor-dialog')
 
-	it('re-labels assigned rows when the profile is edited', () => {
-		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		renameProfile('podcast', 'Podcast 320')
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast 320')).toBeInTheDocument()
+			fireEvent.keyDown(window, {key: 'Delete'})
+			expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
+			expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
+		})
+
+		it('re-labels assigned rows when the profile is edited', () => {
+			renderStep()
+			pickFromRow('b', 'podcast')
+			renameProfile('podcast', 'Podcast 320')
+			expect(profileCell('b')).toHaveTextContent('Podcast 320')
+		})
 	})
 
 	it('removes the row from the context menu, prunes its profile assignment, and shows a restore control', async () => {
 		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+		pickFromRow('b', 'podcast')
+		expect(profileCell('b')).toHaveTextContent('Podcast MP3')
 
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
@@ -357,7 +416,7 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByTestId('removed-playlist-items-count')).toHaveTextContent('1 removed')
 	})
 
-	it('removes the highlighted rows with the Delete key', () => {
+	it('removes the selected rows with the Delete key', () => {
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 
@@ -380,11 +439,10 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByTestId('profile-row-b')).toBeInTheDocument()
 	})
 
-	it('restores the row to this step, re-checked, through the Restore button', async () => {
-		// This step has no checkbox — removePlaylistItems prunes
-		// selectedPlaylistItemIds, and restoreRemovedPlaylistItems must undo
-		// that (via removedSelectionIds) or the row can never rejoin `items`
-		// (which requires selectedPlaylistItemIds membership) again.
+	it('restores the row to this step, re-included, through the Restore button', async () => {
+		// removePlaylistItems prunes selectedPlaylistItemIds, and
+		// restoreRemovedPlaylistItems must undo that (via removedSelectionIds) or
+		// the row can never rejoin `items`, which requires that membership.
 		renderStep()
 		fireEvent.click(screen.getByText('One Last Breath'))
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
@@ -401,9 +459,9 @@ describe('StepPlaylistProfiles', () => {
 
 	it('shows the empty state and disables Continue once every item is removed', async () => {
 		renderStep()
-		// Ctrl+A highlights every row, so the right-click below acts on all three
+		// Every row selected, so the right-click below acts on all three
 		// (openContextMenuForRow keeps a selection it right-clicks into), not just 'a'.
-		fireEvent.keyDown(window, {key: 'a', code: 'KeyA', ctrlKey: true})
+		fireEvent.click(screen.getByTestId('playlist-profile-select-all'))
 		fireEvent.contextMenu(screen.getByTestId('profile-row-a'))
 		fireEvent.click(await screen.findByRole('menuitem', {name: /remove \d+ from list/i}))
 
@@ -415,15 +473,13 @@ describe('StepPlaylistProfiles', () => {
 		expect(screen.getByTestId('restore-removed-playlist-items')).toBeInTheDocument()
 	})
 
-	it('keeps assignments when leaving via Back, so re-entering the mode restores them (I4)', () => {
+	it('keeps assignments when leaving via Back, so re-entering the mode restores them', () => {
 		// Removing one row earns a persistent Restore control with exact undo —
 		// discarding every assignment on Back must not get a worse deal: no
 		// confirm, no undo, and (unlike removal) no visible sign it happened.
 		renderStep()
-		fireEvent.click(screen.getByText('One Last Breath'))
-		fireEvent.click(screen.getByTestId('playlist-profile-assign-trigger'))
-		fireEvent.click(screen.getByTestId('assign-profile-podcast'))
-		expect(within(screen.getByTestId('profile-row-b')).getByText('Podcast MP3')).toBeInTheDocument()
+		pickFromRow('b', 'podcast')
+		expect(profileCell('b')).toHaveTextContent('Podcast MP3')
 
 		fireEvent.click(screen.getByRole('button', {name: 'Back'}))
 

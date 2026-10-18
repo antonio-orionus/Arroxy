@@ -6,19 +6,23 @@ import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
-import type {DownloadProfileActionModel} from './downloadProfileActions.js'
+import type {DownloadProfileActionOption} from './downloadProfileActions.js'
 import {Hint} from '../shared/Hint.js'
 
-export type DownloadProfileMenuTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard'
+export type DownloadProfileMenuTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row'
 
 interface DownloadProfileMenuContentProps {
-	model: DownloadProfileActionModel
+	// Each option's `active` flag decides its check mark; none may be active.
+	options: DownloadProfileActionOption[]
+	// The profile the Edit action opens; null leaves Edit out, as when the
+	// rows a menu acts on use different profiles.
+	editProfile: DownloadProfile | null
 	onPickProfile: (ref: DownloadProfileRef) => void
 	onEditProfile: (profile: DownloadProfile) => void
 	onNewProfile: () => void
 	// Left out where leaving for the Profiles tab would drop work in progress (the download wizard).
 	onManageProfiles?: () => void
-	// What the Edit action and the header say; they default to the app's active profile.
+	// What the Edit action and the header say; they default to wording about the app's active profile.
 	editLabel?: string
 	description?: string
 	// Which side of the trigger the menu lines up with; the arrow follows.
@@ -31,9 +35,9 @@ interface DownloadProfileMenuContentProps {
 // The profile switcher's popup: every enabled profile in a grid, then Edit,
 // New and Manage. The caller owns the Popover root and its trigger, so the URL
 // tab's card and Explore's split button open the same menu.
-export function DownloadProfileMenuContent({model, onPickProfile, onEditProfile, onNewProfile, onManageProfiles, editLabel, description, align = 'end', onClose, testIdPrefix}: DownloadProfileMenuContentProps): ReactNode {
+export function DownloadProfileMenuContent({options, editProfile, onPickProfile, onEditProfile, onNewProfile, onManageProfiles, editLabel, description, align = 'end', onClose, testIdPrefix}: DownloadProfileMenuContentProps): ReactNode {
 	const {t} = useTranslation()
-	const {activeProfile, options} = model
+	const actionCount = (editProfile ? 1 : 0) + 1 + (onManageProfiles ? 1 : 0)
 
 	function closeAndRun(action: () => void): void {
 		onClose()
@@ -84,11 +88,13 @@ export function DownloadProfileMenuContent({model, onPickProfile, onEditProfile,
 				))}
 			</div>
 			<Separator />
-			<div className={cn('grid grid-cols-1 gap-2', onManageProfiles ? 'sm:grid-cols-3' : 'sm:grid-cols-2')} data-testid={`${testIdPrefix}-profile-menu-actions`}>
-				<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(() => onEditProfile(activeProfile))}>
-					<PenLine data-icon="inline-start" />
-					{editLabel ?? t('wizard.url.profile.editActive')}
-				</Button>
+			<div className={cn('grid grid-cols-1 gap-2', actionCount === 3 ? 'sm:grid-cols-3' : actionCount === 2 && 'sm:grid-cols-2')} data-testid={`${testIdPrefix}-profile-menu-actions`}>
+				{editProfile ? (
+					<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(() => onEditProfile(editProfile))}>
+						<PenLine data-icon="inline-start" />
+						{editLabel ?? t('wizard.url.profile.editActive')}
+					</Button>
+				) : null}
 				<Button type="button" variant="outline" size="sm" onClick={() => closeAndRun(onNewProfile)}>
 					<Plus data-icon="inline-start" />
 					{t('wizard.url.profile.newProfile')}

@@ -242,7 +242,7 @@ msgstr "Hãy kiểm tra proxy trong Cài đặt rồi thử lại."
 
 msgctxt "explore.error.proxyTitle"
 msgid "Explore can't connect through your proxy"
-msgstr "Explore không thể kết nối qua proxy của bạn"
+msgstr "Tab Khám phá không thể kết nối qua proxy của bạn"
 
 msgctxt "explore.error.retry"
 msgid "Retry"
@@ -290,11 +290,11 @@ msgstr "Duyệt YouTube ngay trong Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
-msgstr "Tải xuống dùng cookies của trình duyệt, không dùng đăng nhập Explore của bạn."
+msgstr "Tải xuống dùng cookies của trình duyệt, không dùng đăng nhập Khám phá của bạn."
 
 msgctxt "explore.nudge.file"
 msgid "Downloads use your cookies file, not your Explore sign-in."
-msgstr "Tải xuống dùng tệp cookies của bạn, không dùng đăng nhập Explore."
+msgstr "Tải xuống dùng tệp cookies của bạn, không dùng đăng nhập Khám phá."
 
 msgctxt "explore.nudge.notNow"
 msgid "Not now"
@@ -302,11 +302,11 @@ msgstr "Để sau"
 
 msgctxt "explore.nudge.off"
 msgid "Cookies are off, so downloads don't use your Explore sign-in."
-msgstr "Cookies đang tắt nên tải xuống không dùng đăng nhập Explore của bạn."
+msgstr "Cookies đang tắt nên tải xuống không dùng đăng nhập Khám phá của bạn."
 
 msgctxt "explore.nudge.useExplore"
 msgid "Use Explore sign-in"
-msgstr "Dùng đăng nhập Explore"
+msgstr "Dùng đăng nhập Khám phá"
 
 msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
@@ -314,15 +314,15 @@ msgstr "Duyệt YouTube trong Arroxy và đăng nhập để xem các video cầ
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
-msgstr "Hiện tab Explore"
+msgstr "Hiện tab Khám phá"
 
 msgctxt "explore.settings.showTabDescription"
 msgid "Turning it off also stops downloads from using your Explore sign-in."
-msgstr "Tắt tab này cũng khiến tải xuống ngừng dùng đăng nhập Explore của bạn."
+msgstr "Tắt tab này cũng khiến tải xuống ngừng dùng đăng nhập Khám phá của bạn."
 
 msgctxt "explore.settings.signOut"
 msgid "Sign out of Explore"
-msgstr "Đăng xuất khỏi Explore"
+msgstr "Đăng xuất khỏi Khám phá"
 
 msgctxt "explore.settings.signOutConfirm"
 msgid "Sign out"
@@ -330,23 +330,23 @@ msgstr "Đăng xuất"
 
 msgctxt "explore.settings.signOutConfirmBody"
 msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Thao tác này xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Explore. Các lượt tải cần tài khoản sẽ thất bại cho đến khi bạn đăng nhập lại."
+msgstr "Thao tác này xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Khám phá. Các lượt tải cần tài khoản sẽ thất bại cho đến khi bạn đăng nhập lại."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
-msgstr "Đăng xuất khỏi Explore?"
+msgstr "Đăng xuất khỏi Khám phá?"
 
 msgctxt "explore.settings.signOutDescription"
 msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Explore."
+msgstr "Xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Khám phá."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Khám phá"
 
 msgctxt "explore.tabLabel"
 msgid "Explore"
-msgstr "Explore"
+msgstr "Khám phá"
 
 msgctxt "explore.toolbar.adBlock.accountNote"
 msgid "YouTube may push back on ad blockers for signed-in accounts."
@@ -382,7 +382,7 @@ msgstr "Tìm trên YouTube hoặc dán liên kết YouTube"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
-msgstr "Điều khiển trình duyệt Explore"
+msgstr "Điều khiển trình duyệt Khám phá"
 
 msgctxt "explore.toolbar.back"
 msgid "Back"
@@ -422,11 +422,11 @@ msgstr "Tải liên kết này"
 
 msgctxt "explore.toolbar.offsiteHint"
 msgid "Explore only browses YouTube."
-msgstr "Explore chỉ duyệt YouTube."
+msgstr "Tab Khám phá chỉ duyệt YouTube."
 
 msgctxt "explore.toolbar.offsiteHintHost"
 msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explore chỉ duyệt YouTube. {{host}}"
+msgstr "Tab Khám phá chỉ duyệt YouTube. {{host}}"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -599,11 +599,11 @@ msgstr "Ngôn ngữ"
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "Đã đăng nhập bằng Explore — đang thử lại {{count}} liên kết"
+msgstr "Đã đăng nhập qua Khám phá — đang thử lại {{count}} liên kết"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
-msgstr "Không thể đăng xuất khỏi Explore. Hãy thử lại."
+msgstr "Không thể đăng xuất khỏi Khám phá. Hãy thử lại."
 
 msgctxt "notifications.filenameFolderTooDeep"
 msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
@@ -1486,7 +1486,7 @@ msgstr "Đang nhúng metadata…"
 
 msgctxt "status.exploreSignedOut"
 msgid "Signed out of Explore — sign in again"
-msgstr "Đã đăng xuất khỏi Explore — hãy đăng nhập lại"
+msgstr "Đã đăng xuất khỏi Khám phá — hãy đăng nhập lại"
 
 msgctxt "status.extractingAudio"
 msgid "Converting audio…"
@@ -1542,7 +1542,7 @@ msgstr "Kết nối bị treo, đang thử lại ({{attempt}}/{{total}})…"
 
 msgctxt "status.signingInWithExplore"
 msgid "Signing in with your Explore account…"
-msgstr "Đang đăng nhập bằng tài khoản Explore của bạn…"
+msgstr "Đang đăng nhập bằng tài khoản của bạn trong Khám phá…"
 
 msgctxt "status.sleepingBetweenRequests"
 msgid "Waiting {{seconds}}s to avoid rate limits…"
@@ -1976,7 +1976,7 @@ msgstr "Trình duyệt"
 
 msgctxt "wizard.formats.cookiesError.currentModeExplore"
 msgid "Explore sign-in"
-msgstr "Đăng nhập Explore"
+msgstr "Đăng nhập Khám phá"
 
 msgctxt "wizard.formats.cookiesError.currentModeFile"
 msgid "File"
@@ -2032,11 +2032,11 @@ msgstr "Tệp cookies của bạn có thể trống, đã hết hạn hoặc sai
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.body"
 msgid "Sign in with Explore and Arroxy will retry it."
-msgstr "Đăng nhập bằng Explore và Arroxy sẽ thử lại."
+msgstr "Đăng nhập qua Khám phá và Arroxy sẽ thử lại."
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
 msgid "Sign in with Explore"
-msgstr "Đăng nhập bằng Explore"
+msgstr "Đăng nhập qua Khám phá"
 
 msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
@@ -2044,11 +2044,11 @@ msgstr "Video này có thể cần tài khoản YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
-msgstr "Bạn đã đăng nhập Explore, nhưng hiện các lượt tải chưa dùng đăng nhập đó."
+msgstr "Bạn đã đăng nhập trong Khám phá, nhưng hiện các lượt tải chưa dùng đăng nhập đó."
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
 msgid "Use my Explore sign-in and retry"
-msgstr "Dùng đăng nhập Explore của tôi và thử lại"
+msgstr "Dùng đăng nhập Khám phá của tôi và thử lại"
 
 msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
 msgid "This video may need a YouTube account"
@@ -2056,19 +2056,19 @@ msgstr "Video này có thể cần tài khoản YouTube"
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
 msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
-msgstr "Nếu video này cần tài khoản, Arroxy sẽ tự dùng đăng nhập Explore của bạn. Video cũng có thể không khả dụng vì lý do khác."
+msgstr "Nếu video này cần tài khoản, Arroxy sẽ tự dùng đăng nhập Khám phá của bạn. Video cũng có thể không khả dụng vì lý do khác."
 
 msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
 msgid "Signed in to Explore"
-msgstr "Đã đăng nhập Explore"
+msgstr "Đã đăng nhập trong Khám phá"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
 msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
-msgstr "Nếu video này cần tài khoản YouTube, hãy đăng nhập trong Explore rồi thử lại. Arroxy chỉ dùng đăng nhập đó khi một lượt tải cần đến."
+msgstr "Nếu video này cần tài khoản YouTube, hãy đăng nhập trong Khám phá rồi thử lại. Arroxy chỉ dùng đăng nhập đó khi một lượt tải cần đến."
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
 msgid "Sign in in Explore"
-msgstr "Đăng nhập trong Explore"
+msgstr "Đăng nhập trong Khám phá"
 
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
@@ -2752,9 +2752,14 @@ msgctxt "wizard.playlistProfiles.assignAria"
 msgid "Assign {{profileName}}"
 msgstr "Gán {{profileName}}"
 
-msgctxt "wizard.playlistProfiles.assignTrigger"
-msgid "Assign to selection"
-msgstr "Gán cho lựa chọn"
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Gán cho {{count}} video"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Gán hồ sơ"
 
 msgctxt "wizard.playlistProfiles.columnDuration"
 msgid "Duration"
@@ -2784,13 +2789,10 @@ msgctxt "wizard.playlistProfiles.heading"
 msgid "Assign download profiles"
 msgstr "Gán hồ sơ tải xuống"
 
-msgctxt "wizard.playlistProfiles.hintBody"
-msgid "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
-msgstr "Shift-nhấp để chọn một dải, {{modifier}}-nhấp để thêm từng mục, hoặc kéo qua các hàng. Sau đó chọn hồ sơ ở trên, hoặc nhấp chuột phải vào vùng đã chọn."
-
-msgctxt "wizard.playlistProfiles.hintTitle"
-msgid "Assign profiles to several videos at once"
-msgstr "Gán hồ sơ cho nhiều video cùng lúc"
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Chọn hồ sơ cho {{count}} video này."
 
 msgctxt "wizard.playlistProfiles.selectedSummary"
 msgid "{{selected}} of {{total}} selected"
@@ -3640,11 +3642,11 @@ msgstr "Chọn một tệp để dùng cookies"
 
 msgctxt "wizard.url.cookies.exploreDescription"
 msgid "Uses your Explore sign-in only when a download needs it."
-msgstr "Chỉ dùng đăng nhập Explore khi một lượt tải cần đến."
+msgstr "Chỉ dùng đăng nhập Khám phá khi một lượt tải cần đến."
 
 msgctxt "wizard.url.cookies.exploreDisabled"
 msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
-msgstr "Tab Explore đang tắt nên tải xuống không dùng đăng nhập Explore của bạn. Hãy bật ở mục Explore bên dưới."
+msgstr "Tab Khám phá đang tắt nên tải xuống không dùng đăng nhập Khám phá của bạn. Hãy bật ở mục Khám phá bên dưới."
 
 msgctxt "wizard.url.cookies.extensionChrome"
 msgid "Get cookies.txt LOCALLY (Chrome)"
@@ -3664,7 +3666,7 @@ msgstr "Cách xuất cookies?"
 
 msgctxt "wizard.url.cookies.openExplore"
 msgid "Open Explore"
-msgstr "Mở Explore"
+msgstr "Mở Khám phá"
 
 msgctxt "wizard.url.cookies.placeholder"
 msgid "No file selected"
@@ -3684,7 +3686,7 @@ msgstr "Trình duyệt"
 
 msgctxt "wizard.url.cookies.sourceExplore"
 msgid "Explore sign-in"
-msgstr "Đăng nhập Explore"
+msgstr "Đăng nhập Khám phá"
 
 msgctxt "wizard.url.cookies.sourceFile"
 msgid "File"
