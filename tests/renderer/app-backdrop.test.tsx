@@ -13,6 +13,7 @@ function expectCanvas2dUnused(getContext: ReturnType<typeof installCanvasMocks>)
 }
 
 const SCENES = {dark: darkAuroraScene, light: lightOceanScene}
+const COMPLETION_STATUS_KHR = 0x91b1
 
 function renderBackdrop(colorScheme: BackdropColorScheme = 'dark', onUnavailable = vi.fn()) {
 	const result = render(<AppBackdrop scenes={SCENES} colorScheme={colorScheme} onUnavailable={onUnavailable} />)
@@ -42,93 +43,167 @@ describe('AppBackdrop', () => {
 	})
 
 	it('reports unavailable when WebGL is missing, without touching Canvas2D', async () => {
-		const getContext = installCanvasMocks({scratchGl: null})
+		const getContext = installCanvasMocks(null)
 
 		const {onUnavailable} = renderBackdrop()
 
-		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('scratch-webgl-unavailable'))
+		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-webgl-unavailable'))
 		expect(document.body).not.toHaveClass('backdrop-webgl-active')
 		expectCanvas2dUnused(getContext)
 	})
 
-	it('rejects software WebGL using masked renderer data', async () => {
-		const scratchGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
-		const getContext = installCanvasMocks({scratchGl})
+	it('rejects software WebGL using masked renderer data, before compiling anything', async () => {
+		const gl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
+		const getContext = installCanvasMocks(gl)
 
-		const {onUnavailable} = renderBackdrop()
+		const {onUnavailable, unmount} = renderBackdrop()
 
 		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('software-webgl-rejected'))
-		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.createShader).not.toHaveBeenCalled()
 		expectCanvas2dUnused(getContext)
+
+		unmount()
+
+		expect(gl.loseContext).toHaveBeenCalledOnce()
 	})
 
 	it('allows software WebGL in the backdrop isolation preview', async () => {
 		window.history.replaceState(null, '', '/?backdrop=1')
-		const scratchGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
-		const productionGl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
-		installCanvasMocks({productionGl, scratchGl})
+		const gl = mockWebgl({debugRenderer: null, maskedRenderer: 'Google SwiftShader', maskedVendor: 'Google Inc.'})
+		installCanvasMocks(gl)
 
 		const {container, unmount, onUnavailable} = renderBackdrop()
 
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
 		expect(container.querySelector('canvas[data-backdrop-layer="webgl"]')).not.toBeNull()
-		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
 		expect(onUnavailable).not.toHaveBeenCalled()
 
 		unmount()
 
-		expect(productionGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.loseContext).toHaveBeenCalledOnce()
 	})
 
-	it('does not touch the production WebGL canvas when scratch shader validation fails', async () => {
-		const scratchGl = mockWebgl({linkOk: false})
-		const productionGl = mockWebgl()
-		const getContext = installCanvasMocks({productionGl, scratchGl})
-
-		const {onUnavailable} = renderBackdrop()
-
-		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('scratch-program-failed'))
-		expect(productionGl.createShader).not.toHaveBeenCalled()
-		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
-		expectCanvas2dUnused(getContext)
-	})
-
-	it('reports unavailable when production WebGL setup fails', async () => {
-		const scratchGl = mockWebgl()
-		const productionGl = mockWebgl({linkOk: false})
-		const getContext = installCanvasMocks({productionGl, scratchGl})
+	it('reports unavailable when the scene program does not link, without drawing', async () => {
+		const gl = mockWebgl({linkOk: false})
+		const getContext = installCanvasMocks(gl)
 
 		const {onUnavailable} = renderBackdrop()
 
 		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-program-failed'))
-		expect(productionGl.createShader).toHaveBeenCalled()
-		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.drawArrays).not.toHaveBeenCalled()
+		expect(document.body).not.toHaveClass('backdrop-webgl-active')
 		expectCanvas2dUnused(getContext)
 	})
 
-	it('releases the scratch WebGL context after a successful WebGL setup', async () => {
-		const scratchGl = mockWebgl()
-		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl, scratchGl})
+	it('compiles the scene once, on the backdrop canvas', async () => {
+		const gl = mockWebgl()
+		const getContext = installCanvasMocks(gl)
+
+		renderBackdrop()
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(getContext.mock.calls.filter(([contextId]) => contextId === 'webgl')).toHaveLength(1)
+		expect(gl.linkProgram).toHaveBeenCalledOnce()
+	})
+
+	// Without KHR_parallel_shader_compile any status read waits for the driver,
+	// so the program is checked right away, as it always was.
+	it('reads the program status synchronously when parallel compile is unavailable', () => {
+		const gl = mockWebgl()
+		installCanvasMocks(gl)
+
+		renderBackdrop()
+
+		expect(gl.getProgramParameter).toHaveBeenCalledWith(expect.anything(), gl.LINK_STATUS)
+		expect(document.body).toHaveClass('backdrop-webgl-active')
+	})
+
+	// A status read forces the driver to finish the compile on the spot, which
+	// a cold ANGLE/D3D11 compile stretches to seconds of frozen UI.
+	it('waits for the parallel compile before reading any status or drawing', async () => {
+		const gl = mockWebgl({parallelCompile: true})
+		installCanvasMocks(gl)
+
+		const {onUnavailable} = renderBackdrop()
+		await nextFrame()
+		await nextFrame()
+
+		expect(gl.getExtension).toHaveBeenCalledWith('KHR_parallel_shader_compile')
+		expect(gl.linkProgram).toHaveBeenCalledOnce()
+		expect(vi.mocked(gl.getProgramParameter).mock.calls.every(([, parameter]) => parameter === COMPLETION_STATUS_KHR)).toBe(true)
+		expect(vi.mocked(gl.getProgramParameter).mock.calls.length).toBeGreaterThanOrEqual(2)
+		expect(gl.getShaderParameter).not.toHaveBeenCalled()
+		expect(gl.getUniformLocation).not.toHaveBeenCalled()
+		expect(gl.drawArrays).not.toHaveBeenCalled()
+		expect(gl.readPixels).not.toHaveBeenCalled()
+		expect(document.body).not.toHaveClass('backdrop-webgl-active')
+
+		gl.completeCompile()
+
+		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+		expect(gl.getProgramParameter).toHaveBeenCalledWith(expect.anything(), gl.LINK_STATUS)
+		// The frame-budget probe runs on the finished program.
+		expect(gl.readPixels).toHaveBeenCalledTimes(4)
+		expect(onUnavailable).not.toHaveBeenCalled()
+	})
+
+	it('reports unavailable when the parallel compile finishes with a link failure', async () => {
+		const gl = mockWebgl({linkOk: false, parallelCompile: true})
+		installCanvasMocks(gl)
+
+		const {onUnavailable} = renderBackdrop()
+		await nextFrame()
+		expect(onUnavailable).not.toHaveBeenCalled()
+
+		gl.completeCompile()
+
+		await waitFor(() => expect(onUnavailable).toHaveBeenCalledWith('production-program-failed'))
+		expect(gl.drawArrays).not.toHaveBeenCalled()
+		expect(document.body).not.toHaveClass('backdrop-webgl-active')
+	})
+
+	it('stops waiting for the compile and frees the program when unmounted mid-compile', async () => {
+		const gl = mockWebgl({parallelCompile: true})
+		installCanvasMocks(gl)
+
+		const {unmount} = renderBackdrop()
+		await nextFrame()
+		unmount()
+		const pollsAtUnmount = vi.mocked(gl.getProgramParameter).mock.calls.length
+		gl.completeCompile()
+		await nextFrame()
+		await nextFrame()
+
+		expect(vi.mocked(gl.getProgramParameter).mock.calls.length).toBe(pollsAtUnmount)
+		expect(gl.deleteProgram).toHaveBeenCalledOnce()
+		expect(gl.loseContext).toHaveBeenCalledOnce()
+		expect(document.body).not.toHaveClass('backdrop-webgl-active')
+	})
+
+	it('releases the WebGL context on unmount', async () => {
+		const gl = mockWebgl()
+		installCanvasMocks(gl)
 
 		const {container, unmount} = renderBackdrop()
 
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
 		expect(container.querySelector('canvas[data-backdrop-layer="webgl"]')).not.toBeNull()
-		expect(scratchGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.loseContext).not.toHaveBeenCalled()
 
 		unmount()
 
-		expect(productionGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.loseContext).toHaveBeenCalledOnce()
 		expect(document.body).not.toHaveClass('backdrop-webgl-active')
 	})
 
 	// StrictMode re-runs the effect on the same canvas, and a lost context
 	// cannot be revived there: releasing it then would fail the backdrop.
-	it('keeps the production WebGL context through a StrictMode effect re-run', async () => {
-		const scratchGl = mockWebgl()
-		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl, scratchGl})
+	it.each([
+		['synchronous', false],
+		['parallel', true]
+	])('keeps the WebGL context through a StrictMode effect re-run (%s compile)', async (_label, parallelCompile) => {
+		const gl = mockWebgl({parallelCompile})
+		installCanvasMocks(gl)
 		const onUnavailable = vi.fn()
 
 		const {unmount} = render(
@@ -136,20 +211,20 @@ describe('AppBackdrop', () => {
 				<AppBackdrop scenes={SCENES} colorScheme="dark" onUnavailable={onUnavailable} />
 			</StrictMode>
 		)
+		gl.completeCompile()
 
 		await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
-		expect(productionGl.loseContext).not.toHaveBeenCalled()
+		expect(gl.loseContext).not.toHaveBeenCalled()
 		expect(onUnavailable).not.toHaveBeenCalled()
 
 		unmount()
 
-		expect(productionGl.loseContext).toHaveBeenCalledOnce()
+		expect(gl.loseContext).toHaveBeenCalledOnce()
 	})
 
 	it('paints one WebGL frame while initially unfocused without starting the animation loop', async () => {
-		const scratchGl = mockWebgl()
 		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl, scratchGl})
+		installCanvasMocks(productionGl)
 		const hasFocus = vi.spyOn(document, 'hasFocus').mockReturnValue(false)
 		const request = vi.spyOn(window, 'requestAnimationFrame')
 
@@ -172,9 +247,8 @@ describe('AppBackdrop', () => {
 	})
 
 	it('pauses WebGL while the window is blurred and resumes on focus', async () => {
-		const scratchGl = mockWebgl()
 		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl, scratchGl})
+		installCanvasMocks(productionGl)
 		const hasFocus = vi.spyOn(document, 'hasFocus').mockReturnValue(true)
 		const cancel = vi.spyOn(window, 'cancelAnimationFrame')
 		const request = vi.spyOn(window, 'requestAnimationFrame')
@@ -203,9 +277,8 @@ describe('AppBackdrop', () => {
 	})
 
 	it('reports unavailable when the production WebGL context is lost', async () => {
-		const scratchGl = mockWebgl()
 		const productionGl = mockWebgl()
-		const getContext = installCanvasMocks({productionGl, scratchGl})
+		const getContext = installCanvasMocks(productionGl)
 
 		const {container, onUnavailable} = renderBackdrop()
 
@@ -246,7 +319,7 @@ describe('AppBackdrop', () => {
 		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 		try {
 			const productionGl = mockWebgl()
-			installCanvasMocks({productionGl})
+			installCanvasMocks(productionGl)
 			fakeGpu(productionGl, () => 120)
 
 			const {onUnavailable} = renderBackdrop('light')
@@ -269,7 +342,7 @@ describe('AppBackdrop', () => {
 		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 		try {
 			const productionGl = mockWebgl()
-			installCanvasMocks({productionGl})
+			installCanvasMocks(productionGl)
 			// Eight slow frames: both measurements of the first calibration, at idle clocks.
 			fakeGpu(productionGl, (_pixels, call) => (call < 8 ? 120 : 4))
 
@@ -290,7 +363,7 @@ describe('AppBackdrop', () => {
 		vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 		try {
 			const productionGl = mockWebgl()
-			installCanvasMocks({productionGl})
+			installCanvasMocks(productionGl)
 			// Slow for the first measurement only: the lower scale fits at once.
 			fakeGpu(productionGl, (_pixels, call) => (call < 4 ? 120 : 3))
 			const fullWidth = Math.floor(window.innerWidth * lightOceanScene.renderScale)
@@ -312,7 +385,7 @@ describe('AppBackdrop', () => {
 
 	it('lowers its resolution instead of falling back when that fits the budget', async () => {
 		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl})
+		installCanvasMocks(productionGl)
 		// 100 ms for a frame at the scene's own scale, proportional to pixels.
 		const fullScalePixels = Math.floor(window.innerWidth * darkAuroraScene.renderScale) * Math.floor(window.innerHeight * darkAuroraScene.renderScale)
 		fakeGpu(productionGl, pixels => (pixels / fullScalePixels) * 100)
@@ -326,7 +399,7 @@ describe('AppBackdrop', () => {
 
 	it('keeps the backdrop when its frames fit the budget', async () => {
 		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl})
+		installCanvasMocks(productionGl)
 		fakeGpu(productionGl, () => 4)
 
 		const {onUnavailable} = renderBackdrop('light')
@@ -338,7 +411,7 @@ describe('AppBackdrop', () => {
 
 	it('lowers its resolution when the window grows past what the measured GPU can draw', async () => {
 		const productionGl = mockWebgl()
-		installCanvasMocks({productionGl})
+		installCanvasMocks(productionGl)
 		vi.spyOn(document, 'hasFocus').mockReturnValue(true)
 		const gpu = fakeGpu(productionGl, () => 10)
 		const {innerWidth, innerHeight} = window
@@ -382,11 +455,11 @@ describe('AppBackdrop', () => {
 	it('logs opt-in unavailable diagnostics', async () => {
 		window.history.replaceState(null, '', '/?backdropDebug=1')
 		const info = vi.spyOn(console, 'info').mockImplementation(() => undefined)
-		installCanvasMocks({scratchGl: null})
+		installCanvasMocks(null)
 
 		const {onUnavailable} = renderBackdrop()
 
 		await waitFor(() => expect(onUnavailable).toHaveBeenCalled())
-		expect(info).toHaveBeenCalledWith('[backdrop]', expect.objectContaining({event: 'unavailable', reason: 'scratch-webgl-unavailable', sceneId: 'dark-aurora'}))
+		expect(info).toHaveBeenCalledWith('[backdrop]', expect.objectContaining({event: 'unavailable', reason: 'production-webgl-unavailable', sceneId: 'dark-aurora'}))
 	})
 })

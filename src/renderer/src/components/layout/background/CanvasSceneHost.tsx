@@ -1,8 +1,8 @@
-import {useEffect, useLayoutEffect, useRef, type ReactNode} from 'react'
+import {useEffect, useLayoutEffect, useRef, useState, type ReactNode} from 'react'
 import {logBackdrop, reportBackdrop} from './backdropLogger.js'
 import {BACKDROP_CONFIRM_DELAY_MS, fitRenderScale, fitsFrameBudget, measureFrameCost, MIN_RENDER_SCALE} from './frameBudget.js'
 import type {BackdropScene} from './types.js'
-import {createWebglProgram, disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, WEBGL_CONTEXT_OPTIONS} from './webgl.js'
+import {disposeWebglProgram, isSoftwareRenderer, releaseWebglContext, rendererName, startWebglProgram, WEBGL_CONTEXT_OPTIONS, webglProgramLinked, webglProgramSettled, type WebglProgramResources} from './webgl.js'
 
 function backdropPreviewSoftwareAllowed(): boolean {
 	try {
@@ -10,6 +10,19 @@ function backdropPreviewSoftwareAllowed(): boolean {
 	} catch {
 		return false
 	}
+}
+
+// The backdrop canvas's context with the scene program linked on it.
+interface LinkedScene {
+	gl: WebGLRenderingContext
+	renderer: string
+	resources: WebglProgramResources
+	softwareRendererAllowed: boolean
+}
+
+function reportUnavailable(sceneId: BackdropScene['id'], onUnavailable: (reason: string) => void, reason: string, details: Record<string, unknown>): void {
+	logBackdrop('info', sceneId, 'unavailable', {reason, ...details})
+	onUnavailable(reason)
 }
 
 function isBackdropActive(): boolean {
@@ -27,52 +40,71 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 		onUnavailableRef.current = onUnavailable
 	})
 
-	useEffect(() => {
-		const giveUp = (reason: string, details: Record<string, unknown> = {}): void => {
-			logBackdrop('info', scene.id, 'unavailable', {reason, ...details})
-			onUnavailableRef.current(reason)
-		}
+	const [linked, setLinked] = useState<LinkedScene | null>(null)
 
+	// Compiles the scene without blocking the renderer where the driver allows:
+	// any status read waits for the compile, which a cold ANGLE/D3D11 compile of
+	// a scene shader stretches to seconds of frozen UI.
+	useEffect(() => {
+		const giveUp = (reason: string, details: Record<string, unknown> = {}): void => reportUnavailable(scene.id, onUnavailableRef.current, reason, details)
 		const webglCanvas = webglCanvasRef.current
 		if (!webglCanvas) return
 
 		const softwareRendererAllowed = softwareWebglAllowed || backdropPreviewSoftwareAllowed()
-		const probeCanvas = document.createElement('canvas')
-		const probeGl = probeCanvas.getContext('webgl', WEBGL_CONTEXT_OPTIONS)
-		if (!probeGl) return giveUp('scratch-webgl-unavailable')
-
-		const probeRendererName = rendererName(probeGl)
-		if (isSoftwareRenderer(probeRendererName) && !softwareRendererAllowed) {
-			releaseWebglContext(probeGl)
-			return giveUp('software-webgl-rejected', {renderer: probeRendererName})
-		}
-
-		const probeResources = createWebglProgram(probeGl, scene.fragmentShader, scene.id)
-		if (!probeResources) {
-			releaseWebglContext(probeGl)
-			return giveUp('scratch-program-failed', {renderer: probeRendererName})
-		}
-		disposeWebglProgram(probeGl, probeResources)
-		releaseWebglContext(probeGl)
-		logBackdrop('debug', scene.id, 'scratch-webgl-valid', {mode: 'probe', renderer: probeRendererName, softwareRendererAllowed})
-
 		const gl = webglCanvas.getContext('webgl', WEBGL_CONTEXT_OPTIONS)
-		if (!gl) return giveUp('production-webgl-unavailable', {renderer: probeRendererName})
-
-		const productionRendererName = rendererName(gl)
-		const resources = createWebglProgram(gl, scene.fragmentShader, scene.id)
-		if (!resources) {
-			releaseWebglContext(gl)
-			return giveUp('production-program-failed', {renderer: productionRendererName || probeRendererName})
+		if (!gl) return giveUp('production-webgl-unavailable')
+		// Free the GPU context now rather than whenever the canvas is collected.
+		// Only once the canvas has left the page: StrictMode re-runs this effect
+		// on the same canvas, and a lost context cannot be revived there.
+		const release = (): void => {
+			if (!webglCanvas.isConnected) releaseWebglContext(gl)
 		}
+
+		const renderer = rendererName(gl)
+		if (isSoftwareRenderer(renderer) && !softwareRendererAllowed) {
+			giveUp('software-webgl-rejected', {renderer})
+			return release
+		}
+
+		const program = startWebglProgram(gl, scene.fragmentShader)
+		if (!program) {
+			giveUp('production-program-failed', {renderer})
+			return release
+		}
+
+		const compileStart = performance.now()
+		let compileRaf = 0
+		const awaitLink = (): void => {
+			compileRaf = 0
+			if (!webglProgramSettled(gl, program)) {
+				compileRaf = requestAnimationFrame(awaitLink)
+				return
+			}
+			if (!webglProgramLinked(gl, program, scene.id)) return giveUp('production-program-failed', {renderer})
+			logBackdrop('debug', scene.id, 'program-linked', {parallelCompile: program.completionStatus !== null, waitedMs: Math.round(performance.now() - compileStart)})
+			setLinked({gl, renderer, resources: program.resources, softwareRendererAllowed})
+		}
+		awaitLink()
+
+		return () => {
+			if (compileRaf) cancelAnimationFrame(compileRaf)
+			setLinked(null)
+			disposeWebglProgram(gl, program.resources)
+			release()
+		}
+	}, [scene, softwareWebglAllowed])
+
+	// Draws the linked program: the GPU is timed only once the compile is done.
+	useEffect(() => {
+		const webglCanvas = webglCanvasRef.current
+		if (!webglCanvas || !linked) return
+		const {gl, renderer, resources, softwareRendererAllowed} = linked
+		const giveUp = (reason: string, details: Record<string, unknown> = {}): void => reportUnavailable(scene.id, onUnavailableRef.current, reason, details)
+
 		gl.useProgram(resources.prog)
 
 		const buf = gl.createBuffer()
-		if (!buf) {
-			disposeWebglProgram(gl, resources)
-			releaseWebglContext(gl)
-			return giveUp('production-buffer-failed', {renderer: productionRendererName || probeRendererName})
-		}
+		if (!buf) return giveUp('production-buffer-failed', {renderer})
 		gl.bindBuffer(gl.ARRAY_BUFFER, buf)
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
 		const aPos = gl.getAttribLocation(resources.prog, 'aPos')
@@ -162,7 +194,7 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			if (webglActive) return
 			webglActive = true
 			document.body.classList.add('backdrop-webgl-active')
-			logBackdrop('info', scene.id, 'webgl-activate', {mode: 'webgl', reason, renderer: productionRendererName || probeRendererName, softwareRendererAllowed})
+			logBackdrop('info', scene.id, 'webgl-activate', {mode: 'webgl', reason, renderer, softwareRendererAllowed})
 		}
 		// A second look a little later decides: a busy moment or a GPU still at idle
 		// clocks is not a slow GPU. It returns to the scene's own resolution when the
@@ -180,7 +212,7 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 				if (failed) return
 				const result = calibrate()
 				if (!result.fits) {
-					const details = {renderer: productionRendererName || probeRendererName, pixels: canvasPixels(), renderScale, measuredMs: Math.round(result.medianMs)}
+					const details = {renderer, pixels: canvasPixels(), renderScale, measuredMs: Math.round(result.medianMs)}
 					reportBackdrop(scene.id, 'fallback', {reason: 'production-webgl-too-slow', ...details})
 					failAtRuntime('production-webgl-too-slow', details)
 					return
@@ -254,8 +286,8 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 		}
 		const onContextLost = (event: Event): void => {
 			event.preventDefault()
-			logBackdrop('warn', scene.id, 'webgl-context-lost', {mode: 'webgl', renderer: productionRendererName || probeRendererName})
-			failAtRuntime('production-webgl-context-lost', {renderer: productionRendererName || probeRendererName})
+			logBackdrop('warn', scene.id, 'webgl-context-lost', {mode: 'webgl', renderer})
+			failAtRuntime('production-webgl-context-lost', {renderer})
 		}
 
 		webglCanvas.addEventListener('webglcontextlost', onContextLost)
@@ -276,14 +308,9 @@ export function CanvasSceneHost({scene, softwareWebglAllowed = false, onUnavaila
 			reduceMotion.removeEventListener('change', onReduce)
 			window.removeEventListener('resize', onStaticInvalidation)
 			document.body.classList.remove('backdrop-webgl-active')
-			disposeWebglProgram(gl, resources)
 			gl.deleteBuffer(buf)
-			// Free the GPU context now rather than whenever the canvas is collected.
-			// Only once the canvas has left the page: StrictMode re-runs this effect
-			// on the same canvas, and a lost context cannot be revived there.
-			if (!webglCanvas.isConnected) releaseWebglContext(gl)
 		}
-	}, [scene, softwareWebglAllowed])
+	}, [linked, scene])
 
 	return <canvas ref={webglCanvasRef} aria-hidden data-backdrop-layer="webgl" data-backdrop-scene={scene.id} className="pointer-events-none fixed inset-0 h-full w-full" style={{zIndex: -1}} />
 }
