@@ -1,5 +1,6 @@
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {createWebglProgram} from '../../src/renderer/src/components/layout/background/webgl.js'
+import {startWebglProgram, webglProgramLinked} from '../../src/renderer/src/components/layout/background/webgl.js'
+import {mockWebgl} from '../shared/mockWebgl.js'
 
 // The backdrop probe compiles the repo's constant GLSL on the machine's real GL
 // and falls back to CSS when it fails — a compile or link failure is therefore
@@ -7,24 +8,10 @@ import {createWebglProgram} from '../../src/renderer/src/components/layout/backg
 // regression signal. Error severity leaked into main.log as error lines and
 // failed the startup oracle on constrained runners (nightly run 2, macOS no-gpu).
 
-function failingCompileGl() {
-	return {createShader: () => ({}), shaderSource: () => undefined, compileShader: () => undefined, getShaderParameter: () => false, getShaderInfoLog: () => 'simulated compile failure', deleteShader: () => undefined} as unknown as WebGLRenderingContext
-}
-
-function failingLinkGl() {
-	return {
-		createShader: () => ({}),
-		shaderSource: () => undefined,
-		compileShader: () => undefined,
-		getShaderParameter: () => true,
-		deleteShader: () => undefined,
-		createProgram: () => ({}),
-		attachShader: () => undefined,
-		linkProgram: () => undefined,
-		getProgramParameter: () => false,
-		getProgramInfoLog: () => 'simulated link failure',
-		deleteProgram: () => undefined
-	} as unknown as WebGLRenderingContext
+function linked(gl: WebGLRenderingContext): boolean {
+	const program = startWebglProgram(gl, 'fragment-source')
+	expect(program).not.toBeNull()
+	return program ? webglProgramLinked(gl, program, 'dark-aurora') : true
 }
 
 describe('backdrop webgl probe logging', () => {
@@ -40,21 +27,17 @@ describe('backdrop webgl probe logging', () => {
 		errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-		const resources = createWebglProgram(failingCompileGl(), 'fragment-source', 'dark-aurora')
-
-		expect(resources).toBeNull()
+		expect(linked(mockWebgl({compileOk: false, linkOk: false}))).toBe(false)
 		expect(errorSpy).not.toHaveBeenCalled()
-		expect(infoSpy).toHaveBeenCalledWith('backdrop shader compile failed for dark-aurora:', 'simulated compile failure')
+		expect(infoSpy).toHaveBeenCalledWith('backdrop shader compile failed for dark-aurora:', 'shader failed')
 	})
 
 	it('logs expected program-link failures at info severity, not error', () => {
 		errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
 
-		const resources = createWebglProgram(failingLinkGl(), 'fragment-source', 'dark-aurora')
-
-		expect(resources).toBeNull()
+		expect(linked(mockWebgl({linkOk: false}))).toBe(false)
 		expect(errorSpy).not.toHaveBeenCalled()
-		expect(infoSpy).toHaveBeenCalledWith('backdrop program link failed for dark-aurora:', 'simulated link failure')
+		expect(infoSpy).toHaveBeenCalledWith('backdrop program link failed for dark-aurora:', 'program failed')
 	})
 })

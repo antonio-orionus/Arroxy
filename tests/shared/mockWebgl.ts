@@ -1,16 +1,23 @@
 import {vi} from 'vite-plus/test'
 
+const COMPLETION_STATUS_KHR = 0x91b1
+
 // A stand-in WebGL context: jsdom has none, so a backdrop that probes it gives up.
 export interface MockWebglOptions {
 	compileOk?: boolean
+	// Exposes KHR_parallel_shader_compile; the program stays incomplete until `completeCompile()`.
+	parallelCompile?: boolean
 	debugRenderer?: string | null
 	linkOk?: boolean
 	maskedRenderer?: string
 	maskedVendor?: string
 }
 
-export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext & {loseContext: ReturnType<typeof vi.fn>} {
+export type MockWebgl = WebGLRenderingContext & {completeCompile: () => void; loseContext: ReturnType<typeof vi.fn>}
+
+export function mockWebgl(options: MockWebglOptions = {}): MockWebgl {
 	const loseContext = vi.fn()
+	let compileComplete = false
 	const gl = {
 		ARRAY_BUFFER: 0x8892,
 		COMPILE_STATUS: 0x8b81,
@@ -40,6 +47,7 @@ export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext
 		getExtension: vi.fn((name: string) => {
 			if (name === 'WEBGL_lose_context') return {loseContext}
 			if (name === 'WEBGL_debug_renderer_info' && options.debugRenderer !== null) return {UNMASKED_RENDERER_WEBGL: 0, UNMASKED_VENDOR_WEBGL: 1}
+			if (name === 'KHR_parallel_shader_compile' && options.parallelCompile) return {COMPLETION_STATUS_KHR}
 			return null
 		}),
 		getParameter: vi.fn((parameter: number) => {
@@ -50,7 +58,7 @@ export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext
 			return ''
 		}),
 		getProgramInfoLog: vi.fn(() => 'program failed'),
-		getProgramParameter: vi.fn(() => options.linkOk ?? true),
+		getProgramParameter: vi.fn((_program: unknown, parameter: number) => (parameter === COMPLETION_STATUS_KHR ? compileComplete : (options.linkOk ?? true))),
 		getShaderInfoLog: vi.fn(() => 'shader failed'),
 		getShaderParameter: vi.fn(() => options.compileOk ?? true),
 		getUniformLocation: vi.fn(() => ({})),
@@ -63,12 +71,16 @@ export function mockWebgl(options: MockWebglOptions = {}): WebGLRenderingContext
 		vertexAttribPointer: vi.fn(),
 		viewport: vi.fn()
 	}
-	return Object.assign(gl, {loseContext}) as unknown as WebGLRenderingContext & {loseContext: ReturnType<typeof vi.fn>}
+	const completeCompile = (): void => {
+		compileComplete = true
+	}
+	return Object.assign(gl, {completeCompile, loseContext}) as unknown as MockWebgl
 }
 
-export function installCanvasMocks({productionGl = mockWebgl(), scratchGl = mockWebgl()}: {productionGl?: WebGLRenderingContext | null; scratchGl?: WebGLRenderingContext | null} = {}) {
+// `gl` answers the backdrop canvas; every other canvas has no WebGL.
+export function installCanvasMocks(gl: WebGLRenderingContext | null = mockWebgl()) {
 	return vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockImplementation(function getContext(this: HTMLCanvasElement, contextId: string) {
-		if (contextId === 'webgl') return this.dataset.backdropLayer === 'webgl' ? productionGl : scratchGl
+		if (contextId === 'webgl' && this.dataset.backdropLayer === 'webgl') return gl
 		return null
 	} as HTMLCanvasElement['getContext'])
 }
