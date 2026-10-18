@@ -169,8 +169,8 @@
 			"playlistScope": {
 				"label": "Escopo da playlist",
 				"change": "Alterar",
-				"summaryAppLimit": "Carregar os primeiros {{count}} itens",
-				"summaryFirst": "Carregar os primeiros {{count}} itens",
+				"summaryAppLimit": "Carregar os primeiros itens: {{count}}",
+				"summaryFirst": "Carregar os primeiros itens: {{count}}",
 				"summaryRange": "Carregar os itens {{from}}-{{to}}",
 				"dialogTitle": "Escopo da playlist",
 				"dialogDescription": "Escolha o que o Arroxy pede ao yt-dlp para carregar nesta playlist.",

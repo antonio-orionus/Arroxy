@@ -175,8 +175,8 @@
 			"playlistScope": {
 				"label": "Alcance de la lista",
 				"change": "Cambiar",
-				"summaryAppLimit": "Cargar los primeros {{count}} elementos",
-				"summaryFirst": "Cargar los primeros {{count}} elementos",
+				"summaryAppLimit": "Cargar los primeros elementos: {{count}}",
+				"summaryFirst": "Cargar los primeros elementos: {{count}}",
 				"summaryRange": "Cargar elementos {{from}}-{{to}}",
 				"dialogTitle": "Alcance de la lista",
 				"dialogDescription": "Elige qué le pide Arroxy a yt-dlp que cargue de esta lista.",

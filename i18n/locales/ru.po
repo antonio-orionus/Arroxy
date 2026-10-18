@@ -146,7 +146,7 @@ msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "{{count}} загрузка идёт"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} загрузок идёт"
@@ -626,7 +626,7 @@ msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Вход через Explore выполнен — повторяем 1 ссылку"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Вход через Explore выполнен — повторяем ссылки: {{count}}"
@@ -698,7 +698,7 @@ msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} видео уже в очереди — пропущено"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Пропущено видео, уже находящихся в очереди: {{count}}"
@@ -726,7 +726,7 @@ msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ видео — выбери, сколько скачать"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ видео — выбери, сколько скачать"
@@ -754,7 +754,7 @@ msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} видео в этом списке — просмотри и выбери"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "Видео в этом списке: {{count}} — просмотри и выбери"
@@ -774,7 +774,7 @@ msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ видео в этом списке — просмотри и выбери"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ видео в этом списке — просмотри и выбери"
@@ -1002,7 +1002,7 @@ msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "Требуют внимания: {{count}}"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Требуют внимания: {{count}}"
@@ -1038,7 +1038,7 @@ msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "В этом плейлисте больше {{count}} видео. Скачай все, первые {{count}} или выбери при просмотре."
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "В этом плейлисте больше {{count}} видео. Скачай все, первые {{count}} или выбери при просмотре."
@@ -1066,7 +1066,7 @@ msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Эта ссылка — список из {{count}} видео. Просмотри его и выбери, что скачать."
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Эта ссылка — список из {{count}} видео. Просмотри его и выбери, что скачать."
@@ -1762,7 +1762,7 @@ msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 загружается · {{percent}}%"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} загружаются · {{percent}}%"
@@ -1854,7 +1854,7 @@ msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} глава"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} глав"
@@ -1932,7 +1932,7 @@ msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} из {{total}} видео"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} из {{total}} видео"
@@ -1952,7 +1952,7 @@ msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} из {{total}} трека"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} из {{total}} треков"
@@ -1972,7 +1972,7 @@ msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} из {{total}} URL"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} из {{total}} URL"
@@ -2032,7 +2032,7 @@ msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Он попадёт в место назначения ниже"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Они попадут в {{count}} места назначения ниже"
@@ -2056,7 +2056,7 @@ msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} элемент"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} элементов"
@@ -2168,7 +2168,7 @@ msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "Языков: {{count}}"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "Языков: {{count}}"
@@ -2556,7 +2556,7 @@ msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "Доступно языков: {{count}}, добавить"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "Доступно языков: {{count}}, добавить"
@@ -2852,7 +2852,7 @@ msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} видео"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} видео"
@@ -2872,7 +2872,7 @@ msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} трек"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} треков"
@@ -2892,7 +2892,7 @@ msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} URL"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL"
@@ -2924,7 +2924,7 @@ msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "Найдена {{count}} страница"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "Найдено {{count}} страниц"
@@ -2964,7 +2964,7 @@ msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} из них — плейлист, а не видео. Вставьте его ссылку отдельно, чтобы скачать."
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} из них — плейлисты, а не видео. Вставляйте их ссылки по одной, чтобы скачать."
@@ -3012,7 +3012,7 @@ msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "{{count}} удалено"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} удалено"
@@ -3032,7 +3032,7 @@ msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Удалить {{count}} из списка"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Удалить {{count}} из списка"
@@ -3060,7 +3060,7 @@ msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} выбрано"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} выбрано"
@@ -3144,7 +3144,7 @@ msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} элемент"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} элементов"
@@ -3540,7 +3540,7 @@ msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "Включено: {{count}}"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "Включено: {{count}}"
@@ -3628,7 +3628,7 @@ msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "{{count}} не удалось"
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} не удалось"
@@ -4506,11 +4506,11 @@ msgid "Reset"
 msgstr "Сбросить"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "Загрузить первые элементы: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "Загрузить первые элементы: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
@@ -4656,7 +4656,7 @@ msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "То, что сработало, добавлено в очередь. {{count}} URL не удалось подготовить."
 
-#. Plural form "other" for ru: used for counts like .
+#. Plural form "other" for ru: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "То, что сработало, добавлено в очередь. {{count}} URL не удалось подготовить."

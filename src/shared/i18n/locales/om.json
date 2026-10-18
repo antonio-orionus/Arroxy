@@ -174,8 +174,8 @@
 			"playlistScope": {
 				"label": "Bal'ina tarree taphaa",
 				"change": "Jijjiiri",
-				"summaryAppLimit": "Wantoota {{count}} jalqabaa fe'i",
-				"summaryFirst": "Wantoota {{count}} jalqabaa fe'i",
+				"summaryAppLimit": "Wantoota jalqabaa fe'i: {{count}}",
+				"summaryFirst": "Wantoota jalqabaa fe'i: {{count}}",
 				"summaryRange": "Wantoota {{from}}-{{to}} fe'i",
 				"dialogTitle": "Bal'ina tarree taphaa",
 				"dialogDescription": "Arroxy tarree taphaa kanaaf yt-dlp maal akka fe'u gaafatu filadhu.",

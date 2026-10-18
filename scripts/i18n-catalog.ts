@@ -2,7 +2,7 @@
 import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
-import {spawnSync} from 'node:child_process'
+import {spawnSync, type SpawnSyncReturns} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
 import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, normalizeCatalog, parseCatalog, type CatalogIssue, type StringLeaf, validateLocaleCatalog} from './i18n-catalog-core.js'
 
@@ -63,10 +63,14 @@ function runMsgmerge(lang: SupportedLang): void {
 
 	// msgmerge reads the template from a file; a per-locale one carries that locale's plural categories.
 	const templateDir = mkdtempSync(join(tmpdir(), 'arroxy-pot-'))
-	const templatePath = join(templateDir, `${lang}.pot`)
-	write(templatePath, compileCatalog(buildSourceCatalog(localeSourceLeaves(lang))))
-	const result = spawnSync('msgmerge', ['--update', '--backup=none', '--previous', '--no-location', poPath, templatePath], {encoding: 'utf8'})
-	rmSync(templateDir, {recursive: true, force: true})
+	let result: SpawnSyncReturns<string>
+	try {
+		const templatePath = join(templateDir, `${lang}.pot`)
+		write(templatePath, compileCatalog(buildSourceCatalog(localeSourceLeaves(lang))))
+		result = spawnSync('msgmerge', ['--update', '--backup=none', '--previous', '--no-location', poPath, templatePath], {encoding: 'utf8'})
+	} finally {
+		rmSync(templateDir, {recursive: true, force: true})
+	}
 	if (result.error) {
 		throw new Error(`msgmerge is required for i18n:sync. Install GNU gettext and retry. (${result.error.message})`)
 	}

@@ -146,7 +146,7 @@ msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "Trwa {{count}} pobieranie"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Trwają {{count}} pobierania"
@@ -626,7 +626,7 @@ msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Zalogowano w Explore — ponawiam 1 link"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Zalogowano w Explore — ponawiam linki: {{count}}"
@@ -698,7 +698,7 @@ msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} film jest już w kolejce — pominięto"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Pominięto filmy, które są już w kolejce: {{count}}"
@@ -726,7 +726,7 @@ msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ film — wybierz, ile"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "Filmów: {{count}}+ — wybierz, ile"
@@ -754,7 +754,7 @@ msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} film na tej liście — sprawdź, aby wybrać"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "Filmów na tej liście: {{count}} — sprawdź, aby wybrać"
@@ -774,7 +774,7 @@ msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ film na tej liście — sprawdź, aby wybrać"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "Filmów na tej liście: {{count}}+ — sprawdź, aby wybrać"
@@ -1002,7 +1002,7 @@ msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "{{count}} pobieranie wymaga Twojej uwagi"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Pobrania wymagające Twojej uwagi: {{count}}"
@@ -1038,7 +1038,7 @@ msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Ponad {{count}} film w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania."
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Ponad {{count}} filmów w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania."
@@ -1066,7 +1066,7 @@ msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Ten link to lista zawierająca {{count}} film. Sprawdź ją, aby wybrać, co pobrać."
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Ten link to lista filmów: {{count}}. Sprawdź ją, aby wybrać, co pobrać."
@@ -1762,7 +1762,7 @@ msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 pobieranie · {{percent}}%"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} pobrań · {{percent}}%"
@@ -1854,7 +1854,7 @@ msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} rozdział"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} rozdziałów"
@@ -1932,7 +1932,7 @@ msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} z {{total}} filmu"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} z {{total}} filmów"
@@ -1952,7 +1952,7 @@ msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} z {{total}} utworu"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} z {{total}} utworów"
@@ -1972,7 +1972,7 @@ msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} z {{total}} adresu URL"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} z {{total}} adresów URL"
@@ -2032,7 +2032,7 @@ msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Trafi do poniższego miejsca docelowego"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Trafią do {{count}} poniższych miejsc docelowych"
@@ -2056,7 +2056,7 @@ msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} element"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} elementów"
@@ -2168,7 +2168,7 @@ msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "Języki: {{count}}"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "Języki: {{count}}"
@@ -2556,7 +2556,7 @@ msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "Dostępny język: {{count}}, dodaj"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "Dostępne języki: {{count}}, dodaj"
@@ -2852,7 +2852,7 @@ msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} film"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} filmów"
@@ -2872,7 +2872,7 @@ msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} utwór"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} utworów"
@@ -2892,7 +2892,7 @@ msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} adres URL"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} adresów URL"
@@ -2924,7 +2924,7 @@ msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "Znaleziono {{count}} stronę"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "Znaleziono {{count}} stron"
@@ -2964,7 +2964,7 @@ msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} z nich to playlista, nie film — wklej jej link osobno, aby ją pobrać."
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} z nich to playlisty, nie filmy — wklejaj ich linki pojedynczo, aby je pobrać."
@@ -3012,7 +3012,7 @@ msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "Usunięto {{count}}"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "Usunięto {{count}}"
@@ -3032,7 +3032,7 @@ msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Usuń {{count}} z listy"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Usuń {{count}} z listy"
@@ -3060,7 +3060,7 @@ msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "Wybrano {{count}}"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "Wybrano {{count}}"
@@ -3144,7 +3144,7 @@ msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} element"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} elementów"
@@ -3540,7 +3540,7 @@ msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "Włączone: {{count}}"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "Włączone: {{count}}"
@@ -3628,7 +3628,7 @@ msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "Niepowodzenie: {{count}}"
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "Niepowodzenie: {{count}}"
@@ -4506,11 +4506,11 @@ msgid "Reset"
 msgstr "Resetuj"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "Wczytaj pierwsze elementy: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "Wczytaj pierwsze elementy: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
@@ -4656,7 +4656,7 @@ msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresu URL."
 
-#. Plural form "other" for pl: used for counts like .
+#. Plural form "other" for pl: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresów URL."

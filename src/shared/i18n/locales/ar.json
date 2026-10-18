@@ -215,8 +215,8 @@
 			"playlistScope": {
 				"label": "نطاق قائمة التشغيل",
 				"change": "تغيير",
-				"summaryAppLimit": "تحميل أول {{count}} عنصر",
-				"summaryFirst": "تحميل أول {{count}} عنصر",
+				"summaryAppLimit": "تحميل أول العناصر: {{count}}",
+				"summaryFirst": "تحميل أول العناصر: {{count}}",
 				"summaryRange": "تحميل العناصر {{from}}-{{to}}",
 				"dialogTitle": "نطاق قائمة التشغيل",
 				"dialogDescription": "اختر ما يطلب Arroxy من yt-dlp تحميله لقائمة التشغيل هذه.",

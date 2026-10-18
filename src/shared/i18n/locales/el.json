@@ -174,8 +174,8 @@
 			"playlistScope": {
 				"label": "Εύρος playlist",
 				"change": "Αλλαγή",
-				"summaryAppLimit": "Φόρτωση των πρώτων {{count}} στοιχείων",
-				"summaryFirst": "Φόρτωση των πρώτων {{count}} στοιχείων",
+				"summaryAppLimit": "Φόρτωση πρώτων στοιχείων: {{count}}",
+				"summaryFirst": "Φόρτωση πρώτων στοιχείων: {{count}}",
 				"summaryRange": "Φόρτωση στοιχείων {{from}}-{{to}}",
 				"dialogTitle": "Εύρος playlist",
 				"dialogDescription": "Επιλέξτε τι ζητά το Arroxy από το yt-dlp να φορτώσει για αυτή την playlist.",

@@ -4796,12 +4796,12 @@ msgid "Reset"
 msgstr "إعادة ضبط"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
-msgstr "تحميل أول {{count}} عنصر"
+msgid "Load first items: {{count}}"
+msgstr "تحميل أول العناصر: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
-msgstr "تحميل أول {{count}} عنصر"
+msgid "Load first items: {{count}}"
+msgstr "تحميل أول العناصر: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
 msgid "Load items {{from}}-{{to}}"

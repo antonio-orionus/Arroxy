@@ -169,8 +169,8 @@
 			"playlistScope": {
 				"label": "Ambito della playlist",
 				"change": "Modifica",
-				"summaryAppLimit": "Carica i primi {{count}} elementi",
-				"summaryFirst": "Carica i primi {{count}} elementi",
+				"summaryAppLimit": "Carica i primi elementi: {{count}}",
+				"summaryFirst": "Carica i primi elementi: {{count}}",
 				"summaryRange": "Carica gli elementi {{from}}-{{to}}",
 				"dialogTitle": "Ambito della playlist",
 				"dialogDescription": "Scegli cosa Arroxy chiede a yt-dlp di caricare per questa playlist.",

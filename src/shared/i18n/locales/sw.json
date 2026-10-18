@@ -161,8 +161,8 @@
 			"playlistScope": {
 				"label": "Wigo wa orodha ya kucheza",
 				"change": "Badilisha",
-				"summaryAppLimit": "Pakia vipande {{count}} vya kwanza",
-				"summaryFirst": "Pakia vipande {{count}} vya kwanza",
+				"summaryAppLimit": "Pakia vipande vya kwanza: {{count}}",
+				"summaryFirst": "Pakia vipande vya kwanza: {{count}}",
 				"summaryRange": "Pakia vipande {{from}}-{{to}}",
 				"dialogTitle": "Wigo wa orodha ya kucheza",
 				"dialogDescription": "Chagua kile ambacho Arroxy inaomba yt-dlp ipakie kwa orodha hii ya kucheza.",

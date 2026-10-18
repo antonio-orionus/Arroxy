@@ -57,6 +57,8 @@ function pluralNote(lang: string, category: PluralCategory): string {
 	const rules = new Intl.PluralRules(lang)
 	const examples: number[] = []
 	for (let n = 0; n <= 200 && examples.length < NOTE_EXAMPLE_LIMIT; n += 1) if (rules.select(n) === category) examples.push(n)
+	// Some locales only use a category for fractions (Russian `other`), which the integer scan never hits.
+	if (examples.length === 0) return `Plural form "${category}" for ${lang}: used for fractional counts and other values not covered by the other forms.`
 	return `Plural form "${category}" for ${lang}: used for counts like ${examples.join(', ')}.`
 }
 

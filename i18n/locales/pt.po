@@ -131,7 +131,7 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "Continuar Baixando"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "dialogs.quitWithActiveDownloads.message_many"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} de downloads em andamento"
@@ -606,7 +606,7 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Idioma"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.exploreSignInRetrying_many"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Login feito com o Explore — tentando {{count}} de links de novo"
@@ -673,7 +673,7 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Essa pasta não pode ser usada para esta playlist."
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.queue.skippedAlreadyQueued_many"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} de vídeos já estão na fila — ignorados"
@@ -696,7 +696,7 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "Já está na fila"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.chooseHowMany_many"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ de vídeos — escolha quantos"
@@ -719,7 +719,7 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Não foi possível adicionar esse link — tente novamente"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.review_many"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "{{count}} de vídeos nesta lista — revise para escolher"
@@ -734,7 +734,7 @@ msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "{{count}} vídeos nesta lista — revise para escolher"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "notifications.quickDownload.reviewCapped_many"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ de vídeos nesta lista — revise para escolher"
@@ -957,7 +957,7 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Arquivo"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.attentionBadge_many"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} de downloads precisam da sua atenção"
@@ -988,7 +988,7 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "Todos os vídeos"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.cappedBody_many"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Mais de {{count}} de vídeos nesta playlist. Baixe todos, os primeiros {{count}} ou escolha em uma revisão."
@@ -1011,7 +1011,7 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Revisar"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "queue.choice.reviewBody_many"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Este link é uma lista de {{count}} de vídeos. Revise para escolher o que baixar."
@@ -1702,7 +1702,7 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Sair do Arroxy"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "tray.menu.statusActive_many"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} baixando · {{percent}}%"
@@ -1789,7 +1789,7 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Atualizando…"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "videoCard.chapters_many"
 msgid "{{count}} chapters"
 msgstr "{{count}} de capítulos"
@@ -1862,7 +1862,7 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "Apenas áudio"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValue_many"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} de {{total}} vídeos"
@@ -1877,7 +1877,7 @@ msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} de {{total}} vídeos"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueAudio_many"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} de {{total}} faixas"
@@ -1892,7 +1892,7 @@ msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} de {{total}} faixas"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.itemsValueBulk_many"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} de {{total}} URLs"
@@ -1947,7 +1947,7 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Seu arquivo será salvo em"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.landInMultiProfile_many"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Eles serão salvos nos {{count}} de destinos abaixo"
@@ -1966,7 +1966,7 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "A predefinição de apenas legendas está ativa, mas nenhum idioma de legenda foi selecionado — nada será baixado."
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.confirm.profileBreakdownCount_many"
 msgid "{{count}} items"
 msgstr "{{count}} de itens"
@@ -2073,7 +2073,7 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "Idioma do áudio"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.audioLanguageCount_many"
 msgid "{{count}} languages"
 msgstr "{{count}} de idiomas"
@@ -2456,7 +2456,7 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "Revisar tudo"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.formats.summary.subtitlesAdd_many"
 msgid "{{count}} languages available, add"
 msgstr "{{count}} de idiomas disponíveis, adicionar"
@@ -2747,7 +2747,7 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "Vídeos para baixar"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCount_many"
 msgid "{{count}} videos"
 msgstr "{{count}} de vídeos"
@@ -2762,7 +2762,7 @@ msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} vídeos"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountAudio_many"
 msgid "{{count}} tracks"
 msgstr "{{count}} de faixas"
@@ -2777,7 +2777,7 @@ msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} faixas"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountBulk_many"
 msgid "{{count}} URLs"
 msgstr "{{count}} de URLs"
@@ -2804,7 +2804,7 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "Limitado aos primeiros {{count}} itens"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.loadingPagesFound_many"
 msgid "{{count}} pages found"
 msgstr "{{count}} de páginas encontradas"
@@ -2839,7 +2839,7 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "Playlist"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.nestedPlaylistHint_many"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} destes são playlists, não vídeos — cole os links delas um de cada vez para baixá-las."
@@ -2882,7 +2882,7 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Até"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removedCount_many"
 msgid "{{count}} removed"
 msgstr "{{count}} removidos"
@@ -2897,7 +2897,7 @@ msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} removidos"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.removeFromListCount_many"
 msgid "Remove {{count}} from list"
 msgstr "Remover {{count}} da lista"
@@ -2920,7 +2920,7 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "Selecionar tudo"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.selectedCount_many"
 msgid "{{count}} selected"
 msgstr "{{count}} selecionados"
@@ -2999,7 +2999,7 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Escolha a qualidade para o lote"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlistPresets.itemCount_many"
 msgid "{{count}} items"
 msgstr "{{count}} de itens"
@@ -3390,7 +3390,7 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Identidade do perfil"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
 msgid "{{count}} enabled"
 msgstr "{{count}} ativadas"
@@ -3473,7 +3473,7 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "O Arroxy está lendo o link e aplicando {{profileName}}."
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.quickProgress.failedCount_many"
 msgid "{{count}} failed"
 msgstr "{{count}} falharam"
@@ -4361,12 +4361,12 @@ msgid "Reset"
 msgstr "Redefinir"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
-msgstr "Carregar os primeiros {{count}} itens"
+msgid "Load first items: {{count}}"
+msgstr "Carregar os primeiros itens: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
-msgstr "Carregar os primeiros {{count}} itens"
+msgid "Load first items: {{count}}"
+msgstr "Carregar os primeiros itens: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
 msgid "Load items {{from}}-{{to}}"
@@ -4496,7 +4496,7 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Não foi possível adicionar este: {{error}}"
 
-#. Plural form "many" for pt: used for counts like .
+#. Plural form "many" for pt: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.url.quickPartialFailed_many"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "O que funcionou foi enfileirado. {{count}} URLs não puderam ser preparadas."

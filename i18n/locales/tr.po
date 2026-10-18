@@ -4216,11 +4216,11 @@ msgid "Reset"
 msgstr "Sıfırla"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "İlk {{count}} öğeyi yükle"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "İlk {{count}} öğeyi yükle"
 
 msgctxt "wizard.url.playlistScope.summaryRange"

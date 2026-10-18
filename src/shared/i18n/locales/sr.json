@@ -177,8 +177,8 @@
 			"playlistScope": {
 				"label": "Опсег плејлисте",
 				"change": "Промени",
-				"summaryAppLimit": "Учитај првих {{count}} ставки",
-				"summaryFirst": "Учитај првих {{count}} ставки",
+				"summaryAppLimit": "Учитај прве ставке: {{count}}",
+				"summaryFirst": "Учитај прве ставке: {{count}}",
 				"summaryRange": "Учитај ставке {{from}}-{{to}}",
 				"dialogTitle": "Опсег плејлисте",
 				"dialogDescription": "Изаберите шта Arroxy тражи од yt-dlp да учита за ову плејлисту.",

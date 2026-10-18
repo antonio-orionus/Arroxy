@@ -50,7 +50,7 @@ describe('PlaylistScopeControl', () => {
 	it('shows the app-limit summary on the playlist step', () => {
 		render(<StepPlaylistItems />)
 
-		expect(screen.getByTestId('playlist-scope-summary')).toHaveTextContent('Load first 100 items')
+		expect(screen.getByTestId('playlist-scope-summary')).toHaveTextContent('Load first items: 100')
 	})
 
 	it('uses the shared wizard step and direct footer layout contract', () => {
@@ -138,7 +138,7 @@ describe('PlaylistScopeControl', () => {
 		})
 		expect(useAppStore.getState().wizardStep).toBe('playlistItems')
 		expect(useAppStore.getState().playlistItems.map(entry => entry.title)).toEqual(['Video 1', 'Video 2'])
-		expect(screen.getByTestId('playlist-scope-summary')).toHaveTextContent('Load first 100 items')
+		expect(screen.getByTestId('playlist-scope-summary')).toHaveTextContent('Load first items: 100')
 	})
 
 	it('disables apply while a scoped reload is in flight', async () => {

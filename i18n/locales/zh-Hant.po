@@ -4071,11 +4071,11 @@ msgid "Reset"
 msgstr "重設"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "載入前 {{count}} 個項目"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
+msgid "Load first items: {{count}}"
 msgstr "載入前 {{count}} 個項目"
 
 msgctxt "wizard.url.playlistScope.summaryRange"

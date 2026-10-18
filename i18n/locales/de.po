@@ -4216,12 +4216,12 @@ msgid "Reset"
 msgstr "Zurücksetzen"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
-msgstr "Die ersten {{count}} Einträge laden"
+msgid "Load first items: {{count}}"
+msgstr "Erste Einträge laden: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
-msgstr "Die ersten {{count}} Einträge laden"
+msgid "Load first items: {{count}}"
+msgstr "Erste Einträge laden: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
 msgid "Load items {{from}}-{{to}}"

@@ -4361,12 +4361,12 @@ msgid "Reset"
 msgstr "Ресетуј"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
-msgstr "Учитај првих {{count}} ставки"
+msgid "Load first items: {{count}}"
+msgstr "Учитај прве ставке: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
-msgstr "Учитај првих {{count}} ставки"
+msgid "Load first items: {{count}}"
+msgstr "Учитај прве ставке: {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
 msgid "Load items {{from}}-{{to}}"

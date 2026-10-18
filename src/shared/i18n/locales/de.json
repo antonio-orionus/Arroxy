@@ -174,8 +174,8 @@
 			"playlistScope": {
 				"label": "Playlist-Bereich",
 				"change": "Ändern",
-				"summaryAppLimit": "Die ersten {{count}} Einträge laden",
-				"summaryFirst": "Die ersten {{count}} Einträge laden",
+				"summaryAppLimit": "Erste Einträge laden: {{count}}",
+				"summaryFirst": "Erste Einträge laden: {{count}}",
 				"summaryRange": "Einträge {{from}}-{{to}} laden",
 				"dialogTitle": "Playlist-Bereich",
 				"dialogDescription": "Lege fest, was Arroxy yt-dlp für diese Playlist laden lässt.",

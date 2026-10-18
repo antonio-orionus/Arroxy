@@ -4216,12 +4216,12 @@ msgid "Reset"
 msgstr "ዳግም አስጀምር"
 
 msgctxt "wizard.url.playlistScope.summaryAppLimit"
-msgid "Load first {{count}} items"
-msgstr "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን"
+msgid "Load first items: {{count}}"
+msgstr "የመጀመሪያዎቹን ንጥሎች ጫን፦ {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryFirst"
-msgid "Load first {{count}} items"
-msgstr "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን"
+msgid "Load first items: {{count}}"
+msgstr "የመጀመሪያዎቹን ንጥሎች ጫን፦ {{count}}"
 
 msgctxt "wizard.url.playlistScope.summaryRange"
 msgid "Load items {{from}}-{{to}}"

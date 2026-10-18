@@ -152,8 +152,8 @@
 			"playlistScope": {
 				"label": "የ Playlist ወሰን",
 				"change": "ቀይር",
-				"summaryAppLimit": "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን",
-				"summaryFirst": "የመጀመሪያዎቹን {{count}} ንጥሎች ጫን",
+				"summaryAppLimit": "የመጀመሪያዎቹን ንጥሎች ጫን፦ {{count}}",
+				"summaryFirst": "የመጀመሪያዎቹን ንጥሎች ጫን፦ {{count}}",
 				"summaryRange": "ንጥሎች {{from}}-{{to}} ጫን",
 				"dialogTitle": "የ Playlist ወሰን",
 				"dialogDescription": "Arroxy ለዚህ Playlist yt-dlp ምን እንዲጭን እንደሚጠይቅ ምረጥ።",

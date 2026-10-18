@@ -152,8 +152,8 @@
 			"playlistScope": {
 				"label": "Playlist scope",
 				"change": "Change",
-				"summaryAppLimit": "Load first {{count}} items",
-				"summaryFirst": "Load first {{count}} items",
+				"summaryAppLimit": "Load first items: {{count}}",
+				"summaryFirst": "Load first items: {{count}}",
 				"summaryRange": "Load items {{from}}-{{to}}",
 				"dialogTitle": "Playlist scope",
 				"dialogDescription": "Choose what Arroxy asks yt-dlp to load for this playlist.",

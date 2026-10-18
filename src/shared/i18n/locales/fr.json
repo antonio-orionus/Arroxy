@@ -182,8 +182,8 @@
 			"playlistScope": {
 				"label": "Portée de la liste",
 				"change": "Modifier",
-				"summaryAppLimit": "Charger les {{count}} premiers éléments",
-				"summaryFirst": "Charger les {{count}} premiers éléments",
+				"summaryAppLimit": "Charger les premiers éléments : {{count}}",
+				"summaryFirst": "Charger les premiers éléments : {{count}}",
 				"summaryRange": "Charger les éléments {{from}}-{{to}}",
 				"dialogTitle": "Portée de la liste",
 				"dialogDescription": "Choisissez ce qu’Arroxy demande à yt-dlp de charger pour cette liste.",
