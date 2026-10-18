@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, useSyncExternalStore} from 'react'
+import {useCallback, useEffect, useRef, useState, useSyncExternalStore} from 'react'
 import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {needsAttention} from '../queue/queueAttention.js'
@@ -99,5 +99,8 @@ export function useQueueTabTip({activeTab, initialBrowserMockScenario}: {activeT
 		setShowQueueTabTip(true)
 	}, [queueCount])
 
-	return {queueTabTipVisible, dismissQueueTabTip: () => setShowQueueTabTip(false)}
+	// Stable: the cue's auto-dismiss timer depends on it, so a new function per render would restart the countdown.
+	const dismissQueueTabTip = useCallback(() => setShowQueueTabTip(false), [])
+
+	return {queueTabTipVisible, dismissQueueTabTip}
 }
