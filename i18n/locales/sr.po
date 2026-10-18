@@ -131,10 +131,17 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "Настави преузимање"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} преузимања у току"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "{{count}} преузимање у току"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} преузимања у току"
@@ -599,10 +606,17 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Језик"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Пријава преко Explore је готова — поново покушавам линкове: {{count}}"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Пријава преко Explore је готова — поново покушавам 1 линк"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Пријава преко Explore је готова — поново покушавам линкове: {{count}}"
@@ -659,10 +673,17 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Та фасцикла не може да се користи за ову плејлисту."
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Прескочено видео снимака који су већ у реду: {{count}}"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} видео је већ у реду — прескочен"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Прескочено видео снимака који су већ у реду: {{count}}"
@@ -675,10 +696,17 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "Већ је у реду"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ видеа — изабери колико"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ видео — изабери колико"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ видеа — изабери колико"
@@ -691,18 +719,32 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Линк није могао да се дода — покушај поново"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} видеа на овој листи — прегледај и изабери"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} видео на овој листи — прегледај и изабери"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "{{count}} видеа на овој листи — прегледај и изабери"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ видеа на овој листи — прегледај и изабери"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ видео на овој листи — прегледај и изабери"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ видеа на овој листи — прегледај и изабери"
@@ -915,10 +957,17 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Датотека"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "Траже пажњу: {{count}}"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "Траже пажњу: {{count}}"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Траже пажњу: {{count}}"
@@ -939,10 +988,17 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "Сви видео снимци"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу."
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу."
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу."
@@ -955,10 +1011,17 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Преглед"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш."
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш."
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш."
@@ -1639,10 +1702,17 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Затвори Arroxy"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} преузима · {{percent}}%"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 преузима · {{percent}}%"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} преузима · {{percent}}%"
@@ -1719,10 +1789,17 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Ажурирање…"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} поглавља"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} поглавље"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} поглавља"
@@ -1785,26 +1862,47 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "Само звук"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} од {{total}} видеа"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} од {{total}} видеа"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} од {{total}} видеа"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} од {{total}} нумера"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} од {{total}} нумере"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} од {{total}} нумера"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} од {{total}} URL-ова"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} од {{total}} URL-а"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} од {{total}} URL-ова"
@@ -1849,10 +1947,17 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Твоја датотека ће бити сачувана у"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Стићи ће на {{count}} одредишта испод"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Стићи ће на одредиште испод"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Стићи ће на {{count}} одредишта испод"
@@ -1861,10 +1966,17 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Поставка „само титлови\" је активна, али није изабран ниједан језик — ништа неће бити преузето."
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} ставке"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} ставка"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} ставке"
@@ -1961,10 +2073,17 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "Језик звука"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "Језика: {{count}}"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "Језика: {{count}}"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "Језика: {{count}}"
@@ -2337,10 +2456,17 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "Прегледај све"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.formats.summary.subtitlesAdd_few"
+msgid "{{count}} languages available, add"
+msgstr "Доступно језика: {{count}}, додај"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "{{count}} језик доступан, додај"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "Доступно језика: {{count}}, додај"
@@ -2621,26 +2747,47 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "Видео снимци за преузимање"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} видеа"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} видео"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} видеа"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} нумере"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} нумера"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} нумера"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-а"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} URL"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL-ова"
@@ -2657,10 +2804,17 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "Ограничено на првих {{count}} ставки"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "Пронађене су {{count}} странице"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "Пронађена је {{count}} страница"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "Пронађено је {{count}} страница"
@@ -2685,10 +2839,17 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "Плејлиста"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} од ових су плејлисте, а не видеа — налепите њихове линкове један по један да бисте их преузели."
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} од ових је плејлиста, а не видео — налепите њен линк засебно да бисте је преузели."
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} од ових су плејлисте, а не видеа — налепите њихове линкове један по један да бисте их преузели."
@@ -2721,18 +2882,32 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "До"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "{{count}} уклоњено"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "{{count}} уклоњено"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} уклоњено"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Уклони {{count}} са листе"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Уклони {{count}} са листе"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Уклони {{count}} са листе"
@@ -2745,10 +2920,17 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "Изабери све"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "{{count}} изабрано"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} изабрано"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} изабрано"
@@ -2817,10 +2999,17 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Изабери квалитет за групно преузимање"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} ставке"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} ставка"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} ставки"
@@ -3201,10 +3390,17 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Идентитет профила"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "Укључено: {{count}}"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "Укључено: {{count}}"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "Укључено: {{count}}"
@@ -3277,10 +3473,17 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Arroxy чита везу и примењује {{profileName}}."
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "{{count}} није успело"
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "{{count}} није успело"
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} није успело"
@@ -4213,10 +4416,17 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Није могуће додати: {{error}}"
 
+#. Plural form "few" for sr: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "У ред је додато оно што је успело. {{count}} URL-а није могло да се припреми."
+
+#. Plural form "one" for sr: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "У ред је додато оно што је успело. {{count}} URL није могао да се припреми."
 
+#. Plural form "other" for sr: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "У ред је додато оно што је успело. {{count}} URL-ова није могло да се припреми."

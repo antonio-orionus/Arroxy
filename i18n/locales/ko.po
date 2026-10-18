@@ -131,10 +131,7 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "계속 다운로드"
 
-msgctxt "dialogs.quitWithActiveDownloads.message_one"
-msgid "{{count}} download in progress"
-msgstr "{{count}}개 다운로드 진행 중"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}}개 다운로드 진행 중"
@@ -599,10 +596,7 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "언어"
 
-msgctxt "notifications.exploreSignInRetrying_one"
-msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore로 로그인함 — 링크 1개 다시 시도 중"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Explore로 로그인함 — 링크 {{count}}개 다시 시도 중"
@@ -659,10 +653,7 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "이 폴더는 이 재생목록에 사용할 수 없습니다."
 
-msgctxt "notifications.queue.skippedAlreadyQueued_one"
-msgid "{{count}} video is already in the queue — skipped"
-msgstr "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "이미 대기열에 있는 동영상 {{count}}개를 건너뛰었습니다"
@@ -675,10 +666,7 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "이미 대기열에 있습니다"
 
-msgctxt "notifications.quickDownload.chooseHowMany_one"
-msgid "{{count}}+ video — choose how many"
-msgstr "동영상 {{count}}개 이상 — 개수 선택"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "동영상 {{count}}개 이상 — 개수 선택"
@@ -691,18 +679,12 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "링크를 추가하지 못했습니다 — 다시 시도하세요"
 
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "이 목록에 동영상 {{count}}개 — 검토하여 선택"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "이 목록에 동영상 {{count}}개 — 검토하여 선택"
 
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "이 목록에 동영상 {{count}}개 이상 — 검토하여 선택"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "이 목록에 동영상 {{count}}개 이상 — 검토하여 선택"
@@ -915,10 +897,7 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "결과물"
 
-msgctxt "queue.attentionBadge_one"
-msgid "{{count}} download needs your attention"
-msgstr "다운로드 {{count}}개 확인 필요"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "다운로드 {{count}}개 확인 필요"
@@ -939,10 +918,7 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "모든 동영상"
 
-msgctxt "queue.choice.cappedBody_one"
-msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
-msgstr "이 재생목록에 동영상이 {{count}}개를 넘습니다. 모두 다운로드하거나, 처음 {{count}}개만 받거나, 검토해서 직접 고를 수 있습니다."
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "이 재생목록에 동영상이 {{count}}개를 넘습니다. 모두 다운로드하거나, 처음 {{count}}개만 받거나, 검토해서 직접 고를 수 있습니다."
@@ -955,10 +931,7 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "검토"
 
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "이 링크는 동영상 {{count}}개짜리 목록입니다. 검토하여 다운로드할 항목을 선택하세요."
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "이 링크는 동영상 {{count}}개짜리 목록입니다. 검토하여 다운로드할 항목을 선택하세요."
@@ -1639,10 +1612,7 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Arroxy 종료"
 
-msgctxt "tray.menu.statusActive_one"
-msgid "1 downloading · {{percent}}%"
-msgstr "1개 다운로드 중 · {{percent}}%"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}}개 다운로드 중 · {{percent}}%"
@@ -1719,10 +1689,7 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "업그레이드 중…"
 
-msgctxt "videoCard.chapters_one"
-msgid "{{count}} chapter"
-msgstr "{{count}}개 챕터"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}}개 챕터"
@@ -1785,26 +1752,17 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "오디오만"
 
-msgctxt "wizard.confirm.itemsValue_one"
-msgid "{{count}} of {{total}} video"
-msgstr "{{total}}개 동영상 중 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{total}}개 동영상 중 {{count}}개"
 
-msgctxt "wizard.confirm.itemsValueAudio_one"
-msgid "{{count}} of {{total}} track"
-msgstr "{{total}}개 트랙 중 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{total}}개 트랙 중 {{count}}개"
 
-msgctxt "wizard.confirm.itemsValueBulk_one"
-msgid "{{count}} of {{total}} URL"
-msgstr "{{total}}개 URL 중 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{total}}개 URL 중 {{count}}개"
@@ -1849,10 +1807,7 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "파일 저장 위치"
 
-msgctxt "wizard.confirm.landInMultiProfile_one"
-msgid "It'll land in the destination below"
-msgstr "아래 대상에 저장됩니다"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "아래 {{count}}개 대상에 저장됩니다"
@@ -1861,10 +1816,7 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "자막 전용 프리셋이 활성화되어 있지만 자막 언어가 선택되지 않아 다운로드할 항목이 없습니다."
 
-msgctxt "wizard.confirm.profileBreakdownCount_one"
-msgid "{{count}} item"
-msgstr "{{count}}개 항목"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}}개 항목"
@@ -1961,10 +1913,7 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "오디오 언어"
 
-msgctxt "wizard.formats.audioLanguageCount_one"
-msgid "{{count}} language"
-msgstr "언어 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "언어 {{count}}개"
@@ -2337,10 +2286,7 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "모두 검토"
 
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "{{count}}개 언어 사용 가능, 추가"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "{{count}}개 언어 사용 가능, 추가"
@@ -2621,26 +2567,17 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "다운로드할 동영상"
 
-msgctxt "wizard.playlist.itemCount_one"
-msgid "{{count}} video"
-msgstr "동영상 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "동영상 {{count}}개"
 
-msgctxt "wizard.playlist.itemCountAudio_one"
-msgid "{{count}} track"
-msgstr "트랙 {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "트랙 {{count}}개"
 
-msgctxt "wizard.playlist.itemCountBulk_one"
-msgid "{{count}} URL"
-msgstr "URL {{count}}개"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "URL {{count}}개"
@@ -2657,10 +2594,7 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "처음 {{count}}개 항목으로 제한됨"
 
-msgctxt "wizard.playlist.loadingPagesFound_one"
-msgid "{{count}} page found"
-msgstr "{{count}}개 페이지 발견"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "{{count}}개 페이지 발견"
@@ -2685,10 +2619,7 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "재생목록"
 
-msgctxt "wizard.playlist.nestedPlaylistHint_one"
-msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
-msgstr "이 중 {{count}}개는 동영상이 아닌 재생목록입니다. 다운로드하려면 링크를 따로 붙여넣으세요."
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "이 중 {{count}}개는 동영상이 아닌 재생목록입니다. 다운로드하려면 링크를 하나씩 붙여넣으세요."
@@ -2721,18 +2652,12 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "끝"
 
-msgctxt "wizard.playlist.removedCount_one"
-msgid "{{count}} removed"
-msgstr "{{count}}개 제거됨"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}}개 제거됨"
 
-msgctxt "wizard.playlist.removeFromListCount_one"
-msgid "Remove {{count}} from list"
-msgstr "목록에서 {{count}}개 제거"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "목록에서 {{count}}개 제거"
@@ -2745,10 +2670,7 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "모두 선택"
 
-msgctxt "wizard.playlist.selectedCount_one"
-msgid "{{count}} selected"
-msgstr "{{count}}개 선택됨"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}}개 선택됨"
@@ -2817,10 +2739,7 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "일괄 작업의 화질 선택"
 
-msgctxt "wizard.playlistPresets.itemCount_one"
-msgid "{{count}} item"
-msgstr "{{count}}개 항목"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}}개 항목"
@@ -3201,10 +3120,7 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "프로필 식별 정보"
 
-msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
-msgid "{{count}} enabled"
-msgstr "{{count}}개 사용"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "{{count}}개 사용"
@@ -3277,10 +3193,7 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Arroxy가 링크를 읽고 {{profileName}}을(를) 적용하고 있습니다."
 
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}}개 실패"
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}}개 실패"
@@ -4213,10 +4126,7 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "이 항목을 추가할 수 없습니다: {{error}}"
 
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "처리된 항목은 대기열에 추가했습니다. URL {{count}}개를 준비하지 못했습니다."
-
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "처리된 항목은 대기열에 추가했습니다. URL {{count}}개를 준비하지 못했습니다."

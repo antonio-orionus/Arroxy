@@ -131,13 +131,35 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "الاستمرار في التنزيل"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} تنزيلات قيد التقدم"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "dialogs.quitWithActiveDownloads.message_many"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} تنزيلًا قيد التقدم"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "{{count}} تنزيل قيد التقدم"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
-msgstr "{{count}} تنزيلات قيد التقدم"
+msgstr "{{count}} تنزيل قيد التقدم"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "dialogs.quitWithActiveDownloads.message_two"
+msgid "{{count}} downloads in progress"
+msgstr "تنزيلان قيد التقدم"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "dialogs.quitWithActiveDownloads.message_zero"
+msgid "{{count}} downloads in progress"
+msgstr "لا توجد تنزيلات قيد التقدم"
 
 msgctxt "dialogs.quitWithActiveDownloads.pause"
 msgid "Pause Downloads & Quit"
@@ -599,13 +621,35 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "اللغة"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} روابط"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "notifications.exploreSignInRetrying_many"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابطًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة رابط واحد"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
-msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} روابط"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة {{count}} رابط"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "notifications.exploreSignInRetrying_two"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "تم تسجيل الدخول عبر Explore — إعادة محاولة رابطين"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "notifications.exploreSignInRetrying_zero"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "تم تسجيل الدخول عبر Explore — لا روابط لإعادة المحاولة"
 
 msgctxt "notifications.exploreSignOutFailed"
 msgid "Could not sign out of Explore. Try again."
@@ -659,11 +703,33 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "لا يمكن استخدام هذا المجلد لقائمة التشغيل هذه."
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "notifications.queue.skippedAlreadyQueued_many"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "تم تخطي فيديو واحد موجود بالفعل في قائمة الانتظار"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "notifications.queue.skippedAlreadyQueued_two"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "تم تخطي فيديوهين موجودين بالفعل في قائمة الانتظار"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "notifications.queue.skippedAlreadyQueued_zero"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "تم تخطي {{count}} من الفيديوهات الموجودة بالفعل في قائمة الانتظار"
 
@@ -675,11 +741,33 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "في قائمة الانتظار بالفعل"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "notifications.quickDownload.chooseHowMany_many"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ فيديو — اختر العدد"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "notifications.quickDownload.chooseHowMany_two"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ فيديو — اختر العدد"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "notifications.quickDownload.chooseHowMany_zero"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ فيديو — اختر العدد"
 
@@ -691,19 +779,63 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "تعذّرت إضافة هذا الرابط — حاول مجددًا"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} مقاطع فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "notifications.quickDownload.review_many"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "notifications.quickDownload.review_two"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "فيديوهان في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "notifications.quickDownload.review_zero"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "notifications.quickDownload.reviewCapped_many"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "notifications.quickDownload.reviewCapped_two"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "notifications.quickDownload.reviewCapped_zero"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ فيديو في هذه القائمة — راجعها للاختيار"
 
@@ -915,11 +1047,33 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ملف"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "queue.attentionBadge_many"
+msgid "{{count}} downloads need your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "يحتاج انتباهك: {{count}}"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "queue.attentionBadge_two"
+msgid "{{count}} downloads need your attention"
+msgstr "يحتاج انتباهك: {{count}}"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "queue.attentionBadge_zero"
 msgid "{{count}} downloads need your attention"
 msgstr "يحتاج انتباهك: {{count}}"
 
@@ -939,11 +1093,33 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "كل الفيديوهات"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "queue.choice.cappedBody_many"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "queue.choice.cappedBody_two"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "queue.choice.cappedBody_zero"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "تحتوي قائمة التشغيل هذه على أكثر من {{count}} فيديو. نزّلها كلها أو أول {{count}} فقط أو اختر عبر المراجعة."
 
@@ -955,11 +1131,33 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "مراجعة"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "queue.choice.reviewBody_many"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "queue.choice.reviewBody_two"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "queue.choice.reviewBody_zero"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "هذا الرابط قائمة من {{count}} فيديو. راجعها لتختار ما تريد تنزيله."
 
@@ -1639,11 +1837,33 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "الخروج من Arroxy"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "tray.menu.statusActive_many"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 جارٍ التنزيل · {{percent}}%"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "tray.menu.statusActive_two"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "tray.menu.statusActive_zero"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} جارٍ التنزيل · {{percent}}%"
 
@@ -1719,13 +1939,35 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "جارٍ الترقية…"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} فصول"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "videoCard.chapters_many"
+msgid "{{count}} chapters"
+msgstr "{{count}} فصلًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} فصل"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
-msgstr "{{count}} فصول"
+msgstr "{{count}} فصل"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "videoCard.chapters_two"
+msgid "{{count}} chapters"
+msgstr "فصلان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "videoCard.chapters_zero"
+msgid "{{count}} chapters"
+msgstr "{{count}} فصل"
 
 msgctxt "videoCard.titlePlaceholder"
 msgid "Loading…"
@@ -1785,29 +2027,95 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "صوت فقط"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} من {{total}} فيديو"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.confirm.itemsValue_many"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} من {{total}} فيديو"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} من {{total}} فيديو"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
-msgstr "{{count}} من {{total}} مقاطع فيديو"
+msgstr "{{count}} من {{total}} فيديو"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.confirm.itemsValue_two"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} من {{total}} فيديو"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.confirm.itemsValue_zero"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} من {{total}} فيديو"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} من {{total}} مقطع صوتي"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.confirm.itemsValueAudio_many"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} من {{total}} مقطع صوتي"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} من {{total}} مقطع صوتي"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
-msgstr "{{count}} من {{total}} مقاطع صوتية"
+msgstr "{{count}} من {{total}} مقطع صوتي"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.confirm.itemsValueAudio_two"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} من {{total}} مقطع صوتي"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.confirm.itemsValueAudio_zero"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} من {{total}} مقطع صوتي"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} من {{total}} رابط"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.confirm.itemsValueBulk_many"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} من {{total}} رابط"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} من {{total}} رابط"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
-msgstr "{{count}} من {{total}} روابط"
+msgstr "{{count}} من {{total}} رابط"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.confirm.itemsValueBulk_two"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} من {{total}} رابط"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.confirm.itemsValueBulk_zero"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} من {{total}} رابط"
 
 msgctxt "wizard.confirm.labelAudio"
 msgid "Audio"
@@ -1849,25 +2157,69 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "سيُحفظ ملفك في"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "سيُحفظ في {{count}} وجهات أدناه"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.confirm.landInMultiProfile_many"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "سيُحفظ في {{count}} وجهة أدناه"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "سيُحفظ في الوجهة أدناه"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
-msgstr "سيُحفظ في {{count}} وجهات أدناه"
+msgstr "سيُحفظ في {{count}} وجهة أدناه"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.confirm.landInMultiProfile_two"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "سيُحفظ في الوجهتين أدناه"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.confirm.landInMultiProfile_zero"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "سيُحفظ في {{count}} وجهة أدناه"
 
 msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "الإعداد المسبق \"ترجمات فقط\" مفعّل ولكن لم يتم اختيار أي لغة ترجمة — لن يتم تنزيل أي شيء."
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} عناصر"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.confirm.profileBreakdownCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} عنصرًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} عنصر"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
-msgstr "{{count}} عناصر"
+msgstr "{{count}} عنصر"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.confirm.profileBreakdownCount_two"
+msgid "{{count}} items"
+msgstr "عنصران"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.confirm.profileBreakdownCount_zero"
+msgid "{{count}} items"
+msgstr "{{count}} عنصر"
 
 msgctxt "wizard.confirm.profileBreakdownHeading"
 msgid "Profiles in this batch"
@@ -1961,11 +2313,33 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "لغة الصوت"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "عدد اللغات: {{count}}"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.formats.audioLanguageCount_many"
+msgid "{{count}} languages"
+msgstr "عدد اللغات: {{count}}"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "عدد اللغات: {{count}}"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "عدد اللغات: {{count}}"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.formats.audioLanguageCount_two"
+msgid "{{count}} languages"
+msgstr "عدد اللغات: {{count}}"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.formats.audioLanguageCount_zero"
 msgid "{{count}} languages"
 msgstr "عدد اللغات: {{count}}"
 
@@ -2337,13 +2711,35 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "مراجعة الكل"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.formats.summary.subtitlesAdd_few"
+msgid "{{count}} languages available, add"
+msgstr "{{count}} لغات متاحة، أضِف"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.formats.summary.subtitlesAdd_many"
+msgid "{{count}} languages available, add"
+msgstr "{{count}} لغة متاحة، أضِف"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "{{count}} لغة متاحة، أضِف"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
-msgstr "{{count}} لغات متاحة، أضِف"
+msgstr "{{count}} لغة متاحة، أضِف"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.formats.summary.subtitlesAdd_two"
+msgid "{{count}} languages available, add"
+msgstr "لغتان متاحتان، أضِف"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.formats.summary.subtitlesAdd_zero"
+msgid "{{count}} languages available, add"
+msgstr "{{count}} لغة متاحة، أضِف"
 
 msgctxt "wizard.formats.summary.subtitlesOff"
 msgid "subtitles off"
@@ -2621,29 +3017,95 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "الفيديوهات المراد تنزيلها"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} مقاطع فيديو"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.itemCount_many"
+msgid "{{count}} videos"
+msgstr "{{count}} فيديو"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} فيديو"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
-msgstr "{{count}} مقاطع فيديو"
+msgstr "{{count}} فيديو"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.itemCount_two"
+msgid "{{count}} videos"
+msgstr "فيديوهان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.itemCount_zero"
+msgid "{{count}} videos"
+msgstr "{{count}} فيديو"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} مقاطع صوتية"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.itemCountAudio_many"
+msgid "{{count}} tracks"
+msgstr "{{count}} مقطعًا صوتيًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} مقطع صوتي"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
-msgstr "{{count}} مقاطع صوتية"
+msgstr "{{count}} مقطع صوتي"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.itemCountAudio_two"
+msgid "{{count}} tracks"
+msgstr "مقطعان صوتيان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.itemCountAudio_zero"
+msgid "{{count}} tracks"
+msgstr "{{count}} مقطع صوتي"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} روابط"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.itemCountBulk_many"
+msgid "{{count}} URLs"
+msgstr "{{count}} رابطًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} رابط"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} روابط"
+msgstr "{{count}} رابط"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.itemCountBulk_two"
+msgid "{{count}} URLs"
+msgstr "رابطان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.itemCountBulk_zero"
+msgid "{{count}} URLs"
+msgstr "{{count}} رابط"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -2657,13 +3119,35 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "محدود بأول {{count}} عنصر"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "تم العثور على {{count}} صفحات"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.loadingPagesFound_many"
+msgid "{{count}} pages found"
+msgstr "تم العثور على {{count}} صفحة"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "تم العثور على {{count}} صفحة"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
-msgstr "تم العثور على {{count}} صفحات"
+msgstr "تم العثور على {{count}} صفحة"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.loadingPagesFound_two"
+msgid "{{count}} pages found"
+msgstr "تم العثور على صفحتين"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.loadingPagesFound_zero"
+msgid "{{count}} pages found"
+msgstr "تم العثور على {{count}} صفحة"
 
 msgctxt "wizard.playlist.loadingPhaseItems"
 msgid "Collecting videos"
@@ -2685,11 +3169,33 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "قائمة التشغيل"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها."
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.nestedPlaylistHint_many"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها."
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} من هذه قائمة تشغيل، وليست فيديو — الصق رابطها بمفرده لتنزيلها."
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها."
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.nestedPlaylistHint_two"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "اثنتان من هذه قائمتا تشغيل، وليستا مقطعي فيديو — الصق رابطيهما واحدًا تلو الآخر لتنزيلهما."
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.nestedPlaylistHint_zero"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} من هذه قوائم تشغيل، وليست مقاطع فيديو — الصق روابطها واحدًا تلو الآخر لتنزيلها."
 
@@ -2721,19 +3227,63 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "إلى"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "تمت إزالة {{count}}"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.removedCount_many"
+msgid "{{count}} removed"
+msgstr "تمت إزالة {{count}}"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "تمت إزالة {{count}}"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "تمت إزالة {{count}}"
 
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.removedCount_two"
+msgid "{{count}} removed"
+msgstr "تمت إزالة اثنين"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.removedCount_zero"
+msgid "{{count}} removed"
+msgstr "تمت إزالة {{count}}"
+
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.removeFromListCount_many"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "إزالة {{count}} من القائمة"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.removeFromListCount_two"
+msgid "Remove {{count}} from list"
+msgstr "إزالة {{count}} من القائمة"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.removeFromListCount_zero"
 msgid "Remove {{count}} from list"
 msgstr "إزالة {{count}} من القائمة"
 
@@ -2745,13 +3295,35 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "تحديد الكل"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "{{count}} محددة"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlist.selectedCount_many"
+msgid "{{count}} selected"
+msgstr "{{count}} محدد"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} محدد"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
-msgstr "{{count}} محددة"
+msgstr "{{count}} محدد"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlist.selectedCount_two"
+msgid "{{count}} selected"
+msgstr "محدّدان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlist.selectedCount_zero"
+msgid "{{count}} selected"
+msgstr "{{count}} محدد"
 
 msgctxt "wizard.playlist.selectNone"
 msgid "Select none"
@@ -2817,13 +3389,35 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "اختر الجودة للدفعة"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} عناصر"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.playlistPresets.itemCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} عنصرًا"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} عنصر"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
-msgstr "{{count}} عناصر"
+msgstr "{{count}} عنصر"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.playlistPresets.itemCount_two"
+msgid "{{count}} items"
+msgstr "عنصران"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.playlistPresets.itemCount_zero"
+msgid "{{count}} items"
+msgstr "{{count}} عنصر"
 
 msgctxt "wizard.playlistPresets.subhead"
 msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
@@ -3201,11 +3795,33 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "هوية الملف"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "{{count}} مفعّلة"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
+msgid "{{count}} enabled"
+msgstr "{{count}} مفعّل"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "{{count}} مفعّل"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} مفعّل"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_two"
+msgid "{{count}} enabled"
+msgstr "مفعّلان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_zero"
 msgid "{{count}} enabled"
 msgstr "{{count}} مفعّل"
 
@@ -3277,11 +3893,33 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "يقرأ Arroxy الرابط ويطبّق {{profileName}}."
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "فشل {{count}}"
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.quickProgress.failedCount_many"
+msgid "{{count}} failed"
+msgstr "فشل {{count}}"
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "فشل {{count}}"
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "فشل {{count}}"
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.quickProgress.failedCount_two"
+msgid "{{count}} failed"
+msgstr "فشل اثنان"
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.quickProgress.failedCount_zero"
 msgid "{{count}} failed"
 msgstr "فشل {{count}}"
 
@@ -4213,13 +4851,35 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "تعذرت إضافة هذا العنصر: {{error}}"
 
+#. Plural form "few" for ar: used for counts like 3, 4, 5, 6, 7, 8.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عناوين URL."
+
+#. Plural form "many" for ar: used for counts like 11, 12, 13, 14, 15, 16.
+msgctxt "wizard.url.quickPartialFailed_many"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL."
+
+#. Plural form "one" for ar: used for counts like 1.
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنوان URL واحد."
 
+#. Plural form "other" for ar: used for counts like 100, 101, 102, 200.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عناوين URL."
+msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL."
+
+#. Plural form "two" for ar: used for counts like 2.
+msgctxt "wizard.url.quickPartialFailed_two"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير عنواني URL."
+
+#. Plural form "zero" for ar: used for counts like 0.
+msgctxt "wizard.url.quickPartialFailed_zero"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "تمت إضافة ما نجح إلى قائمة الانتظار. تعذّر تحضير {{count}} عنوان URL."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"

@@ -3,6 +3,8 @@ import {po as gettextPo, type GetTextTranslation, type GetTextTranslations} from
 export interface StringLeaf {
 	path: string
 	value: string
+	/** Translator-facing context, written to the PO as an extracted comment. */
+	note?: string
 }
 
 export type CatalogIssueKind = 'missing-entry' | 'stale-source' | 'untranslated' | 'fuzzy' | 'extra-entry'
@@ -36,6 +38,65 @@ export function flattenStringLeaves(value: unknown, prefix = ''): StringLeaf[] {
 	return leaves
 }
 
+const PLURAL_CATEGORIES = ['zero', 'one', 'two', 'few', 'many', 'other'] as const
+type PluralCategory = (typeof PLURAL_CATEGORIES)[number]
+const PLURAL_KEY = /^(.+)_(zero|one|two|few|many|other)$/
+const NOTE_EXAMPLE_LIMIT = 6
+
+function isPluralCategory(value: string): value is PluralCategory {
+	return PLURAL_CATEGORIES.some(category => category === value)
+}
+
+/** The CLDR plural categories i18next resolves for `lang`, in canonical order. */
+export function pluralCategoriesFor(lang: string): PluralCategory[] {
+	const used = new Set(new Intl.PluralRules(lang).resolvedOptions().pluralCategories)
+	return PLURAL_CATEGORIES.filter(category => used.has(category))
+}
+
+function pluralNote(lang: string, category: PluralCategory): string {
+	const rules = new Intl.PluralRules(lang)
+	const examples: number[] = []
+	for (let n = 0; n <= 200 && examples.length < NOTE_EXAMPLE_LIMIT; n += 1) if (rules.select(n) === category) examples.push(n)
+	return `Plural form "${category}" for ${lang}: used for counts like ${examples.join(', ')}.`
+}
+
+/**
+ * English only carries the `one`/`other` plural forms. A locale needs one entry per
+ * category in its own CLDR plural rule set, so this rewrites each English plural group
+ * into the locale's categories. A category English lacks starts from the English
+ * `other` copy, which the translator replaces.
+ */
+export function expandPluralLeaves(lang: string, sourceLeaves: readonly StringLeaf[]): StringLeaf[] {
+	if (lang === 'en') return [...sourceLeaves]
+	const groups = new Map<string, Map<PluralCategory, string>>()
+	for (const leaf of sourceLeaves) {
+		const match = PLURAL_KEY.exec(leaf.path)
+		const base = match?.[1]
+		const category = match?.[2]
+		if (base === undefined || category === undefined || !isPluralCategory(category)) continue
+		const forms = groups.get(base) ?? new Map<PluralCategory, string>()
+		forms.set(category, leaf.value)
+		groups.set(base, forms)
+	}
+
+	const categories = pluralCategoriesFor(lang)
+	const expanded: StringLeaf[] = []
+	const emitted = new Set<string>()
+	for (const leaf of sourceLeaves) {
+		const match = PLURAL_KEY.exec(leaf.path)
+		const base = match?.[1]
+		const forms = base === undefined ? undefined : groups.get(base)
+		if (base === undefined || forms === undefined || !forms.has('other')) {
+			expanded.push(leaf)
+			continue
+		}
+		if (emitted.has(base)) continue
+		emitted.add(base)
+		for (const category of categories) expanded.push({path: `${base}_${category}`, value: forms.get(category) ?? forms.get('other') ?? '', note: pluralNote(lang, category)})
+	}
+	return expanded
+}
+
 function leafMap(leaves: readonly StringLeaf[]): Map<string, string> {
 	return new Map(leaves.map(leaf => [leaf.path, leaf.value]))
 }
@@ -48,6 +109,10 @@ function emptyCatalog(language = ''): GetTextTranslations {
 	return {charset: 'UTF-8', headers: catalogHeaders(language), translations: {}}
 }
 
+function noteComments(leaf: StringLeaf): Pick<GetTextTranslation, 'comments'> {
+	return leaf.note === undefined ? {} : {comments: {extracted: leaf.note}}
+}
+
 function addEntry(catalog: GetTextTranslations, entry: GetTextTranslation): void {
 	const context = entry.msgctxt ?? ''
 	catalog.translations[context] ??= {}
@@ -56,14 +121,14 @@ function addEntry(catalog: GetTextTranslations, entry: GetTextTranslation): void
 
 export function buildSourceCatalog(sourceLeaves: readonly StringLeaf[]): GetTextTranslations {
 	const catalog = emptyCatalog()
-	for (const leaf of sourceLeaves) addEntry(catalog, {msgctxt: leaf.path, msgid: leaf.value, msgstr: ['']})
+	for (const leaf of sourceLeaves) addEntry(catalog, {msgctxt: leaf.path, msgid: leaf.value, msgstr: [''], ...noteComments(leaf)})
 	return catalog
 }
 
 export function buildLocaleCatalog(lang: string, sourceLeaves: readonly StringLeaf[], localeLeaves: readonly StringLeaf[]): GetTextTranslations {
 	const localeByPath = leafMap(localeLeaves)
 	const catalog = emptyCatalog(lang)
-	for (const leaf of sourceLeaves) addEntry(catalog, {msgctxt: leaf.path, msgid: leaf.value, msgstr: [localeByPath.get(leaf.path) ?? '']})
+	for (const leaf of sourceLeaves) addEntry(catalog, {msgctxt: leaf.path, msgid: leaf.value, msgstr: [localeByPath.get(leaf.path) ?? ''], ...noteComments(leaf)})
 	return catalog
 }
 

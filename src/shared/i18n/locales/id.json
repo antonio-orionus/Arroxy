@@ -65,7 +65,7 @@
 			"confirm": "Mengonfirmasi",
 			"review": "Tinjau"
 		},
-		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_one": "item {{count}}", "itemCount_other": "item {{count}}"},
+		"playlistPresets": {"heading": "Pilih kualitas untuk batch tersebut", "subhead": "Setiap video menyelesaikan tingkatan yang dipilih secara independen — daftar putar yang heterogen berfungsi tanpa kejutan.", "itemCount_other": "item {{count}}"},
 		"playlistProfiles": {
 			"heading": "Tetapkan profil unduhan",
 			"selectedSummary": "{{selected}} dari {{total}} dipilih",
@@ -84,11 +84,8 @@
 			"heading": "Item daftar putar",
 			"headingGeneric": "Video untuk diunduh",
 			"bulkHeading": "URL massal",
-			"itemCount_one": "Video {{count}}",
 			"itemCount_other": "video {{count}}",
-			"itemCountAudio_one": "jalur {{count}}",
 			"itemCountAudio_other": "trek {{count}}",
-			"itemCountBulk_one": "URL {{count}}",
 			"itemCountBulk_other": "URL {{count}}",
 			"bulkMetadataResolving": "Mengambil detail video… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Tidak perlu menunggu — file yang antre sekarang tetap mendapatkan nama aslinya saat diunduh.",
@@ -105,14 +102,12 @@
 			"rangeFrom": "Dari",
 			"rangeTo": "Ke",
 			"rangeApply": "Terapkan rentang",
-			"selectedCount_one": "{{count}} dipilih",
 			"selectedCount_other": "{{count}} dipilih",
 			"noSelection": "Pilih setidaknya satu video untuk melanjutkan",
 			"loadingItems": "Mengambil daftar putar…",
 			"loadingItemsGeneric": "Mengambil video…",
 			"loadingPhasePages": "Memindai halaman saluran",
 			"loadingPhaseItems": "Mengumpulkan video",
-			"loadingPagesFound_one": "Halaman {{count}} ditemukan",
 			"loadingPagesFound_other": "{{count}} halaman ditemukan",
 			"loadingLimitHint": "Terbatas untuk item {{count}} pertama",
 			"thumbnailAlt": "Gambar kecil video",
@@ -127,17 +122,14 @@
 			"syncNoneDescGeneric": "Tidak ada video dari sumber ini yang ditemukan di {{dir}}.",
 			"alreadyDownloaded": "Sudah diunduh",
 			"nestedPlaylistBadge": "Daftar putar",
-			"nestedPlaylistHint_one": "{{count}} di antaranya adalah daftar putar, bukan video — tempel tautannya sendiri untuk mengunduhnya.",
 			"nestedPlaylistHint_other": "{{count}} di antaranya adalah daftar putar, bukan video — tempel tautannya satu per satu untuk mengunduhnya.",
 			"probeLimitAlertTitle": "Pemindaian daftar putar dibatasi",
 			"probeLimitAlertTitleGeneric": "Pemindaian dibatasi",
 			"probeLimitAlertDesc": "Menampilkan item {{count}} pertama. Tingkatkan batas muatan untuk melihat lebih banyak.",
 			"multiProfileEntry": "Tetapkan profil per item",
 			"multiProfileEntryTooltip": "Melewati Kualitas, SponsorBlock, Keluaran, dan Simpan — tetapkan profil unduhan per item sebagai gantinya",
-			"removeFromListCount_one": "Hapus {{count}} dari daftar",
 			"removeFromListCount_other": "Hapus {{count}} dari daftar",
 			"restore": "Pulihkan",
-			"removedCount_one": "{{count}} dihapus",
 			"removedCount_other": "{{count}} dihapus",
 			"allRemovedTitle": "Semua item telah dihapus",
 			"allRemovedDescription": "Pulihkan untuk melanjutkan."
@@ -185,7 +177,6 @@
 			"quickPrepareFailed": "Item antrean tidak dapat disiapkan",
 			"quickBulkAllFailed": "Tak satu pun dari URL tersebut dapat disiapkan",
 			"quickFailed": "Tidak dapat menambahkan yang ini: {{error}}",
-			"quickPartialFailed_one": "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan.",
 			"quickPartialFailed_other": "Mengantri apa yang berhasil. URL {{count}} tidak dapat disiapkan.",
 			"profile": {
 				"destinationFallback": "Tujuan",
@@ -336,7 +327,6 @@
 			"description": "Arroxy sedang membaca tautan dan menerapkan {{profileName}}.",
 			"currentFallback": "Tautan saat ini",
 			"waitHint": "Biarkan ini tetap terbuka sementara Arroxy menyiapkan antrian.",
-			"failedCount_one": "{{count}} gagal",
 			"failedCount_other": "{{count}} gagal",
 			"cancel": "Batalkan persiapan",
 			"phase": {"probing": "Mengambil detail", "queueing": "Menambah antrian"}
@@ -389,7 +379,7 @@
 				"subtitlesMissing": "Profil Anda meminta subtitle dalam bahasa {{languages}}. Video ini tidak memilikinya.",
 				"webmUnavailable": "Profil Anda meminta WebM. Stream terpilih video ini mencakup {{codec}}, yang tidak didukung WebM, jadi jenis file diatur ke Otomatis."
 			},
-			"summary": {"lead": "Juga dari {{profile}}:", "subtitlesOff": "subtitle mati", "subtitlesAdd_one": "{{count}} bahasa tersedia, tambahkan", "subtitlesAdd_other": "{{count}} bahasa tersedia, tambahkan", "reviewAll": "Tinjau semua"},
+			"summary": {"lead": "Juga dari {{profile}}:", "subtitlesOff": "subtitle mati", "subtitlesAdd_other": "{{count}} bahasa tersedia, tambahkan", "reviewAll": "Tinjau semua"},
 			"footer": {"reviewOptions": "Tinjau & opsi", "download": "Unduh", "moreActions": "Opsi unduhan lainnya", "addToQueue": "Tambahkan ke antrean tanpa memulai", "subtitlesRequired": "Pilih setidaknya satu bahasa subtitle."},
 			"video": "Video",
 			"audio": "Audio",
@@ -408,7 +398,6 @@
 			"quality": {"high": "Kualitas tinggi", "medium": "Kualitas sedang", "low": "Kualitas rendah"},
 			"drc": {"label": "Ratakan volume (DRC)", "description": "Bagian keras jadi lebih pelan dan bagian pelan lebih keras, untuk speaker dan ruangan bising.", "tag": "Volume rata"},
 			"audioLanguage": "Bahasa audio",
-			"audioLanguageCount_one": "{{count}} bahasa",
 			"audioLanguageCount_other": "{{count}} bahasa",
 			"convert": {"label": "Mengubah", "bitrate": "Kecepatan bit", "wavLabel": "WAV (tidak terkompresi)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Sumber {{kbps}} kbps"},
 			"botWall": {
@@ -493,7 +482,6 @@
 		"confirm": {
 			"readyHeadline": "Siap untuk menariknya!",
 			"landIn": "File Anda akan masuk",
-			"landInMultiProfile_one": "Akan masuk ke tujuan di bawah",
 			"landInMultiProfile_other": "Akan masuk ke {{count}} tujuan di bawah",
 			"labelVideo": "Video",
 			"labelAudio": "Audio",
@@ -514,14 +502,10 @@
 			"labelBulk": "Kelompok",
 			"labelPreset": "Prasetel",
 			"labelItems": "Barang",
-			"itemsValue_one": "{{count}} dari video {{total}}",
 			"itemsValue_other": "{{count}} dari video {{total}}",
-			"itemsValueAudio_one": "{{count}} dari trek {{total}}",
 			"itemsValueAudio_other": "{{count}} dari trek {{total}}",
-			"itemsValueBulk_one": "{{count}} dari URL {{total}}",
 			"itemsValueBulk_other": "{{count}} dari URL {{total}}",
 			"profileBreakdownHeading": "Profil dalam batch ini",
-			"profileBreakdownCount_one": "item {{count}}",
 			"profileBreakdownCount_other": "item {{count}}",
 			"subtitleEmbedForcesMkv": "Subtitle di dalam video memerlukan file MKV, jadi unduhan ini disimpan sebagai .mkv."
 		},
@@ -533,7 +517,7 @@
 				"identity": {"title": "Identitas profil", "description": "Nama dan ikon yang tampil di Unduh Cepat, URL Massal, dan daftar profil."},
 				"downloadType": {"title": "Jenis unduhan", "description": "Pilih cara utama Anda ingin mengunduh."},
 				"advanced": {"title": "Opsi lanjutan", "description": "Profil mewarisi tujuan global kecuali Anda mengatur penggantian profil."},
-				"output": {"title": "Opsi keluaran", "enabledCount_one": "{{count}} aktif", "enabledCount_other": "{{count}} aktif"},
+				"output": {"title": "Opsi keluaran", "enabledCount_other": "{{count}} aktif"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -626,16 +610,13 @@
 			"subtitlesFullLength": "seluruh video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Memuat…", "chapters_one": "{{count}} bab", "chapters_other": "{{count}} bab"},
+	"videoCard": {"titlePlaceholder": "Memuat…", "chapters_other": "{{count}} bab"},
 	"queue": {
 		"header": "Unduhan",
 		"tabLabel": "Unduhan",
-		"attentionBadge_one": "{{count}} unduhan memerlukan perhatian Anda",
 		"attentionBadge_other": "{{count}} unduhan memerlukan perhatian Anda",
 		"choice": {
-			"cappedBody_one": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
 			"cappedBody_other": "Lebih dari {{count}} video di playlist ini. Unduh semuanya, {{count}} yang pertama, atau pilih lewat tinjauan.",
-			"reviewBody_one": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh.",
 			"reviewBody_other": "Tautan ini berisi daftar {{count}} video. Tinjau untuk memilih apa yang diunduh.",
 			"all": "Semua video",
 			"first": "{{count}} pertama",
@@ -755,7 +736,6 @@
 		"warmupFailed": "Penyiapan belum selesai. Beberapa unduhan mungkin gagal sampai selesai.",
 		"shellActionFailed": "Tidak dapat membuka itu.",
 		"folderSelectFailed": "Tidak dapat membuka pemilih folder.",
-		"exploreSignInRetrying_one": "Masuk dengan Explore — mencoba ulang 1 tautan",
 		"exploreSignInRetrying_other": "Masuk dengan Explore — mencoba ulang {{count}} tautan",
 		"exploreSignOutFailed": "Tidak dapat keluar dari Explore. Coba lagi.",
 		"playlistFolderRejected": "Folder itu tidak dapat digunakan untuk playlist ini.",
@@ -771,17 +751,14 @@
 			"busy": "Arroxy masih memulai — coba lagi sebentar lagi",
 			"submissionFailed": "Tautan itu tidak bisa ditambahkan — coba lagi di Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video sudah ada di antrean — dilewati", "skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"},
+		"queue": {"skippedAlreadyQueued_other": "{{count}} video sudah ada di antrean — dilewati"},
 		"quickDownload": {
 			"added": "Ditambahkan: {{title}}",
 			"alreadyQueued": "Sudah ada di antrean",
 			"failed": "Tidak dapat menyiapkan {{title}}",
 			"notAdded": "Tautan itu tidak bisa ditambahkan — coba lagi",
-			"chooseHowMany_one": "{{count}}+ video — pilih jumlahnya",
 			"chooseHowMany_other": "{{count}}+ video — pilih jumlahnya",
-			"review_one": "{{count}} video dalam daftar ini — tinjau untuk memilih",
 			"review_other": "{{count}} video dalam daftar ini — tinjau untuk memilih",
-			"reviewCapped_one": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
 			"reviewCapped_other": "{{count}}+ video dalam daftar ini — tinjau untuk memilih",
 			"view": "Lihat"
 		}
@@ -830,16 +807,9 @@
 		"mp4Cap": "H.264 di atas 1080p tidak tersedia di YouTube — dibatasi hingga 1080p secara otomatis"
 	},
 	"formatLabel": {"audioFallback": "Audio", "audioOnlyDot": "Audio saja · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Menganggur", "statusActive_one": "1 pengunduhan · {{percent}}%", "statusActive_other": "Pengunduhan {{count}} · {{percent}}%", "downloadFromClipboard": "Unduh dari papan klip", "open": "Buka Arroxy", "quit": "Keluar dari Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Menganggur", "statusActive_other": "Pengunduhan {{count}} · {{percent}}%", "downloadFromClipboard": "Unduh dari papan klip", "open": "Buka Arroxy", "quit": "Keluar dari Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "Pengunduhan {{count}} sedang berlangsung",
-			"message_other": "Pengunduhan {{count}} sedang berlangsung",
-			"detail": "Jeda untuk melanjutkan nanti, atau batalkan untuk membuang kemajuan.",
-			"confirm": "Batalkan Unduhan & Keluar",
-			"pause": "Jeda Unduhan & Keluar",
-			"keep": "Terus Mengunduh"
-		},
+		"quitWithActiveDownloads": {"message_other": "Pengunduhan {{count}} sedang berlangsung", "detail": "Jeda untuk melanjutkan nanti, atau batalkan untuk membuang kemajuan.", "confirm": "Batalkan Unduhan & Keluar", "pause": "Jeda Unduhan & Keluar", "keep": "Terus Mengunduh"},
 		"closeToTray": {"message": "Sembunyikan Arroxy ke baki sistem saat menutup?", "detail": "Arroxy terus berjalan dan menyelesaikan pengunduhan aktif. Ubah ini nanti di Pengaturan lanjutan.", "hide": "Sembunyikan ke baki", "quit": "Berhenti", "remember": "Jangan bertanya lagi"},
 		"rendererCrashed": {"message": "Arroxy mengalami masalah", "detail": "Proses penyaji macet ({{reason}}). Muat ulang untuk mencoba lagi.", "reload": "Muat ulang", "quit": "Berhenti"}
 	},

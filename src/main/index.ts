@@ -470,7 +470,7 @@ if (hasSingleInstanceLock) {
 					buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.pause'), mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
 					defaultId: 2,
 					cancelId: 2,
-					message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey('message', count)}`, {count}),
+					message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey(lang, 'message', count)}`, {count}),
 					detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
 				}))
 			} finally {

@@ -131,10 +131,12 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "Συνέχεια λήψεων"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "{{count}} λήψη σε εξέλιξη"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} λήψεις σε εξέλιξη"
@@ -599,10 +601,12 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Γλώσσα"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για 1 σύνδεσμο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Συνδέθηκες μέσω Explore — νέα προσπάθεια για {{count}} συνδέσμους"
@@ -659,10 +663,12 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Αυτός ο φάκελος δεν μπορεί να χρησιμοποιηθεί για αυτήν τη λίστα αναπαραγωγής."
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} βίντεο είναι ήδη στην ουρά — παραλείφθηκε"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} βίντεο είναι ήδη στην ουρά — παραλείφθηκαν"
@@ -675,10 +681,12 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "Είναι ήδη στην ουρά"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ βίντεο — επίλεξε πόσα"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ βίντεο — επίλεξε πόσα"
@@ -691,18 +699,22 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Δεν ήταν δυνατή η προσθήκη του συνδέσμου — δοκίμασε ξανά"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "{{count}} βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ βίντεο σε αυτή τη λίστα — κάνε επισκόπηση για επιλογή"
@@ -915,10 +927,12 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Αρχείο"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "{{count}} λήψη χρειάζεται την προσοχή σου"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} λήψεις χρειάζονται την προσοχή σου"
@@ -939,10 +953,12 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "Όλα τα βίντεο"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Περισσότερα από {{count}} βίντεο σε αυτή τη λίστα αναπαραγωγής. Κατέβασε όλα, τα πρώτα {{count}} ή διάλεξε μέσω επισκόπησης."
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Περισσότερα από {{count}} βίντεο σε αυτή τη λίστα αναπαραγωγής. Κατέβασε όλα, τα πρώτα {{count}} ή διάλεξε μέσω επισκόπησης."
@@ -955,10 +971,12 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Επισκόπηση"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Αυτός ο σύνδεσμος είναι λίστα με {{count}} βίντεο. Κάνε επισκόπηση για να διαλέξεις τι θα κατεβάσεις."
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Αυτός ο σύνδεσμος είναι λίστα με {{count}} βίντεο. Κάνε επισκόπηση για να διαλέξεις τι θα κατεβάσεις."
@@ -1639,10 +1657,12 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Έξοδος από Arroxy"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 σε λήψη · {{percent}}%"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} σε λήψη · {{percent}}%"
@@ -1719,10 +1739,12 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Αναβάθμιση…"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} κεφάλαιο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} κεφάλαια"
@@ -1785,26 +1807,32 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "Μόνο ήχος"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} από {{total}} βίντεο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} από {{total}} βίντεο"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} από {{total}} κομμάτι"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} από {{total}} κομμάτια"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} από {{total}} URL"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} από {{total}} URL"
@@ -1849,10 +1877,12 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Το αρχείο σου θα αποθηκευτεί στο"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Θα αποθηκευτεί στον παρακάτω προορισμό"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Θα αποθηκευτούν στους {{count}} παρακάτω προορισμούς"
@@ -1861,10 +1891,12 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Η προεπιλογή «μόνο υπότιτλοι» είναι ενεργή αλλά δεν έχει επιλεγεί γλώσσα — τίποτα δεν θα ληφθεί."
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} στοιχείο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} στοιχεία"
@@ -1961,10 +1993,12 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "Γλώσσα ήχου"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "{{count}} γλώσσα"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} γλώσσες"
@@ -2337,10 +2371,12 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "Επισκόπηση όλων"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "{{count}} διαθέσιμη γλώσσα, προσθήκη"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "{{count}} διαθέσιμες γλώσσες, προσθήκη"
@@ -2621,26 +2657,32 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "Βίντεο για λήψη"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} βίντεο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} βίντεο"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} κομμάτι"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} κομμάτια"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} URL"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL"
@@ -2657,10 +2699,12 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "Περιορισμένο στα πρώτα {{count}} στοιχεία"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "Βρέθηκε {{count}} σελίδα"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "Βρέθηκαν {{count}} σελίδες"
@@ -2685,10 +2729,12 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "Λίστα αναπαραγωγής"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} από αυτά είναι λίστα αναπαραγωγής, όχι βίντεο — επικολλήστε τον σύνδεσμό της ξεχωριστά για να την κατεβάσετε."
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} από αυτά είναι λίστες αναπαραγωγής, όχι βίντεο — επικολλήστε τους συνδέσμους τους έναν κάθε φορά για να τις κατεβάσετε."
@@ -2721,18 +2767,22 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Έως"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "{{count}} καταργήθηκαν"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} καταργήθηκαν"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Κατάργηση {{count}} από τη λίστα"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Κατάργηση {{count}} από τη λίστα"
@@ -2745,10 +2795,12 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "Επιλογή όλων"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} επιλεγμένο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} επιλεγμένα"
@@ -2817,10 +2869,12 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Επιλογή ποιότητας για την ομαδική λήψη"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} στοιχείο"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} στοιχεία"
@@ -3201,10 +3255,12 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Ταυτότητα προφίλ"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "{{count}} ενεργά"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "{{count}} ενεργά"
@@ -3277,10 +3333,12 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Το Arroxy διαβάζει τον σύνδεσμο και εφαρμόζει το {{profileName}}."
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "{{count}} απέτυχε"
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} απέτυχαν"
@@ -4213,10 +4271,12 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Δεν ήταν δυνατή η προσθήκη: {{error}}"
 
+#. Plural form "one" for el: used for counts like 1.
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "Μπήκε στην ουρά ό,τι λειτούργησε. {{count}} URL δεν προετοιμάστηκε."
 
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "Μπήκε στην ουρά ό,τι λειτούργησε. {{count}} URL δεν προετοιμάστηκαν."

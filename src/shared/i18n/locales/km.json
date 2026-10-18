@@ -43,7 +43,7 @@
 	"language": {"label": "ភាសា"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "បញ្ជីចាក់", "playlistItemsGeneric": "វីដេអូ", "playlistPresets": "គុណភាព", "playlistProfiles": "ប្រវត្តិរូប", "formats": "ទម្រង់", "subtitles": "អក្សររត់", "sponsorblock": "SponsorBlock", "output": "លទ្ធផល", "folder": "រក្សាទុក", "confirm": "បញ្ជាក់", "review": "ពិនិត្យ"},
-		"playlistPresets": {"heading": "ជ្រើសរើសគុណភាពសម្រាប់ក្រុមទាំងមូល", "subhead": "វីដេអូនីមួយៗកំណត់កម្រិតដែលបានជ្រើសរើសដោយឯករាជ្យ — បញ្ជីចាក់ចម្រុះដំណើរការបានដោយគ្មានការភ្ញាក់ផ្អើល។", "itemCount_one": "{{count}} ធាតុ", "itemCount_other": "{{count}} ធាតុ"},
+		"playlistPresets": {"heading": "ជ្រើសរើសគុណភាពសម្រាប់ក្រុមទាំងមូល", "subhead": "វីដេអូនីមួយៗកំណត់កម្រិតដែលបានជ្រើសរើសដោយឯករាជ្យ — បញ្ជីចាក់ចម្រុះដំណើរការបានដោយគ្មានការភ្ញាក់ផ្អើល។", "itemCount_other": "{{count}} ធាតុ"},
 		"playlistProfiles": {
 			"heading": "កំណត់ប្រវត្តិរូបទាញយក",
 			"selectedSummary": "បានជ្រើសរើស {{selected}} ក្នុងចំណោម {{total}}",
@@ -62,11 +62,8 @@
 			"heading": "ធាតុក្នុងបញ្ជីចាក់",
 			"headingGeneric": "វីដេអូដែលត្រូវទាញយក",
 			"bulkHeading": "URL ច្រើន",
-			"itemCount_one": "{{count}} វីដេអូ",
 			"itemCount_other": "{{count}} វីដេអូ",
-			"itemCountAudio_one": "{{count}} បទ",
 			"itemCountAudio_other": "{{count}} បទ",
-			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "កំពុងទាញយកព័ត៌មានលម្អិតវីដេអូ… {{done}}/{{total}}",
 			"bulkMetadataOptional": "មិនចាំបាច់រង់ចាំទេ — ឯកសារដែលដាក់ក្នុងជួរឥឡូវនេះនៅតែទទួលបានឈ្មោះពិតនៅពេលទាញយក។",
@@ -83,14 +80,12 @@
 			"rangeFrom": "ពី",
 			"rangeTo": "ដល់",
 			"rangeApply": "អនុវត្តចន្លោះ",
-			"selectedCount_one": "បានជ្រើសរើស {{count}}",
 			"selectedCount_other": "បានជ្រើសរើស {{count}}",
 			"noSelection": "ជ្រើសរើសវីដេអូយ៉ាងហោចណាស់មួយដើម្បីបន្ត",
 			"loadingItems": "កំពុងទាញយកបញ្ជីចាក់…",
 			"loadingItemsGeneric": "កំពុងទាញយកវីដេអូ…",
 			"loadingPhasePages": "កំពុងស្កេនទំព័រប៉ុស្តិ៍",
 			"loadingPhaseItems": "កំពុងប្រមូលវីដេអូ",
-			"loadingPagesFound_one": "រកឃើញ {{count}} ទំព័រ",
 			"loadingPagesFound_other": "រកឃើញ {{count}} ទំព័រ",
 			"loadingLimitHint": "កំណត់ត្រឹម {{count}} ធាតុដំបូង",
 			"thumbnailAlt": "រូបភាពតូចវីដេអូ",
@@ -105,17 +100,14 @@
 			"syncNoneDescGeneric": "រកមិនឃើញវីដេអូពីប្រភពនេះក្នុង {{dir}} ទេ។",
 			"alreadyDownloaded": "បានទាញយករួចហើយ",
 			"nestedPlaylistBadge": "បញ្ជីចាក់",
-			"nestedPlaylistHint_one": "{{count}} ក្នុងចំណោមទាំងនេះជាបញ្ជីចាក់ មិនមែនវីដេអូទេ — បិទភ្ជាប់តំណរបស់វាដោយឡែកដើម្បីទាញយក។",
 			"nestedPlaylistHint_other": "{{count}} ក្នុងចំណោមទាំងនេះជាបញ្ជីចាក់ មិនមែនវីដេអូទេ — បិទភ្ជាប់តំណរបស់វាម្តងមួយៗដើម្បីទាញយក។",
 			"probeLimitAlertTitle": "ការស្កេនបញ្ជីចាក់ត្រូវបានកំណត់",
 			"probeLimitAlertTitleGeneric": "ការស្កេនត្រូវបានកំណត់",
 			"probeLimitAlertDesc": "កំពុងបង្ហាញ {{count}} ធាតុដំបូង។ បង្កើនដែនកំណត់ផ្ទុកដើម្បីមើលបន្ថែម។",
 			"multiProfileEntry": "កំណត់ប្រវត្តិរូបតាមធាតុនីមួយៗ",
 			"multiProfileEntryTooltip": "រំលងគុណភាព, SponsorBlock, លទ្ធផល និងរក្សាទុក — កំណត់ប្រវត្តិរូបទាញយកតាមធាតុនីមួយៗជំនួសវិញ",
-			"removeFromListCount_one": "ដក {{count}} ចេញពីបញ្ជី",
 			"removeFromListCount_other": "ដក {{count}} ចេញពីបញ្ជី",
 			"restore": "ស្តារ",
-			"removedCount_one": "បានដក {{count}}",
 			"removedCount_other": "បានដក {{count}}",
 			"allRemovedTitle": "ធាតុទាំងអស់ត្រូវបានដកចេញ",
 			"allRemovedDescription": "ស្តារពួកវាវិញដើម្បីបន្ត។"
@@ -163,7 +155,6 @@
 			"quickPrepareFailed": "មិនអាចរៀបចំធាតុក្នុងជួរបានទេ",
 			"quickBulkAllFailed": "មិនអាចរៀបចំ URL ណាមួយក្នុងចំណោមនោះបានទេ",
 			"quickFailed": "មិនអាចបន្ថែមមួយនេះបានទេ៖ {{error}}",
-			"quickPartialFailed_one": "បានដាក់ក្នុងជួរនូវអ្វីដែលដំណើរការ។ មិនអាចរៀបចំ URL {{count}} បានទេ។",
 			"quickPartialFailed_other": "បានដាក់ក្នុងជួរនូវអ្វីដែលដំណើរការ។ មិនអាចរៀបចំ URL {{count}} បានទេ។",
 			"profile": {
 				"destinationFallback": "ទីតាំងរក្សាទុក",
@@ -309,7 +300,6 @@
 			"description": "Arroxy កំពុងអានតំណ ហើយអនុវត្ត {{profileName}}។",
 			"currentFallback": "តំណបច្ចុប្បន្ន",
 			"waitHint": "ទុកផ្ទាំងនេះឱ្យបើក ខណៈពេល Arroxy រៀបចំជួរ។",
-			"failedCount_one": "បរាជ័យ {{count}}",
 			"failedCount_other": "បរាជ័យ {{count}}",
 			"cancel": "បោះបង់ការរៀបចំ",
 			"phase": {"probing": "កំពុងទាញយកព័ត៌មានលម្អិត", "queueing": "កំពុងបន្ថែមទៅជួរ"}
@@ -362,7 +352,7 @@
 				"subtitlesMissing": "ប្រវត្តិរូបរបស់អ្នកស្នើសុំអក្សររត់ជា {{languages}}។ វីដេអូនេះមិនមានវាទេ។",
 				"webmUnavailable": "ប្រវត្តិរូបរបស់អ្នកស្នើសុំ WebM។ ស្ទ្រីមដែលបានជ្រើសរើសរបស់វីដេអូនេះមាន {{codec}} ដែល WebM មិនអាចផ្ទុកបាន ដូច្នេះប្រភេទឯកសារគឺស្វ័យប្រវត្តិ។"
 			},
-			"summary": {"lead": "ក៏មកពី {{profile}} ផងដែរ៖", "subtitlesOff": "អក្សររត់បិទ", "subtitlesAdd_one": "មាន {{count}} ភាសា បន្ថែម", "subtitlesAdd_other": "មាន {{count}} ភាសា បន្ថែម", "reviewAll": "ពិនិត្យទាំងអស់"},
+			"summary": {"lead": "ក៏មកពី {{profile}} ផងដែរ៖", "subtitlesOff": "អក្សររត់បិទ", "subtitlesAdd_other": "មាន {{count}} ភាសា បន្ថែម", "reviewAll": "ពិនិត្យទាំងអស់"},
 			"footer": {"reviewOptions": "ពិនិត្យ និងជម្រើស", "download": "ទាញយក", "moreActions": "ជម្រើសទាញយកបន្ថែម", "addToQueue": "បន្ថែមទៅជួរដោយមិនចាប់ផ្តើម", "subtitlesRequired": "ជ្រើសរើសភាសាអក្សររត់យ៉ាងហោចណាស់មួយ។"},
 			"video": "វីដេអូ",
 			"audio": "សំឡេង",
@@ -381,7 +371,6 @@
 			"quality": {"high": "គុណភាពខ្ពស់", "medium": "គុណភាពមធ្យម", "low": "គុណភាពទាប"},
 			"drc": {"label": "ធ្វើឲ្យកម្រិតសំឡេងស្មើគ្នា (DRC)", "description": "បន្ថយផ្នែកដែលលឺខ្លាំង និងបង្កើនផ្នែកដែលលឺតិច សម្រាប់ឧបករណ៍បំពងសំឡេង និងកន្លែងដែលមានសំឡេងរំខាន។", "tag": "សំឡេងស្មើគ្នា"},
 			"audioLanguage": "ភាសាសំឡេង",
-			"audioLanguageCount_one": "{{count}} ភាសា",
 			"audioLanguageCount_other": "{{count}} ភាសា",
 			"convert": {"label": "បម្លែង", "bitrate": "Bitrate", "wavLabel": "WAV (មិនបង្ហាប់)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ប្រភពគឺ {{kbps}} kbps"},
 			"botWall": {
@@ -448,7 +437,6 @@
 		"confirm": {
 			"readyHeadline": "រួចរាល់សម្រាប់ទាញយកហើយ!",
 			"landIn": "ឯកសាររបស់អ្នកនឹងត្រូវរក្សាទុកនៅ",
-			"landInMultiProfile_one": "វានឹងត្រូវរក្សាទុកនៅទីតាំងខាងក្រោម",
 			"landInMultiProfile_other": "ពួកវានឹងត្រូវរក្សាទុកនៅទីតាំង {{count}} ខាងក្រោម",
 			"labelVideo": "វីដេអូ",
 			"labelAudio": "សំឡេង",
@@ -469,14 +457,10 @@
 			"labelBulk": "ក្រុម",
 			"labelPreset": "ការកំណត់ជាមុន",
 			"labelItems": "ធាតុ",
-			"itemsValue_one": "{{count}} ក្នុងចំណោម {{total}} វីដេអូ",
 			"itemsValue_other": "{{count}} ក្នុងចំណោម {{total}} វីដេអូ",
-			"itemsValueAudio_one": "{{count}} ក្នុងចំណោម {{total}} បទ",
 			"itemsValueAudio_other": "{{count}} ក្នុងចំណោម {{total}} បទ",
-			"itemsValueBulk_one": "{{count}} ក្នុងចំណោម {{total}} URL",
 			"itemsValueBulk_other": "{{count}} ក្នុងចំណោម {{total}} URL",
 			"profileBreakdownHeading": "ប្រវត្តិរូបក្នុងក្រុមនេះ",
-			"profileBreakdownCount_one": "{{count}} ធាតុ",
 			"profileBreakdownCount_other": "{{count}} ធាតុ",
 			"subtitleEmbedForcesMkv": "អក្សររត់ក្នុងវីដេអូត្រូវការឯកសារ MKV ដូច្នេះការទាញយកនេះរក្សាទុកជា .mkv។"
 		},
@@ -488,7 +472,7 @@
 				"identity": {"title": "អត្តសញ្ញាណប្រវត្តិរូប", "description": "ឈ្មោះ និងរូបតំណាងដែលបង្ហាញក្នុង ទាញយករហ័ស, URL ច្រើន និងបញ្ជីប្រវត្តិរូប។"},
 				"downloadType": {"title": "ប្រភេទទាញយក", "description": "ជ្រើសរើសវិធីចម្បងដែលអ្នកចង់ទាញយក។"},
 				"advanced": {"title": "ជម្រើសកម្រិតខ្ពស់", "description": "ប្រវត្តិរូបទទួលយកទីតាំងរក្សាទុកសកល លុះត្រាតែអ្នកកំណត់ការជំនួសសម្រាប់ប្រវត្តិរូប។"},
-				"output": {"title": "ជម្រើសលទ្ធផល", "enabledCount_one": "បានបើក {{count}}", "enabledCount_other": "បានបើក {{count}}"},
+				"output": {"title": "ជម្រើសលទ្ធផល", "enabledCount_other": "បានបើក {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -576,21 +560,12 @@
 			"subtitlesFullLength": "វីដេអូទាំងមូល"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "កំពុងផ្ទុក…", "chapters_one": "{{count}} ជំពូក", "chapters_other": "{{count}} ជំពូក"},
+	"videoCard": {"titlePlaceholder": "កំពុងផ្ទុក…", "chapters_other": "{{count}} ជំពូក"},
 	"queue": {
 		"header": "ការទាញយក",
 		"tabLabel": "ការទាញយក",
-		"attentionBadge_one": "ការទាញយក {{count}} ត្រូវការការយកចិត្តទុកដាក់ពីអ្នក",
 		"attentionBadge_other": "ការទាញយក {{count}} ត្រូវការការយកចិត្តទុកដាក់ពីអ្នក",
-		"choice": {
-			"cappedBody_one": "មានវីដេអូច្រើនជាង {{count}} ក្នុងបញ្ជីចាក់នេះ។ ទាញយកទាំងអស់ {{count}} ដំបូង ឬជ្រើសរើសក្នុងការពិនិត្យ។",
-			"cappedBody_other": "មានវីដេអូច្រើនជាង {{count}} ក្នុងបញ្ជីចាក់នេះ។ ទាញយកទាំងអស់ {{count}} ដំបូង ឬជ្រើសរើសក្នុងការពិនិត្យ។",
-			"reviewBody_one": "តំណនេះជាបញ្ជីនៃវីដេអូ {{count}}។ ពិនិត្យវាដើម្បីជ្រើសរើសអ្វីដែលត្រូវទាញយក។",
-			"reviewBody_other": "តំណនេះជាបញ្ជីនៃវីដេអូ {{count}}។ ពិនិត្យវាដើម្បីជ្រើសរើសអ្វីដែលត្រូវទាញយក។",
-			"all": "វីដេអូទាំងអស់",
-			"first": "{{count}} ដំបូង",
-			"review": "ពិនិត្យ"
-		},
+		"choice": {"cappedBody_other": "មានវីដេអូច្រើនជាង {{count}} ក្នុងបញ្ជីចាក់នេះ។ ទាញយកទាំងអស់ {{count}} ដំបូង ឬជ្រើសរើសក្នុងការពិនិត្យ។", "reviewBody_other": "តំណនេះជាបញ្ជីនៃវីដេអូ {{count}}។ ពិនិត្យវាដើម្បីជ្រើសរើសអ្វីដែលត្រូវទាញយក។", "all": "វីដេអូទាំងអស់", "first": "{{count}} ដំបូង", "review": "ពិនិត្យ"},
 		"tabTip": "ការទាញយកឥឡូវនៅក្នុងផ្ទាំង ការទាញយក — បើកវាគ្រប់ពេលដើម្បីតាមដានវឌ្ឍនភាព។",
 		"empty": "ការទាញយកក្នុងជួរនឹងបង្ហាញនៅទីនេះ",
 		"filtersLabel": "តម្រងស្ថានភាពជួរ",
@@ -705,7 +680,6 @@
 		"warmupFailed": "ការរៀបចំមិនបានបញ្ចប់ទេ។ ការទាញយកមួយចំនួនអាចបរាជ័យរហូតដល់វាបញ្ចប់។",
 		"shellActionFailed": "មិនអាចបើកវាបានទេ។",
 		"folderSelectFailed": "មិនអាចបើកផ្ទាំងជ្រើសរើសថតបានទេ។",
-		"exploreSignInRetrying_one": "បានចូលគណនីជាមួយ Explore — កំពុងព្យាយាមតំណ 1 ម្តងទៀត",
 		"exploreSignInRetrying_other": "បានចូលគណនីជាមួយ Explore — កំពុងព្យាយាមតំណ {{count}} ម្តងទៀត",
 		"exploreSignOutFailed": "មិនអាចចាកចេញពី Explore បានទេ។ ព្យាយាមម្តងទៀត។",
 		"playlistFolderRejected": "ថតនោះមិនអាចប្រើសម្រាប់បញ្ជីចាក់នេះបានទេ។",
@@ -721,17 +695,14 @@
 			"busy": "Arroxy នៅតែកំពុងចាប់ផ្តើម — ព្យាយាមម្តងទៀតបន្តិចទៀត",
 			"submissionFailed": "មិនអាចបន្ថែមតំណនោះបានទេ — ព្យាយាមម្តងទៀតក្នុង Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "វីដេអូ {{count}} មានក្នុងជួររួចហើយ — បានរំលង", "skippedAlreadyQueued_other": "វីដេអូ {{count}} មានក្នុងជួររួចហើយ — បានរំលង"},
+		"queue": {"skippedAlreadyQueued_other": "វីដេអូ {{count}} មានក្នុងជួររួចហើយ — បានរំលង"},
 		"quickDownload": {
 			"added": "បានបន្ថែម៖ {{title}}",
 			"alreadyQueued": "មានក្នុងជួររួចហើយ",
 			"failed": "មិនអាចរៀបចំ {{title}} បានទេ",
 			"notAdded": "មិនអាចបន្ថែមតំណនោះបានទេ — ព្យាយាមម្តងទៀត",
-			"chooseHowMany_one": "វីដេអូ {{count}}+ — ជ្រើសរើសចំនួន",
 			"chooseHowMany_other": "វីដេអូ {{count}}+ — ជ្រើសរើសចំនួន",
-			"review_one": "វីដេអូ {{count}} ក្នុងបញ្ជីនេះ — ពិនិត្យដើម្បីជ្រើសរើស",
 			"review_other": "វីដេអូ {{count}} ក្នុងបញ្ជីនេះ — ពិនិត្យដើម្បីជ្រើសរើស",
-			"reviewCapped_one": "វីដេអូ {{count}}+ ក្នុងបញ្ជីនេះ — ពិនិត្យដើម្បីជ្រើសរើស",
 			"reviewCapped_other": "វីដេអូ {{count}}+ ក្នុងបញ្ជីនេះ — ពិនិត្យដើម្បីជ្រើសរើស",
 			"view": "មើល"
 		}
@@ -780,9 +751,9 @@
 		"mp4Cap": "H.264 លើសពី 1080p មិនមាននៅលើ YouTube ទេ — កំណត់ត្រឹម 1080p ដោយស្វ័យប្រវត្តិ"
 	},
 	"formatLabel": {"audioFallback": "សំឡេង", "audioOnlyDot": "តែសំឡេង · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ទំនេរ", "statusActive_one": "កំពុងទាញយក 1 · {{percent}}%", "statusActive_other": "កំពុងទាញយក {{count}} · {{percent}}%", "downloadFromClipboard": "ទាញយកពីក្តារតម្បៀតខ្ទាស់", "open": "បើក Arroxy", "quit": "ចាកចេញពី Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ទំនេរ", "statusActive_other": "កំពុងទាញយក {{count}} · {{percent}}%", "downloadFromClipboard": "ទាញយកពីក្តារតម្បៀតខ្ទាស់", "open": "បើក Arroxy", "quit": "ចាកចេញពី Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "ការទាញយក {{count}} កំពុងដំណើរការ", "message_other": "ការទាញយក {{count}} កំពុងដំណើរការ", "detail": "ផ្អាកដើម្បីបន្តនៅពេលក្រោយ ឬបោះបង់ដើម្បីលុបវឌ្ឍនភាព។", "confirm": "បោះបង់ការទាញយក និងចាកចេញ", "pause": "ផ្អាកការទាញយក និងចាកចេញ", "keep": "បន្តទាញយក"},
+		"quitWithActiveDownloads": {"message_other": "ការទាញយក {{count}} កំពុងដំណើរការ", "detail": "ផ្អាកដើម្បីបន្តនៅពេលក្រោយ ឬបោះបង់ដើម្បីលុបវឌ្ឍនភាព។", "confirm": "បោះបង់ការទាញយក និងចាកចេញ", "pause": "ផ្អាកការទាញយក និងចាកចេញ", "keep": "បន្តទាញយក"},
 		"closeToTray": {"message": "លាក់ Arroxy ទៅថាសប្រព័ន្ធនៅពេលបិទ?", "detail": "Arroxy បន្តដំណើរការ ហើយបញ្ចប់ការទាញយកសកម្ម។ ប្តូរវានៅពេលក្រោយក្នុងការកំណត់កម្រិតខ្ពស់។", "hide": "លាក់ទៅថាស", "quit": "ចាកចេញ", "remember": "កុំសួរម្តងទៀត"},
 		"rendererCrashed": {"message": "Arroxy បានជួបបញ្ហា", "detail": "ដំណើរការ renderer បានគាំង ({{reason}})។ ផ្ទុកឡើងវិញដើម្បីព្យាយាមម្តងទៀត។", "reload": "ផ្ទុកឡើងវិញ", "quit": "ចាកចេញ"}
 	},

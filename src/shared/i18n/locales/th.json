@@ -43,7 +43,7 @@
 	"language": {"label": "ภาษา"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "เพลย์ลิสต์", "playlistItemsGeneric": "วิดีโอ", "playlistPresets": "คุณภาพ", "playlistProfiles": "โปรไฟล์", "formats": "รูปแบบ", "subtitles": "คำบรรยาย", "sponsorblock": "SponsorBlock", "output": "ผลลัพธ์", "folder": "บันทึก", "confirm": "ยืนยัน", "review": "ตรวจดู"},
-		"playlistPresets": {"heading": "เลือกคุณภาพสำหรับชุดงาน", "subhead": "แต่ละวิดีโอจะเลือกระดับที่กำหนดแยกกัน — เพลย์ลิสต์ที่หลากหลายจึงทำงานได้ตามคาด", "itemCount_one": "{{count}} รายการ", "itemCount_other": "{{count}} รายการ"},
+		"playlistPresets": {"heading": "เลือกคุณภาพสำหรับชุดงาน", "subhead": "แต่ละวิดีโอจะเลือกระดับที่กำหนดแยกกัน — เพลย์ลิสต์ที่หลากหลายจึงทำงานได้ตามคาด", "itemCount_other": "{{count}} รายการ"},
 		"playlistProfiles": {
 			"heading": "กำหนดโปรไฟล์ดาวน์โหลด",
 			"selectedSummary": "เลือก {{selected}} จาก {{total}}",
@@ -62,11 +62,8 @@
 			"heading": "รายการในเพลย์ลิสต์",
 			"headingGeneric": "วิดีโอที่จะดาวน์โหลด",
 			"bulkHeading": "URL แบบกลุ่ม",
-			"itemCount_one": "วิดีโอ {{count}} รายการ",
 			"itemCount_other": "วิดีโอ {{count}} รายการ",
-			"itemCountAudio_one": "แทร็ก {{count}} รายการ",
 			"itemCountAudio_other": "แทร็ก {{count}} รายการ",
-			"itemCountBulk_one": "URL {{count}} รายการ",
 			"itemCountBulk_other": "URL {{count}} รายการ",
 			"bulkMetadataResolving": "กำลังดึงรายละเอียดวิดีโอ… {{done}}/{{total}}",
 			"bulkMetadataOptional": "ไม่ต้องรอ — ไฟล์ที่เพิ่มลงคิวตอนนี้จะได้ชื่อจริงเมื่อดาวน์โหลด",
@@ -83,14 +80,12 @@
 			"rangeFrom": "จาก",
 			"rangeTo": "ถึง",
 			"rangeApply": "ใช้ช่วง",
-			"selectedCount_one": "เลือก {{count}} รายการ",
 			"selectedCount_other": "เลือก {{count}} รายการ",
 			"noSelection": "เลือกวิดีโออย่างน้อยหนึ่งรายการเพื่อดำเนินการต่อ",
 			"loadingItems": "กำลังดึงเพลย์ลิสต์…",
 			"loadingItemsGeneric": "กำลังดึงวิดีโอ…",
 			"loadingPhasePages": "กำลังตรวจสอบหน้าช่อง",
 			"loadingPhaseItems": "กำลังรวบรวมวิดีโอ",
-			"loadingPagesFound_one": "พบ {{count}} หน้า",
 			"loadingPagesFound_other": "พบ {{count}} หน้า",
 			"loadingLimitHint": "จำกัดที่ {{count}} รายการแรก",
 			"thumbnailAlt": "ภาพขนาดย่อของวิดีโอ",
@@ -105,17 +100,14 @@
 			"syncNoneDescGeneric": "ไม่พบวิดีโอจากแหล่งนี้ใน {{dir}}",
 			"alreadyDownloaded": "ดาวน์โหลดแล้ว",
 			"nestedPlaylistBadge": "เพลย์ลิสต์",
-			"nestedPlaylistHint_one": "มี {{count}} รายการเป็นเพลย์ลิสต์ ไม่ใช่วิดีโอ — วางลิงก์แยกต่างหากเพื่อดาวน์โหลด",
 			"nestedPlaylistHint_other": "มี {{count}} รายการเป็นเพลย์ลิสต์ ไม่ใช่วิดีโอ — วางลิงก์ทีละรายการเพื่อดาวน์โหลด",
 			"probeLimitAlertTitle": "การตรวจสอบเพลย์ลิสต์มีขีดจำกัด",
 			"probeLimitAlertTitleGeneric": "การตรวจสอบมีขีดจำกัด",
 			"probeLimitAlertDesc": "แสดง {{count}} รายการแรก เพิ่มขีดจำกัดการโหลดเพื่อดูเพิ่มเติม",
 			"multiProfileEntry": "กำหนดโปรไฟล์ให้แต่ละรายการ",
 			"multiProfileEntryTooltip": "ข้ามคุณภาพ SponsorBlock ผลลัพธ์ และการบันทึก — กำหนดโปรไฟล์ดาวน์โหลดให้แต่ละรายการแทน",
-			"removeFromListCount_one": "นำ {{count}} รายการออกจากรายการ",
 			"removeFromListCount_other": "นำ {{count}} รายการออกจากรายการ",
 			"restore": "คืนค่า",
-			"removedCount_one": "นำออก {{count}} รายการ",
 			"removedCount_other": "นำออก {{count}} รายการ",
 			"allRemovedTitle": "นำทุกรายการออกแล้ว",
 			"allRemovedDescription": "คืนค่ารายการเพื่อดำเนินการต่อ"
@@ -163,7 +155,6 @@
 			"quickPrepareFailed": "เตรียมรายการในคิวไม่ได้",
 			"quickBulkAllFailed": "เตรียม URL เหล่านั้นไม่ได้เลย",
 			"quickFailed": "เพิ่มรายการนี้ไม่ได้: {{error}}",
-			"quickPartialFailed_one": "เพิ่มรายการที่ใช้ได้ลงคิวแล้ว เตรียม URL ไม่ได้ {{count}} รายการ",
 			"quickPartialFailed_other": "เพิ่มรายการที่ใช้ได้ลงคิวแล้ว เตรียม URL ไม่ได้ {{count}} รายการ",
 			"profile": {
 				"destinationFallback": "ปลายทาง",
@@ -309,7 +300,6 @@
 			"description": "Arroxy กำลังอ่านลิงก์และใช้ {{profileName}}",
 			"currentFallback": "ลิงก์ปัจจุบัน",
 			"waitHint": "เปิดหน้าต่างนี้ไว้ขณะที่ Arroxy เตรียมคิว",
-			"failedCount_one": "ล้มเหลว {{count}} รายการ",
 			"failedCount_other": "ล้มเหลว {{count}} รายการ",
 			"cancel": "ยกเลิกการเตรียม",
 			"phase": {"probing": "กำลังดึงรายละเอียด", "queueing": "กำลังเพิ่มลงคิว"}
@@ -362,7 +352,7 @@
 				"subtitlesMissing": "โปรไฟล์ของคุณต้องการคำบรรยายภาษา {{languages}} แต่วิดีโอนี้ไม่มี",
 				"webmUnavailable": "โปรไฟล์ของคุณต้องการ WebM แต่สตรีมที่เลือกของวิดีโอนี้มี {{codec}} ซึ่ง WebM รองรับไม่ได้ ประเภทไฟล์จึงเป็นอัตโนมัติ"
 			},
-			"summary": {"lead": "จาก {{profile}} ด้วย:", "subtitlesOff": "ปิดคำบรรยาย", "subtitlesAdd_one": "มี {{count}} ภาษาให้เลือก เพิ่ม", "subtitlesAdd_other": "มี {{count}} ภาษาให้เลือก เพิ่ม", "reviewAll": "ตรวจดูทั้งหมด"},
+			"summary": {"lead": "จาก {{profile}} ด้วย:", "subtitlesOff": "ปิดคำบรรยาย", "subtitlesAdd_other": "มี {{count}} ภาษาให้เลือก เพิ่ม", "reviewAll": "ตรวจดูทั้งหมด"},
 			"footer": {"reviewOptions": "ตรวจดูและตัวเลือก", "download": "ดาวน์โหลด", "moreActions": "ตัวเลือกดาวน์โหลดเพิ่มเติม", "addToQueue": "เพิ่มลงคิวโดยไม่เริ่ม", "subtitlesRequired": "เลือกภาษาคำบรรยายอย่างน้อยหนึ่งภาษา"},
 			"video": "วิดีโอ",
 			"audio": "เสียง",
@@ -381,7 +371,6 @@
 			"quality": {"high": "คุณภาพสูง", "medium": "คุณภาพปานกลาง", "low": "คุณภาพต่ำ"},
 			"drc": {"label": "ปรับระดับเสียงให้สม่ำเสมอ (DRC)", "description": "ลดเสียงช่วงที่ดังและเพิ่มเสียงช่วงที่เบา สำหรับลำโพงและห้องที่มีเสียงรบกวน", "tag": "เสียงสม่ำเสมอ"},
 			"audioLanguage": "ภาษาเสียง",
-			"audioLanguageCount_one": "{{count}} ภาษา",
 			"audioLanguageCount_other": "{{count}} ภาษา",
 			"convert": {"label": "แปลง", "bitrate": "บิตเรต", "wavLabel": "WAV (ไม่บีบอัด)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "ต้นฉบับ {{kbps}} kbps"},
 			"botWall": {
@@ -448,7 +437,6 @@
 		"confirm": {
 			"readyHeadline": "พร้อมดาวน์โหลดแล้ว!",
 			"landIn": "ไฟล์ของคุณจะอยู่ใน",
-			"landInMultiProfile_one": "ไฟล์จะอยู่ในปลายทางด้านล่าง",
 			"landInMultiProfile_other": "ไฟล์จะอยู่ในปลายทาง {{count}} แห่งด้านล่าง",
 			"labelVideo": "วิดีโอ",
 			"labelAudio": "เสียง",
@@ -469,14 +457,10 @@
 			"labelBulk": "ชุดงาน",
 			"labelPreset": "ค่าที่ตั้งไว้",
 			"labelItems": "รายการ",
-			"itemsValue_one": "วิดีโอ {{count}} จาก {{total}}",
 			"itemsValue_other": "วิดีโอ {{count}} จาก {{total}}",
-			"itemsValueAudio_one": "แทร็ก {{count}} จาก {{total}}",
 			"itemsValueAudio_other": "แทร็ก {{count}} จาก {{total}}",
-			"itemsValueBulk_one": "URL {{count}} จาก {{total}}",
 			"itemsValueBulk_other": "URL {{count}} จาก {{total}}",
 			"profileBreakdownHeading": "โปรไฟล์ในชุดงานนี้",
-			"profileBreakdownCount_one": "{{count}} รายการ",
 			"profileBreakdownCount_other": "{{count}} รายการ",
 			"subtitleEmbedForcesMkv": "การฝังคำบรรยายในวิดีโอต้องใช้ไฟล์ MKV ดังนั้นการดาวน์โหลดนี้จะบันทึกเป็น .mkv"
 		},
@@ -488,7 +472,7 @@
 				"identity": {"title": "ข้อมูลโปรไฟล์", "description": "ชื่อและไอคอนที่แสดงในดาวน์โหลดด่วน URL แบบกลุ่ม และรายการโปรไฟล์"},
 				"downloadType": {"title": "ประเภทการดาวน์โหลด", "description": "เลือกวิธีหลักที่ต้องการดาวน์โหลด"},
 				"advanced": {"title": "ตัวเลือกขั้นสูง", "description": "โปรไฟล์จะใช้ปลายทางส่วนกลาง เว้นแต่คุณจะตั้งค่าปลายทางแทนที่ของโปรไฟล์"},
-				"output": {"title": "ตัวเลือกผลลัพธ์", "enabledCount_one": "เปิดอยู่ {{count}} รายการ", "enabledCount_other": "เปิดอยู่ {{count}} รายการ"},
+				"output": {"title": "ตัวเลือกผลลัพธ์", "enabledCount_other": "เปิดอยู่ {{count}} รายการ"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -573,21 +557,12 @@
 			"subtitlesFullLength": "ทั้งวิดีโอ"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "กำลังโหลด…", "chapters_one": "{{count}} บท", "chapters_other": "{{count}} บท"},
+	"videoCard": {"titlePlaceholder": "กำลังโหลด…", "chapters_other": "{{count}} บท"},
 	"queue": {
 		"header": "ดาวน์โหลด",
 		"tabLabel": "ดาวน์โหลด",
-		"attentionBadge_one": "ดาวน์โหลด {{count}} รายการต้องให้คุณดู",
 		"attentionBadge_other": "ดาวน์โหลด {{count}} รายการต้องให้คุณดู",
-		"choice": {
-			"cappedBody_one": "เพลย์ลิสต์นี้มีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดทั้งหมด เฉพาะ {{count}} รายการแรก หรือตรวจดูเพื่อเลือกก็ได้",
-			"cappedBody_other": "เพลย์ลิสต์นี้มีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดทั้งหมด เฉพาะ {{count}} รายการแรก หรือตรวจดูเพื่อเลือกก็ได้",
-			"reviewBody_one": "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด",
-			"reviewBody_other": "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด",
-			"all": "วิดีโอทั้งหมด",
-			"first": "{{count}} รายการแรก",
-			"review": "ตรวจดู"
-		},
+		"choice": {"cappedBody_other": "เพลย์ลิสต์นี้มีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดทั้งหมด เฉพาะ {{count}} รายการแรก หรือตรวจดูเพื่อเลือกก็ได้", "reviewBody_other": "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด", "all": "วิดีโอทั้งหมด", "first": "{{count}} รายการแรก", "review": "ตรวจดู"},
 		"tabTip": "ตอนนี้รายการดาวน์โหลดอยู่ในแท็บดาวน์โหลด — เปิดดูความคืบหน้าได้ทุกเมื่อ",
 		"empty": "รายการดาวน์โหลดในคิวจะแสดงที่นี่",
 		"filtersLabel": "ตัวกรองสถานะคิว",
@@ -702,7 +677,6 @@
 		"warmupFailed": "การตั้งค่ายังไม่เสร็จ การดาวน์โหลดบางรายการอาจล้มเหลวจนกว่าจะตั้งค่าเสร็จ",
 		"shellActionFailed": "เปิดไม่ได้",
 		"folderSelectFailed": "เปิดตัวเลือกโฟลเดอร์ไม่ได้",
-		"exploreSignInRetrying_one": "เข้าสู่ระบบด้วย Explore แล้ว — กำลังลองใหม่ 1 ลิงก์",
 		"exploreSignInRetrying_other": "เข้าสู่ระบบด้วย Explore แล้ว — กำลังลองใหม่ {{count}} ลิงก์",
 		"exploreSignOutFailed": "ออกจากระบบ Explore ไม่สำเร็จ ลองอีกครั้ง",
 		"playlistFolderRejected": "ใช้โฟลเดอร์นี้กับเพลย์ลิสต์นี้ไม่ได้",
@@ -718,17 +692,14 @@
 			"busy": "Arroxy ยังกำลังเริ่มต้นอยู่ — ลองอีกครั้งในอีกสักครู่",
 			"submissionFailed": "เพิ่มลิงก์นั้นไม่ได้ — ลองอีกครั้งใน Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว", "skippedAlreadyQueued_other": "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"},
+		"queue": {"skippedAlreadyQueued_other": "ข้าม {{count}} วิดีโอที่อยู่ในคิวแล้ว"},
 		"quickDownload": {
 			"added": "เพิ่มแล้ว: {{title}}",
 			"alreadyQueued": "อยู่ในคิวแล้ว",
 			"failed": "เตรียม {{title}} ไม่สำเร็จ",
 			"notAdded": "เพิ่มลิงก์นั้นไม่สำเร็จ — ลองอีกครั้ง",
-			"chooseHowMany_one": "{{count}}+ วิดีโอ — เลือกจำนวน",
 			"chooseHowMany_other": "{{count}}+ วิดีโอ — เลือกจำนวน",
-			"review_one": "รายการนี้มี {{count}} วิดีโอ — ตรวจดูเพื่อเลือก",
 			"review_other": "รายการนี้มี {{count}} วิดีโอ — ตรวจดูเพื่อเลือก",
-			"reviewCapped_one": "รายการนี้มี {{count}}+ วิดีโอ — ตรวจดูเพื่อเลือก",
 			"reviewCapped_other": "รายการนี้มี {{count}}+ วิดีโอ — ตรวจดูเพื่อเลือก",
 			"view": "ดู"
 		}
@@ -777,9 +748,9 @@
 		"mp4Cap": "H.264 ที่สูงกว่า 1080p ไม่มีใน YouTube — จำกัดไว้ที่ 1080p โดยอัตโนมัติ"
 	},
 	"formatLabel": {"audioFallback": "เสียง", "audioOnlyDot": "เฉพาะเสียง · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ไม่ได้ใช้งาน", "statusActive_one": "กำลังดาวน์โหลด 1 รายการ · {{percent}}%", "statusActive_other": "กำลังดาวน์โหลด {{count}} รายการ · {{percent}}%", "downloadFromClipboard": "ดาวน์โหลดจากคลิปบอร์ด", "open": "เปิด Arroxy", "quit": "ออกจาก Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "ไม่ได้ใช้งาน", "statusActive_other": "กำลังดาวน์โหลด {{count}} รายการ · {{percent}}%", "downloadFromClipboard": "ดาวน์โหลดจากคลิปบอร์ด", "open": "เปิด Arroxy", "quit": "ออกจาก Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "กำลังดาวน์โหลด {{count}} รายการ", "message_other": "กำลังดาวน์โหลด {{count}} รายการ", "detail": "หยุดชั่วคราวเพื่อทำต่อภายหลัง หรือยกเลิกเพื่อละทิ้งความคืบหน้า", "confirm": "ยกเลิกการดาวน์โหลดและออก", "pause": "หยุดการดาวน์โหลดชั่วคราวและออก", "keep": "ดาวน์โหลดต่อ"},
+		"quitWithActiveDownloads": {"message_other": "กำลังดาวน์โหลด {{count}} รายการ", "detail": "หยุดชั่วคราวเพื่อทำต่อภายหลัง หรือยกเลิกเพื่อละทิ้งความคืบหน้า", "confirm": "ยกเลิกการดาวน์โหลดและออก", "pause": "หยุดการดาวน์โหลดชั่วคราวและออก", "keep": "ดาวน์โหลดต่อ"},
 		"closeToTray": {"message": "ซ่อน Arroxy ไว้ในถาดระบบเมื่อปิดหรือไม่?", "detail": "Arroxy จะทำงานต่อและดาวน์โหลดที่กำลังดำเนินการให้เสร็จ คุณเปลี่ยนค่านี้ภายหลังได้ในการตั้งค่าขั้นสูง", "hide": "ซ่อนไว้ในถาดระบบ", "quit": "ออก", "remember": "ไม่ต้องถามอีก"},
 		"rendererCrashed": {"message": "Arroxy พบปัญหา", "detail": "กระบวนการเรนเดอร์ขัดข้อง ({{reason}}) โหลดใหม่เพื่อลองอีกครั้ง", "reload": "โหลดใหม่", "quit": "ออก"}
 	},

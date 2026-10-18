@@ -52,7 +52,7 @@
 	"language": {"label": "言語"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "プレイリスト", "playlistItemsGeneric": "動画", "playlistPresets": "画質", "playlistProfiles": "プロファイル", "formats": "形式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "出力", "folder": "保存先", "confirm": "確認", "review": "確認"},
-		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_one": "{{count}} 件", "itemCount_other": "{{count}} 件"},
+		"playlistPresets": {"heading": "バッチの画質を選択", "subhead": "各動画が選択した画質ティアを独立して解決します — 異なる動画が混在するPlaylistも問題なく処理できます。", "itemCount_other": "{{count}} 件"},
 		"playlistProfiles": {
 			"heading": "ダウンロードプロファイルを割り当て",
 			"selectedSummary": "{{total}} 件中 {{selected}} 件を選択",
@@ -71,11 +71,8 @@
 			"heading": "Playlist アイテム",
 			"headingGeneric": "ダウンロードする動画",
 			"bulkHeading": "一括 URL",
-			"itemCount_one": "{{count}} 本の動画",
 			"itemCount_other": "{{count}} 本の動画",
-			"itemCountAudio_one": "{{count}} 曲",
 			"itemCountAudio_other": "{{count}} 曲",
-			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "動画の詳細を取得中… {{done}}/{{total}}",
 			"bulkMetadataOptional": "待つ必要はありません — 今キューに追加したファイルも、ダウンロード時には正式な名前になります。",
@@ -92,14 +89,12 @@
 			"rangeFrom": "開始",
 			"rangeTo": "終了",
 			"rangeApply": "範囲を適用",
-			"selectedCount_one": "{{count}} 件選択中",
 			"selectedCount_other": "{{count}} 件選択中",
 			"noSelection": "続行するには少なくとも1本の動画を選択してください",
 			"loadingItems": "Playlist を取得中…",
 			"loadingItemsGeneric": "動画を取得中…",
 			"loadingPhasePages": "チャンネルページをスキャン中",
 			"loadingPhaseItems": "動画を収集中",
-			"loadingPagesFound_one": "{{count}} ページが見つかりました",
 			"loadingPagesFound_other": "{{count}} ページが見つかりました",
 			"loadingLimitHint": "最初の {{count}} 件に制限",
 			"thumbnailAlt": "動画サムネイル",
@@ -114,17 +109,14 @@
 			"syncNoneDescGeneric": "{{dir}} にこのソースの動画は見つかりませんでした。",
 			"alreadyDownloaded": "ダウンロード済み",
 			"nestedPlaylistBadge": "プレイリスト",
-			"nestedPlaylistHint_one": "このうち {{count}} 件は動画ではなくプレイリストです — ダウンロードするにはリンクを単独で貼り付けてください。",
 			"nestedPlaylistHint_other": "このうち {{count}} 件は動画ではなくプレイリストです — ダウンロードするにはリンクを 1 つずつ貼り付けてください。",
 			"probeLimitAlertTitle": "プレイリストのスキャンが上限に達しました",
 			"probeLimitAlertTitleGeneric": "スキャン上限に達しました",
 			"probeLimitAlertDesc": "Arroxy は {{count}} 件を超えるアイテムを検出しましたが、現在のスキャン上限により残りは表示されていません。",
 			"multiProfileEntry": "アイテムごとにプロファイルを割り当て",
 			"multiProfileEntryTooltip": "画質、SponsorBlock、出力、保存先をスキップ — 代わりにアイテムごとにダウンロードプロファイルを割り当てます",
-			"removeFromListCount_one": "リストから{{count}}件削除",
 			"removeFromListCount_other": "リストから{{count}}件削除",
 			"restore": "元に戻す",
-			"removedCount_one": "{{count}} 件削除済み",
 			"removedCount_other": "{{count}} 件削除済み",
 			"allRemovedTitle": "すべてのアイテムが削除されました",
 			"allRemovedDescription": "続行するには復元してください。"
@@ -172,7 +164,6 @@
 			"quickPrepareFailed": "キュー項目を準備できませんでした",
 			"quickBulkAllFailed": "これらの URL はどれも準備できませんでした",
 			"quickFailed": "追加できませんでした: {{error}}",
-			"quickPartialFailed_one": "成功したものをキューに追加しました。{{count}} 件の URL は準備できませんでした。",
 			"quickPartialFailed_other": "成功したものをキューに追加しました。{{count}} 件の URL は準備できませんでした。",
 			"profile": {
 				"destinationFallback": "保存先",
@@ -323,7 +314,6 @@
 			"description": "Arroxy がリンクを読み取り、{{profileName}} を適用しています。",
 			"currentFallback": "現在のリンク",
 			"waitHint": "Arroxy がキューを準備している間、この画面を開いたままにしてください。",
-			"failedCount_one": "{{count}} 件失敗",
 			"failedCount_other": "{{count}} 件失敗",
 			"cancel": "準備をキャンセル",
 			"phase": {"probing": "詳細を取得中", "queueing": "キューに追加中"}
@@ -376,7 +366,7 @@
 				"subtitlesMissing": "プロフィールでは {{languages}} の字幕が指定されていますが、この動画にはありません。",
 				"webmUnavailable": "プロフィールは WebM を指定しています。この動画で選ばれたストリームには WebM に格納できない {{codec}} が含まれるため、ファイル形式は自動になります。"
 			},
-			"summary": {"lead": "{{profile}} のその他の設定:", "subtitlesOff": "字幕オフ", "subtitlesAdd_one": "{{count}} 言語から追加できます", "subtitlesAdd_other": "{{count}} 言語から追加できます", "reviewAll": "すべて確認"},
+			"summary": {"lead": "{{profile}} のその他の設定:", "subtitlesOff": "字幕オフ", "subtitlesAdd_other": "{{count}} 言語から追加できます", "reviewAll": "すべて確認"},
 			"footer": {"reviewOptions": "確認とオプション", "download": "ダウンロード", "moreActions": "その他のダウンロードオプション", "addToQueue": "開始せずにキューに追加", "subtitlesRequired": "字幕の言語を1つ以上選択してください。"},
 			"video": "動画",
 			"audio": "音声",
@@ -395,7 +385,6 @@
 			"quality": {"high": "高品質", "medium": "中品質", "low": "低品質"},
 			"drc": {"label": "音量を均一にする（DRC）", "description": "大きな音を抑え、小さな音を持ち上げます。スピーカーや騒がしい場所向けです。", "tag": "音量均一"},
 			"audioLanguage": "音声の言語",
-			"audioLanguageCount_one": "{{count}} 言語",
 			"audioLanguageCount_other": "{{count}} 言語",
 			"convert": {"label": "変換", "bitrate": "ビットレート", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "元の音声は {{kbps}} kbps"},
 			"botWall": {
@@ -480,7 +469,6 @@
 		"confirm": {
 			"readyHeadline": "ダウンロード準備完了!",
 			"landIn": "ファイルの保存先:",
-			"landInMultiProfile_one": "下の保存先に保存されます",
 			"landInMultiProfile_other": "下の{{count}}件の保存先に保存されます",
 			"labelVideo": "動画",
 			"labelAudio": "音声",
@@ -501,14 +489,10 @@
 			"labelBulk": "一括 URL",
 			"labelPreset": "プリセット",
 			"labelItems": "件数",
-			"itemsValue_one": "全{{total}}本中{{count}}本",
 			"itemsValue_other": "全{{total}}本中{{count}}本",
-			"itemsValueAudio_one": "全{{total}}曲中{{count}}曲",
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
-			"itemsValueBulk_one": "{{count}} / {{total}} URL",
 			"itemsValueBulk_other": "{{count}} / {{total}} URL",
 			"profileBreakdownHeading": "このバッチのプロファイル",
-			"profileBreakdownCount_one": "{{count}} 件",
 			"profileBreakdownCount_other": "{{count}} 件",
 			"subtitleEmbedForcesMkv": "動画内に字幕を埋め込むには MKV ファイルが必要なので、.mkv で保存されます。"
 		},
@@ -520,7 +504,7 @@
 				"identity": {"title": "プロフィール情報", "description": "クイックダウンロード、一括URL、プロフィール一覧に表示される名前とアイコンです。"},
 				"downloadType": {"title": "ダウンロードの種類", "description": "主にどの方法でダウンロードするかを選びます。"},
 				"advanced": {"title": "詳細オプション", "description": "プロフィール個別設定を指定しない限り、全体の保存先が引き継がれます。"},
-				"output": {"title": "出力オプション", "enabledCount_one": "{{count}} 件有効", "enabledCount_other": "{{count}} 件有効"},
+				"output": {"title": "出力オプション", "enabledCount_other": "{{count}} 件有効"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -613,16 +597,13 @@
 			"subtitlesFullLength": "動画全体"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "読み込み中…", "chapters_one": "{{count}} チャプター", "chapters_other": "{{count}} チャプター"},
+	"videoCard": {"titlePlaceholder": "読み込み中…", "chapters_other": "{{count}} チャプター"},
 	"queue": {
 		"header": "ダウンロード",
 		"tabLabel": "ダウンロード",
-		"attentionBadge_one": "{{count}} 件のダウンロードで確認が必要です",
 		"attentionBadge_other": "{{count}} 件のダウンロードで確認が必要です",
 		"choice": {
-			"cappedBody_one": "このプレイリストには動画が {{count}} 本を超えています。すべてダウンロードするか、最初の {{count}} 本だけにするか、確認して選べます。",
 			"cappedBody_other": "このプレイリストには動画が {{count}} 本を超えています。すべてダウンロードするか、最初の {{count}} 本だけにするか、確認して選べます。",
-			"reviewBody_one": "このリンクは動画 {{count}} 本のリストです。確認して、ダウンロードするものを選べます。",
 			"reviewBody_other": "このリンクは動画 {{count}} 本のリストです。確認して、ダウンロードするものを選べます。",
 			"all": "すべての動画",
 			"first": "最初の {{count}} 本",
@@ -742,7 +723,6 @@
 		"warmupFailed": "セットアップが完了していません。完了するまで一部のダウンロードが失敗する場合があります。",
 		"shellActionFailed": "開けませんでした。",
 		"folderSelectFailed": "フォルダー選択を開けませんでした。",
-		"exploreSignInRetrying_one": "Explore でサインインしました — 1 件のリンクを再試行中",
 		"exploreSignInRetrying_other": "Explore でサインインしました — {{count}} 件のリンクを再試行中",
 		"exploreSignOutFailed": "Exploreからログアウトできませんでした。もう一度お試しください。",
 		"playlistFolderRejected": "このフォルダーはこのプレイリストには使用できません。",
@@ -758,17 +738,14 @@
 			"busy": "Arroxy はまだ起動中です — しばらくしてからもう一度お試しください",
 			"submissionFailed": "そのリンクを追加できませんでした — Arroxyでもう一度お試しください"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} 件の動画はすでにキューにあるため、スキップしました", "skippedAlreadyQueued_other": "{{count}} 件の動画はすでにキューにあるため、スキップしました"},
+		"queue": {"skippedAlreadyQueued_other": "{{count}} 件の動画はすでにキューにあるため、スキップしました"},
 		"quickDownload": {
 			"added": "追加しました: {{title}}",
 			"alreadyQueued": "すでにキューにあります",
 			"failed": "{{title}} を準備できませんでした",
 			"notAdded": "リンクを追加できませんでした — もう一度お試しください",
-			"chooseHowMany_one": "動画が {{count}} 本以上 — 本数を選択",
 			"chooseHowMany_other": "動画が {{count}} 本以上 — 本数を選択",
-			"review_one": "このリストに動画が {{count}} 本 — 確認して選択",
 			"review_other": "このリストに動画が {{count}} 本 — 確認して選択",
-			"reviewCapped_one": "このリストに動画が {{count}} 本以上 — 確認して選択",
 			"reviewCapped_other": "このリストに動画が {{count}} 本以上 — 確認して選択",
 			"view": "表示"
 		}
@@ -817,16 +794,9 @@
 		"mp4Cap": "YouTube では 1080p 超の H.264 は利用できません — 自動的に 1080p に制限されます"
 	},
 	"formatLabel": {"audioFallback": "音声", "audioOnlyDot": "音声のみ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "アイドル", "statusActive_one": "1件ダウンロード中 · {{percent}}%", "statusActive_other": "{{count}}件ダウンロード中 · {{percent}}%", "downloadFromClipboard": "クリップボードからダウンロード", "open": "Arroxyを開く", "quit": "Arroxyを終了"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "アイドル", "statusActive_other": "{{count}}件ダウンロード中 · {{percent}}%", "downloadFromClipboard": "クリップボードからダウンロード", "open": "Arroxyを開く", "quit": "Arroxyを終了"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {
-			"message_one": "ダウンロード{{count}}件を実行中",
-			"message_other": "ダウンロード{{count}}件を実行中",
-			"detail": "後で再開するには一時停止し、進行状況を破棄するにはキャンセルします。",
-			"confirm": "ダウンロードをキャンセルして終了",
-			"pause": "ダウンロードを一時停止して終了",
-			"keep": "ダウンロードを続ける"
-		},
+		"quitWithActiveDownloads": {"message_other": "ダウンロード{{count}}件を実行中", "detail": "後で再開するには一時停止し、進行状況を破棄するにはキャンセルします。", "confirm": "ダウンロードをキャンセルして終了", "pause": "ダウンロードを一時停止して終了", "keep": "ダウンロードを続ける"},
 		"closeToTray": {"message": "閉じるときにArroxyをシステムトレイに格納しますか？", "detail": "Arroxyは実行を続け、アクティブなダウンロードを完了します。詳細設定で変更できます。", "hide": "トレイに格納", "quit": "終了", "remember": "次回から表示しない"},
 		"rendererCrashed": {"message": "Arroxyで問題が発生しました", "detail": "レンダラープロセスがクラッシュしました ({{reason}})。再読み込みしてもう一度お試しください。", "reload": "再読み込み", "quit": "終了"}
 	},

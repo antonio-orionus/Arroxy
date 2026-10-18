@@ -60,7 +60,7 @@
 	"language": {"label": "Језик"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Плејлиста", "playlistItemsGeneric": "Видео", "playlistPresets": "Квалитет", "playlistProfiles": "Профили", "formats": "Формат", "subtitles": "Титлови", "sponsorblock": "SponsorBlock", "output": "Излаз", "folder": "Сачувај", "confirm": "Потврди", "review": "Преглед"},
-		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_other": "{{count}} ставки"},
+		"playlistPresets": {"heading": "Изабери квалитет за групно преузимање", "subhead": "Свaki видео самостално проналази одговарајући ниво квалитета — хетерогене плејлисте раде без изненађења.", "itemCount_one": "{{count}} ставка", "itemCount_few": "{{count}} ставке", "itemCount_other": "{{count}} ставки"},
 		"playlistProfiles": {
 			"heading": "Додели профиле преузимања",
 			"selectedSummary": "Изабрано {{selected}} од {{total}}",
@@ -80,10 +80,13 @@
 			"headingGeneric": "Видео снимци за преузимање",
 			"bulkHeading": "Групни URL-ови",
 			"itemCount_one": "{{count}} видео",
+			"itemCount_few": "{{count}} видеа",
 			"itemCount_other": "{{count}} видеа",
 			"itemCountAudio_one": "{{count}} нумера",
+			"itemCountAudio_few": "{{count}} нумере",
 			"itemCountAudio_other": "{{count}} нумера",
 			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_few": "{{count}} URL-а",
 			"itemCountBulk_other": "{{count}} URL-ова",
 			"bulkMetadataResolving": "Преузимање детаља видеа… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena.",
@@ -101,6 +104,7 @@
 			"rangeTo": "До",
 			"rangeApply": "Примени опсег",
 			"selectedCount_one": "{{count}} изабрано",
+			"selectedCount_few": "{{count}} изабрано",
 			"selectedCount_other": "{{count}} изабрано",
 			"noSelection": "Изабери барем један видео да би наставио/ла",
 			"loadingItems": "Преузимање плејлисте…",
@@ -108,6 +112,7 @@
 			"loadingPhasePages": "Скенирање страница канала",
 			"loadingPhaseItems": "Прикупљање видео снимака",
 			"loadingPagesFound_one": "Пронађена је {{count}} страница",
+			"loadingPagesFound_few": "Пронађене су {{count}} странице",
 			"loadingPagesFound_other": "Пронађено је {{count}} страница",
 			"loadingLimitHint": "Ограничено на првих {{count}} ставки",
 			"thumbnailAlt": "Сличица видеа",
@@ -123,6 +128,7 @@
 			"alreadyDownloaded": "Већ преузето",
 			"nestedPlaylistBadge": "Плејлиста",
 			"nestedPlaylistHint_one": "{{count}} од ових је плејлиста, а не видео — налепите њен линк засебно да бисте је преузели.",
+			"nestedPlaylistHint_few": "{{count}} од ових су плејлисте, а не видеа — налепите њихове линкове један по један да бисте их преузели.",
 			"nestedPlaylistHint_other": "{{count}} од ових су плејлисте, а не видеа — налепите њихове линкове један по један да бисте их преузели.",
 			"probeLimitAlertTitle": "Скенирање плејлисте је ограничено",
 			"probeLimitAlertTitleGeneric": "Скенирање је ограничено",
@@ -130,9 +136,11 @@
 			"multiProfileEntry": "Додели профиле по ставци",
 			"multiProfileEntryTooltip": "Прескаче Квалитет, SponsorBlock, Излаз и Сачувај — уместо тога додељује профил преузимања по ставци",
 			"removeFromListCount_one": "Уклони {{count}} са листе",
+			"removeFromListCount_few": "Уклони {{count}} са листе",
 			"removeFromListCount_other": "Уклони {{count}} са листе",
 			"restore": "Врати",
 			"removedCount_one": "{{count}} уклоњено",
+			"removedCount_few": "{{count}} уклоњено",
 			"removedCount_other": "{{count}} уклоњено",
 			"allRemovedTitle": "Све ставке су уклоњене",
 			"allRemovedDescription": "Врати их да наставиш."
@@ -181,6 +189,7 @@
 			"quickBulkAllFailed": "Ниједан од тих URL-ова није могао да се припреми",
 			"quickFailed": "Није могуће додати: {{error}}",
 			"quickPartialFailed_one": "У ред је додато оно што је успело. {{count}} URL није могао да се припреми.",
+			"quickPartialFailed_few": "У ред је додато оно што је успело. {{count}} URL-а није могло да се припреми.",
 			"quickPartialFailed_other": "У ред је додато оно што је успело. {{count}} URL-ова није могло да се припреми.",
 			"profile": {
 				"destinationFallback": "Одредиште",
@@ -332,6 +341,7 @@
 			"currentFallback": "Тренутна веза",
 			"waitHint": "Остави ово отворено док Arroxy припрема ред.",
 			"failedCount_one": "{{count}} није успело",
+			"failedCount_few": "{{count}} није успело",
 			"failedCount_other": "{{count}} није успело",
 			"cancel": "Откажи припрему",
 			"phase": {"probing": "Преузимање детаља", "queueing": "Додавање у ред"}
@@ -384,7 +394,7 @@
 				"subtitlesMissing": "Ваш профил тражи титлове на језицима: {{languages}}. Овај видео их нема.",
 				"webmUnavailable": "Ваш профил тражи WebM. Изабрани токови овог видеа садрже {{codec}}, који WebM не подржава, па је тип датотеке Аутоматски."
 			},
-			"summary": {"lead": "Такође из профила {{profile}}:", "subtitlesOff": "титлови искључени", "subtitlesAdd_one": "{{count}} језик доступан, додај", "subtitlesAdd_other": "Доступно језика: {{count}}, додај", "reviewAll": "Прегледај све"},
+			"summary": {"lead": "Такође из профила {{profile}}:", "subtitlesOff": "титлови искључени", "subtitlesAdd_one": "{{count}} језик доступан, додај", "subtitlesAdd_few": "Доступно језика: {{count}}, додај", "subtitlesAdd_other": "Доступно језика: {{count}}, додај", "reviewAll": "Прегледај све"},
 			"footer": {"reviewOptions": "Преглед и опције", "download": "Преузми", "moreActions": "Више опција преузимања", "addToQueue": "Додај у ред без покретања", "subtitlesRequired": "Изаберите бар један језик титлова."},
 			"video": "Видео",
 			"audio": "Звук",
@@ -404,6 +414,7 @@
 			"drc": {"label": "Уједначи јачину звука (DRC)", "description": "Утишава гласне делове и појачава тихе, за звучнике и бучне просторије.", "tag": "Уједначена јачина"},
 			"audioLanguage": "Језик звука",
 			"audioLanguageCount_one": "Језика: {{count}}",
+			"audioLanguageCount_few": "Језика: {{count}}",
 			"audioLanguageCount_other": "Језика: {{count}}",
 			"convert": {"label": "Конвертуј", "bitrate": "Битрејт", "wavLabel": "WAV (uncompressed)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Извор је {{kbps}} kbps"},
 			"botWall": {
@@ -482,6 +493,7 @@
 			"readyHeadline": "Спремно за преузимање!",
 			"landIn": "Твоја датотека ће бити сачувана у",
 			"landInMultiProfile_one": "Стићи ће на одредиште испод",
+			"landInMultiProfile_few": "Стићи ће на {{count}} одредишта испод",
 			"landInMultiProfile_other": "Стићи ће на {{count}} одредишта испод",
 			"labelVideo": "Видео",
 			"labelAudio": "Звук",
@@ -503,13 +515,17 @@
 			"labelPreset": "Поставка",
 			"labelItems": "Ставке",
 			"itemsValue_one": "{{count}} од {{total}} видеа",
+			"itemsValue_few": "{{count}} од {{total}} видеа",
 			"itemsValue_other": "{{count}} од {{total}} видеа",
 			"itemsValueAudio_one": "{{count}} од {{total}} нумере",
+			"itemsValueAudio_few": "{{count}} од {{total}} нумера",
 			"itemsValueAudio_other": "{{count}} од {{total}} нумера",
 			"itemsValueBulk_one": "{{count}} од {{total}} URL-а",
+			"itemsValueBulk_few": "{{count}} од {{total}} URL-ова",
 			"itemsValueBulk_other": "{{count}} од {{total}} URL-ова",
 			"profileBreakdownHeading": "Профили у овој серији",
 			"profileBreakdownCount_one": "{{count}} ставка",
+			"profileBreakdownCount_few": "{{count}} ставке",
 			"profileBreakdownCount_other": "{{count}} ставке",
 			"subtitleEmbedForcesMkv": "Титлови унутар видеа захтевају MKV датотеку, па се ово преузимање чува као .mkv."
 		},
@@ -521,7 +537,7 @@
 				"identity": {"title": "Идентитет профила", "description": "Назив и икона приказани у Брзом преузимању, Групним URL-овима и листама профила."},
 				"downloadType": {"title": "Тип преузимања", "description": "Изаберите основни начин на који желите да преузимате."},
 				"advanced": {"title": "Напредне опције", "description": "Профили наслеђују опште одредиште осим ако не поставите замену профила."},
-				"output": {"title": "Опције излаза", "enabledCount_one": "Укључено: {{count}}", "enabledCount_other": "Укључено: {{count}}"},
+				"output": {"title": "Опције излаза", "enabledCount_one": "Укључено: {{count}}", "enabledCount_few": "Укључено: {{count}}", "enabledCount_other": "Укључено: {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -614,16 +630,19 @@
 			"subtitlesFullLength": "цео видео"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Учитавање…", "chapters_one": "{{count}} поглавље", "chapters_other": "{{count}} поглавља"},
+	"videoCard": {"titlePlaceholder": "Учитавање…", "chapters_one": "{{count}} поглавље", "chapters_few": "{{count}} поглавља", "chapters_other": "{{count}} поглавља"},
 	"queue": {
 		"header": "Преузимања",
 		"tabLabel": "Преузимања",
 		"attentionBadge_one": "Траже пажњу: {{count}}",
+		"attentionBadge_few": "Траже пажњу: {{count}}",
 		"attentionBadge_other": "Траже пажњу: {{count}}",
 		"choice": {
 			"cappedBody_one": "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу.",
+			"cappedBody_few": "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу.",
 			"cappedBody_other": "На овој плејлисти има више од {{count}} видео снимака. Преузми све, првих {{count}} или изабери у прегледу.",
 			"reviewBody_one": "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш.",
+			"reviewBody_few": "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш.",
 			"reviewBody_other": "Овај линк је листа од {{count}} видеа. Прегледај је и изабери шта да преузмеш.",
 			"all": "Сви видео снимци",
 			"first": "Првих {{count}}",
@@ -744,6 +763,7 @@
 		"shellActionFailed": "Није могуће отворити то.",
 		"folderSelectFailed": "Није могуће отворити бирач фасцикли.",
 		"exploreSignInRetrying_one": "Пријава преко Explore је готова — поново покушавам 1 линк",
+		"exploreSignInRetrying_few": "Пријава преко Explore је готова — поново покушавам линкове: {{count}}",
 		"exploreSignInRetrying_other": "Пријава преко Explore је готова — поново покушавам линкове: {{count}}",
 		"exploreSignOutFailed": "Није успела одјава из Explore. Покушај поново.",
 		"playlistFolderRejected": "Та фасцикла не може да се користи за ову плејлисту.",
@@ -759,17 +779,20 @@
 			"busy": "Arroxy се још покреће — покушај поново за тренутак",
 			"submissionFailed": "Та веза није могла бити додата — покушајте поново у Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} видео је већ у реду — прескочен", "skippedAlreadyQueued_other": "Прескочено видео снимака који су већ у реду: {{count}}"},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} видео је већ у реду — прескочен", "skippedAlreadyQueued_few": "Прескочено видео снимака који су већ у реду: {{count}}", "skippedAlreadyQueued_other": "Прескочено видео снимака који су већ у реду: {{count}}"},
 		"quickDownload": {
 			"added": "Додато: {{title}}",
 			"alreadyQueued": "Већ је у реду",
 			"failed": "Није могуће припремити {{title}}",
 			"notAdded": "Линк није могао да се дода — покушај поново",
 			"chooseHowMany_one": "{{count}}+ видео — изабери колико",
+			"chooseHowMany_few": "{{count}}+ видеа — изабери колико",
 			"chooseHowMany_other": "{{count}}+ видеа — изабери колико",
 			"review_one": "{{count}} видео на овој листи — прегледај и изабери",
+			"review_few": "{{count}} видеа на овој листи — прегледај и изабери",
 			"review_other": "{{count}} видеа на овој листи — прегледај и изабери",
 			"reviewCapped_one": "{{count}}+ видео на овој листи — прегледај и изабери",
+			"reviewCapped_few": "{{count}}+ видеа на овој листи — прегледај и изабери",
 			"reviewCapped_other": "{{count}}+ видеа на овој листи — прегледај и изабери",
 			"view": "Прикажи"
 		}
@@ -818,10 +841,14 @@
 		"mp4Cap": "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
 	},
 	"formatLabel": {"audioFallback": "Звук", "audioOnlyDot": "Само звук · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Неактивно", "statusActive_one": "1 преузима · {{percent}}%", "statusActive_other": "{{count}} преузима · {{percent}}%", "downloadFromClipboard": "Преузми из оставе", "open": "Отвори Arroxy", "quit": "Затвори Arroxy"}},
+	"tray": {
+		"tooltip": "Arroxy",
+		"menu": {"statusIdle": "Неактивно", "statusActive_one": "1 преузима · {{percent}}%", "statusActive_few": "{{count}} преузима · {{percent}}%", "statusActive_other": "{{count}} преузима · {{percent}}%", "downloadFromClipboard": "Преузми из оставе", "open": "Отвори Arroxy", "quit": "Затвори Arroxy"}
+	},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} преузимање у току",
+			"message_few": "{{count}} преузимања у току",
 			"message_other": "{{count}} преузимања у току",
 			"detail": "Паузирајте да наставите касније или откажите да одбаците напредак.",
 			"confirm": "Откажи преузимања и Затвори",

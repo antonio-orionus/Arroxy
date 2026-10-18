@@ -52,7 +52,7 @@
 	"language": {"label": "Ngôn ngữ"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Danh sách phát", "playlistItemsGeneric": "Video", "playlistPresets": "Chất lượng", "playlistProfiles": "Hồ sơ", "formats": "Định dạng", "subtitles": "Phụ đề", "sponsorblock": "SponsorBlock", "output": "Đầu ra", "folder": "Lưu", "confirm": "Xác nhận", "review": "Xem lại"},
-		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_one": "{{count}} mục", "itemCount_other": "{{count}} mục"},
+		"playlistPresets": {"heading": "Chọn chất lượng cho lô", "subhead": "Mỗi video tự xử lý cấp độ đã chọn một cách độc lập — danh sách phát không đồng nhất hoạt động mượt mà.", "itemCount_other": "{{count}} mục"},
 		"playlistProfiles": {
 			"heading": "Gán hồ sơ tải xuống",
 			"selectedSummary": "Đã chọn {{selected}}/{{total}}",
@@ -71,11 +71,8 @@
 			"heading": "Các mục Playlist",
 			"headingGeneric": "Video để tải xuống",
 			"bulkHeading": "URL hàng loạt",
-			"itemCount_one": "{{count}} video",
 			"itemCount_other": "{{count}} video",
-			"itemCountAudio_one": "{{count}} bản nhạc",
 			"itemCountAudio_other": "{{count}} bản nhạc",
-			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "Đang lấy chi tiết video… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Không cần chờ — các tệp cho vào hàng đợi bây giờ vẫn sẽ có tên thật khi tải xuống.",
@@ -92,14 +89,12 @@
 			"rangeFrom": "Từ",
 			"rangeTo": "Đến",
 			"rangeApply": "Áp dụng phạm vi",
-			"selectedCount_one": "{{count}} đã chọn",
 			"selectedCount_other": "{{count}} đã chọn",
 			"noSelection": "Chọn ít nhất một video để tiếp tục",
 			"loadingItems": "Đang tải Playlist…",
 			"loadingItemsGeneric": "Đang tải video…",
 			"loadingPhasePages": "Đang quét các trang kênh",
 			"loadingPhaseItems": "Đang thu thập video",
-			"loadingPagesFound_one": "Đã tìm thấy {{count}} trang",
 			"loadingPagesFound_other": "Đã tìm thấy {{count}} trang",
 			"loadingLimitHint": "Giới hạn ở {{count}} mục đầu tiên",
 			"thumbnailAlt": "Hình thu nhỏ video",
@@ -114,17 +109,14 @@
 			"syncNoneDescGeneric": "Không tìm thấy video nào từ nguồn này trong {{dir}}.",
 			"alreadyDownloaded": "Đã tải xuống",
 			"nestedPlaylistBadge": "Danh sách phát",
-			"nestedPlaylistHint_one": "{{count}} trong số này là danh sách phát, không phải video — dán liên kết của nó riêng để tải xuống.",
 			"nestedPlaylistHint_other": "{{count}} trong số này là danh sách phát, không phải video — dán từng liên kết một để tải xuống.",
 			"probeLimitAlertTitle": "Quét playlist đã bị giới hạn",
 			"probeLimitAlertTitleGeneric": "Quét đã bị giới hạn",
 			"probeLimitAlertDesc": "Arroxy tìm thấy nhiều hơn {{count}} mục, vì vậy giới hạn quét hiện tại đang ẩn phần còn lại.",
 			"multiProfileEntry": "Gán hồ sơ cho từng mục",
 			"multiProfileEntryTooltip": "Bỏ qua Chất lượng, SponsorBlock, Đầu ra và Lưu — thay vào đó gán hồ sơ tải xuống cho từng mục",
-			"removeFromListCount_one": "Xóa {{count}} mục khỏi danh sách",
 			"removeFromListCount_other": "Xóa {{count}} mục khỏi danh sách",
 			"restore": "Khôi phục",
-			"removedCount_one": "{{count}} đã xóa",
 			"removedCount_other": "{{count}} đã xóa",
 			"allRemovedTitle": "Tất cả mục đã bị xóa",
 			"allRemovedDescription": "Khôi phục để tiếp tục."
@@ -172,7 +164,6 @@
 			"quickPrepareFailed": "Không thể chuẩn bị mục hàng đợi",
 			"quickBulkAllFailed": "Không thể chuẩn bị URL nào trong số này",
 			"quickFailed": "Không thể thêm mục này: {{error}}",
-			"quickPartialFailed_one": "Đã đưa mục hoạt động vào hàng đợi. Không thể chuẩn bị {{count}} URL.",
 			"quickPartialFailed_other": "Đã đưa các mục hoạt động vào hàng đợi. Không thể chuẩn bị {{count}} URL.",
 			"profile": {
 				"destinationFallback": "Đích lưu",
@@ -323,7 +314,6 @@
 			"description": "Arroxy đang đọc liên kết và áp dụng {{profileName}}.",
 			"currentFallback": "Liên kết hiện tại",
 			"waitHint": "Giữ cửa sổ này mở trong khi Arroxy chuẩn bị hàng đợi.",
-			"failedCount_one": "{{count}} thất bại",
 			"failedCount_other": "{{count}} thất bại",
 			"cancel": "Hủy chuẩn bị",
 			"phase": {"probing": "Đang lấy chi tiết", "queueing": "Đang thêm vào hàng đợi"}
@@ -376,7 +366,7 @@
 				"subtitlesMissing": "Hồ sơ của bạn yêu cầu phụ đề bằng: {{languages}}. Video này không có phụ đề đó.",
 				"webmUnavailable": "Hồ sơ của bạn yêu cầu WebM. Các luồng đã chọn của video này có {{codec}}, mà WebM không chứa được, nên loại tệp là Tự động."
 			},
-			"summary": {"lead": "Cũng từ {{profile}}:", "subtitlesOff": "tắt phụ đề", "subtitlesAdd_one": "Có {{count}} ngôn ngữ, thêm", "subtitlesAdd_other": "Có {{count}} ngôn ngữ, thêm", "reviewAll": "Xem lại tất cả"},
+			"summary": {"lead": "Cũng từ {{profile}}:", "subtitlesOff": "tắt phụ đề", "subtitlesAdd_other": "Có {{count}} ngôn ngữ, thêm", "reviewAll": "Xem lại tất cả"},
 			"footer": {"reviewOptions": "Xem lại & tùy chọn", "download": "Tải xuống", "moreActions": "Thêm tùy chọn tải xuống", "addToQueue": "Thêm vào hàng đợi mà không bắt đầu", "subtitlesRequired": "Chọn ít nhất một ngôn ngữ phụ đề."},
 			"video": "Video",
 			"audio": "Âm thanh",
@@ -395,7 +385,6 @@
 			"quality": {"high": "Chất lượng cao", "medium": "Chất lượng trung bình", "low": "Chất lượng thấp"},
 			"drc": {"label": "Cân bằng âm lượng (DRC)", "description": "Giảm đoạn to, tăng đoạn nhỏ, hợp với loa ngoài và nơi ồn ào.", "tag": "Âm lượng đều"},
 			"audioLanguage": "Ngôn ngữ âm thanh",
-			"audioLanguageCount_one": "{{count}} ngôn ngữ",
 			"audioLanguageCount_other": "{{count}} ngôn ngữ",
 			"convert": {"label": "Chuyển đổi", "bitrate": "Tốc độ bit", "wavLabel": "WAV (không nén)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "Nguồn là {{kbps}} kbps"},
 			"botWall": {
@@ -473,7 +462,6 @@
 		"confirm": {
 			"readyHeadline": "Sẵn sàng tải về!",
 			"landIn": "Tệp của bạn sẽ được lưu vào",
-			"landInMultiProfile_one": "Sẽ được lưu vào điểm đến bên dưới",
 			"landInMultiProfile_other": "Sẽ được lưu vào {{count}} điểm đến bên dưới",
 			"labelVideo": "Video",
 			"labelAudio": "Âm thanh",
@@ -494,14 +482,10 @@
 			"labelBulk": "URL hàng loạt",
 			"labelPreset": "Cài đặt sẵn",
 			"labelItems": "Mục",
-			"itemsValue_one": "{{count}} trong {{total}} video",
 			"itemsValue_other": "{{count}} trong {{total}} video",
-			"itemsValueAudio_one": "{{count}} trong {{total}} bản nhạc",
 			"itemsValueAudio_other": "{{count}} trong {{total}} bản nhạc",
-			"itemsValueBulk_one": "{{count}} trên {{total}} URL",
 			"itemsValueBulk_other": "{{count}} trên {{total}} URL",
 			"profileBreakdownHeading": "Hồ sơ trong lô này",
-			"profileBreakdownCount_one": "{{count}} mục",
 			"profileBreakdownCount_other": "{{count}} mục",
 			"subtitleEmbedForcesMkv": "Phụ đề nằm trong video cần tệp MKV, nên bản tải này được lưu thành .mkv."
 		},
@@ -513,7 +497,7 @@
 				"identity": {"title": "Danh tính hồ sơ", "description": "Tên và biểu tượng hiển thị trong Tải nhanh, URL hàng loạt và danh sách hồ sơ."},
 				"downloadType": {"title": "Kiểu tải xuống", "description": "Chọn cách tải xuống chính mà bạn muốn."},
 				"advanced": {"title": "Tùy chọn nâng cao", "description": "Hồ sơ kế thừa đích chung trừ khi bạn đặt ghi đè hồ sơ."},
-				"output": {"title": "Tùy chọn đầu ra", "enabledCount_one": "Đã bật {{count}}", "enabledCount_other": "Đã bật {{count}}"},
+				"output": {"title": "Tùy chọn đầu ra", "enabledCount_other": "Đã bật {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -606,16 +590,13 @@
 			"subtitlesFullLength": "toàn bộ video"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Đang tải…", "chapters_one": "{{count}} chương", "chapters_other": "{{count}} chương"},
+	"videoCard": {"titlePlaceholder": "Đang tải…", "chapters_other": "{{count}} chương"},
 	"queue": {
 		"header": "Tải xuống",
 		"tabLabel": "Tải xuống",
-		"attentionBadge_one": "{{count}} lượt tải cần bạn chú ý",
 		"attentionBadge_other": "{{count}} lượt tải cần bạn chú ý",
 		"choice": {
-			"cappedBody_one": "Danh sách phát này có hơn {{count}} video. Hãy tải tất cả, {{count}} video đầu tiên, hoặc xem lại để tự chọn.",
 			"cappedBody_other": "Danh sách phát này có hơn {{count}} video. Hãy tải tất cả, {{count}} video đầu tiên, hoặc xem lại để tự chọn.",
-			"reviewBody_one": "Liên kết này là danh sách {{count}} video. Hãy xem lại để chọn nội dung cần tải.",
 			"reviewBody_other": "Liên kết này là danh sách {{count}} video. Hãy xem lại để chọn nội dung cần tải.",
 			"all": "Tất cả video",
 			"first": "{{count}} video đầu",
@@ -735,7 +716,6 @@
 		"warmupFailed": "Thiết lập chưa hoàn tất. Một số lượt tải xuống có thể thất bại cho đến khi hoàn tất.",
 		"shellActionFailed": "Không thể mở mục đó.",
 		"folderSelectFailed": "Không thể mở trình chọn thư mục.",
-		"exploreSignInRetrying_one": "Đã đăng nhập bằng Explore — đang thử lại 1 liên kết",
 		"exploreSignInRetrying_other": "Đã đăng nhập bằng Explore — đang thử lại {{count}} liên kết",
 		"exploreSignOutFailed": "Không thể đăng xuất khỏi Explore. Hãy thử lại.",
 		"playlistFolderRejected": "Không thể dùng thư mục đó cho danh sách phát này.",
@@ -751,17 +731,14 @@
 			"busy": "Arroxy vẫn đang khởi động — hãy thử lại sau giây lát",
 			"submissionFailed": "Không thể thêm liên kết đó — thử lại trong Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} video đã có trong hàng đợi — đã bỏ qua", "skippedAlreadyQueued_other": "{{count}} video đã có trong hàng đợi — đã bỏ qua"},
+		"queue": {"skippedAlreadyQueued_other": "{{count}} video đã có trong hàng đợi — đã bỏ qua"},
 		"quickDownload": {
 			"added": "Đã thêm: {{title}}",
 			"alreadyQueued": "Đã có trong hàng đợi",
 			"failed": "Không thể chuẩn bị {{title}}",
 			"notAdded": "Không thể thêm liên kết này — hãy thử lại",
-			"chooseHowMany_one": "{{count}}+ video — chọn số lượng",
 			"chooseHowMany_other": "{{count}}+ video — chọn số lượng",
-			"review_one": "{{count}} video trong danh sách này — xem lại để chọn",
 			"review_other": "{{count}} video trong danh sách này — xem lại để chọn",
-			"reviewCapped_one": "{{count}}+ video trong danh sách này — xem lại để chọn",
 			"reviewCapped_other": "{{count}}+ video trong danh sách này — xem lại để chọn",
 			"view": "Xem"
 		}
@@ -810,9 +787,9 @@
 		"mp4Cap": "H.264 trên 1080p không có trên YouTube — tự động giới hạn ở 1080p"
 	},
 	"formatLabel": {"audioFallback": "Âm thanh", "audioOnlyDot": "Chỉ âm thanh · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Đang chờ", "statusActive_one": "1 đang tải · {{percent}}%", "statusActive_other": "{{count}} đang tải · {{percent}}%", "downloadFromClipboard": "Tải từ bảng nhớ tạm", "open": "Mở Arroxy", "quit": "Thoát Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Đang chờ", "statusActive_other": "{{count}} đang tải · {{percent}}%", "downloadFromClipboard": "Tải từ bảng nhớ tạm", "open": "Mở Arroxy", "quit": "Thoát Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} tải xuống đang tiến hành", "message_other": "{{count}} tải xuống đang tiến hành", "detail": "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình.", "confirm": "Hủy tải xuống & Thoát", "pause": "Tạm dừng tải và thoát", "keep": "Tiếp tục tải xuống"},
+		"quitWithActiveDownloads": {"message_other": "{{count}} tải xuống đang tiến hành", "detail": "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình.", "confirm": "Hủy tải xuống & Thoát", "pause": "Tạm dừng tải và thoát", "keep": "Tiếp tục tải xuống"},
 		"closeToTray": {"message": "Ẩn Arroxy xuống khay hệ thống khi đóng?", "detail": "Arroxy vẫn tiếp tục chạy và hoàn thành các tải xuống đang hoạt động. Thay đổi điều này sau trong cài đặt Nâng cao.", "hide": "Ẩn xuống khay", "quit": "Thoát", "remember": "Không hỏi lại"},
 		"rendererCrashed": {"message": "Arroxy đã gặp sự cố", "detail": "Tiến trình renderer bị crash ({{reason}}). Tải lại để thử lại.", "reload": "Tải lại", "quit": "Thoát"}
 	},

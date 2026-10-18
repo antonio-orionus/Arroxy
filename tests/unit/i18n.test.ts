@@ -86,12 +86,28 @@ describe('mainT', () => {
 
 describe('pluralKey', () => {
 	it('returns _one for count of 1', () => {
-		expect(pluralKey('message', 1)).toBe('message_one')
+		expect(pluralKey('en', 'message', 1)).toBe('message_one')
 	})
 
-	it('returns _other for any other count', () => {
-		expect(pluralKey('message', 0)).toBe('message_other')
-		expect(pluralKey('message', 2)).toBe('message_other')
-		expect(pluralKey('message', 100)).toBe('message_other')
+	it('returns _other for any other English count', () => {
+		expect(pluralKey('en', 'message', 0)).toBe('message_other')
+		expect(pluralKey('en', 'message', 2)).toBe('message_other')
+		expect(pluralKey('en', 'message', 100)).toBe('message_other')
+	})
+
+	it("follows the locale's CLDR plural categories", () => {
+		expect(pluralKey('ru', 'message', 1)).toBe('message_one')
+		expect(pluralKey('ru', 'message', 3)).toBe('message_few')
+		expect(pluralKey('ru', 'message', 5)).toBe('message_many')
+		expect(pluralKey('ja', 'message', 1)).toBe('message_other')
+		expect(pluralKey('ar', 'message', 2)).toBe('message_two')
+	})
+
+	it('resolves to a real localized string for every count in a multi-category locale', () => {
+		for (const count of [1, 2, 5, 21]) {
+			const out = mainT('ru', `dialogs.quitWithActiveDownloads.${pluralKey('ru', 'message', count)}`, {count})
+			expect(out).toContain(String(count))
+			expect(out).toMatch(/[а-яё]/i)
+		}
 	})
 })

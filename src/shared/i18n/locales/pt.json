@@ -52,7 +52,7 @@
 	"language": {"label": "Idioma"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlist", "playlistItemsGeneric": "Vídeos", "playlistPresets": "Qualidade", "playlistProfiles": "Perfis", "formats": "Formato", "subtitles": "Legendas", "sponsorblock": "SponsorBlock", "output": "Saída", "folder": "Salvar", "confirm": "Confirmar", "review": "Revisar"},
-		"playlistPresets": {"heading": "Escolha a qualidade para o lote", "subhead": "Cada vídeo resolve o nível escolhido de forma independente — playlists heterogêneas funcionam perfeitamente.", "itemCount_one": "{{count}} item", "itemCount_other": "{{count}} itens"},
+		"playlistPresets": {"heading": "Escolha a qualidade para o lote", "subhead": "Cada vídeo resolve o nível escolhido de forma independente — playlists heterogêneas funcionam perfeitamente.", "itemCount_one": "{{count}} item", "itemCount_many": "{{count}} de itens", "itemCount_other": "{{count}} itens"},
 		"playlistProfiles": {
 			"heading": "Atribuir perfis de download",
 			"selectedSummary": "{{selected}} de {{total}} selecionados",
@@ -72,10 +72,13 @@
 			"headingGeneric": "Vídeos para baixar",
 			"bulkHeading": "URLs em lote",
 			"itemCount_one": "{{count}} vídeo",
+			"itemCount_many": "{{count}} de vídeos",
 			"itemCount_other": "{{count}} vídeos",
 			"itemCountAudio_one": "{{count}} faixa",
+			"itemCountAudio_many": "{{count}} de faixas",
 			"itemCountAudio_other": "{{count}} faixas",
 			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_many": "{{count}} de URLs",
 			"itemCountBulk_other": "{{count}} URLs",
 			"bulkMetadataResolving": "Obtendo detalhes dos vídeos… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Não precisa esperar — os arquivos enfileirados agora ainda terão seus nomes reais ao baixar.",
@@ -93,6 +96,7 @@
 			"rangeTo": "Até",
 			"rangeApply": "Aplicar intervalo",
 			"selectedCount_one": "{{count}} selecionado",
+			"selectedCount_many": "{{count}} selecionados",
 			"selectedCount_other": "{{count}} selecionados",
 			"noSelection": "Selecione pelo menos um vídeo para continuar",
 			"loadingItems": "Carregando playlist…",
@@ -100,6 +104,7 @@
 			"loadingPhasePages": "Analisando páginas do canal",
 			"loadingPhaseItems": "Coletando vídeos",
 			"loadingPagesFound_one": "{{count}} página encontrada",
+			"loadingPagesFound_many": "{{count}} de páginas encontradas",
 			"loadingPagesFound_other": "{{count}} páginas encontradas",
 			"loadingLimitHint": "Limitado aos primeiros {{count}} itens",
 			"thumbnailAlt": "Miniatura do vídeo",
@@ -115,6 +120,7 @@
 			"alreadyDownloaded": "Já baixado",
 			"nestedPlaylistBadge": "Playlist",
 			"nestedPlaylistHint_one": "{{count}} destes é uma playlist, não um vídeo — cole o link dela separadamente para baixá-la.",
+			"nestedPlaylistHint_many": "{{count}} destes são playlists, não vídeos — cole os links delas um de cada vez para baixá-las.",
 			"nestedPlaylistHint_other": "{{count}} destes são playlists, não vídeos — cole os links delas um de cada vez para baixá-las.",
 			"probeLimitAlertTitle": "A verificação da playlist está limitada",
 			"probeLimitAlertTitleGeneric": "A verificação está limitada",
@@ -122,9 +128,11 @@
 			"multiProfileEntry": "Atribuir perfis por item",
 			"multiProfileEntryTooltip": "Pula Qualidade, SponsorBlock, Saída e Salvar — atribua um perfil de download para cada item",
 			"removeFromListCount_one": "Remover {{count}} da lista",
+			"removeFromListCount_many": "Remover {{count}} da lista",
 			"removeFromListCount_other": "Remover {{count}} da lista",
 			"restore": "Restaurar",
 			"removedCount_one": "{{count}} removido",
+			"removedCount_many": "{{count}} removidos",
 			"removedCount_other": "{{count}} removidos",
 			"allRemovedTitle": "Todos os itens foram removidos",
 			"allRemovedDescription": "Restaure-os para continuar."
@@ -173,6 +181,7 @@
 			"quickBulkAllFailed": "Nenhuma dessas URLs pôde ser preparada",
 			"quickFailed": "Não foi possível adicionar este: {{error}}",
 			"quickPartialFailed_one": "O que funcionou foi enfileirado. {{count}} URL não pôde ser preparada.",
+			"quickPartialFailed_many": "O que funcionou foi enfileirado. {{count}} URLs não puderam ser preparadas.",
 			"quickPartialFailed_other": "O que funcionou foi enfileirado. {{count}} URLs não puderam ser preparadas.",
 			"profile": {
 				"destinationFallback": "Destino",
@@ -324,6 +333,7 @@
 			"currentFallback": "Link atual",
 			"waitHint": "Mantenha esta janela aberta enquanto o Arroxy prepara a fila.",
 			"failedCount_one": "{{count}} falhou",
+			"failedCount_many": "{{count}} falharam",
 			"failedCount_other": "{{count}} falharam",
 			"cancel": "Cancelar preparação",
 			"phase": {"probing": "Buscando detalhes", "queueing": "Adicionando à fila"}
@@ -376,7 +386,7 @@
 				"subtitlesMissing": "Seu perfil pede legendas em {{languages}}. Este vídeo não tem nenhuma.",
 				"webmUnavailable": "Seu perfil pede WebM. Os fluxos escolhidos deste vídeo incluem {{codec}}, que o WebM não aceita, então o tipo de arquivo é Automático."
 			},
-			"summary": {"lead": "Também de {{profile}}:", "subtitlesOff": "legendas desativadas", "subtitlesAdd_one": "{{count}} idioma disponível, adicionar", "subtitlesAdd_other": "{{count}} idiomas disponíveis, adicionar", "reviewAll": "Revisar tudo"},
+			"summary": {"lead": "Também de {{profile}}:", "subtitlesOff": "legendas desativadas", "subtitlesAdd_one": "{{count}} idioma disponível, adicionar", "subtitlesAdd_many": "{{count}} de idiomas disponíveis, adicionar", "subtitlesAdd_other": "{{count}} idiomas disponíveis, adicionar", "reviewAll": "Revisar tudo"},
 			"footer": {"reviewOptions": "Revisar e opções", "download": "Baixar", "moreActions": "Mais opções de download", "addToQueue": "Adicionar à fila sem iniciar", "subtitlesRequired": "Escolha pelo menos um idioma de legenda."},
 			"video": "Vídeo",
 			"audio": "Áudio",
@@ -396,6 +406,7 @@
 			"drc": {"label": "Equalizar o volume (DRC)", "description": "Abaixa as partes altas e aumenta as baixas, para alto-falantes e lugares barulhentos.", "tag": "Volume equalizado"},
 			"audioLanguage": "Idioma do áudio",
 			"audioLanguageCount_one": "{{count}} idioma",
+			"audioLanguageCount_many": "{{count}} de idiomas",
 			"audioLanguageCount_other": "{{count}} idiomas",
 			"convert": {"label": "Converter", "bitrate": "Taxa de bits", "wavLabel": "WAV (não comprimido)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "A fonte tem {{kbps}} kbps"},
 			"botWall": {
@@ -481,6 +492,7 @@
 			"readyHeadline": "Tudo pronto para baixar!",
 			"landIn": "Seu arquivo será salvo em",
 			"landInMultiProfile_one": "Ele será salvo no destino abaixo",
+			"landInMultiProfile_many": "Eles serão salvos nos {{count}} de destinos abaixo",
 			"landInMultiProfile_other": "Eles serão salvos nos {{count}} destinos abaixo",
 			"labelVideo": "Vídeo",
 			"labelAudio": "Áudio",
@@ -502,13 +514,17 @@
 			"labelPreset": "Predefinição",
 			"labelItems": "Itens",
 			"itemsValue_one": "{{count}} de {{total}} vídeo",
+			"itemsValue_many": "{{count}} de {{total}} vídeos",
 			"itemsValue_other": "{{count}} de {{total}} vídeos",
 			"itemsValueAudio_one": "{{count}} de {{total}} faixa",
+			"itemsValueAudio_many": "{{count}} de {{total}} faixas",
 			"itemsValueAudio_other": "{{count}} de {{total}} faixas",
 			"itemsValueBulk_one": "{{count}} de {{total}} URL",
+			"itemsValueBulk_many": "{{count}} de {{total}} URLs",
 			"itemsValueBulk_other": "{{count}} de {{total}} URLs",
 			"profileBreakdownHeading": "Perfis neste lote",
 			"profileBreakdownCount_one": "{{count}} item",
+			"profileBreakdownCount_many": "{{count}} de itens",
 			"profileBreakdownCount_other": "{{count}} itens",
 			"subtitleEmbedForcesMkv": "Legendas dentro do vídeo exigem um arquivo MKV, então este download é salvo como .mkv."
 		},
@@ -520,7 +536,7 @@
 				"identity": {"title": "Identidade do perfil", "description": "Nome e ícone exibidos no Download Rápido, URLs em lote e listas de perfis."},
 				"downloadType": {"title": "Tipo de download", "description": "Escolha a forma principal como deseja baixar."},
 				"advanced": {"title": "Opções avançadas", "description": "Os perfis herdam o destino global a menos que você defina um destino específico para o perfil."},
-				"output": {"title": "Opções de saída", "enabledCount_one": "{{count}} ativadas", "enabledCount_other": "{{count}} ativadas"},
+				"output": {"title": "Opções de saída", "enabledCount_one": "{{count}} ativadas", "enabledCount_many": "{{count}} ativadas", "enabledCount_other": "{{count}} ativadas"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -613,16 +629,19 @@
 			"subtitlesFullLength": "vídeo inteiro"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Carregando…", "chapters_one": "{{count}} capítulo", "chapters_other": "{{count}} capítulos"},
+	"videoCard": {"titlePlaceholder": "Carregando…", "chapters_one": "{{count}} capítulo", "chapters_many": "{{count}} de capítulos", "chapters_other": "{{count}} capítulos"},
 	"queue": {
 		"header": "Downloads",
 		"tabLabel": "Downloads",
 		"attentionBadge_one": "{{count}} download precisa da sua atenção",
+		"attentionBadge_many": "{{count}} de downloads precisam da sua atenção",
 		"attentionBadge_other": "{{count}} downloads precisam da sua atenção",
 		"choice": {
 			"cappedBody_one": "Mais de {{count}} vídeo nesta playlist. Baixe todos, os primeiros {{count}} ou escolha em uma revisão.",
+			"cappedBody_many": "Mais de {{count}} de vídeos nesta playlist. Baixe todos, os primeiros {{count}} ou escolha em uma revisão.",
 			"cappedBody_other": "Mais de {{count}} vídeos nesta playlist. Baixe todos, os primeiros {{count}} ou escolha em uma revisão.",
 			"reviewBody_one": "Este link é uma lista de {{count}} vídeo. Revise para escolher o que baixar.",
+			"reviewBody_many": "Este link é uma lista de {{count}} de vídeos. Revise para escolher o que baixar.",
 			"reviewBody_other": "Este link é uma lista de {{count}} vídeos. Revise para escolher o que baixar.",
 			"all": "Todos os vídeos",
 			"first": "Primeiros {{count}}",
@@ -743,6 +762,7 @@
 		"shellActionFailed": "Não foi possível abrir o item.",
 		"folderSelectFailed": "Não foi possível abrir o seletor de pastas.",
 		"exploreSignInRetrying_one": "Login feito com o Explore — tentando 1 link de novo",
+		"exploreSignInRetrying_many": "Login feito com o Explore — tentando {{count}} de links de novo",
 		"exploreSignInRetrying_other": "Login feito com o Explore — tentando {{count}} links de novo",
 		"exploreSignOutFailed": "Não foi possível sair do Explore. Tente novamente.",
 		"playlistFolderRejected": "Essa pasta não pode ser usada para esta playlist.",
@@ -758,17 +778,20 @@
 			"busy": "O Arroxy ainda está iniciando — tente novamente em instantes",
 			"submissionFailed": "Não foi possível adicionar esse link — tente novamente no Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo já está na fila — ignorado", "skippedAlreadyQueued_other": "{{count}} vídeos já estão na fila — ignorados"},
+		"queue": {"skippedAlreadyQueued_one": "{{count}} vídeo já está na fila — ignorado", "skippedAlreadyQueued_many": "{{count}} de vídeos já estão na fila — ignorados", "skippedAlreadyQueued_other": "{{count}} vídeos já estão na fila — ignorados"},
 		"quickDownload": {
 			"added": "Adicionado: {{title}}",
 			"alreadyQueued": "Já está na fila",
 			"failed": "Não foi possível preparar {{title}}",
 			"notAdded": "Não foi possível adicionar esse link — tente novamente",
 			"chooseHowMany_one": "{{count}}+ vídeo — escolha quantos",
+			"chooseHowMany_many": "{{count}}+ de vídeos — escolha quantos",
 			"chooseHowMany_other": "{{count}}+ vídeos — escolha quantos",
 			"review_one": "{{count}} vídeo nesta lista — revise para escolher",
+			"review_many": "{{count}} de vídeos nesta lista — revise para escolher",
 			"review_other": "{{count}} vídeos nesta lista — revise para escolher",
 			"reviewCapped_one": "{{count}}+ vídeo nesta lista — revise para escolher",
+			"reviewCapped_many": "{{count}}+ de vídeos nesta lista — revise para escolher",
 			"reviewCapped_other": "{{count}}+ vídeos nesta lista — revise para escolher",
 			"view": "Ver"
 		}
@@ -824,10 +847,14 @@
 		"mp4Cap": "H.264 acima de 1080p não está disponível no YouTube — limitado a 1080p automaticamente"
 	},
 	"formatLabel": {"audioFallback": "Áudio", "audioOnlyDot": "Apenas áudio · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Ocioso", "statusActive_one": "1 baixando · {{percent}}%", "statusActive_other": "{{count}} baixando · {{percent}}%", "downloadFromClipboard": "Baixar da área de transferência", "open": "Abrir Arroxy", "quit": "Sair do Arroxy"}},
+	"tray": {
+		"tooltip": "Arroxy",
+		"menu": {"statusIdle": "Ocioso", "statusActive_one": "1 baixando · {{percent}}%", "statusActive_many": "{{count}} baixando · {{percent}}%", "statusActive_other": "{{count}} baixando · {{percent}}%", "downloadFromClipboard": "Baixar da área de transferência", "open": "Abrir Arroxy", "quit": "Sair do Arroxy"}
+	},
 	"dialogs": {
 		"quitWithActiveDownloads": {
 			"message_one": "{{count}} download em andamento",
+			"message_many": "{{count}} de downloads em andamento",
 			"message_other": "{{count}} downloads em andamento",
 			"detail": "Pause para continuar depois ou cancele para descartar o progresso.",
 			"confirm": "Cancelar Downloads e Sair",

@@ -43,7 +43,7 @@
 	"language": {"label": "語言"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "播放清單", "playlistItemsGeneric": "影片", "playlistPresets": "畫質", "playlistProfiles": "設定檔", "formats": "格式", "subtitles": "字幕", "sponsorblock": "SponsorBlock", "output": "輸出", "folder": "儲存", "confirm": "確認", "review": "檢視"},
-		"playlistPresets": {"heading": "選擇批次畫質", "subhead": "每部影片會獨立解析所選層級——混合格式的播放清單也能如預期運作。", "itemCount_one": "{{count}} 個項目", "itemCount_other": "{{count}} 個項目"},
+		"playlistPresets": {"heading": "選擇批次畫質", "subhead": "每部影片會獨立解析所選層級——混合格式的播放清單也能如預期運作。", "itemCount_other": "{{count}} 個項目"},
 		"playlistProfiles": {
 			"heading": "指派下載設定檔",
 			"selectedSummary": "已選 {{selected}}／{{total}} 個",
@@ -62,11 +62,8 @@
 			"heading": "播放清單項目",
 			"headingGeneric": "要下載的影片",
 			"bulkHeading": "批次 URL",
-			"itemCount_one": "{{count}} 部影片",
 			"itemCount_other": "{{count}} 部影片",
-			"itemCountAudio_one": "{{count}} 個音軌",
 			"itemCountAudio_other": "{{count}} 個音軌",
-			"itemCountBulk_one": "{{count}} 個 URL",
 			"itemCountBulk_other": "{{count}} 個 URL",
 			"bulkMetadataResolving": "正在擷取影片詳細資料… {{done}}/{{total}}",
 			"bulkMetadataOptional": "不必等待——現在加入佇列的檔案仍會在下載時取得真正的名稱。",
@@ -83,14 +80,12 @@
 			"rangeFrom": "從",
 			"rangeTo": "至",
 			"rangeApply": "套用範圍",
-			"selectedCount_one": "已選 {{count}} 個",
 			"selectedCount_other": "已選 {{count}} 個",
 			"noSelection": "請選取至少一部影片才能繼續",
 			"loadingItems": "正在擷取播放清單…",
 			"loadingItemsGeneric": "正在擷取影片…",
 			"loadingPhasePages": "正在掃描頻道頁面",
 			"loadingPhaseItems": "正在收集影片",
-			"loadingPagesFound_one": "找到 {{count}} 個頁面",
 			"loadingPagesFound_other": "找到 {{count}} 個頁面",
 			"loadingLimitHint": "限制為前 {{count}} 個項目",
 			"thumbnailAlt": "影片縮圖",
@@ -105,17 +100,14 @@
 			"syncNoneDescGeneric": "在 {{dir}} 中找不到此來源的影片。",
 			"alreadyDownloaded": "已下載",
 			"nestedPlaylistBadge": "播放清單",
-			"nestedPlaylistHint_one": "其中 {{count}} 個是播放清單而非影片——請單獨貼上其連結以下載。",
 			"nestedPlaylistHint_other": "其中 {{count}} 個是播放清單而非影片——請逐一貼上連結以下載。",
 			"probeLimitAlertTitle": "播放清單掃描有上限",
 			"probeLimitAlertTitleGeneric": "掃描有上限",
 			"probeLimitAlertDesc": "顯示前 {{count}} 個項目。提高載入上限以查看更多項目。",
 			"multiProfileEntry": "依項目指派設定檔",
 			"multiProfileEntryTooltip": "略過畫質、SponsorBlock、輸出與儲存——改為替每個項目指派下載設定檔",
-			"removeFromListCount_one": "從清單移除 {{count}} 個",
 			"removeFromListCount_other": "從清單移除 {{count}} 個",
 			"restore": "還原",
-			"removedCount_one": "已移除 {{count}} 個",
 			"removedCount_other": "已移除 {{count}} 個",
 			"allRemovedTitle": "所有項目都已移除",
 			"allRemovedDescription": "還原它們以繼續。"
@@ -163,7 +155,6 @@
 			"quickPrepareFailed": "無法準備佇列項目",
 			"quickBulkAllFailed": "這些 URL 全都無法準備",
 			"quickFailed": "無法新增此項目：{{error}}",
-			"quickPartialFailed_one": "已將成功的項目加入佇列。{{count}} 個 URL 無法準備。",
 			"quickPartialFailed_other": "已將成功的項目加入佇列。{{count}} 個 URL 無法準備。",
 			"profile": {
 				"destinationFallback": "目的地",
@@ -309,7 +300,6 @@
 			"description": "Arroxy 正在讀取連結並套用 {{profileName}}。",
 			"currentFallback": "目前連結",
 			"waitHint": "Arroxy 準備佇列時，請保持此視窗開啟。",
-			"failedCount_one": "{{count}} 個失敗",
 			"failedCount_other": "{{count}} 個失敗",
 			"cancel": "取消準備",
 			"phase": {"probing": "正在擷取詳細資料", "queueing": "正在加入佇列"}
@@ -362,7 +352,7 @@
 				"subtitlesMissing": "設定檔要求 {{languages}} 字幕，但此影片沒有。",
 				"webmUnavailable": "你的設定檔要求 WebM。此影片所選的串流包含 WebM 無法容納的 {{codec}}，因此檔案類型為自動。"
 			},
-			"summary": {"lead": "{{profile}} 的其他設定：", "subtitlesOff": "字幕已關閉", "subtitlesAdd_one": "有 {{count}} 種語言可用，新增", "subtitlesAdd_other": "有 {{count}} 種語言可用，新增", "reviewAll": "檢視全部"},
+			"summary": {"lead": "{{profile}} 的其他設定：", "subtitlesOff": "字幕已關閉", "subtitlesAdd_other": "有 {{count}} 種語言可用，新增", "reviewAll": "檢視全部"},
 			"footer": {"reviewOptions": "檢視與選項", "download": "下載", "moreActions": "更多下載選項", "addToQueue": "加入佇列但不開始", "subtitlesRequired": "請至少選擇一種字幕語言。"},
 			"video": "影片",
 			"audio": "音訊",
@@ -381,7 +371,6 @@
 			"quality": {"high": "高品質", "medium": "中等品質", "low": "低品質"},
 			"drc": {"label": "平衡音量（DRC）", "description": "讓大聲的部分變小、小聲的部分變大，適合喇叭和吵雜環境。", "tag": "音量平衡"},
 			"audioLanguage": "音訊語言",
-			"audioLanguageCount_one": "{{count}} 種語言",
 			"audioLanguageCount_other": "{{count}} 種語言",
 			"convert": {"label": "轉換", "bitrate": "位元率", "wavLabel": "WAV（未壓縮）", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "來源為 {{kbps}} kbps"},
 			"botWall": {
@@ -448,7 +437,6 @@
 		"confirm": {
 			"readyHeadline": "準備好下載了！",
 			"landIn": "你的檔案將儲存至",
-			"landInMultiProfile_one": "它將儲存至下方目的地",
 			"landInMultiProfile_other": "它們將儲存至下方 {{count}} 個目的地",
 			"labelVideo": "影片",
 			"labelAudio": "音訊",
@@ -469,14 +457,10 @@
 			"labelBulk": "批次",
 			"labelPreset": "預設集",
 			"labelItems": "項目",
-			"itemsValue_one": "{{count}}／{{total}} 部影片",
 			"itemsValue_other": "{{count}}／{{total}} 部影片",
-			"itemsValueAudio_one": "{{count}}／{{total}} 個音軌",
 			"itemsValueAudio_other": "{{count}}／{{total}} 個音軌",
-			"itemsValueBulk_one": "{{count}}／{{total}} 個 URL",
 			"itemsValueBulk_other": "{{count}}／{{total}} 個 URL",
 			"profileBreakdownHeading": "此批次中的設定檔",
-			"profileBreakdownCount_one": "{{count}} 個項目",
 			"profileBreakdownCount_other": "{{count}} 個項目",
 			"subtitleEmbedForcesMkv": "將字幕嵌入影片需要 MKV 檔案，因此此下載會儲存為 .mkv。"
 		},
@@ -488,7 +472,7 @@
 				"identity": {"title": "設定檔識別資訊", "description": "顯示於快速下載、批次 URL 與設定檔清單中的名稱及圖示。"},
 				"downloadType": {"title": "下載類型", "description": "選擇主要的下載方式。"},
 				"advanced": {"title": "進階選項", "description": "設定檔會沿用全域目的地，除非你設定設定檔覆寫。"},
-				"output": {"title": "輸出選項", "enabledCount_one": "已啟用 {{count}} 項", "enabledCount_other": "已啟用 {{count}} 項"},
+				"output": {"title": "輸出選項", "enabledCount_other": "已啟用 {{count}} 項"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -576,21 +560,12 @@
 			"subtitlesFullLength": "整部影片"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "載入中…", "chapters_one": "{{count}} 個章節", "chapters_other": "{{count}} 個章節"},
+	"videoCard": {"titlePlaceholder": "載入中…", "chapters_other": "{{count}} 個章節"},
 	"queue": {
 		"header": "下載",
 		"tabLabel": "下載",
-		"attentionBadge_one": "{{count}} 個下載需要你處理",
 		"attentionBadge_other": "{{count}} 個下載需要你處理",
-		"choice": {
-			"cappedBody_one": "此播放清單中的影片超過 {{count}} 部。可以全部下載、只下載前 {{count}} 部，或在檢視中自行挑選。",
-			"cappedBody_other": "此播放清單中的影片超過 {{count}} 部。可以全部下載、只下載前 {{count}} 部，或在檢視中自行挑選。",
-			"reviewBody_one": "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。",
-			"reviewBody_other": "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。",
-			"all": "所有影片",
-			"first": "前 {{count}} 部",
-			"review": "檢視"
-		},
+		"choice": {"cappedBody_other": "此播放清單中的影片超過 {{count}} 部。可以全部下載、只下載前 {{count}} 部，或在檢視中自行挑選。", "reviewBody_other": "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。", "all": "所有影片", "first": "前 {{count}} 部", "review": "檢視"},
 		"tabTip": "下載項目現在位於「下載」分頁——你可以隨時開啟以追蹤進度。",
 		"empty": "排入佇列的下載會顯示在這裡",
 		"filtersLabel": "佇列狀態篩選器",
@@ -705,7 +680,6 @@
 		"warmupFailed": "設定尚未完成。在完成前，部分下載可能會失敗。",
 		"shellActionFailed": "無法開啟。",
 		"folderSelectFailed": "無法開啟資料夾選擇器。",
-		"exploreSignInRetrying_one": "已使用 Explore 登入 — 正在重試 1 個連結",
 		"exploreSignInRetrying_other": "已使用 Explore 登入 — 正在重試 {{count}} 個連結",
 		"exploreSignOutFailed": "無法登出 Explore，請再試一次。",
 		"playlistFolderRejected": "此資料夾無法用於這個播放清單。",
@@ -721,17 +695,14 @@
 			"busy": "Arroxy 仍在啟動 — 請稍後再試",
 			"submissionFailed": "無法新增該連結——請在 Arroxy 中重試"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} 部影片已在佇列中——已略過", "skippedAlreadyQueued_other": "{{count}} 部影片已在佇列中——已略過"},
+		"queue": {"skippedAlreadyQueued_other": "{{count}} 部影片已在佇列中——已略過"},
 		"quickDownload": {
 			"added": "已加入：{{title}}",
 			"alreadyQueued": "已在佇列中",
 			"failed": "無法準備 {{title}}",
 			"notAdded": "無法加入該連結 — 請重試",
-			"chooseHowMany_one": "{{count}}+ 部影片 — 選擇數量",
 			"chooseHowMany_other": "{{count}}+ 部影片 — 選擇數量",
-			"review_one": "此清單中有 {{count}} 部影片 — 檢視後選擇",
 			"review_other": "此清單中有 {{count}} 部影片 — 檢視後選擇",
-			"reviewCapped_one": "此清單中有 {{count}}+ 部影片 — 檢視後選擇",
 			"reviewCapped_other": "此清單中有 {{count}}+ 部影片 — 檢視後選擇",
 			"view": "檢視"
 		}
@@ -780,9 +751,9 @@
 		"mp4Cap": "YouTube 不提供高於 1080p 的 H.264——已自動限制為 1080p"
 	},
 	"formatLabel": {"audioFallback": "音訊", "audioOnlyDot": "僅音訊 · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "閒置", "statusActive_one": "1 個下載中 · {{percent}}%", "statusActive_other": "{{count}} 個下載中 · {{percent}}%", "downloadFromClipboard": "從剪貼簿下載", "open": "開啟 Arroxy", "quit": "結束 Arroxy"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "閒置", "statusActive_other": "{{count}} 個下載中 · {{percent}}%", "downloadFromClipboard": "從剪貼簿下載", "open": "開啟 Arroxy", "quit": "結束 Arroxy"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "有 {{count}} 個下載正在進行", "message_other": "有 {{count}} 個下載正在進行", "detail": "暫停以便稍後繼續，或取消並捨棄目前進度。", "confirm": "取消下載並結束", "pause": "暫停下載並結束", "keep": "繼續下載"},
+		"quitWithActiveDownloads": {"message_other": "有 {{count}} 個下載正在進行", "detail": "暫停以便稍後繼續，或取消並捨棄目前進度。", "confirm": "取消下載並結束", "pause": "暫停下載並結束", "keep": "繼續下載"},
 		"closeToTray": {"message": "關閉時要將 Arroxy 隱藏到系統匣嗎？", "detail": "Arroxy 會繼續執行並完成進行中的下載。你可以稍後在進階設定中變更此選項。", "hide": "隱藏到系統匣", "quit": "結束", "remember": "不要再詢問"},
 		"rendererCrashed": {"message": "Arroxy 發生問題", "detail": "轉譯器程序發生當機（{{reason}}）。請重新載入再試一次。", "reload": "重新載入", "quit": "結束"}
 	},

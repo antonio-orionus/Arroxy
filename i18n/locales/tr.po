@@ -131,10 +131,12 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "İndirmeye Devam Et"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "{{count}} indirme sürüyor"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} indirme sürüyor"
@@ -599,10 +601,12 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Dil"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Explore ile oturum açıldı — 1 bağlantı yeniden deneniyor"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Explore ile oturum açıldı — {{count}} bağlantı yeniden deneniyor"
@@ -659,10 +663,12 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Bu klasör bu oynatma listesi için kullanılamaz."
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} video zaten kuyrukta — atlandı"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "{{count}} video zaten kuyrukta — atlandı"
@@ -675,10 +681,12 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "Zaten kuyrukta"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ video — kaç tane olacağını seç"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ video — kaç tane olacağını seç"
@@ -691,18 +699,22 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Bu bağlantı eklenemedi — yeniden dene"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "Bu listede {{count}} video var — seçmek için gözden geçir"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "Bu listede {{count}} video var — seçmek için gözden geçir"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "Bu listede {{count}}+ video var — seçmek için gözden geçir"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "Bu listede {{count}}+ video var — seçmek için gözden geçir"
@@ -915,10 +927,12 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Çıktı"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "{{count}} indirme dikkatini bekliyor"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "{{count}} indirme dikkatini bekliyor"
@@ -939,10 +953,12 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "Tüm videolar"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç."
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "Bu oynatma listesinde {{count}} videodan fazlası var. Hepsini, ilk {{count}} videoyu indir ya da bir inceleme ile seç."
@@ -955,10 +971,12 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Gözden geçir"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir."
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir."
@@ -1639,10 +1657,12 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Arroxy’den çık"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 indiriliyor · {{percent}}%"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} indiriliyor · {{percent}}%"
@@ -1719,10 +1739,12 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Yükseltiliyor…"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} bölüm"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} bölüm"
@@ -1785,26 +1807,32 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "Yalnızca ses"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{total}} videodan {{count}} tanesi"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{total}} videodan {{count}} tanesi"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{total}} parçadan {{count}} tanesi"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{total}} parçadan {{count}} tanesi"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{total}} URL’den {{count}} tanesi"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{total}} URL’den {{count}} tanesi"
@@ -1849,10 +1877,12 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Dosyan şuraya düşecek"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Aşağıdaki hedefe inecek"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Aşağıdaki {{count}} hedefe inecek"
@@ -1861,10 +1891,12 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Yalnızca altyazı ön ayarı etkin ama altyazı dili seçilmedi — indirilecek bir şey yok."
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} öğe"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} öğe"
@@ -1961,10 +1993,12 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "Ses dili"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "{{count}} dil"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "{{count}} dil"
@@ -2337,10 +2371,12 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "Tümünü gözden geçir"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "{{count}} dil mevcut, ekle"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "{{count}} dil mevcut, ekle"
@@ -2621,26 +2657,32 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "İndirilecek videolar"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} video"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} video"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} parça"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} parça"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} URL"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL"
@@ -2657,10 +2699,12 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "İlk {{count}} öğeyle sınırlandı"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "{{count}} sayfa bulundu"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "{{count}} sayfa bulundu"
@@ -2685,10 +2729,12 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "Oynatma listesi"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantısını tek başına yapıştırın."
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "Bunlardan {{count}} tanesi video değil, oynatma listesi — indirmek için bağlantılarını teker teker yapıştırın."
@@ -2721,18 +2767,22 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "Bitiş"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "{{count}} kaldırıldı"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} kaldırıldı"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Listeden {{count}} öğe kaldır"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Listeden {{count}} öğe kaldır"
@@ -2745,10 +2795,12 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "Tümünü seç"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} seçildi"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} seçildi"
@@ -2817,10 +2869,12 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Toplu indirme için kalite seç"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} öğe"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} öğe"
@@ -3201,10 +3255,12 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Profil kimliği"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "{{count}} etkin"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "{{count}} etkin"
@@ -3277,10 +3333,12 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Arroxy bağlantıyı okuyor ve {{profileName}} profilini uyguluyor."
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "{{count}} başarısız"
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} başarısız"
@@ -4213,10 +4271,12 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Bu öğe eklenemedi: {{error}}"
 
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."
 
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."

@@ -131,10 +131,7 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "ဒေါင်းလုဒ်ဆက်လုပ်မည်"
 
-msgctxt "dialogs.quitWithActiveDownloads.message_one"
-msgid "{{count}} download in progress"
-msgstr "{{count}} ဒေါင်းလုဒ် လုပ်ဆောင်နေဆဲ"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ"
@@ -599,10 +596,7 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "ဘာသာစကား"
 
-msgctxt "notifications.exploreSignInRetrying_one"
-msgid "Signed in with Explore — retrying 1 link"
-msgstr "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် 1 ခုကို ပြန်စမ်းနေသည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် {{count}} ခုကို ပြန်စမ်းနေသည်"
@@ -659,10 +653,7 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "ထိုဖိုင်တွဲကို ဤဖွင့်စာရင်းအတွက် အသုံးမပြုနိုင်ပါ။"
 
-msgctxt "notifications.queue.skippedAlreadyQueued_one"
-msgid "{{count}} video is already in the queue — skipped"
-msgstr "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်"
@@ -675,10 +666,7 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "စာရင်းထဲတွင် ရှိပြီးသား"
 
-msgctxt "notifications.quickDownload.chooseHowMany_one"
-msgid "{{count}}+ video — choose how many"
-msgstr "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ"
@@ -691,18 +679,12 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "ထိုလင့်ခ်ကို ထည့်၍မရပါ — ပြန်စမ်းကြည့်ပါ"
 
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
 
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ"
@@ -915,10 +897,7 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "ဖိုင်"
 
-msgctxt "queue.attentionBadge_one"
-msgid "{{count}} download needs your attention"
-msgstr "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်"
@@ -939,10 +918,7 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "ဗီဒီယိုအားလုံး"
 
-msgctxt "queue.choice.cappedBody_one"
-msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
-msgstr "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။"
@@ -955,10 +931,7 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "ပြန်လည်စစ်ဆေးရန်"
 
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။"
@@ -1639,10 +1612,7 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Arroxy ထွက်မည်"
 
-msgctxt "tray.menu.statusActive_one"
-msgid "1 downloading · {{percent}}%"
-msgstr "1 ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%"
@@ -1719,10 +1689,7 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "အဆင့်မြှင့်နေသည်…"
 
-msgctxt "videoCard.chapters_one"
-msgid "{{count}} chapter"
-msgstr "အခန်းကန့် {{count}} ခု"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "အခန်းကန့် {{count}} ခု"
@@ -1785,26 +1752,17 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "အသံသာ"
 
-msgctxt "wizard.confirm.itemsValue_one"
-msgid "{{count}} of {{total}} video"
-msgstr "{{total}} ခုမှ {{count}} ဗီဒီယို"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{total}} ခုမှ {{count}} ဗီဒီယိုများ"
 
-msgctxt "wizard.confirm.itemsValueAudio_one"
-msgid "{{count}} of {{total}} track"
-msgstr "{{total}} ခုမှ {{count}} သီချင်း"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{total}} ခုမှ {{count}} သီချင်းများ"
 
-msgctxt "wizard.confirm.itemsValueBulk_one"
-msgid "{{count}} of {{total}} URL"
-msgstr "{{total}} URL မှ {{count}}"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{total}} URL မှ {{count}}"
@@ -1849,10 +1807,7 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်"
 
-msgctxt "wizard.confirm.landInMultiProfile_one"
-msgid "It'll land in the destination below"
-msgstr "အောက်ပါနေရာသို့ ရောက်ရှိမည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "အောက်ပါနေရာ {{count}} ခုသို့ ရောက်ရှိမည်"
@@ -1861,10 +1816,7 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "စာတန်းထိုးသာ preset ဖွင့်ထားသော်လည်း စာတန်းထိုးဘာသာစကားမရွေးရသေးပါ — ဘာမျှဒေါင်းလုဒ်မဖြစ်ပါ။"
 
-msgctxt "wizard.confirm.profileBreakdownCount_one"
-msgid "{{count}} item"
-msgstr "{{count}} ခု"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} ခု"
@@ -1961,10 +1913,7 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "အသံဘာသာစကား"
 
-msgctxt "wizard.formats.audioLanguageCount_one"
-msgid "{{count}} language"
-msgstr "ဘာသာစကား {{count}} ခု"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "ဘာသာစကား {{count}} ခု"
@@ -2337,10 +2286,7 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "အားလုံးစစ်ဆေးရန်"
 
-msgctxt "wizard.formats.summary.subtitlesAdd_one"
-msgid "{{count}} language available, add"
-msgstr "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်"
@@ -2621,26 +2567,17 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "ဒေါင်းလုဒ်ယူမည့် ဗီဒီယိုများ"
 
-msgctxt "wizard.playlist.itemCount_one"
-msgid "{{count}} video"
-msgstr "{{count}} ဗီဒီယို"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} ဗီဒီယိုများ"
 
-msgctxt "wizard.playlist.itemCountAudio_one"
-msgid "{{count}} track"
-msgstr "{{count}} ခု သီချင်း"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} ခု သီချင်းများ"
 
-msgctxt "wizard.playlist.itemCountBulk_one"
-msgid "{{count}} URL"
-msgstr "{{count}} URL"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL"
@@ -2657,10 +2594,7 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "ပထမဆုံး {{count}} ခုအထိသာ ကန့်သတ်ထားသည်"
 
-msgctxt "wizard.playlist.loadingPagesFound_one"
-msgid "{{count}} page found"
-msgstr "{{count}} စာမျက်နှာ တွေ့ရှိသည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "{{count}} စာမျက်နှာများ တွေ့ရှိသည်"
@@ -2685,10 +2619,7 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "ပလေးလစ်"
 
-msgctxt "wizard.playlist.nestedPlaylistHint_one"
-msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
-msgstr "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုမဟုတ်ဘဲ ပလေးလစ် ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်း၏လင့်ခ်ကို သီးသန့်ကူးထည့်ပါ။"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုများမဟုတ်ဘဲ ပလေးလစ်များ ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်းတို့၏လင့်ခ်များကို တစ်ခုချင်းစီ ကူးထည့်ပါ။"
@@ -2721,18 +2652,12 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "သို့"
 
-msgctxt "wizard.playlist.removedCount_one"
-msgid "{{count}} removed"
-msgstr "{{count}} ခု ဖယ်ရှားပြီး"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} ခု ဖယ်ရှားပြီး"
 
-msgctxt "wizard.playlist.removeFromListCount_one"
-msgid "Remove {{count}} from list"
-msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်"
@@ -2745,10 +2670,7 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "အားလုံးရွေးမည်"
 
-msgctxt "wizard.playlist.selectedCount_one"
-msgid "{{count}} selected"
-msgstr "{{count}} ခုရွေးထားသည်"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} ခုရွေးထားသည်"
@@ -2817,10 +2739,7 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Batch အတွက် အရည်အသွေးရွေးပါ"
 
-msgctxt "wizard.playlistPresets.itemCount_one"
-msgid "{{count}} item"
-msgstr "{{count}} ခု"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} ခု"
@@ -3201,10 +3120,7 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "ပရိုဖိုင် အထောက်အထား"
 
-msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
-msgid "{{count}} enabled"
-msgstr "{{count}} ခု ဖွင့်ထား"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "{{count}} ခု ဖွင့်ထား"
@@ -3277,10 +3193,7 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Arroxy က လင့်ခ်ကို ဖတ်ပြီး {{profileName}} ကို အသုံးပြုနေသည်။"
 
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} ခု မအောင်မြင်ပါ"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} ခု မအောင်မြင်ပါ"
@@ -4213,10 +4126,7 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "ဤအရာကို ထည့်မရပါ: {{error}}"
 
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL ကို မပြင်ဆင်နိုင်ပါ။"
-
+#. Plural form "other" for my: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL များကို မပြင်ဆင်နိုင်ပါ။"

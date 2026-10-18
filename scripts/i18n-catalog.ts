@@ -1,9 +1,10 @@
 #!/usr/bin/env bun
-import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs'
+import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {spawnSync} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
-import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, flattenStringLeaves, normalizeCatalog, parseCatalog, type CatalogIssue, type StringLeaf, validateLocaleCatalog} from './i18n-catalog-core.js'
+import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, normalizeCatalog, parseCatalog, type CatalogIssue, type StringLeaf, validateLocaleCatalog} from './i18n-catalog-core.js'
 
 type JsonValue = string | {[key: string]: JsonValue}
 interface JsonObject {
@@ -31,6 +32,11 @@ function sourceLeaves(): StringLeaf[] {
 	return flattenStringLeaves(readJson(localeJsonPath('en')))
 }
 
+// English only has one/other; each locale's catalog is keyed by its own CLDR plural categories.
+function localeSourceLeaves(lang: SupportedLang): StringLeaf[] {
+	return expandPluralLeaves(lang, sourceLeaves())
+}
+
 function write(path: string, content: Buffer | string): void {
 	mkdirSync(join(path, '..'), {recursive: true})
 	writeFileSync(path, content)
@@ -40,22 +46,27 @@ function writeSourceCatalog(leaves: readonly StringLeaf[]): void {
 	write(POT_PATH, compileCatalog(buildSourceCatalog(leaves)))
 }
 
-function bootstrapLocales(leaves: readonly StringLeaf[]): void {
+function bootstrapLocales(): void {
 	for (const lang of NON_EN_LANGS) {
 		const localePath = localeJsonPath(lang)
 		const localeLeaves = existsSync(localePath) ? flattenStringLeaves(readJson(localePath)) : []
-		write(localePoPath(lang), compileCatalog(buildLocaleCatalog(lang, leaves, localeLeaves)))
+		write(localePoPath(lang), compileCatalog(buildLocaleCatalog(lang, localeSourceLeaves(lang), localeLeaves)))
 	}
 }
 
 function runMsgmerge(lang: SupportedLang): void {
 	const poPath = localePoPath(lang)
 	if (!existsSync(poPath)) {
-		write(poPath, compileCatalog(buildLocaleCatalog(lang, sourceLeaves(), [])))
+		write(poPath, compileCatalog(buildLocaleCatalog(lang, localeSourceLeaves(lang), [])))
 		return
 	}
 
-	const result = spawnSync('msgmerge', ['--update', '--backup=none', '--previous', '--no-location', poPath, POT_PATH], {encoding: 'utf8'})
+	// msgmerge reads the template from a file; a per-locale one carries that locale's plural categories.
+	const templateDir = mkdtempSync(join(tmpdir(), 'arroxy-pot-'))
+	const templatePath = join(templateDir, `${lang}.pot`)
+	write(templatePath, compileCatalog(buildSourceCatalog(localeSourceLeaves(lang))))
+	const result = spawnSync('msgmerge', ['--update', '--backup=none', '--previous', '--no-location', poPath, templatePath], {encoding: 'utf8'})
+	rmSync(templateDir, {recursive: true, force: true})
 	if (result.error) {
 		throw new Error(`msgmerge is required for i18n:sync. Install GNU gettext and retry. (${result.error.message})`)
 	}
@@ -103,7 +114,6 @@ function isJsonObject(value: unknown): value is JsonObject {
 }
 
 function compileRuntimeLocales({writeFiles}: {writeFiles: boolean}): CatalogIssue[] {
-	const leaves = sourceLeaves()
 	const issues: CatalogIssue[] = []
 
 	for (const lang of NON_EN_LANGS) {
@@ -113,6 +123,7 @@ function compileRuntimeLocales({writeFiles}: {writeFiles: boolean}): CatalogIssu
 			continue
 		}
 		const catalog = parseCatalog(readFileSync(poPath))
+		const leaves = localeSourceLeaves(lang)
 		const localeIssues = validateLocaleCatalog(lang, leaves, catalog)
 		issues.push(...localeIssues)
 		if (localeIssues.length > 0) continue
@@ -137,7 +148,7 @@ function checkCatalogs(): number {
 
 	if (catalogIssues.length === 0) {
 		for (const lang of NON_EN_LANGS) {
-			const compiled = compileLocaleTree(leaves, parseCatalog(readFileSync(localePoPath(lang))))
+			const compiled = compileLocaleTree(localeSourceLeaves(lang), parseCatalog(readFileSync(localePoPath(lang))))
 			const runtime = readJson(localeJsonPath(lang))
 			if (!deepEqual(runtime, compiled)) issues.push(`${lang}: runtime JSON is stale, run bun run i18n:compile`)
 		}
@@ -171,9 +182,8 @@ switch (command) {
 		break
 	}
 	case 'bootstrap': {
-		const leaves = sourceLeaves()
-		writeSourceCatalog(leaves)
-		bootstrapLocales(leaves)
+		writeSourceCatalog(sourceLeaves())
+		bootstrapLocales()
 		break
 	}
 	case 'sync': {

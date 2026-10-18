@@ -131,10 +131,22 @@ msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
 msgstr "Продовжити завантаження"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "Тривають {{count}} завантаження"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "dialogs.quitWithActiveDownloads.message_many"
+msgid "{{count}} downloads in progress"
+msgstr "Триває завантажень: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "dialogs.quitWithActiveDownloads.message_one"
 msgid "{{count}} download in progress"
 msgstr "Триває {{count}} завантаження"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Триває завантажень: {{count}}"
@@ -599,10 +611,22 @@ msgctxt "language.label"
 msgid "Language"
 msgstr "Мова"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Вхід через Explore виконано — повторюємо {{count}} посилання"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.exploreSignInRetrying_many"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Вхід через Explore виконано — повторюємо посилання: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.exploreSignInRetrying_one"
 msgid "Signed in with Explore — retrying 1 link"
 msgstr "Вхід через Explore виконано — повторюємо 1 посилання"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "notifications.exploreSignInRetrying_other"
 msgid "Signed in with Explore — retrying {{count}} links"
 msgstr "Вхід через Explore виконано — повторюємо посилання: {{count}}"
@@ -659,10 +683,22 @@ msgctxt "notifications.playlistFolderRejected"
 msgid "That folder can't be used for this playlist."
 msgstr "Цю теку не можна використати для цього плейлиста."
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Пропущено відео, які вже в черзі: {{count}}"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.queue.skippedAlreadyQueued_many"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "Пропущено відео, які вже в черзі: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.queue.skippedAlreadyQueued_one"
 msgid "{{count}} video is already in the queue — skipped"
 msgstr "{{count}} відео вже в черзі — пропущено"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "notifications.queue.skippedAlreadyQueued_other"
 msgid "{{count}} videos are already in the queue — skipped"
 msgstr "Пропущено відео, які вже в черзі: {{count}}"
@@ -675,10 +711,22 @@ msgctxt "notifications.quickDownload.alreadyQueued"
 msgid "Already in the queue"
 msgstr "Вже в черзі"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ відео — вибери, скільки завантажити"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.chooseHowMany_many"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ відео — вибери, скільки завантажити"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ відео — вибери, скільки завантажити"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ відео — вибери, скільки завантажити"
@@ -691,18 +739,42 @@ msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Не вдалося додати посилання — спробуй ще раз"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Відео в цьому списку: {{count}} — переглянь і вибери"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.review_many"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "Відео в цьому списку: {{count}} — переглянь і вибери"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.review_one"
 msgid "{{count}} video in this list — review to pick"
 msgstr "{{count}} відео в цьому списку — переглянь і вибери"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "notifications.quickDownload.review_other"
 msgid "{{count}} videos in this list — review to pick"
 msgstr "Відео в цьому списку: {{count}} — переглянь і вибери"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.reviewCapped_many"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "notifications.quickDownload.reviewCapped_one"
 msgid "{{count}}+ video in this list — review to pick"
 msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "notifications.quickDownload.reviewCapped_other"
 msgid "{{count}}+ videos in this list — review to pick"
 msgstr "{{count}}+ відео в цьому списку — переглянь і вибери"
@@ -915,10 +987,22 @@ msgctxt "queue.artifact.unknown"
 msgid "Artifact"
 msgstr "Файл"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "Потребують уваги: {{count}}"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.attentionBadge_many"
+msgid "{{count}} downloads need your attention"
+msgstr "Потребують уваги: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.attentionBadge_one"
 msgid "{{count}} download needs your attention"
 msgstr "Потребують уваги: {{count}}"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "queue.attentionBadge_other"
 msgid "{{count}} downloads need your attention"
 msgstr "Потребують уваги: {{count}}"
@@ -939,10 +1023,22 @@ msgctxt "queue.choice.all"
 msgid "All videos"
 msgstr "Усі відео"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.cappedBody_many"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.choice.cappedBody_one"
 msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "queue.choice.cappedBody_other"
 msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
 msgstr "У цьому плейлисті понад {{count}} відео. Завантаж усі, перші {{count}} або вибери під час перегляду."
@@ -955,10 +1051,22 @@ msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Перегляд"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.reviewBody_many"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "queue.choice.reviewBody_one"
 msgid "This link is a list of {{count}} video. Review it to pick what to download."
 msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "queue.choice.reviewBody_other"
 msgid "This link is a list of {{count}} videos. Review it to pick what to download."
 msgstr "Це посилання — список із {{count}} відео. Переглянь його й вибери, що завантажити."
@@ -1639,10 +1747,22 @@ msgctxt "tray.menu.quit"
 msgid "Quit Arroxy"
 msgstr "Вийти з Arroxy"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} завантажуються · {{percent}}%"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "tray.menu.statusActive_many"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} завантажуються · {{percent}}%"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "tray.menu.statusActive_one"
 msgid "1 downloading · {{percent}}%"
 msgstr "1 завантажується · {{percent}}%"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "tray.menu.statusActive_other"
 msgid "{{count}} downloading · {{percent}}%"
 msgstr "{{count}} завантажуються · {{percent}}%"
@@ -1719,10 +1839,22 @@ msgctxt "update.upgrading"
 msgid "Upgrading…"
 msgstr "Оновлення…"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} розділи"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "videoCard.chapters_many"
+msgid "{{count}} chapters"
+msgstr "{{count}} розділів"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "videoCard.chapters_one"
 msgid "{{count}} chapter"
 msgstr "{{count}} розділ"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "videoCard.chapters_other"
 msgid "{{count}} chapters"
 msgstr "{{count}} розділів"
@@ -1785,26 +1917,62 @@ msgctxt "wizard.confirm.audioOnly"
 msgid "Audio only"
 msgstr "Тільки аудіо"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} з {{total}} відео"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValue_many"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} з {{total}} відео"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValue_one"
 msgid "{{count}} of {{total}} video"
 msgstr "{{count}} з {{total}} відео"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.confirm.itemsValue_other"
 msgid "{{count}} of {{total}} videos"
 msgstr "{{count}} з {{total}} відео"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} з {{total}} треків"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueAudio_many"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} з {{total}} треків"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValueAudio_one"
 msgid "{{count}} of {{total}} track"
 msgstr "{{count}} з {{total}} треку"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.confirm.itemsValueAudio_other"
 msgid "{{count}} of {{total}} tracks"
 msgstr "{{count}} з {{total}} треків"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} з {{total}} URL"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueBulk_many"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} з {{total}} URL"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.itemsValueBulk_one"
 msgid "{{count}} of {{total}} URL"
 msgstr "{{count}} з {{total}} URL"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.confirm.itemsValueBulk_other"
 msgid "{{count}} of {{total}} URLs"
 msgstr "{{count}} з {{total}} URL"
@@ -1849,10 +2017,22 @@ msgctxt "wizard.confirm.landIn"
 msgid "Your file will land in"
 msgstr "Файл потрапить у"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Вони потраплять у {{count}} місця призначення нижче"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.landInMultiProfile_many"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Вони потраплять у {{count}} місць призначення нижче"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.landInMultiProfile_one"
 msgid "It'll land in the destination below"
 msgstr "Він потрапить у місце призначення нижче"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.confirm.landInMultiProfile_other"
 msgid "They'll land in the {{count}} destinations below"
 msgstr "Вони потраплять у {{count}} місця призначення нижче"
@@ -1861,10 +2041,22 @@ msgctxt "wizard.confirm.nothingToDownload"
 msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
 msgstr "Пресет «Тільки субтитри» активний, але мову субтитрів не вибрано — нічого не буде завантажено."
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} елементи"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.profileBreakdownCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} елементів"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.confirm.profileBreakdownCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} елемент"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.confirm.profileBreakdownCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} елементів"
@@ -1961,10 +2153,22 @@ msgctxt "wizard.formats.audioLanguage"
 msgid "Audio language"
 msgstr "Мова аудіо"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "Мов: {{count}}"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.formats.audioLanguageCount_many"
+msgid "{{count}} languages"
+msgstr "Мов: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.formats.audioLanguageCount_one"
 msgid "{{count}} language"
 msgstr "Мов: {{count}}"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.formats.audioLanguageCount_other"
 msgid "{{count}} languages"
 msgstr "Мов: {{count}}"
@@ -2337,10 +2541,22 @@ msgctxt "wizard.formats.summary.reviewAll"
 msgid "Review all"
 msgstr "Переглянути все"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.formats.summary.subtitlesAdd_few"
+msgid "{{count}} languages available, add"
+msgstr "Доступно мов: {{count}}, додати"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.formats.summary.subtitlesAdd_many"
+msgid "{{count}} languages available, add"
+msgstr "Доступно мов: {{count}}, додати"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.formats.summary.subtitlesAdd_one"
 msgid "{{count}} language available, add"
 msgstr "Доступна {{count}} мова, додати"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.formats.summary.subtitlesAdd_other"
 msgid "{{count}} languages available, add"
 msgstr "Доступно мов: {{count}}, додати"
@@ -2621,26 +2837,62 @@ msgctxt "wizard.playlist.headingGeneric"
 msgid "Videos to download"
 msgstr "Відео для завантаження"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} відео"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCount_many"
+msgid "{{count}} videos"
+msgstr "{{count}} відео"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCount_one"
 msgid "{{count}} video"
 msgstr "{{count}} відео"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.itemCount_other"
 msgid "{{count}} videos"
 msgstr "{{count}} відео"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} треки"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountAudio_many"
+msgid "{{count}} tracks"
+msgstr "{{count}} треків"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountAudio_one"
 msgid "{{count}} track"
 msgstr "{{count}} трек"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.itemCountAudio_other"
 msgid "{{count}} tracks"
 msgstr "{{count}} треків"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountBulk_many"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
 msgstr "{{count}} URL"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
 msgstr "{{count}} URL"
@@ -2657,10 +2909,22 @@ msgctxt "wizard.playlist.loadingLimitHint"
 msgid "Limited to first {{count}} items"
 msgstr "Обмежено першими {{count}} елементами"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "Знайдено {{count}} сторінки"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.loadingPagesFound_many"
+msgid "{{count}} pages found"
+msgstr "Знайдено {{count}} сторінок"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.loadingPagesFound_one"
 msgid "{{count}} page found"
 msgstr "Знайдено {{count}} сторінку"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.loadingPagesFound_other"
 msgid "{{count}} pages found"
 msgstr "Знайдено {{count}} сторінок"
@@ -2685,10 +2949,22 @@ msgctxt "wizard.playlist.nestedPlaylistBadge"
 msgid "Playlist"
 msgstr "Плейлист"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} із них — плейлисти, а не відео. Вставляйте їхні посилання по одному, щоб завантажити."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.nestedPlaylistHint_many"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} із них — плейлисти, а не відео. Вставляйте їхні посилання по одному, щоб завантажити."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.nestedPlaylistHint_one"
 msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
 msgstr "{{count}} із них — плейлист, а не відео. Вставте його посилання окремо, щоб завантажити."
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.nestedPlaylistHint_other"
 msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
 msgstr "{{count}} із них — плейлисти, а не відео. Вставляйте їхні посилання по одному, щоб завантажити."
@@ -2721,18 +2997,42 @@ msgctxt "wizard.playlist.rangeTo"
 msgid "To"
 msgstr "До"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "{{count}} видалено"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removedCount_many"
+msgid "{{count}} removed"
+msgstr "{{count}} видалено"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.removedCount_one"
 msgid "{{count}} removed"
 msgstr "{{count}} видалено"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.removedCount_other"
 msgid "{{count}} removed"
 msgstr "{{count}} видалено"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Видалити {{count}} зі списку"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removeFromListCount_many"
+msgid "Remove {{count}} from list"
+msgstr "Видалити {{count}} зі списку"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.removeFromListCount_one"
 msgid "Remove {{count}} from list"
 msgstr "Видалити {{count}} зі списку"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.removeFromListCount_other"
 msgid "Remove {{count}} from list"
 msgstr "Видалити {{count}} зі списку"
@@ -2745,10 +3045,22 @@ msgctxt "wizard.playlist.selectAll"
 msgid "Select all"
 msgstr "Вибрати всі"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "{{count}} вибрано"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.selectedCount_many"
+msgid "{{count}} selected"
+msgstr "{{count}} вибрано"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.selectedCount_one"
 msgid "{{count}} selected"
 msgstr "{{count}} вибрано"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlist.selectedCount_other"
 msgid "{{count}} selected"
 msgstr "{{count}} вибрано"
@@ -2817,10 +3129,22 @@ msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
 msgstr "Вибери якість для пакетного завантаження"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} елементи"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistPresets.itemCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} елементів"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlistPresets.itemCount_one"
 msgid "{{count}} item"
 msgstr "{{count}} елемент"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.playlistPresets.itemCount_other"
 msgid "{{count}} items"
 msgstr "{{count}} елементів"
@@ -3201,10 +3525,22 @@ msgctxt "wizard.profileEditor.panel.identity.title"
 msgid "Profile identity"
 msgstr "Ідентифікація профілю"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "Увімкнено: {{count}}"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
+msgid "{{count}} enabled"
+msgstr "Увімкнено: {{count}}"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
 msgid "{{count}} enabled"
 msgstr "Увімкнено: {{count}}"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
 msgid "{{count}} enabled"
 msgstr "Увімкнено: {{count}}"
@@ -3277,10 +3613,22 @@ msgctxt "wizard.quickProgress.description"
 msgid "Arroxy is reading the link and applying {{profileName}}."
 msgstr "Arroxy читає посилання та застосовує {{profileName}}."
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "{{count}} не вдалося"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.quickProgress.failedCount_many"
+msgid "{{count}} failed"
+msgstr "{{count}} не вдалося"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.quickProgress.failedCount_one"
 msgid "{{count}} failed"
 msgstr "{{count}} не вдалося"
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.quickProgress.failedCount_other"
 msgid "{{count}} failed"
 msgstr "{{count}} не вдалося"
@@ -4213,10 +4561,22 @@ msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Не вдалося додати: {{error}}"
 
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати."
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.url.quickPartialFailed_many"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати."
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.url.quickPartialFailed_one"
 msgid "Queued what worked. {{count}} URL could not be prepared."
 msgstr "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати."
 
+#. Plural form "other" for uk: used for counts like .
 msgctxt "wizard.url.quickPartialFailed_other"
 msgid "Queued what worked. {{count}} URLs could not be prepared."
 msgstr "Те, що спрацювало, додано до черги. {{count}} URL не вдалося підготувати."

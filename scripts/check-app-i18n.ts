@@ -8,6 +8,7 @@
 
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
+import {expandPluralLeaves} from './i18n-catalog-core.js'
 import {readdirSync, readFileSync, statSync} from 'node:fs'
 import {join, relative} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -36,8 +37,6 @@ function flattenLeaves(obj: unknown, prefix = ''): LeafEntry[] {
 const PLACEHOLDER_MIN_WORDS = 3 // skip 1-2-word values (brand names, single-word labels) — too noisy
 
 const enLeaves = flattenLeaves(en)
-const enByPath = new Map(enLeaves.map(l => [l.path, l.value]))
-const enKeys = new Set(enByPath.keys())
 const strict = process.argv.includes('--strict')
 
 const PREVIEW_LIMIT = 10
@@ -50,6 +49,11 @@ for (const lang of SUPPORTED_LANGS) {
 	const mod = (await import(`../src/shared/i18n/locales/${lang}.json`, {with: {type: 'json'}})) as {default: unknown}
 	const localeLeaves = flattenLeaves(mod.default)
 	const localeByPath = new Map(localeLeaves.map(l => [l.path, l.value]))
+	// Plural keys follow the locale's own CLDR categories (ru needs _few/_many, ja only _other), so
+	// the expected key set is English's expanded per locale, not English's verbatim.
+	const expected = expandPluralLeaves(lang, enLeaves)
+	const enByPath = new Map(expected.map(l => [l.path, l.value]))
+	const enKeys = new Set(enByPath.keys())
 	const localeKeys = new Set(localeByPath.keys())
 
 	const missing = [...enKeys].filter(k => !localeKeys.has(k))

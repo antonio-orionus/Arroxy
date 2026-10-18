@@ -60,7 +60,14 @@
 	"language": {"label": "Język"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "Playlista", "playlistItemsGeneric": "Filmy", "playlistPresets": "Jakość", "playlistProfiles": "Profile", "formats": "Format", "subtitles": "Napisy", "sponsorblock": "SponsorBlock", "output": "Wyjście", "folder": "Zapisz", "confirm": "Potwierdź", "review": "Sprawdź"},
-		"playlistPresets": {"heading": "Wybierz jakość dla partii", "subhead": "Każdy film niezależnie dobiera wybrany poziom — zróżnicowane playlisty działają bez niespodzianek.", "itemCount_one": "{{count}} element", "itemCount_other": "{{count}} elementów"},
+		"playlistPresets": {
+			"heading": "Wybierz jakość dla partii",
+			"subhead": "Każdy film niezależnie dobiera wybrany poziom — zróżnicowane playlisty działają bez niespodzianek.",
+			"itemCount_one": "{{count}} element",
+			"itemCount_few": "{{count}} elementy",
+			"itemCount_many": "{{count}} elementów",
+			"itemCount_other": "{{count}} elementów"
+		},
 		"playlistProfiles": {
 			"heading": "Przypisz profile pobierania",
 			"selectedSummary": "Wybrano {{selected}} z {{total}}",
@@ -80,10 +87,16 @@
 			"headingGeneric": "Filmy do pobrania",
 			"bulkHeading": "Wiele adresów URL",
 			"itemCount_one": "{{count}} film",
+			"itemCount_few": "{{count}} filmy",
+			"itemCount_many": "{{count}} filmów",
 			"itemCount_other": "{{count}} filmów",
 			"itemCountAudio_one": "{{count}} utwór",
+			"itemCountAudio_few": "{{count}} utwory",
+			"itemCountAudio_many": "{{count}} utworów",
 			"itemCountAudio_other": "{{count}} utworów",
 			"itemCountBulk_one": "{{count}} adres URL",
+			"itemCountBulk_few": "{{count}} adresy URL",
+			"itemCountBulk_many": "{{count}} adresów URL",
 			"itemCountBulk_other": "{{count}} adresów URL",
 			"bulkMetadataResolving": "Pobieranie szczegółów filmu… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Nie musisz czekać — pliki dodane teraz do kolejki i tak otrzymają właściwe nazwy podczas pobierania.",
@@ -101,6 +114,8 @@
 			"rangeTo": "Do",
 			"rangeApply": "Zastosuj zakres",
 			"selectedCount_one": "Wybrano {{count}}",
+			"selectedCount_few": "Wybrano {{count}}",
+			"selectedCount_many": "Wybrano {{count}}",
 			"selectedCount_other": "Wybrano {{count}}",
 			"noSelection": "Wybierz co najmniej jeden film, aby kontynuować",
 			"loadingItems": "Pobieranie playlisty…",
@@ -108,6 +123,8 @@
 			"loadingPhasePages": "Skanowanie stron kanału",
 			"loadingPhaseItems": "Zbieranie filmów",
 			"loadingPagesFound_one": "Znaleziono {{count}} stronę",
+			"loadingPagesFound_few": "Znaleziono {{count}} strony",
+			"loadingPagesFound_many": "Znaleziono {{count}} stron",
 			"loadingPagesFound_other": "Znaleziono {{count}} stron",
 			"loadingLimitHint": "Ograniczono do pierwszych {{count}} elementów",
 			"thumbnailAlt": "Miniatura filmu",
@@ -123,6 +140,8 @@
 			"alreadyDownloaded": "Już pobrano",
 			"nestedPlaylistBadge": "Playlista",
 			"nestedPlaylistHint_one": "{{count}} z nich to playlista, nie film — wklej jej link osobno, aby ją pobrać.",
+			"nestedPlaylistHint_few": "{{count}} z nich to playlisty, nie filmy — wklejaj ich linki pojedynczo, aby je pobrać.",
+			"nestedPlaylistHint_many": "{{count}} z nich to playlisty, nie filmy — wklejaj ich linki pojedynczo, aby je pobrać.",
 			"nestedPlaylistHint_other": "{{count}} z nich to playlisty, nie filmy — wklejaj ich linki pojedynczo, aby je pobrać.",
 			"probeLimitAlertTitle": "Skanowanie playlisty jest ograniczone",
 			"probeLimitAlertTitleGeneric": "Skanowanie jest ograniczone",
@@ -130,9 +149,13 @@
 			"multiProfileEntry": "Przypisz profile do elementów",
 			"multiProfileEntryTooltip": "Pomija Jakość, SponsorBlock, Wyjście i Zapis — zamiast tego przypisz profil pobierania do każdego elementu",
 			"removeFromListCount_one": "Usuń {{count}} z listy",
+			"removeFromListCount_few": "Usuń {{count}} z listy",
+			"removeFromListCount_many": "Usuń {{count}} z listy",
 			"removeFromListCount_other": "Usuń {{count}} z listy",
 			"restore": "Przywróć",
 			"removedCount_one": "Usunięto {{count}}",
+			"removedCount_few": "Usunięto {{count}}",
+			"removedCount_many": "Usunięto {{count}}",
 			"removedCount_other": "Usunięto {{count}}",
 			"allRemovedTitle": "Usunięto wszystkie elementy",
 			"allRemovedDescription": "Przywróć je, aby kontynuować."
@@ -181,6 +204,8 @@
 			"quickBulkAllFailed": "Nie udało się przygotować żadnego z tych adresów URL",
 			"quickFailed": "Nie udało się dodać tego elementu: {{error}}",
 			"quickPartialFailed_one": "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresu URL.",
+			"quickPartialFailed_few": "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresów URL.",
+			"quickPartialFailed_many": "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresów URL.",
 			"quickPartialFailed_other": "Dodano do kolejki to, co się udało. Nie udało się przygotować {{count}} adresów URL.",
 			"profile": {
 				"destinationFallback": "Miejsce docelowe",
@@ -332,6 +357,8 @@
 			"currentFallback": "Bieżący link",
 			"waitHint": "Nie zamykaj tego okna, gdy Arroxy przygotowuje kolejkę.",
 			"failedCount_one": "Niepowodzenie: {{count}}",
+			"failedCount_few": "Niepowodzenie: {{count}}",
+			"failedCount_many": "Niepowodzenie: {{count}}",
 			"failedCount_other": "Niepowodzenie: {{count}}",
 			"cancel": "Anuluj przygotowanie",
 			"phase": {"probing": "Pobieranie szczegółów", "queueing": "Dodawanie do kolejki"}
@@ -384,7 +411,15 @@
 				"subtitlesMissing": "Twój profil wymaga napisów w językach: {{languages}}. To wideo ich nie ma.",
 				"webmUnavailable": "Twój profil wymaga WebM. Wybrane strumienie tego filmu zawierają {{codec}}, którego WebM nie obsługuje, więc typ pliku to Automatycznie."
 			},
-			"summary": {"lead": "Także z {{profile}}:", "subtitlesOff": "napisy wyłączone", "subtitlesAdd_one": "Dostępny język: {{count}}, dodaj", "subtitlesAdd_other": "Dostępne języki: {{count}}, dodaj", "reviewAll": "Sprawdź wszystko"},
+			"summary": {
+				"lead": "Także z {{profile}}:",
+				"subtitlesOff": "napisy wyłączone",
+				"subtitlesAdd_one": "Dostępny język: {{count}}, dodaj",
+				"subtitlesAdd_few": "Dostępne języki: {{count}}, dodaj",
+				"subtitlesAdd_many": "Dostępne języki: {{count}}, dodaj",
+				"subtitlesAdd_other": "Dostępne języki: {{count}}, dodaj",
+				"reviewAll": "Sprawdź wszystko"
+			},
 			"footer": {"reviewOptions": "Sprawdź i opcje", "download": "Pobierz", "moreActions": "Więcej opcji pobierania", "addToQueue": "Dodaj do kolejki bez uruchamiania", "subtitlesRequired": "Wybierz co najmniej jeden język napisów."},
 			"video": "Wideo",
 			"audio": "Dźwięk",
@@ -404,6 +439,8 @@
 			"drc": {"label": "Wyrównaj głośność (DRC)", "description": "Ścisza głośne fragmenty i pogłaśnia ciche, do głośników i hałaśliwych miejsc.", "tag": "Wyrównana głośność"},
 			"audioLanguage": "Język dźwięku",
 			"audioLanguageCount_one": "Języki: {{count}}",
+			"audioLanguageCount_few": "Języki: {{count}}",
+			"audioLanguageCount_many": "Języki: {{count}}",
 			"audioLanguageCount_other": "Języki: {{count}}",
 			"convert": {"label": "Konwertuj", "bitrate": "Przepływność", "wavLabel": "WAV (bez kompresji)", "lossyLabel": "{{target}} {{bitrate}} kb/s", "sourceKbps": "Źródło: {{kbps}} kb/s"},
 			"botWall": {
@@ -489,6 +526,8 @@
 			"readyHeadline": "Wszystko gotowe do pobrania!",
 			"landIn": "Twój plik trafi do",
 			"landInMultiProfile_one": "Trafi do poniższego miejsca docelowego",
+			"landInMultiProfile_few": "Trafią do {{count}} poniższych miejsc docelowych",
+			"landInMultiProfile_many": "Trafią do {{count}} poniższych miejsc docelowych",
 			"landInMultiProfile_other": "Trafią do {{count}} poniższych miejsc docelowych",
 			"labelVideo": "Wideo",
 			"labelAudio": "Dźwięk",
@@ -510,13 +549,21 @@
 			"labelPreset": "Ustawienie wstępne",
 			"labelItems": "Elementy",
 			"itemsValue_one": "{{count}} z {{total}} filmu",
+			"itemsValue_few": "{{count}} z {{total}} filmów",
+			"itemsValue_many": "{{count}} z {{total}} filmów",
 			"itemsValue_other": "{{count}} z {{total}} filmów",
 			"itemsValueAudio_one": "{{count}} z {{total}} utworu",
+			"itemsValueAudio_few": "{{count}} z {{total}} utworów",
+			"itemsValueAudio_many": "{{count}} z {{total}} utworów",
 			"itemsValueAudio_other": "{{count}} z {{total}} utworów",
 			"itemsValueBulk_one": "{{count}} z {{total}} adresu URL",
+			"itemsValueBulk_few": "{{count}} z {{total}} adresów URL",
+			"itemsValueBulk_many": "{{count}} z {{total}} adresów URL",
 			"itemsValueBulk_other": "{{count}} z {{total}} adresów URL",
 			"profileBreakdownHeading": "Profile w tej partii",
 			"profileBreakdownCount_one": "{{count}} element",
+			"profileBreakdownCount_few": "{{count}} elementy",
+			"profileBreakdownCount_many": "{{count}} elementów",
 			"profileBreakdownCount_other": "{{count}} elementów",
 			"subtitleEmbedForcesMkv": "Napisy w wideo wymagają pliku MKV, więc to pobranie zapisze się jako .mkv."
 		},
@@ -528,7 +575,7 @@
 				"identity": {"title": "Tożsamość profilu", "description": "Nazwa i ikona widoczne w Szybkim pobieraniu, wielu adresach URL i na listach profili."},
 				"downloadType": {"title": "Typ pobierania", "description": "Wybierz główny sposób pobierania."},
 				"advanced": {"title": "Opcje zaawansowane", "description": "Profile dziedziczą globalne miejsce docelowe, chyba że ustawisz zastąpienie profilu."},
-				"output": {"title": "Opcje wyjścia", "enabledCount_one": "Włączone: {{count}}", "enabledCount_other": "Włączone: {{count}}"},
+				"output": {"title": "Opcje wyjścia", "enabledCount_one": "Włączone: {{count}}", "enabledCount_few": "Włączone: {{count}}", "enabledCount_many": "Włączone: {{count}}", "enabledCount_other": "Włączone: {{count}}"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -621,16 +668,22 @@
 			"subtitlesFullLength": "cały film"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "Wczytywanie…", "chapters_one": "{{count}} rozdział", "chapters_other": "{{count}} rozdziałów"},
+	"videoCard": {"titlePlaceholder": "Wczytywanie…", "chapters_one": "{{count}} rozdział", "chapters_few": "{{count}} rozdziały", "chapters_many": "{{count}} rozdziałów", "chapters_other": "{{count}} rozdziałów"},
 	"queue": {
 		"header": "Pobieranie",
 		"tabLabel": "Pobieranie",
 		"attentionBadge_one": "{{count}} pobieranie wymaga Twojej uwagi",
+		"attentionBadge_few": "Pobrania wymagające Twojej uwagi: {{count}}",
+		"attentionBadge_many": "Pobrania wymagające Twojej uwagi: {{count}}",
 		"attentionBadge_other": "Pobrania wymagające Twojej uwagi: {{count}}",
 		"choice": {
 			"cappedBody_one": "Ponad {{count}} film w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
+			"cappedBody_few": "Ponad {{count}} filmy w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
+			"cappedBody_many": "Ponad {{count}} filmów w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
 			"cappedBody_other": "Ponad {{count}} filmów w tej playliście. Pobierz wszystkie, pierwsze {{count}} lub wybierz w trybie sprawdzania.",
 			"reviewBody_one": "Ten link to lista zawierająca {{count}} film. Sprawdź ją, aby wybrać, co pobrać.",
+			"reviewBody_few": "Ten link to lista filmów: {{count}}. Sprawdź ją, aby wybrać, co pobrać.",
+			"reviewBody_many": "Ten link to lista filmów: {{count}}. Sprawdź ją, aby wybrać, co pobrać.",
 			"reviewBody_other": "Ten link to lista filmów: {{count}}. Sprawdź ją, aby wybrać, co pobrać.",
 			"all": "Wszystkie filmy",
 			"first": "Pierwsze {{count}}",
@@ -751,6 +804,8 @@
 		"shellActionFailed": "Nie udało się tego otworzyć.",
 		"folderSelectFailed": "Nie udało się otworzyć okna wyboru folderu.",
 		"exploreSignInRetrying_one": "Zalogowano w Explore — ponawiam 1 link",
+		"exploreSignInRetrying_few": "Zalogowano w Explore — ponawiam linki: {{count}}",
+		"exploreSignInRetrying_many": "Zalogowano w Explore — ponawiam linki: {{count}}",
 		"exploreSignInRetrying_other": "Zalogowano w Explore — ponawiam linki: {{count}}",
 		"exploreSignOutFailed": "Nie udało się wylogować z Explore. Spróbuj ponownie.",
 		"playlistFolderRejected": "Tego folderu nie można użyć dla tej playlisty.",
@@ -766,17 +821,28 @@
 			"busy": "Arroxy jeszcze się uruchamia — spróbuj ponownie za chwilę",
 			"submissionFailed": "Nie udało się dodać tego linku — spróbuj ponownie w Arroxy"
 		},
-		"queue": {"skippedAlreadyQueued_one": "{{count}} film jest już w kolejce — pominięto", "skippedAlreadyQueued_other": "Pominięto filmy, które są już w kolejce: {{count}}"},
+		"queue": {
+			"skippedAlreadyQueued_one": "{{count}} film jest już w kolejce — pominięto",
+			"skippedAlreadyQueued_few": "Pominięto filmy, które są już w kolejce: {{count}}",
+			"skippedAlreadyQueued_many": "Pominięto filmy, które są już w kolejce: {{count}}",
+			"skippedAlreadyQueued_other": "Pominięto filmy, które są już w kolejce: {{count}}"
+		},
 		"quickDownload": {
 			"added": "Dodano: {{title}}",
 			"alreadyQueued": "Już w kolejce",
 			"failed": "Nie udało się przygotować: {{title}}",
 			"notAdded": "Nie udało się dodać tego linku — spróbuj ponownie",
 			"chooseHowMany_one": "{{count}}+ film — wybierz, ile",
+			"chooseHowMany_few": "Filmów: {{count}}+ — wybierz, ile",
+			"chooseHowMany_many": "Filmów: {{count}}+ — wybierz, ile",
 			"chooseHowMany_other": "Filmów: {{count}}+ — wybierz, ile",
 			"review_one": "{{count}} film na tej liście — sprawdź, aby wybrać",
+			"review_few": "Filmów na tej liście: {{count}} — sprawdź, aby wybrać",
+			"review_many": "Filmów na tej liście: {{count}} — sprawdź, aby wybrać",
 			"review_other": "Filmów na tej liście: {{count}} — sprawdź, aby wybrać",
 			"reviewCapped_one": "{{count}}+ film na tej liście — sprawdź, aby wybrać",
+			"reviewCapped_few": "Filmów na tej liście: {{count}}+ — sprawdź, aby wybrać",
+			"reviewCapped_many": "Filmów na tej liście: {{count}}+ — sprawdź, aby wybrać",
 			"reviewCapped_other": "Filmów na tej liście: {{count}}+ — sprawdź, aby wybrać",
 			"view": "Zobacz"
 		}
@@ -832,9 +898,30 @@
 		"mp4Cap": "Format H.264 powyżej 1080p nie jest dostępny w YouTube — automatycznie ograniczono do 1080p"
 	},
 	"formatLabel": {"audioFallback": "Dźwięk", "audioOnlyDot": "Tylko dźwięk · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "Bezczynny", "statusActive_one": "1 pobieranie · {{percent}}%", "statusActive_other": "{{count}} pobrań · {{percent}}%", "downloadFromClipboard": "Pobierz ze schowka", "open": "Otwórz Arroxy", "quit": "Zakończ Arroxy"}},
+	"tray": {
+		"tooltip": "Arroxy",
+		"menu": {
+			"statusIdle": "Bezczynny",
+			"statusActive_one": "1 pobieranie · {{percent}}%",
+			"statusActive_few": "{{count}} pobierania · {{percent}}%",
+			"statusActive_many": "{{count}} pobrań · {{percent}}%",
+			"statusActive_other": "{{count}} pobrań · {{percent}}%",
+			"downloadFromClipboard": "Pobierz ze schowka",
+			"open": "Otwórz Arroxy",
+			"quit": "Zakończ Arroxy"
+		}
+	},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "Trwa {{count}} pobieranie", "message_other": "Trwają {{count}} pobierania", "detail": "Wstrzymaj, aby wznowić później, albo anuluj, aby odrzucić postęp.", "confirm": "Anuluj pobierania i zakończ", "pause": "Wstrzymaj pobierania i zakończ", "keep": "Kontynuuj pobieranie"},
+		"quitWithActiveDownloads": {
+			"message_one": "Trwa {{count}} pobieranie",
+			"message_few": "Trwają {{count}} pobierania",
+			"message_many": "Trwa {{count}} pobrań",
+			"message_other": "Trwają {{count}} pobierania",
+			"detail": "Wstrzymaj, aby wznowić później, albo anuluj, aby odrzucić postęp.",
+			"confirm": "Anuluj pobierania i zakończ",
+			"pause": "Wstrzymaj pobierania i zakończ",
+			"keep": "Kontynuuj pobieranie"
+		},
 		"closeToTray": {"message": "Ukrywać Arroxy w zasobniku systemowym przy zamykaniu?", "detail": "Arroxy pozostanie uruchomiony i dokończy aktywne pobierania. Możesz to później zmienić w ustawieniach zaawansowanych.", "hide": "Ukryj w zasobniku", "quit": "Zakończ", "remember": "Nie pytaj ponownie"},
 		"rendererCrashed": {"message": "Wystąpił problem z Arroxy", "detail": "Proces renderera uległ awarii ({{reason}}). Załaduj ponownie, aby spróbować jeszcze raz.", "reload": "Załaduj ponownie", "quit": "Zakończ"}
 	},

@@ -43,7 +43,7 @@
 	"language": {"label": "ဘာသာစကား"},
 	"wizard": {
 		"steps": {"url": "URL", "playlistItems": "ပလေးလစ်", "playlistItemsGeneric": "ဗီဒီယိုများ", "playlistPresets": "အရည်အသွေး", "playlistProfiles": "ပရိုဖိုင်များ", "formats": "ဖော်မတ်", "subtitles": "စာတန်းထိုး", "sponsorblock": "SponsorBlock", "output": "ထွက်ပေါ်မည့်ဖိုင်", "folder": "သိမ်းမည်", "confirm": "အတည်ပြုမည်", "review": "ပြန်လည်စစ်ဆေးရန်"},
-		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_one": "{{count}} ခု", "itemCount_other": "{{count}} ခု"},
+		"playlistPresets": {"heading": "Batch အတွက် အရည်အသွေးရွေးပါ", "subhead": "ဗီဒီယိုတစ်ခုချင်းစီသည် ရွေးချယ်ထားသော tier အတိုင်း သီးခြားဖြေရှင်းသည် — မတူညီသော playlist များ အဆင်မပြေမှုမရှိဘဲ အလုပ်လုပ်သည်။", "itemCount_other": "{{count}} ခု"},
 		"playlistProfiles": {
 			"heading": "ဒေါင်းလုဒ်ပရိုဖိုင်များကို သတ်မှတ်ပါ",
 			"selectedSummary": "{{total}} အနက် {{selected}} ခုကို ရွေးထားသည်",
@@ -62,11 +62,8 @@
 			"heading": "Playlist အကြောင်းအရာများ",
 			"headingGeneric": "ဒေါင်းလုဒ်ယူမည့် ဗီဒီယိုများ",
 			"bulkHeading": "URL အများအပြား",
-			"itemCount_one": "{{count}} ဗီဒီယို",
 			"itemCount_other": "{{count}} ဗီဒီယိုများ",
-			"itemCountAudio_one": "{{count}} ခု သီချင်း",
 			"itemCountAudio_other": "{{count}} ခု သီချင်းများ",
-			"itemCountBulk_one": "{{count}} URL",
 			"itemCountBulk_other": "{{count}} URL",
 			"bulkMetadataResolving": "ဗီဒီယိုအသေးစိတ် ရယူနေသည်… {{done}}/{{total}}",
 			"bulkMetadataOptional": "စောင့်စရာမလိုပါ — ယခု တန်းစီထားသော ဖိုင်များသည် ဒေါင်းလုဒ်လုပ်သည့်အခါ အမည်ရင်းများ ရရှိပါမည်။",
@@ -83,14 +80,12 @@
 			"rangeFrom": "မှ",
 			"rangeTo": "သို့",
 			"rangeApply": "အပိုင်းအခြားသတ်မှတ်မည်",
-			"selectedCount_one": "{{count}} ခုရွေးထားသည်",
 			"selectedCount_other": "{{count}} ခုရွေးထားသည်",
 			"noSelection": "ဆက်လက်ရန် ဗီဒီယိုတစ်ခုအနည်းဆုံးရွေးပါ",
 			"loadingItems": "Playlist ရယူနေသည်…",
 			"loadingItemsGeneric": "ဗီဒီယိုများ ရယူနေသည်…",
 			"loadingPhasePages": "ချန်နယ် စာမျက်နှာများကို စစ်ဆေးနေသည်",
 			"loadingPhaseItems": "ဗီဒီယိုများ စုဆောင်းနေသည်",
-			"loadingPagesFound_one": "{{count}} စာမျက်နှာ တွေ့ရှိသည်",
 			"loadingPagesFound_other": "{{count}} စာမျက်နှာများ တွေ့ရှိသည်",
 			"loadingLimitHint": "ပထမဆုံး {{count}} ခုအထိသာ ကန့်သတ်ထားသည်",
 			"thumbnailAlt": "ဗီဒီယို thumbnail",
@@ -105,17 +100,14 @@
 			"syncNoneDescGeneric": "{{dir}} တွင် ဤရင်းမြစ်မှ ဗီဒီယိုများ မတွေ့ပါ။",
 			"alreadyDownloaded": "ဒေါင်းလုဒ်ပြီးသား",
 			"nestedPlaylistBadge": "ပလေးလစ်",
-			"nestedPlaylistHint_one": "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုမဟုတ်ဘဲ ပလေးလစ် ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်း၏လင့်ခ်ကို သီးသန့်ကူးထည့်ပါ။",
 			"nestedPlaylistHint_other": "၎င်းတို့အနက် {{count}} ခုမှာ ဗီဒီယိုများမဟုတ်ဘဲ ပလေးလစ်များ ဖြစ်သည် — ဒေါင်းလုဒ်လုပ်ရန် ၎င်းတို့၏လင့်ခ်များကို တစ်ခုချင်းစီ ကူးထည့်ပါ။",
 			"probeLimitAlertTitle": "Playlist scan ကန့်သတ်ထားသည်",
 			"probeLimitAlertTitleGeneric": "စကင်န်ကန့်သတ်ထားသည်",
 			"probeLimitAlertDesc": "Arroxy သည် {{count}} ထက်ပိုသော အကြောင်းအရာများ တွေ့ရှိသောကြောင့် လက်ရှိ scan ကန့်သတ်ချက်ကြောင့် ကျန်သောအရာများ ဖျောက်ထားသည်။",
 			"multiProfileEntry": "အရာတစ်ခုချင်းစီအတွက် ပရိုဖိုင်များ သတ်မှတ်ပါ",
 			"multiProfileEntryTooltip": "အရည်အသွေး၊ SponsorBlock၊ ထွက်ပေါ်မည့်ဖိုင် နှင့် သိမ်းမည် တို့ကို ကျော်ပြီး — အစား အရာတစ်ခုချင်းစီအတွက် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပါ",
-			"removeFromListCount_one": "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်",
 			"removeFromListCount_other": "စာရင်းမှ {{count}} ခု ဖယ်ရှားမည်",
 			"restore": "ပြန်ရောက်မည်",
-			"removedCount_one": "{{count}} ခု ဖယ်ရှားပြီး",
 			"removedCount_other": "{{count}} ခု ဖယ်ရှားပြီး",
 			"allRemovedTitle": "အားလုံးကို ဖယ်ရှားပြီးပါပြီ",
 			"allRemovedDescription": "ဆက်လက်လုပ်ဆောင်ရန် ၎င်းတို့ကို ပြန်ရောက်ပါ။"
@@ -163,7 +155,6 @@
 			"quickPrepareFailed": "တန်းစီအရာကို မပြင်ဆင်နိုင်ပါ",
 			"quickBulkAllFailed": "ဤ URL များထဲမှ မည်သည့်တစ်ခုမျှ မပြင်ဆင်နိုင်ပါ",
 			"quickFailed": "ဤအရာကို ထည့်မရပါ: {{error}}",
-			"quickPartialFailed_one": "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL ကို မပြင်ဆင်နိုင်ပါ။",
 			"quickPartialFailed_other": "အလုပ်ဖြစ်သည့်အရာများကို တန်းစီစာရင်းထဲ ထည့်ပြီးပါပြီ။ {{count}} URL များကို မပြင်ဆင်နိုင်ပါ။",
 			"profile": {
 				"destinationFallback": "သိမ်းဆည်းရာနေရာ",
@@ -314,7 +305,6 @@
 			"description": "Arroxy က လင့်ခ်ကို ဖတ်ပြီး {{profileName}} ကို အသုံးပြုနေသည်။",
 			"currentFallback": "လက်ရှိလင့်ခ်",
 			"waitHint": "Arroxy က တန်းစီစာရင်းကို ပြင်ဆင်နေစဉ် ဤနေရာကို ဖွင့်ထားပါ။",
-			"failedCount_one": "{{count}} ခု မအောင်မြင်ပါ",
 			"failedCount_other": "{{count}} ခု မအောင်မြင်ပါ",
 			"cancel": "ပြင်ဆင်မှုကို ပယ်ဖျက်ပါ",
 			"phase": {"probing": "အသေးစိတ် ရယူနေသည်", "queueing": "တန်းစီစာရင်းထဲ ထည့်နေသည်"}
@@ -367,7 +357,7 @@
 				"subtitlesMissing": "သင့်ပရိုဖိုင်က {{languages}} စာတန်းထိုးကို တောင်းဆိုထားသော်လည်း ဤဗီဒီယိုတွင် မရှိပါ။",
 				"webmUnavailable": "သင့်ပရိုဖိုင်က WebM ကို တောင်းသည်။ ဤဗီဒီယို၏ ရွေးထားသော stream များတွင် WebM မထည့်နိုင်သော {{codec}} ပါဝင်သဖြင့် ဖိုင်အမျိုးအစားမှာ အလိုအလျောက် ဖြစ်သည်။"
 			},
-			"summary": {"lead": "{{profile}} မှ အခြားဆက်တင်များ:", "subtitlesOff": "စာတန်းထိုး ပိတ်ထားသည်", "subtitlesAdd_one": "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်", "subtitlesAdd_other": "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်", "reviewAll": "အားလုံးစစ်ဆေးရန်"},
+			"summary": {"lead": "{{profile}} မှ အခြားဆက်တင်များ:", "subtitlesOff": "စာတန်းထိုး ပိတ်ထားသည်", "subtitlesAdd_other": "ဘာသာစကား {{count}} ခု ရနိုင်သည်၊ ထည့်ရန်", "reviewAll": "အားလုံးစစ်ဆေးရန်"},
 			"footer": {"reviewOptions": "စစ်ဆေးရန်နှင့် ရွေးချယ်စရာများ", "download": "ဒေါင်းလုဒ်", "moreActions": "ဒေါင်းလုဒ် ရွေးချယ်စရာများ", "addToQueue": "မစတင်ဘဲ တန်းစီစာရင်းထဲ ထည့်ရန်", "subtitlesRequired": "စာတန်းထိုးဘာသာစကား အနည်းဆုံးတစ်ခု ရွေးပါ။"},
 			"video": "ဗီဒီယို",
 			"audio": "အသံ",
@@ -386,7 +376,6 @@
 			"quality": {"high": "အရည်အသွေး မြင့်", "medium": "အရည်အသွေး အလယ်အလတ်", "low": "အရည်အသွေး နိမ့်"},
 			"drc": {"label": "အသံကျယ်မှု ညီအောင်လုပ်ရန် (DRC)", "description": "ကျယ်သောအပိုင်းများကို လျှော့ပြီး တိုးသောအပိုင်းများကို မြှင့်ပေးသည်။ စပီကာနှင့် ဆူညံသောအခန်းများအတွက်။", "tag": "အသံညီ"},
 			"audioLanguage": "အသံဘာသာစကား",
-			"audioLanguageCount_one": "ဘာသာစကား {{count}} ခု",
 			"audioLanguageCount_other": "ဘာသာစကား {{count}} ခု",
 			"convert": {"label": "ပြောင်းရန်", "bitrate": "Bitrate", "wavLabel": "WAV (ချုံ့မထားသော)", "lossyLabel": "{{target}} {{bitrate}} kbps", "sourceKbps": "မူရင်းမှာ {{kbps}} kbps ဖြစ်သည်"},
 			"botWall": {
@@ -464,7 +453,6 @@
 		"confirm": {
 			"readyHeadline": "ဆွဲထုတ်ရန်အဆင်သင့်ဖြစ်ပြီ!",
 			"landIn": "သင့်ဖိုင်သည် ဤနေရာတွင် ဆင်းမည်",
-			"landInMultiProfile_one": "အောက်ပါနေရာသို့ ရောက်ရှိမည်",
 			"landInMultiProfile_other": "အောက်ပါနေရာ {{count}} ခုသို့ ရောက်ရှိမည်",
 			"labelVideo": "ဗီဒီယို",
 			"labelAudio": "အသံ",
@@ -485,14 +473,10 @@
 			"labelBulk": "URL အများအပြား",
 			"labelPreset": "Preset",
 			"labelItems": "အကြောင်းအရာ",
-			"itemsValue_one": "{{total}} ခုမှ {{count}} ဗီဒီယို",
 			"itemsValue_other": "{{total}} ခုမှ {{count}} ဗီဒီယိုများ",
-			"itemsValueAudio_one": "{{total}} ခုမှ {{count}} သီချင်း",
 			"itemsValueAudio_other": "{{total}} ခုမှ {{count}} သီချင်းများ",
-			"itemsValueBulk_one": "{{total}} URL မှ {{count}}",
 			"itemsValueBulk_other": "{{total}} URL မှ {{count}}",
 			"profileBreakdownHeading": "ဤအစုအတွက် ပရိုဖိုင်များ",
-			"profileBreakdownCount_one": "{{count}} ခု",
 			"profileBreakdownCount_other": "{{count}} ခု",
 			"subtitleEmbedForcesMkv": "ဗီဒီယိုထဲ ထည့်သွင်းသော စာတန်းထိုးများအတွက် MKV ဖိုင် လိုအပ်သဖြင့် ဤဒေါင်းလုဒ်ကို .mkv အဖြစ် သိမ်းမည်။"
 		},
@@ -504,7 +488,7 @@
 				"identity": {"title": "ပရိုဖိုင် အထောက်အထား", "description": "အမြန်ဒေါင်းလုဒ်၊ အစုလိုက် URL များနှင့် ပရိုဖိုင်စာရင်းများတွင် ပြသသည့် အမည်နှင့် အိုင်ကွန်။"},
 				"downloadType": {"title": "ဒေါင်းလုဒ် အမျိုးအစား", "description": "အဓိကအားဖြင့် မည်သို့ ဒေါင်းလုဒ်လုပ်လိုသည်ကို ရွေးပါ။"},
 				"advanced": {"title": "အဆင့်မြင့် ရွေးချယ်စရာများ", "description": "ပရိုဖိုင် အစားထိုးမှု သတ်မှတ်ထားခြင်း မရှိလျှင် ပရိုဖိုင်များသည် အထွေထွေ ဦးတည်ရာကို အမွေဆက်ခံသည်။"},
-				"output": {"title": "အထွက် ရွေးချယ်စရာများ", "enabledCount_one": "{{count}} ခု ဖွင့်ထား", "enabledCount_other": "{{count}} ခု ဖွင့်ထား"},
+				"output": {"title": "အထွက် ရွေးချယ်စရာများ", "enabledCount_other": "{{count}} ခု ဖွင့်ထား"},
 				"sponsorBlock": {"title": "SponsorBlock"}
 			},
 			"field": {
@@ -592,21 +576,12 @@
 			"subtitlesFullLength": "ဗီဒီယိုတစ်ခုလုံး"
 		}
 	},
-	"videoCard": {"titlePlaceholder": "ဖွင့်နေသည်…", "chapters_one": "အခန်းကန့် {{count}} ခု", "chapters_other": "အခန်းကန့် {{count}} ခု"},
+	"videoCard": {"titlePlaceholder": "ဖွင့်နေသည်…", "chapters_other": "အခန်းကန့် {{count}} ခု"},
 	"queue": {
 		"header": "ဒေါင်းလုဒ်များ",
 		"tabLabel": "ဒေါင်းလုဒ်များ",
-		"attentionBadge_one": "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်",
 		"attentionBadge_other": "ဒေါင်းလုဒ် {{count}} ခုကို သင်ကြည့်ရန် လိုသည်",
-		"choice": {
-			"cappedBody_one": "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။",
-			"cappedBody_other": "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။",
-			"reviewBody_one": "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။",
-			"reviewBody_other": "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။",
-			"all": "ဗီဒီယိုအားလုံး",
-			"first": "ပထမ {{count}} ခု",
-			"review": "ပြန်လည်စစ်ဆေးရန်"
-		},
+		"choice": {"cappedBody_other": "ဤ playlist တွင် ဗီဒီယို {{count}} ခုထက်ပိုပါသည်။ အားလုံးကို ဒေါင်းလုဒ်လုပ်ပါ၊ ပထမ {{count}} ခုကိုသာ လုပ်ပါ၊ သို့မဟုတ် ပြန်လည်စစ်ဆေးရာတွင် ရွေးပါ။", "reviewBody_other": "ဤလင့်ခ်သည် ဗီဒီယို {{count}} ခုပါ စာရင်းတစ်ခုဖြစ်သည်။ ဒေါင်းလုဒ်လုပ်မည့်အရာကို ရွေးရန် ပြန်လည်စစ်ဆေးပါ။", "all": "ဗီဒီယိုအားလုံး", "first": "ပထမ {{count}} ခု", "review": "ပြန်လည်စစ်ဆေးရန်"},
 		"tabTip": "ဒေါင်းလုဒ်များသည် ယခု ဒေါင်းလုဒ်များ တက်ဘ်တွင် ရှိပါသည် — တိုးတက်မှုကိုကြည့်ရန် မည်သည့်အချိန်မဆို ဖွင့်နိုင်သည်။",
 		"empty": "တန်းစီထားသော ဒေါင်းလုဒ်များကို ဤနေရာတွင် ပြမည်",
 		"filtersLabel": "တန်းစီအခြေအနေ စစ်ထုတ်မှုများ",
@@ -721,7 +696,6 @@
 		"warmupFailed": "စနစ်ထည့်သွင်းမှု မပြီးဆုံးသေးပါ။ ပြီးဆုံးသည်အထိ အချို့ဒေါင်းလုဒ်များ မအောင်မြင်နိုင်ပါ။",
 		"shellActionFailed": "ထိုအရာကို ဖွင့်၍မရပါ။",
 		"folderSelectFailed": "ဖိုင်တွဲရွေးချယ်စနစ်ကို ဖွင့်၍မရပါ။",
-		"exploreSignInRetrying_one": "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် 1 ခုကို ပြန်စမ်းနေသည်",
 		"exploreSignInRetrying_other": "Explore ဖြင့် sign in ဝင်ပြီး — လင့်ခ် {{count}} ခုကို ပြန်စမ်းနေသည်",
 		"exploreSignOutFailed": "Explore မှ မထွက်နိုင်ပါ။ ထပ်ကြိုးစားပါ။",
 		"playlistFolderRejected": "ထိုဖိုင်တွဲကို ဤဖွင့်စာရင်းအတွက် အသုံးမပြုနိုင်ပါ။",
@@ -737,17 +711,14 @@
 			"busy": "Arroxy စတင်နေဆဲဖြစ်သည် — ခဏနောက်မှ ပြန်စမ်းကြည့်ပါ",
 			"submissionFailed": "ထိုလင့်ခ်ကို ထည့်သွင်း၍ မရပါ — Arroxy တွင် ပြန်ကြိုးစားပါ"
 		},
-		"queue": {"skippedAlreadyQueued_one": "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်", "skippedAlreadyQueued_other": "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်"},
+		"queue": {"skippedAlreadyQueued_other": "တန်းစီစာရင်းတွင် ရှိပြီးသား ဗီဒီယို {{count}} ခုကို ကျော်လိုက်ပါသည်"},
 		"quickDownload": {
 			"added": "ထည့်ပြီး- {{title}}",
 			"alreadyQueued": "စာရင်းထဲတွင် ရှိပြီးသား",
 			"failed": "{{title}} ကို ပြင်ဆင်၍မရပါ",
 			"notAdded": "ထိုလင့်ခ်ကို ထည့်၍မရပါ — ပြန်စမ်းကြည့်ပါ",
-			"chooseHowMany_one": "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ",
 			"chooseHowMany_other": "ဗီဒီယို {{count}}+ ခု — အရေအတွက် ရွေးပါ",
-			"review_one": "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ",
 			"review_other": "ဤစာရင်းတွင် ဗီဒီယို {{count}} ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ",
-			"reviewCapped_one": "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ",
 			"reviewCapped_other": "ဤစာရင်းတွင် ဗီဒီယို {{count}}+ ခု — ရွေးရန် ပြန်လည်စစ်ဆေးပါ",
 			"view": "ကြည့်ရန်"
 		}
@@ -796,9 +767,9 @@
 		"mp4Cap": "YouTube တွင် 1080p အထက် H.264 မရှိပါ — 1080p သို့ အလိုအလျောက် ကန့်သတ်သည်"
 	},
 	"formatLabel": {"audioFallback": "အသံ", "audioOnlyDot": "အသံသာ · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
-	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "လုပ်ငန်းမရှိ", "statusActive_one": "1 ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%", "statusActive_other": "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%", "downloadFromClipboard": "ကလစ်ဘုတ်မှ ဒေါင်းလုဒ်", "open": "Arroxy ဖွင့်မည်", "quit": "Arroxy ထွက်မည်"}},
+	"tray": {"tooltip": "Arroxy", "menu": {"statusIdle": "လုပ်ငန်းမရှိ", "statusActive_other": "{{count}} ဒေါင်းလုဒ်လုပ်နေသည် · {{percent}}%", "downloadFromClipboard": "ကလစ်ဘုတ်မှ ဒေါင်းလုဒ်", "open": "Arroxy ဖွင့်မည်", "quit": "Arroxy ထွက်မည်"}},
 	"dialogs": {
-		"quitWithActiveDownloads": {"message_one": "{{count}} ဒေါင်းလုဒ် လုပ်ဆောင်နေဆဲ", "message_other": "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ", "detail": "နောက်မှ ပြန်စရန် ခေတ္တရပ်ပါ၊ သို့မဟုတ် တိုးတက်မှုကို စွန့်ပစ်ရန် ပယ်ဖျက်ပါ။", "confirm": "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်", "pause": "ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်", "keep": "ဒေါင်းလုဒ်ဆက်လုပ်မည်"},
+		"quitWithActiveDownloads": {"message_other": "{{count}} ဒေါင်းလုဒ်များ လုပ်ဆောင်နေဆဲ", "detail": "နောက်မှ ပြန်စရန် ခေတ္တရပ်ပါ၊ သို့မဟုတ် တိုးတက်မှုကို စွန့်ပစ်ရန် ပယ်ဖျက်ပါ။", "confirm": "ဒေါင်းလုဒ်ပယ်ဖျက်ပြီး ထွက်မည်", "pause": "ဒေါင်းလုဒ်များ ရပ်နားပြီး ထွက်", "keep": "ဒေါင်းလုဒ်ဆက်လုပ်မည်"},
 		"closeToTray": {"message": "ပိတ်သောအခါ Arroxy ကို system tray သို့ ဝှက်မည်လား?", "detail": "Arroxy ဆက်လည်ပတ်ပြီး လက်ရှိဒေါင်းလုဒ်များ ပြီးဆုံးမည်။ နောက်မှ အဆင့်မြင့်ဆက်တင်တွင် ပြောင်းနိုင်သည်။", "hide": "Tray သို့ ဝှက်မည်", "quit": "ထွက်မည်", "remember": "နောက်ထပ်မမေးတော့ပါ"},
 		"rendererCrashed": {"message": "Arroxy တွင် ပြဿနာတစ်ခုဖြစ်ပေါ်ပါသည်", "detail": "Renderer လုပ်ငန်းစဉ် ပျက်ကွက်သွားပါသည် ({{reason}})။ ထပ်မံကြိုးစားရန် ပြန်ဖွင့်ပါ။", "reload": "ပြန်ဖွင့်မည်", "quit": "ထွက်မည်"}
 	},

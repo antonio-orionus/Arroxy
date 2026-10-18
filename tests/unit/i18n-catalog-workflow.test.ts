@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, flattenStringLeaves, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
+import {buildLocaleCatalog, buildSourceCatalog, compileCatalog, compileLocaleTree, expandPluralLeaves, flattenStringLeaves, pluralCategoriesFor, validateLocaleCatalog} from '../../scripts/i18n-catalog-core.js'
 
 describe('i18n catalog workflow', () => {
 	const en = {common: {start: 'Start download', cancel: 'Cancel'}, progress: {done: '{{count}} file complete'}}
@@ -40,5 +40,65 @@ describe('i18n catalog workflow', () => {
 		entry.comments = {...entry.comments, flag: 'fuzzy'}
 
 		expect(validateLocaleCatalog('uk', source, catalog)).toContainEqual({kind: 'fuzzy', lang: 'uk', key: 'common.start'})
+	})
+
+	describe('plural categories', () => {
+		const enPlural = {a: {count_one: '{{count}} video', count_other: '{{count}} videos'}, title: 'Title'}
+		const source = flattenStringLeaves(enPlural)
+
+		it("reads each locale's CLDR categories from Intl.PluralRules", () => {
+			expect(pluralCategoriesFor('en')).toEqual(['one', 'other'])
+			expect(pluralCategoriesFor('ru')).toEqual(['one', 'few', 'many', 'other'])
+			expect(pluralCategoriesFor('ar')).toEqual(['zero', 'one', 'two', 'few', 'many', 'other'])
+			expect(pluralCategoriesFor('ja')).toEqual(['other'])
+		})
+
+		it('expands an English one/other pair into the categories the locale needs', () => {
+			const ru = expandPluralLeaves('ru', source)
+			expect(ru.map(l => l.path)).toEqual(['a.count_one', 'a.count_few', 'a.count_many', 'a.count_other', 'title'])
+			// English has no few/many form, so the translator starts from the English "other" copy.
+			expect(ru.find(l => l.path === 'a.count_few')?.value).toBe('{{count}} videos')
+			expect(ru.find(l => l.path === 'a.count_one')?.value).toBe('{{count}} video')
+		})
+
+		it('drops categories the locale never uses', () => {
+			expect(expandPluralLeaves('ja', source).map(l => l.path)).toEqual(['a.count_other', 'title'])
+		})
+
+		it('leaves English untouched', () => {
+			expect(expandPluralLeaves('en', source)).toEqual(source)
+		})
+
+		it('tells translators which counts a category covers', () => {
+			const few = expandPluralLeaves('ru', source).find(l => l.path === 'a.count_few')
+			expect(few?.note).toMatch(/few/)
+			expect(few?.note).toMatch(/2, 3, 4/)
+		})
+
+		it('puts the category note in the translation template so msgmerge carries it into the PO', () => {
+			const pot = compileCatalog(buildSourceCatalog(expandPluralLeaves('ru', source))).toString('utf8')
+			expect(pot).toMatch(/#\. Plural form "few" for ru/)
+		})
+
+		it('round-trips locale-specific plural entries through the PO catalog', () => {
+			const ruSource = expandPluralLeaves('ru', source)
+			const ru = {a: {count_one: '{{count}} видео', count_few: '{{count}} видео', count_many: '{{count}} видео', count_other: '{{count}} видео'}, title: 'Заголовок'}
+			const catalog = buildLocaleCatalog('ru', ruSource, flattenStringLeaves(ru))
+
+			expect(validateLocaleCatalog('ru', ruSource, catalog)).toEqual([])
+			expect(compileLocaleTree(ruSource, catalog)).toEqual(ru)
+			expect(compileCatalog(catalog).toString('utf8')).toContain('#. ')
+		})
+
+		it('flags a plural category the locale does not use as an extra entry', () => {
+			const jaSource = expandPluralLeaves('ja', source)
+			const catalog = buildLocaleCatalog('ja', expandPluralLeaves('ru', source), [])
+
+			expect(
+				validateLocaleCatalog('ja', jaSource, catalog)
+					.filter(i => i.kind === 'extra-entry')
+					.map(i => i.key)
+			).toEqual(['a.count_one', 'a.count_few', 'a.count_many'])
+		})
 	})
 })
