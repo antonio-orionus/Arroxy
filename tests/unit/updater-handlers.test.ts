@@ -517,6 +517,29 @@ describe('registerUpdaterHandlers', () => {
 		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(3)
 	})
 
+	// electron-updater reports a failed check on the same `error` event as a
+	// failed download: a re-check mid-download could settle the install as failed
+	// while the download carries on and restarts the app anyway.
+	it('skips the periodic check while an install is downloading, and resumes after it fails', async () => {
+		let installHandler: (() => Promise<unknown>) | null = null
+		vi.mocked(ipcMain.handle).mockImplementation((name: string, fn: any) => {
+			if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
+		})
+		const handlers = captureUpdaterHandlers()
+		registerUpdaterHandlers(makeWindow())
+		vi.advanceTimersByTime(5_000)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(1)
+
+		const install = installHandler!()
+		vi.advanceTimersByTime(UPDATE_RECHECK_INTERVAL_MS)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(1)
+
+		handlers.error!(new Error('download interrupted'))
+		await expect(install).resolves.toEqual({ok: false, error: 'download interrupted'})
+		vi.advanceTimersByTime(UPDATE_RECHECK_INTERVAL_MS)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(2)
+	})
+
 	it('announces a version once, so a dismissed banner stays dismissed until a newer release', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()

@@ -168,6 +168,9 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	})
 
 	function checkForUpdates(): void {
+		// A failed check fires the same `error` event as a failed download, which
+		// would settle a running install as failed while it carries on.
+		if (pendingInstall) return
 		autoUpdater.checkForUpdates().catch((err: Error) => {
 			log.error('[updater] checkForUpdates failed', err.message)
 		})
