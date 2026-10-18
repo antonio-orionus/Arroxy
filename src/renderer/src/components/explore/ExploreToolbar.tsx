@@ -151,7 +151,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 								/>
 							</Hint>
 						</ButtonGroup>
-						<DownloadProfileMenuContent model={profiles} onClose={() => setMenuOpen(false)} testIdPrefix="explore" {...profileMenu} />
+						<DownloadProfileMenuContent options={profiles.options} editProfile={activeProfile} onClose={() => setMenuOpen(false)} testIdPrefix="explore" {...profileMenu} />
 					</Popover>
 					<Hint label={grabHint ?? interactiveHint}>
 						<Button type="button" size="icon-sm" variant="outline" aria-label={interactiveHint} aria-description={grabHint} disabled={blocked} focusableWhenDisabled onClick={onInteractive} data-testid="explore-interactive">

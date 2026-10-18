@@ -19,12 +19,11 @@
 //
 // 3. Real user actions: paste the fixture playlist URL and click the
 //    interactive-download entry point; wait for playlist rows to load; click
-//    "Per-item profiles" (routes to the playlistProfiles step); click the
-//    first row, then shift-click the second row (real range selection, not
-//    select-all — one item must stay on the baseline profile or there is only
-//    one output directory and the whole point of the test is gone); open the
-//    "Assign to selection" dropdown and click the second profile; click
-//    Continue; click "Add to Queue".
+//    "Per-item profiles" (routes to the playlistProfiles step); check the
+//    first two rows' checkboxes (not select-all — one item must stay on the
+//    baseline profile or there is only one output directory and the whole
+//    point of the test is gone); open "Assign to 2 videos" and pick the second
+//    profile in the profile menu; click Continue; click "Add to Queue".
 //
 // 4. Milestones: playlist rows visible; stepper collapses to 4 dots (url,
 //    playlist, profiles, confirm — Quality/SponsorBlock/Output/Save never
@@ -112,10 +111,6 @@ test('Electron playlist multi-profile assigns a second profile to a selection an
 		await expect(stepIndicator).not.toContainText('Output')
 		await expect(stepIndicator).not.toContainText('Save')
 
-		// Discoverability surface from the same task set — present by default
-		// (multiProfileHintDismissed is unset in fixture settings).
-		await expect(page.locator('[data-testid="multi-profile-hint"]')).toBeVisible()
-
 		const rows = page.locator('[data-testid^="profile-row-"]')
 		await expect(rows).toHaveCount(3)
 		// Every row starts on the baseline (active) profile.
@@ -123,18 +118,20 @@ test('Electron playlist multi-profile assigns a second profile to a selection an
 		await expect(rows.nth(1)).toContainText(BASELINE_PROFILE_NAME)
 		await expect(rows.nth(2)).toContainText(BASELINE_PROFILE_NAME)
 
-		// Real selection interaction: click row 1, shift-click row 2. Range of
-		// two, deliberately not all three — one item must stay on the baseline
-		// profile, or reassigning everything collapses back to a single output
-		// directory and the two-directories oracle can never be satisfied.
-		await rows.nth(0).click()
-		await rows.nth(1).click({modifiers: ['Shift']})
+		// Real selection interaction: check rows 1 and 2. Two, deliberately not
+		// all three — one item must stay on the baseline profile, or reassigning
+		// everything collapses back to a single output directory and the
+		// two-directories oracle can never be satisfied.
+		await rows.nth(0).locator('[data-testid^="select-row-"]').click()
+		await rows.nth(1).locator('[data-testid^="select-row-"]').click()
 		await expect(page.locator('[data-testid="playlist-profile-summary"]')).toContainText('2 of 3 selected')
 
-		// Dropdown assignment: open "Assign to selection" and click the second
-		// profile by id, rather than relying on its position in the list.
-		await page.locator('[data-testid="playlist-profile-assign-trigger"]').click()
-		await page.locator(`[data-testid="assign-profile-${SECOND_PROFILE_ID}"]`).click()
+		// Toolbar assignment through the shared profile menu, picking the second
+		// profile by id rather than by its position in the grid.
+		const assignTrigger = page.locator('[data-testid="playlist-profile-assign-trigger"]')
+		await expect(assignTrigger).toHaveText('Assign to 2 videos')
+		await assignTrigger.click()
+		await page.locator(`[data-testid="playlist-profile-option-${SECOND_PROFILE_ID}"]`).click()
 
 		await expect(rows.nth(0)).toContainText(SECOND_PROFILE_NAME)
 		await expect(rows.nth(1)).toContainText(SECOND_PROFILE_NAME)

@@ -1,6 +1,6 @@
 // Wraps SelectableVirtualTable with the playlist-profiles column widths and
-// the right-click menu — one of the two ways to assign a profile (action bar,
-// context menu). Mirrors QueueManagerTable's split so the step component only
+// the right-click menu — one of the three ways to assign a profile (toolbar,
+// a row's profile button, context menu). Mirrors QueueManagerTable's split so the step component only
 // wires state, never table markup.
 
 import type {ReactNode, RefObject} from 'react'
@@ -32,13 +32,13 @@ interface PlaylistProfileTableProps {
 	onRemove: (itemIds: string[]) => void
 }
 
-// The profile column is sized to its content rather than the widest possible
-// name: the edit pencil right-aligns inside it, so a wide column strands the
-// pencil next to Duration instead of beside the profile it edits.
+// Title takes whatever the fixed columns leave. The profile column is wide
+// enough that a builtin name still reads at the window's minimum width.
 function columnClassName(columnId: string): string {
-	if (columnId === 'title') return 'w-[62%] min-w-0'
-	if (columnId === 'profile') return 'w-[23%]'
-	return 'w-[15%]'
+	if (columnId === 'select') return 'w-10'
+	if (columnId === 'title') return 'min-w-0'
+	if (columnId === 'profile') return 'w-[34%]'
+	return 'w-24'
 }
 
 function PlaylistProfileContextMenuItems({itemIds, options, onAssign, onReset, onRemove}: {itemIds: string[]; options: DownloadProfileActionOption[]; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void; onRemove: (itemIds: string[]) => void}): ReactNode {

@@ -2,29 +2,32 @@
 // playlist items instead of downloading the batch as one homogeneous run.
 // Deliberately mirrors QueueManagerTab's three zones — action bar, filter
 // chips, virtualized table — so a user reaches for the same gestures they
-// already know from the Downloads tab. Chips filter; the action bar and the
-// row context menu assign.
+// already know from the Downloads tab. Chips filter; the toolbar, each row's
+// profile button and the row context menu assign. The first two open the same
+// profile menu as the URL tab, Edit and New included.
 
 import {useCallback, useEffect, useEffectEvent, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {Info, X} from 'lucide-react'
+import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {selectionModifierLabel} from '../../lib/platform.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
 import {useRowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {isTypingTarget} from '../shared/isTypingTarget.js'
-import {Alert, AlertAction, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
+import {createPopoverHandle} from '../ui/popover.js'
 import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
 import {orderProfileOptionsForAssignment} from './playlistProfileOrder.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
-import {usePlaylistProfileColumns} from './usePlaylistProfileColumns.js'
+import {PLAYLIST_PROFILE_COLUMNS} from './playlistProfileColumns.js'
+import {PlaylistProfileColumnsContext, type PlaylistProfileColumnsContextValue, type PlaylistSelectAllState} from './playlistProfileColumnsContext.js'
+import {playlistProfileMenuModel, rowMenuTargets} from './playlistProfileMenu.js'
+import {PlaylistProfileRowMenu, type PlaylistProfileRowMenuHandle} from './PlaylistProfileRowMenu.js'
 import {playlistProfileTableFeatures} from './playlistProfileTableFeatures.js'
 import {PlaylistProfileActionBar} from './PlaylistProfileActionBar.js'
 import {PlaylistProfileFilterChips} from './PlaylistProfileFilterChips.js'
@@ -33,24 +36,11 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 
 export function StepPlaylistProfiles(): ReactNode {
 	const {t} = useTranslation()
-	const {
-		playlistItems,
-		selectedPlaylistItemIds,
-		removedPlaylistItemIds,
-		playlistProfileAssignments,
-		settings,
-		wizardOutputDir,
-		assignPlaylistProfile,
-		resetPlaylistProfile,
-		removePlaylistItems,
-		restoreRemovedPlaylistItems,
-		saveDownloadProfile,
-		chooseWizardFolder,
-		exitMultiProfileMode,
-		advance,
-		dismissMultiProfileHint
-	} = useAppStore()
-	const [editingProfile, setEditingProfile] = useState<DownloadProfile | null>(null)
+	const {playlistItems, selectedPlaylistItemIds, removedPlaylistItemIds, playlistProfileAssignments, settings, wizardOutputDir, assignPlaylistProfile, resetPlaylistProfile, removePlaylistItems, restoreRemovedPlaylistItems, saveDownloadProfile, chooseWizardFolder, exitMultiProfileMode, advance} = useAppStore()
+	// The profile open in the editor (null for a new one), and the rows a new
+	// profile is assigned to once saved: the rows its menu was acting on.
+	const [editing, setEditing] = useState<{profile: DownloadProfile | null; assignTo: string[]} | null>(null)
+	const [rowMenu] = useState<PlaylistProfileRowMenuHandle>(() => createPopoverHandle<string>())
 
 	// Hoisted once instead of `.includes` inside the filter below — at the
 	// design's 1000-item target, `.includes` against two arrays that can each
@@ -115,12 +105,22 @@ export function StepPlaylistProfiles(): ReactNode {
 	}, [filter, counts])
 
 	const filteredItems = useMemo(() => (filter === 'all' ? items : items.filter(entry => resolveProfile(entry).id === filter)), [filter, items, resolveProfile])
+	// The table neither sorts nor groups, so this is also its row order.
+	const filteredIds = useMemo(() => filteredItems.map(entry => entry.id), [filteredItems])
+	const selectedFilteredCount = useMemo(() => filteredIds.filter(id => selectedIds.has(id)).length, [filteredIds, selectedIds])
+	const selectAllState: PlaylistSelectAllState = selectedFilteredCount === 0 ? 'none' : selectedFilteredCount === filteredIds.length ? 'all' : 'some'
+	// Like Ctrl/Cmd+A, select-all takes the rows the filter shows, not every item.
+	const toggleAll = useCallback((): void => {
+		dispatch({type: 'selection', action: {type: 'set', ids: selectAllState === 'all' ? [] : filteredIds}})
+	}, [filteredIds, selectAllState])
+	const toggleRow = useCallback((id: string): void => {
+		dispatch({type: 'selection', action: {type: 'toggle', id}})
+	}, [])
 
-	const columns = usePlaylistProfileColumns({t, hasAnyThumbnail, liveLabel, resolveProfile, onEditProfile: setEditingProfile})
-	const table = useTable({features: playlistProfileTableFeatures, data: filteredItems, columns, getRowId: entry => entry.id})
+	const columnsContext = useMemo((): PlaylistProfileColumnsContextValue => ({hasAnyThumbnail, liveLabel, resolveProfile, selectedIds, selectAllState, onToggleAll: toggleAll, onToggleRow: toggleRow, rowMenu}), [hasAnyThumbnail, liveLabel, resolveProfile, selectedIds, selectAllState, toggleAll, toggleRow, rowMenu])
+	const table = useTable({features: playlistProfileTableFeatures, data: filteredItems, columns: PLAYLIST_PROFILE_COLUMNS, getRowId: entry => entry.id})
 	const rows = table.getRowModel().rows
-	const orderedRowIds = useMemo(() => rows.map(row => row.original.id), [rows])
-	const interactions = useRowSelectionInteractions({orderedIds: orderedRowIds, selection, dispatch: dispatchSelection})
+	const interactions = useRowSelectionInteractions({orderedIds: filteredIds, selection, dispatch: dispatchSelection})
 	// TanStack Virtual returns function-bearing objects that React Compiler cannot safely memoize.
 	// oxlint-disable-next-line react-hooks-js/incompatible-library
 	const virtualizer = useVirtualizer({count: rows.length, getScrollElement: () => scrollRef.current, estimateSize: () => 48, overscan: 8})
@@ -136,6 +136,23 @@ export function StepPlaylistProfiles(): ReactNode {
 	// as selectedIdSet elsewhere on this screen.
 	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
 	const contextItemIds = useMemo(() => items.filter(entry => contextIdSet.has(entry.id)).map(entry => entry.id), [items, contextIdSet])
+	const itemById = useMemo(() => new Map(items.map(entry => [entry.id, entry])), [items])
+	const profilesOf = useCallback(
+		(itemIds: readonly string[]): DownloadProfile[] =>
+			itemIds.flatMap(id => {
+				const entry = itemById.get(id)
+				return entry ? [resolveProfile(entry)] : []
+			}),
+		[itemById, resolveProfile]
+	)
+	const toolbarMenu = useMemo(() => playlistProfileMenuModel(orderedOptions, profilesOf(selectedItemIds)), [orderedOptions, profilesOf, selectedItemIds])
+	const rowMenuFor = useCallback(
+		(rowId: string) => {
+			const targets = rowMenuTargets(rowId, selectedIds, selectedItemIds)
+			return {targets, menu: playlistProfileMenuModel(orderedOptions, profilesOf(targets))}
+		},
+		[orderedOptions, profilesOf, selectedIds, selectedItemIds]
+	)
 
 	const assign = useCallback(
 		(itemIds: string[], ref: DownloadProfileRef): void => {
@@ -151,6 +168,18 @@ export function StepPlaylistProfiles(): ReactNode {
 		},
 		[resetPlaylistProfile]
 	)
+	// Saved without becoming the app's active profile: that would move the
+	// baseline under every row this step has not reassigned. A new profile goes
+	// straight onto the rows its menu was opened for. The ref is read after the
+	// save, since this render's settings predate it.
+	async function saveProfile(profile: DownloadProfile): Promise<void> {
+		const assignTo = editing?.profile ? [] : (editing?.assignTo ?? [])
+		await saveDownloadProfile(profile, false)
+		assign(assignTo, downloadProfileRefFor(profile, useAppStore.getState().settings?.profiles))
+	}
+	const editProfile = useCallback((profile: DownloadProfile): void => setEditing({profile, assignTo: []}), [])
+	const newProfile = useCallback((assignTo: string[]): void => setEditing({profile: null, assignTo}), [])
+
 	const remove = useCallback(
 		(itemIds: string[]): void => {
 			if (itemIds.length === 0) return
@@ -172,14 +201,14 @@ export function StepPlaylistProfiles(): ReactNode {
 		// fields at all, so without this the shortcuts below reassign/delete the
 		// selection *behind* the open dialog whenever a non-text control has
 		// focus — the user sees nothing happen until they close it.
-		if (editingProfile) return
+		if (editing) return
 		if (isTypingTarget(event.target)) return
 		const bareCtrlOrMeta = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey
 		if (bareCtrlOrMeta && event.key.toLowerCase() === 'a') {
 			// Selects the currently filtered rows, not every item in the step —
 			// large playlists usually get narrowed to one profile first.
 			event.preventDefault()
-			dispatch({type: 'selection', action: {type: 'set', ids: orderedRowIds}})
+			dispatch({type: 'selection', action: {type: 'set', ids: filteredIds}})
 			return
 		}
 		if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
@@ -220,20 +249,7 @@ export function StepPlaylistProfiles(): ReactNode {
 					</div>
 				) : null}
 
-				<PlaylistProfileActionBar options={orderedOptions} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={setEditingProfile} onReset={() => reset(selectedItemIds)} />
-
-				{!settings?.common?.multiProfileHintDismissed ? (
-					<Alert variant="info" data-testid="multi-profile-hint">
-						<Info />
-						<AlertTitle>{t('wizard.playlistProfiles.hintTitle')}</AlertTitle>
-						<AlertDescription>{t('wizard.playlistProfiles.hintBody', {modifier: selectionModifierLabel()})}</AlertDescription>
-						<AlertAction>
-							<Button type="button" variant="ghost" size="icon-sm" aria-label={t('titleBar.close')} onClick={() => void dismissMultiProfileHint()}>
-								<X />
-							</Button>
-						</AlertAction>
-					</Alert>
-				) : null}
+				<PlaylistProfileActionBar menu={toolbarMenu} selectedCount={selectedItemIds.length} onAssign={ref => assign(selectedItemIds, ref)} onEditProfile={editProfile} onNewProfile={() => newProfile(selectedItemIds)} onReset={() => reset(selectedItemIds)} />
 
 				<PlaylistProfileFilterChips options={orderedOptions} counts={counts} totalCount={items.length} filter={filter} onFilterChange={next => dispatch({type: 'set-filter', filter: next})} />
 
@@ -245,40 +261,44 @@ export function StepPlaylistProfiles(): ReactNode {
 						</EmptyHeader>
 					</Empty>
 				) : (
-					<PlaylistProfileTable
-						table={table}
-						rows={rows}
-						virtualRows={virtualRows}
-						scrollRef={scrollRef}
-						topVirtualPadding={topVirtualPadding}
-						bottomVirtualPadding={bottomVirtualPadding}
-						renderedColumnCount={renderedColumnCount}
-						options={orderedOptions}
-						contextItemIds={contextItemIds}
-						selectedIds={selectedIds}
-						interactions={interactions}
-						onAssign={assign}
-						onReset={reset}
-						onRemove={remove}
-					/>
+					<PlaylistProfileColumnsContext value={columnsContext}>
+						<PlaylistProfileTable
+							table={table}
+							rows={rows}
+							virtualRows={virtualRows}
+							scrollRef={scrollRef}
+							topVirtualPadding={topVirtualPadding}
+							bottomVirtualPadding={bottomVirtualPadding}
+							renderedColumnCount={renderedColumnCount}
+							options={orderedOptions}
+							contextItemIds={contextItemIds}
+							selectedIds={selectedIds}
+							interactions={interactions}
+							onAssign={assign}
+							onReset={reset}
+							onRemove={remove}
+						/>
+					</PlaylistProfileColumnsContext>
 				)}
 			</div>
 
+			<PlaylistProfileRowMenu handle={rowMenu} menuFor={rowMenuFor} onAssign={assign} onEditProfile={editProfile} onNewProfile={newProfile} />
+
 			<WizardStepFooterActions onBack={exitMultiProfileMode} onContinue={advance} continueDisabled={allRemoved} />
 
-			{editingProfile ? (
+			{editing ? (
 				<DownloadProfileEditor
-					key={editingProfile.id}
+					key={editing.profile?.id ?? 'new'}
 					commonPaths={settings?.common?.commonPaths}
 					globalDestination={globalDestinationRoot}
 					globalNativeAudioPreference={settings?.common?.nativeAudioPreference}
 					globalHdrSetting={settings?.common?.hdrPreference}
-					initialProfile={editingProfile}
+					initialProfile={editing.profile}
 					onChangeGlobalDestination={() => chooseWizardFolder()}
 					onOpenChange={open => {
-						if (!open) setEditingProfile(null)
+						if (!open) setEditing(null)
 					}}
-					onSave={profile => saveDownloadProfile(profile)}
+					onSave={saveProfile}
 					open
 				/>
 			) : null}

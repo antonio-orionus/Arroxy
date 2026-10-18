@@ -47,16 +47,18 @@
 		"playlistProfiles": {
 			"heading": "Assign download profiles",
 			"selectedSummary": "{{selected}} of {{total}} selected",
-			"assignTrigger": "Assign to selection",
+			"assignTriggerEmpty": "Assign profile",
+			"assignTrigger_one": "Assign to {{count}} video",
+			"assignTrigger_other": "Assign to {{count}} videos",
+			"menuDescription_one": "Pick the profile for this video.",
+			"menuDescription_other": "Pick the profile for these {{count}} videos.",
 			"assignAria": "Assign {{profileName}}",
 			"editProfile": "Edit {{name}}",
 			"filtersLabel": "Profile filters",
 			"filterChip": "{{name}} · {{count}}",
 			"columnProfile": "Profile",
 			"columnDuration": "Duration",
-			"empty": "No items match this filter",
-			"hintTitle": "Assign profiles to several videos at once",
-			"hintBody": "Shift-click for a range, {{modifier}}-click to add one, or drag across rows. Then pick a profile above, or right-click the selection."
+			"empty": "No items match this filter"
 		},
 		"playlist": {
 			"heading": "Playlist items",

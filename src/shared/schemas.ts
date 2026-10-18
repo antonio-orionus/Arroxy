@@ -736,7 +736,6 @@ const commonSettingsSchema = z.object({
 	successfulDownloadCount: z.number().int().nonnegative().optional(),
 	shareInlineCardDismissed: z.boolean().optional(),
 	shareHighValueBannerDismissed: z.boolean().optional(),
-	multiProfileHintDismissed: z.boolean().optional(),
 	styleHintDismissed: z.boolean().optional(),
 	videoPartCalloutDismissed: z.boolean().optional(),
 	exploreLinkCalloutDismissed: z.boolean().optional(),

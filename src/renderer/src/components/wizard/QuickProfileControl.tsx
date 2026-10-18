@@ -280,7 +280,7 @@ function ProfileMenu({
 					</div>
 				) : null}
 			</div>
-			<DownloadProfileMenuContent model={model} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />
+			<DownloadProfileMenuContent options={model.options} editProfile={model.activeProfile} onPickProfile={onPickProfile} onEditProfile={onEditProfile} onNewProfile={onNewProfile} onManageProfiles={onManageProfiles} onClose={() => setMenuOpen(false)} testIdPrefix={testIdPrefix} />
 		</Popover>
 	)
 }
