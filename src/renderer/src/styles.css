@@ -1146,6 +1146,12 @@ body.backdrop-webgl-active :is(.glass, .glow-panel, .chrome-glass, .download-hom
 	-webkit-backdrop-filter: var(--surface-filter);
 }
 
+/* The canvas is opaque and black until its first frame: while the shader
+   compiles in the background, the style's own background shows instead. */
+body:not(.backdrop-webgl-active) [data-backdrop-layer='webgl'] {
+	visibility: hidden;
+}
+
 /* Inside the wizard stage the footer is the stage's bottom bar: the stage's
    rounded corners and no blur of its own (One-Blur Rule). It keeps its own
    near-opaque fill on purpose: the footer is sticky and long steps scroll
