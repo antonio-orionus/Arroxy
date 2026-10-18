@@ -413,20 +413,35 @@ describe('AppBackdrop', () => {
 		const productionGl = mockWebgl()
 		installCanvasMocks(productionGl)
 		vi.spyOn(document, 'hasFocus').mockReturnValue(true)
-		const gpu = fakeGpu(productionGl, () => 10)
+		fakeGpu(productionGl, () => 10)
+		// Frames run by hand with chosen timestamps: no dependence on the runner's timer cadence.
+		let queued: FrameRequestCallback[] = []
+		vi.spyOn(window, 'requestAnimationFrame').mockImplementation(callback => queued.push(callback))
+		vi.spyOn(window, 'cancelAnimationFrame').mockImplementation(() => undefined)
+		let frameTime = 0
+		const runFrames = (): void => {
+			frameTime += 1_000
+			const due = queued
+			queued = []
+			act(() => {
+				for (const callback of due) callback(frameTime)
+			})
+		}
 		const {innerWidth, innerHeight} = window
 
 		try {
 			const {onUnavailable} = renderBackdrop()
-			await waitFor(() => expect(document.body).toHaveClass('backdrop-webgl-active'))
+			await waitFor(() => {
+				runFrames()
+				expect(document.body).toHaveClass('backdrop-webgl-active')
+			})
 			const widthBefore = webglCanvas().width
 
 			// Twelve times the area at the measured 10 ms frame is past the budget at the scene's scale.
 			Object.assign(window, {innerWidth: innerWidth * 4, innerHeight: innerHeight * 3})
-			// The animation loop reads the same clock: move it so the next frame is due.
-			gpu.advance(1_000)
-			await waitFor(() => expect(webglCanvas().width).toBeGreaterThan(widthBefore))
+			runFrames()
 
+			expect(webglCanvas().width).toBeGreaterThan(widthBefore)
 			expect(webglCanvas().width).toBeLessThan(widthBefore * 4)
 			expect(onUnavailable).not.toHaveBeenCalled()
 			expect(document.body).toHaveClass('backdrop-webgl-active')
