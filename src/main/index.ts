@@ -361,7 +361,7 @@ if (hasSingleInstanceLock) {
 		}
 
 		await settingsStore.recordLaunch()
-		const collectorUrl = heartbeatUrl({isDev, envUrl: process.env.ARROXY_HEARTBEAT_URL})
+		const collectorUrl = heartbeatUrl({isPackaged: app.isPackaged, isDev, envUrl: process.env.ARROXY_HEARTBEAT_URL})
 		if (collectorUrl && !e2eMode.disableAnalytics) {
 			const installChannel = detectInstallChannel(app.getName())
 			const heartbeat = createHeartbeat({
