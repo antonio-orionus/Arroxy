@@ -17,6 +17,11 @@ import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '
 // handled separately: the app runs `brew upgrade` itself, then relaunches.
 const NON_INSTALLABLE: ReadonlySet<InstallChannel> = new Set(['scoop', 'portable', 'flatpak', 'tarball'])
 
+// The tray keeps a session alive for days, and a launch can be offline: the
+// check repeats so every running install hears about a release.
+export const UPDATE_RECHECK_INTERVAL_MS = 6 * 60 * 60 * 1000
+const FIRST_CHECK_DELAY_MS = 5_000
+
 // Map the running version's semver prerelease tag to an electron-updater
 // release channel. Stable versions follow `latest` and must never see beta
 // releases; prerelease builds follow their own channel so a v0.3.1-beta.3
@@ -37,13 +42,14 @@ function resolveUpdateChannel(version: string): {channel: string; allowPrereleas
 export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	const installChannel = detectInstallChannel(app.getName())
 
-	// Flatpak installs update from Arroxy's own Flatpak repo (`flatpak update`,
-	// GNOME Software). The banner still matters: many users never open a software
-	// centre, and a terminal-only user would otherwise never hear of an update.
 	// On Linux electron-updater only checks inside an AppImage ($APPIMAGE set);
-	// forceDevUpdateConfig is its one switch past that gate, and only the check
-	// runs here — flatpak is NON_INSTALLABLE, so nothing is ever downloaded.
-	if (installChannel === 'flatpak') autoUpdater.forceDevUpdateConfig = true
+	// forceDevUpdateConfig is its one switch past that gate. Flatpak (updated from
+	// Arroxy's own Flatpak repo) and the tarball still need the banner to hear of
+	// a release, and only the check runs: both are NON_INSTALLABLE, so nothing is
+	// ever downloaded. The switch also skips the "not packaged" guard, and an
+	// unpackaged Linux run (dev, `electron-vite preview`) reads as the tarball,
+	// so the tarball takes it only in a packaged build.
+	if (installChannel === 'flatpak' || (installChannel === 'tarball' && app.isPackaged)) autoUpdater.forceDevUpdateConfig = true
 
 	// Portable and scoop targets ship a portable .exe that extracts to %TEMP% —
 	// app-update.yml is absent from that extracted bundle, causing ENOENT when
@@ -79,14 +85,19 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 	// The version the banner announced. Homebrew runs must reach it before the app
 	// relaunches: a stale tap or an already-current cask also exits 0.
 	let announcedVersion = ''
+	// The version the renderer was last told about. Each periodic check finds the
+	// same release again; resending it would bring back a banner the user dismissed.
+	let notifiedVersion = ''
 
 	async function announceUpdate(version: string): Promise<void> {
+		if (version === notifiedVersion) return
 		announcedVersion = version
 		// A failed probe only withholds the offer; it must never swallow the update notice.
 		if (installChannel === 'direct' && !allowPrerelease) homebrewOnMac = await canMoveUnderHomebrew().catch(() => false)
 		if (mainWindow.isDestroyed()) return
 		const payload: UpdateAvailablePayload = {version, currentVersion: app.getVersion(), installChannel, homebrewAvailable: homebrewOnMac}
 		mainWindow.webContents.send(IPC_CHANNELS.updaterAvailable, payload)
+		notifiedVersion = version
 	}
 
 	autoUpdater.on('update-available', info => {
@@ -156,9 +167,14 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 		return promise
 	})
 
-	setTimeout(() => {
+	function checkForUpdates(): void {
 		autoUpdater.checkForUpdates().catch((err: Error) => {
 			log.error('[updater] checkForUpdates failed', err.message)
 		})
-	}, 5_000)
+	}
+
+	setTimeout(() => {
+		checkForUpdates()
+		setInterval(checkForUpdates, UPDATE_RECHECK_INTERVAL_MS).unref()
+	}, FIRST_CHECK_DELAY_MS)
 }

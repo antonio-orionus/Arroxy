@@ -1,6 +1,6 @@
 # In-app updates
 
-How the update banner works: the check, the per-channel action, and the one known gap.
+How the update banner works: the check, the per-channel action, and the Linux AppImage gate.
 
 | Lives in | What |
 | --- | --- |
@@ -10,7 +10,7 @@ How the update banner works: the check, the per-channel action, and the one know
 
 ## Check and channel actions
 
-`electron-updater` v6, GitHub provider. Auto-download is **disabled**: the user starts everything. Main calls `autoUpdater.checkForUpdates()` 5 s after launch and emits `updater:available` to the renderer with `{version, currentVersion, installChannel, homebrewAvailable}`. `installChannel` detection (flatpak/scoop/homebrew/portable/appimage/tarball/direct) lives in `src/main/installChannel.ts`; on Linux, `APPIMAGE` set means `appimage`, otherwise `tarball`. The channel is also the heartbeat's `utmSource`, so each release package reports under its own name. `direct` intentionally absorbs Winget: at runtime it is indistinguishable from a direct NSIS install, and NSIS auto-update works either way.
+`electron-updater` v6, GitHub provider. Auto-download is **disabled**: the user starts everything. Main calls `autoUpdater.checkForUpdates()` 5 s after launch and again every 6 h (`UPDATE_RECHECK_INTERVAL_MS`), so a session left in the tray or one that launched offline still hears of a release. It emits `updater:available` to the renderer with `{version, currentVersion, installChannel, homebrewAvailable}`, once per version: a re-check that finds the same release sends nothing, so a dismissed banner stays dismissed until a newer one. `installChannel` detection (flatpak/scoop/homebrew/portable/appimage/tarball/direct) lives in `src/main/installChannel.ts`; on Linux, `APPIMAGE` set means `appimage`, otherwise `tarball`. The channel is also the heartbeat's `utmSource`, so each release package reports under its own name. `direct` intentionally absorbs Winget: at runtime it is indistinguishable from a direct NSIS install, and NSIS auto-update works either way.
 
 `<UpdateBanner>` sits between the title bar and the content; `resolveAction(channel, platform)` picks the UX:
 
@@ -23,14 +23,14 @@ How the update banner works: the check, the per-channel action, and the one know
   - `--adopt` cannot work: it requires the installed app to be identical to the cask's, and an update is by definition pending. It also conflicts with `--force`. `--force` overwrites the old bundle and registers the cask, so later updates take the `homebrew` path above.
   - /Applications only: brew always installs there, so a copy running from Downloads or `~/Applications` would be left behind and the relaunch would reopen it.
   - Stable only: betas are never published to Homebrew, so the force-install would downgrade a beta user.
-- `tarball` → "Download ↗" link, but never shown: see the known gap below
+- `tarball` → "Download ↗" link to https://orionus.dev/arroxy/ (electron-updater cannot replace a tar.gz install; see the AppImage gate below)
 - `appimage`, `direct` on win32 (and `winget`) → "Install & Restart" → `updater:install` → main calls `downloadUpdate()`, then `quitAndInstall(false, true)` on `update-downloaded`
 
-## Known gap: Linux tarball never sees the banner
+## Linux: the AppImage gate
 
-On Linux, electron-updater's default updater is `AppImageUpdater` (no `package-type` file shipped — we only build AppImage + tar.gz). `AppImageUpdater.isUpdaterActive()` returns `false` when `process.env.APPIMAGE` is unset, which silently short-circuits `AppUpdater.checkForUpdates()` (returns `null`, logs `"APPIMAGE env is not defined, current application is not an AppImage"`, never emits `update-available`). So tar.gz Linux users get **no update banner at all** — not an error, just silence. Verified in `node_modules/electron-updater/out/AppImageUpdater.js:17-28` and `AppUpdater.js:253-256`.
+On Linux, electron-updater's default updater is `AppImageUpdater` (no `package-type` file shipped — we only build AppImage + tar.gz). `AppImageUpdater.isUpdaterActive()` returns `false` when `process.env.APPIMAGE` is unset and `forceDevUpdateConfig` is off, which silently short-circuits `AppUpdater.checkForUpdates()` (returns `null`, never emits `update-available`). See `node_modules/electron-updater/out/AppImageUpdater.js` (`isUpdaterActive`).
 
-**Decision: do not fix.** Audience is small (most Linux users get AppImage or Flatpak). Fixing would require bypassing electron-updater for this case and hitting `https://api.github.com/repos/antonio-orionus/Arroxy/releases/latest` directly to drive our own `updater:available` IPC.
+Flatpak and the packaged tarball set `forceDevUpdateConfig`, so the check runs; both are non-installable, so nothing is downloaded. The switch also skips electron-updater's "not packaged" guard, and an unpackaged Linux run (`bun run dev`, `electron-vite preview`) has no `APPIMAGE` either and reads as `tarball`, so the tarball takes it only when `app.isPackaged`.
 
 ## IPC + types
 

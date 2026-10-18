@@ -15,7 +15,7 @@ vi.mock('@main/services/binary/HomebrewRepair.js', () => ({canMoveUnderHomebrew:
 import {app, ipcMain} from 'electron'
 import {canMoveUnderHomebrew, installArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
 import {autoUpdater} from 'electron-updater'
-import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
+import {registerUpdaterHandlers, UPDATE_RECHECK_INTERVAL_MS} from '@main/ipc/registerUpdaterHandlers.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import log from 'electron-log/main.js'
 
@@ -123,7 +123,7 @@ describe('registerUpdaterHandlers', () => {
 
 		const win = makeWindow()
 		registerWithFlatpak(win)
-		vi.runAllTimers()
+		vi.advanceTimersByTime(5_000)
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		// The Linux updater refuses to check without $APPIMAGE; Flatpak has none.
@@ -501,5 +501,86 @@ describe('registerUpdaterHandlers', () => {
 		await fireUpdateAvailable(handlers, {version: '1.0.0'})
 
 		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({currentVersion: '0.5.3'}))
+	})
+
+	// A session left in the tray, or one that launched offline, must still hear
+	// about a release: the check repeats, and each version is announced once.
+	it('checks again on an interval after the first check', () => {
+		captureUpdaterHandlers()
+		registerUpdaterHandlers(makeWindow())
+
+		vi.advanceTimersByTime(5_000)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(1)
+		vi.advanceTimersByTime(UPDATE_RECHECK_INTERVAL_MS)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(2)
+		vi.advanceTimersByTime(UPDATE_RECHECK_INTERVAL_MS)
+		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(3)
+	})
+
+	it('announces a version once, so a dismissed banner stays dismissed until a newer release', async () => {
+		const handlers = captureUpdaterHandlers()
+		const win = makeWindow()
+		registerUpdaterHandlers(win)
+
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
+		expect(win.webContents.send).toHaveBeenCalledTimes(1)
+
+		await fireUpdateAvailable(handlers, {version: '2.1.0'})
+		expect(win.webContents.send).toHaveBeenCalledTimes(2)
+		expect(win.webContents.send).toHaveBeenLastCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({version: '2.1.0'}))
+	})
+})
+
+describe('tarball install', () => {
+	beforeEach(() => {
+		vi.useFakeTimers()
+	})
+
+	afterEach(() => {
+		vi.doUnmock('@main/installChannel')
+		vi.doUnmock('electron')
+		vi.doUnmock('electron-updater')
+		vi.resetModules()
+		vi.useRealTimers()
+	})
+
+	async function registerTarball(isPackaged: boolean) {
+		vi.resetModules()
+		vi.doMock('@main/installChannel', () => ({detectInstallChannel: vi.fn().mockReturnValue('tarball')}))
+		vi.doMock('electron', () => ({app: {isPackaged, getVersion: vi.fn().mockReturnValue('1.0.0'), getName: vi.fn().mockReturnValue('arroxy')}, ipcMain: {handle: vi.fn(), removeHandler: vi.fn()}}))
+		vi.doMock('electron-updater', () => {
+			const au = {autoDownload: true, autoInstallOnAppQuit: true, forceDevUpdateConfig: false, on: vi.fn(), removeAllListeners: vi.fn(), setFeedURL: vi.fn(), checkForUpdates: vi.fn().mockResolvedValue(undefined), downloadUpdate: vi.fn().mockResolvedValue(undefined), quitAndInstall: vi.fn()}
+			return {default: {autoUpdater: au}, autoUpdater: au}
+		})
+		const {registerUpdaterHandlers: register} = await import('@main/ipc/registerUpdaterHandlers.js')
+		const {autoUpdater: scopedAutoUpdater} = await import('electron-updater')
+		const handlers: HandlerMap = {}
+		vi.mocked(scopedAutoUpdater.on).mockImplementation((event: string, fn: any) => {
+			handlers[event as EventName] = fn
+			return scopedAutoUpdater
+		})
+		const win = makeWindow()
+		register(win)
+		return {win, handlers, autoUpdater: scopedAutoUpdater}
+	}
+
+	// electron-updater only checks inside an AppImage ($APPIMAGE set); the
+	// tarball has none, so it takes the same check-only override as Flatpak.
+	it('checks for updates in a packaged tarball build and reports them with the tarball channel', async () => {
+		const {win, handlers, autoUpdater: au} = await registerTarball(true)
+		vi.advanceTimersByTime(5_000)
+		await fireUpdateAvailable(handlers, {version: '2.0.0'})
+
+		expect(au.forceDevUpdateConfig).toBe(true)
+		expect(au.checkForUpdates).toHaveBeenCalledOnce()
+		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({version: '2.0.0', installChannel: 'tarball'}))
+	})
+
+	// An unpackaged Linux run (dev server, `electron-vite preview`) also has no
+	// $APPIMAGE; the override would skip electron-updater's "not packaged" guard.
+	it('leaves the override off in an unpackaged run', async () => {
+		const {autoUpdater: au} = await registerTarball(false)
+		expect(au.forceDevUpdateConfig).toBe(false)
 	})
 })
