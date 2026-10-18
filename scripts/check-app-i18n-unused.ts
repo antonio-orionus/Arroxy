@@ -59,9 +59,9 @@ function* walkTs(dir: string): Generator<string> {
 // Matches 'foo.bar.baz' and "foo.bar.baz" (non-template literals only — no ${).
 const KEY_PATTERN = /(?<![`$])['"]([a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z0-9_-]+){1,})['"]/g
 
-// pluralKey('base', count) is a project helper that emits `base_one` / `base_other`
-// at runtime. Capture the first-arg base names so plural variants aren't flagged.
-const PLURAL_KEY_CALL = /pluralKey\(\s*'([^']+)'/g
+// pluralKey(lang, 'base', count) is a project helper that emits `base_<category>` for the
+// locale's CLDR plural category at runtime. Capture the first-arg base names so plural variants aren't flagged.
+const PLURAL_KEY_CALL = /pluralKey\(\s*\w+\s*,\s*'([^']+)'/g
 
 function collectStaticKeys(root: string): {refs: Set<string>; pluralBases: Set<string>} {
 	const refs = new Set<string>()
@@ -99,7 +99,7 @@ for (const {path} of enLeaves) {
 		// sibling literal reference (e.g. t('key_other', { count }))
 		const siblingReferenced = [...staticRefs].some(r => r !== path && r.replace(PLURAL_SUFFIX, '') === base)
 		if (siblingReferenced) continue
-		// pluralKey('lastSegment', count) in a template literal
+		// pluralKey(lang, 'lastSegment', count) in a template literal
 		const lastSegment = base.split('.').at(-1)!
 		if (pluralBases.has(lastSegment)) continue
 	}

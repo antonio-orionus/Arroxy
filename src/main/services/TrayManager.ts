@@ -119,7 +119,7 @@ export class TrayManager {
 			statusLabel = mainT(lang, 'tray.menu.statusIdle')
 		} else {
 			const avg = Math.round(running.reduce((s, i) => s + i.progressPercent, 0) / activeCount)
-			statusLabel = mainT(lang, `tray.menu.${pluralKey('statusActive', activeCount)}`, {count: activeCount, percent: avg})
+			statusLabel = mainT(lang, `tray.menu.${pluralKey(lang, 'statusActive', activeCount)}`, {count: activeCount, percent: avg})
 		}
 
 		const {hotkeyTrigger} = this

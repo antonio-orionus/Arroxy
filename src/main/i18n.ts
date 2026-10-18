@@ -62,6 +62,7 @@ export function mainT(lang: SupportedLang, dottedKey: string, params?: Record<st
 	return dottedKey
 }
 
-export function pluralKey(base: string, count: number): string {
-	return count === 1 ? `${base}_one` : `${base}_other`
+// Same suffix i18next picks for `count`, so main-process strings use the locale's own plural form.
+export function pluralKey(lang: SupportedLang, base: string, count: number): string {
+	return `${base}_${new Intl.PluralRules(lang).select(count)}`
 }
