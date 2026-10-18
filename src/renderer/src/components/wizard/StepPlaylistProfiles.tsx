@@ -5,7 +5,7 @@
 // already know from the Downloads tab. Chips filter; the action bar and the
 // row context menu assign.
 
-import {useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
+import {useCallback, useEffect, useEffectEvent, useMemo, useReducer, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
@@ -164,36 +164,38 @@ export function StepPlaylistProfiles(): ReactNode {
 	// inside the step currently holds focus, and this step is only mounted
 	// while it's the active wizard step, so the listener's lifetime already
 	// matches "while this screen is visible".
-	useEffect(() => {
-		function onKeyDown(event: KeyboardEvent): void {
-			// isTypingTarget only catches literal text-entry fields. The profile
-			// editor dialog is full of buttons, toggles and selects that aren't text
-			// fields at all, so without this the shortcuts below reassign/delete the
-			// selection *behind* the open dialog whenever a non-text control has
-			// focus — the user sees nothing happen until they close it.
-			if (editingProfile) return
-			if (isTypingTarget(event.target)) return
-			const bareCtrlOrMeta = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey
-			if (bareCtrlOrMeta && event.key.toLowerCase() === 'a') {
-				// Selects the currently filtered rows, not every item in the step —
-				// large playlists usually get narrowed to one profile first.
-				event.preventDefault()
-				dispatch({type: 'selection', action: {type: 'set', ids: orderedRowIds}})
-				return
-			}
-			if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
-			// Delete only — Backspace is a common "go back" reflex and this
-			// window-scoped listener has no visible affordance warning the user it
-			// deletes rows instead, same reasoning as StepPlaylistItems.
-			if (event.key === 'Delete') {
-				if (selectedItemIds.length === 0) return
-				event.preventDefault()
-				remove(selectedItemIds)
-			}
+	// An Effect Event reads the latest selection and rows, so the listener is
+	// subscribed once instead of on every selection change.
+	const onKeyDown = useEffectEvent((event: KeyboardEvent): void => {
+		// isTypingTarget only catches literal text-entry fields. The profile
+		// editor dialog is full of buttons, toggles and selects that aren't text
+		// fields at all, so without this the shortcuts below reassign/delete the
+		// selection *behind* the open dialog whenever a non-text control has
+		// focus — the user sees nothing happen until they close it.
+		if (editingProfile) return
+		if (isTypingTarget(event.target)) return
+		const bareCtrlOrMeta = (event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey
+		if (bareCtrlOrMeta && event.key.toLowerCase() === 'a') {
+			// Selects the currently filtered rows, not every item in the step —
+			// large playlists usually get narrowed to one profile first.
+			event.preventDefault()
+			dispatch({type: 'selection', action: {type: 'set', ids: orderedRowIds}})
+			return
 		}
+		if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return
+		// Delete only — Backspace is a common "go back" reflex and this
+		// window-scoped listener has no visible affordance warning the user it
+		// deletes rows instead, same reasoning as StepPlaylistItems.
+		if (event.key === 'Delete') {
+			if (selectedItemIds.length === 0) return
+			event.preventDefault()
+			remove(selectedItemIds)
+		}
+	})
+	useEffect(() => {
 		window.addEventListener('keydown', onKeyDown)
 		return () => window.removeEventListener('keydown', onKeyDown)
-	}, [remove, orderedRowIds, selectedItemIds, editingProfile])
+	}, [])
 
 	const renderedColumnCount = table.getAllLeafColumns().length
 

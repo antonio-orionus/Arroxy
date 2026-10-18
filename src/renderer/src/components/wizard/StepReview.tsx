@@ -95,8 +95,12 @@ function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 
 	async function save(): Promise<void> {
 		setSaving(true)
-		const ok = await saveWizardAsProfile(value)
-		setSaving(false)
+		let ok = false
+		try {
+			ok = await saveWizardAsProfile(value)
+		} finally {
+			setSaving(false)
+		}
 		if (ok) {
 			setName('')
 			onOpenChange(false)

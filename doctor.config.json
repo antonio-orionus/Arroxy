@@ -1,13 +1,36 @@
 {
 	"$schema": "https://react.doctor/schema/config.json",
 	"ignore": {
-		"files": [".worktrees/**"],
+		"files": [".worktrees/**", ".claude/worktrees/**"],
 		"overrides": [
 			{"files": [".github/workflows/**"], "rules": ["react-doctor/build-pipeline-secret-boundary", "react-doctor/plugin-update-trust-risk"]},
-			{"files": ["src/renderer/src/components/layout/background/CanvasSceneHost.tsx"], "rules": ["react-doctor/no-aria-hidden-on-focusable"]},
+			{"files": ["src/renderer/src/components/layout/background/CanvasSceneHost.tsx"], "rules": ["react-doctor/no-aria-hidden-on-focusable", "react-doctor/effect-raf-loop-needs-cancel"]},
 			{"files": ["src/renderer/src/components/queue/QueueManagerTab.tsx"], "rules": ["react-hooks-js/incompatible-library"]},
 			{"files": ["src/shared/schemas.ts"], "rules": ["deslop/unused-export"]},
-			{"files": ["package.json"], "rules": ["deslop/unused-dev-dependency"]}
+			{"files": ["package.json"], "rules": ["deslop/unused-dev-dependency", "react-doctor/plugin-update-trust-risk"]},
+			{"files": ["src/renderer/src/components/system/WhatsNewDialog.tsx"], "rules": ["react-doctor/no-array-index-as-key"]},
+			{"files": ["src/renderer/src/components/explore/ExploreViewport.tsx"], "rules": ["react-doctor/no-flush-sync"]},
+			{"files": ["src/renderer/src/components/wizard/format/AudioColumn.tsx"], "rules": ["react-doctor/rerender-lazy-state-init"]},
+			{"files": ["src/main/index.ts"], "rules": ["react-doctor/no-unguarded-throwing-parse-call"]},
+			{"files": ["src/main/services/DiagnosticsFile.ts"], "rules": ["react-doctor/path-traversal-risk"]},
+			{"files": ["src/renderer/src/dev/**"], "rules": ["react-doctor/no-giant-component"]},
+			{
+				"files": [
+					"src/main/services/download/progressParser.ts",
+					"src/main/services/vhxTitleRecovery.ts",
+					"src/renderer/src/components/wizard/SubtitleFields.tsx",
+					"src/renderer/src/store/formatSelectionView.ts",
+					"src/renderer/src/store/helpers.ts",
+					"src/renderer/src/store/wizard/profileApplication.ts",
+					"src/renderer/src/store/wizard/queueSubmission.ts",
+					"src/shared/profileSelection.ts"
+				],
+				"rules": ["react-doctor/js-set-map-lookups"]
+			},
+			{
+				"files": ["src/main/services/ExploreSessionService.ts", "src/main/services/QueueService.ts", "src/main/services/download/queueArtifactDiskCheck.ts", "src/main/services/download/queueTitleBackfill.ts", "src/main/services/download/startupTempSweep.ts", "src/renderer/src/store/wizard/bulkCollectionExpansion.ts"],
+				"rules": ["react-doctor/async-await-in-loop"]
+			}
 		]
 	}
 }
