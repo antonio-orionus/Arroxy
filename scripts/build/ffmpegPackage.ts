@@ -81,7 +81,9 @@ async function collectInputs(platform: Platform, fromDir: string, noticePath: st
 	for (const name of ['ffmpeg', 'ffprobe'] as const) {
 		if (!inputs.some(input => input.kind === 'file' && input.name === executableName(platform, name))) throw new Error(`${executableName(platform, name)} missing from ${fromDir}`)
 	}
-	return inputs.sort((a, b) => a.name.localeCompare(b.name))
+	// A fixed collation: the machine's own locale could reorder entries and so
+	// change the archive's bytes. 'en' is the order the published packages use.
+	return inputs.sort((a, b) => a.name.localeCompare(b.name, 'en'))
 }
 
 async function writeArchive(inputs: PackageInput[], outPath: string): Promise<void> {

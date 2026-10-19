@@ -1,4 +1,5 @@
 import {execFile} from 'node:child_process'
+import path from 'node:path'
 import {promisify} from 'node:util'
 import log from 'electron-log/main.js'
 import {HOMEBREW_CASK} from '@shared/constants.js'
@@ -109,5 +110,7 @@ export async function installYtDlpWithHomebrew(): Promise<string> {
 
 export async function installFfmpegWithHomebrew(): Promise<FfmpegPairPaths> {
 	await runBrew(['install', 'ffmpeg'], 'Install Homebrew first, then retry setup.')
-	return ffmpegPairOnPath('Homebrew')
+	// brew links installed formulae into the bin folder brew itself lives in.
+	const brewPath = await findHomebrew()
+	return ffmpegPairOnPath('Homebrew', {preferred: brewPath ? [path.dirname(brewPath)] : []})
 }

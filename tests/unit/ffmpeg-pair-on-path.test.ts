@@ -34,7 +34,15 @@ describe('ffmpegPairOnPath', () => {
 	it('finds the pair in an extra folder when PATH has only a stray ffmpeg', async () => {
 		machine([tool(STALE, 'ffmpeg')], [tool(STALE, 'ffmpeg'), tool(FRESH, 'ffmpeg'), tool(FRESH, 'ffprobe')])
 
-		await expect(ffmpegPairOnPath('WinGet', [FRESH])).resolves.toEqual({ffmpegPath: tool(FRESH, 'ffmpeg'), ffprobePath: tool(FRESH, 'ffprobe')})
+		await expect(ffmpegPairOnPath('WinGet', {extra: [FRESH]})).resolves.toEqual({ffmpegPath: tool(FRESH, 'ffmpeg'), ffprobePath: tool(FRESH, 'ffprobe')})
+	})
+
+	// Found in review: a complete older pair earlier on PATH beat the one just
+	// installed, so a repair could save the very pair that had failed.
+	it('prefers the package manager folder over a complete older pair on PATH', async () => {
+		machine([tool(STALE, 'ffmpeg'), tool(STALE, 'ffprobe')], [tool(STALE, 'ffmpeg'), tool(STALE, 'ffprobe'), tool(FRESH, 'ffmpeg'), tool(FRESH, 'ffprobe')])
+
+		await expect(ffmpegPairOnPath('Homebrew', {preferred: [FRESH]})).resolves.toEqual({ffmpegPath: tool(FRESH, 'ffmpeg'), ffprobePath: tool(FRESH, 'ffprobe')})
 	})
 
 	it('fails when no folder has both tools', async () => {

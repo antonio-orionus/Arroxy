@@ -73,5 +73,10 @@ export async function installYtDlpWithWinget(): Promise<string> {
 
 export async function installFfmpegWithWinget(): Promise<FfmpegPairPaths> {
 	await wingetInstall(WINGET_FFMPEG_ID)
-	return ffmpegPairOnPath('WinGet', await savedPathDirectories())
+	const saved = await savedPathDirectories()
+	// Folders WinGet itself writes to come first: its Links folder and the
+	// package folders it added to PATH.
+	const links = [process.env.LOCALAPPDATA && path.win32.join(process.env.LOCALAPPDATA, 'Microsoft', 'WinGet', 'Links'), process.env.ProgramFiles && path.win32.join(process.env.ProgramFiles, 'WinGet', 'Links')].filter((dir): dir is string => Boolean(dir))
+	const wingetOwned = saved.filter(dir => /[\\/]WinGet[\\/](Packages|Links)([\\/]|$)/i.test(dir))
+	return ffmpegPairOnPath('WinGet', {preferred: [...wingetOwned, ...links], extra: saved})
 }

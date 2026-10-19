@@ -192,6 +192,16 @@ describe('installFfmpegWithHomebrew', () => {
 		expect(commandCalls()).toEqual([['install', 'ffmpeg']])
 	})
 
+	it('takes the pair brew linked, not an older one earlier on PATH', async () => {
+		const OLD_FFMPEG = path.join('/usr/local/old', 'ffmpeg')
+		const OLD_FFPROBE = path.join('/usr/local/old', 'ffprobe')
+		whereOnPathMock.mockImplementation(async (name: string) => (name === 'brew' ? ['/opt/homebrew/bin/brew'] : name === 'ffmpeg' ? [OLD_FFMPEG, BREW_FFMPEG] : []))
+		const files = ['/opt/homebrew/bin/brew', OLD_FFMPEG, OLD_FFPROBE, BREW_FFMPEG, BREW_FFPROBE]
+		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates.find(candidate => files.includes(candidate)) ?? null)
+
+		await expect(installFfmpegWithHomebrew()).resolves.toEqual({ffmpegPath: BREW_FFMPEG, ffprobePath: BREW_FFPROBE})
+	})
+
 	// Pointing Arroxy at an ffmpeg without its matching ffprobe would leave the
 	// pair broken, so a half-found install is an error.
 	it('fails when brew leaves no ffprobe beside ffmpeg', async () => {

@@ -76,6 +76,18 @@ describe('installFfmpegWithWinget', () => {
 		expect(searched.some(candidate => candidate.startsWith('relative') || candidate.includes('nas'))).toBe(false)
 	})
 
+	it('takes the pair WinGet installed, not an older one earlier on PATH', async () => {
+		vi.stubEnv('LOCALAPPDATA', 'C:\\Users\\me\\AppData\\Local')
+		const bin = 'C:\\Users\\me\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg\\bin'
+		const old = 'C:\\tools\\ffmpeg'
+		const files = ['C:\\winget.exe', path.join(old, 'ffmpeg.exe'), path.join(old, 'ffprobe.exe'), path.join(bin, 'ffmpeg.exe'), path.join(bin, 'ffprobe.exe')]
+		whereOnPathMock.mockImplementation(async (name: string) => (name === 'winget.exe' ? ['C:\\winget.exe'] : name === 'ffmpeg.exe' ? [path.join(old, 'ffmpeg.exe')] : []))
+		registryPath({user: `C:\\tools\\ffmpeg;%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg\\bin`})
+		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates.find(candidate => files.includes(candidate)) ?? null)
+
+		await expect(installFfmpegWithWinget()).resolves.toEqual({ffmpegPath: path.join(bin, 'ffmpeg.exe'), ffprobePath: path.join(bin, 'ffprobe.exe')})
+	})
+
 	it('still fails clearly when neither PATH nor the registry has them', async () => {
 		onPath({'winget.exe': 'C:\\winget.exe'})
 		registryPath({})
