@@ -1,0 +1,128 @@
+name: FFmpeg Remux Matrix
+
+# Proves each approved FFmpeg build handles the media YouTube serves before a
+# change to it merges. A merged pin reaches every user within a day through the
+# daily manifest, and nobody upstream tests this: yt-dlp names no FFmpeg
+# version and none of its CI runs ffmpeg. A martin-riedl nightly (N-125070)
+# once segfaulted on every VP9 + audio merge into MP4, including YouTube's HLS
+# VP9 (itag 616) + AAC, while video-only, audio-only and MKV output worked.
+#
+# Each job runs scripts/ffmpeg-matrix on one platform, twice:
+# - the pinned FFmpeg package, downloaded from its release and installed with
+#   the app's own installer (FfmpegPackagePins.ts);
+# - the dev payload fetch-embedded.sh resolves (btbnResolver.ts), which dev
+#   builds and the fixture E2E suites run.
+# Every case runs the exact ffmpeg command yt-dlp or Arroxy would, against
+# committed fixtures; see dev-docs/ffmpeg-packages.md. Not part of
+# `bun run check`, which runs without real FFmpeg builds.
+
+on:
+  pull_request:
+    paths:
+      - src/main/services/binary/FfmpegPackagePins.ts
+      - src/main/services/subtitleEmbedArgs.ts
+      - scripts/build/btbnResolver.ts
+      - scripts/build/fetch-embedded.sh
+      - scripts/ffmpeg-matrix/**
+      - tests/fixtures/ffmpeg-remux/**
+      - .github/workflows/ffmpeg-remux-matrix.yml
+  push:
+    branches: [main]
+    paths:
+      - src/main/services/binary/FfmpegPackagePins.ts
+      - src/main/services/subtitleEmbedArgs.ts
+      - scripts/build/btbnResolver.ts
+      - scripts/build/fetch-embedded.sh
+      - scripts/ffmpeg-matrix/**
+      - tests/fixtures/ffmpeg-remux/**
+      - .github/workflows/ffmpeg-remux-matrix.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.2'
+
+permissions:
+  contents: read
+
+jobs:
+  # One job per pin, so a pin added without a runner fails here instead of
+  # going untested.
+  targets:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.targets.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - run: bun install --frozen-lockfile
+      - id: targets
+        run: bun scripts/ffmpeg-matrix/ci-targets.ts
+
+  matrix:
+    name: ${{ matrix.target }} (${{ matrix.version }})
+    needs: targets
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.targets.outputs.matrix) }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - run: bun install --frozen-lockfile
+
+      - name: Remux matrix on the pinned FFmpeg package
+        id: pinned
+        env:
+          TARGET: ${{ matrix.target }}
+        run: >-
+          bun scripts/ffmpeg-matrix/run.ts
+          --pinned "$TARGET"
+          --cache-root "$RUNNER_TEMP/ffmpeg-packages"
+          --title "$TARGET pinned package"
+          --report "$RUNNER_TEMP/remux-matrix-pinned.md"
+          --json "$RUNNER_TEMP/remux-matrix-pinned.json"
+
+      - name: Fetch the dev payload
+        if: ${{ !cancelled() }}
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+        run: bun run embed:fetch:host
+
+      - name: Remux matrix on the dev payload
+        if: ${{ !cancelled() }}
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          exe=''
+          if [[ "$TARGET" == win32-* ]]; then exe='.exe'; fi
+          bun scripts/ffmpeg-matrix/run.ts \
+            --ffmpeg "build/embedded/$TARGET/ffmpeg$exe" \
+            --title "$TARGET dev payload" \
+            --report "$RUNNER_TEMP/remux-matrix-embedded.md" \
+            --json "$RUNNER_TEMP/remux-matrix-embedded.json"
+
+      - name: Upload matrix reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: ffmpeg-remux-matrix-${{ matrix.target }}
+          path: ${{ runner.temp }}/remux-matrix-*
+          if-no-files-found: ignore
+          retention-days: 14

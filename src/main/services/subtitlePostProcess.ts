@@ -16,47 +16,9 @@ import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
 import {detectSubtitleLang} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
-import {iso6392BTo1} from 'iso-639-2/2b-to-1.js'
-import {iso6392TTo2B} from 'iso-639-2/2t-to-2b.js'
+import {buildCoverExtractArgs, buildSubtitleEmbedArgs} from './subtitleEmbedArgs.js'
 
 export const logger = log.scope('subs')
-
-// Matroska's Language element takes ISO 639-2/B ("ger", not "de" or "deu").
-// Players still pick up other forms, but /B is what the spec asks for. A tag
-// with a region or script ("pt-BR", "zh-Hant", "en-orig") passes through
-// as-is: collapsing it onto one code would merge tracks the user picked apart.
-const TO_ISO_639_2B: ReadonlyMap<string, string> = new Map([...Object.entries(iso6392TTo2B), ...Object.entries(iso6392BTo1).map(([b, one]): [string, string] => [one, b])])
-
-function toIso639(lang: string): string {
-	return TO_ISO_639_2B.get(lang.toLowerCase()) ?? lang
-}
-
-// Matroska carries cover art as a file attachment, so it is re-added from a
-// copy rather than mapped: a mapped cover would land as a one-frame video track.
-const COVER_ART_ATTACHMENT_NAME = 'cover.jpg'
-
-function buildSubtitleEmbedArgs(opts: {videoPath: string; subtitleTracks: {path: string; lang: string}[]; coverPath: string | undefined; outputPath: string}): string[] {
-	const args: string[] = ['-y']
-	args.push('-i', opts.videoPath)
-	for (const track of opts.subtitleTracks) args.push('-i', track.path)
-	// Explicit maps: without them ffmpeg keeps one stream per type, which drops
-	// every subtitle track but one. `0:V` is every video stream except cover art.
-	args.push('-map', '0:V', '-map', '0:a?')
-	for (let i = 0; i < opts.subtitleTracks.length; i++) args.push('-map', String(i + 1))
-	args.push('-c', 'copy', '-c:s', 'srt')
-	for (let i = 0; i < opts.subtitleTracks.length; i++) {
-		args.push(`-metadata:s:s:${i}`, `language=${toIso639(opts.subtitleTracks[i].lang)}`)
-	}
-	if (opts.coverPath) args.push('-attach', opts.coverPath, '-metadata:s:t', 'mimetype=image/jpeg', '-metadata:s:t', `filename=${COVER_ART_ATTACHMENT_NAME}`)
-	args.push(opts.outputPath)
-	return args
-}
-
-// Copies the embedded cover (always JPEG: thumbnails are converted before they
-// are embedded) out of the video. ffmpeg exits non-zero when there is none.
-function buildCoverExtractArgs(videoPath: string, coverPath: string): string[] {
-	return ['-y', '-i', videoPath, '-map', '0:v', '-map', '-0:V', '-c', 'copy', '-frames:v', '1', '-f', 'image2', '-update', '1', coverPath]
-}
 
 // yt-dlp's `--convert-subs` writes `<stem>.<format>` and deletes the original
 // without printing either path, so the paths scraped from its output still name

@@ -111,6 +111,14 @@ tracks upstream automatically.
    `scripts/build/fetch-embedded.sh`. Run `scripts/test-binaries/smoke-all.sh`.
 2. Fetch every target into a clean `build/embedded/`:
    `bash scripts/build/fetch-embedded.sh <platform> <arch>` for each row above.
+   Then run the remux matrix on each fetched build:
+   `bun scripts/ffmpeg-matrix/run.ts --ffmpeg build/embedded/<platform>-<arch>/ffmpeg`.
+   It runs every ffmpeg command yt-dlp and Arroxy issue (merge, time-range cut,
+   SponsorBlock removal, metadata and chapters, thumbnail, subtitles) against
+   committed fixtures in YouTube's DASH, WebM and HLS-fMP4 shapes
+   (`scripts/ffmpeg-matrix/generate-fixtures.ts`). A build that fails any case
+   is not approved; the CI workflow `ffmpeg-remux-matrix.yml` reruns it on
+   every platform's pinned package when the pins change.
 3. Build every package with a new release tag (for example
    `ffmpeg-2026.12.01`; never one containing `latest`):
 
