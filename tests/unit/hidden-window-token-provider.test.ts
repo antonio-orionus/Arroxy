@@ -3,6 +3,7 @@
 // one throws on a destroyed webContents — and it takes no user cancel to happen,
 // just a queue item respawning while warmup is still scraping.
 
+import {runInNewContext} from 'node:vm'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
 
@@ -11,6 +12,13 @@ const created: MockWindow[] = []
 // proxy was in place before the page started loading.
 const events: string[] = []
 let failNextLoad: {code: number; description: string} | null = null
+// What the loaded page exposes as `window.ytcfg`. The visitor-data script runs
+// against it for real, so a test proves which keys the script actually reads.
+let pageConfig: Record<string, unknown> = {}
+
+function ytcfgOf(data: Record<string, unknown>): {data_: Record<string, unknown>; get: (key: string) => unknown} {
+	return {data_: data, get: key => data[key]}
+}
 
 const {partitionSession} = vi.hoisted(() => ({
 	partitionSession: {
@@ -77,7 +85,7 @@ function makeWindow(): MockWindow {
 				if (win.destroyed) throw new Error('Object has been destroyed')
 				win.scripts.push(script)
 				// The WebPoClient poll and the visitor-data read share one entry point.
-				return script.includes('VISITOR_DATA') ? 'visitor-xyz' : true
+				return script.includes('VISITOR_DATA') ? runInNewContext(script, {window: {ytcfg: ytcfgOf(pageConfig)}}) : true
 			}
 		}
 	}
@@ -106,6 +114,7 @@ beforeEach(() => {
 	created.length = 0
 	events.length = 0
 	failNextLoad = null
+	pageConfig = {VISITOR_DATA: 'visitor-xyz'}
 	vi.clearAllMocks()
 })
 
@@ -309,5 +318,35 @@ describe('HiddenWindowTokenProvider window leases', () => {
 
 		await Promise.all([runB, runC])
 		expect(created).toHaveLength(2)
+	})
+})
+
+// yt-dlp reads visitor data from VISITOR_DATA, then from the InnerTube client
+// context. Some networks (seen on two EEA VPN exits) serve a page with no
+// VISITOR_DATA key at all; the identity is only in the client context. Reading
+// VISITOR_DATA alone came back empty there, and the token lost its binding.
+describe('HiddenWindowTokenProvider visitor data', () => {
+	it('falls back to the InnerTube client context when the page has no VISITOR_DATA', async () => {
+		pageConfig = {EOM_VISITOR_DATA: 'Cgt-client-visitor', INNERTUBE_CONTEXT: {client: {visitorData: 'Cgt-client-visitor'}}}
+		const provider = new HiddenWindowTokenProvider()
+		provider.acquireWindow()
+
+		await expect(provider.getVisitorData()).resolves.toBe('Cgt-client-visitor')
+	})
+
+	it('prefers VISITOR_DATA when the page has both', async () => {
+		pageConfig = {VISITOR_DATA: 'Cgt-top-level', INNERTUBE_CONTEXT: {client: {visitorData: 'Cgt-client-visitor'}}}
+		const provider = new HiddenWindowTokenProvider()
+		provider.acquireWindow()
+
+		await expect(provider.getVisitorData()).resolves.toBe('Cgt-top-level')
+	})
+
+	it('returns an empty string when the page carries no visitor data anywhere', async () => {
+		pageConfig = {INNERTUBE_CONTEXT: {client: {}}}
+		const provider = new HiddenWindowTokenProvider()
+		provider.acquireWindow()
+
+		await expect(provider.getVisitorData()).resolves.toBe('')
 	})
 })

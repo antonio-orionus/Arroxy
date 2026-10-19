@@ -23,7 +23,7 @@ class FakeProcess extends EventEmitter {
 
 function makeStubs(binaryOverrides: Partial<{ensureYtDlp: () => Promise<string>}> = {}) {
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), ...binaryOverrides}
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
@@ -138,7 +138,7 @@ describe('pre-spawn cancel emits status event', () => {
 		})
 
 		const stubs = makeStubs()
-		stubs.tokenService.mintTokenForUrl = vi.fn().mockReturnValue(tokenHeld)
+		stubs.tokenService.getToken = vi.fn().mockReturnValue(tokenHeld)
 
 		const svc = new DownloadService(stubs.ytDlp, stubs.recentJobsStore as never)
 

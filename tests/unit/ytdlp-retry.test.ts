@@ -17,8 +17,8 @@ function makeFakeProcess(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function makeYtDlp(tokenService?: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}) {
-	const ts = tokenService ?? {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
+function makeYtDlp(tokenService?: {getToken: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}) {
+	const ts = tokenService ?? {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
 	// forgetProbeVerdict is called on spawn-error: a child that cannot start
 	// contradicts any recorded probe verdict the path was resolved from.
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
@@ -68,14 +68,14 @@ describe('YtDlp — retry ladder', () => {
 			.mockImplementationOnce(() => makeFakeProcess(0) as never)
 
 		const {ytDlp, tokenService} = makeYtDlp()
-		tokenService.mintTokenForUrl.mockResolvedValueOnce({token: 'old-tok', visitorData: 'vd', fromCache: false}).mockResolvedValueOnce({token: 'new-tok', visitorData: 'vd', fromCache: false})
+		tokenService.getToken.mockResolvedValueOnce({token: 'old-tok', visitorData: 'vd', fromCache: false}).mockResolvedValueOnce({token: 'new-tok', visitorData: 'vd', fromCache: false})
 
 		const result = await ytDlp.run(mediaRequest())
 
 		expect(result.kind).toBe('success')
 		if (result.kind === 'success') expect(result.usedExtractorFallback).toBe(false)
 		expect(tokenService.invalidateCache).toHaveBeenCalledOnce()
-		expect(tokenService.mintTokenForUrl).toHaveBeenCalledTimes(2)
+		expect(tokenService.getToken).toHaveBeenCalledTimes(2)
 		expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(2)
 
 		const retryArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[1][1]
@@ -88,13 +88,13 @@ describe('YtDlp — retry ladder', () => {
 			.mockImplementationOnce(() => makeFakeProcess(0) as never)
 
 		const {ytDlp, tokenService} = makeYtDlp()
-		tokenService.mintTokenForUrl.mockResolvedValueOnce({token: 'old-info-tok', visitorData: 'vd', fromCache: false}).mockResolvedValueOnce({token: 'new-info-tok', visitorData: 'vd', fromCache: false})
+		tokenService.getToken.mockResolvedValueOnce({token: 'old-info-tok', visitorData: 'vd', fromCache: false}).mockResolvedValueOnce({token: 'new-info-tok', visitorData: 'vd', fromCache: false})
 
 		const result = await ytDlp.run(mediaRequestWithInfoJson())
 
 		expect(result.kind).toBe('success')
 		expect(tokenService.invalidateCache).toHaveBeenCalledOnce()
-		expect(tokenService.mintTokenForUrl).toHaveBeenCalledTimes(2)
+		expect(tokenService.getToken).toHaveBeenCalledTimes(2)
 		const firstArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
 		const retryArgs: string[] = vi.mocked(spawnYtDlp).mock.calls[1][1]
 		expect(firstArgs).toContain('--load-info-json')
@@ -161,7 +161,7 @@ describe('YtDlp — retry ladder', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never)
 
 		const {ytDlp, tokenService} = makeYtDlp()
-		tokenService.mintTokenForUrl.mockRejectedValueOnce(new Error('provider offline'))
+		tokenService.getToken.mockRejectedValueOnce(new Error('provider offline'))
 
 		const result = await ytDlp.run(mediaRequest())
 
@@ -182,7 +182,7 @@ describe('YtDlp — retry ladder', () => {
 			.mockImplementationOnce(() => makeFakeProcess(0) as never)
 
 		const {ytDlp, tokenService} = makeYtDlp()
-		tokenService.mintTokenForUrl.mockResolvedValueOnce({token: 'tok', visitorData: 'vd', fromCache: false}).mockRejectedValueOnce(new Error('re-mint failed'))
+		tokenService.getToken.mockResolvedValueOnce({token: 'tok', visitorData: 'vd', fromCache: false}).mockRejectedValueOnce(new Error('re-mint failed'))
 
 		const result = await ytDlp.run(mediaRequest())
 

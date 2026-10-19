@@ -149,7 +149,16 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		// time the script runs.
 		await this.ensureReady()
 		const win = this.getWindow()
-		const result: unknown = await win.webContents.executeJavaScript(`(function(){try{return window.ytcfg?.get?.('VISITOR_DATA')||window.ytcfg?.data_?.VISITOR_DATA||'';}catch(e){return '';}})()`)
+		// The same lookup yt-dlp uses: VISITOR_DATA, then the InnerTube client
+		// context. Some networks serve a page without VISITOR_DATA (it carries
+		// EOM_VISITOR_DATA instead), where only the client context has the value.
+		const result: unknown = await win.webContents.executeJavaScript(`(function(){try{
+      const read = key => window.ytcfg?.get?.(key) ?? window.ytcfg?.data_?.[key];
+      for (const value of [read('VISITOR_DATA'), read('INNERTUBE_CONTEXT')?.client?.visitorData]) {
+        if (typeof value === 'string' && value) return value;
+      }
+      return '';
+    }catch(e){return '';}})()`)
 		return typeof result === 'string' ? result : ''
 	}
 

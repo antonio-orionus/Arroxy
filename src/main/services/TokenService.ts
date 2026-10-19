@@ -1,23 +1,18 @@
 import log from 'electron-log/main.js'
-import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
 
 const logger = log.scope('token')
 
-// Inline YT video-ID extractor — only call site that ever needed url.ts. The
-// PoT scrape only runs against YouTube URLs (gated by isYouTubeExtractor at
-// download-time), so this function only ever sees youtube.com / youtu.be hosts.
-function parseYouTubeVideoId(url: string): string | null {
-	try {
-		const parsed = new URL(url)
-		const host = parsed.hostname.toLowerCase()
-		if (host === 'youtu.be') return parsed.pathname.slice(1).split('?')[0] || null
-		if (host.endsWith('youtube.com')) return parsed.searchParams.get('v')
-		return null
-	} catch {
-		return null
-	}
+const NO_VISITOR_DATA = 'YouTube page has no visitor data'
+
+// A logged-out GVS token is bound to visitor data, and yt-dlp drops one that
+// arrives without it ("Missing required Visitor Data") unless YouTube's
+// bind-to-video-ID experiment happens to be on for that client. A token bound
+// to anything else is not worth sending, so an empty read mints nothing. This
+// is also the canary for the page moving its visitor data again.
+function warnNoVisitorData(): void {
+	logger.warn(`PoT scrape: ${NO_VISITOR_DATA} — not minting a token`)
 }
 
 const TTL_MS = 5 * 60 * 60 * 1_000 // 5 hours — within ~6 h token lifetime
@@ -98,7 +93,10 @@ export class TokenService {
 		try {
 			await untilAborted(this.provider.ensureReady(), signal)
 			const visitorData = await untilAborted(this.provider.getVisitorData(), signal)
-			if (!visitorData) return {ready: false, reason: 'no-visitor-data'}
+			if (!visitorData) {
+				warnNoVisitorData()
+				return {ready: false, reason: 'no-visitor-data'}
+			}
 			const token = await untilAborted(this.provider.mintToken(visitorData), signal)
 			this.cache = {token, visitorData, mintedAt: Date.now()}
 			logger.info('PO token pre-warmed')
@@ -156,16 +154,20 @@ export class TokenService {
 		}
 	}
 
-	async mintTokenForUrl(url: string): Promise<{token: string; visitorData: string; fromCache: boolean}> {
+	async getToken(): Promise<{token: string; visitorData: string; fromCache: boolean}> {
 		if (this.cache && Date.now() - this.cache.mintedAt < TTL_MS) {
 			return {token: this.cache.token, visitorData: this.cache.visitorData, fromCache: true}
 		}
 		using _window = this.lease()
 		await this.provider.ensureReady()
 		const visitorData = await this.provider.getVisitorData()
-		const binding = nonEmpty(visitorData) ?? parseYouTubeVideoId(url) ?? url
-		logger.info('Minting PO token', {bindingLength: binding.length})
-		const token = await this.provider.mintToken(binding)
+		if (!visitorData) {
+			warnNoVisitorData()
+			// The caller's no-token fallback takes over from here.
+			throw new Error(NO_VISITOR_DATA)
+		}
+		logger.info('Minting PO token', {visitorDataLength: visitorData.length})
+		const token = await this.provider.mintToken(visitorData)
 		this.cache = {token, visitorData, mintedAt: Date.now()}
 		return {token, visitorData, fromCache: false}
 	}

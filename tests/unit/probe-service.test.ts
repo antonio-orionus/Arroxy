@@ -36,7 +36,7 @@ function makeFakeProcessEmitting(stdout: string, exitCode = 0): EventEmitter & {
 }
 
 function makeYtDlp(): YtDlp {
-	const tokenService = {mintTokenForUrl: vi.fn().mockResolvedValue({token: 't', visitorData: 'vd'}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 't', visitorData: 'vd'}), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {}, playlist: {}})}
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore)

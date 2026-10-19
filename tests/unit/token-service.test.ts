@@ -1,9 +1,16 @@
-import {describe, expect, it, vi} from 'vite-plus/test'
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import log from 'electron-log/main.js'
 import {TokenService} from '@main/services/TokenService.js'
 
 function makeProvider(overrides: Partial<{ensureReady: () => Promise<void>; getVisitorData: () => Promise<string>; mintToken: (binding: string) => Promise<string>; acquireWindow: () => void; releaseWindow: () => void; dispose: () => void}> = {}) {
 	return {ensureReady: vi.fn().mockResolvedValue(undefined), getVisitorData: vi.fn().mockResolvedValue('visitor-abc'), mintToken: vi.fn().mockResolvedValue('token-xyz'), acquireWindow: vi.fn(), releaseWindow: vi.fn(), dispose: vi.fn(), ...overrides}
 }
+
+const NO_VISITOR_DATA_WARNING = 'PoT scrape: YouTube page has no visitor data — not minting a token'
+
+beforeEach(() => {
+	vi.clearAllMocks()
+})
 
 describe('TokenService.warmUp', () => {
 	it('pre-mints token when visitorData is available and populates cache', async () => {
@@ -16,25 +23,21 @@ describe('TokenService.warmUp', () => {
 		expect(provider.getVisitorData).toHaveBeenCalledOnce()
 		expect(provider.mintToken).toHaveBeenCalledWith('visitor-abc')
 
-		// Cache should be populated — subsequent mintTokenForUrl does NOT call provider again
-		const result = await service.mintTokenForUrl('https://youtube.com/watch?v=test')
+		// Cache should be populated — subsequent getToken does NOT call provider again
+		const result = await service.getToken()
 		expect(result).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
 		// mintToken was called once (by warmUp) and not again (cache hit)
 		expect(provider.mintToken).toHaveBeenCalledOnce()
 	})
 
-	it('skips minting when visitorData is empty', async () => {
+	it('skips minting when visitorData is empty, and says so', async () => {
 		const provider = makeProvider({getVisitorData: vi.fn().mockResolvedValue('')})
 		const service = new TokenService(provider)
 
 		await service.warmUp()
 
 		expect(provider.mintToken).not.toHaveBeenCalled()
-
-		// Cache is empty — mintTokenForUrl calls provider
-		const result = await service.mintTokenForUrl('https://youtube.com/watch?v=abc')
-		expect(provider.mintToken).toHaveBeenCalledOnce()
-		expect(result.token).toBe('token-xyz')
+		expect(log.warn).toHaveBeenCalledWith(NO_VISITOR_DATA_WARNING)
 	})
 
 	it('reports ready=false with reason when provider throws (non-fatal)', async () => {
@@ -86,7 +89,7 @@ describe('TokenService.lastWarmUp', () => {
 	})
 })
 
-describe('TokenService.mintTokenForUrl', () => {
+describe('TokenService.getToken', () => {
 	it('returns cached token without calling provider', async () => {
 		const provider = makeProvider()
 		const service = new TokenService(provider)
@@ -94,7 +97,7 @@ describe('TokenService.mintTokenForUrl', () => {
 		// Inject cache directly
 		;(service as unknown as {cache: unknown}).cache = {token: 'cached-token', visitorData: 'cached-visitor', mintedAt: Date.now()}
 
-		const result = await service.mintTokenForUrl('https://youtube.com/watch?v=x')
+		const result = await service.getToken()
 		expect(result).toEqual({token: 'cached-token', visitorData: 'cached-visitor', fromCache: true})
 		expect(provider.mintToken).not.toHaveBeenCalled()
 		expect(provider.ensureReady).not.toHaveBeenCalled()
@@ -107,16 +110,33 @@ describe('TokenService.mintTokenForUrl', () => {
 		// Inject expired cache (7 hours old)
 		;(service as unknown as {cache: unknown}).cache = {token: 'stale-token', visitorData: 'stale-visitor', mintedAt: Date.now() - 7 * 60 * 60 * 1_000}
 
-		const result = await service.mintTokenForUrl('https://youtube.com/watch?v=x')
+		const result = await service.getToken()
 		expect(provider.mintToken).toHaveBeenCalledOnce()
 		expect(result.token).toBe('token-xyz')
+	})
+
+	// A logged-out GVS token is bound to visitor data, and yt-dlp drops a token
+	// that comes without it ("Missing required Visitor Data") unless YouTube's
+	// bind-to-video-ID experiment is on for that client. The token used to be
+	// bound to the video ID instead, then cached and reused for every other video.
+	// No visitor data means no token: the caller runs its no-token fallback.
+	it('mints nothing and throws when the page has no visitor data', async () => {
+		const provider = makeProvider({getVisitorData: vi.fn().mockResolvedValue('')})
+		const service = new TokenService(provider)
+
+		await expect(service.getToken()).rejects.toThrow('YouTube page has no visitor data')
+
+		expect(provider.mintToken).not.toHaveBeenCalled()
+		expect(log.warn).toHaveBeenCalledWith(NO_VISITOR_DATA_WARNING)
+		expect(provider.releaseWindow).toHaveBeenCalledOnce()
+		expect((service as unknown as {cache: unknown}).cache).toBeNull()
 	})
 
 	it('populates cache on fresh mint', async () => {
 		const provider = makeProvider()
 		const service = new TokenService(provider)
 
-		await service.mintTokenForUrl('https://youtube.com/watch?v=x')
+		await service.getToken()
 
 		const cache = (service as unknown as {cache: {token: string; visitorData: string} | null}).cache
 		expect(cache).not.toBeNull()
@@ -126,7 +146,7 @@ describe('TokenService.mintTokenForUrl', () => {
 })
 
 describe('TokenService.invalidateCache', () => {
-	it('forces re-mint on next mintTokenForUrl call', async () => {
+	it('forces re-mint on next getToken call', async () => {
 		const provider = makeProvider()
 		const service = new TokenService(provider)
 
@@ -135,7 +155,7 @@ describe('TokenService.invalidateCache', () => {
 
 		service.invalidateCache()
 
-		await service.mintTokenForUrl('https://youtube.com/watch?v=x')
+		await service.getToken()
 		expect(provider.mintToken).toHaveBeenCalledTimes(2)
 	})
 })
@@ -224,7 +244,7 @@ describe('TokenService window leases', () => {
 		const service = new TokenService(provider)
 
 		const warm = service.warmUp()
-		const onDemand = service.mintTokenForUrl('https://youtube.com/watch?v=held')
+		const onDemand = service.getToken()
 		await warm
 
 		// Two leases were taken and only one given back, so the provider still has
@@ -244,7 +264,7 @@ describe('TokenService window leases', () => {
 
 		await service.warmUp()
 		service.invalidateCache()
-		await service.mintTokenForUrl('https://youtube.com/watch?v=abc')
+		await service.getToken()
 
 		expect(provider.acquireWindow).toHaveBeenCalledTimes(2)
 		expect(provider.releaseWindow).toHaveBeenCalledTimes(2)
@@ -259,7 +279,7 @@ describe('TokenService window leases', () => {
 		vi.mocked(provider.acquireWindow).mockClear()
 		vi.mocked(provider.releaseWindow).mockClear()
 
-		await service.mintTokenForUrl('https://youtube.com/watch?v=cached')
+		await service.getToken()
 
 		expect(provider.acquireWindow).not.toHaveBeenCalled()
 		expect(provider.releaseWindow).not.toHaveBeenCalled()
@@ -269,7 +289,7 @@ describe('TokenService window leases', () => {
 		const provider = makeProvider({mintToken: vi.fn().mockRejectedValue(new Error('mint blew up'))})
 		const service = new TokenService(provider)
 
-		await expect(service.mintTokenForUrl('https://youtube.com/watch?v=boom')).rejects.toThrow('mint blew up')
+		await expect(service.getToken()).rejects.toThrow('mint blew up')
 		expect(provider.acquireWindow).toHaveBeenCalledOnce()
 		expect(provider.releaseWindow).toHaveBeenCalledOnce()
 	})
@@ -291,7 +311,7 @@ describe('TokenService.resetSession', () => {
 		const reset = await service.resetSession()
 
 		expect(reset).toBe(true)
-		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-second', visitorData: 'visitor-second', fromCache: true})
+		expect(await service.getToken()).toEqual({token: 'token-second', visitorData: 'visitor-second', fromCache: true})
 	})
 
 	// The hidden window awaits `did-finish-load` with no timer of its own, so a
@@ -313,7 +333,7 @@ describe('TokenService.resetSession', () => {
 		const reset = await service.resetSession(60_000, controller.signal)
 
 		expect(reset).toBe(false)
-		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
+		expect(await service.getToken()).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
 	})
 
 	// Downloads run concurrently, so the empty window a reset opens is one any
@@ -329,14 +349,14 @@ describe('TokenService.resetSession', () => {
 		getVisitorData.mockImplementation(async () => {
 			getVisitorData.mockResolvedValue('visitor-concurrent')
 			mintToken.mockResolvedValue('token-concurrent')
-			await service.mintTokenForUrl('https://youtube.com/watch?v=other')
+			await service.getToken()
 			return new Promise<string>(() => undefined)
 		})
 
 		const reset = await service.resetSession(20)
 
 		expect(reset).toBe(false)
-		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-concurrent', visitorData: 'visitor-concurrent', fromCache: true})
+		expect(await service.getToken()).toEqual({token: 'token-concurrent', visitorData: 'visitor-concurrent', fromCache: true})
 	})
 
 	it('keeps the previous identity and gives up when minting outlives its budget', async () => {
@@ -349,6 +369,6 @@ describe('TokenService.resetSession', () => {
 		const reset = await service.resetSession(20)
 
 		expect(reset).toBe(false)
-		expect(await service.mintTokenForUrl('https://youtube.com/watch?v=t')).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
+		expect(await service.getToken()).toEqual({token: 'token-xyz', visitorData: 'visitor-abc', fromCache: true})
 	})
 })
