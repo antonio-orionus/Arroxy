@@ -43,3 +43,4 @@ Current install steps: [Superpowers README](https://github.com/obra/superpowers#
 - **A third-party skill:** install through the Skills CLI so `skills-lock.json` records it.
 - **Another tool:** check where it reads skills and MCP config, then extend `scripts/agents-sync.ts` and the table above.
 - **A plugin workflow the repo relies on:** write the rule into `AGENTS.md` or a project skill instead of naming the plugin.
+
