@@ -104,6 +104,8 @@ Persistent memory for this repo lives at `./.agents/memory/`, not in any user-sc
 
 Rarely-needed deep-dive references that bloat this file (e.g. the YouTube bot-protection research map) live as memory entries instead of inline sections here. Pull them in via memory when the symptom matches.
 
+**Private maintainer docs.** Unbuilt plans, research records and personal notes live in the private `arroxy-internal` repo, reached through a gitignored `.internal` link that `bun run bootstrap` (or `bun run internal:sync`) creates when you have access; every checkout and worktree shares one clone. If `.internal/` exists, read `.internal/README.md` alongside `MEMORY.md`. After editing anything there, run `bun run internal:save` — it is a separate repo, so those edits never ride along in a branch or PR. Tracked files never link into `.internal/`; give a one-line summary instead.
+
 ## Agent skills — light repo, recoverable installs
 
 Keep installable third-party skills out of Git. Their source directories under `./.agents/skills/` are local restored state, and their recovery metadata lives in the tracked `skills-lock.json`. After a fresh clone or accidental local checkout deletion, run:

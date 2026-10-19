@@ -171,11 +171,14 @@ resolve it, and the bundled fallback of every older app version points at it.
 Every client fetches its binary manifest from
 `releases/latest/download/runtime-index-v*.json` in the same repository. An
 FFmpeg release marked _latest_ makes that URL 404 for every user until the next
-daily manifest run. So FFmpeg releases are never latest:
+daily manifest run. So FFmpeg releases are never latest: create them with
+`--prerelease` as well as `--latest=false`, since GitHub never makes a
+pre-release latest.
 
 ```bash
 gh release create <tag> dist/ffmpeg-packages/*.tar.br <source and license assets> \
   --repo antonio-orionus/arroxy-runtime-binaries \
+  --prerelease \
   --latest=false \
   --title "FFmpeg packages <tag>" \
   --notes-file <notes listing upstream builds, versions and source assets>
@@ -195,9 +198,10 @@ bun scripts/build/ffmpegPackage.ts install --all --cache-root "$(mktemp -d)"
 ## The manifest publishing workflow (other repository)
 
 `arroxy-runtime-binaries/.github/workflows/publish-runtime-manifest.yml` checks
-out Arroxy and runs the generator, daily and on demand. It signs, validates and
-uploads v2 whenever the generator writes one (antonio-orionus/arroxy-runtime-binaries#2).
-Its schedule and inputs are in
+out Arroxy and runs the generator, daily and on demand. v1 and v2 are both
+required: a run that does not produce both fails before uploading anything.
+After publishing, it checks that the latest release is the `runtime-*` release
+it just published. Its schedule and inputs are in
 [`runtime-binaries.md`](runtime-binaries.md#releases-and-schedules).
 
 Without a v2 manifest, current app builds fall back to the pins they bundle.

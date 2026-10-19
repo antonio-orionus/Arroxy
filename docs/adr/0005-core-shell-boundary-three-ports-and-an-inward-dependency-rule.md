@@ -38,7 +38,7 @@ a component, rather than as the unwinding of a wrong abstraction.
 
 A port with one implementation is a defect here, not a placeholder. New ports are
 added when the second implementation arrives, and the cut candidates are recorded
-in [`dev-docs/dual-deploy-plan.md`](../../dev-docs/dual-deploy-plan.md) §5 with what each one would have cost, so the question
+in the maintainer's dual-deploy plan with what each one would have cost, so the question
 does not get relitigated from scratch.
 
 Two enforcement facts are counterintuitive enough to be worth stating, because

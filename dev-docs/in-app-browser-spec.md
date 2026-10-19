@@ -5,11 +5,10 @@ the product build (2026-10-15/16).
 Updated: 2026-10-17 (executed build plan removed; stale references fixed). Spike, freshness measurements and
 decisions D1–D6 date from 2026-10-13/16.
 
-Research and rationale: [`youtube-auth-research.md`](youtube-auth-research.md).
-**Read §2 and §6a before touching any of this.** The user-agent rule is
-counter-intuitive and trivially broken by a well-meaning edit. Where this spec
-and the research record disagree, this spec wins (the research keeps its
-history; superseded points are marked there).
+The research record behind it (failed approaches, competitor analysis, PO tokens) is maintainer-only.
+**Read [The rule that must not be broken](#the-rule-that-must-not-be-broken) before touching any of this.**
+The user-agent rule is counter-intuitive and trivially broken by a well-meaning edit. This spec is the
+source of truth for how Explore works.
 
 "Legacy" below is spec shorthand for what exists today — the Wizard (the **URL**
 tab) and the `off` / `file` / `browser` cookie modes. It is not a glossary term
@@ -215,7 +214,7 @@ interface SessionCookieJarPort {
 ```
 
 `ExploreSessionService` is the desktop adapter. This keeps the core/shell split
-in [`dual-deploy-plan.md`](dual-deploy-plan.md) intact and makes the jar lifecycle unit-testable with a
+([ADR 0005](../docs/adr/0005-core-shell-boundary-three-ports-and-an-inward-dependency-rule.md)) intact and makes the jar lifecycle unit-testable with a
 fake port.
 
 ### Main process — `ExploreSessionService`
@@ -362,7 +361,7 @@ as "cookies + `web.gvs` token → 0 formats". So:
 
   The research's "cookies + `web.gvs` token → 0 formats" came from the old `mweb` path and **does not reproduce** on current yt-dlp. These runs say nothing about the anonymous token's effect on a signed-in run (see the correction below); it would still pair two identities.
 
-  **Correction (2026-10-19):** the two "+ anonymous token" rows never reached yt-dlp with a token. The pipeline then sent the token in one `--extractor-args youtube:` block and the player clients in a later one, and yt-dlp keeps only the last block per extractor, so all three rows ran tokenless. They show that tokenless runs reach 2160p on this video, not what a token changes. Runs with cookies (any source) now get no anonymous token at all; see [download-recovery-plan.md](download-recovery-plan.md).
+  **Correction (2026-10-19):** the two "+ anonymous token" rows never reached yt-dlp with a token. The pipeline then sent the token in one `--extractor-args youtube:` block and the player clients in a later one, and yt-dlp keeps only the last block per extractor, so all three rows ran tokenless. They show that tokenless runs reach 2160p on this video, not what a token changes. Runs with cookies (any source) now get no anonymous token at all ([ADR 0010](../docs/adr/0010-one-recovery-policy-for-yt-dlp-runs.md)).
 - **Decided 2026-10-14 (reverses the earlier "build account-bound minting with escalation"):** escalated runs send **no PO token** in v1. It removes the identity mismatch, measured full quality, and drops the largest piece of the escalation work (minting inside the Explore partition, an identity-keyed `TokenService`). The pipeline's existing withheld-formats signal (`formatsWithheld`) is logged per escalated run; account-bound minting (`data_sync_id`) is added only if that signal shows up on escalated jobs. Not yet covered by the measurement: age-restricted / members-only videos, which need an age-verified account.
 - Signed-in runs currently use `web_embedded` / `tv_samsung` / `web` ([yt-dlp #17805](https://github.com/yt-dlp/yt-dlp/pull/17805)); `android_vr` does not support cookies. Do not hard-code client assumptions; they move with yt-dlp releases.
 - **`CHROME_UA` fix shipped separately, first (PR #263):** `HiddenWindowTokenProvider` used to declare `X11; Linux x86_64 … Chrome/130` regardless of host — the same class of lie as above, affecting every user's minting. The constant is gone from `src/`.

@@ -9,6 +9,7 @@ How to run Arroxy with any coding agent without the repo depending on one.
 | `.agents/skills/`, `skills-lock.json` | Project-owned skills (tracked) and third-party skills (restored) |
 | `.agents/mcp.json` | MCP servers, declared once |
 | `scripts/agents-sync.ts` | Generates the per-tool adapters below |
+| `scripts/internal-docs.ts` | Links `.internal` to the maintainer-only `arroxy-internal` clone (`internal:sync`, `internal:save`) |
 
 ## Layers
 

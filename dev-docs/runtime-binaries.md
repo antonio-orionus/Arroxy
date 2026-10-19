@@ -28,10 +28,12 @@ The daily manifest is generated from Arroxy `main`. Its yt-dlp entries follow yt
 
 The manifest workflow lives in the other repository (`.github/workflows/publish-runtime-manifest.yml`):
 
-- It signs and validates v2 only when the generator writes one, and expects exactly the files written: 2 or 4.
+- Arroxy's generator and validator run in a job with a read-only token and no secrets. Signing uses `openssl` in a job that never runs Arroxy code, and only the publish job can write. The workflow pins the public key from `RuntimeBinaryTrust.ts` and fails when the two differ, so a key rotation updates both.
+- Every release carries exactly v1 and v2, each with its `.sig`. A run missing either fails.
+- Before signing, every download URL must be on a known source (yt-dlp's GitHub releases, its SourceForge mirror, or the `ffmpeg-*` releases there). A new yt-dlp source needs that list updated too.
 - Validating v2 installs and runs the Linux FFmpeg package.
-- A manual run accepts `arroxy_ref` (default `main`), to generate from an Arroxy branch before it merges. Scheduled runs always use `main`.
-- Each run publishes a new release marked latest. A run that fails leaves the previous latest in place.
+- A manual run accepts `arroxy_ref` (default `main`). Any other ref creates a draft release only, for checking an Arroxy branch before it merges. Scheduled runs always use `main`.
+- Each run from `main` publishes a new release marked latest, then checks that `/releases/latest/download/` serves its files with valid signatures. A run that fails before publishing leaves the previous latest in place.
 
 ## Manifest versions
 
