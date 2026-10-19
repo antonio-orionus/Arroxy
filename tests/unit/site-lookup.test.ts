@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {requestSiteFor, siteById, siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
+import {classifyUrlIntent} from '@shared/urlIntent.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
 import type {ExploreCookie} from '@shared/sites/types.js'
 
@@ -71,5 +72,19 @@ describe('requestSiteFor', () => {
 		expect(requestSiteFor('https://www.vimeo.com/12345')).toBe('vimeo.com')
 		expect(requestSiteFor('https://player.vimeo.com/video/1')).toBe('player.vimeo.com')
 		expect(requestSiteFor('not a url')).toBe('unknown')
+	})
+})
+
+// URL intent and site lookup must agree on what a YouTube host is: a nocookie
+// embed classified as a YouTube single but resolved to the generic site would
+// lose PoT, SponsorBlock and the YouTube rate-limit bucket.
+describe('siteForUrl host coverage', () => {
+	it.each(['https://www.youtube.com/watch?v=k1qBgIw8fAQ', 'https://music.youtube.com/watch?v=k1qBgIw8fAQ', 'https://youtu.be/k1qBgIw8fAQ', 'https://www.youtube-nocookie.com/embed/k1qBgIw8fAQ', 'https://youtube-nocookie.com/embed/k1qBgIw8fAQ'])('resolves %s to the YouTube site, as urlIntent does', url => {
+		expect(siteForUrl(url).id).toBe('youtube')
+		expect(classifyUrlIntent(url)).toMatchObject({site: 'youtube'})
+	})
+
+	it.each(['https://notyoutube.com/watch?v=x', 'https://youtube.com.evil.example/watch?v=x', 'https://vimeo.com/12345?ref=youtube.com'])('keeps %s generic', url => {
+		expect(siteForUrl(url).id).toBe('generic')
 	})
 })
