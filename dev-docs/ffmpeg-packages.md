@@ -123,7 +123,12 @@ fork tests FFmpeg, so the pins are the only gate.
   as that release is out.
 - **Every pin change passes the FFmpeg remux matrix on every platform before
   it merges.** The matrix runs Arroxy's real merge, cut and embed commands
-  against each new build.
+  against each new build. Its `FFmpeg remux gate` check runs on every PR: it
+  passes at once when no file the matrix runs changed (the pins, the package
+  installer and its download path, the ffmpeg spawn environment, Arroxy's
+  ffmpeg arguments), and otherwise waits for and reports the matrix. The
+  matrix also runs weekly, re-checking every published pin URL and the
+  known-bad control.
 
 ## Approving a new FFmpeg build
 

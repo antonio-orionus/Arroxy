@@ -18,8 +18,9 @@ const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
 // Pin a month-end autobuild: BtbN keeps those and prunes the dailies within
 // weeks, and fetch-embedded.sh downloads the pinned tag on every fresh checkout.
 // To bump, follow dev-docs/ffmpeg-packages.md ("Approving a new FFmpeg build"):
-// bump only for a new point release or a known bug, and run
-// scripts/test-binaries/ffmpeg-merge-smoke.sh against every new build.
+// bump only for a new point release or a known bug, and pass the FFmpeg remux
+// matrix (scripts/ffmpeg-matrix/run.ts, run on every platform by
+// .github/workflows/ffmpeg-remux-matrix.yml) against every new build.
 // Set BTBN_RELEASE_TAG to override — a tag name, 'latest' for BtbN's floating
 // release, or 'floating' to resolve the newest complete release.
 export const BTBN_RELEASE_BRANCH = '9.0'

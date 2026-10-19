@@ -18,30 +18,21 @@ name: FFmpeg Remux Matrix
 # committed fixtures; see dev-docs/ffmpeg-packages.md. Not part of
 # `bun run check`, which runs without real FFmpeg builds.
 
+# Every PR and push runs the `changes` job, and every run ends in `gate`, the
+# check branch protection requires. The matrix jobs run only when a path in the
+# filter below changed, so an unrelated PR passes the gate in seconds instead of
+# waiting on a check that never starts. The weekly schedule re-checks every
+# published pin URL and the known-bad control when nothing changed.
 on:
   pull_request:
-    paths:
-      - src/main/services/binary/FfmpegPackagePins.ts
-      - src/main/services/subtitleEmbedArgs.ts
-      - scripts/build/btbnResolver.ts
-      - scripts/build/fetch-embedded.sh
-      - scripts/ffmpeg-matrix/**
-      - tests/fixtures/ffmpeg-remux/**
-      - .github/workflows/ffmpeg-remux-matrix.yml
   push:
     branches: [main]
-    paths:
-      - src/main/services/binary/FfmpegPackagePins.ts
-      - src/main/services/subtitleEmbedArgs.ts
-      - scripts/build/btbnResolver.ts
-      - scripts/build/fetch-embedded.sh
-      - scripts/ffmpeg-matrix/**
-      - tests/fixtures/ffmpeg-remux/**
-      - .github/workflows/ffmpeg-remux-matrix.yml
+  schedule:
+    - cron: '23 4 * * 1'
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -52,9 +43,52 @@ permissions:
   contents: read
 
 jobs:
+  # The filter lists every file the matrix runs, through its own imports: what
+  # users install (the pins, the package installer and its download path) and
+  # how ffmpeg runs (the spawn environment and Arroxy's own ffmpeg arguments).
+  # tests/scripts/ffmpeg-remux-matrix-workflow.test.ts fails when a new import
+  # of the matrix falls outside it.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || steps.filter.outputs.matrix == 'true' }}
+    steps:
+      # Pull requests read the changed files from the API; pushes diff with git.
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - id: filter
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          filters: |
+            matrix:
+              - .github/workflows/ffmpeg-remux-matrix.yml
+              - scripts/build/btbnResolver.ts
+              - scripts/build/fetch-embedded.sh
+              - scripts/build/ffmpegPackage.ts
+              - scripts/ffmpeg-matrix/**
+              - src/main/services/binary/ArtifactInstall.ts
+              - src/main/services/binary/BinaryDownloader.ts
+              - src/main/services/binary/BinaryProbe.ts
+              - src/main/services/binary/FfmpegPackageMaterializer.ts
+              - src/main/services/binary/FfmpegPackagePins.ts
+              - src/main/services/subtitleEmbedArgs.ts
+              - src/main/utils/process.ts
+              - src/shared/runtimeBinaryManifest.ts
+              - src/shared/runtimeBinarySchemas.ts
+              - tests/fixtures/ffmpeg-remux/**
+
   # One job per pin, so a pin added without a runner fails here instead of
   # going untested.
   targets:
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.targets.outputs.matrix }}
@@ -135,6 +169,8 @@ jobs:
   # the outputs are probed with the pinned package's ffprobe.
   known-bad-control:
     name: known-bad control (darwin-arm64 N-125070)
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
     runs-on: macos-latest
     timeout-minutes: 20
     defaults:
@@ -191,3 +227,25 @@ jobs:
             fi
           done
           echo "The matrix still catches the N-125070 crash."
+
+  # The required check. It always runs and passes only when the filter ran and,
+  # if the matrix had to run, every matrix job passed. A skipped matrix after a
+  # failed `changes` or `targets` job fails it.
+  gate:
+    name: FFmpeg remux gate
+    needs: [changes, targets, matrix, known-bad-control]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          NEEDS: ${{ toJSON(needs) }}
+          RUN: ${{ needs.changes.outputs.run }}
+        run: |
+          echo "$NEEDS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+          if [[ "$RUN" == 'true' ]]; then
+            echo "$NEEDS" | jq -e 'all(.[]; .result == "success")' > /dev/null || { echo '::error::the FFmpeg remux matrix did not pass'; exit 1; }
+            echo 'The remux matrix passed.'
+          else
+            echo "$NEEDS" | jq -e '.changes.result == "success"' > /dev/null || { echo '::error::the path filter did not run'; exit 1; }
+            echo 'No matrix-relevant path changed; the matrix was skipped.'
+          fi
