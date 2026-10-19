@@ -173,11 +173,18 @@ describe('a row that already failed signed in', () => {
 		expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed')
 	})
 
-	it.each(['explore', 'off'] as const)('says the same under a download that failed signed in under the %s mode', mode => {
-		seed([makeItem({id: 'download-failed', status: 'error', url: INSTAGRAM, error: REFUSED, auth: 'exploreSession'})], {cookiesMode: mode, exploreNoticeSeen: true}, true)
+	it.each(['explore', 'off'] as const)('says the same under a download that still needed the account signed in under the %s mode', mode => {
+		const ageRestricted: LocalizedError = {kind: 'ageRestricted', raw: 'ERROR: [instagram:story] 1: This content is age-restricted'}
+		seed([makeItem({id: 'download-failed', status: 'error', url: INSTAGRAM, error: ageRestricted, auth: 'exploreSession'})], {cookiesMode: mode, exploreNoticeSeen: true}, true)
 		const panel = attention('download-failed')
 		expect(within(panel).getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-refused')
 		expect(within(panel).queryByRole('button', {name: /sign in/i})).toBeNull()
+	})
+
+	// The download's job stays escalated: a later failure nothing names says nothing about the sign-in.
+	it('gives a download that failed signed in with an unnamed error no sign-in guidance', () => {
+		seed([makeItem({id: 'download-failed', status: 'error', url: INSTAGRAM, error: REFUSED, auth: 'exploreSession'})], {cookiesMode: 'explore', exploreNoticeSeen: true}, true)
+		expect(screen.queryByTestId('queue-attention-download-failed')).not.toBeInTheDocument()
 	})
 })
 
