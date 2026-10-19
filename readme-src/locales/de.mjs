@@ -96,7 +96,7 @@ export const de = {
   discord_badge_text: "Discord-Community beitreten",
   discord_badge_encoded: "Discord%2DCommunity%20beitreten",
   hero_desc:
-    "Lade Videos, Shorts, Musik, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 4K HDR mit 60 fps, als MP3 / AAC / Opus oder nur den Teil, den du brauchst. **Durchstöbere YouTube direkt in Arroxy** im Explore-Tab und lade das Video, die Playlist oder den Kanal herunter, den du gerade ansiehst; melde dich dort an, um private, Mitglieder- und altersbeschränkte Videos zu laden, die dein Konto ansehen darf. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**",
+    "Lade Videos, Shorts, Musik, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 8K HDR mit 60 fps, als MP3 / AAC / Opus oder nur den Teil, den du brauchst. **Durchstöbere YouTube direkt in Arroxy** im Explore-Tab und lade das Video, die Playlist oder den Kanal herunter, den du gerade ansiehst; melde dich dort an, um private, Mitglieder- und altersbeschränkte Videos zu laden, die dein Konto ansehen darf. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**",
   cta_latest: "↓ Neueste Version herunterladen",
   cta_website: "Webseite",
   star_cta: "Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.",
@@ -147,13 +147,17 @@ export const de = {
   feat_explore_4: "**Nutze ein Zweitkonto** — der erste Bildschirm von Explore erklärt, warum: Das Herunterladen mit einem Konto birgt ein gewisses Risiko, dass dieses Konto eingeschränkt wird. Melde dich in den Einstellungen von Explore ab, wann immer du die Anmeldung vergessen lassen willst",
   feat_explore_5: "**Werbeblocker** — Explore blockiert Werbung und Tracker auf seinen eigenen Seiten; Downloads bleiben unberührt. Standardmäßig an, ein Klick auf das Schild in der Explore-Symbolleiste schaltet ihn aus, und auf Googles Anmeldeseiten greift er nie ein. YouTube kann bei angemeldeten Konten gegen Werbeblocker vorgehen",
   feat_quality_h3: "Qualität & Formate",
-  feat_quality_1: "Bis zu **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
+  feat_quality_1: "Bis zu **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
-    "**Hohe Bildrate** unverändert erhalten — 60 fps, 120 fps, HDR",
+    "**Hohe Bildrate und HDR** unverändert erhalten — 60 fps, HDR10",
   feat_quality_3:
     "**Audio** — Audio-only als MP3, M4A/AAC, Opus oder WAV exportieren. In interaktiven Downloads die nativen Surround-/Dolby-Spuren der Quelle (AC-3, E-AC-3, 5.1, DRC) auswählen, sofern verfügbar, oder einen globalen Standard **Surround / Dolby bevorzugen** setzen",
   feat_quality_4:
     "**Profile mit Ziel** — *Bestes Bild* (AV1 · VP9) oder *Smart-TV* (MP4 · H.264), gespeichert als Auto, MP4, MKV oder WebM ohne Neukodierung. HDR ist *Auto* (nur wenn dein Bildschirm es anzeigen kann), *SDR* oder *HDR*",
+  feat_quality_5:
+    "**Jeder Codec in jeder Auflösung** — der Schritt-für-Schritt-Download listet AV1, VP9 und H.264 in jeder Auflösung nebeneinander auf, damit du den wählen kannst, den dein Fernseher oder dein Schnittprogramm abspielt",
+  feat_quality_6:
+    "**Erkenne, was ein Stream wirklich ist** — Auflösungen, die YouTube per KI hochskaliert hat, KI-synchronisierte Audiosprachen, Streams mit erhöhter Bitrate, 360°-Videos sowie beschädigte Kopien oder Kopien mit Wasserzeichen werden markiert. Profile überspringen KI-hochskalierte Streams, außer du erlaubst sie",
   feat_privacy_h3: "Datenschutz & Kontrolle",
   feat_privacy_1:
     "100 % lokale Verarbeitung — Downloads gehen direkt von YouTube auf deine Festplatte",
@@ -165,7 +169,7 @@ export const de = {
   feat_workflow_2:
     "**Zentrale Download-Warteschlange** — jeder Einzel-, Playlist-, Bulk- oder Quick-Job landet an einem Ort für Fortschritt, Pausieren, Fortsetzen, Abbrechen, Wiederholen und Priorität",
   feat_workflow_3:
-    "**Zwischenablage-Überwachung** — kopiere einen YouTube-Link und Arroxy füllt die URL automatisch aus, wenn du die App wieder fokussierst (in den erweiterten Einstellungen umschaltbar)",
+    "**Zwischenablage-Überwachung** — kopiere einen Videolink, und er landet im URL-Feld, sobald du zu Arroxy zurückkehrst, mit **Rückgängig**, falls das nicht gewollt war. Ist Arroxy gerade beschäftigt, wartet der Link, bis du wieder im Tab „URL“ bist (in den Einstellungen abschaltbar)",
   feat_workflow_4:
     "**URLs automatisch bereinigen** — entfernt Tracking-Parameter (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) und löst `youtube.com/redirect`-Links auf",
   feat_workflow_5:
@@ -194,6 +198,8 @@ export const de = {
     "**Aurora oder Minimal, dunkel oder hell** — Glasflächen über einem bewegten Himmel oder ruhige, einfarbige Flächen; wechsle in der Fußzeile. Computer ohne Grafikbeschleunigung bekommen automatisch Minimal",
   feat_workflow_19:
     "**Mac-Menüleiste** — öffne unter macOS die Einstellungen (`Cmd+,`), lege das Download-Geschwindigkeitslimit fest, wechsle Stil und Farbschema und öffne Protokolle oder speichere eine Diagnosedatei direkt in der Menüleiste",
+  feat_workflow_20:
+    "**Profil aus jedem Download heraus ändern** — passe einen Download an und aktualisiere dann das Profil, mit dem er begonnen hat (mit einer Vorschau der Änderungen), oder speichere die Einstellungen als neues Profil. Beim Wechsel des Profils fragt Arroxy, ob deine Änderungen erhalten bleiben sollen",
   feat_post_h3: "Untertitel & Nachbearbeitung",
   feat_post_1:
     "**Untertitel** in SRT, VTT oder ASS — manuell oder automatisch generiert, in jeder verfügbaren Sprache",
@@ -209,7 +215,7 @@ export const de = {
   feat_sites_1:
     "**YouTube, vollständig** — Videos, Shorts, Kanäle, Playlists, YouTube Music und Podcasts werden als erstklassige Quellen behandelt",
   feat_sites_2:
-    "**2000+ weitere Seiten** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org und viele mehr",
+    "**2000+ weitere Seiten** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable und viele mehr",
   feat_sites_3:
     "**Nur Audio und Untertitel** funktionieren auf jeder unterstützten Seite, nicht nur auf YouTube",
   feat_sites_4:
@@ -374,7 +380,7 @@ export const de = {
     "Die meisten kostenlosen yt-dlp-GUIs sind Wrapper, die nur einen Link annehmen. Arroxy bringt zusätzlich **Explore** mit, einen in die App integrierten YouTube-Browser: Du stöberst und lädst herunter, ohne Links zu kopieren, und meldest dich dort einmal an, um private, Mitglieder- und altersbeschränkte Videos sowie deine Listen „Später ansehen“ und „Gefällt mir“ herunterzuladen – ganz ohne Cookie-Export. Arroxy nutzt diese Anmeldung, wenn YouTube dich bittet zu bestätigen, dass du kein Bot bist, und der integrierte Browser holt das Download-Token von YouTube, damit Downloads nicht auf weniger Formate zurückfallen. Siehe [Warum Arroxy](#why).",
   faq_q2: "Welche Videoqualitäten kann ich herunterladen?",
   faq_a2:
-    "Alles, was YouTube anbietet: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus nur Audio. Hochbildraten-Streams mit 60 fps und 120 fps sowie HDR-Inhalte werden unverändert übernommen.",
+    "Alles, was YouTube anbietet: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus nur Audio. Streams mit 60 fps und HDR werden unverändert übernommen, und im Schritt-für-Schritt-Download wählst du in jeder Auflösung zwischen AV1, VP9 und H.264.",
   faq_q3: "Kann ich nur den Audio-Track als MP3 extrahieren?",
   faq_a3:
     "Ja. Wähle im Formatmenü *nur Audio* und dann MP3, M4A/AAC, Opus oder WAV.",

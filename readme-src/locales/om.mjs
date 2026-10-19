@@ -96,7 +96,7 @@ export const om = {
   discord_badge_text: "Hawaasa Discord itti makami",
   discord_badge_encoded: "Hawaasa%20Discord%20itti%20makami",
   hero_desc:
-    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 4K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
+    "Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**",
   cta_latest: "↓ Baasii Haaraa Buusi",
   cta_website: "Marsariitii",
   star_cta:
@@ -146,13 +146,17 @@ export const om = {
   feat_explore_4: "**Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensa irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi",
   feat_explore_5: "**Dhorkaa beeksisaa** — Explore fuula mataa isaa irratti beeksisaa fi hordoftoota ni dhorka; buufannaan hin tuqamu. Durtiidhaan banaa, Explore kaaba meeshaa irratti gaachana tuquun ni cufa, fuulota seensa Google irrattis gonkumaa hin hojjetu. YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a",
   feat_quality_h3: "Qulqullina & formatoota",
-  feat_quality_1: "Hanga **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
+  feat_quality_1: "Hanga **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
   feat_quality_2:
-    "**Frame rate ol'aanaa** akka jiru eegama — 60 fps, 120 fps, HDR",
+    "**Frame rate ol'aanaa fi HDR** akka jiranitti eegamu — 60 fps, HDR10",
   feat_quality_3:
     "**Sagalee** — sagalee qofa gara MP3, M4A/AAC, Opus yookaan WAV export godhi. Buufataalee wal-qunnamtii keessatti, yoo jiran, sirna sagalee surround/Dolby maddaa (AC-3, E-AC-3, 5.1, DRC) filadhu, yookaan durtii waliigalaa **Surround / Dolby filadhu** kaa'i",
   feat_quality_4:
     "**Piroofaayilii kaayyoo qabu** — *Suuraa isa caalu* (AV1 · VP9) ykn *TV smart* (MP4 · H.264), Ofumaa, MP4, MKV, ykn WebM ta'ee deebi'ee koodii gochuu malee olkaa'ama. HDR *Ofumaa* (ispiriin kee yoo agarsiisuu dandeessu qofa), *SDR*, ykn *HDR* dha",
+  feat_quality_5:
+    "**Koodekii hunda ifa bal'ina hunda irratti** — buufanni tarkaanfii tarkaanfiin AV1, VP9 fi H.264 ifa bal'ina tokkoon tokkoon irratti walbira tarreessa, kanaaf isa TV ykn gulaalaan kee taphachiisu filachuu dandeessa",
+  feat_quality_6:
+    "**Stream tokko dhugumaan maal akka ta'e beeki** — hammoota YouTube AI'n guddise, afaanota sagalee AI'n hiikaman, streams bitrate fooyya'e qaban, viidiyoowwan 360° fi garagalchawwan miidhaman ykn mallattoo bishaanii qaban ni mallattoo'u. Piroofaayiloonni yoo ati hin heyyamne malee streams AI'n guddifaman ni darbu",
   feat_privacy_h3: "Icciitii & to'annaa",
   feat_privacy_1:
     "100% naannoo keessatti hojeta — buufannoon kallattiin YouTube irraa disiki kee dhaqa",
@@ -165,7 +169,7 @@ export const om = {
   feat_workflow_2:
     "**Tarree buusuu giddugaleessaa** — hojii tokko, playlist, bulk, ykn quick hundi bakka tokkotti walitti dhufa: adeemsa, dhaabuu, itti fufsiisuu, haquu, irra deebi’uu, fi dursa to’achuuf",
   feat_workflow_3:
-    "**Eegaa clipboard** — link YouTube koppiisi Arroxy URL of-hordofaa guutu yeroo app deebi'itu (Advanced settings keessatti jijjiiri)",
+    "**Eegaa clipboard** — hidhaa viidiyoo koppii godhi, yeroo gara Arroxy deebitu bakka URL ni guuta, yoo itti hin yaadin ta'e **Deebisi** waliin. Yeroo Arroxy hojiin qabamu, hidhaan hanga ati gara tabii URL deebitutti eega (Qindaa'inoota keessatti cufi)",
   feat_workflow_4:
     "**URL of-qulqulleessa** — params hordoffii (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) haqa fi linkiiwwan `youtube.com/redirect` bana",
   feat_workflow_5:
@@ -194,6 +198,8 @@ export const om = {
     "**Aurora ykn Salphaa, dukkana ykn ifa** — paanaala galaasaa samii socho'u irra jiru, ykn gar-fuula cimaa callisaa; gadi-fuula irraa jijjiiri. Kompiitaroonni saffisiisaa giraafiksii hin qabne ofumaan Salphaa argatu",
   feat_workflow_19:
     "**Baarii menu Mac** — macOS irratti, baarii menu irraa Qindaa'inoota (`Cmd+,`) bani, daangaa saffisa buufannaa kaa'i, taatee fi tiimii jijjiiri, galmee bani ykn faayilii qorannoo olkaa'i",
+  feat_workflow_20:
+    "**Buufata kamirraayyuu piroofaayilii jijjiiri** — buufata tokko sirreessi, achiis piroofaayilii inni irraa jalqabe haaromsi (wanta jijjiiramu dursitee ilaaluun) ykn qindaa'inoota akka piroofaayilii haaraatti olkaa'i. Piroofaayilii yeroo jijjiirtu, sirreeffamoota kee eeguu barbaadduu akka ta'e si gaafata",
   feat_post_h3: "Subtitle & seensuu boodaa",
   feat_post_1:
     "**Subtitles** SRT, VTT, ykn ASS keessatti — harka ykn of-hojeetee, afaan kamiyyuu argamu keessatti",
@@ -209,7 +215,7 @@ export const om = {
   feat_sites_1:
     "**YouTube guutummaatti** — Viidiyoowwan, Shorts, Chaanaalota, Playlistoota, YouTube Music fi Podkaastota madda sadarkaa jalqabaa ta'aniin hojjetamu",
   feat_sites_2:
-    "**Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org fi kanneen biroo heddu",
+    "**Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable fi kanneen biroo heddu",
   feat_sites_3:
     "**Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti",
   feat_sites_4:
@@ -372,7 +378,7 @@ export const om = {
     "GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Explore** dabala, biraawzara YouTube app keessatti ijaarame: hidhaa utuu hin garagalchin ilaaltee buufatta, viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee buufachuuf achitti altokko seenta, kuukkii utuu hin baasin. Arroxy seensa kana yeroo YouTube bot akka hin taane akka mirkaneessitu si gaafatu fayyadama, biraawzarri isaa inni ijaarames tokenii buufannaa YouTube ni argata, kanaaf buufannaan gara formaata xiqqaatti hin deebi'u. [Maaliif Arroxy](#why) ilaali.",
   faq_q2: "Qulqullina viidiyoo maal buusuu danda'a?",
   faq_a2:
-    "YouTube tajaajiluu danda'u: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps, 120 fps, fi HDR streams akka jiru eegamu.",
+    "YouTube tajaajiluu danda'u: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, sagalee qofas. 60 fps fi HDR streams akka jiranitti eegamu, buufanni tarkaanfii tarkaanfiinis ifa bal'ina tokkoon tokkoon irratti AV1, VP9 ykn H.264 akka filattu si dandeessisa.",
   faq_q3: "Sagalee qofaa MP3 akka ta'uun baasuu danda'aa?",
   faq_a3:
     "Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yookaan WAV filadhu.",

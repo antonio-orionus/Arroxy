@@ -9,7 +9,7 @@
 
 [![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![라이선스](https://img.shields.io/badge/license-MIT-green) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 4K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. Explore 탭에서 **Arroxy 안에서 YouTube를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
+**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 8K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. Explore 탭에서 **Arroxy 안에서 YouTube를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
 
 [**↓ 최신 릴리스 설치**](#install) &nbsp;·&nbsp; [**웹사이트**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows 최초 실행](#windows-first-launch) · [macOS 최초 실행](#macos-first-launch) · [Linux 최초 실행](#linux-first-launch)
 
@@ -104,10 +104,12 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 <details>
 <summary><strong>🎞️ 화질 및 형식</strong></summary>
 
-- 최대 **4K UHD(2160p)**, 1440p, 1080p, 720p, 480p, 360p
-- **높은 프레임 속도**를 그대로 보존 — 60 fps, 120 fps, HDR
+- 최대 **8K(4320p)**, 4K UHD(2160p), 1440p, 1080p, 720p, 480p, 360p
+- **높은 프레임 속도와 HDR**을 그대로 보존 — 60 fps, HDR10
 - **오디오** — 오디오만 MP3, M4A/AAC, Opus 또는 WAV로 내보냅니다. 대화형 다운로드에서는 소스가 제공하는 네이티브 서라운드/Dolby 트랙(AC-3, E-AC-3, 5.1, DRC)을 선택하거나 전역 기본값으로 **서라운드 / Dolby 우선**을 설정할 수 있습니다
 - **목표별 프로필** — *최고 화질*(AV1 · VP9) 또는 *스마트 TV*(MP4 · H.264)를 자동, MP4, MKV, WebM으로 재인코딩 없이 저장합니다. HDR은 *자동*(화면이 표시할 수 있을 때만), *SDR*, *HDR* 중에서 고릅니다
+- **모든 해상도에서 모든 코덱** — 단계별 다운로드는 해상도마다 AV1, VP9, H.264를 나란히 보여 주므로 TV나 편집 프로그램에서 재생되는 것을 고를 수 있습니다
+- **스트림의 실체를 파악** — YouTube가 AI로 업스케일한 크기, AI 더빙 오디오 언어, 향상된 비트레이트 스트림, 360° 동영상, 손상되었거나 워터마크가 있는 사본이 표시됩니다. 프로필은 허용하지 않는 한 AI 업스케일 스트림을 건너뜁니다
 
 </details>
 
@@ -126,7 +128,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **전역 다운로드 단축키** — 어느 앱에서든 링크를 복사하고 `Ctrl+Shift+D`(macOS에서는 `Cmd+Shift+D`)를 누르면, 창을 열지 않고 활성 프로필로 대기열에 추가되며 알림으로 확인됩니다. 기본 활성화되며 키를 변경할 수 있습니다
 - **유연한 시작 모드** — 안내식 단일 다운로드, 재생목록/채널 선택기, URL 일괄 붙여넣기, 저장된 기본값을 사용하는 빠른 다운로드 또는 Explore에서 탐색하며 다운로드 중에서 선택
 - **중앙 다운로드 대기열** — 단일, 재생목록, 일괄, 빠른 작업을 한곳에서 진행률 확인, 일시 중지, 재개, 취소, 재시도 및 우선순위 조정
-- **클립보드 감시** — YouTube 링크를 복사하고 앱으로 돌아오면 Arroxy가 URL을 자동으로 입력합니다(고급 설정에서 전환)
+- **클립보드 감시** — 동영상 링크를 복사하면 Arroxy로 돌아왔을 때 URL 입력란이 채워지며, 원하지 않았다면 **실행 취소**할 수 있습니다. Arroxy가 작업 중이면 URL 탭으로 돌아올 때까지 링크가 기다립니다(설정에서 끌 수 있음)
 - **URL 자동 정리** — 추적 매개변수(`si`, `pp`, `utm_*`, `fbclid`, `gclid`)를 제거하고 `youtube.com/redirect` 링크를 해제
 - **트레이 모드** — 창을 닫아도 다운로드가 백그라운드에서 계속 실행
 - **31개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
@@ -142,6 +144,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **다운로드의 크기와 누락됨** — 정렬할 수 있는 **크기** 열에서 각 다운로드가 차지하는 공간을 확인하고, **누락됨**은 Arroxy 밖에서 이동되거나 삭제된 파일을 표시합니다
 - **오로라 또는 미니멀, 다크 또는 라이트** — 움직이는 하늘 위의 유리 패널 또는 차분한 단색 표면, 하단에서 전환합니다. 그래픽 가속이 없는 컴퓨터는 자동으로 미니멀이 적용됩니다
 - **Mac 메뉴 막대** — macOS에서는 메뉴 막대에서 설정(`Cmd+,`)을 열고, 다운로드 속도 제한을 지정하고, 스타일과 테마를 바꾸고, 로그를 열거나 진단 파일을 저장할 수 있습니다
+- **어느 다운로드에서든 프로필 변경** — 다운로드를 조정한 뒤 시작한 프로필을 업데이트하거나(변경 내용 미리 보기 제공) 설정을 새 프로필로 저장합니다. 프로필을 바꾸면 편집 내용을 유지할지 묻습니다
 
 </details>
 
@@ -160,7 +163,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 <summary><strong>🌐 YouTube + 2000개 사이트</strong></summary>
 
 - **완전한 YouTube 지원** — 동영상, Shorts, 채널, 재생목록, YouTube Music 및 팟캐스트를 최우선 소스로 처리
-- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org 등
+- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable 등
 - **오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동
 - 사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트
 
@@ -407,7 +410,7 @@ Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는
 <details>
 <summary><strong>어떤 동영상 화질을 다운로드할 수 있나요?</strong></summary>
 
-YouTube가 제공하는 모든 화질: 4K UHD(2160p), 1440p, 1080p, 720p, 480p, 360p 및 오디오 전용. 60 fps, 120 fps, HDR 스트림을 그대로 보존합니다.
+YouTube가 제공하는 모든 화질: 8K(4320p), 4K UHD(2160p), 1440p, 1080p, 720p, 480p, 360p 및 오디오 전용. 60 fps와 HDR 스트림을 그대로 보존하며, 단계별 다운로드에서는 해상도마다 AV1, VP9, H.264 중에서 고를 수 있습니다.
 
 </details>
 
