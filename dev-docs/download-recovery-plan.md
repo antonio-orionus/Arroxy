@@ -336,7 +336,7 @@ Each step ships on its own, behind `bun run check`, and keeps the app releasable
      - None of them on collection probes, Explore, cookie-file or browser runs.
      - `assertOneBlockPerExtractor` never fires across the whole E2E suite.
      - Redaction still hides values.
-     - Ship as **`-beta.N` first**: betas never auto-update installed copies, so the token behaviour change is opt-in until stable.
+     - Ship in a normal stable release; Arroxy does not cut betas. The comparison found the token changed no outcome, which is what made a beta gate unnecessary.
 
 3. **Evidence model and honest guidance (A2).**
    - Per-line observations and the terminal cause from the last error.
@@ -353,7 +353,7 @@ Each step ships on its own, behind `bun run check`, and keeps the app releasable
 
 4. **Policy core, then probes on it (A3–A5, probes only).**
    - Add `decideNext` with the table and the invariants, plus `SiteRequestState`, `OperationRunner` and `AttemptRecord`.
-   - Probes first. Run the new policy in **shadow mode** for one beta: the old path still executes, the new decision is computed and logged next to it as `recovery.shadow {old, new, reason}`, and a dev script summarises the differences from `main.log`.
+   - Probes first. Run the new policy in **shadow mode** for one release: the old path still executes, the new decision is computed and logged next to it as `recovery.shadow {old, new, reason}`, and a dev script summarises the differences from `main.log`.
    - Switch over only when every difference is on the intended list: no identical relaunches, no retry on 429, rate limits reported as rate limits, budget and deadline stops.
    - → verify:
      - fast-check invariants (≥ 1,000 runs, shrinking on).
@@ -364,7 +364,7 @@ Each step ships on its own, behind `bun run check`, and keeps the app releasable
    - Move `runWithInfoJsonFallback`, cookieless recovery, `settleWithExploreSession`, `SubtitleOnlyPhase` and the token reset into strategies.
    - Remove the ladder on info-json replays.
    - `QueueAutoRetry` reads the cooldown.
-   - Run shadow mode again for one beta.
+   - Run shadow mode again for one release.
    - → verify Fixture E2E:
      - Escalation with per-request identity evidence.
      - Restart after escalation.
@@ -405,7 +405,7 @@ A candidate that drops a parsed key fails validation, so the index is not publis
 
 The case against steps 4–5: once steps 1–3 land, the wasted launches from the defect disappear, 429s are labelled correctly, and guidance is honest. A policy engine is a large rewrite of code that mostly works.
 
-Measure after step 3, with the step 1 fixtures plus a week of beta logs. **Stop after step 3** if all of these hold:
+Measure after step 3, with the step 1 fixtures plus a week of field logs after a release. **Stop after step 3** if all of these hold:
 
 - (a) No operation exceeds the A4 budgets in Fixture E2E.
 - (b) No identical relaunches remain apart from timeout retries.
@@ -423,14 +423,14 @@ In that case, land only `SiteRequestState` (the cooldown, which the current code
 | Fixture E2E launch counts | Every scenario ≤ the A4 budget; 0 identical relaunches except timeout and transport after backoff | Any scenario over budget, or any identical relaunch |
 | 429 burst | 0 new matching launches during the cooldown; usable results kept | Any launch during the cooldown |
 | Bulk wall streak | ≤ N + 2 anonymous launches for N bot-walled rows | Anonymous launches grow as 3N |
-| Shadow-mode diff (beta) | Only differences on the intended list | Any unexplained difference |
+| Shadow-mode diff (one release) | Only differences on the intended list | Any unexplained difference |
 | Live comparison (about 20 videos) | The chosen default ≥ alternatives on requested-quality fit, with ≤ launches; stopped on the first 429 | Choosing a default the data contradicts |
 | Worst-case launches, before and after | Strictly lower for every row of the baseline table | Any row equal or higher |
 | Independent review (Codex) of this plan and ADR 0010 | No unresolved high-severity findings | Unaddressed high-severity finding |
 
 ## Risks
 
-- **Turning the token on is a behaviour change after months of tokenless production.** Mitigations: the comparison, beta-first, and the on-demand fallback in the decision rule.
+- **Turning the token on is a behaviour change after months of tokenless production.** Mitigations: the comparison (the token changed no outcome), and the on-demand fallback in the decision rule if field reports contradict it. There is no beta stage: Arroxy ships stable releases only.
 - **YouTube drift.** Mitigations: the evidence strings are pinned to source and scanned, and the contract runs against every index candidate.
 - **Explore account exposure in bulk.** The wall streak sends more work to the account. It stays paced (2 at a time, 5 s apart), capped per operation, and only under "When needed" eligibility. Any bulk run that would escalate more than 10 rows asks the user first.
 - **Cooldown frustration.** "Try now" overrides it once, and the reason is shown.
