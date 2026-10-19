@@ -12,7 +12,7 @@ const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
 // Only release builds, never master: a June master build segfaulted (SIGSEGV)
 // stream-copying HLS-fragmented VP9 into MP4. BTBN_RELEASE_BRANCH is the
 // FFmpeg release branch BtbN builds, kept on the same major/minor as the macOS
-// release build in fetch-embedded.sh. BtbN builds the branch head, so the
+// release build in embeddedPin.ts. BtbN builds the branch head, so the
 // version is a point release plus its backports (n9.0.2-17-g…), not the bare tag.
 //
 // Pin a month-end autobuild: BtbN keeps those and prunes the dailies within
@@ -95,7 +95,7 @@ function toString(value: unknown): string | undefined {
 	return typeof value === 'string' ? value : undefined
 }
 
-function nonBlank(value: string | undefined): string | undefined {
+export function nonBlank(value: string | undefined): string | undefined {
 	const trimmed = value?.trim()
 	if (!trimmed) return undefined
 	return trimmed

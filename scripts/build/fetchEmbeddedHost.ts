@@ -7,7 +7,7 @@ import {pipeline} from 'node:stream/promises'
 import {fileURLToPath} from 'node:url'
 import * as yauzl from 'yauzl'
 import {btbnTargetFor, isCliEntrypoint, resolveBtbnAsset} from './btbnResolver.js'
-import {checkEmbeddedPayload, hostEmbeddedTarget, type EmbeddedPlatform} from './embeddedPayload.js'
+import {checkEmbeddedPayload, hostEmbeddedTarget, writeEmbeddedPin, type EmbeddedPlatform} from './embeddedPayload.js'
 
 const NETWORK_FETCH_TIMEOUT_MS = 30_000
 
@@ -197,6 +197,7 @@ async function fetchWindowsHost(repo: string): Promise<void> {
 
 	await fs.rm(extractedDir, {recursive: true, force: true})
 	await fs.rm(asset.archivePath, {force: true})
+	await writeEmbeddedPin(target)
 	const after = await checkEmbeddedPayload(target)
 	if (!after.ok) throw new Error(after.message ?? `embedded payload is incomplete at ${target.dir}`)
 	console.log(`[done] embedded ffmpeg + ffprobe at ${target.dir}`)

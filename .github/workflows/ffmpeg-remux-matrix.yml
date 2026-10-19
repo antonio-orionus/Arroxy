@@ -70,6 +70,7 @@ jobs:
             matrix:
               - .github/workflows/ffmpeg-remux-matrix.yml
               - scripts/build/btbnResolver.ts
+              - scripts/build/embeddedPin.ts
               - scripts/build/fetch-embedded.sh
               - scripts/build/ffmpegPackage.ts
               - scripts/ffmpeg-matrix/**
