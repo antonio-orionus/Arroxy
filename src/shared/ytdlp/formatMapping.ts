@@ -62,9 +62,9 @@ function formatMarkers(format: YtDlpFormat, wide: VideoWideMarkers): FormatMarke
 	return [...markers, ...(format.language && wide.aiDubbedLanguages.has(format.language) ? (['ai-dubbed'] as const) : []), ...(wide.vr && isVideo ? (['vr'] as const) : [])]
 }
 
-function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference'> {
+function streamFlags(format: YtDlpFormat, wide: VideoWideMarkers): Pick<FormatOption, 'markers' | 'preference' | 'quality'> {
 	const markers = formatMarkers(format, wide)
-	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {})}
+	return {...(markers.length > 0 ? {markers} : {}), ...(typeof format.preference === 'number' ? {preference: format.preference} : {}), ...(typeof format.quality === 'number' ? {quality: format.quality} : {})}
 }
 
 export function mapFormats(formats: readonly YtDlpFormat[], durationSeconds?: number): FormatOption[] {

@@ -1,0 +1,33 @@
+{
+	"source": {
+		"id": "twitch-clip",
+		"url": "https://www.twitch.tv/twitch/clip/ObedientAssiduousNikudonCclamChamp-c8MYDuWjmyTjxxzb",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"id": "622991747",
+		"title": "🤬🤯🤯",
+		"thumbnail": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/649c0f9a-31f9-4335-9ad5-54a808ba9960/landscape/thumb/thumb-0000000000-1920x1080.jpg",
+		"duration": 30,
+		"webpage_url": "https://www.twitch.tv/twitch/clip/ObedientAssiduousNikudonCclamChamp-c8MYDuWjmyTjxxzb",
+		"extractor": "twitch:clips",
+		"extractor_key": "TwitchClips",
+		"uploader": "myravyx_hunter",
+		"channel": "Twitch",
+		"upload_date": "20261015",
+		"timestamp": 1792088901,
+		"formats": [
+			{"format_id":"portrait-360","ext":"mp4","resolution":"360p","height":360,"fps":30,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-480","ext":"mp4","resolution":"480p","height":480,"fps":30,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-720","ext":"mp4","resolution":"720p","height":720,"fps":60,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"portrait-1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"360","ext":"mp4","resolution":"360p","height":360,"fps":30,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"480","ext":"mp4","resolution":"480p","height":480,"fps":30,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"720","ext":"mp4","resolution":"720p","height":720,"fps":60,"dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1080","ext":"mp4","resolution":"1080p","height":1080,"fps":60,"dynamic_range":"SDR","protocol":"https"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

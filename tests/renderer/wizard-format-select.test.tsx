@@ -7,6 +7,7 @@ import type {AppSettings, DownloadProfile, FormatOption} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
 import {StepReview} from '@renderer/components/wizard/StepReview.js'
+import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false},
@@ -132,6 +133,18 @@ describe('wizard slice — Video, no audio', () => {
 
 		useAppStore.getState().setSelectedVideoFormatId('137')
 		expect(useAppStore.getState().audioSelection).toEqual({kind: 'none'})
+	})
+})
+
+describe('wizard slice — leaving a run', () => {
+	it('forgets the audio set aside for Video, no audio, so the next video cannot restore it', () => {
+		useAppStore.setState({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '249'}})
+		useAppStore.getState().setFormatMode('video-only')
+		expect(useAppStore.getState().wizardSilencedAudio).not.toBeNull()
+
+		useAppStore.setState(RESET_WIZARD_STATE)
+
+		expect(useAppStore.getState().wizardSilencedAudio).toBeNull()
 	})
 })
 

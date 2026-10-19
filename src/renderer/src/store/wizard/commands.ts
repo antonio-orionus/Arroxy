@@ -9,7 +9,7 @@ import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './profileApplication.js'
-import type {BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
+import type {AudioSelection, BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
 import type {GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
@@ -67,6 +67,7 @@ export const RESET_WIZARD_STATE = {
 	wizardFormats: [] as FormatOption[],
 	selectedVideoFormatId: '',
 	audioSelection: {kind: 'none' as const},
+	wizardSilencedAudio: null as AudioSelection | null,
 	lastConvertBitrate: DEFAULT_AUDIO_BITRATE,
 	wizardMediaKind: 'video' as const,
 	wizardSubtitles: {} as SubtitleMap,

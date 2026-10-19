@@ -77,8 +77,8 @@ function useAudioStreamFilter(view: AudioView, audioSelection: AudioSelection, o
 	const selectedId = selectedStreamId(audioSelection)
 	const selectedNative = selectedId === undefined ? undefined : view.nativeRows.find(row => row.formatId === selectedId)
 	const [drc, setDrc] = useState(selectedNative?.isDrc === true)
-	// A video with several languages shows one at a time; it opens on the selection's.
-	const [track, setTrack] = useState([selectedNative?.track, view.tracks[0]].find(name => name !== undefined && name !== '') ?? '')
+	// A video with several languages shows one at a time; it opens on the selection's, else the source's default.
+	const [track, setTrack] = useState([selectedNative?.track, view.defaultTrack, view.tracks[0]].find(name => name !== undefined && name !== null && name !== '') ?? '')
 	// When something else changes the selection (a profile switch, Undo), the
 	// language and DRC follow it, so the chosen chip is never filtered out.
 	const [followed, setFollowed] = useState(selectedNative?.formatId)

@@ -1,0 +1,25 @@
+{
+	"source": {
+		"id": "bandcamp",
+		"url": "https://c418.bandcamp.com/track/sweden",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"id": "890894942",
+		"title": "C418 - Sweden",
+		"thumbnail": "https://f4.bcbits.com/img/a3390257927_5.jpg",
+		"duration": 215.5,
+		"webpage_url": "https://c418.bandcamp.com/track/sweden",
+		"extractor": "Bandcamp",
+		"extractor_key": "Bandcamp",
+		"uploader": "C418",
+		"upload_date": "20110304",
+		"timestamp": 1299251725,
+		"formats": [
+			{"format_id":"mp3-128","ext":"mp3","resolution":"audio only","tbr":128,"vbr":0,"abr":128,"filesize_approx":3448000,"vcodec":"none","acodec":"mp3","protocol":"https"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

@@ -9,9 +9,9 @@ AAC: 160 kbps 4.1 MB • | 96 kbps 2.4 MB
 convert: mp3, m4a, opus, wav
 
 Profile picks:
-balanced: audio hls_aac_160k (audio only, m4a)
-best-quality: audio hls_aac_160k (audio only, m4a)
-mp4-1080: audio hls_aac_160k (audio only, m4a)
+balanced: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+best-quality: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+mp4-1080: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
 audio-only: audio hls_aac_160k (audio only, m4a)
 
 Subtitles: none

@@ -238,6 +238,9 @@ export interface FormatOption {
 	// yt-dlp's `preference`: the site marks a stream down (damaged, watermarked,
 	// a fallback copy). yt-dlp ranks it above everything else; so does Arroxy.
 	preference?: number
+	// yt-dlp's `quality`: how the site rates copies of the same height (Twitch's
+	// portrait crops are -2). Breaks ties at one height, as in yt-dlp's sort.
+	quality?: number
 }
 
 export type DownloadJobStatus = 'running' | 'completed' | 'failed' | 'cancelled'

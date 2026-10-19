@@ -1,0 +1,22 @@
+twitch-clip: A Twitch clip: portrait and landscape copies of each height
+🤬🤯🤯 · 30 s · card says "720p" · 8 formats
+
+Video (picked for Balanced 720p •):
+       SDR (codec not named)
+1080p  mp4 no size +audio
+720p   mp4 no size • +audio
+480p   mp4 30 fps no size +audio
+360p   mp4 30 fps no size +audio
+
+Audio:
+(no separate audio)
+convert: mp3, m4a, opus, wav
+
+Profile picks:
+balanced: 720 (720p, mp4) + audio none
+best-quality: 1080 (1080p, mp4) + audio none
+mp4-1080: 1080 (1080p, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
+audio-only: audio convert-lossy
+
+Subtitles: none
+Auto captions: none

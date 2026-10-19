@@ -1,0 +1,25 @@
+youtube-podcast: A 3.6-hour YouTube podcast episode
+Psychiatry, Insane Asylums, Mental Illness, ECT, Lobotomies, Freud & Jung | Lex Fridman Podcast #502 · 13016 s · card says "1280x720" · 43 formats
+
+Video (picked for Balanced 720p •):
+       SDR AV1         SDR VP9                        SDR H.264
+1080p  AV1 499.8 MB    VP9 [Enhanced bitrate] 7.1 GB  H.264 5.0 GB
+720p   AV1 246.2 MB •  VP9 2.5 GB                     H.264 1.8 GB
+480p   AV1 156.3 MB    VP9 1.3 GB                     H.264 1019.5 MB
+360p   AV1 97.9 MB     VP9 890.2 MB                   H.264 744.8 MB
+240p   AV1 52.9 MB     VP9 382.5 MB                   H.264 339.0 MB
+144p   AV1 58.1 MB     VP9 370.4 MB                   H.264 254.3 MB
+
+Audio:
+Opus: 138 kbps DRC 213.5 MB DRC | 132 kbps 204.5 MB • | 79 kbps DRC 123.1 MB DRC | 76 kbps 117.8 MB | 52 kbps 81.2 MB DRC | 52 kbps 80.1 MB
+AAC: 129 kbps 200.9 MB DRC | 129 kbps 200.9 MB | 49 kbps 22.05 kHz 75.7 MB DRC | 49 kbps 22.05 kHz 75.7 MB
+DRC switch shown
+
+Profile picks:
+balanced: 398 (1280x720, mp4) + audio 251 (audio only, webm)
+best-quality: 399 (1920x1080, mp4) + audio 251 (audio only, webm)
+mp4-1080: 270 (1920x1080, mp4) + audio 140 (audio only, m4a)
+audio-only: audio 251 (audio only, webm)
+
+Subtitles: en
+Auto captions: en-orig

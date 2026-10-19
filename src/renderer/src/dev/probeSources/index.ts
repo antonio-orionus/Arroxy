@@ -27,6 +27,11 @@ import youtubeAutodub from './youtube-autodub.json' with {type: 'json'}
 import youtubeVr from './youtube-vr.json' with {type: 'json'}
 import youtubePremium from './youtube-premium.json' with {type: 'json'}
 import youtubeAgeRestricted from './youtube-age-restricted.json' with {type: 'json'}
+import youtubeDolby from './youtube-dolby.json' with {type: 'json'}
+import youtubeMusic from './youtube-music.json' with {type: 'json'}
+import youtubePodcast from './youtube-podcast.json' with {type: 'json'}
+import twitchClip from './twitch-clip.json' with {type: 'json'}
+import bandcamp from './bandcamp.json' with {type: 'json'}
 
 const FIXTURES: Record<ProbeSourceId, {info: unknown}> = {
 	'youtube-multilang': youtubeMultilang,
@@ -40,6 +45,11 @@ const FIXTURES: Record<ProbeSourceId, {info: unknown}> = {
 	'youtube-vr': youtubeVr,
 	'youtube-premium': youtubePremium,
 	'youtube-age-restricted': youtubeAgeRestricted,
+	'youtube-dolby': youtubeDolby,
+	'youtube-music': youtubeMusic,
+	'youtube-podcast': youtubePodcast,
+	'twitch-clip': twitchClip,
+	bandcamp,
 	dailymotion,
 	vk,
 	archive,

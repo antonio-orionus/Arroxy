@@ -40,6 +40,7 @@ export const ytDlpFormatSchema = z
 		language: optStr,
 		language_preference: optNum,
 		preference: optNum,
+		quality: optNum,
 		http_headers: z.preprocess(nullToUndef, z.record(z.string(), z.string()).optional())
 	})
 	.loose()

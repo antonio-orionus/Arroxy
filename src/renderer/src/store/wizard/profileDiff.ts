@@ -39,7 +39,8 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 	return {
 		format: downloadProfileLabel(profile),
 		subtitles: subtitlesOn ? [subtitles.languages.join(', '), subtitles.mode === 'embed' ? null : subtitles.format.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode])].filter(Boolean).join(' · ') : t('wizard.review.value.subtitlesOff'),
-		sponsorBlock: sponsorBlock.mode === 'off' ? t('wizard.review.value.sponsorBlockOff') : t(`wizard.sponsorblock.mode.${sponsorBlock.mode}`),
+		// The categories too: changing only them is an edit the update must show.
+		sponsorBlock: sponsorBlock.mode === 'off' ? t('wizard.review.value.sponsorBlockOff') : [t(`wizard.sponsorblock.mode.${sponsorBlock.mode}`), sponsorBlock.categories.map(category => t(`wizard.sponsorblock.cat.${category}`)).join(', ')].filter(Boolean).join(' · '),
 		extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'),
 		saveTo: formatHomeRelativePath(effectiveOutputDir(baseDir, profile.subfolder.enabled, profile.subfolder.name), ctx.commonPaths),
 		fileName: resolveFilenameTemplate(profile, ctx.globalFilenameTemplate)

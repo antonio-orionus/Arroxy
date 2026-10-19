@@ -125,6 +125,9 @@ export interface FormatSelectionView {
 		tracks: string[]
 		// Per track, what sets it apart (AI dubbed, audio description).
 		trackTags: Record<string, string[]>
+		// The source's own default (or original) language, where the list opens
+		// when no stream is picked yet: never an AI dub just because it is listed first.
+		defaultTrack: string | null
 		// The best native bitrate, which a lossy conversion cannot improve on.
 		sourceKbps: number | null
 		// Empty in Video mode: conversions belong to Audio mode.
@@ -189,6 +192,11 @@ function markerViews(markers: readonly FormatMarker[] | undefined): StreamMarker
 
 function markerTags(markers: readonly FormatMarker[] | undefined, shown: readonly FormatMarker[]): string[] {
 	return (markers ?? []).filter(marker => shown.includes(marker)).map(marker => i18next.t(MARKER_LABEL_KEYS[marker]))
+}
+
+function defaultTrackOf(formats: readonly FormatOption[], rows: readonly BaseAudioRow[], tracks: readonly string[]): string {
+	const source = formats.find(f => f.isAudioOnly && f.isDefaultAudio === true) ?? formats.find(f => f.isAudioOnly && f.isOriginalAudio === true)
+	return rows.find(row => row.formatId === source?.formatId)?.track ?? tracks[0]
 }
 
 function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): BaseAudioRow {
@@ -405,6 +413,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			nativeRows: lines.flatMap(line => line.variants),
 			hasDrcTwins: lines.some(line => line.variants.some(row => row.twinId !== null)),
 			tracks: namedTracks.length > 1 ? namedTracks : [],
+			defaultTrack: namedTracks.length > 1 ? defaultTrackOf(wizardFormats, audioRows, namedTracks) : null,
 			trackTags: Object.fromEntries(namedTracks.map(name => [name, [...new Set(audioRows.filter(row => row.track === name).flatMap(row => row.trackTags))]])),
 			sourceKbps: audioRows.reduce<number | null>((best, row) => (row.kbps !== null && (best === null || row.kbps > best) ? Math.round(row.kbps) : best), null),
 			convertTargets,

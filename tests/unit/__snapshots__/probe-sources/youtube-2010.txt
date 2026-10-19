@@ -14,9 +14,9 @@ Opus: 106 kbps 2.7 MB DRC | 105 kbps 2.6 MB | 63 kbps 1.6 MB DRC | 61 kbps 1.5 M
 DRC switch shown
 
 Profile picks:
-balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a)
+balanced: 397 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
 best-quality: 397 (640x480, mp4) + audio 140 (audio only, m4a)
-mp4-1080: 231 (640x480, mp4) + audio 140 (audio only, m4a)
+mp4-1080: 231 (640x480, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
 audio-only: audio 140 (audio only, m4a)
 
 Subtitles: en

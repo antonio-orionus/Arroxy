@@ -13,7 +13,7 @@ AAC: m4a no size
 Profile picks:
 balanced: bytevc1_720p_336791-0 (720x1280, mp4) + audio none
 best-quality: bytevc1_720p_336791-0 (720x1280, mp4) + audio none
-mp4-1080: h264_540p_344464-0 (576x1024, mp4) + audio none
+mp4-1080: h264_540p_344464-0 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
 audio-only: audio audio (audio only, m4a)
 
 Subtitles: none

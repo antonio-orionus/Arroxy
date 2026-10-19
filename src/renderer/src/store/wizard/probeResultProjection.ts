@@ -65,6 +65,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardError: null,
 			cookiesConfigDialogIssue: null,
 			wizardFormats: [],
+			wizardSilencedAudio: null,
 			wizardFormatsDegraded: null,
 			wizardSubtitles: {},
 			wizardAutomaticCaptions: {},

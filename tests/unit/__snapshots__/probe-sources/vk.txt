@@ -10,9 +10,9 @@ Audio:
 AAC: 53 kbps 1.2 MB • | 37 kbps 872.1 KB
 
 Profile picks:
-balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+balanced: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
 best-quality: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
-mp4-1080: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a)
+mp4-1080: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
 audio-only: audio dash_sep-4 (audio only, m4a)
 
 Subtitles: none

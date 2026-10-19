@@ -74,7 +74,9 @@ export function groupVideoFormats(formats: FormatOption[], preferIds: readonly s
 		// 360p MP4) shows only where it is the sole one, or the picked one.
 		const preferred = preferIds.includes(f.formatId) && !preferIds.includes(current?.formatId ?? '')
 		const silentOverMuxed = current !== undefined && !preferIds.includes(current.formatId) && !current.isVideoOnly && f.isVideoOnly
-		if (!current || preferred || silentOverMuxed) groups.set(key, f)
+		// The copy the site rates higher (yt-dlp's quality), e.g. Twitch's landscape clip over its portrait crop.
+		const higherRated = current !== undefined && !preferIds.includes(current.formatId) && current.isVideoOnly === f.isVideoOnly && (f.quality ?? 0) > (current.quality ?? 0)
+		if (!current || preferred || silentOverMuxed || higherRated) groups.set(key, f)
 	}
 	const videos = formats.filter(f => !f.isAudioOnly)
 	// By the name the row shows: "1920x1080" and "1080p" are one 1080p row.

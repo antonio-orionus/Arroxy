@@ -38,8 +38,14 @@ describe('profileDiffRows', () => {
 		expect(rows.map(row => row.area)).toEqual(['format', 'subtitles', 'sponsorBlock', 'saveTo', 'fileName'])
 		expect(rows[0]).toEqual({area: 'format', before: 'Up to 1080p · Best picture', after: 'Up to 720p · Best picture'})
 		expect(rows[1]).toEqual({area: 'subtitles', before: 'wizard.review.value.subtitlesOff', after: 'en, de · SRT · wizard.subtitles.saveMode.sidecar'})
-		expect(rows[2]).toEqual({area: 'sponsorBlock', before: 'wizard.review.value.sponsorBlockOff', after: 'wizard.sponsorblock.mode.remove'})
+		expect(rows[2]).toEqual({area: 'sponsorBlock', before: 'wizard.review.value.sponsorBlockOff', after: 'wizard.sponsorblock.mode.remove · wizard.sponsorblock.cat.sponsor'})
 		expect(rows[3]).toEqual({area: 'saveTo', before: '/home/user/Downloads/Full HD 1080p', after: '/media/videos'})
 		expect(rows[4].after).toBe('{title}')
+	})
+
+	it('shows a change of SponsorBlock categories alone, so the update can be confirmed', () => {
+		const before = {...builtin('hd-1080'), sponsorBlock: {mode: 'remove' as const, categories: ['sponsor' as const]}}
+		const after = {...before, sponsorBlock: {mode: 'remove' as const, categories: ['sponsor' as const, 'intro' as const]}}
+		expect(profileDiffRows(before, after, CTX)).toEqual([{area: 'sponsorBlock', before: 'wizard.sponsorblock.mode.remove · wizard.sponsorblock.cat.sponsor', after: 'wizard.sponsorblock.mode.remove · wizard.sponsorblock.cat.sponsor, wizard.sponsorblock.cat.intro'}])
 	})
 })

@@ -16,10 +16,14 @@ import {PROBE_SOURCES} from '@renderer/dev/probeSources/sources.js'
 
 const PICK_PROFILES = ['balanced', 'best-quality', 'mp4-1080', 'audio-only'] as const
 
-function pickFor(profileId: string, probe: VideoProbeResult): MediaSelection {
+function selectionFor(profileId: string, probe: VideoProbeResult): ReturnType<typeof resolveProfileSelection> {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === profileId)
 	if (!profile) throw new Error(`no built-in ${profileId}`)
-	return resolveProfileSelection({profile, formats: probe.formats, subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: DEFAULTS.nativeAudioPreference}).media
+	return resolveProfileSelection({profile, formats: probe.formats, subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: DEFAULTS.nativeAudioPreference})
+}
+
+function pickFor(profileId: string, probe: VideoProbeResult): MediaSelection {
+	return selectionFor(profileId, probe).media
 }
 
 function viewFor(probe: VideoProbeResult, pick: MediaSelection): FormatSelectionView {
@@ -92,7 +96,10 @@ function render(id: string): string {
 		...(view.audio.convertTargets.length > 0 ? [`convert: ${view.audio.convertTargets.join(', ')}`] : []),
 		'',
 		'Profile picks:',
-		...PICK_PROFILES.map(profileId => `${profileId}: ${describePick(probe, pickFor(profileId, probe))}`),
+		...PICK_PROFILES.map(profileId => {
+			const {media, notices} = selectionFor(profileId, probe)
+			return `${profileId}: ${describePick(probe, media)}${notices.length > 0 ? ` (notices: ${notices.map(notice => JSON.stringify(notice)).join(', ')})` : ''}`
+		}),
 		'',
 		`Subtitles: ${subtitles.length > 0 ? subtitles.join(', ') : 'none'}`,
 		`Auto captions: ${captions.length > 0 ? captions.join(', ') : 'none'}`,
@@ -123,5 +130,30 @@ describe('AI-upscaled streams on a real probe', () => {
 
 	it('are picked when the profile allows them', () => {
 		expect(pick('allow')).toBe('399-sr')
+	})
+})
+
+describe('audio language on a real probe with AI dubs', () => {
+	it("opens on the source's own default language, not the first one listed", () => {
+		const probe = probeSourceResult('youtube-autodub')
+		const view = selectView({selectedVideoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 192}, lastConvertBitrate: 192, mediaKind: 'audio', wizardFormats: probe.formats})
+		expect(view.audio.tracks[0]).not.toBe(view.audio.defaultTrack)
+		expect(view.audio.defaultTrack).toMatch(/original/i)
+	})
+})
+
+describe('tiers on real probes', () => {
+	it('takes a widescreen 1280x640 trailer as 720p, with no "closest to profile" notice', () => {
+		const {media, notices} = selectionFor('balanced', probeSourceResult('youtube-dolby'))
+		expect(media.videoFormatId).not.toBe('')
+		expect(notices).toEqual([])
+	})
+
+	it('says nothing about the tier for a stream the site gives no size for', () => {
+		expect(selectionFor('balanced', probeSourceResult('bitchute')).notices).toEqual([])
+	})
+
+	it("picks the copy the site rates higher at one height: Twitch's landscape clip, not its portrait crop", () => {
+		expect(selectionFor('balanced', probeSourceResult('twitch-clip')).media.videoFormatId).toBe('720')
 	})
 })
