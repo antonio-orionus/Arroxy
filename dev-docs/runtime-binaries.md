@@ -44,7 +44,7 @@ Two manifests are published side by side, signed with the same key:
 | `runtime-index-v1.json` | Arroxy 0.6.2 and earlier | yt-dlp only                      |
 | `runtime-index-v2.json` | current builds           | yt-dlp, plus the pinned FFmpeg packages |
 
-v1 must never carry anything but yt-dlp: its readers parse entries with a closed schema, so one FFmpeg entry fails the whole manifest and drops them to stale yt-dlp. v2 skips entry kinds it does not recognise, so adding a kind later does not repeat this. Keep publishing v1 for as long as those versions are in use.
+v1 must never carry anything but yt-dlp: its readers parse entries with a closed schema, so one FFmpeg entry fails the whole manifest and drops them to stale yt-dlp. v2 skips entry kinds it does not recognise, so adding a kind later does not repeat this. A v2 reader also drops, and logs, any entry of a known kind it cannot use (a newer format, provider, channel, arch or host) and keeps the rest; it rejects the index only when the envelope is malformed or nothing usable is left for its platform and arch. Its rules ship frozen in every install, so this is what keeps an index change from freezing older installs on their cached copy. The generator and `validate` stay strict: any invalid entry fails them, so a bad entry is never published. Keep publishing v1 for as long as those versions are in use.
 
 ## Update model
 
@@ -54,9 +54,9 @@ Runtime startup resolves the latest Arroxy runtime manifest from:
 https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v2.json
 ```
 
-That `latest` pointer is for Arroxy's manifest only, which is why FFmpeg package releases in the same repository are published with `--latest=false`. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and allowlists provider hosts.
+That `latest` pointer is for Arroxy's manifest only, which is why FFmpeg package releases in the same repository are published with `--latest=false`. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and accepts yt-dlp URLs and mirrors only under the release paths of its sources (`github.com/yt-dlp/yt-dlp/releases/download/`, `github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/`, SourceForge `projects/yt-dlp.mirror`), and FFmpeg packages only as `antonio-orionus/arroxy-runtime-binaries` release assets.
 
-Each `RuntimeBinaryIndexService` instance loads the index once and caches it in memory. A newly published signed remote manifest is therefore picked up by a fresh app/service run, normally after restart, not by polling during an existing session.
+Each `RuntimeBinaryIndexService` instance loads the index once and caches it in memory, including a last-known-good or bundled fallback, so an offline machine does not wait on the network for every resolve. A forced re-check (the setup screen's "Try again") invalidates it and fetches the remote index again; a fallback picked only because its caller cancelled is never kept. Otherwise a newly published manifest is picked up after restart, not by polling. Index, signature and checksum fetches have their own short deadline (`TEXT_FETCH_DEADLINE_MS`), separate from binary downloads, so a network that silently drops traffic fails over to the cached index quickly.
 
 ## yt-dlp candidate order
 

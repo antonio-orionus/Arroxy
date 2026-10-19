@@ -169,10 +169,48 @@ export interface CopyCachedArtifactOptions {
 
 type FetchOptions = fetch.FetchOptions & {signal?: AbortSignal}
 
-export async function downloadText(url: string, signal?: AbortSignal): Promise<string> {
-	const res = await fetch(url, {headers: HTTP_HEADERS, retry: HTTP_RETRY, timeout: HTTP_TIMEOUT.request, redirect: 'follow', signal} as FetchOptions)
+// The runtime index, its signature and checksum files are a few KB. On a
+// network that silently drops traffic they must fail fast, so the caller falls
+// back to a cached copy instead of holding setup for the binary-download budget.
+export const TEXT_FETCH_DEADLINE_MS = 30_000
+const TEXT_HTTP_RETRY = {retries: 2, factor: 2, minTimeout: 500, maxTimeout: 2_000, randomize: true}
+const TEXT_HTTP_TIMEOUT_MS = 10_000
+
+interface DownloadTextOptions {
+	deadlineMs?: number
+}
+
+async function fetchText(url: string, signal: AbortSignal): Promise<string> {
+	const res = await fetch(url, {headers: HTTP_HEADERS, retry: TEXT_HTTP_RETRY, timeout: TEXT_HTTP_TIMEOUT_MS, redirect: 'follow', signal} as FetchOptions)
 	if (!res.ok) throw new Error(`HTTP ${res.status} while downloading ${url}`)
 	return res.text()
+}
+
+// make-fetch-happen retries an aborted request through its backoff, so the
+// deadline and the caller's cancel are enforced here rather than trusted to it.
+export async function downloadText(url: string, signal?: AbortSignal, options: DownloadTextOptions = {}): Promise<string> {
+	if (signal?.aborted) throw cancelError()
+	const deadlineMs = options.deadlineMs ?? TEXT_FETCH_DEADLINE_MS
+	const controller = new AbortController()
+	let onAbort: (() => void) | undefined
+	let timer: NodeJS.Timeout | undefined
+	const stopped = new Promise<never>((_resolve, reject) => {
+		onAbort = (): void => {
+			controller.abort()
+			reject(cancelError())
+		}
+		signal?.addEventListener('abort', onAbort, {once: true})
+		timer = setTimeout(() => {
+			controller.abort()
+			reject(new Error(`Timed out after ${deadlineMs} ms while downloading ${url}`))
+		}, deadlineMs)
+	})
+	try {
+		return await Promise.race([fetchText(url, controller.signal), stopped])
+	} finally {
+		clearTimeout(timer)
+		if (onAbort) signal?.removeEventListener('abort', onAbort)
+	}
 }
 
 function stringifyHeader(header: string | string[] | undefined | null): string | null {

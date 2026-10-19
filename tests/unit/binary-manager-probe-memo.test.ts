@@ -16,7 +16,7 @@ import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBina
 let userData = ''
 let binaryPath = ''
 
-const emptyIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => [])}
+const emptyIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn()}
 
 // Counts real spawns: each invocation appends a line, so the file length is the
 // number of times the OS actually started this binary.

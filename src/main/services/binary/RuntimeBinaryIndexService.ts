@@ -2,7 +2,7 @@ import {verify as verifySignature} from 'node:crypto'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import log from 'electron-log/main.js'
-import {ffmpegPackageCacheKey, runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex} from '@shared/runtimeBinaryManifest.js'
+import {ffmpegPackageCacheKey, readRuntimeBinaryIndex, runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget} from '@shared/runtimeBinaryManifest.js'
 import type {FfmpegPackageEntry, RuntimeBinaryId, RuntimeBinaryIndex, RuntimeBinaryIndexEntry, RuntimeBinaryManifestEntry} from '@shared/types.js'
 import {downloadText} from './BinaryDownloader.js'
 import {BUNDLED_RUNTIME_BINARY_INDEX} from './BundledRuntimeBinaryIndex.js'
@@ -28,6 +28,8 @@ interface LoadedIndexes {
 export interface RuntimeBinaryIndexProvider {
 	candidatesFor(id: RuntimeBinaryId, signal?: AbortSignal): Promise<RuntimeBinaryManifestEntry[]>
 	ffmpegPackageCandidates(signal?: AbortSignal): Promise<FfmpegPackageEntry[]>
+	// Forget the index this session settled on, so the next caller reads it again.
+	invalidate(): void
 }
 
 export interface RuntimeBinaryIndexServiceOptions {
@@ -53,11 +55,14 @@ function envPath(name: string): string | null {
 	return raw && raw.length > 0 ? raw : null
 }
 
-function parseSignedIndex(raw: string): RuntimeBinaryIndex {
+type IndexSource = Exclude<LoadedIndexes['source'], 'bundled'>
+
+function parseSignedIndex(raw: string, source: IndexSource, logger: RuntimeBinaryIndexLogger): RuntimeBinaryIndex {
 	const parsed = JSON.parse(raw) as unknown
-	const validation = validateRuntimeBinaryIndex(parsed)
-	if (!validation.ok) throw new Error(`Runtime binary index validation failed: ${validation.issues.join('; ')}`)
-	return validation.value
+	const read = readRuntimeBinaryIndex(parsed)
+	for (const dropped of read.dropped) logger.warn('Runtime binary index entry dropped', {source, ...dropped})
+	if (!read.ok) throw new Error(`Runtime binary index validation failed: ${read.issues.join('; ')}`)
+	return read.value
 }
 
 function repoFromGitHubUrl(rawUrl: string | null): string | null {
@@ -138,9 +143,26 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		return candidates
 	}
 
+	invalidate(): void {
+		this.loaded = null
+	}
+
+	// The settled index is kept for the session, fallbacks included, so an
+	// offline machine does not pay a fetch timeout on every resolve; invalidate()
+	// is what retries the network. A fallback picked because the first caller
+	// cancelled says nothing about the network, so it is not kept.
 	private load(signal?: AbortSignal): Promise<LoadedIndexes> {
-		this.loaded ??= this.loadFresh(signal)
-		return this.loaded
+		if (this.loaded) return this.loaded
+		const loading = this.loadFresh(signal)
+		this.loaded = loading
+		const forgetIf = (keep: boolean): void => {
+			if (!keep && this.loaded === loading) this.loaded = null
+		}
+		void loading.then(
+			loaded => forgetIf(!signal?.aborted || loaded.source === 'remote' || loaded.source === 'local'),
+			() => forgetIf(false)
+		)
+		return loading
 	}
 
 	private async loadFresh(signal?: AbortSignal): Promise<LoadedIndexes> {
@@ -171,7 +193,7 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		try {
 			const [raw, signature] = await Promise.all([this.fetchText(this.remoteIndexUrl, signal), this.fetchText(this.remoteSignatureUrl, signal)])
 			if (!verifyRuntimeBinaryIndexSignature(raw, signature, this.publicKeyPem)) throw new Error('Runtime binary index signature verification failed')
-			const index = parseSignedIndex(raw)
+			const index = parseSignedIndex(raw, 'remote', this.logger)
 			this.logger.info('Remote runtime binary index verified', {indexUrl: this.remoteIndexUrl, signatureUrl: this.remoteSignatureUrl, sourceRepo: repoFromGitHubUrl(this.remoteIndexUrl), generatedAt: index.generatedAt, entryCount: index.entries.length, elapsedMs: Date.now() - startedAt})
 			return {index, raw, signature}
 		} catch (err) {
@@ -189,7 +211,7 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		try {
 			const [raw, signature, publicKeyPem] = await Promise.all([fsPromises.readFile(this.localIndexPath, 'utf8'), fsPromises.readFile(this.localSignaturePath, 'utf8'), this.readLocalPublicKey()])
 			if (!verifyRuntimeBinaryIndexSignature(raw, signature, publicKeyPem)) throw new Error('local runtime binary index signature verification failed')
-			return {index: parseSignedIndex(raw), raw, signature}
+			return {index: parseSignedIndex(raw, 'local', this.logger), raw, signature}
 		} catch (err) {
 			this.logger.warn('Local runtime binary index unavailable', {error: err instanceof Error ? err.message : String(err), localIndexPath: this.localIndexPath})
 			return null
@@ -205,7 +227,7 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		try {
 			const [raw, signature] = await Promise.all([fsPromises.readFile(path.join(this.manifestDir, RUNTIME_BINARY_INDEX_FILE_NAME), 'utf8'), fsPromises.readFile(path.join(this.manifestDir, RUNTIME_BINARY_INDEX_SIGNATURE_FILE_NAME), 'utf8')])
 			if (!verifyRuntimeBinaryIndexSignature(raw, signature, this.publicKeyPem)) throw new Error('last-known-good signature verification failed')
-			return {index: parseSignedIndex(raw), raw, signature}
+			return {index: parseSignedIndex(raw, 'last-known-good', this.logger), raw, signature}
 		} catch (err) {
 			this.logger.debug('Last-known-good runtime binary index unavailable', {error: err instanceof Error ? err.message : String(err)})
 			return null

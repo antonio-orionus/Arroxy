@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {ffmpegPackageCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex, validateRuntimeBinaryIndexV1} from '@shared/runtimeBinaryManifest.js'
+import {ffmpegPackageCacheKey, readRuntimeBinaryIndex, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex, validateRuntimeBinaryIndexV1} from '@shared/runtimeBinaryManifest.js'
 import type {FfmpegPackageEntry, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
 const ytDlp: RuntimeBinaryManifestEntry = {
@@ -74,8 +74,8 @@ describe('runtime binary index v2', () => {
 		expect(result.ok ? result.value.entries : result.issues).toEqual([ytDlp])
 	})
 
-	it('rejects a malformed entry of a known kind', () => {
-		expect(issues(index([{...ffmpeg, size: 0}]))).toContain('entries[0]')
+	it('rejects a malformed entry of a known kind, so a bad entry is never published', () => {
+		expect(issues(index([ytDlp, {...ffmpeg, size: 0}]))).toContain('entries[1]')
 	})
 
 	it('only trusts FFmpeg packages released from the Arroxy runtime repository', () => {
@@ -122,6 +122,38 @@ describe('runtime binary index v2', () => {
 	it('derives distinct cache keys per approved package identity', () => {
 		expect(ffmpegPackageCacheKey(ffmpeg)).not.toBe(ffmpegPackageCacheKey({...ffmpeg, sha256: 'c'.repeat(64)}))
 		expect(ffmpegPackageCacheKey(ffmpeg)).not.toBe(ffmpegPackageCacheKey({...ffmpeg, version: 'other'}))
+	})
+})
+
+// What an installed client reads. Its rules ship frozen in every install, so a
+// future entry shape it cannot use must cost that entry, never the whole index.
+describe('reading a published runtime binary index', () => {
+	it('drops entries it cannot use, keeps the rest and reports each dropped entry', () => {
+		const futureFormat = {...ytDlp, sha256: 'c'.repeat(64), format: 'tar.zst'}
+		const otherHost = {...ffmpeg, sha256: 'd'.repeat(64), url: 'https://mirror.example/arroxy-ffmpeg-win32-x64.tar.br'}
+		const result = readRuntimeBinaryIndex(index([futureFormat, ytDlp, otherHost, ffmpeg]), 'win32', 'x64')
+		if (!result.ok) throw new Error(result.issues.join('\n'))
+		expect(result.value.entries).toEqual([ytDlp, ffmpeg])
+		expect(result.dropped).toEqual([
+			{position: 0, id: 'yt-dlp', issues: [expect.stringContaining('format')]},
+			{position: 2, id: 'ffmpeg', issues: [expect.stringContaining('arroxy-runtime-binaries')]}
+		])
+	})
+
+	it('still skips entry kinds it does not know without reporting them', () => {
+		const result = readRuntimeBinaryIndex(index([{id: 'some-future-tool'}, ytDlp]), 'win32', 'x64')
+		expect(result.ok ? result.dropped : result.issues).toEqual([])
+	})
+
+	it('rejects a malformed envelope', () => {
+		expect(readRuntimeBinaryIndex({schemaVersion: 3, entries: []}, 'win32', 'x64').ok).toBe(false)
+		expect(readRuntimeBinaryIndex({schemaVersion: 2, generatedAt: '2026-10-19T00:00:00.000Z', entries: 'nope'}, 'win32', 'x64').ok).toBe(false)
+	})
+
+	it('rejects an index left with nothing usable for this machine', () => {
+		const result = readRuntimeBinaryIndex(index([{...ytDlp, size: 0}, linuxFfmpeg]), 'win32', 'x64')
+		expect(result.ok ? [] : result.issues).toContainEqual(expect.stringContaining('win32/x64'))
+		expect(result.ok ? [] : result.dropped).toHaveLength(1)
 	})
 })
 

@@ -32,7 +32,39 @@ describe('runtime binary manifest validation', () => {
 	it('rejects provider hosts outside the allowlist', () => {
 		const result = validateRuntimeBinaryManifestEntry({...baseEntry, url: 'https://example.com/yt-dlp_linux'})
 		expect(result.ok).toBe(false)
-		expect(result.ok ? [] : result.issues).toContainEqual(expect.stringContaining('not allowlisted'))
+		expect(result.ok ? [] : result.issues).toContainEqual(expect.stringContaining('yt-dlp release'))
+	})
+
+	it('accepts every yt-dlp release location the generator publishes', () => {
+		for (const [provider, url] of [
+			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10/yt-dlp_linux'],
+			['github', 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/yt-dlp_linux'],
+			['sourceforge', 'https://sourceforge.net/projects/yt-dlp.mirror/files/2026.06.10/yt-dlp_linux/download'],
+			['sourceforge', 'https://downloads.sourceforge.net/project/yt-dlp.mirror/2026.06.10/yt-dlp_linux']
+		] as const) {
+			expect(validateRuntimeBinaryManifestEntry({...baseEntry, provider, url}).ok, url).toBe(true)
+		}
+	})
+
+	// The host alone is not an approval: anyone can publish a GitHub release or a
+	// SourceForge project.
+	it('rejects allowlisted hosts outside the yt-dlp release paths', () => {
+		for (const [provider, url] of [
+			['github', 'https://github.com/someone/yt-dlp/releases/download/2026.06.10/yt-dlp_linux'],
+			['github', 'https://github.com/yt-dlp/yt-dlp/raw/master/yt-dlp_linux'],
+			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/'],
+			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10'],
+			['github', 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/'],
+			['sourceforge', 'https://downloads.sourceforge.net/project/yt-dlp.mirror/2026.06.10'],
+			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/../../../someone/evil/releases/download/x/yt-dlp_linux'],
+			['sourceforge', 'https://sourceforge.net/projects/not-yt-dlp/files/2026.06.10/yt-dlp_linux/download'],
+			['sourceforge', 'https://downloads.sourceforge.net/project/not-yt-dlp/2026.06.10/yt-dlp_linux']
+		] as const) {
+			const result = validateRuntimeBinaryManifestEntry({...baseEntry, provider, url})
+			expect(result.ok ? [] : result.issues, url).toContainEqual(expect.stringContaining('yt-dlp release'))
+		}
+		const mirrored = validateRuntimeBinaryManifestEntry({...baseEntry, mirrors: ['https://github.com/someone/fork/releases/download/x/yt-dlp_linux']})
+		expect(mirrored.ok ? [] : mirrored.issues).toContainEqual(expect.stringContaining('someone/fork'))
 	})
 
 	it('rejects invalid hashes and empty size', () => {

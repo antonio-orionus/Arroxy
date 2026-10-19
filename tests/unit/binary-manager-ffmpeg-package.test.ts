@@ -50,7 +50,7 @@ type MaterializerStub = Omit<FfmpegPackageMaterializerPort, 'installed'> & Parti
 
 async function makeMgr(packages: FfmpegPackageEntry[], ffmpegPackageMaterializer: MaterializerStub, pathLookup: PathLookup = async () => []): Promise<BinaryManager> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-ffmpeg-package-'))
-	const runtimeBinaryIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => packages)}
+	const runtimeBinaryIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => packages), invalidate: vi.fn()}
 	return new BinaryManager(dir, {runtimeBinaryIndex, ffmpegPackageMaterializer: {installed: async () => [], ...ffmpegPackageMaterializer}, probeVerdicts: noProbeMemo, pathLookup, overridesProvider: () => undefined})
 }
 

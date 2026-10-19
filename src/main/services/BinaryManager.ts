@@ -322,6 +322,9 @@ export class BinaryManager {
 		// run; the old one ends on its own once its own callers withdraw.
 		this.ytDlpRun.reset()
 		this.ffmpegPairRun.reset()
+		// The runtime binary index a failed fetch fell back to would otherwise stay
+		// chosen for the session, and "check again" would never reach the network.
+		this.runtimeBinaryIndex.invalidate()
 		// Reached from WarmupService.run({force: true}) — the repair panel's "check
 		// again". Dropping the memo is what makes that button able to notice a
 		// binary the OS started blocking after we recorded it as good.

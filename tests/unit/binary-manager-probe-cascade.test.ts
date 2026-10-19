@@ -31,7 +31,7 @@ const noSystemPath = async (): Promise<string[]> => []
 
 async function makeMgr(entries: RuntimeBinaryManifestEntry[], materialize: RuntimeBinaryMaterializerPort['materialize']): Promise<BinaryManager> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-cascade-'))
-	const indexProvider: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id)), ffmpegPackageCandidates: vi.fn(async () => [])}
+	const indexProvider: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id)), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn()}
 	return new BinaryManager(dir, {runtimeBinaryIndex: indexProvider, runtimeBinaryMaterializer: {materialize}, probeVerdicts: noProbeMemo(), pathLookup: noSystemPath})
 }
 
