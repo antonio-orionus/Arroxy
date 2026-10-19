@@ -2397,6 +2397,18 @@ msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "ይህ ቪዲዮ የYouTube መለያ ሊያስፈልገው ይችላል"
 
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "ይህ አገናኝ {{host}} ላይ መለያ ሊፈልግ ይችላል"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "{{host}} ላይ በዳሰሳ ይግቡና እንደገና ይሞክሩ።"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "{{host}} ላይ በዳሰሳ ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookies ምክንያቱ ሊሆን ይችላል"

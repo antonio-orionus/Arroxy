@@ -449,6 +449,7 @@
 				"exploreSignedIn": {"heading": "Đã đăng nhập trong Khám phá", "body": "Nếu video này cần tài khoản, Arroxy sẽ tự dùng đăng nhập Khám phá của bạn. Video cũng có thể không khả dụng vì lý do khác."},
 				"exploreOffer": {"heading": "Video này có thể cần tài khoản YouTube", "body": "Đăng nhập qua Khám phá và Arroxy sẽ thử lại.", "cta": "Đăng nhập qua Khám phá"},
 				"exploreReuse": {"heading": "Video này có thể cần tài khoản YouTube", "body": "Bạn đã đăng nhập trong Khám phá, nhưng hiện các lượt tải chưa dùng đăng nhập đó.", "cta": "Dùng đăng nhập Khám phá của tôi và thử lại"},
+				"exploreSite": {"heading": "Liên kết này có thể cần tài khoản trên {{host}}", "signInBody": "Hãy đăng nhập {{host}} trong Khám phá rồi thử lại. Arroxy chỉ dùng đăng nhập đó khi một lượt tải cần đến.", "offerBody": "Hãy đăng nhập {{host}} qua Khám phá rồi thử lại."},
 				"otherCookiesCta": "Dùng tệp cookie hoặc trình duyệt thay thế…",
 				"needsCookies": {"heading": "Trang web này yêu cầu đăng nhập", "body": "Arroxy không thể truy cập video này mà không xác thực. Hãy cấu hình cookies trong cài đặt nâng cao — trỏ đến trình duyệt bạn đã đăng nhập, hoặc nhập tệp cookies.txt."},
 				"dpapi": {

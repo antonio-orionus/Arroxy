@@ -442,6 +442,7 @@
 				"exploreSignedIn": {"heading": "ወደ ዳሰሳ ገብተዋል", "body": "ይህ ቪዲዮ መለያ የሚያስፈልገው ከሆነ Arroxy የዳሰሳ መግቢያዎን በራስ-ሰር ይጠቀማል። በሌላ ምክንያት ላይገኝ ይችላል።"},
 				"exploreOffer": {"heading": "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል", "body": "በዳሰሳ ይግቡ፣ Arroxy ደግሞ እንደገና ይሞክረዋል።", "cta": "በዳሰሳ ይግቡ"},
 				"exploreReuse": {"heading": "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል", "body": "በዳሰሳ ገብተዋል፣ ነገር ግን ማውረዶች አሁን ያንን መግቢያ እየተጠቀሙ አይደሉም።", "cta": "የዳሰሳ መግቢያን ተጠቀም እና እንደገና ሞክር"},
+				"exploreSite": {"heading": "ይህ አገናኝ {{host}} ላይ መለያ ሊፈልግ ይችላል", "signInBody": "{{host}} ላይ በዳሰሳ ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።", "offerBody": "{{host}} ላይ በዳሰሳ ይግቡና እንደገና ይሞክሩ።"},
 				"otherCookiesCta": "በምትኩ የCookies ፋይል ወይም አሳሽ ይጠቀሙ…",
 				"needsCookies": {"heading": "ይህ ጣቢያ መግባትን ያስፈልጋል", "body": "Arroxy ያለ ማረጋገጫ ይህን ቪዲዮ ማግኘት አልቻለም። Cookies በከፍተኛ ቅንብሮች ያዋቅሩ — አስቀድመው ወደ ገቡበት አሳሽ ያመልክቱ ወይም cookies.txt ፋይል ያስመጡ።"},
 				"dpapi": {

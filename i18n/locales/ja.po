@@ -2307,6 +2307,18 @@ msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "この動画にはYouTubeアカウントが必要かもしれません"
 
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "このリンクには {{host}} のアカウントが必要かもしれません"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "「探索」で {{host}} にサインインしてから再試行してください。"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "「探索」で {{host}} にログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。"
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookieが原因かもしれません"

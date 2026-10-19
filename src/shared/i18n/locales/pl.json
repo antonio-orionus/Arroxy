@@ -512,6 +512,11 @@
 				"exploreSignedIn": {"heading": "Zalogowano w karcie Odkrywaj", "body": "Jeśli ten film wymaga konta, Arroxy automatycznie użyje logowania z karty Odkrywaj. Może być niedostępne z innego powodu."},
 				"exploreOffer": {"heading": "Ten film może wymagać konta YouTube", "body": "Zaloguj się w karcie Odkrywaj, a Arroxy spróbuje ponownie.", "cta": "Zaloguj się w karcie Odkrywaj"},
 				"exploreReuse": {"heading": "Ten film może wymagać konta YouTube", "body": "Jesteś zalogowany w karcie Odkrywaj, ale pobieranie obecnie nie korzysta z tego logowania.", "cta": "Użyj mojego logowania z karty Odkrywaj i spróbuj ponownie"},
+				"exploreSite": {
+					"heading": "Ten link może wymagać konta na stronie {{host}}",
+					"signInBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje.",
+					"offerBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie."
+				},
 				"otherCookiesCta": "Użyj zamiast tego pliku cookie lub przeglądarki…",
 				"needsCookies": {"heading": "Ta witryna wymaga zalogowania", "body": "Arroxy nie mógł uzyskać dostępu do tego filmu bez uwierzytelnienia. Skonfiguruj pliki cookie w ustawieniach zaawansowanych — wskaż przeglądarkę, w której masz już otwartą sesję, albo zaimportuj plik cookies.txt."},
 				"dpapi": {

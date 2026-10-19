@@ -429,6 +429,7 @@
 				"exploreSignedIn": {"heading": "已在“探索”中登录", "body": "如果此视频需要账号，Arroxy 会自动使用你在“探索”中的登录。也可能因其他原因而无法使用。"},
 				"exploreOffer": {"heading": "此视频可能需要 YouTube 账号", "body": "通过“探索”登录后，Arroxy 会重试。", "cta": "通过“探索”登录"},
 				"exploreReuse": {"heading": "此视频可能需要 YouTube 账号", "body": "你已在“探索”中登录，但下载目前没有使用该登录。", "cta": "使用我在“探索”中的登录并重试"},
+				"exploreSite": {"heading": "此链接可能需要 {{host}} 的账号", "signInBody": "请在“探索”中登录 {{host}} 后重试。Arroxy 仅在下载需要时才使用该登录。", "offerBody": "请通过“探索”登录 {{host}} 后重试。"},
 				"otherCookiesCta": "改用 Cookie 文件或浏览器…",
 				"needsCookies": {"heading": "此网站需要登录", "body": "Arroxy 无法在未经认证的情况下访问此视频。请在高级设置中配置 cookies——指向你已登录的浏览器，或导入 cookies.txt 文件。"},
 				"dpapi": {

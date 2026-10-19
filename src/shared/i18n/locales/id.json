@@ -464,6 +464,7 @@
 				"exploreSignedIn": {"heading": "Sudah masuk ke Jelajahi", "body": "Jika video ini memerlukan akun, Arroxy otomatis memakai login Jelajahi Anda. Video mungkin juga tidak tersedia karena alasan lain."},
 				"exploreOffer": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Masuk di Jelajahi dan Arroxy akan mencobanya lagi.", "cta": "Masuk di Jelajahi"},
 				"exploreReuse": {"heading": "Video ini mungkin memerlukan akun YouTube", "body": "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu.", "cta": "Pakai login Jelajahi saya dan coba lagi"},
+				"exploreSite": {"heading": "Tautan ini mungkin memerlukan akun {{host}}", "signInBody": "Masuk ke {{host}} di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya.", "offerBody": "Masuk ke {{host}} dengan Jelajahi lalu coba lagi."},
 				"otherCookiesCta": "Gunakan file cookie atau peramban sebagai gantinya…",
 				"needsCookies": {"heading": "Situs ini memerlukan proses masuk", "body": "Arroxy tidak dapat mengakses video ini tanpa autentikasi. Konfigurasikan cookie dalam pengaturan lanjutan — arahkan cookie ke browser yang sudah Anda masuki, atau impor file cookies.txt."},
 				"dpapi": {

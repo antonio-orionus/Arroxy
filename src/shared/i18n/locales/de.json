@@ -484,6 +484,11 @@
 				"exploreSignedIn": {"heading": "In Entdecken angemeldet", "body": "Falls dieses Video ein Konto erfordert, verwendet Arroxy automatisch deine Entdecken-Anmeldung. Es kann auch einen anderen Grund für die Nichtverfügbarkeit geben."},
 				"exploreOffer": {"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto", "body": "Melde dich in Entdecken an, dann versucht Arroxy es erneut.", "cta": "Mit Entdecken anmelden"},
 				"exploreReuse": {"heading": "Dieses Video erfordert möglicherweise ein YouTube-Konto", "body": "Du bist in Entdecken angemeldet, aber Downloads nutzen diese Anmeldung gerade nicht.", "cta": "Meine Entdecken-Anmeldung nutzen und erneut versuchen"},
+				"exploreSite": {
+					"heading": "Dieser Link benötigt möglicherweise ein Konto bei {{host}}",
+					"signInBody": "Melde dich in Entdecken bei {{host}} an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht.",
+					"offerBody": "Melde dich mit Entdecken bei {{host}} an und versuche es erneut."
+				},
 				"otherCookiesCta": "Stattdessen eine Cookies-Datei oder einen Browser verwenden…",
 				"needsCookies": {"heading": "Diese Seite erfordert eine Anmeldung", "body": "Arroxy konnte ohne Authentifizierung nicht auf dieses Video zugreifen. Konfiguriere Cookies in den erweiterten Einstellungen — verweise auf einen Browser, in dem du bereits angemeldet bist, oder importiere eine cookies.txt-Datei."},
 				"dpapi": {

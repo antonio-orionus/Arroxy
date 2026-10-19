@@ -2307,6 +2307,18 @@ msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "이 동영상은 YouTube 계정이 필요할 수 있습니다"
 
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "이 링크에는 {{host}} 사이트의 계정이 필요할 수 있습니다"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "탐색으로 {{host}} 사이트에 로그인한 다음 다시 시도하세요."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "탐색에서 {{host}} 사이트에 로그인한 다음 다시 시도하세요. Arroxy는 다운로드에 필요할 때만 그 로그인을 사용합니다."
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "쿠키가 원인일 수 있음"

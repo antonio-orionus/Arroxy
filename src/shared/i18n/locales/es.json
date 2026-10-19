@@ -490,6 +490,7 @@
 				"exploreSignedIn": {"heading": "Sesión iniciada en Explorar", "body": "Si este vídeo requiere una cuenta, Arroxy usa automáticamente tu sesión de Explorar. Puede que no esté disponible por otro motivo."},
 				"exploreOffer": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Inicia sesión en Explorar y Arroxy lo reintentará.", "cta": "Iniciar sesión en Explorar"},
 				"exploreReuse": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Has iniciado sesión en Explorar, pero las descargas no están usando esa sesión ahora mismo.", "cta": "Usar mi sesión de Explorar y reintentar"},
+				"exploreSite": {"heading": "Este enlace puede necesitar una cuenta de {{host}}", "signInBody": "En Explorar, inicia sesión en {{host}} y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita.", "offerBody": "En Explorar, inicia sesión en {{host}} y vuelve a intentarlo."},
 				"otherCookiesCta": "Usar un archivo de cookies o un navegador…",
 				"needsCookies": {"heading": "Este sitio requiere inicio de sesión", "body": "Arroxy no pudo acceder a este vídeo sin autenticación. Configura las cookies en los ajustes avanzados — apúntalas a un navegador en el que ya hayas iniciado sesión o importa un archivo cookies.txt."},
 				"dpapi": {

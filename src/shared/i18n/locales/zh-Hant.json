@@ -429,6 +429,7 @@
 				"exploreSignedIn": {"heading": "已在「探索」中登入", "body": "如果此影片需要帳戶，Arroxy 會自動使用你在「探索」中的登入。也可能因其他原因而無法使用。"},
 				"exploreOffer": {"heading": "此影片可能需要 YouTube 帳號", "body": "透過「探索」登入後，Arroxy 會重試。", "cta": "透過「探索」登入"},
 				"exploreReuse": {"heading": "此影片可能需要 YouTube 帳號", "body": "你已在「探索」中登入，但下載目前沒有使用該登入。", "cta": "使用我在「探索」中的登入並重試"},
+				"exploreSite": {"heading": "此連結可能需要 {{host}} 的帳戶", "signInBody": "請在「探索」中登入 {{host}} 後再試一次。Arroxy 僅在下載需要時才使用該登入。", "offerBody": "請透過「探索」登入 {{host}} 後再試一次。"},
 				"otherCookiesCta": "改用 Cookie 檔案或瀏覽器…",
 				"needsCookies": {"heading": "此網站需要登入", "body": "Arroxy 無法在未驗證身分的情況下存取此影片。請在進階設定中設定 Cookie——指向已登入的瀏覽器，或匯入 cookies.txt 檔案。"},
 				"dpapi": {

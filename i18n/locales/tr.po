@@ -2397,6 +2397,18 @@ msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Bu video bir YouTube hesabı gerektirebilir"
 
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Bu bağlantı {{host}} sitesinde bir hesap gerektirebilir"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır."
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Neden çerezler olabilir"

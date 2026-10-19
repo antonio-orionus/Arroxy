@@ -477,6 +477,7 @@
 				"exploreSignedIn": {"heading": "Keşfet'te oturum açıldı", "body": "Bu video hesap gerektiriyorsa Arroxy, Keşfet oturumunu otomatik olarak kullanır. Başka bir nedenle kullanılamıyor olabilir."},
 				"exploreOffer": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Keşfet'te oturum aç, Arroxy yeniden denesin.", "cta": "Keşfet'te oturum aç"},
 				"exploreReuse": {"heading": "Bu video bir YouTube hesabı gerektirebilir", "body": "Keşfet'te oturum açtın ama indirmeler şu anda bu oturumu kullanmıyor.", "cta": "Keşfet oturumumu kullan ve yeniden dene"},
+				"exploreSite": {"heading": "Bu bağlantı {{host}} sitesinde bir hesap gerektirebilir", "signInBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene. Arroxy bu oturumu yalnızca bir indirme gerektirdiğinde kullanır.", "offerBody": "Keşfet'te {{host}} sitesinde oturum aç ve tekrar dene."},
 				"otherCookiesCta": "Bunun yerine bir çerez dosyası veya tarayıcı kullan…",
 				"needsCookies": {"heading": "Bu site oturum açmayı gerektiriyor", "body": "Arroxy bu videoya kimlik doğrulaması olmadan erişemedi. Gelişmiş ayarlarda çerezleri yapılandır — zaten oturum açtığın bir tarayıcıyı göster veya bir cookies.txt dosyası içe aktar."},
 				"dpapi": {

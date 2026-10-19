@@ -2307,6 +2307,18 @@ msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Video này có thể cần tài khoản YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Liên kết này có thể cần tài khoản trên {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Hãy đăng nhập {{host}} qua Khám phá rồi thử lại."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Hãy đăng nhập {{host}} trong Khám phá rồi thử lại. Arroxy chỉ dùng đăng nhập đó khi một lượt tải cần đến."
+
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
 msgstr "Cookies có thể là nguyên nhân"
