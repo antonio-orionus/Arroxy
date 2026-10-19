@@ -14,6 +14,8 @@ import {copyCachedArtifactToFile, downloadArtifactToCache, sha256ForFile, type C
 export interface RuntimeBinaryMaterializeOptions {
 	cacheRoot: string
 	signal?: AbortSignal
+	// Called once a download actually begins, never for a reused install.
+	onDownloadStart?: () => void
 	onDownloadProgress?: DownloadProgressCallback
 	onExtracting?: () => void
 	lockTimeoutMs?: number
@@ -155,6 +157,7 @@ export class RuntimeBinaryMaterializer {
 			const tempDir = await fsPromises.mkdtemp(path.join(options.cacheRoot, 'stage-'))
 			try {
 				const archivePath = path.join(tempDir, `download-${entry.id}`)
+				options.onDownloadStart?.()
 				const artifact = await this.downloadVerified(entry, cacheKey, options)
 				options.onExtracting?.()
 				try {

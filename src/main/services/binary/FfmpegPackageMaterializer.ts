@@ -7,6 +7,7 @@ import {constants as zlibConstants, createBrotliDecompress} from 'node:zlib'
 import log from 'electron-log/main.js'
 import tarStream from 'tar-stream'
 import {ffmpegPackageCacheKey, normalizeRuntimeExecutablePath} from '@shared/runtimeBinaryManifest.js'
+import {ffmpegPackageEntrySchema} from '@shared/runtimeBinarySchemas.js'
 import type {FfmpegPackageEntry} from '@shared/types.js'
 import {abortError, ArtifactMaterializeError, downloadErrorToArtifactError, pathInside, withArtifactLock} from './ArtifactInstall.js'
 import {downloadArtifactToCache, readCachedArtifact, removeCachedArtifact, type CachedArtifactResult, type DownloadProgressCallback} from './BinaryDownloader.js'
@@ -14,6 +15,8 @@ import {downloadArtifactToCache, readCachedArtifact, removeCachedArtifact, type 
 export interface FfmpegPackageMaterializeOptions {
 	cacheRoot: string
 	signal?: AbortSignal
+	// Called once a download actually begins, never for a reused install.
+	onDownloadStart?: () => void
 	onDownloadProgress?: DownloadProgressCallback
 	onExtracting?: () => void
 	lockTimeoutMs?: number
@@ -28,10 +31,12 @@ export interface FfmpegPackageInstall {
 }
 
 // The cache key covers the archive's SHA-256, so it fixes the package
-// contents; URLs and mirrors may move without forcing a reinstall.
+// contents; URLs and mirrors may move without forcing a reinstall. The entry
+// is kept so the install can still be used once no index lists it.
 interface FfmpegPackageMetadata {
 	cacheKey: string
 	installedAt: string
+	entry: FfmpegPackageEntry
 }
 
 // Each approved version installs into its own directory and is never written to
@@ -68,8 +73,9 @@ function parseMetadata(raw: string): FfmpegPackageMetadata | null {
 	if (typeof parsed !== 'object' || parsed === null) return null
 	const record = parsed as Record<string, unknown>
 	const {cacheKey, installedAt} = record
-	if (typeof cacheKey !== 'string' || typeof installedAt !== 'string') return null
-	return {cacheKey, installedAt}
+	const entry = ffmpegPackageEntrySchema.safeParse(record.entry)
+	if (typeof cacheKey !== 'string' || typeof installedAt !== 'string' || !entry.success) return null
+	return {cacheKey, installedAt, entry: entry.data}
 }
 
 async function readMetadata(rootDir: string): Promise<FfmpegPackageMetadata | null> {
@@ -92,6 +98,7 @@ export class FfmpegPackageMaterializer {
 		return withArtifactLock(options.cacheRoot, cacheKey, options.signal, options.lockTimeoutMs, async () => {
 			if (await this.isInstalled(entry, cacheKey, rootDir)) return installFor(entry, cacheKey, rootDir)
 
+			options.onDownloadStart?.()
 			const artifact = await this.download(entry, cacheKey, options)
 			options.onExtracting?.()
 			const stageRoot = await fsPromises.mkdtemp(path.join(options.cacheRoot, 'stage-'))
@@ -102,7 +109,7 @@ export class FfmpegPackageMaterializer {
 				if (process.platform !== 'win32') {
 					await Promise.all([entry.ffmpegPath, entry.ffprobePath].map(executable => fsPromises.chmod(path.join(stageDir, packageRelativePath(executable)), 0o755)))
 				}
-				const metadata: FfmpegPackageMetadata = {cacheKey, installedAt: new Date().toISOString()}
+				const metadata: FfmpegPackageMetadata = {cacheKey, installedAt: new Date().toISOString(), entry}
 				await fsPromises.writeFile(path.join(stageDir, METADATA_FILE), `${JSON.stringify(metadata, null, 2)}\n`)
 				await fsPromises.mkdir(path.dirname(rootDir), {recursive: true})
 				// Only reached when the directory failed validation, so nothing
@@ -124,27 +131,40 @@ export class FfmpegPackageMaterializer {
 		})
 	}
 
-	// Removes installed versions other than `active` and the newest previous
-	// one. A directory still in use (Windows keeps loaded DLLs locked) is left
-	// for a later launch.
-	async prune(active: FfmpegPackageEntry, options: {cacheRoot: string}): Promise<string[]> {
-		const packagesDir = path.join(options.cacheRoot, PACKAGES_DIR)
-		let names: string[]
+	// The entries of the packages installed on disk, newest first. Only the
+	// shape is checked here: callers decide which of them they trust, and
+	// materialize() still validates the files before one is used.
+	async installed(options: {cacheRoot: string}): Promise<FfmpegPackageEntry[]> {
+		const installs = await Promise.all(
+			(await this.packageDirectories(options.cacheRoot)).map(async rootDir => {
+				const metadata = await readMetadata(rootDir)
+				// A directory is named by its entry's key, so metadata that does not
+				// hash to the name describes some other install.
+				return metadata && metadata.cacheKey === path.basename(rootDir) && ffmpegPackageCacheKeyHash(metadata.entry) === metadata.cacheKey ? metadata : null
+			})
+		)
+		return installs
+			.filter((install): install is FfmpegPackageMetadata => install !== null)
+			.sort((a, b) => b.installedAt.localeCompare(a.installedAt))
+			.map(install => install.entry)
+	}
+
+	private async packageDirectories(cacheRoot: string): Promise<string[]> {
+		const packagesDir = path.join(cacheRoot, PACKAGES_DIR)
 		try {
-			names = await fsPromises.readdir(packagesDir)
+			return (await fsPromises.readdir(packagesDir)).map(name => path.join(packagesDir, name))
 		} catch (err) {
 			if (isFileSystemError(err) && err.code === 'ENOENT') return []
 			throw err
 		}
+	}
+
+	// Removes installed versions other than `active` and the newest previous
+	// one. A directory still in use (Windows keeps loaded DLLs locked) is left
+	// for a later launch.
+	async prune(active: FfmpegPackageEntry, options: {cacheRoot: string}): Promise<string[]> {
 		const activeKey = ffmpegPackageCacheKeyHash(active)
-		const others = await Promise.all(
-			names
-				.filter(name => name !== activeKey)
-				.map(async name => {
-					const rootDir = path.join(packagesDir, name)
-					return {rootDir, installedAt: (await readMetadata(rootDir))?.installedAt ?? ''}
-				})
-		)
+		const others = await Promise.all((await this.packageDirectories(options.cacheRoot)).filter(rootDir => path.basename(rootDir) !== activeKey).map(async rootDir => ({rootDir, installedAt: (await readMetadata(rootDir))?.installedAt ?? ''})))
 		const stale = others.sort((a, b) => b.installedAt.localeCompare(a.installedAt)).slice(KEEP_PREVIOUS_VERSIONS)
 		const removed: string[] = []
 		for (const {rootDir} of stale) {

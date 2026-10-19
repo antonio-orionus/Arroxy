@@ -46,10 +46,12 @@ function installOf(entry: FfmpegPackageEntry): FfmpegPackageInstall {
 
 const noProbeMemo: ProbeVerdictStore = {get: async () => null, record: async () => undefined, forget: async () => undefined, clear: async () => undefined}
 
-async function makeMgr(packages: FfmpegPackageEntry[], ffmpegPackageMaterializer: FfmpegPackageMaterializerPort, pathLookup: PathLookup = async () => []): Promise<BinaryManager> {
+type MaterializerStub = Omit<FfmpegPackageMaterializerPort, 'installed'> & Partial<Pick<FfmpegPackageMaterializerPort, 'installed'>>
+
+async function makeMgr(packages: FfmpegPackageEntry[], ffmpegPackageMaterializer: MaterializerStub, pathLookup: PathLookup = async () => []): Promise<BinaryManager> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-ffmpeg-package-'))
 	const runtimeBinaryIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => packages)}
-	return new BinaryManager(dir, {runtimeBinaryIndex, ffmpegPackageMaterializer, probeVerdicts: noProbeMemo, pathLookup, overridesProvider: () => undefined})
+	return new BinaryManager(dir, {runtimeBinaryIndex, ffmpegPackageMaterializer: {installed: async () => [], ...ffmpegPackageMaterializer}, probeVerdicts: noProbeMemo, pathLookup, overridesProvider: () => undefined})
 }
 
 function stubProbes(mgr: BinaryManager, verdict: (id: DependencyId, source: DependencySource, candidatePath: string) => DependencyFailureKind | 'ok'): string[] {
@@ -96,6 +98,7 @@ describe('BinaryManager FFmpeg package resolution', () => {
 
 	it('reports the one package download on a single row so the splash counts its bytes once', async () => {
 		const materialize = vi.fn(async (entry: FfmpegPackageEntry, options: Parameters<FfmpegPackageMaterializerPort['materialize']>[1]) => {
+			options.onDownloadStart?.()
 			options.onDownloadProgress?.(5, 10)
 			options.onExtracting?.()
 			return installOf(entry)
@@ -126,6 +129,68 @@ describe('BinaryManager FFmpeg package resolution', () => {
 		await mgr.resolveFFmpegPair({onProgress: event => events.push(event)})
 
 		expect(events.find(event => event.bytesDownloaded === 5)?.totalBytes).toBe(pkg('N-2').size)
+	})
+
+	// A warm launch finds the package installed. Announcing a download anyway
+	// made the splash show "Updating the media tools" for nothing.
+	it('announces no download when the package is already installed', async () => {
+		const mgr = await makeMgr([pkg('N-2')], {materialize: vi.fn(async (entry: FfmpegPackageEntry) => installOf(entry)), prune: vi.fn(async () => [])})
+		stubProbes(mgr, () => 'ok')
+		const events: WarmupProgressEvent[] = []
+
+		await mgr.resolveFFmpegPair({onProgress: event => events.push(event)})
+
+		expect(events.filter(event => event.phase === 'downloading')).toEqual([])
+	})
+
+	it('announces the download as soon as it starts, before the first byte', async () => {
+		const materialize = vi.fn(async (entry: FfmpegPackageEntry, options: Parameters<FfmpegPackageMaterializerPort['materialize']>[1]) => {
+			options.onDownloadStart?.()
+			return installOf(entry)
+		})
+		const mgr = await makeMgr([pkg('N-2')], {materialize, prune: vi.fn(async () => [])})
+		stubProbes(mgr, () => 'ok')
+		const events: WarmupProgressEvent[] = []
+
+		await mgr.resolveFFmpegPair({onProgress: event => events.push(event)})
+
+		const downloads = events.filter(event => event.phase === 'downloading')
+		expect(downloads.map(event => [event.binary, event.bytesDownloaded])).toEqual([['ffmpeg', undefined]])
+	})
+
+	// Found in review: an app on pin A installs remote B, then the index moves to
+	// C and C fails to install. Offline, only C and A were tried, so the working
+	// B on disk was never found and setup blocked.
+	it('falls back to an installed package that no index lists any more', async () => {
+		const materialize = vi.fn(async (entry: FfmpegPackageEntry) => {
+			if (entry.version !== 'B') throw new ArtifactMaterializeError('NETWORK', 'offline')
+			return installOf(entry)
+		})
+		const mgr = await makeMgr([pkg('C'), pkg('A')], {materialize, prune: vi.fn(async () => []), installed: async () => [pkg('B'), pkg('A')]})
+		stubProbes(mgr, () => 'ok')
+
+		const pair = await mgr.resolveFFmpegPair()
+
+		expect(pair.ffmpeg.resolvedPath).toBe('/packages/B/ffmpeg')
+		expect(materialize.mock.calls.map(([entry]) => entry.version)).toEqual(['C', 'A', 'B'])
+	})
+
+	// What is on disk is not signed; only entries the trust rules accept, for
+	// this machine, are tried.
+	it('ignores installed packages for another machine or from an unapproved host', async () => {
+		const materialize = vi.fn(async (entry: FfmpegPackageEntry) => {
+			if (entry.version === 'C') throw new ArtifactMaterializeError('NETWORK', 'offline')
+			return installOf(entry)
+		})
+		const otherArch = {...pkg('X'), arch: pkg('X').arch === 'arm64' ? ('x64' as const) : ('arm64' as const)}
+		const elsewhere = {...pkg('Y'), url: 'https://example.com/ffmpeg.tar.br'}
+		const mgr = await makeMgr([pkg('C')], {materialize, prune: vi.fn(async () => []), installed: async () => [otherArch, elsewhere]})
+		stubProbes(mgr, () => 'ok')
+
+		const pair = await mgr.resolveFFmpegPair()
+
+		expect(pair.ffmpeg.state).toBe('failed')
+		expect(materialize.mock.calls.map(([entry]) => entry.version)).toEqual(['C'])
 	})
 
 	it('falls back to the next approved package when one cannot be installed', async () => {

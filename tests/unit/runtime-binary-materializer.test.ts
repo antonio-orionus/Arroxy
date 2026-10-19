@@ -204,6 +204,27 @@ describe('RuntimeBinaryMaterializer', () => {
 		)
 	})
 
+	// The splash treats a download start as "setup is running"; a cache hit
+	// announcing one made every warm launch flash the setup screen.
+	it('announces a download only when it has to download', async () => {
+		const body = Buffer.from('fake ytdlp')
+		await withServer(body, async url => {
+			const root = await cacheRoot()
+			const materializer = new RuntimeBinaryMaterializer()
+			const entry = entryFor(body, {url})
+			const starts: string[] = []
+			const onDownloadStart = (): void => {
+				starts.push('start')
+			}
+
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+
+			expect(starts).toEqual(['start'])
+			await fs.rm(root, {recursive: true, force: true})
+		})
+	})
+
 	it('reports extraction before staging a verified artifact', async () => {
 		const zip = buildStoredZip([{name: 'bin/yt-dlp', body: Buffer.from('fake zipped ytdlp'), compress: true}])
 		await withServer(zip, async url => {

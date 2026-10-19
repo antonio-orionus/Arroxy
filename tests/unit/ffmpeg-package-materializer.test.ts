@@ -144,6 +144,50 @@ describe('FfmpegPackageMaterializer', () => {
 		})
 	})
 
+	posixOnly('announces a download only when it has to download', async () => {
+		const archive = await buildPackage(goodFixtures())
+		await withServer({'/pkg': archive}, async base => {
+			const root = await cacheRoot()
+			const materializer = new FfmpegPackageMaterializer()
+			const entry = entryFor(archive, `${base}/pkg`)
+			const starts: string[] = []
+			const onDownloadStart = (): void => {
+				starts.push('start')
+			}
+
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+			await materializer.materialize(entry, {cacheRoot: root, onDownloadStart})
+
+			expect(starts).toEqual(['start'])
+		})
+	})
+
+	// A package installed from an index that has since moved on is listed in no
+	// index any more, but it still works offline.
+	posixOnly('lists the packages installed on disk with their approved entries', async () => {
+		const archive = await buildPackage(goodFixtures())
+		await withServer({'/pkg': archive}, async base => {
+			const root = await cacheRoot()
+			const materializer = new FfmpegPackageMaterializer()
+			const n1 = entryFor(archive, `${base}/pkg`, {version: 'N-1'})
+			const n2 = entryFor(archive, `${base}/pkg`, {version: 'N-2'})
+			await materializer.materialize(n1, {cacheRoot: root})
+			const second = await materializer.materialize(n2, {cacheRoot: root})
+			await fs.mkdir(path.join(root, 'packages', 'not-a-package'))
+			// Metadata copied into another version's directory must not vouch for it.
+			await fs.copyFile(path.join(second.rootDir, '.arroxy-package.json'), path.join(root, 'packages', 'not-a-package', '.arroxy-package.json'))
+
+			const installed = await materializer.installed({cacheRoot: root})
+
+			expect(installed.map(entry => entry.version).sort()).toEqual(['N-1', 'N-2'])
+			expect(installed.find(entry => entry.version === 'N-2')).toEqual(n2)
+		})
+	})
+
+	it('lists nothing before any package is installed', async () => {
+		await expect(new FfmpegPackageMaterializer().installed({cacheRoot: await cacheRoot()})).resolves.toEqual([])
+	})
+
 	posixOnly('reinstalls when a library in the cached install is damaged', async () => {
 		const archive = await buildPackage(goodFixtures())
 		await withServer({'/pkg': archive}, async base => {

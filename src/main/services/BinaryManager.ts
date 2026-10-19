@@ -5,14 +5,14 @@ import {app} from 'electron'
 import log from 'electron-log/main.js'
 
 import {isEnvironmentFatalFailure} from '@shared/dependencyPolicy.js'
-import {type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type RuntimeBinaryManifestEntry, type StatusKey} from '@shared/types.js'
+import {type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic, type DependencyFailure, type DependencyId, type DependencySource, type FfmpegPackageEntry, type RuntimeBinaryManifestEntry, type StatusKey} from '@shared/types.js'
 import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, fallbackPathCandidates, type ProbeBudget} from './binary/BinaryProbe.js'
 import {ProbeVerdictCache, type ProbeVerdictStore} from './binary/ProbeVerdictCache.js'
 import {classifyDownloadError, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
 import {installFfmpegWithHomebrew, installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
 import {installFfmpegWithWinget, installYtDlpWithWinget} from './binary/WingetRepair.js'
 import type {FfmpegPairPaths} from './binary/ffmpegPairOnPath.js'
-import {normalizeRuntimeExecutablePath, runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
+import {ffmpegPackageCacheKey, normalizeRuntimeExecutablePath, runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateFfmpegPackageEntry, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
 import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode} from './binary/ArtifactInstall.js'
 import {RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from './binary/RuntimeBinaryMaterializer.js'
 import {RuntimeBinaryIndexService, type RuntimeBinaryIndexProvider} from './binary/RuntimeBinaryIndexService.js'
@@ -234,7 +234,7 @@ function devEmbeddedBinaryPath(name: 'ffmpeg' | 'ffprobe'): string | null {
 
 type FfmpegId = 'ffmpeg' | 'ffprobe'
 type FfmpegPair = Record<FfmpegId, DependencyDiagnostic>
-export type FfmpegPackageMaterializerPort = Pick<FfmpegPackageMaterializer, 'materialize' | 'prune'>
+export type FfmpegPackageMaterializerPort = Pick<FfmpegPackageMaterializer, 'materialize' | 'prune' | 'installed'>
 
 // Finds a binary by name on the system PATH, in PATH order.
 export type PathLookup = (name: string, signal?: AbortSignal) => Promise<string[]>
@@ -501,10 +501,14 @@ export class BinaryManager {
 	private async tryRuntimeManifestEntry(entry: RuntimeBinaryManifestEntry, attempts: DependencyAttempt[], opts: ResolveOptions, onProgress: ProgressEmitter | undefined, signal: AbortSignal | undefined, budget: ProbeBudget): Promise<ProbeOutcome> {
 		const source = this.sourceFromRuntimeManifest(entry)
 		const startedAt = Date.now()
-		onProgress?.({binary: entry.id, phase: 'downloading', source})
-		opts.onStatus?.('downloadingBinary', {name: entry.id})
+		// Announced only once a download really begins: a reused install must not
+		// put the splash into setup mode.
+		const onDownloadStart = (): void => {
+			onProgress?.({binary: entry.id, phase: 'downloading', source})
+			opts.onStatus?.('downloadingBinary', {name: entry.id})
+		}
 		try {
-			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress, entry.size), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
+			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadStart, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress, entry.size), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
 			return await this.probeAndAccept(entry.id, source, result.executablePath, attempts, onProgress, signal, budget)
 		} catch (err) {
 			// materialize() rejects on abort too. Recording that as a download
@@ -682,12 +686,13 @@ export class BinaryManager {
 	}
 
 	// Approved packages in index order (remote, then last-known-good, then the
-	// bundled pin). An installed package is reused without network access, so a
-	// launch with no connection still resolves from any version the user has.
+	// bundled pin), then any other package still installed. An installed package
+	// is reused without network access, so a launch with no connection still
+	// resolves from a version the indexes have since moved past.
 	private async tryManagedFfmpegPackages(waitingFor: () => FfmpegId[], tryCandidate: (id: FfmpegId, source: DependencySource, candidatePath: string) => Promise<boolean>, attempts: Record<FfmpegId, DependencyAttempt[]>, opts: ResolveOptions): Promise<void> {
 		const {onProgress, signal} = opts
 		if (waitingFor().length === 0) return
-		for (const entry of await this.runtimeBinaryIndex.ffmpegPackageCandidates(signal)) {
+		for (const entry of await this.ffmpegPackageCandidates(signal)) {
 			const waiting = waitingFor()
 			if (waiting.length === 0) return
 			const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: entry.url}
@@ -696,14 +701,16 @@ export class BinaryManager {
 			// downloading row, so reporting it on both rows would count it twice:
 			// it is reported on the first binary still waiting, normally ffmpeg.
 			const carrier = waiting[0]
-			onProgress?.({binary: carrier, phase: 'downloading', source})
-			opts.onStatus?.('downloadingBinary', {name: 'ffmpeg'})
 			let install: FfmpegPackageInstall
 			try {
 				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- packages are tried in approved fallback order
 				install = await this.ffmpegPackages.materialize(entry, {
 					cacheRoot: this.artifactCacheDir,
 					signal,
+					onDownloadStart: () => {
+						onProgress?.({binary: carrier, phase: 'downloading', source})
+						opts.onStatus?.('downloadingBinary', {name: 'ffmpeg'})
+					},
 					onDownloadProgress: makeDownloadProgress(carrier, source, onProgress, entry.size),
 					onExtracting: () => {
 						onProgress?.({binary: carrier, phase: 'extracting', source})
@@ -722,6 +729,23 @@ export class BinaryManager {
 				return
 			}
 		}
+	}
+
+	// Installed packages carry no signature, so they pass the same entry rules
+	// as an index entry, and must target this machine, before one is tried.
+	private async ffmpegPackageCandidates(signal: AbortSignal | undefined): Promise<FfmpegPackageEntry[]> {
+		const approved = await this.runtimeBinaryIndex.ffmpegPackageCandidates(signal)
+		const seen = new Set(approved.map(ffmpegPackageCacheKey))
+		let installed: FfmpegPackageEntry[] = []
+		try {
+			installed = await this.ffmpegPackages.installed({cacheRoot: this.artifactCacheDir})
+		} catch (err) {
+			logger.warn('Could not list installed FFmpeg packages', {error: errorMessage(err)})
+		}
+		const platform = runtimeBinaryPlatformFor()
+		const arch = runtimeBinaryArchFor()
+		const leftovers = installed.filter(entry => entry.platform === platform && entry.arch === arch && validateFfmpegPackageEntry(entry).ok && !seen.has(ffmpegPackageCacheKey(entry)))
+		return [...approved, ...leftovers]
 	}
 
 	async ensureFFmpeg(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string | null> {
