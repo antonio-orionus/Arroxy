@@ -183,14 +183,14 @@ When adding idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater
 
 ### Run Electron E2E without stealing focus
 
-Electron E2E launches a real app window, which steals focus and interrupts whoever is at the keyboard. **Always set `ARROXY_E2E_HEADLESS=1`** when running these locally:
+Electron E2E launches a real app window, which steals focus and interrupts whoever is at the keyboard. **Always set `ARROXY_E2E_HEADLESS=1`** when running these locally — for the whole suite or one spec:
 
 ```bash
-ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts --config playwright.config.ts --workers=1
+ARROXY_E2E_HEADLESS=1 bunx playwright test --config playwright.config.ts --workers=1
 ARROXY_E2E_HEADLESS=1 bunx playwright test tests/e2e/fixture-workflows.spec.ts --config playwright.config.ts --workers=1 -g "<test name>"
 ```
 
-The flag only takes effect together with `ARROXY_E2E=1` (which the fixture harness already sets) — see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. It maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
+The flag only takes effect in an E2E launch — `ARROXY_E2E=1` (set by the fixture harness) or `MOCK_BACKEND=1` (set by the smoke and startup-resilience specs) — so a stray export never hides a normal launch; see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. Any new spec that launches the app must set one of the two, or its window shows. Specs that need a focused window (hotkey feedback, clipboard watching) skip themselves under the flag. `startup-journeys.spec.ts` drives a packaged build (`PACKAGED_EXE`) and is not covered. It maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
 
 Rebuild first (`bun run build`) — the E2E suites launch `out/main/index.js`, not the dev server. Never hide the build's output: it type-checks first and stops on any error (including in test files), leaving the old bundle in place. The E2E global setup refuses to run when `out/main/index.js` is older than any file in `src/` (`ARROXY_E2E_ALLOW_STALE_BUILD=1` to override).
 

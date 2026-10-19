@@ -46,12 +46,14 @@ function isE2eHarnessEnabled(env: NodeJS.ProcessEnv, gate: HarnessGate): boolean
 }
 
 /**
- * Opt-in hidden-window mode for E2E runs. Double-gated on ARROXY_E2E so a stray
- * ARROXY_E2E_HEADLESS in a user's shell can never launch the real app with an
- * invisible window.
+ * Opt-in hidden-window mode for E2E runs. Double-gated on an E2E launch marker
+ * (ARROXY_E2E for the fixture harness, MOCK_BACKEND for the smoke and startup
+ * specs) so a stray ARROXY_E2E_HEADLESS in a user's shell can never launch the
+ * real app with an invisible window.
  */
 export function isHeadlessWindowRequested(env: NodeJS.ProcessEnv): boolean {
-	return env.ARROXY_E2E === '1' && env.ARROXY_E2E_HEADLESS === '1'
+	const isE2eLaunch = env.ARROXY_E2E === '1' || env.MOCK_BACKEND === '1'
+	return isE2eLaunch && env.ARROXY_E2E_HEADLESS === '1'
 }
 
 function applyE2eAppSettingsDefaults(defaults: AppSettings, allowClipboardWatch: boolean): AppSettings {

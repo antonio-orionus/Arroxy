@@ -188,8 +188,14 @@ describe('resolveE2eHarnessMode Explore idle unload delay', () => {
 })
 
 describe('isHeadlessWindowRequested', () => {
-	it('enables the hidden window only when both E2E flags are set', () => {
+	it('hides the window in a fixture E2E run', () => {
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '1', ARROXY_E2E_HEADLESS: '1'})).toBe(true)
+	})
+
+	it('hides the window in a mock-backend E2E run', () => {
+		// The smoke and startup-resilience specs launch with MOCK_BACKEND and no
+		// ARROXY_E2E; a full headless suite run must not pop their windows up.
+		expect(isHeadlessWindowRequested({MOCK_BACKEND: '1', ARROXY_E2E_HEADLESS: '1'})).toBe(true)
 	})
 
 	it('ignores ARROXY_E2E_HEADLESS outside an E2E run', () => {
@@ -197,10 +203,12 @@ describe('isHeadlessWindowRequested', () => {
 		// with an invisible window.
 		expect(isHeadlessWindowRequested({ARROXY_E2E_HEADLESS: '1'})).toBe(false)
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '0', ARROXY_E2E_HEADLESS: '1'})).toBe(false)
+		expect(isHeadlessWindowRequested({MOCK_BACKEND: '0', ARROXY_E2E_HEADLESS: '1'})).toBe(false)
 	})
 
 	it('keeps E2E runs visible by default', () => {
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '1'})).toBe(false)
+		expect(isHeadlessWindowRequested({MOCK_BACKEND: '1'})).toBe(false)
 	})
 })
 
