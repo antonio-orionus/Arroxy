@@ -38,8 +38,29 @@ permissions:
   contents: read
 
 jobs:
+  # Skips this suite on a pull request that cannot affect it; see
+  # .github/actions/app-changes for what counts.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ steps.changes.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - id: changes
+        uses: ./.github/actions/app-changes
+        with:
+          scope: installer
+
   build:
     name: Build Windows installer
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -296,6 +317,24 @@ jobs:
           name: crash-dump-cycle
           path: ${{ runner.temp }}/CrashDumps/
           if-no-files-found: ignore
+
+  # The required check: passes only when the filter ran and, if the suite had
+  # to run, every job above passed (see .github/actions/suite-gate).
+  gate:
+    name: Windows installer gate
+    needs: [changes, build, cold-smoke, cycle-smoke]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - uses: ./.github/actions/suite-gate
+        with:
+          suite: Windows installer
+          needs: ${{ toJSON(needs) }}
+          run: ${{ needs.changes.outputs.run }}
 
   registry-latest-gate:
     name: electron-builder dist-tag advisory

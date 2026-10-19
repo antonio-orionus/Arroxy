@@ -383,7 +383,7 @@ Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. A
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-Telemetrii hin jiru — guyyaatti mallattoo maqaa-dhabduu tokko qofa: version app, OS, afaan, karaa itti install godhame fi biyya, akka fayyadamtoota hojii irra jiran lakkoofnuuf. ID, URL, mata-duree viidiyoo, karaa faayilaa yookaan odeeffannoo account hin jiru. Settings keessatti dhaabuu dandeessa.
+Telemetrii hin jiru — guyyaatti mallattoo maqaa-dhabduu tokko qofa: version app, OS, afaan, karaa itti install godhame, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame, akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf. ID, URL, mata-duree viidiyoo, karaa faayilaa yookaan odeeffannoo account hin jiru. Settings keessatti dhaabuu dandeessa.
 
 Explore seensawwan mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa gonkumaa hin dubbisu hin guutus — ati fuula marsariitii mataa isaa irratti barreessita. Buufannaan utuu hin seenin deemu; yeroo tokko karaa akkaawuntiin sirreessuu danda'un hin milkoofnetti qofa Arroxy seensa yeroo sana haaraatti dubbisa, buufannaa sanaaf faayilii yeroo keessatti qaba, booda faayilicha haqa. Qindoomina keessatti Explore irraa bahuun isaan irraanfachiisa.
 

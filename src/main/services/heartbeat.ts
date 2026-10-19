@@ -1,16 +1,20 @@
 import * as Counterscale from '@counterscale/tracker/server'
 import type {ServerTrackPageviewOpts} from '@counterscale/tracker/server'
+import type {InstallAge} from '@shared/schemas.js'
 import type {InstallChannel} from '@shared/types.js'
 
 // Heartbeat: one anonymous Counterscale "pageview" per install per UTC day.
 // Counterscale counts every server-side hit as a new visit, so the dashboard's
-// daily visitors equal daily active installs. Country comes from Cloudflare at
-// the collect endpoint; the heartbeat itself carries no identifier.
+// daily visitors equal daily active installs. It cannot tell new installs from
+// returning ones, so each heartbeat names its own install age instead. Country
+// comes from Cloudflare at the collect endpoint; the heartbeat itself carries no
+// identifier.
 export const HEARTBEAT_URL = 'https://stats.orionus.dev/collect'
 export const HEARTBEAT_SITE_ID = 'arroxy'
 
 // Counterscale is built for websites, so the app's fields ride in the slots its
-// dashboard already breaks down: the path holds the version, the UTM fields the rest.
+// dashboard already breaks down: the path holds the version, the referrer the
+// install age, the UTM fields the rest.
 const PAGEVIEW_HOSTNAME = 'desktop.arroxy'
 const SEND_TIMEOUT_MS = 5_000
 
@@ -24,13 +28,20 @@ export interface HeartbeatSnapshot {
 	osLocale: string
 }
 
+// UTC days (YYYY-MM-DD) of this install's first and last heartbeat. The first
+// is unknown for installs counted before it was recorded.
+export interface HeartbeatHistory {
+	firstDay?: string
+	lastDay?: string
+}
+
 export interface HeartbeatDeps {
 	send: (pageview: ServerTrackPageviewOpts) => Promise<void>
 	now: () => Date
 	isEnabled: () => boolean
 	snapshot: () => HeartbeatSnapshot
-	lastDay: () => string | undefined
-	recordDay: (day: string) => void | Promise<void>
+	history: () => HeartbeatHistory
+	record: (history: {firstDay?: string; lastDay: string}) => void | Promise<void>
 	// Called once per failed day; the heartbeat itself never throws.
 	onError?: (error: unknown) => void
 }
@@ -66,8 +77,33 @@ export function osLabel(platform: NodeJS.Platform, osVersion: string): string {
 	return platform
 }
 
-export function buildHeartbeatPageview(snapshot: HeartbeatSnapshot): ServerTrackPageviewOpts {
-	return {url: `/${snapshot.appVersion}`, hostname: PAGEVIEW_HOSTNAME, utmSource: snapshot.installChannel, utmMedium: `${snapshot.platform}-${snapshot.arch}`, utmCampaign: osLabel(snapshot.platform, snapshot.osVersion), utmTerm: snapshot.appLocale, utmContent: snapshot.osLocale}
+const DAY_MS = 86_400_000
+const UTC_DAY = /^\d{4}-\d{2}-\d{2}$/
+
+function parseUtcDay(day: string): number | undefined {
+	if (!UTC_DAY.test(day)) return undefined
+	const time = Date.parse(`${day}T00:00:00Z`)
+	// Date.parse rolls impossible dates over (2026-02-30 becomes March 2nd).
+	return Number.isNaN(time) || new Date(time).toISOString().slice(0, 10) !== day ? undefined : time
+}
+
+// Coarse on purpose: a bucket is shared by many installs, so it can never
+// single one out the way an exact install date could.
+export function installAge(firstDay: string | undefined, today: string): InstallAge {
+	const first = firstDay === undefined ? undefined : parseUtcDay(firstDay)
+	const now = parseUtcDay(today)
+	if (first === undefined || now === undefined) return 'existing'
+	if (first === now) return 'new'
+	// A first day in the future means the clock was set back; the install is not new.
+	const days = (now - first) / DAY_MS
+	if (days <= 7) return '1-7d'
+	if (days <= 30) return '8-30d'
+	if (days <= 90) return '31-90d'
+	return 'over-90d'
+}
+
+export function buildHeartbeatPageview(snapshot: HeartbeatSnapshot, age: InstallAge): ServerTrackPageviewOpts {
+	return {url: `/${snapshot.appVersion}`, hostname: PAGEVIEW_HOSTNAME, referrer: age, utmSource: snapshot.installChannel, utmMedium: `${snapshot.platform}-${snapshot.arch}`, utmCampaign: osLabel(snapshot.platform, snapshot.osVersion), utmTerm: snapshot.appLocale, utmContent: snapshot.osLocale}
 }
 
 // The tracker never throws on network errors; it resolves once the request
@@ -93,12 +129,16 @@ export function createHeartbeat(deps: HeartbeatDeps): {maybeSend: () => Promise<
 			try {
 				if (!deps.isEnabled()) return false
 				const day = utcDay(deps.now())
-				if (attemptedDay === day || deps.lastDay() === day) return false
+				const history = deps.history()
+				if (attemptedDay === day || history.lastDay === day) return false
 				attemptedDay = day
+				// An install that never sent a heartbeat starts today. One that sent
+				// before first days were recorded keeps an unknown age.
+				const firstDay = history.firstDay ?? (history.lastDay === undefined ? day : undefined)
 				// Record first: a heartbeat is fire-and-forget, and a lost one is better
 				// than a day counted twice.
-				await deps.recordDay(day)
-				await deps.send(buildHeartbeatPageview(deps.snapshot()))
+				await deps.record({firstDay, lastDay: day})
+				await deps.send(buildHeartbeatPageview(deps.snapshot(), installAge(firstDay, day)))
 				return true
 			} catch (error) {
 				deps.onError?.(error)

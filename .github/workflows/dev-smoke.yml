@@ -17,8 +17,29 @@ permissions:
   contents: read
 
 jobs:
+  # Skips this suite on a pull request that cannot affect it; see
+  # .github/actions/app-changes for what counts.
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ steps.changes.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - id: changes
+        uses: ./.github/actions/app-changes
+        with:
+          scope: browser
+
   dev-smoke:
     name: Dev smoke (${{ matrix.label }})
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     strategy:
@@ -78,3 +99,21 @@ jobs:
             tests/browser/screenshots
           if-no-files-found: ignore
           retention-days: 7
+
+  # The required check: passes only when the filter ran and, if the suite had
+  # to run, every job above passed (see .github/actions/suite-gate).
+  gate:
+    name: Dev smoke gate
+    needs: [changes, dev-smoke]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/actions
+      - uses: ./.github/actions/suite-gate
+        with:
+          suite: Dev smoke
+          needs: ${{ toJSON(needs) }}
+          run: ${{ needs.changes.outputs.run }}

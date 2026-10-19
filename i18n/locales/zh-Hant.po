@@ -3865,8 +3865,8 @@ msgid "Send daily heartbeat"
 msgstr "傳送每日心跳訊號"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言和國家/地區，用來統計活躍使用者。不包含 ID、URL、影片標題或檔名。"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言、國家/地區，以及 Arroxy 大約是多久前安裝的，用來統計活躍使用者和新使用者。不包含 ID、URL、影片標題或檔名。"
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."

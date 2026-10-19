@@ -385,7 +385,7 @@ Die meisten kostenlosen YouTube-Downloader sind ein URL-Feld über yt-dlp. Arrox
 
 Downloads werden direkt über [yt-dlp](https://github.com/yt-dlp/yt-dlp) von YouTube in den von dir gewählten Ordner geholt — nichts wird über einen Drittanbieter-Server geleitet. Verlauf, Download-Historie, URLs und Dateiinhalte bleiben auf deinem Gerät.
 
-Keine Telemetrie — nur ein anonymes Lebenszeichen pro Tag: App-Version, OS, Sprache, Installationskanal und Land, damit wir aktive Nutzer zählen können. Keine IDs, URLs, Videotitel, Dateipfade oder Kontodaten. Du kannst es in den Einstellungen abschalten.
+Keine Telemetrie — nur ein anonymes Lebenszeichen pro Tag: App-Version, OS, Sprache, Installationskanal, Land und ungefähr, wie lange Arroxy schon installiert ist, damit wir aktive und neue Nutzer zählen können. Keine IDs, URLs, Videotitel, Dateipfade oder Kontodaten. Du kannst es in den Einstellungen abschalten.
 
 Explore hat eigene Anmeldungen, getrennt von deinem Browser, und Arroxy liest oder füllt ein Anmeldeformular nie aus – du tippst auf der eigenen Seite der Website. Downloads laufen abgemeldet; nur wenn einer auf eine Weise scheitert, die ein Konto beheben kann, liest Arroxy die Anmeldung frisch aus, hält sie für diesen Download in einer temporären Datei und löscht die Datei danach. Wenn du dich in den Einstellungen von Explore abmeldest, werden sie vergessen.
 

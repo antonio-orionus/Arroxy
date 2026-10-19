@@ -373,7 +373,7 @@ export const fr = {
   privacy_p1:
     "Les téléchargements sont récupérés directement via [yt-dlp](https://github.com/yt-dlp/yt-dlp) depuis YouTube vers le dossier que tu choisis — rien ne passe par un serveur tiers. L'historique de visionnage, l'historique de téléchargement, les URLs et le contenu des fichiers restent sur ton appareil.",
   privacy_p2:
-    "Aucune télémétrie — juste un signal anonyme par jour : version de l’app, OS, langue, canal d’installation et pays, pour compter les utilisateurs actifs. Aucun identifiant, URL, titre de vidéo, chemin de fichier ni info de compte. Tu peux le désactiver dans les Paramètres.",
+    "Aucune télémétrie — juste un signal anonyme par jour : version de l’app, OS, langue, canal d’installation, pays et, approximativement, depuis combien de temps Arroxy est installé, pour compter les utilisateurs actifs et nouveaux. Aucun identifiant, URL, titre de vidéo, chemin de fichier ni info de compte. Tu peux le désactiver dans les Paramètres.",
   privacy_p3: "Explore garde ses propres connexions, séparées de ton navigateur, et Arroxy ne lit ni ne remplit jamais un formulaire de connexion : tu saisis tes identifiants sur la page du site elle-même. Les téléchargements se font sans connexion ; seulement quand l'un échoue d'une manière qu'un compte peut corriger, Arroxy relit la connexion à ce moment-là, la garde dans un fichier temporaire pour ce téléchargement et supprime le fichier ensuite. Se déconnecter d'Explore dans les Paramètres les oublie.",
   faq_q1: "C'est vraiment gratuit ?",
   faq_a1:

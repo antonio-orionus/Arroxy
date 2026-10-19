@@ -369,7 +369,7 @@ export const tr = {
   privacy_p1:
     "İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.",
   privacy_p2:
-    "Telemetri yok — günde yalnızca bir anonim sinyal: uygulama sürümü, işletim sistemi, dil, kurulum kanalı ve ülke; böylece etkin kullanıcıları sayabiliriz. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. Ayarlar'dan kapatabilirsin.",
+    "Telemetri yok — günde yalnızca bir anonim sinyal: uygulama sürümü, işletim sistemi, dil, kurulum kanalı, ülke ve Arroxy'nin yaklaşık ne kadar önce kurulduğu; böylece etkin ve yeni kullanıcıları sayabiliriz. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. Ayarlar'dan kapatabilirsin.",
   privacy_p3: "Explore, tarayıcından ayrı kendi girişlerini tutar ve Arroxy bir giriş formunu asla okumaz ya da doldurmaz — sitenin kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişleri unutturur.",
   faq_q1: "Gerçekten ücretsiz mi?",
   faq_a1: "Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.",

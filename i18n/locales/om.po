@@ -4020,8 +4020,8 @@ msgid "Send daily heartbeat"
 msgstr "Mallattoo guyyaa guyyaan ergi"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan fi biyya erga, akka fayyadamtoota hojii irra jiran lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Telemetirii hin jiru. Guyyaatti al tokko, mallattoon maqaa-malee vershinii appii, karaa itti install godhame, OS, afaan, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame erga, akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf. ID, URL, mata-dureewwan viidiyoo ykn maqaa faayilii hin qabatu."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."

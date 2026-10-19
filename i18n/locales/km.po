@@ -3865,8 +3865,8 @@ msgid "Send daily heartbeat"
 msgstr "ផ្ញើសញ្ញាប្រចាំថ្ងៃ"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "គ្មានការតាមដានទេ។ ម្តងក្នុងមួយថ្ងៃ សញ្ញាអនាមិកមួយផ្ញើកំណែកម្មវិធី ប៉ុស្តិ៍ដំឡើង ប្រព័ន្ធប្រតិបត្តិការ ភាសា និងប្រទេស ដើម្បីឱ្យយើងអាចរាប់អ្នកប្រើសកម្ម។ គ្មាន ID, URL, ចំណងជើងវីដេអូ ឬឈ្មោះឯកសារទេ។"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "គ្មានការតាមដានទេ។ ម្តងក្នុងមួយថ្ងៃ សញ្ញាអនាមិកមួយផ្ញើកំណែកម្មវិធី ប៉ុស្តិ៍ដំឡើង ប្រព័ន្ធប្រតិបត្តិការ ភាសា ប្រទេស និងរយៈពេលប្រហែលចាប់តាំងពី Arroxy ត្រូវបានដំឡើង ដើម្បីឱ្យយើងអាចរាប់អ្នកប្រើសកម្ម និងអ្នកប្រើថ្មី។ គ្មាន ID, URL, ចំណងជើងវីដេអូ ឬឈ្មោះឯកសារទេ។"
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."

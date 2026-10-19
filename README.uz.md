@@ -383,7 +383,7 @@ Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Ar
 
 Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.
 
-Telemetriya yo‘q — kuniga faqat bitta anonim signal: ilova versiyasi, OS, til, o‘rnatish kanali va mamlakat, faol foydalanuvchilarni sanash uchun. ID, URL, video sarlavhasi, fayl yo‘li yoki hisob ma’lumoti yo‘q. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
+Telemetriya yo‘q — kuniga faqat bitta anonim signal: ilova versiyasi, OS, til, o‘rnatish kanali, mamlakat va Arroxy taxminan qachon o‘rnatilgani, faol va yangi foydalanuvchilarni sanash uchun. ID, URL, video sarlavhasi, fayl yo‘li yoki hisob ma’lumoti yo‘q. Sozlamalarda o‘chirib qo‘yishingiz mumkin.
 
 Explore o'z kirishlarini saqlaydi, brauzeringizdan alohida, va Arroxy kirish shaklini hech qachon o'qimaydi yoki to'ldirmaydi — siz saytning o'z sahifasiga yozasiz. Yuklab olishlar tizimga kirmasdan bajariladi; faqat biri hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda Arroxy kirishni o'sha payt o'qiydi, o'sha yuklab olish uchun vaqtinchalik faylda saqlaydi va keyin faylni o'chiradi. Sozlamalarda Explore'dan chiqish ularni unutadi.
 

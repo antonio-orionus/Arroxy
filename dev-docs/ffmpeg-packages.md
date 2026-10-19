@@ -136,7 +136,7 @@ Only under the version policy above; nothing tracks upstream automatically.
 
 1. Bump the upstream pins: `BTBN_PINNED_RELEASE_TAG` in
    `scripts/build/btbnResolver.ts` and the Martin Riedl paths and SHA-256s in
-   `scripts/build/fetch-embedded.sh`. Run `scripts/test-binaries/smoke-all.sh`.
+   `scripts/build/embeddedPin.ts`. Run `scripts/test-binaries/smoke-all.sh`.
 2. Fetch every target into a clean `build/embedded/`:
    `bash scripts/build/fetch-embedded.sh <platform> <arch>` for each row above.
    Then run the remux matrix on the fetched build for your own machine:

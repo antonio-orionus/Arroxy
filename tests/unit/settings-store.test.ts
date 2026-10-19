@@ -35,14 +35,22 @@ describe('settings and recent stores', () => {
 		const store = new SettingsStore(userData, baseDefaults)
 		expect(store.getSync().common).not.toHaveProperty('installId')
 
-		await store.recordHeartbeatDay('2026-10-16')
-		expect(new SettingsStore(userData, baseDefaults).getSync().common.lastHeartbeatDay).toBe('2026-10-16')
+		await store.recordHeartbeat({firstDay: '2026-10-01', lastDay: '2026-10-16'})
+		expect(new SettingsStore(userData, baseDefaults).getSync().common).toMatchObject({firstHeartbeatDay: '2026-10-01', lastHeartbeatDay: '2026-10-16'})
 		expect(updateSettingsSchema.safeParse({common: {lastHeartbeatDay: '2026-10-17'}}).success).toBe(false)
+		expect(updateSettingsSchema.safeParse({common: {firstHeartbeatDay: '2026-10-17'}}).success).toBe(false)
+	})
+
+	it('leaves the first heartbeat day unset when it is unknown', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-heartbeat-unknown-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		await store.recordHeartbeat({lastDay: '2026-10-16'})
+		expect(new SettingsStore(userData, baseDefaults).getSync().common).not.toHaveProperty('firstHeartbeatDay')
 	})
 
 	it('keeps the user settings when the stored heartbeat day is malformed', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-heartbeat-bad-'))
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', lastHeartbeatDay: 'not-a-date'}}), 'utf-8')
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, common: {...baseDefaults.common, defaultOutputDir: '/persisted/downloads', firstHeartbeatDay: 'not-a-date', lastHeartbeatDay: 'not-a-date'}}), 'utf-8')
 		expect(new SettingsStore(userData, baseDefaults).getSync().common.defaultOutputDir).toBe('/persisted/downloads')
 	})
 

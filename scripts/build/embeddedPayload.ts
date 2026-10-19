@@ -3,6 +3,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import {pathToFileURL} from 'node:url'
 
+import {embeddedPinFor, martinRiedlShellEnv} from './embeddedPin.js'
+
 export type EmbeddedPlatform = 'win32' | 'darwin' | 'linux'
 export type EmbeddedArch = 'x64' | 'arm64'
 
@@ -11,6 +13,9 @@ export interface EmbeddedPayloadStatus {
 	message?: string
 	ok: boolean
 }
+
+// Records which upstream build the payload was fetched from (see embeddedPin.ts).
+export const EMBEDDED_PIN_FILE = '.embedded-pin'
 
 const LINUX_LIB_FAMILIES = ['libavcodec.so', 'libavdevice.so', 'libavfilter.so', 'libavformat.so', 'libavutil.so', 'libswresample.so', 'libswscale.so'] as const
 const WINDOWS_DLL_FAMILIES = ['avcodec', 'avdevice', 'avfilter', 'avformat', 'avutil', 'swresample', 'swscale'] as const
@@ -100,11 +105,32 @@ async function missingWindowsDll(dir: string, entries: string[]): Promise<string
 	return null
 }
 
-export async function checkEmbeddedPayload(input: {arch: string; dir: string; platform: string}): Promise<EmbeddedPayloadStatus> {
+interface EmbeddedPayloadTarget {
+	arch: string
+	dir: string
+	env?: NodeJS.ProcessEnv
+	platform: string
+}
+
+async function readPinRecord(dir: string): Promise<string | null> {
+	try {
+		return (await fs.readFile(path.join(dir, EMBEDDED_PIN_FILE), 'utf8')).trim()
+	} catch {
+		return null
+	}
+}
+
+export async function writeEmbeddedPin(input: EmbeddedPayloadTarget): Promise<void> {
+	const pin = embeddedPinFor(normalizeEmbeddedPlatform(input.platform), normalizeEmbeddedHostArch(input.arch), input.env)
+	await fs.writeFile(path.join(input.dir, EMBEDDED_PIN_FILE), `${pin}\n`)
+}
+
+export async function checkEmbeddedPayload(input: EmbeddedPayloadTarget): Promise<EmbeddedPayloadStatus> {
 	let platform: EmbeddedPlatform
+	let arch: EmbeddedArch
 	try {
 		platform = normalizeEmbeddedPlatform(input.platform)
-		normalizeEmbeddedHostArch(input.arch)
+		arch = normalizeEmbeddedHostArch(input.arch)
 	} catch (error) {
 		return {ok: false, dir: input.dir, message: error instanceof Error ? error.message : String(error)}
 	}
@@ -124,6 +150,13 @@ export async function checkEmbeddedPayload(input: {arch: string; dir: string; pl
 		if (missing) return {ok: false, dir: input.dir, message: `missing Windows FFmpeg DLL ${missing} in ${input.dir}`}
 	}
 
+	// A complete payload from an older pin still has to be replaced: a stale
+	// June nightly kept segfaulting on MP4 merges after the pin moved on.
+	const expected = embeddedPinFor(platform, arch, input.env)
+	const recorded = await readPinRecord(input.dir)
+	if (recorded === null) return {ok: false, dir: input.dir, message: `${input.dir} has no record of which FFmpeg build it holds; bun run repair refetches the pinned build (${expected})`}
+	if (recorded !== expected) return {ok: false, dir: input.dir, message: `${input.dir} holds FFmpeg ${recorded}, not the pinned ${expected}; bun run repair refetches it`}
+
 	return {ok: true, dir: input.dir}
 }
 
@@ -131,6 +164,14 @@ async function main(args: string[]): Promise<void> {
 	const [command, platform, arch, dir] = args
 	if (command === 'host-arch') {
 		console.log(normalizeEmbeddedHostArch(process.arch))
+		return
+	}
+	if (command === 'martin-riedl-env' && platform) {
+		process.stdout.write(martinRiedlShellEnv(normalizeEmbeddedHostArch(platform)))
+		return
+	}
+	if (command === 'stamp' && platform && arch && dir) {
+		await writeEmbeddedPin({platform, arch, dir})
 		return
 	}
 	if ((command === 'check' || command === 'assert') && platform && arch && dir) {
@@ -145,7 +186,7 @@ async function main(args: string[]): Promise<void> {
 		return
 	}
 
-	throw new Error('usage: bun scripts/build/embeddedPayload.ts <host-arch|check <platform> <arch> <dir>|assert <platform> <arch> <dir>>')
+	throw new Error('usage: bun scripts/build/embeddedPayload.ts <host-arch|martin-riedl-env <arch>|stamp <platform> <arch> <dir>|check <platform> <arch> <dir>|assert <platform> <arch> <dir>>')
 }
 
 if (isCliEntrypoint(import.meta)) {

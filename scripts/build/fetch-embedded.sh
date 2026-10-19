@@ -39,7 +39,8 @@ esac
 OUT="$ROOT/build/embedded/${PLATFORM}-${ARCH}"
 mkdir -p "$OUT"
 
-# If both binaries are already present, skip — fetch-embedded is idempotent.
+# If the payload is complete and recorded for the current pin, skip —
+# fetch-embedded is idempotent. A payload from an older pin is refetched.
 exe_ext=""
 [[ "$PLATFORM" == "win32" ]] && exe_ext=".exe"
 
@@ -59,6 +60,7 @@ fi
 clear_ffmpeg_payload() {
   rm -f "$OUT/ffmpeg${exe_ext}" "$OUT/ffprobe${exe_ext}" "$OUT"/*.dll "$OUT"/lib*.so* 2>/dev/null || true
   rm -rf "$OUT/_ext" "$OUT/_ext_ffmpeg" "$OUT/_ext_ffprobe"
+  rm -f "$OUT/.embedded-pin"
 }
 
 # BtbN: single archive contains both ffmpeg + ffprobe (+ DLLs on Windows).
@@ -141,25 +143,20 @@ fetch_btbn() {
   ok "BtbN ${btbn_arch} → $out"
 }
 
-# Martin-Riedl: pinned release build, two ZIPs per arch. Scraping the index
-# for the newest snapshot gave every build whatever upstream published that
-# day (amd64 snapshots also stopped updating), so the approved build and its
-# SHA-256s are pinned here. Bump together with the FFmpeg package pins.
-MARTIN_RIEDL_ARM64_PATH="/download/macos/arm64/1789931890_9.0.2/"
-MARTIN_RIEDL_ARM64_FFMPEG_SHA="c8ed4c4e6978a03c485edbfe4e0a5dc2380f8a30bba5150531b31b094492d924"
-MARTIN_RIEDL_ARM64_FFPROBE_SHA="fcbe839537485eaee7a7a8bc5cbc0f90d53617e80943e8a5b2e31cb851197ea6"
-MARTIN_RIEDL_AMD64_PATH="/download/macos/amd64/1789931006_9.0.2/"
-MARTIN_RIEDL_AMD64_FFMPEG_SHA="7c6b4125b191cbf773832dc51f424cf2b6bb7da43007d1e066f95909e47cacd4"
-MARTIN_RIEDL_AMD64_FFPROBE_SHA="2322438ed2f6319a691291b247d09c69dcaa3a982460d1f269a7e1af335cfdfd"
-
+# Martin-Riedl: pinned release build, two ZIPs per arch. The path and
+# SHA-256s live in scripts/build/embeddedPin.ts, which the payload check also
+# reads to spot a payload fetched for an older pin.
 fetch_martin_riedl() {
   local arch="$1" out="$2"
-  local prefix ffmpeg_sha ffprobe_sha
-  case "$arch" in
-    arm64) prefix=$MARTIN_RIEDL_ARM64_PATH; ffmpeg_sha=$MARTIN_RIEDL_ARM64_FFMPEG_SHA; ffprobe_sha=$MARTIN_RIEDL_ARM64_FFPROBE_SHA ;;
-    x64)   prefix=$MARTIN_RIEDL_AMD64_PATH; ffmpeg_sha=$MARTIN_RIEDL_AMD64_FFMPEG_SHA; ffprobe_sha=$MARTIN_RIEDL_AMD64_FFPROBE_SHA ;;
-    *) fail "fetch_martin_riedl: unsupported arch $arch"; exit 1 ;;
-  esac
+  local pin_env="$out/_martin_riedl.env"
+  if ! bun "$ROOT/scripts/build/embeddedPayload.ts" martin-riedl-env "$arch" > "$pin_env"; then
+    fail "fetch_martin_riedl: no pin for arch $arch"
+    exit 1
+  fi
+  # shellcheck source=/dev/null
+  source "$pin_env"
+  rm -f "$pin_env"
+  local prefix="${MARTIN_RIEDL_PATH:?}" ffmpeg_sha="${MARTIN_RIEDL_FFMPEG_SHA:?}" ffprobe_sha="${MARTIN_RIEDL_FFPROBE_SHA:?}"
   local base="https://ffmpeg.martin-riedl.de${prefix}"
 
   for bin in ffmpeg ffprobe; do
@@ -194,6 +191,7 @@ else
       fail "unsupported target: ${PLATFORM}-${ARCH}"
       exit 1 ;;
   esac
+  bun "$ROOT/scripts/build/embeddedPayload.ts" stamp "$PLATFORM" "$ARCH" "$OUT"
 fi
 
 # Sanity: confirm binaries and required shared-library siblings land.

@@ -383,9 +383,9 @@ export class SettingsStore {
 		return this.settings
 	}
 
-	// Internal field outside the renderer patch contract, so it bypasses update().
-	async recordHeartbeatDay(day: string): Promise<void> {
-		this.settings = {...this.settings, common: {...this.settings.common, lastHeartbeatDay: day}}
+	// Internal fields outside the renderer patch contract, so this bypasses update().
+	async recordHeartbeat({firstDay, lastDay}: {firstDay?: string; lastDay: string}): Promise<void> {
+		this.settings = {...this.settings, common: {...this.settings.common, lastHeartbeatDay: lastDay, ...(firstDay === undefined ? {} : {firstHeartbeatDay: firstDay})}}
 		this.persist()
 		await Promise.resolve()
 	}

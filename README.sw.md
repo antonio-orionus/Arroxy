@@ -383,7 +383,7 @@ Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arrox
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-Hakuna telemetry — ishara moja tu isiyo na jina kwa siku: toleo la programu, OS, lugha, njia ya usakinishaji na nchi, ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuizima katika Mipangilio.
+Hakuna telemetry — ishara moja tu isiyo na jina kwa siku: toleo la programu, OS, lugha, njia ya usakinishaji, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuizima katika Mipangilio.
 
 Explore ina njia zake za kuingia, tofauti na kivinjari chako, na Arroxy haisomi wala kujaza fomu ya kuingia kamwe — unaandika kwenye ukurasa wa tovuti wenyewe. Upakuaji hufanyika bila kuingia; ni pale tu upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha ndipo Arroxy husoma kuingia upya, kuliweka kwenye faili ya muda kwa upakuaji huo, na kufuta faili baadaye. Kutoka kwenye Explore katika Mipangilio huzifanya zisahaulike.
 

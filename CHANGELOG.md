@@ -22,6 +22,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Every codec at every resolution.** Each resolution lists AV1, VP9 and H.264 side by side, so you can pick H.264 even when your profile prefers AV1.
 - **Stream tags.** The Format screen marks AI-upscaled, AI-dubbed, enhanced-bitrate, 360°, damaged and watermarked streams.
 - **Profiles skip AI-upscaled streams.** A setting in the profile editor's Advanced section allows them.
+- **The daily heartbeat counts new users.** It now also says roughly how long ago Arroxy was installed, still with no ID. You can turn it off in Settings.
 
 ## Fixes
 

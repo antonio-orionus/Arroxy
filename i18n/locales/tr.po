@@ -4020,8 +4020,8 @@ msgid "Send daily heartbeat"
 msgstr "Günlük sinyal gönder"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Telemetri yok. Etkin kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili ve ülkeyi gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Telemetri yok. Etkin ve yeni kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy'nin yaklaşık ne kadar önce kurulduğunu gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."

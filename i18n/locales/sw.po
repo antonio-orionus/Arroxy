@@ -4020,8 +4020,8 @@ msgid "Send daily heartbeat"
 msgstr "Tuma ishara ya kila siku"
 
 msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."
-msgstr "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha na nchi ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."

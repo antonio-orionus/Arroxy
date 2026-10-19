@@ -374,7 +374,7 @@ export const es = {
   privacy_p1:
     "Las descargas se obtienen directamente a través de [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube hacia la carpeta que elijas — nada pasa por un servidor de terceros. El historial de visualización, el historial de descargas, las URLs y el contenido de los archivos permanecen en tu dispositivo.",
   privacy_p2:
-    "Sin telemetría — solo una señal anónima al día: versión de la app, OS, idioma, canal de instalación y país, para poder contar los usuarios activos. Sin IDs, URLs, títulos de video, rutas de archivo ni datos de cuenta. Puedes desactivarla en Configuración.",
+    "Sin telemetría — solo una señal anónima al día: versión de la app, OS, idioma, canal de instalación, país y, aproximadamente, hace cuánto se instaló Arroxy, para poder contar los usuarios activos y nuevos. Sin IDs, URLs, títulos de video, rutas de archivo ni datos de cuenta. Puedes desactivarla en Configuración.",
   privacy_p3: "Explore mantiene sus propios inicios de sesión, separados de tu navegador, y Arroxy nunca lee ni rellena un formulario de acceso: escribes en la propia página del sitio. Las descargas se hacen sin sesión; solo cuando una falla de una forma que una cuenta puede arreglar, Arroxy lee el inicio de sesión en ese momento, lo guarda en un archivo temporal para esa descarga y borra el archivo después. Cerrar sesión en Explore desde Configuración los olvida.",
   faq_q1: "¿Es realmente gratis?",
   faq_a1: "Sí — licencia MIT, sin nivel premium, sin funciones bloqueadas.",

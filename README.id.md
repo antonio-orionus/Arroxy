@@ -385,7 +385,7 @@ Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arrox
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
-Tanpa telemetri — hanya satu sinyal anonim per hari: versi aplikasi, OS, bahasa, saluran instalasi, dan negara, agar kami bisa menghitung pengguna aktif. Tanpa ID, URL, judul video, jalur file, atau info akun. Anda bisa mematikannya di Pengaturan.
+Tanpa telemetri — hanya satu sinyal anonim per hari: versi aplikasi, OS, bahasa, saluran instalasi, negara, dan kira-kira sudah berapa lama Arroxy terpasang, agar kami bisa menghitung pengguna aktif dan baru. Tanpa ID, URL, judul video, jalur file, atau info akun. Anda bisa mematikannya di Pengaturan.
 
 Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login apa pun — Anda mengetik di halaman situs itu sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
 

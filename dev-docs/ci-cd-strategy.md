@@ -31,12 +31,19 @@
 
 Three tiers (`pr`, `release`, `nightly`), journeys, current state and open defects live in [startup-verification.md](startup-verification.md). Decision record: the PR gate is Linux-only on purpose — [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md).
 
+## Path-gated PR suites
+
+Dev Smoke, E2E Cold Start, E2E Fixtures and Windows Installer skip a pull request that cannot affect them (the FFmpeg Remux Matrix does the same with its own, narrower filter). A `changes` job asks [`.github/actions/app-changes`](../.github/actions/app-changes/action.yml) and the suite jobs run only when it says so. The action holds one list of files that cannot reach the built, packaged or running app: docs, agent tooling, translation sources, unit tests, the feedback worker. Any other file runs the suites, including a new file nobody listed. Pushes to `main`, tags, schedules and manual runs always run everything. `tests/scripts/app-changes-action.test.ts` pins which change sets run which suite.
+
+The workflows still trigger on every PR; only their jobs skip. A `paths:` trigger would leave a required check pending forever. Each suite ends in a gate job that always runs ([`.github/actions/suite-gate`](../.github/actions/suite-gate/action.yml)): it fails when the filter did not run or when any suite job that had to run did not pass. Branch protection requires the gate, not the suite jobs: a skipped job counts as passing, including one skipped because a job it needs failed, so requiring `Cold-state install` directly would let a failed installer build through.
+
 ## Branch protection contract (`main`)
 
-Required checks: `check`, `Cold start (linux)`, `Cold-state install`, `1x install/uninstall cycle`.
+Required checks: `check`, `FFmpeg remux gate`, `Cold start gate`, `Windows installer gate`.
 
 - Required contexts must match what PR workflows actually report. Never require a context only produced by tag-only or scheduled workflows — it would block every PR forever.
 - Renaming or moving a job → update protection in the same PR.
+- A path-gated suite is required through its gate job, never through a suite job.
 - Do **not** add `startup-gate` to branch protection — it gates `publish-release` and only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
 
 ## Release flow

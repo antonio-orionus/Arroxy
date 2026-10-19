@@ -20,7 +20,7 @@ How Arroxy gets ffmpeg/ffprobe and yt-dlp, and keeps them licensed and verified.
 
 ## Development copies
 
-- `scripts/build/fetch-embedded.sh <platform> <arch>` fetches, verifies the SHA-256 and extracts ffmpeg+ffprobe (and Linux `libav*.so*` siblings) into `build/embedded/<platform>-<arch>/`. `bun run bootstrap` runs it for the host.
+- `scripts/build/fetch-embedded.sh <platform> <arch>` fetches, verifies the SHA-256 and extracts ffmpeg+ffprobe (and Linux `libav*.so*` siblings) into `build/embedded/<platform>-<arch>/`, and records the upstream build it fetched in `.embedded-pin` there. `bun run bootstrap` runs it for the host. A payload whose record is missing or names an older pin counts as incomplete: `bun run doctor` flags it and `bun run repair` (or the next fetch) replaces it, so a pin bump reaches existing checkouts, not only fresh ones.
 - In an unpackaged build (`bun run dev`, the fixture E2E suites) `BinaryManager` uses those copies, so development never downloads a package. Release builds ignore them.
 - Linux only: BtbN's shared build expects `libav*.so.*` siblings; `spawnYtDlp`, `spawnFFmpeg` and `probeBinary` set `LD_LIBRARY_PATH` to the ffmpeg directory at spawn time, which is the package directory in release builds. No rpath patching.
 
