@@ -387,7 +387,7 @@ Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari
 
 Tanpa telemetri — hanya satu sinyal anonim per hari: versi aplikasi, OS, bahasa, saluran instalasi, dan negara, agar kami bisa menghitung pengguna aktif. Tanpa ID, URL, judul video, jalur file, atau info akun. Anda bisa mematikannya di Pengaturan.
 
-Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login — Anda mengetik di halaman Google sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
+Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login apa pun — Anda mengetik di halaman situs itu sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
 
 ---
 
@@ -403,7 +403,7 @@ Ya — berlisensi MIT, tanpa tingkat premium, tanpa fitur gating.
 <details>
 <summary><strong>Apa bedanya Arroxy dengan GUI yt-dlp lainnya?</strong></summary>
 
-Sebagian besar GUI yt-dlp gratis adalah pembungkus yang hanya menerima tautan. Arroxy menambahkan **Explore**, browser YouTube yang terpasang di dalam aplikasi: Anda menjelajah dan mengunduh tanpa menyalin tautan, dan cukup masuk sekali di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia serta daftar Tonton Nanti dan Disukai Anda, tanpa mengekspor cookie. Arroxy memakai login itu saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, dan browser bawaannya mendapatkan token unduhan YouTube sehingga unduhan tidak turun ke format yang lebih sedikit. Lihat [Mengapa Arroxy](#why).
+Sebagian besar GUI yt-dlp gratis adalah pembungkus yang hanya menerima tautan. Arroxy menambahkan **Explore**, browser yang terpasang di dalam aplikasi dan membuka YouTube atau situs lain mana pun: Anda menjelajah dan mengunduh tanpa menyalin tautan, dan cukup masuk sekali di sana untuk mengunduh video privat, khusus anggota, dan dengan batasan usia serta daftar Tonton Nanti dan Disukai Anda, tanpa mengekspor cookie. Arroxy memakai login itu saat YouTube meminta Anda mengonfirmasi bahwa Anda bukan bot, dan browser bawaannya mendapatkan token unduhan YouTube sehingga unduhan tidak turun ke format yang lebih sedikit. Lihat [Mengapa Arroxy](#why).
 
 </details>
 
