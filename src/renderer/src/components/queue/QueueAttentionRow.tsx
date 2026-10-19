@@ -32,7 +32,7 @@ export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: 
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn, retryDownloadWithCookies} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), commonSettings, exploreSignedIn)
+	const experience = placeholderErrorExperience(rowProbeError(item.error), item.url, commonSettings, exploreSignedIn)
 	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn) return null
 	const target = {kind: 'download', itemId: item.id} as const
 	return (
@@ -44,7 +44,7 @@ export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: 
 						density="compact"
 						onOpenSettings={openCookiesSettings}
 						onSignInWithExplore={openExploreSignIn}
-						onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry(target)}
+						onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry(target, site)}
 						onRetryWithExploreSignIn={() => void retryWithExploreSignIn(target)}
 						onEnableCookiesAndRetry={() => void retryDownloadWithCookies(item.id)}
 						openSettingsTestId="queue-download-cookies-settings"
@@ -59,7 +59,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {retryQuickDownloadRow, retryQuickDownloadRowWithCookies, openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), commonSettings, exploreSignedIn)
+	const experience = placeholderErrorExperience(rowProbeError(item.error), item.url, commonSettings, exploreSignedIn)
 	return (
 		<QuickDownloadErrorAlert
 			experience={experience}
@@ -69,7 +69,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 			onEnableCookiesAndRetry={() => void retryQuickDownloadRowWithCookies(item.id)}
 			onOpenCookiesSettings={openCookiesSettings}
 			onSignInWithExplore={openExploreSignIn}
-			onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'row', itemId: item.id})}
+			onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry({kind: 'row', itemId: item.id}, site)}
 			onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'row', itemId: item.id})}
 		/>
 	)

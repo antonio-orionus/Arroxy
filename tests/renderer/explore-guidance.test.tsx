@@ -23,7 +23,9 @@ function seed(common: Partial<AppSettings['common']>, signedIn: boolean | null):
 		wizardStep: 'url',
 		wizardMode: 'single',
 		wizardUrl: SINGLE_URL,
-		wizardError: null
+		wizardError: null,
+		exploreRetryTargets: [],
+		explorePendingAddress: null
 	})
 }
 
@@ -108,5 +110,46 @@ describe('probe error step under the off cookie mode with Explore enabled', () =
 		render(<StepError />)
 		expect(screen.queryByRole('button', {name: 'Sign in with Explore'})).toBeNull()
 		expect(screen.getByRole('button', {name: 'Open cookies settings'})).toBeInTheDocument()
+	})
+})
+
+// ADR 0011: another site's sign-in is on that site. The guidance names it,
+// never reads YouTube's signed-in flag, and leaves the retry to the user.
+describe('probe error step for a link on another site', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+	const LOGIN: ProbeError = {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'This video requires login'}}
+
+	it('under the explore mode, signed in to YouTube, sends the user to the site and keeps Retry', () => {
+		seed({cookiesMode: 'explore'}, true)
+		useAppStore.setState({wizardStep: 'error', wizardUrl: VIMEO, wizardError: LOGIN})
+		render(<StepError />)
+
+		const alert = screen.getByTestId('cookies-error-alert')
+		expect(alert).toHaveTextContent('This link may need an account on vimeo.com')
+		expect(alert).toHaveTextContent('Sign in to vimeo.com in Explore, then try again.')
+		expect(screen.getByTestId('btn-retry')).toBeInTheDocument()
+		fireEvent.click(screen.getByRole('button', {name: 'Sign in in Explore'}))
+
+		expect(window.location.hash).toBe('#explore')
+		expect(useAppStore.getState()).toMatchObject({explorePendingAddress: VIMEO, exploreRetryTargets: []})
+	})
+
+	it('under the off mode offers Sign in with Explore, never the YouTube sign-in Explore holds', async () => {
+		window.appApi.settings.update = vi.fn((patch: SettingsPatch) => {
+			const current = useAppStore.getState().settings
+			if (!current) throw new Error('no settings')
+			return Promise.resolve(ok({...current, common: {...current.common, ...patch.common}}))
+		})
+		seed({cookiesMode: 'off', exploreModeAutoSwitched: false}, true)
+		useAppStore.setState({wizardStep: 'error', wizardUrl: VIMEO, wizardError: LOGIN, wizardErrorOrigin: 'formats'})
+		render(<StepError />)
+
+		expect(screen.getByTestId('cookies-error-alert')).toHaveTextContent('Sign in to vimeo.com with Explore, then try again.')
+		expect(screen.queryByRole('button', {name: 'Use my Explore sign-in and retry'})).toBeNull()
+		fireEvent.click(screen.getByRole('button', {name: 'Sign in with Explore'}))
+
+		await waitFor(() => expect(useAppStore.getState().settings?.common.cookiesMode).toBe('explore'))
+		expect(useAppStore.getState()).toMatchObject({explorePendingAddress: VIMEO, exploreRetryTargets: []})
+		expect(window.location.hash).toBe('#explore')
 	})
 })

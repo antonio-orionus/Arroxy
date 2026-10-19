@@ -292,7 +292,7 @@ function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
 					onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
 					onOpenCookiesSettings={openCookiesSettings}
 					onSignInWithExplore={openExploreSignIn}
-					onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'home'})}
+					onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry({kind: 'home'}, site)}
 					onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'home'})}
 					onRetry={() => void retryQuickDownloadFailure()}
 				/>

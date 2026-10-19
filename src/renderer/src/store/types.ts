@@ -1,4 +1,5 @@
 import type {StoreApi} from 'zustand'
+import type {ExploreSignInSite} from './exploreSignInSite.js'
 import type {
 	AppSettings,
 	AudioBitrate,
@@ -211,8 +212,9 @@ export interface ProbeOrchestratorSlice {
 	retryFormatProbe: () => Promise<void>
 	retryProbeWithCookies: () => Promise<void>
 	openCookiesSettings: () => void
-	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore tab.
-	openExploreSignIn: () => void
+	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore
+	// tab, which opens another site's link for its sign-in (ADR 0011).
+	openExploreSignIn: (site: ExploreSignInSite) => void
 	// Stops the loading probe and returns to where the run started.
 	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
@@ -233,8 +235,9 @@ export interface QuickDownloadSlice {
 	// sign-in, retried once it is reported. Memory only: a restart forgets them.
 	exploreRetryTargets: readonly ExploreRetryTarget[]
 	// Switches the cookie mode to `explore`, opens Explore, and remembers the
-	// target until Explore reports the sign-in.
-	signInWithExploreThenRetry: (target: ExploreRetryTarget) => Promise<void>
+	// target until Explore reports the sign-in. That flag is YouTube's: for
+	// another site Explore opens the link and nothing waits; the user retries.
+	signInWithExploreThenRetry: (target: ExploreRetryTarget, site: ExploreSignInSite) => Promise<void>
 	// "Use my Explore sign-in and retry": switches the cookie mode to `explore`, then retries now.
 	retryWithExploreSignIn: (target: ExploreRetryTarget) => Promise<void>
 }
@@ -447,6 +450,9 @@ export interface UiSlice {
 	exploreAddressHint: ExploreAddressHint | null
 	// The Explore browser is on screen (its tab is active, past the first-run notice).
 	exploreBrowsing: boolean
+	// What the Explore view loads next time it is shown: the link a "Sign in in
+	// Explore" for another site leads to. Taken once.
+	explorePendingAddress: string | null
 
 	setUiZoom: (zoom: number) => void
 	setUiTheme: (theme: UiTheme) => void
@@ -456,6 +462,7 @@ export interface UiSlice {
 	setDonateDialogOpen: (open: boolean) => void
 	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 	setExploreBrowsing: (browsing: boolean) => void
+	takeExplorePendingAddress: () => string | null
 }
 
 export interface SystemSlice {

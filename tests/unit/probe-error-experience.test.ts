@@ -2,6 +2,8 @@ import {describe, expect, it} from 'vite-plus/test'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import type {CommonSettings, ProbeError} from '@shared/types.js'
+import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
+import {exploreSignInSiteFor} from '@renderer/store/exploreSignInSite.js'
 import {buildProbeErrorExperience, configuredCookiesRetryMode, type ExploreSignedIn, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 
 function ytdlpError(kind: YtDlpErrorKind, raw = `ERROR: ${kind}`): ProbeError {
@@ -259,5 +261,52 @@ describe('ProbeErrorExperience — rate limit', () => {
 	it('shows nothing about a rate limit otherwise', () => {
 		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
 		expect(buildProbeErrorExperience({error: null, degradedReasons: ['extractor'], commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
+	})
+})
+
+// ADR 0011: Explore browses any site, but its signed-in flag is YouTube's
+// own. Another site's failure leads to that site and never reads the flag.
+describe('Explore sign-in guidance for a link on another site', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+	const VIMEO_SITE = {kind: 'web', host: 'vimeo.com', address: VIMEO} as const
+
+	it('leads to the link itself under the explore mode, signed in to YouTube or not', () => {
+		for (const exploreSignedIn of [true, false, null]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url: VIMEO, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn})).toMatchObject({cookies: {variant: 'explore-sign-in', mode: 'explore', site: VIMEO_SITE}, actions: {signInWithExplore: true, openCookiesSettings: false}})
+		}
+	})
+
+	it('offers Sign in with Explore under the off mode, never the YouTube sign-in Explore holds', () => {
+		for (const exploreSignedIn of [true, false, null]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('ageRestricted'), url: VIMEO, commonSettings: {cookiesMode: 'off'}, exploreSignedIn})).toMatchObject({cookies: {variant: 'explore-offer', mode: 'off', site: VIMEO_SITE}, actions: {signInWithExploreThenRetry: true, retryWithExploreSignIn: false}})
+		}
+	})
+
+	it('keeps YouTube guidance for YouTube links and for a failure without a link', () => {
+		for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://music.youtube.com/watch?v=x', null, undefined]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn: true}).cookies).toEqual({variant: 'configured', mode: 'explore'})
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn: false}).cookies).toEqual({variant: 'explore-sign-in', mode: 'explore', site: {kind: 'youtube'}})
+		}
+	})
+
+	it('still says nothing about a sign-in for a failure no account can fix', () => {
+		expect(buildProbeErrorExperience({error: ytdlpError('network'), url: VIMEO, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), url: VIMEO, commonSettings: {cookiesMode: 'off'}}).cookies.variant).toBe('hidden')
+	})
+})
+
+describe('exploreSignInSiteFor', () => {
+	it('names the host without www and opens the link itself', () => {
+		expect(exploreSignInSiteFor('https://www.instagram.com/p/abc/?igsh=1')).toEqual({kind: 'web', host: 'instagram.com', address: 'https://www.instagram.com/p/abc/?igsh=1'})
+		expect(exploreSignInSiteFor('  http://example.test:8080/v  ')).toEqual({kind: 'web', host: 'example.test', address: 'http://example.test:8080/v'})
+	})
+
+	it('opens the site front page for a link Explore would not take as typed', () => {
+		expect(exploreSignInSiteFor(`https://x.com/i/status/1?${'q'.repeat(EXPLORE_ADDRESS_MAX)}`)).toEqual({kind: 'web', host: 'x.com', address: 'https://x.com'})
+		expect(exploreSignInSiteFor('https://user:secret@vimeo.com/1')).toEqual({kind: 'web', host: 'vimeo.com', address: 'https://vimeo.com'})
+	})
+
+	it('falls back to YouTube for YouTube and for anything that is not a web link', () => {
+		for (const url of ['https://m.youtube.com/watch?v=x', 'not a url', 'file:///tmp/a.mp4', 'ytsearch:cats', '', null]) expect(exploreSignInSiteFor(url)).toEqual({kind: 'youtube'})
 	})
 })

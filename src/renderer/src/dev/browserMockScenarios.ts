@@ -520,7 +520,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.id === 'queue-attention') {
 		// Signed out of Explore at home: the toast for an account-only failure offers the sign-in, as in the app.
 		const {failed} = ATTENTION_SCENARIO_ROWS
-		notify.quickDownloadFailed(failed, ATTENTION_SCENARIO_FAILED_URL, {kind: 'sign-in', run: store.openExploreSignIn}, () => store.showQueueItem(failed))
+		notify.quickDownloadFailed(failed, ATTENTION_SCENARIO_FAILED_URL, {kind: 'sign-in', run: () => store.openExploreSignIn({kind: 'youtube'})}, () => store.showQueueItem(failed))
 		return
 	}
 	if (scenario.kind === 'dialog') {

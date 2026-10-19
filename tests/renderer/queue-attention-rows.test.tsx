@@ -137,6 +137,24 @@ describe('a probe-error row under the explore cookie mode', () => {
 	})
 })
 
+// ADR 0011: a row from another site leads to that site, whatever YouTube's
+// sign-in, and keeps its own Retry for after the user signed in there.
+describe('a probe-error row from another site under the explore cookie mode', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+
+	it('opens the link in Explore to sign in, then retries from the row', () => {
+		seed([{...errorRow({kind: 'loginRequired', raw: 'This video requires login'}), url: VIMEO}], {cookiesMode: 'explore', exploreNoticeSeen: true}, true)
+		const panel = attention('failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveTextContent('This link may need an account on vimeo.com')
+		fireEvent.click(within(panel).getByRole('button', {name: 'Sign in in Explore'}))
+		expect(window.location.hash).toBe('#explore')
+		expect(useAppStore.getState().explorePendingAddress).toBe(VIMEO)
+
+		fireEvent.click(within(attention('failed')).getByRole('button', {name: 'Retry'}))
+		expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed')
+	})
+})
+
 // P2-R51: under `off` with the Explore tab on, a failure an account can fix
 // leads with Explore; cookie settings stay the second way.
 describe('a probe-error row under the off cookie mode with Explore enabled', () => {

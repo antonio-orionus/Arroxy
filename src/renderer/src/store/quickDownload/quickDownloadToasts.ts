@@ -4,14 +4,15 @@
 import {notify, type QuickDownloadFailureAction} from '@renderer/lib/notify.js'
 import type {CommonSettings, LocalizedError, ProbeError} from '@shared/types.js'
 import type {GetState, InAppQuickDownloadEntry} from '../types.js'
+import {exploreSignInSiteFor} from '../exploreSignInSite.js'
 import {buildProbeErrorExperience, type ExploreSignedIn, type ProbeErrorExperience} from '../wizard/probeErrorExperience.js'
 import {detach} from './detachedTask.js'
 import type {QuickDownloadFeedback} from './quickDownloadPipeline.js'
 
 // The guidance a probe-error row offers, from the same inputs as the probe
-// error alert: the error, the cookies settings, the Explore sign-in state.
-export function placeholderErrorExperience(error: ProbeError | null, commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn): ProbeErrorExperience {
-	return buildProbeErrorExperience({error, commonSettings, exploreSignedIn})
+// error alert: the error and its link, the cookies settings, the Explore sign-in state.
+export function placeholderErrorExperience(error: ProbeError | null, url: string, commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn): ProbeErrorExperience {
+	return buildProbeErrorExperience({error, url, commonSettings, exploreSignedIn})
 }
 
 // A row keeps only the localized error; for the guidance it reads as the
@@ -34,16 +35,19 @@ function failureActionKind(experience: ProbeErrorExperience, atHome: boolean): Q
 // the cookie mode changed: then the toast falls back to a plain Retry rather
 // than leave the run or override a mode the user picked.
 function failureAction(probeError: ProbeError | null, itemId: string, atHome: boolean, get: GetState): QuickDownloadFailureAction {
-	const experienceNow = (): ProbeErrorExperience => placeholderErrorExperience(probeError, get().settings?.common, get().exploreView?.signedIn ?? null)
+	// The failed row's own link: which site's sign-in the action is about.
+	const url = get().queue.find(item => item.id === itemId)?.url ?? ''
+	const experienceNow = (): ProbeErrorExperience => placeholderErrorExperience(probeError, url, get().settings?.common, get().exploreView?.signedIn ?? null)
 	const run = (): void => {
 		const target = {kind: 'row', itemId} as const
+		const site = exploreSignInSiteFor(url)
 		switch (failureActionKind(experienceNow(), get().wizardStep === 'url')) {
 			case 'explore-reuse':
 				return detach(get().retryWithExploreSignIn(target), 'toast action')
 			case 'explore-offer':
-				return detach(get().signInWithExploreThenRetry(target), 'toast action')
+				return detach(get().signInWithExploreThenRetry(target, site), 'toast action')
 			case 'sign-in':
-				return get().openExploreSignIn()
+				return get().openExploreSignIn(site)
 			case 'retry':
 				return detach(get().retryQuickDownloadRow(itemId), 'toast action')
 		}

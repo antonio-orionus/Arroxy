@@ -455,6 +455,7 @@
 				"exploreSignedIn": {"heading": "Signed in to Explore", "body": "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."},
 				"exploreOffer": {"heading": "This video may need a YouTube account", "body": "Sign in with Explore and Arroxy will retry it.", "cta": "Sign in with Explore"},
 				"exploreReuse": {"heading": "This video may need a YouTube account", "body": "You're signed in to Explore, but downloads aren't using that sign-in right now.", "cta": "Use my Explore sign-in and retry"},
+				"exploreSite": {"heading": "This link may need an account on {{host}}", "signInBody": "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it.", "offerBody": "Sign in to {{host}} with Explore, then try again."},
 				"otherCookiesCta": "Use a cookies file or browser instead…",
 				"needsCookies": {"heading": "This site requires sign-in", "body": "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."},
 				"dpapi": {

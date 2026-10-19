@@ -662,7 +662,7 @@ describe('a probe that needs the user’s choice', () => {
 		const probe = deferredProbe()
 		const id = await cappedRow(probe)
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
-		useAppStore.getState()[leave]()
+		useAppStore.getState()[leave]({kind: 'youtube'})
 		expect(useAppStore.getState().reviewSourceRowId).toBeNull()
 
 		// A single-link Bulk run that turns out to be a list opens its own review.

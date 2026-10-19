@@ -124,6 +124,10 @@ export function ExploreViewport({error, onRetry, onOpenSettings}: ExploreViewpor
 			if (shown) setSnapshot(null)
 		}
 		void window.appApi.explore.setVisible(true).then(dropSnapshot, dropSnapshot)
+		// Sent right behind the show: main builds a new view before its first
+		// wait, and a page navigated to during that wait stays.
+		const address = useAppStore.getState().takeExplorePendingAddress()
+		if (address !== null) void loadAddress(address)
 		return () => {
 			shown = false
 			// An overlay over the mounted, error-free viewport: hide behind a
@@ -151,6 +155,11 @@ export function ExploreViewport({error, onRetry, onOpenSettings}: ExploreViewpor
 			) : null}
 		</div>
 	)
+}
+
+async function loadAddress(url: string): Promise<void> {
+	const result = await window.appApi.explore.navigate({kind: 'address', url})
+	if (!result.ok) console.warn('[explore] pending address not loaded', result.error.code)
 }
 
 interface SnapshotRun {

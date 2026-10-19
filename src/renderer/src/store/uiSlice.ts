@@ -4,7 +4,7 @@ import {resolveEffectiveStyle, type BackdropAvailability} from '../styles/regist
 import type {UiStyle} from '@shared/schemas.js'
 import type {AppState, GetState, SetState, UiSlice} from './types.js'
 
-export function createUiSlice(set: SetState, _get: GetState): UiSlice {
+export function createUiSlice(set: SetState, get: GetState): UiSlice {
 	return {
 		uiZoom: DEFAULTS.uiZoom,
 		uiTheme: DEFAULTS.uiTheme,
@@ -14,6 +14,7 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 		donateDialogOpen: false,
 		exploreAddressHint: null,
 		exploreBrowsing: false,
+		explorePendingAddress: null,
 
 		setUiZoom: zoom => {
 			const stepInverse = 1 / ZOOM_STEP
@@ -45,7 +46,13 @@ export function createUiSlice(set: SetState, _get: GetState): UiSlice {
 
 		setExploreAddressHint: hint => set({exploreAddressHint: hint}),
 
-		setExploreBrowsing: browsing => set({exploreBrowsing: browsing})
+		setExploreBrowsing: browsing => set({exploreBrowsing: browsing}),
+
+		takeExplorePendingAddress: () => {
+			const address = get().explorePendingAddress
+			if (address !== null) set({explorePendingAddress: null})
+			return address
+		}
 	}
 }
 
