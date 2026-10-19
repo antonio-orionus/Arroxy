@@ -10,6 +10,7 @@ import {Button} from '../ui/button.js'
 import {TableCell, TableRow} from '../ui/table.js'
 import {QuickDownloadErrorAlert} from '../wizard/QuickDownloadErrorAlert.js'
 import {CookiesGuidanceAlert} from '../wizard/format/CookiesErrorAlert.js'
+import {buildProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import {isProbeErrorRow} from './queueAttention.js'
 
 // The detail line under a row only the user can move on (P2-R38): a failed
@@ -33,7 +34,7 @@ export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: 
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn, retryDownloadWithCookies} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error, item.auth), item.url, commonSettings, exploreSignedIn)
+	const experience = buildProbeErrorExperience({error: rowProbeError(item.error, item.auth), url: item.url, commonSettings, exploreSignedIn, stage: 'download'})
 	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn && experience.cookies.variant !== 'explore-refused') return null
 	const target = {kind: 'download', itemId: item.id} as const
 	return (
