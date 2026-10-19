@@ -5,7 +5,7 @@
 // screen names rows by it and download profiles pick by it, so "up to 720p"
 // takes a widescreen 1280x640 trailer as 720p, not as a 640p fallback.
 
-export const TIER_HEIGHTS: readonly number[] = [4320, 2160, 1440, 1080, 720, 480, 360, 240, 144]
+const TIER_HEIGHTS: readonly number[] = [4320, 2160, 1440, 1080, 720, 480, 360, 240, 144]
 
 // A stream a few pixels short of a tier (1912x1076) still belongs to it.
 const TIER_TOLERANCE = 0.03
