@@ -1,5 +1,6 @@
 import {readFileSync, readdirSync} from 'node:fs'
-import {dirname, join, matchesGlob} from 'node:path'
+// Repo paths and filter globs are POSIX on every OS, Windows included.
+import {posix} from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
 
 const WORKFLOW_PATH = '.github/workflows/ffmpeg-remux-matrix.yml'
@@ -15,7 +16,7 @@ const MATRIX_ENTRYPOINTS = [
 const NOT_FILTERED = new Set(['src/shared/schemas.ts'])
 
 function readWorkflow(): string {
-	return readFileSync(WORKFLOW_PATH, 'utf8')
+	return readFileSync(WORKFLOW_PATH, 'utf8').replaceAll('\r\n', '\n')
 }
 
 function filterPatterns(workflow: string): string[] {
@@ -29,9 +30,9 @@ function filterPatterns(workflow: string): string[] {
 
 function resolveImport(from: string, specifier: string): string | null {
 	let target: string
-	if (specifier.startsWith('.')) target = join(dirname(from), specifier)
-	else if (specifier.startsWith('@shared/')) target = join('src/shared', specifier.slice('@shared/'.length))
-	else if (specifier.startsWith('@main/')) target = join('src/main', specifier.slice('@main/'.length))
+	if (specifier.startsWith('.')) target = posix.join(posix.dirname(from), specifier)
+	else if (specifier.startsWith('@shared/')) target = posix.join('src/shared', specifier.slice('@shared/'.length))
+	else if (specifier.startsWith('@main/')) target = posix.join('src/main', specifier.slice('@main/'.length))
 	else return null
 	return target.replace(/\.js$/, '.ts')
 }
@@ -64,7 +65,7 @@ describe('FFmpeg remux matrix workflow', () => {
 
 		expect(closure).toContain('src/main/services/binary/FfmpegPackageMaterializer.ts')
 		expect(closure).toContain('src/main/utils/process.ts')
-		expect(closure.filter(file => !patterns.some(pattern => matchesGlob(file, pattern)))).toEqual([])
+		expect(closure.filter(file => !patterns.some(pattern => posix.matchesGlob(file, pattern)))).toEqual([])
 	})
 
 	it('triggers on every PR and push, so the required gate always reports', () => {
