@@ -1,3 +1,4 @@
+import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 
 const execFileMock = vi.hoisted(() => vi.fn())
@@ -179,17 +180,22 @@ describe('installFfmpegWithHomebrew', () => {
 		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates.find(candidate => files.includes(candidate)) ?? null)
 	}
 
-	it('installs ffmpeg with brew and returns both media tools', async () => {
-		onPath({ffmpeg: '/opt/homebrew/bin/ffmpeg', ffprobe: '/opt/homebrew/bin/ffprobe'})
+	// Joined the way the code under test joins them, so the folder splits back
+	// out on whichever platform runs the tests.
+	const BREW_FFMPEG = path.join('/opt/homebrew/bin', 'ffmpeg')
+	const BREW_FFPROBE = path.join('/opt/homebrew/bin', 'ffprobe')
 
-		await expect(installFfmpegWithHomebrew()).resolves.toEqual({ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'})
+	it('installs ffmpeg with brew and returns both media tools', async () => {
+		onPath({ffmpeg: BREW_FFMPEG, ffprobe: BREW_FFPROBE})
+
+		await expect(installFfmpegWithHomebrew()).resolves.toEqual({ffmpegPath: BREW_FFMPEG, ffprobePath: BREW_FFPROBE})
 		expect(commandCalls()).toEqual([['install', 'ffmpeg']])
 	})
 
 	// Pointing Arroxy at an ffmpeg without its matching ffprobe would leave the
 	// pair broken, so a half-found install is an error.
 	it('fails when brew leaves no ffprobe beside ffmpeg', async () => {
-		onPath({ffmpeg: '/opt/homebrew/bin/ffmpeg'})
+		onPath({ffmpeg: BREW_FFMPEG})
 
 		await expect(installFfmpegWithHomebrew()).rejects.toThrow('ffmpeg and ffprobe were not both found')
 	})

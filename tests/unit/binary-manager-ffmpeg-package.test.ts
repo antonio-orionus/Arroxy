@@ -253,7 +253,7 @@ describe('BinaryManager FFmpeg package resolution', () => {
 
 		const pair = await mgr.resolveFFmpegPair()
 
-		expect(pair.ffmpeg.resolvedPath).toBe('/usr/bin/ffmpeg')
+		expect(pair.ffmpeg.resolvedPath).toBe(process.platform === 'win32' ? '/usr/bin/ffmpeg.exe' : '/usr/bin/ffmpeg')
 		expect(pair.ffprobe.source?.kind).toBe('systemPath')
 	})
 
