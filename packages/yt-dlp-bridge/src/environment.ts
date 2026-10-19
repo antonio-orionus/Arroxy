@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import os from 'node:os'
-import {CONFIG, type ServerConfig} from './config.js'
+import {loadConfig, type ServerConfig} from './config.js'
 import {runCommand} from './runner.js'
 import type {DetectedDependency} from './types.js'
 
@@ -13,7 +13,7 @@ export interface EnvironmentReport {
 	policy: {outputRoot: string; tempRoot: string; allowArbitraryOutputPaths: boolean; allowConfigFiles: boolean; allowPluginDirs: boolean; enableExpertMode: boolean}
 }
 
-export async function checkEnvironment(config: ServerConfig = CONFIG): Promise<EnvironmentReport> {
+export async function checkEnvironment(config: ServerConfig = loadConfig()): Promise<EnvironmentReport> {
 	const dependencies = await Promise.all([
 		detectBinary('yt-dlp', config.ytdlpPath, ['--version'], ['all yt-dlp operations'], true, config),
 		detectBinary('ffmpeg', config.ffmpegPath ?? 'ffmpeg', ['-version'], ['merge', 'remux', 'recode', 'extract audio', 'embed assets'], false, config),

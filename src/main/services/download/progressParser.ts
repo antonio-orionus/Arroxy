@@ -8,7 +8,6 @@
 // ActiveDownload rather than inside this class.
 
 import log from 'electron-log/main.js'
-import {splitStderrLines} from '@main/utils/process.js'
 import {isSubtitleFile} from '@shared/subtitlePath.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import type {LocalizedError, ProgressEvent, QueueArtifactEvent, QueueResumeContext, StatusEvent, StatusKey} from '@shared/types.js'
@@ -17,6 +16,7 @@ import type {ActiveDownload} from '../phases/types.js'
 import {nowIso} from '@main/utils/clock.js'
 import {QueueResumeLifecycle} from './QueueResumeLifecycle.js'
 import {parseYtDlpOutputLine, type YtDlpPostprocessPhase} from 'yt-dlp-bridge/parsers'
+import {splitOutputLines} from 'yt-dlp-bridge/runner'
 
 const logger = log.scope('downloads')
 
@@ -57,7 +57,7 @@ export class ProgressParser {
 
 	consume(active: ActiveDownload, text: string): void {
 		const jobId = active.job.id
-		for (const line of splitStderrLines(text)) {
+		for (const line of splitOutputLines(text)) {
 			if (line.startsWith('WARNING:') || line.startsWith('ERROR:')) {
 				logger.warn(line, {jobId, source: 'yt-dlp-progress'})
 			} else if (PROGRESS_LINE.test(line)) {

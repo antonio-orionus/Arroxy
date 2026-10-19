@@ -508,4 +508,4 @@ is added in parallel.
 | Single admin auth in v1 (no OIDC) | Homelab norm. Authelia/Authentik can sit in front. |
 | Same React app for both shells, responsive to ~390px | The transport seam swaps; UI code is identical. No mobile-only surface. |
 | Adopt TC39 `using` / `Symbol.dispose` for disposables | Compiler-enforced cleanup, deletes roughly 80 LOC of plumbing. **Unscheduled** — not owned by any tranche. |
-| Adopt the `tree-kill` package | Better cross-platform edge-case coverage than the current `processControl.ts`. **Unscheduled** — not owned by any tranche. |
+| Adopt the `tree-kill` package | Better cross-platform edge-case coverage than the current `killProcessTree` in `yt-dlp-bridge/runner`. **Unscheduled** — not owned by any tranche. |

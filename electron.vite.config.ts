@@ -18,6 +18,15 @@ const {version} = require('./package.json') as {version: string}
 // bundler keeps them as raw `require('D:\\a\\...')` calls that no other
 // machine can resolve. CI runner path `D:\\a\\<repo>\\<repo>\\src\\...` was
 // the original failure mode (Arroxy v0.3.2-beta.6 release).
+// Workspace packages resolve to their sources, subpath exports included
+// (`yt-dlp-bridge/runner` → `src/runner.ts`), so dev and build never need a
+// package build first.
+const WORKSPACE_PACKAGE_ALIASES = [
+	{find: /^yt-dlp-bridge\/(.+)$/, replacement: `${path.resolve('packages/yt-dlp-bridge/src')}/$1.ts`},
+	{find: /^yt-dlp-bridge$/, replacement: path.resolve('packages/yt-dlp-bridge/src/index.ts')},
+	{find: /^ytdlp-errors$/, replacement: path.resolve('packages/ytdlp-errors/src/index.ts')}
+]
+
 const WINDOWS_ABS_PATH = /^[a-zA-Z]:[\\/]/
 
 export function readRendererDevServerPort(env: Record<string, string | undefined> = process.env): number {
@@ -82,16 +91,7 @@ export default defineConfig(() => {
 	return {
 		main: {
 			plugins: [exploreAdBlockPreloadPlugin()],
-			resolve: {
-				alias: [
-					{find: '@main', replacement: path.resolve('src/main')},
-					{find: '@shared', replacement: path.resolve('src/shared')},
-					{find: 'yt-dlp-bridge/parsers', replacement: path.resolve('packages/yt-dlp-bridge/src/parsers.ts')},
-					{find: 'yt-dlp-bridge/redaction', replacement: path.resolve('packages/yt-dlp-bridge/src/redaction.ts')},
-					{find: 'yt-dlp-bridge', replacement: path.resolve('packages/yt-dlp-bridge/src/index.ts')},
-					{find: 'ytdlp-errors', replacement: path.resolve('packages/ytdlp-errors/src/index.ts')}
-				]
-			},
+			resolve: {alias: [{find: '@main', replacement: path.resolve('src/main')}, {find: '@shared', replacement: path.resolve('src/shared')}, ...WORKSPACE_PACKAGE_ALIASES]},
 			build: {
 				externalizeDeps: true,
 				// electron-vite 5 reads `build.rollupOptions` only — it has no
@@ -142,7 +142,7 @@ export default defineConfig(() => {
 		},
 		renderer: {
 			server: {host: '127.0.0.1', port: rendererDevServerPort, strictPort: true},
-			resolve: {alias: {'@renderer': path.resolve('src/renderer/src'), '@shared': path.resolve('src/shared'), 'ytdlp-errors': path.resolve('packages/ytdlp-errors/src/index.ts')}},
+			resolve: {alias: [{find: '@renderer', replacement: path.resolve('src/renderer/src')}, {find: '@shared', replacement: path.resolve('src/shared')}, ...WORKSPACE_PACKAGE_ALIASES]},
 			plugins: [react(), tailwindcss(), Icons({compiler: 'jsx', jsx: 'react'}) as PluginOption]
 		}
 	}

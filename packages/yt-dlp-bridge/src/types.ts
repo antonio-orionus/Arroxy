@@ -1,4 +1,4 @@
-import type {DependencyStatus, ProgressEventPhase} from './schemas.js'
+import type {DependencyStatus} from './schemas.js'
 
 export interface DetectedDependency {
 	name: string
@@ -128,15 +128,6 @@ export interface ThumbnailSummary {
 	url?: string
 	resolution?: string
 	note?: string
-	raw: string
-}
-
-export interface ProgressEvent {
-	phase: ProgressEventPhase
-	percent?: number
-	total?: string
-	speed?: string
-	eta?: string
 	raw: string
 }
 

@@ -3,10 +3,9 @@ import {z} from 'zod'
 export const ResponseFormatSchema = z.enum(['json', 'markdown']).default('json')
 export const UrlSchema = z.url()
 export const DependencyStatusSchema = z.enum(['available', 'missing', 'unknown'])
-export const ProgressEventPhaseSchema = z.enum(['download', 'postprocess', 'unknown'])
 export const ProbePlaylistModeSchema = z.enum(['auto', 'video', 'playlist'])
 export const SubtitleFormatSchema = z.enum(['srt', 'vtt', 'ass'])
-export const SubtitleModeSchema = z.enum(['sidecar', 'subfolder', 'embed'])
+export const SubtitleModeSchema = z.enum(['sidecar', 'embed', 'subfolder'])
 export const InspectWorkflowKindSchema = z.enum(['metadata', 'single-json', 'formats', 'subtitles', 'thumbnails'])
 export const OptionRiskPhaseSchema = z.enum(['inspect', 'plan', 'download', 'postprocess', 'expert'])
 export const OptionRiskSchema = z.enum(['low', 'medium', 'high'])
@@ -15,7 +14,6 @@ export const YtDlpPostprocessPhaseSchema = z.enum(['extractingAudio', 'convertin
 export const YtDlpOutputEventKindSchema = z.enum(['destination', 'merge', 'already-downloaded', 'move', 'artifact', 'sleep', 'sponsorblock-fetch', 'sponsorblock-retry', 'transfer-retry', 'postprocess', 'progress'])
 
 export type DependencyStatus = z.infer<typeof DependencyStatusSchema>
-export type ProgressEventPhase = z.infer<typeof ProgressEventPhaseSchema>
 export type ProbePlaylistMode = z.infer<typeof ProbePlaylistModeSchema>
 export type SubtitleFormat = z.infer<typeof SubtitleFormatSchema>
 export type SubtitleMode = z.infer<typeof SubtitleModeSchema>
@@ -27,7 +25,6 @@ export type YtDlpPostprocessPhase = z.infer<typeof YtDlpPostprocessPhaseSchema>
 export type YtDlpOutputEventKind = z.infer<typeof YtDlpOutputEventKindSchema>
 
 export const DEPENDENCY_STATUSES = DependencyStatusSchema.options
-export const PROGRESS_EVENT_PHASES = ProgressEventPhaseSchema.options
 export const PROBE_PLAYLIST_MODES = ProbePlaylistModeSchema.options
 export const SUBTITLE_FORMATS = SubtitleFormatSchema.options
 export const SUBTITLE_MODES = SubtitleModeSchema.options

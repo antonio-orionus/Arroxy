@@ -3,7 +3,7 @@ import {EventEmitter} from 'node:events'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {spawn} from 'node:child_process'
-import {killActiveProcesses, killProcessTree} from '@main/services/download/processControl.js'
+import {killActiveProcesses} from '@main/services/download/processControl.js'
 
 vi.mock('node:child_process', () => ({spawn: vi.fn()}))
 
@@ -37,16 +37,17 @@ describe('killActiveProcesses', () => {
 	})
 })
 
-describe('killProcessTree on Windows', () => {
-	it('listens for taskkill errors so a failed spawn cannot crash main', () => {
+// The tree kill itself (taskkill on Windows, the group fallback) is covered in
+// yt-dlp-bridge's process-tree-kill tests; these cover the job wiring.
+describe('killActiveProcesses on Windows', () => {
+	it('tree-kills each live process with taskkill and survives a failed taskkill spawn', () => {
 		Object.defineProperty(process, 'platform', {value: 'win32'})
 		const taskkill = new EventEmitter()
 		vi.mocked(spawn).mockReturnValue(taskkill as never)
 
-		killProcessTree(child({}), 'SIGTERM')
+		killActiveProcesses({ytDlpProcess: child({})}, 'SIGTERM')
 
 		expect(spawn).toHaveBeenCalledWith('taskkill', ['/pid', '4242', '/T', '/F'], {windowsHide: true})
-		expect(taskkill.listenerCount('error')).toBeGreaterThan(0)
 		// An unhandled 'error' event would throw here.
 		expect(() => taskkill.emit('error', Object.assign(new Error('spawn taskkill ENOENT'), {code: 'ENOENT'}))).not.toThrow()
 	})

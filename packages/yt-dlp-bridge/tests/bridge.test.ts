@@ -7,7 +7,7 @@ import {loadConfig} from '../src/config.js'
 import {toStructuredError} from '../src/errors.js'
 import {isPathInsideWith, resolveOutputPolicy} from '../src/filesystem.js'
 import {listLongFlags, UPSTREAM_OPTION_CATALOG} from '../src/option-catalog.js'
-import {parseFinalPaths, parseFormats, parseJsonLines, parseProgress, parseSubtitles, parseThumbnails} from '../src/parsers.js'
+import {parseFinalPaths, parseFormats, parseJsonLines, parseSubtitles, parseThumbnails} from '../src/parsers.js'
 import {excerpt, redactArgs, redactText} from '../src/redaction.js'
 import {CommandExecutionError, runCommand} from '../src/runner.js'
 import {WorkflowDownloadInputSchema} from '../src/schemas.js'
@@ -216,11 +216,10 @@ describe('structured parsers', () => {
 		expect(parsed.parseErrors).toHaveLength(1)
 	})
 
-	it('parses common yt-dlp list/progress outputs', () => {
+	it('parses common yt-dlp list outputs', () => {
 		expect(parseFormats('ID  EXT RESOLUTION | NOTE\n137 mp4 1920x1080 30fps | video only')).toMatchObject([{formatId: '137', extension: 'mp4', resolution: '1920x1080', fps: 30}])
 		expect(parseSubtitles('Available subtitles for id:\nLanguage Name Formats\nen English vtt, ttml')).toMatchObject([{language: 'en', source: 'manual'}])
 		expect(parseThumbnails('ID Width Height URL\n0 1280 720 https://example.com/thumb.jpg')).toMatchObject([{id: '0', url: 'https://example.com/thumb.jpg'}])
-		expect(parseProgress('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toMatchObject([{phase: 'download', percent: 42}])
 		expect(parseFinalPaths('[download] done\n/tmp/video.mp4').paths).toEqual(['/tmp/video.mp4'])
 	})
 })

@@ -1,4 +1,5 @@
-import {isInfoJsonWriteLine, sabrSkippedClient} from './services/download/formatLimitSignals.js'
+import {sabrSkippedClient} from 'ytdlp-errors'
+import {isInfoJsonWriteLine} from './services/download/formatLimitSignals.js'
 
 const SELECTED_FORMAT = /^\[info\] [\w-]+: Downloading \d+ format\(s\): (\S+)/
 const PLAYER_API = /^\[youtube\] [\w-]+: Downloading (.+?) player API JSON/

@@ -6,8 +6,7 @@ import type {StructuredError} from './types.js'
 export function toStructuredError(error: unknown): StructuredError {
 	if (error instanceof CommandExecutionError) {
 		const stderr = [error.result.stderr, error.result.stdout, error.message].find(value => value.length > 0) ?? error.message
-		const classified = classifyYtDlpStderr(stderr)
-		const kind = inferUnsupportedUrl(stderr) ? 'unsupportedUrl' : classified.kind
+		const {kind} = classifyYtDlpStderr(stderr)
 		const metadata = errorKindMetadata(kind)
 		const structured: StructuredError = {kind, message: extractLastError(stderr) ?? error.message, retryable: metadata.recoverable, exitCode: error.result.exitCode, stderrExcerpt: excerpt(stderr), suggestedFixes: suggestedFixes(kind, metadata.suggestedFlags)}
 		const dependency = inferDependency(stderr)
@@ -30,10 +29,6 @@ function inferDependency(text: string): string | undefined {
 	if (/curl_cffi|impersonat/i.test(text)) return 'curl_cffi'
 	if (/\b(?:deno|node|bun|quickjs|javascript)\b/i.test(text)) return 'js-runtime'
 	return undefined
-}
-
-function inferUnsupportedUrl(text: string): text is string {
-	return /unsupported url|no suitable extractor|not a valid URL/i.test(text)
 }
 
 function suggestedFixes(kind: string, flags: readonly string[] | undefined): string[] {

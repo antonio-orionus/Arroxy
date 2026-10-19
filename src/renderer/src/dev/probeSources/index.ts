@@ -7,7 +7,7 @@ import {siteForExtractor} from '@shared/sites/index.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
-import {infoDictSchema} from '@shared/ytdlp/infoDict.js'
+import {infoDictSchema} from 'yt-dlp-bridge/info'
 import {PROBE_SOURCES, type ProbeSourceId} from './sources.js'
 import archive from './archive.json' with {type: 'json'}
 import bitchute from './bitchute.json' with {type: 'json'}

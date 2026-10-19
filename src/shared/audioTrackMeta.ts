@@ -1,5 +1,5 @@
 import {AUDIO_TRACK_QUALITIES, type AudioTrackQuality} from './schemas.js'
-import type {YtDlpFormat} from './ytdlp/infoDict.js'
+import type {YtDlpFormat} from 'yt-dlp-bridge/info'
 
 export function isAudioTrackQuality(value: string): value is AudioTrackQuality {
 	return AUDIO_TRACK_QUALITIES.includes(value as AudioTrackQuality)

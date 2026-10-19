@@ -19,9 +19,9 @@ export const YT_DLP_ERROR_KINDS = [
 	'postprocessFailure',
 	'parse',
 	'network',
-	// Caller-supplied (not produced by stderr classifier). Kept in the union so
-	// i18n and UX switches can stay exhaustive across all error surfaces the
-	// host app deals with (e.g. URL validation before yt-dlp is even spawned).
+	// yt-dlp found no extractor for the URL, or the input was not a URL at all.
+	// Classified from stderr; callers may also set it from their own URL
+	// validation before yt-dlp is spawned.
 	'unsupportedUrl',
 	// Fallback when no pattern matches. `raw` carries the verbatim stderr.
 	'unknown'
@@ -29,11 +29,18 @@ export const YT_DLP_ERROR_KINDS = [
 
 export type YtDlpErrorKind = (typeof YT_DLP_ERROR_KINDS)[number]
 
-// Kinds the stderr classifier can produce. `unsupportedUrl` is set by callers
-// (URL validation, probe paths); never emitted by yt-dlp stderr directly.
-export type ClassifierKind = Exclude<YtDlpErrorKind, 'unsupportedUrl' | 'unknown'>
+// Kinds the stderr classifier matches by pattern. `unknown` is its fallback.
+export type ClassifierKind = Exclude<YtDlpErrorKind, 'unknown'>
 
 export interface ClassifiedError {
 	kind: YtDlpErrorKind
 	raw: string
 }
+
+// Which rate limit a run shows. `rateLimited`: an HTTP 429 on a request.
+// `sessionRateLimited`: YouTube's session or account limit, which lasts up to
+// an hour. yt-dlp never retries a 429 and reads no Retry-After, so how long to
+// wait is the host's call.
+export const RATE_LIMIT_EVIDENCE = ['rateLimited', 'sessionRateLimited'] as const
+
+export type RateLimitEvidence = (typeof RATE_LIMIT_EVIDENCE)[number]

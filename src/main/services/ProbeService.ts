@@ -1,14 +1,14 @@
 import {EventEmitter} from 'node:events'
 import log from 'electron-log/main.js'
-import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
-import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo} from '@shared/ytdlp/infoDict.js'
+import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo} from 'yt-dlp-bridge/info'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
-import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
+import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
+import {splitOutputLines} from 'yt-dlp-bridge/runner'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
@@ -19,7 +19,6 @@ import {mapFormats} from '@shared/ytdlp/formatMapping.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
-import {sabrSkippedClient} from './download/formatLimitSignals.js'
 import {degradationIsTransient, deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
 
@@ -57,16 +56,6 @@ export interface ProbeServiceOptions {
 }
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
-
-// `Unsupported URL` is emitted by yt-dlp before any extraction begins; it
-// doesn't match any of the post-extraction stderr patterns. Detect it here so
-// the user gets the right copy + CTA.
-function classifyProbeFailure(rawError: string): YtDlpErrorKind {
-	if (/unsupported url|is not a supported (?:site|url)|no extractor matches/i.test(rawError)) {
-		return 'unsupportedUrl'
-	}
-	return classifyYtDlpStderr(rawError).kind
-}
 
 // Timer-killed probes surface as exit-errors carrying PROBE_TIMEOUT_MESSAGE.
 // Matched by literal because the taxonomy has no timeout kind — see YtDlp.ts.
@@ -665,7 +654,7 @@ export class ProbeService extends EventEmitter {
 				timeoutMs,
 				onStdout: consumeStdout,
 				onStderr: chunk => {
-					for (const line of splitStderrLines(chunk)) {
+					for (const line of splitOutputLines(chunk)) {
 						logger.info(line, {source})
 					}
 				}
@@ -682,10 +671,9 @@ export class ProbeService extends EventEmitter {
 			if (signal.aborted || rawError === 'Cancelled') {
 				return PROBE_CANCELLED
 			}
-			// yt-dlp's exit-error kind is anchored to its stderr classifier; for
-			// probe-time failures we additionally recognize 'unsupportedUrl' which
-			// yt-dlp emits before extraction begins.
-			const probeKind = classifyProbeFailure(rawError ?? '')
+			// Classified from the surfaced message, which also covers a spawn
+			// error that has no errorKind of its own.
+			const probeKind = classifyYtDlpStderr(rawError ?? '').kind
 			logger.error('yt-dlp probe failed', {attempt, code, url, kind: probeKind, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			return {kind: 'failure', error: {kind: 'ytdlp', error: {kind: probeKind, raw: rawError ?? 'Probing failed'}} satisfies ProbeError}
 		}

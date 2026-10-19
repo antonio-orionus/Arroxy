@@ -1,5 +1,5 @@
 import type {FormatMarker, FormatOption} from '@shared/types.js'
-import type {YtDlpFormat} from '@shared/ytdlp/infoDict.js'
+import type {YtDlpFormat} from 'yt-dlp-bridge/info'
 import {sortFormatsByQuality} from '@shared/qualitySorter.js'
 import {humanSize} from '@shared/format.js'
 import {audioTrackLabel, audioTrackQuality, channelLabel, isDefaultAudio, isOriginalAudio, sampleRateLabel} from '@shared/audioTrackMeta.js'

@@ -1,7 +1,5 @@
-// @vitest-environment node
-
 import {describe, expect, it} from 'vite-plus/test'
-import {rateLimitEvidence} from '@main/services/rateLimitEvidence.js'
+import {accountCookiesRejected, RATE_LIMIT_EVIDENCE, rateLimitEvidence, rateLimitLine, sabrSkippedClient} from '../src/index.js'
 
 // yt-dlp's own wording: common.py's webpage request failing on HTTP 429 (a
 // warning when the request is non-fatal, an error otherwise), and the reason
@@ -13,6 +11,10 @@ const ACCOUNT_RATE_LIMIT = "ERROR: [youtube] dQw4w9WgXcQ: This content isn't ava
 const SUBTITLE_429 = "WARNING: Unable to download video subtitles for 'en': HTTP Error 429: Too Many Requests"
 
 describe('rateLimitEvidence', () => {
+	it('exposes the closed evidence enum', () => {
+		expect(RATE_LIMIT_EVIDENCE).toEqual(['rateLimited', 'sessionRateLimited'])
+	})
+
 	it('finds nothing in a clean run', () => {
 		expect(rateLimitEvidence('[youtube] dQw4w9WgXcQ: Downloading webpage\n[info] Downloading 1 format(s): 18')).toBeNull()
 	})
@@ -38,5 +40,40 @@ describe('rateLimitEvidence', () => {
 	// from the same address moments later.
 	it('ignores a subtitle download refused with 429', () => {
 		expect(rateLimitEvidence(SUBTITLE_429)).toBeNull()
+	})
+})
+
+describe('rateLimitLine', () => {
+	it('returns the trimmed line that shows the limit, the session limit first', () => {
+		expect(rateLimitLine(`  ${WEBPAGE_429_WARNING}  \n${SESSION_RATE_LIMIT}`)).toBe(SESSION_RATE_LIMIT)
+		expect(rateLimitLine(`[youtube] x: Downloading webpage\r\n${WEBPAGE_429_ERROR}`)).toBe(WEBPAGE_429_ERROR)
+	})
+
+	it('returns null when no line shows a limit', () => {
+		expect(rateLimitLine(SUBTITLE_429)).toBeNull()
+	})
+})
+
+describe('accountCookiesRejected', () => {
+	// youtube/_base.py warns after any request once the passed auth cookies stop
+	// carrying a session.
+	it('matches the YouTube rotated-cookies warning', () => {
+		expect(accountCookiesRejected('WARNING: [youtube] The provided YouTube account cookies are no longer valid. They have likely been rotated in the browser as a security measure.')).toBe(true)
+	})
+
+	it('ignores unrelated cookie lines', () => {
+		expect(accountCookiesRejected('[Cookies] Extracting cookies from firefox')).toBe(false)
+	})
+})
+
+describe('sabrSkippedClient', () => {
+	it('returns the player client whose https formats were dropped', () => {
+		expect(sabrSkippedClient('WARNING: [youtube] abc: Some web client https formats have been skipped as they are missing a URL. YouTube is forcing SABR streaming for this client.')).toBe('web')
+		expect(sabrSkippedClient('WARNING: [youtube] z1NNgSu8hTI: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details')).toBe('web_embedded')
+		expect(sabrSkippedClient('[debug] [youtube] abc: Some tv_downgraded client https formats have been skipped as they are missing a URL.')).toBe('tv_downgraded')
+	})
+
+	it('returns null for other lines', () => {
+		expect(sabrSkippedClient('[youtube] abc: Downloading tv client config')).toBeNull()
 	})
 })

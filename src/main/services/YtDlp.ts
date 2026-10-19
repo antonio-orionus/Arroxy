@@ -1,12 +1,12 @@
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
-import {createStreamTextReader, spawnYtDlp} from '@main/utils/process.js'
-import {killProcessTree} from './download/processControl.js'
-import {classifyYtDlpStderr, extractLastError} from 'ytdlp-errors'
+import {spawnYtDlp} from '@main/utils/process.js'
+import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
+import {createStreamTextReader, killProcessTree} from 'yt-dlp-bridge/runner'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
@@ -22,7 +22,6 @@ import type {TokenService} from './TokenService.js'
 import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
-import {rateLimitEvidence, rateLimitLine} from './rateLimitEvidence.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
@@ -110,8 +109,6 @@ type RetryStrategy = {kind: 'pot'; reMint: boolean} | {kind: 'fallback'} | {kind
 // Marker for timer-killed probes. ProbeService matches on it to grant exactly
 // one retry — keep the literal in sync if this ever changes.
 export const PROBE_TIMEOUT_MESSAGE = 'Probe timed out'
-
-const ACCOUNT_COOKIES_REJECTED = /provided YouTube account cookies are no longer valid/i
 
 // How long a stopped signed-in run waits for its killed tree to close before
 // it settles (and its jar is deleted) anyway.
@@ -318,13 +315,13 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (timer) clearTimeout(timer)
 			if (exitGrace) clearTimeout(exitGrace)
 			if (abortSignal && onAbort) abortSignal.removeEventListener('abort', onAbort)
-			resolve(ACCOUNT_COOKIES_REJECTED.test(result.stderr) ? {...result, accountCookiesRejected: true} : result)
+			resolve(accountCookiesRejected(result.stderr) ? {...result, accountCookiesRejected: true} : result)
 		}
 
 		const stop = (result: () => YtDlpResult): void => {
 			if (settled || stopped) return
 			if (sessionRun) {
-				killProcessTree(proc, 'SIGKILL')
+				killProcessTree(proc, 'SIGKILL', ytDlpLog)
 			} else {
 				try {
 					proc.kill('SIGKILL')

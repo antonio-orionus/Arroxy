@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased — next release 1.3.0 (minor): signals and stderr-classified unsupported URLs
+
+### Added
+
+- `rateLimitEvidence(stderr)` and `rateLimitLine(stderr)`: tell an HTTP 429 (`rateLimited`) from YouTube's session or account limit (`sessionRateLimited`), and return the line that shows it. A subtitle 429 is not counted.
+- `accountCookiesRejected(stderr)`: YouTube's "provided YouTube account cookies are no longer valid" warning.
+- `sabrSkippedClient(line)`: the player client named in "Some {client} client https formats have been skipped as they are missing a URL".
+- `RATE_LIMIT_EVIDENCE` / `RateLimitEvidence`, and the `SIGNAL_PATTERNS` table behind the new helpers.
+- `unsupportedUrl` fixtures.
+
+### Changed
+
+- `classifyYtDlpStderr` now returns `unsupportedUrl` for yt-dlp's `Unsupported URL: …`, `No suitable extractor (…) found for URL …` and `'…' is not a valid URL` lines. It is checked first, so words in the echoed URL cannot win. These lines classified as `unknown` before (or as whatever the URL text happened to match).
+- `ClassifierKind` now includes `unsupportedUrl`, so `extraPatterns` accepts it.
+
 ## 1.2.0 — output folder write failures
 
 ### Added

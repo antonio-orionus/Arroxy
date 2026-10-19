@@ -7,10 +7,8 @@ import type {YtDlpErrorKind} from '../src/index.js'
 
 const FIXTURES_ROOT = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'yt-dlp-stderr')
 
-// Kinds the classifier never returns. They live in `YtDlpErrorKind` so apps
-// can switch on them exhaustively, but they originate from caller paths
-// (URL validation, "no pattern matched" fallback).
-const NON_CLASSIFIER_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['unsupportedUrl', 'unknown'])
+// The "no pattern matched" fallback has no fixture of its own pattern.
+const NON_CLASSIFIER_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['unknown'])
 
 interface Fixture {
 	kind: YtDlpErrorKind
@@ -59,6 +57,14 @@ describe('classifyYtDlpStderr — fixture corpus', () => {
 		const result = classifyYtDlpStderr(raw)
 		expect(result.kind).toBe('unknown')
 		expect(result.raw).toBe(raw)
+	})
+
+	it('unsupportedUrl wins over words in the rejected URL', () => {
+		expect(classifyYtDlpStderr('ERROR: Unsupported URL: https://example.com/429-too-many-requests').kind).toBe('unsupportedUrl')
+	})
+
+	it('does not read an unsupported request scheme as an unsupported URL', () => {
+		expect(classifyYtDlpStderr('ERROR: Unable to download webpage: Unsupported url scheme: "file"').kind).toBe('unknown')
 	})
 
 	it('chunkTransferFailure is matched before network for retry-exhaustion lines', () => {

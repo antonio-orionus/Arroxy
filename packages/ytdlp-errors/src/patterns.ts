@@ -7,6 +7,15 @@ import type {ClassifierKind} from './kinds.js'
 // scripts/scan-yt-dlp-source.mjs for the upstream-scanner that keeps these
 // in sync with new yt-dlp releases.
 export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
+	// Raised before any extraction, so nothing else in the run explains it —
+	// and first, because the rejected URL is echoed into the line and may hold
+	// words other patterns key on. Three real sources:
+	//  - utils/_utils.py UnsupportedError: "Unsupported URL: {url}"
+	//  - YoutubeDL.py: "No suitable extractor ({ie_key}) found for URL {url}"
+	//  - extractor/generic.py: "{url!r} is not a valid URL"
+	// The colon keeps the networking layer's "Unsupported url scheme" out.
+	unsupportedUrl: /\bunsupported url:|no suitable extractor\b[^\n]*\bfound for url\b|is not a valid url\b/i,
+
 	// YouTube player API response. Tolerates ASCII apostrophe and U+2019.
 	// Source: yt-dlp passes through YouTube's reason string verbatim. Captcha
 	// challenge appended by extractor/youtube/_video.py:4053 also classifies
@@ -102,5 +111,28 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// form ("Connection reset by peer") emitted via OSError.strerror.
 	network: /unable to download video data|\b(?:timed? out|timeout|econn(?:reset|refused|aborted)|enotfound|getaddrinfo|network is unreachable|connection reset by peer)\b/i
 }
+
+// Signals that are not failure kinds of their own: they qualify a run (which
+// rate limit, whose cookies, which formats) rather than name why it failed.
+// Pinned to yt-dlp's wording like ERROR_PATTERNS; consumed by signals.ts.
+export const SIGNAL_PATTERNS = {
+	// youtube/_video.py expands YouTube's "This content isn't available, try
+	// again later" into "The current session" / "Your account" "has been
+	// rate-limited by YouTube for up to an hour".
+	sessionRateLimit: /has been rate.?limited by youtube|this content isn['’]t available,? try again later/i,
+	// common.py's request failures carry "HTTP Error 429: Too Many Requests",
+	// as a warning when the request was optional (the webpage) or an error.
+	http429: /HTTP Error 429\b|\b429: Too Many Requests/i,
+	// A subtitle 429 is YouTube's translation endpoint throttling one track; the
+	// original-language track downloads from the same address moments later. It
+	// says nothing about the connection.
+	subtitleDownload: /unable to download (?:video |automatic )?(?:subtitles|captions)/i,
+	// youtube/_base.py, after any request once the passed auth cookies stop
+	// carrying a session (usually rotated in the browser).
+	accountCookiesRejected: /provided YouTube account cookies are no longer valid/i,
+	// youtube/_video.py, when a player client lists https formats but withholds
+	// their URLs (SABR-only streaming). Captures the client name.
+	sabrSkippedFormats: /Some (\S+) client https formats have been skipped as they are missing a URL/
+} as const satisfies Record<string, RegExp>
 
 export const PATTERN_ENTRIES = Object.entries(ERROR_PATTERNS) as [ClassifierKind, RegExp][]

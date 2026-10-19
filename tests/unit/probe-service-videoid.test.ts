@@ -1,7 +1,7 @@
 // @vitest-environment node
 import {describe, expect, it} from 'vite-plus/test'
 import {mapPlaylistEntries} from '@main/services/ProbeService.js'
-import type {InfoDict} from '@shared/schemas.js'
+import type {InfoDict} from 'yt-dlp-bridge/info'
 
 /** Minimal yt-dlp row — only fields read by mapPlaylistEntries. */
 function playlistEntryFixture(row: {id?: string; title: string; url: string; playlist_index: number}) {

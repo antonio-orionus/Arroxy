@@ -6,9 +6,6 @@ const testAliasObj = {
 	'@preload': path.resolve('src/preload'),
 	'@renderer': path.resolve('src/renderer/src'),
 	'@shared': path.resolve('src/shared'),
-	'yt-dlp-bridge/parsers': path.resolve('packages/yt-dlp-bridge/src/parsers.ts'),
-	'yt-dlp-bridge/redaction': path.resolve('packages/yt-dlp-bridge/src/redaction.ts'),
-	'yt-dlp-bridge': path.resolve('packages/yt-dlp-bridge/src/index.ts'),
 	'ytdlp-errors': path.resolve('packages/ytdlp-errors/src/index.ts'),
 	'electron-log/main.js': path.resolve('tests/__mocks__/electron-log-main.ts'),
 	'electron-log/renderer.js': path.resolve('tests/__mocks__/electron-log-renderer.ts'),
@@ -20,7 +17,14 @@ const testAliasObj = {
 // time. Vitest doesn't run that plugin — without a regex alias, every test
 // that transitively imports ShareDialog crashes on import resolution. Map
 // every `~icons/*` to a single inert SVG stub.
-const testAlias = [...Object.entries(testAliasObj).map(([find, replacement]) => ({find, replacement})), {find: /^~icons\/.*/, replacement: path.resolve('tests/__mocks__/icons-stub.tsx')}]
+// Workspace packages resolve to their sources, subpath exports included
+// (`yt-dlp-bridge/runner` → `src/runner.ts`), so tests never need a build.
+const workspaceAlias = [
+	{find: /^yt-dlp-bridge\/(.+)$/, replacement: `${path.resolve('packages/yt-dlp-bridge/src')}/$1.ts`},
+	{find: /^yt-dlp-bridge$/, replacement: path.resolve('packages/yt-dlp-bridge/src/index.ts')}
+]
+
+const testAlias = [...workspaceAlias, ...Object.entries(testAliasObj).map(([find, replacement]) => ({find, replacement})), {find: /^~icons\/.*/, replacement: path.resolve('tests/__mocks__/icons-stub.tsx')}]
 
 // Vitest defaults to 5s, which is not enough headroom on the Windows CI runner.
 // A good number of the node tests do real filesystem work in `os.tmpdir()` —

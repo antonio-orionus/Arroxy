@@ -1,5 +1,5 @@
 import type {z} from 'zod'
-import {CONFIG, type ServerConfig} from './config.js'
+import {loadConfig, type ServerConfig} from './config.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {redactArgs} from './redaction.js'
@@ -349,7 +349,7 @@ function planCallerMediaWorkflow(input: CallerMediaWorkflowInput, options: Workf
 }
 
 function planManagedDownloadWorkflow(input: ManagedDownloadWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
-	const config = options.config ?? CONFIG
+	const config = options.config ?? loadConfig()
 	const normalized = normalizeManagedDownload(input)
 	const outputPolicy = resolveOutputPolicy(config, normalized.output)
 	const args = buildManagedDownloadArgs(normalized, outputPolicy, config, options)
@@ -370,7 +370,7 @@ function planManagedDownloadWorkflow(input: ManagedDownloadWorkflowInput, option
 }
 
 function planPostprocessWorkflow(input: ManagedPostprocessWorkflowInput, options: WorkflowPlanOptions): WorkflowPlan {
-	const config = options.config ?? CONFIG
+	const config = options.config ?? loadConfig()
 	const normalized = normalizePostprocess(input)
 	const outputPolicy = resolveOutputPolicy(config, normalized.output)
 	const required = requiredPostprocessDependencyReasons(normalized)
@@ -435,7 +435,7 @@ function buildManagedDownloadArgs(input: NormalizedManagedDownloadInput, policy:
 	return args
 }
 
-function managedBaseArgs(input: Pick<NormalizedManagedDownloadInput | NormalizedInspectInput, 'auth' | 'network'>, options: WorkflowPlanOptions, config: ServerConfig = options.config ?? CONFIG): string[] {
+function managedBaseArgs(input: Pick<NormalizedManagedDownloadInput | NormalizedInspectInput, 'auth' | 'network'>, options: WorkflowPlanOptions, config: ServerConfig = options.config ?? loadConfig()): string[] {
 	const args = baseArgs(options)
 	args.push('--no-warnings')
 	appendNetworkArgs(args, input.network)

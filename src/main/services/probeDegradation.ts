@@ -1,5 +1,5 @@
 import type {ProbeDegradationReason, RateLimitEvidence} from '@shared/schemas.js'
-import {rateLimitEvidence} from './rateLimitEvidence.js'
+import {rateLimitEvidence} from 'ytdlp-errors'
 
 // Signs in a successful probe's stderr that its result may be incomplete.
 //

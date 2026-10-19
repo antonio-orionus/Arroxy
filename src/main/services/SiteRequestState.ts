@@ -1,6 +1,6 @@
 import log from 'electron-log/main.js'
 import type {RateLimitEvidence, SiteCooldown} from '@shared/schemas.js'
-import {rateLimitEvidence} from './rateLimitEvidence.js'
+import {rateLimitEvidence} from 'ytdlp-errors'
 
 // The app-owned rate-limit cooldown, one per site and network route. yt-dlp
 // never retries a 429 and has no Retry-After support, so without this every

@@ -1,4 +1,5 @@
-import type {FinalPathResult, FormatSummary, PaginationResult, ParsedJsonLines, ProgressEvent, SanitizedFormatSummary, SanitizedMetadataItem, SubtitleSummary, ThumbnailSummary} from './types.js'
+import {infoDictSchema, isPlaylistLike, ytDlpFormatSchema, type YtDlpFormat} from './info.js'
+import type {FinalPathResult, FormatSummary, PaginationResult, ParsedJsonLines, SanitizedFormatSummary, SanitizedMetadataItem, SubtitleSummary, ThumbnailSummary} from './types.js'
 export {parseYtDlpOutputLine, type YtDlpOutputEvent, type YtDlpPostprocessPhase} from './output-events.js'
 
 export function parseJsonLines<T = unknown>(output: string): ParsedJsonLines<T> {
@@ -24,49 +25,54 @@ export function sanitizeMetadataItems(items: unknown[], maxFormats = 25): Saniti
 	return items.map(item => sanitizeMetadataItem(item, maxFormats))
 }
 
+// Reads the dict through infoDictSchema, so every copied field is one the schema
+// validated. A dict the schema rejects sanitizes to `{}`.
 export function sanitizeMetadataItem(item: unknown, maxFormats = 25): SanitizedMetadataItem {
-	const source = isRecord(item) ? item : {}
-	const formats = Array.isArray(source.formats) ? source.formats : []
-	const thumbnails = Array.isArray(source.thumbnails) ? source.thumbnails : []
+	const parsed = infoDictSchema.safeParse(item)
+	if (!parsed.success) return {}
+	const info = parsed.data
+	const thumbnailCount = info.thumbnails?.length ?? 0
+	const common = definedFields({id: info.id, title: info.title, webpageUrl: info.webpage_url, extractor: info.extractor, extractorKey: info.extractor_key, thumbnailCount: thumbnailCount > 0 ? thumbnailCount : undefined})
+	if (isPlaylistLike(info)) return common
 
-	const sanitized: SanitizedMetadataItem = {}
-	copyString(source, sanitized, 'id', 'id')
-	copyString(source, sanitized, 'title', 'title')
-	copyString(source, sanitized, 'fulltitle', 'fulltitle')
-	copyString(source, sanitized, 'description', 'description')
-	copyNumber(source, sanitized, 'duration', 'duration')
-	copyString(source, sanitized, 'duration_string', 'durationString')
-	copyString(source, sanitized, 'uploader', 'uploader')
-	copyString(source, sanitized, 'uploader_id', 'uploaderId')
-	copyString(source, sanitized, 'channel', 'channel')
-	copyString(source, sanitized, 'channel_id', 'channelId')
-	copyString(source, sanitized, 'channel_url', 'channelUrl')
-	copyString(source, sanitized, 'webpage_url', 'webpageUrl')
-	copyString(source, sanitized, 'extractor', 'extractor')
-	copyString(source, sanitized, 'extractor_key', 'extractorKey')
-	copyString(source, sanitized, 'upload_date', 'uploadDate')
-	copyNumber(source, sanitized, 'timestamp', 'timestamp')
-	copyString(source, sanitized, 'availability', 'availability')
-	copyString(source, sanitized, 'live_status', 'liveStatus')
-	copyNumber(source, sanitized, 'age_limit', 'ageLimit')
-
-	if (Array.isArray(source.categories)) sanitized.categories = source.categories.filter(isString)
-	if (Array.isArray(source.tags)) sanitized.tags = source.tags.filter(isString)
-	if (Array.isArray(source.chapters)) sanitized.chapters = source.chapters
-	if (isRecord(source.subtitles)) {
-		sanitized.subtitleLanguages = Object.keys(source.subtitles).sort()
+	const sanitized: SanitizedMetadataItem = {
+		...common,
+		...definedFields({
+			fulltitle: info.fulltitle,
+			description: info.description,
+			duration: info.duration,
+			durationString: info.duration_string,
+			uploader: info.uploader,
+			uploaderId: info.uploader_id,
+			channel: info.channel,
+			channelId: info.channel_id,
+			channelUrl: info.channel_url,
+			uploadDate: info.upload_date,
+			timestamp: info.timestamp,
+			availability: info.availability,
+			liveStatus: info.live_status,
+			ageLimit: info.age_limit,
+			categories: info.categories,
+			tags: info.tags,
+			chapters: info.chapters
+		})
+	}
+	if (info.subtitles) {
+		sanitized.subtitleLanguages = Object.keys(info.subtitles).sort()
 		sanitized.subtitleCount = sanitized.subtitleLanguages.length
 	}
-	if (isRecord(source.automatic_captions)) {
-		sanitized.automaticCaptionLanguages = Object.keys(source.automatic_captions).sort()
+	if (info.automatic_captions) {
+		sanitized.automaticCaptionLanguages = Object.keys(info.automatic_captions).sort()
 		sanitized.automaticCaptionCount = sanitized.automaticCaptionLanguages.length
 	}
-	if (thumbnails.length > 0) sanitized.thumbnailCount = thumbnails.length
+	const formats = info.formats ?? []
 	if (formats.length > 0) {
 		sanitized.formatCount = formats.length
 		sanitized.formats = formats.slice(0, maxFormats).map(sanitizeFormatSummary)
 	}
-	const selectedFormat = sanitizeFormatSummary(source)
+	// A single-format dict carries its format fields on the top level.
+	const topLevelFormat = ytDlpFormatSchema.safeParse(item)
+	const selectedFormat = topLevelFormat.success ? sanitizeFormatSummary(topLevelFormat.data) : {}
 	if (Object.keys(selectedFormat).length > 0) sanitized.selectedFormat = selectedFormat
 	return sanitized
 }
@@ -148,29 +154,6 @@ export function parseThumbnails(output: string): ThumbnailSummary[] {
 	})
 }
 
-export function parseProgress(output: string): ProgressEvent[] {
-	const events: ProgressEvent[] = []
-	for (const raw of output.split(/\r?\n/)) {
-		const line = raw.trim()
-		if (!line) continue
-		const isDownload = /^\[download\]/i.test(line)
-		const isPostprocess = /^\[(?:ExtractAudio|Merger|VideoRemuxer|VideoConvertor|EmbedSubtitle|EmbedThumbnail|Metadata|SponsorBlock)\]/i.test(line)
-		if (!isDownload && !isPostprocess) continue
-
-		const percent = /(\d+(?:\.\d+)?)%/.exec(line)
-		const total = /\bof\s+(.+?)(?=\s+\bat\b|\s+\bETA\b|$)/i.exec(line)
-		const speed = /\bat\s+([^\s]+)/i.exec(line)
-		const eta = /\bETA\s+([^\s]+)/i.exec(line)
-		const event: ProgressEvent = {phase: isDownload ? 'download' : isPostprocess ? 'postprocess' : 'unknown', raw}
-		if (percent) event.percent = Number.parseFloat(percent[1] ?? '0')
-		if (total?.[1]) event.total = total[1].trim()
-		if (speed?.[1]) event.speed = speed[1]
-		if (eta?.[1]) event.eta = eta[1]
-		events.push(event)
-	}
-	return events
-}
-
 export function parseFinalPaths(stdout: string): FinalPathResult {
 	const stdoutLines = stdout.split(/\r?\n/).flatMap(line => {
 		const stdoutLine = line.trim()
@@ -211,43 +194,37 @@ function splitFormats(value: string): string[] {
 	})
 }
 
-function sanitizeFormatSummary(item: unknown): SanitizedFormatSummary {
-	const source = isRecord(item) ? item : {}
-	const result: SanitizedFormatSummary = {}
-	copyString(source, result, 'format_id', 'formatId')
-	copyString(source, result, 'ext', 'extension')
-	copyString(source, result, 'protocol', 'protocol')
-	copyString(source, result, 'resolution', 'resolution')
-	copyNumber(source, result, 'width', 'width')
-	copyNumber(source, result, 'height', 'height')
-	copyNumber(source, result, 'fps', 'fps')
-	copyString(source, result, 'acodec', 'audioCodec')
-	copyString(source, result, 'vcodec', 'videoCodec')
-	copyNumber(source, result, 'abr', 'audioBitrate')
-	copyNumber(source, result, 'vbr', 'videoBitrate')
-	copyNumber(source, result, 'tbr', 'totalBitrate')
-	copyNumber(source, result, 'filesize', 'filesize')
-	copyNumber(source, result, 'filesize_approx', 'filesizeApprox')
-	copyString(source, result, 'format_note', 'formatNote')
-	copyString(source, result, 'dynamic_range', 'dynamicRange')
-	copyString(source, result, 'language', 'language')
+function sanitizeFormatSummary(format: YtDlpFormat): SanitizedFormatSummary {
+	return definedFields({
+		formatId: format.format_id,
+		extension: format.ext,
+		protocol: format.protocol,
+		resolution: format.resolution,
+		width: format.width,
+		height: format.height,
+		fps: format.fps,
+		audioCodec: format.acodec,
+		videoCodec: format.vcodec,
+		audioBitrate: format.abr,
+		videoBitrate: format.vbr,
+		totalBitrate: format.tbr,
+		filesize: format.filesize,
+		filesizeApprox: format.filesize_approx,
+		formatNote: format.format_note,
+		dynamicRange: format.dynamic_range,
+		language: format.language
+	})
+}
+
+type DefinedFields<T> = {[K in keyof T]?: Exclude<T[K], undefined>}
+
+// Drops undefined values so optional fields are absent rather than present-
+// but-undefined (exactOptionalPropertyTypes).
+function definedFields<T extends Record<string, unknown>>(fields: T): DefinedFields<T> {
+	const result: DefinedFields<T> = {}
+	for (const key of Object.keys(fields) as (keyof T)[]) {
+		const value = fields[key]
+		if (value !== undefined) result[key] = value as Exclude<T[keyof T], undefined>
+	}
 	return result
-}
-
-function copyString<T extends object>(source: Record<string, unknown>, target: T, sourceKey: string, targetKey: string): void {
-	const value = source[sourceKey]
-	if (typeof value === 'string') (target as Record<string, unknown>)[targetKey] = value
-}
-
-function copyNumber<T extends object>(source: Record<string, unknown>, target: T, sourceKey: string, targetKey: string): void {
-	const value = source[sourceKey]
-	if (typeof value === 'number' && Number.isFinite(value)) (target as Record<string, unknown>)[targetKey] = value
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-	return typeof value === 'object' && value !== null && !Array.isArray(value)
-}
-
-function isString(value: unknown): value is string {
-	return typeof value === 'string'
 }

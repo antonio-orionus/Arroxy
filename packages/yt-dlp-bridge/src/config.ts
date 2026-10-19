@@ -70,5 +70,3 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
 		})
 	}
 }
-
-export const CONFIG = loadConfig()

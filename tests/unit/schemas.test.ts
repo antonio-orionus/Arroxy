@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {queueArraySchema} from '@shared/queueItemSchema.js'
-import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, infoDictSchema, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
+import {startDownloadSchema, audioConvertSchema, MAX_SUBTITLE_LANGUAGES, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 
 const IDENTITY = {extractor: 'youtube', extractorKey: 'Youtube'}
@@ -69,59 +69,6 @@ describe('probeSchema — playlist scope', () => {
 
 	it.each([-1, 0, 999, 1.5, 300_001, '120000', null])('rejects timeoutMs %j', timeoutMs => {
 		expect(probeSchema.safeParse({url, timeoutMs}).success).toBe(false)
-	})
-})
-
-describe('infoDictSchema — null normalization + _type discrimination', () => {
-	it('treats null filesize/fps/duration as undefined (not validation errors)', () => {
-		const raw = {title: 'x', thumbnail: null, duration: null, formats: [{format_id: '22', filesize: null, fps: null, abr: null, ext: 'mp4'}], subtitles: null, automatic_captions: null}
-		const result = infoDictSchema.safeParse(raw)
-		expect(result.success).toBe(true)
-		if (result.success) {
-			const data = result.data
-			expect(data._type).toBe('video')
-			if (data._type === 'video' || data._type === undefined) {
-				expect(data.duration).toBeUndefined()
-				expect(data.thumbnail).toBeUndefined()
-				expect(data.formats?.[0].filesize).toBeUndefined()
-				expect(data.formats?.[0].fps).toBeUndefined()
-				expect(data.subtitles).toBeUndefined()
-			}
-		}
-	})
-
-	it('passes through unknown fields without rejecting', () => {
-		const raw = {title: 'x', _unknown_field_yt_dlp_added_in_2030: 'whatever', formats: [{format_id: '22', _new_codec_field: 'av2'}]}
-		expect(infoDictSchema.safeParse(raw).success).toBe(true)
-	})
-
-	it('discriminates on _type: playlist', () => {
-		const raw = {
-			_type: 'playlist',
-			id: 'PLabc',
-			title: 'My playlist',
-			entries: [
-				{id: 'v1', title: 'Video 1', url: 'https://www.youtube.com/watch?v=v1'},
-				{id: 'v2', title: 'Video 2', url: 'https://www.youtube.com/watch?v=v2'}
-			]
-		}
-		const result = infoDictSchema.safeParse(raw)
-		expect(result.success).toBe(true)
-		if (result.success) {
-			expect(result.data._type).toBe('playlist')
-		}
-	})
-
-	it('discriminates on _type: multi_video', () => {
-		const raw = {_type: 'multi_video', id: 'episode-1', title: 'Multi-act episode', entries: [{id: 'a', title: 'Act 1', url: 'https://x.com/a'}]}
-		expect(infoDictSchema.safeParse(raw).success).toBe(true)
-	})
-
-	it('discriminates on _type: url (redirect entry)', () => {
-		const raw = {_type: 'url', url: 'https://example.com/video', ie_key: 'Generic'}
-		const result = infoDictSchema.safeParse(raw)
-		expect(result.success).toBe(true)
-		if (result.success) expect(result.data._type).toBe('url')
 	})
 })
 

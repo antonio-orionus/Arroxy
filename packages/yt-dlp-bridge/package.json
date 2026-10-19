@@ -62,6 +62,10 @@
 			"types": "./dist/filesystem.d.ts",
 			"import": "./dist/filesystem.js"
 		},
+		"./info": {
+			"types": "./dist/info.d.ts",
+			"import": "./dist/info.js"
+		},
 		"./option-catalog": {
 			"types": "./dist/option-catalog.d.ts",
 			"import": "./dist/option-catalog.js"

@@ -13,7 +13,10 @@ export type YtDlpOutputEvent =
 	| {kind: Extract<YtDlpOutputEventKind, 'sponsorblock-retry'>; attempt: number; total: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'transfer-retry'>; attempt: number; total: number}
 	| {kind: Extract<YtDlpOutputEventKind, 'postprocess'>; phase: YtDlpPostprocessPhase; path?: string}
-	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; percent?: number; raw: string}
+	// The fallback for every other line. A `[download]` progress line also
+	// carries yt-dlp's total size, speed and ETA as printed (`10.00MiB`,
+	// `1.00MiB/s`, `00:05`).
+	| {kind: Extract<YtDlpOutputEventKind, 'progress'>; percent?: number; total?: string; speed?: string; eta?: string; raw: string}
 
 export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 	const clean = line.trim()
@@ -61,7 +64,17 @@ export function parseYtDlpOutputLine(line: string): YtDlpOutputEvent | null {
 	}
 
 	const percent = parsePercentFromLine(clean)
-	return percent === undefined ? {kind: 'progress', raw: clean} : {kind: 'progress', percent, raw: clean}
+	return {kind: 'progress', ...(percent === undefined ? {} : {percent}), ...downloadProgressFields(clean), raw: clean}
+}
+
+// `[download]  42.0% of ~10.00MiB at 1.00MiB/s ETA 00:05` (any part may be
+// missing or `Unknown`).
+function downloadProgressFields(line: string): {total?: string; speed?: string; eta?: string} {
+	if (!line.startsWith('[download]')) return {}
+	const total = /\bof\s+(.+?)(?=\s+(?:at|ETA|in)\b|$)/i.exec(line)?.[1]?.trim()
+	const speed = /\bat\s+(\S+)/i.exec(line)?.[1]
+	const eta = /\bETA\s+(\S+)/i.exec(line)?.[1]
+	return {...(total ? {total} : {}), ...(speed ? {speed} : {}), ...(eta ? {eta} : {})}
 }
 
 function postprocessPhase(line: string): YtDlpPostprocessPhase | null {

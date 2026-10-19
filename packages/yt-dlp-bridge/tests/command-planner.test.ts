@@ -293,7 +293,9 @@ describe('parseYtDlpOutputLine', () => {
 		expect(parseYtDlpOutputLine('[ExtractAudio] Destination: /tmp/audio.mp3')).toEqual({kind: 'postprocess', phase: 'extractingAudio', path: '/tmp/audio.mp3'})
 		expect(parseYtDlpOutputLine("[download] Got error: (<HTTPSConnection(host='rr3---sn-txhxooxu-n5il.googlevideo.com', port=443) at 0x2b188eaab90>, 'Connection to rr3---sn-txhxooxu-n5il.googlevideo.com timed out. (connect timeout=20.0)'). Retrying (1/20)...")).toEqual({kind: 'transfer-retry', attempt: 1, total: 20})
 		expect(parseYtDlpOutputLine('[download] Got error: read timed out. Retrying (3/20)...')).toEqual({kind: 'transfer-retry', attempt: 3, total: 20})
-		expect(parseYtDlpOutputLine('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toEqual({kind: 'progress', percent: 42, raw: '[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05'})
+		expect(parseYtDlpOutputLine('[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05')).toEqual({kind: 'progress', percent: 42, total: '10.00MiB', speed: '1.00MiB/s', eta: '00:05', raw: '[download]  42.0% of 10.00MiB at 1.00MiB/s ETA 00:05'})
+		expect(parseYtDlpOutputLine('[download] 100% of ~ 12.30MiB in 00:00:04 at 2.95MiB/s')).toEqual({kind: 'progress', percent: 100, total: '~ 12.30MiB', speed: '2.95MiB/s', raw: '[download] 100% of ~ 12.30MiB in 00:00:04 at 2.95MiB/s'})
+		expect(parseYtDlpOutputLine('[youtube] abc: Downloading webpage')).toEqual({kind: 'progress', raw: '[youtube] abc: Downloading webpage'})
 	})
 })
 

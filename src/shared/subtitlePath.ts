@@ -28,7 +28,3 @@ export function detectSubtitleLang(path: string, requestedLangs: readonly string
 	if (!trackKey) return null
 	return requestedLangs.find(lang => lang.toLowerCase() === trackKey.toLowerCase()) ?? requestedLangs.find(lang => matchesSubtitleLanguage(lang, trackKey)) ?? null
 }
-
-// Embed mode forces mkv container — declared once so ytDlpArgs and the muxer
-// agree without literal-string drift.
-export const EMBED_CONTAINER_EXT = 'mkv'

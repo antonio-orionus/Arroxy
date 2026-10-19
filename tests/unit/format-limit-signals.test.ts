@@ -1,19 +1,10 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, sabrSkippedClient, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
+import {assessQualityLimit, availableMaxHeight, isInfoJsonWriteLine, parseSelectedFormats, requiresSignIn, selectedMaxHeight} from '@main/services/download/formatLimitSignals.js'
 import type {MediaIntent, PlaylistVideoTier} from '@shared/schemas.js'
-
-const SABR_WARNING = 'WARNING: [youtube] z1NNgSu8hTI: Some web_embedded client https formats have been skipped as they are missing a URL. YouTube may have enabled the SABR-only streaming experiment for your account. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details'
 
 const video = (tier: PlaylistVideoTier): MediaIntent => ({kind: 'video-audio', goal: 'best-picture', tier, fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 const AUDIO_ONLY: MediaIntent = {kind: 'audio-only', audio: {format: 'best'}}
-
-describe('sabrSkippedClient', () => {
-	it('names the client from the yt-dlp warning and ignores other lines', () => {
-		expect(sabrSkippedClient(SABR_WARNING)).toBe('web_embedded')
-		expect(sabrSkippedClient('[info] z1NNgSu8hTI: Downloading 1 format(s): 18')).toBeNull()
-	})
-})
 
 describe('parseSelectedFormats / selectedMaxHeight', () => {
 	it('reads merged and single-file selections', () => {

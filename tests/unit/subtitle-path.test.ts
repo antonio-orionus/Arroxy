@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {isSubtitleFile, detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
+import {isSubtitleFile, detectSubtitleLang} from '@shared/subtitlePath.js'
 
 describe('isSubtitleFile', () => {
 	it.each([
@@ -73,11 +73,5 @@ describe('detectSubtitleLang', () => {
 
 	it('does not treat translated tracks as regional variants', () => {
 		expect(detectSubtitleLang('video.de-en.srt', ['de'])).toBeNull()
-	})
-})
-
-describe('EMBED_CONTAINER_EXT', () => {
-	it('is mkv — ytDlpArgs and muxer must stay in sync', () => {
-		expect(EMBED_CONTAINER_EXT).toBe('mkv')
 	})
 })

@@ -44,12 +44,23 @@ Requires Node.js >= 22.13 and ESM.
 - Managed output policy for output roots, temp roots, archive files, overwrite behavior, and parent-directory traversal checks.
 - Secret redaction for auth flags, cookies, PO tokens, visitor data, proxies, signed URLs, and command previews.
 - Parsers for JSON lines, format lists, subtitle lists, thumbnail lists, progress output, final output paths, and live yt-dlp output events.
-- Low-level process runner using `spawn` with `shell: false`, bounded output capture, timeouts, and structured failures.
+- Low-level process runner using `spawn` with `shell: false`: streams whole output lines (yt-dlp's `\r` progress redraws included), keeps a bounded tail of output, and on timeout or cancel kills the whole process tree, never a reaped pid.
+- A Zod schema for yt-dlp's `info_dict` (`--dump-json` / `--dump-single-json` output).
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
 ## Unreleased
 
+Next release: **0.5.0**. It contains breaking changes and requires `ytdlp-errors` 1.3.0.
+
+- **Breaking:** `CONFIG` is gone from `yt-dlp-bridge/config`. The package no longer reads `YTDLP_MCP_*` or the home directory at import: `planWorkflow` and `checkEnvironment` call `loadConfig()` when no `config` is passed, so they see the environment as it is at call time.
+- **Breaking:** `parseProgress`, `ProgressEvent`, `ProgressEventPhaseSchema`/`ProgressEventPhase` and `PROGRESS_EVENT_PHASES` are removed. `parseYtDlpOutputLine` is the one progress parser: its `progress` event now also carries `total`, `speed` and `eta` from a `[download]` line.
+- **Breaking:** `sanitizeMetadataItem` reads its input through the new `infoDictSchema`. A dict the schema rejects (a field of the wrong type, say) now sanitizes to `{}` instead of keeping the fields that happened to be valid. A playlist dict keeps only `id`, `title`, `webpageUrl`, `extractor`, `extractorKey` and `thumbnailCount`.
+- **Breaking:** `SUBTITLE_MODES` is now ordered `sidecar`, `embed`, `subfolder`.
+- New `yt-dlp-bridge/info` subpath: `infoDictSchema`, `ytDlpFormatSchema`, `ytDlpSubtitleTrackSchema`, the `InfoDict` / `VideoInfo` / `PlaylistInfo` / `MultiVideoInfo` / `UrlRedirectInfo` / `YtDlpFormat` / `YtDlpSubtitleTrack` types, and `isPlaylistLike` / `isUrlRedirect`.
+- `runCommand` spawns the child as its own process group on Unix and kills the whole tree on timeout or cancel (`taskkill /T /F` on Windows), so an ffmpeg that yt-dlp forked no longer survives. It never signals a child that has already exited. New options: `onStdoutLine` / `onStderrLine` stream each whole, trimmed line as it arrives, and `logger` receives the warnings the runner absorbs. Output capture no longer copies the whole buffer on every chunk.
+- New runner exports: `killProcessTree`, `splitOutputLines`, `createStreamTextReader`, `SPAWN_AS_PROCESS_GROUP`, and the `RunnerLogger`, `KillableProcess`, `StreamTextReader`, `StreamTextChunk` types.
+- `toStructuredError` takes `unsupportedUrl` from the `ytdlp-errors` classifier instead of a regex of its own. A line such as `... is not a valid URL` still classifies; text that merely mentions an unsupported URL no longer does.
 - `CallerMediaWorkflowInput` gains `downloadSections` (yt-dlp `--download-sections` values such as `*220-435`) and `forceKeyframesAtCuts`. A plan with sections lists ffmpeg as required and reports the cut as a side effect; an exact cut also reports the re-encode as a risk.
 - `embed.chapters: false` now passes `--no-embed-chapters` (unless SponsorBlock marks segments as chapters). yt-dlp otherwise embeds chapters whenever `--add-metadata` is on.
 
@@ -226,10 +237,11 @@ if (event?.kind === "merge") {
 
 ### Run a planned command
 
-The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries.
+The bridge runner is low-level. It executes a command path plus argv; it does not resolve binaries or decide retries. The child runs as its own process group on Unix, so it does not receive the terminal's Ctrl+C: stop it with `signal`.
 
 ```ts
 import { planWorkflow } from "yt-dlp-bridge";
+import { parseYtDlpOutputLine } from "yt-dlp-bridge/parsers";
 import { runCommand } from "yt-dlp-bridge/runner";
 import { toStructuredError } from "yt-dlp-bridge/errors";
 
@@ -241,7 +253,8 @@ const plan = planWorkflow({
 try {
   const result = await runCommand("yt-dlp", plan.args, {
     timeoutMs: 900_000,
-    maxOutputBytes: 4 * 1024 * 1024
+    maxOutputBytes: 4 * 1024 * 1024,
+    onStderrLine: line => console.log(parseYtDlpOutputLine(line))
   });
   console.log(result.stdout);
 } catch (error) {
@@ -270,12 +283,13 @@ Prefer the root export for workflow planning and subpaths for lower-level utilit
 | --- | --- |
 | Workflow planning | `planWorkflow`, workflow input/plan/fact types |
 | Schemas | `WorkflowInspectInputSchema`, `WorkflowDownloadInputSchema`, `WorkflowExecutionInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`, `WorkflowInputSchema`, `ValidateWorkflowInputSchema` |
-| Config | `loadConfig`, `CONFIG` from `yt-dlp-bridge/config` |
+| Config | `loadConfig` from `yt-dlp-bridge/config` |
 | Environment | `checkEnvironment` from `yt-dlp-bridge/environment` |
 | Filesystem policy | `resolveOutputPolicy`, `resolveManagedPath`, `ensureWithinRoot`, `isPathInside`, `isPathInsideWith`, `hasParentTraversal`, `ensureDirectory`, `readArchive` from `yt-dlp-bridge/filesystem` |
 | Option catalog | `UPSTREAM_OPTION_CATALOG`, `listLongFlags`, `findOptionByFlag`, `optionMetadata` from `yt-dlp-bridge/option-catalog` |
-| Parsers | `parseYtDlpOutputLine`, `parseJsonLines`, `sanitizeMetadataItem`, `sanitizeMetadataItems`, `paginate`, `parseFormats`, `parseSubtitles`, `parseThumbnails`, `parseProgress`, `parseFinalPaths` from `yt-dlp-bridge/parsers` |
-| Runner | `runCommand`, `CommandExecutionError` from `yt-dlp-bridge/runner` |
+| info_dict | `infoDictSchema`, `ytDlpFormatSchema`, `ytDlpSubtitleTrackSchema`, `isPlaylistLike`, `isUrlRedirect` and the `InfoDict` family of types from `yt-dlp-bridge/info` |
+| Parsers | `parseYtDlpOutputLine`, `parseJsonLines`, `sanitizeMetadataItem`, `sanitizeMetadataItems`, `paginate`, `parseFormats`, `parseSubtitles`, `parseThumbnails`, `parseFinalPaths` from `yt-dlp-bridge/parsers` |
+| Runner | `runCommand`, `CommandExecutionError`, `killProcessTree`, `splitOutputLines`, `createStreamTextReader`, `SPAWN_AS_PROCESS_GROUP` from `yt-dlp-bridge/runner` |
 | Redaction | `redactArgs`, `redactText`, `excerpt` from `yt-dlp-bridge/redaction` |
 | Structured errors | `toStructuredError` from `yt-dlp-bridge/errors` |
 

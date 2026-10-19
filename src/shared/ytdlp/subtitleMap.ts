@@ -4,7 +4,7 @@
 import {LIVE_CHAT_LANG} from '@shared/constants.js'
 import type {Site} from '@shared/sites/index.js'
 import type {SubtitleMap} from '@shared/types.js'
-import type {YtDlpSubtitleTrack} from '@shared/ytdlp/infoDict.js'
+import type {YtDlpSubtitleTrack} from 'yt-dlp-bridge/info'
 
 export function sanitizeSubtitleMap(raw: Record<string, YtDlpSubtitleTrack[]> | undefined, opts: {isAutomaticCaptions: boolean; site: Site}): SubtitleMap {
 	if (!raw) return {}

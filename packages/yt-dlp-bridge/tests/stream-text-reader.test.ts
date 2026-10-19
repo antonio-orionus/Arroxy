@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {createStreamTextReader, splitStderrLines} from '@main/utils/process.js'
+import {createStreamTextReader, splitOutputLines} from '../src/runner.js'
 
 // The reporter's own title — a playlist of Persian videos on Windows. Every
 // vector below was reproduced against it.
@@ -69,17 +69,17 @@ describe('createStreamTextReader — line framing', () => {
 		const reader = createStreamTextReader()
 		reader.push(Buffer.from('one\r', 'utf8'))
 		const second = reader.push(Buffer.from('\ntwo\n', 'utf8'))
-		expect(splitStderrLines(second.lines)).toEqual(['two'])
+		expect(splitOutputLines(second.lines)).toEqual(['two'])
 	})
 })
 
-describe('splitStderrLines — carriage-return framing', () => {
+describe('splitOutputLines — carriage-return framing', () => {
 	it('splits progress redraws separated by bare carriage returns', () => {
-		expect(splitStderrLines('[download]   1% of 10MiB\r[download]  50% of 10MiB\r')).toEqual(['[download]   1% of 10MiB', '[download]  50% of 10MiB'])
+		expect(splitOutputLines('[download]   1% of 10MiB\r[download]  50% of 10MiB\r')).toEqual(['[download]   1% of 10MiB', '[download]  50% of 10MiB'])
 	})
 
 	it('surfaces a real line flushed behind a progress redraw', () => {
 		const blob = '[download]  99.9% of 10MiB at 1KiB/s ETA 00:00\r[download] Destination: /out/Video.en.srt\n'
-		expect(splitStderrLines(blob)).toContain('[download] Destination: /out/Video.en.srt')
+		expect(splitOutputLines(blob)).toContain('[download] Destination: /out/Video.en.srt')
 	})
 })

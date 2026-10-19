@@ -2,11 +2,16 @@ import {z} from 'zod'
 import {validateUaToken} from './exploreUserAgent.js'
 import {isValidSubfolder, SUBFOLDER_NAME_MAX} from './subfolder.js'
 import {AUDIO_CONVERT_TARGETS, type AudioConvertTarget} from './audioTargets.js'
-import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from 'ytdlp-errors'
+import {RATE_LIMIT_EVIDENCE, YT_DLP_ERROR_KINDS, type RateLimitEvidence, type YtDlpErrorKind} from 'ytdlp-errors'
+import {SUBTITLE_FORMATS, SUBTITLE_MODES, SubtitleFormatSchema as subtitleFormatSchema, SubtitleModeSchema as subtitleModeSchema, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge/schemas'
 
 export type {AudioConvertTarget}
 export type {YtDlpErrorKind}
 export {YT_DLP_ERROR_KINDS}
+// yt-dlp-domain enums owned by the packages that build yt-dlp's argv and read
+// its output; re-exported so the app keeps one import site.
+export type {RateLimitEvidence, SubtitleFormat, SubtitleMode}
+export {SUBTITLE_FORMATS, SUBTITLE_MODES}
 
 // Enum schemas — single source of truth. Types below are inferred so adding
 // or removing a value never requires hand-editing a parallel union.
@@ -82,14 +87,6 @@ export type DownloadProfileAudioFormat = z.infer<typeof downloadProfileAudioForm
 export const downloadProfileIconSchema = z.enum(['controls', 'download', 'video', 'captions', 'audio', 'music', 'podcast', 'classes', 'clip', 'archive'])
 export type DownloadProfileIcon = z.infer<typeof downloadProfileIconSchema>
 export const DOWNLOAD_PROFILE_ICONS = downloadProfileIconSchema.options
-
-export const subtitleModeSchema = z.enum(['sidecar', 'embed', 'subfolder'])
-export type SubtitleMode = z.infer<typeof subtitleModeSchema>
-export const SUBTITLE_MODES = subtitleModeSchema.options
-
-export const subtitleFormatSchema = z.enum(['srt', 'vtt', 'ass'])
-export type SubtitleFormat = z.infer<typeof subtitleFormatSchema>
-export const SUBTITLE_FORMATS = subtitleFormatSchema.options
 
 export const sponsorBlockModeSchema = z.enum(['off', 'mark', 'remove'])
 export type SponsorBlockMode = z.infer<typeof sponsorBlockModeSchema>
@@ -558,8 +555,7 @@ export type ProbeDegradationReason = z.infer<typeof probeDegradationReasonSchema
 // What a run showed about the site rate-limiting this connection, named after
 // yt-dlp's wording: an HTTP 429, or YouTube's session limit ("rate-limited by
 // YouTube for up to an hour"), which lasts much longer.
-export const rateLimitEvidenceSchema = z.enum(['rateLimited', 'sessionRateLimited'])
-export type RateLimitEvidence = z.infer<typeof rateLimitEvidenceSchema>
+const rateLimitEvidenceSchema = z.enum(RATE_LIMIT_EVIDENCE)
 
 // A running rate-limit cooldown on the current network route: until when new
 // requests to `site` wait. `site` is the request site key (requestSiteFor).
@@ -783,8 +779,6 @@ const playlistManifestItemSchema = z.object({videoId: z.string().nullable(), tit
 
 export const playlistManifestSchema = z.object({playlistGroupId: z.string().min(1), playlistTitle: z.string(), outputDir: z.string().min(1), items: z.array(playlistManifestItemSchema)})
 
-// yt-dlp info_dict shape lives in `./ytdlp/infoDict.ts` — the spec port that
+// yt-dlp's info_dict shape lives in `yt-dlp-bridge/info` — the spec port that
 // validates `--dump-single-json` output. Schemas here are app-internal contracts
-// (settings, prefs, queue items — the item contract is in `./queueItemSchema.ts`);
-// yt-dlp's contract is its own thing.
-export {infoDictSchema, type InfoDict} from './ytdlp/infoDict.js'
+// (settings, prefs, queue items — the item contract is in `./queueItemSchema.ts`).

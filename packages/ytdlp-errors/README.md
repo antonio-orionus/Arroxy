@@ -72,10 +72,10 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `postprocessFailure` | `YTDLP_POSTPROCESS_FAILURE` | yes | no | ffmpeg mux/convert/remux failure |
 | `parse` | `YTDLP_PARSE_FAILURE` | no | no | `--dump-json` output unparseable |
 | `network` | `YTDLP_NETWORK` | yes | no | Transport-level error |
-| `unsupportedUrl`† | `YTDLP_UNSUPPORTED_URL` | no | yes | URL not handled by any extractor |
+| `unsupportedUrl` | `YTDLP_UNSUPPORTED_URL` | no | yes | URL not handled by any extractor, or not a URL |
 | `unknown` | `YTDLP_UNKNOWN` | no | no | No pattern matched; render `raw` |
 
-† `unsupportedUrl` is caller-supplied — not emitted by the stderr classifier. It exists in the union so exhaustive switches cover URL validation before yt-dlp is spawned.
+`unsupportedUrl` is classified from yt-dlp's `Unsupported URL:`, `No suitable extractor ... found for URL` and `... is not a valid URL` lines. Hosts can also set it from their own URL validation before yt-dlp is spawned.
 
 ## API
 
@@ -85,11 +85,16 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `classifyAll(stderr, opts?)` | Classify each `ERROR:` line independently — use with `--ignore-errors` on playlists. |
 | `extractLastError(stderr)` | Pull the most useful single-line description for logs. Returns `string \| null`. |
 | `isPostprocessFailure(raw)` | Predicate for ENOSPC-masquerading-as-ffmpeg detection. |
+| `rateLimitEvidence(stderr)` | Which rate limit a run shows: `'rateLimited'` (HTTP 429), `'sessionRateLimited'` (YouTube's session/account limit), or `null`. Subtitle 429s are ignored. |
+| `rateLimitLine(stderr)` | The trimmed stderr line behind `rateLimitEvidence`, the session limit first. |
+| `accountCookiesRejected(stderr)` | True when YouTube stopped honouring the account cookies passed to the run. |
+| `sabrSkippedClient(line)` | The player client whose https formats were dropped for missing URLs (SABR), or `null`. |
+| `RATE_LIMIT_EVIDENCE`, `RateLimitEvidence` | Closed enum of rate-limit evidence. |
 | `errorKindMetadata(kind)` | Stable code + recoverability + suggested flags + docs URL. |
 | `YT_DLP_ERROR_KINDS` | Closed enum tuple. |
 | `YtDlpErrorKind` | Union type. |
 | `ERROR_KIND_METADATA` | Full metadata table. |
-| `ERROR_PATTERNS` | Internal regex table (not stable — exposed for debugging only). |
+| `ERROR_PATTERNS`, `SIGNAL_PATTERNS` | Internal regex tables (not stable — exposed for debugging only). |
 
 ### Extension hook
 

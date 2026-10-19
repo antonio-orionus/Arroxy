@@ -68,7 +68,7 @@ there was no reason to also change yt-dlp's behavior.
 
 ## The shape of the fix
 
-`createStreamTextReader()` in `src/main/utils/process.ts` — a `StringDecoder` plus
+`createStreamTextReader()` (now in `yt-dlp-bridge/runner`, next to `splitOutputLines`, formerly `splitStderrLines`) — a `StringDecoder` plus
 a held-back partial line, drained at stream end — wired into `YtDlp.spawn()` so
 probe *and* download inherit it. It returns `text` and `lines` separately on
 purpose: accumulated stdout/stderr must stay complete for error classification and

@@ -12,7 +12,8 @@ import {dedupeSrt} from './srtDedupe.js'
 import {dedupeVtt} from './vttDedupe.js'
 import {normalizeCueOverlaps} from './cueOverlap.js'
 import {spawnFFmpeg} from '@main/utils/process.js'
-import {detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
+import {EMBED_SUBTITLE_CONTAINER_EXT} from 'yt-dlp-bridge'
+import {detectSubtitleLang} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
 
@@ -193,8 +194,8 @@ export async function muxSubtitlesIntoVideo(opts: {ffmpegPath: string; videoPath
 	const tracks = opts.subtitlePaths.map(path => ({path, lang: detectSubtitleLang(path, opts.requestedLangs) ?? 'und'}))
 
 	const stem = opts.videoPath.replace(/\.[^.\\/]+$/, '')
-	const outputPath = `${stem}.${EMBED_CONTAINER_EXT}`
-	const tempPath = `${stem}.muxing.${EMBED_CONTAINER_EXT}`
+	const outputPath = `${stem}.${EMBED_SUBTITLE_CONTAINER_EXT}`
+	const tempPath = `${stem}.muxing.${EMBED_SUBTITLE_CONTAINER_EXT}`
 	const coverTempPath = `${stem}.muxing-cover.jpg`
 
 	let args: string[] = []
