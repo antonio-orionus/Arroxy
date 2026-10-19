@@ -3,7 +3,7 @@ This is the first video on #BitChute ! · 16 s · card says "" · 1 formats
 
 Video (picked for Balanced 720p •):
                     SDR (codec not named)
-Unknown resolution  mp4 1.1 MB • +audio
+Unknown resolution  mp4 1.1 MiB • +audio
 
 Audio:
 (no separate audio)

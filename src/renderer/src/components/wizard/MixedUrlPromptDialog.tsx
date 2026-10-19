@@ -1,4 +1,5 @@
 import {useRef, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {Info} from 'lucide-react'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -17,7 +18,9 @@ import {Hint} from '../shared/Hint.js'
 // through to the probe IPC as `playlistMode: 'video' | 'playlist'`.
 export function MixedUrlPromptDialog(): ReactNode {
 	const {t} = useTranslation()
-	const {mixedUrlPromptOpen, mixedUrlPromptSource, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore()
+	const {mixedUrlPromptOpen, mixedUrlPromptSource, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore(
+		useShallow(state => ({mixedUrlPromptOpen: state.mixedUrlPromptOpen, mixedUrlPromptSource: state.mixedUrlPromptSource, cancelMixedPrompt: state.cancelMixedPrompt, dismissMixedPrompt: state.dismissMixedPrompt, settings: state.settings}))
+	)
 	const playlistButtonRef = useRef<HTMLButtonElement>(null)
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
 	const isQuickDownload = mixedUrlPromptSource === 'url-tab' || mixedUrlPromptSource === 'explore'

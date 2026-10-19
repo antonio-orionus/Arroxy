@@ -2,18 +2,18 @@ youtube-multilang: YouTube with several audio languages, DRC twins, AV1/VP9/H.26
 Lose 150 Lbs Together, Win $250,000 · 2596 s · card says "1280x720" · 137 formats
 
 Video (picked for Balanced 720p •):
-       SDR AV1         SDR VP9                        SDR H.264
-1080p  AV1 551.9 MB    VP9 [Enhanced bitrate] 1.8 GB  H.264 1.5 GB
-720p   AV1 331.3 MB •  VP9 1.0 GB                     H.264 813.6 MB
-480p   AV1 191.7 MB    VP9 564.7 MB                   H.264 453.3 MB
-360p   AV1 113.4 MB    VP9 317.2 MB                   H.264 250.2 MB
-240p   AV1 57.2 MB     VP9 177.7 MB                   H.264 110.1 MB
-144p   AV1 27.2 MB     VP9 297.5 MB                   H.264 59.1 MB
+       SDR AV1          SDR VP9                         SDR H.264
+1080p  AV1 551.9 MiB    VP9 [Enhanced bitrate] 1.7 GiB  H.264 1.5 GiB
+720p   AV1 331.3 MiB •  VP9 1.0 GiB                     H.264 813.6 MiB
+480p   AV1 191.6 MiB    VP9 564.7 MiB                   H.264 453.2 MiB
+360p   AV1 113.4 MiB    VP9 317.1 MiB                   H.264 250.1 MiB
+240p   AV1 57.2 MiB     VP9 177.6 MiB                   H.264 110.0 MiB
+144p   AV1 27.2 MiB     VP9 297.4 MiB                   H.264 59.0 MiB
 
 Audio:
 tracks (English original (default) shown): Italian, Polish, Tamil, Arabic, Bangla, Telugu, Spanish, Korean, Russian, Indonesian, Hindi, Turkish, Thai, Chinese (Simplified), Chinese (Traditional), Vietnamese, Japanese, English original (default), German, French, Portuguese
-Opus: 128 kbps 39.6 MB | 65 kbps 20.2 MB | 50 kbps 15.5 MB
-AAC: 129 kbps 40.1 MB • | 49 kbps 22.05 kHz 15.1 MB
+Opus: 128 kbps 39.6 MiB | 65 kbps 20.1 MiB | 50 kbps 15.4 MiB
+AAC: 129 kbps 40.0 MiB • | 49 kbps 22.05 kHz 15.0 MiB
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140-20 (audio only, m4a)

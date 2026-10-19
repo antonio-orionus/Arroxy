@@ -1,5 +1,6 @@
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
+import {setTimeout as sleep} from 'node:timers/promises'
 import log from 'electron-log/main.js'
 import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError} from './BinaryDownloader.js'
 
@@ -74,21 +75,6 @@ async function staleLockReason(lockDir: string): Promise<string | null> {
 	}
 }
 
-function delay(ms: number, signal?: AbortSignal): Promise<void> {
-	return new Promise((resolve, reject) => {
-		if (signal?.aborted) {
-			reject(abortError(signal))
-			return
-		}
-		const timer = setTimeout(resolve, ms)
-		const abort = (): void => {
-			clearTimeout(timer)
-			reject(abortError(signal))
-		}
-		signal?.addEventListener('abort', abort, {once: true})
-	})
-}
-
 export function pathInside(root: string, target: string): boolean {
 	const relative = path.relative(root, target)
 	return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))
@@ -137,7 +123,9 @@ export async function withArtifactLock<T>(cacheRoot: string, cacheKey: string, s
 				continue
 			}
 			if (Date.now() - startedAt > (lockTimeoutMs ?? DEFAULT_LOCK_TIMEOUT_MS)) throw new ArtifactMaterializeError('LOCK', `Timed out waiting for artifact lock ${cacheKey}`)
-			await delay(LOCK_POLL_MS, signal)
+			await sleep(LOCK_POLL_MS, undefined, {signal}).catch((err: unknown) => {
+				throw signal?.aborted ? abortError(signal) : err
+			})
 		}
 	}
 

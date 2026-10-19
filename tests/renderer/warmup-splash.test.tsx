@@ -188,7 +188,7 @@ describe('WarmupSplash', () => {
 
 		expect(screen.getByTestId('splash-setup')).toHaveTextContent('First-time setup')
 		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
-		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('3.0 MB of 12.0 MB')
+		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('3.0 MiB of 12.0 MiB')
 		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25')
 		expect(document.querySelector('.splash-setup-bar [data-slot="progress-indicator"]')).toHaveStyle({width: '25%'})
 	})
@@ -228,7 +228,7 @@ describe('WarmupSplash', () => {
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{ffmpeg: event(2 * 1024 * 1024)}} warmupDownloads={downloads} showGreeting={false} />)
 
 		// 40 MB left at 2 MB per 6 s is 120 s.
-		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('2.0 MB of 42.0 MB · about 2 min left')
+		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('2.0 MiB of 42.0 MiB · about 2 min left')
 	})
 
 	it('does not label post-download extraction as a stuck full download', () => {

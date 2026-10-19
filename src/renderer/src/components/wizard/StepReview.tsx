@@ -1,9 +1,10 @@
 import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {useShallow} from 'zustand/react/shallow'
 import {TriangleAlert} from 'lucide-react'
 import {FILENAME_TEMPLATE_MAX} from '@shared/schemas.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import type {AppState} from '../../store/types.js'
+import {selectWizardReviewState, type WizardReviewState} from '../../store/wizard/wizardReviewState.js'
 import type {ReviewRow} from '../../store/wizard/profileApplication.js'
 import {buildDownloadReview, conflictLabelKey, type DownloadReview} from '../../store/wizard/downloadReviewProjection.js'
 import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSummary} from '../../store/wizard/singleSettingsSummary.js'
@@ -83,7 +84,7 @@ interface ReviewRowEntry {
 
 // The rows this run has: subtitles only when the video offers some or they are
 // on, SponsorBlock only where it applies, extras only with media.
-function reviewRowEntries(state: AppState, summary: SingleSettingsSummary): ReviewRowEntry[] {
+function reviewRowEntries(state: WizardReviewState, summary: SingleSettingsSummary): ReviewRowEntry[] {
 	const kind = state.wizardMediaKind
 	return [
 		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
@@ -95,7 +96,7 @@ function reviewRowEntries(state: AppState, summary: SingleSettingsSummary): Revi
 }
 
 // The chosen streams in one line: part, video, audio and the file type it saves as.
-function ReviewFormatStrip({state, review}: {state: AppState; review: DownloadReview}): ReactNode {
+function ReviewFormatStrip({state, review, onChangeFormat}: {state: WizardReviewState; review: DownloadReview; onChangeFormat: () => void}): ReactNode {
 	const {t} = useTranslation()
 	const kind = state.wizardMediaKind
 	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
@@ -115,7 +116,7 @@ function ReviewFormatStrip({state, review}: {state: AppState; review: DownloadRe
 				<p className="truncate text-sm font-semibold text-foreground">{state.wizardTitle}</p>
 				<p className="truncate text-caption text-subtle-foreground">{formatLine}</p>
 			</div>
-			<Button type="button" variant="link" size="inline" className="shrink-0" onClick={() => state.goToStep('formats')} data-testid="review-change-format">
+			<Button type="button" variant="link" size="inline" className="shrink-0" onClick={onChangeFormat} data-testid="review-change-format">
 				{t('wizard.review.changeFormat')}
 			</Button>
 		</Card>
@@ -143,13 +144,13 @@ function ReviewWarnings({caveat, conflicts}: {caveat: Mp4Caveat | null; conflict
 // place. The footer says what changed from the profile this run started from.
 export function StepReview(): ReactNode {
 	const {t, i18n} = useTranslation()
-	const state = useAppStore()
-	const {wizardReviewRow, setWizardReviewRow, goToStep} = state
+	const state = useAppStore(useShallow(selectWizardReviewState))
+	const {wizardReviewRow, setWizardReviewRow, goToStep, dismissReviewCallout} = useAppStore(useShallow(s => ({wizardReviewRow: s.wizardReviewRow, setWizardReviewRow: s.setWizardReviewRow, goToStep: s.goToStep, dismissReviewCallout: s.dismissReviewCallout})))
 	const reviewCalloutPending = state.settings?.common?.reviewCalloutDismissed !== true && (state.settings?.common?.successfulDownloadCount ?? 0) > 0
 
 	function openRow(row: ReviewRow | null): void {
 		setWizardReviewRow(row)
-		if (reviewCalloutPending) void state.dismissReviewCallout()
+		if (reviewCalloutPending) void dismissReviewCallout()
 	}
 	const translate = createTranslationPort(t)
 	const summary = buildSingleSettingsSummary(state, {t: translate, language: i18n.language})
@@ -162,7 +163,7 @@ export function StepReview(): ReactNode {
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-review">
 			<ReviewPageCallout />
 
-			<ReviewFormatStrip state={state} review={review} />
+			<ReviewFormatStrip state={state} review={review} onChangeFormat={() => goToStep('formats')} />
 
 			<div className="flex flex-col gap-1.5">
 				<SectionLabel>{t('wizard.review.rowsHeading')}</SectionLabel>

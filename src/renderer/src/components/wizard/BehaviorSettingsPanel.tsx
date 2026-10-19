@@ -1,4 +1,5 @@
 import {useState, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {FileArchive, FileText, Gauge} from 'lucide-react'
 import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
@@ -95,7 +96,7 @@ function NumericSettingRow({
 
 function LimitRateField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setLimitRate} = useAppStore()
+	const {settings, setLimitRate} = useAppStore(useShallow(state => ({settings: state.settings, setLimitRate: state.setLimitRate})))
 	const common = settings?.common
 	const limitRate = common?.limitRate?.trim() ? common.limitRate : undefined
 	return (
@@ -127,7 +128,9 @@ function LimitRateField(): ReactNode {
 
 function DownloadTransferFields(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setConcurrentDownloads, setAutoRetryAttempts, setAutoRemoveCompleted, setDownloadConnections} = useAppStore()
+	const {settings, setConcurrentDownloads, setAutoRetryAttempts, setAutoRemoveCompleted, setDownloadConnections} = useAppStore(
+		useShallow(state => ({settings: state.settings, setConcurrentDownloads: state.setConcurrentDownloads, setAutoRetryAttempts: state.setAutoRetryAttempts, setAutoRemoveCompleted: state.setAutoRemoveCompleted, setDownloadConnections: state.setDownloadConnections}))
+	)
 	const common = settings?.common
 	return (
 		<>
@@ -187,7 +190,7 @@ function DownloadTransferFields(): ReactNode {
 
 function NativeAudioPreferenceField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setNativeAudioPreference} = useAppStore()
+	const {settings, setNativeAudioPreference} = useAppStore(useShallow(state => ({settings: state.settings, setNativeAudioPreference: state.setNativeAudioPreference})))
 	const nativeAudioPreference = settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	return (
 		<Field className="gap-2" data-testid="native-audio-preference">
@@ -218,7 +221,7 @@ function NativeAudioPreferenceField(): ReactNode {
 
 function HdrPreferenceField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setHdrPreference} = useAppStore()
+	const {settings, setHdrPreference} = useAppStore(useShallow(state => ({settings: state.settings, setHdrPreference: state.setHdrPreference})))
 	const hdrPreference = settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference
 	return (
 		<Field className="gap-2" data-testid="hdr-preference">
@@ -249,7 +252,7 @@ function HdrPreferenceField(): ReactNode {
 
 function FilenameTemplateSetting(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setFilenameTemplate} = useAppStore()
+	const {settings, setFilenameTemplate} = useAppStore(useShallow(state => ({settings: state.settings, setFilenameTemplate: state.setFilenameTemplate})))
 	const filenameTemplate = settings?.common?.filenameTemplate ?? DEFAULTS.filenameTemplate
 	const filenameTemplateValidation = validateFilenameTemplate(filenameTemplate)
 	const filenameTemplateError = filenameTemplateValidation.ok ? null : filenameTemplateValidation
@@ -258,7 +261,7 @@ function FilenameTemplateSetting(): ReactNode {
 
 function AppBehaviorFields(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setCloseBehavior, setAnalyticsEnabled, openLogs, saveDiagnostics} = useAppStore()
+	const {settings, setCloseBehavior, setAnalyticsEnabled, openLogs, saveDiagnostics} = useAppStore(useShallow(state => ({settings: state.settings, setCloseBehavior: state.setCloseBehavior, setAnalyticsEnabled: state.setAnalyticsEnabled, openLogs: state.openLogs, saveDiagnostics: state.saveDiagnostics})))
 	const common = settings?.common
 	return (
 		<>

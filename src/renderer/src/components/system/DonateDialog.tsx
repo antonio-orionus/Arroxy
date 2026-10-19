@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {Copy, CopyCheck} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {DONATION_ADDRESSES} from '@shared/constants.js'
@@ -18,7 +19,7 @@ const COPIED_RESET_MS = 1500
 
 export function DonateDialog(): ReactNode {
 	const {t} = useTranslation()
-	const {donateDialogOpen, setDonateDialogOpen} = useAppStore()
+	const {donateDialogOpen, setDonateDialogOpen} = useAppStore(useShallow(state => ({donateDialogOpen: state.donateDialogOpen, setDonateDialogOpen: state.setDonateDialogOpen})))
 	const {copied: copiedId, markCopied, reset: resetCopied} = useCopyFeedback<DonationId>(COPIED_RESET_MS)
 
 	function handleOpenChange(open: boolean): void {

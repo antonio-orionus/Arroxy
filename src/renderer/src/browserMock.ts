@@ -1,4 +1,5 @@
 import type {AppApi} from '@shared/api.js'
+import {isYouTubeHostname} from '@shared/sites/youtube.js'
 import type {
 	AppSettings,
 	DependencyDiagnostic,
@@ -86,7 +87,7 @@ function shouldMockPlaylistProbe(input: {url: string; playlistMode?: 'auto' | 'v
 		const url = new URL(input.url)
 		const host = url.hostname.toLowerCase().replace(/^www\./, '')
 		if (url.searchParams.get('playlist') === '1') return true
-		if (host === 'youtube.com' || host === 'youtu.be' || host.endsWith('.youtube.com')) {
+		if (isYouTubeHostname(host)) {
 			if (url.pathname.startsWith('/playlist')) return true
 			if (!url.searchParams.has('v') && url.searchParams.has('list')) return true
 		}

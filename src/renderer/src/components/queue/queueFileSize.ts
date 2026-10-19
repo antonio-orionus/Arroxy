@@ -20,16 +20,3 @@ export function queueItemFilesMissing(artifacts: readonly QueueArtifact[]): bool
 	const visible = visibleQueueArtifacts(artifacts)
 	return visible.length > 0 && visible.every(artifact => artifact.missing === true)
 }
-
-export function formatQueueByteSize(sizeBytes: number): string {
-	if (sizeBytes < 1024) return `${sizeBytes} B`
-	const units = ['KiB', 'MiB', 'GiB', 'TiB']
-	let value = sizeBytes / 1024
-	let unit = units[0]
-	for (const nextUnit of units.slice(1)) {
-		if (value < 1024) break
-		value /= 1024
-		unit = nextUnit
-	}
-	return `${value.toFixed(value >= 10 ? 0 : 1)} ${unit}`
-}

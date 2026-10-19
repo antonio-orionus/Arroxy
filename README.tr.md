@@ -9,7 +9,7 @@
 
 [![Sürüm](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Derleme](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Web sitesi](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Lisans](https://img.shields.io/badge/license-MIT-green) ![Platformlar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Diller](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 4K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**
+**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**
 
 [**↓ En son sürümü kur**](#install) &nbsp;·&nbsp; [**Web sitesi**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows ilk başlatma](#windows-first-launch) · [macOS ilk başlatma](#macos-first-launch) · [Linux ilk başlatma](#linux-first-launch)
 
@@ -104,10 +104,12 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 <details>
 <summary><strong>🎞️ Kalite ve biçimler</strong></summary>
 
-- **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p'ye kadar
-- **Yüksek kare hızı** olduğu gibi korunur — 60 fps, 120 fps, HDR
+- **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p'ye kadar
+- **Yüksek kare hızı ve HDR** olduğu gibi korunur — 60 fps, HDR10
 - **Ses** — yalnızca sesi MP3, M4A/AAC, Opus veya WAV olarak dışa aktar. Etkileşimli indirmelerde varsa kaynağın yerel surround/Dolby parçalarını (AC-3, E-AC-3, 5.1, DRC) seç veya genel **Surround / Dolby tercih et** varsayılanı ayarla
 - **Hedefli profiller** — *En iyi görüntü* (AV1 · VP9) veya *Akıllı TV* (MP4 · H.264); yeniden kodlamadan Otomatik, MP4, MKV veya WebM olarak kaydedilir. HDR ise *Otomatik* (yalnızca ekranın gösterebiliyorsa), *SDR* veya *HDR*
+- **Her çözünürlükte her codec** — adım adım indirme her çözünürlükte AV1, VP9 ve H.264'ü yan yana listeler; böylece TV'nin veya düzenleme programının oynattığını seçebilirsin
+- **Bir akışın gerçekte ne olduğunu bil** — YouTube'un yapay zekayla büyüttüğü çözünürlükler, yapay zekayla seslendirilmiş ses dilleri, geliştirilmiş bit hızlı akışlar, 360° videolar ve hasarlı ya da filigranlı kopyalar işaretlenir. Profiller, sen izin vermedikçe yapay zekayla büyütülmüş akışları atlar
 
 </details>
 
@@ -126,7 +128,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **Genel indirme kısayolu** — herhangi bir uygulamada bir bağlantı kopyala ve `Ctrl+Shift+D` (macOS'ta `Cmd+Shift+D`) tuşlarına bas; Arroxy pencereyi açmadan aktif profilinle kuyruğa ekler ve bir bildirim bunu doğrular. Varsayılan olarak açık, yeniden atanabilir
 - **Esnek başlangıç modları** — rehberli tek indirme, oynatma listesi/kanal seçici, toplu URL yapıştırma, kayıtlı varsayılanlarla Hızlı İndirme veya Explore'da gezip indirme seç
 - **Merkezi indirme kuyruğu** — her tekil, oynatma listesi, toplu veya hızlı iş; ilerleme, duraklatma, sürdürme, iptal, yeniden deneme ve öncelik kontrolü için tek yere gelir
-- **Pano izleme** — bir YouTube bağlantısı kopyala; uygulamaya tekrar odaklandığında Arroxy URL'yi otomatik doldurur (Gelişmiş ayarlardan aç)
+- **Pano izleme** — bir video bağlantısı kopyala; Arroxy'ye döndüğünde URL alanını doldurur, istemediysen **Geri al** ile vazgeçebilirsin. Arroxy meşgulken bağlantı, sen URL sekmesine dönene kadar bekler (Ayarlar'dan kapatılabilir)
 - **Otomatik URL temizleme** — izleme parametrelerini (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) kaldırır ve `youtube.com/redirect` bağlantılarını çözer
 - **Tepsi modu** — pencere kapansa bile indirmeler arka planda sürer
 - **31 dil** — sistem dilini otomatik algılar, istediğin zaman değiştirilebilir
@@ -142,6 +144,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 - **İndirmeler'de Boyut ve Eksik** — sıralanabilir **Boyut** sütunu her indirmenin ne kadar yer kapladığını gösterir, **Eksik** ise Arroxy dışında taşınan ya da silinen dosyaları işaretler
 - **Aurora veya Minimal, koyu veya açık** — hareketli bir gökyüzü üzerinde cam paneller ya da sakin düz yüzeyler; alt bilgi çubuğundan değiştir. Grafik hızlandırması olmayan bilgisayarlar otomatik olarak Minimal'i alır
 - **Mac menü çubuğu** — macOS'ta menü çubuğundan Ayarlar'ı (`Cmd+,`) aç, indirme hızı sınırını belirle, stil ve temayı değiştir, günlükleri aç ya da tanılama dosyasını kaydet
+- **Herhangi bir indirmeden profili değiştir** — bir indirmede ayar yap, ardından başladığı profili güncelle (neyin değişeceğini önizleyerek) ya da ayarları yeni bir profil olarak kaydet. Profil değiştirirken düzenlemelerini koruyup korumayacağın sorulur
 
 </details>
 
@@ -160,7 +163,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 <summary><strong>🌐 YouTube + 2000 site</strong></summary>
 
 - **YouTube, tam kapsamlı** — Videolar, Shorts, Kanallar, Oynatma Listeleri, YouTube Music ve Podcast'ler birinci sınıf kaynak olarak ele alınır
-- **yt-dlp aracılığıyla 2000+ diğer site** — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org ve daha fazlası
+- **yt-dlp aracılığıyla 2000+ diğer site** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ve daha fazlası
 - **Yalnızca ses ve altyazılar** yalnızca YouTube'da değil, desteklenen her sitede çalışır
 - Bir site değişirse yt-dlp haftalık düzeltmeler yayınlar ve Arroxy açılışta ikili dosyayı otomatik günceller
 
@@ -407,7 +410,7 @@ Evet — MIT lisanslı, premium katman yok, özellik kilidi yok.
 <details>
 <summary><strong>Hangi video kalitelerini indirebilirim?</strong></summary>
 
-YouTube ne sunuyorsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps, 120 fps ve HDR akışlar olduğu gibi korunur.
+YouTube ne sunuyorsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps ve HDR akışlar olduğu gibi korunur; adım adım indirme ise her çözünürlükte AV1, VP9 veya H.264 seçmeni sağlar.
 
 </details>
 

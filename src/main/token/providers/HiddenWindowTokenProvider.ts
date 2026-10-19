@@ -1,3 +1,4 @@
+import {setTimeout as delay} from 'node:timers/promises'
 import {app, BrowserWindow, session} from 'electron'
 import log from 'electron-log/main.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
@@ -13,12 +14,6 @@ const PARTITION = 'persist:youtube-hidden'
 // credentials, so a changed password counts as a change.
 function proxyKey(proxy: ProxySetting): string {
 	return proxy.kind === 'proxy' ? proxy.url : proxy.kind
-}
-
-function delay(ms: number): Promise<void> {
-	return new Promise(resolve => {
-		setTimeout(resolve, ms)
-	})
 }
 
 export class HiddenWindowTokenProvider implements TokenProvider {

@@ -1,4 +1,5 @@
 import {useEffect, useRef, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {type PlaylistAudioFormat, type PlaylistVideoTier, type PlaylistSelection, type PlaylistSubtitleSelection, AUDIO_BITRATES, DEFAULT_PLAYLIST_SELECTION, DEFAULT_PLAYLIST_SUBTITLE_SELECTION, PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {SMART_TV_MP4_BLOCKED_TIERS, SMART_TV_MP4_MAX_TIER} from '../../store/wizard/downloadProfileDraft.js'
@@ -170,7 +171,9 @@ function AudioPresetFields({selection, onChange}: PresetFieldsProps<PlaylistAudi
 
 export function StepPlaylistPresets(): ReactNode {
 	const {t, i18n} = useTranslation()
-	const {playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds} = useAppStore()
+	const {playlistSelection, setPlaylistSelection, advance, back, skipToConfirm, selectedPlaylistItemIds} = useAppStore(
+		useShallow(state => ({playlistSelection: state.playlistSelection, setPlaylistSelection: state.setPlaylistSelection, advance: state.advance, back: state.back, skipToConfirm: state.skipToConfirm, selectedPlaylistItemIds: state.selectedPlaylistItemIds}))
+	)
 
 	const sel: PlaylistSelection = playlistSelection ?? DEFAULT_PLAYLIST_SELECTION
 	// Switching Subtitles → Audio → Subtitles should not throw away the

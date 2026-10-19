@@ -11,17 +11,11 @@ import type {PlaylistEntry, PlaylistSortMode} from '@shared/types.js'
  */
 export function sortPlaylistEntries(entries: readonly PlaylistEntry[], mode: PlaylistSortMode): PlaylistEntry[] {
 	if (mode === 'api') return [...entries]
-	const decorated = entries.map((entry, index) => ({entry, index}))
-	decorated.sort((a, b) => {
-		const ta = a.entry.timestamp
-		const tb = b.entry.timestamp
-		const aMissing = ta === undefined
-		const bMissing = tb === undefined
-		if (aMissing && bMissing) return a.index - b.index
-		if (aMissing) return 1
-		if (bMissing) return -1
-		if (ta !== tb) return mode === 'upload-asc' ? ta - tb : tb - ta
-		return a.index - b.index
+	// toSorted is stable, so ties keep api order.
+	return entries.toSorted((a, b) => {
+		const ta = a.timestamp
+		const tb = b.timestamp
+		if (ta === undefined || tb === undefined) return Number(ta === undefined) - Number(tb === undefined)
+		return mode === 'upload-asc' ? ta - tb : tb - ta
 	})
-	return decorated.map(d => d.entry)
 }

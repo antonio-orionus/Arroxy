@@ -14,6 +14,9 @@ interface ZipEntryFixture {
 	name: string
 	body: Buffer
 	compress?: boolean
+	// Overrides for malformed-archive cases.
+	method?: number
+	declaredSize?: number
 }
 
 const CRC_TABLE = new Uint32Array(256).map((_, index) => {
@@ -36,7 +39,8 @@ function buildStoredZip(entries: ZipEntryFixture[]): Buffer {
 	for (const entry of entries) {
 		const name = Buffer.from(entry.name)
 		const payload = entry.compress ? deflateRawSync(entry.body) : entry.body
-		const compressionMethod = entry.compress ? 8 : 0
+		const compressionMethod = entry.method ?? (entry.compress ? 8 : 0)
+		const declaredSize = entry.declaredSize ?? entry.body.length
 		const checksum = crc32(entry.body)
 		const local = Buffer.alloc(30 + name.length)
 		local.writeUInt32LE(0x04034b50, 0)
@@ -47,7 +51,7 @@ function buildStoredZip(entries: ZipEntryFixture[]): Buffer {
 		local.writeUInt16LE(0, 12)
 		local.writeUInt32LE(checksum, 14)
 		local.writeUInt32LE(payload.length, 18)
-		local.writeUInt32LE(entry.body.length, 22)
+		local.writeUInt32LE(declaredSize, 22)
 		local.writeUInt16LE(name.length, 26)
 		local.writeUInt16LE(0, 28)
 		name.copy(local, 30)
@@ -63,7 +67,7 @@ function buildStoredZip(entries: ZipEntryFixture[]): Buffer {
 		central.writeUInt16LE(0, 14)
 		central.writeUInt32LE(checksum, 16)
 		central.writeUInt32LE(payload.length, 20)
-		central.writeUInt32LE(entry.body.length, 24)
+		central.writeUInt32LE(declaredSize, 24)
 		central.writeUInt16LE(name.length, 28)
 		central.writeUInt16LE(0, 30)
 		central.writeUInt16LE(0, 32)
@@ -252,6 +256,35 @@ describe('RuntimeBinaryMaterializer', () => {
 
 			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('fake ytdlp')
 			await expect(fs.readdir(path.join(root, 'locks'))).resolves.toEqual([])
+			await fs.rm(root, {recursive: true, force: true})
+		})
+	})
+
+	it('extracts a stored (uncompressed) zip entry', async () => {
+		const zip = buildStoredZip([
+			{name: 'README', body: Buffer.from('ignored')},
+			{name: 'bin/yt-dlp', body: Buffer.from('stored ytdlp')}
+		])
+		await withServer(zip, async url => {
+			const root = await cacheRoot()
+			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'bin/yt-dlp'})
+			const result = await new RuntimeBinaryMaterializer().materialize(entry, {cacheRoot: root})
+
+			await expect(fs.readFile(result.executablePath, 'utf8')).resolves.toBe('stored ytdlp')
+			await fs.rm(root, {recursive: true, force: true})
+		})
+	})
+
+	it.each([
+		['declares a size its data does not match', {compress: true, declaredSize: 99}],
+		['uses an unsupported compression method', {method: 12}]
+	])('rejects a zip entry that %s', async (_label, fixture) => {
+		const zip = buildStoredZip([{name: 'yt-dlp', body: Buffer.from('fake zipped ytdlp'), ...fixture}])
+		await withServer(zip, async url => {
+			const root = await cacheRoot()
+			const entry = entryFor(zip, {url, format: 'zip', executablePath: 'yt-dlp'})
+			await expect(new RuntimeBinaryMaterializer().materialize(entry, {cacheRoot: root})).rejects.toMatchObject({code: 'EXTRACTION'})
+			await expect(fs.readdir(path.join(root, 'artifacts'))).rejects.toThrow()
 			await fs.rm(root, {recursive: true, force: true})
 		})
 	})

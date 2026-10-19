@@ -2,15 +2,15 @@ youtube-age-restricted: Age-restricted, probed signed in through the embedded pl
 [MMD] Adios - EVERGLOW [+Motion DL] · 106 s · card says "1280x720" · 8 formats
 
 Video (picked for Balanced 720p •):
-       SDR VP9     SDR H.264
-1080p  ·           H.264 55.3 MB
-720p   ·           H.264 26.6 MB •
-360p   VP9 5.2 MB  H.264 7.0 MB
-144p   ·           H.264 1.4 MB
+       SDR VP9      SDR H.264
+1080p  ·            H.264 55.3 MiB
+720p   ·            H.264 26.5 MiB •
+360p   VP9 5.2 MiB  H.264 6.9 MiB
+144p   ·            H.264 1.4 MiB
 
 Audio:
-AAC: 130 kbps 1.6 MB •
-Opus: 129 kbps 1.6 MB
+AAC: 130 kbps 1.6 MiB •
+Opus: 129 kbps 1.6 MiB
 
 Profile picks:
 balanced: 136 (1280x720, mp4) + audio 140 (audio only, m4a)

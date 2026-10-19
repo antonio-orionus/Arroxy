@@ -7,6 +7,7 @@ import {useAppStore} from '../../store/useAppStore.js'
 import type {ChangedArea} from '../../store/wizard/profileApplication.js'
 import {profileDiffRows} from '../../store/wizard/profileDiff.js'
 import {updatedProfileDraft, wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
+import {selectWizardReviewState} from '../../store/wizard/wizardReviewState.js'
 import {createTranslationPort} from '../../lib/translation.js'
 import {Button} from '../ui/button.js'
 import {Card} from '../ui/card.js'
@@ -71,7 +72,8 @@ const DIFF_LABEL_KEYS = {format: 'wizard.review.update.rows.format', subtitles: 
 // Confirms an update with the profile's values before and after, area by area.
 function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
 	const {t} = useTranslation()
-	const state = useAppStore()
+	const state = useAppStore(useShallow(selectWizardReviewState))
+	const updateWizardProfile = useAppStore(s => s.updateWizardProfile)
 	const [saving, setSaving] = useState(false)
 	const before = state.wizardProfile
 	const after = updatedProfileDraft(state)
@@ -82,7 +84,7 @@ function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 		setSaving(true)
 		let ok = false
 		try {
-			ok = await state.updateWizardProfile()
+			ok = await updateWizardProfile()
 		} finally {
 			setSaving(false)
 		}

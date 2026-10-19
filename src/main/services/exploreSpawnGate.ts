@@ -4,6 +4,8 @@
 // least `minSpacingMs` apart, and at most `perJobCap` spawns per job attempt.
 // A slot is held for the whole spawn, so a long download keeps it.
 
+import {setTimeout as sleep} from 'node:timers/promises'
+
 export type SpawnGateRefusal = {kind: 'cap-exceeded'} | {kind: 'cancelled'}
 
 export interface ExploreSpawnGateOptions {
@@ -11,7 +13,7 @@ export interface ExploreSpawnGateOptions {
 	minSpacingMs?: number
 	perJobCap?: number
 	now?: () => number
-	sleep?: (ms: number) => Promise<void>
+	sleep?: (ms: number, signal?: AbortSignal) => Promise<void>
 }
 
 export class ExploreSpawnGate {
@@ -19,7 +21,7 @@ export class ExploreSpawnGate {
 	private readonly minSpacingMs: number
 	private readonly perJobCap: number
 	private readonly now: () => number
-	private readonly sleep: (ms: number) => Promise<void>
+	private readonly sleep: (ms: number, signal?: AbortSignal) => Promise<void>
 	private active = 0
 	private readonly waiters: Array<() => void> = []
 	// Reserved at slot acquisition, so two spawns acquiring together are still staggered.
@@ -31,7 +33,7 @@ export class ExploreSpawnGate {
 		this.minSpacingMs = Math.max(0, opts.minSpacingMs ?? 5000)
 		this.perJobCap = Math.max(1, opts.perJobCap ?? 6)
 		this.now = opts.now ?? Date.now
-		this.sleep = opts.sleep ?? (ms => new Promise(resolve => setTimeout(resolve, ms)))
+		this.sleep = opts.sleep ?? ((ms, signal) => sleep(ms, undefined, {signal}))
 	}
 
 	async run<T>(jobId: string, fn: () => Promise<T>, signal?: AbortSignal): Promise<T | SpawnGateRefusal> {
@@ -44,7 +46,13 @@ export class ExploreSpawnGate {
 			const startAt = Math.max(this.now(), this.nextStartAt)
 			this.nextStartAt = startAt + this.minSpacingMs
 			const wait = startAt - this.now()
-			if (wait > 0) await this.sleep(wait)
+			if (wait > 0) {
+				try {
+					await this.sleep(wait, signal)
+				} catch (err) {
+					if (!signal?.aborted) throw err
+				}
+			}
 			if (signal?.aborted) return this.refund(jobId)
 			return await fn()
 		} finally {

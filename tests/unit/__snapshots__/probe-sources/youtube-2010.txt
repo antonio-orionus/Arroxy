@@ -2,15 +2,15 @@ youtube-2010: A 2010 upload: 480p tops, odd frame rates (13 and 25 fps)
 Yosemitebear Mountain Double Rainbow 1-8-10 · 209 s · card says "640x480" · 31 formats
 
 Video (picked for Balanced 720p •):
-      SDR AV1       SDR VP9      SDR H.264
-480p  AV1 4.2 MB •  VP9 26.9 MB  H.264 26.1 MB
-360p  AV1 2.4 MB    VP9 15.5 MB  H.264 15.9 MB
-240p  AV1 1.4 MB    VP9 6.4 MB   H.264 6.2 MB
-144p  AV1 1.2 MB    VP9 4.0 MB   H.264 3.5 MB
+      SDR AV1        SDR VP9       SDR H.264
+480p  AV1 4.2 MiB •  VP9 26.9 MiB  H.264 26.1 MiB
+360p  AV1 2.4 MiB    VP9 15.5 MiB  H.264 15.8 MiB
+240p  AV1 1.3 MiB    VP9 6.4 MiB   H.264 6.1 MiB
+144p  AV1 1.1 MiB    VP9 4.0 MiB   H.264 3.5 MiB
 
 Audio:
-AAC: 130 kbps 3.2 MB • | 130 kbps 3.2 MB DRC | 49 kbps 22.05 kHz 1.2 MB | 49 kbps 22.05 kHz 1.2 MB DRC
-Opus: 106 kbps 2.7 MB DRC | 105 kbps 2.6 MB | 63 kbps 1.6 MB DRC | 61 kbps 1.5 MB | 51 kbps 1.3 MB DRC | 50 kbps 1.3 MB
+AAC: 130 kbps 3.2 MiB • | 130 kbps 3.2 MiB DRC | 49 kbps 22.05 kHz 1.2 MiB | 49 kbps 22.05 kHz 1.2 MiB DRC
+Opus: 106 kbps 2.6 MiB DRC | 105 kbps 2.6 MiB | 63 kbps 1.5 MiB DRC | 61 kbps 1.5 MiB | 51 kbps 1.2 MiB DRC | 50 kbps 1.2 MiB
 DRC switch shown
 
 Profile picks:

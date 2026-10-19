@@ -1,4 +1,5 @@
 import {useEffect, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {UI_STYLES, uiStyleSchema} from '@shared/schemas.js'
@@ -45,7 +46,7 @@ export function DownloadProfilesSettingsTab(): ReactNode {
 // A request to open the advanced settings at a target scrolls that section into
 // view once the tab has rendered, then clears the request.
 function useAdvancedSettingsAutoScroll(): void {
-	const {advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen} = useAppStore()
+	const {advancedAutoOpen, advancedAutoTarget, setAdvancedAutoOpen} = useAppStore(useShallow(state => ({advancedAutoOpen: state.advancedAutoOpen, advancedAutoTarget: state.advancedAutoTarget, setAdvancedAutoOpen: state.setAdvancedAutoOpen})))
 
 	useEffect(() => {
 		if (!advancedAutoOpen) return
@@ -60,7 +61,7 @@ function useAdvancedSettingsAutoScroll(): void {
 
 function InputSettingsPanel(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setClipboardWatchEnabled} = useAppStore()
+	const {settings, setClipboardWatchEnabled} = useAppStore(useShallow(state => ({settings: state.settings, setClipboardWatchEnabled: state.setClipboardWatchEnabled})))
 	return (
 		<Panel title={t('wizard.url.settings.inputHeading')} description={t('wizard.url.advanced')}>
 			<FieldGroup className="gap-4">
@@ -84,7 +85,7 @@ function InputSettingsPanel(): ReactNode {
 
 function ProxyUrlField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setProxyUrl} = useAppStore()
+	const {settings, setProxyUrl} = useAppStore(useShallow(state => ({settings: state.settings, setProxyUrl: state.setProxyUrl})))
 	const proxyUrl = settings?.common?.proxyUrl ?? ''
 	return (
 		<Field className="gap-1.5">
@@ -106,7 +107,7 @@ function ProxyUrlField(): ReactNode {
 
 function StyleSettingsPanel(): ReactNode {
 	const {t} = useTranslation()
-	const {uiStyle, setUiStyle} = useAppStore()
+	const {uiStyle, setUiStyle} = useAppStore(useShallow(state => ({uiStyle: state.uiStyle, setUiStyle: state.setUiStyle})))
 	const backdropAvailability = useAppStore(selectBackdropAvailability)
 	const styleFallsBack = STYLES[uiStyle].backdrop !== null && backdropAvailability === 'blocked'
 	return (
