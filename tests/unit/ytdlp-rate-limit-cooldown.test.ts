@@ -23,13 +23,13 @@ function process(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function setup(opts: {ytDlpPath?: Promise<string>} = {}) {
+function setup(opts: {ytDlpPath?: Promise<string>; token?: Promise<{token: string; visitorData: string; fromCache: boolean}>} = {}) {
 	let now = 1_000_000
 	const siteRequests = new SiteRequestState({now: () => now, random: () => 1})
-	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
+	const tokenService = {getToken: vi.fn().mockReturnValue(opts.token ?? Promise.resolve({token: 'tok', visitorData: 'vd', fromCache: false})), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockReturnValue(opts.ytDlpPath ?? Promise.resolve('/fake/yt-dlp')), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, {get: vi.fn().mockResolvedValue({})}, {siteRequests})
-	return {ytDlp, siteRequests, advance: (ms: number) => (now += ms), now: () => now}
+	return {ytDlp, siteRequests, tokenService, advance: (ms: number) => (now += ms), now: () => now}
 }
 
 const media = (url = URL): YtDlpRequest => ({kind: 'media', url, output: {directory: '/tmp'}})
@@ -70,6 +70,18 @@ describe('YtDlp — rate-limit cooldown', () => {
 		const running = ytDlp.run(media())
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		resolvePath('/fake/yt-dlp')
+
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('holds a run whose cooldown started while it minted its token, without spawning', async () => {
+		let resolveToken: (token: {token: string; visitorData: string; fromCache: boolean}) => void = () => undefined
+		const {ytDlp, siteRequests, tokenService} = setup({token: new Promise(resolve => (resolveToken = resolve))})
+		const running = ytDlp.run(media())
+		await vi.waitFor(() => expect(tokenService.getToken).toHaveBeenCalled())
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		resolveToken({token: 'tok', visitorData: 'vd', fromCache: false})
 
 		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
 		expect(spawnYtDlp).not.toHaveBeenCalled()

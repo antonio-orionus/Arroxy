@@ -144,6 +144,9 @@ interface InvokeOptions {
 	// false skips the anonymous token entirely: one launch with the plan's own args.
 	anonymousPoToken?: boolean
 	onInvocation?: (summary: YtDlpInvocationSummary) => void
+	// Runs last before each spawn, after the token mint; a result it returns
+	// stands for the run, and nothing spawns.
+	beforeSpawn?: () => YtDlpResult | null
 }
 
 const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
@@ -256,6 +259,9 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	const e2eArgs = opts.e2eMode?.ytDlpArgs({isProbe: opts.isProbe === true}) ?? []
 	const args = [...e2eArgs, ...encodingArgs, ...ffmpegLocationArgs, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...planArgs]
 	checkOneBlockPerExtractor(args, opts.e2eMode)
+	// After the mint: a cooldown that started meanwhile holds this spawn.
+	const held = opts.beforeSpawn?.()
+	if (held) return held
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
@@ -571,8 +577,9 @@ export class YtDlp {
 		return result
 	}
 
-	// `beforeSpawn` runs last before the spawn, after the binary setup and any
-	// slot wait; a result it returns is the run's, and nothing spawns.
+	// `beforeSpawn` runs last before each spawn, after the binary setup, any
+	// slot wait and the token mint; a result it returns is the run's, and
+	// nothing spawns.
 	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions, beforeSpawn: () => YtDlpResult | null): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
@@ -629,19 +636,16 @@ export class YtDlp {
 				hasExplicitYoutubePlayerClient,
 				anonymousPoToken: this.opts.anonymousPoToken,
 				signal,
+				beforeSpawn,
 				onInvocation: summary => {
 					this._lastInvocation = summary
 					this._lastInvocations.push(summary)
 				}
 			})
-		const guarded = (): Promise<YtDlpResult> => {
-			const held = beforeSpawn()
-			return held ? Promise.resolve(held) : invoke()
-		}
 		const spawnGate = this.opts.spawnGate
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, guarded)) : await guarded()
+		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke()
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup

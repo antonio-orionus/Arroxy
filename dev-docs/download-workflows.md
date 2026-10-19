@@ -89,8 +89,8 @@ No queue row can be reopened in the wizard except a needs-choice row's Review.
 ## Rate-limit cooldown
 
 Every yt-dlp launch, whichever path started it, passes `YtDlp.run`, which asks
-`SiteRequestState` first, and again right before the spawn (after binary setup
-and any signed-in slot wait). The cooldown starts at the first stderr line that
+`SiteRequestState` first, and again right before the spawn (after binary setup,
+any signed-in slot wait and the token mint). The cooldown starts at the first stderr line that
 shows the site rate-limiting this connection (an HTTP 429, or YouTube's session
 limit), while the run may still be transferring, and goes against the route
 that run used. From then on, new requests to that site
