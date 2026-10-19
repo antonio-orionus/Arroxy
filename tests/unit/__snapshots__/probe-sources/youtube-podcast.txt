@@ -2,17 +2,17 @@ youtube-podcast: A 3.6-hour YouTube podcast episode
 Psychiatry, Insane Asylums, Mental Illness, ECT, Lobotomies, Freud & Jung | Lex Fridman Podcast #502 · 13016 s · card says "1280x720" · 43 formats
 
 Video (picked for Balanced 720p •):
-       SDR AV1         SDR VP9                        SDR H.264
-1080p  AV1 499.8 MB    VP9 [Enhanced bitrate] 7.1 GB  H.264 5.0 GB
-720p   AV1 246.2 MB •  VP9 2.5 GB                     H.264 1.8 GB
-480p   AV1 156.3 MB    VP9 1.3 GB                     H.264 1019.5 MB
-360p   AV1 97.9 MB     VP9 890.2 MB                   H.264 744.8 MB
-240p   AV1 52.9 MB     VP9 382.5 MB                   H.264 339.0 MB
-144p   AV1 58.1 MB     VP9 370.4 MB                   H.264 254.3 MB
+       SDR AV1          SDR VP9                         SDR H.264
+1080p  AV1 499.7 MiB    VP9 [Enhanced bitrate] 7.1 GiB  H.264 4.9 GiB
+720p   AV1 246.2 MiB •  VP9 2.5 GiB                     H.264 1.7 GiB
+480p   AV1 156.3 MiB    VP9 1.3 GiB                     H.264 1,019.4 MiB
+360p   AV1 97.8 MiB     VP9 890.2 MiB                   H.264 744.8 MiB
+240p   AV1 52.8 MiB     VP9 382.4 MiB                   H.264 339.0 MiB
+144p   AV1 58.0 MiB     VP9 370.4 MiB                   H.264 254.3 MiB
 
 Audio:
-Opus: 138 kbps DRC 213.5 MB DRC | 132 kbps 204.5 MB • | 79 kbps DRC 123.1 MB DRC | 76 kbps 117.8 MB | 52 kbps 81.2 MB DRC | 52 kbps 80.1 MB
-AAC: 129 kbps 200.9 MB DRC | 129 kbps 200.9 MB | 49 kbps 22.05 kHz 75.7 MB DRC | 49 kbps 22.05 kHz 75.7 MB
+Opus: 138 kbps DRC 213.5 MiB DRC | 132 kbps 204.5 MiB • | 79 kbps DRC 123.1 MiB DRC | 76 kbps 117.7 MiB | 52 kbps 81.2 MiB DRC | 52 kbps 80.1 MiB
+AAC: 129 kbps 200.8 MiB DRC | 129 kbps 200.8 MiB | 49 kbps 22.05 kHz 75.6 MiB DRC | 49 kbps 22.05 kHz 75.6 MiB
 DRC switch shown
 
 Profile picks:

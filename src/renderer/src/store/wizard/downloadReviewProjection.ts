@@ -176,7 +176,7 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 	const sizes = [videoId, nativeAudioId].flatMap(id => (id ? [state.wizardFormats.find(f => f.formatId === id)?.filesize] : []))
 	const wholeSize = sizes.length > 0 && sizes.every((size): size is number => size !== undefined) ? sizes.reduce((a, b) => a + b, 0) : undefined
 	const totalSize = scaleBytesToPart(wholeSize, inBatch ? null : wizardVideoPart(state), state.wizardDuration)
-	const estimatedSize = totalSize ? `~${humanSize(totalSize)}` : ctx.t('wizard.confirm.sizeUnknown')
+	const estimatedSize = totalSize ? `~${humanSize(totalSize, ctx.language)}` : ctx.t('wizard.confirm.sizeUnknown')
 
 	const finalDir = effectiveOutputDir(state.wizardOutputDir, state.wizardSubfolderEnabled, state.wizardSubfolderName)
 	const shortPath = formatHomeRelativePath(finalDir, ctx.commonPaths)

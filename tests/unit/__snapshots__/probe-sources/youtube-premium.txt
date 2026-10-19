@@ -2,17 +2,17 @@ youtube-premium: A "Premium" enhanced-bitrate 1080p (616) offered signed out
 What is Audio Description? · 133 s · card says "1280x720" · 42 formats
 
 Video (picked for Balanced 720p •):
-       SDR AV1       SDR VP9                         SDR H.264
-1080p  AV1 7.3 MB    VP9 [Enhanced bitrate] 57.1 MB  H.264 35.3 MB
-720p   AV1 4.5 MB •  VP9 14.8 MB                     H.264 18.8 MB
-480p   AV1 2.7 MB    VP9 8.8 MB                      H.264 11.0 MB
-360p   AV1 1.7 MB    VP9 6.5 MB                      H.264 6.1 MB
-240p   AV1 980.1 KB  VP9 2.8 MB                      H.264 2.7 MB
-144p   AV1 589.5 KB  VP9 2.0 MB                      H.264 1.7 MB
+       SDR AV1        SDR VP9                          SDR H.264
+1080p  AV1 7.3 MiB    VP9 [Enhanced bitrate] 57.0 MiB  H.264 35.3 MiB
+720p   AV1 4.4 MiB •  VP9 14.7 MiB                     H.264 18.8 MiB
+480p   AV1 2.6 MiB    VP9 8.7 MiB                      H.264 11.0 MiB
+360p   AV1 1.7 MiB    VP9 6.4 MiB                      H.264 6.1 MiB
+240p   AV1 980.0 KiB  VP9 2.8 MiB                      H.264 2.6 MiB
+144p   AV1 589.4 KiB  VP9 1.9 MiB                      H.264 1.7 MiB
 
 Audio:
-AAC: 130 kbps 2.1 MB DRC | 130 kbps 2.1 MB • | 49 kbps 22.05 kHz 792.8 KB DRC | 49 kbps 22.05 kHz 792.8 KB
-Opus: 113 kbps 1.8 MB DRC | 112 kbps 1.8 MB | 62 kbps 1003.7 KB DRC | 62 kbps 998.0 KB | 50 kbps 814.9 KB DRC | 50 kbps 805.9 KB
+AAC: 130 kbps 2.0 MiB DRC | 130 kbps 2.0 MiB • | 49 kbps 22.05 kHz 792.8 KiB DRC | 49 kbps 22.05 kHz 792.8 KiB
+Opus: 113 kbps 1.7 MiB DRC | 112 kbps 1.7 MiB | 62 kbps 1,003.6 KiB DRC | 62 kbps 998.0 KiB | 50 kbps 814.8 KiB DRC | 50 kbps 805.9 KiB
 DRC switch shown
 
 Profile picks:

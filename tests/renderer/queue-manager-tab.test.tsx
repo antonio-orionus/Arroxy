@@ -271,7 +271,7 @@ describe('QueueManagerTab', () => {
 		render(<QueueManagerTab />)
 
 		expect(screen.getByTestId('queue-manager-row-gone')).toHaveTextContent('Missing')
-		expect(screen.getByTestId('queue-manager-row-sized')).toHaveTextContent('2.0 KiB')
+		expect(screen.getByTestId('queue-manager-row-sized')).toHaveTextContent('2 KiB')
 		expect(screen.getByTestId('queue-manager-row-sized')).not.toHaveTextContent('Missing')
 	})
 

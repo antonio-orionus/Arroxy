@@ -2,20 +2,20 @@ youtube-autodub: YouTube AI auto-dubbed audio tracks ("dubbed-auto") beside the 
 Make Your Film Sound 3D SPATIAL in Fairlight | DaVinci Resolve 360 & VR180 Ambisonic Masterclass · 1901 s · card says "1280x720" · 52 formats
 
 Video (picked for Balanced 720p •):
-          SDR AV1        SDR VP9       SDR H.264
-2160p 4K  AV1 636.9 MB   VP9 3.4 GB    ·
-1440p 2K  AV1 334.0 MB   VP9 1.9 GB    ·
-1080p     AV1 150.8 MB   VP9 569.7 MB  H.264 1.0 GB
-720p      AV1 90.0 MB •  VP9 326.5 MB  H.264 582.9 MB
-480p      AV1 50.8 MB    VP9 207.6 MB  H.264 307.5 MB
-360p      AV1 31.7 MB    VP9 134.5 MB  H.264 182.3 MB
-240p      AV1 17.3 MB    VP9 75.3 MB   H.264 89.3 MB
-144p      AV1 9.8 MB     VP9 42.3 MB   H.264 47.0 MB
+          SDR AV1         SDR VP9        SDR H.264
+2160p 4K  AV1 636.8 MiB   VP9 3.3 GiB    ·
+1440p 2K  AV1 333.9 MiB   VP9 1.8 GiB    ·
+1080p     AV1 150.8 MiB   VP9 569.7 MiB  H.264 1.0 GiB
+720p      AV1 89.9 MiB •  VP9 326.5 MiB  H.264 582.8 MiB
+480p      AV1 50.8 MiB    VP9 207.5 MiB  H.264 307.4 MiB
+360p      AV1 31.7 MiB    VP9 134.5 MiB  H.264 182.3 MiB
+240p      AV1 17.2 MiB    VP9 75.2 MiB   H.264 89.2 MiB
+144p      AV1 9.8 MiB     VP9 42.2 MiB   H.264 47.0 MiB
 
 Audio:
 tracks (English (US) original (default) shown): Spanish (US) · AI dubbed, Portuguese (BR) · AI dubbed, English (US) original (default)
-Opus: 113 kbps 25.5 MB | 62 kbps 14.0 MB | 50 kbps 11.4 MB
-AAC: 129 kbps 29.3 MB • | 49 kbps 22.05 kHz 11.1 MB
+Opus: 113 kbps 25.5 MiB | 62 kbps 14.0 MiB | 50 kbps 11.3 MiB
+AAC: 129 kbps 29.3 MiB • | 49 kbps 22.05 kHz 11.0 MiB
 
 Profile picks:
 balanced: 398 (1280x720, mp4) + audio 140-2 (audio only, m4a)

@@ -151,8 +151,8 @@ interface SizeScale {
 }
 
 function sizeScale(videoPart: SelectViewInput['videoPart']): SizeScale {
-	if (!videoPart) return {bytes: bytes => bytes, text: humanSize, scaled: false}
-	return {bytes: bytes => scaleBytesToPart(bytes, videoPart.part, videoPart.durationSeconds), text: bytes => `~${humanSize(bytes)}`, scaled: true}
+	if (!videoPart) return {bytes: bytes => bytes, text: bytes => humanSize(bytes, i18next.language), scaled: false}
+	return {bytes: bytes => scaleBytesToPart(bytes, videoPart.part, videoPart.durationSeconds), text: bytes => `~${humanSize(bytes, i18next.language)}`, scaled: true}
 }
 
 // Dolby Digital and Dolby Digital Plus share the Dolby column; the chip says which.
