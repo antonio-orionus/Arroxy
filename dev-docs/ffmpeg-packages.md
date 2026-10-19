@@ -24,13 +24,13 @@ brotli at quality 11 with a 1 GiB window. The tar has fixed timestamps and
 owners, so the same inputs give the same bytes, and a package can be rebuilt and
 checked against its pinned SHA-256.
 
-| Target       | Upstream build                                   | Size     |
-| ------------ | ------------------------------------------------ | -------- |
-| win32-x64    | BtbN `autobuild-2026-08-31-13-27`, gpl-shared    | 42.37 MB |
-| linux-x64    | BtbN `autobuild-2026-08-31-13-27`, gpl-shared    | 43.93 MB |
-| linux-arm64  | BtbN `autobuild-2026-08-31-13-27`, gpl-shared    | 39.48 MB |
-| darwin-x64   | Martin Riedl 9.0.2 release (Developer ID signed) | 27.57 MB |
-| darwin-arm64 | Martin Riedl 9.0.2 release (Developer ID signed) | 22.45 MB |
+| Target       | Upstream build                                    | Size     |
+| ------------ | ------------------------------------------------- | -------- |
+| win32-x64    | BtbN `autobuild-2026-09-30-13-08`, 9.0 gpl-shared | 48.00 MB |
+| linux-x64    | BtbN `autobuild-2026-09-30-13-08`, 9.0 gpl-shared | 50.91 MB |
+| linux-arm64  | BtbN `autobuild-2026-09-30-13-08`, 9.0 gpl-shared | 44.67 MB |
+| darwin-x64   | Martin Riedl 9.0.2 release (Developer ID signed)  | 27.57 MB |
+| darwin-arm64 | Martin Riedl 9.0.2 release (Developer ID signed)  | 22.45 MB |
 
 The pins in `FfmpegPackagePins.ts` are the only place a version is chosen. The
 manifest generator copies them into every signed v2 binary manifest unchanged,

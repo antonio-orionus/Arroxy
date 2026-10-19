@@ -6,7 +6,7 @@
 //
 //   bash scripts/build/fetch-embedded.sh win32 x64
 //   bun scripts/build/ffmpegPackage.ts build --platform win32 --arch x64 \
-//     --version N-126342-gf88b741dbf-20260831 --tag ffmpeg-2026.10.19
+//     --version n9.0.2-17-g2a571b6068 --tag ffmpeg-2026.10.19.2
 //
 // The same inputs always produce the same bytes, so a package can be rebuilt
 // and checked against the pinned SHA-256 before it is published.
