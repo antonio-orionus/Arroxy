@@ -194,8 +194,9 @@ test('a link menu profile pick on the home feed makes it the active profile and 
 		await withFixtureProductApp({exploreHomeUrl: home.url, settings: exploreReady, userDataPrefix: 'arroxy-fixture-bg-quick-link-menu-user-', outputPrefix: 'arroxy-fixture-bg-quick-link-menu-out-'}, async ({app, page, urls, files}) => {
 			await page.locator('.explore-tab-trigger').click()
 			await expect(page.getByTestId('explore-address')).toHaveValue(home.url, {timeout: 30_000})
+			// The stand-in home is another site's page, which the bar can grab; that
+			// YouTube's own home feed names nothing is covered in explore-grab.test.ts.
 			const download = page.getByTestId('explore-download')
-			await expect(download).toHaveAttribute('aria-disabled', 'true')
 
 			const url = urls.video(videoId)
 			await pickFromLinkMenu(app, {kind: 'download', url, profile: {kind: 'builtin', id: 'best-quality'}})
