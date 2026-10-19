@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — ቅጥ አሠጣጥ
 - **Zustand** — የሁኔታ አስተዳደር
-- **yt-dlp** + **ffmpeg** — የማውረድ እና mux ሞተር (yt-dlp በ runtime ይወርዳል፤ ffmpeg/ffprobe በ build time ይካተታሉ)
+- **yt-dlp** + **ffmpeg** — የማውረድ እና mux ሞተር (ሁለቱም በ runtime ይወርዳሉ፤ yt-dlp ወቅታዊ ሆኖ ይቆያል፣ ffmpeg/ffprobe አንድ ጊዜ ተጭነው ከዝማኔዎች በኋላም ይቀጥላሉ)
 - **Vite** + **electron-vite** — የግንባታ መሣሪያዎች
 - **Vitest** + **Playwright** — የአሃዳዊ እና ከጫፍ-ወደ-ጫፍ ፈተናዎች
 
@@ -78,7 +78,7 @@ bun run dist         # package for current OS
 bun run dist:win     # supported host ላይ Windows targets package ማድረግ
 \`\`\`
 
-> \`bun run bootstrap\` dependencies ይጭናል፣ Electron app dependencies rebuild ያደርጋል፣ Electron ያረጋግጣል፣ ለ development embedded ffmpeg/ffprobe ያዘጋጃል፣ እና Playwright Chromium ይጭናል። yt-dlp በ runtime ውስጥ app data folder ይ managed ይሆናል፤ ffmpeg እና ffprobe ከእያንዳንዱ የArroxy release ጋር bundled ይመጣሉ።
+> \`bun run bootstrap\` dependencies ይጭናል፣ Electron app dependencies rebuild ያደርጋል፣ Electron ያረጋግጣል፣ ለ development embedded ffmpeg/ffprobe ያዘጋጃል፣ እና Playwright Chromium ይጭናል። በRelease builds ውስጥ yt-dlp፣ ffmpeg እና ffprobe በ runtime በ app data folder ውስጥ managed ይሆናሉ፤ አንዳቸውም በ installer ውስጥ አይካተቱም።
 
 </details>`;
 
@@ -384,7 +384,7 @@ export const am = {
     "{{LANG_COUNT}} ቋንቋዎች ወዲያውኑ ይገኛሉ፦ {{LANG_NAME_LIST}}። Arroxy በመጀመሪያ ሲጀመር የእርስዎን የስርዓተ ክወና ቋንቋ በራስ-ሰር ያውቃል፣ እና በመሳሪያ አሞሌው ውስጥ ካለው ቋንቋ መራጭ በማንኛውም ጊዜ መቀየር ይችላሉ። Runtime locale JSON በ src/shared/i18n/locales/ ውስጥ ይኖራል፣ የተርጓሚዎች PO ካታሎጎች ደግሞ በ i18n/locales/ ውስጥ ይኖራሉ — ለመሳተፍ GitHub ላይ PR ይክፈቱ።",
   faq_q7: "ሌላ ነገር ጫን ያስፈልጋሉ?",
   faq_a7:
-    "አይ። yt-dlp በመጀመሪያ አስጀማሪ ራስ-ሰር ይወርዳል እና በማሽንዎ ላይ ይቀመጣል፤ ffmpeg እና ffprobe ከአፑ ጋር ይመጣሉ። ከዚያ ተጨማሪ setup አያስፈልግም።",
+    "አይ። yt-dlp፣ ffmpeg እና ffprobe በመጀመሪያ አስጀማሪ ራስ-ሰር ይወርዳሉ እና በማሽንዎ ላይ ይቀመጣሉ። ከዚያ ተጨማሪ setup አያስፈልግም።",
   faq_q8: "ፕሌይሊስቶች ወይም ሙሉ ቻናሎች ማውረድ ይቻላሉ?",
   faq_a8:
     "አዎ — ሁለቱም። የplaylist ወይም channel URL ይለጥፉ (ለምሳሌ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ስንት ግቤቶች እንዲቃኙ ይምረጡ፣ ከዚያም ሙሉውን ዝርዝር ወደ ወረፋ ያክሉ ወይም ቪዲዮዎችን በተናጠል ይምረጡ። የቀን ክልል ማጣሪያዎች በቅርቡ ይመጣሉ።",

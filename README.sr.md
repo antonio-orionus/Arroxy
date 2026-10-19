@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp се аутоматски ажурира при покретању, а Ar
 <details>
 <summary><strong>Да ли треба да инсталирам нешто друго?</strong></summary>
 
-Не. yt-dlp се аутоматски преузима при првом покретању и кешира на вашем рачунару; ffmpeg и ffprobe стижу уз апликацију. Након тога није потребно додатно подешавање.
+Не. yt-dlp, ffmpeg и ffprobe се аутоматски преузимају при првом покретању и кеширају на вашем рачунару. Након тога није потребно додатно подешавање.
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy је бесплатан и под MIT лиценцом — без рек�
 - **React 19** + **TypeScript** — кориснички интерфејс
 - **Tailwind CSS v4** — стилизовање
 - **Zustand** — управљање стањем
-- **yt-dlp** + **ffmpeg** — машина за преузимање и мешање (yt-dlp се преузима у runtime-у; ffmpeg/ffprobe се укључују при build-у)
+- **yt-dlp** + **ffmpeg** — машина за преузимање и мешање (оба се преузимају у runtime-у: yt-dlp се одржава ажурним, а ffmpeg/ffprobe се инсталирају једном и задржавају се током ажурирања)
 - **Vite** + **electron-vite** — алати за изградњу
 - **Vitest** + **Playwright** — јединични и end-to-end тестови
 
@@ -579,7 +579,7 @@ bun run dist         # package for current OS
 bun run dist:win     # пакетирање Windows циљева на подржаном хосту
 ```
 
-> `bun run bootstrap` инсталира зависности, поново гради зависности Electron апликације, проверава Electron, припрема уграђене ffmpeg/ffprobe за развој и инсталира Playwright Chromium. yt-dlp се управља у runtime-у у фасцикли података апликације; ffmpeg и ffprobe су укључени у свако Arroxy издање.
+> `bun run bootstrap` инсталира зависности, поново гради зависности Electron апликације, проверава Electron, припрема уграђене ffmpeg/ffprobe за развој и инсталира Playwright Chromium. Release верзије у runtime-у управљају алатима yt-dlp, ffmpeg и ffprobe у фасцикли података апликације; ниједан од њих није укључен у инсталер.
 
 </details>
 

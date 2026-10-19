@@ -16,33 +16,50 @@
 	"splash": {
 		"greeting": "Hey, schön dich wiederzusehen!",
 		"warmup": "Downloads werden vorbereitet…",
-		"downloading": "{{binary}} wird heruntergeladen…",
 		"verifying": "{{binary}} wird geprüft…",
 		"verifyFirstCheck": "Erste Prüfung dieser Version — diese ist langsam. Meist etwa eine Minute.",
 		"cancel": "Probleme? Manuell einrichten",
-		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details."
+		"warmupFailedNoDiag": "Einrichtung fehlgeschlagen. Öffne das Einrichtungsprotokoll für Details.",
+		"setup": {
+			"title": {"firstRun": "Einrichtung beim ersten Start", "media": "Medientools werden aktualisiert", "engine": "Download-Engine wird aktualisiert"},
+			"stage": {
+				"connecting": "Verbindung wird hergestellt…",
+				"downloadingBoth": "Download-Engine und Medientools werden heruntergeladen",
+				"downloadingEngine": "Download-Engine wird heruntergeladen",
+				"downloadingMedia": "Medientools werden heruntergeladen",
+				"unpacking": "Medientools werden entpackt",
+				"checking": "Es wird geprüft, ob alles funktioniert"
+			},
+			"bytes": "{{done}} von {{total}}",
+			"left": {"underMinute": "noch weniger als eine Minute", "minutes_one": "noch etwa {{count}} Min.", "minutes_other": "noch etwa {{count}} Min."},
+			"note": {"firstRun": "Das passiert nur einmal. Arroxy behält diese Tools und aktualisiert sie selbst.", "media": "Das passiert nur einmal. Arroxy behält sie für künftige Updates.", "engine": "Damit Downloads weiter funktionieren, wenn sich Websites ändern."}
+		}
 	},
 	"repair": {
 		"title": "Einrichtung braucht deine Hilfe",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Konnte nicht überprüft werden.",
-			"downloadFailed": "Download fehlgeschlagen. Überprüfe deine Internetverbindung und versuche es erneut.",
-			"extractFailed": "Archivextraktion fehlgeschlagen. Der Download könnte beschädigt sein — erneut versuchen.",
-			"hashFailed": "Prüfsumme der heruntergeladenen Datei stimmt nicht überein. Download wiederholen.",
-			"spawnFailed": "Die Datei fehlt oder konnte nicht gestartet werden. Wähle eine funktionierende Kopie.",
-			"permissionDenied": "Das System verweigerte die Ausführung der Datei. Wähle eine vertrauenswürdige Kopie oder versuche es als Administrator.",
-			"blockedOrQuarantined": "Windows hat die Datei blockiert (SmartScreen / Defender). Wähle eine installierte Kopie oder füge den Laufzeitordner zur Ausnahmeliste hinzu.",
-			"badExitCode": "Die Binärdatei hat auf --version nicht reagiert. Sie könnte beschädigt oder ein falscher Build sein.",
-			"timeout": "Die Versionsabfrage hat das Zeitlimit überschritten. Die Datei könnte hängen — erneut versuchen.",
-			"pairIncomplete": "ffmpeg und ffprobe müssen beide als zusammengehöriges Paar gesetzt sein."
+		"groups": {"engine": "Download-Engine", "media": "Medientools"},
+		"causes": {
+			"downloadFailed": {"title": "Was Arroxy braucht, konnte nicht heruntergeladen werden", "body": "Überprüfe deine Internetverbindung und versuche es dann erneut."},
+			"extractFailed": {"title": "Ein Download ist beschädigt angekommen", "body": "Versuche es erneut, um es neu herunterzuladen."},
+			"hashFailed": {"title": "Ein Download stimmte nicht mit seiner Prüfsumme überein", "body": "Versuche es erneut, um es neu herunterzuladen."},
+			"spawnFailed": {"title": "Ein Tool fehlt oder startet nicht", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus."},
+			"permissionDenied": {"title": "Dein System erlaubt Arroxy nicht, ein Tool auszuführen", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine Kopie, der du vertraust."},
+			"blockedOrQuarantined": {"title": "Dein Virenschutz hat ein Tool blockiert", "body": "Erlaube Arroxy in deinem Virenschutz oder in SmartScreen und versuche es dann erneut."},
+			"badExitCode": {"title": "Ein Tool funktioniert nicht richtig", "body": "Versuche es erneut. Wenn es weiterhin fehlschlägt, wähle unten eine funktionierende Kopie aus."},
+			"timeout": {"title": "Ein Tool hat zu lange nicht geantwortet", "body": "Das liegt oft an einer Sicherheitsprüfung beim ersten Start. Versuche es erneut."},
+			"pairIncomplete": {"title": "FFmpeg und FFprobe müssen zusammen festgelegt werden", "body": "Wähle unten beide aus oder setze sie auf den Standard zurück."},
+			"unknown": {"title": "Bei der Einrichtung ist etwas schiefgelaufen", "body": "Versuche es erneut oder öffne das Einrichtungsprotokoll für Details."}
 		},
+		"installing": {"homebrew": "Installation mit Homebrew läuft… Das kann ein paar Minuten dauern.", "winget": "Installation mit WinGet läuft… Das kann ein paar Minuten dauern."},
+		"stopped": {"title": "Einrichtung gestoppt", "body": "Versuche es erneut oder verweise Arroxy unten auf Tools, die du schon hast."},
+		"manual": {"toggle": "Manuell einrichten", "intro": "Verweise Arroxy auf Kopien, die du schon hast, oder installiere sie auf einem anderen Weg.", "linuxHint": "Du kannst yt-dlp und ffmpeg auch mit deinem Paketmanager installieren und dann auf „Erneut versuchen“ klicken."},
 		"actions": {
 			"chooseExecutable": "Ausführbare Datei wählen",
 			"installWithHomebrew": "Mit Homebrew installieren",
 			"installWithWinget": "Mit WinGet installieren",
 			"resetToDefault": "Auf Standard zurücksetzen",
-			"retrySetup": "Einrichtung wiederholen",
+			"retrySetup": "Erneut versuchen",
 			"cancel": "Abbrechen",
 			"openDependencyFolder": "Abhängigkeitsordner öffnen",
 			"viewSetupLog": "Einrichtungsprotokoll anzeigen"
@@ -822,7 +839,7 @@
 			"outputNotWritable": "Arroxy kann nicht in den Download-Ordner schreiben. Er ist vielleicht schreibgeschützt, liegt auf einem gesperrten Laufwerk oder wird von den Datenschutzeinstellungen deines Systems blockiert. Wähle einen anderen Ordner oder erlaube den Zugriff und versuche es erneut.",
 			"unsupportedUrl": "Diese URL wird von yt-dlp nicht unterstützt. Versuche einen anderen Link von einer von yt-dlp unterstützten Seite.",
 			"chunkTransferFailure": "Der Server hat den Download wiederholt mittendrin abgebrochen und yt-dlp hat nach mehreren Versuchen aufgegeben. Das betrifft meist die größten Videoformate (4K HDR / VP9 mit hoher Bitrate). Versuche es erneut, wechsle das Netzwerk/VPN oder wähle eine niedrigere Auflösung.",
-			"missingDependency": "yt-dlp konnte ffmpeg oder ffprobe nicht finden. Repariere die gebündelten Binärdateien oder lege einen FFmpeg-Speicherort fest und versuche es erneut.",
+			"missingDependency": "yt-dlp konnte ffmpeg oder ffprobe nicht finden. Führe die Einrichtung erneut aus oder lege einen FFmpeg-Speicherort fest und versuche den Download dann erneut.",
 			"postprocessFailure": "yt-dlp hat den Download abgeschlossen, aber die Nachbearbeitung (Merge / Mux / Konvertierung) ist fehlgeschlagen. Oft ist das ein vorübergehendes ffmpeg-Problem — versuche es erneut, und wenn es bestehen bleibt, probiere eine andere Formatkombination.",
 			"parse": "Die Antwort der Seite konnte nicht analysiert werden. Der Extraktor von yt-dlp ist möglicherweise veraltet. Arroxy aktualisiert yt-dlp automatisch beim Start — versuche es in ein paar Minuten erneut, sobald der Fix eintrifft.",
 			"network": "Netzwerkfehler. Überprüfe deine Verbindung und versuche es erneut.",

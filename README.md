@@ -25,7 +25,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when 
 <details>
 <summary><strong>Do I need to install anything else?</strong></summary>
 
-No. yt-dlp is downloaded automatically on first launch and cached on your machine; ffmpeg and ffprobe ship with the app. After that, no extra setup is needed.
+No. yt-dlp, ffmpeg and ffprobe are downloaded automatically on first launch and cached on your machine. After that, no extra setup is needed.
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy is free and MIT-licensed — no ads, no telemetry, no paid tier. If it sa
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — styling
 - **Zustand** — state management
-- **yt-dlp** + **ffmpeg** — download and mux engine (yt-dlp fetched at runtime; ffmpeg/ffprobe bundled at build time)
+- **yt-dlp** + **ffmpeg** — download and mux engine (both fetched at runtime: yt-dlp kept up to date, ffmpeg/ffprobe installed once and kept across updates)
 - **Vite** + **electron-vite** — build tooling
 - **Vitest** + **Playwright** — unit and end-to-end tests
 
@@ -579,7 +579,7 @@ bun run dist         # package for current OS
 bun run dist:win     # package Windows targets when run on a supported host
 ```
 
-> `bun run bootstrap` installs dependencies, rebuilds Electron app dependencies, verifies Electron, prepares embedded ffmpeg/ffprobe for development, and installs Playwright Chromium. yt-dlp is managed at runtime in your app data folder; ffmpeg and ffprobe are bundled with every Arroxy release.
+> `bun run bootstrap` installs dependencies, rebuilds Electron app dependencies, verifies Electron, prepares embedded ffmpeg/ffprobe for development, and installs Playwright Chromium. Release builds manage yt-dlp, ffmpeg and ffprobe at runtime in your app data folder; none of them ship inside the installer.
 
 </details>
 

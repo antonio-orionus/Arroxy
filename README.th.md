@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../pulls) ได้เลย
 
@@ -442,7 +442,7 @@ yt-dlp อัปเดตอัตโนมัติเมื่อเปิด�
 <details>
 <summary><strong>ต้องติดตั้งอย่างอื่นอีกหรือไม่</strong></summary>
 
-ไม่ต้อง yt-dlp จะดาวน์โหลดอัตโนมัติเมื่อเปิดครั้งแรกและเก็บแคชในเครื่อง ส่วน ffmpeg และ ffprobe มากับแอป หลังจากนั้นไม่ต้องตั้งค่าเพิ่ม
+ไม่ต้อง yt-dlp, ffmpeg และ ffprobe จะดาวน์โหลดอัตโนมัติเมื่อเปิดครั้งแรกและเก็บแคชในเครื่อง หลังจากนั้นไม่ต้องตั้งค่าเพิ่ม
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy ฟรีและใช้ MIT License — ไม่มีโฆษณ�
 - **React 19** + **TypeScript** — ส่วนติดต่อผู้ใช้
 - **Tailwind CSS v4** — การจัดรูปแบบ
 - **Zustand** — การจัดการสถานะ
-- **yt-dlp** + **ffmpeg** — กลไกดาวน์โหลดและ mux (ดาวน์โหลด yt-dlp ขณะทำงาน; รวม ffmpeg/ffprobe ขณะบิลด์)
+- **yt-dlp** + **ffmpeg** — กลไกดาวน์โหลดและ mux (ดาวน์โหลดทั้งคู่ขณะทำงาน: yt-dlp อัปเดตให้ทันสมัยเสมอ ส่วน ffmpeg/ffprobe ติดตั้งครั้งเดียวและคงอยู่หลังอัปเดต)
 - **Vite** + **electron-vite** — เครื่องมือบิลด์
 - **Vitest** + **Playwright** — การทดสอบหน่วยและแบบต้นทางถึงปลายทาง
 
@@ -581,7 +581,7 @@ bun run dist         # แพ็กเกจสำหรับระบบปฏ
 bun run dist:win     # เป้าหมาย Windows เมื่อทำงานบนโฮสต์ที่รองรับ
 ```
 
-> `bun run bootstrap` ติดตั้ง dependency, บิลด์ dependency ของแอป Electron ใหม่, ตรวจสอบ Electron, เตรียม ffmpeg/ffprobe ที่ฝังไว้สำหรับการพัฒนา และติดตั้ง Playwright Chromium ส่วน yt-dlp จะจัดการขณะทำงานในโฟลเดอร์ข้อมูลแอป; ffmpeg และ ffprobe รวมอยู่ใน Arroxy ทุกรุ่น
+> `bun run bootstrap` ติดตั้ง dependency, บิลด์ dependency ของแอป Electron ใหม่, ตรวจสอบ Electron, เตรียม ffmpeg/ffprobe ที่ฝังไว้สำหรับการพัฒนา และติดตั้ง Playwright Chromium ส่วนบิลด์รุ่นเผยแพร่จะจัดการ yt-dlp, ffmpeg และ ffprobe ขณะทำงานในโฟลเดอร์ข้อมูลแอป โดยไม่มีตัวใดรวมอยู่ในตัวติดตั้ง
 
 </details>
 

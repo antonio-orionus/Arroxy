@@ -16,33 +16,43 @@
 	"splash": {
 		"greeting": "Selam, tekrar hoş geldin!",
 		"warmup": "İndirmeler hazırlanıyor…",
-		"downloading": "{{binary}} indiriliyor…",
 		"verifying": "{{binary}} denetleniyor…",
 		"verifyFirstCheck": "Bu sürümün ilk denetimi — bu yavaş ilerler. Genellikle bir dakika kadar sürer.",
 		"cancel": "Sorun mu var? Elle kurun",
-		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç."
+		"warmupFailedNoDiag": "Kurulum başarısız oldu. Ayrıntılar için kurulum günlüğünü aç.",
+		"setup": {
+			"title": {"firstRun": "İlk kurulum", "media": "Medya araçları güncelleniyor", "engine": "İndirme motoru güncelleniyor"},
+			"stage": {"connecting": "Bağlanılıyor…", "downloadingBoth": "İndirme motoru ve medya araçları indiriliyor", "downloadingEngine": "İndirme motoru indiriliyor", "downloadingMedia": "Medya araçları indiriliyor", "unpacking": "Medya araçları açılıyor", "checking": "Her şeyin çalıştığı kontrol ediliyor"},
+			"bytes": "{{done}} / {{total}}",
+			"left": {"underMinute": "bir dakikadan az kaldı", "minutes_one": "yaklaşık {{count}} dk kaldı", "minutes_other": "yaklaşık {{count}} dk kaldı"},
+			"note": {"firstRun": "Bu yalnızca bir kez olur. Arroxy bu araçları saklar ve kendisi günceller.", "media": "Bu yalnızca bir kez olur. Arroxy bunları sonraki güncellemeler için saklar.", "engine": "Siteler değiştiğinde indirmelerin çalışmaya devam etmesini sağlar."}
+		}
 	},
 	"repair": {
 		"title": "Kurulum yardımına ihtiyaç duyuyor",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Doğrulanamadı.",
-			"downloadFailed": "İndirme başarısız oldu. İnternet bağlantını kontrol edip tekrar dene.",
-			"extractFailed": "Arşiv çıkarma başarısız oldu. İndirme bozuk olabilir — tekrar dene.",
-			"hashFailed": "İndirilen dosyada sağlama toplamı uyuşmazlığı var. İndirmeyi tekrar dene.",
-			"spawnFailed": "Dosya eksik veya başlatılamadı. Çalışan bir kopya seç.",
-			"permissionDenied": "Sistem dosyayı çalıştırmayı reddetti. Güvendiğin bir kopya seç veya yönetici olarak tekrar dene.",
-			"blockedOrQuarantined": "Windows dosyayı engelledi (SmartScreen / Defender). Yüklü bir kopya seç veya çalışma zamanı klasörünü izin listesine al.",
-			"badExitCode": "İkili dosya --version komutuna yanıt vermedi. Bozuk ya da yanlış derleme olabilir.",
-			"timeout": "Sürüm denetimi zaman aşımına uğradı. Dosya takılmış olabilir — tekrar dene.",
-			"pairIncomplete": "ffmpeg ve ffprobe eşleşen bir çift olarak birlikte ayarlanmalıdır."
+		"groups": {"engine": "İndirme motoru", "media": "Medya araçları"},
+		"causes": {
+			"downloadFailed": {"title": "Arroxy'nin ihtiyacı olanlar indirilemedi", "body": "İnternet bağlantınızı kontrol edin, ardından tekrar deneyin."},
+			"extractFailed": {"title": "Bir indirme bozuk geldi", "body": "Yeniden indirmek için tekrar deneyin."},
+			"hashFailed": {"title": "Bir indirme sağlama toplamıyla eşleşmedi", "body": "Yeniden indirmek için tekrar deneyin."},
+			"spawnFailed": {"title": "Bir araç eksik ya da başlamıyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."},
+			"permissionDenied": {"title": "Sisteminiz Arroxy'nin bir aracı çalıştırmasına izin vermiyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan güvendiğiniz bir kopya seçin."},
+			"blockedOrQuarantined": {"title": "Virüsten koruma yazılımınız bir aracı engelledi", "body": "Virüsten koruma yazılımınızda veya SmartScreen'de Arroxy'ye izin verin, ardından tekrar deneyin."},
+			"badExitCode": {"title": "Bir araç düzgün çalışmıyor", "body": "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."},
+			"timeout": {"title": "Bir aracın yanıt vermesi çok uzun sürdü", "body": "Bu genellikle ilk çalıştırmadaki bir güvenlik taramasından kaynaklanır. Tekrar deneyin."},
+			"pairIncomplete": {"title": "FFmpeg ve FFprobe birlikte ayarlanmalı", "body": "Aşağıdan ikisini de seçin veya varsayılana sıfırlayın."},
+			"unknown": {"title": "Kurulum sırasında bir şeyler ters gitti", "body": "Tekrar deneyin veya ayrıntılar için kurulum günlüğünü açın."}
 		},
+		"installing": {"homebrew": "Homebrew ile kuruluyor… Bu birkaç dakika sürebilir.", "winget": "WinGet ile kuruluyor… Bu birkaç dakika sürebilir."},
+		"stopped": {"title": "Kurulum durduruldu", "body": "Tekrar deneyin veya aşağıdan Arroxy'yi zaten sahip olduğunuz araçlara yönlendirin."},
+		"manual": {"toggle": "Elle kur", "intro": "Arroxy'yi zaten sahip olduğunuz kopyalara yönlendirin veya başka bir yolla kurun.", "linuxHint": "yt-dlp ve ffmpeg'i paket yöneticinizle de kurabilir, ardından Tekrar dene'ye tıklayabilirsiniz."},
 		"actions": {
 			"chooseExecutable": "Yürütülebilir dosya seç",
 			"installWithHomebrew": "Homebrew ile yükle",
 			"installWithWinget": "WinGet ile yükle",
 			"resetToDefault": "Varsayılana sıfırla",
-			"retrySetup": "Kurulumu tekrar dene",
+			"retrySetup": "Tekrar dene",
 			"cancel": "İptal",
 			"openDependencyFolder": "Bağımlılık klasörünü aç",
 			"viewSetupLog": "Kurulum günlüğünü görüntüle"
@@ -815,7 +825,7 @@
 			"outputNotWritable": "Arroxy indirme klasörüne yazamıyor. Klasör salt okunur olabilir, kilitli bir sürücüde olabilir ya da sisteminin gizlilik ayarları tarafından engelleniyor olabilir. Başka bir klasör seç veya erişime izin ver, sonra tekrar dene.",
 			"unsupportedUrl": "Bu URL yt-dlp tarafından desteklenmiyor. yt-dlp’nin desteklediği sitelerden farklı bir bağlantı dene.",
 			"chunkTransferFailure": "Sunucu indirmeyi akış ortasında kesmeye devam etti ve yt-dlp tekrar denemelerden sonra vazgeçti. Bu genelde en büyük video biçimlerinde görülür (4K HDR / yüksek bit hızlı VP9). Tekrar dene, ağı/VPN’i değiştir veya daha düşük çözünürlük seç.",
-			"missingDependency": "yt-dlp ffmpeg veya ffprobe bulamadı. Paketlenen ikili dosyaları onar veya bir FFmpeg konumu ayarla, sonra tekrar dene.",
+			"missingDependency": "yt-dlp, ffmpeg veya ffprobe'u bulamadı. Kurulumu yeniden çalıştırın ya da bir FFmpeg konumu belirleyin, ardından indirmeyi tekrar deneyin.",
 			"postprocessFailure": "yt-dlp indirmeyi bitirdi ama son işleme (birleştirme / mux / dönüştürme) başarısız oldu. Çoğu zaman geçici bir ffmpeg sorunudur — tekrar dene; sürerse farklı bir biçim kombinasyonu dene.",
 			"parse": "Siteden gelen yanıt ayrıştırılamadı. yt-dlp çıkarıcısı değişmiş olabilir. Arroxy açılışta yt-dlp’yi otomatik günceller — düzeltme yayınlandıktan birkaç dakika sonra tekrar dene.",
 			"network": "Ağ hatası. Bağlantını kontrol edip tekrar dene.",

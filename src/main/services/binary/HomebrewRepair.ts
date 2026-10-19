@@ -3,6 +3,7 @@ import {promisify} from 'node:util'
 import log from 'electron-log/main.js'
 import {HOMEBREW_CASK} from '@shared/constants.js'
 import {firstExecutable, whereOnPath} from './BinaryProbe.js'
+import {ffmpegPairOnPath, type FfmpegPairPaths} from './ffmpegPairOnPath.js'
 
 const execFileAsync = promisify(execFile)
 const logger = log.scope('homebrew-repair')
@@ -104,4 +105,9 @@ export async function installYtDlpWithHomebrew(): Promise<string> {
 	if (installed) return installed
 
 	throw new Error('Homebrew finished, but yt-dlp was not found in Homebrew bin paths.')
+}
+
+export async function installFfmpegWithHomebrew(): Promise<FfmpegPairPaths> {
+	await runBrew(['install', 'ffmpeg'], 'Install Homebrew first, then retry setup.')
+	return ffmpegPairOnPath('Homebrew')
 }

@@ -24,6 +24,15 @@ If you skip step 1, the workflow logs a `::warning::` and falls back to pure aut
 
 Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `publish-release` step runs late (after build + Windows artifact wait) and will overwrite manual edits. Fix `CHANGELOG.md`, push a fix-up commit, and re-run `publish-release`.
 
+## Runtime binaries
+
+Release builds download FFmpeg and yt-dlp at runtime. Before tagging, confirm both still resolve for a fresh install:
+
+1. Every URL in `src/main/services/binary/FfmpegPackagePins.ts` is a published asset: `bun scripts/build/ffmpegPackage.ts install --platform win32 --arch x64 --cache-root "$(mktemp -d)"` succeeds.
+2. The latest `arroxy-runtime-binaries` release carries `runtime-index-v2.json` and `runtime-index-v2.sig` next to the v1 pair. Without them, new installs still get FFmpeg from the bundled pins but hold yt-dlp at the bundled stable version.
+
+See [`ffmpeg-packages.md`](ffmpeg-packages.md).
+
 ## Branch model
 
 - Single long-lived branch: `main`.

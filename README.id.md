@@ -25,7 +25,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../pulls).
 
@@ -442,7 +442,7 @@ yt-dlp diperbarui secara otomatis saat peluncuran, dan Arroxy segera mengirimkan
 <details>
 <summary><strong>Apakah saya perlu menginstal yang lain?</strong></summary>
 
-Tidak. yt-dlp diunduh secara otomatis pada peluncuran pertama dan disimpan dalam cache di mesin Anda; ffmpeg dan ffprobe dikirimkan bersama aplikasi. Setelah itu, tidak diperlukan pengaturan tambahan.
+Tidak. yt-dlp, ffmpeg, dan ffprobe diunduh secara otomatis pada peluncuran pertama dan disimpan dalam cache di mesin Anda. Setelah itu, tidak diperlukan pengaturan tambahan.
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy gratis dan berlisensi MIT — tanpa iklan, tanpa telemetri, tanpa versi b
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — gaya
 - **Zustand** — manajemen state
-- **yt-dlp** + **ffmpeg** — mesin unduh dan mux (yt-dlp diambil saat runtime; ffmpeg/ffprobe dibundel pada waktu pembuatan)
+- **yt-dlp** + **ffmpeg** — mesin unduh dan mux (keduanya diambil saat runtime: yt-dlp dijaga tetap terbaru, ffmpeg/ffprobe dipasang sekali dan dipertahankan setelah pembaruan)
 - **Vite** + **electron-vite** — tooling build
 - **Vitest** + **Playwright** — pengujian unit dan menyeluruh
 
@@ -581,7 +581,7 @@ bun run dist         # package for current OS
 bun run dist:win     # package Windows targets when run on a supported host
 ```
 
-> `bun run bootstrap` memasang dependensi, membangun kembali dependensi aplikasi Electron, memverifikasi Electron, menyiapkan ffmpeg/ffprobe tertanam untuk pengembangan, dan menginstal Playwright Chromium. yt-dlp dikelola saat runtime di folder data aplikasi Anda; ffmpeg dan ffprobe dibundel dengan setiap rilis Arroxy.
+> `bun run bootstrap` memasang dependensi, membangun kembali dependensi aplikasi Electron, memverifikasi Electron, menyiapkan ffmpeg/ffprobe tertanam untuk pengembangan, dan menginstal Playwright Chromium. Build rilis mengelola yt-dlp, ffmpeg, dan ffprobe saat runtime di folder data aplikasi Anda; tidak satu pun disertakan di dalam installer.
 
 </details>
 

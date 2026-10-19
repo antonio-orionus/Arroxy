@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "Video này cần một tài khoản đã đăng nhập."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy sửa các tệp nhị phân đi kèm hoặc đặt vị trí FFmpeg, rồi thử lại."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy chạy lại thiết lập hoặc chọn vị trí FFmpeg, rồi thử tải lại."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "Đặt lại về mặc định"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Thử thiết lập lại"
+msgid "Try again"
+msgstr "Thử lại"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Xem nhật ký thiết lập"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản hoạt động tốt bên dưới."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Một công cụ không hoạt động đúng"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Hãy cho phép Arroxy trong phần mềm diệt virus hoặc SmartScreen, rồi thử lại."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Phần mềm diệt virus đã chặn một công cụ"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Hãy kiểm tra kết nối internet của bạn rồi thử lại."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Không thể tải về những gì Arroxy cần"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Hãy thử lại để tải về bản mới."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Một tệp tải về bị hỏng"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Hãy thử lại để tải về bản mới."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Một tệp tải về không khớp mã kiểm tra"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Hãy chọn cả hai bên dưới, hoặc đặt lại về mặc định."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg và FFprobe phải được thiết lập cùng nhau"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản mà bạn tin tưởng bên dưới."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Hệ thống không cho phép Arroxy chạy một công cụ"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản hoạt động tốt bên dưới."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Một công cụ bị thiếu hoặc không khởi động được"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Điều này thường do quét bảo mật ở lần chạy đầu tiên. Hãy thử lại."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Một công cụ phản hồi quá lâu"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Hãy thử lại, hoặc mở nhật ký thiết lập để xem chi tiết."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Đã xảy ra sự cố trong lúc thiết lập"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Tệp nhị phân không phản hồi --version. Tệp có thể bị hỏng hoặc sai phiên bản."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Bộ máy tải xuống"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows đã chặn tệp (SmartScreen / Defender). Hãy chọn bản sao đã cài đặt hoặc thêm thư mục runtime vào danh sách cho phép."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Công cụ đa phương tiện"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Tải xuống thất bại. Kiểm tra kết nối internet và thử lại."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Đang cài đặt bằng Homebrew… Việc này có thể mất vài phút."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Giải nén tệp thất bại. Tệp tải xuống có thể bị hỏng — thử lại."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Đang cài đặt bằng WinGet… Việc này có thể mất vài phút."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Tổng kiểm tra của tệp tải xuống không khớp. Hãy tải xuống lại."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Chỉ cho Arroxy những bản bạn đã có, hoặc cài đặt bằng cách khác."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg và ffprobe phải được thiết lập cùng nhau như một cặp khớp."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Bạn cũng có thể cài yt-dlp và ffmpeg bằng trình quản lý gói, rồi nhấn Thử lại."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Hệ thống từ chối chạy tệp. Hãy chọn bản sao bạn tin tưởng hoặc thử lại với quyền admin."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Thiết lập thủ công"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Tệp bị thiếu hoặc không thể khởi chạy. Hãy chọn một bản sao hoạt động được."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Hãy thử lại, hoặc chỉ cho Arroxy những công cụ bạn đã có bên dưới."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Kiểm tra phiên bản hết thời gian. Tệp có thể bị treo — thử lại."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Không thể xác minh."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Thiết lập đã dừng"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Gặp sự cố? Thiết lập thủ công"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "Đang tải xuống {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Xin chào, chào mừng bạn quay lại!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "còn khoảng {{count}} phút"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "còn chưa đến một phút"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Giúp việc tải xuống luôn hoạt động khi các trang web thay đổi."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ các công cụ này và tự cập nhật chúng."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ chúng cho các lần cập nhật sau."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Đang kiểm tra mọi thứ hoạt động"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Đang kết nối…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Đang tải bộ máy tải xuống và công cụ đa phương tiện"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Đang tải bộ máy tải xuống"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Đang tải công cụ đa phương tiện"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Đang giải nén công cụ đa phương tiện"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Đang cập nhật bộ máy tải xuống"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Thiết lập lần đầu"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Đang cập nhật công cụ đa phương tiện"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

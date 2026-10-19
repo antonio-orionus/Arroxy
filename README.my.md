@@ -25,7 +25,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 <details>
 <summary><strong>အခြားအရာများ ထည့်သွင်းရန်လိုသလား?</strong></summary>
 
-မလိုပါ။ yt-dlp သည် ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်; ffmpeg နှင့် ffprobe သည် app နှင့်အတူ ပါလာသည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။
+မလိုပါ။ yt-dlp, ffmpeg နှင့် ffprobe တို့ကို ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy သည် အခမဲ့ဖြစ်ပြီး MIT လိုင်စ�
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — styling
 - **Zustand** — state management
-- **yt-dlp** + **ffmpeg** — download နှင့် mux engine (yt-dlp ကို runtime တွင် fetch လုပ်သည်; ffmpeg/ffprobe ကို build time တွင် bundle ထည့်သည်)
+- **yt-dlp** + **ffmpeg** — download နှင့် mux engine (နှစ်ခုလုံးကို runtime တွင် fetch လုပ်သည်: yt-dlp ကို နောက်ဆုံးပေါ်ဖြစ်အောင် ထိန်းထားပြီး ffmpeg/ffprobe ကို တစ်ကြိမ်သာ install လုပ်ကာ update များအတွင်း ဆက်ထားသည်)
 - **Vite** + **electron-vite** — build tooling
 - **Vitest** + **Playwright** — unit နှင့် end-to-end tests
 
@@ -579,7 +579,7 @@ bun run dist         # လက်ရှိ OS အတွက် package ထုတ�
 bun run dist:win     # supported host တွင် Windows targets package ထုတ်ရန်
 ```
 
-> `bun run bootstrap` သည် dependencies ကို install လုပ်ပြီး Electron app dependencies ကို rebuild လုပ်သည်၊ Electron ကို verify လုပ်သည်၊ development အတွက် embedded ffmpeg/ffprobe ကို ပြင်ဆင်သည်၊ Playwright Chromium ကို install လုပ်သည်။ yt-dlp ကို runtime တွင် app data folder ထဲ၌ manage လုပ်ပြီး ffmpeg နှင့် ffprobe သည် Arroxy release တိုင်းတွင် bundled ဖြစ်သည်။
+> `bun run bootstrap` သည် dependencies ကို install လုပ်ပြီး Electron app dependencies ကို rebuild လုပ်သည်၊ Electron ကို verify လုပ်သည်၊ development အတွက် embedded ffmpeg/ffprobe ကို ပြင်ဆင်သည်၊ Playwright Chromium ကို install လုပ်သည်။ Release build များသည် yt-dlp, ffmpeg နှင့် ffprobe ကို runtime တွင် app data folder ထဲ၌ manage လုပ်ပြီး ၎င်းတို့တစ်ခုမျှ installer ထဲတွင် မပါဝင်ပါ။
 
 </details>
 

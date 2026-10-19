@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — tạo kiểu
 - **Zustand** — quản lý trạng thái
-- **yt-dlp** + **ffmpeg** — công cụ tải xuống và ghép luồng (yt-dlp được lấy lúc chạy; ffmpeg/ffprobe được đóng gói khi build)
+- **yt-dlp** + **ffmpeg** — công cụ tải xuống và ghép luồng (cả hai đều được lấy lúc chạy: yt-dlp luôn được cập nhật, ffmpeg/ffprobe được cài một lần và giữ nguyên qua các lần cập nhật)
 - **Vite** + **electron-vite** — công cụ build
 - **Vitest** + **Playwright** — kiểm thử đơn vị và end-to-end
 
@@ -78,7 +78,7 @@ bun run dist         # đóng gói cho OS hiện tại
 bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ trợ
 \`\`\`
 
-> \`bun run bootstrap\` cài dependencies, rebuild dependencies của app Electron, xác minh Electron, chuẩn bị ffmpeg/ffprobe nhúng cho phát triển và cài Playwright Chromium. yt-dlp được quản lý lúc runtime trong thư mục dữ liệu ứng dụng; ffmpeg và ffprobe được đóng gói trong mọi bản phát hành Arroxy.
+> \`bun run bootstrap\` cài dependencies, rebuild dependencies của app Electron, xác minh Electron, chuẩn bị ffmpeg/ffprobe nhúng cho phát triển và cài Playwright Chromium. Các bản phát hành quản lý yt-dlp, ffmpeg và ffprobe lúc runtime trong thư mục dữ liệu ứng dụng; không cái nào được đóng gói trong trình cài đặt.
 
 </details>`;
 
@@ -402,7 +402,7 @@ export const vi = {
     "{{LANG_COUNT}} ngôn ngữ có sẵn ngay: {{LANG_NAME_LIST}}. Arroxy tự động phát hiện ngôn ngữ hệ điều hành của bạn trong lần khởi chạy đầu tiên, và bạn có thể đổi bất cứ lúc nào từ bộ chọn ngôn ngữ trên thanh công cụ. Runtime locale JSON nằm trong src/shared/i18n/locales/, còn catalog PO dành cho người dịch nằm trong i18n/locales/ — hãy mở PR trên GitHub để đóng góp.",
   faq_q7: "Tôi có cần cài đặt thêm gì không?",
   faq_a7:
-    "Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.",
+    "Không. yt-dlp, ffmpeg và ffprobe được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn. Sau đó, không cần thiết lập thêm gì.",
   faq_q8: "Tôi có thể tải xuống danh sách phát hoặc toàn bộ kênh không?",
   faq_a8:
     "Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chọn số mục cần quét, rồi đưa cả danh sách vào hàng đợi hoặc chọn từng video. Bộ lọc theo khoảng ngày sẽ có sớm.",

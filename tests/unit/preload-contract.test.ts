@@ -56,6 +56,18 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appInstallYtDlpWinget)
 	})
 
+	it('app.installFfmpegWithHomebrew', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.app.installFfmpegWithHomebrew()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appInstallFfmpegHomebrew)
+	})
+
+	it('app.installFfmpegWithWinget', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.app.installFfmpegWithWinget()
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.appInstallFfmpegWinget)
+	})
+
 	it('downloads.probe', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		const input = {url: 'https://youtube.com/watch?v=x'}

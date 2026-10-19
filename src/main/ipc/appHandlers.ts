@@ -62,6 +62,22 @@ export function registerAppHandlers(deps: AppHandlerDeps): void {
 		}
 	})
 
+	handleRaw(IPC_CHANNELS.appInstallFfmpegHomebrew, async () => {
+		try {
+			return ok(await binaryManager.installFfmpegWithHomebrew())
+		} catch (error) {
+			return toUnknownFailure(error)
+		}
+	})
+
+	handleRaw(IPC_CHANNELS.appInstallFfmpegWinget, async () => {
+		try {
+			return ok(await binaryManager.installFfmpegWithWinget())
+		} catch (error) {
+			return toUnknownFailure(error)
+		}
+	})
+
 	handleRaw(IPC_CHANNELS.appSetLanguage, (_, payload: unknown) => {
 		const parsed = supportedLangSchema.safeParse(payload)
 		if (parsed.success) {

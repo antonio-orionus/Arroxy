@@ -16,28 +16,38 @@
 	"splash": {
 		"greeting": "እንኳን ደህና መጡ!",
 		"warmup": "ውርዶችን በማዘጋጀት ላይ…",
-		"downloading": "{{binary}} እየወረደ ነው…",
 		"verifying": "{{binary}} እየተመረመረ ነው…",
 		"verifyFirstCheck": "የዚህ ስሪት የመጀመሪያ ምርመራ — ይህኛው ዘገምተኛ ነው። አብዛኛውን ጊዜ አንድ ደቂቃ ያህል ይወስዳል።",
 		"cancel": "ችግር አለ? በእጅ ያዋቅሩት",
-		"warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"
+		"warmupFailedNoDiag": "ማዋቀር አልተሳካም። ዝርዝሮችን ለማየት የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።",
+		"setup": {
+			"title": {"firstRun": "የመጀመሪያ ጊዜ ማዋቀር", "media": "የሚዲያ መሣሪያዎችን በማዘመን ላይ", "engine": "የማውረጃ ሞተሩን በማዘመን ላይ"},
+			"stage": {"connecting": "በመገናኘት ላይ…", "downloadingBoth": "የማውረጃ ሞተሩንና የሚዲያ መሣሪያዎችን በማውረድ ላይ", "downloadingEngine": "የማውረጃ ሞተሩን በማውረድ ላይ", "downloadingMedia": "የሚዲያ መሣሪያዎችን በማውረድ ላይ", "unpacking": "የሚዲያ መሣሪያዎችን በመክፈት ላይ", "checking": "ሁሉም ነገር እየሰራ መሆኑን በማረጋገጥ ላይ"},
+			"bytes": "{{done}} ከ{{total}}",
+			"left": {"underMinute": "ከአንድ ደቂቃ በታች ይቀራል", "minutes_one": "ወደ {{count}} ደቂቃ ይቀራል", "minutes_other": "ወደ {{count}} ደቂቃዎች ይቀራል"},
+			"note": {"firstRun": "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy እነዚህን መሣሪያዎች ያቆያል እና ራሱ ያዘምናቸዋል።", "media": "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy ለወደፊት ዝማኔዎች ያቆያቸዋል።", "engine": "ጣቢያዎች ሲለወጡ ውርዶች መስራታቸውን እንዲቀጥሉ ያደርጋል።"}
+		}
 	},
 	"repair": {
 		"title": "ማዋቀሩ እርዳታዎን ይፈልጋል",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "ማረጋገጥ አልተቻለም።",
-			"downloadFailed": "ማውረድ ወድቋል። የኢንተርኔት ግንኙነትዎን ያረጋግጡ እና እንደገና ይሞክሩ።",
-			"extractFailed": "የማህደር ቅኝት ወድቋል። ዳውንሎዱ ሊበላሽ ይችላል — እንደገና ይሞክሩ።",
-			"hashFailed": "በዳውንሎዱ ፋይል ላይ ቼክሰም አለመዛቸጥ። ዳውንሎዱን እንደገና ይሞክሩ።",
-			"spawnFailed": "ፋይሉ የለም ወይም ሊጀመር አልቻለም። ሚሰራ ቅጂ ይምረጡ።",
-			"permissionDenied": "ስርዓቱ ፋይሉን ለማስኬድ ፈቃደኛ አልሆነም። የሚያምኑበት ቅጂ ይምረጡ ወይም እንደ አስተዳዳሪ እንደገና ይሞክሩ።",
-			"blockedOrQuarantined": "Windows ፋይሉን ዘጋው (SmartScreen / Defender)። የተጫነ ቅጂ ይምረጡ ወይም የሩጫ ጊዜ አቃፊውን ያሳምኑ።",
-			"badExitCode": "ሁለዮሽ ፋይሉ ለ --version ምላሽ አልሰጠም። ሊበላሽ ወይም ያሳሳተ ግንባታ ሊሆን ይችላል።",
-			"timeout": "የስሪት ምርምሩ ጊዜ አለፈ። ፋይሉ ቀዘቀዘ ሊሆን ይችላል — እንደገና ይሞክሩ።",
-			"pairIncomplete": "ffmpeg እና ffprobe ሁለቱም እንደ ተጣመሩ ጥንድ መቀናጀት አለባቸው።"
+		"groups": {"engine": "የማውረጃ ሞተር", "media": "የሚዲያ መሣሪያዎች"},
+		"causes": {
+			"downloadFailed": {"title": "Arroxy የሚፈልገውን ማውረድ አልተቻለም", "body": "የኢንተርኔት ግንኙነትዎን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።"},
+			"extractFailed": {"title": "የወረደው ፋይል ተበላሽቶ ደርሷል", "body": "እንደገና አዲስ ለማውረድ ይሞክሩ።"},
+			"hashFailed": {"title": "የወረደው ፋይል ከቼክሰሙ ጋር አልተዛመደም", "body": "እንደገና አዲስ ለማውረድ ይሞክሩ።"},
+			"spawnFailed": {"title": "አንድ መሣሪያ ይጎድላል ወይም አይጀምርም", "body": "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚሰራ ቅጂ ይምረጡ።"},
+			"permissionDenied": {"title": "ሲስተምዎ Arroxy አንድ መሣሪያ እንዲያሄድ አይፈቅድም", "body": "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚያምኑትን ቅጂ ይምረጡ።"},
+			"blockedOrQuarantined": {"title": "ፀረ-ቫይረስዎ አንድ መሣሪያ አግዷል", "body": "Arroxyን በፀረ-ቫይረስዎ ወይም በSmartScreen ውስጥ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።"},
+			"badExitCode": {"title": "አንድ መሣሪያ በትክክል እየሠራ አይደለም", "body": "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚሰራ ቅጂ ይምረጡ።"},
+			"timeout": {"title": "አንድ መሣሪያ ለመመለስ በጣም ረጅም ጊዜ ወሰደ", "body": "ይህ ብዙ ጊዜ በመጀመሪያ ጊዜ በሚደረግ የደህንነት ፍተሻ ምክንያት ነው። እንደገና ይሞክሩ።"},
+			"pairIncomplete": {"title": "FFmpeg እና FFprobe አብረው መዘጋጀት አለባቸው", "body": "ሁለቱንም ከታች ይምረጡ፣ ወይም ወደ ነባሪ ይመልሷቸው።"},
+			"unknown": {"title": "በማዋቀር ወቅት የሆነ ችግር ተፈጥሯል", "body": "እንደገና ይሞክሩ፣ ወይም ለዝርዝር የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"}
 		},
-		"actions": {"chooseExecutable": "ፈፃሚ ፋይል ምረጥ", "installWithHomebrew": "በHomebrew ጫን", "installWithWinget": "በWinGet ጫን", "resetToDefault": "ወደ ነባሪ መልስ", "retrySetup": "ማዋቀሩን እንደገና ሞክር", "cancel": "ሰርዝ", "openDependencyFolder": "የጥገኝነት አቃፊ ክፈት", "viewSetupLog": "የማዋቀሪያ ምዝግብ ፋይል ተመልከት"}
+		"installing": {"homebrew": "በHomebrew በመጫን ላይ… ይህ ጥቂት ደቂቃዎችን ሊወስድ ይችላል።", "winget": "በWinGet በመጫን ላይ… ይህ ጥቂት ደቂቃዎችን ሊወስድ ይችላል።"},
+		"stopped": {"title": "ማዋቀሩ ቆሟል", "body": "እንደገና ይሞክሩ፣ ወይም Arroxyን ከታች አስቀድመው ወዳሉዎት መሣሪያዎች ያመልክቱ።"},
+		"manual": {"toggle": "በእጅ ያዋቅሩት", "intro": "Arroxyን አስቀድመው ወዳሉዎት ቅጂዎች ያመልክቱ፣ ወይም በሌላ መንገድ ይጫኗቸው።", "linuxHint": "በተጨማሪም yt-dlp እና ffmpegን በጥቅል አስተዳዳሪዎ መጫን ይችላሉ፣ ከዚያ እንደገና ሞክር የሚለውን ይጫኑ።"},
+		"actions": {"chooseExecutable": "ፈፃሚ ፋይል ምረጥ", "installWithHomebrew": "በHomebrew ጫን", "installWithWinget": "በWinGet ጫን", "resetToDefault": "ወደ ነባሪ መልስ", "retrySetup": "እንደገና ሞክር", "cancel": "ሰርዝ", "openDependencyFolder": "የጥገኝነት አቃፊ ክፈት", "viewSetupLog": "የማዋቀሪያ ምዝግብ ፋይል ተመልከት"}
 	},
 	"theme": {"light": "ብርሃን ሁነታ", "dark": "ጨለማ ሁነታ", "system": "የስርዓት ነባሪ"},
 	"language": {"label": "ቋንቋ"},
@@ -772,7 +782,7 @@
 			"outputNotWritable": "Arroxy ወደ ማውረጃ አቃፊው መጻፍ አልቻለም። አቃፊው ለንባብ ብቻ የሆነ፣ በተቆለፈ ድራይቭ ላይ ያለ ወይም በሲስተምዎ የግላዊነት ቅንብሮች የታገደ ሊሆን ይችላል። ሌላ አቃፊ ይምረጡ ወይም መዳረሻ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።",
 			"unsupportedUrl": "ያ URL በyt-dlp አይደገፍም። በyt-dlp ከሚደገፉ ጣቢያዎች ሌላ አገናኝ ይሞክሩ።",
 			"chunkTransferFailure": "አገልጋዩ ውርዱን ደጋግሞ ሲያቋርጥ yt-dlp እንደገና ከሞከረ በኋላ ሰጥቷል። ይህ ብዙ ጊዜ ትልቁን የቪዲዮ ቅርጸቶች (4K HDR / ከፍተኛ bitrate VP9) ይነካል። እንደገና ሞክሩ፣ አውታረ መረብ/VPN ይቀይሩ፣ ወይም ዝቅተኛ ጥራት ቅርጸት ይምረጡ።",
-			"missingDependency": "yt-dlp ffmpeg ወይም ffprobe ማግኘት አልቻለም። የተጠቃለሉትን ባይነሪዎች ያስተካክሉ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ እንደገና ይሞክሩ።",
+			"missingDependency": "yt-dlp ffmpeg ወይም ffprobe ማግኘት አልቻለም። ማዋቀሩን እንደገና ያሂዱ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ ማውረዱን እንደገና ይሞክሩ።",
 			"postprocessFailure": "yt-dlp ማውረዱን ጨርሷል ነገር ግን ድህረ-ሂደት (merge / mux / convert) አልተሳካም። ብዙውን ጊዜ ይህ ጊዜያዊ የffmpeg ችግር ነው — እንደገና ሞክሩ፣ ችግሩ ከቀጠለ ሌላ የቅርጸት ጥምረት ሞክሩ።",
 			"parse": "ከጣቢያው የተመለሰውን ምላሽ መፈታት አልተቻለም። የyt-dlp extractor ጊዜ ያለፈበት ሊሆን ይችላል። Arroxy በሚነሳበት ጊዜ yt-dlp ን በራስ-ሰር ያዘምነዋል — እርማቱ እንደተለቀቀ በጥቂት ደቂቃዎች ውስጥ እንደገና ሞክሩ።",
 			"network": "የአውታረ መረብ ስህተት። ግንኙነትዎን ያረጋግጡ እና እንደገና ይሞክሩ።",

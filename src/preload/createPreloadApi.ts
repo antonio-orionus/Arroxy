@@ -22,6 +22,8 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			getGraphicsPolicy: () => ipcRenderer.invoke(IPC_CHANNELS.appGetGraphicsPolicy),
 			installYtDlpWithHomebrew: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallYtDlpHomebrew),
 			installYtDlpWithWinget: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallYtDlpWinget),
+			installFfmpegWithHomebrew: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallFfmpegHomebrew),
+			installFfmpegWithWinget: () => ipcRenderer.invoke(IPC_CHANNELS.appInstallFfmpegWinget),
 			setLanguage: language => ipcRenderer.invoke(IPC_CHANNELS.appSetLanguage, language)
 		},
 		window: {

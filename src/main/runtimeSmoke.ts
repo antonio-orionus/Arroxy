@@ -1,7 +1,11 @@
 import {spawn} from 'node:child_process'
+import fsPromises from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import {app} from 'electron'
 import type {DependencySource} from '@shared/types.js'
 import type {BinaryManager} from './services/BinaryManager.js'
+import {envWithFfmpegPaths} from './utils/process.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, type YtDlpJsRuntime} from './services/ytDlpJsRuntime.js'
 
 const GREEN = '\x1b[32m'
@@ -30,6 +34,9 @@ export interface RuntimeSmokeReport {
 	nodeMajor: number | null
 	stdinJs: {ok: boolean; output: string | null}
 	ytDlp: {path: string | null; sourceKind: DependencySource['kind'] | null; sourceLabel: string | null; ejsComponents: 'bundled-required'; remoteComponentsEnabled: boolean; args: string[]; verbose: YtDlpVerboseRuntimeSummary | null}
+	// Release builds bundle no FFmpeg: both binaries must come from one managed
+	// package, and must be able to encode and read back real media.
+	ffmpeg: {ffmpegPath: string | null; ffprobePath: string | null; sourceKind: DependencySource['kind'] | null; samePackage: boolean; encodedStreams: string[]}
 	failures: string[]
 }
 
@@ -170,6 +177,10 @@ export function runtimeSmokeReportIsHealthy(report: RuntimeSmokeReport): boolean
 		!report.ytDlp.verbose.hasUnsupportedNodeRuntime &&
 		report.ytDlp.verbose.hasYtDlpEjs &&
 		!report.ytDlp.verbose.hasEjsNpmRemoteComponent &&
+		(report.ffmpeg.sourceKind === 'managed' || report.ffmpeg.sourceKind === 'managedCache') &&
+		report.ffmpeg.samePackage &&
+		report.ffmpeg.encodedStreams.includes('video:h264') &&
+		report.ffmpeg.encodedStreams.includes('audio:aac') &&
 		report.failures.length === 0
 	)
 }
@@ -205,8 +216,56 @@ async function runYtDlpVerboseProbe(ytDlpPath: string, runtime: YtDlpJsRuntime, 
 	return summarizeYtDlpVerboseRuntime(output)
 }
 
+// Encodes one second of generated H.264 video and AAC audio into MP4, then reads
+// the streams back with ffprobe. No network and no input files: it proves the
+// package's libraries load and its GPL encoders are present.
+async function runFfmpegEncodeProbe(ffmpegPath: string, ffprobePath: string): Promise<string[]> {
+	const dir = await fsPromises.mkdtemp(path.join(os.tmpdir(), 'arroxy-runtime-smoke-'))
+	const output = path.join(dir, 'probe.mp4')
+	try {
+		const encoded = await spawnText(ffmpegPath, ['-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', 'testsrc=duration=1:size=128x72:rate=10', '-f', 'lavfi', '-i', 'sine=duration=1', '-c:v', 'libx264', '-c:a', 'aac', '-shortest', '-y', output], {env: envWithFfmpegPaths(ffmpegPath)})
+		if (encoded.code !== 0) throw new Error(`ffmpeg exit ${encoded.code}: ${encoded.stderr.trim().slice(0, 2000)}`)
+		const probed = await spawnText(ffprobePath, ['-v', 'error', '-show_entries', 'stream=codec_type,codec_name', '-of', 'csv=p=0', output], {env: envWithFfmpegPaths(ffprobePath)})
+		if (probed.code !== 0) throw new Error(`ffprobe exit ${probed.code}: ${probed.stderr.trim().slice(0, 2000)}`)
+		return probed.stdout
+			.split(/\r?\n/)
+			.map(line => line.trim())
+			.filter(Boolean)
+			.map(line => {
+				const [codecName, codecType] = line.split(',')
+				return `${codecType}:${codecName}`
+			})
+	} finally {
+		await fsPromises.rm(dir, {recursive: true, force: true})
+	}
+}
+
+async function runFfmpegChecks(binaryManager: BinaryManager, report: RuntimeSmokeReport): Promise<void> {
+	const pair = await binaryManager.resolveFFmpegPair()
+	report.ffmpeg.ffmpegPath = pair.ffmpeg.resolvedPath
+	report.ffmpeg.ffprobePath = pair.ffprobe.resolvedPath
+	report.ffmpeg.sourceKind = pair.ffmpeg.source?.kind ?? null
+	report.ffmpeg.samePackage = pair.ffmpeg.resolvedPath !== null && pair.ffprobe.resolvedPath !== null && path.dirname(pair.ffmpeg.resolvedPath) === path.dirname(pair.ffprobe.resolvedPath)
+	if (!pair.ffmpeg.resolvedPath || !pair.ffprobe.resolvedPath) {
+		addFailure(report, 'managed FFmpeg package', pair.ffmpeg.failure?.message ?? pair.ffprobe.failure?.message ?? 'ffmpeg/ffprobe not resolved')
+		return
+	}
+	if ((report.ffmpeg.sourceKind === 'managed' || report.ffmpeg.sourceKind === 'managedCache') && report.ffmpeg.samePackage) {
+		pass('managed FFmpeg package', path.dirname(pair.ffmpeg.resolvedPath))
+	} else {
+		addFailure(report, 'managed FFmpeg package', `source=${report.ffmpeg.sourceKind ?? 'none'} ffmpeg=${pair.ffmpeg.resolvedPath} ffprobe=${pair.ffprobe.resolvedPath}`)
+	}
+	try {
+		report.ffmpeg.encodedStreams = await runFfmpegEncodeProbe(pair.ffmpeg.resolvedPath, pair.ffprobe.resolvedPath)
+		if (report.ffmpeg.encodedStreams.includes('video:h264') && report.ffmpeg.encodedStreams.includes('audio:aac')) pass('FFmpeg encode + ffprobe', report.ffmpeg.encodedStreams.join(' '))
+		else addFailure(report, 'FFmpeg encode + ffprobe', report.ffmpeg.encodedStreams.join(' ') || 'no streams')
+	} catch (err) {
+		addFailure(report, 'FFmpeg encode + ffprobe', errorMessage(err))
+	}
+}
+
 export async function runRuntimeSmokeMode({binaryManager}: RuntimeSmokeDeps): Promise<number> {
-	out('Runtime smoke — packaged Electron Node + managed yt-dlp')
+	out('Runtime smoke — packaged Electron Node + managed yt-dlp + managed FFmpeg')
 	out(`  execPath: ${process.execPath}`)
 	out('')
 
@@ -219,6 +278,7 @@ export async function runRuntimeSmokeMode({binaryManager}: RuntimeSmokeDeps): Pr
 		nodeMajor: null,
 		stdinJs: {ok: false, output: null},
 		ytDlp: {path: null, sourceKind: null, sourceLabel: null, ejsComponents: 'bundled-required', remoteComponentsEnabled: false, args: [], verbose: null},
+		ffmpeg: {ffmpegPath: null, ffprobePath: null, sourceKind: null, samePackage: false, encodedStreams: []},
 		failures: []
 	}
 
@@ -294,6 +354,8 @@ export async function runRuntimeSmokeMode({binaryManager}: RuntimeSmokeDeps): Pr
 			addFailure(report, 'yt-dlp verbose runtime/EJS', errorMessage(err))
 		}
 	}
+
+	await runFfmpegChecks(binaryManager, report)
 
 	report.ok = runtimeSmokeReportIsHealthy({...report, ok: report.failures.length === 0})
 	out('')

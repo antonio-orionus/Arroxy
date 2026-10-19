@@ -16,33 +16,43 @@
 	"splash": {
 		"greeting": "Hei, selamat datang kembali!",
 		"warmup": "Mempersiapkan unduhan…",
-		"downloading": "Mengunduh {{binary}}…",
 		"verifying": "Memeriksa {{binary}}…",
 		"verifyFirstCheck": "Pemeriksaan pertama versi ini — yang ini lambat. Biasanya sekitar satu menit.",
 		"cancel": "Ada masalah? Atur secara manual",
-		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya."
+		"warmupFailedNoDiag": "Penyiapan gagal. Buka log pengaturan untuk mengetahui detailnya.",
+		"setup": {
+			"title": {"firstRun": "Penyiapan pertama kali", "media": "Memperbarui alat media", "engine": "Memperbarui mesin pengunduh"},
+			"stage": {"connecting": "Menghubungkan…", "downloadingBoth": "Mengunduh mesin pengunduh dan alat media", "downloadingEngine": "Mengunduh mesin pengunduh", "downloadingMedia": "Mengunduh alat media", "unpacking": "Mengekstrak alat media", "checking": "Memeriksa semuanya berfungsi"},
+			"bytes": "{{done}} dari {{total}}",
+			"left": {"underMinute": "sisa kurang dari semenit", "minutes_other": "sisa sekitar {{count}} mnt"},
+			"note": {"firstRun": "Ini hanya terjadi sekali. Arroxy menyimpan alat ini dan memperbaruinya sendiri.", "media": "Ini hanya terjadi sekali. Arroxy menyimpannya untuk pembaruan berikutnya.", "engine": "Menjaga unduhan tetap berjalan saat situs berubah."}
+		}
 	},
 	"repair": {
 		"title": "Penyiapan membutuhkan bantuan Anda",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "penyelidikan FF"},
-		"hints": {
-			"unknown": "Tidak dapat diverifikasi.",
-			"downloadFailed": "Pengunduhan gagal. Periksa koneksi internet Anda dan coba lagi.",
-			"extractFailed": "Ekstraksi arsip gagal. Unduhan mungkin rusak — coba lagi.",
-			"hashFailed": "Ketidakcocokan checksum pada file yang diunduh. Coba unduh lagi.",
-			"spawnFailed": "File hilang atau tidak dapat diluncurkan. Pilih copy pekerjaan.",
-			"permissionDenied": "Sistem menolak menjalankan file tersebut. Pilih salinan yang Anda percayai atau coba lagi sebagai admin.",
-			"blockedOrQuarantined": "Windows memblokir file (SmartScreen / Defender). Pilih salinan yang diinstal atau masukkan folder runtime ke daftar putih.",
-			"badExitCode": "Biner tidak merespons --version. Mungkin rusak atau buildnya salah.",
-			"timeout": "Waktu pemeriksaan versi telah habis. File mungkin macet — coba lagi.",
-			"pairIncomplete": "ffmpeg dan ffprobe keduanya harus ditetapkan sebagai pasangan yang cocok."
+		"groups": {"engine": "Mesin pengunduh", "media": "Alat media"},
+		"causes": {
+			"downloadFailed": {"title": "Tidak dapat mengunduh yang dibutuhkan Arroxy", "body": "Periksa koneksi internet Anda, lalu coba lagi."},
+			"extractFailed": {"title": "Unduhan tiba dalam keadaan rusak", "body": "Coba lagi untuk mengunduhnya ulang."},
+			"hashFailed": {"title": "Unduhan tidak cocok dengan checksum-nya", "body": "Coba lagi untuk mengunduhnya ulang."},
+			"spawnFailed": {"title": "Sebuah alat hilang atau tidak bisa dimulai", "body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."},
+			"permissionDenied": {"title": "Sistem Anda tidak mengizinkan Arroxy menjalankan sebuah alat", "body": "Coba lagi. Jika terus gagal, pilih salinan yang Anda percaya di bawah."},
+			"blockedOrQuarantined": {"title": "Antivirus Anda memblokir sebuah alat", "body": "Izinkan Arroxy di antivirus atau SmartScreen Anda, lalu coba lagi."},
+			"badExitCode": {"title": "Sebuah alat tidak berfungsi dengan benar", "body": "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."},
+			"timeout": {"title": "Sebuah alat terlalu lama merespons", "body": "Ini sering terjadi karena pemindaian keamanan saat pertama kali dijalankan. Coba lagi."},
+			"pairIncomplete": {"title": "FFmpeg dan FFprobe harus diatur bersamaan", "body": "Pilih keduanya di bawah, atau atur ulang ke default."},
+			"unknown": {"title": "Terjadi kesalahan saat penyiapan", "body": "Coba lagi, atau buka log pengaturan untuk detailnya."}
 		},
+		"installing": {"homebrew": "Menginstal dengan Homebrew… Ini bisa memakan waktu beberapa menit.", "winget": "Menginstal dengan WinGet… Ini bisa memakan waktu beberapa menit."},
+		"stopped": {"title": "Penyiapan dihentikan", "body": "Coba lagi, atau arahkan Arroxy ke alat yang sudah Anda miliki di bawah."},
+		"manual": {"toggle": "Atur secara manual", "intro": "Arahkan Arroxy ke salinan yang sudah Anda miliki, atau instal dengan cara lain.", "linuxHint": "Anda juga bisa menginstal yt-dlp dan ffmpeg lewat pengelola paket, lalu klik Coba lagi."},
 		"actions": {
 			"chooseExecutable": "Pilih yang dapat dieksekusi",
 			"installWithHomebrew": "Instal dengan Homebrew",
 			"installWithWinget": "Instal dengan WinGet",
 			"resetToDefault": "Atur ulang ke default",
-			"retrySetup": "Coba lagi penyiapan",
+			"retrySetup": "Coba lagi",
 			"cancel": "Membatalkan",
 			"openDependencyFolder": "Buka folder ketergantungan",
 			"viewSetupLog": "Lihat log pengaturan"
@@ -797,7 +807,7 @@
 			"outputNotWritable": "Arroxy tidak dapat menulis ke folder unduhan. Folder itu mungkin hanya-baca, berada di drive yang terkunci, atau diblokir oleh pengaturan privasi sistem Anda. Pilih folder lain atau izinkan akses, lalu coba lagi.",
 			"unsupportedUrl": "URL tersebut tidak didukung oleh yt-dlp. Coba tautan lain dari situs mana pun yang didukung yt-dlp.",
 			"chunkTransferFailure": "Server terus memotong unduhan di tengah-tengah streaming dan yt-dlp menyerah setelah mencoba lagi. Ini biasanya mengenai format video terbesar (4K HDR / VP9 dengan kecepatan bit tinggi). Coba lagi, ganti jaringan/VPN, atau pilih format resolusi lebih rendah.",
-			"missingDependency": "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Perbaiki biner yang dibundel atau atur lokasi FFmpeg, lalu coba lagi.",
+			"missingDependency": "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi.",
 			"postprocessFailure": "yt-dlp selesai diunduh tetapi pasca pemrosesan (penggabungan/mux/konversi) gagal. Seringkali ini merupakan masalah ffmpeg yang bersifat sementara — coba lagi, dan jika masalah terus berlanjut, coba kombinasi format lain.",
 			"parse": "Tidak dapat menguraikan respons dari situs. Ekstraktor yt-dlp mungkin melayang. Arroxy memperbarui secara otomatis yt-dlp saat peluncuran — coba lagi dalam beberapa menit setelah perbaikan dikirimkan.",
 			"network": "Kesalahan jaringan. Periksa koneksi Anda dan coba lagi.",

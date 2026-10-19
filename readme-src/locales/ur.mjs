@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — اسٹائلنگ
 - **Zustand** — اسٹیٹ مینجمنٹ
-- **yt-dlp** + **ffmpeg** — ڈاؤن لوڈ اور مکس انجن (yt-dlp runtime پر حاصل ہوتا ہے؛ ffmpeg/ffprobe build time پر بنڈل ہوتے ہیں)
+- **yt-dlp** + **ffmpeg** — ڈاؤن لوڈ اور مکس انجن (دونوں runtime پر حاصل ہوتے ہیں: yt-dlp اپ ٹو ڈیٹ رکھا جاتا ہے، ffmpeg/ffprobe ایک بار انسٹال ہو کر اپ ڈیٹس کے بعد بھی برقرار رہتے ہیں)
 - **Vite** + **electron-vite** — بلڈ ٹولنگ
 - **Vitest** + **Playwright** — یونٹ اور اینڈ ٹو اینڈ ٹیسٹ
 
@@ -78,7 +78,7 @@ bun run dist         # موجودہ OS کے لیے پیکج
 bun run dist:win     # supported host پر Windows targets پیکج کریں
 \`\`\`
 
-> \`bun run bootstrap\` dependencies انسٹال کرتا ہے، Electron app dependencies کو rebuild کرتا ہے، Electron کی تصدیق کرتا ہے، development کے لیے embedded ffmpeg/ffprobe تیار کرتا ہے، اور Playwright Chromium انسٹال کرتا ہے۔ yt-dlp runtime پر app data folder میں manage ہوتا ہے؛ ffmpeg اور ffprobe ہر Arroxy release کے ساتھ bundled ہوتے ہیں۔
+> \`bun run bootstrap\` dependencies انسٹال کرتا ہے، Electron app dependencies کو rebuild کرتا ہے، Electron کی تصدیق کرتا ہے، development کے لیے embedded ffmpeg/ffprobe تیار کرتا ہے، اور Playwright Chromium انسٹال کرتا ہے۔ Release builds میں yt-dlp، ffmpeg اور ffprobe runtime پر app data folder میں manage ہوتے ہیں؛ ان میں سے کوئی بھی installer کے اندر شامل نہیں ہوتا۔
 
 </details>`;
 
@@ -403,7 +403,7 @@ export const ur = {
     "{{LANG_COUNT}} زبانیں فوراً دستیاب ہیں: {{LANG_NAME_LIST}}۔ Arroxy پہلی بار چلنے پر آپ کے آپریٹنگ سسٹم کی زبان خود بخود پہچانتا ہے، اور آپ ٹول بار کے زبان چننے والے سے کسی بھی وقت زبان بدل سکتے ہیں۔ Runtime locale JSON src/shared/i18n/locales/ میں ہے، اور مترجمین کے لیے PO catalog i18n/locales/ میں ہے — تعاون کے لیے GitHub پر PR کھولیں۔",
   faq_q7: "کیا مجھے کچھ اور انسٹال کرنا ہوگا؟",
   faq_a7:
-    "نہیں۔ yt-dlp پہلی بار لانچ پر خود بخود ڈاؤن لوڈ ہو کر آپ کی مشین پر کیش ہو جاتا ہے؛ ffmpeg اور ffprobe ایپ کے ساتھ آتے ہیں۔ اس کے بعد کسی اضافی سیٹ اپ کی ضرورت نہیں۔",
+    "نہیں۔ yt-dlp، ffmpeg اور ffprobe پہلی بار لانچ پر خود بخود ڈاؤن لوڈ ہو کر آپ کی مشین پر کیش ہو جاتے ہیں۔ اس کے بعد کسی اضافی سیٹ اپ کی ضرورت نہیں۔",
   faq_q8: "کیا میں پلے لسٹس یا پورے چینلز ڈاؤن لوڈ کر سکتا ہوں؟",
   faq_a8:
     "ہاں — دونوں۔ پلے لسٹ یا چینل URL پیسٹ کریں (مثلاً `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)؛ منتخب کریں کہ کتنی entries scan کرنی ہیں، پھر پوری فہرست queue کریں یا مخصوص ویڈیوز چنیں۔ date-range filters جلد آ رہے ہیں۔",

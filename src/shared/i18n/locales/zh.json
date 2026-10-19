@@ -13,23 +13,41 @@
 	},
 	"about": {"button": "关于", "openTitle": "关于 Arroxy", "tagline": "适用于 YouTube 和其他 2000+ 网站的快速友好下载器。", "websiteLink": "官网", "githubLink": "GitHub", "licenseLine": "MIT 许可证 · 作者 Antonio Orionus", "thirdPartyNotices": "查看第三方声明"},
 	"titleBar": {"close": "关闭", "minimize": "最小化", "maximize": "最大化", "restore": "还原"},
-	"splash": {"greeting": "嘿,欢迎回来!", "warmup": "正在准备下载…", "downloading": "正在下载 {{binary}}…", "verifying": "正在检查 {{binary}}…", "verifyFirstCheck": "本版本的首次检查——这次会比较慢，通常需要一分钟左右。", "cancel": "遇到问题？手动设置", "warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。"},
+	"splash": {
+		"greeting": "嘿,欢迎回来!",
+		"warmup": "正在准备下载…",
+		"verifying": "正在检查 {{binary}}…",
+		"verifyFirstCheck": "本版本的首次检查——这次会比较慢，通常需要一分钟左右。",
+		"cancel": "遇到问题？手动设置",
+		"warmupFailedNoDiag": "初始化失败。打开设置日志查看详情。",
+		"setup": {
+			"title": {"firstRun": "首次设置", "media": "正在更新媒体工具", "engine": "正在更新下载引擎"},
+			"stage": {"connecting": "正在连接…", "downloadingBoth": "正在下载下载引擎和媒体工具", "downloadingEngine": "正在下载下载引擎", "downloadingMedia": "正在下载媒体工具", "unpacking": "正在解压媒体工具", "checking": "正在检查一切是否正常"},
+			"bytes": "{{done}} / {{total}}",
+			"left": {"underMinute": "不到 1 分钟", "minutes_other": "约剩 {{count}} 分钟"},
+			"note": {"firstRun": "只需这一次。Arroxy 会保留这些工具并自行更新。", "media": "只需这一次。Arroxy 会保留它们以供日后更新。", "engine": "让下载在网站变化时仍能正常工作。"}
+		}
+	},
 	"repair": {
 		"title": "初始化需要你的帮助",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "无法验证。",
-			"downloadFailed": "下载失败。请检查网络连接后重试。",
-			"extractFailed": "解压缩失败。下载文件可能已损坏——请重试。",
-			"hashFailed": "下载文件的校验和不匹配。请重新下载。",
-			"spawnFailed": "文件缺失或无法启动。请选择一个可用的副本。",
-			"permissionDenied": "系统拒绝运行该文件。请选择你信任的副本，或以管理员身份重试。",
-			"blockedOrQuarantined": "Windows 阻止了该文件（SmartScreen / Defender）。请选择已安装的副本或将运行时文件夹加入白名单。",
-			"badExitCode": "该二进制文件未响应 --version。可能已损坏或版本不匹配。",
-			"timeout": "版本检测超时。该文件可能卡住了——请重试。",
-			"pairIncomplete": "ffmpeg 和 ffprobe 必须作为配对一起设置。"
+		"groups": {"engine": "下载引擎", "media": "媒体工具"},
+		"causes": {
+			"downloadFailed": {"title": "无法下载 Arroxy 所需的内容", "body": "请检查网络连接，然后重试。"},
+			"extractFailed": {"title": "下载的文件已损坏", "body": "请重试，重新下载一次。"},
+			"hashFailed": {"title": "下载的文件校验未通过", "body": "请重试，重新下载一次。"},
+			"spawnFailed": {"title": "某个工具缺失或无法启动", "body": "请重试。如果仍然失败，请在下方选择一个可用的副本。"},
+			"permissionDenied": {"title": "系统不允许 Arroxy 运行某个工具", "body": "请重试。如果仍然失败，请在下方选择一个你信任的副本。"},
+			"blockedOrQuarantined": {"title": "杀毒软件拦截了某个工具", "body": "请在杀毒软件或 SmartScreen 中允许 Arroxy，然后重试。"},
+			"badExitCode": {"title": "某个工具运行不正常", "body": "请重试。如果仍然失败，请在下方选择一个可用的副本。"},
+			"timeout": {"title": "某个工具响应时间过长", "body": "首次运行时常因安全扫描而变慢。请重试。"},
+			"pairIncomplete": {"title": "FFmpeg 和 FFprobe 必须一起设置", "body": "请在下方同时选择两者，或将它们恢复为默认。"},
+			"unknown": {"title": "设置过程中出了点问题", "body": "请重试，或打开设置日志查看详情。"}
 		},
-		"actions": {"chooseExecutable": "选择可执行文件", "installWithHomebrew": "使用 Homebrew 安装", "installWithWinget": "使用 WinGet 安装", "resetToDefault": "恢复默认", "retrySetup": "重试初始化", "cancel": "取消", "openDependencyFolder": "打开依赖文件夹", "viewSetupLog": "查看设置日志"}
+		"installing": {"homebrew": "正在通过 Homebrew 安装…可能需要几分钟。", "winget": "正在通过 WinGet 安装…可能需要几分钟。"},
+		"stopped": {"title": "设置已停止", "body": "请重试，或在下方指定你已有的工具。"},
+		"manual": {"toggle": "手动设置", "intro": "指定你已有的副本，或通过其他方式安装。", "linuxHint": "你也可以用包管理器安装 yt-dlp 和 ffmpeg，然后点击“重试”。"},
+		"actions": {"chooseExecutable": "选择可执行文件", "installWithHomebrew": "使用 Homebrew 安装", "installWithWinget": "使用 WinGet 安装", "resetToDefault": "恢复默认", "retrySetup": "重试", "cancel": "取消", "openDependencyFolder": "打开依赖文件夹", "viewSetupLog": "查看设置日志"}
 	},
 	"theme": {"light": "浅色模式", "dark": "深色模式", "system": "跟随系统"},
 	"language": {"label": "语言"},
@@ -730,7 +748,7 @@
 			"outputNotWritable": "Arroxy 无法写入下载文件夹。该文件夹可能是只读的、位于已锁定的驱动器上，或被系统的隐私设置阻止。请选择其他文件夹或允许访问，然后重试。",
 			"unsupportedUrl": "yt-dlp 不支持该 URL。请尝试 yt-dlp 支持的任意网站上的其他链接。",
 			"chunkTransferFailure": "服务器在传输过程中反复中断下载，yt-dlp 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
-			"missingDependency": "yt-dlp 找不到 ffmpeg 或 ffprobe。请修复内置二进制文件，或设置 FFmpeg 位置，然后重试。",
+			"missingDependency": "yt-dlp 找不到 ffmpeg 或 ffprobe。请重新运行设置，或指定 FFmpeg 位置，然后重试下载。",
 			"postprocessFailure": "yt-dlp 已完成下载，但后处理（合并 / mux / 转换）失败。这通常是 ffmpeg 的临时问题——请重试，如果仍然失败，请尝试其他格式组合。",
 			"parse": "无法解析网站的响应。yt-dlp 的提取器可能已过时。Arroxy 会在启动时自动更新 yt-dlp——请几分钟后再重试，等待修复发布。",
 			"network": "网络错误。请检查你的连接并重试。",

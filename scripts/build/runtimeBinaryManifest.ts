@@ -5,11 +5,13 @@ import path from 'node:path'
 import {pathToFileURL} from 'node:url'
 import {downloadArtifactToCache, downloadText, parseShaLine} from '../../src/main/services/binary/BinaryDownloader.js'
 import {probeArgs, probeBinary, probeTimeoutMs} from '../../src/main/services/binary/BinaryProbe.js'
+import {FfmpegPackageMaterializer} from '../../src/main/services/binary/FfmpegPackageMaterializer.js'
+import {FFMPEG_PACKAGE_PINS} from '../../src/main/services/binary/FfmpegPackagePins.js'
 import {RuntimeBinaryMaterializer} from '../../src/main/services/binary/RuntimeBinaryMaterializer.js'
 import {RUNTIME_BINARY_INDEX_PUBLIC_KEY_PEM} from '../../src/main/services/binary/RuntimeBinaryTrust.js'
 import {githubYtDlpDownloadUrl, parseSourceForgeLatestYtDlpVersion, sourceForgeYtDlpDownloadUrl, YT_DLP_SOURCES, ytDlpTargets, type YtDlpTarget} from '../../src/main/services/binary/YtDlpBinarySource.js'
-import {runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryIndex} from '../../src/shared/runtimeBinaryManifest.js'
-import type {RuntimeBinaryChannel, RuntimeBinaryIndex, RuntimeBinaryManifestEntry, RuntimeBinaryProvider} from '../../src/shared/types.js'
+import {runtimeBinaryArchFor, runtimeBinaryPlatformFor, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex, validateRuntimeBinaryIndexV1} from '../../src/shared/runtimeBinaryManifest.js'
+import type {RuntimeBinaryChannel, RuntimeBinaryIndex, RuntimeBinaryIndexEntry, RuntimeBinaryIndexV1, RuntimeBinaryManifestEntry, RuntimeBinaryProvider} from '../../src/shared/types.js'
 
 interface GithubReleaseAsset {
 	name: string
@@ -29,6 +31,7 @@ interface ArtifactMetadata {
 
 interface GenerateOptions {
 	outPath: string
+	outV2Path: string
 	cacheRoot?: string
 	validate: boolean
 }
@@ -53,8 +56,12 @@ interface LocalOptions {
 	envFile: string
 }
 
+// v1 is what Arroxy 0.6.2 and earlier read; it carries yt-dlp only. v2 adds
+// the pinned FFmpeg packages and is what current builds read.
 const MANIFEST_FILE_NAME = 'runtime-index-v1.json'
 const SIGNATURE_FILE_NAME = 'runtime-index-v1.sig'
+const MANIFEST_V2_FILE_NAME = 'runtime-index-v2.json'
+const SIGNATURE_V2_FILE_NAME = 'runtime-index-v2.sig'
 const LOCAL_PUBLIC_KEY_FILE_NAME = 'runtime-index-local.public.pem'
 const LOCAL_PRIVATE_KEY_FILE_NAME = 'runtime-index-local.private.pem'
 const LOCAL_ENV_FILE_NAME = 'runtime-index.local.env'
@@ -169,20 +176,31 @@ async function sourceForgeYtDlpEntries(downloadRoot: string, cache: Map<string, 
 	)
 }
 
-export async function generateRuntimeBinaryIndex(options: {cacheRoot?: string} = {}): Promise<RuntimeBinaryIndex> {
+export interface GeneratedRuntimeBinaryIndexes {
+	v1: RuntimeBinaryIndexV1
+	v2: RuntimeBinaryIndex
+}
+
+export async function generateRuntimeBinaryIndexes(options: {cacheRoot?: string} = {}): Promise<GeneratedRuntimeBinaryIndexes> {
 	const cacheRoot = options.cacheRoot ?? (await fsPromises.mkdtemp(path.join(os.tmpdir(), 'arroxy-runtime-manifest-')))
 	const downloadRoot = path.join(cacheRoot, 'generator-downloads')
 	const cache = new Map<string, Promise<ArtifactMetadata>>()
 	await fsPromises.mkdir(downloadRoot, {recursive: true})
 	const [nightlyEntries, stableEntries, sourceForgeEntries] = await Promise.all([githubYtDlpEntries('nightly', downloadRoot, cache), githubYtDlpEntries('stable', downloadRoot, cache), sourceForgeYtDlpEntries(downloadRoot, cache)])
-	const entries = [...nightlyEntries, ...stableEntries, ...sourceForgeEntries]
-	const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: new Date().toISOString(), entries}
-	const validation = validateRuntimeBinaryIndex(index)
-	if (!validation.ok) throw new Error(`Generated runtime binary index is invalid: ${validation.issues.join('; ')}`)
-	return index
+	const ytDlpEntries = [...nightlyEntries, ...stableEntries, ...sourceForgeEntries]
+	const generatedAt = new Date().toISOString()
+	const v1: RuntimeBinaryIndexV1 = {schemaVersion: 1, generatedAt, entries: ytDlpEntries}
+	// FFmpeg is copied from the committed pins, never resolved here: a daily
+	// run must not be able to change which FFmpeg build users get.
+	const v2: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt, entries: [...ytDlpEntries, ...FFMPEG_PACKAGE_PINS]}
+	const v1Validation = validateRuntimeBinaryIndexV1(v1)
+	if (!v1Validation.ok) throw new Error(`Generated runtime binary index v1 is invalid: ${v1Validation.issues.join('; ')}`)
+	const v2Validation = validateRuntimeBinaryIndex(v2)
+	if (!v2Validation.ok) throw new Error(`Generated runtime binary index v2 is invalid: ${v2Validation.issues.join('; ')}`)
+	return {v1, v2}
 }
 
-export function entriesForRuntimeBinaryValidation(index: RuntimeBinaryIndex, smoke: 'current' | 'none', platform: NodeJS.Platform = process.platform, arch: NodeJS.Architecture = process.arch): RuntimeBinaryManifestEntry[] {
+export function entriesForRuntimeBinaryValidation(index: Pick<RuntimeBinaryIndexV1, 'entries'>, smoke: 'current' | 'none', platform: NodeJS.Platform = process.platform, arch: NodeJS.Architecture = process.arch): RuntimeBinaryManifestEntry[] {
 	if (smoke === 'none') return index.entries
 	const currentPlatform = runtimeBinaryPlatformFor(platform)
 	const currentArch = runtimeBinaryArchFor(arch)
@@ -190,14 +208,34 @@ export function entriesForRuntimeBinaryValidation(index: RuntimeBinaryIndex, smo
 	return index.entries.filter(entry => entry.platform === currentPlatform && entry.arch === currentArch)
 }
 
-async function validateRuntimeBinaryIndexEntries(index: RuntimeBinaryIndex, cacheRoot: string, smoke: 'current' | 'none'): Promise<number> {
+async function validateRuntimeBinaryIndexEntries(index: RuntimeBinaryIndexV1 | RuntimeBinaryIndex, cacheRoot: string, smoke: 'current' | 'none'): Promise<number> {
 	const materializer = new RuntimeBinaryMaterializer()
-	const entries = entriesForRuntimeBinaryValidation(index, smoke)
+	const indexEntries: readonly RuntimeBinaryIndexEntry[] = index.entries
+	const entries = entriesForRuntimeBinaryValidation({entries: indexEntries.filter((entry): entry is RuntimeBinaryManifestEntry => entry.id === 'yt-dlp')}, smoke)
 	for (const entry of entries) {
 		const result = await materializer.materialize(entry, {cacheRoot})
 		if (smoke === 'current') {
 			const probe = await probeBinary(result.executablePath, probeArgs(entry.id), probeTimeoutMs(entry.id))
 			if (!probe.ok) throw new Error(`Smoke probe failed for ${entry.id} ${entry.provider} ${entry.version}: ${probe.failure.message}`)
+		}
+	}
+	const ffmpegCount = index.schemaVersion === 2 && smoke === 'current' ? await validateCurrentFfmpegPackages(index, cacheRoot) : 0
+	return entries.length + ffmpegCount
+}
+
+// Installs this host's pinned FFmpeg package from its release URL and runs both
+// binaries, which proves the published asset matches the pin and still runs.
+async function validateCurrentFfmpegPackages(index: RuntimeBinaryIndex, cacheRoot: string): Promise<number> {
+	const materializer = new FfmpegPackageMaterializer()
+	const entries = runtimeEntriesForCurrentTarget(index, 'ffmpeg')
+	for (const entry of entries) {
+		const install = await materializer.materialize(entry, {cacheRoot})
+		for (const [id, executable] of [
+			['ffmpeg', install.ffmpegPath],
+			['ffprobe', install.ffprobePath]
+		] as const) {
+			const probe = await probeBinary(executable, probeArgs(id), probeTimeoutMs(id))
+			if (!probe.ok) throw new Error(`Smoke probe failed for ${id} ${entry.version}: ${probe.failure.message}`)
 		}
 	}
 	return entries.length
@@ -219,7 +257,7 @@ export function verifyRuntimeIndexPayloadSignature(payload: string, signatureBas
 	return verifyPayload(null, Buffer.from(payload), publicKeyPem, Buffer.from(signatureBase64.trim(), 'base64'))
 }
 
-function formatIndex(index: RuntimeBinaryIndex): string {
+function formatIndex(index: RuntimeBinaryIndexV1 | RuntimeBinaryIndex): string {
 	return `${JSON.stringify(index, null, 2)}\n`
 }
 
@@ -252,7 +290,8 @@ function defaultCacheRoot(): string {
 
 function parseGenerateOptions(args: string[]): GenerateOptions {
 	const outPath = optionValue(args, '--out') ?? path.join('dist', 'runtime-binaries', MANIFEST_FILE_NAME)
-	return {outPath, cacheRoot: optionValue(args, '--cache-root'), validate: hasFlag(args, '--validate')}
+	const outV2Path = optionValue(args, '--out-v2') ?? path.join(path.dirname(outPath), MANIFEST_V2_FILE_NAME)
+	return {outPath, outV2Path, cacheRoot: optionValue(args, '--cache-root'), validate: hasFlag(args, '--validate')}
 }
 
 function parseValidateOptions(args: string[]): ValidateOptions {
@@ -276,10 +315,11 @@ function parseLocalOptions(args: string[]): LocalOptions {
 	return {outDir, cacheRoot: optionValue(args, '--cache-root'), keyPath, publicKeyPath, envFile}
 }
 
-async function readIndexFile(manifestPath: string): Promise<{raw: string; index: RuntimeBinaryIndex}> {
+async function readIndexFile(manifestPath: string): Promise<{raw: string; index: RuntimeBinaryIndexV1 | RuntimeBinaryIndex}> {
 	const raw = await fsPromises.readFile(manifestPath, 'utf8')
 	const parsed = JSON.parse(raw) as unknown
-	const validation = validateRuntimeBinaryIndex(parsed)
+	const isV1 = typeof parsed === 'object' && parsed !== null && 'schemaVersion' in parsed && parsed.schemaVersion === 1
+	const validation = isV1 ? validateRuntimeBinaryIndexV1(parsed) : validateRuntimeBinaryIndex(parsed)
 	if (!validation.ok) throw new Error(`Runtime binary index validation failed: ${validation.issues.join('; ')}`)
 	return {raw, index: validation.value}
 }
@@ -287,12 +327,14 @@ async function readIndexFile(manifestPath: string): Promise<{raw: string; index:
 async function generateCommand(args: string[]): Promise<void> {
 	const options = parseGenerateOptions(args)
 	const cacheRoot = options.cacheRoot ?? defaultCacheRoot()
-	const index = await generateRuntimeBinaryIndex({cacheRoot})
-	const raw = formatIndex(index)
-	await fsPromises.mkdir(path.dirname(options.outPath), {recursive: true})
-	await fsPromises.writeFile(options.outPath, raw)
-	const materializedCount = options.validate ? await validateRuntimeBinaryIndexEntries(index, path.join(cacheRoot, 'materialized'), 'current') : 0
-	console.log(`Wrote ${options.outPath} with ${index.entries.length} entries`)
+	const {v1, v2} = await generateRuntimeBinaryIndexes({cacheRoot})
+	await Promise.all([fsPromises.mkdir(path.dirname(options.outPath), {recursive: true}), fsPromises.mkdir(path.dirname(options.outV2Path), {recursive: true})])
+	await Promise.all([fsPromises.writeFile(options.outPath, formatIndex(v1)), fsPromises.writeFile(options.outV2Path, formatIndex(v2))])
+	// Only the yt-dlp entries: the FFmpeg packages are smoke-tested by
+	// `validate` against the v2 file once they are published.
+	const materializedCount = options.validate ? await validateRuntimeBinaryIndexEntries(v1, path.join(cacheRoot, 'materialized'), 'current') : 0
+	console.log(`Wrote ${options.outPath} with ${v1.entries.length} entries`)
+	console.log(`Wrote ${options.outV2Path} with ${v2.entries.length} entries`)
 	if (options.validate) console.log(`Materialized and smoked ${materializedCount} current-host entries`)
 }
 
@@ -332,11 +374,11 @@ async function readOrCreateLocalSigningKey(options: Pick<LocalOptions, 'keyPath'
 
 async function localCommand(args: string[]): Promise<void> {
 	const options = parseLocalOptions(args)
-	const manifestPath = path.join(options.outDir, MANIFEST_FILE_NAME)
-	const signaturePath = path.join(options.outDir, SIGNATURE_FILE_NAME)
+	const manifestPath = path.join(options.outDir, MANIFEST_V2_FILE_NAME)
+	const signaturePath = path.join(options.outDir, SIGNATURE_V2_FILE_NAME)
 	const cacheRoot = options.cacheRoot ?? defaultCacheRoot()
 	await fsPromises.mkdir(options.outDir, {recursive: true})
-	const index = await generateRuntimeBinaryIndex({cacheRoot})
+	const {v2: index} = await generateRuntimeBinaryIndexes({cacheRoot})
 	const raw = formatIndex(index)
 	const {privateKeyPem, publicKeyPem, created} = await readOrCreateLocalSigningKey(options)
 	const signature = signRuntimeIndexPayload(raw, privateKeyPem)

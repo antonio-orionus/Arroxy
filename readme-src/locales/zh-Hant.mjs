@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — 樣式
 - **Zustand** — 狀態管理
-- **yt-dlp** + **ffmpeg** — 下載與混流引擎（yt-dlp 在執行時取得；ffmpeg/ffprobe 在建置時打包）
+- **yt-dlp** + **ffmpeg** — 下載與混流引擎（兩者都在執行時取得：yt-dlp 保持最新，ffmpeg/ffprobe 只安裝一次並在更新後保留）
 - **Vite** + **electron-vite** — 建置工具
 - **Vitest** + **Playwright** — 單元測試與端到端測試
 
@@ -78,7 +78,7 @@ bun run dist         # 為目前系統打包
 bun run dist:win     # 在受支援的主機上打包 Windows 目標
 \`\`\`
 
-> \`bun run bootstrap\` 會安裝依賴、重建 Electron 應用程式程式依賴、驗證 Electron、為開發準備嵌入式 ffmpeg/ffprobe，並安裝 Playwright Chromium。yt-dlp 在執行時由應用程式資料目錄管理；ffmpeg 和 ffprobe 隨每個 Arroxy 版本一起提供。
+> \`bun run bootstrap\` 會安裝依賴、重建 Electron 應用程式程式依賴、驗證 Electron、為開發準備嵌入式 ffmpeg/ffprobe，並安裝 Playwright Chromium。發行版本在執行時於應用程式資料目錄中管理 yt-dlp、ffmpeg 和 ffprobe；它們都不包含在安裝程式中。
 
 </details>`;
 
@@ -373,7 +373,7 @@ export const zhHant = {
     "立即可用的 {{LANG_COUNT}} 種語言：{{LANG_NAME_LIST}}。 Arroxy 會在首次啟動時自動檢測作業系統語言，你也可以隨時從工具列的語言選擇器切換。Runtime locale JSON 位於 src/shared/i18n/locales/，面向譯者的 PO catalog 位於 i18n/locales/ — 歡迎在 GitHub 上建立 PR 貢獻。",
   faq_q7: "需要額外安裝其他軟體嗎？",
   faq_a7:
-    "不需要。yt-dlp 會在首次啟動時自動下載並快取到你的電腦上；ffmpeg 和 ffprobe 隨應用程式一起提供。之後無需任何額外設定。",
+    "不需要。yt-dlp、ffmpeg 和 ffprobe 會在首次啟動時自動下載並快取到你的電腦上。之後無需任何額外設定。",
   faq_q8: "能下載播放清單或整個頻道嗎？",
   faq_a8:
     "可以，兩者都支援。貼上播放清單或頻道 URL（例如 `youtube.com/@handle`、`/channel/UC…`、`/c/Name`、`/user/Old`）；選擇要掃描的項目數量，然後將整個清單加入佇列或選擇特定影片。日期範圍篩選即將推出。",

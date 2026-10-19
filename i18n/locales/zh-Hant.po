@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "此影片需要已登入的帳號。"
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp 找不到 ffmpeg 或 ffprobe。請修復隨附的執行檔，或設定 FFmpeg 的位置後重試。"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp 找不到 ffmpeg 或 ffprobe。請重新執行設定，或指定 FFmpeg 位置，然後重試下載。"
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "重設為預設值"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "重試設定"
+msgid "Try again"
+msgstr "再試一次"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "檢視設定記錄"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "請再試一次。如果仍然失敗，請在下方選擇可用的副本。"
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "某個工具運作不正常"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "請在防毒軟體或 SmartScreen 中允許 Arroxy，然後再試一次。"
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "防毒軟體封鎖了某個工具"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "請檢查網路連線，然後再試一次。"
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "無法下載 Arroxy 所需的內容"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "請再試一次，重新下載一次。"
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "下載的檔案已損毀"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "請再試一次，重新下載一次。"
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "下載的檔案未通過校驗"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "請在下方同時選擇兩者，或將它們重設為預設值。"
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg 和 FFprobe 必須一起設定"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "請再試一次。如果仍然失敗，請在下方選擇你信任的副本。"
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "系統不允許 Arroxy 執行某個工具"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "請再試一次。如果仍然失敗，請在下方選擇可用的副本。"
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "某個工具遺失或無法啟動"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "首次執行時常因安全性掃描而變慢。請再試一次。"
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "某個工具回應時間過長"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "請再試一次，或開啟設定記錄查看詳細資料。"
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "設定過程中發生問題"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "執行檔未回應 --version。它可能已損毀或是錯誤的組建版本。"
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "下載引擎"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows 已封鎖檔案（SmartScreen／Defender）。請選擇已安裝的副本，或將執行階段資料夾加入允許清單。"
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "媒體工具"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "下載失敗。請檢查網際網路連線後重試。"
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "正在透過 Homebrew 安裝…可能需要幾分鐘。"
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "解壓縮失敗。下載內容可能已損毀——請重試。"
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "正在透過 WinGet 安裝…可能需要幾分鐘。"
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "下載檔案的總和檢查碼不符。請重新下載。"
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "指定你已有的副本，或以其他方式安裝。"
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg 與 ffprobe 必須設定為相符的一對。"
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "你也可以用套件管理員安裝 yt-dlp 和 ffmpeg，然後按一下「再試一次」。"
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "系統拒絕執行檔案。請選擇你信任的副本，或以系統管理員身分重試。"
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "手動設定"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "檔案遺失或無法啟動。請選擇可用的副本。"
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "請再試一次，或在下方指定你已有的工具。"
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "版本檢查逾時。檔案可能已停止回應——請重試。"
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "無法驗證。"
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "設定已停止"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "遇到問題？手動設定"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "正在下載 {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "嘿，歡迎回來！"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "約剩 {{count}} 分鐘"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "不到 1 分鐘"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "讓下載在網站變動時仍能正常運作。"
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "只需這一次。Arroxy 會保留這些工具並自行更新。"
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "只需這一次。Arroxy 會保留它們以供日後更新。"
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "正在檢查一切是否正常"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "正在連線…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "正在下載下載引擎和媒體工具"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "正在下載下載引擎"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "正在下載媒體工具"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "正在解壓縮媒體工具"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "正在更新下載引擎"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "首次設定"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "正在更新媒體工具"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

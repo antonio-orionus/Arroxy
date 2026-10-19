@@ -16,28 +16,38 @@
 	"splash": {
 		"greeting": "嘿，歡迎回來！",
 		"warmup": "正在準備下載…",
-		"downloading": "正在下載 {{binary}}…",
 		"verifying": "正在檢查 {{binary}}…",
 		"verifyFirstCheck": "這是此版本的第一次檢查，因此會比較慢。通常約需一分鐘。",
 		"cancel": "遇到問題？手動設定",
-		"warmupFailedNoDiag": "設定失敗。請開啟設定記錄以查看詳細資料。"
+		"warmupFailedNoDiag": "設定失敗。請開啟設定記錄以查看詳細資料。",
+		"setup": {
+			"title": {"firstRun": "首次設定", "media": "正在更新媒體工具", "engine": "正在更新下載引擎"},
+			"stage": {"connecting": "正在連線…", "downloadingBoth": "正在下載下載引擎和媒體工具", "downloadingEngine": "正在下載下載引擎", "downloadingMedia": "正在下載媒體工具", "unpacking": "正在解壓縮媒體工具", "checking": "正在檢查一切是否正常"},
+			"bytes": "{{done}} / {{total}}",
+			"left": {"underMinute": "不到 1 分鐘", "minutes_other": "約剩 {{count}} 分鐘"},
+			"note": {"firstRun": "只需這一次。Arroxy 會保留這些工具並自行更新。", "media": "只需這一次。Arroxy 會保留它們以供日後更新。", "engine": "讓下載在網站變動時仍能正常運作。"}
+		}
 	},
 	"repair": {
 		"title": "設定需要你的協助",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "無法驗證。",
-			"downloadFailed": "下載失敗。請檢查網際網路連線後重試。",
-			"extractFailed": "解壓縮失敗。下載內容可能已損毀——請重試。",
-			"hashFailed": "下載檔案的總和檢查碼不符。請重新下載。",
-			"spawnFailed": "檔案遺失或無法啟動。請選擇可用的副本。",
-			"permissionDenied": "系統拒絕執行檔案。請選擇你信任的副本，或以系統管理員身分重試。",
-			"blockedOrQuarantined": "Windows 已封鎖檔案（SmartScreen／Defender）。請選擇已安裝的副本，或將執行階段資料夾加入允許清單。",
-			"badExitCode": "執行檔未回應 --version。它可能已損毀或是錯誤的組建版本。",
-			"timeout": "版本檢查逾時。檔案可能已停止回應——請重試。",
-			"pairIncomplete": "ffmpeg 與 ffprobe 必須設定為相符的一對。"
+		"groups": {"engine": "下載引擎", "media": "媒體工具"},
+		"causes": {
+			"downloadFailed": {"title": "無法下載 Arroxy 所需的內容", "body": "請檢查網路連線，然後再試一次。"},
+			"extractFailed": {"title": "下載的檔案已損毀", "body": "請再試一次，重新下載一次。"},
+			"hashFailed": {"title": "下載的檔案未通過校驗", "body": "請再試一次，重新下載一次。"},
+			"spawnFailed": {"title": "某個工具遺失或無法啟動", "body": "請再試一次。如果仍然失敗，請在下方選擇可用的副本。"},
+			"permissionDenied": {"title": "系統不允許 Arroxy 執行某個工具", "body": "請再試一次。如果仍然失敗，請在下方選擇你信任的副本。"},
+			"blockedOrQuarantined": {"title": "防毒軟體封鎖了某個工具", "body": "請在防毒軟體或 SmartScreen 中允許 Arroxy，然後再試一次。"},
+			"badExitCode": {"title": "某個工具運作不正常", "body": "請再試一次。如果仍然失敗，請在下方選擇可用的副本。"},
+			"timeout": {"title": "某個工具回應時間過長", "body": "首次執行時常因安全性掃描而變慢。請再試一次。"},
+			"pairIncomplete": {"title": "FFmpeg 和 FFprobe 必須一起設定", "body": "請在下方同時選擇兩者，或將它們重設為預設值。"},
+			"unknown": {"title": "設定過程中發生問題", "body": "請再試一次，或開啟設定記錄查看詳細資料。"}
 		},
-		"actions": {"chooseExecutable": "選擇執行檔", "installWithHomebrew": "使用 Homebrew 安裝", "installWithWinget": "使用 WinGet 安裝", "resetToDefault": "重設為預設值", "retrySetup": "重試設定", "cancel": "取消", "openDependencyFolder": "開啟相依元件資料夾", "viewSetupLog": "檢視設定記錄"}
+		"installing": {"homebrew": "正在透過 Homebrew 安裝…可能需要幾分鐘。", "winget": "正在透過 WinGet 安裝…可能需要幾分鐘。"},
+		"stopped": {"title": "設定已停止", "body": "請再試一次，或在下方指定你已有的工具。"},
+		"manual": {"toggle": "手動設定", "intro": "指定你已有的副本，或以其他方式安裝。", "linuxHint": "你也可以用套件管理員安裝 yt-dlp 和 ffmpeg，然後按一下「再試一次」。"},
+		"actions": {"chooseExecutable": "選擇執行檔", "installWithHomebrew": "使用 Homebrew 安裝", "installWithWinget": "使用 WinGet 安裝", "resetToDefault": "重設為預設值", "retrySetup": "再試一次", "cancel": "取消", "openDependencyFolder": "開啟相依元件資料夾", "viewSetupLog": "檢視設定記錄"}
 	},
 	"theme": {"light": "淺色模式", "dark": "深色模式", "system": "系統預設"},
 	"language": {"label": "語言"},
@@ -741,7 +751,7 @@
 			"outputNotWritable": "Arroxy 無法寫入下載資料夾。該資料夾可能是唯讀的、位於已鎖定的磁碟機上，或被系統的隱私權設定封鎖。請選擇其他資料夾或允許存取，然後重試。",
 			"unsupportedUrl": "yt-dlp 不支援此 URL。請改用 yt-dlp 支援之網站的其他連結。",
 			"chunkTransferFailure": "伺服器持續在下載途中切斷連線，yt-dlp 重試後仍無法完成。這通常發生在最大的影片格式（4K HDR／高位元率 VP9）。請重試、切換網路／VPN，或選擇較低解析度的格式。",
-			"missingDependency": "yt-dlp 找不到 ffmpeg 或 ffprobe。請修復隨附的執行檔，或設定 FFmpeg 的位置後重試。",
+			"missingDependency": "yt-dlp 找不到 ffmpeg 或 ffprobe。請重新執行設定，或指定 FFmpeg 位置，然後重試下載。",
 			"postprocessFailure": "yt-dlp 已完成下載，但後續處理（合併／多工處理／轉換）失敗。這通常是暫時性的 ffmpeg 問題——請重試；若問題持續，請改用其他格式組合。",
 			"parse": "無法解析網站的回應。yt-dlp 的擷取器可能已跟不上網站變更。Arroxy 啟動時會自動更新 yt-dlp——請在修正發布幾分鐘後重試。",
 			"network": "網路錯誤。請檢查連線後重試。",

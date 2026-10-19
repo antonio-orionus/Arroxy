@@ -4,12 +4,15 @@ import mainImg from '../../assets/Main.png'
 import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@shared/types.js'
 import {Button} from '../ui/button.js'
 import {RepairPanel} from './RepairPanel.js'
+import {SplashSetup} from './SplashSetup.js'
+import {estimateSecondsLeft, summarizeSetup, type WarmupDownloads} from '../../store/warmupDownloads.js'
 
 interface Props {
 	initialized: boolean
 	warmupBlocking: DependencyId[]
 	warmupDiagnostics: Record<DependencyId, DependencyDiagnostic> | null
 	warmupProgress: Partial<Record<DependencyId, WarmupProgressEvent>> | null
+	warmupDownloads: WarmupDownloads
 	showGreeting: boolean
 	onDismissed?: () => void
 	onCancel?: () => void | Promise<void>
@@ -42,34 +45,20 @@ function verificationAttemptKey(event: WarmupProgressEvent): string {
 	return `${event.binary}:${source.kind}:${detail}`
 }
 
-function formatBytes(bytes: number): string {
-	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
-	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}
-
 interface WarmupProgressSummary {
-	activeEntry: WarmupProgressEvent | undefined
 	verifyingEntry: WarmupProgressEvent | undefined
-	totalDownloaded: number
-	totalBytes: number
-	percent: number | null
 	// Any advance — a phase change or another throttled chunk of bytes — changes this.
 	progressToken: string
 }
 
 function summarizeWarmupProgress(warmupProgress: Props['warmupProgress']): WarmupProgressSummary {
 	const entries = Object.values(warmupProgress ?? {}).filter((e): e is WarmupProgressEvent => e !== undefined)
-	const activeEntry = entries.find(e => e.phase === 'downloading')
 	// Nothing rendered these phases before, so a probe that outlived its
 	// download left the splash frozen on a generic line — which is how a
 	// resolver walking its fallback list reads to a user as a restart loop.
 	const verifyingEntry = entries.find(e => e.phase === 'probing' || e.phase === 'extracting')
-	const downloadingEntries = entries.filter(e => e.phase === 'downloading')
-	const totalDownloaded = downloadingEntries.reduce((sum, e) => sum + (e.bytesDownloaded ?? 0), 0)
-	const totalBytes = downloadingEntries.reduce((sum, e) => sum + (e.totalBytes ?? 0), 0)
-	const percent = totalBytes > 0 ? Math.min(100, (totalDownloaded / totalBytes) * 100) : null
-	const progressToken = `${entries.map(e => `${e.binary}:${e.phase}`).join('|')}:${totalDownloaded}`
-	return {activeEntry, verifyingEntry, totalDownloaded, totalBytes, percent, progressToken}
+	const progressToken = entries.map(e => `${e.binary}:${e.phase}:${e.bytesDownloaded ?? 0}`).join('|')
+	return {verifyingEntry, progressToken}
 }
 
 function useMinimumSplashTime(): boolean {
@@ -115,26 +104,6 @@ function useCancelOffer(progressToken: string): boolean {
 	return cancelOffered
 }
 
-function SplashDownloadProgress({progress}: {progress: WarmupProgressSummary}): JSX.Element {
-	const {t} = useTranslation()
-	const {activeEntry, percent, totalDownloaded, totalBytes} = progress
-	return (
-		<>
-			<p className="splash-name">{activeEntry ? t('splash.downloading', {binary: activeEntry.binary}) : t('splash.warmup')}</p>
-			{percent !== null && (
-				<div className="splash-progress">
-					<div className="splash-progress-bar" style={{width: `${percent}%`}} />
-				</div>
-			)}
-			{totalDownloaded > 0 && totalBytes > 0 && (
-				<p className="splash-bytes">
-					{formatBytes(totalDownloaded)} / {formatBytes(totalBytes)}
-				</p>
-			)}
-		</>
-	)
-}
-
 function SplashVerifying({entry, firstCheck}: {entry: WarmupProgressEvent; firstCheck: boolean}): JSX.Element {
 	const {t} = useTranslation()
 	return (
@@ -154,12 +123,11 @@ function SplashVerifying({entry, firstCheck}: {entry: WarmupProgressEvent; first
 	)
 }
 
-// What the splash says while warmup is still working (nothing is blocking).
+// What the splash says while warmup only verifies (nothing downloads and
+// nothing is blocking). Downloads get the setup view instead.
 function SplashStatus({progress, firstCheck}: {progress: WarmupProgressSummary; firstCheck: boolean}): JSX.Element {
 	const {t} = useTranslation()
-	const {activeEntry, verifyingEntry, percent} = progress
-	if (activeEntry != null || (percent !== null && percent < 100)) return <SplashDownloadProgress progress={progress} />
-	if (verifyingEntry != null) return <SplashVerifying entry={verifyingEntry} firstCheck={firstCheck} />
+	if (progress.verifyingEntry != null) return <SplashVerifying entry={progress.verifyingEntry} firstCheck={firstCheck} />
 	return <p className="splash-name">{t('splash.warmup')}</p>
 }
 
@@ -193,11 +161,15 @@ function SplashOverlay({initialized, blocked, fading, onFaded, children}: {initi
 	)
 }
 
-export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, warmupProgress, showGreeting, onDismissed, onCancel}: Props): JSX.Element | null {
+export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, warmupProgress, warmupDownloads, showGreeting, onDismissed, onCancel}: Props): JSX.Element | null {
 	const {t} = useTranslation()
 	const minPassed = useMinimumSplashTime()
 	const [gone, setGone] = useState(false)
 	const progress = useMemo(() => summarizeWarmupProgress(warmupProgress), [warmupProgress])
+	// Null until something downloads: a warm launch that only verifies never
+	// shows the setup screen.
+	const setup = summarizeSetup(warmupDownloads.ledger, warmupProgress)
+	const secondsLeft = setup?.stage === 'downloading' ? estimateSecondsLeft(warmupDownloads.samples, setup.total - setup.downloaded) : null
 	const firstCheck = useSlowFirstCheck(progress.verifyingEntry)
 	const cancelOffered = useCancelOffer(progress.progressToken)
 
@@ -227,7 +199,7 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 					</p>
 				)}
 				<p className="splash-brand">Arroxy</p>
-				{blocked ? null : <SplashStatus progress={progress} firstCheck={firstCheck} />}
+				{blocked ? null : setup ? <SplashSetup setup={setup} secondsLeft={secondsLeft} returning={showGreeting} firstCheck={firstCheck} /> : <SplashStatus progress={progress} firstCheck={firstCheck} />}
 				{showCancel && (
 					<Button type="button" variant="link" size="sm" className="splash-cancel" data-testid="splash-cancel" onClick={() => void onCancel?.()}>
 						{t('splash.cancel')}

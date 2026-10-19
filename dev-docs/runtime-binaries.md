@@ -9,19 +9,31 @@
 | Manifest generator           | `scripts/build/runtimeBinaryManifest.ts`            |
 | Runtime resolver             | `src/main/services/BinaryManager.ts`                |
 | Bundled fallback index       | `src/main/services/binary/BundledRuntimeBinaryIndex.ts` |
+| Approved FFmpeg packages     | `src/main/services/binary/FfmpegPackagePins.ts`     |
 | Local manifest dev wrapper   | `scripts/with-runtime-manifest.sh`                  |
 
-Arroxy owns yt-dlp runtime updates through a signed runtime-binary manifest. The app does not run `yt-dlp --update`, and it does not resolve upstream yt-dlp `latest` release URLs at runtime.
+Arroxy owns yt-dlp and FFmpeg runtime updates through a signed runtime-binary manifest. The app does not run `yt-dlp --update`, and it does not resolve upstream `latest` release URLs at runtime. FFmpeg packages are covered in [`ffmpeg-packages.md`](ffmpeg-packages.md).
+
+## Manifest versions
+
+Two manifests are published side by side, signed with the same key:
+
+| File                   | Read by                  | Entries                          |
+| ---------------------- | ------------------------ | -------------------------------- |
+| `runtime-index-v1.json` | Arroxy 0.6.2 and earlier | yt-dlp only                      |
+| `runtime-index-v2.json` | current builds           | yt-dlp, plus the pinned FFmpeg packages |
+
+v1 must never carry anything but yt-dlp: its readers parse entries with a closed schema, so one FFmpeg entry fails the whole manifest and drops them to stale yt-dlp. v2 skips entry kinds it does not recognise, so adding a kind later does not repeat this. Keep publishing v1 for as long as those versions are in use.
 
 ## Update model
 
 Runtime startup resolves the latest Arroxy runtime manifest from:
 
 ```text
-https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v1.json
+https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v2.json
 ```
 
-That `latest` pointer is for Arroxy's manifest only. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and allowlists provider hosts.
+That `latest` pointer is for Arroxy's manifest only, which is why FFmpeg package releases in the same repository are published with `--latest=false`. The manifest contents must list immutable upstream artifact URLs with concrete release versions, sizes, and SHA-256 hashes. Manifest validation rejects artifact URLs that contain `/latest`, requires HTTPS, and allowlists provider hosts.
 
 Each `RuntimeBinaryIndexService` instance loads the index once and caches it in memory. A newly published signed remote manifest is therefore picked up by a fresh app/service run, normally after restart, not by polling during an existing session.
 
@@ -63,7 +75,7 @@ The runtime index source order is separate:
 
 Step 2's URLs can be overridden for debugging with `ARROXY_RUNTIME_INDEX_URL` and `ARROXY_RUNTIME_INDEX_SIG_URL`. Setting either to `off` or `0` disables the remote fetch entirely, which drops the chain to the last-known-good manifest when one exists and to the bundled index otherwise — the quickest way to measure how much of startup the remote index fetch accounts for. Measured on macOS arm64 it is worth about 2.0s of the yt-dlp resolve branch.
 
-The bundled fallback index is intentionally narrow: pinned GitHub stable yt-dlp entries only. It exists to keep first-run dependency resolution possible when the remote manifest cannot be fetched or verified.
+The bundled fallback index is intentionally narrow: pinned GitHub stable yt-dlp entries plus the approved FFmpeg packages. It exists to keep first-run dependency resolution possible when the remote manifest cannot be fetched or verified.
 
 ## Startup timing in the log
 
@@ -88,4 +100,4 @@ bun run dev:runtime-manifest
 bun run dev:local-manifest
 ```
 
-Use `dev:local-manifest` when changing generator behavior and testing the app against a freshly generated signed local manifest.
+Use `dev:local-manifest` when changing generator behavior and testing the app against a freshly generated signed local manifest. `generate` writes v1 to `--out` and v2 next to it (`--out-v2` overrides); `local` writes and signs v2, the file current builds read.

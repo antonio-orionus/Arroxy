@@ -1,0 +1,20 @@
+FFmpeg for Arroxy
+=================
+
+This package contains unmodified FFmpeg and FFprobe builds, plus the shared
+libraries they load, as approved for Arroxy. Arroxy downloads it once and runs
+the tools as separate processes.
+
+FFmpeg (https://ffmpeg.org/) is licensed under the GNU General Public License
+version 3 (GPLv3). These builds are configured with --enable-gpl and include
+GPL-licensed components (libx264, libx265 and others).
+
+Upstream builds:
+  - Windows and Linux: https://github.com/BtbN/FFmpeg-Builds (gpl-shared)
+  - macOS:             https://ffmpeg.martin-riedl.de/ (GPL release builds)
+
+The exact upstream build, version and source location for this package are
+listed in the release notes of the release this package was published in:
+https://github.com/antonio-orionus/arroxy-runtime-binaries/releases
+
+Full GPLv3 license text: https://www.gnu.org/licenses/gpl-3.0.txt

@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — kullanıcı arayüzü
 - **Tailwind CSS v4** — stillendirme
 - **Zustand** — durum yönetimi
-- **yt-dlp** + **ffmpeg** — indirme ve mux motoru (yt-dlp çalışma zamanında alınır; ffmpeg/ffprobe derleme zamanında paketlenir)
+- **yt-dlp** + **ffmpeg** — indirme ve mux motoru (ikisi de çalışma zamanında alınır: yt-dlp güncel tutulur, ffmpeg/ffprobe bir kez kurulur ve güncellemeler boyunca korunur)
 - **Vite** + **electron-vite** — derleme araçları
 - **Vitest** + **Playwright** — birim ve uçtan uca testler
 
@@ -78,7 +78,7 @@ bun run dist         # geçerli işletim sistemi için paketle
 bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketle
 \`\`\`
 
-> \`bun run bootstrap\` bağımlılıkları kurar, Electron uygulama bağımlılıklarını yeniden derler, Electron'u doğrular, geliştirme için gömülü ffmpeg/ffprobe hazırlar ve Playwright Chromium kurar. yt-dlp uygulama veri klasöründe çalışma zamanında yönetilir; ffmpeg ve ffprobe her Arroxy sürümüyle paketlenir.
+> \`bun run bootstrap\` bağımlılıkları kurar, Electron uygulama bağımlılıklarını yeniden derler, Electron'u doğrular, geliştirme için gömülü ffmpeg/ffprobe hazırlar ve Playwright Chromium kurar. Sürüm derlemeleri yt-dlp, ffmpeg ve ffprobe'u uygulama veri klasöründe çalışma zamanında yönetir; hiçbiri yükleyicinin içinde gelmez.
 
 </details>`;
 
@@ -385,7 +385,7 @@ export const tr = {
     "Kutudan çıktığı gibi {{LANG_COUNT}} dil: {{LANG_NAME_LIST}}. Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.",
   faq_q7: "Başka bir şey kurmam gerekir mi?",
   faq_a7:
-    "Hayır. yt-dlp ilk açılışta otomatik indirilir ve makinede önbelleğe alınır; ffmpeg ve ffprobe uygulamayla gelir. Bundan sonra ek kurulum gerekmez.",
+    "Hayır. yt-dlp, ffmpeg ve ffprobe ilk açılışta otomatik indirilir ve makinede önbelleğe alınır. Bundan sonra ek kurulum gerekmez.",
   faq_q8: "Oynatma listeleri veya tüm kanalları indirebilir miyim?",
   faq_a8:
     "Evet — ikisi de. Bir oynatma listesi URL'si veya kanal URL'si yapıştır (örn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); kaç kayıt taranacağını seç, sonra tüm listeyi kuyruğa al veya belirli videoları seç. Tarih aralığı filtreleri yakında geliyor.",

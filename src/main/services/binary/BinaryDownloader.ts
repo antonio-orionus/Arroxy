@@ -532,3 +532,16 @@ export function classifyDownloadError(err: unknown): DependencyFailureKind {
 	if (msg.includes('archive') || msg.includes('did not contain') || msg.includes('extract')) return 'extract_failed'
 	return 'download_failed'
 }
+
+// Drops a cached artifact once its contents are installed elsewhere, so a large
+// package is not kept on disk twice.
+export async function removeCachedArtifact(cacheRoot: string, key: string): Promise<void> {
+	const info = await cacache.get.info(cacheRoot, key, {memoize: false})
+	await cacache.rm.entry(cacheRoot, key)
+	if (info) await cacache.rm.content(cacheRoot, info.integrity)
+}
+
+// Streams a cached artifact, re-checking its integrity as it is read.
+export function readCachedArtifact(cacheRoot: string, key: string, integrity: string): ReturnType<typeof cacache.get.stream> {
+	return cacache.get.stream(cacheRoot, key, {integrity, memoize: false})
+}

@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — រចនាប័ទ្ម
 - **Zustand** — ការគ្រប់គ្រងស្ថានភាព
-- **yt-dlp** + **ffmpeg** — ម៉ាស៊ីនទាញយក និង mux (yt-dlp ទាញយកនៅពេលដំណើរការ; ffmpeg/ffprobe ភ្ជាប់មកពេល build)
+- **yt-dlp** + **ffmpeg** — ម៉ាស៊ីនទាញយក និង mux (ទាំងពីរត្រូវបានទាញយកនៅពេលដំណើរការ៖ yt-dlp ត្រូវបានរក្សាឱ្យទាន់សម័យ ហើយ ffmpeg/ffprobe ត្រូវបានដំឡើងម្តង ហើយរក្សាទុកឆ្លងកាត់ការធ្វើបច្ចុប្បន្នភាព)
 - **Vite** + **electron-vite** — ឧបករណ៍ build
 - **Vitest** + **Playwright** — តេស្តឯកតា និងតេស្តពីដើមដល់ចប់
 
@@ -78,7 +78,7 @@ bun run dist         # package for current OS
 bun run dist:win     # package Windows targets when run on a supported host
 \`\`\`
 
-> \`bun run bootstrap\` ដំឡើង dependencies, rebuild dependencies កម្មវិធី Electron, ផ្ទៀងផ្ទាត់ Electron, រៀបចំ ffmpeg/ffprobe បង្កប់សម្រាប់ការអភិវឌ្ឍ និងដំឡើង Playwright Chromium។ yt-dlp ត្រូវបានគ្រប់គ្រងនៅពេលដំណើរការក្នុងថតទិន្នន័យកម្មវិធីរបស់អ្នក; ffmpeg និង ffprobe ភ្ជាប់មកជាមួយការចេញផ្សាយ Arroxy នីមួយៗ។
+> \`bun run bootstrap\` ដំឡើង dependencies, rebuild dependencies កម្មវិធី Electron, ផ្ទៀងផ្ទាត់ Electron, រៀបចំ ffmpeg/ffprobe បង្កប់សម្រាប់ការអភិវឌ្ឍ និងដំឡើង Playwright Chromium។ កំណែចេញផ្សាយគ្រប់គ្រង yt-dlp, ffmpeg និង ffprobe នៅពេលដំណើរការក្នុងថតទិន្នន័យកម្មវិធីរបស់អ្នក; គ្មានមួយណាភ្ជាប់មកក្នុងកម្មវិធីដំឡើងទេ។
 
 </details>`;
 
@@ -400,7 +400,7 @@ export const km = {
     "{{LANG_COUNT}} ភាសា ភ្លាមៗ៖ {{LANG_NAME_LIST}}។ Arroxy រកឃើញភាសាប្រព័ន្ធប្រតិបត្តិការរបស់អ្នកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយអ្នកអាចប្តូរបានគ្រប់ពេលពីផ្ទាំងជ្រើសរើសភាសាក្នុងរបារឧបករណ៍។ Runtime locale JSON ស្ថិតនៅក្នុង src/shared/i18n/locales/ ហើយកាតាឡុក PO សម្រាប់អ្នកបកប្រែស្ថិតនៅក្នុង i18n/locales/ — បើក PR នៅលើ GitHub ដើម្បីចូលរួមចំណែក។",
   faq_q7: "តើខ្ញុំត្រូវដំឡើងអ្វីផ្សេងទៀតទេ?",
   faq_a7:
-    "ទេ។ yt-dlp ត្រូវបានទាញយកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយរក្សាទុកក្នុងម៉ាស៊ីនរបស់អ្នក; ffmpeg និង ffprobe ភ្ជាប់មកជាមួយកម្មវិធី។ បន្ទាប់ពីនោះ មិនត្រូវការការរៀបចំបន្ថែមទេ។",
+    "ទេ។ yt-dlp, ffmpeg និង ffprobe ត្រូវបានទាញយកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយរក្សាទុកក្នុងម៉ាស៊ីនរបស់អ្នក។ បន្ទាប់ពីនោះ មិនត្រូវការការរៀបចំបន្ថែមទេ។",
   faq_q8: "តើខ្ញុំអាចទាញយកបញ្ជីចាក់ ឬប៉ុស្តិ៍ទាំងមូលបានទេ?",
   faq_a8:
     "បាទ/ចាស — ទាំងពីរ។ បិទភ្ជាប់ URL បញ្ជីចាក់ ឬ URL ប៉ុស្តិ៍ (ឧ. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); ជ្រើសរើសចំនួនធាតុដែលត្រូវស្កេន បន្ទាប់មកដាក់បញ្ជីទាំងមូលក្នុងជួរ ឬជ្រើសរើសវីដេអូជាក់លាក់។ តម្រងចន្លោះកាលបរិច្ឆេទនឹងមកដល់ឆាប់ៗនេះ។",

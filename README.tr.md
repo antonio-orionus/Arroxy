@@ -25,7 +25,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../pulls).
 
@@ -442,7 +442,7 @@ Kutudan çıktığı gibi 31 dil: Afaan Oromoo · Bahasa Indonesia · Deutsch ·
 <details>
 <summary><strong>Başka bir şey kurmam gerekir mi?</strong></summary>
 
-Hayır. yt-dlp ilk açılışta otomatik indirilir ve makinede önbelleğe alınır; ffmpeg ve ffprobe uygulamayla gelir. Bundan sonra ek kurulum gerekmez.
+Hayır. yt-dlp, ffmpeg ve ffprobe ilk açılışta otomatik indirilir ve makinede önbelleğe alınır. Bundan sonra ek kurulum gerekmez.
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy ücretsizdir ve MIT lisanslıdır — reklam yok, telemetri yok, ücretli
 - **React 19** + **TypeScript** — kullanıcı arayüzü
 - **Tailwind CSS v4** — stillendirme
 - **Zustand** — durum yönetimi
-- **yt-dlp** + **ffmpeg** — indirme ve mux motoru (yt-dlp çalışma zamanında alınır; ffmpeg/ffprobe derleme zamanında paketlenir)
+- **yt-dlp** + **ffmpeg** — indirme ve mux motoru (ikisi de çalışma zamanında alınır: yt-dlp güncel tutulur, ffmpeg/ffprobe bir kez kurulur ve güncellemeler boyunca korunur)
 - **Vite** + **electron-vite** — derleme araçları
 - **Vitest** + **Playwright** — birim ve uçtan uca testler
 
@@ -581,7 +581,7 @@ bun run dist         # geçerli işletim sistemi için paketle
 bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketle
 ```
 
-> `bun run bootstrap` bağımlılıkları kurar, Electron uygulama bağımlılıklarını yeniden derler, Electron'u doğrular, geliştirme için gömülü ffmpeg/ffprobe hazırlar ve Playwright Chromium kurar. yt-dlp uygulama veri klasöründe çalışma zamanında yönetilir; ffmpeg ve ffprobe her Arroxy sürümüyle paketlenir.
+> `bun run bootstrap` bağımlılıkları kurar, Electron uygulama bağımlılıklarını yeniden derler, Electron'u doğrular, geliştirme için gömülü ffmpeg/ffprobe hazırlar ve Playwright Chromium kurar. Sürüm derlemeleri yt-dlp, ffmpeg ve ffprobe'u uygulama veri klasöründe çalışma zamanında yönetir; hiçbiri yükleyicinin içinde gelmez.
 
 </details>
 

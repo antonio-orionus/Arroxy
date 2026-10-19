@@ -16,28 +16,38 @@
 	"splash": {
 		"greeting": "다시 오신 것을 환영합니다!",
 		"warmup": "다운로드 준비 중…",
-		"downloading": "{{binary}} 다운로드 중…",
 		"verifying": "{{binary}} 확인 중…",
 		"verifyFirstCheck": "이 버전의 첫 확인이라 시간이 걸립니다. 보통 1분 정도 걸립니다.",
 		"cancel": "문제가 있나요? 수동으로 설정하세요",
-		"warmupFailedNoDiag": "설정에 실패했습니다. 자세한 내용은 설정 로그를 여세요."
+		"warmupFailedNoDiag": "설정에 실패했습니다. 자세한 내용은 설정 로그를 여세요.",
+		"setup": {
+			"title": {"firstRun": "처음 설정", "media": "미디어 도구 업데이트 중", "engine": "다운로드 엔진 업데이트 중"},
+			"stage": {"connecting": "연결하는 중…", "downloadingBoth": "다운로드 엔진과 미디어 도구를 다운로드하는 중", "downloadingEngine": "다운로드 엔진을 다운로드하는 중", "downloadingMedia": "미디어 도구를 다운로드하는 중", "unpacking": "미디어 도구 압축을 푸는 중", "checking": "모든 것이 작동하는지 확인하는 중"},
+			"bytes": "{{done}} / {{total}}",
+			"left": {"underMinute": "1분 미만 남음", "minutes_other": "약 {{count}}분 남음"},
+			"note": {"firstRun": "처음 한 번만 진행됩니다. Arroxy가 이 도구들을 보관하고 직접 업데이트합니다.", "media": "처음 한 번만 진행됩니다. Arroxy가 이후 업데이트를 위해 보관합니다.", "engine": "사이트가 바뀌어도 다운로드가 계속 작동하도록 합니다."}
+		}
 	},
 	"repair": {
 		"title": "설정에 도움이 필요합니다",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "확인할 수 없습니다.",
-			"downloadFailed": "다운로드에 실패했습니다. 인터넷 연결을 확인하고 다시 시도하세요.",
-			"extractFailed": "압축 파일 추출에 실패했습니다. 다운로드가 손상되었을 수 있으니 다시 시도하세요.",
-			"hashFailed": "다운로드한 파일의 체크섬이 일치하지 않습니다. 다시 다운로드하세요.",
-			"spawnFailed": "파일이 없거나 실행할 수 없습니다. 작동하는 파일을 선택하세요.",
-			"permissionDenied": "시스템에서 파일 실행을 거부했습니다. 신뢰할 수 있는 파일을 선택하거나 관리자 권한으로 다시 시도하세요.",
-			"blockedOrQuarantined": "Windows에서 파일을 차단했습니다(SmartScreen/Defender). 설치된 파일을 선택하거나 런타임 폴더를 허용 목록에 추가하세요.",
-			"badExitCode": "바이너리가 --version에 응답하지 않았습니다. 손상되었거나 잘못된 빌드일 수 있습니다.",
-			"timeout": "버전 확인 시간이 초과되었습니다. 파일이 멈췄을 수 있으니 다시 시도하세요.",
-			"pairIncomplete": "ffmpeg와 ffprobe는 서로 맞는 한 쌍으로 함께 설정해야 합니다."
+		"groups": {"engine": "다운로드 엔진", "media": "미디어 도구"},
+		"causes": {
+			"downloadFailed": {"title": "Arroxy에 필요한 항목을 다운로드하지 못했습니다", "body": "인터넷 연결을 확인한 다음 다시 시도하세요."},
+			"extractFailed": {"title": "다운로드한 파일이 손상되었습니다", "body": "다시 시도하여 새로 다운로드하세요."},
+			"hashFailed": {"title": "다운로드한 파일의 체크섬이 일치하지 않습니다", "body": "다시 시도하여 새로 다운로드하세요."},
+			"spawnFailed": {"title": "도구가 없거나 시작되지 않습니다", "body": "다시 시도하세요. 계속 실패하면 아래에서 정상 작동하는 사본을 선택하세요."},
+			"permissionDenied": {"title": "시스템에서 Arroxy의 도구 실행을 허용하지 않습니다", "body": "다시 시도하세요. 계속 실패하면 아래에서 신뢰할 수 있는 사본을 선택하세요."},
+			"blockedOrQuarantined": {"title": "백신 프로그램이 도구를 차단했습니다", "body": "백신 프로그램이나 SmartScreen에서 Arroxy를 허용한 다음 다시 시도하세요."},
+			"badExitCode": {"title": "도구가 제대로 작동하지 않습니다", "body": "다시 시도하세요. 계속 실패하면 아래에서 정상 작동하는 사본을 선택하세요."},
+			"timeout": {"title": "도구가 응답하는 데 너무 오래 걸렸습니다", "body": "처음 실행할 때 보안 검사 때문에 느려지는 경우가 많습니다. 다시 시도하세요."},
+			"pairIncomplete": {"title": "FFmpeg와 FFprobe는 함께 설정해야 합니다", "body": "아래에서 둘 다 선택하거나 기본값으로 재설정하세요."},
+			"unknown": {"title": "설정 중에 문제가 발생했습니다", "body": "다시 시도하거나 설정 로그를 열어 자세한 내용을 확인하세요."}
 		},
-		"actions": {"chooseExecutable": "실행 파일 선택", "installWithHomebrew": "Homebrew로 설치", "installWithWinget": "WinGet으로 설치", "resetToDefault": "기본값으로 재설정", "retrySetup": "설정 다시 시도", "cancel": "취소", "openDependencyFolder": "의존성 폴더 열기", "viewSetupLog": "설정 로그 보기"}
+		"installing": {"homebrew": "Homebrew로 설치하는 중… 몇 분 걸릴 수 있습니다.", "winget": "WinGet으로 설치하는 중… 몇 분 걸릴 수 있습니다."},
+		"stopped": {"title": "설정이 중단되었습니다", "body": "다시 시도하거나 아래에서 이미 가지고 있는 도구를 Arroxy에 지정하세요."},
+		"manual": {"toggle": "직접 설정하기", "intro": "이미 가지고 있는 사본을 Arroxy에 지정하거나 다른 방법으로 설치하세요.", "linuxHint": "패키지 관리자로 yt-dlp와 ffmpeg를 설치한 다음 '다시 시도'를 클릭할 수도 있습니다."},
+		"actions": {"chooseExecutable": "실행 파일 선택", "installWithHomebrew": "Homebrew로 설치", "installWithWinget": "WinGet으로 설치", "resetToDefault": "기본값으로 재설정", "retrySetup": "다시 시도", "cancel": "취소", "openDependencyFolder": "의존성 폴더 열기", "viewSetupLog": "설정 로그 보기"}
 	},
 	"theme": {"light": "라이트 모드", "dark": "다크 모드", "system": "시스템 기본값"},
 	"language": {"label": "언어"},
@@ -768,7 +778,7 @@
 			"outputNotWritable": "Arroxy가 다운로드 폴더에 쓸 수 없습니다. 폴더가 읽기 전용이거나, 잠긴 드라이브에 있거나, 시스템의 개인정보 보호 설정으로 차단되었을 수 있습니다. 다른 폴더를 선택하거나 접근을 허용한 뒤 다시 시도하세요.",
 			"unsupportedUrl": "이 URL은 yt-dlp에서 지원하지 않습니다. yt-dlp가 지원하는 다른 사이트의 링크를 사용해 보세요.",
 			"chunkTransferFailure": "서버가 다운로드 도중 연결을 계속 끊어 yt-dlp가 재시도 후 포기했습니다. 주로 가장 큰 동영상 형식(4K HDR/고비트레이트 VP9)에서 발생합니다. 다시 시도하거나 네트워크/VPN을 바꾸거나 더 낮은 해상도의 형식을 선택하세요.",
-			"missingDependency": "yt-dlp에서 ffmpeg 또는 ffprobe를 찾을 수 없습니다. 번들 바이너리를 복구하거나 FFmpeg 위치를 설정한 뒤 다시 시도하세요.",
+			"missingDependency": "yt-dlp가 ffmpeg 또는 ffprobe를 찾지 못했습니다. 설정을 다시 실행하거나 FFmpeg 위치를 지정한 다음 다운로드를 다시 시도하세요.",
 			"postprocessFailure": "yt-dlp가 다운로드를 완료했지만 후처리(병합/먹싱/변환)에 실패했습니다. 일시적인 ffmpeg 문제인 경우가 많으니 다시 시도하고, 문제가 계속되면 다른 형식 조합을 사용해 보세요.",
 			"parse": "사이트의 응답을 분석할 수 없습니다. yt-dlp 추출기가 사이트 변경을 따라가지 못했을 수 있습니다. Arroxy는 시작 시 yt-dlp를 자동 업데이트하므로 수정본이 배포된 뒤 몇 분 후 다시 시도하세요.",
 			"network": "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요.",

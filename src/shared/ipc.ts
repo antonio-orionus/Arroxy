@@ -4,6 +4,8 @@ export const IPC_CHANNELS = {
 	appGetGraphicsPolicy: 'app:getGraphicsPolicy',
 	appInstallYtDlpHomebrew: 'app:installYtDlpHomebrew',
 	appInstallYtDlpWinget: 'app:installYtDlpWinget',
+	appInstallFfmpegHomebrew: 'app:installFfmpegHomebrew',
+	appInstallFfmpegWinget: 'app:installFfmpegWinget',
 	downloadsStart: 'downloads:start',
 	downloadsCancel: 'downloads:cancel',
 	downloadsPause: 'downloads:pause',

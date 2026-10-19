@@ -28,6 +28,8 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			getGraphicsPolicy: vi.fn().mockResolvedValue(ok({backdrop: {webglBlocked: false, softwareWebglAllowed: false}})),
 			installYtDlpWithHomebrew: vi.fn().mockResolvedValue(ok({installedPath: '/opt/homebrew/bin/yt-dlp'})),
 			installYtDlpWithWinget: vi.fn().mockResolvedValue(ok({installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe'})),
+			installFfmpegWithHomebrew: vi.fn().mockResolvedValue(ok({ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'})),
+			installFfmpegWithWinget: vi.fn().mockResolvedValue(ok({ffmpegPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\ffmpeg.exe', ffprobePath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\ffprobe.exe'})),
 			setLanguage: vi.fn().mockResolvedValue(undefined)
 		},
 		window: {minimize: vi.fn().mockResolvedValue(undefined), maximize: vi.fn().mockResolvedValue(undefined), close: vi.fn().mockResolvedValue(undefined), isMaximized: vi.fn().mockResolvedValue(false), onMaximizedChange: vi.fn().mockReturnValue(() => undefined)},

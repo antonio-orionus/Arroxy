@@ -25,7 +25,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh c
 <details>
 <summary><strong>Tôi có cần cài đặt thêm gì không?</strong></summary>
 
-Không. yt-dlp được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn; ffmpeg và ffprobe đi kèm với ứng dụng. Sau đó, không cần thiết lập thêm gì.
+Không. yt-dlp, ffmpeg và ffprobe được tải xuống tự động khi khởi động lần đầu và được lưu vào bộ nhớ đệm trên máy của bạn. Sau đó, không cần thiết lập thêm gì.
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy miễn phí và có giấy phép MIT — không quảng cáo, không tele
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — tạo kiểu
 - **Zustand** — quản lý trạng thái
-- **yt-dlp** + **ffmpeg** — công cụ tải xuống và ghép luồng (yt-dlp được lấy lúc chạy; ffmpeg/ffprobe được đóng gói khi build)
+- **yt-dlp** + **ffmpeg** — công cụ tải xuống và ghép luồng (cả hai đều được lấy lúc chạy: yt-dlp luôn được cập nhật, ffmpeg/ffprobe được cài một lần và giữ nguyên qua các lần cập nhật)
 - **Vite** + **electron-vite** — công cụ build
 - **Vitest** + **Playwright** — kiểm thử đơn vị và end-to-end
 
@@ -579,7 +579,7 @@ bun run dist         # đóng gói cho OS hiện tại
 bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ trợ
 ```
 
-> `bun run bootstrap` cài dependencies, rebuild dependencies của app Electron, xác minh Electron, chuẩn bị ffmpeg/ffprobe nhúng cho phát triển và cài Playwright Chromium. yt-dlp được quản lý lúc runtime trong thư mục dữ liệu ứng dụng; ffmpeg và ffprobe được đóng gói trong mọi bản phát hành Arroxy.
+> `bun run bootstrap` cài dependencies, rebuild dependencies của app Electron, xác minh Electron, chuẩn bị ffmpeg/ffprobe nhúng cho phát triển và cài Playwright Chromium. Các bản phát hành quản lý yt-dlp, ffmpeg và ffprobe lúc runtime trong thư mục dữ liệu ứng dụng; không cái nào được đóng gói trong trình cài đặt.
 
 </details>
 

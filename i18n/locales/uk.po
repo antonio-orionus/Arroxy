@@ -232,8 +232,8 @@ msgid "This video needs a signed-in account."
 msgstr "Для цього відео потрібен акаунт із виконаним входом."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp не знайшов ffmpeg або ffprobe. Віднови вбудовані бінарні файли або вкажи розташування FFmpeg, а потім повтори спробу."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp не знайшов ffmpeg або ffprobe. Запусти налаштування ще раз або вкажи розташування FFmpeg, а потім повтори завантаження."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1348,12 +1348,92 @@ msgid "Reset to default"
 msgstr "Скинути до стандартного"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Повторити налаштування"
+msgid "Try again"
+msgstr "Спробувати ще раз"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Переглянути журнал налаштування"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Спробуй ще раз. Якщо не вийде, вибери робочу копію нижче."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Один з інструментів працює неправильно"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Дозволь Arroxy в антивірусі або SmartScreen і спробуй ще раз."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Антивірус заблокував інструмент"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Перевір підключення до інтернету й спробуй ще раз."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Не вдалося завантажити те, що потрібно Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Спробуй ще раз, щоб завантажити заново."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Завантажений файл виявився пошкодженим"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Спробуй ще раз, щоб завантажити заново."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Завантаження не пройшло перевірку контрольної суми"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Вибери обидва нижче або скинь їх до стандартних."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg і FFprobe потрібно задавати разом"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Спробуй ще раз. Якщо не вийде, вибери копію, якій довіряєш, нижче."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Система не дозволяє Arroxy запустити інструмент"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Спробуй ще раз. Якщо не вийде, вибери робочу копію нижче."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Інструмент не знайдено або він не запускається"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Часто це перевірка безпеки під час першого запуску. Спробуй ще раз."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Інструмент надто довго не відповідав"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Спробуй ще раз або відкрий журнал налаштування, щоб дізнатися більше."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Щось пішло не так під час налаштування"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1367,45 +1447,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Двійковий файл не відповів на --version. Можливо, він пошкоджений або призначений для іншої платформи."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Рушій завантаження"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows заблокувала файл (SmartScreen / Defender). Вибери встановлену копію або додай папку середовища виконання у виключення."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Медіаінструменти"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Завантаження не вдалося. Перевір підключення до інтернету та спробуй ще раз."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Встановлення через Homebrew… Це може тривати кілька хвилин."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Не вдалося розпакувати архів. Можливо, завантаження пошкоджено — спробуй ще раз."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Встановлення через WinGet… Це може тривати кілька хвилин."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Контрольна сума завантаженого файлу не збігається. Повтори завантаження."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Вкажи Arroxy копії, які в тебе вже є, або встанови їх іншим способом."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg і ffprobe мають бути вказані разом як пов'язана пара."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Також можна встановити yt-dlp і ffmpeg через менеджер пакетів, а потім натиснути «Спробувати ще раз»."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Система відмовила у запуску файлу. Вибери копію, якій довіряєш, або повтори від імені адміністратора."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Налаштувати вручну"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Файл відсутній або не вдалося запустити. Вибери робочу копію."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Спробуй ще раз або вкажи нижче інструменти, які в тебе вже є."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Перевірка версії завершилася з тайм-аутом. Файл може зависнути — спробуй ще раз."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Не вдалося перевірити."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Налаштування зупинено"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1599,13 +1675,85 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Виникли проблеми? Налаштувати вручну"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "Завантаження {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Привіт, з поверненням!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} із {{total}}"
+
+#. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
+msgctxt "splash.setup.left.minutes_few"
+msgid "about {{count}} min left"
+msgstr "залишилося близько {{count}} хв"
+
+#. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "splash.setup.left.minutes_many"
+msgid "about {{count}} min left"
+msgstr "залишилося близько {{count}} хв"
+
+#. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "залишилося близько {{count}} хв"
+
+#. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "залишилося близько {{count}} хв"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "залишилося менше хвилини"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Допомагає завантаженням працювати, коли сайти змінюються."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Це відбувається один раз. Ці інструменти зберігаються й оновлюються автоматично."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Це відбувається один раз. Інструменти зберігаються для майбутніх оновлень."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Перевіряємо, що все працює"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Підключення…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Завантажуємо рушій завантаження та медіаінструменти"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Завантажуємо рушій завантаження"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Завантажуємо медіаінструменти"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Розпаковуємо медіаінструменти"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Оновлення рушія завантаження"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Перше налаштування"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Оновлення медіаінструментів"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

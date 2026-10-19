@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — স্টাইলিং
 - **Zustand** — স্টেট ম্যানেজমেন্ট
-- **yt-dlp** + **ffmpeg** — ডাউনলোড ও মাক্স ইঞ্জিন (yt-dlp রানটাইমে আনা হয়; ffmpeg/ffprobe বিল্ড টাইমে বান্ডেল থাকে)
+- **yt-dlp** + **ffmpeg** — ডাউনলোড ও মাক্স ইঞ্জিন (দুটোই রানটাইমে আনা হয়: yt-dlp আপ টু ডেট রাখা হয়, ffmpeg/ffprobe একবার ইনস্টল হয়ে আপডেটের পরও থেকে যায়)
 - **Vite** + **electron-vite** — বিল্ড টুলিং
 - **Vitest** + **Playwright** — ইউনিট ও এন্ড-টু-এন্ড টেস্ট
 
@@ -78,7 +78,7 @@ bun run dist         # বর্তমান OS-এর জন্য প্যা
 bun run dist:win     # supported host-এ Windows targets প্যাকেজ করুন
 \`\`\`
 
-> \`bun run bootstrap\` dependencies ইনস্টল করে, Electron app dependencies rebuild করে, Electron যাচাই করে, development-এর জন্য embedded ffmpeg/ffprobe প্রস্তুত করে, এবং Playwright Chromium ইনস্টল করে। yt-dlp runtime-এ app data folder-এ manage হয়; ffmpeg ও ffprobe প্রতিটি Arroxy release-এর সাথেই bundled থাকে।
+> \`bun run bootstrap\` dependencies ইনস্টল করে, Electron app dependencies rebuild করে, Electron যাচাই করে, development-এর জন্য embedded ffmpeg/ffprobe প্রস্তুত করে, এবং Playwright Chromium ইনস্টল করে। Release build-এ yt-dlp, ffmpeg ও ffprobe runtime-এ app data folder-এ manage হয়; এগুলোর কোনোটিই installer-এর ভেতরে থাকে না।
 
 </details>`;
 
@@ -400,7 +400,7 @@ export const bn = {
     "শুরু থেকেই {{LANG_COUNT}}টি ভাষা: {{LANG_NAME_LIST}}। Arroxy প্রথম চালুর সময় আপনার অপারেটিং সিস্টেমের ভাষা স্বয়ংক্রিয়ভাবে শনাক্ত করে, এবং টুলবারের ভাষা পিকার থেকে যেকোনো সময় বদলানো যায়। Runtime locale JSON থাকে src/shared/i18n/locales/ এ, আর অনুবাদকদের জন্য PO catalog থাকে i18n/locales/ এ — অবদান রাখতে GitHub-এ PR খুলুন।",
   faq_q7: "আমাকে কি আর কিছু ইনস্টল করতে হবে?",
   faq_a7:
-    "না। yt-dlp প্রথম চালুতে স্বয়ংক্রিয়ভাবে ডাউনলোড হয়ে আপনার মেশিনে ক্যাশ হয়; ffmpeg ও ffprobe অ্যাপের সাথেই আসে। এরপর কোনো অতিরিক্ত সেটআপ দরকার নেই।",
+    "না। yt-dlp, ffmpeg ও ffprobe প্রথম চালুতে স্বয়ংক্রিয়ভাবে ডাউনলোড হয়ে আপনার মেশিনে ক্যাশ হয়। এরপর কোনো অতিরিক্ত সেটআপ দরকার নেই।",
   faq_q8: "আমি কি প্লেলিস্ট বা পুরো চ্যানেল ডাউনলোড করতে পারব?",
   faq_a8:
     "হ্যাঁ — দুটোই। playlist বা channel URL paste করুন (যেমন `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); কতগুলো entry scan হবে তা বেছে নিন, তারপর পুরো তালিকা queue করুন বা নির্দিষ্ট video বেছে নিন। date-range filters শিগগির আসছে।",

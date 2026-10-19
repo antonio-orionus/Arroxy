@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "Viidiyoon kun akkaawuntii seene barbaada."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp ffmpeg yookaan ffprobe argachuu hin dandeenye. Baayinaariiwwan keessaa jiran suphi yookaan bakka FFmpeg saagi, achiin irra deebi'i."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp ffmpeg yookaan ffprobe argachuu hin dandeenye. Qindaa'ina irra deebi'ii hojjedhu yookaan bakka FFmpeg kaa'i, ergasii buusuu irra deebi'ii yaali."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "Durtii irra deebi'i"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Qindaa'inaa irra deebi'i yaali"
+msgid "Try again"
+msgstr "Irra deebi'ii yaali"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Galmee qindaa'inaa ilaali"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Meeshaan tokko sirriitti hin hojjetu"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Arroxy antivirus yookaan SmartScreen kee keessatti eyyami, ergasii irra deebi'ii yaali."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirus kee meeshaa tokko dhorke"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Walquunnamtii interneetii kee mirkaneessi, ergasii irra deebi'ii yaali."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Waan Arroxy barbaadu buusuu hin dandeenye"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Haaraatti buusuuf irra deebi'ii yaali."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Buufannoon miidhamee dhufe"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Haaraatti buusuuf irra deebi'ii yaali."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Buufannoon checksum isaa waliin hin walsimne"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Lamaan isaanii gaditti filadhu, yookaan durtiitti deebisi."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg fi FFprobe waliin qindaa'uu qabu"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii amantu gaditti filadhu."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Sirni kee Arroxy meeshaa tokko akka hojjetu hin eyyamu"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Irra deebi'ii yaali. Yoo itti fufee kufe, kophii hojjetu gaditti filadhu."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Meeshaan tokko hin jiru yookaan hin jalqabu"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Kun yeroo baay'ee yeroo jalqabaatiif sakatta'iinsa nageenyaatiin ta'a. Irra deebi'ii yaali."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Meeshaan tokko deebii kennuuf yeroo hedduu fudhate"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Irra deebi'ii yaali, yookaan bal'ina argachuuf galmee qindaa'inaa bani."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Qindaa'ina keessatti wanti tokko dogoge"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Faayiliin binaryii --version irratti deebii hin kenneef. Miidhaa qabaachuu ykn build dogoggoraa ta'uu danda'a."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Injinii buusuu"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windowsiin faayilii dhorkate (SmartScreen / Defender). Kopii fe'ame filadhu ykn foldarii runtime irratti whitelist godhi."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Meeshaalee miidiyaa"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Buufachuun hin milkoofne. Walqunnamtii interneetii kee ilaalii achiin irra deebi'i."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Baasuu arkaayivii hin milkoofne. Buufanni miidhaa qabaachuu danda'a — irra deebi'i."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet'n fe'aa jira… Kun daqiiqaa muraasa fudhachuu danda'a."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Faayilii buufamame irratti walsimuun checksum hin milkoofne. Buufaa irra deebi'i."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Arroxy kophiiwwan duraan qabdutti kaa'i, yookaan karaa biraatiin fe'i."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg fi ffprobe lachuu waloon pair ta'ee qindaa'uu qabu."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "yt-dlp fi ffmpeg bulchaa paakeejii keetiin fe'uu dandeessa, ergasii Irra deebi'ii yaali tuqi."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Sirnichi faayilii hojjechuuf dide. Amantaa qabdu kopii filadhu ykn akka admin irra deebi'i."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Harkaan qindeessi"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Faayiliin hin argamne ykn jalqabuu hin danda'amne. Kopii hojjetu filadhu."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Irra deebi'ii yaali, yookaan Arroxy meeshaalee duraan qabdutti gaditti kaa'i."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Madaalliin version yeroo darbe. Faayilichii hin deebiin jiraachuu danda'a — irra deebi'i."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Mirkaneeffachuu hin danda'amne."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Qindaa'inni dhaabbateera"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Rakkoo qabdaa? Harkaan qindeessi"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} buufatamaa jira…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Baga nagaan deebitee!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{total}} keessaa {{done}}"
+
+#. Plural form "one" for om: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "daqiiqaa dhiyoo {{count}} hafa"
+
+#. Plural form "other" for om: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "daqiiqaa dhiyoo {{count}} hafa"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "daqiiqaa tokko gadi hafa"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Saayitoonni yeroo jijjiiraman buufannoon hojjechaa akka jiraatu godha."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Kun al tokko qofa ta'a. Arroxy meeshaalee kana ofii isaatiin kuusee haaromsa."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Kun al tokko qofa ta'a. Arroxy haaromsa gara fuulduraatiif kuusa."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Hundi akka hojjetu mirkaneessaa jira"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Wal qabsiisaa jira…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Injinii buusuu fi meeshaalee miidiyaa buusaa jira"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Injinii buusuu buusaa jira"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Meeshaalee miidiyaa buusaa jira"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Meeshaalee miidiyaa banaa jira"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Injinii buusuu haaromsaa jira"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Qindaa'ina yeroo jalqabaa"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Meeshaalee miidiyaa haaromsaa jira"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

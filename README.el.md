@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ sha256sum Arroxy-linux-x64.AppImage
 <details>
 <summary><strong>Χρειάζεται να εγκαταστήσω κάτι άλλο;</strong></summary>
 
-Όχι. Το yt-dlp κατεβαίνει αυτόματα στην πρώτη εκκίνηση και αποθηκεύεται στον υπολογιστή σας· το ffmpeg και το ffprobe περιλαμβάνονται στην εφαρμογή. Μετά από αυτό δεν απαιτείται καμία επιπλέον ρύθμιση.
+Όχι. Τα yt-dlp, ffmpeg και ffprobe κατεβαίνουν αυτόματα στην πρώτη εκκίνηση και αποθηκεύονται στον υπολογιστή σας. Μετά από αυτό δεν απαιτείται καμία επιπλέον ρύθμιση.
 
 </details>
 
@@ -501,7 +501,7 @@ sha256sum Arroxy-linux-x64.AppImage
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — styling
 - **Zustand** — διαχείριση κατάστασης
-- **yt-dlp** + **ffmpeg** — μηχανή λήψης και mux (το yt-dlp λαμβάνεται στο runtime· τα ffmpeg/ffprobe περιλαμβάνονται στο build)
+- **yt-dlp** + **ffmpeg** — μηχανή λήψης και mux (και τα δύο λαμβάνονται στο runtime: το yt-dlp διατηρείται ενημερωμένο, ενώ τα ffmpeg/ffprobe εγκαθίστανται μία φορά και διατηρούνται μετά τις ενημερώσεις)
 - **Vite** + **electron-vite** — build tooling
 - **Vitest** + **Playwright** — unit και end-to-end tests
 
@@ -579,7 +579,7 @@ bun run dist         # package for current OS
 bun run dist:win     # πακετάρισμα Windows targets σε υποστηριζόμενο host
 ```
 
-> Το `bun run bootstrap` εγκαθιστά εξαρτήσεις, ξαναχτίζει τις εξαρτήσεις της Electron εφαρμογής, ελέγχει το Electron, προετοιμάζει τα ενσωματωμένα ffmpeg/ffprobe για ανάπτυξη και εγκαθιστά το Playwright Chromium. Το yt-dlp διαχειρίζεται στο runtime μέσα στον φάκελο δεδομένων της εφαρμογής· τα ffmpeg και ffprobe περιλαμβάνονται σε κάθε έκδοση του Arroxy.
+> Το `bun run bootstrap` εγκαθιστά εξαρτήσεις, ξαναχτίζει τις εξαρτήσεις της Electron εφαρμογής, ελέγχει το Electron, προετοιμάζει τα ενσωματωμένα ffmpeg/ffprobe για ανάπτυξη και εγκαθιστά το Playwright Chromium. Οι εκδόσεις διανομής διαχειρίζονται τα yt-dlp, ffmpeg και ffprobe στο runtime μέσα στον φάκελο δεδομένων της εφαρμογής· κανένα τους δεν περιλαμβάνεται στο πρόγραμμα εγκατάστασης.
 
 </details>
 

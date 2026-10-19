@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../pulls)。
 
@@ -442,7 +442,7 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 <details>
 <summary><strong>需要額外安裝其他軟體嗎？</strong></summary>
 
-不需要。yt-dlp 會在首次啟動時自動下載並快取到你的電腦上；ffmpeg 和 ffprobe 隨應用程式一起提供。之後無需任何額外設定。
+不需要。yt-dlp、ffmpeg 和 ffprobe 會在首次啟動時自動下載並快取到你的電腦上。之後無需任何額外設定。
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy 完全免費並採用 MIT 授權條款 —— 沒有廣告、沒有遙測
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — 樣式
 - **Zustand** — 狀態管理
-- **yt-dlp** + **ffmpeg** — 下載與混流引擎（yt-dlp 在執行時取得；ffmpeg/ffprobe 在建置時打包）
+- **yt-dlp** + **ffmpeg** — 下載與混流引擎（兩者都在執行時取得：yt-dlp 保持最新，ffmpeg/ffprobe 只安裝一次並在更新後保留）
 - **Vite** + **electron-vite** — 建置工具
 - **Vitest** + **Playwright** — 單元測試與端到端測試
 
@@ -581,7 +581,7 @@ bun run dist         # 為目前系統打包
 bun run dist:win     # 在受支援的主機上打包 Windows 目標
 ```
 
-> `bun run bootstrap` 會安裝依賴、重建 Electron 應用程式程式依賴、驗證 Electron、為開發準備嵌入式 ffmpeg/ffprobe，並安裝 Playwright Chromium。yt-dlp 在執行時由應用程式資料目錄管理；ffmpeg 和 ffprobe 隨每個 Arroxy 版本一起提供。
+> `bun run bootstrap` 會安裝依賴、重建 Electron 應用程式程式依賴、驗證 Electron、為開發準備嵌入式 ffmpeg/ffprobe，並安裝 Playwright Chromium。發行版本在執行時於應用程式資料目錄中管理 yt-dlp、ffmpeg 和 ffprobe；它們都不包含在安裝程式中。
 
 </details>
 

@@ -112,26 +112,29 @@ describe('release asset names', () => {
 	it('gates the Defender scan before release day rather than during it', () => {
 		const installer = read('.github/workflows/installer-smoke.yml')
 		const scan = workflowStep(installer, 'Scan packed output with Windows Defender')
+		const install = workflowStep(installer, 'Install the pinned FFmpeg package')
+		const ffmpegScan = workflowStep(installer, 'Scan the pinned FFmpeg package with Windows Defender')
 		const advisory = workflowStep(installer, 'Surface an advisory Defender failure on tags')
 
 		expect(scan).toContain('scan-windows-defender.ps1')
-		// The scan protects against a flagged third-party binary reaching users.
-		// But the pinned ffmpeg is already scanned, so the only way it fires on a
-		// tag is Microsoft's classifier changing its mind about a binary that
-		// passed last week — nothing in the repo changed. Failing there strands a
-		// draft release that already holds the macOS and Linux assets, so on tags
-		// it warns and on every other ref it blocks. An explicit override changes
-		// the payload, so that recovery run must block even when dispatched at a tag.
-		expect(scan).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}")
-		// The advisory notice must be gated on exactly the refs the scan lets pass,
+		// FFmpeg no longer ships in the installer. The pinned package is installed
+		// from its release asset the way the app does it, then scanned, so a
+		// flagged upstream binary still cannot reach users unnoticed.
+		expect(install).toContain('ffmpegPackage.ts install --platform win32 --arch x64')
+		expect(ffmpegScan).toContain('scan-windows-defender.ps1')
+		expect(ffmpegScan).toContain('-Require ffmpeg.exe,ffprobe.exe')
+		// The package was scanned when its pin landed, so the only way a scan fires
+		// on a tag is Microsoft's classifier changing its mind about binaries that
+		// passed last week. Failing there strands a draft release that already
+		// holds the macOS and Linux assets, so on tags it warns and on every other
+		// ref it blocks. The fix is a newly approved package, not a re-tag.
+		expect(scan).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}")
+		expect(ffmpegScan).toContain("continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}")
+		// The advisory notice must be gated on exactly the refs the scans let pass,
 		// or a run that actually blocked still claims it was only advisory.
-		expect(advisory).toContain("if: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' && steps.defender.outcome == 'failure' }}")
+		expect(advisory).toContain("if: ${{ startsWith(github.ref, 'refs/tags/v') && (steps.defender.outcome == 'failure' || steps.defender-ffmpeg.outcome == 'failure') }}")
 		// A schedule is what actually catches definition drift, early and cheaply.
 		expect(installer).toContain('schedule:')
-		// Rebuilding against a different ffmpeg must not need a source edit and a
-		// re-tag — that was the only recovery path a blocking release-day gate left.
-		expect(installer).toContain('btbn_release_tag')
-		expect(installer).toContain('BTBN_RELEASE_TAG: ${{ inputs.btbn_release_tag }}')
 	})
 
 	it('passes Defender an absolute scan path so custom scans can resolve the target', () => {
@@ -222,16 +225,17 @@ describe('release asset names', () => {
 		expect(release).toContain('gh release edit "$REF_NAME" --draft=false $EXTRA')
 	})
 
-	it('authenticates electron-builder BtbN resolver calls in CI builds', () => {
+	it('builds release artifacts without contacting the upstream FFmpeg hosts', () => {
 		const release = read('.github/workflows/release.yml')
 		const installer = read('.github/workflows/installer-smoke.yml')
 		const coldStart = read('.github/workflows/e2e-cold-start.yml')
 
-		expect(installer).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
-		expect(coldStart).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
-		expect(release).toContain('BTBN_GITHUB_TOKEN: ${{ github.token }}')
-		expect(installer).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
-		expect(coldStart).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
+		// Release builds bundle no FFmpeg (ADR 0010), so electron-builder no longer
+		// fetches BtbN builds and needs no token for it.
+		for (const workflow of [release, installer, coldStart]) {
+			expect(workflow).not.toContain('BTBN_GITHUB_TOKEN')
+			expect(workflow).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
+		}
 	})
 
 	it('keeps GitHub artifact actions off Node 20-backed refs', () => {

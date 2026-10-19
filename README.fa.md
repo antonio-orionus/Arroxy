@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 این ترجمه با کمک هوش مصنوعی تهیه شده است. [README انگلیسی](README.md) منبع معتبر است. خطایی پیدا کردید؟ [یک PR باز کنید](../../pulls).
 
@@ -442,7 +442,7 @@ yt-dlp هنگام شروع خودکار به‌روز می‌شود و Arroxy پ
 <details>
 <summary><strong>لازم است چیز دیگری نصب کنم؟</strong></summary>
 
-خیر. yt-dlp در نخستین اجرا خودکار دانلود و روی دستگاه cache می‌شود؛ ffmpeg و ffprobe همراه برنامه هستند. پس از آن تنظیم اضافه‌ای لازم نیست.
+خیر. yt-dlp، ffmpeg و ffprobe در نخستین اجرا خودکار دانلود و روی دستگاه cache می‌شوند. پس از آن تنظیم اضافه‌ای لازم نیست.
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy رایگان و دارای مجوز MIT است؛ بدون تبلیغ، ب
 - **React 19** + **TypeScript** — رابط کاربری
 - **Tailwind CSS v4** — ظاهر برنامه
 - **Zustand** — مدیریت وضعیت
-- **yt-dlp** + **ffmpeg** — موتور دانلود و ترکیب جریان‌ها (yt-dlp هنگام اجرا دریافت می‌شود؛ ffmpeg/ffprobe هنگام ساخت در بسته قرار می‌گیرند)
+- **yt-dlp** + **ffmpeg** — موتور دانلود و ترکیب جریان‌ها (هر دو هنگام اجرا دریافت می‌شوند: yt-dlp به‌روز نگه داشته می‌شود و ffmpeg/ffprobe یک بار نصب شده و پس از به‌روزرسانی‌ها حفظ می‌شوند)
 - **Vite** + **electron-vite** — ابزار ساخت
 - **Vitest** + **Playwright** — آزمون واحد و سرتاسری
 
@@ -581,7 +581,7 @@ bun run dist         # بستهٔ سیستم‌عامل فعلی
 bun run dist:win     # ساخت هدف‌های Windows روی میزبان پشتیبانی‌شده
 ```
 
-> `bun run bootstrap` وابستگی‌ها را نصب می‌کند، وابستگی‌های برنامهٔ Electron را بازسازی و خود Electron را بررسی می‌کند، ffmpeg/ffprobe داخلی را برای توسعه آماده و Playwright Chromium را نصب می‌کند. yt-dlp هنگام اجرا در پوشهٔ دادهٔ برنامه مدیریت می‌شود؛ ffmpeg و ffprobe همراه هر انتشار Arroxy هستند.
+> `bun run bootstrap` وابستگی‌ها را نصب می‌کند، وابستگی‌های برنامهٔ Electron را بازسازی و خود Electron را بررسی می‌کند، ffmpeg/ffprobe داخلی را برای توسعه آماده و Playwright Chromium را نصب می‌کند. نسخه‌های انتشاریافته yt-dlp، ffmpeg و ffprobe را هنگام اجرا در پوشهٔ دادهٔ برنامه مدیریت می‌کنند؛ هیچ‌کدام درون نصب‌کننده نیستند.
 
 </details>
 

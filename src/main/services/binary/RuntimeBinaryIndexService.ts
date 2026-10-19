@@ -2,11 +2,11 @@ import {verify as verifySignature} from 'node:crypto'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import log from 'electron-log/main.js'
-import {runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex} from '@shared/runtimeBinaryManifest.js'
-import type {RuntimeBinaryId, RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'
+import {ffmpegPackageCacheKey, runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget, validateRuntimeBinaryIndex} from '@shared/runtimeBinaryManifest.js'
+import type {FfmpegPackageEntry, RuntimeBinaryId, RuntimeBinaryIndex, RuntimeBinaryIndexEntry, RuntimeBinaryManifestEntry} from '@shared/types.js'
 import {downloadText} from './BinaryDownloader.js'
 import {BUNDLED_RUNTIME_BINARY_INDEX} from './BundledRuntimeBinaryIndex.js'
-import {RUNTIME_BINARY_INDEX_PUBLIC_KEY_PEM, RUNTIME_BINARY_INDEX_SIGNATURE_URL, RUNTIME_BINARY_INDEX_URL} from './RuntimeBinaryTrust.js'
+import {RUNTIME_BINARY_INDEX_FILE_NAME, RUNTIME_BINARY_INDEX_PUBLIC_KEY_PEM, RUNTIME_BINARY_INDEX_SIGNATURE_FILE_NAME, RUNTIME_BINARY_INDEX_SIGNATURE_URL, RUNTIME_BINARY_INDEX_URL} from './RuntimeBinaryTrust.js'
 
 const defaultLogger = log.scope('runtime-binary-index')
 
@@ -27,6 +27,7 @@ interface LoadedIndexes {
 
 export interface RuntimeBinaryIndexProvider {
 	candidatesFor(id: RuntimeBinaryId, signal?: AbortSignal): Promise<RuntimeBinaryManifestEntry[]>
+	ffmpegPackageCandidates(signal?: AbortSignal): Promise<FfmpegPackageEntry[]>
 }
 
 export interface RuntimeBinaryIndexServiceOptions {
@@ -71,8 +72,8 @@ function repoFromGitHubUrl(rawUrl: string | null): string | null {
 	}
 }
 
-function candidateSummary(entry: RuntimeBinaryManifestEntry): Pick<RuntimeBinaryManifestEntry, 'channel' | 'provider' | 'version' | 'platform' | 'arch' | 'format'> {
-	return {channel: entry.channel, provider: entry.provider, version: entry.version, platform: entry.platform, arch: entry.arch, format: entry.format}
+function candidateSummary(entry: RuntimeBinaryIndexEntry): Record<string, string> {
+	return entry.id === 'ffmpeg' ? {version: entry.version, platform: entry.platform, arch: entry.arch, format: entry.format} : {channel: entry.channel, provider: entry.provider, version: entry.version, platform: entry.platform, arch: entry.arch, format: entry.format}
 }
 
 function remoteIndexSourceFields(source: LoadedIndexes['source'], remoteIndexUrl: string | null): {indexUrl: string | null; sourceRepo: string | null} {
@@ -112,12 +113,22 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 	}
 
 	async candidatesFor(id: RuntimeBinaryId, signal?: AbortSignal): Promise<RuntimeBinaryManifestEntry[]> {
+		return this.collect(id, runtimeBinaryCacheKey, signal)
+	}
+
+	async ffmpegPackageCandidates(signal?: AbortSignal): Promise<FfmpegPackageEntry[]> {
+		return this.collect('ffmpeg', ffmpegPackageCacheKey, signal)
+	}
+
+	// Entries for this machine from every loaded index, primary first, each
+	// approved artifact once.
+	private async collect<Id extends RuntimeBinaryIndexEntry['id']>(id: Id, cacheKey: (entry: Extract<RuntimeBinaryIndexEntry, {id: Id}>) => string, signal?: AbortSignal): Promise<Array<Extract<RuntimeBinaryIndexEntry, {id: Id}>>> {
 		const loaded = await this.load(signal)
 		const seen = new Set<string>()
-		const candidates: RuntimeBinaryManifestEntry[] = []
+		const candidates: Array<Extract<RuntimeBinaryIndexEntry, {id: Id}>> = []
 		for (const index of [loaded.primary, ...loaded.fallbacks]) {
 			for (const entry of runtimeEntriesForCurrentTarget(index, id)) {
-				const key = runtimeBinaryCacheKey(entry)
+				const key = cacheKey(entry)
 				if (seen.has(key)) continue
 				seen.add(key)
 				candidates.push(entry)
@@ -192,7 +203,7 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 
 	private async readLastKnownGood(): Promise<{index: RuntimeBinaryIndex; raw: string; signature: string} | null> {
 		try {
-			const [raw, signature] = await Promise.all([fsPromises.readFile(path.join(this.manifestDir, 'runtime-index-v1.json'), 'utf8'), fsPromises.readFile(path.join(this.manifestDir, 'runtime-index-v1.sig'), 'utf8')])
+			const [raw, signature] = await Promise.all([fsPromises.readFile(path.join(this.manifestDir, RUNTIME_BINARY_INDEX_FILE_NAME), 'utf8'), fsPromises.readFile(path.join(this.manifestDir, RUNTIME_BINARY_INDEX_SIGNATURE_FILE_NAME), 'utf8')])
 			if (!verifyRuntimeBinaryIndexSignature(raw, signature, this.publicKeyPem)) throw new Error('last-known-good signature verification failed')
 			return {index: parseSignedIndex(raw), raw, signature}
 		} catch (err) {
@@ -203,8 +214,8 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 
 	private async writeLastKnownGood(raw: string, signature: string): Promise<void> {
 		await fsPromises.mkdir(this.manifestDir, {recursive: true})
-		const jsonPath = path.join(this.manifestDir, 'runtime-index-v1.json')
-		const sigPath = path.join(this.manifestDir, 'runtime-index-v1.sig')
+		const jsonPath = path.join(this.manifestDir, RUNTIME_BINARY_INDEX_FILE_NAME)
+		const sigPath = path.join(this.manifestDir, RUNTIME_BINARY_INDEX_SIGNATURE_FILE_NAME)
 		await Promise.all([fsPromises.writeFile(`${jsonPath}.tmp`, raw), fsPromises.writeFile(`${sigPath}.tmp`, signature)])
 		await Promise.all([fsPromises.rename(`${jsonPath}.tmp`, jsonPath), fsPromises.rename(`${sigPath}.tmp`, sigPath)])
 	}

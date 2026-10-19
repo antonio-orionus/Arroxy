@@ -4,6 +4,12 @@ import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@shared/types.js'
 import {WarmupSplash} from '@renderer/components/system/WarmupSplash.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {EMPTY_WARMUP_DOWNLOADS, trackWarmupDownloads, type WarmupDownloads} from '@renderer/store/warmupDownloads.js'
+
+// What the store would hold after these events arrived.
+function downloadsFor(progress: Partial<Record<DependencyId, WarmupProgressEvent>> | null): WarmupDownloads {
+	return progress ? trackWarmupDownloads(EMPTY_WARMUP_DOWNLOADS, progress, 0) : EMPTY_WARMUP_DOWNLOADS
+}
 
 const failedYtDlpDiagnostic: DependencyDiagnostic = {
 	id: 'yt-dlp',
@@ -15,7 +21,7 @@ const failedYtDlpDiagnostic: DependencyDiagnostic = {
 }
 
 function renderBlockedSplash(): void {
-	render(<WarmupSplash initialized warmupBlocking={['yt-dlp']} warmupDiagnostics={{'yt-dlp': failedYtDlpDiagnostic} as Record<DependencyId, DependencyDiagnostic>} warmupProgress={null} showGreeting={false} />)
+	render(<WarmupSplash initialized warmupBlocking={['yt-dlp']} warmupDiagnostics={{'yt-dlp': failedYtDlpDiagnostic} as Record<DependencyId, DependencyDiagnostic>} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 }
 
 describe('WarmupSplash verification phase', () => {
@@ -26,17 +32,17 @@ describe('WarmupSplash verification phase', () => {
 	it('names the binary it is checking instead of going quiet', () => {
 		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing'} satisfies WarmupProgressEvent}
 
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
 		expect(screen.getByTestId('splash-verifying')).toHaveTextContent('Checking yt-dlp')
 	})
 
-	it('lets a real download keep the foreground when both are in flight', () => {
+	it('lets a real download keep the foreground when a check runs alongside it', () => {
 		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 1024 * 1024, totalBytes: 4 * 1024 * 1024} satisfies WarmupProgressEvent, ffmpeg: {binary: 'ffmpeg', phase: 'probing'} satisfies WarmupProgressEvent}
 
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Downloading yt-dlp')
+		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
 		expect(screen.queryByTestId('splash-verifying')).toBeNull()
 	})
 
@@ -47,7 +53,7 @@ describe('WarmupSplash verification phase', () => {
 		vi.useFakeTimers()
 		try {
 			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: true} satisfies WarmupProgressEvent}
-			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
 			// Longer than every cold probe measured (14.5s–15.9s).
 			act(() => {
@@ -64,7 +70,7 @@ describe('WarmupSplash verification phase', () => {
 		vi.useFakeTimers()
 		try {
 			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: true} satisfies WarmupProgressEvent}
-			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
 			act(() => {
 				vi.advanceTimersByTime(36_000)
@@ -83,7 +89,7 @@ describe('WarmupSplash verification phase', () => {
 		vi.useFakeTimers()
 		try {
 			const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'probing', firstCheck: false} satisfies WarmupProgressEvent}
-			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
 			act(() => {
 				vi.advanceTimersByTime(120_000)
@@ -100,7 +106,7 @@ describe('WarmupSplash verification phase', () => {
 	it('offers no way out when there is nothing wired to cancel', () => {
 		vi.useFakeTimers()
 		try {
-			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 			act(() => {
 				vi.advanceTimersByTime(61000)
 			})
@@ -118,7 +124,7 @@ describe('WarmupSplash verification phase', () => {
 		vi.useFakeTimers()
 		try {
 			const onCancel = vi.fn()
-			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} onCancel={onCancel} />)
+			render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} onCancel={onCancel} />)
 
 			expect(screen.queryByTestId('splash-cancel')).toBeNull()
 			act(() => {
@@ -140,13 +146,13 @@ describe('WarmupSplash verification phase', () => {
 		try {
 			const onCancel = vi.fn()
 			const at = (bytes: number) => ({'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: bytes, totalBytes: 40_000_000} satisfies WarmupProgressEvent})
-			const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(1_000_000)} showGreeting={false} onCancel={onCancel} />)
+			const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(1_000_000)} warmupDownloads={downloadsFor(at(1_000_000))} showGreeting={false} onCancel={onCancel} />)
 
 			for (let mb = 2; mb <= 6; mb++) {
 				act(() => {
 					vi.advanceTimersByTime(50_000)
 				})
-				rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(mb * 1_000_000)} showGreeting={false} onCancel={onCancel} />)
+				rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={at(mb * 1_000_000)} warmupDownloads={downloadsFor(at(mb * 1_000_000))} showGreeting={false} onCancel={onCancel} />)
 			}
 
 			// 250s elapsed, never 60s without an advance.
@@ -163,35 +169,65 @@ describe('WarmupSplash', () => {
 	})
 
 	it('blocks pointer events while warmup overlay is visible', () => {
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 
 		expect(screen.getByTestId('splash-overlay')).toHaveStyle({pointerEvents: 'auto'})
 	})
 
 	it('labels idle dependency warmup as preparing downloads', () => {
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 
 		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Preparing downloads')
 		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Starting Arroxy')
 	})
 
-	it('keeps concrete binary download progress and byte counts', () => {
+	it('turns a first download into the setup view with one bar and byte counts', () => {
 		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 3 * 1024 * 1024, totalBytes: 12 * 1024 * 1024} satisfies WarmupProgressEvent}
 
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('Downloading yt-dlp')
-		expect(screen.getByTestId('splash-overlay')).toHaveTextContent('3.0 MB / 12.0 MB')
+		expect(screen.getByTestId('splash-setup')).toHaveTextContent('First-time setup')
+		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
+		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('3.0 MB of 12.0 MB')
+		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25')
 		expect(document.querySelector('.splash-progress-bar')).toHaveStyle({width: '25%'})
+	})
+
+	// The first launch after the update that stopped bundling FFmpeg: a returning
+	// user should read it as an update of one part, not a fresh install.
+	it('tells a returning user which tools are updating, without repeating it', () => {
+		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 21 * 1024 * 1024, totalBytes: 42 * 1024 * 1024} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting />)
+
+		const setup = screen.getByTestId('splash-setup')
+		expect(setup).toHaveTextContent('Updating the media tools')
+		expect(setup).not.toHaveTextContent('Downloading the media tools')
+		expect(setup).toHaveTextContent('This happens once')
+		// Tool names are for repair and manual setup, not for someone waiting.
+		expect(setup).not.toHaveTextContent('FFmpeg')
+		expect(setup).not.toHaveTextContent('yt-dlp')
+	})
+
+	it('adds the time left once the store has measured a stable rate', () => {
+		const event = (bytes: number): WarmupProgressEvent => ({binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: bytes, totalBytes: 42 * 1024 * 1024})
+		let downloads = EMPTY_WARMUP_DOWNLOADS
+		downloads = trackWarmupDownloads(downloads, {ffmpeg: event(0)}, 0)
+		downloads = trackWarmupDownloads(downloads, {ffmpeg: event(2 * 1024 * 1024)}, 6000)
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{ffmpeg: event(2 * 1024 * 1024)}} warmupDownloads={downloads} showGreeting={false} />)
+
+		// 40 MB left at 2 MB per 6 s is 120 s.
+		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('2.0 MB of 42.0 MB · about 2 min left')
 	})
 
 	it('does not label post-download extraction as a stuck full download', () => {
 		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'extracting'} satisfies WarmupProgressEvent}
 
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} showGreeting={false} />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading ffmpeg')
-		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('MB /')
+		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Downloading')
+		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('MB of')
 		// The bar is back, but indeterminate — motion without a completion claim,
 		// which is the opposite of the stuck full bar this test was written for.
 		expect(document.querySelector('.splash-progress-bar')).toHaveClass('splash-progress-bar--indeterminate')
@@ -199,11 +235,11 @@ describe('WarmupSplash', () => {
 	})
 
 	it('shows the welcome-back greeting only when requested', () => {
-		const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+		const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 
 		expect(screen.queryByTestId('splash-greeting')).not.toBeInTheDocument()
 
-		rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting />)
+		rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting />)
 
 		expect(screen.getByTestId('splash-greeting')).toBeInTheDocument()
 	})
@@ -227,7 +263,7 @@ describe('WarmupSplash', () => {
 	it('releases the splash 800ms after warmup finishes rather than holding a fixed three seconds', () => {
 		vi.useFakeTimers()
 		try {
-			render(<WarmupSplash initialized={true} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} showGreeting={false} />)
+			render(<WarmupSplash initialized={true} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting={false} />)
 
 			act(() => {
 				vi.advanceTimersByTime(700)

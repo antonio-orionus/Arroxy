@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — kallattii
 - **Zustand** — bulchiinsa haala
-- **yt-dlp** + **ffmpeg** — injinii buusuu fi walitti makuu (yt-dlp runtime irratti fudhatama; ffmpeg/ffprobe build time irratti waliin maramu)
+- **yt-dlp** + **ffmpeg** — injinii buusuu fi walitti makuu (lamaan isaanii runtime irratti fudhatamu: yt-dlp haaraa ta'ee tursiifama, ffmpeg/ffprobe altokko qofa fe'amee fooyya'iinsa booda illee turu)
 - **Vite** + **electron-vite** — meeshaalee ijaarsaa
 - **Vitest** + **Playwright** — qormaata unit fi end-to-end
 
@@ -78,7 +78,7 @@ bun run dist         # OS ammaa kanaaf qindeessi
 bun run dist:win     # supported host irratti Windows targets package godhi
 \`\`\`
 
-> \`bun run bootstrap\` dependencies fe'a, Electron app dependencies rebuild godha, Electron mirkaneessa, development'f embedded ffmpeg/ffprobe qopheessa, Playwright Chromium fe'a. yt-dlp runtime irratti app data folder keessatti manage ta'a; ffmpeg fi ffprobe release Arroxy hunda waliin bundled ta'u.
+> \`bun run bootstrap\` dependencies fe'a, Electron app dependencies rebuild godha, Electron mirkaneessa, development'f embedded ffmpeg/ffprobe qopheessa, Playwright Chromium fe'a. Release builds yt-dlp, ffmpeg fi ffprobe runtime irratti app data folder keessatti manage godhu; tokkoon isaanii iyyuu installer keessa hin jiru.
 
 </details>`;
 
@@ -385,7 +385,7 @@ export const om = {
     "Afaanota {{LANG_COUNT}} battalumatti ni argatta: {{LANG_NAME_LIST}}. Arroxy yeroo jalqaba banamu afaan sirna hojii kee ofumaan adda baasa, akkasumas filataa afaanii toolbar keessa jiru irraa yeroo kamiyyuu jijjiiruu dandeessa. Runtime locale JSON src/shared/i18n/locales/ keessa jira, katalogiin PO hiiktotaaf ammoo i18n/locales/ keessa jira — gumaachuuf GitHub irratti PR bani.",
   faq_q7: "Waan biraa fayyadu barbaachisaa?",
   faq_a7:
-    "Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.",
+    "Lakki. yt-dlp, ffmpeg fi ffprobe jalqaba banuu irratti ofumaan buufamanii meeshaa kee irratti kuufamu. Sana booda qindaaʼinni dabalataa hin barbaachisu.",
   faq_q8: "Playlist ykn chaanaalii guutuu buusuu danda'aa?",
   faq_a8:
     "Eeyyee — lamaan isaaniiyyuu. URL playlist ykn channel maxxansi (fkn. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); galfata meeqa akka sakatta’u filadhu, ergasii tarree guutuu queue godhi ykn viidiyoo addaa filadhu. Filtraroonni guyyaa gara fuulduraatti dhufu.",

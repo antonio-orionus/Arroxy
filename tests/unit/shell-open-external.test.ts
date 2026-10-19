@@ -1,5 +1,8 @@
 // @vitest-environment node
 
+import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 
 const handleCalls: {channel: string; fn: (e: unknown, payload: unknown) => unknown}[] = []
@@ -24,7 +27,7 @@ import {shell} from 'electron'
 beforeEach(() => {
 	handleCalls.length = 0
 	vi.clearAllMocks()
-	registerFileHandlers({} as never, {getRuntimeCacheDir: vi.fn().mockReturnValue('/tmp/cache')} as never, () => ({}))
+	registerFileHandlers({} as never, {getDependencyDir: vi.fn().mockReturnValue('/tmp/cache')} as never, () => ({}))
 })
 
 function openExternalHandler() {
@@ -76,5 +79,22 @@ describe('shell:openExternal IPC validation', () => {
 		expect(r1.ok).toBe(false)
 		expect(r2.ok).toBe(false)
 		expect(shell.openExternal).not.toHaveBeenCalled()
+	})
+})
+
+describe('shell:openBinariesDir', () => {
+	it('opens the folder managed dependencies install into, creating it on a first launch', async () => {
+		const dir = path.join(await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-deps-')), 'runtime-cache', 'artifact-cache-v1')
+		handleCalls.length = 0
+		registerFileHandlers({} as never, {getDependencyDir: vi.fn().mockReturnValue(dir)} as never, () => ({}))
+		vi.mocked(shell.openPath).mockResolvedValue('')
+		const call = handleCalls.find(c => c.channel === IPC_CHANNELS.shellOpenBinariesDir)
+		if (!call) throw new Error('openBinariesDir handler not registered')
+
+		const result = (await call.fn(null, undefined)) as {ok: boolean}
+
+		expect(result.ok).toBe(true)
+		expect(shell.openPath).toHaveBeenCalledWith(dir)
+		expect((await fs.stat(dir)).isDirectory()).toBe(true)
 	})
 })

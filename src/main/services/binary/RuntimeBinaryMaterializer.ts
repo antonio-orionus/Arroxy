@@ -5,24 +5,11 @@ import path from 'node:path'
 import {Transform} from 'node:stream'
 import {pipeline} from 'node:stream/promises'
 import {createInflateRaw} from 'node:zlib'
-import log from 'electron-log/main.js'
 import * as yauzl from 'yauzl'
 import {normalizeRuntimeExecutablePath, runtimeBinaryCacheKey} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryManifestEntry} from '@shared/types.js'
-import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, copyCachedArtifactToFile, downloadArtifactToCache, sha256ForFile, type CachedArtifactResult, type DownloadProgressCallback} from './BinaryDownloader.js'
-
-export type ArtifactErrorCode = 'UNSUPPORTED_PLATFORM' | 'NETWORK' | 'TIMEOUT' | 'CANCELLED' | 'CHECKSUM' | 'SIZE_MISMATCH' | 'EXTRACTION' | 'ARCHIVE_SECURITY' | 'EXECUTABLE_MISSING' | 'PERMISSION' | 'DISK' | 'LOCK' | 'INTERNAL'
-
-export class ArtifactMaterializeError extends Error {
-	constructor(
-		readonly code: ArtifactErrorCode,
-		message: string,
-		readonly cause?: unknown
-	) {
-		super(message)
-		this.name = 'ArtifactMaterializeError'
-	}
-}
+import {ArtifactMaterializeError, downloadErrorToArtifactError, pathInside, withArtifactLock} from './ArtifactInstall.js'
+import {copyCachedArtifactToFile, downloadArtifactToCache, sha256ForFile, type CachedArtifactResult, type DownloadProgressCallback} from './BinaryDownloader.js'
 
 export interface RuntimeBinaryMaterializeOptions {
 	cacheRoot: string
@@ -49,9 +36,6 @@ export interface RuntimeBinaryInstallMetadata {
 	installedAt: string
 }
 
-const LOCK_POLL_MS = 200
-const DEFAULT_LOCK_TIMEOUT_MS = 120_000
-const OWNERLESS_LOCK_STALE_MS = 5_000
 const MAX_ZIP_ENTRIES = 4096
 const MAX_EXTRACTED_BYTES = 512 * 1024 * 1024
 const ZIP_LOCAL_FILE_HEADER_SIGNATURE = 0x04034b50
@@ -62,86 +46,12 @@ const ZIP_UNIX_MODE_MASK = 0o170000
 const ZIP_UNIX_SYMLINK = 0o120000
 const ZIP_UNIX_REGULAR = 0o100000
 
-const logger = log.scope('runtime-binary-materializer')
-
-interface LockOwner {
-	pid: number
-	createdAt?: string
-}
-
 export function runtimeBinaryManifestHash(entry: RuntimeBinaryManifestEntry): string {
 	return createHash('sha256').update(JSON.stringify(entry)).digest('hex')
 }
 
 export function runtimeBinaryCacheKeyHash(entry: RuntimeBinaryManifestEntry): string {
 	return createHash('sha256').update(runtimeBinaryCacheKey(entry)).digest('hex')
-}
-
-function abortError(signal: AbortSignal | undefined): ArtifactMaterializeError {
-	const message = signal?.reason instanceof Error ? signal.reason.message : 'Cancelled'
-	return new ArtifactMaterializeError('CANCELLED', message, signal?.reason)
-}
-
-function parseLockOwner(raw: string): LockOwner | null {
-	try {
-		const parsed = JSON.parse(raw) as Partial<LockOwner>
-		const pid = parsed.pid
-		if (typeof pid !== 'number' || !Number.isInteger(pid) || pid <= 0) return null
-		return {pid, createdAt: typeof parsed.createdAt === 'string' ? parsed.createdAt : undefined}
-	} catch {
-		return null
-	}
-}
-
-function processExists(pid: number): boolean {
-	try {
-		process.kill(pid, 0)
-		return true
-	} catch (err) {
-		const code = (err as NodeJS.ErrnoException).code
-		return code !== 'ESRCH'
-	}
-}
-
-async function ownerlessLockIsOld(lockDir: string): Promise<boolean> {
-	try {
-		const stat = await fsPromises.stat(lockDir)
-		return Date.now() - stat.mtimeMs > OWNERLESS_LOCK_STALE_MS
-	} catch {
-		return true
-	}
-}
-
-async function staleLockReason(lockDir: string): Promise<string | null> {
-	const ownerPath = path.join(lockDir, 'owner.json')
-	try {
-		const owner = parseLockOwner(await fsPromises.readFile(ownerPath, 'utf8'))
-		if (!owner) return (await ownerlessLockIsOld(lockDir)) ? 'invalid-owner' : null
-		return processExists(owner.pid) ? null : `dead-owner:${owner.pid}`
-	} catch (err) {
-		if ((err as NodeJS.ErrnoException).code === 'ENOENT') return (await ownerlessLockIsOld(lockDir)) ? 'missing-owner' : null
-		throw err
-	}
-}
-
-function delay(ms: number, signal?: AbortSignal): Promise<void> {
-	return new Promise((resolve, reject) => {
-		if (signal?.aborted) {
-			reject(abortError(signal))
-			return
-		}
-		const timer = setTimeout(resolve, ms)
-		const abort = (): void => {
-			clearTimeout(timer)
-			reject(abortError(signal))
-		}
-		signal?.addEventListener('abort', abort, {once: true})
-	})
-}
-
-function pathInside(root: string, target: string): boolean {
-	const relative = path.relative(root, target)
-	return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))
 }
 
 function zipEntryUnixKind(entry: yauzl.Entry): number {
@@ -227,30 +137,6 @@ async function extractZipEntryToFile(archivePath: string, entry: yauzl.Entry, de
 	return bytes
 }
 
-export function artifactErrorToDependencyFailureKind(err: unknown): 'download_failed' | 'extract_failed' | 'hash_failed' | 'spawn_failed' | 'permission_denied' | 'blocked_or_quarantined' | 'bad_exit_code' | 'timeout' | 'pair_incomplete' {
-	if (!(err instanceof ArtifactMaterializeError)) return 'download_failed'
-	switch (err.code) {
-		case 'CHECKSUM':
-		case 'SIZE_MISMATCH':
-			return 'hash_failed'
-		case 'EXTRACTION':
-		case 'ARCHIVE_SECURITY':
-		case 'EXECUTABLE_MISSING':
-			return 'extract_failed'
-		case 'PERMISSION':
-			return 'permission_denied'
-		case 'TIMEOUT':
-		case 'LOCK':
-			return 'timeout'
-		case 'CANCELLED':
-		case 'NETWORK':
-		case 'DISK':
-		case 'UNSUPPORTED_PLATFORM':
-		case 'INTERNAL':
-			return 'download_failed'
-	}
-}
-
 export class RuntimeBinaryMaterializer {
 	async materialize(entry: RuntimeBinaryManifestEntry, options: RuntimeBinaryMaterializeOptions): Promise<RuntimeBinaryMaterializeResult> {
 		const executablePath = normalizeRuntimeExecutablePath(entry.executablePath)
@@ -261,7 +147,7 @@ export class RuntimeBinaryMaterializer {
 		const finalExecutablePath = path.join(finalDir, executablePath)
 
 		await fsPromises.mkdir(options.cacheRoot, {recursive: true})
-		return this.withLock(options.cacheRoot, cacheKey, options.signal, options.lockTimeoutMs, async () => {
+		return withArtifactLock(options.cacheRoot, cacheKey, options.signal, options.lockTimeoutMs, async () => {
 			if (await this.existingInstall(entry, cacheKey, metadataPath, finalExecutablePath)) {
 				return {executablePath: finalExecutablePath, cacheKey, metadataPath, manifest: entry}
 			}
@@ -274,7 +160,7 @@ export class RuntimeBinaryMaterializer {
 				try {
 					await copyCachedArtifactToFile(artifact.cacheRoot, artifact.key, archivePath, {integrity: artifact.integrity, size: entry.size})
 				} catch (err) {
-					throw this.toArtifactError(entry, err, options.signal)
+					throw downloadErrorToArtifactError(entry.id, entry.size, err, options.signal)
 				}
 				const stageDir = path.join(tempDir, 'install')
 				await fsPromises.mkdir(stageDir, {recursive: true})
@@ -312,36 +198,6 @@ export class RuntimeBinaryMaterializer {
 		}
 	}
 
-	private async withLock<T>(cacheRoot: string, cacheKey: string, signal: AbortSignal | undefined, lockTimeoutMs: number | undefined, run: () => Promise<T>): Promise<T> {
-		const lockDir = path.join(cacheRoot, 'locks', cacheKey)
-		const startedAt = Date.now()
-		await fsPromises.mkdir(path.dirname(lockDir), {recursive: true})
-		while (true) {
-			if (signal?.aborted) throw abortError(signal)
-			try {
-				await fsPromises.mkdir(lockDir)
-				await fsPromises.writeFile(path.join(lockDir, 'owner.json'), JSON.stringify({pid: process.pid, createdAt: new Date().toISOString()}))
-				break
-			} catch (err) {
-				if ((err as NodeJS.ErrnoException).code !== 'EEXIST') throw new ArtifactMaterializeError('LOCK', `Could not acquire artifact lock: ${String(err)}`, err)
-				const reason = await staleLockReason(lockDir)
-				if (reason) {
-					logger.warn('Removing stale artifact lock', {cacheKey, reason})
-					await fsPromises.rm(lockDir, {recursive: true, force: true})
-					continue
-				}
-				if (Date.now() - startedAt > (lockTimeoutMs ?? DEFAULT_LOCK_TIMEOUT_MS)) throw new ArtifactMaterializeError('LOCK', `Timed out waiting for artifact lock ${cacheKey}`)
-				await delay(LOCK_POLL_MS, signal)
-			}
-		}
-
-		try {
-			return await run()
-		} finally {
-			await fsPromises.rm(lockDir, {recursive: true, force: true})
-		}
-	}
-
 	private async downloadVerified(entry: RuntimeBinaryManifestEntry, cacheKey: string, options: RuntimeBinaryMaterializeOptions): Promise<CachedArtifactResult> {
 		try {
 			return await downloadArtifactToCache({
@@ -355,17 +211,8 @@ export class RuntimeBinaryMaterializer {
 				signal: options.signal
 			})
 		} catch (err) {
-			throw this.toArtifactError(entry, err, options.signal)
+			throw downloadErrorToArtifactError(entry.id, entry.size, err, options.signal)
 		}
-	}
-
-	private toArtifactError(entry: RuntimeBinaryManifestEntry, err: unknown, signal?: AbortSignal): ArtifactMaterializeError {
-		if (err instanceof ArtifactMaterializeError) return err
-		if (signal?.aborted) return abortError(signal)
-		if (err instanceof DownloadIntegrityError) return new ArtifactMaterializeError('CHECKSUM', `${entry.id} checksum mismatch`, err)
-		if (err instanceof DownloadSizeMismatchError) return new ArtifactMaterializeError('SIZE_MISMATCH', `${entry.id} size mismatch. Expected ${entry.size}, got ${err.actualSize ?? 'unknown'}`, err)
-		if (err instanceof DownloadStalledError) return new ArtifactMaterializeError('TIMEOUT', err.message, err)
-		return new ArtifactMaterializeError('NETWORK', `All artifact URLs failed for ${entry.id}`, err)
 	}
 
 	private async stage(entry: RuntimeBinaryManifestEntry, archivePath: string, stageDir: string): Promise<void> {

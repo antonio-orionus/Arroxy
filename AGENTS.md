@@ -266,7 +266,7 @@ Checklist, beta-then-stable sequence and manual fallback: [`dev-docs/release-run
 
 ## Binary distribution strategy
 
-ffmpeg/ffprobe are embedded at build time; yt-dlp is fetched and updated at runtime (ADR 0003). Keep the `runAsNode` fuse: the packaged Electron is yt-dlp's Node runtime, and `ELECTRON_RUN_AS_NODE=1` goes **only** into the yt-dlp child environment, never `process.env` or persisted config. `scripts/test-binaries/` must stay tracked. Strategy table, embed mechanics and licensing: [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md).
+Release builds bundle no third-party binaries. yt-dlp is fetched and updated at runtime (ADR 0003); ffmpeg/ffprobe come from an approved **FFmpeg package**, installed once per machine and kept across app updates (ADR 0010). FFmpeg versions change only by editing the committed pins in `FfmpegPackagePins.ts`; FFmpeg releases in `arroxy-runtime-binaries` must be published with `--latest=false`, and FFmpeg entries go only in the v2 manifest, never v1. Dev builds and fixture E2E use `build/embedded/`. Keep the `runAsNode` fuse: the packaged Electron is yt-dlp's Node runtime, and `ELECTRON_RUN_AS_NODE=1` goes **only** into the yt-dlp child environment, never `process.env` or persisted config. `scripts/test-binaries/` must stay tracked. Strategy and licensing: [`dev-docs/binary-distribution.md`](dev-docs/binary-distribution.md); packages, approval and publishing: [`dev-docs/ffmpeg-packages.md`](dev-docs/ffmpeg-packages.md).
 
 ---
 

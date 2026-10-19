@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "Bu video, oturum açılmış bir hesap gerektiriyor."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp ffmpeg veya ffprobe bulamadı. Paketlenen ikili dosyaları onar veya bir FFmpeg konumu ayarla, sonra tekrar dene."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp, ffmpeg veya ffprobe'u bulamadı. Kurulumu yeniden çalıştırın ya da bir FFmpeg konumu belirleyin, ardından indirmeyi tekrar deneyin."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "Varsayılana sıfırla"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Kurulumu tekrar dene"
+msgid "Try again"
+msgstr "Tekrar dene"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Kurulum günlüğünü görüntüle"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Bir araç düzgün çalışmıyor"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Virüsten koruma yazılımınızda veya SmartScreen'de Arroxy'ye izin verin, ardından tekrar deneyin."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Virüsten koruma yazılımınız bir aracı engelledi"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "İnternet bağlantınızı kontrol edin, ardından tekrar deneyin."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy'nin ihtiyacı olanlar indirilemedi"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Yeniden indirmek için tekrar deneyin."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Bir indirme bozuk geldi"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Yeniden indirmek için tekrar deneyin."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Bir indirme sağlama toplamıyla eşleşmedi"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Aşağıdan ikisini de seçin veya varsayılana sıfırlayın."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg ve FFprobe birlikte ayarlanmalı"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Tekrar deneyin. Yine olmazsa aşağıdan güvendiğiniz bir kopya seçin."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Sisteminiz Arroxy'nin bir aracı çalıştırmasına izin vermiyor"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Tekrar deneyin. Yine olmazsa aşağıdan çalışan bir kopya seçin."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Bir araç eksik ya da başlamıyor"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Bu genellikle ilk çalıştırmadaki bir güvenlik taramasından kaynaklanır. Tekrar deneyin."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Bir aracın yanıt vermesi çok uzun sürdü"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Tekrar deneyin veya ayrıntılar için kurulum günlüğünü açın."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Kurulum sırasında bir şeyler ters gitti"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "İkili dosya --version komutuna yanıt vermedi. Bozuk ya da yanlış derleme olabilir."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "İndirme motoru"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows dosyayı engelledi (SmartScreen / Defender). Yüklü bir kopya seç veya çalışma zamanı klasörünü izin listesine al."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Medya araçları"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "İndirme başarısız oldu. İnternet bağlantını kontrol edip tekrar dene."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew ile kuruluyor… Bu birkaç dakika sürebilir."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Arşiv çıkarma başarısız oldu. İndirme bozuk olabilir — tekrar dene."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet ile kuruluyor… Bu birkaç dakika sürebilir."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "İndirilen dosyada sağlama toplamı uyuşmazlığı var. İndirmeyi tekrar dene."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Arroxy'yi zaten sahip olduğunuz kopyalara yönlendirin veya başka bir yolla kurun."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg ve ffprobe eşleşen bir çift olarak birlikte ayarlanmalıdır."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "yt-dlp ve ffmpeg'i paket yöneticinizle de kurabilir, ardından Tekrar dene'ye tıklayabilirsiniz."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Sistem dosyayı çalıştırmayı reddetti. Güvendiğin bir kopya seç veya yönetici olarak tekrar dene."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Elle kur"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Dosya eksik veya başlatılamadı. Çalışan bir kopya seç."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Tekrar deneyin veya aşağıdan Arroxy'yi zaten sahip olduğunuz araçlara yönlendirin."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Sürüm denetimi zaman aşımına uğradı. Dosya takılmış olabilir — tekrar dene."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Doğrulanamadı."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Kurulum durduruldu"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Sorun mu var? Elle kurun"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} indiriliyor…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Selam, tekrar hoş geldin!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "yaklaşık {{count}} dk kaldı"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "yaklaşık {{count}} dk kaldı"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "bir dakikadan az kaldı"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Siteler değiştiğinde indirmelerin çalışmaya devam etmesini sağlar."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Bu yalnızca bir kez olur. Arroxy bu araçları saklar ve kendisi günceller."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Bu yalnızca bir kez olur. Arroxy bunları sonraki güncellemeler için saklar."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Her şeyin çalıştığı kontrol ediliyor"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Bağlanılıyor…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "İndirme motoru ve medya araçları indiriliyor"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "İndirme motoru indiriliyor"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Medya araçları indiriliyor"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Medya araçları açılıyor"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "İndirme motoru güncelleniyor"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "İlk kurulum"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Medya araçları güncelleniyor"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

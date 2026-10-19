@@ -16,37 +16,45 @@
 	"splash": {
 		"greeting": "Xin chào, chào mừng bạn quay lại!",
 		"warmup": "Đang chuẩn bị tải xuống…",
-		"downloading": "Đang tải xuống {{binary}}…",
 		"verifying": "Đang kiểm tra {{binary}}…",
 		"verifyFirstCheck": "Lần kiểm tra đầu tiên của phiên bản này — lần này chậm. Thường mất khoảng một phút.",
 		"cancel": "Gặp sự cố? Thiết lập thủ công",
-		"warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết."
+		"warmupFailedNoDiag": "Thiết lập thất bại. Mở nhật ký thiết lập để xem chi tiết.",
+		"setup": {
+			"title": {"firstRun": "Thiết lập lần đầu", "media": "Đang cập nhật công cụ đa phương tiện", "engine": "Đang cập nhật bộ máy tải xuống"},
+			"stage": {
+				"connecting": "Đang kết nối…",
+				"downloadingBoth": "Đang tải bộ máy tải xuống và công cụ đa phương tiện",
+				"downloadingEngine": "Đang tải bộ máy tải xuống",
+				"downloadingMedia": "Đang tải công cụ đa phương tiện",
+				"unpacking": "Đang giải nén công cụ đa phương tiện",
+				"checking": "Đang kiểm tra mọi thứ hoạt động"
+			},
+			"bytes": "{{done}} / {{total}}",
+			"left": {"underMinute": "còn chưa đến một phút", "minutes_other": "còn khoảng {{count}} phút"},
+			"note": {"firstRun": "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ các công cụ này và tự cập nhật chúng.", "media": "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ chúng cho các lần cập nhật sau.", "engine": "Giúp việc tải xuống luôn hoạt động khi các trang web thay đổi."}
+		}
 	},
 	"repair": {
 		"title": "Thiết lập cần sự giúp đỡ của bạn",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Không thể xác minh.",
-			"downloadFailed": "Tải xuống thất bại. Kiểm tra kết nối internet và thử lại.",
-			"extractFailed": "Giải nén tệp thất bại. Tệp tải xuống có thể bị hỏng — thử lại.",
-			"hashFailed": "Tổng kiểm tra của tệp tải xuống không khớp. Hãy tải xuống lại.",
-			"spawnFailed": "Tệp bị thiếu hoặc không thể khởi chạy. Hãy chọn một bản sao hoạt động được.",
-			"permissionDenied": "Hệ thống từ chối chạy tệp. Hãy chọn bản sao bạn tin tưởng hoặc thử lại với quyền admin.",
-			"blockedOrQuarantined": "Windows đã chặn tệp (SmartScreen / Defender). Hãy chọn bản sao đã cài đặt hoặc thêm thư mục runtime vào danh sách cho phép.",
-			"badExitCode": "Tệp nhị phân không phản hồi --version. Tệp có thể bị hỏng hoặc sai phiên bản.",
-			"timeout": "Kiểm tra phiên bản hết thời gian. Tệp có thể bị treo — thử lại.",
-			"pairIncomplete": "ffmpeg và ffprobe phải được thiết lập cùng nhau như một cặp khớp."
+		"groups": {"engine": "Bộ máy tải xuống", "media": "Công cụ đa phương tiện"},
+		"causes": {
+			"downloadFailed": {"title": "Không thể tải về những gì Arroxy cần", "body": "Hãy kiểm tra kết nối internet của bạn rồi thử lại."},
+			"extractFailed": {"title": "Một tệp tải về bị hỏng", "body": "Hãy thử lại để tải về bản mới."},
+			"hashFailed": {"title": "Một tệp tải về không khớp mã kiểm tra", "body": "Hãy thử lại để tải về bản mới."},
+			"spawnFailed": {"title": "Một công cụ bị thiếu hoặc không khởi động được", "body": "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản hoạt động tốt bên dưới."},
+			"permissionDenied": {"title": "Hệ thống không cho phép Arroxy chạy một công cụ", "body": "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản mà bạn tin tưởng bên dưới."},
+			"blockedOrQuarantined": {"title": "Phần mềm diệt virus đã chặn một công cụ", "body": "Hãy cho phép Arroxy trong phần mềm diệt virus hoặc SmartScreen, rồi thử lại."},
+			"badExitCode": {"title": "Một công cụ không hoạt động đúng", "body": "Hãy thử lại. Nếu vẫn lỗi, hãy chọn một bản hoạt động tốt bên dưới."},
+			"timeout": {"title": "Một công cụ phản hồi quá lâu", "body": "Điều này thường do quét bảo mật ở lần chạy đầu tiên. Hãy thử lại."},
+			"pairIncomplete": {"title": "FFmpeg và FFprobe phải được thiết lập cùng nhau", "body": "Hãy chọn cả hai bên dưới, hoặc đặt lại về mặc định."},
+			"unknown": {"title": "Đã xảy ra sự cố trong lúc thiết lập", "body": "Hãy thử lại, hoặc mở nhật ký thiết lập để xem chi tiết."}
 		},
-		"actions": {
-			"chooseExecutable": "Chọn tệp thực thi",
-			"installWithHomebrew": "Cài bằng Homebrew",
-			"installWithWinget": "Cài bằng WinGet",
-			"resetToDefault": "Đặt lại về mặc định",
-			"retrySetup": "Thử thiết lập lại",
-			"cancel": "Hủy",
-			"openDependencyFolder": "Mở thư mục phụ thuộc",
-			"viewSetupLog": "Xem nhật ký thiết lập"
-		}
+		"installing": {"homebrew": "Đang cài đặt bằng Homebrew… Việc này có thể mất vài phút.", "winget": "Đang cài đặt bằng WinGet… Việc này có thể mất vài phút."},
+		"stopped": {"title": "Thiết lập đã dừng", "body": "Hãy thử lại, hoặc chỉ cho Arroxy những công cụ bạn đã có bên dưới."},
+		"manual": {"toggle": "Thiết lập thủ công", "intro": "Chỉ cho Arroxy những bản bạn đã có, hoặc cài đặt bằng cách khác.", "linuxHint": "Bạn cũng có thể cài yt-dlp và ffmpeg bằng trình quản lý gói, rồi nhấn Thử lại."},
+		"actions": {"chooseExecutable": "Chọn tệp thực thi", "installWithHomebrew": "Cài bằng Homebrew", "installWithWinget": "Cài bằng WinGet", "resetToDefault": "Đặt lại về mặc định", "retrySetup": "Thử lại", "cancel": "Hủy", "openDependencyFolder": "Mở thư mục phụ thuộc", "viewSetupLog": "Xem nhật ký thiết lập"}
 	},
 	"theme": {"light": "Chế độ sáng", "dark": "Chế độ tối", "system": "Mặc định hệ thống"},
 	"language": {"label": "Ngôn ngữ"},
@@ -777,7 +785,7 @@
 			"outputNotWritable": "Arroxy không thể ghi vào thư mục tải xuống. Thư mục có thể chỉ cho phép đọc, nằm trên ổ đĩa bị khóa, hoặc bị chặn bởi cài đặt quyền riêng tư của hệ thống. Hãy chọn thư mục khác hoặc cho phép truy cập rồi thử lại.",
 			"unsupportedUrl": "URL đó không được yt-dlp hỗ trợ. Hãy thử một liên kết khác từ bất kỳ trang web nào được yt-dlp hỗ trợ.",
 			"chunkTransferFailure": "Máy chủ liên tục ngắt kết nối giữa chừng và yt-dlp đã bỏ cuộc sau nhiều lần thử lại. Lỗi này thường xảy ra với các định dạng video lớn nhất (4K HDR / VP9 bitrate cao). Hãy thử lại, đổi mạng/VPN, hoặc chọn định dạng độ phân giải thấp hơn.",
-			"missingDependency": "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy sửa các tệp nhị phân đi kèm hoặc đặt vị trí FFmpeg, rồi thử lại.",
+			"missingDependency": "yt-dlp không tìm thấy ffmpeg hoặc ffprobe. Hãy chạy lại thiết lập hoặc chọn vị trí FFmpeg, rồi thử tải lại.",
 			"postprocessFailure": "yt-dlp đã tải xong nhưng quá trình xử lý hậu kỳ (gộp / mux / chuyển đổi) bị lỗi. Thường đây là sự cố tạm thời của ffmpeg — hãy thử lại, và nếu vẫn lỗi thì thử một tổ hợp định dạng khác.",
 			"parse": "Không thể phân tích phản hồi từ trang web. Bộ trích xuất của yt-dlp có thể đã lỗi thời. Arroxy tự động cập nhật yt-dlp khi khởi chạy — hãy thử lại sau vài phút khi bản sửa lỗi được phát hành.",
 			"network": "Lỗi mạng. Hãy kiểm tra kết nối và thử lại.",

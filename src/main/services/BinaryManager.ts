@@ -9,11 +9,14 @@ import {type BinaryOverrides, type DependencyAttempt, type DependencyDiagnostic,
 import {probeArgs, probeBinary, probeTimeoutMs, whereOnPath, classifyProbeError, fallbackPathCandidates, type ProbeBudget} from './binary/BinaryProbe.js'
 import {ProbeVerdictCache, type ProbeVerdictStore} from './binary/ProbeVerdictCache.js'
 import {classifyDownloadError, parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, sha256ForFile, wrapDownloadProgressEmitter, parseContentRangeStart, resolvePartialResponseMode, type DownloadProgressCallback, type ProgressEmitter} from './binary/BinaryDownloader.js'
-import {installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
-import {installYtDlpWithWinget} from './binary/WingetRepair.js'
+import {installFfmpegWithHomebrew, installYtDlpWithHomebrew} from './binary/HomebrewRepair.js'
+import {installFfmpegWithWinget, installYtDlpWithWinget} from './binary/WingetRepair.js'
+import type {FfmpegPairPaths} from './binary/ffmpegPairOnPath.js'
 import {normalizeRuntimeExecutablePath, runtimeBinaryArchFor, runtimeBinaryPlatformFor, validateRuntimeBinaryManifestEntry} from '@shared/runtimeBinaryManifest.js'
-import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode, RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from './binary/RuntimeBinaryMaterializer.js'
+import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, type ArtifactErrorCode} from './binary/ArtifactInstall.js'
+import {RuntimeBinaryMaterializer, runtimeBinaryCacheKeyHash, runtimeBinaryManifestHash} from './binary/RuntimeBinaryMaterializer.js'
 import {RuntimeBinaryIndexService, type RuntimeBinaryIndexProvider} from './binary/RuntimeBinaryIndexService.js'
+import {FfmpegPackageMaterializer, type FfmpegPackageInstall} from './binary/FfmpegPackageMaterializer.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
 
@@ -177,10 +180,13 @@ function failedDiagnostic(id: DependencyId, attempts: DependencyAttempt[]): Depe
 	return {id, state: 'failed', source: last?.source ?? null, resolvedPath: null, failure: last?.failure, attempts}
 }
 
-function makeDownloadProgress(id: DependencyId, source: DependencySource, onProgress: ProgressEmitter | undefined): DownloadProgressCallback | undefined {
+// The signed manifest states every artifact's exact size, so progress keeps a
+// total even when a proxy or mirror strips Content-Length; without one the
+// splash could show neither a bar nor a byte count.
+function makeDownloadProgress(id: DependencyId, source: DependencySource, onProgress: ProgressEmitter | undefined, expectedSize: number): DownloadProgressCallback | undefined {
 	if (!onProgress) return undefined
 	return (downloaded, total): void => {
-		onProgress({binary: id, phase: 'downloading', bytesDownloaded: downloaded, totalBytes: total, source})
+		onProgress({binary: id, phase: 'downloading', bytesDownloaded: downloaded, totalBytes: total ?? expectedSize, source})
 	}
 }
 
@@ -214,26 +220,21 @@ function managedFailureSetupStep(err: unknown): 'download' | 'checksum_verify' |
 	return err instanceof ArtifactMaterializeError ? artifactSetupStep(err.code) : 'unknown'
 }
 
-// Resolve absolute path to a build-time-embedded ffmpeg/ffprobe binary.
-//
-// Production: binaries ship via electron-builder `extraResources`, so they
-// land in `process.resourcesPath` (Mac: Arroxy.app/Contents/Resources, Win:
-// <install>/resources, Linux AppImage: /tmp/.mount_*/resources).
-//
-// Development: scripts/build/fetch-embedded.sh populates
-// build/embedded/<platform>-<arch>/ once before `bun run dev`, so the
-// dev branch reads from there to mirror the production layout.
-function bundledBinaryPath(name: 'ffmpeg' | 'ffprobe'): string {
-	const ext = process.platform === 'win32' ? '.exe' : ''
-	const fileName = `${name}${ext}`
-	if (app.isPackaged) {
-		return path.join(process.resourcesPath, fileName)
-	}
+// Development builds use the copies scripts/build/fetch-embedded.sh puts in
+// build/embedded/<platform>-<arch>/, so `bun run dev` and the fixture E2E
+// suites never download a package. Release builds ship no FFmpeg at all.
+function devEmbeddedBinaryPath(name: 'ffmpeg' | 'ffprobe'): string | null {
+	if (app.isPackaged) return null
+	const fileName = process.platform === 'win32' ? `${name}.exe` : name
 	const arch = process.arch === 'arm64' ? 'arm64' : 'x64'
 	// import.meta.dirname in dev points at the electron-vite-compiled main
 	// bundle (out/main). Resolve up to repo root, then into build/embedded/.
 	return path.join(import.meta.dirname, '..', '..', 'build', 'embedded', `${process.platform}-${arch}`, fileName)
 }
+
+type FfmpegId = 'ffmpeg' | 'ffprobe'
+type FfmpegPair = Record<FfmpegId, DependencyDiagnostic>
+export type FfmpegPackageMaterializerPort = Pick<FfmpegPackageMaterializer, 'materialize' | 'prune'>
 
 // Finds a binary by name on the system PATH, in PATH order.
 export type PathLookup = (name: string, signal?: AbortSignal) => Promise<string[]>
@@ -259,20 +260,36 @@ export class BinaryManager {
 
 	private readonly ytDlpRun = new SharedRun<DependencyDiagnostic>()
 
-	private readonly ffmpegPairRun = new SharedRun<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}>()
+	private readonly ffmpegPairRun = new SharedRun<FfmpegPair>()
 
-	constructor(userDataPath: string, options?: {retryDelays?: [number, number]; overridesProvider?: () => BinaryOverrides | undefined; runtimeBinaryIndex?: RuntimeBinaryIndexProvider; runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort; probeVerdicts?: ProbeVerdictStore; pathLookup?: PathLookup}) {
+	private readonly ffmpegPackages: FfmpegPackageMaterializerPort
+
+	constructor(
+		userDataPath: string,
+		options?: {
+			retryDelays?: [number, number]
+			overridesProvider?: () => BinaryOverrides | undefined
+			runtimeBinaryIndex?: RuntimeBinaryIndexProvider
+			runtimeBinaryMaterializer?: RuntimeBinaryMaterializerPort
+			ffmpegPackageMaterializer?: FfmpegPackageMaterializerPort
+			probeVerdicts?: ProbeVerdictStore
+			pathLookup?: PathLookup
+		}
+	) {
 		this.cacheDir = path.join(userDataPath, 'runtime-cache', 'binaries')
 		this.artifactCacheDir = path.join(userDataPath, 'runtime-cache', 'artifact-cache-v1')
 		this.overridesProvider = options?.overridesProvider ?? ((): BinaryOverrides | undefined => undefined)
 		this.runtimeBinaryIndex = options?.runtimeBinaryIndex ?? new RuntimeBinaryIndexService(userDataPath)
 		this.runtimeBinaryMaterializer = options?.runtimeBinaryMaterializer ?? new RuntimeBinaryMaterializer()
+		this.ffmpegPackages = options?.ffmpegPackageMaterializer ?? new FfmpegPackageMaterializer()
 		this.probeVerdicts = options?.probeVerdicts ?? new ProbeVerdictCache(path.join(userDataPath, 'runtime-cache'))
 		this.pathLookup = options?.pathLookup ?? whereOnPath
 	}
 
-	getRuntimeCacheDir(): string {
-		return this.cacheDir
+	// Where managed yt-dlp builds and FFmpeg packages are installed, which is
+	// what the repair panel's "Open dependency folder" shows.
+	getDependencyDir(): string {
+		return this.artifactCacheDir
 	}
 
 	getResolvedPath(id: DependencyId): string | null {
@@ -313,14 +330,6 @@ export class BinaryManager {
 
 	getYtDlpPath(): string {
 		return this.resolved['yt-dlp'] ?? process.env.ARROXY_YT_DLP_PATH ?? path.join(this.cacheDir, process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp')
-	}
-
-	getFfmpegPath(): string {
-		return this.resolved.ffmpeg ?? process.env.ARROXY_FFMPEG_PATH ?? bundledBinaryPath('ffmpeg')
-	}
-
-	getFfprobePath(): string {
-		return this.resolved.ffprobe ?? process.env.ARROXY_FFPROBE_PATH ?? bundledBinaryPath('ffprobe')
 	}
 
 	// Probe-and-record helper used by every resolve chain. Runs the binary's
@@ -495,7 +504,7 @@ export class BinaryManager {
 		onProgress?.({binary: entry.id, phase: 'downloading', source})
 		opts.onStatus?.('downloadingBinary', {name: entry.id})
 		try {
-			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
+			const result = await this.runtimeBinaryMaterializer.materialize(entry, {cacheRoot: this.artifactCacheDir, onDownloadProgress: makeDownloadProgress(entry.id, source, onProgress, entry.size), onExtracting: () => onProgress?.({binary: entry.id, phase: 'extracting', source}), signal})
 			return await this.probeAndAccept(entry.id, source, result.executablePath, attempts, onProgress, signal, budget)
 		} catch (err) {
 			// materialize() rejects on abort too. Recording that as a download
@@ -598,12 +607,20 @@ export class BinaryManager {
 		return installYtDlpWithWinget()
 	}
 
-	// ffmpeg + ffprobe ship via electron-builder extraResources at build time.
-	// Resolve order per binary: manualOverride → envOverride → bundled probe.
-	// No download/extract/checksum/retry — fetch-embedded.sh did all that during
-	// CI build. Pair coherence solved by construction (one matched archive →
-	// both binaries land together in process.resourcesPath).
-	async resolveFFmpegPair(opts: ResolveOptions = {}): Promise<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}> {
+	async installFfmpegWithHomebrew(): Promise<FfmpegPairPaths> {
+		return installFfmpegWithHomebrew()
+	}
+
+	async installFfmpegWithWinget(): Promise<FfmpegPairPaths> {
+		return installFfmpegWithWinget()
+	}
+
+	// ffmpeg + ffprobe resolve as a pair. Release builds no longer bundle them:
+	// they come from the approved FFmpeg package in the signed runtime index,
+	// downloaded once and reused across app updates (ADR 0010). Order per binary:
+	// manual override → env override → dev build/embedded copy → managed package
+	// → system PATH. One package supplies both binaries, so they always match.
+	async resolveFFmpegPair(opts: ResolveOptions = {}): Promise<FfmpegPair> {
 		return this.ffmpegPairRun.share(
 			opts,
 			() => ({ffmpeg: failedDiagnostic('ffmpeg', []), ffprobe: failedDiagnostic('ffprobe', [])}),
@@ -611,65 +628,100 @@ export class BinaryManager {
 		)
 	}
 
-	private async runResolveFFmpegPair(opts: ResolveOptions): Promise<{ffmpeg: DependencyDiagnostic; ffprobe: DependencyDiagnostic}> {
+	private async runResolveFFmpegPair(opts: ResolveOptions): Promise<FfmpegPair> {
 		const overrides = opts.overrides ?? this.overridesProvider()
-		const onProgress = opts.onProgress
-		const signal = opts.signal
+		const {onProgress, signal} = opts
+		const ids = ['ffmpeg', 'ffprobe'] as const
+		const attempts: Record<FfmpegId, DependencyAttempt[]> = {ffmpeg: [], ffprobe: []}
+		const budget: Record<FfmpegId, ProbeBudget> = {ffmpeg: 'full', ffprobe: 'full'}
+		const resolved: Partial<FfmpegPair> = {}
+		let cancelled = false
 
-		const resolveOne = async (id: 'ffmpeg' | 'ffprobe', overridePath: string | undefined, envVar: string): Promise<DependencyDiagnostic> => {
-			const attempts: DependencyAttempt[] = []
-			onProgress?.({binary: id, phase: 'starting'})
+		// Runs one candidate for one binary and folds the outcome into the shared
+		// state. Returns true when the binary needs no further candidates.
+		const tryCandidate = async (id: FfmpegId, source: DependencySource, candidatePath: string): Promise<boolean> => {
+			const outcome = await this.probeAndAccept(id, source, candidatePath, attempts[id], onProgress, signal, budget[id])
+			if (outcome.kind === 'accepted') resolved[id] = outcome.diagnostic
+			if (outcome.kind === 'cancelled') cancelled = true
+			if (outcome.kind === 'environmentFatal') budget[id] = 'shortLeash'
+			return outcome.kind === 'accepted' || outcome.kind === 'cancelled'
+		}
+		const pending = (): FfmpegId[] => (cancelled ? [] : ids.filter(id => !resolved[id]))
 
-			// Mirrors resolveYtDlp: an environment-fatal probe shortens the leash on
-			// every remaining candidate instead of writing the binary off.
-			let budget: ProbeBudget = 'full'
-			const fail = (): DependencyDiagnostic => {
-				const diag = failedDiagnostic(id, attempts)
-				this.lastDiagnostics[id] = diag
-				return diag
-			}
+		for (const id of ids) onProgress?.({binary: id, phase: 'starting'})
+		await Promise.all(
+			ids.map(async id => {
+				const overridePath = overrides?.[id]
+				if (overridePath && (await tryCandidate(id, {kind: 'manualOverride', path: overridePath}, overridePath))) return
+				const envVar = id === 'ffmpeg' ? 'ARROXY_FFMPEG_PATH' : 'ARROXY_FFPROBE_PATH'
+				const envPath = process.env[envVar]
+				if (envPath && (await tryCandidate(id, {kind: 'envOverride', path: envPath, envVar}, envPath))) return
+				const devPath = devEmbeddedBinaryPath(id)
+				if (devPath) await tryCandidate(id, {kind: 'bundled', path: devPath}, devPath)
+			})
+		)
 
-			if (overridePath) {
-				const source: DependencySource = {kind: 'manualOverride', path: overridePath}
-				const outcome = await this.probeAndAccept(id, source, overridePath, attempts, onProgress, signal, budget)
-				if (outcome.kind === 'accepted') return outcome.diagnostic
-				if (outcome.kind === 'cancelled') return fail()
-				if (outcome.kind === 'environmentFatal') budget = 'shortLeash'
-			}
+		// A machine that refused to run one binary will refuse a downloaded one too.
+		await this.tryManagedFfmpegPackages(() => pending().filter(id => budget[id] === 'full'), tryCandidate, attempts, opts)
 
-			const envPath = process.env[envVar]
-			if (envPath) {
-				const source: DependencySource = {kind: 'envOverride', path: envPath, envVar}
-				const outcome = await this.probeAndAccept(id, source, envPath, attempts, onProgress, signal, budget)
-				if (outcome.kind === 'accepted') return outcome.diagnostic
-				if (outcome.kind === 'cancelled') return fail()
-				if (outcome.kind === 'environmentFatal') budget = 'shortLeash'
-			}
-
-			const bundled = bundledBinaryPath(id)
-			const source: DependencySource = {kind: 'bundled', path: bundled}
-			const bundledOutcome = await this.probeAndAccept(id, source, bundled, attempts, onProgress, signal, budget)
-			if (bundledOutcome.kind === 'accepted') return bundledOutcome.diagnostic
-			if (bundledOutcome.kind === 'cancelled') return fail()
-			if (bundledOutcome.kind === 'environmentFatal') budget = 'shortLeash'
-
+		for (const id of pending()) {
 			onProgress?.({binary: id, phase: 'fallback'})
-			const binaryName = process.platform === 'win32' ? `${id}.exe` : id
-			const pathCandidates = await this.pathLookup(binaryName, signal)
-			for (const candidate of pathCandidates) {
-				const pathSource: DependencySource = {kind: 'systemPath', path: candidate}
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order
+			for (const candidate of await this.pathLookup(process.platform === 'win32' ? `${id}.exe` : id, signal)) {
 				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- PATH candidates are accepted in PATH order
-				const pathOutcome = await this.probeAndAccept(id, pathSource, candidate, attempts, onProgress, signal, budget)
-				if (pathOutcome.kind === 'accepted') return pathOutcome.diagnostic
-				if (pathOutcome.kind === 'cancelled') return fail()
-				if (pathOutcome.kind === 'environmentFatal') budget = 'shortLeash'
+				if (await tryCandidate(id, {kind: 'systemPath', path: candidate}, candidate)) break
 			}
-
-			return fail()
 		}
 
-		const [ffmpeg, ffprobe] = await Promise.all([resolveOne('ffmpeg', overrides?.ffmpeg, 'ARROXY_FFMPEG_PATH'), resolveOne('ffprobe', overrides?.ffprobe, 'ARROXY_FFPROBE_PATH')])
-		return {ffmpeg, ffprobe}
+		const finish = (id: FfmpegId): DependencyDiagnostic => {
+			const diag = resolved[id] ?? failedDiagnostic(id, attempts[id])
+			this.lastDiagnostics[id] = diag
+			return diag
+		}
+		return {ffmpeg: finish('ffmpeg'), ffprobe: finish('ffprobe')}
+	}
+
+	// Approved packages in index order (remote, then last-known-good, then the
+	// bundled pin). An installed package is reused without network access, so a
+	// launch with no connection still resolves from any version the user has.
+	private async tryManagedFfmpegPackages(waitingFor: () => FfmpegId[], tryCandidate: (id: FfmpegId, source: DependencySource, candidatePath: string) => Promise<boolean>, attempts: Record<FfmpegId, DependencyAttempt[]>, opts: ResolveOptions): Promise<void> {
+		const {onProgress, signal} = opts
+		if (waitingFor().length === 0) return
+		for (const entry of await this.runtimeBinaryIndex.ffmpegPackageCandidates(signal)) {
+			const waiting = waitingFor()
+			if (waiting.length === 0) return
+			const source: DependencySource = {kind: 'managed', channel: 'default', provider: 'github', url: entry.url}
+			const startedAt = Date.now()
+			// One package is one download. The splash adds up the bytes of every
+			// downloading row, so reporting it on both rows would count it twice:
+			// it is reported on the first binary still waiting, normally ffmpeg.
+			const carrier = waiting[0]
+			onProgress?.({binary: carrier, phase: 'downloading', source})
+			opts.onStatus?.('downloadingBinary', {name: 'ffmpeg'})
+			let install: FfmpegPackageInstall
+			try {
+				// react-doctor-disable-next-line react-doctor/async-await-in-loop -- packages are tried in approved fallback order
+				install = await this.ffmpegPackages.materialize(entry, {
+					cacheRoot: this.artifactCacheDir,
+					signal,
+					onDownloadProgress: makeDownloadProgress(carrier, source, onProgress, entry.size),
+					onExtracting: () => {
+						onProgress?.({binary: carrier, phase: 'extracting', source})
+					}
+				})
+			} catch (err) {
+				if (signal?.aborted) return
+				for (const id of waiting) this.recordManagedFailure(id, attempts[id], source, onProgress, err, Date.now() - startedAt)
+				continue
+			}
+			const paths: Record<FfmpegId, string> = {ffmpeg: install.ffmpegPath, ffprobe: install.ffprobePath}
+			// react-doctor-disable-next-line react-doctor/async-await-in-loop -- both probes belong to this one package
+			const settled = await Promise.all(waiting.map(id => tryCandidate(id, source, paths[id])))
+			if (settled.every(Boolean) && !signal?.aborted) {
+				void this.ffmpegPackages.prune(entry, {cacheRoot: this.artifactCacheDir}).catch((err: unknown) => logger.warn('FFmpeg package cleanup failed', {error: errorMessage(err)}))
+				return
+			}
+		}
 	}
 
 	async ensureFFmpeg(onStatus?: StatusReporter, onDownloadProgress?: DownloadProgressCallback): Promise<string | null> {
@@ -687,4 +739,4 @@ export class BinaryManager {
 	}
 }
 
-export const binaryInternals = {parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, parseContentRangeStart, resolvePartialResponseMode, sha256ForFile, classifyProbeError, classifyDownloadError, probeTimeoutMs, whereOnPath, fallbackPathCandidates, bundledBinaryPath}
+export const binaryInternals = {parseShaLine, parseStandaloneSha256, parsePowerShellFileHash, parseContentRangeStart, resolvePartialResponseMode, sha256ForFile, classifyProbeError, classifyDownloadError, probeTimeoutMs, whereOnPath, fallbackPathCandidates, devEmbeddedBinaryPath}

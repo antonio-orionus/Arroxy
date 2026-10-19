@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — interfejs użytkownika
 - **Tailwind CSS v4** — style
 - **Zustand** — zarządzanie stanem
-- **yt-dlp** + **ffmpeg** — silnik pobierania i multipleksowania (yt-dlp pobierane podczas działania; ffmpeg/ffprobe dołączane podczas kompilacji)
+- **yt-dlp** + **ffmpeg** — silnik pobierania i multipleksowania (oba pobierane podczas działania: yt-dlp jest aktualizowane na bieżąco, a ffmpeg/ffprobe instalowane jednorazowo i zachowywane po aktualizacjach)
 - **Vite** + **electron-vite** — narzędzia kompilacji
 - **Vitest** + **Playwright** — testy jednostkowe i end-to-end
 
@@ -78,7 +78,7 @@ bun run dist         # pakiet dla bieżącego systemu
 bun run dist:win     # pakiety Windows na obsługiwanym hoście
 \`\`\`
 
-> \`bun run bootstrap\` instaluje zależności, przebudowuje zależności aplikacji Electron, sprawdza Electron, przygotowuje wbudowane ffmpeg/ffprobe do pracy programistycznej i instaluje Playwright Chromium. yt-dlp jest zarządzane podczas działania w folderze danych aplikacji; ffmpeg i ffprobe są dołączone do każdego wydania Arroxy.
+> \`bun run bootstrap\` instaluje zależności, przebudowuje zależności aplikacji Electron, sprawdza Electron, przygotowuje wbudowane ffmpeg/ffprobe do pracy programistycznej i instaluje Playwright Chromium. Wydania produkcyjne zarządzają yt-dlp, ffmpeg i ffprobe podczas działania w folderze danych aplikacji; żadne z nich nie jest dołączone do instalatora.
 
 </details>`;
 
@@ -277,7 +277,7 @@ export const pl = {
   faq_q6: "W jakich językach jest dostępne Arroxy?",
   faq_a6: "{{LANG_COUNT}} języków od razu po instalacji: {{LANG_NAME_LIST}}. Przy pierwszym uruchomieniu Arroxy automatycznie wykrywa język systemu operacyjnego, a potem można go zmienić w dowolnym momencie za pomocą selektora na pasku narzędzi. Pliki JSON używane w aplikacji znajdują się w src/shared/i18n/locales/, a katalogi PO dla tłumaczy w i18n/locales/ — otwórz PR na GitHubie, aby pomóc.",
   faq_q7: "Czy muszę instalować coś jeszcze?",
-  faq_a7: "Nie. yt-dlp jest pobierane automatycznie przy pierwszym uruchomieniu i zapisywane w pamięci podręcznej, a ffmpeg i ffprobe są dołączone do aplikacji. Później nie potrzeba dodatkowej konfiguracji.",
+  faq_a7: "Nie. yt-dlp, ffmpeg i ffprobe są pobierane automatycznie przy pierwszym uruchomieniu i zapisywane w pamięci podręcznej. Później nie potrzeba dodatkowej konfiguracji.",
   faq_q8: "Czy mogę pobierać playlisty lub całe kanały?",
   faq_a8: "Tak, jedno i drugie. Wklej adres playlisty lub kanału (np. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`), wybierz liczbę wpisów do sprawdzenia, a następnie dodaj całą listę do kolejki albo zaznacz konkretne filmy. Filtry zakresu dat pojawią się wkrótce.",
   faq_q9: "macOS twierdzi, że „aplikacja jest uszkodzona” — co zrobić?",

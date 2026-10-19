@@ -24,33 +24,50 @@
 	"splash": {
 		"greeting": "Xush kelibsiz, qayta keldingiz!",
 		"warmup": "Yuklab olishlar tayyorlanmoqda…",
-		"downloading": "{{binary}} yuklanmoqda…",
 		"verifying": "{{binary}} tekshirilmoqda…",
 		"verifyFirstCheck": "Ushbu versiyaning birinchi tekshiruvi — bu sekin kechadi. Odatda bir daqiqacha.",
 		"cancel": "Muammo bormi? Qo‘lda sozlang",
-		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching."
+		"warmupFailedNoDiag": "Sozlash muvaffaqiyatsiz yakunlandi. Tafsilotlar uchun sozlash jurnalini oching.",
+		"setup": {
+			"title": {"firstRun": "Birinchi sozlash", "media": "Media vositalari yangilanmoqda", "engine": "Yuklash mexanizmi yangilanmoqda"},
+			"stage": {
+				"connecting": "Ulanmoqda…",
+				"downloadingBoth": "Yuklash mexanizmi va media vositalari yuklab olinmoqda",
+				"downloadingEngine": "Yuklash mexanizmi yuklab olinmoqda",
+				"downloadingMedia": "Media vositalari yuklab olinmoqda",
+				"unpacking": "Media vositalari ochilmoqda",
+				"checking": "Hammasi ishlayotgani tekshirilmoqda"
+			},
+			"bytes": "{{total}} dan {{done}}",
+			"left": {"underMinute": "bir daqiqadan kam qoldi", "minutes_one": "taxminan {{count}} daqiqa qoldi", "minutes_other": "taxminan {{count}} daqiqa qoldi"},
+			"note": {"firstRun": "Bu bir marta sodir bo'ladi. Arroxy bu vositalarni saqlaydi va o'zi yangilaydi.", "media": "Bu bir marta sodir bo'ladi. Arroxy ularni kelgusi yangilanishlar uchun saqlaydi.", "engine": "Saytlar o'zgarganda yuklab olishlar ishlashda davom etishini ta'minlaydi."}
+		}
 	},
 	"repair": {
 		"title": "Sozlash sizning yordamingizga muhtoj",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Tekshirib bo'lmadi.",
-			"downloadFailed": "Yuklash muvaffaqiyatsiz. Internet ulanishingizni tekshiring va qayta urinib ko'ring.",
-			"extractFailed": "Arxivni ochish muvaffaqiyatsiz. Yuklama buzilgan bo'lishi mumkin — qayta urinib ko'ring.",
-			"hashFailed": "Yuklangan faylning nazorat summasi mos kelmadi. Yuklamani qaytadan boshlang.",
-			"spawnFailed": "Fayl topilmadi yoki ishga tushirib bo'lmadi. Ishlaydigan nusxani tanlang.",
-			"permissionDenied": "Tizim faylni ishga tushirishdan bosh tortdi. Ishonchli nusxani tanlang yoki administrator sifatida qayta urinib ko'ring.",
-			"blockedOrQuarantined": "Windows fayli blokladi (SmartScreen / Defender). O'rnatilgan nusxani tanlang yoki ishlash vaqti papkasini oq ro'yxatga qo'shing.",
-			"badExitCode": "Ikkilik fayl --version ga javob bermadi. U buzilgan yoki noto'g'ri qurilma uchun bo'lishi mumkin.",
-			"timeout": "Versiya tekshiruvi vaqti tugadi. Fayl muammoga uchragan bo'lishi mumkin — qayta urinib ko'ring.",
-			"pairIncomplete": "ffmpeg va ffprobe ikkalasi ham juft sifatida birgalikda sozlanishi kerak."
+		"groups": {"engine": "Yuklash mexanizmi", "media": "Media vositalari"},
+		"causes": {
+			"downloadFailed": {"title": "Arroxy uchun kerakli narsani yuklab bo'lmadi", "body": "Internet aloqangizni tekshiring, so'ng qayta urinib ko'ring."},
+			"extractFailed": {"title": "Yuklab olingan fayl shikastlangan", "body": "Yangidan yuklab olish uchun qayta urinib ko'ring."},
+			"hashFailed": {"title": "Yuklab olingan fayl nazorat yig'indisiga mos kelmadi", "body": "Yangidan yuklab olish uchun qayta urinib ko'ring."},
+			"spawnFailed": {"title": "Vosita topilmadi yoki ishga tushmayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang."},
+			"permissionDenied": {"title": "Tizimingiz Arroxy'ga vositani ishga tushirishga ruxsat bermayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishonchli nusxani tanlang."},
+			"blockedOrQuarantined": {"title": "Antivirusingiz vositani blokladi", "body": "Antivirus yoki SmartScreen'da Arroxy'ga ruxsat bering, so'ng qayta urinib ko'ring."},
+			"badExitCode": {"title": "Vosita to'g'ri ishlamayapti", "body": "Qayta urinib ko'ring. Yana xato bersa, quyidan ishlaydigan nusxani tanlang."},
+			"timeout": {"title": "Vosita juda uzoq javob bermadi", "body": "Bu ko'pincha birinchi ishga tushirishdagi xavfsizlik tekshiruvi sabab bo'ladi. Qayta urinib ko'ring."},
+			"pairIncomplete": {"title": "FFmpeg va FFprobe birga sozlanishi kerak", "body": "Quyida ikkalasini tanlang yoki standartga qaytaring."},
+			"unknown": {"title": "Sozlash vaqtida xatolik yuz berdi", "body": "Qayta urinib ko'ring yoki tafsilotlar uchun sozlash jurnalini oching."}
 		},
+		"installing": {"homebrew": "Homebrew orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin.", "winget": "WinGet orqali o'rnatilmoqda… Bu bir necha daqiqa olishi mumkin."},
+		"stopped": {"title": "Sozlash to'xtatildi", "body": "Qayta urinib ko'ring yoki quyida Arroxy'ga sizda mavjud vositalarni ko'rsating."},
+		"manual": {"toggle": "Qo'lda sozlash", "intro": "Arroxy'ga sizda mavjud nusxalarni ko'rsating yoki ularni boshqa usulda o'rnating.", "linuxHint": "yt-dlp va ffmpeg ni paket menejeringiz orqali ham o'rnatib, so'ng Qayta urinib ko'rish tugmasini bosishingiz mumkin."},
 		"actions": {
 			"chooseExecutable": "Bajariladigan faylni tanlash",
 			"installWithHomebrew": "Homebrew bilan o‘rnatish",
 			"installWithWinget": "WinGet bilan o‘rnatish",
 			"resetToDefault": "Standartga qaytarish",
-			"retrySetup": "Sozlashni qayta boshlash",
+			"retrySetup": "Qayta urinib ko'rish",
 			"cancel": "Bekor qilish",
 			"openDependencyFolder": "Qaramlik papkasini ochish",
 			"viewSetupLog": "Sozlash jurnalini ko'rish"
@@ -830,7 +847,7 @@
 			"outputNotWritable": "Arroxy yuklab olish jildiga yoza olmayapti. Jild faqat o'qish uchun bo'lishi, qulflangan diskda turishi yoki tizimingizning maxfiylik sozlamalari tomonidan bloklangan bo'lishi mumkin. Boshqa jildni tanlang yoki kirishga ruxsat bering, so'ng qayta urinib ko'ring.",
 			"unsupportedUrl": "Bu URL yt-dlp tomonidan qo'llab-quvvatlanmaydi. yt-dlp qo'llab-quvvatlaydigan saytlardan boshqa havolani sinab ko'ring.",
 			"chunkTransferFailure": "Server yuklab olishni o'rtasida uzib qo'ydi va yt-dlp qayta urinishlardan so'ng voz kechdi. Bu odatda eng katta video formatlarida (4K HDR / yuqori bitreytli VP9) uchraydi. Qayta urining, tarmoq/VPN almashtiring yoki pastroq ruxsat formatini tanlang.",
-			"missingDependency": "yt-dlp ffmpeg yoki ffprobe ni topa olmadi. Ichki binar fayllarni tuzating yoki FFmpeg joylashuvini belgilang, keyin qayta urinib ko'ring.",
+			"missingDependency": "yt-dlp ffmpeg yoki ffprobe ni topa olmadi. Sozlashni qayta ishga tushiring yoki FFmpeg joylashuvini belgilang, so'ng yuklab olishni qayta urinib ko'ring.",
 			"postprocessFailure": "yt-dlp yuklab olishni tugatdi, biroq keyingi qayta ishlash (birlashtirish / mux / o'girish) muvaffaqiyatsiz tugadi. Ko'pincha bu ffmpeg ning vaqtinchalik muammosi — qayta urining, agar davom etsa, boshqa format kombinatsiyasini sinab ko'ring.",
 			"parse": "Saytdan kelgan javobni tahlil qilib bo'lmadi. yt-dlp ekstraktori eskirib qolgan bo'lishi mumkin. Arroxy ishga tushganda yt-dlp ni avtomatik yangilaydi — bir necha daqiqadan so'ng tuzatish kelgach qayta urinib ko'ring.",
 			"network": "Tarmoq xatosi. Aloqangizni tekshiring va qayta urining.",

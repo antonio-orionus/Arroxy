@@ -19,6 +19,7 @@ const healthyReport: RuntimeSmokeReport = {
 		args: ['--no-js-runtimes', '--js-runtimes', 'node:/Applications/Arroxy.app/Contents/MacOS/Arroxy'],
 		verbose: {hasNodeRuntime: true, hasUnsupportedNodeRuntime: false, hasYtDlpEjs: true, hasDenoRuntime: false, hasEjsNpmRemoteComponent: false, jsRuntimeLines: ['[debug] JS runtimes: node 24.16.0'], optionalLibraryLines: ['[debug] Optional libraries: curl_cffi-0.11.4, yt-dlp-ejs-0.3.0']}
 	},
+	ffmpeg: {ffmpegPath: '/tmp/runtime-cache/packages/k/ffmpeg', ffprobePath: '/tmp/runtime-cache/packages/k/ffprobe', sourceKind: 'managed', samePackage: true, encodedStreams: ['video:h264', 'audio:aac']},
 	failures: []
 }
 
@@ -113,6 +114,13 @@ describe('runtime smoke contract', () => {
 		expect(runtimeSmokeReportIsHealthy({...healthyReport, ytDlp: {...healthyReport.ytDlp, args: ['--no-js-runtimes', '--js-runtimes', 'node:/usr/bin/node']}})).toBe(false)
 		expect(runtimeSmokeReportIsHealthy({...healthyReport, ytDlp: {...healthyReport.ytDlp, args: ['--js-runtimes', 'deno:/tmp/deno']}})).toBe(false)
 		expect(runtimeSmokeReportIsHealthy({...healthyReport, ytDlp: {...healthyReport.ytDlp, verbose: {...healthyVerbose!, hasYtDlpEjs: false}}})).toBe(false)
+		// Release builds bundle no FFmpeg: anything but one managed package that can
+		// encode and read back H.264 + AAC is a broken install.
+		expect(runtimeSmokeReportIsHealthy({...healthyReport, ffmpeg: {...healthyReport.ffmpeg, sourceKind: 'managedCache'}})).toBe(true)
+		expect(runtimeSmokeReportIsHealthy({...healthyReport, ffmpeg: {...healthyReport.ffmpeg, sourceKind: 'systemPath'}})).toBe(false)
+		expect(runtimeSmokeReportIsHealthy({...healthyReport, ffmpeg: {...healthyReport.ffmpeg, sourceKind: 'bundled'}})).toBe(false)
+		expect(runtimeSmokeReportIsHealthy({...healthyReport, ffmpeg: {...healthyReport.ffmpeg, samePackage: false}})).toBe(false)
+		expect(runtimeSmokeReportIsHealthy({...healthyReport, ffmpeg: {...healthyReport.ffmpeg, encodedStreams: ['video:h264']}})).toBe(false)
 	})
 })
 

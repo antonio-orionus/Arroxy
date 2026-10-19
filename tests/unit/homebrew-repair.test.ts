@@ -7,7 +7,7 @@ const firstExecutableMock = vi.hoisted(() => vi.fn())
 vi.mock('node:child_process', () => ({execFile: execFileMock}))
 vi.mock('@main/services/binary/BinaryProbe.js', () => ({whereOnPath: whereOnPathMock, firstExecutable: firstExecutableMock}))
 
-import {canMoveUnderHomebrew, installArroxyWithHomebrew, upgradeArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
+import {canMoveUnderHomebrew, installArroxyWithHomebrew, installFfmpegWithHomebrew, upgradeArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
 
 type ExecCallback = (err: Error | null, out?: {stdout: string; stderr: string}) => void
 
@@ -169,5 +169,27 @@ describe.each([
 		fakeBrew({installed: 'arroxy 0.5.10\n'})
 
 		await expect(run('0.5.9')).resolves.toBeUndefined()
+	})
+})
+
+describe('installFfmpegWithHomebrew', () => {
+	function onPath(found: Record<string, string>): void {
+		whereOnPathMock.mockImplementation(async (name: string) => (name === 'brew' ? ['/opt/homebrew/bin/brew'] : found[name] ? [found[name]] : []))
+		firstExecutableMock.mockImplementation(async (candidates: string[]) => candidates[0] ?? null)
+	}
+
+	it('installs ffmpeg with brew and returns both media tools', async () => {
+		onPath({ffmpeg: '/opt/homebrew/bin/ffmpeg', ffprobe: '/opt/homebrew/bin/ffprobe'})
+
+		await expect(installFfmpegWithHomebrew()).resolves.toEqual({ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'})
+		expect(commandCalls()).toEqual([['install', 'ffmpeg']])
+	})
+
+	// Pointing Arroxy at an ffmpeg without its matching ffprobe would leave the
+	// pair broken, so a half-found install is an error.
+	it('fails when brew leaves no ffprobe beside ffmpeg', async () => {
+		onPath({ffmpeg: '/opt/homebrew/bin/ffmpeg'})
+
+		await expect(installFfmpegWithHomebrew()).rejects.toThrow('ffmpeg and ffprobe were not both found')
 	})
 })

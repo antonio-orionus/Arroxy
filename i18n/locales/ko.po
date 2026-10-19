@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "이 동영상은 로그인한 계정이 필요합니다."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp에서 ffmpeg 또는 ffprobe를 찾을 수 없습니다. 번들 바이너리를 복구하거나 FFmpeg 위치를 설정한 뒤 다시 시도하세요."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp가 ffmpeg 또는 ffprobe를 찾지 못했습니다. 설정을 다시 실행하거나 FFmpeg 위치를 지정한 다음 다운로드를 다시 시도하세요."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "기본값으로 재설정"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "설정 다시 시도"
+msgid "Try again"
+msgstr "다시 시도"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "설정 로그 보기"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "다시 시도하세요. 계속 실패하면 아래에서 정상 작동하는 사본을 선택하세요."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "도구가 제대로 작동하지 않습니다"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "백신 프로그램이나 SmartScreen에서 Arroxy를 허용한 다음 다시 시도하세요."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "백신 프로그램이 도구를 차단했습니다"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "인터넷 연결을 확인한 다음 다시 시도하세요."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy에 필요한 항목을 다운로드하지 못했습니다"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "다시 시도하여 새로 다운로드하세요."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "다운로드한 파일이 손상되었습니다"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "다시 시도하여 새로 다운로드하세요."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "다운로드한 파일의 체크섬이 일치하지 않습니다"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "아래에서 둘 다 선택하거나 기본값으로 재설정하세요."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg와 FFprobe는 함께 설정해야 합니다"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "다시 시도하세요. 계속 실패하면 아래에서 신뢰할 수 있는 사본을 선택하세요."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "시스템에서 Arroxy의 도구 실행을 허용하지 않습니다"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "다시 시도하세요. 계속 실패하면 아래에서 정상 작동하는 사본을 선택하세요."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "도구가 없거나 시작되지 않습니다"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "처음 실행할 때 보안 검사 때문에 느려지는 경우가 많습니다. 다시 시도하세요."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "도구가 응답하는 데 너무 오래 걸렸습니다"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "다시 시도하거나 설정 로그를 열어 자세한 내용을 확인하세요."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "설정 중에 문제가 발생했습니다"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "바이너리가 --version에 응답하지 않았습니다. 손상되었거나 잘못된 빌드일 수 있습니다."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "다운로드 엔진"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows에서 파일을 차단했습니다(SmartScreen/Defender). 설치된 파일을 선택하거나 런타임 폴더를 허용 목록에 추가하세요."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "미디어 도구"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "다운로드에 실패했습니다. 인터넷 연결을 확인하고 다시 시도하세요."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew로 설치하는 중… 몇 분 걸릴 수 있습니다."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "압축 파일 추출에 실패했습니다. 다운로드가 손상되었을 수 있으니 다시 시도하세요."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet으로 설치하는 중… 몇 분 걸릴 수 있습니다."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "다운로드한 파일의 체크섬이 일치하지 않습니다. 다시 다운로드하세요."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "이미 가지고 있는 사본을 Arroxy에 지정하거나 다른 방법으로 설치하세요."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg와 ffprobe는 서로 맞는 한 쌍으로 함께 설정해야 합니다."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "패키지 관리자로 yt-dlp와 ffmpeg를 설치한 다음 '다시 시도'를 클릭할 수도 있습니다."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "시스템에서 파일 실행을 거부했습니다. 신뢰할 수 있는 파일을 선택하거나 관리자 권한으로 다시 시도하세요."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "직접 설정하기"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "파일이 없거나 실행할 수 없습니다. 작동하는 파일을 선택하세요."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "다시 시도하거나 아래에서 이미 가지고 있는 도구를 Arroxy에 지정하세요."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "버전 확인 시간이 초과되었습니다. 파일이 멈췄을 수 있으니 다시 시도하세요."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "확인할 수 없습니다."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "설정이 중단되었습니다"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "문제가 있나요? 수동으로 설정하세요"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} 다운로드 중…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "다시 오신 것을 환영합니다!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "other" for ko: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "약 {{count}}분 남음"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "1분 미만 남음"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "사이트가 바뀌어도 다운로드가 계속 작동하도록 합니다."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "처음 한 번만 진행됩니다. Arroxy가 이 도구들을 보관하고 직접 업데이트합니다."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "처음 한 번만 진행됩니다. Arroxy가 이후 업데이트를 위해 보관합니다."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "모든 것이 작동하는지 확인하는 중"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "연결하는 중…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "다운로드 엔진과 미디어 도구를 다운로드하는 중"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "다운로드 엔진을 다운로드하는 중"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "미디어 도구를 다운로드하는 중"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "미디어 도구 압축을 푸는 중"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "다운로드 엔진 업데이트 중"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "처음 설정"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "미디어 도구 업데이트 중"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

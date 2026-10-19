@@ -23,7 +23,7 @@ function withCaBundle(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
 	return env
 }
 
-function envWithFfmpegPaths(ffmpegPath: string | null, opts: {e2eMode?: E2eHarnessMode} = {}): NodeJS.ProcessEnv {
+export function envWithFfmpegPaths(ffmpegPath: string | null, opts: {e2eMode?: E2eHarnessMode} = {}): NodeJS.ProcessEnv {
 	const env = opts.e2eMode?.applySpawnEnv(process.env) ?? {...process.env}
 	if (!ffmpegPath) return env
 	withCaBundle(env)

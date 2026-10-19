@@ -28,11 +28,6 @@
     }
   ],
   "win": {
-    "extraResources": [
-      { "from": "build/embedded/win32-${arch}/ffmpeg.exe",  "to": "ffmpeg.exe" },
-      { "from": "build/embedded/win32-${arch}/ffprobe.exe", "to": "ffprobe.exe" },
-      { "from": "build/embedded/win32-${arch}/", "to": ".", "filter": ["*.dll"] }
-    ],
     "target": [
       { "target": "nsis", "arch": ["x64"] },
       { "target": "portable", "arch": ["x64"] }
@@ -61,10 +56,6 @@
   },
   "mac": {
     "identity": null,
-    "extraResources": [
-      { "from": "build/embedded/darwin-${arch}/ffmpeg",  "to": "ffmpeg" },
-      { "from": "build/embedded/darwin-${arch}/ffprobe", "to": "ffprobe" }
-    ],
     "target": [{ "target": "dmg", "arch": ["arm64", "x64"] }],
     "extendInfo": {
       "NSBluetoothAlwaysUsageDescription": "Arroxy uses Bluetooth so you can sign in to Explore with a security key (passkey)."
@@ -72,11 +63,6 @@
     "artifactName": "${productName}-mac-${arch}.${ext}"
   },
   "linux": {
-    "extraResources": [
-      { "from": "build/embedded/linux-${arch}/ffmpeg",  "to": "ffmpeg" },
-      { "from": "build/embedded/linux-${arch}/ffprobe", "to": "ffprobe" },
-      { "from": "build/embedded/linux-${arch}/", "to": ".", "filter": ["lib*.so*"] }
-    ],
     "target": [
       { "target": "AppImage", "arch": ["x64"] },
       { "target": "tar.gz", "arch": ["x64"] }

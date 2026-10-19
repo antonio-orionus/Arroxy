@@ -74,7 +74,15 @@ function makeDeps() {
 		probeService: probeService as never,
 		settingsStore: settingsStore as never,
 		queueService: queueService as never,
-		binaryManager: {ensureYtDlp: vi.fn(), ensureFFmpeg: vi.fn(), ensureFFprobe: vi.fn(), installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'), installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe')} as never,
+		binaryManager: {
+			ensureYtDlp: vi.fn(),
+			ensureFFmpeg: vi.fn(),
+			ensureFFprobe: vi.fn(),
+			installYtDlpWithHomebrew: vi.fn().mockResolvedValue('/opt/homebrew/bin/yt-dlp'),
+			installYtDlpWithWinget: vi.fn().mockResolvedValue('C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe'),
+			installFfmpegWithHomebrew: vi.fn().mockResolvedValue({ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'}),
+			installFfmpegWithWinget: vi.fn().mockRejectedValue(new Error('WinGet was not found.'))
+		} as never,
 		tokenService: {warmUp: vi.fn(), lastWarmUp: vi.fn().mockReturnValue(null)} as never,
 		languageRef: languageRef as never,
 		clipboardWatcher: clipboardWatcher as never,
@@ -285,6 +293,25 @@ describe('registerIpcHandlers', () => {
 			const result = (await handler(null, undefined)) as {ok: boolean; data?: {installedPath: string}}
 
 			expect(result).toEqual({ok: true, data: {installedPath: 'C:\\Users\\mock\\AppData\\Local\\Microsoft\\WinGet\\Links\\yt-dlp.exe'}})
+		})
+
+		it('app:installFfmpegHomebrew returns both installed media tools', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const result = await findCall(IPC_CHANNELS.appInstallFfmpegHomebrew)!.fn(null, undefined)
+
+			expect(result).toEqual({ok: true, data: {ffmpegPath: '/opt/homebrew/bin/ffmpeg', ffprobePath: '/opt/homebrew/bin/ffprobe'}})
+		})
+
+		it('app:installFfmpegWinget turns an installer failure into a Result failure', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const result = (await findCall(IPC_CHANNELS.appInstallFfmpegWinget)!.fn(null, undefined)) as {ok: boolean; error?: {message: string}}
+
+			expect(result.ok).toBe(false)
+			expect(result.error?.message).toContain('WinGet was not found')
 		})
 
 		it('queue:cmd:add rejects non-array payloads with a Result failure', async () => {

@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp ត្រូវបានធ្វើបច្ចុប្បន្នភ�
 <details>
 <summary><strong>តើខ្ញុំត្រូវដំឡើងអ្វីផ្សេងទៀតទេ?</strong></summary>
 
-ទេ។ yt-dlp ត្រូវបានទាញយកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយរក្សាទុកក្នុងម៉ាស៊ីនរបស់អ្នក; ffmpeg និង ffprobe ភ្ជាប់មកជាមួយកម្មវិធី។ បន្ទាប់ពីនោះ មិនត្រូវការការរៀបចំបន្ថែមទេ។
+ទេ។ yt-dlp, ffmpeg និង ffprobe ត្រូវបានទាញយកដោយស្វ័យប្រវត្តិនៅពេលបើកលើកដំបូង ហើយរក្សាទុកក្នុងម៉ាស៊ីនរបស់អ្នក។ បន្ទាប់ពីនោះ មិនត្រូវការការរៀបចំបន្ថែមទេ។
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy ឥតគិតថ្លៃ និងមានអាជ្ញាប័ណ
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — រចនាប័ទ្ម
 - **Zustand** — ការគ្រប់គ្រងស្ថានភាព
-- **yt-dlp** + **ffmpeg** — ម៉ាស៊ីនទាញយក និង mux (yt-dlp ទាញយកនៅពេលដំណើរការ; ffmpeg/ffprobe ភ្ជាប់មកពេល build)
+- **yt-dlp** + **ffmpeg** — ម៉ាស៊ីនទាញយក និង mux (ទាំងពីរត្រូវបានទាញយកនៅពេលដំណើរការ៖ yt-dlp ត្រូវបានរក្សាឱ្យទាន់សម័យ ហើយ ffmpeg/ffprobe ត្រូវបានដំឡើងម្តង ហើយរក្សាទុកឆ្លងកាត់ការធ្វើបច្ចុប្បន្នភាព)
 - **Vite** + **electron-vite** — ឧបករណ៍ build
 - **Vitest** + **Playwright** — តេស្តឯកតា និងតេស្តពីដើមដល់ចប់
 
@@ -579,7 +579,7 @@ bun run dist         # package for current OS
 bun run dist:win     # package Windows targets when run on a supported host
 ```
 
-> `bun run bootstrap` ដំឡើង dependencies, rebuild dependencies កម្មវិធី Electron, ផ្ទៀងផ្ទាត់ Electron, រៀបចំ ffmpeg/ffprobe បង្កប់សម្រាប់ការអភិវឌ្ឍ និងដំឡើង Playwright Chromium។ yt-dlp ត្រូវបានគ្រប់គ្រងនៅពេលដំណើរការក្នុងថតទិន្នន័យកម្មវិធីរបស់អ្នក; ffmpeg និង ffprobe ភ្ជាប់មកជាមួយការចេញផ្សាយ Arroxy នីមួយៗ។
+> `bun run bootstrap` ដំឡើង dependencies, rebuild dependencies កម្មវិធី Electron, ផ្ទៀងផ្ទាត់ Electron, រៀបចំ ffmpeg/ffprobe បង្កប់សម្រាប់ការអភិវឌ្ឍ និងដំឡើង Playwright Chromium។ កំណែចេញផ្សាយគ្រប់គ្រង yt-dlp, ffmpeg និង ffprobe នៅពេលដំណើរការក្នុងថតទិន្នន័យកម្មវិធីរបស់អ្នក; គ្មានមួយណាភ្ជាប់មកក្នុងកម្មវិធីដំឡើងទេ។
 
 </details>
 

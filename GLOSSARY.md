@@ -217,8 +217,12 @@ The versioned list that tells Arroxy which managed binary build to fetch for the
 _Avoid_: index, build list
 
 **Managed binary**:
-A dependency Arroxy downloads and caches itself, as opposed to one bundled inside the app or found already installed on the system.
+A dependency Arroxy downloads and caches itself, as opposed to one found already installed on the system. Release builds bundle no dependency; both the downloader and the media tools are managed.
 _Avoid_: downloaded binary, fetched binary
+
+**FFmpeg package**:
+The one approved download that holds the media tools and every library they need, installed once per machine and kept across app updates until a different package is approved.
+_Avoid_: FFmpeg bundle, FFmpeg zip, embedded FFmpeg
 
 **Diagnostics file**:
 The single file a user saves from Settings to attach to a bug report: a snapshot of the session context followed by the current and previous log, with user folder names and URL secrets removed.

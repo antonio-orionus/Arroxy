@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — 사용자 인터페이스
 - **Tailwind CSS v4** — 스타일링
 - **Zustand** — 상태 관리
-- **yt-dlp** + **ffmpeg** — 다운로드 및 mux 엔진(yt-dlp는 실행 중 가져오며 ffmpeg/ffprobe는 빌드할 때 포함)
+- **yt-dlp** + **ffmpeg** — 다운로드 및 mux 엔진(둘 다 실행 중 가져오며, yt-dlp는 최신 상태로 유지하고 ffmpeg/ffprobe는 한 번 설치해 업데이트 후에도 유지)
 - **Vite** + **electron-vite** — 빌드 도구
 - **Vitest** + **Playwright** — 단위 및 엔드투엔드 테스트
 
@@ -78,7 +78,7 @@ bun run dist         # 현재 운영 체제용 패키지
 bun run dist:win     # 지원되는 호스트에서 Windows 대상 패키지
 \`\`\`
 
-> \`bun run bootstrap\`은 의존성을 설치하고 Electron 앱 의존성을 다시 빌드하며 Electron을 확인합니다. 또한 개발용 내장 ffmpeg/ffprobe를 준비하고 Playwright Chromium을 설치합니다. yt-dlp는 실행 중 앱 데이터 폴더에서 관리되며 ffmpeg와 ffprobe는 모든 Arroxy 릴리스에 포함됩니다.
+> \`bun run bootstrap\`은 의존성을 설치하고 Electron 앱 의존성을 다시 빌드하며 Electron을 확인합니다. 또한 개발용 내장 ffmpeg/ffprobe를 준비하고 Playwright Chromium을 설치합니다. 릴리스 빌드는 yt-dlp, ffmpeg, ffprobe를 실행 중 앱 데이터 폴더에서 관리하며, 어느 것도 설치 프로그램에 포함되지 않습니다.
 
 </details>`;
 
@@ -290,7 +290,7 @@ export const ko = {
   faq_q6: "Arroxy는 어떤 언어를 지원하나요?",
   faq_a6: "설치 즉시 {{LANG_COUNT}}개 언어를 사용할 수 있습니다: {{LANG_NAME_LIST}}. Arroxy는 처음 실행할 때 운영 체제 언어를 자동 감지하며 도구 모음의 언어 선택기에서 언제든 변경할 수 있습니다. 런타임 로캘 JSON은 src/shared/i18n/locales/에, 번역자용 PO 카탈로그는 i18n/locales/에 있습니다. 기여하려면 GitHub에서 PR을 열어 주세요.",
   faq_q7: "다른 것을 설치해야 하나요?",
-  faq_a7: "아니요. yt-dlp는 처음 실행할 때 자동으로 다운로드되어 컴퓨터에 캐시되고 ffmpeg와 ffprobe는 앱에 포함됩니다. 그 뒤에는 추가 설정이 필요 없습니다.",
+  faq_a7: "아니요. yt-dlp, ffmpeg, ffprobe는 처음 실행할 때 자동으로 다운로드되어 컴퓨터에 캐시됩니다. 그 뒤에는 추가 설정이 필요 없습니다.",
   faq_q8: "재생목록이나 채널 전체를 다운로드할 수 있나요?",
   faq_a8: "둘 다 가능합니다. 재생목록 또는 채널 URL(예: `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)을 붙여 넣고 검색할 항목 수를 선택한 뒤 전체 목록을 대기열에 넣거나 특정 동영상만 선택하세요. 날짜 범위 필터는 곧 추가됩니다.",
   faq_q9: "macOS에서 \"앱이 손상되었습니다\"라고 합니다. 어떻게 하나요?",

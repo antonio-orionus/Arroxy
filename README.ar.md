@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ Arroxy مبني لغرض واحد: ملف محلي نظيف، سواء ألصق�
 <details>
 <summary><strong>هل أحتاج إلى تثبيت شيء آخر؟</strong></summary>
 
-لا. يُحمَّل yt-dlp تلقائياً عند الإطلاق الأول ويُخزَّن على جهازك؛ أمّا ffmpeg وffprobe فيأتيان داخل التطبيق. بعد ذلك، لا تحتاج أي إعداد إضافي.
+لا. يُحمَّل yt-dlp وffmpeg وffprobe تلقائياً عند الإطلاق الأول ويُخزَّنان على جهازك. بعد ذلك، لا تحتاج أي إعداد إضافي.
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy مجاني ومرخّص بموجب MIT — بلا إعلانات، بلا
 - **React 19** + **TypeScript** — واجهة المستخدم
 - **Tailwind CSS v4** — التنسيق
 - **Zustand** — إدارة الحالة
-- **yt-dlp** + **ffmpeg** — محرك التنزيل والدمج (يُجلب yt-dlp وقت التشغيل؛ ويُضمَّن ffmpeg/ffprobe وقت البناء)
+- **yt-dlp** + **ffmpeg** — محرك التنزيل والدمج (يُجلب كلاهما وقت التشغيل: يُحدَّث yt-dlp باستمرار، ويُثبَّت ffmpeg/ffprobe مرة واحدة ويبقيان عبر التحديثات)
 - **Vite** + **electron-vite** — أدوات البناء
 - **Vitest** + **Playwright** — اختبارات الوحدة والشامل
 
@@ -579,7 +579,7 @@ bun run dist         # حزمة للنظام الحالي
 bun run dist:win     # حزم أهداف Windows على مضيف مدعوم
 ```
 
-> يثبّت `bun run bootstrap` الاعتماديات، ويعيد بناء اعتماديات تطبيق Electron، ويتحقق من Electron، ويجهز ffmpeg/ffprobe المضمنين للتطوير، ويثبّت Playwright Chromium. يُدار yt-dlp وقت التشغيل داخل مجلد بيانات التطبيق؛ ويأتي ffmpeg وffprobe مضمنين مع كل إصدار من Arroxy.
+> يثبّت `bun run bootstrap` الاعتماديات، ويعيد بناء اعتماديات تطبيق Electron، ويتحقق من Electron، ويجهز ffmpeg/ffprobe المضمنين للتطوير، ويثبّت Playwright Chromium. تُدير النسخ الرسمية yt-dlp وffmpeg وffprobe وقت التشغيل داخل مجلد بيانات التطبيق؛ ولا يأتي أي منها داخل المثبّت.
 
 </details>
 

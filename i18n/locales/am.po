@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "ይህ ቪዲዮ የገባ መለያ ያስፈልገዋል።"
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp ffmpeg ወይም ffprobe ማግኘት አልቻለም። የተጠቃለሉትን ባይነሪዎች ያስተካክሉ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ እንደገና ይሞክሩ።"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp ffmpeg ወይም ffprobe ማግኘት አልቻለም። ማዋቀሩን እንደገና ያሂዱ ወይም የFFmpeg ቦታ ያዘጋጁ፣ ከዚያ ማውረዱን እንደገና ይሞክሩ።"
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "ወደ ነባሪ መልስ"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "ማዋቀሩን እንደገና ሞክር"
+msgid "Try again"
+msgstr "እንደገና ሞክር"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "የማዋቀሪያ ምዝግብ ፋይል ተመልከት"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚሰራ ቅጂ ይምረጡ።"
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "አንድ መሣሪያ በትክክል እየሠራ አይደለም"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Arroxyን በፀረ-ቫይረስዎ ወይም በSmartScreen ውስጥ ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።"
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "ፀረ-ቫይረስዎ አንድ መሣሪያ አግዷል"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "የኢንተርኔት ግንኙነትዎን ያረጋግጡ፣ ከዚያ እንደገና ይሞክሩ።"
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy የሚፈልገውን ማውረድ አልተቻለም"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "እንደገና አዲስ ለማውረድ ይሞክሩ።"
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "የወረደው ፋይል ተበላሽቶ ደርሷል"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "እንደገና አዲስ ለማውረድ ይሞክሩ።"
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "የወረደው ፋይል ከቼክሰሙ ጋር አልተዛመደም"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "ሁለቱንም ከታች ይምረጡ፣ ወይም ወደ ነባሪ ይመልሷቸው።"
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg እና FFprobe አብረው መዘጋጀት አለባቸው"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚያምኑትን ቅጂ ይምረጡ።"
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "ሲስተምዎ Arroxy አንድ መሣሪያ እንዲያሄድ አይፈቅድም"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "እንደገና ይሞክሩ። አሁንም ካልሰራ፣ ከታች የሚሰራ ቅጂ ይምረጡ።"
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "አንድ መሣሪያ ይጎድላል ወይም አይጀምርም"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "ይህ ብዙ ጊዜ በመጀመሪያ ጊዜ በሚደረግ የደህንነት ፍተሻ ምክንያት ነው። እንደገና ይሞክሩ።"
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "አንድ መሣሪያ ለመመለስ በጣም ረጅም ጊዜ ወሰደ"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "እንደገና ይሞክሩ፣ ወይም ለዝርዝር የማዋቀሪያ ምዝግብ ፋይሉን ይክፈቱ።"
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "በማዋቀር ወቅት የሆነ ችግር ተፈጥሯል"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "ሁለዮሽ ፋይሉ ለ --version ምላሽ አልሰጠም። ሊበላሽ ወይም ያሳሳተ ግንባታ ሊሆን ይችላል።"
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "የማውረጃ ሞተር"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows ፋይሉን ዘጋው (SmartScreen / Defender)። የተጫነ ቅጂ ይምረጡ ወይም የሩጫ ጊዜ አቃፊውን ያሳምኑ።"
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "የሚዲያ መሣሪያዎች"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "ማውረድ ወድቋል። የኢንተርኔት ግንኙነትዎን ያረጋግጡ እና እንደገና ይሞክሩ።"
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "በHomebrew በመጫን ላይ… ይህ ጥቂት ደቂቃዎችን ሊወስድ ይችላል።"
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "የማህደር ቅኝት ወድቋል። ዳውንሎዱ ሊበላሽ ይችላል — እንደገና ይሞክሩ።"
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "በWinGet በመጫን ላይ… ይህ ጥቂት ደቂቃዎችን ሊወስድ ይችላል።"
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "በዳውንሎዱ ፋይል ላይ ቼክሰም አለመዛቸጥ። ዳውንሎዱን እንደገና ይሞክሩ።"
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Arroxyን አስቀድመው ወዳሉዎት ቅጂዎች ያመልክቱ፣ ወይም በሌላ መንገድ ይጫኗቸው።"
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg እና ffprobe ሁለቱም እንደ ተጣመሩ ጥንድ መቀናጀት አለባቸው።"
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "በተጨማሪም yt-dlp እና ffmpegን በጥቅል አስተዳዳሪዎ መጫን ይችላሉ፣ ከዚያ እንደገና ሞክር የሚለውን ይጫኑ።"
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "ስርዓቱ ፋይሉን ለማስኬድ ፈቃደኛ አልሆነም። የሚያምኑበት ቅጂ ይምረጡ ወይም እንደ አስተዳዳሪ እንደገና ይሞክሩ።"
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "በእጅ ያዋቅሩት"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "ፋይሉ የለም ወይም ሊጀመር አልቻለም። ሚሰራ ቅጂ ይምረጡ።"
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "እንደገና ይሞክሩ፣ ወይም Arroxyን ከታች አስቀድመው ወዳሉዎት መሣሪያዎች ያመልክቱ።"
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "የስሪት ምርምሩ ጊዜ አለፈ። ፋይሉ ቀዘቀዘ ሊሆን ይችላል — እንደገና ይሞክሩ።"
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "ማረጋገጥ አልተቻለም።"
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "ማዋቀሩ ቆሟል"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "ችግር አለ? በእጅ ያዋቅሩት"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} እየወረደ ነው…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "እንኳን ደህና መጡ!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} ከ{{total}}"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "ወደ {{count}} ደቂቃ ይቀራል"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "ወደ {{count}} ደቂቃዎች ይቀራል"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "ከአንድ ደቂቃ በታች ይቀራል"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "ጣቢያዎች ሲለወጡ ውርዶች መስራታቸውን እንዲቀጥሉ ያደርጋል።"
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy እነዚህን መሣሪያዎች ያቆያል እና ራሱ ያዘምናቸዋል።"
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy ለወደፊት ዝማኔዎች ያቆያቸዋል።"
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "ሁሉም ነገር እየሰራ መሆኑን በማረጋገጥ ላይ"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "በመገናኘት ላይ…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "የማውረጃ ሞተሩንና የሚዲያ መሣሪያዎችን በማውረድ ላይ"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "የማውረጃ ሞተሩን በማውረድ ላይ"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "የሚዲያ መሣሪያዎችን በማውረድ ላይ"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "የሚዲያ መሣሪያዎችን በመክፈት ላይ"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "የማውረጃ ሞተሩን በማዘመን ላይ"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "የመጀመሪያ ጊዜ ማዋቀር"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "የሚዲያ መሣሪያዎችን በማዘመን ላይ"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

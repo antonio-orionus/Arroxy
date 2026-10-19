@@ -2,8 +2,9 @@ Arroxy — Third-party software notices
 ======================================
 
 Arroxy itself is licensed under the MIT license. The third-party tools
-listed below are used by Arroxy. Tools 1 and 2 are invoked as separate
-subprocesses; their licenses do not propagate to Arroxy's source code.
+listed below are used by Arroxy. Tools 1 and 2 are downloaded by Arroxy
+and invoked as separate subprocesses; their licenses do not propagate to
+Arroxy's source code.
 Libraries 3 to 5 are bundled, unmodified, into Arroxy for its optional
 Explore ad blocker.
 
@@ -12,16 +13,19 @@ Explore ad blocker.
 -----------------------------------------------------------------------
 License: GNU General Public License version 3 (GPLv3)
 
-The bundled FFmpeg builds are configured with `--enable-gpl` and include
-GPL-licensed components (libx264, libx265, etc.).
+FFmpeg is not included in Arroxy's installer. On first launch Arroxy
+downloads an approved FFmpeg package for your platform from
+https://github.com/antonio-orionus/arroxy-runtime-binaries/releases
+and keeps it across Arroxy updates.
 
-Build sources:
+These FFmpeg builds are configured with `--enable-gpl` and include
+GPL-licensed components (libx264, libx265, etc.). Each package contains
+its own NOTICE.txt, and the release it is published in lists the exact
+upstream build and where its corresponding source code is available.
+
+Upstream builds:
   - Windows + Linux: https://github.com/BtbN/FFmpeg-Builds (gpl-shared variants)
   - macOS:           https://ffmpeg.martin-riedl.de/
-
-Corresponding source code is available at:
-  - https://ffmpeg.org/download.html
-  - https://github.com/FFmpeg/FFmpeg
 
 Full GPLv3 license text: https://www.gnu.org/licenses/gpl-3.0.txt
 

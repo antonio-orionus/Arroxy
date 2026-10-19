@@ -289,7 +289,7 @@ function AppFooter({showNudge, styleHintReady, onFeedback}: {showNudge: boolean;
 }
 
 export function App(): ReactNode {
-	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, settings} = useAppStore(
+	const {initialized, initialize, setSplashDismissed, splashDismissed, cancelWarmup, warmupBlocking, warmupDiagnostics, warmupProgress, warmupDownloads, settings} = useAppStore(
 		useShallow(state => ({
 			initialized: state.initialized,
 			initialize: state.initialize,
@@ -299,6 +299,7 @@ export function App(): ReactNode {
 			warmupBlocking: state.warmupBlocking,
 			warmupDiagnostics: state.warmupDiagnostics,
 			warmupProgress: state.warmupProgress,
+			warmupDownloads: state.warmupDownloads,
 			settings: state.settings
 		}))
 	)
@@ -354,7 +355,9 @@ export function App(): ReactNode {
 
 				<AppFooter showNudge={showNudge} styleHintReady={startupReady && !whatsNew.open} onFeedback={openFeedbackFromFooter} />
 
-				{showStartupSplash && <WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} onCancel={cancelWarmup} />}
+				{showStartupSplash && (
+					<WarmupSplash initialized={initialized} warmupBlocking={warmupBlocking} warmupDiagnostics={warmupDiagnostics} warmupProgress={warmupProgress} warmupDownloads={warmupDownloads} showGreeting={shouldShowSplashGreeting(settings)} onDismissed={() => setSplashDismissed(true)} onCancel={cancelWarmup} />
+				)}
 				<AboutDialog />
 				<DonateDialog />
 				{shareDialogOpen ? (

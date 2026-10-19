@@ -457,6 +457,12 @@ export interface SystemSlice {
 	warmupRunning: boolean
 	warmupCancellable: boolean
 	warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null
+	warmupDownloads: import('./warmupDownloads.js').WarmupDownloads
+	// The last warmup ended because the user stopped it ("Having trouble? Set it
+	// up manually"), not because something failed.
+	warmupStopped: boolean
+	// A package manager install the repair panel started and is waiting on.
+	packageInstall: 'homebrew' | 'winget' | null
 	settings: AppSettings | null
 	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null
@@ -474,6 +480,7 @@ export interface SystemSlice {
 	repairWarmup: () => Promise<void>
 	repairYtDlpWithHomebrew: () => Promise<void>
 	repairYtDlpWithWinget: () => Promise<void>
+	repairFfmpegWithPackageManager: (manager: 'homebrew' | 'winget') => Promise<void>
 	cancelWarmup: () => Promise<void>
 	setBinaryOverride: (id: DependencyId, path: string) => Promise<void>
 	clearBinaryOverride: (id: DependencyId) => Promise<void>

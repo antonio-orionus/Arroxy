@@ -1,5 +1,8 @@
 # ffmpeg is embedded at build time; yt-dlp is managed at runtime
 
+Superseded by ADR 0010 for FFmpeg: release builds no longer embed it. The yt-dlp
+half of this decision stands.
+
 ffmpeg and ffprobe are bundled into the packaged app at build time, while yt-dlp
 is fetched and updated at runtime rather than shipped with a release.
 

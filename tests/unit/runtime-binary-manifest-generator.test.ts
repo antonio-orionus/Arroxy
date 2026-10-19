@@ -2,7 +2,7 @@ import {generateKeyPairSync} from 'node:crypto'
 import {readFileSync} from 'node:fs'
 import {describe, expect, it} from 'vite-plus/test'
 import {entriesForRuntimeBinaryValidation, findGithubAsset, githubHeaders, normalizePrivateKeyPem, parseGithubRelease, signRuntimeIndexPayload, verifyRuntimeIndexPayloadSignature} from '../../scripts/build/runtimeBinaryManifest.js'
-import type {RuntimeBinaryIndex, RuntimeBinaryManifestEntry} from '@shared/types.js'
+import type {RuntimeBinaryIndexV1, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
 const baseEntry: RuntimeBinaryManifestEntry = {
 	id: 'yt-dlp',
@@ -63,7 +63,7 @@ describe('runtime binary manifest generator helpers', () => {
 		const linux = baseEntry
 		const macos: RuntimeBinaryManifestEntry = {...baseEntry, platform: 'darwin', url: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.13.234541/yt-dlp_macos', sha256: 'b'.repeat(64), executablePath: 'yt-dlp_macos'}
 		const windowsArm: RuntimeBinaryManifestEntry = {...baseEntry, platform: 'win32', arch: 'arm64', url: 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.13.234541/yt-dlp.exe', sha256: 'c'.repeat(64), executablePath: 'yt-dlp.exe'}
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-14T00:00:00.000Z', entries: [macos, linux, windowsArm]}
+		const index: RuntimeBinaryIndexV1 = {schemaVersion: 1, generatedAt: '2026-06-14T00:00:00.000Z', entries: [macos, linux, windowsArm]}
 
 		expect(entriesForRuntimeBinaryValidation(index, 'current', 'linux', 'x64')).toEqual([linux])
 		expect(entriesForRuntimeBinaryValidation(index, 'none', 'linux', 'x64')).toEqual([macos, linux, windowsArm])

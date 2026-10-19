@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "اس ویڈیو کے لیے سائن ان اکاؤنٹ درکار ہے۔"
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp کو ffmpeg یا ffprobe نہیں ملا۔ شامل کردہ بائنری فائلوں کو مرمت کریں یا FFmpeg کا مقام سیٹ کریں، پھر دوبارہ کوشش کریں۔"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp کو ffmpeg یا ffprobe نہیں ملا۔ سیٹ اپ دوبارہ چلائیں یا FFmpeg کا مقام مقرر کریں، پھر ڈاؤن لوڈ دوبارہ آزمائیں۔"
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "ڈیفالٹ پر واپس جائیں"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "سیٹ اپ دوبارہ کریں"
+msgid "Try again"
+msgstr "دوبارہ کوشش کریں"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "سیٹ اپ لاگ دیکھیں"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔"
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "ایک ٹول ٹھیک سے کام نہیں کر رہا"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "اپنے اینٹی وائرس یا SmartScreen میں Arroxy کو اجازت دیں، پھر دوبارہ کوشش کریں۔"
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "آپ کے اینٹی وائرس نے ایک ٹول کو بلاک کر دیا"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "اپنا انٹرنیٹ کنکشن چیک کریں، پھر دوبارہ کوشش کریں۔"
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy کو درکار چیز ڈاؤن لوڈ نہیں ہو سکی"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔"
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "ایک ڈاؤن لوڈ خراب حالت میں پہنچا"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "اسے نئے سرے سے ڈاؤن لوڈ کرنے کے لیے دوبارہ کوشش کریں۔"
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "ایک ڈاؤن لوڈ اپنے چیک سم سے میل نہیں کھایا"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "نیچے سے دونوں منتخب کریں، یا انہیں ڈیفالٹ پر واپس لے جائیں۔"
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg اور FFprobe کو ایک ساتھ مقرر کرنا ضروری ہے"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی قابلِ اعتماد کاپی منتخب کریں۔"
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "آپ کا سسٹم Arroxy کو ایک ٹول چلانے نہیں دے رہا"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "دوبارہ کوشش کریں۔ اگر پھر بھی ناکام ہو تو نیچے سے کوئی درست کام کرنے والی کاپی منتخب کریں۔"
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "ایک ٹول موجود نہیں یا شروع نہیں ہو رہا"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "پہلی بار چلانے پر اکثر یہ سکیورٹی اسکین کی وجہ سے ہوتا ہے۔ دوبارہ کوشش کریں۔"
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "ایک ٹول نے جواب دینے میں بہت دیر لگائی"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "دوبارہ کوشش کریں، یا تفصیلات کے لیے سیٹ اپ لاگ کھولیں۔"
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "سیٹ اپ کے دوران کچھ غلط ہو گیا"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "بائنری نے --version کا جواب نہیں دیا۔ یہ خراب یا غلط بلڈ ہو سکتی ہے۔"
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "ڈاؤن لوڈ انجن"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows نے فائل بلاک کر دی (SmartScreen / Defender)۔ کوئی انسٹال شدہ کاپی منتخب کریں یا رن ٹائم فولڈر کو وائٹ لسٹ کریں۔"
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "میڈیا ٹولز"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "ڈاؤن لوڈ ناکام ہوا۔ اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔"
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔"
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "آرکائیو نکالنا ناکام ہوا۔ ڈاؤن لوڈ خراب ہو سکتا ہے — دوبارہ کوشش کریں۔"
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet کے ساتھ انسٹال ہو رہا ہے… اس میں چند منٹ لگ سکتے ہیں۔"
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "ڈاؤن لوڈ کی گئی فائل کا چیکسم میل نہیں کھایا۔ ڈاؤن لوڈ دوبارہ کریں۔"
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Arroxy کو ان کاپیوں کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں، یا انہیں کسی اور طریقے سے انسٹال کریں۔"
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg اور ffprobe دونوں کو ایک جوڑے کے طور پر سیٹ کرنا ضروری ہے۔"
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "آپ yt-dlp اور ffmpeg کو اپنے پیکج مینیجر سے بھی انسٹال کر سکتے ہیں، پھر «دوبارہ کوشش کریں» پر کلک کریں۔"
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "سسٹم نے فائل چلانے سے انکار کر دیا۔ کوئی قابل اعتماد کاپی منتخب کریں یا ایڈمن کے طور پر دوبارہ کوشش کریں۔"
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "دستی طور پر سیٹ اپ کریں"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "فائل غائب ہے یا چلائی نہیں جا سکی۔ کوئی کام کرنے والی کاپی منتخب کریں۔"
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "دوبارہ کوشش کریں، یا نیچے Arroxy کو ان ٹولز کی طرف رہنمائی کریں جو آپ کے پاس پہلے سے ہیں۔"
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "ورژن جانچ کا وقت ختم ہو گیا۔ فائل رکی ہوئی ہو سکتی ہے — دوبارہ کوشش کریں۔"
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "تصدیق نہیں ہو سکی۔"
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "سیٹ اپ رک گیا"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "مسئلہ ہو رہا ہے؟ دستی طور پر سیٹ اپ کریں"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} ڈاؤن لوڈ ہو رہا ہے…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "ارے، خوش آمدید!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{total}} میں سے {{done}}"
+
+#. Plural form "one" for ur: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "تقریباً {{count}} منٹ باقی"
+
+#. Plural form "other" for ur: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "تقریباً {{count}} منٹ باقی"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "ایک منٹ سے کم باقی"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "سائٹس بدلنے پر بھی ڈاؤن لوڈز کو چلتا رکھتا ہے۔"
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "یہ صرف ایک بار ہوتا ہے۔ Arroxy ان ٹولز کو رکھتا ہے اور خود اپ ڈیٹ کرتا ہے۔"
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "یہ صرف ایک بار ہوتا ہے۔ Arroxy انہیں آئندہ اپ ڈیٹس کے لیے رکھتا ہے۔"
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "جانچ رہا ہے کہ سب کچھ کام کر رہا ہے"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "منسلک ہو رہا ہے…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "ڈاؤن لوڈ انجن اور میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "ڈاؤن لوڈ انجن ڈاؤن لوڈ ہو رہا ہے"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "میڈیا ٹولز ڈاؤن لوڈ ہو رہے ہیں"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "میڈیا ٹولز کھولے جا رہے ہیں"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "ڈاؤن لوڈ انجن اپ ڈیٹ ہو رہا ہے"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "پہلی بار کا سیٹ اپ"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "میڈیا ٹولز اپ ڈیٹ ہو رہے ہیں"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

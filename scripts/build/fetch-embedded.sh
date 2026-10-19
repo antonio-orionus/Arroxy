@@ -11,9 +11,8 @@
 # Sources:
 #   - Win + Linux: BtbN/FFmpeg-Builds (gpl-shared variants), one archive
 #     contains both ffmpeg + ffprobe + DLLs.
-#   - macOS: ffmpeg.martin-riedl.de (GPL builds, two separate ZIPs).
-#     URL contains a snapshot timestamp+hash with no stable 'latest' alias,
-#     so we scrape the index page for the current snapshot path.
+#   - macOS: ffmpeg.martin-riedl.de (GPL builds, two separate ZIPs),
+#     pinned to one release build per arch (see fetch_martin_riedl).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -142,36 +141,31 @@ fetch_btbn() {
   ok "BtbN ${btbn_arch} → $out"
 }
 
-# Martin-Riedl: scrape index for current snapshot path, fetch two ZIPs.
+# Martin-Riedl: pinned release build, two ZIPs per arch. Scraping the index
+# for the newest snapshot gave every build whatever upstream published that
+# day (amd64 snapshots also stopped updating), so the approved build and its
+# SHA-256s are pinned here. Bump together with the FFmpeg package pins.
+MARTIN_RIEDL_ARM64_PATH="/download/macos/arm64/1789931890_9.0.2/"
+MARTIN_RIEDL_ARM64_FFMPEG_SHA="c8ed4c4e6978a03c485edbfe4e0a5dc2380f8a30bba5150531b31b094492d924"
+MARTIN_RIEDL_ARM64_FFPROBE_SHA="fcbe839537485eaee7a7a8bc5cbc0f90d53617e80943e8a5b2e31cb851197ea6"
+MARTIN_RIEDL_AMD64_PATH="/download/macos/amd64/1789931006_9.0.2/"
+MARTIN_RIEDL_AMD64_FFMPEG_SHA="7c6b4125b191cbf773832dc51f424cf2b6bb7da43007d1e066f95909e47cacd4"
+MARTIN_RIEDL_AMD64_FFPROBE_SHA="2322438ed2f6319a691291b247d09c69dcaa3a982460d1f269a7e1af335cfdfd"
+
 fetch_martin_riedl() {
   local arch="$1" out="$2"
-  local mr_arch
+  local prefix ffmpeg_sha ffprobe_sha
   case "$arch" in
-    arm64) mr_arch=arm64 ;;
-    x64)   mr_arch=amd64 ;;
+    arm64) prefix=$MARTIN_RIEDL_ARM64_PATH; ffmpeg_sha=$MARTIN_RIEDL_ARM64_FFMPEG_SHA; ffprobe_sha=$MARTIN_RIEDL_ARM64_FFPROBE_SHA ;;
+    x64)   prefix=$MARTIN_RIEDL_AMD64_PATH; ffmpeg_sha=$MARTIN_RIEDL_AMD64_FFMPEG_SHA; ffprobe_sha=$MARTIN_RIEDL_AMD64_FFPROBE_SHA ;;
     *) fail "fetch_martin_riedl: unsupported arch $arch"; exit 1 ;;
   esac
-
-  local index="$out/_index.html"
-  note "fetching Martin-Riedl index for macos/${mr_arch}"
-  fetch "https://ffmpeg.martin-riedl.de/" "$index" || exit 1
-
-  # Index has many links per arch (snapshot + release). Take the first match,
-  # which is the snapshot block (newer than release).
-  local prefix
-  prefix=$(grep -oE "/download/macos/${mr_arch}/[0-9]+_N-[0-9a-zA-Z-]+/" "$index" | head -1)
-  if [[ -z "$prefix" ]]; then
-    fail "fetch_martin_riedl: cannot parse index for /download/macos/${mr_arch}/"
-    exit 1
-  fi
   local base="https://ffmpeg.martin-riedl.de${prefix}"
 
   for bin in ffmpeg ffprobe; do
     note "fetching Martin-Riedl ${bin}.zip"
-    fetch "${base}${bin}.zip.sha256" "$out/${bin}.zip.sha256" || exit 1
-    local expected
-    expected=$(awk '{print $1; exit}' "$out/${bin}.zip.sha256")
-    require_sha "$expected" "$out/${bin}.zip.sha256" "${bin}.zip" || exit 1
+    local expected=$ffmpeg_sha
+    [[ "$bin" == "ffprobe" ]] && expected=$ffprobe_sha
     fetch "${base}${bin}.zip" "$out/${bin}.zip" "$expected" || exit 1
     verify_sha "$out/${bin}.zip" "$expected" "${bin}.zip" || exit 1
 
@@ -181,11 +175,10 @@ fetch_martin_riedl() {
     if [[ -z "$inner" ]]; then fail "$bin not in ${bin}.zip"; exit 1; fi
     cp "$inner" "$out/$bin"
     chmod +x "$out/$bin"
-    rm -rf "$out/_ext_${bin}" "$out/${bin}.zip" "$out/${bin}.zip.sha256"
+    rm -rf "$out/_ext_${bin}" "$out/${bin}.zip"
   done
 
-  rm -f "$index"
-  ok "Martin-Riedl macos/${mr_arch} → $out"
+  ok "Martin-Riedl macos ${prefix} → $out"
 }
 
 if has_ffmpeg_payload; then

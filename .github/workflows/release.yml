@@ -95,7 +95,6 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run ${{ matrix.dist-cmd }}
         env:
-          BTBN_GITHUB_TOKEN: ${{ github.token }}
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
       - name: Locate packaged executable
         shell: bash
@@ -161,10 +160,9 @@ jobs:
     # (.github/workflows/installer-smoke.yml) so it can be smoke-tested
     # before publish. mac/linux still build + publish here via dist:release.
     #
-    # ffmpeg/ffprobe are embedded at build time via electron-builder's
-    # beforeBuild hook (build/beforeBuild.cjs invokes
-    # scripts/build/fetch-embedded.sh). yt-dlp remains runtime-fetched by
-    # BinaryManager; Electron provides the Node runtime for yt-dlp JS challenges.
+    # Release builds bundle no FFmpeg: the app installs the approved FFmpeg
+    # package at runtime, like yt-dlp (ADR 0010). Electron provides the Node
+    # runtime for yt-dlp JS challenges.
     needs: prepare-release
     permissions:
       contents: write
@@ -185,7 +183,6 @@ jobs:
       - run: bun run ${{ matrix.dist-cmd }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BTBN_GITHUB_TOKEN: ${{ github.token }}
       - name: Install Linux smoke dependencies
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y xvfb libfuse2t64

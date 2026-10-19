@@ -55,16 +55,16 @@ describe('RuntimeBinaryIndexService', () => {
 
 	it('loads a valid remote index and persists it as last-known-good', async () => {
 		const keys = keyPair()
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
 		const payload = signed(index, keys.privateKeyPem)
 		const userData = await tempDir()
 		const logger = makeLogger()
-		const remoteIndexUrl = 'https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v1.json'
-		const remoteSignatureUrl = 'https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v1.sig'
+		const remoteIndexUrl = 'https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v2.json'
+		const remoteSignatureUrl = 'https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/latest/download/runtime-index-v2.sig'
 		const svc = new RuntimeBinaryIndexService(userData, {publicKeyPem: keys.publicKeyPem, remoteIndexUrl, remoteSignatureUrl, bundledIndex: {...index, entries: [] as RuntimeBinaryManifestEntry[]}, fetchText: async url => (url.endsWith('.sig') ? payload.signature : payload.raw), logger})
 
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry])
-		await expect(fs.readFile(path.join(userData, 'runtime-cache', 'manifests', 'runtime-index-v1.json'), 'utf8')).resolves.toBe(payload.raw)
+		await expect(fs.readFile(path.join(userData, 'runtime-cache', 'manifests', 'runtime-index-v2.json'), 'utf8')).resolves.toBe(payload.raw)
 		expect(logger.info).toHaveBeenCalledWith('Remote runtime binary index verified', {indexUrl: remoteIndexUrl, signatureUrl: remoteSignatureUrl, sourceRepo: 'antonio-orionus/arroxy-runtime-binaries', generatedAt: index.generatedAt, entryCount: 1, elapsedMs: expect.any(Number)})
 		expect(logger.info).toHaveBeenCalledWith('Persisted last-known-good runtime binary index', {manifestDir: path.join(userData, 'runtime-cache', 'manifests'), generatedAt: index.generatedAt, entryCount: 1})
 		expect(logger.info).toHaveBeenCalledWith('Runtime binary index selected', {source: 'remote', generatedAt: index.generatedAt, entryCount: 1, fallbackCount: 1})
@@ -80,14 +80,14 @@ describe('RuntimeBinaryIndexService', () => {
 
 	it('uses a verified remote index even when last-known-good persistence fails', async () => {
 		const keys = keyPair()
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
 		const payload = signed(index, keys.privateKeyPem)
 		const userData = await tempDir()
 		await fs.writeFile(path.join(userData, 'runtime-cache'), 'not a directory')
 		const svc = new RuntimeBinaryIndexService(userData, {
 			publicKeyPem: keys.publicKeyPem,
-			remoteIndexUrl: 'https://updates.example/runtime-index-v1.json',
-			remoteSignatureUrl: 'https://updates.example/runtime-index-v1.sig',
+			remoteIndexUrl: 'https://updates.example/runtime-index-v2.json',
+			remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig',
 			bundledIndex: {...index, entries: [] as RuntimeBinaryManifestEntry[]},
 			fetchText: async url => (url.endsWith('.sig') ? payload.signature : payload.raw)
 		})
@@ -97,13 +97,13 @@ describe('RuntimeBinaryIndexService', () => {
 
 	it('loads a signed local index before remote or bundled fallbacks', async () => {
 		const keys = keyPair()
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
 		const payload = signed(index, keys.privateKeyPem)
 		const userData = await tempDir()
 		const localDir = path.join(userData, 'local-manifest')
 		await fs.mkdir(localDir, {recursive: true})
-		const manifestPath = path.join(localDir, 'runtime-index-v1.json')
-		const signaturePath = path.join(localDir, 'runtime-index-v1.sig')
+		const manifestPath = path.join(localDir, 'runtime-index-v2.json')
+		const signaturePath = path.join(localDir, 'runtime-index-v2.sig')
 		const publicKeyPath = path.join(localDir, 'runtime-index.public.pem')
 		await Promise.all([fs.writeFile(manifestPath, payload.raw), fs.writeFile(signaturePath, payload.signature), fs.writeFile(publicKeyPath, keys.publicKeyPem)])
 		const fetchText = vi.fn(async () => {
@@ -113,8 +113,8 @@ describe('RuntimeBinaryIndexService', () => {
 			localIndexPath: manifestPath,
 			localSignaturePath: signaturePath,
 			localPublicKeyPath: publicKeyPath,
-			remoteIndexUrl: 'https://updates.example/runtime-index-v1.json',
-			remoteSignatureUrl: 'https://updates.example/runtime-index-v1.sig',
+			remoteIndexUrl: 'https://updates.example/runtime-index-v2.json',
+			remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig',
 			bundledIndex: {...index, entries: [] as RuntimeBinaryManifestEntry[]},
 			fetchText
 		})
@@ -125,38 +125,38 @@ describe('RuntimeBinaryIndexService', () => {
 
 	it('rejects a tampered remote index and falls back to bundled entries', async () => {
 		const keys = keyPair()
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
 		const payload = signed(index, keys.privateKeyPem)
-		const bundled: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [{...entry, version: 'bundled', sha256: 'b'.repeat(64)}]}
+		const bundled: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [{...entry, version: 'bundled', sha256: 'b'.repeat(64)}]}
 		const logger = makeLogger()
 		const svc = new RuntimeBinaryIndexService(await tempDir(), {
 			publicKeyPem: keys.publicKeyPem,
-			remoteIndexUrl: 'https://updates.example/runtime-index-v1.json',
-			remoteSignatureUrl: 'https://updates.example/runtime-index-v1.sig',
+			remoteIndexUrl: 'https://updates.example/runtime-index-v2.json',
+			remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig',
 			bundledIndex: bundled,
 			fetchText: async url => (url.endsWith('.sig') ? payload.signature : JSON.stringify({...index, generatedAt: '2026-06-13T00:00:00.000Z'})),
 			logger
 		})
 
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual(bundled.entries)
-		expect(logger.warn).toHaveBeenCalledWith('Remote runtime binary index unavailable', {indexUrl: 'https://updates.example/runtime-index-v1.json', signatureUrl: 'https://updates.example/runtime-index-v1.sig', sourceRepo: null, error: 'Runtime binary index signature verification failed'})
+		expect(logger.warn).toHaveBeenCalledWith('Remote runtime binary index unavailable', {indexUrl: 'https://updates.example/runtime-index-v2.json', signatureUrl: 'https://updates.example/runtime-index-v2.sig', sourceRepo: null, error: 'Runtime binary index signature verification failed'})
 		expect(logger.info).toHaveBeenCalledWith('Runtime binary index selected', {source: 'bundled', generatedAt: bundled.generatedAt, entryCount: 1, fallbackCount: 0})
 		expect(logger.debug).toHaveBeenCalledWith('Runtime binary candidates loaded', expect.objectContaining({source: 'bundled', indexUrl: null, sourceRepo: null}))
 	})
 
 	it('uses last-known-good when remote fetch fails', async () => {
 		const keys = keyPair()
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
 		const payload = signed(index, keys.privateKeyPem)
 		const userData = await tempDir()
 		const manifestDir = path.join(userData, 'runtime-cache', 'manifests')
 		await fs.mkdir(manifestDir, {recursive: true})
-		await fs.writeFile(path.join(manifestDir, 'runtime-index-v1.json'), payload.raw)
-		await fs.writeFile(path.join(manifestDir, 'runtime-index-v1.sig'), payload.signature)
+		await fs.writeFile(path.join(manifestDir, 'runtime-index-v2.json'), payload.raw)
+		await fs.writeFile(path.join(manifestDir, 'runtime-index-v2.sig'), payload.signature)
 		const svc = new RuntimeBinaryIndexService(userData, {
 			publicKeyPem: keys.publicKeyPem,
-			remoteIndexUrl: 'https://updates.example/runtime-index-v1.json',
-			remoteSignatureUrl: 'https://updates.example/runtime-index-v1.sig',
+			remoteIndexUrl: 'https://updates.example/runtime-index-v2.json',
+			remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig',
 			bundledIndex: {...index, entries: [] as RuntimeBinaryManifestEntry[]},
 			fetchText: async () => {
 				throw new Error('offline')

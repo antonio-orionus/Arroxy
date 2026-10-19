@@ -24,33 +24,50 @@
 	"splash": {
 		"greeting": "Witaj ponownie!",
 		"warmup": "Przygotowywanie pobierania…",
-		"downloading": "Pobieranie {{binary}}…",
 		"verifying": "Sprawdzanie {{binary}}…",
 		"verifyFirstCheck": "Pierwsze sprawdzenie tej wersji będzie powolne. Zwykle trwa około minuty.",
 		"cancel": "Masz problemy? Skonfiguruj ręcznie",
-		"warmupFailedNoDiag": "Konfiguracja nie powiodła się. Otwórz dziennik konfiguracji, aby poznać szczegóły."
+		"warmupFailedNoDiag": "Konfiguracja nie powiodła się. Otwórz dziennik konfiguracji, aby poznać szczegóły.",
+		"setup": {
+			"title": {"firstRun": "Pierwsza konfiguracja", "media": "Aktualizacja narzędzi multimedialnych", "engine": "Aktualizacja silnika pobierania"},
+			"stage": {
+				"connecting": "Łączenie…",
+				"downloadingBoth": "Pobieranie silnika pobierania i narzędzi multimedialnych",
+				"downloadingEngine": "Pobieranie silnika pobierania",
+				"downloadingMedia": "Pobieranie narzędzi multimedialnych",
+				"unpacking": "Rozpakowywanie narzędzi multimedialnych",
+				"checking": "Sprawdzamy, czy wszystko działa"
+			},
+			"bytes": "{{done}} z {{total}}",
+			"left": {"underMinute": "zostało mniej niż minuta", "minutes_one": "zostało ok. {{count}} min", "minutes_few": "zostało ok. {{count}} min", "minutes_many": "zostało ok. {{count}} min", "minutes_other": "zostało ok. {{count}} min"},
+			"note": {"firstRun": "To dzieje się tylko raz. Narzędzia są zachowywane i aktualizowane automatycznie.", "media": "To dzieje się tylko raz. Narzędzia zostaną zachowane na potrzeby przyszłych aktualizacji.", "engine": "Dzięki temu pobieranie działa, gdy strony się zmieniają."}
+		}
 	},
 	"repair": {
 		"title": "Konfiguracja wymaga Twojej pomocy",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Nie udało się zweryfikować.",
-			"downloadFailed": "Pobieranie nie powiodło się. Sprawdź połączenie internetowe i spróbuj ponownie.",
-			"extractFailed": "Nie udało się rozpakować archiwum. Pobrany plik może być uszkodzony — spróbuj ponownie.",
-			"hashFailed": "Suma kontrolna pobranego pliku jest niezgodna. Spróbuj pobrać go ponownie.",
-			"spawnFailed": "Brakuje pliku albo nie można go uruchomić. Wybierz działającą kopię.",
-			"permissionDenied": "System odmówił uruchomienia pliku. Wybierz zaufaną kopię albo spróbuj ponownie jako administrator.",
-			"blockedOrQuarantined": "System Windows zablokował plik (SmartScreen/Defender). Wybierz zainstalowaną kopię albo dodaj folder środowiska wykonawczego do wyjątków.",
-			"badExitCode": "Plik binarny nie odpowiedział na --version. Może być uszkodzony albo pochodzić z niewłaściwej kompilacji.",
-			"timeout": "Upłynął limit czasu sprawdzania wersji. Plik mógł się zawiesić — spróbuj ponownie.",
-			"pairIncomplete": "ffmpeg i ffprobe muszą być ustawione razem jako zgodna para."
+		"groups": {"engine": "Silnik pobierania", "media": "Narzędzia multimedialne"},
+		"causes": {
+			"downloadFailed": {"title": "Nie udało się pobrać tego, czego potrzebuje Arroxy", "body": "Sprawdź połączenie z internetem i spróbuj ponownie."},
+			"extractFailed": {"title": "Pobrany plik jest uszkodzony", "body": "Spróbuj ponownie, aby pobrać plik od nowa."},
+			"hashFailed": {"title": "Pobrany plik nie przeszedł weryfikacji sumy kontrolnej", "body": "Spróbuj ponownie, aby pobrać plik od nowa."},
+			"spawnFailed": {"title": "Brakuje narzędzia lub nie chce się uruchomić", "body": "Spróbuj ponownie. Jeśli nadal się nie uda, wybierz działającą kopię poniżej."},
+			"permissionDenied": {"title": "System nie pozwala Arroxy uruchomić narzędzia", "body": "Spróbuj ponownie. Jeśli nadal się nie uda, wybierz kopię, której ufasz, poniżej."},
+			"blockedOrQuarantined": {"title": "Antywirus zablokował narzędzie", "body": "Zezwól Arroxy w antywirusie lub SmartScreen i spróbuj ponownie."},
+			"badExitCode": {"title": "Jedno z narzędzi nie działa prawidłowo", "body": "Spróbuj ponownie. Jeśli nadal się nie uda, wybierz działającą kopię poniżej."},
+			"timeout": {"title": "Narzędzie zbyt długo nie odpowiadało", "body": "Często to skanowanie bezpieczeństwa przy pierwszym uruchomieniu. Spróbuj ponownie."},
+			"pairIncomplete": {"title": "FFmpeg i FFprobe trzeba ustawić razem", "body": "Wybierz oba poniżej albo przywróć ustawienia domyślne."},
+			"unknown": {"title": "Coś poszło nie tak podczas konfiguracji", "body": "Spróbuj ponownie albo otwórz dziennik konfiguracji, aby poznać szczegóły."}
 		},
+		"installing": {"homebrew": "Instalowanie przez Homebrew… To może potrwać kilka minut.", "winget": "Instalowanie przez WinGet… To może potrwać kilka minut."},
+		"stopped": {"title": "Konfiguracja zatrzymana", "body": "Spróbuj ponownie albo wskaż poniżej narzędzia, które już masz."},
+		"manual": {"toggle": "Skonfiguruj ręcznie", "intro": "Wskaż Arroxy kopie, które już masz, albo zainstaluj je w inny sposób.", "linuxHint": "Możesz też zainstalować yt-dlp i ffmpeg menedżerem pakietów, a potem kliknąć „Spróbuj ponownie”."},
 		"actions": {
 			"chooseExecutable": "Wybierz plik wykonywalny",
 			"installWithHomebrew": "Zainstaluj przez Homebrew",
 			"installWithWinget": "Zainstaluj przez WinGet",
 			"resetToDefault": "Przywróć domyślne",
-			"retrySetup": "Ponów konfigurację",
+			"retrySetup": "Spróbuj ponownie",
 			"cancel": "Anuluj",
 			"openDependencyFolder": "Otwórz folder zależności",
 			"viewSetupLog": "Wyświetl dziennik konfiguracji"
@@ -887,7 +904,7 @@
 			"outputNotWritable": "Arroxy nie może zapisywać w folderze pobierania. Folder może być tylko do odczytu, znajdować się na zablokowanym dysku lub być zablokowany przez ustawienia prywatności systemu. Wybierz inny folder lub zezwól na dostęp, a potem spróbuj ponownie.",
 			"unsupportedUrl": "Ten adres URL nie jest obsługiwany przez yt-dlp. Wypróbuj inny link z dowolnej witryny obsługiwanej przez yt-dlp.",
 			"chunkTransferFailure": "Serwer wielokrotnie przerywał pobieranie w połowie i yt-dlp zrezygnował po kolejnych próbach. Zwykle dotyczy to największych formatów wideo (4K HDR / VP9 o wysokiej przepływności). Spróbuj ponownie, zmień sieć/VPN albo wybierz format o niższej rozdzielczości.",
-			"missingDependency": "yt-dlp nie może znaleźć ffmpeg ani ffprobe. Napraw dołączone pliki binarne albo ustaw lokalizację FFmpeg i spróbuj ponownie.",
+			"missingDependency": "yt-dlp nie może znaleźć ffmpeg ani ffprobe. Uruchom konfigurację ponownie albo ustaw lokalizację FFmpeg i spróbuj pobrać jeszcze raz.",
 			"postprocessFailure": "yt-dlp zakończył pobieranie, ale przetwarzanie końcowe (łączenie/multipleksowanie/konwersja) nie powiodło się. Często jest to przejściowy problem z ffmpeg — spróbuj ponownie, a jeśli problem się powtarza, wybierz inną kombinację formatów.",
 			"parse": "Nie udało się przeanalizować odpowiedzi witryny. Ekstraktor yt-dlp mógł przestać pasować do zmian w serwisie. Arroxy automatycznie aktualizuje yt-dlp przy uruchomieniu — spróbuj ponownie za kilka minut, gdy poprawka zostanie wydana.",
 			"network": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",

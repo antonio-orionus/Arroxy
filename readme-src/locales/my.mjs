@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — styling
 - **Zustand** — state management
-- **yt-dlp** + **ffmpeg** — download နှင့် mux engine (yt-dlp ကို runtime တွင် fetch လုပ်သည်; ffmpeg/ffprobe ကို build time တွင် bundle ထည့်သည်)
+- **yt-dlp** + **ffmpeg** — download နှင့် mux engine (နှစ်ခုလုံးကို runtime တွင် fetch လုပ်သည်: yt-dlp ကို နောက်ဆုံးပေါ်ဖြစ်အောင် ထိန်းထားပြီး ffmpeg/ffprobe ကို တစ်ကြိမ်သာ install လုပ်ကာ update များအတွင်း ဆက်ထားသည်)
 - **Vite** + **electron-vite** — build tooling
 - **Vitest** + **Playwright** — unit နှင့် end-to-end tests
 
@@ -78,7 +78,7 @@ bun run dist         # လက်ရှိ OS အတွက် package ထုတ�
 bun run dist:win     # supported host တွင် Windows targets package ထုတ်ရန်
 \`\`\`
 
-> \`bun run bootstrap\` သည် dependencies ကို install လုပ်ပြီး Electron app dependencies ကို rebuild လုပ်သည်၊ Electron ကို verify လုပ်သည်၊ development အတွက် embedded ffmpeg/ffprobe ကို ပြင်ဆင်သည်၊ Playwright Chromium ကို install လုပ်သည်။ yt-dlp ကို runtime တွင် app data folder ထဲ၌ manage လုပ်ပြီး ffmpeg နှင့် ffprobe သည် Arroxy release တိုင်းတွင် bundled ဖြစ်သည်။
+> \`bun run bootstrap\` သည် dependencies ကို install လုပ်ပြီး Electron app dependencies ကို rebuild လုပ်သည်၊ Electron ကို verify လုပ်သည်၊ development အတွက် embedded ffmpeg/ffprobe ကို ပြင်ဆင်သည်၊ Playwright Chromium ကို install လုပ်သည်။ Release build များသည် yt-dlp, ffmpeg နှင့် ffprobe ကို runtime တွင် app data folder ထဲ၌ manage လုပ်ပြီး ၎င်းတို့တစ်ခုမျှ installer ထဲတွင် မပါဝင်ပါ။
 
 </details>`;
 
@@ -403,7 +403,7 @@ export const my = {
     "ချက်ချင်းအသုံးပြုနိုင်သော {{LANG_COUNT}} ဘာသာစကားများ: {{LANG_NAME_LIST}}။ Arroxy သည် ပထမဆုံးစတင်ချိန်တွင် သင့် operating system ဘာသာစကားကို အလိုအလျောက်သိရှိပြီး toolbar ရှိ ဘာသာစကားရွေးချယ်စနစ်မှ အချိန်မရွေးပြောင်းနိုင်သည်။ Runtime locale JSON သည် src/shared/i18n/locales/ တွင်ရှိပြီး ဘာသာပြန်သူများအတွက် PO catalog များသည် i18n/locales/ တွင်ရှိသည် — ပါဝင်ရန် GitHub တွင် PR ဖွင့်ပါ။",
   faq_q7: "အခြားအရာများ ထည့်သွင်းရန်လိုသလား?",
   faq_a7:
-    "မလိုပါ။ yt-dlp သည် ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်; ffmpeg နှင့် ffprobe သည် app နှင့်အတူ ပါလာသည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။",
+    "မလိုပါ။ yt-dlp, ffmpeg နှင့် ffprobe တို့ကို ပထမဆုံး ဖွင့်ချိန်တွင် အလိုအလျောက် ဒေါင်းလုဒ်လုပ်ပြီး သင့်စက်တွင် cache လုပ်သည်။ ထို့နောက် နောက်ထပ် setup မလိုအပ်ပါ။",
   faq_q8: "Playlist များ သို့မဟုတ် channel တစ်ခုလုံး ဒေါင်းလုဒ်ဆွဲနိုင်သလား?",
   faq_a8:
     "ရပါတယ် — နှစ်မျိုးလုံး။ playlist သို့မဟုတ် channel URL ကို paste လုပ်ပါ (ဥပမာ `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); scan လုပ်မည့် entries အရေအတွက်ကိုရွေးပြီး စာရင်းတစ်ခုလုံးကို queue ထဲထည့်ပါ သို့မဟုတ် video များကို သီးသန့်ရွေးပါ။ date-range filters မကြာမီလာပါမည်။",

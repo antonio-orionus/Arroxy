@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "วิดีโอนี้ต้องใช้บัญชีที่เข้าสู่ระบบ"
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp หา ffmpeg หรือ ffprobe ไม่พบ ให้ซ่อมแซมไบนารีที่รวมมา หรือตั้งค่าตำแหน่ง FFmpeg แล้วลองใหม่"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp ไม่พบ ffmpeg หรือ ffprobe ลองตั้งค่าใหม่อีกครั้งหรือระบุตำแหน่ง FFmpeg แล้วลองดาวน์โหลดอีกครั้ง"
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "รีเซ็ตเป็นค่าเริ่มต้น"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "ลองตั้งค่าอีกครั้ง"
+msgid "Try again"
+msgstr "ลองอีกครั้ง"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "ดูบันทึกการตั้งค่า"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "ลองอีกครั้ง หากยังไม่สำเร็จ ให้เลือกสำเนาที่ใช้งานได้ด้านล่าง"
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "เครื่องมือตัวหนึ่งทำงานไม่ถูกต้อง"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "อนุญาต Arroxy ในโปรแกรมป้องกันไวรัสหรือ SmartScreen ของคุณ แล้วลองอีกครั้ง"
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "โปรแกรมป้องกันไวรัสของคุณบล็อกเครื่องมือตัวหนึ่ง"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ แล้วลองอีกครั้ง"
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "ดาวน์โหลดสิ่งที่ Arroxy ต้องใช้ไม่ได้"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "ลองอีกครั้งเพื่อดาวน์โหลดใหม่"
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "ไฟล์ที่ดาวน์โหลดมาเสียหาย"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "ลองอีกครั้งเพื่อดาวน์โหลดใหม่"
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "ไฟล์ที่ดาวน์โหลดมาไม่ตรงกับค่า checksum"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "เลือกทั้งสองอย่างด้านล่าง หรือรีเซ็ตเป็นค่าเริ่มต้น"
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "ต้องตั้งค่า FFmpeg และ FFprobe พร้อมกัน"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "ลองอีกครั้ง หากยังไม่สำเร็จ ให้เลือกสำเนาที่คุณไว้ใจด้านล่าง"
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "ระบบของคุณไม่อนุญาตให้ Arroxy รันเครื่องมือตัวหนึ่ง"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "ลองอีกครั้ง หากยังไม่สำเร็จ ให้เลือกสำเนาที่ใช้งานได้ด้านล่าง"
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "เครื่องมือตัวหนึ่งหายไปหรือเริ่มทำงานไม่ได้"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "มักเกิดจากการสแกนความปลอดภัยในการเปิดใช้ครั้งแรก ลองอีกครั้ง"
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "เครื่องมือตัวหนึ่งตอบสนองช้าเกินไป"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "ลองอีกครั้ง หรือเปิดบันทึกการตั้งค่าเพื่อดูรายละเอียด"
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "เกิดข้อผิดพลาดระหว่างการตั้งค่า"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "ไบนารีไม่ตอบสนองต่อ --version ไฟล์อาจเสียหายหรือเป็นบิลด์ที่ไม่ถูกต้อง"
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "ตัวช่วยดาวน์โหลด"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows บล็อกไฟล์ (SmartScreen / Defender) เลือกไฟล์ที่ติดตั้งไว้หรือเพิ่มโฟลเดอร์รันไทม์ในรายการที่อนุญาต"
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "เครื่องมือสื่อ"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "ดาวน์โหลดไม่สำเร็จ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่"
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "กำลังติดตั้งด้วย Homebrew… อาจใช้เวลาสักครู่"
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "แตกไฟล์เก็บถาวรไม่สำเร็จ ไฟล์ที่ดาวน์โหลดอาจเสียหาย — ลองใหม่"
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "กำลังติดตั้งด้วย WinGet… อาจใช้เวลาสักครู่"
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "ค่า checksum ของไฟล์ที่ดาวน์โหลดไม่ตรงกัน ลองดาวน์โหลดใหม่"
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "ชี้ให้ Arroxy ไปที่สำเนาที่คุณมีอยู่แล้ว หรือติดตั้งด้วยวิธีอื่น"
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ต้องตั้งค่า ffmpeg และ ffprobe ร่วมกันเป็นคู่ที่ตรงกัน"
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "คุณยังติดตั้ง yt-dlp และ ffmpeg ด้วยตัวจัดการแพ็กเกจของคุณได้ แล้วคลิก \"ลองอีกครั้ง\""
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "ระบบปฏิเสธการเรียกใช้ไฟล์ เลือกไฟล์ที่คุณเชื่อถือหรือลองใหม่ในฐานะผู้ดูแลระบบ"
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "ตั้งค่าด้วยตัวเอง"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "ไฟล์หายไปหรือเปิดใช้งานไม่ได้ เลือกไฟล์ที่ใช้งานได้"
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "ลองอีกครั้ง หรือชี้ให้ Arroxy ไปที่เครื่องมือที่คุณมีอยู่แล้วด้านล่าง"
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "การตรวจสอบเวอร์ชันหมดเวลา ไฟล์อาจค้าง — ลองใหม่"
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "ตรวจสอบไม่ได้"
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "การตั้งค่าหยุดลง"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "พบปัญหา? ตั้งค่าด้วยตนเอง"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "กำลังดาวน์โหลด {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "ยินดีต้อนรับกลับมา!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} จาก {{total}}"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "เหลืออีกประมาณ {{count}} นาที"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "เหลือไม่ถึงหนึ่งนาที"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "ช่วยให้การดาวน์โหลดใช้งานได้ต่อไปเมื่อเว็บไซต์เปลี่ยนแปลง"
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "ขั้นตอนนี้เกิดขึ้นครั้งเดียว Arroxy จะเก็บเครื่องมือเหล่านี้ไว้และอัปเดตให้เอง"
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "ขั้นตอนนี้เกิดขึ้นครั้งเดียว Arroxy จะเก็บไว้สำหรับการอัปเดตครั้งต่อไป"
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "กำลังตรวจสอบว่าทุกอย่างทำงานได้"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "กำลังเชื่อมต่อ…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "กำลังดาวน์โหลดตัวช่วยดาวน์โหลดและเครื่องมือสื่อ"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "กำลังดาวน์โหลดตัวช่วยดาวน์โหลด"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "กำลังดาวน์โหลดเครื่องมือสื่อ"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "กำลังแตกไฟล์เครื่องมือสื่อ"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "กำลังอัปเดตตัวช่วยดาวน์โหลด"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "การตั้งค่าครั้งแรก"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "กำลังอัปเดตเครื่องมือสื่อ"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

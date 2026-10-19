@@ -67,6 +67,8 @@ export interface AppApi {
 		getGraphicsPolicy(): Promise<Result<GraphicsPolicy>>
 		installYtDlpWithHomebrew(): Promise<Result<{installedPath: string}>>
 		installYtDlpWithWinget(): Promise<Result<{installedPath: string}>>
+		installFfmpegWithHomebrew(): Promise<Result<{ffmpegPath: string; ffprobePath: string}>>
+		installFfmpegWithWinget(): Promise<Result<{ffmpegPath: string; ffprobePath: string}>>
 		setLanguage(language: SupportedLang): Promise<void>
 	}
 	window: WindowApi

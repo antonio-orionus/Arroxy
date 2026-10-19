@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — styling
 - **Zustand** — state management
-- **yt-dlp** + **ffmpeg** — download and mux engine (yt-dlp fetched at runtime; ffmpeg/ffprobe bundled at build time)
+- **yt-dlp** + **ffmpeg** — download and mux engine (both fetched at runtime: yt-dlp kept up to date, ffmpeg/ffprobe installed once and kept across updates)
 - **Vite** + **electron-vite** — build tooling
 - **Vitest** + **Playwright** — unit and end-to-end tests
 
@@ -78,7 +78,7 @@ bun run dist         # package for current OS
 bun run dist:win     # package Windows targets when run on a supported host
 \`\`\`
 
-> \`bun run bootstrap\` installs dependencies, rebuilds Electron app dependencies, verifies Electron, prepares embedded ffmpeg/ffprobe for development, and installs Playwright Chromium. yt-dlp is managed at runtime in your app data folder; ffmpeg and ffprobe are bundled with every Arroxy release.
+> \`bun run bootstrap\` installs dependencies, rebuilds Electron app dependencies, verifies Electron, prepares embedded ffmpeg/ffprobe for development, and installs Playwright Chromium. Release builds manage yt-dlp, ffmpeg and ffprobe at runtime in your app data folder; none of them ship inside the installer.
 
 </details>`;
 
@@ -401,7 +401,7 @@ export const en = {
     "{{LANG_COUNT}} languages, out of the box: {{LANG_NAME_LIST}}. Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Runtime locale JSON lives in src/shared/i18n/locales/, and translator-facing PO catalogs live in i18n/locales/ — open a PR on GitHub to contribute.",
   faq_q7: "Do I need to install anything else?",
   faq_a7:
-    "No. yt-dlp is downloaded automatically on first launch and cached on your machine; ffmpeg and ffprobe ship with the app. After that, no extra setup is needed.",
+    "No. yt-dlp, ffmpeg and ffprobe are downloaded automatically on first launch and cached on your machine. After that, no extra setup is needed.",
   faq_q8: "Can I download playlists or whole channels?",
   faq_a8:
     "Yes — both. Paste a playlist URL or a channel URL (e.g. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); choose how many entries to scan, then queue the whole list or pick specific videos. Date-range filters are coming soon.",

@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — kiolesura cha mtumiaji
 - **Tailwind CSS v4** — muundo wa kuonekana
 - **Zustand** — usimamizi wa hali
-- **yt-dlp** + **ffmpeg** — injini ya kupakua na kuchanganya (yt-dlp hupakuliwa wakati wa runtime; ffmpeg/ffprobe hujumuishwa wakati wa build)
+- **yt-dlp** + **ffmpeg** — injini ya kupakua na kuchanganya (zote mbili hupakuliwa wakati wa runtime: yt-dlp hudumishwa kuwa ya kisasa, ffmpeg/ffprobe husakinishwa mara moja na kubaki baada ya masasisho)
 - **Vite** + **electron-vite** — zana za ujenzi
 - **Vitest** + **Playwright** — majaribio ya kitengo na ya mwisho-hadi-mwisho
 
@@ -78,7 +78,7 @@ bun run dist         # funga kwa OS ya sasa
 bun run dist:win     # funga malengo ya Windows kwenye host inayotumika
 \`\`\`
 
-> \`bun run bootstrap\` husakinisha utegemezi, hujenga upya utegemezi wa programu ya Electron, huthibitisha Electron, huandaa ffmpeg/ffprobe zilizopachikwa kwa maendeleo, na husakinisha Playwright Chromium. yt-dlp husimamiwa wakati wa runtime kwenye folda ya data ya programu; ffmpeg na ffprobe hujumuishwa katika kila toleo la Arroxy.
+> \`bun run bootstrap\` husakinisha utegemezi, hujenga upya utegemezi wa programu ya Electron, huthibitisha Electron, huandaa ffmpeg/ffprobe zilizopachikwa kwa maendeleo, na husakinisha Playwright Chromium. Matoleo rasmi husimamia yt-dlp, ffmpeg na ffprobe wakati wa runtime kwenye folda ya data ya programu; hakuna kati yake kinachokuja ndani ya kisakinishi.
 
 </details>`;
 
@@ -386,7 +386,7 @@ export const sw = {
     "Lugha {{LANG_COUNT}} zipo tayari: {{LANG_NAME_LIST}}. Arroxy hutambua lugha ya mfumo wako wa uendeshaji kiotomatiki inapofunguliwa mara ya kwanza, na unaweza kubadilisha wakati wowote kupitia kiteuzi cha lugha kwenye upau wa zana. Runtime locale JSON ziko src/shared/i18n/locales/, na catalog za PO kwa watafsiri ziko i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.",
   faq_q7: "Je, ninahitaji kusakinisha kitu kingine chochote?",
   faq_a7:
-    "Hapana. yt-dlp hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako; ffmpeg na ffprobe huja pamoja na programu. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.",
+    "Hapana. yt-dlp, ffmpeg na ffprobe hupakuliwa kiotomatiki wakati wa uzinduzi wa kwanza na kuhifadhiwa kwenye kifaa chako. Baada ya hapo, hakuna usanidi wa ziada unaohitajika.",
   faq_q8: "Je, ninaweza kupakua orodha za kucheza au vituo vyote?",
   faq_a8:
     "Ndiyo — zote mbili. Bandika URL ya playlist au channel (mf. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); chagua idadi ya vipengee vya kuchanganua, kisha weka orodha yote kwenye foleni au chagua video maalum. Vichujio vya tarehe vinakuja hivi karibuni.",

@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "Video hii inahitaji akaunti iliyoingia."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp haikuweza kupata ffmpeg au ffprobe. Rekebisha binari zilizojumuishwa au weka eneo la FFmpeg, kisha ujaribu tena."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp haikuweza kupata ffmpeg wala ffprobe. Endesha usanidi tena au weka eneo la FFmpeg, kisha jaribu kupakua tena."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "Rejesha chaguo-msingi"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Jaribu usanidi tena"
+msgid "Try again"
+msgstr "Jaribu tena"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Angalia kumbukumbu ya usanidi"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Zana haifanyi kazi vizuri"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Ruhusu Arroxy kwenye antivirus au SmartScreen yako, kisha jaribu tena."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirus yako imezuia zana"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Angalia muunganisho wako wa intaneti, kisha jaribu tena."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Imeshindwa kupakua kinachohitajika na Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Jaribu tena ili kuipakua upya."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Faili iliyopakuliwa imefika ikiwa imeharibika"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Jaribu tena ili kuipakua upya."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Faili iliyopakuliwa haikulingana na checksum yake"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Chagua zote mbili hapa chini, au zirejeshe kwenye chaguo-msingi."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg na FFprobe lazima ziwekwe pamoja"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Jaribu tena. Ikiendelea kushindwa, chagua nakala unayoiamini hapa chini."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Mfumo wako hauruhusu Arroxy kuendesha zana"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Zana haipo au haiwezi kuanza"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Mara nyingi hii ni ukaguzi wa usalama unapoendesha mara ya kwanza. Jaribu tena."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Zana ilichukua muda mrefu kujibu"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Jaribu tena, au fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Hitilafu imetokea wakati wa usanidi"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Binary haikujibu --version. Inaweza kuwa imeharibiwa au muundo mbaya."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Injini ya upakuaji"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows ilizuia faili (SmartScreen / Defender). Chagua nakala iliyosakinishwa au weka saraka ya runtime kwenye orodha nyeupe."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Zana za midia"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Upakuaji umeshindwa. Angalia muunganisho wako wa intaneti na ujaribu tena."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Inasakinisha kwa Homebrew… Hii inaweza kuchukua dakika chache."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Ufunguzi wa kumbukumbu umeshindwa. Upakuaji unaweza kuwa umeharibiwa — jaribu tena."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Inasakinisha kwa WinGet… Hii inaweza kuchukua dakika chache."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Checksum ya faili iliyopakuliwa haifanani. Pakua upya faili."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Elekeza Arroxy kwenye nakala ulizonazo tayari, au zisakinishe kwa njia nyingine."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg na ffprobe lazima ziwekwe zote kwa pamoja kama jozi inayolingana."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Unaweza pia kusakinisha yt-dlp na ffmpeg kwa kidhibiti cha vifurushi, kisha ubofye Jaribu tena."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Mfumo ulikataa kuendesha faili. Chagua nakala unayoiamini au jaribu tena kama msimamizi."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Sanidi mwenyewe"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Faili haipo au haiwezi kuzinduliwa. Chagua nakala inayofanya kazi."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Jaribu tena, au elekeza Arroxy kwenye zana ulizonazo tayari hapa chini."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Uchunguzi wa toleo ulichukua muda mrefu. Faili inaweza kuwa imesimama — jaribu tena."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Haikuweza kuthibitishwa."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Usanidi umesimamishwa"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Una tatizo? Sanidi mwenyewe"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "Inapakua {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hujambo, karibu tena!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} kati ya {{total}}"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "takriban dakika {{count}} imesalia"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "takriban dakika {{count}} zimesalia"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "imesalia chini ya dakika moja"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Huweka upakuaji ukifanya kazi tovuti zinapobadilika."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Hii hutokea mara moja tu. Arroxy huhifadhi zana hizi na kuzisasisha yenyewe."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Hii hutokea mara moja tu. Arroxy huzihifadhi kwa masasisho yajayo."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Inakagua kama kila kitu kinafanya kazi"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Inaunganisha…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Inapakua injini ya upakuaji na zana za midia"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Inapakua injini ya upakuaji"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Inapakua zana za midia"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Inafungua zana za midia"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Inasasisha injini ya upakuaji"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Usanidi wa mara ya kwanza"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Inasasisha zana za midia"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

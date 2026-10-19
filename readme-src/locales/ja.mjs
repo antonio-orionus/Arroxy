@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — スタイリング
 - **Zustand** — 状態管理
-- **yt-dlp** + **ffmpeg** — ダウンロード・マルチプレクサエンジン（yt-dlp は実行時に取得、ffmpeg/ffprobe はビルド時に同梱）
+- **yt-dlp** + **ffmpeg** — ダウンロード・マルチプレクサエンジン（どちらも実行時に取得：yt-dlp は最新に保たれ、ffmpeg/ffprobe は一度だけインストールされアップデート後も維持）
 - **Vite** + **electron-vite** — ビルドツール
 - **Vitest** + **Playwright** — ユニットテスト・E2E テスト
 
@@ -78,7 +78,7 @@ bun run dist         # 現在の OS 向けパッケージ
 bun run dist:win     # 対応ホストで Windows ターゲットをパッケージ
 \`\`\`
 
-> \`bun run bootstrap\` は依存関係をインストールし、Electron アプリ依存を rebuild し、Electron を検証し、開発用の埋め込み ffmpeg/ffprobe を準備し、Playwright Chromium をインストールします。yt-dlp は実行時にアプリデータフォルダで管理され、ffmpeg と ffprobe はすべての Arroxy リリースに同梱されています。
+> \`bun run bootstrap\` は依存関係をインストールし、Electron アプリ依存を rebuild し、Electron を検証し、開発用の埋め込み ffmpeg/ffprobe を準備し、Playwright Chromium をインストールします。リリースビルドでは、yt-dlp・ffmpeg・ffprobe は実行時にアプリデータフォルダで管理され、いずれもインストーラーには含まれません。
 
 </details>`;
 
@@ -397,7 +397,7 @@ export const ja = {
     "すぐに使える {{LANG_COUNT}} 言語: {{LANG_NAME_LIST}}。 Arroxy は初回起動時にオペレーティング システムの言語を自動検出し、ツールバーの言語ピッカーからいつでも切り替えられます。 Runtime locale JSON は src/shared/i18n/locales/ にあり、翻訳者向けの PO catalog は i18n/locales/ にあります。貢献するには GitHub で PR を開いてください。",
   faq_q7: "他に何かインストールが必要ですか？",
   faq_a7:
-    "いいえ。yt-dlp は初回起動時に自動ダウンロードされてマシンにキャッシュされます。ffmpeg と ffprobe はアプリに同梱されています。それ以降は追加のセットアップ不要です。",
+    "いいえ。yt-dlp、ffmpeg、ffprobe は初回起動時に自動ダウンロードされ、マシンにキャッシュされます。それ以降は追加のセットアップ不要です。",
   faq_q8: "プレイリストやチャンネル全体をダウンロードできますか？",
   faq_a8:
     "はい、どちらも対応しています。プレイリストまたはチャンネルのURL（例: `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`）を貼り付け、スキャンする件数を選んでから、リスト全体をキューに入れるか特定の動画を選べます。日付範囲フィルターは近日対応予定です。",

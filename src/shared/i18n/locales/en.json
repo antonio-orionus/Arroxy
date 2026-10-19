@@ -16,28 +16,38 @@
 	"splash": {
 		"greeting": "Hey, welcome back!",
 		"warmup": "Preparing downloads…",
-		"downloading": "Downloading {{binary}}…",
 		"verifying": "Checking {{binary}}…",
 		"verifyFirstCheck": "First check of this version — this one is slow. Usually about a minute.",
 		"cancel": "Having trouble? Set it up manually",
-		"warmupFailedNoDiag": "Setup failed. Open the setup log for details."
+		"warmupFailedNoDiag": "Setup failed. Open the setup log for details.",
+		"setup": {
+			"title": {"firstRun": "First-time setup", "media": "Updating the media tools", "engine": "Updating the download engine"},
+			"stage": {"connecting": "Connecting…", "downloadingBoth": "Downloading the download engine and media tools", "downloadingEngine": "Downloading the download engine", "downloadingMedia": "Downloading the media tools", "unpacking": "Unpacking the media tools", "checking": "Checking everything works"},
+			"bytes": "{{done}} of {{total}}",
+			"left": {"underMinute": "less than a minute left", "minutes_one": "about {{count}} min left", "minutes_other": "about {{count}} min left"},
+			"note": {"firstRun": "This happens once. Arroxy keeps these tools and updates them itself.", "media": "This happens once. Arroxy keeps them for future updates.", "engine": "Keeps downloads working when sites change."}
+		}
 	},
 	"repair": {
 		"title": "Setup needs your help",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Could not be verified.",
-			"downloadFailed": "Download failed. Check your internet connection and retry.",
-			"extractFailed": "Archive extraction failed. The download may be corrupt — retry.",
-			"hashFailed": "Checksum mismatch on the downloaded file. Retry the download.",
-			"spawnFailed": "The file is missing or could not be launched. Pick a working copy.",
-			"permissionDenied": "The system refused to run the file. Pick a copy you trust or retry as admin.",
-			"blockedOrQuarantined": "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder.",
-			"badExitCode": "The binary did not respond to --version. It may be corrupt or the wrong build.",
-			"timeout": "The version probe timed out. The file may be hung — retry.",
-			"pairIncomplete": "ffmpeg and ffprobe must both be set as a matched pair."
+		"groups": {"engine": "Download engine", "media": "Media tools"},
+		"causes": {
+			"downloadFailed": {"title": "Couldn't download what Arroxy needs", "body": "Check your internet connection, then try again."},
+			"extractFailed": {"title": "A download arrived damaged", "body": "Try again to download it fresh."},
+			"hashFailed": {"title": "A download didn't match its checksum", "body": "Try again to download it fresh."},
+			"spawnFailed": {"title": "A tool is missing or won't start", "body": "Try again. If it keeps failing, choose a working copy below."},
+			"permissionDenied": {"title": "Your system won't let Arroxy run a tool", "body": "Try again. If it keeps failing, choose a copy you trust below."},
+			"blockedOrQuarantined": {"title": "Your antivirus blocked a tool", "body": "Allow Arroxy in your antivirus or SmartScreen, then try again."},
+			"badExitCode": {"title": "A tool isn't working right", "body": "Try again. If it keeps failing, choose a working copy below."},
+			"timeout": {"title": "A tool took too long to respond", "body": "This is often a security scan on first run. Try again."},
+			"pairIncomplete": {"title": "FFmpeg and FFprobe have to be set together", "body": "Choose both below, or reset them to default."},
+			"unknown": {"title": "Something went wrong during setup", "body": "Try again, or open the setup log for details."}
 		},
-		"actions": {"chooseExecutable": "Choose executable", "installWithHomebrew": "Install with Homebrew", "installWithWinget": "Install with WinGet", "resetToDefault": "Reset to default", "retrySetup": "Retry setup", "cancel": "Cancel", "openDependencyFolder": "Open dependency folder", "viewSetupLog": "View setup log"}
+		"installing": {"homebrew": "Installing with Homebrew… This can take a few minutes.", "winget": "Installing with WinGet… This can take a few minutes."},
+		"stopped": {"title": "Setup stopped", "body": "Try again, or point Arroxy at tools you already have below."},
+		"manual": {"toggle": "Set it up manually", "intro": "Point Arroxy at copies you already have, or install them another way.", "linuxHint": "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."},
+		"actions": {"chooseExecutable": "Choose executable", "installWithHomebrew": "Install with Homebrew", "installWithWinget": "Install with WinGet", "resetToDefault": "Reset to default", "retrySetup": "Try again", "cancel": "Cancel", "openDependencyFolder": "Open dependency folder", "viewSetupLog": "View setup log"}
 	},
 	"theme": {"light": "Light mode", "dark": "Dark mode", "system": "System default"},
 	"language": {"label": "Language"},
@@ -793,7 +803,7 @@
 			"outputNotWritable": "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry.",
 			"unsupportedUrl": "That URL isn't supported by yt-dlp. Try a different link from any of yt-dlp's supported sites.",
 			"chunkTransferFailure": "The server kept cutting the download mid-stream and yt-dlp gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format.",
-			"missingDependency": "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry.",
+			"missingDependency": "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download.",
 			"postprocessFailure": "yt-dlp finished downloading but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination.",
 			"parse": "Couldn't parse the response from the site. yt-dlp's extractor may have drifted. Arroxy auto-updates yt-dlp on launch — retry in a few minutes once the fix ships.",
 			"network": "Network error. Check your connection and retry.",

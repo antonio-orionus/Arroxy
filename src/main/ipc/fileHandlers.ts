@@ -1,3 +1,4 @@
+import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import {app, dialog, shell, type BrowserWindow} from 'electron'
 import log from 'electron-log/main.js'
@@ -124,7 +125,9 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
 
 	handleRaw(IPC_CHANNELS.shellOpenBinariesDir, async () => {
 		try {
-			const target = binaryManager.getRuntimeCacheDir()
+			const target = binaryManager.getDependencyDir()
+			// Nothing may be installed yet on a first launch that failed to download.
+			await fsPromises.mkdir(target, {recursive: true})
 			const response = await shell.openPath(target)
 			if (response) return toIpcFailure(response)
 			return ok({opened: true})

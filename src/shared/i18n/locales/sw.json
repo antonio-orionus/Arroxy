@@ -16,33 +16,43 @@
 	"splash": {
 		"greeting": "Hujambo, karibu tena!",
 		"warmup": "Inaandaa vipakuliwa…",
-		"downloading": "Inapakua {{binary}}…",
 		"verifying": "Inakagua {{binary}}…",
 		"verifyFirstCheck": "Ukaguzi wa kwanza wa toleo hili — huu ni wa polepole. Kwa kawaida huchukua takribani dakika moja.",
 		"cancel": "Una tatizo? Sanidi mwenyewe",
-		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi."
+		"warmupFailedNoDiag": "Usanidi umeshindwa. Fungua kumbukumbu ya usanidi kwa maelezo zaidi.",
+		"setup": {
+			"title": {"firstRun": "Usanidi wa mara ya kwanza", "media": "Inasasisha zana za midia", "engine": "Inasasisha injini ya upakuaji"},
+			"stage": {"connecting": "Inaunganisha…", "downloadingBoth": "Inapakua injini ya upakuaji na zana za midia", "downloadingEngine": "Inapakua injini ya upakuaji", "downloadingMedia": "Inapakua zana za midia", "unpacking": "Inafungua zana za midia", "checking": "Inakagua kama kila kitu kinafanya kazi"},
+			"bytes": "{{done}} kati ya {{total}}",
+			"left": {"underMinute": "imesalia chini ya dakika moja", "minutes_one": "takriban dakika {{count}} imesalia", "minutes_other": "takriban dakika {{count}} zimesalia"},
+			"note": {"firstRun": "Hii hutokea mara moja tu. Arroxy huhifadhi zana hizi na kuzisasisha yenyewe.", "media": "Hii hutokea mara moja tu. Arroxy huzihifadhi kwa masasisho yajayo.", "engine": "Huweka upakuaji ukifanya kazi tovuti zinapobadilika."}
+		}
 	},
 	"repair": {
 		"title": "Usanidi unahitaji msaada wako",
 		"deps": {"ytDlp": "yt-dlp", "ffmpeg": "FFmpeg", "ffprobe": "FFprobe"},
-		"hints": {
-			"unknown": "Haikuweza kuthibitishwa.",
-			"downloadFailed": "Upakuaji umeshindwa. Angalia muunganisho wako wa intaneti na ujaribu tena.",
-			"extractFailed": "Ufunguzi wa kumbukumbu umeshindwa. Upakuaji unaweza kuwa umeharibiwa — jaribu tena.",
-			"hashFailed": "Checksum ya faili iliyopakuliwa haifanani. Pakua upya faili.",
-			"spawnFailed": "Faili haipo au haiwezi kuzinduliwa. Chagua nakala inayofanya kazi.",
-			"permissionDenied": "Mfumo ulikataa kuendesha faili. Chagua nakala unayoiamini au jaribu tena kama msimamizi.",
-			"blockedOrQuarantined": "Windows ilizuia faili (SmartScreen / Defender). Chagua nakala iliyosakinishwa au weka saraka ya runtime kwenye orodha nyeupe.",
-			"badExitCode": "Binary haikujibu --version. Inaweza kuwa imeharibiwa au muundo mbaya.",
-			"timeout": "Uchunguzi wa toleo ulichukua muda mrefu. Faili inaweza kuwa imesimama — jaribu tena.",
-			"pairIncomplete": "ffmpeg na ffprobe lazima ziwekwe zote kwa pamoja kama jozi inayolingana."
+		"groups": {"engine": "Injini ya upakuaji", "media": "Zana za midia"},
+		"causes": {
+			"downloadFailed": {"title": "Imeshindwa kupakua kinachohitajika na Arroxy", "body": "Angalia muunganisho wako wa intaneti, kisha jaribu tena."},
+			"extractFailed": {"title": "Faili iliyopakuliwa imefika ikiwa imeharibika", "body": "Jaribu tena ili kuipakua upya."},
+			"hashFailed": {"title": "Faili iliyopakuliwa haikulingana na checksum yake", "body": "Jaribu tena ili kuipakua upya."},
+			"spawnFailed": {"title": "Zana haipo au haiwezi kuanza", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."},
+			"permissionDenied": {"title": "Mfumo wako hauruhusu Arroxy kuendesha zana", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala unayoiamini hapa chini."},
+			"blockedOrQuarantined": {"title": "Antivirus yako imezuia zana", "body": "Ruhusu Arroxy kwenye antivirus au SmartScreen yako, kisha jaribu tena."},
+			"badExitCode": {"title": "Zana haifanyi kazi vizuri", "body": "Jaribu tena. Ikiendelea kushindwa, chagua nakala inayofanya kazi hapa chini."},
+			"timeout": {"title": "Zana ilichukua muda mrefu kujibu", "body": "Mara nyingi hii ni ukaguzi wa usalama unapoendesha mara ya kwanza. Jaribu tena."},
+			"pairIncomplete": {"title": "FFmpeg na FFprobe lazima ziwekwe pamoja", "body": "Chagua zote mbili hapa chini, au zirejeshe kwenye chaguo-msingi."},
+			"unknown": {"title": "Hitilafu imetokea wakati wa usanidi", "body": "Jaribu tena, au fungua kumbukumbu ya usanidi kwa maelezo zaidi."}
 		},
+		"installing": {"homebrew": "Inasakinisha kwa Homebrew… Hii inaweza kuchukua dakika chache.", "winget": "Inasakinisha kwa WinGet… Hii inaweza kuchukua dakika chache."},
+		"stopped": {"title": "Usanidi umesimamishwa", "body": "Jaribu tena, au elekeza Arroxy kwenye zana ulizonazo tayari hapa chini."},
+		"manual": {"toggle": "Sanidi mwenyewe", "intro": "Elekeza Arroxy kwenye nakala ulizonazo tayari, au zisakinishe kwa njia nyingine.", "linuxHint": "Unaweza pia kusakinisha yt-dlp na ffmpeg kwa kidhibiti cha vifurushi, kisha ubofye Jaribu tena."},
 		"actions": {
 			"chooseExecutable": "Chagua faili inayotekelezwa",
 			"installWithHomebrew": "Sakinisha kwa Homebrew",
 			"installWithWinget": "Sakinisha kwa WinGet",
 			"resetToDefault": "Rejesha chaguo-msingi",
-			"retrySetup": "Jaribu usanidi tena",
+			"retrySetup": "Jaribu tena",
 			"cancel": "Ghairi",
 			"openDependencyFolder": "Fungua saraka ya utegemezi",
 			"viewSetupLog": "Angalia kumbukumbu ya usanidi"
@@ -812,7 +822,7 @@
 			"outputNotWritable": "Arroxy haiwezi kuandika kwenye folda ya vipakuliwa. Huenda ni ya kusoma tu, iko kwenye diski iliyofungwa, au imezuiwa na mipangilio ya faragha ya mfumo wako. Chagua folda nyingine au ruhusu ufikiaji, kisha ujaribu tena.",
 			"unsupportedUrl": "URL hiyo haitumiki na yt-dlp. Jaribu kiungo kingine kutoka tovuti yoyote inayotumika na yt-dlp.",
 			"chunkTransferFailure": "Seva ilikatiza upakuaji mara kwa mara na yt-dlp ilikata tamaa baada ya kujaribu tena. Hii hutokea zaidi kwa muundo mkubwa wa video (4K HDR / VP9 ya bitrate ya juu). Jaribu tena, badilisha mtandao/VPN, au chagua muundo wa ubora wa chini.",
-			"missingDependency": "yt-dlp haikuweza kupata ffmpeg au ffprobe. Rekebisha binari zilizojumuishwa au weka eneo la FFmpeg, kisha ujaribu tena.",
+			"missingDependency": "yt-dlp haikuweza kupata ffmpeg wala ffprobe. Endesha usanidi tena au weka eneo la FFmpeg, kisha jaribu kupakua tena.",
 			"postprocessFailure": "yt-dlp ilimaliza kupakua lakini uchakataji wa baadaye (kuunganisha / mux / kubadilisha) ulishindwa. Mara nyingi hili ni tatizo la muda la ffmpeg — jaribu tena, na ikiendelea, jaribu mchanganyiko tofauti wa muundo.",
 			"parse": "Haikuwezekana kuchanganua jibu kutoka tovuti. Kichanganuzi cha yt-dlp kinaweza kuwa kimepitwa na wakati. Arroxy huboresha yt-dlp kiotomatiki wakati wa uzinduzi — jaribu tena baada ya dakika chache marekebisho yatakapowasili.",
 			"network": "Hitilafu ya mtandao. Angalia muunganisho wako na ujaribu tena.",

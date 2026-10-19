@@ -25,7 +25,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ Afaanota 31 battalumatti ni argatta: Afaan Oromoo · Bahasa Indonesia · Deutsch
 <details>
 <summary><strong>Waan biraa fayyadu barbaachisaa?</strong></summary>
 
-Lakki. yt-dlp jalqaba banuu irratti ofumaan buufamee meeshaa kee irratti kuufama; ffmpeg fi ffprobe app waliin dhufu. Sana booda qindaaʼinni dabalataa hin barbaachisu.
+Lakki. yt-dlp, ffmpeg fi ffprobe jalqaba banuu irratti ofumaan buufamanii meeshaa kee irratti kuufamu. Sana booda qindaaʼinni dabalataa hin barbaachisu.
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy bilisa fi hayyama MIT jala jira — beeksisni hin jiru, telemetriin hin j
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — kallattii
 - **Zustand** — bulchiinsa haala
-- **yt-dlp** + **ffmpeg** — injinii buusuu fi walitti makuu (yt-dlp runtime irratti fudhatama; ffmpeg/ffprobe build time irratti waliin maramu)
+- **yt-dlp** + **ffmpeg** — injinii buusuu fi walitti makuu (lamaan isaanii runtime irratti fudhatamu: yt-dlp haaraa ta'ee tursiifama, ffmpeg/ffprobe altokko qofa fe'amee fooyya'iinsa booda illee turu)
 - **Vite** + **electron-vite** — meeshaalee ijaarsaa
 - **Vitest** + **Playwright** — qormaata unit fi end-to-end
 
@@ -579,7 +579,7 @@ bun run dist         # OS ammaa kanaaf qindeessi
 bun run dist:win     # supported host irratti Windows targets package godhi
 ```
 
-> `bun run bootstrap` dependencies fe'a, Electron app dependencies rebuild godha, Electron mirkaneessa, development'f embedded ffmpeg/ffprobe qopheessa, Playwright Chromium fe'a. yt-dlp runtime irratti app data folder keessatti manage ta'a; ffmpeg fi ffprobe release Arroxy hunda waliin bundled ta'u.
+> `bun run bootstrap` dependencies fe'a, Electron app dependencies rebuild godha, Electron mirkaneessa, development'f embedded ffmpeg/ffprobe qopheessa, Playwright Chromium fe'a. Release builds yt-dlp, ffmpeg fi ffprobe runtime irratti app data folder keessatti manage godhu; tokkoon isaanii iyyuu installer keessa hin jiru.
 
 </details>
 

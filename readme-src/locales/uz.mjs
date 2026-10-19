@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — stilizatsiya
 - **Zustand** — holat boshqaruvi
-- **yt-dlp** + **ffmpeg** — yuklab olish va mux mexanizmi (yt-dlp runtime’da olinadi; ffmpeg/ffprobe build vaqtida qo‘shiladi)
+- **yt-dlp** + **ffmpeg** — yuklab olish va mux mexanizmi (ikkalasi ham runtime’da olinadi: yt-dlp yangilanib turadi, ffmpeg/ffprobe esa bir marta o‘rnatiladi va yangilanishlar davomida saqlanadi)
 - **Vite** + **electron-vite** — qurish vositalari
 - **Vitest** + **Playwright** — birlik va uchdan-uchgacha testlar
 
@@ -78,7 +78,7 @@ bun run dist         # joriy OT uchun paketlash
 bun run dist:win     # supported host'da Windows targets paketlash
 \`\`\`
 
-> \`bun run bootstrap\` bog'liqliklarni o'rnatadi, Electron app bog'liqliklarini rebuild qiladi, Electron'ni tekshiradi, development uchun embedded ffmpeg/ffprobe tayyorlaydi va Playwright Chromium'ni o'rnatadi. yt-dlp runtime'da app data folder ichida manage qilinadi; ffmpeg va ffprobe har bir Arroxy relizi bilan bundled keladi.
+> \`bun run bootstrap\` bog'liqliklarni o'rnatadi, Electron app bog'liqliklarini rebuild qiladi, Electron'ni tekshiradi, development uchun embedded ffmpeg/ffprobe tayyorlaydi va Playwright Chromium'ni o'rnatadi. Release build'larda yt-dlp, ffmpeg va ffprobe runtime'da app data folder ichida manage qilinadi; ularning hech biri installer ichida kelmaydi.
 
 </details>`;
 
@@ -386,7 +386,7 @@ export const uz = {
     "{{LANG_COUNT}} til darhol mavjud: {{LANG_NAME_LIST}}. Arroxy birinchi ishga tushirilganda operatsion tizimingiz tilini avtomatik aniqlaydi, va tilni asboblar panelidagi tanlagichdan istalgan vaqtda almashtirishingiz mumkin. Runtime locale JSON src/shared/i18n/locales/ ichida, tarjimonlar uchun PO catalog esa i18n/locales/ ichida — hissa qo‘shish uchun GitHub’da PR oching.",
   faq_q7: "Boshqa narsalarni o'rnatishim kerakmi?",
   faq_a7:
-    "Yo‘q. yt-dlp birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteringizda keshlanadi; ffmpeg va ffprobe ilova bilan birga keladi. Undan keyin qo‘shimcha sozlash shart emas.",
+    "Yo‘q. yt-dlp, ffmpeg va ffprobe birinchi ishga tushirishda avtomatik yuklab olinadi va kompyuteringizda keshlanadi. Undan keyin qo‘shimcha sozlash shart emas.",
   faq_q8: "Playlist yoki butun kanallarni yuklab olishim mumkinmi?",
   faq_a8:
     "Ha — ikkalasi ham. Playlist yoki kanal URLini joylang (masalan, `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); nechta yozuv skanerlanishini tanlang, keyin butun ro‘yxatni navbatga qo‘ying yoki alohida videolarni tanlang. Sana oralig‘i filtrlari tez orada keladi.",

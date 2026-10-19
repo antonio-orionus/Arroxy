@@ -17,18 +17,14 @@ on:
   push:
     branches: [main]
     tags: ['v*']
-  # The embedded ffmpeg is pinned and already scanned, so a new Defender verdict
-  # can only come from Microsoft's classifier changing its mind about a binary
-  # that passed before. Nothing in the repo changes to trigger that, so a weekly
-  # run is what actually surfaces the drift — early, and away from release day.
+  # The pinned FFmpeg package was scanned when it was approved, so a new
+  # Defender verdict can only come from Microsoft's classifier changing its mind
+  # about binaries that passed before. Nothing in the repo changes to trigger
+  # that, so a weekly run is what actually surfaces the drift — early, and away
+  # from release day.
   schedule:
     - cron: '0 7 * * 1'
   workflow_dispatch:
-    inputs:
-      btbn_release_tag:
-        description: 'Override the pinned BtbN ffmpeg release (tag name, "latest", or "floating"). Empty uses BTBN_PINNED_RELEASE_TAG.'
-        required: false
-        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -58,40 +54,48 @@ jobs:
       # use their own Electron runtime before any artifact is published.
       - name: Build Windows artifacts
         shell: bash
-        env:
-          BTBN_GITHUB_TOKEN: ${{ github.token }}
-          # Lets a maintainer rebuild Windows against a different ffmpeg from the
-          # Actions UI. Without it the only way off a bad binary was editing the
-          # pin in source and cutting a new tag, mid-release.
-          BTBN_RELEASE_TAG: ${{ inputs.btbn_release_tag }}
         run: bun run dist:win
-      # Gate publish on Defender's verdict over the packed output. Arroxy embeds
-      # third-party ffmpeg/ffprobe builds; on 2026-09-01 an upstream autobuild's
-      # ffprobe.exe tripped Defender as Trojan:Win32/Wacatac.B!ml (a known false
-      # positive, BtbN/FFmpeg-Builds#646) and was quarantined on install,
-      # breaking probing for anyone on that release. Nothing caught it before
-      # publish. -Require also fails when a binary is missing, because with
-      # real-time protection on Defender removes a flagged file as it is written
-      # and the scan would otherwise report a clean bill over a broken payload.
+      # Gate publish on Defender's verdict. On 2026-09-01 an upstream FFmpeg
+      # autobuild's ffprobe.exe tripped Defender as Trojan:Win32/Wacatac.B!ml (a
+      # known false positive, BtbN/FFmpeg-Builds#646) and was quarantined on
+      # install, breaking probing for anyone on that release. FFmpeg no longer
+      # ships inside the installer, so the pinned package is installed from its
+      # release asset, exactly as the app does it, and scanned separately.
+      # -Require also fails when a binary is missing, because with real-time
+      # protection on Defender removes a flagged file as it is written and the
+      # scan would otherwise report a clean bill over a broken payload.
       #
-      # Blocking on every ref except a tag using the source-pinned binary. On that
-      # tag it only warns: the binary was already scanned when the pin landed, so
-      # a failure means Microsoft reclassified something that has not changed.
-      # An explicit btbn_release_tag changes the payload and therefore blocks even
-      # on a tag; that recovery run must prove the replacement is clean.
+      # Blocking on every ref except a version tag. On a tag it only warns: the
+      # package was scanned when its pin landed, so a failure means Microsoft
+      # reclassified something that has not changed, and the fix is a new
+      # approved FFmpeg package, not a blocked app release.
       - name: Scan packed output with Windows Defender
         id: defender
         shell: pwsh
-        continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' }}
+        continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: >-
           ./scripts/test-binaries/scan-windows-defender.ps1
           -Path dist/win-unpacked
-          -Require Arroxy.exe,resources/ffmpeg.exe,resources/ffprobe.exe
+          -Require Arroxy.exe
+      - name: Install the pinned FFmpeg package
+        id: ffmpeg-package
+        shell: pwsh
+        run: |
+          $root = bun scripts/build/ffmpegPackage.ts install --platform win32 --arch x64 | Select-Object -Last 1
+          "dir=$root" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+      - name: Scan the pinned FFmpeg package with Windows Defender
+        id: defender-ffmpeg
+        shell: pwsh
+        continue-on-error: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        run: >-
+          ./scripts/test-binaries/scan-windows-defender.ps1
+          -Path "${{ steps.ffmpeg-package.outputs.dir }}"
+          -Require ffmpeg.exe,ffprobe.exe
       - name: Surface an advisory Defender failure on tags
-        if: ${{ startsWith(github.ref, 'refs/tags/v') && inputs.btbn_release_tag == '' && steps.defender.outcome == 'failure' }}
+        if: ${{ startsWith(github.ref, 'refs/tags/v') && (steps.defender.outcome == 'failure' || steps.defender-ffmpeg.outcome == 'failure') }}
         shell: bash
         run: |
-          echo "::warning::Windows Defender flagged the packed output for ${GITHUB_REF_NAME}. The release was NOT blocked. Verify the binary, then re-run this workflow via workflow_dispatch with btbn_release_tag set to a clean BtbN build and re-publish the Windows assets."
+          echo "::warning::Windows Defender flagged the packed output or the pinned FFmpeg package for ${GITHUB_REF_NAME}. The release was NOT blocked. Verify the binaries; if FFmpeg is flagged, approve a clean package (dev-docs/ffmpeg-packages.md)."
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: installer

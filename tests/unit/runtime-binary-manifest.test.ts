@@ -52,7 +52,7 @@ describe('runtime binary manifest validation', () => {
 
 	it('filters entries for the current target without reordering manifest candidates', () => {
 		const stable: RuntimeBinaryManifestEntry = {...baseEntry, channel: 'stable', version: '2026.06.10', sha256: 'b'.repeat(64), url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10/yt-dlp_linux'}
-		const index: RuntimeBinaryIndex = {schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [baseEntry, stable, {...baseEntry, platform: 'darwin', sha256: 'c'.repeat(64)}]}
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [baseEntry, stable, {...baseEntry, platform: 'darwin', sha256: 'c'.repeat(64)}]}
 		expect(runtimeEntriesForCurrentTarget(index, 'yt-dlp', 'linux', 'x64')).toEqual([baseEntry, stable])
 	})
 
@@ -61,16 +61,28 @@ describe('runtime binary manifest validation', () => {
 	})
 
 	it('validates a full index with semantic entry checks', () => {
-		const result = validateRuntimeBinaryIndex({schemaVersion: 1, generatedAt: '2026-06-12T00:00:00.000Z', entries: [baseEntry]})
+		const result = validateRuntimeBinaryIndex({schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [baseEntry]})
 		expect(result.ok).toBe(true)
 	})
 
-	it('ships an immutable bundled yt-dlp fallback index without Deno entries', () => {
+	it('ships an immutable bundled fallback index: stable yt-dlp plus the pinned FFmpeg packages', () => {
 		const result = validateRuntimeBinaryIndex(BUNDLED_RUNTIME_BINARY_INDEX)
-		expect(result.ok ? result.value.entries : result.issues).toHaveLength(6)
+		expect(result.ok ? result.value.entries : result.issues).toHaveLength(11)
 		expect(result.ok).toBe(true)
-		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.map(entry => `${entry.id}:${entry.platform}:${entry.arch}`)).toEqual(['yt-dlp:win32:x64', 'yt-dlp:win32:arm64', 'yt-dlp:darwin:x64', 'yt-dlp:darwin:arm64', 'yt-dlp:linux:x64', 'yt-dlp:linux:arm64'])
-		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.every(entry => entry.id === 'yt-dlp' && entry.channel === 'stable')).toBe(true)
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.map(entry => `${entry.id}:${entry.platform}:${entry.arch}`)).toEqual([
+			'yt-dlp:win32:x64',
+			'yt-dlp:win32:arm64',
+			'yt-dlp:darwin:x64',
+			'yt-dlp:darwin:arm64',
+			'yt-dlp:linux:x64',
+			'yt-dlp:linux:arm64',
+			'ffmpeg:win32:x64',
+			'ffmpeg:darwin:x64',
+			'ffmpeg:darwin:arm64',
+			'ffmpeg:linux:x64',
+			'ffmpeg:linux:arm64'
+		])
+		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.every(entry => entry.id === 'ffmpeg' || entry.channel === 'stable')).toBe(true)
 		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.map(entry => entry.id)).not.toContain('deno')
 		expect(BUNDLED_RUNTIME_BINARY_INDEX.entries.every(entry => !entry.url.includes('/latest/'))).toBe(true)
 	})

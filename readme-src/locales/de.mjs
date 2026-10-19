@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — Styling
 - **Zustand** — State Management
-- **yt-dlp** + **ffmpeg** — Download- und Mux-Engine (yt-dlp wird zur Laufzeit geholt; ffmpeg/ffprobe sind beim Build gebündelt)
+- **yt-dlp** + **ffmpeg** — Download- und Mux-Engine (beide werden zur Laufzeit geholt: yt-dlp wird aktuell gehalten, ffmpeg/ffprobe werden einmal installiert und bleiben über Updates hinweg erhalten)
 - **Vite** + **electron-vite** — Build-Tooling
 - **Vitest** + **Playwright** — Unit- und End-to-End-Tests
 
@@ -78,7 +78,7 @@ bun run dist         # für aktuelles OS paketieren
 bun run dist:win     # Windows-Ziele auf unterstütztem Host paketieren
 \`\`\`
 
-> \`bun run bootstrap\` installiert Abhängigkeiten, baut Electron-App-Abhängigkeiten neu, prüft Electron, bereitet eingebettete ffmpeg/ffprobe für die Entwicklung vor und installiert Playwright Chromium. yt-dlp wird zur Laufzeit im App-Datenordner verwaltet; ffmpeg und ffprobe sind in jedem Arroxy-Release enthalten.
+> \`bun run bootstrap\` installiert Abhängigkeiten, baut Electron-App-Abhängigkeiten neu, prüft Electron, bereitet eingebettete ffmpeg/ffprobe für die Entwicklung vor und installiert Playwright Chromium. Release-Builds verwalten yt-dlp, ffmpeg und ffprobe zur Laufzeit im App-Datenordner; keines davon wird mit dem Installer ausgeliefert.
 
 </details>`;
 
@@ -387,7 +387,7 @@ export const de = {
     "{{LANG_COUNT}} Sprachen sind sofort verfügbar: {{LANG_NAME_LIST}}. Arroxy erkennt beim ersten Start automatisch die Sprache deines Betriebssystems, und du kannst jederzeit über die Sprachauswahl in der Symbolleiste wechseln. Runtime-Locale-JSON liegt in src/shared/i18n/locales/, die PO-Kataloge für Übersetzer liegen in i18n/locales/ — öffne einen PR auf GitHub, um beizutragen.",
   faq_q7: "Muss ich etwas zusätzlich installieren?",
   faq_a7:
-    "Nein. yt-dlp wird beim ersten Start automatisch heruntergeladen und auf deinem Rechner gecacht; ffmpeg und ffprobe werden mit der App geliefert. Danach ist keine weitere Einrichtung nötig.",
+    "Nein. yt-dlp, ffmpeg und ffprobe werden beim ersten Start automatisch heruntergeladen und auf deinem Rechner gecacht. Danach ist keine weitere Einrichtung nötig.",
   faq_q8: "Kann ich Playlists oder ganze Kanäle herunterladen?",
   faq_a8:
     "Ja — beides. Füge eine Playlist-URL oder Kanal-URL ein (z. B. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); wähle, wie viele Einträge gescannt werden sollen, und stelle dann die ganze Liste in die Warteschlange oder wähle einzelne Videos aus. Datumsfilter kommen bald.",

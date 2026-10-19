@@ -783,6 +783,12 @@ body {
 	gap: 4px;
 	text-align: center;
 }
+/* The repair panel explains and offers actions, so it needs a reading measure,
+   not the status line's narrow column. */
+.splash-overlay[data-state='blocked'] .splash-text,
+.splash-text:has(.splash-setup) {
+	width: min(380px, 100%);
+}
 .splash-greeting {
 	font-size: var(--text-headline);
 	font-weight: var(--text-headline--font-weight);
@@ -830,6 +836,35 @@ body {
 	color: var(--muted-foreground);
 	font-variant-numeric: tabular-nums;
 	margin-top: 2px;
+}
+
+/* First-run / update setup: the one moment a user waits on Arroxy itself, so it
+   says what is happening, how far along it is, and that it happens once. */
+.splash-setup {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	margin-top: 12px;
+}
+.splash-setup-title {
+	font-size: var(--text-title);
+	font-weight: var(--text-title--font-weight);
+	line-height: var(--text-title--line-height);
+	color: var(--foreground);
+	text-wrap: balance;
+}
+.splash-setup-bar {
+	width: 100%;
+	height: 4px;
+	margin-top: 10px;
+}
+.splash-setup-note {
+	margin-top: 14px;
+	font-size: var(--text-caption);
+	line-height: var(--text-caption--line-height);
+	color: var(--muted-foreground);
+	text-wrap: pretty;
 }
 
 /* ── Update banner ─────────────────────────────────────── */

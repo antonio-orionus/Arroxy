@@ -27,7 +27,7 @@ PO field meaning:
 1. Edit `src/shared/i18n/locales/en.json` only.
 2. Stop and get explicit user approval for the English copy. Plan approval is not translation approval.
 3. Run `bun run i18n:sync` to update `i18n/app.pot` and merge English changes into `i18n/locales/*.po`.
-4. Translate only PO entries that are fuzzy, untranslated, or intentionally changed by the task.
+4. Translate only PO entries that are fuzzy, untranslated, or intentionally changed by the task. Hand the translating to subagents on a Sonnet-class model, never Opus: give each one a batch of locales and the exact entries to fill. The lead session reviews their output and runs the checks.
 5. Preserve `msgctxt` and `msgid`. Edit only `msgstr` and remove `fuzzy` only after reviewing the translation against the current `msgid`.
 6. Preserve placeholders, interpolation, markup, shortcut text, product names, and punctuation semantics.
 7. Run `bun run i18n:compile` to regenerate runtime locale JSON.

@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — کارونکي انٹرفیس
 - **Tailwind CSS v4** — ستایل کول
 - **Zustand** — د حالت مدیریت
-- **yt-dlp** + **ffmpeg** — د ډاونلوډ او mux انجن (yt-dlp د runtime پر مهال راوړل کېږي؛ ffmpeg/ffprobe د build پر مهال بنډل کېږي)
+- **yt-dlp** + **ffmpeg** — د ډاونلوډ او mux انجن (دواړه د runtime پر مهال راوړل کېږي: yt-dlp تازه ساتل کېږي، ffmpeg/ffprobe یو ځل نصبېږي او د تازه کولو وروسته هم پاتې کېږي)
 - **Vite** + **electron-vite** — د جوړولو وسیلې
 - **Vitest** + **Playwright** — د واحد او له سره تر سره ازموینې
 
@@ -78,7 +78,7 @@ bun run dist         # د اوسني OS لپاره پیکیج کول
 bun run dist:win     # په supported host کې د Windows targets پیکیج کول
 \`\`\`
 
-> \`bun run bootstrap\` dependencies نصبوي، د Electron app dependencies بیا جوړوي، Electron تاییدوي، د development لپاره embedded ffmpeg/ffprobe چمتو کوي، او Playwright Chromium نصبوي. yt-dlp په runtime کې د app data folder کې manage کېږي؛ ffmpeg او ffprobe د Arroxy هر release سره bundled وي.
+> \`bun run bootstrap\` dependencies نصبوي، د Electron app dependencies بیا جوړوي، Electron تاییدوي، د development لپاره embedded ffmpeg/ffprobe چمتو کوي، او Playwright Chromium نصبوي. د release builds yt-dlp، ffmpeg او ffprobe په runtime کې د app data folder کې manage کوي؛ هیڅ یو یې د installer دننه نه راځي.
 
 </details>`;
 
@@ -396,7 +396,7 @@ export const ps = {
     "{{LANG_COUNT}} ژبې له مخکې چمتو دي: {{LANG_NAME_LIST}}. Arroxy په لومړي پیل کې ستاسو د عملیاتي سیسټم ژبه په اتومات ډول پېژني، او تاسو یې هر وخت د تولبار د ژبې له ټاکونکي څخه بدلولای شئ. Runtime locale JSON په src/shared/i18n/locales/ کې دی، او د ژباړونکو PO catalog په i18n/locales/ کې دی — د مرستې لپاره په GitHub کې PR پرانیزئ.",
   faq_q7: "ایا ما ته بل شی نصب کولو ته اړتیا ده؟",
   faq_a7:
-    "نه. yt-dlp د لومړي پیل پر مهال اوتومات ډاونلوډ او ستاسو په ماشین کې کېچ کېږي؛ ffmpeg او ffprobe د اپ سره راځي. له دې وروسته، کوم اضافي ترتیب ته اړتیا نشته.",
+    "نه. yt-dlp، ffmpeg او ffprobe د لومړي پیل پر مهال اوتومات ډاونلوډ او ستاسو په ماشین کې کېچ کېږي. له دې وروسته، کوم اضافي ترتیب ته اړتیا نشته.",
   faq_q8: "ایا کولی شم پلیلیسټونه یا ټول چینلونه ډاونلوډ کړم؟",
   faq_a8:
     "هو — دواړه. د playlist یا channel URL پیسټ کړئ (لکه `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`)؛ وټاکئ چې څو entries scan شي، بیا ټول لیست queue کړئ یا ځانګړي ویډیوګانې وټاکئ. د date-range filters ژر راځي.",

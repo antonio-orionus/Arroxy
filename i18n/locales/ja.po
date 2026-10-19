@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "この動画にはサインイン済みのアカウントが必要です。"
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp が ffmpeg または ffprobe を見つけられませんでした。同梱バイナリを修復するか FFmpeg の場所を設定してから、再試行してください。"
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp が ffmpeg または ffprobe を見つけられませんでした。セットアップをもう一度実行するか、FFmpeg の場所を指定してから、ダウンロードをやり直してください。"
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "デフォルトにリセット"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "セットアップを再試行"
+msgid "Try again"
+msgstr "もう一度試す"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "セットアップログを表示"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "もう一度お試しください。それでも失敗する場合は、下で動作するコピーを選んでください。"
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "ツールが正しく動作していません"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "ウイルス対策ソフトまたは SmartScreen で Arroxy を許可してから、もう一度お試しください。"
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "ウイルス対策ソフトがツールをブロックしました"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "インターネット接続を確認して、もう一度お試しください。"
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy に必要なものをダウンロードできませんでした"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "もう一度試して、ダウンロードし直してください。"
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "ダウンロードしたファイルが壊れていました"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "もう一度試して、ダウンロードし直してください。"
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "ダウンロードしたファイルのチェックサムが一致しませんでした"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "下で両方を選ぶか、デフォルトにリセットしてください。"
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg と FFprobe は一緒に設定する必要があります"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "もう一度お試しください。それでも失敗する場合は、下で信頼できるコピーを選んでください。"
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "システムが Arroxy によるツールの実行を許可していません"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "もう一度お試しください。それでも失敗する場合は、下で動作するコピーを選んでください。"
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "ツールが見つからないか、起動できません"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "初回起動時のセキュリティスキャンが原因のことがよくあります。もう一度お試しください。"
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "ツールの応答に時間がかかりすぎました"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "もう一度お試しいただくか、セットアップログで詳細を確認してください。"
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "セットアップ中に問題が発生しました"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "バイナリが --version に応答しませんでした。破損しているか、誤ったビルドの可能性があります。"
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "ダウンロードエンジン"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windowsがファイルをブロックしました (SmartScreen / Defender)。インストール済みのコピーを選択するか、runtimeフォルダーを許可リストに追加してください。"
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "メディアツール"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "ダウンロードに失敗しました。インターネット接続を確認して再試行してください。"
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew でインストール中…数分かかることがあります。"
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "アーカイブの展開に失敗しました。ダウンロードが破損している可能性があります — 再試行してください。"
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet でインストール中…数分かかることがあります。"
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "ダウンロードしたファイルのチェックサムが一致しません。再ダウンロードしてください。"
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "すでにお持ちのコピーを Arroxy に指定するか、別の方法でインストールしてください。"
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg と ffprobe は両方ともペアとして設定する必要があります。"
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "パッケージマネージャーで yt-dlp と ffmpeg をインストールしてから、「もう一度試す」をクリックすることもできます。"
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "システムがファイルの実行を拒否しました。信頼できるコピーを選択するか、管理者として再試行してください。"
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "手動でセットアップする"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "ファイルが見つからないか起動できませんでした。正常なコピーを選択してください。"
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "もう一度試すか、下ですでにお持ちのツールを Arroxy に指定してください。"
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "バージョン確認がタイムアウトしました。ファイルがハングしている可能性があります — 再試行してください。"
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "確認できませんでした。"
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "セットアップが停止しました"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "うまくいきませんか？手動で設定する"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "{{binary}} をダウンロード中…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "やあ、おかえり!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "other" for ja: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "残り約 {{count}} 分"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "残り1分未満"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "サイトが変わってもダウンロードが動き続けるようにします。"
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "これは初回だけです。Arroxy がこれらのツールを保持し、自動で更新します。"
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "これは初回だけです。Arroxy が今後のアップデートのために保持します。"
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "すべて動作するか確認中"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "接続中…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "ダウンロードエンジンとメディアツールをダウンロード中"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "ダウンロードエンジンをダウンロード中"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "メディアツールをダウンロード中"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "メディアツールを展開中"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "ダウンロードエンジンを更新中"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "初回セットアップ"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "メディアツールを更新中"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

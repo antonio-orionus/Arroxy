@@ -21,7 +21,7 @@ async function tempDir(prefix = 'bm-manifest-'): Promise<string> {
 }
 
 function indexProvider(entries: RuntimeBinaryManifestEntry[]): RuntimeBinaryIndexProvider {
-	return {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id))}
+	return {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id)), ffmpegPackageCandidates: vi.fn(async () => [])}
 }
 
 function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<string>): RuntimeBinaryMaterializerPort {

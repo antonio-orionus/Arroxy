@@ -217,8 +217,8 @@ msgid "This video needs a signed-in account."
 msgstr "Video ini memerlukan akun yang sudah masuk."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Perbaiki biner yang dibundel atau atur lokasi FFmpeg, lalu coba lagi."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "yt-dlp tidak dapat menemukan ffmpeg atau ffprobe. Jalankan penyiapan lagi atau tentukan lokasi FFmpeg, lalu coba unduh lagi."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1213,12 +1213,92 @@ msgid "Reset to default"
 msgstr "Atur ulang ke default"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Coba lagi penyiapan"
+msgid "Try again"
+msgstr "Coba lagi"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Lihat log pengaturan"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Sebuah alat tidak berfungsi dengan benar"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Izinkan Arroxy di antivirus atau SmartScreen Anda, lalu coba lagi."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirus Anda memblokir sebuah alat"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Periksa koneksi internet Anda, lalu coba lagi."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Tidak dapat mengunduh yang dibutuhkan Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Coba lagi untuk mengunduhnya ulang."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Unduhan tiba dalam keadaan rusak"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Coba lagi untuk mengunduhnya ulang."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Unduhan tidak cocok dengan checksum-nya"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Pilih keduanya di bawah, atau atur ulang ke default."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg dan FFprobe harus diatur bersamaan"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Coba lagi. Jika terus gagal, pilih salinan yang Anda percaya di bawah."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Sistem Anda tidak mengizinkan Arroxy menjalankan sebuah alat"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Coba lagi. Jika terus gagal, pilih salinan yang berfungsi di bawah."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Sebuah alat hilang atau tidak bisa dimulai"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Ini sering terjadi karena pemindaian keamanan saat pertama kali dijalankan. Coba lagi."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Sebuah alat terlalu lama merespons"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Coba lagi, atau buka log pengaturan untuk detailnya."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Terjadi kesalahan saat penyiapan"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1232,45 +1312,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Biner tidak merespons --version. Mungkin rusak atau buildnya salah."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Mesin pengunduh"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Windows memblokir file (SmartScreen / Defender). Pilih salinan yang diinstal atau masukkan folder runtime ke daftar putih."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Alat media"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Pengunduhan gagal. Periksa koneksi internet Anda dan coba lagi."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Menginstal dengan Homebrew… Ini bisa memakan waktu beberapa menit."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Ekstraksi arsip gagal. Unduhan mungkin rusak — coba lagi."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Menginstal dengan WinGet… Ini bisa memakan waktu beberapa menit."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Ketidakcocokan checksum pada file yang diunduh. Coba unduh lagi."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Arahkan Arroxy ke salinan yang sudah Anda miliki, atau instal dengan cara lain."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "ffmpeg dan ffprobe keduanya harus ditetapkan sebagai pasangan yang cocok."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Anda juga bisa menginstal yt-dlp dan ffmpeg lewat pengelola paket, lalu klik Coba lagi."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Sistem menolak menjalankan file tersebut. Pilih salinan yang Anda percayai atau coba lagi sebagai admin."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Atur secara manual"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "File hilang atau tidak dapat diluncurkan. Pilih copy pekerjaan."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Coba lagi, atau arahkan Arroxy ke alat yang sudah Anda miliki di bawah."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Waktu pemeriksaan versi telah habis. File mungkin macet — coba lagi."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Tidak dapat diverifikasi."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Penyiapan dihentikan"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1464,13 +1540,70 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Ada masalah? Atur secara manual"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "Mengunduh {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hei, selamat datang kembali!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} dari {{total}}"
+
+#. Plural form "other" for id: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "sisa sekitar {{count}} mnt"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "sisa kurang dari semenit"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Menjaga unduhan tetap berjalan saat situs berubah."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Ini hanya terjadi sekali. Arroxy menyimpan alat ini dan memperbaruinya sendiri."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Ini hanya terjadi sekali. Arroxy menyimpannya untuk pembaruan berikutnya."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Memeriksa semuanya berfungsi"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Menghubungkan…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Mengunduh mesin pengunduh dan alat media"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Mengunduh mesin pengunduh"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Mengunduh alat media"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Mengekstrak alat media"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Memperbarui mesin pengunduh"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Penyiapan pertama kali"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Memperbarui alat media"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

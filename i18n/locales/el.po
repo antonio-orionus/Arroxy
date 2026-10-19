@@ -222,8 +222,8 @@ msgid "This video needs a signed-in account."
 msgstr "Αυτό το βίντεο απαιτεί λογαριασμό με σύνδεση."
 
 msgctxt "errors.ytdlp.missingDependency"
-msgid "yt-dlp could not find ffmpeg or ffprobe. Repair the bundled binaries or set an FFmpeg location, then retry."
-msgstr "Το yt-dlp δεν μπόρεσε να βρει το ffmpeg ή το ffprobe. Επιδιόρθωσε τα ενσωματωμένα δυαδικά αρχεία ή όρισε μια τοποθεσία FFmpeg και δοκίμασε ξανά."
+msgid "yt-dlp could not find ffmpeg or ffprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Το yt-dlp δεν βρήκε το ffmpeg ή το ffprobe. Εκτέλεσε ξανά τη ρύθμιση ή όρισε μια τοποθεσία FFmpeg και μετά δοκίμασε ξανά τη λήψη."
 
 msgctxt "errors.ytdlp.network"
 msgid "Network error. Check your connection and retry."
@@ -1258,12 +1258,92 @@ msgid "Reset to default"
 msgstr "Επαναφορά στις προεπιλογές"
 
 msgctxt "repair.actions.retrySetup"
-msgid "Retry setup"
-msgstr "Επανάληψη ρύθμισης"
+msgid "Try again"
+msgstr "Δοκίμασε ξανά"
 
 msgctxt "repair.actions.viewSetupLog"
 msgid "View setup log"
 msgstr "Προβολή αρχείου καταγραφής ρύθμισης"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Δοκίμασε ξανά. Αν συνεχίσει να αποτυγχάνει, επίλεξε ένα αντίγραφο που λειτουργεί παρακάτω."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Ένα εργαλείο δεν λειτουργεί σωστά"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Επίτρεψε το Arroxy στο antivirus ή στο SmartScreen και δοκίμασε ξανά."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Το antivirus μπλόκαρε ένα εργαλείο"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Έλεγξε τη σύνδεσή σου στο διαδίκτυο και δοκίμασε ξανά."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Δεν ήταν δυνατή η λήψη όσων χρειάζεται το Arroxy"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Δοκίμασε ξανά για νέα λήψη."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Μια λήψη έφτασε κατεστραμμένη"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Δοκίμασε ξανά για νέα λήψη."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Μια λήψη δεν ταίριαζε με το άθροισμα ελέγχου"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Επίλεξε και τα δύο παρακάτω ή επανάφερέ τα στις προεπιλογές."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "Τα FFmpeg και FFprobe πρέπει να οριστούν μαζί"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Δοκίμασε ξανά. Αν συνεχίσει να αποτυγχάνει, επίλεξε ένα αντίγραφο που εμπιστεύεσαι παρακάτω."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Το σύστημά σου δεν επιτρέπει στο Arroxy να εκτελέσει ένα εργαλείο"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Δοκίμασε ξανά. Αν συνεχίσει να αποτυγχάνει, επίλεξε ένα αντίγραφο που λειτουργεί παρακάτω."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Ένα εργαλείο λείπει ή δεν ξεκινά"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Συχνά οφείλεται σε έλεγχο ασφαλείας κατά την πρώτη εκτέλεση. Δοκίμασε ξανά."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Ένα εργαλείο άργησε πολύ να ανταποκριθεί"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Δοκίμασε ξανά ή άνοιξε το αρχείο καταγραφής ρύθμισης για λεπτομέρειες."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Κάτι πήγε στραβά κατά τη ρύθμιση"
 
 msgctxt "repair.deps.ffmpeg"
 msgid "FFmpeg"
@@ -1277,45 +1357,41 @@ msgctxt "repair.deps.ytDlp"
 msgid "yt-dlp"
 msgstr "yt-dlp"
 
-msgctxt "repair.hints.badExitCode"
-msgid "The binary did not respond to --version. It may be corrupt or the wrong build."
-msgstr "Το δυαδικό αρχείο δεν ανταποκρίθηκε στο --version. Μπορεί να είναι κατεστραμμένο ή λανθασμένη έκδοση."
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Μηχανή λήψης"
 
-msgctxt "repair.hints.blockedOrQuarantined"
-msgid "Windows blocked the file (SmartScreen / Defender). Pick an installed copy or whitelist the runtime folder."
-msgstr "Τα Windows απέκλεισαν το αρχείο (SmartScreen / Defender). Επέλεξε εγκατεστημένο αντίγραφο ή προσθέστε τον φάκελο εκτέλεσης στη λίστα εξαιρέσεων."
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Εργαλεία πολυμέσων"
 
-msgctxt "repair.hints.downloadFailed"
-msgid "Download failed. Check your internet connection and retry."
-msgstr "Η λήψη απέτυχε. Έλεγξε τη σύνδεσή σου στο διαδίκτυο και δοκίμασε ξανά."
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Εγκατάσταση με το Homebrew… Μπορεί να πάρει μερικά λεπτά."
 
-msgctxt "repair.hints.extractFailed"
-msgid "Archive extraction failed. The download may be corrupt — retry."
-msgstr "Η εξαγωγή αρχείου απέτυχε. Η λήψη μπορεί να είναι κατεστραμμένη — δοκίμασε ξανά."
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Εγκατάσταση με το WinGet… Μπορεί να πάρει μερικά λεπτά."
 
-msgctxt "repair.hints.hashFailed"
-msgid "Checksum mismatch on the downloaded file. Retry the download."
-msgstr "Αναντιστοιχία αθροίσματος ελέγχου του ληφθέντος αρχείου. Επανέλαβε τη λήψη."
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Δείξε στο Arroxy αντίγραφα που έχεις ήδη ή εγκατάστησέ τα με άλλον τρόπο."
 
-msgctxt "repair.hints.pairIncomplete"
-msgid "ffmpeg and ffprobe must both be set as a matched pair."
-msgstr "Τα ffmpeg και ffprobe πρέπει να οριστούν ως ταιριαστό ζεύγος."
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Μπορείς επίσης να εγκαταστήσεις τα yt-dlp και ffmpeg με τον διαχειριστή πακέτων σου και μετά να πατήσεις «Δοκίμασε ξανά»."
 
-msgctxt "repair.hints.permissionDenied"
-msgid "The system refused to run the file. Pick a copy you trust or retry as admin."
-msgstr "Το σύστημα αρνήθηκε να εκτελέσει το αρχείο. Επέλεξε ένα αξιόπιστο αντίγραφο ή δοκίμασε ξανά ως διαχειριστής."
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Ρύθμιση χειροκίνητα"
 
-msgctxt "repair.hints.spawnFailed"
-msgid "The file is missing or could not be launched. Pick a working copy."
-msgstr "Το αρχείο λείπει ή δεν μπόρεσε να εκκινηθεί. Επέλεξε ένα λειτουργικό αντίγραφο."
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Δοκίμασε ξανά ή δείξε παρακάτω εργαλεία που έχεις ήδη."
 
-msgctxt "repair.hints.timeout"
-msgid "The version probe timed out. The file may be hung — retry."
-msgstr "Η διερεύνηση έκδοσης έληξε. Το αρχείο μπορεί να είναι κολλημένο — δοκίμασε ξανά."
-
-msgctxt "repair.hints.unknown"
-msgid "Could not be verified."
-msgstr "Δεν ήταν δυνατή η επαλήθευση."
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Η ρύθμιση σταμάτησε"
 
 msgctxt "repair.title"
 msgid "Setup needs your help"
@@ -1509,13 +1585,75 @@ msgctxt "splash.cancel"
 msgid "Having trouble? Set it up manually"
 msgstr "Πρόβλημα; Ρυθμίστε το χειροκίνητα"
 
-msgctxt "splash.downloading"
-msgid "Downloading {{binary}}…"
-msgstr "Λήψη {{binary}}…"
-
 msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Καλώς ήρθες πάλι!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} από {{total}}"
+
+#. Plural form "one" for el: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "απομένει περίπου {{count}} λεπτό"
+
+#. Plural form "other" for el: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "απομένουν περίπου {{count}} λεπτά"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "απομένει λιγότερο από ένα λεπτό"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Διατηρεί τις λήψεις λειτουργικές όταν αλλάζουν οι ιστότοποι."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Αυτό συμβαίνει μία φορά. Τα εργαλεία αυτά διατηρούνται και ενημερώνονται αυτόματα."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Αυτό συμβαίνει μία φορά. Τα εργαλεία διατηρούνται για μελλοντικές ενημερώσεις."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Έλεγχος ότι όλα λειτουργούν"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Σύνδεση…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Λήψη της μηχανής λήψης και των εργαλείων πολυμέσων"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Λήψη της μηχανής λήψης"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Λήψη των εργαλείων πολυμέσων"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Αποσυμπίεση των εργαλείων πολυμέσων"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Ενημέρωση της μηχανής λήψης"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Αρχική ρύθμιση"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Ενημέρωση των εργαλείων πολυμέσων"
 
 msgctxt "splash.verifyFirstCheck"
 msgid "First check of this version — this one is slow. Usually about a minute."

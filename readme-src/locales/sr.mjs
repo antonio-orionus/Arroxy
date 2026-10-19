@@ -5,7 +5,7 @@ const TECH_CONTENT = `<details>
 - **React 19** + **TypeScript** — кориснички интерфејс
 - **Tailwind CSS v4** — стилизовање
 - **Zustand** — управљање стањем
-- **yt-dlp** + **ffmpeg** — машина за преузимање и мешање (yt-dlp се преузима у runtime-у; ffmpeg/ffprobe се укључују при build-у)
+- **yt-dlp** + **ffmpeg** — машина за преузимање и мешање (оба се преузимају у runtime-у: yt-dlp се одржава ажурним, а ffmpeg/ffprobe се инсталирају једном и задржавају се током ажурирања)
 - **Vite** + **electron-vite** — алати за изградњу
 - **Vitest** + **Playwright** — јединични и end-to-end тестови
 
@@ -78,7 +78,7 @@ bun run dist         # package for current OS
 bun run dist:win     # пакетирање Windows циљева на подржаном хосту
 \`\`\`
 
-> \`bun run bootstrap\` инсталира зависности, поново гради зависности Electron апликације, проверава Electron, припрема уграђене ffmpeg/ffprobe за развој и инсталира Playwright Chromium. yt-dlp се управља у runtime-у у фасцикли података апликације; ffmpeg и ffprobe су укључени у свако Arroxy издање.
+> \`bun run bootstrap\` инсталира зависности, поново гради зависности Electron апликације, проверава Electron, припрема уграђене ffmpeg/ffprobe за развој и инсталира Playwright Chromium. Release верзије у runtime-у управљају алатима yt-dlp, ffmpeg и ffprobe у фасцикли података апликације; ниједан од њих није укључен у инсталер.
 
 </details>`;
 
@@ -403,7 +403,7 @@ export const sr = {
     "{{LANG_COUNT}} језика је доступно одмах: {{LANG_NAME_LIST}}. Arroxy при првом покретању аутоматски препознаје језик оперативног система, а језик можеш променити у било ком тренутку преко бирача језика у траци са алаткама. Runtime locale JSON је у src/shared/i18n/locales/, а PO каталози за преводиоце су у i18n/locales/ — отвори PR на GitHub-у да допринесеш.",
   faq_q7: "Да ли треба да инсталирам нешто друго?",
   faq_a7:
-    "Не. yt-dlp се аутоматски преузима при првом покретању и кешира на вашем рачунару; ffmpeg и ffprobe стижу уз апликацију. Након тога није потребно додатно подешавање.",
+    "Не. yt-dlp, ffmpeg и ffprobe се аутоматски преузимају при првом покретању и кеширају на вашем рачунару. Након тога није потребно додатно подешавање.",
   faq_q8: "Могу ли преузети плејлисте или целе канале?",
   faq_a8:
     "Да — обоје. Налепи playlist или channel URL (нпр. `youtube.com/@handle`, `/channel/UC…`, `/c/Name`, `/user/Old`); изабери колико entries да се скенира, па стави целу листу у queue или изабери појединачне видео снимке. Date-range filters стижу ускоро.",

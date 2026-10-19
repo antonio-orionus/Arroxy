@@ -25,7 +25,7 @@
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。
 
@@ -442,7 +442,7 @@ yt-dlp 在启动时自动更新，YouTube 一旦发生变化，Arroxy 会及时�
 <details>
 <summary><strong>需要额外安装其他软件吗？</strong></summary>
 
-不需要。yt-dlp 会在首次启动时自动下载并缓存到你的机器上；ffmpeg 和 ffprobe 随应用一起提供。之后无需任何额外配置。
+不需要。yt-dlp、ffmpeg 和 ffprobe 会在首次启动时自动下载并缓存到你的机器上。之后无需任何额外配置。
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy 完全免费并采用 MIT 许可证 —— 没有广告、没有遥测、
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — 样式
 - **Zustand** — 状态管理
-- **yt-dlp** + **ffmpeg** — 下载与混流引擎（yt-dlp 在运行时获取；ffmpeg/ffprobe 在构建时打包）
+- **yt-dlp** + **ffmpeg** — 下载与混流引擎（两者都在运行时获取：yt-dlp 保持最新，ffmpeg/ffprobe 只安装一次并在更新后保留）
 - **Vite** + **electron-vite** — 构建工具
 - **Vitest** + **Playwright** — 单元测试与端到端测试
 
@@ -581,7 +581,7 @@ bun run dist         # 为当前系统打包
 bun run dist:win     # 在受支持的主机上打包 Windows 目标
 ```
 
-> `bun run bootstrap` 会安装依赖、重建 Electron 应用依赖、验证 Electron、为开发准备嵌入式 ffmpeg/ffprobe，并安装 Playwright Chromium。yt-dlp 在运行时由应用数据目录管理；ffmpeg 和 ffprobe 随每个 Arroxy 版本一起提供。
+> `bun run bootstrap` 会安装依赖、重建 Electron 应用依赖、验证 Electron、为开发准备嵌入式 ffmpeg/ffprobe，并安装 Playwright Chromium。发布版本在运行时于应用数据目录中管理 yt-dlp、ffmpeg 和 ffprobe；它们都不包含在安装程序中。
 
 </details>
 

@@ -25,7 +25,7 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 ---
 
@@ -440,7 +440,7 @@ yt-dlp চালুর সময় স্বয়ংক্রিয়ভা�
 <details>
 <summary><strong>আমাকে কি আর কিছু ইনস্টল করতে হবে?</strong></summary>
 
-না। yt-dlp প্রথম চালুতে স্বয়ংক্রিয়ভাবে ডাউনলোড হয়ে আপনার মেশিনে ক্যাশ হয়; ffmpeg ও ffprobe অ্যাপের সাথেই আসে। এরপর কোনো অতিরিক্ত সেটআপ দরকার নেই।
+না। yt-dlp, ffmpeg ও ffprobe প্রথম চালুতে স্বয়ংক্রিয়ভাবে ডাউনলোড হয়ে আপনার মেশিনে ক্যাশ হয়। এরপর কোনো অতিরিক্ত সেটআপ দরকার নেই।
 
 </details>
 
@@ -501,7 +501,7 @@ Arroxy বিনামূল্যের এবং MIT লাইসেন্স�
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — স্টাইলিং
 - **Zustand** — স্টেট ম্যানেজমেন্ট
-- **yt-dlp** + **ffmpeg** — ডাউনলোড ও মাক্স ইঞ্জিন (yt-dlp রানটাইমে আনা হয়; ffmpeg/ffprobe বিল্ড টাইমে বান্ডেল থাকে)
+- **yt-dlp** + **ffmpeg** — ডাউনলোড ও মাক্স ইঞ্জিন (দুটোই রানটাইমে আনা হয়: yt-dlp আপ টু ডেট রাখা হয়, ffmpeg/ffprobe একবার ইনস্টল হয়ে আপডেটের পরও থেকে যায়)
 - **Vite** + **electron-vite** — বিল্ড টুলিং
 - **Vitest** + **Playwright** — ইউনিট ও এন্ড-টু-এন্ড টেস্ট
 
@@ -579,7 +579,7 @@ bun run dist         # বর্তমান OS-এর জন্য প্যা
 bun run dist:win     # supported host-এ Windows targets প্যাকেজ করুন
 ```
 
-> `bun run bootstrap` dependencies ইনস্টল করে, Electron app dependencies rebuild করে, Electron যাচাই করে, development-এর জন্য embedded ffmpeg/ffprobe প্রস্তুত করে, এবং Playwright Chromium ইনস্টল করে। yt-dlp runtime-এ app data folder-এ manage হয়; ffmpeg ও ffprobe প্রতিটি Arroxy release-এর সাথেই bundled থাকে।
+> `bun run bootstrap` dependencies ইনস্টল করে, Electron app dependencies rebuild করে, Electron যাচাই করে, development-এর জন্য embedded ffmpeg/ffprobe প্রস্তুত করে, এবং Playwright Chromium ইনস্টল করে। Release build-এ yt-dlp, ffmpeg ও ffprobe runtime-এ app data folder-এ manage হয়; এগুলোর কোনোটিই installer-এর ভেতরে থাকে না।
 
 </details>
 

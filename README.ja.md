@@ -25,7 +25,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 >
 > **Key difference: a built-in YouTube browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-18._
+> _Last updated: 2026-10-19._
 
 > 🌐 これは AI 翻訳です。[英語版 README](README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../pulls)。
 
@@ -442,7 +442,7 @@ yt-dlp は起動時に自動更新され、YouTube に変更があれば Arroxy 
 <details>
 <summary><strong>他に何かインストールが必要ですか？</strong></summary>
 
-いいえ。yt-dlp は初回起動時に自動ダウンロードされてマシンにキャッシュされます。ffmpeg と ffprobe はアプリに同梱されています。それ以降は追加のセットアップ不要です。
+いいえ。yt-dlp、ffmpeg、ffprobe は初回起動時に自動ダウンロードされ、マシンにキャッシュされます。それ以降は追加のセットアップ不要です。
 
 </details>
 
@@ -503,7 +503,7 @@ Arroxy は無料で MIT ライセンスです。広告もテレメトリも有�
 - **React 19** + **TypeScript** — UI
 - **Tailwind CSS v4** — スタイリング
 - **Zustand** — 状態管理
-- **yt-dlp** + **ffmpeg** — ダウンロード・マルチプレクサエンジン（yt-dlp は実行時に取得、ffmpeg/ffprobe はビルド時に同梱）
+- **yt-dlp** + **ffmpeg** — ダウンロード・マルチプレクサエンジン（どちらも実行時に取得：yt-dlp は最新に保たれ、ffmpeg/ffprobe は一度だけインストールされアップデート後も維持）
 - **Vite** + **electron-vite** — ビルドツール
 - **Vitest** + **Playwright** — ユニットテスト・E2E テスト
 
@@ -581,7 +581,7 @@ bun run dist         # 現在の OS 向けパッケージ
 bun run dist:win     # 対応ホストで Windows ターゲットをパッケージ
 ```
 
-> `bun run bootstrap` は依存関係をインストールし、Electron アプリ依存を rebuild し、Electron を検証し、開発用の埋め込み ffmpeg/ffprobe を準備し、Playwright Chromium をインストールします。yt-dlp は実行時にアプリデータフォルダで管理され、ffmpeg と ffprobe はすべての Arroxy リリースに同梱されています。
+> `bun run bootstrap` は依存関係をインストールし、Electron アプリ依存を rebuild し、Electron を検証し、開発用の埋め込み ffmpeg/ffprobe を準備し、Playwright Chromium をインストールします。リリースビルドでは、yt-dlp・ffmpeg・ffprobe は実行時にアプリデータフォルダで管理され、いずれもインストーラーには含まれません。
 
 </details>
 

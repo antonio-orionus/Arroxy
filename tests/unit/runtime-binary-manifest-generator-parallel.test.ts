@@ -85,10 +85,13 @@ describe('runtime binary manifest generator parallel downloads', () => {
 		const cacheRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'runtime-manifest-parallel-'))
 
 		try {
-			const {generateRuntimeBinaryIndex} = await import('../../scripts/build/runtimeBinaryManifest.js')
-			const index = await generateRuntimeBinaryIndex({cacheRoot})
+			const {generateRuntimeBinaryIndexes} = await import('../../scripts/build/runtimeBinaryManifest.js')
+			const {FFMPEG_PACKAGE_PINS} = await import('../../src/main/services/binary/FfmpegPackagePins.js')
+			const {v1: index, v2} = await generateRuntimeBinaryIndexes({cacheRoot})
 
 			expect(index.entries).toHaveLength(18)
+			// v2 is v1 plus the committed FFmpeg pins, copied unchanged.
+			expect(v2.entries).toEqual([...index.entries, ...FFMPEG_PACKAGE_PINS])
 			expect(new Set(mockRuntime.downloadCalls)).toHaveLength(12)
 			expect(mockRuntime.downloadCalls).toHaveLength(12)
 			expect(mockRuntime.maxActiveDownloads).toBe(12)
