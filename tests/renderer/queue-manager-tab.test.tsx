@@ -1,6 +1,7 @@
 import {act, fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {QueueManagerTab} from '@renderer/components/queue/QueueManagerTab.js'
+import * as hintComponents from '@renderer/components/shared/Hint.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {i18next} from '@shared/i18n/index.js'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
@@ -108,6 +109,110 @@ describe('QueueManagerTab', () => {
 		const widths = screen.getAllByRole('columnheader').map(header => Number(/\bw-\[(\d+)%\]/.exec(header.className)?.[1] ?? Number.NaN))
 		expect(widths.every(width => width > 0)).toBe(true)
 		expect(widths.reduce((sum, width) => sum + width, 0)).toBe(100)
+	})
+
+	it('formats queue dates with a shared formatter instead of per-cell locale lookups', () => {
+		const addedAt = '2026-06-19T09:00:00.000Z'
+		const running = makeItem({id: 'running', status: 'running', progressPercent: 42, addedAt})
+		const formatDate = vi.spyOn(Date.prototype, 'toLocaleString')
+		try {
+			useAppStore.setState({queue: [running]})
+			render(<QueueManagerTab />)
+			const format = (value: string): string => new Intl.DateTimeFormat(undefined, {dateStyle: 'medium', timeStyle: 'short'}).format(new Date(value))
+			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(format(addedAt))
+
+			act(() => useAppStore.setState({queue: [{...running, progressPercent: 58, addedAt: '2027-01-01T09:00:00.000Z'}]}))
+			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent(format('2027-01-01T09:00:00.000Z'))
+			expect(formatDate).not.toHaveBeenCalled()
+		} finally {
+			formatDate.mockRestore()
+		}
+	})
+
+	it('only recalculates progress cells whose percentage changed', () => {
+		const first = makeItem({id: 'first', status: 'running', progressPercent: 42})
+		const second = makeItem({id: 'second', status: 'running', progressPercent: 37.125})
+		useAppStore.setState({queue: [first, second]})
+		render(<QueueManagerTab />)
+		const round = vi.spyOn(Math, 'round')
+		try {
+			act(() => useAppStore.setState({queue: [{...first, progressPercent: 58}, second]}))
+			expect(screen.getByTestId('queue-manager-row-first')).toHaveTextContent('58%')
+			expect(screen.getByTestId('queue-manager-row-second')).toHaveTextContent('37%')
+			expect(round).toHaveBeenCalledWith(58)
+			expect(round).not.toHaveBeenCalledWith(37.125)
+
+			act(() =>
+				useAppStore.setState({
+					queue: [
+						{...first, progressPercent: 58},
+						{...second, progressPercent: 39.125}
+					]
+				})
+			)
+			expect(screen.getByTestId('queue-manager-row-second')).toHaveTextContent('39%')
+			expect(round).toHaveBeenCalledWith(39.125)
+		} finally {
+			round.mockRestore()
+		}
+	})
+
+	it('keeps unchanged metadata hints out of progress renders while showing metadata changes', async () => {
+		const item = makeItem({id: 'running', status: 'running', progressPercent: 42, formatLabel: '1440p · VP9', outputDir: '/archive/lectures'})
+		const renderHint = vi.spyOn(hintComponents, 'Hint')
+		try {
+			useAppStore.setState({queue: [item]})
+			render(<QueueManagerTab />)
+			renderHint.mockClear()
+
+			act(() => useAppStore.setState({queue: [{...item, progressPercent: 58}]}))
+			const row = screen.getByTestId('queue-manager-row-running')
+			expect(row).toHaveTextContent('58%')
+			expect(row).toHaveTextContent('1440p · VP9')
+			const hintLabels = renderHint.mock.calls.map(([props]) => props.label)
+			expect(hintLabels).not.toContain('1440p · VP9')
+			expect(hintLabels).not.toContain('/archive/lectures')
+			await expectHint(within(row).getByText('1440p · VP9'), '1440p · VP9')
+
+			act(() => useAppStore.setState({queue: [{...item, formatLabel: '1080p · H.264', outputDir: '/archive/videos'}]}))
+			expect(row).toHaveTextContent('1080p · H.264')
+			expect(row).toHaveTextContent('/archive/videos')
+			await expectHint(within(row).getByText('1080p · H.264'), '1080p · H.264')
+		} finally {
+			renderHint.mockRestore()
+		}
+	})
+
+	it('does not rebuild closed context actions on progress and still opens actions for the current row', async () => {
+		const item = makeItem({id: 'running', status: 'running', progressPercent: 42})
+		useAppStore.setState({queue: [item]})
+		render(<QueueManagerTab />)
+		const translate = vi.spyOn(i18next, 't')
+		try {
+			act(() => useAppStore.setState({queue: [{...item, progressPercent: 58}]}))
+			expect(screen.getByTestId('queue-manager-row-running')).toHaveTextContent('58%')
+			expect(translate.mock.calls.map(([key]) => key)).not.toContain('queue.item.pendingOnly')
+
+			fireEvent.contextMenu(screen.getByTestId('queue-manager-row-running'))
+			fireEvent.click(await screen.findByRole('menuitem', {name: /pause/i}))
+			expect(actions.applyQueueSelectionAction).toHaveBeenCalledWith('pause', ['running'])
+		} finally {
+			translate.mockRestore()
+		}
+	})
+
+	it('refreshes an open context menu when its selected item becomes ineligible for a location change', async () => {
+		const item = makeItem({id: 'changing', status: 'pending'})
+		useAppStore.setState({queue: [item]})
+		render(<QueueManagerTab />)
+		fireEvent.contextMenu(screen.getByTestId('queue-manager-row-changing'))
+		expect(await screen.findByRole('menuitem', {name: /set location/i})).not.toHaveAttribute('aria-disabled', 'true')
+
+		act(() => useAppStore.setState({queue: [{...item, status: 'running', progressPercent: 12}]}))
+		const location = screen.getByRole('menuitem', {name: /set location/i})
+		expect(location).toHaveAttribute('aria-disabled', 'true')
+		fireEvent.click(location)
+		expect(window.appApi.dialog.chooseFolder).not.toHaveBeenCalled()
 	})
 
 	it('flags a finished row whose files are all gone in its size cell', () => {

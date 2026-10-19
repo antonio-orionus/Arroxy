@@ -16,6 +16,7 @@ import {COLUMN_LABEL_KEYS, actionButtonDisabled, type QueueSelectedAction} from 
 import {QueueManagerToolbar} from './QueueManagerToolbar.js'
 import {QueueManagerTable} from './QueueManagerTable.js'
 import {useQueueManagerColumns} from './useQueueManagerColumns.js'
+import {useQueueItemsWithIds} from './useQueueItemsWithIds.js'
 import {queueTableFeatures} from './queueTableFeatures.js'
 import {Card} from '../ui/card.js'
 
@@ -69,13 +70,13 @@ export function QueueManagerTab(): ReactNode {
 	// "Waiting"), so the banner is the only feedback surface — show it while the
 	// queue is globally paused and anything is actually waiting for it.
 	const hasWaitingItems = useMemo(() => queue.some(item => item.status === QUEUE_STATUS.pending), [queue])
-	const selectedItems = useMemo(() => queue.filter(item => selectedIds.has(item.id)), [queue, selectedIds])
+	const selectedItems = useQueueItemsWithIds(queue, selectedIds)
 	const selectedIdList = useMemo(() => selectedItems.map(item => item.id), [selectedItems])
 	// Set lookup instead of `.includes` — contextIds can be the whole
 	// selection, and queue can be large, so this scans per rendered item
 	// otherwise (same concern as the playlist-profiles table's contextIdSet).
 	const contextIdSet = useMemo(() => new Set(contextIds), [contextIds])
-	const contextItems = useMemo(() => queue.filter(item => contextIdSet.has(item.id)), [contextIdSet, queue])
+	const contextItems = useQueueItemsWithIds(queue, contextIdSet)
 	useEffect(() => {
 		dispatch({type: 'prune-ids', liveIds: new Set(queue.map(item => item.id))})
 	}, [queue])

@@ -1,4 +1,4 @@
-import {Fragment, type ReactNode, type RefObject} from 'react'
+import {Fragment, memo, type ReactNode, type RefObject} from 'react'
 import type {Row, Table} from '@tanstack/react-table'
 import type {VirtualItem} from '@tanstack/react-virtual'
 import {useTranslation} from 'react-i18next'
@@ -52,7 +52,7 @@ function columnClassName(columnId: string): string {
 	return columnId in COLUMN_CLASS_NAMES ? COLUMN_CLASS_NAMES[columnId as QueueTableColumnId] : ''
 }
 
-function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction: (action: QueueSelectedAction, items: QueueItem[]) => void}): ReactNode {
+const QueueContextMenuItems = memo(function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction: (action: QueueSelectedAction, items: QueueItem[]) => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<ContextMenuContent className="min-w-56">
@@ -81,7 +81,7 @@ function QueueContextMenuItems({items, onAction}: {items: QueueItem[]; onAction:
 			})}
 		</ContextMenuContent>
 	)
-}
+})
 
 export function QueueManagerTable({t, table, rows, virtualRows, scrollRef, topVirtualPadding, bottomVirtualPadding, renderedColumnCount, contextItems, expandedIds, selectedIds, interactions, highlightedId, onContextAction}: QueueManagerTableProps): ReactNode {
 	return (

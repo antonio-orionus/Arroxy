@@ -44,6 +44,10 @@ export function queueManagerReducer(state: QueueManagerState, action: QueueManag
 	}
 	if (action.type === 'set-table-preferences') return {...state, tablePreferences: sanitizeQueueTablePreferences(action.preferences)}
 	if (action.type === 'set-viewport-width') return {...state, viewportWidth: action.viewportWidth}
-	if (action.type === 'prune-ids') return {...state, selection: listSelectionReducer(state.selection, {type: 'prune', liveIds: action.liveIds}), expandedIds: pruneSet(state.expandedIds, action.liveIds).ids}
+	if (action.type === 'prune-ids') {
+		const selection = listSelectionReducer(state.selection, {type: 'prune', liveIds: action.liveIds})
+		const expandedIds = pruneSet(state.expandedIds, action.liveIds).ids
+		return selection === state.selection && expandedIds === state.expandedIds ? state : {...state, selection, expandedIds}
+	}
 	return state
 }
