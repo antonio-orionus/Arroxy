@@ -70,7 +70,7 @@ function gatedMaterializer(executablePath: string): Gate {
 
 async function manager(materialize: RuntimeBinaryMaterializerPort['materialize']): Promise<BinaryManager> {
 	const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-inflight-ud-'))
-	const index: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async id => (id === 'yt-dlp' ? [entry()] : [])), ffmpegPackageCandidates: vi.fn(async () => [])}
+	const index: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async id => (id === 'yt-dlp' ? [entry()] : [])), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn()}
 	return new BinaryManager(userData, {runtimeBinaryIndex: index, runtimeBinaryMaterializer: {materialize}, probeVerdicts: noProbeMemo()})
 }
 
@@ -216,7 +216,7 @@ describe.skipIf(process.platform === 'win32')('BinaryManager concurrent resoluti
 		const {executablePath} = await fixture()
 		const gate = gatedMaterializer(executablePath)
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-inflight-ud-'))
-		const index: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => [entry({channel: 'nightly'}), entry({channel: 'stable'})]), ffmpegPackageCandidates: vi.fn(async () => [])}
+		const index: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => [entry({channel: 'nightly'}), entry({channel: 'stable'})]), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn()}
 		let materializeCalls = 0
 		const materialize: RuntimeBinaryMaterializerPort['materialize'] = async (manifest, options) => {
 			materializeCalls += 1

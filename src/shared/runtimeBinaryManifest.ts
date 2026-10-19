@@ -3,7 +3,19 @@ import type {RuntimeBinaryPlatform} from './schemas.js'
 
 export const ARROXY_RUNTIME_BINARIES_REPO = 'antonio-orionus/arroxy-runtime-binaries'
 
-const PROVIDER_HOSTS = {github: new Set(['github.com']), sourceforge: new Set(['sourceforge.net', 'downloads.sourceforge.net'])} as const satisfies Record<RuntimeBinaryManifestEntry['provider'], ReadonlySet<string>>
+// yt-dlp is approved by where it is released, not just by host: anyone can
+// publish a GitHub release or a SourceForge project. Each prefix is a host plus
+// the path every release asset of that source starts with.
+const YT_DLP_RELEASE_PREFIXES = {
+	github: [
+		{host: 'github.com', path: '/yt-dlp/yt-dlp/releases/download/'},
+		{host: 'github.com', path: '/yt-dlp/yt-dlp-nightly-builds/releases/download/'}
+	],
+	sourceforge: [
+		{host: 'sourceforge.net', path: '/projects/yt-dlp.mirror/files/'},
+		{host: 'downloads.sourceforge.net', path: '/project/yt-dlp.mirror/'}
+	]
+} as const satisfies Record<RuntimeBinaryManifestEntry['provider'], ReadonlyArray<{host: string; path: string}>>
 
 // FFmpeg packages are built, tested and published by us. Upstream build hosts
 // rotate their assets, so a package URL anywhere else is not one we approved.
@@ -69,8 +81,9 @@ function immutableHttpsUrlIssue(rawUrl: string): {parsed: URL; issue: null} | {p
 function runtimeManifestUrlIssue(rawUrl: string, provider: RuntimeBinaryManifestEntry['provider']): string | null {
 	const checked = immutableHttpsUrlIssue(rawUrl)
 	if (!checked.parsed) return checked.issue
-	if (!PROVIDER_HOSTS[provider].has(checked.parsed.hostname)) return `URL host ${checked.parsed.hostname} is not allowlisted for ${provider}`
-	return null
+	const {hostname, pathname} = checked.parsed
+	const released = YT_DLP_RELEASE_PREFIXES[provider].some(prefix => hostname === prefix.host && pathname.startsWith(prefix.path) && pathname.length > prefix.path.length)
+	return released ? null : `URL must be a ${provider} yt-dlp release asset: ${rawUrl}`
 }
 
 function ffmpegPackageUrlIssue(rawUrl: string): string | null {
@@ -86,7 +99,7 @@ function zodIssues(error: {issues: Array<{message: string; path: PropertyKey[]}>
 
 export function validateRuntimeBinaryManifestEntry(input: unknown): RuntimeBinaryManifestEntryValidation {
 	const parsed = runtimeBinaryManifestEntrySchema.safeParse(input)
-	if (!parsed.success) return {ok: false, issues: parsed.error.issues.map(issue => issue.message)}
+	if (!parsed.success) return {ok: false, issues: zodIssues(parsed.error)}
 	const issues: string[] = []
 	const entry = parsed.data
 	const urls = [entry.url, ...entry.mirrors]
@@ -174,18 +187,49 @@ function validateIndexEntry(input: unknown): Validation<RuntimeBinaryIndexEntry>
 	return {ok: 'skip'}
 }
 
-export function validateRuntimeBinaryIndex(input: unknown): RuntimeBinaryManifestValidation {
+export interface DroppedRuntimeBinaryIndexEntry {
+	position: number
+	id: RuntimeBinaryIndexEntry['id']
+	issues: string[]
+}
+
+export type RuntimeBinaryIndexRead = {ok: true; value: RuntimeBinaryIndex; dropped: DroppedRuntimeBinaryIndexEntry[]} | {ok: false; issues: string[]; dropped: DroppedRuntimeBinaryIndexEntry[]}
+
+type IndexPartition = {ok: true; value: RuntimeBinaryIndex; dropped: DroppedRuntimeBinaryIndexEntry[]} | {ok: false; issues: string[]}
+
+function partitionRuntimeBinaryIndex(input: unknown): IndexPartition {
 	const parsed = runtimeBinaryIndexEnvelopeSchema.safeParse(input)
 	if (!parsed.success) return {ok: false, issues: zodIssues(parsed.error)}
-	const issues: string[] = []
 	const entries: RuntimeBinaryIndexEntry[] = []
-	for (const [index, raw] of parsed.data.entries.entries()) {
+	const dropped: DroppedRuntimeBinaryIndexEntry[] = []
+	for (const [position, raw] of parsed.data.entries.entries()) {
 		const result = validateIndexEntry(raw)
 		if (result.ok === 'skip') continue
 		if (result.ok) entries.push(result.value)
-		else issues.push(...result.issues.map(issue => `entries[${index}]: ${issue}`))
+		else dropped.push({position, id: isRecord(raw) && raw.id === 'ffmpeg' ? 'ffmpeg' : 'yt-dlp', issues: result.issues})
 	}
-	return issues.length === 0 ? {ok: true, value: {schemaVersion: 2, generatedAt: parsed.data.generatedAt, entries}} : {ok: false, issues}
+	return {ok: true, value: {schemaVersion: 2, generatedAt: parsed.data.generatedAt, entries}, dropped}
+}
+
+// Publishing gate: every entry of a known kind must be valid, so a bad entry
+// never reaches users.
+export function validateRuntimeBinaryIndex(input: unknown): RuntimeBinaryManifestValidation {
+	const partition = partitionRuntimeBinaryIndex(input)
+	if (!partition.ok) return partition
+	const issues = partition.dropped.flatMap(entry => entry.issues.map(issue => `entries[${entry.position}]: ${issue}`))
+	return issues.length === 0 ? {ok: true, value: partition.value} : {ok: false, issues}
+}
+
+// What an installed client accepts. Its rules are frozen into every release, so
+// an entry it cannot use (a newer format, provider, channel or host) costs that
+// entry, never the index; only a broken envelope or nothing usable for this
+// machine rejects it.
+export function readRuntimeBinaryIndex(input: unknown, platform: NodeJS.Platform = process.platform, arch: NodeJS.Architecture = process.arch): RuntimeBinaryIndexRead {
+	const partition = partitionRuntimeBinaryIndex(input)
+	if (!partition.ok) return {...partition, dropped: []}
+	const usable = runtimeEntriesForCurrentTarget(partition.value, 'yt-dlp', platform, arch).length + runtimeEntriesForCurrentTarget(partition.value, 'ffmpeg', platform, arch).length
+	if (usable === 0) return {ok: false, issues: [`no usable entries for ${platform}/${arch}`], dropped: partition.dropped}
+	return partition
 }
 
 export function validateRuntimeBinaryIndexV1(input: unknown): RuntimeBinaryManifestV1Validation {

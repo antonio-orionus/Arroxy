@@ -6,7 +6,8 @@ import path from 'node:path'
 import {createHash} from 'node:crypto'
 import cacache from 'cacache'
 import {describe, expect, it} from 'vite-plus/test'
-import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, classifyDownloadError, copyCachedArtifactToFile, downloadArtifactToCache, downloadFile, sha256HexToSri} from '@main/services/binary/BinaryDownloader.js'
+import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError, TEXT_FETCH_DEADLINE_MS, classifyDownloadError, copyCachedArtifactToFile, downloadArtifactToCache, downloadFile, downloadText, sha256HexToSri} from '@main/services/binary/BinaryDownloader.js'
+import {isAbortError} from '@main/services/binary/BinaryProbe.js'
 
 async function withServer(handler: http.RequestListener, run: (url: string) => Promise<void>): Promise<void> {
 	// Sockets are tracked and destroyed by hand because server.close() only stops
@@ -48,6 +49,44 @@ async function cacheRoot(): Promise<string> {
 }
 
 describe('BinaryDownloader', () => {
+	// The runtime index and checksum files are a few KB. A network that silently
+	// drops traffic must not hold setup for the binary-download budget.
+	describe('text fetches', () => {
+		const silent: http.RequestListener = () => {}
+
+		it('returns the body of a small text file', async () => {
+			await withServer(
+				(_req, res) => res.end('hello'),
+				async url => {
+					await expect(downloadText(url)).resolves.toBe('hello')
+				}
+			)
+		})
+
+		it('gives up on a server that never answers once its deadline passes', async () => {
+			await withServer(silent, async url => {
+				const startedAt = Date.now()
+				await expect(downloadText(url, undefined, {deadlineMs: 300})).rejects.toThrow(/timed out/i)
+				expect(Date.now() - startedAt).toBeLessThan(2_000)
+			})
+		})
+
+		it('stops at once when its caller cancels, without retrying', async () => {
+			await withServer(silent, async url => {
+				const controller = new AbortController()
+				const startedAt = Date.now()
+				setTimeout(() => controller.abort(), 50)
+				const err: unknown = await downloadText(url, controller.signal).catch((error: unknown) => error)
+				expect(isAbortError(err)).toBe(true)
+				expect(Date.now() - startedAt).toBeLessThan(1_000)
+			})
+		})
+
+		it('bounds a text fetch by default far below a binary download', () => {
+			expect(TEXT_FETCH_DEADLINE_MS).toBeLessThanOrEqual(60_000)
+		})
+	})
+
 	it('classifies no-progress download stalls as timeouts', () => {
 		const err = new DownloadStalledError('No download progress for 60000ms')
 

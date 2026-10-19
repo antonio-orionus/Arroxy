@@ -21,7 +21,7 @@ async function tempDir(prefix = 'bm-manifest-'): Promise<string> {
 }
 
 function indexProvider(entries: RuntimeBinaryManifestEntry[]): RuntimeBinaryIndexProvider {
-	return {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id)), ffmpegPackageCandidates: vi.fn(async () => [])}
+	return {candidatesFor: vi.fn(async id => entries.filter(candidate => candidate.id === id)), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn()}
 }
 
 function materializer(run: (candidate: RuntimeBinaryManifestEntry) => Promise<string>): RuntimeBinaryMaterializerPort {
@@ -78,6 +78,15 @@ afterEach(() => {
 })
 
 describe('BinaryManager manifest resolution', () => {
+	// "Try again" reaches invalidateResolved; without this the index a failed
+	// fetch fell back to stays chosen for the whole session.
+	it('makes the runtime binary index read again when resolution is invalidated', async () => {
+		const index = indexProvider([])
+		const mgr = new BinaryManager(await tempDir(), {runtimeBinaryIndex: index, runtimeBinaryMaterializer: materializer(async () => '/unused'), pathLookup: noSystemPath})
+		mgr.invalidateResolved()
+		expect(index.invalidate).toHaveBeenCalledOnce()
+	})
+
 	it('keeps manual and env overrides ahead of manifest candidates', async () => {
 		const managed = entry()
 		const mgr = await makeMgr({entries: [managed]})

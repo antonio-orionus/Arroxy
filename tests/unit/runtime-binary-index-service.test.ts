@@ -31,7 +31,7 @@ function keyPair(): {publicKeyPem: string; privateKeyPem: string} {
 	return {publicKeyPem: publicKey.export({type: 'spki', format: 'pem'}).toString(), privateKeyPem: privateKey.export({type: 'pkcs8', format: 'pem'}).toString()}
 }
 
-function signed(index: RuntimeBinaryIndex, privateKeyPem: string): {raw: string; signature: string} {
+function signed(index: unknown, privateKeyPem: string): {raw: string; signature: string} {
 	const raw = JSON.stringify(index)
 	return {raw, signature: sign(null, Buffer.from(raw), privateKeyPem).toString('base64')}
 }
@@ -164,5 +164,57 @@ describe('RuntimeBinaryIndexService', () => {
 		})
 
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry])
+	})
+
+	it('keeps the usable entries of a remote index and logs each entry it drops', async () => {
+		const keys = keyPair()
+		const payload = signed({schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [{...entry, format: 'tar.zst'}, entry]}, keys.privateKeyPem)
+		const logger = makeLogger()
+		const svc = new RuntimeBinaryIndexService(await tempDir(), {
+			publicKeyPem: keys.publicKeyPem,
+			remoteIndexUrl: 'https://updates.example/runtime-index-v2.json',
+			remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig',
+			bundledIndex: {schemaVersion: 2, generatedAt: '2026-01-01T00:00:00.000Z', entries: []},
+			fetchText: async url => (url.endsWith('.sig') ? payload.signature : payload.raw),
+			logger
+		})
+
+		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry])
+		expect(logger.warn).toHaveBeenCalledWith('Runtime binary index entry dropped', {source: 'remote', position: 0, id: 'yt-dlp', issues: [expect.stringContaining('format')]})
+		expect(logger.info).toHaveBeenCalledWith('Runtime binary index selected', expect.objectContaining({source: 'remote'}))
+	})
+
+	it('refetches the remote index after invalidate, so "Try again" recovers from a network blip', async () => {
+		const keys = keyPair()
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const payload = signed(index, keys.privateKeyPem)
+		const bundled: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-01-01T00:00:00.000Z', entries: [{...entry, version: 'bundled', sha256: 'b'.repeat(64)}]}
+		let online = false
+		const fetchText = vi.fn(async (url: string) => {
+			if (!online) throw new Error('ENETUNREACH')
+			return url.endsWith('.sig') ? payload.signature : payload.raw
+		})
+		const svc = new RuntimeBinaryIndexService(await tempDir(), {publicKeyPem: keys.publicKeyPem, remoteIndexUrl: 'https://updates.example/runtime-index-v2.json', remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig', bundledIndex: bundled, fetchText})
+
+		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual(bundled.entries)
+		online = true
+		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual(bundled.entries)
+		svc.invalidate()
+		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry, ...bundled.entries])
+	})
+
+	it('does not keep a fallback that was chosen only because its caller cancelled', async () => {
+		const keys = keyPair()
+		const index: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-06-12T00:00:00.000Z', entries: [entry]}
+		const payload = signed(index, keys.privateKeyPem)
+		const bundled: RuntimeBinaryIndex = {schemaVersion: 2, generatedAt: '2026-01-01T00:00:00.000Z', entries: [{...entry, version: 'bundled', sha256: 'b'.repeat(64)}]}
+		const fetchText = vi.fn(async (url: string, signal?: AbortSignal) => {
+			if (signal?.aborted) throw new Error('aborted')
+			return url.endsWith('.sig') ? payload.signature : payload.raw
+		})
+		const svc = new RuntimeBinaryIndexService(await tempDir(), {publicKeyPem: keys.publicKeyPem, remoteIndexUrl: 'https://updates.example/runtime-index-v2.json', remoteSignatureUrl: 'https://updates.example/runtime-index-v2.sig', bundledIndex: bundled, fetchText})
+
+		await expect(svc.candidatesFor('yt-dlp', AbortSignal.abort())).resolves.toEqual(bundled.entries)
+		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry, ...bundled.entries])
 	})
 })
