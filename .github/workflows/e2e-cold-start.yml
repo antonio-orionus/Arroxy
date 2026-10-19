@@ -119,6 +119,9 @@ jobs:
       - name: Verify startup (PR tier)
         shell: bash
         env:
+          # The test setup fetches the dev FFmpeg through the GitHub API, which
+          # rate-limits unauthenticated calls from shared runners (403).
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
           ARROXY_STARTUP_TIER: pr
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-cold-logs

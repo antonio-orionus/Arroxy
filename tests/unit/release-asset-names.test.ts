@@ -229,11 +229,24 @@ describe('release asset names', () => {
 		const release = read('.github/workflows/release.yml')
 		const installer = read('.github/workflows/installer-smoke.yml')
 		const coldStart = read('.github/workflows/e2e-cold-start.yml')
+		const nightly = read('.github/workflows/startup-nightly.yml')
 
-		// Release builds bundle no FFmpeg (ADR 0010), so electron-builder no longer
-		// fetches BtbN builds and needs no token for it.
+		// Release builds bundle no FFmpeg (ADR 0010), so electron-builder fetches
+		// no BtbN build and no build step needs a token for it. The startup
+		// journeys' test setup does fetch the dev FFmpeg through the GitHub API,
+		// which rate-limits unauthenticated calls from shared runners, so only the
+		// "Verify startup" step carries the BtbN token.
+		const stepsWithToken = (workflow: string): string[] =>
+			workflow
+				.split(/\n(?=\s+- (?:name|uses|run):)/)
+				.filter(step => step.includes('BTBN_GITHUB_TOKEN'))
+				.map(step => /- name: (.+)/.exec(step)?.[1] ?? step.trim().split('\n')[0])
+
+		expect(stepsWithToken(installer)).toEqual([])
+		for (const workflow of [release, coldStart, nightly]) {
+			expect(stepsWithToken(workflow)).toEqual([expect.stringMatching(/^Verify startup /)])
+		}
 		for (const workflow of [release, installer, coldStart]) {
-			expect(workflow).not.toContain('BTBN_GITHUB_TOKEN')
 			expect(workflow).not.toMatch(/^\s+GITHUB_TOKEN:\s+\$\{\{\s*github\.token\s*\}\}/m)
 		}
 	})

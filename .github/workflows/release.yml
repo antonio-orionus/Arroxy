@@ -112,6 +112,9 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          # The test setup fetches the dev FFmpeg through the GitHub API, which
+          # rate-limits unauthenticated calls from shared runners (403).
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
           ARROXY_STARTUP_TIER: release
           ARROXY_COLD_TMPDIR: ${{ runner.temp }}
           ARROXY_LOG_ARCHIVE: ${{ runner.temp }}/arroxy-startup-logs
