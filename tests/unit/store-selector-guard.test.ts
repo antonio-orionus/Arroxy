@@ -13,11 +13,12 @@ function bareCalls(): string[] {
 	const hits: string[] = []
 	for (const entry of readdirSync(RENDERER_SRC, {recursive: true, encoding: 'utf8'})) {
 		if (!/\.tsx?$/.test(entry)) continue
-		const lines = readFileSync(path.join(RENDERER_SRC, entry), 'utf8').split('\n')
-		lines.forEach((line, index) => {
-			if (BARE_STORE_HOOK.test(line)) hits.push(`${entry.split(path.sep).join('/')}:${index + 1}`)
-			BARE_STORE_HOOK.lastIndex = 0
-		})
+		// Whole-file match: `\s` spans newlines, so a call split across lines counts too.
+		const source = readFileSync(path.join(RENDERER_SRC, entry), 'utf8')
+		for (const match of source.matchAll(BARE_STORE_HOOK)) {
+			const line = source.slice(0, match.index).split('\n').length
+			hits.push(`${entry.split(path.sep).join('/')}:${line}`)
+		}
 	}
 	return hits.sort()
 }
