@@ -5,6 +5,7 @@ import {hotkeyAcceleratorSchema} from '@shared/schemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {formatHotkeyChord} from '../../lib/hotkeyLabel.js'
+import {acceleratorKeyFromCode} from '../../lib/acceleratorKey.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldTitle} from '../ui/field.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
@@ -111,7 +112,8 @@ export function HotkeySettingsSection(): ReactNode {
 
 // KeyboardEvent → Electron accelerator string (canonical modifier order).
 // Returns null when the pressed key alone cannot form a chord — no modifier
-// held, or a key Electron accelerators cannot address.
+// held, or a key Electron accelerators cannot address (a bare modifier press
+// lands here too: ShiftLeft and friends have no accelerator key name).
 function buildAccelerator(event: ReactKeyboardEvent<HTMLButtonElement>): string | null {
 	const modifiers: string[] = []
 	if (event.ctrlKey) modifiers.push('Ctrl')
@@ -119,39 +121,7 @@ function buildAccelerator(event: ReactKeyboardEvent<HTMLButtonElement>): string 
 	if (event.metaKey) modifiers.push('Super')
 	if (event.shiftKey) modifiers.push('Shift')
 	if (modifiers.length === 0) return null
-	const key = normalizeKey(event.key)
+	const key = acceleratorKeyFromCode(event.code)
 	if (!key) return null
 	return [...modifiers, key].join('+')
-}
-
-function normalizeKey(eventKey: string): string | null {
-	if (/^[a-zA-Z0-9]$/.test(eventKey)) return eventKey.toUpperCase()
-	const named: Record<string, string> = {
-		F1: 'F1',
-		F2: 'F2',
-		F3: 'F3',
-		F4: 'F4',
-		F5: 'F5',
-		F6: 'F6',
-		F7: 'F7',
-		F8: 'F8',
-		F9: 'F9',
-		F10: 'F10',
-		F11: 'F11',
-		F12: 'F12',
-		F13: 'F13',
-		F14: 'F14',
-		F15: 'F15',
-		F16: 'F16',
-		F17: 'F17',
-		F18: 'F18',
-		F19: 'F19',
-		' ': 'Space',
-		Tab: 'Tab',
-		CapsLock: 'Capslock',
-		NumLock: 'Numlock',
-		ScrollLock: 'Scrolllock',
-		'`': 'Backquote'
-	}
-	return named[eventKey] ?? null
 }

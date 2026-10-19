@@ -84,7 +84,7 @@ describe('HotkeySettingsSection', () => {
 		expect(screen.getByTestId('profiles-settings-hotkey-recording')).toBeInTheDocument()
 
 		const recording = screen.getByTestId('profiles-settings-hotkey-recording')
-		fireEvent.keyDown(recording, {key: 'J', ctrlKey: true, altKey: true, shiftKey: true})
+		fireEvent.keyDown(recording, {key: 'J', code: 'KeyJ', ctrlKey: true, altKey: true, shiftKey: true})
 
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: 'Ctrl+Alt+Shift+J'}}))
 		await waitFor(() => expect(screen.getByTestId('profiles-settings-hotkey-change')).toBeInTheDocument())
@@ -95,9 +95,46 @@ describe('HotkeySettingsSection', () => {
 		mount({hotkeyEnabled: true})
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
-		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'S', metaKey: true, shiftKey: true})
+		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'S', code: 'KeyS', metaKey: true, shiftKey: true})
 
 		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: 'Super+Shift+S'}}))
+	})
+
+	// The recorder reads the physical key (event.code), not the produced
+	// character: Shift+1 types "!" and macOS Option+A types "å", yet both are
+	// the chords the user pressed. Every key below is one Electron accepts.
+	it.each([
+		[{key: '!', code: 'Digit1', ctrlKey: true, shiftKey: true}, 'Ctrl+Shift+1'],
+		[{key: 'å', code: 'KeyA', altKey: true}, 'Alt+A'],
+		[{key: 'ArrowUp', code: 'ArrowUp', ctrlKey: true}, 'Ctrl+Up'],
+		[{key: 'ArrowLeft', code: 'ArrowLeft', altKey: true}, 'Alt+Left'],
+		[{key: '?', code: 'Slash', ctrlKey: true, shiftKey: true}, 'Ctrl+Shift+/'],
+		[{key: '+', code: 'Equal', ctrlKey: true, shiftKey: true}, 'Ctrl+Shift+='],
+		[{key: '`', code: 'Backquote', ctrlKey: true}, 'Ctrl+`'],
+		[{key: 'PageDown', code: 'PageDown', ctrlKey: true}, 'Ctrl+PageDown'],
+		[{key: 'Home', code: 'Home', ctrlKey: true}, 'Ctrl+Home'],
+		[{key: 'Insert', code: 'Insert', ctrlKey: true}, 'Ctrl+Insert'],
+		[{key: 'Delete', code: 'Delete', ctrlKey: true, shiftKey: true}, 'Ctrl+Shift+Delete'],
+		[{key: '5', code: 'Numpad5', ctrlKey: true}, 'Ctrl+num5'],
+		[{key: '+', code: 'NumpadAdd', ctrlKey: true}, 'Ctrl+numadd'],
+		[{key: 'F24', code: 'F24', ctrlKey: true}, 'Ctrl+F24']
+	])('records %o as %s', async (keyInit, expected) => {
+		mount({hotkeyEnabled: true})
+
+		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
+		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), keyInit)
+
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {hotkeyAccelerator: expected}}))
+	})
+
+	it('ignores a bare modifier press and keeps recording', () => {
+		mount({hotkeyEnabled: true})
+
+		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
+		fireEvent.keyDown(screen.getByTestId('profiles-settings-hotkey-recording'), {key: 'Shift', code: 'ShiftLeft', shiftKey: true, ctrlKey: true})
+
+		expect(mockApi.settings.update).not.toHaveBeenCalled()
+		expect(screen.getByTestId('profiles-settings-hotkey-recording')).toBeInTheDocument()
 	})
 
 	it('recorder ignores modifierless keypresses and keeps recording; Escape cancels', () => {
@@ -105,8 +142,8 @@ describe('HotkeySettingsSection', () => {
 
 		fireEvent.click(screen.getByTestId('profiles-settings-hotkey-change'))
 		const recording = screen.getByTestId('profiles-settings-hotkey-recording')
-		fireEvent.keyDown(recording, {key: 'J'})
-		fireEvent.keyDown(recording, {key: 'Enter'})
+		fireEvent.keyDown(recording, {key: 'J', code: 'KeyJ'})
+		fireEvent.keyDown(recording, {key: 'Enter', code: 'Enter'})
 
 		expect(mockApi.settings.update).not.toHaveBeenCalled()
 		expect(screen.getByTestId('profiles-settings-hotkey-recording')).toBeInTheDocument()
@@ -138,6 +175,14 @@ describe('HotkeySettingsSection', () => {
 		expect(hotkeyAcceleratorSchema.safeParse('Ctrl+Alt+Shift+J').success).toBe(true)
 		expect(hotkeyAcceleratorSchema.safeParse('Ctrl+F5').success).toBe(true)
 		expect(hotkeyAcceleratorSchema.safeParse('J').success).toBe(false)
+		expect(hotkeyAcceleratorSchema.safeParse('Ctrl+F25').success).toBe(false)
+		expect(hotkeyAcceleratorSchema.safeParse('Ctrl++').success).toBe(false)
+	})
+
+	// Electron's globalShortcut.register throws on `Backquote`, which older
+	// recorders saved; a stored chord is read as the key Electron does accept.
+	it('reads a stored Backquote chord as the backtick key', () => {
+		expect(hotkeyAcceleratorSchema.parse('Ctrl+Shift+Backquote')).toBe('Ctrl+Shift+`')
 	})
 
 	it('shows the conflict message only when the chord is not registered', async () => {
