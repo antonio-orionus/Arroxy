@@ -652,6 +652,8 @@ export interface FixtureEnvInput {
 	exploreHomeUrl?: string
 	// A filter list file the Explore ad blocker is built from (ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS).
 	exploreAdBlockFiltersPath?: string
+	// How long Explore waits after the tab is left before releasing the page (ARROXY_E2E_EXPLORE_IDLE_MS).
+	exploreIdleUnloadMs?: number
 }
 
 export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> {
@@ -680,6 +682,8 @@ export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> 
 	else delete env.ARROXY_E2E_EXPLORE_HOME
 	if (input.exploreAdBlockFiltersPath) env.ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS = input.exploreAdBlockFiltersPath
 	else delete env.ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS
+	if (input.exploreIdleUnloadMs !== undefined) env.ARROXY_E2E_EXPLORE_IDLE_MS = String(input.exploreIdleUnloadMs)
+	else delete env.ARROXY_E2E_EXPLORE_IDLE_MS
 	delete env.MOCK_BACKEND
 	delete env.ELECTRON_RUN_AS_NODE
 	return env

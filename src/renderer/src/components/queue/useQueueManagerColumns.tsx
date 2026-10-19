@@ -9,10 +9,12 @@ import {cn} from '@renderer/lib/utils.js'
 import {formatLocalizedError, formatStatus} from '../../store/useAppStore.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
-import {Progress} from '../ui/progress.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
 import {formatQueueByteSize, queueItemFilesMissing, queueItemSizeBytes} from './queueFileSize.js'
 import {Hint} from '../shared/Hint.js'
+import {QueueDateCell} from './QueueDateCell.js'
+import {QueueProgressCell} from './QueueProgressCell.js'
+import {QueueMetadataCell} from './QueueMetadataCell.js'
 
 const STATUS_META: Record<
 	QueueItemStatus,
@@ -34,13 +36,6 @@ const STATUS_META: Record<
 }
 
 const columnHelper = createColumnHelper<QueueTableFeatures, QueueItem>()
-
-function formatQueueDate(value: string | null, t: TFunction): string {
-	if (!value) return t('queue.table.notAvailable')
-	const date = new Date(value)
-	if (Number.isNaN(date.getTime())) return t('queue.table.notAvailable')
-	return date.toLocaleString(undefined, {dateStyle: 'medium', timeStyle: 'short'})
-}
 
 function sortableHeader(label: string, column: {getIsSorted: () => false | 'asc' | 'desc'; toggleSorting: (desc?: boolean) => void}, t: TFunction): ReactNode {
 	const sorted = column.getIsSorted()
@@ -159,34 +154,9 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 						)
 					}
 				}),
-				columnHelper.accessor('progressPercent', {
-					header: ({column}) => sortableHeader(t('queue.table.progress'), column, t),
-					cell: info => {
-						const item = info.row.original
-						return (
-							<div className="min-w-24 max-w-32">
-								<div className="font-mono text-xs text-muted-foreground">{Math.round(item.progressPercent)}%</div>
-								<Progress value={item.progressPercent} className="mt-1 gap-0 [&_[data-slot=progress-track]]:h-[3px]" />
-							</div>
-						)
-					}
-				}),
-				columnHelper.accessor('formatLabel', {
-					header: ({column}) => sortableHeader(t('queue.table.format'), column, t),
-					cell: info => (
-						<Hint label={info.getValue()} reveal>
-							<span className="block truncate text-xs text-muted-foreground">{info.getValue()}</span>
-						</Hint>
-					)
-				}),
-				columnHelper.accessor('outputDir', {
-					header: ({column}) => sortableHeader(t('queue.table.outputTarget'), column, t),
-					cell: info => (
-						<Hint label={info.getValue()} reveal>
-							<span className="block max-w-56 truncate font-mono text-caption text-muted-foreground">{info.getValue()}</span>
-						</Hint>
-					)
-				}),
+				columnHelper.accessor('progressPercent', {header: ({column}) => sortableHeader(t('queue.table.progress'), column, t), cell: info => <QueueProgressCell value={info.getValue()} />}),
+				columnHelper.accessor('formatLabel', {header: ({column}) => sortableHeader(t('queue.table.format'), column, t), cell: info => <QueueMetadataCell value={info.getValue()} className="block truncate text-xs text-muted-foreground" />}),
+				columnHelper.accessor('outputDir', {header: ({column}) => sortableHeader(t('queue.table.outputTarget'), column, t), cell: info => <QueueMetadataCell value={info.getValue()} className="block max-w-56 truncate font-mono text-caption text-muted-foreground" />}),
 				columnHelper.accessor('artifacts', {
 					header: ({column}) => sortableHeader(t('queue.table.artifacts'), column, t),
 					sortFn: (rowA, rowB) => visibleQueueArtifacts(rowA.original.artifacts).length - visibleQueueArtifacts(rowB.original.artifacts).length,
@@ -233,8 +203,8 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 						return <span className="block truncate whitespace-nowrap font-mono text-caption text-muted-foreground">{sizeBytes === null ? t('queue.table.notAvailable') : formatQueueByteSize(sizeBytes)}</span>
 					}
 				}),
-				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>}),
-				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <span className="block truncate text-caption text-muted-foreground">{formatQueueDate(info.getValue(), t)}</span>})
+				columnHelper.accessor('addedAt', {header: ({column}) => sortableHeader(t('queue.table.added'), column, t), cell: info => <QueueDateCell value={info.getValue()} t={t} />}),
+				columnHelper.accessor('finishedAt', {header: ({column}) => sortableHeader(t('queue.table.finished'), column, t), cell: info => <QueueDateCell value={info.getValue()} t={t} />})
 			]),
 		[expandedIds, onCancelProbing, onToggleExpanded, t]
 	)

@@ -9,6 +9,7 @@ import type {CommonSettings, ExploreNavigateCommand, ExploreViewBounds, ExploreV
 import type {ExploreAdBlockStatus, ExploreViewError} from '@shared/schemas.js'
 import type {ExploreSessionService} from '../ExploreSessionService.js'
 import type {ExploreAdBlocker} from './ExploreAdBlocker.js'
+import {buildIdleUnloadSnapshot, idleUnloadKeepReason, type IdleUnloadRule, type IdleUnloadSnapshot} from './exploreIdleUnload.js'
 import {LastPageRecorder, startPage, type LastPageScope} from './exploreLastPage.js'
 import {decideNavigation, type NavigationDecision} from './exploreNavigationPolicy.js'
 import {answerProxyLogins, blankPage, dropBlankEntryBehind, pageLoadFailure} from './exploreWebContents.js'
@@ -33,6 +34,9 @@ const SNAPSHOT_JPEG_QUALITY = 85
 // from the cache take a moment; a refresh over a slow network can take far
 // longer). A blocker that starts later reloads the page instead.
 const AD_BLOCK_START_WAIT_MS = 3_000
+// How long the user is away from the tab before an eligible page is released
+// (idle unload). Long enough for a round trip through the download wizard.
+const IDLE_UNLOAD_DELAY_MS = 300_000
 
 // The address the renderer may see: a sign-in page's query and fragment are dropped.
 function displayUrl(raw: string): string {
@@ -71,6 +75,8 @@ export interface ExploreViewHostDeps {
 	pointerEntered: () => void
 	// A right-click in the page, with the link under the pointer ('' for none).
 	linkMenu: (linkURL: string) => void
+	// Overrides IDLE_UNLOAD_DELAY_MS (tests, and the E2E harness).
+	idleUnloadDelayMs?: number
 }
 
 // Electron's navigation events, as far as the policy needs them.
@@ -103,6 +109,7 @@ export class ExploreViewHost {
 	private readonly extraAllowedOrigin: string | undefined
 	private readonly lastPageScope: LastPageScope
 	private readonly lastPage: LastPageRecorder
+	private readonly idleUnloadRule: IdleUnloadRule
 	private view: WebContentsView | null = null
 	private bounds: ExploreViewBounds | null = null
 	private visible = false
@@ -128,6 +135,13 @@ export class ExploreViewHost {
 	private lastEmitted: ExploreViewState | null = null
 	// Whether the pointer is over the view; the renderer hears only the transitions in.
 	private pointerInView = false
+	// Idle unload: the deadline armed by leaving the tab, whether the page plays
+	// media, the view whose close the page has not answered yet, and the
+	// history the next view comes back with. Main-process memory only.
+	private idleTimer: NodeJS.Timeout | undefined
+	private mediaPlaying = false
+	private closing: WebContentsView | null = null
+	private snapshot: IdleUnloadSnapshot | null = null
 
 	constructor(private readonly deps: ExploreViewHostDeps) {
 		this.cookieHosts = this.explore.cookieDomains.map(domain => ({kind: 'suffix', domain}))
@@ -137,6 +151,7 @@ export class ExploreViewHost {
 		// The E2E override wins: under it, only its own origin's pages are kept or reopened.
 		this.lastPageScope = this.extraAllowedOrigin === undefined ? {kind: 'site', hosts: this.cookieHosts} : {kind: 'origin', origin: this.extraAllowedOrigin}
 		this.lastPage = new LastPageRecorder({scope: this.lastPageScope, read: () => deps.settings().exploreLastUrl, write: url => deps.saveLastPage(url)})
+		this.idleUnloadRule = {scope: this.lastPageScope, paths: this.explore.idleUnloadPaths}
 		deps.adBlock.onStatusChange(() => this.emitState())
 		deps.window.on('closed', () => {
 			this.windowClosed = true
@@ -165,11 +180,14 @@ export class ExploreViewHost {
 	}
 
 	// Sound follows the tab, not visibility: a dialog over the page hides the
-	// view but keeps a video playing aloud; leaving the tab mutes it.
+	// view but keeps a video playing aloud; leaving the tab mutes it. Leaving
+	// also starts the idle unload deadline, and coming back cancels it.
 	setActive(active: boolean): void {
 		this.active = active
 		const wc = this.view?.webContents
 		if (wc && !wc.isDestroyed()) wc.setAudioMuted(!active)
+		if (active) this.cancelIdleUnload()
+		else this.armIdleUnload()
 	}
 
 	// Whether `wc` is this view's page (for the app-wide crash accounting).
@@ -195,7 +213,7 @@ export class ExploreViewHost {
 		// A blocker whose lists could not be fetched (the old proxy was down, or
 		// refused) gets another try now, before the page comes back.
 		if (isExploreAdBlockOn(this.deps.settings()) && this.deps.adBlock.getStatus() === 'unavailable') await this.startAdBlock(view)
-		if (this.view === view && this.proxyRefused) await this.load(this.resumeUrl ?? this.startUrl())
+		if (this.view === view && this.proxyRefused) await (this.resumeUrl === null ? this.openStart() : this.load(this.resumeUrl))
 	}
 
 	async setVisible(visible: boolean): Promise<void> {
@@ -221,7 +239,7 @@ export class ExploreViewHost {
 		await this.startAdBlock(view)
 		// A page the user navigated to during the ad block start wait stays.
 		if (this.view !== view || this.navigationSeq !== seq) return
-		await this.load(this.startUrl())
+		await this.openStart()
 	}
 
 	// A changed ad blocker setting. Without a view nothing starts: the next
@@ -245,7 +263,7 @@ export class ExploreViewHost {
 			case 'reload':
 				// A page blanked by a refused proxy comes back; with nothing loaded yet
 				// (the proxy refused the first load), a retry opens the start page.
-				if (this.proxyRefused || view.webContents.getURL() === '') return this.load(this.resumeUrl ?? this.startUrl())
+				if (this.proxyRefused || view.webContents.getURL() === '') return this.resumeUrl === null ? this.openStart() : this.load(this.resumeUrl)
 				return this.whenProxyReady(view, wc => wc.reload())
 			case 'back':
 				return this.whenProxyReady(view, wc => wc.navigationHistory.goBack())
@@ -313,6 +331,7 @@ export class ExploreViewHost {
 			// committing navigations while the storage is cleared.
 			this.lastPage.clear()
 			this.resumeUrl = null
+			this.snapshot = null
 		}
 		this.verifiedSignedOut = false
 		this.setSignedIn(false)
@@ -329,8 +348,23 @@ export class ExploreViewHost {
 		this.recheckVerifiedSignOut()
 	}
 
-	// Kill switch and window close. Idempotent; a later setVisible(true) builds a fresh view unless the window is gone.
+	// Kill switch and window close. Idempotent; a later setVisible(true) builds
+	// a fresh view unless the window is gone. An idle unload's history goes too.
 	destroy(): void {
+		this.cancelIdleUnload()
+		this.closing = null
+		this.snapshot = null
+		this.unwatch()
+		const view = this.view
+		if (!view) return
+		this.visible = false
+		this.release(view)
+		logger.info('explore view destroyed', {windowClosed: this.windowClosed})
+		this.emitState()
+	}
+
+	// What a view watches outside itself: none of it outlives the view.
+	private unwatch(): void {
 		this.lastPage.flush()
 		// Off the partition too: no request hooks or page script without the tab.
 		void this.deps.adBlock.apply(false)
@@ -338,17 +372,103 @@ export class ExploreViewHost {
 		this.cookieTimer = undefined
 		this.detachCookies?.()
 		this.detachCookies = null
-		const view = this.view
-		if (!view) return
+	}
+
+	private release(view: WebContentsView): void {
 		this.view = null
-		this.visible = false
 		this.error = null
 		this.proxyRefused = false
 		this.resumeUrl = null
+		this.mediaPlaying = false
 		if (!this.deps.window.isDestroyed()) this.deps.window.contentView.removeChildView(view)
 		if (!view.webContents.isDestroyed()) view.webContents.close()
-		logger.info('explore view destroyed', {windowClosed: this.windowClosed})
+	}
+
+	// One deadline per leave: a repeated inactive notice does not push it back.
+	private armIdleUnload(): void {
+		if (!this.view || this.idleTimer !== undefined) return
+		this.idleTimer = setTimeout(() => {
+			this.idleTimer = undefined
+			this.idleUnload()
+		}, this.deps.idleUnloadDelayMs ?? IDLE_UNLOAD_DELAY_MS)
+	}
+
+	private cancelIdleUnload(): void {
+		clearTimeout(this.idleTimer)
+		this.idleTimer = undefined
+	}
+
+	// The user has been away long enough: an eligible page is asked to close.
+	// It may refuse (beforeunload), and until it answers the view stays as it is.
+	// An ineligible page stays until the user leaves the tab again.
+	private idleUnload(): void {
+		const view = this.view
+		if (!view || this.active || this.closing !== null) return
+		const wc = view.webContents
+		if (wc.isDestroyed()) return
+		const keep = idleUnloadKeepReason({url: wc.getURL(), loading: wc.isLoading(), error: this.error !== null, proxyRefused: this.proxyRefused, mediaPlaying: this.mediaPlaying}, this.idleUnloadRule)
+		if (keep !== null) {
+			logger.info('explore view kept while away', {reason: keep})
+			return
+		}
+		const built = buildIdleUnloadSnapshot(wc.navigationHistory.getAllEntries(), wc.navigationHistory.getActiveIndex(), this.lastPageScope)
+		if (built.kind === 'keep') {
+			logger.info('explore view kept while away', {reason: built.reason})
+			return
+		}
+		this.snapshot = built.snapshot
+		this.closing = view
+		logger.info('explore view unloading', {entries: built.snapshot.entries.length, dropped: built.dropped})
+		wc.close({waitForBeforeUnload: true})
+	}
+
+	private watchClose(view: WebContentsView): void {
+		const wc = view.webContents
+		// Not prevented: the page's own beforeunload decides, and Electron honors it for a view.
+		wc.on('will-prevent-unload', () => {
+			if (this.closing !== view) return
+			this.closing = null
+			this.snapshot = null
+			logger.info('explore view kept while away', {reason: 'beforeunload'})
+		})
+		wc.on('destroyed', () => this.idleUnloaded(view))
+	}
+
+	// The page let the close through. A user back meanwhile gets the view rebuilt at once.
+	private idleUnloaded(view: WebContentsView): void {
+		if (this.closing !== view) return
+		this.closing = null
+		if (this.view !== view) return
+		this.unwatch()
+		this.release(view)
+		logger.info('explore view unloaded')
 		this.emitState()
+		if (this.visible) void this.setVisible(true)
+	}
+
+	// A new view's first page: the unloaded history when there is one, else the start page.
+	private openStart(): Promise<void> {
+		return this.snapshot === null ? this.load(this.startUrl()) : this.restore(this.snapshot)
+	}
+
+	// Restoring a history is a load started by the browser, so the navigation
+	// guards never see it: every entry is checked again here. Failures come
+	// through did-fail-load like any load's; restore()'s own rejection (a page
+	// aborting its first load counts) says nothing more.
+	private restore(snapshot: IdleUnloadSnapshot): Promise<void> {
+		const view = this.view
+		if (!view) return Promise.resolve()
+		const built = buildIdleUnloadSnapshot(snapshot.entries, snapshot.index, this.lastPageScope)
+		if (built.kind === 'keep') {
+			this.snapshot = null
+			return this.load(this.startUrl())
+		}
+		const seq = ++this.navigationSeq
+		return this.whenProxyReady(view, wc => {
+			if (this.navigationSeq !== seq) return
+			this.snapshot = null
+			wc.navigationHistory.restore(built.snapshot).catch(() => undefined)
+		})
 	}
 
 	// Where a new view (or a retry with nothing loaded) opens.
@@ -398,6 +518,7 @@ export class ExploreViewHost {
 		this.view = view
 		this.pointerInView = false
 		this.wire(view.webContents)
+		this.watchClose(view)
 		view.webContents.setAudioMuted(!this.active)
 		this.watchCookies(ses)
 		this.deps.window.contentView.addChildView(view)
@@ -447,7 +568,14 @@ export class ExploreViewHost {
 			logger.warn('explore view renderer gone', {reason: details.reason})
 			this.setPageError('load')
 		})
+		wc.on('media-started-playing', () => {
+			this.mediaPlaying = true
+		})
+		wc.on('media-paused', () => {
+			this.mediaPlaying = false
+		})
 		wc.on('did-navigate', (_event, url) => {
+			this.mediaPlaying = false
 			dropBlankEntryBehind(wc)
 			this.lastPage.record(url)
 			// Only a proxy that applies clears a refusal (whenProxyReady).
@@ -535,6 +663,8 @@ export class ExploreViewHost {
 		const view = this.view
 		if (!view) return Promise.resolve()
 		this.navigationSeq++
+		// A page the user asked for replaces any unloaded history still waiting.
+		this.snapshot = null
 		// Failures (and YouTube's benign self-abort) arrive through did-fail-load.
 		return this.whenProxyReady(view, wc => void wc.loadURL(url).catch(() => undefined))
 	}

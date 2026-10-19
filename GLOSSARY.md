@@ -254,6 +254,10 @@ _Avoid_: built-in browser, web view, browse tab
 The persistent browsing identity behind Explore, owned by the app and kept separate from the user's own browser. Signing in to Explore signs in this identity; signing out of Explore clears it.
 _Avoid_: Explore account, browser profile
 
+**Idle unload**:
+Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.
+_Avoid_: suspension, discard, hibernation, sleeping tab
+
 **Explore cookies**:
 The cookies read from the Explore session each time a download step needs them, used for that step and then discarded.
 _Avoid_: session cookies (that term already means cookies that expire when a browser closes), saved login

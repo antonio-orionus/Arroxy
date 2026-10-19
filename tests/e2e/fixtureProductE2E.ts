@@ -36,6 +36,8 @@ interface FixtureProductOptions {
 	exploreHomeUrl?: string
 	// A filter list the Explore ad blocker is built from, written to the profile: no list is ever fetched.
 	exploreAdBlockFilters?: string
+	// How long Explore waits after the tab is left before releasing the page.
+	exploreIdleUnloadMs?: number
 	// A queue left by a previous session, restored at startup.
 	restoredQueue?: (outputDir: string) => QueueItem[]
 	userDataPrefix?: string
@@ -184,7 +186,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 		exploreAdBlockFiltersPath = path.join(userDataDir, 'e2e-adblock-filters.txt')
 		fs.writeFileSync(exploreAdBlockFiltersPath, options.exploreAdBlockFilters, 'utf8')
 	}
-	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath}
+	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath, exploreIdleUnloadMs: options.exploreIdleUnloadMs}
 
 	let app: ElectronApplication | null = null
 	try {
