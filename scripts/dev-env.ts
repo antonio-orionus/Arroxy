@@ -581,6 +581,7 @@ async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void>
 	await runStep('Verifying embedded host binaries', () => ensureEmbeddedHostBinaries(repoRoot, childEnv))
 	// A child process, because agents-sync imports packages that only exist after the install step.
 	await runStep('Syncing agent adapters', () => spawnChecked(commandName('bun'), ['run', 'agents:sync'], {cwd: repoRoot, env: childEnv}))
+	await runStep('Linking private maintainer docs', () => spawnChecked(commandName('bun'), ['run', 'internal:sync'], {cwd: repoRoot, env: childEnv}))
 	await runStep('Installing Playwright Chromium', () => spawnChecked(commandName('bun'), ['run', 'playwright', 'install', 'chromium'], {cwd: repoRoot, env: childEnv}))
 
 	console.log(`\n${kind} complete`)
