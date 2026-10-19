@@ -64,7 +64,11 @@ interface ProbeErrorExperienceInput {
 	commonSettings?: Partial<CommonSettings> | null
 	degradedReasons?: readonly ProbeDegradationReason[] | null
 	exploreSignedIn?: ExploreSignedIn
+	// Which run failed. Absent: a probe (the preparation, a probe-error row).
+	stage?: ProbeErrorStage
 }
+
+type ProbeErrorStage = 'probe' | 'download'
 
 const COOKIES_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'])
 const BOT_WALL_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock'])
@@ -122,7 +126,7 @@ export function canSwitchToExplore(commonSettings: Partial<CommonSettings> | nul
 	return commonSettings != null && (commonSettings.cookiesMode ?? 'off') === 'off' && commonSettings.exploreEnabled !== false
 }
 
-function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn; site: ExploreSignInSite}): CookiesGuidance {
+function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn; site: ExploreSignInSite; stage: ProbeErrorStage}): CookiesGuidance {
 	const mode = effectiveCookiesMode(input.commonSettings)
 	const {site} = input
 	const raw = probeErrorRaw(input.error) ?? ''
@@ -133,12 +137,15 @@ function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 	// No cookie can lift a rate limit, under any mode: YouTube limits accounts too.
 	if (input.errorKind === 'rateLimit') return {mode, variant: 'hidden'}
 	// The failed run already used the Explore session for a failure an account
-	// might fix, or for a line nothing could name (main escalates a page another
-	// site's extractor could not parse). Only where the Explore offer would show.
+	// might fix, or, probing another site, for any line nothing could name (the
+	// signed-in probe of a page its extractor could not parse). An escalated
+	// download's unnamed failure (a post-processing error) says nothing about the
+	// sign-in. Only where the Explore offer would show.
 	// On another site the sign-in is only a guess from its cookies (any visit
 	// leaves some), so a run that still asks for a login keeps the sign-in guidance.
 	const stillAsksForLogin = site.kind === 'web' && (input.errorKind === 'loginRequired' || asksForCookieLogin(raw))
-	if (refusedSignedIn && !stillAsksForLogin && (needsAccount || input.errorKind === 'unknown') && (mode === 'explore' || (mode === 'off' && canSwitchToExplore(input.commonSettings)))) return {mode, variant: 'explore-refused'}
+	const unnamedProbeFailure = input.stage === 'probe' && site.kind === 'web' && input.errorKind === 'unknown'
+	if (refusedSignedIn && !stillAsksForLogin && (needsAccount || unnamedProbeFailure) && (mode === 'explore' || (mode === 'off' && canSwitchToExplore(input.commonSettings)))) return {mode, variant: 'explore-refused'}
 	switch (mode) {
 		case 'off':
 			if (offersExplore(input.commonSettings, needsAccount)) {
@@ -180,9 +187,9 @@ function rateLimitGuidanceVariant(degradedReasons: readonly ProbeDegradationReas
 	return {variant: degradedReasons?.includes('rateLimit') ? 'degraded' : 'hidden'}
 }
 
-export function buildProbeErrorExperience({error, url = null, commonSettings = null, degradedReasons = null, exploreSignedIn = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
+export function buildProbeErrorExperience({error, url = null, commonSettings = null, degradedReasons = null, exploreSignedIn = null, stage = 'probe'}: ProbeErrorExperienceInput): ProbeErrorExperience {
 	const errorKind = probeErrorKind(error)
-	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn, site: exploreSignInSiteFor(url)})
+	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn, site: exploreSignInSiteFor(url), stage})
 	const botWall = botWallGuidanceVariant({commonSettings, degradedReasons, errorKind})
 	const rateLimit = rateLimitGuidanceVariant(degradedReasons, errorKind)
 	const signInWithExplore = cookies.variant === 'explore-sign-in'
