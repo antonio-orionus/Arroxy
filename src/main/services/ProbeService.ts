@@ -1,4 +1,5 @@
 import {EventEmitter} from 'node:events'
+import {stripVTControlCharacters} from 'node:util'
 import log from 'electron-log/main.js'
 import {splitStderrLines} from '@main/utils/process.js'
 import {nowIso} from '@main/utils/clock.js'
@@ -77,26 +78,8 @@ function isProbeTimeoutFailure(result: ProbeAttemptResult): boolean {
 const PLAYLIST_ITEM_PROGRESS_RE = /\[download\]\s+Downloading item\s+(\d+)\s+of\s+(\d+|N\/A)/i
 const YOUTUBE_TAB_PAGE_PROGRESS_RE = /\[youtube:tab\]\s+.+?\spage\s+(\d+):\s+Downloading API JSON/i
 
-function stripAnsiEscapeSequences(line: string): string {
-	let clean = ''
-	for (let index = 0; index < line.length;) {
-		if (line.charCodeAt(index) === 27 && line[index + 1] === '[') {
-			index += 2
-			while (index < line.length) {
-				const code = line.charCodeAt(index)
-				index += 1
-				if (code >= 0x40 && code <= 0x7e) break
-			}
-			continue
-		}
-		clean += line[index]
-		index += 1
-	}
-	return clean
-}
-
 function parseProbeProgressLine(line: string): Pick<ProbeProgressEvent, 'phase' | 'loaded' | 'total'> | null {
-	const clean = stripAnsiEscapeSequences(line)
+	const clean = stripVTControlCharacters(line)
 	const pageMatch = YOUTUBE_TAB_PAGE_PROGRESS_RE.exec(clean)
 	if (pageMatch) {
 		const loaded = Number(pageMatch[1])

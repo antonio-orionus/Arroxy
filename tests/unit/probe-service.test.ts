@@ -213,6 +213,18 @@ describe('ProbeService — playlist probe', () => {
 		])
 	})
 
+	it('reads progress lines wrapped in ANSI color codes', async () => {
+		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`\u001b[0;94m[download]\u001b[0m Downloading item \u001b[0;32m2\u001b[0m of \u001b[0;32m5\u001b[0m\n${json}`) as never)
+		const svc = makeProbeService()
+		const events: ProbeProgressEvent[] = []
+		svc.on('progress', event => events.push(event as ProbeProgressEvent))
+
+		await svc.probe('https://www.youtube.com/playlist?list=PL1', {playlistMode: 'playlist'})
+
+		expect(events).toMatchObject([{phase: 'items', loaded: 2, total: 5}])
+	})
+
 	it('emits page progress before item enumeration for large YouTube tabs', async () => {
 		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`[youtube:tab] UCLS06KHRaHWUwUkYnhXsZpQ page 23: Downloading API JSON\n[youtube:tab] UCLS06KHRaHWUwUkYnhXsZpQ page 24: Downloading API JSON\n[download] Downloading item 1 of 3\n${json}`) as never)

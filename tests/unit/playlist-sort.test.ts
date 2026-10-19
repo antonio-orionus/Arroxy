@@ -46,6 +46,12 @@ describe('sortPlaylistEntries', () => {
 		expect(desc.map(e => e.id)).toEqual(['1::a', '4::d', '2::b', '3::c'])
 	})
 
+	it('keeps api order among rows sharing a timestamp', () => {
+		const ties: PlaylistEntry[] = [entry({id: '1::a', playlistIndex: 1, timestamp: 100}), entry({id: '2::b', playlistIndex: 2, timestamp: 50}), entry({id: '3::c', playlistIndex: 3, timestamp: 100})]
+		expect(sortPlaylistEntries(ties, 'upload-asc').map(e => e.id)).toEqual(['2::b', '1::a', '3::c'])
+		expect(sortPlaylistEntries(ties, 'upload-desc').map(e => e.id)).toEqual(['1::a', '3::c', '2::b'])
+	})
+
 	it('does not mutate the input array', () => {
 		const before = items.map(e => e.id)
 		sortPlaylistEntries(items, 'upload-asc')
