@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {RefreshCw, X} from 'lucide-react'
 import {formatProbeError} from '../../store/helpers.js'
 import type {QuickDownloadFailureMessage} from '../../store/downloadHomeView.js'
+import type {ExploreSignInSite} from '../../store/exploreSignInSite.js'
 import type {ProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import {Alert, AlertAction, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
@@ -36,8 +37,8 @@ interface QuickDownloadErrorAlertProps {
 	url: string | null
 	onEnableCookiesAndRetry: () => void
 	onOpenCookiesSettings: () => void
-	onSignInWithExplore: () => void
-	onSignInWithExploreThenRetry: () => void
+	onSignInWithExplore: (site: ExploreSignInSite) => void
+	onSignInWithExploreThenRetry: (site: ExploreSignInSite) => void
 	onRetryWithExploreSignIn: () => void
 	onRetry: () => void
 	// Surfaces without a URL field to edit (Explore) need an explicit way to clear it.

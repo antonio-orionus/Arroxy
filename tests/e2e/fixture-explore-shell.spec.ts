@@ -8,17 +8,16 @@ import {withFixtureProductApp} from './fixtureProductE2E.js'
 // Electron app. The failure modes are a view (and a page load) that exists
 // before the user opted in, a view sharing the app's default session or
 // announcing Electron in its user agent, a view painting over a dialog, sign-in
-// material reaching the renderer through the state API, a link that drags the
-// view off the allowlist or opens the system browser without a click, and a kill
+// material reaching the renderer through the state API, a link to another site
+// handed to the system browser instead of loading in the view, and a kill
 // switch that hides the tab but leaves the view alive.
 //
 // Fixtures: ARROXY_E2E_EXPLORE_HOME points the view at a static page served
-// here on 127.0.0.1; its origin is the only one the harness adds to the view's
-// allowlist. A second local server stands in for an off-allowlist site: it must
-// never be asked for anything. The Explore partition does not route through
-// the harness's deny proxy (that guards yt-dlp), so the no-internet guarantee
-// here is different: every URL the view is given is a 127.0.0.1 one, and the
-// outside server's empty request log proves the policy kept the view off it.
+// here on 127.0.0.1. A second local server stands in for another site: it is
+// asked for a page only when the view goes there. The Explore partition does
+// not route through the harness's deny proxy (that guards yt-dlp), so the
+// no-internet guarantee here is different: every URL the view is given is a
+// 127.0.0.1 one.
 
 interface PageRequest {
 	path: string
@@ -53,16 +52,15 @@ async function startPageServer(body: (path: string) => string): Promise<PageServ
 	return {origin: `http://127.0.0.1:${address.port}`, requests, close: () => new Promise<void>(resolve => server.close(() => resolve()))}
 }
 
-// The outside site's own page; served only if the policy failed.
+// Another site's own page.
 function outsidePage(): string {
-	return '<!doctype html><title>Outside</title><p>Off the allowlist</p>'
+	return '<!doctype html><title>Outside</title><p>Another site</p>'
 }
 
-// Two tall links to the outside origin, one per kind of click, and one to a
-// second page on the home origin.
+// A tall link to the outside origin, and one to a second page on the home origin.
 function homePage(outsideOrigin: string): string {
 	const link = 'display:block;height:96px;font:24px sans-serif'
-	return `<!doctype html><html><head><title>Explore fixture home</title></head><body style="margin:0"><a id="clicked" style="${link}" href="${outsideOrigin}/clicked">Clicked by the user</a><a id="scripted" style="${link}" href="${outsideOrigin}/scripted">Clicked by a script</a><a id="next" style="${link}" href="/next">Next page</a></body></html>`
+	return `<!doctype html><html><head><title>Explore fixture home</title></head><body style="margin:0"><a id="clicked" style="${link}" href="${outsideOrigin}/clicked">Clicked by the user</a><a id="next" style="${link}" href="/next">Next page</a></body></html>`
 }
 
 function nextPage(): string {
@@ -115,8 +113,8 @@ declare global {
 	var __arroxyE2eOpenExternalCalls: string[] | undefined
 }
 
-// The view hands user-clicked off-allowlist links to shell.openExternal; the
-// test records them instead, so the user's real browser never opens.
+// The view must never hand a link to shell.openExternal; the test records any
+// call instead, so the user's real browser never opens.
 async function stubOpenExternal(app: ElectronApplication): Promise<void> {
 	await app.evaluate(({shell}) => {
 		const calls: string[] = []
@@ -143,33 +141,15 @@ async function fenceRendererToMain(page: Page): Promise<void> {
 	})
 }
 
-// A round trip through the view's renderer and back to main: a navigation the
-// page started before it (an element.click()) has reached main's navigation
-// events by then, so it is decided before anything sent after the fence.
-async function fenceViewToMain(app: ElectronApplication): Promise<void> {
-	await app.evaluate(async ({BrowserWindow, WebContentsView}) => {
-		const win = BrowserWindow.getAllWindows().find(w => w.webContents.getURL().startsWith('file:'))
-		const view = win?.contentView.children.find(child => child instanceof WebContentsView)
-		if (!(view instanceof WebContentsView)) throw new Error('no Explore view')
-		await view.webContents.executeJavaScript('new Promise(resolve => setTimeout(resolve, 0))')
-		await new Promise(resolve => setImmediate(resolve))
-	})
-}
-
-// `input`: a real mouse click delivered to the view's renderer, as the OS
-// would; `script`: the page's own element.click(), which is no user input.
-async function clickLinkInView(app: ElectronApplication, id: string, how: 'input' | 'script'): Promise<void> {
+// A real mouse click delivered to the view's renderer, as the OS would.
+async function clickLinkInView(app: ElectronApplication, id: string): Promise<void> {
 	const clicked = await app.evaluate(
-		async ({BrowserWindow, WebContentsView}, {id, how}) => {
+		async ({BrowserWindow, WebContentsView}, {id}) => {
 			const win = BrowserWindow.getAllWindows().find(w => w.webContents.getURL().startsWith('file:'))
 			const view = win?.contentView.children.find(child => child instanceof WebContentsView)
 			if (!(view instanceof WebContentsView)) return false
 			const wc = view.webContents
 			const selector = JSON.stringify(`#${id}`)
-			if (how === 'script') {
-				const done: unknown = await wc.executeJavaScript(`(() => { const a = document.querySelector(${selector}); if (!a) return false; a.click(); return true })()`)
-				return done === true
-			}
 			const point: unknown = await wc.executeJavaScript(`(() => { const a = document.querySelector(${selector}); if (!a) return null; const r = a.getBoundingClientRect(); return {x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2)} })()`)
 			if (typeof point !== 'object' || point === null || !('x' in point) || !('y' in point) || typeof point.x !== 'number' || typeof point.y !== 'number') return false
 			wc.sendInputEvent({type: 'mouseMove', x: point.x, y: point.y})
@@ -177,7 +157,7 @@ async function clickLinkInView(app: ElectronApplication, id: string, how: 'input
 			wc.sendInputEvent({type: 'mouseUp', x: point.x, y: point.y, button: 'left', clickCount: 1})
 			return true
 		},
-		{id, how}
+		{id}
 	)
 	if (clicked !== true) throw new Error(`#${id} is not on the page in the Explore view: it left the home page`)
 }
@@ -230,8 +210,8 @@ test('Explore view is created only after the notice, isolated, hidden under dial
 			expect(Object.keys(result.data).filter(key => /cookie/i.test(key))).toEqual([])
 			expect(result.data.url).toBe(homeUrl)
 
-			// The fixture home is no video, playlist or channel: the download controls stay off.
-			for (const id of ['explore-download', 'explore-profile-trigger', 'explore-interactive']) await expect(page.getByTestId(id)).toBeDisabled()
+			// A page on a site other than YouTube can be handed to the download flow.
+			for (const id of ['explore-download', 'explore-profile-trigger', 'explore-interactive']) await expect(page.getByTestId(id)).toBeEnabled()
 
 			await page.getByTestId('btn-about').click()
 			await expect(page.getByTestId('about-dialog')).toBeVisible()
@@ -254,14 +234,12 @@ test('Explore view is created only after the notice, isolated, hidden under dial
 	})
 })
 
-// Actions: open the Explore tab (notice already acknowledged); the page clicks
-// an outside link by script; then the user clicks the other outside link.
-// Milestones: the home page loaded; the user's click reaches the system-browser
-// hand-off (P2-R11: input within 1 s makes it the user's own navigation).
-// Oracles: the hand-off received exactly the user-clicked URL — the scripted
-// click got nothing; the view never left the home page; the outside server was
-// never asked for anything.
-test('Explore view keeps off-allowlist links out of the view and hands only a user click to the system browser', async () => {
+// Actions: open the Explore tab (notice already acknowledged); the user clicks
+// a link to another site.
+// Milestones: the home page loaded; the other site's page committed in the view.
+// Oracles: the view is on the other site's page, and so is the address bar; the
+// outside server served it; the system-browser hand-off was never called.
+test('Explore view loads a link to another site in the view, never the system browser', async () => {
 	test.setTimeout(120_000)
 
 	await withExplorePages(async ({outside, homeUrl}) => {
@@ -279,20 +257,12 @@ test('Explore view keeps off-allowlist links out of the view and hands only a us
 				await expectHomeLoaded(app, homeUrl)
 				await stubOpenExternal(app)
 
-				await clickLinkInView(app, 'scripted', 'script')
-				// The scripted navigation is decided before the user's click exists,
-				// so the click's activation window cannot cover it.
-				await fenceViewToMain(app)
-				await clickLinkInView(app, 'clicked', 'input')
-				// The user's click is decided after the scripted one, so one call settles both.
-				await expect.poll(async () => openExternalCalls(app), POLL).toEqual([`${outside.origin}/clicked`])
-
-				// Settled: no navigation of the view is still under way.
-				await expect.poll(async () => (await viewFacts(app)).loading, POLL).toBe(false)
-				const facts = await viewFacts(app)
-				expect(facts.url).toBe(homeUrl)
-				await expect(page.getByTestId('explore-address')).toHaveValue(homeUrl)
-				expect(outside.requests).toEqual([])
+				await clickLinkInView(app, 'clicked')
+				const clickedUrl = `${outside.origin}/clicked`
+				await expect.poll(async () => viewFacts(app), {timeout: 30_000}).toMatchObject({url: clickedUrl, loading: false})
+				await expect(page.getByTestId('explore-address')).toHaveValue(clickedUrl)
+				expect(outside.requests.map(request => request.path)).toContain('/clicked')
+				expect(await openExternalCalls(app)).toEqual([])
 			}
 		)
 	})
@@ -397,7 +367,7 @@ test('Explore reopens the last page after an app restart', async () => {
 				await page.locator('.explore-tab-trigger').click()
 				await expectHomeLoaded(app, homeUrl)
 
-				await clickLinkInView(app, 'next', 'input')
+				await clickLinkInView(app, 'next')
 				await expect.poll(async () => viewFacts(app), {timeout: 30_000}).toMatchObject({url: nextUrl, loading: false})
 				await expect(page.getByTestId('explore-address')).toHaveValue(nextUrl)
 
@@ -415,17 +385,14 @@ test('Explore reopens the last page after an app restart', async () => {
 	})
 })
 
-// Actions: open the Explore tab (notice already acknowledged); type the home
-// origin's second page into the address bar and press Enter; then type a page
-// on the outside origin and press Enter.
-// Milestones: the home page loaded; the second page committed in the view.
-// Oracles (P2-R45): a typed site address loads in the view — the view's URL,
-// the address bar, and the page server's log. A typed address on another site
-// loads nothing: the view stays on the second page, the hint shows with its
-// Download offer, the system-browser hand-off is never called (typing is no
-// page gesture), and the outside server is never asked. The fixture origin
-// stands in for the site (the E2E home override's origin, as main treats it).
-test('Explore address bar loads a typed site address and keeps another site out', async () => {
+// Actions: open the Explore tab (notice already acknowledged); type an address
+// on the home origin and press Enter; then one on another site; then a
+// javascript: URL.
+// Milestones: the home page loaded; each typed page committed in the view.
+// Oracles: a typed address on either site loads in the view — the view's URL,
+// the address bar, and that site's server log; the system-browser hand-off is
+// never called; a javascript: URL loads nothing and shows the hint.
+test('Explore address bar loads a typed address on any site, and refuses one that is no web page', async () => {
 	test.setTimeout(120_000)
 
 	await withExplorePages(async ({home, outside, homeUrl}) => {
@@ -452,21 +419,26 @@ test('Explore address bar loads a typed site address and keeps another site out'
 				await expect(address).toHaveValue(nextUrl)
 				expect(home.requests.map(request => request.path)).toContain('/next')
 
+				const typedUrl = `${outside.origin}/typed`
 				await address.click()
-				await address.fill(`${outside.origin}/typed`)
+				await address.fill(typedUrl)
+				await address.press('Enter')
+				await expect.poll(async () => viewFacts(app), {timeout: 30_000}).toMatchObject({url: typedUrl, loading: false})
+				await expect(address).toHaveValue(typedUrl)
+				expect(outside.requests.map(request => request.path)).toContain('/typed')
+
+				await address.click()
+				await address.fill('javascript:alert(1)')
 				await address.press('Enter')
 				await expect(page.getByTestId('explore-address-hint')).toBeVisible()
-				await expect(page.getByTestId('explore-address-hint-download')).toBeVisible()
-				// Main has answered the address by now; nothing is under way in the view.
 				await fenceRendererToMain(page)
 				await expect.poll(async () => (await viewFacts(app)).loading, POLL).toBe(false)
-				expect((await viewFacts(app)).url).toBe(nextUrl)
+				expect((await viewFacts(app)).url).toBe(typedUrl)
 				expect(await openExternalCalls(app)).toEqual([])
-				expect(outside.requests).toEqual([])
 
 				await address.press('Escape')
 				await expect(page.getByTestId('explore-address-hint')).toHaveCount(0)
-				await expect(address).toHaveValue(nextUrl)
+				await expect(address).toHaveValue(typedUrl)
 			}
 		)
 	})

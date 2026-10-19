@@ -88,6 +88,18 @@ describe('QueueService — probing items', () => {
 		expect(item?.error).toEqual({kind: 'unknown', raw: 'yt-dlp exploded'})
 	})
 
+	// Who the failed probe ran as: the row's guidance never asks for a sign-in it already had.
+	it('probeFailed records a signed-in failure on the row, and a later anonymous one clears it', () => {
+		const {qs} = makeService()
+		qs.add([probingItem('p1')])
+		expect(qs.probeFailed('p1', {kind: 'loginRequired', raw: 'You need to log in'}, 'exploreSession').ok).toBe(true)
+		expect(qs.snapshot().find(i => i.id === 'p1')?.auth).toBe('exploreSession')
+
+		expect(qs.reprobe('p1').ok).toBe(true)
+		expect(qs.probeFailed('p1', {kind: 'network', raw: 'offline'}).ok).toBe(true)
+		expect(qs.snapshot().find(i => i.id === 'p1')).not.toHaveProperty('auth')
+	})
+
 	it('probeFailed is a no-op refusal on a non-probing item', () => {
 		const {qs} = makeService()
 		qs.add([makeItem({id: 'a', status: 'pending'})])

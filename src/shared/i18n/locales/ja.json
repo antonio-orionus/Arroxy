@@ -454,6 +454,8 @@
 				"exploreSignedIn": {"heading": "「探索」にログイン済み", "body": "この動画にアカウントが必要な場合、Arroxyは「探索」のログインを自動的に使用します。別の理由で利用できない可能性があります。"},
 				"exploreOffer": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」でサインインすると、Arroxy が再試行します。", "cta": "「探索」でサインイン"},
 				"exploreReuse": {"heading": "この動画には YouTube アカウントが必要かもしれません", "body": "「探索」にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。", "cta": "「探索」のサインインを使って再試行"},
+				"exploreSite": {"heading": "このリンクには {{host}} のアカウントが必要かもしれません", "signInBody": "「探索」で {{host}} にログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。", "offerBody": "「探索」で {{host}} にサインインしてから再試行してください。"},
+				"exploreRefused": {"heading": "「探索」でログインしていても、サイトに拒否されました", "body": "Arroxyは「探索」のログインを使ってすでに試したため、もう一度ログインしても解決しません。サイト側に問題があるか、このアカウントでは開けない可能性があります。しばらくしてから再試行してください。"},
 				"otherCookiesCta": "代わりに Cookie ファイルまたはブラウザーを使う…",
 				"needsCookies": {"heading": "このサイトはサインインが必要です", "body": "Arroxyは認証なしでこの動画にアクセスできませんでした。詳細設定でCookieを設定してください — すでにサインイン済みのブラウザを指定するか、cookies.txtファイルをインポートしてください。"},
 				"dpapi": {
@@ -908,10 +910,10 @@
 		"tabLabel": "探索",
 		"newBadge": "新着",
 		"notice": {
-			"title": "Arroxy内でYouTubeを閲覧",
-			"body": "動画・プレイリスト・チャンネルを見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでYouTubeにログインしてください。",
+			"title": "Arroxy内でWebを閲覧",
+			"body": "YouTubeなどのサイトで動画を見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでサイトにログインしてください。",
 			"riskTitle": "サブアカウントでログインしてください",
-			"riskBody": "YouTubeは、Arroxyなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。",
+			"riskBody": "YouTubeなどのサイトは、Arroxyのようなダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。",
 			"continue": "続行"
 		},
 		"nudge": {
@@ -930,10 +932,8 @@
 			"reload": "再読み込み",
 			"home": "YouTubeホーム",
 			"addressAria": "アドレス",
-			"addressPlaceholder": "YouTube を検索、または YouTube のリンクを貼り付け",
-			"offsiteHint": "「探索」が閲覧できるのは YouTube だけです。",
-			"offsiteDownload": "このリンクをダウンロード",
-			"offsiteHintHost": "「探索」が閲覧できるのは YouTube だけです。{{host}}",
+			"addressPlaceholder": "{{engine}}を検索、または任意のサイトを開く (Vimeo、Instagram…)",
+			"refusedHint": "「探索」ではそのアドレスを開けません。",
 			"searchTooLong": "検索語が長すぎます。",
 			"downloadWithProfile": "ダウンロード · {{profileName}}",
 			"interactiveHint": "インタラクティブダウンロード：形式や字幕などを選択…",
@@ -951,15 +951,17 @@
 		},
 		"settings": {
 			"title": "探索",
-			"description": "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画のためにログインできます。",
+			"description": "Arroxy内でYouTubeなどのサイトを閲覧し、アカウントが必要な動画のためにログインできます。",
 			"showTab": "「探索」タブを表示",
 			"showTabDescription": "オフにすると、ダウンロードでも「探索」のログインが使われなくなります。",
 			"idleUnload": "離れている間にメモリを解放",
 			"idleUnloadDescription": "別のタブで 5 分経つと、YouTube のホームまたは検索ページを閉じます。戻ると再読み込みされ、数秒かかります。",
+			"searchEngine": "検索エンジン",
+			"searchEngineDescription": "アドレスバーに入力したテキストの検索先です。リンクは入力どおりに開きます。",
 			"signOut": "「探索」からログアウト",
-			"signOutDescription": "「探索」内のYouTubeのログイン情報と閲覧データを消去します。",
+			"signOutDescription": "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。",
 			"signOutConfirmTitle": "「探索」からログアウトしますか?",
-			"signOutConfirmBody": "「探索」内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。",
+			"signOutConfirmBody": "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。",
 			"signOutConfirm": "ログアウト"
 		},
 		"error": {"proxyTitle": "「探索」はプロキシ経由で接続できません", "proxyBody": "設定でプロキシを確認して、もう一度お試しください。", "loadTitle": "このページを読み込めませんでした", "loadBody": "接続を確認して、もう一度お試しください。", "retry": "再試行", "openSettings": "設定を開く"}

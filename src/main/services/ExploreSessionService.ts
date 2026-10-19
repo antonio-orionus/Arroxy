@@ -5,7 +5,9 @@ import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
 import {BLAND_UA_TOKEN, blandUserAgent} from '@main/utils/blandUserAgent.js'
 import {parseProxySetting} from '@main/utils/proxyUrl.js'
+import {electronDefaultUserAgent, setRendererDefaultUserAgent} from '@main/utils/rendererUserAgent.js'
 import {validateUaToken} from '@shared/exploreUserAgent.js'
+import {exploreScopeSignedIn, inExploreCookieScope, type ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import {siteById} from '@shared/sites/index.js'
 import type {ExploreCookie, SiteExplore, SiteId} from '@shared/sites/types.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
@@ -79,7 +81,7 @@ export class ExploreSessionService implements SessionCookieJarPort {
 	}
 
 	getUserAgent(): string {
-		return blandUserAgent(app.userAgentFallback, app.getName(), validateUaToken(this.readSettings().uaToken) ?? BLAND_UA_TOKEN)
+		return blandUserAgent(electronDefaultUserAgent(), app.getName(), validateUaToken(this.readSettings().uaToken) ?? BLAND_UA_TOKEN)
 	}
 
 	// Installed first so nothing later can leave the partition on Electron's grant-all default.
@@ -95,6 +97,8 @@ export class ExploreSessionService implements SessionCookieJarPort {
 		const userAgent = this.getUserAgent()
 		if (userAgent === this.appliedUserAgent) return
 		ses.setUserAgent(userAgent)
+		// Out-of-process frames ignore the session UA and start from this default.
+		setRendererDefaultUserAgent(userAgent)
 		this.appliedUserAgent = userAgent
 	}
 
@@ -127,30 +131,23 @@ export class ExploreSessionService implements SessionCookieJarPort {
 		})
 	}
 
-	async readCookies(siteId: SiteId): Promise<ExploreCookie[]> {
-		const domains = siteById(siteId).explore?.cookieDomains ?? []
+	async readCookies(scope: ExploreCookieScope): Promise<ExploreCookie[]> {
 		const all = (await this.getSession().cookies.get({})).map(toExploreCookie)
-		return all.filter(c => {
-			const host = c.domain.replace(/^\./, '').toLowerCase()
-			return domains.some(d => host === d || host.endsWith(`.${d}`))
-		})
+		return all.filter(c => inExploreCookieScope(c, scope))
 	}
 
-	async hasAuthCookies(siteId: SiteId): Promise<boolean> {
-		const explore = siteById(siteId).explore
-		return explore ? explore.isSignedIn(await this.readCookies(siteId)) : false
+	async hasAuthCookies(scope: ExploreCookieScope): Promise<boolean> {
+		return exploreScopeSignedIn(await this.readCookies(scope), scope)
 	}
 
-	async withJar<T>(siteId: SiteId, fn: (jarPath: string) => Promise<T>): Promise<T> {
-		const explore = siteById(siteId).explore
-		if (!explore) throw new Error(`site ${siteId} has no Explore capability`)
+	async withJar<T>(scope: ExploreCookieScope, fn: (jarPath: string) => Promise<T>): Promise<T> {
 		await mkdir(this.jarDir, {recursive: true, mode: 0o700})
 		// mkdir leaves an existing directory (and is subject to umask) as it was.
 		if (process.platform !== 'win32') await chmod(this.jarDir, 0o700)
 		const jarPath = join(this.jarDir, `${randomUUID()}.txt`)
 		try {
-			await writeFile(jarPath, toNetscapeJar(await this.readCookies(siteId), explore.cookieDomains), {mode: 0o600})
-			logger.info('explore jar written', {siteId})
+			await writeFile(jarPath, toNetscapeJar(await this.readCookies(scope), scope), {mode: 0o600})
+			logger.info('explore jar written', {scope: scope.kind})
 			return await fn(jarPath)
 		} finally {
 			await rm(jarPath, {force: true}).catch((err: unknown) => this.retryJarDelete(jarPath, err))
@@ -195,8 +192,10 @@ export class ExploreSessionService implements SessionCookieJarPort {
 	// page in a hidden window on the partition and reads YouTube's own LOGGED_IN
 	// flag. A check that cannot tell (proxy not ready, timeout, load failure, a
 	// page off the site) answers `unknown`, never `signedOut`. Concurrent callers
-	// share one check.
-	verifySignedIn(siteId: SiteId): Promise<ExploreSignInState> {
+	// share one check. Another site has no such check: it always answers `unknown`.
+	verifySignedIn(scope: ExploreCookieScope): Promise<ExploreSignInState> {
+		if (scope.kind === 'web') return Promise.resolve('unknown')
+		const {siteId} = scope
 		const inFlight = this.signInChecks.get(siteId)
 		if (inFlight) return inFlight
 		const check = this.checkSignedIn(siteId).finally(() => this.signInChecks.delete(siteId))

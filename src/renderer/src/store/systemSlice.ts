@@ -555,6 +555,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'exploreIdleUnload', {exploreIdleUnload: enabled})
 		},
 
+		setExploreSearchEngine: async engine => {
+			await applyCommonPatchAsync(get, set, 'exploreSearchEngine', {exploreSearchEngine: engine})
+		},
+
 		setLimitRate: async value => {
 			await applyCommonPatchAsync(get, set, 'limitRate', {limitRate: value ?? ''})
 		},

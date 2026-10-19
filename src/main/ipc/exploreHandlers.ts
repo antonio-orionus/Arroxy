@@ -2,7 +2,7 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {exploreViewStateSchema} from '@shared/schemas.js'
 import {exploreNavigateCommandSchema, exploreSetActiveSchema, exploreSetVisibleSchema, exploreSnapshotSchema, exploreViewBoundsSchema} from '@shared/exploreSchemas.js'
 import {fail, ok} from '@shared/result.js'
-import {EXPLORE_ADDRESS_MAX, isExploreSiteAddress, type ExploreSiteScope} from '@shared/sites/exploreAddress.js'
+import {EXPLORE_ADDRESS_MAX, isExploreAddress, type ExploreAddressScope} from '@shared/sites/exploreAddress.js'
 import log from 'electron-log/main.js'
 import {z} from 'zod'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
@@ -15,13 +15,13 @@ export interface ExploreHandlerDeps {
 	exploreView: Pick<ExploreViewHost, 'addressScope' | 'navigate' | 'setBounds' | 'setVisible' | 'setActive' | 'signOut' | 'getState' | 'capture'>
 }
 
-// A typed address the view may load: https on the site's content hosts, never
-// a sign-in or account host (or the E2E home origin), no credentials, within the cap.
-function siteAddressSchema(scope: ExploreSiteScope): z.ZodType<string> {
+// A typed address the view may load: a web page, never a sign-in, account or
+// consent page, no credentials, within the cap.
+function addressSchema(scope: ExploreAddressScope): z.ZodType<string> {
 	return z
 		.string()
 		.max(EXPLORE_ADDRESS_MAX)
-		.refine(url => isExploreSiteAddress(url, scope), {message: 'Explore loads typed addresses on the site only'})
+		.refine(url => isExploreAddress(url, scope), {message: 'Explore does not load that address'})
 }
 
 // The host only: a typed URL's path and query can name what the user watches.
@@ -34,10 +34,10 @@ function hostOf(raw: string): string {
 }
 
 export function registerExploreHandlers({exploreView}: ExploreHandlerDeps): void {
-	const siteAddress = siteAddressSchema(exploreView.addressScope)
+	const address = addressSchema(exploreView.addressScope)
 	handle(IPC_CHANNELS.exploreNavigate, exploreNavigateCommandSchema, async command => {
 		if (command.kind === 'address') {
-			const checked = siteAddress.safeParse(command.url)
+			const checked = address.safeParse(command.url)
 			if (!checked.success) {
 				logger.info('explore view refused a typed address', {host: hostOf(command.url) || '(none)'})
 				return fail(createAppError('validation', checked.error.issues[0]?.message ?? 'address refused'))

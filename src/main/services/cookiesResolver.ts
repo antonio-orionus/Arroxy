@@ -1,13 +1,13 @@
 import type {AppSettings, CookiesBrowser, JobAuth} from '@shared/types.js'
-import type {SiteId} from '@shared/sites/types.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {nonEmpty} from '@shared/format.js'
-import {siteById} from '@shared/sites/index.js'
 
-export type ResolvedCookies = {kind: 'file'; path: string} | {kind: 'browser'; browser: CookiesBrowser} | {kind: 'session'; siteId: SiteId}
+export type ResolvedCookies = {kind: 'file'; path: string} | {kind: 'browser'; browser: CookiesBrowser} | {kind: 'session'; scope: ExploreCookieScope}
 
 // The selected mode is the single identity source: a job never mixes two.
-export function resolveCookies(settings: AppSettings, auth: JobAuth, siteId: SiteId): ResolvedCookies | null {
+// `scope` is the run URL's Explore cookie scope, null when it has none.
+export function resolveCookies(settings: AppSettings, auth: JobAuth, scope: ExploreCookieScope | null): ResolvedCookies | null {
 	const common = settings.common
 	if (getIncompleteCookiesConfigIssue(common)) return null
 	const mode = common?.cookiesMode ?? 'off'
@@ -23,6 +23,6 @@ export function resolveCookies(settings: AppSettings, auth: JobAuth, siteId: Sit
 			return browser ? {kind: 'browser', browser} : null
 		}
 		case 'explore':
-			return auth === 'exploreSession' && siteById(siteId).explore ? {kind: 'session', siteId} : null
+			return auth === 'exploreSession' && scope ? {kind: 'session', scope} : null
 	}
 }

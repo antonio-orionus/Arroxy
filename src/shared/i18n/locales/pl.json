@@ -515,6 +515,12 @@
 				"exploreSignedIn": {"heading": "Zalogowano w karcie Odkrywaj", "body": "Jeśli ten film wymaga konta, Arroxy automatycznie użyje logowania z karty Odkrywaj. Może być niedostępne z innego powodu."},
 				"exploreOffer": {"heading": "Ten film może wymagać konta YouTube", "body": "Zaloguj się w karcie Odkrywaj, a Arroxy spróbuje ponownie.", "cta": "Zaloguj się w karcie Odkrywaj"},
 				"exploreReuse": {"heading": "Ten film może wymagać konta YouTube", "body": "Jesteś zalogowany w karcie Odkrywaj, ale pobieranie obecnie nie korzysta z tego logowania.", "cta": "Użyj mojego logowania z karty Odkrywaj i spróbuj ponownie"},
+				"exploreSite": {
+					"heading": "Ten link może wymagać konta na stronie {{host}}",
+					"signInBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje.",
+					"offerBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie."
+				},
+				"exploreRefused": {"heading": "Strona odrzuciła żądanie mimo logowania w karcie Odkrywaj", "body": "Arroxy użył już logowania z karty Odkrywaj, więc ponowne logowanie nie pomoże. Strona może mieć problemy albo to konto nie ma do niej dostępu. Spróbuj ponownie później."},
 				"otherCookiesCta": "Użyj zamiast tego pliku cookie lub przeglądarki…",
 				"needsCookies": {"heading": "Ta witryna wymaga zalogowania", "body": "Arroxy nie mógł uzyskać dostępu do tego filmu bez uwierzytelnienia. Skonfiguruj pliki cookie w ustawieniach zaawansowanych — wskaż przeglądarkę, w której masz już otwartą sesję, albo zaimportuj plik cookies.txt."},
 				"dpapi": {
@@ -1038,10 +1044,10 @@
 		"tabLabel": "Odkrywaj",
 		"newBadge": "Nowość",
 		"notice": {
-			"title": "Przeglądaj YouTube prosto w Arroxy",
-			"body": "Znajdź film, playlistę lub kanał i pobierz go stąd, bez kopiowania linków. Zaloguj się tu do YouTube, aby pobierać filmy wymagające konta.",
+			"title": "Przeglądaj sieć prosto w Arroxy",
+			"body": "Znajdź film na YouTube lub dowolnej innej stronie i pobierz go stąd, bez kopiowania linków. Zaloguj się tu w serwisie, aby pobierać filmy wymagające konta.",
 			"riskTitle": "Zaloguj się na konto dodatkowe",
-			"riskBody": "YouTube może oznaczać — a czasem blokować — konta używane z narzędziami do pobierania, takimi jak Arroxy. Użyj konta, które możesz stracić, a nie głównego.",
+			"riskBody": "Serwisy takie jak YouTube mogą oznaczać — a czasem blokować — konta używane z narzędziami do pobierania, takimi jak Arroxy. Użyj konta, które możesz stracić, a nie głównego.",
 			"continue": "Kontynuuj"
 		},
 		"nudge": {
@@ -1060,10 +1066,8 @@
 			"reload": "Odśwież",
 			"home": "Strona główna YouTube",
 			"addressAria": "Adres",
-			"addressPlaceholder": "Szukaj w YouTube lub wklej link do YouTube",
-			"offsiteHint": "Karta Odkrywaj przegląda tylko YouTube.",
-			"offsiteDownload": "Pobierz ten link",
-			"offsiteHintHost": "Karta Odkrywaj przegląda tylko YouTube. {{host}}",
+			"addressPlaceholder": "Szukaj w {{engine}} lub otwórz dowolną stronę (Vimeo, Instagram…)",
+			"refusedHint": "Karta Odkrywaj nie może otworzyć tego adresu.",
 			"searchTooLong": "To wyszukiwanie jest zbyt długie.",
 			"downloadWithProfile": "Pobierz · {{profileName}}",
 			"interactiveHint": "Pobieranie interaktywne: wybierz format, napisy i więcej…",
@@ -1081,15 +1085,17 @@
 		},
 		"settings": {
 			"title": "Odkrywaj",
-			"description": "Przeglądaj YouTube w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
+			"description": "Przeglądaj YouTube lub dowolną inną stronę w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
 			"showTab": "Pokaż kartę Odkrywaj",
 			"showTabDescription": "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania z karty Odkrywaj.",
 			"idleUnload": "Zwalniaj pamięć w tle",
 			"idleUnloadDescription": "Po 5 minutach na innej karcie zamyka stronę główną lub stronę wyszukiwania YouTube. Po powrocie strona wczytuje się ponownie, co trwa kilka sekund.",
+			"searchEngine": "Wyszukiwarka",
+			"searchEngineDescription": "Gdzie wyszukiwany jest tekst wpisany w pasku adresu. Linki otwierają się tak, jak je wpisano.",
 			"signOut": "Wyloguj się z karty Odkrywaj",
-			"signOutDescription": "Usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj.",
+			"signOutDescription": "Usuwa logowania i dane przeglądania w karcie Odkrywaj, na wszystkich stronach.",
 			"signOutConfirmTitle": "Wylogować się z karty Odkrywaj?",
-			"signOutConfirmBody": "To usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie.",
+			"signOutConfirmBody": "To usuwa logowania i dane przeglądania w karcie Odkrywaj, na wszystkich stronach. Pobieranie wymagające konta nie będzie działać, dopóki nie zalogujesz się ponownie.",
 			"signOutConfirm": "Wyloguj"
 		},
 		"error": {

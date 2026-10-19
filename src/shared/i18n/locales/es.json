@@ -493,6 +493,8 @@
 				"exploreSignedIn": {"heading": "Sesión iniciada en Explorar", "body": "Si este vídeo requiere una cuenta, Arroxy usa automáticamente tu sesión de Explorar. Puede que no esté disponible por otro motivo."},
 				"exploreOffer": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Inicia sesión en Explorar y Arroxy lo reintentará.", "cta": "Iniciar sesión en Explorar"},
 				"exploreReuse": {"heading": "Este video puede necesitar una cuenta de YouTube", "body": "Has iniciado sesión en Explorar, pero las descargas no están usando esa sesión ahora mismo.", "cta": "Usar mi sesión de Explorar y reintentar"},
+				"exploreSite": {"heading": "Este enlace puede necesitar una cuenta de {{host}}", "signInBody": "En Explorar, inicia sesión en {{host}} y vuelve a intentarlo. Arroxy usa esa sesión solo cuando una descarga la necesita.", "offerBody": "En Explorar, inicia sesión en {{host}} y vuelve a intentarlo."},
+				"exploreRefused": {"heading": "El sitio lo rechazó incluso con tu sesión de Explorar", "body": "Arroxy ya lo intentó con la sesión iniciada en Explorar, así que volver a iniciar sesión no ayudará. Puede que el sitio tenga problemas o que esta cuenta no pueda abrirlo. Inténtalo más tarde."},
 				"otherCookiesCta": "Usar un archivo de cookies o un navegador…",
 				"needsCookies": {"heading": "Este sitio requiere inicio de sesión", "body": "Arroxy no pudo acceder a este vídeo sin autenticación. Configura las cookies en los ajustes avanzados — apúntalas a un navegador en el que ya hayas iniciado sesión o importa un archivo cookies.txt."},
 				"dpapi": {
@@ -989,10 +991,10 @@
 		"tabLabel": "Explorar",
 		"newBadge": "Nuevo",
 		"notice": {
-			"title": "Explora YouTube dentro de Arroxy",
-			"body": "Encuentra un vídeo, una lista de reproducción o un canal y descárgalo desde aquí, sin copiar enlaces. Inicia sesión en YouTube aquí para descargar vídeos que requieren una cuenta.",
+			"title": "Explora la web dentro de Arroxy",
+			"body": "Encuentra un vídeo en YouTube o en cualquier otro sitio y descárgalo desde aquí, sin copiar enlaces. Inicia sesión aquí en un sitio para descargar vídeos que requieren una cuenta.",
 			"riskTitle": "Inicia sesión con una cuenta secundaria",
-			"riskBody": "YouTube puede marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como Arroxy. Usa una cuenta que puedas permitirte perder, no la principal.",
+			"riskBody": "Sitios como YouTube pueden marcar —y a veces bloquear— las cuentas usadas con herramientas de descarga como Arroxy. Usa una cuenta que puedas permitirte perder, no la principal.",
 			"continue": "Continuar"
 		},
 		"nudge": {
@@ -1011,10 +1013,8 @@
 			"reload": "Recargar",
 			"home": "Inicio de YouTube",
 			"addressAria": "Dirección",
-			"addressPlaceholder": "Busca en YouTube o pega un enlace de YouTube",
-			"offsiteHint": "Explorar solo navega por YouTube.",
-			"offsiteDownload": "Descargar este enlace",
-			"offsiteHintHost": "Explorar solo navega por YouTube. {{host}}",
+			"addressPlaceholder": "Buscar en {{engine}} o abrir cualquier sitio (Vimeo, Instagram…)",
+			"refusedHint": "Explorar no puede abrir esa dirección.",
 			"searchTooLong": "Esa búsqueda es demasiado larga.",
 			"downloadWithProfile": "Descargar · {{profileName}}",
 			"interactiveHint": "Descarga interactiva: elige formato, subtítulos y más…",
@@ -1032,15 +1032,17 @@
 		},
 		"settings": {
 			"title": "Explorar",
-			"description": "Navega por YouTube dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
+			"description": "Navega por YouTube o cualquier otro sitio dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
 			"showTab": "Mostrar la pestaña Explorar",
 			"showTabDescription": "Al desactivarla, las descargas también dejan de usar tu sesión de Explorar.",
 			"idleUnload": "Liberar memoria en segundo plano",
 			"idleUnloadDescription": "Tras 5 minutos en otra pestaña, cierra la página de inicio o de búsqueda de YouTube. Al volver, se recarga, lo que tarda unos segundos.",
+			"searchEngine": "Motor de búsqueda",
+			"searchEngineDescription": "Dónde se busca el texto escrito en la barra de direcciones. Los enlaces se abren tal como se escriben.",
 			"signOut": "Cerrar sesión en Explorar",
-			"signOutDescription": "Borra tu sesión de YouTube y los datos de navegación en Explorar.",
+			"signOutDescription": "Borra tus sesiones y los datos de navegación en Explorar, en todos los sitios.",
 			"signOutConfirmTitle": "¿Cerrar sesión en Explorar?",
-			"signOutConfirmBody": "Esto borra tu sesión de YouTube y los datos de navegación en Explorar. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión.",
+			"signOutConfirmBody": "Esto borra tus sesiones y los datos de navegación en Explorar, en todos los sitios. Las descargas que requieran una cuenta fallarán hasta que vuelvas a iniciar sesión.",
 			"signOutConfirm": "Cerrar sesión"
 		},
 		"error": {"proxyTitle": "Explorar no puede conectarse a través de tu proxy", "proxyBody": "Revisa el proxy en Ajustes y vuelve a intentarlo.", "loadTitle": "Esta página no se cargó", "loadBody": "Comprueba tu conexión y vuelve a intentarlo.", "retry": "Reintentar", "openSettings": "Abrir Ajustes"}

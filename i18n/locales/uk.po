@@ -332,24 +332,24 @@ msgid "New"
 msgstr "Нове"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Знаходь відео, плейлист або канал і завантажуй прямо звідси — без копіювання посилань. Увійди в YouTube тут, щоб завантажувати відео, для яких потрібен акаунт."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Знаходь відео на YouTube чи будь-якому іншому сайті й завантажуй прямо звідси — без копіювання посилань. Увійди на сайт тут, щоб завантажувати відео, для яких потрібен акаунт."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Продовжити"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube може позначити — а іноді й забанити — акаунти, які використовуються із засобами завантаження на кшталт Arroxy. Використовуй акаунт, якого не шкода втратити, а не основний."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Такі сайти, як YouTube, можуть позначити — а іноді й забанити — акаунти, які використовуються із засобами завантаження на кшталт Arroxy. Використовуй акаунт, якого не шкода втратити, а не основний."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Входь через додатковий акаунт"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Переглядай YouTube просто в Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Переглядай вебсайти просто в Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -372,8 +372,8 @@ msgid "Use Explore sign-in"
 msgstr "Використовувати вхід через Огляд"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Переглядай YouTube в Arroxy і входь, щоб завантажувати відео, для яких потрібен акаунт."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Переглядай YouTube чи будь-який інший сайт в Arroxy і входь, щоб завантажувати відео, для яких потрібен акаунт."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -382,6 +382,14 @@ msgstr "Звільняти пам'ять у фоні"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Через 5 хвилин на іншій вкладці закриває головну сторінку або сторінку пошуку YouTube. Після повернення вона завантажується знову, це триває кілька секунд."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Пошукова система"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Текст, введений в адресному рядку, шукається в цій системі. Посилання відкриваються так, як введені."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -400,16 +408,16 @@ msgid "Sign out"
 msgstr "Вийти"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Це видалить твій вхід у YouTube і дані перегляду в Огляді. Завантаження, для яких потрібен акаунт, завершуватимуться помилкою, доки ти знову не ввійдеш."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Це видалить твої входи та дані перегляду в Огляді на всіх сайтах. Завантаження, для яких потрібен акаунт, завершуватимуться помилкою, доки ти знову не ввійдеш."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Вийти з Огляду?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Видаляє твій вхід у YouTube і дані перегляду в Огляді."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Видаляє твої входи та дані перегляду в Огляді на всіх сайтах."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -448,8 +456,8 @@ msgid "Address"
 msgstr "Адреса"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Шукай на YouTube або встав посилання YouTube"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Шукай через {{engine}} або відкрий будь-який сайт (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -487,17 +495,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Інтерактивне завантаження: вибрати формат, субтитри та інше…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Завантажити це посилання"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Огляд відкриває лише YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Огляд відкриває лише YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Огляд не може відкрити цю адресу."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2553,6 +2553,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Для цього відео може знадобитися акаунт YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy вже пробував із входом через Огляд, тож повторний вхід не допоможе. Можливо, на сайті виникли проблеми або цей акаунт не може це відкрити. Спробуй пізніше."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Сайт відмовив, навіть попри твій вхід через Огляд"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Вхід через Огляд виконано, але зараз завантаження не використовують цей вхід."
@@ -2584,6 +2592,18 @@ msgstr "Увійти через Огляд"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Для цього відео може знадобитися акаунт YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Для цього посилання може знадобитися акаунт на сайті {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Увійди на сайті {{host}} через Огляд та спробуй ще раз."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Увійди на сайті {{host}} через Огляд та спробуй ще раз. Arroxy використовує цей вхід, лише коли він потрібен для завантаження."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

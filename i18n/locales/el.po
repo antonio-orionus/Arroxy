@@ -322,24 +322,24 @@ msgid "New"
 msgstr "Νέο"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Βρες ένα βίντεο, μια λίστα αναπαραγωγής ή ένα κανάλι και κάνε λήψη από εδώ — χωρίς αντιγραφή συνδέσμων. Συνδέσου στο YouTube εδώ για να κατεβάζεις βίντεο που απαιτούν λογαριασμό."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Βρες ένα βίντεο στο YouTube ή σε οποιονδήποτε άλλο ιστότοπο και κάνε λήψη από εδώ — χωρίς αντιγραφή συνδέσμων. Συνδέσου εδώ σε έναν ιστότοπο για να κατεβάζεις βίντεο που απαιτούν λογαριασμό."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Συνέχεια"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "Το YouTube μπορεί να επισημάνει — και μερικές φορές να αποκλείσει — λογαριασμούς που χρησιμοποιούνται με εργαλεία λήψης όπως το Arroxy. Χρησιμοποίησε έναν λογαριασμό που αντέχεις να χάσεις, όχι τον κύριο."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Ιστότοποι όπως το YouTube μπορεί να επισημάνουν — και μερικές φορές να αποκλείσουν — λογαριασμούς που χρησιμοποιούνται με εργαλεία λήψης όπως το Arroxy. Χρησιμοποίησε έναν λογαριασμό που αντέχεις να χάσεις, όχι τον κύριο."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Συνδέσου με δευτερεύοντα λογαριασμό"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Περιήγηση στο YouTube μέσα στο Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Περιήγηση στο διαδίκτυο μέσα στο Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "Χρήση σύνδεσης Εξερεύνησης"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Περιηγήσου στο YouTube μέσα στο Arroxy και συνδέσου για βίντεο που απαιτούν λογαριασμό."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Περιηγήσου στο YouTube ή σε οποιονδήποτε άλλο ιστότοπο μέσα στο Arroxy και συνδέσου για βίντεο που απαιτούν λογαριασμό."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -372,6 +372,14 @@ msgstr "Αποδέσμευση μνήμης στο παρασκήνιο"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Μετά από 5 λεπτά σε άλλη καρτέλα, κλείνει την αρχική σελίδα ή τη σελίδα αναζήτησης του YouTube. Με την επιστροφή, η σελίδα φορτώνεται ξανά, κάτι που διαρκεί λίγα δευτερόλεπτα."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Μηχανή αναζήτησης"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Πού αναζητείται το κείμενο που πληκτρολογείται στη γραμμή διευθύνσεων. Οι σύνδεσμοι ανοίγουν όπως πληκτρολογήθηκαν."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -390,16 +398,16 @@ msgid "Sign out"
 msgstr "Αποσύνδεση"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στην Εξερεύνηση. Οι λήψεις που απαιτούν λογαριασμό θα αποτυγχάνουν μέχρι να συνδεθείς ξανά."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Διαγράφει τις συνδέσεις σου και τα δεδομένα περιήγησης στην Εξερεύνηση, σε κάθε ιστότοπο. Οι λήψεις που απαιτούν λογαριασμό θα αποτυγχάνουν μέχρι να συνδεθείς ξανά."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Αποσύνδεση από την Εξερεύνηση;"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Διαγράφει τη σύνδεσή σου στο YouTube και τα δεδομένα περιήγησης στην Εξερεύνηση."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Διαγράφει τις συνδέσεις σου και τα δεδομένα περιήγησης στην Εξερεύνηση, σε κάθε ιστότοπο."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "Διεύθυνση"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Αναζήτησε στο YouTube ή επικόλλησε έναν σύνδεσμο YouTube"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Αναζήτηση στο {{engine}} ή άνοιγμα οποιουδήποτε ιστότοπου (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +485,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Διαδραστική λήψη: επίλεξε μορφή, υπότιτλους και άλλα…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Λήψη αυτού του συνδέσμου"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Η Εξερεύνηση περιηγείται μόνο στο YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Η Εξερεύνηση περιηγείται μόνο στο YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Η Εξερεύνηση δεν μπορεί να ανοίξει αυτή τη διεύθυνση."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2373,6 +2373,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Το Arroxy το δοκίμασε ήδη συνδεδεμένο μέσω της Εξερεύνησης, οπότε μια νέα σύνδεση δεν θα βοηθήσει. Ο ιστότοπος μπορεί να αντιμετωπίζει πρόβλημα ή αυτός ο λογαριασμός να μην μπορεί να τον ανοίξει. Δοκίμασε ξανά αργότερα."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Ο ιστότοπος το απέρριψε ακόμα και με τη σύνδεσή σου στην Εξερεύνηση"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Έχεις συνδεθεί στην Εξερεύνηση, αλλά οι λήψεις δεν χρησιμοποιούν αυτή τη σύνδεση αυτή τη στιγμή."
@@ -2404,6 +2412,18 @@ msgstr "Σύνδεση στην Εξερεύνηση"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Αυτός ο σύνδεσμος μπορεί να απαιτεί λογαριασμό στο {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Συνδέσου στο {{host}} μέσω της Εξερεύνησης και δοκίμασε ξανά."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Στην Εξερεύνηση, συνδέσου στο {{host}} και δοκίμασε ξανά. Το Arroxy χρησιμοποιεί αυτή τη σύνδεση μόνο όταν τη χρειάζεται μια λήψη."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

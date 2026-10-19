@@ -10,6 +10,7 @@ import {Button} from '../ui/button.js'
 import {TableCell, TableRow} from '../ui/table.js'
 import {QuickDownloadErrorAlert} from '../wizard/QuickDownloadErrorAlert.js'
 import {CookiesGuidanceAlert} from '../wizard/format/CookiesErrorAlert.js'
+import {buildProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import {isProbeErrorRow} from './queueAttention.js'
 
 // The detail line under a row only the user can move on (P2-R38): a failed
@@ -27,13 +28,14 @@ export function QueueAttentionRow({columnsLength, item}: {columnsLength: number;
 // A download that failed for want of an account, under the off cookie mode
 // with Explore on: the same Explore offer as a failed preparation, alone (the
 // row's own Retry already downloads again). The explore mode escalates
-// downloads by itself, so it gets nothing here.
+// downloads by itself, so it gets nothing here, unless the escalated job
+// still failed: then the row says the site refused it signed in.
 export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: number; item: QueueItem}): ReactNode {
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn, retryDownloadWithCookies} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), commonSettings, exploreSignedIn)
-	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn) return null
+	const experience = buildProbeErrorExperience({error: rowProbeError(item.error, item.auth), url: item.url, commonSettings, exploreSignedIn, stage: 'download'})
+	if (!experience.actions.signInWithExploreThenRetry && !experience.actions.retryWithExploreSignIn && experience.cookies.variant !== 'explore-refused') return null
 	const target = {kind: 'download', itemId: item.id} as const
 	return (
 		<TableRow data-testid={`queue-attention-${item.id}`} className="bg-muted/20 hover:bg-muted/20">
@@ -44,7 +46,7 @@ export function DownloadErrorGuidanceRow({columnsLength, item}: {columnsLength: 
 						density="compact"
 						onOpenSettings={openCookiesSettings}
 						onSignInWithExplore={openExploreSignIn}
-						onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry(target)}
+						onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry(target, site)}
 						onRetryWithExploreSignIn={() => void retryWithExploreSignIn(target)}
 						onEnableCookiesAndRetry={() => void retryDownloadWithCookies(item.id)}
 						openSettingsTestId="queue-download-cookies-settings"
@@ -59,7 +61,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 	const commonSettings = useAppStore(state => state.settings?.common)
 	const exploreSignedIn = useAppStore(state => state.exploreView?.signedIn ?? null)
 	const {retryQuickDownloadRow, retryQuickDownloadRowWithCookies, openCookiesSettings, openExploreSignIn, signInWithExploreThenRetry, retryWithExploreSignIn} = useAppStore.getState()
-	const experience = placeholderErrorExperience(rowProbeError(item.error), commonSettings, exploreSignedIn)
+	const experience = placeholderErrorExperience(rowProbeError(item.error, item.auth), item.url, commonSettings, exploreSignedIn)
 	return (
 		<QuickDownloadErrorAlert
 			experience={experience}
@@ -69,7 +71,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 			onEnableCookiesAndRetry={() => void retryQuickDownloadRowWithCookies(item.id)}
 			onOpenCookiesSettings={openCookiesSettings}
 			onSignInWithExplore={openExploreSignIn}
-			onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry({kind: 'row', itemId: item.id})}
+			onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry({kind: 'row', itemId: item.id}, site)}
 			onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'row', itemId: item.id})}
 		/>
 	)

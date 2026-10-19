@@ -68,7 +68,7 @@
 		"scan-upstream": "node scripts/scan-yt-dlp-source.mjs"
 	},
 	"devDependencies": {
-		"@types/node": "26.6.4",
+		"@types/node": "26.6.5",
 		"typescript": "6.0.3",
 		"vite-plus": "catalog:"
 	},

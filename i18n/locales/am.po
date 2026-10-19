@@ -322,24 +322,24 @@ msgid "New"
 msgstr "አዲስ"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "ቪዲዮ፣ የቪዲዮ ዝርዝር ወይም ቻናል ያግኙና ከዚህ ያውርዱ — አገናኞችን መቅዳት አያስፈልግም። መለያ የሚያስፈልጋቸውን ቪዲዮዎች ለማውረድ እዚህ YouTube ውስጥ ይግቡ።"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "በYouTube ወይም በማንኛውም ሌላ ጣቢያ ላይ ቪዲዮ ያግኙና ከዚህ ያውርዱ — አገናኞችን መቅዳት አያስፈልግም። መለያ የሚያስፈልጋቸውን ቪዲዮዎች ለማውረድ እዚህ ወደ ጣቢያ ይግቡ።"
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "ቀጥል"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube እንደ Arroxy ካሉ የማውረጃ መሣሪያዎች ጋር የሚጠቀሙ መለያዎችን ሊጠቁም — እና አንዳንድ ጊዜ ሊያግድ — ይችላል። ማጣት የማይከብድዎትን መለያ ይጠቀሙ፣ ዋና መለያዎን አይደለም።"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "እንደ YouTube ያሉ ጣቢያዎች እንደ Arroxy ካሉ የማውረጃ መሣሪያዎች ጋር የሚጠቀሙ መለያዎችን ሊጠቁሙ — እና አንዳንድ ጊዜ ሊያግዱ — ይችላሉ። ማጣት የማይከብድዎትን መለያ ይጠቀሙ፣ ዋና መለያዎን አይደለም።"
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "በሁለተኛ መለያ ይግቡ"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "YouTubeን በArroxy ውስጥ ያስሱ"
+msgid "Browse the web right inside Arroxy"
+msgstr "ድሩን በArroxy ውስጥ ያስሱ"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "የዳሰሳ መግቢያ ተጠቀም"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "YouTubeን በArroxy ውስጥ ያስሱ እና መለያ ለሚያስፈልጋቸው ቪዲዮዎች ይግቡ።"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ፣ መለያ ለሚያስፈልጋቸው ቪዲዮዎችም ይግቡ።"
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -372,6 +372,14 @@ msgstr "በሌሉበት ጊዜ ማህደረ ትውስታን ነጻ አድርግ"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "በሌላ ትር ላይ ከ5 ደቂቃ በኋላ የYouTube መነሻ ወይም የፍለጋ ገጽን ይዘጋል። ሲመለሱ እንደገና ይጫናል፣ ይህም ጥቂት ሰከንዶች ይወስዳል።"
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "የፍለጋ ሞተር"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "በአድራሻ አሞሌ የተጻፈ ጽሑፍ የሚፈለገው የት እንደሆነ። አገናኞች እንደተጻፉ ይከፈታሉ።"
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -390,16 +398,16 @@ msgid "Sign out"
 msgstr "ውጣ"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "ይህ በዳሰሳ ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል። መለያ የሚያስፈልጋቸው ውርዶች እንደገና እስኪገቡ ድረስ አይሳኩም።"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "ይህ በዳሰሳ ውስጥ በሁሉም ጣቢያዎች ላይ ያሉ መግቢያዎችዎን እና የማሰስ ውሂብዎን ያጸዳል። መለያ የሚያስፈልጋቸው ውርዶች እንደገና እስኪገቡ ድረስ አይሳኩም።"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "ከዳሰሳ ይውጡ?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "በዳሰሳ ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል።"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "በዳሰሳ ውስጥ በሁሉም ጣቢያዎች ላይ ያሉ መግቢያዎችዎን እና የማሰስ ውሂብዎን ያጸዳል።"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "አድራሻ"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube ይፈልጉ ወይም የYouTube አገናኝ ይለጥፉ"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} ላይ ፈልግ ወይም ማንኛውንም ጣቢያ ክፈት (Vimeo፣ Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +485,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "በይነተገናኝ ማውረድ፦ ቅርጸት፣ ንዑስ ርዕሶች እና ሌሎችን ምረጥ…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "ይህን አገናኝ አውርድ"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "ዳሰሳ የሚያሳየው YouTubeን ብቻ ነው።"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "ዳሰሳ የሚያሳየው YouTubeን ብቻ ነው። {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "ዳሰሳ ያንን አድራሻ መክፈት አይችልም።"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2373,6 +2373,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "ይህ ቪዲዮ የYouTube መለያ ሊፈልግ ይችላል"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy አስቀድሞ በዳሰሳ በኩል ገብቶ ሞክሯል፣ ስለዚህ እንደገና መግባት አይረዳም። ጣቢያው ችግር ላይ ሊሆን ይችላል፣ ወይም ይህ መለያ ሊከፍተው አይችልም። ቆይተው እንደገና ይሞክሩ።"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "ጣቢያው በዳሰሳ ውስጥ በገቡበት መግቢያም ይህን አልተቀበለም"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "በዳሰሳ ገብተዋል፣ ነገር ግን ማውረዶች አሁን ያንን መግቢያ እየተጠቀሙ አይደሉም።"
@@ -2404,6 +2412,18 @@ msgstr "በዳሰሳ ውስጥ ይግቡ"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "ይህ ቪዲዮ የYouTube መለያ ሊያስፈልገው ይችላል"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "ይህ አገናኝ {{host}} ላይ መለያ ሊፈልግ ይችላል"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "{{host}} ላይ በዳሰሳ ይግቡና እንደገና ይሞክሩ።"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "{{host}} ላይ በዳሰሳ ውስጥ ይግቡና እንደገና ይሞክሩ። Arroxy ይህን መግቢያ የሚጠቀመው ውርድ ሲፈልገው ብቻ ነው።"
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

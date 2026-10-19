@@ -3,8 +3,9 @@ import log from 'electron-log/main.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 import {isExploreIdleUnloadOn} from '@shared/exploreIdleUnload.js'
 import {hostMatches} from '@shared/sites/hostRules.js'
-import {exploreAddressScope, isExploreSiteAddress, type ExploreSiteScope} from '@shared/sites/exploreAddress.js'
+import {exploreAddressScope, isExploreAddress, type ExploreAddressScope} from '@shared/sites/exploreAddress.js'
 import {siteById} from '@shared/sites/index.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {HostRule, SiteExplore, SiteId} from '@shared/sites/types.js'
 import type {CommonSettings, ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from '@shared/types.js'
 import type {ExploreAdBlockStatus, ExploreViewError} from '@shared/schemas.js'
@@ -12,20 +13,22 @@ import type {ExploreSessionService} from '../ExploreSessionService.js'
 import type {ExploreAdBlocker} from './ExploreAdBlocker.js'
 import {buildIdleUnloadSnapshot, idleUnloadKeepReason, type IdleUnloadRule, type IdleUnloadSnapshot} from './exploreIdleUnload.js'
 import {LastPageRecorder, startPage, type LastPageScope} from './exploreLastPage.js'
-import {decideNavigation, type NavigationDecision} from './exploreNavigationPolicy.js'
+import {decideNavigation} from './exploreNavigationPolicy.js'
 import {answerProxyLogins, blankPage, dropBlankEntryBehind, pageLoadFailure} from './exploreWebContents.js'
 
 const logger = log.scope('explore-view')
 
-// v1 is YouTube-only (spec D5).
+// The site Explore opens on, searches and reports the sign-in of; any other
+// web page loads too.
 const SITE_ID: SiteId = 'youtube'
+const SITE_SCOPE: ExploreCookieScope = {kind: 'site', siteId: SITE_ID}
 // Cookie churn (YouTube rotates several on every page) settles into one presence read.
 const SIGNED_IN_DEBOUNCE_MS = 500
 // How long after a click or key press a navigation still counts as the user's
 // own. Electron's navigation events carry no gesture flag, so the view's input
 // stands in for it; a link click navigates within milliseconds.
 const USER_ACTIVATION_MS = 1_000
-// One activation authorises at most one system-browser open (see act()).
+// What counts as the user's input: a popup loads only within one (routeWindowOpen).
 const ACTIVATING_INPUT: ReadonlySet<InputEvent['type']> = new Set<InputEvent['type']>(['mouseDown', 'mouseUp', 'keyDown', 'rawKeyDown', 'gestureTap', 'touchEnd'])
 // Sign-in pages (accounts.google.*, accounts.youtube.com) carry session material in their query and fragment.
 const SIGN_IN_HOST = /^accounts\./
@@ -68,10 +71,9 @@ export interface ExploreViewHostDeps {
 	// Stores (or, with undefined, forgets) the last page the view showed.
 	saveLastPage: (url: string | undefined) => void
 	adBlock: Pick<ExploreAdBlocker, 'apply' | 'getStatus' | 'onStatusChange'>
-	// E2E only: opened instead of the site's home, and its origin is allowed in the view.
+	// E2E only: opened instead of the site's home; its origin's pages are the ones kept and reopened.
 	homeUrlOverride?: string
 	isPackaged: boolean
-	openExternal: (url: string) => Promise<void>
 	emit: (state: ExploreViewState) => void
 	// The pointer just entered the view: the renderer may never see the toolbar's mouseleave.
 	pointerEntered: () => void
@@ -105,10 +107,10 @@ function sameState(a: ExploreViewState, b: ExploreViewState): boolean {
 export class ExploreViewHost {
 	private readonly explore = requireExplore(SITE_ID)
 	// Where an address typed in the bar may load (checked again in navigate()).
-	readonly addressScope: ExploreSiteScope
+	readonly addressScope: ExploreAddressScope
 	private readonly cookieHosts: readonly HostRule[]
 	private readonly homeUrl: string
-	private readonly extraAllowedOrigin: string | undefined
+	private readonly overrideOrigin: string | undefined
 	private readonly lastPageScope: LastPageScope
 	private readonly lastPage: LastPageRecorder
 	private readonly idleUnloadRule: IdleUnloadRule
@@ -148,10 +150,10 @@ export class ExploreViewHost {
 	constructor(private readonly deps: ExploreViewHostDeps) {
 		this.cookieHosts = this.explore.cookieDomains.map(domain => ({kind: 'suffix', domain}))
 		this.homeUrl = deps.homeUrlOverride ?? this.explore.homeUrl
-		this.extraAllowedOrigin = deps.homeUrlOverride === undefined ? undefined : new URL(deps.homeUrlOverride).origin
-		this.addressScope = exploreAddressScope(this.explore, this.extraAllowedOrigin)
+		this.overrideOrigin = deps.homeUrlOverride === undefined ? undefined : new URL(deps.homeUrlOverride).origin
+		this.addressScope = exploreAddressScope(this.explore)
 		// The E2E override wins: under it, only its own origin's pages are kept or reopened.
-		this.lastPageScope = this.extraAllowedOrigin === undefined ? {kind: 'site', hosts: this.cookieHosts} : {kind: 'origin', origin: this.extraAllowedOrigin}
+		this.lastPageScope = this.overrideOrigin === undefined ? {kind: 'site', hosts: this.cookieHosts} : {kind: 'origin', origin: this.overrideOrigin}
 		this.lastPage = new LastPageRecorder({scope: this.lastPageScope, read: () => deps.settings().exploreLastUrl, write: url => deps.saveLastPage(url)})
 		this.idleUnloadRule = {scope: this.lastPageScope, paths: this.explore.idleUnloadPaths}
 		deps.adBlock.onStatusChange(() => this.emitState())
@@ -283,15 +285,12 @@ export class ExploreViewHost {
 		}
 	}
 
-	// P2-R45: typed in the app's own window, so it is no input in the view:
-	// any click the page had just received is spent, and a redirect off the
-	// site is blocked rather than opened in the system browser.
+	// Checked here as well as in IPC: any web page, never a sign-in or consent page.
 	private loadTypedAddress(url: string): Promise<void> {
-		if (!isExploreSiteAddress(url, this.addressScope)) {
+		if (!isExploreAddress(url, this.addressScope)) {
 			logger.info('explore view refused a typed address', {host: hostOf(url) || '(none)'})
 			return Promise.resolve()
 		}
-		this.lastActivationAt = Number.NEGATIVE_INFINITY
 		// The parsed form, never the raw string: what loads is what was checked.
 		return this.load(new URL(url).href)
 	}
@@ -613,46 +612,26 @@ export class ExploreViewHost {
 			details.preventDefault()
 			return
 		}
-		const decision = this.decide(details.url, {userGesture: this.hasUserActivation(), isRedirect: via === 'redirect'})
+		const decision = decideNavigation(details.url)
 		if (decision.kind === 'allow') return
 		details.preventDefault()
-		this.act(decision, via)
+		// Logs the host only: a URL's path and query can carry session material.
+		logger.info('explore view blocked a navigation', {host: decision.host || '(none)', via})
 	}
 
-	// The page never gets a window: an allowed target loads in this view, anything
-	// else follows the policy. Either way it takes the user's click, so a script
-	// or a subframe cannot replace the page on its own.
+	// The page never gets a window: a web target loads in this view, and only on
+	// the user's click, so a script or a subframe cannot replace the page on its own.
 	private routeWindowOpen(url: string): void {
-		const userGesture = this.hasUserActivation()
-		const decision = this.decide(url, {userGesture, isRedirect: false})
+		const decision = decideNavigation(url)
 		if (decision.kind !== 'allow') {
-			this.act(decision, 'window-open')
+			logger.info('explore view blocked a navigation', {host: decision.host || '(none)', via: 'window-open'})
 			return
 		}
-		if (userGesture) {
+		if (this.hasUserActivation()) {
 			void this.load(url)
 			return
 		}
 		logger.info('explore view blocked a popup without user input', {host: hostOf(url)})
-	}
-
-	private decide(url: string, how: {userGesture: boolean; isRedirect: boolean}): NavigationDecision {
-		return decideNavigation({url, ...how, mainFrame: true, hosts: this.explore.navigationHosts, extraAllowedOrigin: this.extraAllowedOrigin})
-	}
-
-	// Logs hosts only: a sign-in URL's path and query can carry session material.
-	private act(decision: Exclude<NavigationDecision, {kind: 'allow'}>, via: string): void {
-		if (decision.kind === 'block') {
-			logger.info('explore view blocked a navigation', {host: decision.host || '(none)', via})
-			return
-		}
-		const host = new URL(decision.url).hostname
-		// The activation is spent: a page cannot turn one click into several external opens.
-		this.lastActivationAt = Number.NEGATIVE_INFINITY
-		logger.info('explore view opened a link in the system browser', {host, via})
-		this.deps.openExternal(decision.url).catch((err: unknown) => {
-			logger.warn('explore view could not open a link in the system browser', {host, error: err instanceof Error ? err.name : 'unknown'})
-		})
 	}
 
 	private hasUserActivation(): boolean {
@@ -748,7 +727,7 @@ export class ExploreViewHost {
 			if (opts.verify) this.recheckVerifiedSignOut()
 			return
 		}
-		this.deps.session.hasAuthCookies(SITE_ID).then(
+		this.deps.session.hasAuthCookies(SITE_SCOPE).then(
 			signedIn => {
 				if (read === this.signedInRead && !this.verifiedSignedOut) this.setSignedIn(signedIn)
 			},
@@ -758,7 +737,7 @@ export class ExploreViewHost {
 
 	private recheckVerifiedSignOut(): void {
 		// verifySignedIn answers `unknown` rather than rejecting; the handler is only a guard.
-		this.deps.session.verifySignedIn(SITE_ID).then(
+		this.deps.session.verifySignedIn(SITE_SCOPE).then(
 			state => {
 				if (state !== 'signedIn' || !this.verifiedSignedOut) return
 				this.verifiedSignedOut = false

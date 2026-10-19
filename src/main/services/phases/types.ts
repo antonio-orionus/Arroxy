@@ -4,7 +4,7 @@ import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'
 import type {YtDlp} from '../YtDlp.js'
 import type {ExploreGate} from '../exploreGate.js'
-import type {SiteId} from '@shared/sites/types.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
 
 export type Disposable = () => Promise<void> | void
@@ -105,7 +105,7 @@ export interface Phase {
 }
 
 export interface ExploreSignInCheck {
-	verifySignedIn(siteId: SiteId): Promise<ExploreSignInState>
+	verifySignedIn(scope: ExploreCookieScope): Promise<ExploreSignInState>
 }
 
 // PhaseContext — minimal surface a phase needs. Everything cleanup-related

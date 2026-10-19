@@ -317,24 +317,24 @@ msgid "New"
 msgstr "Baru"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Temukan video, playlist, atau kanal dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke YouTube di sini untuk mengunduh video yang memerlukan akun."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Temukan video di YouTube atau situs lain dan unduh langsung dari sini — tanpa menyalin tautan. Masuk ke suatu situs di sini untuk mengunduh video yang memerlukan akun."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Lanjutkan"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Situs seperti YouTube dapat menandai — dan terkadang memblokir — akun yang dipakai dengan alat pengunduh seperti Arroxy. Gunakan akun yang rela Anda kehilangan, bukan akun utama."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Masuk dengan akun sekunder"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Jelajahi YouTube langsung di dalam Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Jelajahi web langsung di dalam Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -357,8 +357,8 @@ msgid "Use Explore sign-in"
 msgstr "Pakai login Jelajahi"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan akun."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Jelajahi YouTube atau situs lain di dalam Arroxy, dan masuk untuk video yang memerlukan akun."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -367,6 +367,14 @@ msgstr "Kosongkan memori saat ditinggal"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Mesin pencari"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Tempat teks yang diketik di bilah alamat dicari. Tautan dibuka sesuai yang diketik."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -385,16 +393,16 @@ msgid "Sign out"
 msgstr "Keluar"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Ini menghapus login YouTube dan data penjelajahan Anda di Jelajahi. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Ini menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs. Unduhan yang memerlukan akun akan gagal sampai Anda masuk lagi."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Keluar dari Jelajahi?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Menghapus login YouTube dan data penjelajahan Anda di Jelajahi."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Menghapus login dan data penjelajahan Anda di Jelajahi, di semua situs."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "Alamat"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Cari di YouTube atau tempel tautan YouTube"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Cari di {{engine}} atau buka situs apa pun (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +480,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Unduhan Interaktif: pilih format, subtitle, dan lainnya…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Unduh tautan ini"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Jelajahi hanya bisa membuka YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Jelajahi hanya bisa membuka YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Jelajahi tidak dapat membuka alamat itu."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2283,6 +2283,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Video ini mungkin memerlukan akun YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy sudah mencobanya dalam keadaan masuk lewat Jelajahi, jadi masuk lagi tidak akan membantu. Situs mungkin sedang bermasalah, atau akun ini tidak bisa membukanya. Coba lagi nanti."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Situs menolaknya meski Anda sudah masuk di Jelajahi"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu."
@@ -2314,6 +2322,18 @@ msgstr "Masuk di Jelajahi"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Video ini mungkin memerlukan akun YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Tautan ini mungkin memerlukan akun {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Masuk ke {{host}} dengan Jelajahi lalu coba lagi."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Masuk ke {{host}} di Jelajahi lalu coba lagi. Arroxy hanya memakai login itu saat unduhan membutuhkannya."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

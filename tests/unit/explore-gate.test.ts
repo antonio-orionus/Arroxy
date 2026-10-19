@@ -1,8 +1,11 @@
 // @vitest-environment node
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {defaultAppSettings} from '@shared/constants.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {AppSettings, CommonSettings} from '@shared/types.js'
 import {createExploreGate, identityFor} from '@main/services/exploreGate.js'
+
+const YOUTUBE: ExploreCookieScope = {kind: 'site', siteId: 'youtube'}
 
 function settingsWith(common: Partial<CommonSettings>): AppSettings {
 	const base = defaultAppSettings('/downloads')
@@ -16,48 +19,49 @@ function gateFor(common: Partial<CommonSettings>, signedIn = true) {
 }
 
 describe('createExploreGate', () => {
-	it('allows escalation in explore mode, with Explore enabled, a site that supports it, and a signed-in session', async () => {
+	it('allows escalation in explore mode, with Explore enabled and a signed-in session', async () => {
 		const {gate, hasAuthCookies} = gateFor({cookiesMode: 'explore'})
-		await expect(gate.canEscalate('youtube')).resolves.toBe(true)
-		expect(hasAuthCookies).toHaveBeenCalledWith('youtube')
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toBe(true)
+		expect(hasAuthCookies).toHaveBeenCalledWith(YOUTUBE)
 	})
 
 	it('allows escalation when exploreEnabled is explicitly true', async () => {
-		await expect(gateFor({cookiesMode: 'explore', exploreEnabled: true}).gate.canEscalate('youtube')).resolves.toBe(true)
+		await expect(gateFor({cookiesMode: 'explore', exploreEnabled: true}).gate.canEscalate(YOUTUBE)).resolves.toBe(true)
 	})
 
 	it.each(['off', 'file', 'browser'] as const)('refuses outside explore mode (%s)', async cookiesMode => {
 		const {gate, hasAuthCookies} = gateFor({cookiesMode})
-		await expect(gate.canEscalate('youtube')).resolves.toBe(false)
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toBe(false)
 		expect(hasAuthCookies).not.toHaveBeenCalled()
 	})
 
 	it('refuses when no cookie mode is set', async () => {
-		await expect(gateFor({}).gate.canEscalate('youtube')).resolves.toBe(false)
+		await expect(gateFor({}).gate.canEscalate(YOUTUBE)).resolves.toBe(false)
 	})
 
 	it('refuses when the Explore kill switch is off', async () => {
 		const {gate, hasAuthCookies} = gateFor({cookiesMode: 'explore', exploreEnabled: false})
-		await expect(gate.canEscalate('youtube')).resolves.toBe(false)
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toBe(false)
 		expect(hasAuthCookies).not.toHaveBeenCalled()
 	})
 
-	it('refuses a site without the Explore capability', async () => {
+	it('asks the session about another site by its scope', async () => {
+		const vimeo: ExploreCookieScope = {kind: 'web', host: 'vimeo.com'}
 		const {gate, hasAuthCookies} = gateFor({cookiesMode: 'explore'})
-		await expect(gate.canEscalate('generic')).resolves.toBe(false)
-		expect(hasAuthCookies).not.toHaveBeenCalled()
+		await expect(gate.canEscalate(vimeo)).resolves.toBe(true)
+		expect(hasAuthCookies).toHaveBeenCalledWith(vimeo)
 	})
 
 	it('refuses when the session is signed out', async () => {
-		await expect(gateFor({cookiesMode: 'explore'}, false).gate.canEscalate('youtube')).resolves.toBe(false)
+		await expect(gateFor({cookiesMode: 'explore'}, false).gate.canEscalate(YOUTUBE)).resolves.toBe(false)
 	})
 
 	it('reads settings live on every call', async () => {
 		let common: Partial<CommonSettings> = {cookiesMode: 'explore'}
 		const gate = createExploreGate({settings: {get: async () => settingsWith(common)}, session: {hasAuthCookies: async () => true}})
-		await expect(gate.canEscalate('youtube')).resolves.toBe(true)
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toBe(true)
 		common = {cookiesMode: 'off'}
-		await expect(gate.canEscalate('youtube')).resolves.toBe(false)
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toBe(false)
 	})
 })
 

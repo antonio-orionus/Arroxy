@@ -22,14 +22,16 @@ import {IPC_CHANNELS} from '@shared/ipc.js'
 import {exploreViewStateSchema} from '@shared/schemas.js'
 import {EXPLORE_SNAPSHOT_MAX_CHARS, exploreNavigateCommandSchema} from '@shared/exploreSchemas.js'
 import type {ExploreViewState} from '@shared/types.js'
-import {EXPLORE_ADDRESS_MAX, exploreAddressScope, type ExploreSiteScope} from '@shared/sites/exploreAddress.js'
+import {EXPLORE_ADDRESS_MAX, exploreAddressScope} from '@shared/sites/exploreAddress.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
 
 const STATE: ExploreViewState = {url: 'https://www.youtube.com/', title: 'YouTube', canGoBack: false, canGoForward: false, loading: false, signedIn: true, error: null, adBlock: 'off'}
 // The whole renderer-visible surface. A cookie, token or header field must never join this list.
 const ALLOWED_STATE_KEYS = ['adBlock', 'canGoBack', 'canGoForward', 'error', 'loading', 'signedIn', 'title', 'url']
 
-function makeHost(addressScope: ExploreSiteScope = youtubeSite.explore ? exploreAddressScope(youtubeSite.explore) : {hosts: []}) {
+function makeHost() {
+	if (!youtubeSite.explore) throw new Error('youtube has no Explore capability')
+	const addressScope = exploreAddressScope(youtubeSite.explore)
 	return {
 		addressScope,
 		navigate: vi.fn().mockResolvedValue(undefined),
@@ -67,18 +69,18 @@ describe('explore IPC handlers', () => {
 			expect(host.navigate).toHaveBeenCalledWith({kind})
 		})
 
-		// The old `url` command is gone: a typed address is `address`, checked above.
-		// P2-R45: a typed address loads only on the site, checked here and not only in the renderer.
-		it.each(['https://www.youtube.com/watch?v=abc', 'https://m.youtube.com/', 'https://www.youtube.com/results?search_query=lofi+beats'])('forwards the typed site address %s', async url => {
-			expect((await invoke(IPC_CHANNELS.exploreNavigate, {kind: 'address', url})).ok).toBe(true)
-			expect(host.navigate).toHaveBeenCalledWith({kind: 'address', url})
-		})
+		// The old `url` command is gone: a typed address is `address`, checked here and not only in the renderer.
+		it.each(['https://www.youtube.com/watch?v=abc', 'https://m.youtube.com/', 'https://www.youtube.com/results?search_query=lofi+beats', 'https://example.com/watch?v=abc', 'http://www.youtube.com/watch?v=abc', 'https://www.youtube.com:8443/', 'http://127.0.0.1:4567/next'])(
+			'forwards the typed address %s',
+			async url => {
+				expect((await invoke(IPC_CHANNELS.exploreNavigate, {kind: 'address', url})).ok).toBe(true)
+				expect(host.navigate).toHaveBeenCalledWith({kind: 'address', url})
+			}
+		)
 
 		it.each([
-			['https://example.com/watch?v=abc', 'example.com'],
-			['http://www.youtube.com/watch?v=abc', 'www.youtube.com'],
 			['https://user:secret@www.youtube.com/', 'www.youtube.com'],
-			['https://www.youtube.com:8443/', 'www.youtube.com'],
+			['ftp://example.com/watch', 'example.com'],
 			['https://accounts.google.com/ServiceLogin', 'accounts.google.com'],
 			['https://myaccount.google.com/', 'myaccount.google.com'],
 			['https://accounts.youtube.com/', 'accounts.youtube.com'],
@@ -97,14 +99,6 @@ describe('explore IPC handlers', () => {
 			if (host_) expect(logged).toContain(host_)
 			expect(logged).not.toContain('secret')
 			expect(logged).not.toContain('watch')
-		})
-
-		it('loads the E2E home origin typed as an address', async () => {
-			handlers.clear()
-			const e2eHost = makeHost({hosts: [], extraAllowedOrigin: 'http://127.0.0.1:4567'})
-			registerExploreHandlers({exploreView: e2eHost})
-			expect((await invoke(IPC_CHANNELS.exploreNavigate, {kind: 'address', url: 'http://127.0.0.1:4567/next'})).ok).toBe(true)
-			expect(e2eHost.navigate).toHaveBeenCalledWith({kind: 'address', url: 'http://127.0.0.1:4567/next'})
 		})
 
 		it.each([[undefined], [{}], [{kind: 'url'}], [{kind: 'address'}], [{kind: 'address', url: 42}], [{kind: 'url', url: 'https://www.youtube.com/watch?v=abc'}], [{kind: 'url', url: 'javascript:alert(1)'}], [{kind: 'eval'}], [{kind: 'back', url: 'https://x.test'}], ['back']])('rejects %j', async payload => {

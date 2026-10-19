@@ -125,7 +125,11 @@ export function useDownloadHomeView(): DownloadHomeView {
 	const quickDownloadFailureText = useMemo(() => quickDownloadFailureMessage(state.quickDownloadFailure), [state.quickDownloadFailure])
 	const quickDownloadProbeFailureError = useMemo(() => quickDownloadProbeFailure(state.quickDownloadFailure), [state.quickDownloadFailure])
 	const exploreSignedIn = state.exploreSignedIn
-	const quickDownloadProbeExperience = useMemo(() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, commonSettings, exploreSignedIn}) : null), [quickDownloadProbeFailureError, commonSettings, exploreSignedIn])
+	const quickDownloadProbeFailureUrl = state.quickDownloadFailure?.kind === 'bulk-probe' ? state.quickDownloadFailure.errorUrl : null
+	const quickDownloadProbeExperience = useMemo(
+		() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, url: quickDownloadProbeFailureUrl, commonSettings, exploreSignedIn}) : null),
+		[quickDownloadProbeFailureError, quickDownloadProbeFailureUrl, commonSettings, exploreSignedIn]
+	)
 	const hasInput = state.wizardUrl.trim().length > 0
 
 	return {

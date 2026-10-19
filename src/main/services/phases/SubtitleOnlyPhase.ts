@@ -28,7 +28,7 @@ export const SubtitleOnlyPhase: Phase = {
 		if (interrupted) return interrupted
 
 		const site = siteForJob(preparedJob.extractor, input.url)
-		const refused = await guardSignedInSpawn(ctx, site.id)
+		const refused = await guardSignedInSpawn(ctx)
 		if (refused) return refused
 
 		// The identity is read per run: an escalation switches the job to the Explore session.
@@ -56,7 +56,7 @@ export const SubtitleOnlyPhase: Phase = {
 		const stopped = interruptedOutcome(active)
 		if (stopped) return stopped
 
-		const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx, site.id)) ? fetchSubtitles() : null)})
+		const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? fetchSubtitles() : null)})
 		if (settled.kind === 'stopped') return settled.outcome
 		if (settled.kind === 'signedOut') return exploreSignedOut(ctx)
 		const {result} = settled.run

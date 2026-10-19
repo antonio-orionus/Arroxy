@@ -3,6 +3,7 @@ import {useShallow} from 'zustand/react/shallow'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
+import {exploreSearchEngineOf} from '@shared/sites/exploreSearch.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {selectCompactChrome} from '../../store/uiSlice.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -43,6 +44,7 @@ function navigate(command: ExploreNavigateCommand): void {
 function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfiles}: ExploreTabProps): ReactNode {
 	const view = useAppStore(s => s.exploreView)
 	const adBlockOn = useAppStore(s => isExploreAdBlockOn(s.settings?.common ?? {}))
+	const searchEngine = useAppStore(s => exploreSearchEngineOf(s.settings?.common ?? {}))
 	// Until main reports the view, the shield follows the setting (on unless turned off).
 	const state = view ?? (adBlockOn ? NO_PAGE_AD_BLOCK_ON : NO_PAGE)
 	const pointerEntries = useAppStore(s => s.explorePointerEntries)
@@ -69,16 +71,10 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 
 	// A result that lands after the tab was left is dropped: the hint must not come back.
 	async function submitAddress(text: string): Promise<boolean> {
-		const outcome = await submitExploreAddress(text)
+		const outcome = await submitExploreAddress(text, searchEngine)
 		if (!mountedRef.current) return false
 		if (outcome.kind !== 'failed') setAddressHint(outcome.kind === 'hint' ? outcome.hint : null)
 		return outcome.kind === 'navigated'
-	}
-
-	// The off-site link a hint offers: the background quick download, with the active profile.
-	function downloadLink(url: string): void {
-		setAddressHint(null)
-		void useAppStore.getState().quickDownload({url, entry: 'explore'})
 	}
 
 	return (
@@ -92,6 +88,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				profiles={profiles}
 				profileMenu={{onPickProfile: ref => void setActiveDownloadProfile(ref), onEditProfile, onNewProfile, onManageProfiles}}
 				onNavigate={navigate}
+				searchEngine={searchEngine}
 				onSubmitAddress={submitAddress}
 				onAddressEdit={() => setAddressHint(null)}
 				onDownload={grab}
@@ -101,7 +98,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				leading={compactTabs}
 				onToggleCompact={next => void setExploreCompactChrome(next)}
 			/>
-			{addressHint ? <ExploreAddressHint hint={addressHint} onDownload={downloadLink} onDismiss={() => setAddressHint(null)} /> : null}
+			{addressHint ? <ExploreAddressHint hint={addressHint} onDismiss={() => setAddressHint(null)} /> : null}
 			<ExploreAddressHintLive hint={addressHint} />
 			<ExploreViewport error={state.error} onRetry={() => navigate({kind: 'reload'})} onOpenSettings={() => replaceHash('settings')} />
 		</Card>

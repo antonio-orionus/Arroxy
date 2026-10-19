@@ -89,7 +89,7 @@ describe('VideoPhase download-time escalation', () => {
 		// The escalated run re-extracts: the anonymous info-json is never replayed signed in.
 		const escalatedReq = run.mock.calls[2]?.[0]
 		expect(escalatedReq?.kind === 'media' ? escalatedReq.resume?.loadInfoJsonPath : 'not media').toBeUndefined()
-		expect(canEscalate).toHaveBeenCalledWith('youtube')
+		expect(canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		const signingIn = emitStatus.mock.calls.findIndex(call => call[0] === 'download' && call[1] === STATUS_KEY.signingInWithExplore)
 		expect(signingIn).toBeGreaterThanOrEqual(0)
 		// QueueService persists the job's auth on that status, so it must come first.
@@ -148,7 +148,7 @@ describe('VideoPhase download-time escalation', () => {
 	it('re-verifies and retries once when yt-dlp rejects the account cookies', async () => {
 		const {ctx, run, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED, SUCCESS], input: {auth: 'exploreSession'}, signedIn: true, verified: 'signedIn'})
 		expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
-		expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+		expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		expect(identities(run)).toEqual(['exploreSession', 'exploreSession'])
 	})
 
@@ -241,7 +241,7 @@ describe('rejected cookies on a run that succeeded', () => {
 		for (const verified of ['signedIn', 'signedOut', 'unknown'] as const) {
 			const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [REJECTED_BUT_DONE], input: {auth: 'exploreSession'}, signedIn: true, verified})
 			expect(await VideoPhase(false).run(ctx)).toEqual({kind: 'continue'})
-			expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledOnce()
 			expect(emitStatus.mock.calls.map(call => call[0])).not.toContain('error')
 		}
@@ -286,7 +286,7 @@ describe('rejected cookies on a sidecar subtitle fetch', () => {
 	it('soft-fails, keeping the saved video, when the session turns out signed out', async () => {
 		const {ctx, run, emitStatus, verifySignedIn} = makeCtx({runs: [COOKIES_REJECTED], input: {auth: 'exploreSession', job: SUBS_JOB}, signedIn: true, verified: 'signedOut'})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
-		expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+		expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		expect(run).toHaveBeenCalledOnce()
 		expect(emitStatus.mock.calls.map(call => call[0])).not.toContain('error')
 	})
@@ -308,7 +308,7 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 		// The signed-in spawn counts against the job's signed-in budget.
 		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1'})
-		expect(canEscalate).toHaveBeenCalledWith('youtube')
+		expect(canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		const signingIn = emitStatus.mock.calls.findIndex(call => call[0] === 'download' && call[1] === STATUS_KEY.signingInWithExplore)
 		expect(signingIn).toBeGreaterThanOrEqual(0)
 		expect(emitStatus.mock.invocationCallOrder[signingIn]).toBeLessThan(run.mock.invocationCallOrder[1])

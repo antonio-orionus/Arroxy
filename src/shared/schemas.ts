@@ -389,16 +389,19 @@ export type ExploreSignInState = z.infer<typeof exploreSignInStateSchema>
 const exploreViewErrorSchema = z.enum(['proxy', 'load'])
 export type ExploreViewError = z.infer<typeof exploreViewErrorSchema>
 
-// The Explore ad blocker as it stands: `off` (the setting is off), `starting`
-// (filter lists loading), `on` (blocking), `unavailable` (on, but no filter
-// lists could be fetched and none are cached: nothing is blocked).
+// The Explore ad blocker as it stands: `off` (the setting is off), `starting` (filter lists loading),
+// `on` (blocking), `unavailable` (on, but no filter lists could be fetched and none are cached: nothing is blocked).
 const exploreAdBlockStatusSchema = z.enum(['off', 'starting', 'on', 'unavailable'])
 export type ExploreAdBlockStatus = z.infer<typeof exploreAdBlockStatusSchema>
 
-// What the renderer is told about the Explore view. Carries no cookie data:
-// `signedIn` is a presence flag, never the cookies behind it. The schema is
-// also the outbound filter, so a field added to the host's state cannot reach
-// the renderer until it is listed here.
+// Where plain text typed in Explore's address bar is searched; unset means DuckDuckGo (see exploreSearchEngineOf).
+const exploreSearchEngineSchema = z.enum(['duckduckgo', 'brave', 'google', 'bing', 'youtube'])
+export type ExploreSearchEngine = z.infer<typeof exploreSearchEngineSchema>
+export const EXPLORE_SEARCH_ENGINES = exploreSearchEngineSchema.options
+
+// What the renderer is told about the Explore view. Carries no cookie data: `signedIn` is a presence
+// flag, never the cookies behind it. The schema is also the outbound filter, so a field added to the
+// host's state cannot reach the renderer until it is listed here.
 export const exploreViewStateSchema = z.object({url: z.string(), title: z.string(), canGoBack: z.boolean(), canGoForward: z.boolean(), loading: z.boolean(), signedIn: z.boolean(), error: exploreViewErrorSchema.nullable(), adBlock: exploreAdBlockStatusSchema})
 export type ExploreViewState = z.infer<typeof exploreViewStateSchema>
 
@@ -692,18 +695,17 @@ const commonSettingsSchema = z.object({
 	cookiesMode: cookiesModeSchema.optional(),
 	cookiesBrowser: cookiesBrowserSchema.optional(),
 	proxyUrl: z.string().optional(),
-	// Absent means enabled.
-	exploreEnabled: z.boolean().optional(),
+	exploreEnabled: z.boolean().optional(), // absent means enabled
 	exploreUserAgent: z.string().max(64).optional(),
 	exploreNoticeSeen: z.boolean().optional(),
 	exploreModeAutoSwitched: z.boolean().optional(),
 	exploreModeNudgeDismissedFor: cookiesModeSchema.optional(),
-	// The last site page the Explore view showed, reopened at its next start.
-	// Main owns it: written by the view host (which checks every URL before
-	// storing and again before reopening it), never by a renderer update.
+	// The last site page the Explore view showed, reopened at its next start. Main owns it: written by the view
+	// host (which checks every URL before storing and again before reopening it), never by a renderer update.
 	exploreLastUrl: z.string().optional(),
-	// The Explore ad blocker; absent means on (see isExploreAdBlockOn), only false turns it off.
+	// The Explore ad blocker; absent means off (see isExploreAdBlockOn), only true turns it on.
 	exploreAdBlock: z.boolean().optional(),
+	exploreSearchEngine: exploreSearchEngineSchema.optional(),
 	// Explore idle unload; absent means off (see isExploreIdleUnloadOn), only true turns it on.
 	exploreIdleUnload: z.boolean().optional(),
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.

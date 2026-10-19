@@ -12,6 +12,8 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 - **Smaller download, FFmpeg installed once.** Arroxy no longer bundles FFmpeg. It downloads it once on first launch and keeps it across updates. If that fails, it uses your own FFmpeg, or **Set it up manually** installs one with Homebrew or WinGet.
 - **Honest about rate limits.** Arroxy says when a site is rate-limiting you and waits before asking again. **Try now** skips the wait.
+- **Explore opens any site.** Type any address or follow any link in Explore, and sign in to other sites there too. A download from those sites uses that sign-in when it needs one.
+- **Explore's ad blocker starts off.** It broke too many sites; turn it on from the shield in Explore's toolbar.
 - **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
 - **A clearer single-video download.** **Continue** on the Format screen leads to Review, which now holds subtitles, SponsorBlock, extras, the folder and the file name. **Download** is still there if you don't need Review.
 - **Update your profile from any download.** When you change something, Format and Review show what differs from your profile, with buttons to update it, save it as a new profile, or undo.
@@ -27,6 +29,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - Converting to MP3, M4A, Opus or WAV uses the audio language you chose.
 - Switching from Audio only back to video picks what your profile would, not the largest stream.
 - Sizes are estimated for sites that don't report them, and each resolution is listed once.
+- Sizes also show for files a site gives no details about, such as Instagram's and Facebook's, and Facebook's HD and SD files are listed separately.
 - A slow format lookup can be cancelled.
 - A site whose stream list is gone no longer triggers a second lookup.
 - Streams without a resolution are listed as "Unknown resolution".

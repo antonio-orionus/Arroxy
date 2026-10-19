@@ -15,7 +15,7 @@ import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './queueAdmission.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import type {JobAuth, QueueChoice} from '@shared/schemas.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')
@@ -23,7 +23,7 @@ const logger = log.scope('queue')
 export interface QueueProbeLifecycleDeps {
 	items: () => readonly QueueItem[]
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
-	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'}) => void
+	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'}) => void
 	abortProbe: (itemId: string) => void
 	// Raw commit seams for the atomic swap: remove + add run back-to-back with
 	// no await between them, so no other command can interleave.
@@ -36,8 +36,8 @@ export class QueueProbeLifecycle {
 
 	// The probe ended without a job: the renderer reports a failure, or a
 	// decision only the user can make. Only a probing row accepts either.
-	probeFailed(itemId: string, error: LocalizedError): Result<void> {
-		return this.resolveProbing(itemId, {kind: 'probe-failed', error})
+	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void> {
+		return this.resolveProbing(itemId, {kind: 'probe-failed', error, ...(auth ? {auth} : {})})
 	}
 
 	needsChoice(itemId: string, choice: QueueChoice, title: string): Result<void> {
@@ -67,7 +67,7 @@ export class QueueProbeLifecycle {
 		return this.deps.items().find(candidate => candidate.id === itemId)
 	}
 
-	private resolveProbing(itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError} | {kind: 'needs-choice'; choice: QueueChoice; title: string}): Result<void> {
+	private resolveProbing(itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string}): Result<void> {
 		const item = this.find(itemId)
 		if (item?.status !== QUEUE_STATUS.probing) return fail(createAppError('validation', `${evt.kind} is a stale signal for item ${itemId}`))
 		this.deps.commitEvent(itemId, evt)

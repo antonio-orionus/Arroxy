@@ -138,6 +138,18 @@ export function ExploreViewport({error, onRetry, onOpenSettings}: ExploreViewpor
 		}
 	}, [sendBounds, visible])
 
+	// An address left for the view ("Sign in in Explore" for another site), taken
+	// once. Declared after the show, so on a first show it is sent right behind
+	// it: main builds a new view before its first wait, and a page navigated to
+	// during that wait stays. Also taken with the view already shown, and over a
+	// load error, which the asked-for page replaces; never under an overlay.
+	const pendingAddress = useAppStore(state => state.explorePendingAddress)
+	useEffect(() => {
+		if (pendingAddress === null || overlayOpen || (!visible && error === null)) return
+		const address = useAppStore.getState().takeExplorePendingAddress()
+		if (address !== null) void loadAddress(address)
+	}, [pendingAddress, visible, overlayOpen, error])
+
 	return (
 		<div ref={placeholderRef} className="relative flex min-h-64 flex-1 flex-col overflow-hidden rounded-lg bg-background/12 ring-1 ring-border-strong" data-testid="explore-viewport">
 			{error ? <ExploreError error={error} onRetry={onRetry} onOpenSettings={onOpenSettings} /> : null}
@@ -151,6 +163,11 @@ export function ExploreViewport({error, onRetry, onOpenSettings}: ExploreViewpor
 			) : null}
 		</div>
 	)
+}
+
+async function loadAddress(url: string): Promise<void> {
+	const result = await window.appApi.explore.navigate({kind: 'address', url})
+	if (!result.ok) console.warn('[explore] pending address not loaded', result.error.code)
 }
 
 interface SnapshotRun {

@@ -78,8 +78,8 @@ export class DownloadService extends EventEmitter {
 		)
 		this.lifecycle = new JobLifecycle(this.recentJobsStore)
 		this.exploreSession = {
-			verifySignedIn: async siteId => {
-				const state = await this.explore.exploreSession.verifySignedIn(siteId)
+			verifySignedIn: async scope => {
+				const state = await this.explore.exploreSession.verifySignedIn(scope)
 				if (state === 'signedOut') this.emit(EXPLORE_VERIFIED_SIGNED_OUT)
 				return state
 			}

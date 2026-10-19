@@ -322,24 +322,24 @@ msgid "New"
 msgstr "جدید"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "ویدیو، فهرست پخش یا کانال را پیدا کنید و از همین‌جا دانلود کنید — بدون کپی کردن پیوند. برای دانلود ویدیوهایی که به حساب نیاز دارند، همین‌جا وارد YouTube شوید."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "ویدیویی را در YouTube یا هر سایت دیگری پیدا کنید و از همین‌جا دانلود کنید — بدون کپی کردن پیوند. برای دانلود ویدیوهایی که به حساب نیاز دارند، همین‌جا وارد یک سایت شوید."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "ادامه"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube ممکن است حساب‌هایی را که با ابزارهای دانلود مانند Arroxy استفاده می‌شوند علامت‌گذاری و گاهی مسدود کند. از حسابی استفاده کنید که از دست دادنش مهم نیست، نه حساب اصلی‌تان."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "سایت‌هایی مانند YouTube ممکن است حساب‌هایی را که با ابزارهای دانلود مانند Arroxy استفاده می‌شوند علامت‌گذاری و گاهی مسدود کنند. از حسابی استفاده کنید که از دست دادنش مهم نیست، نه حساب اصلی‌تان."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "با یک حساب ثانویه وارد شوید"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "YouTube را مستقیم داخل Arroxy مرور کنید"
+msgid "Browse the web right inside Arroxy"
+msgstr "وب را مستقیم داخل Arroxy مرور کنید"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "استفاده از ورود «کاوش»"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "YouTube را داخل Arroxy مرور کنید و برای ویدیوهایی که به حساب نیاز دارند وارد شوید."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "YouTube یا هر سایت دیگری را داخل Arroxy مرور کنید و برای ویدیوهایی که به حساب نیاز دارند وارد شوید."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -372,6 +372,14 @@ msgstr "آزادسازی حافظه هنگام دوری"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "پس از ۵ دقیقه در برگه‌ای دیگر، صفحهٔ اصلی یا صفحهٔ جستجوی YouTube را می‌بندد. با بازگشت، دوباره بارگیری می‌شود که چند ثانیه طول می‌کشد."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "موتور جستجو"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "متنی که در نوار نشانی تایپ می‌شود در این موتور جستجو می‌شود. پیوندها همان‌طور که تایپ شده‌اند باز می‌شوند."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -390,16 +398,16 @@ msgid "Sign out"
 msgstr "خروج"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "با این کار ورود شما به YouTube و داده‌های مرور در «کاوش» پاک می‌شود. دانلودهایی که به حساب نیاز دارند تا ورود دوباره ناموفق خواهند بود."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "با این کار ورودهای شما و داده‌های مرور در «کاوش»، در همهٔ سایت‌ها پاک می‌شود. دانلودهایی که به حساب نیاز دارند تا ورود دوباره ناموفق خواهند بود."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "از «کاوش» خارج می‌شوید؟"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "ورود شما به YouTube و داده‌های مرور را در «کاوش» پاک می‌کند."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "ورودهای شما و داده‌های مرور را در «کاوش»، در همهٔ سایت‌ها پاک می‌کند."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "نشانی"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "در YouTube جست‌وجو کنید یا پیوند YouTube را بچسبانید"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "جستجو در {{engine}} یا باز کردن هر سایت (Vimeo، Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +485,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "دانلود تعاملی: انتخاب قالب، زیرنویس و موارد دیگر…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "دانلود این پیوند"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "«کاوش» فقط YouTube را مرور می‌کند."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "«کاوش» فقط YouTube را مرور می‌کند. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "«کاوش» نمی‌تواند این نشانی را باز کند."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2373,6 +2373,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "ممکن است این ویدیو به حساب YouTube نیاز داشته باشد"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy قبلاً با ورود از طریق «کاوش» آن را امتحان کرده است، پس ورود دوباره کمکی نمی‌کند. ممکن است سایت مشکل داشته باشد یا این حساب نتواند آن را باز کند. بعداً دوباره تلاش کنید."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "سایت حتی با ورود شما در «کاوش» این را رد کرد"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "شما در «کاوش» وارد شده‌اید، اما دانلودها فعلاً از این ورود استفاده نمی‌کنند."
@@ -2404,6 +2412,18 @@ msgstr "ورود در «کاوش»"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "این ویدیو ممکن است به حساب YouTube نیاز داشته باشد"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "ممکن است این پیوند به حساب {{host}} نیاز داشته باشد"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "با «کاوش» وارد {{host}} شوید و دوباره تلاش کنید."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "در «کاوش» وارد {{host}} شوید و دوباره تلاش کنید. Arroxy فقط وقتی دانلود لازم داشته باشد از این ورود استفاده می‌کند."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

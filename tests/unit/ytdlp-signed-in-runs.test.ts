@@ -65,7 +65,8 @@ afterEach(() => processKill.mockReset())
 
 function makeYtDlp(gate: ExploreSpawnGate, opts: {common?: () => Record<string, unknown>; signedIn?: () => boolean} = {}) {
 	const jars: SessionCookieJarPort = {
-		async withJar(_siteId, fn) {
+		getUserAgent: () => 'Desktop/1.0',
+		async withJar(_scope, fn) {
 			events.push('jar-written')
 			try {
 				return await fn('/tmp/explore-jars/j.txt')

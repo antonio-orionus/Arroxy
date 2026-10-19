@@ -317,24 +317,24 @@ msgid "New"
 msgstr "ใหม่"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "ค้นหาวิดีโอ เพลย์ลิสต์ หรือช่อง แล้วดาวน์โหลดจากที่นี่ได้เลย ไม่ต้องคัดลอกลิงก์ ลงชื่อเข้าใช้ YouTube ที่นี่เพื่อดาวน์โหลดวิดีโอที่ต้องใช้บัญชี"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "ค้นหาวิดีโอบน YouTube หรือเว็บไซต์อื่น ๆ แล้วดาวน์โหลดจากที่นี่ได้เลย ไม่ต้องคัดลอกลิงก์ ลงชื่อเข้าใช้เว็บไซต์ที่นี่เพื่อดาวน์โหลดวิดีโอที่ต้องใช้บัญชี"
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "ดำเนินการต่อ"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube อาจติดธง — และบางครั้งแบน — บัญชีที่ใช้กับเครื่องมือดาวน์โหลดอย่าง Arroxy ควรใช้บัญชีที่คุณยอมเสียได้ ไม่ใช่บัญชีหลักของคุณ"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "เว็บไซต์อย่าง YouTube อาจติดธง — และบางครั้งแบน — บัญชีที่ใช้กับเครื่องมือดาวน์โหลดอย่าง Arroxy ควรใช้บัญชีที่คุณยอมเสียได้ ไม่ใช่บัญชีหลักของคุณ"
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "ลงชื่อเข้าใช้ด้วยบัญชีสำรอง"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "เรียกดู YouTube ได้ในตัว Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "เรียกดูเว็บได้ในตัว Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -357,8 +357,8 @@ msgid "Use Explore sign-in"
 msgstr "ใช้การลงชื่อเข้าใช้ใน “สำรวจ”"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "เรียกดู YouTube ใน Arroxy และลงชื่อเข้าใช้สำหรับวิดีโอที่ต้องใช้บัญชี"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "เรียกดู YouTube หรือเว็บไซต์อื่น ๆ ใน Arroxy และลงชื่อเข้าใช้สำหรับวิดีโอที่ต้องใช้บัญชี"
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -367,6 +367,14 @@ msgstr "คืนหน่วยความจำเมื่อไม่ได
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "หลังจากอยู่ในแท็บอื่น 5 นาที จะปิดหน้าแรกหรือหน้าค้นหาของ YouTube เมื่อกลับมาจะโหลดใหม่ ซึ่งใช้เวลาไม่กี่วินาที"
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "เครื่องมือค้นหา"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "ข้อความที่พิมพ์ในแถบที่อยู่จะถูกค้นหาด้วยเครื่องมือนี้ ส่วนลิงก์จะเปิดตามที่พิมพ์"
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -385,16 +393,16 @@ msgid "Sign out"
 msgstr "ออกจากระบบ"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "การดำเนินการนี้จะล้างการลงชื่อเข้าใช้ YouTube และข้อมูลการเรียกดูใน “สำรวจ” การดาวน์โหลดที่ต้องใช้บัญชีจะล้มเหลวจนกว่าคุณจะลงชื่อเข้าใช้อีกครั้ง"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "การดำเนินการนี้จะล้างการลงชื่อเข้าใช้และข้อมูลการเรียกดูใน “สำรวจ” ในทุกเว็บไซต์ การดาวน์โหลดที่ต้องใช้บัญชีจะล้มเหลวจนกว่าคุณจะลงชื่อเข้าใช้อีกครั้ง"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "ออกจากระบบ “สำรวจ” ไหม"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "ล้างการลงชื่อเข้าใช้ YouTube และข้อมูลการเรียกดูใน “สำรวจ”"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "ล้างการลงชื่อเข้าใช้และข้อมูลการเรียกดูใน “สำรวจ” ในทุกเว็บไซต์"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "ที่อยู่"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "ค้นหาใน YouTube หรือวางลิงก์ YouTube"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "ค้นหาใน {{engine}} หรือเปิดเว็บไซต์ใดก็ได้ (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +480,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "ดาวน์โหลดแบบโต้ตอบ: เลือกรูปแบบ คำบรรยาย และอื่น ๆ…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "ดาวน์โหลดลิงก์นี้"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "“สำรวจ” เรียกดูได้เฉพาะ YouTube"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "“สำรวจ” เรียกดูได้เฉพาะ YouTube {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "“สำรวจ” เปิดที่อยู่นั้นไม่ได้"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2283,6 +2283,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "วิดีโอนี้อาจต้องใช้บัญชี YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy ลองใช้การลงชื่อเข้าใช้ใน “สำรวจ” แล้ว การลงชื่อเข้าใช้อีกครั้งจึงไม่ช่วย ไซต์อาจมีปัญหา หรือบัญชีนี้อาจเปิดไม่ได้ ลองใหม่ภายหลัง"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "ไซต์ปฏิเสธคำขอนี้ แม้จะลงชื่อเข้าใช้ใน “สำรวจ” แล้ว"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "คุณเข้าสู่ระบบ “สำรวจ” อยู่ แต่ตอนนี้การดาวน์โหลดยังไม่ได้ใช้การเข้าสู่ระบบนั้น"
@@ -2314,6 +2322,18 @@ msgstr "ลงชื่อเข้าใช้ใน “สำรวจ”"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "วิดีโอนี้อาจต้องใช้บัญชี YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "ลิงก์นี้อาจต้องใช้บัญชีบน {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "เข้าสู่ระบบ {{host}} ด้วย “สำรวจ” แล้วลองอีกครั้ง"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "ลงชื่อเข้าใช้ {{host}} ใน “สำรวจ” แล้วลองอีกครั้ง Arroxy จะใช้การลงชื่อเข้าใช้นั้นเฉพาะเมื่อการดาวน์โหลดต้องใช้"
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

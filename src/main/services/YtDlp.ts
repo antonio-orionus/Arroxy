@@ -12,7 +12,7 @@ import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
 import {parseProxySetting, proxyForLog, proxyRouteKey} from '@main/utils/proxyUrl.js'
 import {requestSiteFor, siteForUrl} from '@shared/sites/index.js'
-import type {SiteId} from '@shared/sites/types.js'
+import {exploreCookieScopeFor, type ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
@@ -200,9 +200,12 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 		const spawned: {result?: YtDlpResult; failure?: {error: unknown}} = {}
 		try {
 			// One jar per spawn: the port deletes it as soon as this spawn settles.
-			return await jars.withJar(cookies.siteId, async jarPath => {
+			// YouTube runs keep yt-dlp's own client headers; another site sees the
+			// jar under the user agent its cookies were earned with.
+			const userAgentArgs = cookies.scope.kind === 'web' ? ['--add-headers', `User-Agent:${jars.getUserAgent()}`] : []
+			return await jars.withJar(cookies.scope, async jarPath => {
 				try {
-					spawned.result = await spawnCollect(opts, strategy, ['--cookies', jarPath])
+					spawned.result = await spawnCollect(opts, strategy, ['--cookies', jarPath, ...userAgentArgs])
 					return spawned.result
 				} catch (error) {
 					spawned.failure = {error}
@@ -492,7 +495,7 @@ export type SettingsSource = Pick<SettingsStore, 'get'>
 // switch, a signed-in partition), read live. Structural so this module does not
 // import the gate, which imports it.
 export interface SessionAuthorization {
-	canEscalate(siteId: SiteId): Promise<boolean>
+	canEscalate(scope: ExploreCookieScope): Promise<boolean>
 }
 
 export class YtDlp {
@@ -554,7 +557,7 @@ export class YtDlp {
 	}
 
 	async usesCookies(): Promise<boolean> {
-		return resolveCookies(await this.settingsStore.get(), 'anonymous', 'youtube') !== null
+		return resolveCookies(await this.settingsStore.get(), 'anonymous', null) !== null
 	}
 
 	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
@@ -592,8 +595,8 @@ export class YtDlp {
 		this._lastInvocations = []
 		const settings = await this.settingsStore.get()
 		const identity = options.identity ?? 'configured'
-		const siteId = siteForUrl(req.url).id
-		const cookies = identity === 'none' ? null : resolveCookies(settings, identity === 'exploreSession' ? 'exploreSession' : 'anonymous', siteId)
+		const scope = exploreCookieScopeFor(req.url)
+		const cookies = identity === 'none' ? null : resolveCookies(settings, identity === 'exploreSession' ? 'exploreSession' : 'anonymous', scope)
 		// An escalated job must never fall back to running anonymously, nor run unpaced.
 		if (identity === 'exploreSession' && (cookies?.kind !== 'session' || !this.opts.sessionJars || !this.opts.spawnGate || !this.opts.sessionAuth)) {
 			ytDlpLog.warn('escalated run refused: Explore session unavailable', {resolved: cookies?.kind ?? null, hasJarPort: this.opts.sessionJars !== undefined, hasSpawnGate: this.opts.spawnGate !== undefined, hasSessionAuth: this.opts.sessionAuth !== undefined})
@@ -652,7 +655,7 @@ export class YtDlp {
 		const spawnGate = this.opts.spawnGate
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = rateLimitOverBotWall(identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke())
+		const result = rateLimitOverBotWall(identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(cookies?.kind === 'session' ? cookies.scope : null, invoke)) : await invoke())
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
@@ -675,10 +678,10 @@ export class YtDlp {
 	// A signed-in run can wait minutes for a slot. The user may have left explore
 	// mode, flipped the kill switch or signed out meanwhile, so the decision is
 	// taken again right before the jar is written.
-	private async invokeIfStillAuthorized(siteId: SiteId, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
-		const authorized = await this.opts.sessionAuth?.canEscalate(siteId).catch(() => false)
+	private async invokeIfStillAuthorized(scope: ExploreCookieScope | null, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
+		const authorized = scope !== null && (await this.opts.sessionAuth?.canEscalate(scope).catch(() => false))
 		if (authorized === true) return invoke()
-		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {siteId})
+		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {scope: scope?.kind ?? null})
 		return exploreSessionUnavailable()
 	}
 

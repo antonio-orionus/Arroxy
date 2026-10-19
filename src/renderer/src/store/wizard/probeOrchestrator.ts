@@ -659,12 +659,14 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 
 		cancelWizardProbe: () => abandonProbe(set, get),
 
-		openExploreSignIn: () => {
+		openExploreSignIn: site => {
 			// Like openCookiesSettings: the abandoned probe is cancelled and the
-			// wizard returns to the url step, where the tab bar lives.
+			// wizard returns to the url step, where the tab bar lives. YouTube's
+			// sign-in is Explore's own, so it opens wherever it was; another
+			// site's link opens in it once the view is shown.
 			void window.appApi.downloads.probeCancel()
 			replaceHash('explore')
-			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: null})
+			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, cookiesConfigDialogIssue: null, explorePendingAddress: site.kind === 'web' ? site.address : null})
 		}
 	}
 }

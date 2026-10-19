@@ -1,6 +1,6 @@
 import {compileFilenameTemplate, DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import type {SiteId} from '@shared/sites/types.js'
+import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import type {LocalizedError} from '@shared/types.js'
 import type {YtDlpSignal} from '../YtDlp.js'
 import {forgetOnExit} from '../download/processControl.js'
@@ -11,10 +11,11 @@ import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 // the kill switch stop it instead of letting it run anonymously. A sign-out
 // the site itself confirmed earlier in the job stops it too, whatever cookies
 // the partition still holds. Anonymous jobs pass without a lookup.
-export async function canSpawnSignedIn(ctx: PhaseContext, siteId: SiteId): Promise<boolean> {
+export async function canSpawnSignedIn(ctx: PhaseContext): Promise<boolean> {
 	if (ctx.active.input.auth !== 'exploreSession') return true
 	if ((await ctx.active.exploreSessionCheck) === 'signedOut') return false
-	return ctx.exploreGate.canEscalate(siteId)
+	const scope = exploreCookieScopeFor(ctx.active.input.url)
+	return scope !== null && ctx.exploreGate.canEscalate(scope)
 }
 
 // The outcome of a pause or cancel that landed on the job, else null. Pause wins
@@ -32,8 +33,8 @@ export function exploreSignedOut(ctx: PhaseContext): PhaseOutcome {
 }
 
 // Single-spawn phases: the failed outcome when the spawn may not run, else null.
-export async function guardSignedInSpawn(ctx: PhaseContext, siteId: SiteId): Promise<PhaseOutcome | null> {
-	return (await canSpawnSignedIn(ctx, siteId)) ? null : exploreSignedOut(ctx)
+export async function guardSignedInSpawn(ctx: PhaseContext): Promise<PhaseOutcome | null> {
+	return (await canSpawnSignedIn(ctx)) ? null : exploreSignedOut(ctx)
 }
 
 // Shared yt-dlp signal handlers used by every phase that spawns yt-dlp:

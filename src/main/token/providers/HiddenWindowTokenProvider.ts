@@ -3,6 +3,7 @@ import {app, BrowserWindow, session} from 'electron'
 import log from 'electron-log/main.js'
 import type {TokenProvider} from '@main/token/TokenProvider.js'
 import {blandUserAgent} from '@main/utils/blandUserAgent.js'
+import {electronDefaultUserAgent} from '@main/utils/rendererUserAgent.js'
 import {parseProxySetting, proxyForLog, type ProxySetting} from '@main/utils/proxyUrl.js'
 
 const logger = log.scope('token')
@@ -50,7 +51,7 @@ export class HiddenWindowTokenProvider implements TokenProvider {
 		this.hiddenWindow = new BrowserWindow({show: false, width: 1280, height: 720, webPreferences: {nodeIntegration: false, contextIsolation: true, session: session.fromPartition(PARTITION)}})
 		// Set on the webContents, not per load, so the document, its
 		// subresource requests and navigator.userAgent all agree.
-		this.hiddenWindow.webContents.setUserAgent(blandUserAgent(app.userAgentFallback, app.getName()))
+		this.hiddenWindow.webContents.setUserAgent(blandUserAgent(electronDefaultUserAgent(), app.getName()))
 
 		// Chromium's proxy rules cannot carry credentials, so an authenticated proxy
 		// challenges the page instead. Only proxy challenges are answered — a site

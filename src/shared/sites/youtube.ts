@@ -68,12 +68,6 @@ function youtubeIsSignedIn(cookies: readonly ExploreCookie[]): boolean {
 	return names.has('LOGIN_INFO') && YOUTUBE_AUTH_PAIR.some(name => names.has(name))
 }
 
-function youtubeSearchUrl(query: string): string {
-	const url = new URL('https://www.youtube.com/results')
-	url.searchParams.set('search_query', query)
-	return url.href
-}
-
 // youtu.be/<id> is the watch page; its start time and list come along, its
 // share-tracking `si` does not.
 const SHORT_LINK_KEPT_PARAMS = ['t', 'list'] as const
@@ -102,14 +96,10 @@ export const youtubeSite: Site = {
 	explore: {
 		homeUrl: 'https://www.youtube.com/',
 		cookieDomains: ['youtube.com'],
-		navigationHosts: [
+		accountCookieHosts: [
 			{kind: 'suffix', domain: 'youtube.com'},
-			{kind: 'exact', host: 'youtu.be'},
-			{kind: 'exact', host: 'accounts.google.com'},
-			{kind: 'exact', host: 'accounts.youtube.com'},
-			{kind: 'pattern', pattern: 'google-accounts-cctld'},
-			{kind: 'exact', host: 'consent.youtube.com'},
-			{kind: 'exact', host: 'consent.google.com'}
+			{kind: 'suffix', domain: 'google.com'},
+			{kind: 'pattern', pattern: 'google-cctld'}
 		],
 		contentHosts: [
 			{kind: 'suffix', domain: 'youtube.com'},
@@ -127,7 +117,6 @@ export const youtubeSite: Site = {
 			{kind: 'exact', host: 'myaccount.google.com'}
 		],
 		isSignedIn: youtubeIsSignedIn,
-		searchUrl: youtubeSearchUrl,
 		// Home and search results: a search box whose query is in the URL. Watch
 		// pages (comments, the player), channels and posts stay.
 		idleUnloadPaths: ['/', '/results'],
