@@ -31,6 +31,15 @@ updates:
           - minor
           - patch
       # Major bumps stay ungrouped so each is reviewed individually.
+    # Toolchain pinned to what vite-plus bundles: the tooling contract fails
+    # when these drift from it, so they move only together with vite-plus.
+    ignore:
+      - dependency-name: vite-plus
+      - dependency-name: vite
+      - dependency-name: vitest
+      - dependency-name: oxlint
+      - dependency-name: oxlint-tsgolint
+      - dependency-name: "@oxlint/plugins"
     open-pull-requests-limit: 10
 
   # GitHub Actions
