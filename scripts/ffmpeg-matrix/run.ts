@@ -62,7 +62,10 @@ function runProcess(binary: string, argv: readonly string[], env: NodeJS.Process
 }
 
 function logTail(stderr: string): string | undefined {
-	const lines = stderr.trimEnd().split(/\r?\n/).filter(line => line.trim() !== '')
+	const lines = stderr
+		.trimEnd()
+		.split(/\r?\n/)
+		.filter(line => line.trim() !== '')
 	return lines.length > 0 ? lines.slice(-LOG_LINES).join('\n') : undefined
 }
 
@@ -115,7 +118,10 @@ function flag(args: readonly string[], name: string): string | undefined {
 
 async function versionLine(tools: Tools): Promise<string> {
 	const ran = await runProcess(tools.ffmpeg, ['-hide_banner', '-version'], tools.env)
-	const line = ran.stdout.split(/\r?\n/)[0]?.replace(/\s+Copyright.*$/, '').trim()
+	const line = ran.stdout
+		.split(/\r?\n/)[0]
+		?.replace(/\s+Copyright.*$/, '')
+		.trim()
 	return line || `${tools.ffmpeg} (no version: ${describeFailure(classifyProcessEnd(ran) ?? {kind: 'exit', code: 0})})`
 }
 

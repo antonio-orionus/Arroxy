@@ -4,8 +4,10 @@ name: FFmpeg Remux Matrix
 # change to it merges. A merged pin reaches every user within a day through the
 # daily manifest, and nobody upstream tests this: yt-dlp names no FFmpeg
 # version and none of its CI runs ffmpeg. A martin-riedl nightly (N-125070)
-# once segfaulted on every VP9 + audio merge into MP4, including YouTube's HLS
-# VP9 (itag 616) + AAC, while video-only, audio-only and MKV output worked.
+# once segfaulted on every MP4 output with two or more streams whose first
+# stream has a 1/1000 time base: WebM video, and YouTube's HLS VP9 (itag 616),
+# merged with any audio. Single streams and MKV output worked. The
+# known-bad-control job keeps the matrix able to catch that build.
 #
 # Each job runs scripts/ffmpeg-matrix on one platform, twice:
 # - the pinned FFmpeg package, downloaded from its release and installed with
@@ -126,3 +128,59 @@ jobs:
           path: ${{ runner.temp }}/remux-matrix-*
           if-no-files-found: ignore
           retention-days: 14
+
+  # The matrix must keep failing the build that broke downloads, or a change to
+  # the fixtures or cases has made it blind to that crash. N-125070 is
+  # martin-riedl's macOS arm64 master build; checksum-pinned, ffmpeg only, so
+  # the outputs are probed with the pinned package's ffprobe.
+  known-bad-control:
+    name: known-bad control (darwin-arm64 N-125070)
+    runs-on: macos-latest
+    timeout-minutes: 20
+    env:
+      BAD_URL: https://ffmpeg.martin-riedl.de/download/macos/arm64/1781693612_N-125070-gd69e8d0a95/ffmpeg.zip
+      BAD_SHA256: 901de66570758a415e768bbbf23e535ab0524892061cc6b70505196df24a8d9d
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - run: bun install --frozen-lockfile
+
+      - name: Fetch the known-bad ffmpeg and the pinned ffprobe
+        id: tools
+        run: |
+          bad="$RUNNER_TEMP/known-bad"
+          mkdir -p "$bad"
+          curl -fsSL --retry 3 -o "$bad/ffmpeg.zip" "$BAD_URL"
+          echo "$BAD_SHA256  $bad/ffmpeg.zip" | shasum -a 256 -c -
+          unzip -q "$bad/ffmpeg.zip" -d "$bad"
+          chmod +x "$bad/ffmpeg"
+          root="$(bun scripts/build/ffmpegPackage.ts install --platform darwin --arch arm64 --cache-root "$RUNNER_TEMP/ffmpeg-packages" | tail -n 1)"
+          echo "ffmpeg=$bad/ffmpeg" >> "$GITHUB_OUTPUT"
+          echo "ffprobe=$root/ffprobe" >> "$GITHUB_OUTPUT"
+
+      - name: Remux matrix must fail on the known-bad build
+        env:
+          FFMPEG: ${{ steps.tools.outputs.ffmpeg }}
+          FFPROBE: ${{ steps.tools.outputs.ffprobe }}
+        run: |
+          set +e
+          bun scripts/ffmpeg-matrix/run.ts --ffmpeg "$FFMPEG" --ffprobe "$FFPROBE" \
+            --title "known-bad control" --json "$RUNNER_TEMP/known-bad.json"
+          status=$?
+          set -e
+          if [[ $status -ne 1 ]]; then
+            echo "::error::the remux matrix exited $status on the known-bad build; it must fail (exit 1)"
+            exit 1
+          fi
+          for id in merge/vp9-hls+aac.mp4 merge/vp9-dash+aac.mp4; do
+            detail="$(jq -r --arg id "$id" '.results[] | select(.id == $id and .status == "fail" and .stage == "ffmpeg") | .detail' "$RUNNER_TEMP/known-bad.json")"
+            if [[ "$detail" != "signal SIGSEGV" ]]; then
+              echo "::error::$id did not crash the known-bad build (got: ${detail:-no ffmpeg failure})"
+              exit 1
+            fi
+          done
+          echo "The matrix still catches the N-125070 crash."

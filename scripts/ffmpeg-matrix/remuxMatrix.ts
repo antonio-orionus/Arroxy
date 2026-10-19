@@ -18,17 +18,7 @@ import {buildCoverExtractArgs, buildSubtitleEmbedArgs} from '../../src/main/serv
 
 export const FIXTURE_DURATION_SECONDS = 2
 
-export const FIXTURE_FILES = {
-	h264Dash: 'h264-dash.mp4',
-	vp9Dash: 'vp9-dash.webm',
-	vp9Hls: 'vp9-hls.mp4',
-	av1Dash: 'av1-dash.mp4',
-	aacDash: 'aac-dash.m4a',
-	opusDash: 'opus-dash.webm',
-	thumbnailWebp: 'thumbnail.webp',
-	subtitleVtt: 'subtitles.en.vtt',
-	subtitleSrt: 'subtitles.en.srt'
-} as const
+export const FIXTURE_FILES = {h264Dash: 'h264-dash.mp4', vp9Dash: 'vp9-dash.webm', vp9Hls: 'vp9-hls.mp4', av1Dash: 'av1-dash.mp4', aacDash: 'aac-dash.m4a', opusDash: 'opus-dash.webm', thumbnailWebp: 'thumbnail.webp', subtitleVtt: 'subtitles.en.vtt', subtitleSrt: 'subtitles.en.srt'} as const
 
 export const HLS_PLAYLIST = 'vp9-hls/index.m3u8'
 
@@ -64,11 +54,7 @@ export const AUDIO_INPUTS: readonly AudioInput[] = [
 
 const CONTAINERS: readonly Container[] = ['mp4', 'mkv', 'webm']
 
-const CONTAINER_CODECS: Record<Container, {video: readonly VideoCodec[]; audio: readonly AudioCodec[]}> = {
-	mp4: {video: ['h264', 'vp9', 'av1'], audio: ['aac', 'opus']},
-	mkv: {video: ['h264', 'vp9', 'av1'], audio: ['aac', 'opus']},
-	webm: {video: ['vp9', 'av1'], audio: ['opus']}
-}
+const CONTAINER_CODECS: Record<Container, {video: readonly VideoCodec[]; audio: readonly AudioCodec[]}> = {mp4: {video: ['h264', 'vp9', 'av1'], audio: ['aac', 'opus']}, mkv: {video: ['h264', 'vp9', 'av1'], audio: ['aac', 'opus']}, webm: {video: ['vp9', 'av1'], audio: ['opus']}}
 
 export function containerHolds(container: Container, video: VideoCodec, audio: AudioCodec): boolean {
 	return CONTAINER_CODECS[container].video.includes(video) && CONTAINER_CODECS[container].audio.includes(audio)
@@ -288,11 +274,7 @@ export function planInvocation(matrixCase: MatrixCase, layout: Layout): Invocati
 		case 'remove-chapters': {
 			const merged = neededOutput(matrixCase, 'merge', layout)
 			const spec = `${output}.concat`
-			return {
-				output,
-				files: [{path: spec, content: removeSegmentConcatSpec(merged, REMOVED_SEGMENT, FIXTURE_DURATION_SECONDS)}],
-				argv: postProcessorArgv([{path: spec, opts: ['-hide_banner', '-nostdin', '-f', 'concat', '-safe', '0']}], {path: output, opts: streamCopyOpts(true, container)})
-			}
+			return {output, files: [{path: spec, content: removeSegmentConcatSpec(merged, REMOVED_SEGMENT, FIXTURE_DURATION_SECONDS)}], argv: postProcessorArgv([{path: spec, opts: ['-hide_banner', '-nostdin', '-f', 'concat', '-safe', '0']}], {path: output, opts: streamCopyOpts(true, container)})}
 		}
 		case 'metadata': {
 			const merged = neededOutput(matrixCase, 'merge', layout)
@@ -328,11 +310,7 @@ export function planInvocation(matrixCase: MatrixCase, layout: Layout): Invocati
 		case 'app-cover-extract':
 			return {output, files: [], argv: buildCoverExtractArgs(neededOutput(matrixCase, 'thumbnail', layout), output)}
 		case 'app-subtitles-cover':
-			return {
-				output,
-				files: [],
-				argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'thumbnail', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en'}], coverPath: neededOutput(matrixCase, 'app-cover-extract', layout), outputPath: output})
-			}
+			return {output, files: [], argv: buildSubtitleEmbedArgs({videoPath: neededOutput(matrixCase, 'thumbnail', layout), subtitleTracks: [{path: fixture(FIXTURE_FILES.subtitleSrt), lang: 'en'}], coverPath: neededOutput(matrixCase, 'app-cover-extract', layout), outputPath: output})}
 	}
 }
 

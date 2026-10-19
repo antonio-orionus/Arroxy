@@ -54,14 +54,7 @@ export function describeFailure(failure: ProcessFailure): string {
 const tagsSchema = z.record(z.string(), z.string()).optional()
 
 const probeSchema = z.object({
-	streams: z.array(
-		z.object({
-			codec_type: z.string().optional(),
-			codec_name: z.string().optional(),
-			disposition: z.object({attached_pic: z.number().optional()}).optional(),
-			tags: tagsSchema
-		})
-	),
+	streams: z.array(z.object({codec_type: z.string().optional(), codec_name: z.string().optional(), disposition: z.object({attached_pic: z.number().optional()}).optional(), tags: tagsSchema})),
 	format: z.object({duration: z.string().optional(), tags: tagsSchema}),
 	chapters: z.array(z.unknown()).optional()
 })
@@ -112,10 +105,7 @@ export function verifyProbe(expectation: Expectation, probeJson: string): string
 	return problems
 }
 
-export type CaseResult =
-	| {id: string; status: 'pass'}
-	| {id: string; status: 'fail'; stage: 'ffmpeg' | 'ffprobe' | 'output' | 'decode'; detail: string; log?: string}
-	| {id: string; status: 'blocked'; by: string}
+export type CaseResult = {id: string; status: 'pass'} | {id: string; status: 'fail'; stage: 'ffmpeg' | 'ffprobe' | 'output' | 'decode'; detail: string; log?: string} | {id: string; status: 'blocked'; by: string}
 
 export function resultLabel(result: CaseResult): string {
 	switch (result.status) {

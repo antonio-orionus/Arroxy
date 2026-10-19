@@ -244,6 +244,10 @@ _Avoid_: downloaded binary, fetched binary
 The one approved download that holds the media tools and every library they need, installed once per machine and kept across app updates until a different package is approved.
 _Avoid_: FFmpeg bundle, FFmpeg zip, embedded FFmpeg
 
+**Remux matrix**:
+The check an FFmpeg build must pass before it is approved: every media tools command a download can run (merging, cutting a time range, embedding metadata, chapters, a thumbnail or subtitles), tried on small stand-ins for each kind of stream the video platform serves, in each file type that can hold them.
+_Avoid_: ffmpeg test suite, codec matrix, smoke test
+
 **Diagnostics file**:
 The single file a user saves from Settings to attach to a bug report: a snapshot of the session context followed by the current and previous log, with user folder names and URL secrets removed.
 _Avoid_: log bundle, crash report, support dump

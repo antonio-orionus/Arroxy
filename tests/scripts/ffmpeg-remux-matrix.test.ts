@@ -1,6 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
+import {FFMPEG_PACKAGE_PINS} from '../../src/main/services/binary/FfmpegPackagePins.js'
+import {ciTargets} from '../../scripts/ffmpeg-matrix/ci-targets.js'
 import {DEFAULT_FIXTURE_DIR, dropBoxes, hlsFragmentOrder} from '../../scripts/ffmpeg-matrix/generate-fixtures.js'
 import {classifyProcessEnd, describeFailure, formatReport, verifyProbe, type CaseResult} from '../../scripts/ffmpeg-matrix/outcome.js'
 import {buildCases, chapterMetadataFile, containerHolds, expectationFor, FIXTURE_FILES, HLS_PLAYLIST, planInvocation, pythonFloat, quoteForFfmpeg, removeSegmentConcatSpec, type MatrixCase} from '../../scripts/ffmpeg-matrix/remuxMatrix.js'
@@ -287,3 +289,14 @@ describe('fixture generator helpers', () => {
 	})
 })
 
+describe('remux matrix CI targets', () => {
+	it('gives every pinned FFmpeg package a hosted runner of its platform', () => {
+		const targets = ciTargets(FFMPEG_PACKAGE_PINS)
+		expect(targets.map(target => target.target)).toEqual(FFMPEG_PACKAGE_PINS.map(pin => `${pin.platform}-${pin.arch}`))
+		expect(targets.find(target => target.target === 'linux-arm64')?.runner).toBe('ubuntu-24.04-arm')
+	})
+
+	it('fails for a pin with no runner instead of skipping it', () => {
+		expect(() => ciTargets([{platform: 'linux', arch: 'riscv64' as 'x64', version: '1'}])).toThrow(/no GitHub-hosted runner configured for the linux-riscv64/)
+	})
+})
