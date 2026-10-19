@@ -2,9 +2,8 @@ import {createHash} from 'node:crypto'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-import {Transform} from 'node:stream'
+import type {Readable} from 'node:stream'
 import {pipeline} from 'node:stream/promises'
-import {createInflateRaw} from 'node:zlib'
 import * as yauzl from 'yauzl'
 import {normalizeRuntimeExecutablePath, runtimeBinaryCacheKey} from '@shared/runtimeBinaryManifest.js'
 import type {RuntimeBinaryManifestEntry} from '@shared/types.js'
@@ -40,10 +39,6 @@ export interface RuntimeBinaryInstallMetadata {
 
 const MAX_ZIP_ENTRIES = 4096
 const MAX_EXTRACTED_BYTES = 512 * 1024 * 1024
-const ZIP_LOCAL_FILE_HEADER_SIGNATURE = 0x04034b50
-const ZIP_LOCAL_FILE_HEADER_SIZE = 30
-const ZIP_COMPRESSION_STORED = 0
-const ZIP_COMPRESSION_DEFLATED = 8
 const ZIP_UNIX_MODE_MASK = 0o170000
 const ZIP_UNIX_SYMLINK = 0o120000
 const ZIP_UNIX_REGULAR = 0o100000
@@ -91,52 +86,19 @@ async function assertRegularExecutable(executablePath: string): Promise<void> {
 	if (!stat.isFile()) throw new ArtifactMaterializeError('EXECUTABLE_MISSING', `Materialized executable is not a regular file: ${executablePath}`)
 }
 
-function countBytes(onBytes: (bytes: number) => void): Transform {
-	return new Transform({
-		transform(chunk: Buffer, _encoding, callback) {
-			onBytes(chunk.length)
-			callback(null, chunk)
-		}
+function openZipEntryStream(zipFile: yauzl.ZipFile, entry: yauzl.Entry): Promise<Readable> {
+	return new Promise((resolve, reject) => {
+		zipFile.openReadStream(entry, (err, stream) => {
+			if (err) reject(err)
+			else resolve(stream)
+		})
 	})
 }
 
-async function zipEntryDataStart(archivePath: string, entry: yauzl.Entry): Promise<number> {
-	const handle = await fsPromises.open(archivePath, 'r')
-	try {
-		const header = Buffer.alloc(ZIP_LOCAL_FILE_HEADER_SIZE)
-		await handle.read(header, 0, header.length, entry.relativeOffsetOfLocalHeader)
-		if (header.readUInt32LE(0) !== ZIP_LOCAL_FILE_HEADER_SIGNATURE) {
-			throw new ArtifactMaterializeError('EXTRACTION', `Invalid ZIP local header for ${entry.fileName}`)
-		}
-		return entry.relativeOffsetOfLocalHeader + ZIP_LOCAL_FILE_HEADER_SIZE + header.readUInt16LE(26) + header.readUInt16LE(28)
-	} finally {
-		await handle.close()
-	}
-}
-
-async function extractZipEntryToFile(archivePath: string, entry: yauzl.Entry, destination: string): Promise<number> {
-	const dataStart = await zipEntryDataStart(archivePath, entry)
-	const compressedStream = fs.createReadStream(archivePath, {start: dataStart, end: dataStart + entry.compressedSize - 1})
-	let bytes = 0
-	const counter = countBytes(chunkBytes => {
-		bytes += chunkBytes
-	})
-
-	switch (entry.compressionMethod) {
-		case ZIP_COMPRESSION_STORED:
-			await pipeline(compressedStream, counter, fs.createWriteStream(destination, {mode: 0o755}))
-			break
-		case ZIP_COMPRESSION_DEFLATED:
-			await pipeline(compressedStream, createInflateRaw(), counter, fs.createWriteStream(destination, {mode: 0o755}))
-			break
-		default:
-			throw new ArtifactMaterializeError('EXTRACTION', `Unsupported ZIP compression method ${entry.compressionMethod} for ${entry.fileName}`)
-	}
-
-	if (bytes !== entry.uncompressedSize) {
-		throw new ArtifactMaterializeError('EXTRACTION', `ZIP entry size mismatch for ${entry.fileName}: expected ${entry.uncompressedSize}, extracted ${bytes}`)
-	}
-	return bytes
+// yauzl checks the local header, inflates, and (validateEntrySizes) fails the
+// stream when the data does not match the declared uncompressed size.
+async function extractZipEntryToFile(zipFile: yauzl.ZipFile, entry: yauzl.Entry, destination: string): Promise<void> {
+	await pipeline(await openZipEntryStream(zipFile, entry), fs.createWriteStream(destination, {mode: 0o755}))
 }
 
 export class RuntimeBinaryMaterializer {
@@ -273,7 +235,7 @@ export class RuntimeBinaryMaterializer {
 						const destination = path.join(stageDir, expectedPath)
 						if (!pathInside(stageDir, destination)) throw new ArtifactMaterializeError('ARCHIVE_SECURITY', `Executable path escapes stage dir: ${expectedPath}`)
 						await fsPromises.mkdir(path.dirname(destination), {recursive: true})
-						await extractZipEntryToFile(archivePath, entryInfo, destination)
+						await extractZipEntryToFile(zipFile, entryInfo, destination)
 						found = true
 						zipFile.readEntry()
 					})().catch(finish)
