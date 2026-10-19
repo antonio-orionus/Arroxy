@@ -10,11 +10,9 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ## Highlights
 
-- **Smaller download, FFmpeg installed once.** Arroxy no longer bundles FFmpeg. It downloads it once on first launch and keeps it across updates. If that fails, it uses your own FFmpeg, or **Set it up manually** installs one with Homebrew or WinGet.
+- **Explore opens any site.** Type an address or follow any link, and sign in to other sites there; downloads from those sites use that sign-in when they need it. Plain text in the address bar searches with the **Search engine** you pick in Settings.
+- **Smaller download, FFmpeg installed once.** Arroxy downloads FFmpeg on first launch and keeps it across updates. If that fails, it uses your own FFmpeg, or **Set it up manually** installs one with Homebrew or WinGet.
 - **Honest about rate limits.** Arroxy says when a site is rate-limiting you and waits before asking again. **Try now** skips the wait.
-- **Explore opens any site.** Type any address or follow any link in Explore, and sign in to other sites there too. A download from those sites uses that sign-in when it needs one.
-- **Explore's ad blocker starts off.** It broke too many sites; turn it on from the shield in Explore's toolbar.
-- **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
 - **A clearer single-video download.** **Continue** on the Format screen leads to Review, which now holds subtitles, SponsorBlock, extras, the folder and the file name. **Download** is still there if you don't need Review.
 - **Update your profile from any download.** When you change something, Format and Review show what differs from your profile, with buttons to update it, save it as a new profile, or undo.
 - **Switching profile keeps your edits.** Arroxy asks whether to keep your changes or reset to the new profile.
@@ -22,32 +20,38 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - **Every codec at every resolution.** Each resolution lists AV1, VP9 and H.264 side by side, so you can pick H.264 even when your profile prefers AV1.
 - **Stream tags.** The Format screen marks AI-upscaled, AI-dubbed, enhanced-bitrate, 360°, damaged and watermarked streams.
 - **Profiles skip AI-upscaled streams.** A setting in the profile editor's Advanced section allows them.
-- **The daily heartbeat counts new users.** It now also says roughly how long ago Arroxy was installed, still with no ID. You can turn it off in Settings.
+- **Arrange the Downloads table.** Drag a header to move or resize its column, or use the keyboard. **Reset columns** in the columns menu puts them back.
+- **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
 
 ## Fixes
 
 - Converting to MP3, M4A, Opus or WAV uses the audio language you chose.
 - Switching from Audio only back to video picks what your profile would, not the largest stream.
-- Sizes are estimated for sites that don't report them, and each resolution is listed once.
-- Sizes also show for files a site gives no details about, such as Instagram's and Facebook's, and Facebook's HD and SD files are listed separately.
+- Sizes show for sites that don't report them, such as Instagram and Facebook, and each resolution is listed once. Facebook's HD and SD files are listed separately.
+- Streams without a resolution are listed as "Unknown resolution".
+- Format chip hints show the video bitrate and open as soon as you hover.
 - A slow format lookup can be cancelled.
 - A site whose stream list is gone no longer triggers a second lookup.
-- Streams without a resolution are listed as "Unknown resolution".
+- YouTube downloads use YouTube's download token again.
+- Part of video downloads show real progress, speed and time left.
+- Downloads that use FFmpeg no longer show a stray "Merging…" label.
 - Subtitles embedded into MKV get the right language tag for every ISO 639-1 language.
 - A playlist title ending in an emoji or accented letter no longer leaves a broken character in its folder name.
 - Vimeo OTT titles show accents, dashes and quotes correctly.
-- Downloads that use ffmpeg no longer show a stray "Merging…" label.
-- **Clipboard watch is predictable.** A copied link replaces the URL field, with **Undo**. A link copied while Arroxy is busy fills in once you're back on the Download tab. The **Use copied link** prompt is gone.
-- YouTube downloads use YouTube's download token again.
-- First-time setup no longer gives up on slow connections, and **Try again** resumes instead of starting over.
-- Part of video downloads show real progress, speed and time left.
-- Format chip hints show the video bitrate and open as soon as you hover.
-- The hotkey recorder accepts Shift and Option combinations, arrows, punctuation and the numpad.
+- A copied link replaces the URL field, with **Undo**, instead of asking first. One copied while Arroxy is busy fills in once you're back on the Download tab.
 - youtube-nocookie.com links are treated as YouTube links.
-- Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
-- The Vimeo OTT title lookup can no longer reach addresses on your local network.
+- Help for exporting a cookies.txt file shows only when you use one.
+- First-time setup no longer gives up on slow connections, and **Try again** resumes instead of starting over.
+- The hotkey recorder accepts Shift and Option combinations, arrows, punctuation and the numpad.
 - The Download menu and the Downloads column picker work with the keyboard.
 - A busy download queue no longer slows the app down.
+- Logs and feedback diagnostics no longer include signed stream URLs or YouTube tokens.
+- The Vimeo OTT title lookup can no longer reach addresses on your local network.
+
+## Good to know
+
+- Explore's ad blocker now starts off, since it broke too many sites. Turn it on from the shield in Explore's toolbar.
+- The daily heartbeat now also says roughly how long ago Arroxy was installed, still with no ID. You can turn it off in Settings.
 
 ---
 
