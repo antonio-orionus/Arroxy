@@ -1,0 +1,35 @@
+{
+	"source": {
+		"id": "facebook",
+		"url": "https://www.facebook.com/reel/2218259845769232/",
+		"capturedAt": "2026-10-19",
+		"ytDlp": "2026.10.10.233141",
+		"signedIn": true
+	},
+	"info": {
+		"id": "2218259845769232",
+		"title": "Video",
+		"thumbnail": "https://scontent.ftll2-1.fna.fbcdn.net/v/t51.82787-10/851129344_18642928102062626_8692432642703380933_n.jpg",
+		"duration": 29.976,
+		"webpage_url": "https://m.facebook.com/watch/?v=2218259845769232&_rdr",
+		"extractor": "facebook",
+		"extractor_key": "Facebook",
+		"uploader": "Billboard",
+		"upload_date": "20261019",
+		"timestamp": 1792379165,
+		"formats": [
+			{"format_id":"1390081639775431a","ext":"m4a","resolution":"audio only","format_note":"DASH audio","tbr":76.034,"vbr":0,"abr":76.034,"asr":44100,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https"},
+			{"format_id":"sd","ext":"mp4","dynamic_range":"SDR","protocol":"https","quality":-3},
+			{"format_id":"hd","ext":"mp4","dynamic_range":"SDR","protocol":"https","quality":-2},
+			{"format_id":"1390089366441325v","ext":"mp4","resolution":"540x960","format_note":"DASH video","width":540,"height":960,"tbr":389.564,"vbr":389.564,"abr":0,"vcodec":"av01.0.04M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089373107991v","ext":"mp4","resolution":"540x960","format_note":"DASH video","width":540,"height":960,"tbr":592.738,"vbr":592.738,"abr":0,"vcodec":"av01.0.04M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089353107993v","ext":"mp4","resolution":"540x960","format_note":"DASH video","width":540,"height":960,"tbr":877.58,"vbr":877.58,"abr":0,"vcodec":"av01.0.04M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089369774658v","ext":"mp4","resolution":"720x1280","format_note":"DASH video","width":720,"height":1280,"tbr":1121.064,"vbr":1121.064,"abr":0,"vcodec":"av01.0.05M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089363107992v","ext":"mp4","resolution":"720x1280","format_note":"DASH video","width":720,"height":1280,"tbr":1548.546,"vbr":1548.546,"abr":0,"vcodec":"av01.0.05M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089359774659v","ext":"mp4","resolution":"720x1280","format_note":"DASH video","width":720,"height":1280,"tbr":2266.74,"vbr":2266.74,"abr":0,"vcodec":"av01.0.05M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"},
+			{"format_id":"1390089356441326v","ext":"mp4","resolution":"1080x1920","format_note":"DASH video","width":1080,"height":1920,"tbr":2987.676,"vbr":2987.676,"abr":0,"vcodec":"av01.0.08M.08.0.110","acodec":"none","dynamic_range":"SDR","protocol":"https"}
+		],
+		"subtitles": {},
+		"automatic_captions": {}
+	}
+}

@@ -1,0 +1,21 @@
+facebook: A Facebook reel, signed in: AV1 DASH at several bitrates per height, and distinct sd and hd MP4s with no details at all
+Video · 30 s · card says "720x1280" · 10 formats
+
+Video (picked for Balanced 720p •):
+                    SDR AV1        SDR (codec not named)
+1080p               AV1 10.6 MiB   ·
+720p                AV1 8.1 MiB •  ·
+480p                AV1 3.1 MiB    ·
+Unknown resolution  ·              mp4 no size +audio
+
+Audio:
+AAC: 76 kbps 278.2 KiB •
+
+Profile picks:
+balanced: 1390089359774659v (720x1280, mp4) + audio 1390081639775431a (audio only, m4a)
+best-quality: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a)
+mp4-1080: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
+audio-only: audio 1390081639775431a (audio only, m4a)
+
+Subtitles: none
+Auto captions: none

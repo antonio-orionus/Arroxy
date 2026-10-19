@@ -6,9 +6,11 @@ export interface ProbeSource {
 	url: string
 	// What this source exercises, for the Scenario Workbench card.
 	shows: string
-	// Captured signed in, with the dev profile's Explore session (an
-	// age-restricted video, a members-only one...).
-	signIn?: boolean
+	// Captured signed in, with the dev profile's Explore session: its YouTube
+	// cookies (an age-restricted video, a members-only one...), or, for any
+	// other site, every cookie but Google's and YouTube's account cookies, as
+	// the app's own jar for that site.
+	signIn?: 'youtube' | 'web'
 }
 
 export const PROBE_SOURCES = [
@@ -22,7 +24,7 @@ export const PROBE_SOURCES = [
 	{id: 'youtube-autodub', url: 'https://www.youtube.com/watch?v=XIAzwtSjIq0', shows: 'YouTube AI auto-dubbed audio tracks ("dubbed-auto") beside the original'},
 	{id: 'youtube-vr', url: 'https://www.youtube.com/watch?v=dQMTPqws3Xg', shows: 'A 360° video: equirectangular projection on every stream'},
 	{id: 'youtube-premium', url: 'https://www.youtube.com/watch?v=i_GrYOruY7w', shows: 'A "Premium" enhanced-bitrate 1080p (616) offered signed out'},
-	{id: 'youtube-age-restricted', url: 'https://www.youtube.com/watch?v=Tq92D6wQ1mg', shows: 'Age-restricted, probed signed in through the embedded player: H.264 and VP9 only, 1080p tops', signIn: true},
+	{id: 'youtube-age-restricted', url: 'https://www.youtube.com/watch?v=Tq92D6wQ1mg', shows: 'Age-restricted, probed signed in through the embedded player: H.264 and VP9 only, 1080p tops', signIn: 'youtube'},
 	{id: 'youtube-dolby', url: 'https://www.youtube.com/watch?v=ee9i6oMqShk', shows: 'A trailer with Dolby Digital and Dolby Digital Plus 5.1 beside stereo AAC and Opus'},
 	{id: 'youtube-music', url: 'https://music.youtube.com/watch?v=dQw4w9WgXcQ', shows: 'A YouTube Music link'},
 	{id: 'youtube-podcast', url: 'https://www.youtube.com/watch?v=s7d2d8FhevU', shows: 'A 3.6-hour YouTube podcast episode'},
@@ -35,7 +37,8 @@ export const PROBE_SOURCES = [
 	{id: 'bitchute', url: 'https://www.bitchute.com/video/UGlrF9o9b-Q/', shows: 'One stream with no resolution at all'},
 	{id: 'soundcloud', url: 'https://soundcloud.com/forss/flickermood', shows: 'Audio-only site'},
 	{id: 'tiktok', url: 'https://www.tiktok.com/@meister12347/video/6934396727596240134', shows: 'TikTok: bytevc1 and H.264 at the same heights, several bitrates each'},
-	{id: 'instagram', url: 'https://www.instagram.com/p/DebnOR3N4hf/', shows: 'Instagram: VP9 DASH with bitrates but no duration (no size estimate), and three combined MP4s with no details at all'}
+	{id: 'instagram', url: 'https://www.instagram.com/p/DebnOR3N4hf/', shows: 'Instagram: VP9 DASH with bitrates but no duration (no size estimate), and three combined MP4s with no details at all'},
+	{id: 'facebook', url: 'https://www.facebook.com/reel/2218259845769232/', shows: 'A Facebook reel, signed in: AV1 DASH at several bitrates per height, and distinct sd and hd MP4s with no details at all', signIn: 'web'}
 ] as const satisfies readonly ProbeSource[]
 
 export type ProbeSourceId = (typeof PROBE_SOURCES)[number]['id']

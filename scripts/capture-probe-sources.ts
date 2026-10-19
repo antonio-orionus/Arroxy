@@ -10,8 +10,9 @@
 // (newest in its runtime cache; YT_DLP overrides) with Electron as its
 // JavaScript runtime. Sources marked `signIn` run signed in with the dev
 // profile's Explore session (ARROXY_USER_DATA overrides the profile): its
-// YouTube cookies go to a fresh jar per run, deleted afterwards, plus the
-// player client the app uses for signed-in runs. Each fixture keeps only the
+// YouTube cookies (plus the player client the app uses for signed-in runs) or,
+// for any other site, every cookie but Google's and YouTube's, go to a fresh
+// jar per run, deleted afterwards. Each fixture keeps only the
 // fields Arroxy reads (no stream URLs, headers, fragments or cookies).
 
 import {execFile} from 'node:child_process'
@@ -46,20 +47,22 @@ const YT_DLP = process.env.YT_DLP ?? managedYtDlp() ?? 'yt-dlp'
 const JS_RUNTIME_ARGS = ['--no-js-runtimes', '--js-runtimes', `node:${ELECTRON}`]
 const CHILD_ENV = {...process.env, ELECTRON_RUN_AS_NODE: '1'}
 
-// The dev profile's Explore cookies, exported once per capture into a private directory.
-async function exportCookies(dir: string): Promise<string> {
-	const jar = path.join(dir, 'explore.txt')
-	const {stdout} = await run(ELECTRON, [path.join(ROOT, 'scripts/export-explore-cookies.cjs'), USER_DATA, jar])
-	if (!stdout.includes('signed in: true')) throw new Error('the dev profile is not signed in to YouTube in Explore')
+type SignInScope = NonNullable<ProbeSource['signIn']>
+
+// The dev profile's Explore cookies for one scope, exported once per capture into a private directory.
+async function exportCookies(dir: string, scope: SignInScope): Promise<string> {
+	const jar = path.join(dir, `explore-${scope}.txt`)
+	const {stdout} = await run(ELECTRON, [path.join(ROOT, 'scripts/export-explore-cookies.cjs'), USER_DATA, jar, scope])
+	if (scope === 'youtube' && !stdout.includes('signed in: true')) throw new Error('the dev profile is not signed in to YouTube in Explore')
 	return jar
 }
 
 // yt-dlp writes cookies back into its jar, so each run gets its own copy.
-async function signInArgs(source: ProbeSource, cookieJar: () => Promise<string>, dir: string): Promise<string[]> {
-	if (source.signIn !== true) return []
+async function signInArgs(source: ProbeSource, cookieJar: (scope: SignInScope) => Promise<string>, dir: string): Promise<string[]> {
+	if (source.signIn === undefined) return []
 	const jar = path.join(dir, `${source.id}.txt`)
-	await copyFile(await cookieJar(), jar)
-	return ['--cookies', jar, '--extractor-args', SIGNED_IN_EXTRACTOR_ARGS]
+	await copyFile(await cookieJar(source.signIn), jar)
+	return ['--cookies', jar, ...(source.signIn === 'youtube' ? ['--extractor-args', SIGNED_IN_EXTRACTOR_ARGS] : [])]
 }
 
 const FORMAT_FIELDS = [
@@ -126,7 +129,7 @@ function serialize(fixture: {source: unknown; info: Record<string, unknown> & {f
 	return `${JSON.stringify({...fixture, info: {...fixture.info, formats: marker}}, null, '\t').replace(`"formats": ${JSON.stringify(marker)}`, `"formats": [\n${formats}\n\t\t]`)}\n`
 }
 
-async function capture(source: ProbeSource, cookieJar: () => Promise<string>, dir: string): Promise<void> {
+async function capture(source: ProbeSource, cookieJar: (scope: SignInScope) => Promise<string>, dir: string): Promise<void> {
 	const {id, url} = source
 	const {stdout: version} = await run(YT_DLP, ['--version'], {env: CHILD_ENV})
 	const args = [...JS_RUNTIME_ARGS, ...(await signInArgs(source, cookieJar, dir)), '--dump-single-json', '--no-playlist', '--no-warnings', url]
@@ -135,7 +138,7 @@ async function capture(source: ProbeSource, cookieJar: () => Promise<string>, di
 	if (!isRecord(info)) throw new Error(`${id}: yt-dlp returned no info dict`)
 	const formats = (Array.isArray(info.formats) ? info.formats : []).filter(isRecord).map(format => pick(format, FORMAT_FIELDS))
 	const fixture = {
-		source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === true ? {signedIn: true} : {})},
+		source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === undefined ? {} : {signedIn: true})},
 		info: {...pick(info, INFO_FIELDS), ...thumbnailWithoutQuery(info.thumbnail), formats, subtitles: subtitleKeys(info.subtitles), automatic_captions: subtitleKeys(info.automatic_captions)}
 	}
 	await writeFile(path.join(OUT_DIR, `${id}.json`), serialize(fixture))
@@ -147,8 +150,12 @@ const sources = wanted.length > 0 ? PROBE_SOURCES.filter(source => wanted.includ
 if (sources.length === 0) throw new Error(`No source named ${wanted.join(', ')}. Known: ${PROBE_SOURCES.map(source => source.id).join(', ')}`)
 await mkdir(OUT_DIR, {recursive: true})
 const privateDir = await mkdtemp(path.join(tmpdir(), 'arroxy-probe-sources-'))
-let cookieJar: Promise<string> | null = null
-const sharedJar = (): Promise<string> => (cookieJar ??= exportCookies(privateDir))
+const cookieJars = new Map<SignInScope, Promise<string>>()
+const sharedJar = (scope: SignInScope): Promise<string> => {
+	const jar = cookieJars.get(scope) ?? exportCookies(privateDir, scope)
+	cookieJars.set(scope, jar)
+	return jar
+}
 let failed = 0
 try {
 	for (const source of sources) {
