@@ -5,7 +5,7 @@ Video (picked for Balanced 720p •):
        SDR AV1          SDR VP9                         SDR H.264
 1080p  AV1 499.7 MiB    VP9 [Enhanced bitrate] 7.1 GiB  H.264 4.9 GiB
 720p   AV1 246.2 MiB •  VP9 2.5 GiB                     H.264 1.7 GiB
-480p   AV1 156.3 MiB    VP9 1.3 GiB                     H.264 1,019.4 MiB
+480p   AV1 156.3 MiB    VP9 1.3 GiB                     H.264 1019.4 MiB
 360p   AV1 97.8 MiB     VP9 890.2 MiB                   H.264 744.8 MiB
 240p   AV1 52.8 MiB     VP9 382.4 MiB                   H.264 339.0 MiB
 144p   AV1 58.0 MiB     VP9 370.4 MiB                   H.264 254.3 MiB

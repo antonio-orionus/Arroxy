@@ -12,7 +12,7 @@ Video (picked for Balanced 720p •):
 
 Audio:
 AAC: 130 kbps 2.0 MiB DRC | 130 kbps 2.0 MiB • | 49 kbps 22.05 kHz 792.8 KiB DRC | 49 kbps 22.05 kHz 792.8 KiB
-Opus: 113 kbps 1.7 MiB DRC | 112 kbps 1.7 MiB | 62 kbps 1,003.6 KiB DRC | 62 kbps 998.0 KiB | 50 kbps 814.8 KiB DRC | 50 kbps 805.9 KiB
+Opus: 113 kbps 1.7 MiB DRC | 112 kbps 1.7 MiB | 62 kbps 1003.6 KiB DRC | 62 kbps 998.0 KiB | 50 kbps 814.8 KiB DRC | 50 kbps 805.9 KiB
 DRC switch shown
 
 Profile picks:

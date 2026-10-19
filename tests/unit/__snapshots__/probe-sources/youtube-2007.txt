@@ -6,7 +6,7 @@ Video (picked for Balanced 720p •):
 1080p  AV1 [AI upscaled] 4.6 MiB  VP9 [AI upscaled] 7.2 MiB  ·
 720p   AV1 [AI upscaled] 2.7 MiB  VP9 [AI upscaled] 4.0 MiB  ·
 480p   AV1 1.5 MiB •              VP9 2.8 MiB                H.264 2.0 MiB
-360p   AV1 1,007.1 KiB            VP9 1.4 MiB                H.264 1.1 MiB
+360p   AV1 1007.1 KiB             VP9 1.4 MiB                H.264 1.1 MiB
 240p   AV1 632.0 KiB              VP9 639.2 KiB              H.264 661.0 KiB
 144p   AV1 415.6 KiB              VP9 441.0 KiB              H.264 341.0 KiB
 
