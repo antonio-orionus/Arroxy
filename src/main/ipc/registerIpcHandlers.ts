@@ -62,7 +62,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged: refreshAppMenu, onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme)})
+	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged: () => siteRequests.routeChanged(), onMenuStateChanged: refreshAppMenu, onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme)})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService, osNotifier: hotkeyOsNotifier, languageRef})
 	registerQueueHandlers(queueService, probeService)

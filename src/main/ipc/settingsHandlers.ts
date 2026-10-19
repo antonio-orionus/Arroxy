@@ -19,6 +19,9 @@ interface SettingsHandlerDeps {
 	// The kill switch: turning Explore off tears the native view down. A new
 	// proxy setting, or a toggled ad blocker, is applied to an open view at once.
 	exploreView: Pick<ExploreViewHost, 'destroy' | 'applyProxySetting' | 'applyAdBlockSetting'>
+	// Rate-limit cooldowns are kept per network route, so a new proxy setting
+	// changes which ones hold requests.
+	onProxyChanged?: () => void
 	// The native menu mirrors the style, theme, and speed limit; macOS only, so absent elsewhere.
 	onMenuStateChanged?: () => void
 	// Keeps Chromium's colour scheme (and so the Explore page) in step with the app theme.
@@ -26,7 +29,7 @@ interface SettingsHandlerDeps {
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onMenuStateChanged, onThemeChanged} = deps
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged, onMenuStateChanged, onThemeChanged} = deps
 
 	handleRaw(IPC_CHANNELS.settingsGet, async () => {
 		try {
@@ -58,6 +61,7 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		if (data.common?.proxyUrl !== undefined) {
 			// Not awaited: a refused setting shows on the view, not on this save.
 			void exploreView.applyProxySetting()
+			onProxyChanged?.()
 		}
 		if (data.common?.exploreAdBlock !== undefined) {
 			// Not awaited: the blocker's status reaches the toolbar through the view state.

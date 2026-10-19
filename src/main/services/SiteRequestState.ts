@@ -169,6 +169,11 @@ export class SiteRequestState {
 		return () => this.listeners.delete(listener)
 	}
 
+	// The proxy setting changed, so a different route's cooldowns apply now.
+	routeChanged(): void {
+		this.notify()
+	}
+
 	private notify(): void {
 		const cooldowns = this.snapshot()
 		for (const listener of this.listeners) listener(cooldowns)

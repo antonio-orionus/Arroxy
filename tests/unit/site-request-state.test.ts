@@ -192,6 +192,17 @@ describe('SiteRequestState', () => {
 		expect(listener).toHaveBeenCalledTimes(2)
 	})
 
+	it('tells listeners the new route’s cooldowns when the route changes', () => {
+		let route = 'direct'
+		const {siteRequests} = state({route: () => route})
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		const listener = vi.fn()
+		siteRequests.onChange(listener)
+		route = 'http://proxy:8080'
+		siteRequests.routeChanged()
+		expect(listener).toHaveBeenCalledWith([])
+	})
+
 	it('lists only the current route’s running cooldowns', () => {
 		let route = 'direct'
 		const {clock, siteRequests} = state({route: () => route})
