@@ -1,5 +1,6 @@
 import log from 'electron-log/main.js'
 import {STATUS_KEY} from '@shared/schemas.js'
+import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import type {Site} from '@shared/sites/index.js'
 import type {JobAuth} from '@shared/types.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
@@ -57,6 +58,8 @@ function needsExploreSession(result: YtDlpResult, auth: JobAuth | undefined, sit
 export async function settleWithExploreSession<R extends SignedInRun>(ctx: PhaseContext, first: R, flow: SignedInFlow<R>): Promise<SignedInFlowResult<R>> {
 	const {active} = ctx
 	const jobId = active.job.id
+	// The job's URL decides which Explore cookies it runs on, as in YtDlp.
+	const scope = exploreCookieScopeFor(active.input.url)
 	let run = first
 
 	const runSignedIn = async (): Promise<SignedInFlowResult<R> | null> => {
@@ -68,7 +71,7 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 		return null
 	}
 
-	if (flow.escalates?.(run) === true && needsExploreSession(run.result, active.input.auth, flow.site) && (await ctx.exploreGate.canEscalate(flow.site.id))) {
+	if (flow.escalates?.(run) === true && needsExploreSession(run.result, active.input.auth, flow.site) && scope !== null && (await ctx.exploreGate.canEscalate(scope))) {
 		const stopped = interruptedOutcome(active)
 		if (stopped) return {kind: 'stopped', outcome: stopped}
 		logger.info('Download needs an account; retrying with the Explore session', {jobId})
@@ -80,13 +83,13 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 		if (escalated) return escalated
 	}
 
-	if (run.result.accountCookiesRejected !== true || active.input.auth !== 'exploreSession') return {kind: 'run', run}
+	if (run.result.accountCookiesRejected !== true || active.input.auth !== 'exploreSession' || scope === null) return {kind: 'run', run}
 	if (run.result.kind === 'success') {
 		logger.info('yt-dlp rejected the Explore cookies on a run that succeeded anyway; keeping it and checking the session', {jobId})
-		active.exploreSessionCheck = ctx.exploreSession.verifySignedIn(flow.site.id).catch((): ExploreSignInState => 'unknown')
+		active.exploreSessionCheck = ctx.exploreSession.verifySignedIn(scope).catch((): ExploreSignInState => 'unknown')
 		return {kind: 'run', run}
 	}
-	const signIn = await ctx.exploreSession.verifySignedIn(flow.site.id)
+	const signIn = await ctx.exploreSession.verifySignedIn(scope)
 	const stopped = interruptedOutcome(active)
 	if (stopped) return {kind: 'stopped', outcome: stopped}
 	if (signIn === 'signedOut') return {kind: 'signedOut'}

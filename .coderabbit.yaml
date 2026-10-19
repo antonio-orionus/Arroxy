@@ -116,6 +116,8 @@ reviews:
     - "!readme-src/locales/th.mjs"
     - "!readme-src/locales/tr.mjs"
     - "!readme-src/locales/zh-Hant.mjs"
+    - "!readme-src/locales/km.mjs"
+    - "!readme-src/locales/ru.mjs"
     - "!i18n/locales/am.po"
     - "!i18n/locales/ar.po"
     - "!i18n/locales/bn.po"
@@ -144,6 +146,8 @@ reviews:
     - "!i18n/locales/th.po"
     - "!i18n/locales/tr.po"
     - "!i18n/locales/zh-Hant.po"
+    - "!i18n/locales/km.po"
+    - "!i18n/locales/ru.po"
     - "!src/shared/i18n/locales/am.json"
     - "!src/shared/i18n/locales/ar.json"
     - "!src/shared/i18n/locales/bn.json"
@@ -172,6 +176,8 @@ reviews:
     - "!src/shared/i18n/locales/th.json"
     - "!src/shared/i18n/locales/tr.json"
     - "!src/shared/i18n/locales/zh-Hant.json"
+    - "!src/shared/i18n/locales/km.json"
+    - "!src/shared/i18n/locales/ru.json"
   path_instructions:
     - path: .github/workflows/**
       instructions: >-

@@ -11,6 +11,7 @@ import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
 import {splitOutputLines} from 'yt-dlp-bridge/runner'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
+import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
@@ -445,7 +446,10 @@ export class ProbeService extends EventEmitter {
 				outcome = await runAs('exploreSession')
 				if (cookiesRejected) outcome = await this.afterCookiesRejected(url, outcome, () => runAs('exploreSession'), controller.signal)
 			}
-			if (outcome.kind === 'failure') return fail(outcome.error)
+			if (outcome.kind === 'failure') {
+				// Signed in only if the last run kept the Explore cookies: one yt-dlp dropped ran anonymously.
+				return fail(auth && !cookiesRejected && outcome.error.kind === 'ytdlp' ? {...outcome.error, auth} : outcome.error)
+			}
 
 			let mapped: ProbeResult
 			if (outcome.kind === 'playlist') {
@@ -508,9 +512,10 @@ export class ProbeService extends EventEmitter {
 	// anonymous failure stands.
 	private async escalationFor(url: string, error: ProbeError, signal: AbortSignal): Promise<EscalationReason | null> {
 		const reason = escalationReason({stage: 'probe', url, error})
-		if (signal.aborted || !this.exploreGate || reason === null) return null
+		const scope = exploreCookieScopeFor(url)
+		if (signal.aborted || !this.exploreGate || reason === null || scope === null) return null
 		try {
-			return (await this.exploreGate.canEscalate(siteForUrl(url).id)) ? reason : null
+			return (await this.exploreGate.canEscalate(scope)) ? reason : null
 		} catch (err) {
 			logger.warn('Explore escalation check failed', {url, error: err instanceof Error ? err.message : String(err)})
 			return null
@@ -523,7 +528,8 @@ export class ProbeService extends EventEmitter {
 	// never as an anonymous result; a check that cannot tell → a failure becomes
 	// a retryable one, a success is kept.
 	private async afterCookiesRejected(url: string, outcome: ProbeOutcome, retry: () => Promise<ProbeOutcome>, signal: AbortSignal): Promise<ProbeOutcome> {
-		const state: ExploreSignInState = this.exploreSession ? await this.exploreSession.verifySignedIn(siteForUrl(url).id) : 'unknown'
+		const scope = exploreCookieScopeFor(url)
+		const state: ExploreSignInState = this.exploreSession && scope ? await this.exploreSession.verifySignedIn(scope) : 'unknown'
 		if (signal.aborted) return PROBE_CANCELLED
 		logger.info('yt-dlp rejected the Explore cookies on a signed-in probe', {url, state})
 		if (state === 'signedIn') return retry()

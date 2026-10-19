@@ -1,6 +1,6 @@
 import {z} from 'zod'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {queueChoiceSchema, queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
+import {jobAuthSchema, queueChoiceSchema, queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
 import {localizedErrorSchemaShape, queueArraySchema} from '@shared/queueItemSchema.js'
 import {ok} from '@shared/result.js'
 import type {QueueService} from '@main/services/QueueService.js'
@@ -13,7 +13,7 @@ const cancelInputSchema = z.object({itemId: z.string().nullable()})
 const setLaneInputSchema = z.object({itemId: z.string(), lane: queueLaneSchema})
 const applySelectionActionInputSchema = z.object({action: queueSelectionActionSchema, itemIds: z.array(z.string())})
 const changeOutputTargetInputSchema = z.object({itemIds: z.array(z.string()), outputDir: z.string().trim().min(1)})
-const probeFailedInputSchema = z.object({itemId: z.string().min(1), error: localizedErrorSchemaShape})
+const probeFailedInputSchema = z.object({itemId: z.string().min(1), error: localizedErrorSchemaShape, auth: jobAuthSchema.optional()})
 const replaceProbingInputSchema = z.object({itemId: z.string().min(1), items: queueArraySchema})
 const needsChoiceInputSchema = z.object({itemId: z.string().min(1), choice: queueChoiceSchema, title: z.string()})
 
@@ -40,9 +40,9 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 		}
 	})
 
-	handle(IPC_CHANNELS.queueCmdProbeFailed, probeFailedInputSchema, ({itemId, error}) => {
+	handle(IPC_CHANNELS.queueCmdProbeFailed, probeFailedInputSchema, ({itemId, error, auth}) => {
 		try {
-			return Promise.resolve(queueService.probeFailed(itemId, error))
+			return Promise.resolve(queueService.probeFailed(itemId, error, auth))
 		} catch (err) {
 			return Promise.resolve(toUnknownFailure(err))
 		}

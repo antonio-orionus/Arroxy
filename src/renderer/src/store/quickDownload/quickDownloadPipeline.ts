@@ -246,7 +246,8 @@ async function writeResolution(itemId: string, title: string, resolution: QuickP
 			return
 		}
 		case 'failed': {
-			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: resolution.error})
+			const auth = resolution.probeError?.kind === 'ytdlp' ? resolution.probeError.auth : undefined
+			const failed = await window.appApi.queue.cmd.probeFailed({itemId, error: resolution.error, ...(auth ? {auth} : {})})
 			if (failed.ok) feedback({kind: 'failed', itemId, title, probeError: resolution.probeError})
 			return
 		}

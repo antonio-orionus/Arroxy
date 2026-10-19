@@ -201,7 +201,7 @@ export function VideoPhase(embed: boolean): Phase {
 			// the accurate status when the actual data download begins.
 			const runMedia = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
 				const req = buildRequest(infoJsonPath)
-				if (!(await canSpawnSignedIn(ctx, site.id))) {
+				if (!(await canSpawnSignedIn(ctx))) {
 					signedOut = true
 					return refusedSignedInRun(req)
 				}

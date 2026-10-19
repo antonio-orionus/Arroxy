@@ -1,7 +1,7 @@
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {ArrowLeft, ArrowRight, ChevronDown, House, Maximize2, Minimize2, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
-import type {ExploreAdBlockStatus} from '@shared/schemas.js'
+import type {ExploreAdBlockStatus, ExploreSearchEngine} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import type {DownloadProfileActionModel} from '../wizard/downloadProfileActions.js'
 import {DownloadProfileMenuContent} from '../wizard/DownloadProfileMenu.js'
@@ -32,6 +32,8 @@ interface ExploreToolbarProps {
 	profiles: DownloadProfileActionModel
 	profileMenu: ExploreProfileMenuActions
 	onNavigate: (command: ExploreNavigateCommand) => void
+	// Where plain text typed in the address bar is searched.
+	searchEngine: ExploreSearchEngine
 	// Enter in the address bar; resolves true when the view navigates.
 	onSubmitAddress: (text: string) => Promise<boolean>
 	onAddressEdit: () => void
@@ -89,7 +91,7 @@ function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compac
 // stays focusable (`focusableWhenDisabled`, so aria-disabled instead of
 // disabled): the browser fires no hover on a disabled button, and that is when
 // its tooltip has to say why.
-export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
+export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
 	const {t} = useTranslation()
 	const [menuOpen, setMenuOpen] = useState(false)
 	const {activeProfile, ActiveIcon} = profiles
@@ -129,7 +131,7 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 						</Button>
 					</Hint>
 				</ButtonGroup>
-				<ExploreAddressBar url={state.url} onSubmit={onSubmitAddress} onEdit={onAddressEdit} />
+				<ExploreAddressBar url={state.url} searchEngine={searchEngine} onSubmit={onSubmitAddress} onEdit={onAddressEdit} />
 				<AdBlockToggle status={state.adBlock} onToggle={onToggleAdBlock} />
 				{/* On a row of its own (narrow or zoomed windows) the cluster shrinks and the profile name truncates. */}
 				<div className="flex min-w-0 max-w-full items-center gap-2" data-testid="explore-download-cluster">

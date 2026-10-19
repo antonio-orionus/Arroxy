@@ -63,7 +63,7 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
+import type {ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
 export type {ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
@@ -110,7 +110,9 @@ export interface AppError {
 // Discriminated error for the probe IPC command. Separates yt-dlp classified
 // failures (carry LocalizedError for i18n + UI gating) from other probe
 // failures (carry a plain message). Replaces the AppError.localizedKey bridge.
-export type ProbeError = {kind: 'ytdlp'; error: LocalizedError} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
+// `auth`: who the failed yt-dlp run was. `exploreSession` when the probe escalated
+// and still failed with the session's cookies in effect: another sign-in would not help.
+export type ProbeError = {kind: 'ytdlp'; error: LocalizedError; auth?: JobAuth} | {kind: 'other'; code: ProbeOtherErrorCode; message: string; details?: string}
 
 export interface GraphicsPolicy {
 	backdrop: {webglBlocked: boolean; softwareWebglAllowed: boolean; fallbackReason?: GraphicsPolicyBackdropReason; renderer?: string; devices?: string[]; featureStatus?: Record<string, string>}
@@ -143,6 +145,7 @@ export interface CommonSettings {
 	// Main-owned: the last site page the Explore view showed (see schemas.ts).
 	exploreLastUrl?: string
 	exploreAdBlock?: boolean
+	exploreSearchEngine?: ExploreSearchEngine
 	exploreIdleUnload?: boolean
 	exploreCompactChrome?: boolean
 	nativeAudioPreference?: NativeAudioPreference

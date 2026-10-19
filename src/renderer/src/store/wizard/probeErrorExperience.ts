@@ -1,5 +1,7 @@
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {CommonSettings, ProbeDegradationReason, ProbeError} from '@shared/types.js'
+import {asksForCookieLogin} from '@shared/ytdlp/loginHint.js'
+import {exploreSignInSiteFor, type ExploreSignInSite} from '../exploreSignInSite.js'
 
 // `explore`: neutral copy — the cookies alert alone carries the Explore sign-in call.
 export type BotWallGuidanceVariant = 'hidden' | 'unconfigured' | 'disabled' | 'enabled' | 'explore'
@@ -13,15 +15,21 @@ export type ConfiguredCookiesMode = Exclude<CookiesMode, 'off'>
 // with Explore — sign in there first, or use the sign-in it already holds. The
 // second way: "Enable cookies and retry" when a cookies file or browser is set
 // up, else cookie settings.
+// `site` (ADR 0011): where the sign-in is. Explore's signed-in flag is
+// YouTube's, so a link on another site is never `explore-reuse` or
+// `configured`: nothing says whether the user signed in there.
 export type ExploreOfferSecondary = 'enable-cookies' | 'open-settings'
 export type CookiesGuidance =
 	| {variant: 'hidden'; mode: CookiesMode}
 	| {variant: 'needs-cookies'; mode: 'off'}
-	| {variant: 'explore-offer'; mode: 'off'; secondary: ExploreOfferSecondary}
+	| {variant: 'explore-offer'; mode: 'off'; secondary: ExploreOfferSecondary; site: ExploreSignInSite}
 	| {variant: 'explore-reuse'; mode: 'off'; secondary: ExploreOfferSecondary}
 	| {variant: 'configured'; mode: ConfiguredCookiesMode}
 	| {variant: 'dpapi'; mode: 'browser'}
-	| {variant: 'explore-sign-in'; mode: 'explore'}
+	| {variant: 'explore-sign-in'; mode: 'explore'; site: ExploreSignInSite}
+	// The failed run already used the Explore session: the site refused it signed
+	// in, so nothing asks for a sign-in again. The surface's Retry is the way on.
+	| {variant: 'explore-refused'; mode: 'off' | 'explore'}
 
 export interface BotWallGuidance {
 	variant: BotWallGuidanceVariant
@@ -41,16 +49,18 @@ export interface ProbeErrorExperience {
 	botWall: BotWallGuidance
 	rateLimit: RateLimitGuidance
 	// signInWithExplore: open Explore to sign in (the `explore` mode's call).
-	// signInWithExploreThenRetry: switch to `explore`, open Explore, retry once signed in.
+	// signInWithExploreThenRetry: switch to `explore`, open Explore, retry once signed in (YouTube; another site's retry is the user's).
 	// retryWithExploreSignIn: switch to `explore` and retry now.
 	actions: {retry: boolean; openCookiesSettings: boolean; enableCookiesAndRetry: boolean; signInWithExplore: boolean; signInWithExploreThenRetry: boolean; retryWithExploreSignIn: boolean}
 }
 
-// The Explore view's sign-in flag; null while main has not answered yet.
+// The Explore view's YouTube sign-in flag; null while main has not answered yet.
 export type ExploreSignedIn = boolean | null
 
 interface ProbeErrorExperienceInput {
 	error: ProbeError | null
+	// The link that failed: which site's sign-in the guidance is about. None means YouTube.
+	url?: string | null
 	commonSettings?: Partial<CommonSettings> | null
 	degradedReasons?: readonly ProbeDegradationReason[] | null
 	exploreSignedIn?: ExploreSignedIn
@@ -103,8 +113,8 @@ function effectiveCookiesMode(commonSettings: Partial<CommonSettings> | null | u
 // (the kinds escalation reaches, so never a rate limit). `file` / `browser` are
 // never overridden.
 // Nothing is offered before the settings load: the stored mode is not known yet.
-function offersExplore(commonSettings: Partial<CommonSettings> | null | undefined, errorKind: YtDlpErrorKind | undefined): boolean {
-	return commonSettings != null && canSwitchToExplore(commonSettings) && isCookiesNeededKind(errorKind)
+function offersExplore(commonSettings: Partial<CommonSettings> | null | undefined, needsAccount: boolean): boolean {
+	return commonSettings != null && canSwitchToExplore(commonSettings) && needsAccount
 }
 
 // The only mode the Explore offer may replace: a stored `off`, with the Explore tab on.
@@ -112,21 +122,34 @@ export function canSwitchToExplore(commonSettings: Partial<CommonSettings> | nul
 	return commonSettings != null && (commonSettings.cookiesMode ?? 'off') === 'off' && commonSettings.exploreEnabled !== false
 }
 
-function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn}): CookiesGuidance {
+function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn; site: ExploreSignInSite}): CookiesGuidance {
 	const mode = effectiveCookiesMode(input.commonSettings)
+	const {site} = input
+	const raw = probeErrorRaw(input.error) ?? ''
+	// yt-dlp's cookie login hint marks a failure an account can fix, whatever its kind.
+	const needsAccount = isCookiesNeededKind(input.errorKind) || asksForCookieLogin(raw)
+	const refusedSignedIn = input.error?.kind === 'ytdlp' && input.error.auth === 'exploreSession'
+	const signedIn = site.kind === 'youtube' && input.exploreSignedIn === true
 	// No cookie can lift a rate limit, under any mode: YouTube limits accounts too.
 	if (input.errorKind === 'rateLimit') return {mode, variant: 'hidden'}
+	// The failed run already used the Explore session for a failure an account
+	// might fix, or for a line nothing could name (main escalates a page another
+	// site's extractor could not parse). Only where the Explore offer would show.
+	// On another site the sign-in is only a guess from its cookies (any visit
+	// leaves some), so a run that still asks for a login keeps the sign-in guidance.
+	const stillAsksForLogin = site.kind === 'web' && (input.errorKind === 'loginRequired' || asksForCookieLogin(raw))
+	if (refusedSignedIn && !stillAsksForLogin && (needsAccount || input.errorKind === 'unknown') && (mode === 'explore' || (mode === 'off' && canSwitchToExplore(input.commonSettings)))) return {mode, variant: 'explore-refused'}
 	switch (mode) {
 		case 'off':
-			if (offersExplore(input.commonSettings, input.errorKind)) {
+			if (offersExplore(input.commonSettings, needsAccount)) {
 				const secondary = configuredCookiesRetryMode(input.commonSettings) ? 'enable-cookies' : 'open-settings'
-				return input.exploreSignedIn === true ? {mode, variant: 'explore-reuse', secondary} : {mode, variant: 'explore-offer', secondary}
+				return signedIn ? {mode, variant: 'explore-reuse', secondary} : {mode, variant: 'explore-offer', secondary, site}
 			}
-			return isCookiesNeededKind(input.errorKind) ? {mode, variant: 'needs-cookies'} : {mode, variant: 'hidden'}
+			return needsAccount ? {mode, variant: 'needs-cookies'} : {mode, variant: 'hidden'}
 		case 'explore':
 			// Escalation only reaches failures an account can fix; other errors say nothing about the sign-in.
-			if (!isCookiesNeededKind(input.errorKind)) return {mode, variant: 'hidden'}
-			return input.exploreSignedIn === true ? {mode, variant: 'configured'} : {mode, variant: 'explore-sign-in'}
+			if (!needsAccount) return {mode, variant: 'hidden'}
+			return signedIn ? {mode, variant: 'configured'} : {mode, variant: 'explore-sign-in', site}
 		case 'browser':
 			return isDpapiCookieError(probeErrorRaw(input.error)) ? {mode, variant: 'dpapi'} : {mode, variant: 'configured'}
 		case 'file':
@@ -138,7 +161,7 @@ function botWallGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 	const isBotWall = isBotWallKind(input.errorKind) || (input.degradedReasons?.includes('botWall') ?? false)
 	if (!isBotWall) return {variant: 'hidden'}
 	// The cookies alert carries the Explore offer; this one stays neutral (P2-R19).
-	if (offersExplore(input.commonSettings, input.errorKind)) return {variant: 'explore'}
+	if (offersExplore(input.commonSettings, isCookiesNeededKind(input.errorKind))) return {variant: 'explore'}
 	switch (effectiveCookiesMode(input.commonSettings)) {
 		case 'off':
 			// Under `explore` (Explore tab off), "Enable cookies and retry" would silently
@@ -157,9 +180,9 @@ function rateLimitGuidanceVariant(degradedReasons: readonly ProbeDegradationReas
 	return {variant: degradedReasons?.includes('rateLimit') ? 'degraded' : 'hidden'}
 }
 
-export function buildProbeErrorExperience({error, commonSettings = null, degradedReasons = null, exploreSignedIn = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
+export function buildProbeErrorExperience({error, url = null, commonSettings = null, degradedReasons = null, exploreSignedIn = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
 	const errorKind = probeErrorKind(error)
-	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn})
+	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn, site: exploreSignInSiteFor(url)})
 	const botWall = botWallGuidanceVariant({commonSettings, degradedReasons, errorKind})
 	const rateLimit = rateLimitGuidanceVariant(degradedReasons, errorKind)
 	const signInWithExplore = cookies.variant === 'explore-sign-in'
@@ -171,7 +194,7 @@ export function buildProbeErrorExperience({error, commonSettings = null, degrade
 		rateLimit,
 		actions: {
 			retry: error !== null,
-			openCookiesSettings: cookies.variant !== 'hidden' && !signInWithExplore && offerSecondary !== 'enable-cookies',
+			openCookiesSettings: cookies.variant !== 'hidden' && cookies.variant !== 'explore-refused' && !signInWithExplore && offerSecondary !== 'enable-cookies',
 			enableCookiesAndRetry: botWall.variant === 'disabled' || offerSecondary === 'enable-cookies',
 			signInWithExplore,
 			signInWithExploreThenRetry: cookies.variant === 'explore-offer',

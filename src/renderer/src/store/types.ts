@@ -1,4 +1,5 @@
 import type {StoreApi} from 'zustand'
+import type {ExploreSignInSite} from './exploreSignInSite.js'
 import type {
 	AppSettings,
 	AudioBitrate,
@@ -50,7 +51,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, ExploreSearchEngine, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -211,8 +212,9 @@ export interface ProbeOrchestratorSlice {
 	retryFormatProbe: () => Promise<void>
 	retryProbeWithCookies: () => Promise<void>
 	openCookiesSettings: () => void
-	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore tab.
-	openExploreSignIn: () => void
+	// The "Sign in in Explore" guidance action: leaves the wizard for the Explore
+	// tab, which opens another site's link for its sign-in (ADR 0011).
+	openExploreSignIn: (site: ExploreSignInSite) => void
 	// Stops the loading probe and returns to where the run started.
 	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
@@ -233,8 +235,9 @@ export interface QuickDownloadSlice {
 	// sign-in, retried once it is reported. Memory only: a restart forgets them.
 	exploreRetryTargets: readonly ExploreRetryTarget[]
 	// Switches the cookie mode to `explore`, opens Explore, and remembers the
-	// target until Explore reports the sign-in.
-	signInWithExploreThenRetry: (target: ExploreRetryTarget) => Promise<void>
+	// target until Explore reports the sign-in. That flag is YouTube's: for
+	// another site Explore opens the link and nothing waits; the user retries.
+	signInWithExploreThenRetry: (target: ExploreRetryTarget, site: ExploreSignInSite) => Promise<void>
 	// "Use my Explore sign-in and retry": switches the cookie mode to `explore`, then retries now.
 	retryWithExploreSignIn: (target: ExploreRetryTarget) => Promise<void>
 }
@@ -433,7 +436,7 @@ export interface QueueFocus {
 // Under Explore's address bar after Enter on something the view will not
 // load (P2-R45): a web link on another site (which can be downloaded
 // instead), an address refused outright, or a search over the length cap.
-export type ExploreAddressHint = {kind: 'offsite'; downloadUrl: string} | {kind: 'refused'} | {kind: 'search-too-long'}
+export type ExploreAddressHint = {kind: 'refused'} | {kind: 'search-too-long'}
 
 export interface UiSlice {
 	uiZoom: number
@@ -447,6 +450,9 @@ export interface UiSlice {
 	exploreAddressHint: ExploreAddressHint | null
 	// The Explore browser is on screen (its tab is active, past the first-run notice).
 	exploreBrowsing: boolean
+	// What the Explore view loads next time it is shown: the link a "Sign in in
+	// Explore" for another site leads to. Taken once.
+	explorePendingAddress: string | null
 
 	setUiZoom: (zoom: number) => void
 	setUiTheme: (theme: UiTheme) => void
@@ -456,6 +462,7 @@ export interface UiSlice {
 	setDonateDialogOpen: (open: boolean) => void
 	setExploreAddressHint: (hint: ExploreAddressHint | null) => void
 	setExploreBrowsing: (browsing: boolean) => void
+	takeExplorePendingAddress: () => string | null
 }
 
 export interface SystemSlice {
@@ -507,6 +514,7 @@ export interface SystemSlice {
 	setProxyUrl: (url: string) => Promise<void>
 	setExploreAdBlock: (enabled: boolean) => Promise<void>
 	setExploreIdleUnload: (enabled: boolean) => Promise<void>
+	setExploreSearchEngine: (engine: ExploreSearchEngine) => Promise<void>
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>

@@ -99,9 +99,9 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'explore-long-profile',
 	'explore-nudge',
 	'explore-proxy-error',
-	'explore-adblock-off',
+	'explore-adblock-on',
 	'explore-adblock-unavailable',
-	'explore-address-offsite'
+	'explore-address-refused'
 ] as const
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
@@ -282,9 +282,9 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download split truncates the name and keeps it whole in the native tooltip.', kind: 'explore'},
 	{id: 'explore-nudge', group: 'Explore', title: 'Explore mode nudge', description: 'Cookies mode is not Explore, so the mode nudge sits above the toolbar.', kind: 'explore'},
 	{id: 'explore-proxy-error', group: 'Explore', title: 'Explore proxy error', description: 'The view refuses to load because the proxy setting is invalid: the error surface replaces the page.', kind: 'explore'},
-	{id: 'explore-adblock-off', group: 'Explore', title: 'Explore ad blocker off', description: 'The user turned the ad blocker off: the shield in the toolbar is not pressed and Explore pages load unfiltered.', kind: 'explore'},
+	{id: 'explore-adblock-on', group: 'Explore', title: 'Explore ad blocker on', description: 'The user turned the ad blocker on: the shield in the toolbar is pressed and Explore pages load filtered.', kind: 'explore'},
 	{id: 'explore-adblock-unavailable', group: 'Explore', title: 'Explore ad blocker unavailable', description: "The ad blocker is on but its filter lists couldn't be downloaded: the shield warns and nothing is blocked.", kind: 'explore'},
-	{id: 'explore-address-offsite', group: 'Explore', title: 'Explore off-site address', description: 'A link on another site was typed in the address bar: the hint under the toolbar says Explore only browses YouTube and offers to download the link.', kind: 'explore'}
+	{id: 'explore-address-refused', group: 'Explore', title: 'Explore refused address', description: 'An address Explore does not load (another scheme, or a sign-in page) was typed in the address bar: the hint under the toolbar says so.', kind: 'explore'}
 ] as const
 
 const SCENARIOS_BY_ID = new Map<string, BrowserMockScenario>(BROWSER_MOCK_SCENARIOS.map(scenario => [scenario.id, scenario]))
@@ -418,7 +418,6 @@ function whenRendered(selector: string, then: () => void): Promise<void> {
 }
 
 // The link the off-site address scenario typed (no request is ever made for it).
-const EXPLORE_OFFSITE_SAMPLE_URL = 'https://videos.example.com/watch/42'
 
 const MULTI_PROFILE_AUDIO_ONLY_REF: DownloadProfileRef = {kind: 'builtin', id: 'audio-only'}
 const MULTI_PROFILE_HD_1080_REF: DownloadProfileRef = {kind: 'builtin', id: 'hd-1080'}
@@ -511,7 +510,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 		replaceHash('explore')
 		// Leaving the Explore tab clears the hint, and StrictMode's mount-unmount-mount
 		// in dev would too: the hint lands once the tab has mounted.
-		if (scenario.id === 'explore-address-offsite') await whenRendered('[data-testid="explore-toolbar"]', () => store.setState({exploreAddressHint: {kind: 'offsite', downloadUrl: EXPLORE_OFFSITE_SAMPLE_URL}}))
+		if (scenario.id === 'explore-address-refused') await whenRendered('[data-testid="explore-toolbar"]', () => store.setState({exploreAddressHint: {kind: 'refused'}}))
 		return
 	}
 	if (scenario.id === 'queue-quick-download') {
@@ -521,7 +520,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.id === 'queue-attention') {
 		// Signed out of Explore at home: the toast for an account-only failure offers the sign-in, as in the app.
 		const {failed} = ATTENTION_SCENARIO_ROWS
-		notify.quickDownloadFailed(failed, ATTENTION_SCENARIO_FAILED_URL, {kind: 'sign-in', run: store.openExploreSignIn}, () => store.showQueueItem(failed))
+		notify.quickDownloadFailed(failed, ATTENTION_SCENARIO_FAILED_URL, {kind: 'sign-in', run: () => store.openExploreSignIn({kind: 'youtube'})}, () => store.showQueueItem(failed))
 		return
 	}
 	if (scenario.kind === 'dialog') {

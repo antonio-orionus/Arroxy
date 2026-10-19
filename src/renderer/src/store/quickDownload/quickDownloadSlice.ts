@@ -71,7 +71,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 	return {
 		exploreRetryTargets: [],
 
-		signInWithExploreThenRetry: async target => {
+		signInWithExploreThenRetry: async (target, site) => {
 			// Only a stored `off` with the Explore tab on is switched. Under the
 			// explore mode the wait needs no write; any other mode (a stale
 			// button) is never overridden, so the click is a plain retry.
@@ -86,8 +86,11 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			// held before the switch, and that echo would cancel a wait armed on
 			// the optimistic one. Signing in takes far longer than the write.
 			const switched = switching ? get().switchToExploreCookiesMode() : Promise.resolve(true)
-			get().openExploreSignIn()
-			if (!(await switched)) return
+			get().openExploreSignIn(site)
+			// Explore reports YouTube's sign-in only; on another site a cookie
+			// comes with the first visit, so no signal says the user signed in
+			// there (ADR 0011). That retry stays the user's: the failure keeps its Retry.
+			if (!(await switched) || site.kind !== 'youtube') return
 			set(state => ({exploreRetryTargets: withRetryTarget(state.exploreRetryTargets, target)}))
 		},
 

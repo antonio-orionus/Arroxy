@@ -30,7 +30,7 @@ export function StepError(): ReactNode {
 	// Leaving for Explore is the user's own choice here, unlike a toast's (P2-R41).
 	const target = {kind: 'wizard', url: wizardUrl.trim()} as const
 	const message = formatProbeError(wizardError)
-	const experience = buildProbeErrorExperience({error: wizardError, commonSettings: settings?.common, exploreSignedIn: exploreView?.signedIn ?? null})
+	const experience = buildProbeErrorExperience({error: wizardError, url: target.url, commonSettings: settings?.common, exploreSignedIn: exploreView?.signedIn ?? null})
 	const showBotWallNotice = experience.botWall.variant !== 'hidden'
 	const showCookiesAlert = experience.cookies.variant !== 'hidden'
 	// The rate-limit alert carries the retry: "Try now" while the cooldown runs.
@@ -52,7 +52,7 @@ export function StepError(): ReactNode {
 						guidance={experience.cookies}
 						onOpenSettings={openCookiesSettings}
 						onSignInWithExplore={openExploreSignIn}
-						onSignInWithExploreThenRetry={() => void signInWithExploreThenRetry(target)}
+						onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry(target, site)}
 						onRetryWithExploreSignIn={() => void retryWithExploreSignIn(target)}
 						onEnableCookiesAndRetry={() => void retryProbeWithCookies()}
 					/>

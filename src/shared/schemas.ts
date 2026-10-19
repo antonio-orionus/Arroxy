@@ -390,6 +390,12 @@ export type ExploreViewError = z.infer<typeof exploreViewErrorSchema>
 const exploreAdBlockStatusSchema = z.enum(['off', 'starting', 'on', 'unavailable'])
 export type ExploreAdBlockStatus = z.infer<typeof exploreAdBlockStatusSchema>
 
+// Where plain text typed in Explore's address bar is searched; unset means
+// DuckDuckGo (see exploreSearchEngineOf).
+const exploreSearchEngineSchema = z.enum(['duckduckgo', 'brave', 'google', 'bing', 'youtube'])
+export type ExploreSearchEngine = z.infer<typeof exploreSearchEngineSchema>
+export const EXPLORE_SEARCH_ENGINES = exploreSearchEngineSchema.options
+
 // What the renderer is told about the Explore view. Carries no cookie data:
 // `signedIn` is a presence flag, never the cookies behind it. The schema is
 // also the outbound filter, so a field added to the host's state cannot reach
@@ -696,8 +702,9 @@ const commonSettingsSchema = z.object({
 	// Main owns it: written by the view host (which checks every URL before
 	// storing and again before reopening it), never by a renderer update.
 	exploreLastUrl: z.string().optional(),
-	// The Explore ad blocker; absent means on (see isExploreAdBlockOn), only false turns it off.
+	// The Explore ad blocker; absent means off (see isExploreAdBlockOn), only true turns it on.
 	exploreAdBlock: z.boolean().optional(),
+	exploreSearchEngine: exploreSearchEngineSchema.optional(),
 	// Explore idle unload; absent means off (see isExploreIdleUnloadOn), only true turns it on.
 	exploreIdleUnload: z.boolean().optional(),
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.

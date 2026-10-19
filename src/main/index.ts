@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import os from 'node:os'
-import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme, shell} from 'electron'
+import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -404,7 +404,7 @@ if (hasSingleInstanceLock) {
 
 		contextMenu({window: mainWindow.webContents, showSaveImageAs: true, showCopyImageAddress: true, showInspectElement: !app.isPackaged})
 
-		// On by default (isExploreAdBlockOn); nothing is loaded or fetched before Explore first opens.
+		// Off until the user turns it on (isExploreAdBlockOn); nothing is loaded or fetched before then.
 		const {exploreAdBlockFilters} = e2eMode
 		const prebuiltLists = {session: exploreSession, cachePath: path.join(app.getPath('userData'), 'explore-adblock', 'engine.bin')}
 		const exploreAdBlocker = new ExploreAdBlocker({
@@ -425,7 +425,6 @@ if (hasSingleInstanceLock) {
 			homeUrlOverride: e2eMode.exploreHomeUrl,
 			idleUnloadDelayMs: e2eMode.exploreIdleUnloadMs,
 			isPackaged: app.isPackaged,
-			openExternal: url => shell.openExternal(url),
 			emit: state => exploreEvents.emit(state),
 			pointerEntered: () => exploreEvents.pointerInView(),
 			// Native, so it paints over the page; a link the flow cannot take only copies.

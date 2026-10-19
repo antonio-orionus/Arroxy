@@ -28,7 +28,7 @@ import log from 'electron-log/main.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
-import {QUEUE_STATUS, type QueueChoice, type QueueLane} from '@shared/schemas.js'
+import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane} from '@shared/schemas.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
@@ -188,8 +188,8 @@ export class QueueService extends EventEmitter {
 	}
 
 	// Probe-stage commands for a placeholder row, whose probe the renderer runs. See QueueProbeLifecycle.
-	probeFailed(itemId: string, error: LocalizedError): Result<void> {
-		return this.probeLifecycle.probeFailed(itemId, error)
+	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void> {
+		return this.probeLifecycle.probeFailed(itemId, error, auth)
 	}
 
 	needsChoice(itemId: string, choice: QueueChoice, title: string): Result<void> {

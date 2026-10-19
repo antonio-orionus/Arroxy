@@ -5,8 +5,8 @@ interface ScenarioLike {
 	id: string
 }
 
-// The ad blocker is on by default (P2-R53); only `explore-adblock-off` shows it off.
-const BLANK_VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'on'}
+// The ad blocker is off by default; only `explore-adblock-on` and `explore-adblock-unavailable` turn it on.
+const BLANK_VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'}
 
 const SAMPLE_PAGE: ExploreViewState = {...BLANK_VIEW, url: 'https://www.youtube.com/@sample-travel-films/videos', title: 'Sample page', canGoBack: true, signedIn: true}
 
@@ -16,12 +16,12 @@ export function buildExploreView(scenario: ScenarioLike): ExploreViewState {
 	switch (scenario.id) {
 		case 'explore-browsing':
 		case 'explore-long-profile':
-		case 'explore-address-offsite':
+		case 'explore-address-refused':
 			return SAMPLE_PAGE
 		case 'explore-nudge':
 			return {...SAMPLE_PAGE, signedIn: false}
-		case 'explore-adblock-off':
-			return {...SAMPLE_PAGE, adBlock: 'off'}
+		case 'explore-adblock-on':
+			return {...SAMPLE_PAGE, adBlock: 'on'}
 		case 'explore-adblock-unavailable':
 			return {...SAMPLE_PAGE, adBlock: 'unavailable'}
 		case 'explore-proxy-error':
@@ -40,13 +40,12 @@ export function exploreSettingsPatch(scenario: ScenarioLike): CommonPatch {
 			return {exploreEnabled: true, exploreNoticeSeen: false, cookiesMode: 'off', exploreModeAutoSwitched: false}
 		case 'explore-browsing':
 		case 'explore-long-profile':
-		case 'explore-address-offsite':
+		case 'explore-address-refused':
 		case 'explore-proxy-error':
 			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true}
 		case 'explore-adblock-unavailable':
-			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true}
-		case 'explore-adblock-off':
-			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true, exploreAdBlock: false}
+		case 'explore-adblock-on':
+			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true, exploreAdBlock: true}
 		case 'explore-nudge':
 			// First open already happened, so the mode is left alone and only the nudge shows.
 			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'file', exploreModeAutoSwitched: true, exploreModeNudgeDismissedFor: undefined}

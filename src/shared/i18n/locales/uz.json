@@ -492,6 +492,12 @@
 				"exploreSignedIn": {"heading": "Kashfiyotga kirilgan", "body": "Agar bu video hisob talab qilsa, Arroxy Kashfiyot orqali kirishingizdan avtomatik foydalanadi. U boshqa sababga ko'ra mavjud bo'lmasligi mumkin."},
 				"exploreOffer": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Kashfiyot orqali kiring, Arroxy qayta urinib ko'radi.", "cta": "Kashfiyot orqali kirish"},
 				"exploreReuse": {"heading": "Bu video uchun YouTube hisobi kerak bo'lishi mumkin", "body": "Siz Kashfiyotga kirgansiz, lekin yuklab olishlar hozir bu kirishdan foydalanmayapti.", "cta": "Kashfiyot orqali kirishimdan foydalanib, qayta urinish"},
+				"exploreSite": {
+					"heading": "Bu havola uchun {{host}} saytida hisob kerak bo'lishi mumkin",
+					"signInBody": "Kashfiyotda {{host}} saytiga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
+					"offerBody": "Kashfiyot orqali {{host}} saytiga kiring va qayta urinib ko'ring."
+				},
+				"exploreRefused": {"heading": "Sayt Kashfiyotdagi kirishingizga qaramay buni rad etdi", "body": "Arroxy buni Kashfiyot orqali kirgan holda allaqachon sinab ko'rdi, shuning uchun qayta kirish yordam bermaydi. Saytda muammo bo'lishi yoki bu hisob uni ocha olmasligi mumkin. Keyinroq urinib ko'ring."},
 				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…",
 				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "Arroxy bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
 				"dpapi": {
@@ -972,10 +978,10 @@
 		"tabLabel": "Kashfiyot",
 		"newBadge": "Yangi",
 		"notice": {
-			"title": "YouTube'ni Arroxy ichida ko'ring",
-			"body": "Video, pleylist yoki kanalni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda YouTube'ga kiring.",
+			"title": "Veb-saytlarni Arroxy ichida ko'ring",
+			"body": "YouTube yoki boshqa istalgan saytda videoni toping va shu yerdan yuklab oling — havolalarni nusxalamasdan. Hisob talab qiladigan videolarni yuklab olish uchun bu yerda saytga kiring.",
 			"riskTitle": "Qo'shimcha hisob bilan kiring",
-			"riskBody": "YouTube Arroxy kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
+			"riskBody": "YouTube kabi saytlar Arroxy kabi yuklab olish vositalari bilan ishlatiladigan hisoblarni belgilashi va ba'zida taqiqlashi mumkin. Asosiy hisobingizni emas, yo'qotishga qodir bo'lgan hisobdan foydalaning.",
 			"continue": "Davom etish"
 		},
 		"nudge": {
@@ -994,10 +1000,8 @@
 			"reload": "Qayta yuklash",
 			"home": "YouTube bosh sahifasi",
 			"addressAria": "Manzil",
-			"addressPlaceholder": "YouTube'da qidiring yoki YouTube havolasini joylang",
-			"offsiteHint": "Kashfiyot faqat YouTube'ni ko'rsatadi.",
-			"offsiteDownload": "Bu havolani yuklab olish",
-			"offsiteHintHost": "Kashfiyot faqat YouTube'ni ko'rsatadi. {{host}}",
+			"addressPlaceholder": "{{engine}} orqali qidiring yoki istalgan saytni oching (Vimeo, Instagram…)",
+			"refusedHint": "Kashfiyot bu manzilni ocha olmaydi.",
 			"searchTooLong": "Bu qidiruv juda uzun.",
 			"downloadWithProfile": "Yuklab olish · {{profileName}}",
 			"interactiveHint": "Interaktiv yuklab olish: format, subtitr va boshqalarni tanlang…",
@@ -1015,15 +1019,17 @@
 		},
 		"settings": {
 			"title": "Kashfiyot",
-			"description": "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
+			"description": "YouTube yoki boshqa istalgan saytni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
 			"showTab": "Kashfiyot yorlig'ini ko'rsatish",
 			"showTabDescription": "O'chirsangiz, yuklab olishlar ham Kashfiyot orqali kirishdan foydalanmaydi.",
 			"idleUnload": "Faol bo'lmaganda xotirani bo'shatish",
 			"idleUnloadDescription": "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi.",
+			"searchEngine": "Qidiruv tizimi",
+			"searchEngineDescription": "Manzil satriga kiritilgan matn shu tizimda qidiriladi. Havolalar kiritilganidek ochiladi.",
 			"signOut": "Kashfiyotdan chiqish",
-			"signOutDescription": "Kashfiyotdagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi.",
+			"signOutDescription": "Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi.",
 			"signOutConfirmTitle": "Kashfiyotdan chiqilsinmi?",
-			"signOutConfirmBody": "Bu Kashfiyotdagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi.",
+			"signOutConfirmBody": "Bu Kashfiyotdagi kirishlaringiz va ko'rish ma'lumotlarini barcha saytlar bo'yicha tozalaydi. Hisob talab qiladigan yuklab olishlar qayta kirmaguningizcha muvaffaqiyatsiz bo'ladi.",
 			"signOutConfirm": "Chiqish"
 		},
 		"error": {"proxyTitle": "Kashfiyot proxy orqali ulana olmaydi", "proxyBody": "Sozlamalardagi proxy'ni tekshiring, so'ng qayta urinib ko'ring.", "loadTitle": "Bu sahifa yuklanmadi", "loadBody": "Ulanishni tekshiring, so'ng qayta urinib ko'ring.", "retry": "Qayta urinish", "openSettings": "Sozlamalarni ochish"}

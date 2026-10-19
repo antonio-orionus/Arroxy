@@ -1,20 +1,24 @@
 import {useRef, useState, type KeyboardEvent, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import type {ExploreSearchEngine} from '@shared/schemas.js'
+import {exploreSearchEngineName} from '@shared/sites/exploreSearch.js'
 import {Input} from '../ui/input.js'
 
 interface ExploreAddressBarProps {
 	// The page's address, shown whenever the user is not editing.
 	url: string
+	// Named in the placeholder: where plain text is searched.
+	searchEngine: ExploreSearchEngine
 	// Enter with text in the bar; resolves true when the view navigates.
 	onSubmit: (text: string) => Promise<boolean>
 	// The text changed, or Esc was pressed: whatever Enter last said is stale.
 	onEdit: () => void
 }
 
-// P2-R45: a YouTube-scoped omnibox. Focus selects the whole address so a
+// P2-R45: an omnibox: any link opens, plain text searches the chosen engine. Focus selects the whole address so a
 // paste replaces it; Esc or leaving the bar puts the page's address back.
 // Nothing is judged while the user types: only Enter (see onSubmit).
-export function ExploreAddressBar({url, onSubmit, onEdit}: ExploreAddressBarProps): ReactNode {
+export function ExploreAddressBar({url, searchEngine, onSubmit, onEdit}: ExploreAddressBarProps): ReactNode {
 	const {t} = useTranslation()
 	const [draft, setDraft] = useState<string | null>(null)
 	// The mouse-up that ends a focusing click would collapse the selection.
@@ -51,7 +55,7 @@ export function ExploreAddressBar({url, onSubmit, onEdit}: ExploreAddressBarProp
 	return (
 		<Input
 			value={draft ?? url}
-			placeholder={t('explore.toolbar.addressPlaceholder')}
+			placeholder={t('explore.toolbar.addressPlaceholder', {engine: exploreSearchEngineName(searchEngine)})}
 			aria-label={t('explore.toolbar.addressAria')}
 			dir="ltr"
 			spellCheck={false}
