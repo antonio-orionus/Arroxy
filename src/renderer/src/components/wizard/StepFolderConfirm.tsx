@@ -1,4 +1,5 @@
 import {useState, useMemo, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {Clapperboard, Download, FileText, FolderOpen, House, Image, Monitor, Music, type LucideIcon} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -37,7 +38,17 @@ function LocationOption({loc, path, full}: {loc: Location; path: string | null; 
 // a single-video Review row (`persist` false) changes this download only.
 export function FolderFields({persist}: {persist: boolean}): ReactNode {
 	const {t} = useTranslation()
-	const {wizardOutputDir, commonPaths, setWizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, setWizardSubfolderEnabled, setWizardSubfolderName} = useAppStore()
+	const {wizardOutputDir, commonPaths, setWizardOutputDir, wizardSubfolderEnabled, wizardSubfolderName, setWizardSubfolderEnabled, setWizardSubfolderName} = useAppStore(
+		useShallow(state => ({
+			wizardOutputDir: state.wizardOutputDir,
+			commonPaths: state.commonPaths,
+			setWizardOutputDir: state.setWizardOutputDir,
+			wizardSubfolderEnabled: state.wizardSubfolderEnabled,
+			wizardSubfolderName: state.wizardSubfolderName,
+			setWizardSubfolderEnabled: state.setWizardSubfolderEnabled,
+			setWizardSubfolderName: state.setWizardSubfolderName
+		}))
+	)
 
 	const {presets, custom, locations} = useMemo(() => {
 		const presets: Location[] = (
@@ -116,7 +127,19 @@ export function FolderFields({persist}: {persist: boolean}): ReactNode {
 
 export function StepFolderConfirm(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardOutputDir, wizardThumbnail, wizardTitle, wizardDuration, wizardWebpageUrl, advance, back, wizardSubfolderEnabled, wizardSubfolderName} = useAppStore()
+	const {wizardOutputDir, wizardThumbnail, wizardTitle, wizardDuration, wizardWebpageUrl, advance, back, wizardSubfolderEnabled, wizardSubfolderName} = useAppStore(
+		useShallow(state => ({
+			wizardOutputDir: state.wizardOutputDir,
+			wizardThumbnail: state.wizardThumbnail,
+			wizardTitle: state.wizardTitle,
+			wizardDuration: state.wizardDuration,
+			wizardWebpageUrl: state.wizardWebpageUrl,
+			advance: state.advance,
+			back: state.back,
+			wizardSubfolderEnabled: state.wizardSubfolderEnabled,
+			wizardSubfolderName: state.wizardSubfolderName
+		}))
+	)
 	return (
 		<div className="wizard-step flex flex-col gap-4" data-testid="step-folder">
 			<VideoSummaryCard thumbnail={wizardThumbnail} title={wizardTitle} duration={wizardDuration} webpageUrl={wizardWebpageUrl} />

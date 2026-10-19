@@ -96,7 +96,7 @@ export const en = {
   discord_badge_text: "Join the Discord Community",
   discord_badge_encoded: "Join%20the%20Discord%20Community",
   hero_desc:
-    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 4K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
+    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
   cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
   star_cta: "If Arroxy saves you time, a ⭐ helps others find it.",
@@ -151,12 +151,16 @@ export const en = {
   feat_explore_5:
     "**Ad blocker** — Explore blocks ads and trackers on its own pages; downloads are unaffected. On by default, one click on the shield in Explore's toolbar turns it off, and it never acts on Google's sign-in pages. YouTube may push back on ad blockers for signed-in accounts",
   feat_quality_h3: "Quality & formats",
-  feat_quality_1: "Up to **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p",
-  feat_quality_2: "**High frame rate** preserved as-is — 60 fps, 120 fps, HDR",
+  feat_quality_1: "Up to **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p",
+  feat_quality_2: "**High frame rate and HDR** preserved as-is — 60 fps, HDR10",
   feat_quality_3:
     "**Audio** — export audio-only as MP3, M4A/AAC, Opus, or WAV. In interactive downloads, pick the source's native surround/Dolby tracks (AC-3, E-AC-3, 5.1, DRC) when available, or set a global **Prefer surround / Dolby** default",
   feat_quality_4:
     "**Profiles with a goal** — *Best picture* (AV1 · VP9) or *Smart TV* (MP4 · H.264), saved as Auto, MP4, MKV, or WebM without re-encoding. HDR is *Auto* (only when your screen can show it), *SDR*, or *HDR*",
+  feat_quality_5:
+    "**Every codec at every resolution** — the step-by-step download lists AV1, VP9 and H.264 side by side at each resolution, so you can pick the one your TV or editor plays",
+  feat_quality_6:
+    "**Know what a stream really is** — sizes YouTube upscaled with AI, AI-dubbed audio languages, enhanced-bitrate streams, 360° videos and damaged or watermarked copies are marked. Profiles skip AI-upscaled streams unless you allow them",
   feat_privacy_h3: "Privacy & control",
   feat_privacy_1:
     "100% local processing — downloads go straight from YouTube to your disk",
@@ -170,7 +174,7 @@ export const en = {
   feat_workflow_2:
     "**Central download queue** — every single, playlist, bulk, or quick job lands in one place for progress, pause, resume, cancel, retry, and priority control",
   feat_workflow_3:
-    "**Clipboard watch** — copy a YouTube link and Arroxy auto-fills the URL when you refocus the app (toggle in Advanced settings)",
+    "**Clipboard watch** — copy a video link and it fills the URL field when you come back to Arroxy, with **Undo** if you didn't mean it. While Arroxy is busy, the link waits until you are back on the URL tab (turn it off in Settings)",
   feat_workflow_4:
     "**Auto-clean URLs** — strips tracking params (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) and unwraps `youtube.com/redirect` links",
   feat_workflow_5:
@@ -201,6 +205,8 @@ export const en = {
     "**Aurora or Minimal, dark or light** — glass panels over a moving sky, or quiet solid surfaces; switch from the footer. Computers without graphics acceleration get Minimal automatically",
   feat_workflow_19:
     "**Mac menu bar** — on macOS, open Settings (`Cmd+,`), set the download speed limit, switch style and theme, and open logs or save a diagnostics file from the menu bar",
+  feat_workflow_20:
+    "**Change a profile from any download** — tweak a download, then update the profile it started from (with a preview of what changes) or save the settings as a new profile. Switching profile asks whether to keep your edits",
   feat_post_h3: "Subtitles & post-processing",
   feat_post_1:
     "**Subtitles** in SRT, VTT, or ASS — manual or auto-generated, in any available language",
@@ -216,7 +222,7 @@ export const en = {
   feat_sites_1:
     "**YouTube, in full** — Videos, Shorts, Channels, Playlists, YouTube Music, and Podcasts handled as first-class sources",
   feat_sites_2:
-    "**2000+ other sites** via yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org, and many more",
+    "**2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable, and many more",
   feat_sites_3:
     "**Audio-only and subtitles** work across every supported site, not just YouTube",
   feat_sites_4:
@@ -386,7 +392,7 @@ export const en = {
     "Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a YouTube browser built into the app: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).",
   faq_q2: "What video qualities can I download?",
   faq_a2:
-    "Anything YouTube serves: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps, 120 fps, and HDR streams are preserved as-is.",
+    "Anything YouTube serves: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps and HDR streams are preserved as-is, and the step-by-step download lets you pick AV1, VP9 or H.264 at each resolution.",
   faq_q3: "Can I extract just the audio as MP3?",
   faq_a3:
     "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",

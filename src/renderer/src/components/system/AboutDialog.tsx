@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {ExternalLink, Share2} from 'lucide-react'
 import IconDiscord from '~icons/simple-icons/discord'
@@ -18,7 +19,7 @@ function openExternalUrl(url: string): void {
 
 export function AboutDialog(): ReactNode {
 	const {t} = useTranslation()
-	const {aboutDialogOpen, setAboutDialogOpen, openShareDialog} = useAppStore()
+	const {aboutDialogOpen, setAboutDialogOpen, openShareDialog} = useAppStore(useShallow(state => ({aboutDialogOpen: state.aboutDialogOpen, setAboutDialogOpen: state.setAboutDialogOpen, openShareDialog: state.openShareDialog})))
 
 	function handleShare(): void {
 		setAboutDialogOpen(false)
