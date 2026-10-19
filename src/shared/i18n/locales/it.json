@@ -485,6 +485,7 @@
 				"exploreOffer": {"heading": "Questo video potrebbe richiedere un account YouTube", "body": "Accedi in Esplora e Arroxy riproverà.", "cta": "Accedi in Esplora"},
 				"exploreReuse": {"heading": "Questo video potrebbe richiedere un account YouTube", "body": "Hai effettuato l'accesso in Esplora, ma al momento i download non usano quell'accesso.", "cta": "Usa il mio accesso di Esplora e riprova"},
 				"exploreSite": {"heading": "Questo link potrebbe richiedere un account su {{host}}", "signInBody": "Accedi a {{host}} in Esplora e riprova. Arroxy usa quell'accesso solo quando un download ne ha bisogno.", "offerBody": "Accedi a {{host}} in Esplora e riprova."},
+				"exploreRefused": {"heading": "Il sito ha rifiutato la richiesta anche con il tuo accesso in Esplora", "body": "Arroxy ha già provato con l'accesso effettuato in Esplora, quindi accedere di nuovo non servirà. Il sito potrebbe avere dei problemi oppure questo account non può aprirlo. Riprova più tardi."},
 				"otherCookiesCta": "Usa invece un file dei cookie o un browser…",
 				"needsCookies": {"heading": "Questo sito richiede l'accesso", "body": "Arroxy non è riuscito ad accedere a questo video senza autenticazione. Configura i cookie nelle impostazioni avanzate: scegli un browser in cui hai già effettuato l'accesso oppure importa un file cookies.txt."},
 				"dpapi": {

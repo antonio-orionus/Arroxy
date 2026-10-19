@@ -468,6 +468,7 @@
 				"exploreOffer": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Ingia kwenye Gundua na Arroxy itajaribu tena.", "cta": "Ingia kwenye Gundua"},
 				"exploreReuse": {"heading": "Video hii inaweza kuhitaji akaunti ya YouTube", "body": "Umeingia kwenye Gundua, lakini upakuaji hautumii kuingia huko kwa sasa.", "cta": "Tumia kuingia kwangu kwenye Gundua na ujaribu tena"},
 				"exploreSite": {"heading": "Kiungo hiki kinaweza kuhitaji akaunti kwenye {{host}}", "signInBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena. Arroxy hutumia kuingia huko tu pale upakuaji unapohitaji.", "offerBody": "Ingia kwenye {{host}} katika Gundua kisha ujaribu tena."},
+				"exploreRefused": {"heading": "Tovuti imekataa hili hata ukiwa umeingia kwenye Gundua", "body": "Arroxy tayari ilijaribu ukiwa umeingia kupitia Gundua, kwa hivyo kuingia tena hakutasaidia. Huenda tovuti ina hitilafu, au akaunti hii haiwezi kuifungua. Jaribu tena baadaye."},
 				"otherCookiesCta": "Tumia faili ya vidakuzi au kivinjari badala yake…",
 				"needsCookies": {"heading": "Tovuti hii inahitaji kuingia", "body": "Arroxy haikuweza kufikia video hii bila uthibitisho. Sanidi vidakuzi katika mipangilio ya hali ya juu — ielekeze kwenye kivinjari ambacho tayari umeingia, au ingiza faili ya cookies.txt."},
 				"dpapi": {

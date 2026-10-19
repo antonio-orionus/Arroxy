@@ -497,6 +497,7 @@
 					"signInBody": "Kashfiyotda {{host}} saytiga kiring va qayta urinib ko'ring. Arroxy bu kirishdan faqat yuklab olish uchun kerak bo'lganda foydalanadi.",
 					"offerBody": "Kashfiyot orqali {{host}} saytiga kiring va qayta urinib ko'ring."
 				},
+				"exploreRefused": {"heading": "Sayt Kashfiyotdagi kirishingizga qaramay buni rad etdi", "body": "Arroxy buni Kashfiyot orqali kirgan holda allaqachon sinab ko'rdi, shuning uchun qayta kirish yordam bermaydi. Saytda muammo bo'lishi yoki bu hisob uni ocha olmasligi mumkin. Keyinroq urinib ko'ring."},
 				"otherCookiesCta": "Buning o'rniga cookies fayli yoki brauzerdan foydalanish…",
 				"needsCookies": {"heading": "Bu sayt tizimga kirish talab qiladi", "body": "Arroxy bu videoga autentifikatsiyasiz kira olmadi. Kengaytirilgan sozlamalarda cookiesni sozlang — allaqachon kirgan brauzeringizga yo'naltiring yoki cookies.txt faylini import qiling."},
 				"dpapi": {

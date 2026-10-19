@@ -517,6 +517,7 @@
 					"signInBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie. Arroxy używa tego logowania tylko wtedy, gdy pobieranie go potrzebuje.",
 					"offerBody": "Zaloguj się na stronie {{host}} w karcie Odkrywaj i spróbuj ponownie."
 				},
+				"exploreRefused": {"heading": "Strona odrzuciła żądanie mimo logowania w karcie Odkrywaj", "body": "Arroxy użył już logowania z karty Odkrywaj, więc ponowne logowanie nie pomoże. Strona może mieć problemy albo to konto nie ma do niej dostępu. Spróbuj ponownie później."},
 				"otherCookiesCta": "Użyj zamiast tego pliku cookie lub przeglądarki…",
 				"needsCookies": {"heading": "Ta witryna wymaga zalogowania", "body": "Arroxy nie mógł uzyskać dostępu do tego filmu bez uwierzytelnienia. Skonfiguruj pliki cookie w ustawieniach zaawansowanych — wskaż przeglądarkę, w której masz już otwartą sesję, albo zaimportuj plik cookies.txt."},
 				"dpapi": {

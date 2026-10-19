@@ -2275,6 +2275,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "이 동영상에는 YouTube 계정이 필요할 수 있습니다"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy가 이미 탐색의 로그인으로 시도했으므로 다시 로그인해도 소용없습니다. 사이트에 문제가 있거나 이 계정으로는 열 수 없을 수 있습니다. 나중에 다시 시도하세요."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "탐색에서 로그인했는데도 사이트가 요청을 거부했습니다"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "탐색에 로그인되어 있지만 지금은 다운로드에서 그 로그인을 사용하지 않고 있습니다."

@@ -489,6 +489,10 @@
 					"signInBody": "Melde dich in Entdecken bei {{host}} an und versuche es erneut. Arroxy verwendet diese Anmeldung nur, wenn ein Download sie braucht.",
 					"offerBody": "Melde dich mit Entdecken bei {{host}} an und versuche es erneut."
 				},
+				"exploreRefused": {
+					"heading": "Die Website hat das trotz deiner Anmeldung in Entdecken abgelehnt",
+					"body": "Arroxy hat es bereits mit deiner Anmeldung in Entdecken versucht, eine erneute Anmeldung hilft also nicht. Möglicherweise hat die Website Probleme oder dieses Konto kann sie nicht öffnen. Versuche es später erneut."
+				},
 				"otherCookiesCta": "Stattdessen eine Cookies-Datei oder einen Browser verwenden…",
 				"needsCookies": {"heading": "Diese Seite erfordert eine Anmeldung", "body": "Arroxy konnte ohne Authentifizierung nicht auf dieses Video zugreifen. Konfiguriere Cookies in den erweiterten Einstellungen — verweise auf einen Browser, in dem du bereits angemeldet bist, oder importiere eine cookies.txt-Datei."},
 				"dpapi": {

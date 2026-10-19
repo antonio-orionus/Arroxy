@@ -2455,6 +2455,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "За овај видео је можда потребан YouTube налог"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy је већ покушао са пријавом кроз Истраживање, па поновна пријава неће помоћи. Могуће је да сајт има проблема или да овај налог не може да га отвори. Покушај касније."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Сајт је одбио ово чак и уз твоју пријаву у Истраживању"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Пријављен си у Истраживању, али преузимања тренутно не користе ту пријаву."

@@ -2365,6 +2365,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "کېدای شي دا ویډیو د YouTube اکاونټ ته اړتیا ولري"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy مخکې د سپړنې له ننوتلو سره هڅه کړې ده، نو بیا ننوتل به مرسته ونه کړي. شاید سایټ ستونزه ولري، یا دا حساب یې نشي خلاصولی. وروسته بیا هڅه وکړئ."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "سایټ دا رد کړ، حتی د سپړنې له ننوتلو سره هم"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "تاسو په سپړنه کې ننوتلي یاست، خو ډاونلوډونه همدا اوس دا ننوتل نه کاروي."

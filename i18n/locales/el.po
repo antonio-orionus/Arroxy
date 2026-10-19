@@ -2365,6 +2365,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Αυτό το βίντεο μπορεί να απαιτεί λογαριασμό YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Το Arroxy το δοκίμασε ήδη συνδεδεμένο μέσω της Εξερεύνησης, οπότε μια νέα σύνδεση δεν θα βοηθήσει. Ο ιστότοπος μπορεί να αντιμετωπίζει πρόβλημα ή αυτός ο λογαριασμός να μην μπορεί να τον ανοίξει. Δοκίμασε ξανά αργότερα."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Ο ιστότοπος το απέρριψε ακόμα και με τη σύνδεσή σου στην Εξερεύνηση"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Έχεις συνδεθεί στην Εξερεύνηση, αλλά οι λήψεις δεν χρησιμοποιούν αυτή τη σύνδεση αυτή τη στιγμή."

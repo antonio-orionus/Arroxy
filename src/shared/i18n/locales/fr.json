@@ -501,6 +501,7 @@
 				"exploreOffer": {"heading": "Cette vidéo peut nécessiter un compte YouTube", "body": "Connectez-vous dans Explorer et Arroxy réessaiera.", "cta": "Se connecter dans Explorer"},
 				"exploreReuse": {"heading": "Cette vidéo peut nécessiter un compte YouTube", "body": "Vous êtes connecté à Explorer, mais les téléchargements n'utilisent pas cette connexion pour le moment.", "cta": "Utiliser ma connexion Explorer et réessayer"},
 				"exploreSite": {"heading": "Ce lien peut nécessiter un compte {{host}}", "signInBody": "Connectez-vous à {{host}} dans Explorer et réessayez. Arroxy n’utilise cette connexion que lorsqu’un téléchargement en a besoin.", "offerBody": "Connectez-vous à {{host}} dans Explorer et réessayez."},
+				"exploreRefused": {"heading": "Le site a refusé même avec votre connexion dans Explorer", "body": "Arroxy a déjà essayé en étant connecté via Explorer, se reconnecter ne servirait donc à rien. Le site rencontre peut-être un problème, ou ce compte ne peut pas l’ouvrir. Réessayez plus tard."},
 				"otherCookiesCta": "Utiliser plutôt un fichier de cookies ou un navigateur…",
 				"needsCookies": {"heading": "Ce site nécessite une connexion", "body": "Arroxy n'a pas pu accéder à cette vidéo sans authentification. Configure les cookies dans les paramètres avancés — pointe-les vers un navigateur auquel tu es déjà connecté, ou importe un fichier cookies.txt."},
 				"dpapi": {

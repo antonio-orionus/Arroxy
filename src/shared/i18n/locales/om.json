@@ -488,6 +488,7 @@
 				"exploreOffer": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessatti seeni, Arroxyn irra deebi'ee yaala.", "cta": "Daawwannaa keessatti seeni"},
 				"exploreReuse": {"heading": "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a", "body": "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu.", "cta": "Seensa Daawwannaa koo fayyadamii irra deebi'ii yaali"},
 				"exploreSite": {"heading": "Linkiin kun {{host}} irratti akkaawuntii barbaaduu danda'a", "signInBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa.", "offerBody": "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali."},
+				"exploreRefused": {"heading": "Daawwannaa keessa seentee jirtus, saayitiin kun didee", "body": "Arroxy seensa Daawwannaa keessaatiin duraanuu yaaleera; kanaaf irra deebi'ee seenuun hin fayyadu. Saayitiin rakkoo qabaachuu danda'a, yookaan akkaawuntiin kun banuu hin danda'u. Booda irra deebi'ii yaali."},
 				"otherCookiesCta": "Faayilii cookies ykn browser fayyadami…",
 				"needsCookies": {"heading": "Gareewwan kun seensa gaafata", "body": "Arroxy viidiyoo kana mirkaneessuu malee argachuu hin dandeenye. Qindaa'inoota ammayyaa keessatti cookies qopheessi — browser seenite irra qeensi, ykn faayilii cookies.txt galchi."},
 				"dpapi": {

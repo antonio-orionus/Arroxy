@@ -2365,6 +2365,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "इस वीडियो के लिए YouTube अकाउंट चाहिए हो सकता है"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy ने एक्सप्लोर के ज़रिए साइन इन करके पहले ही कोशिश कर ली है, इसलिए दोबारा साइन इन करने से कोई फ़ायदा नहीं होगा। हो सकता है साइट में दिक्कत हो, या यह अकाउंट इसे न खोल सके। बाद में फिर कोशिश करें।"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "एक्सप्लोर में साइन इन होने पर भी साइट ने इसे अस्वीकार कर दिया"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "आप एक्सप्लोर में साइन इन हैं, लेकिन डाउनलोड अभी उस साइन-इन का इस्तेमाल नहीं कर रहे हैं।"

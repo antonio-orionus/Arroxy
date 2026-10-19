@@ -485,6 +485,7 @@
 				"exploreOffer": {"heading": "Este vídeo pode precisar de uma conta do YouTube", "body": "Entre no Explorar e o Arroxy tentará de novo.", "cta": "Entrar no Explorar"},
 				"exploreReuse": {"heading": "Este vídeo pode precisar de uma conta do YouTube", "body": "Você está conectado ao Explorar, mas os downloads não estão usando esse login agora.", "cta": "Usar meu login do Explorar e tentar de novo"},
 				"exploreSite": {"heading": "Este link pode precisar de uma conta em {{host}}", "signInBody": "Entre em {{host}} no Explorar e tente novamente. O Arroxy usa esse login somente quando um download precisa dele.", "offerBody": "Entre em {{host}} no Explorar e tente novamente."},
+				"exploreRefused": {"heading": "O site recusou mesmo com o seu login no Explorar", "body": "O Arroxy já tentou com o login do Explorar, então entrar de novo não vai ajudar. O site pode estar com problemas ou esta conta não consegue abri-lo. Tente novamente mais tarde."},
 				"otherCookiesCta": "Usar um arquivo de cookies ou um navegador…",
 				"needsCookies": {"heading": "Este site exige login", "body": "O Arroxy não conseguiu acessar este vídeo sem autenticação. Configure cookies nas opções avançadas — aponte para um navegador onde você já esteja conectado ou importe um arquivo cookies.txt."},
 				"dpapi": {

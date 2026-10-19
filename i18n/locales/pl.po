@@ -2545,6 +2545,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Ten film może wymagać konta YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy użył już logowania z karty Odkrywaj, więc ponowne logowanie nie pomoże. Strona może mieć problemy albo to konto nie ma do niej dostępu. Spróbuj ponownie później."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Strona odrzuciła żądanie mimo logowania w karcie Odkrywaj"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Jesteś zalogowany w karcie Odkrywaj, ale pobieranie obecnie nie korzysta z tego logowania."

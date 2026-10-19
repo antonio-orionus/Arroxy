@@ -2275,6 +2275,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Video ini mungkin memerlukan akun YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy sudah mencobanya dalam keadaan masuk lewat Jelajahi, jadi masuk lagi tidak akan membantu. Situs mungkin sedang bermasalah, atau akun ini tidak bisa membukanya. Coba lagi nanti."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Situs menolaknya meski Anda sudah masuk di Jelajahi"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Anda sudah masuk di Jelajahi, tetapi unduhan sedang tidak memakai login itu."
