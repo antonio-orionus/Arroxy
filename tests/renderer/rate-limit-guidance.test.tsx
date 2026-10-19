@@ -18,7 +18,13 @@ import {buildMockAppApi} from '../shared/mockAppApi.js'
 const URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 const RATE_LIMIT: ProbeError = {kind: 'ytdlp', error: {kind: 'rateLimit', raw: 'ERROR: [youtube] dQw4w9WgXcQ: Unable to download webpage: HTTP Error 429: Too Many Requests'}}
 // Every cookie mode, including the ones whose bot-wall copy gives cookie advice.
-const COOKIE_MODES: Partial<AppSettings['common']>[] = [{cookiesMode: 'off', exploreEnabled: false}, {cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt', exploreEnabled: false}, {cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'}, {cookiesMode: 'browser', cookiesBrowser: 'chrome'}, {cookiesMode: 'explore', exploreEnabled: true}]
+const COOKIE_MODES: Partial<AppSettings['common']>[] = [
+	{cookiesMode: 'off', exploreEnabled: false},
+	{cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt', exploreEnabled: false},
+	{cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'},
+	{cookiesMode: 'browser', cookiesBrowser: 'chrome'},
+	{cookiesMode: 'explore', exploreEnabled: true}
+]
 
 const retry = vi.fn()
 const retryFormatProbe = vi.fn()
@@ -66,7 +72,7 @@ describe('the error step on a rate limit', () => {
 
 		expect(screen.getByTestId('rate-limit-notice')).toHaveAttribute('data-variant', 'failed')
 		expect(screen.getByTestId('rate-limit-notice')).toHaveTextContent('YouTube is rate-limiting this connection')
-		expect(screen.getByTestId('rate-limit-notice')).toHaveTextContent(/Arroxy waits until .+ before asking YouTube again/)
+		expect(screen.getByTestId('rate-limit-notice').textContent).toMatch(/Arroxy waits until .+ before asking YouTube again/)
 		expectNoCookieAdvice()
 		expect(screen.queryByTestId('btn-retry')).not.toBeInTheDocument()
 		expect(screen.getByTestId('rate-limit-try-now')).toBeInTheDocument()
@@ -80,7 +86,7 @@ describe('the error step on a rate limit', () => {
 
 		await waitFor(() => expect(retry).toHaveBeenCalledOnce())
 		expect(window.appApi.siteRequests.tryNow).toHaveBeenCalledWith('youtube')
-		expect(vi.mocked(window.appApi.siteRequests.tryNow).mock.invocationCallOrder[0]).toBeLessThan(retry.mock.invocationCallOrder[0]!)
+		expect(vi.mocked(window.appApi.siteRequests.tryNow).mock.invocationCallOrder[0]).toBeLessThan(retry.mock.invocationCallOrder[0])
 	})
 
 	it('offers a plain Retry once the cooldown is over', () => {

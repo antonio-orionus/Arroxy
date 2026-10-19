@@ -34,6 +34,10 @@ _Avoid_: concurrency, parallel jobs, simultaneous downloads
 Arroxy restarting a failed item on its own, after a growing delay, for transient transport failures only. Blocked and permanently-failed downloads always wait for the user. Distinct from **resume context**, which is what makes a retry pick up partial files instead of starting over.
 _Avoid_: auto-resume, self-heal, backoff retry
 
+**Rate-limit cooldown**:
+The wait Arroxy imposes on new requests to a site after that site rate-limits this connection, one per site and network route. Probes, queued downloads and automatic retries all wait it out; **Try now** lets one request through. A rate limit never brings in an account, because sites rate-limit signed-in accounts too.
+_Avoid_: backoff, throttle, ban
+
 **Soft failure**:
 A non-fatal miss that still leaves a usable result, so the job finishes as complete. Subtitles that could not be fetched are the typical case — the video is kept.
 _Avoid_: warning, partial failure

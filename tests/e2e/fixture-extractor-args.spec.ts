@@ -62,16 +62,15 @@ test('An anonymous YouTube download hands yt-dlp its token, visitor data and cli
 	})
 })
 
-// Baseline for the recovery policy: today the probe relaunches a degraded
-// success once with an unchanged configuration, so a rate limit is answered by
-// an identical request. This pins the current count; the recovery policy is
-// meant to bring it down to one.
+// A rate limit is never answered by the identical request: the probe keeps the
+// result that came back with the 429 warning and does not relaunch (the
+// cooldown itself is covered by fixture-rate-limit.spec.ts).
 // Fixtures: the first extraction succeeds with yt-dlp's HTTP 429 warning.
 // Actions: Interactive Download of the video from the URL tab.
 // Milestones: the format step opens.
-// Oracles: two extractions, both carrying the token, the visitor data and the
+// Oracles: one extraction, carrying the token, the visitor data and the
 // production clients.
-test('A single-video probe that succeeds with a rate-limit warning is relaunched once, unchanged', async () => {
+test('A single-video probe that succeeds with a rate-limit warning is not relaunched', async () => {
 	test.setTimeout(120_000)
 
 	await withFixtureProductApp({behavior: {extractionScript: {[VIDEO_ID]: [{warnings: [RATE_LIMIT_WARNING]}]}}, userDataPrefix: 'arroxy-fixture-xargs-probe-user-', outputPrefix: 'arroxy-fixture-xargs-probe-out-'}, async ({page, fixtureServer, urls}) => {
@@ -79,7 +78,7 @@ test('A single-video probe that succeeds with a rate-limit warning is relaunched
 		await page.locator('[data-testid="profiles-interactive-download"]').click()
 		await expect(page.locator('[data-testid="step-formats"]')).toBeVisible({timeout: 60_000})
 
-		expect(extractions(fixtureServer, VIDEO_ID).map(run => run.extractorArgs)).toEqual([ANONYMOUS_WITH_TOKEN, ANONYMOUS_WITH_TOKEN])
+		expect(extractions(fixtureServer, VIDEO_ID).map(run => run.extractorArgs)).toEqual([ANONYMOUS_WITH_TOKEN])
 	})
 })
 

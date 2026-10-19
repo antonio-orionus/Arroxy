@@ -54,6 +54,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
 		explore: {getState: vi.fn().mockResolvedValue(ok({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null})), onStateChanged: vi.fn().mockReturnValue(() => undefined), onPointerInView: vi.fn().mockReturnValue(() => undefined)},
+		siteRequests: {getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}), tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}), onCooldownsChanged: vi.fn().mockReturnValue(() => undefined)},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}
 	}

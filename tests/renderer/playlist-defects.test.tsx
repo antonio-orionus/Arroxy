@@ -64,6 +64,7 @@ function buildMockApi(settingsUpdateMock?: ReturnType<typeof vi.fn>) {
 			},
 			events: {onSnapshot: vi.fn().mockReturnValue(() => undefined), onAdded: vi.fn().mockReturnValue(() => undefined), onUpdated: vi.fn().mockReturnValue(() => undefined), onRemoved: vi.fn().mockReturnValue(() => undefined), onScheduler: vi.fn().mockReturnValue(() => undefined)}
 		},
+		siteRequests: {getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}), tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}), onCooldownsChanged: vi.fn().mockReturnValue(() => undefined)},
 		updater: {onUpdateAvailable: vi.fn().mockReturnValue(() => undefined), install: vi.fn()},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue({ok: true, data: {matchedIds: []}}), registerManifest: vi.fn().mockResolvedValue({ok: true, data: undefined})}

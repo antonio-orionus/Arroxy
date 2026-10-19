@@ -1,6 +1,15 @@
 # YouTube extraction and recovery: implementation plan
 
-Status: plan, 2026-10-19. It turns [download-recovery-proposal.md](download-recovery-proposal.md) into ordered, shippable steps. The decision is recorded as a draft in [ADR 0010](../docs/adr/0010-one-recovery-policy-for-yt-dlp-runs.md). Nothing here is implemented yet.
+Status: plan, 2026-10-19. It turns [download-recovery-proposal.md](download-recovery-proposal.md) into ordered, shippable steps. The decision is recorded as a draft in [ADR 0010](../docs/adr/0010-one-recovery-policy-for-yt-dlp-runs.md).
+
+**Shipped standalone (the kill-criteria path):** the rate-limit slice, without the policy engine. That is A4's `SiteRequestState` and the 429 rows of A3. Choices the plan left open:
+- A repeat is a limit seen within 15 minutes after the previous cooldown ended. Limits during a running cooldown count as one burst.
+- Jitter is drawn between the 60 s floor and the doubled ceiling.
+- An unused "Try now" pass expires after 30 s. A clean answer to it ends the cooldown early.
+- The subtitle phase of a job that already saved its media still runs through the cooldown, since its subtitles would otherwise be lost.
+- The bot-wall token ladder stops when a run also showed a rate limit.
+
+The rest of the plan is not implemented.
 
 ## The decision this serves
 
