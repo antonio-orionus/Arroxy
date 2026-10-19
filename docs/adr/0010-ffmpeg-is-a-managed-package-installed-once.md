@@ -24,6 +24,13 @@ set is also what the app ships as its offline fallback.
 - **A narrower custom FFmpeg build.** Smaller, but yt-dlp invokes FFmpeg beyond
   Arroxy's own calls, so which codecs are safe to drop cannot be tested
   exhaustively, and we would own a build pipeline.
+- **Prefer an FFmpeg already on the system, and download only when there is
+  none.** It would save Homebrew and Linux users one 25–45 MB download, once
+  per machine. But a system FFmpeg that passes our checks can still fail a
+  download partway through, possibly months later after a distro or Homebrew
+  update. That bug is hard to reproduce and lasts, which a one-time saving
+  does not justify. The approved package comes first. A system FFmpeg is the
+  fallback, or the user's explicit choice through "Set it up manually".
 - **Per-operation readiness instead of gating the splash.** Nearly every
   download needs FFmpeg (separate-stream merging is the default), so it would
   gate almost everything at a large UI cost. The splash already gates on
@@ -48,3 +55,6 @@ set is also what the app ships as its offline fallback.
   removed once nothing holds them.
 - The first launch needs network access, as it already did for yt-dlp. A
   machine that has installed a package runs offline from then on.
+- An FFmpeg change no longer waits for an app release. The daily manifest is
+  generated from `main`, so merging a pin change ships it to every user within
+  about a day. A pin change is reviewed as a release.

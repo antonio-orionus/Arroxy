@@ -35,14 +35,38 @@ checked against its pinned SHA-256.
 The pins in `FfmpegPackagePins.ts` are the only place a version is chosen. The
 manifest generator copies them into every signed v2 binary manifest unchanged,
 and the app ships them as its bundled fallback. The daily manifest job therefore
-cannot change which FFmpeg users get.
+cannot change which FFmpeg users get by itself. But it reads `main`, so a merged
+pin change reaches every user at the next daily run, without an app release (see
+[`runtime-binaries.md`](runtime-binaries.md#releases-and-schedules)).
 
 ## How the app installs it
 
 `BinaryManager.resolveFFmpegPair` tries, per binary: manual override → env
 override → (dev only) `build/embedded` → approved packages in manifest order →
-system `PATH`. Warmup awaits this branch, so the splash shows the download
-progress on both the FFmpeg and FFprobe rows.
+other installed packages → system `PATH`.
+
+Rules the resolver keeps:
+
+- **One package supplies both tools.** A package is accepted only when both
+  ffmpeg and ffprobe pass their probe. If only one passes, it is dropped, and
+  the next package is tried for both, so the pair never mixes two builds.
+- **An installed package is reused before anything is downloaded,** but only
+  for the exact entry being tried. A newer approved pin is downloaded even when
+  an older version is on disk; the older one is the fallback.
+- **Installed packages no index lists any more** are tried after the approved
+  ones. Example: the index moved on and the new package failed to install, then
+  the machine went offline. Each install records its entry, and only entries
+  that pass the same rules as an index entry, for this platform and
+  architecture, are tried.
+- **A download is announced only once it starts,** after the installed copy
+  is ruled out. Warm launches never show the setup screen.
+- **A system FFmpeg comes last.** An FFmpeg on `PATH` can be too old, built
+  without what Arroxy needs, or mismatched, and `-version` cannot tell. So it is
+  used only when no approved package can be installed, or when the user picks
+  it (see below). ADR 0010 records why.
+
+Warmup awaits this branch. The splash shows one progress bar for the whole
+setup. The package is one download, so it reports on the ffmpeg row only.
 
 Each package installs into `runtime-cache/artifact-cache-v1/packages/<key>/`,
 where the key covers the archive's SHA-256. Installation streams the verified
@@ -57,7 +81,25 @@ later launch.
 An installed package is re-checked on each launch by file sizes, link targets
 and executable bits, not re-hashed; the archive was hashed when it was
 installed. Any package listed in a trusted manifest (remote, last-known-good or
-bundled) that is already installed resolves without network access.
+bundled) that is already installed resolves without network access, and so
+does any other installed package that passes the entry rules.
+
+## When setup fails
+
+The repair panel replaces the splash when a tool is still missing. "Try again"
+reruns setup. "Set it up manually" opens:
+
+- **Choose executable**, per tool. FFmpeg and FFprobe must be set together.
+- **Install with Homebrew** (macOS) or **Install with WinGet** (Windows) for
+  the media tools. Homebrew installs `ffmpeg`; WinGet installs `Gyan.FFmpeg`.
+  Afterwards Arroxy takes ffmpeg and ffprobe from the first folder that holds
+  both, and saves them as the user's chosen paths.
+  - `Gyan.FFmpeg` adds its `bin` folder to the PATH saved in the registry
+    instead of linking into `WinGet\Links`. The running app still has its old
+    PATH, so after a WinGet install it also searches the user and machine PATH
+    read from the registry. The yt-dlp WinGet install uses the same lookup.
+- **A package-manager hint** on Linux. Flatpak gets no hint, because it cannot
+  see what the host installs.
 
 ## Approving a new FFmpeg build
 
@@ -119,20 +161,13 @@ bun scripts/build/ffmpegPackage.ts install --all --cache-root "$(mktemp -d)"
 ## The manifest publishing workflow (other repository)
 
 `arroxy-runtime-binaries/.github/workflows/publish-runtime-manifest.yml` checks
-out Arroxy `main` and runs the generator. Once the first FFmpeg release is
-published, it must also sign and upload v2. The changes:
+out Arroxy and runs the generator, daily and on demand. It signs, validates and
+uploads v2 whenever the generator writes one (antonio-orionus/arroxy-runtime-binaries#2).
+Its schedule and inputs are in
+[`runtime-binaries.md`](runtime-binaries.md#releases-and-schedules).
 
-- `generate` already writes `runtime-index-v2.json` next to `--out`.
-- Sign v2 as well:
-  `bun scripts/build/runtimeBinaryManifest.ts sign --manifest "$DIR/runtime-index-v2.json" --out "$DIR/runtime-index-v2.sig"`.
-- Validate v2, which installs and runs this host's FFmpeg package:
-  `bun scripts/build/runtimeBinaryManifest.ts validate --manifest "$DIR/runtime-index-v2.json" --smoke current`.
-- Upload all four files and expect four assets instead of two.
-
-Until then, current app builds find no v2 manifest and fall back to the pins
-they bundle, which still installs FFmpeg but holds yt-dlp at the bundled
-stable version. So the workflow change must land **before the first app
-release that contains this change**.
+Without a v2 manifest, current app builds fall back to the pins they bundle.
+That still installs FFmpeg, but holds yt-dlp at the bundled stable version.
 
 ## Redistribution
 

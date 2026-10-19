@@ -14,6 +14,25 @@
 
 Arroxy owns yt-dlp and FFmpeg runtime updates through a signed runtime-binary manifest. The app does not run `yt-dlp --update`, and it does not resolve upstream `latest` release URLs at runtime. FFmpeg packages are covered in [`ffmpeg-packages.md`](ffmpeg-packages.md).
 
+## Releases and schedules
+
+Three kinds of release reach users, each on its own trigger:
+
+| Release | Where | Trigger | Carries | Users get it |
+| ------- | ----- | ------- | ------- | ------------ |
+| App (`v*`) | Arroxy | Manual tag ([`release-runbook.md`](release-runbook.md)) | The app only: no FFmpeg, no yt-dlp | Update banner, checked every 6 h |
+| Runtime manifest (`runtime-YYYY.MM.DD.HHMMSS`) | `arroxy-runtime-binaries` | Daily cron at 07:17 UTC, or a manual run | Signed v1 and v2 manifests | Next app launch |
+| FFmpeg packages (`ffmpeg-YYYY.MM.DD`) | `arroxy-runtime-binaries` | Manual, rare ([`ffmpeg-packages.md`](ffmpeg-packages.md)) | The packages, plus their license and source assets | Only once a manifest lists them |
+
+The daily manifest is generated from Arroxy `main`. Its yt-dlp entries follow yt-dlp's own releases with no action from us. Its FFmpeg entries are the pins committed on `main`. So **merging a change to `FfmpegPackagePins.ts` ships that FFmpeg to every user within about 24 hours, with no app release.** Review a pin change as you would a release.
+
+The manifest workflow lives in the other repository (`.github/workflows/publish-runtime-manifest.yml`):
+
+- It signs and validates v2 only when the generator writes one, and expects exactly the files written: 2 or 4.
+- Validating v2 installs and runs the Linux FFmpeg package.
+- A manual run accepts `arroxy_ref` (default `main`), to generate from an Arroxy branch before it merges. Scheduled runs always use `main`.
+- Each run publishes a new release marked latest. A run that fails leaves the previous latest in place.
+
 ## Manifest versions
 
 Two manifests are published side by side, signed with the same key:

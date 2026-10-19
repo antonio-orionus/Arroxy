@@ -26,7 +26,7 @@ Related: [`runtime-binaries.md`](runtime-binaries.md) for the manifest trust mod
 | `ytDlp` | Yes | ~1.66s | ~22s |
 | `token` (PO token) | **No** — detached | ~2.5–2.9s | ~2.5–2.8s |
 
-ffmpeg and ffprobe are embedded at build time under `extraResources`, so they are always local and always fast. yt-dlp is fetched at runtime and is the only branch that can be slow. The token branch runs in the background and never gates completion.
+ffmpeg and ffprobe come from an FFmpeg package installed once per machine ([`ffmpeg-packages.md`](ffmpeg-packages.md)). The timings above predate that change, when they were embedded in the app. On a warm launch the installed package is only checked, by file sizes, and the branch stays fast. A first launch also downloads the package (22–44 MB) alongside yt-dlp, so on that launch both awaited branches can be slow. On later launches yt-dlp is the only branch that can be slow. The token branch runs in the background and never gates completion.
 
 Warmup finishes when the two awaited branches finish. The splash then clears, subject to a floor (`MIN_MS`, currently 800ms).
 
