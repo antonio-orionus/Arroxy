@@ -124,14 +124,17 @@ export function canSwitchToExplore(commonSettings: Partial<CommonSettings> | nul
 function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn; site: ExploreSignInSite}): CookiesGuidance {
 	const mode = effectiveCookiesMode(input.commonSettings)
 	const {site} = input
-	const signedIn = site.kind === 'youtube' && input.exploreSignedIn === true
 	const refusedSignedIn = input.error?.kind === 'ytdlp' && input.error.auth === 'exploreSession'
+	const signedIn = site.kind === 'youtube' && input.exploreSignedIn === true
 	// No cookie can lift a rate limit, under any mode: YouTube limits accounts too.
 	if (input.errorKind === 'rateLimit') return {mode, variant: 'hidden'}
+	// The failed run already used the Explore session for a failure an account
+	// might fix, or for a line nothing could name (main escalates a page another
+	// site's extractor could not parse). Only where the Explore offer would show.
+	if (refusedSignedIn && (isCookiesNeededKind(input.errorKind) || input.errorKind === 'unknown') && (mode === 'explore' || (mode === 'off' && canSwitchToExplore(input.commonSettings)))) return {mode, variant: 'explore-refused'}
 	switch (mode) {
 		case 'off':
 			if (offersExplore(input.commonSettings, input.errorKind)) {
-				if (refusedSignedIn) return {mode, variant: 'explore-refused'}
 				const secondary = configuredCookiesRetryMode(input.commonSettings) ? 'enable-cookies' : 'open-settings'
 				return signedIn ? {mode, variant: 'explore-reuse', secondary} : {mode, variant: 'explore-offer', secondary, site}
 			}
@@ -139,7 +142,6 @@ function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 		case 'explore':
 			// Escalation only reaches failures an account can fix; other errors say nothing about the sign-in.
 			if (!isCookiesNeededKind(input.errorKind)) return {mode, variant: 'hidden'}
-			if (refusedSignedIn) return {mode, variant: 'explore-refused'}
 			return signedIn ? {mode, variant: 'configured'} : {mode, variant: 'explore-sign-in', site}
 		case 'browser':
 			return isDpapiCookieError(probeErrorRaw(input.error)) ? {mode, variant: 'dpapi'} : {mode, variant: 'configured'}

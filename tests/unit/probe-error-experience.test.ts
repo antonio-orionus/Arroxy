@@ -335,6 +335,15 @@ describe('a failure the Explore session already ran into', () => {
 		expect(buildProbeErrorExperience({error: signedInError('ageRestricted'), url: INSTAGRAM, commonSettings: {cookiesMode: 'off'}, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'explore-refused', mode: 'off'}, actions: {signInWithExploreThenRetry: false, retryWithExploreSignIn: false}})
 	})
 
+	// main escalates a non-YouTube page the extractor could not parse (a
+	// Facebook reel signed out); the same line from the signed-in run is the site refusing.
+	it('covers a parse failure the signed-in probe still hit, and only a signed-in one', () => {
+		const parse = (auth?: 'exploreSession'): ProbeError => ({kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: [facebook] 1: Cannot parse data; please report this issue'}, ...(auth ? {auth} : {})})
+		const reel = 'https://www.facebook.com/reel/1'
+		expect(buildProbeErrorExperience({error: parse('exploreSession'), url: reel, commonSettings: {cookiesMode: 'explore'}}).cookies).toEqual({variant: 'explore-refused', mode: 'explore'})
+		expect(buildProbeErrorExperience({error: parse(), url: reel, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+	})
+
 	it('leaves a file or browser mode and an unrelated failure as they were', () => {
 		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), commonSettings: {cookiesMode: 'file', cookiesPath: '/tmp/c.txt'}}).cookies).toEqual({variant: 'configured', mode: 'file'})
 		expect(buildProbeErrorExperience({error: signedInError('network'), url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
