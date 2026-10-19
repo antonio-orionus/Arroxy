@@ -448,8 +448,8 @@ msgid "Address"
 msgstr "Adres"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Szukaj w YouTube lub wklej link do YouTube"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "Szukaj w YouTube lub otwórz dowolną stronę (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -487,17 +487,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Pobieranie interaktywne: wybierz format, napisy i więcej…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Pobierz ten link"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Karta Odkrywaj przegląda tylko YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Karta Odkrywaj przegląda tylko YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Karta Odkrywaj nie może otworzyć tego adresu."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

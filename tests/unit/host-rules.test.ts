@@ -60,13 +60,14 @@ describe('hostMatches', () => {
 	})
 })
 
-describe('youtube navigationHosts', () => {
-	const rules = youtubeSite.explore?.navigationHosts ?? []
-	it('is declared', () => expect(rules.length).toBeGreaterThan(0))
-	it.each(['youtube.com', 'www.youtube.com', 'm.youtube.com', 'music.youtube.com', 'youtu.be', 'accounts.google.com', 'accounts.youtube.com', 'accounts.google.de', 'accounts.google.co.in', 'accounts.google.com.br', 'consent.youtube.com', 'consent.google.com'])('allows %s', host =>
-		expect(hostMatches(host, rules)).toBe(true)
-	)
-	it.each(['example.com', 'google.com', 'www.google.com', 'mail.google.com', 'myaccount.google.com', 'consent.example.com', 'youtube.com.evil.example', 'notyoutube.com', 'www.youtu.be', 'accounts.google.com.evil.example', 'play.google.com', 'accounts.google.xyz', 'accounts.google.net'])('refuses %s', host =>
-		expect(hostMatches(host, rules)).toBe(false)
-	)
+describe('google-cctld', () => {
+	const rules = [{kind: 'pattern', pattern: 'google-cctld'}] as const
+	it.each(['google.de', 'www.google.de', 'google.co.uk', 'accounts.google.co.in', 'google.com.br', 'mail.google.com.br'])('matches %s', host => expect(hostMatches(host, rules)).toBe(true))
+	it.each(['google.com', 'google.xyz', 'notgoogle.de', 'google.de.evil.example', 'googleusercontent.com'])('does not match %s', host => expect(hostMatches(host, rules)).toBe(false))
+})
+
+describe('youtube accountCookieHosts', () => {
+	const rules = youtubeSite.explore?.accountCookieHosts ?? []
+	it.each(['youtube.com', 'www.youtube.com', 'accounts.youtube.com', 'google.com', 'accounts.google.com', 'mail.google.com', 'google.co.uk', 'google.com.br', 'google.de'])('covers %s', host => expect(hostMatches(host, rules)).toBe(true))
+	it.each(['vimeo.com', 'notyoutube.com', 'youtube.com.evil.example', 'googleusercontent.com', 'googlevideo.com', 'google.xyz'])('leaves %s out', host => expect(hostMatches(host, rules)).toBe(false))
 })

@@ -16,7 +16,7 @@ export function buildExploreView(scenario: ScenarioLike): ExploreViewState {
 	switch (scenario.id) {
 		case 'explore-browsing':
 		case 'explore-long-profile':
-		case 'explore-address-offsite':
+		case 'explore-address-refused':
 			return SAMPLE_PAGE
 		case 'explore-nudge':
 			return {...SAMPLE_PAGE, signedIn: false}
@@ -40,7 +40,7 @@ export function exploreSettingsPatch(scenario: ScenarioLike): CommonPatch {
 			return {exploreEnabled: true, exploreNoticeSeen: false, cookiesMode: 'off', exploreModeAutoSwitched: false}
 		case 'explore-browsing':
 		case 'explore-long-profile':
-		case 'explore-address-offsite':
+		case 'explore-address-refused':
 		case 'explore-proxy-error':
 			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true}
 		case 'explore-adblock-unavailable':

@@ -433,7 +433,7 @@ export interface QueueFocus {
 // Under Explore's address bar after Enter on something the view will not
 // load (P2-R45): a web link on another site (which can be downloaded
 // instead), an address refused outright, or a search over the length cap.
-export type ExploreAddressHint = {kind: 'offsite'; downloadUrl: string} | {kind: 'refused'} | {kind: 'search-too-long'}
+export type ExploreAddressHint = {kind: 'refused'} | {kind: 'search-too-long'}
 
 export interface UiSlice {
 	uiZoom: number

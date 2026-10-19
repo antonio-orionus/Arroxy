@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "អាសយដ្ឋាន"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "ស្វែងរក YouTube ឬបិទភ្ជាប់តំណ YouTube"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "ស្វែងរកក្នុង YouTube ឬបើកគេហទំព័រណាមួយ (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "ទាញយកអន្តរកម្ម៖ ជ្រើសរើសទម្រង់ អក្សររត់ និងច្រើនទៀត…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "ទាញយកតំណនេះ"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "«រកមើល» រុករកតែ YouTube ប៉ុណ្ណោះ។"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "«រកមើល» រុករកតែ YouTube ប៉ុណ្ណោះ។ {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "«រកមើល» មិនអាចបើកអាសយដ្ឋាននោះបានទេ។"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

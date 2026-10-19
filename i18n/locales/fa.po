@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "نشانی"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "در YouTube جست‌وجو کنید یا پیوند YouTube را بچسبانید"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "جستجو در YouTube یا باز کردن هر سایت (Vimeo، Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "دانلود تعاملی: انتخاب قالب، زیرنویس و موارد دیگر…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "دانلود این پیوند"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "«کاوش» فقط YouTube را مرور می‌کند."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "«کاوش» فقط YouTube را مرور می‌کند. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "«کاوش» نمی‌تواند این نشانی را باز کند."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "Teessoo"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube barbaadi ykn hidhaa YouTube maxxansi"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube barbaadi ykn marsariitii kamiyyuu bani (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Buufata walnaqqee: formaata, barruu jalaa fi kkf filadhu…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Hidhaa kana buusi"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Daawwannaan YouTube qofa ilaala."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Daawwannaan YouTube qofa ilaala. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Daawwannaan teessoo sana banuu hin danda'u."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

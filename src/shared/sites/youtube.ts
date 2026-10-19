@@ -102,14 +102,10 @@ export const youtubeSite: Site = {
 	explore: {
 		homeUrl: 'https://www.youtube.com/',
 		cookieDomains: ['youtube.com'],
-		navigationHosts: [
+		accountCookieHosts: [
 			{kind: 'suffix', domain: 'youtube.com'},
-			{kind: 'exact', host: 'youtu.be'},
-			{kind: 'exact', host: 'accounts.google.com'},
-			{kind: 'exact', host: 'accounts.youtube.com'},
-			{kind: 'pattern', pattern: 'google-accounts-cctld'},
-			{kind: 'exact', host: 'consent.youtube.com'},
-			{kind: 'exact', host: 'consent.google.com'}
+			{kind: 'suffix', domain: 'google.com'},
+			{kind: 'pattern', pattern: 'google-cctld'}
 		],
 		contentHosts: [
 			{kind: 'suffix', domain: 'youtube.com'},

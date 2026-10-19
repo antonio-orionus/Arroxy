@@ -1,6 +1,6 @@
 import type {AppApi} from '@shared/api.js'
 import {fail} from '@shared/result.js'
-import {exploreAddressScope, isExploreSiteAddress} from '@shared/sites/exploreAddress.js'
+import {exploreAddressScope, isExploreAddress} from '@shared/sites/exploreAddress.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
 import type {ExploreViewBounds, ExploreViewState} from '@shared/types.js'
 
@@ -70,8 +70,8 @@ export function createExploreMock(initial: ExploreViewState): {api: AppApi['expl
 				case 'reload':
 					break
 				case 'address':
-					// Main's rule: only the site's own addresses load.
-					if (youtubeSite.explore === undefined || !isExploreSiteAddress(command.url, exploreAddressScope(youtubeSite.explore))) return Promise.resolve(fail({code: 'validation', message: 'Explore loads typed addresses on the site only'}))
+					// Main's rule: any web page, never a sign-in or consent page.
+					if (youtubeSite.explore === undefined || !isExploreAddress(command.url, exploreAddressScope(youtubeSite.explore))) return Promise.resolve(fail({code: 'validation', message: 'Explore does not load that address'}))
 					visit(command.url)
 					break
 			}

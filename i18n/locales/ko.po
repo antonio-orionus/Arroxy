@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "주소"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube를 검색하거나 YouTube 링크를 붙여 넣으세요"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube 검색 또는 아무 사이트 열기 (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "대화형 다운로드: 형식, 자막 등을 선택…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "이 링크 다운로드"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "탐색에서는 YouTube만 열 수 있습니다."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "탐색에서는 YouTube만 열 수 있습니다. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "탐색에서 해당 주소를 열 수 없습니다."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

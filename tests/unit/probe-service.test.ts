@@ -23,6 +23,7 @@ import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import log from 'electron-log/main.js'
 import {effectiveExtractorArgs} from 'yt-dlp-bridge'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -643,7 +644,7 @@ describe('ProbeService — Explore session escalation', () => {
 			return next
 		})
 		const gate = {canEscalate: vi.fn(canEscalate)}
-		const verifySignedIn = vi.fn((_siteId: string) => Promise.resolve(verified))
+		const verifySignedIn = vi.fn((_scope: ExploreCookieScope) => Promise.resolve(verified))
 		const service = new ProbeService({run} as never, false, cache, {exploreGate: gate, exploreSession: {verifySignedIn}})
 		return {service, run, gate, verifySignedIn}
 	}
@@ -657,7 +658,7 @@ describe('ProbeService — Explore session escalation', () => {
 
 			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
 
-			expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 		})
@@ -745,7 +746,7 @@ describe('ProbeService — Explore session escalation', () => {
 
 			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
 
-			expect(gate.canEscalate).toHaveBeenCalledWith('youtube')
+			expect(gate.canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledTimes(2)
 			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
 			expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})

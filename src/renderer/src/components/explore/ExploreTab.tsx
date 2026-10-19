@@ -75,12 +75,6 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 		return outcome.kind === 'navigated'
 	}
 
-	// The off-site link a hint offers: the background quick download, with the active profile.
-	function downloadLink(url: string): void {
-		setAddressHint(null)
-		void useAppStore.getState().quickDownload({url, entry: 'explore'})
-	}
-
 	return (
 		<Card variant="glass" size="sm" className="@container min-h-0 flex-1 px-3" data-testid="explore-tab">
 			{nudgeMode ? <ExploreModeNudge mode={nudgeMode} onUseExplore={() => void setCookiesMode('explore')} onDismiss={() => void dismissExploreModeNudge(nudgeMode)} /> : null}
@@ -101,7 +95,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				leading={compactTabs}
 				onToggleCompact={next => void setExploreCompactChrome(next)}
 			/>
-			{addressHint ? <ExploreAddressHint hint={addressHint} onDownload={downloadLink} onDismiss={() => setAddressHint(null)} /> : null}
+			{addressHint ? <ExploreAddressHint hint={addressHint} onDismiss={() => setAddressHint(null)} /> : null}
 			<ExploreAddressHintLive hint={addressHint} />
 			<ExploreViewport error={state.error} onRetry={() => navigate({kind: 'reload'})} onOpenSettings={() => replaceHash('settings')} />
 		</Card>

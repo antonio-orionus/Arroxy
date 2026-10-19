@@ -7,13 +7,14 @@ import {fail, ok} from '@shared/result.js'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
-// P2-R45: Explore's address bar is a YouTube-scoped omnibox. It shows the
-// page's address until focused, routes Enter (link, search, or the
-// "Explore only browses YouTube" hint), and never judges text mid-typing.
+// Explore's address bar is an omnibox that searches YouTube. It shows the
+// page's address until focused, routes Enter (a link on any site, a search,
+// or the "can't open that address" hint), and never judges text mid-typing.
 
 const PAGE: ExploreViewState = {url: 'https://www.youtube.com/watch?v=page0000001', title: 'A page', canGoBack: false, canGoForward: false, loading: false, signedIn: true, error: null, adBlock: 'off'}
-const HINT = 'Explore only browses YouTube.'
-const DOWNLOAD_LINK = 'Download this link'
+const HINT = "Explore can't open that address."
+// What main refuses in this harness: the renderer cannot tell it apart from any other link.
+const MAIN_REFUSES = 'refused.example'
 
 let stateListener: ((state: ExploreViewState) => void) | null = null
 
@@ -47,10 +48,9 @@ beforeEach(() => {
 		}
 	})
 	vi.mocked(window.appApi.explore.getState).mockResolvedValue(ok(PAGE))
-	// Main loads only site addresses; anything else comes back refused.
 	vi.mocked(window.appApi.explore.navigate).mockImplementation(command => {
-		if (command.kind !== 'address' || new URL(command.url).hostname.endsWith('youtube.com')) return Promise.resolve(ok(undefined))
-		return Promise.resolve(fail({code: 'validation', message: 'Explore loads typed addresses on the site only'}))
+		if (command.kind !== 'address' || new URL(command.url).hostname !== MAIN_REFUSES) return Promise.resolve(ok(undefined))
+		return Promise.resolve(fail({code: 'validation', message: 'Explore does not load that address'}))
 	})
 	useAppStore.setState({exploreView: null, exploreAddressHint: null, queue: []})
 	useAppStore.getState().bindExploreView()
@@ -63,7 +63,7 @@ describe('Explore address bar', () => {
 		const input = await renderExplore()
 		expect(input).toHaveValue(PAGE.url)
 		expect(input).not.toHaveAttribute('readonly')
-		expect(input).toHaveAttribute('placeholder', 'Search YouTube or paste a YouTube link')
+		expect(input).toHaveAttribute('placeholder', 'Search YouTube or open any site (Vimeo, Instagram…)')
 		act(() => stateListener?.({...PAGE, url: ''}))
 		expect(input).toHaveValue('')
 	})
@@ -123,7 +123,7 @@ describe('Explore address bar', () => {
 	// Leaving the tab drops what Enter last said and any edit in progress.
 	it('forgets the hint when the user leaves the Explore tab', async () => {
 		const input = await renderExplore()
-		typeAndEnter(input, 'vimeo.com/123')
+		typeAndEnter(input, 'javascript:alert(1)')
 		await screen.findByTestId('explore-address-hint')
 
 		fireEvent.click(screen.getByRole('tab', {name: 'Settings'}))
@@ -152,40 +152,41 @@ describe('Explore address bar', () => {
 		expect(navigateCalls()).toEqual([])
 	})
 
-	it('keeps another site out of the view: the hint offers to download the link instead', async () => {
-		const quickDownload = vi.fn().mockResolvedValue(undefined)
-		useAppStore.setState({quickDownload})
+	it.each([
+		['vimeo.com/123', 'https://vimeo.com/123'],
+		['https://example.com/page?a=1', 'https://example.com/page?a=1'],
+		['http://example.com/', 'http://example.com/']
+	])('loads the link %s on another site in the view', async (text, url) => {
 		const input = await renderExplore()
-		typeAndEnter(input, 'https://vimeo.com/123')
-
-		const hint = await screen.findByTestId('explore-address-hint')
-		// The link's host is named, so the user sees what Download would take.
-		expect(hint).toHaveTextContent(`${HINT} vimeo.com`)
-		expect(window.appApi.shell.openExternal).not.toHaveBeenCalled()
-		expect(useAppStore.getState().exploreView?.url).toBe(PAGE.url)
-
-		fireEvent.click(screen.getByRole('button', {name: DOWNLOAD_LINK}))
-		expect(quickDownload).toHaveBeenCalledWith({url: 'https://vimeo.com/123', entry: 'explore'})
+		typeAndEnter(input, text)
+		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url}]))
+		await waitFor(() => expect(input).toHaveValue(PAGE.url))
 		expect(screen.queryByTestId('explore-address-hint')).toBeNull()
 		expect(window.appApi.shell.openExternal).not.toHaveBeenCalled()
 	})
 
+	it('shows the hint when main refuses the address', async () => {
+		const input = await renderExplore()
+		typeAndEnter(input, `https://${MAIN_REFUSES}/x`)
+		expect(await screen.findByTestId('explore-address-hint')).toHaveTextContent(HINT)
+		expect(input).toHaveValue(`https://${MAIN_REFUSES}/x`)
+	})
+
 	it.each([
 		['Esc', (input: HTMLInputElement) => fireEvent.keyDown(input, {key: 'Escape'})],
-		['an edit', (input: HTMLInputElement) => fireEvent.change(input, {target: {value: 'vimeo.com/1234'}})]
+		['an edit', (input: HTMLInputElement) => fireEvent.change(input, {target: {value: 'javascript:alert(2)'}})]
 	])('the hint closes on %s', async (_how, act_) => {
 		const input = await renderExplore()
-		typeAndEnter(input, 'vimeo.com/123')
+		typeAndEnter(input, 'javascript:alert(1)')
 		await screen.findByTestId('explore-address-hint')
 		act_(input)
 		expect(screen.queryByTestId('explore-address-hint')).toBeNull()
 	})
 
-	it.each(['javascript:alert(1)', 'https://user:pass@www.youtube.com/', 'https://accounts.google.com/ServiceLogin', 'myaccount.google.com/security'])('refuses %s without sending it, and offers no download', async text => {
+	it.each(['javascript:alert(1)', 'https://user:pass@www.youtube.com/', 'https://accounts.google.com/ServiceLogin', 'myaccount.google.com/security'])('refuses %s without sending it', async text => {
 		const input = await renderExplore()
 		typeAndEnter(input, text)
 		expect(await screen.findByTestId('explore-address-hint')).toHaveTextContent(HINT)
-		expect(screen.queryByRole('button', {name: DOWNLOAD_LINK})).toBeNull()
 		expect(navigateCalls()).toEqual([])
 	})
 
@@ -196,7 +197,7 @@ describe('Explore address bar', () => {
 		expect(screen.queryByTestId('explore-address-hint')).toBeNull()
 	})
 
-	// Only main's refusal of the address means "not on YouTube"; any other
+	// Only main's refusal of the address is about the address; any other
 	// failure (IPC, an error in main) says nothing about the link.
 	it('shows no hint when navigation fails for another reason', async () => {
 		vi.mocked(window.appApi.explore.navigate).mockResolvedValue(fail({code: 'ipc', message: 'no handler'}))
@@ -214,7 +215,6 @@ describe('Explore address bar', () => {
 		const hint = await screen.findByTestId('explore-address-hint')
 		expect(hint).toHaveTextContent('That search is too long')
 		expect(hint).not.toHaveTextContent(HINT)
-		expect(screen.queryByRole('button', {name: DOWNLOAD_LINK})).toBeNull()
 		expect(navigateCalls()).toEqual([])
 	})
 
@@ -227,7 +227,7 @@ describe('Explore address bar', () => {
 		await waitFor(() => expect(navigateCalls()).toHaveLength(1))
 
 		fireEvent.click(screen.getByRole('tab', {name: 'Settings'}))
-		await act(async () => answer(fail({code: 'validation', message: 'Explore loads typed addresses on the site only'})))
+		await act(async () => answer(fail({code: 'validation', message: 'Explore does not load that address'})))
 		expect(useAppStore.getState().exploreAddressHint).toBeNull()
 	})
 
@@ -238,8 +238,8 @@ describe('Explore address bar', () => {
 		expect(region).toHaveAttribute('role', 'status')
 		expect(region).toHaveAttribute('aria-live', 'polite')
 		expect(region).toBeEmptyDOMElement()
-		typeAndEnter(input, 'vimeo.com/123')
-		await waitFor(() => expect(region).toHaveTextContent(`${HINT} vimeo.com`))
+		typeAndEnter(input, 'javascript:alert(1)')
+		await waitFor(() => expect(region).toHaveTextContent(HINT))
 		fireEvent.keyDown(input, {key: 'Escape'})
 		expect(region).toBeEmptyDOMElement()
 	})

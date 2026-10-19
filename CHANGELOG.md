@@ -12,6 +12,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 - **Smaller download, FFmpeg installed once.** Arroxy no longer bundles FFmpeg. It downloads it once on first launch and keeps it across updates. If that fails, it uses your own FFmpeg, or **Set it up manually** installs one with Homebrew or WinGet.
 - **Honest about rate limits.** Arroxy says when a site is rate-limiting you and waits before asking again. **Try now** skips the wait.
+- **Explore opens any site.** Type any address or follow any link in Explore, and sign in to other sites there too. A download from those sites uses that sign-in when it needs one.
 - **Free memory while away.** A new Explore setting (off by default) closes the Explore page when you leave it and restores it when you come back.
 - **A clearer single-video download.** **Continue** on the Format screen leads to Review, which now holds subtitles, SponsorBlock, extras, the folder and the file name. **Download** is still there if you don't need Review.
 - **Update your profile from any download.** When you change something, Format and Review show what differs from your profile, with buttons to update it, save it as a new profile, or undo.

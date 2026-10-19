@@ -413,7 +413,7 @@ async function overflowingToolbar(page: Page): Promise<OverflowReport[]> {
 	})
 }
 
-const TOOLBAR_SCREENS = SCREENS.filter(screen => screen.name === 'explore-browsing').concat(['explore-long-profile', 'explore-adblock-off', 'explore-adblock-unavailable', 'explore-address-offsite'].map(name => ({name, query: `scenario=${name}`, hash: '', ready: '[data-testid="explore-toolbar"]'})))
+const TOOLBAR_SCREENS = SCREENS.filter(screen => screen.name === 'explore-browsing').concat(['explore-long-profile', 'explore-adblock-off', 'explore-adblock-unavailable', 'explore-address-refused'].map(name => ({name, query: `scenario=${name}`, hash: '', ready: '[data-testid="explore-toolbar"]'})))
 const TOOLBAR_LOCALES = ['en', ...LONG_LOCALES] as const
 
 for (const viewport of VIEWPORTS) {

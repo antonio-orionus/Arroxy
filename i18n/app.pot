@@ -435,7 +435,7 @@ msgid "Address"
 msgstr ""
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
 msgstr ""
 
 msgctxt "explore.toolbar.aria"
@@ -474,16 +474,8 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr ""
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr ""
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr ""
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
 msgstr ""
 
 msgctxt "explore.toolbar.reload"

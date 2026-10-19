@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "Manzil"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube'da qidiring yoki YouTube havolasini joylang"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube'dan qidiring yoki istalgan saytni oching (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Interaktiv yuklab olish: format, subtitr va boshqalarni tanlang…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Bu havolani yuklab olish"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Kashfiyot faqat YouTube'ni ko'rsatadi."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Kashfiyot faqat YouTube'ni ko'rsatadi. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Kashfiyot bu manzilni ocha olmaydi."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

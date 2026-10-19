@@ -1,18 +1,15 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Download, Info} from 'lucide-react'
+import {Info} from 'lucide-react'
 import type {ExploreAddressHint as AddressHint} from '../../store/types.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
-import {Button} from '../ui/button.js'
 import {exploreAddressHintText} from './exploreAddress.js'
-import {Hint} from '../shared/Hint.js'
 
-// Under the toolbar after Enter on an address the view does not load
-// (P2-R45). Its own row, so the view below shrinks rather than covers it.
-// A web link on another site can be downloaded instead (its host is named);
-// nothing here opens another browser. Not a live region itself: the tab
-// keeps an always-mounted one (ExploreAddressHintLive) that announces it.
-export function ExploreAddressHint({hint, onDownload, onDismiss}: {hint: AddressHint; onDownload: (url: string) => void; onDismiss: () => void}): ReactNode {
+// Under the toolbar after Enter on an address the view does not load. Its own
+// row, so the view below shrinks rather than covers it. Not a live region
+// itself: the tab keeps an always-mounted one (ExploreAddressHintLive) that
+// announces it.
+export function ExploreAddressHint({hint, onDismiss}: {hint: AddressHint; onDismiss: () => void}): ReactNode {
 	const {t} = useTranslation()
 	return (
 		<Alert
@@ -26,16 +23,6 @@ export function ExploreAddressHint({hint, onDownload, onDismiss}: {hint: Address
 		>
 			<Info aria-hidden />
 			<AlertDescription className="wrap-anywhere">{exploreAddressHintText(hint, t)}</AlertDescription>
-			{hint.kind === 'offsite' ? (
-				<div className="col-start-2 mt-1.5 flex flex-wrap gap-2">
-					<Hint label={hint.downloadUrl}>
-						<Button type="button" size="xs" onClick={() => onDownload(hint.downloadUrl)} data-testid="explore-address-hint-download">
-							<Download data-icon="inline-start" aria-hidden />
-							{t('explore.toolbar.offsiteDownload')}
-						</Button>
-					</Hint>
-				</div>
-			) : null}
 		</Alert>
 	)
 }

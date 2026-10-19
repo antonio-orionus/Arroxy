@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "Adresse"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube durchsuchen oder YouTube-Link einfügen"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube durchsuchen oder beliebige Website öffnen (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Interaktiver Download: Format, Untertitel und mehr wählen…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Diesen Link herunterladen"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Entdecken zeigt nur YouTube an."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Entdecken zeigt nur YouTube an. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Entdecken kann diese Adresse nicht öffnen."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

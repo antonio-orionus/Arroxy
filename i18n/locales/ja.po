@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "アドレス"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube を検索、または YouTube のリンクを貼り付け"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTubeを検索、または任意のサイトを開く (Vimeo、Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "インタラクティブダウンロード：形式や字幕などを選択…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "このリンクをダウンロード"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "「探索」が閲覧できるのは YouTube だけです。"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "「探索」が閲覧できるのは YouTube だけです。{{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "「探索」ではそのアドレスを開けません。"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "လိပ်စာ"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube တွင် ရှာပါ သို့မဟုတ် YouTube လင့်ခ်ကို ကူးထည့်ပါ"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube ကို ရှာပါ သို့မဟုတ် ဝဘ်ဆိုက်တစ်ခုခုကို ဖွင့်ပါ (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "အပြန်အလှန်ဒေါင်းလုဒ်: format၊ စာတန်းထိုး စသည်တို့ကို ရွေးပါ…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "ဤလင့်ခ်ကို ဒေါင်းလုဒ်လုပ်ပါ"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "“စူးစမ်းရန်” သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "“စူးစမ်းရန်” သည် YouTube ကိုသာ ကြည့်ရှုနိုင်သည်။ {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "“စူးစမ်းရန်” သည် ထိုလိပ်စာကို ဖွင့်၍မရပါ။"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

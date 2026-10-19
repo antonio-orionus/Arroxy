@@ -20,6 +20,7 @@ and never a UI label.
 | Path | Role |
 |---|---|
 | `src/main/services/ExploreSessionService.ts` | **new** — owns the Explore partition: UA, proxy, permission/download policy, cookie reads, signed-in check and verification. Desktop adapter for `SessionCookieJarPort` |
+| `src/main/utils/rendererUserAgent.ts` | Electron's original default UA (what every bland UA is derived from) and the app-wide renderer default, which the Explore session sets to its UA (see the UA rule) |
 | `src/main/services/netscapeCookieJar.ts` | **new** — pure `ExploreCookie[]` → Netscape text, with domain filter |
 | `src/main/services/exploreEscalation.ts` | **new** — pure: does a failed run escalate? Matches `(errorKind, rawError/stderr)` (D1) |
 | `src/shared/sites/types.ts`, `src/shared/sites/youtube.ts` | `Site.explore` capability (D5); owned `ExploreCookie` type — no Electron types in `src/shared` |
@@ -48,7 +49,7 @@ working" problem by construction (see *Cookie freshness — measured*).
 ## Non-goals
 
 - **Not a replacement for the Wizard.** The `off` / `file` / `browser` cookie modes keep today's behaviour exactly; D6 *adds* `explore`.
-- **Not a general-purpose browser.** v1 is YouTube plus Google sign-in only — not Gmail, not Search. Other sites are a planned extension through the site-adapter seam (D5), each gated on its own sign-in and freshness check — not built in v1.
+- ~~Not a general-purpose browser.~~ Reversed by [ADR 0011](../docs/adr/0011-explore-browses-the-open-web.md): Explore loads any web page and any site's downloads can escalate. YouTube stays the home, the search and the only site with its own sign-in check.
 - **Not multi-account.** One session, one signed-in identity.
 - **Arroxy never handles credentials.** No reading, injecting, autofilling, or observing the sign-in form. The user types into Google's page; we only own the view it renders in.
 
@@ -136,7 +137,7 @@ interface ExploreCookie { name: string; value: string; domain: string; hostOnly:
 
 interface SiteExplore {
   homeUrl: string                       // where the tab opens
-  navigationHosts: HostRule[]           // top-level navigations allowed in-view (incl. the site's sign-in provider)
+  accountCookieHosts: HostRule[]        // account cookies that never reach another site's jar (ADR 0011)
   cookieDomains: string[]               // a job's jar contains only these domains' cookies
   isSignedIn(cookies: ExploreCookie[]): boolean
 }
@@ -146,7 +147,7 @@ YouTube's values:
 
 - `cookieDomains`: **`youtube.com` only.** yt-dlp authenticates YouTube with YouTube's cookies; `.google.com` session cookies (which carry Gmail etc.) never reach a temp file. **Verified 2026-10-13:** a youtube.com-only jar (21 of 54 cookies) authenticates Watch Later exactly as the full jar does.
 - `isSignedIn`: `LOGIN_INFO` plus a SAPISID-family cookie (yt-dlp's own `_has_auth_cookies` rule). Cheap and synchronous — a *presence* check; see verification below for *validity*.
-- `navigationHosts`: see Navigation policy.
+- `accountCookieHosts`: `youtube.com`, `google.com`, `google.<cc>` — see Cookie scope for other sites.
 
 Adding a site = an `explore` entry **plus** re-running the sign-in and freshness
 checks for that site. Not in v1: site switching, per-site sign-in status,
@@ -186,6 +187,7 @@ the full `GlifWebSignIn` flow.
 - The Explore UA is Electron's default UA with the `Electron/<v>` and app-name tokens **replaced by the bland token `Desktop/1.0`**. Platform and Chromium version stay real so they agree with the client hints.
 - **Not `Arroxy/<version>`.** It passes too, but names the downloader — a blocklist target and an account-flagging signal.
 - **Never override Client Hints** to match a spoofed UA. That is the failure mode, not the fix.
+- **The Explore UA is also the app-wide renderer default** (`app.userAgentFallback`). The session UA does not reach out-of-process frames: a cross-site iframe runs in its own renderer, which only knows the app-wide default. Left at Electron's default, such a frame's `navigator.userAgent` and requests named `Electron/<v>` and the app while its page said `Desktop/1.0`. Cloudflare's Turnstile frame (`challenges.cloudflare.com`) then passed its challenge under one UA, the site's `cf_clearance` was checked under the other, and the challenge came back after every pass (seen on vimeo.com, Electron 44.6.0). The ad blocker, the permission lockdown and the failed WebRTC STUN lookups play no part. The challenge passes with all three left as they are. Every bland UA is derived from Electron's original default, captured before it is replaced, so a token change never stacks a second token.
 - `exploreUserAgent` stores **only the token**, validated as `^[A-Za-z][A-Za-z0-9._-]*/[A-Za-z0-9._-]+$` and rejected if it names a browser (`Chrome`, `Firefox`, `Safari`, `Edg`, `OPR`, `Brave`, `Electron`, the app name). A pasted full UA is rejected, not stored.
 - **UA invariant test:** the Explore UA must equal the platform's Electron default with exactly the `Electron/` and app-name tokens replaced by the configured token — no other change. Fails the build on any `Electron/`, app-name, or browser-identity token.
 
@@ -324,23 +326,28 @@ same cookies.
 
 ### Navigation policy
 
-Navigation rules govern **top-level (main-frame) navigations** of the Explore
-view. Sub-frames are **not policed in v1**, like subresources (images, scripts,
-video from `ytimg.com`, `ggpht.com`, `googlevideo.com`, `gstatic.com`, …):
-policing them would break reCAPTCHA (`www.google.com/recaptcha`, off the
-allowlist) during sign-in and YouTube's own embedded frames. A sub-frame
-navigation or redirect can never reach `shell.openExternal` — only a main-frame
-navigation, or a `window.open` (from any frame) within the user-gesture window,
-can.
+Superseded by [ADR 0011](../docs/adr/0011-explore-browses-the-open-web.md). Rules
+govern **top-level (main-frame) navigations**; sub-frames are not policed, like
+subresources.
 
-- **Allowed in-view:** `youtube.com` and subdomains, `youtu.be` (redirects into youtube.com), `accounts.google.com`, `accounts.youtube.com`, Google's ccTLD sign-in hops (`accounts.google.<cctld>` — the spike observed `accounts.google.co.in/accounts/SetSID`), and the consent pages (`consent.youtube.com`, `consent.google.com`) that EU users see first. **Not** `google.com` at large — Explore must not become a Gmail/Search browser.
-  - The ccTLD hop matches two-letter country codes only (`accounts.google.<cc>`, `accounts.google.co.<cc>`, `accounts.google.com.<cc>`), never a generic TLD. Residual risk: a few registries do not reserve `google.com.<cc>` / `google.co.<cc>` to Google, so a third party holding such a name could get its `accounts.` host loaded in the signed-in view. It cannot read Google's or YouTube's cookies (they are domain-scoped) but could show a look-alike page. Accepted for v1; the matrix's host log would reveal such a hop.
-- **User-initiated link to anywhere else** → `shell.openExternal`, **only** for `http:` / `https:` and only on a user gesture. Electron's navigation events carry no gesture flag, so a gesture is a click or key press in the view within the last second, and one gesture authorises at most one external open.
-- **Redirect to an unexpected host during a navigation** (not user-initiated) → blocked and its host logged; never handed to the system browser (sign-in redirect URLs can carry session material such as `sidt`).
-- `setWindowOpenHandler` → `{action: 'deny'}`, routing to the rules above. An allowlisted target loads in the view only within the user-gesture window too, so a script or a sub-frame cannot replace the page without a click. Verified 2026-10-13: the full sign-in (incl. reCAPTCHA and TOTP) opened **no popups** on any platform.
-- **Description links** (P2-R30, accepted): YouTube wraps outbound links in `youtube.com/redirect`, which is on the allowlist, so a click loads YouTube's own leave-YouTube interstitial in the view; its "Go to site" is the user's click and opens the system browser through the rule above. Explore is for signing in, browsing and downloading, so the extra step stays.
+- **Any `http:` / `https:` page loads in the view**, whether clicked, scripted, redirected to or typed. Nothing is ever handed to the system browser.
+- **Any other scheme** (`javascript:`, `file:`, `data:`, an app's own protocol) is blocked and only its host logged.
+- `setWindowOpenHandler` → `{action: 'deny'}`; a web target loads in the view only within the user-gesture window (a click or key press in the view within the last second), so a script or a sub-frame cannot replace the page without a click.
+- Typed, Google's sign-in, account and consent hosts are refused (see the address bar); clicked on a page they load.
 - Never inject scripts into `accounts.google.com` — not for convenience, not for diagnostics. (`verifySignedIn` reads `ytcfg` on `youtube.com` only.)
-- The manual matrix logs every off-allowlist host hit during sign-in, to catch hops the spike did not see.
+
+### Cookie scope for other sites
+
+A run's Explore cookies follow its URL (`exploreCookieScopeFor`): a YouTube URL
+gets the youtube.com-only jar (D5); any other web URL gets every cookie in the
+session except the account cookies of the sites with an Explore capability
+(`SiteExplore.accountCookieHosts`: `youtube.com`, `google.com`, `google.<cc>`).
+For such a URL the session counts as signed in when it holds a cookie the host
+would be sent, and `verifySignedIn` answers `unknown`. Escalation is unchanged
+(D1). Such a run also sends `--add-headers User-Agent:<Explore UA>`: Cloudflare's
+`cf_clearance` holds only under the user agent that earned it (measured on
+vimeo.com/watchlater: 403 `Cf-Mitigated: challenge` under yt-dlp's UA, 200
+under Explore's).
 
 ### PO tokens — never the anonymous token on an escalated run
 
@@ -418,16 +425,16 @@ minimum window, 720x760.
 - **Explore first run:** ban-risk notice, then the YouTube home page. The view mounts on first open only (D3.1). The notice opens with a decorative preview of Explore (`aria-hidden`, `inert`): the toolbar in miniature with the real Download split naming the active profile, over an abstract video page (top bar with search and avatar, side menu, chip row, two-column card grid) in neutral shapes and theme colours — no site branding, artwork or people. It is shorter in a narrow card (a container query on the card, which measures unzoomed CSS px, so any UI zoom above 100% at the 720 px floor gets the short form). At 720x760 and UI zoom 100% the whole notice, Continue included, is in view without scrolling (asserted in en, el, fr, my, pl and ur); at 125% and above, scrolling to reach Continue is accepted.
 - **Sign-in inline** (D2) — nothing injected, no Arroxy UI over Google's form.
 - **Toolbar above the view;** must hold at the 720x760 minimum window and at 150% UI zoom in the longest locales. **Grab** takes the view's current URL (from `exploreStateChanged`) into the download flow — no second URL input. From the start of the row:
-  - Back, Forward, Reload, Home, then the **address bar** (P2-R45, reverses P2-R33): a YouTube-scoped omnibox. Unfocused it shows the page's address; focus selects it all, so a paste replaces it; Esc or blur puts the page's address back. The placeholder (shown only when empty) reads "Search YouTube or paste a YouTube link". Nothing is judged while the user types; on Enter a shared classifier (`classifyExploreAddress`) routes the text:
+  - Back, Forward, Reload, Home, then the **address bar** (P2-R45, reverses P2-R33): an omnibox that searches YouTube. Unfocused it shows the page's address; focus selects it all, so a paste replaces it; Esc or blur puts the page's address back. The placeholder (shown only when empty) reads "Search YouTube or enter an address". Nothing is judged while the user types; on Enter a shared classifier (`classifyExploreAddress`) routes the text:
     - text is a **link** only with a scheme, a leading `www.`, a bare host plus a path (`vimeo.com/123`), or a bare host that is one of the site's own (`youtube.com`, `youtu.be`); anything else, a dotted word such as `node.js`, `e.g.` or `v1.2` included, is **plain text** and opens `https://www.youtube.com/results?search_query=…`;
     - a **YouTube link** — a host among the site's content hosts (`SiteExplore.contentHosts`: `youtube.com` and every subdomain, so `m.` and `music.youtube.com` too, and `youtu.be`) — loads in the view: always https, `youtu.be/<id>` as `https://www.youtube.com/watch?v=<id>` keeping `t` and `list`;
-    - a **link on any other host** loads nothing and opens nothing (a typed address is no page gesture): a hint row under the toolbar says "Explore only browses YouTube." and names the link's host, with **Download this link**, which runs the background quick download (Explore entry, active profile). The hint closes on Esc, on an edit, after Download, or when the user leaves the Explore tab (which also drops an edit in progress). It is its own row, so the view shrinks below it;
-    - anything else (another scheme such as `javascript:` or `data:`, credentials in the URL, a sign-in, account or consent host — `SiteExplore.signInHosts`: `accounts.google.*`, `accounts.youtube.com`, `myaccount.google.com`; `SiteExplore.consentHosts`: `consent.youtube.com`, `consent.google.*` — or a link over 2048 characters) is refused in the renderer: the hint without the host or Download, and nothing is sent. A search whose text or results URL is over 2048 characters gets its own hint, "That search is too long."
+    - a **link on any other host** loads in the view as typed (http stays http, a port stays);
+    - anything else (another scheme such as `javascript:` or `data:`, credentials in the URL, a sign-in, account or consent host — `SiteExplore.signInHosts`: `accounts.google.*`, `accounts.youtube.com`, `myaccount.google.com`; `SiteExplore.consentHosts`: `consent.youtube.com`, `consent.google.*` — or a link over 2048 characters) is refused in the renderer: a hint row under the toolbar says "Explore can't open that address.", and nothing is sent. The hint closes on Esc, on an edit, or when the user leaves the Explore tab; it is its own row, so the view shrinks below it. A search whose text or results URL is over 2048 characters gets its own hint, "That search is too long."
     The hint row is not a live region itself; an always-mounted, visually hidden polite `role="status"` region announces its text (empty while there is none).
-    The renderer sends links and searches as `{kind: 'address', url}`; **main alone decides** what loads (only it knows the E2E home origin, which it treats as the site): `exploreHandlers` checks the address with zod against `isExploreSiteAddress` (https on the site's content hosts with the default port and never a sign-in or account host, or the E2E home origin; no username or password; within the cap), logs only the host of a refusal and answers a validation error, which the renderer shows as the hint; any other failed navigate result (IPC, an error in main) is only logged, and a result that lands after the user left the tab is dropped. Sign-in and account pages stay reachable by clicking on a page (the navigation allowlist is unchanged); they are only never typed. The host checks again, loads the parsed form (`new URL(url).href`, never the raw string), spends any click the page just received (so a redirect off the site is blocked, never opened in the system browser) and loads through the proxy gate (`whenProxyReady`).
+    The renderer sends links and searches as `{kind: 'address', url}`; **main decides** what loads: `exploreHandlers` checks the address with zod against `isExploreAddress` (a web page, never a sign-in, account or consent host; no username or password; within the cap), logs only the host of a refusal and answers a validation error, which the renderer shows as the hint; any other failed navigate result (IPC, an error in main) is only logged, and a result that lands after the user left the tab is dropped. Sign-in and account pages stay reachable by clicking on a page; they are only never typed. The host checks again, loads the parsed form (`new URL(url).href`, never the raw string) and loads through the proxy gate (`whenProxyReady`).
   - A split button, **Download · *active profile*** with the profile's icon: the main part queues the page with the active profile (quick download) and stays in Explore. Like the URL tab's Quick Download it prepares in the background (P2-R37/R38): the page becomes a placeholder row in Downloads at once, named by the page title until the probe knows the video's, and an `Added: <title>` toast with **View** confirms it; several Downloads prepare in parallel. A failure or a choice the probe raises (a playlist over the load limit, a link that turned out to be a list) lands on that row, resolved from the Downloads tab, plus a toast; nothing appears above the view. The chevron opens the URL tab's profile menu (the same component: the profile grid, then Edit, New and Manage); a pick sets the global active profile. A long profile name truncates and stays whole in the native tooltip.
   - An icon-only **interactive** button (a wand, unlike every profile icon) with a native tooltip, "Choose format, subtitles and more…": it opens the step-by-step flow with the current page. That run remembers Explore as its origin, so Back to the home, Start over and a finished queue all land on Explore again; a run from the URL tab is unchanged. The origin belongs to that run: Retry from its error step keeps it, while Advanced settings, a bulk Download, and a failed Download's Retry clicked on the URL tab are URL-tab runs.
-  - Every part is disabled unless the page is a video, playlist or channel; a Download still preparing never blocks the next. Tooltips are native `title`s on purpose: they are OS windows, which the view cannot cover.
+  - On YouTube every part is disabled unless the page is a video, playlist or channel; on any other site every web page is grabbable (yt-dlp decides what it holds); a Download still preparing never blocks the next. Tooltips are native `title`s on purpose: they are OS windows, which the view cannot cover.
 - **Link menu (right-click in the page).** The same controls for a link, so a grid of videos downloads without opening each one. It is a native menu built and shown by main (`exploreLinkMenu.ts`), never page DOM: renderer DOM cannot paint over the view, and the page gets no Arroxy script or bridge, so it cannot open the menu or pick from it (Electron fires `context-menu` only for the user's own right-click). Only the link's address leaves the event (`linkURL`; not the link text, a selection or media). On a link the download flow can take (the same `isExploreGrabbable` gate as the bar, on the cleaned link):
   - **Download · *active profile*** queues the link (background quick download, Explore entry);
   - **Download with ▸** lists every enabled profile by name, the active one checked; a pick is the bar's pick: it becomes the global active profile, then the link is queued with it;

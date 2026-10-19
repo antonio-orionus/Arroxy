@@ -275,7 +275,7 @@ _Avoid_: dry run, format test, quality probe
 ### Explore
 
 **Explore**:
-The in-app browser tab where the user browses a supported site and may sign in. It sits beside the **Wizard** as a second way to find a video, and a link opened there can be handed to a download.
+The in-app browser tab where the user browses the web and may sign in to sites. It opens on YouTube and searches YouTube, sits beside the **Wizard** as a second way to find a video, and a page or link opened there can be handed to a download.
 _Avoid_: built-in browser, web view, browse tab
 
 **Explore session**:
@@ -287,7 +287,7 @@ Releasing the Explore page once the user has been away from the tab for a while,
 _Avoid_: suspension, discard, hibernation, sleeping tab
 
 **Explore cookies**:
-The cookies read from the Explore session each time a download step needs them, used for that step and then discarded.
+The cookies read from the Explore session each time a download step needs them, used for that step and then discarded. A YouTube download gets YouTube's cookies only; a download from any other site gets every cookie but Google's and YouTube's account cookies.
 _Avoid_: session cookies (that term already means cookies that expire when a browser closes), saved login
 
 **Escalation**:

@@ -443,8 +443,8 @@ msgid "Address"
 msgstr "Адреса"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Претражи YouTube или налепи YouTube линк"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "Претражи YouTube или отвори било који сајт (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -482,17 +482,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Интерактивно преузимање: изабери формат, титлове и још тога…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Преузми овај линк"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "У Истраживању можеш да прегледаш само YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "У Истраживању можеш да прегледаш само YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Истраживање не може да отвори ту адресу."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

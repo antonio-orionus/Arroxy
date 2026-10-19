@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "Alamat"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Cari di YouTube atau tempel tautan YouTube"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "Cari di YouTube atau buka situs apa pun (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Unduhan Interaktif: pilih format, subtitle, dan lainnya…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Unduh tautan ini"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Jelajahi hanya bisa membuka YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Jelajahi hanya bisa membuka YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Jelajahi tidak dapat membuka alamat itu."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

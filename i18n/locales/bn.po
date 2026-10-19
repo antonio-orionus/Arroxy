@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "ঠিকানা"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube-এ খুঁজুন বা YouTube লিংক পেস্ট করুন"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube-এ খুঁজুন বা যেকোনো সাইট খুলুন (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "ইন্টারঅ্যাকটিভ ডাউনলোড: ফরম্যাট, সাবটাইটেল ও আরও বেছে নিন…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "এই লিংক ডাউনলোড করুন"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "অন্বেষণ শুধু YouTube ব্রাউজ করে।"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "অন্বেষণ শুধু YouTube ব্রাউজ করে। {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "অন্বেষণ ওই ঠিকানাটি খুলতে পারছে না।"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

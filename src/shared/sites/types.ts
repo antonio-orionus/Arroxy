@@ -27,18 +27,19 @@ export interface ExploreCookie {
 	expirationDate?: number
 }
 
-// A hostname rule for an Explore view (where it may navigate, which hosts are sign-in). `pattern` names a built-in matcher.
-export type HostRule = {kind: 'exact'; host: string} | {kind: 'suffix'; domain: string} | {kind: 'pattern'; pattern: 'google-accounts-cctld' | 'google-consent-cctld'}
+// A hostname rule for an Explore view (the site's own hosts, which hosts are sign-in). `pattern` names a built-in matcher.
+export type HostRule = {kind: 'exact'; host: string} | {kind: 'suffix'; domain: string} | {kind: 'pattern'; pattern: 'google-accounts-cctld' | 'google-consent-cctld' | 'google-cctld'}
 
 export interface SiteExplore {
 	// Where the Explore tab opens for this site.
 	readonly homeUrl: string
 	// A job's jar contains only cookies on these registrable domains (and their subdomains).
 	readonly cookieDomains: readonly string[]
-	// Hosts the view may navigate to (sign-in and consent flows included); anything else is refused.
-	readonly navigationHosts: readonly HostRule[]
-	// The site's own content hosts: the only ones an address typed in the bar
-	// may open (sign-in and account hosts are reached by clicking, never typed).
+	// Cookie hosts that carry the user's account across the provider's services:
+	// they never reach the jar of a download from any other site.
+	readonly accountCookieHosts: readonly HostRule[]
+	// The site's own content hosts: an address typed in the bar for one of them
+	// opens in the site's canonical https form.
 	readonly contentHosts: readonly HostRule[]
 	// The account provider's sign-in and account hosts: the ad blocker never acts on them.
 	readonly signInHosts: readonly HostRule[]

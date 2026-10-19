@@ -438,8 +438,8 @@ msgid "Address"
 msgstr "Adres"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube'da ara veya YouTube bağlantısı yapıştır"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "YouTube'da ara veya herhangi bir siteyi aç (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +477,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Etkileşimli İndirme: biçim, altyazı ve daha fazlasını seç…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Bu bağlantıyı indir"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Keşfet'te yalnızca YouTube'a göz atılabilir."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Keşfet'te yalnızca YouTube'a göz atılabilir. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Keşfet bu adresi açamıyor."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

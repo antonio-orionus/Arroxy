@@ -67,7 +67,7 @@ const SCENARIO_SURFACES = [
 	{id: 'explore-browsing', visible: 'explore-mock-page', absent: ['explore-notice', 'explore-mode-nudge', 'explore-error']},
 	{id: 'explore-nudge', visible: 'explore-mode-nudge', absent: ['explore-notice', 'explore-error']},
 	{id: 'explore-proxy-error', visible: 'explore-error', absent: ['explore-notice', 'explore-mock-page']},
-	{id: 'explore-address-offsite', visible: 'explore-address-hint', absent: ['explore-notice', 'explore-error']}
+	{id: 'explore-address-refused', visible: 'explore-address-hint', absent: ['explore-notice', 'explore-error']}
 ] as const
 
 for (const surface of SCENARIO_SURFACES) {
@@ -111,15 +111,14 @@ test('the proxy error keeps the native view hidden', async ({page}) => {
 	expect(await page.evaluate(() => window.__exploreMockCalls?.setVisible.includes(true))).toBe(false)
 })
 
-// P2-R45: the off-site hint takes a row of its own under the toolbar, so the
-// native view shrinks below it (it never hides it, and never paints over it),
-// and the typed address round-trips through the mock's site rule.
-test('the off-site hint shrinks the view, and the address bar routes Enter', async ({page}) => {
+// The address hint takes a row of its own under the toolbar, so the native
+// view shrinks below it (it never hides it, and never paints over it), and the
+// typed address round-trips through the mock's rule.
+test('the address hint shrinks the view, and the address bar routes Enter', async ({page}) => {
 	await page.setViewportSize({width: 900, height: 760})
-	await page.goto('/?scenario=explore-address-offsite&theme=dark')
+	await page.goto('/?scenario=explore-address-refused&theme=dark')
 	const hint = page.getByTestId('explore-address-hint')
 	await expect(hint).toBeVisible({timeout: 15_000})
-	await expect(page.getByTestId('explore-address-hint-download')).toBeVisible()
 	const viewport = page.getByTestId('explore-viewport')
 	await expect.poll(async () => (await lastBounds(page))?.y ?? 0).toBeGreaterThanOrEqual(Math.floor(((await hint.boundingBox())?.y ?? 0) + ((await hint.boundingBox())?.height ?? 0)))
 	expect(await page.evaluate(() => window.__exploreMockCalls?.setVisible.at(-1))).toBe(true)
@@ -135,22 +134,20 @@ test('the off-site hint shrinks the view, and the address bar routes Enter', asy
 	await address.press('Enter')
 	await expect(address).toHaveValue('https://www.youtube.com/watch?v=abc123')
 
+	// A link on another site loads in the view too.
 	await address.fill('videos.example.com/watch/42')
 	await address.press('Enter')
-	await expect(hint).toBeVisible()
-	await expect(address).toHaveValue('videos.example.com/watch/42')
-	await address.press('Escape')
-	await expect(address).toHaveValue('https://www.youtube.com/watch?v=abc123')
+	await expect(address).toHaveValue('https://videos.example.com/watch/42')
 	await expect(hint).toHaveCount(0)
 
-	// A dotted word is a search; a typed sign-in page gets the hint without a download.
+	// A dotted word is a search; a typed sign-in page gets the hint and stays in the bar.
 	await address.fill('node.js')
 	await address.press('Enter')
 	await expect(address).toHaveValue('https://www.youtube.com/results?search_query=node.js')
 	await address.fill('accounts.google.com/signin')
 	await address.press('Enter')
 	await expect(hint).toBeVisible()
-	await expect(page.getByTestId('explore-address-hint-download')).toHaveCount(0)
+	await expect(address).toHaveValue('accounts.google.com/signin')
 
 	// Leaving the tab clears the hint.
 	await page.getByRole('tab', {name: 'Settings'}).click()

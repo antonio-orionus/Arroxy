@@ -1,6 +1,6 @@
-// What Enter in Explore's address bar does with the text (P2-R45). Pure: the
-// renderer uses it to normalise and route what was typed, and main enforces
-// the same site rule (isExploreSiteAddress) before the view loads anything.
+// What Enter in Explore's address bar does with the text. Pure: the renderer
+// uses it to normalise and route what was typed, and main enforces the same
+// rule (isExploreAddress) before the view loads anything.
 
 import {hostMatches} from './hostRules.js'
 import type {HostRule, SiteExplore} from './types.js'
@@ -8,25 +8,23 @@ import type {HostRule, SiteExplore} from './types.js'
 // The longest address (and search text) the bar sends; anything longer is refused.
 export const EXPLORE_ADDRESS_MAX = 2048
 
-// Where a typed address may load: the site's content hosts over https, never
-// a blocked (sign-in or account) host, plus the E2E home override's origin as it is.
-export interface ExploreSiteScope {
-	hosts: readonly HostRule[]
-	blockedHosts?: readonly HostRule[]
-	extraAllowedOrigin?: string
+// What a typed address is judged against: the site's own hosts (written in the
+// site's canonical https form) and the hosts never typed (sign-in, account and
+// consent pages, reached only by clicking on a page).
+export interface ExploreAddressScope {
+	siteHosts: readonly HostRule[]
+	blockedHosts: readonly HostRule[]
 }
 
-// The scope for a site: its content hosts; its sign-in, account and consent hosts blocked.
-export function exploreAddressScope(explore: Pick<SiteExplore, 'contentHosts' | 'signInHosts' | 'consentHosts'>, extraAllowedOrigin?: string): ExploreSiteScope {
-	return {hosts: explore.contentHosts, blockedHosts: [...explore.signInHosts, ...explore.consentHosts], ...(extraAllowedOrigin === undefined ? {} : {extraAllowedOrigin})}
+export function exploreAddressScope(explore: Pick<SiteExplore, 'contentHosts' | 'signInHosts' | 'consentHosts'>): ExploreAddressScope {
+	return {siteHosts: explore.contentHosts, blockedHosts: [...explore.signInHosts, ...explore.consentHosts]}
 }
 
-// `site`: load it in the view. `search`: the site's search for the text.
-// `offsite`: a web address elsewhere (Explore does not go there; it can be
-// downloaded). `refused`: nothing to do with it (another scheme, credentials,
-// a sign-in, account or consent page, a link over the cap).
-// `search-too-long`: search text whose search page would be over the cap.
-export type ExploreAddress = {kind: 'site'; url: string} | {kind: 'search'; url: string} | {kind: 'offsite'; url: string} | {kind: 'refused'} | {kind: 'search-too-long'}
+// `link`: load it in the view. `search`: the site's search for the text.
+// `refused`: nothing to do with it (another scheme, credentials, a sign-in,
+// account or consent page, a link over the cap). `search-too-long`: search
+// text whose search page would be over the cap.
+export type ExploreAddress = {kind: 'link'; url: string} | {kind: 'search'; url: string} | {kind: 'refused'} | {kind: 'search-too-long'}
 
 const WEB_PROTOCOLS = new Set(['http:', 'https:'])
 // `scheme://…`, or a scheme a browser would run or open without one.
@@ -50,31 +48,24 @@ function parse(raw: string): URL | null {
 	}
 }
 
-function blocked(host: string, scope: ExploreSiteScope): boolean {
-	return scope.blockedHosts !== undefined && hostMatches(host, scope.blockedHosts)
-}
-
-// Main's rule for a typed address: within the cap, no credentials, and either
-// the E2E origin or https on a site content host (never a blocked one) with
-// the default port.
-export function isExploreSiteAddress(raw: string, scope: ExploreSiteScope): boolean {
+// Main's rule for a typed address: a web page within the cap, with no
+// credentials, never on a blocked host.
+export function isExploreAddress(raw: string, scope: ExploreAddressScope): boolean {
 	if (raw.length > EXPLORE_ADDRESS_MAX) return false
 	const url = parse(raw)
-	if (!url || url.username !== '' || url.password !== '') return false
-	if (scope.extraAllowedOrigin !== undefined && url.origin === scope.extraAllowedOrigin) return true
-	return url.protocol === 'https:' && url.port === '' && hostMatches(url.hostname, scope.hosts) && !blocked(url.hostname, scope)
+	return url !== null && WEB_PROTOCOLS.has(url.protocol) && url.hostname !== '' && url.username === '' && url.password === '' && !hostMatches(url.hostname, scope.blockedHosts)
 }
 
 // A link: a scheme, `www.`, a bare host with a path, or one of the site's own
 // hosts alone. Anything else (a dotted word included) is search text.
-function linkFor(text: string, scope: ExploreSiteScope): URL | null | 'search' {
+function linkFor(text: string, scope: ExploreAddressScope): URL | null | 'search' {
 	if (NON_WEB_SCHEME.test(text)) return null
 	if (SCHEMED.test(text)) return parse(text)
-	if (WWW_HOST.test(text) || BARE_HOST_WITH_PATH.test(text) || (BARE_HOST_ALONE.test(text) && hostMatches(text, scope.hosts))) return parse(`https://${text}`)
+	if (WWW_HOST.test(text) || BARE_HOST_WITH_PATH.test(text) || (BARE_HOST_ALONE.test(text) && hostMatches(text, scope.siteHosts))) return parse(`https://${text}`)
 	return 'search'
 }
 
-export function classifyExploreAddress(input: string, explore: Pick<SiteExplore, 'searchUrl' | 'canonicalAddress'>, scope: ExploreSiteScope): ExploreAddress {
+export function classifyExploreAddress(input: string, explore: Pick<SiteExplore, 'searchUrl' | 'canonicalAddress'>, scope: ExploreAddressScope): ExploreAddress {
 	const text = input.trim()
 	if (text === '') return {kind: 'refused'}
 	// Over the cap, only the start is read (no full-length pattern match on a huge paste).
@@ -84,15 +75,13 @@ export function classifyExploreAddress(input: string, explore: Pick<SiteExplore,
 		const url = explore.searchUrl(text)
 		return url.length > EXPLORE_ADDRESS_MAX ? {kind: 'search-too-long'} : {kind: 'search', url}
 	}
-	if (!link || !WEB_PROTOCOLS.has(link.protocol) || link.username !== '' || link.password !== '' || blocked(link.hostname, scope)) return {kind: 'refused'}
-	if (scope.extraAllowedOrigin !== undefined && link.origin === scope.extraAllowedOrigin) return {kind: 'site', url: link.href}
+	if (!link) return {kind: 'refused'}
 	let url = link
-	// A site host is always loaded over https, in the site's own form.
-	if (link.port === '' && hostMatches(link.hostname, scope.hosts)) {
+	// A site host on the default port is always loaded over https, in the site's own form.
+	if (WEB_PROTOCOLS.has(link.protocol) && link.port === '' && hostMatches(link.hostname, scope.siteHosts)) {
 		url = new URL(link.href)
 		url.protocol = 'https:'
 		url = explore.canonicalAddress?.(url) ?? url
 	}
-	if (url.href.length > EXPLORE_ADDRESS_MAX) return {kind: 'refused'}
-	return isExploreSiteAddress(url.href, scope) ? {kind: 'site', url: url.href} : {kind: 'offsite', url: url.href}
+	return isExploreAddress(url.href, scope) ? {kind: 'link', url: url.href} : {kind: 'refused'}
 }

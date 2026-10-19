@@ -433,8 +433,8 @@ msgid "Address"
 msgstr "地址"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "搜索 YouTube 或粘贴 YouTube 链接"
+msgid "Search YouTube or open any site (Vimeo, Instagram…)"
+msgstr "搜索 YouTube 或打开任意网站（Vimeo、Instagram…）"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +472,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "交互式下载：选择格式、字幕等…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "下载此链接"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "“探索”只浏览 YouTube。"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "“探索”只浏览 YouTube。{{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "“探索”无法打开该地址。"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"

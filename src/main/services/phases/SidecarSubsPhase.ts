@@ -86,7 +86,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			// already saved, so a lost Explore session soft-fails this phase like
 			// any other subtitle failure instead of failing the download.
 			const site = siteForJob(preparedJob.extractor, input.url)
-			if (!(await canSpawnSignedIn(ctx, site.id))) {
+			if (!(await canSpawnSignedIn(ctx))) {
 				logger.warn('Subtitles skipped — Explore session no longer available for this signed-in job; video already saved', {jobId: job.id})
 				return {kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed}
 			}
@@ -113,7 +113,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			if (stopped) return stopped
 			// Never escalates (the video is saved; a subtitle failure is soft), but an
 			// escalated job's rejected cookies are checked like any signed-in run's.
-			const settled = await settleWithExploreSession(ctx, first, {site, runSignedIn: async () => ((await canSpawnSignedIn(ctx, site.id)) ? fetchSubtitles() : null)})
+			const settled = await settleWithExploreSession(ctx, first, {site, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? fetchSubtitles() : null)})
 			if (settled.kind === 'stopped') return settled.outcome
 			if (settled.kind === 'signedOut') {
 				logger.warn('Subtitles skipped — the Explore session is signed out; video already saved', {jobId: job.id})
