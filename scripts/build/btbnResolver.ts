@@ -9,11 +9,21 @@ const BTBN_API_BASE = 'https://api.github.com/repos/BtbN/FFmpeg-Builds'
 // Trojan:Win32/Wacatac.B!ml (a known upstream false positive — see
 // BtbN/FFmpeg-Builds#646) and is quarantined on install, which breaks probing.
 //
-// To bump: pick a newer autobuild tag, run scripts/test-binaries/smoke-all.sh,
-// and let the Defender scan in .github/workflows/installer-smoke.yml gate it.
+// Only release builds, never master: a June master build segfaulted (SIGSEGV)
+// stream-copying HLS-fragmented VP9 into MP4. BTBN_RELEASE_BRANCH is the
+// FFmpeg release branch BtbN builds, kept on the same major/minor as the macOS
+// release build in fetch-embedded.sh. BtbN builds the branch head, so the
+// version is a point release plus its backports (n9.0.2-17-g…), not the bare tag.
+//
+// Pin a month-end autobuild: BtbN keeps those and prunes the dailies within
+// weeks, and fetch-embedded.sh downloads the pinned tag on every fresh checkout.
+// To bump, follow dev-docs/ffmpeg-packages.md ("Approving a new FFmpeg build"):
+// bump only for a new point release or a known bug, and run
+// scripts/test-binaries/ffmpeg-merge-smoke.sh against every new build.
 // Set BTBN_RELEASE_TAG to override — a tag name, 'latest' for BtbN's floating
-// release, or 'floating' to resolve the newest complete release as before.
-export const BTBN_PINNED_RELEASE_TAG = 'autobuild-2026-08-31-13-27'
+// release, or 'floating' to resolve the newest complete release.
+export const BTBN_RELEASE_BRANCH = '9.0'
+export const BTBN_PINNED_RELEASE_TAG = 'autobuild-2026-09-30-13-08'
 const BTBN_FETCH_TIMEOUT_MS = 30_000
 
 type BtbnArchiveExtension = 'tar.xz' | 'zip'
@@ -140,11 +150,18 @@ function normalizeExtension(ext: string): BtbnArchiveExtension {
 }
 
 export function floatingLatestAssetName(btbnArch: string, ext: BtbnArchiveExtension): string {
-	return `ffmpeg-master-latest-${btbnArch}-gpl-shared.${ext}`
+	return `ffmpeg-n${BTBN_RELEASE_BRANCH}-latest-${btbnArch}-gpl-shared-${BTBN_RELEASE_BRANCH}.${ext}`
 }
 
-export function isTimestampedMasterAssetName(name: string, btbnArch: string, ext: BtbnArchiveExtension): boolean {
-	return name.startsWith('ffmpeg-N-') && name.endsWith(`-${btbnArch}-gpl-shared.${ext}`)
+// The point release and, past the tag, the backport count and commit: "2" or "2-17-g2a571b6068".
+const RELEASE_BRANCH_BUILD = /^\d+(-\d+-g[0-9a-f]+)?$/
+
+// A timestamped release-branch build: ffmpeg-n<branch>.<point>[-<commits>-g<hash>]-<arch>-gpl-shared-<branch>.<ext>
+export function isReleaseBranchAssetName(name: string, btbnArch: string, ext: BtbnArchiveExtension): boolean {
+	const prefix = `ffmpeg-n${BTBN_RELEASE_BRANCH}.`
+	const suffix = `-${btbnArch}-gpl-shared-${BTBN_RELEASE_BRANCH}.${ext}`
+	if (!name.startsWith(prefix) || !name.endsWith(suffix) || name.length < prefix.length + suffix.length) return false
+	return RELEASE_BRANCH_BUILD.test(name.slice(prefix.length, name.length - suffix.length))
 }
 
 function isFloatingLatestAssetName(name: string, btbnArch: string, ext: BtbnArchiveExtension): boolean {
@@ -161,7 +178,7 @@ function findArchive(release: BtbnRelease, btbnArch: string, ext: BtbnArchiveExt
 			return includeFloatingLatest && isFloatingLatestAssetName(asset.name, btbnArch, ext)
 		}
 
-		return isTimestampedMasterAssetName(asset.name, btbnArch, ext)
+		return isReleaseBranchAssetName(asset.name, btbnArch, ext)
 	})
 }
 
@@ -273,7 +290,7 @@ export async function resolveBtbnAsset(btbnArch: string, ext: BtbnArchiveExtensi
 
 	if (!resolution) {
 		const source = pinnedTag ? `tag ${pinnedTag}` : 'recent releases'
-		throw new Error(`no complete BtbN ${btbnArch} gpl-shared ${ext} archive found in ${source}`)
+		throw new Error(`no complete BtbN ${BTBN_RELEASE_BRANCH} release-branch ${btbnArch} gpl-shared ${ext} archive found in ${source}`)
 	}
 
 	return resolution

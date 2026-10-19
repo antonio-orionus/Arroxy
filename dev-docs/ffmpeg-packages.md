@@ -101,10 +101,33 @@ reruns setup. "Set it up manually" opens:
 - **A package-manager hint** on Linux. Flatpak gets no hint, because it cannot
   see what the host installs.
 
+## Version policy
+
+Every pin is a release build, never a master or nightly build. A June master
+build from Martin Riedl crashed the MP4 muxer when it merged VP9 video and AAC
+audio, which is Arroxy's most common merge. Neither yt-dlp nor its FFmpeg
+fork tests FFmpeg, so the pins are the only gate.
+
+- **Release builds only, on one major/minor everywhere.** Today that is 9.0.
+  macOS uses Martin Riedl's build of the release tag. BtbN builds the head of
+  the release branch (`release/9.0`), so Windows and Linux run the latest
+  point release plus that branch's backported fixes, such as
+  `n9.0.2-17-g2a571b6068`. Pin a month-end `autobuild-*` tag: BtbN deletes
+  daily builds after a few weeks, and `fetch-embedded.sh` downloads the
+  pinned tag on every fresh checkout.
+- **Bump only for a new point release or a known bug.** A security fix counts
+  as a known bug. A newer build alone is not a reason.
+- **A master build only by exception.** Record the reason next to the pin
+  (`BTBN_PINNED_RELEASE_TAG` or the Martin Riedl paths), together with the
+  release that will replace it, and switch back to a release build as soon
+  as that release is out.
+- **Every pin change passes the FFmpeg remux matrix on every platform before
+  it merges.** The matrix runs Arroxy's real merge, cut and embed commands
+  against each new build.
+
 ## Approving a new FFmpeg build
 
-Only for a security fix, a compatibility problem or a needed feature; nothing
-tracks upstream automatically.
+Only under the version policy above; nothing tracks upstream automatically.
 
 1. Bump the upstream pins: `BTBN_PINNED_RELEASE_TAG` in
    `scripts/build/btbnResolver.ts` and the Martin Riedl paths and SHA-256s in
