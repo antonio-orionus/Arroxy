@@ -3,7 +3,11 @@ import {chmodSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, write
 import {dirname, join} from 'node:path'
 import {afterAll, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import log from 'electron-log/main.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {ExploreCookie} from '@shared/sites/types.js'
+
+const YOUTUBE: ExploreCookieScope = {kind: 'site', siteId: 'youtube'}
+const VIMEO: ExploreCookieScope = {kind: 'web', host: 'vimeo.com'}
 
 const {DEFAULT_UA, userData, fakeSession, partitions, windows, FakeBrowserWindow} = await vi.hoisted(async () => {
 	const fs = await import('node:fs')
@@ -61,6 +65,7 @@ vi.mock('node:fs/promises', async importOriginal => {
 })
 
 import {rm, writeFile} from 'node:fs/promises'
+import {app} from 'electron'
 import {ExploreSessionService, EXPLORE_PARTITION, type ExploreSessionSettings} from '@main/services/ExploreSessionService.js'
 
 const jarDir = join(userData, 'explore-jars')
@@ -124,6 +129,25 @@ describe('ExploreSessionService session', () => {
 		expect(fakeSession.setUserAgent.mock.calls[0][0]).toContain('WebView/2')
 	})
 
+	// Out-of-process frames (a cross-site iframe such as Cloudflare's challenge)
+	// start from the app-wide default, not the session's UA: unless the two
+	// match, the challenge passes under one UA and the page asks again under the other.
+	it('makes the session UA the default every renderer starts with', () => {
+		makeService().getSession()
+		expect(app.userAgentFallback).toBe(fakeSession.setUserAgent.mock.calls[0][0])
+	})
+
+	it('derives each UA from Electron default, never from a bland one it set', () => {
+		const settings: ExploreSessionSettings = {uaToken: 'WebView/2', proxyUrl: undefined}
+		const service = makeService(settings)
+		service.getSession()
+		settings.uaToken = undefined
+		service.getSession()
+		const ua = fakeSession.setUserAgent.mock.calls[1][0] as string
+		expect(ua).toBe(DEFAULT_UA.replace(' Electron/43.7.7 Arroxy/0.4.25 Safari/', ' Desktop/1.0 Safari/'))
+		expect(app.userAgentFallback).toBe(ua)
+	})
+
 	it('configures the partition once', () => {
 		const service = makeService()
 		service.getSession()
@@ -167,13 +191,16 @@ describe('ExploreSessionService session', () => {
 describe('ExploreSessionService cookies', () => {
 	it('reports presence of auth cookies via the site rule', async () => {
 		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'LOGIN_INFO'}), cookie({name: 'SAPISID'})])
-		expect(await makeService().hasAuthCookies('youtube')).toBe(true)
+		expect(await makeService().hasAuthCookies(YOUTUBE)).toBe(true)
 		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'LOGIN_INFO', domain: '.google.com'}), cookie({name: 'SAPISID', domain: '.google.com'})])
-		expect(await makeService().hasAuthCookies('youtube')).toBe(false)
+		expect(await makeService().hasAuthCookies(YOUTUBE)).toBe(false)
 	})
 
-	it('reports false for a site without Explore support', async () => {
-		expect(await makeService().hasAuthCookies('generic')).toBe(false)
+	it('reports another site signed in when the session holds a cookie it would be sent', async () => {
+		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'LOGIN_INFO'}), cookie({name: 'SAPISID'})])
+		expect(await makeService().hasAuthCookies(VIMEO)).toBe(false)
+		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'vuid', domain: '.vimeo.com'})])
+		expect(await makeService().hasAuthCookies(VIMEO)).toBe(true)
 	})
 
 	it('maps Electron cookies defensively and keeps only the site domains', async () => {
@@ -182,7 +209,17 @@ describe('ExploreSessionService cookies', () => {
 			{name: 'b', value: '2', domain: 'accounts.google.com'},
 			{name: 'c', value: '3'}
 		])
-		expect(await makeService().readCookies('youtube')).toEqual([{name: 'a', value: '1', domain: '.youtube.com', hostOnly: false, path: '/', secure: false, httpOnly: false, session: false}])
+		expect(await makeService().readCookies(YOUTUBE)).toEqual([{name: 'a', value: '1', domain: '.youtube.com', hostOnly: false, path: '/', secure: false, httpOnly: false, session: false}])
+	})
+
+	it('reads every cookie but the Google and YouTube account cookies for another site', async () => {
+		fakeSession.cookies.get.mockResolvedValue([
+			{name: 'a', value: '1', domain: '.youtube.com'},
+			{name: 'b', value: '2', domain: 'accounts.google.com'},
+			{name: 'c', value: '3', domain: '.vimeo.com'},
+			{name: 'd', value: '4', domain: '.vimeocdn.com'}
+		])
+		expect((await makeService().readCookies(VIMEO)).map(c => c.name)).toEqual(['c', 'd'])
 	})
 
 	it('seeds fixture cookies into the partition', async () => {
@@ -296,7 +333,7 @@ describe('ExploreSessionService jars', () => {
 	it.skipIf(process.platform === 'win32')('writes a 0600 youtube-only jar inside a 0700 dir and deletes it after fn resolves', async () => {
 		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'SAPISID'}), cookie({name: 'NID', domain: '.google.com'})])
 		const seen: string[] = []
-		await makeService().withJar('youtube', async path => {
+		await makeService().withJar(YOUTUBE, async path => {
 			seen.push(readFileSync(path, 'utf8'))
 			expect(statSync(path).mode & 0o777).toBe(0o600)
 			expect(statSync(dirname(path)).mode & 0o777).toBe(0o700)
@@ -309,17 +346,17 @@ describe('ExploreSessionService jars', () => {
 	it.skipIf(process.platform === 'win32')('tightens a jar dir that already exists with a looser mode', async () => {
 		mkdirSync(jarDir, {recursive: true})
 		chmodSync(jarDir, 0o755)
-		await makeService().withJar('youtube', async () => undefined)
+		await makeService().withJar(YOUTUBE, async () => undefined)
 		expect(statSync(jarDir).mode & 0o777).toBe(0o700)
 	})
 
 	it('returns what fn returns', async () => {
-		await expect(makeService().withJar('youtube', async () => 42)).resolves.toBe(42)
+		await expect(makeService().withJar(YOUTUBE, async () => 42)).resolves.toBe(42)
 	})
 
 	it('deletes the jar when fn throws', async () => {
 		await expect(
-			makeService().withJar('youtube', async () => {
+			makeService().withJar(YOUTUBE, async () => {
 				throw new Error('boom')
 			})
 		).rejects.toThrow('boom')
@@ -338,8 +375,8 @@ describe('ExploreSessionService jars', () => {
 			await barrier
 		}
 		await Promise.all([
-			service.withJar('youtube', enter),
-			service.withJar('youtube', async path => {
+			service.withJar(YOUTUBE, enter),
+			service.withJar(YOUTUBE, async path => {
 				await enter(path)
 				expect(readdirSync(jarDir)).toHaveLength(2)
 			})
@@ -366,7 +403,7 @@ describe('ExploreSessionService jars', () => {
 			await lockFirstDelete()
 			vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 			try {
-				await expect(makeService().withJar('youtube', async () => 42)).resolves.toBe(42)
+				await expect(makeService().withJar(YOUTUBE, async () => 42)).resolves.toBe(42)
 				expect(vi.mocked(log.warn)).toHaveBeenCalledWith('explore jar could not be deleted; retrying once', {code: 'EBUSY', jar: expect.stringMatching(/^[\w-]+\.txt$/)})
 				expect(warned()).not.toContain(jarDir)
 				expect(readdirSync(jarDir)).toHaveLength(1)
@@ -387,7 +424,7 @@ describe('ExploreSessionService jars', () => {
 			})
 			vi.useFakeTimers({toFake: ['setTimeout', 'clearTimeout']})
 			try {
-				await expect(makeService().withJar('youtube', async () => 42)).rejects.toThrow('ENOSPC')
+				await expect(makeService().withJar(YOUTUBE, async () => 42)).rejects.toThrow('ENOSPC')
 				expect(vi.mocked(log.warn)).toHaveBeenCalledWith('explore jar could not be deleted; retrying once', expect.objectContaining({code: 'EBUSY'}))
 				await vi.advanceTimersByTimeAsync(5_000)
 				await vi.waitFor(() => expect(readdirSync(jarDir)).toEqual([]))
@@ -397,8 +434,14 @@ describe('ExploreSessionService jars', () => {
 		})
 	})
 
-	it('refuses a site without Explore support', async () => {
-		await expect(makeService().withJar('generic', async () => 1)).rejects.toThrow(/no Explore capability/)
+	it("writes another site's jar without Google's or YouTube's account cookies", async () => {
+		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'SAPISID', domain: '.youtube.com'}), cookie({name: 'SID', domain: '.google.com'}), cookie({name: 'vuid', domain: '.vimeo.com'})])
+		await makeService().withJar(VIMEO, async path => {
+			const jar = readFileSync(path, 'utf8')
+			expect(jar).toContain('\tvuid\t')
+			expect(jar).not.toContain('SAPISID')
+			expect(jar).not.toContain('\tSID\t')
+		})
 	})
 
 	it('sweeps leftover jars at startup', async () => {
@@ -438,8 +481,8 @@ describe('ExploreSessionService jars', () => {
 	it('never logs cookie values', async () => {
 		fakeSession.cookies.get.mockResolvedValue([cookie({name: 'LOGIN_INFO', value: 'SECRET'}), cookie({name: 'SAPISID', value: 'SECRET'})])
 		const service = makeService()
-		await service.withJar('youtube', async () => undefined)
-		await service.hasAuthCookies('youtube')
+		await service.withJar(YOUTUBE, async () => undefined)
+		await service.hasAuthCookies(YOUTUBE)
 		await service.seedForE2e([cookie({name: 'SAPISID', value: 'SECRET'})])
 		const logged = [log.info, log.warn, log.error, log.debug].flatMap(fn => vi.mocked(fn).mock.calls)
 		expect(logged.length).toBeGreaterThan(0)
@@ -451,7 +494,7 @@ describe('ExploreSessionService jars', () => {
 describe('ExploreSessionService.verifySignedIn', () => {
 	it('loads the site home page in a hidden, sandboxed window on the Explore partition and reads LOGGED_IN', async () => {
 		const service = makeService()
-		expect(await service.verifySignedIn('youtube')).toBe('signedIn')
+		expect(await service.verifySignedIn(YOUTUBE)).toBe('signedIn')
 
 		expect(windows).toHaveLength(1)
 		const [win] = windows
@@ -466,7 +509,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			win.webContents.executeJavaScript.mockResolvedValue(false)
 			return finishLoading(win)
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('signedOut')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('signedOut')
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
 
@@ -476,7 +519,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			queueMicrotask(() => win.webContents.emit('dom-ready'))
 			return new Promise<void>(() => undefined)
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('signedIn')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('signedIn')
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
 
@@ -486,14 +529,14 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			queueMicrotask(() => win.webContents.emit('dom-ready'))
 			return new Promise<void>(() => undefined)
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('signedIn')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('signedIn')
 		expect(windows[0]?.webContents.executeJavaScript.mock.calls.length).toBeGreaterThanOrEqual(3)
 	})
 
 	it('awaits whenReady (the proxy) before loading any page', async () => {
 		let applyProxy!: () => void
 		fakeSession.setProxy.mockImplementation(() => new Promise<void>(resolve => (applyProxy = resolve)))
-		const result = makeService().verifySignedIn('youtube')
+		const result = makeService().verifySignedIn(YOUTUBE)
 		await new Promise(resolve => setTimeout(resolve, 0))
 		expect(windows).toHaveLength(0)
 
@@ -504,12 +547,12 @@ describe('ExploreSessionService.verifySignedIn', () => {
 
 	it('cannot tell (unknown) without opening a window when the proxy cannot be applied', async () => {
 		fakeSession.setProxy.mockRejectedValue(new Error('proxy broke'))
-		expect(await makeService().verifySignedIn('youtube')).toBe('unknown')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('unknown')
 		expect(windows).toHaveLength(0)
 	})
 
 	it('cannot tell (unknown) without opening a window when the proxy setting is invalid', async () => {
-		expect(await makeService({uaToken: undefined, proxyUrl: 'ftp://10.0.0.1:21'}).verifySignedIn('youtube')).toBe('unknown')
+		expect(await makeService({uaToken: undefined, proxyUrl: 'ftp://10.0.0.1:21'}).verifySignedIn(YOUTUBE)).toBe('unknown')
 		expect(windows).toHaveLength(0)
 	})
 
@@ -522,7 +565,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			expect(callback).toHaveBeenCalledWith('user', 'p@ss')
 			return finishLoading(win)
 		}
-		expect(await makeService({uaToken: undefined, proxyUrl: 'http://user:p%40ss@10.0.0.1:3128'}).verifySignedIn('youtube')).toBe('signedIn')
+		expect(await makeService({uaToken: undefined, proxyUrl: 'http://user:p%40ss@10.0.0.1:3128'}).verifySignedIn(YOUTUBE)).toBe('signedIn')
 	})
 
 	it('never answers a site (non-proxy) login challenge', async () => {
@@ -534,7 +577,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			expect(callback).not.toHaveBeenCalled()
 			return finishLoading(win)
 		}
-		expect(await makeService({uaToken: undefined, proxyUrl: 'http://user:pass@10.0.0.1:3128'}).verifySignedIn('youtube')).toBe('signedIn')
+		expect(await makeService({uaToken: undefined, proxyUrl: 'http://user:pass@10.0.0.1:3128'}).verifySignedIn(YOUTUBE)).toBe('signedIn')
 	})
 
 	it('treats the themeRefresh ERR_ABORTED first-load abort as normal', async () => {
@@ -547,7 +590,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			})
 			return Promise.reject(Object.assign(new Error("ERR_ABORTED (-3) loading 'https://www.youtube.com/'"), {code: 'ERR_ABORTED', errno: -3}))
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('signedIn')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('signedIn')
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
 
@@ -556,7 +599,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			queueMicrotask(() => win.webContents.emit('did-fail-load', {}, -130, 'ERR_PROXY_CONNECTION_FAILED', 'https://www.youtube.com/', true))
 			return Promise.reject(new Error('ERR_PROXY_CONNECTION_FAILED'))
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('unknown')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('unknown')
 		expect(windows[0]?.webContents.executeJavaScript).not.toHaveBeenCalled()
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
@@ -568,12 +611,12 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			win.webContents.executeJavaScript.mockResolvedValue(null)
 			return finishLoading(win)
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('unknown')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('unknown')
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
 
 	it('checks the host inside the evaluated script, so a navigation between check and read cannot slip through', async () => {
-		await makeService().verifySignedIn('youtube')
+		await makeService().verifySignedIn(YOUTUBE)
 		const script = String(windows[0]?.webContents.executeJavaScript.mock.calls[0]?.[0])
 		const {runInNewContext} = await import('node:vm')
 		const evaluate = (hostname: string, loggedIn: unknown): unknown => runInNewContext(script, {location: {hostname}, window: {ytcfg: {get: (key: string) => (key === 'LOGGED_IN' ? loggedIn : undefined)}}})
@@ -590,7 +633,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 			win.webContents.executeJavaScript.mockRejectedValue(new Error('Script failed to execute'))
 			return finishLoading(win)
 		}
-		expect(await makeService().verifySignedIn('youtube')).toBe('unknown')
+		expect(await makeService().verifySignedIn(YOUTUBE)).toBe('unknown')
 		expect(windows[0]?.destroy).toHaveBeenCalledOnce()
 	})
 
@@ -598,7 +641,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 		vi.useFakeTimers()
 		try {
 			FakeBrowserWindow.script = () => new Promise<void>(() => undefined)
-			const result = makeService().verifySignedIn('youtube')
+			const result = makeService().verifySignedIn(YOUTUBE)
 			await vi.advanceTimersByTimeAsync(20_000)
 			expect(await result).toBe('unknown')
 			expect(windows[0]?.destroy).toHaveBeenCalledOnce()
@@ -612,7 +655,7 @@ describe('ExploreSessionService.verifySignedIn', () => {
 		try {
 			let applyProxy!: () => void
 			fakeSession.setProxy.mockImplementation(() => new Promise<void>(resolve => (applyProxy = resolve)))
-			const result = makeService().verifySignedIn('youtube')
+			const result = makeService().verifySignedIn(YOUTUBE)
 			await vi.advanceTimersByTimeAsync(20_000)
 			expect(await result).toBe('unknown')
 
@@ -626,17 +669,17 @@ describe('ExploreSessionService.verifySignedIn', () => {
 
 	it('shares one in-flight check between concurrent callers', async () => {
 		const service = makeService()
-		const [first, second] = await Promise.all([service.verifySignedIn('youtube'), service.verifySignedIn('youtube')])
+		const [first, second] = await Promise.all([service.verifySignedIn(YOUTUBE), service.verifySignedIn(YOUTUBE)])
 		expect([first, second]).toEqual(['signedIn', 'signedIn'])
 		expect(windows).toHaveLength(1)
 
 		// A later call checks again.
-		expect(await service.verifySignedIn('youtube')).toBe('signedIn')
+		expect(await service.verifySignedIn(YOUTUBE)).toBe('signedIn')
 		expect(windows).toHaveLength(2)
 	})
 
-	it('reports signed out for a site without Explore capability, opening nothing', async () => {
-		expect(await makeService().verifySignedIn('generic')).toBe('signedOut')
+	it('cannot tell for another site, and opens nothing', async () => {
+		expect(await makeService().verifySignedIn(VIMEO)).toBe('unknown')
 		expect(windows).toHaveLength(0)
 	})
 })

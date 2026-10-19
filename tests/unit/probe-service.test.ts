@@ -23,6 +23,7 @@ import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import log from 'electron-log/main.js'
 import {effectiveExtractorArgs} from 'yt-dlp-bridge'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -643,7 +644,7 @@ describe('ProbeService — Explore session escalation', () => {
 			return next
 		})
 		const gate = {canEscalate: vi.fn(canEscalate)}
-		const verifySignedIn = vi.fn((_siteId: string) => Promise.resolve(verified))
+		const verifySignedIn = vi.fn((_scope: ExploreCookieScope) => Promise.resolve(verified))
 		const service = new ProbeService({run} as never, false, cache, {exploreGate: gate, exploreSession: {verifySignedIn}})
 		return {service, run, gate, verifySignedIn}
 	}
@@ -657,7 +658,7 @@ describe('ProbeService — Explore session escalation', () => {
 
 			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
 
-			expect(verifySignedIn).toHaveBeenCalledWith('youtube')
+			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 		})
@@ -745,7 +746,7 @@ describe('ProbeService — Explore session escalation', () => {
 
 			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
 
-			expect(gate.canEscalate).toHaveBeenCalledWith('youtube')
+			expect(gate.canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledTimes(2)
 			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
 			expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
@@ -802,6 +803,28 @@ describe('ProbeService — Explore session escalation', () => {
 		const result = await service.probe('https://www.youtube.com/playlist?list=WL')
 
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.auth)).toEqual(['exploreSession', 'exploreSession'])
+	})
+
+	// The renderer must not ask for a sign-in the failed run already had.
+	describe('the identity of a failure', () => {
+		it('is the Explore session when the escalated probe failed too', async () => {
+			const {service} = makeEscalationService([exitError(AGE_GATE), exitError(AGE_GATE)], async () => true)
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error).toMatchObject({kind: 'ytdlp', auth: 'exploreSession'})
+		})
+
+		it('is unset for an anonymous failure that did not escalate', async () => {
+			const {service} = makeEscalationService([exitError(AGE_GATE)], async () => false)
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
+		})
+
+		it('is unset when yt-dlp dropped the Explore cookies on the last run', async () => {
+			const rejected: YtDlpResult = {...exitError(AGE_GATE), accountCookiesRejected: true}
+			const {service} = makeEscalationService([exitError(AGE_GATE), rejected, rejected], async () => true, undefined, 'signedIn')
+			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
+		})
 	})
 
 	it('enumerates a bot-walled playlist signed in but leaves its items anonymous (R20)', async () => {

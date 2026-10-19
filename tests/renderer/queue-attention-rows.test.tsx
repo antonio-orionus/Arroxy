@@ -137,6 +137,50 @@ describe('a probe-error row under the explore cookie mode', () => {
 	})
 })
 
+// ADR 0011: a row from another site leads to that site, whatever YouTube's
+// sign-in, and keeps its own Retry for after the user signed in there.
+describe('a probe-error row from another site under the explore cookie mode', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+
+	it('opens the link in Explore to sign in, then retries from the row', () => {
+		seed([{...errorRow({kind: 'loginRequired', raw: 'This video requires login'}), url: VIMEO}], {cookiesMode: 'explore', exploreNoticeSeen: true}, true)
+		const panel = attention('failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveTextContent('This link may need an account on vimeo.com')
+		fireEvent.click(within(panel).getByRole('button', {name: 'Sign in in Explore'}))
+		expect(window.location.hash).toBe('#explore')
+		expect(useAppStore.getState().explorePendingAddress).toBe(VIMEO)
+
+		fireEvent.click(within(attention('failed')).getByRole('button', {name: 'Retry'}))
+		expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed')
+	})
+})
+
+// A failure the Explore session already ran into (the row's `auth`): the
+// site refused it signed in, so the row offers its Retry and no sign-in.
+describe('a row that already failed signed in', () => {
+	const INSTAGRAM = 'https://www.instagram.com/stories/highlights/1/'
+	// Instagram's API answering 500 to a signed-in run: not a login error.
+	const REFUSED: LocalizedError = {kind: 'unknown', raw: 'ERROR: [instagram:story] 1: HTTP Error 500: Internal Server Error'}
+
+	it.each(['explore', 'off'] as const)('says the site refused a probe signed in under the %s mode, with only Retry', mode => {
+		seed([{...errorRow(REFUSED), url: INSTAGRAM, auth: 'exploreSession'}], {cookiesMode: mode, exploreNoticeSeen: true}, true)
+		const panel = attention('failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-refused')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveTextContent('The site refused this even with your Explore sign-in')
+		expect(within(panel).queryByRole('button', {name: /sign in/i})).toBeNull()
+		expect(within(panel).queryByRole('button', {name: 'Use my Explore sign-in and retry'})).toBeNull()
+		fireEvent.click(within(panel).getByRole('button', {name: 'Retry'}))
+		expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed')
+	})
+
+	it.each(['explore', 'off'] as const)('says the same under a download that failed signed in under the %s mode', mode => {
+		seed([makeItem({id: 'download-failed', status: 'error', url: INSTAGRAM, error: REFUSED, auth: 'exploreSession'})], {cookiesMode: mode, exploreNoticeSeen: true}, true)
+		const panel = attention('download-failed')
+		expect(within(panel).getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-refused')
+		expect(within(panel).queryByRole('button', {name: /sign in/i})).toBeNull()
+	})
+})
+
 // P2-R51: under `off` with the Explore tab on, a failure an account can fix
 // leads with Explore; cookie settings stay the second way.
 describe('a probe-error row under the off cookie mode with Explore enabled', () => {

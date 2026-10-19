@@ -317,24 +317,24 @@ msgid "New"
 msgstr "新着"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "動画・プレイリスト・チャンネルを見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでYouTubeにログインしてください。"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "YouTubeなどのサイトで動画を見つけて、リンクをコピーせずにここからダウンロードできます。アカウントが必要な動画をダウンロードするには、ここでサイトにログインしてください。"
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "続行"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTubeは、Arroxyなどのダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTubeなどのサイトは、Arroxyのようなダウンロードツールで使われたアカウントにフラグを立てたり、場合によってはBANしたりすることがあります。メインのアカウントではなく、失ってもよいアカウントを使ってください。"
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "サブアカウントでログインしてください"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Arroxy内でYouTubeを閲覧"
+msgid "Browse the web right inside Arroxy"
+msgstr "Arroxy内でWebを閲覧"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -357,8 +357,8 @@ msgid "Use Explore sign-in"
 msgstr "「探索」のログインを使う"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画のためにログインできます。"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Arroxy内でYouTubeなどのサイトを閲覧し、アカウントが必要な動画のためにログインできます。"
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -367,6 +367,14 @@ msgstr "離れている間にメモリを解放"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "別のタブで 5 分経つと、YouTube のホームまたは検索ページを閉じます。戻ると再読み込みされ、数秒かかります。"
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "検索エンジン"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "アドレスバーに入力したテキストの検索先です。リンクは入力どおりに開きます。"
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -385,16 +393,16 @@ msgid "Sign out"
 msgstr "ログアウト"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。アカウントが必要なダウンロードは、再度ログインするまで失敗します。"
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "「探索」からログアウトしますか?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "「探索」内のYouTubeのログイン情報と閲覧データを消去します。"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "「探索」内のすべてのサイトのログイン情報と閲覧データを消去します。"
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "アドレス"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube を検索、または YouTube のリンクを貼り付け"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}}を検索、または任意のサイトを開く (Vimeo、Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -472,17 +480,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "インタラクティブダウンロード：形式や字幕などを選択…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "このリンクをダウンロード"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "「探索」が閲覧できるのは YouTube だけです。"
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "「探索」が閲覧できるのは YouTube だけです。{{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "「探索」ではそのアドレスを開けません。"
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2283,6 +2283,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "この動画には YouTube アカウントが必要かもしれません"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxyは「探索」のログインを使ってすでに試したため、もう一度ログインしても解決しません。サイト側に問題があるか、このアカウントでは開けない可能性があります。しばらくしてから再試行してください。"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "「探索」でログインしていても、サイトに拒否されました"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "「探索」にはサインインしていますが、現在ダウンロードではそのサインインが使われていません。"
@@ -2314,6 +2322,18 @@ msgstr "「探索」でログイン"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "この動画にはYouTubeアカウントが必要かもしれません"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "このリンクには {{host}} のアカウントが必要かもしれません"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "「探索」で {{host}} にサインインしてから再試行してください。"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "「探索」で {{host}} にログインしてから再試行してください。Arroxyは、ダウンロードに必要なときだけそのログインを使用します。"
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

@@ -112,6 +112,28 @@ describe('Explore settings panel', () => {
 		await waitFor(() => expect(settingsWrites()).toContainEqual({common: {exploreEnabled: false}}))
 	})
 
+	it('searches DuckDuckGo until another engine is picked, and saves the pick', async () => {
+		mount({})
+		const engine = within(screen.getByTestId('explore-settings')).getByRole('combobox', {name: 'Search engine'})
+		expect(engine).toHaveTextContent('DuckDuckGo')
+
+		fireEvent.click(engine)
+		const options = await screen.findAllByRole('option')
+		expect(options.map(option => option.textContent)).toEqual(['DuckDuckGo', 'Brave', 'Google', 'Bing', 'YouTube'])
+		const brave = await screen.findByRole('option', {name: 'Brave'})
+		// Keyboard selection: Base UI commits an option on Enter (plain jsdom clicks carry no pointer type).
+		brave.focus()
+		fireEvent.keyDown(brave, {key: 'Enter'})
+
+		await waitFor(() => expect(settingsWrites()).toContainEqual({common: {exploreSearchEngine: 'brave'}}))
+		expect(engine).toHaveTextContent('Brave')
+	})
+
+	it('shows a stored search engine', () => {
+		mount({exploreSearchEngine: 'youtube'})
+		expect(within(screen.getByTestId('explore-settings')).getByRole('combobox', {name: 'Search engine'})).toHaveTextContent('YouTube')
+	})
+
 	it('reflects a stored opt-out', () => {
 		mount({exploreEnabled: false})
 		expect(within(screen.getByTestId('explore-settings')).getByRole('switch', {name: 'Show the Explore tab'})).toHaveAttribute('aria-checked', 'false')

@@ -327,24 +327,24 @@ msgid "New"
 msgstr "Nouveau"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Trouvez une vidéo, une playlist ou une chaîne et téléchargez-la d’ici, sans copier de liens. Connectez-vous à YouTube ici pour télécharger les vidéos qui nécessitent un compte."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Trouvez une vidéo sur YouTube ou sur n’importe quel autre site et téléchargez-la d’ici, sans copier de liens. Connectez-vous ici à un site pour télécharger les vidéos qui nécessitent un compte."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Continuer"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube peut signaler — et parfois bannir — les comptes utilisés avec des outils de téléchargement comme Arroxy. Utilisez un compte que vous pouvez vous permettre de perdre, pas votre compte principal."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Des sites comme YouTube peuvent signaler — et parfois bannir — les comptes utilisés avec des outils de téléchargement comme Arroxy. Utilisez un compte que vous pouvez vous permettre de perdre, pas votre compte principal."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Connectez-vous avec un compte secondaire"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "Parcourez YouTube directement dans Arroxy"
+msgid "Browse the web right inside Arroxy"
+msgstr "Parcourez le web directement dans Arroxy"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -367,8 +367,8 @@ msgid "Use Explore sign-in"
 msgstr "Utiliser la connexion Explorer"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "Parcourez YouTube dans Arroxy et connectez-vous pour les vidéos qui nécessitent un compte."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Parcourez YouTube ou n’importe quel autre site dans Arroxy et connectez-vous pour les vidéos qui nécessitent un compte."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -377,6 +377,14 @@ msgstr "Libérer la mémoire en arrière-plan"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Après 5 minutes sur un autre onglet, ferme la page d'accueil ou de recherche de YouTube. Au retour, elle se recharge, ce qui prend quelques secondes."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Moteur de recherche"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Où le texte saisi dans la barre d’adresse est recherché. Les liens s’ouvrent tels quels."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -395,16 +403,16 @@ msgid "Sign out"
 msgstr "Se déconnecter"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Cela efface votre connexion YouTube et vos données de navigation dans Explorer. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Cela efface vos connexions et vos données de navigation dans Explorer, sur tous les sites. Les téléchargements qui nécessitent un compte échoueront tant que vous ne vous reconnecterez pas."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Se déconnecter d’Explorer ?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Efface votre connexion YouTube et vos données de navigation dans Explorer."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Efface vos connexions et vos données de navigation dans Explorer, sur tous les sites."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -443,8 +451,8 @@ msgid "Address"
 msgstr "Adresse"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "Rechercher sur YouTube ou coller un lien YouTube"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Rechercher sur {{engine}} ou ouvrir n’importe quel site (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -482,17 +490,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Téléchargement interactif : choisissez le format, les sous-titres et plus…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Télécharger ce lien"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Explorer ne parcourt que YouTube."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Explorer ne parcourt que YouTube. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Explorer ne peut pas ouvrir cette adresse."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2463,6 +2463,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Cette vidéo peut nécessiter un compte YouTube"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy a déjà essayé en étant connecté via Explorer, se reconnecter ne servirait donc à rien. Le site rencontre peut-être un problème, ou ce compte ne peut pas l’ouvrir. Réessayez plus tard."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Le site a refusé même avec votre connexion dans Explorer"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Vous êtes connecté à Explorer, mais les téléchargements n'utilisent pas cette connexion pour le moment."
@@ -2494,6 +2502,18 @@ msgstr "Se connecter dans Explorer"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Cette vidéo peut nécessiter un compte YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Ce lien peut nécessiter un compte {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Connectez-vous à {{host}} dans Explorer et réessayez."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Connectez-vous à {{host}} dans Explorer et réessayez. Arroxy n’utilise cette connexion que lorsqu’un téléchargement en a besoin."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"
