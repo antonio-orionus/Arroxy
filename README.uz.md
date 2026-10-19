@@ -9,7 +9,7 @@
 
 [![Reliz](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Qurish](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Veb-sayt](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Litsenziya](https://img.shields.io/badge/license-MIT-green) ![Platformalar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Tillar](https://img.shields.io/badge/i18n-31_languages-blue)
 
-**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 4K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**
+**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube'ni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**
 
 [**↓ Oxirgi Relizni Yuklab Olish**](#install) &nbsp;·&nbsp; [**Veb-sayt**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Windows da birinchi ishga tushirish](#windows-first-launch) · [macOS da birinchi ishga tushirish](#macos-first-launch) · [Linux da birinchi ishga tushirish](#linux-first-launch)
 
@@ -102,10 +102,12 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 <details>
 <summary><strong>🎞️ Sifat va formatlar</strong></summary>
 
-- **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p, 360p gacha
-- **Yuqori kadr tezligi** o'zgarmagan holda saqlanadi — 60 fps, 120 fps, HDR
+- **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p gacha
+- **Yuqori kadr tezligi va HDR** o'zgarmagan holda saqlanadi — 60 fps, HDR10
 - **Audio** — faqat audioni MP3, M4A/AAC, Opus yoki WAV sifatida eksport qiling. Interaktiv yuklab olishlarda mavjud bo'lganda manbaning asl surround/Dolby treklarini (AC-3, E-AC-3, 5.1, DRC) tanlang yoki global **Surround / Dolbyni afzal ko'rish** standartini o'rnating
 - **Maqsadli profillar** — *Eng yaxshi tasvir* (AV1 · VP9) yoki *Aqlli TV* (MP4 · H.264), qayta kodlashsiz Avto, MP4, MKV yoki WebM sifatida saqlanadi. HDR — *Avto* (faqat ekraningiz uni ko'rsata olsa), *SDR* yoki *HDR*
+- **Har bir ruxsatda har bir kodek** — bosqichma-bosqich yuklab olish har bir ruxsat uchun AV1, VP9 va H.264 ni yonma-yon ko'rsatadi, shunda televizoringiz yoki video muharriringiz ijro eta oladiganini tanlaysiz
+- **Oqim aslida qanday ekanini biling** — YouTube sun'iy intellekt yordamida kattalashtirgan o'lchamlar, sun'iy intellekt dublyaj qilgan audio tillar, yaxshilangan bitreytli oqimlar, 360° videolar hamda shikastlangan yoki suv belgili nusxalar belgilanadi. Siz ruxsat bermaguningizcha profillar sun'iy intellekt kattalashtirgan oqimlarni o'tkazib yuboradi
 
 </details>
 
@@ -124,7 +126,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 - **Global yuklab olish tezkor tugmasi** — istalgan ilovada havolani nusxalang va `Ctrl+Shift+D` (macOS'da `Cmd+Shift+D`) tugmalarini bosing; Arroxy oynani ochmasdan faol profilingiz bilan uni navbatga qo'shadi va bildirishnoma buni tasdiqlaydi. Sukut bo'yicha yoqilgan, qayta tayinlash mumkin
 - **Moslashuvchan boshlash rejimlari** — boshqariladigan bitta yuklab olish, playlist/kanal tanlagichi, URLlarni ommaviy joylash, saqlangan standartlar bilan Quick Download yoki Explore'da ko'rib chiqib yuklab olishni tanlang
 - **Markaziy yuklab olish navbati** — bitta, playlist, bulk yoki quick ishlarning barchasi jarayon, pauza, davom ettirish, bekor qilish, qayta urinish va ustuvorlik boshqaruvi uchun bir joyga tushadi
-- **Bufer kuzatish** — YouTube havolasini nusxalang va Arroxy ilovaga qaytganingizda URL'ni avtomatik to'ldiradi (Kengaytirilgan sozlamalarda o'chirish/yoqish mumkin)
+- **Bufer kuzatish** — video havolasini nusxalang, Arroxy'ga qaytganingizda u URL maydonini to'ldiradi, xohlamagan bo'lsangiz **Bekor qilish** bor. Arroxy band bo'lsa, havola siz “URL” bo'limiga qaytguningizcha kutadi (Sozlamalarda o'chiriladi)
 - **URL'larni avtomatik tozalash** — kuzatish parametrlarini olib tashlaydi (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) va `youtube.com/redirect` havolalarini ochadi
 - **Tray rejimi** — oynani yopish yuklamalarni fon rejimida davom ettiradi
 - **31 til** — tizim tilini avtomatik aniqlaydi, istalgan vaqtda almashtirilishi mumkin
@@ -140,6 +142,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 - **Yuklamalarda Hajm va Yo‘q** — saralash mumkin bo'lgan **Hajm** ustuni har bir yuklama qancha joy egallashini ko'rsatadi, **Yo‘q** esa Arroxy'dan tashqarida ko'chirilgan yoki o'chirilgan fayllarni belgilaydi
 - **Aurora yoki Minimalistik, qorong'i yoki yorug'** — harakatlanuvchi osmon ustidagi shisha panellar yoki sokin yaxlit sirtlar; pastki qatordan almashtiring. Grafik tezlatgichsiz kompyuterlar avtomatik ravishda Minimalistik rejimni oladi
 - **Mac menyu paneli** — macOS'da menyu panelidan Sozlamalarni (`Cmd+,`) oching, yuklab olish tezligi chegarasini belgilang, uslub va mavzuni almashtiring, jurnallarni oching yoki diagnostika faylini saqlang
+- **Istalgan yuklab olishdan profilni o'zgartiring** — yuklab olishni sozlang, so'ng u boshlangan profilni yangilang (nima o'zgarishini oldindan ko'rib) yoki sozlamalarni yangi profil sifatida saqlang. Profilni almashtirganda tahrirlaringizni saqlab qolish kerakmi, deb so'raladi
 
 </details>
 
@@ -158,7 +161,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 <summary><strong>🌐 YouTube + 2000 sayt</strong></summary>
 
 - **YouTube to'liq** — Videolar, Shorts, Kanallar, Pleylistlar, YouTube Music va Podkastlar birinchi darajali manbalar sifatida ishlaydi
-- **2000+ boshqa saytlar** yt-dlp orqali — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org va boshqalar
+- **2000+ boshqa saytlar** yt-dlp orqali — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable va boshqalar
 - **Faqat audio va subtitrlar** har qanday qo'llab-quvvatlanadigan saytda ishlaydi, nafaqat YouTube'da
 - Sayt o'zgarsa, yt-dlp har hafta tuzatishlar chiqaradi va Arroxy ishga tushganda binarni avtomatik yangilaydi
 
@@ -405,7 +408,7 @@ Ko'pchilik bepul yt-dlp GUI'lari faqat havola qabul qiladigan qobiqlardir. Arrox
 <details>
 <summary><strong>Qanday video sifatlarini yuklab olishim mumkin?</strong></summary>
 
-YouTube uzatadigan har qanday narsa: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps, 120 fps va HDR oqimlari o'zgarmagan holda saqlanadi.
+YouTube uzatadigan har qanday narsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps va HDR oqimlari o'zgarmagan holda saqlanadi, bosqichma-bosqich yuklab olish esa har bir ruxsatda AV1, VP9 yoki H.264 ni tanlash imkonini beradi.
 
 </details>
 

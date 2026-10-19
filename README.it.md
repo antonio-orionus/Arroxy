@@ -9,7 +9,7 @@
 
 [![Versione](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Sito web](https://img.shields.io/badge/website-orionus.dev%2Farroxy-blueviolet)](https://orionus.dev/arroxy/) ![Licenza](https://img.shields.io/badge/license-MIT-green) ![Piattaforme](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Lingue](https://img.shields.io/badge/i18n-31_languages-blue)
 
-Scarica video, Shorts, musica, canali, podcast o tracce audio da **YouTube e oltre 2000 siti supportati** — fino a 4K HDR a 60 fps, in MP3 / AAC / Opus oppure solo la parte che ti serve. **Naviga su YouTube dentro Arroxy** nella scheda Explore e scarica il video, la playlist o il canale che stai guardando; accedi lì per scaricare i video privati, riservati ai membri e con limiti di età che il tuo account può vedere. Funziona localmente su Windows, macOS e Linux. **Niente pubblicità, niente software superfluo, niente upselling.**
+Scarica video, Shorts, musica, canali, podcast o tracce audio da **YouTube e oltre 2000 siti supportati** — fino a 8K HDR a 60 fps, in MP3 / AAC / Opus oppure solo la parte che ti serve. **Naviga su YouTube dentro Arroxy** nella scheda Explore e scarica il video, la playlist o il canale che stai guardando; accedi lì per scaricare i video privati, riservati ai membri e con limiti di età che il tuo account può vedere. Funziona localmente su Windows, macOS e Linux. **Niente pubblicità, niente software superfluo, niente upselling.**
 
 [**↓ Installa l'ultima versione**](#install) &nbsp;·&nbsp; [**Sito web**](https://orionus.dev/arroxy/) &nbsp;·&nbsp; [Primo avvio su Windows](#windows-first-launch) · [Primo avvio su macOS](#macos-first-launch) · [Primo avvio su Linux](#linux-first-launch)
 
@@ -104,10 +104,12 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 <details>
 <summary><strong>🎞️ Qualità e formati</strong></summary>
 
-- Fino a **4K UHD (2160p)**, 1440p, 1080p, 720p, 480p e 360p
-- **Frame rate elevato** mantenuto invariato — 60 fps, 120 fps, HDR
+- Fino a **8K (4320p)**, 4K UHD (2160p), 1440p, 1080p, 720p, 480p e 360p
+- **Frame rate elevato e HDR** mantenuti invariati — 60 fps, HDR10
 - **Audio** — esporta solo l'audio in MP3, M4A/AAC, Opus o WAV. Nei download interattivi puoi scegliere, se disponibili, le tracce surround/Dolby native della sorgente (AC-3, E-AC-3, 5.1, DRC), oppure impostare **Preferisci surround / Dolby** come predefinito globale
 - **Profili con un obiettivo** — *Migliore immagine* (AV1 · VP9) o *Smart TV* (MP4 · H.264), salvati come Automatico, MP4, MKV o WebM senza ricodifica. L'HDR è *Automatico* (solo quando il tuo schermo può mostrarlo), *SDR* o *HDR*
+- **Ogni codec a ogni risoluzione** — il download passo passo elenca AV1, VP9 e H.264 affiancati per ciascuna risoluzione, così puoi scegliere quello che la tua TV o il tuo editor riproduce
+- **Scopri cos'è davvero uno stream** — vengono segnalati le risoluzioni che YouTube ha ingrandito con IA, le lingue audio doppiate con IA, gli stream con bitrate migliorato, i video a 360° e le copie danneggiate o con filigrana. I profili saltano gli stream ingranditi con IA, a meno che tu non li consenta
 
 </details>
 
@@ -126,7 +128,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 - **Scorciatoia globale per i download** — copia un link in qualsiasi app e premi `Ctrl+Shift+D` (`Cmd+Shift+D` su macOS); Arroxy lo mette in coda con il profilo attivo senza aprire la finestra e una notifica lo conferma. Attiva per impostazione predefinita e riconfigurabile
 - **Modalità di avvio flessibili** — scegli un download singolo guidato, il selettore di playlist/canali, l'incolla massivo di URL, Download rapido con i valori predefiniti salvati oppure sfoglia e scarica da Explore
 - **Coda di download centrale** — ogni attività singola, playlist, massiva o rapida confluisce nello stesso punto per controllare avanzamento, pausa, ripresa, annullamento, nuovo tentativo e priorità
-- **Monitoraggio degli appunti** — copia un link YouTube e Arroxy compila automaticamente l'URL quando torni nell'app (opzione nelle impostazioni avanzate)
+- **Monitoraggio degli appunti** — copia un link video e il campo URL si compila quando torni su Arroxy, con **Annulla** se non volevi. Se Arroxy è occupato, il link aspetta che tu torni nella scheda URL (disattivabile nelle Impostazioni)
 - **Pulizia automatica degli URL** — rimuove i parametri di tracciamento (`si`, `pp`, `utm_*`, `fbclid`, `gclid`) ed estrae i link da `youtube.com/redirect`
 - **Modalità area di notifica** — chiudendo la finestra i download continuano in background
 - **31 lingue** — rileva automaticamente la lingua di sistema, modificabile in qualsiasi momento
@@ -142,6 +144,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 - **Dimensione e Mancante in Download** — una colonna **Dimensione** ordinabile mostra quanto spazio occupa ogni download, e **Mancante** segnala i file spostati o eliminati fuori da Arroxy
 - **Aurora o Minimale, scuro o chiaro** — pannelli di vetro su un cielo in movimento, oppure superfici piene e sobrie; cambia dal piè di pagina. I computer senza accelerazione grafica ricevono automaticamente Minimale
 - **Barra dei menu del Mac** — su macOS, apri le Impostazioni (`Cmd+,`), imposta il limite di velocità di download, cambia stile e tema, e apri i log o salva un file di diagnostica dalla barra dei menu
+- **Modifica un profilo da qualsiasi download** — regola un download, poi aggiorna il profilo da cui è partito (con un'anteprima di cosa cambia) o salva le impostazioni come nuovo profilo. Quando cambi profilo, Arroxy ti chiede se mantenere le tue modifiche
 
 </details>
 
@@ -160,7 +163,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 <summary><strong>🌐 YouTube + 2000 siti</strong></summary>
 
 - **YouTube completo** — video, Shorts, canali, playlist, YouTube Music e podcast sono gestiti come sorgenti di prima classe
-- **Oltre 2000 altri siti** tramite yt-dlp — Vimeo, Twitch, Twitter/X, TikTok, SoundCloud, Bandcamp, Bilibili, BBC iPlayer, archive.org e molti altri
+- **Oltre 2000 altri siti** tramite yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable e molti altri
 - **Solo audio e sottotitoli** funzionano su ogni sito supportato, non soltanto su YouTube
 - Se un sito cambia, yt-dlp distribuisce correzioni ogni settimana e Arroxy aggiorna automaticamente il binario all'avvio
 
@@ -407,7 +410,7 @@ La maggior parte delle GUI gratuite di yt-dlp sono wrapper che accettano solo un
 <details>
 <summary><strong>Quali qualità video posso scaricare?</strong></summary>
 
-Tutto ciò che YouTube offre: 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p e solo audio. I flussi a 60 fps, 120 fps e HDR vengono mantenuti invariati.
+Tutto ciò che YouTube offre: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p e solo audio. I flussi a 60 fps e HDR vengono mantenuti invariati, e il download passo passo ti permette di scegliere AV1, VP9 o H.264 a ogni risoluzione.
 
 </details>
 
