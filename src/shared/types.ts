@@ -123,8 +123,10 @@ export interface CommonSettings {
 	rememberLastOutputDir: boolean
 	lastSubfolderEnabled?: boolean
 	lastSubfolder?: string
-	// UTC day (YYYY-MM-DD) of the last anonymous heartbeat, so an install is
-	// counted at most once per day. Internal: never accepted from the renderer.
+	// UTC days (YYYY-MM-DD) of the first and last anonymous heartbeat: the last
+	// counts an install at most once per day, the first gives its install age.
+	// Internal: never accepted from the renderer.
+	firstHeartbeatDay?: string
 	lastHeartbeatDay?: string
 	uiZoom?: number
 	uiTheme?: UiTheme

@@ -340,7 +340,7 @@
 				"units": {"seconds": "sec"}
 			},
 			"closeToTray": {"toggle": "Hide to tray on close", "toggleDescription": "Continue downloads in the background after closing the window."},
-			"analytics": {"toggle": "Send daily heartbeat", "toggleDescription": "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language and country so we can count active users. No IDs, URLs, video titles or filenames."}
+			"analytics": {"toggle": "Send daily heartbeat", "toggleDescription": "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."}
 		},
 		"quickProgress": {
 			"title": "Preparing Quick Download",

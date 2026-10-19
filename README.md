@@ -383,7 +383,7 @@ Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp
 
 Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.
 
-No telemetry — just one anonymous heartbeat a day: app version, OS, language, install channel and country, so we can count active users. No IDs, URLs, video titles, file paths or account info. You can turn it off in Settings.
+No telemetry — just one anonymous heartbeat a day: app version, OS, language, install channel, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles, file paths or account info. You can turn it off in Settings.
 
 Explore keeps its own sign-in, separate from your browser, and Arroxy never reads or fills in the sign-in form — you type into Google's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets it.
 

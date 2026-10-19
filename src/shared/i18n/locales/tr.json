@@ -362,7 +362,10 @@
 				"units": {"seconds": "sn"}
 			},
 			"closeToTray": {"toggle": "Kapatınca tepsiye gizle", "toggleDescription": "Pencere kapandıktan sonra indirmeleri arka planda sürdür."},
-			"analytics": {"toggle": "Günlük sinyal gönder", "toggleDescription": "Telemetri yok. Etkin kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili ve ülkeyi gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."}
+			"analytics": {
+				"toggle": "Günlük sinyal gönder",
+				"toggleDescription": "Telemetri yok. Etkin ve yeni kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy'nin yaklaşık ne kadar önce kurulduğunu gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
+			}
 		},
 		"quickProgress": {
 			"title": "Hızlı İndirme hazırlanıyor",

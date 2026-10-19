@@ -351,7 +351,7 @@
 			"closeToTray": {"toggle": "Ficha kwenye tray ukifunga", "toggleDescription": "Endelea kupakua nyuma ya pazia baada ya kufunga dirisha."},
 			"analytics": {
 				"toggle": "Tuma ishara ya kila siku",
-				"toggleDescription": "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha na nchi ili tuweze kuhesabu watumiaji hai. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
+				"toggleDescription": "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
 			}
 		},
 		"quickProgress": {

@@ -373,8 +373,11 @@ if (hasSingleInstanceLock) {
 				now: () => new Date(),
 				isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
 				snapshot: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osVersion: process.getSystemVersion(), installChannel, appLocale: languageRef.current, osLocale: app.getLocale()}),
-				lastDay: () => settingsStore.getSync().common.lastHeartbeatDay,
-				recordDay: day => settingsStore.recordHeartbeatDay(day),
+				history: () => {
+					const {firstHeartbeatDay, lastHeartbeatDay} = settingsStore.getSync().common
+					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}
+				},
+				record: history => settingsStore.recordHeartbeat(history),
 				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)})
 			})
 			void heartbeat.maybeSend()

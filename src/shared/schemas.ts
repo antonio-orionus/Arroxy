@@ -274,6 +274,11 @@ export const SUPPORTED_LANGS = supportedLangSchema.options
 export const uiThemeSchema = z.enum(['light', 'dark', 'system'])
 export type UiTheme = z.infer<typeof uiThemeSchema>
 
+// How long ago an install sent its first heartbeat; `existing` is an install
+// counted before first days were recorded, whose age is unknown.
+export const installAgeSchema = z.enum(['new', '1-7d', '8-30d', '31-90d', 'over-90d', 'existing'])
+export type InstallAge = z.infer<typeof installAgeSchema>
+
 export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
 export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
 
@@ -674,8 +679,9 @@ const commonSettingsSchema = z.object({
 	rememberLastOutputDir: z.boolean(),
 	lastSubfolderEnabled: z.boolean().optional(),
 	lastSubfolder: subfolderNameSchema.optional(),
-	// Lenient on read: a malformed value only means "not sent today", and a strict
-	// check here would reset the whole common section to defaults.
+	// Lenient on read: a malformed value only means "not sent today" or "age
+	// unknown", and a strict check here would reset the whole common section.
+	firstHeartbeatDay: z.string().optional(),
 	lastHeartbeatDay: z.string().optional(),
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
@@ -747,7 +753,7 @@ const playlistPrefsSchema = z.object({lastPlaylistSelection: playlistSelectionSc
 
 export const appSettingsSchema = z.object({common: commonSettingsSchema, playlist: playlistPrefsSchema, profiles: downloadProfilesPrefsSchema})
 
-// Common paths are derived from the OS, the heartbeat day is internal, and the last
+// Common paths are derived from the OS, the heartbeat days are internal, and the last
 // Explore page is the view host's; none is accepted from renderer settings
 // updates. Deriving the rest keeps the patch contract in lockstep with the
 // persisted settings contract.
@@ -756,7 +762,7 @@ export const appSettingsSchema = z.object({common: commonSettingsSchema, playlis
 // reader (ExploreSessionService) already falls back to the default token.
 const commonSettingsPatchSchema = commonSettingsSchema
 	.partial()
-	.omit({commonPaths: true, lastHeartbeatDay: true, exploreLastUrl: true})
+	.omit({commonPaths: true, firstHeartbeatDay: true, lastHeartbeatDay: true, exploreLastUrl: true})
 	.extend({
 		exploreUserAgent: z
 			.string()
