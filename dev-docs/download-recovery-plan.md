@@ -333,7 +333,7 @@ Each step ships on its own, behind `bun run check`, and keeps the app releasable
      - **Done 2026-10-19: token-first kept, H1 not supported.** See [Live comparison (step 2)](#live-comparison-step-2-2026-10-19).
    - → verify:
      - The contract specs show parsed `po_token`, `visitor_data` and `player_client` together on anonymous media and single-video probes.
-     - None of them on collection probes, Explore, cookie-file or browser runs.
+     - No `po_token` or `visitor_data` on collection probes, Explore, cookie-file or browser runs. Those runs keep their expected `player_client` values.
      - `assertOneBlockPerExtractor` never fires across the whole E2E suite.
      - Redaction still hides values.
      - Ship in a normal stable release; Arroxy does not cut betas. The comparison found the token changed no outcome, which is what made a beta gate unnecessary.

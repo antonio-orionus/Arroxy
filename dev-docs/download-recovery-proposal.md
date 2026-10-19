@@ -118,6 +118,8 @@ Proposed initial budget: at most six app-level process launches per logical prob
 
 ### Token strategy requires a controlled comparison
 
+**Done 2026-10-19:** the comparison below ran and kept token-first; see the plan's [Live comparison (step 2)](download-recovery-plan.md#live-comparison-step-2-2026-10-19) and ADR 0010. Rerun it if withheld-quality reports return with the token effective. The original method follows.
+
 Correct option assembly changes real behavior because tokens that were previously discarded will become effective. Before choosing token-first versus token-on-demand, compare a small set of anonymous single-video probes with (a) yt-dlp defaults, (b) current explicit clients without a token, and (c) correctly combined token/client options. Record usable formats, requested-quality fit, warnings, elapsed time, and number of requests/attempts where observable. Stop the comparison on a rate-limit response rather than adding load.
 
 Do not infer token usefulness from earlier `poToken: true` smoke reports. Do not include real signed-in tests in CI. Account-bound token minting is outside this first change; revisit only if measurements show an actual signed-in deficiency.
@@ -140,7 +142,7 @@ For the latest incident, the useful summary would be: “Formats available up to
 
 ## Delivery plan and verification
 
-1. **Repair argument assembly and its diagnostics as a small standalone fix.** Own final extractor-option composition in the app; correct the smoke summary. Add the regression before implementation. Avoid package publication unless the app fix genuinely requires a changed bridge contract. → verify: the actual yt-dlp parser retains token, visitor data, and client settings together; playlist and Explore cases omit anonymous token context; redaction still hides values. Perform the bounded anonymous comparison before rollout.
+1. **Repair argument assembly and its diagnostics as a small standalone fix.** Own final extractor-option composition in the app; correct the smoke summary. Add the regression before implementation. Avoid package publication unless the app fix genuinely requires a changed bridge contract. → verify: the actual yt-dlp parser retains token, visitor data, and client settings together; playlist and Explore cases omit anonymous token context; redaction still hides values. The bounded anonymous comparison ran on 2026-10-19 and kept token-first.
 
 2. **Define the outcome/decision contract and characterize existing behavior.** Add app-owned signal normalization, operation identity, attempt history, and the policy table. Carry precise causes to UI guidance; add clear cooldown/stop reasons. → verify: transcript cases for warning-only 429, fatal 429, bot check, private versus removed content, successful response with account metadata, token context loss, JS failure, and unknown warnings; mixed stderr cannot change the primary cause merely by moving a warning earlier.
 
