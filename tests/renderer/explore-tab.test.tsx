@@ -635,28 +635,28 @@ describe('Explore toolbar', () => {
 		expect(within(tip).getByText('YouTube may push back on ad blockers for signed-in accounts.')).toBeInTheDocument()
 	})
 
-	// P2-R53: on until turned off. Before main reports the view, an unset
-	// setting shows the shield pressed; an explicit false shows it off.
-	it('presses the shield by default, before the view reports', async () => {
+	// Off until turned on. Before main reports the view, an unset setting
+	// shows the shield off; an explicit true shows it pressed.
+	it('leaves the shield off by default, before the view reports', async () => {
 		useAppStore.setState({exploreView: null})
 		vi.mocked(window.appApi.explore.getState).mockReturnValue(new Promise(() => undefined))
 		renderExplore()
 
 		const shield = screen.getByTestId('explore-adblock')
 		expect(useAppStore.getState().settings?.common.exploreAdBlock).toBeUndefined()
-		expect(shield).toHaveAttribute('aria-pressed', 'true')
-		expect(shield).toHaveAttribute('data-adblock', 'starting')
+		expect(shield).toHaveAttribute('aria-pressed', 'false')
+		expect(shield).toHaveAttribute('data-adblock', 'off')
 	})
 
-	it('leaves the shield off when the user turned the ad blocker off', async () => {
-		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreAdBlock: false})
+	it('presses the shield when the user turned the ad blocker on', async () => {
+		seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore', exploreAdBlock: true})
 		useAppStore.setState({exploreView: null})
 		vi.mocked(window.appApi.explore.getState).mockReturnValue(new Promise(() => undefined))
 		renderExplore()
 
 		const shield = screen.getByTestId('explore-adblock')
-		expect(shield).toHaveAttribute('aria-pressed', 'false')
-		expect(shield).toHaveAttribute('data-adblock', 'off')
+		expect(shield).toHaveAttribute('aria-pressed', 'true')
+		expect(shield).toHaveAttribute('data-adblock', 'starting')
 	})
 
 	it.each([
@@ -1001,5 +1001,66 @@ describe('Explore error states', () => {
 		expect(error).toHaveAttribute('data-error', 'load')
 		fireEvent.click(within(error).getByRole('button', {name: 'Retry'}))
 		expect(window.appApi.explore.navigate).toHaveBeenLastCalledWith({kind: 'reload'})
+	})
+})
+
+// "Sign in in Explore" for a link on another site leaves an address for the
+// view (ADR 0011). It is sent right behind the show that builds the view, and once.
+describe('Explore opened to sign in on another site', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+
+	function navigations(): unknown[] {
+		return vi.mocked(window.appApi.explore.navigate).mock.calls.map(([command]) => command)
+	}
+
+	it('loads the waiting address right behind the show, once', async () => {
+		useAppStore.setState({explorePendingAddress: VIMEO})
+		renderExplore()
+
+		await waitFor(() => expect(navigations()).toEqual([{kind: 'address', url: VIMEO}]))
+		const shownOrder = vi.mocked(window.appApi.explore.setVisible).mock.invocationCallOrder[0] ?? Infinity
+		const navigateOrder = vi.mocked(window.appApi.explore.navigate).mock.invocationCallOrder[0] ?? -Infinity
+		expect(shownOrder).toBeLessThan(navigateOrder)
+		expect(useAppStore.getState().explorePendingAddress).toBeNull()
+
+		fireEvent.click(screen.getByRole('tab', {name: /^url/i}))
+		fireEvent.click(screen.getByRole('tab', {name: /explore/i}))
+		await waitFor(() => expect(visibilityCalls()).toEqual([true, false, true]))
+		expect(navigations()).toEqual([{kind: 'address', url: VIMEO}])
+	})
+
+	it('waits behind the first-run notice', async () => {
+		seedSettings({exploreNoticeSeen: false, cookiesMode: 'explore', exploreModeAutoSwitched: true})
+		useAppStore.setState({explorePendingAddress: VIMEO})
+		renderExplore()
+		expect(navigations()).toEqual([])
+
+		fireEvent.click(screen.getByRole('button', {name: 'Continue'}))
+		await waitFor(() => expect(navigations()).toEqual([{kind: 'address', url: VIMEO}]))
+	})
+
+	it('navigates nowhere without one', async () => {
+		renderExplore()
+		await waitFor(() => expect(visibilityCalls()).toEqual([true]))
+		expect(navigations()).toEqual([])
+	})
+
+	// A failure while Explore is already open leaves the address with the view shown.
+	it('loads an address left while the view is already shown', async () => {
+		renderExplore()
+		await waitFor(() => expect(visibilityCalls()).toEqual([true]))
+		act(() => useAppStore.setState({explorePendingAddress: VIMEO}))
+		await waitFor(() => expect(navigations()).toEqual([{kind: 'address', url: VIMEO}]))
+		expect(useAppStore.getState().explorePendingAddress).toBeNull()
+	})
+
+	// The page that failed to load is replaced by the one asked for.
+	it('loads an address left while a load error is shown', async () => {
+		renderExplore()
+		await waitFor(() => expect(visibilityCalls()).toEqual([true]))
+		emitState({error: 'load'})
+		await screen.findByTestId('explore-error')
+		act(() => useAppStore.setState({explorePendingAddress: VIMEO}))
+		await waitFor(() => expect(navigations()).toEqual([{kind: 'address', url: VIMEO}]))
 	})
 })

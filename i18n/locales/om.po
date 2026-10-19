@@ -322,24 +322,24 @@ msgid "New"
 msgstr "Haaraa"
 
 msgctxt "explore.notice.body"
-msgid "Find a video, playlist, or channel and download it from here — no copying links. Sign in to YouTube here to download videos that need an account."
-msgstr "Viidiyoo, tarree taphachiisaa ykn channel barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as YouTube seeni."
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Viidiyoo YouTube irratti ykn marsariitii biraa irratti barbaadii as irraa buufadhu — liinkii waraabuun hin barbaachisu. Viidiyoo akkaawuntii barbaadan buufachuuf as marsariitii tokkotti seeni."
 
 msgctxt "explore.notice.continue"
 msgid "Continue"
 msgstr "Itti fufi"
 
 msgctxt "explore.notice.riskBody"
-msgid "YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
-msgstr "YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin."
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Marsariitiin akka YouTube akkaawuntiiwwan meeshaalee buufannoo akka Arroxy waliin fayyadaman mallatteessuu fi yeroo tokko tokko dhowwuu danda'a. Akkaawuntii dhabuu danda'uuf fayyadami malee kan ijoo kee hin fayyadamin."
 
 msgctxt "explore.notice.riskTitle"
 msgid "Sign in with a secondary account"
 msgstr "Akkaawuntii lammaffaatiin seeni"
 
 msgctxt "explore.notice.title"
-msgid "Browse YouTube right inside Arroxy"
-msgstr "YouTube Arroxy keessatti ilaali"
+msgid "Browse the web right inside Arroxy"
+msgstr "Weebii Arroxy keessatti ilaali"
 
 msgctxt "explore.nudge.browser"
 msgid "Downloads use your browser's cookies, not your Explore sign-in."
@@ -362,8 +362,8 @@ msgid "Use Explore sign-in"
 msgstr "Seensa Daawwannaa fayyadami"
 
 msgctxt "explore.settings.description"
-msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
-msgstr "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni."
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "YouTube ykn marsariitii biraa Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni."
 
 msgctxt "explore.settings.idleUnload"
 msgid "Free memory while away"
@@ -372,6 +372,14 @@ msgstr "Yeroo hin jirretti yaadannoo bilisa godhi"
 msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Maashinii barbaachaa"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Barreeffamni sararaa teessoo keessatti barreeffame eessatti akka barbaadamu. Hidhaawwan akkuma barreeffametti ni banamu."
 
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
@@ -390,16 +398,16 @@ msgid "Sign out"
 msgstr "Ba'i"
 
 msgctxt "explore.settings.signOutConfirmBody"
-msgid "This clears your YouTube sign-in and browsing data in Explore. Downloads that need an account will fail until you sign in again."
-msgstr "Kun seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Kun seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa. Buufannoon akkaawuntii barbaadu hanga deebitee seentu ni kufa."
 
 msgctxt "explore.settings.signOutConfirmTitle"
 msgid "Sign out of Explore?"
 msgstr "Daawwannaa irraa ba'uu?"
 
 msgctxt "explore.settings.signOutDescription"
-msgid "Clears your YouTube sign-in and browsing data in Explore."
-msgstr "Seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa."
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Seensa fi daataa browser Daawwannaa keessaa marsariitii hundaaf qulqulleessa."
 
 msgctxt "explore.settings.title"
 msgid "Explore"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "Teessoo"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or paste a YouTube link"
-msgstr "YouTube barbaadi ykn hidhaa YouTube maxxansi"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} barbaadi ykn marsariitii kamiyyuu bani (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"
@@ -477,17 +485,9 @@ msgctxt "explore.toolbar.interactiveHint"
 msgid "Interactive Download: choose format, subtitles and more…"
 msgstr "Buufata walnaqqee: formaata, barruu jalaa fi kkf filadhu…"
 
-msgctxt "explore.toolbar.offsiteDownload"
-msgid "Download this link"
-msgstr "Hidhaa kana buusi"
-
-msgctxt "explore.toolbar.offsiteHint"
-msgid "Explore only browses YouTube."
-msgstr "Daawwannaan YouTube qofa ilaala."
-
-msgctxt "explore.toolbar.offsiteHintHost"
-msgid "Explore only browses YouTube. {{host}}"
-msgstr "Daawwannaan YouTube qofa ilaala. {{host}}"
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Daawwannaan teessoo sana banuu hin danda'u."
 
 msgctxt "explore.toolbar.reload"
 msgid "Reload"
@@ -2373,6 +2373,14 @@ msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
 msgid "This video may need a YouTube account"
 msgstr "Viidiyoon kun akkaawuntii YouTube barbaaduu danda'a"
 
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy seensa Daawwannaa keessaatiin duraanuu yaaleera; kanaaf irra deebi'ee seenuun hin fayyadu. Saayitiin rakkoo qabaachuu danda'a, yookaan akkaawuntiin kun banuu hin danda'u. Booda irra deebi'ii yaali."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Daawwannaa keessa seentee jirtus, saayitiin kun didee"
+
 msgctxt "wizard.formats.cookiesError.exploreReuse.body"
 msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
 msgstr "Daawwannaa keessa seentee jirta, garuu buufannaan amma seensa sana hin fayyadamu."
@@ -2404,6 +2412,18 @@ msgstr "Daawwannaa keessatti seeni"
 msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
 msgid "This video may need a YouTube account"
 msgstr "Viidiyoon kun akkaawuntii YouTube barbaadu ni danda'a"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Linkiin kun {{host}} irratti akkaawuntii barbaaduu danda'a"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Daawwannaa keessatti {{host}} seenii irra deebi'ii yaali. Arroxy seensa kana kan fayyadamu buufannoon yoo isa barbaadu qofa."
 
 msgctxt "wizard.formats.cookiesError.heading"
 msgid "Cookies might be the cause"

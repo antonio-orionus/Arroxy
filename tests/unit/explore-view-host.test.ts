@@ -101,7 +101,7 @@ describe('ExploreViewHost kill switch', () => {
 		expect(view.webContents.close).toHaveBeenCalled()
 		expect(h.window.contentView.removeChildView).toHaveBeenCalledWith(view)
 		expect(h.cookieListenerCount()).toBe(0)
-		expect(lastState(h.emit)).toEqual({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'starting'})
+		expect(lastState(h.emit)).toEqual({url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'})
 	})
 
 	it('destroy() is idempotent and a re-enabled Explore gets a fresh view', async () => {

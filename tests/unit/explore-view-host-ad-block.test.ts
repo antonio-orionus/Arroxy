@@ -16,11 +16,12 @@ beforeEach(() => {
 })
 
 describe('ExploreViewHost and the ad blocker', () => {
-	it('an unset setting is on: the blocker is applied before the first page', async () => {
+	it('an unset setting is off: the blocker is never started', async () => {
 		const h = makeHarness()
 		expect(h.settings().exploreAdBlock).toBeUndefined()
 		await h.host.setVisible(true)
-		expect(h.adBlock.apply).toHaveBeenCalledWith(true)
+		expect(h.adBlock.apply).toHaveBeenCalledWith(false)
+		expect(h.adBlock.apply).not.toHaveBeenCalledWith(true)
 	})
 
 	it('an explicit false stays off', async () => {
@@ -168,9 +169,9 @@ describe('ExploreViewHost and the ad blocker', () => {
 		expect(h.adBlock.apply).toHaveBeenLastCalledWith(false)
 	})
 
-	it('without a view, an unset setting is starting: it starts with the next view', () => {
+	it('without a view, an unset setting is off', () => {
 		const h = makeHarness()
-		expect(h.host.getState().adBlock).toBe('starting')
+		expect(h.host.getState().adBlock).toBe('off')
 	})
 
 	it('without a view, the status follows the setting: off, or starting once a view opens', async () => {

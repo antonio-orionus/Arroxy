@@ -73,6 +73,17 @@ describe('Explore link menu picks', () => {
 		expect(window.location.hash).toBe('#explore')
 	})
 
+	it('Download queues a link on another site: yt-dlp decides what it holds', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'download', url: 'https://vimeo.com/123'})
+
+		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: 'https://vimeo.com/123', entry: 'explore'}))
+	})
+
 	it('a profile pick becomes the active profile, then the link is queued with it', async () => {
 		const activeAtQueue: unknown[] = []
 		const quickDownload = vi.fn(async () => {
@@ -127,7 +138,7 @@ describe('Explore link menu picks', () => {
 		await waitFor(() => expect(linkListener).not.toBeNull())
 
 		pick({kind: 'download', url: 'https://www.youtube.com/results?search_query=cats', profile: {kind: 'builtin', id: 'audio-only'}})
-		pick({kind: 'interactive', url: 'https://example.com/video'})
+		pick({kind: 'interactive', url: 'javascript:alert(1)'})
 
 		expect(quickDownload).not.toHaveBeenCalled()
 		expect(submitUrl).not.toHaveBeenCalled()

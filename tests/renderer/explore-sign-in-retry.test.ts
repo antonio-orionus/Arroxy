@@ -17,6 +17,7 @@ import {buildMockAppApi} from '../shared/mockAppApi.js'
 const VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'}
 const UNRESOLVED: QueueItem['job'] = {kind: 'unresolved', extractor: '', extractorKey: ''}
 const ERROR = {kind: 'loginRequired', raw: 'Sign in to view this video'} as const
+const YOUTUBE_SIGN_IN = {kind: 'youtube'} as const
 
 function errorRow(id: string): QueueItem {
 	return makeItem({id, status: 'error', url: `https://www.youtube.com/watch?v=${id}`, title: id, error: ERROR, job: UNRESOLVED, probeMode: 'video'})
@@ -65,7 +66,7 @@ afterEach(() => {
 describe('Sign in with Explore on a failed row', () => {
 	it('switches to the explore mode, marks the first open done, opens Explore and remembers the row', async () => {
 		seed()
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 
 		expect(useAppStore.getState().settings?.common).toMatchObject({cookiesMode: 'explore', exploreModeAutoSwitched: true})
 		expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesMode: 'explore', exploreModeAutoSwitched: true}})
@@ -76,9 +77,9 @@ describe('Sign in with Explore on a failed row', () => {
 
 	it('probes the row again once Explore reports the sign-in, exactly once, and says so', async () => {
 		seed({}, null, [errorRow('a'), errorRow('b')])
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'b'})
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'b'}, YOUTUBE_SIGN_IN)
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 
 		useAppStore.setState({exploreView: {...VIEW, signedIn: false}})
 		expect(reprobed()).toEqual([])
@@ -94,7 +95,7 @@ describe('Sign in with Explore on a failed row', () => {
 
 	it('forgets a row the user removed', async () => {
 		seed()
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		useAppStore.setState({queue: []})
 		expect(useAppStore.getState().exploreRetryTargets).toEqual([])
 		useAppStore.setState({queue: [errorRow('a')]})
@@ -109,7 +110,7 @@ describe('Sign in with Explore on a failed row', () => {
 		['explore with the Explore tab off', {exploreEnabled: false}]
 	] as const)('is cancelled when the cookie mode changes to %s', async (_label, patch) => {
 		seed()
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		const settings = useAppStore.getState().settings
 		if (!settings) throw new Error('no settings')
 		useAppStore.setState({settings: {...settings, common: {...settings.common, ...patch}}})
@@ -125,14 +126,14 @@ describe('Sign in with Explore on a failed row', () => {
 		seed()
 		api.settings.update = vi.fn().mockResolvedValue({ok: false, error: {code: 'io', message: 'disk full', recoverable: true}})
 		api.settings.get = vi.fn(() => Promise.resolve(ok(defaultAppSettings('/tmp'))))
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		await vi.waitFor(() => expect(useAppStore.getState().settings?.common.cookiesMode ?? 'off').toBe('off'))
 		expect(useAppStore.getState().exploreRetryTargets).toEqual([])
 	})
 
 	it('does not survive a restart: the remembered rows live in memory only', async () => {
 		seed()
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		expect(
 			vi
 				.mocked(api.settings.update)
@@ -165,7 +166,7 @@ describe('Sign in with Explore on a failed row', () => {
 		})
 
 		const proxySaved = useAppStore.getState().setProxyUrl('http://proxy.test:8080')
-		const signingIn = useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		const signingIn = useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		releaseEarlier()
 		await Promise.all([proxySaved, signingIn])
 		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('explore')
@@ -177,7 +178,7 @@ describe('Sign in with Explore on a failed row', () => {
 	it('reports a retry that rejects once signed in instead of leaving it unhandled', async () => {
 		const logged = vi.spyOn(console, 'error').mockImplementation(() => undefined)
 		seed()
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		api.queue.cmd.reprobe = vi.fn().mockRejectedValue(new Error('IPC closed'))
 		signIn()
 		await vi.waitFor(() => expect(logged).toHaveBeenCalledWith(expect.stringContaining('[quick-download]'), expect.any(Error)))
@@ -186,7 +187,7 @@ describe('Sign in with Explore on a failed row', () => {
 
 	it('retries at once when Explore is already signed in by the time the mode is switched', async () => {
 		seed({}, true)
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		await vi.waitFor(() => expect(reprobed()).toEqual(['a']))
 	})
 })
@@ -201,7 +202,7 @@ describe('a stale offer', () => {
 	] as const)('Sign in with Explore leaves %s alone and just retries', async (_label, common) => {
 		seed(common)
 		window.history.replaceState(null, '', '#queue')
-		void useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		void useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		await vi.waitFor(() => expect(reprobed()).toEqual(['a']))
 		expect(api.settings.update).not.toHaveBeenCalled()
 		expect(useAppStore.getState().exploreRetryTargets).toEqual([])
@@ -220,7 +221,7 @@ describe('a stale offer', () => {
 
 	it('Sign in with Explore under the explore mode already waits for the sign-in without a write', async () => {
 		seed({cookiesMode: 'explore'})
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
 		expect(api.settings.update).not.toHaveBeenCalled()
 		expect(useAppStore.getState().exploreRetryTargets).toEqual([{kind: 'row', itemId: 'a'}])
 		expect(window.location.hash).toBe('#explore')
@@ -244,7 +245,7 @@ describe('from the wizard error step', () => {
 		const url = 'https://www.youtube.com/watch?v=wizard'
 		useAppStore.setState({wizardStep: 'error', wizardUrl: url, wizardError: {kind: 'ytdlp', error: ERROR}, wizardErrorOrigin: 'formats'})
 		window.history.replaceState(null, '', '#download')
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'wizard', url})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'wizard', url}, YOUTUBE_SIGN_IN)
 
 		expect(window.location.hash).toBe('#explore')
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', wizardError: null})
@@ -257,7 +258,7 @@ describe('from the wizard error step', () => {
 		seed({}, false, [])
 		const url = 'https://www.youtube.com/watch?v=wizard'
 		useAppStore.setState({wizardStep: 'error', wizardUrl: url, wizardError: {kind: 'ytdlp', error: ERROR}, wizardErrorOrigin: 'formats'})
-		await useAppStore.getState().signInWithExploreThenRetry({kind: 'wizard', url})
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'wizard', url}, YOUTUBE_SIGN_IN)
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/watch?v=other'})
 		signIn()
 		expect(api.downloads.probe).not.toHaveBeenCalled()
@@ -274,5 +275,56 @@ describe('from the wizard error step', () => {
 		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('explore')
 		expect(useAppStore.getState().wizardStep).toBe('formats')
 		expect(window.location.hash).toBe('#download')
+	})
+})
+
+// ADR 0011: Explore reports YouTube's sign-in only, and on any other site a
+// cookie appears on the first visit, so nothing tells Arroxy the user signed
+// in there. The offer opens the site in Explore and the user retries; no wait
+// is armed for a YouTube sign-in to set off.
+describe('for a link on another site', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+	const VIMEO_SITE = {kind: 'web', host: 'vimeo.com', address: VIMEO} as const
+
+	function vimeoRow(id: string): QueueItem {
+		return {...errorRow(id), url: VIMEO}
+	}
+
+	it('switches to the explore mode and opens the link in Explore, waiting for nothing', async () => {
+		seed({}, false, [vimeoRow('a')])
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, VIMEO_SITE)
+
+		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('explore')
+		expect(window.location.hash).toBe('#explore')
+		expect(useAppStore.getState().explorePendingAddress).toBe(VIMEO)
+		expect(useAppStore.getState().exploreRetryTargets).toEqual([])
+		signIn()
+		expect(reprobed()).toEqual([])
+		expect(toasts).toEqual([])
+	})
+
+	it('under the explore mode opens the link in Explore without a write', async () => {
+		seed({cookiesMode: 'explore'}, true, [vimeoRow('a')])
+		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, VIMEO_SITE)
+		expect(api.settings.update).not.toHaveBeenCalled()
+		expect(useAppStore.getState()).toMatchObject({explorePendingAddress: VIMEO, exploreRetryTargets: []})
+		expect(reprobed()).toEqual([])
+	})
+
+	it('Sign in in Explore opens the link; for YouTube Explore stays where it was', () => {
+		seed({cookiesMode: 'explore'}, false, [vimeoRow('a')])
+		useAppStore.getState().openExploreSignIn(VIMEO_SITE)
+		expect(window.location.hash).toBe('#explore')
+		expect(useAppStore.getState().explorePendingAddress).toBe(VIMEO)
+
+		useAppStore.getState().openExploreSignIn({kind: 'youtube'})
+		expect(useAppStore.getState().explorePendingAddress).toBeNull()
+	})
+
+	it('a later Retry probes the row again, as the user presses it', async () => {
+		seed({cookiesMode: 'explore'}, false, [vimeoRow('a')])
+		useAppStore.getState().openExploreSignIn(VIMEO_SITE)
+		void useAppStore.getState().retryQuickDownloadRow('a')
+		await vi.waitFor(() => expect(reprobed()).toEqual(['a']))
 	})
 })

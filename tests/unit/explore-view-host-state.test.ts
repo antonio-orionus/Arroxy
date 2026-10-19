@@ -138,7 +138,7 @@ describe('ExploreViewHost state', () => {
 		h.session.hasAuthCookies.mockResolvedValue(true)
 		onlyView().webContents.emit('did-navigate-in-page', {}, 'https://www.youtube.com/feed', true)
 		await vi.waitFor(() => expect(h.host.getState().signedIn).toBe(true))
-		expect(h.session.hasAuthCookies).toHaveBeenCalledWith('youtube')
+		expect(h.session.hasAuthCookies).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 	})
 
 	it('refreshes signed-in on site cookie changes, debounced', async () => {
@@ -185,7 +185,7 @@ describe('ExploreViewHost state', () => {
 		wc.emit('did-navigate', {}, 'https://accounts.google.co.in/accounts/SetSID', 200, 'OK')
 		expect(h.session.verifySignedIn).not.toHaveBeenCalled()
 		wc.emit('did-navigate', {}, 'https://www.youtube.com/', 200, 'OK')
-		await vi.waitFor(() => expect(h.session.verifySignedIn).toHaveBeenCalledWith('youtube'))
+		await vi.waitFor(() => expect(h.session.verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'}))
 		await Promise.resolve()
 		expect(h.host.getState().signedIn).toBe(false)
 
@@ -210,7 +210,7 @@ describe('ExploreViewHost state', () => {
 
 		h.host.markSignedOutAfterVerify()
 
-		expect(h.session.verifySignedIn).toHaveBeenCalledWith('youtube')
+		expect(h.session.verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 		expect(h.emit.mock.calls.some(([state]) => !state.signedIn)).toBe(true)
 		await vi.waitFor(() => expect(h.host.getState().signedIn).toBe(true))
 		// The mark is gone: cookie presence counts again.

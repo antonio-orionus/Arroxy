@@ -56,6 +56,8 @@ export interface StreamMarkerView {
 
 // One resolution, with every stream that offers it, best first.
 export interface VideoLine {
+	// Unique per line: a resolution's name, or a size-only file's own id.
+	id: string
 	resolution: string
 	name: string
 	alias: string | null
@@ -311,6 +313,18 @@ function nameOf(resolution: string): {name: string; alias: string | null} {
 	return {name: label === '' ? i18next.t('wizard.formats.resolutionUnknown') : label, alias}
 }
 
+// Facebook names its two combined files sd and hd, and nothing else about them.
+const SITE_QUALITY_ID = /^(?:sd|hd)$/i
+
+// A resolution's line holds its codecs side by side. A file with no resolution
+// and no codec that its size told apart (groupVideoFormats) gets a line of its
+// own, named the site's way when the site names it.
+function lineOf(row: VideoFormatRow): {id: string; name: string; alias: string | null} {
+	const named = nameOf(row.resolution)
+	if (resolutionLabel(row.resolution).label !== '' || row.codec !== null || row.filesize === undefined) return {id: named.name, ...named}
+	return {id: `file:${row.formatId}`, name: SITE_QUALITY_ID.test(row.formatId) ? row.formatId.toUpperCase() : named.name, alias: null}
+}
+
 // Exported for unit-testing the gating logic (muxed-only sources, audio-only
 // modes, etc.) without spinning up the zustand store.
 export function selectView(state: SelectViewInput): FormatSelectionView {
@@ -404,9 +418,10 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			)
 		].map(codec => ({range, codec}))
 	)
-	const videoLines = groupBy(videoRows, row => nameOf(row.resolution).name)
-		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...nameOf(variants[0].resolution), variants: variants.toSorted(byCodec)}))
-		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name))
+	const videoLines = groupBy(videoRows, row => lineOf(row).id)
+		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...lineOf(variants[0]), variants: variants.toSorted(byCodec)}))
+		// Size-only files (no tier of their own) follow the tiers, the biggest first.
+		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name) || (b.variants[0]?.filesize ?? 0) - (a.variants[0]?.filesize ?? 0))
 	const audioRows = wizardFormats.flatMap(format => (format.isAudioOnly ? [nativeAudioRow(format, profileAudioId, scale)] : []))
 	const lines = audioLines(audioRows)
 	const namedTracks = [...new Set(audioRows.flatMap(row => (row.track ? [row.track] : [])))]

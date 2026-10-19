@@ -6,7 +6,7 @@ import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
-import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo} from 'yt-dlp-bridge/info'
+import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
 import {splitOutputLines} from 'yt-dlp-bridge/runner'
@@ -55,6 +55,8 @@ export interface ProbeServiceOptions {
 	exploreGate?: ExploreGate
 	// Absent: a check after rejected cookies cannot tell (see afterCookiesRejected).
 	exploreSession?: ExploreSignInCheck
+	// Fills the sizes a site leaves out (formatSizeLookup). Absent: none are looked up.
+	formatSizes?: (formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<YtDlpFormat[]>
 }
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
@@ -367,6 +369,7 @@ export class ProbeService extends EventEmitter {
 	private readonly vhxTitleFetcher: VhxTitleFetcher
 	private readonly exploreGate: ExploreGate | undefined
 	private readonly exploreSession: ExploreSignInCheck | undefined
+	private readonly formatSizes: ProbeServiceOptions['formatSizes']
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -378,6 +381,7 @@ export class ProbeService extends EventEmitter {
 		this.vhxTitleFetcher = options?.vhxTitleFetcher ?? defaultVhxTitleFetcher
 		this.exploreGate = options?.exploreGate
 		this.exploreSession = options?.exploreSession
+		this.formatSizes = options?.formatSizes
 	}
 
 	// The site itself said the Explore session is signed out, during a signed-in
@@ -555,10 +559,21 @@ export class ProbeService extends EventEmitter {
 		}
 	}
 
+	// The attempt the probe keeps, with the sizes its site left out looked up:
+	// once, never for an attempt a retry or a redirect replaced.
+	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
+		const attempt = await this.followExtractorRedirects(url, playlistMode, playlistScope, signal, as, timeoutMs)
+		if (attempt.kind === 'failure') return attempt
+		const info = await this.withSiteSizes(attempt.data.info, url, signal)
+		// A probe cancelled while its sizes were asked for is cancelled, not a result.
+		if (signal.aborted) return PROBE_CANCELLED
+		return info === attempt.data.info ? attempt : {kind: 'success', data: {...attempt.data, info}}
+	}
+
 	// Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
 	// follow extractor redirects (e.g. Bandcamp track → resolved video). Anything
 	// deeper is a misbehaving extractor — bail rather than loop.
-	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
+	private async followExtractorRedirects(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		let currentUrl = url
 		for (let depth = 0; depth <= 1; depth++) {
 			if (signal.aborted) return PROBE_CANCELLED
@@ -696,6 +711,15 @@ export class ProbeService extends EventEmitter {
 			degradationSignals: degradationSignals.length > 0 ? degradationSignals.map(s => s.label) : undefined
 		})
 		return {kind: 'success', data: {info, raw, stderr: result.stderr, degradationSignals}}
+	}
+
+	// A single video's formats, with the sizes its site leaves out looked up.
+	// Never YouTube: it reports its sizes, and its media hosts are asked nothing extra.
+	private async withSiteSizes(info: InfoDict, url: string, signal: AbortSignal): Promise<InfoDict> {
+		if (!this.formatSizes || isPlaylistLike(info) || isUrlRedirect(info)) return info
+		if (siteForUrl(url).id === 'youtube' || siteForExtractor(info.extractor).id === 'youtube') return info
+		const formats = info.formats ?? []
+		return formats.length === 0 ? info : {...info, formats: await this.formatSizes(formats, signal)}
 	}
 }
 

@@ -4,6 +4,7 @@ import type {BrowserWindow, Session} from 'electron'
 import type {CommonSettings, ExploreViewState} from '@shared/types.js'
 import type {ExploreAdBlockStatus, ExploreSignInState} from '@shared/schemas.js'
 import {ExploreViewHost, type ExploreViewHostDeps} from '@main/services/explore/ExploreViewHost.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import {views, type FakeView} from './exploreViewFakes.js'
 
 // The ExploreViewHost under test, wired to fakes. A test file using it mocks
@@ -37,8 +38,8 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 	const session = {
 		getSession: vi.fn(() => fakeSession as unknown as Session),
 		whenReady: vi.fn((): Promise<void> => sessionReady),
-		hasAuthCookies: vi.fn((_siteId: string): Promise<boolean> => Promise.resolve(false)),
-		verifySignedIn: vi.fn((_siteId: string): Promise<ExploreSignInState> => Promise.resolve('unknown')),
+		hasAuthCookies: vi.fn((_scope: ExploreCookieScope): Promise<boolean> => Promise.resolve(false)),
+		verifySignedIn: vi.fn((_scope: ExploreCookieScope): Promise<ExploreSignInState> => Promise.resolve('unknown')),
 		signOut: vi.fn((): Promise<void> => Promise.resolve())
 	}
 	// The ad blocker as the host sees it: apply() answers whether blocking switched.
@@ -55,7 +56,6 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 	const emit = vi.fn<(state: ExploreViewState) => void>()
 	const pointerEntered = vi.fn<() => void>()
 	const linkMenu = vi.fn<(linkURL: string) => void>()
-	const openExternal = vi.fn((_url: string): Promise<void> => Promise.resolve())
 	// Main stores the last page in the settings; the fake keeps it where settings() reads it.
 	const saveLastPage = vi.fn((url: string | undefined) => {
 		settings = {...settings, exploreLastUrl: url}
@@ -67,7 +67,6 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 		saveLastPage,
 		adBlock,
 		isPackaged: opts.isPackaged ?? false,
-		openExternal,
 		emit,
 		pointerEntered,
 		linkMenu,
@@ -82,7 +81,6 @@ export function makeHarness(opts: {settings?: Partial<CommonSettings>; isPackage
 		emit,
 		pointerEntered,
 		linkMenu,
-		openExternal,
 		saveLastPage,
 		fakeSession,
 		adBlock,

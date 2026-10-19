@@ -2,6 +2,8 @@ import {describe, expect, it} from 'vite-plus/test'
 import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import type {CommonSettings, ProbeError} from '@shared/types.js'
+import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
+import {exploreSignInSiteFor} from '@renderer/store/exploreSignInSite.js'
 import {buildProbeErrorExperience, configuredCookiesRetryMode, type ExploreSignedIn, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 
 function ytdlpError(kind: YtDlpErrorKind, raw = `ERROR: ${kind}`): ProbeError {
@@ -259,5 +261,121 @@ describe('ProbeErrorExperience — rate limit', () => {
 	it('shows nothing about a rate limit otherwise', () => {
 		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
 		expect(buildProbeErrorExperience({error: null, degradedReasons: ['extractor'], commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
+	})
+})
+
+// ADR 0011: Explore browses any site, but its signed-in flag is YouTube's
+// own. Another site's failure leads to that site and never reads the flag.
+describe('Explore sign-in guidance for a link on another site', () => {
+	const VIMEO = 'https://vimeo.com/123456'
+	const VIMEO_SITE = {kind: 'web', host: 'vimeo.com', address: VIMEO} as const
+
+	it('leads to the link itself under the explore mode, signed in to YouTube or not', () => {
+		for (const exploreSignedIn of [true, false, null]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url: VIMEO, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn})).toMatchObject({cookies: {variant: 'explore-sign-in', mode: 'explore', site: VIMEO_SITE}, actions: {signInWithExplore: true, openCookiesSettings: false}})
+		}
+	})
+
+	it('offers Sign in with Explore under the off mode, never the YouTube sign-in Explore holds', () => {
+		for (const exploreSignedIn of [true, false, null]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('ageRestricted'), url: VIMEO, commonSettings: {cookiesMode: 'off'}, exploreSignedIn})).toMatchObject({cookies: {variant: 'explore-offer', mode: 'off', site: VIMEO_SITE}, actions: {signInWithExploreThenRetry: true, retryWithExploreSignIn: false}})
+		}
+	})
+
+	it('keeps YouTube guidance for YouTube links and for a failure without a link', () => {
+		for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://music.youtube.com/watch?v=x', null, undefined]) {
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn: true}).cookies).toEqual({variant: 'configured', mode: 'explore'})
+			expect(buildProbeErrorExperience({error: ytdlpError('loginRequired'), url, commonSettings: {cookiesMode: 'explore'}, exploreSignedIn: false}).cookies).toEqual({variant: 'explore-sign-in', mode: 'explore', site: {kind: 'youtube'}})
+		}
+	})
+
+	it('still says nothing about a sign-in for a failure no account can fix', () => {
+		expect(buildProbeErrorExperience({error: ytdlpError('network'), url: VIMEO, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), url: VIMEO, commonSettings: {cookiesMode: 'off'}}).cookies.variant).toBe('hidden')
+	})
+})
+
+describe('exploreSignInSiteFor', () => {
+	it('names the host without www and opens the link itself', () => {
+		expect(exploreSignInSiteFor('https://www.instagram.com/p/abc/?igsh=1')).toEqual({kind: 'web', host: 'instagram.com', address: 'https://www.instagram.com/p/abc/?igsh=1'})
+		expect(exploreSignInSiteFor('  http://example.test:8080/v  ')).toEqual({kind: 'web', host: 'example.test', address: 'http://example.test:8080/v'})
+	})
+
+	it('opens the site front page for a link Explore would not take as typed', () => {
+		expect(exploreSignInSiteFor(`https://x.com/i/status/1?${'q'.repeat(EXPLORE_ADDRESS_MAX)}`)).toEqual({kind: 'web', host: 'x.com', address: 'https://x.com'})
+		expect(exploreSignInSiteFor('https://user:secret@vimeo.com/1')).toEqual({kind: 'web', host: 'vimeo.com', address: 'https://vimeo.com'})
+	})
+
+	it('falls back to YouTube for YouTube and for anything that is not a web link', () => {
+		for (const url of ['https://m.youtube.com/watch?v=x', 'not a url', 'file:///tmp/a.mp4', 'ytsearch:cats', '', null]) expect(exploreSignInSiteFor(url)).toEqual({kind: 'youtube'})
+	})
+})
+
+// A run that already used the Explore session and still failed: another
+// sign-in would not help, so nothing asks for one (an upstream refusal, such
+// as Instagram's API answering 500, reads to yt-dlp as "You need to log in").
+// On YouTube the session's sign-in is known; on another site it is only a
+// guess from its cookies, so a login error there keeps the sign-in guidance.
+describe('a failure the Explore session already ran into', () => {
+	function signedInError(kind: YtDlpErrorKind, raw = `ERROR: ${kind}`): ProbeError {
+		return {kind: 'ytdlp', error: {kind, raw}, auth: 'exploreSession'}
+	}
+	const INSTAGRAM = 'https://www.instagram.com/stories/highlights/1/'
+	const COOKIES_HINT = 'ERROR: [instagram:story] 1: You need to log in to access this content. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies'
+
+	it('says YouTube refused it even signed in, and offers only Retry', () => {
+		for (const exploreSignedIn of [true, false, null]) {
+			expect(buildProbeErrorExperience({error: signedInError('loginRequired'), url: 'https://www.youtube.com/watch?v=x', commonSettings: {cookiesMode: 'explore'}, exploreSignedIn})).toMatchObject({
+				cookies: {variant: 'explore-refused', mode: 'explore'},
+				actions: {retry: true, signInWithExplore: false, signInWithExploreThenRetry: false, retryWithExploreSignIn: false, openCookiesSettings: false, enableCookiesAndRetry: false}
+			})
+		}
+	})
+
+	// Visiting a site leaves cookies that count as signed in without being a login.
+	it('keeps the sign-in guidance when another site still asks for a login', () => {
+		for (const error of [signedInError('loginRequired'), signedInError('unknown', COOKIES_HINT)]) {
+			expect(buildProbeErrorExperience({error, url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies).toMatchObject({variant: 'explore-sign-in', mode: 'explore'})
+		}
+	})
+
+	it('says another site refused it when the signed-in run failed some other way', () => {
+		expect(buildProbeErrorExperience({error: signedInError('unknown', 'ERROR: [instagram:story] 1: HTTP Error 500'), url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies).toEqual({variant: 'explore-refused', mode: 'explore'})
+	})
+
+	// yt-dlp's cookie login hint marks a failure an account can fix, whatever its kind.
+	it('offers to sign in for an anonymous failure that carries the login hint', () => {
+		const anonymous: ProbeError = {kind: 'ytdlp', error: {kind: 'unknown', raw: COOKIES_HINT}}
+		expect(buildProbeErrorExperience({error: anonymous, url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies).toMatchObject({variant: 'explore-sign-in', mode: 'explore'})
+	})
+
+	it('never offers Sign in with Explore under the off mode either', () => {
+		expect(buildProbeErrorExperience({error: signedInError('ageRestricted'), url: INSTAGRAM, commonSettings: {cookiesMode: 'off'}, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'explore-refused', mode: 'off'}, actions: {signInWithExploreThenRetry: false, retryWithExploreSignIn: false}})
+	})
+
+	// main escalates a non-YouTube page the extractor could not parse (a
+	// Facebook reel signed out); the same line from the signed-in run is the site refusing.
+	it('covers a parse failure the signed-in probe still hit, and only a signed-in one', () => {
+		const parse = (auth?: 'exploreSession'): ProbeError => ({kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: [facebook] 1: Cannot parse data; please report this issue'}, ...(auth ? {auth} : {})})
+		const reel = 'https://www.facebook.com/reel/1'
+		expect(buildProbeErrorExperience({error: parse('exploreSession'), url: reel, commonSettings: {cookiesMode: 'explore'}}).cookies).toEqual({variant: 'explore-refused', mode: 'explore'})
+		expect(buildProbeErrorExperience({error: parse(), url: reel, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+	})
+
+	// An escalated download keeps its auth: a later failure nothing names (a
+	// post-processing error) says nothing about the sign-in, on any site.
+	it('says nothing of the sign-in for an escalated download that failed unnamed', () => {
+		const postProcessing = signedInError('unknown', 'ERROR: Postprocessing: Conversion failed!')
+		for (const url of [INSTAGRAM, 'https://www.youtube.com/watch?v=x']) {
+			expect(buildProbeErrorExperience({error: postProcessing, url, commonSettings: {cookiesMode: 'explore'}, stage: 'download'}).cookies.variant).toBe('hidden')
+		}
+		expect(buildProbeErrorExperience({error: postProcessing, url: 'https://www.youtube.com/watch?v=x', commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+		// A download that still needs the account is refused signed in, as a probe is.
+		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), url: 'https://www.youtube.com/watch?v=x', commonSettings: {cookiesMode: 'explore'}, stage: 'download'}).cookies.variant).toBe('explore-refused')
+	})
+
+	it('leaves a file or browser mode and an unrelated failure as they were', () => {
+		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), commonSettings: {cookiesMode: 'file', cookiesPath: '/tmp/c.txt'}}).cookies).toEqual({variant: 'configured', mode: 'file'})
+		expect(buildProbeErrorExperience({error: signedInError('network'), url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
 	})
 })

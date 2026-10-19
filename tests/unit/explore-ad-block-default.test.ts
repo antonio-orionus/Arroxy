@@ -1,18 +1,18 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 
-// P2-R53: the ad blocker is on until the user turns it off, so a setting never
-// written means on and only an explicit false means off.
+// The ad blocker is off until the user turns it on (it breaks too many sites
+// now that Explore browses the open web), so only an explicit true means on.
 describe('isExploreAdBlockOn', () => {
 	it.each([
-		[undefined, true],
+		[undefined, false],
 		[true, true],
 		[false, false]
 	] as const)('treats %s as %s', (exploreAdBlock, expected) => {
 		expect(isExploreAdBlockOn({exploreAdBlock})).toBe(expected)
 	})
 
-	it('treats settings without the key as on', () => {
-		expect(isExploreAdBlockOn({})).toBe(true)
+	it('treats settings without the key as off', () => {
+		expect(isExploreAdBlockOn({})).toBe(false)
 	})
 })
