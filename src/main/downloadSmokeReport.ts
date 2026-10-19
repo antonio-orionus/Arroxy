@@ -1,3 +1,4 @@
+import {effectiveExtractorArgs} from 'yt-dlp-bridge'
 import type {CookiesMode} from '@shared/schemas.js'
 import type {SelectedFormat} from './services/download/formatLimitSignals.js'
 import type {YtDlpInvocationSummary} from './services/YtDlp.js'
@@ -37,13 +38,14 @@ export interface SpawnArgsSummary {
 	playerClients: string[] | null
 }
 
-const PLAYER_CLIENT_ARG = /^youtube:player_client=(.+)$/
-
 // Works on redacted argv: secret values are hidden but their flags remain.
+// The extractor args are read as yt-dlp reads them, where a later youtube block
+// replaces an earlier one: the summary reports what the run used, not what the
+// argv mentions.
 export function summarizeSpawnArgs(args: readonly string[]): SpawnArgsSummary {
-	const extractorArgs = args.flatMap((arg, i) => (arg === '--extractor-args' && args[i + 1] !== undefined ? [args[i + 1]] : []))
-	const playerClientArg = extractorArgs.map(arg => PLAYER_CLIENT_ARG.exec(arg)?.[1]).find(value => value !== undefined)
-	return {cookies: args.includes('--cookies-from-browser') ? 'browser' : args.includes('--cookies') ? 'file' : 'none', proxy: args.includes('--proxy'), poToken: extractorArgs.some(arg => arg.includes('po_token=')), playerClients: playerClientArg === undefined ? null : playerClientArg.split(',')}
+	const youtube = effectiveExtractorArgs(args).youtube
+	const playerClients = youtube?.player_client
+	return {cookies: args.includes('--cookies-from-browser') ? 'browser' : args.includes('--cookies') ? 'file' : 'none', proxy: args.includes('--proxy'), poToken: youtube?.po_token !== undefined, playerClients: playerClients === undefined ? null : [...playerClients]}
 }
 
 export function serializeDownloadSmokeReport(report: DownloadSmokeReport): string {

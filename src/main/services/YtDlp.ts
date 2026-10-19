@@ -5,7 +5,7 @@ import {createStreamTextReader, spawnYtDlp} from '@main/utils/process.js'
 import {killProcessTree} from './download/processControl.js'
 import {classifyYtDlpStderr, extractLastError} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
-import {planWorkflow, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
+import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
@@ -87,11 +87,20 @@ export interface YtDlpInvocationSummary {
 
 // VidBee's strategy: skip the player clients that demand a PoT, so the
 // non-PoT download path works without needing to mint anything.
-const PLAYER_CLIENT_FALLBACK = 'youtube:player_client=default,-web,-web_safari'
+const PLAYER_CLIENT_FALLBACK: ExtractorArgs = {youtube: {player_client: ['default', '-web', '-web_safari']}}
 
-function buildPotExtractorArgs(token: string, visitorData: string): string {
-	const visitor = visitorData ? `;visitor_data=${visitorData}` : ''
-	return `youtube:po_token=web.gvs+${token}${visitor}`
+function potExtractorArgs(token: string, visitorData: string): ExtractorArgs {
+	return {youtube: {po_token: [`web.gvs+${token}`], ...(visitorData ? {visitor_data: [visitorData]} : {})}}
+}
+
+// yt-dlp keeps only the last --extractor-args block per extractor, so a second
+// block would silently discard the first. Every spawn merges into one block per
+// extractor (withExtractorArgs); this catches any argv that slipped past it.
+function checkOneBlockPerExtractor(args: readonly string[], e2eMode: E2eHarnessMode | undefined): void {
+	const duplicates = duplicateExtractorArgsBlocks(args)
+	if (duplicates.length === 0) return
+	if (e2eMode?.enabled) throw new Error(`yt-dlp argv repeats --extractor-args for: ${duplicates.join(', ')}`)
+	ytDlpLog.error('yt-dlp argv repeats --extractor-args; all but the last block are ignored', {extractors: duplicates})
 }
 
 type RetryStrategy = {kind: 'pot'; reMint: boolean} | {kind: 'fallback'} | {kind: 'noExtractorArgs'; usedExtractorFallback?: boolean}
@@ -191,17 +200,18 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 }
 
 async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookiesArgs: string[]): Promise<YtDlpResult> {
-	const extractorArgsArr: string[] = []
+	let strategyExtractorArgs: ExtractorArgs = {}
 	if (strategy.kind === 'pot') {
 		if (strategy.reMint) opts.tokenService.invalidateCache()
 		const {token, visitorData, fromCache} = await opts.tokenService.mintTokenForUrl(opts.url)
 		if (!fromCache) opts.signal?.onMinting?.(strategy.reMint ? 1 : 0)
-		extractorArgsArr.push('--extractor-args', buildPotExtractorArgs(token, visitorData))
+		strategyExtractorArgs = potExtractorArgs(token, visitorData)
 	} else if (strategy.kind === 'fallback') {
-		extractorArgsArr.push('--extractor-args', PLAYER_CLIENT_FALLBACK)
+		strategyExtractorArgs = PLAYER_CLIENT_FALLBACK
 	}
-	// 'noExtractorArgs' → no --extractor-args flag at all. yt-dlp runs vanilla
-	// for non-YouTube extractors.
+	// 'noExtractorArgs' adds nothing: the plan's own extractor args, if any, stand.
+	// The strategy's keys merge into the plan's block for the same extractor.
+	const planArgs = withExtractorArgs(opts.args, strategyExtractorArgs)
 
 	const proxyArgs = opts.proxyUrl ? ['--proxy', opts.proxyUrl] : []
 	// Bandwidth cap (anti-bot lever): only applied to media downloads via the
@@ -231,7 +241,8 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 	// on disk and file writes are unaffected.
 	const encodingArgs = ['--encoding', 'utf-8']
 	const e2eArgs = opts.e2eMode?.ytDlpArgs({isProbe: opts.isProbe === true}) ?? []
-	const args = [...e2eArgs, ...encodingArgs, ...ffmpegLocationArgs, ...extractorArgsArr, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...opts.args]
+	const args = [...e2eArgs, ...encodingArgs, ...ffmpegLocationArgs, ...cookiesArgs, ...proxyArgs, ...limitRateArgs, ...jsRuntimeArgs, ...planArgs]
+	checkOneBlockPerExtractor(args, opts.e2eMode)
 	const jsRuntimeSummary = summarizeYtDlpJsRuntimeForLog(opts.jsRuntime)
 	opts.onInvocation?.({ytDlpPath: opts.ytDlpPath, ffmpegPath: opts.ffmpegPath, args: redactArgs(args), jsRuntime: jsRuntimeSummary, attempt: strategy.kind, reMint: strategy.kind === 'pot' ? strategy.reMint : null})
 
@@ -368,9 +379,11 @@ function finalFallbackStrategy(opts: InvokeOptions): RetryStrategy {
 }
 
 function shouldUsePotLadder(opts: InvokeOptions): boolean {
-	// An escalated run is the user's signed-in session; the anonymous token would
-	// contradict it, so such runs never get one.
-	if (opts.cookies?.kind === 'session') return false
+	// The token and its visitor data describe a signed-out visitor, and yt-dlp
+	// documents visitor data as for use without cookies. A run carrying any
+	// cookies (the escalated Explore session, a cookies file, a browser's) is
+	// someone's signed-in identity, so it never gets one.
+	if (opts.cookies) return false
 	if (!siteForUrl(opts.url).needsPotToken) return false
 	if (opts.isProbe !== true) return true
 	return (opts.probePlaylistMode ?? 'auto') === 'video'

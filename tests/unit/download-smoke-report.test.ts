@@ -30,8 +30,14 @@ describe('download smoke result line', () => {
 
 describe('summarizeSpawnArgs', () => {
 	it('reads cookies, proxy, token and player clients from a redacted argv', () => {
-		const args = ['--extractor-args', 'youtube:po_token=[REDACTED];visitor_data=[REDACTED]', '--cookies-from-browser', '[REDACTED]', '--proxy', '[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded']
+		const args = ['--cookies-from-browser', '[REDACTED]', '--proxy', '[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded;po_token=[REDACTED];visitor_data=[REDACTED]']
 		expect(summarizeSpawnArgs(args)).toEqual({cookies: 'browser', proxy: true, poToken: true, playerClients: ['default', 'web_embedded']})
+	})
+
+	// yt-dlp keeps only the last block per extractor: a token in an earlier block never reaches it.
+	it('reports no token when a later youtube block replaced the one carrying it', () => {
+		const args = ['--extractor-args', 'youtube:po_token=[REDACTED];visitor_data=[REDACTED]', '-f', 'best', '--extractor-args', 'youtube:player_client=default,web_embedded']
+		expect(summarizeSpawnArgs(args)).toEqual({cookies: 'none', proxy: false, poToken: false, playerClients: ['default', 'web_embedded']})
 	})
 
 	it('reports a cookie file, and no player_client when none was passed', () => {

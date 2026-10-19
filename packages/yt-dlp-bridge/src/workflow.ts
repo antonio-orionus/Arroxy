@@ -1,5 +1,6 @@
 import type {z} from 'zod'
 import {CONFIG, type ServerConfig} from './config.js'
+import {withExtractorArgs} from './extractorArgs.js'
 import {resolveManagedPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {redactArgs} from './redaction.js'
 import {type InspectWorkflowKind, type ProbePlaylistMode, type SubtitleFormat, type SubtitleMode, type WorkflowDownloadInputSchema, type WorkflowExpertInputSchema, type WorkflowInspectInputSchema, type WorkflowPostprocessInputSchema} from './schemas.js'
@@ -183,7 +184,10 @@ function sourcePreferredAudioWith(...filters: string[]): string[] {
 const SOURCE_PREFERRED_BEST_AUDIO_SELECTOR = [...sourcePreferredAudioWith(NON_DRC_AUDIO_FILTERS), ...sourcePreferredAudioWith(), bestAudioWith(NON_DRC_AUDIO_FILTERS), 'bestaudio', 'best'].join('/')
 
 export function planWorkflow(input: WorkflowInput, options: WorkflowPlanOptions = {}): WorkflowPlan {
-	const plan = planWorkflowWithoutRedaction(input, options)
+	const planned = planWorkflowWithoutRedaction(input, options)
+	// The planners add each extractor option as its own block; yt-dlp would keep
+	// only the last one per extractor. Expert argv is the caller's, verbatim.
+	const plan = planned.kind === 'expert' ? planned : {...planned, args: withExtractorArgs(planned.args, {})}
 	return {...plan, redactedArgs: redactArgs(plan.args)}
 }
 

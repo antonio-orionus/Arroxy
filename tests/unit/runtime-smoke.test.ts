@@ -137,6 +137,8 @@ describe('live probe smoke contract', () => {
 		expect(probeSmokeReportIsHealthy(withAttemptArgs(['--js-runtimes', `node:${healthyLiveProbeReport.execPath}`]))).toBe(false)
 		expect(probeSmokeReportIsHealthy(withAttemptArgs(healthyLiveProbeReport.ytDlp.args.filter(arg => arg !== '--no-playlist')))).toBe(false)
 		expect(probeSmokeReportIsHealthy(withAttemptArgs(healthyLiveProbeReport.ytDlp.args.filter(arg => !arg.startsWith('youtube:po_token='))))).toBe(false)
+		// A later youtube block replaces the token's block in yt-dlp: the token was never used.
+		expect(probeSmokeReportIsHealthy(withAttemptArgs([...healthyLiveProbeReport.ytDlp.args, '--extractor-args', 'youtube:player_client=default,web_embedded']))).toBe(false)
 		expect(probeSmokeReportIsHealthy({...healthyLiveProbeReport, probe: {...healthyLiveProbeReport.probe, formatCount: 0}})).toBe(false)
 		expect(probeSmokeReportIsHealthy({...healthyLiveProbeReport, probe: {...healthyLiveProbeReport.probe, ok: false, kind: null, formatCount: 0, error: 'bot wall', errorKind: 'botBlock'}})).toBe(true)
 		expect(probeSmokeReportIsHealthy({...healthyLiveProbeReport, probe: {...healthyLiveProbeReport.probe, ok: false, kind: null, formatCount: 0, error: 'network', errorKind: 'network'}})).toBe(false)

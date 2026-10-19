@@ -5,7 +5,7 @@ import path from 'node:path'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {resolveE2eHarnessMode, type E2eHarnessMode} from '@main/e2eHarness.js'
-import {EMBED_SUBTITLE_CONTAINER_EXT, type AudioConvert, type PlaylistScope, type ProbePlaylistMode, type SponsorBlockPlan, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge'
+import {duplicateExtractorArgsBlocks, effectiveExtractorArgs, EMBED_SUBTITLE_CONTAINER_EXT, type AudioConvert, type PlaylistScope, type ProbePlaylistMode, type SponsorBlockPlan, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import type {DependencySource} from '@shared/types.js'
 import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
@@ -722,24 +722,24 @@ describe('YtDlp — sidecar flags', () => {
 	})
 })
 
+// yt-dlp keeps only the last --extractor-args block per extractor, so these
+// assert what yt-dlp would act on, and that it arrives as one block.
 describe('YtDlp — extractor-args shape', () => {
-	it('PoT (kind=video): youtube:po_token=web.gvs+<token>;visitor_data=<vd>', async () => {
+	function youtubeArgs(callIndex = 0): Record<string, readonly string[]> | undefined {
+		return effectiveExtractorArgs(getArgs(callIndex)).youtube
+	}
+
+	it('PoT (kind=video): token, visitor data and the production clients reach yt-dlp together', async () => {
 		const ytDlp = makeYtDlp({token: 'MYTOKEN', visitorData: 'MYVISITOR'})
-		await ytDlp.run(mediaRequest())
-		const args = getArgs()
-		const i = args.indexOf('--extractor-args')
-		expect(i).toBeGreaterThanOrEqual(0)
-		expect(args[i + 1]).toBe('youtube:po_token=web.gvs+MYTOKEN;visitor_data=MYVISITOR')
+		await ytDlp.run(mediaRequest({playerClient: ['default', 'web_embedded']}))
+		expect(duplicateExtractorArgsBlocks(getArgs())).toEqual([])
+		expect(youtubeArgs()).toEqual({player_client: ['default', 'web_embedded'], po_token: ['web.gvs+MYTOKEN'], visitor_data: ['MYVISITOR']})
 	})
 
-	it('empty visitorData (kind=video) → omits ;visitor_data= segment', async () => {
+	it('empty visitorData (kind=video) → no visitor_data key', async () => {
 		const ytDlp = makeYtDlp({token: 'MYTOKEN', visitorData: ''})
 		await ytDlp.run(mediaRequest())
-		const args = getArgs()
-		const i = args.indexOf('--extractor-args')
-		expect(i).toBeGreaterThanOrEqual(0)
-		expect(args[i + 1]).toBe('youtube:po_token=web.gvs+MYTOKEN')
-		expect(args[i + 1]).not.toContain('visitor_data')
+		expect(youtubeArgs()).toEqual({po_token: ['web.gvs+MYTOKEN']})
 	})
 
 	// Regression guard: visitor_data passed to YouTube tab extractor silently
@@ -764,18 +764,26 @@ describe('YtDlp — extractor-args shape', () => {
 	it('probe (YouTube, playlistMode=video): uses manual PoT extractor args', async () => {
 		const ytDlp = makeYtDlp({token: 'MYTOKEN', visitorData: 'MYVISITOR'})
 		await ytDlp.run(probeRequest({playlistMode: 'video'}))
-		const args = getArgs()
-		const i = args.indexOf('--extractor-args')
-		expect(i).toBeGreaterThanOrEqual(0)
-		expect(args[i + 1]).toBe('youtube:po_token=web.gvs+MYTOKEN;visitor_data=MYVISITOR')
+		expect(youtubeArgs()).toEqual({po_token: ['web.gvs+MYTOKEN'], visitor_data: ['MYVISITOR']})
 	})
 
-	it('media with explicit YouTube player_client keeps PoT and client extractor args', async () => {
+	it('probe with explicit clients (playlistMode=video): one block carries the clients and the token', async () => {
 		const ytDlp = makeYtDlp({token: 'MYTOKEN', visitorData: 'MYVISITOR'})
-		await ytDlp.run(mediaRequest({formatId: '337+380', playerClient: ['default', 'web_embedded']}))
-		const extractorArgs = getArgs().flatMap((arg, index, args) => (arg === '--extractor-args' ? [args[index + 1]] : []))
-		expect(extractorArgs).toContain('youtube:po_token=web.gvs+MYTOKEN;visitor_data=MYVISITOR')
-		expect(extractorArgs).toContain('youtube:player_client=default,web_embedded')
+		await ytDlp.run({kind: 'probe', url: URL, selection: {playlistMode: 'video'}, extractor: {youtube: {playerClient: ['default', 'web_embedded']}}})
+		expect(duplicateExtractorArgsBlocks(getArgs())).toEqual([])
+		expect(youtubeArgs()).toEqual({player_client: ['default', 'web_embedded'], po_token: ['web.gvs+MYTOKEN'], visitor_data: ['MYVISITOR']})
+	})
+
+	// The anonymous token and visitor data describe a signed-out visitor; yt-dlp
+	// documents visitor data as for use without cookies.
+	it.each([
+		['a cookies file', {cookiesMode: 'file', cookiesPath: '/home/u/cookies.txt'}],
+		['browser cookies', {cookiesMode: 'browser', cookiesBrowser: 'firefox'}]
+	])('a run with %s gets no anonymous token or visitor data', async (_label, settings) => {
+		const ytDlp = makeYtDlp({settings, token: 'MYTOKEN', visitorData: 'MYVISITOR'})
+		await ytDlp.run(mediaRequest({playerClient: ['default', 'web_embedded']}))
+		expect(lastTokenService.mintTokenForUrl).not.toHaveBeenCalled()
+		expect(youtubeArgs()).toEqual({player_client: ['default', 'web_embedded']})
 	})
 })
 

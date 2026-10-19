@@ -22,6 +22,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import log from 'electron-log/main.js'
+import {effectiveExtractorArgs} from 'yt-dlp-bridge'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -105,9 +106,8 @@ describe('ProbeService — video probe', () => {
 
 		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
 		const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
-		const extractorArgs = args.flatMap((arg, index, allArgs) => (arg === '--extractor-args' ? [allArgs[index + 1]] : []))
 		expect(args).toContain('--no-playlist')
-		expect(extractorArgs).toContain('youtube:player_client=default,web_embedded')
+		expect(effectiveExtractorArgs(args).youtube?.player_client).toEqual(['default', 'web_embedded'])
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') {
 			expect(r.data.title).toBe('Combined Title')
