@@ -1,6 +1,6 @@
-import {describe, expect, it, vi} from 'vite-plus/test'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
-import {lookUpMissingSizes, needsSizeLookup, SIZE_LOOKUP_MAX, type HeadLength} from '@main/services/formatSizeLookup.js'
+import {fetchHeadLength, lookUpMissingSizes, needsSizeLookup, SIZE_LOOKUP_MAX, type HeadLength} from '@main/services/formatSizeLookup.js'
 
 function plain(id: string, extra: Partial<YtDlpFormat> = {}): YtDlpFormat {
 	return {format_id: id, url: `https://cdn.example/${id}.mp4`, protocol: 'https', ext: 'mp4', ...extra}
@@ -75,5 +75,45 @@ describe('lookUpMissingSizes', () => {
 		const sized = await lookUpMissingSizes([plain('a')], headLength, cancelled.signal)
 		expect(headLength).not.toHaveBeenCalled()
 		expect(sized[0]?.filesize).toBeUndefined()
+	})
+})
+
+describe('fetchHeadLength', () => {
+	afterEach(() => {
+		vi.unstubAllGlobals()
+	})
+
+	function stubFetch(answers: Record<string, Response>) {
+		const fetch = vi.fn(async (url: string) => answers[url] ?? new Response(null, {status: 404}))
+		vi.stubGlobal('fetch', fetch)
+		return fetch
+	}
+	const sized = (length: number) => new Response(null, {status: 200, headers: {'content-length': String(length)}})
+	const redirect = (location: string) => new Response(null, {status: 302, headers: {location}})
+
+	it('reads the length of a public file, following its redirects', async () => {
+		const fetch = stubFetch({'https://cdn.example/a.mp4': redirect('/b.mp4'), 'https://cdn.example/b.mp4': sized(1234)})
+		expect(await fetchHeadLength('https://cdn.example/a.mp4', {Referer: 'https://site.example/'}, NEVER)).toBe(1234)
+		expect(fetch).toHaveBeenCalledTimes(2)
+		expect(fetch).toHaveBeenCalledWith('https://cdn.example/b.mp4', expect.objectContaining({method: 'HEAD', redirect: 'manual', headers: {Referer: 'https://site.example/'}}))
+	})
+
+	// A site's format list must not make Arroxy ask the user's own network.
+	it.each(['http://localhost/a.mp4', 'http://192.168.1.1/a.mp4', 'http://[::1]/a.mp4', 'file:///etc/passwd'])('asks nothing of %s', async url => {
+		const fetch = stubFetch({[url]: sized(1)})
+		expect(await fetchHeadLength(url, {}, NEVER)).toBeNull()
+		expect(fetch).not.toHaveBeenCalled()
+	})
+
+	it('stops at a redirect into a private address', async () => {
+		const fetch = stubFetch({'https://cdn.example/a.mp4': redirect('http://10.0.0.1/a.mp4'), 'http://10.0.0.1/a.mp4': sized(1)})
+		expect(await fetchHeadLength('https://cdn.example/a.mp4', {}, NEVER)).toBeNull()
+		expect(fetch).toHaveBeenCalledTimes(1)
+	})
+
+	it('gives up on a redirect loop', async () => {
+		const fetch = stubFetch({'https://cdn.example/a.mp4': redirect('https://cdn.example/a.mp4')})
+		expect(await fetchHeadLength('https://cdn.example/a.mp4', {}, NEVER)).toBeNull()
+		expect(fetch.mock.calls.length).toBeLessThanOrEqual(6)
 	})
 })

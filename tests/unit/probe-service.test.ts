@@ -960,14 +960,17 @@ describe('ProbeService — sizes the site does not report', () => {
 	const SD = {format_id: 'sd', ext: 'mp4', url: 'https://video.example/sd.mp4', protocol: 'https'}
 	const HD = {format_id: 'hd', ext: 'mp4', url: 'https://video.example/hd.mp4', protocol: 'https'}
 
-	function serviceFor(info: unknown) {
-		const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => ({kind: 'success', stdout: JSON.stringify(info), stderr: '', usedExtractorFallback: false}))
-		const formatSizes = vi.fn(async (formats: readonly YtDlpFormat[]) => formats.map(f => ({...f, filesize: f.format_id === 'hd' ? 16_344_300 : 3_576_134})))
-		return {service: new ProbeService({run} as never, false, undefined, {formatSizes}), formatSizes}
+	const REEL_INFO = {_type: 'video', id: 'r', title: 'Reel', extractor: 'facebook', extractor_key: 'Facebook', webpage_url: REEL, formats: [SD, HD]}
+
+	function serviceFor(info: unknown, stderrs: readonly string[] = ['']) {
+		let runs = 0
+		const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => ({kind: 'success', stdout: JSON.stringify(info), stderr: stderrs[Math.min(runs++, stderrs.length - 1)] ?? '', usedExtractorFallback: false}))
+		const formatSizes = vi.fn<(formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<YtDlpFormat[]>>(async formats => formats.map(f => ({...f, filesize: f.format_id === 'hd' ? 16_344_300 : 3_576_134})))
+		return {service: new ProbeService({run} as never, false, undefined, {formatSizes}), formatSizes, run}
 	}
 
 	it('looks up the sizes a site leaves out before the formats are listed', async () => {
-		const {service, formatSizes} = serviceFor({_type: 'video', id: 'r', title: 'Reel', extractor: 'facebook', extractor_key: 'Facebook', webpage_url: REEL, formats: [SD, HD]})
+		const {service, formatSizes} = serviceFor(REEL_INFO)
 		const result = await service.probe(REEL, {playlistMode: 'video'})
 		if (!result.ok || result.data.kind !== 'video') throw new Error('probe failed')
 		expect(formatSizes).toHaveBeenCalledTimes(1)
@@ -980,5 +983,25 @@ describe('ProbeService — sizes the site does not report', () => {
 		const {service, formatSizes} = serviceFor({_type: 'video', id: 'abc', title: 'Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: url, formats: [{...SD, format_id: '18'}]})
 		await service.probe(url, {playlistMode: 'video'})
 		expect(formatSizes).not.toHaveBeenCalled()
+	})
+
+	// A degraded first run is probed again; only the result kept is looked up.
+	it('looks sizes up once, for the attempt the probe keeps', async () => {
+		const {service, formatSizes, run} = serviceFor(REEL_INFO, ['WARNING: [facebook] r: Failed to download m3u8 information: The read operation timed out', ''])
+		const result = await service.probe(REEL, {playlistMode: 'video'})
+		expect(result.ok).toBe(true)
+		expect(run).toHaveBeenCalledTimes(2)
+		expect(formatSizes).toHaveBeenCalledTimes(1)
+	})
+
+	it('reports a probe cancelled while its sizes were looked up as cancelled', async () => {
+		const {service, formatSizes} = serviceFor(REEL_INFO)
+		formatSizes.mockImplementationOnce(async formats => {
+			service.cancelInFlight()
+			return [...formats]
+		})
+		const result = await service.probe(REEL, {playlistMode: 'video'})
+		expect(result.ok).toBe(false)
+		expect(!result.ok && result.error.kind === 'other' && result.error.code).toBe('cancelled')
 	})
 })

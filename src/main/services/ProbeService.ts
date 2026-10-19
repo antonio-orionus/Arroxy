@@ -559,10 +559,21 @@ export class ProbeService extends EventEmitter {
 		}
 	}
 
+	// The attempt the probe keeps, with the sizes its site left out looked up:
+	// once, never for an attempt a retry or a redirect replaced.
+	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
+		const attempt = await this.followExtractorRedirects(url, playlistMode, playlistScope, signal, as, timeoutMs)
+		if (attempt.kind === 'failure') return attempt
+		const info = await this.withSiteSizes(attempt.data.info, url, signal)
+		// A probe cancelled while its sizes were asked for is cancelled, not a result.
+		if (signal.aborted) return PROBE_CANCELLED
+		return info === attempt.data.info ? attempt : {kind: 'success', data: {...attempt.data, info}}
+	}
+
 	// Loop over `_type: 'url' / 'url_transparent'` redirects up to depth 1 to
 	// follow extractor redirects (e.g. Bandcamp track → resolved video). Anything
 	// deeper is a misbehaving extractor — bail rather than loop.
-	private async probeWithRedirectFollow(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
+	private async followExtractorRedirects(url: string, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		let currentUrl = url
 		for (let depth = 0; depth <= 1; depth++) {
 			if (signal.aborted) return PROBE_CANCELLED
@@ -687,7 +698,7 @@ export class ProbeService extends EventEmitter {
 			return {kind: 'failure', error: {kind: 'other', code: 'schema', message: 'Unexpected response from the download engine', details: message} satisfies ProbeError}
 		}
 
-		const info = await this.withSiteSizes(parseResult.data, url, signal)
+		const info = parseResult.data
 		const degradationSignals = detectProbeDegradationSignals(result.stderr)
 		logger.info('Probe complete', {
 			attempt,

@@ -1,4 +1,5 @@
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
+import {isPrivateHostname} from './privateHostname.js'
 
 // yt-dlp reports no size for some plain files (Instagram's and Facebook's
 // combined MP4s, DASH streams of a site that gives no duration), though their
@@ -35,10 +36,35 @@ export async function lookUpMissingSizes(formats: readonly YtDlpFormat[], headLe
 	})
 }
 
-// One HEAD request; redirects followed, as a download would.
+const MAX_REDIRECTS = 5
+
+// A format URL comes from the site, not the user: one that points into the
+// user's machine or network is never asked. Name-level check only (a public
+// name resolving to a private address is not caught), as for the VHX title fetch.
+function isAskable(url: string): boolean {
+	try {
+		const parsed = new URL(url)
+		return (parsed.protocol === 'https:' || parsed.protocol === 'http:') && !isPrivateHostname(parsed.hostname)
+	} catch {
+		return false
+	}
+}
+
+// One HEAD request, redirects followed as a download would, each hop checked before it is asked.
 export const fetchHeadLength: HeadLength = async (url, headers, signal) => {
-	const response = await fetch(url, {method: 'HEAD', headers: {...headers}, signal, redirect: 'follow'})
-	if (!response.ok) return null
-	const length = Number(response.headers.get('content-length'))
-	return Number.isSafeInteger(length) && length > 0 ? length : null
+	let current = url
+	for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+		if (!isAskable(current)) return null
+		const response = await fetch(current, {method: 'HEAD', headers: {...headers}, signal, redirect: 'manual'})
+		if (response.status >= 300 && response.status < 400) {
+			const location = response.headers.get('location')
+			if (!location) return null
+			current = new URL(location, current).toString()
+			continue
+		}
+		if (!response.ok) return null
+		const length = Number(response.headers.get('content-length'))
+		return Number.isSafeInteger(length) && length > 0 ? length : null
+	}
+	return null
 }
