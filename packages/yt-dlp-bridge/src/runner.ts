@@ -14,9 +14,9 @@ export interface RunCommandOptions {
 	cwd?: string
 	env?: NodeJS.ProcessEnv
 	signal?: AbortSignal
-	/** Called with each complete stdout line, trimmed and non-empty, as it arrives. */
+	/** Called with each complete stdout line, trimmed and non-empty, as it arrives. If it throws, the child is killed and the run rejects with that error. */
 	onStdoutLine?: (line: string) => void
-	/** Called with each complete stderr line, trimmed and non-empty, as it arrives. */
+	/** Called with each complete stderr line, trimmed and non-empty, as it arrives. If it throws, the child is killed and the run rejects with that error. */
 	onStderrLine?: (line: string) => void
 	logger?: RunnerLogger
 }
@@ -152,11 +152,21 @@ function createOutputTail(maxBytes: number): {push(chunk: Buffer): void; text():
 	}
 }
 
-function createLineEmitter(onLine: ((line: string) => void) | undefined): {push(chunk: Buffer): void; flush(): void} {
+// A callback that throws is the caller's error, not a stream error: it is
+// handed to `onError` instead of escaping the 'data' handler, and no further
+// lines are delivered.
+function createLineEmitter(onLine: ((line: string) => void) | undefined, onError: (error: unknown) => void): {push(chunk: Buffer): void; flush(): void} {
 	if (!onLine) return {push: () => undefined, flush: () => undefined}
 	const reader = createStreamTextReader()
+	let failed = false
 	const emit = (lines: string): void => {
-		for (const line of splitOutputLines(lines)) onLine(line)
+		if (failed) return
+		try {
+			for (const line of splitOutputLines(lines)) onLine(line)
+		} catch (error) {
+			failed = true
+			onError(error)
+		}
 	}
 	return {push: chunk => emit(reader.push(chunk).lines), flush: () => emit(reader.flush().lines)}
 }
@@ -173,12 +183,12 @@ export async function runCommand(command: string, args: string[], options: RunCo
 
 		const stdout = createOutputTail(options.maxOutputBytes)
 		const stderr = createOutputTail(options.maxOutputBytes)
-		const stdoutLines = createLineEmitter(options.onStdoutLine)
-		const stderrLines = createLineEmitter(options.onStderrLine)
 		let timedOut = false
 		let aborted = false
+		// First error thrown by a line callback; the run rejects with it.
+		let callbackError: {error: unknown} | null = null
 
-		const kill = (reason: 'timeout' | 'abort'): void => {
+		const kill = (reason: 'timeout' | 'abort' | 'callback'): void => {
 			if (reason === 'timeout') timedOut = true
 			if (reason === 'abort') aborted = true
 			killProcessTree(child, 'SIGTERM', options.logger)
@@ -192,6 +202,14 @@ export async function runCommand(command: string, args: string[], options: RunCo
 		const onAbort = (): void => kill('abort')
 		if (options.signal?.aborted) onAbort()
 		options.signal?.addEventListener('abort', onAbort, {once: true})
+
+		const onCallbackError = (error: unknown): void => {
+			if (callbackError) return
+			callbackError = {error}
+			if (!settled) kill('callback')
+		}
+		const stdoutLines = createLineEmitter(options.onStdoutLine, onCallbackError)
+		const stderrLines = createLineEmitter(options.onStderrLine, onCallbackError)
 
 		const settle = (): boolean => {
 			if (settled) return false
@@ -220,6 +238,10 @@ export async function runCommand(command: string, args: string[], options: RunCo
 			if (!settle()) return
 			stdoutLines.flush()
 			stderrLines.flush()
+			if (callbackError) {
+				reject(callbackError.error)
+				return
+			}
 			const exitCode = timedOut ? 124 : aborted ? 130 : (code ?? 1)
 			const stdoutText = stdout.text()
 			const stderrText = stderr.text()

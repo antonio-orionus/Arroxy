@@ -39,6 +39,32 @@ describe('runCommand — streaming', () => {
 	})
 })
 
+describe('runCommand — line callback failures', () => {
+	it('rejects with the callback error and stops a child that would run on', async () => {
+		const boom = new Error('bad line')
+		const startedAt = Date.now()
+		const run = runCommand(node, ['-e', "console.log('first'); setInterval(() => {}, 1000)"], {
+			...BASE,
+			onStdoutLine: () => {
+				throw boom
+			}
+		})
+		await expect(run).rejects.toBe(boom)
+		expect(Date.now() - startedAt).toBeLessThan(5_000)
+	})
+
+	it('rejects when the callback throws on the trailing line flushed at exit', async () => {
+		const boom = new Error('bad trailing line')
+		const run = runCommand(node, ['-e', "process.stderr.write('no newline at end')"], {
+			...BASE,
+			onStderrLine: () => {
+				throw boom
+			}
+		})
+		await expect(run).rejects.toBe(boom)
+	})
+})
+
 describe('runCommand — stopping', () => {
 	it('reports a timeout as exit code 124', async () => {
 		await expect(runCommand(node, ['-e', "process.on('SIGTERM', () => process.exit(0)); setInterval(() => {}, 1000)"], {timeoutMs: 50, maxOutputBytes: 1024})).rejects.toMatchObject({result: {exitCode: 124}})
