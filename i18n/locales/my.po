@@ -344,6 +344,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "Arroxy ထဲတွင် YouTube ကို ကြည့်ရှုပြီး အကောင့်လိုအပ်သော ဗီဒီယိုများအတွက် ဝင်ရောက်ပါ။"
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "မရှိစဉ် မှတ်ဉာဏ်ကို လွှတ်ပေးရန်"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "အခြား တက်ဘ်တွင် ၅ မိနစ်ကြာပြီးနောက် YouTube ပင်မ သို့မဟုတ် ရှာဖွေမှု စာမျက်နှာကို ပိတ်သည်။ ပြန်လာသောအခါ ပြန်ဖွင့်ပြီး စက္ကန့်အနည်းငယ် ကြာသည်။"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "“စူးစမ်းရန်” တက်ဘ် ပြမည်"

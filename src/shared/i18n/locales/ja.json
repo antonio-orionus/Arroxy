@@ -922,6 +922,8 @@
 			"description": "Arroxy内でYouTubeを閲覧し、アカウントが必要な動画のためにログインできます。",
 			"showTab": "「探索」タブを表示",
 			"showTabDescription": "オフにすると、ダウンロードでも「探索」のログインが使われなくなります。",
+			"idleUnload": "離れている間にメモリを解放",
+			"idleUnloadDescription": "別のタブで 5 分経つと、YouTube のホームまたは検索ページを閉じます。戻ると再読み込みされ、数秒かかります。",
 			"signOut": "「探索」からログアウト",
 			"signOutDescription": "「探索」内のYouTubeのログイン情報と閲覧データを消去します。",
 			"signOutConfirmTitle": "「探索」からログアウトしますか?",

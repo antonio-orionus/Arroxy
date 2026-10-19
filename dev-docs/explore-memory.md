@@ -7,12 +7,15 @@ What the Explore page costs in memory, why hiding it frees almost nothing, and w
 | `src/main/services/explore/ExploreViewHost.ts` | The deadline, the close, and the restore on return |
 | `src/main/services/explore/exploreIdleUnload.ts` | Which pages may go, and the history they come back with |
 | `src/shared/sites/youtube.ts` | `idleUnloadPaths`: home and search results |
+| `src/shared/exploreIdleUnload.ts`, `src/renderer/src/components/explore/ExploreSettingsPanel.tsx` | The `exploreIdleUnload` setting (off by default) and its switch, Settings → Explore → "Free memory while away" |
 | `tests/unit/explore-idle-unload.test.ts`, `tests/unit/explore-view-host-idle-unload.test.ts` | Policy and lifecycle contracts |
 | `tests/e2e/fixture-explore-idle-unload.spec.ts` | Restore, kept pages, and sign-out in the real app |
 
 ## How it behaves
 
-Five minutes after the user leaves the Explore tab (another tab, or the wizard taking a link), the page is closed if it is the site's home or search results and is settled: loaded, no error, no refused proxy, no media playing. Anything else stays, and is looked at again only after the next leave. A dialog over the page only hides it and starts nothing.
+Idle unload is **off by default**: every return to a released page costs a reload of a few seconds, and YouTube's home comes back with a new feed. That trade pays only on a machine short of memory, so the user turns it on in Settings → Explore. Turned on while the user is away, the full delay starts then; turned off, a running deadline is dropped and a page already released still comes back.
+
+With it on, five minutes after the user leaves the Explore tab (another tab, or the wizard taking a link), the page is closed if it is the site's home or search results and is settled: loaded, no error, no refused proxy, no media playing. Anything else stays, and is looked at again only after the next leave. A dialog over the page only hides it and starts nothing.
 
 The close waits for the page's `beforeunload`, and Electron honors a veto for a `WebContentsView`; a vetoed page stays as it was. Coming back builds a new view on the same partition and restores the history with `navigationHistory.restore()`, after the ad blocker start and the proxy gate, like any first load. Sign-in, consent, interstitial and blank entries are dropped whole, and every entry is re-checked, because a restore is a browser-started load the navigation guards never see. Sign-out, turning Explore off and closing the window forget the history; it is kept in main-process memory only.
 

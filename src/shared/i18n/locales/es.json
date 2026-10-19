@@ -996,6 +996,8 @@
 			"description": "Navega por YouTube dentro de Arroxy e inicia sesión para los vídeos que requieren una cuenta.",
 			"showTab": "Mostrar la pestaña Explorar",
 			"showTabDescription": "Al desactivarla, las descargas también dejan de usar tu sesión de Explorar.",
+			"idleUnload": "Liberar memoria en segundo plano",
+			"idleUnloadDescription": "Tras 5 minutos en otra pestaña, cierra la página de inicio o de búsqueda de YouTube. Al volver, se recarga, lo que tarda unos segundos.",
 			"signOut": "Cerrar sesión en Explorar",
 			"signOutDescription": "Borra tu sesión de YouTube y los datos de navegación en Explorar.",
 			"signOutConfirmTitle": "¿Cerrar sesión en Explorar?",

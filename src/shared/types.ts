@@ -143,6 +143,7 @@ export interface CommonSettings {
 	// Main-owned: the last site page the Explore view showed (see schemas.ts).
 	exploreLastUrl?: string
 	exploreAdBlock?: boolean
+	exploreIdleUnload?: boolean
 	exploreCompactChrome?: boolean
 	nativeAudioPreference?: NativeAudioPreference
 	hdrPreference?: HdrSetting

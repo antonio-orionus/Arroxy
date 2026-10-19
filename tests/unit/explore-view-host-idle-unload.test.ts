@@ -9,6 +9,7 @@ vi.mock('electron', async () => ({WebContentsView: (await import('../shared/expl
 // an eligible page is closed (its memory goes with it), and coming back
 // rebuilds the view in the same session at the same place in its history.
 // Only leaving the tab counts: a dialog over the page never releases it.
+// Off unless the user turns it on in Settings.
 
 const DELAY = 10_000
 const HOME = 'https://www.youtube.com/'
@@ -25,7 +26,9 @@ afterEach(() => {
 })
 
 // Explore open on `history` (the last entry active), timers faked from here on.
-async function browsing(history: string[] = [HOME, SEARCH], opts: Parameters<typeof makeHarness>[0] = {}) {
+const ON = {exploreIdleUnload: true}
+
+async function browsing(history: string[] = [HOME, SEARCH], opts: Parameters<typeof makeHarness>[0] = {settings: ON}) {
 	const h = makeHarness({idleUnloadDelayMs: DELAY, ...opts})
 	h.host.setActive(true)
 	await h.host.setVisible(true)
@@ -59,6 +62,45 @@ function secondView(): FakeWebContents {
 	if (!view) throw new Error('no second view')
 	return view.webContents
 }
+
+describe('ExploreViewHost idle unload setting', () => {
+	it('is off by default: a page left for any time stays', async () => {
+		const {h, wc} = await browsing([HOME, SEARCH], {})
+		await leave(h)
+		vi.advanceTimersByTime(DELAY * 3)
+		expect(unloaded(wc)).toBe(false)
+	})
+
+	it('turned on while the user is away, starts the full delay from then', async () => {
+		const {h, wc} = await browsing([HOME, SEARCH], {})
+		await leave(h)
+		vi.advanceTimersByTime(DELAY * 2)
+		h.setSettings(ON)
+		h.host.applyIdleUnloadSetting()
+		vi.advanceTimersByTime(DELAY - 1)
+		expect(unloaded(wc)).toBe(false)
+		vi.advanceTimersByTime(1)
+		expect(unloaded(wc)).toBe(true)
+	})
+
+	it('turned on while the tab is shown, waits for the user to leave', async () => {
+		const {h, wc} = await browsing([HOME, SEARCH], {})
+		h.setSettings(ON)
+		h.host.applyIdleUnloadSetting()
+		vi.advanceTimersByTime(DELAY * 3)
+		expect(unloaded(wc)).toBe(false)
+	})
+
+	it('turned off before the deadline, keeps the page', async () => {
+		const {h, wc} = await browsing()
+		await leave(h)
+		vi.advanceTimersByTime(DELAY - 1)
+		h.setSettings({exploreIdleUnload: false})
+		h.host.applyIdleUnloadSetting()
+		vi.advanceTimersByTime(DELAY * 3)
+		expect(unloaded(wc)).toBe(false)
+	})
+})
 
 describe('ExploreViewHost idle unload timing', () => {
 	it('keeps the page until the delay has passed, then closes it, letting the page answer beforeunload', async () => {
@@ -114,7 +156,7 @@ describe('ExploreViewHost idle unload timing', () => {
 
 	it('does nothing before the view was ever built', () => {
 		vi.useFakeTimers()
-		const h = makeHarness({idleUnloadDelayMs: DELAY})
+		const h = makeHarness({idleUnloadDelayMs: DELAY, settings: ON})
 		h.host.setActive(false)
 		vi.advanceTimersByTime(DELAY * 3)
 		expect(views).toHaveLength(0)

@@ -349,6 +349,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring."
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Faol bo'lmaganda xotirani bo'shatish"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Kashfiyot yorlig'ini ko'rsatish"

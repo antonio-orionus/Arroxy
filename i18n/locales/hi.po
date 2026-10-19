@@ -349,6 +349,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "Arroxy के अंदर YouTube ब्राउज़ करें और जिन वीडियो के लिए अकाउंट चाहिए उनके लिए साइन इन करें।"
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "दूर रहने पर मेमोरी खाली करें"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "दूसरे टैब पर 5 मिनट बाद YouTube का होम या खोज पेज बंद कर देता है। वापस आने पर यह फिर से लोड होता है, जिसमें कुछ सेकंड लगते हैं।"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "एक्सप्लोर टैब दिखाएँ"

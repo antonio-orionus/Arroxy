@@ -354,6 +354,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "Прегледај YouTube у апликацији Arroxy и пријави се за видео за који је потребан налог."
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Ослобађај меморију у позадини"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "После 5 минута на другој картици затвара почетну страницу или страницу претраге на YouTube-у. По повратку се поново учитава, што траје неколико секунди."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Прикажи картицу Истраживање"

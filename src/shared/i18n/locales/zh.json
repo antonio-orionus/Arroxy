@@ -837,6 +837,8 @@
 			"description": "在 Arroxy 中浏览 YouTube，并登录以访问需要账号的视频。",
 			"showTab": "显示“探索”标签页",
 			"showTabDescription": "关闭后，下载也将不再使用你在“探索”中的登录。",
+			"idleUnload": "离开时释放内存",
+			"idleUnloadDescription": "在其他标签页停留 5 分钟后，关闭 YouTube 首页或搜索页。返回时会重新加载，需要几秒钟。",
 			"signOut": "退出“探索”登录",
 			"signOutDescription": "清除“探索”中的 YouTube 登录信息和浏览数据。",
 			"signOutConfirmTitle": "退出“探索”登录？",

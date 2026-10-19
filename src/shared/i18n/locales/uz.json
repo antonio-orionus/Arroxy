@@ -982,6 +982,8 @@
 			"description": "YouTube'ni Arroxy ichida ko'ring va hisob talab qiladigan videolar uchun kiring.",
 			"showTab": "Kashfiyot yorlig'ini ko'rsatish",
 			"showTabDescription": "O'chirsangiz, yuklab olishlar ham Kashfiyot orqali kirishdan foydalanmaydi.",
+			"idleUnload": "Faol bo'lmaganda xotirani bo'shatish",
+			"idleUnloadDescription": "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi.",
 			"signOut": "Kashfiyotdan chiqish",
 			"signOutDescription": "Kashfiyotdagi YouTube kirishingiz va ko'rish ma'lumotlarini tozalaydi.",
 			"signOutConfirmTitle": "Kashfiyotdan chiqilsinmi?",

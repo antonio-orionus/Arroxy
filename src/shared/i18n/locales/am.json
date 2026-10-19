@@ -889,6 +889,8 @@
 			"description": "YouTubeን በArroxy ውስጥ ያስሱ እና መለያ ለሚያስፈልጋቸው ቪዲዮዎች ይግቡ።",
 			"showTab": "የዳሰሳ ትርን አሳይ",
 			"showTabDescription": "ማጥፋት ውርዶችም የዳሰሳ መግቢያዎን እንዳይጠቀሙ ያደርጋል።",
+			"idleUnload": "በሌሉበት ጊዜ ማህደረ ትውስታን ነጻ አድርግ",
+			"idleUnloadDescription": "በሌላ ትር ላይ ከ5 ደቂቃ በኋላ የYouTube መነሻ ወይም የፍለጋ ገጽን ይዘጋል። ሲመለሱ እንደገና ይጫናል፣ ይህም ጥቂት ሰከንዶች ይወስዳል።",
 			"signOut": "ከዳሰሳ ውጣ",
 			"signOutDescription": "በዳሰሳ ውስጥ ያለዎትን የYouTube መግቢያ እና የማሰስ ውሂብ ያጸዳል።",
 			"signOutConfirmTitle": "ከዳሰሳ ይውጡ?",

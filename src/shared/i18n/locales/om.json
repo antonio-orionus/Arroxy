@@ -977,6 +977,8 @@
 			"description": "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni.",
 			"showTab": "Tab Daawwannaa agarsiisi",
 			"showTabDescription": "Cufuun isaa buufannoon seensa Daawwannaa akka hin fayyadamne ni godha.",
+			"idleUnload": "Yeroo hin jirretti yaadannoo bilisa godhi",
+			"idleUnloadDescription": "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata.",
 			"signOut": "Daawwannaa irraa ba'i",
 			"signOutDescription": "Seensa YouTube fi daataa browser Daawwannaa keessaa qulqulleessa.",
 			"signOutConfirmTitle": "Daawwannaa irraa ba'uu?",

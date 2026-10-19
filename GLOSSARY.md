@@ -259,7 +259,7 @@ The persistent browsing identity behind Explore, owned by the app and kept separ
 _Avoid_: Explore account, browser profile
 
 **Idle unload**:
-Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.
+Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Off unless the user turns it on: coming back costs a reload. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.
 _Avoid_: suspension, discard, hibernation, sleeping tab
 
 **Explore cookies**:

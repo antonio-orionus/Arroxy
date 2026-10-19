@@ -8,15 +8,23 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {Field, FieldDescription, FieldGroup} from '../ui/field.js'
 import {Panel} from '../shared/Panel.js'
 import {SettingSwitch} from '../shared/SettingSwitch.js'
+import {isExploreIdleUnloadOn} from '@shared/exploreIdleUnload.js'
 
-// Settings → Explore: the kill switch and sign-out. Sign-out is offered once
+// Settings → Explore: the kill switch, idle unload (off unless turned on), and sign-out. Sign-out is offered once
 // Explore has been used (P2-R31): the partition can hold data without a
 // sign-in, e.g. after a verified sign-out, and clearing it again is harmless.
 // It always asks for a confirmation first.
 export function ExploreSettingsPanel(): ReactNode {
 	const {t} = useTranslation()
-	const {exploreEnabled, canSignOut, setExploreEnabled, signOutOfExplore} = useAppStore(
-		useShallow(s => ({exploreEnabled: s.settings?.common?.exploreEnabled !== false, canSignOut: s.settings?.common?.exploreNoticeSeen === true || s.exploreView?.signedIn === true, setExploreEnabled: s.setExploreEnabled, signOutOfExplore: s.signOutOfExplore}))
+	const {exploreEnabled, idleUnload, canSignOut, setExploreEnabled, setExploreIdleUnload, signOutOfExplore} = useAppStore(
+		useShallow(s => ({
+			exploreEnabled: s.settings?.common?.exploreEnabled !== false,
+			idleUnload: s.settings?.common !== undefined && isExploreIdleUnloadOn(s.settings.common),
+			canSignOut: s.settings?.common?.exploreNoticeSeen === true || s.exploreView?.signedIn === true,
+			setExploreEnabled: s.setExploreEnabled,
+			setExploreIdleUnload: s.setExploreIdleUnload,
+			signOutOfExplore: s.signOutOfExplore
+		}))
 	)
 	const [confirming, setConfirming] = useState(false)
 
@@ -29,6 +37,7 @@ export function ExploreSettingsPanel(): ReactNode {
 		<Panel testId="explore-settings" title={t('explore.settings.title')} description={t('explore.settings.description')}>
 			<FieldGroup className="gap-4">
 				<SettingSwitch id="profiles-settings-explore-enabled" label={t('explore.settings.showTab')} description={t('explore.settings.showTabDescription')} checked={exploreEnabled} onCheckedChange={checked => void setExploreEnabled(checked)} testId="explore-settings-enabled" />
+				<SettingSwitch id="profiles-settings-explore-idle-unload" label={t('explore.settings.idleUnload')} description={t('explore.settings.idleUnloadDescription')} checked={idleUnload} disabled={!exploreEnabled} onCheckedChange={checked => void setExploreIdleUnload(checked)} testId="explore-settings-idle-unload" />
 				<Field className="gap-1.5">
 					<Button type="button" variant="outline" size="sm" disabled={!canSignOut} onClick={() => setConfirming(true)} data-testid="explore-settings-sign-out">
 						<LogOut data-icon="inline-start" aria-hidden />

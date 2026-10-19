@@ -947,6 +947,8 @@
 			"description": "YouTube'a Arroxy içinde göz at ve hesap gerektiren videolar için oturum aç.",
 			"showTab": "Keşfet sekmesini göster",
 			"showTabDescription": "Kapatmak, indirmelerin Keşfet oturumunu kullanmasını da durdurur.",
+			"idleUnload": "Uzaktayken belleği boşalt",
+			"idleUnloadDescription": "Başka bir sekmede 5 dakika geçince YouTube ana sayfasını veya arama sayfasını kapatır. Geri döndüğünde yeniden yüklenir, bu birkaç saniye sürer.",
 			"signOut": "Keşfet'ten çıkış yap",
 			"signOutDescription": "Keşfet'teki YouTube oturumunu ve gezinme verilerini temizler.",
 			"signOutConfirmTitle": "Keşfet'ten çıkış yapılsın mı?",

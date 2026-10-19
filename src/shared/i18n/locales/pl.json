@@ -1053,6 +1053,8 @@
 			"description": "Przeglądaj YouTube w Arroxy i zaloguj się, aby pobierać filmy wymagające konta.",
 			"showTab": "Pokaż kartę Odkrywaj",
 			"showTabDescription": "Wyłączenie jej sprawia też, że pobieranie przestaje używać logowania z karty Odkrywaj.",
+			"idleUnload": "Zwalniaj pamięć w tle",
+			"idleUnloadDescription": "Po 5 minutach na innej karcie zamyka stronę główną lub stronę wyszukiwania YouTube. Po powrocie strona wczytuje się ponownie, co trwa kilka sekund.",
 			"signOut": "Wyloguj się z karty Odkrywaj",
 			"signOutDescription": "Usuwa logowanie do YouTube i dane przeglądania w karcie Odkrywaj.",
 			"signOutConfirmTitle": "Wylogować się z karty Odkrywaj?",

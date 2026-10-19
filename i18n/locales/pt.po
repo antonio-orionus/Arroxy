@@ -354,6 +354,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "Navegue pelo YouTube dentro do Arroxy e entre para vídeos que exigem uma conta."
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Liberar memória em segundo plano"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Após 5 minutos em outra aba, fecha a página inicial ou de pesquisa do YouTube. Ao voltar, ela é recarregada, o que leva alguns segundos."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Mostrar a aba Explorar"

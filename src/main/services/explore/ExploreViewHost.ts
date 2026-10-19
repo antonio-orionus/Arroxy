@@ -1,6 +1,7 @@
 import {WebContentsView, type BrowserWindow, type Cookie, type InputEvent, type Session, type WebContents} from 'electron'
 import log from 'electron-log/main.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
+import {isExploreIdleUnloadOn} from '@shared/exploreIdleUnload.js'
 import {hostMatches} from '@shared/sites/hostRules.js'
 import {exploreAddressScope, isExploreSiteAddress, type ExploreSiteScope} from '@shared/sites/exploreAddress.js'
 import {siteById} from '@shared/sites/index.js'
@@ -35,7 +36,8 @@ const SNAPSHOT_JPEG_QUALITY = 85
 // longer). A blocker that starts later reloads the page instead.
 const AD_BLOCK_START_WAIT_MS = 3_000
 // How long the user is away from the tab before an eligible page is released
-// (idle unload). Long enough for a round trip through the download wizard.
+// (idle unload, when the user turned it on). Long enough for a round trip
+// through the download wizard.
 const IDLE_UNLOAD_DELAY_MS = 300_000
 
 // The address the renderer may see: a sign-in page's query and fragment are dropped.
@@ -242,6 +244,13 @@ export class ExploreViewHost {
 		await this.openStart()
 	}
 
+	// The idle unload setting changed: turned on while the user is away, the
+	// full delay starts now; turned off, a running deadline is dropped.
+	applyIdleUnloadSetting(): void {
+		this.cancelIdleUnload()
+		if (!this.active) this.armIdleUnload()
+	}
+
 	// A changed ad blocker setting. Without a view nothing starts: the next
 	// view applies it before its first page.
 	async applyAdBlockSetting(): Promise<void> {
@@ -386,7 +395,7 @@ export class ExploreViewHost {
 
 	// One deadline per leave: a repeated inactive notice does not push it back.
 	private armIdleUnload(): void {
-		if (!this.view || this.idleTimer !== undefined) return
+		if (!this.view || this.idleTimer !== undefined || !isExploreIdleUnloadOn(this.deps.settings())) return
 		this.idleTimer = setTimeout(() => {
 			this.idleTimer = undefined
 			this.idleUnload()
@@ -403,7 +412,7 @@ export class ExploreViewHost {
 	// An ineligible page stays until the user leaves the tab again.
 	private idleUnload(): void {
 		const view = this.view
-		if (!view || this.active || this.closing !== null) return
+		if (!view || this.active || this.closing !== null || !isExploreIdleUnloadOn(this.deps.settings())) return
 		const wc = view.webContents
 		if (wc.isDestroyed()) return
 		const keep = idleUnloadKeepReason({url: wc.getURL(), loading: wc.isLoading(), error: this.error !== null, proxyRefused: this.proxyRefused, mediaPlaying: this.mediaPlaying}, this.idleUnloadRule)

@@ -929,6 +929,8 @@
 			"description": "Jelajahi YouTube di dalam Arroxy dan masuk untuk video yang memerlukan akun.",
 			"showTab": "Tampilkan tab Jelajahi",
 			"showTabDescription": "Menonaktifkannya juga menghentikan unduhan memakai login Jelajahi Anda.",
+			"idleUnload": "Kosongkan memori saat ditinggal",
+			"idleUnloadDescription": "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik.",
 			"signOut": "Keluar dari Jelajahi",
 			"signOutDescription": "Menghapus login YouTube dan data penjelajahan Anda di Jelajahi.",
 			"signOutConfirmTitle": "Keluar dari Jelajahi?",

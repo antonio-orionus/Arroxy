@@ -18,7 +18,7 @@ interface SettingsHandlerDeps {
 	hotkeyService: HotkeyService
 	// The kill switch: turning Explore off tears the native view down. A new
 	// proxy setting, or a toggled ad blocker, is applied to an open view at once.
-	exploreView: Pick<ExploreViewHost, 'destroy' | 'applyProxySetting' | 'applyAdBlockSetting'>
+	exploreView: Pick<ExploreViewHost, 'destroy' | 'applyProxySetting' | 'applyAdBlockSetting' | 'applyIdleUnloadSetting'>
 	// Rate-limit cooldowns are kept per network route, so a new proxy setting
 	// changes which ones hold requests.
 	onProxyChanged?: () => void
@@ -66,6 +66,9 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		if (data.common?.exploreAdBlock !== undefined) {
 			// Not awaited: the blocker's status reaches the toolbar through the view state.
 			void exploreView.applyAdBlockSetting()
+		}
+		if (data.common?.exploreIdleUnload !== undefined) {
+			exploreView.applyIdleUnloadSetting()
 		}
 		if (data.common?.uiTheme !== undefined) {
 			onThemeChanged?.(data.common.uiTheme)

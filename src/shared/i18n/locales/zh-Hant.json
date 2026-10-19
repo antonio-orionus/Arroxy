@@ -858,6 +858,8 @@
 			"description": "在 Arroxy 中瀏覽 YouTube，並登入以存取需要帳戶的影片。",
 			"showTab": "顯示「探索」分頁",
 			"showTabDescription": "關閉後，下載也將不再使用你在「探索」中的登入。",
+			"idleUnload": "離開時釋放記憶體",
+			"idleUnloadDescription": "在其他分頁停留 5 分鐘後，關閉 YouTube 首頁或搜尋頁面。返回時會重新載入，需要幾秒鐘。",
 			"signOut": "登出「探索」",
 			"signOutDescription": "清除「探索」中的 YouTube 登入資訊和瀏覽資料。",
 			"signOutConfirmTitle": "要登出「探索」嗎？",

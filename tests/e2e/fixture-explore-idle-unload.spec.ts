@@ -5,7 +5,8 @@ import {withFixtureProductApp} from './fixtureProductE2E.js'
 
 // Explore idle unload risk group: a while after the user leaves the Explore
 // tab, the page is released to free its memory, and coming back must bring it
-// back where it was. The failure modes are a released page that comes back
+// back where it was. It is off unless the user turns it on in Settings.
+// The failure modes are a page released with the setting off, a released page that comes back
 // somewhere else (or without its Back/Forward history, or signed out of its
 // session), a page released while a dialog only covers it, a page released
 // that holds more than its URL (a watch page), and a sign-out that a released
@@ -19,8 +20,10 @@ import {withFixtureProductApp} from './fixtureProductE2E.js'
 
 const IDLE_MS = 1_500
 const POLL = {timeout: 20_000}
-// Off: a blocker that starts after the first page reloads it, which would read as a released page.
+// Ad blocker off: a blocker that starts after the first page reloads it, which would read as a released page.
 const SEEN = {exploreNoticeSeen: true, exploreAdBlock: false}
+// Idle unload turned on, as a user short of memory would.
+const ON = {...SEEN, exploreIdleUnload: true}
 
 interface PageServer {
 	origin: string
@@ -120,12 +123,15 @@ async function pastTheDeadline(page: Page): Promise<void> {
 }
 
 // Actions: open Explore; search twice from the address bar; Back; leave for
-// Settings; come back; Forward; Back twice.
-// Milestones: the view gone after the delay; a view again on return, settled.
-// Oracles: the view comes back on the entry that was active, as a new
-// document (a fresh marker; the HTTP cache may serve it) with the session's cookie;
-// Forward and Back walk the same history it had.
-test('Explore releases an idle search page and brings it back on the same history entry', async () => {
+// Settings and stay past the delay; turn on "Free memory while away" there;
+// come back; Forward; Back twice.
+// Milestones: the switch on; the view gone after the delay; a view again on
+// return, settled.
+// Oracles: with the setting at its default (off) the page outlives the delay;
+// once turned on, the view comes back on the entry that was active, as a new
+// document (a fresh marker; the HTTP cache may serve it) with the session's
+// cookie; Forward and Back walk the same history it had.
+test('Explore releases an idle search page only once turned on, and brings it back on the same history entry', async () => {
 	test.setTimeout(120_000)
 
 	await withSite(async site => {
@@ -144,6 +150,13 @@ test('Explore releases an idle search page and brings it back on the same histor
 			expect(before.cookie).toContain('fixture_session=kept')
 
 			await leaveExplore(page)
+			await pastTheDeadline(page)
+			expect((await viewFacts(app)).views).toBe(1)
+
+			const idleUnload = page.getByTestId('explore-settings-idle-unload')
+			await expect(idleUnload).not.toBeChecked()
+			await idleUnload.click()
+			await expect(idleUnload).toBeChecked()
 			await expect.poll(async () => (await viewFacts(app)).views, POLL).toBe(0)
 
 			await openExplore(page)
@@ -176,7 +189,7 @@ test('Explore keeps the page under a dialog and keeps a watch page while away', 
 	await withSite(async site => {
 		const home = `${site.origin}/`
 		const watch = `${site.origin}/watch?v=fixture`
-		await withFixtureProductApp({exploreHomeUrl: home, exploreIdleUnloadMs: IDLE_MS, settings: s => Object.assign(s.common, SEEN), userDataPrefix: 'arroxy-fixture-explore-idle-keep-user-', outputPrefix: 'arroxy-fixture-explore-idle-keep-out-'}, async ({app, page}) => {
+		await withFixtureProductApp({exploreHomeUrl: home, exploreIdleUnloadMs: IDLE_MS, settings: s => Object.assign(s.common, ON), userDataPrefix: 'arroxy-fixture-explore-idle-keep-user-', outputPrefix: 'arroxy-fixture-explore-idle-keep-out-'}, async ({app, page}) => {
 			await openExplore(page)
 			const opened = await settled(app, home)
 
@@ -216,7 +229,7 @@ test('Explore sign-out while the page is released forgets its history', async ()
 	await withSite(async site => {
 		const home = `${site.origin}/`
 		const search = `${site.origin}/results?search_query=account`
-		await withFixtureProductApp({exploreHomeUrl: home, exploreIdleUnloadMs: IDLE_MS, exploreCookies: SIGNED_IN, settings: s => Object.assign(s.common, SEEN), userDataPrefix: 'arroxy-fixture-explore-idle-out-user-', outputPrefix: 'arroxy-fixture-explore-idle-out-out-'}, async ({app, page}) => {
+		await withFixtureProductApp({exploreHomeUrl: home, exploreIdleUnloadMs: IDLE_MS, exploreCookies: SIGNED_IN, settings: s => Object.assign(s.common, ON), userDataPrefix: 'arroxy-fixture-explore-idle-out-user-', outputPrefix: 'arroxy-fixture-explore-idle-out-out-'}, async ({app, page}) => {
 			await openExplore(page)
 			await settled(app, home)
 			await typeAddress(page, search)

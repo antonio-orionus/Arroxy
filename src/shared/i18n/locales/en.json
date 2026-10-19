@@ -925,6 +925,8 @@
 			"description": "Browse YouTube inside Arroxy and sign in for videos that need an account.",
 			"showTab": "Show the Explore tab",
 			"showTabDescription": "Turning it off also stops downloads from using your Explore sign-in.",
+			"idleUnload": "Free memory while away",
+			"idleUnloadDescription": "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds.",
 			"signOut": "Sign out of Explore",
 			"signOutDescription": "Clears your YouTube sign-in and browsing data in Explore.",
 			"signOutConfirmTitle": "Sign out of Explore?",

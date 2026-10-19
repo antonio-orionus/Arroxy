@@ -683,6 +683,8 @@ const commonSettingsSchema = z.object({
 	exploreLastUrl: z.string().optional(),
 	// The Explore ad blocker; absent means on (see isExploreAdBlockOn), only false turns it off.
 	exploreAdBlock: z.boolean().optional(),
+	// Explore idle unload; absent means off (see isExploreIdleUnloadOn), only true turns it on.
+	exploreIdleUnload: z.boolean().optional(),
 	// Compact app chrome (icon-only tab bar, slim footer) while browsing in Explore.
 	exploreCompactChrome: z.boolean().optional(),
 	nativeAudioPreference: nativeAudioPreferenceSchema.optional(),

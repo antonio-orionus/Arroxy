@@ -41,7 +41,8 @@ function makeHost(addressScope: ExploreSiteScope = youtubeSite.explore ? explore
 		capture: vi.fn<() => Promise<string | null>>().mockResolvedValue(null),
 		destroy: vi.fn(),
 		applyProxySetting: vi.fn().mockResolvedValue(undefined),
-		applyAdBlockSetting: vi.fn().mockResolvedValue(undefined)
+		applyAdBlockSetting: vi.fn().mockResolvedValue(undefined),
+		applyIdleUnloadSetting: vi.fn()
 	}
 }
 
@@ -370,6 +371,13 @@ describe('settings update applies a toggled ad blocker to the Explore view', () 
 	it('leaves the blocker alone when the patch does not touch it', async () => {
 		const host = setup()
 		await invoke(IPC_CHANNELS.settingsUpdate, {common: {proxyUrl: ''}})
+		expect(host.applyAdBlockSetting).not.toHaveBeenCalled()
+	})
+
+	it.each([true, false])('applies idle unload when the patch sets exploreIdleUnload to %s', async exploreIdleUnload => {
+		const host = setup()
+		expect((await invoke(IPC_CHANNELS.settingsUpdate, {common: {exploreIdleUnload}})).ok).toBe(true)
+		expect(host.applyIdleUnloadSetting).toHaveBeenCalledOnce()
 		expect(host.applyAdBlockSetting).not.toHaveBeenCalled()
 	})
 })

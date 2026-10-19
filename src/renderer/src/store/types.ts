@@ -490,6 +490,7 @@ export interface SystemSlice {
 	setCookiesBrowser: (browser: CookiesBrowser) => Promise<void>
 	setProxyUrl: (url: string) => Promise<void>
 	setExploreAdBlock: (enabled: boolean) => Promise<void>
+	setExploreIdleUnload: (enabled: boolean) => Promise<void>
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>

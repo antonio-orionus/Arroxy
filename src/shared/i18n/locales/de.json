@@ -974,6 +974,8 @@
 			"description": "Durchstöbere YouTube in Arroxy und melde dich für Videos an, die ein Konto erfordern.",
 			"showTab": "Entdecken-Tab anzeigen",
 			"showTabDescription": "Wenn du ihn ausschaltest, verwenden Downloads deine Entdecken-Anmeldung ebenfalls nicht mehr.",
+			"idleUnload": "Arbeitsspeicher im Hintergrund freigeben",
+			"idleUnloadDescription": "Schließt nach 5 Minuten auf einem anderen Tab die YouTube-Startseite oder -Suchseite. Beim Zurückkehren wird sie neu geladen, was einige Sekunden dauert.",
 			"signOut": "Von Entdecken abmelden",
 			"signOutDescription": "Löscht deine YouTube-Anmeldung und die Browserdaten in Entdecken.",
 			"signOutConfirmTitle": "Von Entdecken abmelden?",

@@ -1014,6 +1014,8 @@
 			"description": "Parcourez YouTube dans Arroxy et connectez-vous pour les vidéos qui nécessitent un compte.",
 			"showTab": "Afficher l’onglet Explorer",
 			"showTabDescription": "Le désactiver empêche aussi les téléchargements d’utiliser votre connexion Explorer.",
+			"idleUnload": "Libérer la mémoire en arrière-plan",
+			"idleUnloadDescription": "Après 5 minutes sur un autre onglet, ferme la page d'accueil ou de recherche de YouTube. Au retour, elle se recharge, ce qui prend quelques secondes.",
 			"signOut": "Se déconnecter d’Explorer",
 			"signOutDescription": "Efface votre connexion YouTube et vos données de navigation dans Explorer.",
 			"signOutConfirmTitle": "Se déconnecter d’Explorer ?",

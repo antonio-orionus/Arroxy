@@ -900,6 +900,8 @@
 			"description": "Arroxy에서 YouTube를 둘러보고 계정이 필요한 동영상을 위해 로그인하세요.",
 			"showTab": "탐색 탭 표시",
 			"showTabDescription": "끄면 다운로드에도 탐색 로그인이 사용되지 않습니다.",
+			"idleUnload": "자리를 비운 동안 메모리 확보",
+			"idleUnloadDescription": "다른 탭에서 5분이 지나면 YouTube 홈 또는 검색 페이지를 닫습니다. 돌아오면 다시 불러오며, 몇 초 걸립니다.",
 			"signOut": "탐색에서 로그아웃",
 			"signOutDescription": "탐색의 YouTube 로그인 정보와 방문 기록을 삭제합니다.",
 			"signOutConfirmTitle": "탐색에서 로그아웃할까요?",

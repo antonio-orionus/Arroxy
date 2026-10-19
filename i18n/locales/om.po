@@ -349,6 +349,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "YouTube Arroxy keessatti ilaali, viidiyoo akkaawuntii barbaadaniif seeni."
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Yeroo hin jirretti yaadannoo bilisa godhi"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Daqiiqaa 5 booda tab biraa irratti, fuula jalqabaa ykn barbaacha YouTube ni cufa. Yeroo deebitu irra deebi'ee fe'ama, kunis sekondii muraasa fudhata."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Tab Daawwannaa agarsiisi"

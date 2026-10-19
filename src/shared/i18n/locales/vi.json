@@ -915,6 +915,8 @@
 			"description": "Duyệt YouTube trong Arroxy và đăng nhập để xem các video cần tài khoản.",
 			"showTab": "Hiện tab Khám phá",
 			"showTabDescription": "Tắt tab này cũng khiến tải xuống ngừng dùng đăng nhập Khám phá của bạn.",
+			"idleUnload": "Giải phóng bộ nhớ khi vắng mặt",
+			"idleUnloadDescription": "Sau 5 phút ở thẻ khác, đóng trang chủ hoặc trang tìm kiếm YouTube. Khi quay lại, trang sẽ tải lại, mất vài giây.",
 			"signOut": "Đăng xuất khỏi Khám phá",
 			"signOutDescription": "Xóa đăng nhập YouTube và dữ liệu duyệt web của bạn trong Khám phá.",
 			"signOutConfirmTitle": "Đăng xuất khỏi Khám phá?",

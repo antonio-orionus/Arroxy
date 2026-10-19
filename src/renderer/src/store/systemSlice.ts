@@ -507,6 +507,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'exploreAdBlock', {exploreAdBlock: enabled})
 		},
 
+		setExploreIdleUnload: async enabled => {
+			await applyCommonPatchAsync(get, set, 'exploreIdleUnload', {exploreIdleUnload: enabled})
+		},
+
 		setLimitRate: async value => {
 			await applyCommonPatchAsync(get, set, 'limitRate', {limitRate: value ?? ''})
 		},

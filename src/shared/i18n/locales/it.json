@@ -996,6 +996,8 @@
 			"description": "Naviga su YouTube in Arroxy e accedi per i video che richiedono un account.",
 			"showTab": "Mostra la scheda Esplora",
 			"showTabDescription": "Disattivandola, i download smettono di usare anche l'accesso di Esplora.",
+			"idleUnload": "Libera memoria in background",
+			"idleUnloadDescription": "Dopo 5 minuti su un'altra scheda, chiude la home o la pagina di ricerca di YouTube. Al ritorno viene ricaricata, il che richiede qualche secondo.",
 			"signOut": "Esci da Esplora",
 			"signOutDescription": "Cancella l'accesso a YouTube e i dati di navigazione in Esplora.",
 			"signOutConfirmTitle": "Uscire da Esplora?",

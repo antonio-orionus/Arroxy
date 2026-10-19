@@ -349,6 +349,14 @@ msgctxt "explore.settings.description"
 msgid "Browse YouTube inside Arroxy and sign in for videos that need an account."
 msgstr "Vinjari YouTube ndani ya Arroxy na uingie kwa video zinazohitaji akaunti."
 
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Achilia kumbukumbu ukiwa mbali"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Baada ya dakika 5 kwenye kichupo kingine, hufunga ukurasa wa mwanzo au wa utafutaji wa YouTube. Ukirudi, hupakiwa upya, jambo linalochukua sekunde chache."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Onyesha kichupo cha Gundua"
