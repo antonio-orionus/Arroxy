@@ -6,11 +6,13 @@ import {i18next, pickLanguage, isRtl} from '@shared/i18n/index.js'
 import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
+import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
 import {notify} from '../lib/notify.js'
 
 let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
 let unbindHotkeyTrigger: (() => void) | null = null
+let unbindCopiedLinks: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 let unbindExploreView: (() => void) | null = null
@@ -192,6 +194,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		warmupRunning: false,
 		warmupCancellable: false,
 		warmupProgress: null,
+		copiedLink: null,
 		settings: null,
 		hotkeyRegistration: 'off',
 		graphicsPolicy: null,
@@ -271,6 +274,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// Both halves of feedback are now bound. Main may register the chord;
 			// presses during the remaining startup work are acknowledged as busy.
 			void window.appApi.hotkey.rendererReady()
+
+			// Lifetime-bound: a link copied on any step waits for the Download tab.
+			unbindCopiedLinks?.()
+			unbindCopiedLinks = bindCopiedLinks(set)
 
 			get().bindExploreView()
 

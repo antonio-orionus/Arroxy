@@ -58,6 +58,10 @@ _Avoid_: percent
 A file produced by a queue item, such as media, sidecar subtitles, a thumbnail, a description, or a companion file. An artifact is **missing** when it is no longer on disk, for example after being moved or deleted outside the app; the queue checks this each time it loads and clears the mark when the file is back.
 _Avoid_: payload, attachment
 
+**Copied link**:
+The latest single link the clipboard watch saw while Arroxy was in front: a clipboard holding exactly one web link and nothing else. It replaces the URL field without asking, with an Undo, as soon as the Download tab is idle; until then it waits, and a newer copy takes its place.
+_Avoid_: pending link, clipboard candidate, suggested link
+
 ### Queue
 
 **Queue**:

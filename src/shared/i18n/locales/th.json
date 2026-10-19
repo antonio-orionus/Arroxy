@@ -215,16 +215,7 @@
 			"advanced": "ขั้นสูง",
 			"settings": {"inputHeading": "ข้อมูลเข้า", "behaviorHeading": "การทำงานของการดาวน์โหลด", "behaviorDescription": "การทำงานส่วนกลางที่มีผลต่อการดาวน์โหลดผ่านโปรไฟล์ด้วย"},
 			"clearAria": "ล้าง URL",
-			"clipboard": {
-				"toggle": "เฝ้าดูคลิปบอร์ด",
-				"toggleDescription": "กรอกช่อง URL อัตโนมัติเมื่อคุณคัดลอกลิงก์วิดีโอ",
-				"autofilledLink": "เพิ่มลิงก์จากคลิปบอร์ดแล้ว",
-				"bulkHint": "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มเพื่อเพิ่มลิงก์เหล่านั้น",
-				"pendingLinkReady": "ลิงก์ที่คัดลอกพร้อมแล้ว",
-				"useCopiedLink": "ใช้ลิงก์ที่คัดลอก",
-				"dismissCopiedLink": "ปิดลิงก์ที่คัดลอก",
-				"dialog": {"cancelButton": "ยกเลิก"}
-			},
+			"clipboard": {"toggle": "เฝ้าดูคลิปบอร์ด", "toggleDescription": "กรอกช่อง URL อัตโนมัติเมื่อคุณคัดลอกลิงก์วิดีโอ", "autofilledLink": "เพิ่มลิงก์จากคลิปบอร์ดแล้ว", "bulkHint": "คัดลอกหลายลิงก์ — ใช้ URL แบบกลุ่มเพื่อเพิ่มลิงก์เหล่านั้น", "replacedLink": "แทนที่ด้วยลิงก์ที่คัดลอกแล้ว", "undo": "เลิกทำ", "dialog": {"cancelButton": "ยกเลิก"}},
 			"hotkey": {
 				"sectionTitle": "แป้นลัดส่วนกลาง",
 				"sectionDescription": "ดาวน์โหลดลิงก์ที่คัดลอกจากแอปใดก็ได้โดยไม่ต้องเปิด Arroxy",

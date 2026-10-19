@@ -22,12 +22,11 @@ import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {QueueManagerTab} from '../queue/QueueManagerTab.js'
 import {ExploreTab} from '../explore/ExploreTab.js'
-import type {ClipboardCandidate} from './clipboardIntake.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
 import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip} from './homeTabRoute.js'
-import {useBulkUrlDialog, useClipboardIntake} from './downloadHomeIntake.js'
+import {useBulkUrlDialog, useCopiedLinkIntake} from './downloadHomeIntake.js'
 import {ProfileEditorDialog} from './ProfileEditorDialog.js'
 import {useProfileEditor} from './useProfileEditor.js'
 import hiImg from '../../assets/Hi.png'
@@ -105,7 +104,7 @@ export function DownloadProfilesHome(): ReactNode {
 	const {queueCount, attentionCount, queueIsActive} = useQueueTabSummary()
 	const bulkDialog = useBulkUrlDialog(initialBrowserMockScenario)
 	const {queueTabTipVisible, dismissQueueTabTip} = useQueueTabTip({activeTab, initialBrowserMockScenario})
-	const clipboard = useClipboardIntake({bulkOpenRef: bulkDialog.bulkOpenRef, setWizardUrl})
+	useCopiedLinkIntake({bulkOpen: bulkDialog.bulkOpen, downloadTabActive: activeTab === 'download', setWizardUrl})
 	const editor = useProfileEditor({initialBrowserMockScenario, profilesPrefs, removeDownloadProfile})
 	const {openEditor} = editor
 	const manageProfiles = (): void => selectProfilesTab('profiles')
@@ -113,14 +112,8 @@ export function DownloadProfilesHome(): ReactNode {
 		void setActiveDownloadProfile(downloadProfileRefFor(profile, profilesPrefs))
 	}
 
-	function openManualBulkDialog(): void {
-		clipboard.setPendingClipboard(null)
-		bulkDialog.openBulkDialog()
-	}
-
 	function handleTabChange(value: unknown): void {
 		if (!isProfilesTab(value)) return
-		if (value !== 'download') clipboard.setPendingClipboard(null)
 		selectProfilesTab(value)
 	}
 
@@ -142,16 +135,7 @@ export function DownloadProfilesHome(): ReactNode {
 				)}
 
 				<TabsContent value="download" className="flex flex-col gap-4">
-					<DownloadTabPanel
-						view={view}
-						initialBrowserMockScenario={initialBrowserMockScenario}
-						pendingClipboard={clipboard.pendingClipboard}
-						onConsumeClipboard={clipboard.consumeClipboardCandidate}
-						onDismissClipboard={() => clipboard.setPendingClipboard(null)}
-						onEditProfile={openEditor}
-						onManageProfiles={manageProfiles}
-						onOpenBulk={openManualBulkDialog}
-					/>
+					<DownloadTabPanel view={view} initialBrowserMockScenario={initialBrowserMockScenario} onEditProfile={openEditor} onManageProfiles={manageProfiles} onOpenBulk={bulkDialog.openBulkDialog} />
 				</TabsContent>
 
 				{exploreEnabled ? (
@@ -182,9 +166,6 @@ export function DownloadProfilesHome(): ReactNode {
 interface DownloadTabPanelProps {
 	view: DownloadHomeView
 	initialBrowserMockScenario: string | null
-	pendingClipboard: ClipboardCandidate | null
-	onConsumeClipboard: (candidate: ClipboardCandidate) => void
-	onDismissClipboard: () => void
 	onEditProfile: (profile: DownloadProfile | null) => void
 	onManageProfiles: () => void
 	onOpenBulk: () => void
@@ -192,7 +173,7 @@ interface DownloadTabPanelProps {
 
 // The URL tab: paste a link, then download it with the active profile, review
 // it in the wizard, or open the bulk dialog.
-function DownloadTabPanel({view, initialBrowserMockScenario, pendingClipboard, onConsumeClipboard, onDismissClipboard, onEditProfile, onManageProfiles, onOpenBulk}: DownloadTabPanelProps): ReactNode {
+function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const {activeProfileDestination, activeProfileDestinationDetail, chooseWizardFolder, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
 	const pickProfileRef = (ref: DownloadProfileRef): void => {
@@ -203,8 +184,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, pendingClipboard, o
 			<CardHeader className="px-5 pt-5 md:px-6 md:pt-5">
 				<div className="min-w-0">
 					<DownloadMascotHeader view={view} />
-					<DownloadUrlInput view={view} pendingClipboard={pendingClipboard} onConsumeClipboard={onConsumeClipboard} />
-					{pendingClipboard ? <ClipboardPendingAction onApply={() => onConsumeClipboard(pendingClipboard)} onDismiss={onDismissClipboard} /> : null}
+					<DownloadUrlInput view={view} />
 				</div>
 			</CardHeader>
 			<CardContent className="px-5 pb-4 md:px-6">
@@ -253,17 +233,13 @@ function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
 	)
 }
 
-function DownloadUrlInput({view, pendingClipboard, onConsumeClipboard}: {view: DownloadHomeView; pendingClipboard: ClipboardCandidate | null; onConsumeClipboard: (candidate: ClipboardCandidate) => void}): ReactNode {
+function DownloadUrlInput({view}: {view: DownloadHomeView}): ReactNode {
 	const {t} = useTranslation()
 	const {hasInput, setWizardUrl, submitUrl, urlReady, wizardUrl} = view
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	function handleClearUrl(): void {
 		setWizardUrl('')
-		if (pendingClipboard) {
-			onConsumeClipboard(pendingClipboard)
-			return
-		}
 		inputRef.current?.focus()
 	}
 
@@ -326,27 +302,6 @@ function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
 				</Alert>
 			) : null}
 		</>
-	)
-}
-
-function ClipboardPendingAction({onApply, onDismiss}: {onApply: () => void; onDismiss: () => void}): ReactNode {
-	const {t} = useTranslation()
-	const Icon = Link2
-	const statusLabel = t('wizard.url.clipboard.pendingLinkReady')
-	const actionLabel = t('wizard.url.clipboard.useCopiedLink')
-	return (
-		<output className="mt-2 flex max-w-full flex-wrap items-center gap-2 rounded-2xl border border-[var(--glow-border)] bg-primary/12 px-3 py-2 text-xs text-foreground" data-testid="clipboard-pending">
-			<span className="flex min-w-0 flex-1 items-center gap-2">
-				<Icon className="size-3.5 shrink-0 text-primary" aria-hidden />
-				<span className="min-w-0 truncate">{statusLabel}</span>
-			</span>
-			<Button type="button" variant="outline" size="xs" onClick={onApply} data-testid="clipboard-pending-action" className="bg-background/50">
-				{actionLabel}
-			</Button>
-			<Button type="button" variant="ghost" size="icon-xs" onClick={onDismiss} aria-label={t('wizard.url.clipboard.dismissCopiedLink')} data-testid="clipboard-pending-dismiss" className="-me-1">
-				<X aria-hidden />
-			</Button>
-		</output>
 	)
 }
 

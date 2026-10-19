@@ -229,9 +229,8 @@
 				"toggleDescription": "YouTubeのリンクをコピーすると自動的にURLフィールドに入力します。",
 				"autofilledLink": "クリップボードからリンクを追加しました",
 				"bulkHint": "複数のリンクがコピーされました —「一括 URL」で追加できます",
-				"pendingLinkReady": "コピーしたリンクの準備ができました",
-				"useCopiedLink": "コピーしたリンクを使う",
-				"dismissCopiedLink": "コピーしたリンクを閉じる",
+				"replacedLink": "コピーしたリンクに置き換えました",
+				"undo": "元に戻す",
 				"dialog": {"cancelButton": "キャンセル"}
 			},
 			"hotkey": {

@@ -253,9 +253,8 @@
 				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
 				"autofilledLink": "Bağlantı panodan eklendi",
 				"bulkHint": "Birden fazla bağlantı kopyalandı — eklemek için Toplu URL’leri kullanın",
-				"pendingLinkReady": "Kopyalanmış bağlantı hazır",
-				"useCopiedLink": "Kopyalanan bağlantıyı kullan",
-				"dismissCopiedLink": "Kopyalanan bağlantıyı kapat",
+				"replacedLink": "Kopyalanan bağlantıyla değiştirildi",
+				"undo": "Geri al",
 				"dialog": {"cancelButton": "İptal"}
 			},
 			"hotkey": {

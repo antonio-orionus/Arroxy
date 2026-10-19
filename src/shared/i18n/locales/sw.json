@@ -240,9 +240,8 @@
 				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
 				"autofilledLink": "Kiungo kimeongezwa kutoka ubao wa kunakili",
 				"bulkHint": "Viungo vingi vimenakiliwa — viongeze kwa kutumia “URL nyingi”",
-				"pendingLinkReady": "Kiungo kilichonakiliwa kiko tayari",
-				"useCopiedLink": "Tumia kiungo kilichonakiliwa",
-				"dismissCopiedLink": "Ondoa kiungo kilichonakiliwa",
+				"replacedLink": "Imebadilishwa na kiungo kilichonakiliwa",
+				"undo": "Tendua",
 				"dialog": {"cancelButton": "Ghairi"}
 			},
 			"hotkey": {

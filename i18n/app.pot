@@ -3687,12 +3687,8 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr ""
 
-msgctxt "wizard.url.clipboard.dismissCopiedLink"
-msgid "Dismiss copied link"
-msgstr ""
-
-msgctxt "wizard.url.clipboard.pendingLinkReady"
-msgid "Copied link ready"
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
 msgstr ""
 
 msgctxt "wizard.url.clipboard.toggle"
@@ -3703,8 +3699,8 @@ msgctxt "wizard.url.clipboard.toggleDescription"
 msgid "Auto-fill the URL field when you copy a video link."
 msgstr ""
 
-msgctxt "wizard.url.clipboard.useCopiedLink"
-msgid "Use copied link"
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
 msgstr ""
 
 msgctxt "wizard.url.closeToTray.toggle"

@@ -253,9 +253,8 @@
 				"toggleDescription": "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.",
 				"autofilledLink": "لینک له کلېپبورډه زیات شو",
 				"bulkHint": "ډېر لینکونه کاپي شوي دي — د اضافه کولو لپاره «ډېر URLونه» وکاروئ",
-				"pendingLinkReady": "کاپي شوی لینک چمتو دی",
-				"useCopiedLink": "کاپي شوی لینک وکاروه",
-				"dismissCopiedLink": "کاپي شوی لینک بند کړه",
+				"replacedLink": "په کاپي شوي لینک بدل شو",
+				"undo": "بېرته راګرځول",
 				"dialog": {"cancelButton": "لغوه کړه"}
 			},
 			"hotkey": {

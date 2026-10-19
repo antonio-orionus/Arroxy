@@ -253,9 +253,8 @@
 				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
 				"autofilledLink": "Link aus der Zwischenablage hinzugefügt",
 				"bulkHint": "Mehrere Links kopiert — über „Bulk-URLs“ hinzufügen",
-				"pendingLinkReady": "Kopierter Link bereit",
-				"useCopiedLink": "Kopierten Link verwenden",
-				"dismissCopiedLink": "Kopierten Link ausblenden",
+				"replacedLink": "Durch kopierten Link ersetzt",
+				"undo": "Rückgängig",
 				"dialog": {"cancelButton": "Abbrechen"}
 			},
 			"hotkey": {

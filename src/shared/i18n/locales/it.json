@@ -251,9 +251,8 @@
 				"toggleDescription": "Compila automaticamente il campo URL quando copi un link video.",
 				"autofilledLink": "Link aggiunto dagli appunti",
 				"bulkHint": "Sono stati copiati più link: usa URL multipli per aggiungerli",
-				"pendingLinkReady": "Link copiato pronto",
-				"useCopiedLink": "Usa link copiato",
-				"dismissCopiedLink": "Ignora link copiato",
+				"replacedLink": "Sostituito con il link copiato",
+				"undo": "Annulla",
 				"dialog": {"cancelButton": "Annulla"}
 			},
 			"hotkey": {

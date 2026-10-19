@@ -8,6 +8,12 @@ When cutting a release, add a new section at the top in the same shape as the mo
 
 ---
 
+## Fixes
+
+- **Clipboard watch is predictable.** Copy a single link and it goes straight into the URL field, replacing what was there, with **Undo** on the toast. A link copied while Arroxy is busy (fetching formats, starting a download, the bulk dialog, another tab or step) waits and fills in once you are back on the Download tab, and the latest copy wins. Text that only contains a link, or a link to an image or document, is left alone. The **Use copied link** prompt is gone.
+
+---
+
 ## 0.6.2
 
 A small release that makes sure every install hears about new versions.

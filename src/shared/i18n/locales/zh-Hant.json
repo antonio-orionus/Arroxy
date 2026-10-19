@@ -215,16 +215,7 @@
 			"advanced": "進階",
 			"settings": {"inputHeading": "輸入", "behaviorHeading": "下載行為", "behaviorDescription": "也會影響設定檔下載的全域行為。"},
 			"clearAria": "清除 URL",
-			"clipboard": {
-				"toggle": "監看剪貼簿",
-				"toggleDescription": "複製影片連結時自動填入 URL 欄位。",
-				"autofilledLink": "已從剪貼簿新增連結",
-				"bulkHint": "已複製多個連結——請使用批次 URL 加入",
-				"pendingLinkReady": "已複製的連結已就緒",
-				"useCopiedLink": "使用已複製的連結",
-				"dismissCopiedLink": "關閉已複製的連結",
-				"dialog": {"cancelButton": "取消"}
-			},
+			"clipboard": {"toggle": "監看剪貼簿", "toggleDescription": "複製影片連結時自動填入 URL 欄位。", "autofilledLink": "已從剪貼簿新增連結", "bulkHint": "已複製多個連結——請使用批次 URL 加入", "replacedLink": "已替換為複製的連結", "undo": "復原", "dialog": {"cancelButton": "取消"}},
 			"hotkey": {
 				"sectionTitle": "全域快捷鍵",
 				"sectionDescription": "不用開啟 Arroxy，就能下載從任何應用程式複製的連結。",

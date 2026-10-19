@@ -240,9 +240,8 @@
 				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
 				"autofilledLink": "لنک کلپ بورڈ سے شامل کیا گیا",
 				"bulkHint": "متعدد لنکس کاپی ہو گئے — شامل کرنے کے لیے “متعدد URLs” استعمال کریں",
-				"pendingLinkReady": "کاپی شدہ لنک تیار ہے",
-				"useCopiedLink": "کاپی شدہ لنک استعمال کریں",
-				"dismissCopiedLink": "کاپی شدہ لنک بند کریں",
+				"replacedLink": "کاپی شدہ لنک سے بدل دیا گیا",
+				"undo": "واپس کریں",
 				"dialog": {"cancelButton": "منسوخ کریں"}
 			},
 			"hotkey": {

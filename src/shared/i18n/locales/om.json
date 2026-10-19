@@ -253,9 +253,8 @@
 				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
 				"autofilledLink": "Liinki gabatee waraabbii irraa dabalame",
 				"bulkHint": "Hidhoota hedduu galcheeffamanii — «URL hedduu» fayyadami",
-				"pendingLinkReady": "Liinki waraabbame qophaaʼeera",
-				"useCopiedLink": "Liinki waraabbame fayyadami",
-				"dismissCopiedLink": "Liinki waraabbame cufi",
+				"replacedLink": "Liinki waraabbameen bakka buufame",
+				"undo": "Deebisi",
 				"dialog": {"cancelButton": "Haqi"}
 			},
 			"hotkey": {

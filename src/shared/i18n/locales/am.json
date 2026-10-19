@@ -226,16 +226,7 @@
 			"advanced": "ከፍተኛ",
 			"settings": {"inputHeading": "ግብዓት", "behaviorHeading": "የዳውንሎድ ባህሪ", "behaviorDescription": "ከመገለጫዎች ጋር የሙመና ዳውንሎዶችን የሚጨብጥ ዓለም አቀሚ ባህሪ."},
 			"clearAria": "URL አጽዳ",
-			"clipboard": {
-				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
-				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
-				"autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል",
-				"bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ",
-				"pendingLinkReady": "የተቀዳ አገናኝ ዝግጁ ነው",
-				"useCopiedLink": "የተቀዳውን አገናኝ ተጠቀም",
-				"dismissCopiedLink": "የተቀዳውን አገናኝ ዝጋ",
-				"dialog": {"cancelButton": "ሰርዝ"}
-			},
+			"clipboard": {"toggle": "ቅጂ ሰሌዳ ተቆጣጠር", "toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።", "autofilledLink": "አገናኝ ከቅንጥብ ሰሌዳ ታክሏል", "bulkHint": "ብዙ አገናኞች ተቀድተዋል — ለመጨመር «ብዙ URLዎች»ን ይጠቀሙ", "replacedLink": "በተቀዳው አገናኝ ተተክቷል", "undo": "ቀልብስ", "dialog": {"cancelButton": "ሰርዝ"}},
 			"hotkey": {
 				"sectionTitle": "አለም አቀፍ ፈጣን ቁልፍ",
 				"sectionDescription": "የተቀዱትን አገናኞች ከማንኛውም መተግበሪያ ያለ Arroxy መክፈት ያውርዱ።",

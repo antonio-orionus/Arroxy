@@ -457,6 +457,8 @@ export interface SystemSlice {
 	warmupRunning: boolean
 	warmupCancellable: boolean
 	warmupProgress: Partial<Record<DependencyId, import('@shared/types.js').WarmupProgressEvent>> | null
+	// The latest link the clipboard watcher saw, until the Download tab takes it.
+	copiedLink: string | null
 	settings: AppSettings | null
 	hotkeyRegistration: HotkeyRegistrationStatus
 	graphicsPolicy: GraphicsPolicy | null

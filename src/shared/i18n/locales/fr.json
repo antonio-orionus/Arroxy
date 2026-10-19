@@ -264,9 +264,8 @@
 				"toggleDescription": "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.",
 				"autofilledLink": "Lien ajouté depuis le presse-papiers",
 				"bulkHint": "Plusieurs liens copiés — ajoutez-les via « URLs en lot »",
-				"pendingLinkReady": "Lien copié prêt",
-				"useCopiedLink": "Utiliser le lien copié",
-				"dismissCopiedLink": "Ignorer le lien copié",
+				"replacedLink": "Remplacé par le lien copié",
+				"undo": "Annuler",
 				"dialog": {"cancelButton": "Annuler"}
 			},
 			"hotkey": {

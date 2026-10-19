@@ -242,9 +242,8 @@
 				"toggleDescription": "Isi otomatis bidang URL saat Anda menyalin tautan video.",
 				"autofilledLink": "Tautan ditambahkan dari clipboard",
 				"bulkHint": "Beberapa tautan disalin — tambahkan lewat “URL massal”",
-				"pendingLinkReady": "Tautan yang disalin sudah siap",
-				"useCopiedLink": "Gunakan tautan yang disalin",
-				"dismissCopiedLink": "Tolak tautan yang disalin",
+				"replacedLink": "Diganti dengan tautan yang disalin",
+				"undo": "Urungkan",
 				"dialog": {"cancelButton": "Membatalkan"}
 			},
 			"hotkey": {

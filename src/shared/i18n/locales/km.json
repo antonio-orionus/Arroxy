@@ -215,16 +215,7 @@
 			"advanced": "កម្រិតខ្ពស់",
 			"settings": {"inputHeading": "ការបញ្ចូល", "behaviorHeading": "ឥរិយាបថទាញយក", "behaviorDescription": "ឥរិយាបថសកលដែលប៉ះពាល់ដល់ការទាញយកតាមប្រវត្តិរូបផងដែរ។"},
 			"clearAria": "សម្អាត URL",
-			"clipboard": {
-				"toggle": "តាមដានក្តារតម្បៀតខ្ទាស់",
-				"toggleDescription": "បំពេញវាល URL ដោយស្វ័យប្រវត្តិនៅពេលអ្នកចម្លងតំណវីដេអូ។",
-				"autofilledLink": "បានបន្ថែមតំណពីក្តារតម្បៀតខ្ទាស់",
-				"bulkHint": "បានចម្លងតំណច្រើន — ប្រើ URL ច្រើនដើម្បីបន្ថែមពួកវា",
-				"pendingLinkReady": "តំណដែលបានចម្លងរួចរាល់",
-				"useCopiedLink": "ប្រើតំណដែលបានចម្លង",
-				"dismissCopiedLink": "បោះបង់តំណដែលបានចម្លង",
-				"dialog": {"cancelButton": "បោះបង់"}
-			},
+			"clipboard": {"toggle": "តាមដានក្តារតម្បៀតខ្ទាស់", "toggleDescription": "បំពេញវាល URL ដោយស្វ័យប្រវត្តិនៅពេលអ្នកចម្លងតំណវីដេអូ។", "autofilledLink": "បានបន្ថែមតំណពីក្តារតម្បៀតខ្ទាស់", "bulkHint": "បានចម្លងតំណច្រើន — ប្រើ URL ច្រើនដើម្បីបន្ថែមពួកវា", "replacedLink": "បានជំនួសដោយតំណដែលបានចម្លង", "undo": "មិនធ្វើវិញ", "dialog": {"cancelButton": "បោះបង់"}},
 			"hotkey": {
 				"sectionTitle": "គ្រាប់ចុចផ្លូវកាត់សកល",
 				"sectionDescription": "ទាញយកតំណណាមួយដែលអ្នកចម្លង ពីកម្មវិធីណាក៏ដោយ ដោយមិនចាំបាច់បើក Arroxy។",

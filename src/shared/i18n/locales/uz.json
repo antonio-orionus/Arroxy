@@ -261,9 +261,8 @@
 				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
 				"autofilledLink": "Havola buferdan qo‘shildi",
 				"bulkHint": "Bir nechta havola nusxalandi — qo‘shish uchun “Ommaviy URLlar”dan foydalaning",
-				"pendingLinkReady": "Nusxalangan havola tayyor",
-				"useCopiedLink": "Nusxalangan havoladan foydalanish",
-				"dismissCopiedLink": "Nusxalangan havolani yopish",
+				"replacedLink": "Nusxalangan havola bilan almashtirildi",
+				"undo": "Bekor qilish",
 				"dialog": {"cancelButton": "Bekor qilish"}
 			},
 			"hotkey": {

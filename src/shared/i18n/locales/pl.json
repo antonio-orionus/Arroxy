@@ -277,9 +277,8 @@
 				"toggleDescription": "Automatycznie wypełnia pole URL po skopiowaniu linku do filmu.",
 				"autofilledLink": "Dodano link ze schowka",
 				"bulkHint": "Skopiowano wiele linków — dodaj je przez Wiele adresów URL",
-				"pendingLinkReady": "Skopiowany link jest gotowy",
-				"useCopiedLink": "Użyj skopiowanego linku",
-				"dismissCopiedLink": "Odrzuć skopiowany link",
+				"replacedLink": "Zastąpiono skopiowanym linkiem",
+				"undo": "Cofnij",
 				"dialog": {"cancelButton": "Anuluj"}
 			},
 			"hotkey": {

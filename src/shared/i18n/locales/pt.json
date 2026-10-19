@@ -251,9 +251,8 @@
 				"toggleDescription": "Preenche automaticamente o campo de URL ao copiar um link de vídeo.",
 				"autofilledLink": "Link adicionado da área de transferência",
 				"bulkHint": "Vários links copiados — adicione-os com “URLs em lote”",
-				"pendingLinkReady": "Link copiado pronto",
-				"useCopiedLink": "Usar link copiado",
-				"dismissCopiedLink": "Descartar link copiado",
+				"replacedLink": "Substituído pelo link copiado",
+				"undo": "Desfazer",
 				"dialog": {"cancelButton": "Cancelar"}
 			},
 			"hotkey": {

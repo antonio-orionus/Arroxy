@@ -220,9 +220,8 @@
 				"toggleDescription": "동영상 링크를 복사하면 URL 필드를 자동으로 채웁니다.",
 				"autofilledLink": "클립보드의 링크가 추가됨",
 				"bulkHint": "여러 링크가 복사되었습니다. URL 일괄 추가를 사용하세요",
-				"pendingLinkReady": "복사한 링크 준비됨",
-				"useCopiedLink": "복사한 링크 사용",
-				"dismissCopiedLink": "복사한 링크 닫기",
+				"replacedLink": "복사한 링크로 바뀜",
+				"undo": "실행 취소",
 				"dialog": {"cancelButton": "취소"}
 			},
 			"hotkey": {

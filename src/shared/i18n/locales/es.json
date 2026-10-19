@@ -257,9 +257,8 @@
 				"toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.",
 				"autofilledLink": "Enlace añadido desde el portapapeles",
 				"bulkHint": "Se copiaron varios enlaces — añádelos con «URLs en lote»",
-				"pendingLinkReady": "Enlace copiado listo",
-				"useCopiedLink": "Usar enlace copiado",
-				"dismissCopiedLink": "Descartar enlace copiado",
+				"replacedLink": "Reemplazado por el enlace copiado",
+				"undo": "Deshacer",
 				"dialog": {"cancelButton": "Cancelar"}
 			},
 			"hotkey": {

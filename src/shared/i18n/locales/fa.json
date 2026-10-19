@@ -240,9 +240,8 @@
 				"toggleDescription": "هنگام کپی پیوند ویدیو، کادر URL را خودکار پر می‌کند.",
 				"autofilledLink": "پیوند از کلیپ‌بورد افزوده شد",
 				"bulkHint": "چند پیوند کپی شده است — برای افزودنشان از URLهای گروهی استفاده کنید",
-				"pendingLinkReady": "پیوند کپی‌شده آماده است",
-				"useCopiedLink": "استفاده از پیوند کپی‌شده",
-				"dismissCopiedLink": "بستن پیوند کپی‌شده",
+				"replacedLink": "با پیوند کپی‌شده جایگزین شد",
+				"undo": "واگرد",
 				"dialog": {"cancelButton": "لغو"}
 			},
 			"hotkey": {

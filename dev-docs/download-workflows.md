@@ -73,7 +73,7 @@ picker edge sets the active profile that Quick Download uses.
 | Node | What happens | Settings source | Owner |
 | --- | --- | --- | --- |
 | URL | Link field; Enter runs the wizard, not Quick Download | — | `DownloadProfilesHome` |
-| CLIP | Clipboard watch only fills the field, never queues | — | `DownloadProfilesHome`, `clipboardIntake.ts`, `ClipboardWatcher` |
+| CLIP | Clipboard watch only fills the field, never queues. A clipboard that is exactly one link replaces the field (toast with Undo) once the Download tab is idle; it waits through a probe, a starting quick download, the bulk dialog, another tab or a later wizard step, and the latest copy wins. Several links only hint at Bulk URLs | — | `ClipboardWatcher`, `clipboardLinks.ts`, `copiedLinkIntake.ts`, `clipboardIntake.ts`, `DownloadProfilesHome` |
 | QBTN, PICK | Quick Download with the active profile; the arrow switches it | active profile | `DownloadProfilesHome`, `systemSlice.setActiveDownloadProfile` |
 | EXD, EXW | Explore's Download button (quick) and wand (`submitUrl('explore')`, returns to Explore) | active profile / wizard | `ExploreTab`, `probeOrchestrator` |
 | EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |

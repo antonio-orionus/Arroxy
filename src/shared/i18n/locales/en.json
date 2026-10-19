@@ -231,9 +231,8 @@
 				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
 				"autofilledLink": "Link added from clipboard",
 				"bulkHint": "Multiple links copied — use Bulk URLs to add them",
-				"pendingLinkReady": "Copied link ready",
-				"useCopiedLink": "Use copied link",
-				"dismissCopiedLink": "Dismiss copied link",
+				"replacedLink": "Replaced with copied link",
+				"undo": "Undo",
 				"dialog": {"cancelButton": "Cancel"}
 			},
 			"hotkey": {

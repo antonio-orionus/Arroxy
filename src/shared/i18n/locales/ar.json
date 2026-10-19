@@ -306,9 +306,8 @@
 				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
 				"autofilledLink": "تمت إضافة الرابط من الحافظة",
 				"bulkHint": "تم نسخ روابط متعددة — استخدم «روابط متعددة» لإضافتها",
-				"pendingLinkReady": "الرابط المنسوخ جاهز",
-				"useCopiedLink": "استخدام الرابط المنسوخ",
-				"dismissCopiedLink": "إخفاء الرابط المنسوخ",
+				"replacedLink": "تم الاستبدال بالرابط المنسوخ",
+				"undo": "تراجع",
 				"dialog": {"cancelButton": "إلغاء"}
 			},
 			"hotkey": {

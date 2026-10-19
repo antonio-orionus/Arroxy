@@ -231,9 +231,8 @@
 				"toggleDescription": "YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।",
 				"autofilledLink": "क्लिपबोर्ड से लिंक जोड़ा गया",
 				"bulkHint": "कई लिंक कॉपी हो गए हैं — जोड़ने के लिए “बल्क URLs” का उपयोग करें",
-				"pendingLinkReady": "कॉपी किया गया लिंक तैयार है",
-				"useCopiedLink": "कॉपी किया गया लिंक इस्तेमाल करें",
-				"dismissCopiedLink": "कॉपी किया गया लिंक हटाएँ",
+				"replacedLink": "कॉपी किए गए लिंक से बदला गया",
+				"undo": "पूर्ववत करें",
 				"dialog": {"cancelButton": "रद्द करें"}
 			},
 			"hotkey": {

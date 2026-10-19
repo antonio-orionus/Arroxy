@@ -207,16 +207,7 @@
 			"advanced": "高级",
 			"settings": {"inputHeading": "输入", "behaviorHeading": "下载行为", "behaviorDescription": "全局行为，同样影响由配置驱动的下载。"},
 			"clearAria": "清除 URL",
-			"clipboard": {
-				"toggle": "监听剪贴板",
-				"toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。",
-				"autofilledLink": "已从剪贴板添加链接",
-				"bulkHint": "已复制多个链接 — 使用「批量 URL」添加",
-				"pendingLinkReady": "复制的链接已准备好",
-				"useCopiedLink": "使用复制的链接",
-				"dismissCopiedLink": "关闭复制的链接",
-				"dialog": {"cancelButton": "取消"}
-			},
+			"clipboard": {"toggle": "监听剪贴板", "toggleDescription": "复制 YouTube 链接时自动填充 URL 字段。", "autofilledLink": "已从剪贴板添加链接", "bulkHint": "已复制多个链接 — 使用「批量 URL」添加", "replacedLink": "已替换为复制的链接", "undo": "撤销", "dialog": {"cancelButton": "取消"}},
 			"hotkey": {
 				"sectionTitle": "全局快捷键",
 				"sectionDescription": "在任意应用复制链接即可下载，无需打开 Arroxy。",
