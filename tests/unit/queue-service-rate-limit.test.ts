@@ -99,7 +99,10 @@ describe('QueueService — rate-limit cooldown', () => {
 		await vi.advanceTimersByTimeAsync(0)
 		expect(ds.start).not.toHaveBeenCalled()
 
-		siteRequests.recordCleanBypass('youtube')
+		siteRequests.allowOnce('youtube')
+		const tryNow = siteRequests.admit('youtube')
+		if (tryNow.kind !== 'launch') throw new Error('expected "Try now" to launch')
+		tryNow.run.finish('', true)
 		await vi.advanceTimersByTimeAsync(0)
 		expect(ds.start).toHaveBeenCalledOnce()
 	})

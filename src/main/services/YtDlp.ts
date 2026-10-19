@@ -165,7 +165,8 @@ function cancelledResult(): YtDlpResult {
 // message read a held run as the rate limit it is.
 export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting out the rate-limit cooldown'
 
-function rateLimitCooldown(): YtDlpResult {
+function heldByCooldown(site: string, until: number): YtDlpResult {
+	ytDlpLog.info('run held: the site is rate-limiting this connection', {site, until: new Date(until).toISOString()})
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
 }
 
@@ -547,29 +548,32 @@ export class YtDlp {
 	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
 		// A job paused (or cancelled) with no live process stops at its next run.
 		if (stoppedBeforeSpawn(signal)) return cancelledResult()
+		const siteRequests = this.opts.siteRequests
+		if (!siteRequests) return this.runAdmitted(req, signal, options, () => null)
 		// The site rate-limited this connection recently: nothing new may ask it
 		// until the cooldown ends, whoever the run would sign in as.
-		const requestSite = requestSiteFor(req.url)
-		const siteRequests = options.honorCooldown === false ? undefined : this.opts.siteRequests
-		const admission = siteRequests?.admit(requestSite) ?? {kind: 'launch', bypassed: false}
-		if (admission.kind === 'wait') {
-			ytDlpLog.info('run held: the site is rate-limiting this connection', {site: requestSite, until: new Date(admission.until).toISOString()})
-			return rateLimitCooldown()
+		const site = requestSiteFor(req.url)
+		const admission = siteRequests.admit(site, {honorCooldown: options.honorCooldown !== false})
+		if (admission.kind === 'wait') return heldByCooldown(site, admission.until)
+		const {run} = admission
+		const watched: YtDlpSignal = {
+			...signal,
+			onStderr: lines => {
+				run.observe(lines)
+				signal?.onStderr?.(lines)
+			}
 		}
-		const result = await this.runAdmitted(req, signal, options)
-		this.recordRateLimitEvidence(requestSite, result, admission.bypassed)
+		const result = await this.runAdmitted(req, watched, options, () => {
+			const until = run.recheck()
+			return until === null ? null : heldByCooldown(site, until)
+		})
+		run.finish(result.stderr, result.kind === 'success')
 		return result
 	}
 
-	private recordRateLimitEvidence(site: string, result: YtDlpResult, bypassed: boolean): void {
-		const siteRequests = this.opts.siteRequests
-		if (!siteRequests) return
-		const evidence = rateLimitEvidence(result.stderr)
-		if (evidence) siteRequests.recordRateLimit(site, evidence)
-		else if (bypassed && result.kind === 'success') siteRequests.recordCleanBypass(site)
-	}
-
-	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions): Promise<YtDlpResult> {
+	// `beforeSpawn` runs last before the spawn, after the binary setup and any
+	// slot wait; a result it returns is the run's, and nothing spawns.
+	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions, beforeSpawn: () => YtDlpResult | null): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []
@@ -630,10 +634,14 @@ export class YtDlp {
 					this._lastInvocations.push(summary)
 				}
 			})
+		const guarded = (): Promise<YtDlpResult> => {
+			const held = beforeSpawn()
+			return held ? Promise.resolve(held) : invoke()
+		}
 		const spawnGate = this.opts.spawnGate
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke()
+		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, guarded)) : await guarded()
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup

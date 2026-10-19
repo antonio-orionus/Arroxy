@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import {describe, expect, it, vi} from 'vite-plus/test'
-import {RATE_LIMIT_BASE_MS, RATE_LIMIT_CAP_MS, SESSION_RATE_LIMIT_MS, TRY_NOW_PASS_MS, SiteRequestState, rateLimitCooldownMs} from '@main/services/SiteRequestState.js'
+import {RATE_LIMIT_BASE_MS, RATE_LIMIT_CAP_MS, SESSION_RATE_LIMIT_MS, TRY_NOW_PASS_MS, SiteRequestState, rateLimitCooldownMs, type SiteAdmission, type SiteRequestRun} from '@main/services/SiteRequestState.js'
 
 const MINUTE = 60_000
 
@@ -14,6 +14,18 @@ function state(opts: {random?: number; route?: () => string} = {}) {
 	const clock = fakeClock()
 	const siteRequests = new SiteRequestState({now: clock.now, random: () => opts.random ?? 1, route: opts.route ?? (() => 'direct')})
 	return {clock, siteRequests}
+}
+
+const WEBPAGE_429 = 'WARNING: [youtube] test: Unable to download webpage: HTTP Error 429: Too Many Requests'
+const SESSION_LIMIT = "ERROR: [youtube] test: This content isn't available, try again later. The current session has been rate-limited by YouTube for up to an hour."
+
+function launched(admission: SiteAdmission): SiteRequestRun {
+	if (admission.kind !== 'launch') throw new Error(`expected a launch, got a wait until ${admission.until}`)
+	return admission.run
+}
+
+function admitted(admission: SiteAdmission): {bypassed: boolean} {
+	return {bypassed: launched(admission).bypassed}
 }
 
 describe('rateLimitCooldownMs', () => {
@@ -46,7 +58,7 @@ describe('SiteRequestState', () => {
 	it('lets every request through until a rate limit is seen', () => {
 		const {siteRequests} = state()
 		expect(siteRequests.rateLimitedUntil('youtube')).toBeNull()
-		expect(siteRequests.admit('youtube')).toEqual({kind: 'launch', bypassed: false})
+		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: false})
 	})
 
 	it('holds new requests to the site for the cooldown, then releases them', () => {
@@ -59,13 +71,13 @@ describe('SiteRequestState', () => {
 		expect(siteRequests.admit('youtube').kind).toBe('wait')
 		clock.advance(1)
 		expect(siteRequests.rateLimitedUntil('youtube')).toBeNull()
-		expect(siteRequests.admit('youtube')).toEqual({kind: 'launch', bypassed: false})
+		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: false})
 	})
 
 	it('keeps sites apart', () => {
 		const {siteRequests} = state()
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
-		expect(siteRequests.admit('vimeo.com')).toEqual({kind: 'launch', bypassed: false})
+		expect(admitted(siteRequests.admit('vimeo.com'))).toEqual({bypassed: false})
 	})
 
 	it('keeps network routes apart: a limit seen through one proxy does not hold another', () => {
@@ -123,7 +135,7 @@ describe('SiteRequestState', () => {
 		const {siteRequests} = state()
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		siteRequests.allowOnce('youtube')
-		expect(siteRequests.admit('youtube')).toEqual({kind: 'launch', bypassed: true})
+		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
 		expect(siteRequests.admit('youtube').kind).toBe('wait')
 	})
 
@@ -138,9 +150,32 @@ describe('SiteRequestState', () => {
 	it('ends the cooldown when the request let through comes back clean', () => {
 		const {siteRequests} = state()
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
-		siteRequests.recordCleanBypass('youtube')
+		siteRequests.allowOnce('youtube')
+		launched(siteRequests.admit('youtube')).finish('', true)
 		expect(siteRequests.rateLimitedUntil('youtube')).toBeNull()
 		expect(siteRequests.snapshot()).toEqual([])
+	})
+
+	it('ends no cooldown on a clean answer to a request the cooldown did not hold', () => {
+		const {clock, siteRequests} = state()
+		const run = launched(siteRequests.admit('youtube'))
+		clock.advance(1_000)
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		run.finish('', true)
+		expect(siteRequests.rateLimitedUntil('youtube')).not.toBeNull()
+	})
+
+	// A long "Try now" download can come back clean after another request met
+	// a new limit; that newer limit stands.
+	it('a "Try now" request that comes back clean does not end a newer cooldown', () => {
+		const {clock, siteRequests} = state()
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		const run = launched(siteRequests.admit('youtube'))
+		clock.advance(1_000)
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		run.finish('', true)
+		expect(siteRequests.rateLimitedUntil('youtube')).toBe(clock.now() + RATE_LIMIT_BASE_MS)
 	})
 
 	it('tells listeners when a cooldown starts, changes or ends early', () => {
@@ -148,7 +183,8 @@ describe('SiteRequestState', () => {
 		const listener = vi.fn()
 		const off = siteRequests.onChange(listener)
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
-		siteRequests.recordCleanBypass('youtube')
+		siteRequests.allowOnce('youtube')
+		launched(siteRequests.admit('youtube')).finish('', true)
 		expect(listener).toHaveBeenCalledTimes(2)
 		expect(listener).toHaveBeenLastCalledWith([])
 		off()
@@ -165,5 +201,83 @@ describe('SiteRequestState', () => {
 		expect(siteRequests.snapshot().map(entry => entry.site)).toEqual(['vimeo.com'])
 		clock.advance(RATE_LIMIT_BASE_MS)
 		expect(siteRequests.snapshot()).toEqual([])
+	})
+})
+
+// One admitted run, from admission to its exit.
+describe('SiteRequestRun', () => {
+	it('starts the cooldown at the first rate-limit line, before the run ends', () => {
+		const {clock, siteRequests} = state()
+		const listener = vi.fn()
+		siteRequests.onChange(listener)
+		const run = launched(siteRequests.admit('youtube'))
+
+		run.observe(WEBPAGE_429)
+		expect(siteRequests.rateLimitedUntil('youtube')).toBe(clock.now() + RATE_LIMIT_BASE_MS)
+		run.observe(WEBPAGE_429)
+		run.finish(WEBPAGE_429, true)
+		expect(listener).toHaveBeenCalledOnce()
+	})
+
+	it('upgrades to the session limit when it shows later in the same run', () => {
+		const {clock, siteRequests} = state()
+		const run = launched(siteRequests.admit('youtube'))
+		run.observe(WEBPAGE_429)
+		run.finish(`${WEBPAGE_429}\n${SESSION_LIMIT}`, false)
+		expect(siteRequests.rateLimitedUntil('youtube')).toBe(clock.now() + SESSION_RATE_LIMIT_MS)
+	})
+
+	it('records the limit against the route the run went out on', () => {
+		let route = 'direct'
+		const {siteRequests} = state({route: () => route})
+		const run = launched(siteRequests.admit('youtube'))
+		route = 'http://proxy:8080'
+		run.finish(WEBPAGE_429, true)
+		expect(siteRequests.rateLimitedUntil('youtube')).toBeNull()
+		route = 'direct'
+		expect(siteRequests.rateLimitedUntil('youtube')).not.toBeNull()
+	})
+
+	describe('the check right before the spawn', () => {
+		it('holds a run admitted before a cooldown started', () => {
+			const {clock, siteRequests} = state()
+			const run = launched(siteRequests.admit('youtube'))
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			expect(run.recheck()).toBe(clock.now() + RATE_LIMIT_BASE_MS)
+		})
+
+		it('does not spend a "Try now" pass meant for another request', () => {
+			const {siteRequests} = state()
+			const run = launched(siteRequests.admit('youtube'))
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			siteRequests.allowOnce('youtube')
+			expect(run.recheck()).not.toBeNull()
+			expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
+		})
+
+		it('lets the "Try now" request through, whatever started meanwhile', () => {
+			const {siteRequests} = state()
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			siteRequests.allowOnce('youtube')
+			const run = launched(siteRequests.admit('youtube'))
+			siteRequests.recordRateLimit('youtube', 'sessionRateLimited')
+			expect(run.recheck()).toBeNull()
+		})
+
+		it('reads the cooldown of the route the run now goes out on', () => {
+			let route = 'direct'
+			const {siteRequests} = state({route: () => route})
+			const run = launched(siteRequests.admit('youtube'))
+			route = 'http://proxy:8080'
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			expect(run.recheck()).not.toBeNull()
+		})
+
+		it('lets a run that ignores the cooldown through', () => {
+			const {siteRequests} = state()
+			const run = launched(siteRequests.admit('youtube', {honorCooldown: false}))
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			expect(run.recheck()).toBeNull()
+		})
 	})
 })

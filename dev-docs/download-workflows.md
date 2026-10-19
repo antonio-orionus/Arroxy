@@ -89,14 +89,18 @@ No queue row can be reopened in the wizard except a needs-choice row's Review.
 ## Rate-limit cooldown
 
 Every yt-dlp launch, whichever path started it, passes `YtDlp.run`, which asks
-`SiteRequestState` first. Once a run's output shows the site rate-limiting this
-connection (an HTTP 429, or YouTube's session limit), new requests to that site
+`SiteRequestState` first, and again right before the spawn (after binary setup
+and any signed-in slot wait). The cooldown starts at the first stderr line that
+shows the site rate-limiting this connection (an HTTP 429, or YouTube's session
+limit), while the run may still be transferring, and goes against the route
+that run used. From then on, new requests to that site
 on the same network route wait out one cooldown: a probe fails at once as a
 `rateLimit` without launching, `QueueService` keeps pending rows pending (both
 lanes) and starts them when it ends, and `QueueAutoRetry` schedules no sooner.
 The subtitle phase of a job that already saved its media is the only run that
 goes ahead. The wizard's Format and error steps and the quick-download alert
-show `RateLimitAlert`, whose "Try now" lets one request through.
+show `RateLimitAlert`, whose "Try now" lets one request through; its clean
+answer ends that cooldown early, but not a newer one another request met since.
 
 ## Wizard steps per mode
 

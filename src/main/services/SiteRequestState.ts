@@ -1,5 +1,6 @@
 import log from 'electron-log/main.js'
 import type {RateLimitEvidence, SiteCooldown} from '@shared/schemas.js'
+import {rateLimitEvidence} from './rateLimitEvidence.js'
 
 // The app-owned rate-limit cooldown, one per site and network route. yt-dlp
 // never retries a 429 and has no Retry-After support, so without this every
@@ -35,7 +36,7 @@ export function rateLimitCooldownMs(evidence: RateLimitEvidence, repeats: number
 	return Math.round(RATE_LIMIT_BASE_MS + random() * (ceiling - RATE_LIMIT_BASE_MS))
 }
 
-export type SiteAdmission = {kind: 'launch'; bypassed: boolean} | {kind: 'wait'; until: number}
+export type SiteAdmission = {kind: 'launch'; run: SiteRequestRun} | {kind: 'wait'; until: number}
 
 interface SiteRecord {
 	until: number
@@ -43,6 +44,19 @@ interface SiteRecord {
 	repeats: number
 	lastSeenAt: number
 	passUntil: number
+	// Which limit set this cooldown, so a "Try now" answer ends only the
+	// cooldown it was let through.
+	generation: number
+}
+
+// What a run was admitted under: the route it goes out on, and the cooldown
+// generation a "Try now" pass let it through.
+interface SiteTicket {
+	site: string
+	route: string
+	generation: number
+	bypassed: boolean
+	honorsCooldown: boolean
 }
 
 export interface SiteRequestStateOptions {
@@ -59,6 +73,7 @@ export class SiteRequestState {
 	private readonly now: () => number
 	private readonly random: () => number
 	private readonly route: () => string
+	private generations = 0
 
 	constructor(options: SiteRequestStateOptions = {}) {
 		this.now = options.now ?? Date.now
@@ -66,10 +81,11 @@ export class SiteRequestState {
 		this.route = options.route ?? (() => 'direct')
 	}
 
-	// Called after a run whose output shows the site rate-limiting this connection.
-	recordRateLimit(site: string, evidence: RateLimitEvidence): number {
+	// Called when a run's output shows the site rate-limiting this connection.
+	// `route` is the route that run went out on.
+	recordRateLimit(site: string, evidence: RateLimitEvidence, route = this.route()): number {
 		const now = this.now()
-		const key = this.key(site)
+		const key = routeKey(route, site)
 		const previous = this.records.get(key)
 		const cooling = previous !== undefined && now < previous.until
 		// Limits inside a running cooldown are one burst (requests already in
@@ -77,7 +93,7 @@ export class SiteRequestState {
 		const repeats = previous === undefined ? 0 : cooling ? previous.repeats : now - previous.until < RATE_LIMIT_REPEAT_WINDOW_MS ? previous.repeats + 1 : 0
 		const until = Math.max(cooling ? previous.until : 0, now + rateLimitCooldownMs(evidence, repeats, this.random))
 		const keepsEvidence = cooling && previous.until >= until
-		this.records.set(key, {until, evidence: keepsEvidence ? previous.evidence : evidence, repeats, lastSeenAt: now, passUntil: 0})
+		this.records.set(key, {until, evidence: keepsEvidence ? previous.evidence : evidence, repeats, lastSeenAt: now, passUntil: 0, generation: ++this.generations})
 		logger.info('Rate limit seen; new requests wait', {site, evidence, repeats, waitMs: until - now})
 		this.notify()
 		return until
@@ -90,17 +106,31 @@ export class SiteRequestState {
 	}
 
 	// Whether a request may launch now. Spends a "Try now" pass when it is the
-	// only thing letting the request through.
-	admit(site: string): SiteAdmission {
-		const record = this.records.get(this.key(site))
+	// only thing letting the request through. A run that does not honor the
+	// cooldown (the subtitles of media already saved) launches regardless.
+	admit(site: string, {honorCooldown = true}: {honorCooldown?: boolean} = {}): SiteAdmission {
+		const route = this.route()
+		const record = this.records.get(routeKey(route, site))
 		const now = this.now()
-		if (!record || now >= record.until) return {kind: 'launch', bypassed: false}
+		const launch = (bypassed: boolean): SiteAdmission => ({kind: 'launch', run: new SiteRequestRun(this, {site, route, generation: record?.generation ?? 0, bypassed, honorsCooldown: honorCooldown})})
+		if (!honorCooldown || !record || now >= record.until) return launch(false)
 		if (now < record.passUntil) {
 			record.passUntil = 0
 			logger.info('Try now: one request goes through the cooldown', {site})
-			return {kind: 'launch', bypassed: true}
+			return launch(true)
 		}
 		return {kind: 'wait', until: record.until}
+	}
+
+	// The same decision again, right before the spawn, for a run admitted
+	// earlier: when it waits, until when. A pass already spent on this run
+	// still lets it through; one waiting for another request is left alone.
+	recheck(ticket: SiteTicket): {ticket: SiteTicket; until: number | null} {
+		const route = this.route()
+		if (ticket.bypassed && route === ticket.route) return {ticket, until: null}
+		const record = this.records.get(routeKey(route, ticket.site))
+		const until = ticket.honorsCooldown && record && this.now() < record.until ? record.until : null
+		return {ticket: {...ticket, route, generation: record?.generation ?? 0, bypassed: false}, until}
 	}
 
 	// The user's "Try now": the next request to the site skips the cooldown once.
@@ -111,13 +141,15 @@ export class SiteRequestState {
 	}
 
 	// The request "Try now" let through came back without a rate limit, so the
-	// site is answering again. The repeat count stays, so a limit soon after
-	// still doubles.
-	recordCleanBypass(site: string): void {
-		const record = this.records.get(this.key(site))
-		if (!record || this.now() >= record.until) return
+	// site is answering again. Only the cooldown it was let through ends: a
+	// limit another request met since stands. The repeat count stays, so a
+	// limit soon after still doubles.
+	recordCleanBypass(ticket: SiteTicket): void {
+		if (!ticket.bypassed) return
+		const record = this.records.get(routeKey(ticket.route, ticket.site))
+		if (!record || record.generation !== ticket.generation || this.now() >= record.until) return
 		record.until = this.now()
-		logger.info('Cooldown ended early: the site answered a "Try now" request', {site})
+		logger.info('Cooldown ended early: the site answered a "Try now" request', {site: ticket.site})
 		this.notify()
 	}
 
@@ -143,6 +175,48 @@ export class SiteRequestState {
 	}
 
 	private key(site: string): string {
-		return `${this.route()}\u0000${site}`
+		return routeKey(this.route(), site)
+	}
+}
+
+function routeKey(route: string, site: string): string {
+	return `${route}\u0000${site}`
+}
+
+// One admitted run, from admission to its exit. It records a rate limit at the
+// first stderr line that shows one, so the cooldown starts while a long
+// download is still transferring, and upgrades it if the session limit shows
+// later. Every record goes against the route the run went out on.
+export class SiteRequestRun {
+	private seen: RateLimitEvidence | null = null
+
+	constructor(
+		private readonly state: SiteRequestState,
+		private ticket: SiteTicket
+	) {}
+
+	get bypassed(): boolean {
+		return this.ticket.bypassed
+	}
+
+	// Right before the spawn: a cooldown may have started while the run
+	// prepared the binary or waited for a signed-in slot, or the proxy changed.
+	// Returns when the run may go instead, or null when it may go now.
+	recheck(): number | null {
+		const {ticket, until} = this.state.recheck(this.ticket)
+		this.ticket = ticket
+		return until
+	}
+
+	observe(stderr: string): void {
+		const evidence = rateLimitEvidence(stderr)
+		if (evidence === null || evidence === this.seen || this.seen === 'sessionRateLimited') return
+		this.seen = evidence
+		this.state.recordRateLimit(this.ticket.site, evidence, this.ticket.route)
+	}
+
+	finish(stderr: string, succeeded: boolean): void {
+		this.observe(stderr)
+		if (this.seen === null && succeeded) this.state.recordCleanBypass(this.ticket)
 	}
 }

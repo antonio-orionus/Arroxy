@@ -23,11 +23,11 @@ function process(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function setup() {
+function setup(opts: {ytDlpPath?: Promise<string>} = {}) {
 	let now = 1_000_000
 	const siteRequests = new SiteRequestState({now: () => now, random: () => 1})
 	const tokenService = {getToken: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
-	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
+	const binaryManager = {ensureYtDlp: vi.fn().mockReturnValue(opts.ytDlpPath ?? Promise.resolve('/fake/yt-dlp')), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, {get: vi.fn().mockResolvedValue({})}, {siteRequests})
 	return {ytDlp, siteRequests, advance: (ms: number) => (now += ms), now: () => now}
 }
@@ -48,6 +48,31 @@ describe('YtDlp — rate-limit cooldown', () => {
 
 		expect(result.kind).toBe('success')
 		expect(siteRequests.rateLimitedUntil('youtube')).toBe(now() + RATE_LIMIT_BASE_MS)
+	})
+
+	// A media run can meet a webpage 429 and then transfer a large file for
+	// minutes; nothing new may ask the site meanwhile.
+	it('starts the cooldown as soon as stderr shows the limit, while the run goes on', async () => {
+		vi.mocked(spawnYtDlp).mockImplementation(() => process(0, WEBPAGE_429) as never)
+		const {ytDlp, siteRequests, now} = setup()
+		const seenDuringRun: (number | null)[] = []
+
+		await ytDlp.run(media(), {onStderr: () => seenDuringRun.push(siteRequests.rateLimitedUntil('youtube'))})
+
+		expect(seenDuringRun).toEqual([now() + RATE_LIMIT_BASE_MS])
+	})
+
+	// Preparing the binary, or waiting for a signed-in slot, can take long
+	// enough for another request to meet the limit.
+	it('holds a run whose cooldown started while it prepared, without spawning', async () => {
+		let resolvePath: (path: string) => void = () => undefined
+		const {ytDlp, siteRequests} = setup({ytDlpPath: new Promise(resolve => (resolvePath = resolve))})
+		const running = ytDlp.run(media())
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		resolvePath('/fake/yt-dlp')
+
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
 	it('holds every later run to the site without spawning, until the cooldown ends', async () => {
