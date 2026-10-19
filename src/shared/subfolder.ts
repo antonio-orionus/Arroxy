@@ -45,6 +45,21 @@ export function safeFolderName(title: string): string {
 	return sanitizeDirSegment(title) ?? 'Playlist'
 }
 
+const graphemes = new Intl.Segmenter(undefined, {granularity: 'grapheme'})
+
+// Cut to at most `max` UTF-16 units — the unit isValidSubfolder measures — on a
+// whole user-perceived character, so an emoji, ZWJ sequence or accented letter
+// is kept whole or dropped, never split into a lone surrogate or bare base.
+function truncateGraphemes(text: string, max: number): string {
+	if (text.length <= max) return text
+	let end = 0
+	for (const {segment} of graphemes.segment(text)) {
+		if (end + segment.length > max) break
+		end += segment.length
+	}
+	return text.slice(0, end)
+}
+
 /**
  * Sanitize one rendered path component from a filename template into something
  * safe to create on every supported OS, or null when nothing usable remains.
@@ -55,19 +70,18 @@ export function safeFolderName(title: string): string {
  * fallback for the one case that does need a folder no matter what.
  */
 export function sanitizeDirSegment(raw: string): string | null {
-	const cleaned = raw
+	const sanitized = raw
 		.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_') // eslint-disable-line no-control-regex
 		.replace(/\s+/g, ' ')
 		.trim()
 		.replace(/[. ]+$/, '')
-		.slice(0, SUBFOLDER_NAME_MAX)
-		// Slicing can re-expose a trailing dot or space that Windows drops.
-		.replace(/[. ]+$/, '')
+	// Truncating can re-expose a trailing dot or space that Windows drops.
+	const cleaned = truncateGraphemes(sanitized, SUBFOLDER_NAME_MAX).replace(/[. ]+$/, '')
 	if (cleaned === '' || cleaned === '.' || cleaned === '..') return null
 	// Escaping appends '_', so a reserved name has to give the underscore its own
 	// room in the budget. Otherwise `NUL.<60 chars>` comes back one character over
 	// SUBFOLDER_NAME_MAX and isValidSubfolder rejects a name we generated ourselves.
-	const budgeted = RESERVED_NAMES.test(cleaned) ? cleaned.slice(0, SUBFOLDER_NAME_MAX - 1).replace(/[. ]+$/, '') : cleaned
+	const budgeted = RESERVED_NAMES.test(cleaned) ? truncateGraphemes(cleaned, SUBFOLDER_NAME_MAX - 1).replace(/[. ]+$/, '') : cleaned
 	return escapeReservedName(budgeted)
 }
 

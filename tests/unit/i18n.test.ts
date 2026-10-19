@@ -1,6 +1,8 @@
+import {readdirSync, readFileSync} from 'node:fs'
+import {join} from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
-import {pickLanguage} from '@shared/i18n/index.js'
-import {mainT, pluralKey} from '@main/i18n.js'
+import {pickLanguage} from '@shared/i18n/language.js'
+import {mainT} from '@main/i18n.js'
 
 describe('pickLanguage', () => {
 	it('returns en for undefined or null input', () => {
@@ -84,30 +86,39 @@ describe('mainT', () => {
 	})
 })
 
-describe('pluralKey', () => {
-	it('returns _one for count of 1', () => {
-		expect(pluralKey('en', 'message', 1)).toBe('message_one')
-	})
-
-	it('returns _other for any other English count', () => {
-		expect(pluralKey('en', 'message', 0)).toBe('message_other')
-		expect(pluralKey('en', 'message', 2)).toBe('message_other')
-		expect(pluralKey('en', 'message', 100)).toBe('message_other')
+describe('mainT plurals', () => {
+	it('picks the plural form from count, like the renderer does', () => {
+		expect(mainT('en', 'dialogs.quitWithActiveDownloads.message', {count: 1})).toContain('1')
+		expect(mainT('en', 'dialogs.quitWithActiveDownloads.message', {count: 1})).not.toBe(mainT('en', 'dialogs.quitWithActiveDownloads.message', {count: 2}).replace('2', '1'))
 	})
 
 	it("follows the locale's CLDR plural categories", () => {
-		expect(pluralKey('ru', 'message', 1)).toBe('message_one')
-		expect(pluralKey('ru', 'message', 3)).toBe('message_few')
-		expect(pluralKey('ru', 'message', 5)).toBe('message_many')
-		expect(pluralKey('ja', 'message', 1)).toBe('message_other')
-		expect(pluralKey('ar', 'message', 2)).toBe('message_two')
+		// ru has one / few / many: 1, 3 and 5 each read from a different key.
+		const ru = (count: number): string => mainT('ru', 'dialogs.quitWithActiveDownloads.message', {count})
+		const shapes = [1, 3, 5].map(count => ru(count).replace(String(count), '#'))
+		expect(new Set(shapes).size).toBe(3)
 	})
 
 	it('resolves to a real localized string for every count in a multi-category locale', () => {
 		for (const count of [1, 2, 5, 21]) {
-			const out = mainT('ru', `dialogs.quitWithActiveDownloads.${pluralKey('ru', 'message', count)}`, {count})
+			const out = mainT('ru', 'dialogs.quitWithActiveDownloads.message', {count})
 			expect(out).toContain(String(count))
 			expect(out).toMatch(/[а-яё]/i)
 		}
+	})
+})
+
+describe('main-process i18n layering', () => {
+	function* sources(dir: string): Generator<string> {
+		for (const entry of readdirSync(dir, {withFileTypes: true})) {
+			const full = join(dir, entry.name)
+			if (entry.isDirectory()) yield* sources(full)
+			else if (/\.tsx?$/.test(entry.name)) yield full
+		}
+	}
+
+	it('never imports React bindings into the main process', () => {
+		const offenders = [...sources('src/main')].filter(file => /from '(?:react-i18next|@shared\/i18n\/index\.js)'/.test(readFileSync(file, 'utf8')))
+		expect(offenders).toEqual([])
 	})
 })

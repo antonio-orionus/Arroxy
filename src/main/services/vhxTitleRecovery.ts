@@ -18,6 +18,7 @@
 // Failure is always non-fatal: any miss keeps the sentinel and the download
 // proceeds exactly as before.
 
+import {decodeHTMLAttribute} from 'entities'
 import fetch from 'make-fetch-happen'
 
 const VHX_UNTITLED_SENTINEL = 'Untitled'
@@ -48,29 +49,12 @@ export function isVhxEmbedExtractor(extractor: string | undefined, extractorKey:
 	return extractor !== undefined && VHX_EXTRACTOR_IDS.some(prefix => extractor.startsWith(prefix))
 }
 
-function decodeHtmlEntities(input: string): string {
-	return input.replace(/&(?:#[xX]([0-9a-fA-F]+)|#(\d+)|([a-zA-Z]+));/g, (match: string, hex: string | undefined, dec: string | undefined, named: string | undefined): string => {
-		if (hex) {
-			const code = Number.parseInt(hex, 16)
-			return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : match
-		}
-		if (dec) {
-			const code = Number.parseInt(dec, 10)
-			return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : match
-		}
-		const entity = named !== undefined ? NAMED_ENTITIES[named.toLowerCase()] : undefined
-		return entity ?? match
-	})
-}
-
-const NAMED_ENTITIES: Record<string, string> = {amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' '}
-
 // Content-before-name order is handled by matching the whole <meta> tag first,
 // then pulling the content attribute out of it.
 function metaContent(html: string, key: 'og:title' | 'twitter:title' | 'og:site_name'): string | null {
 	for (const tag of html.matchAll(META_TAG_PATTERNS[key])) {
 		const content = /content=["']([^"']*)["']/i.exec(tag[0])
-		if (content?.[1]) return decodeHtmlEntities(content[1]).trim() || null
+		if (content?.[1]) return decodeHTMLAttribute(content[1]).trim() || null
 	}
 	return null
 }

@@ -15,49 +15,19 @@ import {spawnFFmpeg} from '@main/utils/process.js'
 import {detectSubtitleLang, EMBED_CONTAINER_EXT} from '@shared/subtitlePath.js'
 import {siteForJob} from '@shared/sites/index.js'
 import {SUBTITLE_FORMATS, type SubtitleFormat} from '@shared/schemas.js'
+import {iso6392BTo1} from 'iso-639-2/2b-to-1.js'
+import {iso6392TTo2B} from 'iso-639-2/2t-to-2b.js'
 
 export const logger = log.scope('subs')
 
-// Minimal ISO 639-1 → 639-2/B mapping for the languages YouTube most commonly
-// exposes. mkv prefers 3-letter codes per the Matroska spec; players still
-// auto-pickup with 2-letter codes but 3-letter is more correct. For codes we
-// don't recognize (e.g. "en-orig", regional variants), pass through as-is.
-const ISO_639_1_TO_2B: Record<string, string> = {
-	en: 'eng',
-	es: 'spa',
-	fr: 'fre',
-	de: 'ger',
-	it: 'ita',
-	pt: 'por',
-	ru: 'rus',
-	ja: 'jpn',
-	ko: 'kor',
-	zh: 'chi',
-	ar: 'ara',
-	hi: 'hin',
-	uk: 'ukr',
-	pl: 'pol',
-	tr: 'tur',
-	nl: 'dut',
-	sv: 'swe',
-	da: 'dan',
-	no: 'nor',
-	fi: 'fin',
-	cs: 'cze',
-	el: 'gre',
-	he: 'heb',
-	th: 'tha',
-	vi: 'vie',
-	id: 'ind',
-	ro: 'rum',
-	hu: 'hun',
-	bg: 'bul'
-}
+// Matroska's Language element takes ISO 639-2/B ("ger", not "de" or "deu").
+// Players still pick up other forms, but /B is what the spec asks for. A tag
+// with a region or script ("pt-BR", "zh-Hant", "en-orig") passes through
+// as-is: collapsing it onto one code would merge tracks the user picked apart.
+const TO_ISO_639_2B: ReadonlyMap<string, string> = new Map([...Object.entries(iso6392TTo2B), ...Object.entries(iso6392BTo1).map(([b, one]): [string, string] => [one, b])])
 
 function toIso639(lang: string): string {
-	const base = lang.toLowerCase()
-	if (/^[a-z]{2}$/.test(base) && ISO_639_1_TO_2B[base]) return ISO_639_1_TO_2B[base]
-	return lang
+	return TO_ISO_639_2B.get(lang.toLowerCase()) ?? lang
 }
 
 // Matroska carries cover art as a file attachment, so it is re-added from a

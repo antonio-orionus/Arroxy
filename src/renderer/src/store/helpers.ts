@@ -95,8 +95,9 @@ export function groupVideoFormats(formats: FormatOption[], preferIds: readonly s
 	return [...groups.values()].toSorted((a, b) => (order.get(a.formatId) ?? 0) - (order.get(b.formatId) ?? 0)).map(f => ({resolution: f.resolution, formatId: f.formatId, label: f.label, dynamicRange: f.dynamicRange}))
 }
 
+// Queue item and playlist group ids. Opaque: nothing orders or parses them.
 export function generateId(): string {
-	return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
+	return crypto.randomUUID()
 }
 
 export function formatStatus(snapshot: StatusSnapshot | null): string {

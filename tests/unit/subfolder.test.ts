@@ -106,6 +106,22 @@ describe('safeFolderName', () => {
 		expect(safeFolderName('.')).toBe('Playlist')
 	})
 
+	it('truncates on whole characters, never splitting an emoji or accent', () => {
+		const loneSurrogate = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/
+		// The emoji straddles the limit: keeping half of it would leave a lone surrogate.
+		const straddling = safeFolderName(`${'a'.repeat(SUBFOLDER_NAME_MAX - 1)}😀 tail`)
+		expect(straddling).toBe('a'.repeat(SUBFOLDER_NAME_MAX - 1))
+		expect(straddling).not.toMatch(loneSurrogate)
+		// A ZWJ family is one character to the reader; it goes whole or not at all.
+		expect(safeFolderName(`${'a'.repeat(60)}👨‍👩‍👧`)).toBe('a'.repeat(60))
+		// A base letter is never kept without its combining accent.
+		expect(safeFolderName(`${'a'.repeat(SUBFOLDER_NAME_MAX - 1)}e\u0301`)).toBe('a'.repeat(SUBFOLDER_NAME_MAX - 1))
+		// The length budget is unchanged: anything that fits is kept.
+		const fits = `${'a'.repeat(SUBFOLDER_NAME_MAX - 2)}😀`
+		expect(safeFolderName(fits)).toBe(fits)
+		expect(isValidSubfolder(safeFolderName(`${'😀'.repeat(40)}`))).toBe(true)
+	})
+
 	it('never emits a name its own validator would reject', () => {
 		// Escaping appends a character, so a reserved name at the length limit has to
 		// lose one before the underscore goes on.

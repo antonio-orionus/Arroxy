@@ -59,19 +59,12 @@ function* walkTs(dir: string): Generator<string> {
 // Matches 'foo.bar.baz' and "foo.bar.baz" (non-template literals only — no ${).
 const KEY_PATTERN = /(?<![`$])['"]([a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z0-9_-]+){1,})['"]/g
 
-// pluralKey(lang, 'base', count) is a project helper that emits `base_<category>` for the
-// locale's CLDR plural category at runtime. Capture the first-arg base names so plural variants aren't flagged.
-const PLURAL_KEY_CALL = /pluralKey\(\s*\w+\s*,\s*'([^']+)'/g
-
-function collectStaticKeys(root: string): {refs: Set<string>; pluralBases: Set<string>} {
+function collectStaticKeys(root: string): Set<string> {
 	const refs = new Set<string>()
-	const pluralBases = new Set<string>()
 	for (const file of walkTs(root)) {
-		const src = readFileSync(file, 'utf8')
-		for (const m of src.matchAll(KEY_PATTERN)) refs.add(m[1])
-		for (const m of src.matchAll(PLURAL_KEY_CALL)) pluralBases.add(m[1])
+		for (const m of readFileSync(file, 'utf8').matchAll(KEY_PATTERN)) refs.add(m[1])
 	}
-	return {refs, pluralBases}
+	return refs
 }
 
 // ── main ─────────────────────────────────────────────────────────────────────
@@ -81,7 +74,7 @@ const repoRoot = fileURLToPath(new URL('..', import.meta.url))
 const srcRoot = join(repoRoot, 'src')
 
 const enLeaves = flattenLeaves(en)
-const {refs: staticRefs, pluralBases} = collectStaticKeys(srcRoot)
+const staticRefs = collectStaticKeys(srcRoot)
 
 // i18next plural suffix pattern: _zero _one _two _few _many _other
 const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/
@@ -90,7 +83,7 @@ const unused: string[] = []
 for (const {path} of enLeaves) {
 	if (DYNAMIC_PREFIXES.some(p => path.startsWith(p))) continue
 	if (staticRefs.has(path)) continue
-	// Plural variant: check if base key, sibling, or pluralKey('base') call accounts for it
+	// Plural variant: check if the base key or a sibling accounts for it
 	// eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
 	const pluralMatch = path.match(PLURAL_SUFFIX)
 	if (pluralMatch) {
@@ -99,9 +92,6 @@ for (const {path} of enLeaves) {
 		// sibling literal reference (e.g. t('key_other', { count }))
 		const siblingReferenced = [...staticRefs].some(r => r !== path && r.replace(PLURAL_SUFFIX, '') === base)
 		if (siblingReferenced) continue
-		// pluralKey(lang, 'lastSegment', count) in a template literal
-		const lastSegment = base.split('.').at(-1)!
-		if (pluralBases.has(lastSegment)) continue
 	}
 	unused.push(path)
 }

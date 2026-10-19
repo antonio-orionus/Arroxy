@@ -1,6 +1,6 @@
 import path from 'node:path'
 import {Tray, Menu, nativeImage, type BrowserWindow} from 'electron'
-import {mainT, pluralKey} from '@main/i18n.js'
+import {mainT} from '@main/i18n.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import type {QueueItem} from '@shared/types.js'
 import type {QueueService} from './QueueService.js'
@@ -119,7 +119,7 @@ export class TrayManager {
 			statusLabel = mainT(lang, 'tray.menu.statusIdle')
 		} else {
 			const avg = Math.round(running.reduce((s, i) => s + i.progressPercent, 0) / activeCount)
-			statusLabel = mainT(lang, `tray.menu.${pluralKey(lang, 'statusActive', activeCount)}`, {count: activeCount, percent: avg})
+			statusLabel = mainT(lang, 'tray.menu.statusActive', {count: activeCount, percent: avg})
 		}
 
 		const {hotkeyTrigger} = this

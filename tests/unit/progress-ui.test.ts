@@ -17,17 +17,20 @@ describe('progress ui helpers', () => {
 		const s2 = new ProgressFormatter()
 		expect(s2.update('[download] 72.7% of 18.53MiB at Unknown B/s ETA Unknown')).toBeNull()
 
+		// Post-processor banners carry no detail: the translated phase status owns them.
 		const s3 = new ProgressFormatter()
-		expect(s3.update('[Merger] Merging formats into "/tmp/out.webm"')).toBe('Merging…')
-		expect(s3.update('[ffmpeg] Merging formats into "/tmp/out.mp4"')).toBe('Merging…')
-		expect(s3.update('[ExtractAudio] Destination: /tmp/out.m4a')).toBe('Merging…')
+		expect(s3.update('[Merger] Merging formats into "/tmp/out.webm"')).toBeNull()
+		expect(s3.update('[ffmpeg] Merging formats into "/tmp/out.mp4"')).toBeNull()
+		expect(s3.update('[ExtractAudio] Destination: /tmp/out.m4a')).toBeNull()
 		expect(s3.update('Deleting original file /tmp/out.f140.m4a')).toBeNull()
 		expect(s3.update('[download] 100% of 18.53MiB')).toBeNull()
 	})
 
+	// The detail sits beside the translated status badge, so it carries numbers
+	// only, never an English verb.
 	it('extracts speed and time from ffmpeg frame-level progress lines', () => {
 		const s = new ProgressFormatter()
-		expect(s.update('frame=  297 fps=296 q=-1.0 Lsize=   3085kB time=00:00:09.90 bitrate=2551.7kbits/s speed=9.83x')).toBe('Merging… 9.83x · 00:00:09')
-		expect(s.update('frame=   52 fps= 52 q=-1.0 Lsize=    768kB time=00:00:02.16 bitrate=2909.5kbits/s speed=2.16x')).toBe('Merging… 2.16x · 00:00:02')
+		expect(s.update('frame=  297 fps=296 q=-1.0 Lsize=   3085kB time=00:00:09.90 bitrate=2551.7kbits/s speed=9.83x')).toBe('9.83x • 00:00:09')
+		expect(s.update('frame=   52 fps= 52 q=-1.0 Lsize=    768kB time=00:00:02.16 bitrate=2909.5kbits/s speed=2.16x')).toBe('2.16x • 00:00:02')
 	})
 })

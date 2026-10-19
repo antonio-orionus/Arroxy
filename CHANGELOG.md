@@ -26,6 +26,10 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - A slow format lookup can be cancelled after two minutes.
 - Sites whose stream list is gone (an HTTP 410 or 403) no longer make Arroxy wait for a second lookup.
 - A stream whose site gives no resolution is listed as "Unknown resolution", not under a stray note like "watermarked" or "unknown".
+- Subtitles embedded into MKV are tagged with the right language for every ISO 639-1 language, not just the 29 most common ones, so players name tracks like Tamil, Slovak or Welsh correctly.
+- A long playlist title that ends in an emoji or accented letter no longer leaves a broken character at the end of its folder name.
+- Titles recovered for Vimeo OTT (VHX) videos show accents, dashes and quotes correctly instead of raw codes like `&eacute;` or `&mdash;`.
+- A download that runs through ffmpeg shows its speed and position without an untranslated, and wrong, "Merging…" beside the Downloading status.
 - **Clipboard watch is predictable.** Copy a single link and it goes straight into the URL field, replacing what was there, with **Undo** on the toast. A link copied while Arroxy is busy (fetching formats, starting a download, the bulk dialog, another tab or step) waits and fills in once you are back on the Download tab, and the latest copy wins. Text that only contains a link, or a link to an image or document, is left alone. The **Use copied link** prompt is gone.
 
 ---

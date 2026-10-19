@@ -6,9 +6,9 @@ import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
 import {TrayManager} from '@main/services/TrayManager.js'
-import {mainT, pluralKey} from '@main/i18n.js'
+import {mainT} from '@main/i18n.js'
 import {installAppMenu} from '@main/installAppMenu.js'
-import {pickLanguage} from '@shared/i18n/index.js'
+import {pickLanguage} from '@shared/i18n/language.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl} from '@main/services/heartbeat.js'
@@ -477,7 +477,7 @@ if (hasSingleInstanceLock) {
 					buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.pause'), mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
 					defaultId: 2,
 					cancelId: 2,
-					message: mainT(lang, `dialogs.quitWithActiveDownloads.${pluralKey(lang, 'message', count)}`, {count}),
+					message: mainT(lang, 'dialogs.quitWithActiveDownloads.message', {count}),
 					detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
 				}))
 			} finally {

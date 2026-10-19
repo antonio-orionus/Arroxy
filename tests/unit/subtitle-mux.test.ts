@@ -150,6 +150,21 @@ describe('muxSubtitlesIntoVideo — ffmpeg args', () => {
 		expect(args).toContain('language=kor')
 	})
 
+	it('maps every ISO 639-1 language, not just the common ones, and 639-2/T onto /B', async () => {
+		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
+		vi.mocked(rename).mockResolvedValue(undefined)
+		vi.mocked(unlink).mockResolvedValue(undefined)
+		const langs = ['ta', 'sk', 'ms', 'is', 'cy', 'deu', 'fil', 'pt-BR']
+
+		await muxSubtitlesIntoVideo({ffmpegPath: '/fake/ffmpeg', videoPath: '/tmp/v.mkv', subtitlePaths: langs.map(lang => `/tmp/v.${lang}.srt`), requestedLangs: langs, keepCoverArt: false, onSpawn: vi.fn(), jobId: JOB_ID})
+
+		const [, args] = vi.mocked(spawnFFmpeg).mock.calls[0]
+		const tags = args.filter(arg => arg.startsWith('language='))
+		// Regional and script variants keep their full tag: collapsing pt-BR or
+		// zh-Hant onto one code would merge tracks the user picked apart.
+		expect(tags).toEqual(['language=tam', 'language=slo', 'language=may', 'language=ice', 'language=wel', 'language=ger', 'language=fil', 'language=pt-BR'])
+	})
+
 	it('unknown / 3-letter lang passes through unchanged', async () => {
 		vi.mocked(spawnFFmpeg).mockReturnValue(makeFakeFFmpeg(0) as never)
 		vi.mocked(rename).mockResolvedValue(undefined)

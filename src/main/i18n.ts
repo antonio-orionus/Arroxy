@@ -1,68 +1,19 @@
-import en from '@shared/i18n/locales/en.json' with {type: 'json'}
-import id from '@shared/i18n/locales/id.json' with {type: 'json'}
-import es from '@shared/i18n/locales/es.json' with {type: 'json'}
-import fr from '@shared/i18n/locales/fr.json' with {type: 'json'}
-import it from '@shared/i18n/locales/it.json' with {type: 'json'}
-import ko from '@shared/i18n/locales/ko.json' with {type: 'json'}
-import fa from '@shared/i18n/locales/fa.json' with {type: 'json'}
-import pl from '@shared/i18n/locales/pl.json' with {type: 'json'}
-import th from '@shared/i18n/locales/th.json' with {type: 'json'}
-import de from '@shared/i18n/locales/de.json' with {type: 'json'}
-import ru from '@shared/i18n/locales/ru.json' with {type: 'json'}
-import uk from '@shared/i18n/locales/uk.json' with {type: 'json'}
-import ja from '@shared/i18n/locales/ja.json' with {type: 'json'}
-import zh from '@shared/i18n/locales/zh.json' with {type: 'json'}
-import zhHant from '@shared/i18n/locales/zh-Hant.json' with {type: 'json'}
-import hi from '@shared/i18n/locales/hi.json' with {type: 'json'}
-import bn from '@shared/i18n/locales/bn.json' with {type: 'json'}
-import ar from '@shared/i18n/locales/ar.json' with {type: 'json'}
-import uz from '@shared/i18n/locales/uz.json' with {type: 'json'}
-import my from '@shared/i18n/locales/my.json' with {type: 'json'}
-import km from '@shared/i18n/locales/km.json' with {type: 'json'}
-import ps from '@shared/i18n/locales/ps.json' with {type: 'json'}
-import sw from '@shared/i18n/locales/sw.json' with {type: 'json'}
-import am from '@shared/i18n/locales/am.json' with {type: 'json'}
-import om from '@shared/i18n/locales/om.json' with {type: 'json'}
-import el from '@shared/i18n/locales/el.json' with {type: 'json'}
-import sr from '@shared/i18n/locales/sr.json' with {type: 'json'}
-import ur from '@shared/i18n/locales/ur.json' with {type: 'json'}
-import vi from '@shared/i18n/locales/vi.json' with {type: 'json'}
-import tr from '@shared/i18n/locales/tr.json' with {type: 'json'}
-import pt from '@shared/i18n/locales/pt.json' with {type: 'json'}
+import {createInstance} from 'i18next'
+import {I18NEXT_OPTIONS} from '@shared/i18n/resources.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 
-const RESOURCES: Record<SupportedLang, unknown> = {en, id, es, fr, it, ko, fa, pl, th, de, ru, uk, ja, zh, 'zh-Hant': zhHant, hi, bn, ar, uz, my, km, ps, sw, am, om, el, sr, ur, vi, tr, pt}
+// Own instance, never the renderer's global one: main translates per call for
+// whichever language the window currently shows. Resources are inline, so a
+// synchronous init leaves it ready before the first lookup.
+const i18n = createInstance()
+void i18n.init({...I18NEXT_OPTIONS, lng: 'en', initAsync: false})
+// Main's callers build keys at runtime (menu templates, outcome tables), which
+// the typed resource keys can't express. Widening is safe: i18next answers an
+// unknown key with the key itself, never a throw.
+const translate = i18n.t as (key: string, options: Record<string, unknown>) => string
 
-function lookup(tree: unknown, dottedKey: string): string | undefined {
-	const parts = dottedKey.split('.')
-	let cursor: unknown = tree
-	for (const part of parts) {
-		if (cursor && typeof cursor === 'object' && part in (cursor as Record<string, unknown>)) {
-			cursor = (cursor as Record<string, unknown>)[part]
-		} else {
-			return undefined
-		}
-	}
-	return typeof cursor === 'string' ? cursor : undefined
-}
-
-function interpolate(template: string, params?: Record<string, string | number>): string {
-	if (!params) return template
-	return template.replace(/\{\{\s*([^}\s]+)\s*\}\}/g, (_, name: string) => {
-		const v = params[name]
-		return v === undefined ? `{{${name}}}` : String(v)
-	})
-}
-
+// Same lookup the renderer does: missing keys fall back to English, then to the
+// key itself, and a `count` param picks the locale's own plural form.
 export function mainT(lang: SupportedLang, dottedKey: string, params?: Record<string, string | number>): string {
-	const fromLang = lookup(RESOURCES[lang], dottedKey)
-	if (fromLang) return interpolate(fromLang, params)
-	const fromEn = lookup(RESOURCES.en, dottedKey)
-	if (fromEn) return interpolate(fromEn, params)
-	return dottedKey
-}
-
-// Same suffix i18next picks for `count`, so main-process strings use the locale's own plural form.
-export function pluralKey(lang: SupportedLang, base: string, count: number): string {
-	return `${base}_${new Intl.PluralRules(lang).select(count)}`
+	return translate(dottedKey, {...params, lng: lang})
 }

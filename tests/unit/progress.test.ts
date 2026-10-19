@@ -196,15 +196,14 @@ describe('ProgressFormatter', () => {
 		expect(result).toBe(first)
 	})
 
-	it('returns Merging… for merger lines without throttling', () => {
-		expect(formatter.update('[Merger] Merging formats into output.mkv')).toBe('Merging…')
+	it('leaves merger banners to the phase status', () => {
+		expect(formatter.update('[Merger] Merging formats into output.mkv')).toBeNull()
 	})
 
 	it('returns ffmpeg detail for ffmpeg progress lines without throttling', () => {
 		const line = 'frame= 297 fps=296 q=-1.0 size=   1234kB time=00:00:09.90 bitrate=1020.8kbits/s speed=9.83x'
 		const result = formatter.update(line)
-		expect(result).toMatch(/Merging…/)
-		expect(result).toMatch(/9\.83x/)
+		expect(result).toBe('9.83x • 00:00:09')
 	})
 
 	it('parses HLS fragmented line with trailing (frag N/M) suffix', () => {

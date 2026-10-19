@@ -48,13 +48,12 @@ export class ProgressFormatter {
 	update(line: string): string | null {
 		const ffmpegRe = /time=(\d{2}:\d{2}:\d{2}).*?speed=\s*(\S+x)/
 		const ffmpegMatch = ffmpegRe.exec(line)
+		// The detail renders beside the translated status badge, so it holds
+		// numbers only: an English word here would be the one untranslated part
+		// of the row. Post-processor banners carry nothing, the phase status
+		// event names them.
 		if (ffmpegMatch) {
-			this.lastDetail = `Merging… ${ffmpegMatch[2]} · ${ffmpegMatch[1]}`
-			return this.lastDetail
-		}
-
-		if (/^\[(?:Merger|ffmpeg|ExtractAudio)\]/.test(line)) {
-			this.lastDetail = 'Merging…'
+			this.lastDetail = `${ffmpegMatch[2]} • ${ffmpegMatch[1]}`
 			return this.lastDetail
 		}
 
