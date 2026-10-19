@@ -8,7 +8,7 @@ Video (picked for Balanced 720p •):
 Unknown resolution  ·                        H.264 [Watermarked] no size +audio
 
 Audio:
-AAC: m4a no size
+AAC: m4a 949.5 KiB
 
 Profile picks:
 balanced: bytevc1_720p_336791-0 (720x1280, mp4) + audio none

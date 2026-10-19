@@ -28,6 +28,7 @@ When cutting a release, add a new section at the top in the same shape as the mo
 - Converting to MP3, M4A, Opus or WAV uses the audio language you chose.
 - Switching from Audio only back to video picks what your profile would, not the largest stream.
 - Sizes are estimated for sites that don't report them, and each resolution is listed once.
+- Sizes also show for files a site gives no details about, such as Instagram's and Facebook's, and Facebook's HD and SD files are listed separately.
 - A slow format lookup can be cancelled.
 - A site whose stream list is gone no longer triggers a second lookup.
 - Streams without a resolution are listed as "Unknown resolution".

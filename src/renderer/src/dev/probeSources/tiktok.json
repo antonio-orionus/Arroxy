@@ -3,7 +3,7 @@
 		"id": "tiktok",
 		"url": "https://www.tiktok.com/@meister12347/video/6934396727596240134",
 		"capturedAt": "2026-10-19",
-		"ytDlp": "2026.08.19"
+		"ytDlp": "2026.10.10.233141"
 	},
 	"info": {
 		"id": "6934396727596240134",
@@ -18,7 +18,7 @@
 		"upload_date": "20210228",
 		"timestamp": 1614540064,
 		"formats": [
-			{"format_id":"audio","ext":"m4a","resolution":"audio only","vbr":0,"vcodec":"none","acodec":"aac","protocol":"https"},
+			{"format_id":"audio","ext":"m4a","resolution":"audio only","vbr":0,"filesize":972357,"vcodec":"none","acodec":"aac","protocol":"https"},
 			{"format_id":"download","ext":"mp4","format_note":"watermarked","vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-2},
 			{"format_id":"h264_540p_186167-0","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":186,"filesize":294447,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
 			{"format_id":"h264_540p_186167-1","ext":"mp4","resolution":"576x1024","width":576,"height":1024,"tbr":186,"filesize":294447,"vcodec":"h264","acodec":"aac","dynamic_range":"SDR","protocol":"https","preference":-1,"quality":1},
