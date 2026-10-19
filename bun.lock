@@ -87,7 +87,7 @@
         "oxlint": "1.87.0",
         "oxlint-tsgolint": "7.0.2003",
         "picomatch": "2.3.2",
-        "postcss": "8.5.29",
+        "postcss": "8.5.30",
         "react-doctor": "0.9.17",
         "shadcn": "4.21.4",
         "tailwindcss": "4.3.3",
