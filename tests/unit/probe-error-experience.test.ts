@@ -362,6 +362,18 @@ describe('a failure the Explore session already ran into', () => {
 		expect(buildProbeErrorExperience({error: parse(), url: reel, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
 	})
 
+	// An escalated download keeps its auth: a later failure nothing names (a
+	// post-processing error) says nothing about the sign-in, on any site.
+	it('says nothing of the sign-in for an escalated download that failed unnamed', () => {
+		const postProcessing = signedInError('unknown', 'ERROR: Postprocessing: Conversion failed!')
+		for (const url of [INSTAGRAM, 'https://www.youtube.com/watch?v=x']) {
+			expect(buildProbeErrorExperience({error: postProcessing, url, commonSettings: {cookiesMode: 'explore'}, stage: 'download'}).cookies.variant).toBe('hidden')
+		}
+		expect(buildProbeErrorExperience({error: postProcessing, url: 'https://www.youtube.com/watch?v=x', commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
+		// A download that still needs the account is refused signed in, as a probe is.
+		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), url: 'https://www.youtube.com/watch?v=x', commonSettings: {cookiesMode: 'explore'}, stage: 'download'}).cookies.variant).toBe('explore-refused')
+	})
+
 	it('leaves a file or browser mode and an unrelated failure as they were', () => {
 		expect(buildProbeErrorExperience({error: signedInError('loginRequired'), commonSettings: {cookiesMode: 'file', cookiesPath: '/tmp/c.txt'}}).cookies).toEqual({variant: 'configured', mode: 'file'})
 		expect(buildProbeErrorExperience({error: signedInError('network'), url: INSTAGRAM, commonSettings: {cookiesMode: 'explore'}}).cookies.variant).toBe('hidden')
