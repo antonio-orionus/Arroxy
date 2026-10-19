@@ -101,8 +101,8 @@ Here a launch is one yt-dlp process. "Typical" means every anonymous attempt is 
   - **b:** production clients `default,web_embedded`, `--po-token off`.
   - **c:** production clients plus the token.
 - 60 runs in a seeded random order (seed 20261019), stopping at the first HTTP 429.
-- Runs 0–3 used a VPN exit in Iceland at 30 s spacing. Runs 4–14 used a VPN exit in Canada at 90 s spacing, on a build that also had the visitor-data fix below.
-- Each exit was rate limited after about 5 and 11 runs respectively, so 15 of the 60 runs happened. 14 completed; run 3 was lost to the rate limit.
+- Runs 0–3 used a VPN exit in Iceland at 30 s spacing. Runs 4–14 used a VPN exit in Canada at 90 s spacing, on a build that also had the visitor-data fix below. Run 15 used a datacenter exit in France.
+- The Iceland and Canada exits were rate limited after about 5 and 11 runs respectively. The France exit answered 429 on its first run, so the comparison stopped there: 16 of the 60 runs happened. 15 completed; run 3 was lost to the rate limit.
 
 | # | Video | Kind | Cfg | Exit | Selected / available height | Format chosen | Launches | Token used for | Clients withheld | Warnings | s |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -121,6 +121,7 @@ Here a launch is one yt-dlp process. "Typical" means every anonymous attempt is 
 | 12 | `LXb3EKWsInQ` | long | a | CA | 720 / 2160 | yes | 1 | – | – | – | 38 |
 | 13 | `z1NNgSu8hTI` | long | a | CA | 720 / 1080 | yes | 1 | – | – | – | 34 |
 | 14 | `z1NNgSu8hTI` | long | b | CA | 720 / 1080 | yes | 1 | – | web | 429 (webpage), no visitor data | 40 |
+| 15 | `rfscVS0vtbw` | long | c | FR | 720 / 720 | yes | 1 | – | – | 429 (webpage) | 67 |
 
 Shorts are vertical, so the 720 cap shows as a height of 1280.
 
@@ -130,19 +131,19 @@ Shorts are vertical, so the 720 cap shows as a height of 1280.
 | --- | --- | --- |
 | a | 5/5 (+1 lost to the 429) | 6 |
 | b | 4/4 | 4 |
-| c | 5/5 | 5 |
+| c | 6/6 | 6 |
 
 On the Canadian exit, (a) averaged 34 s and (c) 37 s. The difference is the per-process mint, which production caches for 5 h.
 
 **What else the runs showed:**
 
-- **The token rarely reaches a format decision.** yt-dlp drops a client's formats once an earlier client has already supplied the same stream, and the GVS token is requested only for formats that survive. With the production clients, `tv_samsung` and `visionos` usually supply every stream first. yt-dlp took the token for the web client in only 2 of 5 (c) runs (runs 10 and 11, both Shorts), and the web formats were withheld in both anyway. No run's selection changed because of the token.
+- **The token rarely reaches a format decision.** yt-dlp drops a client's formats once an earlier client has already supplied the same stream, and the GVS token is requested only for formats that survive. With the production clients, `tv_samsung` and `visionos` usually supply every stream first. yt-dlp took the token for the web client in only 2 of 6 (c) runs (runs 10 and 11, both Shorts), and the web formats were withheld in both anyway. No run's selection changed because of the token.
 - **The token could not work at all on some networks.** On those networks youtube.com serves `ytcfg` without `VISITOR_DATA`; the visitor identity is only in `INNERTUBE_CONTEXT.client.visitorData`. Arroxy read only `VISITOR_DATA`, so it bound the token to the video ID, and yt-dlp dropped it for the web client with `Missing required Visitor Data`. Seen on the Dutch and Icelandic exits; fixed in this PR (`getVisitorData` reads both keys, and no visitor data means no token). Runs 4–14 had the fix.
-- **429 here arrives first on yt-dlp's webpage request, as a warning.** The extraction carries on through the player API clients. Run 3 then hit a fatal bot check, and runs 3 and 14 lost visitor data with the webpage. A plain `curl` of the same watch page right after a 429 returned 200.
+- **429 here arrives first on yt-dlp's webpage request, as a warning.** The extraction carries on through the player API clients. Run 3 then hit a fatal bot check, and runs 3 and 14 lost visitor data with the webpage. Runs 14 and 15 still reached the cap. A plain `curl` of the same watch page right after a 429 returned 200.
 
 **Decision: token-first.** (c) matched (a) and (b) on requested-quality fit, with the same single launch. By the decision rule, the token stays first, and token-on-demand is not built.
 
-The sample is small: 15 of the planned 60 runs, two exits, one profile. If withheld-quality reports return now that the token is effective, rerun the comparison:
+The sample is small: 16 of the planned 60 runs, three exits, one profile. If withheld-quality reports return now that the token is effective, rerun the comparison:
 - `--po-token off` and `--verbose` are the levers;
 - `poTokenFromConfigClients` shows whether the token reached a decision.
 
