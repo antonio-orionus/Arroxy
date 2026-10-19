@@ -77,11 +77,15 @@ export function profilePatch(profile: DownloadProfile, state: ProbeFields): Part
 // The video stream the run's profile would pick, for switching to Video from
 // Audio only or Subtitles only. A profile with no video ranks by the app's
 // default profile (720p), not the tallest stream, which may be gigabytes.
-export function profileVideoPick(state: ProbeFields & Pick<AppState, 'wizardProfile'>): string {
+// `silent`: for Video, no audio, ranked as a video-only download (a stream
+// with no audio of its own).
+export function profileVideoPick(state: ProbeFields & Pick<AppState, 'wizardProfile'>, {silent = false}: {silent?: boolean} = {}): string {
 	const profile = state.wizardProfile
 	const hasVideo = profile?.media.kind === 'video-audio' || profile?.media.kind === 'video-only'
-	const ranking = hasVideo ? profile : BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === DEFAULT_DOWNLOAD_PROFILE_REF.id)
-	if (!ranking) return ''
+	const base = hasVideo ? profile : BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === DEFAULT_DOWNLOAD_PROFILE_REF.id)
+	if (!base || (base.media.kind !== 'video-audio' && base.media.kind !== 'video-only')) return ''
+	const {audio: _audio, ...video} = base.media.kind === 'video-audio' ? base.media : {...base.media, audio: undefined}
+	const ranking: DownloadProfile = silent ? {...base, media: {...video, kind: 'video-only'}} : base
 	const common = state.settings?.common
 	const {media} = resolveProfileSelection({profile: ranking, formats: state.wizardFormats, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: false, nativeAudioPreference: common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference, hdrPreference: resolveAppHdr(common?.hdrPreference)})
 	return media.videoFormatId

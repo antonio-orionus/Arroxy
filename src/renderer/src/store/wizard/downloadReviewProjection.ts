@@ -133,6 +133,26 @@ function safeProfileOutputDir(profile: DownloadProfile, outputContext: DownloadP
 	}
 }
 
+// What the single-video run's options can't do together (a thumbnail an audio
+// file can't hold, subtitles inside a file with no video). Cheap on its own, for
+// a footer that must not rebuild the whole review on every store change.
+export function singleConflictWarnings(state: AppState): UserVisibleConflict[] {
+	const kind = state.wizardMediaKind
+	const videoId = kind === 'video' ? state.selectedVideoFormatId : ''
+	const audio: AudioSelection = kind === 'subtitles' ? {kind: 'none'} : state.audioSelection
+	const conflicts: SanitizeConflict[] = sanitizeJobOptions({
+		isSubtitleOnly: kind === 'subtitles',
+		hasVideoTrack: videoId !== '',
+		resolvedOutputContainer: resolveOutputContainer(videoId, audio, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, kind === 'video' ? state.wizardFileType : 'auto'),
+		requestedFileType: kind === 'video' ? state.wizardFileType : 'auto',
+		subtitleMode: state.wizardSubtitleMode,
+		subtitleLanguages: state.wizardSubtitleLanguages,
+		embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},
+		sponsorBlockMode: state.wizardSponsorBlockMode
+	}).conflicts
+	return conflicts.filter(isUserVisibleConflict)
+}
+
 export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleContext): DownloadReview {
 	const inPlaylist = state.wizardMode === 'playlist'
 	const inBulk = state.wizardMode === 'bulk'
@@ -193,19 +213,7 @@ export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleCo
 	const batchHasNoLanguages = !inMultiProfile && state.playlistSelection?.kind === 'subtitles' && state.playlistSelection.languages.length === 0
 	const hasNothingSelected = inBatch ? !state.playlistSelection || batchHasNoLanguages || state.selectedPlaylistItemIds.length === 0 : kind === 'subtitles' ? effectiveSubtitleLanguages.length === 0 : kind === 'audio' ? audio.kind === 'none' : videoId === ''
 
-	const allConflicts: SanitizeConflict[] = !inBatch
-		? sanitizeJobOptions({
-				isSubtitleOnly: kind === 'subtitles',
-				hasVideoTrack: videoId !== '',
-				resolvedOutputContainer: resolveOutputContainer(videoId, audio, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, kind === 'video' ? state.wizardFileType : 'auto'),
-				requestedFileType: kind === 'video' ? state.wizardFileType : 'auto',
-				subtitleMode: state.wizardSubtitleMode,
-				subtitleLanguages: effectiveSubtitleLanguages,
-				embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},
-				sponsorBlockMode: state.wizardSponsorBlockMode
-			}).conflicts
-		: []
-	const conflictWarnings: UserVisibleConflict[] = allConflicts.filter(isUserVisibleConflict)
+	const conflictWarnings: UserVisibleConflict[] = inBatch ? [] : singleConflictWarnings(state)
 
 	return {
 		inPlaylist,

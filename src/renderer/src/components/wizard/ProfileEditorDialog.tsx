@@ -35,7 +35,9 @@ export function ProfileEditorDialog({editor, view}: ProfileEditorDialogProps): R
 				onChangeGlobalDestination={() => view.chooseWizardFolder()}
 				open={editor.editorOpen}
 				onOpenChange={editor.setEditorOpen}
-				onSave={profile => view.saveDownloadProfile(profile)}
+				onSave={async profile => {
+					await view.saveDownloadProfile(profile)
+				}}
 				resetProfile={editor.editorResetProfile}
 			/>
 		</Suspense>

@@ -337,7 +337,7 @@ describe('StepPlaylistProfiles', () => {
 
 	describe('profile editing', () => {
 		it("saves an edited profile without making it the app's active profile", async () => {
-			const save = vi.fn(async () => {})
+			const save = vi.fn(async () => true)
 			useAppStore.setState({saveDownloadProfile: save})
 			renderStep()
 			pickFromRow('b', 'podcast')
@@ -354,6 +354,7 @@ describe('StepPlaylistProfiles', () => {
 					if (!settings) return state
 					return {settings: {...settings, profiles: {...settings.profiles, custom: [...settings.profiles.custom, created]}}}
 				})
+				return true
 			})
 			useAppStore.setState({saveDownloadProfile: save})
 			renderStep()

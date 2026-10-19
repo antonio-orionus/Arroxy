@@ -88,12 +88,14 @@ function mediaKindPatch(kind: WizardMediaKind, state: AppState): Partial<AppStat
 }
 
 // Video, no audio: the current stream when it has no audio of its own, else
-// the silent stream at the same height, else the first silent one.
+// the silent stream at the same height, else the profile's silent pick.
 function videoOnlyPatch(state: AppState): Partial<AppState> {
 	const silent = state.wizardFormats.filter(f => f.isVideoOnly)
 	if (silent.length === 0) return {}
 	const current = state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId)
-	const video = current?.isVideoOnly ? current : (silent.find(f => f.resolution === current?.resolution) ?? silent[0])
+	// From Audio or Subtitles there is no current stream: the profile's ranking picks, never just the first row.
+	const ranked = current ? undefined : silent.find(f => f.formatId === profileVideoPick(state, {silent: true}))
+	const video = current?.isVideoOnly ? current : (silent.find(f => f.resolution === current?.resolution) ?? ranked ?? silent[0])
 	const audioSelection: AudioSelection = {kind: 'none'}
 	const silenced = state.audioSelection.kind === 'native' ? state.audioSelection : state.wizardSilencedAudio
 	return {wizardMediaKind: 'video', selectedVideoFormatId: video.formatId, audioSelection, wizardSilencedAudio: silenced, ...fileTypeAfterPick(state, video.formatId, audioSelection)}
@@ -117,7 +119,8 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 	async function persistWizardProfile(profile: DownloadProfile): Promise<boolean> {
 		const snapshot = wizardSnapshot(get())
 		try {
-			await get().saveDownloadProfile(profile, false)
+			// A failed write resolves false: the settings are rolled back and the user told, so no success here.
+			if (!(await get().saveDownloadProfile(profile, false))) return false
 		} catch (error) {
 			notify.profileSaveFailed(error)
 			return false

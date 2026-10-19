@@ -149,6 +149,16 @@ describe('wizard slice — leaving a run', () => {
 })
 
 describe('wizard slice — Audio only profile, then Video', () => {
+	it('Video, no audio also lands on the ranked silent stream, not the first one listed', () => {
+		const silent720: FormatOption = {formatId: '136', label: '720p | mp4 | 30fps', ext: 'mp4', resolution: '720p', fps: 30, filesize: 300_000_000, isVideoOnly: true, isAudioOnly: false}
+		useAppStore.setState({wizardFormats: [...FORMATS, silent720]})
+		useAppStore.setState(profilePatch(builtin('audio-only'), useAppStore.getState()))
+
+		useAppStore.getState().setFormatMode('video-only')
+
+		expect(useAppStore.getState()).toMatchObject({wizardMediaKind: 'video', selectedVideoFormatId: '136', audioSelection: {kind: 'none'}})
+	})
+
 	it('lands on what the default profile would pick, not the tallest stream', () => {
 		useAppStore.setState(profilePatch(builtin('audio-only'), useAppStore.getState()))
 
@@ -243,7 +253,7 @@ describe('wizard slice — profiles', () => {
 	})
 
 	it('Save as profile stores the edits as a new profile without changing the active one', async () => {
-		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
 		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
 		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
 
@@ -255,7 +265,7 @@ describe('wizard slice — profiles', () => {
 	})
 
 	it("Save as profile keeps the profile's media when only other settings changed", async () => {
-		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
 		const lowRes: FormatOption[] = [FORMATS[1], FORMATS[2]]
 		useAppStore.setState({wizardFormats: lowRes, saveDownloadProfile})
 		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
@@ -267,7 +277,7 @@ describe('wizard slice — profiles', () => {
 	})
 
 	it('Update profile saves the edits into the profile the run started from, keeping its id, name and creation date', async () => {
-		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
 		const base = builtin('hd-1080')
 		useAppStore.setState({...profilePatch(base, useAppStore.getState()), saveDownloadProfile})
 		useAppStore.setState({wizardWriteThumbnail: true})
@@ -307,7 +317,7 @@ describe('Review — changed from profile', () => {
 	})
 
 	it('Update shows what the profile will change, then saves into it', async () => {
-		const saveDownloadProfile = vi.fn().mockResolvedValue(undefined)
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
 		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
 		useAppStore.setState({wizardWriteThumbnail: true})
 		render(<StepReview />)
@@ -322,6 +332,22 @@ describe('Review — changed from profile', () => {
 		fireEvent.click(screen.getByTestId('update-profile-confirm'))
 		await waitFor(() => expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: 'hd-1080', embed: expect.objectContaining({thumbnailSidecar: true})}), false))
 		await waitFor(() => expect(screen.queryByTestId('update-profile-dialog')).toBeNull())
+	})
+})
+
+describe('Review — a profile write that fails', () => {
+	it('is not reported as saved: the dialog stays open and the run still shows its changes', async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(false)
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardWriteThumbnail: true})
+		render(<StepReview />)
+
+		fireEvent.click(screen.getByTestId('review-update-profile'))
+		fireEvent.click(screen.getByTestId('update-profile-confirm'))
+
+		await waitFor(() => expect(saveDownloadProfile).toHaveBeenCalled())
+		expect(screen.getByTestId('update-profile-dialog')).toBeTruthy()
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual(['extras'])
 	})
 })
 

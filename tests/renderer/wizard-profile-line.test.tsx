@@ -30,7 +30,7 @@ const saveDownloadProfile = vi.fn()
 const chooseWizardProfile = vi.fn()
 
 beforeEach(() => {
-	saveDownloadProfile.mockReset().mockResolvedValue(undefined)
+	saveDownloadProfile.mockReset().mockResolvedValue(true)
 	chooseWizardProfile.mockReset()
 	useAppStore.setState({
 		settings: seedSettings({formatProfileCalloutDismissed: true}),

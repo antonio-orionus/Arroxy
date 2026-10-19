@@ -1,17 +1,17 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {TriangleAlert} from 'lucide-react'
+import {useShallow} from 'zustand/react/shallow'
 import {useAppStore} from '../../../store/useAppStore.js'
-import {buildDownloadReview, conflictLabelKey} from '../../../store/wizard/downloadReviewProjection.js'
+import {conflictLabelKey, singleConflictWarnings} from '../../../store/wizard/downloadReviewProjection.js'
 import {mp4CaveatCodec} from '../../../store/wizard/resolveContainer.js'
-import {createTranslationPort} from '../../../lib/translation.js'
 
 // The MP4 caveat and the conflicts, one warning line each.
 function SummaryWarnings(): ReactNode {
-	const {t, i18n} = useTranslation()
-	const state = useAppStore()
-	const conflicts = buildDownloadReview(state, {t: createTranslationPort(t), language: i18n.language, commonPaths: state.commonPaths}).conflictWarnings
-	const caveat = mp4CaveatCodec(state)
+	const {t} = useTranslation()
+	// Only what the lines say: the footer stays still while downloads tick the store.
+	const caveat = useAppStore(mp4CaveatCodec)
+	const conflicts = useAppStore(useShallow(state => singleConflictWarnings(state).map(conflict => conflict.code)))
 	return (
 		<>
 			{caveat ? (
@@ -20,10 +20,10 @@ function SummaryWarnings(): ReactNode {
 					{t(caveat === 'VP9' ? 'fileType.mp4CaveatVp9' : 'fileType.mp4CaveatAv1')}
 				</p>
 			) : null}
-			{conflicts.map(conflict => (
-				<p key={conflict.code} className="flex items-center gap-1.5 text-caption text-warning" data-testid={`summary-conflict-${conflict.code}`}>
+			{conflicts.map(code => (
+				<p key={code} className="flex items-center gap-1.5 text-caption text-warning" data-testid={`summary-conflict-${code}`}>
 					<TriangleAlert className="size-3.5 shrink-0" aria-hidden />
-					{t(conflictLabelKey(conflict.code))}
+					{t(conflictLabelKey(code))}
 				</p>
 			))}
 		</>

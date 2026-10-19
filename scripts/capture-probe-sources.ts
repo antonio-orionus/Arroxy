@@ -113,6 +113,12 @@ function subtitleKeys(value: unknown): Record<string, {ext?: string; name?: stri
 	)
 }
 
+// A CDN thumbnail URL can carry signed, expiring access tokens in its query
+// (Streamable's Signature, TikTok's x-signature): the fixture keeps the path only.
+function thumbnailWithoutQuery(thumbnail: unknown): {thumbnail?: string} {
+	return typeof thumbnail === 'string' ? {thumbnail: thumbnail.split('?')[0]} : {}
+}
+
 // Tab-indented, but one format per line: a recapture diffs by stream.
 function serialize(fixture: {source: unknown; info: Record<string, unknown> & {formats: unknown[]}}): string {
 	const formats = fixture.info.formats.map(format => `\t\t\t${JSON.stringify(format)}`).join(',\n')
@@ -128,7 +134,10 @@ async function capture(source: ProbeSource, cookieJar: () => Promise<string>, di
 	const info: unknown = JSON.parse(stdout)
 	if (!isRecord(info)) throw new Error(`${id}: yt-dlp returned no info dict`)
 	const formats = (Array.isArray(info.formats) ? info.formats : []).filter(isRecord).map(format => pick(format, FORMAT_FIELDS))
-	const fixture = {source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === true ? {signedIn: true} : {})}, info: {...pick(info, INFO_FIELDS), formats, subtitles: subtitleKeys(info.subtitles), automatic_captions: subtitleKeys(info.automatic_captions)}}
+	const fixture = {
+		source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === true ? {signedIn: true} : {})},
+		info: {...pick(info, INFO_FIELDS), ...thumbnailWithoutQuery(info.thumbnail), formats, subtitles: subtitleKeys(info.subtitles), automatic_captions: subtitleKeys(info.automatic_captions)}
+	}
 	await writeFile(path.join(OUT_DIR, `${id}.json`), serialize(fixture))
 	console.log(`${id}: ${formats.length} formats → ${id}.json`)
 }

@@ -9,7 +9,15 @@
 const {app, session} = require('electron')
 const fs = require('node:fs')
 
-const [userData, out] = process.argv.slice(-2)
+// Electron's argv is [electron, this script, ...args]: take exactly the two
+// after the script, so a short command line never writes a jar to a stray path.
+const scriptAt = process.argv.findIndex(arg => arg.endsWith('export-explore-cookies.cjs'))
+const args = scriptAt === -1 ? [] : process.argv.slice(scriptAt + 1)
+if (args.length !== 2 || args.some(arg => arg.trim() === '')) {
+	console.error('usage: electron scripts/export-explore-cookies.cjs <userData> <out.txt>')
+	process.exit(2)
+}
+const [userData, out] = args
 app.setName('arroxy')
 app.setPath('userData', userData)
 app.dock?.hide()
