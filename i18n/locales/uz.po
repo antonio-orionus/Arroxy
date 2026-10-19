@@ -373,6 +373,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Boshqa varaqda 5 daqiqadan so'ng YouTube bosh sahifasi yoki qidiruv sahifasini yopadi. Qaytganingizda u qayta yuklanadi, bu bir necha soniya oladi."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Qidiruv tizimi"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Manzil satriga kiritilgan matn shu tizimda qidiriladi. Havolalar kiritilganidek ochiladi."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Kashfiyot yorlig'ini ko'rsatish"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "Manzil"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "YouTube'dan qidiring yoki istalgan saytni oching (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} orqali qidiring yoki istalgan saytni oching (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

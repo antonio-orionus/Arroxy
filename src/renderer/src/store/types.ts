@@ -50,7 +50,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, ExploreSearchEngine, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -507,6 +507,7 @@ export interface SystemSlice {
 	setProxyUrl: (url: string) => Promise<void>
 	setExploreAdBlock: (enabled: boolean) => Promise<void>
 	setExploreIdleUnload: (enabled: boolean) => Promise<void>
+	setExploreSearchEngine: (engine: ExploreSearchEngine) => Promise<void>
 	setLimitRate: (value: string | undefined) => Promise<void>
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>

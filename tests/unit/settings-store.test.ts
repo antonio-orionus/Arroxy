@@ -87,6 +87,15 @@ describe('settings and recent stores', () => {
 		expect((await new SettingsStore(userData, baseDefaults).get()).common.exploreAdBlock).toBe(false)
 	})
 
+	it('leaves the Explore search engine unset (unset means DuckDuckGo) and persists a choice', async () => {
+		expect(baseDefaults.common.exploreSearchEngine).toBeUndefined()
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-explore-search-'))
+		const store = new SettingsStore(userData, baseDefaults)
+		expect((await store.update({common: {exploreSearchEngine: 'brave'}})).common.exploreSearchEngine).toBe('brave')
+		expect((await new SettingsStore(userData, baseDefaults).get()).common.exploreSearchEngine).toBe('brave')
+	})
+
 	it('defaults and persists the style', async () => {
 		expect(baseDefaults.common.uiStyle).toBe(DEFAULTS.uiStyle)
 

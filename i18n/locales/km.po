@@ -368,6 +368,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "បន្ទាប់ពី 5 នាទីនៅលើផ្ទាំងផ្សេង វាបិទទំព័រដើម ឬទំព័រស្វែងរករបស់ YouTube។ ពេលត្រឡប់មកវិញ វាផ្ទុកឡើងវិញ ដែលចំណាយពេលពីរបីវិនាទី។"
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "ម៉ាស៊ីនស្វែងរក"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "កន្លែងដែលអត្ថបទដែលបានវាយក្នុងរបារអាសយដ្ឋានត្រូវបានស្វែងរក។ តំណបើកតាមដែលបានវាយ។"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "បង្ហាញផ្ទាំង «រកមើល»"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "អាសយដ្ឋាន"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "ស្វែងរកក្នុង YouTube ឬបើកគេហទំព័រណាមួយ (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "ស្វែងរកក្នុង {{engine}} ឬបើកគេហទំព័រណាមួយ (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

@@ -373,6 +373,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Baada ya dakika 5 kwenye kichupo kingine, hufunga ukurasa wa mwanzo au wa utafutaji wa YouTube. Ukirudi, hupakiwa upya, jambo linalochukua sekunde chache."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Injini ya utafutaji"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Maandishi yanayoandikwa kwenye upau wa anwani hutafutwa kwa injini hii. Viungo hufunguka kama vilivyoandikwa."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Onyesha kichupo cha Gundua"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "Anwani"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "Tafuta kwenye YouTube au fungua tovuti yoyote (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Tafuta kwenye {{engine}} au fungua tovuti yoyote (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

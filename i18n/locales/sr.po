@@ -378,6 +378,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "После 5 минута на другој картици затвара почетну страницу или страницу претраге на YouTube-у. По повратку се поново учитава, што траје неколико секунди."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Претраживач"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Овде се претражује текст унет у адресну траку. Линкови се отварају онако како су унети."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Прикажи картицу Истраживање"
@@ -443,8 +451,8 @@ msgid "Address"
 msgstr "Адреса"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "Претражи YouTube или отвори било који сајт (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Претражи {{engine}} или отвори било који сајт (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

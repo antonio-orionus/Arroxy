@@ -1,11 +1,13 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {classifyExploreAddress, EXPLORE_ADDRESS_MAX, exploreAddressScope, isExploreAddress} from '@shared/sites/exploreAddress.js'
+import {EXPLORE_SEARCH_ENGINES, type ExploreSearchEngine} from '@shared/schemas.js'
+import {exploreSearchUrl} from '@shared/sites/exploreSearch.js'
 import type {SiteExplore} from '@shared/sites/types.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
 
 // What Enter in Explore's address bar does with the text. Any web link loads in
-// the view (a YouTube one in YouTube's own form), plain text searches YouTube,
-// and anything else is refused.
+// the view (a YouTube one in YouTube's own form), plain text searches the
+// chosen engine (DuckDuckGo here), and anything else is refused.
 
 function siteExplore(): SiteExplore {
 	if (!youtubeSite.explore) throw new Error('youtube has no Explore capability')
@@ -14,8 +16,8 @@ function siteExplore(): SiteExplore {
 const explore = siteExplore()
 const scope = exploreAddressScope(explore)
 
-function classify(input: string) {
-	return classifyExploreAddress(input, explore, scope)
+function classify(input: string, engine: ExploreSearchEngine = 'duckduckgo') {
+	return classifyExploreAddress(input, explore, scope, engine)
 }
 
 describe('classifyExploreAddress', () => {
@@ -48,21 +50,25 @@ describe('classifyExploreAddress', () => {
 	})
 
 	it.each([
-		['lofi beats', 'https://www.youtube.com/results?search_query=lofi+beats'],
-		['cats', 'https://www.youtube.com/results?search_query=cats'],
-		['c++ tutorial & tips', 'https://www.youtube.com/results?search_query=c%2B%2B+tutorial+%26+tips'],
-		['lofi:beats', 'https://www.youtube.com/results?search_query=lofi%3Abeats'],
-		['3.5 mm jack', 'https://www.youtube.com/results?search_query=3.5+mm+jack'],
+		['lofi beats', 'https://duckduckgo.com/?q=lofi+beats'],
+		['cats', 'https://duckduckgo.com/?q=cats'],
+		['c++ tutorial & tips', 'https://duckduckgo.com/?q=c%2B%2B+tutorial+%26+tips'],
+		['lofi:beats', 'https://duckduckgo.com/?q=lofi%3Abeats'],
+		['3.5 mm jack', 'https://duckduckgo.com/?q=3.5+mm+jack'],
 		// A dotted single token with no scheme, no www. and no path is a search,
 		// unless it is a YouTube host (above).
-		['node.js', 'https://www.youtube.com/results?search_query=node.js'],
-		['vue.js', 'https://www.youtube.com/results?search_query=vue.js'],
-		['e.g.', 'https://www.youtube.com/results?search_query=e.g.'],
-		['v1.2', 'https://www.youtube.com/results?search_query=v1.2'],
-		['example.com', 'https://www.youtube.com/results?search_query=example.com'],
-		['example.com:8080', 'https://www.youtube.com/results?search_query=example.com%3A8080']
-	])('plain text %j searches YouTube', (input, url) => {
+		['node.js', 'https://duckduckgo.com/?q=node.js'],
+		['vue.js', 'https://duckduckgo.com/?q=vue.js'],
+		['e.g.', 'https://duckduckgo.com/?q=e.g.'],
+		['v1.2', 'https://duckduckgo.com/?q=v1.2'],
+		['example.com', 'https://duckduckgo.com/?q=example.com'],
+		['example.com:8080', 'https://duckduckgo.com/?q=example.com%3A8080']
+	])('plain text %j searches DuckDuckGo', (input, url) => {
 		expect(classify(input)).toEqual({kind: 'search', url})
+	})
+
+	it.each(EXPLORE_SEARCH_ENGINES)('plain text searches %s when that engine is chosen', engine => {
+		expect(classify('cats', engine)).toEqual({kind: 'search', url: exploreSearchUrl(engine, 'cats')})
 	})
 
 	it.each([

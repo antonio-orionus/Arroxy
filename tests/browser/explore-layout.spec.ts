@@ -143,7 +143,7 @@ test('the address hint shrinks the view, and the address bar routes Enter', asyn
 	// A dotted word is a search; a typed sign-in page gets the hint and stays in the bar.
 	await address.fill('node.js')
 	await address.press('Enter')
-	await expect(address).toHaveValue('https://www.youtube.com/results?search_query=node.js')
+	await expect(address).toHaveValue('https://duckduckgo.com/?q=node.js')
 	await address.fill('accounts.google.com/signin')
 	await address.press('Enter')
 	await expect(hint).toBeVisible()
@@ -152,7 +152,7 @@ test('the address hint shrinks the view, and the address bar routes Enter', asyn
 	// Leaving the tab clears the hint.
 	await page.getByRole('tab', {name: 'Settings'}).click()
 	await page.getByRole('tab', {name: /Explore/}).click()
-	await expect(page.getByTestId('explore-address')).toHaveValue('https://www.youtube.com/results?search_query=node.js')
+	await expect(page.getByTestId('explore-address')).toHaveValue('https://duckduckgo.com/?q=node.js')
 	await expect(hint).toHaveCount(0)
 })
 

@@ -368,6 +368,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "在其他分頁停留 5 分鐘後，關閉 YouTube 首頁或搜尋頁面。返回時會重新載入，需要幾秒鐘。"
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "搜尋引擎"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "在位址列輸入的文字會用此搜尋引擎搜尋；連結則依輸入內容直接開啟。"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "顯示「探索」分頁"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "位址"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "搜尋 YouTube 或開啟任何網站（Vimeo、Instagram…）"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "使用 {{engine}} 搜尋或開啟任何網站（Vimeo、Instagram…）"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

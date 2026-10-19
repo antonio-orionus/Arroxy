@@ -63,7 +63,7 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
+import type {ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
 export type {ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
@@ -143,6 +143,7 @@ export interface CommonSettings {
 	// Main-owned: the last site page the Explore view showed (see schemas.ts).
 	exploreLastUrl?: string
 	exploreAdBlock?: boolean
+	exploreSearchEngine?: ExploreSearchEngine
 	exploreIdleUnload?: boolean
 	exploreCompactChrome?: boolean
 	nativeAudioPreference?: NativeAudioPreference

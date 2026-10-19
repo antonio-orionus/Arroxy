@@ -373,6 +373,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "በሌላ ትር ላይ ከ5 ደቂቃ በኋላ የYouTube መነሻ ወይም የፍለጋ ገጽን ይዘጋል። ሲመለሱ እንደገና ይጫናል፣ ይህም ጥቂት ሰከንዶች ይወስዳል።"
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "የፍለጋ ሞተር"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "በአድራሻ አሞሌ የተጻፈ ጽሑፍ የሚፈለገው የት እንደሆነ። አገናኞች እንደተጻፉ ይከፈታሉ።"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "የዳሰሳ ትርን አሳይ"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "አድራሻ"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "YouTubeን ፈልግ ወይም ማንኛውንም ጣቢያ ክፈት (Vimeo፣ Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} ላይ ፈልግ ወይም ማንኛውንም ጣቢያ ክፈት (Vimeo፣ Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

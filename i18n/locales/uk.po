@@ -383,6 +383,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Через 5 хвилин на іншій вкладці закриває головну сторінку або сторінку пошуку YouTube. Після повернення вона завантажується знову, це триває кілька секунд."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Пошукова система"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Текст, введений в адресному рядку, шукається в цій системі. Посилання відкриваються так, як введені."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Показувати вкладку Огляд"
@@ -448,8 +456,8 @@ msgid "Address"
 msgstr "Адреса"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "Шукай на YouTube або відкрий будь-який сайт (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Шукай через {{engine}} або відкрий будь-який сайт (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

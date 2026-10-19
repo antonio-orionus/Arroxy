@@ -368,6 +368,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Setelah 5 menit di tab lain, menutup halaman beranda atau penelusuran YouTube. Saat kembali, halaman dimuat ulang, yang memakan waktu beberapa detik."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Mesin pencari"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Tempat teks yang diketik di bilah alamat dicari. Tautan dibuka sesuai yang diketik."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Tampilkan tab Jelajahi"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "Alamat"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "Cari di YouTube atau buka situs apa pun (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Cari di {{engine}} atau buka situs apa pun (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

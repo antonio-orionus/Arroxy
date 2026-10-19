@@ -48,8 +48,6 @@ export interface SiteExplore {
 	readonly consentHosts: readonly HostRule[]
 	// Presence check only (cheap, synchronous); validity is ExploreSessionService.verifySignedIn.
 	isSignedIn(cookies: readonly ExploreCookie[]): boolean
-	// The site's own search page for text typed in the address bar.
-	searchUrl(query: string): string
 	// Paths of the pages a while away from the tab may release (idle unload):
 	// nothing on them is typed in that their URL does not keep.
 	readonly idleUnloadPaths: readonly string[]

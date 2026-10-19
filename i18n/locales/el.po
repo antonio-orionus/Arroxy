@@ -373,6 +373,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "Μετά από 5 λεπτά σε άλλη καρτέλα, κλείνει την αρχική σελίδα ή τη σελίδα αναζήτησης του YouTube. Με την επιστροφή, η σελίδα φορτώνεται ξανά, κάτι που διαρκεί λίγα δευτερόλεπτα."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Μηχανή αναζήτησης"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Πού αναζητείται το κείμενο που πληκτρολογείται στη γραμμή διευθύνσεων. Οι σύνδεσμοι ανοίγουν όπως πληκτρολογήθηκαν."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "Εμφάνιση της καρτέλας Εξερεύνηση"
@@ -438,8 +446,8 @@ msgid "Address"
 msgstr "Διεύθυνση"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "Αναζήτηση στο YouTube ή άνοιγμα οποιουδήποτε ιστότοπου (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Αναζήτηση στο {{engine}} ή άνοιγμα οποιουδήποτε ιστότοπου (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

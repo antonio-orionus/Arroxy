@@ -368,6 +368,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "အခြား တက်ဘ်တွင် ၅ မိနစ်ကြာပြီးနောက် YouTube ပင်မ သို့မဟုတ် ရှာဖွေမှု စာမျက်နှာကို ပိတ်သည်။ ပြန်လာသောအခါ ပြန်ဖွင့်ပြီး စက္ကန့်အနည်းငယ် ကြာသည်။"
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "ရှာဖွေရေးအင်ဂျင်"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "လိပ်စာဘားတွင် ရိုက်ထည့်သော စာသားကို ရှာဖွေမည့်နေရာ။ လင့်ခ်များကို ရိုက်ထည့်ထားသည့်အတိုင်း ဖွင့်ပါသည်။"
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "“စူးစမ်းရန်” တက်ဘ် ပြမည်"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "လိပ်စာ"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "YouTube ကို ရှာပါ သို့မဟုတ် ဝဘ်ဆိုက်တစ်ခုခုကို ဖွင့်ပါ (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} ကို ရှာပါ သို့မဟုတ် ဝဘ်ဆိုက်တစ်ခုခုကို ဖွင့်ပါ (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

@@ -368,6 +368,14 @@ msgctxt "explore.settings.idleUnloadDescription"
 msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
 msgstr "다른 탭에서 5분이 지나면 YouTube 홈 또는 검색 페이지를 닫습니다. 돌아오면 다시 불러오며, 몇 초 걸립니다."
 
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "검색 엔진"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "주소 표시줄에 입력한 텍스트를 검색할 곳입니다. 링크는 입력한 그대로 열립니다."
+
 msgctxt "explore.settings.showTab"
 msgid "Show the Explore tab"
 msgstr "탐색 탭 표시"
@@ -433,8 +441,8 @@ msgid "Address"
 msgstr "주소"
 
 msgctxt "explore.toolbar.addressPlaceholder"
-msgid "Search YouTube or open any site (Vimeo, Instagram…)"
-msgstr "YouTube 검색 또는 아무 사이트 열기 (Vimeo, Instagram…)"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "{{engine}} 검색 또는 아무 사이트 열기 (Vimeo, Instagram…)"
 
 msgctxt "explore.toolbar.aria"
 msgid "Explore browser controls"

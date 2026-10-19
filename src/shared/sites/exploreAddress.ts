@@ -2,6 +2,8 @@
 // uses it to normalise and route what was typed, and main enforces the same
 // rule (isExploreAddress) before the view loads anything.
 
+import type {ExploreSearchEngine} from '../schemas.js'
+import {exploreSearchUrl} from './exploreSearch.js'
 import {hostMatches} from './hostRules.js'
 import type {HostRule, SiteExplore} from './types.js'
 
@@ -20,7 +22,7 @@ export function exploreAddressScope(explore: Pick<SiteExplore, 'contentHosts' | 
 	return {siteHosts: explore.contentHosts, blockedHosts: [...explore.signInHosts, ...explore.consentHosts]}
 }
 
-// `link`: load it in the view. `search`: the site's search for the text.
+// `link`: load it in the view. `search`: the chosen engine's search for the text.
 // `refused`: nothing to do with it (another scheme, credentials, a sign-in,
 // account or consent page, a link over the cap). `search-too-long`: search
 // text whose search page would be over the cap.
@@ -65,14 +67,14 @@ function linkFor(text: string, scope: ExploreAddressScope): URL | null | 'search
 	return 'search'
 }
 
-export function classifyExploreAddress(input: string, explore: Pick<SiteExplore, 'searchUrl' | 'canonicalAddress'>, scope: ExploreAddressScope): ExploreAddress {
+export function classifyExploreAddress(input: string, explore: Pick<SiteExplore, 'canonicalAddress'>, scope: ExploreAddressScope, engine: ExploreSearchEngine): ExploreAddress {
 	const text = input.trim()
 	if (text === '') return {kind: 'refused'}
 	// Over the cap, only the start is read (no full-length pattern match on a huge paste).
 	if (text.length > EXPLORE_ADDRESS_MAX) return LINK_START.test(text.slice(0, 256)) || NON_WEB_SCHEME.test(text) ? {kind: 'refused'} : {kind: 'search-too-long'}
 	const link = linkFor(text, scope)
 	if (link === 'search') {
-		const url = explore.searchUrl(text)
+		const url = exploreSearchUrl(engine, text)
 		return url.length > EXPLORE_ADDRESS_MAX ? {kind: 'search-too-long'} : {kind: 'search', url}
 	}
 	if (!link) return {kind: 'refused'}

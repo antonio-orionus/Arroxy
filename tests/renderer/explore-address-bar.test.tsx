@@ -7,7 +7,8 @@ import {fail, ok} from '@shared/result.js'
 import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
-// Explore's address bar is an omnibox that searches YouTube. It shows the
+// Explore's address bar is an omnibox that searches the chosen engine
+// (DuckDuckGo unless another is picked). It shows the
 // page's address until focused, routes Enter (a link on any site, a search,
 // or the "can't open that address" hint), and never judges text mid-typing.
 
@@ -63,7 +64,7 @@ describe('Explore address bar', () => {
 		const input = await renderExplore()
 		expect(input).toHaveValue(PAGE.url)
 		expect(input).not.toHaveAttribute('readonly')
-		expect(input).toHaveAttribute('placeholder', 'Search YouTube or open any site (Vimeo, Instagram…)')
+		expect(input).toHaveAttribute('placeholder', 'Search DuckDuckGo or open any site (Vimeo, Instagram…)')
 		act(() => stateListener?.({...PAGE, url: ''}))
 		expect(input).toHaveValue('')
 	})
@@ -101,19 +102,35 @@ describe('Explore address bar', () => {
 		fireEvent.change(input, {target: {value: 'にほんご'}})
 		fireEvent.keyDown(input, {key: 'Enter', isComposing: true})
 		fireEvent.keyDown(input, {key: 'Enter'})
-		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url: 'https://www.youtube.com/results?search_query=%E3%81%AB%E3%81%BB%E3%82%93%E3%81%94'}]))
+		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url: 'https://duckduckgo.com/?q=%E3%81%AB%E3%81%BB%E3%82%93%E3%81%94'}]))
 	})
 
-	it('searches YouTube for plain text', async () => {
+	it('searches DuckDuckGo for plain text', async () => {
 		const input = await renderExplore()
 		typeAndEnter(input, 'lofi beats')
-		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url: 'https://www.youtube.com/results?search_query=lofi+beats'}]))
+		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url: 'https://duckduckgo.com/?q=lofi+beats'}]))
 	})
 
 	it.each([
-		['node.js', 'https://www.youtube.com/results?search_query=node.js'],
-		['e.g.', 'https://www.youtube.com/results?search_query=e.g.']
-	])('searches YouTube for the dotted word %s', async (text, url) => {
+		['youtube', 'YouTube', 'https://www.youtube.com/results?search_query=cats'],
+		['brave', 'Brave', 'https://search.brave.com/search?q=cats'],
+		['google', 'Google', 'https://www.google.com/search?q=cats'],
+		['bing', 'Bing', 'https://www.bing.com/search?q=cats']
+	] as const)('searches %s once it is the chosen engine, and says so', async (engine, name, url) => {
+		const input = await renderExplore()
+		act(() => {
+			const settings = useAppStore.getState().settings
+			if (settings) useAppStore.setState({settings: {...settings, common: {...settings.common, exploreSearchEngine: engine}}})
+		})
+		expect(input).toHaveAttribute('placeholder', `Search ${name} or open any site (Vimeo, Instagram…)`)
+		typeAndEnter(input, 'cats')
+		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url}]))
+	})
+
+	it.each([
+		['node.js', 'https://duckduckgo.com/?q=node.js'],
+		['e.g.', 'https://duckduckgo.com/?q=e.g.']
+	])('searches DuckDuckGo for the dotted word %s', async (text, url) => {
 		const input = await renderExplore()
 		typeAndEnter(input, text)
 		await waitFor(() => expect(navigateCalls()).toEqual([{kind: 'address', url}]))

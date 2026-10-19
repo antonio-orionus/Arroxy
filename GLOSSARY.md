@@ -275,7 +275,7 @@ _Avoid_: dry run, format test, quality probe
 ### Explore
 
 **Explore**:
-The in-app browser tab where the user browses the web and may sign in to sites. It opens on YouTube and searches YouTube, sits beside the **Wizard** as a second way to find a video, and a page or link opened there can be handed to a download.
+The in-app browser tab where the user browses the web and may sign in to sites. It opens on YouTube, searches the web with the search engine the user picks (DuckDuckGo unless another is chosen), sits beside the **Wizard** as a second way to find a video, and a page or link opened there can be handed to a download.
 _Avoid_: built-in browser, web view, browse tab
 
 **Explore session**:
