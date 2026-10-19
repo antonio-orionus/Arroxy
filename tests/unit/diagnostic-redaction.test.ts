@@ -17,4 +17,15 @@ describe('redactDiagnosticLog', () => {
 	it('removes credential-like URL query values', () => {
 		expect(redactDiagnosticLog('https://example.com/a?token=abc&api_key=def&cookie=ghi&v=1')).toBe('https://example.com/a?token=<redacted>&api_key=<redacted>&cookie=<redacted>&v=1')
 	})
+
+	// googlevideo stream URLs carry the signature, its expiry and the PoT
+	// token as query values; any of them ties a log to a session.
+	it('removes signed media URL query values', () => {
+		expect(redactDiagnosticLog('https://rr1.googlevideo.com/videoplayback?expire=1760000000&sig=AOq0Q&itag=18&pot=MnQx&lsig=AG3C')).toBe('https://rr1.googlevideo.com/videoplayback?expire=<redacted>&sig=<redacted>&itag=18&pot=<redacted>&lsig=<redacted>')
+		expect(redactDiagnosticLog('https://cdn.example.com/v.mp4?signature=abc&expires=123&X-Amz-Signature=def')).toBe('https://cdn.example.com/v.mp4?signature=<redacted>&expires=<redacted>&X-Amz-Signature=<redacted>')
+	})
+
+	it('removes PoT and visitor values passed as yt-dlp extractor args', () => {
+		expect(redactDiagnosticLog('--extractor-args youtube:po_token=web.gvs+MnQx;visitor_data=CgtA')).toBe('--extractor-args youtube:po_token=<redacted>;visitor_data=<redacted>')
+	})
 })
