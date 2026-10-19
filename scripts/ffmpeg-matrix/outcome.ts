@@ -51,6 +51,18 @@ export function describeFailure(failure: ProcessFailure): string {
 	}
 }
 
+// The errors a decode check printed. It runs at -v error, where ffmpeg still
+// exits 0 on damaged media and only logs it (-xerror does not change that for
+// demuxer errors), so any such line fails the case. Lines from the null sink
+// itself are left out: they judge the timestamps ffmpeg feeds it, and the
+// stream-copy splice of a SponsorBlock removal trips them on every build.
+export function decodeErrors(stderr: string): string[] {
+	return stderr
+		.split(/\r?\n/)
+		.map(line => line.trimEnd())
+		.filter(line => line.trim() !== '' && !line.startsWith('[null @ ') && !/^\s*Last message repeated \d+ times$/.test(line))
+}
+
 const tagsSchema = z.record(z.string(), z.string()).optional()
 
 const probeSchema = z.object({

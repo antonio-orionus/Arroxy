@@ -4,7 +4,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {FFMPEG_PACKAGE_PINS} from '../../src/main/services/binary/FfmpegPackagePins.js'
 import {ciTargets} from '../../scripts/ffmpeg-matrix/ci-targets.js'
 import {DEFAULT_FIXTURE_DIR, dropBoxes, hlsFragmentOrder} from '../../scripts/ffmpeg-matrix/generate-fixtures.js'
-import {classifyProcessEnd, describeFailure, formatReport, verifyProbe, type CaseResult} from '../../scripts/ffmpeg-matrix/outcome.js'
+import {classifyProcessEnd, decodeErrors, describeFailure, formatReport, verifyProbe, type CaseResult} from '../../scripts/ffmpeg-matrix/outcome.js'
 import {buildCases, chapterMetadataFile, containerHolds, expectationFor, FIXTURE_FILES, HLS_PLAYLIST, planInvocation, pythonFloat, quoteForFfmpeg, removeSegmentConcatSpec, type MatrixCase} from '../../scripts/ffmpeg-matrix/remuxMatrix.js'
 
 const layout = {fixtures: path.join(path.sep, 'fx'), work: path.join(path.sep, 'work')}
@@ -178,6 +178,18 @@ function probe(streams: unknown[], format: Record<string, unknown> = {duration: 
 const vp9 = {codec_type: 'video', codec_name: 'vp9', disposition: {attached_pic: 0}}
 const aac = {codec_type: 'audio', codec_name: 'aac', disposition: {attached_pic: 0}}
 const cover = {codec_type: 'video', codec_name: 'mjpeg', disposition: {attached_pic: 1}}
+
+describe('remux matrix decode check', () => {
+	it('reports the demuxer and decoder errors ffmpeg prints while still exiting 0', () => {
+		const stderr = '[in#0/matroska,webm @ 0x12e10bcc0] Element at 0x3bd7 ending at 0xacf1437 exceeds containing master element\n[h264 @ 0x1] Invalid NAL unit size\n    Last message repeated 3 times\n'
+		expect(decodeErrors(stderr)).toEqual(['[in#0/matroska,webm @ 0x12e10bcc0] Element at 0x3bd7 ending at 0xacf1437 exceeds containing master element', '[h264 @ 0x1] Invalid NAL unit size'])
+	})
+
+	it("ignores the null sink's own timestamp checks, which a stream-copy splice trips on every build", () => {
+		expect(decodeErrors('[null @ 0x1600054e0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 14 >= 14\n    Last message repeated 6 times\n')).toEqual([])
+		expect(decodeErrors('')).toEqual([])
+	})
+})
 
 describe('remux matrix output checks', () => {
 	const merge = expectationFor(find('merge/vp9-hls+aac.mp4'))

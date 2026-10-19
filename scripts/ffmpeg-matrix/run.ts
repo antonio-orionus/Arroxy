@@ -22,7 +22,7 @@ import {FFMPEG_PACKAGE_PINS} from '../../src/main/services/binary/FfmpegPackageP
 import {envWithFfmpegPaths} from '../../src/main/utils/process.js'
 import {isCliEntrypoint} from '../build/btbnResolver.js'
 import {DEFAULT_FIXTURE_DIR} from './generate-fixtures.js'
-import {classifyProcessEnd, describeFailure, formatReport, resultLabel, summarize, verifyProbe, type CaseResult, type ProcessEnd} from './outcome.js'
+import {classifyProcessEnd, decodeErrors, describeFailure, formatReport, resultLabel, summarize, verifyProbe, type CaseResult, type ProcessEnd} from './outcome.js'
 import {buildCases, decodeArgv, expectationFor, planInvocation, probeArgv, type Layout} from './remuxMatrix.js'
 
 const TIMEOUT_MS = 60_000
@@ -94,6 +94,8 @@ async function runCase(tools: Tools, layout: Layout, matrixCase: ReturnType<type
 		const decoded = await runProcess(tools.ffmpeg, decodeArgv(invocation.output), tools.env)
 		const decodeFailure = classifyProcessEnd(decoded)
 		if (decodeFailure) return {id, status: 'fail', stage: 'decode', detail: describeFailure(decodeFailure), log: logTail(decoded.stderrTail)}
+		const errors = decodeErrors(decoded.stderrTail)
+		if (errors.length > 0) return {id, status: 'fail', stage: 'decode', detail: `${errors.length} decode error line(s): ${errors[0]}`, log: errors.slice(-LOG_LINES).join('\n')}
 	}
 	return {id, status: 'pass'}
 }
