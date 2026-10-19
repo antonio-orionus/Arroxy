@@ -71,15 +71,23 @@ describe('BinaryDownloader', () => {
 			})
 		})
 
-		it('stops at once when its caller cancels, without retrying', async () => {
-			await withServer(silent, async url => {
-				const controller = new AbortController()
-				const startedAt = Date.now()
-				setTimeout(() => controller.abort(), 50)
-				const err: unknown = await downloadText(url, controller.signal).catch((error: unknown) => error)
-				expect(isAbortError(err)).toBe(true)
-				expect(Date.now() - startedAt).toBeLessThan(1_000)
+		it('stops at once when its caller cancels an active request, without retrying', async () => {
+			let received!: () => void
+			const requestReceived = new Promise<void>(resolve => {
+				received = resolve
 			})
+			await withServer(
+				() => received(),
+				async url => {
+					const controller = new AbortController()
+					const pending = downloadText(url, controller.signal).catch((error: unknown) => error)
+					await requestReceived
+					const abortedAt = Date.now()
+					controller.abort()
+					expect(isAbortError(await pending)).toBe(true)
+					expect(Date.now() - abortedAt).toBeLessThan(1_000)
+				}
+			)
 		})
 
 		it('bounds a text fetch by default far below a binary download', () => {

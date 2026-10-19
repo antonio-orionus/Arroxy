@@ -5,7 +5,8 @@ export const ARROXY_RUNTIME_BINARIES_REPO = 'antonio-orionus/arroxy-runtime-bina
 
 // yt-dlp is approved by where it is released, not just by host: anyone can
 // publish a GitHub release or a SourceForge project. Each prefix is a host plus
-// the path every release asset of that source starts with.
+// the path every release asset of that source starts with; a version and an
+// asset name must follow it.
 const YT_DLP_RELEASE_PREFIXES = {
 	github: [
 		{host: 'github.com', path: '/yt-dlp/yt-dlp/releases/download/'},
@@ -82,7 +83,7 @@ function runtimeManifestUrlIssue(rawUrl: string, provider: RuntimeBinaryManifest
 	const checked = immutableHttpsUrlIssue(rawUrl)
 	if (!checked.parsed) return checked.issue
 	const {hostname, pathname} = checked.parsed
-	const released = YT_DLP_RELEASE_PREFIXES[provider].some(prefix => hostname === prefix.host && pathname.startsWith(prefix.path) && pathname.length > prefix.path.length)
+	const released = YT_DLP_RELEASE_PREFIXES[provider].some(prefix => hostname === prefix.host && pathname.startsWith(prefix.path) && pathname.slice(prefix.path.length).split('/').filter(Boolean).length >= 2)
 	return released ? null : `URL must be a ${provider} yt-dlp release asset: ${rawUrl}`
 }
 

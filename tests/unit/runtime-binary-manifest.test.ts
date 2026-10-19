@@ -53,6 +53,9 @@ describe('runtime binary manifest validation', () => {
 			['github', 'https://github.com/someone/yt-dlp/releases/download/2026.06.10/yt-dlp_linux'],
 			['github', 'https://github.com/yt-dlp/yt-dlp/raw/master/yt-dlp_linux'],
 			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/'],
+			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.10'],
+			['github', 'https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/2026.06.12/'],
+			['sourceforge', 'https://downloads.sourceforge.net/project/yt-dlp.mirror/2026.06.10'],
 			['github', 'https://github.com/yt-dlp/yt-dlp/releases/download/../../../someone/evil/releases/download/x/yt-dlp_linux'],
 			['sourceforge', 'https://sourceforge.net/projects/not-yt-dlp/files/2026.06.10/yt-dlp_linux/download'],
 			['sourceforge', 'https://downloads.sourceforge.net/project/not-yt-dlp/2026.06.10/yt-dlp_linux']
