@@ -110,7 +110,8 @@ test('A bot-walled anonymous download tries the token, a fresh token, then no to
 // paginating a tab, which stops a playlist at its first page; so a collection
 // probe never carries the anonymous token context.
 // Actions: Interactive Download of the fixture playlist.
-// Milestones: the playlist's item list opens.
+// Milestones: the playlist's item list opens and lists its videos (the step
+// opens while the probe is still running, so its rows mark the probe's end).
 // Oracles: the playlist extraction parsed neither a token nor visitor data.
 test('A playlist probe hands yt-dlp no token or visitor data', async () => {
 	test.setTimeout(120_000)
@@ -119,9 +120,10 @@ test('A playlist probe hands yt-dlp no token or visitor data', async () => {
 		await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
 		await page.locator('[data-testid="profiles-interactive-download"]').click()
 		await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible({timeout: 60_000})
+		await expect(page.locator('[data-testid^="playlist-item-row-"]').first()).toBeVisible({timeout: 60_000})
 
+		await expect.poll(() => extractions(fixtureServer, FIXTURE_PLAYLIST_ID).length, {timeout: 30_000}).toBeGreaterThan(0)
 		const runs = extractions(fixtureServer, FIXTURE_PLAYLIST_ID)
-		expect(runs.length).toBeGreaterThan(0)
 		expect(runs.every(run => !run.extractorArgs.poToken && !run.extractorArgs.visitorData)).toBe(true)
 	})
 })
