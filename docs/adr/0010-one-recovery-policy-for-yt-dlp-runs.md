@@ -47,6 +47,8 @@ Rate limits never trigger a change of identity, and the anonymous PO token never
 travels with any cookies. Both follow ADR 0008's rule that the account is used
 only where it can fix the failure.
 
-Still open: whether the anonymous token is used first or only on demand. A
-bounded live comparison decides this before the first release that makes
-the token effective again, and the result will be recorded here.
+The anonymous token is used first, not only on demand. A bounded live comparison on 2026-10-19 decided this (results in the plan):
+- In 14 completed anonymous runs over 10 videos, three configurations each reached the profile's quality cap with one launch: yt-dlp's defaults, the production clients without the token, and the production clients with it.
+- The token changed no outcome, and it costs no extra launch. Under the decision rule, a tie keeps it first.
+- The comparison also found that on some networks the token was unusable: Arroxy read visitor data from a key YouTube no longer always serves. That is fixed alongside this decision.
+- The run stopped on rate limits after 15 of its planned 60 runs. If withheld-quality reports return with the token effective, rerun it.

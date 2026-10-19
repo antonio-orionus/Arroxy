@@ -91,9 +91,65 @@ Here a launch is one yt-dlp process. "Typical" means every anonymous attempt is 
 - E2E overrides the production retry budgets, so they never run.
 - `_lastInvocations` lives on the shared `YtDlp` instance, so concurrent runs overwrite each other's smoke summaries.
 
-### Unverified, to settle in step 2
+### Live comparison (step 2), 2026-10-19
 
-**H1:** tokenless media downloads since 2026-09-16 caused some of the withheld-quality cases that cookieless recovery (#230) was built to handle. The 0.4.14 changelog already links "downloads without the token" to lower quality.
+**Setup.**
+- `bun run smoke:download -- --cookies off --proxy off --verbose`, macOS dev build of this branch, balanced profile (cap `res:720`).
+- 20 public videos: 7 music, 7 long-form, 5 Shorts, and one 2005 upload limited to 240p.
+- Three configurations:
+  - **a:** yt-dlp defaults, `--clients none --po-token off`.
+  - **b:** production clients `default,web_embedded`, `--po-token off`.
+  - **c:** production clients plus the token.
+- 60 runs in a seeded random order (seed 20261019), stopping at the first HTTP 429.
+- Runs 0–3 used a VPN exit in Iceland at 30 s spacing. Runs 4–14 used a VPN exit in Canada at 90 s spacing, on a build that also had the visitor-data fix below.
+- Each exit was rate limited after about 5 and 11 runs respectively, so 15 of the 60 runs happened. 14 completed; run 3 was lost to the rate limit.
+
+| # | Video | Kind | Cfg | Exit | Selected / available height | Format chosen | Launches | Token used for | Clients withheld | Warnings | s |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | `rfscVS0vtbw` | long | b | IS | 720 / 720 | yes | 1 | – | – | – | 54 |
+| 1 | `YQHsXMglC9A` | music | b | IS | 720 / 1080 | yes | 1 | – | – | – | 57 |
+| 2 | `YlvcFJOE-OE` | short | b | IS | 1280 / 2162 | yes | 1 | – | – | – | 56 |
+| 3 | `hTWKbfoikeg` | music | a | IS | – / – | no | 1 | – | web | 429 (webpage), then a fatal bot check | 46 |
+| 4 | `aircAruvnKk` | long | c | CA | 720 / 1080 | yes | 1 | – | – | – | 35 |
+| 5 | `9bZkp7q19f0` | music | a | CA | 720 / 1080 | yes | 1 | – | – | – | 30 |
+| 6 | `dQw4w9WgXcQ` | music | c | CA | 720 / 2160 | yes | 1 | – | – | – | 38 |
+| 7 | `Nus7MfF2ytw` | short | a | CA | 1280 / 3840 | yes | 1 | – | – | – | 34 |
+| 8 | `LXb3EKWsInQ` | long | c | CA | 720 / 2160 | yes | 1 | – | – | – | 36 |
+| 9 | `JGwWNGJdvx8` | music | a | CA | 720 / 2160 | yes | 1 | – | – | – | 34 |
+| 10 | `YlvcFJOE-OE` | short | c | CA | 1280 / 2162 | yes | 1 | web | web | – | 37 |
+| 11 | `Nus7MfF2ytw` | short | c | CA | 1280 / 3840 | yes | 1 | web | web | – | 39 |
+| 12 | `LXb3EKWsInQ` | long | a | CA | 720 / 2160 | yes | 1 | – | – | – | 38 |
+| 13 | `z1NNgSu8hTI` | long | a | CA | 720 / 1080 | yes | 1 | – | – | – | 34 |
+| 14 | `z1NNgSu8hTI` | long | b | CA | 720 / 1080 | yes | 1 | – | web | 429 (webpage), no visitor data | 40 |
+
+Shorts are vertical, so the 720 cap shows as a height of 1280.
+
+**Requested-quality fit.** Every completed run reached the profile's cap, in all three configurations:
+
+| Config | Fit | Launches |
+| --- | --- | --- |
+| a | 5/5 (+1 lost to the 429) | 6 |
+| b | 4/4 | 4 |
+| c | 5/5 | 5 |
+
+On the Canadian exit, (a) averaged 34 s and (c) 37 s. The difference is the per-process mint, which production caches for 5 h.
+
+**What else the runs showed:**
+
+- **The token rarely reaches a format decision.** yt-dlp drops a client's formats once an earlier client has already supplied the same stream, and the GVS token is requested only for formats that survive. With the production clients, `tv_samsung` and `visionos` usually supply every stream first. yt-dlp took the token for the web client in only 2 of 5 (c) runs (runs 10 and 11, both Shorts), and the web formats were withheld in both anyway. No run's selection changed because of the token.
+- **The token could not work at all on some networks.** On those networks youtube.com serves `ytcfg` without `VISITOR_DATA`; the visitor identity is only in `INNERTUBE_CONTEXT.client.visitorData`. Arroxy read only `VISITOR_DATA`, so it bound the token to the video ID, and yt-dlp dropped it for the web client with `Missing required Visitor Data`. Seen on the Dutch and Icelandic exits; fixed in this PR (`getVisitorData` reads both keys, and no visitor data means no token). Runs 4–14 had the fix.
+- **429 here arrives first on yt-dlp's webpage request, as a warning.** The extraction carries on through the player API clients. Run 3 then hit a fatal bot check, and runs 3 and 14 lost visitor data with the webpage. A plain `curl` of the same watch page right after a 429 returned 200.
+
+**Decision: token-first.** (c) matched (a) and (b) on requested-quality fit, with the same single launch. By the decision rule, the token stays first, and token-on-demand is not built.
+
+The sample is small: 15 of the planned 60 runs, two exits, one profile. If withheld-quality reports return now that the token is effective, rerun the comparison:
+- `--po-token off` and `--verbose` are the levers;
+- `poTokenFromConfigClients` shows whether the token reached a decision.
+
+**H1** (tokenless media downloads since 2026-09-16 caused some of the withheld-quality cases that cookieless recovery, #230, was built for): **not supported.**
+- Every tokenless anonymous run that completed (a and b, 9 runs) reached the profile's cap.
+- The cases #230 handles are signed-in runs: formats withheld while cookies are sent. Invariant 1 now keeps the anonymous token away from every run with cookies, so a re-run "with the token effective" cannot exist for them.
+- The three-case re-run was therefore not performed. The original report also has no reproducible URLs or account.
 
 ## Architecture
 
@@ -273,6 +329,7 @@ Each step ships on its own, behind `bun run check`, and keeps the app releasable
      - Record: highest height available against the profile, whether the requested quality was met, warnings, elapsed time, launches.
      - **Decision rule:** keep token-first only if it matches or beats the alternatives on requested-quality fit, with at most the same launches. Otherwise make the token on-demand (`botCheck` / `formatsWithheld` only). Record the result in the ADR.
      - Also test H1: re-run three withheld-quality cases from cookieless recovery with the fixed token.
+     - **Done 2026-10-19: token-first kept, H1 not supported.** See [Live comparison (step 2)](#live-comparison-step-2-2026-10-19).
    - → verify:
      - The contract specs show parsed `po_token`, `visitor_data` and `player_client` together on anonymous media and single-video probes.
      - None of them on collection probes, Explore, cookie-file or browser runs.
