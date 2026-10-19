@@ -29,6 +29,9 @@ import {createExploreGate} from '@main/services/exploreGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
+import {fetchHeadLength, lookUpMissingSizes} from '@main/services/formatSizeLookup.js'
+import {nonEmpty} from '@shared/format.js'
+import type {YtDlpFormat} from 'yt-dlp-bridge/info'
 import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 import {TokenService} from '@main/services/TokenService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
@@ -333,7 +336,10 @@ if (hasSingleInstanceLock) {
 		const siteRequests = new SiteRequestState({route: () => proxyRouteKey(settingsStore.getSync().common.proxyUrl)})
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, spawnGate, sessionAuth: exploreGate, siteRequests})
 		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, spawnGate})
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession})
+		// Sizes a site leaves out come from one HEAD request per file. Not through a
+		// proxy (these requests would bypass it) and not under the E2E harness.
+		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve([...formats]) : lookUpMissingSizes(formats, fetchHeadLength, signal))
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, ...(formatSizes ? {formatSizes} : {})})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, siteRequests)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to

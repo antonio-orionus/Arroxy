@@ -105,6 +105,19 @@ describe('selectView — media kinds', () => {
 		expect(hint('hls')).toBe('30 fps')
 	})
 
+	// Combined files a site gives no resolution or codec for: distinct files keep
+	// a line each, named the site's way (Facebook's sd and hd), the bigger first;
+	// the same file listed twice (Instagram's three copies) stays one chip.
+	it('keeps distinct size-only files apart and names them the site’s way', () => {
+		const bare = (formatId: string, filesize: number | undefined): FormatOption => ({formatId, label: 'mp4', ext: 'mp4', resolution: '', isVideoOnly: false, isAudioOnly: false, ...(filesize === undefined ? {} : {filesize})})
+		const lines = (formats: FormatOption[]): string[] => selectView({selectedVideoFormatId: formats[0].formatId, audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats}).video.lines.map(line => `${line.name}: ${line.variants.map(row => row.formatId).join(',')}`)
+		expect(lines([bare('sd', 3_576_134), bare('hd', 16_344_300)])).toEqual(['HD: hd', 'SD: sd'])
+		expect(lines([bare('1', 6_512_066), bare('2', 6_512_066), bare('3', 6_512_066)])).toEqual(['Unknown resolution: 1'])
+		expect(lines([bare('a', 100), bare('b', 900)])).toEqual(['Unknown resolution: b', 'Unknown resolution: a'])
+		// Without sizes, nothing tells them apart: one chip, as before.
+		expect(lines([bare('x', undefined), bare('y', undefined)])).toEqual(['Unknown resolution: x'])
+	})
+
 	it('tags the streams the profile picked', () => {
 		const view = selectView({selectedVideoFormatId: '137', audioSelection: {kind: 'native', formatId: '251'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: SEPARATE_FORMATS, profilePick: {videoFormatId: '136', audioSelection: {kind: 'native', formatId: '140'}}})
 		expect(view.video.rows.filter(row => row.isProfilePick).map(row => row.formatId)).toEqual(['136'])

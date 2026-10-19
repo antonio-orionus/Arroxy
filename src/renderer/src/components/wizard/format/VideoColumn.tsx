@@ -46,7 +46,7 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 					</span>
 				))}
 				{view.lines.map(line => (
-					<Fragment key={line.resolution}>
+					<Fragment key={line.id}>
 						<FormatLineName name={line.name} alias={line.alias} />
 						{view.columns.map(({range, codec}) => {
 							const row = line.variants.find(variant => variant.range === range && variant.codec === codec)

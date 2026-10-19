@@ -87,6 +87,12 @@ export function groupVideoFormats(formats: FormatOption[], preferIds: readonly s
 	}
 	for (const f of videos) {
 		if (videoCodecName(f.videoCodec) !== null) continue
+		// A file with no resolution and no codec: only its size tells it from
+		// another one (Facebook's sd and hd); the same file listed twice stays one.
+		if (resolutionLabel(f.resolution).label === '' && f.filesize !== undefined) {
+			consider(`${rowKey(f)}size:${f.filesize}`, f)
+			continue
+		}
 		const named = [...groups.keys()].find(key => key.startsWith(rowKey(f)))
 		consider(named ?? rowKey(f), f)
 	}
