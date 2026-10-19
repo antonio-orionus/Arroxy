@@ -197,7 +197,7 @@
 		"knip": "6.41.0",
 		"madge": "8.0.0",
 		"oxlint": "1.87.0",
-		"oxlint-tsgolint": "7.0.2004",
+		"oxlint-tsgolint": "7.0.2003",
 		"picomatch": "2.3.2",
 		"postcss": "8.5.29",
 		"react-doctor": "0.9.17",
