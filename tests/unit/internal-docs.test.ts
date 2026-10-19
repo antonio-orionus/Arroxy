@@ -21,8 +21,14 @@ describe('internalRepoUrl', () => {
 })
 
 describe('internalCheckoutDir', () => {
+	// The result is a native path for fs and symlink calls, so the expectation
+	// is built with path.join too: backslashes on Windows.
 	it('puts the clone next to the main checkout, whichever worktree asks', () => {
-		expect(internalCheckoutDir('/code/owner/arroxy/.git')).toBe('/code/owner/arroxy-internal')
+		expect(internalCheckoutDir('/code/owner/arroxy/.git')).toBe(join('/code/owner', 'arroxy-internal'))
+	})
+
+	it('accepts the forward-slash drive path git prints on Windows', () => {
+		expect(internalCheckoutDir('C:/code/owner/arroxy/.git')).toBe(join('C:/code/owner', 'arroxy-internal'))
 	})
 })
 
