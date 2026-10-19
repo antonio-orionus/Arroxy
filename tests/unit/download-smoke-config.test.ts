@@ -11,12 +11,22 @@ describe('readDownloadSmokeConfig', () => {
 	})
 
 	it('defaults every override to settings/production', () => {
-		expect(readDownloadSmokeConfig({ARROXY_SMOKE_KIND: 'download', ARROXY_SMOKE_URL: URL})).toEqual({ok: true, config: {url: URL, cookies: {kind: 'settings'}, proxy: {kind: 'settings'}, profileId: null, youtubePlayerClients: null, timeoutMs: 180_000}})
+		expect(readDownloadSmokeConfig({ARROXY_SMOKE_KIND: 'download', ARROXY_SMOKE_URL: URL})).toEqual({ok: true, config: {url: URL, cookies: {kind: 'settings'}, proxy: {kind: 'settings'}, profileId: null, youtubePlayerClients: null, poToken: true, verbose: false, timeoutMs: 180_000}})
 	})
 
 	it('parses every override', () => {
-		const result = readDownloadSmokeConfig({ARROXY_SMOKE_KIND: 'download', ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_COOKIES: 'browser:firefox', ARROXY_SMOKE_PROXY: 'http://127.0.0.1:10808', ARROXY_SMOKE_PROFILE: 'balanced', ARROXY_SMOKE_PLAYER_CLIENTS: 'default, web_embedded', ARROXY_SMOKE_TIMEOUT_MS: '60000'})
-		expect(result).toEqual({ok: true, config: {url: URL, cookies: {kind: 'browser', browser: 'firefox'}, proxy: {kind: 'url', url: 'http://127.0.0.1:10808'}, profileId: 'balanced', youtubePlayerClients: ['default', 'web_embedded'], timeoutMs: 60_000}})
+		const result = readDownloadSmokeConfig({
+			ARROXY_SMOKE_KIND: 'download',
+			ARROXY_SMOKE_URL: URL,
+			ARROXY_SMOKE_COOKIES: 'browser:firefox',
+			ARROXY_SMOKE_PROXY: 'http://127.0.0.1:10808',
+			ARROXY_SMOKE_PROFILE: 'balanced',
+			ARROXY_SMOKE_PLAYER_CLIENTS: 'default, web_embedded',
+			ARROXY_SMOKE_TIMEOUT_MS: '60000',
+			ARROXY_SMOKE_PO_TOKEN: 'off',
+			ARROXY_SMOKE_VERBOSE: '1'
+		})
+		expect(result).toEqual({ok: true, config: {url: URL, cookies: {kind: 'browser', browser: 'firefox'}, proxy: {kind: 'url', url: 'http://127.0.0.1:10808'}, profileId: 'balanced', youtubePlayerClients: ['default', 'web_embedded'], poToken: false, verbose: true, timeoutMs: 60_000}})
 	})
 
 	it('maps player clients "none" to an empty list and cookies file: to a path', () => {
@@ -30,6 +40,8 @@ describe('readDownloadSmokeConfig', () => {
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_COOKIES: 'browser:netscape'}, /ARROXY_SMOKE_COOKIES/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_COOKIES: 'file:'}, /ARROXY_SMOKE_COOKIES/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_PLAYER_CLIENTS: ' , '}, /ARROXY_SMOKE_PLAYER_CLIENTS/],
+		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_PO_TOKEN: 'maybe'}, /ARROXY_SMOKE_PO_TOKEN/],
+		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_VERBOSE: 'yes'}, /ARROXY_SMOKE_VERBOSE/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_TIMEOUT_MS: '-5'}, /ARROXY_SMOKE_TIMEOUT_MS/],
 		[{ARROXY_SMOKE_URL: URL, ARROXY_SMOKE_TIMEOUT_MS: '2147483648'}, /ARROXY_SMOKE_TIMEOUT_MS/]
 	])('rejects invalid input %#', (env, message) => {
@@ -42,7 +54,7 @@ describe('readDownloadSmokeConfig', () => {
 describe('applyDownloadSmokeOverrides', () => {
 	const defaults = defaultAppSettings('/downloads')
 	const base: AppSettings = {...defaults, common: {...defaults.common, cookiesMode: 'file', cookiesPath: '/c.txt', cookiesBrowser: 'chrome', proxyUrl: 'http://p:1'}}
-	const cfg = (patch: Partial<DownloadSmokeConfig>): DownloadSmokeConfig => ({url: URL, cookies: {kind: 'settings'}, proxy: {kind: 'settings'}, profileId: null, youtubePlayerClients: null, timeoutMs: 1, ...patch})
+	const cfg = (patch: Partial<DownloadSmokeConfig>): DownloadSmokeConfig => ({url: URL, cookies: {kind: 'settings'}, proxy: {kind: 'settings'}, profileId: null, youtubePlayerClients: null, poToken: true, verbose: false, timeoutMs: 1, ...patch})
 
 	it('leaves settings untouched when nothing is overridden', () => {
 		expect(applyDownloadSmokeOverrides(base, cfg({}))).toEqual(base)

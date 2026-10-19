@@ -17,13 +17,13 @@ function makeFakeProcess(exitCode: number, stderr = '') {
 	return createTranscriptProcess(stderr ? [{stream: 'stderr', data: stderr}, {close: exitCode}] : [{close: exitCode}])
 }
 
-function makeYtDlp(tokenService?: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}) {
+function makeYtDlp(tokenService?: {mintTokenForUrl: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}, opts: {anonymousPoToken?: boolean} = {}) {
 	const ts = tokenService ?? {mintTokenForUrl: vi.fn().mockResolvedValue({token: 'tok', visitorData: 'vd', fromCache: false}), invalidateCache: vi.fn()}
 	// forgetProbeVerdict is called on spawn-error: a child that cannot start
 	// contradicts any recorded probe verdict the path was resolved from.
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
 	const settingsStore = {get: vi.fn().mockResolvedValue({})}
-	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore), tokenService: ts, binaryManager}
+	return {ytDlp: new YtDlp(binaryManager as never, ts as never, settingsStore, opts), tokenService: ts, binaryManager}
 }
 
 function mediaRequest(): YtDlpRequest {
@@ -51,6 +51,18 @@ beforeEach(() => {
 })
 
 describe('YtDlp — retry ladder', () => {
+	it("anonymousPoToken: false runs once with the plan's own clients and mints nothing", async () => {
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(1, BOT_STDERR) as never)
+		const {ytDlp, tokenService} = makeYtDlp(undefined, {anonymousPoToken: false})
+
+		await ytDlp.run(mediaRequestWithPlayerClient(['default', 'web_embedded']))
+
+		expect(tokenService.mintTokenForUrl).not.toHaveBeenCalled()
+		expect(vi.mocked(spawnYtDlp)).toHaveBeenCalledTimes(1)
+		const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
+		expect(args[args.indexOf('--extractor-args') + 1]).toBe('youtube:player_client=default,web_embedded')
+	})
+
 	it('happy path: attempt 0 succeeds → result success, usedExtractorFallback=false', async () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcess(0) as never)
 		const {ytDlp} = makeYtDlp()

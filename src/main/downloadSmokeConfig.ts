@@ -14,6 +14,10 @@ export interface DownloadSmokeConfig {
 	profileId: string | null
 	// null = the production player clients; [] = pass none and let yt-dlp choose.
 	youtubePlayerClients: readonly string[] | null
+	// false runs without Arroxy's anonymous PO token, to compare against it.
+	poToken: boolean
+	// Adds yt-dlp's -v, whose debug lines show whether a token was parsed.
+	verbose: boolean
 	timeoutMs: number
 }
 
@@ -54,6 +58,13 @@ function parsePlayerClients(raw: string | undefined): readonly string[] | null |
 	return clients.length > 0 ? clients : 'ARROXY_SMOKE_PLAYER_CLIENTS: expected a comma list of clients or "none"'
 }
 
+function parseSwitch(name: string, raw: string | undefined, on: string, off: string, fallback: boolean): boolean | string {
+	if (raw === undefined) return fallback
+	if (raw === on) return true
+	if (raw === off) return false
+	return `${name}: expected ${on} or ${off}, got "${raw}"`
+}
+
 // Env is an untrusted boundary: every value is parsed here into the typed config
 // the runner consumes. Returns null when download smoke was not requested.
 export function readDownloadSmokeConfig(env: NodeJS.ProcessEnv): DownloadSmokeConfigResult | null {
@@ -67,6 +78,10 @@ export function readDownloadSmokeConfig(env: NodeJS.ProcessEnv): DownloadSmokeCo
 	const proxy: SmokeProxyOverride = proxyRaw === undefined ? {kind: 'settings'} : proxyRaw === 'off' ? {kind: 'off'} : {kind: 'url', url: proxyRaw}
 	const youtubePlayerClients = parsePlayerClients(trimmed(env.ARROXY_SMOKE_PLAYER_CLIENTS))
 	if (typeof youtubePlayerClients === 'string') return {ok: false, error: youtubePlayerClients}
+	const poToken = parseSwitch('ARROXY_SMOKE_PO_TOKEN', trimmed(env.ARROXY_SMOKE_PO_TOKEN), 'on', 'off', true)
+	if (typeof poToken === 'string') return {ok: false, error: poToken}
+	const verbose = parseSwitch('ARROXY_SMOKE_VERBOSE', trimmed(env.ARROXY_SMOKE_VERBOSE), '1', '0', false)
+	if (typeof verbose === 'string') return {ok: false, error: verbose}
 	const timeoutRaw = trimmed(env.ARROXY_SMOKE_TIMEOUT_MS)
 	const timeout = z.coerce
 		.number()
@@ -75,7 +90,7 @@ export function readDownloadSmokeConfig(env: NodeJS.ProcessEnv): DownloadSmokeCo
 		.max(MAX_TIMER_DELAY_MS)
 		.safeParse(timeoutRaw ?? DEFAULT_TIMEOUT_MS)
 	if (!timeout.success) return {ok: false, error: `ARROXY_SMOKE_TIMEOUT_MS must be a positive integer up to 2147483647, got "${timeoutRaw}"`}
-	return {ok: true, config: {url, cookies, proxy, profileId: trimmed(env.ARROXY_SMOKE_PROFILE) ?? null, youtubePlayerClients, timeoutMs: timeout.data}}
+	return {ok: true, config: {url, cookies, proxy, profileId: trimmed(env.ARROXY_SMOKE_PROFILE) ?? null, youtubePlayerClients, poToken, verbose, timeoutMs: timeout.data}}
 }
 
 function cookiesPatch(cookies: SmokeCookiesOverride): Partial<AppSettings['common']> {

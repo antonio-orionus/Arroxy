@@ -18,10 +18,12 @@ export interface DownloadSmokeReport {
 	arch: string
 	url: string
 	// `cookies` is a redacted label (settings / off / browser:<name> / file), never a path.
-	inputs: {cookies: string; proxy: 'settings' | 'off' | 'set'; profileId: string; youtubePlayerClients: string[] | 'production-default'}
+	inputs: {cookies: string; proxy: 'settings' | 'off' | 'set'; profileId: string; youtubePlayerClients: string[] | 'production-default'; poToken: boolean; verbose: boolean}
 	effective: {cookiesMode: CookiesMode; proxyConfigured: boolean; formatSelector: string | null; formatSort: string | null}
-	selection: {selectedFormat: string | null; formats: SelectedFormat[] | null; maxHeight: number | null}
-	observed: {playerApiClients: string[]; sabrSkippedClients: string[]; warnings: string[]}
+	// availableMaxHeight: the tallest video format the info-json offered, before the profile's cap.
+	selection: {selectedFormat: string | null; formats: SelectedFormat[] | null; maxHeight: number | null; availableMaxHeight: number | null}
+	// The poToken* fields are filled only by a verbose run.
+	observed: {playerApiClients: string[]; sabrSkippedClients: string[]; warnings: string[]; poTokenFromConfigClients: string[]; poTokenDebug: string[]}
 	// What the last spawn actually passed, read back from its argv — proof that
 	// an override reached yt-dlp rather than just the settings overlay.
 	spawned: SpawnArgsSummary | null

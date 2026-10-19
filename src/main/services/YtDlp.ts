@@ -139,6 +139,8 @@ interface InvokeOptions {
 	isProbe?: boolean
 	probePlaylistMode?: ProbePlaylistMode
 	hasExplicitYoutubePlayerClient?: boolean
+	// false skips the anonymous token entirely: one launch with the plan's own args.
+	anonymousPoToken?: boolean
 	onInvocation?: (summary: YtDlpInvocationSummary) => void
 }
 
@@ -384,6 +386,7 @@ function shouldUsePotLadder(opts: InvokeOptions): boolean {
 	// cookies (the escalated Explore session, a cookies file, a browser's) is
 	// someone's signed-in identity, so it never gets one.
 	if (opts.cookies) return false
+	if (opts.anonymousPoToken === false) return false
 	if (!siteForUrl(opts.url).needsPotToken) return false
 	if (opts.isProbe !== true) return true
 	return (opts.probePlaylistMode ?? 'auto') === 'video'
@@ -469,7 +472,7 @@ export class YtDlp {
 		private readonly binaryManager: BinaryManager,
 		private readonly tokenService: TokenService,
 		private readonly settingsStore: SettingsSource,
-		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization} = {}
+		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization; anonymousPoToken?: boolean} = {}
 	) {}
 
 	// Call once at job start to emit binary-setup status events.
@@ -576,6 +579,7 @@ export class YtDlp {
 				isProbe,
 				probePlaylistMode,
 				hasExplicitYoutubePlayerClient,
+				anonymousPoToken: this.opts.anonymousPoToken,
 				signal,
 				onInvocation: summary => {
 					this._lastInvocation = summary

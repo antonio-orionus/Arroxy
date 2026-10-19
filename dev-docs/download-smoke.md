@@ -31,6 +31,8 @@ A headless mode of the real app that runs the production download request for on
 | `ARROXY_SMOKE_PROXY`          | persisted settings                                       | `off`, or a proxy URL                                                                    |
 | `ARROXY_SMOKE_PROFILE`        | active profile                                           | a download profile id, e.g. `balanced`                                                   |
 | `ARROXY_SMOKE_PLAYER_CLIENTS` | production clients (`default,web_embedded`)              | comma list, e.g. `web_safari`, or `none` to pass no `player_client`                      |
+| `ARROXY_SMOKE_PO_TOKEN`       | `on`: Arroxy's anonymous PO token, as in production      | `on`, or `off` to run once without it (no token ladder)                                  |
+| `ARROXY_SMOKE_VERBOSE`        | `0`                                                      | `1` adds yt-dlp's `-v`, so the report shows which clients actually took the token        |
 | `ARROXY_SMOKE_TIMEOUT_MS`     | `180000`                                                 | positive integer                                                                         |
 
 Always set `ELECTRON_USER_DATA` to a scratch directory so the real settings, queue, and logs stay untouched. Invalid input prints `FAIL  download smoke config  <reason>` and exits 1.
@@ -44,6 +46,7 @@ bun run build
 bun run smoke:download -- --url 'https://www.youtube.com/watch?v=z1NNgSu8hTI' --cookies off
 bun run smoke:download -- --cookies browser:firefox --clients none      # URL from ARROXY_SMOKE_URL or youtube-urls.local.txt
 bun run smoke:download -- --exe /Applications/Arroxy.app/Contents/MacOS/Arroxy --proxy off
+bun run smoke:download -- --url 'https://www.youtube.com/watch?v=z1NNgSu8hTI' --cookies off --po-token off --verbose
 ```
 
 The flags map one-to-one onto the environment contract above. The wrapper prints a summary (format, height, what was sent to yt-dlp, SABR skips) and saves the full report to `$TMPDIR/arroxy-download-smoke-last.json`. It always uses a scratch `ELECTRON_USER_DATA`, reused between runs so the managed yt-dlp is fetched once (`--fresh` for a new one).
@@ -99,6 +102,8 @@ The last stdout line is `ARROXY_DOWNLOAD_SMOKE_RESULT {json}`.
 - `observed.sabrSkippedClients` non-empty means YouTube listed formats for those clients but withheld their download URLs, which leaves only low progressive formats. yt-dlp's warning guesses a SABR-only experiment on the account; the log alone does not prove whether the cause is the account, the account combined with the network (proxy/VPN IP), or a YouTube test group. Compare the cookie and no-proxy cases to narrow it down.
   Queued downloads act on the same signal, but only for YouTube downloads that use a download profile's quality range (not an explicitly picked format), with cookies configured, and not resumed from a pause. When the probe's info-json already shows the limit, the download starts without cookies; otherwise a limited run with cookies is stopped once formats are chosen and retried without them. A cookieless run that fails falls back to cookies. The app remembers for the session whether dropping cookies helped: after it helped, such downloads start without cookies; after it did not help or failed, nothing is retried. The smoke deliberately does not retry, so each case shows what that one combination gets.
 - `observed.playerApiClients` is which player APIs yt-dlp actually queried.
+- `selection.availableMaxHeight` is the tallest video format the info-json offered, before the profile's cap. Withheld formats are already missing from it.
+- `observed.poTokenFromConfigClients` (verbose runs only) lists the clients yt-dlp took Arroxy's token for, from its `Retrieved a gvs PO Token for <client> client from config` debug line. This is the proof the token was used; `spawned.poToken` only proves it was parsed. `observed.poTokenDebug` keeps yt-dlp's other PO-token debug lines, never the argv dump that carries the value.
 - `effective` is what the overlay resolved to, including the format selector and sort.
 - `spawned` is read back from the last yt-dlp command: which cookie flag it got (`none` / `file` / `browser`), whether a proxy was passed, and whether a PO token and which `player_client` list (`null` means yt-dlp chose its own) survive yt-dlp's parsing. yt-dlp keeps only the last `--extractor-args` block per extractor, so a token in an earlier block counts as not sent. The matrix shows these as `SentCookies`, `SentProxy`, and `SentClients`, so there is no need to dig through `attempts` to confirm an override took effect.
 - `attempts[].args` is the exact redacted argv for every spawn, including retry-ladder attempts.
