@@ -25,6 +25,12 @@ describe('classifyClipboardText', () => {
 		expect(classifyClipboardText('https://example.com/report.pdf')).toEqual({kind: 'none'})
 	})
 
+	it('does not take a malformed link', () => {
+		expect(classifyClipboardText('https://[invalid')).toEqual({kind: 'none'})
+		expect(classifyClipboardText('https://example.com:bad/video')).toEqual({kind: 'none'})
+		expect(classifyClipboardText('https://')).toEqual({kind: 'none'})
+	})
+
 	it('does not take other schemes or plain text', () => {
 		expect(classifyClipboardText('ftp://example.com/video.mp4')).toEqual({kind: 'none'})
 		expect(classifyClipboardText('youtube.com/watch?v=abc')).toEqual({kind: 'none'})

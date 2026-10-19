@@ -8,8 +8,10 @@ const RENDERERS: Record<NotificationLevel, (message: string, options: ExternalTo
 // close the toast when clicked, without calling onDismiss or onAutoClose. So
 // a click retires the toast's generation itself, before the action runs: a
 // notification the action raises (a fast re-failure) opens a fresh toast.
+// No actions still sets both keys: Sonner merges a same-id update into the
+// toast on screen, which would otherwise keep the old buttons and callbacks.
 function actionOptions(actions: NotificationActions | undefined, retire: () => void): Pick<ExternalToast, 'action' | 'cancel'> {
-	if (!actions) return {}
+	if (!actions) return {action: undefined, cancel: undefined}
 	const [primary, secondary] = actions
 	const retiring = (onClick: () => void) => (): void => {
 		retire()

@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 import {notify} from '@renderer/lib/notify.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {canApplyCopiedLink, resolveCopiedLink} from './clipboardIntake.js'
+import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink} from './clipboardIntake.js'
 
 function isBrowserMockBulkDialogScenario(scenario: string | null): boolean {
 	return scenario === 'profiles-bulk' || scenario === 'profiles-bulk-huge-input'
@@ -78,8 +78,8 @@ export function useCopiedLinkIntake({bulkOpen, downloadTabActive, setWizardUrl}:
 			return
 		}
 		const undo = (): void => {
-			// Only while the field still holds the copied link: never undo over the user's own edit.
-			if (useAppStore.getState().wizardUrl === action.url) setWizardUrl(action.previous)
+			const state = useAppStore.getState()
+			if (canUndoCopiedLink({wizardStep: state.wizardStep, wizardUrl: state.wizardUrl, formatsLoading: state.formatsLoading, quickPreparing: state.quickDownloadStatus === 'preparing'}, action.url)) setWizardUrl(action.previous)
 		}
 		notify.clipboard(t('wizard.url.clipboard.replacedLink'), [{label: t('wizard.url.clipboard.undo'), onClick: undo}])
 	}, [bulkOpen, copiedLink, downloadTabActive, formatsLoading, quickPreparing, setWizardUrl, t])

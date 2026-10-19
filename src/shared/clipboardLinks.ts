@@ -4,6 +4,15 @@ export type ClipboardLinks = {kind: 'none'} | {kind: 'single'; url: string} | {k
 
 const BARE_WEB_LINK_RE = /^https?:\/\/\S+$/i
 
+function isWebUrl(text: string): boolean {
+	try {
+		const {protocol} = new URL(text)
+		return protocol === 'http:' || protocol === 'https:'
+	} catch {
+		return false
+	}
+}
+
 // What the clipboard watcher may act on. A single link counts only when it is
 // the whole clipboard (surrounding whitespace aside): a link inside a sentence
 // is not definitely meant for Arroxy. Several links in any text form a bulk
@@ -14,5 +23,5 @@ export function classifyClipboardText(raw: string): ClipboardLinks {
 	const urls = parseBulkUrls(text).accepted.map(item => item.url)
 	if (urls.length > 1) return {kind: 'bulk', urls}
 	const [url] = urls
-	return url && BARE_WEB_LINK_RE.test(text) ? {kind: 'single', url} : {kind: 'none'}
+	return url && BARE_WEB_LINK_RE.test(text) && isWebUrl(url) ? {kind: 'single', url} : {kind: 'none'}
 }

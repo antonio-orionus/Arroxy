@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {canApplyCopiedLink, resolveCopiedLink} from '@renderer/components/wizard/clipboardIntake.js'
+import {canApplyCopiedLink, canUndoCopiedLink, resolveCopiedLink} from '@renderer/components/wizard/clipboardIntake.js'
 
 const link = 'https://www.youtube.com/watch?v=one'
 const idle = {downloadTabActive: true, bulkOpen: false, formatsLoading: false, quickPreparing: false}
@@ -17,6 +17,15 @@ describe('copied link intake', () => {
 
 	it('does nothing when the field already holds the copied link', () => {
 		expect(resolveCopiedLink(link, ` ${link} `)).toEqual({kind: 'none'})
+	})
+
+	it('undoes only while the URL step still holds the copied link and nothing was submitted', () => {
+		const onUrlStep = {wizardStep: 'url', wizardUrl: link, formatsLoading: false, quickPreparing: false} as const
+		expect(canUndoCopiedLink(onUrlStep, link)).toBe(true)
+		expect(canUndoCopiedLink({...onUrlStep, wizardUrl: 'typed-after'}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, formatsLoading: true}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, quickPreparing: true}, link)).toBe(false)
+		expect(canUndoCopiedLink({...onUrlStep, wizardStep: 'formats'}, link)).toBe(false)
 	})
 
 	it('applies only on the idle Download tab', () => {

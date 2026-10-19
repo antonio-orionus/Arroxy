@@ -119,6 +119,21 @@ describe('wizard clipboard auto-fill', () => {
 		expect(useAppStore.getState().wizardUrl).toBe('typed-after')
 	})
 
+	it('Undo does nothing once the copied link was submitted', () => {
+		useAppStore.setState({wizardUrl: OLD_URL})
+		render(<StepUrlInput />)
+		copy(FRESH_URL)
+		const actions = toastSpy.mock.calls[0]?.[1]
+
+		act(() => useAppStore.setState({formatsLoading: true}))
+		act(() => actions?.[0].onClick())
+		expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
+
+		act(() => useAppStore.setState({formatsLoading: false, wizardStep: 'formats'}))
+		act(() => actions?.[0].onClick())
+		expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
+	})
+
 	it('replaces each time a new link is copied', () => {
 		render(<StepUrlInput />)
 
