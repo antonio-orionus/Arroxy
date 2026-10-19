@@ -27,10 +27,19 @@ export interface BotWallGuidance {
 	variant: BotWallGuidanceVariant
 }
 
+// The site is rate-limiting this connection. `degraded`: the result came back
+// usable but may be missing formats; `failed`: nothing came back. The remedy is
+// waiting out main's cooldown (or "Try now"), never cookies or an account.
+export type RateLimitGuidanceVariant = 'hidden' | 'degraded' | 'failed'
+export interface RateLimitGuidance {
+	variant: RateLimitGuidanceVariant
+}
+
 export interface ProbeErrorExperience {
 	errorKind: YtDlpErrorKind | undefined
 	cookies: CookiesGuidance
 	botWall: BotWallGuidance
+	rateLimit: RateLimitGuidance
 	// signInWithExplore: open Explore to sign in (the `explore` mode's call).
 	// signInWithExploreThenRetry: switch to `explore`, open Explore, retry once signed in.
 	// retryWithExploreSignIn: switch to `explore` and retry now.
@@ -48,7 +57,7 @@ interface ProbeErrorExperienceInput {
 }
 
 const COOKIES_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'])
-const BOT_WALL_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock', 'rateLimit'])
+const BOT_WALL_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['botBlock'])
 
 export function isCookiesNeededKind(kind: YtDlpErrorKind | undefined): boolean {
 	return kind !== undefined && COOKIES_KINDS.has(kind)
@@ -105,6 +114,8 @@ export function canSwitchToExplore(commonSettings: Partial<CommonSettings> | nul
 
 function cookiesGuidanceVariant(input: {commonSettings?: Partial<CommonSettings> | null; error: ProbeError | null; errorKind: YtDlpErrorKind | undefined; exploreSignedIn: ExploreSignedIn}): CookiesGuidance {
 	const mode = effectiveCookiesMode(input.commonSettings)
+	// No cookie can lift a rate limit, under any mode: YouTube limits accounts too.
+	if (input.errorKind === 'rateLimit') return {mode, variant: 'hidden'}
 	switch (mode) {
 		case 'off':
 			if (offersExplore(input.commonSettings, input.errorKind)) {
@@ -141,16 +152,23 @@ function botWallGuidanceVariant(input: {commonSettings?: Partial<CommonSettings>
 	}
 }
 
+function rateLimitGuidanceVariant(degradedReasons: readonly ProbeDegradationReason[] | null | undefined, errorKind: YtDlpErrorKind | undefined): RateLimitGuidance {
+	if (errorKind === 'rateLimit') return {variant: 'failed'}
+	return {variant: degradedReasons?.includes('rateLimit') ? 'degraded' : 'hidden'}
+}
+
 export function buildProbeErrorExperience({error, commonSettings = null, degradedReasons = null, exploreSignedIn = null}: ProbeErrorExperienceInput): ProbeErrorExperience {
 	const errorKind = probeErrorKind(error)
 	const cookies = cookiesGuidanceVariant({commonSettings, error, errorKind, exploreSignedIn})
 	const botWall = botWallGuidanceVariant({commonSettings, degradedReasons, errorKind})
+	const rateLimit = rateLimitGuidanceVariant(degradedReasons, errorKind)
 	const signInWithExplore = cookies.variant === 'explore-sign-in'
 	const offerSecondary = cookies.variant === 'explore-offer' || cookies.variant === 'explore-reuse' ? cookies.secondary : null
 	return {
 		errorKind,
 		cookies,
 		botWall,
+		rateLimit,
 		actions: {
 			retry: error !== null,
 			openCookiesSettings: cookies.variant !== 'hidden' && !signInWithExplore && offerSecondary !== 'enable-cookies',
@@ -166,7 +184,7 @@ function guidanceScore(error: ProbeError, commonSettings: Partial<CommonSettings
 	const experience = buildProbeErrorExperience({error, commonSettings, exploreSignedIn})
 	if (experience.actions.enableCookiesAndRetry) return 3
 	if (experience.cookies.variant !== 'hidden') return 2
-	if (experience.botWall.variant !== 'hidden') return 1
+	if (experience.botWall.variant !== 'hidden' || experience.rateLimit.variant !== 'hidden') return 1
 	return 0
 }
 

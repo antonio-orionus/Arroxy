@@ -64,8 +64,8 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {ProbePlaylistMode} from './schemas.js'
-export type {ProbePlaylistMode, StatusKey} from './schemas.js'
+import type {ProbeDegradationReason, ProbePlaylistMode} from './schemas.js'
+export type {ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds, ExploreViewState} from './schemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
@@ -410,8 +410,6 @@ export interface ProbeInput {
 	// keeps the 180s interactive default. Mirrors probeSchema's timeoutMs.
 	timeoutMs?: number
 }
-
-export type ProbeDegradationReason = 'botWall' | 'extractor'
 
 interface ProbeCommon {
 	extractor: string

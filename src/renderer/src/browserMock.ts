@@ -37,6 +37,7 @@ import {
 import {applyThemeLive, readKnobs, RTL_LANGS} from './dev/browserMockKnobs.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
+import {createSiteRequestsMock} from './dev/siteRequestsMock.js'
 import {showcaseProbe, showcaseQueueItem} from './dev/showcaseContent.js'
 
 const BROWSER_MOCK_LAUNCH_STORAGE_KEY = 'arroxy:browserMockLaunch'
@@ -162,6 +163,7 @@ export function installBrowserMock(): void {
 
 	let settings: AppSettings = scenarioState.settings
 	const exploreMock = createExploreMock(scenarioState.explore)
+	const siteRequestsMock = createSiteRequestsMock()
 
 	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))
@@ -288,7 +290,13 @@ export function installBrowserMock(): void {
 		}
 
 		const probeErrorKind = mockProbeErrorKind(input.url)
+		// "Try now" on a rate-limited mock probe: the site answers this time.
+		if (probeErrorKind === 'rateLimit' && siteRequestsMock.passesTryNow(input.url)) {
+			await delay(1400)
+			return {ok: true, data: normalVideoProbe({webpageUrl: input.url})}
+		}
 		if (probeErrorKind !== null) {
+			if (probeErrorKind === 'rateLimit') siteRequestsMock.rateLimited(input.url)
 			return {ok: false, error: buildProbeErrorForKind(probeErrorKind)}
 		}
 
@@ -316,7 +324,12 @@ export function installBrowserMock(): void {
 
 		if (scenarioState.probeResult) {
 			await delay(1400)
-			return {ok: true, data: {...scenarioState.probeResult, webpageUrl: input.url}}
+			const probe = scenarioState.probeResult
+			if (probe.kind === 'video' && probe.degraded?.reasons.includes('rateLimit') === true) {
+				if (siteRequestsMock.passesTryNow(input.url)) return {ok: true, data: {...probe, degraded: undefined, webpageUrl: input.url}}
+				siteRequestsMock.rateLimited(input.url)
+			}
+			return {ok: true, data: {...probe, webpageUrl: input.url}}
 		}
 
 		// Visual harness: append `?fail=1` to a URL to simulate a hard
@@ -720,6 +733,8 @@ export function installBrowserMock(): void {
 		},
 
 		explore: exploreMock.api,
+
+		siteRequests: siteRequestsMock.api,
 
 		updater: {
 			onUpdateAvailable: listener => {

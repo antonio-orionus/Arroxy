@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {siteById, siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
+import {requestSiteFor, siteById, siteForExtractor, siteForJob, siteForUrl} from '@shared/sites/index.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
 import type {ExploreCookie} from '@shared/sites/types.js'
 
@@ -57,5 +57,19 @@ describe('youtubeSite.explore', () => {
 		expect(signedIn([cookie('SAPISID')])).toBe(false)
 		expect(signedIn([cookie('LOGIN_INFO')])).toBe(false)
 		expect(signedIn([cookie('LOGIN_INFO', '.google.com'), cookie('SAPISID', '.google.com')])).toBe(false)
+	})
+})
+
+describe('requestSiteFor', () => {
+	it('keeps one rate-limit cooldown for all of YouTube', () => {
+		expect(requestSiteFor(YT_URL)).toBe('youtube')
+		expect(requestSiteFor('https://youtu.be/k1qBgIw8fAQ')).toBe('youtube')
+		expect(requestSiteFor('https://music.youtube.com/watch?v=k1qBgIw8fAQ')).toBe('youtube')
+	})
+
+	it('keeps any other site apart by its hostname', () => {
+		expect(requestSiteFor('https://www.vimeo.com/12345')).toBe('vimeo.com')
+		expect(requestSiteFor('https://player.vimeo.com/video/1')).toBe('player.vimeo.com')
+		expect(requestSiteFor('not a url')).toBe('unknown')
 	})
 })

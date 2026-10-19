@@ -53,3 +53,16 @@ export function siteForExtractor(extractor: string | undefined | null): Site {
 export function siteForJob(extractor: string | undefined | null, url: string): Site {
 	return extractor?.trim() ? siteForExtractor(extractor) : siteForUrl(url)
 }
+
+// The site a rate-limit cooldown is kept for. YouTube is one site across its
+// hosts; any other site is its hostname, so a limit from one generic site never
+// holds back another.
+export function requestSiteFor(url: string): string {
+	if (isYouTubeHost(url)) return 'youtube'
+	try {
+		const host = new URL(url).hostname.toLowerCase()
+		return host.startsWith('www.') ? host.slice(4) : host || 'unknown'
+	} catch {
+		return 'unknown'
+	}
+}

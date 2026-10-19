@@ -273,6 +273,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			void window.appApi.hotkey.rendererReady()
 
 			get().bindExploreView()
+			get().bindSiteCooldowns()
 
 			unbindProbeProgress?.()
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {

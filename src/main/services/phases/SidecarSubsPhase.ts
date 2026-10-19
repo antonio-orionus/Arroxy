@@ -102,7 +102,9 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 						subtitles: {languages: ytDlpSubtitleLanguages(subs), format: subs.format ?? DEFAULTS.subtitleFormat, writeAuto: subs.writeAuto, ...(subs.autoOnly ? {autoOnly: true} : {})}
 					},
 					buildYtDlpSignal(ctx, active),
-					{identity: identityFor(input.auth), jobKey: job.id}
+					// The media is saved: the rest of this job goes ahead through a
+					// rate-limit cooldown its own media run may have started.
+					{identity: identityFor(input.auth), jobKey: job.id, honorCooldown: false}
 				)
 			})
 

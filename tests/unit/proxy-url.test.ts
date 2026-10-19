@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
+import {parseProxySetting, proxyForLog, proxyRouteKey} from '@main/utils/proxyUrl.js'
 
 describe('proxyForLog', () => {
 	it('gives no proxy as null, an unusable one as a marker, and a proxy without credentials', () => {
@@ -41,5 +41,15 @@ describe('parseProxySetting', () => {
 		expect(parseProxySetting('ftp://proxy.example:21')).toEqual({kind: 'invalid'})
 		expect(parseProxySetting('http://')).toEqual({kind: 'invalid'})
 		expect(parseProxySetting('not a proxy')).toEqual({kind: 'invalid'})
+	})
+})
+
+describe('proxyRouteKey', () => {
+	it('names the route a request leaves by, without credentials', () => {
+		expect(proxyRouteKey(undefined)).toBe('direct')
+		expect(proxyRouteKey('  ')).toBe('direct')
+		expect(proxyRouteKey('http://user:secret@10.0.0.1:8080')).toBe('http://10.0.0.1:8080')
+		expect(proxyRouteKey('10.0.0.1:3128')).toBe('http://10.0.0.1:3128')
+		expect(proxyRouteKey('ftp://nope')).toBe('invalid')
 	})
 })

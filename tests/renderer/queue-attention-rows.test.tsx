@@ -222,7 +222,18 @@ describe('a probe-error row under the off cookie mode with Explore enabled', () 
 		seed([errorRow({kind: 'rateLimit', raw: 'HTTP Error 429'})], {cookiesMode: 'off'}, false)
 		const panel = attention('failed')
 		expect(within(panel).queryByRole('button', {name: 'Sign in with Explore'})).toBeNull()
-		expect(within(panel).getByTestId('bot-wall-notice')).toHaveAttribute('data-variant', 'unconfigured')
+		expect(within(panel).queryByTestId('bot-wall-notice')).toBeNull()
+		expect(within(panel).getByTestId('rate-limit-notice')).toHaveAttribute('data-variant', 'failed')
+	})
+
+	it('offers "Try now" on a rate-limited row while its site cools down', async () => {
+		seed([errorRow({kind: 'rateLimit', raw: 'HTTP Error 429'})], {cookiesMode: 'off'}, false)
+		act(() => useAppStore.setState({siteCooldowns: [{site: 'youtube', until: new Date(Date.now() + 60_000).toISOString(), evidence: 'rateLimited'}]}))
+		const panel = attention('failed')
+		expect(within(panel).queryByTestId('quick-download-retry')).toBeNull()
+		fireEvent.click(within(panel).getByTestId('rate-limit-try-now'))
+		await waitFor(() => expect(actions.retryQuickDownloadRow).toHaveBeenCalledWith('failed'))
+		expect(window.appApi.siteRequests.tryNow).toHaveBeenCalledWith('youtube')
 	})
 
 	it('keeps the file and browser modes as they were', () => {

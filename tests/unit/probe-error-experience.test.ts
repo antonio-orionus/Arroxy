@@ -20,7 +20,7 @@ describe('ProbeErrorExperience', () => {
 		}
 
 		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: true, enableCookiesAndRetry: false}})
-		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'unconfigured'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
+		expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'hidden'}, rateLimit: {variant: 'failed'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
 		expect(buildProbeErrorExperience({error: ytdlpError('network'), commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'hidden'}, actions: {openCookiesSettings: false, enableCookiesAndRetry: false}})
 	})
 
@@ -36,7 +36,7 @@ describe('ProbeErrorExperience', () => {
 		expect(isCookiesNeededKind('ageRestricted')).toBe(true)
 		expect(isCookiesNeededKind('network')).toBe(false)
 		expect(isBotWallKind('botBlock')).toBe(true)
-		expect(isBotWallKind('rateLimit')).toBe(true)
+		expect(isBotWallKind('rateLimit')).toBe(false)
 		expect(isBotWallKind('ageRestricted')).toBe(false)
 		expect(isDpapiCookieError('no encrypted key in Local State')).toBe(true)
 		expect(isDpapiCookieError('ordinary probe failure')).toBe(false)
@@ -88,9 +88,8 @@ describe('ProbeErrorExperience', () => {
 			}
 		})
 
-		it('keeps bot-wall guidance free of a sign-in call (degraded probe, rate limit)', () => {
+		it('keeps bot-wall guidance free of a sign-in call on a degraded probe', () => {
 			expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: EXPLORE, exploreSignedIn: false})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'explore'}, actions: {signInWithExplore: false, enableCookiesAndRetry: false}})
-			expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings: EXPLORE, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'hidden'}, botWall: {variant: 'explore'}})
 		})
 
 		it('falls back to the off-mode guidance while the Explore tab is turned off', () => {
@@ -218,5 +217,47 @@ describe('the error message beside the guidance', () => {
 	it.each(['botBlock', 'ageRestricted', 'unavailable', 'loginRequired'] as const)('%s gives no cookie instructions of its own', kind => {
 		expect(isCookiesNeededKind(kind)).toBe(true)
 		expect(en.errors.ytdlp[kind]).not.toMatch(/cookie|settings/i)
+	})
+})
+
+// A rate limit is fixed by waiting, never by cookies or an account: YouTube
+// rate-limits signed-in accounts too. Its guidance is its own, apart from the
+// bot wall's.
+describe('ProbeErrorExperience — rate limit', () => {
+	const SETTINGS: Partial<CommonSettings>[] = [
+		{cookiesMode: 'off', exploreEnabled: false},
+		{cookiesMode: 'off', exploreEnabled: true},
+		{cookiesMode: 'off', exploreEnabled: false, cookiesPath: '/tmp/cookies.txt'},
+		{cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'},
+		{cookiesMode: 'browser', cookiesBrowser: 'chrome'},
+		{cookiesMode: 'explore', exploreEnabled: true}
+	]
+
+	it('a failed probe gets the rate-limit guidance and no cookie, account or bot-wall advice, under every cookie mode', () => {
+		for (const commonSettings of SETTINGS) {
+			for (const exploreSignedIn of [true, false, null] as const) {
+				expect(buildProbeErrorExperience({error: ytdlpError('rateLimit'), commonSettings, exploreSignedIn})).toMatchObject({
+					rateLimit: {variant: 'failed'},
+					botWall: {variant: 'hidden'},
+					cookies: {variant: 'hidden'},
+					actions: {enableCookiesAndRetry: false, signInWithExplore: false, signInWithExploreThenRetry: false, retryWithExploreSignIn: false}
+				})
+			}
+		}
+	})
+
+	it('a usable result limited by the rate limit gets the degraded guidance, without the bot wall', () => {
+		for (const commonSettings of SETTINGS) {
+			expect(buildProbeErrorExperience({error: null, degradedReasons: ['rateLimit'], commonSettings})).toMatchObject({rateLimit: {variant: 'degraded'}, botWall: {variant: 'hidden'}, actions: {enableCookiesAndRetry: false}})
+		}
+	})
+
+	it('a bot wall and a rate limit in one result keep their own guidance', () => {
+		expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall', 'rateLimit'], commonSettings: {cookiesMode: 'off', exploreEnabled: false}})).toMatchObject({rateLimit: {variant: 'degraded'}, botWall: {variant: 'unconfigured'}})
+	})
+
+	it('shows nothing about a rate limit otherwise', () => {
+		expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
+		expect(buildProbeErrorExperience({error: null, degradedReasons: ['extractor'], commonSettings: {cookiesMode: 'off'}}).rateLimit.variant).toBe('hidden')
 	})
 })

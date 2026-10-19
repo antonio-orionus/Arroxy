@@ -13,6 +13,7 @@ import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {HotkeyOsNotifier} from '@main/services/hotkeyFeedback.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
+import type {SiteRequestState} from '@main/services/SiteRequestState.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
 import {ProbeEventBridge} from '@main/services/ProbeEventBridge.js'
@@ -28,6 +29,7 @@ import {registerQueueHandlers} from './queueHandlers.js'
 import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
 import {registerPlaylistHandlers} from './playlistHandlers.js'
 import {registerExploreHandlers} from './exploreHandlers.js'
+import {registerSiteRequestHandlers} from './siteRequestHandlers.js'
 
 export interface IpcDependencies {
 	mainWindow: BrowserWindow
@@ -43,6 +45,7 @@ export interface IpcDependencies {
 	hotkeyOsNotifier: HotkeyOsNotifier | null
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
+	siteRequests: SiteRequestState
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
 	refreshAppMenu?: () => void
@@ -53,7 +56,7 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, graphicsPolicyProvider, refreshAppMenu} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, hotkeyOsNotifier, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, refreshAppMenu} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
@@ -66,6 +69,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
 	registerExploreHandlers({exploreView})
+	registerSiteRequestHandlers(siteRequests, mainWindow)
 
 	activeDownloadBridge?.detach()
 	activeDownloadBridge = new DownloadEventBridge(downloadService, mainWindow)

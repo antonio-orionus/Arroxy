@@ -11,7 +11,7 @@ import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
 import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
-import {siteForUrl} from '@shared/sites/index.js'
+import {requestSiteFor, siteForUrl} from '@shared/sites/index.js'
 import type {SiteId} from '@shared/sites/types.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
 import {resolveNetworkPacing, resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -22,6 +22,8 @@ import type {TokenService} from './TokenService.js'
 import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
+import {rateLimitEvidence} from './rateLimitEvidence.js'
+import type {SiteRequestState} from './SiteRequestState.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
 type StatusReporter = (statusKey: StatusKey, params?: Record<string, string | number>) => void
@@ -157,6 +159,14 @@ function spawnCapExceeded(): YtDlpResult {
 
 function cancelledResult(): YtDlpResult {
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''}
+}
+
+// Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
+// message read a held run as the rate limit it is.
+export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting out the rate-limit cooldown'
+
+function rateLimitCooldown(): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
 }
 
 function probeTimedOut(): YtDlpResult {
@@ -412,6 +422,12 @@ function shouldUsePotLadder(opts: InvokeOptions): boolean {
 // "can't fetch more than 100 videos". Explicit single-video probes cannot
 // enumerate tabs, so they can use the manual PoT ladder to expose clients and
 // formats that require it.
+// A rate limit seen on the way to the bot check ends the ladder: another
+// request now would only meet the same limit (SiteRequestState holds new ones).
+function retriesOnBotWall(result: YtDlpResult): boolean {
+	return result.kind === 'exit-error' && result.errorKind === 'botBlock' && rateLimitEvidence(result.stderr) === null
+}
+
 async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 	// Site adapter resolves PoT applicability from the URL hostname. The unified
 	// probe pipeline runs before extractor identity is known, so URL-based
@@ -430,7 +446,7 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
-	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	if (!retriesOnBotWall(result)) return result
 
 	try {
 		result = await invokeOnce(opts, {kind: 'pot', reMint: true})
@@ -439,7 +455,7 @@ async function invokeWithRetry(opts: InvokeOptions): Promise<YtDlpResult> {
 		return invokeOnce(opts, finalFallbackStrategy(opts))
 	}
 
-	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	if (!retriesOnBotWall(result)) return result
 
 	return invokeOnce(opts, finalFallbackStrategy(opts))
 }
@@ -449,6 +465,11 @@ export interface YtDlpRunOptions {
 	// The download attempt this run belongs to: signed-in spawns are capped per
 	// key. A run without one (a probe) gets a budget of its own.
 	jobKey?: string
+	// false: the run goes ahead through a rate-limit cooldown. Only for the
+	// rest of a job that has already saved its media (the subtitle phase): the
+	// cooldown holds new work, and dropping that job's subtitles would lose
+	// what the user asked for over one more request.
+	honorCooldown?: boolean
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
@@ -472,7 +493,7 @@ export class YtDlp {
 		private readonly binaryManager: BinaryManager,
 		private readonly tokenService: TokenService,
 		private readonly settingsStore: SettingsSource,
-		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization; anonymousPoToken?: boolean} = {}
+		private readonly opts: {e2eMode?: E2eHarnessMode; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>; sessionAuth?: SessionAuthorization; anonymousPoToken?: boolean; siteRequests?: SiteRequestState} = {}
 	) {}
 
 	// Call once at job start to emit binary-setup status events.
@@ -526,6 +547,29 @@ export class YtDlp {
 	async run(req: YtDlpRequest, signal?: YtDlpSignal, options: YtDlpRunOptions = {}): Promise<YtDlpResult> {
 		// A job paused (or cancelled) with no live process stops at its next run.
 		if (stoppedBeforeSpawn(signal)) return cancelledResult()
+		// The site rate-limited this connection recently: nothing new may ask it
+		// until the cooldown ends, whoever the run would sign in as.
+		const requestSite = requestSiteFor(req.url)
+		const siteRequests = options.honorCooldown === false ? undefined : this.opts.siteRequests
+		const admission = siteRequests?.admit(requestSite) ?? {kind: 'launch', bypassed: false}
+		if (admission.kind === 'wait') {
+			ytDlpLog.info('run held: the site is rate-limiting this connection', {site: requestSite, until: new Date(admission.until).toISOString()})
+			return rateLimitCooldown()
+		}
+		const result = await this.runAdmitted(req, signal, options)
+		this.recordRateLimitEvidence(requestSite, result, admission.bypassed)
+		return result
+	}
+
+	private recordRateLimitEvidence(site: string, result: YtDlpResult, bypassed: boolean): void {
+		const siteRequests = this.opts.siteRequests
+		if (!siteRequests) return
+		const evidence = rateLimitEvidence(result.stderr)
+		if (evidence) siteRequests.recordRateLimit(site, evidence)
+		else if (bypassed && result.kind === 'success') siteRequests.recordCleanBypass(site)
+	}
+
+	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []

@@ -69,6 +69,11 @@ export const IPC_CHANNELS = {
 	exploreStateChanged: 'explore:stateChanged',
 	explorePointerInView: 'explore:pointerInView',
 	exploreLinkAction: 'explore:linkAction',
+	// Rate-limit cooldowns — main owns them; the renderer shows them and can ask
+	// for one request through ("Try now").
+	siteRequestsGetCooldowns: 'siteRequests:getCooldowns',
+	siteRequestsTryNow: 'siteRequests:tryNow',
+	siteRequestsCooldownsChanged: 'siteRequests:cooldownsChanged',
 	updaterAvailable: 'updater:available',
 	updaterInstall: 'updater:install',
 	eventsClipboardUrl: 'events:clipboardUrl',

@@ -583,6 +583,26 @@ export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 
 export const probeSchema = z.object({url: webUrlSchema, playlistMode: probePlaylistModeSchema.optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
 
+// Why a probe that still produced a usable result is marked limited: a bot
+// check on the way, an extractor-side miss, or the site rate-limiting this
+// connection (a different remedy: wait, never cookies).
+export const probeDegradationReasonSchema = z.enum(['botWall', 'extractor', 'rateLimit'])
+export type ProbeDegradationReason = z.infer<typeof probeDegradationReasonSchema>
+
+// What a run showed about the site rate-limiting this connection, named after
+// yt-dlp's wording: an HTTP 429, or YouTube's session limit ("rate-limited by
+// YouTube for up to an hour"), which lasts much longer.
+export const rateLimitEvidenceSchema = z.enum(['rateLimited', 'sessionRateLimited'])
+export type RateLimitEvidence = z.infer<typeof rateLimitEvidenceSchema>
+
+// A running rate-limit cooldown on the current network route: until when new
+// requests to `site` wait. `site` is the request site key (requestSiteFor).
+const requestSiteSchema = z.string().min(1).max(253)
+export const siteCooldownSchema = z.strictObject({site: requestSiteSchema, until: z.iso.datetime(), evidence: rateLimitEvidenceSchema})
+export type SiteCooldown = z.infer<typeof siteCooldownSchema>
+export const siteCooldownsSchema = z.array(siteCooldownSchema)
+export const siteTryNowSchema = z.strictObject({site: requestSiteSchema})
+
 // PreparedJob discriminated-union schema. Type aliases live in
 // `./preparedJob`; the runtime validator lives here so callers that already
 // import from `@shared/schemas` get one source of truth and the import graph

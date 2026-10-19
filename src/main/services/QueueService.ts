@@ -28,10 +28,8 @@ import log from 'electron-log/main.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
-import {QUEUE_STATUS, STATUS_KEY, type QueueChoice, type QueueLane, type StatusKey} from '@shared/schemas.js'
+import {QUEUE_STATUS, type QueueChoice, type QueueLane} from '@shared/schemas.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'
-import {ProgressFormatter} from '@shared/progressFormat.js'
-import {ProgressNormalizer} from '@shared/progressNormalizer.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
 import {QueueAutoRemove} from './download/QueueAutoRemove.js'
@@ -56,6 +54,9 @@ import {changeQueueOutputTarget} from './queueOutputTargetMove.js'
 import {QueueArtifactCleanup} from './download/queueArtifactCleanup.js'
 import {commitPhaseStatus} from './download/queuePhaseStatus.js'
 import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
+import {QueueJobProgress} from './download/QueueJobProgress.js'
+import {QueueSiteCooldown} from './download/QueueSiteCooldown.js'
+import type {SiteRequestState} from './SiteRequestState.js'
 import {resolveStartIdentity} from './download/queueStartIdentity.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
@@ -84,12 +85,7 @@ export class QueueService extends EventEmitter {
 		if (!opts?.silent) this.rendererSchedulerPaused = paused
 		if (!opts?.silent) this.emit('scheduler', {paused})
 	}
-	// One ProgressFormatter per running jobId — preserves throttle / spike-suppress
-	// state across consecutive progress lines for that job.
-	private readonly progressFormatters = new Map<string, ProgressFormatter>()
-	// One ProgressNormalizer per running jobId — keeps yt-dlp percent quirks out
-	// of the queue state machine.
-	private readonly progressNormalizers = new Map<string, ProgressNormalizer>()
+	private readonly jobProgress = new QueueJobProgress()
 	// Progress is lossy (latest wins per item, flushed every 100 ms); transitions
 	// bypass it via emitImmediate. See QueueProgressCoalescer.
 	private readonly progress = new QueueProgressCoalescer(item => this.emit('updated', {item}), 100)
@@ -102,7 +98,12 @@ export class QueueService extends EventEmitter {
 	private bulkDepth = 0
 	private readonly finalArtifactTargets = new FinalArtifactTargets()
 	// Owns the automatic-retry budget and timers. Writes only through commit().
-	private readonly autoRetry = new QueueAutoRetry({findItem: itemId => this.findItem(itemId), patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})})
+	private readonly autoRetry = new QueueAutoRetry({
+		findItem: itemId => this.findItem(itemId),
+		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
+		retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}}),
+		cooldownRemainingMs: item => this.siteCooldown.remainingMs(item, Date.now())
+	})
 	// Takes a finished download out of the list after a short delay, when on.
 	private readonly autoRemove = new QueueAutoRemove({findItem: itemId => this.findItem(itemId), remove: itemId => this.remove(itemId)})
 	private probeAbortHook: (itemId: string) => void = () => undefined
@@ -131,6 +132,8 @@ export class QueueService extends EventEmitter {
 	// read `this.playlist`, whose assignment order relative to field
 	// initializers depends on the parameter-property emit.
 	private readonly playlistM3u: QueuePlaylistM3u
+	// Holds starts while an item's site is rate-limiting this connection.
+	private readonly siteCooldown: QueueSiteCooldown
 
 	constructor(
 		private readonly queueStore: QueueStore,
@@ -138,9 +141,12 @@ export class QueueService extends EventEmitter {
 		private normalCap = NORMAL_LANE_CAP,
 		private maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
-		private readonly probeInfoJsonCache?: ProbeInfoJsonCache
+		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
+		siteRequests?: SiteRequestState
 	) {
 		super()
+		this.siteCooldown = new QueueSiteCooldown(siteRequests)
+		this.siteCooldown.onChange(() => this.recomputeSchedule())
 		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
@@ -535,41 +541,20 @@ export class QueueService extends EventEmitter {
 	}
 
 	private forgetProgressState(jobId: string): void {
-		this.progressFormatters.delete(jobId)
-		this.progressNormalizers.delete(jobId)
+		this.jobProgress.forget(jobId)
 	}
-
-	// Post-download phase keys. yt-dlp can emit a straggler `[download] X%`
-	// line AFTER the Merger/Metadata/MoveFiles status events due to stdout
-	// buffering. Without this gate, the late progress event would re-populate
-	// `progressDetail` and the UI would flip from "Merging formats…" back to
-	// "downloading at X MB/s" — visible regression on every fast job.
-	private static readonly POST_DOWNLOAD_PHASES: ReadonlySet<StatusKey> = new Set([STATUS_KEY.mergingFormats, STATUS_KEY.extractingAudio, STATUS_KEY.convertingVideo, STATUS_KEY.embeddingMetadata, STATUS_KEY.movingFiles])
 
 	consumeProgressEvent(event: ProgressEvent): void {
 		const item = this.findByJobId(event.jobId)
 		if (!item) return
-		// Drop progress arriving while item is in a post-download phase (see
-		// POST_DOWNLOAD_PHASES). Also drop the pending coalesced progress for
-		// this item — a phase patch already cleared it via emitImmediate, but a
-		// racing progress event could have re-enqueued before this guard ran.
-		const lastKey = item.lastStatus?.key
-		if (lastKey && QueueService.POST_DOWNLOAD_PHASES.has(lastKey)) {
+		const update = this.jobProgress.read(item, event)
+		// A post-download phase drops the line, and with it any coalesced progress
+		// a racing event re-enqueued before the phase patch landed.
+		if (!update) {
 			this.progress.drop(item.id)
 			return
 		}
-		let formatter = this.progressFormatters.get(event.jobId)
-		if (!formatter) {
-			formatter = new ProgressFormatter()
-			this.progressFormatters.set(event.jobId, formatter)
-		}
-		let normalizer = this.progressNormalizers.get(event.jobId)
-		if (!normalizer) {
-			normalizer = new ProgressNormalizer()
-			this.progressNormalizers.set(event.jobId, normalizer)
-		}
-		const detail = formatter.update(event.line)
-		this.commit({kind: 'event', itemId: item.id, evt: {kind: 'progress', percent: normalizer.nextRunningPercent(item.progressPercent, event), ...(detail !== null ? {detail} : {})}})
+		this.commit({kind: 'event', itemId: item.id, evt: {kind: 'progress', ...update}})
 	}
 
 	consumeArtifactEvent(event: QueueArtifactEvent): void {
@@ -678,11 +663,17 @@ export class QueueService extends EventEmitter {
 		}
 
 		let armSleep = false
+		let earliestHold: number | null = null
 		const spawned: string[] = []
 		for (const item of this.items) {
 			if (item.status !== QUEUE_STATUS.pending) continue
 			if (this.spawning.has(item.id)) continue
 			if (activeCount >= this.maxConcurrent) break
+			const holdUntil = this.siteCooldown.holdUntil(item)
+			if (holdUntil !== null) {
+				earliestHold = Math.min(earliestHold ?? holdUntil, holdUntil)
+				continue
+			}
 			if (item.lane === 'priority') {
 				this.beginSpawn(item.id)
 				spawned.push(item.id)
@@ -700,11 +691,12 @@ export class QueueService extends EventEmitter {
 			activeCount++
 			normalRunning++
 		}
-		if (spawned.length > 0 || armSleep) {
-			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, snapshot: this.statusSummary()})
+		if (spawned.length > 0 || armSleep || earliestHold !== null) {
+			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, rateLimitHoldUntil: earliestHold === null ? null : new Date(earliestHold).toISOString(), snapshot: this.statusSummary()})
 		}
 
 		this.sleep.sync(armSleep, now, () => this.recomputeSchedule())
+		this.siteCooldown.sync(earliestHold, now, () => this.recomputeSchedule())
 	}
 
 	private beginSpawn(itemId: string): void {

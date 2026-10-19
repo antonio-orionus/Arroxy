@@ -52,6 +52,8 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return partVideoProbe()
 		case 'probe-no-formats':
 			return noFormatsProbe()
+		case 'probe-rate-limited':
+			return normalVideoProbe({degraded: {reasons: ['rateLimit']}})
 		case 'probe-live-stream':
 			return liveStreamProbe()
 		default:

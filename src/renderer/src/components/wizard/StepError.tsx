@@ -3,7 +3,9 @@ import {useTranslation} from 'react-i18next'
 import {formatProbeError, useAppStore} from '../../store/useAppStore.js'
 import {buildProbeErrorExperience} from '../../store/wizard/probeErrorExperience.js'
 import {Button} from '../ui/button.js'
+import {requestSiteFor} from '@shared/sites/index.js'
 import {BotWallGuidanceAlert} from './format/BotWallNotice.js'
+import {RateLimitAlert} from './format/RateLimitNotice.js'
 import {CookiesGuidanceAlert} from './format/CookiesErrorAlert.js'
 
 export function StepError(): ReactNode {
@@ -15,6 +17,8 @@ export function StepError(): ReactNode {
 	const experience = buildProbeErrorExperience({error: wizardError, commonSettings: settings?.common, exploreSignedIn: exploreView?.signedIn ?? null})
 	const showBotWallNotice = experience.botWall.variant !== 'hidden'
 	const showCookiesAlert = experience.cookies.variant !== 'hidden'
+	// The rate-limit alert carries the retry: "Try now" while the cooldown runs.
+	const showRateLimitAlert = experience.rateLimit.variant !== 'hidden'
 
 	return (
 		<div className="wizard-step flex flex-col items-center gap-4 py-4 text-center" data-testid="step-error">
@@ -24,8 +28,9 @@ export function StepError(): ReactNode {
 			<p className="text-sm text-foreground/80 max-w-sm" data-testid="error-message">
 				{message}
 			</p>
-			{showBotWallNotice || showCookiesAlert ? (
+			{showBotWallNotice || showCookiesAlert || showRateLimitAlert ? (
 				<div className="w-full max-w-md text-start flex flex-col gap-2">
+					<RateLimitAlert guidance={experience.rateLimit} site={requestSiteFor(target.url)} onRetry={() => void retry()} />
 					<BotWallGuidanceAlert guidance={experience.botWall} onEnableCookiesAndRetry={() => void retryProbeWithCookies()} onRetry={() => void retryFormatProbe()} />
 					<CookiesGuidanceAlert
 						guidance={experience.cookies}
@@ -41,9 +46,11 @@ export function StepError(): ReactNode {
 				<Button variant="ghost" type="button" onClick={reset} data-testid="btn-start-over">
 					{t('common.startOver')}
 				</Button>
-				<Button type="button" onClick={() => void retry()} data-testid="btn-retry">
-					{t('common.retry')}
-				</Button>
+				{showRateLimitAlert ? null : (
+					<Button type="button" onClick={() => void retry()} data-testid="btn-retry">
+						{t('common.retry')}
+					</Button>
+				)}
 			</div>
 		</div>
 	)
