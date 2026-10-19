@@ -1,4 +1,5 @@
 import {useEffect, useState, type JSX} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {RefreshCw, Timer, Zap} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {requestSiteFor} from '@shared/sites/index.js'
@@ -85,7 +86,7 @@ export function RateLimitAlert({guidance, site, onRetry, density = 'full'}: Rate
 // The Format screen's notice: the probe came back usable, but the site
 // rate-limited part of it.
 export function RateLimitNotice(): JSX.Element | null {
-	const {wizardFormatsDegraded, wizardUrl, retryFormatProbe} = useAppStore()
+	const {wizardFormatsDegraded, wizardUrl, retryFormatProbe} = useAppStore(useShallow(state => ({wizardFormatsDegraded: state.wizardFormatsDegraded, wizardUrl: state.wizardUrl, retryFormatProbe: state.retryFormatProbe})))
 	const experience = buildProbeErrorExperience({error: null, degradedReasons: wizardFormatsDegraded?.reasons})
 	return <RateLimitAlert guidance={experience.rateLimit} site={requestSiteFor(wizardUrl.trim())} onRetry={() => void retryFormatProbe()} />
 }

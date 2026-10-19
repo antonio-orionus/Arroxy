@@ -11,6 +11,7 @@ import {orderProfileOptionsForAssignment} from '@renderer/components/wizard/play
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState, AudioSelection} from '../types.js'
+import type {WizardReviewState} from './wizardReviewState.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {profileAssignmentCounts} from './playlistProfileAssignments.js'
 import {wizardVideoPart} from './videoPart.js'
@@ -67,7 +68,7 @@ export function conflictLabelKey(code: UserVisibleConflictCode): (typeof CONFLIC
 	return CONFLICT_LABEL_KEYS[code]
 }
 
-function playlistPresetLabel(state: AppState, t: Translate, language: string): string {
+function playlistPresetLabel(state: WizardReviewState, t: Translate, language: string): string {
 	const {playlistSelection} = state
 	if (!playlistSelection) return ''
 	if (playlistSelection.kind === 'subtitles') {
@@ -82,7 +83,7 @@ function playlistPresetLabel(state: AppState, t: Translate, language: string): s
 	return playlistSelection.codec === 'mp4' ? `${t('playlistPresets.videoFormat.mp4')} · ${tierLabel}` : tierLabel
 }
 
-function buildSubtitleValue(state: AppState, effectiveSubtitleLanguages: string[], ctx: DownloadReviewLocaleContext): string {
+function buildSubtitleValue(state: WizardReviewState, effectiveSubtitleLanguages: string[], ctx: DownloadReviewLocaleContext): string {
 	if (effectiveSubtitleLanguages.length === 0) return ctx.t('wizard.confirm.subtitlesNone')
 	const langList = effectiveSubtitleLanguages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', ')
 	const modeLabel = ctx.t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode])
@@ -90,7 +91,7 @@ function buildSubtitleValue(state: AppState, effectiveSubtitleLanguages: string[
 	return `${langList} · ${formatPart}${modeLabel}`
 }
 
-function itemCountLabel(state: AppState, inBulk: boolean, itemsAreAudio: boolean): ItemCountLabel {
+function itemCountLabel(state: WizardReviewState, inBulk: boolean, itemsAreAudio: boolean): ItemCountLabel {
 	return {key: inBulk ? 'wizard.confirm.itemsValueBulk' : itemsAreAudio ? 'wizard.confirm.itemsValueAudio' : 'wizard.confirm.itemsValue', params: {count: state.selectedPlaylistItemIds.length, total: String(state.playlistItems.length)}}
 }
 
@@ -107,7 +108,7 @@ export interface MultiProfileBreakdownRow {
 // a different DownloadProfile. Ordered the same way the playlistProfiles
 // assignment screen orders its action bar (baseline, then custom, then
 // builtin) so the summary matches what the user just saw while assigning.
-export function multiProfileBreakdown(state: AppState): MultiProfileBreakdownRow[] {
+export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBreakdownRow[] {
 	const selectedIdSet = new Set(state.selectedPlaylistItemIds)
 	const removedIdSet = new Set(state.removedPlaylistItemIds)
 	const selectedItemIds = state.playlistItems.filter(entry => selectedIdSet.has(entry.id) && !removedIdSet.has(entry.id)).map(entry => entry.id)
@@ -136,7 +137,7 @@ function safeProfileOutputDir(profile: DownloadProfile, outputContext: DownloadP
 // What the single-video run's options can't do together (a thumbnail an audio
 // file can't hold, subtitles inside a file with no video). Cheap on its own, for
 // a footer that must not rebuild the whole review on every store change.
-export function singleConflictWarnings(state: AppState): UserVisibleConflict[] {
+export function singleConflictWarnings(state: WizardReviewState): UserVisibleConflict[] {
 	const kind = state.wizardMediaKind
 	const videoId = kind === 'video' ? state.selectedVideoFormatId : ''
 	const audio: AudioSelection = kind === 'subtitles' ? {kind: 'none'} : state.audioSelection
@@ -153,7 +154,7 @@ export function singleConflictWarnings(state: AppState): UserVisibleConflict[] {
 	return conflicts.filter(isUserVisibleConflict)
 }
 
-export function buildDownloadReview(state: AppState, ctx: DownloadReviewLocaleContext): DownloadReview {
+export function buildDownloadReview(state: WizardReviewState, ctx: DownloadReviewLocaleContext): DownloadReview {
 	const inPlaylist = state.wizardMode === 'playlist'
 	const inBulk = state.wizardMode === 'bulk'
 	const inBatch = inPlaylist || inBulk

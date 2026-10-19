@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {useAppStore} from '../../store/useAppStore.js'
 import {canWriteM3u} from '../../store/wizard/outputTemplates.js'
@@ -11,7 +12,25 @@ import {WizardStepFooterActions} from './WizardStepFooterActions.js'
 // single-video Review's Extras row.
 export function OutputFields(): ReactNode {
 	const {t} = useTranslation()
-	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, playlistSelection, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, settings} = useAppStore()
+	const {wizardMode, wizardEmbedChapters, wizardEmbedMetadata, wizardEmbedThumbnail, wizardWriteDescription, wizardWriteThumbnail, wizardWriteM3u, playlistSelection, setEmbedChapters, setEmbedMetadata, setEmbedThumbnail, setWriteDescription, setWriteThumbnail, setWriteM3u, settings} = useAppStore(
+		useShallow(state => ({
+			wizardMode: state.wizardMode,
+			wizardEmbedChapters: state.wizardEmbedChapters,
+			wizardEmbedMetadata: state.wizardEmbedMetadata,
+			wizardEmbedThumbnail: state.wizardEmbedThumbnail,
+			wizardWriteDescription: state.wizardWriteDescription,
+			wizardWriteThumbnail: state.wizardWriteThumbnail,
+			wizardWriteM3u: state.wizardWriteM3u,
+			playlistSelection: state.playlistSelection,
+			setEmbedChapters: state.setEmbedChapters,
+			setEmbedMetadata: state.setEmbedMetadata,
+			setEmbedThumbnail: state.setEmbedThumbnail,
+			setWriteDescription: state.setWriteDescription,
+			setWriteThumbnail: state.setWriteThumbnail,
+			setWriteM3u: state.setWriteM3u,
+			settings: state.settings
+		}))
+	)
 	// Playlist files are located by matching `[videoId]`; without {id} in the
 	// filename template an M3U would list names that never appear on disk.
 	// Gated on both reasons M3U can be impossible: no {id} to match files by, and
@@ -51,7 +70,7 @@ export function OutputFields(): ReactNode {
 }
 
 export function StepOutput(): ReactNode {
-	const {advance, back} = useAppStore()
+	const {advance, back} = useAppStore(useShallow(state => ({advance: state.advance, back: state.back})))
 	return (
 		<div className="wizard-step flex flex-col gap-1.5" data-testid="step-output">
 			<OutputFields />

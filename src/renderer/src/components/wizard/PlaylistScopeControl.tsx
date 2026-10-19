@@ -1,4 +1,5 @@
 import {useState, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {SlidersHorizontal} from 'lucide-react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
@@ -40,7 +41,7 @@ function errorMessage(error: unknown): string {
 // react-doctor-disable-next-line react-doctor/prefer-useReducer -- independent dialog draft fields are clearer as local state than reducer actions here
 export function PlaylistScopeControl({onApplyScope, applyLabel, pendingLabel, disabled = false}: PlaylistScopeControlProps): ReactNode {
 	const {t} = useTranslation()
-	const {playlistScope, setPlaylistScope, settings} = useAppStore()
+	const {playlistScope, setPlaylistScope, settings} = useAppStore(useShallow(state => ({playlistScope: state.playlistScope, setPlaylistScope: state.setPlaylistScope, settings: state.settings})))
 	const appLimit = resolvePlaylistProbeLimit(settings?.common)
 	const [open, setOpen] = useState(false)
 	const [applying, setApplying] = useState(false)

@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
@@ -30,7 +31,7 @@ const COOKIES_CHROME_URL = 'https://chromewebstore.google.com/detail/get-cookies
 // The cookies source picker plus the follow-up field its mode needs (a cookies
 // file or a browser to read from).
 export function CookiesSettingsFields(): ReactNode {
-	const {settings} = useAppStore()
+	const settings = useAppStore(state => state.settings)
 	const cookiesMode: CookiesMode = settings?.common?.cookiesMode ?? 'off'
 	return (
 		<>
@@ -43,7 +44,7 @@ export function CookiesSettingsFields(): ReactNode {
 
 function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setCookiesMode} = useAppStore()
+	const {settings, setCookiesMode} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesMode: state.setCookiesMode})))
 	const exploreEnabled = settings?.common?.exploreEnabled !== false
 	return (
 		<Field className="gap-1.5" data-testid="cookies-source">
@@ -89,7 +90,7 @@ function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNod
 
 function CookiesFileField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setCookiesPath} = useAppStore()
+	const {settings, setCookiesPath} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesPath: state.setCookiesPath})))
 	const cookiesPath = settings?.common?.cookiesPath ?? ''
 	const commonPaths = settings?.common?.commonPaths
 
@@ -121,7 +122,7 @@ function CookiesFileField(): ReactNode {
 
 function CookiesBrowserField(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setCookiesBrowser} = useAppStore()
+	const {settings, setCookiesBrowser} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesBrowser: state.setCookiesBrowser})))
 	const cookiesBrowser = settings?.common?.cookiesBrowser
 	const visibleBrowsers = COOKIES_BROWSERS.filter(browser => !browser.macOnly || window.platform === 'darwin')
 	return (

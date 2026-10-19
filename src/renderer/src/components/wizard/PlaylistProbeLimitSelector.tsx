@@ -1,4 +1,5 @@
 import {useRef, useState, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {DEFAULT_PLAYLIST_PROBE_LIMIT, PLAYLIST_PROBE_LIMIT_PRESETS} from '@shared/constants.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, PLAYLIST_PROBE_LIMIT_MIN, playlistProbeLimitSchema} from '@shared/schemas.js'
@@ -27,7 +28,7 @@ function isPreset(value: number): boolean {
 
 export function PlaylistProbeLimitSelector({testId = 'playlist-probe-limit', className, disabled = false, showCurrent = true, onLimitChanged}: Props): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setPlaylistProbeLimit} = useAppStore()
+	const {settings, setPlaylistProbeLimit} = useAppStore(useShallow(state => ({settings: state.settings, setPlaylistProbeLimit: state.setPlaylistProbeLimit})))
 	const playlistLimit = resolvePlaylistProbeLimit(settings?.common)
 	const selectedValue = isPreset(playlistLimit) ? String(playlistLimit) : `custom:${playlistLimit}`
 	const [selectOpen, setSelectOpen] = useState(false)

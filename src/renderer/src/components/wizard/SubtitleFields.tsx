@@ -1,4 +1,5 @@
 import {useMemo, useState, type ReactNode, useId} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {Search, X} from 'lucide-react'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -18,7 +19,19 @@ import {CheckRow} from '../shared/CheckRow.js'
 // since there is no media file to embed into.
 export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 	const {t, i18n} = useTranslation()
-	const {wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore()
+	const {wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore(
+		useShallow(state => ({
+			wizardSubtitles: state.wizardSubtitles,
+			wizardAutomaticCaptions: state.wizardAutomaticCaptions,
+			wizardSubtitleLanguages: state.wizardSubtitleLanguages,
+			wizardSubtitleMode: state.wizardSubtitleMode,
+			wizardSubtitleFormat: state.wizardSubtitleFormat,
+			toggleSubtitleLanguage: state.toggleSubtitleLanguage,
+			clearSubtitleLanguages: state.clearSubtitleLanguages,
+			setSubtitleMode: state.setSubtitleMode,
+			setSubtitleFormat: state.setSubtitleFormat
+		}))
+	)
 
 	const [query, setQuery] = useState('')
 

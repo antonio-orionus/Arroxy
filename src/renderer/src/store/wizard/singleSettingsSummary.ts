@@ -6,6 +6,7 @@ import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import type {AppState} from '../types.js'
+import type {WizardReviewState} from './wizardReviewState.js'
 import {videoPartSuffix} from '@shared/videoPart.js'
 import {wizardVideoPart} from './videoPart.js'
 
@@ -36,7 +37,7 @@ export function sponsorBlockApplies(state: Pick<AppState, 'wizardExtractor' | 'w
 	return isYouTubeExtractor(state.wizardExtractor) && state.wizardMediaKind === 'video' && state.wizardPart === null
 }
 
-export function buildSingleSettingsSummary(state: AppState, ctx: {t: Translate; language: string}): SingleSettingsSummary {
+export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Translate; language: string}): SingleSettingsSummary {
 	const {t} = ctx
 	const languages = state.wizardSubtitleLanguages
 	const subtitlesAvailable = Object.keys(state.wizardSubtitles).length + Object.keys(state.wizardAutomaticCaptions).filter(code => !state.wizardSubtitles[code]).length

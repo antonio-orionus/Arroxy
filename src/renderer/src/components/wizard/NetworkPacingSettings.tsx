@@ -1,4 +1,5 @@
 import {useState, type ReactNode} from 'react'
+import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {NETWORK_PACING_PRESET_VALUES} from '@shared/constants.js'
 import {pacingSleepSecondsSchema} from '@shared/schemas.js'
@@ -37,7 +38,16 @@ function presetSummaryValues(preset: Exclude<NetworkPacingPreset, 'custom'>): {r
 
 export function NetworkPacingSettings(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setNetworkPacingPreset, setPacingSleepRequests, setPacingSleepInterval, setPacingMaxSleepInterval, setPacingSleepSubtitles} = useAppStore()
+	const {settings, setNetworkPacingPreset, setPacingSleepRequests, setPacingSleepInterval, setPacingMaxSleepInterval, setPacingSleepSubtitles} = useAppStore(
+		useShallow(state => ({
+			settings: state.settings,
+			setNetworkPacingPreset: state.setNetworkPacingPreset,
+			setPacingSleepRequests: state.setPacingSleepRequests,
+			setPacingSleepInterval: state.setPacingSleepInterval,
+			setPacingMaxSleepInterval: state.setPacingMaxSleepInterval,
+			setPacingSleepSubtitles: state.setPacingSleepSubtitles
+		}))
+	)
 	const common = settings?.common
 	const pacingPreset: NetworkPacingPreset = common?.networkPacingPreset ?? 'balanced'
 	const [fieldDrafts, setFieldDrafts] = useState<Partial<Record<(typeof CUSTOM_FIELDS)[number]['key'], string>>>({})
