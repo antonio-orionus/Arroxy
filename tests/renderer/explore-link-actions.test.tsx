@@ -6,7 +6,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {fail, ok} from '@shared/result.js'
 import type {SettingsPatch} from '@shared/api.js'
-import type {ExploreLinkAction} from '@shared/schemas.js'
+import type {ExploreLinkAction} from '@shared/exploreSchemas.js'
 import type {ExploreViewState} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 

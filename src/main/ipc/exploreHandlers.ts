@@ -1,5 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {exploreNavigateCommandSchema, exploreSetActiveSchema, exploreSetVisibleSchema, exploreSnapshotSchema, exploreViewBoundsSchema, exploreViewStateSchema} from '@shared/schemas.js'
+import {exploreViewStateSchema} from '@shared/schemas.js'
+import {exploreNavigateCommandSchema, exploreSetActiveSchema, exploreSetVisibleSchema, exploreSnapshotSchema, exploreViewBoundsSchema} from '@shared/exploreSchemas.js'
 import {fail, ok} from '@shared/result.js'
 import {EXPLORE_ADDRESS_MAX, isExploreSiteAddress, type ExploreSiteScope} from '@shared/sites/exploreAddress.js'
 import log from 'electron-log/main.js'

@@ -20,7 +20,7 @@ export const RATE_LIMIT_CAP_MS = 15 * 60_000
 // YouTube's session limit lasts "up to an hour".
 export const SESSION_RATE_LIMIT_MS = 30 * 60_000
 // A limit seen within this long after the previous one ended is a repeat.
-export const RATE_LIMIT_REPEAT_WINDOW_MS = RATE_LIMIT_CAP_MS
+const RATE_LIMIT_REPEAT_WINDOW_MS = 15 * 60_000
 // How long a "Try now" pass waits for the request it was granted for.
 export const TRY_NOW_PASS_MS = 30_000
 

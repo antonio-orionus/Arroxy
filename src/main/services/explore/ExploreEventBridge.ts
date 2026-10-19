@@ -1,7 +1,8 @@
 import type {BrowserWindow} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {exploreLinkActionSchema, exploreViewStateSchema} from '@shared/schemas.js'
+import {exploreViewStateSchema} from '@shared/schemas.js'
+import {exploreLinkActionSchema} from '@shared/exploreSchemas.js'
 import type {ExploreLinkAction, ExploreViewState} from '@shared/types.js'
 
 const logger = log.scope('explore-view')

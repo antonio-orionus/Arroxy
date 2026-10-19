@@ -4,7 +4,7 @@ import {describe, expect, it, vi} from 'vite-plus/test'
 import {exploreLinkMenuTemplate, type ExploreLinkMenuDeps} from '@main/services/explore/exploreLinkMenu.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
-import type {ExploreLinkAction} from '@shared/schemas.js'
+import type {ExploreLinkAction} from '@shared/exploreSchemas.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
 
 // Right-clicking a link in the Explore page: the bar's Download, profile

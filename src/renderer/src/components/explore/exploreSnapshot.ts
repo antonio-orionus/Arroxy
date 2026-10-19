@@ -1,4 +1,4 @@
-import {exploreSnapshotSchema} from '@shared/schemas.js'
+import {exploreSnapshotSchema} from '@shared/exploreSchemas.js'
 
 // P2-R35: while an overlay hides the native view, a picture of the page stands
 // in for it. The overlay never waits on the picture for longer than this.
