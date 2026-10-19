@@ -243,7 +243,7 @@
 	"packageManager": "bun@1.4.2",
 	"catalog": {
 		"vite": "npm:@voidzero-dev/vite-plus-core@1.1.0",
-		"vitest": "5.0.4",
+		"vitest": "5.0.3",
 		"vite-plus": "1.1.0"
 	},
 	"desktopName": "arroxy.desktop"
