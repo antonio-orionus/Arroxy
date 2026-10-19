@@ -455,7 +455,7 @@ describe('quickDownload', () => {
 
 		expect(api.downloads.probe).toHaveBeenCalledTimes(2)
 		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().quickDownloadFailure).toEqual({kind: 'bulk-probe', error: botBlockError, urls: ['https://youtu.be/network', 'https://youtu.be/bot'], failedCount: 2})
+		expect(useAppStore.getState().quickDownloadFailure).toEqual({kind: 'bulk-probe', error: botBlockError, errorUrl: 'https://youtu.be/bot', urls: ['https://youtu.be/network', 'https://youtu.be/bot'], failedCount: 2})
 		expect(useAppStore.getState().quickDownloadProgressFailed).toBe(2)
 	})
 

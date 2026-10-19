@@ -18,10 +18,20 @@ const HTTP_429 = /HTTP Error 429\b|\b429: Too Many Requests/i
 const SUBTITLE_DOWNLOAD = /unable to download (?:video |automatic )?(?:subtitles|captions)/i
 
 export function rateLimitEvidence(stderr: string): RateLimitEvidence | null {
-	let evidence: RateLimitEvidence | null = null
+	return rateLimitSighting(stderr)?.evidence ?? null
+}
+
+// The line that shows the limit, the session limit first: it reads as a rate
+// limit wherever a caller classifies a message.
+export function rateLimitLine(stderr: string): string | null {
+	return rateLimitSighting(stderr)?.line ?? null
+}
+
+function rateLimitSighting(stderr: string): {evidence: RateLimitEvidence; line: string} | null {
+	let sighting: {evidence: RateLimitEvidence; line: string} | null = null
 	for (const line of stderr.split(/\r?\n/)) {
-		if (SESSION_RATE_LIMIT.test(line)) return 'sessionRateLimited'
-		if (evidence === null && HTTP_429.test(line) && !SUBTITLE_DOWNLOAD.test(line)) evidence = 'rateLimited'
+		if (SESSION_RATE_LIMIT.test(line)) return {evidence: 'sessionRateLimited', line: line.trim()}
+		if (sighting === null && HTTP_429.test(line) && !SUBTITLE_DOWNLOAD.test(line)) sighting = {evidence: 'rateLimited', line: line.trim()}
 	}
-	return evidence
+	return sighting
 }

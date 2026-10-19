@@ -1,6 +1,7 @@
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {RATE_LIMIT_BASE_MS, SESSION_RATE_LIMIT_MS, SiteRequestState} from '@main/services/SiteRequestState.js'
+import {classifyYtDlpStderr} from 'ytdlp-errors'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'
 
 vi.mock('@main/utils/process', async importOriginal => {
@@ -171,5 +172,17 @@ describe('YtDlp — rate-limit cooldown', () => {
 
 		expect(result.kind).toBe('exit-error')
 		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
+	})
+
+	// An account cannot lift a rate limit, so a bot wall that came with one
+	// must not read as the bot wall the download phases escalate on.
+	it('reports a bot wall that came with a rate limit as the rate limit', async () => {
+		vi.mocked(spawnYtDlp).mockImplementation(() => process(1, `${WEBPAGE_429}\n${BOT_CHECK}`) as never)
+		const {ytDlp} = setup()
+
+		const result = await ytDlp.run(media())
+
+		expect(result).toMatchObject({kind: 'exit-error', errorKind: 'rateLimit'})
+		expect(result.kind === 'exit-error' ? classifyYtDlpStderr(result.rawError ?? '').kind : null).toBe('rateLimit')
 	})
 })

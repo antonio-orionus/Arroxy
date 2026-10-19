@@ -254,7 +254,7 @@ describe('SiteRequestRun', () => {
 			const {clock, siteRequests} = state()
 			const run = launched(siteRequests.admit('youtube'))
 			siteRequests.recordRateLimit('youtube', 'rateLimited')
-			expect(run.recheck()).toBe(clock.now() + RATE_LIMIT_BASE_MS)
+			expect(run.recheck('direct')).toBe(clock.now() + RATE_LIMIT_BASE_MS)
 		})
 
 		it('does not spend a "Try now" pass meant for another request', () => {
@@ -262,7 +262,7 @@ describe('SiteRequestRun', () => {
 			const run = launched(siteRequests.admit('youtube'))
 			siteRequests.recordRateLimit('youtube', 'rateLimited')
 			siteRequests.allowOnce('youtube')
-			expect(run.recheck()).not.toBeNull()
+			expect(run.recheck('direct')).not.toBeNull()
 			expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
 		})
 
@@ -272,23 +272,38 @@ describe('SiteRequestRun', () => {
 			siteRequests.allowOnce('youtube')
 			const run = launched(siteRequests.admit('youtube'))
 			siteRequests.recordRateLimit('youtube', 'sessionRateLimited')
-			expect(run.recheck()).toBeNull()
+			expect(run.recheck('direct')).toBeNull()
 		})
 
-		it('reads the cooldown of the route the run now goes out on', () => {
+		it('reads the cooldown of the route the process goes out on', () => {
+			let route = 'direct'
+			const {siteRequests} = state({route: () => route})
+			route = 'http://proxy:8080'
+			siteRequests.recordRateLimit('youtube', 'rateLimited')
+			route = 'direct'
+			const run = launched(siteRequests.admit('youtube'))
+			expect(run.recheck('http://proxy:8080')).not.toBeNull()
+		})
+
+		// The proxy setting can change after the run read it for its arguments;
+		// the run's limit belongs to the proxy it actually used.
+		it('records the limit against the route the process went out on, not the current setting', () => {
 			let route = 'direct'
 			const {siteRequests} = state({route: () => route})
 			const run = launched(siteRequests.admit('youtube'))
 			route = 'http://proxy:8080'
-			siteRequests.recordRateLimit('youtube', 'rateLimited')
-			expect(run.recheck()).not.toBeNull()
+			expect(run.recheck('direct')).toBeNull()
+			run.finish(WEBPAGE_429, true)
+			expect(siteRequests.rateLimitedUntil('youtube')).toBeNull()
+			route = 'direct'
+			expect(siteRequests.rateLimitedUntil('youtube')).not.toBeNull()
 		})
 
 		it('lets a run that ignores the cooldown through', () => {
 			const {siteRequests} = state()
 			const run = launched(siteRequests.admit('youtube', {honorCooldown: false}))
 			siteRequests.recordRateLimit('youtube', 'rateLimited')
-			expect(run.recheck()).toBeNull()
+			expect(run.recheck('direct')).toBeNull()
 		})
 	})
 })

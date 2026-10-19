@@ -10,7 +10,7 @@ import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
-import {parseProxySetting, proxyForLog} from '@main/utils/proxyUrl.js'
+import {parseProxySetting, proxyForLog, proxyRouteKey} from '@main/utils/proxyUrl.js'
 import {requestSiteFor, siteForUrl} from '@shared/sites/index.js'
 import type {SiteId} from '@shared/sites/types.js'
 import type {StatusKey, DependencySource} from '@shared/types.js'
@@ -22,7 +22,7 @@ import type {TokenService} from './TokenService.js'
 import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
-import {rateLimitEvidence} from './rateLimitEvidence.js'
+import {rateLimitEvidence, rateLimitLine} from './rateLimitEvidence.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
 
@@ -167,6 +167,15 @@ function cancelledResult(): YtDlpResult {
 // Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
 // message read a held run as the rate limit it is.
 export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting out the rate-limit cooldown'
+
+// A bot wall that came with a rate limit is the rate limit: an account cannot
+// lift it, so nothing may escalate to the Explore session on it (the token
+// ladder stops for the same reason, retriesOnBotWall).
+function rateLimitOverBotWall(result: YtDlpResult): YtDlpResult {
+	if (result.kind !== 'exit-error' || result.errorKind !== 'botBlock') return result
+	const line = rateLimitLine(result.stderr)
+	return line === null ? result : {...result, errorKind: 'rateLimit', rawError: line}
+}
 
 function heldByCooldown(site: string, until: number): YtDlpResult {
 	ytDlpLog.info('run held: the site is rate-limiting this connection', {site, until: new Date(until).toISOString()})
@@ -569,8 +578,8 @@ export class YtDlp {
 				signal?.onStderr?.(lines)
 			}
 		}
-		const result = await this.runAdmitted(req, watched, options, () => {
-			const until = run.recheck()
+		const result = await this.runAdmitted(req, watched, options, route => {
+			const until = run.recheck(route)
 			return until === null ? null : heldByCooldown(site, until)
 		})
 		run.finish(result.stderr, result.kind === 'success')
@@ -578,9 +587,9 @@ export class YtDlp {
 	}
 
 	// `beforeSpawn` runs last before each spawn, after the binary setup, any
-	// slot wait and the token mint; a result it returns is the run's, and
-	// nothing spawns.
-	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions, beforeSpawn: () => YtDlpResult | null): Promise<YtDlpResult> {
+	// slot wait and the token mint, with the network route the process goes
+	// out on; a result it returns is the run's, and nothing spawns.
+	private async runAdmitted(req: YtDlpRequest, signal: YtDlpSignal | undefined, options: YtDlpRunOptions, beforeSpawn: (route: string) => YtDlpResult | null): Promise<YtDlpResult> {
 		if (!this._ytDlpPath) await this.prepare()
 		this._lastInvocation = null
 		this._lastInvocations = []
@@ -598,6 +607,7 @@ export class YtDlp {
 		// error names the problem better than silently dropping the proxy would.
 		const proxySetting = parseProxySetting(settings.common?.proxyUrl)
 		const proxyUrl = proxySetting.kind === 'proxy' ? proxySetting.url : nonEmpty(settings.common?.proxyUrl?.trim())
+		const route = proxyRouteKey(settings.common?.proxyUrl)
 		const pacing = resolveNetworkPacing(settings.common)
 		const playlistProbeLimit = resolvePlaylistProbeLimit(settings.common)
 		const plan = planWorkflow(req, {pacing, playlistProbeLimit, downloadRetryPolicy: this.opts.e2eMode?.downloadRetryPolicy})
@@ -636,7 +646,7 @@ export class YtDlp {
 				hasExplicitYoutubePlayerClient,
 				anonymousPoToken: this.opts.anonymousPoToken,
 				signal,
-				beforeSpawn,
+				beforeSpawn: () => beforeSpawn(route),
 				onInvocation: summary => {
 					this._lastInvocation = summary
 					this._lastInvocations.push(summary)
@@ -645,7 +655,7 @@ export class YtDlp {
 		const spawnGate = this.opts.spawnGate
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke()
+		const result = rateLimitOverBotWall(identity === 'exploreSession' && spawnGate ? await this.runGated(spawnGate, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(siteId, invoke)) : await invoke())
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup

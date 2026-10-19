@@ -123,10 +123,10 @@ export class SiteRequestState {
 	}
 
 	// The same decision again, right before the spawn, for a run admitted
-	// earlier: when it waits, until when. A pass already spent on this run
-	// still lets it through; one waiting for another request is left alone.
-	recheck(ticket: SiteTicket): {ticket: SiteTicket; until: number | null} {
-		const route = this.route()
+	// earlier: when it waits, until when. `route` is the one the process goes
+	// out on. A pass already spent on this run still lets it through; one
+	// waiting for another request is left alone.
+	recheck(ticket: SiteTicket, route: string): {ticket: SiteTicket; until: number | null} {
 		if (ticket.bypassed && route === ticket.route) return {ticket, until: null}
 		const record = this.records.get(routeKey(route, ticket.site))
 		const until = ticket.honorsCooldown && record && this.now() < record.until ? record.until : null
@@ -205,10 +205,12 @@ export class SiteRequestRun {
 	}
 
 	// Right before the spawn: a cooldown may have started while the run
-	// prepared the binary or waited for a signed-in slot, or the proxy changed.
-	// Returns when the run may go instead, or null when it may go now.
-	recheck(): number | null {
-		const {ticket, until} = this.state.recheck(this.ticket)
+	// prepared the binary, waited for a signed-in slot or minted its token.
+	// `route` is the route the process goes out on, which the run's later
+	// records then use. Returns when the run may go instead, or null when it
+	// may go now.
+	recheck(route: string): number | null {
+		const {ticket, until} = this.state.recheck(this.ticket, route)
 		this.ticket = ticket
 		return until
 	}

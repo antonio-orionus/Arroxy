@@ -333,7 +333,7 @@ describe('advanced network settings', () => {
 describe('incomplete cookies config guard', () => {
 	it('opens cookies settings from a Bulk URLs quick download bot-block failure', async () => {
 		resetStore(buildSettings({exploreEnabled: false}))
-		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Bot protection triggered.')
@@ -354,7 +354,7 @@ describe('incomplete cookies config guard', () => {
 
 	it('enables configured cookies and retries a Bulk URLs quick download from a bot-wall failure', async () => {
 		resetStore(buildSettings({cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt', exploreEnabled: false}))
-		useAppStore.setState({wizardUrl: SINGLE_URL, wizardOutputDir: '/tmp', quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, wizardOutputDir: '/tmp', quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Cookies are configured but turned off')
@@ -373,7 +373,7 @@ describe('incomplete cookies config guard', () => {
 	// with Explore and probes again once Explore reports the sign-in.
 	it('offers Sign in with Explore on a Bulk URLs quick download failure and retries it once signed in', async () => {
 		resetStore(buildSettings({exploreNoticeSeen: true}))
-		useAppStore.setState({wizardUrl: SINGLE_URL, wizardOutputDir: '/tmp', exploreView: null, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, wizardOutputDir: '/tmp', exploreView: null, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		expect(screen.getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-offer')
@@ -389,7 +389,7 @@ describe('incomplete cookies config guard', () => {
 
 	it('shows compact configured-cookies guidance for quick download probe failures while cookies are enabled', async () => {
 		resetStore(buildSettings({cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'}))
-		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		const cookiesAlert = screen.getByTestId('cookies-error-alert')
@@ -402,7 +402,7 @@ describe('incomplete cookies config guard', () => {
 
 	it('shows compact DPAPI guidance and docs from quick download browser-cookie failures', async () => {
 		resetStore(buildSettings({cookiesMode: 'browser', cookiesBrowser: 'chrome'}))
-		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: Failed to decrypt with DPAPI'}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'unknown', raw: 'ERROR: Failed to decrypt with DPAPI'}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		const cookiesAlert = screen.getByTestId('cookies-error-alert')
@@ -415,7 +415,7 @@ describe('incomplete cookies config guard', () => {
 	})
 
 	it('keeps plain quick download probe failures compact without special guidance panels', async () => {
-		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}, urls: [SINGLE_URL], failedCount: 1}})
+		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'network', raw: 'network failed'}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
 		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Network error')
@@ -426,7 +426,11 @@ describe('incomplete cookies config guard', () => {
 	})
 
 	it('shows representative probe guidance for all-failed bulk quick download', async () => {
-		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2}})
+		useAppStore.setState({
+			wizardUrl: SINGLE_URL,
+			quickDownloadStatus: 'error',
+			quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, errorUrl: 'https://youtu.be/one', urls: ['https://youtu.be/one', 'https://youtu.be/two'], failedCount: 2}
+		})
 		render(<StepUrlInput />)
 
 		const alert = screen.getByTestId('quick-download-feedback')

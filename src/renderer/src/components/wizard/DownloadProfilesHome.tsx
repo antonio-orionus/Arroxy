@@ -312,7 +312,7 @@ function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
 					className="mt-2"
 					experience={quickDownloadProbeExperience}
 					message={quickDownloadFailureMessage}
-					url={view.quickDownloadFailure?.urls[0] ?? null}
+					url={view.quickDownloadFailure?.kind === 'bulk-probe' ? view.quickDownloadFailure.errorUrl : (view.quickDownloadFailure?.urls[0] ?? null)}
 					onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
 					onOpenCookiesSettings={openCookiesSettings}
 					onSignInWithExplore={openExploreSignIn}
